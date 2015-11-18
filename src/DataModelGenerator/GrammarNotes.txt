@@ -1,0 +1,63 @@
+﻿G4 File Parse Grammar
+===============================================================================
+
+grammar := grammarDeclaration production*;
+grammarDeclaration := annotationBlock 'grammar' IDENTIFIER SEMICOLON;
+production := annotationBlock 'fragment'? IDENTIFIER COLON alternation SEMICOLON;
+            
+alternation := group (PIPE group)*;
+group := quantifier+;
+quantifier := annotationBlock nonTerminal STAR
+            | annotationBlock nonTerminal PLUS
+            | annotationBlock nonTerminal QUESTION
+            | annotationBlock nonTerminal;
+
+nonTerminal := IDENTIFIER
+             | STRING
+             | characterRange
+             | LPAREN alternation RPAREN;
+
+characterRange := STRING DOTS STRING; // Where each string is 1 character long
+
+// These can functionally be inserted anywhere;
+// they'll be considered significant where noted in the grammar
+annotationBlock := (ANNOTATION ANNOTATION-VALUE)*;
+
+Tokens:
+  STRING, // A single quoted string 'foo'
+  IDENTIFIER,
+  PIPE,
+  SEMICOLON,
+  COLON,
+  STAR,
+  PLUS,
+  QUESTION,
+  LPAREN,
+  RPAREN,
+  DOTS, // ..
+  ANNOTATION, // In a multiline comment, declared as @foo
+  ANNOTATION-VALUE // In a mutiline comment, declared as {foo}
+
+
+Generated Artifacts
+===============================================================================
+Each grammar produces the following artifacts:
+  * An enumeration containing each of the generated types.
+  * An interface all the generated types implement, containing a Kind readonly
+    property which returns the type from the aforementioned enumeration.
+  * For each production interpreted as a collection:
+    * A class inheriting from System.Collections.Generic.List holding instances
+      of the element contained therein
+    * A ToString overload on this class that emits all of the elements in
+      the list, with optional prefix, delimiter, and suffix retrieved from
+      the grammar.
+    * Equals and GetHashCode overloads which compare the elements of the list
+      for equality.
+  * For each production interpreted as a member list:
+    * A class with each member of the member list as a member.
+    * GetOrCreate methods which create new default instances and return them
+      for each nullable member.
+    * ToString overload which lists all the members for debugging purposes.
+    * Equals and GetHashCode overloads doing memberwise equality.
+  * For each production interpreted as a type set:
+    * An empty interface which all the listed types will implement.

@@ -1,0 +1,685 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<problems>
+  <problem>
+    <file>file://$PROJECT_DIR$/gradle.properties</file>
+    <line>8</line>
+    <module>AndroidStudioFormatExample</module>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/gradle.properties" />
+    <problem_class severity="TYPO" attribute_key="TYPO">Typo</problem_class>
+    <description>Typo: In word 'userguide'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/gradle.properties</file>
+    <line>13</line>
+    <module>AndroidStudioFormatExample</module>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/gradle.properties" />
+    <problem_class severity="TYPO" attribute_key="TYPO">Typo</problem_class>
+    <description>Typo: In word 'jvmargs'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/gradle.properties</file>
+    <line>13</line>
+    <module>AndroidStudioFormatExample</module>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/gradle.properties" />
+    <problem_class severity="TYPO" attribute_key="TYPO">Typo</problem_class>
+    <description>Typo: In word 'Dfile'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/gradle.properties</file>
+    <line>17</line>
+    <module>AndroidStudioFormatExample</module>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/gradle.properties" />
+    <problem_class severity="TYPO" attribute_key="TYPO">Typo</problem_class>
+    <description>Typo: In word 'userguide'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.properties</file>
+    <line>3</line>
+    <module>AndroidStudioFormatExample</module>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.properties" />
+    <problem_class severity="TYPO" attribute_key="TYPO">Typo</problem_class>
+    <description>Typo: In word 'dists'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.properties</file>
+    <line>5</line>
+    <module>AndroidStudioFormatExample</module>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.properties" />
+    <problem_class severity="TYPO" attribute_key="TYPO">Typo</problem_class>
+    <description>Typo: In word 'dists'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/gradlew</file>
+    <line>30</line>
+    <module>AndroidStudioFormatExample</module>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/gradlew" />
+    <problem_class severity="TYPO" attribute_key="TYPO">Typo</problem_class>
+    <description>Typo: In word 'cygwin'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/gradlew</file>
+    <line>31</line>
+    <module>AndroidStudioFormatExample</module>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/gradlew" />
+    <problem_class severity="TYPO" attribute_key="TYPO">Typo</problem_class>
+    <description>Typo: In word 'msys'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/gradlew</file>
+    <line>33</line>
+    <module>AndroidStudioFormatExample</module>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/gradlew" />
+    <problem_class severity="TYPO" attribute_key="TYPO">Typo</problem_class>
+    <description>Typo: In word 'uname'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/gradlew</file>
+    <line>34</line>
+    <module>AndroidStudioFormatExample</module>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/gradlew" />
+    <problem_class severity="TYPO" attribute_key="TYPO">Typo</problem_class>
+    <description>Typo: In word 'CYGWIN'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/gradlew</file>
+    <line>35</line>
+    <module>AndroidStudioFormatExample</module>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/gradlew" />
+    <problem_class severity="TYPO" attribute_key="TYPO">Typo</problem_class>
+    <description>Typo: In word 'cygwin'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/gradlew</file>
+    <line>40</line>
+    <module>AndroidStudioFormatExample</module>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/gradlew" />
+    <problem_class severity="TYPO" attribute_key="TYPO">Typo</problem_class>
+    <description>Typo: In word 'MINGW'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/gradlew</file>
+    <line>41</line>
+    <module>AndroidStudioFormatExample</module>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/gradlew" />
+    <problem_class severity="TYPO" attribute_key="TYPO">Typo</problem_class>
+    <description>Typo: In word 'msys'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/gradlew</file>
+    <line>43</line>
+    <module>AndroidStudioFormatExample</module>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/gradlew" />
+    <problem_class severity="TYPO" attribute_key="TYPO">Typo</problem_class>
+    <description>Typo: In word 'esac'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/gradlew</file>
+    <line>45</line>
+    <module>AndroidStudioFormatExample</module>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/gradlew" />
+    <problem_class severity="TYPO" attribute_key="TYPO">Typo</problem_class>
+    <description>Typo: In word 'Cygwin'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/gradlew</file>
+    <line>46</line>
+    <module>AndroidStudioFormatExample</module>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/gradlew" />
+    <problem_class severity="TYPO" attribute_key="TYPO">Typo</problem_class>
+    <description>Typo: In word 'cygwin'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/gradlew</file>
+    <line>47</line>
+    <module>AndroidStudioFormatExample</module>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/gradlew" />
+    <problem_class severity="TYPO" attribute_key="TYPO">Typo</problem_class>
+    <description>Typo: In word 'cygpath'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/gradlew</file>
+    <line>60</line>
+    <module>AndroidStudioFormatExample</module>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/gradlew" />
+    <problem_class severity="TYPO" attribute_key="TYPO">Typo</problem_class>
+    <description>Typo: In word 'dirname'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/gradlew</file>
+    <line>64</line>
+    <module>AndroidStudioFormatExample</module>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/gradlew" />
+    <problem_class severity="TYPO" attribute_key="TYPO">Typo</problem_class>
+    <description>Typo: In word 'dirname'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/gradlew</file>
+    <line>73</line>
+    <module>AndroidStudioFormatExample</module>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/gradlew" />
+    <problem_class severity="TYPO" attribute_key="TYPO">Typo</problem_class>
+    <description>Typo: In word 'executables'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/gradlew</file>
+    <line>74</line>
+    <module>AndroidStudioFormatExample</module>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/gradlew" />
+    <problem_class severity="TYPO" attribute_key="TYPO">Typo</problem_class>
+    <description>Typo: In word 'JAVACMD'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/gradlew</file>
+    <line>76</line>
+    <module>AndroidStudioFormatExample</module>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/gradlew" />
+    <problem_class severity="TYPO" attribute_key="TYPO">Typo</problem_class>
+    <description>Typo: In word 'JAVACMD'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/gradlew</file>
+    <line>78</line>
+    <module>AndroidStudioFormatExample</module>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/gradlew" />
+    <problem_class severity="TYPO" attribute_key="TYPO">Typo</problem_class>
+    <description>Typo: In word 'JAVACMD'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/gradlew</file>
+    <line>85</line>
+    <module>AndroidStudioFormatExample</module>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/gradlew" />
+    <problem_class severity="TYPO" attribute_key="TYPO">Typo</problem_class>
+    <description>Typo: In word 'JAVACMD'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/gradlew</file>
+    <line>93</line>
+    <module>AndroidStudioFormatExample</module>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/gradlew" />
+    <problem_class severity="TYPO" attribute_key="TYPO">Typo</problem_class>
+    <description>Typo: In word 'cygwin'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/gradlew</file>
+    <line>94</line>
+    <module>AndroidStudioFormatExample</module>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/gradlew" />
+    <problem_class severity="TYPO" attribute_key="TYPO">Typo</problem_class>
+    <description>Typo: In word 'ulimit'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/gradlew</file>
+    <line>99</line>
+    <module>AndroidStudioFormatExample</module>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/gradlew" />
+    <problem_class severity="TYPO" attribute_key="TYPO">Typo</problem_class>
+    <description>Typo: In word 'ulimit'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/gradlew</file>
+    <line>110</line>
+    <module>AndroidStudioFormatExample</module>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/gradlew" />
+    <problem_class severity="TYPO" attribute_key="TYPO">Typo</problem_class>
+    <description>Typo: In word 'Xdock'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/gradlew</file>
+    <line>110</line>
+    <module>AndroidStudioFormatExample</module>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/gradlew" />
+    <problem_class severity="TYPO" attribute_key="TYPO">Typo</problem_class>
+    <description>Typo: In word 'Xdock'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/gradlew</file>
+    <line>110</line>
+    <module>AndroidStudioFormatExample</module>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/gradlew" />
+    <problem_class severity="TYPO" attribute_key="TYPO">Typo</problem_class>
+    <description>Typo: In word 'icns'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/gradlew</file>
+    <line>113</line>
+    <module>AndroidStudioFormatExample</module>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/gradlew" />
+    <problem_class severity="TYPO" attribute_key="TYPO">Typo</problem_class>
+    <description>Typo: In word 'Cygwin'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/gradlew</file>
+    <line>114</line>
+    <module>AndroidStudioFormatExample</module>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/gradlew" />
+    <problem_class severity="TYPO" attribute_key="TYPO">Typo</problem_class>
+    <description>Typo: In word 'cygwin'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/gradlew</file>
+    <line>115</line>
+    <module>AndroidStudioFormatExample</module>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/gradlew" />
+    <problem_class severity="TYPO" attribute_key="TYPO">Typo</problem_class>
+    <description>Typo: In word 'cygpath'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/gradlew</file>
+    <line>116</line>
+    <module>AndroidStudioFormatExample</module>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/gradlew" />
+    <problem_class severity="TYPO" attribute_key="TYPO">Typo</problem_class>
+    <description>Typo: In word 'cygpath'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/gradlew</file>
+    <line>118</line>
+    <module>AndroidStudioFormatExample</module>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/gradlew" />
+    <problem_class severity="TYPO" attribute_key="TYPO">Typo</problem_class>
+    <description>Typo: In word 'cygpath'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/gradlew</file>
+    <line>119</line>
+    <module>AndroidStudioFormatExample</module>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/gradlew" />
+    <problem_class severity="TYPO" attribute_key="TYPO">Typo</problem_class>
+    <description>Typo: In word 'ROOTDIRSRAW'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/gradlew</file>
+    <line>119</line>
+    <module>AndroidStudioFormatExample</module>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/gradlew" />
+    <problem_class severity="TYPO" attribute_key="TYPO">Typo</problem_class>
+    <description>Typo: In word 'maxdepth'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/gradlew</file>
+    <line>119</line>
+    <module>AndroidStudioFormatExample</module>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/gradlew" />
+    <problem_class severity="TYPO" attribute_key="TYPO">Typo</problem_class>
+    <description>Typo: In word 'mindepth'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/gradlew</file>
+    <line>121</line>
+    <module>AndroidStudioFormatExample</module>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/gradlew" />
+    <problem_class severity="TYPO" attribute_key="TYPO">Typo</problem_class>
+    <description>Typo: In word 'ROOTDIRSRAW'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/gradlew</file>
+    <line>122</line>
+    <module>AndroidStudioFormatExample</module>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/gradlew" />
+    <problem_class severity="TYPO" attribute_key="TYPO">Typo</problem_class>
+    <description>Typo: In word 'ROOTDIRS'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/gradlew</file>
+    <line>122</line>
+    <module>AndroidStudioFormatExample</module>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/gradlew" />
+    <problem_class severity="TYPO" attribute_key="TYPO">Typo</problem_class>
+    <description>Typo: In word 'ROOTDIRS'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/gradlew</file>
+    <line>125</line>
+    <module>AndroidStudioFormatExample</module>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/gradlew" />
+    <problem_class severity="TYPO" attribute_key="TYPO">Typo</problem_class>
+    <description>Typo: In word 'OURCYGPATTERN'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/gradlew</file>
+    <line>125</line>
+    <module>AndroidStudioFormatExample</module>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/gradlew" />
+    <problem_class severity="TYPO" attribute_key="TYPO">Typo</problem_class>
+    <description>Typo: In word 'ROOTDIRS'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/gradlew</file>
+    <line>126</line>
+    <module>AndroidStudioFormatExample</module>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/gradlew" />
+    <problem_class severity="TYPO" attribute_key="TYPO">Typo</problem_class>
+    <description>Typo: In word 'cygpath'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/gradlew</file>
+    <line>127</line>
+    <module>AndroidStudioFormatExample</module>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/gradlew" />
+    <problem_class severity="TYPO" attribute_key="TYPO">Typo</problem_class>
+    <description>Typo: In word 'CYGPATTERN'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/gradlew</file>
+    <line>128</line>
+    <module>AndroidStudioFormatExample</module>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/gradlew" />
+    <problem_class severity="TYPO" attribute_key="TYPO">Typo</problem_class>
+    <description>Typo: In word 'OURCYGPATTERN'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/gradlew</file>
+    <line>128</line>
+    <module>AndroidStudioFormatExample</module>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/gradlew" />
+    <problem_class severity="TYPO" attribute_key="TYPO">Typo</problem_class>
+    <description>Typo: In word 'OURCYGPATTERN'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/gradlew</file>
+    <line>128</line>
+    <module>AndroidStudioFormatExample</module>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/gradlew" />
+    <problem_class severity="TYPO" attribute_key="TYPO">Typo</problem_class>
+    <description>Typo: In word 'CYGPATTERN'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/gradlew</file>
+    <line>133</line>
+    <module>AndroidStudioFormatExample</module>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/gradlew" />
+    <problem_class severity="TYPO" attribute_key="TYPO">Typo</problem_class>
+    <description>Typo: In word 'egrep'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/gradlew</file>
+    <line>133</line>
+    <module>AndroidStudioFormatExample</module>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/gradlew" />
+    <problem_class severity="TYPO" attribute_key="TYPO">Typo</problem_class>
+    <description>Typo: In word 'OURCYGPATTERN'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/gradlew</file>
+    <line>134</line>
+    <module>AndroidStudioFormatExample</module>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/gradlew" />
+    <problem_class severity="TYPO" attribute_key="TYPO">Typo</problem_class>
+    <description>Typo: In word 'egrep'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/gradlew</file>
+    <line>137</line>
+    <module>AndroidStudioFormatExample</module>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/gradlew" />
+    <problem_class severity="TYPO" attribute_key="TYPO">Typo</problem_class>
+    <description>Typo: In word 'eval'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/gradlew</file>
+    <line>137</line>
+    <module>AndroidStudioFormatExample</module>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/gradlew" />
+    <problem_class severity="TYPO" attribute_key="TYPO">Typo</problem_class>
+    <description>Typo: In word 'cygpath'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/gradlew</file>
+    <line>139</line>
+    <module>AndroidStudioFormatExample</module>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/gradlew" />
+    <problem_class severity="TYPO" attribute_key="TYPO">Typo</problem_class>
+    <description>Typo: In word 'eval'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/gradlew</file>
+    <line>154</line>
+    <module>AndroidStudioFormatExample</module>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/gradlew" />
+    <problem_class severity="TYPO" attribute_key="TYPO">Typo</problem_class>
+    <description>Typo: In word 'esac'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/gradlew</file>
+    <line>161</line>
+    <module>AndroidStudioFormatExample</module>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/gradlew" />
+    <problem_class severity="TYPO" attribute_key="TYPO">Typo</problem_class>
+    <description>Typo: In word 'eval'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/gradlew</file>
+    <line>162</line>
+    <module>AndroidStudioFormatExample</module>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/gradlew" />
+    <problem_class severity="TYPO" attribute_key="TYPO">Typo</problem_class>
+    <description>Typo: In word 'Dorg'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/gradlew</file>
+    <line>162</line>
+    <module>AndroidStudioFormatExample</module>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/gradlew" />
+    <problem_class severity="TYPO" attribute_key="TYPO">Typo</problem_class>
+    <description>Typo: In word 'appname'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/gradlew</file>
+    <line>164</line>
+    <module>AndroidStudioFormatExample</module>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/gradlew" />
+    <problem_class severity="TYPO" attribute_key="TYPO">Typo</problem_class>
+    <description>Typo: In word 'JAVACMD'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/gradlew.bat</file>
+    <line>9</line>
+    <module>AndroidStudioFormatExample</module>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/gradlew.bat" />
+    <problem_class severity="TYPO" attribute_key="TYPO">Typo</problem_class>
+    <description>Typo: In word 'setlocal'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/gradlew.bat</file>
+    <line>14</line>
+    <module>AndroidStudioFormatExample</module>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/gradlew.bat" />
+    <problem_class severity="TYPO" attribute_key="TYPO">Typo</problem_class>
+    <description>Typo: In word 'DIRNAME'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/gradlew.bat</file>
+    <line>15</line>
+    <module>AndroidStudioFormatExample</module>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/gradlew.bat" />
+    <problem_class severity="TYPO" attribute_key="TYPO">Typo</problem_class>
+    <description>Typo: In word 'DIRNAME'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/gradlew.bat</file>
+    <line>15</line>
+    <module>AndroidStudioFormatExample</module>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/gradlew.bat" />
+    <problem_class severity="TYPO" attribute_key="TYPO">Typo</problem_class>
+    <description>Typo: In word 'DIRNAME'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/gradlew.bat</file>
+    <line>17</line>
+    <module>AndroidStudioFormatExample</module>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/gradlew.bat" />
+    <problem_class severity="TYPO" attribute_key="TYPO">Typo</problem_class>
+    <description>Typo: In word 'DIRNAME'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/gradlew.bat</file>
+    <line>20</line>
+    <module>AndroidStudioFormatExample</module>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/gradlew.bat" />
+    <problem_class severity="TYPO" attribute_key="TYPO">Typo</problem_class>
+    <description>Typo: In word 'goto'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/gradlew.bat</file>
+    <line>24</line>
+    <module>AndroidStudioFormatExample</module>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/gradlew.bat" />
+    <problem_class severity="TYPO" attribute_key="TYPO">Typo</problem_class>
+    <description>Typo: In word 'ERRORLEVEL'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/gradlew.bat</file>
+    <line>24</line>
+    <module>AndroidStudioFormatExample</module>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/gradlew.bat" />
+    <problem_class severity="TYPO" attribute_key="TYPO">Typo</problem_class>
+    <description>Typo: In word 'goto'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/gradlew.bat</file>
+    <line>32</line>
+    <module>AndroidStudioFormatExample</module>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/gradlew.bat" />
+    <problem_class severity="TYPO" attribute_key="TYPO">Typo</problem_class>
+    <description>Typo: In word 'goto'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/gradlew.bat</file>
+    <line>38</line>
+    <module>AndroidStudioFormatExample</module>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/gradlew.bat" />
+    <problem_class severity="TYPO" attribute_key="TYPO">Typo</problem_class>
+    <description>Typo: In word 'goto'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/gradlew.bat</file>
+    <line>46</line>
+    <module>AndroidStudioFormatExample</module>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/gradlew.bat" />
+    <problem_class severity="TYPO" attribute_key="TYPO">Typo</problem_class>
+    <description>Typo: In word 'goto'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/gradlew.bat</file>
+    <line>49</line>
+    <module>AndroidStudioFormatExample</module>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/gradlew.bat" />
+    <problem_class severity="TYPO" attribute_key="TYPO">Typo</problem_class>
+    <description>Typo: In word 'Windowz'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/gradlew.bat</file>
+    <line>51</line>
+    <module>AndroidStudioFormatExample</module>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/gradlew.bat" />
+    <problem_class severity="TYPO" attribute_key="TYPO">Typo</problem_class>
+    <description>Typo: In word 'goto'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/gradlew.bat</file>
+    <line>52</line>
+    <module>AndroidStudioFormatExample</module>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/gradlew.bat" />
+    <problem_class severity="TYPO" attribute_key="TYPO">Typo</problem_class>
+    <description>Typo: In word 'eval'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/gradlew.bat</file>
+    <line>52</line>
+    <module>AndroidStudioFormatExample</module>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/gradlew.bat" />
+    <problem_class severity="TYPO" attribute_key="TYPO">Typo</problem_class>
+    <description>Typo: In word 'goto'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/gradlew.bat</file>
+    <line>60</line>
+    <module>AndroidStudioFormatExample</module>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/gradlew.bat" />
+    <problem_class severity="TYPO" attribute_key="TYPO">Typo</problem_class>
+    <description>Typo: In word 'goto'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/gradlew.bat</file>
+    <line>63</line>
+    <module>AndroidStudioFormatExample</module>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/gradlew.bat" />
+    <problem_class severity="TYPO" attribute_key="TYPO">Typo</problem_class>
+    <description>Typo: In word 'goto'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/gradlew.bat</file>
+    <line>75</line>
+    <module>AndroidStudioFormatExample</module>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/gradlew.bat" />
+    <problem_class severity="TYPO" attribute_key="TYPO">Typo</problem_class>
+    <description>Typo: In word 'Dorg'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/gradlew.bat</file>
+    <line>75</line>
+    <module>AndroidStudioFormatExample</module>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/gradlew.bat" />
+    <problem_class severity="TYPO" attribute_key="TYPO">Typo</problem_class>
+    <description>Typo: In word 'appname'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/gradlew.bat</file>
+    <line>79</line>
+    <module>AndroidStudioFormatExample</module>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/gradlew.bat" />
+    <problem_class severity="TYPO" attribute_key="TYPO">Typo</problem_class>
+    <description>Typo: In word 'ERRORLEVEL'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/gradlew.bat</file>
+    <line>79</line>
+    <module>AndroidStudioFormatExample</module>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/gradlew.bat" />
+    <problem_class severity="TYPO" attribute_key="TYPO">Typo</problem_class>
+    <description>Typo: In word 'goto'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/gradlew.bat</file>
+    <line>88</line>
+    <module>AndroidStudioFormatExample</module>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/gradlew.bat" />
+    <problem_class severity="TYPO" attribute_key="TYPO">Typo</problem_class>
+    <description>Typo: In word 'endlocal'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/app/build.gradle</file>
+    <line>8</line>
+    <module>app</module>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/build.gradle" />
+    <problem_class severity="TYPO" attribute_key="TYPO">Typo</problem_class>
+    <description>Typo: In word 'androidstudioformatexample'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml</file>
+    <line>3</line>
+    <module>app</module>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
+    <problem_class severity="TYPO" attribute_key="TYPO">Typo</problem_class>
+    <description>Typo: In word 'androidstudioformatexample'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/app/src/main/res/values-w820dp/dimens.xml</file>
+    <line>2</line>
+    <module>app</module>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/values-w820dp/dimens.xml" />
+    <problem_class severity="TYPO" attribute_key="TYPO">Typo</problem_class>
+    <description>Typo: In word 'dimens'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/app/src/main/java/microsoft/androidstudioformatexample/NamespaceTypo.java</file>
+    <line>4</line>
+    <module>app</module>
+    <package>microsoft.androidstudioformatexample</package>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/microsoft/androidstudioformatexample/NamespaceTypo.java" />
+    <problem_class severity="TYPO" attribute_key="TYPO">Typo</problem_class>
+    <description>Typo: In word 'daknis'</description>
+  </problem>
+</problems>
+

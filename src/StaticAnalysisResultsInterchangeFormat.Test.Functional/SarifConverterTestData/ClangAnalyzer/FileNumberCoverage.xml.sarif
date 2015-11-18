@@ -1,0 +1,38 @@
+{
+  "version": "1.0",
+  "toolInfo": {
+    "toolName": "Clang"
+  },
+  "issues": [
+    {
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "jcparam.c",
+              "mimeType": "text/x-cpp",
+              "region": {}
+            }
+          ]
+        }
+      ],
+      "shortMessage": "Dead assignment",
+      "fullMessage": "Dead store : Value stored to 'scanptr' is never read"
+    },
+    {
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "jcparam.c",
+              "mimeType": "text/x-cpp",
+              "region": {}
+            }
+          ]
+        }
+      ],
+      "shortMessage": "Dead assignment",
+      "fullMessage": "Dead store : Value stored to 'scanptr' is never read"
+    }
+  ]
+}

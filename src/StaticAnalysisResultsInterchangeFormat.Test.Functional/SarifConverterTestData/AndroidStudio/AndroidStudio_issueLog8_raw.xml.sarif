@@ -1,0 +1,82 @@
+{
+  "version": "1.0",
+  "toolInfo": {
+    "toolName": "AndroidStudio"
+  },
+  "issues": [
+    {
+      "ruleId": "Declaration access can be weaker",
+      "locations": [
+        {
+          "issueFile": [
+            {
+              "uri": "app/src/main/java/microsoft/androidstudioformatexample/MainActivity.java",
+              "mimeType": "text/x-java-source",
+              "region": {
+                "startLine": 9
+              }
+            }
+          ],
+          "fullyQualifiedLogicalName": "app\\microsoft.androidstudioformatexample\\microsoft.androidstudioformatexample.MainActivity",
+          "logicalLocation": [
+            {
+              "name": "app",
+              "locationKind": "android-module"
+            },
+            {
+              "name": "microsoft.androidstudioformatexample",
+              "locationKind": "package"
+            },
+            {
+              "name": "microsoft.androidstudioformatexample.MainActivity",
+              "locationKind": "type"
+            }
+          ]
+        }
+      ],
+      "shortMessage": "Can be package local",
+      "fullMessage": "Can be package local\r\nPossible resolution: packageLocal",
+      "properties": {
+        "severity": "WARNING",
+        "attributeKey": "WARNING_ATTRIBUTES"
+      }
+    },
+    {
+      "ruleId": "Declaration access can be weaker",
+      "locations": [
+        {
+          "issueFile": [
+            {
+              "uri": "app/src/main/java/microsoft/androidstudioformatexample/NamespaceTypo.java",
+              "mimeType": "text/x-java-source",
+              "region": {
+                "startLine": 6
+              }
+            }
+          ],
+          "fullyQualifiedLogicalName": "app\\microsoft.androidstudioformatexample\\microsoft.androidstudioformatexample.NamespaceTypo",
+          "logicalLocation": [
+            {
+              "name": "app",
+              "locationKind": "android-module"
+            },
+            {
+              "name": "microsoft.androidstudioformatexample",
+              "locationKind": "package"
+            },
+            {
+              "name": "microsoft.androidstudioformatexample.NamespaceTypo",
+              "locationKind": "type"
+            }
+          ]
+        }
+      ],
+      "shortMessage": "Can be package local",
+      "fullMessage": "Can be package local\r\nPossible resolution: packageLocal",
+      "properties": {
+        "severity": "WARNING",
+        "attributeKey": "WARNING_ATTRIBUTES"
+      }
+    }
+  ]
+}

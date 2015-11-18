@@ -1,0 +1,45 @@
+{
+  "version": "1.0",
+  "toolInfo": {
+    "toolName": "AndroidStudio"
+  },
+  "issues": [
+    {
+      "ruleId": "Assertions",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "northwindtraders-droid-2/src/main/java/com/northwindtraders/droid/model/Model.java",
+              "mimeType": "text/x-java-source"
+            }
+          ],
+          "issueFile": [
+            {
+              "uri": "northwindtraders-droid-2/src/main/java/com/northwindtraders/droid/model/Model.java",
+              "mimeType": "text/x-java-source",
+              "region": {
+                "startLine": 242
+              }
+            }
+          ],
+          "fullyQualifiedLogicalName": "northwindtraders-droid-2\\com.northwindtraders.droid.model",
+          "logicalLocation": [
+            {
+              "name": "northwindtraders-droid-2",
+              "locationKind": "android-module"
+            },
+            {
+              "name": "com.northwindtraders.droid.model",
+              "locationKind": "package"
+            }
+          ]
+        }
+      ],
+      "fullMessage": "Assertions are unreliable. Use BuildConfig.DEBUG conditional checks instead.",
+      "properties": {
+        "attributeKey": "WARNING_ATTRIBUTES"
+      }
+    }
+  ]
+}

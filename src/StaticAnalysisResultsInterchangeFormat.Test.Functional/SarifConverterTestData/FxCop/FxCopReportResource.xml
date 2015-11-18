@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+ <FxCopReport Version="12.0">
+  <Targets>
+   <Target Name="$(ProjectDir)/SpecifyCultureInfo/Microsoft.TeamFoundation.Build.Client.dll">
+    <Modules>
+     <Module Name="microsoft.teamfoundation.build.client.dll">
+      <Resources>
+       <Resource Name="OMStrings.resources">
+        <Messages>
+         <Message Id="Logon" TypeName="ResourceStringCompoundWordsShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1701" Created="2013-12-12 02:48:37Z">
+          <Issue Name="StringResourceShouldBeCompoundWord">In resource 'OMStrings.resx', referenced by name 'FailedGrantingRightsLogonAsService', correct the spelling of 'Logon' in string value 'Failed to grant rights 'Logon as Service' to {0} ({1}).'
+          </Issue>
+         </Message>
+        </Messages>
+       </Resource>
+      </Resources>
+     </Module>
+    </Modules>
+   </Target>
+  </Targets>
+ </FxCopReport>

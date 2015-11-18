@@ -1,0 +1,82 @@
+{
+  "version": "1.0",
+  "toolInfo": {
+    "toolName": "AndroidStudio"
+  },
+  "issues": [
+    {
+      "ruleId": "unused declaration",
+      "locations": [
+        {
+          "issueFile": [
+            {
+              "uri": "app/src/androidTest/java/microsoft/androidstudioformatexample/ApplicationTest.java",
+              "mimeType": "text/x-java-source",
+              "region": {
+                "startLine": 10
+              }
+            }
+          ],
+          "fullyQualifiedLogicalName": "app\\microsoft.androidstudioformatexample\\microsoft.androidstudioformatexample.ApplicationTest ApplicationTest()",
+          "logicalLocation": [
+            {
+              "name": "app",
+              "locationKind": "android-module"
+            },
+            {
+              "name": "microsoft.androidstudioformatexample",
+              "locationKind": "package"
+            },
+            {
+              "name": "microsoft.androidstudioformatexample.ApplicationTest ApplicationTest()",
+              "locationKind": "method"
+            }
+          ]
+        }
+      ],
+      "shortMessage": "Constructor is never used.",
+      "fullMessage": "Constructor is never used.\r\nPossible resolution: comment\r\nPossible resolution: delete",
+      "properties": {
+        "severity": "WARNING",
+        "attributeKey": "NOT_USED_ELEMENT_ATTRIBUTES"
+      }
+    },
+    {
+      "ruleId": "unused declaration",
+      "locations": [
+        {
+          "issueFile": [
+            {
+              "uri": "app/src/main/java/microsoft/androidstudioformatexample/MainActivity.java",
+              "mimeType": "text/x-java-source",
+              "region": {
+                "startLine": 1
+              }
+            }
+          ],
+          "fullyQualifiedLogicalName": "app\\microsoft.androidstudioformatexample\\microsoft.androidstudioformatexample.MainActivity",
+          "logicalLocation": [
+            {
+              "name": "app",
+              "locationKind": "android-module"
+            },
+            {
+              "name": "microsoft.androidstudioformatexample",
+              "locationKind": "package"
+            },
+            {
+              "name": "microsoft.androidstudioformatexample.MainActivity",
+              "locationKind": "type"
+            }
+          ]
+        }
+      ],
+      "shortMessage": "Class is not instantiated.",
+      "fullMessage": "Class is not instantiated.\r\nPossible resolution: comment\r\nPossible resolution: delete",
+      "properties": {
+        "severity": "WARNING",
+        "attributeKey": "NOT_USED_ELEMENT_ATTRIBUTES"
+      }
+    }
+  ]
+}

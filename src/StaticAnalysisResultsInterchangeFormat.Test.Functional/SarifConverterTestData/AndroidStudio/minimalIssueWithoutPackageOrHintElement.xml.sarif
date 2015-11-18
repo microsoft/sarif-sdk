@@ -1,0 +1,42 @@
+{
+  "version": "1.0",
+  "toolInfo": {
+    "toolName": "AndroidStudio"
+  },
+  "issues": [
+    {
+      "ruleId": "Android Resources Validation",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "build/intermediates/exploded-aar/com.google.android.gms/play-services/4.4.52/res/values/wallet_styles.xml",
+              "mimeType": "text/x-java-source"
+            }
+          ],
+          "issueFile": [
+            {
+              "uri": "build/intermediates/exploded-aar/com.google.android.gms/play-services/4.4.52/res/values/wallet_styles.xml",
+              "mimeType": "text/x-java-source",
+              "region": {
+                "startLine": 6
+              }
+            }
+          ],
+          "fullyQualifiedLogicalName": "android20140909",
+          "logicalLocation": [
+            {
+              "name": "android20140909",
+              "locationKind": "android-module"
+            }
+          ]
+        }
+      ],
+      "fullMessage": "Cannot resolve symbol'android:textColor'",
+      "properties": {
+        "severity": "ERROR",
+        "attributeKey": "WRONG_REFERENCES_ATTRIBUTES"
+      }
+    }
+  ]
+}

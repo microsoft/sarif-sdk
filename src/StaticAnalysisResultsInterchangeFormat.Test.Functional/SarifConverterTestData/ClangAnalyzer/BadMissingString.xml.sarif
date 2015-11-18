@@ -1,0 +1,26 @@
+{
+  "version": "1.0",
+  "toolInfo": {
+    "toolName": "Clang"
+  },
+  "issues": [
+    {
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "jcparam.c",
+              "mimeType": "text/x-cpp",
+              "region": {
+                "startLine": 595,
+                "startColumn": 5
+              }
+            }
+          ]
+        }
+      ],
+      "shortMessage": "Dead assignment",
+      "fullMessage": "Dead store : "
+    }
+  ]
+}

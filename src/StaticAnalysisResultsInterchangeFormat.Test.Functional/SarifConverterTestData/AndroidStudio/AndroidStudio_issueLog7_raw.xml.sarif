@@ -1,0 +1,212 @@
+{
+  "version": "1.0",
+  "toolInfo": {
+    "toolName": "AndroidStudio"
+  },
+  "issues": [
+    {
+      "ruleId": "Unused Property",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "gradle/wrapper/gradle-wrapper.properties",
+              "mimeType": "text/x-java-source"
+            }
+          ],
+          "issueFile": [
+            {
+              "uri": "gradle/wrapper/gradle-wrapper.properties",
+              "mimeType": "text/x-java-source",
+              "region": {
+                "startLine": 2
+              }
+            }
+          ],
+          "fullyQualifiedLogicalName": "AndroidStudioFormatExample",
+          "logicalLocation": [
+            {
+              "name": "AndroidStudioFormatExample",
+              "locationKind": "android-module"
+            }
+          ]
+        }
+      ],
+      "fullMessage": "Unused property",
+      "properties": {
+        "severity": "WARNING",
+        "attributeKey": "NOT_USED_ELEMENT_ATTRIBUTES"
+      }
+    },
+    {
+      "ruleId": "Unused Property",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "gradle/wrapper/gradle-wrapper.properties",
+              "mimeType": "text/x-java-source"
+            }
+          ],
+          "issueFile": [
+            {
+              "uri": "gradle/wrapper/gradle-wrapper.properties",
+              "mimeType": "text/x-java-source",
+              "region": {
+                "startLine": 3
+              }
+            }
+          ],
+          "fullyQualifiedLogicalName": "AndroidStudioFormatExample",
+          "logicalLocation": [
+            {
+              "name": "AndroidStudioFormatExample",
+              "locationKind": "android-module"
+            }
+          ]
+        }
+      ],
+      "fullMessage": "Unused property",
+      "properties": {
+        "severity": "WARNING",
+        "attributeKey": "NOT_USED_ELEMENT_ATTRIBUTES"
+      }
+    },
+    {
+      "ruleId": "Unused Property",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "gradle/wrapper/gradle-wrapper.properties",
+              "mimeType": "text/x-java-source"
+            }
+          ],
+          "issueFile": [
+            {
+              "uri": "gradle/wrapper/gradle-wrapper.properties",
+              "mimeType": "text/x-java-source",
+              "region": {
+                "startLine": 4
+              }
+            }
+          ],
+          "fullyQualifiedLogicalName": "AndroidStudioFormatExample",
+          "logicalLocation": [
+            {
+              "name": "AndroidStudioFormatExample",
+              "locationKind": "android-module"
+            }
+          ]
+        }
+      ],
+      "fullMessage": "Unused property",
+      "properties": {
+        "severity": "WARNING",
+        "attributeKey": "NOT_USED_ELEMENT_ATTRIBUTES"
+      }
+    },
+    {
+      "ruleId": "Unused Property",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "gradle/wrapper/gradle-wrapper.properties",
+              "mimeType": "text/x-java-source"
+            }
+          ],
+          "issueFile": [
+            {
+              "uri": "gradle/wrapper/gradle-wrapper.properties",
+              "mimeType": "text/x-java-source",
+              "region": {
+                "startLine": 5
+              }
+            }
+          ],
+          "fullyQualifiedLogicalName": "AndroidStudioFormatExample",
+          "logicalLocation": [
+            {
+              "name": "AndroidStudioFormatExample",
+              "locationKind": "android-module"
+            }
+          ]
+        }
+      ],
+      "fullMessage": "Unused property",
+      "properties": {
+        "severity": "WARNING",
+        "attributeKey": "NOT_USED_ELEMENT_ATTRIBUTES"
+      }
+    },
+    {
+      "ruleId": "Unused Property",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "gradle/wrapper/gradle-wrapper.properties",
+              "mimeType": "text/x-java-source"
+            }
+          ],
+          "issueFile": [
+            {
+              "uri": "gradle/wrapper/gradle-wrapper.properties",
+              "mimeType": "text/x-java-source",
+              "region": {
+                "startLine": 6
+              }
+            }
+          ],
+          "fullyQualifiedLogicalName": "AndroidStudioFormatExample",
+          "logicalLocation": [
+            {
+              "name": "AndroidStudioFormatExample",
+              "locationKind": "android-module"
+            }
+          ]
+        }
+      ],
+      "fullMessage": "Unused property",
+      "properties": {
+        "severity": "WARNING",
+        "attributeKey": "NOT_USED_ELEMENT_ATTRIBUTES"
+      }
+    },
+    {
+      "ruleId": "Unused Property",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "local.properties",
+              "mimeType": "text/x-java-source"
+            }
+          ],
+          "issueFile": [
+            {
+              "uri": "local.properties",
+              "mimeType": "text/x-java-source",
+              "region": {
+                "startLine": 10
+              }
+            }
+          ],
+          "fullyQualifiedLogicalName": "AndroidStudioFormatExample",
+          "logicalLocation": [
+            {
+              "name": "AndroidStudioFormatExample",
+              "locationKind": "android-module"
+            }
+          ]
+        }
+      ],
+      "fullMessage": "Unused property",
+      "properties": {
+        "severity": "WARNING",
+        "attributeKey": "NOT_USED_ELEMENT_ATTRIBUTES"
+      }
+    }
+  ]
+}

@@ -1,0 +1,45 @@
+{
+  "version": "1.0",
+  "toolInfo": {
+    "toolName": "AndroidStudio"
+  },
+  "issues": [
+    {
+      "ruleId": "unused declaration",
+      "locations": [
+        {
+          "issueFile": [
+            {
+              "uri": "yammer-droid-2/src/test/java/com/yammer/droid/AdditionOperationTest.java",
+              "mimeType": "text/x-java-source",
+              "region": {
+                "startLine": 10
+              }
+            }
+          ],
+          "fullyQualifiedLogicalName": "yammer-droid-2\\com.yammer.droid\\com.yammer.droid.AdditionOperationTest void testStuff()",
+          "logicalLocation": [
+            {
+              "name": "yammer-droid-2",
+              "locationKind": "android-module"
+            },
+            {
+              "name": "com.yammer.droid",
+              "locationKind": "package"
+            },
+            {
+              "name": "com.yammer.droid.AdditionOperationTest void testStuff()",
+              "locationKind": "method"
+            }
+          ]
+        }
+      ],
+      "shortMessage": "Method is never used.",
+      "fullMessage": "Method is never used.\r\nPossible resolution:   ",
+      "properties": {
+        "severity": "WARNING",
+        "attributeKey": "NOT_USED_ELEMENT_ATTRIBUTES"
+      }
+    }
+  ]
+}

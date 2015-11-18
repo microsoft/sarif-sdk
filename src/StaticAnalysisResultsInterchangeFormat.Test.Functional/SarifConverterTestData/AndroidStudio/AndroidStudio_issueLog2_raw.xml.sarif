@@ -1,0 +1,44 @@
+{
+  "version": "1.0",
+  "toolInfo": {
+    "toolName": "AndroidStudio"
+  },
+  "issues": [
+    {
+      "ruleId": "Default File Template Usage",
+      "locations": [
+        {
+          "issueFile": [
+            {
+              "uri": "app/src/main/java/microsoft/androidstudioformatexample/NamespaceTypo.java",
+              "mimeType": "text/x-java-source",
+              "region": {
+                "startLine": 3
+              }
+            }
+          ],
+          "fullyQualifiedLogicalName": "app\\microsoft.androidstudioformatexample\\microsoft.androidstudioformatexample.NamespaceTypo",
+          "logicalLocation": [
+            {
+              "name": "app",
+              "locationKind": "android-module"
+            },
+            {
+              "name": "microsoft.androidstudioformatexample",
+              "locationKind": "package"
+            },
+            {
+              "name": "microsoft.androidstudioformatexample.NamespaceTypo",
+              "locationKind": "type"
+            }
+          ]
+        }
+      ],
+      "fullMessage": "Default File template",
+      "properties": {
+        "severity": "WARNING",
+        "attributeKey": "WARNING_ATTRIBUTES"
+      }
+    }
+  ]
+}

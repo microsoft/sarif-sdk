@@ -1,0 +1,767 @@
+{
+  "version": "1.0",
+  "toolInfo": {
+    "toolName": "Fortify"
+  },
+  "issues": [
+    {
+      "toolFingerprint": "28E211AE4264B96E98A055B7BB4DF4C2",
+      "ruleId": "Insecure Randomness",
+      "locations": [
+        {
+          "issueFile": [
+            {
+              "uri": "bannedAPIs.java",
+              "mimeType": "text/x-java-source",
+              "region": {
+                "startLine": 41
+              }
+            }
+          ]
+        }
+      ],
+      "fullMessage": "The random number generator implemented by nextInt() cannot withstand a cryptographic attack.",
+      "properties": {
+        "kingdom": "Security Features",
+        "priority": "High",
+        "fortifyRuleId": "49D75ADD-4BBD-49B9-AAF2-92B9BAB332FE"
+      }
+    },
+    {
+      "toolFingerprint": "49CBE503FE2E92F356196F007614CEFD",
+      "ruleId": "Insecure Randomness",
+      "locations": [
+        {
+          "issueFile": [
+            {
+              "uri": "bannedAPIs.java",
+              "mimeType": "text/x-java-source",
+              "region": {
+                "startLine": 44
+              }
+            }
+          ]
+        }
+      ],
+      "fullMessage": "The random number generator implemented by nextLong() cannot withstand a cryptographic attack.",
+      "properties": {
+        "kingdom": "Security Features",
+        "priority": "High",
+        "fortifyRuleId": "49D75ADD-4BBD-49B9-AAF2-92B9BAB332FE"
+      }
+    },
+    {
+      "toolFingerprint": "750E45459AF27DF7A26020E3902DE0E5",
+      "ruleId": "Insecure Randomness",
+      "locations": [
+        {
+          "issueFile": [
+            {
+              "uri": "bannedAPIs.java",
+              "mimeType": "text/x-java-source",
+              "region": {
+                "startLine": 34
+              }
+            }
+          ]
+        }
+      ],
+      "fullMessage": "The random number generator implemented by nextGaussian() cannot withstand a cryptographic attack.",
+      "properties": {
+        "kingdom": "Security Features",
+        "priority": "High",
+        "fortifyRuleId": "49D75ADD-4BBD-49B9-AAF2-92B9BAB332FE"
+      }
+    },
+    {
+      "toolFingerprint": "00DA31C5AB61312A7951BBF375D57723",
+      "ruleId": "Insecure Randomness",
+      "locations": [
+        {
+          "issueFile": [
+            {
+              "uri": "bannedAPIs.java",
+              "mimeType": "text/x-java-source",
+              "region": {
+                "startLine": 46
+              }
+            }
+          ]
+        }
+      ],
+      "fullMessage": "The random number generator implemented by nextDouble() cannot withstand a cryptographic attack.",
+      "properties": {
+        "kingdom": "Security Features",
+        "priority": "High",
+        "fortifyRuleId": "49D75ADD-4BBD-49B9-AAF2-92B9BAB332FE"
+      }
+    },
+    {
+      "toolFingerprint": "A5B54226309CA1F57BACB9A67C1E3E1C",
+      "ruleId": "Insecure Randomness",
+      "locations": [
+        {
+          "issueFile": [
+            {
+              "uri": "bannedAPIs.java",
+              "mimeType": "text/x-java-source",
+              "region": {
+                "startLine": 45
+              }
+            }
+          ]
+        }
+      ],
+      "fullMessage": "The random number generator implemented by nextFloat() cannot withstand a cryptographic attack.",
+      "properties": {
+        "kingdom": "Security Features",
+        "priority": "High",
+        "fortifyRuleId": "49D75ADD-4BBD-49B9-AAF2-92B9BAB332FE"
+      }
+    },
+    {
+      "toolFingerprint": "C4B2E562D788C70AE543C38965A1885D",
+      "ruleId": "Insecure Randomness",
+      "locations": [
+        {
+          "issueFile": [
+            {
+              "uri": "bannedAPIs.java",
+              "mimeType": "text/x-java-source",
+              "region": {
+                "startLine": 45
+              }
+            }
+          ]
+        }
+      ],
+      "fullMessage": "The random number generator implemented by nextFloat() cannot withstand a cryptographic attack.",
+      "properties": {
+        "kingdom": "Security Features",
+        "priority": "High",
+        "fortifyRuleId": "49D75ADD-4BBD-49B9-AAF2-92B9BAB332FE"
+      }
+    },
+    {
+      "toolFingerprint": "365C3C4F068931548F5D586AD5528F97",
+      "ruleId": "Insecure Randomness",
+      "locations": [
+        {
+          "issueFile": [
+            {
+              "uri": "bannedAPIs.java",
+              "mimeType": "text/x-java-source",
+              "region": {
+                "startLine": 29
+              }
+            }
+          ]
+        }
+      ],
+      "fullMessage": "The random number generator implemented by nextInt() cannot withstand a cryptographic attack.",
+      "properties": {
+        "kingdom": "Security Features",
+        "priority": "High",
+        "fortifyRuleId": "49D75ADD-4BBD-49B9-AAF2-92B9BAB332FE"
+      }
+    },
+    {
+      "toolFingerprint": "C5DC5F73C2B3F9EF8089DD5E9C859E9A",
+      "ruleId": "Insecure Randomness",
+      "locations": [
+        {
+          "issueFile": [
+            {
+              "uri": "bannedAPIs.java",
+              "mimeType": "text/x-java-source",
+              "region": {
+                "startLine": 33
+              }
+            }
+          ]
+        }
+      ],
+      "fullMessage": "The random number generator implemented by nextDouble() cannot withstand a cryptographic attack.",
+      "properties": {
+        "kingdom": "Security Features",
+        "priority": "High",
+        "fortifyRuleId": "49D75ADD-4BBD-49B9-AAF2-92B9BAB332FE"
+      }
+    },
+    {
+      "toolFingerprint": "6609D47574D56A98BC3CE06EDF157260",
+      "ruleId": "Insecure Randomness",
+      "locations": [
+        {
+          "issueFile": [
+            {
+              "uri": "bannedAPIs.java",
+              "mimeType": "text/x-java-source",
+              "region": {
+                "startLine": 47
+              }
+            }
+          ]
+        }
+      ],
+      "fullMessage": "The random number generator implemented by nextGaussian() cannot withstand a cryptographic attack.",
+      "properties": {
+        "kingdom": "Security Features",
+        "priority": "High",
+        "fortifyRuleId": "49D75ADD-4BBD-49B9-AAF2-92B9BAB332FE"
+      }
+    },
+    {
+      "toolFingerprint": "51518ADD3DBB92C45066279299659EB2",
+      "ruleId": "Insecure Randomness",
+      "locations": [
+        {
+          "issueFile": [
+            {
+              "uri": "bannedAPIs.java",
+              "mimeType": "text/x-java-source",
+              "region": {
+                "startLine": 31
+              }
+            }
+          ]
+        }
+      ],
+      "fullMessage": "The random number generator implemented by nextLong() cannot withstand a cryptographic attack.",
+      "properties": {
+        "kingdom": "Security Features",
+        "priority": "High",
+        "fortifyRuleId": "49D75ADD-4BBD-49B9-AAF2-92B9BAB332FE"
+      }
+    },
+    {
+      "toolFingerprint": "BEE2771E830E686ECD9D2991B5BCE80A",
+      "ruleId": "Insecure Randomness",
+      "locations": [
+        {
+          "issueFile": [
+            {
+              "uri": "bannedAPIs.java",
+              "mimeType": "text/x-java-source",
+              "region": {
+                "startLine": 28
+              }
+            }
+          ]
+        }
+      ],
+      "fullMessage": "The random number generator implemented by nextInt() cannot withstand a cryptographic attack.",
+      "properties": {
+        "kingdom": "Security Features",
+        "priority": "High",
+        "fortifyRuleId": "49D75ADD-4BBD-49B9-AAF2-92B9BAB332FE"
+      }
+    },
+    {
+      "toolFingerprint": "AB1585537636AFC0019DD1964A0274B5",
+      "ruleId": "Insecure Randomness",
+      "locations": [
+        {
+          "issueFile": [
+            {
+              "uri": "bannedAPIs.java",
+              "mimeType": "text/x-java-source",
+              "region": {
+                "startLine": 31
+              }
+            }
+          ]
+        }
+      ],
+      "fullMessage": "The random number generator implemented by nextLong() cannot withstand a cryptographic attack.",
+      "properties": {
+        "kingdom": "Security Features",
+        "priority": "High",
+        "fortifyRuleId": "49D75ADD-4BBD-49B9-AAF2-92B9BAB332FE"
+      }
+    },
+    {
+      "toolFingerprint": "B0AA5C04D79E71EC5DB53162DEE1D564",
+      "ruleId": "Insecure Randomness",
+      "locations": [
+        {
+          "issueFile": [
+            {
+              "uri": "bannedAPIs.java",
+              "mimeType": "text/x-java-source",
+              "region": {
+                "startLine": 33
+              }
+            }
+          ]
+        }
+      ],
+      "fullMessage": "The random number generator implemented by nextDouble() cannot withstand a cryptographic attack.",
+      "properties": {
+        "kingdom": "Security Features",
+        "priority": "High",
+        "fortifyRuleId": "49D75ADD-4BBD-49B9-AAF2-92B9BAB332FE"
+      }
+    },
+    {
+      "toolFingerprint": "D1203C09DE7146768BF6F9A36DDE7203",
+      "ruleId": "Insecure Randomness",
+      "locations": [
+        {
+          "issueFile": [
+            {
+              "uri": "bannedAPIs.java",
+              "mimeType": "text/x-java-source",
+              "region": {
+                "startLine": 28
+              }
+            }
+          ]
+        }
+      ],
+      "fullMessage": "The random number generator implemented by nextInt() cannot withstand a cryptographic attack.",
+      "properties": {
+        "kingdom": "Security Features",
+        "priority": "High",
+        "fortifyRuleId": "49D75ADD-4BBD-49B9-AAF2-92B9BAB332FE"
+      }
+    },
+    {
+      "toolFingerprint": "E0BCB332B3AB3E2DB8B608345A27A67D",
+      "ruleId": "Insecure Randomness",
+      "locations": [
+        {
+          "issueFile": [
+            {
+              "uri": "bannedAPIs.java",
+              "mimeType": "text/x-java-source",
+              "region": {
+                "startLine": 43
+              }
+            }
+          ]
+        }
+      ],
+      "fullMessage": "The random number generator implemented by next() cannot withstand a cryptographic attack.",
+      "properties": {
+        "kingdom": "Security Features",
+        "priority": "High",
+        "fortifyRuleId": "49D75ADD-4BBD-49B9-AAF2-92B9BAB332FE"
+      }
+    },
+    {
+      "toolFingerprint": "337BEB14E9F7EC06BE2A01170F79DF18",
+      "ruleId": "Insecure Randomness",
+      "locations": [
+        {
+          "issueFile": [
+            {
+              "uri": "bannedAPIs.java",
+              "mimeType": "text/x-java-source",
+              "region": {
+                "startLine": 34
+              }
+            }
+          ]
+        }
+      ],
+      "fullMessage": "The random number generator implemented by nextGaussian() cannot withstand a cryptographic attack.",
+      "properties": {
+        "kingdom": "Security Features",
+        "priority": "High",
+        "fortifyRuleId": "49D75ADD-4BBD-49B9-AAF2-92B9BAB332FE"
+      }
+    },
+    {
+      "toolFingerprint": "210B19786291D1E7F194A05A89BCDCDF",
+      "ruleId": "Insecure Randomness",
+      "locations": [
+        {
+          "issueFile": [
+            {
+              "uri": "bannedAPIs.java",
+              "mimeType": "text/x-java-source",
+              "region": {
+                "startLine": 41
+              }
+            }
+          ]
+        }
+      ],
+      "fullMessage": "The random number generator implemented by nextInt() cannot withstand a cryptographic attack.",
+      "properties": {
+        "kingdom": "Security Features",
+        "priority": "High",
+        "fortifyRuleId": "49D75ADD-4BBD-49B9-AAF2-92B9BAB332FE"
+      }
+    },
+    {
+      "toolFingerprint": "F7EA0D57CBEFFD8E7CBD5B25F2E3136B",
+      "ruleId": "Insecure Randomness",
+      "locations": [
+        {
+          "issueFile": [
+            {
+              "uri": "bannedAPIs.java",
+              "mimeType": "text/x-java-source",
+              "region": {
+                "startLine": 32
+              }
+            }
+          ]
+        }
+      ],
+      "fullMessage": "The random number generator implemented by nextFloat() cannot withstand a cryptographic attack.",
+      "properties": {
+        "kingdom": "Security Features",
+        "priority": "High",
+        "fortifyRuleId": "49D75ADD-4BBD-49B9-AAF2-92B9BAB332FE"
+      }
+    },
+    {
+      "toolFingerprint": "5EF52835CD71CAD3E184552BBE7489F3",
+      "ruleId": "Insecure Randomness",
+      "locations": [
+        {
+          "issueFile": [
+            {
+              "uri": "bannedAPIs.java",
+              "mimeType": "text/x-java-source",
+              "region": {
+                "startLine": 44
+              }
+            }
+          ]
+        }
+      ],
+      "fullMessage": "The random number generator implemented by nextLong() cannot withstand a cryptographic attack.",
+      "properties": {
+        "kingdom": "Security Features",
+        "priority": "High",
+        "fortifyRuleId": "49D75ADD-4BBD-49B9-AAF2-92B9BAB332FE"
+      }
+    },
+    {
+      "toolFingerprint": "0CA7190B4C723C5BCB85B38ADE24F36A",
+      "ruleId": "Insecure Randomness",
+      "locations": [
+        {
+          "issueFile": [
+            {
+              "uri": "bannedAPIs.java",
+              "mimeType": "text/x-java-source",
+              "region": {
+                "startLine": 42
+              }
+            }
+          ]
+        }
+      ],
+      "fullMessage": "The random number generator implemented by nextInt() cannot withstand a cryptographic attack.",
+      "properties": {
+        "kingdom": "Security Features",
+        "priority": "High",
+        "fortifyRuleId": "49D75ADD-4BBD-49B9-AAF2-92B9BAB332FE"
+      }
+    },
+    {
+      "toolFingerprint": "658B13C64C2F7828E6D33FECCFE46ABE",
+      "ruleId": "Insecure Randomness",
+      "locations": [
+        {
+          "issueFile": [
+            {
+              "uri": "bannedAPIs.java",
+              "mimeType": "text/x-java-source",
+              "region": {
+                "startLine": 20
+              }
+            }
+          ]
+        }
+      ],
+      "fullMessage": "The random number generator implemented by random() cannot withstand a cryptographic attack.",
+      "properties": {
+        "kingdom": "Security Features",
+        "priority": "High",
+        "fortifyRuleId": "57E7AB18-082F-4C18-8DE1-4115DB3917A3"
+      }
+    },
+    {
+      "toolFingerprint": "EDEA37541517C2AB97A834D58430C915",
+      "ruleId": "Insecure Randomness",
+      "locations": [
+        {
+          "issueFile": [
+            {
+              "uri": "bannedAPIs.java",
+              "mimeType": "text/x-java-source",
+              "region": {
+                "startLine": 42
+              }
+            }
+          ]
+        }
+      ],
+      "fullMessage": "The random number generator implemented by nextInt() cannot withstand a cryptographic attack.",
+      "properties": {
+        "kingdom": "Security Features",
+        "priority": "High",
+        "fortifyRuleId": "49D75ADD-4BBD-49B9-AAF2-92B9BAB332FE"
+      }
+    },
+    {
+      "toolFingerprint": "E02590888054C0DD8CC05CD9600335CF",
+      "ruleId": "Insecure Randomness",
+      "locations": [
+        {
+          "issueFile": [
+            {
+              "uri": "bannedAPIs.java",
+              "mimeType": "text/x-java-source",
+              "region": {
+                "startLine": 29
+              }
+            }
+          ]
+        }
+      ],
+      "fullMessage": "The random number generator implemented by nextInt() cannot withstand a cryptographic attack.",
+      "properties": {
+        "kingdom": "Security Features",
+        "priority": "High",
+        "fortifyRuleId": "49D75ADD-4BBD-49B9-AAF2-92B9BAB332FE"
+      }
+    },
+    {
+      "toolFingerprint": "3A6DE0ACA07354BDF55B10FFA7B064EA",
+      "ruleId": "Insecure Randomness",
+      "locations": [
+        {
+          "issueFile": [
+            {
+              "uri": "bannedAPIs.java",
+              "mimeType": "text/x-java-source",
+              "region": {
+                "startLine": 47
+              }
+            }
+          ]
+        }
+      ],
+      "fullMessage": "The random number generator implemented by nextGaussian() cannot withstand a cryptographic attack.",
+      "properties": {
+        "kingdom": "Security Features",
+        "priority": "High",
+        "fortifyRuleId": "49D75ADD-4BBD-49B9-AAF2-92B9BAB332FE"
+      }
+    },
+    {
+      "toolFingerprint": "061331A5F9C0091326D641DF56D5136B",
+      "ruleId": "Insecure Randomness",
+      "locations": [
+        {
+          "issueFile": [
+            {
+              "uri": "bannedAPIs.java",
+              "mimeType": "text/x-java-source",
+              "region": {
+                "startLine": 32
+              }
+            }
+          ]
+        }
+      ],
+      "fullMessage": "The random number generator implemented by nextFloat() cannot withstand a cryptographic attack.",
+      "properties": {
+        "kingdom": "Security Features",
+        "priority": "High",
+        "fortifyRuleId": "49D75ADD-4BBD-49B9-AAF2-92B9BAB332FE"
+      }
+    },
+    {
+      "toolFingerprint": "07C60A092948C28C6CBE11F40AA5D3B2",
+      "ruleId": "Insecure Randomness",
+      "locations": [
+        {
+          "issueFile": [
+            {
+              "uri": "bannedAPIs.java",
+              "mimeType": "text/x-java-source",
+              "region": {
+                "startLine": 43
+              }
+            }
+          ]
+        }
+      ],
+      "fullMessage": "The random number generator implemented by next() cannot withstand a cryptographic attack.",
+      "properties": {
+        "kingdom": "Security Features",
+        "priority": "High",
+        "fortifyRuleId": "49D75ADD-4BBD-49B9-AAF2-92B9BAB332FE"
+      }
+    },
+    {
+      "toolFingerprint": "6D46CC3BA4EC3B293CA54B1AAEF1C3B2",
+      "ruleId": "Insecure Randomness",
+      "locations": [
+        {
+          "issueFile": [
+            {
+              "uri": "bannedAPIs.java",
+              "mimeType": "text/x-java-source",
+              "region": {
+                "startLine": 13
+              }
+            }
+          ]
+        }
+      ],
+      "fullMessage": "The random number generator implemented by next() cannot withstand a cryptographic attack.",
+      "properties": {
+        "kingdom": "Security Features",
+        "priority": "High",
+        "fortifyRuleId": "49D75ADD-4BBD-49B9-AAF2-92B9BAB332FE"
+      }
+    },
+    {
+      "toolFingerprint": "C8F68EE649C47D93A54188C0CC3381E4",
+      "ruleId": "Insecure Randomness",
+      "locations": [
+        {
+          "issueFile": [
+            {
+              "uri": "bannedAPIs.java",
+              "mimeType": "text/x-java-source",
+              "region": {
+                "startLine": 46
+              }
+            }
+          ]
+        }
+      ],
+      "fullMessage": "The random number generator implemented by nextDouble() cannot withstand a cryptographic attack.",
+      "properties": {
+        "kingdom": "Security Features",
+        "priority": "High",
+        "fortifyRuleId": "49D75ADD-4BBD-49B9-AAF2-92B9BAB332FE"
+      }
+    },
+    {
+      "toolFingerprint": "1A417EDA2013645DA20E18E23B72BAE8",
+      "ruleId": "Insecure Randomness: Poor Seed",
+      "locations": [
+        {
+          "issueFile": [
+            {
+              "uri": "bannedAPIs.java",
+              "mimeType": "text/x-java-source",
+              "region": {
+                "startLine": 27
+              }
+            }
+          ]
+        }
+      ],
+      "fullMessage": "Random.setSeed should not be called with a constant integer argument.",
+      "properties": {
+        "kingdom": "Security Features",
+        "priority": "High",
+        "fortifyRuleId": "FEAD26B5-C753-4A64-8DD1-C542E684E7E1"
+      }
+    },
+    {
+      "toolFingerprint": "A8F373B7438A58F807DF846B050EC88D",
+      "ruleId": "Insecure Randomness: Poor Seed",
+      "locations": [
+        {
+          "issueFile": [
+            {
+              "uri": "bannedAPIs.java",
+              "mimeType": "text/x-java-source",
+              "region": {
+                "startLine": 9
+              }
+            }
+          ]
+        }
+      ],
+      "fullMessage": "Random.setSeed should not be called with a constant integer argument.",
+      "properties": {
+        "kingdom": "Security Features",
+        "priority": "High",
+        "fortifyRuleId": "FEAD26B5-C753-4A64-8DD1-C542E684E7E1"
+      }
+    },
+    {
+      "toolFingerprint": "2CE2AC4209523A416091A94E9086CD08",
+      "ruleId": "Insecure Randomness: Poor Seed",
+      "locations": [
+        {
+          "issueFile": [
+            {
+              "uri": "bannedAPIs.java",
+              "mimeType": "text/x-java-source",
+              "region": {
+                "startLine": 40
+              }
+            }
+          ]
+        }
+      ],
+      "fullMessage": "Random.setSeed should not be called with a constant integer argument.",
+      "properties": {
+        "kingdom": "Security Features",
+        "priority": "High",
+        "fortifyRuleId": "FEAD26B5-C753-4A64-8DD1-C542E684E7E1"
+      }
+    },
+    {
+      "toolFingerprint": "839E4D8CA0BB4F08A32E5EB995471BAC",
+      "ruleId": "Insecure Randomness: Poor Seed",
+      "locations": [
+        {
+          "issueFile": [
+            {
+              "uri": "bannedAPIs.java",
+              "mimeType": "text/x-java-source",
+              "region": {
+                "startLine": 26
+              }
+            }
+          ]
+        }
+      ],
+      "fullMessage": "Random.setSeed should not be called with a constant integer argument.",
+      "properties": {
+        "kingdom": "Security Features",
+        "priority": "High",
+        "fortifyRuleId": "FEAD26B5-C753-4A64-8DD1-C542E684E7E1"
+      }
+    },
+    {
+      "toolFingerprint": "7A22FFDD8C3705E024CF2AA246FA7B8D",
+      "ruleId": "Insecure Randomness: Poor Seed",
+      "locations": [
+        {
+          "issueFile": [
+            {
+              "uri": "bannedAPIs.java",
+              "mimeType": "text/x-java-source",
+              "region": {
+                "startLine": 39
+              }
+            }
+          ]
+        }
+      ],
+      "fullMessage": "Random.setSeed should not be called with a constant integer argument.",
+      "properties": {
+        "kingdom": "Security Features",
+        "priority": "High",
+        "fortifyRuleId": "FEAD26B5-C753-4A64-8DD1-C542E684E7E1"
+      }
+    }
+  ]
+}
