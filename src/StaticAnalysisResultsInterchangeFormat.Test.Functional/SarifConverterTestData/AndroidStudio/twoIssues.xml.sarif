@@ -1,0 +1,82 @@
+{
+  "version": "1.0",
+  "toolInfo": {
+    "toolName": "AndroidStudio"
+  },
+  "issues": [
+    {
+      "ruleId": "unused declaration",
+      "locations": [
+        {
+          "issueFile": [
+            {
+              "uri": "yammer-droid-2/src/test/java/com/yammer/droid/AdditionOperationTest.java",
+              "mimeType": "text/x-java-source",
+              "region": {
+                "startLine": 10
+              }
+            }
+          ],
+          "fullyQualifiedLogicalName": "yammer-droid-2\\com.yammer.droid\\com.yammer.droid.AdditionOperationTest void testStuff()",
+          "logicalLocation": [
+            {
+              "name": "yammer-droid-2",
+              "locationKind": "android-module"
+            },
+            {
+              "name": "com.yammer.droid",
+              "locationKind": "package"
+            },
+            {
+              "name": "com.yammer.droid.AdditionOperationTest void testStuff()",
+              "locationKind": "method"
+            }
+          ]
+        }
+      ],
+      "shortMessage": "Method is never used.",
+      "fullMessage": "Method is never used.\r\nPossible resolution: comment\r\nPossible resolution: delete",
+      "properties": {
+        "severity": "WARNING",
+        "attributeKey": "NOT_USED_ELEMENT_ATTRIBUTES"
+      }
+    },
+    {
+      "ruleId": "unused declaration",
+      "locations": [
+        {
+          "issueFile": [
+            {
+              "uri": "yammer-droid-2/src/main/java/com/yammer/droid/ui/MessageUIBean.java",
+              "mimeType": "text/x-java-source",
+              "region": {
+                "startLine": 51
+              }
+            }
+          ],
+          "fullyQualifiedLogicalName": "yammer-droid-2\\com.yammer.droid.ui\\com.yammer.droid.ui.MessageUIBean.TYPE TYPE(int position)",
+          "logicalLocation": [
+            {
+              "name": "yammer-droid-2",
+              "locationKind": "android-module"
+            },
+            {
+              "name": "com.yammer.droid.ui",
+              "locationKind": "package"
+            },
+            {
+              "name": "com.yammer.droid.ui.MessageUIBean.TYPE TYPE(int position)",
+              "locationKind": "method"
+            }
+          ]
+        }
+      ],
+      "shortMessage": "Constructor has 5 usages but they are not reachable from entry points.",
+      "fullMessage": "Constructor has 5 usages but they are not reachable from entry points.\r\nPossible resolution: comment\r\nPossible resolution: delete",
+      "properties": {
+        "severity": "WARNING",
+        "attributeKey": "NOT_USED_ELEMENT_ATTRIBUTES"
+      }
+    }
+  ]
+}

@@ -1,0 +1,26 @@
+{
+  "version": "1.0",
+  "toolInfo": {
+    "toolName": "Clang"
+  },
+  "issues": [
+    {
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "jcmarker.c",
+              "mimeType": "text/x-cpp",
+              "region": {
+                "startLine": 200,
+                "startColumn": 9
+              }
+            }
+          ]
+        }
+      ],
+      "shortMessage": "Dereference of null pointer",
+      "fullMessage": "Logic error : Access to field 'sent_table' results in a dereference of a null pointer (loaded from variable 'htbl')"
+    }
+  ]
+}

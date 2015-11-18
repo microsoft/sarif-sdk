@@ -1,0 +1,2497 @@
+{
+  "version": "1.0",
+  "toolInfo": {
+    "toolName": "PoliCheck"
+  },
+  "issues": [
+    {
+      "toolFingerprint": "table",
+      "ruleId": "Custom",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "C:\\Users\\rtaket\\Documents\\PCheckExamples\\AppXSizeAnalysis.xlsx",
+              "mimeType": "application/vnd.ms-excel"
+            },
+            {
+              "uri": "\\[Content_Types].xml",
+              "mimeType": "text/xml"
+            }
+          ]
+        }
+      ],
+      "fullMessage": "The term 'table' was detected in context of 'application/vnd.openxmlformats-officedocument.spreadsheetml.table+xml' (at 60). Verify that the use of this term conforms to the guidelines and update its use if required."
+    },
+    {
+      "toolFingerprint": "table",
+      "ruleId": "Custom",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "C:\\Users\\rtaket\\Documents\\PCheckExamples\\AppXSizeAnalysis.xlsx",
+              "mimeType": "application/vnd.ms-excel"
+            },
+            {
+              "uri": "\\[Content_Types].xml",
+              "mimeType": "text/xml"
+            }
+          ]
+        }
+      ],
+      "fullMessage": "The term 'table' was detected in context of 'application/vnd.openxmlformats-officedocument.spreadsheetml.table+xml' (at 60). Verify that the use of this term conforms to the guidelines and update its use if required."
+    },
+    {
+      "toolFingerprint": "table",
+      "ruleId": "Custom",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "C:\\Users\\rtaket\\Documents\\PCheckExamples\\AppXSizeAnalysis.xlsx",
+              "mimeType": "application/vnd.ms-excel"
+            },
+            {
+              "uri": "\\[Content_Types].xml",
+              "mimeType": "text/xml"
+            }
+          ]
+        }
+      ],
+      "fullMessage": "The term 'table' was detected in context of 'application/vnd.openxmlformats-officedocument.spreadsheetml.table+xml' (at 60). Verify that the use of this term conforms to the guidelines and update its use if required."
+    },
+    {
+      "toolFingerprint": "sdl",
+      "ruleId": "Custom",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "C:\\Users\\rtaket\\Documents\\PCheckExamples\\arribaurls.txt",
+              "mimeType": "text/plain",
+              "region": {
+                "startLine": 1
+              }
+            }
+          ]
+        }
+      ],
+      "fullMessage": "The term 'sdl' was detected in context of 'http://sdl-data01:42784//table/SdlSearch.Usage?action=distinct&cols=Department&ob=Department&so=desc&t=50' (at 7). Verify that the use of this term conforms to the guidelines and update its use if required."
+    },
+    {
+      "toolFingerprint": "table",
+      "ruleId": "Custom",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "C:\\Users\\rtaket\\Documents\\PCheckExamples\\arribaurls.txt",
+              "mimeType": "text/plain",
+              "region": {
+                "startLine": 1
+              }
+            }
+          ]
+        }
+      ],
+      "fullMessage": "The term 'table' was detected in context of 'http://sdl-data01:42784//table/SdlSearch.Usage?action=distinct&cols=Department&ob=Department&so=desc&t=50' (at 25). Verify that the use of this term conforms to the guidelines and update its use if required."
+    },
+    {
+      "toolFingerprint": "sdl",
+      "ruleId": "Custom",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "C:\\Users\\rtaket\\Documents\\PCheckExamples\\arribaurls.txt",
+              "mimeType": "text/plain",
+              "region": {
+                "startLine": 2
+              }
+            }
+          ]
+        }
+      ],
+      "fullMessage": "The term 'sdl' was detected in context of 'http://sdl-data01:42784/table/qesearch.Content?action=distinct&col=SDL&t=25' (at 7). Verify that the use of this term conforms to the guidelines and update its use if required."
+    },
+    {
+      "toolFingerprint": "table",
+      "ruleId": "Custom",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "C:\\Users\\rtaket\\Documents\\PCheckExamples\\arribaurls.txt",
+              "mimeType": "text/plain",
+              "region": {
+                "startLine": 2
+              }
+            }
+          ]
+        }
+      ],
+      "fullMessage": "The term 'table' was detected in context of 'http://sdl-data01:42784/table/qesearch.Content?action=distinct&col=SDL&t=25' (at 24). Verify that the use of this term conforms to the guidelines and update its use if required."
+    },
+    {
+      "toolFingerprint": "sdl",
+      "ruleId": "Custom",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "C:\\Users\\rtaket\\Documents\\PCheckExamples\\arribaurls.txt",
+              "mimeType": "text/plain",
+              "region": {
+                "startLine": 2
+              }
+            }
+          ]
+        }
+      ],
+      "fullMessage": "The term 'sdl' was detected in context of 'http://sdl-data01:42784/table/qesearch.Content?action=distinct&col=SDL&t=25' (at 67). Verify that the use of this term conforms to the guidelines and update its use if required."
+    },
+    {
+      "toolFingerprint": "sdl",
+      "ruleId": "Custom",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "C:\\Users\\rtaket\\Documents\\PCheckExamples\\arribaurls.txt",
+              "mimeType": "text/plain",
+              "region": {
+                "startLine": 5
+              }
+            }
+          ]
+        }
+      ],
+      "fullMessage": "The term 'sdl' was detected in context of 'http://sdl-data01:42784/table/SdlSearch.QEException?action=distinct&col=ReleaseIsPrivate&t=25' (at 7). Verify that the use of this term conforms to the guidelines and update its use if required."
+    },
+    {
+      "toolFingerprint": "table",
+      "ruleId": "Custom",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "C:\\Users\\rtaket\\Documents\\PCheckExamples\\arribaurls.txt",
+              "mimeType": "text/plain",
+              "region": {
+                "startLine": 5
+              }
+            }
+          ]
+        }
+      ],
+      "fullMessage": "The term 'table' was detected in context of 'http://sdl-data01:42784/table/SdlSearch.QEException?action=distinct&col=ReleaseIsPrivate&t=25' (at 24). Verify that the use of this term conforms to the guidelines and update its use if required."
+    },
+    {
+      "toolFingerprint": "word",
+      "ruleId": "Custom",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "C:\\Users\\rtaket\\Documents\\PCheckExamples\\AzureAccountCreation.docx",
+              "mimeType": "application/vnd.ms-word.document"
+            },
+            {
+              "uri": "\\[Content_Types].xml",
+              "mimeType": "text/xml"
+            }
+          ]
+        }
+      ],
+      "fullMessage": "The term 'word' was detected in context of '/word/document.xml' (at 1). Verify that the use of this term conforms to the guidelines and update its use if required."
+    },
+    {
+      "toolFingerprint": "word",
+      "ruleId": "Custom",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "C:\\Users\\rtaket\\Documents\\PCheckExamples\\AzureAccountCreation.docx",
+              "mimeType": "application/vnd.ms-word.document"
+            },
+            {
+              "uri": "\\[Content_Types].xml",
+              "mimeType": "text/xml"
+            }
+          ]
+        }
+      ],
+      "fullMessage": "The term 'word' was detected in context of '/word/numbering.xml' (at 1). Verify that the use of this term conforms to the guidelines and update its use if required."
+    },
+    {
+      "toolFingerprint": "word",
+      "ruleId": "Custom",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "C:\\Users\\rtaket\\Documents\\PCheckExamples\\AzureAccountCreation.docx",
+              "mimeType": "application/vnd.ms-word.document"
+            },
+            {
+              "uri": "\\[Content_Types].xml",
+              "mimeType": "text/xml"
+            }
+          ]
+        }
+      ],
+      "fullMessage": "The term 'word' was detected in context of '/word/styles.xml' (at 1). Verify that the use of this term conforms to the guidelines and update its use if required."
+    },
+    {
+      "toolFingerprint": "word",
+      "ruleId": "Custom",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "C:\\Users\\rtaket\\Documents\\PCheckExamples\\AzureAccountCreation.docx",
+              "mimeType": "application/vnd.ms-word.document"
+            },
+            {
+              "uri": "\\[Content_Types].xml",
+              "mimeType": "text/xml"
+            }
+          ]
+        }
+      ],
+      "fullMessage": "The term 'word' was detected in context of 'application/vnd.ms-word.stylesWithEffects+xml' (at 19). Verify that the use of this term conforms to the guidelines and update its use if required."
+    },
+    {
+      "toolFingerprint": "word",
+      "ruleId": "Custom",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "C:\\Users\\rtaket\\Documents\\PCheckExamples\\AzureAccountCreation.docx",
+              "mimeType": "application/vnd.ms-word.document"
+            },
+            {
+              "uri": "\\[Content_Types].xml",
+              "mimeType": "text/xml"
+            }
+          ]
+        }
+      ],
+      "fullMessage": "The term 'word' was detected in context of '/word/stylesWithEffects.xml' (at 1). Verify that the use of this term conforms to the guidelines and update its use if required."
+    },
+    {
+      "toolFingerprint": "word",
+      "ruleId": "Custom",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "C:\\Users\\rtaket\\Documents\\PCheckExamples\\AzureAccountCreation.docx",
+              "mimeType": "application/vnd.ms-word.document"
+            },
+            {
+              "uri": "\\[Content_Types].xml",
+              "mimeType": "text/xml"
+            }
+          ]
+        }
+      ],
+      "fullMessage": "The term 'word' was detected in context of '/word/settings.xml' (at 1). Verify that the use of this term conforms to the guidelines and update its use if required."
+    },
+    {
+      "toolFingerprint": "word",
+      "ruleId": "Custom",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "C:\\Users\\rtaket\\Documents\\PCheckExamples\\AzureAccountCreation.docx",
+              "mimeType": "application/vnd.ms-word.document"
+            },
+            {
+              "uri": "\\[Content_Types].xml",
+              "mimeType": "text/xml"
+            }
+          ]
+        }
+      ],
+      "fullMessage": "The term 'word' was detected in context of '/word/webSettings.xml' (at 1). Verify that the use of this term conforms to the guidelines and update its use if required."
+    },
+    {
+      "toolFingerprint": "word",
+      "ruleId": "Custom",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "C:\\Users\\rtaket\\Documents\\PCheckExamples\\AzureAccountCreation.docx",
+              "mimeType": "application/vnd.ms-word.document"
+            },
+            {
+              "uri": "\\[Content_Types].xml",
+              "mimeType": "text/xml"
+            }
+          ]
+        }
+      ],
+      "fullMessage": "The term 'word' was detected in context of '/word/fontTable.xml' (at 1). Verify that the use of this term conforms to the guidelines and update its use if required."
+    },
+    {
+      "toolFingerprint": "word",
+      "ruleId": "Custom",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "C:\\Users\\rtaket\\Documents\\PCheckExamples\\AzureAccountCreation.docx",
+              "mimeType": "application/vnd.ms-word.document"
+            },
+            {
+              "uri": "\\[Content_Types].xml",
+              "mimeType": "text/xml"
+            }
+          ]
+        }
+      ],
+      "fullMessage": "The term 'word' was detected in context of '/word/theme/theme1.xml' (at 1). Verify that the use of this term conforms to the guidelines and update its use if required."
+    },
+    {
+      "toolFingerprint": "word",
+      "ruleId": "Custom",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "C:\\Users\\rtaket\\Documents\\PCheckExamples\\AzureAccountCreation.docx",
+              "mimeType": "application/vnd.ms-word.document"
+            },
+            {
+              "uri": "\\docProps\\app.xml",
+              "mimeType": "text/xml"
+            }
+          ]
+        }
+      ],
+      "fullMessage": "The term 'word' was detected in context of 'Microsoft Office Word' (at 17). Verify that the use of this term conforms to the guidelines and update its use if required."
+    },
+    {
+      "toolFingerprint": "word",
+      "ruleId": "Custom",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "C:\\Users\\rtaket\\Documents\\PCheckExamples\\AzureAccountCreation.docx",
+              "mimeType": "application/vnd.ms-word.document"
+            },
+            {
+              "uri": "\\word\\document.xml",
+              "mimeType": "text/xml"
+            }
+          ]
+        }
+      ],
+      "fullMessage": "The term 'word' was detected in context of 'http://schemas.microsoft.com/office/word/2010/wordprocessingShape' (at 36). Verify that the use of this term conforms to the guidelines and update its use if required."
+    },
+    {
+      "toolFingerprint": "word",
+      "ruleId": "Custom",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "C:\\Users\\rtaket\\Documents\\PCheckExamples\\AzureAccountCreation.docx",
+              "mimeType": "application/vnd.ms-word.document"
+            },
+            {
+              "uri": "\\word\\document.xml",
+              "mimeType": "text/xml"
+            }
+          ]
+        }
+      ],
+      "fullMessage": "The term 'word' was detected in context of 'http://schemas.microsoft.com/office/word/2006/wordml' (at 36). Verify that the use of this term conforms to the guidelines and update its use if required."
+    },
+    {
+      "toolFingerprint": "word",
+      "ruleId": "Custom",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "C:\\Users\\rtaket\\Documents\\PCheckExamples\\AzureAccountCreation.docx",
+              "mimeType": "application/vnd.ms-word.document"
+            },
+            {
+              "uri": "\\word\\document.xml",
+              "mimeType": "text/xml"
+            }
+          ]
+        }
+      ],
+      "fullMessage": "The term 'word' was detected in context of 'http://schemas.microsoft.com/office/word/2010/wordprocessingGroup' (at 36). Verify that the use of this term conforms to the guidelines and update its use if required."
+    },
+    {
+      "toolFingerprint": "word",
+      "ruleId": "Custom",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "C:\\Users\\rtaket\\Documents\\PCheckExamples\\AzureAccountCreation.docx",
+              "mimeType": "application/vnd.ms-word.document"
+            },
+            {
+              "uri": "\\word\\document.xml",
+              "mimeType": "text/xml"
+            }
+          ]
+        }
+      ],
+      "fullMessage": "The term 'word' was detected in context of 'http://schemas.microsoft.com/office/word/2010/wordml' (at 36). Verify that the use of this term conforms to the guidelines and update its use if required."
+    },
+    {
+      "toolFingerprint": "word",
+      "ruleId": "Custom",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "C:\\Users\\rtaket\\Documents\\PCheckExamples\\AzureAccountCreation.docx",
+              "mimeType": "application/vnd.ms-word.document"
+            },
+            {
+              "uri": "\\word\\document.xml",
+              "mimeType": "text/xml"
+            }
+          ]
+        }
+      ],
+      "fullMessage": "The term 'word' was detected in context of 'urn:schemas-microsoft-com:office:word' (at 33). Verify that the use of this term conforms to the guidelines and update its use if required."
+    },
+    {
+      "toolFingerprint": "word",
+      "ruleId": "Custom",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "C:\\Users\\rtaket\\Documents\\PCheckExamples\\AzureAccountCreation.docx",
+              "mimeType": "application/vnd.ms-word.document"
+            },
+            {
+              "uri": "\\word\\document.xml",
+              "mimeType": "text/xml"
+            }
+          ]
+        }
+      ],
+      "fullMessage": "The term 'word' was detected in context of 'http://schemas.microsoft.com/office/word/2010/wordprocessingDrawing' (at 36). Verify that the use of this term conforms to the guidelines and update its use if required."
+    },
+    {
+      "toolFingerprint": "word",
+      "ruleId": "Custom",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "C:\\Users\\rtaket\\Documents\\PCheckExamples\\AzureAccountCreation.docx",
+              "mimeType": "application/vnd.ms-word.document"
+            },
+            {
+              "uri": "\\word\\document.xml",
+              "mimeType": "text/xml"
+            }
+          ]
+        }
+      ],
+      "fullMessage": "The term 'word' was detected in context of 'http://schemas.microsoft.com/office/word/2010/wordprocessingCanvas' (at 36). Verify that the use of this term conforms to the guidelines and update its use if required."
+    },
+    {
+      "toolFingerprint": "word",
+      "ruleId": "Custom",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "C:\\Users\\rtaket\\Documents\\PCheckExamples\\AzureAccountCreation.docx",
+              "mimeType": "application/vnd.ms-word.document"
+            },
+            {
+              "uri": "\\word\\document.xml",
+              "mimeType": "text/xml"
+            }
+          ]
+        }
+      ],
+      "fullMessage": "The term 'word' was detected in context of 'http://schemas.microsoft.com/office/word/2010/wordprocessingShape' (at 36). Verify that the use of this term conforms to the guidelines and update its use if required."
+    },
+    {
+      "toolFingerprint": "word",
+      "ruleId": "Custom",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "C:\\Users\\rtaket\\Documents\\PCheckExamples\\AzureAccountCreation.docx",
+              "mimeType": "application/vnd.ms-word.document"
+            },
+            {
+              "uri": "\\word\\document.xml",
+              "mimeType": "text/xml"
+            }
+          ]
+        }
+      ],
+      "fullMessage": "The term 'word' was detected in context of 'http://schemas.microsoft.com/office/word/2010/wordprocessingShape' (at 36). Verify that the use of this term conforms to the guidelines and update its use if required."
+    },
+    {
+      "toolFingerprint": "word",
+      "ruleId": "Custom",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "C:\\Users\\rtaket\\Documents\\PCheckExamples\\AzureAccountCreation.docx",
+              "mimeType": "application/vnd.ms-word.document"
+            },
+            {
+              "uri": "\\word\\document.xml",
+              "mimeType": "text/xml"
+            }
+          ]
+        }
+      ],
+      "fullMessage": "The term 'word' was detected in context of 'http://schemas.microsoft.com/office/word/2010/wordprocessingShape' (at 36). Verify that the use of this term conforms to the guidelines and update its use if required."
+    },
+    {
+      "toolFingerprint": "word",
+      "ruleId": "Custom",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "C:\\Users\\rtaket\\Documents\\PCheckExamples\\AzureAccountCreation.docx",
+              "mimeType": "application/vnd.ms-word.document"
+            },
+            {
+              "uri": "\\word\\document.xml",
+              "mimeType": "text/xml"
+            }
+          ]
+        }
+      ],
+      "fullMessage": "The term 'word' was detected in context of 'http://schemas.microsoft.com/office/word/2010/wordprocessingShape' (at 36). Verify that the use of this term conforms to the guidelines and update its use if required."
+    },
+    {
+      "toolFingerprint": "word",
+      "ruleId": "Custom",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "C:\\Users\\rtaket\\Documents\\PCheckExamples\\AzureAccountCreation.docx",
+              "mimeType": "application/vnd.ms-word.document"
+            },
+            {
+              "uri": "\\word\\document.xml",
+              "mimeType": "text/xml"
+            }
+          ]
+        }
+      ],
+      "fullMessage": "The term 'word' was detected in context of 'http://schemas.microsoft.com/office/word/2010/wordprocessingShape' (at 36). Verify that the use of this term conforms to the guidelines and update its use if required."
+    },
+    {
+      "toolFingerprint": "word",
+      "ruleId": "Custom",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "C:\\Users\\rtaket\\Documents\\PCheckExamples\\AzureAccountCreation.docx",
+              "mimeType": "application/vnd.ms-word.document"
+            },
+            {
+              "uri": "\\word\\document.xml",
+              "mimeType": "text/xml"
+            }
+          ]
+        }
+      ],
+      "fullMessage": "The term 'word' was detected in context of 'http://schemas.microsoft.com/office/word/2010/wordprocessingShape' (at 36). Verify that the use of this term conforms to the guidelines and update its use if required."
+    },
+    {
+      "toolFingerprint": "word",
+      "ruleId": "Custom",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "C:\\Users\\rtaket\\Documents\\PCheckExamples\\AzureAccountCreation.docx",
+              "mimeType": "application/vnd.ms-word.document"
+            },
+            {
+              "uri": "\\word\\document.xml",
+              "mimeType": "text/xml"
+            }
+          ]
+        }
+      ],
+      "fullMessage": "The term 'word' was detected in context of 'http://schemas.microsoft.com/office/word/2010/wordprocessingShape' (at 36). Verify that the use of this term conforms to the guidelines and update its use if required."
+    },
+    {
+      "toolFingerprint": "word",
+      "ruleId": "Custom",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "C:\\Users\\rtaket\\Documents\\PCheckExamples\\AzureAccountCreation.docx",
+              "mimeType": "application/vnd.ms-word.document"
+            },
+            {
+              "uri": "\\word\\document.xml",
+              "mimeType": "text/xml"
+            }
+          ]
+        }
+      ],
+      "fullMessage": "The term 'word' was detected in context of 'http://schemas.microsoft.com/office/word/2010/wordprocessingShape' (at 36). Verify that the use of this term conforms to the guidelines and update its use if required."
+    },
+    {
+      "toolFingerprint": "table",
+      "ruleId": "Custom",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "C:\\Users\\rtaket\\Documents\\PCheckExamples\\AzureAccountCreation.docx",
+              "mimeType": "application/vnd.ms-word.document"
+            },
+            {
+              "uri": "\\word\\document.xml",
+              "mimeType": "text/xml"
+            }
+          ]
+        }
+      ],
+      "fullMessage": "The term 'table' was detected in context of 'Table of Contents' (at 0). Verify that the use of this term conforms to the guidelines and update its use if required."
+    },
+    {
+      "toolFingerprint": "table",
+      "ruleId": "Custom",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "C:\\Users\\rtaket\\Documents\\PCheckExamples\\AzureAccountCreation.docx",
+              "mimeType": "application/vnd.ms-word.document"
+            },
+            {
+              "uri": "\\word\\document.xml",
+              "mimeType": "text/xml"
+            }
+          ]
+        }
+      ],
+      "fullMessage": "The term 'table' was detected in context of 'Table of Contents' (at 0). Verify that the use of this term conforms to the guidelines and update its use if required."
+    },
+    {
+      "toolFingerprint": "windows",
+      "ruleId": "Custom",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "C:\\Users\\rtaket\\Documents\\PCheckExamples\\AzureAccountCreation.docx",
+              "mimeType": "application/vnd.ms-word.document"
+            },
+            {
+              "uri": "\\word\\document.xml",
+              "mimeType": "text/xml"
+            }
+          ]
+        }
+      ],
+      "fullMessage": "The term 'windows' was detected in context of 'The complete Internal Registration Process for Windows Azure is explained at' (at 47). Verify that the use of this term conforms to the guidelines and update its use if required."
+    },
+    {
+      "toolFingerprint": "windows",
+      "ruleId": "Custom",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "C:\\Users\\rtaket\\Documents\\PCheckExamples\\AzureAccountCreation.docx",
+              "mimeType": "application/vnd.ms-word.document"
+            },
+            {
+              "uri": "\\word\\document.xml",
+              "mimeType": "text/xml"
+            }
+          ]
+        }
+      ],
+      "fullMessage": "The term 'windows' was detected in context of 'The first design decision involves account management for Windows Azure as explained at:' (at 58). Verify that the use of this term conforms to the guidelines and update its use if required."
+    },
+    {
+      "toolFingerprint": "windows",
+      "ruleId": "Custom",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "C:\\Users\\rtaket\\Documents\\PCheckExamples\\AzureAccountCreation.docx",
+              "mimeType": "application/vnd.ms-word.document"
+            },
+            {
+              "uri": "\\word\\document.xml",
+              "mimeType": "text/xml"
+            }
+          ]
+        }
+      ],
+      "fullMessage": "The term 'windows' was detected in context of 'Windows Azure has two account roles, Account Owner (AO) and Service Administrator (SA).' (at 0). Verify that the use of this term conforms to the guidelines and update its use if required."
+    },
+    {
+      "toolFingerprint": "windows",
+      "ruleId": "Custom",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "C:\\Users\\rtaket\\Documents\\PCheckExamples\\AzureAccountCreation.docx",
+              "mimeType": "application/vnd.ms-word.document"
+            },
+            {
+              "uri": "\\word\\document.xml",
+              "mimeType": "text/xml"
+            }
+          ]
+        }
+      ],
+      "fullMessage": "The term 'windows' was detected in context of 'Windows Azure Developer Portal' (at 0). Verify that the use of this term conforms to the guidelines and update its use if required."
+    },
+    {
+      "toolFingerprint": "windows",
+      "ruleId": "Custom",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "C:\\Users\\rtaket\\Documents\\PCheckExamples\\AzureAccountCreation.docx",
+              "mimeType": "application/vnd.ms-word.document"
+            },
+            {
+              "uri": "\\word\\document.xml",
+              "mimeType": "text/xml"
+            }
+          ]
+        }
+      ],
+      "fullMessage": "The term 'windows' was detected in context of 'Windows Azure' (at 0). Verify that the use of this term conforms to the guidelines and update its use if required."
+    },
+    {
+      "toolFingerprint": "windows",
+      "ruleId": "Custom",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "C:\\Users\\rtaket\\Documents\\PCheckExamples\\AzureAccountCreation.docx",
+              "mimeType": "application/vnd.ms-word.document"
+            },
+            {
+              "uri": "\\word\\document.xml",
+              "mimeType": "text/xml"
+            }
+          ]
+        }
+      ],
+      "fullMessage": "The term 'windows' was detected in context of 'nly the SA can manage the Windows Azure service through the Dev Portal' (at 26). Verify that the use of this term conforms to the guidelines and update its use if required."
+    },
+    {
+      "toolFingerprint": "windows",
+      "ruleId": "Custom",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "C:\\Users\\rtaket\\Documents\\PCheckExamples\\AzureAccountCreation.docx",
+              "mimeType": "application/vnd.ms-word.document"
+            },
+            {
+              "uri": "\\word\\document.xml",
+              "mimeType": "text/xml"
+            }
+          ]
+        }
+      ],
+      "fullMessage": "The term 'windows' was detected in context of 'Windows Azure service' (at 0). Verify that the use of this term conforms to the guidelines and update its use if required."
+    },
+    {
+      "toolFingerprint": "windows",
+      "ruleId": "Custom",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "C:\\Users\\rtaket\\Documents\\PCheckExamples\\AzureAccountCreation.docx",
+              "mimeType": "application/vnd.ms-word.document"
+            },
+            {
+              "uri": "\\word\\document.xml",
+              "mimeType": "text/xml"
+            }
+          ]
+        }
+      ],
+      "fullMessage": "The term 'windows' was detected in context of 'unless Windows Azure Support increases the limit:' (at 7). Verify that the use of this term conforms to the guidelines and update its use if required."
+    },
+    {
+      "toolFingerprint": "windows",
+      "ruleId": "Custom",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "C:\\Users\\rtaket\\Documents\\PCheckExamples\\AzureAccountCreation.docx",
+              "mimeType": "application/vnd.ms-word.document"
+            },
+            {
+              "uri": "\\word\\document.xml",
+              "mimeType": "text/xml"
+            }
+          ]
+        }
+      ],
+      "fullMessage": "The term 'windows' was detected in context of '/blogs.msdn.com/windowsazure/archive/2010/03/23/changed-limit-on-the-number-of-applications-per-windows-azure-subscription.aspx' (at 96). Verify that the use of this term conforms to the guidelines and update its use if required."
+    },
+    {
+      "toolFingerprint": "windows",
+      "ruleId": "Custom",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "C:\\Users\\rtaket\\Documents\\PCheckExamples\\AzureAccountCreation.docx",
+              "mimeType": "application/vnd.ms-word.document"
+            },
+            {
+              "uri": "\\word\\document.xml",
+              "mimeType": "text/xml"
+            }
+          ]
+        }
+      ],
+      "fullMessage": "The term 'windows' was detected in context of 'On the Services tab click the Buy Now button next to Windows Azure Platform Consumption and purchase a subscription for each environment.' (at 53). Verify that the use of this term conforms to the guidelines and update its use if required."
+    },
+    {
+      "toolFingerprint": "windows",
+      "ruleId": "Custom",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "C:\\Users\\rtaket\\Documents\\PCheckExamples\\AzureAccountCreation.docx",
+              "mimeType": "application/vnd.ms-word.document"
+            },
+            {
+              "uri": "\\word\\document.xml",
+              "mimeType": "text/xml"
+            }
+          ]
+        }
+      ],
+      "fullMessage": "The term 'windows' was detected in context of 'Windows Azure Developer Portal' (at 0). Verify that the use of this term conforms to the guidelines and update its use if required."
+    },
+    {
+      "toolFingerprint": "windows",
+      "ruleId": "Custom",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "C:\\Users\\rtaket\\Documents\\PCheckExamples\\AzureAccountCreation.docx",
+              "mimeType": "application/vnd.ms-word.document"
+            },
+            {
+              "uri": "\\word\\document.xml",
+              "mimeType": "text/xml"
+            }
+          ]
+        }
+      ],
+      "fullMessage": "The term 'windows' was detected in context of 'On the Services tab click the Buy Now button next to Windows Azure Platform Consumption' (at 53). Verify that the use of this term conforms to the guidelines and update its use if required."
+    },
+    {
+      "toolFingerprint": "windows",
+      "ruleId": "Custom",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "C:\\Users\\rtaket\\Documents\\PCheckExamples\\AzureAccountCreation.docx",
+              "mimeType": "application/vnd.ms-word.document"
+            },
+            {
+              "uri": "\\word\\document.xml",
+              "mimeType": "text/xml"
+            }
+          ]
+        }
+      ],
+      "fullMessage": "The term 'windows' was detected in context of 'Windows Azure Developer Portal' (at 0). Verify that the use of this term conforms to the guidelines and update its use if required."
+    },
+    {
+      "toolFingerprint": "word",
+      "ruleId": "Custom",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "C:\\Users\\rtaket\\Documents\\PCheckExamples\\AzureAccountCreation.docx",
+              "mimeType": "application/vnd.ms-word.document"
+            },
+            {
+              "uri": "\\word\\fontTable.xml",
+              "mimeType": "text/xml"
+            }
+          ]
+        }
+      ],
+      "fullMessage": "The term 'word' was detected in context of 'http://schemas.microsoft.com/office/word/2010/wordml' (at 36). Verify that the use of this term conforms to the guidelines and update its use if required."
+    },
+    {
+      "toolFingerprint": "word",
+      "ruleId": "Custom",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "C:\\Users\\rtaket\\Documents\\PCheckExamples\\AzureAccountCreation.docx",
+              "mimeType": "application/vnd.ms-word.document"
+            },
+            {
+              "uri": "\\word\\numbering.xml",
+              "mimeType": "text/xml"
+            }
+          ]
+        }
+      ],
+      "fullMessage": "The term 'word' was detected in context of 'http://schemas.microsoft.com/office/word/2010/wordprocessingShape' (at 36). Verify that the use of this term conforms to the guidelines and update its use if required."
+    },
+    {
+      "toolFingerprint": "word",
+      "ruleId": "Custom",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "C:\\Users\\rtaket\\Documents\\PCheckExamples\\AzureAccountCreation.docx",
+              "mimeType": "application/vnd.ms-word.document"
+            },
+            {
+              "uri": "\\word\\numbering.xml",
+              "mimeType": "text/xml"
+            }
+          ]
+        }
+      ],
+      "fullMessage": "The term 'word' was detected in context of 'http://schemas.microsoft.com/office/word/2006/wordml' (at 36). Verify that the use of this term conforms to the guidelines and update its use if required."
+    },
+    {
+      "toolFingerprint": "word",
+      "ruleId": "Custom",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "C:\\Users\\rtaket\\Documents\\PCheckExamples\\AzureAccountCreation.docx",
+              "mimeType": "application/vnd.ms-word.document"
+            },
+            {
+              "uri": "\\word\\numbering.xml",
+              "mimeType": "text/xml"
+            }
+          ]
+        }
+      ],
+      "fullMessage": "The term 'word' was detected in context of 'http://schemas.microsoft.com/office/word/2010/wordprocessingGroup' (at 36). Verify that the use of this term conforms to the guidelines and update its use if required."
+    },
+    {
+      "toolFingerprint": "word",
+      "ruleId": "Custom",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "C:\\Users\\rtaket\\Documents\\PCheckExamples\\AzureAccountCreation.docx",
+              "mimeType": "application/vnd.ms-word.document"
+            },
+            {
+              "uri": "\\word\\numbering.xml",
+              "mimeType": "text/xml"
+            }
+          ]
+        }
+      ],
+      "fullMessage": "The term 'word' was detected in context of 'http://schemas.microsoft.com/office/word/2010/wordml' (at 36). Verify that the use of this term conforms to the guidelines and update its use if required."
+    },
+    {
+      "toolFingerprint": "word",
+      "ruleId": "Custom",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "C:\\Users\\rtaket\\Documents\\PCheckExamples\\AzureAccountCreation.docx",
+              "mimeType": "application/vnd.ms-word.document"
+            },
+            {
+              "uri": "\\word\\numbering.xml",
+              "mimeType": "text/xml"
+            }
+          ]
+        }
+      ],
+      "fullMessage": "The term 'word' was detected in context of 'urn:schemas-microsoft-com:office:word' (at 33). Verify that the use of this term conforms to the guidelines and update its use if required."
+    },
+    {
+      "toolFingerprint": "word",
+      "ruleId": "Custom",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "C:\\Users\\rtaket\\Documents\\PCheckExamples\\AzureAccountCreation.docx",
+              "mimeType": "application/vnd.ms-word.document"
+            },
+            {
+              "uri": "\\word\\numbering.xml",
+              "mimeType": "text/xml"
+            }
+          ]
+        }
+      ],
+      "fullMessage": "The term 'word' was detected in context of 'http://schemas.microsoft.com/office/word/2010/wordprocessingDrawing' (at 36). Verify that the use of this term conforms to the guidelines and update its use if required."
+    },
+    {
+      "toolFingerprint": "word",
+      "ruleId": "Custom",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "C:\\Users\\rtaket\\Documents\\PCheckExamples\\AzureAccountCreation.docx",
+              "mimeType": "application/vnd.ms-word.document"
+            },
+            {
+              "uri": "\\word\\numbering.xml",
+              "mimeType": "text/xml"
+            }
+          ]
+        }
+      ],
+      "fullMessage": "The term 'word' was detected in context of 'http://schemas.microsoft.com/office/word/2010/wordprocessingCanvas' (at 36). Verify that the use of this term conforms to the guidelines and update its use if required."
+    },
+    {
+      "toolFingerprint": "word",
+      "ruleId": "Custom",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "C:\\Users\\rtaket\\Documents\\PCheckExamples\\AzureAccountCreation.docx",
+              "mimeType": "application/vnd.ms-word.document"
+            },
+            {
+              "uri": "\\word\\settings.xml",
+              "mimeType": "text/xml"
+            }
+          ]
+        }
+      ],
+      "fullMessage": "The term 'word' was detected in context of 'http://schemas.microsoft.com/office/word/2010/wordml' (at 36). Verify that the use of this term conforms to the guidelines and update its use if required."
+    },
+    {
+      "toolFingerprint": "word",
+      "ruleId": "Custom",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "C:\\Users\\rtaket\\Documents\\PCheckExamples\\AzureAccountCreation.docx",
+              "mimeType": "application/vnd.ms-word.document"
+            },
+            {
+              "uri": "\\word\\settings.xml",
+              "mimeType": "text/xml"
+            }
+          ]
+        }
+      ],
+      "fullMessage": "The term 'word' was detected in context of 'urn:schemas-microsoft-com:office:word' (at 33). Verify that the use of this term conforms to the guidelines and update its use if required."
+    },
+    {
+      "toolFingerprint": "word",
+      "ruleId": "Custom",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "C:\\Users\\rtaket\\Documents\\PCheckExamples\\AzureAccountCreation.docx",
+              "mimeType": "application/vnd.ms-word.document"
+            },
+            {
+              "uri": "\\word\\settings.xml",
+              "mimeType": "text/xml"
+            }
+          ]
+        }
+      ],
+      "fullMessage": "The term 'word' was detected in context of 'http://schemas.microsoft.com/office/word' (at 36). Verify that the use of this term conforms to the guidelines and update its use if required."
+    },
+    {
+      "toolFingerprint": "word",
+      "ruleId": "Custom",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "C:\\Users\\rtaket\\Documents\\PCheckExamples\\AzureAccountCreation.docx",
+              "mimeType": "application/vnd.ms-word.document"
+            },
+            {
+              "uri": "\\word\\settings.xml",
+              "mimeType": "text/xml"
+            }
+          ]
+        }
+      ],
+      "fullMessage": "The term 'word' was detected in context of 'http://schemas.microsoft.com/office/word' (at 36). Verify that the use of this term conforms to the guidelines and update its use if required."
+    },
+    {
+      "toolFingerprint": "word",
+      "ruleId": "Custom",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "C:\\Users\\rtaket\\Documents\\PCheckExamples\\AzureAccountCreation.docx",
+              "mimeType": "application/vnd.ms-word.document"
+            },
+            {
+              "uri": "\\word\\settings.xml",
+              "mimeType": "text/xml"
+            }
+          ]
+        }
+      ],
+      "fullMessage": "The term 'word' was detected in context of 'http://schemas.microsoft.com/office/word' (at 36). Verify that the use of this term conforms to the guidelines and update its use if required."
+    },
+    {
+      "toolFingerprint": "word",
+      "ruleId": "Custom",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "C:\\Users\\rtaket\\Documents\\PCheckExamples\\AzureAccountCreation.docx",
+              "mimeType": "application/vnd.ms-word.document"
+            },
+            {
+              "uri": "\\word\\settings.xml",
+              "mimeType": "text/xml"
+            }
+          ]
+        }
+      ],
+      "fullMessage": "The term 'word' was detected in context of 'http://schemas.microsoft.com/office/word' (at 36). Verify that the use of this term conforms to the guidelines and update its use if required."
+    },
+    {
+      "toolFingerprint": "word",
+      "ruleId": "Custom",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "C:\\Users\\rtaket\\Documents\\PCheckExamples\\AzureAccountCreation.docx",
+              "mimeType": "application/vnd.ms-word.document"
+            },
+            {
+              "uri": "\\word\\styles.xml",
+              "mimeType": "text/xml"
+            }
+          ]
+        }
+      ],
+      "fullMessage": "The term 'word' was detected in context of 'http://schemas.microsoft.com/office/word/2010/wordml' (at 36). Verify that the use of this term conforms to the guidelines and update its use if required."
+    },
+    {
+      "toolFingerprint": "table",
+      "ruleId": "Custom",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "C:\\Users\\rtaket\\Documents\\PCheckExamples\\AzureAccountCreation.docx",
+              "mimeType": "application/vnd.ms-word.document"
+            },
+            {
+              "uri": "\\word\\styles.xml",
+              "mimeType": "text/xml"
+            }
+          ]
+        }
+      ],
+      "fullMessage": "The term 'table' was detected in context of 'Table Grid' (at 0). Verify that the use of this term conforms to the guidelines and update its use if required."
+    },
+    {
+      "toolFingerprint": "table",
+      "ruleId": "Custom",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "C:\\Users\\rtaket\\Documents\\PCheckExamples\\AzureAccountCreation.docx",
+              "mimeType": "application/vnd.ms-word.document"
+            },
+            {
+              "uri": "\\word\\styles.xml",
+              "mimeType": "text/xml"
+            }
+          ]
+        }
+      ],
+      "fullMessage": "The term 'table' was detected in context of 'table' (at 0). Verify that the use of this term conforms to the guidelines and update its use if required."
+    },
+    {
+      "toolFingerprint": "table",
+      "ruleId": "Custom",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "C:\\Users\\rtaket\\Documents\\PCheckExamples\\AzureAccountCreation.docx",
+              "mimeType": "application/vnd.ms-word.document"
+            },
+            {
+              "uri": "\\word\\styles.xml",
+              "mimeType": "text/xml"
+            }
+          ]
+        }
+      ],
+      "fullMessage": "The term 'table' was detected in context of 'Normal Table' (at 7). Verify that the use of this term conforms to the guidelines and update its use if required."
+    },
+    {
+      "toolFingerprint": "word",
+      "ruleId": "Custom",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "C:\\Users\\rtaket\\Documents\\PCheckExamples\\AzureAccountCreation.docx",
+              "mimeType": "application/vnd.ms-word.document"
+            },
+            {
+              "uri": "\\word\\stylesWithEffects.xml",
+              "mimeType": "text/xml"
+            }
+          ]
+        }
+      ],
+      "fullMessage": "The term 'word' was detected in context of 'http://schemas.microsoft.com/office/word/2010/wordprocessingShape' (at 36). Verify that the use of this term conforms to the guidelines and update its use if required."
+    },
+    {
+      "toolFingerprint": "word",
+      "ruleId": "Custom",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "C:\\Users\\rtaket\\Documents\\PCheckExamples\\AzureAccountCreation.docx",
+              "mimeType": "application/vnd.ms-word.document"
+            },
+            {
+              "uri": "\\word\\stylesWithEffects.xml",
+              "mimeType": "text/xml"
+            }
+          ]
+        }
+      ],
+      "fullMessage": "The term 'word' was detected in context of 'http://schemas.microsoft.com/office/word/2006/wordml' (at 36). Verify that the use of this term conforms to the guidelines and update its use if required."
+    },
+    {
+      "toolFingerprint": "word",
+      "ruleId": "Custom",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "C:\\Users\\rtaket\\Documents\\PCheckExamples\\AzureAccountCreation.docx",
+              "mimeType": "application/vnd.ms-word.document"
+            },
+            {
+              "uri": "\\word\\stylesWithEffects.xml",
+              "mimeType": "text/xml"
+            }
+          ]
+        }
+      ],
+      "fullMessage": "The term 'word' was detected in context of 'http://schemas.microsoft.com/office/word/2010/wordprocessingGroup' (at 36). Verify that the use of this term conforms to the guidelines and update its use if required."
+    },
+    {
+      "toolFingerprint": "word",
+      "ruleId": "Custom",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "C:\\Users\\rtaket\\Documents\\PCheckExamples\\AzureAccountCreation.docx",
+              "mimeType": "application/vnd.ms-word.document"
+            },
+            {
+              "uri": "\\word\\stylesWithEffects.xml",
+              "mimeType": "text/xml"
+            }
+          ]
+        }
+      ],
+      "fullMessage": "The term 'word' was detected in context of 'http://schemas.microsoft.com/office/word/2010/wordml' (at 36). Verify that the use of this term conforms to the guidelines and update its use if required."
+    },
+    {
+      "toolFingerprint": "word",
+      "ruleId": "Custom",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "C:\\Users\\rtaket\\Documents\\PCheckExamples\\AzureAccountCreation.docx",
+              "mimeType": "application/vnd.ms-word.document"
+            },
+            {
+              "uri": "\\word\\stylesWithEffects.xml",
+              "mimeType": "text/xml"
+            }
+          ]
+        }
+      ],
+      "fullMessage": "The term 'word' was detected in context of 'urn:schemas-microsoft-com:office:word' (at 33). Verify that the use of this term conforms to the guidelines and update its use if required."
+    },
+    {
+      "toolFingerprint": "word",
+      "ruleId": "Custom",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "C:\\Users\\rtaket\\Documents\\PCheckExamples\\AzureAccountCreation.docx",
+              "mimeType": "application/vnd.ms-word.document"
+            },
+            {
+              "uri": "\\word\\stylesWithEffects.xml",
+              "mimeType": "text/xml"
+            }
+          ]
+        }
+      ],
+      "fullMessage": "The term 'word' was detected in context of 'http://schemas.microsoft.com/office/word/2010/wordprocessingDrawing' (at 36). Verify that the use of this term conforms to the guidelines and update its use if required."
+    },
+    {
+      "toolFingerprint": "word",
+      "ruleId": "Custom",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "C:\\Users\\rtaket\\Documents\\PCheckExamples\\AzureAccountCreation.docx",
+              "mimeType": "application/vnd.ms-word.document"
+            },
+            {
+              "uri": "\\word\\stylesWithEffects.xml",
+              "mimeType": "text/xml"
+            }
+          ]
+        }
+      ],
+      "fullMessage": "The term 'word' was detected in context of 'http://schemas.microsoft.com/office/word/2010/wordprocessingCanvas' (at 36). Verify that the use of this term conforms to the guidelines and update its use if required."
+    },
+    {
+      "toolFingerprint": "table",
+      "ruleId": "Custom",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "C:\\Users\\rtaket\\Documents\\PCheckExamples\\AzureAccountCreation.docx",
+              "mimeType": "application/vnd.ms-word.document"
+            },
+            {
+              "uri": "\\word\\stylesWithEffects.xml",
+              "mimeType": "text/xml"
+            }
+          ]
+        }
+      ],
+      "fullMessage": "The term 'table' was detected in context of 'Table Grid' (at 0). Verify that the use of this term conforms to the guidelines and update its use if required."
+    },
+    {
+      "toolFingerprint": "table",
+      "ruleId": "Custom",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "C:\\Users\\rtaket\\Documents\\PCheckExamples\\AzureAccountCreation.docx",
+              "mimeType": "application/vnd.ms-word.document"
+            },
+            {
+              "uri": "\\word\\stylesWithEffects.xml",
+              "mimeType": "text/xml"
+            }
+          ]
+        }
+      ],
+      "fullMessage": "The term 'table' was detected in context of 'table' (at 0). Verify that the use of this term conforms to the guidelines and update its use if required."
+    },
+    {
+      "toolFingerprint": "table",
+      "ruleId": "Custom",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "C:\\Users\\rtaket\\Documents\\PCheckExamples\\AzureAccountCreation.docx",
+              "mimeType": "application/vnd.ms-word.document"
+            },
+            {
+              "uri": "\\word\\stylesWithEffects.xml",
+              "mimeType": "text/xml"
+            }
+          ]
+        }
+      ],
+      "fullMessage": "The term 'table' was detected in context of 'Normal Table' (at 7). Verify that the use of this term conforms to the guidelines and update its use if required."
+    },
+    {
+      "toolFingerprint": "word",
+      "ruleId": "Custom",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "C:\\Users\\rtaket\\Documents\\PCheckExamples\\AzureAccountCreation.docx",
+              "mimeType": "application/vnd.ms-word.document"
+            },
+            {
+              "uri": "\\word\\webSettings.xml",
+              "mimeType": "text/xml"
+            }
+          ]
+        }
+      ],
+      "fullMessage": "The term 'word' was detected in context of 'http://schemas.microsoft.com/office/word/2010/wordml' (at 36). Verify that the use of this term conforms to the guidelines and update its use if required."
+    },
+    {
+      "toolFingerprint": "word",
+      "ruleId": "Custom",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "C:\\Users\\rtaket\\Documents\\PCheckExamples\\AzureAccountCreation.docx",
+              "mimeType": "application/vnd.ms-word.document"
+            },
+            {
+              "uri": "SummaryProperties%5CApplicationName",
+              "mimeType": "application/octet-stream"
+            }
+          ]
+        }
+      ],
+      "fullMessage": "The term 'word' was detected in context of 'Microsoft Office Word' (at 17). Verify that the use of this term conforms to the guidelines and update its use if required."
+    },
+    {
+      "toolFingerprint": "sdl",
+      "ruleId": "Custom",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "C:\\Users\\rtaket\\Documents\\PCheckExamples\\Branch Strategy.vsdx",
+              "mimeType": "application/octet-stream"
+            },
+            {
+              "uri": "\\visio\\pages\\page1.xml",
+              "mimeType": "text/xml"
+            }
+          ]
+        }
+      ],
+      "fullMessage": "The term 'sdl' was detected in context of 'All SDL tool work' (at 4). Verify that the use of this term conforms to the guidelines and update its use if required."
+    },
+    {
+      "toolFingerprint": "sdl",
+      "ruleId": "Custom",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "C:\\Users\\rtaket\\Documents\\PCheckExamples\\Branch Strategy.vsdx",
+              "mimeType": "application/octet-stream"
+            },
+            {
+              "uri": "\\visio\\pages\\page2.xml",
+              "mimeType": "text/xml"
+            }
+          ]
+        }
+      ],
+      "fullMessage": "The term 'sdl' was detected in context of 'SDL 6.1 Beta' (at 0). Verify that the use of this term conforms to the guidelines and update its use if required."
+    },
+    {
+      "toolFingerprint": "sdl",
+      "ruleId": "Custom",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "C:\\Users\\rtaket\\Documents\\PCheckExamples\\Branch Strategy.vsdx",
+              "mimeType": "application/octet-stream"
+            },
+            {
+              "uri": "\\visio\\pages\\page2.xml",
+              "mimeType": "text/xml"
+            }
+          ]
+        }
+      ],
+      "fullMessage": "The term 'sdl' was detected in context of 'Create SDL 6.1 Beta' (at 7). Verify that the use of this term conforms to the guidelines and update its use if required."
+    },
+    {
+      "toolFingerprint": "sdl",
+      "ruleId": "Custom",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "C:\\Users\\rtaket\\Documents\\PCheckExamples\\Branch Strategy.vsdx",
+              "mimeType": "application/octet-stream"
+            },
+            {
+              "uri": "\\visio\\pages\\page2.xml",
+              "mimeType": "text/xml"
+            }
+          ]
+        }
+      ],
+      "fullMessage": "The term 'sdl' was detected in context of 'Create SDL 6.1 RTW\u2028branch from sdlmain' (at 7). Verify that the use of this term conforms to the guidelines and update its use if required."
+    },
+    {
+      "toolFingerprint": "sdl",
+      "ruleId": "Custom",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "C:\\Users\\rtaket\\Documents\\PCheckExamples\\Branch Strategy.vsdx",
+              "mimeType": "application/octet-stream"
+            },
+            {
+              "uri": "\\visio\\pages\\page2.xml",
+              "mimeType": "text/xml"
+            }
+          ]
+        }
+      ],
+      "fullMessage": "The term 'sdl' was detected in context of 'SDL 6.1 RTW' (at 0). Verify that the use of this term conforms to the guidelines and update its use if required."
+    },
+    {
+      "toolFingerprint": "windows",
+      "ruleId": "Custom",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "C:\\Users\\rtaket\\Documents\\PCheckExamples\\ConversionV4toV7Tests.cs",
+              "mimeType": "text/x-csharp",
+              "region": {
+                "startLine": 11
+              }
+            }
+          ]
+        }
+      ],
+      "fullMessage": "The term 'windows' was detected in context of 'using System.Windows.Forms;' (at 13). Verify that the use of this term conforms to the guidelines and update its use if required."
+    },
+    {
+      "toolFingerprint": "sdl",
+      "ruleId": "Custom",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "C:\\Users\\rtaket\\Documents\\PCheckExamples\\ConversionV4toV7Tests.cs",
+              "mimeType": "text/x-csharp",
+              "region": {
+                "startLine": 80
+              }
+            }
+          ]
+        }
+      ],
+      "fullMessage": "The term 'sdl' was detected in context of 'this.tmtSDL61ExeDir = @\"C:\\TMT\\Releases\\Microsoft Threat Modeling Tool for SDL 6.1\\tmt4.exe\";' (at 75). Verify that the use of this term conforms to the guidelines and update its use if required."
+    },
+    {
+      "toolFingerprint": "sdl",
+      "ruleId": "Custom",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "C:\\Users\\rtaket\\Documents\\PCheckExamples\\ConversionV4toV7Tests.cs",
+              "mimeType": "text/x-csharp",
+              "region": {
+                "startLine": 95
+              }
+            }
+          ]
+        }
+      ],
+      "fullMessage": "The term 'sdl' was detected in context of '///   C:\\TMT\\Releases\\Microsoft Threat Modeling Tool for SDL 6.1' (at 57). Verify that the use of this term conforms to the guidelines and update its use if required."
+    },
+    {
+      "toolFingerprint": "sdl",
+      "ruleId": "Custom",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "C:\\Users\\rtaket\\Documents\\PCheckExamples\\ConversionV4toV7Tests.cs",
+              "mimeType": "text/x-csharp",
+              "region": {
+                "startLine": 95
+              }
+            }
+          ]
+        }
+      ],
+      "fullMessage": "The term 'sdl' was detected in context of '///   By default, workarounds (v4 beta and SDL 6.1) are tried if a threat model will not open in current TMT.' (at 43). Verify that the use of this term conforms to the guidelines and update its use if required."
+    },
+    {
+      "toolFingerprint": "sdl",
+      "ruleId": "Custom",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "C:\\Users\\rtaket\\Documents\\PCheckExamples\\ConversionV4toV7Tests.cs",
+              "mimeType": "text/x-csharp",
+              "region": {
+                "startLine": 102
+              }
+            }
+          ]
+        }
+      ],
+      "fullMessage": "The term 'sdl' was detected in context of 'this.tm4ArchiveDir = @\"\\\\sdl-data01\\QELogs\";' (at 25). Verify that the use of this term conforms to the guidelines and update its use if required."
+    },
+    {
+      "toolFingerprint": "sdl",
+      "ruleId": "Custom",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "C:\\Users\\rtaket\\Documents\\PCheckExamples\\ConversionV4toV7Tests.cs",
+              "mimeType": "text/x-csharp",
+              "region": {
+                "startLine": 106
+              }
+            }
+          ]
+        }
+      ],
+      "fullMessage": "The term 'sdl' was detected in context of 'this.tmtSDL61ExeDir = @\"C:\\TMT\\Releases\\Microsoft Threat Modeling Tool for SDL 6.1\\tmt4.exe\";' (at 75). Verify that the use of this term conforms to the guidelines and update its use if required."
+    },
+    {
+      "toolFingerprint": "sdl",
+      "ruleId": "Custom",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "C:\\Users\\rtaket\\Documents\\PCheckExamples\\ConversionV4toV7Tests.cs",
+              "mimeType": "text/x-csharp",
+              "region": {
+                "startLine": 264
+              }
+            }
+          ]
+        }
+      ],
+      "fullMessage": "The term 'sdl' was detected in context of 'n and resave the model using the final release of that version before opening the file in TMT for SDL 6.1\"' (at 98). Verify that the use of this term conforms to the guidelines and update its use if required."
+    },
+    {
+      "toolFingerprint": "sdl",
+      "ruleId": "Custom",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "C:\\Users\\rtaket\\Documents\\PCheckExamples\\ConversionV4toV7Tests.cs",
+              "mimeType": "text/x-csharp",
+              "region": {
+                "startLine": 495
+              }
+            }
+          ]
+        }
+      ],
+      "fullMessage": "The term 'sdl' was detected in context of 'Assert.IsTrue(File.Exists(this.tmtSDL61ExeDir), \"because TMT SDL 6.1 executable is required at '{0}'\", this.tmtSDL61ExeDir);' (at 61). Verify that the use of this term conforms to the guidelines and update its use if required."
+    },
+    {
+      "toolFingerprint": "eval",
+      "ruleId": "Custom",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "C:\\Users\\rtaket\\Documents\\PCheckExamples\\DefectDefs.xml",
+              "mimeType": "text/xml",
+              "region": {
+                "startLine": 6
+              }
+            }
+          ]
+        }
+      ],
+      "fullMessage": "The term 'eval' was detected in context of 'Do not use the 'eval' function or its functional equivalents.' (at 16). Verify that the use of this term conforms to the guidelines and update its use if required."
+    },
+    {
+      "toolFingerprint": "word",
+      "ruleId": "Custom",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "C:\\Users\\rtaket\\Documents\\PCheckExamples\\DefectDefs.xml",
+              "mimeType": "text/xml",
+              "region": {
+                "startLine": 90
+              }
+            }
+          ]
+        }
+      ],
+      "fullMessage": "The term 'word' was detected in context of 'Capitalize the first word of code comments.' (at 21). Verify that the use of this term conforms to the guidelines and update its use if required."
+    },
+    {
+      "toolFingerprint": "windows",
+      "ruleId": "Custom",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "C:\\Users\\rtaket\\Documents\\PCheckExamples\\MSECvrf.dll",
+              "mimeType": "application/octet-stream"
+            },
+            {
+              "uri": "313",
+              "mimeType": "application/octet-stream"
+            }
+          ]
+        }
+      ],
+      "fullMessage": "The term 'windows' was detected in context of ''s security configuration. Either use a certificate that chains up to a root already trusted by Windows, or contact your' (at 96). Verify that the use of this term conforms to the guidelines and update its use if required."
+    },
+    {
+      "toolFingerprint": "windows",
+      "ruleId": "Custom",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "C:\\Users\\rtaket\\Documents\\PCheckExamples\\MSECvrf.dll",
+              "mimeType": "application/octet-stream"
+            },
+            {
+              "uri": "313",
+              "mimeType": "application/octet-stream"
+            }
+          ]
+        }
+      ],
+      "fullMessage": "The term 'windows' was detected in context of ''s security configuration. Either use a certificate that chains up to a root already trusted by Windows, or contact your' (at 96). Verify that the use of this term conforms to the guidelines and update its use if required."
+    },
+    {
+      "toolFingerprint": "table",
+      "ruleId": "Custom",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "C:\\Users\\rtaket\\Documents\\PCheckExamples\\Program.cs",
+              "mimeType": "text/x-csharp",
+              "region": {
+                "startLine": 199
+              }
+            }
+          ]
+        }
+      ],
+      "fullMessage": "The term 'table' was detected in context of '/// Creates the html table which displays the information about the failed test cases.' (at 21). Verify that the use of this term conforms to the guidelines and update its use if required."
+    },
+    {
+      "toolFingerprint": "sdl",
+      "ruleId": "Custom",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "C:\\Users\\rtaket\\Documents\\PCheckExamples\\sdl_version.h",
+              "mimeType": "text/x-cpp"
+            },
+            {
+              "uri": "0",
+              "mimeType": "application/octet-stream"
+            }
+          ]
+        }
+      ],
+      "fullMessage": "The term 'sdl' was detected in context of '// This file declares the SDL tools version in use.' (at 26). Verify that the use of this term conforms to the guidelines and update its use if required."
+    },
+    {
+      "toolFingerprint": "sdl",
+      "ruleId": "Custom",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "C:\\Users\\rtaket\\Documents\\PCheckExamples\\SecDevTools_WorkItems_20131121.1.zip\\_Configuration.xml",
+              "mimeType": "text/xml",
+              "region": {
+                "startLine": 43
+              }
+            }
+          ]
+        }
+      ],
+      "fullMessage": "The term 'sdl' was detected in context of 'SDL.Release' (at 0). Verify that the use of this term conforms to the guidelines and update its use if required."
+    },
+    {
+      "toolFingerprint": "sdl",
+      "ruleId": "Custom",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "C:\\Users\\rtaket\\Documents\\PCheckExamples\\SecDevTools_WorkItems_20131121.1.zip\\_Configuration.xml",
+              "mimeType": "text/xml",
+              "region": {
+                "startLine": 73
+              }
+            }
+          ]
+        }
+      ],
+      "fullMessage": "The term 'sdl' was detected in context of 'SDL.Release' (at 0). Verify that the use of this term conforms to the guidelines and update its use if required."
+    },
+    {
+      "toolFingerprint": "sdl",
+      "ruleId": "Custom",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "C:\\Users\\rtaket\\Documents\\PCheckExamples\\SecDevTools_WorkItems_20131121.1.zip\\_Configuration.xml",
+              "mimeType": "text/xml",
+              "region": {
+                "startLine": 92
+              }
+            }
+          ]
+        }
+      ],
+      "fullMessage": "The term 'sdl' was detected in context of 'SDL Tools\\Infrastructure' (at 0). Verify that the use of this term conforms to the guidelines and update its use if required."
+    },
+    {
+      "toolFingerprint": "sdl",
+      "ruleId": "Custom",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "C:\\Users\\rtaket\\Documents\\PCheckExamples\\SecDevTools_WorkItems_20131121.1.zip\\_Configuration.xml",
+              "mimeType": "text/xml",
+              "region": {
+                "startLine": 98
+              }
+            }
+          ]
+        }
+      ],
+      "fullMessage": "The term 'sdl' was detected in context of 'SDL Tools\\AppVerifier Plug-Ins' (at 0). Verify that the use of this term conforms to the guidelines and update its use if required."
+    },
+    {
+      "toolFingerprint": "sdl",
+      "ruleId": "Custom",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "C:\\Users\\rtaket\\Documents\\PCheckExamples\\SecDevTools_WorkItems_20131121.1.zip\\_Configuration.xml",
+              "mimeType": "text/xml",
+              "region": {
+                "startLine": 101
+              }
+            }
+          ]
+        }
+      ],
+      "fullMessage": "The term 'sdl' was detected in context of 'SDL Tools\\Attack Surface Analyzer' (at 0). Verify that the use of this term conforms to the guidelines and update its use if required."
+    },
+    {
+      "toolFingerprint": "sdl",
+      "ruleId": "Custom",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "C:\\Users\\rtaket\\Documents\\PCheckExamples\\SecDevTools_WorkItems_20131121.1.zip\\_Configuration.xml",
+              "mimeType": "text/xml",
+              "region": {
+                "startLine": 104
+              }
+            }
+          ]
+        }
+      ],
+      "fullMessage": "The term 'sdl' was detected in context of 'SDL Tools\\BinScope' (at 0). Verify that the use of this term conforms to the guidelines and update its use if required."
+    },
+    {
+      "toolFingerprint": "sdl",
+      "ruleId": "Custom",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "C:\\Users\\rtaket\\Documents\\PCheckExamples\\SecDevTools_WorkItems_20131121.1.zip\\_Configuration.xml",
+              "mimeType": "text/xml",
+              "region": {
+                "startLine": 107
+              }
+            }
+          ]
+        }
+      ],
+      "fullMessage": "The term 'sdl' was detected in context of 'SDL Tools\\FileFuzzer' (at 0). Verify that the use of this term conforms to the guidelines and update its use if required."
+    },
+    {
+      "toolFingerprint": "sdl",
+      "ruleId": "Custom",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "C:\\Users\\rtaket\\Documents\\PCheckExamples\\SecDevTools_WorkItems_20131121.1.zip\\_Configuration.xml",
+              "mimeType": "text/xml",
+              "region": {
+                "startLine": 110
+              }
+            }
+          ]
+        }
+      ],
+      "fullMessage": "The term 'sdl' was detected in context of 'SDL Tools\\FxCop Standalone and Plug-Ins' (at 0). Verify that the use of this term conforms to the guidelines and update its use if required."
+    },
+    {
+      "toolFingerprint": "sdl",
+      "ruleId": "Custom",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "C:\\Users\\rtaket\\Documents\\PCheckExamples\\SecDevTools_WorkItems_20131121.1.zip\\_Configuration.xml",
+              "mimeType": "text/xml",
+              "region": {
+                "startLine": 113
+              }
+            }
+          ]
+        }
+      ],
+      "fullMessage": "The term 'sdl' was detected in context of 'SDL Tools\\ModernCop' (at 0). Verify that the use of this term conforms to the guidelines and update its use if required."
+    },
+    {
+      "toolFingerprint": "sdl",
+      "ruleId": "Custom",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "C:\\Users\\rtaket\\Documents\\PCheckExamples\\SecDevTools_WorkItems_20131121.1.zip\\_Configuration.xml",
+              "mimeType": "text/xml",
+              "region": {
+                "startLine": 116
+              }
+            }
+          ]
+        }
+      ],
+      "fullMessage": "The term 'sdl' was detected in context of 'SDL Tools\\PREfast Plug-Ins' (at 0). Verify that the use of this term conforms to the guidelines and update its use if required."
+    },
+    {
+      "toolFingerprint": "sdl",
+      "ruleId": "Custom",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "C:\\Users\\rtaket\\Documents\\PCheckExamples\\SecDevTools_WorkItems_20131121.1.zip\\_Configuration.xml",
+              "mimeType": "text/xml",
+              "region": {
+                "startLine": 119
+              }
+            }
+          ]
+        }
+      ],
+      "fullMessage": "The term 'sdl' was detected in context of 'SDL Tools\\Red Viewer' (at 0). Verify that the use of this term conforms to the guidelines and update its use if required."
+    },
+    {
+      "toolFingerprint": "sdl",
+      "ruleId": "Custom",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "C:\\Users\\rtaket\\Documents\\PCheckExamples\\SecDevTools_WorkItems_20131121.1.zip\\_Configuration.xml",
+              "mimeType": "text/xml",
+              "region": {
+                "startLine": 122
+              }
+            }
+          ]
+        }
+      ],
+      "fullMessage": "The term 'sdl' was detected in context of 'SDL Tools\\Threat Modeling Tool' (at 0). Verify that the use of this term conforms to the guidelines and update its use if required."
+    },
+    {
+      "toolFingerprint": "sdl",
+      "ruleId": "Custom",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "C:\\Users\\rtaket\\Documents\\PCheckExamples\\SecDevTools_WorkItems_20131121.1.zip\\_Configuration.xml",
+              "mimeType": "text/xml",
+              "region": {
+                "startLine": 127
+              }
+            }
+          ]
+        }
+      ],
+      "fullMessage": "The term 'sdl' was detected in context of 'SDL 6.5\\Sprint 01' (at 0). Verify that the use of this term conforms to the guidelines and update its use if required."
+    },
+    {
+      "toolFingerprint": "sdl",
+      "ruleId": "Custom",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "C:\\Users\\rtaket\\Documents\\PCheckExamples\\SecDevTools_WorkItems_20131121.1.zip\\_Configuration.xml",
+              "mimeType": "text/xml",
+              "region": {
+                "startLine": 127
+              }
+            }
+          ]
+        }
+      ],
+      "fullMessage": "The term 'sdl' was detected in context of 'SDL Tools\\Sprint 1 (MQ)' (at 0). Verify that the use of this term conforms to the guidelines and update its use if required."
+    },
+    {
+      "toolFingerprint": "sdl",
+      "ruleId": "Custom",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "C:\\Users\\rtaket\\Documents\\PCheckExamples\\SecDevTools_WorkItems_20131121.1.zip\\_Configuration.xml",
+              "mimeType": "text/xml",
+              "region": {
+                "startLine": 130
+              }
+            }
+          ]
+        }
+      ],
+      "fullMessage": "The term 'sdl' was detected in context of 'SDL 6.1\\Sprint 07' (at 0). Verify that the use of this term conforms to the guidelines and update its use if required."
+    },
+    {
+      "toolFingerprint": "sdl",
+      "ruleId": "Custom",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "C:\\Users\\rtaket\\Documents\\PCheckExamples\\SecDevTools_WorkItems_20131121.1.zip\\_Configuration.xml",
+              "mimeType": "text/xml",
+              "region": {
+                "startLine": 130
+              }
+            }
+          ]
+        }
+      ],
+      "fullMessage": "The term 'sdl' was detected in context of 'SDL Tools\\Sprint 7' (at 0). Verify that the use of this term conforms to the guidelines and update its use if required."
+    },
+    {
+      "toolFingerprint": "sdl",
+      "ruleId": "Custom",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "C:\\Users\\rtaket\\Documents\\PCheckExamples\\SecDevTools_WorkItems_20131121.1.zip\\_Configuration.xml",
+              "mimeType": "text/xml",
+              "region": {
+                "startLine": 133
+              }
+            }
+          ]
+        }
+      ],
+      "fullMessage": "The term 'sdl' was detected in context of 'SDL 6.1\\Sprint 08' (at 0). Verify that the use of this term conforms to the guidelines and update its use if required."
+    },
+    {
+      "toolFingerprint": "sdl",
+      "ruleId": "Custom",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "C:\\Users\\rtaket\\Documents\\PCheckExamples\\SecDevTools_WorkItems_20131121.1.zip\\_Configuration.xml",
+              "mimeType": "text/xml",
+              "region": {
+                "startLine": 133
+              }
+            }
+          ]
+        }
+      ],
+      "fullMessage": "The term 'sdl' was detected in context of 'SDL Tools\\Sprint 8' (at 0). Verify that the use of this term conforms to the guidelines and update its use if required."
+    },
+    {
+      "toolFingerprint": "sdl",
+      "ruleId": "Custom",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "C:\\Users\\rtaket\\Documents\\PCheckExamples\\SecDevTools_WorkItems_20131121.1.zip\\_Configuration.xml",
+              "mimeType": "text/xml",
+              "region": {
+                "startLine": 136
+              }
+            }
+          ]
+        }
+      ],
+      "fullMessage": "The term 'sdl' was detected in context of 'SDL 6.5\\Sprint 01' (at 0). Verify that the use of this term conforms to the guidelines and update its use if required."
+    },
+    {
+      "toolFingerprint": "sdl",
+      "ruleId": "Custom",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "C:\\Users\\rtaket\\Documents\\PCheckExamples\\SecDevTools_WorkItems_20131121.1.zip\\_Configuration.xml",
+              "mimeType": "text/xml",
+              "region": {
+                "startLine": 136
+              }
+            }
+          ]
+        }
+      ],
+      "fullMessage": "The term 'sdl' was detected in context of 'SDL Tools\\Sprint 9' (at 0). Verify that the use of this term conforms to the guidelines and update its use if required."
+    },
+    {
+      "toolFingerprint": "sdl",
+      "ruleId": "Custom",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "C:\\Users\\rtaket\\Documents\\PCheckExamples\\SecDevTools_WorkItems_20131121.1.zip\\_Configuration.xml",
+              "mimeType": "text/xml",
+              "region": {
+                "startLine": 139
+              }
+            }
+          ]
+        }
+      ],
+      "fullMessage": "The term 'sdl' was detected in context of 'SDL 6.5\\Sprint 01' (at 0). Verify that the use of this term conforms to the guidelines and update its use if required."
+    },
+    {
+      "toolFingerprint": "sdl",
+      "ruleId": "Custom",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "C:\\Users\\rtaket\\Documents\\PCheckExamples\\SecDevTools_WorkItems_20131121.1.zip\\_Configuration.xml",
+              "mimeType": "text/xml",
+              "region": {
+                "startLine": 139
+              }
+            }
+          ]
+        }
+      ],
+      "fullMessage": "The term 'sdl' was detected in context of 'SDL Tools\\Sprint 10' (at 0). Verify that the use of this term conforms to the guidelines and update its use if required."
+    },
+    {
+      "toolFingerprint": "sdl",
+      "ruleId": "Custom",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "C:\\Users\\rtaket\\Documents\\PCheckExamples\\SecDevTools_WorkItems_20131121.1.zip\\_Configuration.xml",
+              "mimeType": "text/xml",
+              "region": {
+                "startLine": 142
+              }
+            }
+          ]
+        }
+      ],
+      "fullMessage": "The term 'sdl' was detected in context of 'SDL 6.5\\Sprint 01' (at 0). Verify that the use of this term conforms to the guidelines and update its use if required."
+    },
+    {
+      "toolFingerprint": "sdl",
+      "ruleId": "Custom",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "C:\\Users\\rtaket\\Documents\\PCheckExamples\\SecDevTools_WorkItems_20131121.1.zip\\_Configuration.xml",
+              "mimeType": "text/xml",
+              "region": {
+                "startLine": 142
+              }
+            }
+          ]
+        }
+      ],
+      "fullMessage": "The term 'sdl' was detected in context of 'SDL Tools\\Sprint 11' (at 0). Verify that the use of this term conforms to the guidelines and update its use if required."
+    },
+    {
+      "toolFingerprint": "windows",
+      "ruleId": "Custom",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "C:\\Users\\rtaket\\Documents\\PCheckExamples\\xray.cpp",
+              "mimeType": "text/x-cpp",
+              "region": {
+                "startLine": 1
+              }
+            }
+          ]
+        }
+      ],
+      "fullMessage": "The term 'windows' was detected in context of '// The ASA collector Windows.h needs to come first because it defines' (at 21). Verify that the use of this term conforms to the guidelines and update its use if required."
+    },
+    {
+      "toolFingerprint": "windows",
+      "ruleId": "Custom",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "C:\\Users\\rtaket\\Documents\\PCheckExamples\\xray.cpp",
+              "mimeType": "text/x-cpp",
+              "region": {
+                "startLine": 1
+              }
+            }
+          ]
+        }
+      ],
+      "fullMessage": "The term 'windows' was detected in context of '// some macros that control the Windows headers themselves.' (at 32). Verify that the use of this term conforms to the guidelines and update its use if required."
+    },
+    {
+      "toolFingerprint": "windows",
+      "ruleId": "Custom",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "C:\\Users\\rtaket\\Documents\\PCheckExamples\\xray.cpp",
+              "mimeType": "text/x-cpp",
+              "region": {
+                "startLine": 146
+              }
+            }
+          ]
+        }
+      ],
+      "fullMessage": "The term 'windows' was detected in context of 'options.emplace_back(L\"Windows\", GetOptionName(optionExcludeDir), excluded.c_str());' (at 23). Verify that the use of this term conforms to the guidelines and update its use if required."
+    },
+    {
+      "ruleId": "Failure_File Type Not Supported",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "C:\\Users\\rtaket\\Documents\\PCheckExamples\\builds.csv",
+              "mimeType": "application/octet-stream"
+            }
+          ]
+        }
+      ],
+      "fullMessage": "File Type Not Supported"
+    },
+    {
+      "ruleId": "Failure_File Type Not Supported",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "C:\\Users\\rtaket\\Documents\\PCheckExamples\\CFA5500D_1.dpk",
+              "mimeType": "application/octet-stream"
+            }
+          ]
+        }
+      ],
+      "fullMessage": "File Type Not Supported"
+    },
+    {
+      "ruleId": "Failure_File Type Not Supported",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "C:\\Users\\rtaket\\Documents\\PCheckExamples\\Excel.jpg",
+              "mimeType": "application/octet-stream"
+            }
+          ]
+        }
+      ],
+      "fullMessage": "File Type Not Supported"
+    },
+    {
+      "ruleId": "Failure_File Type Not Supported",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "C:\\Users\\rtaket\\Documents\\PCheckExamples\\GrammarToCode.exe.config",
+              "mimeType": "text/xml"
+            }
+          ]
+        }
+      ],
+      "fullMessage": "File Type Not Supported"
+    },
+    {
+      "ruleId": "Failure_File Type Not Supported",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "C:\\Users\\rtaket\\Documents\\PCheckExamples\\mod50.pdb",
+              "mimeType": "application/octet-stream"
+            }
+          ]
+        }
+      ],
+      "fullMessage": "File Type Not Supported"
+    },
+    {
+      "ruleId": "Failure_File Type Not Supported",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "C:\\Users\\rtaket\\Documents\\PCheckExamples\\MSECvrf.pdb",
+              "mimeType": "application/octet-stream"
+            }
+          ]
+        }
+      ],
+      "fullMessage": "File Type Not Supported"
+    },
+    {
+      "ruleId": "Failure_File Type Not Supported",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "C:\\Users\\rtaket\\Documents\\PCheckExamples\\New Query 1.wiq",
+              "mimeType": "application/octet-stream"
+            }
+          ]
+        }
+      ],
+      "fullMessage": "File Type Not Supported"
+    },
+    {
+      "ruleId": "Failure_File Type Not Supported",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "C:\\Users\\rtaket\\Documents\\PCheckExamples\\Poker.tm4",
+              "mimeType": "application/octet-stream"
+            }
+          ]
+        }
+      ],
+      "fullMessage": "File Type Not Supported"
+    },
+    {
+      "ruleId": "Failure_File Type Not Supported",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "C:\\Users\\rtaket\\Documents\\PCheckExamples\\test.ps1",
+              "mimeType": "text/x-powershell"
+            }
+          ]
+        }
+      ],
+      "fullMessage": "File Type Not Supported"
+    },
+    {
+      "ruleId": "Failure_File Type Not Supported",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "C:\\Users\\rtaket\\Documents\\PCheckExamples\\ThreatModeling.Test.Scenario.csproj",
+              "mimeType": "text/xml"
+            }
+          ]
+        }
+      ],
+      "fullMessage": "File Type Not Supported"
+    }
+  ]
+}

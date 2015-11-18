@@ -1,0 +1,578 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<results version="2">
+    <cppcheck version="1.66"/>
+    <errors>
+        <error id="variableScope" severity="style" msg="The scope of the variable &amp;#039;n&amp;#039; can be reduced." verbose="The scope of the variable &amp;#039;n&amp;#039; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &amp;#039;i&amp;#039; can be reduced:&#10;void f(int x)&#10;{&#10;    int i = 0;&#10;    if (x) {&#10;        // it&amp;#039;s safe to move &amp;#039;int i = 0;&amp;#039; here&#10;        for (int n = 0; n &amp;lt; 10; ++n) {&#10;            // it is possible but not safe to move &amp;#039;int i = 0;&amp;#039; here&#10;            do_something(&amp;amp;i);&#10;        }&#10;    }&#10;}&#10;When you see this message it is always safe to reduce the variable scope 1 level.">
+            <location file="adler32.c" line="71"/>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &amp;#039;c&amp;#039; can be reduced." verbose="The scope of the variable &amp;#039;c&amp;#039; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &amp;#039;i&amp;#039; can be reduced:&#10;void f(int x)&#10;{&#10;    int i = 0;&#10;    if (x) {&#10;        // it&amp;#039;s safe to move &amp;#039;int i = 0;&amp;#039; here&#10;        for (int n = 0; n &amp;lt; 10; ++n) {&#10;            // it is possible but not safe to move &amp;#039;int i = 0;&amp;#039; here&#10;            do_something(&amp;amp;i);&#10;        }&#10;    }&#10;}&#10;When you see this message it is always safe to reduce the variable scope 1 level.">
+            <location file="crc32.c" line="92"/>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &amp;#039;n&amp;#039; can be reduced." verbose="The scope of the variable &amp;#039;n&amp;#039; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &amp;#039;i&amp;#039; can be reduced:&#10;void f(int x)&#10;{&#10;    int i = 0;&#10;    if (x) {&#10;        // it&amp;#039;s safe to move &amp;#039;int i = 0;&amp;#039; here&#10;        for (int n = 0; n &amp;lt; 10; ++n) {&#10;            // it is possible but not safe to move &amp;#039;int i = 0;&amp;#039; here&#10;            do_something(&amp;amp;i);&#10;        }&#10;    }&#10;}&#10;When you see this message it is always safe to reduce the variable scope 1 level.">
+            <location file="crc32.c" line="93"/>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &amp;#039;k&amp;#039; can be reduced." verbose="The scope of the variable &amp;#039;k&amp;#039; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &amp;#039;i&amp;#039; can be reduced:&#10;void f(int x)&#10;{&#10;    int i = 0;&#10;    if (x) {&#10;        // it&amp;#039;s safe to move &amp;#039;int i = 0;&amp;#039; here&#10;        for (int n = 0; n &amp;lt; 10; ++n) {&#10;            // it is possible but not safe to move &amp;#039;int i = 0;&amp;#039; here&#10;            do_something(&amp;amp;i);&#10;        }&#10;    }&#10;}&#10;When you see this message it is always safe to reduce the variable scope 1 level.">
+            <location file="crc32.c" line="93"/>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &amp;#039;poly&amp;#039; can be reduced." verbose="The scope of the variable &amp;#039;poly&amp;#039; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &amp;#039;i&amp;#039; can be reduced:&#10;void f(int x)&#10;{&#10;    int i = 0;&#10;    if (x) {&#10;        // it&amp;#039;s safe to move &amp;#039;int i = 0;&amp;#039; here&#10;        for (int n = 0; n &amp;lt; 10; ++n) {&#10;            // it is possible but not safe to move &amp;#039;int i = 0;&amp;#039; here&#10;            do_something(&amp;amp;i);&#10;        }&#10;    }&#10;}&#10;When you see this message it is always safe to reduce the variable scope 1 level.">
+            <location file="crc32.c" line="94"/>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &amp;#039;p&amp;#039; can be reduced." verbose="The scope of the variable &amp;#039;p&amp;#039; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &amp;#039;i&amp;#039; can be reduced:&#10;void f(int x)&#10;{&#10;    int i = 0;&#10;    if (x) {&#10;        // it&amp;#039;s safe to move &amp;#039;int i = 0;&amp;#039; here&#10;        for (int n = 0; n &amp;lt; 10; ++n) {&#10;            // it is possible but not safe to move &amp;#039;int i = 0;&amp;#039; here&#10;            do_something(&amp;amp;i);&#10;        }&#10;    }&#10;}&#10;When you see this message it is always safe to reduce the variable scope 1 level.">
+            <location file="crc32.c" line="97"/>
+        </error>
+        <error id="clarifyCalculation" severity="style" msg="Clarify calculation precedence for &amp;#039;%&amp;#039; and &amp;#039;?&amp;#039;." verbose="Suspicious calculation. Please use parentheses to clarify the code. The code &amp;#039;&amp;#039;a%b?c:d&amp;#039;&amp;#039; should be written as either &amp;#039;&amp;#039;(a%b)?c:d&amp;#039;&amp;#039; or &amp;#039;&amp;#039;a%(b?c:d)&amp;#039;&amp;#039;.">
+            <location file="crc32.c" line="174"/>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &amp;#039;str&amp;#039; can be reduced." verbose="The scope of the variable &amp;#039;str&amp;#039; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &amp;#039;i&amp;#039; can be reduced:&#10;void f(int x)&#10;{&#10;    int i = 0;&#10;    if (x) {&#10;        // it&amp;#039;s safe to move &amp;#039;int i = 0;&amp;#039; here&#10;        for (int n = 0; n &amp;lt; 10; ++n) {&#10;            // it is possible but not safe to move &amp;#039;int i = 0;&amp;#039; here&#10;            do_something(&amp;amp;i);&#10;        }&#10;    }&#10;}&#10;When you see this message it is always safe to reduce the variable scope 1 level.">
+            <location file="deflate.c" line="329"/>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &amp;#039;n&amp;#039; can be reduced." verbose="The scope of the variable &amp;#039;n&amp;#039; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &amp;#039;i&amp;#039; can be reduced:&#10;void f(int x)&#10;{&#10;    int i = 0;&#10;    if (x) {&#10;        // it&amp;#039;s safe to move &amp;#039;int i = 0;&amp;#039; here&#10;        for (int n = 0; n &amp;lt; 10; ++n) {&#10;            // it is possible but not safe to move &amp;#039;int i = 0;&amp;#039; here&#10;            do_something(&amp;amp;i);&#10;        }&#10;    }&#10;}&#10;When you see this message it is always safe to reduce the variable scope 1 level.">
+            <location file="deflate.c" line="329"/>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &amp;#039;put&amp;#039; can be reduced." verbose="The scope of the variable &amp;#039;put&amp;#039; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &amp;#039;i&amp;#039; can be reduced:&#10;void f(int x)&#10;{&#10;    int i = 0;&#10;    if (x) {&#10;        // it&amp;#039;s safe to move &amp;#039;int i = 0;&amp;#039; here&#10;        for (int n = 0; n &amp;lt; 10; ++n) {&#10;            // it is possible but not safe to move &amp;#039;int i = 0;&amp;#039; here&#10;            do_something(&amp;amp;i);&#10;        }&#10;    }&#10;}&#10;When you see this message it is always safe to reduce the variable scope 1 level.">
+            <location file="deflate.c" line="470"/>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &amp;#039;str&amp;#039; can be reduced." verbose="The scope of the variable &amp;#039;str&amp;#039; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &amp;#039;i&amp;#039; can be reduced:&#10;void f(int x)&#10;{&#10;    int i = 0;&#10;    if (x) {&#10;        // it&amp;#039;s safe to move &amp;#039;int i = 0;&amp;#039; here&#10;        for (int n = 0; n &amp;lt; 10; ++n) {&#10;            // it is possible but not safe to move &amp;#039;int i = 0;&amp;#039; here&#10;            do_something(&amp;amp;i);&#10;        }&#10;    }&#10;}&#10;When you see this message it is always safe to reduce the variable scope 1 level.">
+            <location file="deflate.c" line="572"/>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &amp;#039;match&amp;#039; can be reduced." verbose="The scope of the variable &amp;#039;match&amp;#039; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &amp;#039;i&amp;#039; can be reduced:&#10;void f(int x)&#10;{&#10;    int i = 0;&#10;    if (x) {&#10;        // it&amp;#039;s safe to move &amp;#039;int i = 0;&amp;#039; here&#10;        for (int n = 0; n &amp;lt; 10; ++n) {&#10;            // it is possible but not safe to move &amp;#039;int i = 0;&amp;#039; here&#10;            do_something(&amp;amp;i);&#10;        }&#10;    }&#10;}&#10;When you see this message it is always safe to reduce the variable scope 1 level.">
+            <location file="deflate.c" line="1154"/>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &amp;#039;more&amp;#039; can be reduced." verbose="The scope of the variable &amp;#039;more&amp;#039; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &amp;#039;i&amp;#039; can be reduced:&#10;void f(int x)&#10;{&#10;    int i = 0;&#10;    if (x) {&#10;        // it&amp;#039;s safe to move &amp;#039;int i = 0;&amp;#039; here&#10;        for (int n = 0; n &amp;lt; 10; ++n) {&#10;            // it is possible but not safe to move &amp;#039;int i = 0;&amp;#039; here&#10;            do_something(&amp;amp;i);&#10;        }&#10;    }&#10;}&#10;When you see this message it is always safe to reduce the variable scope 1 level.">
+            <location file="deflate.c" line="1395"/>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &amp;#039;max_start&amp;#039; can be reduced." verbose="The scope of the variable &amp;#039;max_start&amp;#039; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &amp;#039;i&amp;#039; can be reduced:&#10;void f(int x)&#10;{&#10;    int i = 0;&#10;    if (x) {&#10;        // it&amp;#039;s safe to move &amp;#039;int i = 0;&amp;#039; here&#10;        for (int n = 0; n &amp;lt; 10; ++n) {&#10;            // it is possible but not safe to move &amp;#039;int i = 0;&amp;#039; here&#10;            do_something(&amp;amp;i);&#10;        }&#10;    }&#10;}&#10;When you see this message it is always safe to reduce the variable scope 1 level.">
+            <location file="deflate.c" line="1572"/>
+        </error>
+        <error id="unusedStructMember" severity="style" msg="struct or union member &amp;#039;static_tree_desc_s::dummy&amp;#039; is never used." verbose="struct or union member &amp;#039;static_tree_desc_s::dummy&amp;#039; is never used.">
+            <location file="deflate.c" line="155"/>
+        </error>
+        <error id="unreadVariable" severity="style" msg="Variable &amp;#039;bflush&amp;#039; is assigned a value that is never used." verbose="Variable &amp;#039;bflush&amp;#039; is assigned a value that is never used.">
+            <location file="deflate.c" line="1842"/>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &amp;#039;bflush&amp;#039; can be reduced." verbose="The scope of the variable &amp;#039;bflush&amp;#039; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &amp;#039;i&amp;#039; can be reduced:&#10;void f(int x)&#10;{&#10;    int i = 0;&#10;    if (x) {&#10;        // it&amp;#039;s safe to move &amp;#039;int i = 0;&amp;#039; here&#10;        for (int n = 0; n &amp;lt; 10; ++n) {&#10;            // it is possible but not safe to move &amp;#039;int i = 0;&amp;#039; here&#10;            do_something(&amp;amp;i);&#10;        }&#10;    }&#10;}&#10;When you see this message it is always safe to reduce the variable scope 1 level.">
+            <location file="deflate.c" line="1938"/>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &amp;#039;n&amp;#039; can be reduced." verbose="The scope of the variable &amp;#039;n&amp;#039; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &amp;#039;i&amp;#039; can be reduced:&#10;void f(int x)&#10;{&#10;    int i = 0;&#10;    if (x) {&#10;        // it&amp;#039;s safe to move &amp;#039;int i = 0;&amp;#039; here&#10;        for (int n = 0; n &amp;lt; 10; ++n) {&#10;            // it is possible but not safe to move &amp;#039;int i = 0;&amp;#039; here&#10;            do_something(&amp;amp;i);&#10;        }&#10;    }&#10;}&#10;When you see this message it is always safe to reduce the variable scope 1 level.">
+            <location file="gzlib.c" line="367"/>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &amp;#039;ret&amp;#039; can be reduced." verbose="The scope of the variable &amp;#039;ret&amp;#039; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &amp;#039;i&amp;#039; can be reduced:&#10;void f(int x)&#10;{&#10;    int i = 0;&#10;    if (x) {&#10;        // it&amp;#039;s safe to move &amp;#039;int i = 0;&amp;#039; here&#10;        for (int n = 0; n &amp;lt; 10; ++n) {&#10;            // it is possible but not safe to move &amp;#039;int i = 0;&amp;#039; here&#10;            do_something(&amp;amp;i);&#10;        }&#10;    }&#10;}&#10;When you see this message it is always safe to reduce the variable scope 1 level.">
+            <location file="gzlib.c" line="368"/>
+        </error>
+        <error id="ConfigurationNotChecked" severity="information" msg="Skipping configuration &amp;#039;O_BINARY&amp;#039; since the value of &amp;#039;O_BINARY&amp;#039; is unknown. Use -D if you want to check it. You can use -U to skip it explicitly." verbose="Skipping configuration &amp;#039;O_BINARY&amp;#039; since the value of &amp;#039;O_BINARY&amp;#039; is unknown. Use -D if you want to check it. You can use -U to skip it explicitly.">
+            <location file="gzlib.c" line="1"/>
+        </error>
+        <error id="ConfigurationNotChecked" severity="information" msg="Skipping configuration &amp;#039;O_CLOEXEC&amp;#039; since the value of &amp;#039;O_CLOEXEC&amp;#039; is unknown. Use -D if you want to check it. You can use -U to skip it explicitly." verbose="Skipping configuration &amp;#039;O_CLOEXEC&amp;#039; since the value of &amp;#039;O_CLOEXEC&amp;#039; is unknown. Use -D if you want to check it. You can use -U to skip it explicitly.">
+            <location file="gzlib.c" line="1"/>
+        </error>
+        <error id="ConfigurationNotChecked" severity="information" msg="Skipping configuration &amp;#039;O_EXCL&amp;#039; since the value of &amp;#039;O_EXCL&amp;#039; is unknown. Use -D if you want to check it. You can use -U to skip it explicitly." verbose="Skipping configuration &amp;#039;O_EXCL&amp;#039; since the value of &amp;#039;O_EXCL&amp;#039; is unknown. Use -D if you want to check it. You can use -U to skip it explicitly.">
+            <location file="gzlib.c" line="1"/>
+        </error>
+        <error id="ConfigurationNotChecked" severity="information" msg="Skipping configuration &amp;#039;O_LARGEFILE&amp;#039; since the value of &amp;#039;O_LARGEFILE&amp;#039; is unknown. Use -D if you want to check it. You can use -U to skip it explicitly." verbose="Skipping configuration &amp;#039;O_LARGEFILE&amp;#039; since the value of &amp;#039;O_LARGEFILE&amp;#039; is unknown. Use -D if you want to check it. You can use -U to skip it explicitly.">
+            <location file="gzlib.c" line="1"/>
+        </error>
+        <error id="nullPointer" severity="error" msg="Null pointer dereference" verbose="Null pointer dereference">
+            <location file="gzlib.c" line="193"/>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &amp;#039;n&amp;#039; can be reduced." verbose="The scope of the variable &amp;#039;n&amp;#039; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &amp;#039;i&amp;#039; can be reduced:&#10;void f(int x)&#10;{&#10;    int i = 0;&#10;    if (x) {&#10;        // it&amp;#039;s safe to move &amp;#039;int i = 0;&amp;#039; here&#10;        for (int n = 0; n &amp;lt; 10; ++n) {&#10;            // it is possible but not safe to move &amp;#039;int i = 0;&amp;#039; here&#10;            do_something(&amp;amp;i);&#10;        }&#10;    }&#10;}&#10;When you see this message it is always safe to reduce the variable scope 1 level.">
+            <location file="gzread.c" line="488"/>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &amp;#039;eol&amp;#039; can be reduced." verbose="The scope of the variable &amp;#039;eol&amp;#039; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &amp;#039;i&amp;#039; can be reduced:&#10;void f(int x)&#10;{&#10;    int i = 0;&#10;    if (x) {&#10;        // it&amp;#039;s safe to move &amp;#039;int i = 0;&amp;#039; here&#10;        for (int n = 0; n &amp;lt; 10; ++n) {&#10;            // it is possible but not safe to move &amp;#039;int i = 0;&amp;#039; here&#10;            do_something(&amp;amp;i);&#10;        }&#10;    }&#10;}&#10;When you see this message it is always safe to reduce the variable scope 1 level.">
+            <location file="gzread.c" line="490"/>
+        </error>
+        <error id="uninitvar" severity="error" msg="Uninitialized variable: n" verbose="Uninitialized variable: n">
+            <location file="gzread.c" line="271"/>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &amp;#039;ret&amp;#039; can be reduced." verbose="The scope of the variable &amp;#039;ret&amp;#039; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &amp;#039;i&amp;#039; can be reduced:&#10;void f(int x)&#10;{&#10;    int i = 0;&#10;    if (x) {&#10;        // it&amp;#039;s safe to move &amp;#039;int i = 0;&amp;#039; here&#10;        for (int n = 0; n &amp;lt; 10; ++n) {&#10;            // it is possible but not safe to move &amp;#039;int i = 0;&amp;#039; here&#10;            do_something(&amp;amp;i);&#10;        }&#10;    }&#10;}&#10;When you see this message it is always safe to reduce the variable scope 1 level.">
+            <location file="gzwrite.c" line="18"/>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &amp;#039;n&amp;#039; can be reduced." verbose="The scope of the variable &amp;#039;n&amp;#039; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &amp;#039;i&amp;#039; can be reduced:&#10;void f(int x)&#10;{&#10;    int i = 0;&#10;    if (x) {&#10;        // it&amp;#039;s safe to move &amp;#039;int i = 0;&amp;#039; here&#10;        for (int n = 0; n &amp;lt; 10; ++n) {&#10;            // it is possible but not safe to move &amp;#039;int i = 0;&amp;#039; here&#10;            do_something(&amp;amp;i);&#10;        }&#10;    }&#10;}&#10;When you see this message it is always safe to reduce the variable scope 1 level.">
+            <location file="gzwrite.c" line="138"/>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &amp;#039;have&amp;#039; can be reduced." verbose="The scope of the variable &amp;#039;have&amp;#039; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &amp;#039;i&amp;#039; can be reduced:&#10;void f(int x)&#10;{&#10;    int i = 0;&#10;    if (x) {&#10;        // it&amp;#039;s safe to move &amp;#039;int i = 0;&amp;#039; here&#10;        for (int n = 0; n &amp;lt; 10; ++n) {&#10;            // it is possible but not safe to move &amp;#039;int i = 0;&amp;#039; here&#10;            do_something(&amp;amp;i);&#10;        }&#10;    }&#10;}&#10;When you see this message it is always safe to reduce the variable scope 1 level.">
+            <location file="gzwrite.c" line="249"/>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &amp;#039;dist&amp;#039; can be reduced." verbose="The scope of the variable &amp;#039;dist&amp;#039; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &amp;#039;i&amp;#039; can be reduced:&#10;void f(int x)&#10;{&#10;    int i = 0;&#10;    if (x) {&#10;        // it&amp;#039;s safe to move &amp;#039;int i = 0;&amp;#039; here&#10;        for (int n = 0; n &amp;lt; 10; ++n) {&#10;            // it is possible but not safe to move &amp;#039;int i = 0;&amp;#039; here&#10;            do_something(&amp;amp;i);&#10;        }&#10;    }&#10;}&#10;When you see this message it is always safe to reduce the variable scope 1 level.">
+            <location file="inflate.c" line="385"/>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &amp;#039;dictid&amp;#039; can be reduced." verbose="The scope of the variable &amp;#039;dictid&amp;#039; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &amp;#039;i&amp;#039; can be reduced:&#10;void f(int x)&#10;{&#10;    int i = 0;&#10;    if (x) {&#10;        // it&amp;#039;s safe to move &amp;#039;int i = 0;&amp;#039; here&#10;        for (int n = 0; n &amp;lt; 10; ++n) {&#10;            // it is possible but not safe to move &amp;#039;int i = 0;&amp;#039; here&#10;            do_something(&amp;amp;i);&#10;        }&#10;    }&#10;}&#10;When you see this message it is always safe to reduce the variable scope 1 level.">
+            <location file="inflate.c" line="1297"/>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &amp;#039;buf&amp;#039; can be reduced." verbose="The scope of the variable &amp;#039;buf&amp;#039; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &amp;#039;i&amp;#039; can be reduced:&#10;void f(int x)&#10;{&#10;    int i = 0;&#10;    if (x) {&#10;        // it&amp;#039;s safe to move &amp;#039;int i = 0;&amp;#039; here&#10;        for (int n = 0; n &amp;lt; 10; ++n) {&#10;            // it is possible but not safe to move &amp;#039;int i = 0;&amp;#039; here&#10;            do_something(&amp;amp;i);&#10;        }&#10;    }&#10;}&#10;When you see this message it is always safe to reduce the variable scope 1 level.">
+            <location file="inflate.c" line="1382"/>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &amp;#039;wsize&amp;#039; can be reduced." verbose="The scope of the variable &amp;#039;wsize&amp;#039; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &amp;#039;i&amp;#039; can be reduced:&#10;void f(int x)&#10;{&#10;    int i = 0;&#10;    if (x) {&#10;        // it&amp;#039;s safe to move &amp;#039;int i = 0;&amp;#039; here&#10;        for (int n = 0; n &amp;lt; 10; ++n) {&#10;            // it is possible but not safe to move &amp;#039;int i = 0;&amp;#039; here&#10;            do_something(&amp;amp;i);&#10;        }&#10;    }&#10;}&#10;When you see this message it is always safe to reduce the variable scope 1 level.">
+            <location file="inflate.c" line="1445"/>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &amp;#039;fill&amp;#039; can be reduced." verbose="The scope of the variable &amp;#039;fill&amp;#039; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &amp;#039;i&amp;#039; can be reduced:&#10;void f(int x)&#10;{&#10;    int i = 0;&#10;    if (x) {&#10;        // it&amp;#039;s safe to move &amp;#039;int i = 0;&amp;#039; here&#10;        for (int n = 0; n &amp;lt; 10; ++n) {&#10;            // it is possible but not safe to move &amp;#039;int i = 0;&amp;#039; here&#10;            do_something(&amp;amp;i);&#10;        }&#10;    }&#10;}&#10;When you see this message it is always safe to reduce the variable scope 1 level.">
+            <location file="inftrees.c" line="50"/>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &amp;#039;curlen&amp;#039; can be reduced." verbose="The scope of the variable &amp;#039;curlen&amp;#039; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &amp;#039;i&amp;#039; can be reduced:&#10;void f(int x)&#10;{&#10;    int i = 0;&#10;    if (x) {&#10;        // it&amp;#039;s safe to move &amp;#039;int i = 0;&amp;#039; here&#10;        for (int n = 0; n &amp;lt; 10; ++n) {&#10;            // it is possible but not safe to move &amp;#039;int i = 0;&amp;#039; here&#10;            do_something(&amp;amp;i);&#10;        }&#10;    }&#10;}&#10;When you see this message it is always safe to reduce the variable scope 1 level.">
+            <location file="trees.c" line="712"/>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &amp;#039;curlen&amp;#039; can be reduced." verbose="The scope of the variable &amp;#039;curlen&amp;#039; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &amp;#039;i&amp;#039; can be reduced:&#10;void f(int x)&#10;{&#10;    int i = 0;&#10;    if (x) {&#10;        // it&amp;#039;s safe to move &amp;#039;int i = 0;&amp;#039; here&#10;        for (int n = 0; n &amp;lt; 10; ++n) {&#10;            // it is possible but not safe to move &amp;#039;int i = 0;&amp;#039; here&#10;            do_something(&amp;amp;i);&#10;        }&#10;    }&#10;}&#10;When you see this message it is always safe to reduce the variable scope 1 level.">
+            <location file="trees.c" line="757"/>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &amp;#039;dist&amp;#039; can be reduced." verbose="The scope of the variable &amp;#039;dist&amp;#039; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &amp;#039;i&amp;#039; can be reduced:&#10;void f(int x)&#10;{&#10;    int i = 0;&#10;    if (x) {&#10;        // it&amp;#039;s safe to move &amp;#039;int i = 0;&amp;#039; here&#10;        for (int n = 0; n &amp;lt; 10; ++n) {&#10;            // it is possible but not safe to move &amp;#039;int i = 0;&amp;#039; here&#10;            do_something(&amp;amp;i);&#10;        }&#10;    }&#10;}&#10;When you see this message it is always safe to reduce the variable scope 1 level.">
+            <location file="trees.c" line="1065"/>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &amp;#039;lc&amp;#039; can be reduced." verbose="The scope of the variable &amp;#039;lc&amp;#039; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &amp;#039;i&amp;#039; can be reduced:&#10;void f(int x)&#10;{&#10;    int i = 0;&#10;    if (x) {&#10;        // it&amp;#039;s safe to move &amp;#039;int i = 0;&amp;#039; here&#10;        for (int n = 0; n &amp;lt; 10; ++n) {&#10;            // it is possible but not safe to move &amp;#039;int i = 0;&amp;#039; here&#10;            do_something(&amp;amp;i);&#10;        }&#10;    }&#10;}&#10;When you see this message it is always safe to reduce the variable scope 1 level.">
+            <location file="trees.c" line="1066"/>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &amp;#039;lx&amp;#039; can be reduced." verbose="The scope of the variable &amp;#039;lx&amp;#039; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &amp;#039;i&amp;#039; can be reduced:&#10;void f(int x)&#10;{&#10;    int i = 0;&#10;    if (x) {&#10;        // it&amp;#039;s safe to move &amp;#039;int i = 0;&amp;#039; here&#10;        for (int n = 0; n &amp;lt; 10; ++n) {&#10;            // it is possible but not safe to move &amp;#039;int i = 0;&amp;#039; here&#10;            do_something(&amp;amp;i);&#10;        }&#10;    }&#10;}&#10;When you see this message it is always safe to reduce the variable scope 1 level.">
+            <location file="trees.c" line="1067"/>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &amp;#039;code&amp;#039; can be reduced." verbose="The scope of the variable &amp;#039;code&amp;#039; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &amp;#039;i&amp;#039; can be reduced:&#10;void f(int x)&#10;{&#10;    int i = 0;&#10;    if (x) {&#10;        // it&amp;#039;s safe to move &amp;#039;int i = 0;&amp;#039; here&#10;        for (int n = 0; n &amp;lt; 10; ++n) {&#10;            // it is possible but not safe to move &amp;#039;int i = 0;&amp;#039; here&#10;            do_something(&amp;amp;i);&#10;        }&#10;    }&#10;}&#10;When you see this message it is always safe to reduce the variable scope 1 level.">
+            <location file="trees.c" line="1068"/>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &amp;#039;extra&amp;#039; can be reduced." verbose="The scope of the variable &amp;#039;extra&amp;#039; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &amp;#039;i&amp;#039; can be reduced:&#10;void f(int x)&#10;{&#10;    int i = 0;&#10;    if (x) {&#10;        // it&amp;#039;s safe to move &amp;#039;int i = 0;&amp;#039; here&#10;        for (int n = 0; n &amp;lt; 10; ++n) {&#10;            // it is possible but not safe to move &amp;#039;int i = 0;&amp;#039; here&#10;            do_something(&amp;amp;i);&#10;        }&#10;    }&#10;}&#10;When you see this message it is always safe to reduce the variable scope 1 level.">
+            <location file="trees.c" line="1069"/>
+        </error>
+        <error id="invalidPrintfArgType_sint" severity="warning" msg="%ld in format string (no. 1) requires &amp;#039;long&amp;#039; but the argument type is &amp;#039;unsigned long&amp;#039;." verbose="%ld in format string (no. 1) requires &amp;#039;long&amp;#039; but the argument type is &amp;#039;unsigned long&amp;#039;.">
+            <location file="trees.c" line="826"/>
+        </error>
+        <error id="invalidPrintfArgType_sint" severity="warning" msg="%ld in format string (no. 2) requires &amp;#039;long&amp;#039; but the argument type is &amp;#039;unsigned long&amp;#039;." verbose="%ld in format string (no. 2) requires &amp;#039;long&amp;#039; but the argument type is &amp;#039;unsigned long&amp;#039;.">
+            <location file="trees.c" line="826"/>
+        </error>
+        <error id="invalidPrintfArgType_sint" severity="warning" msg="%ld in format string (no. 1) requires &amp;#039;long&amp;#039; but the argument type is &amp;#039;unsigned long&amp;#039;." verbose="%ld in format string (no. 1) requires &amp;#039;long&amp;#039; but the argument type is &amp;#039;unsigned long&amp;#039;.">
+            <location file="trees.c" line="853"/>
+        </error>
+        <error id="invalidPrintfArgType_sint" severity="warning" msg="%ld in format string (no. 1) requires &amp;#039;long&amp;#039; but the argument type is &amp;#039;unsigned long&amp;#039;." verbose="%ld in format string (no. 1) requires &amp;#039;long&amp;#039; but the argument type is &amp;#039;unsigned long&amp;#039;.">
+            <location file="trees.c" line="856"/>
+        </error>
+        <error id="invalidPrintfArgType_sint" severity="warning" msg="%ld in format string (no. 1) requires &amp;#039;long&amp;#039; but the argument type is &amp;#039;unsigned long&amp;#039;." verbose="%ld in format string (no. 1) requires &amp;#039;long&amp;#039; but the argument type is &amp;#039;unsigned long&amp;#039;.">
+            <location file="trees.c" line="859"/>
+        </error>
+        <error id="invalidPrintfArgType_sint" severity="warning" msg="%ld in format string (no. 1) requires &amp;#039;long&amp;#039; but the argument type is &amp;#039;unsigned long&amp;#039;." verbose="%ld in format string (no. 1) requires &amp;#039;long&amp;#039; but the argument type is &amp;#039;unsigned long&amp;#039;.">
+            <location file="trees.c" line="926"/>
+        </error>
+        <error id="invalidPrintfArgType_sint" severity="warning" msg="%ld in format string (no. 2) requires &amp;#039;long&amp;#039; but the argument type is &amp;#039;unsigned long&amp;#039;." verbose="%ld in format string (no. 2) requires &amp;#039;long&amp;#039; but the argument type is &amp;#039;unsigned long&amp;#039;.">
+            <location file="trees.c" line="926"/>
+        </error>
+        <error id="invalidPrintfArgType_sint" severity="warning" msg="%ld in format string (no. 1) requires &amp;#039;long&amp;#039; but the argument type is &amp;#039;unsigned long&amp;#039;." verbose="%ld in format string (no. 1) requires &amp;#039;long&amp;#039; but the argument type is &amp;#039;unsigned long&amp;#039;.">
+            <location file="trees.c" line="930"/>
+        </error>
+        <error id="invalidPrintfArgType_sint" severity="warning" msg="%ld in format string (no. 2) requires &amp;#039;long&amp;#039; but the argument type is &amp;#039;unsigned long&amp;#039;." verbose="%ld in format string (no. 2) requires &amp;#039;long&amp;#039; but the argument type is &amp;#039;unsigned long&amp;#039;.">
+            <location file="trees.c" line="930"/>
+        </error>
+        <error id="invalidPrintfArgType_sint" severity="warning" msg="%d in format string (no. 1) requires &amp;#039;int&amp;#039; but the argument type is &amp;#039;unsigned int&amp;#039;." verbose="%d in format string (no. 1) requires &amp;#039;int&amp;#039; but the argument type is &amp;#039;unsigned int&amp;#039;.">
+            <location file="trees.c" line="1090"/>
+        </error>
+        <error id="invalidPrintfArgType_uint" severity="warning" msg="%u in format string (no. 1) requires &amp;#039;unsigned int&amp;#039; but the argument type is &amp;#039;int&amp;#039;." verbose="%u in format string (no. 1) requires &amp;#039;unsigned int&amp;#039; but the argument type is &amp;#039;int&amp;#039;.">
+            <location file="trees.c" line="364"/>
+        </error>
+        <error id="invalidPrintfArgType_uint" severity="warning" msg="%u in format string (no. 1) requires &amp;#039;unsigned int&amp;#039; but the argument type is &amp;#039;int&amp;#039;." verbose="%u in format string (no. 1) requires &amp;#039;unsigned int&amp;#039; but the argument type is &amp;#039;int&amp;#039;.">
+            <location file="trees.c" line="370"/>
+        </error>
+        <error id="unsignedPositive" severity="style" msg="Unsigned variable &amp;#039;static_lenb&amp;#039; can&amp;#039;t be negative so it is unnecessary to test it." verbose="Unsigned variable &amp;#039;static_lenb&amp;#039; can&amp;#039;t be negative so it is unnecessary to test it.">
+            <location file="trees.c" line="970"/>
+        </error>
+        <error id="duplicateExpression" severity="style" msg="Same expression on both sides of &amp;#039;-&amp;#039;." verbose="Finding the same expression on both sides of an operator is suspicious and might indicate a cut and paste or logic error. Please examine this code carefully to determine if it is correct.">
+            <location file="zutil.c" line="309"/>
+            <location file="zutil.c" line="309"/>
+        </error>
+        <error id="unusedStructMember" severity="style" msg="struct or union member &amp;#039;internal_state::dummy&amp;#039; is never used." verbose="struct or union member &amp;#039;internal_state::dummy&amp;#039; is never used.">
+            <location file="zutil.c" line="14"/>
+        </error>
+        <error id="unusedStructMember" severity="style" msg="struct or union member &amp;#039;z_internal_state::dummy&amp;#039; is never used." verbose="struct or union member &amp;#039;z_internal_state::dummy&amp;#039; is never used.">
+            <location file="zutil.c" line="14"/>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &amp;#039;fill&amp;#039; can be reduced." verbose="The scope of the variable &amp;#039;fill&amp;#039; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &amp;#039;i&amp;#039; can be reduced:&#10;void f(int x)&#10;{&#10;    int i = 0;&#10;    if (x) {&#10;        // it&amp;#039;s safe to move &amp;#039;int i = 0;&amp;#039; here&#10;        for (int n = 0; n &amp;lt; 10; ++n) {&#10;            // it is possible but not safe to move &amp;#039;int i = 0;&amp;#039; here&#10;            do_something(&amp;amp;i);&#10;        }&#10;    }&#10;}&#10;When you see this message it is always safe to reduce the variable scope 1 level.">
+            <location file="contrib\infback9\inftree9.c" line="50"/>
+        </error>
+        <error id="unusedStructMember" severity="style" msg="struct or union member &amp;#039;inffast_ar::esp&amp;#039; is never used." verbose="struct or union member &amp;#039;inffast_ar::esp&amp;#039; is never used.">
+            <location file="contrib\inflate86\inffas86.c" line="79"/>
+        </error>
+        <error id="unusedStructMember" severity="style" msg="struct or union member &amp;#039;inffast_ar::ebp&amp;#039; is never used." verbose="struct or union member &amp;#039;inffast_ar::ebp&amp;#039; is never used.">
+            <location file="contrib\inflate86\inffas86.c" line="80"/>
+        </error>
+        <error id="unusedStructMember" severity="style" msg="struct or union member &amp;#039;inffast_ar::dist&amp;#039; is never used." verbose="struct or union member &amp;#039;inffast_ar::dist&amp;#039; is never used.">
+            <location file="contrib\inflate86\inffas86.c" line="96"/>
+        </error>
+        <error id="compareBoolExpressionWithInt" severity="warning" msg="Comparison of a boolean expression with an integer." verbose="Comparison of a boolean expression with an integer.">
+            <location file="contrib\iostream2\zstream_test.cpp" line="10"/>
+        </error>
+        <error id="compareBoolExpressionWithInt" severity="warning" msg="Comparison of a boolean expression with an integer." verbose="Comparison of a boolean expression with an integer.">
+            <location file="contrib\iostream2\zstream_test.cpp" line="15"/>
+        </error>
+        <error id="unassignedVariable" severity="style" msg="Variable &amp;#039;z&amp;#039; is not assigned a value." verbose="Variable &amp;#039;z&amp;#039; is not assigned a value.">
+            <location file="contrib\iostream2\zstream_test.cpp" line="14"/>
+        </error>
+        <error id="unusedStructMember" severity="style" msg="struct or union member &amp;#039;inffast_ar::esp&amp;#039; is never used." verbose="struct or union member &amp;#039;inffast_ar::esp&amp;#039; is never used.">
+            <location file="contrib\masmx64\inffas8664.c" line="84"/>
+        </error>
+        <error id="unusedStructMember" severity="style" msg="struct or union member &amp;#039;inffast_ar::ebp&amp;#039; is never used." verbose="struct or union member &amp;#039;inffast_ar::ebp&amp;#039; is never used.">
+            <location file="contrib\masmx64\inffas8664.c" line="85"/>
+        </error>
+        <error id="unusedStructMember" severity="style" msg="struct or union member &amp;#039;inffast_ar::in&amp;#039; is never used." verbose="struct or union member &amp;#039;inffast_ar::in&amp;#039; is never used.">
+            <location file="contrib\masmx64\inffas8664.c" line="86"/>
+        </error>
+        <error id="unusedStructMember" severity="style" msg="struct or union member &amp;#039;inffast_ar::last&amp;#039; is never used." verbose="struct or union member &amp;#039;inffast_ar::last&amp;#039; is never used.">
+            <location file="contrib\masmx64\inffas8664.c" line="87"/>
+        </error>
+        <error id="unusedStructMember" severity="style" msg="struct or union member &amp;#039;inffast_ar::out&amp;#039; is never used." verbose="struct or union member &amp;#039;inffast_ar::out&amp;#039; is never used.">
+            <location file="contrib\masmx64\inffas8664.c" line="88"/>
+        </error>
+        <error id="unusedStructMember" severity="style" msg="struct or union member &amp;#039;inffast_ar::beg&amp;#039; is never used." verbose="struct or union member &amp;#039;inffast_ar::beg&amp;#039; is never used.">
+            <location file="contrib\masmx64\inffas8664.c" line="89"/>
+        </error>
+        <error id="unusedStructMember" severity="style" msg="struct or union member &amp;#039;inffast_ar::end&amp;#039; is never used." verbose="struct or union member &amp;#039;inffast_ar::end&amp;#039; is never used.">
+            <location file="contrib\masmx64\inffas8664.c" line="90"/>
+        </error>
+        <error id="unusedStructMember" severity="style" msg="struct or union member &amp;#039;inffast_ar::window&amp;#039; is never used." verbose="struct or union member &amp;#039;inffast_ar::window&amp;#039; is never used.">
+            <location file="contrib\masmx64\inffas8664.c" line="91"/>
+        </error>
+        <error id="unusedStructMember" severity="style" msg="struct or union member &amp;#039;inffast_ar::hold&amp;#039; is never used." verbose="struct or union member &amp;#039;inffast_ar::hold&amp;#039; is never used.">
+            <location file="contrib\masmx64\inffas8664.c" line="94"/>
+        </error>
+        <error id="unusedStructMember" severity="style" msg="struct or union member &amp;#039;inffast_ar::bits&amp;#039; is never used." verbose="struct or union member &amp;#039;inffast_ar::bits&amp;#039; is never used.">
+            <location file="contrib\masmx64\inffas8664.c" line="95"/>
+        </error>
+        <error id="unusedStructMember" severity="style" msg="struct or union member &amp;#039;inffast_ar::wsize&amp;#039; is never used." verbose="struct or union member &amp;#039;inffast_ar::wsize&amp;#039; is never used.">
+            <location file="contrib\masmx64\inffas8664.c" line="96"/>
+        </error>
+        <error id="unusedStructMember" severity="style" msg="struct or union member &amp;#039;inffast_ar::write&amp;#039; is never used." verbose="struct or union member &amp;#039;inffast_ar::write&amp;#039; is never used.">
+            <location file="contrib\masmx64\inffas8664.c" line="97"/>
+        </error>
+        <error id="unusedStructMember" severity="style" msg="struct or union member &amp;#039;inffast_ar::lmask&amp;#039; is never used." verbose="struct or union member &amp;#039;inffast_ar::lmask&amp;#039; is never used.">
+            <location file="contrib\masmx64\inffas8664.c" line="98"/>
+        </error>
+        <error id="unusedStructMember" severity="style" msg="struct or union member &amp;#039;inffast_ar::dmask&amp;#039; is never used." verbose="struct or union member &amp;#039;inffast_ar::dmask&amp;#039; is never used.">
+            <location file="contrib\masmx64\inffas8664.c" line="99"/>
+        </error>
+        <error id="unusedStructMember" severity="style" msg="struct or union member &amp;#039;inffast_ar::len&amp;#039; is never used." verbose="struct or union member &amp;#039;inffast_ar::len&amp;#039; is never used.">
+            <location file="contrib\masmx64\inffas8664.c" line="100"/>
+        </error>
+        <error id="unusedStructMember" severity="style" msg="struct or union member &amp;#039;inffast_ar::dist&amp;#039; is never used." verbose="struct or union member &amp;#039;inffast_ar::dist&amp;#039; is never used.">
+            <location file="contrib\masmx64\inffas8664.c" line="101"/>
+        </error>
+        <error id="unusedStructMember" severity="style" msg="struct or union member &amp;#039;inffast_ar::status&amp;#039; is never used." verbose="struct or union member &amp;#039;inffast_ar::status&amp;#039; is never used.">
+            <location file="contrib\masmx64\inffas8664.c" line="102"/>
+        </error>
+        <error id="unreadVariable" severity="style" msg="Variable &amp;#039;mode_fopen&amp;#039; is assigned a value that is never used." verbose="Variable &amp;#039;mode_fopen&amp;#039; is assigned a value that is never used.">
+            <location file="contrib\minizip\iowin32.c" line="97"/>
+        </error>
+        <error id="unreadVariable" severity="style" msg="Variable &amp;#039;mode_fopen&amp;#039; is assigned a value that is never used." verbose="Variable &amp;#039;mode_fopen&amp;#039; is assigned a value that is never used.">
+            <location file="contrib\minizip\iowin32.c" line="126"/>
+        </error>
+        <error id="unreadVariable" severity="style" msg="Variable &amp;#039;mode_fopen&amp;#039; is assigned a value that is never used." verbose="Variable &amp;#039;mode_fopen&amp;#039; is assigned a value that is never used.">
+            <location file="contrib\minizip\iowin32.c" line="150"/>
+        </error>
+        <error id="unreadVariable" severity="style" msg="Variable &amp;#039;mode_fopen&amp;#039; is assigned a value that is never used." verbose="Variable &amp;#039;mode_fopen&amp;#039; is assigned a value that is never used.">
+            <location file="contrib\minizip\iowin32.c" line="170"/>
+        </error>
+        <error id="unreadVariable" severity="style" msg="Variable &amp;#039;dwMoveMethod&amp;#039; is assigned a value that is never used." verbose="Variable &amp;#039;dwMoveMethod&amp;#039; is assigned a value that is never used.">
+            <location file="contrib\minizip\iowin32.c" line="364"/>
+        </error>
+        <error id="nullPointer" severity="warning" msg="Possible null pointer dereference: zipfilename - otherwise it is redundant to check it against null." verbose="Possible null pointer dereference: zipfilename - otherwise it is redundant to check it against null.">
+            <location file="contrib\minizip\miniunz.c" line="632"/>
+            <location file="contrib\minizip\miniunz.c" line="602"/>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &amp;#039;fout&amp;#039; can be reduced." verbose="The scope of the variable &amp;#039;fout&amp;#039; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &amp;#039;i&amp;#039; can be reduced:&#10;void f(int x)&#10;{&#10;    int i = 0;&#10;    if (x) {&#10;        // it&amp;#039;s safe to move &amp;#039;int i = 0;&amp;#039; here&#10;        for (int n = 0; n &amp;lt; 10; ++n) {&#10;            // it is possible but not safe to move &amp;#039;int i = 0;&amp;#039; here&#10;            do_something(&amp;amp;i);&#10;        }&#10;    }&#10;}&#10;When you see this message it is always safe to reduce the variable scope 1 level.">
+            <location file="contrib\minizip\miniunz.c" line="322"/>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &amp;#039;i&amp;#039; can be reduced." verbose="The scope of the variable &amp;#039;i&amp;#039; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &amp;#039;i&amp;#039; can be reduced:&#10;void f(int x)&#10;{&#10;    int i = 0;&#10;    if (x) {&#10;        // it&amp;#039;s safe to move &amp;#039;int i = 0;&amp;#039; here&#10;        for (int n = 0; n &amp;lt; 10; ++n) {&#10;            // it is possible but not safe to move &amp;#039;int i = 0;&amp;#039; here&#10;            do_something(&amp;amp;i);&#10;        }&#10;    }&#10;}&#10;When you see this message it is always safe to reduce the variable scope 1 level.">
+            <location file="contrib\minizip\miniunz.c" line="542"/>
+        </error>
+        <error id="unreadVariable" severity="style" msg="Variable &amp;#039;ratio&amp;#039; is assigned a value that is never used." verbose="Variable &amp;#039;ratio&amp;#039; is assigned a value that is never used.">
+            <location file="contrib\minizip\miniunz.c" line="327"/>
+        </error>
+        <error id="unreadVariable" severity="style" msg="Variable &amp;#039;fout&amp;#039; is assigned a value that is never used." verbose="Variable &amp;#039;fout&amp;#039; is assigned a value that is never used.">
+            <location file="contrib\minizip\miniunz.c" line="484"/>
+        </error>
+        <error id="unreadVariable" severity="style" msg="Variable &amp;#039;err&amp;#039; is assigned a value that is never used." verbose="Variable &amp;#039;err&amp;#039; is assigned a value that is never used.">
+            <location file="contrib\minizip\miniunz.c" line="518"/>
+        </error>
+        <error id="invalidPrintfArgType_sint" severity="warning" msg="%lld in format string (no. 2) requires &amp;#039;long long&amp;#039; but the argument type is &amp;#039;unsigned long long&amp;#039;." verbose="%lld in format string (no. 2) requires &amp;#039;long long&amp;#039; but the argument type is &amp;#039;unsigned long long&amp;#039;.">
+            <location file="contrib\minizip\minizip.c" line="235"/>
+        </error>
+        <error id="nullPointer" severity="warning" msg="Possible null pointer dereference: fin - otherwise it is redundant to check it against null." verbose="Possible null pointer dereference: fin - otherwise it is redundant to check it against null.">
+            <location file="contrib\minizip\minizip.c" line="204"/>
+            <location file="contrib\minizip\minizip.c" line="193"/>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &amp;#039;size_read&amp;#039; can be reduced." verbose="The scope of the variable &amp;#039;size_read&amp;#039; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &amp;#039;i&amp;#039; can be reduced:&#10;void f(int x)&#10;{&#10;    int i = 0;&#10;    if (x) {&#10;        // it&amp;#039;s safe to move &amp;#039;int i = 0;&amp;#039; here&#10;        for (int n = 0; n &amp;lt; 10; ++n) {&#10;            // it is possible but not safe to move &amp;#039;int i = 0;&amp;#039; here&#10;            do_something(&amp;amp;i);&#10;        }&#10;    }&#10;}&#10;When you see this message it is always safe to reduce the variable scope 1 level.">
+            <location file="contrib\minizip\minizip.c" line="191"/>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &amp;#039;total_read&amp;#039; can be reduced." verbose="The scope of the variable &amp;#039;total_read&amp;#039; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &amp;#039;i&amp;#039; can be reduced:&#10;void f(int x)&#10;{&#10;    int i = 0;&#10;    if (x) {&#10;        // it&amp;#039;s safe to move &amp;#039;int i = 0;&amp;#039; here&#10;        for (int n = 0; n &amp;lt; 10; ++n) {&#10;            // it is possible but not safe to move &amp;#039;int i = 0;&amp;#039; here&#10;            do_something(&amp;amp;i);&#10;        }&#10;    }&#10;}&#10;When you see this message it is always safe to reduce the variable scope 1 level.">
+            <location file="contrib\minizip\minizip.c" line="192"/>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &amp;#039;pos&amp;#039; can be reduced." verbose="The scope of the variable &amp;#039;pos&amp;#039; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &amp;#039;i&amp;#039; can be reduced:&#10;void f(int x)&#10;{&#10;    int i = 0;&#10;    if (x) {&#10;        // it&amp;#039;s safe to move &amp;#039;int i = 0;&amp;#039; here&#10;        for (int n = 0; n &amp;lt; 10; ++n) {&#10;            // it is possible but not safe to move &amp;#039;int i = 0;&amp;#039; here&#10;            do_something(&amp;amp;i);&#10;        }&#10;    }&#10;}&#10;When you see this message it is always safe to reduce the variable scope 1 level.">
+            <location file="contrib\minizip\minizip.c" line="227"/>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &amp;#039;err&amp;#039; can be reduced." verbose="The scope of the variable &amp;#039;err&amp;#039; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &amp;#039;i&amp;#039; can be reduced:&#10;void f(int x)&#10;{&#10;    int i = 0;&#10;    if (x) {&#10;        // it&amp;#039;s safe to move &amp;#039;int i = 0;&amp;#039; here&#10;        for (int n = 0; n &amp;lt; 10; ++n) {&#10;            // it is possible but not safe to move &amp;#039;int i = 0;&amp;#039; here&#10;            do_something(&amp;amp;i);&#10;        }&#10;    }&#10;}&#10;When you see this message it is always safe to reduce the variable scope 1 level.">
+            <location file="contrib\minizip\minizip.c" line="257"/>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &amp;#039;size_read&amp;#039; can be reduced." verbose="The scope of the variable &amp;#039;size_read&amp;#039; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &amp;#039;i&amp;#039; can be reduced:&#10;void f(int x)&#10;{&#10;    int i = 0;&#10;    if (x) {&#10;        // it&amp;#039;s safe to move &amp;#039;int i = 0;&amp;#039; here&#10;        for (int n = 0; n &amp;lt; 10; ++n) {&#10;            // it is possible but not safe to move &amp;#039;int i = 0;&amp;#039; here&#10;            do_something(&amp;amp;i);&#10;        }&#10;    }&#10;}&#10;When you see this message it is always safe to reduce the variable scope 1 level.">
+            <location file="contrib\minizip\minizip.c" line="399"/>
+        </error>
+        <error id="unreadVariable" severity="style" msg="Variable &amp;#039;total_read&amp;#039; is assigned a value that is never used." verbose="Variable &amp;#039;total_read&amp;#039; is assigned a value that is never used.">
+            <location file="contrib\minizip\minizip.c" line="212"/>
+        </error>
+        <error id="unreadVariable" severity="style" msg="Variable &amp;#039;n&amp;#039; is assigned a value that is never used." verbose="Variable &amp;#039;n&amp;#039; is assigned a value that is never used.">
+            <location file="contrib\minizip\minizip.c" line="232"/>
+        </error>
+        <error id="invalidPrintfArgType_sint" severity="warning" msg="%lld in format string (no. 2) requires &amp;#039;long long&amp;#039; but the argument type is &amp;#039;unsigned __int64 {aka unsigned long long}&amp;#039;." verbose="%lld in format string (no. 2) requires &amp;#039;long long&amp;#039; but the argument type is &amp;#039;unsigned __int64 {aka unsigned long long}&amp;#039;.">
+            <location file="contrib\minizip\minizip.c" line="235"/>
+        </error>
+        <error id="resourceLeak" severity="error" msg="Resource leak: fpZip" verbose="Resource leak: fpZip">
+            <location file="contrib\minizip\mztools.c" line="290"/>
+        </error>
+        <error id="resourceLeak" severity="error" msg="Resource leak: fpOut" verbose="Resource leak: fpOut">
+            <location file="contrib\minizip\mztools.c" line="290"/>
+        </error>
+        <error id="resourceLeak" severity="error" msg="Resource leak: fpOutCD" verbose="Resource leak: fpOutCD">
+            <location file="contrib\minizip\mztools.c" line="290"/>
+        </error>
+        <error id="nullPointer" severity="warning" msg="Possible null pointer dereference: s - otherwise it is redundant to check it against null." verbose="Possible null pointer dereference: s - otherwise it is redundant to check it against null.">
+            <location file="contrib\minizip\unzip.c" line="1665"/>
+            <location file="contrib\minizip\unzip.c" line="1663"/>
+        </error>
+        <error id="unreadVariable" severity="style" msg="Variable &amp;#039;lSeek&amp;#039; is assigned a value that is never used." verbose="Variable &amp;#039;lSeek&amp;#039; is assigned a value that is never used.">
+            <location file="contrib\minizip\unzip.c" line="1105"/>
+        </error>
+        <error id="redundantAssignment" severity="performance" msg="Variable &amp;#039;err&amp;#039; is reassigned a value before the old one has been used." verbose="Variable &amp;#039;err&amp;#039; is reassigned a value before the old one has been used.">
+            <location file="contrib\minizip\zip.c" line="1037"/>
+            <location file="contrib\minizip\zip.c" line="1038"/>
+        </error>
+        <error id="redundantAssignment" severity="performance" msg="Variable &amp;#039;err&amp;#039; is reassigned a value before the old one has been used." verbose="Variable &amp;#039;err&amp;#039; is reassigned a value before the old one has been used.">
+            <location file="contrib\minizip\zip.c" line="1038"/>
+            <location file="contrib\minizip\zip.c" line="1040"/>
+        </error>
+        <error id="redundantAssignment" severity="performance" msg="Variable &amp;#039;err&amp;#039; is reassigned a value before the old one has been used." verbose="Variable &amp;#039;err&amp;#039; is reassigned a value before the old one has been used.">
+            <location file="contrib\minizip\zip.c" line="1040"/>
+            <location file="contrib\minizip\zip.c" line="1041"/>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &amp;#039;header&amp;#039; can be reduced." verbose="The scope of the variable &amp;#039;header&amp;#039; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &amp;#039;i&amp;#039; can be reduced:&#10;void f(int x)&#10;{&#10;    int i = 0;&#10;    if (x) {&#10;        // it&amp;#039;s safe to move &amp;#039;int i = 0;&amp;#039; here&#10;        for (int n = 0; n &amp;lt; 10; ++n) {&#10;            // it is possible but not safe to move &amp;#039;int i = 0;&amp;#039; here&#10;            do_something(&amp;amp;i);&#10;        }&#10;    }&#10;}&#10;When you see this message it is always safe to reduce the variable scope 1 level.">
+            <location file="contrib\minizip\zip.c" line="1957"/>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &amp;#039;dataSize&amp;#039; can be reduced." verbose="The scope of the variable &amp;#039;dataSize&amp;#039; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &amp;#039;i&amp;#039; can be reduced:&#10;void f(int x)&#10;{&#10;    int i = 0;&#10;    if (x) {&#10;        // it&amp;#039;s safe to move &amp;#039;int i = 0;&amp;#039; here&#10;        for (int n = 0; n &amp;lt; 10; ++n) {&#10;            // it is possible but not safe to move &amp;#039;int i = 0;&amp;#039; here&#10;            do_something(&amp;amp;i);&#10;        }&#10;    }&#10;}&#10;When you see this message it is always safe to reduce the variable scope 1 level.">
+            <location file="contrib\minizip\zip.c" line="1958"/>
+        </error>
+        <error id="unreadVariable" severity="style" msg="Variable &amp;#039;p&amp;#039; is assigned a value that is never used." verbose="Variable &amp;#039;p&amp;#039; is assigned a value that is never used.">
+            <location file="contrib\minizip\zip.c" line="1683"/>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &amp;#039;c&amp;#039; can be reduced." verbose="The scope of the variable &amp;#039;c&amp;#039; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &amp;#039;i&amp;#039; can be reduced:&#10;void f(int x)&#10;{&#10;    int i = 0;&#10;    if (x) {&#10;        // it&amp;#039;s safe to move &amp;#039;int i = 0;&amp;#039; here&#10;        for (int n = 0; n &amp;lt; 10; ++n) {&#10;            // it is possible but not safe to move &amp;#039;int i = 0;&amp;#039; here&#10;            do_something(&amp;amp;i);&#10;        }&#10;    }&#10;}&#10;When you see this message it is always safe to reduce the variable scope 1 level.">
+            <location file="contrib\minizip\crypt.h" line="99"/>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &amp;#039;len&amp;#039; can be reduced." verbose="The scope of the variable &amp;#039;len&amp;#039; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &amp;#039;i&amp;#039; can be reduced:&#10;void f(int x)&#10;{&#10;    int i = 0;&#10;    if (x) {&#10;        // it&amp;#039;s safe to move &amp;#039;int i = 0;&amp;#039; here&#10;        for (int n = 0; n &amp;lt; 10; ++n) {&#10;            // it is possible but not safe to move &amp;#039;int i = 0;&amp;#039; here&#10;            do_something(&amp;amp;i);&#10;        }&#10;    }&#10;}&#10;When you see this message it is always safe to reduce the variable scope 1 level.">
+            <location file="contrib\puff\puff.c" line="705"/>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &amp;#039;last&amp;#039; can be reduced." verbose="The scope of the variable &amp;#039;last&amp;#039; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &amp;#039;i&amp;#039; can be reduced:&#10;void f(int x)&#10;{&#10;    int i = 0;&#10;    if (x) {&#10;        // it&amp;#039;s safe to move &amp;#039;int i = 0;&amp;#039; here&#10;        for (int n = 0; n &amp;lt; 10; ++n) {&#10;            // it is possible but not safe to move &amp;#039;int i = 0;&amp;#039; here&#10;            do_something(&amp;amp;i);&#10;        }&#10;    }&#10;}&#10;When you see this message it is always safe to reduce the variable scope 1 level.">
+            <location file="contrib\puff\puff.c" line="799"/>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &amp;#039;type&amp;#039; can be reduced." verbose="The scope of the variable &amp;#039;type&amp;#039; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &amp;#039;i&amp;#039; can be reduced:&#10;void f(int x)&#10;{&#10;    int i = 0;&#10;    if (x) {&#10;        // it&amp;#039;s safe to move &amp;#039;int i = 0;&amp;#039; here&#10;        for (int n = 0; n &amp;lt; 10; ++n) {&#10;            // it is possible but not safe to move &amp;#039;int i = 0;&amp;#039; here&#10;            do_something(&amp;amp;i);&#10;        }&#10;    }&#10;}&#10;When you see this message it is always safe to reduce the variable scope 1 level.">
+            <location file="contrib\puff\puff.c" line="799"/>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &amp;#039;count&amp;#039; can be reduced." verbose="The scope of the variable &amp;#039;count&amp;#039; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &amp;#039;i&amp;#039; can be reduced:&#10;void f(int x)&#10;{&#10;    int i = 0;&#10;    if (x) {&#10;        // it&amp;#039;s safe to move &amp;#039;int i = 0;&amp;#039; here&#10;        for (int n = 0; n &amp;lt; 10; ++n) {&#10;            // it is possible but not safe to move &amp;#039;int i = 0;&amp;#039; here&#10;            do_something(&amp;amp;i);&#10;        }&#10;    }&#10;}&#10;When you see this message it is always safe to reduce the variable scope 1 level.">
+            <location file="contrib\puff\puff.c" line="240"/>
+        </error>
+        <error id="invalidPrintfArgType_sint" severity="warning" msg="%d in format string (no. 1) requires &amp;#039;int&amp;#039; but the argument type is &amp;#039;unsigned int&amp;#039;." verbose="%d in format string (no. 1) requires &amp;#039;int&amp;#039; but the argument type is &amp;#039;unsigned int&amp;#039;.">
+            <location file="contrib\puff\pufftest.c" line="129"/>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &amp;#039;dest&amp;#039; can be reduced." verbose="The scope of the variable &amp;#039;dest&amp;#039; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &amp;#039;i&amp;#039; can be reduced:&#10;void f(int x)&#10;{&#10;    int i = 0;&#10;    if (x) {&#10;        // it&amp;#039;s safe to move &amp;#039;int i = 0;&amp;#039; here&#10;        for (int n = 0; n &amp;lt; 10; ++n) {&#10;            // it is possible but not safe to move &amp;#039;int i = 0;&amp;#039; here&#10;            do_something(&amp;amp;i);&#10;        }&#10;    }&#10;}&#10;When you see this message it is always safe to reduce the variable scope 1 level.">
+            <location file="contrib\puff\pufftest.c" line="93"/>
+        </error>
+        <error id="invalidPrintfArgType_uint" severity="warning" msg="%u in format string (no. 2) requires &amp;#039;unsigned int&amp;#039; but the argument type is &amp;#039;long&amp;#039;." verbose="%u in format string (no. 2) requires &amp;#039;unsigned int&amp;#039; but the argument type is &amp;#039;long&amp;#039;.">
+            <location file="contrib\testzlib\testzlib.c" line="172"/>
+        </error>
+        <error id="invalidPrintfArgType_uint" severity="warning" msg="%u in format string (no. 1) requires &amp;#039;unsigned int&amp;#039; but the argument type is &amp;#039;long&amp;#039;." verbose="%u in format string (no. 1) requires &amp;#039;unsigned int&amp;#039; but the argument type is &amp;#039;long&amp;#039;.">
+            <location file="contrib\testzlib\testzlib.c" line="220"/>
+        </error>
+        <error id="invalidPrintfArgType_uint" severity="warning" msg="%u in format string (no. 2) requires &amp;#039;unsigned int&amp;#039; but the argument type is &amp;#039;int&amp;#039;." verbose="%u in format string (no. 2) requires &amp;#039;unsigned int&amp;#039; but the argument type is &amp;#039;int&amp;#039;.">
+            <location file="contrib\testzlib\testzlib.c" line="220"/>
+        </error>
+        <error id="invalidPrintfArgType_uint" severity="warning" msg="%u in format string (no. 1) requires &amp;#039;unsigned int&amp;#039; but the argument type is &amp;#039;long&amp;#039;." verbose="%u in format string (no. 1) requires &amp;#039;unsigned int&amp;#039; but the argument type is &amp;#039;long&amp;#039;.">
+            <location file="contrib\testzlib\testzlib.c" line="261"/>
+        </error>
+        <error id="invalidPrintfArgType_uint" severity="warning" msg="%u in format string (no. 2) requires &amp;#039;unsigned int&amp;#039; but the argument type is &amp;#039;int&amp;#039;." verbose="%u in format string (no. 2) requires &amp;#039;unsigned int&amp;#039; but the argument type is &amp;#039;int&amp;#039;.">
+            <location file="contrib\testzlib\testzlib.c" line="261"/>
+        </error>
+        <error id="unreadVariable" severity="style" msg="Variable &amp;#039;lCompressedSize&amp;#039; is assigned a value that is never used." verbose="Variable &amp;#039;lCompressedSize&amp;#039; is assigned a value that is never used.">
+            <location file="contrib\testzlib\testzlib.c" line="154"/>
+        </error>
+        <error id="unreadVariable" severity="style" msg="Variable &amp;#039;lOrigDone&amp;#039; is assigned a value that is never used." verbose="Variable &amp;#039;lOrigDone&amp;#039; is assigned a value that is never used.">
+            <location file="contrib\testzlib\testzlib.c" line="210"/>
+        </error>
+        <error id="unreadVariable" severity="style" msg="Variable &amp;#039;lOrigDone&amp;#039; is assigned a value that is never used." verbose="Variable &amp;#039;lOrigDone&amp;#039; is assigned a value that is never used.">
+            <location file="contrib\testzlib\testzlib.c" line="251"/>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &amp;#039;c&amp;#039; can be reduced." verbose="The scope of the variable &amp;#039;c&amp;#039; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &amp;#039;i&amp;#039; can be reduced:&#10;void f(int x)&#10;{&#10;    int i = 0;&#10;    if (x) {&#10;        // it&amp;#039;s safe to move &amp;#039;int i = 0;&amp;#039; here&#10;        for (int n = 0; n &amp;lt; 10; ++n) {&#10;            // it is possible but not safe to move &amp;#039;int i = 0;&amp;#039; here&#10;            do_something(&amp;amp;i);&#10;        }&#10;    }&#10;}&#10;When you see this message it is always safe to reduce the variable scope 1 level.">
+            <location file="contrib\untgz\untgz.c" line="171"/>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &amp;#039;prev&amp;#039; can be reduced." verbose="The scope of the variable &amp;#039;prev&amp;#039; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &amp;#039;i&amp;#039; can be reduced:&#10;void f(int x)&#10;{&#10;    int i = 0;&#10;    if (x) {&#10;        // it&amp;#039;s safe to move &amp;#039;int i = 0;&amp;#039; here&#10;        for (int n = 0; n &amp;lt; 10; ++n) {&#10;            // it is possible but not safe to move &amp;#039;int i = 0;&amp;#039; here&#10;            do_something(&amp;amp;i);&#10;        }&#10;    }&#10;}&#10;When you see this message it is always safe to reduce the variable scope 1 level.">
+            <location file="contrib\untgz\untgz.c" line="272"/>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &amp;#039;len&amp;#039; can be reduced." verbose="The scope of the variable &amp;#039;len&amp;#039; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &amp;#039;i&amp;#039; can be reduced:&#10;void f(int x)&#10;{&#10;    int i = 0;&#10;    if (x) {&#10;        // it&amp;#039;s safe to move &amp;#039;int i = 0;&amp;#039; here&#10;        for (int n = 0; n &amp;lt; 10; ++n) {&#10;            // it is possible but not safe to move &amp;#039;int i = 0;&amp;#039; here&#10;            do_something(&amp;amp;i);&#10;        }&#10;    }&#10;}&#10;When you see this message it is always safe to reduce the variable scope 1 level.">
+            <location file="contrib\untgz\untgz.c" line="389"/>
+        </error>
+        <error id="unusedStructMember" severity="style" msg="struct or union member &amp;#039;tar_header::uid&amp;#039; is never used." verbose="struct or union member &amp;#039;tar_header::uid&amp;#039; is never used.">
+            <location file="contrib\untgz\untgz.c" line="72"/>
+        </error>
+        <error id="unusedStructMember" severity="style" msg="struct or union member &amp;#039;tar_header::gid&amp;#039; is never used." verbose="struct or union member &amp;#039;tar_header::gid&amp;#039; is never used.">
+            <location file="contrib\untgz\untgz.c" line="73"/>
+        </error>
+        <error id="unusedStructMember" severity="style" msg="struct or union member &amp;#039;tar_header::chksum&amp;#039; is never used." verbose="struct or union member &amp;#039;tar_header::chksum&amp;#039; is never used.">
+            <location file="contrib\untgz\untgz.c" line="76"/>
+        </error>
+        <error id="unusedStructMember" severity="style" msg="struct or union member &amp;#039;tar_header::linkname&amp;#039; is never used." verbose="struct or union member &amp;#039;tar_header::linkname&amp;#039; is never used.">
+            <location file="contrib\untgz\untgz.c" line="78"/>
+        </error>
+        <error id="unusedStructMember" severity="style" msg="struct or union member &amp;#039;tar_header::magic&amp;#039; is never used." verbose="struct or union member &amp;#039;tar_header::magic&amp;#039; is never used.">
+            <location file="contrib\untgz\untgz.c" line="79"/>
+        </error>
+        <error id="unusedStructMember" severity="style" msg="struct or union member &amp;#039;tar_header::version&amp;#039; is never used." verbose="struct or union member &amp;#039;tar_header::version&amp;#039; is never used.">
+            <location file="contrib\untgz\untgz.c" line="80"/>
+        </error>
+        <error id="unusedStructMember" severity="style" msg="struct or union member &amp;#039;tar_header::uname&amp;#039; is never used." verbose="struct or union member &amp;#039;tar_header::uname&amp;#039; is never used.">
+            <location file="contrib\untgz\untgz.c" line="81"/>
+        </error>
+        <error id="unusedStructMember" severity="style" msg="struct or union member &amp;#039;tar_header::gname&amp;#039; is never used." verbose="struct or union member &amp;#039;tar_header::gname&amp;#039; is never used.">
+            <location file="contrib\untgz\untgz.c" line="82"/>
+        </error>
+        <error id="unusedStructMember" severity="style" msg="struct or union member &amp;#039;tar_header::devmajor&amp;#039; is never used." verbose="struct or union member &amp;#039;tar_header::devmajor&amp;#039; is never used.">
+            <location file="contrib\untgz\untgz.c" line="83"/>
+        </error>
+        <error id="unusedStructMember" severity="style" msg="struct or union member &amp;#039;tar_header::devminor&amp;#039; is never used." verbose="struct or union member &amp;#039;tar_header::devminor&amp;#039; is never used.">
+            <location file="contrib\untgz\untgz.c" line="84"/>
+        </error>
+        <error id="unusedStructMember" severity="style" msg="struct or union member &amp;#039;tar_header::prefix&amp;#039; is never used." verbose="struct or union member &amp;#039;tar_header::prefix&amp;#039; is never used.">
+            <location file="contrib\untgz\untgz.c" line="85"/>
+        </error>
+        <error id="unusedStructMember" severity="style" msg="struct or union member &amp;#039;tar_buffer::buffer&amp;#039; is never used." verbose="struct or union member &amp;#039;tar_buffer::buffer&amp;#039; is never used.">
+            <location file="contrib\untgz\untgz.c" line="91"/>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &amp;#039;n&amp;#039; can be reduced." verbose="The scope of the variable &amp;#039;n&amp;#039; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &amp;#039;i&amp;#039; can be reduced:&#10;void f(int x)&#10;{&#10;    int i = 0;&#10;    if (x) {&#10;        // it&amp;#039;s safe to move &amp;#039;int i = 0;&amp;#039; here&#10;        for (int n = 0; n &amp;lt; 10; ++n) {&#10;            // it is possible but not safe to move &amp;#039;int i = 0;&amp;#039; here&#10;            do_something(&amp;amp;i);&#10;        }&#10;    }&#10;}&#10;When you see this message it is always safe to reduce the variable scope 1 level.">
+            <location file="examples\enough.c" line="184"/>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &amp;#039;left&amp;#039; can be reduced." verbose="The scope of the variable &amp;#039;left&amp;#039; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &amp;#039;i&amp;#039; can be reduced:&#10;void f(int x)&#10;{&#10;    int i = 0;&#10;    if (x) {&#10;        // it&amp;#039;s safe to move &amp;#039;int i = 0;&amp;#039; here&#10;        for (int n = 0; n &amp;lt; 10; ++n) {&#10;            // it is possible but not safe to move &amp;#039;int i = 0;&amp;#039; here&#10;            do_something(&amp;amp;i);&#10;        }&#10;    }&#10;}&#10;When you see this message it is always safe to reduce the variable scope 1 level.">
+            <location file="examples\enough.c" line="406"/>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &amp;#039;index&amp;#039; can be reduced." verbose="The scope of the variable &amp;#039;index&amp;#039; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &amp;#039;i&amp;#039; can be reduced:&#10;void f(int x)&#10;{&#10;    int i = 0;&#10;    if (x) {&#10;        // it&amp;#039;s safe to move &amp;#039;int i = 0;&amp;#039; here&#10;        for (int n = 0; n &amp;lt; 10; ++n) {&#10;            // it is possible but not safe to move &amp;#039;int i = 0;&amp;#039; here&#10;            do_something(&amp;amp;i);&#10;        }&#10;    }&#10;}&#10;When you see this message it is always safe to reduce the variable scope 1 level.">
+            <location file="examples\enough.c" line="407"/>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &amp;#039;got&amp;#039; can be reduced." verbose="The scope of the variable &amp;#039;got&amp;#039; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &amp;#039;i&amp;#039; can be reduced:&#10;void f(int x)&#10;{&#10;    int i = 0;&#10;    if (x) {&#10;        // it&amp;#039;s safe to move &amp;#039;int i = 0;&amp;#039; here&#10;        for (int n = 0; n &amp;lt; 10; ++n) {&#10;            // it is possible but not safe to move &amp;#039;int i = 0;&amp;#039; here&#10;            do_something(&amp;amp;i);&#10;        }&#10;    }&#10;}&#10;When you see this message it is always safe to reduce the variable scope 1 level.">
+            <location file="examples\enough.c" line="462"/>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &amp;#039;ret&amp;#039; can be reduced." verbose="The scope of the variable &amp;#039;ret&amp;#039; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &amp;#039;i&amp;#039; can be reduced:&#10;void f(int x)&#10;{&#10;    int i = 0;&#10;    if (x) {&#10;        // it&amp;#039;s safe to move &amp;#039;int i = 0;&amp;#039; here&#10;        for (int n = 0; n &amp;lt; 10; ++n) {&#10;            // it is possible but not safe to move &amp;#039;int i = 0;&amp;#039; here&#10;            do_something(&amp;amp;i);&#10;        }&#10;    }&#10;}&#10;When you see this message it is always safe to reduce the variable scope 1 level.">
+            <location file="examples\gun.c" line="133"/>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &amp;#039;code&amp;#039; can be reduced." verbose="The scope of the variable &amp;#039;code&amp;#039; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &amp;#039;i&amp;#039; can be reduced:&#10;void f(int x)&#10;{&#10;    int i = 0;&#10;    if (x) {&#10;        // it&amp;#039;s safe to move &amp;#039;int i = 0;&amp;#039; here&#10;        for (int n = 0; n &amp;lt; 10; ++n) {&#10;            // it is possible but not safe to move &amp;#039;int i = 0;&amp;#039; here&#10;            do_something(&amp;amp;i);&#10;        }&#10;    }&#10;}&#10;When you see this message it is always safe to reduce the variable scope 1 level.">
+            <location file="examples\gun.c" line="208"/>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &amp;#039;last&amp;#039; can be reduced." verbose="The scope of the variable &amp;#039;last&amp;#039; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &amp;#039;i&amp;#039; can be reduced:&#10;void f(int x)&#10;{&#10;    int i = 0;&#10;    if (x) {&#10;        // it&amp;#039;s safe to move &amp;#039;int i = 0;&amp;#039; here&#10;        for (int n = 0; n &amp;lt; 10; ++n) {&#10;            // it is possible but not safe to move &amp;#039;int i = 0;&amp;#039; here&#10;            do_something(&amp;amp;i);&#10;        }&#10;    }&#10;}&#10;When you see this message it is always safe to reduce the variable scope 1 level.">
+            <location file="examples\gun.c" line="385"/>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &amp;#039;flags&amp;#039; can be reduced." verbose="The scope of the variable &amp;#039;flags&amp;#039; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &amp;#039;i&amp;#039; can be reduced:&#10;void f(int x)&#10;{&#10;    int i = 0;&#10;    if (x) {&#10;        // it&amp;#039;s safe to move &amp;#039;int i = 0;&amp;#039; here&#10;        for (int n = 0; n &amp;lt; 10; ++n) {&#10;            // it is possible but not safe to move &amp;#039;int i = 0;&amp;#039; here&#10;            do_something(&amp;amp;i);&#10;        }&#10;    }&#10;}&#10;When you see this message it is always safe to reduce the variable scope 1 level.">
+            <location file="examples\gun.c" line="386"/>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &amp;#039;len&amp;#039; can be reduced." verbose="The scope of the variable &amp;#039;len&amp;#039; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &amp;#039;i&amp;#039; can be reduced:&#10;void f(int x)&#10;{&#10;    int i = 0;&#10;    if (x) {&#10;        // it&amp;#039;s safe to move &amp;#039;int i = 0;&amp;#039; here&#10;        for (int n = 0; n &amp;lt; 10; ++n) {&#10;            // it is possible but not safe to move &amp;#039;int i = 0;&amp;#039; here&#10;            do_something(&amp;amp;i);&#10;        }&#10;    }&#10;}&#10;When you see this message it is always safe to reduce the variable scope 1 level.">
+            <location file="examples\gun.c" line="633"/>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &amp;#039;outname&amp;#039; can be reduced." verbose="The scope of the variable &amp;#039;outname&amp;#039; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &amp;#039;i&amp;#039; can be reduced:&#10;void f(int x)&#10;{&#10;    int i = 0;&#10;    if (x) {&#10;        // it&amp;#039;s safe to move &amp;#039;int i = 0;&amp;#039; here&#10;        for (int n = 0; n &amp;lt; 10; ++n) {&#10;            // it is possible but not safe to move &amp;#039;int i = 0;&amp;#039; here&#10;            do_something(&amp;amp;i);&#10;        }&#10;    }&#10;}&#10;When you see this message it is always safe to reduce the variable scope 1 level.">
+            <location file="examples\gun.c" line="634"/>
+        </error>
+        <error id="unreadVariable" severity="style" msg="Variable &amp;#039;final&amp;#039; is assigned a value that is never used." verbose="Variable &amp;#039;final&amp;#039; is assigned a value that is never used.">
+            <location file="examples\gun.c" line="337"/>
+        </error>
+        <error id="nullPointer" severity="warning" msg="Possible null pointer dereference: name - otherwise it is redundant to check it against null." verbose="Possible null pointer dereference: name - otherwise it is redundant to check it against null.">
+            <location file="examples\gzappend.c" line="415"/>
+            <location file="examples\gzappend.c" line="396"/>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &amp;#039;start&amp;#039; can be reduced." verbose="The scope of the variable &amp;#039;start&amp;#039; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &amp;#039;i&amp;#039; can be reduced:&#10;void f(int x)&#10;{&#10;    int i = 0;&#10;    if (x) {&#10;        // it&amp;#039;s safe to move &amp;#039;int i = 0;&amp;#039; here&#10;        for (int n = 0; n &amp;lt; 10; ++n) {&#10;            // it is possible but not safe to move &amp;#039;int i = 0;&amp;#039; here&#10;            do_something(&amp;amp;i);&#10;        }&#10;    }&#10;}&#10;When you see this message it is always safe to reduce the variable scope 1 level.">
+            <location file="examples\gzappend.c" line="127"/>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &amp;#039;to&amp;#039; can be reduced." verbose="The scope of the variable &amp;#039;to&amp;#039; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &amp;#039;i&amp;#039; can be reduced:&#10;void f(int x)&#10;{&#10;    int i = 0;&#10;    if (x) {&#10;        // it&amp;#039;s safe to move &amp;#039;int i = 0;&amp;#039; here&#10;        for (int n = 0; n &amp;lt; 10; ++n) {&#10;            // it is possible but not safe to move &amp;#039;int i = 0;&amp;#039; here&#10;            do_something(&amp;amp;i);&#10;        }&#10;    }&#10;}&#10;When you see this message it is always safe to reduce the variable scope 1 level.">
+            <location file="examples\gzappend.c" line="127"/>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &amp;#039;bypass&amp;#039; can be reduced." verbose="The scope of the variable &amp;#039;bypass&amp;#039; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &amp;#039;i&amp;#039; can be reduced:&#10;void f(int x)&#10;{&#10;    int i = 0;&#10;    if (x) {&#10;        // it&amp;#039;s safe to move &amp;#039;int i = 0;&amp;#039; here&#10;        for (int n = 0; n &amp;lt; 10; ++n) {&#10;            // it is possible but not safe to move &amp;#039;int i = 0;&amp;#039; here&#10;            do_something(&amp;amp;i);&#10;        }&#10;    }&#10;}&#10;When you see this message it is always safe to reduce the variable scope 1 level.">
+            <location file="examples\gzappend.c" line="204"/>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &amp;#039;n&amp;#039; can be reduced." verbose="The scope of the variable &amp;#039;n&amp;#039; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &amp;#039;i&amp;#039; can be reduced:&#10;void f(int x)&#10;{&#10;    int i = 0;&#10;    if (x) {&#10;        // it&amp;#039;s safe to move &amp;#039;int i = 0;&amp;#039; here&#10;        for (int n = 0; n &amp;lt; 10; ++n) {&#10;            // it is possible but not safe to move &amp;#039;int i = 0;&amp;#039; here&#10;            do_something(&amp;amp;i);&#10;        }&#10;    }&#10;}&#10;When you see this message it is always safe to reduce the variable scope 1 level.">
+            <location file="examples\gzappend.c" line="238"/>
+        </error>
+        <error id="nullPointer" severity="error" msg="Null pointer dereference" verbose="Null pointer dereference">
+            <location file="examples\gzjoin.c" line="391"/>
+        </error>
+        <error id="nullPointer" severity="error" msg="Null pointer dereference" verbose="Null pointer dereference">
+            <location file="examples\gzjoin.c" line="405"/>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &amp;#039;put&amp;#039; can be reduced." verbose="The scope of the variable &amp;#039;put&amp;#039; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &amp;#039;i&amp;#039; can be reduced:&#10;void f(int x)&#10;{&#10;    int i = 0;&#10;    if (x) {&#10;        // it&amp;#039;s safe to move &amp;#039;int i = 0;&amp;#039; here&#10;        for (int n = 0; n &amp;lt; 10; ++n) {&#10;            // it is possible but not safe to move &amp;#039;int i = 0;&amp;#039; here&#10;            do_something(&amp;amp;i);&#10;        }&#10;    }&#10;}&#10;When you see this message it is always safe to reduce the variable scope 1 level.">
+            <location file="examples\gzlog.c" line="503"/>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &amp;#039;fd&amp;#039; can be reduced." verbose="The scope of the variable &amp;#039;fd&amp;#039; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &amp;#039;i&amp;#039; can be reduced:&#10;void f(int x)&#10;{&#10;    int i = 0;&#10;    if (x) {&#10;        // it&amp;#039;s safe to move &amp;#039;int i = 0;&amp;#039; here&#10;        for (int n = 0; n &amp;lt; 10; ++n) {&#10;            // it is possible but not safe to move &amp;#039;int i = 0;&amp;#039; here&#10;            do_something(&amp;amp;i);&#10;        }&#10;    }&#10;}&#10;When you see this message it is always safe to reduce the variable scope 1 level.">
+            <location file="examples\gzlog.c" line="610"/>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &amp;#039;got&amp;#039; can be reduced." verbose="The scope of the variable &amp;#039;got&amp;#039; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &amp;#039;i&amp;#039; can be reduced:&#10;void f(int x)&#10;{&#10;    int i = 0;&#10;    if (x) {&#10;        // it&amp;#039;s safe to move &amp;#039;int i = 0;&amp;#039; here&#10;        for (int n = 0; n &amp;lt; 10; ++n) {&#10;            // it is possible but not safe to move &amp;#039;int i = 0;&amp;#039; here&#10;            do_something(&amp;amp;i);&#10;        }&#10;    }&#10;}&#10;When you see this message it is always safe to reduce the variable scope 1 level.">
+            <location file="examples\gzlog.c" line="611"/>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &amp;#039;max&amp;#039; can be reduced." verbose="The scope of the variable &amp;#039;max&amp;#039; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &amp;#039;i&amp;#039; can be reduced:&#10;void f(int x)&#10;{&#10;    int i = 0;&#10;    if (x) {&#10;        // it&amp;#039;s safe to move &amp;#039;int i = 0;&amp;#039; here&#10;        for (int n = 0; n &amp;lt; 10; ++n) {&#10;            // it is possible but not safe to move &amp;#039;int i = 0;&amp;#039; here&#10;            do_something(&amp;amp;i);&#10;        }&#10;    }&#10;}&#10;When you see this message it is always safe to reduce the variable scope 1 level.">
+            <location file="examples\gzlog.c" line="611"/>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &amp;#039;dict&amp;#039; can be reduced." verbose="The scope of the variable &amp;#039;dict&amp;#039; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &amp;#039;i&amp;#039; can be reduced:&#10;void f(int x)&#10;{&#10;    int i = 0;&#10;    if (x) {&#10;        // it&amp;#039;s safe to move &amp;#039;int i = 0;&amp;#039; here&#10;        for (int n = 0; n &amp;lt; 10; ++n) {&#10;            // it is possible but not safe to move &amp;#039;int i = 0;&amp;#039; here&#10;            do_something(&amp;amp;i);&#10;        }&#10;    }&#10;}&#10;When you see this message it is always safe to reduce the variable scope 1 level.">
+            <location file="examples\gzlog.c" line="612"/>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &amp;#039;fd&amp;#039; can be reduced." verbose="The scope of the variable &amp;#039;fd&amp;#039; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &amp;#039;i&amp;#039; can be reduced:&#10;void f(int x)&#10;{&#10;    int i = 0;&#10;    if (x) {&#10;        // it&amp;#039;s safe to move &amp;#039;int i = 0;&amp;#039; here&#10;        for (int n = 0; n &amp;lt; 10; ++n) {&#10;            // it is possible but not safe to move &amp;#039;int i = 0;&amp;#039; here&#10;            do_something(&amp;amp;i);&#10;        }&#10;    }&#10;}&#10;When you see this message it is always safe to reduce the variable scope 1 level.">
+            <location file="examples\gzlog.c" line="740"/>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &amp;#039;fd&amp;#039; can be reduced." verbose="The scope of the variable &amp;#039;fd&amp;#039; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &amp;#039;i&amp;#039; can be reduced:&#10;void f(int x)&#10;{&#10;    int i = 0;&#10;    if (x) {&#10;        // it&amp;#039;s safe to move &amp;#039;int i = 0;&amp;#039; here&#10;        for (int n = 0; n &amp;lt; 10; ++n) {&#10;            // it is possible but not safe to move &amp;#039;int i = 0;&amp;#039; here&#10;            do_something(&amp;amp;i);&#10;        }&#10;    }&#10;}&#10;When you see this message it is always safe to reduce the variable scope 1 level.">
+            <location file="examples\gzlog.c" line="910"/>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &amp;#039;ret&amp;#039; can be reduced." verbose="The scope of the variable &amp;#039;ret&amp;#039; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &amp;#039;i&amp;#039; can be reduced:&#10;void f(int x)&#10;{&#10;    int i = 0;&#10;    if (x) {&#10;        // it&amp;#039;s safe to move &amp;#039;int i = 0;&amp;#039; here&#10;        for (int n = 0; n &amp;lt; 10; ++n) {&#10;            // it is possible but not safe to move &amp;#039;int i = 0;&amp;#039; here&#10;            do_something(&amp;amp;i);&#10;        }&#10;    }&#10;}&#10;When you see this message it is always safe to reduce the variable scope 1 level.">
+            <location file="examples\gzlog.c" line="910"/>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &amp;#039;next&amp;#039; can be reduced." verbose="The scope of the variable &amp;#039;next&amp;#039; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &amp;#039;i&amp;#039; can be reduced:&#10;void f(int x)&#10;{&#10;    int i = 0;&#10;    if (x) {&#10;        // it&amp;#039;s safe to move &amp;#039;int i = 0;&amp;#039; here&#10;        for (int n = 0; n &amp;lt; 10; ++n) {&#10;            // it is possible but not safe to move &amp;#039;int i = 0;&amp;#039; here&#10;            do_something(&amp;amp;i);&#10;        }&#10;    }&#10;}&#10;When you see this message it is always safe to reduce the variable scope 1 level.">
+            <location file="examples\gzlog.c" line="912"/>
+        </error>
+        <error id="unsignedLessThanZero" severity="style" msg="Checking if unsigned variable &amp;#039;len&amp;#039; is less than zero." verbose="The unsigned variable &amp;#039;len&amp;#039; will never be negative so it is either pointless or an error to check if it is.">
+            <location file="examples\gzlog.c" line="1003"/>
+        </error>
+        <error id="nullPointer" severity="error" msg="Possible null pointer dereference: index" verbose="Possible null pointer dereference: index">
+            <location file="examples\zran.c" line="229"/>
+        </error>
+        <error id="nullPointer" severity="error" msg="Possible null pointer dereference: index" verbose="Possible null pointer dereference: index">
+            <location file="examples\zran.c" line="230"/>
+        </error>
+        <error id="nullPointer" severity="error" msg="Possible null pointer dereference: index" verbose="Possible null pointer dereference: index">
+            <location file="examples\zran.c" line="232"/>
+        </error>
+        <error id="uselessAssignmentPtrArg" severity="warning" msg="Assignment of function parameter has no effect outside the function." verbose="Assignment of function parameter has no effect outside the function.">
+            <location file="test\example.c" line="62"/>
+        </error>
+        <error id="uselessAssignmentPtrArg" severity="warning" msg="Assignment of function parameter has no effect outside the function." verbose="Assignment of function parameter has no effect outside the function.">
+            <location file="test\example.c" line="68"/>
+        </error>
+        <error id="uselessAssignmentPtrArg" severity="warning" msg="Assignment of function parameter has no effect outside the function." verbose="Assignment of function parameter has no effect outside the function.">
+            <location file="test\example.c" line="576"/>
+        </error>
+        <error id="uselessAssignmentPtrArg" severity="warning" msg="Assignment of function parameter has no effect outside the function." verbose="Assignment of function parameter has no effect outside the function.">
+            <location file="test\infcover.c" line="465"/>
+        </error>
+        <error id="invalidPrintfArgType_uint" severity="warning" msg="%lu in format string (no. 2) requires &amp;#039;unsigned long&amp;#039; but the argument type is &amp;#039;size_t {aka unsigned long}&amp;#039;." verbose="%lu in format string (no. 2) requires &amp;#039;unsigned long&amp;#039; but the argument type is &amp;#039;size_t {aka unsigned long}&amp;#039;.">
+            <location file="test\infcover.c" line="188"/>
+        </error>
+        <error id="invalidPrintfArgType_uint" severity="warning" msg="%lu in format string (no. 2) requires &amp;#039;unsigned long&amp;#039; but the argument type is &amp;#039;size_t {aka unsigned long}&amp;#039;." verbose="%lu in format string (no. 2) requires &amp;#039;unsigned long&amp;#039; but the argument type is &amp;#039;size_t {aka unsigned long}&amp;#039;.">
+            <location file="test\infcover.c" line="196"/>
+        </error>
+        <error id="invalidPrintfArgType_uint" severity="warning" msg="%lu in format string (no. 2) requires &amp;#039;unsigned long&amp;#039; but the argument type is &amp;#039;size_t {aka unsigned long}&amp;#039;." verbose="%lu in format string (no. 2) requires &amp;#039;unsigned long&amp;#039; but the argument type is &amp;#039;size_t {aka unsigned long}&amp;#039;.">
+            <location file="test\infcover.c" line="221"/>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &amp;#039;len&amp;#039; can be reduced." verbose="The scope of the variable &amp;#039;len&amp;#039; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &amp;#039;i&amp;#039; can be reduced:&#10;void f(int x)&#10;{&#10;    int i = 0;&#10;    if (x) {&#10;        // it&amp;#039;s safe to move &amp;#039;int i = 0;&amp;#039; here&#10;        for (int n = 0; n &amp;lt; 10; ++n) {&#10;            // it is possible but not safe to move &amp;#039;int i = 0;&amp;#039; here&#10;            do_something(&amp;amp;i);&#10;        }&#10;    }&#10;}&#10;When you see this message it is always safe to reduce the variable scope 1 level.">
+            <location file="test\minigzip.c" line="367"/>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &amp;#039;len&amp;#039; can be reduced." verbose="The scope of the variable &amp;#039;len&amp;#039; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &amp;#039;i&amp;#039; can be reduced:&#10;void f(int x)&#10;{&#10;    int i = 0;&#10;    if (x) {&#10;        // it&amp;#039;s safe to move &amp;#039;int i = 0;&amp;#039; here&#10;        for (int n = 0; n &amp;lt; 10; ++n) {&#10;            // it is possible but not safe to move &amp;#039;int i = 0;&amp;#039; here&#10;            do_something(&amp;amp;i);&#10;        }&#10;    }&#10;}&#10;When you see this message it is always safe to reduce the variable scope 1 level.">
+            <location file="test\minigzip.c" line="435"/>
+        </error>
+        <error id="uselessAssignmentPtrArg" severity="warning" msg="Assignment of function parameter has no effect outside the function." verbose="Assignment of function parameter has no effect outside the function.">
+            <location file="test\minigzip.c" line="159"/>
+        </error>
+        <error id="uselessAssignmentPtrArg" severity="warning" msg="Assignment of function parameter has no effect outside the function." verbose="Assignment of function parameter has no effect outside the function.">
+            <location file="test\minigzip.c" line="166"/>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &amp;#039;ret&amp;#039; can be reduced." verbose="The scope of the variable &amp;#039;ret&amp;#039; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &amp;#039;i&amp;#039; can be reduced:&#10;void f(int x)&#10;{&#10;    int i = 0;&#10;    if (x) {&#10;        // it&amp;#039;s safe to move &amp;#039;int i = 0;&amp;#039; here&#10;        for (int n = 0; n &amp;lt; 10; ++n) {&#10;            // it is possible but not safe to move &amp;#039;int i = 0;&amp;#039; here&#10;            do_something(&amp;amp;i);&#10;        }&#10;    }&#10;}&#10;When you see this message it is always safe to reduce the variable scope 1 level.">
+            <location file="test\minigzip.c" line="265"/>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &amp;#039;got&amp;#039; can be reduced." verbose="The scope of the variable &amp;#039;got&amp;#039; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &amp;#039;i&amp;#039; can be reduced:&#10;void f(int x)&#10;{&#10;    int i = 0;&#10;    if (x) {&#10;        // it&amp;#039;s safe to move &amp;#039;int i = 0;&amp;#039; here&#10;        for (int n = 0; n &amp;lt; 10; ++n) {&#10;            // it is possible but not safe to move &amp;#039;int i = 0;&amp;#039; here&#10;            do_something(&amp;amp;i);&#10;        }&#10;    }&#10;}&#10;When you see this message it is always safe to reduce the variable scope 1 level.">
+            <location file="test\minigzip.c" line="266"/>
+        </error>
+    </errors>
+</results>

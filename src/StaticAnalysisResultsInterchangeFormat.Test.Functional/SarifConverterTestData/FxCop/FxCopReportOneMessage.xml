@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<?xml-stylesheet type="text/xsl" href="c:\program files (x86)\microsoft\fxcop 14.0 for sdl 7.0.beta\Xml\FxCopReport.xsl"?>
+<FxCopReport Version="14.0">
+    <Namespaces>
+        <Namespace Name="SecurityCryptographyRuleTests">
+            <Messages>
+                <Message TypeName="DeclareTypesInMicrosoftOrSystemNamespace" Category="Microsoft.MSInternal" CheckId="CA904" Status="Active" Created="2014-10-09 21:21:57Z" FixCategory="Breaking">
+                    <Issue Certainty="75" Level="Error">Redefine the types in namespace 'SecurityCryptographyRuleTests' in the Microsoft or System namespace. Public types that will never ship externally can be defined in the MS namespace. Consider disabling this rule when analyzing code that does not ship externally.</Issue>
+                </Message>
+            </Messages>
+        </Namespace>
+    </Namespaces>
+</FxCopReport>

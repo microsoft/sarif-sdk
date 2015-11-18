@@ -1,0 +1,44 @@
+{
+  "version": "1.0",
+  "toolInfo": {
+    "toolName": "AndroidStudio"
+  },
+  "issues": [
+    {
+      "ruleId": "'for' loop replaceable with 'foreach'",
+      "locations": [
+        {
+          "issueFile": [
+            {
+              "uri": "app/src/main/java/microsoft/androidstudioformatexample/MainActivity.java",
+              "mimeType": "text/x-java-source",
+              "region": {
+                "startLine": 42
+              }
+            }
+          ],
+          "fullyQualifiedLogicalName": "app\\microsoft.androidstudioformatexample\\microsoft.androidstudioformatexample.MainActivity java.lang.String ForCanBeForeachExample()",
+          "logicalLocation": [
+            {
+              "name": "app",
+              "locationKind": "android-module"
+            },
+            {
+              "name": "microsoft.androidstudioformatexample",
+              "locationKind": "package"
+            },
+            {
+              "name": "microsoft.androidstudioformatexample.MainActivity java.lang.String ForCanBeForeachExample()",
+              "locationKind": "method"
+            }
+          ]
+        }
+      ],
+      "fullMessage": "<code>for</code> loop replaceable with 'foreach' #loc",
+      "properties": {
+        "severity": "WARNING",
+        "attributeKey": "WARNING_ATTRIBUTES"
+      }
+    }
+  ]
+}

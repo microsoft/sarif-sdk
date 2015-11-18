@@ -1,0 +1,38 @@
+{
+  "version": "1.0",
+  "toolInfo": {
+    "toolName": "FxCop"
+  },
+  "issues": [
+    {
+      "toolFingerprint": "Logon#StringResourceShouldBeCompoundWord",
+      "ruleId": "CA1701",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "$(ProjectDir)/SpecifyCultureInfo/Microsoft.TeamFoundation.Build.Client.dll",
+              "mimeType": "application/octet-stream"
+            }
+          ],
+          "fullyQualifiedLogicalName": "OMStrings.resources",
+          "logicalLocation": [
+            {
+              "name": "microsoft.teamfoundation.build.client.dll",
+              "locationKind": "module"
+            },
+            {
+              "name": "OMStrings.resources",
+              "locationKind": "resource"
+            }
+          ]
+        }
+      ],
+      "shortMessage": "ResourceStringCompoundWordsShouldBeCasedCorrectly",
+      "fullMessage": "In resource 'OMStrings.resx', referenced by name 'FailedGrantingRightsLogonAsService', correct the spelling of 'Logon' in string value 'Failed to grant rights 'Logon as Service' to {0} ({1}).'\n          ",
+      "properties": {
+        "Category": "Microsoft.Naming"
+      }
+    }
+  ]
+}

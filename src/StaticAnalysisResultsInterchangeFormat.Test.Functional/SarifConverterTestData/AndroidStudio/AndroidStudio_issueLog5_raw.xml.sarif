@@ -1,0 +1,2902 @@
+{
+  "version": "1.0",
+  "toolInfo": {
+    "toolName": "AndroidStudio"
+  },
+  "issues": [
+    {
+      "ruleId": "Typo",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "gradle.properties",
+              "mimeType": "text/x-java-source"
+            }
+          ],
+          "issueFile": [
+            {
+              "uri": "gradle.properties",
+              "mimeType": "text/x-java-source",
+              "region": {
+                "startLine": 8
+              }
+            }
+          ],
+          "fullyQualifiedLogicalName": "AndroidStudioFormatExample",
+          "logicalLocation": [
+            {
+              "name": "AndroidStudioFormatExample",
+              "locationKind": "android-module"
+            }
+          ]
+        }
+      ],
+      "fullMessage": "Typo: In word 'userguide'",
+      "properties": {
+        "severity": "TYPO",
+        "attributeKey": "TYPO"
+      }
+    },
+    {
+      "ruleId": "Typo",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "gradle.properties",
+              "mimeType": "text/x-java-source"
+            }
+          ],
+          "issueFile": [
+            {
+              "uri": "gradle.properties",
+              "mimeType": "text/x-java-source",
+              "region": {
+                "startLine": 13
+              }
+            }
+          ],
+          "fullyQualifiedLogicalName": "AndroidStudioFormatExample",
+          "logicalLocation": [
+            {
+              "name": "AndroidStudioFormatExample",
+              "locationKind": "android-module"
+            }
+          ]
+        }
+      ],
+      "fullMessage": "Typo: In word 'jvmargs'",
+      "properties": {
+        "severity": "TYPO",
+        "attributeKey": "TYPO"
+      }
+    },
+    {
+      "ruleId": "Typo",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "gradle.properties",
+              "mimeType": "text/x-java-source"
+            }
+          ],
+          "issueFile": [
+            {
+              "uri": "gradle.properties",
+              "mimeType": "text/x-java-source",
+              "region": {
+                "startLine": 13
+              }
+            }
+          ],
+          "fullyQualifiedLogicalName": "AndroidStudioFormatExample",
+          "logicalLocation": [
+            {
+              "name": "AndroidStudioFormatExample",
+              "locationKind": "android-module"
+            }
+          ]
+        }
+      ],
+      "fullMessage": "Typo: In word 'Dfile'",
+      "properties": {
+        "severity": "TYPO",
+        "attributeKey": "TYPO"
+      }
+    },
+    {
+      "ruleId": "Typo",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "gradle.properties",
+              "mimeType": "text/x-java-source"
+            }
+          ],
+          "issueFile": [
+            {
+              "uri": "gradle.properties",
+              "mimeType": "text/x-java-source",
+              "region": {
+                "startLine": 17
+              }
+            }
+          ],
+          "fullyQualifiedLogicalName": "AndroidStudioFormatExample",
+          "logicalLocation": [
+            {
+              "name": "AndroidStudioFormatExample",
+              "locationKind": "android-module"
+            }
+          ]
+        }
+      ],
+      "fullMessage": "Typo: In word 'userguide'",
+      "properties": {
+        "severity": "TYPO",
+        "attributeKey": "TYPO"
+      }
+    },
+    {
+      "ruleId": "Typo",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "gradle/wrapper/gradle-wrapper.properties",
+              "mimeType": "text/x-java-source"
+            }
+          ],
+          "issueFile": [
+            {
+              "uri": "gradle/wrapper/gradle-wrapper.properties",
+              "mimeType": "text/x-java-source",
+              "region": {
+                "startLine": 3
+              }
+            }
+          ],
+          "fullyQualifiedLogicalName": "AndroidStudioFormatExample",
+          "logicalLocation": [
+            {
+              "name": "AndroidStudioFormatExample",
+              "locationKind": "android-module"
+            }
+          ]
+        }
+      ],
+      "fullMessage": "Typo: In word 'dists'",
+      "properties": {
+        "severity": "TYPO",
+        "attributeKey": "TYPO"
+      }
+    },
+    {
+      "ruleId": "Typo",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "gradle/wrapper/gradle-wrapper.properties",
+              "mimeType": "text/x-java-source"
+            }
+          ],
+          "issueFile": [
+            {
+              "uri": "gradle/wrapper/gradle-wrapper.properties",
+              "mimeType": "text/x-java-source",
+              "region": {
+                "startLine": 5
+              }
+            }
+          ],
+          "fullyQualifiedLogicalName": "AndroidStudioFormatExample",
+          "logicalLocation": [
+            {
+              "name": "AndroidStudioFormatExample",
+              "locationKind": "android-module"
+            }
+          ]
+        }
+      ],
+      "fullMessage": "Typo: In word 'dists'",
+      "properties": {
+        "severity": "TYPO",
+        "attributeKey": "TYPO"
+      }
+    },
+    {
+      "ruleId": "Typo",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "gradlew",
+              "mimeType": "text/x-java-source"
+            }
+          ],
+          "issueFile": [
+            {
+              "uri": "gradlew",
+              "mimeType": "text/x-java-source",
+              "region": {
+                "startLine": 30
+              }
+            }
+          ],
+          "fullyQualifiedLogicalName": "AndroidStudioFormatExample",
+          "logicalLocation": [
+            {
+              "name": "AndroidStudioFormatExample",
+              "locationKind": "android-module"
+            }
+          ]
+        }
+      ],
+      "fullMessage": "Typo: In word 'cygwin'",
+      "properties": {
+        "severity": "TYPO",
+        "attributeKey": "TYPO"
+      }
+    },
+    {
+      "ruleId": "Typo",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "gradlew",
+              "mimeType": "text/x-java-source"
+            }
+          ],
+          "issueFile": [
+            {
+              "uri": "gradlew",
+              "mimeType": "text/x-java-source",
+              "region": {
+                "startLine": 31
+              }
+            }
+          ],
+          "fullyQualifiedLogicalName": "AndroidStudioFormatExample",
+          "logicalLocation": [
+            {
+              "name": "AndroidStudioFormatExample",
+              "locationKind": "android-module"
+            }
+          ]
+        }
+      ],
+      "fullMessage": "Typo: In word 'msys'",
+      "properties": {
+        "severity": "TYPO",
+        "attributeKey": "TYPO"
+      }
+    },
+    {
+      "ruleId": "Typo",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "gradlew",
+              "mimeType": "text/x-java-source"
+            }
+          ],
+          "issueFile": [
+            {
+              "uri": "gradlew",
+              "mimeType": "text/x-java-source",
+              "region": {
+                "startLine": 33
+              }
+            }
+          ],
+          "fullyQualifiedLogicalName": "AndroidStudioFormatExample",
+          "logicalLocation": [
+            {
+              "name": "AndroidStudioFormatExample",
+              "locationKind": "android-module"
+            }
+          ]
+        }
+      ],
+      "fullMessage": "Typo: In word 'uname'",
+      "properties": {
+        "severity": "TYPO",
+        "attributeKey": "TYPO"
+      }
+    },
+    {
+      "ruleId": "Typo",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "gradlew",
+              "mimeType": "text/x-java-source"
+            }
+          ],
+          "issueFile": [
+            {
+              "uri": "gradlew",
+              "mimeType": "text/x-java-source",
+              "region": {
+                "startLine": 34
+              }
+            }
+          ],
+          "fullyQualifiedLogicalName": "AndroidStudioFormatExample",
+          "logicalLocation": [
+            {
+              "name": "AndroidStudioFormatExample",
+              "locationKind": "android-module"
+            }
+          ]
+        }
+      ],
+      "fullMessage": "Typo: In word 'CYGWIN'",
+      "properties": {
+        "severity": "TYPO",
+        "attributeKey": "TYPO"
+      }
+    },
+    {
+      "ruleId": "Typo",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "gradlew",
+              "mimeType": "text/x-java-source"
+            }
+          ],
+          "issueFile": [
+            {
+              "uri": "gradlew",
+              "mimeType": "text/x-java-source",
+              "region": {
+                "startLine": 35
+              }
+            }
+          ],
+          "fullyQualifiedLogicalName": "AndroidStudioFormatExample",
+          "logicalLocation": [
+            {
+              "name": "AndroidStudioFormatExample",
+              "locationKind": "android-module"
+            }
+          ]
+        }
+      ],
+      "fullMessage": "Typo: In word 'cygwin'",
+      "properties": {
+        "severity": "TYPO",
+        "attributeKey": "TYPO"
+      }
+    },
+    {
+      "ruleId": "Typo",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "gradlew",
+              "mimeType": "text/x-java-source"
+            }
+          ],
+          "issueFile": [
+            {
+              "uri": "gradlew",
+              "mimeType": "text/x-java-source",
+              "region": {
+                "startLine": 40
+              }
+            }
+          ],
+          "fullyQualifiedLogicalName": "AndroidStudioFormatExample",
+          "logicalLocation": [
+            {
+              "name": "AndroidStudioFormatExample",
+              "locationKind": "android-module"
+            }
+          ]
+        }
+      ],
+      "fullMessage": "Typo: In word 'MINGW'",
+      "properties": {
+        "severity": "TYPO",
+        "attributeKey": "TYPO"
+      }
+    },
+    {
+      "ruleId": "Typo",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "gradlew",
+              "mimeType": "text/x-java-source"
+            }
+          ],
+          "issueFile": [
+            {
+              "uri": "gradlew",
+              "mimeType": "text/x-java-source",
+              "region": {
+                "startLine": 41
+              }
+            }
+          ],
+          "fullyQualifiedLogicalName": "AndroidStudioFormatExample",
+          "logicalLocation": [
+            {
+              "name": "AndroidStudioFormatExample",
+              "locationKind": "android-module"
+            }
+          ]
+        }
+      ],
+      "fullMessage": "Typo: In word 'msys'",
+      "properties": {
+        "severity": "TYPO",
+        "attributeKey": "TYPO"
+      }
+    },
+    {
+      "ruleId": "Typo",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "gradlew",
+              "mimeType": "text/x-java-source"
+            }
+          ],
+          "issueFile": [
+            {
+              "uri": "gradlew",
+              "mimeType": "text/x-java-source",
+              "region": {
+                "startLine": 43
+              }
+            }
+          ],
+          "fullyQualifiedLogicalName": "AndroidStudioFormatExample",
+          "logicalLocation": [
+            {
+              "name": "AndroidStudioFormatExample",
+              "locationKind": "android-module"
+            }
+          ]
+        }
+      ],
+      "fullMessage": "Typo: In word 'esac'",
+      "properties": {
+        "severity": "TYPO",
+        "attributeKey": "TYPO"
+      }
+    },
+    {
+      "ruleId": "Typo",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "gradlew",
+              "mimeType": "text/x-java-source"
+            }
+          ],
+          "issueFile": [
+            {
+              "uri": "gradlew",
+              "mimeType": "text/x-java-source",
+              "region": {
+                "startLine": 45
+              }
+            }
+          ],
+          "fullyQualifiedLogicalName": "AndroidStudioFormatExample",
+          "logicalLocation": [
+            {
+              "name": "AndroidStudioFormatExample",
+              "locationKind": "android-module"
+            }
+          ]
+        }
+      ],
+      "fullMessage": "Typo: In word 'Cygwin'",
+      "properties": {
+        "severity": "TYPO",
+        "attributeKey": "TYPO"
+      }
+    },
+    {
+      "ruleId": "Typo",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "gradlew",
+              "mimeType": "text/x-java-source"
+            }
+          ],
+          "issueFile": [
+            {
+              "uri": "gradlew",
+              "mimeType": "text/x-java-source",
+              "region": {
+                "startLine": 46
+              }
+            }
+          ],
+          "fullyQualifiedLogicalName": "AndroidStudioFormatExample",
+          "logicalLocation": [
+            {
+              "name": "AndroidStudioFormatExample",
+              "locationKind": "android-module"
+            }
+          ]
+        }
+      ],
+      "fullMessage": "Typo: In word 'cygwin'",
+      "properties": {
+        "severity": "TYPO",
+        "attributeKey": "TYPO"
+      }
+    },
+    {
+      "ruleId": "Typo",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "gradlew",
+              "mimeType": "text/x-java-source"
+            }
+          ],
+          "issueFile": [
+            {
+              "uri": "gradlew",
+              "mimeType": "text/x-java-source",
+              "region": {
+                "startLine": 47
+              }
+            }
+          ],
+          "fullyQualifiedLogicalName": "AndroidStudioFormatExample",
+          "logicalLocation": [
+            {
+              "name": "AndroidStudioFormatExample",
+              "locationKind": "android-module"
+            }
+          ]
+        }
+      ],
+      "fullMessage": "Typo: In word 'cygpath'",
+      "properties": {
+        "severity": "TYPO",
+        "attributeKey": "TYPO"
+      }
+    },
+    {
+      "ruleId": "Typo",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "gradlew",
+              "mimeType": "text/x-java-source"
+            }
+          ],
+          "issueFile": [
+            {
+              "uri": "gradlew",
+              "mimeType": "text/x-java-source",
+              "region": {
+                "startLine": 60
+              }
+            }
+          ],
+          "fullyQualifiedLogicalName": "AndroidStudioFormatExample",
+          "logicalLocation": [
+            {
+              "name": "AndroidStudioFormatExample",
+              "locationKind": "android-module"
+            }
+          ]
+        }
+      ],
+      "fullMessage": "Typo: In word 'dirname'",
+      "properties": {
+        "severity": "TYPO",
+        "attributeKey": "TYPO"
+      }
+    },
+    {
+      "ruleId": "Typo",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "gradlew",
+              "mimeType": "text/x-java-source"
+            }
+          ],
+          "issueFile": [
+            {
+              "uri": "gradlew",
+              "mimeType": "text/x-java-source",
+              "region": {
+                "startLine": 64
+              }
+            }
+          ],
+          "fullyQualifiedLogicalName": "AndroidStudioFormatExample",
+          "logicalLocation": [
+            {
+              "name": "AndroidStudioFormatExample",
+              "locationKind": "android-module"
+            }
+          ]
+        }
+      ],
+      "fullMessage": "Typo: In word 'dirname'",
+      "properties": {
+        "severity": "TYPO",
+        "attributeKey": "TYPO"
+      }
+    },
+    {
+      "ruleId": "Typo",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "gradlew",
+              "mimeType": "text/x-java-source"
+            }
+          ],
+          "issueFile": [
+            {
+              "uri": "gradlew",
+              "mimeType": "text/x-java-source",
+              "region": {
+                "startLine": 73
+              }
+            }
+          ],
+          "fullyQualifiedLogicalName": "AndroidStudioFormatExample",
+          "logicalLocation": [
+            {
+              "name": "AndroidStudioFormatExample",
+              "locationKind": "android-module"
+            }
+          ]
+        }
+      ],
+      "fullMessage": "Typo: In word 'executables'",
+      "properties": {
+        "severity": "TYPO",
+        "attributeKey": "TYPO"
+      }
+    },
+    {
+      "ruleId": "Typo",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "gradlew",
+              "mimeType": "text/x-java-source"
+            }
+          ],
+          "issueFile": [
+            {
+              "uri": "gradlew",
+              "mimeType": "text/x-java-source",
+              "region": {
+                "startLine": 74
+              }
+            }
+          ],
+          "fullyQualifiedLogicalName": "AndroidStudioFormatExample",
+          "logicalLocation": [
+            {
+              "name": "AndroidStudioFormatExample",
+              "locationKind": "android-module"
+            }
+          ]
+        }
+      ],
+      "fullMessage": "Typo: In word 'JAVACMD'",
+      "properties": {
+        "severity": "TYPO",
+        "attributeKey": "TYPO"
+      }
+    },
+    {
+      "ruleId": "Typo",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "gradlew",
+              "mimeType": "text/x-java-source"
+            }
+          ],
+          "issueFile": [
+            {
+              "uri": "gradlew",
+              "mimeType": "text/x-java-source",
+              "region": {
+                "startLine": 76
+              }
+            }
+          ],
+          "fullyQualifiedLogicalName": "AndroidStudioFormatExample",
+          "logicalLocation": [
+            {
+              "name": "AndroidStudioFormatExample",
+              "locationKind": "android-module"
+            }
+          ]
+        }
+      ],
+      "fullMessage": "Typo: In word 'JAVACMD'",
+      "properties": {
+        "severity": "TYPO",
+        "attributeKey": "TYPO"
+      }
+    },
+    {
+      "ruleId": "Typo",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "gradlew",
+              "mimeType": "text/x-java-source"
+            }
+          ],
+          "issueFile": [
+            {
+              "uri": "gradlew",
+              "mimeType": "text/x-java-source",
+              "region": {
+                "startLine": 78
+              }
+            }
+          ],
+          "fullyQualifiedLogicalName": "AndroidStudioFormatExample",
+          "logicalLocation": [
+            {
+              "name": "AndroidStudioFormatExample",
+              "locationKind": "android-module"
+            }
+          ]
+        }
+      ],
+      "fullMessage": "Typo: In word 'JAVACMD'",
+      "properties": {
+        "severity": "TYPO",
+        "attributeKey": "TYPO"
+      }
+    },
+    {
+      "ruleId": "Typo",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "gradlew",
+              "mimeType": "text/x-java-source"
+            }
+          ],
+          "issueFile": [
+            {
+              "uri": "gradlew",
+              "mimeType": "text/x-java-source",
+              "region": {
+                "startLine": 85
+              }
+            }
+          ],
+          "fullyQualifiedLogicalName": "AndroidStudioFormatExample",
+          "logicalLocation": [
+            {
+              "name": "AndroidStudioFormatExample",
+              "locationKind": "android-module"
+            }
+          ]
+        }
+      ],
+      "fullMessage": "Typo: In word 'JAVACMD'",
+      "properties": {
+        "severity": "TYPO",
+        "attributeKey": "TYPO"
+      }
+    },
+    {
+      "ruleId": "Typo",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "gradlew",
+              "mimeType": "text/x-java-source"
+            }
+          ],
+          "issueFile": [
+            {
+              "uri": "gradlew",
+              "mimeType": "text/x-java-source",
+              "region": {
+                "startLine": 93
+              }
+            }
+          ],
+          "fullyQualifiedLogicalName": "AndroidStudioFormatExample",
+          "logicalLocation": [
+            {
+              "name": "AndroidStudioFormatExample",
+              "locationKind": "android-module"
+            }
+          ]
+        }
+      ],
+      "fullMessage": "Typo: In word 'cygwin'",
+      "properties": {
+        "severity": "TYPO",
+        "attributeKey": "TYPO"
+      }
+    },
+    {
+      "ruleId": "Typo",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "gradlew",
+              "mimeType": "text/x-java-source"
+            }
+          ],
+          "issueFile": [
+            {
+              "uri": "gradlew",
+              "mimeType": "text/x-java-source",
+              "region": {
+                "startLine": 94
+              }
+            }
+          ],
+          "fullyQualifiedLogicalName": "AndroidStudioFormatExample",
+          "logicalLocation": [
+            {
+              "name": "AndroidStudioFormatExample",
+              "locationKind": "android-module"
+            }
+          ]
+        }
+      ],
+      "fullMessage": "Typo: In word 'ulimit'",
+      "properties": {
+        "severity": "TYPO",
+        "attributeKey": "TYPO"
+      }
+    },
+    {
+      "ruleId": "Typo",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "gradlew",
+              "mimeType": "text/x-java-source"
+            }
+          ],
+          "issueFile": [
+            {
+              "uri": "gradlew",
+              "mimeType": "text/x-java-source",
+              "region": {
+                "startLine": 99
+              }
+            }
+          ],
+          "fullyQualifiedLogicalName": "AndroidStudioFormatExample",
+          "logicalLocation": [
+            {
+              "name": "AndroidStudioFormatExample",
+              "locationKind": "android-module"
+            }
+          ]
+        }
+      ],
+      "fullMessage": "Typo: In word 'ulimit'",
+      "properties": {
+        "severity": "TYPO",
+        "attributeKey": "TYPO"
+      }
+    },
+    {
+      "ruleId": "Typo",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "gradlew",
+              "mimeType": "text/x-java-source"
+            }
+          ],
+          "issueFile": [
+            {
+              "uri": "gradlew",
+              "mimeType": "text/x-java-source",
+              "region": {
+                "startLine": 110
+              }
+            }
+          ],
+          "fullyQualifiedLogicalName": "AndroidStudioFormatExample",
+          "logicalLocation": [
+            {
+              "name": "AndroidStudioFormatExample",
+              "locationKind": "android-module"
+            }
+          ]
+        }
+      ],
+      "fullMessage": "Typo: In word 'Xdock'",
+      "properties": {
+        "severity": "TYPO",
+        "attributeKey": "TYPO"
+      }
+    },
+    {
+      "ruleId": "Typo",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "gradlew",
+              "mimeType": "text/x-java-source"
+            }
+          ],
+          "issueFile": [
+            {
+              "uri": "gradlew",
+              "mimeType": "text/x-java-source",
+              "region": {
+                "startLine": 110
+              }
+            }
+          ],
+          "fullyQualifiedLogicalName": "AndroidStudioFormatExample",
+          "logicalLocation": [
+            {
+              "name": "AndroidStudioFormatExample",
+              "locationKind": "android-module"
+            }
+          ]
+        }
+      ],
+      "fullMessage": "Typo: In word 'Xdock'",
+      "properties": {
+        "severity": "TYPO",
+        "attributeKey": "TYPO"
+      }
+    },
+    {
+      "ruleId": "Typo",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "gradlew",
+              "mimeType": "text/x-java-source"
+            }
+          ],
+          "issueFile": [
+            {
+              "uri": "gradlew",
+              "mimeType": "text/x-java-source",
+              "region": {
+                "startLine": 110
+              }
+            }
+          ],
+          "fullyQualifiedLogicalName": "AndroidStudioFormatExample",
+          "logicalLocation": [
+            {
+              "name": "AndroidStudioFormatExample",
+              "locationKind": "android-module"
+            }
+          ]
+        }
+      ],
+      "fullMessage": "Typo: In word 'icns'",
+      "properties": {
+        "severity": "TYPO",
+        "attributeKey": "TYPO"
+      }
+    },
+    {
+      "ruleId": "Typo",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "gradlew",
+              "mimeType": "text/x-java-source"
+            }
+          ],
+          "issueFile": [
+            {
+              "uri": "gradlew",
+              "mimeType": "text/x-java-source",
+              "region": {
+                "startLine": 113
+              }
+            }
+          ],
+          "fullyQualifiedLogicalName": "AndroidStudioFormatExample",
+          "logicalLocation": [
+            {
+              "name": "AndroidStudioFormatExample",
+              "locationKind": "android-module"
+            }
+          ]
+        }
+      ],
+      "fullMessage": "Typo: In word 'Cygwin'",
+      "properties": {
+        "severity": "TYPO",
+        "attributeKey": "TYPO"
+      }
+    },
+    {
+      "ruleId": "Typo",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "gradlew",
+              "mimeType": "text/x-java-source"
+            }
+          ],
+          "issueFile": [
+            {
+              "uri": "gradlew",
+              "mimeType": "text/x-java-source",
+              "region": {
+                "startLine": 114
+              }
+            }
+          ],
+          "fullyQualifiedLogicalName": "AndroidStudioFormatExample",
+          "logicalLocation": [
+            {
+              "name": "AndroidStudioFormatExample",
+              "locationKind": "android-module"
+            }
+          ]
+        }
+      ],
+      "fullMessage": "Typo: In word 'cygwin'",
+      "properties": {
+        "severity": "TYPO",
+        "attributeKey": "TYPO"
+      }
+    },
+    {
+      "ruleId": "Typo",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "gradlew",
+              "mimeType": "text/x-java-source"
+            }
+          ],
+          "issueFile": [
+            {
+              "uri": "gradlew",
+              "mimeType": "text/x-java-source",
+              "region": {
+                "startLine": 115
+              }
+            }
+          ],
+          "fullyQualifiedLogicalName": "AndroidStudioFormatExample",
+          "logicalLocation": [
+            {
+              "name": "AndroidStudioFormatExample",
+              "locationKind": "android-module"
+            }
+          ]
+        }
+      ],
+      "fullMessage": "Typo: In word 'cygpath'",
+      "properties": {
+        "severity": "TYPO",
+        "attributeKey": "TYPO"
+      }
+    },
+    {
+      "ruleId": "Typo",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "gradlew",
+              "mimeType": "text/x-java-source"
+            }
+          ],
+          "issueFile": [
+            {
+              "uri": "gradlew",
+              "mimeType": "text/x-java-source",
+              "region": {
+                "startLine": 116
+              }
+            }
+          ],
+          "fullyQualifiedLogicalName": "AndroidStudioFormatExample",
+          "logicalLocation": [
+            {
+              "name": "AndroidStudioFormatExample",
+              "locationKind": "android-module"
+            }
+          ]
+        }
+      ],
+      "fullMessage": "Typo: In word 'cygpath'",
+      "properties": {
+        "severity": "TYPO",
+        "attributeKey": "TYPO"
+      }
+    },
+    {
+      "ruleId": "Typo",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "gradlew",
+              "mimeType": "text/x-java-source"
+            }
+          ],
+          "issueFile": [
+            {
+              "uri": "gradlew",
+              "mimeType": "text/x-java-source",
+              "region": {
+                "startLine": 118
+              }
+            }
+          ],
+          "fullyQualifiedLogicalName": "AndroidStudioFormatExample",
+          "logicalLocation": [
+            {
+              "name": "AndroidStudioFormatExample",
+              "locationKind": "android-module"
+            }
+          ]
+        }
+      ],
+      "fullMessage": "Typo: In word 'cygpath'",
+      "properties": {
+        "severity": "TYPO",
+        "attributeKey": "TYPO"
+      }
+    },
+    {
+      "ruleId": "Typo",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "gradlew",
+              "mimeType": "text/x-java-source"
+            }
+          ],
+          "issueFile": [
+            {
+              "uri": "gradlew",
+              "mimeType": "text/x-java-source",
+              "region": {
+                "startLine": 119
+              }
+            }
+          ],
+          "fullyQualifiedLogicalName": "AndroidStudioFormatExample",
+          "logicalLocation": [
+            {
+              "name": "AndroidStudioFormatExample",
+              "locationKind": "android-module"
+            }
+          ]
+        }
+      ],
+      "fullMessage": "Typo: In word 'ROOTDIRSRAW'",
+      "properties": {
+        "severity": "TYPO",
+        "attributeKey": "TYPO"
+      }
+    },
+    {
+      "ruleId": "Typo",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "gradlew",
+              "mimeType": "text/x-java-source"
+            }
+          ],
+          "issueFile": [
+            {
+              "uri": "gradlew",
+              "mimeType": "text/x-java-source",
+              "region": {
+                "startLine": 119
+              }
+            }
+          ],
+          "fullyQualifiedLogicalName": "AndroidStudioFormatExample",
+          "logicalLocation": [
+            {
+              "name": "AndroidStudioFormatExample",
+              "locationKind": "android-module"
+            }
+          ]
+        }
+      ],
+      "fullMessage": "Typo: In word 'maxdepth'",
+      "properties": {
+        "severity": "TYPO",
+        "attributeKey": "TYPO"
+      }
+    },
+    {
+      "ruleId": "Typo",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "gradlew",
+              "mimeType": "text/x-java-source"
+            }
+          ],
+          "issueFile": [
+            {
+              "uri": "gradlew",
+              "mimeType": "text/x-java-source",
+              "region": {
+                "startLine": 119
+              }
+            }
+          ],
+          "fullyQualifiedLogicalName": "AndroidStudioFormatExample",
+          "logicalLocation": [
+            {
+              "name": "AndroidStudioFormatExample",
+              "locationKind": "android-module"
+            }
+          ]
+        }
+      ],
+      "fullMessage": "Typo: In word 'mindepth'",
+      "properties": {
+        "severity": "TYPO",
+        "attributeKey": "TYPO"
+      }
+    },
+    {
+      "ruleId": "Typo",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "gradlew",
+              "mimeType": "text/x-java-source"
+            }
+          ],
+          "issueFile": [
+            {
+              "uri": "gradlew",
+              "mimeType": "text/x-java-source",
+              "region": {
+                "startLine": 121
+              }
+            }
+          ],
+          "fullyQualifiedLogicalName": "AndroidStudioFormatExample",
+          "logicalLocation": [
+            {
+              "name": "AndroidStudioFormatExample",
+              "locationKind": "android-module"
+            }
+          ]
+        }
+      ],
+      "fullMessage": "Typo: In word 'ROOTDIRSRAW'",
+      "properties": {
+        "severity": "TYPO",
+        "attributeKey": "TYPO"
+      }
+    },
+    {
+      "ruleId": "Typo",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "gradlew",
+              "mimeType": "text/x-java-source"
+            }
+          ],
+          "issueFile": [
+            {
+              "uri": "gradlew",
+              "mimeType": "text/x-java-source",
+              "region": {
+                "startLine": 122
+              }
+            }
+          ],
+          "fullyQualifiedLogicalName": "AndroidStudioFormatExample",
+          "logicalLocation": [
+            {
+              "name": "AndroidStudioFormatExample",
+              "locationKind": "android-module"
+            }
+          ]
+        }
+      ],
+      "fullMessage": "Typo: In word 'ROOTDIRS'",
+      "properties": {
+        "severity": "TYPO",
+        "attributeKey": "TYPO"
+      }
+    },
+    {
+      "ruleId": "Typo",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "gradlew",
+              "mimeType": "text/x-java-source"
+            }
+          ],
+          "issueFile": [
+            {
+              "uri": "gradlew",
+              "mimeType": "text/x-java-source",
+              "region": {
+                "startLine": 122
+              }
+            }
+          ],
+          "fullyQualifiedLogicalName": "AndroidStudioFormatExample",
+          "logicalLocation": [
+            {
+              "name": "AndroidStudioFormatExample",
+              "locationKind": "android-module"
+            }
+          ]
+        }
+      ],
+      "fullMessage": "Typo: In word 'ROOTDIRS'",
+      "properties": {
+        "severity": "TYPO",
+        "attributeKey": "TYPO"
+      }
+    },
+    {
+      "ruleId": "Typo",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "gradlew",
+              "mimeType": "text/x-java-source"
+            }
+          ],
+          "issueFile": [
+            {
+              "uri": "gradlew",
+              "mimeType": "text/x-java-source",
+              "region": {
+                "startLine": 125
+              }
+            }
+          ],
+          "fullyQualifiedLogicalName": "AndroidStudioFormatExample",
+          "logicalLocation": [
+            {
+              "name": "AndroidStudioFormatExample",
+              "locationKind": "android-module"
+            }
+          ]
+        }
+      ],
+      "fullMessage": "Typo: In word 'OURCYGPATTERN'",
+      "properties": {
+        "severity": "TYPO",
+        "attributeKey": "TYPO"
+      }
+    },
+    {
+      "ruleId": "Typo",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "gradlew",
+              "mimeType": "text/x-java-source"
+            }
+          ],
+          "issueFile": [
+            {
+              "uri": "gradlew",
+              "mimeType": "text/x-java-source",
+              "region": {
+                "startLine": 125
+              }
+            }
+          ],
+          "fullyQualifiedLogicalName": "AndroidStudioFormatExample",
+          "logicalLocation": [
+            {
+              "name": "AndroidStudioFormatExample",
+              "locationKind": "android-module"
+            }
+          ]
+        }
+      ],
+      "fullMessage": "Typo: In word 'ROOTDIRS'",
+      "properties": {
+        "severity": "TYPO",
+        "attributeKey": "TYPO"
+      }
+    },
+    {
+      "ruleId": "Typo",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "gradlew",
+              "mimeType": "text/x-java-source"
+            }
+          ],
+          "issueFile": [
+            {
+              "uri": "gradlew",
+              "mimeType": "text/x-java-source",
+              "region": {
+                "startLine": 126
+              }
+            }
+          ],
+          "fullyQualifiedLogicalName": "AndroidStudioFormatExample",
+          "logicalLocation": [
+            {
+              "name": "AndroidStudioFormatExample",
+              "locationKind": "android-module"
+            }
+          ]
+        }
+      ],
+      "fullMessage": "Typo: In word 'cygpath'",
+      "properties": {
+        "severity": "TYPO",
+        "attributeKey": "TYPO"
+      }
+    },
+    {
+      "ruleId": "Typo",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "gradlew",
+              "mimeType": "text/x-java-source"
+            }
+          ],
+          "issueFile": [
+            {
+              "uri": "gradlew",
+              "mimeType": "text/x-java-source",
+              "region": {
+                "startLine": 127
+              }
+            }
+          ],
+          "fullyQualifiedLogicalName": "AndroidStudioFormatExample",
+          "logicalLocation": [
+            {
+              "name": "AndroidStudioFormatExample",
+              "locationKind": "android-module"
+            }
+          ]
+        }
+      ],
+      "fullMessage": "Typo: In word 'CYGPATTERN'",
+      "properties": {
+        "severity": "TYPO",
+        "attributeKey": "TYPO"
+      }
+    },
+    {
+      "ruleId": "Typo",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "gradlew",
+              "mimeType": "text/x-java-source"
+            }
+          ],
+          "issueFile": [
+            {
+              "uri": "gradlew",
+              "mimeType": "text/x-java-source",
+              "region": {
+                "startLine": 128
+              }
+            }
+          ],
+          "fullyQualifiedLogicalName": "AndroidStudioFormatExample",
+          "logicalLocation": [
+            {
+              "name": "AndroidStudioFormatExample",
+              "locationKind": "android-module"
+            }
+          ]
+        }
+      ],
+      "fullMessage": "Typo: In word 'OURCYGPATTERN'",
+      "properties": {
+        "severity": "TYPO",
+        "attributeKey": "TYPO"
+      }
+    },
+    {
+      "ruleId": "Typo",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "gradlew",
+              "mimeType": "text/x-java-source"
+            }
+          ],
+          "issueFile": [
+            {
+              "uri": "gradlew",
+              "mimeType": "text/x-java-source",
+              "region": {
+                "startLine": 128
+              }
+            }
+          ],
+          "fullyQualifiedLogicalName": "AndroidStudioFormatExample",
+          "logicalLocation": [
+            {
+              "name": "AndroidStudioFormatExample",
+              "locationKind": "android-module"
+            }
+          ]
+        }
+      ],
+      "fullMessage": "Typo: In word 'OURCYGPATTERN'",
+      "properties": {
+        "severity": "TYPO",
+        "attributeKey": "TYPO"
+      }
+    },
+    {
+      "ruleId": "Typo",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "gradlew",
+              "mimeType": "text/x-java-source"
+            }
+          ],
+          "issueFile": [
+            {
+              "uri": "gradlew",
+              "mimeType": "text/x-java-source",
+              "region": {
+                "startLine": 128
+              }
+            }
+          ],
+          "fullyQualifiedLogicalName": "AndroidStudioFormatExample",
+          "logicalLocation": [
+            {
+              "name": "AndroidStudioFormatExample",
+              "locationKind": "android-module"
+            }
+          ]
+        }
+      ],
+      "fullMessage": "Typo: In word 'CYGPATTERN'",
+      "properties": {
+        "severity": "TYPO",
+        "attributeKey": "TYPO"
+      }
+    },
+    {
+      "ruleId": "Typo",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "gradlew",
+              "mimeType": "text/x-java-source"
+            }
+          ],
+          "issueFile": [
+            {
+              "uri": "gradlew",
+              "mimeType": "text/x-java-source",
+              "region": {
+                "startLine": 133
+              }
+            }
+          ],
+          "fullyQualifiedLogicalName": "AndroidStudioFormatExample",
+          "logicalLocation": [
+            {
+              "name": "AndroidStudioFormatExample",
+              "locationKind": "android-module"
+            }
+          ]
+        }
+      ],
+      "fullMessage": "Typo: In word 'egrep'",
+      "properties": {
+        "severity": "TYPO",
+        "attributeKey": "TYPO"
+      }
+    },
+    {
+      "ruleId": "Typo",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "gradlew",
+              "mimeType": "text/x-java-source"
+            }
+          ],
+          "issueFile": [
+            {
+              "uri": "gradlew",
+              "mimeType": "text/x-java-source",
+              "region": {
+                "startLine": 133
+              }
+            }
+          ],
+          "fullyQualifiedLogicalName": "AndroidStudioFormatExample",
+          "logicalLocation": [
+            {
+              "name": "AndroidStudioFormatExample",
+              "locationKind": "android-module"
+            }
+          ]
+        }
+      ],
+      "fullMessage": "Typo: In word 'OURCYGPATTERN'",
+      "properties": {
+        "severity": "TYPO",
+        "attributeKey": "TYPO"
+      }
+    },
+    {
+      "ruleId": "Typo",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "gradlew",
+              "mimeType": "text/x-java-source"
+            }
+          ],
+          "issueFile": [
+            {
+              "uri": "gradlew",
+              "mimeType": "text/x-java-source",
+              "region": {
+                "startLine": 134
+              }
+            }
+          ],
+          "fullyQualifiedLogicalName": "AndroidStudioFormatExample",
+          "logicalLocation": [
+            {
+              "name": "AndroidStudioFormatExample",
+              "locationKind": "android-module"
+            }
+          ]
+        }
+      ],
+      "fullMessage": "Typo: In word 'egrep'",
+      "properties": {
+        "severity": "TYPO",
+        "attributeKey": "TYPO"
+      }
+    },
+    {
+      "ruleId": "Typo",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "gradlew",
+              "mimeType": "text/x-java-source"
+            }
+          ],
+          "issueFile": [
+            {
+              "uri": "gradlew",
+              "mimeType": "text/x-java-source",
+              "region": {
+                "startLine": 137
+              }
+            }
+          ],
+          "fullyQualifiedLogicalName": "AndroidStudioFormatExample",
+          "logicalLocation": [
+            {
+              "name": "AndroidStudioFormatExample",
+              "locationKind": "android-module"
+            }
+          ]
+        }
+      ],
+      "fullMessage": "Typo: In word 'eval'",
+      "properties": {
+        "severity": "TYPO",
+        "attributeKey": "TYPO"
+      }
+    },
+    {
+      "ruleId": "Typo",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "gradlew",
+              "mimeType": "text/x-java-source"
+            }
+          ],
+          "issueFile": [
+            {
+              "uri": "gradlew",
+              "mimeType": "text/x-java-source",
+              "region": {
+                "startLine": 137
+              }
+            }
+          ],
+          "fullyQualifiedLogicalName": "AndroidStudioFormatExample",
+          "logicalLocation": [
+            {
+              "name": "AndroidStudioFormatExample",
+              "locationKind": "android-module"
+            }
+          ]
+        }
+      ],
+      "fullMessage": "Typo: In word 'cygpath'",
+      "properties": {
+        "severity": "TYPO",
+        "attributeKey": "TYPO"
+      }
+    },
+    {
+      "ruleId": "Typo",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "gradlew",
+              "mimeType": "text/x-java-source"
+            }
+          ],
+          "issueFile": [
+            {
+              "uri": "gradlew",
+              "mimeType": "text/x-java-source",
+              "region": {
+                "startLine": 139
+              }
+            }
+          ],
+          "fullyQualifiedLogicalName": "AndroidStudioFormatExample",
+          "logicalLocation": [
+            {
+              "name": "AndroidStudioFormatExample",
+              "locationKind": "android-module"
+            }
+          ]
+        }
+      ],
+      "fullMessage": "Typo: In word 'eval'",
+      "properties": {
+        "severity": "TYPO",
+        "attributeKey": "TYPO"
+      }
+    },
+    {
+      "ruleId": "Typo",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "gradlew",
+              "mimeType": "text/x-java-source"
+            }
+          ],
+          "issueFile": [
+            {
+              "uri": "gradlew",
+              "mimeType": "text/x-java-source",
+              "region": {
+                "startLine": 154
+              }
+            }
+          ],
+          "fullyQualifiedLogicalName": "AndroidStudioFormatExample",
+          "logicalLocation": [
+            {
+              "name": "AndroidStudioFormatExample",
+              "locationKind": "android-module"
+            }
+          ]
+        }
+      ],
+      "fullMessage": "Typo: In word 'esac'",
+      "properties": {
+        "severity": "TYPO",
+        "attributeKey": "TYPO"
+      }
+    },
+    {
+      "ruleId": "Typo",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "gradlew",
+              "mimeType": "text/x-java-source"
+            }
+          ],
+          "issueFile": [
+            {
+              "uri": "gradlew",
+              "mimeType": "text/x-java-source",
+              "region": {
+                "startLine": 161
+              }
+            }
+          ],
+          "fullyQualifiedLogicalName": "AndroidStudioFormatExample",
+          "logicalLocation": [
+            {
+              "name": "AndroidStudioFormatExample",
+              "locationKind": "android-module"
+            }
+          ]
+        }
+      ],
+      "fullMessage": "Typo: In word 'eval'",
+      "properties": {
+        "severity": "TYPO",
+        "attributeKey": "TYPO"
+      }
+    },
+    {
+      "ruleId": "Typo",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "gradlew",
+              "mimeType": "text/x-java-source"
+            }
+          ],
+          "issueFile": [
+            {
+              "uri": "gradlew",
+              "mimeType": "text/x-java-source",
+              "region": {
+                "startLine": 162
+              }
+            }
+          ],
+          "fullyQualifiedLogicalName": "AndroidStudioFormatExample",
+          "logicalLocation": [
+            {
+              "name": "AndroidStudioFormatExample",
+              "locationKind": "android-module"
+            }
+          ]
+        }
+      ],
+      "fullMessage": "Typo: In word 'Dorg'",
+      "properties": {
+        "severity": "TYPO",
+        "attributeKey": "TYPO"
+      }
+    },
+    {
+      "ruleId": "Typo",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "gradlew",
+              "mimeType": "text/x-java-source"
+            }
+          ],
+          "issueFile": [
+            {
+              "uri": "gradlew",
+              "mimeType": "text/x-java-source",
+              "region": {
+                "startLine": 162
+              }
+            }
+          ],
+          "fullyQualifiedLogicalName": "AndroidStudioFormatExample",
+          "logicalLocation": [
+            {
+              "name": "AndroidStudioFormatExample",
+              "locationKind": "android-module"
+            }
+          ]
+        }
+      ],
+      "fullMessage": "Typo: In word 'appname'",
+      "properties": {
+        "severity": "TYPO",
+        "attributeKey": "TYPO"
+      }
+    },
+    {
+      "ruleId": "Typo",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "gradlew",
+              "mimeType": "text/x-java-source"
+            }
+          ],
+          "issueFile": [
+            {
+              "uri": "gradlew",
+              "mimeType": "text/x-java-source",
+              "region": {
+                "startLine": 164
+              }
+            }
+          ],
+          "fullyQualifiedLogicalName": "AndroidStudioFormatExample",
+          "logicalLocation": [
+            {
+              "name": "AndroidStudioFormatExample",
+              "locationKind": "android-module"
+            }
+          ]
+        }
+      ],
+      "fullMessage": "Typo: In word 'JAVACMD'",
+      "properties": {
+        "severity": "TYPO",
+        "attributeKey": "TYPO"
+      }
+    },
+    {
+      "ruleId": "Typo",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "gradlew.bat",
+              "mimeType": "text/x-java-source"
+            }
+          ],
+          "issueFile": [
+            {
+              "uri": "gradlew.bat",
+              "mimeType": "text/x-java-source",
+              "region": {
+                "startLine": 9
+              }
+            }
+          ],
+          "fullyQualifiedLogicalName": "AndroidStudioFormatExample",
+          "logicalLocation": [
+            {
+              "name": "AndroidStudioFormatExample",
+              "locationKind": "android-module"
+            }
+          ]
+        }
+      ],
+      "fullMessage": "Typo: In word 'setlocal'",
+      "properties": {
+        "severity": "TYPO",
+        "attributeKey": "TYPO"
+      }
+    },
+    {
+      "ruleId": "Typo",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "gradlew.bat",
+              "mimeType": "text/x-java-source"
+            }
+          ],
+          "issueFile": [
+            {
+              "uri": "gradlew.bat",
+              "mimeType": "text/x-java-source",
+              "region": {
+                "startLine": 14
+              }
+            }
+          ],
+          "fullyQualifiedLogicalName": "AndroidStudioFormatExample",
+          "logicalLocation": [
+            {
+              "name": "AndroidStudioFormatExample",
+              "locationKind": "android-module"
+            }
+          ]
+        }
+      ],
+      "fullMessage": "Typo: In word 'DIRNAME'",
+      "properties": {
+        "severity": "TYPO",
+        "attributeKey": "TYPO"
+      }
+    },
+    {
+      "ruleId": "Typo",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "gradlew.bat",
+              "mimeType": "text/x-java-source"
+            }
+          ],
+          "issueFile": [
+            {
+              "uri": "gradlew.bat",
+              "mimeType": "text/x-java-source",
+              "region": {
+                "startLine": 15
+              }
+            }
+          ],
+          "fullyQualifiedLogicalName": "AndroidStudioFormatExample",
+          "logicalLocation": [
+            {
+              "name": "AndroidStudioFormatExample",
+              "locationKind": "android-module"
+            }
+          ]
+        }
+      ],
+      "fullMessage": "Typo: In word 'DIRNAME'",
+      "properties": {
+        "severity": "TYPO",
+        "attributeKey": "TYPO"
+      }
+    },
+    {
+      "ruleId": "Typo",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "gradlew.bat",
+              "mimeType": "text/x-java-source"
+            }
+          ],
+          "issueFile": [
+            {
+              "uri": "gradlew.bat",
+              "mimeType": "text/x-java-source",
+              "region": {
+                "startLine": 15
+              }
+            }
+          ],
+          "fullyQualifiedLogicalName": "AndroidStudioFormatExample",
+          "logicalLocation": [
+            {
+              "name": "AndroidStudioFormatExample",
+              "locationKind": "android-module"
+            }
+          ]
+        }
+      ],
+      "fullMessage": "Typo: In word 'DIRNAME'",
+      "properties": {
+        "severity": "TYPO",
+        "attributeKey": "TYPO"
+      }
+    },
+    {
+      "ruleId": "Typo",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "gradlew.bat",
+              "mimeType": "text/x-java-source"
+            }
+          ],
+          "issueFile": [
+            {
+              "uri": "gradlew.bat",
+              "mimeType": "text/x-java-source",
+              "region": {
+                "startLine": 17
+              }
+            }
+          ],
+          "fullyQualifiedLogicalName": "AndroidStudioFormatExample",
+          "logicalLocation": [
+            {
+              "name": "AndroidStudioFormatExample",
+              "locationKind": "android-module"
+            }
+          ]
+        }
+      ],
+      "fullMessage": "Typo: In word 'DIRNAME'",
+      "properties": {
+        "severity": "TYPO",
+        "attributeKey": "TYPO"
+      }
+    },
+    {
+      "ruleId": "Typo",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "gradlew.bat",
+              "mimeType": "text/x-java-source"
+            }
+          ],
+          "issueFile": [
+            {
+              "uri": "gradlew.bat",
+              "mimeType": "text/x-java-source",
+              "region": {
+                "startLine": 20
+              }
+            }
+          ],
+          "fullyQualifiedLogicalName": "AndroidStudioFormatExample",
+          "logicalLocation": [
+            {
+              "name": "AndroidStudioFormatExample",
+              "locationKind": "android-module"
+            }
+          ]
+        }
+      ],
+      "fullMessage": "Typo: In word 'goto'",
+      "properties": {
+        "severity": "TYPO",
+        "attributeKey": "TYPO"
+      }
+    },
+    {
+      "ruleId": "Typo",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "gradlew.bat",
+              "mimeType": "text/x-java-source"
+            }
+          ],
+          "issueFile": [
+            {
+              "uri": "gradlew.bat",
+              "mimeType": "text/x-java-source",
+              "region": {
+                "startLine": 24
+              }
+            }
+          ],
+          "fullyQualifiedLogicalName": "AndroidStudioFormatExample",
+          "logicalLocation": [
+            {
+              "name": "AndroidStudioFormatExample",
+              "locationKind": "android-module"
+            }
+          ]
+        }
+      ],
+      "fullMessage": "Typo: In word 'ERRORLEVEL'",
+      "properties": {
+        "severity": "TYPO",
+        "attributeKey": "TYPO"
+      }
+    },
+    {
+      "ruleId": "Typo",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "gradlew.bat",
+              "mimeType": "text/x-java-source"
+            }
+          ],
+          "issueFile": [
+            {
+              "uri": "gradlew.bat",
+              "mimeType": "text/x-java-source",
+              "region": {
+                "startLine": 24
+              }
+            }
+          ],
+          "fullyQualifiedLogicalName": "AndroidStudioFormatExample",
+          "logicalLocation": [
+            {
+              "name": "AndroidStudioFormatExample",
+              "locationKind": "android-module"
+            }
+          ]
+        }
+      ],
+      "fullMessage": "Typo: In word 'goto'",
+      "properties": {
+        "severity": "TYPO",
+        "attributeKey": "TYPO"
+      }
+    },
+    {
+      "ruleId": "Typo",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "gradlew.bat",
+              "mimeType": "text/x-java-source"
+            }
+          ],
+          "issueFile": [
+            {
+              "uri": "gradlew.bat",
+              "mimeType": "text/x-java-source",
+              "region": {
+                "startLine": 32
+              }
+            }
+          ],
+          "fullyQualifiedLogicalName": "AndroidStudioFormatExample",
+          "logicalLocation": [
+            {
+              "name": "AndroidStudioFormatExample",
+              "locationKind": "android-module"
+            }
+          ]
+        }
+      ],
+      "fullMessage": "Typo: In word 'goto'",
+      "properties": {
+        "severity": "TYPO",
+        "attributeKey": "TYPO"
+      }
+    },
+    {
+      "ruleId": "Typo",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "gradlew.bat",
+              "mimeType": "text/x-java-source"
+            }
+          ],
+          "issueFile": [
+            {
+              "uri": "gradlew.bat",
+              "mimeType": "text/x-java-source",
+              "region": {
+                "startLine": 38
+              }
+            }
+          ],
+          "fullyQualifiedLogicalName": "AndroidStudioFormatExample",
+          "logicalLocation": [
+            {
+              "name": "AndroidStudioFormatExample",
+              "locationKind": "android-module"
+            }
+          ]
+        }
+      ],
+      "fullMessage": "Typo: In word 'goto'",
+      "properties": {
+        "severity": "TYPO",
+        "attributeKey": "TYPO"
+      }
+    },
+    {
+      "ruleId": "Typo",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "gradlew.bat",
+              "mimeType": "text/x-java-source"
+            }
+          ],
+          "issueFile": [
+            {
+              "uri": "gradlew.bat",
+              "mimeType": "text/x-java-source",
+              "region": {
+                "startLine": 46
+              }
+            }
+          ],
+          "fullyQualifiedLogicalName": "AndroidStudioFormatExample",
+          "logicalLocation": [
+            {
+              "name": "AndroidStudioFormatExample",
+              "locationKind": "android-module"
+            }
+          ]
+        }
+      ],
+      "fullMessage": "Typo: In word 'goto'",
+      "properties": {
+        "severity": "TYPO",
+        "attributeKey": "TYPO"
+      }
+    },
+    {
+      "ruleId": "Typo",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "gradlew.bat",
+              "mimeType": "text/x-java-source"
+            }
+          ],
+          "issueFile": [
+            {
+              "uri": "gradlew.bat",
+              "mimeType": "text/x-java-source",
+              "region": {
+                "startLine": 49
+              }
+            }
+          ],
+          "fullyQualifiedLogicalName": "AndroidStudioFormatExample",
+          "logicalLocation": [
+            {
+              "name": "AndroidStudioFormatExample",
+              "locationKind": "android-module"
+            }
+          ]
+        }
+      ],
+      "fullMessage": "Typo: In word 'Windowz'",
+      "properties": {
+        "severity": "TYPO",
+        "attributeKey": "TYPO"
+      }
+    },
+    {
+      "ruleId": "Typo",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "gradlew.bat",
+              "mimeType": "text/x-java-source"
+            }
+          ],
+          "issueFile": [
+            {
+              "uri": "gradlew.bat",
+              "mimeType": "text/x-java-source",
+              "region": {
+                "startLine": 51
+              }
+            }
+          ],
+          "fullyQualifiedLogicalName": "AndroidStudioFormatExample",
+          "logicalLocation": [
+            {
+              "name": "AndroidStudioFormatExample",
+              "locationKind": "android-module"
+            }
+          ]
+        }
+      ],
+      "fullMessage": "Typo: In word 'goto'",
+      "properties": {
+        "severity": "TYPO",
+        "attributeKey": "TYPO"
+      }
+    },
+    {
+      "ruleId": "Typo",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "gradlew.bat",
+              "mimeType": "text/x-java-source"
+            }
+          ],
+          "issueFile": [
+            {
+              "uri": "gradlew.bat",
+              "mimeType": "text/x-java-source",
+              "region": {
+                "startLine": 52
+              }
+            }
+          ],
+          "fullyQualifiedLogicalName": "AndroidStudioFormatExample",
+          "logicalLocation": [
+            {
+              "name": "AndroidStudioFormatExample",
+              "locationKind": "android-module"
+            }
+          ]
+        }
+      ],
+      "fullMessage": "Typo: In word 'eval'",
+      "properties": {
+        "severity": "TYPO",
+        "attributeKey": "TYPO"
+      }
+    },
+    {
+      "ruleId": "Typo",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "gradlew.bat",
+              "mimeType": "text/x-java-source"
+            }
+          ],
+          "issueFile": [
+            {
+              "uri": "gradlew.bat",
+              "mimeType": "text/x-java-source",
+              "region": {
+                "startLine": 52
+              }
+            }
+          ],
+          "fullyQualifiedLogicalName": "AndroidStudioFormatExample",
+          "logicalLocation": [
+            {
+              "name": "AndroidStudioFormatExample",
+              "locationKind": "android-module"
+            }
+          ]
+        }
+      ],
+      "fullMessage": "Typo: In word 'goto'",
+      "properties": {
+        "severity": "TYPO",
+        "attributeKey": "TYPO"
+      }
+    },
+    {
+      "ruleId": "Typo",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "gradlew.bat",
+              "mimeType": "text/x-java-source"
+            }
+          ],
+          "issueFile": [
+            {
+              "uri": "gradlew.bat",
+              "mimeType": "text/x-java-source",
+              "region": {
+                "startLine": 60
+              }
+            }
+          ],
+          "fullyQualifiedLogicalName": "AndroidStudioFormatExample",
+          "logicalLocation": [
+            {
+              "name": "AndroidStudioFormatExample",
+              "locationKind": "android-module"
+            }
+          ]
+        }
+      ],
+      "fullMessage": "Typo: In word 'goto'",
+      "properties": {
+        "severity": "TYPO",
+        "attributeKey": "TYPO"
+      }
+    },
+    {
+      "ruleId": "Typo",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "gradlew.bat",
+              "mimeType": "text/x-java-source"
+            }
+          ],
+          "issueFile": [
+            {
+              "uri": "gradlew.bat",
+              "mimeType": "text/x-java-source",
+              "region": {
+                "startLine": 63
+              }
+            }
+          ],
+          "fullyQualifiedLogicalName": "AndroidStudioFormatExample",
+          "logicalLocation": [
+            {
+              "name": "AndroidStudioFormatExample",
+              "locationKind": "android-module"
+            }
+          ]
+        }
+      ],
+      "fullMessage": "Typo: In word 'goto'",
+      "properties": {
+        "severity": "TYPO",
+        "attributeKey": "TYPO"
+      }
+    },
+    {
+      "ruleId": "Typo",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "gradlew.bat",
+              "mimeType": "text/x-java-source"
+            }
+          ],
+          "issueFile": [
+            {
+              "uri": "gradlew.bat",
+              "mimeType": "text/x-java-source",
+              "region": {
+                "startLine": 75
+              }
+            }
+          ],
+          "fullyQualifiedLogicalName": "AndroidStudioFormatExample",
+          "logicalLocation": [
+            {
+              "name": "AndroidStudioFormatExample",
+              "locationKind": "android-module"
+            }
+          ]
+        }
+      ],
+      "fullMessage": "Typo: In word 'Dorg'",
+      "properties": {
+        "severity": "TYPO",
+        "attributeKey": "TYPO"
+      }
+    },
+    {
+      "ruleId": "Typo",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "gradlew.bat",
+              "mimeType": "text/x-java-source"
+            }
+          ],
+          "issueFile": [
+            {
+              "uri": "gradlew.bat",
+              "mimeType": "text/x-java-source",
+              "region": {
+                "startLine": 75
+              }
+            }
+          ],
+          "fullyQualifiedLogicalName": "AndroidStudioFormatExample",
+          "logicalLocation": [
+            {
+              "name": "AndroidStudioFormatExample",
+              "locationKind": "android-module"
+            }
+          ]
+        }
+      ],
+      "fullMessage": "Typo: In word 'appname'",
+      "properties": {
+        "severity": "TYPO",
+        "attributeKey": "TYPO"
+      }
+    },
+    {
+      "ruleId": "Typo",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "gradlew.bat",
+              "mimeType": "text/x-java-source"
+            }
+          ],
+          "issueFile": [
+            {
+              "uri": "gradlew.bat",
+              "mimeType": "text/x-java-source",
+              "region": {
+                "startLine": 79
+              }
+            }
+          ],
+          "fullyQualifiedLogicalName": "AndroidStudioFormatExample",
+          "logicalLocation": [
+            {
+              "name": "AndroidStudioFormatExample",
+              "locationKind": "android-module"
+            }
+          ]
+        }
+      ],
+      "fullMessage": "Typo: In word 'ERRORLEVEL'",
+      "properties": {
+        "severity": "TYPO",
+        "attributeKey": "TYPO"
+      }
+    },
+    {
+      "ruleId": "Typo",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "gradlew.bat",
+              "mimeType": "text/x-java-source"
+            }
+          ],
+          "issueFile": [
+            {
+              "uri": "gradlew.bat",
+              "mimeType": "text/x-java-source",
+              "region": {
+                "startLine": 79
+              }
+            }
+          ],
+          "fullyQualifiedLogicalName": "AndroidStudioFormatExample",
+          "logicalLocation": [
+            {
+              "name": "AndroidStudioFormatExample",
+              "locationKind": "android-module"
+            }
+          ]
+        }
+      ],
+      "fullMessage": "Typo: In word 'goto'",
+      "properties": {
+        "severity": "TYPO",
+        "attributeKey": "TYPO"
+      }
+    },
+    {
+      "ruleId": "Typo",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "gradlew.bat",
+              "mimeType": "text/x-java-source"
+            }
+          ],
+          "issueFile": [
+            {
+              "uri": "gradlew.bat",
+              "mimeType": "text/x-java-source",
+              "region": {
+                "startLine": 88
+              }
+            }
+          ],
+          "fullyQualifiedLogicalName": "AndroidStudioFormatExample",
+          "logicalLocation": [
+            {
+              "name": "AndroidStudioFormatExample",
+              "locationKind": "android-module"
+            }
+          ]
+        }
+      ],
+      "fullMessage": "Typo: In word 'endlocal'",
+      "properties": {
+        "severity": "TYPO",
+        "attributeKey": "TYPO"
+      }
+    },
+    {
+      "ruleId": "Typo",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "app/build.gradle",
+              "mimeType": "text/x-java-source"
+            }
+          ],
+          "issueFile": [
+            {
+              "uri": "app/build.gradle",
+              "mimeType": "text/x-java-source",
+              "region": {
+                "startLine": 8
+              }
+            }
+          ],
+          "fullyQualifiedLogicalName": "app",
+          "logicalLocation": [
+            {
+              "name": "app",
+              "locationKind": "android-module"
+            }
+          ]
+        }
+      ],
+      "fullMessage": "Typo: In word 'androidstudioformatexample'",
+      "properties": {
+        "severity": "TYPO",
+        "attributeKey": "TYPO"
+      }
+    },
+    {
+      "ruleId": "Typo",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "app/src/main/AndroidManifest.xml",
+              "mimeType": "text/x-java-source"
+            }
+          ],
+          "issueFile": [
+            {
+              "uri": "app/src/main/AndroidManifest.xml",
+              "mimeType": "text/x-java-source",
+              "region": {
+                "startLine": 3
+              }
+            }
+          ],
+          "fullyQualifiedLogicalName": "app",
+          "logicalLocation": [
+            {
+              "name": "app",
+              "locationKind": "android-module"
+            }
+          ]
+        }
+      ],
+      "fullMessage": "Typo: In word 'androidstudioformatexample'",
+      "properties": {
+        "severity": "TYPO",
+        "attributeKey": "TYPO"
+      }
+    },
+    {
+      "ruleId": "Typo",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "app/src/main/res/values-w820dp/dimens.xml",
+              "mimeType": "text/x-java-source"
+            }
+          ],
+          "issueFile": [
+            {
+              "uri": "app/src/main/res/values-w820dp/dimens.xml",
+              "mimeType": "text/x-java-source",
+              "region": {
+                "startLine": 2
+              }
+            }
+          ],
+          "fullyQualifiedLogicalName": "app",
+          "logicalLocation": [
+            {
+              "name": "app",
+              "locationKind": "android-module"
+            }
+          ]
+        }
+      ],
+      "fullMessage": "Typo: In word 'dimens'",
+      "properties": {
+        "severity": "TYPO",
+        "attributeKey": "TYPO"
+      }
+    },
+    {
+      "ruleId": "Typo",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "app/src/main/java/microsoft/androidstudioformatexample/NamespaceTypo.java",
+              "mimeType": "text/x-java-source"
+            }
+          ],
+          "issueFile": [
+            {
+              "uri": "app/src/main/java/microsoft/androidstudioformatexample/NamespaceTypo.java",
+              "mimeType": "text/x-java-source",
+              "region": {
+                "startLine": 4
+              }
+            }
+          ],
+          "fullyQualifiedLogicalName": "app\\microsoft.androidstudioformatexample",
+          "logicalLocation": [
+            {
+              "name": "app",
+              "locationKind": "android-module"
+            },
+            {
+              "name": "microsoft.androidstudioformatexample",
+              "locationKind": "package"
+            }
+          ]
+        }
+      ],
+      "fullMessage": "Typo: In word 'daknis'",
+      "properties": {
+        "severity": "TYPO",
+        "attributeKey": "TYPO"
+      }
+    }
+  ]
+}

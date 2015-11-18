@@ -1,0 +1,24 @@
+﻿<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>$id$</id>
+    <version>$major$.$minor$.$patch$$prerelease$</version>
+    <title>.NET Static Analysis Results Interchange Format (SARIF) Sdk</title>
+    <authors>@billyoneal,@lgolding,@michaelcfanning,@nguerrera</authors>
+    <owners>@lgolding,@michaelcfanning,@nguerrera</owners>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>.NET tools and libraries for working with the Static Analysis Results Interchange Format.</description>
+    <releaseNotes>Version $major$.$minor$.$patch$$prerelease$ of the .NET SARIF Sdk</releaseNotes>
+    <copyright>Copyright Microsoft 2015</copyright>
+    <licenseUrl>https://github.com/Microsoft/sarif-sdk/blob/master/LICENSE</licenseUrl>
+    <projectUrl>https://github.com/microsoft/sarif-sdk</projectUrl>
+    <tags>sarifsdk</tags>
+  </metadata>
+  <files>
+    <file src='StaticAnalysisResultsInterchangeFormat.dll' target='lib\net40\StaticAnalysisResultsInterchangeFormat.dll'/>
+    <file src='StaticAnalysisResultsInterchangeFormat.pdb' target='lib\net45\StaticAnalysisResultsInterchangeFormat.pdb'/>
+    <file src='StaticAnalysisResultsInterchangeFormat.dll' target='lib\net40\StaticAnalysisResultsInterchangeFormat.dll'/>
+    <file src='StaticAnalysisResultsInterchangeFormat.pdb' target='lib\net45\Driver.Utilities.pdb'/>
+    <file src="..\..\..\..\src\StaticAnalysisResultsInterchangeFormat\**\*.cs" target="src" />    
+  </files>
+</package>
