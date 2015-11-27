@@ -18,7 +18,7 @@ namespace Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.Writers
         [TestMethod]
         public void IssueLogObjectWriter_DefaultIsEmpty()
         {
-            var uut = new ResultsLogObjectWriter();
+            var uut = new ResultLogObjectWriter();
             Assert.IsNull(uut.ToolInfo);
             Assert.AreEqual(0, uut.IssueList.Count);
         }
@@ -26,7 +26,7 @@ namespace Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.Writers
         [TestMethod]
         public void IssueLogObjectWriter_AcceptsIssuesAndToolInfo()
         {
-            var uut = new ResultsLogObjectWriter();
+            var uut = new ResultLogObjectWriter();
             uut.WriteToolAndRunInfo(s_defaultToolInfo, s_defaultRunInfo);
             uut.WriteResult(s_defaultIssue);
 
@@ -40,14 +40,14 @@ namespace Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.Writers
         [ExpectedException(typeof(InvalidOperationException))]
         public void IssueLogObjectWriter_RequiresToolInfoBeforeIssues()
         {
-            new ResultsLogObjectWriter().WriteResult(s_defaultIssue);
+            new ResultLogObjectWriter().WriteResult(s_defaultIssue);
         }
 
         [TestMethod]
         [ExpectedException(typeof(InvalidOperationException))]
         public void IssueLogObjectWriter_ToolInfoMayNotBeWrittenMoreThanOnce()
         {
-            var uut = new ResultsLogObjectWriter();
+            var uut = new ResultLogObjectWriter();
             uut.WriteToolAndRunInfo(s_defaultToolInfo, s_defaultRunInfo);
             uut.WriteToolAndRunInfo(s_defaultToolInfo, s_defaultRunInfo);
         }
@@ -56,21 +56,21 @@ namespace Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.Writers
         [ExpectedException(typeof(ArgumentNullException))]
         public void IssueLogObjectWriter_RequiresNonNullToolInfo()
         {
-            new ResultsLogObjectWriter().WriteToolAndRunInfo(null, s_defaultRunInfo);
+            new ResultLogObjectWriter().WriteToolAndRunInfo(null, s_defaultRunInfo);
         }
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentNullException))]
         public void IssueLogObjectWriter_RequiresNonNullRunInfo()
         {
-            new ResultsLogObjectWriter().WriteToolAndRunInfo(s_defaultToolInfo, null);
+            new ResultLogObjectWriter().WriteToolAndRunInfo(s_defaultToolInfo, null);
         }
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentNullException))]
         public void IssueLogObjectWriter_RequiresNonNullIssue()
         {
-            var uut = new ResultsLogObjectWriter();
+            var uut = new ResultLogObjectWriter();
             uut.WriteToolAndRunInfo(s_defaultToolInfo, s_defaultRunInfo);
             uut.WriteResult(null);
         }

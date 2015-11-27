@@ -9,10 +9,10 @@ using Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.DataContract
 
 namespace Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.Writers
 {
-    /// <summary>An implementation of <see cref="IResultsLogWriter"/> that writes the results as JSON to a
+    /// <summary>An implementation of <see cref="IResultLogWriter"/> that writes the results as JSON to a
     /// <see cref="TextWriter"/>.</summary>
     /// <seealso cref="T:Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.IIssueLogWriter"/>
-    public sealed class ResultsLogJsonWriter : IResultsLogWriter, IDisposable
+    public sealed class ResultLogJsonWriter : IResultLogWriter, IDisposable
     {
         private enum State
         {
@@ -25,10 +25,10 @@ namespace Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.Writers
         private readonly JsonSerializer _serializer;
         private State _writeState;
 
-        /// <summary>Initializes a new instance of the <see cref="ResultsLogJsonWriter"/> class.</summary>
+        /// <summary>Initializes a new instance of the <see cref="ResultLogJsonWriter"/> class.</summary>
         /// <param name="jsonWriter">The JSON writer. This class does not take ownership of the JSON
         /// writer; the caller is responsible for destroying it.</param>
-        public ResultsLogJsonWriter(JsonWriter jsonWriter)
+        public ResultLogJsonWriter(JsonWriter jsonWriter)
         {
             _jsonWriter = jsonWriter;
             _serializer = new JsonSerializer();

@@ -64,8 +64,8 @@ namespace Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.DataCont
         /// <summary>An entry indicating that the <see cref="ISyntax" /> object is of type Result.</summary>
         Result,
 
-        /// <summary>An entry indicating that the <see cref="ISyntax" /> object is of type ResultsLog.</summary>
-        ResultsLog,
+        /// <summary>An entry indicating that the <see cref="ISyntax" /> object is of type ResultLog.</summary>
+        ResultLog,
 
         /// <summary>An entry indicating that the <see cref="ISyntax" /> object is of type RunInfo.</summary>
         RunInfo,
@@ -2600,11 +2600,11 @@ namespace Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.DataCont
     /// </summary>
     [DataContract]
     [CompilerGenerated]
-    public sealed class ResultsLog : ISyntax, IEquatable<ResultsLog>
+    public sealed class ResultLog : ISyntax, IEquatable<ResultLog>
     {
         /// <summary>Gets the kind of type implementing <see cref="ISyntax" />.</summary>
         /// <value>The enumeration value for the kind of type implementing <see cref="ISyntax" />.</value>
-        public ToolResultsLogKind Kind { get { return ToolResultsLogKind.ResultsLog; } }
+        public ToolResultsLogKind Kind { get { return ToolResultsLogKind.ResultLog; } }
 
         /// <summary>
         /// The SARIF tool format version of this log file. This value should be set to 0.4, currently.
@@ -2647,16 +2647,16 @@ namespace Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.DataCont
             }
         }
 
-        /// <summary>Initializes a new instance of the <see cref="ResultsLog" /> class.</summary>
-        public ResultsLog()
+        /// <summary>Initializes a new instance of the <see cref="ResultLog" /> class.</summary>
+        public ResultLog()
         {
             // Blank on purpose
         }
 
-        /// <summary>Initializes a new instance of the <see cref="ResultsLog" /> class with the supplied data.</summary>
+        /// <summary>Initializes a new instance of the <see cref="ResultLog" /> class with the supplied data.</summary>
         /// <param name="versionArg">An initialization value for the <see cref="P:Version" /> member.</param>
         /// <param name="runLogsArg">An initialization value for the <see cref="P:RunLogs" /> member.</param>
-        public ResultsLog(global::System.Version versionArg, IEnumerable<RunLog> runLogsArg)
+        public ResultLog(global::System.Version versionArg, IEnumerable<RunLog> runLogsArg)
         {
             this.Init(
                 versionArg, 
@@ -2664,10 +2664,10 @@ namespace Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.DataCont
             );
         }
 
-        /// <summary>Initializes a new instance of the <see cref="ResultsLog" /> class as a copy of another instance.</summary>
+        /// <summary>Initializes a new instance of the <see cref="ResultLog" /> class as a copy of another instance.</summary>
         /// <exception cref="ArgumentNullException">Thrown if <paramref name="other" /> is null.</exception>
         /// <param name="other">The instance to copy.</param>
-        public ResultsLog(ResultsLog other)
+        public ResultLog(ResultLog other)
         {
             if (other == null)
             {
@@ -2686,14 +2686,14 @@ namespace Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.DataCont
         }
 
         /// <summary>Creates a deep copy of this instance.</summary>
-        public ResultsLog DeepClone()
+        public ResultLog DeepClone()
         {
-            return (ResultsLog)this.DeepCloneCore();
+            return (ResultLog)this.DeepCloneCore();
         }
 
         private ISyntax DeepCloneCore()
         {
-            return new ResultsLog(this);
+            return new ResultLog(this);
         }
 
         /// <summary>Generates a hash code for this instance.</summary>
@@ -2725,13 +2725,13 @@ namespace Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.DataCont
         /// <returns>true if this instance and <paramref name="o" /> contain the same data; otherwise, false.</returns>
         public override bool Equals(object o)
         {
-            return this.Equals(o as ResultsLog);
+            return this.Equals(o as ResultLog);
         }
 
         /// <summary>Compares this instance with another instance.</summary>
         /// <param name="other">The instance to compare with this instance.</param>
         /// <returns>true if this instance and <paramref name="other" /> contain the same data; otherwise, false.</returns>
-        public bool Equals(ResultsLog other)
+        public bool Equals(ResultLog other)
         {
             if (other == null)
             {
@@ -3384,8 +3384,8 @@ namespace Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.DataCont
                 return this.VisitReplacement((Replacement)node);
             case ToolResultsLogKind.Result:
                 return this.VisitResult((Result)node);
-            case ToolResultsLogKind.ResultsLog:
-                return this.VisitResultsLog((ResultsLog)node);
+            case ToolResultsLogKind.ResultLog:
+                return this.VisitResultLog((ResultLog)node);
             case ToolResultsLogKind.RunInfo:
                 return this.VisitRunInfo((RunInfo)node);
             case ToolResultsLogKind.RunLog:
@@ -3635,9 +3635,9 @@ namespace Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.DataCont
             return (T)(object)node;
         }
 
-        /// <summary>Visits a ResultsLog node in a ToolResultsLog tree.</summary>
-        /// <param name="node">A ResultsLog node to visit.</param>
-        public virtual T VisitResultsLog(ResultsLog node)
+        /// <summary>Visits a ResultLog node in a ToolResultsLog tree.</summary>
+        /// <param name="node">A ResultLog node to visit.</param>
+        public virtual T VisitResultLog(ResultLog node)
         {
             if (node != null)
             {
@@ -3748,8 +3748,8 @@ namespace Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.DataCont
                 return this.VisitReplacement((Replacement)node);
             case ToolResultsLogKind.Result:
                 return this.VisitResult((Result)node);
-            case ToolResultsLogKind.ResultsLog:
-                return this.VisitResultsLog((ResultsLog)node);
+            case ToolResultsLogKind.ResultLog:
+                return this.VisitResultLog((ResultLog)node);
             case ToolResultsLogKind.RunInfo:
                 return this.VisitRunInfo((RunInfo)node);
             case ToolResultsLogKind.RunLog:
@@ -4004,9 +4004,9 @@ namespace Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.DataCont
             return node;
         }
 
-        /// <summary>Rewrites a ResultsLog node in a ToolResultsLog tree.</summary>
-        /// <param name="node">A ResultsLog node to visit.</param>
-        public virtual ResultsLog VisitResultsLog(ResultsLog node)
+        /// <summary>Rewrites a ResultLog node in a ToolResultsLog tree.</summary>
+        /// <param name="node">A ResultLog node to visit.</param>
+        public virtual ResultLog VisitResultLog(ResultLog node)
         {
             if (node != null)
             {

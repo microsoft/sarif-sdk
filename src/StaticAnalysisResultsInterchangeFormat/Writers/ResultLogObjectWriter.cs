@@ -7,16 +7,16 @@ using Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.DataContract
 
 namespace Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.Writers
 {
-    /// <summary>An implementation of <see cref="IResultsLogWriter"/> which merely stores its results in a list.</summary>
+    /// <summary>An implementation of <see cref="IResultLogWriter"/> which merely stores its results in a list.</summary>
     /// <seealso cref="T:Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.IIssueLogWriter"/>
-    public sealed class ResultsLogObjectWriter : IResultsLogWriter
+    public sealed class ResultLogObjectWriter : IResultLogWriter
     {
         private ToolInfo _toolInfo;
         private RunInfo _runInfo;
         private ImmutableList<Result> _issueList;
 
-        /// <summary>Initializes a new instance of the <see cref="ResultsLogObjectWriter"/> class.</summary>
-        public ResultsLogObjectWriter()
+        /// <summary>Initializes a new instance of the <see cref="ResultLogObjectWriter"/> class.</summary>
+        public ResultLogObjectWriter()
         {
             _issueList = ImmutableList<Result>.Empty;
         }

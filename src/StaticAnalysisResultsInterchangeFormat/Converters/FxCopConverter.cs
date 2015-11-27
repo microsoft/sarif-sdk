@@ -29,7 +29,7 @@ namespace Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.Converte
         /// </summary>
         /// <param name="input">FxCop log stream</param>
         /// <param name="output">output stream</param>
-        public void Convert(Stream input, IResultsLogWriter output)
+        public void Convert(Stream input, IResultLogWriter output)
         {
             if (input == null)
             {

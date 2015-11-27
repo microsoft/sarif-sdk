@@ -1,10 +1,10 @@
 /** @namespace {Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.DataContracts} */ grammar ToolResultsLog;
 
 /**
-    @className {ResultsLog}
+    @className {ResultLog}
     @summary {An SARIF format log.}
 */
-resultsLog :
+resultLog :
     /**
         @name {Version}
         @summary {

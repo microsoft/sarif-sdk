@@ -32,7 +32,7 @@ namespace Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.Converte
         /// <exception cref="ArgumentNullException">Thrown when one or more required arguments are null.</exception>
         /// <param name="input">Stream of the Fortify report.</param>
         /// <param name="output">Stream of OES json format.</param>
-        public void Convert(Stream input, IResultsLogWriter output)
+        public void Convert(Stream input, IResultLogWriter output)
         {
             if (input == null)
             {

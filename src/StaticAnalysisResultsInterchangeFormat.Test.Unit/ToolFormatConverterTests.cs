@@ -43,7 +43,7 @@ namespace Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat
         [ExpectedException(typeof(ArgumentNullException))]
         public void ToolFormatConverter_ConvertToStandardFormat_NullInputStream()
         {
-            var output = new ResultsLogObjectWriter();
+            var output = new ResultLogObjectWriter();
             _converter.ConvertToStandardFormat(ToolFormat.AndroidStudio, null, output);
         }
 
@@ -60,7 +60,7 @@ namespace Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat
         [ExpectedException(typeof(ArgumentException))]
         public void ToolFormatConverter_ConvertToStandardFormat_UnknownToolFormat()
         {
-            var output = new ResultsLogObjectWriter();
+            var output = new ResultLogObjectWriter();
             using (var input = new MemoryStream())
             {
                 _converter.ConvertToStandardFormat(0, input, output);

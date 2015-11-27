@@ -50,7 +50,7 @@
     <Compile Include="Extensions.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="IgnoreOptions.cs" />
-    <Compile Include="IResultsLogWriter.cs" />
+    <Compile Include="IResultLogWriter.cs" />
     <Compile Include="LogicalLocationKind.cs" />
     <Compile Include="Readers\SarifContractResolver.cs" />
     <Compile Include="Readers\VersionConverter.cs" />
@@ -72,8 +72,8 @@
     <Compile Include="Converters\FxCopConverter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ToolFormat.cs" />
-    <Compile Include="Writers\ResultsLogJsonWriter.cs" />
-    <Compile Include="Writers\ResultsLogObjectWriter.cs" />
+    <Compile Include="Writers\ResultLogJsonWriter.cs" />
+    <Compile Include="Writers\ResultLogObjectWriter.cs" />
     <Compile Include="Writers\MimeType.cs" />
   </ItemGroup>
   <ItemGroup>

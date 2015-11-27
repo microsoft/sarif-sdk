@@ -36,7 +36,7 @@ namespace Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.Converte
         /// </summary>
         /// <param name="input">The Android Studio formatted log.</param>
         /// <param name="output">The IssueLog to write the output to.</param>
-        public void Convert(Stream input, IResultsLogWriter output)
+        public void Convert(Stream input, IResultLogWriter output)
         {
             if (input == null)
             {
@@ -69,10 +69,10 @@ namespace Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.Converte
         }
 
         /// <summary>Processes an Android Studio log and writes issues therein to an instance of
-        /// <see cref="IResultsLogWriter"/>.</summary>
+        /// <see cref="IResultLogWriter"/>.</summary>
         /// <param name="xmlReader">The XML reader from which AndroidStudio format shall be read.</param>
-        /// <param name="output">The <see cref="IResultsLogWriter"/> to write the output to.</param>
-        private void ProcessAndroidStudioLog(XmlReader xmlReader, IResultsLogWriter output)
+        /// <param name="output">The <see cref="IResultLogWriter"/> to write the output to.</param>
+        private void ProcessAndroidStudioLog(XmlReader xmlReader, IResultLogWriter output)
         {
             int problemsDepth = xmlReader.Depth;
             xmlReader.ReadStartElement(_strings.Problems);

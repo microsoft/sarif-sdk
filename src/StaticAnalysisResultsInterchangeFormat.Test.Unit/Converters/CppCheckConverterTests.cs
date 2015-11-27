@@ -34,13 +34,13 @@ namespace Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.Converte
         public void CppCheckConverter_Convert_NullLogTest()
         {
             CppCheckConverter converter = new CppCheckConverter();
-            converter.Convert(null, new ResultsLogObjectWriter());
+            converter.Convert(null, new ResultLogObjectWriter());
         }
 
         [TestMethod]
         public void CppCheckConverter_ExtractsCppCheckVersion()
         {
-            ResultsLogObjectWriter results = Utilities.GetConverterObjects(new CppCheckConverter(),
+            ResultLogObjectWriter results = Utilities.GetConverterObjects(new CppCheckConverter(),
                 "<results> <cppcheck version=\"12.34\" /> <errors /> </results>");
             Assert.AreEqual("12.34", results.ToolInfo.Version);
         }

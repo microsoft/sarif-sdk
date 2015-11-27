@@ -27,7 +27,7 @@ namespace Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.Converte
         /// </summary>
         /// <param name="input">Stream of a CppChecker log</param>
         /// <param name="output">OES json stream of the converted CppChecker log</param>
-        public void Convert(Stream input, IResultsLogWriter output)
+        public void Convert(Stream input, IResultLogWriter output)
         {
             if (input == null)
             {
@@ -52,7 +52,7 @@ namespace Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.Converte
             }
         }
 
-        private void ProcessCppCheckLog(XmlReader reader, IResultsLogWriter issueWriter)
+        private void ProcessCppCheckLog(XmlReader reader, IResultLogWriter issueWriter)
         {
             reader.ReadStartElement(_strings.Results);
 

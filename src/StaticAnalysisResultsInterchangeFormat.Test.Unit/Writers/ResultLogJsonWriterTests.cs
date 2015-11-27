@@ -16,18 +16,18 @@ using Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.DataContract
 namespace Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.Writers
 {
     [TestClass]
-    public class ResultsLogJsonWriterTests
+    public class ResultLogJsonWriterTests
     {
         private static readonly RunInfo s_defaultRunInfo = new RunInfo();
         private static readonly ToolInfo s_defaultToolInfo = new ToolInfo();
         private static readonly Result s_defaultIssue = new Result();
 
-        private static string GetJson(Action<ResultsLogJsonWriter> testContent)
+        private static string GetJson(Action<ResultLogJsonWriter> testContent)
         {
             StringBuilder result = new StringBuilder();
             using (var str = new StringWriter(result))
             using (var json = new JsonTextWriter(str))
-            using (var uut = new ResultsLogJsonWriter(json))
+            using (var uut = new ResultLogJsonWriter(json))
             {
                 testContent(uut);
             }
@@ -102,7 +102,7 @@ namespace Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.Writers
         {
             using (var str = new StringWriter())
             using (var json = new JsonTextWriter(str))
-            using (var uut = new ResultsLogJsonWriter(json))
+            using (var uut = new ResultLogJsonWriter(json))
             {
                 uut.Dispose();
                 uut.WriteToolAndRunInfo(s_defaultToolInfo, s_defaultRunInfo);
@@ -115,7 +115,7 @@ namespace Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.Writers
         {
             using (var str = new StringWriter())
             using (var json = new JsonTextWriter(str))
-            using (var uut = new ResultsLogJsonWriter(json))
+            using (var uut = new ResultLogJsonWriter(json))
             {
                 uut.WriteToolAndRunInfo(s_defaultToolInfo, s_defaultRunInfo);
                 uut.Dispose();
@@ -128,7 +128,7 @@ namespace Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.Writers
         {
             using (var str = new StringWriter())
             using (var json = new JsonTextWriter(str))
-            using (var uut = new ResultsLogJsonWriter(json))
+            using (var uut = new ResultLogJsonWriter(json))
             {
                 // Assert no exception thrown
                 uut.Dispose();

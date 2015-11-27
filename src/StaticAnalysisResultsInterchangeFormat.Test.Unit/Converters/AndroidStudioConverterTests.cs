@@ -36,7 +36,7 @@ namespace Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.Converte
         [ExpectedException(typeof(ArgumentNullException))]
         public void AndroidStudioConverter_Convert_NullInput()
         {
-            _converter.Convert(null, new ResultsLogObjectWriter());
+            _converter.Convert(null, new ResultLogObjectWriter());
         }
 
         [TestMethod]

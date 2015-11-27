@@ -18,7 +18,7 @@ namespace Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.Converte
         /// <exception cref="ArgumentNullException">Thrown when one or more required arguments are null.</exception>
         /// <param name="input">CLang log file stream.</param>
         /// <param name="output">Result log writer.</param>
-        public void Convert(Stream input, IResultsLogWriter output)
+        public void Convert(Stream input, IResultLogWriter output)
         {
             // ToDo remove this comment after all issues are resolved.
             // Rodney is tasked with bringing Clang analyzer results into the SARIF fold.
@@ -108,7 +108,7 @@ namespace Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.Converte
             return value ?? string.Empty;
         }
 
-        private void LogIssue(IDictionary<string, object> issueData, IResultsLogWriter output)
+        private void LogIssue(IDictionary<string, object> issueData, IResultLogWriter output)
         {
             if (issueData != null)
             {
@@ -303,7 +303,7 @@ namespace Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.Converte
             return dictionary;
         }
 
-        private void ReadPlistDictionary(XmlReader xmlReader, IResultsLogWriter output)
+        private void ReadPlistDictionary(XmlReader xmlReader, IResultLogWriter output)
         {
             string keyName = string.Empty;
             bool readerMoved = false;       // ReadElementContentAsString reads to next element
@@ -369,7 +369,7 @@ namespace Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.Converte
             }
         }
 
-        private void ReadDiagnostics(XmlReader xmlReader, IResultsLogWriter output)
+        private void ReadDiagnostics(XmlReader xmlReader, IResultLogWriter output)
         {
             xmlReader.Read(); // Read past the "array" element start.
 
@@ -394,7 +394,7 @@ namespace Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.Converte
             }
         }
 
-        private void ReadPlist(XmlReader xmlReader, IResultsLogWriter output)
+        private void ReadPlist(XmlReader xmlReader, IResultLogWriter output)
         {
             while (xmlReader.Read())
             {
