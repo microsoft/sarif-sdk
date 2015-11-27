@@ -86,7 +86,7 @@ namespace Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.Converte
         [TestMethod]
         public void FortifyConverter_Convert_RuleIdIsKingdomAndCategory()
         {
-            Issue result = FortifyConverter.ConvertFortifyIssueToSarifIssue(FortifyConverterTests.GetBasicIssue());
+            Result result = FortifyConverter.ConvertFortifyIssueToSarifIssue(FortifyConverterTests.GetBasicIssue());
             Assert.AreEqual("cat", result.RuleId);
         }
 
@@ -95,25 +95,25 @@ namespace Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.Converte
         {
             Builder builder = FortifyConverterTests.GetBasicBuilder();
             builder.InstanceId = "a";
-            Issue resultA = FortifyConverter.ConvertFortifyIssueToSarifIssue(builder.ToImmutable());
+            Result resultA = FortifyConverter.ConvertFortifyIssueToSarifIssue(builder.ToImmutable());
             Assert.AreEqual("a", resultA.ToolFingerprint);
 
             builder.InstanceId = null; // IID is optional
-            Issue resultNull = FortifyConverter.ConvertFortifyIssueToSarifIssue(builder.ToImmutable());
+            Result resultNull = FortifyConverter.ConvertFortifyIssueToSarifIssue(builder.ToImmutable());
             Assert.IsNull(resultNull.ToolFingerprint);
         }
 
         [TestMethod]
         public void FortifyConverter_Convert_ShortMessageIsUnset()
         {
-            Issue result = FortifyConverter.ConvertFortifyIssueToSarifIssue(FortifyConverterTests.GetBasicIssue());
+            Result result = FortifyConverter.ConvertFortifyIssueToSarifIssue(FortifyConverterTests.GetBasicIssue());
             Assert.IsNull(result.ShortMessage);
         }
 
         [TestMethod]
         public void FortifyConverter_Convert_FullMessageFallsBackToCategoryIfNoAbstractPresent()
         {
-            Issue result = FortifyConverter.ConvertFortifyIssueToSarifIssue(FortifyConverterTests.GetBasicIssue());
+            Result result = FortifyConverter.ConvertFortifyIssueToSarifIssue(FortifyConverterTests.GetBasicIssue());
             result.FullMessage.Should().Contain("cat");
         }
 
@@ -122,7 +122,7 @@ namespace Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.Converte
         {
             Builder builder = FortifyConverterTests.GetBasicBuilder();
             builder.Abstract = "Some abstract message";
-            Issue result = FortifyConverter.ConvertFortifyIssueToSarifIssue(builder.ToImmutable());
+            Result result = FortifyConverter.ConvertFortifyIssueToSarifIssue(builder.ToImmutable());
             Assert.AreEqual("Some abstract message", result.FullMessage);
         }
 
@@ -131,7 +131,7 @@ namespace Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.Converte
         {
             Builder builder = FortifyConverterTests.GetBasicBuilder();
             builder.AbstractCustom = "Some abstract custom message";
-            Issue result = FortifyConverter.ConvertFortifyIssueToSarifIssue(builder.ToImmutable());
+            Result result = FortifyConverter.ConvertFortifyIssueToSarifIssue(builder.ToImmutable());
             Assert.AreEqual("Some abstract custom message", result.FullMessage);
         }
 
@@ -141,7 +141,7 @@ namespace Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.Converte
             Builder builder = FortifyConverterTests.GetBasicBuilder();
             builder.Abstract = "Some abstract message";
             builder.AbstractCustom = "Some abstract custom message";
-            Issue result = FortifyConverter.ConvertFortifyIssueToSarifIssue(builder.ToImmutable());
+            Result result = FortifyConverter.ConvertFortifyIssueToSarifIssue(builder.ToImmutable());
             Assert.AreEqual("Some abstract message" + Environment.NewLine + "Some abstract custom message",
                 result.FullMessage);
         }
@@ -149,7 +149,7 @@ namespace Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.Converte
         [TestMethod]
         public void FortifyConverter_Convert_KingdomIsInProperties()
         {
-            Issue result = FortifyConverter.ConvertFortifyIssueToSarifIssue(FortifyConverterTests.GetBasicIssue());
+            Result result = FortifyConverter.ConvertFortifyIssueToSarifIssue(FortifyConverterTests.GetBasicIssue());
             result.Properties.Should().Equal(new Dictionary<string, string>
             {
                 {"kingdom", "king" }
@@ -160,7 +160,7 @@ namespace Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.Converte
         public void FortifyConverter_Convert_FillsInPriorityIfFriorityPresent()
         {
             Builder builder = FortifyConverterTests.GetBasicBuilder();
-            Issue result = FortifyConverter.ConvertFortifyIssueToSarifIssue(builder.ToImmutable());
+            Result result = FortifyConverter.ConvertFortifyIssueToSarifIssue(builder.ToImmutable());
             Assert.IsTrue(result.Properties == null || !result.Properties.ContainsKey("priority"),
                 "Priority was set to a null value.");
 
@@ -173,7 +173,7 @@ namespace Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.Converte
         public void FortifyConverter_Convert_FillsInCweIfPresent()
         {
             Builder builder = FortifyConverterTests.GetBasicBuilder();
-            Issue result = FortifyConverter.ConvertFortifyIssueToSarifIssue(builder.ToImmutable());
+            Result result = FortifyConverter.ConvertFortifyIssueToSarifIssue(builder.ToImmutable());
             Assert.IsTrue(result.Properties == null || !result.Properties.ContainsKey("cwe"),
                 "CWE was filled in when no CWEs were present.");
 
@@ -186,7 +186,7 @@ namespace Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.Converte
         public void FortifyConverter_Convert_FillsInFortifyRuleIdIfPresent()
         {
             Builder builder = FortifyConverterTests.GetBasicBuilder();
-            Issue result = FortifyConverter.ConvertFortifyIssueToSarifIssue(builder.ToImmutable());
+            Result result = FortifyConverter.ConvertFortifyIssueToSarifIssue(builder.ToImmutable());
             Assert.IsTrue(result.Properties == null || !result.Properties.ContainsKey("fortifyRuleId"),
                 "Fortify RuleID was filled in when no ruleId was present.");
 
@@ -200,7 +200,7 @@ namespace Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.Converte
         {
             Builder builder = FortifyConverterTests.GetBasicBuilder();
             builder.Source = FortifyConverterTests.s_dummyPathSourceElement;
-            Issue result = FortifyConverter.ConvertFortifyIssueToSarifIssue(builder.ToImmutable());
+            Result result = FortifyConverter.ConvertFortifyIssueToSarifIssue(builder.ToImmutable());
             Assert.AreEqual(1, result.Locations.Count);
             Assert.AreEqual("filePath", result.Locations[0].IssueFile[0].Uri.ToString());
             Assert.AreEqual(new Region { StartLine = 1729 }, result.Locations[0].IssueFile[0].Region);
@@ -209,7 +209,7 @@ namespace Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.Converte
         [TestMethod]
         public void FortifyConverter_Convert_DoesNotFillInExecutionFlowWhenOnlyPrimaryIsPresent()
         {
-            Issue result = FortifyConverter.ConvertFortifyIssueToSarifIssue(GetBasicIssue());
+            Result result = FortifyConverter.ConvertFortifyIssueToSarifIssue(GetBasicIssue());
             Assert.IsNull(result.ExecutionFlows);
         }
 
@@ -218,9 +218,9 @@ namespace Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.Converte
         {
             Builder builder = FortifyConverterTests.GetBasicBuilder();
             builder.Source = FortifyConverterTests.s_dummyPathSourceElement;
-            Issue result = FortifyConverter.ConvertFortifyIssueToSarifIssue(builder.ToImmutable());
+            Result result = FortifyConverter.ConvertFortifyIssueToSarifIssue(builder.ToImmutable());
             Assert.AreEqual(1, result.ExecutionFlows.Count);
-            IList<ExecutionFlowEntry> flow = result.ExecutionFlows[0];
+            IList<AnnotatedCodeLocation> flow = result.ExecutionFlows[0];
             Assert.AreEqual("sourceFilePath", flow[0].PhysicalLocations[0][0].Uri.ToString());
             Assert.AreEqual(new Region { StartLine = 42 }, flow[0].PhysicalLocations[0][0].Region);
             Assert.AreEqual("filePath", flow[1].PhysicalLocations[0][0].Uri.ToString());

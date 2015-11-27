@@ -16,18 +16,18 @@ using Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.DataContract
 namespace Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.Writers
 {
     [TestClass]
-    public class IssueLogJsonWriterTests
+    public class ResultsLogJsonWriterTests
     {
         private static readonly RunInfo s_defaultRunInfo = new RunInfo();
         private static readonly ToolInfo s_defaultToolInfo = new ToolInfo();
-        private static readonly Issue s_defaultIssue = new Issue();
+        private static readonly Result s_defaultIssue = new Result();
 
-        private static string GetJson(Action<IssueLogJsonWriter> testContent)
+        private static string GetJson(Action<ResultsLogJsonWriter> testContent)
         {
             StringBuilder result = new StringBuilder();
             using (var str = new StringWriter(result))
             using (var json = new JsonTextWriter(str))
-            using (var uut = new IssueLogJsonWriter(json))
+            using (var uut = new ResultsLogJsonWriter(json))
             {
                 testContent(uut);
             }
@@ -48,7 +48,7 @@ namespace Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.Writers
             string actual = GetJson(uut =>
             {
                 uut.WriteToolAndRunInfo(s_defaultToolInfo, s_defaultRunInfo);
-                uut.WriteIssue(s_defaultIssue);
+                uut.WriteResult(s_defaultIssue);
             });
             Assert.AreEqual(expected, actual);
         }
@@ -57,7 +57,7 @@ namespace Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.Writers
         [ExpectedException(typeof(InvalidOperationException))]
         public void IssueLogJsonWriter_RequiresToolInfoBeforeIssues()
         {
-            GetJson(uut => uut.WriteIssue(s_defaultIssue));
+            GetJson(uut => uut.WriteResult(s_defaultIssue));
         }
 
         [TestMethod]
@@ -92,7 +92,7 @@ namespace Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.Writers
             GetJson(uut =>
             {
                 uut.WriteToolAndRunInfo(s_defaultToolInfo, s_defaultRunInfo);
-                uut.WriteIssue(null);
+                uut.WriteResult(null);
             });
         }
 
@@ -102,7 +102,7 @@ namespace Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.Writers
         {
             using (var str = new StringWriter())
             using (var json = new JsonTextWriter(str))
-            using (var uut = new IssueLogJsonWriter(json))
+            using (var uut = new ResultsLogJsonWriter(json))
             {
                 uut.Dispose();
                 uut.WriteToolAndRunInfo(s_defaultToolInfo, s_defaultRunInfo);
@@ -115,11 +115,11 @@ namespace Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.Writers
         {
             using (var str = new StringWriter())
             using (var json = new JsonTextWriter(str))
-            using (var uut = new IssueLogJsonWriter(json))
+            using (var uut = new ResultsLogJsonWriter(json))
             {
                 uut.WriteToolAndRunInfo(s_defaultToolInfo, s_defaultRunInfo);
                 uut.Dispose();
-                uut.WriteIssue(s_defaultIssue);
+                uut.WriteResult(s_defaultIssue);
             }
         }
 
@@ -128,7 +128,7 @@ namespace Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.Writers
         {
             using (var str = new StringWriter())
             using (var json = new JsonTextWriter(str))
-            using (var uut = new IssueLogJsonWriter(json))
+            using (var uut = new ResultsLogJsonWriter(json))
             {
                 // Assert no exception thrown
                 uut.Dispose();

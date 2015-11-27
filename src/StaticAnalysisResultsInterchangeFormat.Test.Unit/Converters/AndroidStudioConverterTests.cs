@@ -36,7 +36,7 @@ namespace Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.Converte
         [ExpectedException(typeof(ArgumentNullException))]
         public void AndroidStudioConverter_Convert_NullInput()
         {
-            _converter.Convert(null, new IssueLogObjectWriter());
+            _converter.Convert(null, new ResultsLogObjectWriter());
         }
 
         [TestMethod]
@@ -117,7 +117,7 @@ namespace Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.Converte
             var builder = AndroidStudioProblemTests.GetDefaultProblemBuilder();
             builder.Description = "hungry EVIL zombies";
             var uut = new AndroidStudioProblem(builder);
-            Issue result = AndroidStudioConverter.ConvertProblemToSarifIssue(uut);
+            Result result = AndroidStudioConverter.ConvertProblemToSarifIssue(uut);
             Assert.IsNull(result.ShortMessage);
             Assert.AreEqual("hungry EVIL zombies", result.FullMessage);
         }
@@ -134,7 +134,7 @@ namespace Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.Converte
             };
 
             var uut = new AndroidStudioProblem(builder);
-            Issue result = AndroidStudioConverter.ConvertProblemToSarifIssue(uut);
+            Result result = AndroidStudioConverter.ConvertProblemToSarifIssue(uut);
             Assert.AreEqual("hungry EVIL zombies", result.ShortMessage);
             Assert.AreEqual(@"hungry EVIL zombies
 Possible resolution: comment
@@ -145,7 +145,7 @@ Possible resolution: delete", result.FullMessage);
         public void AndroidStudioConverter_ConvertToSarifIssue_UsesProblemClassForRuleId()
         {
             var uut = AndroidStudioProblemTests.GetDefaultProblem();
-            Issue result = AndroidStudioConverter.ConvertProblemToSarifIssue(uut);
+            Result result = AndroidStudioConverter.ConvertProblemToSarifIssue(uut);
             Assert.AreEqual("A Problematic Problem", result.RuleId);
         }
 
@@ -153,7 +153,7 @@ Possible resolution: delete", result.FullMessage);
         public void AndroidStudioConverter_ConvertToSarifIssue_HasNoPropertiesIfAttributeKeyAndSeverity()
         {
             var uut = AndroidStudioProblemTests.GetDefaultProblem();
-            Issue result = AndroidStudioConverter.ConvertProblemToSarifIssue(uut);
+            Result result = AndroidStudioConverter.ConvertProblemToSarifIssue(uut);
             Assert.IsNull(result.Properties);
         }
 
@@ -163,7 +163,7 @@ Possible resolution: delete", result.FullMessage);
             var builder = AndroidStudioProblemTests.GetDefaultProblemBuilder();
             builder.AttributeKey = "key";
             var uut = new AndroidStudioProblem(builder);
-            Issue result = AndroidStudioConverter.ConvertProblemToSarifIssue(uut);
+            Result result = AndroidStudioConverter.ConvertProblemToSarifIssue(uut);
             result.Properties.Should().Equal(new Dictionary<string, string> {
                 {"attributeKey", "key"}
             });
@@ -175,7 +175,7 @@ Possible resolution: delete", result.FullMessage);
             var builder = AndroidStudioProblemTests.GetDefaultProblemBuilder();
             builder.Severity = "warning";
             var uut = new AndroidStudioProblem(builder);
-            Issue result = AndroidStudioConverter.ConvertProblemToSarifIssue(uut);
+            Result result = AndroidStudioConverter.ConvertProblemToSarifIssue(uut);
             result.Properties.Should().Equal(new Dictionary<string, string> {
                 {"severity", "warning"}
             });
@@ -188,7 +188,7 @@ Possible resolution: delete", result.FullMessage);
             builder.AttributeKey = "key";
             builder.Severity = "warning";
             var uut = new AndroidStudioProblem(builder);
-            Issue result = AndroidStudioConverter.ConvertProblemToSarifIssue(uut);
+            Result result = AndroidStudioConverter.ConvertProblemToSarifIssue(uut);
             result.Properties.Should().Equal(new Dictionary<string, string> {
                 {"severity", "warning"},
                 {"attributeKey", "key"}

@@ -1,15 +1,15 @@
-/** @namespace {Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.DataContracts} */ grammar ToolIssuesLog;
+/** @namespace {Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.DataContracts} */ grammar ToolResultsLog;
 
 /**
-    @className {IssueLog}
+    @className {ResultsLog}
     @summary {An SARIF format log.}
 */
-issueLog :
+resultsLog :
     /**
         @name {Version}
         @summary {
-        The SARIF tool format version of this log file. This value should be set to 0.3, currently.
-        This is the second proposed revision of a file format that is not yet completely finalized.
+        The SARIF tool format version of this log file. This value should be set to 0.4, currently.
+        This is the third proposed revision of a file format that is not yet completely finalized.
         }
     */
     version
@@ -25,8 +25,8 @@ runLog:
     /**
         @name {ToolInfo}
         @summary {
-        Information about the tool or tool pipeline that generated the issues in this log. An issue
-        log can only contain issues produced by a single tool or tool pipeline. An issue log can
+        Information about the tool or tool pipeline that generated the results in this log. A results
+        log can only contain results produced by a single tool or tool pipeline. A results log can
         aggregate results from multiple tool log files, as long as context around the tool run
         (tool command-line arguments and the like) is identical for all aggregated files.
         }
@@ -36,44 +36,44 @@ runLog:
 	/**
         @name {RunInfo}
         @summary {
-		A runInfo object describes the invocation of the static analysis tool that produced the issues
+		A runInfo object describes the invocation of the static analysis tool that produced the results
 		specified in the containing runLog object (§6.4). 
         }
     */
 	runInfo
 
     /**
-        @name {Issues}
-        @summary {The set of issues contained in an SARIF log.}
+        @name {Results}
+        @summary {The set of results contained in an SARIF log.}
     */
-    issues;
+    results;
 
 /**
     @className {ToolInfo}
     @summary {
-    Information about the tool or tool pipeline that generated the issues in this log.
+    Information about the tool or tool pipeline that generated the results in this log.
     }
 */
 toolInfo :
     /**
-        @name {ToolName}
+        @name {Name}
         @summary {
-        The name of the tool or tool pipeline that generated the issues in this log, e.g., FxCop.
+        The name of the tool or tool pipeline that generated the results in this log, e.g., FxCop.
         }
     */
-    toolName
+    name
 
     /**
-        @name {FullVersion}
+        @name {FullName}
         @summary {
         An unformatted version string that can include additional, arbitrary details
         identifying the tool (such as build branch information, company details, etc.).
         }
     */
-    fullVersion?
+    fullName?
 
     /**
-        @name {ProductVersion}
+        @name {Version}
         @summary {
         A version that refers to the tool as a whole (as opposed to, for example,
         the build version of an individual binary in the tool).
@@ -85,11 +85,14 @@ toolInfo :
         application, this value SHOULD be the first three dotted version values of AssemblyVersion.
         }
     */
-    productVersion?
+    version?
 
     /**
         @name {FileVersion}
-        @summary {For Windows tools only, the binary version of the primary tool exe. }
+        @summary {
+		For operating systems (such as Windows) that provide the data, the binary version 
+		of the primary tool exe.
+		}
         @remarks {
         If the code analysis product is a native Windows program, this value MUST be the FileVersion
         field of the VS_VERSION_INFO structure. If the code analysis product is a .NET application,
@@ -101,20 +104,20 @@ toolInfo :
 /**
     @className {RunInfo}
     @summary {
-	A runInfo object describes the invocation of the static analysis tool that produced the issues
+	A runInfo object describes the invocation of the static analysis tool that produced the results
 	specified in the containing runLog object (§6.4). 
 
 	NOTE: The information in the runInfo object makes it possible to precisely repeat a run of a
-	static analysis tool, and to verify that the issues reported in the log file were generated 
+	static analysis tool, and to verify that the results reported in the log file were generated 
 	by an appropriate invocation of the tool.
 	}
 */
 runInfo :
     /**
-		@name {CommandLineArguments}
+		@name {Parameterization}
 		@summary {
-		A string containing the command line arguments with which the tool was invoked. This string 
-		shall not include the file name or path to the executable itself.
+		A string that describes any parameterization for the tool invocation. For command line tools 
+		this string may consist of the completely specified command line used to invoke the tool.
 		}
     */
     commandLineArguments 
@@ -124,8 +127,8 @@ runInfo :
         @name {AnalysisTargets}
         @summary {
 		An array, each of whose elements is a fileReference object (§6.7) representing the location of 
-		a single analysis target scanned during the run. This array shall contain one entry for each 
-		analysis target that was scanned, even if the analysis targets were not individually specified 
+		a single analysis target scanned during the run. When presenct, this array shall contain one entry 
+		fo reach analysis target that was scanned, even if the analysis targets were not individually specified 
 		on the command line. 
 
 		NOTE 1: The command line with which the tool was invoked might specify its input files by means 
@@ -138,13 +141,13 @@ runInfo :
 		and no files matched the wildcard.
 		}
     */
-    analysisTargets;
+    analysisTargets?;
 
-/** @className {RuleLogs} */
+/** @className {RunLogs} */
 runLogs: runLog*;
 
-/** @className {Issues} */
-issues : issue*;
+/** @className {Results} */
+results : result*;
 
 /** @className {AnalysisTargets} */
 analysisTargets: fileReference*;
@@ -167,11 +170,11 @@ fileReference :
     /**
         @name {Hashes}
         @summary {
-		An array of hash objects (§6.8), each of which specifies a hashed value for the file specified 
+		An optional array of hash objects (§6.8), each of which specifies a hashed value for the file specified 
 		by the uri property (§6.7.2), along with the name of the algorithm used to compute the hash.
 		}
     */
-    hashes;
+    hashes?;
 
 /** @className {Hashes} */
 hashes : hash*;
@@ -202,15 +205,94 @@ hash :
     algorithm;
 
 /**
-    @className {Issue}
+    @className {Result}
     @summary {
     Represents one or more observations about an analysis target produced by a static analysis tool.
     }
     @remarks {
-    An issue frequently, but not always, represents a code defect.
+    An result frequently, but not always, represents a code defect.
     }
 */
-issue :
+result :
+    /**
+        @name {RuleId}
+        @summary {
+        An opaque, stable identifier that uniquely identifies the specific rule associated with
+        the result (e.g., CA2001).
+        }
+        @remarks {
+        RuleIds need only be unique in the context of a specific tool, that is, a rule CA2001
+        defined by ToolA is distinct from a rule with the same ID defined by ToolB.
+        }
+    */
+    ruleId
+
+    /**
+        @name {ResultKind}
+        @summary {
+        A string specifying the kind of observation this result represents. 
+		This shall be one of the following: warning, error, pass, pending, note, notApplicable, internalError.
+		If this member is not present, its implied value is 'warning'.
+        }
+        @remarks {
+        The following table provides more information on each kind value:
+		
+		* warning : A code defect or other quality issue.
+		* error : A serious code defect or quality issue.
+		* pass : Analysis target was determined not to be subject to a code defect or quality issue detected by a specific rule.
+		* pending : An observation (persisted with relevant corresponding state) that must be evaluated further to determine pass/fail state.
+		* note : An informational message.
+		* notApplicable : The analysis target is not a valid subject of analysis.
+		* internalError : A significant configuration or tool execution error occurred, with the result that analysis may be incomplete or compromised.
+        }
+    */
+    kind?
+
+    /**
+        @name {FullMessage}
+        @summary {
+        A string that comprehensively describes the result to the users.
+        }
+        @remarks {
+        The full message should be a single paragraph of text. If the result comprises a quality issue 
+		it should provide sufficient details to completely drive resolution of an issue. This means
+		it should always include:
+        1) information sufficient to identify the item under analysis, 2) the state that was
+        observed that led to the issue firing, 3) the risks or problems potentially associated
+        with not fixing the problem, 4) the full range of responses that could be taken (including
+        conditions when a problem might not be fixed or where a reported issue might be a false positive).
+       
+        If the optional short message is not present, UI elements with limited display real estate
+        for showing results (e.g., a list view, pop-ups in the code editor, etc.) should display the
+        beginning of the full message.
+        }
+    */
+    fullMessage
+
+    /**
+        @name {ShortMessage}
+        @summary {
+        A short description that summarizes an issue to the user in one or two lines.
+        }
+        @remarks {
+        If this member is not present, then the beginning of the FullMessage should be
+        displayed in elements of the UI where real estate is limited.
+        }
+    */
+    shortMessage?
+
+    /**
+        @name {Locations}
+        @summary {
+        Specifies one or more peer locations where an issue is located. Note that this is not used
+        to point to multiple instances of the same issue; separate instances should have separate
+        issue objects. For example, a misspelled partial class in C# may list all the source
+        lines on which the partial class is declared as separate top-level locations. However, two
+        independent misspellings of the same word need to be top level issues.
+        }
+    */
+    locations
+
     /**
         @name {ToolFingerprint}
         @summary {
@@ -231,91 +313,51 @@ issue :
     toolFingerprint?
 
     /**
-        @name {RuleId}
-        @summary {
-        An opaque, stable identifier that uniquely identifies the specific rule associated with
-        the issue(e.g., CA2001).
-        }
-        @remarks {
-        RuleIds need only be unique in the context of a specific tool, that is, a rule CA2001
-        defined by ToolA is distinct from a rule with the same ID defined by ToolB.
-        }
-    */
-    ruleId?
-
-    /**
-        @name {Locations}
-        @summary {
-        Specifies one or more peer locations where an issue is located. Note that this is not used
-        to point to multiple instances of the same issue; separate instances should have separate
-        issue objects. For example, a misspelled partial class in C# may list all the source
-        lines on which the partial class is declared as separate top-level locations. However, two
-        independent misspellings of the same word need to be top level issues.
-        }
-    */
-    locations
-
-    /**
-        @name {ShortMessage}
-        @summary {
-        A short description that summarizes an issue to the user in one or two lines.
-        }
-        @remarks {
-        If this member is not present, then the beginning of the FullMessage should be
-        displayed in elements of the UI where real estate is limited.
-        }
-    */
-    shortMessage?
-
-    /**
-        @name {FullMessage}
-        @summary {
-        A string that comprehensively describes the issue to the users.
-        }
-        @remarks {
-        The full message should be a single paragraph of text. It should provide sufficient
-        details to completely drive resolution of an issue. This means it should always include:
-        1) information sufficiently to identify the item under analysis, 2) the state that was
-        observed that led to the issue firing, 3) the risks or problems potentially associated
-        with not fixing the problem, 4) the full range of responses that could be taken (including
-        conditions when a problem might not be fixed or where a reported issue might be a false positive).
-       
-        If the optional short message is not present, UI elements with limited display real estate
-        for showing issues (e.g., a list view, pop-ups in the code editor, etc.) should display the
-        beginning of the full message.
-        }
-    */
-    fullMessage
-
-    /**
         @name {Stacks} @serializedName {stacks}
         @summary {
-        A grouped set of locations, if available, that represent stacks associated with this issue.
+        A grouped set of locations, if available, that represent stacks associated with this result.
         }
     */
-    executionFlows?
+    annotatedCodeLocations?
 
     /**
         @name {ExecutionFlows} @serializedName {executionFlows}
         @summary {
         A grouped set of location, if available, that comprise annotated
-        execution flows through code which are associated with this issue.
+        execution flows through code which are associated with this result.
         }
     */
     executionFlows?
 
     /**
+        @name {RelatedLocations} @serializedName {relatedLocations}
+        @summary {
+        A grouped set of locations and messages, if available, that represent code areas that are related
+		to this result.
+        }
+    */
+    annotatedCodeLocations?
+
+    /**
         @name {IsSuppressedInSource}
         @summary {
-        A flag that indicates whether or not this issue was suppressed in source code.
+        A flag that indicates whether or not this result was suppressed in source code.
         }
     */
     isSuppressedInSource?
 
+	/**
+        @name {Fixes}
+        @summary {
+        An array of fix objects, if available, that can be applied in order to correct this result.
+        }
+    */
+    fixes?
+
     /**
         @name {Properties}
         @summary {
-        Key/value pairs that additional details about the issue.
+        Key/value pairs that additional details about the result.
         }
         @remarks {
         Properties may be included in the dictionary that have an empty value.
@@ -347,7 +389,7 @@ location :
     /**
         @name {IssueFile} @serializedName {issueFile}
         @summary {
-        A source file that is associated with the current issue if and only if that is not the
+        A source file that is associated with the current result if and only if that is not the
         same as the analysis target. This member will populated or not, in many cases, depending
         on whether PDBs associated with the analysis target are available. Examples include a C# file
         in the FxCop-like binary analysis case, or possibly a .H C++ file in the case of a source
@@ -356,10 +398,18 @@ location :
     */
     physicalLocation?
 
+	/**
+        @name {LogicalLocation} @serializedName {logicalLocation}
+        @summary {
+        An object that specifies the logical namespace / function / etc location.
+        }
+    */
+    logicalLocation?
+
     /**
         @name {FullyQualifiedLogicalName} @serializedName {fullyQualifiedLogicalName}
         @summary {
-        A string containing the language-specific logical name of the location where the issue occurs; e.g.
+        A string containing the language-specific logical name of the location where the result occurs; e.g.
             C: Foo
             C++: Namespace::Class::MemberFunction(int, double) const&&
             C++: Namespace::NonmemberFunction(int, double)
@@ -367,14 +417,6 @@ location :
         }
     */
     fullyQualifiedLogicalName?
-
-    /**
-        @name {LogicalLocation} @serializedName {logicalLocation}
-        @summary {
-        An object that specifies the logical namespace / function / etc location.
-        }
-    */
-    logicalLocation?
 
     /**
         @name {Properties}
@@ -438,7 +480,7 @@ physicalLocationComponent:
     /**
         @name {Region}
         @summary {
-        The specific region within the analysis where the issue was detected. This SHOULD only be
+        The specific region within the analysis where the result was detected. This SHOULD only be
         set on the last physicalLocationComponent in a physicalLocation most of the time.
 
         (There are some exceptions e.g. an embedded .SWF in an Office 2003 format ppt)
@@ -446,98 +488,10 @@ physicalLocationComponent:
     */
     region?;
 
-/*********************************************************
-Execution flow infrastructure; execution flows are the same lists of physical locations except that
-each physical location in the list can have a message stapled on.
-*/
-
-/**
-    @className {ExecutionFlows}
-    @summary {
-    A set of one or more execution flows reported for a given issue. Usually this will have a single
-    execution flow, but in some cases (such as when showing multiple threads accessing the same object at once)
-    more than one execution flow may be present.
-    }
-*/
-executionFlows: executionFlow*;
-
-/**
-    @className {ExecutionFlow}
-    @summary {
-    A list of places code has visited in encountering a given issue. For example, this list may contain
-    a function's entry point, an if branch with a message "take true branch", and some bad call that
-    happens inside that if branch.
-    }
-*/
-executionFlow: executionFlowEntry*;
-
-/**
-    @className {ExecutionFlowEntry}
-    @summary {
-    A single physical location visited in an execution flow.
-    }
-*/
-executionFlowEntry:
-    /**
-        @name {PhysicalLocations} @serializedName{physicalLocations}
-        @summary {
-        A set of places to which this excution flow entry refers. These locations are of equal
-        priority; for example, one entry may be the source code location while another is the
-        assembly or IL location.
-        }
-    */
-    physicalLocations
-
-    /**
-        @name {Message} @serializedName {message}
-        @summary {
-        A message associated with this execution flow entry, if applicable.
-        }
-    */
-    message?;
-
-/*********************************************************
-Logical location infrastructure; logical locations refer to specific semantic code elements such as classes,
-fields, methods, functions, namespaces, and/or packages.
-*/
-
-/**
-    @className {LogicalLocation}
-    @summary {
-    A "code pointer" or similar that refers to a logical place where an issue occurs. For example, the
-    function where the defect occurs. Components are in order from most general to most specific.
-    }
-*/
-logicalLocation : logicalLocationComponent*;
-
-/**
-    @className {LogicalLocationComponent}
-    @summary {One level (e.g. namespace, function, etc.) of a logical location tree.}
-*/
-logicalLocationComponent:
-    /**
-        @name {Name}
-        @summary {
-        Name of the item specified by this location component.
-        }
-    */
-    name
-
-    /**
-        @name {LocationKind}
-        @summary {
-        The type of item this location refers to.
-        }
-        @remarks {
-        Examples include namespace, class, or function.
-        }
-    */
-    locationKind;
-
 /**
     @className {Region}
     @summary {
-    Specifies a region within a file where an issue was detected.
+    Specifies a region within a file where an result was detected.
     }
     @remarks {
     Minimally, the Region should be populated with the StartLine or Offset members.
@@ -619,11 +573,243 @@ region :
     */
     length?;
 
+/**
+    @className {LogicalLocationComponent}
+    @summary {One level (e.g. namespace, function, etc.) of a logical location tree.}
+*/
+logicalLocationComponent:
+    /**
+        @name {Name}
+        @summary {
+        Name of the item specified by this location component.
+        }
+    */
+    name
+
+    /**
+        @name {LocationKind}
+        @summary {
+        The type of item this location refers to.
+        }
+        @remarks {
+        Examples include namespace, class, or function.
+        }
+    */
+    locationKind;
+
+/**
+    @className {AnnotatedCodeLocation}
+    @summary {
+    A code annotation that consists of single physical location and associated message, used to express
+	stacks, document execution flow through a method, etc.
+    }
+*/
+annotatedCodeLocation:
+	/**
+		@name {PhysicalLocations} @serializedName{physicalLocations}
+		@summary {
+		A set of places to which this annotation refers. These locations are of equal
+		priority; for example, one entry may be the source code location while another is the
+		assembly or IL location.
+		}
+	*/
+	physicalLocations
+
+	/**
+		@name {Message} @serializedName {message}
+		@summary {
+		A message associated with this annotation, if applicable.
+		}
+	*/
+	message?;
+
+/** @className {AnnotatedCodeLocations}
+    @summary {
+    A set of one or more annotated code locations associated with a given result.
+    }
+*/
+annotatedCodeLocations: annotatedCodeLocation*;
+
+/*********************************************************
+Execution flow infrastructure; execution flows are the same lists of physical locations except that
+each physical location in the list can have a message stapled on.
+*/
+
+/**
+    @className {ExecutionFlows}
+    @summary {
+    A set of one or more execution flows reported for a given result. Usually this will have a single
+    annotation, but in some cases (such as when showing multiple threads accessing the same object at once)
+    more than one execution flow may be present.
+    }
+*/
+executionFlows: executionFlow*;
+
+/**
+    @className {ExecutionFlow}
+    @summary {
+    A list of places code has visited in encountering a given result. For example, this list may contain
+    a function's entry point, an if branch with a message "take true branch", and some bad call that
+    happens inside that if branch.
+    }
+*/
+executionFlow: annotatedCodeLocation*;
+
+/*********************************************************
+Logical location infrastructure; logical locations refer to specific semantic code elements such as classes,
+fields, methods, functions, namespaces, and/or packages.
+*/
+
+/**
+    @className {LogicalLocation}
+    @summary {
+    A "code pointer" or similar that refers to a logical place where a result occurs. For example, the
+    function where the defect occurs. Components are in order from most general to most specific.
+    }
+*/
+logicalLocation : logicalLocationComponent*;
+
+/**
+    @className {Fixes}
+    @summary {
+    One or more proposed fixes for a code defect.
+    }
+*/
+fixes : fix*;
+
+/**
+    @className {Fix}
+    @summary {
+    A proposed fix an a code defect represented by a result object. A fix specifies a set of file to modify.
+	For each file, the fix specifies a set of bytes to remove and provides a set of new bytes to replace them.
+    }
+*/
+fix:
+	/**
+		@name {Description} @serializedName{description}
+		@summary {
+		A string that describes the proposed fix, enabling viewers to present a proposed change to an end user.
+		}
+	*/
+	description
+
+	/**
+		@name {FileChanges} @serializedName {fileChanges}
+		@summary {
+		A message associated with this annotation, if applicable.
+		}
+	*/
+	fileChanges;
+
+/**
+    @className {FileChanges}
+    @summary {
+    One or more changes to a single file.
+    }
+*/
+fileChanges : fileChange*;
+
+/**
+    @className {FileChange}
+    @summary {
+    A change to a single file.
+    }
+*/
+fileChange:
+	/**
+		@name {Uri} @serializedName{uri}
+		@summary {
+		A string that represents the location of the file to change as a valid URI. If not present,
+		the uri associated with this fix is assumed to be the uri of the analysisTarget member
+		on the first location in the associated result.
+		}
+	*/
+	uri?
+
+	/**
+		@name {Replacements} @serializedName {replacements}
+		@summary {
+		An array of replacement objects, each of which represents the replacement of a single range of
+		bytes in a single file specified by the uri property, if present, or, if not, the uri
+		property of the analysisTarget property of the first location of the current result.
+		}
+	*/
+	replacements;
+
+/**
+    @className {Replacements}
+    @summary {
+    An array of replacement objects, each of which represent a replacement of a single range of bytes
+	in a file.
+    }
+*/
+replacements : replacement*;
+
+/**
+    @className {Replacement}
+    @summary {
+    The replacement of a single range of bytes in a file. Each instance specifies the location within
+	the file where the replacement is to be made, the number of bytes to remove at that location, and
+	a sequence of bytes to insert at that location.
+    }
+    @remarks {
+    If a replacement object specifies both the removal of a byte range by means of the deletedLength
+	property and the insertion of a sequence of bytes by means of the insertedBytes property, then 
+	the effect of the replacment shall be as if the removal were performed before the insertion.
+
+	If a single fileChange object specifies more than one replacement, then the effect of the 
+	replacements shall be as if they were performed in the order in which they appear in the 
+	replacements array. The offset property of each replacement shall specify an offset in the 
+	unmodified file (i.e., the offsets are not recomputed based on any prior changes to the file).
+    }
+*/
+replacement:
+	/**
+		@name {Offset} @serializedName{offset}
+		@summary {
+		A non-negative integer specifying the offset in bytes from the beginning of the file at
+		which bytes are to be removed, inserted or both. An offset of 0 shall denote the first 
+		byte in the file.
+		}
+	*/
+	offset
+
+	/**
+		@name {DeletedLength} @serializedName {deletedLength}
+		@summary {
+		An optional non-negative integer specifying the number of bytes to delete, start at the 
+		byte offset specified by the offset property, measured from the beginning of the file.
+		}
+		@remarks {
+		If deletedLength is not present, or if its value is 0, no bytes shall be deleted.
+		}
+	*/
+	deletedLength
+
+/**
+		@name {InsertedBytes} @serializedName {insertedBytes}
+		@summary {
+		An optional string that specifies the byte sequence to be inserted at the byte offset 
+		specified by the offset property, measured from the beginning of the file.
+		}
+		@remarks {
+		If insertedBytes is not preset, or if its value is 0, no bytes shall be deleted.
+
+		If the file into which the bytes are to be inserted is a binary file, the value of the 
+		insertedBytes string shall be the MIME Base64 encoding of the byte sequence to be
+		inserted.
+
+		If the file into which the bytes are to be inserted is a text file, the characters to
+		be inserted shall first be encoded in UTF-8. The value of the insertedBytes string shall
+		be the MIME Base64 encoding of the resulting UTF-8 byte sequence.
+		}
+	*/
+	insertedBytes;
+
 version : /* @summary {A string, of the form Major.Minor, where Major and Minor are integers in the range [0, 2^16)} */ VERSION;
-toolName : STRING;
 fullVersion : STRING;
 fileVersion : STRING;
-productVersion : STRING;
+fullName : STRING;
 uri : URI;
 mimeType : STRING;
 toolFingerprint : STRING;
@@ -646,4 +832,7 @@ message: STRING;
 commandLineArguments: STRING;
 value: STRING;
 algorithm: STRING;
-
+kind: STRING;
+description: STRING;
+deletedLength: INTEGER;
+insertedBytes: INTEGER;

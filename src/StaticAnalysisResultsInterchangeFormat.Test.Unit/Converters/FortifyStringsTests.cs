@@ -16,7 +16,7 @@ namespace Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.Converte
         {
             var nameTable = new NameTable();
             var uut = new FortifyStrings(nameTable);
-            Assert.AreSame(nameTable.Add("Issue"), uut.Issue);
+            Assert.AreSame(nameTable.Add("Result"), uut.Result);
             Assert.AreSame(nameTable.Add("iid"), uut.Iid);
             Assert.AreSame(nameTable.Add("ruleID"), uut.RuleId);
             Assert.AreSame(nameTable.Add("Category"), uut.Category);

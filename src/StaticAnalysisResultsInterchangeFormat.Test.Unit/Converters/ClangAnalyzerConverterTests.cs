@@ -33,7 +33,7 @@ namespace Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.Converte
         public void ClangAnalyzerConverter_Convert_NullLogTest()
         {
             ClangAnalyzerConverter converter = new ClangAnalyzerConverter();
-            converter.Convert(null, new IssueLogObjectWriter());
+            converter.Convert(null, new ResultsLogObjectWriter());
         }
 
         private const string empty = @"{

@@ -15,7 +15,7 @@ using Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.DataContract
 namespace Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.Converters
 {
     /// <summary>
-    /// Converts an xml log file of the Android Studio format into the SARIF OES issue format
+    /// Converts an xml log file of the Android Studio format into the SARIF OES result format
     /// </summary>
     internal class AndroidStudioConverter : IToolFileConverter
     {
@@ -36,7 +36,7 @@ namespace Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.Converte
         /// </summary>
         /// <param name="input">The Android Studio formatted log.</param>
         /// <param name="output">The IssueLog to write the output to.</param>
-        public void Convert(Stream input, IIssueLogWriter output)
+        public void Convert(Stream input, IResultsLogWriter output)
         {
             if (input == null)
             {
@@ -50,7 +50,7 @@ namespace Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.Converte
 
             output.WriteToolAndRunInfo(new ToolInfo
             {
-                ToolName = "AndroidStudio"
+                Name = "AndroidStudio"
             }, null);
 
             XmlReaderSettings settings = new XmlReaderSettings
@@ -69,10 +69,10 @@ namespace Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.Converte
         }
 
         /// <summary>Processes an Android Studio log and writes issues therein to an instance of
-        /// <see cref="IIssueLogWriter"/>.</summary>
+        /// <see cref="IResultsLogWriter"/>.</summary>
         /// <param name="xmlReader">The XML reader from which AndroidStudio format shall be read.</param>
-        /// <param name="output">The <see cref="IIssueLogWriter"/> to write the output to.</param>
-        private void ProcessAndroidStudioLog(XmlReader xmlReader, IIssueLogWriter output)
+        /// <param name="output">The <see cref="IResultsLogWriter"/> to write the output to.</param>
+        private void ProcessAndroidStudioLog(XmlReader xmlReader, IResultsLogWriter output)
         {
             int problemsDepth = xmlReader.Depth;
             xmlReader.ReadStartElement(_strings.Problems);
@@ -82,16 +82,16 @@ namespace Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.Converte
                 var problem = AndroidStudioProblem.Parse(xmlReader, _strings);
                 if (problem != null)
                 {
-                    output.WriteIssue(AndroidStudioConverter.ConvertProblemToSarifIssue(problem));
+                    output.WriteResult(AndroidStudioConverter.ConvertProblemToSarifIssue(problem));
                 }
             }
 
             xmlReader.ReadEndElement(); // </problems>
         }
 
-        public static Issue ConvertProblemToSarifIssue(AndroidStudioProblem problem)
+        public static Result ConvertProblemToSarifIssue(AndroidStudioProblem problem)
         {
-            var result = new Issue();
+            var result = new Result();
             result.RuleId = problem.ProblemClass;
             string description = AndroidStudioConverter.GetShortDescriptionForProblem(problem);
             if (problem.Hints.IsEmpty)

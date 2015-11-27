@@ -58,7 +58,7 @@ namespace Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat
                     outputJson.Formatting = Formatting.Indented;
                 }
 
-                using (var output = new IssueLogJsonWriter(outputJson))
+                using (var output = new ResultsLogJsonWriter(outputJson))
                 {
                     ConvertToStandardFormat(toolFormat, input, output);
                 }
@@ -88,7 +88,7 @@ namespace Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat
         public void ConvertToStandardFormat(
             ToolFormat toolFormat,
             Stream inputStream,
-            IIssueLogWriter outputStream)
+            IResultsLogWriter outputStream)
         {
             if (inputStream == null) { throw new ArgumentNullException("inputStream"); };
             if (outputStream == null) { throw new ArgumentNullException("outputStream"); };

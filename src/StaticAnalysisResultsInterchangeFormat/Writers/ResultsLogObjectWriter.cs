@@ -7,18 +7,18 @@ using Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.DataContract
 
 namespace Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.Writers
 {
-    /// <summary>An implementation of <see cref="IIssueLogWriter"/> which merely stores its results in a list.</summary>
+    /// <summary>An implementation of <see cref="IResultsLogWriter"/> which merely stores its results in a list.</summary>
     /// <seealso cref="T:Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.IIssueLogWriter"/>
-    public sealed class IssueLogObjectWriter : IIssueLogWriter
+    public sealed class ResultsLogObjectWriter : IResultsLogWriter
     {
         private ToolInfo _toolInfo;
         private RunInfo _runInfo;
-        private ImmutableList<Issue> _issueList;
+        private ImmutableList<Result> _issueList;
 
-        /// <summary>Initializes a new instance of the <see cref="IssueLogObjectWriter"/> class.</summary>
-        public IssueLogObjectWriter()
+        /// <summary>Initializes a new instance of the <see cref="ResultsLogObjectWriter"/> class.</summary>
+        public ResultsLogObjectWriter()
         {
-            _issueList = ImmutableList<Issue>.Empty;
+            _issueList = ImmutableList<Result>.Empty;
         }
 
         /// <summary>Gets the ToolInfo block.</summary>
@@ -30,8 +30,8 @@ namespace Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.Writers
         public RunInfo RunInfo { get { return _runInfo; } }
 
         /// <summary>Gets the list of issues written so far.</summary>
-        /// <value>The list of <see cref="Issue"/> objects written so far.</value>
-        public ImmutableList<Issue> IssueList { get { return _issueList; } }
+        /// <value>The list of <see cref="Result"/> objects written so far.</value>
+        public ImmutableList<Result> IssueList { get { return _issueList; } }
 
         /// <summary>Writes a tool information entry to the log. This must be the first entry written into
         /// a log, and it may be written at most once.</summary>
@@ -60,27 +60,27 @@ namespace Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.Writers
             _runInfo = runInfo;
         }
 
-        /// <summary>Writes an issue to the log. The log must have tool info written first by calling
+        /// <summary>Writes an result to the log. The log must have tool info written first by calling
         /// <see cref="M:WriteToolInfo" />.</summary>
-        /// <remarks>This function makes a copy of the data stored in <paramref name="issue"/>; if a
-        /// client wishes to reuse the issue instance to avoid allocations they can do so. (This function
-        /// may invoke an internal copy of the issue or serialize it in place to disk, etc.)</remarks>
+        /// <remarks>This function makes a copy of the data stored in <paramref name="result"/>; if a
+        /// client wishes to reuse the result instance to avoid allocations they can do so. (This function
+        /// may invoke an internal copy of the result or serialize it in place to disk, etc.)</remarks>
         /// <exception cref="InvalidOperationException">Thrown if the tool info is not yet written.</exception>
-        /// <param name="issue">The issue to write.</param>
-        /// <seealso cref="M:Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.IsarifWriter.WriteIssue(Issue)"/>
-        public void WriteIssue(Issue issue)
+        /// <param name="result">The result to write.</param>
+        /// <seealso cref="M:Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.IsarifWriter.WriteIssue(Result)"/>
+        public void WriteResult(Result result)
         {
-            if (issue == null)
+            if (result == null)
             {
-                throw new ArgumentNullException("issue");
+                throw new ArgumentNullException("result");
             }
 
             if (_toolInfo == null)
             {
-                throw new InvalidOperationException(SarifResources.CannotWriteIssueToolInfoMissing);
+                throw new InvalidOperationException(SarifResources.CannotWriteResultToolInfoMissing);
             }
 
-            _issueList = _issueList.Add(new Issue(issue));
+            _issueList = _issueList.Add(new Result(result));
         }
     }
 }

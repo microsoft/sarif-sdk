@@ -204,7 +204,7 @@ namespace Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.Converte
 
             context.RefineIssue("hello!", "test", "25", "error", "source", "myfile.cs", 13);
             Assert.AreEqual("hello!", context.Message);
-            Assert.AreEqual("test", context.Issue);
+            Assert.AreEqual("test", context.Result);
             Assert.AreEqual("25", context.Certainty);
             Assert.AreEqual("error", context.Level);
             Assert.AreEqual("source", context.Path);
@@ -236,7 +236,7 @@ namespace Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.Converte
             Assert.AreEqual("VeryUsefulCheck", context.Typename);
             Assert.AreEqual("Breaking", context.FixCategory);
             Assert.AreEqual("hello!", context.Message);
-            Assert.AreEqual("test", context.Issue);
+            Assert.AreEqual("test", context.Result);
             Assert.AreEqual("25", context.Certainty);
             Assert.AreEqual("error", context.Level);
             Assert.AreEqual("source", context.Path);
@@ -250,7 +250,7 @@ namespace Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.Converte
             Assert.IsNull(context.Type);
             Assert.IsNull(context.Member);
             Assert.IsNull(context.Message);
-            Assert.IsNull(context.Issue);
+            Assert.IsNull(context.Result);
         }
 
         [TestMethod]
@@ -273,7 +273,7 @@ namespace Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.Converte
             Assert.AreEqual("VeryUsefulCheck", context.Typename);
             Assert.AreEqual("Breaking", context.FixCategory);
             Assert.AreEqual("hello!", context.Message);
-            Assert.AreEqual("test", context.Issue);
+            Assert.AreEqual("test", context.Result);
             Assert.AreEqual("25", context.Certainty);
             Assert.AreEqual("error", context.Level);
             Assert.AreEqual("source", context.Path);
@@ -288,7 +288,7 @@ namespace Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.Converte
             Assert.IsNull(context.Type);
             Assert.IsNull(context.Member);
             Assert.IsNull(context.Message);
-            Assert.IsNull(context.Issue);
+            Assert.IsNull(context.Result);
         }
 
         [TestMethod]
@@ -317,7 +317,7 @@ namespace Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.Converte
             Assert.IsNull(context.Type);
             Assert.IsNull(context.Member);
             Assert.IsNull(context.Message);
-            Assert.IsNull(context.Issue);
+            Assert.IsNull(context.Result);
 
             Assert.IsFalse(context.Exception);
             Assert.IsNull(context.ExceptionType);
@@ -369,7 +369,7 @@ namespace Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.Converte
             context.RefineMessage("CA0000", "VeryUsefulCheck", "1", "FakeCategory", "Breaking");
             context.RefineIssue("hello!", "test", "uncertain", "error", @"source", "myfile.cs", 13);
 
-            Assert.AreEqual(new Issue
+            Assert.AreEqual(new Result
             {
                 RuleId = "CA0000",
                 ShortMessage = "VeryUsefulCheck",

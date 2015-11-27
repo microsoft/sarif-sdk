@@ -117,8 +117,8 @@
       <xs:element name="Note" type="NoteIdentifier" minOccurs="0" maxOccurs="unbounded" />
     </xs:sequence>
   </xs:complexType>
-  <!-- Message & Issue definitions -->
-  <xs:element name="Issue">
+  <!-- Message & Result definitions -->
+  <xs:element name="Result">
     <xs:complexType>
       <xs:attribute name="Certainty" type="Certainty" use="required" />
       <xs:attribute name="Path" type="xs:string" use="required" />
@@ -130,7 +130,7 @@
   <xs:element name="Message">
     <xs:complexType>
       <xs:sequence>
-        <xs:element ref="Issue" minOccurs="0" maxOccurs="unbounded" />
+        <xs:element ref="Result" minOccurs="0" maxOccurs="unbounded" />
         <xs:element name="Notes" type="NoteIdentifiers" minOccurs="0" maxOccurs="1" />
       </xs:sequence>
       <xs:attribute name="Status" type="MessageStatus" use="required" />

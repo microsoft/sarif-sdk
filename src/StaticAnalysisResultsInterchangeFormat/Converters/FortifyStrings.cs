@@ -5,10 +5,10 @@ using System.Xml;
 
 namespace Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.Converters
 {
-    //<xs:element name="Issue">
+    //<xs:element name="Result">
     //    <xs:complexType>
     //        <xs:sequence>
-    //            <!-- Issue Description -->
+    //            <!-- Result Description -->
     //            <xs:element name="Category" type="xs:string" minOccurs="1" maxOccurs="1"/>
     //            <xs:element name="Folder" type="xs:string" minOccurs="1" maxOccurs="1"/>
     //            <xs:element name="Kingdom" type="xs:string" minOccurs="1" maxOccurs="1"/>
@@ -66,16 +66,16 @@ namespace Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.Converte
     /// <summary>Strings from the Fortify XSD used for parsing Fortify logs.</summary>
     internal class FortifyStrings
     {
-        // Issue Element
+        // Result Element
 
-        /// <summary>The string constant "Issue".</summary>
-        public readonly string Issue;
+        /// <summary>The string constant "Result".</summary>
+        public readonly string Result;
         /// <summary>The string constant "iid".</summary>
         public readonly string Iid;
         /// <summary>The string constant "ruleID".</summary>
         public readonly string RuleId;
 
-        // Issue Members
+        // Result Members
 
         /// <summary>The string constant "Category".</summary>
         public readonly string Category;
@@ -123,7 +123,7 @@ namespace Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.Converte
         /// <param name="nameTable">The name table from which strings shall be retrieved.</param>
         public FortifyStrings(XmlNameTable nameTable)
         {
-            this.Issue = nameTable.Add("Issue");
+            this.Result = nameTable.Add("Result");
             this.Iid = nameTable.Add("iid");
             this.RuleId = nameTable.Add("ruleID");
             this.Category = nameTable.Add("Category");
