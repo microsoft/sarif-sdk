@@ -25,7 +25,7 @@ namespace Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.Converte
     internal sealed class FxCopConverter : IToolFileConverter
     {
         /// <summary>
-        /// Convert FxCop log to an OES json format stream
+        /// Convert FxCop log to SARIF format stream
         /// </summary>
         /// <param name="input">FxCop log stream</param>
         /// <param name="output">output stream</param>

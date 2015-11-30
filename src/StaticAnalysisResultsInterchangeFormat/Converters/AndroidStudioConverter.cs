@@ -15,7 +15,7 @@ using Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.DataContract
 namespace Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.Converters
 {
     /// <summary>
-    /// Converts an xml log file of the Android Studio format into the SARIF OES result format
+    /// Converts an xml log file of the Android Studio format into the SARIF format
     /// </summary>
     internal class AndroidStudioConverter : IToolFileConverter
     {
@@ -32,10 +32,10 @@ namespace Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.Converte
         }
 
         /// <summary>
-        /// Converts an Android Studio formatted log as input into an SARIF IssueLog using the output.
+        /// Converts an Android Studio formatted log as input into an SARIF ResultLog using the output.
         /// </summary>
         /// <param name="input">The Android Studio formatted log.</param>
-        /// <param name="output">The IssueLog to write the output to.</param>
+        /// <param name="output">The ResultLog to write the output to.</param>
         public void Convert(Stream input, IResultLogWriter output)
         {
             if (input == null)

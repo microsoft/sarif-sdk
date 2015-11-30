@@ -5,7 +5,7 @@ using Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.DataContract
 
 namespace Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat
 {
-    /// <summary>This interface serves as a sink for <see cref="IssueLog"/> format issues.</summary>
+    /// <summary>This interface serves as a sink for <see cref="ResultLog"/> format issues.</summary>
     public interface IResultLogWriter
     {
         /// <summary>Writes run and tool information entries to the log. These must be the first

@@ -26,12 +26,12 @@ namespace Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.Converte
         }
 
         /// <summary>
-        /// Interface implementation for converting a stream of Fortify report in XML format to an OES
-        /// json format stream.
+        /// Interface implementation for converting a stream of Fortify report in XML format to a
+        /// SARIF json format stream.
         /// </summary>
         /// <exception cref="ArgumentNullException">Thrown when one or more required arguments are null.</exception>
         /// <param name="input">Stream of the Fortify report.</param>
-        /// <param name="output">Stream of OES json format.</param>
+        /// <param name="output">Stream of SARIF json.</param>
         public void Convert(Stream input, IResultLogWriter output)
         {
             if (input == null)
@@ -72,7 +72,7 @@ namespace Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.Converte
         /// <summary>Converts a Fortify result to a static analysis results interchange format result.</summary>
         /// <param name="fortify">The Fortify result convert.</param>
         /// <returns>
-        /// A Unified Result Store <see cref="Result"/> containing the same content as the supplied
+        /// A SARIF result <see cref="Result"/> containing the same content as the supplied
         /// <see cref="FortifyIssue"/>.
         /// </returns>
         public static Result ConvertFortifyIssueToSarifIssue(FortifyIssue fortify)

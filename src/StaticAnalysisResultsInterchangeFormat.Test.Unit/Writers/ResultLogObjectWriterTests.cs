@@ -9,14 +9,14 @@ using Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.DataContract
 namespace Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.Writers
 {
     [TestClass]
-    public class IssueLogObjectWriterTests
+    public class ResultLogObjectWriterTests
     {
         private static readonly RunInfo s_defaultRunInfo = new RunInfo();
         private static readonly ToolInfo s_defaultToolInfo = new ToolInfo();
         private static readonly Result s_defaultIssue = new Result();
 
         [TestMethod]
-        public void IssueLogObjectWriter_DefaultIsEmpty()
+        public void ResultLogObjectWriter_DefaultIsEmpty()
         {
             var uut = new ResultLogObjectWriter();
             Assert.IsNull(uut.ToolInfo);
@@ -24,7 +24,7 @@ namespace Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.Writers
         }
 
         [TestMethod]
-        public void IssueLogObjectWriter_AcceptsIssuesAndToolInfo()
+        public void ResultLogObjectWriter_AcceptsIssuesAndToolInfo()
         {
             var uut = new ResultLogObjectWriter();
             uut.WriteToolAndRunInfo(s_defaultToolInfo, s_defaultRunInfo);
@@ -38,14 +38,14 @@ namespace Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.Writers
 
         [TestMethod]
         [ExpectedException(typeof(InvalidOperationException))]
-        public void IssueLogObjectWriter_RequiresToolInfoBeforeIssues()
+        public void ResultLogObjectWriter_RequiresToolInfoBeforeIssues()
         {
             new ResultLogObjectWriter().WriteResult(s_defaultIssue);
         }
 
         [TestMethod]
         [ExpectedException(typeof(InvalidOperationException))]
-        public void IssueLogObjectWriter_ToolInfoMayNotBeWrittenMoreThanOnce()
+        public void ResultLogObjectWriter_ToolInfoMayNotBeWrittenMoreThanOnce()
         {
             var uut = new ResultLogObjectWriter();
             uut.WriteToolAndRunInfo(s_defaultToolInfo, s_defaultRunInfo);
@@ -54,21 +54,21 @@ namespace Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.Writers
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentNullException))]
-        public void IssueLogObjectWriter_RequiresNonNullToolInfo()
+        public void ResultLogObjectWriter_RequiresNonNullToolInfo()
         {
             new ResultLogObjectWriter().WriteToolAndRunInfo(null, s_defaultRunInfo);
         }
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentNullException))]
-        public void IssueLogObjectWriter_RequiresNonNullRunInfo()
+        public void ResultLogObjectWriter_RequiresNonNullRunInfo()
         {
             new ResultLogObjectWriter().WriteToolAndRunInfo(s_defaultToolInfo, null);
         }
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentNullException))]
-        public void IssueLogObjectWriter_RequiresNonNullIssue()
+        public void ResultLogObjectWriter_RequiresNonNullIssue()
         {
             var uut = new ResultLogObjectWriter();
             uut.WriteToolAndRunInfo(s_defaultToolInfo, s_defaultRunInfo);

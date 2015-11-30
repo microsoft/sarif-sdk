@@ -1,4 +1,4 @@
-/** @namespace {Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.DataContracts} */ grammar ToolResultsLog;
+/** @namespace {Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.DataContracts} */ grammar SarifGrammar;
 
 /**
     @className {ResultLog}
@@ -37,7 +37,7 @@ runLog:
         @name {RunInfo}
         @summary {
 		A runInfo object describes the invocation of the static analysis tool that produced the results
-		specified in the containing runLog object (§6.4). 
+		specified in the containing runLog object. 
         }
     */
 	runInfo
@@ -66,8 +66,8 @@ toolInfo :
     /**
         @name {FullName}
         @summary {
-        An unformatted version string that can include additional, arbitrary details
-        identifying the tool (such as build branch information, company details, etc.).
+		The name of the tool along with its version and any other useful identifying information, 
+		such as its locale, e.g., "CodeScanner 2.0, Developer Preview (en-US)".
         }
     */
     fullName?
@@ -105,7 +105,7 @@ toolInfo :
     @className {RunInfo}
     @summary {
 	A runInfo object describes the invocation of the static analysis tool that produced the results
-	specified in the containing runLog object (§6.4). 
+	specified in the containing runLog object. 
 
 	NOTE: The information in the runInfo object makes it possible to precisely repeat a run of a
 	static analysis tool, and to verify that the results reported in the log file were generated 
@@ -114,20 +114,20 @@ toolInfo :
 */
 runInfo :
     /**
-		@name {Parameterization}
+		@name {invocationInfo}
 		@summary {
 		A string that describes any parameterization for the tool invocation. For command line tools 
 		this string may consist of the completely specified command line used to invoke the tool.
 		}
     */
-    commandLineArguments 
+    invocationInfo 
 
 
     /**
         @name {AnalysisTargets}
         @summary {
-		An array, each of whose elements is a fileReference object (§6.7) representing the location of 
-		a single analysis target scanned during the run. When presenct, this array shall contain one entry 
+		An array, each of whose elements is a fileReference object representing the location of 
+		a single analysis target scanned during the run. When present, this array shall contain one entry 
 		fo reach analysis target that was scanned, even if the analysis targets were not individually specified 
 		on the command line. 
 
@@ -170,8 +170,8 @@ fileReference :
     /**
         @name {Hashes}
         @summary {
-		An optional array of hash objects (§6.8), each of which specifies a hashed value for the file specified 
-		by the uri property (§6.7.2), along with the name of the algorithm used to compute the hash.
+		An optional array of hash objects, each of which specifies a hashed value for the file specified 
+		by the uri property, along with the name of the algorithm used to compute the hash.
 		}
     */
     hashes?;
@@ -210,7 +210,7 @@ hash :
     Represents one or more observations about an analysis target produced by a static analysis tool.
     }
     @remarks {
-    An result frequently, but not always, represents a code defect.
+    A result frequently, but not always, represents a code defect.
     }
 */
 result :
@@ -401,7 +401,7 @@ location :
 	/**
         @name {LogicalLocation} @serializedName {logicalLocation}
         @summary {
-        An object that specifies the logical namespace / function / etc location.
+        An object that specifies the logical location for which a result is produced.
         }
     */
     logicalLocation?
@@ -491,7 +491,7 @@ physicalLocationComponent:
 /**
     @className {Region}
     @summary {
-    Specifies a region within a file where an result was detected.
+    Specifies a region within a file where a result was detected.
     }
     @remarks {
     Minimally, the Region should be populated with the StartLine or Offset members.
@@ -632,7 +632,7 @@ annotatedCodeLocations: annotatedCodeLocation*;
 
 /*********************************************************
 Execution flow infrastructure; execution flows are the same lists of physical locations except that
-each physical location in the list can have a message stapled on.
+each physical location in the list can have an associated message.
 */
 
 /**
@@ -829,7 +829,7 @@ startColumn : INTEGER;
 endLine : INTEGER;
 endColumn : INTEGER;
 message: STRING;
-commandLineArguments: STRING;
+invocationInfo: STRING;
 value: STRING;
 algorithm: STRING;
 kind: STRING;

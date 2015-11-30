@@ -8,7 +8,7 @@ using Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.DataContract
 namespace Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.Writers
 {
     /// <summary>An implementation of <see cref="IResultLogWriter"/> which merely stores its results in a list.</summary>
-    /// <seealso cref="T:Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.IIssueLogWriter"/>
+    /// <seealso cref="T:Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.IResultLogWriter"/>
     public sealed class ResultLogObjectWriter : IResultLogWriter
     {
         private ToolInfo _toolInfo;
@@ -60,7 +60,7 @@ namespace Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.Writers
             _runInfo = runInfo;
         }
 
-        /// <summary>Writes an result to the log. The log must have tool info written first by calling
+        /// <summary>Writes a result to the log. The log must have tool info written first by calling
         /// <see cref="M:WriteToolInfo" />.</summary>
         /// <remarks>This function makes a copy of the data stored in <paramref name="result"/>; if a
         /// client wishes to reuse the result instance to avoid allocations they can do so. (This function
