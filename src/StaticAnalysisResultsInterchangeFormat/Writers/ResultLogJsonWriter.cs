@@ -50,10 +50,6 @@ namespace Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.Writers
                 throw new ArgumentNullException("toolInfo");
             }
 
-            if (runInfo == null)
-            {
-                throw new ArgumentNullException("runInfo");
-            }
 
             this.EnsureNotDisposed();
             if (_writeState == State.WritingResults)
@@ -65,7 +61,7 @@ namespace Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.Writers
 
             _jsonWriter.WriteStartObject(); // Begin: resultLog
             _jsonWriter.WritePropertyName("version");
-            _jsonWriter.WriteValue("0.3.0.0");
+            _jsonWriter.WriteValue("0.4");
 
             _jsonWriter.WritePropertyName("runLogs");
             _jsonWriter.WriteStartArray(); // Begin: runLogs

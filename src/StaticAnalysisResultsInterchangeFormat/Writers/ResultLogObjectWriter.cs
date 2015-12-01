@@ -46,11 +46,6 @@ namespace Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.Writers
                 throw new ArgumentNullException(nameof(toolInfo));
             }
 
-            if (runInfo == null)
-            {
-                throw new ArgumentNullException(nameof(runInfo));
-            }
-
             if (_toolInfo != null)
             {
                 throw new InvalidOperationException(SarifResources.ToolInfoAlreadyWritten);

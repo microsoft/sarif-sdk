@@ -50,12 +50,16 @@ namespace Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.Converte
         {
             const string source = "<results> <cppcheck version=\"12.34\" /> <errors>   </errors> </results>";
             const string expected = @"{
-  ""version"": ""1.0"",
-  ""toolInfo"": {
-    ""toolName"": ""CppCheck"",
-    ""version"": ""12.34""
-  },
-  ""issues"": []
+  ""version"": ""0.4"",
+  ""runLogs"": [
+    {
+      ""toolInfo"": {
+        ""name"": ""CppCheck"",
+        ""version"": ""12.34""
+      },
+      ""results"": []
+    }
+  ]
 }";
             string resultJson = Utilities.GetConverterJson(new CppCheckConverter(), source);
             Assert.AreEqual(expected, resultJson);

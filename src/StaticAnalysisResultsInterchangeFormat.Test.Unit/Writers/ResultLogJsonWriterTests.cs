@@ -44,7 +44,7 @@ namespace Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.Writers
         [TestMethod]
         public void ResultLogJsonWriter_AcceptsIssuesAndToolInfo()
         {
-            string expected = "{\"version\":\"1.0\",\"toolInfo\":{\"toolName\":null},\"issues\":[{\"locations\":null,\"fullMessage\":null}]}";
+            string expected = "{\"version\":\"0.4\",\"runLogs\":[{\"toolInfo\":{\"name\":null},\"runInfo\":{\"invocationInfo\":null},\"results\":[{\"ruleId\":null,\"fullMessage\":null,\"locations\":null}]}]}";
             string actual = GetJson(uut =>
             {
                 uut.WriteToolAndRunInfo(s_defaultToolInfo, s_defaultRunInfo);
@@ -79,8 +79,7 @@ namespace Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.Writers
         }
 
         [TestMethod]
-        [ExpectedException(typeof(ArgumentNullException))]
-        public void ResultLogJsonWriter_RequiresNonNullRunInfo()
+        public void ResultLogJsonWriter_NullRunInfoIsOK()
         {
             GetJson(uut => uut.WriteToolAndRunInfo(s_defaultToolInfo, null));
         }

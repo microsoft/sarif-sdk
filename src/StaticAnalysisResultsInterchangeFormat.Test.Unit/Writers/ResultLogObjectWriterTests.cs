@@ -60,8 +60,7 @@ namespace Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.Writers
         }
 
         [TestMethod]
-        [ExpectedException(typeof(ArgumentNullException))]
-        public void ResultLogObjectWriter_RequiresNonNullRunInfo()
+        public void ResultLogObjectWriter_RequiresNullRunInfoIsOk()
         {
             new ResultLogObjectWriter().WriteToolAndRunInfo(s_defaultToolInfo, null);
         }

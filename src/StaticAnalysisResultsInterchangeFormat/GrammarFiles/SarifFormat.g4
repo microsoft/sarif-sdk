@@ -40,7 +40,7 @@ runLog:
 		specified in the containing runLog object. 
         }
     */
-	runInfo
+	runInfo?
 
     /**
         @name {Results}
@@ -228,7 +228,7 @@ result :
     ruleId
 
     /**
-        @name {ResultKind}
+        @name {Kind}
         @summary {
         A string specifying the kind of observation this result represents. 
 		This shall be one of the following: warning, error, pass, pending, note, notApplicable, internalError.
@@ -587,7 +587,7 @@ logicalLocationComponent:
     name
 
     /**
-        @name {LocationKind}
+        @name {Kind}
         @summary {
         The type of item this location refers to.
         }
@@ -595,7 +595,7 @@ logicalLocationComponent:
         Examples include namespace, class, or function.
         }
     */
-    locationKind;
+    kind?;
 
 /**
     @className {AnnotatedCodeLocation}
@@ -806,9 +806,9 @@ replacement:
 	*/
 	insertedBytes;
 
-version : /* @summary {A string, of the form Major.Minor, where Major and Minor are integers in the range [0, 2^16)} */ VERSION;
+version : STRING;
 fullVersion : STRING;
-fileVersion : STRING;
+fileVersion : VERSION;
 fullName : STRING;
 uri : URI;
 mimeType : STRING;
@@ -821,7 +821,6 @@ isSuppressedInSource : BOOLEAN;
 properties  : DICTIONARY;
 fullyQualifiedLogicalName: STRING;
 name : STRING;
-locationKind : STRING;
 offset : INTEGER;
 length : INTEGER;
 startLine : INTEGER;

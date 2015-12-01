@@ -47,11 +47,15 @@ namespace Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.Converte
         }
 
         private const string EmptyResult = @"{
-  ""version"": ""1.0"",
-  ""toolInfo"": {
-    ""toolName"": ""AndroidStudio""
-  },
-  ""issues"": []
+  ""version"": ""0.4"",
+  ""runLogs"": [
+    {
+      ""toolInfo"": {
+        ""name"": ""AndroidStudio""
+      },
+      ""results"": []
+    }
+  ]
 }";
         [TestMethod]
         public void AndroidStudioConverter_Convert_NoIssues()
@@ -235,12 +239,12 @@ Possible resolution: delete", result.FullMessage);
                         new LogicalLocationComponent
                         {
                             Name = "my_fancy_binary",
-                            LocationKind = LogicalLocationKind.AndroidModule
+                            Kind = LogicalLocationKind.AndroidModule
                         },
                         new LogicalLocationComponent
                         {
                             Name = "my_method",
-                            LocationKind = LogicalLocationKind.JvmFunction
+                            Kind = LogicalLocationKind.JvmFunction
                         }
                     }
                 }
@@ -264,7 +268,7 @@ Possible resolution: delete", result.FullMessage);
                     new LogicalLocationComponent
                     {
                         Name = "my_method",
-                        LocationKind = LogicalLocationKind.JvmFunction
+                        Kind = LogicalLocationKind.JvmFunction
                     }
                 }
             }, GetLocationForBuilder(builder));
@@ -287,12 +291,12 @@ Possible resolution: delete", result.FullMessage);
                     new LogicalLocationComponent
                     {
                         Name = "FancyPackageName",
-                        LocationKind = LogicalLocationKind.JvmPackage
+                        Kind = LogicalLocationKind.JvmPackage
                     },
                     new LogicalLocationComponent
                     {
                         Name = "my_method",
-                        LocationKind = LogicalLocationKind.JvmFunction
+                        Kind = LogicalLocationKind.JvmFunction
                     }
                 }
             }, GetLocationForBuilder(builder));
@@ -314,7 +318,7 @@ Possible resolution: delete", result.FullMessage);
                     new LogicalLocationComponent
                     {
                         Name = "FancyPackageName",
-                        LocationKind = LogicalLocationKind.JvmPackage
+                        Kind = LogicalLocationKind.JvmPackage
                     }
                 }
             }, GetLocationForBuilder(builder));
@@ -344,7 +348,7 @@ Possible resolution: delete", result.FullMessage);
                     new LogicalLocationComponent
                     {
                         Name = "LastResortModule",
-                        LocationKind = LogicalLocationKind.AndroidModule
+                        Kind = LogicalLocationKind.AndroidModule
                     }
                 }
             }, GetLocationForBuilder(builder));

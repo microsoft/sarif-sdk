@@ -4,11 +4,11 @@
     <id>$id$</id>
     <version>$major$.$minor$.$patch$$prerelease$</version>
     <title>.NET Static Analysis Results Interchange Format (SARIF) Sdk</title>
-    <authors>@billyoneal,@lgolding,@michaelcfanning,@nguerrera</authors>
-    <owners>@lgolding,@michaelcfanning,@nguerrera</owners>
+    <authors>Billy O'Neal,Larry Golding,Michael C. Fanning,Nick Guerrera</authors>
+    <owners>Larry Golding, Michael C. Fanning</owners>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <description>.NET tools and libraries for working with the Static Analysis Results Interchange Format.</description>
-    <releaseNotes>Version $major$.$minor$.$patch$$prerelease$ of the .NET SARIF Sdk</releaseNotes>
+    <description>.NET tools and libraries for working with pre-release v.4 Static Analysis Results Interchange Format.</description>
+    <releaseNotes>Version $major$.$minor$.$patch$$prerelease$ of the .NET SARIF Sdk (for pre-release v.4 of SARIF)</releaseNotes>
     <copyright>Copyright Microsoft 2015</copyright>
     <licenseUrl>https://github.com/Microsoft/sarif-sdk/blob/master/LICENSE</licenseUrl>
     <projectUrl>https://github.com/microsoft/sarif-sdk</projectUrl>

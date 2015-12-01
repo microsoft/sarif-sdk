@@ -156,7 +156,7 @@ namespace Microsoft.CodeAnalysis.DataModelGenerator
             codeWriter.OpenBrace("public interface " + CommonInterfaceName);
 
             WriteKindXmlComments(codeWriter);
-            codeWriter.WriteLine(model.Name + "Kind Kind { get; }");
+            codeWriter.WriteLine(model.Name + "Kind SyntaxKind { get; }");
 
             codeWriter.WriteLine();
             codeWriter.WriteLine("/// <summary>Makes a deep copy of this instance.</summary>");
@@ -254,7 +254,7 @@ namespace Microsoft.CodeAnalysis.DataModelGenerator
             }
 
             sb.Append(model.Name);
-            sb.Append("Kind Kind ");
+            sb.Append("Kind SyntaxKind ");
 
             switch (type.Kind)
             {

@@ -402,22 +402,22 @@ namespace Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.Converte
                             new LogicalLocationComponent
                             {
                                 Name = "mybinary.dll",
-                                LocationKind = LogicalLocationKind.ClrModule
+                                Kind = LogicalLocationKind.ClrModule
                             },
                             new LogicalLocationComponent
                             {
                                 Name = "mynamespace",
-                                LocationKind = LogicalLocationKind.ClrNamespace
+                                Kind = LogicalLocationKind.ClrNamespace
                             },
                             new LogicalLocationComponent
                             {
                                 Name = "mytype",
-                                LocationKind = LogicalLocationKind.ClrType
+                                Kind = LogicalLocationKind.ClrType
                             },
                             new LogicalLocationComponent
                             {
                                 Name = "mymember(string)",
-                                LocationKind = LogicalLocationKind.ClrFunction
+                                Kind = LogicalLocationKind.ClrFunction
                             }
                         }
                     }
@@ -461,17 +461,17 @@ namespace Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.Converte
                             new LogicalLocationComponent
                             {
                                 Name = "mynamespace",
-                                LocationKind = LogicalLocationKind.ClrNamespace
+                                Kind = LogicalLocationKind.ClrNamespace
                             },
                             new LogicalLocationComponent
                             {
                                 Name = "mytype",
-                                LocationKind = LogicalLocationKind.ClrType
+                                Kind = LogicalLocationKind.ClrType
                             },
                             new LogicalLocationComponent
                             {
                                 Name = "mymember(string)",
-                                LocationKind = LogicalLocationKind.ClrFunction
+                                Kind = LogicalLocationKind.ClrFunction
                             }
                         }
                     }
@@ -516,12 +516,12 @@ namespace Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.Converte
                         new LogicalLocationComponent
                         {
                             Name = "mybinary.dll",
-                            LocationKind = LogicalLocationKind.ClrModule
+                            Kind = LogicalLocationKind.ClrModule
                         },
                         new LogicalLocationComponent
                         {
                             Name = "myresource.resx",
-                            LocationKind = LogicalLocationKind.ClrResource
+                            Kind = LogicalLocationKind.ClrResource
                         }
                     }
                 }
