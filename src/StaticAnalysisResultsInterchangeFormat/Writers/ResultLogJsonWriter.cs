@@ -11,7 +11,7 @@ namespace Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.Writers
 {
     /// <summary>An implementation of <see cref="IResultLogWriter"/> that writes the results as JSON to a
     /// <see cref="TextWriter"/>.</summary>
-    /// <seealso cref="T:Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.IIssueLogWriter"/>
+    /// <seealso cref="T:Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.IResultLogWriter"/>
     public sealed class ResultLogJsonWriter : IResultLogWriter, IDisposable
     {
         private enum State
@@ -59,7 +59,7 @@ namespace Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.Writers
 
             Debug.Assert(_writeState == State.Initial);
 
-            _jsonWriter.WriteStartObject(); // Begin: issueLog
+            _jsonWriter.WriteStartObject(); // Begin: resultLog
             _jsonWriter.WritePropertyName("version");
             _jsonWriter.WriteValue("0.4");
 
@@ -140,7 +140,7 @@ namespace Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.Writers
         {
             if (_writeState == State.Disposed)
             {
-                throw new ObjectDisposedException("IssueLogJsonWriter");
+                throw new ObjectDisposedException("ResultLogJsonWriter");
             }
         }
     }

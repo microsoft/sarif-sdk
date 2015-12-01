@@ -115,7 +115,7 @@ namespace Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.Converte
         {
             if (this.Locations.Length == 0)
             {
-                throw new InvalidOperationException("At least one location must be present in a Unified Result Store result.");
+                throw new InvalidOperationException("At least one location must be present in a SARIF result.");
             }
 
             var result = new Result

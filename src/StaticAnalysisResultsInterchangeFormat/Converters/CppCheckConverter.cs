@@ -22,11 +22,11 @@ namespace Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.Converte
         }
 
         /// <summary>
-        /// Interface implementation that takes a CppChecker log stream and converts its data to a OES json format stream.
+        /// Interface implementation that takes a CppChecker log stream and converts its data to a SARIF json stream.
         /// Read in CppChecker data from an input stream and write Result objects.
         /// </summary>
         /// <param name="input">Stream of a CppChecker log</param>
-        /// <param name="output">OES json stream of the converted CppChecker log</param>
+        /// <param name="output">SARIF json stream of the converted CppChecker log</param>
         public void Convert(Stream input, IResultLogWriter output)
         {
             if (input == null)
