@@ -114,14 +114,13 @@ toolInfo :
 */
 runInfo :
     /**
-		@name {invocationInfo}
+		@name {InvocationInfo}
 		@summary {
 		A string that describes any parameterization for the tool invocation. For command line tools 
 		this string may consist of the completely specified command line used to invoke the tool.
 		}
     */
     invocationInfo 
-
 
     /**
         @name {AnalysisTargets}
