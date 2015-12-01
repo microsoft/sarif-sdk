@@ -11,60 +11,60 @@ using Microsoft.CodeAnalysis.Driver;
 
 namespace Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.Converters
 {
-    /// <summary>A Fortify issue element.</summary>
+    /// <summary>A Fortify result element.</summary>
     internal class FortifyIssue
     {
         private static readonly Regex s_cweRegex = new Regex("CWE ID (\\d+)", RegexOptions.Compiled | RegexOptions.CultureInvariant);
 
-        /// <summary>The Rule ID stored in the Fortify issue if present; otherwise, null.</summary>
+        /// <summary>The Rule ID stored in the Fortify result if present; otherwise, null.</summary>
         public readonly string RuleId;
 
-        /// <summary>The Instance ID stored in the Fortify issue if present; otherwise, null.</summary>
+        /// <summary>The Instance ID stored in the Fortify result if present; otherwise, null.</summary>
         public readonly string InstanceId;
 
-        /// <summary>The category of Fortify issue.</summary>
+        /// <summary>The category of Fortify result.</summary>
         public readonly string Category;
 
-        /// <summary>The kingdom of the Fortify issue.</summary>
+        /// <summary>The kingdom of the Fortify result.</summary>
         public readonly string Kingdom;
 
-        /// <summary>The abstract (description) message of the Fortify issue if present; otherwise, null.</summary>
+        /// <summary>The abstract (description) message of the Fortify result if present; otherwise, null.</summary>
         public readonly string Abstract;
 
         /// <summary>
-        /// A custom user-provided abstract (description) message of the Fortify issue if it is present;
+        /// A custom user-provided abstract (description) message of the Fortify result if it is present;
         /// otherwise, null.
         /// </summary>
         public readonly string AbstractCustom;
 
         /// <summary>
         /// The "friority" (which appears to be an intentional misspelling of "priority") of the Fortify
-        /// issue if present; otherwise, null.
+        /// result if present; otherwise, null.
         /// </summary>
         public readonly string Priority;
 
-        /// <summary>The primary location for the Fortify issue; this will be the sink for data flow rules.</summary>
+        /// <summary>The primary location for the Fortify result; this will be the sink for data flow rules.</summary>
         public readonly FortifyPathElement PrimaryOrSink;
 
         /// <summary>Source for the flagged data flow if present; otherwise, null.</summary>
         public readonly FortifyPathElement Source;
 
-        /// <summary>List of CWE IDs stapled to the Fortify issue, if present.</summary>
+        /// <summary>List of CWE IDs stapled to the Fortify result, if present.</summary>
         public readonly ImmutableArray<int> CweIds;
 
         /// <summary>Initializes a new instance of the <see cref="FortifyIssue"/> class.</summary>
-        /// <param name="ruleId">The Rule ID stored in the Fortify issue.</param>
-        /// <param name="iid">The Instance ID stored in the Fortify issue.</param>
-        /// <param name="category">The category of Fortify issue.</param>
-        /// <param name="kingdom">The kingdom of the Fortify issue.</param>
-        /// <param name="abs">The abstract (description) message of the Fortify issue if present; otherwise, null.</param>
-        /// <param name="abstractCustom">A custom user-provided abstract (description) message of the Fortify issue if it is present;
+        /// <param name="ruleId">The Rule ID stored in the Fortify result.</param>
+        /// <param name="iid">The Instance ID stored in the Fortify result.</param>
+        /// <param name="category">The category of Fortify result.</param>
+        /// <param name="kingdom">The kingdom of the Fortify result.</param>
+        /// <param name="abs">The abstract (description) message of the Fortify result if present; otherwise, null.</param>
+        /// <param name="abstractCustom">A custom user-provided abstract (description) message of the Fortify result if it is present;
         /// otherwise, null.</param>
         /// <param name="priority">The "friority" (which appears to be an intentional misspelling of "priority") of the Fortify
-        /// issue if present; otherwise, null.</param>
-        /// <param name="primaryOrSink">The primary location for the Fortify issue; this will be the sink for data flow rules.</param>
+        /// result if present; otherwise, null.</param>
+        /// <param name="primaryOrSink">The primary location for the Fortify result; this will be the sink for data flow rules.</param>
         /// <param name="source">Source for the flagged data flow if present; otherwise, null.</param>
-        /// <param name="cweIds">List of CWE IDs stapled to the Fortify issue, if present.</param>
+        /// <param name="cweIds">List of CWE IDs stapled to the Fortify result, if present.</param>
         public FortifyIssue(string ruleId, string iid, string category, string kingdom, string abs, string abstractCustom, string priority, FortifyPathElement primaryOrSink, FortifyPathElement source, ImmutableArray<int> cweIds)
         {
             if (category == null)
@@ -95,19 +95,19 @@ namespace Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.Converte
         }
 
         /// <summary>
-        /// Parses a Fortify Issue element from an <see cref="XmlReader"/>.
+        /// Parses a Fortify Result element from an <see cref="XmlReader"/>.
         /// </summary>
-        /// <param name="xmlReader">The <see cref="XmlReader"/> from which an element containing a Fortify issue shall be
+        /// <param name="xmlReader">The <see cref="XmlReader"/> from which an element containing a Fortify result shall be
         /// consumed. When this method returns, this <see cref="XmlReader"/> is positioned on the following element.</param>
         /// <param name="strings">Strings used in processing a Fortify report.</param>
         /// <returns>A <see cref="FortifyIssue"/> containing data from the node on which <paramref name="xmlReader"/> was
         /// placed when this method was called.</returns>
         public static FortifyIssue Parse(XmlReader xmlReader, FortifyStrings strings)
         {
-            //<xs:element name="Issue">
+            //<xs:element name="Result">
             //    <xs:complexType>
             //        <xs:sequence>
-            //            <!-- Issue Description -->
+            //            <!-- Result Description -->
             //            <xs:element name="Category" type="xs:string" minOccurs="1" maxOccurs="1"/>
             //            <xs:element name="Folder" type="xs:string" minOccurs="1" maxOccurs="1"/>
             //            <xs:element name="Kingdom" type="xs:string" minOccurs="1" maxOccurs="1"/>
@@ -151,9 +151,9 @@ namespace Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.Converte
             //        <xs:attribute name="ruleID" type="xs:string" use="optional"/>
             //    </xs:complexType>
             //</xs:element>
-            if (!xmlReader.IsStartElement(strings.Issue))
+            if (!xmlReader.IsStartElement(strings.Result))
             {
-                throw xmlReader.CreateException(SarifResources.FortifyNotValidIssue);
+                throw xmlReader.CreateException(SarifResources.FortifyNotValidResult);
             }
 
             string iid = null;
@@ -207,7 +207,7 @@ namespace Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.Converte
                 }
             }
 
-            xmlReader.ReadEndElement(); // </Issue>
+            xmlReader.ReadEndElement(); // </Result>
 
             return new FortifyIssue(ruleId, iid, category, kingdom, abstract_, abstractCustom, friority, primary, source, cweIds);
         }

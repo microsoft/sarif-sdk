@@ -7,6 +7,6 @@ namespace Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat
 {
     internal interface IToolFileConverter
     {
-        void Convert(Stream input, IIssueLogWriter output);
+        void Convert(Stream input, IResultLogWriter output);
     }
 }

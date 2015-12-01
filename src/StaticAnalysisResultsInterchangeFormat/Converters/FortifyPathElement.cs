@@ -7,7 +7,7 @@ using System.Xml;
 namespace Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.Converters
 {
     /// <summary>A Fortify path element structure, which serves as a location identifier. This type is
-    /// typically used to represent issue locations, datapath sources, and datapath sinks.</summary>
+    /// typically used to represent result locations, datapath sources, and datapath sinks.</summary>
     internal class FortifyPathElement
     {
         /// <summary>Full pathname of the file.</summary>

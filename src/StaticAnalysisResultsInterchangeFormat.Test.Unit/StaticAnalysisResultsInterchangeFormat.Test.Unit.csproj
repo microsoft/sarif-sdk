@@ -65,8 +65,8 @@
     <Compile Include="SparseReaderTests.cs" />
     <Compile Include="TempDirectory.cs" />
     <Compile Include="TempFile.cs" />
-    <Compile Include="Writers\IssueLogJsonWriterTests.cs" />
-    <Compile Include="Writers\IssueLogObjectWriterTests.cs" />
+    <Compile Include="Writers\ResultLogJsonWriterTests.cs" />
+    <Compile Include="Writers\ResultLogObjectWriterTests.cs" />
     <Compile Include="ToolFormatConverterTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utilities.cs" />

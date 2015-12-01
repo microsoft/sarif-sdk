@@ -9,26 +9,26 @@ using Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.DataContract
 namespace Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.Writers
 {
     [TestClass]
-    public class IssueLogObjectWriterTests
+    public class ResultLogObjectWriterTests
     {
         private static readonly RunInfo s_defaultRunInfo = new RunInfo();
         private static readonly ToolInfo s_defaultToolInfo = new ToolInfo();
-        private static readonly Issue s_defaultIssue = new Issue();
+        private static readonly Result s_defaultIssue = new Result();
 
         [TestMethod]
-        public void IssueLogObjectWriter_DefaultIsEmpty()
+        public void ResultLogObjectWriter_DefaultIsEmpty()
         {
-            var uut = new IssueLogObjectWriter();
+            var uut = new ResultLogObjectWriter();
             Assert.IsNull(uut.ToolInfo);
             Assert.AreEqual(0, uut.IssueList.Count);
         }
 
         [TestMethod]
-        public void IssueLogObjectWriter_AcceptsIssuesAndToolInfo()
+        public void ResultLogObjectWriter_AcceptsIssuesAndToolInfo()
         {
-            var uut = new IssueLogObjectWriter();
+            var uut = new ResultLogObjectWriter();
             uut.WriteToolAndRunInfo(s_defaultToolInfo, s_defaultRunInfo);
-            uut.WriteIssue(s_defaultIssue);
+            uut.WriteResult(s_defaultIssue);
 
             Assert.AreEqual(s_defaultToolInfo, uut.ToolInfo);
             Assert.AreEqual(1, uut.IssueList.Count);
@@ -38,41 +38,41 @@ namespace Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.Writers
 
         [TestMethod]
         [ExpectedException(typeof(InvalidOperationException))]
-        public void IssueLogObjectWriter_RequiresToolInfoBeforeIssues()
+        public void ResultLogObjectWriter_RequiresToolInfoBeforeIssues()
         {
-            new IssueLogObjectWriter().WriteIssue(s_defaultIssue);
+            new ResultLogObjectWriter().WriteResult(s_defaultIssue);
         }
 
         [TestMethod]
         [ExpectedException(typeof(InvalidOperationException))]
-        public void IssueLogObjectWriter_ToolInfoMayNotBeWrittenMoreThanOnce()
+        public void ResultLogObjectWriter_ToolInfoMayNotBeWrittenMoreThanOnce()
         {
-            var uut = new IssueLogObjectWriter();
+            var uut = new ResultLogObjectWriter();
             uut.WriteToolAndRunInfo(s_defaultToolInfo, s_defaultRunInfo);
             uut.WriteToolAndRunInfo(s_defaultToolInfo, s_defaultRunInfo);
         }
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentNullException))]
-        public void IssueLogObjectWriter_RequiresNonNullToolInfo()
+        public void ResultLogObjectWriter_RequiresNonNullToolInfo()
         {
-            new IssueLogObjectWriter().WriteToolAndRunInfo(null, s_defaultRunInfo);
+            new ResultLogObjectWriter().WriteToolAndRunInfo(null, s_defaultRunInfo);
         }
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentNullException))]
-        public void IssueLogObjectWriter_RequiresNonNullRunInfo()
+        public void ResultLogObjectWriter_RequiresNonNullRunInfo()
         {
-            new IssueLogObjectWriter().WriteToolAndRunInfo(s_defaultToolInfo, null);
+            new ResultLogObjectWriter().WriteToolAndRunInfo(s_defaultToolInfo, null);
         }
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentNullException))]
-        public void IssueLogObjectWriter_RequiresNonNullIssue()
+        public void ResultLogObjectWriter_RequiresNonNullIssue()
         {
-            var uut = new IssueLogObjectWriter();
+            var uut = new ResultLogObjectWriter();
             uut.WriteToolAndRunInfo(s_defaultToolInfo, s_defaultRunInfo);
-            uut.WriteIssue(null);
+            uut.WriteResult(null);
         }
     }
 }

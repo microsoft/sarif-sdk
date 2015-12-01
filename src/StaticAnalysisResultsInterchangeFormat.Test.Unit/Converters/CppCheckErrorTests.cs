@@ -37,7 +37,7 @@ namespace Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.Converte
         [TestMethod]
         public void CppCheckError_MinimalErrorCanBeConvertedToSarifIssue()
         {
-            Issue result = new CppCheckError("id", "message", "verbose", "style", _dummyLocations)
+            Result result = new CppCheckError("id", "message", "verbose", "style", _dummyLocations)
                 .ToSarifIssue();
             Assert.AreEqual("id", result.RuleId);
             Assert.AreEqual("message", result.ShortMessage);
@@ -49,7 +49,7 @@ namespace Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.Converte
         [TestMethod]
         public void CppCheckError_ErrorWithSingleLocationIsConvertedToSarifIssue()
         {
-            Issue result = new CppCheckError("id", "message", "verbose", "my fancy severity", ImmutableArray.Create(
+            Result result = new CppCheckError("id", "message", "verbose", "my fancy severity", ImmutableArray.Create(
                 new CppCheckLocation("foo.cpp", 1234)
                 )).ToSarifIssue();
             Assert.AreEqual("id", result.RuleId);
@@ -74,7 +74,7 @@ namespace Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.Converte
         [TestMethod]
         public void CppCheckError_ErrorWithMultipleLocationsFillsOutExecutionFlow()
         {
-            Issue result = new CppCheckError("id", "message", "verbose", "my fancy severity", ImmutableArray.Create(
+            Result result = new CppCheckError("id", "message", "verbose", "my fancy severity", ImmutableArray.Create(
                 new CppCheckLocation("foo.cpp", 1234),
                 new CppCheckLocation("bar.cpp", 5678)
                 )).ToSarifIssue();
@@ -94,14 +94,14 @@ namespace Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.Converte
             Assert.AreEqual(1, result.ExecutionFlows.Count);
             result.ExecutionFlows[0].Should().Equal(new[]
                     {
-                        new ExecutionFlowEntry {
+                        new AnnotatedCodeLocation {
                             PhysicalLocations = new[] { new[] { new PhysicalLocationComponent {
                                 Uri = new Uri("foo.cpp", UriKind.RelativeOrAbsolute),
                                 MimeType = MimeType.Cpp,
                                 Region = new Region { StartLine = 1234 }
                             } } }
                         },
-                        new ExecutionFlowEntry {
+                        new AnnotatedCodeLocation {
                             PhysicalLocations = new[] { new[] { new PhysicalLocationComponent {
                                 Uri = new Uri("bar.cpp", UriKind.RelativeOrAbsolute),
                                 MimeType = MimeType.Cpp,
@@ -114,7 +114,7 @@ namespace Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.Converte
         [TestMethod]
         public void CppCheckError_DoesNotEmitShortMessageWhenVerboseMessageIsTheSame()
         {
-            Issue result = new CppCheckError("id", "message", "message", "style", _dummyLocations)
+            Result result = new CppCheckError("id", "message", "message", "style", _dummyLocations)
                 .ToSarifIssue();
             Assert.IsNull(result.ShortMessage);
             Assert.AreEqual("message", result.FullMessage);

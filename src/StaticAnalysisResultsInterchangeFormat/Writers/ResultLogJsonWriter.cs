@@ -9,15 +9,15 @@ using Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.DataContract
 
 namespace Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.Writers
 {
-    /// <summary>An implementation of <see cref="IIssueLogWriter"/> that writes the results as JSON to a
+    /// <summary>An implementation of <see cref="IResultLogWriter"/> that writes the results as JSON to a
     /// <see cref="TextWriter"/>.</summary>
-    /// <seealso cref="T:Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.IIssueLogWriter"/>
-    public sealed class IssueLogJsonWriter : IIssueLogWriter, IDisposable
+    /// <seealso cref="T:Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.IResultLogWriter"/>
+    public sealed class ResultLogJsonWriter : IResultLogWriter, IDisposable
     {
         private enum State
         {
             Initial,
-            WritingIssues,
+            WritingResults,
             Disposed
         }
 
@@ -25,10 +25,10 @@ namespace Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.Writers
         private readonly JsonSerializer _serializer;
         private State _writeState;
 
-        /// <summary>Initializes a new instance of the <see cref="IssueLogJsonWriter"/> class.</summary>
+        /// <summary>Initializes a new instance of the <see cref="ResultLogJsonWriter"/> class.</summary>
         /// <param name="jsonWriter">The JSON writer. This class does not take ownership of the JSON
         /// writer; the caller is responsible for destroying it.</param>
-        public IssueLogJsonWriter(JsonWriter jsonWriter)
+        public ResultLogJsonWriter(JsonWriter jsonWriter)
         {
             _jsonWriter = jsonWriter;
             _serializer = new JsonSerializer();
@@ -56,14 +56,14 @@ namespace Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.Writers
             }
 
             this.EnsureNotDisposed();
-            if (_writeState == State.WritingIssues)
+            if (_writeState == State.WritingResults)
             {
                 throw new InvalidOperationException(SarifResources.ToolInfoAlreadyWritten);
             }
 
             Debug.Assert(_writeState == State.Initial);
 
-            _jsonWriter.WriteStartObject(); // Begin: issueLog
+            _jsonWriter.WriteStartObject(); // Begin: resultLog
             _jsonWriter.WritePropertyName("version");
             _jsonWriter.WriteValue("0.3.0.0");
 
@@ -81,36 +81,36 @@ namespace Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.Writers
                 _serializer.Serialize(_jsonWriter, runInfo, typeof(RunInfo));
             }
 
-            _jsonWriter.WritePropertyName("issues");
-            _jsonWriter.WriteStartArray(); // Begin: issues
-            _writeState = State.WritingIssues;
+            _jsonWriter.WritePropertyName("results");
+            _jsonWriter.WriteStartArray(); // Begin: results
+            _writeState = State.WritingResults;
         }
 
-        /// <summary>Writes an issue to the log. The log must have tool info written first by calling
+        /// <summary>Writes a result to the log. The log must have tool info written first by calling
         /// <see cref="M:WriteToolInfo" />.</summary>
-        /// <remarks>This function makes a copy of the data stored in <paramref name="issue"/>; if a
-        /// client wishes to reuse the issue instance to avoid allocations they can do so. (This function
-        /// may invoke an internal copy of the issue or serialize it in place to disk, etc.)</remarks>
+        /// <remarks>This function makes a copy of the data stored in <paramref name="result"/>; if a
+        /// client wishes to reuse the result instance to avoid allocations they can do so. (This function
+        /// may invoke an internal copy of the result or serialize it in place to disk, etc.)</remarks>
         /// <exception cref="IOException">A file IO error occured. Clients implementing
         /// <see cref="IToolFileConverter"/> should allow these exceptions to propagate.</exception>
         /// <exception cref="InvalidOperationException">Thrown if the tool info is not yet written.</exception>
-        /// <param name="issue">The issue to write.</param>
-        /// <seealso cref="M:Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.IsarifWriter.WriteIssue(Issue)"/>
-        public void WriteIssue(Issue issue)
+        /// <param name="result">The result to write.</param>
+        /// <seealso cref="M:Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.IsarifWriter.WriteResult(Result)"/>
+        public void WriteResult(Result result)
         {
-            if (issue == null)
+            if (result == null)
             {
-                throw new ArgumentNullException("issue");
+                throw new ArgumentNullException("result");
             }
 
             this.EnsureNotDisposed();
             if (_writeState == State.Initial)
             {
-                throw new InvalidOperationException(SarifResources.CannotWriteIssueToolInfoMissing);
+                throw new InvalidOperationException(SarifResources.CannotWriteResultToolInfoMissing);
             }
 
-            Debug.Assert(_writeState == State.WritingIssues);
-            _serializer.Serialize(_jsonWriter, issue, typeof(Issue));
+            Debug.Assert(_writeState == State.WritingResults);
+            _serializer.Serialize(_jsonWriter, result, typeof(Result));
         }
 
         /// <summary>Writes the log footer and closes the underlying <see cref="JsonWriter"/>.</summary>
@@ -128,13 +128,13 @@ namespace Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.Writers
             }
             else
             {
-                Debug.Assert(_writeState == State.WritingIssues);
+                Debug.Assert(_writeState == State.WritingResults);
 
-                // Log complete. Close the issue array and write the end object.
-                _jsonWriter.WriteEndArray();  // End: issues
+                // Log complete. Close the result array and write the end object.
+                _jsonWriter.WriteEndArray();  // End: results
                 _jsonWriter.WriteEndObject(); // End: runLog
                 _jsonWriter.WriteEndArray();  // End: runLogs
-                _jsonWriter.WriteEndObject(); // End: issueLog
+                _jsonWriter.WriteEndObject(); // End: resultsLog
             }
 
             _writeState = State.Disposed;
@@ -144,7 +144,7 @@ namespace Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.Writers
         {
             if (_writeState == State.Disposed)
             {
-                throw new ObjectDisposedException("IssueLogJsonWriter");
+                throw new ObjectDisposedException("ResultLogJsonWriter");
             }
         }
     }

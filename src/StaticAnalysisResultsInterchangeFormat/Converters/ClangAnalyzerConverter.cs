@@ -17,8 +17,8 @@ namespace Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.Converte
         /// <summary>Convert a Clang plist report into the SARIF format.</summary>
         /// <exception cref="ArgumentNullException">Thrown when one or more required arguments are null.</exception>
         /// <param name="input">CLang log file stream.</param>
-        /// <param name="output">Issue log writer.</param>
-        public void Convert(Stream input, IIssueLogWriter output)
+        /// <param name="output">Result log writer.</param>
+        public void Convert(Stream input, IResultLogWriter output)
         {
             // ToDo remove this comment after all issues are resolved.
             // Rodney is tasked with bringing Clang analyzer results into the SARIF fold.
@@ -42,7 +42,7 @@ namespace Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.Converte
                 settings.DtdProcessing = DtdProcessing.Ignore;
 
                 ToolInfo toolInfo = new ToolInfo();
-                toolInfo.ToolName = "Clang";
+                toolInfo.Name = "Clang";
                 output.WriteToolAndRunInfo(toolInfo, null);
 
                 using (XmlReader xmlReader = XmlReader.Create(input, settings))
@@ -108,7 +108,7 @@ namespace Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.Converte
             return value ?? string.Empty;
         }
 
-        private void LogIssue(IDictionary<string, object> issueData, IIssueLogWriter output)
+        private void LogIssue(IDictionary<string, object> issueData, IResultLogWriter output)
         {
             if (issueData != null)
             {
@@ -134,7 +134,7 @@ namespace Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.Converte
                     }
                 }
 
-                Issue issue = new Issue
+                Result result = new Result
                 {
                     FullMessage = category + " : " + description,
                     ShortMessage = issueType,
@@ -159,7 +159,7 @@ namespace Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.Converte
                     }
                 };
 
-                output.WriteIssue(issue);
+                output.WriteResult(result);
             }
         }
 
@@ -303,7 +303,7 @@ namespace Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.Converte
             return dictionary;
         }
 
-        private void ReadPlistDictionary(XmlReader xmlReader, IIssueLogWriter output)
+        private void ReadPlistDictionary(XmlReader xmlReader, IResultLogWriter output)
         {
             string keyName = string.Empty;
             bool readerMoved = false;       // ReadElementContentAsString reads to next element
@@ -369,7 +369,7 @@ namespace Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.Converte
             }
         }
 
-        private void ReadDiagnostics(XmlReader xmlReader, IIssueLogWriter output)
+        private void ReadDiagnostics(XmlReader xmlReader, IResultLogWriter output)
         {
             xmlReader.Read(); // Read past the "array" element start.
 
@@ -394,7 +394,7 @@ namespace Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.Converte
             }
         }
 
-        private void ReadPlist(XmlReader xmlReader, IIssueLogWriter output)
+        private void ReadPlist(XmlReader xmlReader, IResultLogWriter output)
         {
             while (xmlReader.Read())
             {

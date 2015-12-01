@@ -109,16 +109,16 @@ namespace Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.Converte
             }
         }
 
-        /// <summary>Converts this instance to <see cref="Issue"/>.</summary>
-        /// <returns>This instance as an <see cref="Issue"/>.</returns>
-        public Issue ToSarifIssue()
+        /// <summary>Converts this instance to <see cref="Result"/>.</summary>
+        /// <returns>This instance as an <see cref="Result"/>.</returns>
+        public Result ToSarifIssue()
         {
             if (this.Locations.Length == 0)
             {
-                throw new InvalidOperationException("At least one location must be present in a Unified Issue Store issue.");
+                throw new InvalidOperationException("At least one location must be present in a SARIF result.");
             }
 
-            var result = new Issue
+            var result = new Result
             {
                 RuleId = this.Id,
                 Properties = new Dictionary<string, string> { { "Severity", this.Severity } }
@@ -141,11 +141,11 @@ namespace Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.Converte
             }
             else
             {
-                var flow = new List<ExecutionFlowEntry>();
+                var flow = new List<AnnotatedCodeLocation>();
                 flow.Capacity = this.Locations.Length;
                 foreach (CppCheckLocation loc in this.Locations)
                 {
-                    flow.Add(new ExecutionFlowEntry { PhysicalLocations = new[] { loc.ToSarifPhysicalLocation() } });
+                    flow.Add(new AnnotatedCodeLocation { PhysicalLocations = new[] { loc.ToSarifPhysicalLocation() } });
                 }
 
                 // In the N != 1 case, set the overall location's location to

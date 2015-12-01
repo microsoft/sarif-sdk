@@ -25,11 +25,11 @@ namespace Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.Converte
     internal sealed class FxCopConverter : IToolFileConverter
     {
         /// <summary>
-        /// Convert FxCop log to an OES json format stream
+        /// Convert FxCop log to SARIF format stream
         /// </summary>
         /// <param name="input">FxCop log stream</param>
         /// <param name="output">output stream</param>
-        public void Convert(Stream input, IIssueLogWriter output)
+        public void Convert(Stream input, IResultLogWriter output)
         {
             if (input == null)
             {
@@ -42,31 +42,31 @@ namespace Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.Converte
             }
 
             ToolInfo toolInfo = new ToolInfo();
-            toolInfo.ToolName = "FxCop";
+            toolInfo.Name = "FxCop";
             output.WriteToolAndRunInfo(toolInfo, null);
 
             var context = new FxCopLogReader.Context();
 
             var reader = new FxCopLogReader();
-            reader.IssueRead += (FxCopLogReader.Context current) => { output.WriteIssue(CreateIssue(current)); };
+            reader.IssueRead += (FxCopLogReader.Context current) => { output.WriteResult(CreateIssue(current)); };
             reader.Read(context, input);
         }
 
-        internal static Issue CreateIssue(FxCopLogReader.Context context)
+        internal static Result CreateIssue(FxCopLogReader.Context context)
         {
-            Issue issue = new Issue();
+            Result result = new Result();
 
             string uniqueId = context.GetUniqueId();
             if (!String.IsNullOrWhiteSpace(uniqueId))
             {
-                issue.ToolFingerprint = uniqueId;
+                result.ToolFingerprint = uniqueId;
             }
 
-            issue.RuleId = context.CheckId;
-            issue.FullMessage = context.Message;
-            issue.ShortMessage = context.Typename;
+            result.RuleId = context.CheckId;
+            result.FullMessage = context.Message;
+            result.ShortMessage = context.Typename;
             Location loc = new Location();
-            issue.Locations = new[] { loc };
+            result.Locations = new[] { loc };
 
             if (!String.IsNullOrEmpty(context.Target))
             {
@@ -112,10 +112,10 @@ namespace Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.Converte
             TryAddProperty(properties, context.FixCategory, "FixCategory");
             if (properties.Count != 0)
             {
-                issue.Properties = properties;
+                result.Properties = properties;
             }
 
-            return issue;
+            return result;
         }
 
         private static string CreateSignature(FxCopLogReader.Context context)
@@ -194,7 +194,7 @@ namespace Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.Converte
         private const string FxCopReportSchema = "Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.Schemata.FxCopReport.xsd";
 
         /// <summary>
-        /// Current context of the issue 
+        /// Current context of the result 
         /// </summary>
         /// <remarks>
         /// The context accumulates in memory during the streaming,
@@ -225,21 +225,21 @@ namespace Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.Converte
             public string Typename { get; private set; }
             public string FixCategory { get; private set; }
             public string Message { get; private set; }
-            public string Issue { get; private set; }
+            public string Result { get; private set; }
             public string Certainty { get; private set; }
             public string Level { get; private set; }
             public string Path { get; private set; }
             public string File { get; private set; }
             public int? Line { get; private set; }
 
-            // calculate issue's unique id based on the current context
+            // calculate result's unique id based on the current context
             public string GetUniqueId()
             {
                 if (Exception)
                 {
-                    return CreateId(ExceptionTarget, ExceptionType, MessageId, Issue);
+                    return CreateId(ExceptionTarget, ExceptionType, MessageId, Result);
                 }
-                return CreateId(MessageId, Issue);
+                return CreateId(MessageId, Result);
             }
 
             private static string CreateId(params string[] parts)
@@ -305,10 +305,10 @@ namespace Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.Converte
                 ClearIssue();
             }
 
-            public void RefineIssue(string message, string issue, string certainty, string level, string path, string file, int? line)
+            public void RefineIssue(string message, string result, string certainty, string level, string path, string file, int? line)
             {
                 Message = message;
-                Issue = issue;
+                Result = result;
                 Certainty = certainty;
                 Level = level;
                 Path = path;
@@ -440,7 +440,7 @@ namespace Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.Converte
             public const string ElementMember = "Member";
             public const string ElementMessages = "Messages";
             public const string ElementMessage = "Message";
-            public const string ElementIssue = "Issue";
+            public const string ElementIssue = "Result";
 
             // attributes (repot)
             public const string AttributeVersion = "Version";
@@ -465,7 +465,7 @@ namespace Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.Converte
             public const string AttributeCreated = "Created";
             public const string AttributeFixCategory = "FixCategory";
 
-            // attributes (issue)
+            // attributes (result)
             public const string AttributeCertainty = "Certainty";
             public const string AttributeLevel = "Level";
             public const string AttributePath = "Path";

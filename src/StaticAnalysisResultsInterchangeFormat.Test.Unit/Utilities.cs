@@ -56,7 +56,7 @@ namespace Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat
                     var json = new JsonTextWriter(output);
                     json.Formatting = Newtonsoft.Json.Formatting.Indented;
                     json.CloseOutput = false;
-                    using (var outputWriter = new IssueLogJsonWriter(json))
+                    using (var outputWriter = new ResultLogJsonWriter(json))
                     {
                         converter.Convert(input, outputWriter);
                     }
@@ -71,9 +71,9 @@ namespace Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat
             return GetConverterJson(converter, Encoding.UTF8.GetBytes(inputData));
         }
 
-        public static IssueLogObjectWriter GetConverterObjects(IToolFileConverter converter, byte[] inputData)
+        public static ResultLogObjectWriter GetConverterObjects(IToolFileConverter converter, byte[] inputData)
         {
-            var result = new IssueLogObjectWriter();
+            var result = new ResultLogObjectWriter();
             using (var input = new MemoryStream(inputData))
             {
                 converter.Convert(input, result);
@@ -82,7 +82,7 @@ namespace Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat
             return result;
         }
 
-        public static IssueLogObjectWriter GetConverterObjects(IToolFileConverter converter, string inputData)
+        public static ResultLogObjectWriter GetConverterObjects(IToolFileConverter converter, string inputData)
         {
             return GetConverterObjects(converter, Encoding.UTF8.GetBytes(inputData));
         }

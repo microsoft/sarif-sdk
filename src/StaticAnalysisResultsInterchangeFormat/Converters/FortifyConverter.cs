@@ -26,13 +26,13 @@ namespace Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.Converte
         }
 
         /// <summary>
-        /// Interface implementation for converting a stream of Fortify report in XML format to an OES
-        /// json format stream.
+        /// Interface implementation for converting a stream of Fortify report in XML format to a
+        /// SARIF json format stream.
         /// </summary>
         /// <exception cref="ArgumentNullException">Thrown when one or more required arguments are null.</exception>
         /// <param name="input">Stream of the Fortify report.</param>
-        /// <param name="output">Stream of OES json format.</param>
-        public void Convert(Stream input, IIssueLogWriter output)
+        /// <param name="output">Stream of SARIF json.</param>
+        public void Convert(Stream input, IResultLogWriter output)
         {
             if (input == null)
             {
@@ -46,7 +46,7 @@ namespace Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.Converte
 
             output.WriteToolAndRunInfo(new ToolInfo
             {
-                ToolName = "Fortify"
+                Name = "Fortify"
             }, null);
 
             var settings = new XmlReaderSettings
@@ -60,24 +60,24 @@ namespace Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.Converte
             {
                 while (reader.Read())
                 {
-                    while (Ref.Equal(reader.LocalName, _strings.Issue))
+                    while (Ref.Equal(reader.LocalName, _strings.Result))
                     {
                         FortifyIssue fortify = FortifyIssue.Parse(reader, _strings);
-                        output.WriteIssue(ConvertFortifyIssueToSarifIssue(fortify));
+                        output.WriteResult(ConvertFortifyIssueToSarifIssue(fortify));
                     }
                 }
             }
         }
 
-        /// <summary>Converts a Fortify issue to a static analysis results interchange format issue.</summary>
-        /// <param name="fortify">The Fortify issue convert.</param>
+        /// <summary>Converts a Fortify result to a static analysis results interchange format result.</summary>
+        /// <param name="fortify">The Fortify result convert.</param>
         /// <returns>
-        /// A Unified Issue Store <see cref="Issue"/> containing the same content as the supplied
+        /// A SARIF result <see cref="Result"/> containing the same content as the supplied
         /// <see cref="FortifyIssue"/>.
         /// </returns>
-        public static Issue ConvertFortifyIssueToSarifIssue(FortifyIssue fortify)
+        public static Result ConvertFortifyIssueToSarifIssue(FortifyIssue fortify)
         {
-            var result = new Issue();
+            var result = new Result();
             result.RuleId = fortify.Category;
             result.ToolFingerprint = fortify.InstanceId;
             List<string> messageComponents = new List<string>();
@@ -136,8 +136,8 @@ namespace Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.Converte
                 {
                     new[]
                     {
-                        new ExecutionFlowEntry { PhysicalLocations = new[] { source }},
-                        new ExecutionFlowEntry { PhysicalLocations = new[] { primaryOrSink }}
+                        new AnnotatedCodeLocation { PhysicalLocations = new[] { source }},
+                        new AnnotatedCodeLocation { PhysicalLocations = new[] { primaryOrSink }}
                     }
                 };
             }

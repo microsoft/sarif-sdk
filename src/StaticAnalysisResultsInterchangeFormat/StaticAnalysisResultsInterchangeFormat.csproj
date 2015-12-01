@@ -50,7 +50,7 @@
     <Compile Include="Extensions.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="IgnoreOptions.cs" />
-    <Compile Include="IIssueLogWriter.cs" />
+    <Compile Include="IResultLogWriter.cs" />
     <Compile Include="LogicalLocationKind.cs" />
     <Compile Include="Readers\SarifContractResolver.cs" />
     <Compile Include="Readers\VersionConverter.cs" />
@@ -72,8 +72,8 @@
     <Compile Include="Converters\FxCopConverter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ToolFormat.cs" />
-    <Compile Include="Writers\IssueLogJsonWriter.cs" />
-    <Compile Include="Writers\IssueLogObjectWriter.cs" />
+    <Compile Include="Writers\ResultLogJsonWriter.cs" />
+    <Compile Include="Writers\ResultLogObjectWriter.cs" />
     <Compile Include="Writers\MimeType.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -92,6 +92,7 @@
     <EmbeddedResource Include="SarifResources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>SarifResources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
@@ -103,6 +104,6 @@
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\DataModelGenerator.targets" />
   <Target Name="AfterBuild">
-    <Exec Command="..\..\.nuget\NuGet.exe pack Sarif.Sdk.nuspec -Symbols -Properties id=Sarif.Sdk;major=1;minor=0;patch=0;prerelease= -Verbosity Quiet -BasePath $(OutputPath) -OutputDirectory $(OutputPath)" Outputs="$(OutputPath)\*.nupkg"/>
+    <Exec Command="..\..\.nuget\NuGet.exe pack Sarif.Sdk.nuspec -Symbols -Properties id=Sarif.Sdk;major=1;minor=0;patch=0;prerelease= -Verbosity Quiet -BasePath $(OutputPath) -OutputDirectory $(OutputPath)" Outputs="$(OutputPath)\*.nupkg" />
   </Target>
 </Project>

@@ -22,12 +22,12 @@ namespace Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.Converte
         }
 
         /// <summary>
-        /// Interface implementation that takes a CppChecker log stream and converts its data to a OES json format stream.
-        /// Read in CppChecker data from an input stream and write Issue objects.
+        /// Interface implementation that takes a CppChecker log stream and converts its data to a SARIF json stream.
+        /// Read in CppChecker data from an input stream and write Result objects.
         /// </summary>
         /// <param name="input">Stream of a CppChecker log</param>
-        /// <param name="output">OES json stream of the converted CppChecker log</param>
-        public void Convert(Stream input, IIssueLogWriter output)
+        /// <param name="output">SARIF json stream of the converted CppChecker log</param>
+        public void Convert(Stream input, IResultLogWriter output)
         {
             if (input == null)
             {
@@ -52,7 +52,7 @@ namespace Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.Converte
             }
         }
 
-        private void ProcessCppCheckLog(XmlReader reader, IIssueLogWriter issueWriter)
+        private void ProcessCppCheckLog(XmlReader reader, IResultLogWriter issueWriter)
         {
             reader.ReadStartElement(_strings.Results);
 
@@ -69,8 +69,8 @@ namespace Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.Converte
 
             issueWriter.WriteToolAndRunInfo(new ToolInfo
             {
-                ToolName = "CppCheck",
-                ProductVersion = version
+                Name = "CppCheck",
+                Version = Version.Parse(version)
             }, null);
 
             reader.Skip(); // <cppcheck />
@@ -91,7 +91,7 @@ namespace Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.Converte
                 while (reader.Depth > errorsDepth)
                 {
                     var parsedError = CppCheckError.Parse(reader, _strings);
-                    issueWriter.WriteIssue(parsedError.ToSarifIssue());
+                    issueWriter.WriteResult(parsedError.ToSarifIssue());
                 }
 
                 reader.ReadEndElement(); // </errors>

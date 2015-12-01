@@ -151,11 +151,11 @@ namespace Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Cannot write Issue; ToolInfo not yet written..
+        ///   Looks up a localized string similar to Cannot write result: ToolInfo not yet written..
         /// </summary>
-        internal static string CannotWriteIssueToolInfoMissing {
+        internal static string CannotWriteResultToolInfoMissing {
             get {
-                return ResourceManager.GetString("CannotWriteIssueToolInfoMissing", resourceCulture);
+                return ResourceManager.GetString("CannotWriteResultToolInfoMissing", resourceCulture);
             }
         }
         
@@ -277,15 +277,6 @@ namespace Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Issue did not match the Fortify schema..
-        /// </summary>
-        internal static string FortifyNotValidIssue {
-            get {
-                return ResourceManager.GetString("FortifyNotValidIssue", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to A node did not match the PathElement portion of the Fortify schema..
         /// </summary>
         internal static string FortifyNotValidPathElement {
@@ -295,137 +286,20 @@ namespace Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Result did not match the Fortify schema..
+        /// </summary>
+        internal static string FortifyNotValidResult {
+            get {
+                return ResourceManager.GetString("FortifyNotValidResult", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Element expected to be located under a different parent element..
         /// </summary>
         internal static string InvalidParentXml {
             get {
                 return ResourceManager.GetString("InvalidParentXml", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Invalid Policheck file..
-        /// </summary>
-        internal static string InvalidPolicheckFile {
-            get {
-                return ResourceManager.GetString("InvalidPolicheckFile", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to A PoliCheck Context was missing its associated ActionRecommendation..
-        /// </summary>
-        internal static string PoliCheckContextMissingActionRecommendation {
-            get {
-                return ResourceManager.GetString("PoliCheckContextMissingActionRecommendation", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to PoliCheck log element &quot;term&quot; has an empty term attribute..
-        /// </summary>
-        internal static string PoliCheckEmptyTerm {
-            get {
-                return ResourceManager.GetString("PoliCheckEmptyTerm", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Expected element &quot;Object&quot;..
-        /// </summary>
-        internal static string PoliCheckExpectedObjectNode {
-            get {
-                return ResourceManager.GetString("PoliCheckExpectedObjectNode", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to The term &apos;{0}&apos; was detected in context of &apos;{1}&apos; (at {2}). Verify that the use of this term conforms to {3} guidelines and update its use if required..
-        /// </summary>
-        internal static string PoliCheckFullMessage {
-            get {
-                return ResourceManager.GetString("PoliCheckFullMessage", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Invalid root element in Policheck log file..
-        /// </summary>
-        internal static string PoliCheckInvalidFileRoot {
-            get {
-                return ResourceManager.GetString("PoliCheckInvalidFileRoot", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Expected term table element &quot;TermTbl&quot;..
-        /// </summary>
-        internal static string PoliCheckInvalidTermTableNode {
-            get {
-                return ResourceManager.GetString("PoliCheckInvalidTermTableNode", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to PoliCheck file was missing required element &quot;{0}&quot;..
-        /// </summary>
-        internal static string PoliCheckMissingRequiredBlock {
-            get {
-                return ResourceManager.GetString("PoliCheckMissingRequiredBlock", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Expected &quot;Object&quot; to contain at least Term, Position and URL properties..
-        /// </summary>
-        internal static string PoliCheckObjectMissingRequiredChildren {
-            get {
-                return ResourceManager.GetString("PoliCheckObjectMissingRequiredChildren", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to The &quot;URL&quot; data was not set in a PoliCheck log object..
-        /// </summary>
-        internal static string PoliCheckObjectUrlMissing {
-            get {
-                return ResourceManager.GetString("PoliCheckObjectUrlMissing", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to The &quot;Status&quot; data was not set in a PoliCheck log object..
-        /// </summary>
-        internal static string PoliCheckStatusMissing {
-            get {
-                return ResourceManager.GetString("PoliCheckStatusMissing", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to The TermAt value was outside the maximum length of the supplied context..
-        /// </summary>
-        internal static string PoliCheckTermAtMustBeInRange {
-            get {
-                return ResourceManager.GetString("PoliCheckTermAtMustBeInRange", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Expected element &quot;term&quot;..
-        /// </summary>
-        internal static string PoliCheckTermInvalidNode {
-            get {
-                return ResourceManager.GetString("PoliCheckTermInvalidNode", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Term in PoliCheck result was not found in the associated TermTbl..
-        /// </summary>
-        internal static string PoliCheckTermMissing {
-            get {
-                return ResourceManager.GetString("PoliCheckTermMissing", resourceCulture);
             }
         }
         

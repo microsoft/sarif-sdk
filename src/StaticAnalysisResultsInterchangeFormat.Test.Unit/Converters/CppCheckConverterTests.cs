@@ -34,15 +34,15 @@ namespace Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.Converte
         public void CppCheckConverter_Convert_NullLogTest()
         {
             CppCheckConverter converter = new CppCheckConverter();
-            converter.Convert(null, new IssueLogObjectWriter());
+            converter.Convert(null, new ResultLogObjectWriter());
         }
 
         [TestMethod]
         public void CppCheckConverter_ExtractsCppCheckVersion()
         {
-            IssueLogObjectWriter results = Utilities.GetConverterObjects(new CppCheckConverter(),
+            ResultLogObjectWriter results = Utilities.GetConverterObjects(new CppCheckConverter(),
                 "<results> <cppcheck version=\"12.34\" /> <errors /> </results>");
-            Assert.AreEqual("12.34", results.ToolInfo.ProductVersion);
+            Assert.AreEqual("12.34", results.ToolInfo.Version);
         }
 
         [TestMethod]
@@ -53,7 +53,7 @@ namespace Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.Converte
   ""version"": ""1.0"",
   ""toolInfo"": {
     ""toolName"": ""CppCheck"",
-    ""productVersion"": ""12.34""
+    ""version"": ""12.34""
   },
   ""issues"": []
 }";
