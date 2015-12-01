@@ -114,7 +114,7 @@ namespace Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.Converte
                 logicalLocation.Add(new LogicalLocationComponent
                 {
                     Name = problem.Module,
-                    LocationKind = LogicalLocationKind.AndroidModule
+                    Kind = LogicalLocationKind.AndroidModule
                 });
             }
 
@@ -123,7 +123,7 @@ namespace Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.Converte
                 logicalLocation.Add(new LogicalLocationComponent
                 {
                     Name = problem.Package,
-                    LocationKind = LogicalLocationKind.JvmPackage
+                    Kind = LogicalLocationKind.JvmPackage
                 });
             }
 
@@ -132,7 +132,7 @@ namespace Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.Converte
                 logicalLocation.Add(new LogicalLocationComponent
                 {
                     Name = problem.EntryPointName,
-                    LocationKind = LogicalLocationKind.JvmType
+                    Kind = LogicalLocationKind.JvmType
                 });
             }
 
@@ -141,7 +141,7 @@ namespace Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.Converte
                 logicalLocation.Add(new LogicalLocationComponent
                 {
                     Name = problem.EntryPointName,
-                    LocationKind = LogicalLocationKind.JvmFunction
+                    Kind = LogicalLocationKind.JvmFunction
                 });
             }
 

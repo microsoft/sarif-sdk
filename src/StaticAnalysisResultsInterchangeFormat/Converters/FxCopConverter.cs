@@ -42,8 +42,9 @@ namespace Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.Converte
             }
 
             ToolInfo toolInfo = new ToolInfo();
+            RunInfo runInfo = new RunInfo();
             toolInfo.Name = "FxCop";
-            output.WriteToolAndRunInfo(toolInfo, null);
+            output.WriteToolAndRunInfo(toolInfo, runInfo);
 
             var context = new FxCopLogReader.Context();
 
@@ -166,7 +167,7 @@ namespace Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.Converte
                 location.Add(new LogicalLocationComponent
                 {
                     Name = value,
-                    LocationKind = kind
+                    Kind = kind
                 });
             }
         }

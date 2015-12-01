@@ -34,7 +34,7 @@ namespace Microsoft.CodeAnalysis.DataModelGenerator
             codeWriter.CloseBrace(); // if node == null
             codeWriter.WriteLine();
 
-            codeWriter.OpenBrace("switch (node.Kind)");
+            codeWriter.OpenBrace("switch (node.SyntaxKind)");
 
             foreach (DataModelType type in model.Types)
             {

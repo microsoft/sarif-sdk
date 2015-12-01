@@ -37,11 +37,15 @@ namespace Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.Converte
         }
 
         private const string empty = @"{
-  ""version"": ""1.0"",
-  ""toolInfo"": {
-    ""toolName"": ""Clang""
-  },
-  ""issues"": []
+  ""version"": ""0.4"",
+  ""runLogs"": [
+    {
+      ""toolInfo"": {
+        ""name"": ""Clang""
+      },
+      ""results"": []
+    }
+  ]
 }";
 
         [TestMethod]

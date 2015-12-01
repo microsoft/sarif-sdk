@@ -82,7 +82,7 @@ namespace Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.DataCont
     {
         /// <summary>Gets the kind of type implementing <see cref="ISyntax" />.</summary>
         /// <value>The enumeration value for the kind of type implementing <see cref="ISyntax" />.</value>
-        ToolResultsLogKind Kind { get; }
+        ToolResultsLogKind SyntaxKind { get; }
 
         /// <summary>Makes a deep copy of this instance.</summary>
         ISyntax DeepClone();
@@ -98,7 +98,7 @@ namespace Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.DataCont
     {
         /// <summary>Gets the kind of type implementing <see cref="ISyntax" />.</summary>
         /// <value>The enumeration value for the kind of type implementing <see cref="ISyntax" />.</value>
-        public ToolResultsLogKind Kind { get { return ToolResultsLogKind.AnnotatedCodeLocation; } }
+        public ToolResultsLogKind SyntaxKind { get { return ToolResultsLogKind.AnnotatedCodeLocation; } }
 
         /// <summary>
         /// A set of places to which this annotation refers. These locations are of equal
@@ -311,7 +311,7 @@ namespace Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.DataCont
     {
         /// <summary>Gets the kind of type implementing <see cref="ISyntax" />.</summary>
         /// <value>The enumeration value for the kind of type implementing <see cref="ISyntax" />.</value>
-        public ToolResultsLogKind Kind { get { return ToolResultsLogKind.FileChange; } }
+        public ToolResultsLogKind SyntaxKind { get { return ToolResultsLogKind.FileChange; } }
 
         /// <summary>
         /// A string that represents the location of the file to change as a valid URI. If not present,
@@ -490,7 +490,7 @@ namespace Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.DataCont
     {
         /// <summary>Gets the kind of type implementing <see cref="ISyntax" />.</summary>
         /// <value>The enumeration value for the kind of type implementing <see cref="ISyntax" />.</value>
-        public ToolResultsLogKind Kind { get { return ToolResultsLogKind.FileReference; } }
+        public ToolResultsLogKind SyntaxKind { get { return ToolResultsLogKind.FileReference; } }
 
         /// <summary>
         /// The location of the file as a valid URI
@@ -667,7 +667,7 @@ namespace Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.DataCont
     {
         /// <summary>Gets the kind of type implementing <see cref="ISyntax" />.</summary>
         /// <value>The enumeration value for the kind of type implementing <see cref="ISyntax" />.</value>
-        public ToolResultsLogKind Kind { get { return ToolResultsLogKind.Fix; } }
+        public ToolResultsLogKind SyntaxKind { get { return ToolResultsLogKind.Fix; } }
 
         /// <summary>
         /// A string that describes the proposed fix, enabling viewers to present a proposed change to an end user.
@@ -842,7 +842,7 @@ namespace Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.DataCont
     {
         /// <summary>Gets the kind of type implementing <see cref="ISyntax" />.</summary>
         /// <value>The enumeration value for the kind of type implementing <see cref="ISyntax" />.</value>
-        public ToolResultsLogKind Kind { get { return ToolResultsLogKind.Hash; } }
+        public ToolResultsLogKind SyntaxKind { get { return ToolResultsLogKind.Hash; } }
 
         /// <summary>
         /// The hash value of some file or collection of files, computed by the algorithm named in the algorithm property.
@@ -984,7 +984,7 @@ namespace Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.DataCont
     {
         /// <summary>Gets the kind of type implementing <see cref="ISyntax" />.</summary>
         /// <value>The enumeration value for the kind of type implementing <see cref="ISyntax" />.</value>
-        public ToolResultsLogKind Kind { get { return ToolResultsLogKind.Location; } }
+        public ToolResultsLogKind SyntaxKind { get { return ToolResultsLogKind.Location; } }
 
         /// <summary>
         /// A source file that is associated with the item that the static analysis tool scanned. This
@@ -1338,7 +1338,7 @@ namespace Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.DataCont
     {
         /// <summary>Gets the kind of type implementing <see cref="ISyntax" />.</summary>
         /// <value>The enumeration value for the kind of type implementing <see cref="ISyntax" />.</value>
-        public ToolResultsLogKind Kind { get { return ToolResultsLogKind.LogicalLocationComponent; } }
+        public ToolResultsLogKind SyntaxKind { get { return ToolResultsLogKind.LogicalLocationComponent; } }
 
         /// <summary>
         /// Name of the item specified by this location component.
@@ -1349,18 +1349,18 @@ namespace Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.DataCont
         /// <summary>
         /// The type of item this location refers to.
         /// </summary>
-        [DataMember(Name="locationKind", IsRequired = true)]
-        public string LocationKind { get; set; }
+        [DataMember(Name="kind", IsRequired = false, EmitDefaultValue = false)]
+        public string Kind { get; set; }
 
-        private void Init(string nameArg, string locationKindArg)
+        private void Init(string nameArg, string kindArg)
         {
             if (nameArg != null)
             {
                 this.Name = nameArg;
             }
-            if (locationKindArg != null)
+            if (kindArg != null)
             {
-                this.LocationKind = locationKindArg;
+                this.Kind = kindArg;
             }
         }
 
@@ -1372,12 +1372,12 @@ namespace Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.DataCont
 
         /// <summary>Initializes a new instance of the <see cref="LogicalLocationComponent" /> class with the supplied data.</summary>
         /// <param name="nameArg">An initialization value for the <see cref="P:Name" /> member.</param>
-        /// <param name="locationKindArg">An initialization value for the <see cref="P:LocationKind" /> member.</param>
-        public LogicalLocationComponent(string nameArg, string locationKindArg)
+        /// <param name="kindArg">An initialization value for the <see cref="P:Kind" /> member.</param>
+        public LogicalLocationComponent(string nameArg, string kindArg)
         {
             this.Init(
                 nameArg, 
-                locationKindArg
+                kindArg
             );
         }
 
@@ -1393,7 +1393,7 @@ namespace Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.DataCont
 
             this.Init(
                 other.Name, 
-                other.LocationKind
+                other.Kind
             );
         }
 
@@ -1424,9 +1424,9 @@ namespace Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.DataCont
                 {
                     result = (result * 31) + this.Name.GetHashCode();
                 }
-                if (this.LocationKind != null)
+                if (this.Kind != null)
                 {
-                    result = (result * 31) + this.LocationKind.GetHashCode();
+                    result = (result * 31) + this.Kind.GetHashCode();
                 }
             }
 
@@ -1456,7 +1456,7 @@ namespace Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.DataCont
                 return false;
             }
 
-            if (this.LocationKind != other.LocationKind)
+            if (this.Kind != other.Kind)
             {
                 return false;
             }
@@ -1474,7 +1474,7 @@ namespace Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.DataCont
     {
         /// <summary>Gets the kind of type implementing <see cref="ISyntax" />.</summary>
         /// <value>The enumeration value for the kind of type implementing <see cref="ISyntax" />.</value>
-        public ToolResultsLogKind Kind { get { return ToolResultsLogKind.PhysicalLocationComponent; } }
+        public ToolResultsLogKind SyntaxKind { get { return ToolResultsLogKind.PhysicalLocationComponent; } }
 
         /// <summary>
         /// Uri to the file specified by this location.
@@ -1642,7 +1642,7 @@ namespace Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.DataCont
     {
         /// <summary>Gets the kind of type implementing <see cref="ISyntax" />.</summary>
         /// <value>The enumeration value for the kind of type implementing <see cref="ISyntax" />.</value>
-        public ToolResultsLogKind Kind { get { return ToolResultsLogKind.Region; } }
+        public ToolResultsLogKind SyntaxKind { get { return ToolResultsLogKind.Region; } }
 
         /// <summary>
         /// The starting line location associated with a region in the text file.
@@ -1841,7 +1841,7 @@ namespace Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.DataCont
     {
         /// <summary>Gets the kind of type implementing <see cref="ISyntax" />.</summary>
         /// <value>The enumeration value for the kind of type implementing <see cref="ISyntax" />.</value>
-        public ToolResultsLogKind Kind { get { return ToolResultsLogKind.Replacement; } }
+        public ToolResultsLogKind SyntaxKind { get { return ToolResultsLogKind.Replacement; } }
 
         /// <summary>
         /// A non-negative integer specifying the offset in bytes from the beginning of the file at
@@ -1988,7 +1988,7 @@ namespace Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.DataCont
     {
         /// <summary>Gets the kind of type implementing <see cref="ISyntax" />.</summary>
         /// <value>The enumeration value for the kind of type implementing <see cref="ISyntax" />.</value>
-        public ToolResultsLogKind Kind { get { return ToolResultsLogKind.Result; } }
+        public ToolResultsLogKind SyntaxKind { get { return ToolResultsLogKind.Result; } }
 
         /// <summary>
         /// An opaque, stable identifier that uniquely identifies the specific rule associated with
@@ -2002,8 +2002,8 @@ namespace Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.DataCont
         /// This shall be one of the following: warning, error, pass, pending, note, notApplicable, internalError.
         /// If this member is not present, its implied value is 'warning'.
         /// </summary>
-        [DataMember(Name="resultKind", IsRequired = false, EmitDefaultValue = false)]
-        public string ResultKind { get; set; }
+        [DataMember(Name="kind", IsRequired = false, EmitDefaultValue = false)]
+        public string Kind { get; set; }
 
         /// <summary>
         /// A string that comprehensively describes the result to the users.
@@ -2071,15 +2071,15 @@ namespace Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.DataCont
         [DataMember(Name="properties", IsRequired = false, EmitDefaultValue = false)]
         public global::System.Collections.Generic.Dictionary<string, string> Properties { get; set; }
 
-        private void Init(string ruleIdArg, string resultKindArg, string fullMessageArg, string shortMessageArg, IEnumerable<Location> locationsArg, string toolFingerprintArg, IEnumerable<AnnotatedCodeLocation> stacksArg, IEnumerable<IEnumerable<AnnotatedCodeLocation>> executionFlowsArg, IEnumerable<AnnotatedCodeLocation> relatedLocationsArg, bool isSuppressedInSourceArg, IEnumerable<Fix> fixesArg, global::System.Collections.Generic.Dictionary<string, string> propertiesArg)
+        private void Init(string ruleIdArg, string kindArg, string fullMessageArg, string shortMessageArg, IEnumerable<Location> locationsArg, string toolFingerprintArg, IEnumerable<AnnotatedCodeLocation> stacksArg, IEnumerable<IEnumerable<AnnotatedCodeLocation>> executionFlowsArg, IEnumerable<AnnotatedCodeLocation> relatedLocationsArg, bool isSuppressedInSourceArg, IEnumerable<Fix> fixesArg, global::System.Collections.Generic.Dictionary<string, string> propertiesArg)
         {
             if (ruleIdArg != null)
             {
                 this.RuleId = ruleIdArg;
             }
-            if (resultKindArg != null)
+            if (kindArg != null)
             {
-                this.ResultKind = resultKindArg;
+                this.Kind = kindArg;
             }
             if (fullMessageArg != null)
             {
@@ -2217,7 +2217,7 @@ namespace Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.DataCont
 
         /// <summary>Initializes a new instance of the <see cref="Result" /> class with the supplied data.</summary>
         /// <param name="ruleIdArg">An initialization value for the <see cref="P:RuleId" /> member.</param>
-        /// <param name="resultKindArg">An initialization value for the <see cref="P:ResultKind" /> member.</param>
+        /// <param name="kindArg">An initialization value for the <see cref="P:Kind" /> member.</param>
         /// <param name="fullMessageArg">An initialization value for the <see cref="P:FullMessage" /> member.</param>
         /// <param name="shortMessageArg">An initialization value for the <see cref="P:ShortMessage" /> member.</param>
         /// <param name="locationsArg">An initialization value for the <see cref="P:Locations" /> member.</param>
@@ -2228,11 +2228,11 @@ namespace Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.DataCont
         /// <param name="isSuppressedInSourceArg">An initialization value for the <see cref="P:IsSuppressedInSource" /> member.</param>
         /// <param name="fixesArg">An initialization value for the <see cref="P:Fixes" /> member.</param>
         /// <param name="propertiesArg">An initialization value for the <see cref="P:Properties" /> member.</param>
-        public Result(string ruleIdArg, string resultKindArg, string fullMessageArg, string shortMessageArg, IEnumerable<Location> locationsArg, string toolFingerprintArg, IEnumerable<AnnotatedCodeLocation> stacksArg, IEnumerable<IEnumerable<AnnotatedCodeLocation>> executionFlowsArg, IEnumerable<AnnotatedCodeLocation> relatedLocationsArg, bool isSuppressedInSourceArg, IEnumerable<Fix> fixesArg, global::System.Collections.Generic.Dictionary<string, string> propertiesArg)
+        public Result(string ruleIdArg, string kindArg, string fullMessageArg, string shortMessageArg, IEnumerable<Location> locationsArg, string toolFingerprintArg, IEnumerable<AnnotatedCodeLocation> stacksArg, IEnumerable<IEnumerable<AnnotatedCodeLocation>> executionFlowsArg, IEnumerable<AnnotatedCodeLocation> relatedLocationsArg, bool isSuppressedInSourceArg, IEnumerable<Fix> fixesArg, global::System.Collections.Generic.Dictionary<string, string> propertiesArg)
         {
             this.Init(
                 ruleIdArg, 
-                resultKindArg, 
+                kindArg, 
                 fullMessageArg, 
                 shortMessageArg, 
                 locationsArg, 
@@ -2258,7 +2258,7 @@ namespace Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.DataCont
 
             this.Init(
                 other.RuleId, 
-                other.ResultKind, 
+                other.Kind, 
                 other.FullMessage, 
                 other.ShortMessage, 
                 other.Locations, 
@@ -2299,9 +2299,9 @@ namespace Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.DataCont
                 {
                     result = (result * 31) + this.RuleId.GetHashCode();
                 }
-                if (this.ResultKind != null)
+                if (this.Kind != null)
                 {
-                    result = (result * 31) + this.ResultKind.GetHashCode();
+                    result = (result * 31) + this.Kind.GetHashCode();
                 }
                 if (this.FullMessage != null)
                 {
@@ -2411,7 +2411,7 @@ namespace Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.DataCont
                 return false;
             }
 
-            if (this.ResultKind != other.ResultKind)
+            if (this.Kind != other.Kind)
             {
                 return false;
             }
@@ -2604,14 +2604,14 @@ namespace Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.DataCont
     {
         /// <summary>Gets the kind of type implementing <see cref="ISyntax" />.</summary>
         /// <value>The enumeration value for the kind of type implementing <see cref="ISyntax" />.</value>
-        public ToolResultsLogKind Kind { get { return ToolResultsLogKind.ResultLog; } }
+        public ToolResultsLogKind SyntaxKind { get { return ToolResultsLogKind.ResultLog; } }
 
         /// <summary>
         /// The SARIF tool format version of this log file. This value should be set to 0.4, currently.
         /// This is the third proposed revision of a file format that is not yet completely finalized.
         /// </summary>
         [DataMember(Name="version", IsRequired = true)]
-        public global::System.Version Version { get; set; }
+        public string Version { get; set; }
 
         /// <summary>
         /// The set of runLogs contained in this SARIF log.
@@ -2619,11 +2619,11 @@ namespace Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.DataCont
         [DataMember(Name="runLogs", IsRequired = true)]
         public IList<RunLog> RunLogs { get; set; }
 
-        private void Init(global::System.Version versionArg, IEnumerable<RunLog> runLogsArg)
+        private void Init(string versionArg, IEnumerable<RunLog> runLogsArg)
         {
             if (versionArg != null)
             {
-                this.Version = (global::System.Version)versionArg.Clone();
+                this.Version = versionArg;
             }
             if (runLogsArg != null)
             {
@@ -2656,7 +2656,7 @@ namespace Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.DataCont
         /// <summary>Initializes a new instance of the <see cref="ResultLog" /> class with the supplied data.</summary>
         /// <param name="versionArg">An initialization value for the <see cref="P:Version" /> member.</param>
         /// <param name="runLogsArg">An initialization value for the <see cref="P:RunLogs" /> member.</param>
-        public ResultLog(global::System.Version versionArg, IEnumerable<RunLog> runLogsArg)
+        public ResultLog(string versionArg, IEnumerable<RunLog> runLogsArg)
         {
             this.Init(
                 versionArg, 
@@ -2784,7 +2784,7 @@ namespace Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.DataCont
     {
         /// <summary>Gets the kind of type implementing <see cref="ISyntax" />.</summary>
         /// <value>The enumeration value for the kind of type implementing <see cref="ISyntax" />.</value>
-        public ToolResultsLogKind Kind { get { return ToolResultsLogKind.RunInfo; } }
+        public ToolResultsLogKind SyntaxKind { get { return ToolResultsLogKind.RunInfo; } }
 
         /// <summary>
         /// A string that describes any parameterization for the tool invocation. For command line tools
@@ -2966,7 +2966,7 @@ namespace Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.DataCont
     {
         /// <summary>Gets the kind of type implementing <see cref="ISyntax" />.</summary>
         /// <value>The enumeration value for the kind of type implementing <see cref="ISyntax" />.</value>
-        public ToolResultsLogKind Kind { get { return ToolResultsLogKind.RunLog; } }
+        public ToolResultsLogKind SyntaxKind { get { return ToolResultsLogKind.RunLog; } }
 
         /// <summary>
         /// Information about the tool or tool pipeline that generated the results in this log. A results
@@ -2981,7 +2981,7 @@ namespace Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.DataCont
         /// A runInfo object describes the invocation of the static analysis tool that produced the results
         /// specified in the containing runLog object (�6.4).
         /// </summary>
-        [DataMember(Name="runInfo", IsRequired = true)]
+        [DataMember(Name="runInfo", IsRequired = false, EmitDefaultValue = false)]
         public RunInfo RunInfo { get; set; }
 
         /// <summary>
@@ -3167,7 +3167,7 @@ namespace Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.DataCont
     {
         /// <summary>Gets the kind of type implementing <see cref="ISyntax" />.</summary>
         /// <value>The enumeration value for the kind of type implementing <see cref="ISyntax" />.</value>
-        public ToolResultsLogKind Kind { get { return ToolResultsLogKind.ToolInfo; } }
+        public ToolResultsLogKind SyntaxKind { get { return ToolResultsLogKind.ToolInfo; } }
 
         /// <summary>
         /// The name of the tool or tool pipeline that generated the results in this log, e.g., FxCop.
@@ -3187,16 +3187,16 @@ namespace Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.DataCont
         /// the build version of an individual binary in the tool).
         /// </summary>
         [DataMember(Name="version", IsRequired = false, EmitDefaultValue = false)]
-        public global::System.Version Version { get; set; }
+        public string Version { get; set; }
 
         /// <summary>
         /// For operating systems (such as Windows) that provide the data, the binary version
         /// of the primary tool exe.
         /// </summary>
         [DataMember(Name="fileVersion", IsRequired = false, EmitDefaultValue = false)]
-        public string FileVersion { get; set; }
+        public global::System.Version FileVersion { get; set; }
 
-        private void Init(string nameArg, string fullNameArg, global::System.Version versionArg, string fileVersionArg)
+        private void Init(string nameArg, string fullNameArg, string versionArg, global::System.Version fileVersionArg)
         {
             if (nameArg != null)
             {
@@ -3208,11 +3208,11 @@ namespace Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.DataCont
             }
             if (versionArg != null)
             {
-                this.Version = (global::System.Version)versionArg.Clone();
+                this.Version = versionArg;
             }
             if (fileVersionArg != null)
             {
-                this.FileVersion = fileVersionArg;
+                this.FileVersion = (global::System.Version)fileVersionArg.Clone();
             }
         }
 
@@ -3227,7 +3227,7 @@ namespace Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.DataCont
         /// <param name="fullNameArg">An initialization value for the <see cref="P:FullName" /> member.</param>
         /// <param name="versionArg">An initialization value for the <see cref="P:Version" /> member.</param>
         /// <param name="fileVersionArg">An initialization value for the <see cref="P:FileVersion" /> member.</param>
-        public ToolInfo(string nameArg, string fullNameArg, global::System.Version versionArg, string fileVersionArg)
+        public ToolInfo(string nameArg, string fullNameArg, string versionArg, global::System.Version fileVersionArg)
         {
             this.Init(
                 nameArg, 
@@ -3360,7 +3360,7 @@ namespace Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.DataCont
                 throw new ArgumentNullException("node");
             }
 
-            switch (node.Kind)
+            switch (node.SyntaxKind)
             {
             case ToolResultsLogKind.AnnotatedCodeLocation:
                 return this.VisitAnnotatedCodeLocation((AnnotatedCodeLocation)node);
@@ -3724,7 +3724,7 @@ namespace Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.DataCont
                 throw new ArgumentNullException("node");
             }
 
-            switch (node.Kind)
+            switch (node.SyntaxKind)
             {
             case ToolResultsLogKind.AnnotatedCodeLocation:
                 return this.VisitAnnotatedCodeLocation((AnnotatedCodeLocation)node);

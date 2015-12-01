@@ -70,7 +70,7 @@ namespace Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.Converte
             issueWriter.WriteToolAndRunInfo(new ToolInfo
             {
                 Name = "CppCheck",
-                Version = Version.Parse(version)
+                Version = version,
             }, null);
 
             reader.Skip(); // <cppcheck />
