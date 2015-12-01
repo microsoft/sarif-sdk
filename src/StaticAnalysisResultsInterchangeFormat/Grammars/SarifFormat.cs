@@ -2791,7 +2791,7 @@ namespace Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.DataCont
         /// this string may consist of the completely specified command line used to invoke the tool.
         /// </summary>
         [DataMember(Name="invocationInfo", IsRequired = true)]
-        public string invocationInfo { get; set; }
+        public string InvocationInfo { get; set; }
 
         /// <summary>
         /// An array, each of whose elements is a fileReference object representing the location of
@@ -2812,7 +2812,7 @@ namespace Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.DataCont
         {
             if (invocationInfoArg != null)
             {
-                this.invocationInfo = invocationInfoArg;
+                this.InvocationInfo = invocationInfoArg;
             }
             if (analysisTargetsArg != null)
             {
@@ -2843,7 +2843,7 @@ namespace Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.DataCont
         }
 
         /// <summary>Initializes a new instance of the <see cref="RunInfo" /> class with the supplied data.</summary>
-        /// <param name="invocationInfoArg">An initialization value for the <see cref="P:invocationInfo" /> member.</param>
+        /// <param name="invocationInfoArg">An initialization value for the <see cref="P:InvocationInfo" /> member.</param>
         /// <param name="analysisTargetsArg">An initialization value for the <see cref="P:AnalysisTargets" /> member.</param>
         public RunInfo(string invocationInfoArg, IEnumerable<FileReference> analysisTargetsArg)
         {
@@ -2864,7 +2864,7 @@ namespace Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.DataCont
             }
 
             this.Init(
-                other.invocationInfo, 
+                other.InvocationInfo, 
                 other.AnalysisTargets
             );
         }
@@ -2892,9 +2892,9 @@ namespace Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.DataCont
             int result = 17;
             unchecked
             {
-                if (this.invocationInfo != null)
+                if (this.InvocationInfo != null)
                 {
-                    result = (result * 31) + this.invocationInfo.GetHashCode();
+                    result = (result * 31) + this.InvocationInfo.GetHashCode();
                 }
                 foreach (var value_0 in this.AnalysisTargets)
                 {
@@ -2927,7 +2927,7 @@ namespace Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.DataCont
                 return false;
             }
 
-            if (this.invocationInfo != other.invocationInfo)
+            if (this.InvocationInfo != other.InvocationInfo)
             {
                 return false;
             }
