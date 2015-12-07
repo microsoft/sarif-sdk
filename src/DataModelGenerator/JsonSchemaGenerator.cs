@@ -87,8 +87,7 @@ namespace Microsoft.CodeAnalysis.DataModelGenerator
             WriteMembers(codeWriter, model, type);
             codeWriter.CloseBrace(",");
 
-            WriteRequiredMember(codeWriter, model, type);
-            codeWriter.WriteLine(@"""additionalProperties"": false" + (lastMember ? "" : ","));
+            WriteRequiredMember(codeWriter, model, type, lastMember);
         }
         private static void WriteDefinition(CodeWriter codeWriter, DataModel model, DataModelType type, bool lastType)
         {
@@ -98,7 +97,7 @@ namespace Microsoft.CodeAnalysis.DataModelGenerator
             codeWriter.CloseBrace(lastType ? "" : ","); 
         }
 
-        private static void WriteRequiredMember(CodeWriter codeWriter, DataModel model, DataModelType type)
+        private static void WriteRequiredMember(CodeWriter codeWriter, DataModel model, DataModelType type, bool lastMember)
         {
             List<string> requiredMembers = new List<string>();
 
@@ -118,7 +117,7 @@ namespace Microsoft.CodeAnalysis.DataModelGenerator
                     string name = requiredMembers[i];
                     sb.Append(@"""" + name + @"""" + (i != requiredMembers.Count - 1 ? ", " : ""));
                 }
-                codeWriter.WriteLine(sb.ToString() + "],");
+                codeWriter.WriteLine(sb.ToString() + "]" + (lastMember ? "" : ","));
             }
         }
 

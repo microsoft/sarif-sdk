@@ -71,6 +71,8 @@ namespace Microsoft.CodeAnalysis.DataModelGenerator
             switch (productionIs.Kind)
             {
                 case SymbolKind.String:
+                    this.CompileEnumValueType(decl, productionIs.FirstToken);
+                    break;
                 case SymbolKind.Identifier:
                 case SymbolKind.ZeroOrMoreQuantifier:
                 case SymbolKind.OneOrMoreQuantifier:
@@ -83,14 +85,7 @@ namespace Microsoft.CodeAnalysis.DataModelGenerator
                 case SymbolKind.Alternation:
                     if (productionIs.Children.All(child => child.Kind == SymbolKind.String))
                     {
-                        if (productionIs.Children.Length == 1)
-                        {
-                            this.CompileStringValueType(decl);
-                        }
-                        else
-                        {
-                            this.CompileEnumValueType(decl, productionIs.Children);
-                        }
+                        this.CompileEnumValueType(decl, productionIs.Children);
                         break;
                     }
                     else if (productionIs.Children.All(child => child.Kind == SymbolKind.Identifier))
@@ -237,6 +232,16 @@ namespace Microsoft.CodeAnalysis.DataModelGenerator
         {
             _compiledBases.Add(decl.GetLogicalText(),
                 new DataModelBaseTypeBuilder(decl, children.Select(child => child.GetLogicalText())));
+        }
+
+        private void CompileEnumValueType(GrammarSymbol decl, Token token)
+        {
+            var result = new DataModelLeafTypeBuilder(decl);
+
+            var declaredValues = new List<string>();
+            declaredValues.Add(token.GetText());
+            result.G4DeclaredValues = declaredValues;
+            this.AddCompiledType(result);
         }
 
         private void CompileEnumValueType(GrammarSymbol decl, ImmutableArray<GrammarSymbol> enumMembers)

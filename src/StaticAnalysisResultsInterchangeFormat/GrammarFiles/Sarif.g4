@@ -12,7 +12,6 @@ resultLog :
         The SARIF tool format version of this log file. This value should be set to 0.4, currently.
         This is the third proposed revision of a file format that is not yet completely finalized.
         }
-		@pattern {0.4}
     */
     sarifVersion
 
@@ -23,7 +22,11 @@ resultLog :
     */
     runLogs;
 
-sarifVersion : STRING;
+/** @className {SarifVersion} 
+	@serializedValues {ZeroDotFour} 
+*/
+sarifVersion : '0.4';
+
 
 runLog:
 

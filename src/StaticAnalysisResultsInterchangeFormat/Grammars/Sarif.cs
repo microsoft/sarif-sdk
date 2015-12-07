@@ -2608,7 +2608,7 @@ namespace Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.DataCont
         /// This is the third proposed revision of a file format that is not yet completely finalized.
         /// </summary>
         [DataMember(Name="version", IsRequired = true)]
-        public string Version { get; set; }
+        public SarifVersion Version { get; set; }
 
         /// <summary>
         /// The set of runLogs contained in this SARIF log.
@@ -2616,12 +2616,9 @@ namespace Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.DataCont
         [DataMember(Name="runLogs", IsRequired = true)]
         public IList<RunLog> RunLogs { get; set; }
 
-        private void Init(string versionArg, IEnumerable<RunLog> runLogsArg)
+        private void Init(SarifVersion versionArg, IEnumerable<RunLog> runLogsArg)
         {
-            if (versionArg != null)
-            {
-                this.Version = versionArg;
-            }
+            this.Version = versionArg;
             if (runLogsArg != null)
             {
                 var destination_0 = new List<RunLog>();
@@ -2653,7 +2650,7 @@ namespace Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.DataCont
         /// <summary>Initializes a new instance of the <see cref="ResultLog" /> class with the supplied data.</summary>
         /// <param name="versionArg">An initialization value for the <see cref="P:Version" /> member.</param>
         /// <param name="runLogsArg">An initialization value for the <see cref="P:RunLogs" /> member.</param>
-        public ResultLog(string versionArg, IEnumerable<RunLog> runLogsArg)
+        public ResultLog(SarifVersion versionArg, IEnumerable<RunLog> runLogsArg)
         {
             this.Init(
                 versionArg, 
@@ -2700,10 +2697,7 @@ namespace Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.DataCont
             int result = 17;
             unchecked
             {
-                if (this.Version != null)
-                {
-                    result = (result * 31) + this.Version.GetHashCode();
-                }
+                result = (result * 31) + (int)this.Version;
                 foreach (var value_0 in this.RunLogs)
                 {
                     result = result * 31;
@@ -3153,6 +3147,14 @@ namespace Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.DataCont
 
             return true;
         }
+    }
+
+    [DataContract]
+    [CompilerGenerated]
+    public enum SarifVersion
+    {
+        Unknown = 0,
+        ZeroDotFour,
     }
 
     /// <summary>
