@@ -2,6 +2,7 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using System;
+using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Linq;
 using Microsoft.CodeAnalysis.Driver;
@@ -28,24 +29,12 @@ namespace Microsoft.CodeAnalysis.DataModelGenerator
         public readonly string Base;
         /// <summary>The kind of type this is.</summary>
         public readonly DataModelTypeKind Kind;
-
-        /// <summary>Initializes a new instance of the <see cref="DataModelType"/> class.</summary>
-        /// <param name="g4Name">Declaring name in the G4 file.</param>
-        /// <param name="members">The members of this type, if any.</param>
-        /// <param name="toStringEntries">
-        /// Records describing the "ToString" override to generate for this type.
-        /// </param>
-        /// <param name="baseType">Type of the base.</param>
-        /// <param name="kind">The kind of type this is.</param>
-        public DataModelType(
-            string g4Name,
-            ImmutableArray<DataModelMember> members,
-            ImmutableArray<ToStringEntry> toStringEntries,
-            string baseType,
-            DataModelTypeKind kind
-            ) : this(String.Empty, String.Empty, g4Name, LinguisticTransformer.ToCSharpName(g4Name), members, toStringEntries, baseType, kind)
-        {
-        }
+        /// <summary>This type is the JSON root object definition.</summary>
+        public readonly bool RootObject;
+        /// <summary>List of possible values for member. Currently used only to express enums.</summary>
+        public readonly ImmutableArray<string> SerializedValues;
+        /// <summary>List of possible declared values for member. Currently used only to express enums.</summary>
+        public readonly ImmutableArray<string> G4DeclaredValues;
 
         /// <summary>Initializes a new instance of the <see cref="DataModelType"/> class.</summary>
         /// <param name="summaryText">The summary text to emit for this type declaration.</param>
@@ -59,21 +48,27 @@ namespace Microsoft.CodeAnalysis.DataModelGenerator
         /// <param name="baseType">Type of the base.</param>
         /// <param name="kind">The kind of type this is.</param>
         public DataModelType(
+            bool rootObject,
             string summaryText,
             string remarksText,
             string g4Name,
             string cSharpName,
             ImmutableArray<DataModelMember> members,
+            ImmutableArray<string> serializedValues,
+            ImmutableArray<string> G4DeclaredValues,
             ImmutableArray<ToStringEntry> toStringEntries,
             string baseType,
             DataModelTypeKind kind
             )
         {
+            this.RootObject = rootObject;
             this.SummaryText = summaryText;
             this.RemarksText = remarksText;
             this.G4DeclaredName = g4Name;
             this.CSharpName = cSharpName;
             this.Members = members;
+            this.SerializedValues = serializedValues;
+            this.G4DeclaredValues = G4DeclaredValues;
             this.ToStringEntries = toStringEntries;
             this.Base = baseType;
             this.Kind = kind;
@@ -97,6 +92,7 @@ namespace Microsoft.CodeAnalysis.DataModelGenerator
             {
                 switch (this.Kind)
                 {
+                    case DataModelTypeKind.Enum:
                     case DataModelTypeKind.BuiltInBoolean:
                     case DataModelTypeKind.BuiltInNumber:
                         return false;

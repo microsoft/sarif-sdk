@@ -137,7 +137,7 @@ namespace Microsoft.CodeAnalysis.DataModelGenerator
         /// <exception cref="InvalidOperationException">Thrown when the current indentation level is
         /// already <see cref="MaximumIndent"/>.</exception>
         public void OpenBrace()
-        {
+        {          
             this.WriteLine("{");
             this.IncrementIndentLevel();
         }
@@ -177,10 +177,10 @@ namespace Microsoft.CodeAnalysis.DataModelGenerator
 
         /// <summary>Writes close block to the generated code.</summary>
         /// <exception cref="InvalidOperationException">Thrown when the indent level is already zero.</exception>
-        public void CloseBrace()
+        public void CloseBrace(string suffixText = null)
         {
             this.DecrementIndentLevel();
-            this.WriteLine("}");
+            this.WriteLine("}" + (suffixText ?? ""));
         }
 
         /// <summary>Convert this object into a string representation.</summary>

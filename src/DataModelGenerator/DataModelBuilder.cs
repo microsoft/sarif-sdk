@@ -24,11 +24,14 @@ namespace Microsoft.CodeAnalysis.DataModelGenerator
         private static DataModelType CreateBuiltin(string g4Name, string cSharpName, DataModelTypeKind kind)
         {
             return new DataModelType(
+                false,
                 null,
                 null,
                 g4Name,
                 cSharpName,
                 ImmutableArray<DataModelMember>.Empty,
+                ImmutableArray<string>.Empty,
+                ImmutableArray<string>.Empty,
                 ImmutableArray<ToStringEntry>.Empty,
                 null,
                 kind
@@ -80,7 +83,14 @@ namespace Microsoft.CodeAnalysis.DataModelGenerator
                 case SymbolKind.Alternation:
                     if (productionIs.Children.All(child => child.Kind == SymbolKind.String))
                     {
-                        this.CompileStringValueType(decl);
+                        if (productionIs.Children.Length == 1)
+                        {
+                            this.CompileStringValueType(decl);
+                        }
+                        else
+                        {
+                            this.CompileEnumValueType(decl, productionIs.Children);
+                        }
                         break;
                     }
                     else if (productionIs.Children.All(child => child.Kind == SymbolKind.Identifier))
@@ -138,6 +148,11 @@ namespace Microsoft.CodeAnalysis.DataModelGenerator
                         "length",
                         "The length of this object in a source text file.",
                         "length",
+                        null,
+                        null,
+                        null,
+                        null,
+                        null, 
                         0,
                         false
                         );
@@ -154,6 +169,11 @@ namespace Microsoft.CodeAnalysis.DataModelGenerator
                         "offset",
                         "The offset of this object in a source text file.",
                         "offset",
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
                         0,
                         false
                         );
@@ -219,10 +239,24 @@ namespace Microsoft.CodeAnalysis.DataModelGenerator
                 new DataModelBaseTypeBuilder(decl, children.Select(child => child.GetLogicalText())));
         }
 
+        private void CompileEnumValueType(GrammarSymbol decl, ImmutableArray<GrammarSymbol> enumMembers)
+        {
+            var result = new DataModelLeafTypeBuilder(decl);
+
+            var declaredValues = new List<string>();
+            foreach (GrammarSymbol symbol in enumMembers)
+            {
+                declaredValues.Add(symbol.FirstToken.GetText());
+            }
+
+            result.G4DeclaredValues = declaredValues;
+            this.AddCompiledType(result);
+        }
+
         private void CompileStringValueType(GrammarSymbol decl)
         {
             var result = new DataModelLeafTypeBuilder(decl);
-            var member = new DataModelMember("STRING", "StringValue", "stringValue", null, "stringValue", 0, false);
+            var member = new DataModelMember("STRING", "StringValue", "stringValue", null, "stringValue", null, null, null, null, null, 0, false);
             result.Members.Add(member);
             result.ToStringEntries.Add(new ToStringEntry(member));
             this.AddCompiledType(result);

@@ -103,9 +103,10 @@ namespace Microsoft.CodeAnalysis.DataModelGenerator
                 case DataModelTypeKind.BuiltInDictionary:
                 case DataModelTypeKind.BuiltInBoolean:
                 case DataModelTypeKind.BuiltInUri:
+                case DataModelTypeKind.Enum:
                 case DataModelTypeKind.BuiltInVersion:
-                    // Don't visit builtins; overrides would inspect those directly.
-                    return;
+                // Don't visit builtins; overrides would inspect those directly.
+                return;
                 case DataModelTypeKind.Leaf:
                 case DataModelTypeKind.Base:
                     // Visit this member

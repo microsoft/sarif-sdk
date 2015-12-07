@@ -74,7 +74,7 @@ namespace Microsoft.CodeAnalysis.DataModelGenerator
                     codeWriter.OpenBrace("if (node != null)");
                     foreach (DataModelMember member in type.Members)
                     {
-                        WriteVisitMemmber(codeWriter, model, member);
+                        WriteVisitMember(codeWriter, model, member);
                     }
 
                     codeWriter.CloseBrace();
@@ -87,7 +87,7 @@ namespace Microsoft.CodeAnalysis.DataModelGenerator
             codeWriter.CloseBrace(); // class
         }
 
-        private static void WriteVisitMemmber(CodeWriter codeWriter, DataModel model, DataModelMember member)
+        private static void WriteVisitMember(CodeWriter codeWriter, DataModel model, DataModelMember member)
         {
             DataModelType memberType = model.GetTypeForMember(member);
             switch (memberType.Kind)
@@ -98,8 +98,9 @@ namespace Microsoft.CodeAnalysis.DataModelGenerator
                 case DataModelTypeKind.BuiltInBoolean:
                 case DataModelTypeKind.BuiltInUri:
                 case DataModelTypeKind.BuiltInVersion:
-                    // Don't visit builtins; overrides would inspect those directly.
-                    return;
+                case DataModelTypeKind.Enum:
+                // Don't visit builtins; overrides would inspect those directly.
+                return;
                 case DataModelTypeKind.Leaf:
                 case DataModelTypeKind.Base:
                     // Visit this member

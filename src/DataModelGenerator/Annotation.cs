@@ -27,7 +27,7 @@ namespace Microsoft.CodeAnalysis.DataModelGenerator
             Debug.Assert(name != null);
 
             this.Name = name;
-            this.Value = value;
+            this.Value = value ?? "";
         }
 
         /// <summary>Returns a hash code for this instance.</summary>

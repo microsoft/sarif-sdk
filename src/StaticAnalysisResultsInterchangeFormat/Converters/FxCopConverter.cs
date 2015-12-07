@@ -84,7 +84,7 @@ namespace Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.Converte
             string sourceFile = GetFilePath(context);
             if (!String.IsNullOrWhiteSpace(sourceFile))
             {
-                loc.IssueFile = new[]
+                loc.ResultFile = new[]
                 {
                     new PhysicalLocationComponent
                     {

@@ -25,6 +25,16 @@ namespace Microsoft.CodeAnalysis.DataModelGenerator
         public readonly int Rank;
         /// <summary>true if required in JSON.</summary>
         public readonly bool Required;
+        /// <summary>Regex to apply for member value validation.</summary>
+        public readonly string Pattern;
+        /// <summary>Minimum value for member. The value should be parseable as an integer or number.</summary>
+        public readonly string Minimum;
+        /// <summary>Minimum count of elements for array members.</summary>
+        public readonly string MinItems;
+        /// <summary>If present, true or false value that indicates whether all array items should be unique.</summary>
+        public readonly string UniqueItems;
+        /// <summary>A default value associated with the member. String defaults must be encapsulated by quotes in the G4</summary>
+        public readonly string Default;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="DataModelMember"/> class.
@@ -41,6 +51,11 @@ namespace Microsoft.CodeAnalysis.DataModelGenerator
                 LinguisticTransformer.ToJsonName(declaredName),
                 String.Empty,
                 LinguisticTransformer.ToArgumentName(declaredName),
+                String.Empty,
+                String.Empty,
+                String.Empty,
+                String.Empty,
+                String.Empty,
                 rank,
                 required
                 )
@@ -61,13 +76,18 @@ namespace Microsoft.CodeAnalysis.DataModelGenerator
         /// The rank of the property; e.g. 0 = int, 1 = List{int}, 2 = List{List{int}}.
         /// </param>
         /// <param name="required">true if required in JSON.</param>
-        public DataModelMember(string declaredName, string cSharpName, string serializedName, string summaryText, string argumentName, int rank, bool required)
+        public DataModelMember(string declaredName, string cSharpName, string serializedName, string summaryText, string argumentName, string pattern, string minimum, string minItems, string uniqueItems, string defaultValue, int rank, bool required)
         {
             this.DeclaredName = declaredName;
             this.CSharpName = cSharpName;
             this.SerializedName = serializedName;
             this.SummaryText = summaryText;
             this.ArgumentName = argumentName;
+            this.Pattern = pattern;
+            this.Minimum = minimum;
+            this.MinItems = minItems;
+            this.UniqueItems = uniqueItems;
+            this.Default = defaultValue;
             this.Rank = rank;
             this.Required = required;
         }

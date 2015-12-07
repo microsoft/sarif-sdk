@@ -59,6 +59,7 @@ namespace Microsoft.CodeAnalysis.DataModelGenerator
             LexerState state = LexerState.SkipWhitespace;
             int tokenStart = 0;
             int multiLineCommentStart = 0;
+            int valueLeftBraceDepth = 0;
             for (int idx = 0; idx < text.Length; ++idx)
             {
                 char ch = text[idx];
@@ -213,6 +214,7 @@ namespace Microsoft.CodeAnalysis.DataModelGenerator
                                 break;
                             case '{':
                                 yield return tokenFactory.Token(tokenStart, idx, TokenKind.Annotation);
+                                valueLeftBraceDepth = 0;
                                 state = LexerState.CollectingAnnotationValue;
                                 tokenStart = idx;
                                 break;
@@ -224,9 +226,19 @@ namespace Microsoft.CodeAnalysis.DataModelGenerator
                     case LexerState.CollectingAnnotationValue:
                         switch (ch)
                         {
+                            case '{':
+                                valueLeftBraceDepth++;
+                                break;
                             case '}':
-                                yield return tokenFactory.Token(tokenStart, idx + 1, TokenKind.AnnotationValue);
-                                state = LexerState.MultiLineComment;
+                                if (valueLeftBraceDepth > 0)
+                                {
+                                    valueLeftBraceDepth--;
+                                }
+                                else
+                                {
+                                    yield return tokenFactory.Token(tokenStart, idx + 1, TokenKind.AnnotationValue);
+                                    state = LexerState.MultiLineComment;
+                                }
                                 break;
                             case '*':
                                 state = LexerState.CollectingAnnotationValueStar;

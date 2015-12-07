@@ -154,7 +154,7 @@ namespace Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.Converte
             string file = problem.File;
             if (!String.IsNullOrEmpty(file))
             {
-                location.IssueFile = new[]
+                location.ResultFile = new[]
                 {
                     new PhysicalLocationComponent
                     {
@@ -169,7 +169,7 @@ namespace Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.Converte
             {
                 if (location.AnalysisTarget != null)
                 {
-                    location.IssueFile = location.AnalysisTarget;
+                    location.ResultFile = location.AnalysisTarget;
                 }
 
                 location.AnalysisTarget = new[]

@@ -1,6 +1,7 @@
 // Copyright (c) Microsoft. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
+using System;
 using System.Collections.Generic;
 using System.Collections.Immutable;
 
@@ -20,15 +21,21 @@ namespace Microsoft.CodeAnalysis.DataModelGenerator
 
         public override DataModelType ToImmutable()
         {
+            bool isEnum = this.SerializedValues != null &&
+                          this.SerializedValues.Count > 0;
+
             return new DataModelType(
+                this.RootObject,
                 this.SummaryText,
                 this.RemarksText,
                 this.G4DeclaredName,
                 this.CSharpName,
                 this.Members.ToImmutable(),
+                this.SerializedValues.ToImmutableArray<string>(),
+                this.G4DeclaredValues.ToImmutableArray<string>(),
                 ToStringEntry.Coalesce(this.ToStringEntries),
                 this.Base,
-                DataModelTypeKind.Leaf
+                isEnum ? DataModelTypeKind.Enum : DataModelTypeKind.Leaf
                 );
         }
 
@@ -36,6 +43,11 @@ namespace Microsoft.CodeAnalysis.DataModelGenerator
         {
             string declaredName = declSymbol.GetLogicalText();
             string annotationName = declSymbol.Annotations.GetAnnotationValue("name");
+            string pattern = declSymbol.Annotations.GetAnnotationValue("pattern");
+            string minimum = declSymbol.Annotations.GetAnnotationValue("minimum");
+            string minItems = declSymbol.Annotations.GetAnnotationValue("minItems");
+            string uniqueItems = declSymbol.Annotations.GetAnnotationValue("uniqueItems");
+            string defaultValue = declSymbol.Annotations.GetAnnotationValue("default");
             string cSharpName = annotationName ?? LinguisticTransformer.ToCSharpName(declaredName);
             string serializedName = declSymbol.Annotations.GetAnnotationValue("serializedName");
             if (serializedName == null)
@@ -85,6 +97,11 @@ namespace Microsoft.CodeAnalysis.DataModelGenerator
                 serializedName,
                 declSymbol.Annotations.GetAnnotationValue("summary"),
                 argumentName,
+                pattern,
+                minimum,
+                minItems,
+                uniqueItems,
+                defaultValue,
                 rank,
                 required
                 );

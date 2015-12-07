@@ -145,12 +145,12 @@ namespace Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.Converte
                 flow.Capacity = this.Locations.Length;
                 foreach (CppCheckLocation loc in this.Locations)
                 {
-                    flow.Add(new AnnotatedCodeLocation { PhysicalLocations = new[] { loc.ToSarifPhysicalLocation() } });
+                    flow.Add(new AnnotatedCodeLocation { PhysicalLocation = loc.ToSarifPhysicalLocation() });
                 }
 
                 // In the N != 1 case, set the overall location's location to
                 // the last entry in the execution flow.
-                lastLocationConverted = flow[flow.Count - 1].PhysicalLocations[0];
+                lastLocationConverted = flow[flow.Count - 1].PhysicalLocation;
                 result.ExecutionFlows = new[] { flow };
             }
 
@@ -158,7 +158,7 @@ namespace Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.Converte
             {
                 new Location
                 {
-                    IssueFile = lastLocationConverted
+                    ResultFile = lastLocationConverted
                 }
             };
 

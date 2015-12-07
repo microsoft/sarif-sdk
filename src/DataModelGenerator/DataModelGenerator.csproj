@@ -50,6 +50,7 @@
     <Compile Include="G4ParseFailureException.cs" />
     <Compile Include="GrammarSymbol.cs" />
     <Compile Include="HoistAction.cs" />
+    <Compile Include="JsonSchemaGenerator.cs" />
     <Compile Include="Lexer.cs" />
     <Compile Include="LinguisticTransformer.cs" />
     <Compile Include="LocalVariableNamer.cs" />

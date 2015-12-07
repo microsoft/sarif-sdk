@@ -43,6 +43,11 @@ namespace Microsoft.CodeAnalysis.DataModelGenerator
                             sourceMember.SerializedName,
                             sourceMember.SummaryText,
                             sourceMember.ArgumentName,
+                            sourceMember.Pattern,
+                            sourceMember.Minimum,
+                            sourceMember.MinItems,
+                            sourceMember.UniqueItems,
+                            sourceMember.Default,
                             sourceMember.Rank + todo.AddedRanks,
                             sourceMember.Required
                             ));
@@ -56,11 +61,14 @@ namespace Microsoft.CodeAnalysis.DataModelGenerator
                 if (anythingDifferent)
                 {
                     newTypes.Add(new DataModelType(
+                        sourceType.RootObject,
                         sourceType.SummaryText,
                         sourceType.RemarksText,
                         sourceType.G4DeclaredName,
                         sourceType.CSharpName,
                         newMembers.ToImmutable(),
+                        ImmutableArray<string>.Empty,
+                        ImmutableArray<string>.Empty,
                         ImmutableArray<ToStringEntry>.Empty,
                         sourceType.Base,
                         sourceType.Kind

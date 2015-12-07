@@ -19,11 +19,14 @@ namespace Microsoft.CodeAnalysis.DataModelGenerator
         public override DataModelType ToImmutable()
         {
             return new DataModelType(
+                this.RootObject,
                 this.SummaryText,
                 this.RemarksText,
                 this.G4DeclaredName,
                 this.CSharpName,
                 ImmutableArray<DataModelMember>.Empty,
+                ImmutableArray<string>.Empty,
+                ImmutableArray<string>.Empty,
                 ImmutableArray<ToStringEntry>.Empty,
                 this.Base,
                 DataModelTypeKind.Base

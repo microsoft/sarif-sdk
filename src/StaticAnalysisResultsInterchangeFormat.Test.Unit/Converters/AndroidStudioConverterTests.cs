@@ -207,8 +207,8 @@ Possible resolution: delete", result.FullMessage);
             builder.EntryPointType = "file";
             builder.EntryPointName = "bad_file.java";
             Location loc = GetLocationForBuilder(builder);
-            Assert.AreEqual("expected_file.java", loc.IssueFile[0].Uri.ToString());
-            Assert.AreSame(MimeType.Java, loc.IssueFile[0].MimeType);
+            Assert.AreEqual("expected_file.java", loc.ResultFile[0].Uri.ToString());
+            Assert.AreSame(MimeType.Java, loc.ResultFile[0].MimeType);
         }
 
         [TestMethod]
@@ -219,7 +219,7 @@ Possible resolution: delete", result.FullMessage);
             builder.EntryPointType = "file";
             builder.EntryPointName = "expected_file.java";
             Location loc = GetLocationForBuilder(builder);
-            Assert.IsNull(loc.IssueFile);
+            Assert.IsNull(loc.ResultFile);
         }
 
         [TestMethod]
@@ -334,7 +334,7 @@ Possible resolution: delete", result.FullMessage);
             builder.EntryPointName = null;
             Assert.AreEqual(new Location
             {
-                IssueFile = new[]
+                ResultFile = new[]
                 {
                     new PhysicalLocationComponent
                     {
@@ -360,7 +360,7 @@ Possible resolution: delete", result.FullMessage);
             var builder = AndroidStudioProblemTests.GetDefaultProblemBuilder();
             builder.File = "file://$PROJECT_DIR$/mydir/myfile.xml";
             Location loc = GetLocationForBuilder(builder);
-            Assert.AreEqual("mydir/myfile.xml", loc.IssueFile[0].Uri.ToString());
+            Assert.AreEqual("mydir/myfile.xml", loc.ResultFile[0].Uri.ToString());
         }
 
         [TestMethod]
@@ -369,7 +369,7 @@ Possible resolution: delete", result.FullMessage);
             var builder = AndroidStudioProblemTests.GetDefaultProblemBuilder();
             builder.Line = 42;
             Location loc = GetLocationForBuilder(builder);
-            Assert.AreEqual(42, loc.IssueFile[0].Region.StartLine);
+            Assert.AreEqual(42, loc.ResultFile[0].Region.StartLine);
         }
 
         private static Location GetLocationForBuilder(AndroidStudioProblem.Builder builder)

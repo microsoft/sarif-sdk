@@ -43,7 +43,7 @@ namespace Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.Converte
             Assert.AreEqual("message", result.ShortMessage);
             Assert.AreEqual("verbose", result.FullMessage);
             result.Properties.Should().Equal(new Dictionary<string, string> { { "Severity", "style" } });
-            Assert.AreEqual("file.cpp", result.Locations[0].IssueFile[0].Uri.ToString());
+            Assert.AreEqual("file.cpp", result.Locations[0].ResultFile[0].Uri.ToString());
         }
 
         [TestMethod]
@@ -57,7 +57,7 @@ namespace Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.Converte
             Assert.AreEqual("verbose", result.FullMessage);
             result.Properties.Should().Equal(new Dictionary<string, string> { { "Severity", "my fancy severity" } });
             result.Locations.Should().Equal(new[] { new Location {
-                    IssueFile = new[]
+                    ResultFile = new[]
                     {
                         new PhysicalLocationComponent
                         {
@@ -79,7 +79,7 @@ namespace Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.Converte
                 new CppCheckLocation("bar.cpp", 5678)
                 )).ToSarifIssue();
             result.Locations.Should().Equal(new[] { new Location {
-                    IssueFile = new[]
+                    ResultFile = new[]
                     {
                         new PhysicalLocationComponent
                         {
@@ -95,18 +95,18 @@ namespace Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.Converte
             result.ExecutionFlows[0].Should().Equal(new[]
                     {
                         new AnnotatedCodeLocation {
-                            PhysicalLocations = new[] { new[] { new PhysicalLocationComponent {
+                            PhysicalLocation = new[] {  new PhysicalLocationComponent {
                                 Uri = new Uri("foo.cpp", UriKind.RelativeOrAbsolute),
                                 MimeType = MimeType.Cpp,
                                 Region = new Region { StartLine = 1234 }
-                            } } }
+                            } } 
                         },
                         new AnnotatedCodeLocation {
-                            PhysicalLocations = new[] { new[] { new PhysicalLocationComponent {
+                            PhysicalLocation = new[] { new PhysicalLocationComponent {
                                 Uri = new Uri("bar.cpp", UriKind.RelativeOrAbsolute),
                                 MimeType = MimeType.Cpp,
                                 Region = new Region { StartLine = 5678 }
-                            } } }
+                            } } 
                         }
                     });
         }

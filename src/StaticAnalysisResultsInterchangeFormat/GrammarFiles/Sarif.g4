@@ -1,8 +1,9 @@
 /** @namespace {Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.DataContracts} */ grammar SarifGrammar;
 
 /**
+    @rootObject
     @className {ResultLog}
-    @summary {An SARIF format log.}
+    @summary {Static Analysis Results Format (SARIF) Version 1.0 JSON Schema (Draft 0.4). SARIF defines a standard format for the output of static analysis tools.}
 */
 resultLog :
     /**
@@ -11,14 +12,18 @@ resultLog :
         The SARIF tool format version of this log file. This value should be set to 0.4, currently.
         This is the third proposed revision of a file format that is not yet completely finalized.
         }
+		@pattern {0.4}
     */
-    version
+    sarifVersion
 
     /**
         @name {RunLogs}
         @summary {The set of runLogs contained in this SARIF log.}
+		@minItems{1}
     */
     runLogs;
+
+sarifVersion : STRING;
 
 runLog:
 
@@ -45,6 +50,8 @@ runLog:
     /**
         @name {Results}
         @summary {The set of results contained in an SARIF log.}
+		@minItems{1}
+		@uniqueItems{true}
     */
     results;
 
@@ -67,7 +74,7 @@ toolInfo :
         @name {FullName}
         @summary {
 		The name of the tool along with its version and any other useful identifying information, 
-		such as its locale, e.g., "CodeScanner 2.0, Developer Preview (en-US)".
+		such as its locale, e.g., 'CodeScanner 2.0, Developer Preview (en-US)'.
         }
     */
     fullName?
@@ -84,6 +91,7 @@ toolInfo :
         three values for product version in the VS_VERSION_INFO structure. If the tool is a .NET
         application, this value SHOULD be the first three dotted version values of AssemblyVersion.
         }
+		@pattern {[0-9]+\\.[0-9]+\\.[0-9]+(-[0-9A-Za-z-]+)?(\\+[0-9A-Za-z-]+)?}
     */
     version?
 
@@ -98,6 +106,7 @@ toolInfo :
         field of the VS_VERSION_INFO structure. If the code analysis product is a .NET application,
         this value MUST match the first three dotted version values of AssemblyFileVersion.
         }
+		@pattern {[0-9]+(\\.[0-9]+){3}}
     */
     fileVersion?;
 
@@ -120,7 +129,7 @@ runInfo :
 		this string may consist of the completely specified command line used to invoke the tool.
 		}
     */
-    invocationInfo 
+    invocationInfo?
 
     /**
         @name {AnalysisTargets}
@@ -139,6 +148,8 @@ runInfo :
 		NOTE 2: This could happen if the command line specified a wildcard such as *.cc for the input files, 
 		and no files matched the wildcard.
 		}
+		@minItems{0}
+		@uniqueItems{true}
     */
     analysisTargets?;
 
@@ -172,6 +183,8 @@ fileReference :
 		An optional array of hash objects, each of which specifies a hashed value for the file specified 
 		by the uri property, along with the name of the algorithm used to compute the hash.
 		}
+		@minItems{1}
+		@uniqueItems{true}
     */
     hashes?;
 
@@ -196,12 +209,12 @@ hash :
         @name {Algorithm}
         @summary {
         A string specifying the name of the algorithm used to compute the hash value specified in the value property. 
-		This shall be one of the following: BLAKE-256, BLAKE-512, ECOH, FSB, GOST, Grøstl, HAS-160, HAVAL, JH, MD2, 
-		MD4, MD5, MD6, RadioGatún, RIPEMD, RIPEMD-128, RIPEMD-160, RIPEMD-320, SHA-1, SHA-224, SHA-256, SHA-384, 
+		This shall be one of the following: BLAKE-256, BLAKE-512, ECOH, FSB, GOST, Groestl, HAS-160, HAVAL, JH, MD2, 
+		MD4, MD5, MD6, RadioGatun, RIPEMD, RIPEMD-128, RIPEMD-160, RIPEMD-320, SHA-1, SHA-224, SHA-256, SHA-384, 
 		SHA-512, SHA-3, Skein, Snefru, Spectral Hash, SWIFFT, Tiger, Whirlpool. 
         }
     */
-    algorithm;
+    algorithmKind;
 
 /**
     @className {Result}
@@ -244,8 +257,9 @@ result :
 		* notApplicable : The analysis target is not a valid subject of analysis.
 		* internalError : A significant configuration or tool execution error occurred, with the result that analysis may be incomplete or compromised.
         }
+		@default {"warning"}
     */
-    kind?
+    resultKind?
 
     /**
         @name {FullMessage}
@@ -289,6 +303,8 @@ result :
         lines on which the partial class is declared as separate top-level locations. However, two
         independent misspellings of the same word need to be top level issues.
         }
+		@minItems{1}
+		@uniqueItems{true}
     */
     locations
 
@@ -316,6 +332,8 @@ result :
         @summary {
         A grouped set of locations, if available, that represent stacks associated with this result.
         }
+		@minItems{1}
+		@uniqueItems{true}
     */
     annotatedCodeLocations?
 
@@ -325,6 +343,8 @@ result :
         A grouped set of location, if available, that comprise annotated
         execution flows through code which are associated with this result.
         }
+		@minItems{1}
+		@uniqueItems{true}
     */
     executionFlows?
 
@@ -334,6 +354,8 @@ result :
         A grouped set of locations and messages, if available, that represent code areas that are related
 		to this result.
         }
+		@minItems{1}
+		@uniqueItems{true}
     */
     annotatedCodeLocations?
 
@@ -350,17 +372,20 @@ result :
         @summary {
         An array of fix objects, if available, that can be applied in order to correct this result.
         }
+		@minItems{1}
+		@uniqueItems{true}
     */
     fixes?
 
     /**
         @name {Properties}
         @summary {
-        Key/value pairs that additional details about the result.
+        Key/value pairs that provide additional details about the result.
         }
         @remarks {
         Properties may be included in the dictionary that have an empty value.
         }
+		@default {{}}
     */
     properties?;
 
@@ -369,9 +394,6 @@ result :
     @summary {
     Specifies a location within a file, or within an object nested within a file
     (such as a location within an assembly contained in an appx file).
-
-    At least one of [AnalysisTarget, IssueFile] MUST be filled in. If they are the same,
-    fill out only AnalysisTarget.
     }
 */
 location :
@@ -383,10 +405,10 @@ location :
         of a source analysis tool like PREfast. Note that the defect may not actually occur in this file.
         }
     */
-    physicalLocation?
+    physicalLocation
 
     /**
-        @name {IssueFile} @serializedName {issueFile}
+        @name {ResultFile} @serializedName {resultFile}
         @summary {
         A source file that is associated with the current result if and only if that is not the
         same as the analysis target. This member will populated or not, in many cases, depending
@@ -428,6 +450,11 @@ location :
     */
     properties?;
 
+/** @className {ResultKind} 
+	@serializedValues {Error, Warning, Pass, Note, NotApplicable, InternalError, ConfigurationError} 
+*/
+resultKind : 'error' | 'warning' | 'pass' | 'note' | 'notApplicable' | 'internalError' | 'configurationError';
+
 /** @className {Locations} */
 locations : location*;
 
@@ -441,11 +468,10 @@ Physical location infrastructure; physical locations represent a file or similar
     A location that refers to a file. Each location component is relative to the one previous;
     this allows representation of a dll in an appx or header file in an apt package or similar.
     }
+	@minItems{1}
+	@uniqueItems{false}
 */
 physicalLocation : physicalLocationComponent*;
-
-/** @className {PhysicalLocations} */
-physicalLocations : physicalLocation*;
 
 /**
     @className {PhysicalLocationComponent}
@@ -467,12 +493,13 @@ physicalLocationComponent:
     /**
         @name {MimeType}
         @summary {
-        The MIME content type (RFC 2045) of the item refered to by this location.
+        The MIME content type (RFC 2045) of the item referred to by this location.
         }
         @remarks {
         Examples include application/macbinary, text/html, application/zip. If a viewer does not recognize
         a given MIME type, it should at least try application/zip behavior.
         }
+		@pattern {[^/]+/.+}
     */
     mimeType?
 
@@ -510,6 +537,7 @@ region :
         @remarks {
         This value is 1-based; that is, the first valid location within a file is line 1.
         }
+		@minimum {1}
     */
     startLine?
 
@@ -521,6 +549,7 @@ region :
         @remarks {
         This value is 1-based; that is, the first valid column location on a line is column 1.
         }
+		@minimum {1}
     */
     startColumn?
 
@@ -532,6 +561,7 @@ region :
         @remarks {
         This value is 1-based; that is, the first valid location within a file is line 1.
         }
+		@minimum {1}
     */
     endLine?
 
@@ -543,6 +573,7 @@ region :
         @remarks {
         This value is 1-based; that is, the first valid column location on a line is column 1.
         }
+		@minimum {1}
     */
     endColumn?
 
@@ -556,6 +587,7 @@ region :
         container that it refers to (e.g, for binaries, this would be a count of bytes;
         for text files, a count of characters).
         }
+		@minimum {0}
     */
     offset?
 
@@ -569,6 +601,7 @@ region :
         container that it refers to (e.g, for binaries, this would be a count of bytes;
         for text files, a count of characters).
         }
+		@minimum {0}
     */
     length?;
 
@@ -600,19 +633,17 @@ logicalLocationComponent:
     @className {AnnotatedCodeLocation}
     @summary {
     A code annotation that consists of single physical location and associated message, used to express
-	stacks, document execution flow through a method, etc.
+	stacks, execution flow through a method, or other locations that are related to a result.
     }
 */
 annotatedCodeLocation:
 	/**
-		@name {PhysicalLocations} @serializedName{physicalLocations}
+		@name {PhysicalLocation} @serializedName{physicalLocation}
 		@summary {
-		A set of places to which this annotation refers. These locations are of equal
-		priority; for example, one entry may be the source code location while another is the
-		assembly or IL location.
+		A code location to which this annotation refers. 
 		}
 	*/
-	physicalLocations
+	physicalLocation
 
 	/**
 		@name {Message} @serializedName {message}
@@ -641,6 +672,8 @@ each physical location in the list can have an associated message.
     annotation, but in some cases (such as when showing multiple threads accessing the same object at once)
     more than one execution flow may be present.
     }
+	@minItems{1}
+	@uniqueItems{false}
 */
 executionFlows: executionFlow*;
 
@@ -665,6 +698,8 @@ fields, methods, functions, namespaces, and/or packages.
     A "code pointer" or similar that refers to a logical place where a result occurs. For example, the
     function where the defect occurs. Components are in order from most general to most specific.
     }
+	@minItems{1}
+	@uniqueItems{false}
 */
 logicalLocation : logicalLocationComponent*;
 
@@ -718,20 +753,19 @@ fileChange:
 	/**
 		@name {Uri} @serializedName{uri}
 		@summary {
-		A string that represents the location of the file to change as a valid URI. If not present,
-		the uri associated with this fix is assumed to be the uri of the analysisTarget member
-		on the first location in the associated result.
+		A string that represents the location of the file to change as a valid URI.
 		}
 	*/
-	uri?
+	uri
 
 	/**
 		@name {Replacements} @serializedName {replacements}
 		@summary {
 		An array of replacement objects, each of which represents the replacement of a single range of
-		bytes in a single file specified by the uri property, if present, or, if not, the uri
-		property of the analysisTarget property of the first location of the current result.
+		bytes in a single file specified by the uri property.
 		}
+		@minItems{1}
+		@uniqueItems{true}
 	*/
 	replacements;
 
@@ -770,18 +804,20 @@ replacement:
 		which bytes are to be removed, inserted or both. An offset of 0 shall denote the first 
 		byte in the file.
 		}
+		@minimum {0}
 	*/
 	offset
 
 	/**
 		@name {DeletedLength} @serializedName {deletedLength}
 		@summary {
-		An optional non-negative integer specifying the number of bytes to delete, start at the 
+		An optional integer specifying the number of bytes to delete, start at the 
 		byte offset specified by the offset property, measured from the beginning of the file.
 		}
 		@remarks {
-		If deletedLength is not present, or if its value is 0, no bytes shall be deleted.
+		If present, the value of deletedLength shall be 1 or greater.
 		}
+		@minimum {1}
 	*/
 	deletedLength
 
@@ -805,9 +841,14 @@ replacement:
 	*/
 	insertedBytes;
 
+/** @className {AlgorithmKind} 
+	@serializedValues {Blake256, Blake512, Ecoh, Fsb, Gost, Groestl, Has160, Haval, JH, MD2, MD4, MD5, MD6, RadioGatun, RipeMd, RipeMd128, RipeMd160, RipeMd320, Sha1, Sha224, Sha256, Sha384, Sha512, Sha3, Skein, Snefru, SpectralHas, Swifft, Tiger, Whirlpool} 
+*/
+algorithmKind : 'BLAKE-256' | 'BLAKE-512' | 'ECOH' | 'FSB' | 'GOST' | 'Groestl' | 'HAS-160' | 'HAVAL' | 'JH' | 'MD2' | 'MD4' | 'MD5' | 'MD6' | 'RadioGatun' | 'RIPEMD' | 'RIPEMD-128' | 'RIPEMD-160' | 'RIPEMD-320' | 'SHA-1' | 'SHA-224' | 'SHA-256' | 'SHA-384' | 'SHA-512' | 'SHA-3' | 'Skein' | 'Snefru' | 'Spectral Hash' | 'SWIFFT' | 'Tiger' | 'Whirlpool';
+
 version : STRING;
 fullVersion : STRING;
-fileVersion : VERSION;
+fileVersion : STRING;
 fullName : STRING;
 uri : URI;
 mimeType : STRING;
@@ -829,7 +870,6 @@ endColumn : INTEGER;
 message: STRING;
 invocationInfo: STRING;
 value: STRING;
-algorithm: STRING;
 kind: STRING;
 description: STRING;
 deletedLength: INTEGER;

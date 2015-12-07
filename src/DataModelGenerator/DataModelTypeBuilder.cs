@@ -1,6 +1,8 @@
 // Copyright (c) Microsoft. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
+using System.Collections.Generic;
+
 namespace Microsoft.CodeAnalysis.DataModelGenerator
 {
     /// <summary>Base class for data model type builders.</summary>
@@ -18,6 +20,14 @@ namespace Microsoft.CodeAnalysis.DataModelGenerator
         public string CSharpName;
         /// <summary>The C# name of the type which is this type's base class.</summary>
         public string Base;
+        /// <summary>This type is the root object of a JSON representation</summary>summary>
+        public bool RootObject;
+        /// <summary>The serialized value names for an enum/set
+        public IList<string> SerializedValues;
+        /// <summary>The set of G4 declared values for an enum/set
+        public IList<string> G4DeclaredValues;
+        /// <summary>An option pattern to restrict member values
+        public string Pattern;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="DataModelTypeBuilder"/> class.
@@ -32,6 +42,22 @@ namespace Microsoft.CodeAnalysis.DataModelGenerator
             this.CSharpName
                 = decl.Annotations.GetAnnotationValue("className")
                   ?? LinguisticTransformer.ToCSharpName(this.G4DeclaredName);
+
+            this.Pattern = decl.Annotations.GetAnnotationValue("pattern");
+
+            this.RootObject = decl.Annotations.GetAnnotationValue("rootObject") != null;
+
+            this.G4DeclaredValues = new List<string>();
+
+            string serializedValuesText = decl.Annotations.GetAnnotationValue("serializedValues");
+            if (!string.IsNullOrEmpty(serializedValuesText))
+            {
+                this.SerializedValues = new List<string>(serializedValuesText.Split(','));
+            }
+            else
+            {
+                this.SerializedValues = new List<string>();
+            }
         }
 
         /// <summary>Converts this instance to an immutable <see cref="DataModelType"/>.</summary>

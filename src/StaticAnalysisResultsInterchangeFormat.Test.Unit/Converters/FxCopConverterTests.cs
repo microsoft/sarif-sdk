@@ -387,7 +387,7 @@ namespace Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.Converte
                                 MimeType = MimeType.Binary
                             }
                         },
-                        IssueFile = new[]
+                        ResultFile = new[]
                         {
                             new PhysicalLocationComponent
                             {
@@ -501,7 +501,7 @@ namespace Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.Converte
                             MimeType = MimeType.Binary
                         }
                     },
-                    IssueFile = new[]
+                    ResultFile = new[]
                     {
                         new PhysicalLocationComponent
                         {

@@ -125,7 +125,7 @@ namespace Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.Converte
             {
                 new Location
                 {
-                    IssueFile = primaryOrSink
+                    ResultFile = primaryOrSink
                 }
             };
 
@@ -136,8 +136,8 @@ namespace Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.Converte
                 {
                     new[]
                     {
-                        new AnnotatedCodeLocation { PhysicalLocations = new[] { source }},
-                        new AnnotatedCodeLocation { PhysicalLocations = new[] { primaryOrSink }}
+                        new AnnotatedCodeLocation { PhysicalLocation = source },
+                        new AnnotatedCodeLocation { PhysicalLocation = primaryOrSink }
                     }
                 };
             }

@@ -14,7 +14,7 @@ namespace Microsoft.CodeAnalysis.DataModelGenerator
     {
         public const string CommonInterfaceName = "ISyntax";
 
-        /// <summary>Writs an XML doc comment node with the supplied content.</summary>
+        /// <summary>Writes an XML doc comment node with the supplied content.</summary>
         /// <param name="sourceCode">Code writer into which the doc comment shall be written.</param>
         /// <param name="commentType">Type of the comment.</param>
         /// <param name="comments">The comment text.</param>
@@ -194,6 +194,9 @@ namespace Microsoft.CodeAnalysis.DataModelGenerator
                     case DataModelTypeKind.Leaf:
                         WriteType(codeWriter, model, type);
                         break;
+                    case DataModelTypeKind.Enum:
+                        WriteEnum(codeWriter, model, type);
+                        break;
                     case DataModelTypeKind.BuiltInNumber:
                     case DataModelTypeKind.BuiltInString:
                     case DataModelTypeKind.BuiltInDictionary:
@@ -208,6 +211,24 @@ namespace Microsoft.CodeAnalysis.DataModelGenerator
                         break;
                 }
             }
+        }
+
+        private static void WriteEnum(CodeWriter codeWriter, DataModel model, DataModelType type)
+        {
+            WriteXmlDocCommentsFor(codeWriter, type);
+            WriteCommonAttributes(codeWriter);
+            codeWriter.WriteLine("public enum " + type.CSharpName);
+            codeWriter.OpenBrace();
+
+            codeWriter.WriteLine("Unknown = 0,");
+
+            foreach (string member in type.SerializedValues)
+            {
+                codeWriter.WriteLine(member.Trim() + ",");
+            }
+
+            codeWriter.CloseBrace(); // enum
+            codeWriter.WriteLine();
         }
 
         private static void WriteType(CodeWriter codeWriter, DataModel model, DataModelType type)
@@ -531,6 +552,8 @@ namespace Microsoft.CodeAnalysis.DataModelGenerator
                     return sourceVariable;
                 case DataModelTypeKind.BuiltInVersion:
                     return "(global::System.Version)" + sourceVariable + ".Clone()";
+                case DataModelTypeKind.Enum:
+                    return sourceVariable;
                 case DataModelTypeKind.BuiltInUri:
                     return "new global::System.Uri(" + sourceVariable + ".OriginalString, " + sourceVariable + ".IsAbsoluteUri ? global::System.UriKind.Absolute : global::System.UriKind.Relative)";
                 default:

@@ -22,7 +22,13 @@ namespace Microsoft.CodeAnalysis.DataModelGenerator
         BuiltInDictionary,
 
         BuiltInUri,
+
         BuiltInVersion,
+
+        /// <summary>
+        /// A type that resolves to a constrained set of value
+        /// </summary>
+        Enum,
 
         /// <summary>Types which are lists of members provided in the G4 file. These are typically formed
         /// from productions containing a single group.</summary> 
