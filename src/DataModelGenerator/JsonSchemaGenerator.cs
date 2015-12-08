@@ -84,7 +84,25 @@ namespace Microsoft.CodeAnalysis.DataModelGenerator
             codeWriter.IncrementIndentLevel();
 
             WriteMembers(codeWriter, model, type);
-            codeWriter.CloseBrace(",");
+
+            bool hasOneOrMoreRequiredMembers = false;
+            foreach (DataModelMember member in type.Members)
+            {
+                if (member.Required)
+                {
+                    hasOneOrMoreRequiredMembers = true;
+                    break;
+                }
+            }
+
+            if (hasOneOrMoreRequiredMembers)
+            {
+                codeWriter.CloseBrace(",");
+            }
+            else
+            {
+                codeWriter.CloseBrace();
+            }
 
             WriteRequiredMember(codeWriter, model, type, lastMember);
         }
