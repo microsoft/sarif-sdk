@@ -10,8 +10,8 @@ namespace Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat
 {
     public static class VersionConstants
     {
-        public const string Version = "1.4.1-beta";
-        public const string AssemblyVersion = "1.4.1";
+        public const string Version = "1.4.2-beta";
+        public const string AssemblyVersion = "1.4.2";
         public const string FileVersion = AssemblyVersion;
     }
 }
