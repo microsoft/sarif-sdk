@@ -20,13 +20,24 @@ resultLog :
         @summary {The set of runLogs contained in this SARIF log.}
 		@minItems{1}
     */
-    runLogs;
+    runLogs
+	
+
+    /**
+        @name {RuleInfo}
+        @summary 
+		{
+		An array of rule descriptor objects that describe all rules associated with an 
+		analysis tool or a specific run of an analysis tool.
+		}
+		@minItems{1}
+    */
+    ruleDescriptors?;
 
 /** @className {SarifVersion} 
 	@serializedValues {ZeroDotFour} 
 */
 sarifVersion : '0.4';
-
 
 runLog:
 
@@ -298,6 +309,16 @@ result :
     shortMessage?
 
     /**
+        @name {FormattedMessage}
+        @summary {
+		A formattedMessage object that can be used to construct a fully formatted message that describes the result.
+		If the formatted message property is present on an result, the full message property shall not be present.
+		If the full message property is present on an result, the formatted message property shall not be present
+        }
+    */
+    formattedMessage?
+
+    /**
         @name {Locations}
         @summary {
         Specifies one or more peer locations where an issue is located. Note that this is not used
@@ -379,7 +400,7 @@ result :
 		@uniqueItems{true}
     */
     fixes?
-
+	
     /**
         @name {Properties}
         @summary {
@@ -390,7 +411,8 @@ result :
         }
 		@default {{}}
     */
-    properties?;
+    properties?	
+	;
 
 /**
     @className {Location}
@@ -450,6 +472,7 @@ location :
         with additional information, such as assumed values of variables at that
         point of execution, etc.
         }
+		@default{{}}
     */
     properties?;
 
@@ -824,7 +847,7 @@ replacement:
 	*/
 	deletedLength
 
-/**
+	/**
 		@name {InsertedBytes} @serializedName {insertedBytes}
 		@summary {
 		An optional string that specifies the byte sequence to be inserted at the byte offset 
@@ -844,6 +867,145 @@ replacement:
 	*/
 	insertedBytes;
 
+/**
+    @className {RuleDescriptors}
+    @summary {
+    An array of rule descriptors, each of which contains information that describes a rule.
+    }
+*/
+ruleDescriptors : ruleDescriptor*;
+
+
+/** 
+	@className {RuleDescriptor} 
+    @summary {
+    An object that contains information about an analysis rule.
+    }
+*/
+ruleDescriptor : 
+	/**
+		@name {Id}
+		@summary {
+		A string that contains a stable, opaque identifier for a rule.
+		}		
+	*/
+	id
+
+	/**
+		@name {Name}
+		@summary {
+		An optional string that contains a rule identifier that is understandable to an end user. 
+		}
+		@remarks {
+		If the name property refers to implementation details for a rule that change over time, a
+		tool author might alter a rule's name (while leaving the stable id property unchanged).
+		}
+	*/
+	name?
+	
+	/**
+		@name {ShortDescription}
+		@summary {
+		A string that contains a concise description of the rule. The short description property
+		should be a single sentence that is understandable when displayed in user interface contexts
+		where the available space is limited to a single line of text.
+		}
+	*/
+	shortDescription?
+
+	/**
+		@name {FullDescription}
+		@summary {
+		A string whose value is a string that describes the rule. The fullDescription property should,
+		as far as possible, provide details sufficient to enable resolution of any problem indicated
+		by the result.
+		}
+		@remarks {
+		The first sentence of the fullDescription property should provide a concise description of
+		the rule, suitable for display in cases where available space is limited. Tools that
+		construct fullDescription in this way need not provide a value for the shortDescription
+		property. Tools that do not construct fullDescription in this way should provide a value
+		for the shortDescription property, because otherwise, the initial portion of fullDescription
+		that a viewer displays where available space is limited might not be understandable.
+		}
+	*/
+	fullDescription?
+
+	/**
+		@name {Options}
+		@summary {
+		A dictionary consisting of a set of name/value pairs with arbitrary names. The options
+		objects shall describe the set of configurable options supported by the rule. The value
+		within each name/value pair shall be a string, which may be the empty string. The value
+		shall not be a dictionary or sub-object. 
+		}
+	*/
+	options?
+
+	/**
+		@name {FormatSpecifiers}
+		@summary {
+		A dictionary consisting of a set of name/value pairs with arbitrary names. The value
+		within each name/value pair shall be a string that can be passed to a string formatting
+		function (e.g., the C language printf function) to construct a formatted message in
+		combination with an arbitrary number of additional function arguments. 
+		}
+		@remarks{
+		The set of names appearing in the formatSpecifiers property shall contain at least
+		the set of strings which occur as values of the result formatted message specifier
+		id property in the result log. The formatSpecifiers property may contain additional
+		name/value pairs whose names do not appear as a specifier id value for any result
+		in the result log.
+
+		Additional name/value pairs are permitted in the formatSpecifiers property for the
+		convenience of tool vendors, who might find it easier to emit the entire set of
+		messages supported by a rule, rather than restricting it to those messages that
+		happen to appear in the result log.
+		}
+	*/
+	formatSpecifiers?
+
+    /**
+        @name {Properties}
+        @summary {
+        A dictionary consisting of a set of name/value pairs with arbitrary names. This
+		allows tools to include information about the rule that is not explicitly specified
+		in the SARIF format. The value within each name/value pair shall be a string,
+		which may be the empty string. The value shall not be a dictionary or sub-object.
+        }
+		@default {{}}
+    */
+    properties?;
+
+/**
+    @className {FormattedMessage}
+    @summary {
+    A formatted message object encapsulates information that can be used to construct a
+	fully formatted message that describes an issue.
+    }
+*/
+formattedMessage:
+	/**
+		@name {SpecifierId}
+		@summary {
+		A string that identifies the format string used to format the message that describes
+		this result. The value of specifierId must correspond to one of the names in the set
+		of name/value pairs contained in the format specifiers property of the rule info
+		object whose id property matches the rule id property of this issue.
+		}		
+	*/
+	specifierId
+
+	/**
+		@name {Arguments} @serializedName {arguments}
+		@summary {
+		An array of string values that will be used, in combination with a format specifier,
+		to construct a result message.
+		}		
+	*/
+	arguments
+;
+
 /** @className {AlgorithmKind} 
 	@serializedValues {Blake256, Blake512, Ecoh, Fsb, Gost, Groestl, Has160, Haval, JH, MD2, MD4, MD5, MD6, RadioGatun, RipeMd, RipeMd128, RipeMd160, RipeMd320, Sha1, Sha224, Sha256, Sha384, Sha512, Sha3, Skein, Snefru, SpectralHas, Swifft, Tiger, Whirlpool} 
 */
@@ -862,6 +1024,10 @@ fullMessage : STRING;
 isSuppressedInSource : BOOLEAN;
 /** @className {Properties} */
 properties  : DICTIONARY;
+/** @className {Options} */
+options  : DICTIONARY;
+/** @className {FormatSpecifiers} */
+formatSpecifiers : DICTIONARY;
 fullyQualifiedLogicalName: STRING;
 name : STRING;
 offset : INTEGER;
@@ -870,10 +1036,15 @@ startLine : INTEGER;
 startColumn : INTEGER;
 endLine : INTEGER;
 endColumn : INTEGER;
-message: STRING;
-invocationInfo: STRING;
-value: STRING;
-kind: STRING;
-description: STRING;
-deletedLength: INTEGER;
-insertedBytes: INTEGER;
+message : STRING;
+invocationInfo : STRING;
+value : STRING;
+kind : STRING;
+description : STRING;
+deletedLength : INTEGER;
+insertedBytes : INTEGER;
+id : STRING;
+specifierId : STRING;
+shortDescription : STRING;
+fullDescription : STRING;
+arguments : STRING*;
