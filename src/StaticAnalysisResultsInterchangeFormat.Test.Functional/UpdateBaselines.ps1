@@ -2,7 +2,7 @@
     [string]$ToolName
 )
 
-$utility = "$env:ENLISTMENT_ROOT\bin\AnyCPU\Release\SarifSupport\ConvertToSarif.exe"
+$utility = "$PSScriptRoot\..\..\bld\bin\ConvertToSarif\AnyCPU_Release\ConvertToSarif.exe"
 
 function Build-ConverterTool()
 {
@@ -16,9 +16,6 @@ function Build-ConverterTool()
 function Build-Baselines($toolName)
 {
     $sourceExtension = "xml"
-    if ($ToolName -eq "ApiScan") {
-        $sourceExtension = "csv";
-    }
 
     Write-Host "Building baselines for $toolName..."
     $toolDirectory = Join-Path "$PSScriptRoot\SarifConverterTestData" $toolName
@@ -31,27 +28,9 @@ function Build-Baselines($toolName)
 
         # Actually run the converter
         Remove-Item $outputTemp -ErrorAction SilentlyContinue
-        &$utility -InputType $toolName -Input "$input" -Output "$outputTemp" -Pretty
-
-        # Check if the output already exists.
-        # If it does, we're updating an existing baseline. Do a `tf edit` on it.
-        # If it does not exist, then we're doing a new baseline, so `tf add` it.
-        $outExists = Test-Path $output
-        if ($outExists)
-        {
-            $ErrorActionPreference = "SilentlyContinue"
-            tf edit "$output" | Out-Null
-            $ErrorActionPreference = "Continue"
-        }
+        &$utility "$input" --format $toolName --output "$outputTemp" --pretty
 
         Move-Item $outputTemp $output -Force
-
-        if (-not $outExists)
-        {
-            $ErrorActionPreference = "SilentlyContinue"
-            tf add "$output" | Out-Null
-            $ErrorActionPreference = "Continue"
-        }
     }
 }
 

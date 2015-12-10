@@ -1,26 +1,31 @@
 {
-  "version": "1.0",
-  "toolInfo": {
-    "toolName": "Clang"
-  },
-  "issues": [
+  "version": "0.4",
+  "runLogs": [
     {
-      "locations": [
+      "toolInfo": {
+        "name": "Clang"
+      },
+      "results": [
         {
-          "analysisTarget": [
+          "ruleId": null,
+          "fullMessage": "Logic error : Division by zero",
+          "shortMessage": "Division by zero",
+          "locations": [
             {
-              "uri": "jquant1.c",
-              "mimeType": "text/x-cpp",
-              "region": {
-                "startLine": 254,
-                "startColumn": 51
-              }
+              "analysisTarget": [
+                {
+                  "uri": "jquant1.c",
+                  "mimeType": "text/x-cpp",
+                  "region": {
+                    "startLine": 254,
+                    "startColumn": 51
+                  }
+                }
+              ]
             }
           ]
         }
-      ],
-      "shortMessage": "Division by zero",
-      "fullMessage": "Logic error : Division by zero"
+      ]
     }
   ]
 }

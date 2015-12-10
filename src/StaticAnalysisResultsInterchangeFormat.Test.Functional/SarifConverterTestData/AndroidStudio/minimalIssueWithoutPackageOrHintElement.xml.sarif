@@ -1,42 +1,46 @@
 {
-  "version": "1.0",
-  "toolInfo": {
-    "toolName": "AndroidStudio"
-  },
-  "issues": [
+  "version": "0.4",
+  "runLogs": [
     {
-      "ruleId": "Android Resources Validation",
-      "locations": [
+      "toolInfo": {
+        "name": "AndroidStudio"
+      },
+      "results": [
         {
-          "analysisTarget": [
+          "ruleId": "Android Resources Validation",
+          "fullMessage": "Cannot resolve symbol'android:textColor'",
+          "locations": [
             {
-              "uri": "build/intermediates/exploded-aar/com.google.android.gms/play-services/4.4.52/res/values/wallet_styles.xml",
-              "mimeType": "text/x-java-source"
+              "analysisTarget": [
+                {
+                  "uri": "build/intermediates/exploded-aar/com.google.android.gms/play-services/4.4.52/res/values/wallet_styles.xml",
+                  "mimeType": "text/x-java-source"
+                }
+              ],
+              "resultFile": [
+                {
+                  "uri": "build/intermediates/exploded-aar/com.google.android.gms/play-services/4.4.52/res/values/wallet_styles.xml",
+                  "mimeType": "text/x-java-source",
+                  "region": {
+                    "startLine": 6
+                  }
+                }
+              ],
+              "logicalLocation": [
+                {
+                  "name": "android20140909",
+                  "kind": "android-module"
+                }
+              ],
+              "fullyQualifiedLogicalName": "android20140909"
             }
           ],
-          "issueFile": [
-            {
-              "uri": "build/intermediates/exploded-aar/com.google.android.gms/play-services/4.4.52/res/values/wallet_styles.xml",
-              "mimeType": "text/x-java-source",
-              "region": {
-                "startLine": 6
-              }
-            }
-          ],
-          "fullyQualifiedLogicalName": "android20140909",
-          "logicalLocation": [
-            {
-              "name": "android20140909",
-              "locationKind": "android-module"
-            }
-          ]
+          "properties": {
+            "severity": "ERROR",
+            "attributeKey": "WRONG_REFERENCES_ATTRIBUTES"
+          }
         }
-      ],
-      "fullMessage": "Cannot resolve symbol'android:textColor'",
-      "properties": {
-        "severity": "ERROR",
-        "attributeKey": "WRONG_REFERENCES_ATTRIBUTES"
-      }
+      ]
     }
   ]
 }

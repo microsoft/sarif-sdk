@@ -1,29 +1,34 @@
 {
-  "version": "1.0",
-  "toolInfo": {
-    "toolName": "FxCop"
-  },
-  "issues": [
+  "version": "0.4",
+  "runLogs": [
     {
-      "ruleId": "CA904",
-      "locations": [
+      "toolInfo": {
+        "name": "FxCop"
+      },
+      "runInfo": {},
+      "results": [
         {
-          "fullyQualifiedLogicalName": "SecurityCryptographyRuleTests",
-          "logicalLocation": [
+          "ruleId": "CA904",
+          "fullMessage": "Redefine the types in namespace 'SecurityCryptographyRuleTests' in the Microsoft or System namespace. Public types that will never ship externally can be defined in the MS namespace. Consider disabling this rule when analyzing code that does not ship externally.",
+          "shortMessage": "DeclareTypesInMicrosoftOrSystemNamespace",
+          "locations": [
             {
-              "name": "SecurityCryptographyRuleTests",
-              "locationKind": "namespace"
+              "logicalLocation": [
+                {
+                  "name": "SecurityCryptographyRuleTests",
+                  "kind": "namespace"
+                }
+              ],
+              "fullyQualifiedLogicalName": "SecurityCryptographyRuleTests"
             }
-          ]
+          ],
+          "properties": {
+            "Level": "Error",
+            "Category": "Microsoft.MSInternal",
+            "FixCategory": "Breaking"
+          }
         }
-      ],
-      "shortMessage": "DeclareTypesInMicrosoftOrSystemNamespace",
-      "fullMessage": "Redefine the types in namespace 'SecurityCryptographyRuleTests' in the Microsoft or System namespace. Public types that will never ship externally can be defined in the MS namespace. Consider disabling this rule when analyzing code that does not ship externally.",
-      "properties": {
-        "Level": "Error",
-        "Category": "Microsoft.MSInternal",
-        "FixCategory": "Breaking"
-      }
+      ]
     }
   ]
 }

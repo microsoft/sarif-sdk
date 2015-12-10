@@ -1,45 +1,49 @@
 {
-  "version": "1.0",
-  "toolInfo": {
-    "toolName": "AndroidStudio"
-  },
-  "issues": [
+  "version": "0.4",
+  "runLogs": [
     {
-      "ruleId": "Assertions",
-      "locations": [
+      "toolInfo": {
+        "name": "AndroidStudio"
+      },
+      "results": [
         {
-          "analysisTarget": [
+          "ruleId": "Assertions",
+          "fullMessage": "Assertions are unreliable. Use BuildConfig.DEBUG conditional checks instead.",
+          "locations": [
             {
-              "uri": "northwindtraders-droid-2/src/main/java/com/northwindtraders/droid/model/Model.java",
-              "mimeType": "text/x-java-source"
+              "analysisTarget": [
+                {
+                  "uri": "northwindtraders-droid-2/src/main/java/com/northwindtraders/droid/model/Model.java",
+                  "mimeType": "text/x-java-source"
+                }
+              ],
+              "resultFile": [
+                {
+                  "uri": "northwindtraders-droid-2/src/main/java/com/northwindtraders/droid/model/Model.java",
+                  "mimeType": "text/x-java-source",
+                  "region": {
+                    "startLine": 242
+                  }
+                }
+              ],
+              "logicalLocation": [
+                {
+                  "name": "northwindtraders-droid-2",
+                  "kind": "android-module"
+                },
+                {
+                  "name": "com.northwindtraders.droid.model",
+                  "kind": "package"
+                }
+              ],
+              "fullyQualifiedLogicalName": "northwindtraders-droid-2\\com.northwindtraders.droid.model"
             }
           ],
-          "issueFile": [
-            {
-              "uri": "northwindtraders-droid-2/src/main/java/com/northwindtraders/droid/model/Model.java",
-              "mimeType": "text/x-java-source",
-              "region": {
-                "startLine": 242
-              }
-            }
-          ],
-          "fullyQualifiedLogicalName": "northwindtraders-droid-2\\com.northwindtraders.droid.model",
-          "logicalLocation": [
-            {
-              "name": "northwindtraders-droid-2",
-              "locationKind": "android-module"
-            },
-            {
-              "name": "com.northwindtraders.droid.model",
-              "locationKind": "package"
-            }
-          ]
+          "properties": {
+            "attributeKey": "WARNING_ATTRIBUTES"
+          }
         }
-      ],
-      "fullMessage": "Assertions are unreliable. Use BuildConfig.DEBUG conditional checks instead.",
-      "properties": {
-        "attributeKey": "WARNING_ATTRIBUTES"
-      }
+      ]
     }
   ]
 }

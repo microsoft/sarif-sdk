@@ -68,8 +68,8 @@ namespace Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.Converte
     {
         // Result Element
 
-        /// <summary>The string constant "Result".</summary>
-        public readonly string Result;
+        /// <summary>The string constant "Issue".</summary>
+        public readonly string Issue;
         /// <summary>The string constant "iid".</summary>
         public readonly string Iid;
         /// <summary>The string constant "ruleID".</summary>
@@ -123,7 +123,7 @@ namespace Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.Converte
         /// <param name="nameTable">The name table from which strings shall be retrieved.</param>
         public FortifyStrings(XmlNameTable nameTable)
         {
-            this.Result = nameTable.Add("Result");
+            this.Issue = nameTable.Add("Issue");
             this.Iid = nameTable.Add("iid");
             this.RuleId = nameTable.Add("ruleID");
             this.Category = nameTable.Add("Category");

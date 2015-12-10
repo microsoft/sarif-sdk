@@ -37,7 +37,6 @@ namespace Microsoft.CodeAnalysis.DataModelGenerator
 
             WriteTypeMembers(codeWriter, model, rootType, false);
 
-
             codeWriter.WriteLine(@"""definitions"":");
             codeWriter.OpenBrace();
 
@@ -79,6 +78,7 @@ namespace Microsoft.CodeAnalysis.DataModelGenerator
                 codeWriter.WriteLine(@"""description"": """ + BuildDescription(type.SummaryText) + @""",");
             }
 
+            codeWriter.WriteLine(@"""additionalMembers"": false,");
             codeWriter.WriteLine(@"""type"": ""object"",");
             codeWriter.WriteLine(@"""properties"": {");
             codeWriter.IncrementIndentLevel();

@@ -1,80 +1,88 @@
 {
-  "version": "1.0",
-  "toolInfo": {
-    "toolName": "Clang"
-  },
-  "issues": [
+  "version": "0.4",
+  "runLogs": [
     {
-      "locations": [
+      "toolInfo": {
+        "name": "Clang"
+      },
+      "results": [
         {
-          "analysisTarget": [
+          "ruleId": null,
+          "fullMessage": "Logic error : Dereference of null pointer",
+          "shortMessage": "Dereference of null pointer",
+          "locations": [
             {
-              "uri": "jmemmgr.c",
-              "mimeType": "text/x-cpp",
-              "region": {
-                "startLine": 369,
-                "startColumn": 21
-              }
+              "analysisTarget": [
+                {
+                  "uri": "jmemmgr.c",
+                  "mimeType": "text/x-cpp",
+                  "region": {
+                    "startLine": 369,
+                    "startColumn": 21
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": null,
+          "fullMessage": "Logic error : Array access (via field 'mem_buffer') results in a null pointer dereference",
+          "shortMessage": "Dereference of null pointer",
+          "locations": [
+            {
+              "analysisTarget": [
+                {
+                  "uri": "jmemmgr.c",
+                  "mimeType": "text/x-cpp",
+                  "region": {
+                    "startLine": 824,
+                    "startColumn": 25
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": null,
+          "fullMessage": "Logic error : Array access (via field 'mem_buffer') results in a null pointer dereference",
+          "shortMessage": "Dereference of null pointer",
+          "locations": [
+            {
+              "analysisTarget": [
+                {
+                  "uri": "jmemmgr.c",
+                  "mimeType": "text/x-cpp",
+                  "region": {
+                    "startLine": 909,
+                    "startColumn": 25
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": null,
+          "fullMessage": "Logic error : Dereference of null pointer",
+          "shortMessage": "Dereference of null pointer",
+          "locations": [
+            {
+              "analysisTarget": [
+                {
+                  "uri": "jmemmgr.c",
+                  "mimeType": "text/x-cpp",
+                  "region": {
+                    "startLine": 1067,
+                    "startColumn": 24
+                  }
+                }
+              ]
             }
           ]
         }
-      ],
-      "shortMessage": "Dereference of null pointer",
-      "fullMessage": "Logic error : Dereference of null pointer"
-    },
-    {
-      "locations": [
-        {
-          "analysisTarget": [
-            {
-              "uri": "jmemmgr.c",
-              "mimeType": "text/x-cpp",
-              "region": {
-                "startLine": 824,
-                "startColumn": 25
-              }
-            }
-          ]
-        }
-      ],
-      "shortMessage": "Dereference of null pointer",
-      "fullMessage": "Logic error : Array access (via field 'mem_buffer') results in a null pointer dereference"
-    },
-    {
-      "locations": [
-        {
-          "analysisTarget": [
-            {
-              "uri": "jmemmgr.c",
-              "mimeType": "text/x-cpp",
-              "region": {
-                "startLine": 909,
-                "startColumn": 25
-              }
-            }
-          ]
-        }
-      ],
-      "shortMessage": "Dereference of null pointer",
-      "fullMessage": "Logic error : Array access (via field 'mem_buffer') results in a null pointer dereference"
-    },
-    {
-      "locations": [
-        {
-          "analysisTarget": [
-            {
-              "uri": "jmemmgr.c",
-              "mimeType": "text/x-cpp",
-              "region": {
-                "startLine": 1067,
-                "startColumn": 24
-              }
-            }
-          ]
-        }
-      ],
-      "shortMessage": "Dereference of null pointer",
-      "fullMessage": "Logic error : Dereference of null pointer"
+      ]
     }
   ]
 }

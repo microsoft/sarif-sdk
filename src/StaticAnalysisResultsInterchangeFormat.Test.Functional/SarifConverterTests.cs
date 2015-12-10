@@ -4,12 +4,15 @@
 // *                                                       *
 // ********************************************************/
 
-using Microsoft.SecurityDevelopmentLifecycle.Shared.Test.Core;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Globalization;
 using System.IO;
 using System.Text;
+using Newtonsoft.Json;
+using Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.Readers;
+using Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.DataContracts;
+using Microsoft.CodeAnalysis.Driver;
 
 namespace Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.Converters
 {
@@ -20,52 +23,33 @@ namespace Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.Converte
         public const string TestDirectory = "SarifConverterTestData";
 
         [TestMethod]
-        [TestCategory(TestCategories.Gated)]
         public void AndroidStudioConverter_EndToEnd()
         {
             BatchRunConverter(ToolFormat.AndroidStudio);
         }
 
         [TestMethod]
-        [TestCategory(TestCategories.Gated)]
-        public void ApiScanConverter_EndToEnd()
-        {
-            BatchRunConverter(ToolFormat.ApiScan, "*.csv");
-        }
-
-        [TestMethod]
-        [TestCategory(TestCategories.Gated)]
         public void ClangAnalyzerConverter_EndToEnd()
         {
             BatchRunConverter(ToolFormat.ClangAnalyzer);
         }
 
         [TestMethod]
-        [TestCategory(TestCategories.Gated)]
         public void CppCheckConverter_EndToEnd()
         {
             BatchRunConverter(ToolFormat.CppCheck);
         }
 
         [TestMethod]
-        [TestCategory(TestCategories.Gated)]
         public void FortifyConverter_EndToEnd()
         {
             BatchRunConverter(ToolFormat.Fortify);
         }
 
         [TestMethod]
-        [TestCategory(TestCategories.OnDemand)]
         public void FxCopConverter_EndToEnd()
         {
             BatchRunConverter(ToolFormat.FxCop);
-        }
-
-        [TestMethod]
-        [TestCategory(TestCategories.Gated)]
-        public void PolicheckConverter_EndToEnd()
-        {
-            BatchRunConverter(ToolFormat.Policheck);
         }
 
         private readonly ToolFormatConverter converter = new ToolFormatConverter();
@@ -120,8 +104,24 @@ namespace Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.Converte
 
             if (expectedSarif == actualSarif)
             {
-                // Test passes
-                return;
+                JsonSerializerSettings settings = new JsonSerializerSettings()
+                {
+                    ContractResolver = SarifContractResolver.Instance,
+                    Formatting = Formatting.Indented
+                };
+
+                // Make sure we can successfully deserialize what was just generated
+                ResultLog log = JsonConvert.DeserializeObject<ResultLog>(actualSarif, settings);
+
+                actualSarif = JsonConvert.SerializeObject(log, settings);
+                if (expectedSarif == actualSarif)
+                {
+                    return;
+                }
+                else
+                {
+                    File.WriteAllText(generatedFileName, actualSarif);
+                }
             }
 
             string errorMessage = "The output of the {0} converter did not match for input {1}.";

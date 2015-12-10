@@ -441,7 +441,7 @@ namespace Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.Converte
             public const string ElementMember = "Member";
             public const string ElementMessages = "Messages";
             public const string ElementMessage = "Message";
-            public const string ElementIssue = "Result";
+            public const string ElementIssue = "Issue";
 
             // attributes (repot)
             public const string AttributeVersion = "Version";
