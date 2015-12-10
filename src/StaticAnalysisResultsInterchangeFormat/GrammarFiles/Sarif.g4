@@ -408,7 +408,7 @@ location :
         of a source analysis tool like PREfast. Note that the defect may not actually occur in this file.
         }
     */
-    physicalLocation
+    physicalLocation?
 
     /**
         @name {ResultFile} @serializedName {resultFile}
@@ -851,7 +851,7 @@ algorithmKind : 'BLAKE-256' | 'BLAKE-512' | 'ECOH' | 'FSB' | 'GOST' | 'Groestl' 
 
 version : STRING;
 fullVersion : STRING;
-fileVersion : STRING;
+fileVersion : VERSION;
 fullName : STRING;
 uri : URI;
 mimeType : STRING;

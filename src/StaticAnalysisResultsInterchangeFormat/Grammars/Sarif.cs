@@ -980,7 +980,7 @@ namespace Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.DataCont
         /// may be a .dll in the case of a binary analysis tool like FxCop, or a C++ file in the case
         /// of a source analysis tool like PREfast. Note that the defect may not actually occur in this file.
         /// </summary>
-        [DataMember(Name="analysisTarget", IsRequired = true)]
+        [DataMember(Name="analysisTarget", IsRequired = false, EmitDefaultValue = false)]
         public IList<PhysicalLocationComponent> AnalysisTarget { get; set; }
 
         /// <summary>
@@ -3193,9 +3193,9 @@ namespace Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.DataCont
         /// of the primary tool exe.
         /// </summary>
         [DataMember(Name="fileVersion", IsRequired = false, EmitDefaultValue = false)]
-        public string FileVersion { get; set; }
+        public global::System.Version FileVersion { get; set; }
 
-        private void Init(string nameArg, string fullNameArg, string versionArg, string fileVersionArg)
+        private void Init(string nameArg, string fullNameArg, string versionArg, global::System.Version fileVersionArg)
         {
             if (nameArg != null)
             {
@@ -3211,7 +3211,7 @@ namespace Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.DataCont
             }
             if (fileVersionArg != null)
             {
-                this.FileVersion = fileVersionArg;
+                this.FileVersion = (global::System.Version)fileVersionArg.Clone();
             }
         }
 
@@ -3226,7 +3226,7 @@ namespace Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.DataCont
         /// <param name="fullNameArg">An initialization value for the <see cref="P:FullName" /> member.</param>
         /// <param name="versionArg">An initialization value for the <see cref="P:Version" /> member.</param>
         /// <param name="fileVersionArg">An initialization value for the <see cref="P:FileVersion" /> member.</param>
-        public ToolInfo(string nameArg, string fullNameArg, string versionArg, string fileVersionArg)
+        public ToolInfo(string nameArg, string fullNameArg, string versionArg, global::System.Version fileVersionArg)
         {
             this.Init(
                 nameArg, 

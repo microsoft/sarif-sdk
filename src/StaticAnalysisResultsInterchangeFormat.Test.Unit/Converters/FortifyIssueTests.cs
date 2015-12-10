@@ -19,7 +19,7 @@ namespace Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.Converte
         private static readonly FortifyPathElement s_pathElementB =
             new FortifyPathElement("momma_cats.cpp", 1729, "void MommaCat::purr(int) const");
         private static readonly string s_fullIssueXml =
-@"<Result ruleID=""7DDEC64A-9142-4943-BB5C-57D6F09C94DC"" iid=""BDC8FC3C5AAE67B07F46EC48B928AA6E"">
+@"<Issue ruleID=""7DDEC64A-9142-4943-BB5C-57D6F09C94DC"" iid=""BDC8FC3C5AAE67B07F46EC48B928AA6E"">
   <Category>Format String</Category>
   <Folder>High</Folder>
   <Kingdom>Input Validation and Representation</Kingdom>
@@ -47,9 +47,9 @@ namespace Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.Converte
     <Snippet> Also does not matter </Snippet>
   </Source>
   <ExternalCategory type = ""CWE"" > CWE ID 134</ExternalCategory>
-</Result>";
+</Issue>";
         private static readonly string s_minimalIssueXml =
-@"<Result>
+@"<Issue>
   <Category>Format String</Category>
   <Folder>High</Folder>
   <Kingdom>Input Validation and Representation</Kingdom>
@@ -59,7 +59,7 @@ namespace Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.Converte
     <LineStart>225</LineStart>
     <Snippet> Does Not Matter</Snippet>
   </Primary>
-</Result>";
+</Issue>";
 
 
         [TestMethod]
@@ -209,7 +209,7 @@ namespace Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.Converte
             using (XmlReader reader = Utilities.CreateWhitespaceSkippingXmlReaderFromString(xml))
             {
                 reader.Read(); //<xml>
-                reader.Read(); //<Result>
+                reader.Read(); //<Issue>
                 FortifyIssue result = Parse(reader);
                 Assert.AreEqual("following", reader.LocalName);
                 Assert.AreEqual("7DDEC64A-9142-4943-BB5C-57D6F09C94DC", result.RuleId);
@@ -232,7 +232,7 @@ namespace Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.Converte
             using (XmlReader reader = Utilities.CreateWhitespaceSkippingXmlReaderFromString(xml))
             {
                 reader.Read(); //<xml>
-                reader.Read(); //<Result>
+                reader.Read(); //<Issue>
                 FortifyIssue result = Parse(reader);
                 Assert.AreEqual("following", reader.LocalName);
                 Assert.IsNull(result.RuleId);

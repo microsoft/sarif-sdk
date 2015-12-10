@@ -60,7 +60,7 @@ namespace Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.Converte
             {
                 while (reader.Read())
                 {
-                    while (Ref.Equal(reader.LocalName, _strings.Result))
+                    while (Ref.Equal(reader.LocalName, _strings.Issue))
                     {
                         FortifyIssue fortify = FortifyIssue.Parse(reader, _strings);
                         output.WriteResult(ConvertFortifyIssueToSarifIssue(fortify));

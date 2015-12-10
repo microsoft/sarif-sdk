@@ -1,44 +1,48 @@
 {
-  "version": "1.0",
-  "toolInfo": {
-    "toolName": "AndroidStudio"
-  },
-  "issues": [
+  "version": "0.4",
+  "runLogs": [
     {
-      "ruleId": "Default File Template Usage",
-      "locations": [
+      "toolInfo": {
+        "name": "AndroidStudio"
+      },
+      "results": [
         {
-          "issueFile": [
+          "ruleId": "Default File Template Usage",
+          "fullMessage": "Default File template",
+          "locations": [
             {
-              "uri": "app/src/main/java/microsoft/androidstudioformatexample/NamespaceTypo.java",
-              "mimeType": "text/x-java-source",
-              "region": {
-                "startLine": 3
-              }
+              "resultFile": [
+                {
+                  "uri": "app/src/main/java/microsoft/androidstudioformatexample/NamespaceTypo.java",
+                  "mimeType": "text/x-java-source",
+                  "region": {
+                    "startLine": 3
+                  }
+                }
+              ],
+              "logicalLocation": [
+                {
+                  "name": "app",
+                  "kind": "android-module"
+                },
+                {
+                  "name": "microsoft.androidstudioformatexample",
+                  "kind": "package"
+                },
+                {
+                  "name": "microsoft.androidstudioformatexample.NamespaceTypo",
+                  "kind": "type"
+                }
+              ],
+              "fullyQualifiedLogicalName": "app\\microsoft.androidstudioformatexample\\microsoft.androidstudioformatexample.NamespaceTypo"
             }
           ],
-          "fullyQualifiedLogicalName": "app\\microsoft.androidstudioformatexample\\microsoft.androidstudioformatexample.NamespaceTypo",
-          "logicalLocation": [
-            {
-              "name": "app",
-              "locationKind": "android-module"
-            },
-            {
-              "name": "microsoft.androidstudioformatexample",
-              "locationKind": "package"
-            },
-            {
-              "name": "microsoft.androidstudioformatexample.NamespaceTypo",
-              "locationKind": "type"
-            }
-          ]
+          "properties": {
+            "severity": "WARNING",
+            "attributeKey": "WARNING_ATTRIBUTES"
+          }
         }
-      ],
-      "fullMessage": "Default File template",
-      "properties": {
-        "severity": "WARNING",
-        "attributeKey": "WARNING_ATTRIBUTES"
-      }
+      ]
     }
   ]
 }

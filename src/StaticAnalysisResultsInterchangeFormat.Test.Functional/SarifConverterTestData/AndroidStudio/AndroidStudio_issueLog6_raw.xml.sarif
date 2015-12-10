@@ -1,82 +1,86 @@
 {
-  "version": "1.0",
-  "toolInfo": {
-    "toolName": "AndroidStudio"
-  },
-  "issues": [
+  "version": "0.4",
+  "runLogs": [
     {
-      "ruleId": "unused declaration",
-      "locations": [
+      "toolInfo": {
+        "name": "AndroidStudio"
+      },
+      "results": [
         {
-          "issueFile": [
+          "ruleId": "unused declaration",
+          "fullMessage": "Method is never used.\r\nPossible resolution: comment\r\nPossible resolution: delete",
+          "shortMessage": "Method is never used.",
+          "locations": [
             {
-              "uri": "app/src/main/java/microsoft/androidstudioformatexample/MainActivity.java",
-              "mimeType": "text/x-java-source",
-              "region": {
-                "startLine": 37
-              }
+              "resultFile": [
+                {
+                  "uri": "app/src/main/java/microsoft/androidstudioformatexample/MainActivity.java",
+                  "mimeType": "text/x-java-source",
+                  "region": {
+                    "startLine": 37
+                  }
+                }
+              ],
+              "logicalLocation": [
+                {
+                  "name": "app",
+                  "kind": "android-module"
+                },
+                {
+                  "name": "microsoft.androidstudioformatexample",
+                  "kind": "package"
+                },
+                {
+                  "name": "microsoft.androidstudioformatexample.MainActivity java.lang.String ForCanBeForeachExample()",
+                  "kind": "method"
+                }
+              ],
+              "fullyQualifiedLogicalName": "app\\microsoft.androidstudioformatexample\\microsoft.androidstudioformatexample.MainActivity java.lang.String ForCanBeForeachExample()"
             }
           ],
-          "fullyQualifiedLogicalName": "app\\microsoft.androidstudioformatexample\\microsoft.androidstudioformatexample.MainActivity java.lang.String ForCanBeForeachExample()",
-          "logicalLocation": [
-            {
-              "name": "app",
-              "locationKind": "android-module"
-            },
-            {
-              "name": "microsoft.androidstudioformatexample",
-              "locationKind": "package"
-            },
-            {
-              "name": "microsoft.androidstudioformatexample.MainActivity java.lang.String ForCanBeForeachExample()",
-              "locationKind": "method"
-            }
-          ]
-        }
-      ],
-      "shortMessage": "Method is never used.",
-      "fullMessage": "Method is never used.\r\nPossible resolution: comment\r\nPossible resolution: delete",
-      "properties": {
-        "severity": "WARNING",
-        "attributeKey": "NOT_USED_ELEMENT_ATTRIBUTES"
-      }
-    },
-    {
-      "ruleId": "unused declaration",
-      "locations": [
+          "properties": {
+            "severity": "WARNING",
+            "attributeKey": "NOT_USED_ELEMENT_ATTRIBUTES"
+          }
+        },
         {
-          "issueFile": [
+          "ruleId": "unused declaration",
+          "fullMessage": "Class is not instantiated.\r\nPossible resolution: comment\r\nPossible resolution: delete",
+          "shortMessage": "Class is not instantiated.",
+          "locations": [
             {
-              "uri": "app/src/main/java/microsoft/androidstudioformatexample/NamespaceTypo.java",
-              "mimeType": "text/x-java-source",
-              "region": {
-                "startLine": 6
-              }
+              "resultFile": [
+                {
+                  "uri": "app/src/main/java/microsoft/androidstudioformatexample/NamespaceTypo.java",
+                  "mimeType": "text/x-java-source",
+                  "region": {
+                    "startLine": 6
+                  }
+                }
+              ],
+              "logicalLocation": [
+                {
+                  "name": "app",
+                  "kind": "android-module"
+                },
+                {
+                  "name": "microsoft.androidstudioformatexample",
+                  "kind": "package"
+                },
+                {
+                  "name": "microsoft.androidstudioformatexample.NamespaceTypo",
+                  "kind": "type"
+                }
+              ],
+              "fullyQualifiedLogicalName": "app\\microsoft.androidstudioformatexample\\microsoft.androidstudioformatexample.NamespaceTypo"
             }
           ],
-          "fullyQualifiedLogicalName": "app\\microsoft.androidstudioformatexample\\microsoft.androidstudioformatexample.NamespaceTypo",
-          "logicalLocation": [
-            {
-              "name": "app",
-              "locationKind": "android-module"
-            },
-            {
-              "name": "microsoft.androidstudioformatexample",
-              "locationKind": "package"
-            },
-            {
-              "name": "microsoft.androidstudioformatexample.NamespaceTypo",
-              "locationKind": "type"
-            }
-          ]
+          "properties": {
+            "severity": "WARNING",
+            "attributeKey": "NOT_USED_ELEMENT_ATTRIBUTES"
+          }
         }
-      ],
-      "shortMessage": "Class is not instantiated.",
-      "fullMessage": "Class is not instantiated.\r\nPossible resolution: comment\r\nPossible resolution: delete",
-      "properties": {
-        "severity": "WARNING",
-        "attributeKey": "NOT_USED_ELEMENT_ATTRIBUTES"
-      }
+      ]
     }
   ]
 }

@@ -1,38 +1,43 @@
 {
-  "version": "1.0",
-  "toolInfo": {
-    "toolName": "FxCop"
-  },
-  "issues": [
+  "version": "0.4",
+  "runLogs": [
     {
-      "toolFingerprint": "Logon#StringResourceShouldBeCompoundWord",
-      "ruleId": "CA1701",
-      "locations": [
+      "toolInfo": {
+        "name": "FxCop"
+      },
+      "runInfo": {},
+      "results": [
         {
-          "analysisTarget": [
+          "ruleId": "CA1701",
+          "fullMessage": "In resource 'OMStrings.resx', referenced by name 'FailedGrantingRightsLogonAsService', correct the spelling of 'Logon' in string value 'Failed to grant rights 'Logon as Service' to {0} ({1}).'\n          ",
+          "shortMessage": "ResourceStringCompoundWordsShouldBeCasedCorrectly",
+          "locations": [
             {
-              "uri": "$(ProjectDir)/SpecifyCultureInfo/Microsoft.TeamFoundation.Build.Client.dll",
-              "mimeType": "application/octet-stream"
+              "analysisTarget": [
+                {
+                  "uri": "$(ProjectDir)/SpecifyCultureInfo/Microsoft.TeamFoundation.Build.Client.dll",
+                  "mimeType": "application/octet-stream"
+                }
+              ],
+              "logicalLocation": [
+                {
+                  "name": "microsoft.teamfoundation.build.client.dll",
+                  "kind": "module"
+                },
+                {
+                  "name": "OMStrings.resources",
+                  "kind": "resource"
+                }
+              ],
+              "fullyQualifiedLogicalName": "OMStrings.resources"
             }
           ],
-          "fullyQualifiedLogicalName": "OMStrings.resources",
-          "logicalLocation": [
-            {
-              "name": "microsoft.teamfoundation.build.client.dll",
-              "locationKind": "module"
-            },
-            {
-              "name": "OMStrings.resources",
-              "locationKind": "resource"
-            }
-          ]
+          "toolFingerprint": "Logon#StringResourceShouldBeCompoundWord",
+          "properties": {
+            "Category": "Microsoft.Naming"
+          }
         }
-      ],
-      "shortMessage": "ResourceStringCompoundWordsShouldBeCasedCorrectly",
-      "fullMessage": "In resource 'OMStrings.resx', referenced by name 'FailedGrantingRightsLogonAsService', correct the spelling of 'Logon' in string value 'Failed to grant rights 'Logon as Service' to {0} ({1}).'\n          ",
-      "properties": {
-        "Category": "Microsoft.Naming"
-      }
+      ]
     }
   ]
 }

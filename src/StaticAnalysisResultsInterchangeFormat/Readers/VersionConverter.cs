@@ -1,12 +1,8 @@
 ﻿// Copyright (c) Microsoft. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
+using System;
 
 using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.Readers
 {
@@ -26,7 +22,11 @@ namespace Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.Readers
 
         public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
         {
-            throw new NotImplementedException();
+            Version version = (Version)value;
+
+            string versionString = version.ToString();
+
+            writer.WriteRawValue(versionString);
         }
     }
 }

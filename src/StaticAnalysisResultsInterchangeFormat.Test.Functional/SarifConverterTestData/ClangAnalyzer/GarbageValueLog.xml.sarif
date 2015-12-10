@@ -1,26 +1,31 @@
 {
-  "version": "1.0",
-  "toolInfo": {
-    "toolName": "Clang"
-  },
-  "issues": [
+  "version": "0.4",
+  "runLogs": [
     {
-      "locations": [
+      "toolInfo": {
+        "name": "Clang"
+      },
+      "results": [
         {
-          "analysisTarget": [
+          "ruleId": null,
+          "fullMessage": "Logic error : The left operand of '<' is a garbage value",
+          "shortMessage": "Result of operation is garbage or undefined",
+          "locations": [
             {
-              "uri": "jcmaster.c",
-              "mimeType": "text/x-cpp",
-              "region": {
-                "startLine": 251,
-                "startColumn": 30
-              }
+              "analysisTarget": [
+                {
+                  "uri": "jcmaster.c",
+                  "mimeType": "text/x-cpp",
+                  "region": {
+                    "startLine": 251,
+                    "startColumn": 30
+                  }
+                }
+              ]
             }
           ]
         }
-      ],
-      "shortMessage": "Result of operation is garbage or undefined",
-      "fullMessage": "Logic error : The left operand of '<' is a garbage value"
+      ]
     }
   ]
 }

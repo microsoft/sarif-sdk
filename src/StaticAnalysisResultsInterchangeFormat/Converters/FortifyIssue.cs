@@ -151,7 +151,7 @@ namespace Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.Converte
             //        <xs:attribute name="ruleID" type="xs:string" use="optional"/>
             //    </xs:complexType>
             //</xs:element>
-            if (!xmlReader.IsStartElement(strings.Result))
+            if (!xmlReader.IsStartElement(strings.Issue))
             {
                 throw xmlReader.CreateException(SarifResources.FortifyNotValidResult);
             }

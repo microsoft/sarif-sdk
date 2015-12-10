@@ -1,176 +1,181 @@
 {
-  "version": "1.0",
-  "toolInfo": {
-    "toolName": "FxCop"
-  },
-  "issues": [
+  "version": "0.4",
+  "runLogs": [
     {
-      "ruleId": "CA904",
-      "locations": [
+      "toolInfo": {
+        "name": "FxCop"
+      },
+      "runInfo": {},
+      "results": [
         {
-          "fullyQualifiedLogicalName": "SecurityCryptographyRuleTests",
-          "logicalLocation": [
+          "ruleId": "CA904",
+          "fullMessage": "Redefine the types in namespace 'SecurityCryptographyRuleTests' in the Microsoft or System namespace. Public types that will never ship externally can be defined in the MS namespace. Consider disabling this rule when analyzing code that does not ship externally.",
+          "shortMessage": "DeclareTypesInMicrosoftOrSystemNamespace",
+          "locations": [
             {
-              "name": "SecurityCryptographyRuleTests",
-              "locationKind": "namespace"
-            }
-          ]
-        }
-      ],
-      "shortMessage": "DeclareTypesInMicrosoftOrSystemNamespace",
-      "fullMessage": "Redefine the types in namespace 'SecurityCryptographyRuleTests' in the Microsoft or System namespace. Public types that will never ship externally can be defined in the MS namespace. Consider disabling this rule when analyzing code that does not ship externally.",
-      "properties": {
-        "Level": "Error",
-        "Category": "Microsoft.MSInternal",
-        "FixCategory": "Breaking"
-      }
-    },
-    {
-      "ruleId": "CA1014",
-      "locations": [
-        {
-          "analysisTarget": [
-            {
-              "uri": "d:\\SecDevTools\\Main\\bin\\x86\\Debug\\FxCop\\FxCopTestData\\Crypto\\SecurityCryptographyRuleTests.dll",
-              "mimeType": "application/octet-stream"
+              "logicalLocation": [
+                {
+                  "name": "SecurityCryptographyRuleTests",
+                  "kind": "namespace"
+                }
+              ],
+              "fullyQualifiedLogicalName": "SecurityCryptographyRuleTests"
             }
           ],
-          "fullyQualifiedLogicalName": "securitycryptographyruletests.dll",
-          "logicalLocation": [
-            {
-              "name": "securitycryptographyruletests.dll",
-              "locationKind": "module"
-            }
-          ]
-        }
-      ],
-      "shortMessage": "MarkAssembliesWithClsCompliant",
-      "fullMessage": "Mark 'SecurityCryptographyRuleTests.dll' with CLSCompliant(true) because it exposes externally visible types.",
-      "properties": {
-        "Level": "Error",
-        "Category": "Microsoft.Design",
-        "FixCategory": "NonBreaking"
-      }
-    },
-    {
-      "toolFingerprint": "DES#Type",
-      "ruleId": "CA1709",
-      "locations": [
+          "properties": {
+            "Level": "Error",
+            "Category": "Microsoft.MSInternal",
+            "FixCategory": "Breaking"
+          }
+        },
         {
-          "analysisTarget": [
+          "ruleId": "CA1014",
+          "fullMessage": "Mark 'SecurityCryptographyRuleTests.dll' with CLSCompliant(true) because it exposes externally visible types.",
+          "shortMessage": "MarkAssembliesWithClsCompliant",
+          "locations": [
             {
-              "uri": "d:\\SecDevTools\\Main\\bin\\x86\\Debug\\FxCop\\FxCopTestData\\Crypto\\SecurityCryptographyRuleTests.dll",
-              "mimeType": "application/octet-stream"
+              "analysisTarget": [
+                {
+                  "uri": "d:\\SecDevTools\\Main\\bin\\x86\\Debug\\FxCop\\FxCopTestData\\Crypto\\SecurityCryptographyRuleTests.dll",
+                  "mimeType": "application/octet-stream"
+                }
+              ],
+              "logicalLocation": [
+                {
+                  "name": "securitycryptographyruletests.dll",
+                  "kind": "module"
+                }
+              ],
+              "fullyQualifiedLogicalName": "securitycryptographyruletests.dll"
             }
           ],
-          "fullyQualifiedLogicalName": "SecurityCryptographyRuleTests.DESCannotBeUsed",
-          "logicalLocation": [
-            {
-              "name": "securitycryptographyruletests.dll",
-              "locationKind": "module"
-            },
-            {
-              "name": "SecurityCryptographyRuleTests",
-              "locationKind": "namespace"
-            },
-            {
-              "name": "DESCannotBeUsed",
-              "locationKind": "type"
-            }
-          ]
-        }
-      ],
-      "shortMessage": "IdentifiersShouldBeCasedCorrectly",
-      "fullMessage": "Correct the casing of 'DES' in type name 'DESCannotBeUsed' by changing it to 'Des'.",
-      "properties": {
-        "Level": "Error",
-        "Category": "Microsoft.Naming",
-        "FixCategory": "Breaking"
-      }
-    },
-    {
-      "toolFingerprint": "CSharp2_0",
-      "ruleId": "CA1053",
-      "locations": [
+          "properties": {
+            "Level": "Error",
+            "Category": "Microsoft.Design",
+            "FixCategory": "NonBreaking"
+          }
+        },
         {
-          "analysisTarget": [
+          "ruleId": "CA1709",
+          "fullMessage": "Correct the casing of 'DES' in type name 'DESCannotBeUsed' by changing it to 'Des'.",
+          "shortMessage": "IdentifiersShouldBeCasedCorrectly",
+          "locations": [
             {
-              "uri": "d:\\SecDevTools\\Main\\bin\\x86\\Debug\\FxCop\\FxCopTestData\\Crypto\\SecurityCryptographyRuleTests.dll",
-              "mimeType": "application/octet-stream"
+              "analysisTarget": [
+                {
+                  "uri": "d:\\SecDevTools\\Main\\bin\\x86\\Debug\\FxCop\\FxCopTestData\\Crypto\\SecurityCryptographyRuleTests.dll",
+                  "mimeType": "application/octet-stream"
+                }
+              ],
+              "logicalLocation": [
+                {
+                  "name": "securitycryptographyruletests.dll",
+                  "kind": "module"
+                },
+                {
+                  "name": "SecurityCryptographyRuleTests",
+                  "kind": "namespace"
+                },
+                {
+                  "name": "DESCannotBeUsed",
+                  "kind": "type"
+                }
+              ],
+              "fullyQualifiedLogicalName": "SecurityCryptographyRuleTests.DESCannotBeUsed"
             }
           ],
-          "fullyQualifiedLogicalName": "SecurityCryptographyRuleTests.DESCannotBeUsed",
-          "logicalLocation": [
-            {
-              "name": "securitycryptographyruletests.dll",
-              "locationKind": "module"
-            },
-            {
-              "name": "SecurityCryptographyRuleTests",
-              "locationKind": "namespace"
-            },
-            {
-              "name": "DESCannotBeUsed",
-              "locationKind": "type"
-            }
-          ]
-        }
-      ],
-      "shortMessage": "StaticHolderTypesShouldNotHaveConstructors",
-      "fullMessage": "Because type 'DESCannotBeUsed' contains only 'static' members, mark it as 'static' to prevent the compiler from adding a default public constructor.",
-      "properties": {
-        "Level": "Error",
-        "Category": "Microsoft.Design",
-        "FixCategory": "Breaking"
-      }
-    },
-    {
-      "ruleId": "CA1811",
-      "locations": [
+          "toolFingerprint": "DES#Type",
+          "properties": {
+            "Level": "Error",
+            "Category": "Microsoft.Naming",
+            "FixCategory": "Breaking"
+          }
+        },
         {
-          "analysisTarget": [
+          "ruleId": "CA1053",
+          "fullMessage": "Because type 'DESCannotBeUsed' contains only 'static' members, mark it as 'static' to prevent the compiler from adding a default public constructor.",
+          "shortMessage": "StaticHolderTypesShouldNotHaveConstructors",
+          "locations": [
             {
-              "uri": "d:\\SecDevTools\\Main\\bin\\x86\\Debug\\FxCop\\FxCopTestData\\Crypto\\SecurityCryptographyRuleTests.dll",
-              "mimeType": "application/octet-stream"
+              "analysisTarget": [
+                {
+                  "uri": "d:\\SecDevTools\\Main\\bin\\x86\\Debug\\FxCop\\FxCopTestData\\Crypto\\SecurityCryptographyRuleTests.dll",
+                  "mimeType": "application/octet-stream"
+                }
+              ],
+              "logicalLocation": [
+                {
+                  "name": "securitycryptographyruletests.dll",
+                  "kind": "module"
+                },
+                {
+                  "name": "SecurityCryptographyRuleTests",
+                  "kind": "namespace"
+                },
+                {
+                  "name": "DESCannotBeUsed",
+                  "kind": "type"
+                }
+              ],
+              "fullyQualifiedLogicalName": "SecurityCryptographyRuleTests.DESCannotBeUsed"
             }
           ],
-          "issueFile": [
+          "toolFingerprint": "CSharp2_0",
+          "properties": {
+            "Level": "Error",
+            "Category": "Microsoft.Design",
+            "FixCategory": "Breaking"
+          }
+        },
+        {
+          "ruleId": "CA1811",
+          "fullMessage": "'DESCannotBeUsed.EncryptData(string, string, byte[], byte[])' appears to have no upstream public or protected callers.",
+          "shortMessage": "AvoidUncalledPrivateCode",
+          "locations": [
             {
-              "uri": "d:\\SecDevTools\\Main\\src\\FxCop\\Source\\FxCopTestData\\SecurityCryptographyRuleTests\\DESCannotBeUsed.cs",
-              "mimeType": "text/x-csharp",
-              "region": {
-                "startLine": 14
-              }
+              "analysisTarget": [
+                {
+                  "uri": "d:\\SecDevTools\\Main\\bin\\x86\\Debug\\FxCop\\FxCopTestData\\Crypto\\SecurityCryptographyRuleTests.dll",
+                  "mimeType": "application/octet-stream"
+                }
+              ],
+              "resultFile": [
+                {
+                  "uri": "d:\\SecDevTools\\Main\\src\\FxCop\\Source\\FxCopTestData\\SecurityCryptographyRuleTests\\DESCannotBeUsed.cs",
+                  "mimeType": "text/x-csharp",
+                  "region": {
+                    "startLine": 14
+                  }
+                }
+              ],
+              "logicalLocation": [
+                {
+                  "name": "securitycryptographyruletests.dll",
+                  "kind": "module"
+                },
+                {
+                  "name": "SecurityCryptographyRuleTests",
+                  "kind": "namespace"
+                },
+                {
+                  "name": "DESCannotBeUsed",
+                  "kind": "type"
+                },
+                {
+                  "name": "#EncryptData(System.String,System.String,System.Byte[],System.Byte[])",
+                  "kind": "method"
+                }
+              ],
+              "fullyQualifiedLogicalName": "SecurityCryptographyRuleTests.DESCannotBeUsed.EncryptData(System.String,System.String,System.Byte[],System.Byte[])"
             }
           ],
-          "fullyQualifiedLogicalName": "SecurityCryptographyRuleTests.DESCannotBeUsed.EncryptData(System.String,System.String,System.Byte[],System.Byte[])",
-          "logicalLocation": [
-            {
-              "name": "securitycryptographyruletests.dll",
-              "locationKind": "module"
-            },
-            {
-              "name": "SecurityCryptographyRuleTests",
-              "locationKind": "namespace"
-            },
-            {
-              "name": "DESCannotBeUsed",
-              "locationKind": "type"
-            },
-            {
-              "name": "#EncryptData(System.String,System.String,System.Byte[],System.Byte[])",
-              "locationKind": "method"
-            }
-          ]
+          "properties": {
+            "Level": "Warning",
+            "Category": "Microsoft.Performance",
+            "FixCategory": "NonBreaking"
+          }
         }
-      ],
-      "shortMessage": "AvoidUncalledPrivateCode",
-      "fullMessage": "'DESCannotBeUsed.EncryptData(string, string, byte[], byte[])' appears to have no upstream public or protected callers.",
-      "properties": {
-        "Level": "Warning",
-        "Category": "Microsoft.Performance",
-        "FixCategory": "NonBreaking"
-      }
+      ]
     }
   ]
 }

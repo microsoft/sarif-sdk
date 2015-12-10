@@ -1,82 +1,86 @@
 {
-  "version": "1.0",
-  "toolInfo": {
-    "toolName": "AndroidStudio"
-  },
-  "issues": [
+  "version": "0.4",
+  "runLogs": [
     {
-      "ruleId": "Declaration access can be weaker",
-      "locations": [
+      "toolInfo": {
+        "name": "AndroidStudio"
+      },
+      "results": [
         {
-          "issueFile": [
+          "ruleId": "Declaration access can be weaker",
+          "fullMessage": "Can be package local\r\nPossible resolution: packageLocal",
+          "shortMessage": "Can be package local",
+          "locations": [
             {
-              "uri": "app/src/main/java/microsoft/androidstudioformatexample/MainActivity.java",
-              "mimeType": "text/x-java-source",
-              "region": {
-                "startLine": 9
-              }
+              "resultFile": [
+                {
+                  "uri": "app/src/main/java/microsoft/androidstudioformatexample/MainActivity.java",
+                  "mimeType": "text/x-java-source",
+                  "region": {
+                    "startLine": 9
+                  }
+                }
+              ],
+              "logicalLocation": [
+                {
+                  "name": "app",
+                  "kind": "android-module"
+                },
+                {
+                  "name": "microsoft.androidstudioformatexample",
+                  "kind": "package"
+                },
+                {
+                  "name": "microsoft.androidstudioformatexample.MainActivity",
+                  "kind": "type"
+                }
+              ],
+              "fullyQualifiedLogicalName": "app\\microsoft.androidstudioformatexample\\microsoft.androidstudioformatexample.MainActivity"
             }
           ],
-          "fullyQualifiedLogicalName": "app\\microsoft.androidstudioformatexample\\microsoft.androidstudioformatexample.MainActivity",
-          "logicalLocation": [
-            {
-              "name": "app",
-              "locationKind": "android-module"
-            },
-            {
-              "name": "microsoft.androidstudioformatexample",
-              "locationKind": "package"
-            },
-            {
-              "name": "microsoft.androidstudioformatexample.MainActivity",
-              "locationKind": "type"
-            }
-          ]
-        }
-      ],
-      "shortMessage": "Can be package local",
-      "fullMessage": "Can be package local\r\nPossible resolution: packageLocal",
-      "properties": {
-        "severity": "WARNING",
-        "attributeKey": "WARNING_ATTRIBUTES"
-      }
-    },
-    {
-      "ruleId": "Declaration access can be weaker",
-      "locations": [
+          "properties": {
+            "severity": "WARNING",
+            "attributeKey": "WARNING_ATTRIBUTES"
+          }
+        },
         {
-          "issueFile": [
+          "ruleId": "Declaration access can be weaker",
+          "fullMessage": "Can be package local\r\nPossible resolution: packageLocal",
+          "shortMessage": "Can be package local",
+          "locations": [
             {
-              "uri": "app/src/main/java/microsoft/androidstudioformatexample/NamespaceTypo.java",
-              "mimeType": "text/x-java-source",
-              "region": {
-                "startLine": 6
-              }
+              "resultFile": [
+                {
+                  "uri": "app/src/main/java/microsoft/androidstudioformatexample/NamespaceTypo.java",
+                  "mimeType": "text/x-java-source",
+                  "region": {
+                    "startLine": 6
+                  }
+                }
+              ],
+              "logicalLocation": [
+                {
+                  "name": "app",
+                  "kind": "android-module"
+                },
+                {
+                  "name": "microsoft.androidstudioformatexample",
+                  "kind": "package"
+                },
+                {
+                  "name": "microsoft.androidstudioformatexample.NamespaceTypo",
+                  "kind": "type"
+                }
+              ],
+              "fullyQualifiedLogicalName": "app\\microsoft.androidstudioformatexample\\microsoft.androidstudioformatexample.NamespaceTypo"
             }
           ],
-          "fullyQualifiedLogicalName": "app\\microsoft.androidstudioformatexample\\microsoft.androidstudioformatexample.NamespaceTypo",
-          "logicalLocation": [
-            {
-              "name": "app",
-              "locationKind": "android-module"
-            },
-            {
-              "name": "microsoft.androidstudioformatexample",
-              "locationKind": "package"
-            },
-            {
-              "name": "microsoft.androidstudioformatexample.NamespaceTypo",
-              "locationKind": "type"
-            }
-          ]
+          "properties": {
+            "severity": "WARNING",
+            "attributeKey": "WARNING_ATTRIBUTES"
+          }
         }
-      ],
-      "shortMessage": "Can be package local",
-      "fullMessage": "Can be package local\r\nPossible resolution: packageLocal",
-      "properties": {
-        "severity": "WARNING",
-        "attributeKey": "WARNING_ATTRIBUTES"
-      }
+      ]
     }
   ]
 }
