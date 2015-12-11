@@ -10,7 +10,7 @@ using System.IO;
 // *                                                       *
 // ********************************************************/
 
-namespace Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat
+namespace Microsoft.CodeAnalysis.Sarif
 {
     /// <summary>
     /// Temporary file class; implements <see cref="IDisposable"/> to ensure an effort is made to

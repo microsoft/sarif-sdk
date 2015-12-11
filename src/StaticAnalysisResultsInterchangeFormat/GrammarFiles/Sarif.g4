@@ -1,4 +1,4 @@
-/** @namespace {Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.DataContracts} */ grammar SarifGrammar;
+/** @namespace {Microsoft.CodeAnalysis.Sarif.DataContracts} */ grammar SarifGrammar;
 
 /**
     @rootObject

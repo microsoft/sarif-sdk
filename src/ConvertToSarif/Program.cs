@@ -4,7 +4,7 @@
 using System;
 using CommandLine;
 
-namespace Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.ConvertToSarif
+namespace Microsoft.CodeAnalysis.Sarif.ConvertToSarif
 {
     internal static class Program
     {

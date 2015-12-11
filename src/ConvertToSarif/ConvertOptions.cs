@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 using CommandLine;
 
-namespace Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.ConvertToSarif
+namespace Microsoft.CodeAnalysis.Sarif.ConvertToSarif
 {
     [Verb("convert", HelpText = "Convert a tool output log to SARIF format.")]
     internal class ConvertOptions

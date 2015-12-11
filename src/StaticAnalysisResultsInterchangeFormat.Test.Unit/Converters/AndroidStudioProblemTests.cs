@@ -10,7 +10,7 @@ using System.Xml.Linq;
 using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.Converters
+namespace Microsoft.CodeAnalysis.Sarif.Converters
 {
     [TestClass]
     public class AndroidStudioProblemTests

@@ -6,10 +6,10 @@ using System.Collections.Generic;
 using System.IO;
 using System.Threading;
 using Newtonsoft.Json;
-using Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.Converters;
-using Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.Writers;
+using Microsoft.CodeAnalysis.Sarif.Converters;
+using Microsoft.CodeAnalysis.Sarif.Writers;
 
-namespace Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat
+namespace Microsoft.CodeAnalysis.Sarif
 {
     /// <summary>
     /// A class that provides helpers for converting a log file produced by 

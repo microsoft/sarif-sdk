@@ -5,7 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 
-namespace Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat
+namespace Microsoft.CodeAnalysis.Sarif
 {
     /// <summary>
     /// Sparse reader dispatch table. This is a table of element name to delegate that allows a

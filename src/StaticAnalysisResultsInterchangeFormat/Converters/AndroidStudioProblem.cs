@@ -7,7 +7,7 @@ using System.Diagnostics;
 using System.Xml;
 using Microsoft.CodeAnalysis.Driver;
 
-namespace Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.Converters
+namespace Microsoft.CodeAnalysis.Sarif.Converters
 {
     /// <summary>
     /// A Problem element from an Android Studio file.

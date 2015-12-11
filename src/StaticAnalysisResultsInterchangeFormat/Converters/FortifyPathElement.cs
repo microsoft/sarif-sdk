@@ -4,7 +4,7 @@
 using System;
 using System.Xml;
 
-namespace Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.Converters
+namespace Microsoft.CodeAnalysis.Sarif.Converters
 {
     /// <summary>A Fortify path element structure, which serves as a location identifier. This type is
     /// typically used to represent result locations, datapath sources, and datapath sinks.</summary>

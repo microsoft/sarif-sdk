@@ -7,9 +7,9 @@ using System.Collections.Immutable;
 using System.Diagnostics;
 using System.Xml;
 using Microsoft.CodeAnalysis.Driver;
-using Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.DataContracts;
+using Microsoft.CodeAnalysis.Sarif.DataContracts;
 
-namespace Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.Converters
+namespace Microsoft.CodeAnalysis.Sarif.Converters
 {
     /// <summary>An error reported by CppCheck.</summary>
     internal class CppCheckError

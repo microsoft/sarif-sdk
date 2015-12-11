@@ -3,7 +3,7 @@
   <PropertyGroup>
     <ProjectGuid>{CC9B247E-7103-4BF7-BDAB-6E625B3680A8}</ProjectGuid>
     <OutputType>Library</OutputType>
-    <RootNamespace>Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat</RootNamespace>
+    <RootNamespace>Microsoft.CodeAnalysis.Sarif</RootNamespace>
     <AssemblyName>StaticAnalysisResultsInterchangeFormat</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <TargetFrameworkProfile />

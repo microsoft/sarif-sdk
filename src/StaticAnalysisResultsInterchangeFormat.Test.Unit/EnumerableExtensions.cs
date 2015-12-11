@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 
-namespace Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat
+namespace Microsoft.CodeAnalysis.Sarif
 {
     /// <summary>A class containing common useful extension methods for <see cref="System.Collections.Generic.IEnumerable{T}"/>.</summary>
     public static class EnumerableExtensions

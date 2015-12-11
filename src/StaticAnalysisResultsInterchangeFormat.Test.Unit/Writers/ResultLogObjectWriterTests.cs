@@ -4,9 +4,9 @@
 using System;
 
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.DataContracts;
+using Microsoft.CodeAnalysis.Sarif.DataContracts;
 
-namespace Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.Writers
+namespace Microsoft.CodeAnalysis.Sarif.Writers
 {
     [TestClass]
     public class ResultLogObjectWriterTests

@@ -9,7 +9,7 @@ using System.Text.RegularExpressions;
 using System.Xml;
 using Microsoft.CodeAnalysis.Driver;
 
-namespace Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.Converters
+namespace Microsoft.CodeAnalysis.Sarif.Converters
 {
     /// <summary>A Fortify result element.</summary>
     internal class FortifyIssue

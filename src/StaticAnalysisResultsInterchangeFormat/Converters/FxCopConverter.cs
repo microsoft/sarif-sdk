@@ -10,10 +10,10 @@ using System.Linq;
 using System.Reflection;
 using System.Xml;
 using System.Xml.Schema;
-using Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.Writers;
-using Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.DataContracts;
+using Microsoft.CodeAnalysis.Sarif.Writers;
+using Microsoft.CodeAnalysis.Sarif.DataContracts;
 
-namespace Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.Converters
+namespace Microsoft.CodeAnalysis.Sarif.Converters
 {
     /// <summary>
     /// Converts FxCop report files to sarif format
@@ -192,7 +192,7 @@ namespace Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.Converte
 
         private readonly SparseReaderDispatchTable _dispatchTable;
 
-        private const string FxCopReportSchema = "Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.Schemata.FxCopReport.xsd";
+        private const string FxCopReportSchema = "Microsoft.CodeAnalysis.Sarif.Schemata.FxCopReport.xsd";
 
         /// <summary>
         /// Current context of the result 

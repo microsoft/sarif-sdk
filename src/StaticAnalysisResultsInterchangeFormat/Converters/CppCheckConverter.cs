@@ -5,9 +5,9 @@ using System;
 using System.IO;
 using System.Xml;
 using Microsoft.CodeAnalysis.Driver;
-using Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.DataContracts;
+using Microsoft.CodeAnalysis.Sarif.DataContracts;
 
-namespace Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.Converters
+namespace Microsoft.CodeAnalysis.Sarif.Converters
 {
     internal class CppCheckConverter : IToolFileConverter
     {

@@ -5,10 +5,10 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Xml;
-using Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.Writers;
-using Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.DataContracts;
+using Microsoft.CodeAnalysis.Sarif.Writers;
+using Microsoft.CodeAnalysis.Sarif.DataContracts;
 
-namespace Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.Converters
+namespace Microsoft.CodeAnalysis.Sarif.Converters
 {
     internal class ClangAnalyzerConverter : IToolFileConverter
     {

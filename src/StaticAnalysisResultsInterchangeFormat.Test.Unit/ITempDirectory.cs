@@ -5,7 +5,7 @@ using System;
 using System.IO;
 using System.Text;
 
-namespace Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat
+namespace Microsoft.CodeAnalysis.Sarif
 {
     /// <summary>Interface for temporary directories.</summary>
     /// <seealso cref="T:IDisposable"/>

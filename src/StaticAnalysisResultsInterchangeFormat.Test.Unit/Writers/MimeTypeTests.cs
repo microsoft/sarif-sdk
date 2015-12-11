@@ -5,7 +5,7 @@ using System;
 
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.Writers
+namespace Microsoft.CodeAnalysis.Sarif.Writers
 {
     [TestClass]
     public class MimeTypeTests

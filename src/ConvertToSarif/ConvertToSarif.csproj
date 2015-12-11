@@ -6,7 +6,7 @@
     <ProjectGuid>{01571290-A3F3-4AD6-8F8B-B045BFB6E55E}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat</RootNamespace>
+    <RootNamespace>Microsoft.CodeAnalysis.Sarif</RootNamespace>
     <AssemblyName>ConvertToSarif</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>

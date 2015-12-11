@@ -6,9 +6,9 @@ using System.IO;
 using System.Xml;
 
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.Writers;
+using Microsoft.CodeAnalysis.Sarif.Writers;
 
-namespace Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.Converters
+namespace Microsoft.CodeAnalysis.Sarif.Converters
 {
     [TestClass]
     public class CppCheckConverterTests

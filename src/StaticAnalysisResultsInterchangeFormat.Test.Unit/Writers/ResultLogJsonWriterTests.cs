@@ -10,10 +10,10 @@ using System.Threading.Tasks;
 
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Newtonsoft.Json;
-using Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.Writers;
-using Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.DataContracts;
+using Microsoft.CodeAnalysis.Sarif.Writers;
+using Microsoft.CodeAnalysis.Sarif.DataContracts;
 
-namespace Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.Writers
+namespace Microsoft.CodeAnalysis.Sarif.Writers
 {
     [TestClass]
     public class ResultLogJsonWriterTests
