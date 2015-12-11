@@ -3,15 +3,15 @@
 
 using System.Reflection;
 
-[assembly: AssemblyVersion(Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.VersionConstants.AssemblyVersion)]
+[assembly: AssemblyVersion(Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.VersionConstants.FileVersion)]
 [assembly: AssemblyFileVersion(Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.VersionConstants.FileVersion)]
 
 namespace Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat
 {
     public static class VersionConstants
     {
-        public const string Version = "1.4.3-beta";
-        public const string AssemblyVersion = "1.4.3";
-        public const string FileVersion = AssemblyVersion;
+        public const string Version = FileVersion + Prerelease;
+        public const string FileVersion = "1.4.4";
+        public const string Prerelease = "-beta";
     }
 }
