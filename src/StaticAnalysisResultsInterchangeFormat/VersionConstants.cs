@@ -11,7 +11,7 @@ namespace Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat
     public static class VersionConstants
     {
         public const string Version = FileVersion + Prerelease;
-        public const string FileVersion = "1.4.4";
+        public const string FileVersion = "1.4.5";
         public const string Prerelease = "-beta";
     }
 }

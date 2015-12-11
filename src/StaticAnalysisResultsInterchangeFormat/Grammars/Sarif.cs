@@ -43,6 +43,9 @@ namespace Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.DataCont
         /// <summary>An entry indicating that the <see cref="ISyntax" /> object is of type Fix.</summary>
         Fix,
 
+        /// <summary>An entry indicating that the <see cref="ISyntax" /> object is of type FormattedMessage.</summary>
+        FormattedMessage,
+
         /// <summary>An entry indicating that the <see cref="ISyntax" /> object is of type Hash.</summary>
         Hash,
 
@@ -66,6 +69,9 @@ namespace Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.DataCont
 
         /// <summary>An entry indicating that the <see cref="ISyntax" /> object is of type ResultLog.</summary>
         ResultLog,
+
+        /// <summary>An entry indicating that the <see cref="ISyntax" /> object is of type RuleDescriptor.</summary>
+        RuleDescriptor,
 
         /// <summary>An entry indicating that the <see cref="ISyntax" /> object is of type RunInfo.</summary>
         RunInfo,
@@ -820,6 +826,186 @@ namespace Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.DataCont
                     var value_1 = this.FileChanges[index_0];
                     var value_2 = other.FileChanges[index_0];
                     if (!global::System.Object.Equals(value_1, value_2))
+                    {
+                        return false;
+                    }
+                }
+            }
+
+            return true;
+        }
+    }
+
+    /// <summary>
+    /// A formatted message object encapsulates information that can be used to construct a
+    /// fully formatted message that describes an issue.
+    /// </summary>
+    [DataContract]
+    [CompilerGenerated]
+    public sealed class FormattedMessage : ISyntax, IEquatable<FormattedMessage>
+    {
+        /// <summary>Gets the kind of type implementing <see cref="ISyntax" />.</summary>
+        /// <value>The enumeration value for the kind of type implementing <see cref="ISyntax" />.</value>
+        public SarifGrammarKind SyntaxKind { get { return SarifGrammarKind.FormattedMessage; } }
+
+        /// <summary>
+        /// A string that identifies the format string used to format the message that describes
+        /// this result. The value of specifierId must correspond to one of the names in the set
+        /// of name/value pairs contained in the format specifiers property of the rule info
+        /// object whose id property matches the rule id property of this issue.
+        /// </summary>
+        [DataMember(Name="specifierId", IsRequired = true)]
+        public string SpecifierId { get; set; }
+
+        /// <summary>
+        /// An array of string values that will be used, in combination with a format specifier,
+        /// to construct a result message.
+        /// </summary>
+        [DataMember(Name="arguments", IsRequired = true)]
+        public IList<string> Arguments { get; set; }
+
+        private void Init(string specifierIdArg, IEnumerable<string> argumentsArg)
+        {
+            if (specifierIdArg != null)
+            {
+                this.SpecifierId = specifierIdArg;
+            }
+            if (argumentsArg != null)
+            {
+                var destination_0 = new List<string>();
+                if (argumentsArg != null)
+                {
+                    foreach (var value_0 in argumentsArg)
+                    {
+                        if (value_0 == null)
+                        {
+                            destination_0.Add(null);
+                        }
+                        else
+                        {
+                            destination_0.Add(value_0);
+                        }
+                    }
+                }
+
+                this.Arguments = destination_0;
+            }
+        }
+
+        /// <summary>Initializes a new instance of the <see cref="FormattedMessage" /> class.</summary>
+        public FormattedMessage()
+        {
+            // Blank on purpose
+        }
+
+        /// <summary>Initializes a new instance of the <see cref="FormattedMessage" /> class with the supplied data.</summary>
+        /// <param name="specifierIdArg">An initialization value for the <see cref="P:SpecifierId" /> member.</param>
+        /// <param name="argumentsArg">An initialization value for the <see cref="P:Arguments" /> member.</param>
+        public FormattedMessage(string specifierIdArg, IEnumerable<string> argumentsArg)
+        {
+            this.Init(
+                specifierIdArg, 
+                argumentsArg
+            );
+        }
+
+        /// <summary>Initializes a new instance of the <see cref="FormattedMessage" /> class as a copy of another instance.</summary>
+        /// <exception cref="ArgumentNullException">Thrown if <paramref name="other" /> is null.</exception>
+        /// <param name="other">The instance to copy.</param>
+        public FormattedMessage(FormattedMessage other)
+        {
+            if (other == null)
+            {
+                throw new ArgumentNullException("other");
+            }
+
+            this.Init(
+                other.SpecifierId, 
+                other.Arguments
+            );
+        }
+
+        ISyntax ISyntax.DeepClone()
+        {
+            return this.DeepCloneCore();
+        }
+
+        /// <summary>Creates a deep copy of this instance.</summary>
+        public FormattedMessage DeepClone()
+        {
+            return (FormattedMessage)this.DeepCloneCore();
+        }
+
+        private ISyntax DeepCloneCore()
+        {
+            return new FormattedMessage(this);
+        }
+
+        /// <summary>Generates a hash code for this instance.</summary>
+        /// <returns>A hash code for this instance; suitable for putting this instance into a hashtable.</returns>
+        public override int GetHashCode()
+        {
+            int result = 17;
+            unchecked
+            {
+                if (this.SpecifierId != null)
+                {
+                    result = (result * 31) + this.SpecifierId.GetHashCode();
+                }
+                foreach (var value_0 in this.Arguments)
+                {
+                    result = result * 31;
+                    if (value_0 != null)
+                    {
+                        result = (result * 31) + value_0.GetHashCode();
+                    }
+                }
+            }
+
+            return result;
+        }
+
+        /// <summary>Compares this instance with another instance.</summary>
+        /// <param name="o">The instance to compare with this instance.</param>
+        /// <returns>true if this instance and <paramref name="o" /> contain the same data; otherwise, false.</returns>
+        public override bool Equals(object o)
+        {
+            return this.Equals(o as FormattedMessage);
+        }
+
+        /// <summary>Compares this instance with another instance.</summary>
+        /// <param name="other">The instance to compare with this instance.</param>
+        /// <returns>true if this instance and <paramref name="other" /> contain the same data; otherwise, false.</returns>
+        public bool Equals(FormattedMessage other)
+        {
+            if (other == null)
+            {
+                return false;
+            }
+
+            if (this.SpecifierId != other.SpecifierId)
+            {
+                return false;
+            }
+
+            if (!global::System.Object.ReferenceEquals(this.Arguments, other.Arguments))
+            {
+                if (this.Arguments == null || other.Arguments == null)
+                {
+                    return false;
+                }
+
+                if (this.Arguments.Count != other.Arguments.Count)
+                {
+                    return false;
+                }
+
+                int max_0 = this.Arguments.Count;
+                for (int index_0 = 0; index_0 < max_0; ++index_0)
+                {
+                    var value_1 = this.Arguments[index_0];
+                    var value_2 = other.Arguments[index_0];
+                    if (value_1 != value_2)
                     {
                         return false;
                     }
@@ -2007,6 +2193,14 @@ namespace Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.DataCont
         public string ShortMessage { get; set; }
 
         /// <summary>
+        /// A formattedMessage object that can be used to construct a fully formatted message that describes the result.
+        /// If the formatted message property is present on an result, the full message property shall not be present.
+        /// If the full message property is present on an result, the formatted message property shall not be present
+        /// </summary>
+        [DataMember(Name="formattedMessage", IsRequired = false, EmitDefaultValue = false)]
+        public FormattedMessage FormattedMessage { get; set; }
+
+        /// <summary>
         /// Specifies one or more peer locations where an issue is located. Note that this is not used
         /// to point to multiple instances of the same issue; separate instances should have separate
         /// issue objects. For example, a misspelled partial class in C# may list all the source
@@ -2060,7 +2254,7 @@ namespace Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.DataCont
         [DataMember(Name="properties", IsRequired = false, EmitDefaultValue = false)]
         public global::System.Collections.Generic.Dictionary<string, string> Properties { get; set; }
 
-        private void Init(string ruleIdArg, ResultKind kindArg, string fullMessageArg, string shortMessageArg, IEnumerable<Location> locationsArg, string toolFingerprintArg, IEnumerable<AnnotatedCodeLocation> stacksArg, IEnumerable<IEnumerable<AnnotatedCodeLocation>> executionFlowsArg, IEnumerable<AnnotatedCodeLocation> relatedLocationsArg, bool isSuppressedInSourceArg, IEnumerable<Fix> fixesArg, global::System.Collections.Generic.Dictionary<string, string> propertiesArg)
+        private void Init(string ruleIdArg, ResultKind kindArg, string fullMessageArg, string shortMessageArg, FormattedMessage formattedMessageArg, IEnumerable<Location> locationsArg, string toolFingerprintArg, IEnumerable<AnnotatedCodeLocation> stacksArg, IEnumerable<IEnumerable<AnnotatedCodeLocation>> executionFlowsArg, IEnumerable<AnnotatedCodeLocation> relatedLocationsArg, bool isSuppressedInSourceArg, IEnumerable<Fix> fixesArg, global::System.Collections.Generic.Dictionary<string, string> propertiesArg)
         {
             if (ruleIdArg != null)
             {
@@ -2074,6 +2268,10 @@ namespace Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.DataCont
             if (shortMessageArg != null)
             {
                 this.ShortMessage = shortMessageArg;
+            }
+            if (formattedMessageArg != null)
+            {
+                this.FormattedMessage = new FormattedMessage(formattedMessageArg);
             }
             if (locationsArg != null)
             {
@@ -2206,6 +2404,7 @@ namespace Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.DataCont
         /// <param name="kindArg">An initialization value for the <see cref="P:Kind" /> member.</param>
         /// <param name="fullMessageArg">An initialization value for the <see cref="P:FullMessage" /> member.</param>
         /// <param name="shortMessageArg">An initialization value for the <see cref="P:ShortMessage" /> member.</param>
+        /// <param name="formattedMessageArg">An initialization value for the <see cref="P:FormattedMessage" /> member.</param>
         /// <param name="locationsArg">An initialization value for the <see cref="P:Locations" /> member.</param>
         /// <param name="toolFingerprintArg">An initialization value for the <see cref="P:ToolFingerprint" /> member.</param>
         /// <param name="stacksArg">An initialization value for the <see cref="P:Stacks" /> member.</param>
@@ -2214,13 +2413,14 @@ namespace Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.DataCont
         /// <param name="isSuppressedInSourceArg">An initialization value for the <see cref="P:IsSuppressedInSource" /> member.</param>
         /// <param name="fixesArg">An initialization value for the <see cref="P:Fixes" /> member.</param>
         /// <param name="propertiesArg">An initialization value for the <see cref="P:Properties" /> member.</param>
-        public Result(string ruleIdArg, ResultKind kindArg, string fullMessageArg, string shortMessageArg, IEnumerable<Location> locationsArg, string toolFingerprintArg, IEnumerable<AnnotatedCodeLocation> stacksArg, IEnumerable<IEnumerable<AnnotatedCodeLocation>> executionFlowsArg, IEnumerable<AnnotatedCodeLocation> relatedLocationsArg, bool isSuppressedInSourceArg, IEnumerable<Fix> fixesArg, global::System.Collections.Generic.Dictionary<string, string> propertiesArg)
+        public Result(string ruleIdArg, ResultKind kindArg, string fullMessageArg, string shortMessageArg, FormattedMessage formattedMessageArg, IEnumerable<Location> locationsArg, string toolFingerprintArg, IEnumerable<AnnotatedCodeLocation> stacksArg, IEnumerable<IEnumerable<AnnotatedCodeLocation>> executionFlowsArg, IEnumerable<AnnotatedCodeLocation> relatedLocationsArg, bool isSuppressedInSourceArg, IEnumerable<Fix> fixesArg, global::System.Collections.Generic.Dictionary<string, string> propertiesArg)
         {
             this.Init(
                 ruleIdArg, 
                 kindArg, 
                 fullMessageArg, 
                 shortMessageArg, 
+                formattedMessageArg, 
                 locationsArg, 
                 toolFingerprintArg, 
                 stacksArg, 
@@ -2247,6 +2447,7 @@ namespace Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.DataCont
                 other.Kind, 
                 other.FullMessage, 
                 other.ShortMessage, 
+                other.FormattedMessage, 
                 other.Locations, 
                 other.ToolFingerprint, 
                 other.Stacks, 
@@ -2293,6 +2494,10 @@ namespace Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.DataCont
                 if (this.ShortMessage != null)
                 {
                     result = (result * 31) + this.ShortMessage.GetHashCode();
+                }
+                if (this.FormattedMessage != null)
+                {
+                    result = (result * 31) + this.FormattedMessage.GetHashCode();
                 }
                 foreach (var value_0 in this.Locations)
                 {
@@ -2405,6 +2610,11 @@ namespace Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.DataCont
             }
 
             if (this.ShortMessage != other.ShortMessage)
+            {
+                return false;
+            }
+
+            if (!global::System.Object.Equals(this.FormattedMessage, other.FormattedMessage))
             {
                 return false;
             }
@@ -2752,6 +2962,322 @@ namespace Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.DataCont
                     var value_1 = this.RunLogs[index_0];
                     var value_2 = other.RunLogs[index_0];
                     if (!global::System.Object.Equals(value_1, value_2))
+                    {
+                        return false;
+                    }
+                }
+            }
+
+            return true;
+        }
+    }
+
+    /// <summary>
+    /// An object that contains information about an analysis rule.
+    /// </summary>
+    [DataContract]
+    [CompilerGenerated]
+    public sealed class RuleDescriptor : ISyntax, IEquatable<RuleDescriptor>
+    {
+        /// <summary>Gets the kind of type implementing <see cref="ISyntax" />.</summary>
+        /// <value>The enumeration value for the kind of type implementing <see cref="ISyntax" />.</value>
+        public SarifGrammarKind SyntaxKind { get { return SarifGrammarKind.RuleDescriptor; } }
+
+        /// <summary>
+        /// A string that contains a stable, opaque identifier for a rule.
+        /// </summary>
+        [DataMember(Name="id", IsRequired = true)]
+        public string Id { get; set; }
+
+        /// <summary>
+        /// An optional string that contains a rule identifier that is understandable to an end user.
+        /// </summary>
+        [DataMember(Name="name", IsRequired = false, EmitDefaultValue = false)]
+        public string Name { get; set; }
+
+        /// <summary>
+        /// A string that contains a concise description of the rule. The short description property
+        /// should be a single sentence that is understandable when displayed in user interface contexts
+        /// where the available space is limited to a single line of text.
+        /// </summary>
+        [DataMember(Name="shortDescription", IsRequired = false, EmitDefaultValue = false)]
+        public string ShortDescription { get; set; }
+
+        /// <summary>
+        /// A string whose value is a string that describes the rule. The fullDescription property should,
+        /// as far as possible, provide details sufficient to enable resolution of any problem indicated
+        /// by the result.
+        /// </summary>
+        [DataMember(Name="fullDescription", IsRequired = false, EmitDefaultValue = false)]
+        public string FullDescription { get; set; }
+
+        /// <summary>
+        /// A dictionary consisting of a set of name/value pairs with arbitrary names. The options
+        /// objects shall describe the set of configurable options supported by the rule. The value
+        /// within each name/value pair shall be a string, which may be the empty string. The value
+        /// shall not be a dictionary or sub-object.
+        /// </summary>
+        [DataMember(Name="options", IsRequired = false, EmitDefaultValue = false)]
+        public global::System.Collections.Generic.Dictionary<string, string> Options { get; set; }
+
+        /// <summary>
+        /// A dictionary consisting of a set of name/value pairs with arbitrary names. The value
+        /// within each name/value pair shall be a string that can be passed to a string formatting
+        /// function (e.g., the C language printf function) to construct a formatted message in
+        /// combination with an arbitrary number of additional function arguments.
+        /// </summary>
+        [DataMember(Name="formatSpecifiers", IsRequired = false, EmitDefaultValue = false)]
+        public global::System.Collections.Generic.Dictionary<string, string> FormatSpecifiers { get; set; }
+
+        /// <summary>
+        /// A dictionary consisting of a set of name/value pairs with arbitrary names. This
+        /// allows tools to include information about the rule that is not explicitly specified
+        /// in the SARIF format. The value within each name/value pair shall be a string,
+        /// which may be the empty string. The value shall not be a dictionary or sub-object.
+        /// </summary>
+        [DataMember(Name="properties", IsRequired = false, EmitDefaultValue = false)]
+        public global::System.Collections.Generic.Dictionary<string, string> Properties { get; set; }
+
+        private void Init(string idArg, string nameArg, string shortDescriptionArg, string fullDescriptionArg, global::System.Collections.Generic.Dictionary<string, string> optionsArg, global::System.Collections.Generic.Dictionary<string, string> formatSpecifiersArg, global::System.Collections.Generic.Dictionary<string, string> propertiesArg)
+        {
+            if (idArg != null)
+            {
+                this.Id = idArg;
+            }
+            if (nameArg != null)
+            {
+                this.Name = nameArg;
+            }
+            if (shortDescriptionArg != null)
+            {
+                this.ShortDescription = shortDescriptionArg;
+            }
+            if (fullDescriptionArg != null)
+            {
+                this.FullDescription = fullDescriptionArg;
+            }
+            if (optionsArg != null)
+            {
+                this.Options = new global::System.Collections.Generic.Dictionary<string, string>(optionsArg);
+            }
+            if (formatSpecifiersArg != null)
+            {
+                this.FormatSpecifiers = new global::System.Collections.Generic.Dictionary<string, string>(formatSpecifiersArg);
+            }
+            if (propertiesArg != null)
+            {
+                this.Properties = new global::System.Collections.Generic.Dictionary<string, string>(propertiesArg);
+            }
+        }
+
+        /// <summary>Initializes a new instance of the <see cref="RuleDescriptor" /> class.</summary>
+        public RuleDescriptor()
+        {
+            // Blank on purpose
+        }
+
+        /// <summary>Initializes a new instance of the <see cref="RuleDescriptor" /> class with the supplied data.</summary>
+        /// <param name="idArg">An initialization value for the <see cref="P:Id" /> member.</param>
+        /// <param name="nameArg">An initialization value for the <see cref="P:Name" /> member.</param>
+        /// <param name="shortDescriptionArg">An initialization value for the <see cref="P:ShortDescription" /> member.</param>
+        /// <param name="fullDescriptionArg">An initialization value for the <see cref="P:FullDescription" /> member.</param>
+        /// <param name="optionsArg">An initialization value for the <see cref="P:Options" /> member.</param>
+        /// <param name="formatSpecifiersArg">An initialization value for the <see cref="P:FormatSpecifiers" /> member.</param>
+        /// <param name="propertiesArg">An initialization value for the <see cref="P:Properties" /> member.</param>
+        public RuleDescriptor(string idArg, string nameArg, string shortDescriptionArg, string fullDescriptionArg, global::System.Collections.Generic.Dictionary<string, string> optionsArg, global::System.Collections.Generic.Dictionary<string, string> formatSpecifiersArg, global::System.Collections.Generic.Dictionary<string, string> propertiesArg)
+        {
+            this.Init(
+                idArg, 
+                nameArg, 
+                shortDescriptionArg, 
+                fullDescriptionArg, 
+                optionsArg, 
+                formatSpecifiersArg, 
+                propertiesArg
+            );
+        }
+
+        /// <summary>Initializes a new instance of the <see cref="RuleDescriptor" /> class as a copy of another instance.</summary>
+        /// <exception cref="ArgumentNullException">Thrown if <paramref name="other" /> is null.</exception>
+        /// <param name="other">The instance to copy.</param>
+        public RuleDescriptor(RuleDescriptor other)
+        {
+            if (other == null)
+            {
+                throw new ArgumentNullException("other");
+            }
+
+            this.Init(
+                other.Id, 
+                other.Name, 
+                other.ShortDescription, 
+                other.FullDescription, 
+                other.Options, 
+                other.FormatSpecifiers, 
+                other.Properties
+            );
+        }
+
+        ISyntax ISyntax.DeepClone()
+        {
+            return this.DeepCloneCore();
+        }
+
+        /// <summary>Creates a deep copy of this instance.</summary>
+        public RuleDescriptor DeepClone()
+        {
+            return (RuleDescriptor)this.DeepCloneCore();
+        }
+
+        private ISyntax DeepCloneCore()
+        {
+            return new RuleDescriptor(this);
+        }
+
+        /// <summary>Generates a hash code for this instance.</summary>
+        /// <returns>A hash code for this instance; suitable for putting this instance into a hashtable.</returns>
+        public override int GetHashCode()
+        {
+            int result = 17;
+            unchecked
+            {
+                if (this.Id != null)
+                {
+                    result = (result * 31) + this.Id.GetHashCode();
+                }
+                if (this.Name != null)
+                {
+                    result = (result * 31) + this.Name.GetHashCode();
+                }
+                if (this.ShortDescription != null)
+                {
+                    result = (result * 31) + this.ShortDescription.GetHashCode();
+                }
+                if (this.FullDescription != null)
+                {
+                    result = (result * 31) + this.FullDescription.GetHashCode();
+                }
+                if (this.Options != null)
+                {
+                    // Use xor for dictionaries to be order-independent
+                    int xor_0 = 0;
+                    foreach (var value_0 in this.Options)
+                    {
+                        xor_0 ^= (value_0.Key ?? String.Empty).GetHashCode();
+                        xor_0 ^= (value_0.Value ?? String.Empty).GetHashCode();
+                    }
+
+                    result = (result * 31) + xor_0;
+                }
+                if (this.FormatSpecifiers != null)
+                {
+                    // Use xor for dictionaries to be order-independent
+                    int xor_1 = 0;
+                    foreach (var value_1 in this.FormatSpecifiers)
+                    {
+                        xor_1 ^= (value_1.Key ?? String.Empty).GetHashCode();
+                        xor_1 ^= (value_1.Value ?? String.Empty).GetHashCode();
+                    }
+
+                    result = (result * 31) + xor_1;
+                }
+                if (this.Properties != null)
+                {
+                    // Use xor for dictionaries to be order-independent
+                    int xor_2 = 0;
+                    foreach (var value_2 in this.Properties)
+                    {
+                        xor_2 ^= (value_2.Key ?? String.Empty).GetHashCode();
+                        xor_2 ^= (value_2.Value ?? String.Empty).GetHashCode();
+                    }
+
+                    result = (result * 31) + xor_2;
+                }
+            }
+
+            return result;
+        }
+
+        /// <summary>Compares this instance with another instance.</summary>
+        /// <param name="o">The instance to compare with this instance.</param>
+        /// <returns>true if this instance and <paramref name="o" /> contain the same data; otherwise, false.</returns>
+        public override bool Equals(object o)
+        {
+            return this.Equals(o as RuleDescriptor);
+        }
+
+        /// <summary>Compares this instance with another instance.</summary>
+        /// <param name="other">The instance to compare with this instance.</param>
+        /// <returns>true if this instance and <paramref name="other" /> contain the same data; otherwise, false.</returns>
+        public bool Equals(RuleDescriptor other)
+        {
+            if (other == null)
+            {
+                return false;
+            }
+
+            if (this.Id != other.Id)
+            {
+                return false;
+            }
+
+            if (this.Name != other.Name)
+            {
+                return false;
+            }
+
+            if (this.ShortDescription != other.ShortDescription)
+            {
+                return false;
+            }
+
+            if (this.FullDescription != other.FullDescription)
+            {
+                return false;
+            }
+
+            if (!global::System.Object.ReferenceEquals(this.Options, other.Options))
+            {
+                if (this.Options == null || other.Options == null || this.Options.Count != other.Options.Count)
+                {
+                    return false;
+                }
+                foreach (var value_3 in this.Options)
+                {
+                    string value_4;
+                    if (!other.Options.TryGetValue(value_3.Key, out value_4) || !global::System.Object.Equals(value_3.Value, value_4))
+                    {
+                        return false;
+                    }
+                }
+            }
+
+            if (!global::System.Object.ReferenceEquals(this.FormatSpecifiers, other.FormatSpecifiers))
+            {
+                if (this.FormatSpecifiers == null || other.FormatSpecifiers == null || this.FormatSpecifiers.Count != other.FormatSpecifiers.Count)
+                {
+                    return false;
+                }
+                foreach (var value_5 in this.FormatSpecifiers)
+                {
+                    string value_6;
+                    if (!other.FormatSpecifiers.TryGetValue(value_5.Key, out value_6) || !global::System.Object.Equals(value_5.Value, value_6))
+                    {
+                        return false;
+                    }
+                }
+            }
+
+            if (!global::System.Object.ReferenceEquals(this.Properties, other.Properties))
+            {
+                if (this.Properties == null || other.Properties == null || this.Properties.Count != other.Properties.Count)
+                {
+                    return false;
+                }
+                foreach (var value_7 in this.Properties)
+                {
+                    string value_8;
+                    if (!other.Properties.TryGetValue(value_7.Key, out value_8) || !global::System.Object.Equals(value_7.Value, value_8))
                     {
                         return false;
                     }
@@ -3193,9 +3719,16 @@ namespace Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.DataCont
         /// of the primary tool exe.
         /// </summary>
         [DataMember(Name="fileVersion", IsRequired = false, EmitDefaultValue = false)]
-        public global::System.Version FileVersion { get; set; }
+        public string FileVersion { get; set; }
 
-        private void Init(string nameArg, string fullNameArg, string versionArg, global::System.Version fileVersionArg)
+        /// <summary>
+        /// An array of rule descriptor objects that describe all rules associated with an
+        /// analysis tool or a specific run of an analysis tool.
+        /// </summary>
+        [DataMember(Name="ruleInfo", IsRequired = false, EmitDefaultValue = false)]
+        public IList<RuleDescriptor> RuleInfo { get; set; }
+
+        private void Init(string nameArg, string fullNameArg, string versionArg, string fileVersionArg, IEnumerable<RuleDescriptor> ruleInfoArg)
         {
             if (nameArg != null)
             {
@@ -3211,7 +3744,27 @@ namespace Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.DataCont
             }
             if (fileVersionArg != null)
             {
-                this.FileVersion = (global::System.Version)fileVersionArg.Clone();
+                this.FileVersion = fileVersionArg;
+            }
+            if (ruleInfoArg != null)
+            {
+                var destination_0 = new List<RuleDescriptor>();
+                if (ruleInfoArg != null)
+                {
+                    foreach (var value_0 in ruleInfoArg)
+                    {
+                        if (value_0 == null)
+                        {
+                            destination_0.Add(null);
+                        }
+                        else
+                        {
+                            destination_0.Add(new RuleDescriptor(value_0));
+                        }
+                    }
+                }
+
+                this.RuleInfo = destination_0;
             }
         }
 
@@ -3226,13 +3779,15 @@ namespace Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.DataCont
         /// <param name="fullNameArg">An initialization value for the <see cref="P:FullName" /> member.</param>
         /// <param name="versionArg">An initialization value for the <see cref="P:Version" /> member.</param>
         /// <param name="fileVersionArg">An initialization value for the <see cref="P:FileVersion" /> member.</param>
-        public ToolInfo(string nameArg, string fullNameArg, string versionArg, global::System.Version fileVersionArg)
+        /// <param name="ruleInfoArg">An initialization value for the <see cref="P:RuleInfo" /> member.</param>
+        public ToolInfo(string nameArg, string fullNameArg, string versionArg, string fileVersionArg, IEnumerable<RuleDescriptor> ruleInfoArg)
         {
             this.Init(
                 nameArg, 
                 fullNameArg, 
                 versionArg, 
-                fileVersionArg
+                fileVersionArg, 
+                ruleInfoArg
             );
         }
 
@@ -3250,7 +3805,8 @@ namespace Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.DataCont
                 other.Name, 
                 other.FullName, 
                 other.Version, 
-                other.FileVersion
+                other.FileVersion, 
+                other.RuleInfo
             );
         }
 
@@ -3292,6 +3848,14 @@ namespace Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.DataCont
                 if (this.FileVersion != null)
                 {
                     result = (result * 31) + this.FileVersion.GetHashCode();
+                }
+                foreach (var value_0 in this.RuleInfo)
+                {
+                    result = result * 31;
+                    if (value_0 != null)
+                    {
+                        result = (result * 31) + value_0.GetHashCode();
+                    }
                 }
             }
 
@@ -3336,6 +3900,30 @@ namespace Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.DataCont
                 return false;
             }
 
+            if (!global::System.Object.ReferenceEquals(this.RuleInfo, other.RuleInfo))
+            {
+                if (this.RuleInfo == null || other.RuleInfo == null)
+                {
+                    return false;
+                }
+
+                if (this.RuleInfo.Count != other.RuleInfo.Count)
+                {
+                    return false;
+                }
+
+                int max_0 = this.RuleInfo.Count;
+                for (int index_0 = 0; index_0 < max_0; ++index_0)
+                {
+                    var value_1 = this.RuleInfo[index_0];
+                    var value_2 = other.RuleInfo[index_0];
+                    if (!global::System.Object.Equals(value_1, value_2))
+                    {
+                        return false;
+                    }
+                }
+            }
+
             return true;
         }
     }
@@ -3369,6 +3957,8 @@ namespace Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.DataCont
                 return this.VisitFileReference((FileReference)node);
             case SarifGrammarKind.Fix:
                 return this.VisitFix((Fix)node);
+            case SarifGrammarKind.FormattedMessage:
+                return this.VisitFormattedMessage((FormattedMessage)node);
             case SarifGrammarKind.Hash:
                 return this.VisitHash((Hash)node);
             case SarifGrammarKind.Location:
@@ -3385,6 +3975,8 @@ namespace Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.DataCont
                 return this.VisitResult((Result)node);
             case SarifGrammarKind.ResultLog:
                 return this.VisitResultLog((ResultLog)node);
+            case SarifGrammarKind.RuleDescriptor:
+                return this.VisitRuleDescriptor((RuleDescriptor)node);
             case SarifGrammarKind.RunInfo:
                 return this.VisitRunInfo((RunInfo)node);
             case SarifGrammarKind.RunLog:
@@ -3475,6 +4067,17 @@ namespace Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.DataCont
                     }
                 }
 
+            }
+
+            return (T)(object)node;
+        }
+
+        /// <summary>Visits a FormattedMessage node in a SarifGrammar tree.</summary>
+        /// <param name="node">A FormattedMessage node to visit.</param>
+        public virtual T VisitFormattedMessage(FormattedMessage node)
+        {
+            if (node != null)
+            {
             }
 
             return (T)(object)node;
@@ -3577,6 +4180,7 @@ namespace Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.DataCont
         {
             if (node != null)
             {
+                this.VisitNullChecked(node.FormattedMessage);
                 if (node.Locations != null)
                 {
                     foreach (var value_0 in node.Locations)
@@ -3647,6 +4251,17 @@ namespace Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.DataCont
             return (T)(object)node;
         }
 
+        /// <summary>Visits a RuleDescriptor node in a SarifGrammar tree.</summary>
+        /// <param name="node">A RuleDescriptor node to visit.</param>
+        public virtual T VisitRuleDescriptor(RuleDescriptor node)
+        {
+            if (node != null)
+            {
+            }
+
+            return (T)(object)node;
+        }
+
         /// <summary>Visits a RunInfo node in a SarifGrammar tree.</summary>
         /// <param name="node">A RunInfo node to visit.</param>
         public virtual T VisitRunInfo(RunInfo node)
@@ -3693,6 +4308,14 @@ namespace Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.DataCont
         {
             if (node != null)
             {
+                if (node.RuleInfo != null)
+                {
+                    foreach (var value_0 in node.RuleInfo)
+                    {
+                        this.VisitNullChecked(value_0);
+                    }
+                }
+
             }
 
             return (T)(object)node;
@@ -3727,6 +4350,8 @@ namespace Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.DataCont
                 return this.VisitFileReference((FileReference)node);
             case SarifGrammarKind.Fix:
                 return this.VisitFix((Fix)node);
+            case SarifGrammarKind.FormattedMessage:
+                return this.VisitFormattedMessage((FormattedMessage)node);
             case SarifGrammarKind.Hash:
                 return this.VisitHash((Hash)node);
             case SarifGrammarKind.Location:
@@ -3743,6 +4368,8 @@ namespace Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.DataCont
                 return this.VisitResult((Result)node);
             case SarifGrammarKind.ResultLog:
                 return this.VisitResultLog((ResultLog)node);
+            case SarifGrammarKind.RuleDescriptor:
+                return this.VisitRuleDescriptor((RuleDescriptor)node);
             case SarifGrammarKind.RunInfo:
                 return this.VisitRunInfo((RunInfo)node);
             case SarifGrammarKind.RunLog:
@@ -3836,6 +4463,17 @@ namespace Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.DataCont
                     }
                 }
 
+            }
+
+            return node;
+        }
+
+        /// <summary>Rewrites a FormattedMessage node in a SarifGrammar tree.</summary>
+        /// <param name="node">A FormattedMessage node to visit.</param>
+        public virtual FormattedMessage VisitFormattedMessage(FormattedMessage node)
+        {
+            if (node != null)
+            {
             }
 
             return node;
@@ -3938,6 +4576,7 @@ namespace Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.DataCont
         {
             if (node != null)
             {
+                node.FormattedMessage = this.VisitNullChecked(node.FormattedMessage);
                 if (node.Locations != null)
                 {
                     for (int index_0 = 0; index_0 < node.Locations.Count; ++index_0)
@@ -4009,6 +4648,17 @@ namespace Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.DataCont
             return node;
         }
 
+        /// <summary>Rewrites a RuleDescriptor node in a SarifGrammar tree.</summary>
+        /// <param name="node">A RuleDescriptor node to visit.</param>
+        public virtual RuleDescriptor VisitRuleDescriptor(RuleDescriptor node)
+        {
+            if (node != null)
+            {
+            }
+
+            return node;
+        }
+
         /// <summary>Rewrites a RunInfo node in a SarifGrammar tree.</summary>
         /// <param name="node">A RunInfo node to visit.</param>
         public virtual RunInfo VisitRunInfo(RunInfo node)
@@ -4055,6 +4705,14 @@ namespace Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.DataCont
         {
             if (node != null)
             {
+                if (node.RuleInfo != null)
+                {
+                    for (int index_0 = 0; index_0 < node.RuleInfo.Count; ++index_0)
+                    {
+                        node.RuleInfo[index_0] = this.VisitNullChecked(node.RuleInfo[index_0]);
+                    }
+                }
+
             }
 
             return node;
