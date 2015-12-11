@@ -55,7 +55,7 @@ runLog:
 		@minItems{0}
 		@uniqueItems{true}
     */
-    results;
+    results?;
 
 /**
     @className {ToolInfo}
