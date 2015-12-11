@@ -52,7 +52,7 @@ runLog:
     /**
         @name {Results}
         @summary {The set of results contained in an SARIF log.}
-		@minItems{1}
+		@minItems{0}
 		@uniqueItems{true}
     */
     results?;
