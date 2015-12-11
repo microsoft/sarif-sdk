@@ -20,18 +20,7 @@ resultLog :
         @summary {The set of runLogs contained in this SARIF log.}
 		@minItems{1}
     */
-    runLogs	
-
-    /**
-        @name {RuleInfo}
-        @summary 
-		{
-		An array of rule descriptor objects that describe all rules associated with an 
-		analysis tool or a specific run of an analysis tool.
-		}
-		@minItems{1}
-    */
-    ruleDescriptors?;
+    runLogs;
 
 /** @className {SarifVersion} 
 	@serializedValues {ZeroDotFour} 
@@ -121,7 +110,18 @@ toolInfo :
         }
 		@pattern {[0-9]+(\\.[0-9]+){3}}
     */
-    fileVersion?;
+    fileVersion?
+	
+    /**
+        @name {RuleInfo}
+        @summary 
+		{
+		An array of rule descriptor objects that describe all rules associated with an 
+		analysis tool or a specific run of an analysis tool.
+		}
+		@minItems{1}
+    */
+    ruleDescriptors?;
 
 /**
     @className {RunInfo}
