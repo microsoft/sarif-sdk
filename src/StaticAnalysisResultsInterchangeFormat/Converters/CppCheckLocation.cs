@@ -6,10 +6,10 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Xml;
 using Microsoft.CodeAnalysis.Driver;
-using Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.Writers;
-using Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.DataContracts;
+using Microsoft.CodeAnalysis.Sarif.Writers;
+using Microsoft.CodeAnalysis.Sarif.DataContracts;
 
-namespace Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.Converters
+namespace Microsoft.CodeAnalysis.Sarif.Converters
 {
     /// <summary>A "location" structure from a CppCheck file.</summary>
     internal struct CppCheckLocation : IEquatable<CppCheckLocation>

@@ -3,7 +3,7 @@
 
 using System.Xml;
 
-namespace Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.Converters
+namespace Microsoft.CodeAnalysis.Sarif.Converters
 {
     /// <summary>
     /// Strings used for parsing Android Studio logs.

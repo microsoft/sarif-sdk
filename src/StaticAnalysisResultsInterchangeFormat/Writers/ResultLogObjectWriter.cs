@@ -3,12 +3,12 @@
 
 using System;
 using System.Collections.Immutable;
-using Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.DataContracts;
+using Microsoft.CodeAnalysis.Sarif.DataContracts;
 
-namespace Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.Writers
+namespace Microsoft.CodeAnalysis.Sarif.Writers
 {
     /// <summary>An implementation of <see cref="IResultLogWriter"/> which merely stores its results in a list.</summary>
-    /// <seealso cref="T:Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.IResultLogWriter"/>
+    /// <seealso cref="T:Microsoft.CodeAnalysis.Sarif.IResultLogWriter"/>
     public sealed class ResultLogObjectWriter : IResultLogWriter
     {
         private ToolInfo _toolInfo;
@@ -38,7 +38,7 @@ namespace Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.Writers
         /// <exception cref="InvalidOperationException">Thrown if the tool info block has already been
         /// written.</exception>
         /// <param name="toolInfo">The tool information to write.</param>
-        /// <seealso cref="M:Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.IsarifWriter.WriteToolInfo(ToolInfo)"/>
+        /// <seealso cref="M:Microsoft.CodeAnalysis.Sarif.IsarifWriter.WriteToolInfo(ToolInfo)"/>
         public void WriteToolAndRunInfo(ToolInfo toolInfo, RunInfo runInfo)
         {
             if (toolInfo == null)
@@ -62,7 +62,7 @@ namespace Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.Writers
         /// may invoke an internal copy of the result or serialize it in place to disk, etc.)</remarks>
         /// <exception cref="InvalidOperationException">Thrown if the tool info is not yet written.</exception>
         /// <param name="result">The result to write.</param>
-        /// <seealso cref="M:Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.IsarifWriter.WriteIssue(Result)"/>
+        /// <seealso cref="M:Microsoft.CodeAnalysis.Sarif.IsarifWriter.WriteIssue(Result)"/>
         public void WriteResult(Result result)
         {
             if (result == null)

@@ -4,7 +4,7 @@
 using System;
 using System.Collections.Immutable;
 
-namespace Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.Writers
+namespace Microsoft.CodeAnalysis.Sarif.Writers
 {
     /// <summary>A class containing utility functions for working with MIME types.</summary>
     public static class MimeType

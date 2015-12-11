@@ -5,9 +5,9 @@ using System;
 using System.IO;
 using System.Text;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.Writers;
+using Microsoft.CodeAnalysis.Sarif.Writers;
 
-namespace Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat
+namespace Microsoft.CodeAnalysis.Sarif
 {
     [TestClass]
     public class ToolFormatConverterTests

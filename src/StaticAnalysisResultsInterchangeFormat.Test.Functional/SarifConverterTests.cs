@@ -10,11 +10,11 @@ using System.Globalization;
 using System.IO;
 using System.Text;
 using Newtonsoft.Json;
-using Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.Readers;
-using Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.DataContracts;
+using Microsoft.CodeAnalysis.Sarif.Readers;
+using Microsoft.CodeAnalysis.Sarif.DataContracts;
 using Microsoft.CodeAnalysis.Driver;
 
-namespace Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.Converters
+namespace Microsoft.CodeAnalysis.Sarif.Converters
 {
     [TestClass]
     [DeploymentItem(SarifConverterTests.TestDirectory, SarifConverterTests.TestDirectory)]

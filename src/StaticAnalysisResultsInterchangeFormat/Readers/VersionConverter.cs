@@ -4,7 +4,7 @@ using System;
 
 using Newtonsoft.Json;
 
-namespace Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.Readers
+namespace Microsoft.CodeAnalysis.Sarif.Readers
 {
     public class VersionConverter : JsonConverter
     {

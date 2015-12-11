@@ -3,7 +3,7 @@
 
 using System.Xml;
 
-namespace Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.Converters
+namespace Microsoft.CodeAnalysis.Sarif.Converters
 {
     /// <summary>String constants for CppCheck from an <see cref="XmlNameTable"/>.</summary>
     internal class CppCheckStrings

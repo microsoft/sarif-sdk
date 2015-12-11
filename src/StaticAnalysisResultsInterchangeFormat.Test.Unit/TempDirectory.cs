@@ -10,7 +10,7 @@ using System.Text;
 // *                                                       *
 // ********************************************************/
 
-namespace Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat
+namespace Microsoft.CodeAnalysis.Sarif
 {
     /// <summary>
     /// Temporary directory class; implements <see cref="IDisposable"/> to ensure an effort is made to

@@ -9,10 +9,10 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Xml;
-using Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.Writers;
-using Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.DataContracts;
+using Microsoft.CodeAnalysis.Sarif.Writers;
+using Microsoft.CodeAnalysis.Sarif.DataContracts;
 
-namespace Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.Converters
+namespace Microsoft.CodeAnalysis.Sarif.Converters
 {
     /// <summary>
     /// Converts an xml log file of the Android Studio format into the SARIF format

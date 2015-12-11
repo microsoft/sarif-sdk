@@ -6,9 +6,9 @@ using System.Text;
 using System.Xml;
 using System.Xml.Linq;
 using Newtonsoft.Json;
-using Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.Writers;
+using Microsoft.CodeAnalysis.Sarif.Writers;
 
-namespace Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat
+namespace Microsoft.CodeAnalysis.Sarif
 {
     internal static class Utilities
     {

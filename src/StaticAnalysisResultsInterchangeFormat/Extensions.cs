@@ -6,9 +6,9 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Xml;
 using Microsoft.CodeAnalysis.Driver;
-using Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.DataContracts;
+using Microsoft.CodeAnalysis.Sarif.DataContracts;
 
-namespace Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat
+namespace Microsoft.CodeAnalysis.Sarif
 {
     public static class Extensions
     {

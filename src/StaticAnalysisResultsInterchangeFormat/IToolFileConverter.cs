@@ -3,7 +3,7 @@
 
 using System.IO;
 
-namespace Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat
+namespace Microsoft.CodeAnalysis.Sarif
 {
     internal interface IToolFileConverter
     {

@@ -23,7 +23,7 @@ using System.Runtime.CompilerServices;
 using System.Runtime.Serialization;
 using System.Text;
 
-namespace Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.DataContracts
+namespace Microsoft.CodeAnalysis.Sarif.DataContracts
 {
     /// <summary>An enumeration containing all the types which implement <see cref="ISyntax" />.</summary>
     public enum SarifGrammarKind

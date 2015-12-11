@@ -3,10 +3,10 @@
 
 using System.Reflection;
 
-[assembly: AssemblyVersion(Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.VersionConstants.FileVersion)]
-[assembly: AssemblyFileVersion(Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat.VersionConstants.FileVersion)]
+[assembly: AssemblyVersion(Microsoft.CodeAnalysis.Sarif.VersionConstants.FileVersion)]
+[assembly: AssemblyFileVersion(Microsoft.CodeAnalysis.Sarif.VersionConstants.FileVersion)]
 
-namespace Microsoft.CodeAnalysis.StaticAnalysisResultsInterchangeFormat
+namespace Microsoft.CodeAnalysis.Sarif
 {
     public static class VersionConstants
     {
