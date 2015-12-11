@@ -20,8 +20,7 @@ resultLog :
         @summary {The set of runLogs contained in this SARIF log.}
 		@minItems{1}
     */
-    runLogs
-	
+    runLogs	
 
     /**
         @name {RuleInfo}
@@ -64,7 +63,7 @@ runLog:
     /**
         @name {Results}
         @summary {The set of results contained in an SARIF log.}
-		@minItems{1}
+		@minItems{0}
 		@uniqueItems{true}
     */
     results;
@@ -1013,7 +1012,7 @@ algorithmKind : 'BLAKE-256' | 'BLAKE-512' | 'ECOH' | 'FSB' | 'GOST' | 'Groestl' 
 
 version : STRING;
 fullVersion : STRING;
-fileVersion : VERSION;
+fileVersion : STRING;
 fullName : STRING;
 uri : URI;
 mimeType : STRING;
