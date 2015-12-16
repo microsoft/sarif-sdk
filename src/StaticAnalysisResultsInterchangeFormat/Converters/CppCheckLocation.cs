@@ -6,8 +6,8 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Xml;
 using Microsoft.CodeAnalysis.Driver;
+using Microsoft.CodeAnalysis.Sarif.Sdk;
 using Microsoft.CodeAnalysis.Sarif.Writers;
-using Microsoft.CodeAnalysis.Sarif.DataContracts;
 
 namespace Microsoft.CodeAnalysis.Sarif.Converters
 {

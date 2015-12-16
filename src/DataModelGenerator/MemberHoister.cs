@@ -66,6 +66,7 @@ namespace Microsoft.CodeAnalysis.DataModelGenerator
                         sourceType.RemarksText,
                         sourceType.G4DeclaredName,
                         sourceType.CSharpName,
+                        sourceType.InterfaceName,
                         newMembers.ToImmutable(),
                         ImmutableArray<string>.Empty,
                         ImmutableArray<string>.Empty,

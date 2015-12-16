@@ -10,8 +10,8 @@ using System.Linq;
 using System.Reflection;
 using System.Xml;
 using System.Xml.Schema;
+using Microsoft.CodeAnalysis.Sarif.Sdk;
 using Microsoft.CodeAnalysis.Sarif.Writers;
-using Microsoft.CodeAnalysis.Sarif.DataContracts;
 
 namespace Microsoft.CodeAnalysis.Sarif.Converters
 {

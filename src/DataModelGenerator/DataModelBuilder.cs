@@ -29,6 +29,7 @@ namespace Microsoft.CodeAnalysis.DataModelGenerator
                 null,
                 g4Name,
                 cSharpName,
+                null,
                 ImmutableArray<DataModelMember>.Empty,
                 ImmutableArray<string>.Empty,
                 ImmutableArray<string>.Empty,

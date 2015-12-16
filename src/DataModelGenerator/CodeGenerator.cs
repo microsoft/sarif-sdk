@@ -627,6 +627,12 @@ namespace Microsoft.CodeAnalysis.DataModelGenerator
             decl.Append(type.CSharpName);
             decl.Append(" : ");
 
+            if (!string.IsNullOrEmpty(type.InterfaceName))
+            {
+                decl.Append(type.InterfaceName);
+                decl.Append(", ");
+            }
+
             if (type.HasBase)
             {
                 decl.Append(type.Base);

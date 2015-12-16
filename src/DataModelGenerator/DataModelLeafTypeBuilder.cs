@@ -30,6 +30,7 @@ namespace Microsoft.CodeAnalysis.DataModelGenerator
                 this.RemarksText,
                 this.G4DeclaredName,
                 this.CSharpName,
+                this.InterfaceName,
                 this.Members.ToImmutable(),
                 this.SerializedValues.ToImmutableArray<string>(),
                 this.G4DeclaredValues.ToImmutableArray<string>(),
