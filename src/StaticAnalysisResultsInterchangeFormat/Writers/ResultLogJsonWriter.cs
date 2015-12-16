@@ -3,9 +3,9 @@
 
 using System;
 using System.Diagnostics;
+using Microsoft.CodeAnalysis.Sarif.Sdk;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-using Microsoft.CodeAnalysis.Sarif.DataContracts;
 
 namespace Microsoft.CodeAnalysis.Sarif.Writers
 {

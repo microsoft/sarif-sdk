@@ -20,6 +20,8 @@ namespace Microsoft.CodeAnalysis.DataModelGenerator
         public string CSharpName;
         /// <summary>The C# name of the type which is this type's base class.</summary>
         public string Base;
+        /// <summary>The interface name associated with this type.</summary>
+        public string InterfaceName;
         /// <summary>This type is the root object of a JSON representation</summary>summary>
         public bool RootObject;
         /// <summary>The serialized value names for an enum/set
@@ -42,6 +44,8 @@ namespace Microsoft.CodeAnalysis.DataModelGenerator
             this.CSharpName
                 = decl.Annotations.GetAnnotationValue("className")
                   ?? LinguisticTransformer.ToCSharpName(this.G4DeclaredName);
+
+            this.InterfaceName = decl.Annotations.GetAnnotationValue("interface");
 
             this.Pattern = decl.Annotations.GetAnnotationValue("pattern");
 

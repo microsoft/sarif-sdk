@@ -21,6 +21,8 @@ namespace Microsoft.CodeAnalysis.DataModelGenerator
         public readonly string G4DeclaredName;
         /// <summary>Name of the type in C#.</summary>
         public readonly string CSharpName;
+        /// <summary>Name of the interface in C#.</summary>
+        public readonly string InterfaceName;
         /// <summary>The members of this type, if any.</summary>
         public readonly ImmutableArray<DataModelMember> Members;
         /// <summary>Records describing the "ToString" override to generate for this type.</summary>
@@ -53,6 +55,7 @@ namespace Microsoft.CodeAnalysis.DataModelGenerator
             string remarksText,
             string g4Name,
             string cSharpName,
+            string interfaceName,
             ImmutableArray<DataModelMember> members,
             ImmutableArray<string> serializedValues,
             ImmutableArray<string> G4DeclaredValues,
@@ -66,6 +69,7 @@ namespace Microsoft.CodeAnalysis.DataModelGenerator
             this.RemarksText = remarksText;
             this.G4DeclaredName = g4Name;
             this.CSharpName = cSharpName;
+            this.InterfaceName = interfaceName;
             this.Members = members;
             this.SerializedValues = serializedValues;
             this.G4DeclaredValues = G4DeclaredValues;

@@ -11,7 +11,7 @@ using System.IO;
 using System.Text;
 using Newtonsoft.Json;
 using Microsoft.CodeAnalysis.Sarif.Readers;
-using Microsoft.CodeAnalysis.Sarif.DataContracts;
+using Microsoft.CodeAnalysis.Sarif.Sdk;
 using Microsoft.CodeAnalysis.Driver;
 
 namespace Microsoft.CodeAnalysis.Sarif.Converters

@@ -1,4 +1,4 @@
-/** @namespace {Microsoft.CodeAnalysis.Sarif.DataContracts} */ grammar SarifGrammar;
+/** @namespace {Microsoft.CodeAnalysis.Sarif.Sdk} */ grammar SarifGrammar;
 
 /**
     @rootObject
@@ -876,7 +876,8 @@ ruleDescriptors : ruleDescriptor*;
 
 
 /** 
-	@className {RuleDescriptor} 
+	@className {RuleDescriptor}
+	@interface {IRuleDescriptor}
     @summary {
     An object that contains information about an analysis rule.
     }

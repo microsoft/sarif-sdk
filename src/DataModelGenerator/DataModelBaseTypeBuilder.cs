@@ -24,6 +24,7 @@ namespace Microsoft.CodeAnalysis.DataModelGenerator
                 this.RemarksText,
                 this.G4DeclaredName,
                 this.CSharpName,
+                this.InterfaceName,
                 ImmutableArray<DataModelMember>.Empty,
                 ImmutableArray<string>.Empty,
                 ImmutableArray<string>.Empty,
