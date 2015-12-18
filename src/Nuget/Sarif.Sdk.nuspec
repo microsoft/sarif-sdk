@@ -15,10 +15,10 @@
     <tags>sarifsdk</tags>
   </metadata>
   <files>
-    <file src='StaticAnalysisResultsInterchangeFormat.dll' target='lib\net40\StaticAnalysisResultsInterchangeFormat.dll'/>
-    <file src='StaticAnalysisResultsInterchangeFormat.pdb' target='lib\net45\StaticAnalysisResultsInterchangeFormat.pdb'/>
-    <file src='StaticAnalysisResultsInterchangeFormat.dll' target='lib\net40\StaticAnalysisResultsInterchangeFormat.dll'/>
-    <file src='StaticAnalysisResultsInterchangeFormat.pdb' target='lib\net45\Driver.Utilities.pdb'/>
-    <file src="..\..\..\..\src\StaticAnalysisResultsInterchangeFormat\**\*.cs" target="src" />    
+    <file src='Sarif.dll' target='lib\net40\Sarif.dll'/>
+    <file src='Sarif.pdb' target='lib\net45\Sarif.pdb'/>
+    <file src='Sarif.dll' target='lib\net40\Sarif.dll'/>
+    <file src='Sarif.pdb' target='lib\net45\Driver.Utilities.pdb'/>
+    <file src="..\..\..\..\src\Sarif\**\*.cs" target="src" />    
   </files>
 </package>
