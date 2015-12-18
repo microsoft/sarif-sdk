@@ -1,15 +1,15 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.23107.0
+VisualStudioVersion = 14.0.24720.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StaticAnalysisResultsInterchangeFormat", "StaticAnalysisResultsInterchangeFormat\StaticAnalysisResultsInterchangeFormat.csproj", "{CC9B247E-7103-4BF7-BDAB-6E625B3680A8}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sarif", "Sarif\Sarif.csproj", "{CC9B247E-7103-4BF7-BDAB-6E625B3680A8}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataModelGenerator", "DataModelGenerator\DataModelGenerator.csproj", "{B4F63D09-5CEA-4AFA-A72B-A1455B077AE2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StaticAnalysisResultsInterchangeFormat.Test.Unit", "StaticAnalysisResultsInterchangeFormat.Test.Unit\StaticAnalysisResultsInterchangeFormat.Test.Unit.csproj", "{31A79A68-F8D2-4BA4-8575-EFB4E3DEF1DA}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sarif.UnitTests", "Sarif.UnitTests\Sarif.UnitTests.csproj", "{31A79A68-F8D2-4BA4-8575-EFB4E3DEF1DA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StaticAnalysisResultsInterchangeFormat.Test.Functional", "StaticAnalysisResultsInterchangeFormat.Test.Functional\StaticAnalysisResultsInterchangeFormat.Test.Functional.csproj", "{195675E6-8FDF-4A87-90A0-242DB7F46B15}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sarif.FunctionalTests", "Sarif.FunctionalTests\Sarif.FunctionalTests.csproj", "{195675E6-8FDF-4A87-90A0-242DB7F46B15}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConvertToSarif", "ConvertToSarif\ConvertToSarif.csproj", "{01571290-A3F3-4AD6-8F8B-B045BFB6E55E}"
 EndProject
