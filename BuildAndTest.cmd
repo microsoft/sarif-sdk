@@ -7,7 +7,7 @@ SETLOCAL
 
 set MAJOR=1
 set MINOR=4
-set PATCH=8
+set PATCH=9
 set PRERELEASE=-beta
 
 set VERSION_CONSTANTS=src\StaticAnalysisResultsInterchangeFormat\VersionConstants.cs
