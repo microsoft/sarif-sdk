@@ -7,10 +7,10 @@ SETLOCAL
 
 set MAJOR=1
 set MINOR=4
-set PATCH=9
+set PATCH=10
 set PRERELEASE=-beta
 
-set VERSION_CONSTANTS=src\StaticAnalysisResultsInterchangeFormat\VersionConstants.cs
+set VERSION_CONSTANTS=src\Sarif\VersionConstants.cs
 
 rd /s /q bld
 
@@ -33,16 +33,16 @@ msbuild /verbosity:minimal /target:rebuild src\Sarif.Sdk.sln /p:Configuration=Re
 
 md bld\bin\nuget
 
-.nuget\NuGet.exe pack .\src\Nuget\Sarif.Sdk.nuspec -Symbols -Properties id=Sarif.Sdk;major=%MAJOR%;minor=%MINOR%;patch=%PATCH%;prerelease=%PRERELEASE% -Verbosity Quiet -BasePath .\bld\bin\StaticAnalysisResultsInterchangeFormat\AnyCPU_Release -OutputDirectory .\bld\bin\Nuget
+.nuget\NuGet.exe pack .\src\Nuget\Sarif.Sdk.nuspec -Symbols -Properties id=Sarif.Sdk;major=%MAJOR%;minor=%MINOR%;patch=%PATCH%;prerelease=%PRERELEASE% -Verbosity Quiet -BasePath .\bld\bin\Sarif\AnyCPU_Release -OutputDirectory .\bld\bin\Nuget
 
 SET PASSED=true
 
-mstest /testContainer:bld\bin\StaticAnalysisResultsInterchangeFormat.Test.Functional\AnyCPU_Release\StaticAnalysisResultsInterchangeFormat.Test.Functional.dll
+mstest /testContainer:bld\bin\Sarif.FunctionalTests\AnyCPU_Release\Sarif.FunctionalTests.dll
 if "%ERRORLEVEL%" NEQ "0" (
 set PASSED=false
 )
 
-mstest /testContainer:bld\bin\StaticAnalysisResultsInterchangeFormat.Test.Unit\AnyCPU_Release\StaticAnalysisResultsInterchangeFormat.Test.Unit.dll
+mstest /testContainer:bld\bin\Sarif.UnitTests\AnyCPU_Release\Sarif.UnitTests.dll
 if "%ERRORLEVEL%" NEQ "0" (
 set PASSED=false
 )
