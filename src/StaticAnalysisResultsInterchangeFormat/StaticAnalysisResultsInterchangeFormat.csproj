@@ -54,22 +54,8 @@
     <Compile Include="Readers\SarifContractResolver.cs" />
     <Compile Include="Readers\SarifVersionConverter.cs" />
     <Compile Include="Readers\VersionConverter.cs" />
-    <None Include="Sarif.Sdk.nuspec" />
     <Compile Include="SarifExtensionMethods.cs" />
-    <Compile Include="Sdk\AnalysisApplicability.cs" />
-    <Compile Include="Sdk\ErrorDescriptors.cs" />
-    <Compile Include="Sdk\Hash.cs" />
-    <Compile Include="Sdk\IAnalysisContext.cs" />
-    <Compile Include="Sdk\IResultLogger.cs" />
     <Compile Include="Sdk\IRuleDescriptor.cs" />
-    <Compile Include="Sdk\ISkimmer.cs" />
-    <Compile Include="Sdk\ResultLogger.cs" />
-    <Compile Include="Sdk\SdkResources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>SdkResources.resx</DependentUpon>
-    </Compile>
-    <Compile Include="Sdk\SkimmerBase.cs" />
     <Compile Include="SparseReader.cs" />
     <Compile Include="SparseReaderDispatchTable.cs" />
     <Compile Include="SarifResources.Designer.cs">
@@ -98,10 +84,6 @@
   <ItemGroup>
     <EmbeddedResource Include="Schemata\FxCopReport.xsd">
       <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Sdk\SdkResources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>SdkResources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
