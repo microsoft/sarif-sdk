@@ -61,88 +61,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Analyzing {0}....
-        /// </summary>
-        internal static string Analyzing {
-            get {
-                return ResourceManager.GetString("Analyzing", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to InvalidTarget_Description.
-        /// </summary>
-        internal static string AnalyzingTarget_Description {
-            get {
-                return ResourceManager.GetString("AnalyzingTarget_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to An exception was raised analyzing &apos;{0}&apos; for check &apos;{1}&apos; (which has been disabled for the remainder of the analysis). The exception may have resulted from a problem related to parsing image metadata and not specific to the rule, however. Exception information:
-        ///{2}.
-        /// </summary>
-        internal static string ExceptionAnalyzingTarget {
-            get {
-                return ResourceManager.GetString("ExceptionAnalyzingTarget", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to An exception was raised attempting to determine whether &apos;{0}&apos; is a valid analysis target for check &apos;{1}&apos; (which has been disabled for the remainder of the analysis). The exception may have resulted from a problem related to parsing the analysis target and not specific to the rule, however. Exception information:
-        ///{2}.
-        /// </summary>
-        internal static string ExceptionCheckingApplicability {
-            get {
-                return ResourceManager.GetString("ExceptionCheckingApplicability", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to An exception was raised attempting to create output file &apos;{0}&apos;. Exception information:
         ///{1}.
         /// </summary>
-        internal static string ExceptionCreatingLogFile {
+        internal static string ERR0997_ExceptionCreatingLogFile {
             get {
-                return ResourceManager.GetString("ExceptionCreatingLogFile", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to An exception was raised during analysis:
-        ///{0}.
-        /// </summary>
-        internal static string ExceptionInAnalysisEngine {
-            get {
-                return ResourceManager.GetString("ExceptionInAnalysisEngine", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to An exception was raised in the analysis engine..
-        /// </summary>
-        internal static string ExceptionInAnalysisEngine_Description {
-            get {
-                return ResourceManager.GetString("ExceptionInAnalysisEngine_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to An exception was raised initializing check &apos;{0}&apos; (which has been disabled for the remainder of the analysis). Exception information:
-        ///{1}.
-        /// </summary>
-        internal static string ExceptionInitializingRule {
-            get {
-                return ResourceManager.GetString("ExceptionInitializingRule", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to An exception was raised in an analysis rule, indicating an issue with the rule itself or a problem inspecting the binary being analyzed..
-        /// </summary>
-        internal static string ExceptionInRule_Description {
-            get {
-                return ResourceManager.GetString("ExceptionInRule_Description", resourceCulture);
+                return ResourceManager.GetString("ERR0997_ExceptionCreatingLogFile", resourceCulture);
             }
         }
         
@@ -150,9 +74,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk {
         ///   Looks up a localized string similar to An exception was raised attempting to load analysis plug-in &apos;{0}&apos;. Exception information:
         ///{1}.
         /// </summary>
-        internal static string ExceptionLoadingAnalysisPlugIn {
+        internal static string ERR0997_ExceptionLoadingAnalysisPlugIn {
             get {
-                return ResourceManager.GetString("ExceptionLoadingAnalysisPlugIn", resourceCulture);
+                return ResourceManager.GetString("ERR0997_ExceptionLoadingAnalysisPlugIn", resourceCulture);
             }
         }
         
@@ -160,81 +84,166 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk {
         ///   Looks up a localized string similar to An exception was raised attempting to load analysis target &apos;{0}&apos;. Exception information:
         ///{1}.
         /// </summary>
-        internal static string ExceptionLoadingAnalysisTarget {
+        internal static string ERR0997_ExceptionLoadingAnalysisTarget {
             get {
-                return ResourceManager.GetString("ExceptionLoadingAnalysisTarget", resourceCulture);
+                return ResourceManager.GetString("ERR0997_ExceptionLoadingAnalysisTarget", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to An unhandled exception was raised while configuring analysis for execution..
         /// </summary>
-        internal static string InvalidConfiguration_Description {
+        internal static string ERR0997_InvalidConfiguration_Description {
             get {
-                return ResourceManager.GetString("InvalidConfiguration_Description", resourceCulture);
+                return ResourceManager.GetString("ERR0997_InvalidConfiguration_Description", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to A file was skipped as it does not appear to be a valid target for analysis..
+        ///   Looks up a localized string similar to Check &apos;{0}&apos; was disabled for this run as the analysis was not configured with required policy ({1}). To resolve this, configure and provide a policy file on the {2} command-line using the --policy argument (recommended), or pass &apos;--config default&apos; to invoke built-in settings. Invoke the {2} &apos;exportConfig&apos; command to produce an initial configuration file that can be edited, if necessary, and passed back into the tool..
         /// </summary>
-        internal static string InvalidTarget_Description {
+        internal static string ERR0997_MissingRuleConfiguration {
             get {
-                return ResourceManager.GetString("InvalidTarget_Description", resourceCulture);
+                return ResourceManager.GetString("ERR0997_MissingRuleConfiguration", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to No analyzer paths specified.
+        ///   Looks up a localized string similar to An exception was raised analyzing &apos;{0}&apos; for check &apos;{1}&apos; (which has been disabled for the remainder of the analysis). The exception may have resulted from a problem related to parsing image metadata and not specific to the rule, however. Exception information:
+        ///{2}.
         /// </summary>
-        internal static string NoAnalyzerPathsSpecified {
+        internal static string ERR0998_ExceptionInAnalyze {
             get {
-                return ResourceManager.GetString("NoAnalyzerPathsSpecified", resourceCulture);
+                return ResourceManager.GetString("ERR0998_ExceptionInAnalyze", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to An exception was raised attempting to determine whether &apos;{0}&apos; is a valid analysis target for check &apos;{1}&apos; (which has been disabled for the remainder of the analysis). The exception may have resulted from a problem related to parsing the analysis target and not specific to the rule, however. Exception information:
+        ///{2}.
+        /// </summary>
+        internal static string ERR0998_ExceptionInCanAnalyze {
+            get {
+                return ResourceManager.GetString("ERR0998_ExceptionInCanAnalyze", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to An exception was raised initializing check &apos;{0}&apos; (which has been disabled for the remainder of the analysis). Exception information:
+        ///{1}.
+        /// </summary>
+        internal static string ERR0998_ExceptionInInitialize {
+            get {
+                return ResourceManager.GetString("ERR0998_ExceptionInInitialize", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to A rule was disabled due to an unrecoverable error, such as an exception raised during execution or an absence of required configuration..
+        /// </summary>
+        internal static string ERR0998_RuleDisabled_Description {
+            get {
+                return ResourceManager.GetString("ERR0998_RuleDisabled_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Analysis halted and was incomplete due to an unrecoverable error such as an unhandled exception..
+        /// </summary>
+        internal static string ERR0999_AnalysisHalted_Description {
+            get {
+                return ResourceManager.GetString("ERR0999_AnalysisHalted_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to An exception was raised during analysis:
+        ///{0}.
+        /// </summary>
+        internal static string ERR0999_UnhandledEngineException {
+            get {
+                return ResourceManager.GetString("ERR0999_UnhandledEngineException", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to A parse error occurred: {0}.
         /// </summary>
-        internal static string ParseError {
+        internal static string ERR1001_Default {
             get {
-                return ResourceManager.GetString("ParseError", resourceCulture);
+                return ResourceManager.GetString("ERR1001_Default", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to A parse error occurred..
         /// </summary>
-        internal static string ParseError_Description {
+        internal static string ERR1001_ParseError_Description {
             get {
-                return ResourceManager.GetString("ParseError_Description", resourceCulture);
+                return ResourceManager.GetString("ERR1001_ParseError_Description", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Check &apos;{0}&apos; was disabled for this run as the analysis was not configured with required policy ({1}). To resolve this, configure and provide a policy file on the BinSkim command-line using the --policy argument (recommended), or pass --defaultPolicy to invoke built-in settings. Invoke the BinSkim.exe &apos;export&apos; command to produce an initial policy file that can be edited if required and passed back into the tool..
+        ///   Looks up a localized string similar to Analysis complete..
         /// </summary>
-        internal static string RuleWasDisabledDueToMissingPolicy {
+        internal static string MSG1001_AnalysisComplete {
             get {
-                return ResourceManager.GetString("RuleWasDisabledDueToMissingPolicy", resourceCulture);
+                return ResourceManager.GetString("MSG1001_AnalysisComplete", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to &apos;{0}&apos; was not analyzed as it does not appear to be a valid target for analysis..
+        ///   Looks up a localized string similar to Analyzing &apos;{0}&apos;....
         /// </summary>
-        internal static string TargetNotAnalyzed_InvalidTarget {
+        internal static string MSG1001_AnalyzingTarget {
             get {
-                return ResourceManager.GetString("TargetNotAnalyzed_InvalidTarget", resourceCulture);
+                return ResourceManager.GetString("MSG1001_AnalyzingTarget", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to &apos;{0}&apos; was not evaluated for check &apos;{1}&apos; as the analysis is not relevant based on observed binary metadata: {2}..
+        ///   Looks up a localized string similar to {0}.
         /// </summary>
-        internal static string TargetNotAnalyzed_NotApplicable {
+        internal static string MSG1001_Default {
             get {
-                return ResourceManager.GetString("TargetNotAnalyzed_NotApplicable", resourceCulture);
+                return ResourceManager.GetString("MSG1001_Default", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to An informational output message was logged..
+        /// </summary>
+        internal static string MSG1001_GeneralMessage_Description {
+            get {
+                return ResourceManager.GetString("MSG1001_GeneralMessage_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &apos;{0}&apos; was not analyzed as it does not appear to be a valid file type for analysis..
+        /// </summary>
+        internal static string MSG1002_InvalidFileType {
+            get {
+                return ResourceManager.GetString("MSG1002_InvalidFileType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &apos;{0}&apos; was not evaluated for check &apos;{1}&apos; as the analysis is not relevant based on observed metadata: {2}..
+        /// </summary>
+        internal static string MSG1002_InvalidMetadata {
+            get {
+                return ResourceManager.GetString("MSG1002_InvalidMetadata", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to A file was skipped as it does not appear to be a valid target for analysis..
+        /// </summary>
+        internal static string MSG1002_InvalidTarget_Description {
+            get {
+                return ResourceManager.GetString("MSG1002_InvalidTarget_Description", resourceCulture);
             }
         }
         

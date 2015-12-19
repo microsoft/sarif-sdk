@@ -19,17 +19,24 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
 
             foreach (string resourceName in resourceNames)
             {
-                string normalizedResourceName = resourceName;
-                if (!string.IsNullOrEmpty(ruleId) && normalizedResourceName.StartsWith(ruleId + "_"))
-                {
-                    normalizedResourceName = resourceName.Substring(ruleId.Length + 1);
-                }
-                // We need to use the non-normalized key to retrieve the resource value
                 string resourceValue = resourceManager.GetString(resourceName);
+
+                string normalizedResourceName = NormalizeFormatSpecifierId(ruleId, resourceName);
+
+                // We need to use the non-normalized key to retrieve the resource value
                 dictionary[normalizedResourceName] = resourceValue;
             }
 
             return dictionary;
+        }
+
+        public static string NormalizeFormatSpecifierId(string ruleId, string formatSpecifierId)
+        {
+            if (!string.IsNullOrEmpty(ruleId) && formatSpecifierId.StartsWith(ruleId + "_"))
+            {
+                formatSpecifierId = formatSpecifierId.Substring(ruleId.Length + 1);
+            }
+            return formatSpecifierId;
         }
     }
 }

@@ -4,6 +4,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Reflection;
 using Microsoft.CodeAnalysis.Sarif.Sdk;
 
 namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
@@ -223,6 +224,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
                 {
                 }
             }
+
+            if (options.Verbose)
+            {
+                Console.WriteLine(SdkResources.MSG1001_AnalysisComplete);
+            }            
         }
 
         protected virtual TContext AnalyzeTarget(
@@ -245,10 +251,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
                 return context;
             }
 
-            // Analyzing {0}...
-            context.Rule = NoteDescriptors.AnalyzingTarget;
-            context.Logger.Log(ResultKind.Note, context,
-                nameof(SdkResources.Analyzing), 
+            // Analyzing '{0}'...
+            context.Rule = NoteDescriptors.GeneralMessage;
+            context.Logger.Log(ResultKind.Note, context, nameof(SdkResources.MSG1001_AnalyzingTarget), 
                 Path.GetFileName(context.TargetUri.LocalPath));
 
             foreach (ISkimmer<TContext> skimmer in skimmers)
@@ -274,31 +279,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
                 {
                     case AnalysisApplicability.NotApplicableToSpecifiedTarget:
                     {
-                        // Image '{0}' was not evaluated for check '{1}' as the analysis
-                        // is not relevant based on observed binary metadata: {2}.
-                        context.Logger.Log(ResultKind.NotApplicable,
-                            context,
-                            MessageUtilities.BuildTargetNotAnalyzedMessage(
-                                context.TargetUri.LocalPath,
-                                context.Rule.Name,
-                                reasonForNotAnalyzing));
-
+                        LogNotApplicableToSpecifiedTarget(context, reasonForNotAnalyzing);
                         break;
                     }
 
-                    case AnalysisApplicability.NotApplicableToAnyTargetWithoutPolicy:
+                    case AnalysisApplicability.NotApplicableDueToMissingConfiguration:
                     {
-                        // Check '{0}' was disabled for this run as the analysis was not 
-                        // configured with required policy ({1}). To resolve this, 
-                        // configure and provide a policy file on the BinSkim command-line 
-                        // using the --policy argument (recommended), or pass 
-                        // '--policy default' to invoke built-in settings. Invoke the 
-                        // BinSkim.exe 'export' command to produce an initial policy file 
-                        // that can be edited if required and passed back into the tool.
-                        context.Logger.Log(ResultKind.ConfigurationError, context,
-                            MessageUtilities.BuildRuleDisabledDueToMissingPolicyMessage(
-                                context.Rule.Name,
-                                reasonForNotAnalyzing));
+                        LogMissingRuleConfiguration(context, reasonForNotAnalyzing);
                         disabledSkimmers.Add(skimmer.Id);
                         break;
                     }
@@ -321,15 +308,49 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
             return context;
         }
 
+        private static void LogNotApplicableToSpecifiedTarget(TContext context, string reasonForNotAnalyzing)
+        {
+            context.Rule = NoteDescriptors.InvalidTarget;
+
+            // '{0}' was not evaluated for check '{1}' as the analysis
+            // is not relevant based on observed metadata: {2}.
+            context.Logger.Log(ResultKind.NotApplicable, context,
+                nameof(SdkResources.MSG1002_InvalidMetadata),
+                Path.GetFileName(context.TargetUri.LocalPath),
+                context.Rule.Name,
+                reasonForNotAnalyzing);
+        }
+
+        private static void LogMissingRuleConfiguration(TContext context, string reasonForNotAnalyzing)
+        {
+            string ruleName = context.Rule.Name;
+            context.Rule = ErrorDescriptors.InvalidConfiguration;
+            string exeName = Path.GetFileName(Assembly.GetEntryAssembly().Location);
+
+            // Check '{0}' was disabled for this run as the analysis was
+            // not configured with required policy ({1}). To resolve this,
+            // configure and provide a policy file on the {2} command-line
+            // using the --policy argument (recommended), or pass 
+            // '--config default' to invoke built-in settings. Invoke the
+            // {2} 'exportConfig' command to produce an initial 
+            // configuration file that can be edited, if necessary, and
+            // passed back into the tool.
+            context.Logger.Log(ResultKind.ConfigurationError, context,
+                nameof(SdkResources.ERR0997_MissingRuleConfiguration),
+                ruleName,
+                reasonForNotAnalyzing,
+                exeName);
+        }
+
         private void LogUnhandledEngineException(Exception ex, IResultLogger logger)
         {
             TContext context = new TContext();
-            context.Rule = ErrorDescriptors.UnhandledEngineException;
+            context.Rule = ErrorDescriptors.AnalysisHalted;
 
             // An unhandled exception was raised during analysis: {0}
             logger.Log(ResultKind.InternalError,
                 context,
-                nameof(SdkResources.ExceptionInAnalysisEngine),
+                nameof(SdkResources.ERR0999_UnhandledEngineException),
                 ex.ToString());
 
             RuntimeErrors |= RuntimeConditions.ExceptionInEngine;
@@ -344,7 +365,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
             // {1}
             context.Logger.Log(ResultKind.ConfigurationError,
                 errorContext,
-                nameof(SdkResources.ExceptionLoadingAnalysisPlugIn),
+                nameof(SdkResources.ERR0997_ExceptionLoadingAnalysisPlugIn),
                 analyzerFilePath,
                 context.TargetLoadException.ToString());
 
@@ -356,11 +377,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
         {
             context.Rule = NoteDescriptors.InvalidTarget;
 
-            // Image '{0}' was not analyzed as the it does not
-            // appear to be a valid portable executable.
+            // '{0}' was not analyzed as it does not appear
+            // to be a valid file type for analysis.
             context.Logger.Log(ResultKind.NotApplicable,
                 context,
-                nameof(SdkResources.TargetNotAnalyzed_InvalidTarget),
+                nameof(SdkResources.MSG1002_InvalidFileType),
                 Path.GetFileName(context.TargetUri.LocalPath));
 
             context.Dispose();
@@ -375,7 +396,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
             // {1}
             context.Logger.Log(ResultKind.ConfigurationError,
                 context,
-                nameof(SdkResources.ExceptionLoadingAnalysisTarget),
+                nameof(SdkResources.ERR0997_ExceptionLoadingAnalysisTarget),
                 Path.GetFileName(context.TargetUri.LocalPath),
                 context.TargetLoadException.ToString());
 
@@ -392,7 +413,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
             // {1}
             logger.Log(ResultKind.ConfigurationError,
                 context,
-                nameof(SdkResources.ExceptionCreatingLogFile),
+                nameof(SdkResources.ERR0997_ExceptionCreatingLogFile),
                 fileName,
                 ex.ToString());
 
@@ -407,11 +428,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
             // {1}
 
             var errorContext = new TContext();
-            errorContext.Rule = ErrorDescriptors.UnhandledRuleException;
+            errorContext.Rule = ErrorDescriptors.RuleDisabled;
             
             context.Logger.Log(ResultKind.InternalError,
                 errorContext,
-                nameof(SdkResources.ExceptionInitializingRule),
+                nameof(SdkResources.ERR0998_ExceptionInInitialize),
                 ruleName,
                 ex.ToString());
 
@@ -421,7 +442,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
         private void LogUnhandledRuleExceptionAssessingTargetApplicability(HashSet<string> disabledSkimmers, TContext context, ISkimmer<TContext> skimmer, Exception ex)
         {
             string ruleName = context.Rule.Name;
-            context.Rule = ErrorDescriptors.UnhandledRuleException;
+            context.Rule = ErrorDescriptors.RuleDisabled;
 
             // An unhandled exception was raised attempting to determine whether '{0}' 
             // is a valid analysis target for check '{1}' (which has been disabled 
@@ -431,7 +452,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
             // {2}
             context.Logger.Log(ResultKind.InternalError,
                 context,
-                nameof(SdkResources.ExceptionCheckingApplicability),
+                nameof(SdkResources.ERR0998_ExceptionInCanAnalyze),
                 context.TargetUri.LocalPath,
                 ruleName,
                 ex.ToString());
@@ -444,7 +465,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
         private void LogUnhandledRuleExceptionAnalyzingTarget(HashSet<string> disabledSkimmers, TContext context, ISkimmer<TContext> skimmer, Exception ex)
         {
             string ruleName = context.Rule.Name;
-            context.Rule = ErrorDescriptors.UnhandledRuleException;
+            context.Rule = ErrorDescriptors.RuleDisabled;
 
             // An unhandled exception was encountered analyzing '{0}' for check '{1}', 
             // which has been disabled for the remainder of the analysis.The 
@@ -454,7 +475,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
             // {2}
             context.Logger.Log(ResultKind.InternalError,
                 context,
-                nameof(SdkResources.ExceptionAnalyzingTarget),
+                nameof(SdkResources.ERR0998_ExceptionInAnalyze),
                 Path.GetFileName(context.TargetUri.LocalPath),
                 ruleName,
                 ex.ToString());

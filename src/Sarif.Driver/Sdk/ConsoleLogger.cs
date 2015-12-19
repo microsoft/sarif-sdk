@@ -23,6 +23,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
 
         public void Log(ResultKind messageKind, IAnalysisContext context, string formatSpecifierId, params string[] arguments)
         {
+            formatSpecifierId = RuleUtilities.NormalizeFormatSpecifierId(context.Rule.Id, formatSpecifierId);
             string formatSpecifier = context.Rule.FormatSpecifiers[formatSpecifierId];
             string message = String.Format(formatSpecifier, arguments);
             WriteToConsole(messageKind, context.TargetUri, context.Rule.Id, message);
@@ -88,17 +89,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
             switch (messageKind)
             {
                 case ResultKind.ConfigurationError:
-                    {
-                        issueType = "CONFIGURATION ERROR";
-                        break;
-                    }
-
                 case ResultKind.InternalError:
-                    {
-                        issueType = "INTERNAL ERROR";
-                        break;
-                }
-
                 case ResultKind.Error:
                 {
                     issueType = "error";

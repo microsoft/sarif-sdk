@@ -55,7 +55,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
 
                 case ResultKind.Note:
                 {
-                    if (ruleId == NoteDescriptors.AnalyzingTarget.Id)
+                    // Currently, we only use this id to fire verbose
+                    // messages indicating a target is under analysis
+                    if (ruleId == NoteDescriptors.GeneralMessage.Id)
                     {
                         _targetsCount++;
                     }
