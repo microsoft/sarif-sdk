@@ -6,6 +6,7 @@ using System.Reflection;
 using System.Resources;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
+using Microsoft.CodeAnalysis.Sarif;
 
 [assembly: AssemblyTitle("Static Analysis Results Interchange Format Library")]
 [assembly: InternalsVisibleTo("Sarif.UnitTests")]
@@ -14,3 +15,6 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 [assembly: CLSCompliant(false)]
 [assembly: NeutralResourcesLanguage("en-US", UltimateResourceFallbackLocation.MainAssembly)]
+
+[assembly: AssemblyVersion(VersionConstants.FileVersion)]
+[assembly: AssemblyFileVersion(VersionConstants.FileVersion)]

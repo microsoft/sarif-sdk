@@ -42,7 +42,7 @@ echo  }                                                                         
 @REM Rewrite VersionConstants.cs
 echo // Copyright (c) Microsoft. All rights reserved. Licensed under the MIT               > %DRV_VERSION_CONSTANTS%
 echo // license. See LICENSE file in the project root for full license information.       >> %DRV_VERSION_CONSTANTS%
-echo namespace Microsoft.CodeAnalysis.Sarif                                               >> %DRV_VERSION_CONSTANTS%
+echo namespace Microsoft.CodeAnalysis.Sarif.Driver                                        >> %DRV_VERSION_CONSTANTS%
 echo {                                                                                    >> %DRV_VERSION_CONSTANTS%
 echo     public static class VersionConstants                                             >> %DRV_VERSION_CONSTANTS%
 echo     {                                                                                >> %DRV_VERSION_CONSTANTS%

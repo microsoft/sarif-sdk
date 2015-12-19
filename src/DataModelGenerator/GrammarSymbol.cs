@@ -4,7 +4,7 @@
 using System;
 using System.Collections.Immutable;
 using System.Linq;
-using Microsoft.CodeAnalysis.Driver;
+using Microsoft.CodeAnalysis.Sarif.Driver;
 using System.Text;
 
 namespace Microsoft.CodeAnalysis.DataModelGenerator
