@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FxCopReport Version="12.0">
+    <Exceptions>
+        <Exception Keyword="CA0001" Kind="Engine">
+            <Type>Microsoft.FxCop.Sdk.InvalidMetadataException</Type>
+            <ExceptionMessage>The following error was encountered while reading module 'ManagedPlayToReceiver': Could not resolve member reference: [Windows, Version=255.255.255.255, Culture=neutral, PublicKeyToken=null]Windows.UI.Xaml.SizeChangedEventArgs::get_PreviousSize.</ExceptionMessage>
+            <StackTrace>   at Microsoft.FxCop.Sdk.Reader.HandleError(ModuleNode mod, String errorMessage) in d:\design\src\edev\StaticAnalysis\FxCop\Source\BinaryReader\Reader\Reader.cs:line 1048
+   at Microsoft.FxCop.Sdk.Reader.GetMemberFromRef(Int32 i, TypeNodeCollection&amp; varArgTypes, Int32 numGenericArgs) in d:\design\src\edev\StaticAnalysis\FxCop\Source\BinaryReader\Reader\Reader.cs:line 2408
+   at Microsoft.FxCop.Sdk.Reader.GetMemberFromToken(Int32 tok, TypeNodeCollection&amp; varArgTypes) in d:\design\src\edev\StaticAnalysis\FxCop\Source\BinaryReader\Reader\Reader.cs:line 2200
+   at Microsoft.FxCop.Sdk.InstructionParser.ParseInstruction() in d:\design\src\edev\StaticAnalysis\FxCop\Source\BinaryReader\Reader\InstructionParser.cs:line 274
+   at Microsoft.FxCop.Sdk.InstructionParser.ParseInstructions() in d:\design\src\edev\StaticAnalysis\FxCop\Source\BinaryReader\Reader\InstructionParser.cs:line 136
+   at Microsoft.FxCop.Sdk.Reader.ParseMethodInstructions(Method method, Int32 methodIndex, Int32 RVA) in d:\design\src\edev\StaticAnalysis\FxCop\Source\BinaryReader\Reader\Reader.cs:line 3500
+   at Microsoft.FxCop.Sdk.Reader.GetMethodInstructions(Method method, Object i) in d:\design\src\edev\StaticAnalysis\FxCop\Source\BinaryReader\Reader\Reader.cs:line 1973
+   at Microsoft.FxCop.Sdk.Reader.GetMethodBody(Method method, Object i, Boolean asInstructionList) in d:\design\src\edev\StaticAnalysis\FxCop\Source\BinaryReader\Reader\Reader.cs:line 1910
+   at Microsoft.FxCop.Sdk.Method.get_Instructions() in d:\design\src\edev\StaticAnalysis\FxCop\Source\BinaryReader\Nodes\Method.cs:line 251
+   at Microsoft.FxCop.Sdk.RuleUtilities.HasImperativeSecurityAction(Method method, SecurityAction action) in d:\design\src\edev\StaticAnalysis\FxCop\Source\SDK\RuleUtilities.cs:line 923
+   at Microsoft.FxCop.Sdk.RuleUtilities.HasSecurityAction(Method method, SecurityAction action) in d:\design\src\edev\StaticAnalysis\FxCop\Source\SDK\RuleUtilities.cs:line 870
+   at Microsoft.FxCop.Sdk.RuleUtilities.HasSecurityAction(Method method, SecurityAction[] actions) in d:\design\src\edev\StaticAnalysis\FxCop\Source\SDK\RuleUtilities.cs:line 880
+   at Microsoft.FxCop.Engines.Introspection.LoadVisitor.RecordCallSites(Method caller) in d:\design\src\edev\StaticAnalysis\FxCop\Source\Engines\Introspection\LoadVisitor.cs:line 466
+   at Microsoft.FxCop.Engines.Introspection.LoadVisitor.VisitMember(Member member, TargetMember target) in d:\design\src\edev\StaticAnalysis\FxCop\Source\Engines\Introspection\LoadVisitor.cs:line 434
+   at Microsoft.FxCop.Engines.Introspection.BaseVisitor.VisitMembers(MemberCollection members, TargetMemberDictionary targets, Boolean visitNestedTypes) in d:\design\src\edev\StaticAnalysis\FxCop\Source\Engines\Introspection\BaseVisitor.cs:line 184
+   at Microsoft.FxCop.Engines.Introspection.BaseVisitor.VisitType(TypeNode type, TargetType target) in d:\design\src\edev\StaticAnalysis\FxCop\Source\Engines\Introspection\BaseVisitor.cs:line 72
+   at Microsoft.FxCop.Engines.Introspection.LoadVisitor.VisitType(TypeNode type, TargetType target) in d:\design\src\edev\StaticAnalysis\FxCop\Source\Engines\Introspection\LoadVisitor.cs:line 417
+   at Microsoft.FxCop.Engines.Introspection.BaseVisitor.VisitTypes(TypeNodeCollection types, TargetNamespaceDictionary targets) in d:\design\src\edev\StaticAnalysis\FxCop\Source\Engines\Introspection\BaseVisitor.cs:line 131
+   at Microsoft.FxCop.Engines.Introspection.LoadVisitor.VisitModule(ModuleNode module, TargetModule target) in d:\design\src\edev\StaticAnalysis\FxCop\Source\Engines\Introspection\LoadVisitor.cs:line 394
+   at Microsoft.FxCop.Engines.Introspection.BaseVisitor.VisitAssembly(AssemblyNode assembly, TargetFile target) in d:\design\src\edev\StaticAnalysis\FxCop\Source\Engines\Introspection\BaseVisitor.cs:line 37
+   at Microsoft.FxCop.Engines.Introspection.LoadVisitor.VisitAssembly(AssemblyNode assembly, TargetFile target) in d:\design\src\edev\StaticAnalysis\FxCop\Source\Engines\Introspection\LoadVisitor.cs:line 356
+   at Microsoft.FxCop.Engines.Introspection.LoadVisitor.Load(TargetFile target, Boolean buildTree, Boolean queueItems, AssemblyNode loadedAssembly) in d:\design\src\edev\StaticAnalysis\FxCop\Source\Engines\Introspection\LoadVisitor.cs:line 179
+   at Microsoft.FxCop.Engines.Introspection.LoadVisittor.LoadAssemblies(Queue queue, ExceptionCollection exceptions) in d:\design\src\edev\StaticAnalysis\FxCop\Source\Engines\Introspection\LoadVisitor.cs:line 103</StackTrace>
+        </Exception>
+        <Exception Keyword="CA0001" Kind="Rule" TypeName="AvoidCallingProblematicMethods" Category="Microsoft.Reliability" CheckId="CA2001" Target="ManagedPlayToReceiver.PlayToReceiverPage.#ImgPlayer_SizeChanged(System.Object,Windows.UI.Xaml.SizeChangedEventArgs)">
+            <Type>Microsoft.FxCop.Sdk.InvalidMetadataException</Type>
+            <ExceptionMessage>The following error was encountered while reading module 'ManagedPlayToReceiver': Could not resolve member reference: [Windows, Version=255.255.255.255, Culture=neutral, PublicKeyToken=null]Windows.UI.Xaml.SizeChangedEventArgs::get_PreviousSize.</ExceptionMessage>
+            <StackTrace>   at Microsoft.FxCop.Sdk.Reader.HandleError(ModuleNode mod, String errorMessage) in d:\design\src\edev\StaticAnalysis\FxCop\Source\BinaryReader\Reader\Reader.cs:line 1048
+   at Microsoft.FxCop.Sdk.Reader.GetMemberFromRef(Int32 i, TypeNodeCollection&amp; varArgTypes, Int32 numGenericArgs) in d:\design\src\edev\StaticAnalysis\FxCop\Source\BinaryReader\Reader\Reader.cs:line 2408
+   at Microsoft.FxCop.Sdk.Reader.GetMemberFromToken(Int32 tok, TypeNodeCollection&amp; varArgTypes) in d:\design\src\edev\StaticAnalysis\FxCop\Source\BinaryReader\Reader\Reader.cs:line 2200
+   at Microsoft.FxCop.Sdk.InstructionParser.ParseInstruction() in d:\design\src\edev\StaticAnalysis\FxCop\Source\BinaryReader\Reader\InstructionParser.cs:line 274
+   at Microsoft.FxCop.Sdk.InstructionParser.ParseInstructions() in d:\design\src\edev\StaticAnalysis\FxCop\Source\BinaryReader\Reader\InstructionParser.cs:line 136
+   at Microsoft.FxCop.Sdk.Reader.ParseMethodInstructions(Method method, Int32 methodIndex, Int32 RVA) in d:\design\src\edev\StaticAnalysis\FxCop\Source\BinaryReader\Reader\Reader.cs:line 3500
+   at Microsoft.FxCop.Sdk.Reader.GetMethodInstructions(Method method, Object i) in d:\design\src\edev\StaticAnalysis\FxCop\Source\BinaryReader\Reader\Reader.cs:line 1973
+   at Microsoft.FxCop.Sdk.Reader.GetMethodBody(Method method, Object i, Boolean asInstructionList) in d:\design\src\edev\StaticAnalysis\FxCop\Source\BinaryReader\Reader\Reader.cs:line 1910
+   at Microsoft.FxCop.Sdk.Method.get_Instructions() in d:\design\src\edev\StaticAnalysis\FxCop\Source\BinaryReader\Nodes\Method.cs:line 251
+   at Microsoft.FxCop.Rules.Reliability.AvoidCallingProblematicMethods.Check(Member member) in d:\design\src\edev\StaticAnalysis\FxCop\Source\Rules\Reliability\AvoidCallingProblematicMethods.cs:line 76
+   at Microsoft.FxCop.Engines.Introspection.AnalysisVisitor.CheckMember(Member memberToAnalyze, Member member, TargetMember target) in d:\design\src\edev\StaticAnalysis\FxCop\Source\Engines\Introspection\AnalysisVisitor.cs:line 492</StackTrace>
+        </Exception>
+    </Exceptions>
+</FxCopReport>
