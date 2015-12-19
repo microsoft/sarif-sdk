@@ -130,7 +130,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
 
                 ruleDescriptor.Id = descriptor.Id;
                 ruleDescriptor.Name = descriptor.Name;
+                ruleDescriptor.Options = descriptor.Options;
+                ruleDescriptor.HelpUri = descriptor.HelpUri;
+                ruleDescriptor.Properties = descriptor.Properties;
                 ruleDescriptor.FullDescription = descriptor.FullDescription;
+                ruleDescriptor.FormatSpecifiers = descriptor.FormatSpecifiers;
+
+                ruleDescriptor.ShortDescription = ruleDescriptor.ShortDescription;
 
                 int numericId = GetIdIntegerSuffix(ruleDescriptor.Id);
 

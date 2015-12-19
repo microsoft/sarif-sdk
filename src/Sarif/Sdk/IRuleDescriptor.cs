@@ -1,6 +1,8 @@
 ﻿// Copyright (c) Microsoft. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
+using System;
+
 namespace Microsoft.CodeAnalysis.Sarif.Sdk
 {
     public interface IRuleDescriptor
@@ -14,6 +16,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Sdk
         /// An optional string that contains a rule identifier that is understandable to an end user.
         /// </summary>
         string Name { get; }
+
+        /// <summary>
+        /// A URI where the primary documentation for the rule can be found. 
+        /// </summary>
+        Uri HelpUri { get; }
 
         /// <summary>
         /// A string that contains a concise description of the rule. The short description property
