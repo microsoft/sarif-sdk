@@ -3,6 +3,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Resources;
 using Microsoft.CodeAnalysis.Sarif.Sdk;
 
 namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
@@ -14,7 +15,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
             Id = "ERR0997",
             Name = nameof(InvalidConfiguration),
             FullDescription = SdkResources.InvalidConfiguration_Description,
-            FormatSpecifiers = BuildDictionary(new string[] {
+            FormatSpecifiers = RuleUtilities.BuildDictionary(SdkResources.ResourceManager,
+                new string[] {
                     nameof(SdkResources.ExceptionCreatingLogFile),
                     nameof(SdkResources.ExceptionLoadingAnalysisPlugIn),
                     nameof(SdkResources.ExceptionLoadingAnalysisTarget)
@@ -26,7 +28,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
             Id = "ERR0998",
             Name = nameof(UnhandledRuleException),
             FullDescription = SdkResources.ExceptionInRule_Description,
-            FormatSpecifiers = BuildDictionary(new string[] {
+            FormatSpecifiers = RuleUtilities.BuildDictionary(SdkResources.ResourceManager,
+                new string[] {
                     nameof(SdkResources.ExceptionCheckingApplicability),
                     nameof(SdkResources.ExceptionInitializingRule),
                     nameof(SdkResources.ExceptionAnalyzingTarget)
@@ -38,7 +41,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
             Id = "ERR0999",
             Name = nameof(UnhandledEngineException),
             FullDescription = SdkResources.ExceptionInAnalysisEngine_Description,
-            FormatSpecifiers = BuildDictionary(new string[] {
+            FormatSpecifiers = RuleUtilities.BuildDictionary(SdkResources.ResourceManager,
+                new string[] {
                     nameof(SdkResources.ExceptionInAnalysisEngine)
                 })
         };
@@ -49,23 +53,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
             Id = "ERR1001",
             Name = nameof(ParseError),
             FullDescription = SdkResources.ParseError_Description,
-            FormatSpecifiers = BuildDictionary(new string[] {
+            FormatSpecifiers = RuleUtilities.BuildDictionary(SdkResources.ResourceManager,
+                new string[] {
                     nameof(SdkResources.ParseError)
                 })
         };
-
-        private static Dictionary<string, string> BuildDictionary(IEnumerable<string> resourceNames)
-        {
-            // Note this dictionary provides for case-insensitive keys
-            var dictionary = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
-
-            foreach (string resourceName in resourceNames)
-            {
-                string resourceValue = SdkResources.ResourceManager.GetString(resourceName);
-                dictionary[resourceName] = resourceValue;
-            }
-
-            return dictionary;
-        }
     }
 }

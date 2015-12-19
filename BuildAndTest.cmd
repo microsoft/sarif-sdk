@@ -16,7 +16,7 @@ set SDK_PATCH=12
 
 set DRV_MAJOR=1
 set DRV_MINOR=0
-set DRV_PATCH=11
+set DRV_PATCH=12
 
 set PRERELEASE=-beta
 

@@ -3,6 +3,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Resources;
 
 namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
 {
@@ -15,7 +16,29 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
 
         abstract public Uri HelpUri { get;  }
 
-        abstract public Dictionary<string, string> FormatSpecifiers { get; }
+   
+        private Dictionary<string, string> formatSpecifiers;
+
+        abstract protected ResourceManager ResourceManager { get; }
+
+        abstract protected IEnumerable<string> FormatSpecifierIds { get; }
+
+        virtual public Dictionary<string, string> FormatSpecifiers
+        {
+            get
+            {
+                if (this.formatSpecifiers == null)
+                {
+                    this.formatSpecifiers = InitializeFormatSpecifiers();
+                }
+                return this.formatSpecifiers;
+            }
+        }
+
+        private Dictionary<string, string> InitializeFormatSpecifiers()
+        {
+            return RuleUtilities.BuildDictionary(ResourceManager, FormatSpecifierIds, Id);
+        }
 
         abstract public string Id { get; }
 
