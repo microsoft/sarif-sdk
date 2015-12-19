@@ -29,21 +29,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
                 messageFormatString, fullArguments);
         }
 
-
-        public static string BuildTargetNotAnalyzedMessage(string targetPath, string ruleName, string reason)
-        {
-            targetPath = Path.GetFileName(targetPath);
-
-            // Image '{0}' was not evaluated for check '{1}' as the analysis
-            // is not relevant based on observed metadata: {2}
-            return String.Format(
-                CultureInfo.InvariantCulture,
-                SdkResources.TargetNotAnalyzed_NotApplicable,
-                targetPath,
-                ruleName,
-                reason);
-        }
-
         public static string BuildRuleDisabledDueToMissingPolicyMessage(string ruleName, string reason)
         {
             // BinSkim command-line using the --policy argument (recommended), or 
@@ -52,7 +37,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
             // that can be edited if required and passed back into the tool.
             return String.Format(
                 CultureInfo.InvariantCulture,
-                SdkResources.RuleWasDisabledDueToMissingPolicy,
+                SdkResources.ERR0997_MissingRuleConfiguration,
                 ruleName,
                 reason);
         }

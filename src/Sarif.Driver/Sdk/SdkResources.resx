@@ -117,71 +117,74 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Analyzing" xml:space="preserve">
-    <value>Analyzing {0}...</value>
+  <data name="MSG1001_GeneralMessage_Description" xml:space="preserve">
+    <value>An informational output message was logged.</value>
   </data>
-  <data name="AnalyzingTarget_Description" xml:space="preserve">
-    <value>InvalidTarget_Description</value>
-  </data>
-  <data name="ExceptionAnalyzingTarget" xml:space="preserve">
+  <data name="ERR0998_ExceptionInAnalyze" xml:space="preserve">
     <value>An exception was raised analyzing '{0}' for check '{1}' (which has been disabled for the remainder of the analysis). The exception may have resulted from a problem related to parsing image metadata and not specific to the rule, however. Exception information:
 {2}</value>
   </data>
-  <data name="ExceptionCheckingApplicability" xml:space="preserve">
+  <data name="ERR0998_ExceptionInCanAnalyze" xml:space="preserve">
     <value>An exception was raised attempting to determine whether '{0}' is a valid analysis target for check '{1}' (which has been disabled for the remainder of the analysis). The exception may have resulted from a problem related to parsing the analysis target and not specific to the rule, however. Exception information:
 {2}</value>
   </data>
-  <data name="ExceptionCreatingLogFile" xml:space="preserve">
+  <data name="ERR0997_ExceptionCreatingLogFile" xml:space="preserve">
     <value>An exception was raised attempting to create output file '{0}'. Exception information:
 {1}</value>
   </data>
-  <data name="ExceptionInAnalysisEngine" xml:space="preserve">
+  <data name="ERR0999_UnhandledEngineException" xml:space="preserve">
     <value>An exception was raised during analysis:
 {0}</value>
   </data>
-  <data name="ExceptionInAnalysisEngine_Description" xml:space="preserve">
-    <value>An exception was raised in the analysis engine.</value>
+  <data name="ERR0999_AnalysisHalted_Description" xml:space="preserve">
+    <value>Analysis halted and was incomplete due to an unrecoverable error such as an unhandled exception.</value>
   </data>
-  <data name="ExceptionInitializingRule" xml:space="preserve">
+  <data name="ERR0998_ExceptionInInitialize" xml:space="preserve">
     <value>An exception was raised initializing check '{0}' (which has been disabled for the remainder of the analysis). Exception information:
 {1}</value>
   </data>
-  <data name="ExceptionInRule_Description" xml:space="preserve">
-    <value>An exception was raised in an analysis rule, indicating an issue with the rule itself or a problem inspecting the binary being analyzed.</value>
+  <data name="ERR0998_RuleDisabled_Description" xml:space="preserve">
+    <value>A rule was disabled due to an unrecoverable error, such as an exception raised during execution or an absence of required configuration.</value>
   </data>
-  <data name="ExceptionLoadingAnalysisPlugIn" xml:space="preserve">
+  <data name="ERR0997_ExceptionLoadingAnalysisPlugIn" xml:space="preserve">
     <value>An exception was raised attempting to load analysis plug-in '{0}'. Exception information:
 {1}</value>
   </data>
-  <data name="ExceptionLoadingAnalysisTarget" xml:space="preserve">
+  <data name="ERR0997_ExceptionLoadingAnalysisTarget" xml:space="preserve">
     <value>An exception was raised attempting to load analysis target '{0}'. Exception information:
 {1}</value>
   </data>
-  <data name="InvalidConfiguration_Description" xml:space="preserve">
+  <data name="ERR0997_InvalidConfiguration_Description" xml:space="preserve">
     <value>An unhandled exception was raised while configuring analysis for execution.</value>
   </data>
-  <data name="InvalidTarget_Description" xml:space="preserve">
+  <data name="MSG1002_InvalidTarget_Description" xml:space="preserve">
     <value>A file was skipped as it does not appear to be a valid target for analysis.</value>
   </data>
-  <data name="NoAnalyzerPathsSpecified" xml:space="preserve">
-    <value>No analyzer paths specified</value>
+  <data name="ERR0997_MissingRuleConfiguration" xml:space="preserve">
+    <value>Check '{0}' was disabled for this run as the analysis was not configured with required policy ({1}). To resolve this, configure and provide a policy file on the {2} command-line using the --policy argument (recommended), or pass '--config default' to invoke built-in settings. Invoke the {2} 'exportConfig' command to produce an initial configuration file that can be edited, if necessary, and passed back into the tool.</value>
   </data>
-  <data name="RuleWasDisabledDueToMissingPolicy" xml:space="preserve">
-    <value>Check '{0}' was disabled for this run as the analysis was not configured with required policy ({1}). To resolve this, configure and provide a policy file on the BinSkim command-line using the --policy argument (recommended), or pass --defaultPolicy to invoke built-in settings. Invoke the BinSkim.exe 'export' command to produce an initial policy file that can be edited if required and passed back into the tool.</value>
+  <data name="MSG1002_InvalidFileType" xml:space="preserve">
+    <value>'{0}' was not analyzed as it does not appear to be a valid file type for analysis.</value>
   </data>
-  <data name="TargetNotAnalyzed_InvalidTarget" xml:space="preserve">
-    <value>'{0}' was not analyzed as it does not appear to be a valid target for analysis.</value>
-  </data>
-  <data name="TargetNotAnalyzed_NotApplicable" xml:space="preserve">
-    <value>'{0}' was not evaluated for check '{1}' as the analysis is not relevant based on observed binary metadata: {2}.</value>
+  <data name="MSG1002_InvalidMetadata" xml:space="preserve">
+    <value>'{0}' was not evaluated for check '{1}' as the analysis is not relevant based on observed metadata: {2}.</value>
   </data>
   <data name="UnexpectedApplicationExit" xml:space="preserve">
     <value>Application exited unexpectedly.</value>
   </data>
-  <data name="ParseError" xml:space="preserve">
+  <data name="ERR1001_Default" xml:space="preserve">
     <value>A parse error occurred: {0}</value>
   </data>
-  <data name="ParseError_Description" xml:space="preserve">
+  <data name="ERR1001_ParseError_Description" xml:space="preserve">
     <value>A parse error occurred.</value>
+  </data>
+  <data name="MSG1001_AnalysisComplete" xml:space="preserve">
+    <value>Analysis complete.</value>
+  </data>
+  <data name="MSG1001_AnalyzingTarget" xml:space="preserve">
+    <value>Analyzing '{0}'...</value>
+  </data>
+  <data name="MSG1001_Default" xml:space="preserve">
+    <value>{0}</value>
   </data>
 </root>

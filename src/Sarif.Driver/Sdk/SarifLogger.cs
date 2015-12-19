@@ -91,6 +91,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
             if (_issueLogJsonWriter != null) { _issueLogJsonWriter.Dispose(); }
             if (_textWriter != null) { _textWriter.Dispose(); }
         }
+
         public void Log(ResultKind messageKind, string formatSpecifier, params string[] arguments)
         {
             string message = String.Format(formatSpecifier, arguments);
@@ -99,6 +100,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
 
         public void Log(ResultKind messageKind, IAnalysisContext context, string formatSpecifierId, params string[] arguments)
         {
+            formatSpecifierId = RuleUtilities.NormalizeFormatSpecifierId(context.Rule.Id, formatSpecifierId);
             string formatSpecifier = context.Rule.FormatSpecifiers[formatSpecifierId];
             string message = String.Format(formatSpecifier, arguments);
             LogJsonIssue(messageKind, context.TargetUri?.LocalPath, context.Rule.Id, message);

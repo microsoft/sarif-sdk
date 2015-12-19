@@ -125,7 +125,6 @@
     <Compile Include="Sdk\PlugInDriverCommand.cs" />
     <Compile Include="Sdk\PropertyBag.cs" />
     <Compile Include="Sdk\PropertyBagExtensionMethods.cs" />
-    <Compile Include="Sdk\ResultLogger.cs" />
     <Compile Include="Sdk\RuleUtilities.cs" />
     <Compile Include="Sdk\RuntimeConditions.cs" />
     <Compile Include="Sdk\SarifLogger.cs" />
@@ -147,7 +146,9 @@
     <Compile Include="XmlWriterExtensions.cs" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="DriverResources.resx" />
+    <EmbeddedResource Include="DriverResources.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <EmbeddedResource Include="ExceptionStrings.resx" />
     <EmbeddedResource Include="Sdk\SdkResources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

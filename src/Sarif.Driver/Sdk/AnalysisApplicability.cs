@@ -9,6 +9,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
         Unknown,
         NotApplicableToSpecifiedTarget,
         ApplicableToSpecifiedTarget,
-        NotApplicableToAnyTargetWithoutPolicy
+        NotApplicableDueToMissingConfiguration
     }
 }
