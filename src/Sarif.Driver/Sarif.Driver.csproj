@@ -126,6 +126,7 @@
     <Compile Include="Sdk\PropertyBag.cs" />
     <Compile Include="Sdk\PropertyBagExtensionMethods.cs" />
     <Compile Include="Sdk\ResultLogger.cs" />
+    <Compile Include="Sdk\RuleUtilities.cs" />
     <Compile Include="Sdk\RuntimeConditions.cs" />
     <Compile Include="Sdk\SarifLogger.cs" />
     <Compile Include="Sdk\SdkResources.Designer.cs">
