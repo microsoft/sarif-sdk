@@ -4,7 +4,7 @@
 using System;
 using System.IO;
 using System.Xml;
-using Microsoft.CodeAnalysis.Driver;
+using Microsoft.CodeAnalysis.Sarif.Driver;
 using Microsoft.CodeAnalysis.Sarif.Sdk;
 
 namespace Microsoft.CodeAnalysis.Sarif.Converters

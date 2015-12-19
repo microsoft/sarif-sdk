@@ -7,8 +7,7 @@ using System.Collections.Immutable;
 using System.Globalization;
 using System.Text.RegularExpressions;
 using System.Xml;
-
-using Microsoft.CodeAnalysis.Driver;
+using Microsoft.CodeAnalysis.Sarif.Driver;
 using Microsoft.CodeAnalysis.Sarif.Sdk;
 
 namespace Microsoft.CodeAnalysis.Sarif.Converters

@@ -25,9 +25,15 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Annotation.cs" />
+    <Compile Include="ArgumentSplitter.cs" />
     <Compile Include="CodeGenerator.cs" />
     <Compile Include="CodeWriter.cs" />
     <Compile Include="CommentSanitizer.cs" />
+    <Compile Include="Configuration\ConfigurationBase.cs" />
+    <Compile Include="Configuration\ConfigurationParseContext.cs" />
+    <Compile Include="Configuration\FieldAttribute.cs" />
+    <Compile Include="Configuration\FieldTypes.cs" />
+    <Compile Include="Configuration\NoMinusAttribute.cs" />
     <Compile Include="DataModel.cs" />
     <Compile Include="DataModelBaseTypeBuilder.cs" />
     <Compile Include="DataModelBuilder.cs" />
@@ -40,14 +46,21 @@
     <Compile Include="DataModelTypeBuilder.cs" />
     <Compile Include="DataModelTypeKind.cs" />
     <Compile Include="EqualsGenerator.cs" />
+    <Compile Include="ExceptionStrings.Designer.cs" />
     <Compile Include="G4ParseFailureException.cs" />
     <Compile Include="GrammarSymbol.cs" />
     <Compile Include="HoistAction.cs" />
     <Compile Include="JsonSchemaGenerator.cs" />
     <Compile Include="Lexer.cs" />
+    <Compile Include="LineInfo.cs" />
     <Compile Include="LinguisticTransformer.cs" />
     <Compile Include="LocalVariableNamer.cs" />
     <Compile Include="MemberHoister.cs" />
+    <Compile Include="MultiplyByPrimesHash.cs" />
+    <Compile Include="MurmurHash.cs" />
+    <Compile Include="NewLineIndex.cs" />
+    <Compile Include="OffsetInfo.cs" />
+    <Compile Include="Pair.cs" />
     <Compile Include="Parser.cs" />
     <Compile Include="ParserIterator.cs" />
     <Compile Include="Strings.Designer.cs">
@@ -71,6 +84,7 @@
     <Content Include="GrammarNotes.txt" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="ExceptionStrings.resx" />
     <EmbeddedResource Include="Strings.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Strings.Designer.cs</LastGenOutput>
@@ -78,12 +92,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Sarif.Driver\Sarif.Driver.csproj">
-      <Project>{8ceaea61-b1a2-4777-bcbe-c9a129a5f6c5}</Project>
-      <Name>Sarif.Driver</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
