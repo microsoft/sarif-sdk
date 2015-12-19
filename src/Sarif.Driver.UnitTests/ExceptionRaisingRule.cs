@@ -25,6 +25,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
 
         public string ExceptionRaisingRuleId = "TEST1001";
 
+        public Uri HelpUri { get; set; }
+
         public string Id
         {
             get

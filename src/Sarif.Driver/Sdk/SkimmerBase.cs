@@ -13,6 +13,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
             this.Options = new Dictionary<string, string>();
         }
 
+        abstract public Uri HelpUri { get;  }
+
         abstract public Dictionary<string, string> FormatSpecifiers { get; }
 
         abstract public string Id { get; }
