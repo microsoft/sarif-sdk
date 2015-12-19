@@ -4,8 +4,6 @@
 using System;
 using System.IO;
 using System.Reflection;
-
-using Microsoft.CodeAnalysis.Sarif.Driver.Sdk;
 using Microsoft.CodeAnalysis.Sarif.Sdk;
 using Microsoft.CodeAnalysis.Sarif.Readers;
 
