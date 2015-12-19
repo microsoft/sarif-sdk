@@ -9,7 +9,6 @@ using System.Text;
 
 using Microsoft.CodeAnalysis.Sarif.Sdk;
 using Microsoft.CodeAnalysis.Sarif.Readers;
-using Microsoft.CodeAnalysis.Sarif;
 
 using Newtonsoft.Json;
 

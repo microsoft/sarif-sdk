@@ -3,10 +3,7 @@
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Resources;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
 {
@@ -27,7 +24,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
                 {
                     normalizedResourceName = resourceName.Substring(ruleId.Length + 1);
                 }
-                string resourceValue = resourceManager.GetString(normalizedResourceName);
+                // We need to use the non-normalized key to retrieve the resource value
+                string resourceValue = resourceManager.GetString(resourceName);
                 dictionary[normalizedResourceName] = resourceValue;
             }
 
