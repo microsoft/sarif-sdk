@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<?xml-stylesheet type="text/xsl" href="c:\program files (x86)\microsoft\fxcop 14.0 for sdl 7.0.beta\Xml\FxCopReport.xsl"?>
+<FxCopReport Version="14.0">
+    <Namespaces>
+        <Namespace Name="SecurityCryptographyRuleTests">
+            <Messages>
+                <Message TypeName="DeclareTypesInMicrosoftOrSystemNamespace" Category="Microsoft.MSInternal" CheckId="CA904" Status="Active" Created="2014-10-09 21:21:57Z" FixCategory="Breaking">
+                    <Issue Certainty="75" Level="Error">Redefine the types in namespace 'SecurityCryptographyRuleTests' in the Microsoft or System namespace. Public types that will never ship externally can be defined in the MS namespace. Consider disabling this rule when analyzing code that does not ship externally.</Issue>
+                </Message>
+            </Messages>
+        </Namespace>
+    </Namespaces>
+    <Targets>
+        <Target Name="d:\SecDevTools\Main\bin\x86\Debug\FxCop\FxCopTestData\Crypto\SecurityCryptographyRuleTests.dll">
+            <Modules>
+                <Module Name="securitycryptographyruletests.dll">
+                    <Messages>
+                        <Message TypeName="MarkAssembliesWithClsCompliant" Category="Microsoft.Design" CheckId="CA1014" Status="Active" Created="2014-10-09 21:21:57Z" FixCategory="NonBreaking">
+                            <Issue Certainty="95" Level="Error">Mark 'SecurityCryptographyRuleTests.dll' with CLSCompliant(true) because it exposes externally visible types.</Issue>
+                        </Message>
+                    </Messages>
+                    <Namespaces>
+                        <Namespace Name="SecurityCryptographyRuleTests">
+                            <Types>
+                                <Type Name="DESCannotBeUsed" Kind="Class" Accessibility="Public" ExternallyVisible="True">
+                                    <Messages>
+                                        <Message Id="DES" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Status="Active" Created="2014-10-09 21:21:57Z" FixCategory="Breaking">
+                                            <Issue Name="Type" Certainty="85" Level="Error">Correct the casing of 'DES' in type name 'DESCannotBeUsed' by changing it to 'Des'.</Issue>
+                                        </Message>
+                                        <Message TypeName="StaticHolderTypesShouldNotHaveConstructors" Category="Microsoft.Design" CheckId="CA1053" Status="Active" Created="2014-10-09 21:21:57Z" FixCategory="Breaking">
+                                            <Issue Name="CSharp2_0" Certainty="90" Level="Error">Because type 'DESCannotBeUsed' contains only 'static' members, mark it as 'static' to prevent the compiler from adding a default public constructor.</Issue>
+                                        </Message>
+                                    </Messages>
+                                    <Members>
+                                        <Member Name="#EncryptData(System.String,System.String,System.Byte[],System.Byte[])" Kind="Method" Static="True" Accessibility="Private" ExternallyVisible="False">
+                                            <Messages>
+                                                <Message TypeName="AvoidUncalledPrivateCode" Category="Microsoft.Performance" CheckId="CA1811" Status="Active" Created="2014-10-09 21:21:57Z" FixCategory="NonBreaking">
+                                                    <Issue Certainty="75" Level="Warning" Path="d:\SecDevTools\Main\src\FxCop\Source\FxCopTestData\SecurityCryptographyRuleTests" File="DESCannotBeUsed.cs" Line="14">'DESCannotBeUsed.EncryptData(string, string, byte[], byte[])' appears to have no upstream public or protected callers.</Issue>
+                                                </Message>
+                                            </Messages>
+                                        </Member>
+                                    </Members>
+                                </Type>
+                            </Types>
+                        </Namespace>
+                    </Namespaces>
+                </Module>
+            </Modules>
+        </Target>
+    </Targets>
+</FxCopReport>

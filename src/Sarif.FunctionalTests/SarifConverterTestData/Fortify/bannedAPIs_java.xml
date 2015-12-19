@@ -1,0 +1,1337 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ReportDefinition type="xml">
+    <TemplateName>bannedAPIs.java</TemplateName>
+    <TemplatePath></TemplatePath>
+    <LogoPath>/fortify.jpg</LogoPath>
+    <Footnote></Footnote>
+    <UserName></UserName>
+    <ReportSection optionalSubsections="false" enabled="true">
+        <Title>Executive Summary</Title>
+        <SubSection enabled="true">
+            <Title>Issues Overview</Title>
+            <Description>This section provides an overview of the issues uncovered during analysis. The report covers a summary of vulnerability categories discovered by the tool. The auditor should augment this section with higher-level conclusions derived from human review of the application (including architecture reviews,	black-box testing, compliance issues, etc.)</Description>
+            <Text>On Sep 10, 2014, a source code review was performed over the JavaBannedAPIs code base. 1 files, 27 LOC (Executable) were scanned and reviewed for defects that could lead to potential security vulnerabilities. A total of 46 reviewed findings were uncovered during the analysis.</Text>
+        </SubSection>
+        <SubSection enabled="true">
+            <Title>Issue Summary by Fortify Priority Order</Title>
+            <Description>A table summarizing the number of issues found and the breakdown of issues in each Fortify Priority Level</Description>
+            <IssueListing limit="-1" listing="false">
+                <Refinement></Refinement>
+                <Chart chartType="table">
+                    <Axis>Fortify Priority Order</Axis>
+                    <MajorAttribute>Analysis</MajorAttribute>
+                    <GroupingSection count="33">
+                        <groupTitle>High</groupTitle>
+                    </GroupingSection>
+                    <GroupingSection count="13">
+                        <groupTitle>Low</groupTitle>
+                    </GroupingSection>
+                </Chart>
+            </IssueListing>
+        </SubSection>
+        <SubSection enabled="true">
+            <Title>Recommendations and Conclusions</Title>
+            <Description>This section gives some high-level recommendations on remediating the issues discussed in the Issues Summary sub section. Recommendations will vary based on deployment scenarios, risk appetite, and existing mitigating strategies. The auditor should supplement the Fortify generic recommendations with specific information that takes into account the application specific variables.</Description>
+            <Text>The Issues Category section provides Fortify recommendations for addressing issues at a generic level.  The recommendations for specific fixes can be extrapolated from those generic recommendations by the development group.</Text>
+        </SubSection>
+    </ReportSection>
+    <ReportSection optionalSubsections="true" enabled="true">
+        <Title>Project Summary</Title>
+        <SubSection enabled="true">
+            <Title>Code Base Summary</Title>
+            <Description>Summary of the Codebase that was analyzed</Description>
+            <Text>Code location: E:/tests/bannedAPIs&#xD;
+Number of Files: 1&#xD;
+Lines of Code: 27&#xD;
+Build Label: &lt;No Build Label&gt;</Text>
+        </SubSection>
+        <SubSection enabled="true">
+            <Title>Scan Information</Title>
+            <Description>Details of the analysis</Description>
+            <Text>Scan time: 00:19&#xD;
+SCA Engine version: 6.10.0065&#xD;
+Machine Name: DAWN&#xD;
+Username running scan: wenkec</Text>
+        </SubSection>
+        <SubSection enabled="true">
+            <Title>Results Certification</Title>
+            <Description>A full summary of the Results Certification for this project</Description>
+            <Text>Results Certification Valid&#xD;
+&#xD;
+Details:&#xD;
+&#xD;
+Results Signature:
+
+	SCA Analysis Results has Valid signature
+	
+
+Rules Signature:
+
+	There were no custom rules used in this scan</Text>
+        </SubSection>
+        <SubSection enabled="true">
+            <Title>Attack Surface</Title>
+            <Description>A full summary of the attack surface for this project</Description>
+            <Text>Attack Surface:&#xD;
+Command Line Arguments:
+	null.BannedApis.main
+
+System Information:
+	null.null.null
+</Text>
+        </SubSection>
+        <SubSection enabled="true">
+            <Title>Filter Set Summary</Title>
+            <Description>A brief summary of the filterset used to create this report</Description>
+            <Text>Current Enabled Filter Set:&#xD;
+Security Auditor View&#xD;
+&#xD;
+Filter Set Details:&#xD;
+&#xD;
+Folder Filters:
+If [fortify priority order] contains critical Then set folder to Critical
+If [fortify priority order] contains high Then set folder to High
+If [fortify priority order] contains medium Then set folder to Medium
+If [fortify priority order] contains low Then set folder to Low</Text>
+        </SubSection>
+        <SubSection enabled="true">
+            <Title>Audit Guide Summary</Title>
+            <Description>Summary of the impact of the audit guide</Description>
+            <Text>Audit guide not enabled</Text>
+        </SubSection>
+    </ReportSection>
+    <ReportSection optionalSubsections="true" enabled="true">
+        <Title>Results Outline</Title>
+        <SubSection enabled="true">
+            <Title>Overall number of results</Title>
+            <Description>Results count</Description>
+            <Text>The scan found 46 issues.</Text>
+        </SubSection>
+        <SubSection enabled="true">
+            <Title>Vulnerability Examples by Category</Title>
+            <Description>Results summary for critical and high priority issues.  Vulnerability examples are provided by category.</Description>
+            <IssueListing limit="-1" listing="true">
+                <Refinement>[fortify priority order]:critical OR [fortify priority order]:high</Refinement>
+                <Chart chartType="list">
+                    <Axis>Category</Axis>
+                    <MajorAttribute>Analysis</MajorAttribute>
+                    <GroupingSection count="28">
+                        <groupTitle>Insecure Randomness</groupTitle>
+                        <MajorAttributeSummary>
+                            <MetaInfo>
+<Name>Abstract</Name>
+<Value>Standard pseudo-random number generators cannot withstand cryptographic attacks.</Value>
+                            </MetaInfo>
+                            <MetaInfo>
+<Name>Explanation</Name>
+<Value>Insecure randomness errors occur when a function that can produce predictable values is used as a source of randomness in security-sensitive context.
+
+Computers are deterministic machines, and as such are unable to produce true randomness. Pseudo-Random Number Generators (PRNGs) approximate randomness algorithmically, starting with a seed from which subsequent values are calculated. 
+
+There are two types of PRNGs: statistical and cryptographic. Statistical PRNGs provide useful statistical properties, but their output is highly predictable and forms an easy to reproduce numeric stream that is unsuitable for use in cases where security depends on generated values being unpredictable. Cryptographic PRNGs address this problem by generating output that is more difficult to predict. For a value to be cryptographically secure, it must be impossible or highly improbable for an attacker to distinguish between it and a truly random value. In general, if a PRNG algorithm is not advertised as being cryptographically secure, then it is probably a statistical PRNG and should not be used in security-sensitive contexts, where its use can lead to serious vulnerabilities such as easy-to-guess temporary passwords, predictable cryptographic keys, session hijacking, and DNS spoofing.
+
+Example: The following code uses a statistical PRNG to create a URL for a receipt that remains active for some period of time after a purchase.
+
+
+String GenerateReceiptURL(String baseUrl) {
+    Random ranGen = new Random();
+    ranGen.setSeed((new Date()).getTime());
+    return (baseUrl + ranGen.nextInt(400000000) + &quot;.html&quot;);
+}
+
+
+This code uses the Random.nextInt() function to generate &quot;unique&quot; identifiers for the receipt pages it generates. Because Random.nextInt() is a statistical PRNG, it is easy for an attacker to guess the strings it generates. Although the underlying design of the receipt system is also faulty, it would be more secure if it used a random number generator that did not produce predictable receipt identifiers, such as a cryptographic PRNG.</Value>
+                            </MetaInfo>
+                            <MetaInfo>
+<Name>Recommendations</Name>
+<Value>When unpredictability is critical, as is the case with most security-sensitive uses of randomness, use a cryptographic PRNG. Regardless of the PRNG you choose, always use a value with sufficient entropy to seed the algorithm. (Values such as the current time offer only negligible entropy and should not be used.)
+
+The Java language provides a cryptographic PRNG in java.security.SecureRandom. As is the case with other algorithm-based classes in java.security, SecureRandom provides an implementation-independent wrapper around a particular set of algorithms. When you request an instance of a SecureRandom object using SecureRandom.getInstance(), you can request a specific implementation of the algorithm. If the algorithm is available, then it is given as a SecureRandom object. If it is unavailable or if you do not specify a particular implementation, then you are given a SecureRandom implementation selected by the system. 
+
+Sun provides a single SecureRandom implementation with the Java distribution named SHA1PRNG, which Sun describes as computing:
+
+&quot;The SHA-1 hash over a true-random seed value concatenated with a 64-bit counter which is incremented by 1 for each operation. From the 160-bit SHA-1 output, only 64 bits are used [1].&quot; 
+
+However, the specifics of the Sun implementation of the SHA1PRNG algorithm are poorly documented, and it is unclear what sources of entropy the implementation uses and therefore what amount of true randomness exists in its output. Although there is speculation on the Web about the Sun implementation, there is no evidence to contradict the claim that the algorithm is cryptographically strong and can be used safely in security-sensitive contexts.</Value>
+                            </MetaInfo>
+                            <AttributeValue>
+<Name>&lt;Unaudited&gt;</Name>
+<Count>28</Count>
+                            </AttributeValue>
+                            <AttributeValue>
+<Name>Not an Issue</Name>
+<Count>0</Count>
+                            </AttributeValue>
+                            <AttributeValue>
+<Name>Reliability Issue</Name>
+<Count>0</Count>
+                            </AttributeValue>
+                            <AttributeValue>
+<Name>Bad Practice</Name>
+<Count>0</Count>
+                            </AttributeValue>
+                            <AttributeValue>
+<Name>Suspicious</Name>
+<Count>0</Count>
+                            </AttributeValue>
+                            <AttributeValue>
+<Name>Exploitable</Name>
+<Count>0</Count>
+                            </AttributeValue>
+                        </MajorAttributeSummary>
+                        <Issue ruleID="49D75ADD-4BBD-49B9-AAF2-92B9BAB332FE" iid="28E211AE4264B96E98A055B7BB4DF4C2">
+                            <Category>Insecure Randomness</Category>
+                            <Folder>High</Folder>
+                            <Kingdom>Security Features</Kingdom>
+                            <Abstract>The random number generator implemented by nextInt() cannot withstand a cryptographic attack.</Abstract>
+                            <Friority>High</Friority>
+                            <Primary>
+<FileName>bannedAPIs.java</FileName>
+<FilePath>bannedAPIs.java</FilePath>
+<LineStart>41</LineStart>
+<Snippet>        MyRandom mrg0 = new MyRandom(31415926545L);
+        MyRandom mrg1 = new MyRandom(31415926545L);
+        if (mrg0.nextInt() != mrg1.nextInt()
+            || mrg0.nextInt(360) != mrg1.nextInt(360)
+            || mrg0.next(51) != mrg1.next(51)</Snippet>
+                            </Primary>
+                        </Issue>
+                        <Issue ruleID="49D75ADD-4BBD-49B9-AAF2-92B9BAB332FE" iid="49CBE503FE2E92F356196F007614CEFD">
+                            <Category>Insecure Randomness</Category>
+                            <Folder>High</Folder>
+                            <Kingdom>Security Features</Kingdom>
+                            <Abstract>The random number generator implemented by nextLong() cannot withstand a cryptographic attack.</Abstract>
+                            <Friority>High</Friority>
+                            <Primary>
+<FileName>bannedAPIs.java</FileName>
+<FilePath>bannedAPIs.java</FilePath>
+<LineStart>44</LineStart>
+<Snippet>            || mrg0.nextInt(360) != mrg1.nextInt(360)
+            || mrg0.next(51) != mrg1.next(51)
+            || mrg0.nextLong() != mrg1.nextLong()
+            || mrg0.nextFloat() != mrg1.nextFloat()
+            || mrg0.nextDouble() != mrg1.nextDouble()</Snippet>
+                            </Primary>
+                        </Issue>
+                        <Issue ruleID="49D75ADD-4BBD-49B9-AAF2-92B9BAB332FE" iid="750E45459AF27DF7A26020E3902DE0E5">
+                            <Category>Insecure Randomness</Category>
+                            <Folder>High</Folder>
+                            <Kingdom>Security Features</Kingdom>
+                            <Abstract>The random number generator implemented by nextGaussian() cannot withstand a cryptographic attack.</Abstract>
+                            <Friority>High</Friority>
+                            <Primary>
+<FileName>bannedAPIs.java</FileName>
+<FilePath>bannedAPIs.java</FilePath>
+<LineStart>34</LineStart>
+<Snippet>            || rg0.nextFloat() != rg1.nextFloat()
+            || rg0.nextDouble() != rg1.nextDouble()
+            || rg0.nextGaussian() != rg1.nextGaussian()
+        ) {
+            System.err.println(&quot;Unbelieveable!&quot;);</Snippet>
+                            </Primary>
+                        </Issue>
+                        <Issue ruleID="49D75ADD-4BBD-49B9-AAF2-92B9BAB332FE" iid="00DA31C5AB61312A7951BBF375D57723">
+                            <Category>Insecure Randomness</Category>
+                            <Folder>High</Folder>
+                            <Kingdom>Security Features</Kingdom>
+                            <Abstract>The random number generator implemented by nextDouble() cannot withstand a cryptographic attack.</Abstract>
+                            <Friority>High</Friority>
+                            <Primary>
+<FileName>bannedAPIs.java</FileName>
+<FilePath>bannedAPIs.java</FilePath>
+<LineStart>46</LineStart>
+<Snippet>            || mrg0.nextLong() != mrg1.nextLong()
+            || mrg0.nextFloat() != mrg1.nextFloat()
+            || mrg0.nextDouble() != mrg1.nextDouble()
+            || mrg0.nextGaussian() != mrg1.nextGaussian()
+        ) {</Snippet>
+                            </Primary>
+                        </Issue>
+                        <Issue ruleID="49D75ADD-4BBD-49B9-AAF2-92B9BAB332FE" iid="A5B54226309CA1F57BACB9A67C1E3E1C">
+                            <Category>Insecure Randomness</Category>
+                            <Folder>High</Folder>
+                            <Kingdom>Security Features</Kingdom>
+                            <Abstract>The random number generator implemented by nextFloat() cannot withstand a cryptographic attack.</Abstract>
+                            <Friority>High</Friority>
+                            <Primary>
+<FileName>bannedAPIs.java</FileName>
+<FilePath>bannedAPIs.java</FilePath>
+<LineStart>45</LineStart>
+<Snippet>            || mrg0.next(51) != mrg1.next(51)
+            || mrg0.nextLong() != mrg1.nextLong()
+            || mrg0.nextFloat() != mrg1.nextFloat()
+            || mrg0.nextDouble() != mrg1.nextDouble()
+            || mrg0.nextGaussian() != mrg1.nextGaussian()</Snippet>
+                            </Primary>
+                        </Issue>
+                        <Issue ruleID="49D75ADD-4BBD-49B9-AAF2-92B9BAB332FE" iid="C4B2E562D788C70AE543C38965A1885D">
+                            <Category>Insecure Randomness</Category>
+                            <Folder>High</Folder>
+                            <Kingdom>Security Features</Kingdom>
+                            <Abstract>The random number generator implemented by nextFloat() cannot withstand a cryptographic attack.</Abstract>
+                            <Friority>High</Friority>
+                            <Primary>
+<FileName>bannedAPIs.java</FileName>
+<FilePath>bannedAPIs.java</FilePath>
+<LineStart>45</LineStart>
+<Snippet>            || mrg0.next(51) != mrg1.next(51)
+            || mrg0.nextLong() != mrg1.nextLong()
+            || mrg0.nextFloat() != mrg1.nextFloat()
+            || mrg0.nextDouble() != mrg1.nextDouble()
+            || mrg0.nextGaussian() != mrg1.nextGaussian()</Snippet>
+                            </Primary>
+                        </Issue>
+                        <Issue ruleID="49D75ADD-4BBD-49B9-AAF2-92B9BAB332FE" iid="365C3C4F068931548F5D586AD5528F97">
+                            <Category>Insecure Randomness</Category>
+                            <Folder>High</Folder>
+                            <Kingdom>Security Features</Kingdom>
+                            <Abstract>The random number generator implemented by nextInt() cannot withstand a cryptographic attack.</Abstract>
+                            <Friority>High</Friority>
+                            <Primary>
+<FileName>bannedAPIs.java</FileName>
+<FilePath>bannedAPIs.java</FilePath>
+<LineStart>29</LineStart>
+<Snippet>        Random rg1 = new Random(31415926545L);
+        if (rg0.nextInt() != rg1.nextInt()
+            || rg0.nextInt(360) != rg1.nextInt(360)
+            // || rg0.next(51) != rg1.next(51)
+            || rg0.nextLong() != rg1.nextLong()</Snippet>
+                            </Primary>
+                        </Issue>
+                        <Issue ruleID="49D75ADD-4BBD-49B9-AAF2-92B9BAB332FE" iid="C5DC5F73C2B3F9EF8089DD5E9C859E9A">
+                            <Category>Insecure Randomness</Category>
+                            <Folder>High</Folder>
+                            <Kingdom>Security Features</Kingdom>
+                            <Abstract>The random number generator implemented by nextDouble() cannot withstand a cryptographic attack.</Abstract>
+                            <Friority>High</Friority>
+                            <Primary>
+<FileName>bannedAPIs.java</FileName>
+<FilePath>bannedAPIs.java</FilePath>
+<LineStart>33</LineStart>
+<Snippet>            || rg0.nextLong() != rg1.nextLong()
+            || rg0.nextFloat() != rg1.nextFloat()
+            || rg0.nextDouble() != rg1.nextDouble()
+            || rg0.nextGaussian() != rg1.nextGaussian()
+        ) {</Snippet>
+                            </Primary>
+                        </Issue>
+                        <Issue ruleID="49D75ADD-4BBD-49B9-AAF2-92B9BAB332FE" iid="6609D47574D56A98BC3CE06EDF157260">
+                            <Category>Insecure Randomness</Category>
+                            <Folder>High</Folder>
+                            <Kingdom>Security Features</Kingdom>
+                            <Abstract>The random number generator implemented by nextGaussian() cannot withstand a cryptographic attack.</Abstract>
+                            <Friority>High</Friority>
+                            <Primary>
+<FileName>bannedAPIs.java</FileName>
+<FilePath>bannedAPIs.java</FilePath>
+<LineStart>47</LineStart>
+<Snippet>            || mrg0.nextFloat() != mrg1.nextFloat()
+            || mrg0.nextDouble() != mrg1.nextDouble()
+            || mrg0.nextGaussian() != mrg1.nextGaussian()
+        ) {
+            System.err.println(&quot;Unbelieveable!!&quot;);</Snippet>
+                            </Primary>
+                        </Issue>
+                        <Issue ruleID="49D75ADD-4BBD-49B9-AAF2-92B9BAB332FE" iid="51518ADD3DBB92C45066279299659EB2">
+                            <Category>Insecure Randomness</Category>
+                            <Folder>High</Folder>
+                            <Kingdom>Security Features</Kingdom>
+                            <Abstract>The random number generator implemented by nextLong() cannot withstand a cryptographic attack.</Abstract>
+                            <Friority>High</Friority>
+                            <Primary>
+<FileName>bannedAPIs.java</FileName>
+<FilePath>bannedAPIs.java</FilePath>
+<LineStart>31</LineStart>
+<Snippet>            || rg0.nextInt(360) != rg1.nextInt(360)
+            // || rg0.next(51) != rg1.next(51)
+            || rg0.nextLong() != rg1.nextLong()
+            || rg0.nextFloat() != rg1.nextFloat()
+            || rg0.nextDouble() != rg1.nextDouble()</Snippet>
+                            </Primary>
+                        </Issue>
+                        <Issue ruleID="49D75ADD-4BBD-49B9-AAF2-92B9BAB332FE" iid="BEE2771E830E686ECD9D2991B5BCE80A">
+                            <Category>Insecure Randomness</Category>
+                            <Folder>High</Folder>
+                            <Kingdom>Security Features</Kingdom>
+                            <Abstract>The random number generator implemented by nextInt() cannot withstand a cryptographic attack.</Abstract>
+                            <Friority>High</Friority>
+                            <Primary>
+<FileName>bannedAPIs.java</FileName>
+<FilePath>bannedAPIs.java</FilePath>
+<LineStart>28</LineStart>
+<Snippet>        Random rg0 = new Random(31415926545L);
+        Random rg1 = new Random(31415926545L);
+        if (rg0.nextInt() != rg1.nextInt()
+            || rg0.nextInt(360) != rg1.nextInt(360)
+            // || rg0.next(51) != rg1.next(51)</Snippet>
+                            </Primary>
+                        </Issue>
+                        <Issue ruleID="49D75ADD-4BBD-49B9-AAF2-92B9BAB332FE" iid="AB1585537636AFC0019DD1964A0274B5">
+                            <Category>Insecure Randomness</Category>
+                            <Folder>High</Folder>
+                            <Kingdom>Security Features</Kingdom>
+                            <Abstract>The random number generator implemented by nextLong() cannot withstand a cryptographic attack.</Abstract>
+                            <Friority>High</Friority>
+                            <Primary>
+<FileName>bannedAPIs.java</FileName>
+<FilePath>bannedAPIs.java</FilePath>
+<LineStart>31</LineStart>
+<Snippet>            || rg0.nextInt(360) != rg1.nextInt(360)
+            // || rg0.next(51) != rg1.next(51)
+            || rg0.nextLong() != rg1.nextLong()
+            || rg0.nextFloat() != rg1.nextFloat()
+            || rg0.nextDouble() != rg1.nextDouble()</Snippet>
+                            </Primary>
+                        </Issue>
+                        <Issue ruleID="49D75ADD-4BBD-49B9-AAF2-92B9BAB332FE" iid="B0AA5C04D79E71EC5DB53162DEE1D564">
+                            <Category>Insecure Randomness</Category>
+                            <Folder>High</Folder>
+                            <Kingdom>Security Features</Kingdom>
+                            <Abstract>The random number generator implemented by nextDouble() cannot withstand a cryptographic attack.</Abstract>
+                            <Friority>High</Friority>
+                            <Primary>
+<FileName>bannedAPIs.java</FileName>
+<FilePath>bannedAPIs.java</FilePath>
+<LineStart>33</LineStart>
+<Snippet>            || rg0.nextLong() != rg1.nextLong()
+            || rg0.nextFloat() != rg1.nextFloat()
+            || rg0.nextDouble() != rg1.nextDouble()
+            || rg0.nextGaussian() != rg1.nextGaussian()
+        ) {</Snippet>
+                            </Primary>
+                        </Issue>
+                        <Issue ruleID="49D75ADD-4BBD-49B9-AAF2-92B9BAB332FE" iid="D1203C09DE7146768BF6F9A36DDE7203">
+                            <Category>Insecure Randomness</Category>
+                            <Folder>High</Folder>
+                            <Kingdom>Security Features</Kingdom>
+                            <Abstract>The random number generator implemented by nextInt() cannot withstand a cryptographic attack.</Abstract>
+                            <Friority>High</Friority>
+                            <Primary>
+<FileName>bannedAPIs.java</FileName>
+<FilePath>bannedAPIs.java</FilePath>
+<LineStart>28</LineStart>
+<Snippet>        Random rg0 = new Random(31415926545L);
+        Random rg1 = new Random(31415926545L);
+        if (rg0.nextInt() != rg1.nextInt()
+            || rg0.nextInt(360) != rg1.nextInt(360)
+            // || rg0.next(51) != rg1.next(51)</Snippet>
+                            </Primary>
+                        </Issue>
+                        <Issue ruleID="49D75ADD-4BBD-49B9-AAF2-92B9BAB332FE" iid="E0BCB332B3AB3E2DB8B608345A27A67D">
+                            <Category>Insecure Randomness</Category>
+                            <Folder>High</Folder>
+                            <Kingdom>Security Features</Kingdom>
+                            <Abstract>The random number generator implemented by next() cannot withstand a cryptographic attack.</Abstract>
+                            <Friority>High</Friority>
+                            <Primary>
+<FileName>bannedAPIs.java</FileName>
+<FilePath>bannedAPIs.java</FilePath>
+<LineStart>43</LineStart>
+<Snippet>        if (mrg0.nextInt() != mrg1.nextInt()
+            || mrg0.nextInt(360) != mrg1.nextInt(360)
+            || mrg0.next(51) != mrg1.next(51)
+            || mrg0.nextLong() != mrg1.nextLong()
+            || mrg0.nextFloat() != mrg1.nextFloat()</Snippet>
+                            </Primary>
+                        </Issue>
+                        <Issue ruleID="49D75ADD-4BBD-49B9-AAF2-92B9BAB332FE" iid="337BEB14E9F7EC06BE2A01170F79DF18">
+                            <Category>Insecure Randomness</Category>
+                            <Folder>High</Folder>
+                            <Kingdom>Security Features</Kingdom>
+                            <Abstract>The random number generator implemented by nextGaussian() cannot withstand a cryptographic attack.</Abstract>
+                            <Friority>High</Friority>
+                            <Primary>
+<FileName>bannedAPIs.java</FileName>
+<FilePath>bannedAPIs.java</FilePath>
+<LineStart>34</LineStart>
+<Snippet>            || rg0.nextFloat() != rg1.nextFloat()
+            || rg0.nextDouble() != rg1.nextDouble()
+            || rg0.nextGaussian() != rg1.nextGaussian()
+        ) {
+            System.err.println(&quot;Unbelieveable!&quot;);</Snippet>
+                            </Primary>
+                        </Issue>
+                        <Issue ruleID="49D75ADD-4BBD-49B9-AAF2-92B9BAB332FE" iid="210B19786291D1E7F194A05A89BCDCDF">
+                            <Category>Insecure Randomness</Category>
+                            <Folder>High</Folder>
+                            <Kingdom>Security Features</Kingdom>
+                            <Abstract>The random number generator implemented by nextInt() cannot withstand a cryptographic attack.</Abstract>
+                            <Friority>High</Friority>
+                            <Primary>
+<FileName>bannedAPIs.java</FileName>
+<FilePath>bannedAPIs.java</FilePath>
+<LineStart>41</LineStart>
+<Snippet>        MyRandom mrg0 = new MyRandom(31415926545L);
+        MyRandom mrg1 = new MyRandom(31415926545L);
+        if (mrg0.nextInt() != mrg1.nextInt()
+            || mrg0.nextInt(360) != mrg1.nextInt(360)
+            || mrg0.next(51) != mrg1.next(51)</Snippet>
+                            </Primary>
+                        </Issue>
+                        <Issue ruleID="49D75ADD-4BBD-49B9-AAF2-92B9BAB332FE" iid="F7EA0D57CBEFFD8E7CBD5B25F2E3136B">
+                            <Category>Insecure Randomness</Category>
+                            <Folder>High</Folder>
+                            <Kingdom>Security Features</Kingdom>
+                            <Abstract>The random number generator implemented by nextFloat() cannot withstand a cryptographic attack.</Abstract>
+                            <Friority>High</Friority>
+                            <Primary>
+<FileName>bannedAPIs.java</FileName>
+<FilePath>bannedAPIs.java</FilePath>
+<LineStart>32</LineStart>
+<Snippet>            // || rg0.next(51) != rg1.next(51)
+            || rg0.nextLong() != rg1.nextLong()
+            || rg0.nextFloat() != rg1.nextFloat()
+            || rg0.nextDouble() != rg1.nextDouble()
+            || rg0.nextGaussian() != rg1.nextGaussian()</Snippet>
+                            </Primary>
+                        </Issue>
+                        <Issue ruleID="49D75ADD-4BBD-49B9-AAF2-92B9BAB332FE" iid="5EF52835CD71CAD3E184552BBE7489F3">
+                            <Category>Insecure Randomness</Category>
+                            <Folder>High</Folder>
+                            <Kingdom>Security Features</Kingdom>
+                            <Abstract>The random number generator implemented by nextLong() cannot withstand a cryptographic attack.</Abstract>
+                            <Friority>High</Friority>
+                            <Primary>
+<FileName>bannedAPIs.java</FileName>
+<FilePath>bannedAPIs.java</FilePath>
+<LineStart>44</LineStart>
+<Snippet>            || mrg0.nextInt(360) != mrg1.nextInt(360)
+            || mrg0.next(51) != mrg1.next(51)
+            || mrg0.nextLong() != mrg1.nextLong()
+            || mrg0.nextFloat() != mrg1.nextFloat()
+            || mrg0.nextDouble() != mrg1.nextDouble()</Snippet>
+                            </Primary>
+                        </Issue>
+                        <Issue ruleID="49D75ADD-4BBD-49B9-AAF2-92B9BAB332FE" iid="0CA7190B4C723C5BCB85B38ADE24F36A">
+                            <Category>Insecure Randomness</Category>
+                            <Folder>High</Folder>
+                            <Kingdom>Security Features</Kingdom>
+                            <Abstract>The random number generator implemented by nextInt() cannot withstand a cryptographic attack.</Abstract>
+                            <Friority>High</Friority>
+                            <Primary>
+<FileName>bannedAPIs.java</FileName>
+<FilePath>bannedAPIs.java</FilePath>
+<LineStart>42</LineStart>
+<Snippet>        MyRandom mrg1 = new MyRandom(31415926545L);
+        if (mrg0.nextInt() != mrg1.nextInt()
+            || mrg0.nextInt(360) != mrg1.nextInt(360)
+            || mrg0.next(51) != mrg1.next(51)
+            || mrg0.nextLong() != mrg1.nextLong()</Snippet>
+                            </Primary>
+                        </Issue>
+                        <Issue ruleID="57E7AB18-082F-4C18-8DE1-4115DB3917A3" iid="658B13C64C2F7828E6D33FECCFE46ABE">
+                            <Category>Insecure Randomness</Category>
+                            <Folder>High</Folder>
+                            <Kingdom>Security Features</Kingdom>
+                            <Abstract>The random number generator implemented by random() cannot withstand a cryptographic attack.</Abstract>
+                            <Friority>High</Friority>
+                            <Primary>
+<FileName>bannedAPIs.java</FileName>
+<FilePath>bannedAPIs.java</FilePath>
+<LineStart>20</LineStart>
+<Snippet>        System.runFinalizersOnExit(true);
+
+        double rd = Math.random();
+        System.out.println(&quot;Got &quot; + rd + &quot; from Math.random()&quot;);
+</Snippet>
+                            </Primary>
+                        </Issue>
+                        <Issue ruleID="49D75ADD-4BBD-49B9-AAF2-92B9BAB332FE" iid="EDEA37541517C2AB97A834D58430C915">
+                            <Category>Insecure Randomness</Category>
+                            <Folder>High</Folder>
+                            <Kingdom>Security Features</Kingdom>
+                            <Abstract>The random number generator implemented by nextInt() cannot withstand a cryptographic attack.</Abstract>
+                            <Friority>High</Friority>
+                            <Primary>
+<FileName>bannedAPIs.java</FileName>
+<FilePath>bannedAPIs.java</FilePath>
+<LineStart>42</LineStart>
+<Snippet>        MyRandom mrg1 = new MyRandom(31415926545L);
+        if (mrg0.nextInt() != mrg1.nextInt()
+            || mrg0.nextInt(360) != mrg1.nextInt(360)
+            || mrg0.next(51) != mrg1.next(51)
+            || mrg0.nextLong() != mrg1.nextLong()</Snippet>
+                            </Primary>
+                        </Issue>
+                        <Issue ruleID="49D75ADD-4BBD-49B9-AAF2-92B9BAB332FE" iid="E02590888054C0DD8CC05CD9600335CF">
+                            <Category>Insecure Randomness</Category>
+                            <Folder>High</Folder>
+                            <Kingdom>Security Features</Kingdom>
+                            <Abstract>The random number generator implemented by nextInt() cannot withstand a cryptographic attack.</Abstract>
+                            <Friority>High</Friority>
+                            <Primary>
+<FileName>bannedAPIs.java</FileName>
+<FilePath>bannedAPIs.java</FilePath>
+<LineStart>29</LineStart>
+<Snippet>        Random rg1 = new Random(31415926545L);
+        if (rg0.nextInt() != rg1.nextInt()
+            || rg0.nextInt(360) != rg1.nextInt(360)
+            // || rg0.next(51) != rg1.next(51)
+            || rg0.nextLong() != rg1.nextLong()</Snippet>
+                            </Primary>
+                        </Issue>
+                        <Issue ruleID="49D75ADD-4BBD-49B9-AAF2-92B9BAB332FE" iid="3A6DE0ACA07354BDF55B10FFA7B064EA">
+                            <Category>Insecure Randomness</Category>
+                            <Folder>High</Folder>
+                            <Kingdom>Security Features</Kingdom>
+                            <Abstract>The random number generator implemented by nextGaussian() cannot withstand a cryptographic attack.</Abstract>
+                            <Friority>High</Friority>
+                            <Primary>
+<FileName>bannedAPIs.java</FileName>
+<FilePath>bannedAPIs.java</FilePath>
+<LineStart>47</LineStart>
+<Snippet>            || mrg0.nextFloat() != mrg1.nextFloat()
+            || mrg0.nextDouble() != mrg1.nextDouble()
+            || mrg0.nextGaussian() != mrg1.nextGaussian()
+        ) {
+            System.err.println(&quot;Unbelieveable!!&quot;);</Snippet>
+                            </Primary>
+                        </Issue>
+                        <Issue ruleID="49D75ADD-4BBD-49B9-AAF2-92B9BAB332FE" iid="061331A5F9C0091326D641DF56D5136B">
+                            <Category>Insecure Randomness</Category>
+                            <Folder>High</Folder>
+                            <Kingdom>Security Features</Kingdom>
+                            <Abstract>The random number generator implemented by nextFloat() cannot withstand a cryptographic attack.</Abstract>
+                            <Friority>High</Friority>
+                            <Primary>
+<FileName>bannedAPIs.java</FileName>
+<FilePath>bannedAPIs.java</FilePath>
+<LineStart>32</LineStart>
+<Snippet>            // || rg0.next(51) != rg1.next(51)
+            || rg0.nextLong() != rg1.nextLong()
+            || rg0.nextFloat() != rg1.nextFloat()
+            || rg0.nextDouble() != rg1.nextDouble()
+            || rg0.nextGaussian() != rg1.nextGaussian()</Snippet>
+                            </Primary>
+                        </Issue>
+                        <Issue ruleID="49D75ADD-4BBD-49B9-AAF2-92B9BAB332FE" iid="07C60A092948C28C6CBE11F40AA5D3B2">
+                            <Category>Insecure Randomness</Category>
+                            <Folder>High</Folder>
+                            <Kingdom>Security Features</Kingdom>
+                            <Abstract>The random number generator implemented by next() cannot withstand a cryptographic attack.</Abstract>
+                            <Friority>High</Friority>
+                            <Primary>
+<FileName>bannedAPIs.java</FileName>
+<FilePath>bannedAPIs.java</FilePath>
+<LineStart>43</LineStart>
+<Snippet>        if (mrg0.nextInt() != mrg1.nextInt()
+            || mrg0.nextInt(360) != mrg1.nextInt(360)
+            || mrg0.next(51) != mrg1.next(51)
+            || mrg0.nextLong() != mrg1.nextLong()
+            || mrg0.nextFloat() != mrg1.nextFloat()</Snippet>
+                            </Primary>
+                        </Issue>
+                        <Issue ruleID="49D75ADD-4BBD-49B9-AAF2-92B9BAB332FE" iid="6D46CC3BA4EC3B293CA54B1AAEF1C3B2">
+                            <Category>Insecure Randomness</Category>
+                            <Folder>High</Folder>
+                            <Kingdom>Security Features</Kingdom>
+                            <Abstract>The random number generator implemented by next() cannot withstand a cryptographic attack.</Abstract>
+                            <Friority>High</Friority>
+                            <Primary>
+<FileName>bannedAPIs.java</FileName>
+<FilePath>bannedAPIs.java</FilePath>
+<LineStart>13</LineStart>
+<Snippet>
+            public int next(int bits) {
+                return super.next(bits);
+            }
+        }</Snippet>
+                            </Primary>
+                        </Issue>
+                        <Issue ruleID="49D75ADD-4BBD-49B9-AAF2-92B9BAB332FE" iid="C8F68EE649C47D93A54188C0CC3381E4">
+                            <Category>Insecure Randomness</Category>
+                            <Folder>High</Folder>
+                            <Kingdom>Security Features</Kingdom>
+                            <Abstract>The random number generator implemented by nextDouble() cannot withstand a cryptographic attack.</Abstract>
+                            <Friority>High</Friority>
+                            <Primary>
+<FileName>bannedAPIs.java</FileName>
+<FilePath>bannedAPIs.java</FilePath>
+<LineStart>46</LineStart>
+<Snippet>            || mrg0.nextLong() != mrg1.nextLong()
+            || mrg0.nextFloat() != mrg1.nextFloat()
+            || mrg0.nextDouble() != mrg1.nextDouble()
+            || mrg0.nextGaussian() != mrg1.nextGaussian()
+        ) {</Snippet>
+                            </Primary>
+                        </Issue>
+                    </GroupingSection>
+                    <GroupingSection count="5">
+                        <groupTitle>Insecure Randomness: Poor Seed</groupTitle>
+                        <MajorAttributeSummary>
+                            <MetaInfo>
+<Name>Abstract</Name>
+<Value>Random.setSeed should not be called with a constant integer argument.</Value>
+                            </MetaInfo>
+                            <MetaInfo>
+<Name>Explanation</Name>
+<Value>Random.setSeed should not be called with a constant integer argument.  If a Random object is seeded with a specific value, the values returned by Random.nextInt() and similar methods which return or assign values are predictable.
+
+Example: Below, the values produced by the Random object s are predictable from the Random object r.
+
+
+        Random r = new Random();
+        r.setSeed(12345);
+        int i = r.nextInt();
+        byte[] b = new byte[4];
+        r.nextBytes(b);
+        
+        Random s = new Random();
+        s.setSeed(12345);
+        int j = s.nextInt();
+        byte[] c = new byte[4];
+        s.nextBytes(c);
+
+
+	In this example, Random objects r and s were identically seeded, so i == j, and corresponding values of arrays b[] and c[] are equal.
+    &#xD;
+
+    This finding is from research found in &quot;An Empirical Study of Cryptographic Misuse in Android Applications&quot;. http://www.cs.ucsb.edu/~chris/research/doc/ccs13_cryptolint.pdf</Value>
+                            </MetaInfo>
+                            <MetaInfo>
+<Name>Recommendations</Name>
+<Value>Set the seed using a function of the system clock as an argument, e.g. System.nanoTime() or System.currentTimeMillis().  Doing so makes the sequence of data produced by Random.nextInt() and similar methods much harder to predict than setting the seed to a constant.
+	</Value>
+                            </MetaInfo>
+                            <AttributeValue>
+<Name>&lt;Unaudited&gt;</Name>
+<Count>5</Count>
+                            </AttributeValue>
+                            <AttributeValue>
+<Name>Not an Issue</Name>
+<Count>0</Count>
+                            </AttributeValue>
+                            <AttributeValue>
+<Name>Reliability Issue</Name>
+<Count>0</Count>
+                            </AttributeValue>
+                            <AttributeValue>
+<Name>Bad Practice</Name>
+<Count>0</Count>
+                            </AttributeValue>
+                            <AttributeValue>
+<Name>Suspicious</Name>
+<Count>0</Count>
+                            </AttributeValue>
+                            <AttributeValue>
+<Name>Exploitable</Name>
+<Count>0</Count>
+                            </AttributeValue>
+                        </MajorAttributeSummary>
+                        <Issue ruleID="FEAD26B5-C753-4A64-8DD1-C542E684E7E1" iid="1A417EDA2013645DA20E18E23B72BAE8">
+                            <Category>Insecure Randomness: Poor Seed</Category>
+                            <Folder>High</Folder>
+                            <Kingdom>Security Features</Kingdom>
+                            <Abstract>Random.setSeed should not be called with a constant integer argument.</Abstract>
+                            <Friority>High</Friority>
+                            <Primary>
+<FileName>bannedAPIs.java</FileName>
+<FilePath>bannedAPIs.java</FilePath>
+<LineStart>27</LineStart>
+<Snippet>
+        Random rg0 = new Random(31415926545L);
+        Random rg1 = new Random(31415926545L);
+        if (rg0.nextInt() != rg1.nextInt()
+            || rg0.nextInt(360) != rg1.nextInt(360)</Snippet>
+                            </Primary>
+                        </Issue>
+                        <Issue ruleID="FEAD26B5-C753-4A64-8DD1-C542E684E7E1" iid="A8F373B7438A58F807DF846B050EC88D">
+                            <Category>Insecure Randomness: Poor Seed</Category>
+                            <Folder>High</Folder>
+                            <Kingdom>Security Features</Kingdom>
+                            <Abstract>Random.setSeed should not be called with a constant integer argument.</Abstract>
+                            <Friority>High</Friority>
+                            <Primary>
+<FileName>bannedAPIs.java</FileName>
+<FilePath>bannedAPIs.java</FilePath>
+<LineStart>9</LineStart>
+<Snippet>        class MyRandom extends Random {
+            public MyRandom(long seed) {
+                super(seed);
+            }
+</Snippet>
+                            </Primary>
+                        </Issue>
+                        <Issue ruleID="FEAD26B5-C753-4A64-8DD1-C542E684E7E1" iid="2CE2AC4209523A416091A94E9086CD08">
+                            <Category>Insecure Randomness: Poor Seed</Category>
+                            <Folder>High</Folder>
+                            <Kingdom>Security Features</Kingdom>
+                            <Abstract>Random.setSeed should not be called with a constant integer argument.</Abstract>
+                            <Friority>High</Friority>
+                            <Primary>
+<FileName>bannedAPIs.java</FileName>
+<FilePath>bannedAPIs.java</FilePath>
+<LineStart>40</LineStart>
+<Snippet>
+        MyRandom mrg0 = new MyRandom(31415926545L);
+        MyRandom mrg1 = new MyRandom(31415926545L);
+        if (mrg0.nextInt() != mrg1.nextInt()
+            || mrg0.nextInt(360) != mrg1.nextInt(360)</Snippet>
+                            </Primary>
+                        </Issue>
+                        <Issue ruleID="FEAD26B5-C753-4A64-8DD1-C542E684E7E1" iid="839E4D8CA0BB4F08A32E5EB995471BAC">
+                            <Category>Insecure Randomness: Poor Seed</Category>
+                            <Folder>High</Folder>
+                            <Kingdom>Security Features</Kingdom>
+                            <Abstract>Random.setSeed should not be called with a constant integer argument.</Abstract>
+                            <Friority>High</Friority>
+                            <Primary>
+<FileName>bannedAPIs.java</FileName>
+<FilePath>bannedAPIs.java</FilePath>
+<LineStart>26</LineStart>
+<Snippet>        System.runFinalizersOnExit(false);
+
+        Random rg0 = new Random(31415926545L);
+        Random rg1 = new Random(31415926545L);
+        if (rg0.nextInt() != rg1.nextInt()</Snippet>
+                            </Primary>
+                        </Issue>
+                        <Issue ruleID="FEAD26B5-C753-4A64-8DD1-C542E684E7E1" iid="7A22FFDD8C3705E024CF2AA246FA7B8D">
+                            <Category>Insecure Randomness: Poor Seed</Category>
+                            <Folder>High</Folder>
+                            <Kingdom>Security Features</Kingdom>
+                            <Abstract>Random.setSeed should not be called with a constant integer argument.</Abstract>
+                            <Friority>High</Friority>
+                            <Primary>
+<FileName>bannedAPIs.java</FileName>
+<FilePath>bannedAPIs.java</FilePath>
+<LineStart>39</LineStart>
+<Snippet>        }
+
+        MyRandom mrg0 = new MyRandom(31415926545L);
+        MyRandom mrg1 = new MyRandom(31415926545L);
+        if (mrg0.nextInt() != mrg1.nextInt()</Snippet>
+                            </Primary>
+                        </Issue>
+                    </GroupingSection>
+                </Chart>
+            </IssueListing>
+        </SubSection>
+    </ReportSection>
+    <ReportSection optionalSubsections="true" enabled="false">
+        <Title>Detailed Project Summary</Title>
+        <SubSection enabled="true">
+            <Title>Files Scanned</Title>
+            <Description>A detailed listing of all scanned files.  Files are listed with paths relative to the Source Base Path</Description>
+            <Text>Code base location: E:/tests/bannedAPIs&#xD;
+Files Scanned:&#xD;
+bannedAPIs.java		java	27 Lines	2.2 KB	Sep 10, 2014 12:07:23 PM</Text>
+        </SubSection>
+        <SubSection enabled="true">
+            <Title>Reference Elements</Title>
+            <Description>A Listing of all libraries used for the translation phase of the analysis</Description>
+            <Text>Classpath:&#xD;
+&#xD;
+No classpath specified during translation&#xD;
+&#xD;
+Libdirs:&#xD;
+&#xD;
+No libdirs specified during translation</Text>
+        </SubSection>
+        <SubSection enabled="true">
+            <Title>Rulepacks</Title>
+            <Description>A listing of all rulepacks used in the analysis</Description>
+            <Text>Valid Rulepacks:
+
+Name: 		Fortify Secure Coding Rules, Core, ABAP
+Version: 	2014.1.0.0010
+ID: 				5A663288-B1F7-416A-AEED-E5F00DC3596F
+SKU: 			RUL13095
+
+Name: 		Fortify Secure Coding Rules, Core, ActionScript 3.0
+Version: 	2014.1.0.0010
+ID: 				92127AA2-E666-4F28-B1C1-C0F6A939A089
+SKU: 			RUL13094
+
+Name: 		Fortify Secure Coding Rules, Core, Android
+Version: 	2014.1.0.0010
+ID: 				FF9890E6-D119-4EE8-A591-83DCF4CA6952
+SKU: 			RUL13093
+
+Name: 		Fortify Secure Coding Rules, Core, Annotations
+Version: 	2014.1.0.0010
+ID: 				14EE50EB-FA1C-4AE8-8B59-39F952E21E3B
+SKU: 			RUL13078
+
+Name: 		Fortify Secure Coding Rules, Core, ColdFusion
+Version: 	2014.1.0.0010
+ID: 				EEA7C678-058E-462A-8A59-AF925F7B7164
+SKU: 			RUL13024
+
+Name: 		Fortify Secure Coding Rules, Core, C/C++
+Version: 	2014.1.0.0010
+ID: 				711E0652-7494-42BE-94B1-DB3799418C7E
+SKU: 			RUL13001
+
+Name: 		Fortify Secure Coding Rules, Core, .NET
+Version: 	2014.1.0.0010
+ID: 				D57210E5-E762-4112-97DD-019E61D32D0E
+SKU: 			RUL13002
+
+Name: 		Fortify Secure Coding Rules, Core, Java
+Version: 	2014.1.0.0010
+ID: 				06A6CC97-8C3F-4E73-9093-3E74C64A2AAF
+SKU: 			RUL13003
+
+Name: 		Fortify Secure Coding Rules, Core, JavaScript
+Version: 	2014.1.0.0010
+ID: 				BD292C4E-4216-4DB8-96C7-9B607BFD9584
+SKU: 			RUL13059
+
+Name: 		Fortify Secure Coding Rules, Core, Objective-C
+Version: 	2014.1.0.0010
+ID: 				B18E58BA-8B2D-4FC5-83BF-378594CAD260
+SKU: 			RUL13099
+
+Name: 		Fortify Secure Coding Rules, Core, PHP
+Version: 	2014.1.0.0010
+ID: 				343CBB32-087C-4A4E-8BD8-273B5F876069
+SKU: 			RUL13058
+
+Name: 		Fortify Secure Coding Rules, Core, Python
+Version: 	2014.1.0.0010
+ID: 				FD15CBE4-E059-4CBB-914E-546BDCEB422B
+SKU: 			RUL13083
+
+Name: 		Fortify Secure Coding Rules, Core, SQL
+Version: 	2014.1.0.0010
+ID: 				6494160B-E1DB-41F5-9840-2B1609EE7649
+SKU: 			RUL13004
+
+Name: 		Fortify Secure Coding Rules, Core, Classic ASP, VBScript, and VB6
+Version: 	2014.1.0.0010
+ID: 				1D426B6F-8D33-4AD6-BBCE-237ABAFAB924
+SKU: 			RUL13060
+
+Name: 		Fortify Secure Coding Rules, Extended, Configuration
+Version: 	2014.1.0.0010
+ID: 				CD6959FC-0C37-45BE-9637-BAA43C3A4D56
+SKU: 			RUL13005
+
+Name: 		Fortify Secure Coding Rules, Extended, Content
+Version: 	2014.1.0.0010
+ID: 				9C48678C-09B6-474D-B86D-97EE94D38F17
+SKU: 			RUL13067
+
+Name: 		Fortify Secure Coding Rules, Extended, C/C++
+Version: 	2014.1.0.0010
+ID: 				BD4641AD-A6FF-4401-A8F4-6873272F2748
+SKU: 			RUL13006
+
+Name: 		Fortify Secure Coding Rules, Extended, .NET
+Version: 	2014.1.0.0010
+ID: 				557BCC56-CD42-43A7-B4FE-CDD00D58577E
+SKU: 			RUL13027
+
+Name: 		Fortify Secure Coding Rules, Extended, Java
+Version: 	2014.1.0.0010
+ID: 				AAAC0B10-79E7-4FE5-9921-F4903A79D317
+SKU: 			RUL13007
+
+Name: 		Fortify Secure Coding Rules, Extended, JSP
+Version: 	2014.1.0.0010
+ID: 				00403342-15D0-48C9-8E67-4B1CFBDEFCD2
+SKU: 			RUL13026
+
+Name: 		Fortify Secure Coding Rules, Extended, SQL
+Version: 	2014.1.0.0010
+ID: 				4BC5B2FA-C209-4DBC-9C3E-1D3EEFAF135A
+SKU: 			RUL13025
+
+External Metadata:
+
+Name: 		CWE
+ID: 				3ADB9EE4-5761-4289-8BD3-CBFCC593EBBC
+
+Name: 		FISMA
+ID: 				B40F9EE0-3824-4879-B9FE-7A789C89307C
+
+Name: 		NIST SP 800-53 Rev.4
+ID: 				1114583B-EA24-45BE-B7F8-B61201BACDD0
+
+Name: 		OWASP Top 10 2004
+ID: 				771C470C-9274-4580-8556-C023E4D3ADB4
+
+Name: 		OWASP Top 10 2007
+ID: 				1EB1EC0E-74E6-49A0-BCE5-E6603802987A
+
+Name: 		OWASP Top 10 2010
+ID: 				FDCECA5E-C2A8-4BE8-BB26-76A8ECD0ED59
+
+Name: 		OWASP Top 10 2013
+ID: 				1A2B4C7E-93B0-4502-878A-9BE40D2A25C4
+
+Name: 		PCI 1.1
+ID: 				CBDB9D4D-FC20-4C04-AD58-575901CAB531
+
+Name: 		PCI 1.2
+ID: 				57940BDB-99F0-48BF-BF2E-CFC42BA035E5
+
+Name: 		PCI 2.0
+ID: 				8970556D-7F9F-4EA7-8033-9DF39D68FF3E
+
+Name: 		PCI 3.0
+ID: 				E2FB0D38-0192-4F03-8E01-FE2A12680CA3
+
+Name: 		SANS Top 25 2009
+ID: 				939EF193-507A-44E2-ABB7-C00B2168B6D8
+
+Name: 		SANS Top 25 2010
+ID: 				72688795-4F7B-484C-88A6-D4757A6121CA
+
+Name: 		SANS Top 25 2011
+ID: 				92EB4481-1FD9-4165-8E16-F2DE6CB0BD63
+
+Name: 		STIG 3
+ID: 				F2FA57EA-5AAA-4DDE-90A5-480BE65CE7E7
+
+Name: 		STIG 3.4
+ID: 				58E2C21D-C70F-4314-8994-B859E24CF855
+
+Name: 		STIG 3.5
+ID: 				DD18E81F-3507-41FA-9DFA-2A9A15B5479F
+
+Name: 		WASC 24 + 2
+ID: 				9DC61E7F-1A48-4711-BBFD-E9DFF537871F
+
+</Text>
+        </SubSection>
+        <SubSection enabled="true">
+            <Title>Properties</Title>
+            <Description>A complete listing of all properties set during analysis phase</Description>
+            <Text>WinForms.CollectionMutationMonitor.Label=WinFormsDataSource
+WinForms.ExtractEventHandlers=true
+WinForms.TransformChangeNotificationPattern=true
+WinForms.TransformDataBindings=true
+WinForms.TransformMessageLoops=true
+awt.toolkit=sun.awt.windows.WToolkit
+com.fortify.AuthenticationKey=C:\Users\wenkec\AppData\Local/Fortify/config/tools
+com.fortify.Core=E:\tools\fortify\Core
+com.fortify.InstallRoot=E:\tools\fortify
+com.fortify.InstallationUserName=wenkec
+com.fortify.SCAExecutablePath=E:	oolsortifybinsourceanalyzer.exe
+com.fortify.TotalPhysicalMemory=17101729792
+com.fortify.VS.RequireASPPrecompilation=true
+com.fortify.WorkingDirectory=C:\Users\wenkec\AppData\Local/Fortify
+com.fortify.locale=en
+com.fortify.sca.AddImpliedMethods=true
+com.fortify.sca.AntCompilerClass=com.fortify.dev.ant.SCACompiler
+com.fortify.sca.BuildID=JavaBannedAPIs
+com.fortify.sca.BundleControlflowIssues=true
+com.fortify.sca.CollectPerformanceData=true
+com.fortify.sca.CustomRulesDir=E:\tools\fortify\Core\config\customrules
+com.fortify.sca.DaemonCompilers=com.fortify.sca.util.compilers.GppCompiler,com.fortify.sca.util.compilers.GccCompiler,com.fortify.sca.util.compilers.AppleGppCompiler,com.fortify.sca.util.compilers.AppleGccCompiler,com.fortify.sca.util.compilers.MicrosoftCompiler,com.fortify.sca.util.compilers.MicrosoftLinker,com.fortify.sca.util.compilers.LdCompiler,com.fortify.sca.util.compilers.ArUtil,com.fortify.sca.util.compilers.SunCCompiler,com.fortify.sca.util.compilers.SunCppCompiler,com.fortify.sca.util.compilers.IntelCompiler,com.fortify.sca.util.compilers.ExternalCppAdapter,com.fortify.sca.util.compilers.ClangCompiler
+com.fortify.sca.DeadCodeFilter=true
+com.fortify.sca.DeadCodeIgnoreTrivialPredicates=true
+com.fortify.sca.DefaultAnalyzers=semantic:dataflow:controlflow:nullptr:configuration:content:structural:buffer
+com.fortify.sca.DefaultFileTypes=java,jsp,jspx,tag,tagx,tld,sql,cfm,php,phtml,ctp,pks,pkh,pkb,xml,config,settings,properties,dll,exe,inc,asp,vbscript,js,ini,bas,cls,vbs,frm,ctl,html,htm,xsd,wsdd,xmi,py,cfml,cfc,abap,xhtml,cpx,xcfg,jsff,as,mxml,cbl,cscfg,csdef,wadcfg,appxmanifest,wsdl
+com.fortify.sca.DefaultJarsDirs=default_jars
+com.fortify.sca.DefaultRulesDir=E:\tools\fortify\Core\config\rules
+com.fortify.sca.DisableDeadCodeElimination=false
+com.fortify.sca.DisableFunctionPointers=false
+com.fortify.sca.DisableGlobals=false
+com.fortify.sca.DisableInferredConstants=false
+com.fortify.sca.DisplayProgress=true
+com.fortify.sca.EnableFindbugs=
+com.fortify.sca.EnableInterproceduralConstantResolution=true
+com.fortify.sca.EnableNestedWrappers=true
+com.fortify.sca.EnableStructuralMatchCache=true
+com.fortify.sca.EnableWrapperDetection=true
+com.fortify.sca.FVDLDisableDescriptions=false
+com.fortify.sca.FVDLDisableProgramData=false
+com.fortify.sca.FVDLDisableSnippets=false
+com.fortify.sca.FVDLStylesheet=E:\tools\fortify\Core/resources/sca/fvdl2html.xsl
+com.fortify.sca.IndirectCallGraphBuilders=com.fortify.sca.analyzer.callgraph.WinFormsAdHocFunctionBuilder,com.fortify.sca.analyzer.callgraph.VirtualCGBuilder,com.fortify.sca.analyzer.callgraph.J2EEIndirectCGBuilder,com.fortify.sca.analyzer.callgraph.JNICGBuilder,com.fortify.sca.analyzer.callgraph.StoredProcedureResolver,com.fortify.sca.analyzer.callgraph.JavaWSCGBuilder,com.fortify.sca.analyzer.callgraph.StrutsCGBuilder,com.fortify.sca.analyzer.callgraph.DotNetWSCGBuilder,com.fortify.sca.analyzer.callgraph.SqlServerSPResolver,com.fortify.sca.analyzer.callgraph.ASPCGBuilder,com.fortify.sca.analyzer.callgraph.ScriptedCGBuilder,com.fortify.sca.analyzer.callgraph.NewJspCustomTagCGBuilder,com.fortify.sca.analyzer.callgraph.DotNetCABCGBuilder,com.fortify.sca.analyzer.callgraph.StateInjectionCGBuilder,com.fortify.sca.analyzer.callgraph.SqlServerSPResolver2,com.fortify.sca.analyzer.callgraph.PHPLambdaResolver,com.fortify.sca.analyzer.callgraph.JavaWebCGBuilder
+com.fortify.sca.JVMArgs=-Djava.awt.headless=true -Dcom.sun.management.jmxremote=true -XX:SoftRefLRUPolicyMSPerMB=3000 -Xss1M -Xmx600M -Xms300M -server
+com.fortify.sca.JdkVersion=1.4
+com.fortify.sca.LowSeverityCutoff=1.0
+com.fortify.sca.NoNestedOutTagOutput=org.apache.taglibs.standard.tag.rt.core.RemoveTag,org.apache.taglibs.standard.tag.rt.core.SetTag
+com.fortify.sca.PID=7260
+com.fortify.sca.PrintPerformanceDataAfterScan=false
+com.fortify.sca.ProjectRoot=C:\Users\wenkec\AppData\Local/Fortify
+com.fortify.sca.ProjectRoot=C:\Users\wenkec\AppData\Local/Fortify
+com.fortify.sca.RequireMapKeys=classrule
+com.fortify.sca.ResultsFile=baJava2.fpr
+com.fortify.sca.RmiWorkerMaxHeap=2048M
+com.fortify.sca.SolverTimeout=15
+com.fortify.sca.SqlLanguage=TSQL
+com.fortify.sca.SuppressLowSeverity=true
+com.fortify.sca.ThreadCount.NameTableLoading=1
+com.fortify.sca.UnicodeInputFile=true
+com.fortify.sca.WrapperHeuristic=moderate
+com.fortify.sca.analyzer.controlflow.EnableLivenessOptimization=false
+com.fortify.sca.analyzer.controlflow.EnableMachineFiltering=false
+com.fortify.sca.analyzer.controlflow.EnableRefRuleOptimization=false
+com.fortify.sca.analyzer.controlflow.EnableTimeOut=true
+com.fortify.sca.compilers.ant=com.fortify.sca.util.compilers.AntAdapter
+com.fortify.sca.compilers.ar=com.fortify.sca.util.compilers.ArUtil
+com.fortify.sca.compilers.armcc=com.fortify.sca.util.compilers.ArmCcCompiler
+com.fortify.sca.compilers.armcpp=com.fortify.sca.util.compilers.ArmCppCompiler
+com.fortify.sca.compilers.c++=com.fortify.sca.util.compilers.GppCompiler
+com.fortify.sca.compilers.c89=com.fortify.sca.util.compilers.C89Compiler
+com.fortify.sca.compilers.cc=com.fortify.sca.util.compilers.GccCompiler
+com.fortify.sca.compilers.cl=com.fortify.sca.util.compilers.MicrosoftCompiler
+com.fortify.sca.compilers.clearmake=com.fortify.sca.util.compilers.TouchlessCompiler
+com.fortify.sca.compilers.devenv=com.fortify.sca.util.compilers.DevenvNetAdapter
+com.fortify.sca.compilers.fortify=com.fortify.sca.util.compilers.FortifyCompiler
+com.fortify.sca.compilers.g++=com.fortify.sca.util.compilers.GppCompiler
+com.fortify.sca.compilers.g++-*=com.fortify.sca.util.compilers.GppCompiler
+com.fortify.sca.compilers.g++2*=com.fortify.sca.util.compilers.GppCompiler
+com.fortify.sca.compilers.g++3*=com.fortify.sca.util.compilers.GppCompiler
+com.fortify.sca.compilers.g++4*=com.fortify.sca.util.compilers.GppCompiler
+com.fortify.sca.compilers.gcc=com.fortify.sca.util.compilers.GccCompiler
+com.fortify.sca.compilers.gcc-*=com.fortify.sca.util.compilers.GccCompiler
+com.fortify.sca.compilers.gcc2*=com.fortify.sca.util.compilers.GccCompiler
+com.fortify.sca.compilers.gcc3*=com.fortify.sca.util.compilers.GccCompiler
+com.fortify.sca.compilers.gcc4*=com.fortify.sca.util.compilers.GccCompiler
+com.fortify.sca.compilers.gmake=com.fortify.sca.util.compilers.TouchlessCompiler
+com.fortify.sca.compilers.icc=com.fortify.sca.util.compilers.IntelCompiler
+com.fortify.sca.compilers.icl=com.fortify.sca.util.compilers.MicrosoftCompiler
+com.fortify.sca.compilers.icpc=com.fortify.sca.util.compilers.IntelCompiler
+com.fortify.sca.compilers.jam=com.fortify.sca.util.compilers.TouchlessCompiler
+com.fortify.sca.compilers.javac=com.fortify.sca.util.compilers.JavacCompiler
+com.fortify.sca.compilers.ld=com.fortify.sca.util.compilers.LdCompiler
+com.fortify.sca.compilers.link=com.fortify.sca.util.compilers.MicrosoftLinker
+com.fortify.sca.compilers.make=com.fortify.sca.util.compilers.TouchlessCompiler
+com.fortify.sca.compilers.msbuild=com.fortify.sca.util.compilers.MSBuildAdapter
+com.fortify.sca.compilers.msdev=com.fortify.sca.util.compilers.DevenvAdapter
+com.fortify.sca.compilers.mvn=com.fortify.sca.util.compilers.MavenAdapter
+com.fortify.sca.compilers.nmake=com.fortify.sca.util.compilers.TouchlessCompiler
+com.fortify.sca.compilers.tcc=com.fortify.sca.util.compilers.ArmCcCompiler
+com.fortify.sca.compilers.tcpp=com.fortify.sca.util.compilers.ArmCppCompiler
+com.fortify.sca.compilers.touchless=com.fortify.sca.util.compilers.FortifyCompiler
+com.fortify.sca.compilers.xilink=com.fortify.sca.util.compilers.MicrosoftLinker
+com.fortify.sca.cpfe.441.command=E:\tools\fortify\Core/private-bin/sca/cpfe441
+com.fortify.sca.cpfe.command=E:\tools\fortify\Core/private-bin/sca/cpfe441.rfct.exe
+com.fortify.sca.cpfe.file.option=--gen_c_file_name
+com.fortify.sca.cpfe.options=--remove_unneeded_entities --suppress_vtbl -tused
+com.fortify.sca.cpfe.options=--remove_unneeded_entities --suppress_vtbl -tused
+com.fortify.sca.env.cl=&quot;C:\Program Files (x86)\VS2013\VC\bin\cl.exe&quot;
+com.fortify.sca.env.exesearchpath=e:\tests\bannedAPIs;E:\tools\fortify\bin;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;c:\tools\DbgX86;c:\tools\bin;c:\tools\idw;c:\tools\bldtools;c:\tools\sd;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\Program Files (x86)\Windows Kits\8.1\Windows Performance Toolkit\;C:\Program Files\Microsoft SQL Server\110\Tools\Binn\;C:\Program Files\Common Files\Microsoft Shared\Microsoft Online Services;C:\Program Files (x86)\Common Files\Microsoft Shared\Microsoft Online Services;C:\Program Files (x86)\Microsoft SQL Server\110\Tools\Binn\;C:\Program Files (x86)\Microsoft SQL Server\110\DTS\Binn\;C:\Program Files (x86)\Microsoft SDKs\TypeScript\1.0\;e:\tools\fortify\bin\..\Core\lib;E:\tools\fortify\bin\..\Core\lib;E:\tools\fortify\bin\..\Core\lib;E:\tools\fortify\bin\..\Core\lib;E:\tools\fortify\bin\..\Core\lib;E:\tools\fortify\bin\..\Core\lib;E:\tools\fortify\bin\..\Core\lib;e:\tools\fortify\bin\..\Core\lib;e:\tools\fortify\bin\..\Core\lib;e:\tools\fortify\bin\..\Core\lib;e:\tools\fortify\bin\..\Core\lib;E:\tools\fortify\bin\..\Core\lib;E:\tools\fortify\bin\..\Core\lib;E:\tools\fortify\bin\..\Core\lib;E:\tools\fortify\bin\..\Core\lib;e:\tools\fortify\bin\..\Core\lib;e:\tools\java\jdk1.8.0_20\bin;e:\tools\java\jre1.8.0_20\bin;e:\tools\fortify\bin\..\Core\lib;e:\tools\fortify\bin\..\Core\lib
+com.fortify.sca.env.include=&quot;C:\Program Files (x86)\VS2013\VC\INCLUDE&quot;
+com.fortify.sca.fileextensions.ABAP=ABAP
+com.fortify.sca.fileextensions.abap=ABAP
+com.fortify.sca.fileextensions.appxmanifest=XML
+com.fortify.sca.fileextensions.as=ACTIONSCRIPT
+com.fortify.sca.fileextensions.asp=ASP
+com.fortify.sca.fileextensions.bas=VB6
+com.fortify.sca.fileextensions.cfc=CFML
+com.fortify.sca.fileextensions.cfm=CFML
+com.fortify.sca.fileextensions.cfml=CFML
+com.fortify.sca.fileextensions.cls=VB6
+com.fortify.sca.fileextensions.config=XML
+com.fortify.sca.fileextensions.cpx=XML
+com.fortify.sca.fileextensions.cs=CSHARP
+com.fortify.sca.fileextensions.cscfg=XML
+com.fortify.sca.fileextensions.csdef=XML
+com.fortify.sca.fileextensions.ctl=VB6
+com.fortify.sca.fileextensions.ctp=PHP
+com.fortify.sca.fileextensions.dll=MSIL
+com.fortify.sca.fileextensions.exe=MSIL
+com.fortify.sca.fileextensions.faces=JSPX
+com.fortify.sca.fileextensions.frm=VB6
+com.fortify.sca.fileextensions.htm=HTML
+com.fortify.sca.fileextensions.html=HTML
+com.fortify.sca.fileextensions.ini=JAVA_PROPERTIES
+com.fortify.sca.fileextensions.java=JAVA
+com.fortify.sca.fileextensions.js=JAVASCRIPT
+com.fortify.sca.fileextensions.jsff=JSPX
+com.fortify.sca.fileextensions.jsp=JSP
+com.fortify.sca.fileextensions.jspx=JSPX
+com.fortify.sca.fileextensions.mdl=MSIL
+com.fortify.sca.fileextensions.mod=MSIL
+com.fortify.sca.fileextensions.mxml=MXML
+com.fortify.sca.fileextensions.php=PHP
+com.fortify.sca.fileextensions.phtml=PHP
+com.fortify.sca.fileextensions.pkb=PLSQL
+com.fortify.sca.fileextensions.pkh=PLSQL
+com.fortify.sca.fileextensions.pks=PLSQL
+com.fortify.sca.fileextensions.properties=JAVA_PROPERTIES
+com.fortify.sca.fileextensions.py=PYTHON
+com.fortify.sca.fileextensions.settings=XML
+com.fortify.sca.fileextensions.sql=SQL
+com.fortify.sca.fileextensions.tag=JSP
+com.fortify.sca.fileextensions.tagx=JSP
+com.fortify.sca.fileextensions.tld=TLD
+com.fortify.sca.fileextensions.vb=VB
+com.fortify.sca.fileextensions.vbs=VB6
+com.fortify.sca.fileextensions.vbscript=VBSCRIPT
+com.fortify.sca.fileextensions.wadcfg=XML
+com.fortify.sca.fileextensions.wsdd=XML
+com.fortify.sca.fileextensions.wsdl=XML
+com.fortify.sca.fileextensions.xcfg=XML
+com.fortify.sca.fileextensions.xhtml=JSPX
+com.fortify.sca.fileextensions.xmi=XML
+com.fortify.sca.fileextensions.xml=XML
+com.fortify.sca.fileextensions.xsd=XML
+com.fortify.sca.jsp.UseNativeParser=true
+com.fortify.sca.parser.python.ignore.module.1=test.badsyntax_future3
+com.fortify.sca.parser.python.ignore.module.2=test.badsyntax_future4
+com.fortify.sca.parser.python.ignore.module.3=test.badsyntax_future5
+com.fortify.sca.parser.python.ignore.module.4=test.badsyntax_future6
+com.fortify.sca.parser.python.ignore.module.5=test.badsyntax_future7
+com.fortify.sca.parser.python.ignore.module.6=test.badsyntax_future8
+com.fortify.sca.parser.python.ignore.module.7=test.badsyntax_future9
+com.fortify.sca.parser.python.ignore.module.8=test.badsyntax_nocaret
+com.fortify.sca.taint.SkipVirtual=true
+com.fortify.search.defaultSyntaxVer=2
+com.sun.management.jmxremote=true
+dotnet.install.dir=C:\Windows\Microsoft.NET\Framework
+dotnet.v30.referenceAssemblies=C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\v3.0
+dotnet.v35.referenceAssemblies=C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\v3.5
+file.encoding=Cp1252
+file.encoding.pkg=sun.io
+file.separator=\
+java.awt.graphicsenv=sun.awt.Win32GraphicsEnvironment
+java.awt.headless=true
+java.awt.printerjob=sun.awt.windows.WPrinterJob
+java.class.path=e:\tools\fortify\Core\lib\exe\sca-exe.jar
+java.class.version=51.0
+java.endorsed.dirs=e:\tools\fortify\jre64\lib\endorsed
+java.ext.dirs=e:\tools\fortify\jre64\lib\ext;C:\WINDOWS\Sun\Java\lib\ext
+java.home=e:\tools\fortify\jre64
+java.io.tmpdir=C:\Users\wenkec\AppData\Local\Temp\
+java.library.path=e:\tools\fortify\jre64\bin;C:\WINDOWS\Sun\Java\bin;C:\WINDOWS\system32;C:\WINDOWS;E:\tools\fortify\bin;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;c:\tools\DbgX86;c:\tools\bin;c:\tools\idw;c:\tools\bldtools;c:\tools\sd;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\Program Files (x86)\Windows Kits\8.1\Windows Performance Toolkit\;C:\Program Files\Microsoft SQL Server\110\Tools\Binn\;C:\Program Files\Common Files\Microsoft Shared\Microsoft Online Services;C:\Program Files (x86)\Common Files\Microsoft Shared\Microsoft Online Services;C:\Program Files (x86)\Microsoft SQL Server\110\Tools\Binn\;C:\Program Files (x86)\Microsoft SQL Server\110\DTS\Binn\;C:\Program Files (x86)\Microsoft SDKs\TypeScript\1.0\;e:\tools\fortify\bin\..\Core\lib;E:\tools\fortify\bin\..\Core\lib;E:\tools\fortify\bin\..\Core\lib;E:\tools\fortify\bin\..\Core\lib;E:\tools\fortify\bin\..\Core\lib;E:\tools\fortify\bin\..\Core\lib;E:\tools\fortify\bin\..\Core\lib;e:\tools\fortify\bin\..\Core\lib;e:\tools\fortify\bin\..\Core\lib;e:\tools\fortify\bin\..\Core\lib;e:\tools\fortify\bin\..\Core\lib;E:\tools\fortify\bin\..\Core\lib;E:\tools\fortify\bin\..\Core\lib;E:\tools\fortify\bin\..\Core\lib;E:\tools\fortify\bin\..\Core\lib;e:\tools\fortify\bin\..\Core\lib;e:\tools\java\jdk1.8.0_20\bin;e:\tools\java\jre1.8.0_20\bin;e:\tools\fortify\bin\..\Core\lib;e:\tools\fortify\bin\..\Core\lib;.
+java.rmi.server.randomIDs=true
+java.runtime.name=Java(TM) SE Runtime Environment
+java.runtime.version=1.7.0_21-b11
+java.specification.name=Java Platform API Specification
+java.specification.vendor=Oracle Corporation
+java.specification.version=1.7
+java.vendor=Oracle Corporation
+java.vendor.url=http://java.oracle.com/
+java.vendor.url.bug=http://bugreport.sun.com/bugreport/
+java.version=1.7.0_21
+java.vm.info=mixed mode
+java.vm.name=Java HotSpot(TM) 64-Bit Server VM
+java.vm.specification.name=Java Virtual Machine Specification
+java.vm.specification.vendor=Oracle Corporation
+java.vm.specification.version=1.7
+java.vm.vendor=Oracle Corporation
+java.vm.version=23.21-b01
+line.separator=&#xD;
+
+max.file.path.length=255
+os.arch=amd64
+os.name=Windows 8
+os.version=6.2
+path.separator=;
+stderr.isatty=true
+stdout.isatty=true
+sun.arch.data.model=64
+sun.boot.class.path=e:\tools\fortify\jre64\lib\resources.jar;e:\tools\fortify\jre64\lib\rt.jar;e:\tools\fortify\jre64\lib\sunrsasign.jar;e:\tools\fortify\jre64\lib\jsse.jar;e:\tools\fortify\jre64\lib\jce.jar;e:\tools\fortify\jre64\lib\charsets.jar;e:\tools\fortify\jre64\lib\jfr.jar;e:\tools\fortify\jre64\classes
+sun.boot.library.path=e:\tools\fortify\jre64\bin
+sun.cpu.endian=little
+sun.cpu.isalist=amd64
+sun.desktop=windows
+sun.io.unicode.encoding=UnicodeLittle
+sun.java.command=e:\tools\fortify\Core\lib\exe\sca-exe.jar -b JavaBannedAPIs -scan -findbugs -f baJava2.fpr
+sun.java.launcher=SUN_STANDARD
+sun.jnu.encoding=Cp1252
+sun.management.compiler=HotSpot 64-Bit Tiered Compilers
+sun.os.patch.level=
+user.country=US
+user.dir=e:\tests\bannedAPIs
+user.home=C:\Users\wenkec
+user.language=en
+user.name=wenkec
+user.script=
+user.timezone=America/Los_Angeles
+user.variant=
+vs.110.dotnet.clr.version=v4.0.30319
+vs.120.dotnet.clr.version=v4.0.30319
+vs.120.dotnet.install.dir=C:\Program Files (x86)\VS2013\Common7\IDE
+win32.LocalAppdata=C:\Users\wenkec\AppData\Local
+</Text>
+        </SubSection>
+        <SubSection enabled="true">
+            <Title>Commandline Arguments</Title>
+            <Description>A listing of all arguments passed to SCA during the analysis phase</Description>
+            <Text>-b
+JavaBannedAPIs
+-scan
+-findbugs
+-f
+baJava2.fpr
+</Text>
+        </SubSection>
+        <SubSection enabled="true">
+            <Title>Warnings</Title>
+            <Description>A listing of all warnings that occurred during the scan, during both translation and analysis phase</Description>
+            <Text>[12003] Assuming Java source level to be 1.4 as it was not specified. Note that the default value may change in future versions.
+[12003] Assuming Java source level to be 1.4 as it was not specified. Note that the default value may change in future versions.
+[1232] A format error or IO Exception prevented the class file at jar:file:///E:\tools\java\jdk1.8.0_20\jre\lib\rt.jar!/java/lang/CharSequence.class from being read.</Text>
+        </SubSection>
+    </ReportSection>
+    <ReportSection optionalSubsections="false" enabled="true">
+        <Title>Issue Count by Category</Title>
+        <SubSection enabled="true">
+            <Title>Issues By Category</Title>
+            <IssueListing limit="-1" listing="false">
+                <Refinement></Refinement>
+                <Chart chartType="table">
+                    <Axis>Category</Axis>
+                    <MajorAttribute>Analysis</MajorAttribute>
+                    <GroupingSection count="28">
+                        <groupTitle>Insecure Randomness</groupTitle>
+                    </GroupingSection>
+                    <GroupingSection count="5">
+                        <groupTitle>Insecure Randomness: Poor Seed</groupTitle>
+                    </GroupingSection>
+                    <GroupingSection count="4">
+                        <groupTitle>J2EE Bad Practices: Threads</groupTitle>
+                    </GroupingSection>
+                    <GroupingSection count="4">
+                        <groupTitle>Poor Logging Practice: Use of a System Output Stream</groupTitle>
+                    </GroupingSection>
+                    <GroupingSection count="2">
+                        <groupTitle>System Information Leak</groupTitle>
+                    </GroupingSection>
+                    <GroupingSection count="1">
+                        <groupTitle>Command Injection</groupTitle>
+                    </GroupingSection>
+                    <GroupingSection count="1">
+                        <groupTitle>Dubious method used</groupTitle>
+                    </GroupingSection>
+                    <GroupingSection count="1">
+                        <groupTitle>J2EE Bad Practices: Leftover Debug Code</groupTitle>
+                    </GroupingSection>
+                </Chart>
+            </IssueListing>
+        </SubSection>
+    </ReportSection>
+    <ReportSection optionalSubsections="false" enabled="true">
+        <Title>Issue Breakdown by Analysis</Title>
+        <SubSection enabled="true">
+            <Title>Issue by Analysis</Title>
+            <IssueListing limit="-1" listing="false">
+                <Refinement></Refinement>
+                <Chart chartType="pie">
+                    <Axis>Analysis</Axis>
+                    <MajorAttribute>Analysis</MajorAttribute>
+                    <GroupingSection count="46">
+                        <groupTitle>&lt;none&gt;</groupTitle>
+                    </GroupingSection>
+                </Chart>
+            </IssueListing>
+        </SubSection>
+    </ReportSection>
+    <ReportSection optionalSubsections="false" enabled="false">
+        <Title>New Issues</Title>
+        <SubSection enabled="true">
+            <Title>New Issues</Title>
+            <Description>A list of issues discovered since the previous analysis.</Description>
+            <Text>The following issues have been discovered since the last scan.</Text>
+            <IssueListing limit="-1" listing="false">
+                <Refinement></Refinement>
+                <Chart chartType="pie">
+                    <Axis>New Issue</Axis>
+                    <MajorAttribute>Analysis</MajorAttribute>
+                    <GroupingSection count="46">
+                        <groupTitle>Issue New: Sep 10, 2014</groupTitle>
+                    </GroupingSection>
+                </Chart>
+            </IssueListing>
+        </SubSection>
+    </ReportSection>
+</ReportDefinition>
