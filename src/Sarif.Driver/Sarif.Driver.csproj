@@ -1,0 +1,172 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <ProjectGuid>{8CEAEA61-B1A2-4777-BCBE-C9A129A5F6C5}</ProjectGuid>
+  </PropertyGroup>
+  <PropertyGroup>
+    <RootNamespace>Microsoft.CodeAnalysis.Sarif.Driver</RootNamespace>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyName>Sarif.Driver</AssemblyName>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OutputType>Library</OutputType>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>false</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>
+    </AssemblyOriginatorKeyFile>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'" />
+  <Import Project="$([MSBuild]::GetDirectoryNameOfFileAbove($(MSBuildThisFileDirectory), build.props))\build.props" />
+  <ItemGroup>
+    <Reference Include="CommandLine, Version=2.0.275.0, Culture=neutral, PublicKeyToken=de6f01bd326f8c32, processorArchitecture=MSIL">
+      <HintPath>..\packages\CommandLineParser.2.0.275-beta\lib\net45\CommandLine.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Practices.EnterpriseLibrary.TransientFaultHandling, Version=6.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\EnterpriseLibrary.TransientFaultHandling.6.0.1304.0\lib\portable-net45+win+wp8\Microsoft.Practices.EnterpriseLibrary.TransientFaultHandling.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Practices.EnterpriseLibrary.TransientFaultHandling.Data, Version=6.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\EnterpriseLibrary.TransientFaultHandling.Data.6.0.1304.1\lib\NET45\Microsoft.Practices.EnterpriseLibrary.TransientFaultHandling.Data.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=7.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.7.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Sarif, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Sarif.Sdk.1.4.10-beta\lib\net40\Sarif.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Collections.Immutable, Version=1.1.37.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Collections.Immutable.1.1.37\lib\portable-net45+win8+wp8+wpa81\System.Collections.Immutable.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Composition.AttributedModel, Version=1.0.30.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Composition.1.0.30\lib\portable-net45+win8+wp8+wpa81\System.Composition.AttributedModel.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Composition.Convention, Version=1.0.30.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Composition.1.0.30\lib\portable-net45+win8+wp8+wpa81\System.Composition.Convention.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Composition.Hosting, Version=1.0.30.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Composition.1.0.30\lib\portable-net45+win8+wp8+wpa81\System.Composition.Hosting.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Composition.Runtime, Version=1.0.30.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Composition.1.0.30\lib\portable-net45+win8+wp8+wpa81\System.Composition.Runtime.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Composition.TypedParts, Version=1.0.30.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Composition.1.0.30\lib\portable-net45+win8+wp8+wpa81\System.Composition.TypedParts.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.XML" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="Microsoft.CSharp" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ArgumentSplitter.cs" />
+    <Compile Include="BrandedVersionAttribute.cs" />
+    <Compile Include="Configuration\ConfigurationBase.cs" />
+    <Compile Include="Configuration\ConfigurationParseContext.cs" />
+    <Compile Include="Configuration\FieldAttribute.cs" />
+    <Compile Include="Configuration\FieldTypes.cs" />
+    <Compile Include="Configuration\NoMinusAttribute.cs" />
+    <Compile Include="DisposableEnumerable.cs" />
+    <Compile Include="DisposableEnumerableView.cs" />
+    <Compile Include="EnumerableExtensions.cs" />
+    <Compile Include="EnvironmentVariables.cs" />
+    <Compile Include="ExceptionStrings.Designer.cs" />
+    <Compile Include="Sdk\AggregatingLogger.cs" />
+    <Compile Include="Sdk\AnalysisApplicability.cs" />
+    <Compile Include="Sdk\ConsoleLogger.cs" />
+    <Compile Include="Sdk\ErrorDescriptors.cs" />
+    <Compile Include="Sdk\ExitApplicationException.cs" />
+    <Compile Include="Sdk\ExitReason.cs" />
+    <Compile Include="FileStreamExtensionMethods.cs" />
+    <Compile Include="FileSystem.cs" />
+    <Compile Include="IAppConfig.cs" />
+    <Compile Include="IEnvironmentVariables.cs" />
+    <Compile Include="IFileSystem.cs" />
+    <Compile Include="KeyEventImportance.cs" />
+    <Compile Include="LineInfo.cs" />
+    <Compile Include="MultiplyByPrimesHash.cs" />
+    <Compile Include="MurmurHash.cs" />
+    <Compile Include="NewLineIndex.cs" />
+    <Compile Include="OffsetInfo.cs" />
+    <Compile Include="Pair.cs" />
+    <Compile Include="PathExtensions.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Ref.cs" />
+    <Compile Include="ReferenceEqualityComparer`1.cs" />
+    <Compile Include="RentalStream.cs" />
+    <Compile Include="Sdk\AnalyzeCommandBase.cs" />
+    <Compile Include="Sdk\AnalyzeOptionsBase.cs" />
+    <Compile Include="Sdk\DriverCommand.cs" />
+    <Compile Include="Sdk\CompositionUtilities.cs" />
+    <Compile Include="Sdk\ExportConfigurationCommandBase.cs" />
+    <Compile Include="Sdk\ExportConfigurationOptions.cs" />
+    <Compile Include="Sdk\ExportRulesMetadataCommandBase.cs" />
+    <Compile Include="Sdk\ExportRulesMetadataOptions.cs" />
+    <Compile Include="Sdk\Hash.cs" />
+    <Compile Include="Sdk\IAnalysisContext.cs" />
+    <Compile Include="Sdk\IAnalyzeOptions.cs" />
+    <Compile Include="Sdk\IntegerSet.cs" />
+    <Compile Include="Sdk\IOption.cs" />
+    <Compile Include="Sdk\IOptionsProvider.cs" />
+    <Compile Include="Sdk\IResultLogger.cs" />
+    <Compile Include="Sdk\ISkimmer.cs" />
+    <Compile Include="Sdk\MessageUtilities.cs" />
+    <Compile Include="Sdk\NoteDescriptors.cs" />
+    <Compile Include="Sdk\PerLanguageOption.cs" />
+    <Compile Include="Sdk\PlugInDriverCommand.cs" />
+    <Compile Include="Sdk\PropertyBag.cs" />
+    <Compile Include="Sdk\PropertyBagExtensionMethods.cs" />
+    <Compile Include="Sdk\ResultLogger.cs" />
+    <Compile Include="Sdk\RuntimeConditions.cs" />
+    <Compile Include="Sdk\SarifLogger.cs" />
+    <Compile Include="Sdk\SdkResources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SdkResources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Sdk\SkimmerBase.cs" />
+    <Compile Include="Sdk\StatisticsLogger.cs" />
+    <Compile Include="Sdk\StringSet.cs" />
+    <Compile Include="Sdk\TypedPropertyBag.cs" />
+    <Compile Include="SemanticVersion.cs" />
+    <Compile Include="FileSpecifier.cs" />
+    <Compile Include="StringExtensions.cs" />
+    <Compile Include="TempDirectory.cs" />
+    <Compile Include="TempFile.cs" />
+    <Compile Include="VersionConstants.cs" />
+    <Compile Include="XmlWriterExtensions.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="DriverResources.resx" />
+    <EmbeddedResource Include="ExceptionStrings.resx" />
+    <EmbeddedResource Include="Sdk\SdkResources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>SdkResources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config">
+      <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>
