@@ -131,9 +131,17 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
             if (region != null)
             {
                 // TODO 
-                if (region.Offset > 0 || region.StartColumn == 0) { throw new NotImplementedException(); }
+                if (region.CharOffset > 0 ||
+                    region.ByteOffset > 0 ||
+                    region.StartColumn == 0)
+                {
+                    throw new NotImplementedException();
+                }
 
-                if (region.StartLine == 0) { throw new InvalidOperationException(); }
+                if (region.StartLine == 0)
+                {
+                    throw new InvalidOperationException();
+                }
 
                 // VS supports the following formatting options:
                 //      (startLine)
