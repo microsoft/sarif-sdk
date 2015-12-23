@@ -19,7 +19,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
         public IList<string> PlugInFilePaths { get; set;  }
 
 
-        public string PolicyFilePath { get; set; }
+        public string ConfigurationFilePath { get; set; }
 
         public bool Recurse { get; set; }
 

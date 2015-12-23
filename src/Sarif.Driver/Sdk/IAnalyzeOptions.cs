@@ -15,7 +15,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
 
         bool Recurse { get; }
 
-        string PolicyFilePath { get; }
+        string ConfigurationFilePath { get; }
 
         bool Statistics { get; }
 

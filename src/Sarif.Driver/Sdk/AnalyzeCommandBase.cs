@@ -518,7 +518,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
         private static PropertyBag CreatePolicyFromOptions(TOptions analyzeOptions)
         {
             PropertyBag policy = null;
-            string policyFilePath = analyzeOptions.PolicyFilePath;
+            string policyFilePath = analyzeOptions.ConfigurationFilePath;
 
             if (!string.IsNullOrEmpty(policyFilePath))
             {

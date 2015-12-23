@@ -88,14 +88,6 @@ namespace Microsoft.CodeAnalysis.DataModelGenerator
             sourceCode.WriteLine();
         }
 
-        /// <summary>Writes code document comments for all overrides of <see cref="Object.GetHashCode"/>
-        /// on generated C# code.</summary>
-        /// <param name="sourceCode">Code writer into which the doc comments shall be written.</param>
-        public static void WriteGetHashCodeDocComments(CodeWriter sourceCode)
-        {
-            sourceCode.WriteLine("/// <summary>Gets a hash code for this instance.</summary>");
-        }
-
         /// <summary>Writes code document comments for all overrides of
         /// <see cref="Object.Equals(object)"/> on generated C# code.</summary>
         /// <param name="sourceCode">Code writer into which the doc comments shall be written.</param>
