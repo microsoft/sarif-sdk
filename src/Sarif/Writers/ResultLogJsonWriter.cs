@@ -155,7 +155,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             }
             else
             {
-                Debug.Assert(_writeState == State.ResultsWritten);
+                if (_writeState == State.WritingResults)
+                {
+                    CloseResults();
+                }
 
                 // Log complete. Write the end object.
 
