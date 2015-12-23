@@ -122,25 +122,30 @@ namespace Microsoft.CodeAnalysis.DataModelGenerator
             DataModelType memberType = _model.GetTypeForMember(member);
             DataModelTypeKind typeKind = memberType.Kind;
             string sourceVariable = "this." + member.CSharpName;
+            int additionalCloseBraces = 0;
 
             // (rank - 1) * 2 OpenBrace calls
             for (int idx = 1; idx < member.Rank; ++idx)
             {
                 string nextVariable = _valueNamer.MakeName();
+                _codeWriter.OpenBrace("if ({0} != null)", sourceVariable);
                 _codeWriter.OpenBrace("foreach (var {0} in {1})", nextVariable, sourceVariable);
                 _codeWriter.WriteLine("result = result * {0};", MultiplicativeConstant);
                 _codeWriter.OpenBrace("if ({0} != null)", nextVariable);
                 sourceVariable = nextVariable;
+                ++additionalCloseBraces;
             }
 
             // rank != 0 ? 1 : 0 OpenBrace calls
             if (member.Rank != 0)
             {
                 string nextVariable = _valueNamer.MakeName();
+                _codeWriter.OpenBrace("if ({0} != null)", sourceVariable);
                 _codeWriter.OpenBrace("foreach (var {0} in {1})", nextVariable, sourceVariable);
                 _codeWriter.WriteLine("result = result * {0};", MultiplicativeConstant);
 
                 sourceVariable = nextVariable;
+                ++additionalCloseBraces;
             }
 
             // rank
@@ -198,6 +203,8 @@ namespace Microsoft.CodeAnalysis.DataModelGenerator
             {
                 ++closeBraces;
             }
+
+            closeBraces += additionalCloseBraces;  
 
             for (int idx = 0; idx < closeBraces; ++idx)
             {

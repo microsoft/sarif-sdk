@@ -196,7 +196,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
                     Verbose = true,
                     Statistics = true,
                     ComputeTargetsHash = true,
-                    PolicyFilePath = "default",
+                    ConfigurationFilePath = "default",
                     Recurse = true,
                     OutputFilePath = path,
                 };
