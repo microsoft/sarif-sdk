@@ -18,6 +18,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
         private TextWriter _textWriter;
         private JsonTextWriter _jsonTextWriter;
         private ResultLogJsonWriter _issueLogJsonWriter;
+        private HashSet<IRuleDescriptor> ruleDescriptors;
 
         public static ToolInfo CreateDefaultToolInfo(string prereleaseInfo = null)
         {
@@ -80,15 +81,22 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
             runInfo.InvocationInfo = Environment.CommandLine;
 
             _issueLogJsonWriter.WriteToolAndRunInfo(toolInfo, runInfo);
+
+            this.ruleDescriptors = new HashSet<IRuleDescriptor>();
         }
 
         public bool Verbose { get; set; }
 
         public void Dispose()
-        {
+        {    
             // Disposing the json writer closes the stream but the textwriter 
             // still needs to be disposed or closed to write the results
-            if (_issueLogJsonWriter != null) { _issueLogJsonWriter.Dispose(); }
+            if (_issueLogJsonWriter != null)
+            {
+                _issueLogJsonWriter.CloseResults();
+                _issueLogJsonWriter.WriteRuleInfo(this.ruleDescriptors);
+                _issueLogJsonWriter.Dispose();
+            }
             if (_textWriter != null) { _textWriter.Dispose(); }
         }
 
@@ -100,45 +108,53 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
 
         public void Log(ResultKind messageKind, IAnalysisContext context, string formatSpecifierId, params string[] arguments)
         {
+            this.ruleDescriptors.Add(context.Rule);
+
             formatSpecifierId = RuleUtilities.NormalizeFormatSpecifierId(context.Rule.Id, formatSpecifierId);
-            string formatSpecifier = context.Rule.FormatSpecifiers[formatSpecifierId];
-            string message = String.Format(formatSpecifier, arguments);
-            LogJsonIssue(messageKind, context.TargetUri?.LocalPath, context.Rule.Id, message);
+            LogJsonIssue(messageKind, context.TargetUri?.LocalPath, context.Rule.Id, formatSpecifierId, arguments);
+
+            this.ruleDescriptors.Add(context.Rule);
         }
 
-        private void LogJsonIssue(ResultKind messageKind, string targetPath, string ruleId, string message)
+        private void LogJsonIssue(ResultKind messageKind, string targetPath, string ruleId, string formatSpecifierId, params string[] arguments)
         {
             switch (messageKind)
             {
                 case ResultKind.Note:
                 case ResultKind.Pass:
                 case ResultKind.NotApplicable:
-                {
-                    if (!Verbose)
                     {
-                        return;
+                        if (!Verbose)
+                        {
+                            return;
+                        }
+                        break;
                     }
-                    break;
-                }
 
                 case ResultKind.Error:
                 case ResultKind.Warning:
                 case ResultKind.InternalError:
                 case ResultKind.ConfigurationError:
-                {
-                    break;
-                }
+                    {
+                        break;
+                    }
 
                 default:
-                {
-                    throw new InvalidOperationException();
-                }
+                    {
+                        throw new InvalidOperationException();
+                    }
             }
 
             Result result = new Result();
 
             result.RuleId = ruleId;
-            result.FullMessage = message;
+
+            result.FormattedMessage = new FormattedMessage()
+            {
+                SpecifierId = formatSpecifierId,
+                Arguments = arguments
+            };
+             
             result.Kind = messageKind;
 
             if (targetPath != null)
@@ -161,11 +177,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
             }
 
             _issueLogJsonWriter.WriteResult(result);
-        }
-
-        private void WriteJsonIssue(ResultKind issueKind,string targetPath, string ruleId, string message)
-        {
-
         }
     }
 }

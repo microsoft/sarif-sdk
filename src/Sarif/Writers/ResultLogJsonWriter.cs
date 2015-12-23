@@ -2,6 +2,7 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using Microsoft.CodeAnalysis.Sarif.Sdk;
 using Newtonsoft.Json;
@@ -18,6 +19,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         {
             Initial,
             WritingResults,
+            ResultsWritten,
             Disposed
         }
 
@@ -82,6 +84,28 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             _writeState = State.WritingResults;
         }
 
+        public void WriteRuleInfo(IEnumerable<IRuleDescriptor> ruleDescriptors)
+        {
+            _jsonWriter.WritePropertyName("ruleInfo");
+            _jsonWriter.WriteStartArray();
+
+            foreach(IRuleDescriptor ruleDescriptor in ruleDescriptors)
+            {
+                RuleDescriptor descriptor = new RuleDescriptor();
+                descriptor.Id = ruleDescriptor.Id;
+                descriptor.Name = ruleDescriptor.Name;
+                descriptor.FullDescription = ruleDescriptor.FullDescription;
+                descriptor.ShortDescription = ruleDescriptor.ShortDescription;
+                descriptor.Options = ruleDescriptor.Options;
+                descriptor.Properties = ruleDescriptor.Properties;
+                descriptor.FormatSpecifiers = ruleDescriptor.FormatSpecifiers;
+
+                _serializer.Serialize(_jsonWriter, descriptor, typeof(RuleDescriptor));
+            }
+
+            _jsonWriter.WriteEndArray();
+        }
+
         /// <summary>Writes a result to the log. The log must have tool info written first by calling
         /// <see cref="M:WriteToolInfo" />.</summary>
         /// <remarks>This function makes a copy of the data stored in <paramref name="result"/>; if a
@@ -109,6 +133,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             _serializer.Serialize(_jsonWriter, result, typeof(Result));
         }
 
+        public void CloseResults()
+        {
+            _jsonWriter.WriteEndArray();
+            _writeState = State.ResultsWritten;
+        }
+
+
         /// <summary>Writes the log footer and closes the underlying <see cref="JsonWriter"/>.</summary>
         /// <seealso cref="M:System.IDisposable.Dispose()"/>
         public void Dispose()
@@ -124,10 +155,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             }
             else
             {
-                Debug.Assert(_writeState == State.WritingResults);
+                Debug.Assert(_writeState == State.ResultsWritten);
 
-                // Log complete. Close the result array and write the end object.
-                _jsonWriter.WriteEndArray();  // End: results
+                // Log complete. Write the end object.
+
                 _jsonWriter.WriteEndObject(); // End: runLog
                 _jsonWriter.WriteEndArray();  // End: runLogs
                 _jsonWriter.WriteEndObject(); // End: resultsLog
