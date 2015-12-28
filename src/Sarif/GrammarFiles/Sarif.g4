@@ -293,7 +293,7 @@ result :
         beginning of the full message.
         }
     */
-    fullMessage
+    fullMessage?
 
     /**
         @name {ShortMessage}

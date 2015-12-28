@@ -22,7 +22,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
 
         public static ToolInfo CreateDefaultToolInfo(string prereleaseInfo = null)
         {
-            Assembly assembly = typeof(SarifLogger).Assembly;
+            Assembly assembly = Assembly.GetEntryAssembly() ?? Assembly.GetExecutingAssembly();
             string name = Path.GetFileNameWithoutExtension(assembly.Location);
             Version version = assembly.GetName().Version;
 
