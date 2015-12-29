@@ -27,7 +27,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
             throw new NotImplementedException();
         }
 
-        public void Log(ResultKind messageKind, IAnalysisContext context, string formatSpecifierId, params string[] arguments)
+        public void Log(ResultKind messageKind, IAnalysisContext context, Region region, string formatSpecifierId, params string[] arguments)
         {
             NoteTestResult(messageKind, context.TargetUri.LocalPath);
         }
