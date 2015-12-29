@@ -1,4 +1,4 @@
-/** @namespace {Microsoft.CodeAnalysis.Sarif.Sdk} */ grammar SarifGrammar;
+/** @namespace {Microsoft.CodeAnalysis.Sarif.Sdk} */ grammar Sarif;
 
 /**
     @rootObject

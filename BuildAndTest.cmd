@@ -9,15 +9,9 @@ SETLOCAL
 rd /s /q bld
 md bld\bin\nuget
 
-@REM Set versions for SDK and Driver
-set SDK_MAJOR=1
-set SDK_MINOR=4
-set SDK_PATCH=16
-
-set DRV_MAJOR=1
-set DRV_MINOR=0
-set DRV_PATCH=16
-
+set MAJOR=1
+set MINOR=4
+set PATCH=17
 set PRERELEASE=-beta
 
 @REM Write VersionConstants files 
@@ -26,32 +20,36 @@ set SDK_VERSION_CONSTANTS=src\Sarif\VersionConstants.cs
 set DRV_VERSION_CONSTANTS=src\Sarif.Driver\VersionConstants.cs
 
 @REM Rewrite VersionConstants.cs
-echo // Copyright (c) Microsoft. All rights reserved. Licensed under the MIT              >  %SDK_VERSION_CONSTANTS%
-echo // license. See LICENSE file in the project root for full license information.       >> %SDK_VERSION_CONSTANTS%
-echo namespace Microsoft.CodeAnalysis.Sarif                                               >> %SDK_VERSION_CONSTANTS%
-echo {                                                                                    >> %SDK_VERSION_CONSTANTS%
-echo     public static class VersionConstants                                             >> %SDK_VERSION_CONSTANTS%
-echo     {                                                                                >> %SDK_VERSION_CONSTANTS%
-echo         public const string Prerelease = "%PRERELEASE%";                             >> %SDK_VERSION_CONSTANTS%
-echo         public const string AssemblyVersion = "%SDK_MAJOR%.%SDK_MINOR%.%SDK_PATCH%"; >> %SDK_VERSION_CONSTANTS%
-echo         public const string FileVersion = AssemblyVersion + ".0";                    >> %SDK_VERSION_CONSTANTS%
-echo         public const string Version = AssemblyVersion + Prerelease;                  >> %SDK_VERSION_CONSTANTS%
-echo     }                                                                                >> %SDK_VERSION_CONSTANTS%
-echo  }                                                                                   >> %SDK_VERSION_CONSTANTS%
+echo // Copyright (c) Microsoft. All rights reserved. Licensed under the MIT        >  %SDK_VERSION_CONSTANTS%
+echo // license. See LICENSE file in the project root for full license information. >> %SDK_VERSION_CONSTANTS%
+echo namespace Microsoft.CodeAnalysis.Sarif                                         >> %SDK_VERSION_CONSTANTS%
+echo {                                                                              >> %SDK_VERSION_CONSTANTS%
+echo     public static class VersionConstants                                       >> %SDK_VERSION_CONSTANTS%
+echo     {                                                                          >> %SDK_VERSION_CONSTANTS%
+echo         public const string Prerelease = "%PRERELEASE%";                       >> %SDK_VERSION_CONSTANTS%
+echo         public const string AssemblyVersion = "%MAJOR%.%MINOR%.%PATCH%";       >> %SDK_VERSION_CONSTANTS%
+echo         public const string FileVersion = AssemblyVersion + ".0";              >> %SDK_VERSION_CONSTANTS%
+echo         public const string Version = AssemblyVersion + Prerelease;            >> %SDK_VERSION_CONSTANTS%
+echo     }                                                                          >> %SDK_VERSION_CONSTANTS%
+echo  }                                                                             >> %SDK_VERSION_CONSTANTS%
 
 @REM Rewrite VersionConstants.cs
-echo // Copyright (c) Microsoft. All rights reserved. Licensed under the MIT               > %DRV_VERSION_CONSTANTS%
-echo // license. See LICENSE file in the project root for full license information.       >> %DRV_VERSION_CONSTANTS%
-echo namespace Microsoft.CodeAnalysis.Sarif.Driver                                        >> %DRV_VERSION_CONSTANTS%
-echo {                                                                                    >> %DRV_VERSION_CONSTANTS%
-echo     public static class VersionConstants                                             >> %DRV_VERSION_CONSTANTS%
-echo     {                                                                                >> %DRV_VERSION_CONSTANTS%
-echo         public const string Prerelease = "%PRERELEASE%";                             >> %DRV_VERSION_CONSTANTS%
-echo         public const string AssemblyVersion = "%DRV_MAJOR%.%DRV_MINOR%.%DRV_PATCH%"; >> %DRV_VERSION_CONSTANTS%
-echo         public const string FileVersion = AssemblyVersion + ".0";                    >> %DRV_VERSION_CONSTANTS%
-echo         public const string Version = AssemblyVersion + Prerelease;                  >> %DRV_VERSION_CONSTANTS%
-echo     }                                                                                >> %DRV_VERSION_CONSTANTS%
-echo  }                                                                                   >> %DRV_VERSION_CONSTANTS%
+echo // Copyright (c) Microsoft. All rights reserved. Licensed under the MIT        >  %DRV_VERSION_CONSTANTS%
+echo // license. See LICENSE file in the project root for full license information. >> %DRV_VERSION_CONSTANTS%
+echo namespace Microsoft.CodeAnalysis.Sarif.Driver                                  >> %DRV_VERSION_CONSTANTS%
+echo {                                                                              >> %DRV_VERSION_CONSTANTS%
+echo     public static class VersionConstants                                       >> %DRV_VERSION_CONSTANTS%
+echo     {                                                                          >> %DRV_VERSION_CONSTANTS%
+echo         public const string Prerelease = "%PRERELEASE%";                       >> %DRV_VERSION_CONSTANTS%
+echo         public const string AssemblyVersion = "%MAJOR%.%MINOR%.%PATCH%";       >> %DRV_VERSION_CONSTANTS%
+echo         public const string FileVersion = AssemblyVersion + ".0";              >> %DRV_VERSION_CONSTANTS%
+echo         public const string Version = AssemblyVersion + Prerelease;            >> %DRV_VERSION_CONSTANTS%
+echo     }                                                                          >> %DRV_VERSION_CONSTANTS%
+echo  }                                                                             >> %DRV_VERSION_CONSTANTS%
+
+if NOT exist "GeneratedKey.snk" (
+sn -k GeneratedKey.snk
+)
 
 @REM Build all code
 %~dp0.nuget\NuGet.exe restore src\Sarif.Sdk.sln 
@@ -62,8 +60,8 @@ goto ExitFailed
 )
 
 @REM Build Nuget packages
-.nuget\NuGet.exe pack .\src\Nuget\Sarif.Sdk.nuspec -Symbols -Properties id=Sarif.Sdk;major=%SDK_MAJOR%;minor=%SDK_MINOR%;patch=%SDK_PATCH%;prerelease=%PRERELEASE% -Verbosity Quiet -BasePath .\bld\bin\Sarif\AnyCPU_Release -OutputDirectory .\bld\bin\Nuget
-.nuget\NuGet.exe pack .\src\Nuget\Sarif.Driver.nuspec -Symbols -Properties id=Sarif.Driver;major=%DRV_MAJOR%;minor=%DRV_MINOR%;patch=%DRV_PATCH%;prerelease=%PRERELEASE% -Verbosity Quiet -BasePath .\bld\bin\Sarif.Driver\AnyCPU_Release\ -OutputDirectory .\bld\bin\Nuget
+.nuget\NuGet.exe pack .\src\Nuget\Sarif.Sdk.nuspec -Symbols -Properties id=Sarif.Sdk;major=%MAJOR%;minor=%MINOR%;patch=%PATCH%;prerelease=%PRERELEASE% -Verbosity Quiet -BasePath .\bld\bin\Sarif\AnyCPU_Release -OutputDirectory .\bld\bin\Nuget
+.nuget\NuGet.exe pack .\src\Nuget\Sarif.Driver.nuspec -Symbols -Properties id=Sarif.Driver;major=%MAJOR%;minor=%MINOR%;patch=%PATCH%;prerelease=%PRERELEASE% -Verbosity Quiet -BasePath .\bld\bin\Sarif.Driver\AnyCPU_Release\ -OutputDirectory .\bld\bin\Nuget
 
 if "%ERRORLEVEL%" NEQ "0" (
 goto ExitFailed

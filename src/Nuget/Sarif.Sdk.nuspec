@@ -13,6 +13,11 @@
     <licenseUrl>https://github.com/Microsoft/sarif-sdk/blob/master/LICENSE</licenseUrl>
     <projectUrl>https://github.com/microsoft/sarif-sdk</projectUrl>
     <tags>sarifsdk</tags>
+    <dependencies>
+      <group>
+        <dependency id="Newtonsoft.Json" version="8.0.1" />
+      </group>
+    </dependencies>
   </metadata>
   <files>
     <file src='Sarif.dll' target='lib\net40\Sarif.dll'/>
