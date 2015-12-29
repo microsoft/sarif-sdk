@@ -253,7 +253,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
 
             // Analyzing '{0}'...
             context.Rule = NoteDescriptors.GeneralMessage;
-            context.Logger.Log(ResultKind.Note, context, nameof(SdkResources.MSG1001_AnalyzingTarget),
+            context.Logger.Log(ResultKind.Note, context, null, nameof(SdkResources.MSG1001_AnalyzingTarget),
                 Path.GetFileName(context.TargetUri.LocalPath));
 
             IEnumerable<ISkimmer<TContext>> applicableSkimmers = DetermineApplicabilityForTarget(skimmers, context, disabledSkimmers);
@@ -339,7 +339,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
 
             // '{0}' was not evaluated for check '{1}' as the analysis
             // is not relevant based on observed metadata: {2}.
-            context.Logger.Log(ResultKind.NotApplicable, context,
+            context.Logger.Log(ResultKind.NotApplicable, context, null,
                 nameof(SdkResources.MSG1002_InvalidMetadata),
                 Path.GetFileName(context.TargetUri.LocalPath),
                 context.Rule.Name,
@@ -360,7 +360,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
             // {2} 'exportConfig' command to produce an initial 
             // configuration file that can be edited, if necessary, and
             // passed back into the tool.
-            context.Logger.Log(ResultKind.ConfigurationError, context,
+            context.Logger.Log(ResultKind.ConfigurationError, context, null,
                 nameof(SdkResources.ERR0997_MissingRuleConfiguration),
                 ruleName,
                 reasonForNotAnalyzing,
@@ -373,8 +373,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
             context.Rule = ErrorDescriptors.AnalysisHalted;
 
             // An unhandled exception was raised during analysis: {0}
-            logger.Log(ResultKind.InternalError,
-                context,
+            logger.Log(ResultKind.InternalError, context, null,
                 nameof(SdkResources.ERR0999_UnhandledEngineException),
                 ex.ToString());
 
@@ -388,8 +387,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
 
             // An exception was raised attempting to load Roslyn analyzer '{0}'. Exception information:
             // {1}
-            context.Logger.Log(ResultKind.ConfigurationError,
-                errorContext,
+            context.Logger.Log(ResultKind.ConfigurationError, errorContext, null, 
                 nameof(SdkResources.ERR0997_ExceptionLoadingAnalysisPlugIn),
                 analyzerFilePath,
                 context.TargetLoadException.ToString());
@@ -404,13 +402,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
 
             // '{0}' was not analyzed as it does not appear
             // to be a valid file type for analysis.
-            context.Logger.Log(ResultKind.NotApplicable,
-                context,
+            context.Logger.Log(ResultKind.NotApplicable, context, null,
                 nameof(SdkResources.MSG1002_InvalidFileType),
                 Path.GetFileName(context.TargetUri.LocalPath));
 
             context.Dispose();
-            RuntimeErrors |= RuntimeConditions.OneOrMoreTargetsNotValidToAnalyze;
+            RuntimeErrors |= RuntimeConditions.TargetNotValidToAnalyze;
         }
 
         protected void LogExceptionLoadingTarget(TContext context)
@@ -419,14 +416,25 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
 
             // An exception was raised attempting to load analysis target '{0}'. Exception information:
             // {1}
-            context.Logger.Log(ResultKind.ConfigurationError,
-                context,
+            context.Logger.Log(ResultKind.ConfigurationError, context, null,
                 nameof(SdkResources.ERR0997_ExceptionLoadingAnalysisTarget),
                 Path.GetFileName(context.TargetUri.LocalPath),
                 context.TargetLoadException.ToString());
 
             context.Dispose();
             RuntimeErrors |= RuntimeConditions.ExceptionLoadingTargetFile;
+        }
+
+        protected void LogTargetParseError(TContext context, Region region, string message)
+        {
+            context.Rule = ErrorDescriptors.ParseError;
+
+            // A parse error occurred: {0}
+            context.Logger.Log(ResultKind.Error, context, region,
+                nameof(SdkResources.ERR1001_Default),
+                message);
+
+            RuntimeErrors |= RuntimeConditions.TargetParseError;
         }
 
         protected void LogExceptionCreatingLogFile(string fileName, IResultLogger logger, Exception ex)
@@ -436,8 +444,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
 
             // An exception was raised attempting to create output file '{0}'. Exception information:
             // {1}
-            logger.Log(ResultKind.ConfigurationError,
-                context,
+            logger.Log(ResultKind.ConfigurationError, context, null,
                 nameof(SdkResources.ERR0997_ExceptionCreatingLogFile),
                 fileName,
                 ex.ToString());
@@ -455,8 +462,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
             var errorContext = new TContext();
             errorContext.Rule = ErrorDescriptors.RuleDisabled;
             
-            context.Logger.Log(ResultKind.InternalError,
-                errorContext,
+            context.Logger.Log(ResultKind.InternalError, errorContext, null,
                 nameof(SdkResources.ERR0998_ExceptionInInitialize),
                 ruleName,
                 ex.ToString());
@@ -479,8 +485,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
             // from a problem related to parsing image metadata and not specific to 
             // the rule, however. Exception information:
             // {2}
-            context.Logger.Log(ResultKind.InternalError,
-                context,
+            context.Logger.Log(ResultKind.InternalError, context, null,
                 nameof(SdkResources.ERR0998_ExceptionInCanAnalyze),
                 context.TargetUri.LocalPath,
                 ruleName,
@@ -506,8 +511,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
             // image metadata and not specific to the rule, however.
             // Exception information:
             // {2}
-            context.Logger.Log(ResultKind.InternalError,
-                context,
+            context.Logger.Log(ResultKind.InternalError, context, null,
                 nameof(SdkResources.ERR0998_ExceptionInAnalyze),
                 Path.GetFileName(context.TargetUri.LocalPath),
                 ruleName,

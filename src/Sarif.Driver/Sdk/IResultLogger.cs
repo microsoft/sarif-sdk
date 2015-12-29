@@ -10,6 +10,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
         // Once further Result construction utilities are available, this is a sensible overload
         //void Log(Result result);
 
-        void Log(ResultKind messageKind, IAnalysisContext context, string formatSpecifierId, params string[] arguments);
+        void Log(ResultKind messageKind, IAnalysisContext context, Region region, string formatSpecifierId, params string[] arguments);
     }
 }

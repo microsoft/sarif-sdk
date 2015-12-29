@@ -31,11 +31,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
             }
         }
 
-        public void Log(ResultKind messageKind, IAnalysisContext context, string formatSpecifierId, params string[] arguments)
+        public void Log(ResultKind messageKind, IAnalysisContext context, Region region, string formatSpecifierId, params string[] arguments)
         {
             foreach (IResultLogger logger in Loggers)
             {
-                logger.Log(messageKind, context, formatSpecifierId, arguments);
+                logger.Log(messageKind, context, region, formatSpecifierId, arguments);
             }
         }
     }

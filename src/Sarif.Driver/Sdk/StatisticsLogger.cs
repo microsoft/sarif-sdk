@@ -19,7 +19,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
             _stopwatch = Stopwatch.StartNew();
         }
 
-        public void Log(ResultKind messageKind, IAnalysisContext context, string formatSpecifierId, params string[] arguments)
+        public void Log(ResultKind messageKind, IAnalysisContext context, Region region, string formatSpecifierId, params string[] arguments)
         {
             Log(messageKind, context?.Rule?.Id);
         }

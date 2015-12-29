@@ -100,23 +100,17 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
             if (_textWriter != null) { _textWriter.Dispose(); }
         }
 
-        public void Log(ResultKind messageKind, string formatSpecifier, params string[] arguments)
-        {
-            string message = String.Format(formatSpecifier, arguments);
-            LogJsonIssue(messageKind, null, null, message);
-        }
-
-        public void Log(ResultKind messageKind, IAnalysisContext context, string formatSpecifierId, params string[] arguments)
+        public void Log(ResultKind messageKind, IAnalysisContext context, Region region, string formatSpecifierId, params string[] arguments)
         {
             this.ruleDescriptors.Add(context.Rule);
 
             formatSpecifierId = RuleUtilities.NormalizeFormatSpecifierId(context.Rule.Id, formatSpecifierId);
-            LogJsonIssue(messageKind, context.TargetUri?.LocalPath, context.Rule.Id, formatSpecifierId, arguments);
+            LogJsonIssue(messageKind, context.TargetUri?.LocalPath, region, context.Rule.Id, formatSpecifierId, arguments);
 
             this.ruleDescriptors.Add(context.Rule);
         }
 
-        private void LogJsonIssue(ResultKind messageKind, string targetPath, string ruleId, string formatSpecifierId, params string[] arguments)
+        private void LogJsonIssue(ResultKind messageKind, string targetPath, Region region, string ruleId, string formatSpecifierId, params string[] arguments)
         {
             switch (messageKind)
             {
@@ -170,8 +164,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
                             // this will be the local file path. We want to persist this 
                             // information using the file:// protocol rendering, however.
                             Uri = targetPath.CreateUriForJsonSerialization(),
-                            MimeType = MimeType.Binary
-                        }
+                            MimeType = MimeType.Binary,
+                            Region = region
+                        }, 
                     }
                }};
             }

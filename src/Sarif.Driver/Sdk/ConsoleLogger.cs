@@ -15,21 +15,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
 
         public bool Verbose { get; set; }
 
-        public void Log(ResultKind messageKind, string formatSpecifier, params string[] arguments)
-        {
-            string message = String.Format(formatSpecifier, arguments);
-            WriteToConsole(messageKind, null, null, message);
-        }
-
-        public void Log(ResultKind messageKind, IAnalysisContext context, string formatSpecifierId, params string[] arguments)
+        public void Log(ResultKind messageKind, IAnalysisContext context, Region region, string formatSpecifierId, params string[] arguments)
         {
             formatSpecifierId = RuleUtilities.NormalizeFormatSpecifierId(context.Rule.Id, formatSpecifierId);
             string formatSpecifier = context.Rule.FormatSpecifiers[formatSpecifierId];
             string message = String.Format(formatSpecifier, arguments);
-            WriteToConsole(messageKind, context.TargetUri, context.Rule.Id, message);
+            WriteToConsole(messageKind, context.TargetUri, region, context.Rule.Id, message);
         }
 
-        private void WriteToConsole(ResultKind messageKind, Uri uri, string ruleId, string message)
+        private void WriteToConsole(ResultKind messageKind, Uri uri, Region region, string ruleId, string message)
         {
             switch (messageKind)
             {
@@ -41,7 +35,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
                 {
                     if (Verbose)
                     {
-                        Console.WriteLine(GetMessageText(uri, ruleId, message, messageKind));
+                        Console.WriteLine(GetMessageText(uri, region, ruleId, message, messageKind));
                     }
                     break;
                 }
@@ -52,7 +46,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
                 case ResultKind.InternalError:
                 case ResultKind.ConfigurationError:
                 {
-                    Console.WriteLine(GetMessageText(uri, ruleId, message, messageKind));
+                    Console.WriteLine(GetMessageText(uri, region, ruleId, message, messageKind));
                     break;
                 }
 
@@ -64,10 +58,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
         }
         public static string GetMessageText(
             Uri uri, 
+            Region region,
             string ruleId,
             string message, 
-            ResultKind messageKind,
-            Region region = null)
+            ResultKind messageKind)
         {
             string path = null;
 
@@ -157,7 +151,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
 
             return (path != null ? (path + location + ": ") : "") +
                    issueType + (!string.IsNullOrEmpty(ruleId) ? " " : "")  +
-                   ruleId + ": " +
+                   (messageKind != ResultKind.Note ? ruleId : "" ) + ": " +
                    detailedDiagnosis;
         }
 
