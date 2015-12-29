@@ -7,7 +7,7 @@ using Microsoft.CodeAnalysis.Sarif.Sdk;
 
 namespace Microsoft.CodeAnalysis.Sarif.Readers
 {
-    public class ResultDiffingVisitor : SarifGrammarRewritingVisitor
+    public class ResultDiffingVisitor : SarifRewritingVisitor
     {
         public ResultDiffingVisitor(ResultLog resultLog)
         {

@@ -10,12 +10,13 @@
     <description>SARIF-based classes and utilities for building static analysis drivers. Includes the SARIF SDK.</description>
     <releaseNotes>Version $major$.$minor$.$patch$$prerelease$ of the Microsoft SARIF Driver Utilities</releaseNotes>
     <copyright>Copyright Microsoft 2015</copyright>
-    <licenseUrl>https://github.com/Microsoft/driver-utilities/blob/master/LICENSE</licenseUrl>
-    <projectUrl>https://github.com/microsoft/driver-utilities</projectUrl>
+    <licenseUrl>https://github.com/Microsoft/sarif-sdk/blob/master/LICENSE</licenseUrl>
+    <projectUrl>https://github.com/microsoft/sarif-sdk</projectUrl>
     <tags>command line driver utilities static analysis sarif framework utils driver.utilities</tags>
     <dependencies>
       <group>
-        <dependency id="Sarif.Sdk" version="1.4.10-beta" />
+        <dependency id="Sarif.Sdk" version="1.4.$patch$-beta" />
+        <dependency id="Newtonsoft.Json" version="8.0.1" />
       </group>
     </dependencies>
   </metadata>
