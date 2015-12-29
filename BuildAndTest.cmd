@@ -12,11 +12,11 @@ md bld\bin\nuget
 @REM Set versions for SDK and Driver
 set SDK_MAJOR=1
 set SDK_MINOR=4
-set SDK_PATCH=15
+set SDK_PATCH=16
 
 set DRV_MAJOR=1
 set DRV_MINOR=0
-set DRV_PATCH=15
+set DRV_PATCH=16
 
 set PRERELEASE=-beta
 
