@@ -37,8 +37,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
         Fatal = (Int32.MaxValue ^ NonFatal),
 
         // Non-fatal conditions
-        OneOrMoreTargetsNotValidToAnalyze = 0x80,
+        TargetNotValidToAnalyze = 0x80,
+        TargetParseError = 0x100,
 
-        NonFatal = OneOrMoreTargetsNotValidToAnalyze,
-    }
+        NonFatal = 0x7fffff80
+    }       
 }

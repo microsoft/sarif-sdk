@@ -50,7 +50,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
                 }, ERR0999)
         };
 
-
         public static IRuleDescriptor ParseError = new RuleDescriptor()
         {
             Id = ERR1001,

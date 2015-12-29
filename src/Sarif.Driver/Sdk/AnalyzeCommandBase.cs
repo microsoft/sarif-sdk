@@ -410,7 +410,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
                 Path.GetFileName(context.TargetUri.LocalPath));
 
             context.Dispose();
-            RuntimeErrors |= RuntimeConditions.OneOrMoreTargetsNotValidToAnalyze;
+            RuntimeErrors |= RuntimeConditions.TargetNotValidToAnalyze;
         }
 
         protected void LogExceptionLoadingTarget(TContext context)
@@ -427,6 +427,18 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
 
             context.Dispose();
             RuntimeErrors |= RuntimeConditions.ExceptionLoadingTargetFile;
+        }
+
+        protected void LogTargetParseError(TContext context, Region region, string message)
+        {
+            context.Rule = ErrorDescriptors.ParseError;
+
+            context.Logger.Log(ResultKind.Error,
+                context,
+                nameof(SdkResources.ERR1001_Default),
+                message);
+
+            RuntimeErrors |= RuntimeConditions.TargetParseError;
         }
 
         protected void LogExceptionCreatingLogFile(string fileName, IResultLogger logger, Exception ex)
