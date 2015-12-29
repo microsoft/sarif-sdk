@@ -48,6 +48,17 @@ runLog:
         }
     */
 	runInfo?
+	
+    /**
+        @name {RuleInfo}
+        @summary 
+		{
+		An array of rule descriptor objects that describe all rules associated with an 
+		analysis tool or a specific run of an analysis tool.
+		}
+		@minItems{1}
+    */
+    ruleDescriptors?
 
     /**
         @name {Results}
@@ -111,17 +122,7 @@ toolInfo :
 		@pattern {[0-9]+(\\.[0-9]+){3}}
     */
     fileVersion?
-	
-    /**
-        @name {RuleInfo}
-        @summary 
-		{
-		An array of rule descriptor objects that describe all rules associated with an 
-		analysis tool or a specific run of an analysis tool.
-		}
-		@minItems{1}
-    */
-    ruleDescriptors?;
+;
 
 /**
     @className {RunInfo}
