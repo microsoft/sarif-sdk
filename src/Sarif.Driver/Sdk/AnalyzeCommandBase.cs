@@ -92,7 +92,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
             }
         }
 
-        internal AggregatingLogger InitializeLogger(IAnalyzeOptions analyzeOptions) 
+        internal AggregatingLogger InitializeLogger(IAnalyzeOptions analyzeOptions)
         {
             var logger = new AggregatingLogger();
             logger.Loggers.Add(new ConsoleLogger(analyzeOptions.Verbose));
@@ -220,7 +220,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
 
             foreach (string target in targets)
             {
-                using (TContext context = AnalyzeTarget(options, skimmers, rootContext, target, disabledSkimmers))
+                using (TContext context = DetermineApplicabilityAndAnalyze(options, skimmers, rootContext, target, disabledSkimmers))
                 {
                 }
             }
@@ -228,10 +228,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
             if (options.Verbose)
             {
                 Console.WriteLine(SdkResources.MSG1001_AnalysisComplete);
-            }            
+            }
         }
 
-        protected virtual TContext AnalyzeTarget(
+        protected virtual TContext DetermineApplicabilityAndAnalyze(
             TOptions options,
             IEnumerable<ISkimmer<TContext>> skimmers,
             TContext rootContext,
@@ -253,8 +253,41 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
 
             // Analyzing '{0}'...
             context.Rule = NoteDescriptors.GeneralMessage;
-            context.Logger.Log(ResultKind.Note, context, nameof(SdkResources.MSG1001_AnalyzingTarget), 
+            context.Logger.Log(ResultKind.Note, context, nameof(SdkResources.MSG1001_AnalyzingTarget),
                 Path.GetFileName(context.TargetUri.LocalPath));
+
+            IEnumerable<ISkimmer<TContext>> applicableSkimmers = DetermineApplicabilityForTarget(skimmers, context, disabledSkimmers);
+
+            AnalyzeTarget(applicableSkimmers, context, disabledSkimmers);
+            
+            return context;
+        }
+
+        protected virtual void AnalyzeTarget(IEnumerable<ISkimmer<TContext>> skimmers, TContext context, HashSet<string> disabledSkimmers)
+        {
+            foreach (ISkimmer<TContext> skimmer in skimmers)
+            {
+                if (disabledSkimmers.Contains(skimmer.Id)) { continue; }
+
+                context.Rule = skimmer;
+
+                try
+                {
+                    skimmer.Analyze(context);
+                }
+                catch (Exception ex)
+                {
+                    RuntimeErrors |= LogUnhandledRuleExceptionAnalyzingTarget(disabledSkimmers, context, skimmer, ex);
+                }
+            }
+        }
+
+        protected virtual IEnumerable<ISkimmer<TContext>> DetermineApplicabilityForTarget(
+            IEnumerable<ISkimmer<TContext>> skimmers,
+            TContext context,
+            HashSet<string> disabledSkimmers)
+        {
+            var candidateSkimmers = new List<ISkimmer<TContext>>();
 
             foreach (ISkimmer<TContext> skimmer in skimmers)
             {
@@ -271,7 +304,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
                 }
                 catch (Exception ex)
                 {
-                    LogUnhandledRuleExceptionAssessingTargetApplicability(disabledSkimmers, context, skimmer, ex);
+                    RuntimeErrors |= LogUnhandledRuleExceptionAssessingTargetApplicability(disabledSkimmers, context, skimmer, ex);
                     continue;
                 }
 
@@ -292,23 +325,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
 
                     case AnalysisApplicability.ApplicableToSpecifiedTarget:
                     {
-                        try
-                        {
-                            skimmer.Analyze(context);
-                        }
-                        catch (Exception ex)
-                        {
-                            LogUnhandledRuleExceptionAnalyzingTarget(disabledSkimmers, context, skimmer, ex);
-                        }
+                        candidateSkimmers.Add(skimmer);
                         break;
                     }
                 }
             }
-
-            return context;
+            return candidateSkimmers;
         }
 
-        private static void LogNotApplicableToSpecifiedTarget(TContext context, string reasonForNotAnalyzing)
+        protected static void LogNotApplicableToSpecifiedTarget(TContext context, string reasonForNotAnalyzing)
         {
             context.Rule = NoteDescriptors.InvalidTarget;
 
@@ -321,7 +346,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
                 reasonForNotAnalyzing);
         }
 
-        private static void LogMissingRuleConfiguration(TContext context, string reasonForNotAnalyzing)
+        protected static void LogMissingRuleConfiguration(TContext context, string reasonForNotAnalyzing)
         {
             string ruleName = context.Rule.Name;
             context.Rule = ErrorDescriptors.InvalidConfiguration;
@@ -342,7 +367,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
                 exeName);
         }
 
-        private void LogUnhandledEngineException(Exception ex, IResultLogger logger)
+        protected void LogUnhandledEngineException(Exception ex, IResultLogger logger)
         {
             TContext context = new TContext();
             context.Rule = ErrorDescriptors.AnalysisHalted;
@@ -356,7 +381,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
             RuntimeErrors |= RuntimeConditions.ExceptionInEngine;
         }
 
-        private void LogExceptionLoadingRoslynAnalyzer(string analyzerFilePath, TContext context, Exception ex)
+        protected void LogExceptionLoadingRoslynAnalyzer(string analyzerFilePath, TContext context, Exception ex)
         {
             var errorContext = new TContext();
             errorContext.Rule = ErrorDescriptors.InvalidConfiguration;
@@ -373,7 +398,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
             RuntimeErrors |= RuntimeConditions.ExceptionLoadingAnalysisPlugIn;
         }
 
-        private void LogExceptionInvalidTarget(TContext context)
+        protected void LogExceptionInvalidTarget(TContext context)
         {
             context.Rule = NoteDescriptors.InvalidTarget;
 
@@ -388,7 +413,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
             RuntimeErrors |= RuntimeConditions.OneOrMoreTargetsNotValidToAnalyze;
         }
 
-        private void LogExceptionLoadingTarget(TContext context)
+        protected void LogExceptionLoadingTarget(TContext context)
         {
             context.Rule = ErrorDescriptors.InvalidConfiguration;
 
@@ -404,7 +429,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
             RuntimeErrors |= RuntimeConditions.ExceptionLoadingTargetFile;
         }
 
-        private void LogExceptionCreatingLogFile(string fileName, IResultLogger logger, Exception ex)
+        protected void LogExceptionCreatingLogFile(string fileName, IResultLogger logger, Exception ex)
         {
             var context = new TContext();
             context.Rule = ErrorDescriptors.InvalidConfiguration;
@@ -420,7 +445,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
             RuntimeErrors |= RuntimeConditions.ExceptionCreatingLogfile;
         }
 
-        private void LogUnhandledExceptionInitializingRule(TContext context, ISkimmer<TContext> skimmer, Exception ex)
+        protected void LogUnhandledExceptionInitializingRule(TContext context, ISkimmer<TContext> skimmer, Exception ex)
         {
             string ruleName = context.Rule.Name;
             // An unhandled exception was encountered initializing check '{0}', which 
@@ -439,7 +464,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
             RuntimeErrors |= RuntimeConditions.ExceptionInSkimmerInitialize;
         }
 
-        private void LogUnhandledRuleExceptionAssessingTargetApplicability(HashSet<string> disabledSkimmers, TContext context, ISkimmer<TContext> skimmer, Exception ex)
+        public static RuntimeConditions LogUnhandledRuleExceptionAssessingTargetApplicability(
+            HashSet<string> disabledSkimmers, 
+            TContext context, 
+            ISkimmer<TContext> skimmer, 
+            Exception ex)
         {
             string ruleName = context.Rule.Name;
             context.Rule = ErrorDescriptors.RuleDisabled;
@@ -459,10 +488,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
 
             if (disabledSkimmers != null) { disabledSkimmers.Add(skimmer.Id); }
 
-            RuntimeErrors |= RuntimeConditions.ExceptionRaisedInSkimmerCanAnalyze;
+            return RuntimeConditions.ExceptionRaisedInSkimmerCanAnalyze;
         }
 
-        private void LogUnhandledRuleExceptionAnalyzingTarget(HashSet<string> disabledSkimmers, TContext context, ISkimmer<TContext> skimmer, Exception ex)
+        public static RuntimeConditions LogUnhandledRuleExceptionAnalyzingTarget(
+            HashSet<string> disabledSkimmers, 
+            TContext context, 
+            ISkimmer<TContext> skimmer, 
+            Exception ex)
         {
             string ruleName = context.Rule.Name;
             context.Rule = ErrorDescriptors.RuleDisabled;
@@ -482,7 +515,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
 
             if (disabledSkimmers != null) { disabledSkimmers.Add(skimmer.Id); }
 
-            RuntimeErrors |= RuntimeConditions.ExceptionInSkimmerAnalyze;
+            return RuntimeConditions.ExceptionInSkimmerAnalyze;
         }
 
         protected virtual HashSet<ISkimmer<TContext>> InitializeSkimmers(HashSet<ISkimmer<TContext>> skimmers, TContext context)

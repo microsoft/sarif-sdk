@@ -40,7 +40,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         [TestMethod]
         public void ResultLogJsonWriter_AcceptsIssuesAndToolInfo()
         {
-            string expected = "{\"version\":\"0.4\",\"runLogs\":[{\"toolInfo\":{\"name\":null},\"runInfo\":{},\"results\":[{\"ruleId\":null,\"fullMessage\":null,\"locations\":null}]}]}";
+            string expected = "{\"version\":\"0.4\",\"runLogs\":[{\"toolInfo\":{\"name\":null},\"runInfo\":{},\"results\":[{\"ruleId\":null,\"locations\":null}]}]}";
             string actual = GetJson(uut =>
             {
                 uut.WriteToolAndRunInfo(s_defaultToolInfo, s_defaultRunInfo);
