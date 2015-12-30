@@ -4,6 +4,7 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using Microsoft.CodeAnalysis.Sarif.Readers;
 using Microsoft.CodeAnalysis.Sarif.Sdk;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
@@ -34,7 +35,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         {
             _jsonWriter = jsonWriter;
             _serializer = new JsonSerializer();
-            _serializer.Converters.Add(new StringEnumConverter());
+            _serializer.ContractResolver = SarifContractResolver.Instance;
+            //serializer.Converters.Add(new StringEnumConverter());
         }
 
         /// <summary>Writes a tool information entry to the log. This must be the first entry written into
