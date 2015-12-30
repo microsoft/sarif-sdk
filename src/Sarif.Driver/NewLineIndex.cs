@@ -111,7 +111,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             }
 
             LineInfo lineInfo = this.GetLineInfoForOffset(offset);
-            return new OffsetInfo(offset - lineInfo.StartOffset, lineInfo.LineNumber);
+            return new OffsetInfo((offset - lineInfo.StartOffset) + 1, lineInfo.LineNumber);
         }
     }
 }

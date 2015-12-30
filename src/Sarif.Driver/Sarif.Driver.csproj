@@ -110,6 +110,7 @@
     <Compile Include="Sdk\ExportConfigurationOptions.cs" />
     <Compile Include="Sdk\ExportRulesMetadataCommandBase.cs" />
     <Compile Include="Sdk\ExportRulesMetadataOptions.cs" />
+    <Compile Include="Sdk\ExtensionMethods.cs" />
     <Compile Include="Sdk\Hash.cs" />
     <Compile Include="Sdk\IAnalysisContext.cs" />
     <Compile Include="Sdk\IAnalyzeOptions.cs" />
