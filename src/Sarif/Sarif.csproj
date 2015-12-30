@@ -48,6 +48,7 @@
     <Compile Include="LogicalLocationKind.cs" />
     <Compile Include="MultiplyByPrimesHash.cs" />
     <Compile Include="Readers\ResultDiffingVisitor.cs" />
+    <Compile Include="Readers\ResultKindConverter.cs" />
     <Compile Include="Readers\SarifContractResolver.cs" />
     <Compile Include="Readers\SarifVersionConverter.cs" />
     <Compile Include="Readers\VersionConverter.cs" />
