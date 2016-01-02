@@ -117,8 +117,8 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="MSG1001_GeneralMessage_Description" xml:space="preserve">
-    <value>An informational output message was logged.</value>
+  <data name="MSG1001_AnalyzingTarget_Description" xml:space="preserve">
+    <value>An analysis target was analyzed.</value>
   </data>
   <data name="ERR0998_ExceptionInAnalyze" xml:space="preserve">
     <value>An exception was raised analyzing '{0}' for check '{1}' (which has been disabled for the remainder of the analysis). The exception may have resulted from a problem related to parsing image metadata and not specific to the rule, however. Exception information:
@@ -146,8 +146,8 @@
   <data name="ERR0998_RuleDisabled_Description" xml:space="preserve">
     <value>A rule was disabled due to an unrecoverable error, such as an exception raised during execution or an absence of required configuration.</value>
   </data>
-  <data name="ERR0997_ExceptionLoadingAnalysisPlugIn" xml:space="preserve">
-    <value>An exception was raised attempting to load analysis plug-in '{0}'. Exception information:
+  <data name="ERR0997_ExceptionLoadingPlugIn" xml:space="preserve">
+    <value>An exception was raised attempting to load plug-in '{0}'. Exception information:
 {1}</value>
   </data>
   <data name="ERR0997_ExceptionLoadingAnalysisTarget" xml:space="preserve">
@@ -161,7 +161,7 @@
     <value>A file was skipped as it does not appear to be a valid target for analysis.</value>
   </data>
   <data name="ERR0997_MissingRuleConfiguration" xml:space="preserve">
-    <value>Check '{0}' was disabled for this run as the analysis was not configured with required policy ({1}). To resolve this, configure and provide a policy file on the {2} command-line using the --policy argument (recommended), or pass '--config default' to invoke built-in settings. Invoke the {2} 'exportConfig' command to produce an initial configuration file that can be edited, if necessary, and passed back into the tool.</value>
+    <value>Check '{1}' was disabled while analyzing '{0}' because the analysis was not configured with required policy ({2}). To resolve this, configure and provide a policy file on the {3} command-line using the --policy argument (recommended), or pass '--config default' to invoke built-in settings. Invoke the {3} 'exportConfig' command to produce an initial configuration file that can be edited, if necessary, and passed back into the tool.</value>
   </data>
   <data name="MSG1002_InvalidFileType" xml:space="preserve">
     <value>'{0}' was not analyzed as it does not appear to be a valid file type for analysis.</value>
@@ -169,22 +169,38 @@
   <data name="MSG1002_InvalidMetadata" xml:space="preserve">
     <value>'{0}' was not evaluated for check '{1}' as the analysis is not relevant based on observed metadata: {2}.</value>
   </data>
-  <data name="UnexpectedApplicationExit" xml:space="preserve">
-    <value>Application exited unexpectedly.</value>
+  <data name="MSG_UnexpectedApplicationExit" xml:space="preserve">
+    <value>Analysis halted prematurely due to a fatal execution condition.</value>
   </data>
   <data name="ERR1001_Default" xml:space="preserve">
-    <value>A parse error occurred: {0}</value>
+    <value>An error occurred parsing '{0}': {1}</value>
   </data>
   <data name="ERR1001_ParseError_Description" xml:space="preserve">
     <value>A parse error occurred.</value>
   </data>
-  <data name="MSG1001_AnalysisComplete" xml:space="preserve">
-    <value>Analysis complete.</value>
-  </data>
   <data name="MSG1001_AnalyzingTarget" xml:space="preserve">
     <value>Analyzing '{0}'...</value>
   </data>
-  <data name="MSG1001_Default" xml:space="preserve">
-    <value>{0}</value>
+  <data name="MSG_AnalysisCompletedSuccessfully" xml:space="preserve">
+    <value>Analysis completed successfully.</value>
+  </data>
+  <data name="MSG_AnalysisIncomplete" xml:space="preserve">
+    <value>Analysis finished but was not complete due to non-fatal runtime errors.</value>
+  </data>
+  <data name="MSG_Analyzing" xml:space="preserve">
+    <value>Analyzing...</value>
+  </data>
+  <data name="ERR0997_ExceptionInstantiatingSkimmers" xml:space="preserve">
+    <value>An exception was raised attempting to instantiate skimmers from the following plugins'{0}'. Exception information:
+{1}</value>
+  </data>
+  <data name="ERR0997_ExceptionLoadingPdb" xml:space="preserve">
+    <value>'{0}' was not evaluated for check '{1}' as an exception occurred loading its pdb: '{2}'</value>
+  </data>
+  <data name="ERR0997_NoRulesLoaded" xml:space="preserve">
+    <value>No analysis rules could be instantiated.</value>
+  </data>
+  <data name="ERR0997_NoValidAnalysisTargets" xml:space="preserve">
+    <value>No valid analysis targets were specified.</value>
   </data>
 </root>

@@ -8,34 +8,66 @@ using Microsoft.CodeAnalysis.Sarif.Sdk;
 
 namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
 {
-    public class AggregatingLogger : IDisposable, IResultLogger
+    public class AggregatingLogger : IDisposable, IAnalysisLogger
     {
         public AggregatingLogger() : this(null)
         {
         }
 
-        public AggregatingLogger(IEnumerable<IResultLogger> loggers)
+        public AggregatingLogger(IEnumerable<IAnalysisLogger> loggers)
         {
             this.Loggers = loggers != null ?
-                new List<IResultLogger>(loggers) :
-                new List<IResultLogger>();
+                new List<IAnalysisLogger>(loggers) :
+                new List<IAnalysisLogger>();
         }
 
-        public IList<IResultLogger> Loggers { get; set; }
+        public IList<IAnalysisLogger> Loggers { get; set; }
 
         public void Dispose()
         {
-            foreach (IResultLogger logger in Loggers)
+            foreach (IAnalysisLogger logger in Loggers)
             {
                 using (logger as IDisposable) { };
             }
         }
 
-        public void Log(ResultKind messageKind, IAnalysisContext context, Region region, string formatSpecifierId, params string[] arguments)
+        public void AnalysisStarted()
         {
-            foreach (IResultLogger logger in Loggers)
+            foreach (IAnalysisLogger logger in Loggers)
             {
-                logger.Log(messageKind, context, region, formatSpecifierId, arguments);
+                logger.AnalysisStarted();
+            }
+        }
+
+        public void AnalysisStopped(RuntimeConditions runtimeConditions)
+        {
+            foreach (IAnalysisLogger logger in Loggers)
+            {
+                logger.AnalysisStopped(runtimeConditions);
+            }
+        }
+
+        public void AnalyzingTarget(IAnalysisContext context)
+        {
+            foreach (IAnalysisLogger logger in Loggers)
+            {
+                logger.AnalyzingTarget(context);
+            }
+        }
+
+        public void LogMessage(bool verbose, string message)
+        {
+            foreach (IAnalysisLogger logger in Loggers)
+            {
+                logger.LogMessage(verbose, message);
+            }
+        }
+
+        public void Log(IRuleDescriptor rule, Result result)
+        {
+            foreach (IAnalysisLogger logger in Loggers)
+            {
+                logger.Log(rule, result);
             }
         }
     }

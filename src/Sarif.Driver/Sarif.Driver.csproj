@@ -83,7 +83,7 @@
     <Compile Include="Sdk\AggregatingLogger.cs" />
     <Compile Include="Sdk\AnalysisApplicability.cs" />
     <Compile Include="Sdk\ConsoleLogger.cs" />
-    <Compile Include="Sdk\ErrorDescriptors.cs" />
+    <Compile Include="Sdk\Errors.cs" />
     <Compile Include="Sdk\ExitApplicationException.cs" />
     <Compile Include="Sdk\ExitReason.cs" />
     <Compile Include="FileStreamExtensionMethods.cs" />
@@ -117,10 +117,10 @@
     <Compile Include="Sdk\IntegerSet.cs" />
     <Compile Include="Sdk\IOption.cs" />
     <Compile Include="Sdk\IOptionsProvider.cs" />
-    <Compile Include="Sdk\IResultLogger.cs" />
+    <Compile Include="Sdk\IAnalysisLogger.cs" />
     <Compile Include="Sdk\ISkimmer.cs" />
     <Compile Include="Sdk\MessageUtilities.cs" />
-    <Compile Include="Sdk\NoteDescriptors.cs" />
+    <Compile Include="Sdk\Notes.cs" />
     <Compile Include="Sdk\PerLanguageOption.cs" />
     <Compile Include="Sdk\PlugInDriverCommand.cs" />
     <Compile Include="Sdk\PropertyBag.cs" />

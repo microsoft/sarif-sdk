@@ -213,7 +213,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <None Include="TestKey.snk" />
     <None Include="UpdateBaselines.ps1" />
   </ItemGroup>
   <ItemGroup>

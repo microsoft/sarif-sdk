@@ -31,15 +31,21 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
         ExceptionRaisedInSkimmerCanAnalyze = 0x04,
         ExceptionInSkimmerAnalyze = 0x08,
         ExceptionCreatingLogfile = 0x10,
-        ExceptionInEngine = 0x20,
-        ExceptionLoadingTargetFile = 0x40,
-        ExceptionLoadingAnalysisPlugIn = 0x80,
+        ExceptionLoadingPdb = 0x20,
+        ExceptionInEngine = 0x40,
+        ExceptionLoadingTargetFile = 0x80,
+        ExceptionLoadingAnalysisPlugIn = 0x100,
+        NoRulesLoaded = 0x200,
+        NoValidAnalysisTargets = 0x400,
+        RuleMissingRequiredConfiguration = 0x800,
+        TargetParseError = 0x1000,
+
         Fatal = (Int32.MaxValue ^ NonFatal),
 
         // Non-fatal conditions
-        TargetNotValidToAnalyze = 0x80,
-        TargetParseError = 0x100,
+        RuleNotApplicableToTarget = 0x10000,
+        TargetNotValidToAnalyze = 0x20000,
 
-        NonFatal = 0x7fffff80
+        NonFatal = 0x7fff0000
     }       
 }

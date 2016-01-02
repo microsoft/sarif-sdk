@@ -1,7 +1,7 @@
 ﻿// Copyright (c) Microsoft. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.using System;
 
-using System;
+using System.Diagnostics;
 using Microsoft.CodeAnalysis.Sarif.Sdk;
 
 namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
@@ -46,7 +46,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
             }
         }
 
-        public static string GetMessageText(this Result result, RunLog runLog, bool concise = false)
+        public static string GetMessageText(this Result result, IRuleDescriptor rule, bool concise = false)
         {
             if (concise && !string.IsNullOrEmpty(result.ShortMessage))
             {
@@ -61,16 +61,31 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
                 string formatSpecifierId = result.FormattedMessage.SpecifierId;
                 string formatSpecifier;
 
-                foreach (RuleDescriptor ruleDescriptor in runLog.RuleInfo)
+                string[] arguments = new string[result.FormattedMessage.Arguments.Count];
+                result.FormattedMessage.Arguments.CopyTo(arguments, 0);
+
+                Debug.Assert(rule.FormatSpecifiers.ContainsKey(formatSpecifierId));
+
+                formatSpecifier = rule.FormatSpecifiers[formatSpecifierId];
+
+#if DEBUG
+                int argumentsCount = result.FormattedMessage.Arguments.Count;
+
+                for (int i = 0; i < argumentsCount; i++)
                 {
-                    if (ruleDescriptor.Id == ruleId)
-                    {
-                        string[] arguments = new string[result.FormattedMessage.Arguments.Count];
-                        result.FormattedMessage.Arguments.CopyTo(arguments, 0);
-                        formatSpecifier = ruleDescriptor.FormatSpecifiers[formatSpecifierId];
-                        text = string.Format(formatSpecifier, arguments);
-                    }
+                    // If this assert fires, there are too many arguments for the specifier
+                    // or there is an argument is skipped or not consumed in the specifier
+                    Debug.Assert(formatSpecifier.Contains("{" + i.ToString() + "}"));
                 }
+#endif
+
+                text = string.Format(formatSpecifier, arguments);
+
+#if DEBUG
+                // If this assert fires, an insufficient # of arguments might
+                // have been provided to String.Format.
+                Debug.Assert(!text.Contains("{"));
+#endif
             }
 
             if (concise)

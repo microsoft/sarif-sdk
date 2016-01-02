@@ -9,7 +9,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
 {
     public interface IAnalysisContext : IDisposable
     {
+        // TODO place these target-relevant properties
+        // in an ITargetDescriptor object
+
         Uri TargetUri { get; set; }
+
+        string MimeType { get; set; }
 
         Exception TargetLoadException { get; set;  }
 
@@ -19,6 +24,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
 
         PropertyBag Policy { get; set; }
         
-        IResultLogger Logger { get; set; }
+        IAnalysisLogger Logger { get; set; }
+
+        RuntimeConditions RuntimeErrors { get; set; }
     }
 }

@@ -67,7 +67,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         }
 
 
-        // http://monacotools/doc#Languages_and_mime_types
         private static readonly ImmutableArray<ImmutableArray<string>> s_extensionTable = ImmutableArray.Create(
             ImmutableArray.Create("text/x-bat", "bat", "cmd"),
             ImmutableArray.Create(MimeType.Cpp, "c", "cpp", "h", "hpp", "cxx"),

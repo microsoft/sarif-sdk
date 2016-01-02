@@ -12,7 +12,7 @@ using Newtonsoft.Json;
 
 namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
 {
-    public class SarifLogger : IDisposable, IResultLogger
+    public class SarifLogger : IDisposable, IAnalysisLogger
     {
         private FileStream _fileStream;
         private TextWriter _textWriter;
@@ -100,14 +100,68 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
             if (_textWriter != null) { _textWriter.Dispose(); }
         }
 
+        public void LogMessage(bool verbose, string message)
+        {
+            // We do not persist these to log file
+        }
+
+        public void AnalysisStarted()
+        {
+            // TODO emit a message with timestamp
+        }
+
+        public void AnalysisStopped(RuntimeConditions runtimeConditions)
+        {
+            // TODO emit a message with timestamp and success/failure results
+        }
+
+        public void Log(IRuleDescriptor rule, Result result)
+        {
+            switch (result.Kind)
+            {
+                case ResultKind.Note:
+                case ResultKind.Pass:
+                case ResultKind.NotApplicable:
+                {
+                    if (!Verbose)
+                    {
+                        return;
+                    }
+                    break;
+                }
+
+                case ResultKind.Error:
+                case ResultKind.Warning:
+                case ResultKind.InternalError:
+                case ResultKind.ConfigurationError:
+                {
+                    break;
+                }
+
+                default:
+                {
+                    throw new InvalidOperationException();
+                }
+            }
+            this.ruleDescriptors.Add(rule);
+            _issueLogJsonWriter.WriteResult(result);
+        }
+
+        public void AnalyzingTarget(IAnalysisContext context)
+        {
+            context.Rule = Notes.AnalyzingTarget;
+            Log(context.Rule,
+                RuleUtilities.BuildResult(ResultKind.Note, context, null,
+                    nameof(SdkResources.MSG1001_AnalyzingTarget),
+                    Path.GetFileName(context.TargetUri.LocalPath)));
+        }
+
         public void Log(ResultKind messageKind, IAnalysisContext context, Region region, string formatSpecifierId, params string[] arguments)
         {
             this.ruleDescriptors.Add(context.Rule);
 
             formatSpecifierId = RuleUtilities.NormalizeFormatSpecifierId(context.Rule.Id, formatSpecifierId);
             LogJsonIssue(messageKind, context.TargetUri?.LocalPath, region, context.Rule.Id, formatSpecifierId, arguments);
-
-            this.ruleDescriptors.Add(context.Rule);
         }
 
         private void LogJsonIssue(ResultKind messageKind, string targetPath, Region region, string ruleId, string formatSpecifierId, params string[] arguments)

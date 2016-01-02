@@ -9,5 +9,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
         ExceptionCreatingLogFile,
         UnhandledExceptionInstantiatingSkimmers,
         UnhandledExceptionInEngine,
+        NoRulesLoaded,
+        NoValidAnalysisTargets
     }
 }

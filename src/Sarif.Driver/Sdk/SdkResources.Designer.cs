@@ -71,12 +71,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to An exception was raised attempting to load analysis plug-in &apos;{0}&apos;. Exception information:
+        ///   Looks up a localized string similar to An exception was raised attempting to instantiate skimmers from the following plugins&apos;{0}&apos;. Exception information:
         ///{1}.
         /// </summary>
-        internal static string ERR0997_ExceptionLoadingAnalysisPlugIn {
+        internal static string ERR0997_ExceptionInstantiatingSkimmers {
             get {
-                return ResourceManager.GetString("ERR0997_ExceptionLoadingAnalysisPlugIn", resourceCulture);
+                return ResourceManager.GetString("ERR0997_ExceptionInstantiatingSkimmers", resourceCulture);
             }
         }
         
@@ -91,6 +91,25 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to &apos;{0}&apos; was not evaluated for check &apos;{1}&apos; as an exception occurred loading its pdb: &apos;{2}&apos;.
+        /// </summary>
+        internal static string ERR0997_ExceptionLoadingPdb {
+            get {
+                return ResourceManager.GetString("ERR0997_ExceptionLoadingPdb", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to An exception was raised attempting to load plug-in &apos;{0}&apos;. Exception information:
+        ///{1}.
+        /// </summary>
+        internal static string ERR0997_ExceptionLoadingPlugIn {
+            get {
+                return ResourceManager.GetString("ERR0997_ExceptionLoadingPlugIn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to An unhandled exception was raised while configuring analysis for execution..
         /// </summary>
         internal static string ERR0997_InvalidConfiguration_Description {
@@ -100,11 +119,29 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Check &apos;{0}&apos; was disabled for this run as the analysis was not configured with required policy ({1}). To resolve this, configure and provide a policy file on the {2} command-line using the --policy argument (recommended), or pass &apos;--config default&apos; to invoke built-in settings. Invoke the {2} &apos;exportConfig&apos; command to produce an initial configuration file that can be edited, if necessary, and passed back into the tool..
+        ///   Looks up a localized string similar to Check &apos;{1}&apos; was disabled while analyzing &apos;{0}&apos; because the analysis was not configured with required policy ({2}). To resolve this, configure and provide a policy file on the {3} command-line using the --policy argument (recommended), or pass &apos;--config default&apos; to invoke built-in settings. Invoke the {3} &apos;exportConfig&apos; command to produce an initial configuration file that can be edited, if necessary, and passed back into the tool..
         /// </summary>
         internal static string ERR0997_MissingRuleConfiguration {
             get {
                 return ResourceManager.GetString("ERR0997_MissingRuleConfiguration", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No analysis rules could be instantiated..
+        /// </summary>
+        internal static string ERR0997_NoRulesLoaded {
+            get {
+                return ResourceManager.GetString("ERR0997_NoRulesLoaded", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No valid analysis targets were specified..
+        /// </summary>
+        internal static string ERR0997_NoValidAnalysisTargets {
+            get {
+                return ResourceManager.GetString("ERR0997_NoValidAnalysisTargets", resourceCulture);
             }
         }
         
@@ -167,7 +204,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to A parse error occurred: {0}.
+        ///   Looks up a localized string similar to An error occurred parsing &apos;{0}&apos;: {1}.
         /// </summary>
         internal static string ERR1001_Default {
             get {
@@ -185,11 +222,38 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Analysis complete..
+        ///   Looks up a localized string similar to Analysis completed successfully..
         /// </summary>
-        internal static string MSG1001_AnalysisComplete {
+        internal static string MSG_AnalysisCompletedSuccessfully {
             get {
-                return ResourceManager.GetString("MSG1001_AnalysisComplete", resourceCulture);
+                return ResourceManager.GetString("MSG_AnalysisCompletedSuccessfully", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Analysis finished but was not complete due to non-fatal runtime errors..
+        /// </summary>
+        internal static string MSG_AnalysisIncomplete {
+            get {
+                return ResourceManager.GetString("MSG_AnalysisIncomplete", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Analyzing....
+        /// </summary>
+        internal static string MSG_Analyzing {
+            get {
+                return ResourceManager.GetString("MSG_Analyzing", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Analysis halted prematurely due to a fatal execution condition..
+        /// </summary>
+        internal static string MSG_UnexpectedApplicationExit {
+            get {
+                return ResourceManager.GetString("MSG_UnexpectedApplicationExit", resourceCulture);
             }
         }
         
@@ -203,20 +267,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}.
+        ///   Looks up a localized string similar to An analysis target was analyzed..
         /// </summary>
-        internal static string MSG1001_Default {
+        internal static string MSG1001_AnalyzingTarget_Description {
             get {
-                return ResourceManager.GetString("MSG1001_Default", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to An informational output message was logged..
-        /// </summary>
-        internal static string MSG1001_GeneralMessage_Description {
-            get {
-                return ResourceManager.GetString("MSG1001_GeneralMessage_Description", resourceCulture);
+                return ResourceManager.GetString("MSG1001_AnalyzingTarget_Description", resourceCulture);
             }
         }
         
@@ -244,15 +299,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk {
         internal static string MSG1002_InvalidTarget_Description {
             get {
                 return ResourceManager.GetString("MSG1002_InvalidTarget_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Application exited unexpectedly..
-        /// </summary>
-        internal static string UnexpectedApplicationExit {
-            get {
-                return ResourceManager.GetString("UnexpectedApplicationExit", resourceCulture);
             }
         }
     }

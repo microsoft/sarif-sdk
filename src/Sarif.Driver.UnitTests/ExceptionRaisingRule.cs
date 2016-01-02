@@ -94,6 +94,16 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
             {
                 throw new InvalidOperationException(nameof(ExceptionCondition.InvokingAnalyze));
             }
+
+            if (_exceptionCondition == ExceptionCondition.ParsingTarget)
+            {
+                Errors.LogTargetParseError(context, null, "Could not parse target.");
+            }
+
+            if (_exceptionCondition == ExceptionCondition.LoadingPdb)
+            {
+                Errors.LogExceptionLoadingPdb(context, new InvalidOperationException());
+            }
         }
 
         public AnalysisApplicability CanAnalyze(TestAnalysisContext context, out string reasonIfNotApplicable)
@@ -103,6 +113,19 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
             {
                 throw new InvalidOperationException(nameof(ExceptionCondition.InvokingCanAnalyze));
             }
+
+            if (context.Options.RegardAnalysisTargetAsNotApplicable)
+            {
+                reasonIfNotApplicable = "testing NotApplicableToSpecifiedTarget";
+                return AnalysisApplicability.NotApplicableToSpecifiedTarget;
+            }
+
+            if (context.Options.RegardRequiredConfigurationAsMissing)
+            {
+                reasonIfNotApplicable = "test NotApplicableDueToMissingConfiguration";
+                return AnalysisApplicability.NotApplicableDueToMissingConfiguration;
+            }
+
             return AnalysisApplicability.ApplicableToSpecifiedTarget;
         }
 
