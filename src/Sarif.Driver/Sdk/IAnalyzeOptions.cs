@@ -21,6 +21,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
 
         bool ComputeTargetsHash { get; }
 
-        IList<string> PlugInFilePaths { get; }
+        IEnumerable<string> PlugInFilePaths { get; }
     }
 }

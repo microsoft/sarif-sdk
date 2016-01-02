@@ -8,7 +8,7 @@ using Microsoft.CodeAnalysis.Sarif.Sdk;
 
 namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
 {
-    public class StatisticsLogger : IResultLogger
+    public class StatisticsLogger : IAnalysisLogger
     {
         private Stopwatch _stopwatch;
         private long _targetsCount;
@@ -16,12 +16,34 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
 
         public StatisticsLogger()
         {
+        }
+
+        public void AnalysisStarted()
+        {
             _stopwatch = Stopwatch.StartNew();
         }
 
-        public void Log(ResultKind messageKind, IAnalysisContext context, Region region, string formatSpecifierId, params string[] arguments)
+        public void AnalysisStopped(RuntimeConditions runtimeConditions)
         {
-            Log(messageKind, context?.Rule?.Id);
+            Console.WriteLine();
+            Console.WriteLine("# valid targets: " + _targetsCount.ToString());
+            Console.WriteLine("# invalid targets: " + _invalidTargetsCount.ToString());
+            Console.WriteLine("Time elapsed: " + _stopwatch.Elapsed.ToString());
+        }
+
+        public void AnalyzingTarget(IAnalysisContext context)
+        {
+            _targetsCount++;
+        }
+
+        public void Log(IRuleDescriptor rule, Result result)
+        {
+            Log(result.Kind, result.RuleId);
+        }
+
+        public void LogMessage(bool verbose, string message)
+        {
+
         }
 
         public void Log(ResultKind messageKind, string ruleId)
@@ -46,23 +68,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
 
                 case ResultKind.NotApplicable:
                     {
-                        if (ruleId == NoteDescriptors.InvalidTarget.Id)
+                        if (ruleId == Notes.InvalidTarget.Id)
                         {
                             _invalidTargetsCount++;
                         }
                         break;
                     }
-
-                case ResultKind.Note:
-                {
-                    // Currently, we only use this id to fire verbose
-                    // messages indicating a target is under analysis
-                    if (ruleId == NoteDescriptors.GeneralMessage.Id)
-                    {
-                        _targetsCount++;
-                    }
-                    break;
-                }
 
                 case ResultKind.InternalError:
                     {
@@ -83,10 +94,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
 
         public void Dispose()
         {
-            Console.WriteLine();
-            Console.WriteLine("# valid targets: " + _targetsCount.ToString());
-            Console.WriteLine("# invalid targets: " + _invalidTargetsCount.ToString());
-            Console.WriteLine("Time elapsed: " + _stopwatch.Elapsed.ToString());
         }
     }
 }

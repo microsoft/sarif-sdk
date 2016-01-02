@@ -176,7 +176,9 @@ namespace SarifViewer
                             region.Populate(newLineIndex);
                         }
 
-                        message = result.GetMessageText(runLog, concise: true);
+                        IRuleDescriptor rule = GetRule(runLog, result.RuleId);
+
+                        message = result.GetMessageText(rule, concise: true);
 
                         var error = new ErrorTask()
                         {
@@ -229,6 +231,15 @@ namespace SarifViewer
             }
 
             this.errorListProvider.Show();
+        }
+
+        private IRuleDescriptor GetRule(RunLog runLog, string ruleId)
+        {
+            foreach (IRuleDescriptor ruleDescriptor in runLog.RuleInfo)
+            {
+                if (ruleDescriptor.Id == ruleId) { return ruleDescriptor; }
+            }
+            throw new InvalidOperationException();
         }
 
         private TaskErrorCategory ConvertResultKindToTaskCategory(ResultKind kind)

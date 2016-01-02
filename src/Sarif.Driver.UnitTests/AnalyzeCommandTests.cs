@@ -10,6 +10,7 @@ using Microsoft.CodeAnalysis.Sarif.Readers;
 using Newtonsoft.Json;
 
 using Xunit;
+using System.Collections.Generic;
 
 namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
 {
@@ -28,7 +29,25 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
             };
 
             var command = new TestAnalyzeCommand();
-            command.DefaultPlugInAssemblies = new Assembly[] { typeof(ExceptionRaisingRule).Assembly };
+
+            Assembly[] plugInAssemblies;
+
+            if (analyzeOptions.PlugInFilePaths != null)
+            {
+                var assemblies = new List<Assembly>();
+                foreach (string plugInFilePath in analyzeOptions.PlugInFilePaths)
+                {
+                    assemblies.Add(Assembly.LoadFrom(plugInFilePath));
+                }
+                plugInAssemblies = new Assembly[assemblies.Count];
+                assemblies.CopyTo(plugInAssemblies, 0);
+            }
+            else
+            {
+                plugInAssemblies = new Assembly[] { typeof(ExceptionRaisingRule).Assembly };
+            }
+
+            command.DefaultPlugInAssemblies = plugInAssemblies;
 
             int result = command.Run(analyzeOptions);
 
@@ -57,20 +76,151 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
         }
 
         [Fact]
+        public void NotApplicableToTarget()
+        {
+            var options = new TestAnalyzeOptions()
+            {
+                TargetFileSpecifiers = new string[] { this.GetType().Assembly.Location },
+                RegardAnalysisTargetAsNotApplicable = true
+            };
+
+            ExceptionTestHelper(
+                ExceptionCondition.None,
+                RuntimeConditions.RuleNotApplicableToTarget,
+                analyzeOptions: options);
+        }
+
+
+        [Fact]
+        public void InvalidTarget()
+        {
+            var options = new TestAnalyzeOptions()
+            {
+                TargetFileSpecifiers = new string[] { this.GetType().Assembly.Location },
+                RegardAnalysisTargetAsValid = false
+            };
+
+            ExceptionTestHelper(
+                ExceptionCondition.None,
+                RuntimeConditions.TargetNotValidToAnalyze,
+                analyzeOptions: options);
+        }
+
+        [Fact]
+        public void MissingRequiredConfiguration()
+        {
+            var options = new TestAnalyzeOptions()
+            {
+                TargetFileSpecifiers = new string[] { this.GetType().Assembly.Location },
+                RegardRequiredConfigurationAsMissing = true
+            };
+
+            ExceptionTestHelper(
+                ExceptionCondition.None,
+                RuntimeConditions.RuleMissingRequiredConfiguration,
+                analyzeOptions: options);
+        }
+
+        [Fact]
+        public void ExceptionLoadingTarget()
+        {
+            var options = new TestAnalyzeOptions()
+            {
+                TargetFileSpecifiers = new string[] { this.GetType().Assembly.Location },
+                RegardAnalysisTargetAsCorrupted = true
+            };
+
+            ExceptionTestHelper(
+                ExceptionCondition.None,
+                RuntimeConditions.ExceptionLoadingTargetFile,
+                analyzeOptions: options);
+        }
+
+        [Fact]
         public void ExceptionRaisedInstantiatingSkimmers()
         {
+            var options = new TestAnalyzeOptions()
+            {
+                TargetFileSpecifiers = new string[] { this.GetType().Assembly.Location },
+            };
+
             ExceptionTestHelper(
                 ExceptionCondition.InvokingConstructor,
                 RuntimeConditions.ExceptionInstantiatingSkimmers,
-                ExitReason.UnhandledExceptionInstantiatingSkimmers);
+                ExitReason.UnhandledExceptionInstantiatingSkimmers,
+                analyzeOptions : options);
+        }
+
+        [Fact]
+        public void NoRulesLoaded()
+        {
+            var options = new TestAnalyzeOptions()
+            {
+                TargetFileSpecifiers = new string[] { this.GetType().Assembly.Location },
+                PlugInFilePaths = new string[] { typeof(string).Assembly.Location }
+            };
+
+            ExceptionTestHelper(
+                ExceptionCondition.None,
+                RuntimeConditions.NoRulesLoaded,
+                ExitReason.NoRulesLoaded,
+                analyzeOptions : options
+            );
+        }
+
+        [Fact]
+        public void NoValidAnalysisTargets()
+        {
+            ExceptionTestHelper(
+                ExceptionCondition.None,
+                RuntimeConditions.NoValidAnalysisTargets,
+                ExitReason.NoValidAnalysisTargets
+            );
         }
 
         [Fact]
         public void ExceptionRaisedInvokingInitialize()
         {
+            var options = new TestAnalyzeOptions()
+            {
+                TargetFileSpecifiers = new string[] { this.GetType().Assembly.Location },
+            };
+
             ExceptionTestHelper(
                 ExceptionCondition.InvokingInitialize,
-                RuntimeConditions.ExceptionInSkimmerInitialize
+                RuntimeConditions.ExceptionInSkimmerInitialize,
+                analyzeOptions: options
+            );
+        }
+
+
+        [Fact]
+        public void LoadPdbException()
+        {
+            var options = new TestAnalyzeOptions()
+            {
+                TargetFileSpecifiers = new string[] { this.GetType().Assembly.Location },
+            };
+
+            ExceptionTestHelper(
+                ExceptionCondition.LoadingPdb,
+                RuntimeConditions.ExceptionLoadingPdb,
+                analyzeOptions: options
+            );
+        }
+
+        [Fact]
+        public void ParseTargetException()
+        {
+            var options = new TestAnalyzeOptions()
+            {
+                TargetFileSpecifiers = new string[] { this.GetType().Assembly.Location },
+            };
+
+            ExceptionTestHelper(
+                ExceptionCondition.ParsingTarget,
+                RuntimeConditions.TargetParseError,
+                analyzeOptions: options
             );
         }
 
@@ -117,7 +267,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
             ExceptionTestHelper(
                 ExceptionCondition.None,
                 RuntimeConditions.ExceptionInEngine,
-                ExitReason.UnhandledExceptionInEngine);
+                ExitReason.UnhandledExceptionInEngine,
+                analyzeOptions : options);
 
             TestAnalyzeCommand.RaiseUnhandledExceptionInDriverCode = false;
         }
@@ -227,7 +378,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
         }
 
         [Fact]
-        public void EndToEndAnalysisWithNoIssues()
+        public void AnalyzeCommand_EndToEndAnalysisWithNoIssues()
         {
             RunLog runLog = AnalyzeFile(this.GetType().Assembly.Location);
 

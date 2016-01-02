@@ -55,6 +55,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
             "plug-in",
             Separator = ';',
             HelpText = "Path to plug-in that will be invoked against all targets in the analysis set.")]
-        public IList<string> PlugInFilePaths { get; set; }
+        public IEnumerable<string> PlugInFilePaths { get; set; }
     }
 }

@@ -7,7 +7,7 @@ using Microsoft.CodeAnalysis.Sarif.Sdk;
 
 namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
 {
-    internal class TestMessageLogger : IResultLogger
+    internal class TestMessageLogger : IAnalysisLogger
     {
         public TestMessageLogger()
         {
@@ -16,20 +16,34 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
             NotApplicableTargets = new HashSet<string>();
         }
 
+        public RuntimeConditions RuntimeErrors { get; set; }
+
         public HashSet<string> PassTargets { get; set; }
 
         public HashSet<string> FailTargets { get; set; }
 
         public HashSet<string> NotApplicableTargets { get; set; }
 
-        public void Log(ResultKind messageKind, string formatSpecifier, params string[] arguments)
+        public void AnalysisStarted()
         {
-            throw new NotImplementedException();
         }
 
-        public void Log(ResultKind messageKind, IAnalysisContext context, Region region, string formatSpecifierId, params string[] arguments)
+        public void AnalysisStopped(RuntimeConditions runtimeConditions)
         {
-            NoteTestResult(messageKind, context.TargetUri.LocalPath);
+            RuntimeErrors = runtimeConditions;
+        }
+
+        public void AnalyzingTarget(IAnalysisContext context)
+        {
+        }
+
+        public void LogMessage(bool verbose, string message)
+        {
+        }
+
+        public void Log(IRuleDescriptor rule, Result result)
+        {
+            NoteTestResult(result.Kind, result.Locations[0].AnalysisTarget[0].Uri.LocalPath);
         }
 
         public void NoteTestResult(ResultKind messageKind, string targetPath)

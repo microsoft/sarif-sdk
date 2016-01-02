@@ -3,12 +3,66 @@
 
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Resources;
+using Microsoft.CodeAnalysis.Sarif.Sdk;
+using Microsoft.CodeAnalysis.Sarif.Writers;
 
 namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
 {
     public static class RuleUtilities
     {
+        public static Result BuildResult(ResultKind messageKind, IAnalysisContext context, Region region, string formatSpecifierId, params string[] arguments)
+        {
+            string[] messageArguments = arguments;
+
+            formatSpecifierId = RuleUtilities.NormalizeFormatSpecifierId(context.Rule.Id, formatSpecifierId);
+
+            string targetPath = context.TargetUri?.LocalPath;
+
+            Result result = new Result();
+
+            result.RuleId = context.Rule.Id;
+
+            if (!string.IsNullOrEmpty(targetPath))
+            {
+                // In the event of an analysis target, we always provide
+                // the local path to this item as the 0th argument
+                messageArguments = new string[arguments.Length + 1];
+                messageArguments[0] = Path.GetFileName(targetPath);
+                arguments.CopyTo(messageArguments, 1);
+            }
+
+            result.FormattedMessage = new FormattedMessage()
+            {
+                SpecifierId = formatSpecifierId,
+                Arguments = messageArguments
+            };
+
+            result.Kind = messageKind;
+
+            if (targetPath != null)
+            {
+                result.Locations = new[] {
+                new Sarif.Sdk.Location {
+                    AnalysisTarget = new[]
+                    {
+                        new PhysicalLocationComponent
+                        {
+                            // Why? When NewtonSoft serializes this Uri, it will use the
+                            // original string used to construct the Uri. For a file path, 
+                            // this will be the local file path. We want to persist this 
+                            // information using the file:// protocol rendering, however.
+                            Uri = targetPath.CreateUriForJsonSerialization(),
+                            MimeType = context.MimeType,
+                            Region = region
+                        },
+                    }
+               }};
+            }
+            return result;
+        }
+
         public static Dictionary<string, string> BuildDictionary(
             ResourceManager resourceManager, 
             IEnumerable<string> resourceNames, 

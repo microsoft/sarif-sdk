@@ -77,7 +77,7 @@ namespace Microsoft.CodeAnalysis.DataModelGenerator
                 codeWriter.WriteLine(@"""description"": """ + BuildDescription(type.SummaryText) + @""",");
             }
 
-            codeWriter.WriteLine(@"""additionalMembers"": false,");
+            codeWriter.WriteLine(@"""additionalProperties"": false,");
             codeWriter.WriteLine(@"""type"": ""object"",");
             codeWriter.WriteLine(@"""properties"": {");
             codeWriter.IncrementIndentLevel();

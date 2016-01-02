@@ -87,7 +87,6 @@
     <None Include="ExternalData\Missing Symbols.csv" />
     <None Include="ExternalData\Missing Symbols.csv.sarif" />
     <None Include="packages.config" />
-    <None Include="TestKey.snk" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Properties\Resources.resx">

@@ -2,11 +2,13 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using System;
+using System.Diagnostics;
+using System.IO;
 using Microsoft.CodeAnalysis.Sarif.Sdk;
 
 namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
 {
-    public class ConsoleLogger : IResultLogger
+    public class ConsoleLogger : IAnalysisLogger
     {
         public ConsoleLogger(bool verbose)
         {
@@ -15,12 +17,69 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
 
         public bool Verbose { get; set; }
 
-        public void Log(ResultKind messageKind, IAnalysisContext context, Region region, string formatSpecifierId, params string[] arguments)
+
+        public void AnalysisStarted()
         {
-            formatSpecifierId = RuleUtilities.NormalizeFormatSpecifierId(context.Rule.Id, formatSpecifierId);
-            string formatSpecifier = context.Rule.FormatSpecifiers[formatSpecifierId];
-            string message = String.Format(formatSpecifier, arguments);
-            WriteToConsole(messageKind, context.TargetUri, region, context.Rule.Id, message);
+            Console.WriteLine(SdkResources.MSG_Analyzing);
+        }
+
+        public void AnalysisStopped(RuntimeConditions runtimeConditions)
+        {
+            Console.WriteLine();
+
+            if (runtimeConditions == RuntimeConditions.NoErrors)
+            {
+                Console.WriteLine(SdkResources.MSG_AnalysisCompletedSuccessfully);
+                return;
+            }
+
+            if ((runtimeConditions & RuntimeConditions.Fatal) != 0)
+            {
+                // One or more fatal conditions observed at runtime, so
+                // we'll report a catastrophic exit (withuot paying
+                // particular attention to anything non-fatal
+                Console.WriteLine(SdkResources.MSG_UnexpectedApplicationExit);
+            }
+            else
+            {
+                // Analysis finished but was not complete due
+                // to non-fatal runtime errors.
+                Console.WriteLine(SdkResources.MSG_AnalysisIncomplete);
+            }
+
+            Console.WriteLine("Unexpected runtime condition(s) observed: " + runtimeConditions.ToString());
+        }
+
+        public void AnalyzingTarget(IAnalysisContext context)
+        {
+            if (this.Verbose)
+            {
+                Console.WriteLine(string.Format(
+                    SdkResources.MSG1001_AnalyzingTarget,
+                        Path.GetFileName(context.TargetUri.LocalPath)));
+            }
+        }
+
+        public void LogMessage(bool verbose, string message)
+        {
+            if (this.Verbose)
+            {
+                Console.WriteLine(message);
+            }
+        }
+
+        public void Log(IRuleDescriptor rule, Result result)
+        {
+            string message = result.GetMessageText(rule, concise: false);
+
+            // TODO we need better retrieval for locations than these defaults
+            // Note that we can potentially emit many messages from a single result
+            WriteToConsole(
+                result.Kind,
+                result.Locations?[0].AnalysisTarget?[0].Uri,
+                result.Locations?[0].AnalysisTarget?[0].Region,
+                result.RuleId,
+                message);
         }
 
         private void WriteToConsole(ResultKind messageKind, Uri uri, Region region, string ruleId, string message)
@@ -98,7 +157,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
 
                 case ResultKind.NotApplicable:
                 case ResultKind.Note:
-                    {
+                case ResultKind.Pass:
+                {
                         issueType = "note";
                         break;
                     }
@@ -149,10 +209,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
                     ")";
             }
 
-            return (path != null ? (path + location + ": ") : "") +
+            string result = (path != null ? (path + location + ": ") : "") +
                    issueType + (!string.IsNullOrEmpty(ruleId) ? " " : "")  +
                    (messageKind != ResultKind.Note ? ruleId : "" ) + ": " +
                    detailedDiagnosis;
+
+            return result;
         }
 
         public static string NormalizeMessage(string message, bool enquote)
