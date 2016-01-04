@@ -190,7 +190,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
             context.RuntimeErrors |= RuntimeConditions.RuleMissingRequiredConfiguration;
         }
 
-        public static void LogExceptionLoadingPlugIn(string plugInFilePath, IAnalysisContext context)
+        public static void LogExceptionLoadingPlugIn(string plugInFilePath, IAnalysisContext context, Exception ex)
         {
             context.Rule = Errors.InvalidConfiguration;
             context.TargetUri = plugInFilePath.CreateUriForJsonSerialization();
@@ -200,7 +200,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
             context.Logger.Log(context.Rule,
                 RuleUtilities.BuildResult(ResultKind.ConfigurationError, context, null,
                     nameof(SdkResources.ERR0997_ExceptionLoadingPlugIn),
-                    context.TargetLoadException.ToString()));
+                    ex.ToString()));
 
             context.RuntimeErrors |= RuntimeConditions.ExceptionLoadingAnalysisPlugIn;
         }
