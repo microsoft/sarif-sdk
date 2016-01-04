@@ -149,11 +149,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
 
         public void AnalyzingTarget(IAnalysisContext context)
         {
+            // This code doesn't call through a common helper, such as
+            // provided by the SDK Notes class, becuase we are in a specifier
+            // logger. If we called through a helper, we'd re-enter
+            // through all aggregated loggers.
             context.Rule = Notes.AnalyzingTarget;
             Log(context.Rule,
                 RuleUtilities.BuildResult(ResultKind.Note, context, null,
-                    nameof(SdkResources.MSG1001_AnalyzingTarget),
-                    Path.GetFileName(context.TargetUri.LocalPath)));
+                    nameof(SdkResources.MSG1001_AnalyzingTarget)));
         }
 
         public void Log(ResultKind messageKind, IAnalysisContext context, Region region, string formatSpecifierId, params string[] arguments)
