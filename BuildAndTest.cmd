@@ -11,7 +11,7 @@ md bld\bin\nuget
 
 set MAJOR=1
 set MINOR=4
-set PATCH=26
+set PATCH=27
 set PRERELEASE=-beta
 
 @REM Write VersionConstants files 
