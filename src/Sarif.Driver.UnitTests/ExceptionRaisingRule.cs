@@ -102,7 +102,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
 
             if (_exceptionCondition == ExceptionCondition.LoadingPdb)
             {
-                Errors.LogExceptionLoadingPdb(context, new InvalidOperationException());
+                Errors.LogExceptionLoadingPdb(context, new InvalidOperationException("Test message").Message);
             }
         }
 
