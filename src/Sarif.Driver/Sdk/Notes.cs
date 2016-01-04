@@ -40,14 +40,17 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
 
         public static void LogNotApplicableToSpecifiedTarget(IAnalysisContext context, string reasonForNotAnalyzing)
         {
+            string ruleId = context.Rule.Id;
+            string ruleName = context.Rule.Name;
             context.Rule = Notes.InvalidTarget;
 
-            // '{0}' was not evaluated for check '{1}' as the analysis
-            // is not relevant based on observed metadata: {2}.
+            // '{0}' was not evaluated for check '{1}:{2}' as the analysis
+            // is not relevant based on observed metadata: {3}.
             context.Logger.Log(context.Rule,
                 RuleUtilities.BuildResult(ResultKind.NotApplicable, context, null,
                     nameof(SdkResources.MSG1002_InvalidMetadata),
-                    context.Rule.Name,
+                    ruleId,
+                    ruleName,
                     reasonForNotAnalyzing));
 
             context.RuntimeErrors |= RuntimeConditions.RuleNotApplicableToTarget;

@@ -167,7 +167,7 @@
     <value>'{0}' was not analyzed as it does not appear to be a valid file type for analysis.</value>
   </data>
   <data name="MSG1002_InvalidMetadata" xml:space="preserve">
-    <value>'{0}' was not evaluated for check '{1}' as the analysis is not relevant based on observed metadata: {2}.</value>
+    <value>'{0}' was not evaluated for check '{1}:{2}' as the analysis is not relevant based on observed metadata: {3}.</value>
   </data>
   <data name="MSG_UnexpectedApplicationExit" xml:space="preserve">
     <value>Analysis halted prematurely due to a fatal execution condition.</value>

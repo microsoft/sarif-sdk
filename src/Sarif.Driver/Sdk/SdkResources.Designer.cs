@@ -285,7 +285,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to &apos;{0}&apos; was not evaluated for check &apos;{1}&apos; as the analysis is not relevant based on observed metadata: {2}..
+        ///   Looks up a localized string similar to &apos;{0}&apos; was not evaluated for check &apos;{1}:{2}&apos; as the analysis is not relevant based on observed metadata: {3}..
         /// </summary>
         internal static string MSG1002_InvalidMetadata {
             get {
