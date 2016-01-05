@@ -223,7 +223,7 @@ hash :
         @name {Algorithm}
         @summary {
         A string specifying the name of the algorithm used to compute the hash value specified in the value property. 
-		This shall be one of the following: BLAKE-256, BLAKE-512, ECOH, FSB, GOST, Groestl, HAS-160, HAVAL, JH, MD2, 
+		This shall be one of the following: BLAKE-256, BLAKE-512, ECOH, FSB, GOST, Grøstl, HAS-160, HAVAL, JH, MD2, 
 		MD4, MD5, MD6, RadioGatun, RIPEMD, RIPEMD-128, RIPEMD-160, RIPEMD-320, SHA-1, SHA-224, SHA-256, SHA-384, 
 		SHA-512, SHA-3, Skein, Snefru, Spectral Hash, SWIFFT, Tiger, Whirlpool. 
         }
@@ -1020,9 +1020,9 @@ formattedMessage:
 ;
 
 /** @className {AlgorithmKind} 
-	@serializedValues {Blake256, Blake512, Ecoh, Fsb, Gost, Groestl, Has160, Haval, JH, MD2, MD4, MD5, MD6, RadioGatun, RipeMd, RipeMd128, RipeMd160, RipeMd320, Sha1, Sha224, Sha256, Sha384, Sha512, Sha3, Skein, Snefru, SpectralHas, Swifft, Tiger, Whirlpool} 
+	@serializedValues {Blake256, Blake512, Ecoh, Fsb, Gost, Groestl, Has160, Haval, JH, MD2, MD4, MD5, MD6, RadioGatun, RipeMD, RipeMD128, RipeMD160, RipeMD320, Sha1, Sha224, Sha256, Sha384, Sha512, Sha3, Skein, Snefru, SpectralHash, Swifft, Tiger, Whirlpool} 
 */
-algorithmKind : 'BLAKE-256' | 'BLAKE-512' | 'ECOH' | 'FSB' | 'GOST' | 'Groestl' | 'HAS-160' | 'HAVAL' | 'JH' | 'MD2' | 'MD4' | 'MD5' | 'MD6' | 'RadioGatun' | 'RIPEMD' | 'RIPEMD-128' | 'RIPEMD-160' | 'RIPEMD-320' | 'SHA-1' | 'SHA-224' | 'SHA-256' | 'SHA-384' | 'SHA-512' | 'SHA-3' | 'Skein' | 'Snefru' | 'Spectral Hash' | 'SWIFFT' | 'Tiger' | 'Whirlpool';
+algorithmKind : 'BLAKE-256' | 'BLAKE-512' | 'ECOH' | 'FSB' | 'GOST' | 'Grøstl' | 'HAS-160' | 'HAVAL' | 'JH' | 'MD2' | 'MD4' | 'MD5' | 'MD6' | 'RadioGatún' | 'RIPEMD' | 'RIPEMD-128' | 'RIPEMD-160' | 'RIPEMD-320' | 'SHA-1' | 'SHA-224' | 'SHA-256' | 'SHA-384' | 'SHA-512' | 'SHA-3' | 'Skein' | 'Snefru' | 'Spectral Hash' | 'SWIFFT' | 'Tiger' | 'Whirlpool';
 
 version : STRING;
 fullVersion : STRING;

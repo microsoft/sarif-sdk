@@ -67,6 +67,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="Readers\AlgorithmKindConverterTests.cs" />
     <Compile Include="SparseReaderDispatchTableTests.cs" />
     <Compile Include="SparseReaderTests.cs" />
     <Compile Include="TempDirectory.cs" />
