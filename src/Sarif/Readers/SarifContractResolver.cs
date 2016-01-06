@@ -25,6 +25,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
             if (objectType == typeof(ResultKind))
                 contract.Converter = ResultKindConverter.Instance;
 
+            if (objectType == typeof(AlgorithmKind))
+                contract.Converter = AlgorithmKindConverter.Instance;
+
             return contract;
         }
     }
