@@ -26,7 +26,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
                 case "ECOH": return AlgorithmKind.Ecoh;
                 case "FSB": return AlgorithmKind.Fsb;
                 case "GOST": return AlgorithmKind.Gost;
-                case "Grøstl": return AlgorithmKind.Groestl;
+                case "Groestl": return AlgorithmKind.Groestl;
                 case "HAS-160": return AlgorithmKind.Has160;
                 case "HAVAL": return AlgorithmKind.Haval;
                 case "JH": return AlgorithmKind.JH;
@@ -34,7 +34,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
                 case "MD4": return AlgorithmKind.MD4;
                 case "MD5": return AlgorithmKind.MD5;
                 case "MD6": return AlgorithmKind.MD6;
-                case "RadioGatún": return AlgorithmKind.RadioGatun;
+                case "RadioGatun": return AlgorithmKind.RadioGatun;
                 case "RIPEMD": return AlgorithmKind.RipeMD;
                 case "RIPEMD-128": return AlgorithmKind.RipeMD128;
                 case "RIPEMD-160": return AlgorithmKind.RipeMD160;
@@ -65,7 +65,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
                 case AlgorithmKind.Ecoh: { writer.WriteRawValue("\"ECOH\""); return; }
                 case AlgorithmKind.Fsb: { writer.WriteRawValue("\"FSB\""); return; }
                 case AlgorithmKind.Gost: { writer.WriteRawValue("\"GOST\""); return; }
-                case AlgorithmKind.Groestl: { writer.WriteRawValue("\"Grøstl\""); return; }
+                case AlgorithmKind.Groestl: { writer.WriteRawValue("\"Groestl\""); return; }
                 case AlgorithmKind.Has160: { writer.WriteRawValue("\"HAS-160\""); return; }
                 case AlgorithmKind.Haval: { writer.WriteRawValue("\"HAVAL\""); return; }
                 case AlgorithmKind.JH: { writer.WriteRawValue("\"JH\""); return; }
@@ -73,7 +73,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
                 case AlgorithmKind.MD4: { writer.WriteRawValue("\"MD4\""); return; }
                 case AlgorithmKind.MD5: { writer.WriteRawValue("\"MD5\""); return; }
                 case AlgorithmKind.MD6: { writer.WriteRawValue("\"MD6\""); return; }
-                case AlgorithmKind.RadioGatun: { writer.WriteRawValue("\"RadioGatún\""); return; }
+                case AlgorithmKind.RadioGatun: { writer.WriteRawValue("\"RadioGatun\""); return; }
                 case AlgorithmKind.RipeMD: { writer.WriteRawValue("\"RIPEMD\""); return; }
                 case AlgorithmKind.RipeMD128: { writer.WriteRawValue("\"RIPEMD-128\""); return; }
                 case AlgorithmKind.RipeMD160: { writer.WriteRawValue("\"RIPEMD-160\""); return; }
