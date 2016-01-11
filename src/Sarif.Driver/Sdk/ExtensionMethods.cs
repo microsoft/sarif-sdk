@@ -57,6 +57,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
 
             if (string.IsNullOrEmpty(text))
             {
+                Debug.Assert(rule != null);
+
                 string ruleId = result.RuleId;
                 string formatSpecifierId = result.FormattedMessage.SpecifierId;
                 string formatSpecifier;
@@ -99,7 +101,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
         public static string GetFirstSentence(string text)
         {
             int length = 0;
-            bool insideQuotes = false;
+            bool withinQuotes = false;
+            bool withinParentheses = false;
 
             foreach (char ch in text)
             {
@@ -108,14 +111,37 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
                 {
                     case '\'':
                     {
-                        insideQuotes = !insideQuotes;
+                        // we'll ignore everything within parenthized text
+                        if (!withinParentheses)
+                        {
+                            withinQuotes = !withinQuotes;
+                        }
                         break;
                     }
 
+                    case '(':
+                    {
+                        if (!withinQuotes)
+                        {
+                            withinParentheses = true;
+                        }
+                        break;
+                    }
+
+                    case ')':
+                    {
+                        if (!withinQuotes)
+                        {
+                            withinParentheses = false;
+                        }
+                        break;
+                    }
+                    case '\n':
+                    case '\r':
                     case '.':
                     {
-                        if (insideQuotes) { continue; }
-                        return text.Substring(0, length);
+                        if (withinQuotes || withinParentheses) { continue; }
+                        return text.Substring(0, length).TrimEnd('\r', '\n');
                     }
                 }
             }

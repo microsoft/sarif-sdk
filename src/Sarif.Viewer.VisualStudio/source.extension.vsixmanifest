@@ -3,7 +3,7 @@
   <Metadata>
     <Identity Id="SarifViewer.Michael C. Fanning.f17e897a-fd38-4e1f-99db-19fa34a4e184" Version="1.0" Language="en-US" Publisher="Michael C. Fanning" />
     <DisplayName>SarifViewer</DisplayName>
-    <Description xml:space="preserve">Visual Studio Static Analysis Results Interchange Format (SARIF) log file viewerSt</Description>
+    <Description xml:space="preserve">Visual Studio Static Analysis Results Interchange Format (SARIF) log file viewer</Description>
     <Icon>Triskele.ico</Icon>
   </Metadata>
   <Installation>
@@ -15,5 +15,6 @@
   </Dependencies>
   <Assets>
     <Asset Type="Microsoft.VisualStudio.VsPackage" d:Source="Project" d:ProjectName="%CurrentProject%" Path="|%CurrentProject%;PkgdefProjectOutputGroup|" />
+    <Asset Type="Microsoft.VisualStudio.MefComponent" d:Source="Project" d:ProjectName="%CurrentProject%" Path="|%CurrentProject%|" />
   </Assets>
 </PackageManifest>

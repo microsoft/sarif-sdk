@@ -6,7 +6,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Resources;
 using Microsoft.CodeAnalysis.Sarif.Sdk;
-using Microsoft.CodeAnalysis.Sarif.Writers;
 
 namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
 {
