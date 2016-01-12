@@ -7,7 +7,6 @@ using System.Diagnostics;
 using Microsoft.CodeAnalysis.Sarif.Readers;
 using Microsoft.CodeAnalysis.Sarif.Sdk;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Converters;
 
 namespace Microsoft.CodeAnalysis.Sarif.Writers
 {
