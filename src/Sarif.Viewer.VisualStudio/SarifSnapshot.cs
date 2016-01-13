@@ -20,7 +20,10 @@ using Microsoft.VisualStudio.TextManager.Interop;
 
 namespace SarifViewer
 {
-    class SarifSnapshot : TableEntriesSnapshotBase
+    /// <summary>
+    /// This class provides a data snapshot for the current contents of the error list
+    /// </summary>
+    internal class SarifSnapshot : TableEntriesSnapshotBase
     {
         private string _projectName;
         private readonly List<SarifError> _errors;
@@ -31,24 +34,19 @@ namespace SarifViewer
         internal SarifSnapshot(string filePath, IEnumerable<SarifError> errors)
         {
             FilePath = filePath;
-            _errors = new List<SarifError>();
-            _errors.AddRange(errors);
+            _errors = new List<SarifError>(errors);
 
             _remappedFilePaths = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
             _remappedPathPrefixes = new List<Tuple<string, string>>();
 
             _fileToNewLineIndexMap = new Dictionary<string, NewLineIndex>(StringComparer.OrdinalIgnoreCase);
+
+            Count = _errors.Count;
         }
 
-        public override int Count
-        {
-            get { return _errors.Count; }
-        }
+        public override int Count { get; }
 
-        public IList<SarifError> Errors
-        {
-            get { return _errors; }
-        }
+        public IList<SarifError> Errors { get; }
 
         public string FilePath { get; }
 
@@ -65,10 +63,6 @@ namespace SarifViewer
                     content = FilePath;
                 }
                 else if (columnName == StandardTableKeyNames.ErrorCategory)
-                {
-                    content = Constants.VSIX_NAME;
-                }
-                else if (columnName == StandardTableKeyNames.ErrorSource)
                 {
                     content = Constants.VSIX_NAME;
                 }
@@ -211,18 +205,14 @@ namespace SarifViewer
                 sarifError.RegionPopulated = true;
             }
 
-            int startLine = region.StartLine;
-            int startColumn = region.StartColumn;
-            int endLine = region.EndLine;
-            int endColumn = region.EndColumn;
-
             // Data is 1-indexed but VS navigation api is 0-indexed
-            endLine--;
-            endColumn--;
-            startLine--;
-            startColumn--;
-
-            mgr.NavigateToLineAndColumn(buffer, ref logicalView, startLine, startColumn, endLine, endColumn);
+            mgr.NavigateToLineAndColumn(
+                buffer, 
+                ref logicalView, 
+                region.StartLine - 1,
+                region.StartColumn - 1,
+                region.EndLine - 1,
+                region.EndColumn - 1);
         }
 
         private string RebaselineFileName(string fileName)

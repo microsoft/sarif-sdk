@@ -4,18 +4,65 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Text;
 
+using Microsoft.CodeAnalysis.Sarif;
 using Microsoft.CodeAnalysis.Sarif.Driver;
 using Microsoft.CodeAnalysis.Sarif.Driver.Sdk;
+using Microsoft.CodeAnalysis.Sarif.Readers;
 using Microsoft.CodeAnalysis.Sarif.Sdk;
+using Microsoft.CodeAnalysis.Sarif.Writers;
+
+using Newtonsoft.Json;
 
 namespace SarifViewer
 {
     public class ErrorListService
     {
-        public static ErrorListService Instance = new ErrorListService();
+        public static readonly ErrorListService Instance = new ErrorListService();
 
-        public static void ProcessSarifLog(ResultLog resultLog)
+        public static void ProcessLogFile(string filePath, ToolFormat toolFormat = ToolFormat.None)
+        {
+            ResultLog log;
+
+            JsonSerializerSettings settings = new JsonSerializerSettings()
+            {
+                ContractResolver = SarifContractResolver.Instance,
+            };
+
+            string logText;
+
+            if (toolFormat == ToolFormat.None)
+            {
+                logText = File.ReadAllText(filePath);
+            }
+            else
+            {
+                // We have conversion to do
+                var converter = new ToolFormatConverter();
+                var sb = new StringBuilder();
+
+                using (var input = new MemoryStream(File.ReadAllBytes(filePath)))
+                {
+                    var outputTextWriter = new StringWriter(sb);                
+                    var outputJson = new JsonTextWriter(outputTextWriter);
+                    var output = new ResultLogJsonWriter(outputJson);
+
+                    input.Seek(0, SeekOrigin.Begin);
+                    converter.ConvertToStandardFormat(toolFormat, input, output);
+
+                    // This is serving as a flush mechanism
+                    output.Dispose();
+
+                    logText = sb.ToString();
+                }
+            }
+
+            log = JsonConvert.DeserializeObject<ResultLog>(logText, settings);
+            ProcessSarifLog(log);
+        }
+
+        private static void ProcessSarifLog(ResultLog resultLog)
         {
             foreach (RunLog runLog in resultLog.RunLogs)
             {
@@ -63,21 +110,25 @@ namespace SarifViewer
 
                 foreach (Location location in result.Locations)
                 {
-                    PhysicalLocationComponent physicalLocation;
+                    region = null;
+
+                    PhysicalLocationComponent physicalLocation = null;
                     if (location.ResultFile != null)
                     {
                         physicalLocation = location.ResultFile[0];
+                        document = physicalLocation.Uri.LocalPath;
+                        region = physicalLocation.Region;
+                    }
+                    else if (location.AnalysisTarget != null)
+                    {
+                        physicalLocation = location.AnalysisTarget[0];
+                        document = physicalLocation.Uri.LocalPath;
+                        region = physicalLocation.Region;
                     }
                     else
                     {
-                        physicalLocation = location.AnalysisTarget[0];
+                        document = location.FullyQualifiedLogicalName;
                     }
-
-                    // TODO helper to provide best representation of URI
-                    document = physicalLocation.Uri.LocalPath;
-
-                    // TODO retrieve file from nested component
-                    region = physicalLocation.Region;
 
                     IRuleDescriptor rule = GetRule(runLog, result.RuleId);
                     message = result.GetMessageText(rule, concise: true);
@@ -88,7 +139,7 @@ namespace SarifViewer
                         ErrorCode = result.RuleId,
                         IsError = IsError(result.Kind),
                         Message = message,
-                        MimeType = physicalLocation.MimeType,
+                        MimeType = physicalLocation?.MimeType,
                         Tool = toolName
                     };
 
@@ -124,9 +175,9 @@ namespace SarifViewer
                         {
                             Region = region,
                             ErrorCode = result.RuleId,
-                            IsError = IsError(result.Kind),
+                            IsError = false,
                             Message = message,
-                            MimeType = physicalLocation.MimeType,
+                            MimeType = physicalLocation?.MimeType,
                             Tool = toolName
                         };
 
@@ -144,7 +195,7 @@ namespace SarifViewer
             }
         }
 
-        private bool IsError(ResultKind kind)
+        private static bool IsError(ResultKind kind)
         {
             return 
                 kind == ResultKind.ConfigurationError ||

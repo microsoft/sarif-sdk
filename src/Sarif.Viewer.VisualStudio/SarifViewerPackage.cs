@@ -23,9 +23,12 @@ namespace SarifViewer
     [InstalledProductRegistration("#110", "#112", "1.0", IconResourceID = 400)] // Info on this package for Help/About
     [ProvideMenuResource("Menus.ctmenu", 1)]
     [Guid(SarifViewerPackage.PackageGuidString)]
+    [ProvideEditorExtension(typeof(SarifEditorFactory), ".sarif", 128)]
     public sealed class SarifViewerPackage : Package
     {
         public static DTE2 Dte;
+
+        private SarifEditorFactory _sarifEditorFactory;
 
         /// <summary>
         /// OpenSarifFileCommandPackage GUID string.
@@ -33,7 +36,7 @@ namespace SarifViewer
         public const string PackageGuidString = "b97edb99-282e-444c-8f53-7de237f2ec5e";
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="OpenSarifFileCommand"/> class.
+        /// Initializes a new instance of the <see cref="OpenLogFileCommands"/> class.
         /// </summary>
         public SarifViewerPackage()
         {
@@ -53,8 +56,11 @@ namespace SarifViewer
         /// </summary>
         protected override void Initialize()
         {
-            OpenSarifFileCommand.Initialize(this);
+            OpenLogFileCommands.Initialize(this);
             base.Initialize();
+
+            _sarifEditorFactory = new SarifEditorFactory();
+            RegisterEditorFactory(_sarifEditorFactory);
         }
 
         #endregion
