@@ -74,7 +74,7 @@ namespace SarifViewer
 
         public string Identifier
         {
-            get { return Guids.guidVSPackageString; }
+            get { return Guids.GuidVSPackageString; }
         }
 
         public string DisplayName

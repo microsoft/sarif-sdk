@@ -3,6 +3,7 @@
 
 using System;
 using System.ComponentModel.Composition;
+using System.Windows.Input;
 
 using Microsoft.VisualStudio.Shell.TableControl;
 using Microsoft.VisualStudio.Shell.TableManager;
@@ -13,7 +14,7 @@ namespace SarifViewer
     [Export(typeof(ITableControlEventProcessorProvider))]
     [ManagerType(StandardTables.ErrorsTable)]
     [DataSourceType(StandardTableDataSources.ErrorTableDataSource)]
-    [DataSource(Guids.guidVSPackageString)]
+    [DataSource(Guids.GuidVSPackageString)]
     [Name(Name)]
     [Order(Before = "Default")]
     public class SarifTableControlEventProcessorProvider : ITableControlEventProcessorProvider
@@ -22,7 +23,6 @@ namespace SarifViewer
 
         public SarifTableControlEventProcessorProvider()
         {
-            Console.WriteLine("victory");
         }
 
         public ITableControlEventProcessor GetAssociatedEventProcessor(IWpfTableControl tableControl)
@@ -49,6 +49,11 @@ namespace SarifViewer
 
                 e.Handled = true;
                 sarifSnapshot.TryNavigateTo(index, e.IsPreview);
+            }
+
+            public override void PreprocessMouseRightButtonUp(ITableEntryHandle entry, MouseButtonEventArgs e)
+            {
+                base.PreprocessMouseRightButtonUp(entry, e);
             }
         }
     }

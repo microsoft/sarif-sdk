@@ -10,8 +10,6 @@ namespace Microsoft.CodeAnalysis.Sarif
         None = 0,
         /// <summary>Android Studio's file format.</summary>
         AndroidStudio,
-        /// <summary>ApiScan's CSV file format.</summary>
-        ApiScan,
         /// <summary>Clang analyzer's file format.</summary>
         ClangAnalyzer,
         /// <summary>CppCheck's file format.</summary>
@@ -20,7 +18,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         Fortify,
         /// <summary>FxCop's file format.</summary>
         FxCop,
-        /// <summary>Policheck's file format.</summary>
-        Policheck
+        /// <summary>PREfast's file format.</summary>
+        PREfast,
     }
 }

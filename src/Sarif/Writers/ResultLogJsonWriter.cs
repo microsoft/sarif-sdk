@@ -35,7 +35,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             _jsonWriter = jsonWriter;
             _serializer = new JsonSerializer();
             _serializer.ContractResolver = SarifContractResolver.Instance;
-            //serializer.Converters.Add(new StringEnumConverter());
         }
 
         /// <summary>Writes a tool information entry to the log. This must be the first entry written into
@@ -52,7 +51,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             {
                 throw new ArgumentNullException("toolInfo");
             }
-
 
             this.EnsureNotDisposed();
             if (_writeState == State.WritingResults)
@@ -139,7 +137,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             _jsonWriter.WriteEndArray();
             _writeState = State.ResultsWritten;
         }
-
 
         /// <summary>Writes the log footer and closes the underlying <see cref="JsonWriter"/>.</summary>
         /// <seealso cref="M:System.IDisposable.Dispose()"/>
