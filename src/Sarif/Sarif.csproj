@@ -60,7 +60,7 @@
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
     </Compile>
-    <Compile Include="Sdk\IRuleDescriptor.cs" />
+    <Compile Include="IRuleDescriptor.cs" />
     <Compile Include="SparseReader.cs" />
     <Compile Include="SparseReaderDispatchTable.cs" />
     <Compile Include="ToolFormatConversionOptions.cs" />

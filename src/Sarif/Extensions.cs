@@ -235,8 +235,11 @@ namespace Microsoft.CodeAnalysis.Sarif
             // Uri, so we construct a Uri first and then, if necessary, 
             // create a second one using the file:/// representation as
             // the original string passed to the constructor instance.
-            Uri result = new Uri(uriText, UriKind.RelativeOrAbsolute);
-            if (result.IsFile && !uriText.StartsWith("file://"))
+            Uri result;
+
+            if (Uri.TryCreate(uriText, UriKind.RelativeOrAbsolute, out result) &&
+                result.IsFile &&
+                result.Scheme != "file")
             {
                 result = new Uri(result.ToString());
             }
