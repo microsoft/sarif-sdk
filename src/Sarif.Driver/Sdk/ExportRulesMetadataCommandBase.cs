@@ -16,7 +16,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
 {
     public abstract class ExportRulesMetadataCommandBase : PlugInDriverCommand<ExportRulesMetadataOptions>
     {
-
         public override int Run(ExportRulesMetadataOptions exportOptions)
         {
             int result = FAILURE;
@@ -28,29 +27,29 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
                 string format = "";
                 string outputFilePath = exportOptions.OutputFilePath;
                 string extension = Path.GetExtension(outputFilePath);
-                
+
                 switch (extension)
                 {
                     case (".json"):
                     case (".sarif"):
-                    {
-                        format = "SARIF";
-                        ImmutableArray<IOptionsProvider> options = DriverUtilities.GetExports<IOptionsProvider>(DefaultPlugInAssemblies);
-                        OutputSarifRulesMetada(outputFilePath, skimmers, options);
-                        break;
-                    }
+                        {
+                            format = "SARIF";
+                            ImmutableArray<IOptionsProvider> options = DriverUtilities.GetExports<IOptionsProvider>(DefaultPlugInAssemblies);
+                            OutputSarifRulesMetada(outputFilePath, skimmers, options);
+                            break;
+                        }
 
                     case (".xml"):
-                    {
-                        format = "SonarQube";
-                        OutputSonarQubeRulesMetada(outputFilePath, skimmers);
-                        break;
-                    }
+                        {
+                            format = "SonarQube";
+                            OutputSonarQubeRulesMetada(outputFilePath, skimmers);
+                            break;
+                        }
 
                     default:
-                    {
-                        throw new InvalidOperationException("Unrecognized output file extension: " + extension);
-                    }
+                        {
+                            throw new InvalidOperationException("Unrecognized output file extension: " + extension);
+                        }
                 }
 
                 result = SUCCESS;
@@ -100,7 +99,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
             sb.AppendLine("</rules>" + Environment.NewLine + "</profile>");
 
             File.WriteAllText(outputFilePath, sb.ToString());
-        }    
+        }
 
         private void OutputSarifRulesMetada(string outputFilePath, ImmutableArray<IRuleDescriptor> skimmers, ImmutableArray<IOptionsProvider> options)
         {

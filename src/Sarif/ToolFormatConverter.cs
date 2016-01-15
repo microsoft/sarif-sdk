@@ -1,11 +1,6 @@
 ﻿// Copyright (c) Microsoft. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Threading;
-using Newtonsoft.Json;
 using Microsoft.CodeAnalysis.Sarif.Converters;
 using Microsoft.CodeAnalysis.Sarif.Writers;
 
@@ -48,8 +43,8 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             // FileMode settings here will results in an exception being raised if the input 
             // file does not exist, and that an existing output file will be overwritten
-            using (var input = File.OpenRead(inputFileName))
-            using (var outputTextStream = File.Create(outputFileName))
+            using (System.Object input = File.OpenRead(inputFileName))
+            using (System.Object outputTextStream = File.Create(outputFileName))
             using (var outputTextWriter = new StreamWriter(outputTextStream))
             using (var outputJson = new JsonTextWriter(outputTextWriter))
             {

@@ -1,6 +1,8 @@
-﻿/***************************************************************************
+﻿// Copyright (c) Microsoft. All rights reserved.
+// Licensed under the MIT license. See LICENSE file in the project root for full license information.
+
+/***************************************************************************
  
-Copyright (c) Microsoft Corporation. All rights reserved.
 This code is licensed under the Visual Studio SDK license terms.
 THIS CODE IS PROVIDED *AS IS* WITHOUT WARRANTY OF
 ANY KIND, EITHER EXPRESS OR IMPLIED, INCLUDING ANY
@@ -31,7 +33,7 @@ namespace SarifViewer
     {
         #region Fields
         // private instance of the EditorFactory's OleServiceProvider
-        private ServiceProvider vsServiceProvider;
+        private ServiceProvider _vsServiceProvider;
         #endregion
 
         #region Constructors
@@ -68,10 +70,10 @@ namespace SarifViewer
                 /// Since we create a ServiceProvider which implements IDisposable we
                 /// also need to implement IDisposable to make sure that the ServiceProvider's
                 /// Dispose method gets called.
-                if (vsServiceProvider != null)
+                if (_vsServiceProvider != null)
                 {
-                    vsServiceProvider.Dispose();
-                    vsServiceProvider = null;
+                    _vsServiceProvider.Dispose();
+                    _vsServiceProvider = null;
                 }
             }
         }
@@ -86,7 +88,7 @@ namespace SarifViewer
         /// <returns>S_OK if the method succeeds.</returns>
         public int SetSite(IOleServiceProvider psp)
         {
-            vsServiceProvider = new ServiceProvider(psp);
+            _vsServiceProvider = new ServiceProvider(psp);
             return VSConstants.S_OK;
         }
 
@@ -230,7 +232,7 @@ namespace SarifViewer
         /// A a null reference if there is no service object of type serviceType.</returns>
         public object GetService(Type serviceType)
         {
-            return vsServiceProvider.GetService(serviceType);
+            return _vsServiceProvider.GetService(serviceType);
         }
 
         #endregion 

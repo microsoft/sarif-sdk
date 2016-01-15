@@ -553,22 +553,22 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
     internal static class FxCopTestData
     {
-        public static string FxCopReportInvalid =
+        public static readonly string FxCopReportInvalid =
 @"<?xml-stylesheet type=""text/xsl"" href=""c:\program files (x86)\microsoft\fxcop 12.0 for sdl 6.1\Xml\FxCopReport.xsl""?>
 <FxCopReport Version=""12.0"">";
 
-        public static string FxCopReportEmpty =
+        public static readonly string FxCopReportEmpty =
 @"<?xml-stylesheet type=""text/xsl"" href=""c:\program files (x86)\microsoft\fxcop 12.0 for sdl 6.1\Xml\FxCopReport.xsl""?>
 <FxCopReport Version=""12.0"">
 </FxCopReport>";
 
-        public static string FxCopReportEmptyExtraHeader =
+        public static readonly string FxCopReportEmptyExtraHeader =
 @"<?xml version=""1.0"" encoding=""utf-8""?>
 <?xml-stylesheet type=""text/xsl"" href=""c:\program files (x86)\microsoft\fxcop 12.0 for sdl 6.1\Xml\FxCopReport.xsl""?>
 <FxCopReport Version=""12.0"">
 </FxCopReport>";
 
-        public static string FxCopReportBadStartTag = @"<FxCopReportBad></FxCopReportBad>";
-        public static string FxCopReportBadXml = @"<FxCopReport></FxCopReportBad>";
+        public static readonly string FxCopReportBadStartTag = @"<FxCopReportBad></FxCopReportBad>";
+        public static readonly string FxCopReportBadXml = @"<FxCopReport></FxCopReportBad>";
     }
 }

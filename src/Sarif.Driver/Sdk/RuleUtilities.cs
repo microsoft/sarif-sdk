@@ -63,8 +63,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
         }
 
         public static Dictionary<string, string> BuildDictionary(
-            ResourceManager resourceManager, 
-            IEnumerable<string> resourceNames, 
+            ResourceManager resourceManager,
+            IEnumerable<string> resourceNames,
             string ruleId = null)
         {
             // Note this dictionary provides for case-insensitive keys

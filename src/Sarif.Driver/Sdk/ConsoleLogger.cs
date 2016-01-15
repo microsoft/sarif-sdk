@@ -85,40 +85,39 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
         {
             switch (messageKind)
             {
-
                 // These result types are optionally emitted
                 case ResultKind.Pass:
                 case ResultKind.Note:
                 case ResultKind.NotApplicable:
-                {
-                    if (Verbose)
                     {
-                        Console.WriteLine(GetMessageText(uri, region, ruleId, message, messageKind));
+                        if (Verbose)
+                        {
+                            Console.WriteLine(GetMessageText(uri, region, ruleId, message, messageKind));
+                        }
+                        break;
                     }
-                    break;
-                }
 
                 // These result types are alwayss emitted
                 case ResultKind.Error:
                 case ResultKind.Warning:
                 case ResultKind.InternalError:
                 case ResultKind.ConfigurationError:
-                {
-                    Console.WriteLine(GetMessageText(uri, region, ruleId, message, messageKind));
-                    break;
-                }
+                    {
+                        Console.WriteLine(GetMessageText(uri, region, ruleId, message, messageKind));
+                        break;
+                    }
 
                 default:
-                {
-                    throw new InvalidOperationException();
-                }
+                    {
+                        throw new InvalidOperationException();
+                    }
             }
         }
         public static string GetMessageText(
-            Uri uri, 
+            Uri uri,
             Region region,
             string ruleId,
-            string message, 
+            string message,
             ResultKind messageKind)
         {
             string path = null;
@@ -143,21 +142,21 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
                 case ResultKind.ConfigurationError:
                 case ResultKind.InternalError:
                 case ResultKind.Error:
-                {
-                    issueType = "error";
-                    break;
-                }
+                    {
+                        issueType = "error";
+                        break;
+                    }
 
                 case ResultKind.Warning:
-                {
-                    issueType = "warning";
-                    break;
-                }
+                    {
+                        issueType = "warning";
+                        break;
+                    }
 
                 case ResultKind.NotApplicable:
                 case ResultKind.Note:
                 case ResultKind.Pass:
-                {
+                    {
                         issueType = "note";
                         break;
                     }
@@ -209,8 +208,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
             }
 
             string result = (path != null ? (path + location + ": ") : "") +
-                   issueType + (!string.IsNullOrEmpty(ruleId) ? " " : "")  +
-                   (messageKind != ResultKind.Note ? ruleId : "" ) + ": " +
+                   issueType + (!string.IsNullOrEmpty(ruleId) ? " " : "") +
+                   (messageKind != ResultKind.Note ? ruleId : "") + ": " +
                    detailedDiagnosis;
 
             return result;

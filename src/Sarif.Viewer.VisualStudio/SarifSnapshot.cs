@@ -207,8 +207,8 @@ namespace SarifViewer
 
             // Data is 1-indexed but VS navigation api is 0-indexed
             mgr.NavigateToLineAndColumn(
-                buffer, 
-                ref logicalView, 
+                buffer,
+                ref logicalView,
                 region.StartLine - 1,
                 region.StartColumn - 1,
                 region.EndLine - 1,
@@ -226,7 +226,7 @@ namespace SarifViewer
                 {
                     return remapped;
                 }
-            }        
+            }
 
             OpenFileDialog openFileDialog = new OpenFileDialog();
 
@@ -254,7 +254,7 @@ namespace SarifViewer
 
             int offset = resolvedFileName.Length;
             while ((resolvedPath.Length - offset) >= 0 &&
-                   (fullPath.Length - offset) >= 0) 
+                   (fullPath.Length - offset) >= 0)
             {
                 if (!resolvedPath[resolvedPath.Length - offset].ToString().Equals(fullPath[fullPath.Length - offset].ToString(), StringComparison.OrdinalIgnoreCase))
                 {

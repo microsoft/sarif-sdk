@@ -1,16 +1,6 @@
 ﻿// Copyright (c) Microsoft. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Globalization;
-using System.IO;
-using System.Linq;
-using System.Reflection;
-using System.Xml;
-using System.Xml.Schema;
-using Microsoft.CodeAnalysis.Sarif.Sdk;
 using Microsoft.CodeAnalysis.Sarif.Writers;
 
 namespace Microsoft.CodeAnalysis.Sarif.Converters
@@ -127,7 +117,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             }
 
             string[] parts = new string[] { context.Namespace, context.Type, context.Member };
-            var updated = parts
+            System.Object updated = parts
                     .Where(part => !String.IsNullOrEmpty(part))
                     .Select(part => part.TrimStart('#'));
 
@@ -245,7 +235,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
             private static string CreateId(params string[] parts)
             {
-                var updated = parts
+                System.Object updated = parts
                     .Where(part => !String.IsNullOrEmpty(part))
                     .Select(part => part.TrimStart('#'));
 
@@ -520,14 +510,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             XmlSchemaSet schemaSet = new XmlSchemaSet();
             Assembly assembly = typeof(FxCopLogReader).Assembly;
 
-            using (var stream = assembly.GetManifestResourceStream(FxCopLogReader.FxCopReportSchema))
-            using (var reader = XmlReader.Create(stream))
+            using (System.Object stream = assembly.GetManifestResourceStream(FxCopLogReader.FxCopReportSchema))
+            using (System.Object reader = XmlReader.Create(stream))
             {
                 XmlSchema schema = XmlSchema.Read(reader, new ValidationEventHandler(ReportError));
                 schemaSet.Add(schema);
             }
 
-            using (var sparseReader = SparseReader.CreateFromStream(_dispatchTable, input, schemaSet))
+            using (SparseReader sparseReader = SparseReader.CreateFromStream(_dispatchTable, input, schemaSet))
             {
                 if (sparseReader.LocalName.Equals(SchemaStrings.ElementFxCopReport))
                 {

@@ -148,7 +148,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
                 ExceptionCondition.InvokingConstructor,
                 RuntimeConditions.ExceptionInstantiatingSkimmers,
                 ExitReason.UnhandledExceptionInstantiatingSkimmers,
-                analyzeOptions : options);
+                analyzeOptions: options);
         }
 
         [Fact]
@@ -164,7 +164,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
                 ExceptionCondition.None,
                 RuntimeConditions.NoRulesLoaded,
                 ExitReason.NoRulesLoaded,
-                analyzeOptions : options
+                analyzeOptions: options
             );
         }
 
@@ -268,7 +268,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
                 ExceptionCondition.None,
                 RuntimeConditions.ExceptionInEngine,
                 ExitReason.UnhandledExceptionInEngine,
-                analyzeOptions : options);
+                analyzeOptions: options);
 
             TestAnalyzeCommand.RaiseUnhandledExceptionInDriverCode = false;
         }

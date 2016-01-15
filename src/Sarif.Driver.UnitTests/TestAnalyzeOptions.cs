@@ -16,7 +16,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
 
         public string OutputFilePath { get; set; }
 
-        public IEnumerable<string> PlugInFilePaths { get; set;  }
+        public IEnumerable<string> PlugInFilePaths { get; set; }
 
         public string ConfigurationFilePath { get; set; }
 
@@ -34,7 +34,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
 
         public bool RegardAnalysisTargetAsValid { get; set; }
 
-        public bool RegardRequiredConfigurationAsMissing { get; set;  }
-
+        public bool RegardRequiredConfigurationAsMissing { get; set; }
     }
 }

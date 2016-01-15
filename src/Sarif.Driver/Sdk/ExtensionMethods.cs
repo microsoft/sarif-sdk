@@ -1,4 +1,6 @@
 ﻿// Copyright (c) Microsoft. All rights reserved.
+// Licensed under the MIT license. See LICENSE file in the project root for full license information.
+
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.using System;
 
 using System.Diagnostics;
@@ -110,39 +112,39 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
                 switch (ch)
                 {
                     case '\'':
-                    {
-                        // we'll ignore everything within parenthized text
-                        if (!withinParentheses)
                         {
-                            withinQuotes = !withinQuotes;
+                            // we'll ignore everything within parenthized text
+                            if (!withinParentheses)
+                            {
+                                withinQuotes = !withinQuotes;
+                            }
+                            break;
                         }
-                        break;
-                    }
 
                     case '(':
-                    {
-                        if (!withinQuotes)
                         {
-                            withinParentheses = true;
+                            if (!withinQuotes)
+                            {
+                                withinParentheses = true;
+                            }
+                            break;
                         }
-                        break;
-                    }
 
                     case ')':
-                    {
-                        if (!withinQuotes)
                         {
-                            withinParentheses = false;
+                            if (!withinQuotes)
+                            {
+                                withinParentheses = false;
+                            }
+                            break;
                         }
-                        break;
-                    }
                     case '\n':
                     case '\r':
                     case '.':
-                    {
-                        if (withinQuotes || withinParentheses) { continue; }
-                        return text.Substring(0, length).TrimEnd('\r', '\n');
-                    }
+                        {
+                            if (withinQuotes || withinParentheses) { continue; }
+                            return text.Substring(0, length).TrimEnd('\r', '\n');
+                        }
                 }
             }
             return text;

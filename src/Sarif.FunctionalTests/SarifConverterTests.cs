@@ -1,4 +1,7 @@
-﻿// /********************************************************
+﻿// Copyright (c) Microsoft. All rights reserved.
+// Licensed under the MIT license. See LICENSE file in the project root for full license information.
+
+// /********************************************************
 // *                                                       *
 // *   Copyright (C) Microsoft. All rights reserved.       *
 // *                                                       *
@@ -53,7 +56,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             BatchRunConverter(ToolFormat.FxCop);
         }
 
-        private readonly ToolFormatConverter converter = new ToolFormatConverter();
+        private readonly ToolFormatConverter _converter = new ToolFormatConverter();
 
         private void BatchRunConverter(ToolFormat tool)
         {
@@ -91,7 +94,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
             try
             {
-                this.converter.ConvertToStandardFormat(tool, inputFileName, generatedFileName, ToolFormatConversionOptions.OverwriteExistingOutputFile | ToolFormatConversionOptions.PrettyPrint);
+                _converter.ConvertToStandardFormat(tool, inputFileName, generatedFileName, ToolFormatConversionOptions.OverwriteExistingOutputFile | ToolFormatConversionOptions.PrettyPrint);
             }
             catch (Exception ex)
             {

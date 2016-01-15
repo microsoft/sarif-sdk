@@ -1,4 +1,7 @@
-﻿using System;
+﻿// Copyright (c) Microsoft. All rights reserved.
+// Licensed under the MIT license. See LICENSE file in the project root for full license information.
+
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -43,15 +46,15 @@ namespace Microsoft.CodeAnalysis.DataModelGenerator
             {
                 DataModelType type = types[i];
                 bool lastType = (i == types.Length - 1);
-            
-                if (type == rootType) { continue;  }
+
+                if (type == rootType) { continue; }
 
                 switch (type.Kind)
                 {
                     case DataModelTypeKind.Base:
-                    case DataModelTypeKind.Leaf:                    
-                    WriteDefinition(codeWriter, model, type, lastType);
-                    break;
+                    case DataModelTypeKind.Leaf:
+                        WriteDefinition(codeWriter, model, type, lastType);
+                        break;
                     case DataModelTypeKind.BuiltInNumber:
                     case DataModelTypeKind.BuiltInString:
                     case DataModelTypeKind.BuiltInDictionary:
@@ -59,12 +62,12 @@ namespace Microsoft.CodeAnalysis.DataModelGenerator
                     case DataModelTypeKind.BuiltInVersion:
                     case DataModelTypeKind.BuiltInUri:
                     case DataModelTypeKind.Enum:
-                    // Don't write builtin types
-                    break;
+                        // Don't write builtin types
+                        break;
                     case DataModelTypeKind.Default:
                     default:
-                    Debug.Fail("Unexpected data model type kind in a data model " + type.Kind);
-                    break;
+                        Debug.Fail("Unexpected data model type kind in a data model " + type.Kind);
+                        break;
                 }
             }
             codeWriter.CloseBrace();
@@ -110,7 +113,7 @@ namespace Microsoft.CodeAnalysis.DataModelGenerator
             codeWriter.WriteLine(@"""" + type.G4DeclaredName + @""": ");
             codeWriter.OpenBrace();
             WriteTypeMembers(codeWriter, model, type, true);
-            codeWriter.CloseBrace(lastType ? "" : ","); 
+            codeWriter.CloseBrace(lastType ? "" : ",");
         }
 
         private static void WriteRequiredMember(CodeWriter codeWriter, DataModel model, DataModelType type, bool lastMember)
@@ -126,7 +129,7 @@ namespace Microsoft.CodeAnalysis.DataModelGenerator
             }
 
             if (requiredMembers.Count > 0)
-            {                
+            {
                 var sb = new StringBuilder(@"""required"": [");
                 for (int i = 0; i < requiredMembers.Count; i++)
                 {
@@ -233,7 +236,6 @@ namespace Microsoft.CodeAnalysis.DataModelGenerator
             rank = member.Rank;
             while (rank > 0) { WriteArrayEnd(codeWriter); rank--; }
             codeWriter.CloseBrace(lastMember ? "" : ",");
-
         }
 
         private static string BuildDescription(string summaryText)
@@ -256,13 +258,13 @@ namespace Microsoft.CodeAnalysis.DataModelGenerator
             codeWriter.CloseBrace();
         }
 
-    private static void WriteArrayStart(CodeWriter codeWriter, DataModelMember member)
+        private static void WriteArrayStart(CodeWriter codeWriter, DataModelMember member)
         {
             codeWriter.WriteLine(@"""type"": ""array"",");
 
             if (!string.IsNullOrEmpty(member.MinItems))
             {
-                codeWriter.WriteLine(@"""minItems"": " + member.MinItems +",");
+                codeWriter.WriteLine(@"""minItems"": " + member.MinItems + ",");
             }
 
             codeWriter.WriteLine(@"""items"":");
@@ -278,7 +280,7 @@ namespace Microsoft.CodeAnalysis.DataModelGenerator
                 case ("DICTIONARY"): { canonicalizedName = "object"; return true; }
                 case ("INTEGER"): { canonicalizedName = "integer"; return true; }
                 case ("BOOLEAN"): { canonicalizedName = "boolean"; return true; }
-                case ("URI"): { canonicalizedName = "string"; format = "uri";  return true; }
+                case ("URI"): { canonicalizedName = "string"; format = "uri"; return true; }
             }
 
             canonicalizedName = memberType;

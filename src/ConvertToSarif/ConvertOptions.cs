@@ -37,6 +37,6 @@ namespace Microsoft.CodeAnalysis.Sarif.ConvertToSarif
             "force",
             Default = false,
             HelpText = "Force overwrite of output file if it exists.")]
-        public bool Force { get; internal set; }      
+        public bool Force { get; internal set; }
     }
 }

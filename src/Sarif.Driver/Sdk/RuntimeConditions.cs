@@ -47,5 +47,5 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
         TargetNotValidToAnalyze = 0x20000,
 
         NonFatal = 0x7fff0000
-    }       
+    }
 }

@@ -44,7 +44,7 @@ namespace SarifViewer
 
                 using (var input = new MemoryStream(File.ReadAllBytes(filePath)))
                 {
-                    var outputTextWriter = new StringWriter(sb);                
+                    var outputTextWriter = new StringWriter(sb);
                     var outputJson = new JsonTextWriter(outputTextWriter);
                     var output = new ResultLogJsonWriter(outputJson);
 
@@ -74,10 +74,10 @@ namespace SarifViewer
 
         private ErrorListService()
         {
-            this.documentToLineIndexMap = new Dictionary<string, NewLineIndex>();
+            _documentToLineIndexMap = new Dictionary<string, NewLineIndex>();
         }
 
-        private Dictionary<string, NewLineIndex> documentToLineIndexMap;
+        private Dictionary<string, NewLineIndex> _documentToLineIndexMap;
 
         private IRuleDescriptor GetRule(RunLog runLog, string ruleId)
         {
@@ -161,9 +161,9 @@ namespace SarifViewer
                         message = annotation.Message;
                         document = annotation.PhysicalLocation[0].Uri.LocalPath;
 
-                        if (!this.documentToLineIndexMap.TryGetValue(document, out newLineIndex))
+                        if (!_documentToLineIndexMap.TryGetValue(document, out newLineIndex))
                         {
-                            this.documentToLineIndexMap[document] = newLineIndex = new NewLineIndex(File.ReadAllText(document));
+                            _documentToLineIndexMap[document] = newLineIndex = new NewLineIndex(File.ReadAllText(document));
                         }
 
                         if (region != null)
@@ -197,7 +197,7 @@ namespace SarifViewer
 
         private static bool IsError(ResultKind kind)
         {
-            return 
+            return
                 kind == ResultKind.ConfigurationError ||
                 kind == ResultKind.Error ||
                 kind == ResultKind.InternalError;

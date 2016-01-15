@@ -148,7 +148,7 @@ namespace Microsoft.CodeAnalysis.DataModelGenerator
                         null,
                         null,
                         null,
-                        null, 
+                        null,
                         0,
                         false
                         );

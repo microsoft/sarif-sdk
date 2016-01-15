@@ -1,10 +1,6 @@
 ﻿// Copyright (c) Microsoft. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-using System;
-using System.Collections.Immutable;
-using System.Diagnostics;
-using System.Xml;
 using Microsoft.CodeAnalysis.Sarif.Driver;
 using Microsoft.CodeAnalysis.Sarif.Sdk;
 
@@ -256,8 +252,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         public static ImmutableArray<string> ReadHints(XmlReader reader, AndroidStudioStrings strings)
         {
             Debug.Assert(Ref.Equal(reader.LocalName, strings.Hints), "ReadHints didn't have hints");
-
-            var result = ImmutableArray.CreateBuilder<string>();
+            System.Object result = ImmutableArray.CreateBuilder<string>();
             if (!reader.IsEmptyElement)
             {
                 int hintsDepth = reader.Depth;

@@ -8,8 +8,8 @@ namespace Microsoft.CodeAnalysis.DataModelGenerator
 {
     internal sealed class DataModelLeafTypeBuilder : DataModelTypeBuilder
     {
-        public ImmutableArray<DataModelMember>.Builder Members;
-        public List<ToStringEntry> ToStringEntries;
+        public readonly ImmutableArray<DataModelMember>.Builder Members;
+        public readonly List<ToStringEntry> ToStringEntries;
 
         public DataModelLeafTypeBuilder(GrammarSymbol decl)
             : base(decl)

@@ -46,6 +46,5 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
 
             return result;
         }
-
     }
 }
