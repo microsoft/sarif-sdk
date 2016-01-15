@@ -43,28 +43,26 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
 
         public void LogMessage(bool verbose, string message)
         {
-
         }
 
         public void Log(ResultKind messageKind, string ruleId)
         {
             switch (messageKind)
             {
-
                 case ResultKind.Pass:
                     {
                         break;
                     }
 
                 case ResultKind.Error:
-                {
-                    break;
-                }
+                    {
+                        break;
+                    }
 
                 case ResultKind.Warning:
-                {
-                    break;
-                }
+                    {
+                        break;
+                    }
 
                 case ResultKind.NotApplicable:
                     {

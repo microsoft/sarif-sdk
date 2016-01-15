@@ -51,33 +51,33 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
             switch (messageKind)
             {
                 case ResultKind.Pass:
-                {
-                    PassTargets.Add(targetPath);
-                    break;
-                }
+                    {
+                        PassTargets.Add(targetPath);
+                        break;
+                    }
 
                 case ResultKind.Error:
-                {
-                    FailTargets.Add(targetPath);
-                    break;
-                }
+                    {
+                        FailTargets.Add(targetPath);
+                        break;
+                    }
 
                 case ResultKind.NotApplicable:
-                {
-                    NotApplicableTargets.Add(targetPath);
-                    break;
-                }
+                    {
+                        NotApplicableTargets.Add(targetPath);
+                        break;
+                    }
 
                 case ResultKind.Note:
                 case ResultKind.InternalError:
                 case ResultKind.ConfigurationError:
-                {
-                    throw new NotImplementedException();
-                }
+                    {
+                        throw new NotImplementedException();
+                    }
                 default:
-                {
-                    throw new InvalidOperationException();
-                }
+                    {
+                        throw new InvalidOperationException();
+                    }
             }
         }
     }

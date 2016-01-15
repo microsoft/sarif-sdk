@@ -1,4 +1,6 @@
 ﻿// Copyright (c) Microsoft. All rights reserved.
+// Licensed under the MIT license. See LICENSE file in the project root for full license information.
+
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.using System;
 
 using System;
@@ -16,14 +18,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
 
         string MimeType { get; set; }
 
-        Exception TargetLoadException { get; set;  }
+        Exception TargetLoadException { get; set; }
 
-        bool IsValidAnalysisTarget { get;  }
+        bool IsValidAnalysisTarget { get; }
 
         IRuleDescriptor Rule { get; set; }
 
         PropertyBag Policy { get; set; }
-        
+
         IAnalysisLogger Logger { get; set; }
 
         RuntimeConditions RuntimeErrors { get; set; }

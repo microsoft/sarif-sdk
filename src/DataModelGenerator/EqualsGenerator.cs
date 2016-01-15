@@ -204,7 +204,7 @@ namespace Microsoft.CodeAnalysis.DataModelGenerator
                 ++closeBraces;
             }
 
-            closeBraces += additionalCloseBraces;  
+            closeBraces += additionalCloseBraces;
 
             for (int idx = 0; idx < closeBraces; ++idx)
             {
@@ -257,7 +257,7 @@ namespace Microsoft.CodeAnalysis.DataModelGenerator
                 case DataModelTypeKind.BuiltInUri:
                 case DataModelTypeKind.Enum:
                 case DataModelTypeKind.BuiltInVersion:
-                _codeWriter.OpenBrace("if ({0} != {1})", sourceVariable, otherVariable);
+                    _codeWriter.OpenBrace("if ({0} != {1})", sourceVariable, otherVariable);
                     _codeWriter.WriteLine("return false;");
                     _codeWriter.CloseBrace();
                     break;

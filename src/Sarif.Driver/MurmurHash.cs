@@ -27,7 +27,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         private uint _internalState;
 
         /// <summary>Number of items inserted into the hash.</summary>
-        private uint _itemCount;
+        private readonly uint _itemCount;
 
         /// <summary>Equality operator.</summary>
         /// <param name="lhs">The left hand side.</param>

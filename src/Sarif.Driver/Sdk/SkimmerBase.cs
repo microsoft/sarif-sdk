@@ -7,17 +7,17 @@ using System.Resources;
 
 namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
 {
-    public abstract class SkimmerBase<TContext>  : ISkimmer<TContext>
+    public abstract class SkimmerBase<TContext> : ISkimmer<TContext>
     {
         public SkimmerBase()
         {
             this.Options = new Dictionary<string, string>();
         }
 
-        abstract public Uri HelpUri { get;  }
+        abstract public Uri HelpUri { get; }
 
-   
-        private Dictionary<string, string> formatSpecifiers;
+
+        private Dictionary<string, string> _formatSpecifiers;
 
         abstract protected ResourceManager ResourceManager { get; }
 
@@ -27,11 +27,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
         {
             get
             {
-                if (this.formatSpecifiers == null)
+                if (_formatSpecifiers == null)
                 {
-                    this.formatSpecifiers = InitializeFormatSpecifiers();
+                    _formatSpecifiers = InitializeFormatSpecifiers();
                 }
-                return this.formatSpecifiers;
+                return _formatSpecifiers;
             }
         }
 
@@ -60,16 +60,16 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
                 switch (ch)
                 {
                     case '\'':
-                    {
-                        withinApostrophe = !withinApostrophe;
-                        continue;
-                    }
+                        {
+                            withinApostrophe = !withinApostrophe;
+                            continue;
+                        }
 
                     case '.':
-                    {
-                        if (withinApostrophe) { continue; }
-                        return fullDescription.Substring(0, charCount);
-                    }
+                        {
+                            if (withinApostrophe) { continue; }
+                            return fullDescription.Substring(0, charCount);
+                        }
                 }
             }
             int length = Math.Min(fullDescription.Length, 80);
@@ -77,7 +77,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
             return fullDescription.Substring(0, length) + (truncated ? "..." : "");
         }
 
-        public virtual string Name {  get { return this.GetType().Name; } }
+        public virtual string Name { get { return this.GetType().Name; } }
 
         public Dictionary<string, string> Options { get; }
 

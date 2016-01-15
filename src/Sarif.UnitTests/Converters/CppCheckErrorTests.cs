@@ -98,14 +98,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                                 Uri = new Uri("foo.cpp", UriKind.RelativeOrAbsolute),
                                 MimeType = MimeType.Cpp,
                                 Region = new Region { StartLine = 1234 }
-                            } } 
+                            } }
                         },
                         new AnnotatedCodeLocation {
                             PhysicalLocation = new[] { new PhysicalLocationComponent {
                                 Uri = new Uri("bar.cpp", UriKind.RelativeOrAbsolute),
                                 MimeType = MimeType.Cpp,
                                 Region = new Region { StartLine = 5678 }
-                            } } 
+                            } }
                         }
                     });
         }

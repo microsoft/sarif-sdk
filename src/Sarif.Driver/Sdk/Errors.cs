@@ -165,7 +165,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
 
 
         public static void LogMissingRuleConfiguration(IAnalysisContext context, string reasonForNotAnalyzing)
-        {            
+        {
             string ruleName = context.Rule.Name;
             context.Rule = Errors.InvalidConfiguration;
 

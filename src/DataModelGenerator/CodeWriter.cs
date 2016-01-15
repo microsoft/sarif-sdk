@@ -137,7 +137,7 @@ namespace Microsoft.CodeAnalysis.DataModelGenerator
         /// <exception cref="InvalidOperationException">Thrown when the current indentation level is
         /// already <see cref="MaximumIndent"/>.</exception>
         public void OpenBrace()
-        {          
+        {
             this.WriteLine("{");
             this.IncrementIndentLevel();
         }

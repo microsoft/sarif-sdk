@@ -45,7 +45,7 @@ namespace SarifViewer
         /// <summary>
         /// VS Package that provides this command, not null.
         /// </summary>
-        private readonly Package package;
+        private readonly Package _package;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="OpenLogFileCommands"/> class.
@@ -59,7 +59,7 @@ namespace SarifViewer
                 throw new ArgumentNullException(nameof(package));
             }
 
-            this.package = package;
+            _package = package;
 
             OleMenuCommandService commandService = this.ServiceProvider.GetService(typeof(IMenuCommandService)) as OleMenuCommandService;
             if (commandService != null)
@@ -91,7 +91,7 @@ namespace SarifViewer
         {
             get
             {
-                return this.package;
+                return _package;
             }
         }
 
@@ -122,49 +122,49 @@ namespace SarifViewer
             {
                 // These constants expressed in our VSCT
                 case OpenSarifFileCommandId:
-                {
-                    // Native SARIF. All our defaults above are fine
-                    break;
-                }
+                    {
+                        // Native SARIF. All our defaults above are fine
+                        break;
+                    }
                 case OpenPREfastFileCommandId:
-                {
-                    // PREfast. TODO. We don't have a distinct converter yet
-                    // for this tool, only the native compiler support
-                    toolFormat = ToolFormat.PREfast;
-                    title = "Open PREfast XML log file";
-                    filter = "PREfast log files (*.xml)|*.xml";
-                    throw new NotImplementedException();
-                }
+                    {
+                        // PREfast. TODO. We don't have a distinct converter yet
+                        // for this tool, only the native compiler support
+                        toolFormat = ToolFormat.PREfast;
+                        title = "Open PREfast XML log file";
+                        filter = "PREfast log files (*.xml)|*.xml";
+                        throw new NotImplementedException();
+                    }
                 case OpenFxCopFileCommandId:
-                {
-                    // FxCop. TODO. We need project file support. FxCop
-                    // fullMessages look broken.
-                    toolFormat = ToolFormat.FxCop;
-                    title = "Open FxCop XML log file";
-                    filter = "FxCop report and project files (*.xml)|*.xml";
-                    break;
-                }
+                    {
+                        // FxCop. TODO. We need project file support. FxCop
+                        // fullMessages look broken.
+                        toolFormat = ToolFormat.FxCop;
+                        title = "Open FxCop XML log file";
+                        filter = "FxCop report and project files (*.xml)|*.xml";
+                        break;
+                    }
                 case OpenCppCheckFileCommandId:
-                {
-                    toolFormat = ToolFormat.CppCheck;
-                    title = "Open CppCheck XML log file";
-                    filter = "CppCheck log files (*.xml)|*.xml";
-                    break;
-                }
+                    {
+                        toolFormat = ToolFormat.CppCheck;
+                        title = "Open CppCheck XML log file";
+                        filter = "CppCheck log files (*.xml)|*.xml";
+                        break;
+                    }
                 case OpenClangFileCommandId:
-                {
-                    toolFormat = ToolFormat.ClangAnalyzer;
-                    title = "Open Clang XML log file";
-                    filter = "Clang log files (*.xml)|*.xml";
-                    break;
-                }
+                    {
+                        toolFormat = ToolFormat.ClangAnalyzer;
+                        title = "Open Clang XML log file";
+                        filter = "Clang log files (*.xml)|*.xml";
+                        break;
+                    }
                 case OpenAndroidStudioFileCommandId:
-                {
-                    toolFormat = ToolFormat.AndroidStudio;
-                    title = "Open Android Studio XML log file";
-                    filter = "PREfast log files (*.xml)|*.xml";
-                    break;
-                }
+                    {
+                        toolFormat = ToolFormat.AndroidStudio;
+                        title = "Open Android Studio XML log file";
+                        filter = "PREfast log files (*.xml)|*.xml";
+                        break;
+                    }
             }
 
             OpenFileDialog openFileDialog = new OpenFileDialog();

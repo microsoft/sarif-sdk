@@ -18,7 +18,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
         private TextWriter _textWriter;
         private JsonTextWriter _jsonTextWriter;
         private ResultLogJsonWriter _issueLogJsonWriter;
-        private HashSet<IRuleDescriptor> ruleDescriptors;
+        private HashSet<IRuleDescriptor> _ruleDescriptors;
 
         public static ToolInfo CreateDefaultToolInfo(string prereleaseInfo = null)
         {
@@ -82,19 +82,19 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
 
             _issueLogJsonWriter.WriteToolAndRunInfo(toolInfo, runInfo);
 
-            this.ruleDescriptors = new HashSet<IRuleDescriptor>();
+            _ruleDescriptors = new HashSet<IRuleDescriptor>();
         }
 
         public bool Verbose { get; set; }
 
         public void Dispose()
-        {    
+        {
             // Disposing the json writer closes the stream but the textwriter 
             // still needs to be disposed or closed to write the results
             if (_issueLogJsonWriter != null)
             {
                 _issueLogJsonWriter.CloseResults();
-                _issueLogJsonWriter.WriteRuleInfo(this.ruleDescriptors);
+                _issueLogJsonWriter.WriteRuleInfo(_ruleDescriptors);
                 _issueLogJsonWriter.Dispose();
             }
             if (_textWriter != null) { _textWriter.Dispose(); }
@@ -122,28 +122,28 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
                 case ResultKind.Note:
                 case ResultKind.Pass:
                 case ResultKind.NotApplicable:
-                {
-                    if (!Verbose)
                     {
-                        return;
+                        if (!Verbose)
+                        {
+                            return;
+                        }
+                        break;
                     }
-                    break;
-                }
 
                 case ResultKind.Error:
                 case ResultKind.Warning:
                 case ResultKind.InternalError:
                 case ResultKind.ConfigurationError:
-                {
-                    break;
-                }
+                    {
+                        break;
+                    }
 
                 default:
-                {
-                    throw new InvalidOperationException();
-                }
+                    {
+                        throw new InvalidOperationException();
+                    }
             }
-            this.ruleDescriptors.Add(rule);
+            _ruleDescriptors.Add(rule);
             _issueLogJsonWriter.WriteResult(result);
         }
 
@@ -161,7 +161,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
 
         public void Log(ResultKind messageKind, IAnalysisContext context, Region region, string formatSpecifierId, params string[] arguments)
         {
-            this.ruleDescriptors.Add(context.Rule);
+            _ruleDescriptors.Add(context.Rule);
 
             formatSpecifierId = RuleUtilities.NormalizeFormatSpecifierId(context.Rule.Id, formatSpecifierId);
             LogJsonIssue(messageKind, context.TargetUri?.LocalPath, region, context.Rule.Id, formatSpecifierId, arguments);
@@ -205,7 +205,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
                 SpecifierId = formatSpecifierId,
                 Arguments = arguments
             };
-             
+
             result.Kind = messageKind;
 
             if (targetPath != null)
@@ -223,7 +223,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
                             Uri = targetPath.CreateUriForJsonSerialization(),
                             MimeType = MimeType.Binary,
                             Region = region
-                        }, 
+                        },
                     }
                }};
             }

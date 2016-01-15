@@ -1,9 +1,6 @@
 ﻿// Copyright (c) Microsoft. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-using System;
-using System.IO;
-using System.Xml;
 using Microsoft.CodeAnalysis.Sarif.Driver;
 using Microsoft.CodeAnalysis.Sarif.Sdk;
 
@@ -90,7 +87,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 reader.Read(); // <errors>
                 while (reader.Depth > errorsDepth)
                 {
-                    var parsedError = CppCheckError.Parse(reader, _strings);
+                    CppCheckError parsedError = CppCheckError.Parse(reader, _strings);
                     issueWriter.WriteResult(parsedError.ToSarifIssue());
                 }
 

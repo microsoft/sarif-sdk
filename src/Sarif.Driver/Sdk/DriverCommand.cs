@@ -4,7 +4,7 @@
 
 namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
 {
-    public abstract class DriverCommand<T> 
+    public abstract class DriverCommand<T>
     {
         abstract public int Run(T options);
 

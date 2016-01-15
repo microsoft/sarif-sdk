@@ -14,21 +14,21 @@ using Microsoft.VisualStudio.Shell.TableManager;
 
 namespace SarifViewer
 {
-    class SarifTableDataSource : ITableDataSource
+    internal class SarifTableDataSource : ITableDataSource
     {
-        private static SarifTableDataSource _instance;
+        private static SarifTableDataSource s_instance;
         private readonly List<SinkManager> _managers = new List<SinkManager>();
-        private static Dictionary<string, SarifSnapshot> _snapshots = new Dictionary<string, SarifSnapshot>();
+        private static Dictionary<string, SarifSnapshot> s_snapshots = new Dictionary<string, SarifSnapshot>();
 
         [Import]
         private ITableManagerProvider TableManagerProvider { get; set; } = null;
 
 
         [ImportMany]
-        IEnumerable<ITableControlEventProcessorProvider> TableControlEventProcessorProviders { get; set; } = null;
+        private IEnumerable<ITableControlEventProcessorProvider> TableControlEventProcessorProviders { get; set; } = null;
 
         private SarifTableDataSource()
-        {           
+        {
             var compositionService = ServiceProvider.GlobalProvider.GetService(typeof(SComponentModel)) as IComponentModel;
             compositionService.DefaultCompositionService.SatisfyImportsOnce(this);
 
@@ -47,22 +47,20 @@ namespace SarifViewer
                                     StandardTableColumnDefinitions.ErrorSeverity, StandardTableColumnDefinitions.ErrorCode,
                                     StandardTableColumnDefinitions.ErrorSource, StandardTableColumnDefinitions.BuildTool,
                                     StandardTableColumnDefinitions.ErrorRank, StandardTableColumnDefinitions.ErrorCategory,
-                                    StandardTableColumnDefinitions.Text, StandardTableColumnDefinitions.DocumentName, 
+                                    StandardTableColumnDefinitions.Text, StandardTableColumnDefinitions.DocumentName,
                                     StandardTableColumnDefinitions.Line, StandardTableColumnDefinitions.Column);
 
-
-//            var errorList = ServiceProvider.GlobalProvider.GetService(typeof(SVsErrorList)) as IVsErrorList;
-
+            //            var errorList = ServiceProvider.GlobalProvider.GetService(typeof(SVsErrorList)) as IVsErrorList;
         }
 
         public static SarifTableDataSource Instance
         {
             get
             {
-                if (_instance == null)
-                    _instance = new SarifTableDataSource();
+                if (s_instance == null)
+                    s_instance = new SarifTableDataSource();
 
-                return _instance;
+                return s_instance;
             }
         }
 
@@ -114,7 +112,7 @@ namespace SarifViewer
             {
                 foreach (var manager in _managers)
                 {
-                    manager.UpdateSink(_snapshots.Values);
+                    manager.UpdateSink(s_snapshots.Values);
                 }
             }
         }
@@ -131,7 +129,7 @@ namespace SarifViewer
             foreach (var error in cleanErrors.GroupBy(t => t.FileName))
             {
                 var snapshot = new SarifSnapshot(error.Key, error);
-                _snapshots[error.Key] = snapshot;
+                s_snapshots[error.Key] = snapshot;
             }
 
             UpdateAllSinks();
@@ -141,10 +139,10 @@ namespace SarifViewer
         {
             foreach (string file in files)
             {
-                if (_snapshots.ContainsKey(file))
+                if (s_snapshots.ContainsKey(file))
                 {
-                    _snapshots[file].Dispose();
-                    _snapshots.Remove(file);
+                    s_snapshots[file].Dispose();
+                    s_snapshots.Remove(file);
                 }
             }
 
@@ -161,16 +159,16 @@ namespace SarifViewer
 
         public void CleanAllErrors()
         {
-            foreach (string file in _snapshots.Keys)
+            foreach (string file in s_snapshots.Keys)
             {
-                var snapshot = _snapshots[file];
+                var snapshot = s_snapshots[file];
                 if (snapshot != null)
                 {
                     snapshot.Dispose();
                 }
             }
 
-            _snapshots.Clear();
+            s_snapshots.Clear();
 
             lock (_managers)
             {
@@ -183,17 +181,17 @@ namespace SarifViewer
 
         public void BringToFront()
         {
-            SarifViewerPackage.Dte.ExecuteCommand("View.ErrorList");        
+            SarifViewerPackage.Dte.ExecuteCommand("View.ErrorList");
         }
 
         public bool HasErrors()
         {
-            return _snapshots.Count > 0;
+            return s_snapshots.Count > 0;
         }
 
         public bool HasErrors(string fileName)
         {
-            return _snapshots.ContainsKey(fileName);
+            return s_snapshots.ContainsKey(fileName);
         }
     }
 }

@@ -1,11 +1,6 @@
 ﻿// Copyright (c) Microsoft. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-using System;
-using System.Collections.Generic;
-using System.Collections.Immutable;
-using System.Diagnostics;
-using System.Xml;
 using Microsoft.CodeAnalysis.Sarif.Driver;
 using Microsoft.CodeAnalysis.Sarif.Sdk;
 
@@ -167,7 +162,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
         private static ImmutableArray<CppCheckLocation> ParseLocationsSubtree(XmlReader reader, CppCheckStrings strings)
         {
-            var locationBuilder = ImmutableArray.CreateBuilder<CppCheckLocation>();
+            System.Object locationBuilder = ImmutableArray.CreateBuilder<CppCheckLocation>();
 
             if (!reader.IsEmptyElement)
             {

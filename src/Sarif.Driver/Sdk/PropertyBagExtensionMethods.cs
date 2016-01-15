@@ -16,8 +16,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
     {
         public static void SavePropertyBagToStream(
             this IDictionary propertyBag,
-            XmlWriter writer, 
-            XmlWriterSettings settings, 
+            XmlWriter writer,
+            XmlWriterSettings settings,
             string name,
             Dictionary<string, string> settingNameToDescriptionMap = null)
         {

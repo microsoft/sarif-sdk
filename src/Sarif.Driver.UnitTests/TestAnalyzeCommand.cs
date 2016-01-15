@@ -11,12 +11,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
     {
         public override IEnumerable<Assembly> DefaultPlugInAssemblies { get; set; }
 
-        public override string Prerelease {  get { return ""; } }
+        public override string Prerelease { get { return ""; } }
 
         protected override TestAnalysisContext CreateContext(
-            TestAnalyzeOptions options, 
-            IAnalysisLogger logger, 
-            PropertyBag policy, 
+            TestAnalyzeOptions options,
+            IAnalysisLogger logger,
+            PropertyBag policy,
             RuntimeConditions runtimeErrors,
             string filePath = null)
         {

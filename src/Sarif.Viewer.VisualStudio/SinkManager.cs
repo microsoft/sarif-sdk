@@ -9,7 +9,7 @@ using System.Collections.Generic;
 
 namespace SarifViewer
 {
-    class SinkManager : IDisposable
+    internal class SinkManager : IDisposable
     {
         private readonly ITableDataSink _sink;
         private SarifTableDataSource _errorList;

@@ -1,14 +1,6 @@
 ﻿// Copyright (c) Microsoft. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-using System;
-using System.Collections.Generic;
-using System.Collections.Immutable;
-using System.Globalization;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Xml;
 using Microsoft.CodeAnalysis.Sarif.Sdk;
 using Microsoft.CodeAnalysis.Sarif.Writers;
 
@@ -79,7 +71,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
             while (xmlReader.Depth > problemsDepth)
             {
-                var problem = AndroidStudioProblem.Parse(xmlReader, _strings);
+                AndroidStudioProblem problem = AndroidStudioProblem.Parse(xmlReader, _strings);
                 if (problem != null)
                 {
                     output.WriteResult(AndroidStudioConverter.ConvertProblemToSarifIssue(problem));

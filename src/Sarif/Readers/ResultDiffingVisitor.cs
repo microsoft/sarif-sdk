@@ -1,8 +1,6 @@
 ﻿// Copyright (c) Microsoft. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-using System.Collections.Generic;
-using Microsoft.CodeAnalysis.Sarif.Sdk;
 
 namespace Microsoft.CodeAnalysis.Sarif.Readers
 {
@@ -12,12 +10,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
         {
             this.AbsentResults = new HashSet<Result>();
             this.SharedResults = new HashSet<Result>();
-            this.NewResults    = new HashSet<Result>();
+            this.NewResults = new HashSet<Result>();
 
             VisitResultLog(resultLog);
         }
 
-        public HashSet<Result> NewResults    { get; set; }
+        public HashSet<Result> NewResults { get; set; }
         public HashSet<Result> AbsentResults { get; set; }
         public HashSet<Result> SharedResults { get; set; }
 
@@ -29,7 +27,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
 
         public bool Diff(IEnumerable<Result> actual)
         {
-
             this.AbsentResults = this.SharedResults;
 
             this.SharedResults = new HashSet<Result>();
@@ -54,11 +51,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
                 }
             }
 
-            return 
+            return
                 this.AbsentResults.Count == 0 &&
                 this.NewResults.Count == 0;
-       
         }
     }
-
 }

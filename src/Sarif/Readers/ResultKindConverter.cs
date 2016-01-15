@@ -1,10 +1,7 @@
 ﻿// Copyright (c) Microsoft. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
-using System;
 
-using Microsoft.CodeAnalysis.Sarif.Sdk;
 
-using Newtonsoft.Json;
 
 namespace Microsoft.CodeAnalysis.Sarif.Readers
 {
@@ -24,7 +21,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
         }
 
         public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
-        {            
+        {
             string resultKindString = value.ToString();
 
             resultKindString = resultKindString.Substring(0, 1).ToLower() + resultKindString.Substring(1);
