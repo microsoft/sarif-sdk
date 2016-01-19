@@ -43,7 +43,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         {
             if (toolInfo == null)
             {
-                throw new ArgumentNullException(nameof(toolInfo));
+                throw new ArgumentNullException("toolInfo");
             }
 
             if (_toolInfo != null)

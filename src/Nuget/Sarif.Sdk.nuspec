@@ -16,14 +16,17 @@
     <dependencies>
       <group>
         <dependency id="Newtonsoft.Json" version="8.0.1" />
+        <dependency id="System.Collections.Immutable" version="1.1.37"/>
       </group>
     </dependencies>
   </metadata>
   <files>
     <file src='Sarif.dll' target='lib\net40\Sarif.dll'/>
+    <file src='Sarif.dll' target='lib\net40\Sarif.pdb'/>
+
+    <file src='Sarif.pdb' target='lib\net45\Sarif.dll'/>
     <file src='Sarif.pdb' target='lib\net45\Sarif.pdb'/>
-    <file src='Sarif.dll' target='lib\net40\Sarif.dll'/>
-    <file src='Sarif.pdb' target='lib\net45\Driver.Utilities.pdb'/>
+    
     <file src="..\..\..\..\src\Sarif\**\*.cs" target="src" />    
   </files>
 </package>
