@@ -31,7 +31,7 @@ namespace SarifViewer
 
         public int ColumnNumber { get; set; }
 
-        public bool IsError { get; set; } 
+        public ResultKind Kind { get; set; } 
 
         public string ErrorCode { get; set; }
          

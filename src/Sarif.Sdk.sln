@@ -17,6 +17,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sarif.Driver", "Sarif.Drive
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sarif.Driver.UnitTests", "Sarif.Driver.UnitTests\Sarif.Driver.UnitTests.csproj", "{66915F7B-9872-4390-AFED-DB8DE7B761BE}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Nuget", "Nuget", "{AFC8AFD8-1A3F-40EB-A8E6-48249586595D}"
+	ProjectSection(SolutionItems) = preProject
+		Nuget\Sarif.Driver.nuspec = Nuget\Sarif.Driver.nuspec
+		Nuget\Sarif.Sdk.nuspec = Nuget\Sarif.Sdk.nuspec
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

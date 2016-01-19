@@ -80,11 +80,13 @@ namespace SarifViewer
                 }
                 else if (columnName == StandardTableKeyNames.ErrorSeverity)
                 {
-                    content = _errors[index].IsError ? __VSERRORCATEGORY.EC_ERROR : __VSERRORCATEGORY.EC_WARNING;
+                    content = GetSeverity(_errors[index].Kind);
                 }
                 else if (columnName == StandardTableKeyNames.Priority)
                 {
-                    content = _errors[index].IsError ? vsTaskPriority.vsTaskPriorityHigh : vsTaskPriority.vsTaskPriorityMedium;
+                    content = GetSeverity(_errors[index].Kind) == __VSERRORCATEGORY.EC_ERROR 
+                        ? vsTaskPriority.vsTaskPriorityHigh 
+                        : vsTaskPriority.vsTaskPriorityMedium;
                 }
                 else if (columnName == StandardTableKeyNames.ErrorSource)
                 {
@@ -128,6 +130,31 @@ namespace SarifViewer
             }
 
             return content != null;
+        }
+
+        private __VSERRORCATEGORY GetSeverity(ResultKind kind)
+        {
+            switch (kind)
+            {
+                case ResultKind.ConfigurationError:
+                case ResultKind.InternalError:
+                case ResultKind.Error:
+                {
+                    return __VSERRORCATEGORY.EC_ERROR;
+                }
+                case ResultKind.Warning:
+                {
+                    return __VSERRORCATEGORY.EC_WARNING;
+                }
+                case ResultKind.NotApplicable:
+                case ResultKind.Pass:
+                case ResultKind.Note:
+                {
+                    return __VSERRORCATEGORY.EC_MESSAGE;
+                }
+            }
+            Debug.Assert(false);
+            return __VSERRORCATEGORY.EC_ERROR;
         }
 
         internal void TryNavigateTo(int index, bool isPreview)

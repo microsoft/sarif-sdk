@@ -137,10 +137,11 @@ namespace SarifViewer
                     {
                         Region = region,
                         ErrorCode = result.RuleId,
-                        IsError = IsError(result.Kind),
+                        Kind = result.Kind,
                         Message = message,
                         MimeType = physicalLocation?.MimeType,
-                        Tool = toolName
+                        Tool = toolName,
+                        HelpLink = rule?.HelpUri.ToString()                        
                     };
 
                     if (region != null)
@@ -175,7 +176,7 @@ namespace SarifViewer
                         {
                             Region = region,
                             ErrorCode = result.RuleId,
-                            IsError = false,
+                            Kind = ResultKind.Note,
                             Message = message,
                             MimeType = physicalLocation?.MimeType,
                             Tool = toolName
