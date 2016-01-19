@@ -1,6 +1,7 @@
 ﻿// Copyright (c) Microsoft. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
+using System;
 using System.Collections.Generic;
 using System.Xml;
 using System.Xml.Linq;
@@ -375,6 +376,13 @@ namespace Microsoft.CodeAnalysis.Sarif
                 Assert.AreEqual(XmlNodeType.Element, xml.NodeType);
                 Assert.AreEqual("deep_child", xml.LocalName);
             }
+        }
+
+        [TestMethod]
+        public void Extensions_UriConversion()
+        {
+            Assert.IsTrue(@"c:\temp\foo.txt".CreateUriForJsonSerialization().OriginalString.StartsWith("file:"));
+            Assert.IsTrue(@"file://c:/temp/foo.txt".CreateUriForJsonSerialization().OriginalString.StartsWith("file:"));
         }
     }
 }

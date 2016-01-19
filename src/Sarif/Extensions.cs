@@ -239,7 +239,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             if (Uri.TryCreate(uriText, UriKind.RelativeOrAbsolute, out result) &&
                 result.IsFile &&
-                result.Scheme != "file")
+                !result.OriginalString.StartsWith("file:"))
             {
                 result = new Uri(result.ToString());
             }
