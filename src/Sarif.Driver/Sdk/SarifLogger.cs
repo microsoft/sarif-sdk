@@ -211,7 +211,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
             if (targetPath != null)
             {
                 result.Locations = new[] {
-                new Sarif.Sdk.Location {
+                new Sarif.Location {
                     AnalysisTarget = new[]
                     {
                         new PhysicalLocationComponent
