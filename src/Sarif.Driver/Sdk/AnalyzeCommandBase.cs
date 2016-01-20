@@ -108,11 +108,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
             return logger;
         }
 
-
-        protected virtual void InitializeFromOptions(TOptions analyzeOptions)
-        {
-        }
-
         private static HashSet<string> CreateTargetsSet(TOptions analyzeOptions)
         {
             HashSet<string> targets = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
@@ -435,7 +430,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
         }
 
 
-        private static PropertyBag CreateConfigurationFromOptions(TOptions analyzeOptions)
+        public virtual PropertyBag CreateConfigurationFromOptions(TOptions analyzeOptions)
         {
             PropertyBag configuration = null;
             string configurationFilePath = analyzeOptions.ConfigurationFilePath;
