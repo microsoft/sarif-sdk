@@ -141,7 +141,7 @@ namespace SarifViewer
                         Message = message,
                         MimeType = physicalLocation?.MimeType,
                         Tool = toolName,
-                        HelpLink = rule?.HelpUri.ToString()                        
+                        HelpLink = rule?.HelpUri?.ToString()                        
                     };
 
                     if (region != null)
