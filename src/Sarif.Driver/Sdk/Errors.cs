@@ -231,6 +231,53 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
             context.RuntimeErrors |= RuntimeConditions.ExceptionRaisedInSkimmerCanAnalyze;
         }
 
+
+        public static void LogUnhandledExceptionInitializingRule(IAnalysisContext context, Exception ex)
+        {
+            string ruleId = context.Rule.Id;
+            string ruleName = context.Rule.Name;
+            // An unhandled exception was encountered initializing check '{0}:', which 
+            // has been disabled for the remainder of the analysis. Exception information:
+            // {1}
+
+            var errorContext = new AnalysisContext();
+            errorContext.Rule = Errors.RuleDisabled;
+
+            context.Logger.Log(errorContext.Rule,
+                RuleUtilities.BuildResult(ResultKind.InternalError, errorContext, null,
+                    nameof(SdkResources.ERR0998_ExceptionInInitialize),
+                    ruleName,
+                    ex.ToString()));
+
+            context.RuntimeErrors |= RuntimeConditions.ExceptionInSkimmerInitialize;
+        }
+
+        public static RuntimeConditions LogUnhandledRuleExceptionAnalyzingTarget(
+            HashSet<string> disabledSkimmers,
+            IAnalysisContext context,
+            Exception ex)
+        {
+            string ruleId = context.Rule.Id;
+            string ruleName = context.Rule.Name;
+            context.Rule = Errors.RuleDisabled;
+
+            // An unhandled exception was encountered analyzing '{0}' for check '{1}', 
+            // which has been disabled for the remainder of the analysis.The 
+            // exception may have resulted from a problem related to parsing 
+            // image metadata and not specific to the rule, however.
+            // Exception information:
+            // {2}
+            context.Logger.Log(context.Rule,
+                RuleUtilities.BuildResult(ResultKind.InternalError, context, null,
+                    nameof(SdkResources.ERR0998_ExceptionInAnalyze),
+                    ruleName,
+                    ex.ToString()));
+
+            if (disabledSkimmers != null) { disabledSkimmers.Add(ruleId); }
+
+            return RuntimeConditions.ExceptionInSkimmerAnalyze;
+        }
+
         public static RuntimeConditions LogUnhandledEngineException(IAnalysisContext context, Exception ex)
         {
             context.Rule = Errors.AnalysisHalted;

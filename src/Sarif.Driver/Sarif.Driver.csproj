@@ -74,6 +74,7 @@
     <Compile Include="ExceptionStrings.Designer.cs" />
     <Compile Include="Sdk\AggregatingLogger.cs" />
     <Compile Include="Sdk\AnalysisApplicability.cs" />
+    <Compile Include="Sdk\AnalysisContext.cs" />
     <Compile Include="Sdk\ConsoleLogger.cs" />
     <Compile Include="Sdk\Errors.cs" />
     <Compile Include="Sdk\ExitApplicationException.cs" />
