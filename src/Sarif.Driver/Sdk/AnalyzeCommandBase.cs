@@ -113,8 +113,19 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
             HashSet<string> targets = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
             foreach (string specifier in analyzeOptions.TargetFileSpecifiers)
             {
+                string normalizedSpecifier = specifier;
+
+                Uri uri;
+                if (Uri.TryCreate(specifier, UriKind.RelativeOrAbsolute, out uri))
+                {
+                    if (uri.IsFile || uri.IsUnc)
+                    {
+                        normalizedSpecifier = uri.LocalPath;
+                    }
+                }
+
                 // Currently, we do not filter on any extensions.
-                var fileSpecifier = new FileSpecifier(specifier, recurse: analyzeOptions.Recurse, filter: "*");
+                var fileSpecifier = new FileSpecifier(normalizedSpecifier, recurse: analyzeOptions.Recurse, filter: "*");
                 foreach (string file in fileSpecifier.Files) { targets.Add(file); }
             }
 
