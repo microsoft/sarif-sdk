@@ -311,28 +311,21 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
             string path = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
             path = Path.Combine(path, Guid.NewGuid().ToString());
 
-            try
+            using (var stream = File.Create(path, 1, FileOptions.DeleteOnClose))
             {
-                using (var stream = File.Create(path, 1, FileOptions.DeleteOnClose))
+                // attempt to persist to unauthorized location will raise exception
+                var options = new TestAnalyzeOptions()
                 {
-                    // attempt to persist to unauthorized location will raise exception
-                    var options = new TestAnalyzeOptions()
-                    {
-                        TargetFileSpecifiers = new string[] { this.GetType().Assembly.Location },
-                        OutputFilePath = path,
-                        Verbose = true,
-                    };
+                    TargetFileSpecifiers = new string[] { this.GetType().Assembly.Location },
+                    OutputFilePath = path,
+                    Verbose = true,
+                };
 
-                    ExceptionTestHelper(
-                        ExceptionCondition.None,
-                        RuntimeConditions.ExceptionCreatingLogfile,
-                        expectedExitReason: ExitReason.ExceptionCreatingLogFile,
-                        analyzeOptions: options);
-                }
-            }
-            finally
-            {
-                File.Delete(path);
+                ExceptionTestHelper(
+                    ExceptionCondition.None,
+                    RuntimeConditions.ExceptionCreatingLogfile,
+                    expectedExitReason: ExitReason.ExceptionCreatingLogFile,
+                    analyzeOptions: options);
             }
         }
 
