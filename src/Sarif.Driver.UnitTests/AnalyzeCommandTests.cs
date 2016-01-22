@@ -209,6 +209,25 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
             );
         }
 
+
+        [Fact]
+        public void FileUri()
+        {
+            Uri uri = new Uri(this.GetType().Assembly.Location);
+
+            var options = new TestAnalyzeOptions()
+            {
+                TargetFileSpecifiers = new string[] { uri.ToString() },
+            };
+
+            ExceptionTestHelper(
+                ExceptionCondition.None,
+                RuntimeConditions.NoErrors,
+                analyzeOptions: options
+            );
+        }
+
+
         [Fact]
         public void ParseTargetException()
         {
