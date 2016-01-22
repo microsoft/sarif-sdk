@@ -296,7 +296,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
                 }
                 catch (Exception ex)
                 {
-                    RuntimeErrors |= LogUnhandledRuleExceptionAnalyzingTarget(disabledSkimmers, context, skimmer, ex);
+                    RuntimeErrors |= Errors.LogUnhandledRuleExceptionAnalyzingTarget(disabledSkimmers, context, ex);
                 }
             }
         }
@@ -366,51 +366,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
             };
         }
 
-        protected void LogUnhandledExceptionInitializingRule(TContext context, ISkimmer<TContext> skimmer, Exception ex)
-        {
-            string ruleName = context.Rule.Name;
-            // An unhandled exception was encountered initializing check '{0}', which 
-            // has been disabled for the remainder of the analysis. Exception information:
-            // {1}
-
-            var errorContext = new TContext();
-            errorContext.Rule = Errors.RuleDisabled;
-            
-            context.Logger.Log(errorContext.Rule, 
-                RuleUtilities.BuildResult(ResultKind.InternalError, errorContext, null,
-                    nameof(SdkResources.ERR0998_ExceptionInInitialize),
-                    ruleName,
-                    ex.ToString()));
-
-            RuntimeErrors |= RuntimeConditions.ExceptionInSkimmerInitialize;
-        }
-
-        public static RuntimeConditions LogUnhandledRuleExceptionAnalyzingTarget(
-            HashSet<string> disabledSkimmers, 
-            TContext context, 
-            ISkimmer<TContext> skimmer, 
-            Exception ex)
-        {
-            string ruleName = context.Rule.Name;
-            context.Rule = Errors.RuleDisabled;
-
-            // An unhandled exception was encountered analyzing '{0}' for check '{1}', 
-            // which has been disabled for the remainder of the analysis.The 
-            // exception may have resulted from a problem related to parsing 
-            // image metadata and not specific to the rule, however.
-            // Exception information:
-            // {2}
-            context.Logger.Log(context.Rule, 
-                RuleUtilities.BuildResult(ResultKind.InternalError, context, null,
-                    nameof(SdkResources.ERR0998_ExceptionInAnalyze),
-                    ruleName,
-                    ex.ToString()));
-
-            if (disabledSkimmers != null) { disabledSkimmers.Add(skimmer.Id); }
-
-            return RuntimeConditions.ExceptionInSkimmerAnalyze;
-        }
-
         protected virtual HashSet<ISkimmer<TContext>> InitializeSkimmers(HashSet<ISkimmer<TContext>> skimmers, TContext context)
         {
             HashSet<ISkimmer<TContext>> disabledSkimmers = new HashSet<ISkimmer<TContext>>();
@@ -427,7 +382,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
                 catch (Exception ex)
                 {
                     RuntimeErrors |= RuntimeConditions.ExceptionInSkimmerInitialize;
-                    LogUnhandledExceptionInitializingRule(context, skimmer, ex);
+                    Errors.LogUnhandledExceptionInitializingRule(context, ex);
                     disabledSkimmers.Add(skimmer);
                 }
             }
