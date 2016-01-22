@@ -308,24 +308,27 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
         [Fact]
         public void UnauthorizedAccessExceptionCreatingSarifLog()
         {
-            string path = Environment.GetFolderPath(Environment.SpecialFolder.Windows);
+            string path = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
             path = Path.Combine(path, Guid.NewGuid().ToString());
 
             try
             {
-                // attempt to persist to unauthorized location will raise exception
-                var options = new TestAnalyzeOptions()
+                using (var stream = File.Create(path, 1, FileOptions.DeleteOnClose))
                 {
-                    TargetFileSpecifiers = new string[] { this.GetType().Assembly.Location },
-                    OutputFilePath = path,
-                    Verbose = true,
-                };
+                    // attempt to persist to unauthorized location will raise exception
+                    var options = new TestAnalyzeOptions()
+                    {
+                        TargetFileSpecifiers = new string[] { this.GetType().Assembly.Location },
+                        OutputFilePath = path,
+                        Verbose = true,
+                    };
 
-                ExceptionTestHelper(
-                    ExceptionCondition.None,
-                    RuntimeConditions.ExceptionCreatingLogfile,
-                    expectedExitReason: ExitReason.ExceptionCreatingLogFile,
-                    analyzeOptions: options);
+                    ExceptionTestHelper(
+                        ExceptionCondition.None,
+                        RuntimeConditions.ExceptionCreatingLogfile,
+                        expectedExitReason: ExitReason.ExceptionCreatingLogFile,
+                        analyzeOptions: options);
+                }
             }
             finally
             {

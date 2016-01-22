@@ -53,7 +53,7 @@ sn -k GeneratedKey.snk
 
 @REM Build all code
 %~dp0.nuget\NuGet.exe restore src\Sarif.Sdk.sln 
-msbuild /verbosity:minimal /target:rebuild src\Sarif.Sdk.sln /p:Configuration=Release 
+msbuild /verbosity:minimal /target:rebuild src\Sarif.Sdk.sln /p:"Configuration=Release" /p:"Platform=Any CPU"
 
 if "%ERRORLEVEL%" NEQ "0" (
 goto ExitFailed
