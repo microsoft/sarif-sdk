@@ -23,7 +23,9 @@ namespace SarifViewer
 
         public string FileName { get; set; }
 
-        public string Message { get; set; }
+        public string ShortMessage { get; set; }
+
+        public string FullMessage { get; set; }
 
         public SnapshotSpan Span { get; set; }
 
@@ -31,15 +33,19 @@ namespace SarifViewer
 
         public int ColumnNumber { get; set; }
 
+        public string Category { get; set; }
+
         public ResultKind Kind { get; set; } 
 
-        public string ErrorCode { get; set; }
+        public string RuleId { get; set; }
+
+        public string RuleName { get; set; }
          
         public string HelpLink { get; set; }
 
         public override string ToString()
         {
-            return Message;
+            return ShortMessage;
         }
     }
 }

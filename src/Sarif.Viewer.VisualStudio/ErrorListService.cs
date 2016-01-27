@@ -103,10 +103,17 @@ namespace SarifViewer
 
             foreach (Result result in runLog.Results)
             {
-                string message;
-                string document;
+                string category, document, shortMessage, fullMessage;
                 Region region;
                 NewLineIndex newLineIndex;
+                IRuleDescriptor rule = null;
+
+                category = null;
+
+                if (result.Properties != null)
+                {
+                    result.Properties.TryGetValue("category", out category);
+                }
 
                 foreach (Location location in result.Locations)
                 {
@@ -130,15 +137,24 @@ namespace SarifViewer
                         document = location.FullyQualifiedLogicalName;
                     }
 
-                    IRuleDescriptor rule = GetRule(runLog, result.RuleId);
-                    message = result.GetMessageText(rule, concise: true);
+                    rule = GetRule(runLog, result.RuleId);
+                    shortMessage = result.GetMessageText(rule, concise: true);
+                    fullMessage = result.GetMessageText(rule, concise: false);
+
+                    if (shortMessage == fullMessage)
+                    {
+                        fullMessage = null;
+                    }
 
                     SarifError sarifError = new SarifError(document)
                     {
                         Region = region,
-                        ErrorCode = result.RuleId,
+                        RuleId = result.RuleId,
+                        RuleName = rule.Name,
                         Kind = result.Kind,
-                        Message = message,
+                        Category = category,
+                        ShortMessage = shortMessage,
+                        FullMessage = fullMessage,
                         MimeType = physicalLocation?.MimeType,
                         Tool = toolName,
                         HelpLink = rule?.HelpUri?.ToString()                        
@@ -159,7 +175,7 @@ namespace SarifViewer
                     {
                         PhysicalLocationComponent physicalLocation = annotation.PhysicalLocation[0];
                         region = physicalLocation.Region;
-                        message = annotation.Message;
+                        shortMessage = annotation.Message;
                         document = annotation.PhysicalLocation[0].Uri.LocalPath;
 
                         if (!this.documentToLineIndexMap.TryGetValue(document, out newLineIndex))
@@ -175,9 +191,12 @@ namespace SarifViewer
                         SarifError sarifError = new SarifError(document)
                         {
                             Region = region,
-                            ErrorCode = result.RuleId,
+                            RuleId = result.RuleId,
+                            RuleName = rule?.Name,
                             Kind = ResultKind.Note,
-                            Message = message,
+                            Category = "Related Location", // or should we prefer original result category?
+                            ShortMessage = shortMessage,
+                            FullMessage = null,
                             MimeType = physicalLocation?.MimeType,
                             Tool = toolName
                         };

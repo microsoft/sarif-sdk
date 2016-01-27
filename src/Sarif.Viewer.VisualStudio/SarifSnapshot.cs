@@ -5,16 +5,18 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
+using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Forms;
-
 using EnvDTE;
-
+using Microsoft.CodeAnalysis.Sarif;
 using Microsoft.CodeAnalysis.Sarif.Driver;
 using Microsoft.CodeAnalysis.Sarif.Driver.Sdk;
-using Microsoft.CodeAnalysis.Sarif;
 using Microsoft.CodeAnalysis.Sarif.Writers;
 using Microsoft.VisualStudio;
+using Microsoft.VisualStudio.Imaging.Interop;
 using Microsoft.VisualStudio.Shell.Interop;
+using Microsoft.VisualStudio.Shell.TableControl;
 using Microsoft.VisualStudio.Shell.TableManager;
 using Microsoft.VisualStudio.TextManager.Interop;
 
@@ -23,7 +25,7 @@ namespace SarifViewer
     /// <summary>
     /// This class provides a data snapshot for the current contents of the error list
     /// </summary>
-    internal class SarifSnapshot : TableEntriesSnapshotBase
+    internal class SarifSnapshot : TableEntriesSnapshotBase, IWpfTableEntriesSnapshot
     {
         private string _projectName;
         private readonly List<SarifError> _errors;
@@ -64,7 +66,8 @@ namespace SarifViewer
                 }
                 else if (columnName == StandardTableKeyNames.ErrorCategory)
                 {
-                    content = Constants.VSIX_NAME;
+                    var error = _errors[index];
+                    content = error.Category;
                 }
                 else if (columnName == StandardTableKeyNames.Line)
                 {
@@ -76,7 +79,7 @@ namespace SarifViewer
                 }
                 else if (columnName == StandardTableKeyNames.Text)
                 {
-                    content = _errors[index].Message;
+                    content = _errors[index].ShortMessage;
                 }
                 else if (columnName == StandardTableKeyNames.ErrorSeverity)
                 {
@@ -84,8 +87,8 @@ namespace SarifViewer
                 }
                 else if (columnName == StandardTableKeyNames.Priority)
                 {
-                    content = GetSeverity(_errors[index].Kind) == __VSERRORCATEGORY.EC_ERROR 
-                        ? vsTaskPriority.vsTaskPriorityHigh 
+                    content = GetSeverity(_errors[index].Kind) == __VSERRORCATEGORY.EC_ERROR
+                        ? vsTaskPriority.vsTaskPriorityHigh
                         : vsTaskPriority.vsTaskPriorityMedium;
                 }
                 else if (columnName == StandardTableKeyNames.ErrorSource)
@@ -98,7 +101,7 @@ namespace SarifViewer
                 }
                 else if (columnName == StandardTableKeyNames.ErrorCode)
                 {
-                    content = _errors[index].ErrorCode;
+                    content = _errors[index].RuleId;
                 }
                 else if (columnName == StandardTableKeyNames.ProjectName)
                 {
@@ -112,7 +115,7 @@ namespace SarifViewer
 
                     content = _projectName;
                 }
-                else if ((columnName == StandardTableKeyNames.ErrorCodeToolTip) || (columnName == StandardTableKeyNames.HelpLink))
+                else if (columnName == StandardTableKeyNames.HelpLink)
                 {
                     var error = _errors[index];
                     string url = null;
@@ -125,7 +128,20 @@ namespace SarifViewer
                         //url = string.Format("http://www.bing.com/search?q={0} {1}", _errors[index].Provider.Name, _errors[index].ErrorCode);
                     }
 
-                    content = Uri.EscapeUriString(url);
+                    if (url != null)
+                    {
+                        content = Uri.EscapeUriString(url);
+                    }
+                }
+                else if (columnName == StandardTableKeyNames.ErrorCodeToolTip)
+                {
+                    var error = _errors[index];
+                    content = error.RuleId + ":" + error.RuleName;
+                }
+                else if (columnName == StandardTableKeyNames.DetailsExpander)
+                {
+                    var error = _errors[index];
+                    content = !string.IsNullOrEmpty(error.FullMessage);
                 }
             }
 
@@ -234,8 +250,8 @@ namespace SarifViewer
 
             // Data is 1-indexed but VS navigation api is 0-indexed
             mgr.NavigateToLineAndColumn(
-                buffer, 
-                ref logicalView, 
+                buffer,
+                ref logicalView,
                 region.StartLine - 1,
                 region.StartColumn - 1,
                 region.EndLine - 1,
@@ -253,7 +269,7 @@ namespace SarifViewer
                 {
                     return remapped;
                 }
-            }        
+            }
 
             OpenFileDialog openFileDialog = new OpenFileDialog();
 
@@ -281,7 +297,7 @@ namespace SarifViewer
 
             int offset = resolvedFileName.Length;
             while ((resolvedPath.Length - offset) >= 0 &&
-                   (fullPath.Length - offset) >= 0) 
+                   (fullPath.Length - offset) >= 0)
             {
                 if (!resolvedPath[resolvedPath.Length - offset].ToString().Equals(fullPath[fullPath.Length - offset].ToString(), StringComparison.OrdinalIgnoreCase))
                 {
@@ -302,5 +318,74 @@ namespace SarifViewer
 
             return resolvedPath;
         }
+
+        public bool TryCreateImageContent(int index, string columnName, bool singleColumnView, out object content)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool TryCreateStringContent(int index, string columnName, bool truncatedText, bool singleColumnView, out string content)
+        {
+            content = null;
+            return false;
+        }
+
+        public bool TryCreateColumnContent(int index, string columnName, bool singleColumnView, out FrameworkElement content)
+        {
+            content = null;
+            return false;
+        }
+
+        public bool CanCreateDetailsContent(int index)
+        {
+            var error = _errors[index];
+
+            return (!string.IsNullOrEmpty(error.FullMessage));
+        }
+
+        public bool TryCreateDetailsContent(int index, out FrameworkElement expandedContent)
+        {
+            var error = _errors[index];
+
+            expandedContent = null;
+
+            if (string.IsNullOrWhiteSpace(error.FullMessage))
+            {
+                return false;
+            }
+
+            expandedContent = new TextBlock()
+            {
+                Background = null,
+                Padding = new Thickness(10, 6, 10, 8),
+                TextWrapping = TextWrapping.Wrap,
+                Text = error.FullMessage
+            };
+            return true;
+        }
+
+        public bool TryCreateDetailsStringContent(int index, out string content)
+        {
+            content = null;
+            return false;
+        }
+
+        public bool TryCreateToolTip(int index, string columnName, out object toolTip)
+        {            
+            toolTip = null;
+
+            if (columnName == StandardTableKeyNames.Text)
+            {
+                toolTip = _errors[index].FullMessage;
+            }
+            return toolTip != null;
+        }
+
+        public bool TryCreateImageContent(int index, string columnName, bool singleColumnView, out ImageMoniker content)
+        {
+            content = new ImageMoniker();
+            return false;
+        }
+
     }
 }
