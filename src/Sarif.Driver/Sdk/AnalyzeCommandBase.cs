@@ -118,7 +118,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
                 Uri uri;
                 if (Uri.TryCreate(specifier, UriKind.RelativeOrAbsolute, out uri))
                 {
-                    if (uri.IsFile || uri.IsUnc)
+                    if (uri.IsAbsoluteUri && (uri.IsFile || uri.IsUnc))
                     {
                         normalizedSpecifier = uri.LocalPath;
                     }
