@@ -2,6 +2,7 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using System;
+using System.IO;
 using CommandLine;
 
 namespace Microsoft.CodeAnalysis.Sarif.ConvertToSarif
@@ -35,11 +36,19 @@ namespace Microsoft.CodeAnalysis.Sarif.ConvertToSarif
                     toolFormatConversionOptions |= ToolFormatConversionOptions.OverwriteExistingOutputFile;
                 };
 
-                new ToolFormatConverter().ConvertToStandardFormat(
-                    convertOptions.ToolFormat,
-                    convertOptions.InputFilePath,
-                    convertOptions.OutputFilePath,
-                    toolFormatConversionOptions);
+                if (convertOptions.ToolFormat == ToolFormat.PREfast)
+                {
+                    string sarif = ToolFormatConverter.ConvertPREfastToStandardFormat(convertOptions.InputFilePath);
+                    File.WriteAllText(convertOptions.OutputFilePath, sarif);
+                }
+                else
+                {
+                    new ToolFormatConverter().ConvertToStandardFormat(
+                        convertOptions.ToolFormat,
+                        convertOptions.InputFilePath,
+                        convertOptions.OutputFilePath,
+                        toolFormatConversionOptions);
+                }
             }
             catch (Exception ex)
             {

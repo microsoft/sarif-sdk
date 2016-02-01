@@ -37,11 +37,18 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\PREfastXmlSarifConverter\PREfastXmlSarifConverter.vcxproj">
+      <Project>{f6727c72-c40c-4a6e-bae0-23b4b5fe7db1}</Project>
+      <Name>PREfastXmlSarifConverter</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Sarif\Sarif.csproj">
       <Project>{cc9b247e-7103-4bf7-bdab-6e625b3680a8}</Project>
       <Name>Sarif</Name>
     </ProjectReference>
   </ItemGroup>
+  <PropertyGroup>
+    <PostBuildEvent>xcopy /Y ..\..\PREfastXmlSarifConverter\$(Platform)_$(Configuration)\PREfastXmlSarifConverter.dll</PostBuildEvent>
+  </PropertyGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

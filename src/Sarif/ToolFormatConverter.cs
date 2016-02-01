@@ -8,6 +8,7 @@ using System.Threading;
 using Newtonsoft.Json;
 using Microsoft.CodeAnalysis.Sarif.Converters;
 using Microsoft.CodeAnalysis.Sarif.Writers;
+using System.Runtime.InteropServices;
 
 namespace Microsoft.CodeAnalysis.Sarif
 {
@@ -33,6 +34,12 @@ namespace Microsoft.CodeAnalysis.Sarif
             string outputFileName,
             ToolFormatConversionOptions conversionOptions)
         {
+            if (toolFormat == ToolFormat.PREfast)
+            {
+                string sarif = ConvertPREfastToStandardFormat(inputFileName);
+                File.WriteAllText(outputFileName, sarif);
+            }
+
             if (inputFileName == null) { throw new ArgumentNullException("inputFileName"); };
             if (outputFileName == null) { throw new ArgumentNullException("outputFileName"); };
 
@@ -75,6 +82,13 @@ namespace Microsoft.CodeAnalysis.Sarif
             string inputFileName,
             string outputFileName)
         {
+            if (toolFormat == ToolFormat.PREfast)
+            {
+                string sarif = ConvertPREfastToStandardFormat(inputFileName);
+                File.WriteAllText(outputFileName, sarif);
+                return;
+            }
+
             ConvertToStandardFormat(toolFormat, inputFileName, outputFileName, ToolFormatConversionOptions.None);
         }
 
@@ -90,6 +104,11 @@ namespace Microsoft.CodeAnalysis.Sarif
             Stream inputStream,
             IResultLogWriter outputStream)
         {
+            if (toolFormat == ToolFormat.PREfast)
+            {
+                throw new ArgumentException("Cannot convert PREfast XML from stream. Call ConvertPREfastToStandardFormat helper instead.");
+            };
+
             if (inputStream == null) { throw new ArgumentNullException("inputStream"); };
             if (outputStream == null) { throw new ArgumentNullException("outputStream"); };
 
@@ -122,5 +141,24 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             dict.Add(format, new Lazy<IToolFileConverter>(() => new T(), LazyThreadSafetyMode.ExecutionAndPublication));
         }
+
+        /// <summary>Converts a legacy PREfast XML log file into the SARIF format.</summary>
+        /// <exception cref="ArgumentNullException">Thrown when one or more required arguments are null.</exception>
+        /// <exception cref="ArgumentException">Thrown when one or more arguments have unsupported or
+        /// illegal values.</exception>
+        /// <exception cref="InvalidOperationException">Thrown when the requested operation is invalid.</exception>
+        /// <param name="toolFormat">The tool format of the input file.</param>
+        /// <param name="inputFileName">The input log file name.</param>
+        /// <returns>The converted PREfast log file in SARIF format.</returns>
+        public static string ConvertPREfastToStandardFormat(string inputFileName)
+        {
+            if (inputFileName == null) { throw new ArgumentNullException("inputStream"); };
+
+            return ConvertToSarif(inputFileName);
+        }
+
+        [return: MarshalAs(UnmanagedType.BStr)]
+        [DllImport("PREfastXmlSarifConverter", CallingConvention = CallingConvention.StdCall, CharSet = CharSet.Unicode)]
+        private static extern string ConvertToSarif([MarshalAs(UnmanagedType.BStr)][In]string prefastFilePath);
     }
 }

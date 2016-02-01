@@ -4,12 +4,17 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 14.0.24720.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sarif.Viewer.VisualStudio", "Sarif.Viewer.VisualStudio\Sarif.Viewer.VisualStudio.csproj", "{FEBE7A56-524C-4B76-A899-23DBD8951C23}"
+	ProjectSection(ProjectDependencies) = postProject
+		{F6727C72-C40C-4A6E-BAE0-23B4B5FE7DB1} = {F6727C72-C40C-4A6E-BAE0-23B4B5FE7DB1}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sarif", "Sarif\Sarif.csproj", "{CC9B247E-7103-4BF7-BDAB-6E625B3680A8}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sarif.Driver", "Sarif.Driver\Sarif.Driver.csproj", "{8CEAEA61-B1A2-4777-BCBE-C9A129A5F6C5}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataModelGenerator", "DataModelGenerator\DataModelGenerator.csproj", "{B4F63D09-5CEA-4AFA-A72B-A1455B077AE2}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "PREfastXmlSarifConverter", "PREfastXmlSarifConverter\PREfastXmlSarifConverter.vcxproj", "{F6727C72-C40C-4A6E-BAE0-23B4B5FE7DB1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -69,6 +74,16 @@ Global
 		{B4F63D09-5CEA-4AFA-A72B-A1455B077AE2}.Release|x64.Build.0 = Release|x64
 		{B4F63D09-5CEA-4AFA-A72B-A1455B077AE2}.Release|x86.ActiveCfg = Release|x86
 		{B4F63D09-5CEA-4AFA-A72B-A1455B077AE2}.Release|x86.Build.0 = Release|x86
+		{F6727C72-C40C-4A6E-BAE0-23B4B5FE7DB1}.Debug|Any CPU.ActiveCfg = Debug|Win32
+		{F6727C72-C40C-4A6E-BAE0-23B4B5FE7DB1}.Debug|x64.ActiveCfg = Debug|x64
+		{F6727C72-C40C-4A6E-BAE0-23B4B5FE7DB1}.Debug|x64.Build.0 = Debug|x64
+		{F6727C72-C40C-4A6E-BAE0-23B4B5FE7DB1}.Debug|x86.ActiveCfg = Debug|Win32
+		{F6727C72-C40C-4A6E-BAE0-23B4B5FE7DB1}.Debug|x86.Build.0 = Debug|Win32
+		{F6727C72-C40C-4A6E-BAE0-23B4B5FE7DB1}.Release|Any CPU.ActiveCfg = Release|Win32
+		{F6727C72-C40C-4A6E-BAE0-23B4B5FE7DB1}.Release|x64.ActiveCfg = Release|x64
+		{F6727C72-C40C-4A6E-BAE0-23B4B5FE7DB1}.Release|x64.Build.0 = Release|x64
+		{F6727C72-C40C-4A6E-BAE0-23B4B5FE7DB1}.Release|x86.ActiveCfg = Release|Win32
+		{F6727C72-C40C-4A6E-BAE0-23B4B5FE7DB1}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

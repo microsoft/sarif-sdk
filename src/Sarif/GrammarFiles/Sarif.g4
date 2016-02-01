@@ -200,10 +200,34 @@ fileReference :
 		@minItems{1}
 		@uniqueItems{true}
     */
-    hashes?;
+    hashes?
+	
+    /**
+        @name {Properties}
+        @summary {
+        Key/value pairs that provide additional details about the file reference.
+        }
+        @remarks {
+        Properties may be included in the dictionary that have an empty value.
+        }
+		@default {{}}
+    */
+    properties?
+	
+	/** 
+		@name {Tag}
+		@summary {
+		A unique set of strings that provide additional information for the associated file reference.
+		}
+		@default {[]}
+	*/
+		tags?;
 
 /** @className {Hashes} */
 hashes : hash*;
+
+/** @className {Tags} */
+tags : tag*;
 
 /**
     @className {Hash}
@@ -411,7 +435,16 @@ result :
         }
 		@default {{}}
     */
-    properties?	
+    properties?
+	
+	/** 
+		@name {Tag}
+		@summary {
+		A unique set of strings that provide additional information for the associated result.
+		}
+		@default {[]}
+	*/
+		tags?		
 	;
 
 /**
@@ -474,7 +507,16 @@ location :
         }
 		@default{{}}
     */
-    properties?;
+    properties?
+
+	/** 
+		@name {Tag}
+		@summary {
+		A unique set of strings that provide additional information for the associated location.
+		}
+		@default {[]}
+	*/
+		tags?	;
 
 /** @className {ResultKind} 
 	@serializedValues {Error, Warning, Pass, Note, NotApplicable, InternalError, ConfigurationError} 
@@ -988,7 +1030,17 @@ ruleDescriptor :
         }
 		@default {{}}
     */
-    properties?;
+    properties?
+
+	/** 
+		@name {Tag}
+		@summary {
+		A unique set of strings that provide additional information for the associated rule.
+		}
+		@default {[]}
+	*/
+		tags?	
+	;
 
 /**
     @className {FormattedMessage}
@@ -1060,6 +1112,7 @@ description : STRING;
 deletedLength : INTEGER;
 insertedBytes : INTEGER;
 id : STRING;
+tag: STRING;
 specifierId : STRING;
 shortDescription : STRING;
 fullDescription : STRING;
