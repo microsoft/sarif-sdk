@@ -11,8 +11,11 @@ md bld\bin\nuget
 
 set MAJOR=1
 set MINOR=4
-set PATCH=32
+set PATCH=33
 set PRERELEASE=-beta
+
+set Platform=AnyCPU
+set Configuration=Release
 
 @REM Write VersionConstants files 
 
@@ -52,8 +55,8 @@ sn -k GeneratedKey.snk
 )
 
 @REM Build all code
-%~dp0.nuget\NuGet.exe restore src\Sarif.Sdk.sln 
-msbuild /verbosity:minimal /target:rebuild src\Sarif.Sdk.sln /p:"Configuration=Release" /p:"Platform=Any CPU"
+%~dp0.nuget\NuGet.exe restore src\Everything.sln 
+msbuild /verbosity:minimal /target:rebuild src\Everything.sln /p:"Configuration=Release" /p:"Platform=Any CPU"
 
 if "%ERRORLEVEL%" NEQ "0" (
 goto ExitFailed

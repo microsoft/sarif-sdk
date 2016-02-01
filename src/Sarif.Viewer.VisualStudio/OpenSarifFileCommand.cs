@@ -128,12 +128,10 @@ namespace SarifViewer
                 }
                 case OpenPREfastFileCommandId:
                 {
-                    // PREfast. TODO. We don't have a distinct converter yet
-                    // for this tool, only the native compiler support
                     toolFormat = ToolFormat.PREfast;
                     title = "Open PREfast XML log file";
                     filter = "PREfast log files (*.xml)|*.xml";
-                    throw new NotImplementedException();
+                    break;
                 }
                 case OpenFxCopFileCommandId:
                 {

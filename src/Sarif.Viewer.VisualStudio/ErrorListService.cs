@@ -36,6 +36,11 @@ namespace SarifViewer
             {
                 logText = File.ReadAllText(filePath);
             }
+            else if (toolFormat == ToolFormat.PREfast)
+            {
+                logText = ToolFormatConverter.ConvertPREfastToStandardFormat(filePath);
+                File.WriteAllText(@"d:\repros\prefast.test.sarif", logText);
+            }
             else
             {
                 // We have conversion to do

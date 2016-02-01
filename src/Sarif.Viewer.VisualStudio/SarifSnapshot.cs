@@ -169,8 +169,7 @@ namespace SarifViewer
                     return __VSERRORCATEGORY.EC_MESSAGE;
                 }
             }
-            Debug.Assert(false);
-            return __VSERRORCATEGORY.EC_ERROR;
+            return __VSERRORCATEGORY.EC_WARNING;
         }
 
         internal void TryNavigateTo(int index, bool isPreview)
