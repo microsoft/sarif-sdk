@@ -3,6 +3,7 @@
 #include <stdio.h>
 #include <tchar.h>
 #include <Windows.h>
+#include <Shlwapi.h>
 #include <Winerror.h>
 #include <comutil.h>
 

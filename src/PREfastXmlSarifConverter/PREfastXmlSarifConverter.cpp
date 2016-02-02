@@ -6,7 +6,10 @@
 #include "DefectXmlFormat.h"
 
 extern "C" {__declspec(dllexport) BSTR __stdcall ConvertToSarif(BSTR bstrFilePath); }
-HRESULT __stdcall ConvertToSarifHelper(BSTR bstrInputFile, BSTR bstrOutputFile, BSTR* pbstrSarifText);
+extern "C" {__declspec(dllexport) BSTR __stdcall ConvertToSarifFromXml(BSTR bstrXmlText); }
+
+HRESULT __stdcall ConvertToSarifHelperFromText(BSTR bstrXmlText, BSTR* pbstrSarifText);
+HRESULT __stdcall ConvertToSarifHelperFromFile(BSTR bstrInputFile, BSTR bstrOutputFile, BSTR* pbstrSarifText);
 
 class XmlToSarifConverter
 {
@@ -169,18 +172,10 @@ private:
 		return true;
 	}
 
-public:
-	static bool LoadXmlDefects(const std::wstring &xmlFile, std::deque<XmlDefect> &defectList)
+	bool InternalLoadXmlDefects(IStream *pInStream, std::deque<XmlDefect> &defectList)
 	{
-		IStream *pInFileStream = NULL;
-		HRESULT hr;
-		if (FAILED(hr = SHCreateStreamOnFile(xmlFile.c_str(), STGM_READ, &pInFileStream)))
-		{
-			wprintf(L"Error creating file reader, error is %08.8lx", hr);
-			return false;
-		}
-
 		IXmlReader *pReader = NULL;
+		HRESULT hr; 
 		if (FAILED(hr = CreateXmlReader(__uuidof(IXmlReader), (void**)&pReader, NULL)))
 		{
 			wprintf(L"Error creating xml reader, error is %08.8lx", hr);
@@ -188,12 +183,10 @@ public:
 		}
 
 		IXmlReaderInput *pReaderInput = NULL;
-		pReader->SetInput(pInFileStream);
+		pReader->SetInput(pInStream);
 
 		pReader->SetProperty(XmlReaderProperty_DtdProcessing, DtdProcessing_Prohibit);
 
-
-		XmlToSarifConverter converter;
 		while (!pReader->IsEOF())
 		{
 			XmlNodeType nodeType;
@@ -216,14 +209,40 @@ public:
 				if (wcscmp(wszLocalName, L"DEFECT") == 0)
 				{
 					XmlDefect defect;
-					if (converter.ReadDefect(pReader, defect))
+					if (ReadDefect(pReader, defect))
 						defectList.push_back(defect);
 				}
 			}
 		}
-
 		return true;
 	}
+
+public:
+
+	static bool LoadXmlDefectFromString(const std::wstring xmlText, std::deque<XmlDefect> &defectList)
+	{
+		_bstr_t inpString = xmlText.c_str();
+		IStream *pInStream = SHCreateMemStream( (BYTE*) inpString.operator char *(), inpString.length());
+		
+		XmlToSarifConverter converter;
+		return converter.InternalLoadXmlDefects(pInStream, defectList);
+	}
+
+	static bool LoadXmlDefects(const std::wstring &xmlFile, std::deque<XmlDefect> &defectList)
+	{
+		IStream *pInFileStream = NULL;
+		HRESULT hr;
+		if (FAILED(hr = SHCreateStreamOnFile(xmlFile.c_str(), STGM_READ, &pInFileStream)))
+		{
+			wprintf(L"Error creating file reader, error is %08.8lx", hr);
+			return false;
+		}
+
+		XmlToSarifConverter converter;
+		return converter.InternalLoadXmlDefects(pInFileStream, defectList);
+		
+	}
+
 };
 
 #if BUILD_CONSOLE
@@ -232,18 +251,28 @@ int main(int argc, char * argv[])
 	if (argc != 2 && argc != 3)
 	{
 		std::wcout << "Usage: PREfastSarifConverter.exe <XmlFilename> [output.sarif] \n";
+		std::wcout << "Usage: PREfastSarifConverter.exe <XmlText> \n";
 		return -1;
 	}
 
 	BSTR bstrInputFile = _bstr_t(argv[1]);
 	BSTR bstrOutputFile = NULL;
-
 	if (argc == 3)
 	{
 		bstrOutputFile = _bstr_t(argv[2]);
 	}
-	
-	return ConvertToSarifHelper(bstrInputFile, bstrOutputFile, NULL);
+
+	std::ifstream ifs(bstrInputFile);
+
+	if (ifs)
+	{
+		ifs.close();
+		ConvertToSarifHelperFromFile(bstrInputFile, bstrOutputFile, NULL);
+	}
+	else
+	{
+		ConvertToSarifHelperFromText(bstrInputFile, NULL);
+	}
 }
 #endif
 
@@ -252,17 +281,20 @@ extern "C"
 	__declspec(dllexport) BSTR __stdcall ConvertToSarif(BSTR bstrFilePath)
 	{
 		BSTR bstrResult;
-		ConvertToSarifHelper(bstrFilePath, NULL, &bstrResult);
+		ConvertToSarifHelperFromFile(bstrFilePath, NULL, &bstrResult);
+		return bstrResult;
+	}
+
+	__declspec(dllexport) BSTR __stdcall ConvertToSarifFromXml(BSTR bstrXmlText)
+	{
+		BSTR bstrResult;
+		ConvertToSarifHelperFromText(bstrXmlText, &bstrResult);
 		return bstrResult;
 	}
 }
 
-HRESULT __stdcall ConvertToSarifHelper(BSTR bstrInputFile, BSTR bstrOutputFile, BSTR* pbstrSarifText)
+HRESULT __stdcall Convert(const std::deque<XmlDefect> defectList, BSTR bstrOutputFile, BSTR* pbstrSarifText)
 {
-	std::wstring filename = bstrInputFile;
-	std::deque<XmlDefect> defectList;
-	XmlToSarifConverter::LoadXmlDefects(filename, defectList);
-
 	SarifIssueLog issueLog;
 	issueLog.SetVersion(L"0.4");
 
@@ -285,7 +317,7 @@ HRESULT __stdcall ConvertToSarifHelper(BSTR bstrInputFile, BSTR bstrOutputFile, 
 	runLog.SetToolInfo(toolInfo);
 	runLog.SetRunInfo(runInfo);
 
-	for (XmlDefect &defect : defectList)
+	for (const XmlDefect &defect : defectList)
 	{
 		SarifRegion region;
 		region.SetStartColumn(defect.m_sfa.GetColumnNo());
@@ -414,4 +446,22 @@ HRESULT __stdcall ConvertToSarifHelper(BSTR bstrInputFile, BSTR bstrOutputFile, 
 		wprintf_s(L"%s", out.c_str());
 	}
 	return S_OK;
+}
+
+HRESULT __stdcall ConvertToSarifHelperFromText(BSTR bstrXmlText, BSTR* pbstrSarifText)
+{
+	std::wstring xmlText = bstrXmlText;
+	std::deque<XmlDefect> defectList;
+	XmlToSarifConverter::LoadXmlDefectFromString(xmlText, defectList);
+
+	return Convert(defectList, NULL, pbstrSarifText);
+}
+
+HRESULT __stdcall ConvertToSarifHelperFromFile(BSTR bstrInputFile, BSTR bstrOutputFile, BSTR* pbstrSarifText)
+{
+	std::wstring filename = bstrInputFile;
+	std::deque<XmlDefect> defectList;
+	XmlToSarifConverter::LoadXmlDefects(filename, defectList);
+
+	return Convert(defectList, bstrOutputFile, pbstrSarifText);
 }
