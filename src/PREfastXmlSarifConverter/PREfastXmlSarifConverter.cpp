@@ -251,7 +251,6 @@ int main(int argc, char * argv[])
 	if (argc != 2 && argc != 3)
 	{
 		std::wcout << "Usage: PREfastSarifConverter.exe <XmlFilename> [output.sarif] \n";
-		std::wcout << "Usage: PREfastSarifConverter.exe <XmlText> \n";
 		return -1;
 	}
 
@@ -262,17 +261,7 @@ int main(int argc, char * argv[])
 		bstrOutputFile = _bstr_t(argv[2]);
 	}
 
-	std::ifstream ifs(bstrInputFile);
-
-	if (ifs)
-	{
-		ifs.close();
-		ConvertToSarifHelperFromFile(bstrInputFile, bstrOutputFile, NULL);
-	}
-	else
-	{
-		ConvertToSarifHelperFromText(bstrInputFile, NULL);
-	}
+	ConvertToSarifHelperFromFile(bstrInputFile, bstrOutputFile, NULL);
 }
 #endif
 
