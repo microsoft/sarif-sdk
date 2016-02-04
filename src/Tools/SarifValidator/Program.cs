@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using CommandLine;
+using Microsoft.CodeAnalysis.Sarif.Driver;
 
 namespace Microsoft.CodeAnalysis.Sarif.SarifValidator
 {
@@ -37,6 +38,11 @@ namespace Microsoft.CodeAnalysis.Sarif.SarifValidator
                 {
                     Console.WriteLine(Resources.FileContainsErrors, errors.Count);
                     errors.ForEach(e => Console.WriteLine(e));
+                }
+
+                using (var logBuilder = new ResultLogBuilder(options, new FileSystem()))
+                {
+                    logBuilder.BuildLog(errors);
                 }
             }
             catch (Exception ex)

@@ -20,5 +20,12 @@ namespace Microsoft.CodeAnalysis.Sarif.SarifValidator
             HelpText = "Path of the SARIF file to validate",
             Required = true)]
         public string InstanceFilePath { get; set; }
+
+        [Option(
+            'l',
+            "log-file-path",
+            HelpText = "Path to SARIF log file containing the results of the validation",
+            Default = "sarif.log")]
+        public string LogFilePath { get; set; }
     }
 }

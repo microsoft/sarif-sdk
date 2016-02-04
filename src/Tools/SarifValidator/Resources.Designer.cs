@@ -97,11 +97,65 @@ namespace Microsoft.CodeAnalysis.Sarif.SarifValidator {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to JSON schema validation error: {0}.
+        /// </summary>
+        internal static string JsonSchemaValidationErrorMessageFormat {
+            get {
+                return ResourceManager.GetString("JsonSchemaValidationErrorMessageFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The file contains a JSON schema validation error..
+        /// </summary>
+        internal static string JsonSchemaValidationErrorRuleDescription {
+            get {
+                return ResourceManager.GetString("JsonSchemaValidationErrorRuleDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to JSON syntax error: {0}.
+        /// </summary>
+        internal static string JsonSyntaxErrorMessageFormat {
+            get {
+                return ResourceManager.GetString("JsonSyntaxErrorMessageFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The file contains a JSON syntax error..
+        /// </summary>
+        internal static string JsonSyntaxErrorRuleDescription {
+            get {
+                return ResourceManager.GetString("JsonSyntaxErrorRuleDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The file is syntactically correct and valid according to the schema..
         /// </summary>
         internal static string Success {
             get {
                 return ResourceManager.GetString("Success", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unknown error kind: {0}.
+        /// </summary>
+        internal static string UnknownErrorMessageFormat {
+            get {
+                return ResourceManager.GetString("UnknownErrorMessageFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The JSON validator reported an error of an unknown kind..
+        /// </summary>
+        internal static string UnknownErrorRuleDescription {
+            get {
+                return ResourceManager.GetString("UnknownErrorRuleDescription", resourceCulture);
             }
         }
     }
