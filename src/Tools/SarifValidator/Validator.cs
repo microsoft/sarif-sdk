@@ -1,3 +1,6 @@
+// Copyright (c) Microsoft. All rights reserved. Licensed under the MIT        
+// license. See LICENSE file in the project root for full license information. 
+
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -11,7 +14,7 @@ namespace Microsoft.CodeAnalysis.Sarif.SarifValidator
 {
     internal static class Validator
     {
-        internal static IEnumerable<JSONError> ValidateFile(string instanceFilePath, string schemaFilePath)
+        internal static IEnumerable<JsonError> ValidateFile(string instanceFilePath, string schemaFilePath)
         {
             string instanceText = File.ReadAllText(instanceFilePath);
             string schemaText = File.ReadAllText(schemaFilePath);
@@ -19,15 +22,15 @@ namespace Microsoft.CodeAnalysis.Sarif.SarifValidator
             return Validate(instanceText, schemaText);
         }
 
-        private static IEnumerable<JSONError> Validate(string instanceText, string schemaText)
+        private static IEnumerable<JsonError> Validate(string instanceText, string schemaText)
         {
-            List<JSONError> errors = new List<JSONError>();
+            List<JsonError> errors = new List<JsonError>();
 
             JSONDocument instanceDocument = JSONParser.Parse(instanceText);
-            AddSyntaxErrors(instanceDocument, JSONErrorLocation.InstanceDocument, errors);
+            AddSyntaxErrors(instanceDocument, JsonErrorLocation.InstanceDocument, errors);
 
             JSONDocument schemaDocument = JSONParser.Parse(schemaText);
-            AddSyntaxErrors(schemaDocument, JSONErrorLocation.Schema, errors);
+            AddSyntaxErrors(schemaDocument, JsonErrorLocation.Schema, errors);
 
             var loader = new JSONDocumentLoader();
             loader.SetCacheItem(new JSONDocumentLoadResult(instanceDocument));
@@ -44,13 +47,13 @@ namespace Microsoft.CodeAnalysis.Sarif.SarifValidator
             return errors;
         }
 
-        private static void AddSyntaxErrors(JSONDocument document, JSONErrorLocation location, List<JSONError> errors)
+        private static void AddSyntaxErrors(JSONDocument document, JsonErrorLocation location, List<JsonError> errors)
         {
             foreach (Tuple<JSONParseItem, JSONParseError> parserError in document.GetContainedParseErrors())
             {
-                errors.Add(new JSONError
+                errors.Add(new JsonError
                 {
-                    Kind = JSONErrorKind.Syntax,
+                    Kind = JsonErrorKind.Syntax,
                     Start = parserError.Item1.Start,
                     Length = parserError.Item1.Length,
                     Location = location,
@@ -59,16 +62,16 @@ namespace Microsoft.CodeAnalysis.Sarif.SarifValidator
             }
         }
 
-        private static void AddValidationErrors(HashSet<JSONSchemaValidationIssue> validationIssues, List<JSONError> errors)
+        private static void AddValidationErrors(HashSet<JSONSchemaValidationIssue> validationIssues, List<JsonError> errors)
         {
             foreach (JSONSchemaValidationIssue issue in validationIssues)
             {
-                errors.Add(new JSONError
+                errors.Add(new JsonError
                 {
-                    Kind = JSONErrorKind.Validation,
+                    Kind = JsonErrorKind.Validation,
                     Start = issue.TargetItem.Start,
                     Length = issue.TargetItem.Length,
-                    Location = JSONErrorLocation.InstanceDocument,
+                    Location = JsonErrorLocation.InstanceDocument,
                     Message = issue.Message
                 });
             }

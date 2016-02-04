@@ -45,8 +45,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ConsoleUtil.cs" />
-    <Compile Include="JSONError.cs" />
+    <Compile Include="JsonError.cs" />
     <Compile Include="Options.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

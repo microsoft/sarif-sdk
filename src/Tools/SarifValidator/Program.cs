@@ -1,3 +1,6 @@
+// Copyright (c) Microsoft. All rights reserved. Licensed under the MIT        
+// license. See LICENSE file in the project root for full license information. 
+
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -19,21 +22,20 @@ namespace Microsoft.CodeAnalysis.Sarif.SarifValidator
             int rc = 1;
 
             Banner();
-            ShowOptions(options);
 
             try
             {
-                List<JSONError> errors =
+                List<JsonError> errors =
                     Validator.ValidateFile(options.InstanceFilePath, options.SchemaFilePath)
                     .ToList();
                 if (errors.Count == 0)
                 {
-                    ConsoleUtil.WriteSuccess(Resources.Success);
+                    Console.WriteLine(Resources.Success);
                     rc = 0;
                 }
                 else
                 {
-                    ConsoleUtil.WriteError(Resources.FileContainsErrors, errors.Count);
+                    Console.WriteLine(Resources.FileContainsErrors, errors.Count);
                     errors.ForEach(e => Console.WriteLine(e));
                 }
             }
@@ -54,20 +56,9 @@ namespace Microsoft.CodeAnalysis.Sarif.SarifValidator
             Console.WriteLine();
         }
 
-        private static void ShowOptions(Options options)
-        {
-            Console.WriteLine(
-                string.Format(
-                    CultureInfo.CurrentCulture,
-                    Resources.Options,
-                    options.InstanceFilePath,
-                    options.SchemaFilePath));
-            Console.WriteLine();
-        }
-
         private static void ReportException(Exception ex)
         {
-            ConsoleUtil.WriteError(
+            Console.WriteLine(
                 string.Format(
                     CultureInfo.CurrentCulture,
                     Resources.Exception,

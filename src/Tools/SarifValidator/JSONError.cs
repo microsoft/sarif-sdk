@@ -1,22 +1,25 @@
-﻿namespace Microsoft.CodeAnalysis.Sarif.SarifValidator
+﻿// Copyright (c) Microsoft. All rights reserved. Licensed under the MIT        
+// license. See LICENSE file in the project root for full license information. 
+
+namespace Microsoft.CodeAnalysis.Sarif.SarifValidator
 {
-    public enum JSONErrorKind
+    public enum JsonErrorKind
     {
         Syntax,
         Validation
     }
 
-    public enum JSONErrorLocation
+    public enum JsonErrorLocation
     {
         InstanceDocument,
         Schema
     }
 
-    public class JSONError
+    public class JsonError
     {
-        public JSONErrorLocation Location { get; set; }
+        public JsonErrorLocation Location { get; set; }
 
-        public JSONErrorKind Kind { get; set; }
+        public JsonErrorKind Kind { get; set; }
 
         public string Message { get; set; }
 

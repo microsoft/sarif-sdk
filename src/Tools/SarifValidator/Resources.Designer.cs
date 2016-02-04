@@ -97,16 +97,6 @@ namespace Microsoft.CodeAnalysis.Sarif.SarifValidator {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Input file:  {0}
-        ///Schema file: {1}.
-        /// </summary>
-        internal static string Options {
-            get {
-                return ResourceManager.GetString("Options", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to The file is syntactically correct and valid according to the schema..
         /// </summary>
         internal static string Success {

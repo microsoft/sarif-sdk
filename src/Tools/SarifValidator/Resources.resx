@@ -129,10 +129,6 @@
   <data name="FileContainsErrors" xml:space="preserve">
     <value>The file contains {0} errors.</value>
   </data>
-  <data name="Options" xml:space="preserve">
-    <value>Input file:  {0}
-Schema file: {1}</value>
-  </data>
   <data name="Success" xml:space="preserve">
     <value>The file is syntactically correct and valid according to the schema.</value>
   </data>
