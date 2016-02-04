@@ -4,50 +4,50 @@
 // *                                                       *
 // ********************************************************/
 
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Globalization;
 using System.IO;
 using System.Text;
 
+using FluentAssertions;
+
 using Microsoft.CodeAnalysis.Sarif.Readers;
-using Microsoft.CodeAnalysis.Sarif.Sdk;
 
 using Newtonsoft.Json;
 
+using Xunit;
+
 namespace Microsoft.CodeAnalysis.Sarif.Converters
 {
-    [TestClass]
-    [DeploymentItem(SarifConverterTests.TestDirectory, SarifConverterTests.TestDirectory)]
     public class SarifConverterTests
     {
         public const string TestDirectory = "SarifConverterTestData";
 
-        [TestMethod]
+        [Fact]
         public void AndroidStudioConverter_EndToEnd()
         {
             BatchRunConverter(ToolFormat.AndroidStudio);
         }
 
-        [TestMethod]
+        [Fact]
         public void ClangAnalyzerConverter_EndToEnd()
         {
             BatchRunConverter(ToolFormat.ClangAnalyzer);
         }
 
-        [TestMethod]
+        [Fact]
         public void CppCheckConverter_EndToEnd()
         {
             BatchRunConverter(ToolFormat.CppCheck);
         }
 
-        [TestMethod]
+        [Fact]
         public void FortifyConverter_EndToEnd()
         {
             BatchRunConverter(ToolFormat.Fortify);
         }
 
-        [TestMethod]
+        [Fact]
         public void FxCopConverter_EndToEnd()
         {
             BatchRunConverter(ToolFormat.FxCop);
@@ -73,15 +73,16 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 RunConverter(sb, tool, file);
             }
 
-            if (sb.Length == 0)
-            {
-                // Test passes
-                return;
-            }
+            sb.Length.Should().Be(0, FormatFailureReason(sb, toolName));
+        }
 
-            string rebaselineMessage = "If the actual output is expected, generate new baselines for {0} by executing `UpdateBaselines.ps1 {0}` from a CBT command prompt, or `UpdateBaselines.ps1` to update baselines for all tools.";
-            sb.AppendLine(String.Format(CultureInfo.CurrentCulture, rebaselineMessage, toolName));
-            Assert.Fail(sb.ToString());
+        private static string FormatFailureReason(StringBuilder sb, string toolName)
+        {
+            sb.Insert(0, "the converted tool file should have matched the supplied SARIF file. ");
+
+            string rebaselineMessage = "If the actual output is expected, generate new baselines for {0} by executing `UpdateBaselines.ps1 {0}` from a developer command prompt, or `UpdateBaselines.ps1` to update baselines for all tools.";
+            sb.AppendLine(string.Format(CultureInfo.CurrentCulture, rebaselineMessage, toolName));
+            return sb.ToString();
         }
 
         private void RunConverter(StringBuilder sb, ToolFormat tool, string inputFileName)
