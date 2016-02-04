@@ -73,11 +73,6 @@ goto ExitFailed
 @REM Run all tests
 SET PASSED=true
 
-mstest /testContainer:bld\bin\Sarif.FunctionalTests\AnyCPU_Release\Sarif.FunctionalTests.dll
-if "%ERRORLEVEL%" NEQ "0" (
-set PASSED=false
-)
-
 mstest /testContainer:bld\bin\Sarif.UnitTests\AnyCPU_Release\Sarif.UnitTests.dll
 if "%ERRORLEVEL%" NEQ "0" (
 set PASSED=false
@@ -87,11 +82,13 @@ if "%PASSED%" NEQ "true" (
 goto ExitFailed
 )
 
-@REM 
-@REM SDK DRIVER BUILD
-@REM 
-
 src\packages\xunit.runner.console.2.1.0\tools\xunit.console.x86.exe bld\bin\Sarif.Driver.UnitTests\AnyCPU_Release\Sarif.Driver.UnitTests.dll
+
+if "%ERRORLEVEL%" NEQ "0" (
+goto ExitFailed
+)
+
+src\packages\xunit.runner.console.2.1.0\tools\xunit.console.x86.exe bld\bin\Sarif.FunctionalTests\AnyCPU_Release\Sarif.FunctionalTests.dll
 
 if "%ERRORLEVEL%" NEQ "0" (
 goto ExitFailed
