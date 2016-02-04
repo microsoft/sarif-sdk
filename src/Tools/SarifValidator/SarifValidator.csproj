@@ -15,7 +15,7 @@
     <!-- Override the TargetFrameworkVersion specified in build.props. This project must target
          .NET 4.6 because the assemblies from the SarifValidationLibraries NuGet package,
          upon which this project depends, target that version. -->
-    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>    
+    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
     <AssemblyOriginatorKeyFile>..\..\..\GeneratedKey.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>
@@ -66,6 +66,12 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Sarif\Sarif.csproj">
+      <Project>{cc9b247e-7103-4bf7-bdab-6e625b3680a8}</Project>
+      <Name>Sarif</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
