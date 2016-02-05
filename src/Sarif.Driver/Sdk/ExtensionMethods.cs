@@ -84,7 +84,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
                 var lastComponent = components.Last();
                 messageLines.Add(
                     string.Format(
-                        CultureInfo.InvariantCulture, "{0}:{1} {2} {3}: {4}",
+                        CultureInfo.InvariantCulture, "{0}{1}: {2} {3}: {4}",
                         lastComponent.Uri.AbsolutePath,
                         lastComponent.Region.FormatForVisualStudio(),
                         result.Kind.FormatForVisualStudio(),

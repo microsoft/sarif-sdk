@@ -71,6 +71,7 @@
     <Compile Include="ExceptionCondition.cs" />
     <Compile Include="ExceptionRaisingRule.cs" />
     <Compile Include="Sdk\ExtensionMethodsTests.cs" />
+    <Compile Include="Sdk\FormatForVisualStudioTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SarifHelpers.cs" />
     <Compile Include="TestAnalysisContext.cs" />
