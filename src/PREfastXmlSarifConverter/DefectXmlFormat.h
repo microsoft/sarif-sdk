@@ -38,11 +38,11 @@ public:
     {
     }
 
-	const wchar_t* GetId() const { return m_id.c_str(); }
-	const wchar_t* GetKind() const { return m_kind.c_str(); }
-	const wchar_t* GetImportance() const { return m_importance.c_str(); }
-	const wchar_t* GetMessage() const { return m_message.c_str(); }
-	bool IsValid() const { return m_valid; }
+    const wchar_t* GetId() const { return m_id.c_str(); }
+    const wchar_t* GetKind() const { return m_kind.c_str(); }
+    const wchar_t* GetImportance() const { return m_importance.c_str(); }
+    const wchar_t* GetMessage() const { return m_message.c_str(); }
+    bool IsValid() const { return m_valid; }
 
     void SetId(const wchar_t *id) { m_id = id;  }
     void SetKind(const wchar_t *kind) { m_kind = kind; }
