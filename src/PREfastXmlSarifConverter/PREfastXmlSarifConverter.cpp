@@ -14,6 +14,96 @@ HRESULT __stdcall ConvertToSarifHelperFromFile(BSTR bstrInputFile, BSTR bstrOutp
 class XmlToSarifConverter
 {
 private:
+	
+	bool ReadCategory(IXmlReader *pReader, std::map<bstr_t, bstr_t>  &category)
+	{
+		while (!pReader->IsEOF())
+		{
+			XmlNodeType nodeType;
+			HRESULT hr = pReader->Read(&nodeType);
+			if (hr != S_OK)
+				break;
+
+			if (nodeType == XmlNodeType_Element)
+			{
+				LPCWSTR wszPrefix, wszLocalName, wszValue;
+				UINT cchPrefix, cchLocalName, cchValue;
+
+				pReader->GetPrefix(&wszPrefix, &cchPrefix);
+				pReader->GetLocalName(&wszLocalName, &cchLocalName);
+				pReader->GetValue(&wszValue, &cchValue);
+
+				if (wcslen(wszLocalName) > 0)
+				{
+					HRESULT hr = pReader->Read(&nodeType);
+					pReader->GetValue(&wszValue, &cchValue);
+					category[wszLocalName] = wszValue;
+				}
+				pReader->Read(&nodeType);
+			}
+			else if (nodeType == XmlNodeType_EndElement)
+			{
+				break;
+			}
+		}
+
+		return true;
+	}
+
+	bool ReadKeyEvent(IXmlReader *pReader, XmlKeyEvent &event)
+	{
+		while (!pReader->IsEOF())
+		{
+			XmlNodeType nodeType;
+			HRESULT hr = pReader->Read(&nodeType);
+			if (hr != S_OK)
+				break;
+
+			if (nodeType == XmlNodeType_Element)
+			{
+				LPCWSTR wszPrefix, wszLocalName, wszValue;
+				UINT cchPrefix, cchLocalName, cchValue;
+
+				pReader->GetPrefix(&wszPrefix, &cchPrefix);
+				pReader->GetLocalName(&wszLocalName, &cchLocalName);
+				pReader->GetValue(&wszValue, &cchValue);
+
+				if (wcscmp(wszLocalName, L"ID") == 0)
+				{
+					HRESULT hr = pReader->Read(&nodeType);
+					pReader->GetValue(&wszValue, &cchValue);
+					event.SetId(wszValue);
+					event.SetIsValid(true);
+				}
+				else if (wcscmp(wszLocalName, L"KIND") == 0)
+				{
+					HRESULT hr = pReader->Read(&nodeType);
+					pReader->GetValue(&wszValue, &cchValue);
+					event.SetKind(wszValue);
+				}
+				else if (wcscmp(wszLocalName, L"IMPORTANCE") == 0)
+				{
+					HRESULT hr = pReader->Read(&nodeType);
+					pReader->GetValue(&wszValue, &cchValue);
+					event.SetImportance(wszValue);
+				}
+				else if (wcscmp(wszLocalName, L"MESSAGE") == 0)
+				{
+					HRESULT hr = pReader->Read(&nodeType);
+					pReader->GetValue(&wszValue, &cchValue);
+					event.SetMessage(wszValue);
+				}
+				pReader->Read(&nodeType);
+			}
+			else if (nodeType == XmlNodeType_EndElement)
+			{
+				break;
+			}
+		}
+
+		return true;
+	}
+
 	bool ReadSFA(IXmlReader *pReader, XmlSfa &sfa)
 	{
 		while (!pReader->IsEOF())
@@ -57,6 +147,12 @@ private:
 					pReader->GetValue(&wszValue, &cchValue);
 					sfa.SetLineNo(wszValue);
 				}
+				else if (wcscmp(wszLocalName, L"KEYEVENT") == 0)
+				{
+					XmlKeyEvent keyEvent;
+					ReadKeyEvent(pReader, keyEvent);
+					sfa.SetKeyEvent(keyEvent);
+				}
 				pReader->Read(&nodeType); // Covers an end element tag
 			}
 			else if (nodeType == XmlNodeType_EndElement)
@@ -92,6 +188,7 @@ private:
 					ReadSFA(pReader, sfa);
 					path.push_back(sfa);
 				}
+				pReader->Read(&nodeType);
 			}
 			else if (nodeType == XmlNodeType_EndElement)
 			{
@@ -124,11 +221,11 @@ private:
 
 				if (wcscmp(wszLocalName, L"SFA") == 0)
 				{
-					ReadSFA(pReader, defect.m_sfa);
+					ReadSFA(pReader, defect.m_sfa); 
 				}
 				else if (wcscmp(wszLocalName, L"PATH") == 0)
 				{
-					ReadPath(pReader, defect.m_path);
+					ReadPath(pReader, defect.m_path); 
 				}
 				// probability and rank
 				else if (wcscmp(wszLocalName, L"DEFECTCODE") == 0)
@@ -160,6 +257,30 @@ private:
 					HRESULT hr = pReader->Read(&nodeType);
 					pReader->GetValue(&wszValue, &cchValue);
 					defect.SetFunctionLine(wszValue);
+				}
+				else if (wcscmp(wszLocalName, L"PROBABILITY") == 0)
+				{
+					HRESULT hr = pReader->Read(&nodeType);
+					pReader->GetValue(&wszValue, &cchValue);
+					defect.SetProbability(wszValue);
+				}
+				else if (wcscmp(wszLocalName, L"RANK") == 0)
+				{
+					HRESULT hr = pReader->Read(&nodeType);
+					pReader->GetValue(&wszValue, &cchValue);
+					defect.SetRank(wszValue);
+				}
+				else if (wcscmp(wszLocalName, L"CATEGORY") == 0)
+				{
+					HRESULT hr = pReader->Read(&nodeType);
+					pReader->GetValue(&wszValue, &cchValue);
+					ReadCategory(pReader, defect.m_category); 
+				}	
+				else if (wcscmp(wszLocalName, L"ADDITIONALINFO") == 0)
+				{
+					HRESULT hr = pReader->Read(&nodeType);
+					pReader->GetValue(&wszValue, &cchValue);
+					ReadCategory(pReader, defect.m_additionalInfo);
 				}
 				pReader->Read(&nodeType);
 			}
