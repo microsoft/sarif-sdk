@@ -11,9 +11,11 @@ namespace Microsoft.CodeAnalysis.Sarif.SarifValidator
     internal class ResultLogBuilder: IDisposable
     {
         private readonly Options _options;
+        private readonly IFileSystem _fileSystem;
         private readonly SarifLogger _logger;
-        private readonly NewLineIndex _instanceFileIndex;
-        private readonly NewLineIndex _schemaFileIndex;
+
+        private NewLineIndex _instanceFileIndex;
+        private NewLineIndex _schemaFileIndex;
 
         private const string JsonMimeType = "application/json";
 
@@ -68,6 +70,7 @@ namespace Microsoft.CodeAnalysis.Sarif.SarifValidator
         public ResultLogBuilder(Options options, IFileSystem fileSystem)
         {
             _options = options;
+            _fileSystem = fileSystem;
 
             _logger = new SarifLogger(
                 _options.LogFilePath,
@@ -75,9 +78,32 @@ namespace Microsoft.CodeAnalysis.Sarif.SarifValidator
                 new[] { _options.InstanceFilePath, _options.SchemaFilePath },
                 false,          // Do not compute target hash.
                 null);          // The version of this tool has no prerelease info.
+        }
 
-            _instanceFileIndex = new NewLineIndex(fileSystem.ReadAllText(_options.InstanceFilePath));
-            _schemaFileIndex = new NewLineIndex(fileSystem.ReadAllText(_options.SchemaFilePath));
+        private NewLineIndex InstanceFileIndex
+        {
+            get
+            {
+                if (_instanceFileIndex == null)
+                {
+                    _instanceFileIndex = new NewLineIndex(_fileSystem.ReadAllText(_options.InstanceFilePath));
+                }
+
+                return _instanceFileIndex;
+            }
+        }
+
+        private NewLineIndex SchemaFileIndex
+        {
+            get
+            {
+                if (_schemaFileIndex == null)
+                {
+                    _schemaFileIndex = new NewLineIndex(_fileSystem.ReadAllText(_options.SchemaFilePath));
+                }
+
+                return _schemaFileIndex;
+            }
         }
 
         internal void BuildLog(List<JsonError> errors)
@@ -122,12 +148,12 @@ namespace Microsoft.CodeAnalysis.Sarif.SarifValidator
             {
                 case JsonErrorLocation.InstanceDocument:
                     analysisTargetFilePath = _options.InstanceFilePath;
-                    index = _instanceFileIndex;
+                    index = InstanceFileIndex;
                     break;
 
                 case JsonErrorLocation.Schema:
                     analysisTargetFilePath = _options.SchemaFilePath;
-                    index = _schemaFileIndex;
+                    index = SchemaFileIndex;
                     break;
 
                 default:
