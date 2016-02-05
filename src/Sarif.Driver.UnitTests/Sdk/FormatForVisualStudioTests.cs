@@ -8,7 +8,7 @@ using Xunit;
 namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
 {
     // These tests test the extension method Result.FormatForVisualStudio.
-    // But by providing various Region objects and ResultKind value, they
+    // But by providing various Region objects and ResultKind values, they
     // also exercise Region.FormatForVisualStudio and ResultKind.FormatForVisualStudio.
     public class FormatForVisualStudioTests
     {
@@ -49,6 +49,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
 
         public static IEnumerable<object[]> ResultFormatForVisualStudioTestCases => new[]
         {
+            // Test each ResultKind value.
             new object[]
             {
                 ResultKind.Error,
@@ -105,6 +106,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
                 $"{DisplayedTarget}(2,4,3,5): info {TestRuleId}: First: 42, Second: 54"
             },
 
+            // Test formatting of a single-line region (previous tests used a multi-line region).
             new object[]
             {
                 ResultKind.Error,
