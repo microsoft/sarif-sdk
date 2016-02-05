@@ -22,7 +22,7 @@ namespace Microsoft.CodeAnalysis.Sarif.SarifValidator
         private const string UnknownErrorFormatSpecifier = "unknownError";
 
         private static readonly RuleDescriptor UnknownErrorRule = new RuleDescriptor(
-            "SV0000",
+            "SV0001",
             "UnknownError",
             Resources.UnknownErrorRuleDescription,
             Resources.UnknownErrorRuleDescription,
