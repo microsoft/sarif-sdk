@@ -22,10 +22,9 @@ namespace Microsoft.CodeAnalysis.Sarif.SarifValidator
         public string InstanceFilePath { get; set; }
 
         [Option(
-            'l',
-            "log-file-path",
-            HelpText = "Path to SARIF log file containing the results of the validation",
-            Default = "sarif.log")]
-        public string LogFilePath { get; set; }
+            'o',
+            "output",
+            HelpText = "File path to which analysis output will be written. If omitted, defaults to the instance file name with the extension changed to \".sarif\"")]
+        public string OutputFilePath { get; set; }
     }
 }

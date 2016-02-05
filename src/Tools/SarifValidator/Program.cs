@@ -4,6 +4,7 @@
 using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.IO;
 using System.Linq;
 using CommandLine;
 using Microsoft.CodeAnalysis.Sarif.Driver;
@@ -24,6 +25,11 @@ namespace Microsoft.CodeAnalysis.Sarif.SarifValidator
             int rc = 1;
 
             Banner();
+
+            if (string.IsNullOrWhiteSpace(options.OutputFilePath))
+            {
+                options.OutputFilePath = MakeDefaultOutputFilePath(options.InstanceFilePath);
+            }
 
             try
             {
@@ -58,6 +64,11 @@ namespace Microsoft.CodeAnalysis.Sarif.SarifValidator
             }
 
             return rc;
+        }
+
+        private static string MakeDefaultOutputFilePath(string instanceFilePath)
+        {
+            return Path.GetFileNameWithoutExtension(instanceFilePath) + ".sarif";
         }
 
         private static void Banner()

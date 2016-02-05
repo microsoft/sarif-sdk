@@ -93,7 +93,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
                         ));
             }
 
-            return string.Join("\n", messageLines);
+            return string.Join(Environment.NewLine, messageLines);
         }
 
         public static string FormatForVisualStudio(this ResultKind kind)

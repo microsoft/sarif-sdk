@@ -75,7 +75,7 @@ namespace Microsoft.CodeAnalysis.Sarif.SarifValidator
             _messages = new List<string>();
 
             _logger = new SarifLogger(
-                _options.LogFilePath,
+                _options.OutputFilePath,
                 true,           // Produce verbose output.
                 new[] { _options.InstanceFilePath, _options.SchemaFilePath },
                 false,          // Do not compute target hash.
@@ -166,10 +166,7 @@ namespace Microsoft.CodeAnalysis.Sarif.SarifValidator
                     break;
             }
 
-            // Subtle: We make a Uri object out of the file path. The AbsoluteUri property
-            // of the resulting Uri is a string representation of the resulting "file://"
-            // Uri. We then convert that string into another Uri object.
-            Uri analysisTargetUri = new Uri(new Uri(analysisTargetFilePath).AbsoluteUri);
+            Uri analysisTargetUri = analysisTargetFilePath.CreateUriForJsonSerialization();
 
             switch (error.Kind)
             {
