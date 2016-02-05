@@ -7,6 +7,7 @@ using System.Globalization;
 using System.Linq;
 using CommandLine;
 using Microsoft.CodeAnalysis.Sarif.Driver;
+using Microsoft.CodeAnalysis.Sarif.Driver.Sdk;
 
 namespace Microsoft.CodeAnalysis.Sarif.SarifValidator
 {
@@ -29,6 +30,13 @@ namespace Microsoft.CodeAnalysis.Sarif.SarifValidator
                 List<JsonError> errors =
                     Validator.ValidateFile(options.InstanceFilePath, options.SchemaFilePath)
                     .ToList();
+
+                IEnumerable<string> messages = Enumerable.Empty<string>();
+                using (var logBuilder = new ResultLogBuilder(options, new FileSystem()))
+                {
+                    messages = logBuilder.BuildLog(errors);
+                }
+
                 if (errors.Count == 0)
                 {
                     Console.WriteLine(Resources.Success);
@@ -37,13 +45,12 @@ namespace Microsoft.CodeAnalysis.Sarif.SarifValidator
                 else
                 {
                     Console.WriteLine(Resources.FileContainsErrors, errors.Count);
-                    errors.ForEach(e => Console.WriteLine(e));
+                    foreach (var message in messages)
+                    {
+                        Console.WriteLine(message);
+                    }
                 }
 
-                using (var logBuilder = new ResultLogBuilder(options, new FileSystem()))
-                {
-                    logBuilder.BuildLog(errors);
-                }
             }
             catch (Exception ex)
             {

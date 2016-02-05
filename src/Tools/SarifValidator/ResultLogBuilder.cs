@@ -13,6 +13,7 @@ namespace Microsoft.CodeAnalysis.Sarif.SarifValidator
         private readonly Options _options;
         private readonly IFileSystem _fileSystem;
         private readonly SarifLogger _logger;
+        private readonly List<string> _messages;
 
         private NewLineIndex _instanceFileIndex;
         private NewLineIndex _schemaFileIndex;
@@ -71,6 +72,7 @@ namespace Microsoft.CodeAnalysis.Sarif.SarifValidator
         {
             _options = options;
             _fileSystem = fileSystem;
+            _messages = new List<string>();
 
             _logger = new SarifLogger(
                 _options.LogFilePath,
@@ -80,12 +82,14 @@ namespace Microsoft.CodeAnalysis.Sarif.SarifValidator
                 null);          // The version of this tool has no prerelease info.
         }
 
-        internal void BuildLog(List<JsonError> errors)
+        internal IEnumerable<string> BuildLog(List<JsonError> errors)
         {
             foreach (JsonError error in errors)
             {
                 LogError(error);
             }
+
+            return _messages;
         }
 
         private NewLineIndex InstanceFileIndex
@@ -120,6 +124,7 @@ namespace Microsoft.CodeAnalysis.Sarif.SarifValidator
             Result result = MakeResultFromError(error);
 
             _logger.Log(rule, result);
+            _messages.Add(result.FormatForVisualStudio(rule));
         }
 
         private static IRuleDescriptor GetRuleDescriptorForError(JsonError error)
