@@ -67,7 +67,7 @@ namespace Microsoft.CodeAnalysis.Sarif.SarifValidator
             null,           // properties
             null);          // tags
 
-        public ResultLogBuilder(Options options, IFileSystem fileSystem)
+        internal ResultLogBuilder(Options options, IFileSystem fileSystem)
         {
             _options = options;
             _fileSystem = fileSystem;
@@ -78,6 +78,14 @@ namespace Microsoft.CodeAnalysis.Sarif.SarifValidator
                 new[] { _options.InstanceFilePath, _options.SchemaFilePath },
                 false,          // Do not compute target hash.
                 null);          // The version of this tool has no prerelease info.
+        }
+
+        internal void BuildLog(List<JsonError> errors)
+        {
+            foreach (JsonError error in errors)
+            {
+                LogError(error);
+            }
         }
 
         private NewLineIndex InstanceFileIndex
@@ -103,14 +111,6 @@ namespace Microsoft.CodeAnalysis.Sarif.SarifValidator
                 }
 
                 return _schemaFileIndex;
-            }
-        }
-
-        internal void BuildLog(List<JsonError> errors)
-        {
-            foreach (JsonError error in errors)
-            {
-                LogError(error);
             }
         }
 
