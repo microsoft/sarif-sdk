@@ -129,7 +129,25 @@
   <data name="FileContainsErrors" xml:space="preserve">
     <value>The file contains {0} errors.</value>
   </data>
+  <data name="JsonSchemaValidationErrorMessageFormat" xml:space="preserve">
+    <value>JSON schema validation error: {0}</value>
+  </data>
+  <data name="JsonSchemaValidationErrorRuleDescription" xml:space="preserve">
+    <value>The file contains a JSON schema validation error.</value>
+  </data>
+  <data name="JsonSyntaxErrorMessageFormat" xml:space="preserve">
+    <value>JSON syntax error: {0}</value>
+  </data>
+  <data name="JsonSyntaxErrorRuleDescription" xml:space="preserve">
+    <value>The file contains a JSON syntax error.</value>
+  </data>
   <data name="Success" xml:space="preserve">
     <value>The file is syntactically correct and valid according to the schema.</value>
+  </data>
+  <data name="UnknownErrorMessageFormat" xml:space="preserve">
+    <value>Unknown error kind: {0}</value>
+  </data>
+  <data name="UnknownErrorRuleDescription" xml:space="preserve">
+    <value>The JSON validator reported an error of an unknown kind.</value>
   </data>
 </root>

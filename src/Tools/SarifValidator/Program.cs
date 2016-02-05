@@ -4,8 +4,11 @@
 using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.IO;
 using System.Linq;
 using CommandLine;
+using Microsoft.CodeAnalysis.Sarif.Driver;
+using Microsoft.CodeAnalysis.Sarif.Driver.Sdk;
 
 namespace Microsoft.CodeAnalysis.Sarif.SarifValidator
 {
@@ -23,11 +26,23 @@ namespace Microsoft.CodeAnalysis.Sarif.SarifValidator
 
             Banner();
 
+            if (string.IsNullOrWhiteSpace(options.OutputFilePath))
+            {
+                options.OutputFilePath = MakeDefaultOutputFilePath(options.InstanceFilePath);
+            }
+
             try
             {
                 List<JsonError> errors =
                     Validator.ValidateFile(options.InstanceFilePath, options.SchemaFilePath)
                     .ToList();
+
+                IEnumerable<string> messages = Enumerable.Empty<string>();
+                using (var logBuilder = new ResultLogBuilder(options, new FileSystem()))
+                {
+                    messages = logBuilder.BuildLog(errors);
+                }
+
                 if (errors.Count == 0)
                 {
                     Console.WriteLine(Resources.Success);
@@ -36,8 +51,12 @@ namespace Microsoft.CodeAnalysis.Sarif.SarifValidator
                 else
                 {
                     Console.WriteLine(Resources.FileContainsErrors, errors.Count);
-                    errors.ForEach(e => Console.WriteLine(e));
+                    foreach (var message in messages)
+                    {
+                        Console.WriteLine(message);
+                    }
                 }
+
             }
             catch (Exception ex)
             {
@@ -45,6 +64,11 @@ namespace Microsoft.CodeAnalysis.Sarif.SarifValidator
             }
 
             return rc;
+        }
+
+        private static string MakeDefaultOutputFilePath(string instanceFilePath)
+        {
+            return Path.GetFileNameWithoutExtension(instanceFilePath) + ".sarif";
         }
 
         private static void Banner()

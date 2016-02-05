@@ -158,7 +158,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
                 case ResultKind.Note:
                 case ResultKind.Pass:
                 {
-                        issueType = "note";
+                        issueType = "info";
                         break;
                     }
 

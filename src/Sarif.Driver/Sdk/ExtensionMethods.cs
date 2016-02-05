@@ -1,13 +1,118 @@
 ﻿// Copyright (c) Microsoft. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.using System;
 
+using System;
+using System.Collections.Generic;
 using System.Diagnostics;
-using Microsoft.CodeAnalysis.Sarif.Sdk;
+using System.Globalization;
+using System.Linq;
 
 namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
 {
     public static class ExtensionMethods
     {
+
+        public static string FormatForVisualStudio(this Region region)
+        {
+            if (region.StartLine < 0)
+            {
+                throw new NotImplementedException();
+            }
+
+            // VS supports the following formatting options:
+            //    (startLine)
+            //    (startLine-endLine)
+            //    (startLine,startColumn)
+            //    (startLine,startColumn-endColumn)
+            //    (startLine,startColumn,endLine,endColumn)
+
+            bool multiline = region.EndLine > region.StartLine;
+            bool multicolumn = (multiline || region.EndColumn > region.StartColumn);
+
+            if (multiline)
+            {
+                if (multicolumn && (region.StartColumn > 1 || region.EndColumn > 1))
+                {
+                    //  (startLine,startColumn,endLine,endColumn)
+                    return
+                        "(" +
+                        region.StartLine.ToString() + "," +
+                        (region.StartColumn > 0 ? region.StartColumn.ToString() : "1") + "," +
+                        region.EndLine.ToString() + "," +
+                        (region.EndColumn > 0 ? region.EndColumn.ToString() : "1") +
+                        ")";
+                }
+                //  (startLine-endLine)
+                return
+                    "(" +
+                    region.StartLine.ToString() + "-" + region.EndLine.ToString() +
+                    ")";
+            }
+
+            if (multicolumn)
+            {
+                // (startLine,startColumn-endColumn)
+                return
+                    "(" +
+                    region.StartLine.ToString() + "," +
+                    region.StartColumn.ToString() + "-" +
+                    region.EndColumn.ToString() +
+                    ")";
+            }
+
+            if (region.StartColumn > 1)
+            {
+                // (startLine,startColumn)
+                return
+                     "(" +
+                     region.StartLine.ToString() + "," + region.StartColumn.ToString() +
+                     ")";
+            }
+            // (startLine)
+            return
+                 "(" +
+                 region.StartLine.ToString() + "," + region.StartColumn.ToString() +
+                 ")";
+        }
+
+        public static string FormatForVisualStudio(this Result result, IRuleDescriptor rule)
+        {
+            var messageLines = new List<string>();
+            foreach (var location in result.Locations)
+            {
+                var components = location.ResultFile ?? location.AnalysisTarget;
+                var lastComponent = components.Last();
+                messageLines.Add(
+                    string.Format(
+                        CultureInfo.InvariantCulture, "{0}:{1} {2} {3}: {4}",
+                        lastComponent.Uri.AbsolutePath,
+                        lastComponent.Region.FormatForVisualStudio(),
+                        result.Kind.FormatForVisualStudio(),
+                        result.RuleId,
+                        result.GetMessageText(rule)
+                        ));
+            }
+
+            return string.Join(Environment.NewLine, messageLines);
+        }
+
+        public static string FormatForVisualStudio(this ResultKind kind)
+        {
+            switch (kind)
+            {
+                case ResultKind.Error:
+                case ResultKind.ConfigurationError:
+                case ResultKind.InternalError:
+                    return "error";
+
+                case ResultKind.Warning:
+                    return "warning";
+
+                default:
+                    return "info";
+            }
+        }
+
         /// <summary>
         /// Completely populate all Region property members. Missing data
         /// is computed based on the values that are already present.
