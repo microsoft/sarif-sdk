@@ -13,26 +13,14 @@
   <Import Project="$([MSBuild]::GetDirectoryNameOfFileAbove($(MSBuildThisFileDirectory).., build.props))\build.props" />
   <PropertyGroup>
     <!-- Override the TargetFrameworkVersion specified in build.props. This project must target
-         .NET 4.6 because the assemblies from the SarifValidationLibraries NuGet package,
-         upon which this project depends, target that version. -->
+         .NET 4.6 because the the Sarif.Validator project, upon which this project depends, targets
+         that version. -->
     <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
     <AssemblyOriginatorKeyFile>..\..\..\GeneratedKey.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="CommandLine, Version=2.0.275.0, Culture=neutral, PublicKeyToken=de6f01bd326f8c32, processorArchitecture=MSIL">
       <HintPath>..\..\packages\CommandLineParser.2.0.275-beta\lib\net45\CommandLine.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Microsoft.CSS.Core, Version=14.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Microsoft.CodeAnalysis.SarifValidationLibraries.1.0.0\lib\net46\Microsoft.CSS.Core.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Microsoft.JSON.Core, Version=14.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Microsoft.CodeAnalysis.SarifValidationLibraries.1.0.0\lib\net46\Microsoft.JSON.Core.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Microsoft.Web.Core, Version=14.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Microsoft.CodeAnalysis.SarifValidationLibraries.1.0.0\lib\net46\Microsoft.Web.Core.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
@@ -45,7 +33,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="JsonError.cs" />
     <Compile Include="Options.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -54,8 +41,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="ResultLogBuilder.cs" />
-    <Compile Include="Validator.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -71,6 +56,10 @@
     <ProjectReference Include="..\..\Sarif.Driver\Sarif.Driver.csproj">
       <Project>{8ceaea61-b1a2-4777-bcbe-c9a129a5f6c5}</Project>
       <Name>Sarif.Driver</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Sarif.Validation\Sarif.Validation.csproj">
+      <Project>{ea09f93d-153a-476f-9ff8-c2acc1c7f712}</Project>
+      <Name>Sarif.Validator</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\Sarif\Sarif.csproj">
       <Project>{cc9b247e-7103-4bf7-bdab-6e625b3680a8}</Project>

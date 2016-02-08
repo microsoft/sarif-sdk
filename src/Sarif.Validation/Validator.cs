@@ -10,11 +10,11 @@ using Microsoft.JSON.Core.Parser.TreeItems;
 using Microsoft.JSON.Core.Schema;
 using Microsoft.JSON.Core.Schema.Drafts.Draft4;
 
-namespace Microsoft.CodeAnalysis.Sarif.SarifValidator
+namespace Microsoft.CodeAnalysis.Sarif.Validation
 {
-    internal static class Validator
+    public static class Validator
     {
-        internal static IEnumerable<JsonError> ValidateFile(string instanceFilePath, string schemaFilePath)
+        public static IEnumerable<JsonError> ValidateFile(string instanceFilePath, string schemaFilePath)
         {
             string instanceText = File.ReadAllText(instanceFilePath);
             string schemaText = File.ReadAllText(schemaFilePath);
