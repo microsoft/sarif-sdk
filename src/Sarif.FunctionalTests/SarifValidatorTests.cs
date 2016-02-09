@@ -27,7 +27,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             _jsonSchemaFilePath = Path.Combine(Environment.CurrentDirectory, JsonSchemaFile);
         }
 
-        [Theory(Skip = "https://github.com/Microsoft/sarif-sdk/issues/108")]
+        [Theory]
         [MemberData(nameof(TestCases))]
         public void Sample_tool_output_files_conform_to_SARIF_schema(string inputFile)
         {
@@ -43,14 +43,37 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         private static IEnumerable<object[]> s_testCases;
 
+        private static string[] InvalidFiles = new string[]
+        {
+            @"ClangAnalyzer\ArrayDataTypes.xml.sarif",
+            @"ClangAnalyzer\BadMissingString.xml.sarif",
+            @"ClangAnalyzer\ClangAnalyzer_issueLog1_raw.xml.sarif",
+            @"ClangAnalyzer\DictionaryDataTypes.xml.sarif",
+            @"ClangAnalyzer\DivByZero.xml.sarif",
+            @"ClangAnalyzer\FileNumberCoverage.xml.sarif",
+            @"ClangAnalyzer\GarbageValueLog.xml.sarif",
+            @"ClangAnalyzer\MediumLog.xml.sarif",
+            @"ClangAnalyzer\MissingLocation.xml.sarif",
+            @"ClangAnalyzer\RealLog.xml.sarif",
+            @"CppCheck\CppCheck_issueLog1_raw.xml.sarif"
+        };
+
         public static IEnumerable<object[]> TestCases
         {
             get
             {
                 if (s_testCases == null)
                 {
-                    s_testCases = Directory.GetFiles(TestDirectory, "*.sarif", SearchOption.AllDirectories)
-                        .Select(file => new object[] { file });                }
+                    var sarifFiles = Directory.GetFiles(TestDirectory, "*.sarif", SearchOption.AllDirectories);
+
+                    // The converter functional tests produce output files in the test directory
+                    // with the filename extension ".actual.sarif". Don't include those in this test.
+                    var actualSarifFiles = Directory.GetFiles(TestDirectory, "*.actual.sarif", SearchOption.AllDirectories);
+
+                    s_testCases = sarifFiles.Except(actualSarifFiles)
+                        .Except(InvalidFiles.Select(f => Path.Combine(TestDirectory, f)))
+                        .Select(file => new object[] { file });
+                }
 
                 return s_testCases;
             }
@@ -60,7 +83,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             var sb = new StringBuilder("file should be valid, but the following errors were found:\n");
 
-            string inputPath = MakeInputPath(inputFile);
+            string inputPath = MakeFullPath(inputFile);
             string outputPath = MakeOutputPath(inputPath);
 
             using (var logBuilder = new ResultLogBuilder(
@@ -79,7 +102,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return sb.ToString();
         }
 
-        private string MakeInputPath(string inputFile)
+        private static string MakeFullPath(string inputFile)
         {
             return Path.Combine(Environment.CurrentDirectory, inputFile);
         }
