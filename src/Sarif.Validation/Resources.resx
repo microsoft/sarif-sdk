@@ -117,19 +117,22 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Banner" xml:space="preserve">
-    <value>Microsoft (R) SARIF Validator version {0}</value>
+  <data name="JsonSchemaValidationErrorMessageFormat" xml:space="preserve">
+    <value>JSON schema validation error: {0}</value>
   </data>
-  <data name="Copyright" xml:space="preserve">
-    <value>Copyright (C) Microsoft Corporation. All rights reserved.</value>
+  <data name="JsonSchemaValidationErrorRuleDescription" xml:space="preserve">
+    <value>The file contains a JSON schema validation error.</value>
   </data>
-  <data name="Exception" xml:space="preserve">
-    <value>ERROR: {0}</value>
+  <data name="JsonSyntaxErrorMessageFormat" xml:space="preserve">
+    <value>JSON syntax error: {0}</value>
   </data>
-  <data name="FileContainsErrors" xml:space="preserve">
-    <value>The file contains {0} errors.</value>
+  <data name="JsonSyntaxErrorRuleDescription" xml:space="preserve">
+    <value>The file contains a JSON syntax error.</value>
   </data>
-  <data name="Success" xml:space="preserve">
-    <value>The file is syntactically correct and valid according to the schema.</value>
+  <data name="UnknownErrorMessageFormat" xml:space="preserve">
+    <value>Unknown error kind: {0}</value>
+  </data>
+  <data name="UnknownErrorRuleDescription" xml:space="preserve">
+    <value>The JSON validator reported an error of an unknown kind.</value>
   </data>
 </root>

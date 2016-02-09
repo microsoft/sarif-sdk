@@ -6,11 +6,12 @@ using System.Collections.Generic;
 using Microsoft.CodeAnalysis.Sarif.Driver;
 using Microsoft.CodeAnalysis.Sarif.Driver.Sdk;
 
-namespace Microsoft.CodeAnalysis.Sarif.SarifValidator
+namespace Microsoft.CodeAnalysis.Sarif.Validation
 {
-    internal class ResultLogBuilder: IDisposable
+    public class ResultLogBuilder: IDisposable
     {
-        private readonly Options _options;
+        private readonly string _instanceFilePath;
+        private readonly string _schemaFilePath;
         private readonly IFileSystem _fileSystem;
         private readonly SarifLogger _logger;
         private readonly List<string> _messages;
@@ -68,21 +69,26 @@ namespace Microsoft.CodeAnalysis.Sarif.SarifValidator
             null,           // properties
             null);          // tags
 
-        internal ResultLogBuilder(Options options, IFileSystem fileSystem)
+        public ResultLogBuilder(
+            string instanceFilePath,
+            string schemaFilePath,
+            string outputFilePath,
+            IFileSystem fileSystem)
         {
-            _options = options;
+            _instanceFilePath = instanceFilePath;
+            _schemaFilePath = schemaFilePath;
             _fileSystem = fileSystem;
             _messages = new List<string>();
 
             _logger = new SarifLogger(
-                _options.OutputFilePath,
+                outputFilePath,
                 true,           // Produce verbose output.
-                new[] { _options.InstanceFilePath, _options.SchemaFilePath },
+                new[] { instanceFilePath, schemaFilePath },
                 false,          // Do not compute target hash.
                 null);          // The version of this tool has no prerelease info.
         }
 
-        internal IEnumerable<string> BuildLog(List<JsonError> errors)
+        public IEnumerable<string> BuildLog(IEnumerable<JsonError> errors)
         {
             foreach (JsonError error in errors)
             {
@@ -98,7 +104,7 @@ namespace Microsoft.CodeAnalysis.Sarif.SarifValidator
             {
                 if (_instanceFileIndex == null)
                 {
-                    _instanceFileIndex = new NewLineIndex(_fileSystem.ReadAllText(_options.InstanceFilePath));
+                    _instanceFileIndex = new NewLineIndex(_fileSystem.ReadAllText(_instanceFilePath));
                 }
 
                 return _instanceFileIndex;
@@ -111,7 +117,7 @@ namespace Microsoft.CodeAnalysis.Sarif.SarifValidator
             {
                 if (_schemaFileIndex == null)
                 {
-                    _schemaFileIndex = new NewLineIndex(_fileSystem.ReadAllText(_options.SchemaFilePath));
+                    _schemaFileIndex = new NewLineIndex(_fileSystem.ReadAllText(_schemaFilePath));
                 }
 
                 return _schemaFileIndex;
@@ -152,12 +158,12 @@ namespace Microsoft.CodeAnalysis.Sarif.SarifValidator
             switch (error.Location)
             {
                 case JsonErrorLocation.InstanceDocument:
-                    analysisTargetFilePath = _options.InstanceFilePath;
+                    analysisTargetFilePath = _instanceFilePath;
                     index = InstanceFileIndex;
                     break;
 
                 case JsonErrorLocation.Schema:
-                    analysisTargetFilePath = _options.SchemaFilePath;
+                    analysisTargetFilePath = _schemaFilePath;
                     index = SchemaFileIndex;
                     break;
 

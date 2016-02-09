@@ -8,7 +8,7 @@ using System.IO;
 using System.Linq;
 using CommandLine;
 using Microsoft.CodeAnalysis.Sarif.Driver;
-using Microsoft.CodeAnalysis.Sarif.Driver.Sdk;
+using Microsoft.CodeAnalysis.Sarif.Validation;
 
 namespace Microsoft.CodeAnalysis.Sarif.SarifValidator
 {
@@ -38,7 +38,11 @@ namespace Microsoft.CodeAnalysis.Sarif.SarifValidator
                     .ToList();
 
                 IEnumerable<string> messages = Enumerable.Empty<string>();
-                using (var logBuilder = new ResultLogBuilder(options, new FileSystem()))
+                using (var logBuilder = new ResultLogBuilder(
+                    options.InstanceFilePath,
+                    options.SchemaFilePath,
+                    options.OutputFilePath,
+                    new FileSystem()))
                 {
                     messages = logBuilder.BuildLog(errors);
                 }
