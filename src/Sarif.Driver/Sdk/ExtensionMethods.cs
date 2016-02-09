@@ -71,7 +71,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
             // (startLine)
             return
                  "(" +
-                 region.StartLine.ToString() + "," + region.StartColumn.ToString() +
+                 region.StartLine.ToString() +
                  ")";
         }
 

@@ -39,12 +39,29 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
             EndColumn = 5
         };
 
-        private static readonly Region SingleLineTestRegion = new Region
+        private static readonly Region SingleLineMultiColumnTestRegion = new Region
         {
             StartLine = 2,
             StartColumn = 4,
             EndLine = 2,
             EndColumn = 5
+        };
+
+        private static readonly Region SingleLineSingleColumnTestRegion = new Region
+        {
+            StartLine = 2,
+            StartColumn = 4
+        };
+
+        private static readonly Region SingleLineNoColumnTestRegion = new Region
+        {
+            StartLine = 2
+        };
+
+        private static readonly Region MultiLineNoColumnTestRegion = new Region
+        {
+            StartLine = 2,
+            EndLine = 3
         };
 
         public static IEnumerable<object[]> ResultFormatForVisualStudioTestCases => new[]
@@ -106,12 +123,36 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
                 $"{DisplayedTarget}(2,4,3,5): info {TestRuleId}: First: 42, Second: 54"
             },
 
-            // Test formatting of a single-line region (previous tests used a multi-line region).
+            // Test formatting of a single-line multi-column region (previous tests used a multi-line region).
             new object[]
             {
                 ResultKind.Error,
-                SingleLineTestRegion,
+                SingleLineMultiColumnTestRegion,
                 $"{DisplayedTarget}(2,4-5): error {TestRuleId}: First: 42, Second: 54"
+            },
+
+            // Test formatting of a single-line single-column region.
+            new object[]
+            {
+                ResultKind.Error,
+                SingleLineSingleColumnTestRegion,
+                $"{DisplayedTarget}(2,4): error {TestRuleId}: First: 42, Second: 54"
+            },
+
+            // Test formatting of a single-line region with no column specified.
+            new object[]
+            {
+                ResultKind.Error,
+                SingleLineNoColumnTestRegion,
+                $"{DisplayedTarget}(2): error {TestRuleId}: First: 42, Second: 54"
+            },
+
+            // Test formatting of a multi-line region with no columns specified.
+            new object[]
+            {
+                ResultKind.Error,
+                MultiLineNoColumnTestRegion,
+                $"{DisplayedTarget}(2-3): error {TestRuleId}: First: 42, Second: 54"
             },
         };
 
