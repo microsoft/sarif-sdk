@@ -45,17 +45,6 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         private static string[] InvalidFiles = new string[]
         {
-            //@"ClangAnalyzer\ArrayDataTypes.xml.sarif",
-            //@"ClangAnalyzer\BadMissingString.xml.sarif",
-            //@"ClangAnalyzer\ClangAnalyzer_issueLog1_raw.xml.sarif",
-            //@"ClangAnalyzer\DictionaryDataTypes.xml.sarif",
-            //@"ClangAnalyzer\DivByZero.xml.sarif",
-            //@"ClangAnalyzer\FileNumberCoverage.xml.sarif",
-            //@"ClangAnalyzer\GarbageValueLog.xml.sarif",
-            //@"ClangAnalyzer\MediumLog.xml.sarif",
-            //@"ClangAnalyzer\MissingLocation.xml.sarif",
-            //@"ClangAnalyzer\RealLog.xml.sarif",
-            //@"CppCheck\CppCheck_issueLog1_raw.xml.sarif"
         };
 
         public static IEnumerable<object[]> TestCases
