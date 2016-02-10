@@ -1,15 +1,23 @@
-﻿using System;
+﻿// Copyright (c) Microsoft. All rights reserved.
+// Licensed under the MIT license. See LICENSE file in the project root for full license information.
+
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
 using System.Resources;
-
-using Microsoft.CodeAnalysis.Sarif.Sdk;
+using System.Text.RegularExpressions;
 
 namespace Microsoft.CodeAnalysis.Sarif
 {
     public static class SarifExtensionMethods
     {
+        private static Regex s_semVer200 = new Regex(@"^(?<major>\d+)\.(?<minor>\d+)\.(?<patch>\d+)(-(?<prerelease>[A-Za-z0-9\-\.]+))?(\+(?<build>[A-Za-z0-9\-\.]+))?$", RegexOptions.Compiled);
+        public static bool IsSemanticVersioningCompatible(this string versionString)
+        {
+            return s_semVer200.IsMatch(versionString);
+        }
+
         public static Dictionary<string, string> BuildFormatSpecifiers(IEnumerable<string> resourceNames, ResourceManager resourceManager)
         {
             // Note this dictionary provides for case-insensitive keys

@@ -7,9 +7,8 @@
       },
       "results": [
         {
-          "ruleId": null,
-          "fullMessage": "Logic error : Dereference of null pointer",
-          "shortMessage": "Dereference of null pointer",
+          "ruleId": "Dereference of null pointer",
+          "fullMessage": "Dereference of null pointer",
           "locations": [
             {
               "analysisTarget": [
@@ -23,12 +22,17 @@
                 }
               ]
             }
-          ]
+          ],
+          "properties": {
+            "category": "Logic error",
+            "issue_context_kind": "function",
+            "issueContext": "alloc_large",
+            "issueHash": "25"
+          }
         },
         {
-          "ruleId": null,
-          "fullMessage": "Logic error : Array access (via field 'mem_buffer') results in a null pointer dereference",
-          "shortMessage": "Dereference of null pointer",
+          "ruleId": "Dereference of null pointer",
+          "fullMessage": "Array access (via field 'mem_buffer') results in a null pointer dereference",
           "locations": [
             {
               "analysisTarget": [
@@ -42,12 +46,17 @@
                 }
               ]
             }
-          ]
+          ],
+          "properties": {
+            "category": "Logic error",
+            "issue_context_kind": "function",
+            "issueContext": "access_virt_sarray",
+            "issueHash": "62"
+          }
         },
         {
-          "ruleId": null,
-          "fullMessage": "Logic error : Array access (via field 'mem_buffer') results in a null pointer dereference",
-          "shortMessage": "Dereference of null pointer",
+          "ruleId": "Dereference of null pointer",
+          "fullMessage": "Array access (via field 'mem_buffer') results in a null pointer dereference",
           "locations": [
             {
               "analysisTarget": [
@@ -61,12 +70,17 @@
                 }
               ]
             }
-          ]
+          ],
+          "properties": {
+            "category": "Logic error",
+            "issue_context_kind": "function",
+            "issueContext": "access_virt_barray",
+            "issueHash": "62"
+          }
         },
         {
-          "ruleId": null,
-          "fullMessage": "Logic error : Dereference of null pointer",
-          "shortMessage": "Dereference of null pointer",
+          "ruleId": "Dereference of null pointer",
+          "fullMessage": "Dereference of null pointer",
           "locations": [
             {
               "analysisTarget": [
@@ -80,7 +94,13 @@
                 }
               ]
             }
-          ]
+          ],
+          "properties": {
+            "category": "Logic error",
+            "issue_context_kind": "function",
+            "issueContext": "jinit_memory_mgr",
+            "issueHash": "38"
+          }
         }
       ]
     }

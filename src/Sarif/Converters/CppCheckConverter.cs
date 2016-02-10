@@ -62,6 +62,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             }
 
             string version = reader.GetAttribute(_strings.Version);
+
             if (String.IsNullOrWhiteSpace(version))
             {
                 throw reader.CreateException(SarifResources.CppCheckCppCheckElementMissing);

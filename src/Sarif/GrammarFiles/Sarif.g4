@@ -104,7 +104,7 @@ toolInfo :
         three values for product version in the VS_VERSION_INFO structure. If the tool is a .NET
         application, this value SHOULD be the first three dotted version values of AssemblyVersion.
         }
-		@pattern {[0-9]+\\.[0-9]+\\.[0-9]+(-[0-9A-Za-z-]+)?(\\+[0-9A-Za-z-]+)?}
+		@pattern {^\d+\.\d+\.\d+\.(-([A-Za-z0-9\-\.]+))?(\+[A-Za-z0-9\-\.]+)?$}
     */
     version?
 

@@ -7,9 +7,8 @@
       },
       "results": [
         {
-          "ruleId": null,
-          "fullMessage": "Logic error : Division by zero",
-          "shortMessage": "Division by zero",
+          "ruleId": "Division by zero",
+          "fullMessage": "Division by zero",
           "locations": [
             {
               "analysisTarget": [
@@ -23,7 +22,13 @@
                 }
               ]
             }
-          ]
+          ],
+          "properties": {
+            "category": "Logic error",
+            "issue_context_kind": "function",
+            "issueContext": "output_value",
+            "issueHash": "6"
+          }
         }
       ]
     }

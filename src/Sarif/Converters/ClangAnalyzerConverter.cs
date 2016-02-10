@@ -112,12 +112,18 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         {
             if (issueData != null)
             {
+                // Used for Result.FullMessage 
                 string description = FindString(issueData, "description");
-                string category = FindString(issueData, "category");
+
+                // Used as rule id. 
                 string issueType = FindString(issueData, "type");
+                
+                // This data persisted to result property bag
+                string category = FindString(issueData, "category");
                 string issueContextKind = FindString(issueData, "issue_context_kind");
                 string issueContext = FindString(issueData, "issue_context");
                 string issueHash = FindString(issueData, "issue_hash");
+
                 int issueLine = 0;
                 int issueColumn = 0;
                 string fileName = null;
@@ -136,8 +142,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
                 Result result = new Result
                 {
-                    FullMessage = category + " : " + description,
-                    ShortMessage = issueType,
+                    RuleId = issueType,
+                    FullMessage = description,
                     Locations = new[]
                     {
                         new Location
@@ -156,6 +162,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                                 }
                             }
                         }
+                    },
+                    Properties = new Dictionary<string, string> {
+                        { "category", category },
+                        { "issue_context_kind", issueContextKind },
+                        { "issueContext", issueContext },
+                        { "issueHash", issueHash },
                     }
                 };
 

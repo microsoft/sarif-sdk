@@ -7,9 +7,8 @@
       },
       "results": [
         {
-          "ruleId": null,
-          "fullMessage": "Dead store : Value stored to 'scanptr' is never read",
-          "shortMessage": "Dead assignment",
+          "ruleId": "Dead assignment",
+          "fullMessage": "Value stored to 'scanptr' is never read",
           "locations": [
             {
               "analysisTarget": [
@@ -23,7 +22,13 @@
                 }
               ]
             }
-          ]
+          ],
+          "properties": {
+            "category": "Dead store",
+            "issue_context_kind": "function",
+            "issueContext": "jpeg_simple_progression",
+            "issueHash": "57"
+          }
         }
       ]
     }

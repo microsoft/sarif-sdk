@@ -7,9 +7,8 @@
       },
       "results": [
         {
-          "ruleId": null,
-          "fullMessage": "Logic error : The left operand of '<' is a garbage value",
-          "shortMessage": "Result of operation is garbage or undefined",
+          "ruleId": "Result of operation is garbage or undefined",
+          "fullMessage": "The left operand of '<' is a garbage value",
           "locations": [
             {
               "analysisTarget": [
@@ -23,7 +22,13 @@
                 }
               ]
             }
-          ]
+          ],
+          "properties": {
+            "category": "Logic error",
+            "issue_context_kind": "function",
+            "issueContext": "validate_script",
+            "issueHash": "117"
+          }
         }
       ]
     }
