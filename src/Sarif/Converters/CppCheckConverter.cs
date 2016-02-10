@@ -63,6 +63,21 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
             string version = reader.GetAttribute(_strings.Version);
 
+            if (version != null && !version.IsSemanticVersioningCompatible())
+            {
+                // This logic only fixes up simple cases, such as being passed
+                // 1.66, where Semantic Versioning 2.0 requires 1.66.0. Also
+                // strips Revision member if passed a complete .NET version.
+                Version dotNetVersion;
+                if (Version.TryParse(version, out dotNetVersion))
+                {
+                    version = 
+                        Math.Max(0, dotNetVersion.Major) + "." + 
+                        Math.Max(0, dotNetVersion.Minor) + "." + 
+                        Math.Max(0, dotNetVersion.Build);
+                }
+            }
+
             if (String.IsNullOrWhiteSpace(version))
             {
                 throw reader.CreateException(SarifResources.CppCheckCppCheckElementMissing);
