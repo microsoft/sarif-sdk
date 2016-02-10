@@ -20,7 +20,7 @@ using Microsoft.VisualStudio.Shell.TableControl;
 using Microsoft.VisualStudio.Shell.TableManager;
 using Microsoft.VisualStudio.TextManager.Interop;
 
-namespace SarifViewer
+namespace Microsoft.Sarif.Viewer
 {
     /// <summary>
     /// This class provides a data snapshot for the current contents of the error list
@@ -53,6 +53,11 @@ namespace SarifViewer
         public string FilePath { get; }
 
         public override int VersionNumber { get; } = 1;
+
+        public SarifError GetItem(int index)
+        {
+            return _errors[index];
+        }
 
         public override bool TryGetValue(int index, string columnName, out object content)
         {
@@ -172,11 +177,11 @@ namespace SarifViewer
             return __VSERRORCATEGORY.EC_WARNING;
         }
 
-        internal void TryNavigateTo(int index, bool isPreview)
+        internal IVsWindowFrame NavigateTo(int index, bool isPreview)
         {
             if (isPreview)
             {
-                return;
+                return null;
             }
 
             SarifError sarifError = _errors[index];
@@ -184,7 +189,7 @@ namespace SarifViewer
 
             if (string.IsNullOrEmpty(fileName))
             {
-                return;
+                return null;
             }
 
             if (!File.Exists(fileName))
@@ -193,47 +198,10 @@ namespace SarifViewer
 
                 if (!File.Exists(fileName))
                 {
-                    return;
+                    return null;
                 }
             }
-
-            Guid logicalView = VSConstants.LOGVIEWID_Code;
-            string vsViewKindCode = "{7651A701-06E5-11D1-8EBD-00A0C90F26EA}";
-            var dte = SarifViewerPackage.Dte;
-            var window = dte.ItemOperations.OpenFile(fileName, vsViewKindCode);
-
-            if (window == null)
-            {
-                // No good association. This occurs when attempting to 
-                // open a binary file directly, for example.
-                return;
-            }
-
-            // Get the VsTextBuffer   
-            VsTextBuffer buffer = window.DocumentData as VsTextBuffer;
-            if (buffer == null)
-            {
-                IVsTextBufferProvider bufferProvider = window.DocumentData as IVsTextBufferProvider;
-                if (bufferProvider != null)
-                {
-                    IVsTextLines lines;
-                    ErrorHandler.ThrowOnFailure(bufferProvider.GetTextBuffer(out lines));
-                    buffer = lines as VsTextBuffer;
-                    Debug.Assert(buffer != null, "IVsTextLines does not implement IVsTextBuffer");
-
-                    if (buffer == null)
-                    {
-                        return;
-                    }
-                }
-            }
-
-            IVsTextManager mgr = SarifViewerPackage.GetGlobalService(typeof(VsTextManagerClass)) as IVsTextManager;
-            if (mgr == null)
-            {
-                return;
-            }
-
+            
             Region region = sarifError.Region;
 
             NewLineIndex newLineIndex = null;
@@ -247,14 +215,53 @@ namespace SarifViewer
                 sarifError.RegionPopulated = true;
             }
 
-            // Data is 1-indexed but VS navigation api is 0-indexed
-            mgr.NavigateToLineAndColumn(
-                buffer,
-                ref logicalView,
-                region.StartLine - 1,
-                region.StartColumn - 1,
-                region.EndLine - 1,
-                region.EndColumn - 1);
+            // Fall back to the file and line number
+            IVsWindowFrame windowFrame = SdkUiUtilities.OpenDocument(SarifViewerPackage.ServiceProvider, fileName, true);
+            if (windowFrame != null)
+            {
+                IVsTextView textView = GetTextViewFromFrame(windowFrame);
+                if (textView == null)
+                {
+                    return null;
+                }
+
+                // Navigate the caret to the desired location. Text span uses 0-based indexes
+                TextSpan ts;
+                ts.iStartLine = region.StartLine - 1;
+                ts.iEndLine = region.EndLine - 1;
+                ts.iStartIndex = ts.iStartIndex = Math.Max(region.StartColumn - 1, 0);
+                ts.iEndIndex = Math.Max(region.EndColumn - 1, 0) + 5;
+
+                textView.EnsureSpanVisible(ts);
+                textView.SetSelection(ts.iStartLine, ts.iStartIndex, ts.iEndLine, ts.iEndIndex);
+
+                //if (highlightLine)
+                {
+                    // marker.AddSelectionMarker(highlightColor);
+                }
+            }
+            return windowFrame;
+        }
+
+        private IVsTextView GetTextViewFromFrame(IVsWindowFrame frame)
+        {
+            // Get the document view from the window frame, then get the text view
+            object docView;
+            int hr = frame.GetProperty((int)__VSFPROPID.VSFPROPID_DocView, out docView);
+            if (ErrorHandler.Failed(hr) || docView == null)
+            {
+                return null;
+            }
+
+            IVsCodeWindow codeWindow = docView as IVsCodeWindow;
+            IVsTextView textView;
+            codeWindow.GetLastActiveView(out textView);
+            if (textView == null)
+            {
+                codeWindow.GetPrimaryView(out textView);
+            }
+
+            return textView;
         }
 
         private string RebaselineFileName(string fileName)
@@ -360,6 +367,7 @@ namespace SarifViewer
                 TextWrapping = TextWrapping.Wrap,
                 Text = error.FullMessage
             };
+
             return true;
         }
 

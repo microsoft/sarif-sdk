@@ -3,13 +3,20 @@
 
 using System;
 using System.ComponentModel.Composition;
+using System.Reflection;
+using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
-
+using Microsoft.VisualStudio.Editor;
+using Microsoft.VisualStudio.Shell;
+using Microsoft.VisualStudio.Shell.Interop;
 using Microsoft.VisualStudio.Shell.TableControl;
 using Microsoft.VisualStudio.Shell.TableManager;
+using Microsoft.VisualStudio.Text.Editor;
+using Microsoft.VisualStudio.TextManager.Interop;
 using Microsoft.VisualStudio.Utilities;
 
-namespace SarifViewer
+namespace Microsoft.Sarif.Viewer
 {
     [Export(typeof(ITableControlEventProcessorProvider))]
     [ManagerType(StandardTables.ErrorsTable)]
@@ -25,13 +32,18 @@ namespace SarifViewer
         {
         }
 
+        [Import]
+        public IVsEditorAdaptersFactoryService EditorAdaptersFactoryService { get; set; }
+
         public ITableControlEventProcessor GetAssociatedEventProcessor(IWpfTableControl tableControl)
         {
-            return new EventProcessor();
+            return new EventProcessor() { EditorAdaptersFactoryService = EditorAdaptersFactoryService };
         }
 
         private class EventProcessor : TableControlEventProcessorBase
         {
+            public IVsEditorAdaptersFactoryService EditorAdaptersFactoryService { get; set; }
+
             public override void PreprocessNavigate(ITableEntryHandle entryHandle, TableEntryNavigateEventArgs e)
             {
                 int index;
@@ -47,8 +59,75 @@ namespace SarifViewer
                     return;
                 }
 
+                DeselectItems(snapshot);
+
+                var frame = sarifSnapshot.NavigateTo(index, false);
+
+                SarifError error = ((SarifSnapshot)snapshot).GetItem(index);
+
                 e.Handled = true;
-                sarifSnapshot.TryNavigateTo(index, e.IsPreview);
+
+                if (!error.HasLines)
+                {
+                    OpenOrReplaceVerticalContent(frame, error);
+                }
+                else
+                {
+                    //CloseVerticalContent(frame, error);
+                }
+            }
+
+            private void OpenOrReplaceVerticalContent(IVsWindowFrame frame, SarifError error)
+            {
+                IVsTextView textView = GetTextViewFromFrame(frame);
+                if (textView == null)
+                {
+                    return;
+                }
+
+                CodeLocations codeLocations = new CodeLocations();
+
+                FrameworkElement content = new CodeLocations();//.fullMessage = new TextBlock() { Text = error.FullMessage };
+
+                var type = textView.GetType();
+                var mi = type.GetMethod(
+                    "ShowAdditionalContent",
+                    new Type[] { typeof(FrameworkElement), typeof(String)});
+                 
+                mi.Invoke(textView, new object[] { content, "Code Analysis Details" });
+
+                //var cookie = textView.ShowAdditionalContent(content, "Code Analysis Details");
+            }
+
+            private IVsTextView GetTextViewFromFrame(IVsWindowFrame frame)
+            {
+                // Get the document view from the window frame, then get the text view
+                object docView;
+                int hr = frame.GetProperty((int)__VSFPROPID.VSFPROPID_DocView, out docView);
+                if (hr != 0 || docView == null)
+                {
+                    return null;
+                }
+
+                IVsCodeWindow codeWindow = docView as IVsCodeWindow;
+                IVsTextView textView;
+                codeWindow.GetLastActiveView(out textView);
+                if (textView == null)
+                {
+                    codeWindow.GetPrimaryView(out textView);
+                }
+
+                return textView;
+            }
+
+            private void SelectItem(SarifError item)
+            {
+                // TODO
+            }
+
+            private void DeselectItems(ITableEntriesSnapshot snapshot)
+            {
+                // TODO
             }
 
             public override void PreprocessMouseRightButtonUp(ITableEntryHandle entry, MouseButtonEventArgs e)

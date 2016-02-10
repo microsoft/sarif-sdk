@@ -7,7 +7,7 @@ using System.Linq;
 using System;
 using System.Collections.Generic;
 
-namespace SarifViewer
+namespace Microsoft.Sarif.Viewer
 {
     class SinkManager : IDisposable
     {

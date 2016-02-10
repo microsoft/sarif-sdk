@@ -65,6 +65,7 @@
     <Reference Include="Microsoft.CSharp" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AnnotatedCodeLocationKind.cs" />
     <Compile Include="ArgumentSplitter.cs" />
     <Compile Include="BrandedVersionAttribute.cs" />
     <Compile Include="DisposableEnumerable.cs" />

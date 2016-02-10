@@ -187,25 +187,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
                     throw new InvalidOperationException();
                 }
 
-                // VS supports the following formatting options:
-                //      (startLine)
-                //      (startLine-endLine)
-                //      (startLine,startColumn)
-                //      (startLine,startColumn-endColumn)
-                //      (startLine,startColumn,endLine,endColumn
-                //
-                //  For expedience, we'll convert everything to the most fully qualified format
-
-                string start = region.StartLine.ToString() + "," +
-                              (region.StartColumn > 0 ? region.StartColumn.ToString() : "1");
-
-                string end = (region.EndLine > region.StartLine ? region.EndLine.ToString() : region.StartLine.ToString()) + "," +
-                             (region.EndColumn > 0 ? region.EndColumn.ToString() : region.StartColumn.ToString());
-
-                location =
-                    "(" +
-                        start + (end != start ? "," + end : "") +
-                    ")";
+                location = region.FormatForVisualStudio();
             }
 
             string result = (path != null ? (path + location + ": ") : "") +

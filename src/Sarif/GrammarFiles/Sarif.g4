@@ -383,7 +383,7 @@ result :
 		@minItems{1}
 		@uniqueItems{true}
     */
-    annotatedCodeLocations?
+    stacks?
 
     /**
         @name {ExecutionFlows} @serializedName {executionFlows}
@@ -758,6 +758,28 @@ executionFlows: executionFlow*;
     }
 */
 executionFlow: annotatedCodeLocation*;
+/*********************************************************
+Stacks are lists of physical locations with the addition that
+each physical location in the list can have an associated message.
+*/
+
+/**
+    @className {Stacks}
+    @summary {
+    A set of one or more stacks reported for a given result.
+    }
+	@minItems{1}
+	@uniqueItems{false}
+*/
+stacks: stack*;
+
+/**
+    @className {Stacks}
+    @summary {
+    A set of frames that represent a stack of interest generated during analysis. 
+    }
+*/
+stack: annotatedCodeLocation*;
 
 /*********************************************************
 Logical location infrastructure; logical locations refer to specific semantic code elements such as classes,

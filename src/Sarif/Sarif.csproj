@@ -51,6 +51,7 @@
     <Compile Include="Readers\VersionConverter.cs" />
     <Compile Include="Ref.cs" />
     <Compile Include="SarifExtensionMethods.cs" />
+    <Compile Include="SarifFile.cs" />
     <Compile Include="SarifResources.Designer.cs">
       <DependentUpon>SarifResources.resx</DependentUpon>
       <DesignTime>True</DesignTime>

@@ -1,4 +1,4 @@
-﻿namespace SarifViewer
+﻿namespace Microsoft.Sarif.Viewer
 {
     class Constants
     {

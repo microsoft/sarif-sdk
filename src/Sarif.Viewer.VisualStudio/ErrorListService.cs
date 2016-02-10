@@ -15,7 +15,7 @@ using Microsoft.CodeAnalysis.Sarif.Writers;
 
 using Newtonsoft.Json;
 
-namespace SarifViewer
+namespace Microsoft.Sarif.Viewer
 {
     public class ErrorListService
     {
@@ -39,6 +39,7 @@ namespace SarifViewer
             else if (toolFormat == ToolFormat.PREfast)
             {
                 logText = ToolFormatConverter.ConvertPREfastToStandardFormat(filePath);
+                // TODO REMOVE THIS
                 File.WriteAllText(@"d:\repros\prefast.test.sarif", logText);
             }
             else
@@ -155,7 +156,7 @@ namespace SarifViewer
                     {
                         Region = region,
                         RuleId = result.RuleId,
-                        RuleName = rule.Name,
+                        RuleName = rule?.Name,
                         Kind = result.Kind,
                         Category = category,
                         ShortMessage = shortMessage,
