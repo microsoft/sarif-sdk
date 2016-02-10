@@ -2,8 +2,10 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.using System;
 
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
-using Microsoft.CodeAnalysis.Sarif.Sdk;
+using System.Globalization;
+using System.Linq;
 
 namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
 {
@@ -69,8 +71,46 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
             // (startLine)
             return
                  "(" +
-                 region.StartLine.ToString() + "," + region.StartColumn.ToString() +
+                 region.StartLine.ToString() +
                  ")";
+        }
+
+        public static string FormatForVisualStudio(this Result result, IRuleDescriptor rule)
+        {
+            var messageLines = new List<string>();
+            foreach (var location in result.Locations)
+            {
+                var components = location.ResultFile ?? location.AnalysisTarget;
+                var lastComponent = components.Last();
+                messageLines.Add(
+                    string.Format(
+                        CultureInfo.InvariantCulture, "{0}{1}: {2} {3}: {4}",
+                        lastComponent.Uri.AbsolutePath,
+                        lastComponent.Region.FormatForVisualStudio(),
+                        result.Kind.FormatForVisualStudio(),
+                        result.RuleId,
+                        result.GetMessageText(rule)
+                        ));
+            }
+
+            return string.Join(Environment.NewLine, messageLines);
+        }
+
+        public static string FormatForVisualStudio(this ResultKind kind)
+        {
+            switch (kind)
+            {
+                case ResultKind.Error:
+                case ResultKind.ConfigurationError:
+                case ResultKind.InternalError:
+                    return "error";
+
+                case ResultKind.Warning:
+                    return "warning";
+
+                default:
+                    return "info";
+            }
         }
 
         /// <summary>

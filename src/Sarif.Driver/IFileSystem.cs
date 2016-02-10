@@ -46,5 +46,17 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         /// A string array containing all lines of the file.
         /// </returns>
         string[] ReadAllLines(string path);
+
+        /// <summary>
+        /// Opens a text file, reads all text in the file as a single string, and then closes
+        /// the file.
+        /// </summary>
+        /// <param name="path">
+        /// The file to open for reading. 
+        /// </param>
+        /// <returns>
+        /// A string containing all text in the file.
+        /// </returns>
+        string ReadAllText(string path);
     }
 }

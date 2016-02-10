@@ -1,6 +1,7 @@
 ﻿// Copyright (c) Microsoft. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
+using System;
 using System.IO;
 
 namespace Microsoft.CodeAnalysis.Sarif.Driver
@@ -55,6 +56,21 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         public string[] ReadAllLines(string path)
         {
             return File.ReadAllLines(path);
+        }
+
+        /// <summary>
+        /// Opens a text file, reads all text in the file as a single string, and then closes
+        /// the file.
+        /// </summary>
+        /// <param name="path">
+        /// The file to open for reading. 
+        /// </param>
+        /// <returns>
+        /// A string containing all text in the file.
+        /// </returns>
+        public string ReadAllText(string path)
+        {
+            return File.ReadAllText(path);
         }
     }
 }
