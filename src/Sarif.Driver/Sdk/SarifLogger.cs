@@ -5,7 +5,6 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
-using Microsoft.CodeAnalysis.Sarif.Sdk;
 using Microsoft.CodeAnalysis.Sarif.Writers;
 
 using Newtonsoft.Json;
@@ -14,7 +13,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
 {
     public class SarifLogger : IDisposable, IAnalysisLogger
     {
-        private FileStream _fileStream;
         private TextWriter _textWriter;
         private JsonTextWriter _jsonTextWriter;
         private ResultLogJsonWriter _issueLogJsonWriter;
@@ -40,11 +38,25 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
             IEnumerable<string> analysisTargets,
             bool computeTargetsHash,
             string prereleaseInfo)
+            : this(
+                  new StreamWriter(new FileStream(outputFilePath, FileMode.Create, FileAccess.Write, FileShare.None)),
+                  verbose,
+                  analysisTargets,
+                  computeTargetsHash,
+                  prereleaseInfo)
+        {
+        }
+
+        public SarifLogger(
+            TextWriter textWriter,
+            bool verbose,
+            IEnumerable<string> analysisTargets,
+            bool computeTargetsHash,
+            string prereleaseInfo)
         {
             Verbose = verbose;
 
-            _fileStream = new FileStream(outputFilePath, FileMode.Create, FileAccess.Write, FileShare.None);
-            _textWriter = new StreamWriter(_fileStream);
+            _textWriter = textWriter;
             _jsonTextWriter = new JsonTextWriter(_textWriter);
 
             // for debugging it is nice to have the following line added.
