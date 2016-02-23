@@ -275,7 +275,7 @@ result :
         defined by ToolA is distinct from a rule with the same ID defined by ToolB.
         }
     */
-    ruleId
+    ruleId?
 
     /**
         @name {Kind}
