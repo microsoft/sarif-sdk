@@ -106,7 +106,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
         {
             var log = new ResultLog();
 
-            log.Version = SarifVersion.ZeroDotFour;
+            log.Version = SarifVersion.OneZeroZeroBetaOne;
 
             // The SARIF spec currently requires an array
             // of run logs with at least one member
