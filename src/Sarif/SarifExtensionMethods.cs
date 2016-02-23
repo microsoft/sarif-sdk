@@ -18,6 +18,30 @@ namespace Microsoft.CodeAnalysis.Sarif
             return s_semVer200.IsMatch(versionString);
         }
 
+        private const string V0_4 = "0.4";
+        private const string V1_0_0_BETA_1 = "1.0.0-beta.1";
+
+        public static SarifVersion ConvertToSarifVersion(this string sarifVersionText)
+        {
+            switch (sarifVersionText)
+            {
+                case V0_4: return SarifVersion.ZeroDotFour;
+                case V1_0_0_BETA_1: return SarifVersion.OneZeroZeroBetaOne;
+            }
+
+            return SarifVersion.Unknown;
+        }
+
+        public static string ConvertToText(this SarifVersion sarifVersion)
+        {
+            switch (sarifVersion)
+            {
+                case SarifVersion.ZeroDotFour: { return V0_4; }
+                case SarifVersion.OneZeroZeroBetaOne: { return V1_0_0_BETA_1; }
+            }
+            return "unknown";
+        }
+
         public static Dictionary<string, string> BuildFormatSpecifiers(IEnumerable<string> resourceNames, ResourceManager resourceManager)
         {
             // Note this dictionary provides for case-insensitive keys
