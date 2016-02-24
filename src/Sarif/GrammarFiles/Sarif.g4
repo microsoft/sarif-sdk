@@ -103,8 +103,7 @@ toolInfo :
         the code analysis product is a native Windows program, this value SHOULD be the first
         three values for product version in the VS_VERSION_INFO structure. If the tool is a .NET
         application, this value SHOULD be the first three dotted version values of AssemblyVersion.
-        }
-		@pattern {[0-9]+\\.[0-9]+\\.[0-9]+(-[0-9A-Za-z-]+)?(\\+[0-9A-Za-z-]+)?}
+        }		
     */
     version?
 
@@ -122,6 +121,23 @@ toolInfo :
 		@pattern {[0-9]+(\\.[0-9]+){3}}
     */
     fileVersion?
+
+	/**
+		@name {RunStartTime}
+        @summary {
+		An optional string specifying the date and time at which the run started.
+		}
+	*/
+	runStartTime?
+
+	/**
+	@name {RunEndTime}
+    @summary {
+	An optional string specifying the date and time at which the run ended.
+	}
+	*/
+	runEndTime?
+
 ;
 
 /**
@@ -1139,3 +1155,5 @@ specifierId : STRING;
 shortDescription : STRING;
 fullDescription : STRING;
 arguments : STRING*;
+runStartTime : DATETIME;
+runEndTime : DATETIME;

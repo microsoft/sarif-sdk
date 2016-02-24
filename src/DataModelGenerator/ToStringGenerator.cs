@@ -83,6 +83,7 @@ namespace Microsoft.CodeAnalysis.DataModelGenerator
                     case DataModelTypeKind.Leaf:
                     case DataModelTypeKind.Base:
                     case DataModelTypeKind.BuiltInUri:
+                    case DataModelTypeKind.BuiltInDateTime:
                     case DataModelTypeKind.BuiltInVersion:
                         _codeWriter.WriteLine("sb.Append({0} == null ? \"{1}(null)\" : {0}.ToString());", sourceVariable, toStringEntry.Variable.CSharpName);
                         break;

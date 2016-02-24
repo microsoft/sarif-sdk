@@ -195,6 +195,7 @@ namespace Microsoft.CodeAnalysis.DataModelGenerator
                     case DataModelTypeKind.BuiltInBoolean:
                     case DataModelTypeKind.BuiltInVersion:
                     case DataModelTypeKind.BuiltInUri:
+                    case DataModelTypeKind.BuiltInDateTime:
                         // Don't write builtin types
                         break;
                     case DataModelTypeKind.Default:
@@ -541,6 +542,7 @@ namespace Microsoft.CodeAnalysis.DataModelGenerator
                 case DataModelTypeKind.BuiltInNumber:
                 case DataModelTypeKind.BuiltInString:
                 case DataModelTypeKind.BuiltInBoolean:
+                case DataModelTypeKind.BuiltInDateTime:
                     return sourceVariable;
                 case DataModelTypeKind.BuiltInVersion:
                     return "(global::System.Version)" + sourceVariable + ".Clone()";
@@ -548,6 +550,7 @@ namespace Microsoft.CodeAnalysis.DataModelGenerator
                     return sourceVariable;
                 case DataModelTypeKind.BuiltInUri:
                     return "new global::System.Uri(" + sourceVariable + ".OriginalString, " + sourceVariable + ".IsAbsoluteUri ? global::System.UriKind.Absolute : global::System.UriKind.Relative)";
+
                 default:
                     Debug.Fail("Unexpected DataModelTypeKind");
                     throw new InvalidOperationException();
