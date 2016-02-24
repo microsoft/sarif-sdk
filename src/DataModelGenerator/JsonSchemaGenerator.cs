@@ -58,6 +58,7 @@ namespace Microsoft.CodeAnalysis.DataModelGenerator
                     case DataModelTypeKind.BuiltInBoolean:
                     case DataModelTypeKind.BuiltInVersion:
                     case DataModelTypeKind.BuiltInUri:
+                    case DataModelTypeKind.BuiltInDateTime:
                     case DataModelTypeKind.Enum:
                     // Don't write builtin types
                     break;
@@ -278,7 +279,8 @@ namespace Microsoft.CodeAnalysis.DataModelGenerator
                 case ("DICTIONARY"): { canonicalizedName = "object"; return true; }
                 case ("INTEGER"): { canonicalizedName = "integer"; return true; }
                 case ("BOOLEAN"): { canonicalizedName = "boolean"; return true; }
-                case ("URI"): { canonicalizedName = "string"; format = "uri";  return true; }
+                case ("URI"): { canonicalizedName = "string"; format = "uri"; return true; }
+                case ("DATETIME"): { canonicalizedName = "string"; format = "date-time"; return true; }
             }
 
             canonicalizedName = memberType;

@@ -160,6 +160,7 @@ namespace Microsoft.CodeAnalysis.DataModelGenerator
                 case DataModelTypeKind.Leaf:
                 case DataModelTypeKind.BuiltInString:
                 case DataModelTypeKind.BuiltInUri:
+                case DataModelTypeKind.BuiltInDateTime:
                 case DataModelTypeKind.BuiltInVersion:
                     _codeWriter.WriteLine("result = (result * {1}) + {0}.GetHashCode();", sourceVariable, MultiplicativeConstant);
                     break;
@@ -255,6 +256,7 @@ namespace Microsoft.CodeAnalysis.DataModelGenerator
                 case DataModelTypeKind.BuiltInNumber:
                 case DataModelTypeKind.BuiltInBoolean:
                 case DataModelTypeKind.BuiltInUri:
+                case DataModelTypeKind.BuiltInDateTime:
                 case DataModelTypeKind.Enum:
                 case DataModelTypeKind.BuiltInVersion:
                 _codeWriter.OpenBrace("if ({0} != {1})", sourceVariable, otherVariable);

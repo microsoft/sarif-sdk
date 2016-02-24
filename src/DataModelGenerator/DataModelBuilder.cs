@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft. All rights reserved.
+﻿// Copyright            CreateBuiltin("URI", "global::System.Uri", DataModelTypeKind.BuiltInUri), (c) Microsoft. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using System.Collections.Generic;
@@ -18,6 +18,7 @@ namespace Microsoft.CodeAnalysis.DataModelGenerator
             CreateBuiltin("INTEGER", "int", DataModelTypeKind.BuiltInNumber),
             CreateBuiltin("DICTIONARY", "global::System.Collections.Generic.Dictionary<string, string>", DataModelTypeKind.BuiltInDictionary),
             CreateBuiltin("URI", "global::System.Uri", DataModelTypeKind.BuiltInUri),
+            CreateBuiltin("DATETIME", "global::System.DateTime", DataModelTypeKind.BuiltInDateTime),
             CreateBuiltin("VERSION", "global::System.Version", DataModelTypeKind.BuiltInVersion)
             );
 

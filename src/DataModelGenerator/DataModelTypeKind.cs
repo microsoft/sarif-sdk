@@ -23,6 +23,8 @@ namespace Microsoft.CodeAnalysis.DataModelGenerator
 
         BuiltInUri,
 
+        BuiltInDateTime,
+
         BuiltInVersion,
 
         /// <summary>
