@@ -155,7 +155,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
                     throw new InvalidOperationException();
                 }
             }
-            this.ruleDescriptors.Add(rule);
+
+            if (rule != null)
+            {
+                this.ruleDescriptors.Add(rule);
+            }
+
             _issueLogJsonWriter.WriteResult(result);
         }
 
@@ -173,7 +178,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
 
         public void Log(ResultKind messageKind, IAnalysisContext context, Region region, string formatSpecifierId, params string[] arguments)
         {
-            this.ruleDescriptors.Add(context.Rule);
+            if (context.Rule != null)
+            {
+                this.ruleDescriptors.Add(context.Rule);
+            }
 
             formatSpecifierId = RuleUtilities.NormalizeFormatSpecifierId(context.Rule.Id, formatSpecifierId);
             LogJsonIssue(messageKind, context.TargetUri?.LocalPath, region, context.Rule.Id, formatSpecifierId, arguments);
