@@ -37,13 +37,19 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
             bool verbose,
             IEnumerable<string> analysisTargets,
             bool computeTargetsHash,
-            string prereleaseInfo)
+            string prereleaseInfo,
+            IEnumerable<string> invocationInfoTokensToRedact = null,
+            RunInfo runInfo = null,
+            ToolInfo toolInfo = null)
             : this(
                   new StreamWriter(new FileStream(outputFilePath, FileMode.Create, FileAccess.Write, FileShare.None)),
                   verbose,
                   analysisTargets,
                   computeTargetsHash,
-                  prereleaseInfo)
+                  prereleaseInfo,
+                  invocationInfoTokensToRedact,
+                  runInfo,
+                  toolInfo)
         {
         }
 
@@ -52,7 +58,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
             bool verbose,
             IEnumerable<string> analysisTargets,
             bool computeTargetsHash,
-            string prereleaseInfo)
+            string prereleaseInfo,
+            IEnumerable<string> invocationInfoTokensToRedact = null,
+            RunInfo runInfo = null,
+            ToolInfo toolInfo = null)
         {
             Verbose = verbose;
 
@@ -64,33 +73,49 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
 
             _issueLogJsonWriter = new ResultLogJsonWriter(_jsonTextWriter);
 
-            var toolInfo = CreateDefaultToolInfo(prereleaseInfo);
+            toolInfo = toolInfo ?? CreateDefaultToolInfo(prereleaseInfo);
 
-            RunInfo runInfo = new RunInfo();
-            runInfo.AnalysisTargets = new List<FileReference>();
-
-            foreach (string target in analysisTargets)
+            if (runInfo == null)
             {
-                var fileReference = new FileReference()
-                {
-                    Uri = target.CreateUriForJsonSerialization(),
-                };
+                runInfo = new RunInfo();
 
-                if (computeTargetsHash)
+                runInfo.AnalysisTargets = new List<FileReference>();
+
+                if (analysisTargets != null)
                 {
-                    string sha256Hash = HashUtilities.ComputeSha256Hash(target) ?? "[could not compute file hash]";
-                    fileReference.Hashes = new List<Hash>(new Hash[]
+                    foreach (string target in analysisTargets)
                     {
+                        var fileReference = new FileReference()
+                        {
+                            Uri = target.CreateUriForJsonSerialization(),
+                        };
+
+                        if (computeTargetsHash)
+                        {
+                            string sha256Hash = HashUtilities.ComputeSha256Hash(target) ?? "[could not compute file hash]";
+                            fileReference.Hashes = new List<Hash>(new Hash[]
+                            {
                             new Hash()
                             {
                                 Value = sha256Hash,
                                 Algorithm = AlgorithmKind.Sha256,
                             }
-                    });
+                            });
+                        }
+                        runInfo.AnalysisTargets.Add(fileReference);
+                    }
                 }
-                runInfo.AnalysisTargets.Add(fileReference);
+                string invocationInfo = Environment.CommandLine;
+
+                if (invocationInfoTokensToRedact != null)
+                {
+                    foreach (string tokenToRedact in invocationInfoTokensToRedact)
+                    {
+                        invocationInfo = invocationInfo.Replace(tokenToRedact, SarifConstants.RemovedMarker);
+                    }
+                }
+                runInfo.InvocationInfo = invocationInfo;
             }
-            runInfo.InvocationInfo = Environment.CommandLine;
 
             _issueLogJsonWriter.WriteToolAndRunInfo(toolInfo, runInfo);
 
@@ -129,31 +154,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
 
         public void Log(IRuleDescriptor rule, Result result)
         {
-            switch (result.Kind)
+            if (!ShouldLog(result.Kind))
             {
-                case ResultKind.Note:
-                case ResultKind.Pass:
-                case ResultKind.NotApplicable:
-                {
-                    if (!Verbose)
-                    {
-                        return;
-                    }
-                    break;
-                }
-
-                case ResultKind.Error:
-                case ResultKind.Warning:
-                case ResultKind.InternalError:
-                case ResultKind.ConfigurationError:
-                {
-                    break;
-                }
-
-                default:
-                {
-                    throw new InvalidOperationException();
-                }
+                return;
             }
 
             if (rule != null)
@@ -189,31 +192,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
 
         private void LogJsonIssue(ResultKind messageKind, string targetPath, Region region, string ruleId, string formatSpecifierId, params string[] arguments)
         {
-            switch (messageKind)
+            if (!ShouldLog(messageKind))
             {
-                case ResultKind.Note:
-                case ResultKind.Pass:
-                case ResultKind.NotApplicable:
-                    {
-                        if (!Verbose)
-                        {
-                            return;
-                        }
-                        break;
-                    }
-
-                case ResultKind.Error:
-                case ResultKind.Warning:
-                case ResultKind.InternalError:
-                case ResultKind.ConfigurationError:
-                    {
-                        break;
-                    }
-
-                default:
-                    {
-                        throw new InvalidOperationException();
-                    }
+                return;
             }
 
             Result result = new Result();
@@ -249,6 +230,37 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
             }
 
             _issueLogJsonWriter.WriteResult(result);
+        }
+
+        public bool ShouldLog(ResultKind messageKind)
+        {
+            switch (messageKind)
+            {
+                case ResultKind.Note:
+                case ResultKind.Pass:
+                case ResultKind.NotApplicable:
+                {
+                    if (!Verbose)
+                    {
+                        return false;
+                    }
+                    break;
+                }
+
+                case ResultKind.Error:
+                case ResultKind.Warning:
+                case ResultKind.InternalError:
+                case ResultKind.ConfigurationError:
+                {
+                    break;
+                }
+
+                default:
+                {
+                    throw new InvalidOperationException();
+                }
+            }
+            return true;
         }
     }
 }

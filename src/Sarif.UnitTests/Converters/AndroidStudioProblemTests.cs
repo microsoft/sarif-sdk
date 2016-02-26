@@ -8,6 +8,7 @@ using System.Linq;
 using System.Xml;
 using System.Xml.Linq;
 using FluentAssertions;
+using Microsoft.CodeAnalysis.Sarif.Driver;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Microsoft.CodeAnalysis.Sarif.Converters
