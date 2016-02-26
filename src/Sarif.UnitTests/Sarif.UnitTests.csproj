@@ -64,7 +64,6 @@
     <Compile Include="Converters\FortifyStringsTests.cs" />
     <Compile Include="Converters\FxCopConverterTests.cs" />
     <Compile Include="ExtensionsTests.cs" />
-    <Compile Include="ITempDirectory.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

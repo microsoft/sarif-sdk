@@ -66,7 +66,7 @@ runLog:
 		@minItems{0}
 		@uniqueItems{true}
     */
-    results?;
+    results;
 
 /**
     @className {ToolInfo}
@@ -370,7 +370,7 @@ result :
 		@minItems{1}
 		@uniqueItems{true}
     */
-    locations
+    locations?
 
     /**
         @name {ToolFingerprint}

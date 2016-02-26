@@ -1,10 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
+﻿// Copyright (c) Microsoft. All rights reserved.
+// Licensed under the MIT license. See LICENSE file in the project root for full license information.
+
+using System;
 using System.IO;
-using System.Linq;
 using System.Reflection;
 using System.Text;
-using System.Threading.Tasks;
+using FluentAssertions;
 using Microsoft.CodeAnalysis.Sarif.Driver.Sdk;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -26,11 +27,15 @@ namespace Microsoft.CodeAnalysis.Sarif
             using (var textWriter = new StringWriter(sb))
             {
                 string pathToExe = Path.GetDirectoryName(Assembly.GetCallingAssembly().Location);
-                pathToExe = pathToExe.Substring(0, pathToExe.Length - @"\Extensions".Length);
-                string[] tokensToRedact = { "TestExecution", pathToExe};
-                string invocationInfo = Environment.CommandLine;
 
-                var sarifLogger = new SarifLogger(
+                // The calling assembly lives in an \Extensions directory that hangs off
+                // the directory of the test driver (the location of which we can't retrieve
+                // from Assembly.GetEntryAssembly() as we are running in an AppDomain).
+                pathToExe = pathToExe.Substring(0, pathToExe.Length - @"\Extensions".Length);
+
+                string[] tokensToRedact = { "TestExecution", pathToExe };
+
+                using (var sarifLogger = new SarifLogger(
                     textWriter,
                     verbose: false,
                     analysisTargets: null,
@@ -38,13 +43,11 @@ namespace Microsoft.CodeAnalysis.Sarif
                     prereleaseInfo: null,
                     invocationInfoTokensToRedact: tokensToRedact,
                     runInfo: null,
-                    toolInfo: null);
+                    toolInfo: null)) { }
 
                 string result = sb.ToString();
-                Assert.AreEqual<int>(
-                    result.Split(new string[] { SarifConstants.RemovedMarker }, StringSplitOptions.None).Length,
-                    3,
-                    "Did not observe expected argument redaction.");
+                result.Split(new string[] { SarifConstants.RemovedMarker }, StringSplitOptions.None)
+                    .Length.Should().Be(tokensToRedact.Length + 1, "redacting n tokens gives you n+1 removal markers");
             }
         }
     }
