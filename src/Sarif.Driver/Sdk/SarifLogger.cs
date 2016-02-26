@@ -16,7 +16,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
         private TextWriter _textWriter;
         private JsonTextWriter _jsonTextWriter;
         private ResultLogJsonWriter _issueLogJsonWriter;
-        private HashSet<IRuleDescriptor> ruleDescriptors;
+        private HashSet<IRuleDescriptor> _ruleDescriptors;
 
         public static ToolInfo CreateDefaultToolInfo(string prereleaseInfo = null)
         {
@@ -79,10 +79,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
             {
                 runInfo = new RunInfo();
 
-                runInfo.AnalysisTargets = new List<FileReference>();
-
                 if (analysisTargets != null)
                 {
+                    runInfo.AnalysisTargets = new List<FileReference>();
+
                     foreach (string target in analysisTargets)
                     {
                         var fileReference = new FileReference()
@@ -118,9 +118,17 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
             }
 
             _issueLogJsonWriter.WriteToolAndRunInfo(toolInfo, runInfo);
-
-            this.ruleDescriptors = new HashSet<IRuleDescriptor>();
         }
+
+        public HashSet<IRuleDescriptor> RuleDescriptors
+        {
+            get
+            {
+                _ruleDescriptors = _ruleDescriptors ?? new HashSet<IRuleDescriptor>();
+                return _ruleDescriptors;
+            }
+        }
+
 
         public bool Verbose { get; set; }
 
@@ -131,7 +139,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
             if (_issueLogJsonWriter != null)
             {
                 _issueLogJsonWriter.CloseResults();
-                _issueLogJsonWriter.WriteRuleInfo(this.ruleDescriptors);
+                
+                // Note: we write out the backing ruleDescriptors
+                // to prevent the property accessor from populating
+                // this data with an empty collection.
+                _issueLogJsonWriter.WriteRuleInfo(_ruleDescriptors);
+
                 _issueLogJsonWriter.Dispose();
             }
             if (_textWriter != null) { _textWriter.Dispose(); }
@@ -161,7 +174,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
 
             if (rule != null)
             {
-                this.ruleDescriptors.Add(rule);
+                RuleDescriptors.Add(rule);
             }
 
             _issueLogJsonWriter.WriteResult(result);
@@ -183,7 +196,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
         {
             if (context.Rule != null)
             {
-                this.ruleDescriptors.Add(context.Rule);
+                RuleDescriptors.Add(context.Rule);
             }
 
             formatSpecifierId = RuleUtilities.NormalizeFormatSpecifierId(context.Rule.Id, formatSpecifierId);
