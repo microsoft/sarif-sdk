@@ -5,8 +5,8 @@ set VERSION=%MAJOR%.%MINOR%.%PATCH%%PRERELEASE%
 set NUGET=.nuget\nuget.exe
 set SOURCE=https://nuget.org
 
-if exist ..\SetNugetSarifKey.cmd (
-call ..\SetNugetSarifKey.cmd
+if exist ..\SetNugetSarifApiKey.cmd (
+call ..\SetNugetSarifApiKey.cmd
 call %NUGET% SetApiKey %API_KEY% -Source %SOURCE%
 )
 if "%ERRORLEVEL%" NEQ "0" (echo set api key of %API_KEY% to %SOURCE% FAILED && goto Exit)
