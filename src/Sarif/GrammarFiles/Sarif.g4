@@ -120,25 +120,7 @@ toolInfo :
         }
 		@pattern {[0-9]+(\\.[0-9]+){3}}
     */
-    fileVersion?
-
-	/**
-		@name {RunStartTime}
-        @summary {
-		An optional string specifying the date and time at which the run started.
-		}
-	*/
-	runStartTime?
-
-	/**
-	@name {RunEndTime}
-    @summary {
-	An optional string specifying the date and time at which the run ended.
-	}
-	*/
-	runEndTime?
-
-;
+    fileVersion?;
 
 /**
     @className {RunInfo}
@@ -181,7 +163,61 @@ runInfo :
 		@minItems{0}
 		@uniqueItems{true}
     */
-    analysisTargets?;
+    analysisTargets?
+	
+	/**
+		@name {RunStartTime}
+        @summary {
+		An optional string specifying the date and time at which the run started.
+		}
+	*/
+	runStartTime?
+
+	/**
+	@name {RunEndTime}
+    @summary {
+	An optional string specifying the date and time at which the run ended.
+	}
+	*/
+	runEndTime?	
+
+	/**
+	@name {CorrelationId}
+    @summary {
+	An optional string identifier that allows the run to be associated with a larger automation process.
+	}
+	*/
+	correlationId?
+	
+	/**
+	@name {Architecture}
+    @summary {
+	An optional string identifier that specifies the hardware architecture for which the run was targeted.
+	}
+	*/
+	architecture?	
+
+    /**
+        @name {Properties}
+        @summary {
+        Key/value pairs that provide additional details about the run.
+        }
+        @remarks {
+        Properties may be included in the dictionary that have an empty value.
+        }
+		@default {{}}
+    */
+    properties?
+	
+	/** 
+		@name {Tag}
+		@summary {
+		A unique set of strings that provide additional information for the run.
+		}
+		@default {[]}
+	*/
+		tags?
+	;
 
 /** @className {RunLogs} */
 runLogs: runLog*;
@@ -1157,3 +1193,5 @@ fullDescription : STRING;
 arguments : STRING*;
 runStartTime : DATETIME;
 runEndTime : DATETIME;
+correlationId : STRING;
+architecture : STRING;
