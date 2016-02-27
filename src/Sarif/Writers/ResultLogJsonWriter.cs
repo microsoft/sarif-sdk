@@ -85,6 +85,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
         public void WriteRuleInfo(IEnumerable<IRuleDescriptor> ruleDescriptors)
         {
+            if (ruleDescriptors == null) { return; }
+
             _jsonWriter.WritePropertyName("ruleInfo");
             _jsonWriter.WriteStartArray();
 

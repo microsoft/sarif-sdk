@@ -9,10 +9,7 @@ SETLOCAL
 rd /s /q bld
 md bld\bin\nuget
 
-set MAJOR=1
-set MINOR=4
-set PATCH=33
-set PRERELEASE=-beta
+call SetCurrentVersion.cmd 
 
 set Platform=AnyCPU
 set Configuration=Release
