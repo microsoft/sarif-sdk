@@ -48,10 +48,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 throw new ArgumentNullException("output");
             }
 
-            output.WriteToolAndRunInfo(new ToolInfo
+            output.WriteToolInfo(new ToolInfo
             {
                 Name = "AndroidStudio"
-            }, null);
+            });
+
+            // We can't infer/produce a runInfo object
+
 
             XmlReaderSettings settings = new XmlReaderSettings
             {

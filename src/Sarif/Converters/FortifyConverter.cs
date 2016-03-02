@@ -44,10 +44,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 throw new ArgumentNullException("output");
             }
 
-            output.WriteToolAndRunInfo(new ToolInfo
+            output.WriteToolInfo(new ToolInfo
             {
                 Name = "Fortify"
-            }, null);
+            });
+
+            // We can't infer/produce a runInfo object
 
             var settings = new XmlReaderSettings
             {

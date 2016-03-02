@@ -42,10 +42,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             }
 
             ToolInfo toolInfo = new ToolInfo();
-            RunInfo runInfo = new RunInfo();
             toolInfo.Name = "FxCop";
-            output.WriteToolAndRunInfo(toolInfo, runInfo);
+            output.WriteToolInfo(toolInfo);
 
+            // We can't infer/produce a runInfo object
+             
             var context = new FxCopLogReader.Context();
 
             var reader = new FxCopLogReader();

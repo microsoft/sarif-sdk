@@ -83,11 +83,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 throw reader.CreateException(SarifResources.CppCheckCppCheckElementMissing);
             }
 
-            issueWriter.WriteToolAndRunInfo(new ToolInfo
+            issueWriter.WriteToolInfo(new ToolInfo
             {
                 Name = "CppCheck",
                 Version = version,
-            }, null);
+            });
+
+            // We can't infer/produce a runInfo object
 
             reader.Skip(); // <cppcheck />
 

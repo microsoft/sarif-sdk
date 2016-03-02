@@ -43,7 +43,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
                 ToolInfo toolInfo = new ToolInfo();
                 toolInfo.Name = "Clang";
-                output.WriteToolAndRunInfo(toolInfo, null);
+                output.WriteToolInfo(toolInfo);
+                
+                // We can't infer/pproduce a runInfo object
 
                 using (XmlReader xmlReader = XmlReader.Create(input, settings))
                 {

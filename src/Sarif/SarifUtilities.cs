@@ -10,7 +10,7 @@ using System.Text.RegularExpressions;
 
 namespace Microsoft.CodeAnalysis.Sarif
 {
-    public static class SarifExtensionMethods
+    public static class SarifUtilities
     {
         private static Regex s_semVer200 = new Regex(@"^(?<major>\d+)\.(?<minor>\d+)\.(?<patch>\d+)(-(?<prerelease>[A-Za-z0-9\-\.]+))?(\+(?<build>[A-Za-z0-9\-\.]+))?$", RegexOptions.Compiled);
         public static bool IsSemanticVersioningCompatible(this string versionString)
@@ -20,6 +20,26 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         private const string V0_4 = "0.4";
         private const string V1_0_0_BETA_1 = "1.0.0-beta.1";
+
+        /// <summary>
+        /// Returns an ISO 8601 compatible universal date time with seconds precision, e.g.
+        /// "2016-03-02T01:44:50Z"
+        /// </summary>
+        /// <returns></returns>
+        public static string UtcNowSecondsPrecision()
+        {
+            return DateTime.UtcNow.ToString("yyyy'-'MM'-'dd'T'HH':'mm':'ss'Z'");
+        }
+
+        /// <summary>
+        /// Returns an ISO 8601 compatible universal date time with seconds precision, e.g.
+        /// "2016-03-02T01:44:50.37Z"
+        /// </summary>
+        /// <returns></returns>
+        public static string UtcNowMillisecondsPrecision()
+        {
+            return DateTime.UtcNow.ToString("yyyy'-'MM'-'dd'T'HH':'mm':'ss.ff'Z'");
+        }
 
         public static SarifVersion ConvertToSarifVersion(this string sarifVersionText)
         {

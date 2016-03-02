@@ -45,7 +45,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         /// written.</exception>
         /// <param name="info">The tool information to write.</param>
         /// <seealso cref="M:Microsoft.CodeAnalysis.Sarif.IsarifWriter.WriteToolInfo(ToolInfo)"/>
-        public void WriteToolAndRunInfo(ToolInfo toolInfo, RunInfo runInfo)
+        public void WriteToolInfo(ToolInfo toolInfo)
         {
             if (toolInfo == null)
             {
@@ -72,15 +72,19 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             _jsonWriter.WritePropertyName("toolInfo");
             _serializer.Serialize(_jsonWriter, toolInfo, typeof(ToolInfo));
 
+
+            _jsonWriter.WritePropertyName("results");
+            _jsonWriter.WriteStartArray(); // Begin: results
+            _writeState = State.WritingResults;
+        }
+
+        public void WriteRunInfo(RunInfo runInfo)
+        {
             if (runInfo != null)
             {
                 _jsonWriter.WritePropertyName("runInfo");
                 _serializer.Serialize(_jsonWriter, runInfo, typeof(RunInfo));
             }
-
-            _jsonWriter.WritePropertyName("results");
-            _jsonWriter.WriteStartArray(); // Begin: results
-            _writeState = State.WritingResults;
         }
 
         public void WriteRuleInfo(IEnumerable<IRuleDescriptor> ruleDescriptors)

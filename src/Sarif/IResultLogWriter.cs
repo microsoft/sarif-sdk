@@ -8,8 +8,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// <summary>This interface serves as a sink for <see cref="ResultLog"/> format issues.</summary>
     public interface IResultLogWriter
     {
-        /// <summary>Writes run and tool information entries to the log. These must be the first
-        /// entries written into a log, and they may be written at most once.</summary>
+        /// <summary>Writes tool information to the log.</summary>
         /// <exception cref="IOException">A file IO error occured. Clients implementing
         /// <see cref="IToolFileConverter"/> should allow these exceptions to propagate.</exception>
         /// <exception cref="InvalidOperationException">Thrown if the tool info block has already been
@@ -17,7 +16,19 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <exception cref="ArgumentNullException">Thrown if <paramref name="info"/> is null.</exception>
         /// <param name="toolInfo">The tool information to write.</param>
         /// <param name="runInfo">The run information to write.</param>
-        void WriteToolAndRunInfo(ToolInfo toolInfo, RunInfo runInfo);
+        void WriteToolInfo(ToolInfo toolInfo);
+
+        /// <summary>Writes run information to the log. This information may appear after
+        /// the results, as it can contain data that can't be computed (such as the run
+        /// end time) until all results have been generated.</summary>
+        /// <exception cref="IOException">A file IO error occured. Clients implementing
+        /// <see cref="IToolFileConverter"/> should allow these exceptions to propagate.</exception>
+        /// <exception cref="InvalidOperationException">Thrown if the tool info block has already been
+        /// written.</exception>
+        /// <exception cref="ArgumentNullException">Thrown if <paramref name="info"/> is null.</exception>
+        /// <param name="toolInfo">The tool information to write.</param>
+        /// <param name="runInfo">The run information to write.</param>
+        void WriteRunInfo(RunInfo runInfo);
 
         /// <summary>Writes a result to the log. The log must have tool info written first by calling
         /// <see cref="M:WriteToolInfo" />.</summary>
