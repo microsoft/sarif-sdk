@@ -87,7 +87,7 @@ namespace Microsoft.Sarif.Viewer
 
                 CodeLocations codeLocations = new CodeLocations();
 
-                FrameworkElement content = new CodeLocations();//.fullMessage = new TextBlock() { Text = error.FullMessage };
+                FrameworkElement content = codeLocations;
 
                 var type = textView.GetType();
                 var mi = type.GetMethod(
