@@ -43,7 +43,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             string expected = "{\"version\":\"1.0.0-beta.1\",\"runLogs\":[{\"toolInfo\":{\"name\":null},\"runInfo\":{},\"results\":[{}]}]}";
             string actual = GetJson(uut =>
             {
-                uut.WriteToolAndRunInfo(s_defaultToolInfo, s_defaultRunInfo);
+                uut.WriteToolInfo(s_defaultToolInfo);
+                uut.WriteRunInfo(s_defaultRunInfo);
                 uut.WriteResult(s_defaultIssue);
             });
             Assert.AreEqual(expected, actual);
@@ -62,8 +63,19 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         {
             GetJson(uut =>
             {
-                uut.WriteToolAndRunInfo(s_defaultToolInfo, s_defaultRunInfo);
-                uut.WriteToolAndRunInfo(s_defaultToolInfo, s_defaultRunInfo);
+                uut.WriteToolInfo(s_defaultToolInfo);
+                uut.WriteToolInfo(s_defaultToolInfo);
+            });
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(InvalidOperationException))]
+        public void ResultLogJsonWriter_RunInfoMayNotBeWrittenMoreThanOnce()
+        {
+            GetJson(uut =>
+            {
+                uut.WriteRunInfo(s_defaultRunInfo);
+                uut.WriteRunInfo(s_defaultRunInfo);
             });
         }
 
@@ -71,13 +83,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         [ExpectedException(typeof(ArgumentNullException))]
         public void ResultLogJsonWriter_RequiresNonNullToolInfo()
         {
-            GetJson(uut => uut.WriteToolAndRunInfo(null, s_defaultRunInfo));
+            GetJson(uut => uut.WriteToolInfo(null));
         }
 
         [TestMethod]
         public void ResultLogJsonWriter_NullRunInfoIsOK()
         {
-            GetJson(uut => uut.WriteToolAndRunInfo(s_defaultToolInfo, null));
+            GetJson(uut => uut.WriteRunInfo(null));
         }
 
         [TestMethod]
@@ -86,7 +98,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         {
             GetJson(uut =>
             {
-                uut.WriteToolAndRunInfo(s_defaultToolInfo, s_defaultRunInfo);
+                uut.WriteToolInfo(s_defaultToolInfo);
+                uut.WriteRunInfo(s_defaultRunInfo);
                 uut.WriteResult(null);
             });
         }
@@ -100,7 +113,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             using (var uut = new ResultLogJsonWriter(json))
             {
                 uut.Dispose();
-                uut.WriteToolAndRunInfo(s_defaultToolInfo, s_defaultRunInfo);
+                uut.WriteToolInfo(s_defaultToolInfo);
+                uut.WriteRunInfo(s_defaultRunInfo);
             }
         }
 
@@ -112,8 +126,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             using (var json = new JsonTextWriter(str))
             using (var uut = new ResultLogJsonWriter(json))
             {
-                uut.WriteToolAndRunInfo(s_defaultToolInfo, s_defaultRunInfo);
-                uut.Dispose();
+                uut.WriteToolInfo(s_defaultToolInfo);
+                uut.WriteRunInfo(s_defaultRunInfo); uut.Dispose();
                 uut.WriteResult(s_defaultIssue);
             }
         }

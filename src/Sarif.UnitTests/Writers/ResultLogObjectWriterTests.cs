@@ -66,13 +66,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         [ExpectedException(typeof(ArgumentNullException))]
         public void ResultLogObjectWriter_RequiresNonNullToolInfo()
         {
-            new ResultLogObjectWriter().WriteToolAndRunInfo(null, s_defaultRunInfo);
+            new ResultLogObjectWriter().WriteToolInfo(null);
         }
 
         [TestMethod]
-        public void ResultLogObjectWriter_RequiresNullRunInfoIsOk()
+        [ExpectedException(typeof(ArgumentNullException))]
+        public void ResultLogObjectWriter_RequiresNonNullRunInfo()
         {
-            new ResultLogObjectWriter().WriteToolAndRunInfo(s_defaultToolInfo, null);
+            new ResultLogObjectWriter().WriteRunInfo(null);
         }
 
         [TestMethod]
@@ -80,8 +81,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         public void ResultLogObjectWriter_RequiresNonNullIssue()
         {
             var uut = new ResultLogObjectWriter();
-            uut.WriteToolAndRunInfo(s_defaultToolInfo, s_defaultRunInfo);
-            uut.WriteResult(null);
+            uut.WriteToolInfo(s_defaultToolInfo);
+            uut.WriteRunInfo(s_defaultRunInfo); uut.WriteResult(null);
         }
     }
 }

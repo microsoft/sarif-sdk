@@ -30,6 +30,14 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="runInfo">The run information to write.</param>
         void WriteRunInfo(RunInfo runInfo);
 
+        /// <summary>
+        /// Initialize the results array associated with the current output log. SARIF producers that
+        /// are explicitly generating results (as opposed to other SARIF scenarios such as publishing
+        /// rules metadata) should proactively call this method in order to ensure that an explicit 
+        /// (but empty) results array exists in the log when no literal results were produced.
+        /// </summary>
+        void InitializeResults();
+
         /// <summary>Writes a result to the log. The log must have tool info written first by calling
         /// <see cref="M:WriteToolInfo" />.</summary>
         /// <remarks>This function makes a copy of the data stored in <paramref name="result"/>; if a

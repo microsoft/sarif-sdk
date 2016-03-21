@@ -201,4 +201,7 @@
   <data name="CppCheckMissingLocation" xml:space="preserve">
     <value>A CppCheck entry must have a nonzero number of locations.</value>
   </data>
+  <data name="RunInfoAlreadyWritten" xml:space="preserve">
+    <value>RunInfo cannot be written at this location (it has already been written).</value>
+  </data>
 </root>

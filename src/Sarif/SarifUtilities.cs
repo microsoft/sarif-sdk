@@ -22,24 +22,16 @@ namespace Microsoft.CodeAnalysis.Sarif
         private const string V1_0_0_BETA_1 = "1.0.0-beta.1";
 
         /// <summary>
-        /// Returns an ISO 8601 compatible universal date time with seconds precision, e.g.
-        /// "2016-03-02T01:44:50Z"
+        /// Returns an ISO 8601 compatible universal date time format string with
+        /// seconds precision, used to produce times such as "2016-03-02T01:44:50Z"
         /// </summary>
-        /// <returns></returns>
-        public static string UtcNowSecondsPrecision()
-        {
-            return DateTime.UtcNow.ToString("yyyy'-'MM'-'dd'T'HH':'mm':'ss'Z'");
-        }
+        public static readonly string SarifDateTimeFormatSecondsPrecision = "yyyy'-'MM'-'dd'T'HH':'mm':'ss'Z'";
 
         /// <summary>
-        /// Returns an ISO 8601 compatible universal date time with seconds precision, e.g.
-        /// "2016-03-02T01:44:50.37Z"
-        /// </summary>
-        /// <returns></returns>
-        public static string UtcNowMillisecondsPrecision()
-        {
-            return DateTime.UtcNow.ToString("yyyy'-'MM'-'dd'T'HH':'mm':'ss.ff'Z'");
-        }
+        /// Returns an ISO 8601 compatible universal date time format string with
+        /// centiseconds precision, used to produce times such as "2016-03-02T01:44:50Z"
+        public static readonly string SarifDateTimeFormatCentisecondsPrecision = "yyyy'-'MM'-'dd'T'HH':'mm':'ss.ff'Z'";
+
 
         public static SarifVersion ConvertToSarifVersion(this string sarifVersionText)
         {

@@ -58,6 +58,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 NameTable = _nameTable
             };
 
+            output.InitializeResults();
+
             using (XmlReader reader = XmlReader.Create(input, settings))
             {
                 while (reader.Read())

@@ -46,7 +46,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             output.WriteToolInfo(toolInfo);
 
             // We can't infer/produce a runInfo object
-             
+
+            output.InitializeResults();
+
             var context = new FxCopLogReader.Context();
 
             var reader = new FxCopLogReader();

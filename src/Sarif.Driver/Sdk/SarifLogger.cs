@@ -33,39 +33,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
             return toolInfo;
         }
 
-        public SarifLogger(string outputFilePath, bool verbose, ToolInfo toolInfo, RunInfo runInfo)
-            : this (new StreamWriter(new FileStream(outputFilePath, FileMode.Create, FileAccess.Write, FileShare.None)),
-                  runInfo, toolInfo);
-        {
-
-        }
-
-        public SarifLogger(TextWriter writer, bool verbose, ToolInfo toolInfo, RunInfo runInfo)
-        {
-            Verbose = verbose;
-
-            _textWriter = writer;
-            _jsonTextWriter = new JsonTextWriter(_textWriter);
-
-            // for debugging it is nice to have the following line added.
-            _jsonTextWriter.Formatting = Newtonsoft.Json.Formatting.Indented;
-            _runInfo = runInfo;
-            _issueLogJsonWriter.WriteToolInfo(toolInfo);
-        }
-
-        public SarifLogger(
-            string outputFilePath,
-            bool verbose,
-            IEnumerable<string> analysisTargets,
-            bool computeTargetsHash,
-            string prereleaseInfo)
-            : this(new StreamWriter(new FileStream(outputFilePath, FileMode.Create, FileAccess.Write, FileShare.None)),
-                   verbose,
-                   CreateDefaultToolInfo(prereleaseInfo),
-                   CreateRunInfo(analysisTargets, computeTargetsHash))
-        {
-
-        }
 
         private static RunInfo CreateRunInfo(
             IEnumerable<string> analysisTargets,
@@ -115,6 +82,47 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
             return runInfo;
         }
 
+        public SarifLogger(string outputFilePath, bool verbose, ToolInfo toolInfo, RunInfo runInfo)
+            : this (new StreamWriter(new FileStream(outputFilePath, FileMode.Create, FileAccess.Write, FileShare.None)),
+                  verbose,
+                  toolInfo, 
+                  runInfo)
+        {
+
+        }
+
+        public SarifLogger(TextWriter writer, bool verbose, ToolInfo toolInfo, RunInfo runInfo)
+        {
+            Verbose = verbose;
+
+            _textWriter = writer;
+            _jsonTextWriter = new JsonTextWriter(_textWriter);
+
+            // for debugging it is nice to have the following line added.
+            _jsonTextWriter.Formatting = Newtonsoft.Json.Formatting.Indented;
+            _runInfo = runInfo;
+            _issueLogJsonWriter.WriteToolInfo(toolInfo);
+        }
+
+        public SarifLogger(
+            string outputFilePath,
+            bool verbose,
+            IEnumerable<string> analysisTargets,
+            bool computeTargetsHash,
+            string prereleaseInfo,
+            IEnumerable<string> invocationInfoTokensToRedact)
+            : this(new StreamWriter(new FileStream(outputFilePath, FileMode.Create, FileAccess.Write, FileShare.None)),
+                    verbose,
+                    analysisTargets,
+                    computeTargetsHash, 
+                    prereleaseInfo,
+                    invocationInfoTokensToRedact)
+        {
+
+        }
+
+
+
         public SarifLogger(
             TextWriter textWriter,
             bool verbose,
@@ -159,7 +167,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
             {
                 _issueLogJsonWriter.CloseResults();
 
-                _runInfo.RunEndTime = DateTime.UtcNow;
+                if (_runInfo != null && _runInfo.RunStartTime != new DateTime())
+                {
+                    _runInfo.RunEndTime = DateTime.UtcNow;
+                }
+
                 _issueLogJsonWriter.WriteRunInfo(_runInfo);
 
                 // Note: we write out the backing ruleDescriptors

@@ -72,6 +72,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             _runInfo = runInfo;
         }
 
+        public void InitializeResults()
+        {
+        }
+
         /// <summary>Writes a result to the log. The log must have tool info written first by calling
         /// <see cref="M:WriteToolInfo" />.</summary>
         /// <remarks>This function makes a copy of the data stored in <paramref name="result"/>; if a

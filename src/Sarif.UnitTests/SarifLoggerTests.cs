@@ -59,9 +59,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                     analysisTargets: null,
                     computeTargetsHash: false,
                     prereleaseInfo: null,
-                    invocationInfoTokensToRedact: tokensToRedact,
-                    runInfo: null,
-                    toolInfo: null)) { }
+                    invocationInfoTokensToRedact: tokensToRedact)) { }
 
                 string result = sb.ToString();
                 result.Split(new string[] { SarifConstants.RemovedMarker }, StringSplitOptions.None)

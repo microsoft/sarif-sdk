@@ -85,7 +85,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Validation
                 true,           // Produce verbose output.
                 new[] { instanceFilePath, schemaFilePath },
                 false,          // Do not compute target hash.
-                null);          // The version of this tool has no prerelease info.
+                null,          // The version of this tool has no prerelease info.
+                null);        // no invocation tokens to redact
         }
 
         public IEnumerable<string> BuildLog(IEnumerable<JsonError> errors)

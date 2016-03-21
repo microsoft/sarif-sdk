@@ -304,6 +304,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Sdk {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to RunInfo cannot be written at this location (it has already been written)..
+        /// </summary>
+        internal static string RunInfoAlreadyWritten {
+            get {
+                return ResourceManager.GetString("RunInfoAlreadyWritten", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to ToolInfo cannot be written at this location (it has already been written)..
         /// </summary>
         internal static string ToolInfoAlreadyWritten {

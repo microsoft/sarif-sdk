@@ -98,6 +98,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 throw reader.CreateException(SarifResources.CppCheckErrorsElementMissing);
             }
 
+            issueWriter.InitializeResults();
             if (reader.IsEmptyElement)
             {
                 reader.Skip(); // <errors />
