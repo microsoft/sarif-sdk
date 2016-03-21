@@ -9,7 +9,6 @@ using System.IO;
 using FluentAssertions;
 
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Microsoft.CodeAnalysis.Sarif.Sdk;
 
 namespace Microsoft.CodeAnalysis.Sarif.Converters
 {

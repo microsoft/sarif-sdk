@@ -214,7 +214,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Validation
                 region = new Region();
             }
 
-            var physicalLocation = new PhysicalLocation
+            var plc = new PhysicalLocation
             {
                 Uri = analysisTargetUri,
                 Region = region
@@ -222,7 +222,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Validation
 
             var location = new Location
             {
-                AnalysisTarget = new PhysicalLocation(physicalLocation)
+                AnalysisTarget = new PhysicalLocation(plc)
             };
 
             result.Locations = new List<Location> { location };

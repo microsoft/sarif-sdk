@@ -91,8 +91,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             return new CppCheckLocation(file, line);
         }
 
-        /// <summary>Converts this instance to a <see cref="List{PhysicalLocationComponent}"/>.</summary>
-        /// <returns>This instance as a <see cref="List{PhysicalLocationComponent}"/>.</returns>
+        /// <summary>Converts this instance to a <see cref="PhysicalLocation"/>.</summary>
+        /// <returns>This instance as a <see cref="PhysicalLocation"/>.</returns>
         public PhysicalLocation ToSarifPhysicalLocation()
         {
             return new PhysicalLocation
