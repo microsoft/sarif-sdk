@@ -10,6 +10,11 @@ namespace Microsoft.CodeAnalysis.Sarif
 {
     public static class SarifExtensionMethods
     {
+        public static bool IsFullyPopulated(Region region)
+        {
+            return false;
+        }
+
         public static Dictionary<string, string> BuildFormatSpecifiers(IEnumerable<string> resourceNames, ResourceManager resourceManager)
         {
             // Note this dictionary provides for case-insensitive keys

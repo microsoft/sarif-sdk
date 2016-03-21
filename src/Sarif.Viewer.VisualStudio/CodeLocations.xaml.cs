@@ -13,6 +13,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Microsoft.VisualStudio.PlatformUI;
+using Microsoft.VisualStudio.Shell;
 
 namespace Microsoft.Sarif.Viewer
 {
@@ -24,6 +26,14 @@ namespace Microsoft.Sarif.Viewer
         public CodeLocations()
         {
             InitializeComponent();
+
+            CurrentSarifError = new SarifError("fileName")
+            {
+                RuleId = "ruleId",
+                RuleName = "ruleName"
+            };
+
+            this.detailsGrid.DataContext = this;
         }
 
         public ObservableCollection<AnnotatedCodeLocationModel> Items { get; internal set; }
@@ -31,6 +41,8 @@ namespace Microsoft.Sarif.Viewer
         private void Control_Loaded(object sender, RoutedEventArgs e)
         {
         }
+
+        public SarifError CurrentSarifError { get; set; }
 
         public void SetItems(ObservableCollection<AnnotatedCodeLocationModel> items)
         {
@@ -68,14 +80,73 @@ namespace Microsoft.Sarif.Viewer
             this.codeLocationsListView.DataContext = _csv;
         }
 
-        private void Expander_Click(object sender, RoutedEventArgs e)
+        private void CodeLocationsList_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            Expander senderExp = (Expander)sender;
-            object obj = senderExp.Tag;
-            if (obj is ListViewItem)
+            HandleLineInformationListSelectionChanged(sender, e);
+        }
+
+        private void HelpHyperlink_Click(object sender, RoutedEventArgs e)
+        {
+            // HandleHelpHyperlinkClick(sender);
+        }
+
+        private void FileAndCategoryGrid_SizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            // HandleFileAndCategoryGridSizeChanged(sender);
+        }
+
+        private static void HandleLineInformationListSelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            // Deselecting previously-selected result
+            if (e.RemovedItems.Count > 0)
             {
-                ((ListViewItem)obj).IsSelected = true;
+                for (int i = 0; i < e.RemovedItems.Count; i++)
+                {
+                    var item = e.RemovedItems[i] as AnnotatedCodeLocationModel;
+
+                    if (item != null)
+                    {
+                        item.IsSelected = false;
+                        item.OnDeselectKeyEvent();
+                    }
+                }
             }
+
+            // Selecting new result
+            if (e.AddedItems.Count > 0)
+            {
+                for (int i = 0; i < e.AddedItems.Count; i++)
+                {
+                    var item = e.AddedItems[i] as AnnotatedCodeLocationModel;
+                    if (item != null)
+                    {
+                        item.IsSelected = true;
+                        item.OnSelectKeyEvent();
+                    }
+                }
+            }
+
+            e.Handled = true;
+        }
+
+        private static AnnotatedCodeLocationModel GetCodeAnalysisItemFromSender(object eventSender)
+        {
+            var fce = eventSender as FrameworkContentElement;
+            if (fce != null)
+            {
+                return fce.DataContext as AnnotatedCodeLocationModel;
+            }
+            else
+            {
+                // Let's also try FrameworkElement depending on who sent the event
+                var fe = eventSender as FrameworkElement;
+                if (fe != null)
+                {
+                    return fe.DataContext as AnnotatedCodeLocationModel;
+                }
+            }
+
+            return null;
         }
     }
 }

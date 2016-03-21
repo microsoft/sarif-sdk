@@ -29,20 +29,11 @@ namespace Microsoft.Sarif.Viewer
     {
         private string _projectName;
         private readonly List<SarifError> _errors;
-        private Dictionary<string, string> _remappedFilePaths;
-        private List<Tuple<string, string>> _remappedPathPrefixes;
-        private Dictionary<string, NewLineIndex> _fileToNewLineIndexMap;
 
         internal SarifSnapshot(string filePath, IEnumerable<SarifError> errors)
         {
             FilePath = filePath;
             _errors = new List<SarifError>(errors);
-
-            _remappedFilePaths = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
-            _remappedPathPrefixes = new List<Tuple<string, string>>();
-
-            _fileToNewLineIndexMap = new Dictionary<string, NewLineIndex>(StringComparer.OrdinalIgnoreCase);
-
             Count = _errors.Count;
         }
 
@@ -185,144 +176,10 @@ namespace Microsoft.Sarif.Viewer
             }
 
             SarifError sarifError = _errors[index];
-            string fileName = sarifError.FileName;
 
-            if (string.IsNullOrEmpty(fileName))
-            {
-                return null;
-            }
-
-            if (!File.Exists(fileName))
-            {
-                fileName = RebaselineFileName(fileName);
-
-                if (!File.Exists(fileName))
-                {
-                    return null;
-                }
-            }
-            
-            Region region = sarifError.Region;
-
-            NewLineIndex newLineIndex = null;
-            if (!sarifError.RegionPopulated && sarifError.MimeType != MimeType.Binary)
-            {
-                if (!_fileToNewLineIndexMap.TryGetValue(fileName, out newLineIndex))
-                {
-                    _fileToNewLineIndexMap[fileName] = newLineIndex = new NewLineIndex(File.ReadAllText(fileName));
-                }
-                region.Populate(newLineIndex);
-                sarifError.RegionPopulated = true;
-            }
-
-            // Fall back to the file and line number
-            IVsWindowFrame windowFrame = SdkUiUtilities.OpenDocument(SarifViewerPackage.ServiceProvider, fileName, true);
-            if (windowFrame != null)
-            {
-                IVsTextView textView = GetTextViewFromFrame(windowFrame);
-                if (textView == null)
-                {
-                    return null;
-                }
-
-                // Navigate the caret to the desired location. Text span uses 0-based indexes
-                TextSpan ts;
-                ts.iStartLine = region.StartLine - 1;
-                ts.iEndLine = region.EndLine - 1;
-                ts.iStartIndex = ts.iStartIndex = Math.Max(region.StartColumn - 1, 0);
-                ts.iEndIndex = Math.Max(region.EndColumn - 1, 0) + 5;
-
-                textView.EnsureSpanVisible(ts);
-                textView.SetSelection(ts.iStartLine, ts.iStartIndex, ts.iEndLine, ts.iEndIndex);
-
-                //if (highlightLine)
-                {
-                    // marker.AddSelectionMarker(highlightColor);
-                }
-            }
-            return windowFrame;
-        }
-
-        private IVsTextView GetTextViewFromFrame(IVsWindowFrame frame)
-        {
-            // Get the document view from the window frame, then get the text view
-            object docView;
-            int hr = frame.GetProperty((int)__VSFPROPID.VSFPROPID_DocView, out docView);
-            if (ErrorHandler.Failed(hr) || docView == null)
-            {
-                return null;
-            }
-
-            IVsCodeWindow codeWindow = docView as IVsCodeWindow;
-            IVsTextView textView;
-            codeWindow.GetLastActiveView(out textView);
-            if (textView == null)
-            {
-                codeWindow.GetPrimaryView(out textView);
-            }
-
-            return textView;
-        }
-
-        private string RebaselineFileName(string fileName)
-        {
-            // First, we'll traverse our remappings and see if we can
-            // make rebaseline from existing data
-            foreach (Tuple<string, string> remapping in _remappedPathPrefixes)
-            {
-                string remapped = fileName.Replace(remapping.Item1, remapping.Item2);
-                if (File.Exists(remapped))
-                {
-                    return remapped;
-                }
-            }
-
-            OpenFileDialog openFileDialog = new OpenFileDialog();
-
-            string fullPath = Path.GetFullPath(fileName);
-            string shortName = Path.GetFileName(fullPath);
-
-            openFileDialog.Title = "Locate missing file: " + fullPath;
-            openFileDialog.Filter = shortName + "|" + shortName;
-            openFileDialog.RestoreDirectory = true;
-
-            if (openFileDialog.ShowDialog() != DialogResult.OK)
-            {
-                return fileName;
-            }
-
-            string resolvedPath = openFileDialog.FileName;
-            string resolvedFileName = Path.GetFileName(resolvedPath);
-
-            // If remapping has somehow altered the file name itself,
-            // we will bail on attempting to do any remapping
-            if (Path.GetFileName(fullPath) != resolvedFileName)
-            {
-                return fileName;
-            }
-
-            int offset = resolvedFileName.Length;
-            while ((resolvedPath.Length - offset) >= 0 &&
-                   (fullPath.Length - offset) >= 0)
-            {
-                if (!resolvedPath[resolvedPath.Length - offset].ToString().Equals(fullPath[fullPath.Length - offset].ToString(), StringComparison.OrdinalIgnoreCase))
-                {
-                    break;
-                }
-                offset++;
-            }
-
-            offset--;
-
-            // At this point, we've got our hands on the common suffix for both the 
-            // original file path and the resolved location. we trim this off both
-            // values and then add a remapping that converts one to the other
-            string originalPrefix = fullPath.Substring(0, fullPath.Length - offset);
-            string resolvedPrefix = resolvedPath.Substring(0, resolvedPath.Length - offset);
-
-            _remappedPathPrefixes.Add(new Tuple<string, string>(originalPrefix, resolvedPrefix));
-
-            return resolvedPath;
+            IVsWindowFrame result;
+            CodeAnalysisResultManager.Instance.TryNavigateTo(sarifError, out result);
+            return result;
         }
 
         public bool TryCreateImageContent(int index, string columnName, bool singleColumnView, out object content)

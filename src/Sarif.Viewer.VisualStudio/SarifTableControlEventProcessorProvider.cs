@@ -59,20 +59,24 @@ namespace Microsoft.Sarif.Viewer
                     return;
                 }
 
+                e.Handled = true;
                 DeselectItems(snapshot);
 
-                var frame = sarifSnapshot.NavigateTo(index, false);
+                SarifError sarifError = sarifSnapshot.GetItem(index);
 
-                SarifError error = ((SarifSnapshot)snapshot).GetItem(index);
-
-                e.Handled = true;
-
-                if (!error.HasLines)
+                IVsWindowFrame frame;
+                if (!CodeAnalysisResultManager.Instance.TryNavigateTo(sarifError, out frame))
                 {
-                    OpenOrReplaceVerticalContent(frame, error);
+                    return;
+                }
+
+                if (sarifError.HasDetails)
+                {
+                    OpenOrReplaceVerticalContent(frame, sarifError);
                 }
                 else
                 {
+                    // TODO
                     //CloseVerticalContent(frame, error);
                 }
             }
@@ -86,17 +90,15 @@ namespace Microsoft.Sarif.Viewer
                 }
 
                 CodeLocations codeLocations = new CodeLocations();
+                codeLocations.SetItems(error.Annotations);
 
-                FrameworkElement content = new CodeLocations();//.fullMessage = new TextBlock() { Text = error.FullMessage };
-
+                // TODO remove
                 var type = textView.GetType();
                 var mi = type.GetMethod(
                     "ShowAdditionalContent",
                     new Type[] { typeof(FrameworkElement), typeof(String)});
                  
-                mi.Invoke(textView, new object[] { content, "Code Analysis Details" });
-
-                //var cookie = textView.ShowAdditionalContent(content, "Code Analysis Details");
+                mi.Invoke(textView, new object[] { codeLocations, "Code Analysis Details" });
             }
 
             private IVsTextView GetTextViewFromFrame(IVsWindowFrame frame)

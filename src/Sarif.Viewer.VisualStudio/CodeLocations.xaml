@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Microsoft.Sarif.Viewer"
+             xmlns:shell="clr-namespace:Microsoft.VisualStudio.Shell;assembly=Microsoft.VisualStudio.Shell.14.0"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300" Loaded="Control_Loaded">
     <UserControl.Resources>
@@ -41,25 +42,51 @@
         <local:CodeLocationsStyleSelector x:Key="groupStyleSelector"
               CodeLocationsStyle="{StaticResource CodeLocationsStyle}"
               CategoryStyle="{StaticResource CategoryStyle}"/>
+
+        <Style TargetType="Hyperlink" x:Key="HyperlinkStyle">
+            <Setter Property="TextDecorations" Value="None" />
+            <Setter Property="Foreground" Value="{DynamicResource {x:Static shell:VsBrushes.FileTabSelectedBackgroundKey}}" />
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="TextDecorations" Value="underline" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style TargetType="Hyperlink" x:Key="HyperlinkStyleSelected" BasedOn="{StaticResource HyperlinkStyle}">
+            <Setter Property="Foreground" Value="{DynamicResource {x:Static shell:VsBrushes.AccentDarkKey}}" />
+        </Style>
+
     </UserControl.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <StackPanel Grid.Row="0">
-            <!--            <Grid Margin="15,5" Grid.Row="1" Height="Auto">
-                <Expander>
-                    <Expander.Header>
-                        <TextBlock Foreground="#FFABADB3" Name="fullMessage" Text="designer content" FontSize="20" Grid.Row="0"/>
-                    </Expander.Header>
-                </Expander>
+            <Grid Name="detailsGrid">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <TextBlock Grid.Column="0" Margin="0 0 6 0">
+                        <Hyperlink Style="{StaticResource HyperlinkStyleSelected}" Click="HelpHyperlink_Click" >
+                            <Run Text="{Binding Path=CurrentSarifError.RuleId, Mode=OneTime}" />
+                        </Hyperlink>
+                </TextBlock>
+                <TextBlock Grid.Column="1" Name="SelectedItemTextRuleName" Text="{Binding CurrentSarifError.RuleName, Mode=OneTime}" FontWeight="Bold" />
             </Grid>
-            -->
-                <ListView 
-                Margin="14,17,16,14" 
+            <ListView 
+                Margin="2" 
                 Name="codeLocationsListView" 
+                ItemsSource="{Binding}"
+                BorderThickness="0" 
                 Height="Auto"
-                ItemsSource="{Binding}">
+                HorizontalAlignment="Stretch"
+                ScrollViewer.CanContentScroll="False"
+                ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                ScrollViewer.VerticalScrollBarVisibility="Disabled"
+                SelectionChanged="CodeLocationsList_SelectionChanged">
                     <ListView.GroupStyle>
                         <GroupStyle ContainerStyleSelector="{StaticResource groupStyleSelector}" />
                     </ListView.GroupStyle>

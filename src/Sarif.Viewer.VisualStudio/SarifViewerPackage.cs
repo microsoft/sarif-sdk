@@ -50,6 +50,21 @@ namespace Microsoft.Sarif.Viewer
             ServiceProvider = this;
         }
 
+        public T GetService<S, T>()
+            where S : class
+            where T : class
+        {
+            try
+            {
+                return (T)this.GetService(typeof(S));
+            }
+            catch (Exception)
+            {
+                // If anything went wrong, just ignore it
+            }
+            return null;
+        }
+
         #region Package Members
 
         /// <summary>
@@ -63,6 +78,8 @@ namespace Microsoft.Sarif.Viewer
 
             _sarifEditorFactory = new SarifEditorFactory();
             RegisterEditorFactory(_sarifEditorFactory);
+
+            CodeAnalysisResultManager.Instance.Register();
         }
 
         #endregion

@@ -1,9 +1,15 @@
 ﻿// Copyright (c) Microsoft. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Diagnostics;
+using System.IO;
+using System.Linq;
 using Microsoft.CodeAnalysis.Sarif;
+using Microsoft.VisualStudio.Shell.Interop;
 using Microsoft.VisualStudio.Text;
 
 namespace Microsoft.Sarif.Viewer
@@ -13,6 +19,7 @@ namespace Microsoft.Sarif.Viewer
         public SarifError(string fileName)
         {
             FileName = fileName;
+            Annotations = new ObservableCollection<AnnotatedCodeLocationModel>();
         }
 
         public string Tool { get; set; }
@@ -23,7 +30,35 @@ namespace Microsoft.Sarif.Viewer
 
         public Region Region { get; set; }
 
-        public string FileName { get; set; }
+        private string m_fileName;
+
+        public string FileName
+        {
+            get
+            {
+                return m_fileName;
+            }
+
+            set
+            {
+                if (value == m_fileName) { return; }
+                UpdateAnnotationFilePaths(m_fileName, value);
+                m_fileName = value;
+            }
+        }
+
+        private void UpdateAnnotationFilePaths(string current, string updated)
+        {
+            if (Annotations == null) { return; }
+
+            foreach (AnnotatedCodeLocationModel codeLocation in Annotations)
+            {
+                if (codeLocation.FilePath == current)
+                {
+                    codeLocation.FilePath = updated;
+                }
+            }
+        }
 
         public string ShortMessage { get; set; }
 
@@ -45,13 +80,59 @@ namespace Microsoft.Sarif.Viewer
 
         public string HelpLink { get; set; }
 
-        public bool HasLines { get; internal set; }
+        public bool HasDetails { get { return Annotations.Count > 0; } }
 
-        public IEnumerable<AnnotatedCodeLocationModel> Annotations { get; internal set;}
+        public ObservableCollection<AnnotatedCodeLocationModel> Annotations { get; internal set;}
+
+        internal void RemoveMarkers()
+        {
+            this.LineMarker.RemoveMarker();
+            foreach (AnnotatedCodeLocationModel annotatedCodeLocation in Annotations)
+            {
+                annotatedCodeLocation.LineMarker.RemoveMarker();
+            }
+        }
 
         public override string ToString()
         {
             return ShortMessage;
+        }
+
+        ResultTextMarker m_lineMarker;
+        public ResultTextMarker LineMarker
+        {
+            get
+            {
+                if (m_lineMarker == null)
+                {
+                    Debug.Assert(Region != null);
+                    m_lineMarker = new ResultTextMarker(SarifViewerPackage.ServiceProvider, Region, FileName);
+                }
+
+                return m_lineMarker;
+            }
+            set
+            {
+                m_lineMarker = value;
+            }
+        }
+
+        internal void AttachToDocument(string documentName, long docCookie, IVsWindowFrame pFrame)
+        {
+            LineMarker.AttachToDocument(documentName, (long)docCookie, pFrame);
+            foreach (AnnotatedCodeLocationModel annotatedCodeLocation in Annotations)
+            {
+                annotatedCodeLocation.LineMarker.AttachToDocument(documentName, (long)docCookie, pFrame);
+            }
+        }
+
+        internal void DetachFromDocument(long docCookie)
+        {
+            LineMarker.DetachFromDocument((long)docCookie);
+            foreach (AnnotatedCodeLocationModel annotatedCodeLocation in Annotations)
+            {
+                annotatedCodeLocation.LineMarker.DetachFromDocument((long)docCookie);
+            }
         }
     }
 }

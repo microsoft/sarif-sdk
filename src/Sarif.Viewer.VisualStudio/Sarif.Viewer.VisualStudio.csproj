@@ -36,6 +36,7 @@
   <ItemGroup>
     <Compile Include="AnnotatedCodeLocationKindConverter.cs" />
     <Compile Include="AnnotatedCodeLocationModel.cs" />
+    <Compile Include="CodeAnalysisResultManager.cs" />
     <Compile Include="CodeLocations.xaml.cs">
       <DependentUpon>CodeLocations.xaml</DependentUpon>
     </Compile>
@@ -44,10 +45,12 @@
     <Compile Include="CodeLocationsTemplateSelector.cs" />
     <Compile Include="Constants.cs" />
     <Compile Include="ErrorListService.cs" />
+    <Compile Include="ExtensionMethods.cs" />
     <Compile Include="Guids.cs" />
     <Compile Include="OpenSarifFileCommand.cs" />
     <Compile Include="ProjectHelper.cs" />
     <Compile Include="ProjectKind.cs" />
+    <Compile Include="ResultTextMarker.cs" />
     <Compile Include="SarifEditorFactory.cs" />
     <Compile Include="SarifFileAndContentDefinitions.cs" />
     <Compile Include="SarifTableControlEventProcessorProvider.cs" />
@@ -56,6 +59,7 @@
     <Compile Include="SarifError.cs" />
     <Compile Include="SdkUiUtilities.cs" />
     <Compile Include="SinkManager.cs" />
+    <Compile Include="SourceLocation.cs" />
     <Compile Include="TableDataSource.cs" />
     <Compile Include="SarifSnapshot.cs" />
   </ItemGroup>
@@ -80,7 +84,6 @@
     </VSCTCompile>
     <Content Include="Resources\OpenSarifFileCommand.png" />
     <Content Include="Resources\OpenSarifFileCommandPackage.ico" />
-    <Content Include="stylesheet.css" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="EnvDTE, Version=8.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
