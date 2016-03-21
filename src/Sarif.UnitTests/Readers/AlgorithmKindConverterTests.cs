@@ -45,23 +45,24 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
         [TestMethod]
         public void AlgorithmKindGroestl()
         {
-            string expected = "{\"version\":\"1.0.0-beta.1\",\"runLogs\":[{\"toolInfo\":{\"name\":null},\"runInfo\":{\"analysisTargets\":[{\"uri\":null,\"hashes\":[{\"value\":null,\"algorithm\":\"Groestl\"}]}]},\"results\":[{}]}]}";
+            string expected = "{\"version\":\"1.0.0-beta.1\",\"runLogs\":[{\"toolInfo\":{\"name\":null},\"runInfo\":{\"fileInfo\":{\"http://abc\":[{\"uri\":\"http://abc\",\"hashes\":[{\"value\":null,\"algorithm\":\"Groestl\"}]}]}},\"results\":[{}]}]}";
             string actual = GetJson(uut =>
             {
                 var runInfo = new RunInfo();
 
                 runInfo.FileInfo = new Dictionary<string, FileReference[]> {
-                    [null] = new FileReference[]
+                    ["http://abc"] = new FileReference[]
                     {
                         new FileReference()
                         {
-                             Hashes = new[]
-                             {
-                                 new Hash()
-                                 {
-                                    Algorithm = AlgorithmKind.Groestl
-                                 }
-                             }
+                            Uri = new Uri("http://abc"),
+                            Hashes = new[]
+                            {
+                                new Hash()
+                                {
+                                   Algorithm = AlgorithmKind.Groestl
+                                }
+                            }
                         }
                     }
                 };
