@@ -379,22 +379,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 {
                     new Location
                     {
-                        AnalysisTarget = new[]
+                        AnalysisTarget = new PhysicalLocation
                         {
-                            new PhysicalLocationComponent
-                            {
-                                Uri = new Uri("mybinary.dll", UriKind.RelativeOrAbsolute),
-                                MimeType = MimeType.Binary
-                            }
+                            Uri = new Uri("mybinary.dll", UriKind.RelativeOrAbsolute),
                         },
-                        ResultFile = new[]
+                        ResultFile = new PhysicalLocation
                         {
-                            new PhysicalLocationComponent
-                            {
-                                Uri = new Uri("source\\myfile.cs", UriKind.RelativeOrAbsolute),
-                                MimeType = MimeType.CSharp,
-                                Region = new Region { StartLine = 13 }
-                            }
+                            Uri = new Uri("source\\myfile.cs", UriKind.RelativeOrAbsolute),
+                            Region = new Region { StartLine = 13 }
                         },
                         FullyQualifiedLogicalName = "mynamespace.mytype.mymember(string)",
                         LogicalLocation = new[]
@@ -447,13 +439,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 new[] {
                     new Location
                     {
-                        AnalysisTarget = new[]
+                        AnalysisTarget = new PhysicalLocation
                         {
-                            new PhysicalLocationComponent
-                            {
-                                Uri = new Uri("mybinary.dll", UriKind.RelativeOrAbsolute),
-                                MimeType = MimeType.Binary
-                            }
+                            Uri = new Uri("mybinary.dll", UriKind.RelativeOrAbsolute),
                         },
                         FullyQualifiedLogicalName = "mynamespace.mytype.mymember(string)",
                         LogicalLocation = new[]
@@ -493,22 +481,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             {
                 new Location
                 {
-                    AnalysisTarget = new[]
+                    AnalysisTarget = new PhysicalLocation
                     {
-                        new PhysicalLocationComponent
-                        {
-                            Uri = new Uri("mybinary.dll", UriKind.RelativeOrAbsolute),
-                            MimeType = MimeType.Binary
-                        }
+                        Uri = new Uri("mybinary.dll", UriKind.RelativeOrAbsolute),
                     },
-                    ResultFile = new[]
+                    ResultFile = new PhysicalLocation
                     {
-                        new PhysicalLocationComponent
-                        {
                             Uri = new Uri("source\\myfile.cs", UriKind.RelativeOrAbsolute),
-                            MimeType = MimeType.CSharp,
                             Region = new Region { StartLine = 13 }
-                        }
                     },
                     FullyQualifiedLogicalName = "myresource.resx",
                     LogicalLocation = new[]

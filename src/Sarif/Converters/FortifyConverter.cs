@@ -9,7 +9,6 @@ using System.Linq;
 using System.Xml;
 using Microsoft.CodeAnalysis.Sarif.Driver;
 using Microsoft.CodeAnalysis.Sarif.Sdk;
-using Microsoft.CodeAnalysis.Sarif.Writers;
 
 namespace Microsoft.CodeAnalysis.Sarif.Converters
 {
@@ -120,7 +119,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
             result.Properties = extraProperties;
 
-            List<PhysicalLocationComponent> primaryOrSink = ConvertFortifyLocationToPhysicalLocation(fortify.PrimaryOrSink);
+            PhysicalLocation primaryOrSink = ConvertFortifyLocationToPhysicalLocation(fortify.PrimaryOrSink);
             result.Locations = new[]
             {
                 new Location
@@ -131,7 +130,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
             if (fortify.Source != null)
             {
-                List<PhysicalLocationComponent> source = ConvertFortifyLocationToPhysicalLocation(fortify.Source);
+                PhysicalLocation source = ConvertFortifyLocationToPhysicalLocation(fortify.Source);
                 result.ExecutionFlows = new[]
                 {
                     new[]
@@ -145,16 +144,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             return result;
         }
 
-        private static List<PhysicalLocationComponent> ConvertFortifyLocationToPhysicalLocation(FortifyPathElement element)
+        private static PhysicalLocation ConvertFortifyLocationToPhysicalLocation(FortifyPathElement element)
         {
-            return new List<PhysicalLocationComponent>
+            return new PhysicalLocation
             {
-                new PhysicalLocationComponent
-                {
-                    Uri = new Uri(element.FilePath, UriKind.RelativeOrAbsolute),
-                    MimeType = MimeType.DetermineFromFileExtension(element.FilePath),
-                    Region = Extensions.CreateRegion(element.LineStart)
-                }
+                Uri = new Uri(element.FilePath, UriKind.RelativeOrAbsolute),
+                Region = Extensions.CreateRegion(element.LineStart)
             };
         }
     }

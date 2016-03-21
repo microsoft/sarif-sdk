@@ -177,14 +177,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
                 {
                     new Location
                     {
-                         AnalysisTarget = new List<PhysicalLocationComponent>
-                         {
-                             new PhysicalLocationComponent
-                             {
-                                 Uri = TestAnalysisTarget.CreateUriForJsonSerialization(),
-                                 Region = region
-                             },
-                         }
+                        AnalysisTarget = new PhysicalLocation
+                        {
+                            Uri = TestAnalysisTarget.CreateUriForJsonSerialization(),
+                            Region = region
+                        }
                     }
                 },
                 FormattedMessage = new FormattedMessage

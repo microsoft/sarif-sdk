@@ -148,17 +148,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                     {
                         new Location
                         {
-                            AnalysisTarget = new[]
+                            AnalysisTarget = new PhysicalLocation
                             {
-                                new PhysicalLocationComponent
+                                Uri = new Uri(fileName, UriKind.RelativeOrAbsolute),
+                                Region = new Region()
                                 {
-                                    Uri = new Uri(fileName, UriKind.RelativeOrAbsolute),
-                                    MimeType = MimeType.DetermineFromFileExtension(fileName),
-                                    Region = new Region()
-                                    {
-                                        StartLine = issueLine,
-                                        StartColumn = issueColumn
-                                    }
+                                    StartLine = issueLine,
+                                    StartColumn = issueColumn
                                 }
                             }
                         }

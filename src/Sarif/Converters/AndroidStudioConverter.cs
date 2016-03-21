@@ -1,6 +1,8 @@
 ﻿// Copyright (c) Microsoft. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
+//TODO: Take the MIME types that used to be in PhysicalLocationComponents and put them into fileInfo
+// dictionary.
 using System;
 using System.Collections.Generic;
 using System.Collections.Immutable;
@@ -10,7 +12,6 @@ using System.Linq;
 using System.Text;
 using System.Xml;
 using Microsoft.CodeAnalysis.Sarif.Sdk;
-using Microsoft.CodeAnalysis.Sarif.Writers;
 
 namespace Microsoft.CodeAnalysis.Sarif.Converters
 {
@@ -154,14 +155,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             string file = problem.File;
             if (!String.IsNullOrEmpty(file))
             {
-                location.ResultFile = new[]
+                location.ResultFile = new PhysicalLocation
                 {
-                    new PhysicalLocationComponent
-                    {
-                        Uri = RemoveBadRoot(file),
-                        MimeType = MimeType.Java,
-                        Region = problem.Line <= 0 ? null : Extensions.CreateRegion(problem.Line)
-                    }
+                    Uri = RemoveBadRoot(file),
+                    Region = problem.Line <= 0 ? null : Extensions.CreateRegion(problem.Line)
                 };
             }
 
@@ -172,13 +169,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                     location.ResultFile = location.AnalysisTarget;
                 }
 
-                location.AnalysisTarget = new[]
+                location.AnalysisTarget = new PhysicalLocation
                 {
-                    new PhysicalLocationComponent
-                    {
-                        Uri = RemoveBadRoot(problem.EntryPointName),
-                        MimeType = MimeType.Java
-                    }
+                    Uri = RemoveBadRoot(problem.EntryPointName)
                 };
             }
 

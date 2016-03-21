@@ -214,16 +214,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Validation
                 region = new Region();
             }
 
-            var plc = new PhysicalLocationComponent
+            var physicalLocation = new PhysicalLocation
             {
                 Uri = analysisTargetUri,
-                MimeType = JsonMimeType,
                 Region = region
             };
 
             var location = new Location
             {
-                AnalysisTarget = new PhysicalLocationComponent[] { plc }
+                AnalysisTarget = new PhysicalLocation(physicalLocation)
             };
 
             result.Locations = new List<Location> { location };

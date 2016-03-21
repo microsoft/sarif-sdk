@@ -71,27 +71,19 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
             if (!String.IsNullOrEmpty(context.Target))
             {
-                loc.AnalysisTarget = new[]
+                loc.AnalysisTarget = new PhysicalLocation
                 {
-                    new PhysicalLocationComponent
-                    {
-                        Uri = new Uri(context.Target, UriKind.RelativeOrAbsolute),
-                        MimeType = MimeType.Binary
-                    }
+                    Uri = new Uri(context.Target, UriKind.RelativeOrAbsolute)
                 };
             }
 
             string sourceFile = GetFilePath(context);
             if (!String.IsNullOrWhiteSpace(sourceFile))
             {
-                loc.ResultFile = new[]
+                loc.ResultFile = new PhysicalLocation
                 {
-                    new PhysicalLocationComponent
-                    {
-                        Uri = new Uri(sourceFile, UriKind.RelativeOrAbsolute),
-                        MimeType = MimeType.DetermineFromFileExtension(sourceFile),
-                        Region = context.Line == null ? null : Extensions.CreateRegion(context.Line.Value)
-                    }
+                    Uri = new Uri(sourceFile, UriKind.RelativeOrAbsolute),
+                    Region = context.Line == null ? null : Extensions.CreateRegion(context.Line.Value)
                 };
             }
 

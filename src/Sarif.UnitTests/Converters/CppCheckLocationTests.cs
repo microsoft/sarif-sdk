@@ -70,13 +70,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         [TestMethod]
         public void CppCheckLocation_CanBeConvertedToSarifIssue()
         {
-            List<PhysicalLocationComponent> result = new CppCheckLocation("foo.cpp", 42).ToSarifPhysicalLocation();
-            Assert.AreEqual(new PhysicalLocationComponent
+            PhysicalLocation result = new CppCheckLocation("foo.cpp", 42).ToSarifPhysicalLocation();
+            Assert.AreEqual(new PhysicalLocation
             {
                 Uri = new Uri("foo.cpp", UriKind.RelativeOrAbsolute),
-                MimeType = "text/x-cpp",
                 Region = new Region { StartLine = 42 }
-            }, result[0]);
+            }, result);
         }
 
         [TestMethod]

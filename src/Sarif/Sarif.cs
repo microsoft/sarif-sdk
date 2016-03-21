@@ -3603,7 +3603,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// a single file target scanned during the run.
         /// </summary>
         [DataMember(Name="fileInfo", IsRequired = false, EmitDefaultValue = false)]
-        public global::System.Collections.Generic.Dictionary<string, string> FileInfo { get; set; }
+        public global::System.Collections.Generic.Dictionary<string, FileReference[]> FileInfo { get; set; }
 
         /// <summary>
         /// An optional string specifying the date and time at which the run started.
@@ -3641,7 +3641,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         [DataMember(Name="tag", IsRequired = false, EmitDefaultValue = false)]
         public IList<string> Tag { get; set; }
 
-        private void Init(string invocationInfoArg, global::System.Collections.Generic.Dictionary<string, string> fileInfoArg, global::System.DateTime runStartTimeArg, global::System.DateTime runEndTimeArg, string correlationIdArg, string architectureArg, global::System.Collections.Generic.Dictionary<string, string> propertiesArg, IEnumerable<string> tagArg)
+        private void Init(string invocationInfoArg, global::System.Collections.Generic.Dictionary<string, FileReference[]> fileInfoArg, global::System.DateTime runStartTimeArg, global::System.DateTime runEndTimeArg, string correlationIdArg, string architectureArg, global::System.Collections.Generic.Dictionary<string, string> propertiesArg, IEnumerable<string> tagArg)
         {
             if (invocationInfoArg != null)
             {
@@ -3649,7 +3649,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             }
             if (fileInfoArg != null)
             {
-                this.FileInfo = new global::System.Collections.Generic.Dictionary<string, string>(fileInfoArg);
+                this.FileInfo = new global::System.Collections.Generic.Dictionary<string, FileReference[]>(fileInfoArg);
             }
             if (runStartTimeArg != null)
             {
@@ -3708,7 +3708,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="architectureArg">An initialization value for the <see cref="P:Architecture" /> member.</param>
         /// <param name="propertiesArg">An initialization value for the <see cref="P:Properties" /> member.</param>
         /// <param name="tagArg">An initialization value for the <see cref="P:Tag" /> member.</param>
-        public RunInfo(string invocationInfoArg, global::System.Collections.Generic.Dictionary<string, string> fileInfoArg, global::System.DateTime runStartTimeArg, global::System.DateTime runEndTimeArg, string correlationIdArg, string architectureArg, global::System.Collections.Generic.Dictionary<string, string> propertiesArg, IEnumerable<string> tagArg)
+        public RunInfo(string invocationInfoArg, global::System.Collections.Generic.Dictionary<string, FileReference[]> fileInfoArg, global::System.DateTime runStartTimeArg, global::System.DateTime runEndTimeArg, string correlationIdArg, string architectureArg, global::System.Collections.Generic.Dictionary<string, string> propertiesArg, IEnumerable<string> tagArg)
         {
             this.Init(
                 invocationInfoArg, 
@@ -3778,7 +3778,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                     foreach (var value_0 in this.FileInfo)
                     {
                         xor_0 ^= (value_0.Key ?? String.Empty).GetHashCode();
-                        xor_0 ^= (value_0.Value ?? String.Empty).GetHashCode();
+                        xor_0 ^= (value_0.Value ?? new FileReference[0]).GetHashCode();
                     }
 
                     result = (result * 31) + xor_0;
@@ -3858,7 +3858,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 }
                 foreach (var value_3 in this.FileInfo)
                 {
-                    string value_4;
+                    FileReference[] value_4;
                     if (!other.FileInfo.TryGetValue(value_3.Key, out value_4) || !global::System.Object.Equals(value_3.Value, value_4))
                     {
                         return false;

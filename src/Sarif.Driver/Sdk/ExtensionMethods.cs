@@ -80,13 +80,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
             var messageLines = new List<string>();
             foreach (var location in result.Locations)
             {
-                var components = location.ResultFile ?? location.AnalysisTarget;
-                var lastComponent = components.Last();
+                PhysicalLocation physicalLocation = location.ResultFile ?? location.AnalysisTarget;
                 messageLines.Add(
                     string.Format(
                         CultureInfo.InvariantCulture, "{0}{1}: {2} {3}: {4}",
-                        lastComponent.Uri.AbsolutePath,
-                        lastComponent.Region.FormatForVisualStudio(),
+                        physicalLocation.Uri.AbsolutePath,
+                        physicalLocation.Region.FormatForVisualStudio(),
                         result.Kind.FormatForVisualStudio(),
                         result.RuleId,
                         result.GetMessageText(rule)

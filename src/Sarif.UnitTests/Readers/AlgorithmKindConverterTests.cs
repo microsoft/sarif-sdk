@@ -2,6 +2,7 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Text;
 
@@ -50,16 +51,19 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
             {
                 var runInfo = new RunInfo();
 
-                runInfo.AnalysisTargets = new[] {
-                    new FileReference()
+                runInfo.FileInfo = new Dictionary<string, FileReference[]> {
+                    [null] = new FileReference[]
                     {
-                         Hashes = new[]
-                         {
-                             new Hash()
+                        new FileReference()
+                        {
+                             Hashes = new[]
                              {
-                                Algorithm = AlgorithmKind.Groestl
-                             },
-                         }
+                                 new Hash()
+                                 {
+                                    Algorithm = AlgorithmKind.Groestl
+                                 }
+                             }
+                        }
                     }
                 };
 

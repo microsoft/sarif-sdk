@@ -75,8 +75,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
             // Note that we can potentially emit many messages from a single result
             WriteToConsole(
                 result.Kind,
-                result.Locations?[0].AnalysisTarget?[0].Uri,
-                result.Locations?[0].AnalysisTarget?[0].Region,
+                result.Locations?[0].AnalysisTarget?.Uri,
+                result.Locations?[0].AnalysisTarget?.Region,
                 result.RuleId,
                 message);
         }
