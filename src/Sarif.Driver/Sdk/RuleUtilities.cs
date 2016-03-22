@@ -44,18 +44,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
             {
                 result.Locations = new[] {
                 new Sarif.Location {
-                    AnalysisTarget = new[]
+                    AnalysisTarget = new PhysicalLocation
                     {
-                        new PhysicalLocationComponent
-                        {
-                            // Why? When NewtonSoft serializes this Uri, it will use the
-                            // original string used to construct the Uri. For a file path, 
-                            // this will be the local file path. We want to persist this 
-                            // information using the file:// protocol rendering, however.
-                            Uri = targetPath.CreateUriForJsonSerialization(),
-                            MimeType = context.MimeType,
-                            Region = region
-                        },
+                        // Why? When NewtonSoft serializes this Uri, it will use the
+                        // original string used to construct the Uri. For a file path, 
+                        // this will be the local file path. We want to persist this 
+                        // information using the file:// protocol rendering, however.
+                        Uri = targetPath.CreateUriForJsonSerialization(),
+                        Region = region
                     }
                }};
             }

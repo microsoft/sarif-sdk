@@ -3,13 +3,13 @@
 /**
     @rootObject
     @className {ResultLog}
-    @summary {Static Analysis Results Format (SARIF) Version 1.0 JSON Schema (Draft 1.0.0-beta.1). SARIF defines a standard format for the output of static analysis tools.}
+    @summary {Static Analysis Results Format (SARIF) Version 1.0 JSON Schema (Draft 1.0.0-beta.2). SARIF defines a standard format for the output of static analysis tools.}
 */
 resultLog :
     /**
         @name {Version}
         @summary {
-        The SARIF tool format version of this log file. This value should be set to 1.0.0-beta.1, currently.
+        The SARIF tool format version of this log file. This value should be set to 1.0.0-beta.2, currently.
         This is the third proposed revision of a file format that is not yet completely finalized.
         }
     */
@@ -25,7 +25,7 @@ resultLog :
 /** @className {SarifVersion} 
 	@serializedValues {ZeroDotFour, OneZeroZeroBetaOne} 
 */
-sarifVersion : '1.0.0-beta.1';
+sarifVersion : '1.0.0-beta.2';
 
 runLog:
 
@@ -144,26 +144,14 @@ runInfo :
     invocationInfo?
 
     /**
-        @name {AnalysisTargets}
+        @name {FileInfo}
         @summary {
-		An array, each of whose elements is a fileReference object representing the location of 
-		a single analysis target scanned during the run. When present, this array shall contain one entry 
-		fo reach analysis target that was scanned, even if the analysis targets were not individually specified 
-		on the command line. 
-
-		NOTE 1: The command line with which the tool was invoked might specify its input files by means 
-		of a wild card such as *.cc, or it might specify them implicitly, for example, by scanning the 
-		files in the current directory.
-
-		The analysisTargets array shall be empty if no analysis targets were scanned in the course of the run. 
-
-		NOTE 2: This could happen if the command line specified a wildcard such as *.cc for the input files, 
-		and no files matched the wildcard.
+		A dictionary each of whose keys is a URI and each of whose values is an array of fileReference objects representing the location of
+		a single file target scanned during the run.
 		}
-		@minItems{0}
-		@uniqueItems{true}
+		@default {{}}
     */
-    analysisTargets?
+    fileInfo?
 	
 	/**
 		@name {RunStartTime}
@@ -225,9 +213,6 @@ runLogs: runLog*;
 /** @className {Results} */
 results : result*;
 
-/** @className {AnalysisTargets} */
-analysisTargets: fileReference*;
-
 /**
     @className {FileReference}
     @summary {
@@ -242,6 +227,19 @@ fileReference :
         }
     */
     uri
+
+    /**
+        @name {MimeType}
+        @summary {
+        The MIME content type (RFC 2045) of the file.
+        }
+        @remarks {
+        Examples include application/macbinary, text/html, application/zip. If a viewer does not recognize
+        a given MIME type, it should at least try application/zip behavior.
+        }
+		@pattern {[^/]+/.+}
+    */
+    mimeType?
 
     /**
         @name {Hashes}
@@ -585,51 +583,25 @@ Physical location infrastructure; physical locations represent a file or similar
 /**
     @className {PhysicalLocation}
     @summary {
-    A location that refers to a file. Each location component is relative to the one previous;
-    this allows representation of a dll in an appx or header file in an apt package or similar.
+    A location that refers to a file.
     }
-	@minItems{1}
-	@uniqueItems{false}
 */
-physicalLocation : physicalLocationComponent*;
-
-/**
-    @className {PhysicalLocationComponent}
-    @summary {A part of a location that refers to a file.}
-*/
-physicalLocationComponent:
+physicalLocation:
     /**
         @name {Uri}
         @summary {
         Uri to the file specified by this location.
         }
         @remarks {
-        This uri should be absolute for the first physicalLocationComponent in a physicalLocation;
-        but should be relative for subsequent physicalLocationComponents.
+        This uri should be a key info the fileInfo dictionary.
         }
     */
     uri
 
     /**
-        @name {MimeType}
-        @summary {
-        The MIME content type (RFC 2045) of the item referred to by this location.
-        }
-        @remarks {
-        Examples include application/macbinary, text/html, application/zip. If a viewer does not recognize
-        a given MIME type, it should at least try application/zip behavior.
-        }
-		@pattern {[^/]+/.+}
-    */
-    mimeType?
-
-    /**
         @name {Region}
         @summary {
-        The specific region within the analysis where the result was detected. This SHOULD only be
-        set on the last physicalLocationComponent in a physicalLocation most of the time.
-
-        (There are some exceptions e.g. an embedded .SWF in an Office 2003 format ppt)
+        The specific region within the analysis where the result was detected.
         }
     */
     region?;
@@ -1195,3 +1167,4 @@ runStartTime : DATETIME;
 runEndTime : DATETIME;
 correlationId : STRING;
 architecture : STRING;
+fileInfo : DICTIONARY;

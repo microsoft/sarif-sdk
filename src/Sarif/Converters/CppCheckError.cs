@@ -134,7 +134,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 result.ShortMessage = this.Message;
             }
 
-            IList<PhysicalLocationComponent> lastLocationConverted;
+            PhysicalLocation lastLocationConverted;
             if (this.Locations.Length == 1)
             {
                 lastLocationConverted = this.Locations[0].ToSarifPhysicalLocation();

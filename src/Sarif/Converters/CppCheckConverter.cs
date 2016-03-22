@@ -2,10 +2,12 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Xml;
 using Microsoft.CodeAnalysis.Sarif.Driver;
 using Microsoft.CodeAnalysis.Sarif.Sdk;
+using Microsoft.CodeAnalysis.Sarif.Writers;
 
 namespace Microsoft.CodeAnalysis.Sarif.Converters
 {
@@ -83,12 +85,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 throw reader.CreateException(SarifResources.CppCheckCppCheckElementMissing);
             }
 
-            issueWriter.WriteToolAndRunInfo(new ToolInfo
-            {
-                Name = "CppCheck",
-                Version = version,
-            }, null);
-
             reader.Skip(); // <cppcheck />
 
             if (!Ref.Equal(reader.LocalName, _strings.Errors))
@@ -96,6 +92,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 throw reader.CreateException(SarifResources.CppCheckErrorsElementMissing);
             }
 
+            var results = new List<Result>();
             if (reader.IsEmptyElement)
             {
                 reader.Skip(); // <errors />
@@ -104,16 +101,33 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             {
                 int errorsDepth = reader.Depth;
                 reader.Read(); // <errors>
+
                 while (reader.Depth > errorsDepth)
                 {
                     var parsedError = CppCheckError.Parse(reader, _strings);
-                    issueWriter.WriteResult(parsedError.ToSarifIssue());
+                    results.Add(parsedError.ToSarifIssue());
                 }
 
                 reader.ReadEndElement(); // </errors>
             }
 
             reader.ReadEndElement(); // </results>
+
+            var toolInfo = new ToolInfo
+            {
+                Name = "CppCheck",
+                Version = version,
+            };
+
+            var fileInfoFactory = new FileInfoFactory(uri => MimeType.Cpp);
+            Dictionary<string, IList<FileReference>> fileInfoDictionary = fileInfoFactory.Create(results);
+
+            var runInfo = fileInfoDictionary != null && fileInfoDictionary.Count > 0
+                ? new RunInfo { FileInfo = fileInfoDictionary }
+                : null;
+
+            issueWriter.WriteToolAndRunInfo(toolInfo, runInfo);
+            issueWriter.WriteResults(results);
         }
     }
 }

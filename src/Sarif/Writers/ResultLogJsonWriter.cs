@@ -62,7 +62,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
             _jsonWriter.WriteStartObject(); // Begin: resultLog
             _jsonWriter.WritePropertyName("version");
-            _jsonWriter.WriteValue(SarifVersion.OneZeroZeroBetaOne.ConvertToText());
+            _jsonWriter.WriteValue(SarifVersion.OneZeroZeroBetaTwo.ConvertToText());
 
             _jsonWriter.WritePropertyName("runLogs");
             _jsonWriter.WriteStartArray(); // Begin: runLogs
@@ -107,15 +107,25 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             _jsonWriter.WriteEndArray();
         }
 
-        /// <summary>Writes a result to the log. The log must have tool info written first by calling
-        /// <see cref="M:WriteToolInfo" />.</summary>
-        /// <remarks>This function makes a copy of the data stored in <paramref name="result"/>; if a
+        /// <summary>
+        /// Writes a result to the log. The log must have tool and run info written first by calling
+        /// <see cref="M:WriteToolAndRunInfo" />.
+        /// </summary>
+        /// <remarks>
+        /// This function makes a copy of the data stored in <paramref name="result"/>; if a
         /// client wishes to reuse the result instance to avoid allocations they can do so. (This function
-        /// may invoke an internal copy of the result or serialize it in place to disk, etc.)</remarks>
-        /// <exception cref="IOException">A file IO error occured. Clients implementing
-        /// <see cref="IToolFileConverter"/> should allow these exceptions to propagate.</exception>
-        /// <exception cref="InvalidOperationException">Thrown if the tool info is not yet written.</exception>
-        /// <param name="result">The result to write.</param>
+        /// may invoke an internal copy of the result or serialize it in place to disk, etc.)
+        /// </remarks>
+        /// <exception cref="IOException">
+        /// A file IO error occured. Clients implementing
+        /// <see cref="IToolFileConverter"/> should allow these exceptions to propagate.
+        /// </exception>
+        /// <exception cref="InvalidOperationException">
+        /// Thrown if the tool info is not yet written.
+        /// </exception>
+        /// <param name="result">
+        /// The result to write.
+        /// </param>
         /// <seealso cref="M:Microsoft.CodeAnalysis.Sarif.IsarifWriter.WriteResult(Result)"/>
         public void WriteResult(Result result)
         {
@@ -132,6 +142,36 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
             Debug.Assert(_writeState == State.WritingResults);
             _serializer.Serialize(_jsonWriter, result, typeof(Result));
+        }
+
+        /// <summary>
+        /// Writes a set of results to the log. The log must have tool and run info written first by calling
+        /// <see cref="M:WriteToolAndRunInfo" />.
+        /// </summary>
+        /// <remarks>
+        /// This function makes a copy of the data stored in <paramref name="results"/>; if a
+        /// client wishes to reuse the result instance to avoid allocations they can do so. (This function
+        /// may invoke an internal copy of the result or serialize it in place to disk, etc.)
+        /// </remarks>
+        /// <exception cref="IOException">
+        /// A file IO error occured. Clients implementing
+        /// <see cref="IToolFileConverter"/> should allow these exceptions to propagate.
+        /// </exception>
+        /// <exception cref="InvalidOperationException">
+        /// Thrown if the tool info is not yet written.
+        /// </exception>
+        /// <exception cref="ArgumentNullException">
+        /// Thrown if <paramref name="result"/> is null.
+        /// </exception>
+        ///  <param name="results">
+        ///  The results to write.
+        ///  </param>
+        public void WriteResults(IEnumerable<Result> results)
+        {
+            foreach (Result result in results)
+            {
+                WriteResult(result);
+            }
         }
 
         public void CloseResults()

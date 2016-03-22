@@ -10,7 +10,6 @@ using Microsoft.CodeAnalysis.Sarif;
 using Microsoft.CodeAnalysis.Sarif.Driver;
 using Microsoft.CodeAnalysis.Sarif.Driver.Sdk;
 using Microsoft.CodeAnalysis.Sarif.Readers;
-using Microsoft.CodeAnalysis.Sarif.Sdk;
 using Microsoft.CodeAnalysis.Sarif.Writers;
 
 using Newtonsoft.Json;
@@ -124,16 +123,16 @@ namespace SarifViewer
                 {
                     region = null;
 
-                    PhysicalLocationComponent physicalLocation = null;
+                    PhysicalLocation physicalLocation = null;
                     if (location.ResultFile != null)
                     {
-                        physicalLocation = location.ResultFile[0];
+                        physicalLocation = location.ResultFile;
                         document = physicalLocation.Uri.LocalPath;
                         region = physicalLocation.Region;
                     }
                     else if (location.AnalysisTarget != null)
                     {
-                        physicalLocation = location.AnalysisTarget[0];
+                        physicalLocation = location.AnalysisTarget;
                         document = physicalLocation.Uri.LocalPath;
                         region = physicalLocation.Region;
                     }
@@ -160,7 +159,6 @@ namespace SarifViewer
                         Category = category,
                         ShortMessage = shortMessage,
                         FullMessage = fullMessage,
-                        MimeType = physicalLocation?.MimeType,
                         Tool = toolName,
                         HelpLink = rule?.HelpUri?.ToString()                        
                     };
@@ -178,10 +176,10 @@ namespace SarifViewer
                 {
                     foreach (AnnotatedCodeLocation annotation in result.RelatedLocations)
                     {
-                        PhysicalLocationComponent physicalLocation = annotation.PhysicalLocation[0];
+                        PhysicalLocation physicalLocation = annotation.PhysicalLocation;
                         region = physicalLocation.Region;
                         shortMessage = annotation.Message;
-                        document = annotation.PhysicalLocation[0].Uri.LocalPath;
+                        document = annotation.PhysicalLocation.Uri.LocalPath;
 
                         if (!this.documentToLineIndexMap.TryGetValue(document, out newLineIndex))
                         {
@@ -202,7 +200,6 @@ namespace SarifViewer
                             Category = "Related Location", // or should we prefer original result category?
                             ShortMessage = shortMessage,
                             FullMessage = null,
-                            MimeType = physicalLocation?.MimeType,
                             Tool = toolName
                         };
 

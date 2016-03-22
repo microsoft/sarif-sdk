@@ -1,10 +1,218 @@
 {
-  "version": "1.0.0-beta.1",
+  "version": "1.0.0-beta.2",
   "runLogs": [
     {
       "toolInfo": {
         "name": "CppCheck",
         "version": "1.66.0"
+      },
+      "runInfo": {
+        "fileInfo": {
+          "adler32.c": [
+            {
+              "uri": "adler32.c",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "crc32.c": [
+            {
+              "uri": "crc32.c",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "deflate.c": [
+            {
+              "uri": "deflate.c",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "gzlib.c": [
+            {
+              "uri": "gzlib.c",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "gzread.c": [
+            {
+              "uri": "gzread.c",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "gzwrite.c": [
+            {
+              "uri": "gzwrite.c",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "inflate.c": [
+            {
+              "uri": "inflate.c",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "inftrees.c": [
+            {
+              "uri": "inftrees.c",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "trees.c": [
+            {
+              "uri": "trees.c",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "zutil.c": [
+            {
+              "uri": "zutil.c",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "contrib\\infback9\\inftree9.c": [
+            {
+              "uri": "contrib\\infback9\\inftree9.c",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "contrib\\inflate86\\inffas86.c": [
+            {
+              "uri": "contrib\\inflate86\\inffas86.c",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "contrib\\iostream2\\zstream_test.cpp": [
+            {
+              "uri": "contrib\\iostream2\\zstream_test.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "contrib\\masmx64\\inffas8664.c": [
+            {
+              "uri": "contrib\\masmx64\\inffas8664.c",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "contrib\\minizip\\iowin32.c": [
+            {
+              "uri": "contrib\\minizip\\iowin32.c",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "contrib\\minizip\\miniunz.c": [
+            {
+              "uri": "contrib\\minizip\\miniunz.c",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "contrib\\minizip\\minizip.c": [
+            {
+              "uri": "contrib\\minizip\\minizip.c",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "contrib\\minizip\\mztools.c": [
+            {
+              "uri": "contrib\\minizip\\mztools.c",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "contrib\\minizip\\unzip.c": [
+            {
+              "uri": "contrib\\minizip\\unzip.c",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "contrib\\minizip\\zip.c": [
+            {
+              "uri": "contrib\\minizip\\zip.c",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "contrib\\minizip\\crypt.h": [
+            {
+              "uri": "contrib\\minizip\\crypt.h",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "contrib\\puff\\puff.c": [
+            {
+              "uri": "contrib\\puff\\puff.c",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "contrib\\puff\\pufftest.c": [
+            {
+              "uri": "contrib\\puff\\pufftest.c",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "contrib\\testzlib\\testzlib.c": [
+            {
+              "uri": "contrib\\testzlib\\testzlib.c",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "contrib\\untgz\\untgz.c": [
+            {
+              "uri": "contrib\\untgz\\untgz.c",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "examples\\enough.c": [
+            {
+              "uri": "examples\\enough.c",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "examples\\gun.c": [
+            {
+              "uri": "examples\\gun.c",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "examples\\gzappend.c": [
+            {
+              "uri": "examples\\gzappend.c",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "examples\\gzjoin.c": [
+            {
+              "uri": "examples\\gzjoin.c",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "examples\\gzlog.c": [
+            {
+              "uri": "examples\\gzlog.c",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "examples\\zran.c": [
+            {
+              "uri": "examples\\zran.c",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "test\\example.c": [
+            {
+              "uri": "test\\example.c",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "test\\infcover.c": [
+            {
+              "uri": "test\\infcover.c",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "test\\minigzip.c": [
+            {
+              "uri": "test\\minigzip.c",
+              "mimeType": "text/x-cpp"
+            }
+          ]
+        }
       },
       "results": [
         {
@@ -13,15 +221,12 @@
           "shortMessage": "The scope of the variable &#039;n&#039; can be reduced.",
           "locations": [
             {
-              "resultFile": [
-                {
-                  "uri": "adler32.c",
-                  "mimeType": "text/x-cpp",
-                  "region": {
-                    "startLine": 71
-                  }
+              "resultFile": {
+                "uri": "adler32.c",
+                "region": {
+                  "startLine": 71
                 }
-              ]
+              }
             }
           ],
           "properties": {
@@ -34,15 +239,12 @@
           "shortMessage": "The scope of the variable &#039;c&#039; can be reduced.",
           "locations": [
             {
-              "resultFile": [
-                {
-                  "uri": "crc32.c",
-                  "mimeType": "text/x-cpp",
-                  "region": {
-                    "startLine": 92
-                  }
+              "resultFile": {
+                "uri": "crc32.c",
+                "region": {
+                  "startLine": 92
                 }
-              ]
+              }
             }
           ],
           "properties": {
@@ -55,15 +257,12 @@
           "shortMessage": "The scope of the variable &#039;n&#039; can be reduced.",
           "locations": [
             {
-              "resultFile": [
-                {
-                  "uri": "crc32.c",
-                  "mimeType": "text/x-cpp",
-                  "region": {
-                    "startLine": 93
-                  }
+              "resultFile": {
+                "uri": "crc32.c",
+                "region": {
+                  "startLine": 93
                 }
-              ]
+              }
             }
           ],
           "properties": {
@@ -76,15 +275,12 @@
           "shortMessage": "The scope of the variable &#039;k&#039; can be reduced.",
           "locations": [
             {
-              "resultFile": [
-                {
-                  "uri": "crc32.c",
-                  "mimeType": "text/x-cpp",
-                  "region": {
-                    "startLine": 93
-                  }
+              "resultFile": {
+                "uri": "crc32.c",
+                "region": {
+                  "startLine": 93
                 }
-              ]
+              }
             }
           ],
           "properties": {
@@ -97,15 +293,12 @@
           "shortMessage": "The scope of the variable &#039;poly&#039; can be reduced.",
           "locations": [
             {
-              "resultFile": [
-                {
-                  "uri": "crc32.c",
-                  "mimeType": "text/x-cpp",
-                  "region": {
-                    "startLine": 94
-                  }
+              "resultFile": {
+                "uri": "crc32.c",
+                "region": {
+                  "startLine": 94
                 }
-              ]
+              }
             }
           ],
           "properties": {
@@ -118,15 +311,12 @@
           "shortMessage": "The scope of the variable &#039;p&#039; can be reduced.",
           "locations": [
             {
-              "resultFile": [
-                {
-                  "uri": "crc32.c",
-                  "mimeType": "text/x-cpp",
-                  "region": {
-                    "startLine": 97
-                  }
+              "resultFile": {
+                "uri": "crc32.c",
+                "region": {
+                  "startLine": 97
                 }
-              ]
+              }
             }
           ],
           "properties": {
@@ -139,15 +329,12 @@
           "shortMessage": "Clarify calculation precedence for &#039;%&#039; and &#039;?&#039;.",
           "locations": [
             {
-              "resultFile": [
-                {
-                  "uri": "crc32.c",
-                  "mimeType": "text/x-cpp",
-                  "region": {
-                    "startLine": 174
-                  }
+              "resultFile": {
+                "uri": "crc32.c",
+                "region": {
+                  "startLine": 174
                 }
-              ]
+              }
             }
           ],
           "properties": {
@@ -160,15 +347,12 @@
           "shortMessage": "The scope of the variable &#039;str&#039; can be reduced.",
           "locations": [
             {
-              "resultFile": [
-                {
-                  "uri": "deflate.c",
-                  "mimeType": "text/x-cpp",
-                  "region": {
-                    "startLine": 329
-                  }
+              "resultFile": {
+                "uri": "deflate.c",
+                "region": {
+                  "startLine": 329
                 }
-              ]
+              }
             }
           ],
           "properties": {
@@ -181,15 +365,12 @@
           "shortMessage": "The scope of the variable &#039;n&#039; can be reduced.",
           "locations": [
             {
-              "resultFile": [
-                {
-                  "uri": "deflate.c",
-                  "mimeType": "text/x-cpp",
-                  "region": {
-                    "startLine": 329
-                  }
+              "resultFile": {
+                "uri": "deflate.c",
+                "region": {
+                  "startLine": 329
                 }
-              ]
+              }
             }
           ],
           "properties": {
@@ -202,15 +383,12 @@
           "shortMessage": "The scope of the variable &#039;put&#039; can be reduced.",
           "locations": [
             {
-              "resultFile": [
-                {
-                  "uri": "deflate.c",
-                  "mimeType": "text/x-cpp",
-                  "region": {
-                    "startLine": 470
-                  }
+              "resultFile": {
+                "uri": "deflate.c",
+                "region": {
+                  "startLine": 470
                 }
-              ]
+              }
             }
           ],
           "properties": {
@@ -223,15 +401,12 @@
           "shortMessage": "The scope of the variable &#039;str&#039; can be reduced.",
           "locations": [
             {
-              "resultFile": [
-                {
-                  "uri": "deflate.c",
-                  "mimeType": "text/x-cpp",
-                  "region": {
-                    "startLine": 572
-                  }
+              "resultFile": {
+                "uri": "deflate.c",
+                "region": {
+                  "startLine": 572
                 }
-              ]
+              }
             }
           ],
           "properties": {
@@ -244,15 +419,12 @@
           "shortMessage": "The scope of the variable &#039;match&#039; can be reduced.",
           "locations": [
             {
-              "resultFile": [
-                {
-                  "uri": "deflate.c",
-                  "mimeType": "text/x-cpp",
-                  "region": {
-                    "startLine": 1154
-                  }
+              "resultFile": {
+                "uri": "deflate.c",
+                "region": {
+                  "startLine": 1154
                 }
-              ]
+              }
             }
           ],
           "properties": {
@@ -265,15 +437,12 @@
           "shortMessage": "The scope of the variable &#039;more&#039; can be reduced.",
           "locations": [
             {
-              "resultFile": [
-                {
-                  "uri": "deflate.c",
-                  "mimeType": "text/x-cpp",
-                  "region": {
-                    "startLine": 1395
-                  }
+              "resultFile": {
+                "uri": "deflate.c",
+                "region": {
+                  "startLine": 1395
                 }
-              ]
+              }
             }
           ],
           "properties": {
@@ -286,15 +455,12 @@
           "shortMessage": "The scope of the variable &#039;max_start&#039; can be reduced.",
           "locations": [
             {
-              "resultFile": [
-                {
-                  "uri": "deflate.c",
-                  "mimeType": "text/x-cpp",
-                  "region": {
-                    "startLine": 1572
-                  }
+              "resultFile": {
+                "uri": "deflate.c",
+                "region": {
+                  "startLine": 1572
                 }
-              ]
+              }
             }
           ],
           "properties": {
@@ -306,15 +472,12 @@
           "fullMessage": "struct or union member &#039;static_tree_desc_s::dummy&#039; is never used.",
           "locations": [
             {
-              "resultFile": [
-                {
-                  "uri": "deflate.c",
-                  "mimeType": "text/x-cpp",
-                  "region": {
-                    "startLine": 155
-                  }
+              "resultFile": {
+                "uri": "deflate.c",
+                "region": {
+                  "startLine": 155
                 }
-              ]
+              }
             }
           ],
           "properties": {
@@ -326,15 +489,12 @@
           "fullMessage": "Variable &#039;bflush&#039; is assigned a value that is never used.",
           "locations": [
             {
-              "resultFile": [
-                {
-                  "uri": "deflate.c",
-                  "mimeType": "text/x-cpp",
-                  "region": {
-                    "startLine": 1842
-                  }
+              "resultFile": {
+                "uri": "deflate.c",
+                "region": {
+                  "startLine": 1842
                 }
-              ]
+              }
             }
           ],
           "properties": {
@@ -347,15 +507,12 @@
           "shortMessage": "The scope of the variable &#039;bflush&#039; can be reduced.",
           "locations": [
             {
-              "resultFile": [
-                {
-                  "uri": "deflate.c",
-                  "mimeType": "text/x-cpp",
-                  "region": {
-                    "startLine": 1938
-                  }
+              "resultFile": {
+                "uri": "deflate.c",
+                "region": {
+                  "startLine": 1938
                 }
-              ]
+              }
             }
           ],
           "properties": {
@@ -368,15 +525,12 @@
           "shortMessage": "The scope of the variable &#039;n&#039; can be reduced.",
           "locations": [
             {
-              "resultFile": [
-                {
-                  "uri": "gzlib.c",
-                  "mimeType": "text/x-cpp",
-                  "region": {
-                    "startLine": 367
-                  }
+              "resultFile": {
+                "uri": "gzlib.c",
+                "region": {
+                  "startLine": 367
                 }
-              ]
+              }
             }
           ],
           "properties": {
@@ -389,15 +543,12 @@
           "shortMessage": "The scope of the variable &#039;ret&#039; can be reduced.",
           "locations": [
             {
-              "resultFile": [
-                {
-                  "uri": "gzlib.c",
-                  "mimeType": "text/x-cpp",
-                  "region": {
-                    "startLine": 368
-                  }
+              "resultFile": {
+                "uri": "gzlib.c",
+                "region": {
+                  "startLine": 368
                 }
-              ]
+              }
             }
           ],
           "properties": {
@@ -409,15 +560,12 @@
           "fullMessage": "Skipping configuration &#039;O_BINARY&#039; since the value of &#039;O_BINARY&#039; is unknown. Use -D if you want to check it. You can use -U to skip it explicitly.",
           "locations": [
             {
-              "resultFile": [
-                {
-                  "uri": "gzlib.c",
-                  "mimeType": "text/x-cpp",
-                  "region": {
-                    "startLine": 1
-                  }
+              "resultFile": {
+                "uri": "gzlib.c",
+                "region": {
+                  "startLine": 1
                 }
-              ]
+              }
             }
           ],
           "properties": {
@@ -429,15 +577,12 @@
           "fullMessage": "Skipping configuration &#039;O_CLOEXEC&#039; since the value of &#039;O_CLOEXEC&#039; is unknown. Use -D if you want to check it. You can use -U to skip it explicitly.",
           "locations": [
             {
-              "resultFile": [
-                {
-                  "uri": "gzlib.c",
-                  "mimeType": "text/x-cpp",
-                  "region": {
-                    "startLine": 1
-                  }
+              "resultFile": {
+                "uri": "gzlib.c",
+                "region": {
+                  "startLine": 1
                 }
-              ]
+              }
             }
           ],
           "properties": {
@@ -449,15 +594,12 @@
           "fullMessage": "Skipping configuration &#039;O_EXCL&#039; since the value of &#039;O_EXCL&#039; is unknown. Use -D if you want to check it. You can use -U to skip it explicitly.",
           "locations": [
             {
-              "resultFile": [
-                {
-                  "uri": "gzlib.c",
-                  "mimeType": "text/x-cpp",
-                  "region": {
-                    "startLine": 1
-                  }
+              "resultFile": {
+                "uri": "gzlib.c",
+                "region": {
+                  "startLine": 1
                 }
-              ]
+              }
             }
           ],
           "properties": {
@@ -469,15 +611,12 @@
           "fullMessage": "Skipping configuration &#039;O_LARGEFILE&#039; since the value of &#039;O_LARGEFILE&#039; is unknown. Use -D if you want to check it. You can use -U to skip it explicitly.",
           "locations": [
             {
-              "resultFile": [
-                {
-                  "uri": "gzlib.c",
-                  "mimeType": "text/x-cpp",
-                  "region": {
-                    "startLine": 1
-                  }
+              "resultFile": {
+                "uri": "gzlib.c",
+                "region": {
+                  "startLine": 1
                 }
-              ]
+              }
             }
           ],
           "properties": {
@@ -489,15 +628,12 @@
           "fullMessage": "Null pointer dereference",
           "locations": [
             {
-              "resultFile": [
-                {
-                  "uri": "gzlib.c",
-                  "mimeType": "text/x-cpp",
-                  "region": {
-                    "startLine": 193
-                  }
+              "resultFile": {
+                "uri": "gzlib.c",
+                "region": {
+                  "startLine": 193
                 }
-              ]
+              }
             }
           ],
           "properties": {
@@ -510,15 +646,12 @@
           "shortMessage": "The scope of the variable &#039;n&#039; can be reduced.",
           "locations": [
             {
-              "resultFile": [
-                {
-                  "uri": "gzread.c",
-                  "mimeType": "text/x-cpp",
-                  "region": {
-                    "startLine": 488
-                  }
+              "resultFile": {
+                "uri": "gzread.c",
+                "region": {
+                  "startLine": 488
                 }
-              ]
+              }
             }
           ],
           "properties": {
@@ -531,15 +664,12 @@
           "shortMessage": "The scope of the variable &#039;eol&#039; can be reduced.",
           "locations": [
             {
-              "resultFile": [
-                {
-                  "uri": "gzread.c",
-                  "mimeType": "text/x-cpp",
-                  "region": {
-                    "startLine": 490
-                  }
+              "resultFile": {
+                "uri": "gzread.c",
+                "region": {
+                  "startLine": 490
                 }
-              ]
+              }
             }
           ],
           "properties": {
@@ -551,15 +681,12 @@
           "fullMessage": "Uninitialized variable: n",
           "locations": [
             {
-              "resultFile": [
-                {
-                  "uri": "gzread.c",
-                  "mimeType": "text/x-cpp",
-                  "region": {
-                    "startLine": 271
-                  }
+              "resultFile": {
+                "uri": "gzread.c",
+                "region": {
+                  "startLine": 271
                 }
-              ]
+              }
             }
           ],
           "properties": {
@@ -572,15 +699,12 @@
           "shortMessage": "The scope of the variable &#039;ret&#039; can be reduced.",
           "locations": [
             {
-              "resultFile": [
-                {
-                  "uri": "gzwrite.c",
-                  "mimeType": "text/x-cpp",
-                  "region": {
-                    "startLine": 18
-                  }
+              "resultFile": {
+                "uri": "gzwrite.c",
+                "region": {
+                  "startLine": 18
                 }
-              ]
+              }
             }
           ],
           "properties": {
@@ -593,15 +717,12 @@
           "shortMessage": "The scope of the variable &#039;n&#039; can be reduced.",
           "locations": [
             {
-              "resultFile": [
-                {
-                  "uri": "gzwrite.c",
-                  "mimeType": "text/x-cpp",
-                  "region": {
-                    "startLine": 138
-                  }
+              "resultFile": {
+                "uri": "gzwrite.c",
+                "region": {
+                  "startLine": 138
                 }
-              ]
+              }
             }
           ],
           "properties": {
@@ -614,15 +735,12 @@
           "shortMessage": "The scope of the variable &#039;have&#039; can be reduced.",
           "locations": [
             {
-              "resultFile": [
-                {
-                  "uri": "gzwrite.c",
-                  "mimeType": "text/x-cpp",
-                  "region": {
-                    "startLine": 249
-                  }
+              "resultFile": {
+                "uri": "gzwrite.c",
+                "region": {
+                  "startLine": 249
                 }
-              ]
+              }
             }
           ],
           "properties": {
@@ -635,15 +753,12 @@
           "shortMessage": "The scope of the variable &#039;dist&#039; can be reduced.",
           "locations": [
             {
-              "resultFile": [
-                {
-                  "uri": "inflate.c",
-                  "mimeType": "text/x-cpp",
-                  "region": {
-                    "startLine": 385
-                  }
+              "resultFile": {
+                "uri": "inflate.c",
+                "region": {
+                  "startLine": 385
                 }
-              ]
+              }
             }
           ],
           "properties": {
@@ -656,15 +771,12 @@
           "shortMessage": "The scope of the variable &#039;dictid&#039; can be reduced.",
           "locations": [
             {
-              "resultFile": [
-                {
-                  "uri": "inflate.c",
-                  "mimeType": "text/x-cpp",
-                  "region": {
-                    "startLine": 1297
-                  }
+              "resultFile": {
+                "uri": "inflate.c",
+                "region": {
+                  "startLine": 1297
                 }
-              ]
+              }
             }
           ],
           "properties": {
@@ -677,15 +789,12 @@
           "shortMessage": "The scope of the variable &#039;buf&#039; can be reduced.",
           "locations": [
             {
-              "resultFile": [
-                {
-                  "uri": "inflate.c",
-                  "mimeType": "text/x-cpp",
-                  "region": {
-                    "startLine": 1382
-                  }
+              "resultFile": {
+                "uri": "inflate.c",
+                "region": {
+                  "startLine": 1382
                 }
-              ]
+              }
             }
           ],
           "properties": {
@@ -698,15 +807,12 @@
           "shortMessage": "The scope of the variable &#039;wsize&#039; can be reduced.",
           "locations": [
             {
-              "resultFile": [
-                {
-                  "uri": "inflate.c",
-                  "mimeType": "text/x-cpp",
-                  "region": {
-                    "startLine": 1445
-                  }
+              "resultFile": {
+                "uri": "inflate.c",
+                "region": {
+                  "startLine": 1445
                 }
-              ]
+              }
             }
           ],
           "properties": {
@@ -719,15 +825,12 @@
           "shortMessage": "The scope of the variable &#039;fill&#039; can be reduced.",
           "locations": [
             {
-              "resultFile": [
-                {
-                  "uri": "inftrees.c",
-                  "mimeType": "text/x-cpp",
-                  "region": {
-                    "startLine": 50
-                  }
+              "resultFile": {
+                "uri": "inftrees.c",
+                "region": {
+                  "startLine": 50
                 }
-              ]
+              }
             }
           ],
           "properties": {
@@ -740,15 +843,12 @@
           "shortMessage": "The scope of the variable &#039;curlen&#039; can be reduced.",
           "locations": [
             {
-              "resultFile": [
-                {
-                  "uri": "trees.c",
-                  "mimeType": "text/x-cpp",
-                  "region": {
-                    "startLine": 712
-                  }
+              "resultFile": {
+                "uri": "trees.c",
+                "region": {
+                  "startLine": 712
                 }
-              ]
+              }
             }
           ],
           "properties": {
@@ -761,15 +861,12 @@
           "shortMessage": "The scope of the variable &#039;curlen&#039; can be reduced.",
           "locations": [
             {
-              "resultFile": [
-                {
-                  "uri": "trees.c",
-                  "mimeType": "text/x-cpp",
-                  "region": {
-                    "startLine": 757
-                  }
+              "resultFile": {
+                "uri": "trees.c",
+                "region": {
+                  "startLine": 757
                 }
-              ]
+              }
             }
           ],
           "properties": {
@@ -782,15 +879,12 @@
           "shortMessage": "The scope of the variable &#039;dist&#039; can be reduced.",
           "locations": [
             {
-              "resultFile": [
-                {
-                  "uri": "trees.c",
-                  "mimeType": "text/x-cpp",
-                  "region": {
-                    "startLine": 1065
-                  }
+              "resultFile": {
+                "uri": "trees.c",
+                "region": {
+                  "startLine": 1065
                 }
-              ]
+              }
             }
           ],
           "properties": {
@@ -803,15 +897,12 @@
           "shortMessage": "The scope of the variable &#039;lc&#039; can be reduced.",
           "locations": [
             {
-              "resultFile": [
-                {
-                  "uri": "trees.c",
-                  "mimeType": "text/x-cpp",
-                  "region": {
-                    "startLine": 1066
-                  }
+              "resultFile": {
+                "uri": "trees.c",
+                "region": {
+                  "startLine": 1066
                 }
-              ]
+              }
             }
           ],
           "properties": {
@@ -824,15 +915,12 @@
           "shortMessage": "The scope of the variable &#039;lx&#039; can be reduced.",
           "locations": [
             {
-              "resultFile": [
-                {
-                  "uri": "trees.c",
-                  "mimeType": "text/x-cpp",
-                  "region": {
-                    "startLine": 1067
-                  }
+              "resultFile": {
+                "uri": "trees.c",
+                "region": {
+                  "startLine": 1067
                 }
-              ]
+              }
             }
           ],
           "properties": {
@@ -845,15 +933,12 @@
           "shortMessage": "The scope of the variable &#039;code&#039; can be reduced.",
           "locations": [
             {
-              "resultFile": [
-                {
-                  "uri": "trees.c",
-                  "mimeType": "text/x-cpp",
-                  "region": {
-                    "startLine": 1068
-                  }
+              "resultFile": {
+                "uri": "trees.c",
+                "region": {
+                  "startLine": 1068
                 }
-              ]
+              }
             }
           ],
           "properties": {
@@ -866,15 +951,12 @@
           "shortMessage": "The scope of the variable &#039;extra&#039; can be reduced.",
           "locations": [
             {
-              "resultFile": [
-                {
-                  "uri": "trees.c",
-                  "mimeType": "text/x-cpp",
-                  "region": {
-                    "startLine": 1069
-                  }
+              "resultFile": {
+                "uri": "trees.c",
+                "region": {
+                  "startLine": 1069
                 }
-              ]
+              }
             }
           ],
           "properties": {
@@ -886,15 +968,12 @@
           "fullMessage": "%ld in format string (no. 1) requires &#039;long&#039; but the argument type is &#039;unsigned long&#039;.",
           "locations": [
             {
-              "resultFile": [
-                {
-                  "uri": "trees.c",
-                  "mimeType": "text/x-cpp",
-                  "region": {
-                    "startLine": 826
-                  }
+              "resultFile": {
+                "uri": "trees.c",
+                "region": {
+                  "startLine": 826
                 }
-              ]
+              }
             }
           ],
           "properties": {
@@ -906,15 +985,12 @@
           "fullMessage": "%ld in format string (no. 2) requires &#039;long&#039; but the argument type is &#039;unsigned long&#039;.",
           "locations": [
             {
-              "resultFile": [
-                {
-                  "uri": "trees.c",
-                  "mimeType": "text/x-cpp",
-                  "region": {
-                    "startLine": 826
-                  }
+              "resultFile": {
+                "uri": "trees.c",
+                "region": {
+                  "startLine": 826
                 }
-              ]
+              }
             }
           ],
           "properties": {
@@ -926,15 +1002,12 @@
           "fullMessage": "%ld in format string (no. 1) requires &#039;long&#039; but the argument type is &#039;unsigned long&#039;.",
           "locations": [
             {
-              "resultFile": [
-                {
-                  "uri": "trees.c",
-                  "mimeType": "text/x-cpp",
-                  "region": {
-                    "startLine": 853
-                  }
+              "resultFile": {
+                "uri": "trees.c",
+                "region": {
+                  "startLine": 853
                 }
-              ]
+              }
             }
           ],
           "properties": {
@@ -946,15 +1019,12 @@
           "fullMessage": "%ld in format string (no. 1) requires &#039;long&#039; but the argument type is &#039;unsigned long&#039;.",
           "locations": [
             {
-              "resultFile": [
-                {
-                  "uri": "trees.c",
-                  "mimeType": "text/x-cpp",
-                  "region": {
-                    "startLine": 856
-                  }
+              "resultFile": {
+                "uri": "trees.c",
+                "region": {
+                  "startLine": 856
                 }
-              ]
+              }
             }
           ],
           "properties": {
@@ -966,15 +1036,12 @@
           "fullMessage": "%ld in format string (no. 1) requires &#039;long&#039; but the argument type is &#039;unsigned long&#039;.",
           "locations": [
             {
-              "resultFile": [
-                {
-                  "uri": "trees.c",
-                  "mimeType": "text/x-cpp",
-                  "region": {
-                    "startLine": 859
-                  }
+              "resultFile": {
+                "uri": "trees.c",
+                "region": {
+                  "startLine": 859
                 }
-              ]
+              }
             }
           ],
           "properties": {
@@ -986,15 +1053,12 @@
           "fullMessage": "%ld in format string (no. 1) requires &#039;long&#039; but the argument type is &#039;unsigned long&#039;.",
           "locations": [
             {
-              "resultFile": [
-                {
-                  "uri": "trees.c",
-                  "mimeType": "text/x-cpp",
-                  "region": {
-                    "startLine": 926
-                  }
+              "resultFile": {
+                "uri": "trees.c",
+                "region": {
+                  "startLine": 926
                 }
-              ]
+              }
             }
           ],
           "properties": {
@@ -1006,15 +1070,12 @@
           "fullMessage": "%ld in format string (no. 2) requires &#039;long&#039; but the argument type is &#039;unsigned long&#039;.",
           "locations": [
             {
-              "resultFile": [
-                {
-                  "uri": "trees.c",
-                  "mimeType": "text/x-cpp",
-                  "region": {
-                    "startLine": 926
-                  }
+              "resultFile": {
+                "uri": "trees.c",
+                "region": {
+                  "startLine": 926
                 }
-              ]
+              }
             }
           ],
           "properties": {
@@ -1026,15 +1087,12 @@
           "fullMessage": "%ld in format string (no. 1) requires &#039;long&#039; but the argument type is &#039;unsigned long&#039;.",
           "locations": [
             {
-              "resultFile": [
-                {
-                  "uri": "trees.c",
-                  "mimeType": "text/x-cpp",
-                  "region": {
-                    "startLine": 930
-                  }
+              "resultFile": {
+                "uri": "trees.c",
+                "region": {
+                  "startLine": 930
                 }
-              ]
+              }
             }
           ],
           "properties": {
@@ -1046,15 +1104,12 @@
           "fullMessage": "%ld in format string (no. 2) requires &#039;long&#039; but the argument type is &#039;unsigned long&#039;.",
           "locations": [
             {
-              "resultFile": [
-                {
-                  "uri": "trees.c",
-                  "mimeType": "text/x-cpp",
-                  "region": {
-                    "startLine": 930
-                  }
+              "resultFile": {
+                "uri": "trees.c",
+                "region": {
+                  "startLine": 930
                 }
-              ]
+              }
             }
           ],
           "properties": {
@@ -1066,15 +1121,12 @@
           "fullMessage": "%d in format string (no. 1) requires &#039;int&#039; but the argument type is &#039;unsigned int&#039;.",
           "locations": [
             {
-              "resultFile": [
-                {
-                  "uri": "trees.c",
-                  "mimeType": "text/x-cpp",
-                  "region": {
-                    "startLine": 1090
-                  }
+              "resultFile": {
+                "uri": "trees.c",
+                "region": {
+                  "startLine": 1090
                 }
-              ]
+              }
             }
           ],
           "properties": {
@@ -1086,15 +1138,12 @@
           "fullMessage": "%u in format string (no. 1) requires &#039;unsigned int&#039; but the argument type is &#039;int&#039;.",
           "locations": [
             {
-              "resultFile": [
-                {
-                  "uri": "trees.c",
-                  "mimeType": "text/x-cpp",
-                  "region": {
-                    "startLine": 364
-                  }
+              "resultFile": {
+                "uri": "trees.c",
+                "region": {
+                  "startLine": 364
                 }
-              ]
+              }
             }
           ],
           "properties": {
@@ -1106,15 +1155,12 @@
           "fullMessage": "%u in format string (no. 1) requires &#039;unsigned int&#039; but the argument type is &#039;int&#039;.",
           "locations": [
             {
-              "resultFile": [
-                {
-                  "uri": "trees.c",
-                  "mimeType": "text/x-cpp",
-                  "region": {
-                    "startLine": 370
-                  }
+              "resultFile": {
+                "uri": "trees.c",
+                "region": {
+                  "startLine": 370
                 }
-              ]
+              }
             }
           ],
           "properties": {
@@ -1126,15 +1172,12 @@
           "fullMessage": "Unsigned variable &#039;static_lenb&#039; can&#039;t be negative so it is unnecessary to test it.",
           "locations": [
             {
-              "resultFile": [
-                {
-                  "uri": "trees.c",
-                  "mimeType": "text/x-cpp",
-                  "region": {
-                    "startLine": 970
-                  }
+              "resultFile": {
+                "uri": "trees.c",
+                "region": {
+                  "startLine": 970
                 }
-              ]
+              }
             }
           ],
           "properties": {
@@ -1147,40 +1190,31 @@
           "shortMessage": "Same expression on both sides of &#039;-&#039;.",
           "locations": [
             {
-              "resultFile": [
-                {
-                  "uri": "zutil.c",
-                  "mimeType": "text/x-cpp",
-                  "region": {
-                    "startLine": 309
-                  }
+              "resultFile": {
+                "uri": "zutil.c",
+                "region": {
+                  "startLine": 309
                 }
-              ]
+              }
             }
           ],
           "executionFlows": [
             [
               {
-                "physicalLocation": [
-                  {
-                    "uri": "zutil.c",
-                    "mimeType": "text/x-cpp",
-                    "region": {
-                      "startLine": 309
-                    }
+                "physicalLocation": {
+                  "uri": "zutil.c",
+                  "region": {
+                    "startLine": 309
                   }
-                ]
+                }
               },
               {
-                "physicalLocation": [
-                  {
-                    "uri": "zutil.c",
-                    "mimeType": "text/x-cpp",
-                    "region": {
-                      "startLine": 309
-                    }
+                "physicalLocation": {
+                  "uri": "zutil.c",
+                  "region": {
+                    "startLine": 309
                   }
-                ]
+                }
               }
             ]
           ],
@@ -1193,15 +1227,12 @@
           "fullMessage": "struct or union member &#039;internal_state::dummy&#039; is never used.",
           "locations": [
             {
-              "resultFile": [
-                {
-                  "uri": "zutil.c",
-                  "mimeType": "text/x-cpp",
-                  "region": {
-                    "startLine": 14
-                  }
+              "resultFile": {
+                "uri": "zutil.c",
+                "region": {
+                  "startLine": 14
                 }
-              ]
+              }
             }
           ],
           "properties": {
@@ -1213,15 +1244,12 @@
           "fullMessage": "struct or union member &#039;z_internal_state::dummy&#039; is never used.",
           "locations": [
             {
-              "resultFile": [
-                {
-                  "uri": "zutil.c",
-                  "mimeType": "text/x-cpp",
-                  "region": {
-                    "startLine": 14
-                  }
+              "resultFile": {
+                "uri": "zutil.c",
+                "region": {
+                  "startLine": 14
                 }
-              ]
+              }
             }
           ],
           "properties": {
@@ -1234,15 +1262,12 @@
           "shortMessage": "The scope of the variable &#039;fill&#039; can be reduced.",
           "locations": [
             {
-              "resultFile": [
-                {
-                  "uri": "contrib\\infback9\\inftree9.c",
-                  "mimeType": "text/x-cpp",
-                  "region": {
-                    "startLine": 50
-                  }
+              "resultFile": {
+                "uri": "contrib\\infback9\\inftree9.c",
+                "region": {
+                  "startLine": 50
                 }
-              ]
+              }
             }
           ],
           "properties": {
@@ -1254,15 +1279,12 @@
           "fullMessage": "struct or union member &#039;inffast_ar::esp&#039; is never used.",
           "locations": [
             {
-              "resultFile": [
-                {
-                  "uri": "contrib\\inflate86\\inffas86.c",
-                  "mimeType": "text/x-cpp",
-                  "region": {
-                    "startLine": 79
-                  }
+              "resultFile": {
+                "uri": "contrib\\inflate86\\inffas86.c",
+                "region": {
+                  "startLine": 79
                 }
-              ]
+              }
             }
           ],
           "properties": {
@@ -1274,15 +1296,12 @@
           "fullMessage": "struct or union member &#039;inffast_ar::ebp&#039; is never used.",
           "locations": [
             {
-              "resultFile": [
-                {
-                  "uri": "contrib\\inflate86\\inffas86.c",
-                  "mimeType": "text/x-cpp",
-                  "region": {
-                    "startLine": 80
-                  }
+              "resultFile": {
+                "uri": "contrib\\inflate86\\inffas86.c",
+                "region": {
+                  "startLine": 80
                 }
-              ]
+              }
             }
           ],
           "properties": {
@@ -1294,15 +1313,12 @@
           "fullMessage": "struct or union member &#039;inffast_ar::dist&#039; is never used.",
           "locations": [
             {
-              "resultFile": [
-                {
-                  "uri": "contrib\\inflate86\\inffas86.c",
-                  "mimeType": "text/x-cpp",
-                  "region": {
-                    "startLine": 96
-                  }
+              "resultFile": {
+                "uri": "contrib\\inflate86\\inffas86.c",
+                "region": {
+                  "startLine": 96
                 }
-              ]
+              }
             }
           ],
           "properties": {
@@ -1314,15 +1330,12 @@
           "fullMessage": "Comparison of a boolean expression with an integer.",
           "locations": [
             {
-              "resultFile": [
-                {
-                  "uri": "contrib\\iostream2\\zstream_test.cpp",
-                  "mimeType": "text/x-cpp",
-                  "region": {
-                    "startLine": 10
-                  }
+              "resultFile": {
+                "uri": "contrib\\iostream2\\zstream_test.cpp",
+                "region": {
+                  "startLine": 10
                 }
-              ]
+              }
             }
           ],
           "properties": {
@@ -1334,15 +1347,12 @@
           "fullMessage": "Comparison of a boolean expression with an integer.",
           "locations": [
             {
-              "resultFile": [
-                {
-                  "uri": "contrib\\iostream2\\zstream_test.cpp",
-                  "mimeType": "text/x-cpp",
-                  "region": {
-                    "startLine": 15
-                  }
+              "resultFile": {
+                "uri": "contrib\\iostream2\\zstream_test.cpp",
+                "region": {
+                  "startLine": 15
                 }
-              ]
+              }
             }
           ],
           "properties": {
@@ -1354,15 +1364,12 @@
           "fullMessage": "Variable &#039;z&#039; is not assigned a value.",
           "locations": [
             {
-              "resultFile": [
-                {
-                  "uri": "contrib\\iostream2\\zstream_test.cpp",
-                  "mimeType": "text/x-cpp",
-                  "region": {
-                    "startLine": 14
-                  }
+              "resultFile": {
+                "uri": "contrib\\iostream2\\zstream_test.cpp",
+                "region": {
+                  "startLine": 14
                 }
-              ]
+              }
             }
           ],
           "properties": {
@@ -1374,15 +1381,12 @@
           "fullMessage": "struct or union member &#039;inffast_ar::esp&#039; is never used.",
           "locations": [
             {
-              "resultFile": [
-                {
-                  "uri": "contrib\\masmx64\\inffas8664.c",
-                  "mimeType": "text/x-cpp",
-                  "region": {
-                    "startLine": 84
-                  }
+              "resultFile": {
+                "uri": "contrib\\masmx64\\inffas8664.c",
+                "region": {
+                  "startLine": 84
                 }
-              ]
+              }
             }
           ],
           "properties": {
@@ -1394,15 +1398,12 @@
           "fullMessage": "struct or union member &#039;inffast_ar::ebp&#039; is never used.",
           "locations": [
             {
-              "resultFile": [
-                {
-                  "uri": "contrib\\masmx64\\inffas8664.c",
-                  "mimeType": "text/x-cpp",
-                  "region": {
-                    "startLine": 85
-                  }
+              "resultFile": {
+                "uri": "contrib\\masmx64\\inffas8664.c",
+                "region": {
+                  "startLine": 85
                 }
-              ]
+              }
             }
           ],
           "properties": {
@@ -1414,15 +1415,12 @@
           "fullMessage": "struct or union member &#039;inffast_ar::in&#039; is never used.",
           "locations": [
             {
-              "resultFile": [
-                {
-                  "uri": "contrib\\masmx64\\inffas8664.c",
-                  "mimeType": "text/x-cpp",
-                  "region": {
-                    "startLine": 86
-                  }
+              "resultFile": {
+                "uri": "contrib\\masmx64\\inffas8664.c",
+                "region": {
+                  "startLine": 86
                 }
-              ]
+              }
             }
           ],
           "properties": {
@@ -1434,15 +1432,12 @@
           "fullMessage": "struct or union member &#039;inffast_ar::last&#039; is never used.",
           "locations": [
             {
-              "resultFile": [
-                {
-                  "uri": "contrib\\masmx64\\inffas8664.c",
-                  "mimeType": "text/x-cpp",
-                  "region": {
-                    "startLine": 87
-                  }
+              "resultFile": {
+                "uri": "contrib\\masmx64\\inffas8664.c",
+                "region": {
+                  "startLine": 87
                 }
-              ]
+              }
             }
           ],
           "properties": {
@@ -1454,15 +1449,12 @@
           "fullMessage": "struct or union member &#039;inffast_ar::out&#039; is never used.",
           "locations": [
             {
-              "resultFile": [
-                {
-                  "uri": "contrib\\masmx64\\inffas8664.c",
-                  "mimeType": "text/x-cpp",
-                  "region": {
-                    "startLine": 88
-                  }
+              "resultFile": {
+                "uri": "contrib\\masmx64\\inffas8664.c",
+                "region": {
+                  "startLine": 88
                 }
-              ]
+              }
             }
           ],
           "properties": {
@@ -1474,15 +1466,12 @@
           "fullMessage": "struct or union member &#039;inffast_ar::beg&#039; is never used.",
           "locations": [
             {
-              "resultFile": [
-                {
-                  "uri": "contrib\\masmx64\\inffas8664.c",
-                  "mimeType": "text/x-cpp",
-                  "region": {
-                    "startLine": 89
-                  }
+              "resultFile": {
+                "uri": "contrib\\masmx64\\inffas8664.c",
+                "region": {
+                  "startLine": 89
                 }
-              ]
+              }
             }
           ],
           "properties": {
@@ -1494,15 +1483,12 @@
           "fullMessage": "struct or union member &#039;inffast_ar::end&#039; is never used.",
           "locations": [
             {
-              "resultFile": [
-                {
-                  "uri": "contrib\\masmx64\\inffas8664.c",
-                  "mimeType": "text/x-cpp",
-                  "region": {
-                    "startLine": 90
-                  }
+              "resultFile": {
+                "uri": "contrib\\masmx64\\inffas8664.c",
+                "region": {
+                  "startLine": 90
                 }
-              ]
+              }
             }
           ],
           "properties": {
@@ -1514,15 +1500,12 @@
           "fullMessage": "struct or union member &#039;inffast_ar::window&#039; is never used.",
           "locations": [
             {
-              "resultFile": [
-                {
-                  "uri": "contrib\\masmx64\\inffas8664.c",
-                  "mimeType": "text/x-cpp",
-                  "region": {
-                    "startLine": 91
-                  }
+              "resultFile": {
+                "uri": "contrib\\masmx64\\inffas8664.c",
+                "region": {
+                  "startLine": 91
                 }
-              ]
+              }
             }
           ],
           "properties": {
@@ -1534,15 +1517,12 @@
           "fullMessage": "struct or union member &#039;inffast_ar::hold&#039; is never used.",
           "locations": [
             {
-              "resultFile": [
-                {
-                  "uri": "contrib\\masmx64\\inffas8664.c",
-                  "mimeType": "text/x-cpp",
-                  "region": {
-                    "startLine": 94
-                  }
+              "resultFile": {
+                "uri": "contrib\\masmx64\\inffas8664.c",
+                "region": {
+                  "startLine": 94
                 }
-              ]
+              }
             }
           ],
           "properties": {
@@ -1554,15 +1534,12 @@
           "fullMessage": "struct or union member &#039;inffast_ar::bits&#039; is never used.",
           "locations": [
             {
-              "resultFile": [
-                {
-                  "uri": "contrib\\masmx64\\inffas8664.c",
-                  "mimeType": "text/x-cpp",
-                  "region": {
-                    "startLine": 95
-                  }
+              "resultFile": {
+                "uri": "contrib\\masmx64\\inffas8664.c",
+                "region": {
+                  "startLine": 95
                 }
-              ]
+              }
             }
           ],
           "properties": {
@@ -1574,15 +1551,12 @@
           "fullMessage": "struct or union member &#039;inffast_ar::wsize&#039; is never used.",
           "locations": [
             {
-              "resultFile": [
-                {
-                  "uri": "contrib\\masmx64\\inffas8664.c",
-                  "mimeType": "text/x-cpp",
-                  "region": {
-                    "startLine": 96
-                  }
+              "resultFile": {
+                "uri": "contrib\\masmx64\\inffas8664.c",
+                "region": {
+                  "startLine": 96
                 }
-              ]
+              }
             }
           ],
           "properties": {
@@ -1594,15 +1568,12 @@
           "fullMessage": "struct or union member &#039;inffast_ar::write&#039; is never used.",
           "locations": [
             {
-              "resultFile": [
-                {
-                  "uri": "contrib\\masmx64\\inffas8664.c",
-                  "mimeType": "text/x-cpp",
-                  "region": {
-                    "startLine": 97
-                  }
+              "resultFile": {
+                "uri": "contrib\\masmx64\\inffas8664.c",
+                "region": {
+                  "startLine": 97
                 }
-              ]
+              }
             }
           ],
           "properties": {
@@ -1614,15 +1585,12 @@
           "fullMessage": "struct or union member &#039;inffast_ar::lmask&#039; is never used.",
           "locations": [
             {
-              "resultFile": [
-                {
-                  "uri": "contrib\\masmx64\\inffas8664.c",
-                  "mimeType": "text/x-cpp",
-                  "region": {
-                    "startLine": 98
-                  }
+              "resultFile": {
+                "uri": "contrib\\masmx64\\inffas8664.c",
+                "region": {
+                  "startLine": 98
                 }
-              ]
+              }
             }
           ],
           "properties": {
@@ -1634,15 +1602,12 @@
           "fullMessage": "struct or union member &#039;inffast_ar::dmask&#039; is never used.",
           "locations": [
             {
-              "resultFile": [
-                {
-                  "uri": "contrib\\masmx64\\inffas8664.c",
-                  "mimeType": "text/x-cpp",
-                  "region": {
-                    "startLine": 99
-                  }
+              "resultFile": {
+                "uri": "contrib\\masmx64\\inffas8664.c",
+                "region": {
+                  "startLine": 99
                 }
-              ]
+              }
             }
           ],
           "properties": {
@@ -1654,15 +1619,12 @@
           "fullMessage": "struct or union member &#039;inffast_ar::len&#039; is never used.",
           "locations": [
             {
-              "resultFile": [
-                {
-                  "uri": "contrib\\masmx64\\inffas8664.c",
-                  "mimeType": "text/x-cpp",
-                  "region": {
-                    "startLine": 100
-                  }
+              "resultFile": {
+                "uri": "contrib\\masmx64\\inffas8664.c",
+                "region": {
+                  "startLine": 100
                 }
-              ]
+              }
             }
           ],
           "properties": {
@@ -1674,15 +1636,12 @@
           "fullMessage": "struct or union member &#039;inffast_ar::dist&#039; is never used.",
           "locations": [
             {
-              "resultFile": [
-                {
-                  "uri": "contrib\\masmx64\\inffas8664.c",
-                  "mimeType": "text/x-cpp",
-                  "region": {
-                    "startLine": 101
-                  }
+              "resultFile": {
+                "uri": "contrib\\masmx64\\inffas8664.c",
+                "region": {
+                  "startLine": 101
                 }
-              ]
+              }
             }
           ],
           "properties": {
@@ -1694,15 +1653,12 @@
           "fullMessage": "struct or union member &#039;inffast_ar::status&#039; is never used.",
           "locations": [
             {
-              "resultFile": [
-                {
-                  "uri": "contrib\\masmx64\\inffas8664.c",
-                  "mimeType": "text/x-cpp",
-                  "region": {
-                    "startLine": 102
-                  }
+              "resultFile": {
+                "uri": "contrib\\masmx64\\inffas8664.c",
+                "region": {
+                  "startLine": 102
                 }
-              ]
+              }
             }
           ],
           "properties": {
@@ -1714,15 +1670,12 @@
           "fullMessage": "Variable &#039;mode_fopen&#039; is assigned a value that is never used.",
           "locations": [
             {
-              "resultFile": [
-                {
-                  "uri": "contrib\\minizip\\iowin32.c",
-                  "mimeType": "text/x-cpp",
-                  "region": {
-                    "startLine": 97
-                  }
+              "resultFile": {
+                "uri": "contrib\\minizip\\iowin32.c",
+                "region": {
+                  "startLine": 97
                 }
-              ]
+              }
             }
           ],
           "properties": {
@@ -1734,15 +1687,12 @@
           "fullMessage": "Variable &#039;mode_fopen&#039; is assigned a value that is never used.",
           "locations": [
             {
-              "resultFile": [
-                {
-                  "uri": "contrib\\minizip\\iowin32.c",
-                  "mimeType": "text/x-cpp",
-                  "region": {
-                    "startLine": 126
-                  }
+              "resultFile": {
+                "uri": "contrib\\minizip\\iowin32.c",
+                "region": {
+                  "startLine": 126
                 }
-              ]
+              }
             }
           ],
           "properties": {
@@ -1754,15 +1704,12 @@
           "fullMessage": "Variable &#039;mode_fopen&#039; is assigned a value that is never used.",
           "locations": [
             {
-              "resultFile": [
-                {
-                  "uri": "contrib\\minizip\\iowin32.c",
-                  "mimeType": "text/x-cpp",
-                  "region": {
-                    "startLine": 150
-                  }
+              "resultFile": {
+                "uri": "contrib\\minizip\\iowin32.c",
+                "region": {
+                  "startLine": 150
                 }
-              ]
+              }
             }
           ],
           "properties": {
@@ -1774,15 +1721,12 @@
           "fullMessage": "Variable &#039;mode_fopen&#039; is assigned a value that is never used.",
           "locations": [
             {
-              "resultFile": [
-                {
-                  "uri": "contrib\\minizip\\iowin32.c",
-                  "mimeType": "text/x-cpp",
-                  "region": {
-                    "startLine": 170
-                  }
+              "resultFile": {
+                "uri": "contrib\\minizip\\iowin32.c",
+                "region": {
+                  "startLine": 170
                 }
-              ]
+              }
             }
           ],
           "properties": {
@@ -1794,15 +1738,12 @@
           "fullMessage": "Variable &#039;dwMoveMethod&#039; is assigned a value that is never used.",
           "locations": [
             {
-              "resultFile": [
-                {
-                  "uri": "contrib\\minizip\\iowin32.c",
-                  "mimeType": "text/x-cpp",
-                  "region": {
-                    "startLine": 364
-                  }
+              "resultFile": {
+                "uri": "contrib\\minizip\\iowin32.c",
+                "region": {
+                  "startLine": 364
                 }
-              ]
+              }
             }
           ],
           "properties": {
@@ -1814,40 +1755,31 @@
           "fullMessage": "Possible null pointer dereference: zipfilename - otherwise it is redundant to check it against null.",
           "locations": [
             {
-              "resultFile": [
-                {
-                  "uri": "contrib\\minizip\\miniunz.c",
-                  "mimeType": "text/x-cpp",
-                  "region": {
-                    "startLine": 602
-                  }
+              "resultFile": {
+                "uri": "contrib\\minizip\\miniunz.c",
+                "region": {
+                  "startLine": 602
                 }
-              ]
+              }
             }
           ],
           "executionFlows": [
             [
               {
-                "physicalLocation": [
-                  {
-                    "uri": "contrib\\minizip\\miniunz.c",
-                    "mimeType": "text/x-cpp",
-                    "region": {
-                      "startLine": 632
-                    }
+                "physicalLocation": {
+                  "uri": "contrib\\minizip\\miniunz.c",
+                  "region": {
+                    "startLine": 632
                   }
-                ]
+                }
               },
               {
-                "physicalLocation": [
-                  {
-                    "uri": "contrib\\minizip\\miniunz.c",
-                    "mimeType": "text/x-cpp",
-                    "region": {
-                      "startLine": 602
-                    }
+                "physicalLocation": {
+                  "uri": "contrib\\minizip\\miniunz.c",
+                  "region": {
+                    "startLine": 602
                   }
-                ]
+                }
               }
             ]
           ],
@@ -1861,15 +1793,12 @@
           "shortMessage": "The scope of the variable &#039;fout&#039; can be reduced.",
           "locations": [
             {
-              "resultFile": [
-                {
-                  "uri": "contrib\\minizip\\miniunz.c",
-                  "mimeType": "text/x-cpp",
-                  "region": {
-                    "startLine": 322
-                  }
+              "resultFile": {
+                "uri": "contrib\\minizip\\miniunz.c",
+                "region": {
+                  "startLine": 322
                 }
-              ]
+              }
             }
           ],
           "properties": {
@@ -1882,15 +1811,12 @@
           "shortMessage": "The scope of the variable &#039;i&#039; can be reduced.",
           "locations": [
             {
-              "resultFile": [
-                {
-                  "uri": "contrib\\minizip\\miniunz.c",
-                  "mimeType": "text/x-cpp",
-                  "region": {
-                    "startLine": 542
-                  }
+              "resultFile": {
+                "uri": "contrib\\minizip\\miniunz.c",
+                "region": {
+                  "startLine": 542
                 }
-              ]
+              }
             }
           ],
           "properties": {
@@ -1902,15 +1828,12 @@
           "fullMessage": "Variable &#039;ratio&#039; is assigned a value that is never used.",
           "locations": [
             {
-              "resultFile": [
-                {
-                  "uri": "contrib\\minizip\\miniunz.c",
-                  "mimeType": "text/x-cpp",
-                  "region": {
-                    "startLine": 327
-                  }
+              "resultFile": {
+                "uri": "contrib\\minizip\\miniunz.c",
+                "region": {
+                  "startLine": 327
                 }
-              ]
+              }
             }
           ],
           "properties": {
@@ -1922,15 +1845,12 @@
           "fullMessage": "Variable &#039;fout&#039; is assigned a value that is never used.",
           "locations": [
             {
-              "resultFile": [
-                {
-                  "uri": "contrib\\minizip\\miniunz.c",
-                  "mimeType": "text/x-cpp",
-                  "region": {
-                    "startLine": 484
-                  }
+              "resultFile": {
+                "uri": "contrib\\minizip\\miniunz.c",
+                "region": {
+                  "startLine": 484
                 }
-              ]
+              }
             }
           ],
           "properties": {
@@ -1942,15 +1862,12 @@
           "fullMessage": "Variable &#039;err&#039; is assigned a value that is never used.",
           "locations": [
             {
-              "resultFile": [
-                {
-                  "uri": "contrib\\minizip\\miniunz.c",
-                  "mimeType": "text/x-cpp",
-                  "region": {
-                    "startLine": 518
-                  }
+              "resultFile": {
+                "uri": "contrib\\minizip\\miniunz.c",
+                "region": {
+                  "startLine": 518
                 }
-              ]
+              }
             }
           ],
           "properties": {
@@ -1962,15 +1879,12 @@
           "fullMessage": "%lld in format string (no. 2) requires &#039;long long&#039; but the argument type is &#039;unsigned long long&#039;.",
           "locations": [
             {
-              "resultFile": [
-                {
-                  "uri": "contrib\\minizip\\minizip.c",
-                  "mimeType": "text/x-cpp",
-                  "region": {
-                    "startLine": 235
-                  }
+              "resultFile": {
+                "uri": "contrib\\minizip\\minizip.c",
+                "region": {
+                  "startLine": 235
                 }
-              ]
+              }
             }
           ],
           "properties": {
@@ -1982,40 +1896,31 @@
           "fullMessage": "Possible null pointer dereference: fin - otherwise it is redundant to check it against null.",
           "locations": [
             {
-              "resultFile": [
-                {
-                  "uri": "contrib\\minizip\\minizip.c",
-                  "mimeType": "text/x-cpp",
-                  "region": {
-                    "startLine": 193
-                  }
+              "resultFile": {
+                "uri": "contrib\\minizip\\minizip.c",
+                "region": {
+                  "startLine": 193
                 }
-              ]
+              }
             }
           ],
           "executionFlows": [
             [
               {
-                "physicalLocation": [
-                  {
-                    "uri": "contrib\\minizip\\minizip.c",
-                    "mimeType": "text/x-cpp",
-                    "region": {
-                      "startLine": 204
-                    }
+                "physicalLocation": {
+                  "uri": "contrib\\minizip\\minizip.c",
+                  "region": {
+                    "startLine": 204
                   }
-                ]
+                }
               },
               {
-                "physicalLocation": [
-                  {
-                    "uri": "contrib\\minizip\\minizip.c",
-                    "mimeType": "text/x-cpp",
-                    "region": {
-                      "startLine": 193
-                    }
+                "physicalLocation": {
+                  "uri": "contrib\\minizip\\minizip.c",
+                  "region": {
+                    "startLine": 193
                   }
-                ]
+                }
               }
             ]
           ],
@@ -2029,15 +1934,12 @@
           "shortMessage": "The scope of the variable &#039;size_read&#039; can be reduced.",
           "locations": [
             {
-              "resultFile": [
-                {
-                  "uri": "contrib\\minizip\\minizip.c",
-                  "mimeType": "text/x-cpp",
-                  "region": {
-                    "startLine": 191
-                  }
+              "resultFile": {
+                "uri": "contrib\\minizip\\minizip.c",
+                "region": {
+                  "startLine": 191
                 }
-              ]
+              }
             }
           ],
           "properties": {
@@ -2050,15 +1952,12 @@
           "shortMessage": "The scope of the variable &#039;total_read&#039; can be reduced.",
           "locations": [
             {
-              "resultFile": [
-                {
-                  "uri": "contrib\\minizip\\minizip.c",
-                  "mimeType": "text/x-cpp",
-                  "region": {
-                    "startLine": 192
-                  }
+              "resultFile": {
+                "uri": "contrib\\minizip\\minizip.c",
+                "region": {
+                  "startLine": 192
                 }
-              ]
+              }
             }
           ],
           "properties": {
@@ -2071,15 +1970,12 @@
           "shortMessage": "The scope of the variable &#039;pos&#039; can be reduced.",
           "locations": [
             {
-              "resultFile": [
-                {
-                  "uri": "contrib\\minizip\\minizip.c",
-                  "mimeType": "text/x-cpp",
-                  "region": {
-                    "startLine": 227
-                  }
+              "resultFile": {
+                "uri": "contrib\\minizip\\minizip.c",
+                "region": {
+                  "startLine": 227
                 }
-              ]
+              }
             }
           ],
           "properties": {
@@ -2092,15 +1988,12 @@
           "shortMessage": "The scope of the variable &#039;err&#039; can be reduced.",
           "locations": [
             {
-              "resultFile": [
-                {
-                  "uri": "contrib\\minizip\\minizip.c",
-                  "mimeType": "text/x-cpp",
-                  "region": {
-                    "startLine": 257
-                  }
+              "resultFile": {
+                "uri": "contrib\\minizip\\minizip.c",
+                "region": {
+                  "startLine": 257
                 }
-              ]
+              }
             }
           ],
           "properties": {
@@ -2113,15 +2006,12 @@
           "shortMessage": "The scope of the variable &#039;size_read&#039; can be reduced.",
           "locations": [
             {
-              "resultFile": [
-                {
-                  "uri": "contrib\\minizip\\minizip.c",
-                  "mimeType": "text/x-cpp",
-                  "region": {
-                    "startLine": 399
-                  }
+              "resultFile": {
+                "uri": "contrib\\minizip\\minizip.c",
+                "region": {
+                  "startLine": 399
                 }
-              ]
+              }
             }
           ],
           "properties": {
@@ -2133,15 +2023,12 @@
           "fullMessage": "Variable &#039;total_read&#039; is assigned a value that is never used.",
           "locations": [
             {
-              "resultFile": [
-                {
-                  "uri": "contrib\\minizip\\minizip.c",
-                  "mimeType": "text/x-cpp",
-                  "region": {
-                    "startLine": 212
-                  }
+              "resultFile": {
+                "uri": "contrib\\minizip\\minizip.c",
+                "region": {
+                  "startLine": 212
                 }
-              ]
+              }
             }
           ],
           "properties": {
@@ -2153,15 +2040,12 @@
           "fullMessage": "Variable &#039;n&#039; is assigned a value that is never used.",
           "locations": [
             {
-              "resultFile": [
-                {
-                  "uri": "contrib\\minizip\\minizip.c",
-                  "mimeType": "text/x-cpp",
-                  "region": {
-                    "startLine": 232
-                  }
+              "resultFile": {
+                "uri": "contrib\\minizip\\minizip.c",
+                "region": {
+                  "startLine": 232
                 }
-              ]
+              }
             }
           ],
           "properties": {
@@ -2173,15 +2057,12 @@
           "fullMessage": "%lld in format string (no. 2) requires &#039;long long&#039; but the argument type is &#039;unsigned __int64 {aka unsigned long long}&#039;.",
           "locations": [
             {
-              "resultFile": [
-                {
-                  "uri": "contrib\\minizip\\minizip.c",
-                  "mimeType": "text/x-cpp",
-                  "region": {
-                    "startLine": 235
-                  }
+              "resultFile": {
+                "uri": "contrib\\minizip\\minizip.c",
+                "region": {
+                  "startLine": 235
                 }
-              ]
+              }
             }
           ],
           "properties": {
@@ -2193,15 +2074,12 @@
           "fullMessage": "Resource leak: fpZip",
           "locations": [
             {
-              "resultFile": [
-                {
-                  "uri": "contrib\\minizip\\mztools.c",
-                  "mimeType": "text/x-cpp",
-                  "region": {
-                    "startLine": 290
-                  }
+              "resultFile": {
+                "uri": "contrib\\minizip\\mztools.c",
+                "region": {
+                  "startLine": 290
                 }
-              ]
+              }
             }
           ],
           "properties": {
@@ -2213,15 +2091,12 @@
           "fullMessage": "Resource leak: fpOut",
           "locations": [
             {
-              "resultFile": [
-                {
-                  "uri": "contrib\\minizip\\mztools.c",
-                  "mimeType": "text/x-cpp",
-                  "region": {
-                    "startLine": 290
-                  }
+              "resultFile": {
+                "uri": "contrib\\minizip\\mztools.c",
+                "region": {
+                  "startLine": 290
                 }
-              ]
+              }
             }
           ],
           "properties": {
@@ -2233,15 +2108,12 @@
           "fullMessage": "Resource leak: fpOutCD",
           "locations": [
             {
-              "resultFile": [
-                {
-                  "uri": "contrib\\minizip\\mztools.c",
-                  "mimeType": "text/x-cpp",
-                  "region": {
-                    "startLine": 290
-                  }
+              "resultFile": {
+                "uri": "contrib\\minizip\\mztools.c",
+                "region": {
+                  "startLine": 290
                 }
-              ]
+              }
             }
           ],
           "properties": {
@@ -2253,40 +2125,31 @@
           "fullMessage": "Possible null pointer dereference: s - otherwise it is redundant to check it against null.",
           "locations": [
             {
-              "resultFile": [
-                {
-                  "uri": "contrib\\minizip\\unzip.c",
-                  "mimeType": "text/x-cpp",
-                  "region": {
-                    "startLine": 1663
-                  }
+              "resultFile": {
+                "uri": "contrib\\minizip\\unzip.c",
+                "region": {
+                  "startLine": 1663
                 }
-              ]
+              }
             }
           ],
           "executionFlows": [
             [
               {
-                "physicalLocation": [
-                  {
-                    "uri": "contrib\\minizip\\unzip.c",
-                    "mimeType": "text/x-cpp",
-                    "region": {
-                      "startLine": 1665
-                    }
+                "physicalLocation": {
+                  "uri": "contrib\\minizip\\unzip.c",
+                  "region": {
+                    "startLine": 1665
                   }
-                ]
+                }
               },
               {
-                "physicalLocation": [
-                  {
-                    "uri": "contrib\\minizip\\unzip.c",
-                    "mimeType": "text/x-cpp",
-                    "region": {
-                      "startLine": 1663
-                    }
+                "physicalLocation": {
+                  "uri": "contrib\\minizip\\unzip.c",
+                  "region": {
+                    "startLine": 1663
                   }
-                ]
+                }
               }
             ]
           ],
@@ -2299,15 +2162,12 @@
           "fullMessage": "Variable &#039;lSeek&#039; is assigned a value that is never used.",
           "locations": [
             {
-              "resultFile": [
-                {
-                  "uri": "contrib\\minizip\\unzip.c",
-                  "mimeType": "text/x-cpp",
-                  "region": {
-                    "startLine": 1105
-                  }
+              "resultFile": {
+                "uri": "contrib\\minizip\\unzip.c",
+                "region": {
+                  "startLine": 1105
                 }
-              ]
+              }
             }
           ],
           "properties": {
@@ -2319,40 +2179,31 @@
           "fullMessage": "Variable &#039;err&#039; is reassigned a value before the old one has been used.",
           "locations": [
             {
-              "resultFile": [
-                {
+              "resultFile": {
+                "uri": "contrib\\minizip\\zip.c",
+                "region": {
+                  "startLine": 1038
+                }
+              }
+            }
+          ],
+          "executionFlows": [
+            [
+              {
+                "physicalLocation": {
                   "uri": "contrib\\minizip\\zip.c",
-                  "mimeType": "text/x-cpp",
+                  "region": {
+                    "startLine": 1037
+                  }
+                }
+              },
+              {
+                "physicalLocation": {
+                  "uri": "contrib\\minizip\\zip.c",
                   "region": {
                     "startLine": 1038
                   }
                 }
-              ]
-            }
-          ],
-          "executionFlows": [
-            [
-              {
-                "physicalLocation": [
-                  {
-                    "uri": "contrib\\minizip\\zip.c",
-                    "mimeType": "text/x-cpp",
-                    "region": {
-                      "startLine": 1037
-                    }
-                  }
-                ]
-              },
-              {
-                "physicalLocation": [
-                  {
-                    "uri": "contrib\\minizip\\zip.c",
-                    "mimeType": "text/x-cpp",
-                    "region": {
-                      "startLine": 1038
-                    }
-                  }
-                ]
               }
             ]
           ],
@@ -2365,40 +2216,31 @@
           "fullMessage": "Variable &#039;err&#039; is reassigned a value before the old one has been used.",
           "locations": [
             {
-              "resultFile": [
-                {
+              "resultFile": {
+                "uri": "contrib\\minizip\\zip.c",
+                "region": {
+                  "startLine": 1040
+                }
+              }
+            }
+          ],
+          "executionFlows": [
+            [
+              {
+                "physicalLocation": {
                   "uri": "contrib\\minizip\\zip.c",
-                  "mimeType": "text/x-cpp",
+                  "region": {
+                    "startLine": 1038
+                  }
+                }
+              },
+              {
+                "physicalLocation": {
+                  "uri": "contrib\\minizip\\zip.c",
                   "region": {
                     "startLine": 1040
                   }
                 }
-              ]
-            }
-          ],
-          "executionFlows": [
-            [
-              {
-                "physicalLocation": [
-                  {
-                    "uri": "contrib\\minizip\\zip.c",
-                    "mimeType": "text/x-cpp",
-                    "region": {
-                      "startLine": 1038
-                    }
-                  }
-                ]
-              },
-              {
-                "physicalLocation": [
-                  {
-                    "uri": "contrib\\minizip\\zip.c",
-                    "mimeType": "text/x-cpp",
-                    "region": {
-                      "startLine": 1040
-                    }
-                  }
-                ]
               }
             ]
           ],
@@ -2411,40 +2253,31 @@
           "fullMessage": "Variable &#039;err&#039; is reassigned a value before the old one has been used.",
           "locations": [
             {
-              "resultFile": [
-                {
-                  "uri": "contrib\\minizip\\zip.c",
-                  "mimeType": "text/x-cpp",
-                  "region": {
-                    "startLine": 1041
-                  }
+              "resultFile": {
+                "uri": "contrib\\minizip\\zip.c",
+                "region": {
+                  "startLine": 1041
                 }
-              ]
+              }
             }
           ],
           "executionFlows": [
             [
               {
-                "physicalLocation": [
-                  {
-                    "uri": "contrib\\minizip\\zip.c",
-                    "mimeType": "text/x-cpp",
-                    "region": {
-                      "startLine": 1040
-                    }
+                "physicalLocation": {
+                  "uri": "contrib\\minizip\\zip.c",
+                  "region": {
+                    "startLine": 1040
                   }
-                ]
+                }
               },
               {
-                "physicalLocation": [
-                  {
-                    "uri": "contrib\\minizip\\zip.c",
-                    "mimeType": "text/x-cpp",
-                    "region": {
-                      "startLine": 1041
-                    }
+                "physicalLocation": {
+                  "uri": "contrib\\minizip\\zip.c",
+                  "region": {
+                    "startLine": 1041
                   }
-                ]
+                }
               }
             ]
           ],
@@ -2458,15 +2291,12 @@
           "shortMessage": "The scope of the variable &#039;header&#039; can be reduced.",
           "locations": [
             {
-              "resultFile": [
-                {
-                  "uri": "contrib\\minizip\\zip.c",
-                  "mimeType": "text/x-cpp",
-                  "region": {
-                    "startLine": 1957
-                  }
+              "resultFile": {
+                "uri": "contrib\\minizip\\zip.c",
+                "region": {
+                  "startLine": 1957
                 }
-              ]
+              }
             }
           ],
           "properties": {
@@ -2479,15 +2309,12 @@
           "shortMessage": "The scope of the variable &#039;dataSize&#039; can be reduced.",
           "locations": [
             {
-              "resultFile": [
-                {
-                  "uri": "contrib\\minizip\\zip.c",
-                  "mimeType": "text/x-cpp",
-                  "region": {
-                    "startLine": 1958
-                  }
+              "resultFile": {
+                "uri": "contrib\\minizip\\zip.c",
+                "region": {
+                  "startLine": 1958
                 }
-              ]
+              }
             }
           ],
           "properties": {
@@ -2499,15 +2326,12 @@
           "fullMessage": "Variable &#039;p&#039; is assigned a value that is never used.",
           "locations": [
             {
-              "resultFile": [
-                {
-                  "uri": "contrib\\minizip\\zip.c",
-                  "mimeType": "text/x-cpp",
-                  "region": {
-                    "startLine": 1683
-                  }
+              "resultFile": {
+                "uri": "contrib\\minizip\\zip.c",
+                "region": {
+                  "startLine": 1683
                 }
-              ]
+              }
             }
           ],
           "properties": {
@@ -2520,15 +2344,12 @@
           "shortMessage": "The scope of the variable &#039;c&#039; can be reduced.",
           "locations": [
             {
-              "resultFile": [
-                {
-                  "uri": "contrib\\minizip\\crypt.h",
-                  "mimeType": "text/x-cpp",
-                  "region": {
-                    "startLine": 99
-                  }
+              "resultFile": {
+                "uri": "contrib\\minizip\\crypt.h",
+                "region": {
+                  "startLine": 99
                 }
-              ]
+              }
             }
           ],
           "properties": {
@@ -2541,15 +2362,12 @@
           "shortMessage": "The scope of the variable &#039;len&#039; can be reduced.",
           "locations": [
             {
-              "resultFile": [
-                {
-                  "uri": "contrib\\puff\\puff.c",
-                  "mimeType": "text/x-cpp",
-                  "region": {
-                    "startLine": 705
-                  }
+              "resultFile": {
+                "uri": "contrib\\puff\\puff.c",
+                "region": {
+                  "startLine": 705
                 }
-              ]
+              }
             }
           ],
           "properties": {
@@ -2562,15 +2380,12 @@
           "shortMessage": "The scope of the variable &#039;last&#039; can be reduced.",
           "locations": [
             {
-              "resultFile": [
-                {
-                  "uri": "contrib\\puff\\puff.c",
-                  "mimeType": "text/x-cpp",
-                  "region": {
-                    "startLine": 799
-                  }
+              "resultFile": {
+                "uri": "contrib\\puff\\puff.c",
+                "region": {
+                  "startLine": 799
                 }
-              ]
+              }
             }
           ],
           "properties": {
@@ -2583,15 +2398,12 @@
           "shortMessage": "The scope of the variable &#039;type&#039; can be reduced.",
           "locations": [
             {
-              "resultFile": [
-                {
-                  "uri": "contrib\\puff\\puff.c",
-                  "mimeType": "text/x-cpp",
-                  "region": {
-                    "startLine": 799
-                  }
+              "resultFile": {
+                "uri": "contrib\\puff\\puff.c",
+                "region": {
+                  "startLine": 799
                 }
-              ]
+              }
             }
           ],
           "properties": {
@@ -2604,15 +2416,12 @@
           "shortMessage": "The scope of the variable &#039;count&#039; can be reduced.",
           "locations": [
             {
-              "resultFile": [
-                {
-                  "uri": "contrib\\puff\\puff.c",
-                  "mimeType": "text/x-cpp",
-                  "region": {
-                    "startLine": 240
-                  }
+              "resultFile": {
+                "uri": "contrib\\puff\\puff.c",
+                "region": {
+                  "startLine": 240
                 }
-              ]
+              }
             }
           ],
           "properties": {
@@ -2624,15 +2433,12 @@
           "fullMessage": "%d in format string (no. 1) requires &#039;int&#039; but the argument type is &#039;unsigned int&#039;.",
           "locations": [
             {
-              "resultFile": [
-                {
-                  "uri": "contrib\\puff\\pufftest.c",
-                  "mimeType": "text/x-cpp",
-                  "region": {
-                    "startLine": 129
-                  }
+              "resultFile": {
+                "uri": "contrib\\puff\\pufftest.c",
+                "region": {
+                  "startLine": 129
                 }
-              ]
+              }
             }
           ],
           "properties": {
@@ -2645,15 +2451,12 @@
           "shortMessage": "The scope of the variable &#039;dest&#039; can be reduced.",
           "locations": [
             {
-              "resultFile": [
-                {
-                  "uri": "contrib\\puff\\pufftest.c",
-                  "mimeType": "text/x-cpp",
-                  "region": {
-                    "startLine": 93
-                  }
+              "resultFile": {
+                "uri": "contrib\\puff\\pufftest.c",
+                "region": {
+                  "startLine": 93
                 }
-              ]
+              }
             }
           ],
           "properties": {
@@ -2665,15 +2468,12 @@
           "fullMessage": "%u in format string (no. 2) requires &#039;unsigned int&#039; but the argument type is &#039;long&#039;.",
           "locations": [
             {
-              "resultFile": [
-                {
-                  "uri": "contrib\\testzlib\\testzlib.c",
-                  "mimeType": "text/x-cpp",
-                  "region": {
-                    "startLine": 172
-                  }
+              "resultFile": {
+                "uri": "contrib\\testzlib\\testzlib.c",
+                "region": {
+                  "startLine": 172
                 }
-              ]
+              }
             }
           ],
           "properties": {
@@ -2685,15 +2485,12 @@
           "fullMessage": "%u in format string (no. 1) requires &#039;unsigned int&#039; but the argument type is &#039;long&#039;.",
           "locations": [
             {
-              "resultFile": [
-                {
-                  "uri": "contrib\\testzlib\\testzlib.c",
-                  "mimeType": "text/x-cpp",
-                  "region": {
-                    "startLine": 220
-                  }
+              "resultFile": {
+                "uri": "contrib\\testzlib\\testzlib.c",
+                "region": {
+                  "startLine": 220
                 }
-              ]
+              }
             }
           ],
           "properties": {
@@ -2705,15 +2502,12 @@
           "fullMessage": "%u in format string (no. 2) requires &#039;unsigned int&#039; but the argument type is &#039;int&#039;.",
           "locations": [
             {
-              "resultFile": [
-                {
-                  "uri": "contrib\\testzlib\\testzlib.c",
-                  "mimeType": "text/x-cpp",
-                  "region": {
-                    "startLine": 220
-                  }
+              "resultFile": {
+                "uri": "contrib\\testzlib\\testzlib.c",
+                "region": {
+                  "startLine": 220
                 }
-              ]
+              }
             }
           ],
           "properties": {
@@ -2725,15 +2519,12 @@
           "fullMessage": "%u in format string (no. 1) requires &#039;unsigned int&#039; but the argument type is &#039;long&#039;.",
           "locations": [
             {
-              "resultFile": [
-                {
-                  "uri": "contrib\\testzlib\\testzlib.c",
-                  "mimeType": "text/x-cpp",
-                  "region": {
-                    "startLine": 261
-                  }
+              "resultFile": {
+                "uri": "contrib\\testzlib\\testzlib.c",
+                "region": {
+                  "startLine": 261
                 }
-              ]
+              }
             }
           ],
           "properties": {
@@ -2745,15 +2536,12 @@
           "fullMessage": "%u in format string (no. 2) requires &#039;unsigned int&#039; but the argument type is &#039;int&#039;.",
           "locations": [
             {
-              "resultFile": [
-                {
-                  "uri": "contrib\\testzlib\\testzlib.c",
-                  "mimeType": "text/x-cpp",
-                  "region": {
-                    "startLine": 261
-                  }
+              "resultFile": {
+                "uri": "contrib\\testzlib\\testzlib.c",
+                "region": {
+                  "startLine": 261
                 }
-              ]
+              }
             }
           ],
           "properties": {
@@ -2765,15 +2553,12 @@
           "fullMessage": "Variable &#039;lCompressedSize&#039; is assigned a value that is never used.",
           "locations": [
             {
-              "resultFile": [
-                {
-                  "uri": "contrib\\testzlib\\testzlib.c",
-                  "mimeType": "text/x-cpp",
-                  "region": {
-                    "startLine": 154
-                  }
+              "resultFile": {
+                "uri": "contrib\\testzlib\\testzlib.c",
+                "region": {
+                  "startLine": 154
                 }
-              ]
+              }
             }
           ],
           "properties": {
@@ -2785,15 +2570,12 @@
           "fullMessage": "Variable &#039;lOrigDone&#039; is assigned a value that is never used.",
           "locations": [
             {
-              "resultFile": [
-                {
-                  "uri": "contrib\\testzlib\\testzlib.c",
-                  "mimeType": "text/x-cpp",
-                  "region": {
-                    "startLine": 210
-                  }
+              "resultFile": {
+                "uri": "contrib\\testzlib\\testzlib.c",
+                "region": {
+                  "startLine": 210
                 }
-              ]
+              }
             }
           ],
           "properties": {
@@ -2805,15 +2587,12 @@
           "fullMessage": "Variable &#039;lOrigDone&#039; is assigned a value that is never used.",
           "locations": [
             {
-              "resultFile": [
-                {
-                  "uri": "contrib\\testzlib\\testzlib.c",
-                  "mimeType": "text/x-cpp",
-                  "region": {
-                    "startLine": 251
-                  }
+              "resultFile": {
+                "uri": "contrib\\testzlib\\testzlib.c",
+                "region": {
+                  "startLine": 251
                 }
-              ]
+              }
             }
           ],
           "properties": {
@@ -2826,15 +2605,12 @@
           "shortMessage": "The scope of the variable &#039;c&#039; can be reduced.",
           "locations": [
             {
-              "resultFile": [
-                {
-                  "uri": "contrib\\untgz\\untgz.c",
-                  "mimeType": "text/x-cpp",
-                  "region": {
-                    "startLine": 171
-                  }
+              "resultFile": {
+                "uri": "contrib\\untgz\\untgz.c",
+                "region": {
+                  "startLine": 171
                 }
-              ]
+              }
             }
           ],
           "properties": {
@@ -2847,15 +2623,12 @@
           "shortMessage": "The scope of the variable &#039;prev&#039; can be reduced.",
           "locations": [
             {
-              "resultFile": [
-                {
-                  "uri": "contrib\\untgz\\untgz.c",
-                  "mimeType": "text/x-cpp",
-                  "region": {
-                    "startLine": 272
-                  }
+              "resultFile": {
+                "uri": "contrib\\untgz\\untgz.c",
+                "region": {
+                  "startLine": 272
                 }
-              ]
+              }
             }
           ],
           "properties": {
@@ -2868,15 +2641,12 @@
           "shortMessage": "The scope of the variable &#039;len&#039; can be reduced.",
           "locations": [
             {
-              "resultFile": [
-                {
-                  "uri": "contrib\\untgz\\untgz.c",
-                  "mimeType": "text/x-cpp",
-                  "region": {
-                    "startLine": 389
-                  }
+              "resultFile": {
+                "uri": "contrib\\untgz\\untgz.c",
+                "region": {
+                  "startLine": 389
                 }
-              ]
+              }
             }
           ],
           "properties": {
@@ -2888,15 +2658,12 @@
           "fullMessage": "struct or union member &#039;tar_header::uid&#039; is never used.",
           "locations": [
             {
-              "resultFile": [
-                {
-                  "uri": "contrib\\untgz\\untgz.c",
-                  "mimeType": "text/x-cpp",
-                  "region": {
-                    "startLine": 72
-                  }
+              "resultFile": {
+                "uri": "contrib\\untgz\\untgz.c",
+                "region": {
+                  "startLine": 72
                 }
-              ]
+              }
             }
           ],
           "properties": {
@@ -2908,15 +2675,12 @@
           "fullMessage": "struct or union member &#039;tar_header::gid&#039; is never used.",
           "locations": [
             {
-              "resultFile": [
-                {
-                  "uri": "contrib\\untgz\\untgz.c",
-                  "mimeType": "text/x-cpp",
-                  "region": {
-                    "startLine": 73
-                  }
+              "resultFile": {
+                "uri": "contrib\\untgz\\untgz.c",
+                "region": {
+                  "startLine": 73
                 }
-              ]
+              }
             }
           ],
           "properties": {
@@ -2928,15 +2692,12 @@
           "fullMessage": "struct or union member &#039;tar_header::chksum&#039; is never used.",
           "locations": [
             {
-              "resultFile": [
-                {
-                  "uri": "contrib\\untgz\\untgz.c",
-                  "mimeType": "text/x-cpp",
-                  "region": {
-                    "startLine": 76
-                  }
+              "resultFile": {
+                "uri": "contrib\\untgz\\untgz.c",
+                "region": {
+                  "startLine": 76
                 }
-              ]
+              }
             }
           ],
           "properties": {
@@ -2948,15 +2709,12 @@
           "fullMessage": "struct or union member &#039;tar_header::linkname&#039; is never used.",
           "locations": [
             {
-              "resultFile": [
-                {
-                  "uri": "contrib\\untgz\\untgz.c",
-                  "mimeType": "text/x-cpp",
-                  "region": {
-                    "startLine": 78
-                  }
+              "resultFile": {
+                "uri": "contrib\\untgz\\untgz.c",
+                "region": {
+                  "startLine": 78
                 }
-              ]
+              }
             }
           ],
           "properties": {
@@ -2968,15 +2726,12 @@
           "fullMessage": "struct or union member &#039;tar_header::magic&#039; is never used.",
           "locations": [
             {
-              "resultFile": [
-                {
-                  "uri": "contrib\\untgz\\untgz.c",
-                  "mimeType": "text/x-cpp",
-                  "region": {
-                    "startLine": 79
-                  }
+              "resultFile": {
+                "uri": "contrib\\untgz\\untgz.c",
+                "region": {
+                  "startLine": 79
                 }
-              ]
+              }
             }
           ],
           "properties": {
@@ -2988,15 +2743,12 @@
           "fullMessage": "struct or union member &#039;tar_header::version&#039; is never used.",
           "locations": [
             {
-              "resultFile": [
-                {
-                  "uri": "contrib\\untgz\\untgz.c",
-                  "mimeType": "text/x-cpp",
-                  "region": {
-                    "startLine": 80
-                  }
+              "resultFile": {
+                "uri": "contrib\\untgz\\untgz.c",
+                "region": {
+                  "startLine": 80
                 }
-              ]
+              }
             }
           ],
           "properties": {
@@ -3008,15 +2760,12 @@
           "fullMessage": "struct or union member &#039;tar_header::uname&#039; is never used.",
           "locations": [
             {
-              "resultFile": [
-                {
-                  "uri": "contrib\\untgz\\untgz.c",
-                  "mimeType": "text/x-cpp",
-                  "region": {
-                    "startLine": 81
-                  }
+              "resultFile": {
+                "uri": "contrib\\untgz\\untgz.c",
+                "region": {
+                  "startLine": 81
                 }
-              ]
+              }
             }
           ],
           "properties": {
@@ -3028,15 +2777,12 @@
           "fullMessage": "struct or union member &#039;tar_header::gname&#039; is never used.",
           "locations": [
             {
-              "resultFile": [
-                {
-                  "uri": "contrib\\untgz\\untgz.c",
-                  "mimeType": "text/x-cpp",
-                  "region": {
-                    "startLine": 82
-                  }
+              "resultFile": {
+                "uri": "contrib\\untgz\\untgz.c",
+                "region": {
+                  "startLine": 82
                 }
-              ]
+              }
             }
           ],
           "properties": {
@@ -3048,15 +2794,12 @@
           "fullMessage": "struct or union member &#039;tar_header::devmajor&#039; is never used.",
           "locations": [
             {
-              "resultFile": [
-                {
-                  "uri": "contrib\\untgz\\untgz.c",
-                  "mimeType": "text/x-cpp",
-                  "region": {
-                    "startLine": 83
-                  }
+              "resultFile": {
+                "uri": "contrib\\untgz\\untgz.c",
+                "region": {
+                  "startLine": 83
                 }
-              ]
+              }
             }
           ],
           "properties": {
@@ -3068,15 +2811,12 @@
           "fullMessage": "struct or union member &#039;tar_header::devminor&#039; is never used.",
           "locations": [
             {
-              "resultFile": [
-                {
-                  "uri": "contrib\\untgz\\untgz.c",
-                  "mimeType": "text/x-cpp",
-                  "region": {
-                    "startLine": 84
-                  }
+              "resultFile": {
+                "uri": "contrib\\untgz\\untgz.c",
+                "region": {
+                  "startLine": 84
                 }
-              ]
+              }
             }
           ],
           "properties": {
@@ -3088,15 +2828,12 @@
           "fullMessage": "struct or union member &#039;tar_header::prefix&#039; is never used.",
           "locations": [
             {
-              "resultFile": [
-                {
-                  "uri": "contrib\\untgz\\untgz.c",
-                  "mimeType": "text/x-cpp",
-                  "region": {
-                    "startLine": 85
-                  }
+              "resultFile": {
+                "uri": "contrib\\untgz\\untgz.c",
+                "region": {
+                  "startLine": 85
                 }
-              ]
+              }
             }
           ],
           "properties": {
@@ -3108,15 +2845,12 @@
           "fullMessage": "struct or union member &#039;tar_buffer::buffer&#039; is never used.",
           "locations": [
             {
-              "resultFile": [
-                {
-                  "uri": "contrib\\untgz\\untgz.c",
-                  "mimeType": "text/x-cpp",
-                  "region": {
-                    "startLine": 91
-                  }
+              "resultFile": {
+                "uri": "contrib\\untgz\\untgz.c",
+                "region": {
+                  "startLine": 91
                 }
-              ]
+              }
             }
           ],
           "properties": {
@@ -3129,15 +2863,12 @@
           "shortMessage": "The scope of the variable &#039;n&#039; can be reduced.",
           "locations": [
             {
-              "resultFile": [
-                {
-                  "uri": "examples\\enough.c",
-                  "mimeType": "text/x-cpp",
-                  "region": {
-                    "startLine": 184
-                  }
+              "resultFile": {
+                "uri": "examples\\enough.c",
+                "region": {
+                  "startLine": 184
                 }
-              ]
+              }
             }
           ],
           "properties": {
@@ -3150,15 +2881,12 @@
           "shortMessage": "The scope of the variable &#039;left&#039; can be reduced.",
           "locations": [
             {
-              "resultFile": [
-                {
-                  "uri": "examples\\enough.c",
-                  "mimeType": "text/x-cpp",
-                  "region": {
-                    "startLine": 406
-                  }
+              "resultFile": {
+                "uri": "examples\\enough.c",
+                "region": {
+                  "startLine": 406
                 }
-              ]
+              }
             }
           ],
           "properties": {
@@ -3171,15 +2899,12 @@
           "shortMessage": "The scope of the variable &#039;index&#039; can be reduced.",
           "locations": [
             {
-              "resultFile": [
-                {
-                  "uri": "examples\\enough.c",
-                  "mimeType": "text/x-cpp",
-                  "region": {
-                    "startLine": 407
-                  }
+              "resultFile": {
+                "uri": "examples\\enough.c",
+                "region": {
+                  "startLine": 407
                 }
-              ]
+              }
             }
           ],
           "properties": {
@@ -3192,15 +2917,12 @@
           "shortMessage": "The scope of the variable &#039;got&#039; can be reduced.",
           "locations": [
             {
-              "resultFile": [
-                {
-                  "uri": "examples\\enough.c",
-                  "mimeType": "text/x-cpp",
-                  "region": {
-                    "startLine": 462
-                  }
+              "resultFile": {
+                "uri": "examples\\enough.c",
+                "region": {
+                  "startLine": 462
                 }
-              ]
+              }
             }
           ],
           "properties": {
@@ -3213,15 +2935,12 @@
           "shortMessage": "The scope of the variable &#039;ret&#039; can be reduced.",
           "locations": [
             {
-              "resultFile": [
-                {
-                  "uri": "examples\\gun.c",
-                  "mimeType": "text/x-cpp",
-                  "region": {
-                    "startLine": 133
-                  }
+              "resultFile": {
+                "uri": "examples\\gun.c",
+                "region": {
+                  "startLine": 133
                 }
-              ]
+              }
             }
           ],
           "properties": {
@@ -3234,15 +2953,12 @@
           "shortMessage": "The scope of the variable &#039;code&#039; can be reduced.",
           "locations": [
             {
-              "resultFile": [
-                {
-                  "uri": "examples\\gun.c",
-                  "mimeType": "text/x-cpp",
-                  "region": {
-                    "startLine": 208
-                  }
+              "resultFile": {
+                "uri": "examples\\gun.c",
+                "region": {
+                  "startLine": 208
                 }
-              ]
+              }
             }
           ],
           "properties": {
@@ -3255,15 +2971,12 @@
           "shortMessage": "The scope of the variable &#039;last&#039; can be reduced.",
           "locations": [
             {
-              "resultFile": [
-                {
-                  "uri": "examples\\gun.c",
-                  "mimeType": "text/x-cpp",
-                  "region": {
-                    "startLine": 385
-                  }
+              "resultFile": {
+                "uri": "examples\\gun.c",
+                "region": {
+                  "startLine": 385
                 }
-              ]
+              }
             }
           ],
           "properties": {
@@ -3276,15 +2989,12 @@
           "shortMessage": "The scope of the variable &#039;flags&#039; can be reduced.",
           "locations": [
             {
-              "resultFile": [
-                {
-                  "uri": "examples\\gun.c",
-                  "mimeType": "text/x-cpp",
-                  "region": {
-                    "startLine": 386
-                  }
+              "resultFile": {
+                "uri": "examples\\gun.c",
+                "region": {
+                  "startLine": 386
                 }
-              ]
+              }
             }
           ],
           "properties": {
@@ -3297,15 +3007,12 @@
           "shortMessage": "The scope of the variable &#039;len&#039; can be reduced.",
           "locations": [
             {
-              "resultFile": [
-                {
-                  "uri": "examples\\gun.c",
-                  "mimeType": "text/x-cpp",
-                  "region": {
-                    "startLine": 633
-                  }
+              "resultFile": {
+                "uri": "examples\\gun.c",
+                "region": {
+                  "startLine": 633
                 }
-              ]
+              }
             }
           ],
           "properties": {
@@ -3318,15 +3025,12 @@
           "shortMessage": "The scope of the variable &#039;outname&#039; can be reduced.",
           "locations": [
             {
-              "resultFile": [
-                {
-                  "uri": "examples\\gun.c",
-                  "mimeType": "text/x-cpp",
-                  "region": {
-                    "startLine": 634
-                  }
+              "resultFile": {
+                "uri": "examples\\gun.c",
+                "region": {
+                  "startLine": 634
                 }
-              ]
+              }
             }
           ],
           "properties": {
@@ -3338,15 +3042,12 @@
           "fullMessage": "Variable &#039;final&#039; is assigned a value that is never used.",
           "locations": [
             {
-              "resultFile": [
-                {
-                  "uri": "examples\\gun.c",
-                  "mimeType": "text/x-cpp",
-                  "region": {
-                    "startLine": 337
-                  }
+              "resultFile": {
+                "uri": "examples\\gun.c",
+                "region": {
+                  "startLine": 337
                 }
-              ]
+              }
             }
           ],
           "properties": {
@@ -3358,40 +3059,31 @@
           "fullMessage": "Possible null pointer dereference: name - otherwise it is redundant to check it against null.",
           "locations": [
             {
-              "resultFile": [
-                {
-                  "uri": "examples\\gzappend.c",
-                  "mimeType": "text/x-cpp",
-                  "region": {
-                    "startLine": 396
-                  }
+              "resultFile": {
+                "uri": "examples\\gzappend.c",
+                "region": {
+                  "startLine": 396
                 }
-              ]
+              }
             }
           ],
           "executionFlows": [
             [
               {
-                "physicalLocation": [
-                  {
-                    "uri": "examples\\gzappend.c",
-                    "mimeType": "text/x-cpp",
-                    "region": {
-                      "startLine": 415
-                    }
+                "physicalLocation": {
+                  "uri": "examples\\gzappend.c",
+                  "region": {
+                    "startLine": 415
                   }
-                ]
+                }
               },
               {
-                "physicalLocation": [
-                  {
-                    "uri": "examples\\gzappend.c",
-                    "mimeType": "text/x-cpp",
-                    "region": {
-                      "startLine": 396
-                    }
+                "physicalLocation": {
+                  "uri": "examples\\gzappend.c",
+                  "region": {
+                    "startLine": 396
                   }
-                ]
+                }
               }
             ]
           ],
@@ -3405,15 +3097,12 @@
           "shortMessage": "The scope of the variable &#039;start&#039; can be reduced.",
           "locations": [
             {
-              "resultFile": [
-                {
-                  "uri": "examples\\gzappend.c",
-                  "mimeType": "text/x-cpp",
-                  "region": {
-                    "startLine": 127
-                  }
+              "resultFile": {
+                "uri": "examples\\gzappend.c",
+                "region": {
+                  "startLine": 127
                 }
-              ]
+              }
             }
           ],
           "properties": {
@@ -3426,15 +3115,12 @@
           "shortMessage": "The scope of the variable &#039;to&#039; can be reduced.",
           "locations": [
             {
-              "resultFile": [
-                {
-                  "uri": "examples\\gzappend.c",
-                  "mimeType": "text/x-cpp",
-                  "region": {
-                    "startLine": 127
-                  }
+              "resultFile": {
+                "uri": "examples\\gzappend.c",
+                "region": {
+                  "startLine": 127
                 }
-              ]
+              }
             }
           ],
           "properties": {
@@ -3447,15 +3133,12 @@
           "shortMessage": "The scope of the variable &#039;bypass&#039; can be reduced.",
           "locations": [
             {
-              "resultFile": [
-                {
-                  "uri": "examples\\gzappend.c",
-                  "mimeType": "text/x-cpp",
-                  "region": {
-                    "startLine": 204
-                  }
+              "resultFile": {
+                "uri": "examples\\gzappend.c",
+                "region": {
+                  "startLine": 204
                 }
-              ]
+              }
             }
           ],
           "properties": {
@@ -3468,15 +3151,12 @@
           "shortMessage": "The scope of the variable &#039;n&#039; can be reduced.",
           "locations": [
             {
-              "resultFile": [
-                {
-                  "uri": "examples\\gzappend.c",
-                  "mimeType": "text/x-cpp",
-                  "region": {
-                    "startLine": 238
-                  }
+              "resultFile": {
+                "uri": "examples\\gzappend.c",
+                "region": {
+                  "startLine": 238
                 }
-              ]
+              }
             }
           ],
           "properties": {
@@ -3488,15 +3168,12 @@
           "fullMessage": "Null pointer dereference",
           "locations": [
             {
-              "resultFile": [
-                {
-                  "uri": "examples\\gzjoin.c",
-                  "mimeType": "text/x-cpp",
-                  "region": {
-                    "startLine": 391
-                  }
+              "resultFile": {
+                "uri": "examples\\gzjoin.c",
+                "region": {
+                  "startLine": 391
                 }
-              ]
+              }
             }
           ],
           "properties": {
@@ -3508,15 +3185,12 @@
           "fullMessage": "Null pointer dereference",
           "locations": [
             {
-              "resultFile": [
-                {
-                  "uri": "examples\\gzjoin.c",
-                  "mimeType": "text/x-cpp",
-                  "region": {
-                    "startLine": 405
-                  }
+              "resultFile": {
+                "uri": "examples\\gzjoin.c",
+                "region": {
+                  "startLine": 405
                 }
-              ]
+              }
             }
           ],
           "properties": {
@@ -3529,15 +3203,12 @@
           "shortMessage": "The scope of the variable &#039;put&#039; can be reduced.",
           "locations": [
             {
-              "resultFile": [
-                {
-                  "uri": "examples\\gzlog.c",
-                  "mimeType": "text/x-cpp",
-                  "region": {
-                    "startLine": 503
-                  }
+              "resultFile": {
+                "uri": "examples\\gzlog.c",
+                "region": {
+                  "startLine": 503
                 }
-              ]
+              }
             }
           ],
           "properties": {
@@ -3550,15 +3221,12 @@
           "shortMessage": "The scope of the variable &#039;fd&#039; can be reduced.",
           "locations": [
             {
-              "resultFile": [
-                {
-                  "uri": "examples\\gzlog.c",
-                  "mimeType": "text/x-cpp",
-                  "region": {
-                    "startLine": 610
-                  }
+              "resultFile": {
+                "uri": "examples\\gzlog.c",
+                "region": {
+                  "startLine": 610
                 }
-              ]
+              }
             }
           ],
           "properties": {
@@ -3571,15 +3239,12 @@
           "shortMessage": "The scope of the variable &#039;got&#039; can be reduced.",
           "locations": [
             {
-              "resultFile": [
-                {
-                  "uri": "examples\\gzlog.c",
-                  "mimeType": "text/x-cpp",
-                  "region": {
-                    "startLine": 611
-                  }
+              "resultFile": {
+                "uri": "examples\\gzlog.c",
+                "region": {
+                  "startLine": 611
                 }
-              ]
+              }
             }
           ],
           "properties": {
@@ -3592,15 +3257,12 @@
           "shortMessage": "The scope of the variable &#039;max&#039; can be reduced.",
           "locations": [
             {
-              "resultFile": [
-                {
-                  "uri": "examples\\gzlog.c",
-                  "mimeType": "text/x-cpp",
-                  "region": {
-                    "startLine": 611
-                  }
+              "resultFile": {
+                "uri": "examples\\gzlog.c",
+                "region": {
+                  "startLine": 611
                 }
-              ]
+              }
             }
           ],
           "properties": {
@@ -3613,15 +3275,12 @@
           "shortMessage": "The scope of the variable &#039;dict&#039; can be reduced.",
           "locations": [
             {
-              "resultFile": [
-                {
-                  "uri": "examples\\gzlog.c",
-                  "mimeType": "text/x-cpp",
-                  "region": {
-                    "startLine": 612
-                  }
+              "resultFile": {
+                "uri": "examples\\gzlog.c",
+                "region": {
+                  "startLine": 612
                 }
-              ]
+              }
             }
           ],
           "properties": {
@@ -3634,15 +3293,12 @@
           "shortMessage": "The scope of the variable &#039;fd&#039; can be reduced.",
           "locations": [
             {
-              "resultFile": [
-                {
-                  "uri": "examples\\gzlog.c",
-                  "mimeType": "text/x-cpp",
-                  "region": {
-                    "startLine": 740
-                  }
+              "resultFile": {
+                "uri": "examples\\gzlog.c",
+                "region": {
+                  "startLine": 740
                 }
-              ]
+              }
             }
           ],
           "properties": {
@@ -3655,15 +3311,12 @@
           "shortMessage": "The scope of the variable &#039;fd&#039; can be reduced.",
           "locations": [
             {
-              "resultFile": [
-                {
-                  "uri": "examples\\gzlog.c",
-                  "mimeType": "text/x-cpp",
-                  "region": {
-                    "startLine": 910
-                  }
+              "resultFile": {
+                "uri": "examples\\gzlog.c",
+                "region": {
+                  "startLine": 910
                 }
-              ]
+              }
             }
           ],
           "properties": {
@@ -3676,15 +3329,12 @@
           "shortMessage": "The scope of the variable &#039;ret&#039; can be reduced.",
           "locations": [
             {
-              "resultFile": [
-                {
-                  "uri": "examples\\gzlog.c",
-                  "mimeType": "text/x-cpp",
-                  "region": {
-                    "startLine": 910
-                  }
+              "resultFile": {
+                "uri": "examples\\gzlog.c",
+                "region": {
+                  "startLine": 910
                 }
-              ]
+              }
             }
           ],
           "properties": {
@@ -3697,15 +3347,12 @@
           "shortMessage": "The scope of the variable &#039;next&#039; can be reduced.",
           "locations": [
             {
-              "resultFile": [
-                {
-                  "uri": "examples\\gzlog.c",
-                  "mimeType": "text/x-cpp",
-                  "region": {
-                    "startLine": 912
-                  }
+              "resultFile": {
+                "uri": "examples\\gzlog.c",
+                "region": {
+                  "startLine": 912
                 }
-              ]
+              }
             }
           ],
           "properties": {
@@ -3718,15 +3365,12 @@
           "shortMessage": "Checking if unsigned variable &#039;len&#039; is less than zero.",
           "locations": [
             {
-              "resultFile": [
-                {
-                  "uri": "examples\\gzlog.c",
-                  "mimeType": "text/x-cpp",
-                  "region": {
-                    "startLine": 1003
-                  }
+              "resultFile": {
+                "uri": "examples\\gzlog.c",
+                "region": {
+                  "startLine": 1003
                 }
-              ]
+              }
             }
           ],
           "properties": {
@@ -3738,15 +3382,12 @@
           "fullMessage": "Possible null pointer dereference: index",
           "locations": [
             {
-              "resultFile": [
-                {
-                  "uri": "examples\\zran.c",
-                  "mimeType": "text/x-cpp",
-                  "region": {
-                    "startLine": 229
-                  }
+              "resultFile": {
+                "uri": "examples\\zran.c",
+                "region": {
+                  "startLine": 229
                 }
-              ]
+              }
             }
           ],
           "properties": {
@@ -3758,15 +3399,12 @@
           "fullMessage": "Possible null pointer dereference: index",
           "locations": [
             {
-              "resultFile": [
-                {
-                  "uri": "examples\\zran.c",
-                  "mimeType": "text/x-cpp",
-                  "region": {
-                    "startLine": 230
-                  }
+              "resultFile": {
+                "uri": "examples\\zran.c",
+                "region": {
+                  "startLine": 230
                 }
-              ]
+              }
             }
           ],
           "properties": {
@@ -3778,15 +3416,12 @@
           "fullMessage": "Possible null pointer dereference: index",
           "locations": [
             {
-              "resultFile": [
-                {
-                  "uri": "examples\\zran.c",
-                  "mimeType": "text/x-cpp",
-                  "region": {
-                    "startLine": 232
-                  }
+              "resultFile": {
+                "uri": "examples\\zran.c",
+                "region": {
+                  "startLine": 232
                 }
-              ]
+              }
             }
           ],
           "properties": {
@@ -3798,15 +3433,12 @@
           "fullMessage": "Assignment of function parameter has no effect outside the function.",
           "locations": [
             {
-              "resultFile": [
-                {
-                  "uri": "test\\example.c",
-                  "mimeType": "text/x-cpp",
-                  "region": {
-                    "startLine": 62
-                  }
+              "resultFile": {
+                "uri": "test\\example.c",
+                "region": {
+                  "startLine": 62
                 }
-              ]
+              }
             }
           ],
           "properties": {
@@ -3818,15 +3450,12 @@
           "fullMessage": "Assignment of function parameter has no effect outside the function.",
           "locations": [
             {
-              "resultFile": [
-                {
-                  "uri": "test\\example.c",
-                  "mimeType": "text/x-cpp",
-                  "region": {
-                    "startLine": 68
-                  }
+              "resultFile": {
+                "uri": "test\\example.c",
+                "region": {
+                  "startLine": 68
                 }
-              ]
+              }
             }
           ],
           "properties": {
@@ -3838,15 +3467,12 @@
           "fullMessage": "Assignment of function parameter has no effect outside the function.",
           "locations": [
             {
-              "resultFile": [
-                {
-                  "uri": "test\\example.c",
-                  "mimeType": "text/x-cpp",
-                  "region": {
-                    "startLine": 576
-                  }
+              "resultFile": {
+                "uri": "test\\example.c",
+                "region": {
+                  "startLine": 576
                 }
-              ]
+              }
             }
           ],
           "properties": {
@@ -3858,15 +3484,12 @@
           "fullMessage": "Assignment of function parameter has no effect outside the function.",
           "locations": [
             {
-              "resultFile": [
-                {
-                  "uri": "test\\infcover.c",
-                  "mimeType": "text/x-cpp",
-                  "region": {
-                    "startLine": 465
-                  }
+              "resultFile": {
+                "uri": "test\\infcover.c",
+                "region": {
+                  "startLine": 465
                 }
-              ]
+              }
             }
           ],
           "properties": {
@@ -3878,15 +3501,12 @@
           "fullMessage": "%lu in format string (no. 2) requires &#039;unsigned long&#039; but the argument type is &#039;size_t {aka unsigned long}&#039;.",
           "locations": [
             {
-              "resultFile": [
-                {
-                  "uri": "test\\infcover.c",
-                  "mimeType": "text/x-cpp",
-                  "region": {
-                    "startLine": 188
-                  }
+              "resultFile": {
+                "uri": "test\\infcover.c",
+                "region": {
+                  "startLine": 188
                 }
-              ]
+              }
             }
           ],
           "properties": {
@@ -3898,15 +3518,12 @@
           "fullMessage": "%lu in format string (no. 2) requires &#039;unsigned long&#039; but the argument type is &#039;size_t {aka unsigned long}&#039;.",
           "locations": [
             {
-              "resultFile": [
-                {
-                  "uri": "test\\infcover.c",
-                  "mimeType": "text/x-cpp",
-                  "region": {
-                    "startLine": 196
-                  }
+              "resultFile": {
+                "uri": "test\\infcover.c",
+                "region": {
+                  "startLine": 196
                 }
-              ]
+              }
             }
           ],
           "properties": {
@@ -3918,15 +3535,12 @@
           "fullMessage": "%lu in format string (no. 2) requires &#039;unsigned long&#039; but the argument type is &#039;size_t {aka unsigned long}&#039;.",
           "locations": [
             {
-              "resultFile": [
-                {
-                  "uri": "test\\infcover.c",
-                  "mimeType": "text/x-cpp",
-                  "region": {
-                    "startLine": 221
-                  }
+              "resultFile": {
+                "uri": "test\\infcover.c",
+                "region": {
+                  "startLine": 221
                 }
-              ]
+              }
             }
           ],
           "properties": {
@@ -3939,15 +3553,12 @@
           "shortMessage": "The scope of the variable &#039;len&#039; can be reduced.",
           "locations": [
             {
-              "resultFile": [
-                {
-                  "uri": "test\\minigzip.c",
-                  "mimeType": "text/x-cpp",
-                  "region": {
-                    "startLine": 367
-                  }
+              "resultFile": {
+                "uri": "test\\minigzip.c",
+                "region": {
+                  "startLine": 367
                 }
-              ]
+              }
             }
           ],
           "properties": {
@@ -3960,15 +3571,12 @@
           "shortMessage": "The scope of the variable &#039;len&#039; can be reduced.",
           "locations": [
             {
-              "resultFile": [
-                {
-                  "uri": "test\\minigzip.c",
-                  "mimeType": "text/x-cpp",
-                  "region": {
-                    "startLine": 435
-                  }
+              "resultFile": {
+                "uri": "test\\minigzip.c",
+                "region": {
+                  "startLine": 435
                 }
-              ]
+              }
             }
           ],
           "properties": {
@@ -3980,15 +3588,12 @@
           "fullMessage": "Assignment of function parameter has no effect outside the function.",
           "locations": [
             {
-              "resultFile": [
-                {
-                  "uri": "test\\minigzip.c",
-                  "mimeType": "text/x-cpp",
-                  "region": {
-                    "startLine": 159
-                  }
+              "resultFile": {
+                "uri": "test\\minigzip.c",
+                "region": {
+                  "startLine": 159
                 }
-              ]
+              }
             }
           ],
           "properties": {
@@ -4000,15 +3605,12 @@
           "fullMessage": "Assignment of function parameter has no effect outside the function.",
           "locations": [
             {
-              "resultFile": [
-                {
-                  "uri": "test\\minigzip.c",
-                  "mimeType": "text/x-cpp",
-                  "region": {
-                    "startLine": 166
-                  }
+              "resultFile": {
+                "uri": "test\\minigzip.c",
+                "region": {
+                  "startLine": 166
                 }
-              ]
+              }
             }
           ],
           "properties": {
@@ -4021,15 +3623,12 @@
           "shortMessage": "The scope of the variable &#039;ret&#039; can be reduced.",
           "locations": [
             {
-              "resultFile": [
-                {
-                  "uri": "test\\minigzip.c",
-                  "mimeType": "text/x-cpp",
-                  "region": {
-                    "startLine": 265
-                  }
+              "resultFile": {
+                "uri": "test\\minigzip.c",
+                "region": {
+                  "startLine": 265
                 }
-              ]
+              }
             }
           ],
           "properties": {
@@ -4042,15 +3641,12 @@
           "shortMessage": "The scope of the variable &#039;got&#039; can be reduced.",
           "locations": [
             {
-              "resultFile": [
-                {
-                  "uri": "test\\minigzip.c",
-                  "mimeType": "text/x-cpp",
-                  "region": {
-                    "startLine": 266
-                  }
+              "resultFile": {
+                "uri": "test\\minigzip.c",
+                "region": {
+                  "startLine": 266
                 }
-              ]
+              }
             }
           ],
           "properties": {

@@ -1,9 +1,19 @@
 {
-  "version": "1.0.0-beta.1",
+  "version": "1.0.0-beta.2",
   "runLogs": [
     {
       "toolInfo": {
         "name": "Clang"
+      },
+      "runInfo": {
+        "fileInfo": {
+          "jcparam.c": [
+            {
+              "uri": "jcparam.c",
+              "mimeType": "text/x-cpp"
+            }
+          ]
+        }
       },
       "results": [
         {
@@ -11,13 +21,10 @@
           "fullMessage": "Value stored to 'scanptr' is never read",
           "locations": [
             {
-              "analysisTarget": [
-                {
-                  "uri": "jcparam.c",
-                  "mimeType": "text/x-cpp",
-                  "region": {}
-                }
-              ]
+              "analysisTarget": {
+                "uri": "jcparam.c",
+                "region": {}
+              }
             }
           ],
           "properties": {
@@ -32,13 +39,10 @@
           "fullMessage": "Value stored to 'scanptr' is never read",
           "locations": [
             {
-              "analysisTarget": [
-                {
-                  "uri": "jcparam.c",
-                  "mimeType": "text/x-cpp",
-                  "region": {}
-                }
-              ]
+              "analysisTarget": {
+                "uri": "jcparam.c",
+                "region": {}
+              }
             }
           ],
           "properties": {

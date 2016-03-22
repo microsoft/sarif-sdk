@@ -1,9 +1,19 @@
 {
-  "version": "1.0.0-beta.1",
+  "version": "1.0.0-beta.2",
   "runLogs": [
     {
       "toolInfo": {
         "name": "Clang"
+      },
+      "runInfo": {
+        "fileInfo": {
+          "jcmarker.c": [
+            {
+              "uri": "jcmarker.c",
+              "mimeType": "text/x-cpp"
+            }
+          ]
+        }
       },
       "results": [
         {
@@ -11,16 +21,13 @@
           "fullMessage": "Access to field 'sent_table' results in a dereference of a null pointer (loaded from variable 'htbl')",
           "locations": [
             {
-              "analysisTarget": [
-                {
-                  "uri": "jcmarker.c",
-                  "mimeType": "text/x-cpp",
-                  "region": {
-                    "startLine": 200,
-                    "startColumn": 9
-                  }
+              "analysisTarget": {
+                "uri": "jcmarker.c",
+                "region": {
+                  "startLine": 200,
+                  "startColumn": 9
                 }
-              ]
+              }
             }
           ],
           "properties": {

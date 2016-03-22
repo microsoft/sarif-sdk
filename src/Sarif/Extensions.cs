@@ -199,20 +199,6 @@ namespace Microsoft.CodeAnalysis.Sarif
         }
 
         /// <summary>
-        /// Creates a new <see cref="PhysicalLocationComponent"/> given a path.
-        /// </summary>
-        /// <param name="component">The path for which a <see cref="PhysicalLocationComponent"/> shall be created.</param>
-        /// <returns>A <see cref="PhysicalLocationComponent"/> with the URI and Mime-Type members filled out.</returns>
-        internal static PhysicalLocationComponent CreatePhysicalLocationComponent(string component)
-        {
-            return new PhysicalLocationComponent
-            {
-                Uri = component.CreateUriForJsonSerialization(),
-                MimeType = Writers.MimeType.DetermineFromFileExtension(component)
-            };
-        }
-
-        /// <summary>
         /// Creates a new region with the start line filled out.
         /// </summary>
         /// <param name="startLine">The line to set in the region.</param>

@@ -1,11 +1,10 @@
 {
-  "version": "1.0.0-beta.1",
+  "version": "1.0.0-beta.2",
   "runLogs": [
     {
       "toolInfo": {
         "name": "FxCop"
       },
-      "runInfo": {},
       "results": [
         {
           "ruleId": "CA0001",

@@ -1,11 +1,26 @@
 {
-  "version": "1.0.0-beta.1",
+  "version": "1.0.0-beta.2",
   "runLogs": [
     {
       "toolInfo": {
         "name": "FxCop"
       },
-      "runInfo": {},
+      "runInfo": {
+        "fileInfo": {
+          "d:\\SecDevTools\\Main\\bin\\x86\\Debug\\FxCop\\FxCopTestData\\Crypto\\SecurityCryptographyRuleTests.dll": [
+            {
+              "uri": "d:\\SecDevTools\\Main\\bin\\x86\\Debug\\FxCop\\FxCopTestData\\Crypto\\SecurityCryptographyRuleTests.dll",
+              "mimeType": "application/octet-stream"
+            }
+          ],
+          "d:\\SecDevTools\\Main\\src\\FxCop\\Source\\FxCopTestData\\SecurityCryptographyRuleTests\\DESCannotBeUsed.cs": [
+            {
+              "uri": "d:\\SecDevTools\\Main\\src\\FxCop\\Source\\FxCopTestData\\SecurityCryptographyRuleTests\\DESCannotBeUsed.cs",
+              "mimeType": "text/x-csharp"
+            }
+          ]
+        }
+      },
       "results": [
         {
           "ruleId": "CA904",
@@ -34,12 +49,9 @@
           "shortMessage": "MarkAssembliesWithClsCompliant",
           "locations": [
             {
-              "analysisTarget": [
-                {
-                  "uri": "d:\\SecDevTools\\Main\\bin\\x86\\Debug\\FxCop\\FxCopTestData\\Crypto\\SecurityCryptographyRuleTests.dll",
-                  "mimeType": "application/octet-stream"
-                }
-              ],
+              "analysisTarget": {
+                "uri": "d:\\SecDevTools\\Main\\bin\\x86\\Debug\\FxCop\\FxCopTestData\\Crypto\\SecurityCryptographyRuleTests.dll"
+              },
               "logicalLocation": [
                 {
                   "name": "securitycryptographyruletests.dll",
@@ -61,12 +73,9 @@
           "shortMessage": "IdentifiersShouldBeCasedCorrectly",
           "locations": [
             {
-              "analysisTarget": [
-                {
-                  "uri": "d:\\SecDevTools\\Main\\bin\\x86\\Debug\\FxCop\\FxCopTestData\\Crypto\\SecurityCryptographyRuleTests.dll",
-                  "mimeType": "application/octet-stream"
-                }
-              ],
+              "analysisTarget": {
+                "uri": "d:\\SecDevTools\\Main\\bin\\x86\\Debug\\FxCop\\FxCopTestData\\Crypto\\SecurityCryptographyRuleTests.dll"
+              },
               "logicalLocation": [
                 {
                   "name": "securitycryptographyruletests.dll",
@@ -97,12 +106,9 @@
           "shortMessage": "StaticHolderTypesShouldNotHaveConstructors",
           "locations": [
             {
-              "analysisTarget": [
-                {
-                  "uri": "d:\\SecDevTools\\Main\\bin\\x86\\Debug\\FxCop\\FxCopTestData\\Crypto\\SecurityCryptographyRuleTests.dll",
-                  "mimeType": "application/octet-stream"
-                }
-              ],
+              "analysisTarget": {
+                "uri": "d:\\SecDevTools\\Main\\bin\\x86\\Debug\\FxCop\\FxCopTestData\\Crypto\\SecurityCryptographyRuleTests.dll"
+              },
               "logicalLocation": [
                 {
                   "name": "securitycryptographyruletests.dll",
@@ -133,21 +139,15 @@
           "shortMessage": "AvoidUncalledPrivateCode",
           "locations": [
             {
-              "analysisTarget": [
-                {
-                  "uri": "d:\\SecDevTools\\Main\\bin\\x86\\Debug\\FxCop\\FxCopTestData\\Crypto\\SecurityCryptographyRuleTests.dll",
-                  "mimeType": "application/octet-stream"
+              "analysisTarget": {
+                "uri": "d:\\SecDevTools\\Main\\bin\\x86\\Debug\\FxCop\\FxCopTestData\\Crypto\\SecurityCryptographyRuleTests.dll"
+              },
+              "resultFile": {
+                "uri": "d:\\SecDevTools\\Main\\src\\FxCop\\Source\\FxCopTestData\\SecurityCryptographyRuleTests\\DESCannotBeUsed.cs",
+                "region": {
+                  "startLine": 14
                 }
-              ],
-              "resultFile": [
-                {
-                  "uri": "d:\\SecDevTools\\Main\\src\\FxCop\\Source\\FxCopTestData\\SecurityCryptographyRuleTests\\DESCannotBeUsed.cs",
-                  "mimeType": "text/x-csharp",
-                  "region": {
-                    "startLine": 14
-                  }
-                }
-              ],
+              },
               "logicalLocation": [
                 {
                   "name": "securitycryptographyruletests.dll",

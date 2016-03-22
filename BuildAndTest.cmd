@@ -94,7 +94,7 @@ goto ExitFailed
 goto Exit
 
 :ExitFailed
-@echo  
+@echo.
 @echo SCRIPT FAILED
 
 :Exit

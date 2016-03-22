@@ -21,7 +21,7 @@ namespace Microsoft.CodeAnalysis.DataModelGenerator
             // TODO this file shouldn't contain any references whatsoever to SARIF
             codeWriter.OpenBrace();
             codeWriter.WriteLine(@"""$schema"": ""http://json-schema.org/draft-04/schema#"",");
-            codeWriter.WriteLine(@"""title"": ""Static Analysis Results Format (SARIF) Version 1.0 JSON Schema (Draft 1.0.0-beta.1)"",");
+            codeWriter.WriteLine(@"""title"": ""Static Analysis Results Format (SARIF) Version 1.0 JSON Schema (Draft 1.0.0-beta.2)"",");
         }
 
         private static void WriteFooter(CodeWriter codeWriter)
