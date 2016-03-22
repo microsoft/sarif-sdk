@@ -60,6 +60,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                     }
                 }
 
+                if (result.RelatedLocations != null)
+                {
+                    foreach (AnnotatedCodeLocation relatedLocation in result.RelatedLocations)
+                    {
+                        AddFileReference(relatedLocation.PhysicalLocation);
+                    }
+                }
             }
 
             return _fileInfoDictionary;
