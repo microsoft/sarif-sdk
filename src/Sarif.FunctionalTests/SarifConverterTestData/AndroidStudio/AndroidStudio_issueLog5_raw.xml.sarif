@@ -5,6 +5,58 @@
       "toolInfo": {
         "name": "AndroidStudio"
       },
+      "runInfo": {
+        "fileInfo": {
+          "gradle.properties": [
+            {
+              "uri": "gradle.properties",
+              "mimeType": "text/x-java-source"
+            }
+          ],
+          "gradle/wrapper/gradle-wrapper.properties": [
+            {
+              "uri": "gradle/wrapper/gradle-wrapper.properties",
+              "mimeType": "text/x-java-source"
+            }
+          ],
+          "gradlew": [
+            {
+              "uri": "gradlew",
+              "mimeType": "text/x-java-source"
+            }
+          ],
+          "gradlew.bat": [
+            {
+              "uri": "gradlew.bat",
+              "mimeType": "text/x-java-source"
+            }
+          ],
+          "app/build.gradle": [
+            {
+              "uri": "app/build.gradle",
+              "mimeType": "text/x-java-source"
+            }
+          ],
+          "app/src/main/AndroidManifest.xml": [
+            {
+              "uri": "app/src/main/AndroidManifest.xml",
+              "mimeType": "text/x-java-source"
+            }
+          ],
+          "app/src/main/res/values-w820dp/dimens.xml": [
+            {
+              "uri": "app/src/main/res/values-w820dp/dimens.xml",
+              "mimeType": "text/x-java-source"
+            }
+          ],
+          "app/src/main/java/microsoft/androidstudioformatexample/NamespaceTypo.java": [
+            {
+              "uri": "app/src/main/java/microsoft/androidstudioformatexample/NamespaceTypo.java",
+              "mimeType": "text/x-java-source"
+            }
+          ]
+        }
+      },
       "results": [
         {
           "ruleId": "Typo",

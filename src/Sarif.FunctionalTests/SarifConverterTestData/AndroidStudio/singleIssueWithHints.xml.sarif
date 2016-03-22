@@ -5,6 +5,16 @@
       "toolInfo": {
         "name": "AndroidStudio"
       },
+      "runInfo": {
+        "fileInfo": {
+          "yammer-droid-2/src/test/java/com/yammer/droid/AdditionOperationTest.java": [
+            {
+              "uri": "yammer-droid-2/src/test/java/com/yammer/droid/AdditionOperationTest.java",
+              "mimeType": "text/x-java-source"
+            }
+          ]
+        }
+      },
       "results": [
         {
           "ruleId": "unused declaration",

@@ -5,6 +5,22 @@
       "toolInfo": {
         "name": "AndroidStudio"
       },
+      "runInfo": {
+        "fileInfo": {
+          "app/src/androidTest/java/microsoft/androidstudioformatexample/ApplicationTest.java": [
+            {
+              "uri": "app/src/androidTest/java/microsoft/androidstudioformatexample/ApplicationTest.java",
+              "mimeType": "text/x-java-source"
+            }
+          ],
+          "app/src/main/java/microsoft/androidstudioformatexample/MainActivity.java": [
+            {
+              "uri": "app/src/main/java/microsoft/androidstudioformatexample/MainActivity.java",
+              "mimeType": "text/x-java-source"
+            }
+          ]
+        }
+      },
       "results": [
         {
           "ruleId": "unused declaration",

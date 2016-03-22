@@ -5,6 +5,16 @@
       "toolInfo": {
         "name": "AndroidStudio"
       },
+      "runInfo": {
+        "fileInfo": {
+          "app/src/main/java/microsoft/androidstudioformatexample/MainActivity.java": [
+            {
+              "uri": "app/src/main/java/microsoft/androidstudioformatexample/MainActivity.java",
+              "mimeType": "text/x-java-source"
+            }
+          ]
+        }
+      },
       "results": [
         {
           "ruleId": "'for' loop replaceable with 'foreach'",

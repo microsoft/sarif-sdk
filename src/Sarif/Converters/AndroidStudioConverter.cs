@@ -10,6 +10,7 @@ using System.Linq;
 using System.Text;
 using System.Xml;
 using Microsoft.CodeAnalysis.Sarif.Sdk;
+using Microsoft.CodeAnalysis.Sarif.Writers;
 
 namespace Microsoft.CodeAnalysis.Sarif.Converters
 {
@@ -47,11 +48,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 throw new ArgumentNullException("output");
             }
 
-            output.WriteToolAndRunInfo(new ToolInfo
-            {
-                Name = "AndroidStudio"
-            }, null);
-
             XmlReaderSettings settings = new XmlReaderSettings
             {
                 IgnoreWhitespace = true,
@@ -61,18 +57,41 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 DtdProcessing = DtdProcessing.Ignore
             };
 
+            IList<Result> results;
             using (XmlReader xmlReader = XmlReader.Create(input, settings))
             {
-                ProcessAndroidStudioLog(xmlReader, output);
+                results = ProcessAndroidStudioLog(xmlReader);
+            }
+
+            Dictionary<string, FileReference[]> fileInfoDictionary = CreateFileInfoDictionary(results);
+
+            var runInfo = fileInfoDictionary != null && fileInfoDictionary.Count > 0
+                ? new RunInfo { FileInfo = fileInfoDictionary }
+                : null;
+
+            var toolInfo = new ToolInfo
+            {
+                Name = "AndroidStudio"
+            };
+
+            output.WriteToolAndRunInfo(toolInfo, runInfo);
+
+            foreach (Result result in results)
+            {
+                output.WriteResult(result);
             }
         }
 
         /// <summary>Processes an Android Studio log and writes issues therein to an instance of
         /// <see cref="IResultLogWriter"/>.</summary>
         /// <param name="xmlReader">The XML reader from which AndroidStudio format shall be read.</param>
-        /// <param name="output">The <see cref="IResultLogWriter"/> to write the output to.</param>
-        private void ProcessAndroidStudioLog(XmlReader xmlReader, IResultLogWriter output)
+        /// <returns>
+        /// A list of the <see cref="Result"/> objects translated from the AndroidStudio format.
+        /// </returns>
+        private IList<Result> ProcessAndroidStudioLog(XmlReader xmlReader)
         {
+            var results = new List<Result>();
+
             int problemsDepth = xmlReader.Depth;
             xmlReader.ReadStartElement(_strings.Problems);
 
@@ -81,11 +100,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 var problem = AndroidStudioProblem.Parse(xmlReader, _strings);
                 if (problem != null)
                 {
-                    output.WriteResult(AndroidStudioConverter.ConvertProblemToSarifIssue(problem));
+                    results.Add(ConvertProblemToSarifIssue(problem));
                 }
             }
 
             xmlReader.ReadEndElement(); // </problems>
+
+            return results;
         }
 
         public static Result ConvertProblemToSarifIssue(AndroidStudioProblem problem)
@@ -176,7 +197,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             return result;
         }
 
-
         /// <summary>Generates a user-facing description for a problem, using the description supplied at
         /// construction time if it is present; otherwise, generates a description from the problem type.</summary>
         /// <param name="problem">The problem.</param>
@@ -240,6 +260,76 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             }
 
             return new Uri(removed, UriKind.RelativeOrAbsolute);
+        }
+
+        private static Dictionary<string, FileReference[]> CreateFileInfoDictionary(IEnumerable<Result> results)
+        {
+            var fileInfoDictionary = new Dictionary<string, FileReference[]>();
+
+            foreach (Result result in results)
+            {
+                if (result.Locations != null)
+                {
+                    foreach (Location location in result.Locations)
+                    {
+                        if (location.AnalysisTarget != null)
+                        {
+                            AddFileReference(location.AnalysisTarget, fileInfoDictionary);
+                        }
+
+                        if (location.ResultFile != null)
+                        {
+                            AddFileReference(location.ResultFile, fileInfoDictionary);
+                        }
+                    }
+                }
+
+                if (result.Stacks != null)
+                {
+                    foreach (IList<AnnotatedCodeLocation> stack in result.Stacks)
+                    {
+                        foreach (AnnotatedCodeLocation stackFrame in stack)
+                        {
+                            AddFileReference(stackFrame.PhysicalLocation, fileInfoDictionary);
+                        }
+                    }
+
+                }
+
+                if (result.ExecutionFlows != null)
+                {
+                    foreach (IList<AnnotatedCodeLocation> codeFlow in result.ExecutionFlows)
+                    {
+                        foreach (AnnotatedCodeLocation codeLocation in codeFlow)
+                        {
+                            AddFileReference(codeLocation.PhysicalLocation, fileInfoDictionary);
+                        }
+                    }
+                }
+
+            }
+            return fileInfoDictionary;
+        }
+
+        private static void AddFileReference(
+            PhysicalLocation physicalLocation,
+            IDictionary<string, FileReference[]> fileInfoDictionary)
+        {
+            string key = physicalLocation.Uri.OriginalString;
+
+            if (!fileInfoDictionary.ContainsKey(key))
+            {
+                fileInfoDictionary.Add(
+                    key,
+                    new FileReference[]
+                    {
+                    new FileReference
+                    {
+                        Uri = physicalLocation.Uri,
+                        MimeType = MimeType.Java
+                    }
+                    });
+            }
         }
     }
 }

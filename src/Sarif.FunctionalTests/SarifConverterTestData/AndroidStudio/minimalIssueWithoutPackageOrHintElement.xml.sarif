@@ -5,6 +5,16 @@
       "toolInfo": {
         "name": "AndroidStudio"
       },
+      "runInfo": {
+        "fileInfo": {
+          "build/intermediates/exploded-aar/com.google.android.gms/play-services/4.4.52/res/values/wallet_styles.xml": [
+            {
+              "uri": "build/intermediates/exploded-aar/com.google.android.gms/play-services/4.4.52/res/values/wallet_styles.xml",
+              "mimeType": "text/x-java-source"
+            }
+          ]
+        }
+      },
       "results": [
         {
           "ruleId": "Android Resources Validation",
