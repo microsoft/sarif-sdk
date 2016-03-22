@@ -12,15 +12,12 @@
           "shortMessage": "Method is never used.",
           "locations": [
             {
-              "resultFile": [
-                {
-                  "uri": "yammer-droid-2/src/test/java/com/yammer/droid/AdditionOperationTest.java",
-                  "mimeType": "text/x-java-source",
-                  "region": {
-                    "startLine": 10
-                  }
+              "resultFile": {
+                "uri": "yammer-droid-2/src/test/java/com/yammer/droid/AdditionOperationTest.java",
+                "region": {
+                  "startLine": 10
                 }
-              ],
+              },
               "logicalLocation": [
                 {
                   "name": "yammer-droid-2",

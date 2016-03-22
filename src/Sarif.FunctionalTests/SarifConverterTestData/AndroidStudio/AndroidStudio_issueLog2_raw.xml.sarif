@@ -11,15 +11,12 @@
           "fullMessage": "Default File template",
           "locations": [
             {
-              "resultFile": [
-                {
-                  "uri": "app/src/main/java/microsoft/androidstudioformatexample/NamespaceTypo.java",
-                  "mimeType": "text/x-java-source",
-                  "region": {
-                    "startLine": 3
-                  }
+              "resultFile": {
+                "uri": "app/src/main/java/microsoft/androidstudioformatexample/NamespaceTypo.java",
+                "region": {
+                  "startLine": 3
                 }
-              ],
+              },
               "logicalLocation": [
                 {
                   "name": "app",

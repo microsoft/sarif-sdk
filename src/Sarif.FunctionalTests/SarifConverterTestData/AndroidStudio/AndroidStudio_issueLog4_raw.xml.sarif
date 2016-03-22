@@ -11,15 +11,12 @@
           "fullMessage": "<code>if</code> statement can be replaced with 'return id == R.id.action_settings || super.onOptionsItemSelected(item);' #loc",
           "locations": [
             {
-              "resultFile": [
-                {
-                  "uri": "app/src/main/java/microsoft/androidstudioformatexample/MainActivity.java",
-                  "mimeType": "text/x-java-source",
-                  "region": {
-                    "startLine": 31
-                  }
+              "resultFile": {
+                "uri": "app/src/main/java/microsoft/androidstudioformatexample/MainActivity.java",
+                "region": {
+                  "startLine": 31
                 }
-              ],
+              },
               "logicalLocation": [
                 {
                   "name": "app",

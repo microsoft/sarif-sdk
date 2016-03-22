@@ -11,21 +11,15 @@
           "fullMessage": "Unused property",
           "locations": [
             {
-              "analysisTarget": [
-                {
-                  "uri": "gradle/wrapper/gradle-wrapper.properties",
-                  "mimeType": "text/x-java-source"
+              "analysisTarget": {
+                "uri": "gradle/wrapper/gradle-wrapper.properties"
+              },
+              "resultFile": {
+                "uri": "gradle/wrapper/gradle-wrapper.properties",
+                "region": {
+                  "startLine": 2
                 }
-              ],
-              "resultFile": [
-                {
-                  "uri": "gradle/wrapper/gradle-wrapper.properties",
-                  "mimeType": "text/x-java-source",
-                  "region": {
-                    "startLine": 2
-                  }
-                }
-              ],
+              },
               "logicalLocation": [
                 {
                   "name": "AndroidStudioFormatExample",
@@ -45,21 +39,15 @@
           "fullMessage": "Unused property",
           "locations": [
             {
-              "analysisTarget": [
-                {
-                  "uri": "gradle/wrapper/gradle-wrapper.properties",
-                  "mimeType": "text/x-java-source"
+              "analysisTarget": {
+                "uri": "gradle/wrapper/gradle-wrapper.properties"
+              },
+              "resultFile": {
+                "uri": "gradle/wrapper/gradle-wrapper.properties",
+                "region": {
+                  "startLine": 3
                 }
-              ],
-              "resultFile": [
-                {
-                  "uri": "gradle/wrapper/gradle-wrapper.properties",
-                  "mimeType": "text/x-java-source",
-                  "region": {
-                    "startLine": 3
-                  }
-                }
-              ],
+              },
               "logicalLocation": [
                 {
                   "name": "AndroidStudioFormatExample",
@@ -79,21 +67,15 @@
           "fullMessage": "Unused property",
           "locations": [
             {
-              "analysisTarget": [
-                {
-                  "uri": "gradle/wrapper/gradle-wrapper.properties",
-                  "mimeType": "text/x-java-source"
+              "analysisTarget": {
+                "uri": "gradle/wrapper/gradle-wrapper.properties"
+              },
+              "resultFile": {
+                "uri": "gradle/wrapper/gradle-wrapper.properties",
+                "region": {
+                  "startLine": 4
                 }
-              ],
-              "resultFile": [
-                {
-                  "uri": "gradle/wrapper/gradle-wrapper.properties",
-                  "mimeType": "text/x-java-source",
-                  "region": {
-                    "startLine": 4
-                  }
-                }
-              ],
+              },
               "logicalLocation": [
                 {
                   "name": "AndroidStudioFormatExample",
@@ -113,21 +95,15 @@
           "fullMessage": "Unused property",
           "locations": [
             {
-              "analysisTarget": [
-                {
-                  "uri": "gradle/wrapper/gradle-wrapper.properties",
-                  "mimeType": "text/x-java-source"
+              "analysisTarget": {
+                "uri": "gradle/wrapper/gradle-wrapper.properties"
+              },
+              "resultFile": {
+                "uri": "gradle/wrapper/gradle-wrapper.properties",
+                "region": {
+                  "startLine": 5
                 }
-              ],
-              "resultFile": [
-                {
-                  "uri": "gradle/wrapper/gradle-wrapper.properties",
-                  "mimeType": "text/x-java-source",
-                  "region": {
-                    "startLine": 5
-                  }
-                }
-              ],
+              },
               "logicalLocation": [
                 {
                   "name": "AndroidStudioFormatExample",
@@ -147,21 +123,15 @@
           "fullMessage": "Unused property",
           "locations": [
             {
-              "analysisTarget": [
-                {
-                  "uri": "gradle/wrapper/gradle-wrapper.properties",
-                  "mimeType": "text/x-java-source"
+              "analysisTarget": {
+                "uri": "gradle/wrapper/gradle-wrapper.properties"
+              },
+              "resultFile": {
+                "uri": "gradle/wrapper/gradle-wrapper.properties",
+                "region": {
+                  "startLine": 6
                 }
-              ],
-              "resultFile": [
-                {
-                  "uri": "gradle/wrapper/gradle-wrapper.properties",
-                  "mimeType": "text/x-java-source",
-                  "region": {
-                    "startLine": 6
-                  }
-                }
-              ],
+              },
               "logicalLocation": [
                 {
                   "name": "AndroidStudioFormatExample",
@@ -181,21 +151,15 @@
           "fullMessage": "Unused property",
           "locations": [
             {
-              "analysisTarget": [
-                {
-                  "uri": "local.properties",
-                  "mimeType": "text/x-java-source"
+              "analysisTarget": {
+                "uri": "local.properties"
+              },
+              "resultFile": {
+                "uri": "local.properties",
+                "region": {
+                  "startLine": 10
                 }
-              ],
-              "resultFile": [
-                {
-                  "uri": "local.properties",
-                  "mimeType": "text/x-java-source",
-                  "region": {
-                    "startLine": 10
-                  }
-                }
-              ],
+              },
               "logicalLocation": [
                 {
                   "name": "AndroidStudioFormatExample",

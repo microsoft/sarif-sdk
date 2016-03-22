@@ -12,15 +12,12 @@
           "shortMessage": "Method is never used.",
           "locations": [
             {
-              "resultFile": [
-                {
-                  "uri": "app/src/main/java/microsoft/androidstudioformatexample/MainActivity.java",
-                  "mimeType": "text/x-java-source",
-                  "region": {
-                    "startLine": 37
-                  }
+              "resultFile": {
+                "uri": "app/src/main/java/microsoft/androidstudioformatexample/MainActivity.java",
+                "region": {
+                  "startLine": 37
                 }
-              ],
+              },
               "logicalLocation": [
                 {
                   "name": "app",
@@ -49,15 +46,12 @@
           "shortMessage": "Class is not instantiated.",
           "locations": [
             {
-              "resultFile": [
-                {
-                  "uri": "app/src/main/java/microsoft/androidstudioformatexample/NamespaceTypo.java",
-                  "mimeType": "text/x-java-source",
-                  "region": {
-                    "startLine": 6
-                  }
+              "resultFile": {
+                "uri": "app/src/main/java/microsoft/androidstudioformatexample/NamespaceTypo.java",
+                "region": {
+                  "startLine": 6
                 }
-              ],
+              },
               "logicalLocation": [
                 {
                   "name": "app",
