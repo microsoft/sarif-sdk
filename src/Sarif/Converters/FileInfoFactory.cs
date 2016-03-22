@@ -9,11 +9,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
     internal class FileInfoFactory
     {
         private readonly Dictionary<string, IList<FileReference>> _fileInfoDictionary;
-        private readonly Func<string, string> _mimeTypeDeterminer;
+        private readonly Func<string, string> _mimeTypeClassifier;
 
-        internal FileInfoFactory(Func<string, string> mimeTypeDeterminer)
+        internal FileInfoFactory(Func<string, string> mimeTypeClassifier)
         {
-            _mimeTypeDeterminer = mimeTypeDeterminer;
+            _mimeTypeClassifier = mimeTypeClassifier;
             _fileInfoDictionary = new Dictionary<string, IList<FileReference>>();
         }
 
@@ -78,7 +78,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                         new FileReference
                         {
                             Uri = physicalLocation.Uri,
-                            MimeType = _mimeTypeDeterminer(key)
+                            MimeType = _mimeTypeClassifier(key)
                         }
                     });
             }
