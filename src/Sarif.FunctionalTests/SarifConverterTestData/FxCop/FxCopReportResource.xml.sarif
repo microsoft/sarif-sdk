@@ -13,12 +13,9 @@
           "shortMessage": "ResourceStringCompoundWordsShouldBeCasedCorrectly",
           "locations": [
             {
-              "analysisTarget": [
-                {
-                  "uri": "$(ProjectDir)/SpecifyCultureInfo/Microsoft.TeamFoundation.Build.Client.dll",
-                  "mimeType": "application/octet-stream"
-                }
-              ],
+              "analysisTarget": {
+                "uri": "$(ProjectDir)/SpecifyCultureInfo/Microsoft.TeamFoundation.Build.Client.dll"
+              },
               "logicalLocation": [
                 {
                   "name": "microsoft.teamfoundation.build.client.dll",
