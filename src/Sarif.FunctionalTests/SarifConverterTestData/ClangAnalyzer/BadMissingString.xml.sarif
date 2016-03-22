@@ -5,6 +5,16 @@
       "toolInfo": {
         "name": "Clang"
       },
+      "runInfo": {
+        "fileInfo": {
+          "jcparam.c": [
+            {
+              "uri": "jcparam.c",
+              "mimeType": "text/x-cpp"
+            }
+          ]
+        }
+      },
       "results": [
         {
           "ruleId": "Dead assignment",

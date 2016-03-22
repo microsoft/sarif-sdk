@@ -63,16 +63,17 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 results = ProcessAndroidStudioLog(xmlReader);
             }
 
-            Dictionary<string, FileReference[]> fileInfoDictionary = CreateFileInfoDictionary(results);
-
-            var runInfo = fileInfoDictionary != null && fileInfoDictionary.Count > 0
-                ? new RunInfo { FileInfo = fileInfoDictionary }
-                : null;
-
             var toolInfo = new ToolInfo
             {
                 Name = "AndroidStudio"
             };
+
+            var fileInfoFactory = new FileInfoFactory(uri => MimeType.Java);
+            Dictionary<string, FileReference[]> fileInfoDictionary = fileInfoFactory.Create(results);
+
+            var runInfo = fileInfoDictionary != null && fileInfoDictionary.Count > 0
+                ? new RunInfo { FileInfo = fileInfoDictionary }
+                : null;
 
             output.WriteToolAndRunInfo(toolInfo, runInfo);
 
@@ -260,76 +261,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             }
 
             return new Uri(removed, UriKind.RelativeOrAbsolute);
-        }
-
-        private static Dictionary<string, FileReference[]> CreateFileInfoDictionary(IEnumerable<Result> results)
-        {
-            var fileInfoDictionary = new Dictionary<string, FileReference[]>();
-
-            foreach (Result result in results)
-            {
-                if (result.Locations != null)
-                {
-                    foreach (Location location in result.Locations)
-                    {
-                        if (location.AnalysisTarget != null)
-                        {
-                            AddFileReference(location.AnalysisTarget, fileInfoDictionary);
-                        }
-
-                        if (location.ResultFile != null)
-                        {
-                            AddFileReference(location.ResultFile, fileInfoDictionary);
-                        }
-                    }
-                }
-
-                if (result.Stacks != null)
-                {
-                    foreach (IList<AnnotatedCodeLocation> stack in result.Stacks)
-                    {
-                        foreach (AnnotatedCodeLocation stackFrame in stack)
-                        {
-                            AddFileReference(stackFrame.PhysicalLocation, fileInfoDictionary);
-                        }
-                    }
-
-                }
-
-                if (result.ExecutionFlows != null)
-                {
-                    foreach (IList<AnnotatedCodeLocation> codeFlow in result.ExecutionFlows)
-                    {
-                        foreach (AnnotatedCodeLocation codeLocation in codeFlow)
-                        {
-                            AddFileReference(codeLocation.PhysicalLocation, fileInfoDictionary);
-                        }
-                    }
-                }
-
-            }
-            return fileInfoDictionary;
-        }
-
-        private static void AddFileReference(
-            PhysicalLocation physicalLocation,
-            IDictionary<string, FileReference[]> fileInfoDictionary)
-        {
-            string key = physicalLocation.Uri.OriginalString;
-
-            if (!fileInfoDictionary.ContainsKey(key))
-            {
-                fileInfoDictionary.Add(
-                    key,
-                    new FileReference[]
-                    {
-                    new FileReference
-                    {
-                        Uri = physicalLocation.Uri,
-                        MimeType = MimeType.Java
-                    }
-                    });
-            }
         }
     }
 }

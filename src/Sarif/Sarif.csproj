@@ -35,6 +35,7 @@
     <Compile Include="Converters\CppCheckError.cs" />
     <Compile Include="Converters\CppCheckLocation.cs" />
     <Compile Include="Converters\CppCheckStrings.cs" />
+    <Compile Include="Converters\FileInfoFactory.cs" />
     <Compile Include="Converters\FortifyIssue.cs" />
     <Compile Include="Converters\FortifyPathElement.cs" />
     <Compile Include="Converters\FortifyStrings.cs" />

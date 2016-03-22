@@ -5,6 +5,16 @@
       "toolInfo": {
         "name": "Clang"
       },
+      "runInfo": {
+        "fileInfo": {
+          "jquant1.c": [
+            {
+              "uri": "jquant1.c",
+              "mimeType": "text/x-cpp"
+            }
+          ]
+        }
+      },
       "results": [
         {
           "ruleId": "Division by zero",

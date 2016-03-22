@@ -5,6 +5,16 @@
       "toolInfo": {
         "name": "Clang"
       },
+      "runInfo": {
+        "fileInfo": {
+          "jcmaster.c": [
+            {
+              "uri": "jcmaster.c",
+              "mimeType": "text/x-cpp"
+            }
+          ]
+        }
+      },
       "results": [
         {
           "ruleId": "Result of operation is garbage or undefined",
