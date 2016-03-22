@@ -6,6 +6,214 @@
         "name": "CppCheck",
         "version": "1.66.0"
       },
+      "runInfo": {
+        "fileInfo": {
+          "adler32.c": [
+            {
+              "uri": "adler32.c",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "crc32.c": [
+            {
+              "uri": "crc32.c",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "deflate.c": [
+            {
+              "uri": "deflate.c",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "gzlib.c": [
+            {
+              "uri": "gzlib.c",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "gzread.c": [
+            {
+              "uri": "gzread.c",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "gzwrite.c": [
+            {
+              "uri": "gzwrite.c",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "inflate.c": [
+            {
+              "uri": "inflate.c",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "inftrees.c": [
+            {
+              "uri": "inftrees.c",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "trees.c": [
+            {
+              "uri": "trees.c",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "zutil.c": [
+            {
+              "uri": "zutil.c",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "contrib\\infback9\\inftree9.c": [
+            {
+              "uri": "contrib\\infback9\\inftree9.c",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "contrib\\inflate86\\inffas86.c": [
+            {
+              "uri": "contrib\\inflate86\\inffas86.c",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "contrib\\iostream2\\zstream_test.cpp": [
+            {
+              "uri": "contrib\\iostream2\\zstream_test.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "contrib\\masmx64\\inffas8664.c": [
+            {
+              "uri": "contrib\\masmx64\\inffas8664.c",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "contrib\\minizip\\iowin32.c": [
+            {
+              "uri": "contrib\\minizip\\iowin32.c",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "contrib\\minizip\\miniunz.c": [
+            {
+              "uri": "contrib\\minizip\\miniunz.c",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "contrib\\minizip\\minizip.c": [
+            {
+              "uri": "contrib\\minizip\\minizip.c",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "contrib\\minizip\\mztools.c": [
+            {
+              "uri": "contrib\\minizip\\mztools.c",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "contrib\\minizip\\unzip.c": [
+            {
+              "uri": "contrib\\minizip\\unzip.c",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "contrib\\minizip\\zip.c": [
+            {
+              "uri": "contrib\\minizip\\zip.c",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "contrib\\minizip\\crypt.h": [
+            {
+              "uri": "contrib\\minizip\\crypt.h",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "contrib\\puff\\puff.c": [
+            {
+              "uri": "contrib\\puff\\puff.c",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "contrib\\puff\\pufftest.c": [
+            {
+              "uri": "contrib\\puff\\pufftest.c",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "contrib\\testzlib\\testzlib.c": [
+            {
+              "uri": "contrib\\testzlib\\testzlib.c",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "contrib\\untgz\\untgz.c": [
+            {
+              "uri": "contrib\\untgz\\untgz.c",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "examples\\enough.c": [
+            {
+              "uri": "examples\\enough.c",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "examples\\gun.c": [
+            {
+              "uri": "examples\\gun.c",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "examples\\gzappend.c": [
+            {
+              "uri": "examples\\gzappend.c",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "examples\\gzjoin.c": [
+            {
+              "uri": "examples\\gzjoin.c",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "examples\\gzlog.c": [
+            {
+              "uri": "examples\\gzlog.c",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "examples\\zran.c": [
+            {
+              "uri": "examples\\zran.c",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "test\\example.c": [
+            {
+              "uri": "test\\example.c",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "test\\infcover.c": [
+            {
+              "uri": "test\\infcover.c",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "test\\minigzip.c": [
+            {
+              "uri": "test\\minigzip.c",
+              "mimeType": "text/x-cpp"
+            }
+          ]
+        }
+      },
       "results": [
         {
           "ruleId": "variableScope",
