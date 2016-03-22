@@ -5,6 +5,16 @@
       "toolInfo": {
         "name": "Fortify"
       },
+      "runInfo": {
+        "fileInfo": {
+          "bannedAPIs.m": [
+            {
+              "uri": "bannedAPIs.m",
+              "mimeType": "application/octet-stream"
+            }
+          ]
+        }
+      },
       "results": [
         {
           "ruleId": "Null Dereference",

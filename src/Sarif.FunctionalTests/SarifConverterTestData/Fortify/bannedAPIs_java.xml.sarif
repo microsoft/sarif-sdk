@@ -5,6 +5,16 @@
       "toolInfo": {
         "name": "Fortify"
       },
+      "runInfo": {
+        "fileInfo": {
+          "bannedAPIs.java": [
+            {
+              "uri": "bannedAPIs.java",
+              "mimeType": "text/x-java-source"
+            }
+          ]
+        }
+      },
       "results": [
         {
           "ruleId": "Insecure Randomness",

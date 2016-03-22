@@ -5,6 +5,2356 @@
       "toolInfo": {
         "name": "Fortify"
       },
+      "runInfo": {
+        "fileInfo": {
+          "dev/word/core/table.cpp": [
+            {
+              "uri": "dev/word/core/table.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/core/rtf/rtfin2.cpp": [
+            {
+              "uri": "dev/word/core/rtf/rtfin2.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/client/desktop/obrange.cpp": [
+            {
+              "uri": "dev/word/client/desktop/obrange.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/client/shared/spell.cpp": [
+            {
+              "uri": "dev/word/client/shared/spell.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/core/sdt.cpp": [
+            {
+              "uri": "dev/word/core/sdt.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/client/desktop/docobj.cpp": [
+            {
+              "uri": "dev/word/client/desktop/docobj.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/client/desktop/cmd3.cpp": [
+            {
+              "uri": "dev/word/client/desktop/cmd3.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/core/savebin.cpp": [
+            {
+              "uri": "dev/word/core/savebin.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/client/desktop/obfmt.cpp": [
+            {
+              "uri": "dev/word/client/desktop/obfmt.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/client/desktop/pmh/cmdpmh.cpp": [
+            {
+              "uri": "dev/word/client/desktop/pmh/cmdpmh.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/client/shared/oartDisp.cpp": [
+            {
+              "uri": "dev/word/client/shared/oartDisp.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/client/shared/disp3.cpp": [
+            {
+              "uri": "dev/word/client/shared/disp3.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/client/desktop/odraw.cpp": [
+            {
+              "uri": "dev/word/client/desktop/odraw.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/core/pic.cpp": [
+            {
+              "uri": "dev/word/core/pic.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/core/htmlout.cpp": [
+            {
+              "uri": "dev/word/core/htmlout.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/client/desktop/atnpopout.cpp": [
+            {
+              "uri": "dev/word/client/desktop/atnpopout.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/client/desktop/label.cpp": [
+            {
+              "uri": "dev/word/client/desktop/label.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/core/print.cpp": [
+            {
+              "uri": "dev/word/core/print.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/core/fieldclc.cpp": [
+            {
+              "uri": "dev/word/core/fieldclc.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/client/desktop/mso.cpp": [
+            {
+              "uri": "dev/word/client/desktop/mso.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/core/xmltbl.cpp": [
+            {
+              "uri": "dev/word/core/xmltbl.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/core/pmhrender.cpp": [
+            {
+              "uri": "dev/word/core/pmhrender.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/client/desktop/library.cpp": [
+            {
+              "uri": "dev/word/client/desktop/library.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/core/metroin.cpp": [
+            {
+              "uri": "dev/word/core/metroin.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/core/loadfont.cpp": [
+            {
+              "uri": "dev/word/core/loadfont.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/core/open.cpp": [
+            {
+              "uri": "dev/word/core/open.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/client/desktop/drawcmd.cpp": [
+            {
+              "uri": "dev/word/client/desktop/drawcmd.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/client/desktop/pic2.cpp": [
+            {
+              "uri": "dev/word/client/desktop/pic2.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/client/desktop/osfom.cpp": [
+            {
+              "uri": "dev/word/client/desktop/osfom.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/client/desktop/fieldspcui.cpp": [
+            {
+              "uri": "dev/word/client/desktop/fieldspcui.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/core/wdoart/picturee2o.cpp": [
+            {
+              "uri": "dev/word/core/wdoart/picturee2o.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/core/htmltbl.cpp": [
+            {
+              "uri": "dev/word/core/htmltbl.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/client/desktop/tabs.cpp": [
+            {
+              "uri": "dev/word/client/desktop/tabs.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/client/desktop/fieldspc.cpp": [
+            {
+              "uri": "dev/word/client/desktop/fieldspc.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/client/desktop/grammar.cpp": [
+            {
+              "uri": "dev/word/client/desktop/grammar.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/core/htmlin.cpp": [
+            {
+              "uri": "dev/word/core/htmlin.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/client/desktop/acnotify.cpp": [
+            {
+              "uri": "dev/word/client/desktop/acnotify.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/client/desktop/factoid.cpp": [
+            {
+              "uri": "dev/word/client/desktop/factoid.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/core/fnmnew.cpp": [
+            {
+              "uri": "dev/word/core/fnmnew.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/core/doc.cpp": [
+            {
+              "uri": "dev/word/core/doc.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/client/desktop/dlgredt.cpp": [
+            {
+              "uri": "dev/word/client/desktop/dlgredt.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/client/desktop/ocxclnt.cpp": [
+            {
+              "uri": "dev/word/client/desktop/ocxclnt.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/client/desktop/envelope.cpp": [
+            {
+              "uri": "dev/word/client/desktop/envelope.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/client/desktop/mstudlg.cpp": [
+            {
+              "uri": "dev/word/client/desktop/mstudlg.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/core/edit.cpp": [
+            {
+              "uri": "dev/word/core/edit.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/client/desktop/dlgopen.cpp": [
+            {
+              "uri": "dev/word/client/desktop/dlgopen.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/client/desktop/organize.cpp": [
+            {
+              "uri": "dev/word/client/desktop/organize.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/client/desktop/obwrdbas.cpp": [
+            {
+              "uri": "dev/word/client/desktop/obwrdbas.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/client/desktop/pgsetup.cpp": [
+            {
+              "uri": "dev/word/client/desktop/pgsetup.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/client/shared/oartHost.cpp": [
+            {
+              "uri": "dev/word/client/shared/oartHost.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/client/desktop/quit.cpp": [
+            {
+              "uri": "dev/word/client/desktop/quit.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/client/desktop/dlghyph.cpp": [
+            {
+              "uri": "dev/word/client/desktop/dlghyph.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/core/wdoart/wordgroupeditor.cpp": [
+            {
+              "uri": "dev/word/core/wdoart/wordgroupeditor.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/core/fsbreak.cpp": [
+            {
+              "uri": "dev/word/core/fsbreak.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/client/shared/teTableCol.cpp": [
+            {
+              "uri": "dev/word/client/shared/teTableCol.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/client/desktop/osfomdata.cpp": [
+            {
+              "uri": "dev/word/client/desktop/osfomdata.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/client/desktop/acetate.cpp": [
+            {
+              "uri": "dev/word/client/desktop/acetate.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/client/fastmodel/prompt.cpp": [
+            {
+              "uri": "dev/word/client/fastmodel/prompt.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/client/shared/layer.cpp": [
+            {
+              "uri": "dev/word/client/shared/layer.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/client/desktop/cmd2.cpp": [
+            {
+              "uri": "dev/word/client/desktop/cmd2.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/client/desktop/options.cpp": [
+            {
+              "uri": "dev/word/client/desktop/options.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/core/rxv.cpp": [
+            {
+              "uri": "dev/word/core/rxv.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/client/desktop/cpanel.cpp": [
+            {
+              "uri": "dev/word/client/desktop/cpanel.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/client/desktop/pmh/pmhcore.cpp": [
+            {
+              "uri": "dev/word/client/desktop/pmh/pmhcore.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/core/grutil.cpp": [
+            {
+              "uri": "dev/word/core/grutil.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/client/shared/pagevw.cpp": [
+            {
+              "uri": "dev/word/client/shared/pagevw.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/client/desktop/obwindow.cpp": [
+            {
+              "uri": "dev/word/client/desktop/obwindow.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/client/desktop/ole2srvr.cpp": [
+            {
+              "uri": "dev/word/client/desktop/ole2srvr.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/client/desktop/drop.cpp": [
+            {
+              "uri": "dev/word/client/desktop/drop.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/client/desktop/pmh/pmhclient.cpp": [
+            {
+              "uri": "dev/word/client/desktop/pmh/pmhclient.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/client/desktop/openclient.cpp": [
+            {
+              "uri": "dev/word/client/desktop/openclient.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/client/desktop/blltprf.cpp": [
+            {
+              "uri": "dev/word/client/desktop/blltprf.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/client/shared/numdlg.cpp": [
+            {
+              "uri": "dev/word/client/shared/numdlg.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/core/xmlpage.cpp": [
+            {
+              "uri": "dev/word/core/xmlpage.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/core/cdsfile.cpp": [
+            {
+              "uri": "dev/word/core/cdsfile.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/client/desktop/fltexp.cpp": [
+            {
+              "uri": "dev/word/client/desktop/fltexp.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/core/formatsp.cpp": [
+            {
+              "uri": "dev/word/core/formatsp.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/client/win32/odtcore.cpp": [
+            {
+              "uri": "dev/word/client/win32/odtcore.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/core/ocxcore.cpp": [
+            {
+              "uri": "dev/word/core/ocxcore.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/client/desktop/medtok.cpp": [
+            {
+              "uri": "dev/word/client/desktop/medtok.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/client/desktop/xmlschema.cpp": [
+            {
+              "uri": "dev/word/client/desktop/xmlschema.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/client/desktop/secureReaderHost.cpp": [
+            {
+              "uri": "dev/word/client/desktop/secureReaderHost.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/client/desktop/docmrg.cpp": [
+            {
+              "uri": "dev/word/client/desktop/docmrg.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/core/rsid.cpp": [
+            {
+              "uri": "dev/word/core/rsid.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/client/desktop/docname.cpp": [
+            {
+              "uri": "dev/word/client/desktop/docname.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/client/desktop/olesubs2.cpp": [
+            {
+              "uri": "dev/word/client/desktop/olesubs2.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/client/desktop/splitter.cpp": [
+            {
+              "uri": "dev/word/client/desktop/splitter.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/client/desktop/sdtui.cpp": [
+            {
+              "uri": "dev/word/client/desktop/sdtui.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/client/desktop/print1.cpp": [
+            {
+              "uri": "dev/word/client/desktop/print1.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/client/shared/uim.cpp": [
+            {
+              "uri": "dev/word/client/shared/uim.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/client/desktop/obadvise.cpp": [
+            {
+              "uri": "dev/word/client/desktop/obadvise.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/client/desktop/obhand.cpp": [
+            {
+              "uri": "dev/word/client/desktop/obhand.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/core/syschg.cpp": [
+            {
+              "uri": "dev/word/core/syschg.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/client/desktop/raremsg.cpp": [
+            {
+              "uri": "dev/word/client/desktop/raremsg.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/core/wdoart/CanvasEditor.cpp": [
+            {
+              "uri": "dev/word/core/wdoart/CanvasEditor.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/client/desktop/obgenric.cpp": [
+            {
+              "uri": "dev/word/client/desktop/obgenric.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/client/desktop/dlglook1.cpp": [
+            {
+              "uri": "dev/word/client/desktop/dlglook1.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/client/desktop/rulerdrw.cpp": [
+            {
+              "uri": "dev/word/client/desktop/rulerdrw.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/core/sbd.cpp": [
+            {
+              "uri": "dev/word/core/sbd.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/client/shared/cursor.cpp": [
+            {
+              "uri": "dev/word/client/shared/cursor.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/client/desktop/TEComponentTests.cpp": [
+            {
+              "uri": "dev/word/client/desktop/TEComponentTests.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/core/rtf/rtfout.cpp": [
+            {
+              "uri": "dev/word/core/rtf/rtfout.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/core/file.cpp": [
+            {
+              "uri": "dev/word/core/file.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/client/shared/corout.cpp": [
+            {
+              "uri": "dev/word/client/shared/corout.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/client/desktop/pmh/pmhdata.cpp": [
+            {
+              "uri": "dev/word/client/desktop/pmh/pmhdata.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/client/desktop/obtable.cpp": [
+            {
+              "uri": "dev/word/client/desktop/obtable.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/client/desktop/corout.cpp": [
+            {
+              "uri": "dev/word/client/desktop/corout.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/client/desktop/barcust.cpp": [
+            {
+              "uri": "dev/word/client/desktop/barcust.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/client/desktop/obxml.cpp": [
+            {
+              "uri": "dev/word/client/desktop/obxml.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/client/shared/insloop.cpp": [
+            {
+              "uri": "dev/word/client/shared/insloop.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/core/xmlaml.cpp": [
+            {
+              "uri": "dev/word/core/xmlaml.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/core/xmlout.cpp": [
+            {
+              "uri": "dev/word/core/xmlout.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/client/shared/cmdsel.cpp": [
+            {
+              "uri": "dev/word/client/shared/cmdsel.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/client/shared/cmdcore.cpp": [
+            {
+              "uri": "dev/word/client/shared/cmdcore.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/client/desktop/obdoc.cpp": [
+            {
+              "uri": "dev/word/client/desktop/obdoc.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/client/fastmodel/rtfont.cpp": [
+            {
+              "uri": "dev/word/client/fastmodel/rtfont.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/core/oarth.cpp": [
+            {
+              "uri": "dev/word/core/oarth.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/client/desktop/stylecmd.cpp": [
+            {
+              "uri": "dev/word/client/desktop/stylecmd.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/core/oartxmlB.cpp": [
+            {
+              "uri": "dev/word/core/oartxmlB.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/client/desktop/consis.cpp": [
+            {
+              "uri": "dev/word/client/desktop/consis.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/client/win32/metroout.cpp": [
+            {
+              "uri": "dev/word/client/win32/metroout.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/client/desktop/footnote.cpp": [
+            {
+              "uri": "dev/word/client/desktop/footnote.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/core/fslayout.cpp": [
+            {
+              "uri": "dev/word/core/fslayout.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/client/win32/rtd2d_gdi.cpp": [
+            {
+              "uri": "dev/word/client/win32/rtd2d_gdi.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/client/desktop/proofing.cpp": [
+            {
+              "uri": "dev/word/client/desktop/proofing.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/core/htmlsupp.cpp": [
+            {
+              "uri": "dev/word/core/htmlsupp.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/client/shared/osfmerge.cpp": [
+            {
+              "uri": "dev/word/client/shared/osfmerge.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/client/desktop/elmisc2.cpp": [
+            {
+              "uri": "dev/word/client/desktop/elmisc2.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/core/htmlmath.cpp": [
+            {
+              "uri": "dev/word/core/htmlmath.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/core/dispbrc.cpp": [
+            {
+              "uri": "dev/word/core/dispbrc.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/client/shared/doccomp_shared.cpp": [
+            {
+              "uri": "dev/word/client/shared/doccomp_shared.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/client/desktop/protect.cpp": [
+            {
+              "uri": "dev/word/client/desktop/protect.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/client/desktop/appdim.cpp": [
+            {
+              "uri": "dev/word/client/desktop/appdim.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/core/wdoart/CanvasSelection.cpp": [
+            {
+              "uri": "dev/word/core/wdoart/CanvasSelection.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/core/savefast.cpp": [
+            {
+              "uri": "dev/word/core/savefast.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/client/win32/thumbnail.cpp": [
+            {
+              "uri": "dev/word/client/win32/thumbnail.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/core/csscascd.cpp": [
+            {
+              "uri": "dev/word/core/csscascd.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/client/desktop/dlgmisc.cpp": [
+            {
+              "uri": "dev/word/client/desktop/dlgmisc.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/core/prm.cpp": [
+            {
+              "uri": "dev/word/core/prm.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/client/desktop/glossary.cpp": [
+            {
+              "uri": "dev/word/client/desktop/glossary.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/core/banter.cpp": [
+            {
+              "uri": "dev/word/core/banter.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/client/shared/select.cpp": [
+            {
+              "uri": "dev/word/client/shared/select.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/core/fsframe.cpp": [
+            {
+              "uri": "dev/word/core/fsframe.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/client/desktop/otb.cpp": [
+            {
+              "uri": "dev/word/client/desktop/otb.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/client/desktop/stmmisc.cpp": [
+            {
+              "uri": "dev/word/client/desktop/stmmisc.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/client/desktop/proof2.cpp": [
+            {
+              "uri": "dev/word/client/desktop/proof2.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/client/shared/drawcmd.cpp": [
+            {
+              "uri": "dev/word/client/shared/drawcmd.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/client/desktop/mwd.cpp": [
+            {
+              "uri": "dev/word/client/desktop/mwd.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/client/desktop/imecmd.cpp": [
+            {
+              "uri": "dev/word/client/desktop/imecmd.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/client/shared/curskeys.cpp": [
+            {
+              "uri": "dev/word/client/shared/curskeys.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/client/desktop/spell.cpp": [
+            {
+              "uri": "dev/word/client/desktop/spell.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/core/pmhwdsocore.cpp": [
+            {
+              "uri": "dev/word/core/pmhwdsocore.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/client/shared/proof.cpp": [
+            {
+              "uri": "dev/word/client/shared/proof.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/core/bibcore.cpp": [
+            {
+              "uri": "dev/word/core/bibcore.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/client/desktop/sdtsupp.cpp": [
+            {
+              "uri": "dev/word/client/desktop/sdtsupp.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/core/dops.cpp": [
+            {
+              "uri": "dev/word/core/dops.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/client/desktop/cnvmw.cpp": [
+            {
+              "uri": "dev/word/client/desktop/cnvmw.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/client/desktop/obgen.cpp": [
+            {
+              "uri": "dev/word/client/desktop/obgen.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/client/shared/disppage.cpp": [
+            {
+              "uri": "dev/word/client/shared/disppage.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/client/desktop/eldde.cpp": [
+            {
+              "uri": "dev/word/client/desktop/eldde.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/client/shared/dlglook1.cpp": [
+            {
+              "uri": "dev/word/client/shared/dlglook1.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/client/desktop/pmh/pmhodso.cpp": [
+            {
+              "uri": "dev/word/client/desktop/pmh/pmhodso.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/client/shared/afmt.cpp": [
+            {
+              "uri": "dev/word/client/shared/afmt.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/client/desktop/frameset.cpp": [
+            {
+              "uri": "dev/word/client/desktop/frameset.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/client/desktop/obutil.cpp": [
+            {
+              "uri": "dev/word/client/desktop/obutil.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/core/csscutil.cpp": [
+            {
+              "uri": "dev/word/core/csscutil.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/client/shared/comptest/TestCharacterFormat.cpp": [
+            {
+              "uri": "dev/word/client/shared/comptest/TestCharacterFormat.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/client/win32/prdev.cpp": [
+            {
+              "uri": "dev/word/client/win32/prdev.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/core/otfield.cpp": [
+            {
+              "uri": "dev/word/core/otfield.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/client/desktop/pmh/pmh.cpp": [
+            {
+              "uri": "dev/word/client/desktop/pmh/pmh.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/client/desktop/filecvt.cpp": [
+            {
+              "uri": "dev/word/client/desktop/filecvt.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/client/desktop/xmlmappingpane.cpp": [
+            {
+              "uri": "dev/word/client/desktop/xmlmappingpane.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/client/desktop/comptest/TestOLE.cpp": [
+            {
+              "uri": "dev/word/client/desktop/comptest/TestOLE.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/core/rtd2d_cs.cpp": [
+            {
+              "uri": "dev/word/core/rtd2d_cs.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/client/desktop/comptest/TaskLibDesktop.cpp": [
+            {
+              "uri": "dev/word/client/desktop/comptest/TaskLibDesktop.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/client/desktop/layer.cpp": [
+            {
+              "uri": "dev/word/client/desktop/layer.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/core/rtimrgn.cpp": [
+            {
+              "uri": "dev/word/core/rtimrgn.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/core/fieldfmt.cpp": [
+            {
+              "uri": "dev/word/core/fieldfmt.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/client/desktop/comptest/TestPageSetup.cpp": [
+            {
+              "uri": "dev/word/client/desktop/comptest/TestPageSetup.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/client/desktop/comptest/TestInsertBuffer.cpp": [
+            {
+              "uri": "dev/word/client/desktop/comptest/TestInsertBuffer.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/client/shared/comptest/TestParagraphFormat.cpp": [
+            {
+              "uri": "dev/word/client/shared/comptest/TestParagraphFormat.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/client/desktop/oartHost.cpp": [
+            {
+              "uri": "dev/word/client/desktop/oartHost.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/client/desktop/obeffects.cpp": [
+            {
+              "uri": "dev/word/client/desktop/obeffects.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/wal/win/win32/LoggingUtilities.cpp": [
+            {
+              "uri": "dev/word/wal/win/win32/LoggingUtilities.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/client/desktop/pmh/pmhfetch.cpp": [
+            {
+              "uri": "dev/word/client/desktop/pmh/pmhfetch.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/core/otout.cpp": [
+            {
+              "uri": "dev/word/core/otout.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/core/oartodf.cpp": [
+            {
+              "uri": "dev/word/core/oartodf.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/client/desktop/power.cpp": [
+            {
+              "uri": "dev/word/client/desktop/power.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/client/desktop/comptest/TestOCX.cpp": [
+            {
+              "uri": "dev/word/client/desktop/comptest/TestOCX.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/client/shared/comptest/TestLserrFetchPap.cpp": [
+            {
+              "uri": "dev/word/client/shared/comptest/TestLserrFetchPap.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/client/shared/comptest/TestFormatPara.cpp": [
+            {
+              "uri": "dev/word/client/shared/comptest/TestFormatPara.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/core/myx.cpp": [
+            {
+              "uri": "dev/word/core/myx.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/client/shared/comptest/InProcTests/TestTables.cpp": [
+            {
+              "uri": "dev/word/client/shared/comptest/InProcTests/TestTables.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/client/shared/comptest/WordGRF.cpp": [
+            {
+              "uri": "dev/word/client/shared/comptest/WordGRF.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/client/shared/comptest/InProcTests/TestInputStack.cpp": [
+            {
+              "uri": "dev/word/client/shared/comptest/InProcTests/TestInputStack.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/client/desktop/fcc.cpp": [
+            {
+              "uri": "dev/word/client/desktop/fcc.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/client/fastmodel/findwinrt.cpp": [
+            {
+              "uri": "dev/word/client/fastmodel/findwinrt.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/client/shared/comptest/TestReadingMode.cpp": [
+            {
+              "uri": "dev/word/client/shared/comptest/TestReadingMode.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/client/fastmodel/rtrgn.cpp": [
+            {
+              "uri": "dev/word/client/fastmodel/rtrgn.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/client/desktop/comptest/TestOpenSave.cpp": [
+            {
+              "uri": "dev/word/client/desktop/comptest/TestOpenSave.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/client/shared/acetate.cpp": [
+            {
+              "uri": "dev/word/client/shared/acetate.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/client/shared/comptest/InProcTests/TestFields.cpp": [
+            {
+              "uri": "dev/word/client/shared/comptest/InProcTests/TestFields.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/core/metroout.cpp": [
+            {
+              "uri": "dev/word/core/metroout.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "C:/office/dev/otools/inc/oart/private/trust.h": [
+            {
+              "uri": "C:/office/dev/otools/inc/oart/private/trust.h",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/client/desktop/outspace.cpp": [
+            {
+              "uri": "dev/word/client/desktop/outspace.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/client/fastmodel/applicationdocumentsuser.cpp": [
+            {
+              "uri": "dev/word/client/fastmodel/applicationdocumentsuser.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/core/comptest/TaskLibCore.cpp": [
+            {
+              "uri": "dev/word/core/comptest/TaskLibCore.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/client/desktop/comptest/TestOArt.cpp": [
+            {
+              "uri": "dev/word/client/desktop/comptest/TestOArt.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/endpoints/srv/wordsrv/docserver.cpp": [
+            {
+              "uri": "dev/word/endpoints/srv/wordsrv/docserver.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/wal/win/winrt/LoggingUtilities.cpp": [
+            {
+              "uri": "dev/word/wal/win/winrt/LoggingUtilities.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/client/desktop/uicust.cpp": [
+            {
+              "uri": "dev/word/client/desktop/uicust.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/client/desktop/bibliorg.cpp": [
+            {
+              "uri": "dev/word/client/desktop/bibliorg.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/client/shared/dttmacmp.cpp": [
+            {
+              "uri": "dev/word/client/shared/dttmacmp.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/client/desktop/navpane.cpp": [
+            {
+              "uri": "dev/word/client/desktop/navpane.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/endpoints/converters/wordcnvpxy/metrocnvproxy.cpp": [
+            {
+              "uri": "dev/word/endpoints/converters/wordcnvpxy/metrocnvproxy.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/client/desktop/numdlg.cpp": [
+            {
+              "uri": "dev/word/client/desktop/numdlg.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/client/shared/comptest/InProcTests/TestTextHighlight.cpp": [
+            {
+              "uri": "dev/word/client/shared/comptest/InProcTests/TestTextHighlight.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/client/fastmodel/atnpopout.cpp": [
+            {
+              "uri": "dev/word/client/fastmodel/atnpopout.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/core/htmlsty.cpp": [
+            {
+              "uri": "dev/word/core/htmlsty.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/client/shared/comptest/InProcTests/TestInprocFramework.cpp": [
+            {
+              "uri": "dev/word/client/shared/comptest/InProcTests/TestInprocFramework.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/client/shared/e2osync.cpp": [
+            {
+              "uri": "dev/word/client/shared/e2osync.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/client/desktop/osfhost.cpp": [
+            {
+              "uri": "dev/word/client/desktop/osfhost.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/core/bidi.cpp": [
+            {
+              "uri": "dev/word/core/bidi.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/client/desktop/schmpick.cpp": [
+            {
+              "uri": "dev/word/client/desktop/schmpick.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/core/otin.cpp": [
+            {
+              "uri": "dev/word/core/otin.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/client/desktop/comptest/TestSmartTags.cpp": [
+            {
+              "uri": "dev/word/client/desktop/comptest/TestSmartTags.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/endpoints/metro/dll/ui/FastImmersiveZoomUIImpl.cpp": [
+            {
+              "uri": "dev/word/endpoints/metro/dll/ui/FastImmersiveZoomUIImpl.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/client/fastmodel/CImWordProgressUI.cpp": [
+            {
+              "uri": "dev/word/client/fastmodel/CImWordProgressUI.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/client/desktop/obapp.cpp": [
+            {
+              "uri": "dev/word/client/desktop/obapp.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/client/desktop/olkedit.cpp": [
+            {
+              "uri": "dev/word/client/desktop/olkedit.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/client/desktop/comptest/TestPageNumber.cpp": [
+            {
+              "uri": "dev/word/client/desktop/comptest/TestPageNumber.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/client/desktop/clipbrd2.cpp": [
+            {
+              "uri": "dev/word/client/desktop/clipbrd2.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/client/desktop/clipbord.cpp": [
+            {
+              "uri": "dev/word/client/desktop/clipbord.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/core/oartconv.cpp": [
+            {
+              "uri": "dev/word/core/oartconv.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/client/desktop/oartTextWrapCallout.cpp": [
+            {
+              "uri": "dev/word/client/desktop/oartTextWrapCallout.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/client/desktop/obcoauth.cpp": [
+            {
+              "uri": "dev/word/client/desktop/obcoauth.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/client/desktop/blogout.cpp": [
+            {
+              "uri": "dev/word/client/desktop/blogout.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/client/desktop/wproc.cpp": [
+            {
+              "uri": "dev/word/client/desktop/wproc.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/client/desktop/wwnd.cpp": [
+            {
+              "uri": "dev/word/client/desktop/wwnd.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/client/shared/comptest/InProcTests/TestComments.cpp": [
+            {
+              "uri": "dev/word/client/shared/comptest/InProcTests/TestComments.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/client/desktop/chgall.cpp": [
+            {
+              "uri": "dev/word/client/desktop/chgall.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/endpoints/converters/wordconv/cwordconv.cpp": [
+            {
+              "uri": "dev/word/endpoints/converters/wordconv/cwordconv.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/client/shared/WebScalingFetchModifier.cpp": [
+            {
+              "uri": "dev/word/client/shared/WebScalingFetchModifier.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/client/shared/comptest/InProcTests/TestCutCopyPaste.cpp": [
+            {
+              "uri": "dev/word/client/shared/comptest/InProcTests/TestCutCopyPaste.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/client/desktop/comptest/testFootnoteEndnote.cpp": [
+            {
+              "uri": "dev/word/client/desktop/comptest/testFootnoteEndnote.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/client/shared/comptest/TestWebScalingMode.cpp": [
+            {
+              "uri": "dev/word/client/shared/comptest/TestWebScalingMode.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/endpoints/metro/lib/word.cpp": [
+            {
+              "uri": "dev/word/endpoints/metro/lib/word.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/core/mwd.cpp": [
+            {
+              "uri": "dev/word/core/mwd.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/client/desktop/mathui.cpp": [
+            {
+              "uri": "dev/word/client/desktop/mathui.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/client/desktop/flex.cpp": [
+            {
+              "uri": "dev/word/client/desktop/flex.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/client/shared/comptest/TaskLibClient.cpp": [
+            {
+              "uri": "dev/word/client/shared/comptest/TaskLibClient.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/client/desktop/pginval.cpp": [
+            {
+              "uri": "dev/word/client/desktop/pginval.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/client/shared/comptest/InProcTests/ClientTestSample.cpp": [
+            {
+              "uri": "dev/word/client/shared/comptest/InProcTests/ClientTestSample.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/client/shared/comptest/InProcTests/TestBulletsAndNumbering.cpp": [
+            {
+              "uri": "dev/word/client/shared/comptest/InProcTests/TestBulletsAndNumbering.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/client/desktop/comptest/TestTERMPageTurnBtn.cpp": [
+            {
+              "uri": "dev/word/client/desktop/comptest/TestTERMPageTurnBtn.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/client/desktop/frame.cpp": [
+            {
+              "uri": "dev/word/client/desktop/frame.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/core/mapfnpfcb.cpp": [
+            {
+              "uri": "dev/word/core/mapfnpfcb.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/core/abd2.cpp": [
+            {
+              "uri": "dev/word/core/abd2.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/client/desktop/comptest/TestForcedE1oConversion.cpp": [
+            {
+              "uri": "dev/word/client/desktop/comptest/TestForcedE1oConversion.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/client/desktop/comptest/TestHeaderFooter.cpp": [
+            {
+              "uri": "dev/word/client/desktop/comptest/TestHeaderFooter.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/client/shared/app/ReadingPaneDocumentUIHostE2o.cpp": [
+            {
+              "uri": "dev/word/client/shared/app/ReadingPaneDocumentUIHostE2o.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/endpoints/converters/lyncconv/proxy/lynchtmlconvproxy.cpp": [
+            {
+              "uri": "dev/word/endpoints/converters/lyncconv/proxy/lynchtmlconvproxy.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/core/istreamlog.cpp": [
+            {
+              "uri": "dev/word/core/istreamlog.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/client/shared/app/FastMainCanvasAppImpl.cpp": [
+            {
+              "uri": "dev/word/client/shared/app/FastMainCanvasAppImpl.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/client/desktop/enctext.cpp": [
+            {
+              "uri": "dev/word/client/desktop/enctext.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/core/oartxml.cpp": [
+            {
+              "uri": "dev/word/core/oartxml.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/client/desktop/cmdwnd.cpp": [
+            {
+              "uri": "dev/word/client/desktop/cmdwnd.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/client/fastmodel/FastReadingPaneViewAppImpl.cpp": [
+            {
+              "uri": "dev/word/client/fastmodel/FastReadingPaneViewAppImpl.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/client/desktop/comptest/TestSpellingGrammar.cpp": [
+            {
+              "uri": "dev/word/client/desktop/comptest/TestSpellingGrammar.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/core/e2osynccore.cpp": [
+            {
+              "uri": "dev/word/core/e2osynccore.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/core/lshelpmath.cpp": [
+            {
+              "uri": "dev/word/core/lshelpmath.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/client/shared/teDispatcher.cpp": [
+            {
+              "uri": "dev/word/client/shared/teDispatcher.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/client/shared/e2otext.cpp": [
+            {
+              "uri": "dev/word/client/shared/e2otext.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/client/desktop/orf.cpp": [
+            {
+              "uri": "dev/word/client/desktop/orf.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/client/shared/comptest/InProcTests/TestFormatCaching.cpp": [
+            {
+              "uri": "dev/word/client/shared/comptest/InProcTests/TestFormatCaching.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/core/istgwrap.cpp": [
+            {
+              "uri": "dev/word/core/istgwrap.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/client/shared/comptest/TestViews.cpp": [
+            {
+              "uri": "dev/word/client/shared/comptest/TestViews.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/client/desktop/comptest/TestFont.cpp": [
+            {
+              "uri": "dev/word/client/desktop/comptest/TestFont.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/endpoints/metro/dll/ui/ReadingPaneDocumentIm.cpp": [
+            {
+              "uri": "dev/word/endpoints/metro/dll/ui/ReadingPaneDocumentIm.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/client/fastmodel/mwd.cpp": [
+            {
+              "uri": "dev/word/client/fastmodel/mwd.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/core/sdtsuppcore.cpp": [
+            {
+              "uri": "dev/word/core/sdtsuppcore.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/client/shared/comptest/InProcTests/TestEmbedFont.cpp": [
+            {
+              "uri": "dev/word/client/shared/comptest/InProcTests/TestEmbedFont.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/client/desktop/hyplink.cpp": [
+            {
+              "uri": "dev/word/client/desktop/hyplink.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/client/desktop/wordmail.cpp": [
+            {
+              "uri": "dev/word/client/desktop/wordmail.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/wal/win/win32/corout.cpp": [
+            {
+              "uri": "dev/word/wal/win/win32/corout.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/client/desktop/comptest/TestHyperlink.cpp": [
+            {
+              "uri": "dev/word/client/desktop/comptest/TestHyperlink.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/core/rtf/rtfin.cpp": [
+            {
+              "uri": "dev/word/core/rtf/rtfin.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/client/desktop/comptest/TestTEHeaderFooter.cpp": [
+            {
+              "uri": "dev/word/client/desktop/comptest/TestTEHeaderFooter.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/client/desktop/dlgmodls.cpp": [
+            {
+              "uri": "dev/word/client/desktop/dlgmodls.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "C:/office/dev/otools/inc/oart/private/oartspblip.h": [
+            {
+              "uri": "C:/office/dev/otools/inc/oart/private/oartspblip.h",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/client/fastmodel/FastWordViewAppImpl.cpp": [
+            {
+              "uri": "dev/word/client/fastmodel/FastWordViewAppImpl.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/client/stubs/docim_imm.cpp": [
+            {
+              "uri": "dev/word/client/stubs/docim_imm.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/client/desktop/gramopt.cpp": [
+            {
+              "uri": "dev/word/client/desktop/gramopt.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/client/shared/comptest/TestTextBox.cpp": [
+            {
+              "uri": "dev/word/client/shared/comptest/TestTextBox.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/core/dllutil.cpp": [
+            {
+              "uri": "dev/word/core/dllutil.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/client/desktop/elfile.cpp": [
+            {
+              "uri": "dev/word/client/desktop/elfile.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/client/desktop/revmark.cpp": [
+            {
+              "uri": "dev/word/client/desktop/revmark.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/client/desktop/annot.cpp": [
+            {
+              "uri": "dev/word/client/desktop/annot.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/client/shared/comptest/InProcTests/TestStyles.cpp": [
+            {
+              "uri": "dev/word/client/shared/comptest/InProcTests/TestStyles.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/core/numt3core.cpp": [
+            {
+              "uri": "dev/word/core/numt3core.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/client/shared/replace.cpp": [
+            {
+              "uri": "dev/word/client/shared/replace.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/core/outcore.cpp": [
+            {
+              "uri": "dev/word/core/outcore.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/client/desktop/dlglook2.cpp": [
+            {
+              "uri": "dev/word/client/desktop/dlglook2.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/client/shared/stmmisc.cpp": [
+            {
+              "uri": "dev/word/client/shared/stmmisc.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/client/desktop/dlgdoc.cpp": [
+            {
+              "uri": "dev/word/client/desktop/dlgdoc.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/core/dbcs.cpp": [
+            {
+              "uri": "dev/word/core/dbcs.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/client/desktop/serverdoc.cpp": [
+            {
+              "uri": "dev/word/client/desktop/serverdoc.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/client/shared/cdskme.cpp": [
+            {
+              "uri": "dev/word/client/shared/cdskme.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/client/desktop/cust.cpp": [
+            {
+              "uri": "dev/word/client/desktop/cust.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/client/desktop/obvbe.cpp": [
+            {
+              "uri": "dev/word/client/desktop/obvbe.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/core/ossword.cpp": [
+            {
+              "uri": "dev/word/core/ossword.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/client/desktop/dlbenum.cpp": [
+            {
+              "uri": "dev/word/client/desktop/dlbenum.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/client/desktop/obproof.cpp": [
+            {
+              "uri": "dev/word/client/desktop/obproof.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/client/desktop/dialog1.cpp": [
+            {
+              "uri": "dev/word/client/desktop/dialog1.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/client/desktop/fmtpane.cpp": [
+            {
+              "uri": "dev/word/client/desktop/fmtpane.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/client/desktop/sort.cpp": [
+            {
+              "uri": "dev/word/client/desktop/sort.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/client/shared/prompt.cpp": [
+            {
+              "uri": "dev/word/client/shared/prompt.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/client/desktop/fontui.cpp": [
+            {
+              "uri": "dev/word/client/desktop/fontui.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/client/desktop/wip.cpp": [
+            {
+              "uri": "dev/word/client/desktop/wip.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/core/htmldoc.cpp": [
+            {
+              "uri": "dev/word/core/htmldoc.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/client/win32/ecdutil.cpp": [
+            {
+              "uri": "dev/word/client/win32/ecdutil.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/core/color.cpp": [
+            {
+              "uri": "dev/word/core/color.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/core/extchar.cpp": [
+            {
+              "uri": "dev/word/core/extchar.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/client/desktop/cmdprot.cpp": [
+            {
+              "uri": "dev/word/client/desktop/cmdprot.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/inc/oartoss.h": [
+            {
+              "uri": "dev/word/inc/oartoss.h",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/client/shared/columns.cpp": [
+            {
+              "uri": "dev/word/client/shared/columns.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/client/desktop/aar.cpp": [
+            {
+              "uri": "dev/word/client/desktop/aar.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/client/desktop/border.cpp": [
+            {
+              "uri": "dev/word/client/desktop/border.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/client/desktop/glsy.cpp": [
+            {
+              "uri": "dev/word/client/desktop/glsy.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/client/desktop/mlisym.cpp": [
+            {
+              "uri": "dev/word/client/desktop/mlisym.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/client/desktop/toc.cpp": [
+            {
+              "uri": "dev/word/client/desktop/toc.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/client/desktop/filline.cpp": [
+            {
+              "uri": "dev/word/client/desktop/filline.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/client/desktop/msgbox.cpp": [
+            {
+              "uri": "dev/word/client/desktop/msgbox.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/core/heap.cpp": [
+            {
+              "uri": "dev/word/core/heap.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/core/format.cpp": [
+            {
+              "uri": "dev/word/core/format.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/core/sym.cpp": [
+            {
+              "uri": "dev/word/core/sym.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/client/desktop/columns.cpp": [
+            {
+              "uri": "dev/word/client/desktop/columns.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/client/desktop/ecddlg.cpp": [
+            {
+              "uri": "dev/word/client/desktop/ecddlg.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/core/xmlin.cpp": [
+            {
+              "uri": "dev/word/core/xmlin.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/client/shared/imecmd.cpp": [
+            {
+              "uri": "dev/word/client/shared/imecmd.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/client/desktop/otbbtn.cpp": [
+            {
+              "uri": "dev/word/client/desktop/otbbtn.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/client/desktop/preview.cpp": [
+            {
+              "uri": "dev/word/client/desktop/preview.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/client/desktop/letters.cpp": [
+            {
+              "uri": "dev/word/client/desktop/letters.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/client/desktop/pattdlg.cpp": [
+            {
+              "uri": "dev/word/client/desktop/pattdlg.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/core/wpref.cpp": [
+            {
+              "uri": "dev/word/core/wpref.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/client/desktop/editlink.cpp": [
+            {
+              "uri": "dev/word/client/desktop/editlink.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/core/wdoart/worde2oclientdata.cpp": [
+            {
+              "uri": "dev/word/core/wdoart/worde2oclientdata.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/client/desktop/obtom.cpp": [
+            {
+              "uri": "dev/word/client/desktop/obtom.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/core/translationparser.cpp": [
+            {
+              "uri": "dev/word/core/translationparser.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/client/desktop/insfield.cpp": [
+            {
+              "uri": "dev/word/client/desktop/insfield.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/client/desktop/hddcmd.cpp": [
+            {
+              "uri": "dev/word/client/desktop/hddcmd.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/core/MailMerge.cpp": [
+            {
+              "uri": "dev/word/core/MailMerge.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/client/desktop/keyevent.cpp": [
+            {
+              "uri": "dev/word/client/desktop/keyevent.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/core/cssin.cpp": [
+            {
+              "uri": "dev/word/core/cssin.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/core/figu.cpp": [
+            {
+              "uri": "dev/word/core/figu.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/core/wink.cpp": [
+            {
+              "uri": "dev/word/core/wink.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/client/desktop/autosig.cpp": [
+            {
+              "uri": "dev/word/client/desktop/autosig.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/client/shared/cmdlang.cpp": [
+            {
+              "uri": "dev/word/client/shared/cmdlang.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/client/shared/cdscmd.cpp": [
+            {
+              "uri": "dev/word/client/shared/cdscmd.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/client/desktop/symbol.cpp": [
+            {
+              "uri": "dev/word/client/desktop/symbol.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/client/shared/border.cpp": [
+            {
+              "uri": "dev/word/client/shared/border.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/core/bdrcore.cpp": [
+            {
+              "uri": "dev/word/core/bdrcore.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/core/xmldraw.cpp": [
+            {
+              "uri": "dev/word/core/xmldraw.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/core/metrocommon.cpp": [
+            {
+              "uri": "dev/word/core/metrocommon.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/core/ofc.cpp": [
+            {
+              "uri": "dev/word/core/ofc.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/endpoints/metro/dll/ui/UIScrollingLayerListener.cpp": [
+            {
+              "uri": "dev/word/endpoints/metro/dll/ui/UIScrollingLayerListener.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/client/desktop/idle.cpp": [
+            {
+              "uri": "dev/word/client/desktop/idle.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/core/offstm.cpp": [
+            {
+              "uri": "dev/word/core/offstm.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/core/ostrglue.cpp": [
+            {
+              "uri": "dev/word/core/ostrglue.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/client/desktop/propsht.cpp": [
+            {
+              "uri": "dev/word/client/desktop/propsht.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/client/win32/pic.cpp": [
+            {
+              "uri": "dev/word/client/win32/pic.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/client/desktop/ddesrvr.cpp": [
+            {
+              "uri": "dev/word/client/desktop/ddesrvr.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/core/rtf/rtfrare.cpp": [
+            {
+              "uri": "dev/word/core/rtf/rtfrare.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/client/desktop/ecdclnt.cpp": [
+            {
+              "uri": "dev/word/client/desktop/ecdclnt.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/client/desktop/pmh/pmhodbc.cpp": [
+            {
+              "uri": "dev/word/client/desktop/pmh/pmhodbc.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/client/win32/grutil.cpp": [
+            {
+              "uri": "dev/word/client/win32/grutil.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/client/desktop/secureReaderClient.cpp": [
+            {
+              "uri": "dev/word/client/desktop/secureReaderClient.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/client/desktop/ddesub.cpp": [
+            {
+              "uri": "dev/word/client/desktop/ddesub.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/core/style.cpp": [
+            {
+              "uri": "dev/word/core/style.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "c:/office/dev/word/client/desktop/inc/factoid.h": [
+            {
+              "uri": "c:/office/dev/word/client/desktop/inc/factoid.h",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/client/desktop/hhc.cpp": [
+            {
+              "uri": "dev/word/client/desktop/hhc.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/client/desktop/lad.cpp": [
+            {
+              "uri": "dev/word/client/desktop/lad.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/client/shared/dlgtable.cpp": [
+            {
+              "uri": "dev/word/client/shared/dlgtable.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/client/desktop/bubble.cpp": [
+            {
+              "uri": "dev/word/client/desktop/bubble.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/core/styledef.cpp": [
+            {
+              "uri": "dev/word/core/styledef.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/client/shared/proof2.cpp": [
+            {
+              "uri": "dev/word/client/shared/proof2.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/client/shared/findrplc.cpp": [
+            {
+              "uri": "dev/word/client/shared/findrplc.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/client/win32/export.cpp": [
+            {
+              "uri": "dev/word/client/win32/export.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/wal/win/win32/cwordloggerwinfile.cpp": [
+            {
+              "uri": "dev/word/wal/win/win32/cwordloggerwinfile.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/client/shared/fieldcmd.cpp": [
+            {
+              "uri": "dev/word/client/shared/fieldcmd.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ],
+          "dev/word/client/shared/oartcmd.cpp": [
+            {
+              "uri": "dev/word/client/shared/oartcmd.cpp",
+              "mimeType": "text/x-cpp"
+            }
+          ]
+        }
+      },
       "results": [
         {
           "ruleId": "Null Dereference",

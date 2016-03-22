@@ -9,6 +9,7 @@ using System.Linq;
 using System.Xml;
 using Microsoft.CodeAnalysis.Sarif.Driver;
 using Microsoft.CodeAnalysis.Sarif.Sdk;
+using Microsoft.CodeAnalysis.Sarif.Writers;
 
 namespace Microsoft.CodeAnalysis.Sarif.Converters
 {
@@ -43,11 +44,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 throw new ArgumentNullException("output");
             }
 
-            output.WriteToolAndRunInfo(new ToolInfo
-            {
-                Name = "Fortify"
-            }, null);
-
             var settings = new XmlReaderSettings
             {
                 DtdProcessing = DtdProcessing.Ignore,
@@ -55,6 +51,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 NameTable = _nameTable
             };
 
+            var results = new List<Result>();
             using (XmlReader reader = XmlReader.Create(input, settings))
             {
                 while (reader.Read())
@@ -62,9 +59,28 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                     while (Ref.Equal(reader.LocalName, _strings.Issue))
                     {
                         FortifyIssue fortify = FortifyIssue.Parse(reader, _strings);
-                        output.WriteResult(ConvertFortifyIssueToSarifIssue(fortify));
+                        results.Add(ConvertFortifyIssueToSarifIssue(fortify));
                     }
                 }
+            }
+
+            var toolInfo = new ToolInfo
+            {
+                Name = "Fortify"
+            };
+
+            var fileInfoFactory = new FileInfoFactory(MimeType.DetermineFromFileExtension);
+            Dictionary<string, FileReference[]> fileInfoDictionary = fileInfoFactory.Create(results);
+
+            var runInfo = fileInfoDictionary != null && fileInfoDictionary.Count > 0
+                ? new RunInfo { FileInfo = fileInfoDictionary }
+                : null;
+
+            output.WriteToolAndRunInfo(toolInfo, runInfo);
+
+            foreach (Result result in results)
+            {
+                output.WriteResult(result);
             }
         }
 
