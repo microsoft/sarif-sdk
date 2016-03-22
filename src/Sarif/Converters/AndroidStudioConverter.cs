@@ -76,11 +76,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 : null;
 
             output.WriteToolAndRunInfo(toolInfo, runInfo);
-
-            foreach (Result result in results)
-            {
-                output.WriteResult(result);
-            }
+            output.WriteResults(results);
         }
 
         /// <summary>Processes an Android Studio log and writes issues therein to an instance of

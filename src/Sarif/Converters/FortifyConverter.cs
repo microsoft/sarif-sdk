@@ -77,11 +77,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 : null;
 
             output.WriteToolAndRunInfo(toolInfo, runInfo);
-
-            foreach (Result result in results)
-            {
-                output.WriteResult(result);
-            }
+            output.WriteResults(results);
         }
 
         /// <summary>Converts a Fortify result to a static analysis results interchange format result.</summary>

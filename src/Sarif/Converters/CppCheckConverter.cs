@@ -127,11 +127,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 : null;
 
             issueWriter.WriteToolAndRunInfo(toolInfo, runInfo);
-
-            foreach (Result result in results)
-            {
-                issueWriter.WriteResult(result);
-            }
+            issueWriter.WriteResults(results);
         }
     }
 }
