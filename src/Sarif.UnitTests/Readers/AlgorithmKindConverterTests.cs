@@ -50,8 +50,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
             {
                 var runInfo = new RunInfo();
 
-                runInfo.FileInfo = new Dictionary<string, FileReference[]> {
-                    ["http://abc"] = new FileReference[]
+                runInfo.FileInfo = new Dictionary<string, IList<FileReference>> {
+                    ["http://abc"] = new List<FileReference>
                     {
                         new FileReference()
                         {

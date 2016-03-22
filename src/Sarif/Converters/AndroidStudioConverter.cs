@@ -69,7 +69,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             };
 
             var fileInfoFactory = new FileInfoFactory(uri => MimeType.Java);
-            Dictionary<string, FileReference[]> fileInfoDictionary = fileInfoFactory.Create(results);
+            Dictionary<string, IList<FileReference>> fileInfoDictionary = fileInfoFactory.Create(results);
 
             var runInfo = fileInfoDictionary != null && fileInfoDictionary.Count > 0
                 ? new RunInfo { FileInfo = fileInfoDictionary }

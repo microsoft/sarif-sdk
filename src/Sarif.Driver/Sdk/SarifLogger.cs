@@ -81,7 +81,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
 
                 if (analysisTargets != null)
                 {
-                    runInfo.FileInfo = new Dictionary<string, FileReference[]>();
+                    runInfo.FileInfo = new Dictionary<string, IList<FileReference>>();
 
                     foreach (string target in analysisTargets)
                     {
@@ -102,7 +102,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
                             }
                             });
                         }
-                        runInfo.FileInfo.Add(fileReference.Uri.OriginalString, new FileReference[] { fileReference });
+                        runInfo.FileInfo.Add(fileReference.Uri.OriginalString, new List<FileReference> { fileReference });
                     }
                 }
                 string invocationInfo = Environment.CommandLine;
