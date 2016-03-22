@@ -5,7 +5,22 @@
       "toolInfo": {
         "name": "FxCop"
       },
-      "runInfo": {},
+      "runInfo": {
+        "fileInfo": {
+          "d:\\SecDevTools\\Main\\bin\\x86\\Debug\\FxCop\\FxCopTestData\\Crypto\\SecurityCryptographyRuleTests.dll": [
+            {
+              "uri": "d:\\SecDevTools\\Main\\bin\\x86\\Debug\\FxCop\\FxCopTestData\\Crypto\\SecurityCryptographyRuleTests.dll",
+              "mimeType": "application/octet-stream"
+            }
+          ],
+          "d:\\SecDevTools\\Main\\src\\FxCop\\Source\\FxCopTestData\\SecurityCryptographyRuleTests\\DESCannotBeUsed.cs": [
+            {
+              "uri": "d:\\SecDevTools\\Main\\src\\FxCop\\Source\\FxCopTestData\\SecurityCryptographyRuleTests\\DESCannotBeUsed.cs",
+              "mimeType": "text/x-csharp"
+            }
+          ]
+        }
+      },
       "results": [
         {
           "ruleId": "CA904",

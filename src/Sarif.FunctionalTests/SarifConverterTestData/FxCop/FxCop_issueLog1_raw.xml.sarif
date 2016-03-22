@@ -5,7 +5,214 @@
       "toolInfo": {
         "name": "FxCop"
       },
-      "runInfo": {},
+      "runInfo": {
+        "fileInfo": {
+          "C:\\MSECTools\\SecDevMain\\src\\Shared\\OneMicrosoftStaticAnalysisResults\\Sarif.Test.Functional\\SarifConverterTestData\\FxCop\\src\\SecurityCryptographyRuleTests.dll": [
+            {
+              "uri": "C:\\MSECTools\\SecDevMain\\src\\Shared\\OneMicrosoftStaticAnalysisResults\\Sarif.Test.Functional\\SarifConverterTestData\\FxCop\\src\\SecurityCryptographyRuleTests.dll",
+              "mimeType": "application/octet-stream"
+            }
+          ],
+          "c:\\MSECTools\\SecDevMain\\src\\FxCop\\Source\\FxCopTestData\\SecurityCryptographyRuleTests\\DESCannotBeUsed.cs": [
+            {
+              "uri": "c:\\MSECTools\\SecDevMain\\src\\FxCop\\Source\\FxCopTestData\\SecurityCryptographyRuleTests\\DESCannotBeUsed.cs",
+              "mimeType": "text/x-csharp"
+            }
+          ],
+          "c:\\MSECTools\\SecDevMain\\src\\FxCop\\Source\\FxCopTestData\\SecurityCryptographyRuleTests\\DSACannotBeUsed.cs": [
+            {
+              "uri": "c:\\MSECTools\\SecDevMain\\src\\FxCop\\Source\\FxCopTestData\\SecurityCryptographyRuleTests\\DSACannotBeUsed.cs",
+              "mimeType": "text/x-csharp"
+            }
+          ],
+          "c:\\MSECTools\\SecDevMain\\src\\FxCop\\Source\\FxCopTestData\\SecurityCryptographyRuleTests\\MD5CannotBeUsed.cs": [
+            {
+              "uri": "c:\\MSECTools\\SecDevMain\\src\\FxCop\\Source\\FxCopTestData\\SecurityCryptographyRuleTests\\MD5CannotBeUsed.cs",
+              "mimeType": "text/x-csharp"
+            }
+          ],
+          "c:\\MSECTools\\SecDevMain\\src\\FxCop\\Source\\FxCopTestData\\SecurityCryptographyRuleTests\\RC2CannotBeUsed.cs": [
+            {
+              "uri": "c:\\MSECTools\\SecDevMain\\src\\FxCop\\Source\\FxCopTestData\\SecurityCryptographyRuleTests\\RC2CannotBeUsed.cs",
+              "mimeType": "text/x-csharp"
+            }
+          ],
+          "c:\\MSECTools\\SecDevMain\\src\\FxCop\\Source\\FxCopTestData\\SecurityCryptographyRuleTests\\RijndaelCannotBeUsed.cs": [
+            {
+              "uri": "c:\\MSECTools\\SecDevMain\\src\\FxCop\\Source\\FxCopTestData\\SecurityCryptographyRuleTests\\RijndaelCannotBeUsed.cs",
+              "mimeType": "text/x-csharp"
+            }
+          ],
+          "c:\\MSECTools\\SecDevMain\\src\\FxCop\\Source\\FxCopTestData\\SecurityCryptographyRuleTests\\RIPEMD160IsNotRecommended.cs": [
+            {
+              "uri": "c:\\MSECTools\\SecDevMain\\src\\FxCop\\Source\\FxCopTestData\\SecurityCryptographyRuleTests\\RIPEMD160IsNotRecommended.cs",
+              "mimeType": "text/x-csharp"
+            }
+          ],
+          "c:\\MSECTools\\SecDevMain\\src\\FxCop\\Source\\FxCopTestData\\SecurityCryptographyRuleTests\\RSAProviderNeeds2048bitKey.cs": [
+            {
+              "uri": "c:\\MSECTools\\SecDevMain\\src\\FxCop\\Source\\FxCopTestData\\SecurityCryptographyRuleTests\\RSAProviderNeeds2048bitKey.cs",
+              "mimeType": "text/x-csharp"
+            }
+          ],
+          "c:\\MSECTools\\SecDevMain\\src\\FxCop\\Source\\FxCopTestData\\SecurityCryptographyRuleTests\\SHA1CannotBeUsed.cs": [
+            {
+              "uri": "c:\\MSECTools\\SecDevMain\\src\\FxCop\\Source\\FxCopTestData\\SecurityCryptographyRuleTests\\SHA1CannotBeUsed.cs",
+              "mimeType": "text/x-csharp"
+            }
+          ],
+          "c:\\MSECTools\\SecDevMain\\src\\FxCop\\Source\\FxCopTestData\\SecurityCryptographyRuleTests\\TripleDESCannotBeUsed.cs": [
+            {
+              "uri": "c:\\MSECTools\\SecDevMain\\src\\FxCop\\Source\\FxCopTestData\\SecurityCryptographyRuleTests\\TripleDESCannotBeUsed.cs",
+              "mimeType": "text/x-csharp"
+            }
+          ],
+          "C:\\MSECTools\\SecDevMain\\src\\Shared\\OneMicrosoftStaticAnalysisResults\\Sarif.Test.Functional\\SarifConverterTestData\\FxCop\\src\\SecurityXmlRuleTests.dll": [
+            {
+              "uri": "C:\\MSECTools\\SecDevMain\\src\\Shared\\OneMicrosoftStaticAnalysisResults\\Sarif.Test.Functional\\SarifConverterTestData\\FxCop\\src\\SecurityXmlRuleTests.dll",
+              "mimeType": "application/octet-stream"
+            }
+          ],
+          "c:\\MSECTools\\SecDevMain\\src\\FxCop\\Source\\FxCopTestData\\SecurityXmlRuleTests\\DoNotAllowDtdOnXmlReader.cs": [
+            {
+              "uri": "c:\\MSECTools\\SecDevMain\\src\\FxCop\\Source\\FxCopTestData\\SecurityXmlRuleTests\\DoNotAllowDtdOnXmlReader.cs",
+              "mimeType": "text/x-csharp"
+            }
+          ],
+          "c:\\MSECTools\\SecDevMain\\src\\FxCop\\Source\\FxCopTestData\\SecurityXmlRuleTests\\DoNotAllowDtdOnXmlTextReader.cs": [
+            {
+              "uri": "c:\\MSECTools\\SecDevMain\\src\\FxCop\\Source\\FxCopTestData\\SecurityXmlRuleTests\\DoNotAllowDtdOnXmlTextReader.cs",
+              "mimeType": "text/x-csharp"
+            }
+          ],
+          "c:\\MSECTools\\SecDevMain\\src\\FxCop\\Source\\FxCopTestData\\SecurityXmlRuleTests\\DoNotUseLoadXml.cs": [
+            {
+              "uri": "c:\\MSECTools\\SecDevMain\\src\\FxCop\\Source\\FxCopTestData\\SecurityXmlRuleTests\\DoNotUseLoadXml.cs",
+              "mimeType": "text/x-csharp"
+            }
+          ],
+          "c:\\MSECTools\\SecDevMain\\src\\FxCop\\Source\\FxCopTestData\\SecurityXmlRuleTests\\DoNotUseSetInnerXml.cs": [
+            {
+              "uri": "c:\\MSECTools\\SecDevMain\\src\\FxCop\\Source\\FxCopTestData\\SecurityXmlRuleTests\\DoNotUseSetInnerXml.cs",
+              "mimeType": "text/x-csharp"
+            }
+          ],
+          "c:\\MSECTools\\SecDevMain\\src\\FxCop\\Source\\FxCopTestData\\SecurityXmlRuleTests\\DoNotUseXslTransform.cs": [
+            {
+              "uri": "c:\\MSECTools\\SecDevMain\\src\\FxCop\\Source\\FxCopTestData\\SecurityXmlRuleTests\\DoNotUseXslTransform.cs",
+              "mimeType": "text/x-csharp"
+            }
+          ],
+          "c:\\MSECTools\\SecDevMain\\src\\FxCop\\Source\\FxCopTestData\\SecurityXmlRuleTests\\ReviewClassesDerivedFromXmlTextReader.cs": [
+            {
+              "uri": "c:\\MSECTools\\SecDevMain\\src\\FxCop\\Source\\FxCopTestData\\SecurityXmlRuleTests\\ReviewClassesDerivedFromXmlTextReader.cs",
+              "mimeType": "text/x-csharp"
+            }
+          ],
+          "c:\\MSECTools\\SecDevMain\\src\\FxCop\\Source\\FxCopTestData\\SecurityXmlRuleTests\\ReviewDataViewConnectionString.cs": [
+            {
+              "uri": "c:\\MSECTools\\SecDevMain\\src\\FxCop\\Source\\FxCopTestData\\SecurityXmlRuleTests\\ReviewDataViewConnectionString.cs",
+              "mimeType": "text/x-csharp"
+            }
+          ],
+          "c:\\MSECTools\\SecDevMain\\src\\FxCop\\Source\\FxCopTestData\\SecurityXmlRuleTests\\ReviewDtdProcessingAssignment.cs": [
+            {
+              "uri": "c:\\MSECTools\\SecDevMain\\src\\FxCop\\Source\\FxCopTestData\\SecurityXmlRuleTests\\ReviewDtdProcessingAssignment.cs",
+              "mimeType": "text/x-csharp"
+            }
+          ],
+          "c:\\MSECTools\\SecDevMain\\src\\FxCop\\Source\\FxCopTestData\\SecurityXmlRuleTests\\ReviewTrustedXsltUse.cs": [
+            {
+              "uri": "c:\\MSECTools\\SecDevMain\\src\\FxCop\\Source\\FxCopTestData\\SecurityXmlRuleTests\\ReviewTrustedXsltUse.cs",
+              "mimeType": "text/x-csharp"
+            }
+          ],
+          "c:\\MSECTools\\SecDevMain\\src\\FxCop\\Source\\FxCopTestData\\SecurityXmlRuleTests\\ReviewWebControlForSet_Data.cs": [
+            {
+              "uri": "c:\\MSECTools\\SecDevMain\\src\\FxCop\\Source\\FxCopTestData\\SecurityXmlRuleTests\\ReviewWebControlForSet_Data.cs",
+              "mimeType": "text/x-csharp"
+            }
+          ],
+          "c:\\MSECTools\\SecDevMain\\src\\FxCop\\Source\\FxCopTestData\\SecurityXmlRuleTests\\ReviewWebControlForSet_DocumentContent.cs": [
+            {
+              "uri": "c:\\MSECTools\\SecDevMain\\src\\FxCop\\Source\\FxCopTestData\\SecurityXmlRuleTests\\ReviewWebControlForSet_DocumentContent.cs",
+              "mimeType": "text/x-csharp"
+            }
+          ],
+          "c:\\MSECTools\\SecDevMain\\src\\FxCop\\Source\\FxCopTestData\\SecurityXmlRuleTests\\TextReaderImplNeedsSettingsAndResolver.cs": [
+            {
+              "uri": "c:\\MSECTools\\SecDevMain\\src\\FxCop\\Source\\FxCopTestData\\SecurityXmlRuleTests\\TextReaderImplNeedsSettingsAndResolver.cs",
+              "mimeType": "text/x-csharp"
+            }
+          ],
+          "c:\\MSECTools\\SecDevMain\\src\\FxCop\\Source\\FxCopTestData\\SecurityXmlRuleTests\\UseXmlReaderForDataSetReadXml.cs": [
+            {
+              "uri": "c:\\MSECTools\\SecDevMain\\src\\FxCop\\Source\\FxCopTestData\\SecurityXmlRuleTests\\UseXmlReaderForDataSetReadXml.cs",
+              "mimeType": "text/x-csharp"
+            }
+          ],
+          "c:\\MSECTools\\SecDevMain\\src\\FxCop\\Source\\FxCopTestData\\SecurityXmlRuleTests\\UseXmlReaderForDataSetReadXmlSchema.cs": [
+            {
+              "uri": "c:\\MSECTools\\SecDevMain\\src\\FxCop\\Source\\FxCopTestData\\SecurityXmlRuleTests\\UseXmlReaderForDataSetReadXmlSchema.cs",
+              "mimeType": "text/x-csharp"
+            }
+          ],
+          "c:\\MSECTools\\SecDevMain\\src\\FxCop\\Source\\FxCopTestData\\SecurityXmlRuleTests\\UseXmlReaderForDataTableReadXml.cs": [
+            {
+              "uri": "c:\\MSECTools\\SecDevMain\\src\\FxCop\\Source\\FxCopTestData\\SecurityXmlRuleTests\\UseXmlReaderForDataTableReadXml.cs",
+              "mimeType": "text/x-csharp"
+            }
+          ],
+          "c:\\MSECTools\\SecDevMain\\src\\FxCop\\Source\\FxCopTestData\\SecurityXmlRuleTests\\UseXmlReaderForDataTableReadXmlSchema.cs": [
+            {
+              "uri": "c:\\MSECTools\\SecDevMain\\src\\FxCop\\Source\\FxCopTestData\\SecurityXmlRuleTests\\UseXmlReaderForDataTableReadXmlSchema.cs",
+              "mimeType": "text/x-csharp"
+            }
+          ],
+          "c:\\MSECTools\\SecDevMain\\src\\FxCop\\Source\\FxCopTestData\\SecurityXmlRuleTests\\UseXmlReaderForDeserialize.cs": [
+            {
+              "uri": "c:\\MSECTools\\SecDevMain\\src\\FxCop\\Source\\FxCopTestData\\SecurityXmlRuleTests\\UseXmlReaderForDeserialize.cs",
+              "mimeType": "text/x-csharp"
+            }
+          ],
+          "c:\\MSECTools\\SecDevMain\\src\\FxCop\\Source\\FxCopTestData\\SecurityXmlRuleTests\\UseXmlReaderForLoad.cs": [
+            {
+              "uri": "c:\\MSECTools\\SecDevMain\\src\\FxCop\\Source\\FxCopTestData\\SecurityXmlRuleTests\\UseXmlReaderForLoad.cs",
+              "mimeType": "text/x-csharp"
+            }
+          ],
+          "c:\\MSECTools\\SecDevMain\\src\\FxCop\\Source\\FxCopTestData\\SecurityXmlRuleTests\\UseXmlReaderForSchemaRead.cs": [
+            {
+              "uri": "c:\\MSECTools\\SecDevMain\\src\\FxCop\\Source\\FxCopTestData\\SecurityXmlRuleTests\\UseXmlReaderForSchemaRead.cs",
+              "mimeType": "text/x-csharp"
+            }
+          ],
+          "c:\\MSECTools\\SecDevMain\\src\\FxCop\\Source\\FxCopTestData\\SecurityXmlRuleTests\\UseXmlReaderForValidatingReader.cs": [
+            {
+              "uri": "c:\\MSECTools\\SecDevMain\\src\\FxCop\\Source\\FxCopTestData\\SecurityXmlRuleTests\\UseXmlReaderForValidatingReader.cs",
+              "mimeType": "text/x-csharp"
+            }
+          ],
+          "c:\\MSECTools\\SecDevMain\\src\\FxCop\\Source\\FxCopTestData\\SecurityXmlRuleTests\\UseXmlReaderForXPathDocument.cs": [
+            {
+              "uri": "c:\\MSECTools\\SecDevMain\\src\\FxCop\\Source\\FxCopTestData\\SecurityXmlRuleTests\\UseXmlReaderForXPathDocument.cs",
+              "mimeType": "text/x-csharp"
+            }
+          ],
+          "c:\\MSECTools\\SecDevMain\\src\\FxCop\\Source\\FxCopTestData\\SecurityXmlRuleTests\\UseXmlSecureResolver.cs": [
+            {
+              "uri": "c:\\MSECTools\\SecDevMain\\src\\FxCop\\Source\\FxCopTestData\\SecurityXmlRuleTests\\UseXmlSecureResolver.cs",
+              "mimeType": "text/x-csharp"
+            }
+          ],
+          "c:\\MSECTools\\SecDevMain\\src\\FxCop\\Source\\FxCopTestData\\SecurityXmlRuleTests\\DoNotAddStringsToXmlSchema.cs": [
+            {
+              "uri": "c:\\MSECTools\\SecDevMain\\src\\FxCop\\Source\\FxCopTestData\\SecurityXmlRuleTests\\DoNotAddStringsToXmlSchema.cs",
+              "mimeType": "text/x-csharp"
+            }
+          ]
+        }
+      },
       "results": [
         {
           "ruleId": "CA904",

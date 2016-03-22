@@ -5,7 +5,16 @@
       "toolInfo": {
         "name": "FxCop"
       },
-      "runInfo": {},
+      "runInfo": {
+        "fileInfo": {
+          "$(ProjectDir)/SpecifyCultureInfo/Microsoft.TeamFoundation.Build.Client.dll": [
+            {
+              "uri": "$(ProjectDir)/SpecifyCultureInfo/Microsoft.TeamFoundation.Build.Client.dll",
+              "mimeType": "application/octet-stream"
+            }
+          ]
+        }
+      },
       "results": [
         {
           "ruleId": "CA1701",

@@ -10,7 +10,6 @@ using System.Linq;
 using System.Reflection;
 using System.Xml;
 using System.Xml.Schema;
-using Microsoft.CodeAnalysis.Sarif.Sdk;
 using Microsoft.CodeAnalysis.Sarif.Writers;
 
 namespace Microsoft.CodeAnalysis.Sarif.Converters
@@ -41,16 +40,31 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 throw (new ArgumentNullException("output"));
             }
 
-            ToolInfo toolInfo = new ToolInfo();
-            RunInfo runInfo = new RunInfo();
-            toolInfo.Name = "FxCop";
-            output.WriteToolAndRunInfo(toolInfo, runInfo);
-
             var context = new FxCopLogReader.Context();
 
+            var results = new List<Result>();
             var reader = new FxCopLogReader();
-            reader.IssueRead += (FxCopLogReader.Context current) => { output.WriteResult(CreateIssue(current)); };
+            reader.IssueRead += (FxCopLogReader.Context current) => { results.Add(CreateIssue(current)); };
             reader.Read(context, input);
+
+            ToolInfo toolInfo = new ToolInfo
+            {
+                Name = "FxCop"
+            };
+
+            var fileInfoFactory = new FileInfoFactory(MimeType.DetermineFromFileExtension);
+            Dictionary<string, FileReference[]> fileInfoDictionary = fileInfoFactory.Create(results);
+
+            var runInfo = fileInfoDictionary != null && fileInfoDictionary.Count > 0
+                ? new RunInfo { FileInfo = fileInfoDictionary }
+                : null;
+
+            output.WriteToolAndRunInfo(toolInfo, runInfo);
+
+            foreach (Result result in results)
+            {
+                output.WriteResult(result);
+            }
         }
 
         internal static Result CreateIssue(FxCopLogReader.Context context)
