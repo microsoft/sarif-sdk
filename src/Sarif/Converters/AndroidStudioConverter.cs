@@ -1,8 +1,6 @@
 ﻿// Copyright (c) Microsoft. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-//TODO: Take the MIME types that used to be in PhysicalLocationComponents and put them into fileInfo
-// dictionary.
 using System;
 using System.Collections.Generic;
 using System.Collections.Immutable;
