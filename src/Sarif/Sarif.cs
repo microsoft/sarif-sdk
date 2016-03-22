@@ -4714,6 +4714,17 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             if (node != null)
             {
+                if (node.FileInfo != null)
+                {
+                    foreach (string uri in node.FileInfo.Keys)
+                    {
+                        FileReference[] fileReferences = node.FileInfo[uri];
+                        foreach (FileReference fileReference in fileReferences)
+                        {
+                            this.VisitNullChecked(fileReference);
+                        }
+                    }
+                }
             }
 
             return (T)(object)node;
