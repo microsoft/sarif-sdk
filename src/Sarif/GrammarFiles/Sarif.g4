@@ -3,13 +3,13 @@
 /**
     @rootObject
     @className {ResultLog}
-    @summary {Static Analysis Results Format (SARIF) Version 1.0 JSON Schema (Draft 1.0.0-beta.1). SARIF defines a standard format for the output of static analysis tools.}
+    @summary {Static Analysis Results Format (SARIF) Version 1.0 JSON Schema (Draft 1.0.0-beta.2). SARIF defines a standard format for the output of static analysis tools.}
 */
 resultLog :
     /**
         @name {Version}
         @summary {
-        The SARIF tool format version of this log file. This value should be set to 1.0.0-beta.1, currently.
+        The SARIF tool format version of this log file. This value should be set to 1.0.0-beta.2, currently.
         This is the third proposed revision of a file format that is not yet completely finalized.
         }
     */
@@ -25,7 +25,7 @@ resultLog :
 /** @className {SarifVersion} 
 	@serializedValues {ZeroDotFour, OneZeroZeroBetaOne} 
 */
-sarifVersion : '1.0.0-beta.1';
+sarifVersion : '1.0.0-beta.2';
 
 runLog:
 

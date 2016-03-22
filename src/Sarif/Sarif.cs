@@ -3002,7 +3002,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     }
 
     /// <summary>
-    /// Static Analysis Results Format (SARIF) Version 1.0 JSON Schema (Draft 1.0.0-beta.1). SARIF defines a standard format for the output of static analysis tools.
+    /// Static Analysis Results Format (SARIF) Version 1.0 JSON Schema (Draft 1.0.0-beta.2). SARIF defines a standard format for the output of static analysis tools.
     /// </summary>
     [DataContract]
     [CompilerGenerated]
@@ -3013,7 +3013,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         public SarifKind SyntaxKind { get { return SarifKind.ResultLog; } }
 
         /// <summary>
-        /// The SARIF tool format version of this log file. This value should be set to 1.0.0-beta.1, currently.
+        /// The SARIF tool format version of this log file. This value should be set to 1.0.0-beta.2, currently.
         /// This is the third proposed revision of a file format that is not yet completely finalized.
         /// </summary>
         [DataMember(Name="version", IsRequired = true)]
@@ -4204,6 +4204,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         Unknown = 0,
         ZeroDotFour,
         OneZeroZeroBetaOne,
+        OneZeroZeroBetaTwo
     }
 
     /// <summary>

@@ -46,7 +46,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         }
 
         private const string EmptyResult = @"{
-  ""version"": ""1.0.0-beta.1"",
+  ""version"": ""1.0.0-beta.2"",
   ""runLogs"": [
     {
       ""toolInfo"": {

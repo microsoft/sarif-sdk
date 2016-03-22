@@ -45,7 +45,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
         [TestMethod]
         public void AlgorithmKindGroestl()
         {
-            string expected = "{\"version\":\"1.0.0-beta.1\",\"runLogs\":[{\"toolInfo\":{\"name\":null},\"runInfo\":{\"fileInfo\":{\"http://abc\":[{\"uri\":\"http://abc\",\"hashes\":[{\"value\":null,\"algorithm\":\"Groestl\"}]}]}},\"results\":[{}]}]}";
+            string expected = "{\"version\":\"1.0.0-beta.2\",\"runLogs\":[{\"toolInfo\":{\"name\":null},\"runInfo\":{\"fileInfo\":{\"http://abc\":[{\"uri\":\"http://abc\",\"hashes\":[{\"value\":null,\"algorithm\":\"Groestl\"}]}]}},\"results\":[{}]}]}";
             string actual = GetJson(uut =>
             {
                 var runInfo = new RunInfo();
