@@ -11,16 +11,13 @@
           "fullMessage": "Dereference of null pointer",
           "locations": [
             {
-              "analysisTarget": [
-                {
-                  "uri": "jmemmgr.c",
-                  "mimeType": "text/x-cpp",
-                  "region": {
-                    "startLine": 369,
-                    "startColumn": 21
-                  }
+              "analysisTarget": {
+                "uri": "jmemmgr.c",
+                "region": {
+                  "startLine": 369,
+                  "startColumn": 21
                 }
-              ]
+              }
             }
           ],
           "properties": {
@@ -35,16 +32,13 @@
           "fullMessage": "Array access (via field 'mem_buffer') results in a null pointer dereference",
           "locations": [
             {
-              "analysisTarget": [
-                {
-                  "uri": "jmemmgr.c",
-                  "mimeType": "text/x-cpp",
-                  "region": {
-                    "startLine": 824,
-                    "startColumn": 25
-                  }
+              "analysisTarget": {
+                "uri": "jmemmgr.c",
+                "region": {
+                  "startLine": 824,
+                  "startColumn": 25
                 }
-              ]
+              }
             }
           ],
           "properties": {
@@ -59,16 +53,13 @@
           "fullMessage": "Array access (via field 'mem_buffer') results in a null pointer dereference",
           "locations": [
             {
-              "analysisTarget": [
-                {
-                  "uri": "jmemmgr.c",
-                  "mimeType": "text/x-cpp",
-                  "region": {
-                    "startLine": 909,
-                    "startColumn": 25
-                  }
+              "analysisTarget": {
+                "uri": "jmemmgr.c",
+                "region": {
+                  "startLine": 909,
+                  "startColumn": 25
                 }
-              ]
+              }
             }
           ],
           "properties": {
@@ -83,16 +74,13 @@
           "fullMessage": "Dereference of null pointer",
           "locations": [
             {
-              "analysisTarget": [
-                {
-                  "uri": "jmemmgr.c",
-                  "mimeType": "text/x-cpp",
-                  "region": {
-                    "startLine": 1067,
-                    "startColumn": 24
-                  }
+              "analysisTarget": {
+                "uri": "jmemmgr.c",
+                "region": {
+                  "startLine": 1067,
+                  "startColumn": 24
                 }
-              ]
+              }
             }
           ],
           "properties": {

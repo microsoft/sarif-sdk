@@ -11,16 +11,13 @@
           "fullMessage": "Division by zero",
           "locations": [
             {
-              "analysisTarget": [
-                {
-                  "uri": "jquant1.c",
-                  "mimeType": "text/x-cpp",
-                  "region": {
-                    "startLine": 254,
-                    "startColumn": 51
-                  }
+              "analysisTarget": {
+                "uri": "jquant1.c",
+                "region": {
+                  "startLine": 254,
+                  "startColumn": 51
                 }
-              ]
+              }
             }
           ],
           "properties": {

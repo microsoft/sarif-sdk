@@ -11,13 +11,10 @@
           "fullMessage": "Value stored to 'scanptr' is never read",
           "locations": [
             {
-              "analysisTarget": [
-                {
-                  "uri": "jcparam.c",
-                  "mimeType": "text/x-cpp",
-                  "region": {}
-                }
-              ]
+              "analysisTarget": {
+                "uri": "jcparam.c",
+                "region": {}
+              }
             }
           ],
           "properties": {
@@ -32,13 +29,10 @@
           "fullMessage": "Value stored to 'scanptr' is never read",
           "locations": [
             {
-              "analysisTarget": [
-                {
-                  "uri": "jcparam.c",
-                  "mimeType": "text/x-cpp",
-                  "region": {}
-                }
-              ]
+              "analysisTarget": {
+                "uri": "jcparam.c",
+                "region": {}
+              }
             }
           ],
           "properties": {

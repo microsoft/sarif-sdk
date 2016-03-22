@@ -11,16 +11,13 @@
           "fullMessage": "The left operand of '<' is a garbage value",
           "locations": [
             {
-              "analysisTarget": [
-                {
-                  "uri": "jcmaster.c",
-                  "mimeType": "text/x-cpp",
-                  "region": {
-                    "startLine": 251,
-                    "startColumn": 30
-                  }
+              "analysisTarget": {
+                "uri": "jcmaster.c",
+                "region": {
+                  "startLine": 251,
+                  "startColumn": 30
                 }
-              ]
+              }
             }
           ],
           "properties": {
