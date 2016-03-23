@@ -8,6 +8,11 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// <summary>This interface serves as a sink for <see cref="ResultLog"/> format issues.</summary>
     public interface IResultLogWriter
     {
+        /// <summary>
+        /// Initialize the current output log.
+        /// </summary>
+        void Initialize();
+
         /// <summary>Writes tool information to the log.</summary>
         /// <exception cref="IOException">A file IO error occured. Clients implementing
         /// <see cref="IToolFileConverter"/> should allow these exceptions to propagate.</exception>
@@ -36,7 +41,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// rules metadata) should proactively call this method in order to ensure that an explicit 
         /// (but empty) results array exists in the log when no literal results were produced.
         /// </summary>
-        void InitializeResults();
+        void OpenResults();
 
         /// <summary>Writes a result to the log. The log must have tool info written first by calling
         /// <see cref="M:WriteToolInfo" />.</summary>

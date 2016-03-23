@@ -87,6 +87,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Validation
                 false,          // Do not compute target hash.
                 null,          // The version of this tool has no prerelease info.
                 null);        // no invocation tokens to redact
+
+            _logger.AnalysisStarted();
         }
 
         public IEnumerable<string> BuildLog(IEnumerable<JsonError> errors)
@@ -244,6 +246,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Validation
                 {
                     if (_logger != null)
                     {
+                        _logger.AnalysisStopped(RuntimeConditions.NoErrors);
                         _logger.Dispose();
                     }
                 }

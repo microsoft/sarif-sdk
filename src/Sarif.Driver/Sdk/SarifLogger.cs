@@ -33,7 +33,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
             return toolInfo;
         }
 
-
         private static RunInfo CreateRunInfo(
             IEnumerable<string> analysisTargets,
             bool computeTargetsHash,
@@ -177,7 +176,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
                 // Note: we write out the backing ruleDescriptors
                 // to prevent the property accessor from populating
                 // this data with an empty collection.
-                _issueLogJsonWriter.WriteRuleInfo(_ruleDescriptors);
+                if (_ruleDescriptors != null)
+                {
+                    _issueLogJsonWriter.WriteRuleInfo(_ruleDescriptors);
+                }
 
                 _issueLogJsonWriter.Dispose();
             }
@@ -191,12 +193,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
 
         public void AnalysisStarted()
         {
-            // TODO emit a message with timestamp
+            _issueLogJsonWriter.OpenResults();
+            _runInfo.RunStartTime = DateTime.UtcNow;
         }
 
         public void AnalysisStopped(RuntimeConditions runtimeConditions)
         {
-            // TODO emit a message with timestamp and success/failure results
+            _runInfo.RunEndTime = DateTime.UtcNow;
         }
 
         public void Log(IRuleDescriptor rule, Result result)

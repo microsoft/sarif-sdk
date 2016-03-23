@@ -180,9 +180,6 @@
   <data name="InvalidParentXml" xml:space="preserve">
     <value>Element expected to be located under a different parent element.</value>
   </data>
-  <data name="ToolInfoAlreadyWritten" xml:space="preserve">
-    <value>ToolInfo cannot be written at this location (it has already been written).</value>
-  </data>
   <data name="ExpectedElementNamed" xml:space="preserve">
     <value>Expected to find an element named {0}.</value>
   </data>
@@ -201,7 +198,16 @@
   <data name="CppCheckMissingLocation" xml:space="preserve">
     <value>A CppCheck entry must have a nonzero number of locations.</value>
   </data>
+  <data name="InvalidState" xml:space="preserve">
+    <value>One or more invalid states were detected during serialization: {0}</value>
+  </data>
+  <data name="ResultsSerializationNotComplete" xml:space="preserve">
+    <value>Object cannot be serialized until results serialization is completed.</value>
+  </data>
   <data name="RunInfoAlreadyWritten" xml:space="preserve">
     <value>RunInfo cannot be written at this location (it has already been written).</value>
+  </data>
+  <data name="ToolInfoAlreadyWritten" xml:space="preserve">
+    <value>ToolInfo cannot be written at this location (it has already been written).</value>
   </data>
 </root>

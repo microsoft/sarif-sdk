@@ -47,7 +47,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
                 // We can't infer/produce a runInfo object
 
-                output.InitializeResults();
+                output.OpenResults();
                 using (XmlReader xmlReader = XmlReader.Create(input, settings))
                 {
                     XmlNodeType nodeType = xmlReader.MoveToContent();

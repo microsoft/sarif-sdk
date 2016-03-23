@@ -34,7 +34,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         [TestMethod]
         public void ResultLogJsonWriter_DefaultIsEmpty()
         {
-            Assert.AreEqual(String.Empty, GetJson(delegate { }));
+            string expected = @"{""version"":""1.0.0-beta.1"",""runLogs"":[{}]}";
+            Assert.AreEqual(expected, GetJson(delegate { }));
         }
 
         [TestMethod]
@@ -48,13 +49,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 uut.WriteResult(s_defaultIssue);
             });
             Assert.AreEqual(expected, actual);
-        }
-
-        [TestMethod]
-        [ExpectedException(typeof(InvalidOperationException))]
-        public void ResultLogJsonWriter_RequiresToolInfoBeforeIssues()
-        {
-            GetJson(uut => uut.WriteResult(s_defaultIssue));
         }
 
         [TestMethod]
@@ -87,7 +81,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         }
 
         [TestMethod]
-        public void ResultLogJsonWriter_NullRunInfoIsOK()
+        [ExpectedException(typeof(ArgumentNullException))]
+        public void ResultLogJsonWriter_RequiresNonNullRunInfo()
         {
             GetJson(uut => uut.WriteRunInfo(null));
         }
@@ -105,7 +100,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         }
 
         [TestMethod]
-        [ExpectedException(typeof(ObjectDisposedException))]
+        [ExpectedException(typeof(InvalidOperationException))]
         public void ResultLogJsonWriter_CannotWriteToolInfoToDisposedWriter()
         {
             using (var str = new StringWriter())
@@ -119,7 +114,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         }
 
         [TestMethod]
-        [ExpectedException(typeof(ObjectDisposedException))]
+        [ExpectedException(typeof(InvalidOperationException))]
         public void ResultLogJsonWriter_CannotWriteIssuesToDisposedWriter()
         {
             using (var str = new StringWriter())

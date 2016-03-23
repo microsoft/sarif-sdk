@@ -20,12 +20,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         [Flags]
         private enum Conditions
         {
-            Initial = 0x1,
+            None = 0x0,
+            Initialized = 0x1,
             ToolInfoWritten = 0x2,
-            RunInfoWritten = 0x4,
-            ResultsInitialized = 0x8,
-            ResultsWritten = 0x10,
-            Disposed = 0x20
+            RuleInfoWritten = 0x4,
+            RunInfoWritten = 0x8,
+            ResultsInitialized = 0x10,
+            ResultsClosed = 0x20,
+            Disposed = 0x40
         }
 
         private Conditions _writeConditions;
@@ -40,6 +42,22 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             _jsonWriter = jsonWriter;
             _serializer = new JsonSerializer();
             _serializer.ContractResolver = SarifContractResolver.Instance;
+        }
+
+        public void Initialize()
+        {
+            this.EnsureStateNotAlreadySet(Conditions.Disposed | Conditions.Initialized);
+
+            _jsonWriter.WriteStartObject(); // Begin: resultLog
+            _jsonWriter.WritePropertyName("version");
+            _jsonWriter.WriteValue(SarifVersion.OneZeroZeroBetaOne.ConvertToText());
+
+            _jsonWriter.WritePropertyName("runLogs");
+            _jsonWriter.WriteStartArray(); // Begin: runLogs
+
+            _jsonWriter.WriteStartObject(); // Begin: runLog
+
+            _writeConditions |= Conditions.Initialized;
         }
 
         /// <summary>Writes a tool information entry to the log. This must be the first entry written into
@@ -57,44 +75,43 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 throw new ArgumentNullException("toolInfo");
             }
 
-            this.EnsureNotDisposed();
-            if ((_writeConditions & Conditions.ToolInfoWritten) == Conditions.ToolInfoWritten)
-            {
-                throw new InvalidOperationException(SarifResources.ToolInfoAlreadyWritten);
-            }
-
-            _jsonWriter.WriteStartObject(); // Begin: resultLog
-            _jsonWriter.WritePropertyName("version");
-            _jsonWriter.WriteValue(SarifVersion.OneZeroZeroBetaOne.ConvertToText());
-
-            _jsonWriter.WritePropertyName("runLogs");
-            _jsonWriter.WriteStartArray(); // Begin: runLogs
-
-            _jsonWriter.WriteStartObject(); // Begin: runLog
+            EnsureInitialized();
+            EnsureNoInProgressSerialization();
+            EnsureStateNotAlreadySet(Conditions.Disposed | Conditions.ToolInfoWritten);
 
             _jsonWriter.WritePropertyName("toolInfo");
             _serializer.Serialize(_jsonWriter, toolInfo, typeof(ToolInfo));
 
-            _writeConditions &= Conditions.ToolInfoWritten;
+            _writeConditions |= Conditions.ToolInfoWritten;
         }
 
         public void WriteRunInfo(RunInfo runInfo)
         {
-            if ((_writeConditions & Conditions.RunInfoWritten) == Conditions.RunInfoWritten)
+            if (runInfo == null)
             {
-                throw new InvalidOperationException(SarifResources.RunInfoAlreadyWritten);
+                throw new ArgumentNullException("runInfo");
             }
 
-            if (runInfo != null)
-            {
-                _jsonWriter.WritePropertyName("runInfo");
-                _serializer.Serialize(_jsonWriter, runInfo, typeof(RunInfo));
-            }
+            EnsureInitialized();
+            EnsureNoInProgressSerialization();
+            EnsureStateNotAlreadySet(Conditions.Disposed | Conditions.RunInfoWritten);
+
+            _jsonWriter.WritePropertyName("runInfo");
+            _serializer.Serialize(_jsonWriter, runInfo, typeof(RunInfo));
+
+            _writeConditions |= Conditions.RunInfoWritten;
         }
 
         public void WriteRuleInfo(IEnumerable<IRuleDescriptor> ruleDescriptors)
         {
-            if (ruleDescriptors == null) { return; }
+            if (ruleDescriptors == null)
+            {
+                throw new ArgumentNullException("ruleDescriptors");
+            }
+
+            EnsureInitialized();
+            EnsureNoInProgressSerialization();
+            EnsureStateNotAlreadySet(Conditions.Disposed | Conditions.RuleInfoWritten);
 
             _jsonWriter.WritePropertyName("ruleInfo");
             _jsonWriter.WriteStartArray();
@@ -116,12 +133,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             _jsonWriter.WriteEndArray();
         }
 
-        public void InitializeResults()
+        public void OpenResults()
         {
-            this.EnsureNotDisposed();
+            EnsureInitialized();
+            EnsureStateNotAlreadySet(Conditions.Disposed | Conditions.ResultsInitialized | Conditions.ResultsClosed);
+
             _jsonWriter.WritePropertyName("results");
             _jsonWriter.WriteStartArray(); // Begin: results
-            _writeConditions &= Conditions.Initial;
+
+            _writeConditions |= Conditions.ResultsInitialized;
         }
 
         /// <summary>Writes a result to the log. The log must have tool info written first by calling
@@ -141,11 +161,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 throw new ArgumentNullException("result");
             }
 
-            this.EnsureNotDisposed();
+            EnsureStateNotAlreadySet(Conditions.Disposed | Conditions.ResultsClosed);
 
             if ((_writeConditions & Conditions.ResultsInitialized) != Conditions.ResultsInitialized)
             {
-                InitializeResults();
+                OpenResults();
             }
 
             _serializer.Serialize(_jsonWriter, result, typeof(Result));
@@ -153,26 +173,38 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
         public void CloseResults()
         {
+            EnsureStateNotAlreadySet(Conditions.Disposed);
+
+            // We allow some resilience for writers that stream individual results to
+            // the log without explicit opening/closing the results object
+            if ((_writeConditions & Conditions.ResultsInitialized) != Conditions.ResultsInitialized ||
+                (_writeConditions & Conditions.ResultsClosed) == Conditions.ResultsClosed)
+            {
+                return;
+            }
+
             _jsonWriter.WriteEndArray();
-            _writeConditions = State.ResultsWritten;
+            _writeConditions |= Conditions.ResultsClosed;
         }
 
         /// <summary>Writes the log footer and closes the underlying <see cref="JsonWriter"/>.</summary>
         /// <seealso cref="M:System.IDisposable.Dispose()"/>
         public void Dispose()
         {
-            if (_writeConditions == State.Disposed)
+            EnsureInitialized();
+
+            if ((_writeConditions & Conditions.Disposed) == Conditions.Disposed)
             {
                 return;
             }
 
-            if (_writeConditions == State.Initial)
+            if (_writeConditions == Conditions.Initialized)
             {
                 // Log incomplete. No data should have been written at this point.
             }
             else
             {
-                if (_writeConditions == State.ResultsInitialized)
+                if ((_writeConditions & Conditions.ResultsInitialized) == Conditions.ResultsInitialized)
                 {
                     CloseResults();
                 }
@@ -184,20 +216,36 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 _jsonWriter.WriteEndObject(); // End: resultsLog
             }
 
-            _writeConditions = State.Disposed;
+            _writeConditions |= Conditions.Disposed;
         }
 
-        private void EnsureValidConditions(Conditions expectedConditions, Conditions invalidConditions)
+        private void EnsureInitialized()
         {
-
-        }
-
-        private void EnsureNotDisposed()
-        {
-            EnsureValidConditions(Conditions.Initial, Conditions.Disposed);
-            if ((_writeConditions & Conditions.Disposed) == Conditions.Disposed)
+            if (_writeConditions == Conditions.None)
             {
-                throw new ObjectDisposedException("ResultLogJsonWriter");
+                Initialize();
+            }
+        }
+
+        private void EnsureStateNotAlreadySet(Conditions invalidConditions)
+        {
+            Conditions observedInvalidConditions = _writeConditions & invalidConditions;
+            if (observedInvalidConditions != Conditions.None)
+            {
+                // 	InvalidState	One or more invalid states were detected during serialization: {0}	
+                throw new InvalidOperationException(string.Format(SarifResources.InvalidState, observedInvalidConditions));
+            }
+        }
+
+        private void EnsureNoInProgressSerialization()
+        {
+            // This method ensures that no in-progress serialization
+            // underway. Currently, only the results serialization
+            // is a multi-step process
+            if ((_writeConditions & Conditions.ResultsInitialized) == Conditions.ResultsInitialized &&
+                (_writeConditions & Conditions.ResultsClosed) != Conditions.ResultsClosed)
+            {
+                throw new InvalidOperationException(SarifResources.ResultsSerializationNotComplete);
             }
         }
     }

@@ -33,6 +33,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         /// <value>The list of <see cref="Result"/> objects written so far.</value>
         public ImmutableList<Result> IssueList { get { return _issueList; } }
 
+        public void Initialize() { }
+
         /// <summary>Writes a tool information entry to the log.</summary>
         /// <exception cref="InvalidOperationException">Thrown if the tool info block has already been
         /// written.</exception>
@@ -72,9 +74,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             _runInfo = runInfo;
         }
 
-        public void InitializeResults()
-        {
-        }
+        public void OpenResults() { }
+
 
         /// <summary>Writes a result to the log. The log must have tool info written first by calling
         /// <see cref="M:WriteToolInfo" />.</summary>

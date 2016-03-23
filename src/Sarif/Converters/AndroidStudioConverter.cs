@@ -80,7 +80,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             int problemsDepth = xmlReader.Depth;
             xmlReader.ReadStartElement(_strings.Problems);
 
-            output.InitializeResults();
+            output.OpenResults();
             while (xmlReader.Depth > problemsDepth)
             {
                 var problem = AndroidStudioProblem.Parse(xmlReader, _strings);
