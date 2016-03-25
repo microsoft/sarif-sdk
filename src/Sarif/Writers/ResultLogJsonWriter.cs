@@ -60,7 +60,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
             Debug.Assert(_writeState == State.Initial);
 
-            _jsonWriter.WriteStartObject(); // Begin: resultLog
+            _jsonWriter.WriteStartObject(); // Begin: sarifLog
             _jsonWriter.WritePropertyName("version");
             _jsonWriter.WriteValue(SarifVersion.OneZeroZeroBetaTwo.ConvertToText());
 

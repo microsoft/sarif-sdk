@@ -104,7 +104,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
 
         private void OutputSarifRulesMetada(string outputFilePath, ImmutableArray<IRuleDescriptor> skimmers, ImmutableArray<IOptionsProvider> options)
         {
-            var log = new ResultLog();
+            var log = new SarifLog();
 
             log.Version = SarifVersion.OneZeroZeroBetaTwo;
 

@@ -378,7 +378,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
                     ContractResolver = SarifContractResolver.Instance
                 };
 
-                ResultLog log = JsonConvert.DeserializeObject<ResultLog>(File.ReadAllText(path), settings);
+                SarifLog log = JsonConvert.DeserializeObject<SarifLog>(File.ReadAllText(path), settings);
                 Assert.NotNull(log);
                 Assert.Equal<int>(1, log.RunLogs.Count);
 
