@@ -26,5 +26,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
             context.Options = options;
             return context;
         }
+
+        protected override void ValidateOptions(TestAnalysisContext context, TestAnalyzeOptions options)
+        {
+            if (options.RegardOptionsAsInvalid)
+            {
+                context.RuntimeErrors |= RuntimeConditions.ExceptionInvalidCommandLineOption;
+                ThrowExitApplicationException(context, ExitReason.InvalidCommandLineOption);
+            }
+        }
     }
 }

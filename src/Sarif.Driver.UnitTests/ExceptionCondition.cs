@@ -13,6 +13,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
         InvokingCanAnalyze,
         InvokingInitialize,
         ParsingTarget,
-        LoadingPdb
+        LoadingPdb,
+        ValidatingOptions
     }
 }

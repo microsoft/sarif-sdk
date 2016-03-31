@@ -39,6 +39,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
         NoValidAnalysisTargets = 0x400,
         RuleMissingRequiredConfiguration = 0x800,
         TargetParseError = 0x1000,
+        ExceptionInvalidCommandLineOption = 0x2000,
 
         Fatal = (Int32.MaxValue ^ NonFatal),
 

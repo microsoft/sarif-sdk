@@ -76,6 +76,21 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
         }
 
         [Fact]
+        public void InvalidCommandLineOption()
+        {
+            var options = new TestAnalyzeOptions
+            {
+                RegardOptionsAsInvalid = true
+            };
+
+            ExceptionTestHelper(
+                ExceptionCondition.ValidatingOptions,
+                RuntimeConditions.ExceptionInvalidCommandLineOption,
+                ExitReason.InvalidCommandLineOption,
+                options);
+        }
+
+        [Fact]
         public void NotApplicableToTarget()
         {
             var options = new TestAnalyzeOptions()
