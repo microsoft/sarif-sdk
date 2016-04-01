@@ -18,16 +18,12 @@ namespace Microsoft.CodeAnalysis.Sarif
             return s_semVer200.IsMatch(versionString);
         }
 
-        private const string V0_4 = "0.4";
-        private const string V1_0_0_BETA_1 = "1.0.0-beta.1";
         private const string V1_0_0_BETA_2 = "1.0.0-beta.2";
 
         public static SarifVersion ConvertToSarifVersion(this string sarifVersionText)
         {
             switch (sarifVersionText)
             {
-                case V0_4: return SarifVersion.ZeroDotFour;
-                case V1_0_0_BETA_1: return SarifVersion.OneZeroZeroBetaOne;
                 case V1_0_0_BETA_2: return SarifVersion.OneZeroZeroBetaTwo;
             }
 
@@ -38,8 +34,6 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             switch (sarifVersion)
             {
-                case SarifVersion.ZeroDotFour: { return V0_4; }
-                case SarifVersion.OneZeroZeroBetaOne: { return V1_0_0_BETA_1; }
                 case SarifVersion.OneZeroZeroBetaTwo: { return V1_0_0_BETA_2; }
             }
             return "unknown";

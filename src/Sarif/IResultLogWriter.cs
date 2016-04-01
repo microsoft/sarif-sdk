@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace Microsoft.CodeAnalysis.Sarif
 {
-    /// <summary>This interface serves as a sink for <see cref="ResultLog"/> format issues.</summary>
+    /// <summary>This interface serves as a sink for <see cref="SarifLog"/> format issues.</summary>
     public interface IResultLogWriter
     {
         /// <summary>Writes run and tool information entries to the log. These must be the first

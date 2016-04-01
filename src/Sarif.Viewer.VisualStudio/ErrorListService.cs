@@ -22,7 +22,7 @@ namespace SarifViewer
 
         public static void ProcessLogFile(string filePath, ToolFormat toolFormat = ToolFormat.None)
         {
-            ResultLog log;
+            SarifLog log;
 
             JsonSerializerSettings settings = new JsonSerializerSettings()
             {
@@ -62,13 +62,13 @@ namespace SarifViewer
                 }
             }
 
-            log = JsonConvert.DeserializeObject<ResultLog>(logText, settings);
+            log = JsonConvert.DeserializeObject<SarifLog>(logText, settings);
             ProcessSarifLog(log);
         }
 
-        private static void ProcessSarifLog(ResultLog resultLog)
+        private static void ProcessSarifLog(SarifLog sarifLog)
         {
-            foreach (RunLog runLog in resultLog.RunLogs)
+            foreach (RunLog runLog in sarifLog.RunLogs)
             {
                 Instance.WriteRunLogToErrorList(runLog);
             }
