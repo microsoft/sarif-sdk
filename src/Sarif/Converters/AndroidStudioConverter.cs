@@ -32,7 +32,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         }
 
         /// <summary>
-        /// Converts an Android Studio formatted log as input into an SARIF SarifLog using the output.
+        /// Converts an Android Studio formatted log as input into a SARIF SarifLog using the output.
         /// </summary>
         /// <param name="input">The Android Studio formatted log.</param>
         /// <param name="output">The SarifLog to write the output to.</param>
