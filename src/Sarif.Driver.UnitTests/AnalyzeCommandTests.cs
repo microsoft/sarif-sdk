@@ -85,7 +85,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
 
             ExceptionTestHelper(
                 ExceptionCondition.ValidatingOptions,
-                RuntimeConditions.ExceptionInvalidCommandLineOption,
+                RuntimeConditions.InvalidCommandLineOption,
                 ExitReason.InvalidCommandLineOption,
                 options);
         }

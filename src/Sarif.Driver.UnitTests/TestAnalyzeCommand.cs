@@ -31,7 +31,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
         {
             if (options.RegardOptionsAsInvalid)
             {
-                context.RuntimeErrors |= RuntimeConditions.ExceptionInvalidCommandLineOption;
+                context.RuntimeErrors |= RuntimeConditions.InvalidCommandLineOption;
                 ThrowExitApplicationException(context, ExitReason.InvalidCommandLineOption);
             }
         }
