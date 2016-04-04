@@ -67,7 +67,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
                     }
                 };
 
-                uut.WriteToolAndRunInfo(s_defaultToolInfo, runInfo);
+                uut.WriteToolInfo(s_defaultToolInfo);
+                uut.WriteRunInfo(runInfo);
                 uut.WriteResult(s_defaultResult);
             });
             Assert.AreEqual(expected, actual);

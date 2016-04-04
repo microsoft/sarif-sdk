@@ -13,6 +13,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
 {
     public class SarifLogger : IDisposable, IAnalysisLogger
     {
+        private RunInfo _runInfo;
         private TextWriter _textWriter;
         private JsonTextWriter _jsonTextWriter;
         private ResultLogJsonWriter _issueLogJsonWriter;
@@ -32,26 +33,94 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
             return toolInfo;
         }
 
+        private static RunInfo CreateRunInfo(
+            IEnumerable<string> analysisTargets,
+            bool computeTargetsHash,
+            IEnumerable<string> invocationInfoTokensToRedact)
+        {
+            var runInfo = new RunInfo();
+
+            if (analysisTargets != null)
+            {
+                    runInfo.FileInfo = new Dictionary<string, IList<FileReference>>();
+
+                foreach (string target in analysisTargets)
+                {
+                    var fileReference = new FileReference()
+                    {
+                        Uri = target.CreateUriForJsonSerialization(),
+                    };
+
+                    if (computeTargetsHash)
+                    {
+                        string sha256Hash = HashUtilities.ComputeSha256Hash(target) ?? "[could not compute file hash]";
+                        fileReference.Hashes = new List<Hash>(new Hash[]
+                        {
+                            new Hash()
+                            {
+                                Value = sha256Hash,
+                                Algorithm = AlgorithmKind.Sha256,
+                            }
+                        });
+                    }
+                        runInfo.FileInfo.Add(fileReference.Uri.OriginalString, new List<FileReference> { fileReference });
+                }
+            }
+
+            string invocationInfo = Environment.CommandLine;
+
+            if (invocationInfoTokensToRedact != null)
+            {
+                foreach (string tokenToRedact in invocationInfoTokensToRedact)
+                {
+                    invocationInfo = invocationInfo.Replace(tokenToRedact, SarifConstants.RemovedMarker);
+                }
+            }
+            runInfo.InvocationInfo = invocationInfo;
+            runInfo.RunStartTime = DateTime.UtcNow;
+            return runInfo;
+        }
+
+        public SarifLogger(string outputFilePath, bool verbose, ToolInfo toolInfo, RunInfo runInfo)
+            : this (new StreamWriter(new FileStream(outputFilePath, FileMode.Create, FileAccess.Write, FileShare.None)),
+                  verbose,
+                  toolInfo, 
+                  runInfo)
+        {
+
+        }
+
+        public SarifLogger(TextWriter writer, bool verbose, ToolInfo toolInfo, RunInfo runInfo)
+        {
+            Verbose = verbose;
+
+            _textWriter = writer;
+            _jsonTextWriter = new JsonTextWriter(_textWriter);
+
+            // for debugging it is nice to have the following line added.
+            _jsonTextWriter.Formatting = Newtonsoft.Json.Formatting.Indented;
+            _runInfo = runInfo;
+            _issueLogJsonWriter.WriteToolInfo(toolInfo);
+        }
+
         public SarifLogger(
             string outputFilePath,
             bool verbose,
             IEnumerable<string> analysisTargets,
             bool computeTargetsHash,
             string prereleaseInfo,
-            IEnumerable<string> invocationInfoTokensToRedact = null,
-            RunInfo runInfo = null,
-            ToolInfo toolInfo = null)
-            : this(
-                  new StreamWriter(new FileStream(outputFilePath, FileMode.Create, FileAccess.Write, FileShare.None)),
-                  verbose,
-                  analysisTargets,
-                  computeTargetsHash,
-                  prereleaseInfo,
-                  invocationInfoTokensToRedact,
-                  runInfo,
-                  toolInfo)
+            IEnumerable<string> invocationInfoTokensToRedact)
+            : this(new StreamWriter(new FileStream(outputFilePath, FileMode.Create, FileAccess.Write, FileShare.None)),
+                    verbose,
+                    analysisTargets,
+                    computeTargetsHash, 
+                    prereleaseInfo,
+                    invocationInfoTokensToRedact)
         {
+
         }
+
+
 
         public SarifLogger(
             TextWriter textWriter,
@@ -59,9 +128,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
             IEnumerable<string> analysisTargets,
             bool computeTargetsHash,
             string prereleaseInfo,
-            IEnumerable<string> invocationInfoTokensToRedact = null,
-            RunInfo runInfo = null,
-            ToolInfo toolInfo = null)
+            IEnumerable<string> invocationInfoTokensToRedact)
         {
             Verbose = verbose;
 
@@ -73,51 +140,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
 
             _issueLogJsonWriter = new ResultLogJsonWriter(_jsonTextWriter);
 
-            toolInfo = toolInfo ?? CreateDefaultToolInfo(prereleaseInfo);
+            ToolInfo toolInfo = CreateDefaultToolInfo(prereleaseInfo);
+            _issueLogJsonWriter.WriteToolInfo(toolInfo);
 
-            if (runInfo == null)
-            {
-                runInfo = new RunInfo();
-
-                if (analysisTargets != null)
-                {
-                    runInfo.FileInfo = new Dictionary<string, IList<FileReference>>();
-
-                    foreach (string target in analysisTargets)
-                    {
-                        var fileReference = new FileReference()
-                        {
-                            Uri = target.CreateUriForJsonSerialization(),
-                        };
-
-                        if (computeTargetsHash)
-                        {
-                            string sha256Hash = HashUtilities.ComputeSha256Hash(target) ?? "[could not compute file hash]";
-                            fileReference.Hashes = new List<Hash>(new Hash[]
-                            {
-                            new Hash()
-                            {
-                                Value = sha256Hash,
-                                Algorithm = AlgorithmKind.Sha256,
-                            }
-                            });
-                        }
-                        runInfo.FileInfo.Add(fileReference.Uri.OriginalString, new List<FileReference> { fileReference });
-                    }
-                }
-                string invocationInfo = Environment.CommandLine;
-
-                if (invocationInfoTokensToRedact != null)
-                {
-                    foreach (string tokenToRedact in invocationInfoTokensToRedact)
-                    {
-                        invocationInfo = invocationInfo.Replace(tokenToRedact, SarifConstants.RemovedMarker);
-                    }
-                }
-                runInfo.InvocationInfo = invocationInfo;
-            }
-
-            _issueLogJsonWriter.WriteToolAndRunInfo(toolInfo, runInfo);
+            _runInfo = CreateRunInfo(analysisTargets, computeTargetsHash, invocationInfoTokensToRedact);
         }
 
         public HashSet<IRuleDescriptor> RuleDescriptors
@@ -139,11 +165,21 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
             if (_issueLogJsonWriter != null)
             {
                 _issueLogJsonWriter.CloseResults();
-                
+
+                if (_runInfo != null && _runInfo.RunStartTime != new DateTime())
+                {
+                    _runInfo.RunEndTime = DateTime.UtcNow;
+                }
+
+                _issueLogJsonWriter.WriteRunInfo(_runInfo);
+
                 // Note: we write out the backing ruleDescriptors
                 // to prevent the property accessor from populating
                 // this data with an empty collection.
-                _issueLogJsonWriter.WriteRuleInfo(_ruleDescriptors);
+                if (_ruleDescriptors != null)
+                {
+                    _issueLogJsonWriter.WriteRuleInfo(_ruleDescriptors);
+                }
 
                 _issueLogJsonWriter.Dispose();
             }
@@ -157,12 +193,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
 
         public void AnalysisStarted()
         {
-            // TODO emit a message with timestamp
+            _issueLogJsonWriter.OpenResults();
+            _runInfo.RunStartTime = DateTime.UtcNow;
         }
 
         public void AnalysisStopped(RuntimeConditions runtimeConditions)
         {
-            // TODO emit a message with timestamp and success/failure results
+            _runInfo.RunEndTime = DateTime.UtcNow;
         }
 
         public void Log(IRuleDescriptor rule, Result result)

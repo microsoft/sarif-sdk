@@ -184,7 +184,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
                                 analyzeOptions.Verbose,
                                 targets,
                                 analyzeOptions.ComputeTargetsHash,
-                                Prerelease)),
+                                Prerelease,
+                                invocationInfoTokensToRedact : null)),
                     (ex) =>
                     {
                         Errors.LogExceptionCreatingLogFile(context, filePath, ex);

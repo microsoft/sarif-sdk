@@ -12,8 +12,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
     /// <seealso cref="T:Microsoft.CodeAnalysis.Sarif.IResultLogWriter"/>
     public sealed class ResultLogObjectWriter : IResultLogWriter
     {
-        private ToolInfo _toolInfo;
         private RunInfo _runInfo;
+        private ToolInfo _toolInfo;
         private ImmutableList<Result> _issueList;
 
         /// <summary>Initializes a new instance of the <see cref="ResultLogObjectWriter"/> class.</summary>
@@ -34,13 +34,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         /// <value>The list of <see cref="Result"/> objects written so far.</value>
         public ImmutableList<Result> IssueList { get { return _issueList; } }
 
-        /// <summary>Writes a tool information entry to the log. This must be the first entry written into
-        /// a log, and it may be written at most once.</summary>
+        public void Initialize() { }
+
+        /// <summary>Writes a tool information entry to the log.</summary>
         /// <exception cref="InvalidOperationException">Thrown if the tool info block has already been
         /// written.</exception>
         /// <param name="toolInfo">The tool information to write.</param>
         /// <seealso cref="M:Microsoft.CodeAnalysis.Sarif.IsarifWriter.WriteToolInfo(ToolInfo)"/>
-        public void WriteToolAndRunInfo(ToolInfo toolInfo, RunInfo runInfo)
+        public void WriteToolInfo(ToolInfo toolInfo)
         {
             if (toolInfo == null)
             {
@@ -53,8 +54,29 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             }
 
             _toolInfo = toolInfo;
+        }
+        /// <summary>Writes a run information entry to the log.</summary>
+        /// <exception cref="InvalidOperationException">Thrown if the tool info block has already been
+        /// written.</exception>
+        /// <param name="toolInfo">The tool information to write.</param>
+        /// <seealso cref="M:Microsoft.CodeAnalysis.Sarif.IsarifWriter.WriteToolInfo(ToolInfo)"/>
+        public void WriteRunInfo(RunInfo runInfo)
+        {
+            if (runInfo == null)
+            {
+                throw new ArgumentNullException(nameof(runInfo));
+            }
+
+            if (_runInfo != null)
+            {
+                throw new InvalidOperationException(SarifResources.ToolInfoAlreadyWritten);
+            }
+
             _runInfo = runInfo;
         }
+
+        public void OpenResults() { }
+
 
         /// <summary>
         /// Writes a result to the log. The log must have tool and run info written first by calling

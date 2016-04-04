@@ -48,6 +48,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 throw new ArgumentNullException("output");
             }
 
+
+            // We can't infer/produce a runInfo object
+
             XmlReaderSettings settings = new XmlReaderSettings
             {
                 IgnoreWhitespace = true,
@@ -92,6 +95,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             int problemsDepth = xmlReader.Depth;
             xmlReader.ReadStartElement(_strings.Problems);
 
+            output.OpenResults();
             while (xmlReader.Depth > problemsDepth)
             {
                 var problem = AndroidStudioProblem.Parse(xmlReader, _strings);

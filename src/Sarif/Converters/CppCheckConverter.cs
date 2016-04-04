@@ -85,6 +85,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 throw reader.CreateException(SarifResources.CppCheckCppCheckElementMissing);
             }
 
+
+            // We can't infer/produce a runInfo object
             reader.Skip(); // <cppcheck />
 
             if (!Ref.Equal(reader.LocalName, _strings.Errors))

@@ -44,12 +44,16 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 throw new ArgumentNullException("output");
             }
 
+
+            // We can't infer/produce a runInfo object
             var settings = new XmlReaderSettings
             {
                 DtdProcessing = DtdProcessing.Ignore,
                 IgnoreWhitespace = true,
                 NameTable = _nameTable
             };
+
+            output.OpenResults();
 
             var results = new List<Result>();
             using (XmlReader reader = XmlReader.Create(input, settings))

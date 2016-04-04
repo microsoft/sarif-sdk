@@ -40,6 +40,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 throw (new ArgumentNullException("output"));
             }
 
+
+            // We can't infer/produce a runInfo object
+
+            output.OpenResults();
             var context = new FxCopLogReader.Context();
 
             var results = new List<Result>();

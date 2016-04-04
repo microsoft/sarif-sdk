@@ -27,7 +27,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         public void ResultLogObjectWriter_AcceptsIssuesAndToolInfo()
         {
             var uut = new ResultLogObjectWriter();
-            uut.WriteToolAndRunInfo(s_defaultToolInfo, s_defaultRunInfo);
+            uut.WriteToolInfo(s_defaultToolInfo);
+            uut.WriteRunInfo(s_defaultRunInfo);
             uut.WriteResult(s_defaultIssue);
 
             Assert.AreEqual(s_defaultToolInfo, uut.ToolInfo);
@@ -48,21 +49,31 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         public void ResultLogObjectWriter_ToolInfoMayNotBeWrittenMoreThanOnce()
         {
             var uut = new ResultLogObjectWriter();
-            uut.WriteToolAndRunInfo(s_defaultToolInfo, s_defaultRunInfo);
-            uut.WriteToolAndRunInfo(s_defaultToolInfo, s_defaultRunInfo);
+            uut.WriteToolInfo(s_defaultToolInfo);
+            uut.WriteToolInfo(s_defaultToolInfo);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(InvalidOperationException))]
+        public void ResultLogObjectWriter_RunInfoMayNotBeWrittenMoreThanOnce()
+        {
+            var uut = new ResultLogObjectWriter();
+            uut.WriteRunInfo(s_defaultRunInfo);
+            uut.WriteRunInfo(s_defaultRunInfo);
         }
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentNullException))]
         public void ResultLogObjectWriter_RequiresNonNullToolInfo()
         {
-            new ResultLogObjectWriter().WriteToolAndRunInfo(null, s_defaultRunInfo);
+            new ResultLogObjectWriter().WriteToolInfo(null);
         }
 
         [TestMethod]
-        public void ResultLogObjectWriter_RequiresNullRunInfoIsOk()
+        [ExpectedException(typeof(ArgumentNullException))]
+        public void ResultLogObjectWriter_RequiresNonNullRunInfo()
         {
-            new ResultLogObjectWriter().WriteToolAndRunInfo(s_defaultToolInfo, null);
+            new ResultLogObjectWriter().WriteRunInfo(null);
         }
 
         [TestMethod]
@@ -70,8 +81,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         public void ResultLogObjectWriter_RequiresNonNullIssue()
         {
             var uut = new ResultLogObjectWriter();
-            uut.WriteToolAndRunInfo(s_defaultToolInfo, s_defaultRunInfo);
-            uut.WriteResult(null);
+            uut.WriteToolInfo(s_defaultToolInfo);
+            uut.WriteRunInfo(s_defaultRunInfo); uut.WriteResult(null);
         }
     }
 }

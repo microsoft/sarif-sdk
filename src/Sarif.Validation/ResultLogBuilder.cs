@@ -82,10 +82,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Validation
 
             _logger = new SarifLogger(
                 outputFilePath,
-                true,           // Produce verbose output.
-                new[] { instanceFilePath, schemaFilePath },
-                false,          // Do not compute target hash.
-                null);          // The version of this tool has no prerelease info.
+                verbose: true,
+                analysisTargets: new[] { instanceFilePath, schemaFilePath },
+                computeTargetsHash: false,
+                prereleaseInfo: null,
+                invocationInfoTokensToRedact:null);
+
+            _logger.AnalysisStarted();
         }
 
         public IEnumerable<string> BuildLog(IEnumerable<JsonError> errors)
@@ -242,6 +245,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Validation
                 {
                     if (_logger != null)
                     {
+                        _logger.AnalysisStopped(RuntimeConditions.NoErrors);
                         _logger.Dispose();
                     }
                 }

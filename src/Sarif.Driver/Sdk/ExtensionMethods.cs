@@ -81,10 +81,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
             foreach (var location in result.Locations)
             {
                 PhysicalLocation physicalLocation = location.ResultFile ?? location.AnalysisTarget;
+                Uri uri = physicalLocation.Uri;
+                string path = uri.IsFile ? uri.LocalPath : uri.ToString();
                 messageLines.Add(
                     string.Format(
                         CultureInfo.InvariantCulture, "{0}{1}: {2} {3}: {4}",
-                        physicalLocation.Uri.AbsolutePath,
+                        path,
                         physicalLocation.Region.FormatForVisualStudio(),
                         result.Kind.FormatForVisualStudio(),
                         result.RuleId,
