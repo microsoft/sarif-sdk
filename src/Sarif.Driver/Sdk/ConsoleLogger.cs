@@ -73,10 +73,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
 
             // TODO we need better retrieval for locations than these defaults
             // Note that we can potentially emit many messages from a single result
+            PhysicalLocation physicalLocation = result.Locations?[0].ResultFile ?? result.Locations?[0].AnalysisTarget;
             WriteToConsole(
                 result.Kind,
-                result.Locations?[0].AnalysisTarget?[0].Uri,
-                result.Locations?[0].AnalysisTarget?[0].Region,
+                physicalLocation?.Uri,
+                physicalLocation?.Region,
                 result.RuleId,
                 message);
         }

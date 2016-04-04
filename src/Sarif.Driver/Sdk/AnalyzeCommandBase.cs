@@ -53,6 +53,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
             return ((RuntimeErrors & RuntimeConditions.Fatal) == RuntimeConditions.NoErrors) ? SUCCESS : FAILURE;
         }
 
+        protected abstract void ValidateOptions(TContext context, TOptions analyzeOptions);
+
         private void Analyze(TOptions analyzeOptions, AggregatingLogger logger)
         {
             // 0. Log analysis initiation
@@ -67,25 +69,29 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
             //    instances and will be passed on again for analysis.
             this.rootContext = CreateContext(analyzeOptions, logger, policy, RuntimeErrors);
 
-            // 3. Produce a comprehensive set of analysis targets 
+            // 3. Perform any command line argument validation beyond what
+            //    the command line parser library is capable of.
+            ValidateOptions(this.rootContext, analyzeOptions);
+
+            // 4. Produce a comprehensive set of analysis targets 
             HashSet<string> targets = CreateTargetsSet(analyzeOptions);
 
-            // 4. Proactively validate that we can locate and 
+            // 5. Proactively validate that we can locate and 
             //    access all analysis targets. Helper will return
             //    a list that potentially filters out files which
             //    did not exist, could not be accessed, etc.
             targets = ValidateTargetsExist(this.rootContext, targets);
 
-            // 5. Initialize report file, if configured.
+            // 6. Initialize report file, if configured.
             InitializeOutputFile(analyzeOptions, this.rootContext, targets);
 
-            // 6. Instantiate skimmers.
+            // 7. Instantiate skimmers.
             HashSet<ISkimmer<TContext>> skimmers = CreateSkimmers(this.rootContext);
 
-            // 7. Initialize skimmers. Initialize occurs a single time only.
+            // 8. Initialize skimmers. Initialize occurs a single time only.
             skimmers = InitializeSkimmers(skimmers, this.rootContext);
 
-            // 8. Run all analysis
+            // 9. Run all analysis
             AnalyzeTargets(analyzeOptions, skimmers, this.rootContext, targets);
 
             // 9. For test purposes, raise an unhandled exception if indicated
@@ -179,7 +185,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
                                 targets,
                                 analyzeOptions.ComputeTargetsHash,
                                 Prerelease,
-                                null)),
+                                invocationInfoTokensToRedact : null)),
                     (ex) =>
                     {
                         Errors.LogExceptionCreatingLogFile(context, filePath, ex);
@@ -357,7 +363,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
             return candidateSkimmers;
         }
 
-        private void ThrowExitApplicationException(TContext context, ExitReason exitReason, Exception innerException = null)
+        protected void ThrowExitApplicationException(TContext context, ExitReason exitReason, Exception innerException = null)
         {
             RuntimeErrors |= context.RuntimeErrors;
 

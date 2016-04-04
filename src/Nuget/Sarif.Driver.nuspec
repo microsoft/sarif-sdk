@@ -24,9 +24,9 @@
   </metadata>
   <files>
     <file src='Sarif.Driver.dll' target='lib\net40\Sarif.Driver.dll'/>
-    <file src='Sarif.Driver.dll' target='lib\net40\Sarif.Driver.pdb'/>
+    <file src='Sarif.Driver.pdb' target='lib\net40\Sarif.Driver.pdb'/>
 
-    <file src='Sarif.Driver.pdb' target='lib\net45\Sarif.Driver.dll'/>
+    <file src='Sarif.Driver.dll' target='lib\net45\Sarif.Driver.dll'/>
     <file src='Sarif.Driver.pdb' target='lib\net45\Sarif.Driver.pdb'/>
     
     <file src="..\..\..\..\src\Sarif.Driver\*.cs" target="src" />    

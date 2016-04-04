@@ -82,11 +82,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Validation
 
             _logger = new SarifLogger(
                 outputFilePath,
-                true,           // Produce verbose output.
-                new[] { instanceFilePath, schemaFilePath },
-                false,          // Do not compute target hash.
-                null,          // The version of this tool has no prerelease info.
-                null);        // no invocation tokens to redact
+                verbose: true,
+                analysisTargets: new[] { instanceFilePath, schemaFilePath },
+                computeTargetsHash: false,
+                prereleaseInfo: null,
+                invocationInfoTokensToRedact:null);
 
             _logger.AnalysisStarted();
         }
@@ -217,16 +217,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Validation
                 region = new Region();
             }
 
-            var plc = new PhysicalLocationComponent
+            var plc = new PhysicalLocation
             {
                 Uri = analysisTargetUri,
-                MimeType = JsonMimeType,
                 Region = region
             };
 
             var location = new Location
             {
-                AnalysisTarget = new PhysicalLocationComponent[] { plc }
+                AnalysisTarget = new PhysicalLocation(plc)
             };
 
             result.Locations = new List<Location> { location };

@@ -2,12 +2,10 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using System;
-using System.Collections.Generic;
 using System.Xml;
 using FluentAssertions;
 
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Microsoft.CodeAnalysis.Sarif.Sdk;
 
 namespace Microsoft.CodeAnalysis.Sarif.Converters
 {
@@ -70,13 +68,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         [TestMethod]
         public void CppCheckLocation_CanBeConvertedToSarifIssue()
         {
-            List<PhysicalLocationComponent> result = new CppCheckLocation("foo.cpp", 42).ToSarifPhysicalLocation();
-            Assert.AreEqual(new PhysicalLocationComponent
+            PhysicalLocation result = new CppCheckLocation("foo.cpp", 42).ToSarifPhysicalLocation();
+            Assert.AreEqual(new PhysicalLocation
             {
                 Uri = new Uri("foo.cpp", UriKind.RelativeOrAbsolute),
-                MimeType = "text/x-cpp",
                 Region = new Region { StartLine = 42 }
-            }, result[0]);
+            }, result);
         }
 
         [TestMethod]

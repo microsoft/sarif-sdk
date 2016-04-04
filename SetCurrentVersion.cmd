@@ -1,4 +1,4 @@
 set MAJOR=1
-set MINOR=4
-set PATCH=34
+set MINOR=5
+set PATCH=0
 set PRERELEASE=-beta

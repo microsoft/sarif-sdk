@@ -34,17 +34,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 throw new ArgumentNullException("output");
             }
 
-
             try
             {
                 XmlReaderSettings settings = new XmlReaderSettings();
                 settings.IgnoreWhitespace = true;
                 settings.DtdProcessing = DtdProcessing.Ignore;
 
-                ToolInfo toolInfo = new ToolInfo();
-                toolInfo.Name = "Clang";
-                output.WriteToolInfo(toolInfo);
-
+                var results = new List<Result>();
                 // We can't infer/produce a runInfo object
 
                 output.OpenResults();
@@ -56,10 +52,25 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                     {
                         using (var pListReader = xmlReader.ReadSubtree())
                         {
-                            this.ReadPlist(pListReader, output);
+                            this.ReadPlist(pListReader, results);
                         }
                     }
                 }
+
+                var toolInfo = new ToolInfo
+                {
+                    Name = "Clang"
+                };
+
+                var fileInfoFactory = new FileInfoFactory(MimeType.DetermineFromFileExtension);
+                Dictionary<string, IList<FileReference>> fileInfoDictionary = fileInfoFactory.Create(results);
+
+                var runInfo = fileInfoDictionary != null && fileInfoDictionary.Count > 0
+                    ? new RunInfo { FileInfo = fileInfoDictionary }
+                    : null;
+
+                output.WriteToolAndRunInfo(toolInfo, runInfo);
+                output.WriteResults(results);
             }
             finally
             {
@@ -111,7 +122,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             return value ?? string.Empty;
         }
 
-        private void LogIssue(IDictionary<string, object> issueData, IResultLogWriter output)
+        private Result CreateResult(IDictionary<string, object> issueData)
         {
             if (issueData != null)
             {
@@ -143,7 +154,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                     }
                 }
 
-                Result result = new Result
+                return new Result
                 {
                     RuleId = issueType,
                     FullMessage = description,
@@ -151,17 +162,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                     {
                         new Location
                         {
-                            AnalysisTarget = new[]
+                            AnalysisTarget = new PhysicalLocation
                             {
-                                new PhysicalLocationComponent
+                                Uri = new Uri(fileName, UriKind.RelativeOrAbsolute),
+                                Region = new Region()
                                 {
-                                    Uri = new Uri(fileName, UriKind.RelativeOrAbsolute),
-                                    MimeType = MimeType.DetermineFromFileExtension(fileName),
-                                    Region = new Region()
-                                    {
-                                        StartLine = issueLine,
-                                        StartColumn = issueColumn
-                                    }
+                                    StartLine = issueLine,
+                                    StartColumn = issueColumn
                                 }
                             }
                         }
@@ -173,8 +180,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                         { "issueHash", issueHash },
                     }
                 };
-
-                output.WriteResult(result);
+            }
+            else
+            {
+                return null;
             }
         }
 
@@ -318,7 +327,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             return dictionary;
         }
 
-        private void ReadPlistDictionary(XmlReader xmlReader, IResultLogWriter output)
+        private void ReadPlistDictionary(XmlReader xmlReader, IList<Result> results)
         {
             string keyName = string.Empty;
             bool readerMoved = false;       // ReadElementContentAsString reads to next element
@@ -368,7 +377,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
                                     if (keyName.Equals("diagnostics"))
                                     {
-                                        ReadDiagnostics(subTreeReader, output);
+                                        ReadDiagnostics(subTreeReader, results);
                                     }
 
                                     keyName = string.Empty;
@@ -384,7 +393,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             }
         }
 
-        private void ReadDiagnostics(XmlReader xmlReader, IResultLogWriter output)
+        private void ReadDiagnostics(XmlReader xmlReader, IList<Result> results)
         {
             xmlReader.Read(); // Read past the "array" element start.
 
@@ -397,7 +406,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                         using (var subTreeReader = xmlReader.ReadSubtree())
                         {
                             IDictionary<string, object> dictionary = ReadDictionary(subTreeReader);
-                            this.LogIssue(dictionary, output);
+                            Result result = this.CreateResult(dictionary);
+                            if (result != null)
+                            {
+                                results.Add(result);
+                            }
                         }
                     }
                 }
@@ -409,7 +422,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             }
         }
 
-        private void ReadPlist(XmlReader xmlReader, IResultLogWriter output)
+        private void ReadPlist(XmlReader xmlReader, IList<Result> results)
         {
             while (xmlReader.Read())
             {
@@ -419,7 +432,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                     {
                         using (var subTreeReader = xmlReader.ReadSubtree())
                         {
-                            this.ReadPlistDictionary(subTreeReader, output);
+                            this.ReadPlistDictionary(subTreeReader, results);
                         }
                     }
                 }

@@ -22,9 +22,9 @@
   </metadata>
   <files>
     <file src='Sarif.dll' target='lib\net40\Sarif.dll'/>
-    <file src='Sarif.dll' target='lib\net40\Sarif.pdb'/>
+    <file src='Sarif.pdb' target='lib\net40\Sarif.pdb'/>
 
-    <file src='Sarif.pdb' target='lib\net45\Sarif.dll'/>
+    <file src='Sarif.dll' target='lib\net45\Sarif.dll'/>
     <file src='Sarif.pdb' target='lib\net45\Sarif.pdb'/>
     
     <file src="..\..\..\..\src\Sarif\**\*.cs" target="src" />    

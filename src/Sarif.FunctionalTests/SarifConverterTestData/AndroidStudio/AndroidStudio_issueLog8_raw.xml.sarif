@@ -1,9 +1,25 @@
 {
-  "version": "1.0.0-beta.1",
+  "version": "1.0.0-beta.2",
   "runLogs": [
     {
       "toolInfo": {
         "name": "AndroidStudio"
+      },
+      "runInfo": {
+        "fileInfo": {
+          "app/src/main/java/microsoft/androidstudioformatexample/MainActivity.java": [
+            {
+              "uri": "app/src/main/java/microsoft/androidstudioformatexample/MainActivity.java",
+              "mimeType": "text/x-java-source"
+            }
+          ],
+          "app/src/main/java/microsoft/androidstudioformatexample/NamespaceTypo.java": [
+            {
+              "uri": "app/src/main/java/microsoft/androidstudioformatexample/NamespaceTypo.java",
+              "mimeType": "text/x-java-source"
+            }
+          ]
+        }
       },
       "results": [
         {
@@ -12,15 +28,12 @@
           "shortMessage": "Can be package local",
           "locations": [
             {
-              "resultFile": [
-                {
-                  "uri": "app/src/main/java/microsoft/androidstudioformatexample/MainActivity.java",
-                  "mimeType": "text/x-java-source",
-                  "region": {
-                    "startLine": 9
-                  }
+              "resultFile": {
+                "uri": "app/src/main/java/microsoft/androidstudioformatexample/MainActivity.java",
+                "region": {
+                  "startLine": 9
                 }
-              ],
+              },
               "logicalLocation": [
                 {
                   "name": "app",
@@ -49,15 +62,12 @@
           "shortMessage": "Can be package local",
           "locations": [
             {
-              "resultFile": [
-                {
-                  "uri": "app/src/main/java/microsoft/androidstudioformatexample/NamespaceTypo.java",
-                  "mimeType": "text/x-java-source",
-                  "region": {
-                    "startLine": 6
-                  }
+              "resultFile": {
+                "uri": "app/src/main/java/microsoft/androidstudioformatexample/NamespaceTypo.java",
+                "region": {
+                  "startLine": 6
                 }
-              ],
+              },
               "logicalLocation": [
                 {
                   "name": "app",

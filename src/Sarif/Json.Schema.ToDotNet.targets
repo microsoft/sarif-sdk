@@ -3,22 +3,6 @@
     <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
   </PropertyGroup>
 
-  <!-- Make sure the data model generator project is built before the build for this project starts. -->
-  
-  <PropertyGroup>
-    <!-- If a project already references DataModelGenerator for some other reason, set this to false. -->
-    <BuildDataModelGenerator Condition="'$(BuildDataModelGenerator)'!=''">$([System.Convert]::ToBoolean($(BuildDataModelGenerator)))</BuildDataModelGenerator>
-    <BuildDataModelGenerator Condition="'$(BuildDataModelGenerator)'==''">true</BuildDataModelGenerator>
-  </PropertyGroup>
-
-  <ItemGroup Condition="'$(BuildDataModelGenerator)'=='true'">
-    <ProjectReference Include="$(MSBuildThisFileDirectory)DataModelGenerator\DataModelGenerator.csproj">
-      <Project>{b4f63d09-5cea-4afa-a72b-a1455b077ae2}</Project>
-      <Name>DataModelGenerator</Name>
-      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
-    </ProjectReference>
-  </ItemGroup>
-
   <PropertyGroup>
     <!-- Inject grammar building. Must be after Microsoft.CSharp.targets is imported. -->
     <CompileDependsOn>BuildAndInjectGrammars;$(CompileDependsOn)</CompileDependsOn>

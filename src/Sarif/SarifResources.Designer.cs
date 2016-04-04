@@ -304,7 +304,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Sdk {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to One or more invalid states were detected during serialization: {0}.
+        ///   Looks up a localized string similar to One or more invalid states were detected during serialization. This indicates that logging methods were called in the wrong order: {0}.
         /// </summary>
         internal static string InvalidState {
             get {
@@ -322,7 +322,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Sdk {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to RunInfo cannot be written at this location (it has already been written)..
+        ///   Looks up a localized string similar to RunInfo has already been written. It cannot be written again..
         /// </summary>
         internal static string RunInfoAlreadyWritten {
             get {
@@ -331,7 +331,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Sdk {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to ToolInfo cannot be written at this location (it has already been written)..
+        ///   Looks up a localized string similar to ToolInfo has already been written. It cannot be written again..
         /// </summary>
         internal static string ToolInfoAlreadyWritten {
             get {

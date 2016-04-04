@@ -34,14 +34,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         [TestMethod]
         public void ResultLogJsonWriter_DefaultIsEmpty()
         {
-            string expected = @"{""version"":""1.0.0-beta.1"",""runLogs"":[{}]}";
+            string expected = @"{""version"":""1.0.0-beta.2"",""runLogs"":[{}]}";
             Assert.AreEqual(expected, GetJson(delegate { }));
         }
 
         [TestMethod]
         public void ResultLogJsonWriter_AcceptsIssuesAndToolInfo()
         {
-            string expected = "{\"version\":\"1.0.0-beta.1\",\"runLogs\":[{\"toolInfo\":{\"name\":null},\"runInfo\":{},\"results\":[{}]}]}";
+            string expected = "{\"version\":\"1.0.0-beta.2\",\"runLogs\":[{\"toolInfo\":{\"name\":null},\"runInfo\":{},\"results\":[{}]}]}";
             string actual = GetJson(uut =>
             {
                 uut.WriteToolInfo(s_defaultToolInfo);

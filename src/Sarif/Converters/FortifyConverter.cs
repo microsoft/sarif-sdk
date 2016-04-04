@@ -44,13 +44,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 throw new ArgumentNullException("output");
             }
 
-            output.WriteToolInfo(new ToolInfo
-            {
-                Name = "Fortify"
-            });
 
             // We can't infer/produce a runInfo object
-
             var settings = new XmlReaderSettings
             {
                 DtdProcessing = DtdProcessing.Ignore,
@@ -60,6 +55,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
             output.OpenResults();
 
+            var results = new List<Result>();
             using (XmlReader reader = XmlReader.Create(input, settings))
             {
                 while (reader.Read())
@@ -67,10 +63,25 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                     while (Ref.Equal(reader.LocalName, _strings.Issue))
                     {
                         FortifyIssue fortify = FortifyIssue.Parse(reader, _strings);
-                        output.WriteResult(ConvertFortifyIssueToSarifIssue(fortify));
+                        results.Add(ConvertFortifyIssueToSarifIssue(fortify));
                     }
                 }
             }
+
+            var toolInfo = new ToolInfo
+            {
+                Name = "Fortify"
+            };
+
+            var fileInfoFactory = new FileInfoFactory(MimeType.DetermineFromFileExtension);
+            Dictionary<string, IList<FileReference>> fileInfoDictionary = fileInfoFactory.Create(results);
+
+            var runInfo = fileInfoDictionary != null && fileInfoDictionary.Count > 0
+                ? new RunInfo { FileInfo = fileInfoDictionary }
+                : null;
+
+            output.WriteToolAndRunInfo(toolInfo, runInfo);
+            output.WriteResults(results);
         }
 
         /// <summary>Converts a Fortify result to a static analysis results interchange format result.</summary>
@@ -124,7 +135,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
             result.Properties = extraProperties;
 
-            List<PhysicalLocationComponent> primaryOrSink = ConvertFortifyLocationToPhysicalLocation(fortify.PrimaryOrSink);
+            PhysicalLocation primaryOrSink = ConvertFortifyLocationToPhysicalLocation(fortify.PrimaryOrSink);
             result.Locations = new[]
             {
                 new Location
@@ -135,7 +146,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
             if (fortify.Source != null)
             {
-                List<PhysicalLocationComponent> source = ConvertFortifyLocationToPhysicalLocation(fortify.Source);
+                PhysicalLocation source = ConvertFortifyLocationToPhysicalLocation(fortify.Source);
                 result.ExecutionFlows = new[]
                 {
                     new[]
@@ -149,16 +160,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             return result;
         }
 
-        private static List<PhysicalLocationComponent> ConvertFortifyLocationToPhysicalLocation(FortifyPathElement element)
+        private static PhysicalLocation ConvertFortifyLocationToPhysicalLocation(FortifyPathElement element)
         {
-            return new List<PhysicalLocationComponent>
+            return new PhysicalLocation
             {
-                new PhysicalLocationComponent
-                {
-                    Uri = new Uri(element.FilePath, UriKind.RelativeOrAbsolute),
-                    MimeType = MimeType.DetermineFromFileExtension(element.FilePath),
-                    Region = Extensions.CreateRegion(element.LineStart)
-                }
+                Uri = new Uri(element.FilePath, UriKind.RelativeOrAbsolute),
+                Region = Extensions.CreateRegion(element.LineStart)
             };
         }
     }

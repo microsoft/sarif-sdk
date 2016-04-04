@@ -32,10 +32,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         }
 
         /// <summary>
-        /// Converts an Android Studio formatted log as input into an SARIF ResultLog using the output.
+        /// Converts an Android Studio formatted log as input into a SARIF SarifLog using the output.
         /// </summary>
         /// <param name="input">The Android Studio formatted log.</param>
-        /// <param name="output">The ResultLog to write the output to.</param>
+        /// <param name="output">The SarifLog to write the output to.</param>
         public void Convert(Stream input, IResultLogWriter output)
         {
             if (input == null)
@@ -48,13 +48,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 throw new ArgumentNullException("output");
             }
 
-            output.WriteToolInfo(new ToolInfo
-            {
-                Name = "AndroidStudio"
-            });
 
             // We can't infer/produce a runInfo object
-
 
             XmlReaderSettings settings = new XmlReaderSettings
             {
@@ -65,18 +60,38 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 DtdProcessing = DtdProcessing.Ignore
             };
 
+            IList<Result> results;
             using (XmlReader xmlReader = XmlReader.Create(input, settings))
             {
-                ProcessAndroidStudioLog(xmlReader, output);
+                results = ProcessAndroidStudioLog(xmlReader);
             }
+
+            var toolInfo = new ToolInfo
+            {
+                Name = "AndroidStudio"
+            };
+
+            var fileInfoFactory = new FileInfoFactory(uri => MimeType.Java);
+            Dictionary<string, IList<FileReference>> fileInfoDictionary = fileInfoFactory.Create(results);
+
+            var runInfo = fileInfoDictionary != null && fileInfoDictionary.Count > 0
+                ? new RunInfo { FileInfo = fileInfoDictionary }
+                : null;
+
+            output.WriteToolAndRunInfo(toolInfo, runInfo);
+            output.WriteResults(results);
         }
 
         /// <summary>Processes an Android Studio log and writes issues therein to an instance of
         /// <see cref="IResultLogWriter"/>.</summary>
         /// <param name="xmlReader">The XML reader from which AndroidStudio format shall be read.</param>
-        /// <param name="output">The <see cref="IResultLogWriter"/> to write the output to.</param>
-        private void ProcessAndroidStudioLog(XmlReader xmlReader, IResultLogWriter output)
+        /// <returns>
+        /// A list of the <see cref="Result"/> objects translated from the AndroidStudio format.
+        /// </returns>
+        private IList<Result> ProcessAndroidStudioLog(XmlReader xmlReader)
         {
+            var results = new List<Result>();
+
             int problemsDepth = xmlReader.Depth;
             xmlReader.ReadStartElement(_strings.Problems);
 
@@ -86,11 +101,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 var problem = AndroidStudioProblem.Parse(xmlReader, _strings);
                 if (problem != null)
                 {
-                    output.WriteResult(AndroidStudioConverter.ConvertProblemToSarifIssue(problem));
+                    results.Add(ConvertProblemToSarifIssue(problem));
                 }
             }
 
             xmlReader.ReadEndElement(); // </problems>
+
+            return results;
         }
 
         public static Result ConvertProblemToSarifIssue(AndroidStudioProblem problem)
@@ -158,14 +175,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             string file = problem.File;
             if (!String.IsNullOrEmpty(file))
             {
-                location.ResultFile = new[]
+                location.ResultFile = new PhysicalLocation
                 {
-                    new PhysicalLocationComponent
-                    {
-                        Uri = RemoveBadRoot(file),
-                        MimeType = MimeType.Java,
-                        Region = problem.Line <= 0 ? null : Extensions.CreateRegion(problem.Line)
-                    }
+                    Uri = RemoveBadRoot(file),
+                    Region = problem.Line <= 0 ? null : Extensions.CreateRegion(problem.Line)
                 };
             }
 
@@ -176,19 +189,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                     location.ResultFile = location.AnalysisTarget;
                 }
 
-                location.AnalysisTarget = new[]
+                location.AnalysisTarget = new PhysicalLocation
                 {
-                    new PhysicalLocationComponent
-                    {
-                        Uri = RemoveBadRoot(problem.EntryPointName),
-                        MimeType = MimeType.Java
-                    }
+                    Uri = RemoveBadRoot(problem.EntryPointName)
                 };
             }
 
             return result;
         }
-
 
         /// <summary>Generates a user-facing description for a problem, using the description supplied at
         /// construction time if it is present; otherwise, generates a description from the problem type.</summary>

@@ -76,6 +76,21 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
         }
 
         [Fact]
+        public void InvalidCommandLineOption()
+        {
+            var options = new TestAnalyzeOptions
+            {
+                RegardOptionsAsInvalid = true
+            };
+
+            ExceptionTestHelper(
+                ExceptionCondition.ValidatingOptions,
+                RuntimeConditions.InvalidCommandLineOption,
+                ExitReason.InvalidCommandLineOption,
+                options);
+        }
+
+        [Fact]
         public void NotApplicableToTarget()
         {
             var options = new TestAnalyzeOptions()
@@ -378,7 +393,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
                     ContractResolver = SarifContractResolver.Instance
                 };
 
-                ResultLog log = JsonConvert.DeserializeObject<ResultLog>(File.ReadAllText(path), settings);
+                SarifLog log = JsonConvert.DeserializeObject<SarifLog>(File.ReadAllText(path), settings);
                 Assert.NotNull(log);
                 Assert.Equal<int>(1, log.RunLogs.Count);
 

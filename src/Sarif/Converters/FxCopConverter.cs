@@ -10,7 +10,6 @@ using System.Linq;
 using System.Reflection;
 using System.Xml;
 using System.Xml.Schema;
-using Microsoft.CodeAnalysis.Sarif.Sdk;
 using Microsoft.CodeAnalysis.Sarif.Writers;
 
 namespace Microsoft.CodeAnalysis.Sarif.Converters
@@ -41,19 +40,31 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 throw (new ArgumentNullException("output"));
             }
 
-            ToolInfo toolInfo = new ToolInfo();
-            toolInfo.Name = "FxCop";
-            output.WriteToolInfo(toolInfo);
 
             // We can't infer/produce a runInfo object
 
             output.OpenResults();
-
             var context = new FxCopLogReader.Context();
 
+            var results = new List<Result>();
             var reader = new FxCopLogReader();
-            reader.IssueRead += (FxCopLogReader.Context current) => { output.WriteResult(CreateIssue(current)); };
+            reader.IssueRead += (FxCopLogReader.Context current) => { results.Add(CreateIssue(current)); };
             reader.Read(context, input);
+
+            ToolInfo toolInfo = new ToolInfo
+            {
+                Name = "FxCop"
+            };
+
+            var fileInfoFactory = new FileInfoFactory(MimeType.DetermineFromFileExtension);
+            Dictionary<string, IList<FileReference>> fileInfoDictionary = fileInfoFactory.Create(results);
+
+            var runInfo = fileInfoDictionary != null && fileInfoDictionary.Count > 0
+                ? new RunInfo { FileInfo = fileInfoDictionary }
+                : null;
+
+            output.WriteToolAndRunInfo(toolInfo, runInfo);
+            output.WriteResults(results);
         }
 
         internal static Result CreateIssue(FxCopLogReader.Context context)
@@ -74,27 +85,19 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
             if (!String.IsNullOrEmpty(context.Target))
             {
-                loc.AnalysisTarget = new[]
+                loc.AnalysisTarget = new PhysicalLocation
                 {
-                    new PhysicalLocationComponent
-                    {
-                        Uri = new Uri(context.Target, UriKind.RelativeOrAbsolute),
-                        MimeType = MimeType.Binary
-                    }
+                    Uri = new Uri(context.Target, UriKind.RelativeOrAbsolute)
                 };
             }
 
             string sourceFile = GetFilePath(context);
             if (!String.IsNullOrWhiteSpace(sourceFile))
             {
-                loc.ResultFile = new[]
+                loc.ResultFile = new PhysicalLocation
                 {
-                    new PhysicalLocationComponent
-                    {
-                        Uri = new Uri(sourceFile, UriKind.RelativeOrAbsolute),
-                        MimeType = MimeType.DetermineFromFileExtension(sourceFile),
-                        Region = context.Line == null ? null : Extensions.CreateRegion(context.Line.Value)
-                    }
+                    Uri = new Uri(sourceFile, UriKind.RelativeOrAbsolute),
+                    Region = context.Line == null ? null : Extensions.CreateRegion(context.Line.Value)
                 };
             }
 

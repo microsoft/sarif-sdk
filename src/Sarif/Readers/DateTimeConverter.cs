@@ -1,7 +1,7 @@
 ﻿// Copyright (c) Microsoft. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 using System;
-
+using System.Globalization;
 using Newtonsoft.Json;
 
 namespace Microsoft.CodeAnalysis.Sarif.Readers
@@ -27,12 +27,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
 
         public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
         {
-            return DateTime.Parse((string)reader.Value);
+            return DateTime.Parse((string)reader.Value, CultureInfo.InvariantCulture);
         }
 
         public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
         {
-            string formattedDate = ((DateTime)value).ToString(DateTimeFormat);
+            string formattedDate = ((DateTime)value).ToString(DateTimeFormat, CultureInfo.InvariantCulture);
             writer.WriteRawValue(@"""" + value + @"""");
         }
     }

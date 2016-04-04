@@ -53,7 +53,12 @@ sn -k GeneratedKey.snk
 
 @REM Build all code
 %~dp0.nuget\NuGet.exe restore src\Everything.sln 
-msbuild /verbosity:minimal /target:rebuild src\Everything.sln /p:"Configuration=Release" /p:"Platform=Any CPU"
+
+if "%ERRORLEVEL%" NEQ "0" (
+goto ExitFailed
+)
+
+msbuild /verbosity:minimal /target:rebuild src\Everything.sln /p:"Configuration=Release" /p:"Platform=Any CPU" /filelogger /fileloggerparameters:Verbosity=normal
 
 if "%ERRORLEVEL%" NEQ "0" (
 goto ExitFailed
@@ -94,7 +99,7 @@ goto ExitFailed
 goto Exit
 
 :ExitFailed
-@echo  
+@echo.
 @echo SCRIPT FAILED
 
 :Exit
