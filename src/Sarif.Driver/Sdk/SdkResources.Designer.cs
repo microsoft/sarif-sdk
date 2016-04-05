@@ -71,7 +71,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to An exception was raised attempting to create output file &apos;{0}&apos;. Exception information:
+        ///   Looks up a localized string similar to An exception was raised attempting to create output file: &apos;{0}&apos;. Exception information:
         ///{1}.
         /// </summary>
         internal static string ERR0997_ExceptionCreatingLogFile {
@@ -91,7 +91,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to An exception was raised attempting to load analysis target &apos;{0}&apos;. Exception information:
+        ///   Looks up a localized string similar to An exception was raised attempting to load analysis target: &apos;{0}&apos;. Exception information:
         ///{1}.
         /// </summary>
         internal static string ERR0997_ExceptionLoadingAnalysisTarget {
@@ -110,7 +110,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to An exception was raised attempting to load plug-in &apos;{0}&apos;. Exception information:
+        ///   Looks up a localized string similar to An exception was raised attempting to load plug-in: &apos;{0}&apos;. Exception information:
         ///{1}.
         /// </summary>
         internal static string ERR0997_ExceptionLoadingPlugIn {

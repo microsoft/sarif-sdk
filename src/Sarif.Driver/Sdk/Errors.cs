@@ -154,7 +154,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
         {
             context.Rule = Errors.InvalidConfiguration;
 
-            // An exception was raised attempting to create output file '{0}'. Exception information:
+            // An exception was raised attempting to create output file: '{0}'. Exception information:
             // {1}
             context.Logger.Log(context.Rule,
                 RuleUtilities.BuildResult(ResultKind.ConfigurationError, context, null,
@@ -169,7 +169,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
         {
             context.Rule = Errors.InvalidConfiguration;
 
-            // A required file specified on the command-line could not be found ('{0}'). 
+            // A required file specified on the command line could not be found:'{0}'. 
             context.Logger.Log(context.Rule,
                 RuleUtilities.BuildResult(ResultKind.ConfigurationError, context, null,
                     nameof(SdkResources.ERR0997_MissingFile),
@@ -182,7 +182,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
         {
             context.Rule = Errors.InvalidConfiguration;
 
-            // An exception was raised accessing a file specified on the command-line ('{0}'). Exception information:
+            // An exception was raised accessing a file specified on the command-line: '{0}'. Exception information:
             // {1}
             context.Logger.Log(context.Rule,
                 RuleUtilities.BuildResult(ResultKind.ConfigurationError, context, null,
