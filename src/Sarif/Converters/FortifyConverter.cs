@@ -44,16 +44,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 throw new ArgumentNullException("output");
             }
 
-
-            // We can't infer/produce a runInfo object
             var settings = new XmlReaderSettings
             {
                 DtdProcessing = DtdProcessing.Ignore,
                 IgnoreWhitespace = true,
                 NameTable = _nameTable
             };
-
-            output.OpenResults();
 
             var results = new List<Result>();
             using (XmlReader reader = XmlReader.Create(input, settings))
@@ -80,8 +76,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 ? new RunInfo { FileInfo = fileInfoDictionary }
                 : null;
 
-            output.WriteToolAndRunInfo(toolInfo, runInfo);
+            output.WriteToolInfo(toolInfo);
+            if (runInfo != null) { output.WriteRunInfo(runInfo); }
+
+            output.OpenResults();
             output.WriteResults(results);
+            output.CloseResults();
         }
 
         /// <summary>Converts a Fortify result to a static analysis results interchange format result.</summary>

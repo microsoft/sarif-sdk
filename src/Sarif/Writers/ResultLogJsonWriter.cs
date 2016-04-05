@@ -50,7 +50,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
             _jsonWriter.WriteStartObject(); // Begin: resultLog
             _jsonWriter.WritePropertyName("version");
-            _jsonWriter.WriteValue(SarifVersion.OneZeroZeroBetaOne.ConvertToText());
+            _jsonWriter.WriteValue(SarifVersion.OneZeroZeroBetaTwo.ConvertToText());
 
             _jsonWriter.WritePropertyName("runLogs");
             _jsonWriter.WriteStartArray(); // Begin: runLogs
@@ -76,10 +76,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             }
 
             EnsureInitialized();
-            EnsureNoInProgressSerialization();
+            EnsureResultsArrayIsNotOpen();
             EnsureStateNotAlreadySet(Conditions.Disposed | Conditions.ToolInfoWritten);
-            _jsonWriter.WriteStartObject(); // Begin: sarifLog
-            _jsonWriter.WriteValue(SarifVersion.OneZeroZeroBetaTwo.ConvertToText());
 
             _jsonWriter.WritePropertyName("toolInfo");
             _serializer.Serialize(_jsonWriter, toolInfo, typeof(ToolInfo));
@@ -95,7 +93,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             }
 
             EnsureInitialized();
-            EnsureNoInProgressSerialization();
+            EnsureResultsArrayIsNotOpen();
             EnsureStateNotAlreadySet(Conditions.Disposed | Conditions.RunInfoWritten);
 
             _jsonWriter.WritePropertyName("runInfo");
@@ -112,7 +110,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             }
 
             EnsureInitialized();
-            EnsureNoInProgressSerialization();
+            EnsureResultsArrayIsNotOpen();
             EnsureStateNotAlreadySet(Conditions.Disposed | Conditions.RuleInfoWritten);
 
             _jsonWriter.WritePropertyName("ruleInfo");
@@ -133,6 +131,18 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             }
 
             _jsonWriter.WriteEndArray();
+
+            _writeConditions |= Conditions.RuleInfoWritten;
+        }
+
+        public void OpenResults()
+        {
+            EnsureResultsArrayIsNotOpen();
+            EnsureStateNotAlreadySet(Conditions.Disposed | Conditions.ResultsClosed);
+
+            _jsonWriter.WritePropertyName("results");
+            _jsonWriter.WriteStartArray(); // Begin: results
+            _writeConditions = Conditions.ResultsInitialized;
         }
 
         /// <summary>
@@ -141,11 +151,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         /// </summary>
         /// <remarks>
         /// This function makes a copy of the data stored in <paramref name="result"/>; if a
-            _jsonWriter.WriteStartArray(); // Begin: results
-
-            _writeConditions |= Conditions.ResultsInitialized;
-        }
-
         /// client wishes to reuse the result instance to avoid allocations they can do so. (This function
         /// may invoke an internal copy of the result or serialize it in place to disk, etc.)
         /// </remarks>
@@ -273,7 +278,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             }
         }
 
-        private void EnsureNoInProgressSerialization()
+        private void EnsureResultsArrayIsNotOpen()
         {
             // This method ensures that no in-progress serialization
             // underway. Currently, only the results serialization

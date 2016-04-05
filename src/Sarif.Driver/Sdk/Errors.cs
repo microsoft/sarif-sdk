@@ -163,6 +163,34 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
             context.RuntimeErrors |= RuntimeConditions.ExceptionCreatingLogfile;
         }
 
+        public static void LogMissingFile(IAnalysisContext context, string fileName)
+        {
+            context.Rule = Errors.InvalidConfiguration;
+
+            // A required file specified on the command-line could not be found ('{0}'). 
+            context.Logger.Log(context.Rule,
+                RuleUtilities.BuildResult(ResultKind.ConfigurationError, context, null,
+                    nameof(SdkResources.ERR0997_MissingFile),
+                    fileName));
+
+            context.RuntimeErrors |= RuntimeConditions.MissingFile;
+        }
+
+        public static void LogExceptionAccessingFile(IAnalysisContext context, string fileName, Exception ex)
+        {
+            context.Rule = Errors.InvalidConfiguration;
+
+            // An exception was raised accessing a file specified on the command-line ('{0}'). Exception information:
+            // {1}
+            context.Logger.Log(context.Rule,
+                RuleUtilities.BuildResult(ResultKind.ConfigurationError, context, null,
+                    nameof(SdkResources.ERR0997_ExceptionAccessingFile),
+                    fileName,
+                    ex.ToString()));
+
+            context.RuntimeErrors |= RuntimeConditions.ExceptionAccessingFile;
+        }
+
 
         public static void LogMissingRuleConfiguration(IAnalysisContext context, string reasonForNotAnalyzing)
         {            

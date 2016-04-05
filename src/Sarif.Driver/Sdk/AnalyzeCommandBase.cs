@@ -4,7 +4,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-
+using System.Security;
 using Microsoft.CodeAnalysis.Sarif.Sdk;
 
 namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
@@ -53,8 +53,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
             return ((RuntimeErrors & RuntimeConditions.Fatal) == RuntimeConditions.NoErrors) ? SUCCESS : FAILURE;
         }
 
-        protected abstract void ValidateOptions(TContext context, TOptions analyzeOptions);
-
         private void Analyze(TOptions analyzeOptions, AggregatingLogger logger)
         {
             // 0. Log analysis initiation
@@ -99,6 +97,59 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
             {
                 throw new InvalidOperationException(this.GetType().Name);
             }
+        }
+
+        protected virtual void ValidateOptions(TContext context, TOptions analyzeOptions)
+        {
+            bool succeeded = true;
+
+            succeeded &= ValidateFile(context, analyzeOptions.OutputFilePath, shouldExist: null);
+            succeeded &= ValidateFile(context, analyzeOptions.ConfigurationFilePath, shouldExist: true);
+            succeeded &= ValidateFiles(context, analyzeOptions.PlugInFilePaths, shouldExist: true);
+
+            if (!succeeded)
+            {
+                ThrowExitApplicationException(context, ExitReason.InvalidCommandLineOption);
+            }
+        }
+
+        private bool ValidateFiles(TContext context, IEnumerable<string> filePaths, bool shouldExist)
+        {
+            bool succeeded = true;
+
+            foreach (string filePath in filePaths)
+            {
+                succeeded &= ValidateFile(context, filePath, shouldExist);
+            }
+
+            return succeeded;
+        }
+
+        private bool ValidateFile(TContext context, string filePath, bool? shouldExist)
+        {
+            Exception exception = null;
+
+            try
+            {
+                bool fileExists = File.Exists(filePath);
+
+                if (shouldExist == null || shouldExist.Value)
+                {
+                    return true;
+                }
+
+                Errors.LogMissingFile(context, filePath);
+            }
+            catch (IOException ex) { exception = ex; }
+            catch (SecurityException ex) { exception = ex; }
+            catch (UnauthorizedAccessException ex) { exception = ex; }
+
+            if (exception != null)
+            {
+                Errors.LogExceptionAccessingFile(context, filePath, exception);
+            }
+
+            return false;
         }
 
         internal AggregatingLogger InitializeLogger(IAnalyzeOptions analyzeOptions)

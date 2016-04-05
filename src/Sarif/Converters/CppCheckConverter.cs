@@ -85,8 +85,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 throw reader.CreateException(SarifResources.CppCheckCppCheckElementMissing);
             }
 
-
-            // We can't infer/produce a runInfo object
             reader.Skip(); // <cppcheck />
 
             if (!Ref.Equal(reader.LocalName, _strings.Errors))
@@ -128,8 +126,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 ? new RunInfo { FileInfo = fileInfoDictionary }
                 : null;
 
-            issueWriter.WriteToolAndRunInfo(toolInfo, runInfo);
+            issueWriter.WriteToolInfo(toolInfo);
+            if (runInfo != null) { issueWriter.WriteRunInfo(runInfo); }
+
+            issueWriter.OpenResults();
             issueWriter.WriteResults(results);
+            issueWriter.CloseResults();
         }
     }
 }

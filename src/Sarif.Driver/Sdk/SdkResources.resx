@@ -203,4 +203,11 @@
   <data name="ERR0997_NoValidAnalysisTargets" xml:space="preserve">
     <value>No valid analysis targets were specified.</value>
   </data>
+  <data name="ERR0997_ExceptionAccessingFile" xml:space="preserve">
+    <value>An exception was raised accessing a file specified on the command-line ('{0}'). Exception information:
+{1}</value>
+  </data>
+  <data name="ERR0997_MissingFile" xml:space="preserve">
+    <value>A required file specified on the command-line could not be found ('{0}').</value>
+  </data>
 </root>
