@@ -61,7 +61,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to An exception was raised accessing a file specified on the command-line (&apos;{0}&apos;). Exception information:
+        ///   Looks up a localized string similar to An exception was raised accessing a file specified on the command line:&apos;{0}&apos;. Exception information:
         ///{1}.
         /// </summary>
         internal static string ERR0997_ExceptionAccessingFile {
@@ -129,7 +129,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to A required file specified on the command-line could not be found (&apos;{0}&apos;)..
+        ///   Looks up a localized string similar to A required file specified on the command line could not be found: &apos;{0}&apos;..
         /// </summary>
         internal static string ERR0997_MissingFile {
             get {
