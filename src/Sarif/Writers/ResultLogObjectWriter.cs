@@ -77,6 +77,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
         public void OpenResults() { }
 
+        public void CloseResults() { }
 
         /// <summary>
         /// Writes a result to the log. The log must have tool and run info written first by calling

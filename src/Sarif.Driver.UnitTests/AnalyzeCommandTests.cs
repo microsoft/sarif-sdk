@@ -30,12 +30,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
 
             var command = new TestAnalyzeCommand();
 
-            Assembly[] plugInAssemblies;
+            Assembly[] plugInAssemblies = null;
 
-            if (analyzeOptions.PlugInFilePaths != null)
+            if (analyzeOptions.DefaultPlugInFilePaths != null)
             {
                 var assemblies = new List<Assembly>();
-                foreach (string plugInFilePath in analyzeOptions.PlugInFilePaths)
+                foreach (string plugInFilePath in analyzeOptions.DefaultPlugInFilePaths)
                 {
                     assemblies.Add(Assembly.LoadFrom(plugInFilePath));
                 }
@@ -172,7 +172,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
             var options = new TestAnalyzeOptions()
             {
                 TargetFileSpecifiers = new string[] { this.GetType().Assembly.Location },
-                PlugInFilePaths = new string[] { typeof(string).Assembly.Location }
+                DefaultPlugInFilePaths = new string[] { typeof(string).Assembly.Location },
             };
 
             ExceptionTestHelper(
@@ -363,6 +363,72 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
             }
         }
 
+        [Fact]
+        public void MissingConfigurationFile()
+        {
+            string path = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+            path = Path.Combine(path, Guid.NewGuid().ToString());
+
+            var options = new TestAnalyzeOptions()
+            {
+                TargetFileSpecifiers = new string[] { this.GetType().Assembly.Location },
+                ConfigurationFilePath = path,
+                Verbose = true,
+            };
+
+            ExceptionTestHelper(
+                ExceptionCondition.None,
+                RuntimeConditions.MissingFile,
+                expectedExitReason: ExitReason.InvalidCommandLineOption,
+                analyzeOptions: options);
+        }
+
+        [Fact]
+        public void MissingPlugInFile()
+        {
+            string path = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+            path = Path.Combine(path, Guid.NewGuid().ToString());
+
+            var options = new TestAnalyzeOptions()
+            {
+                TargetFileSpecifiers = new string[] { this.GetType().Assembly.Location },
+                PlugInFilePaths = new string[] { path },
+                Verbose = true,
+            };
+
+            ExceptionTestHelper(
+                ExceptionCondition.None,
+                RuntimeConditions.MissingFile,
+                expectedExitReason: ExitReason.InvalidCommandLineOption,
+                analyzeOptions: options);
+        }
+
+        [Fact]
+        public void MissingOutputFile()
+        {
+            string path = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+            path = Path.Combine(path, Guid.NewGuid().ToString());
+
+            try {
+                var options = new TestAnalyzeOptions()
+                {
+                    TargetFileSpecifiers = new string[] { this.GetType().Assembly.Location },
+                    OutputFilePath = path,
+                    Verbose = true,
+                };
+
+                // A missing output file is a good condition. :)
+                ExceptionTestHelper(
+                    ExceptionCondition.None,
+                    RuntimeConditions.NoErrors,
+                    expectedExitReason: ExitReason.None,
+                    analyzeOptions: options);
+            }
+            finally
+            {
+                if (File.Exists(path)) { File.Delete(path); }
+            }
+        }
 
         public RunLog AnalyzeFile(string fileName)
         {
@@ -377,7 +443,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
                     Verbose = true,
                     Statistics = true,
                     ComputeTargetsHash = true,
-                    ConfigurationFilePath = "default",
+                    ConfigurationFilePath = TestAnalyzeCommand.DEFAULT_POLICY_NAME,
                     Recurse = true,
                     OutputFilePath = path,
                 };

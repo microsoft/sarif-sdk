@@ -61,7 +61,17 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to An exception was raised attempting to create output file &apos;{0}&apos;. Exception information:
+        ///   Looks up a localized string similar to An exception was raised accessing a file specified on the command line:&apos;{0}&apos;. Exception information:
+        ///{1}.
+        /// </summary>
+        internal static string ERR0997_ExceptionAccessingFile {
+            get {
+                return ResourceManager.GetString("ERR0997_ExceptionAccessingFile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to An exception was raised attempting to create output file: &apos;{0}&apos;. Exception information:
         ///{1}.
         /// </summary>
         internal static string ERR0997_ExceptionCreatingLogFile {
@@ -81,7 +91,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to An exception was raised attempting to load analysis target &apos;{0}&apos;. Exception information:
+        ///   Looks up a localized string similar to An exception was raised attempting to load analysis target: &apos;{0}&apos;. Exception information:
         ///{1}.
         /// </summary>
         internal static string ERR0997_ExceptionLoadingAnalysisTarget {
@@ -100,7 +110,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to An exception was raised attempting to load plug-in &apos;{0}&apos;. Exception information:
+        ///   Looks up a localized string similar to An exception was raised attempting to load plug-in: &apos;{0}&apos;. Exception information:
         ///{1}.
         /// </summary>
         internal static string ERR0997_ExceptionLoadingPlugIn {
@@ -115,6 +125,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk {
         internal static string ERR0997_InvalidConfiguration_Description {
             get {
                 return ResourceManager.GetString("ERR0997_InvalidConfiguration_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to A required file specified on the command line could not be found: &apos;{0}&apos;..
+        /// </summary>
+        internal static string ERR0997_MissingFile {
+            get {
+                return ResourceManager.GetString("ERR0997_MissingFile", resourceCulture);
             }
         }
         

@@ -41,9 +41,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 settings.DtdProcessing = DtdProcessing.Ignore;
 
                 var results = new List<Result>();
-                // We can't infer/produce a runInfo object
 
-                output.OpenResults();
                 using (XmlReader xmlReader = XmlReader.Create(input, settings))
                 {
                     XmlNodeType nodeType = xmlReader.MoveToContent();
@@ -69,8 +67,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                     ? new RunInfo { FileInfo = fileInfoDictionary }
                     : null;
 
-                output.WriteToolAndRunInfo(toolInfo, runInfo);
+                output.WriteToolInfo(toolInfo);
+                if (runInfo != null) { output.WriteRunInfo(runInfo); }
+
+                output.OpenResults();
                 output.WriteResults(results);
+                output.CloseResults();
             }
             finally
             {

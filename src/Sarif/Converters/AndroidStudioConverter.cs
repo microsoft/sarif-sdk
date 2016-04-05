@@ -48,9 +48,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 throw new ArgumentNullException("output");
             }
 
-
-            // We can't infer/produce a runInfo object
-
             XmlReaderSettings settings = new XmlReaderSettings
             {
                 IgnoreWhitespace = true,
@@ -78,8 +75,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 ? new RunInfo { FileInfo = fileInfoDictionary }
                 : null;
 
-            output.WriteToolAndRunInfo(toolInfo, runInfo);
+            output.WriteToolInfo(toolInfo);
+            if (runInfo != null) { output.WriteRunInfo(runInfo); }
+
+            output.OpenResults();
             output.WriteResults(results);
+            output.CloseResults();
         }
 
         /// <summary>Processes an Android Studio log and writes issues therein to an instance of
@@ -95,7 +96,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             int problemsDepth = xmlReader.Depth;
             xmlReader.ReadStartElement(_strings.Problems);
 
-            output.OpenResults();
             while (xmlReader.Depth > problemsDepth)
             {
                 var problem = AndroidStudioProblem.Parse(xmlReader, _strings);
