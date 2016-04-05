@@ -16,11 +16,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
         protected override TestAnalysisContext CreateContext(
             TestAnalyzeOptions options, 
             IAnalysisLogger logger, 
-            PropertyBag policy, 
             RuntimeConditions runtimeErrors,
             string filePath = null)
         {
-            var context = base.CreateContext(options, logger, policy, runtimeErrors, filePath);
+            var context = base.CreateContext(options, logger, runtimeErrors, filePath);
             context.IsValidAnalysisTarget = options.RegardAnalysisTargetAsValid;
             context.TargetLoadException = options.RegardAnalysisTargetAsCorrupted ? new InvalidOperationException() : null;
             context.Options = options;
@@ -34,6 +33,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
                 context.RuntimeErrors |= RuntimeConditions.InvalidCommandLineOption;
                 ThrowExitApplicationException(context, ExitReason.InvalidCommandLineOption);
             }
+
+            base.ValidateOptions(context, options);
         }
     }
 }

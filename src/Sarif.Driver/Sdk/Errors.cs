@@ -24,12 +24,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
             FullDescription = SdkResources.ERR0997_InvalidConfiguration_Description,
             FormatSpecifiers = RuleUtilities.BuildDictionary(SdkResources.ResourceManager,
                 new string[] {
+                    nameof(SdkResources.ERR0997_ExceptionAccessingFile),
                     nameof(SdkResources.ERR0997_ExceptionLoadingPdb),
                     nameof(SdkResources.ERR0997_ExceptionLoadingPlugIn),
                     nameof(SdkResources.ERR0997_ExceptionCreatingLogFile),
                     nameof(SdkResources.ERR0997_ExceptionLoadingAnalysisTarget),
                     nameof(SdkResources.ERR0997_ExceptionInstantiatingSkimmers),
                     nameof(SdkResources.ERR0997_MissingRuleConfiguration),
+                    nameof(SdkResources.ERR0997_MissingFile),
                     nameof(SdkResources.ERR0997_NoRulesLoaded),
                     nameof(SdkResources.ERR0997_NoValidAnalysisTargets)
                }, ERR0997)

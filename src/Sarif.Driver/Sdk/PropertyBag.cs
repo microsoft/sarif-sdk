@@ -14,6 +14,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
     [Serializable]
     public class PropertyBag : TypedPropertyBag<object>
     {
+        internal const string DEFAULT_POLICY_NAME = "default";
+
         public PropertyBag() : base() { }
 
         public PropertyBag(
@@ -32,7 +34,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
 
         public virtual T GetProperty<T>(PerLanguageOption<T> setting, bool cacheDefault = true)
         {
-            if (setting == null) { throw new ArgumentNullException("setting"); }
+            if (setting == null) { throw new ArgumentNullException(nameof(setting)); }
 
             PropertyBag properties = GetSettingsContainer(setting, cacheDefault);
 
@@ -48,7 +50,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
 
         public override void SetProperty(IOption setting, object value, bool cacheDescription = false)
         {
-            if (setting == null) { throw new ArgumentNullException("setting"); }
+            if (setting == null) { throw new ArgumentNullException(nameof(setting)); }
 
             PropertyBag properties = GetSettingsContainer(setting, true);
 

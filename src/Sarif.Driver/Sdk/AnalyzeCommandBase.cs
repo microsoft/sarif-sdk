@@ -13,6 +13,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
         where TContext : IAnalysisContext, new()
         where TOptions : IAnalyzeOptions
     {
+        internal const string DEFAULT_POLICY_NAME = "default";
+
         private TContext rootContext;
 
         public Exception ExecutionException { get; set; }
@@ -58,18 +60,18 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
             // 0. Log analysis initiation
             logger.AnalysisStarted();
 
-            // 1. Create our configuration property bag, which will be 
-            //    shared with all rules during analysis
-            PropertyBag policy = CreateConfigurationFromOptions(analyzeOptions);
-
-            // 2. Create context object to pass to skimmers. The logger
+            // 1. Create context object to pass to skimmers. The logger
             //    and configuration objects are common to all context
             //    instances and will be passed on again for analysis.
-            this.rootContext = CreateContext(analyzeOptions, logger, policy, RuntimeErrors);
+            this.rootContext = CreateContext(analyzeOptions, logger, RuntimeErrors);
 
-            // 3. Perform any command line argument validation beyond what
+            // 2. Perform any command line argument validation beyond what
             //    the command line parser library is capable of.
             ValidateOptions(this.rootContext, analyzeOptions);
+
+            // 3. Create our configuration property bag, which will be 
+            //    shared with all rules during analysis
+            PropertyBag policy = ConfigureFromOptions(this.rootContext, analyzeOptions);
 
             // 4. Produce a comprehensive set of analysis targets 
             HashSet<string> targets = CreateTargetsSet(analyzeOptions);
@@ -115,6 +117,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
 
         private bool ValidateFiles(TContext context, IEnumerable<string> filePaths, bool shouldExist)
         {
+            if (filePaths == null) { return true; }
+
             bool succeeded = true;
 
             foreach (string filePath in filePaths)
@@ -127,13 +131,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
 
         private bool ValidateFile(TContext context, string filePath, bool? shouldExist)
         {
+            if (filePath == null || filePath == DEFAULT_POLICY_NAME) { return true; }
+
             Exception exception = null;
 
             try
             {
                 bool fileExists = File.Exists(filePath);
 
-                if (shouldExist == null || shouldExist.Value)
+                if (fileExists || shouldExist == null || !shouldExist.Value)
                 {
                     return true;
                 }
@@ -202,14 +208,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
 
         protected virtual TContext CreateContext(
             TOptions options, 
-            IAnalysisLogger logger,
-            PropertyBag policy,
+            IAnalysisLogger logger, 
             RuntimeConditions runtimeErrors,
             string filePath = null)
         {
             var context = new TContext();
             context.Logger = logger;
-            context.Policy = policy;
             context.RuntimeErrors = runtimeErrors;
 
             if (filePath != null)
@@ -314,7 +318,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
             string target,
             HashSet<string> disabledSkimmers)
         {
-            var context = CreateContext(options, rootContext.Logger, rootContext.Policy, rootContext.RuntimeErrors, target);
+            var context = CreateContext(options, rootContext.Logger, rootContext.RuntimeErrors, target);
+            context.Policy = rootContext.Policy;
 
             if (context.TargetLoadException != null)
             {
@@ -454,15 +459,16 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
         }
 
 
-        public virtual PropertyBag CreateConfigurationFromOptions(TOptions analyzeOptions)
+        public virtual PropertyBag ConfigureFromOptions(TContext context, TOptions analyzeOptions)
         {
             PropertyBag configuration = null;
+
             string configurationFilePath = analyzeOptions.ConfigurationFilePath;
 
             if (!string.IsNullOrEmpty(configurationFilePath))
             {
                 configuration = new PropertyBag();
-                if (!configurationFilePath.Equals("default", StringComparison.OrdinalIgnoreCase))
+                if (!configurationFilePath.Equals(DEFAULT_POLICY_NAME, StringComparison.OrdinalIgnoreCase))
                 {
                     configuration.LoadFrom(configurationFilePath);
                 }
