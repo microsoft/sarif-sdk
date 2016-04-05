@@ -71,7 +71,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
 
             // 3. Create our configuration property bag, which will be 
             //    shared with all rules during analysis
-            PropertyBag policy = ConfigureFromOptions(this.rootContext, analyzeOptions);
+            ConfigureFromOptions(this.rootContext, analyzeOptions);
 
             // 4. Produce a comprehensive set of analysis targets 
             HashSet<string> targets = CreateTargetsSet(analyzeOptions);
@@ -459,7 +459,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
         }
 
 
-        public virtual PropertyBag ConfigureFromOptions(TContext context, TOptions analyzeOptions)
+        public virtual void ConfigureFromOptions(TContext context, TOptions analyzeOptions)
         {
             PropertyBag configuration = null;
 
@@ -473,8 +473,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
                     configuration.LoadFrom(configurationFilePath);
                 }
             }
-
-            return configuration;
+            context.Policy = configuration;
         }       
     }
 }
