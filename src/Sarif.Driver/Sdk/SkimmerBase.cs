@@ -83,7 +83,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
 
         public Dictionary<string, string> Properties { get; }
 
-        public IList<string> Tag { get; }
+        public IList<string> Tags { get; }
 
         public virtual void Initialize(TContext context) { }
 
