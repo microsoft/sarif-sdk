@@ -150,7 +150,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
             var settings = new JsonSerializerSettings()
             {
                 ContractResolver = SarifContractResolver.Instance,
-                Formatting = Formatting.Indented,
+                Formatting = Newtonsoft.Json.Formatting.Indented,
             };
             File.WriteAllText(outputFilePath, JsonConvert.SerializeObject(log, settings));
         }
