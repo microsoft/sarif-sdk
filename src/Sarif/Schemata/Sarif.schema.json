@@ -109,7 +109,7 @@
           "default": {}
         },
 
-        "tag": 
+        "tags": 
         {
           "description": "A unique set of strings that provide additional information for the associated file reference.",
           "type": "array",
@@ -231,7 +231,7 @@
           "default": {}
         },
 
-        "tag": 
+        "tags": 
         {
           "description": "A unique set of strings that provide additional information for the associated location.",
           "type": "array",
@@ -489,7 +489,7 @@
           "default": {}
         },
 
-        "tag": 
+        "tags": 
         {
           "description": "A unique set of strings that provide additional information for the associated result.",
           "type": "array",
@@ -557,7 +557,7 @@
           "default": {}
         },
 
-        "tag": 
+        "tags": 
         {
           "description": "A unique set of strings that provide additional information for the associated rule.",
           "type": "array",
@@ -622,7 +622,7 @@
           "default": {}
         },
 
-        "tag": 
+        "tags": 
         {
           "description": "A unique set of strings that provide additional information for the run.",
           "type": "array",

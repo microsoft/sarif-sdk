@@ -88,7 +88,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
             }
         }
 
-        public IList<string> Tag
+        public IList<string> Tags
         {
             get
             {

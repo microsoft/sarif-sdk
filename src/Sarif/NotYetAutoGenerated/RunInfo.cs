@@ -74,8 +74,8 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <summary>
         /// A unique set of strings that provide additional information for the run.
         /// </summary>
-        [DataMember(Name = "tag", IsRequired = false, EmitDefaultValue = false)]
-        public IList<string> Tag { get; set; }
+        [DataMember(Name = "tags", IsRequired = false, EmitDefaultValue = false)]
+        public IList<string> Tags { get; set; }
 
         public override bool Equals(object other)
         {
@@ -130,9 +130,9 @@ namespace Microsoft.CodeAnalysis.Sarif
                     result = (result * 31) + xor_0;
                 }
 
-                if (Tag != null)
+                if (Tags != null)
                 {
-                    foreach (var value_1 in Tag)
+                    foreach (var value_1 in Tags)
                     {
                         result = result * 31;
                         if (value_1 != null)
@@ -229,21 +229,21 @@ namespace Microsoft.CodeAnalysis.Sarif
                 }
             }
 
-            if (!Object.ReferenceEquals(Tag, other.Tag))
+            if (!Object.ReferenceEquals(Tags, other.Tags))
             {
-                if (Tag == null || other.Tag == null)
+                if (Tags == null || other.Tags == null)
                 {
                     return false;
                 }
 
-                if (Tag.Count != other.Tag.Count)
+                if (Tags.Count != other.Tags.Count)
                 {
                     return false;
                 }
 
-                for (int value_2 = 0; value_2 < Tag.Count; ++value_2)
+                for (int value_2 = 0; value_2 < Tags.Count; ++value_2)
                 {
-                    if (Tag[value_2] != other.Tag[value_2])
+                    if (Tags[value_2] != other.Tags[value_2])
                     {
                         return false;
                     }
@@ -308,7 +308,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 throw new ArgumentNullException(nameof(other));
             }
 
-            Init(other.InvocationInfo, other.FileInfo, other.RunStartTime, other.RunEndTime, other.CorrelationId, other.Architecture, other.Properties, other.Tag);
+            Init(other.InvocationInfo, other.FileInfo, other.RunStartTime, other.RunEndTime, other.CorrelationId, other.Architecture, other.Properties, other.Tags);
         }
 
         ISyntax ISyntax.DeepClone()
@@ -354,7 +354,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                     destination_0.Add(value_0);
                 }
 
-                Tag = destination_0;
+                Tags = destination_0;
             }
         }
     }
