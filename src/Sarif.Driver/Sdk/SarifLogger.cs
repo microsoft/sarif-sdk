@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
+using Microsoft.CodeAnalysis.Sarif.Readers;
 using Microsoft.CodeAnalysis.Sarif.Writers;
 
 using Newtonsoft.Json;
@@ -90,15 +91,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
 
         }
 
-        public SarifLogger(TextWriter writer, bool verbose, ToolInfo toolInfo, RunInfo runInfo)
+        public SarifLogger(TextWriter textWriter, bool verbose, ToolInfo toolInfo, RunInfo runInfo) : this(textWriter, verbose)
         {
-            Verbose = verbose;
-
-            _textWriter = writer;
-            _jsonTextWriter = new JsonTextWriter(_textWriter);
-
-            // for debugging it is nice to have the following line added.
-            _jsonTextWriter.Formatting = Newtonsoft.Json.Formatting.Indented;
             _runInfo = runInfo;
             _issueLogJsonWriter.WriteToolInfo(toolInfo);
         }
@@ -120,30 +114,33 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
 
         }
 
-
-
         public SarifLogger(
             TextWriter textWriter,
             bool verbose,
             IEnumerable<string> analysisTargets,
             bool computeTargetsHash,
             string prereleaseInfo,
-            IEnumerable<string> invocationInfoTokensToRedact)
+            IEnumerable<string> invocationInfoTokensToRedact) : this(textWriter, verbose)
         {
-            Verbose = verbose;
-
-            _textWriter = textWriter;
-            _jsonTextWriter = new JsonTextWriter(_textWriter);
-
-            // for debugging it is nice to have the following line added.
-            _jsonTextWriter.Formatting = Newtonsoft.Json.Formatting.Indented;
-
-            _issueLogJsonWriter = new ResultLogJsonWriter(_jsonTextWriter);
-
             ToolInfo toolInfo = CreateDefaultToolInfo(prereleaseInfo);
             _issueLogJsonWriter.WriteToolInfo(toolInfo);
 
             _runInfo = CreateRunInfo(analysisTargets, computeTargetsHash, invocationInfoTokensToRedact);
+        }
+
+        public SarifLogger(TextWriter textWriter, bool verbose)
+        {
+            Verbose = verbose;
+
+            _textWriter = textWriter;
+
+            _jsonTextWriter = new JsonTextWriter(_textWriter);
+
+            // for debugging it is nice to have the following line added.
+            _jsonTextWriter.Formatting = Newtonsoft.Json.Formatting.Indented;
+            _jsonTextWriter.DateFormatString = DateTimeConverter.DateTimeFormat;
+
+            _issueLogJsonWriter = new ResultLogJsonWriter(_jsonTextWriter);
         }
 
         public HashSet<IRuleDescriptor> RuleDescriptors
@@ -154,7 +151,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
                 return _ruleDescriptors;
             }
         }
-
 
         public bool Verbose { get; set; }
 

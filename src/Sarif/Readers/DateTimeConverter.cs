@@ -27,13 +27,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
 
         public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
         {
+            if (reader.Value is DateTime) { return reader.Value; }
+
             return DateTime.Parse((string)reader.Value, CultureInfo.InvariantCulture);
         }
 
         public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
         {
             string formattedDate = ((DateTime)value).ToString(DateTimeFormat, CultureInfo.InvariantCulture);
-            writer.WriteRawValue(@"""" + value + @"""");
+            writer.WriteRawValue(@"""" + formattedDate + @"""");
         }
     }
 }
