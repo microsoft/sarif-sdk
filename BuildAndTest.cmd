@@ -52,7 +52,7 @@ sn -k GeneratedKey.snk
 )
 
 @REM Build all code
-%~dp0.nuget\NuGet.exe restore src\Everything.sln 
+%~dp0.nuget\NuGet.exe restore src\Everything.sln -ConfigFile .nuget\NuGet.Config
 
 if "%ERRORLEVEL%" NEQ "0" (
 goto ExitFailed

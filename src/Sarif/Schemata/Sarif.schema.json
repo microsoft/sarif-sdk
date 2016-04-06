@@ -586,7 +586,12 @@
         {
           "description": "A dictionary each of whose keys is a URI and each of whose values is an array of fileReference objects representing the location of a single file target scanned during the run.",
           "type": "object",
-          "default": {}
+          "additionalProperties": {
+            "type": "array",
+            "items": {
+              "$ref": "#/definitions/fileReference"
+            }
+          }
         },
 
         "runStartTime": 

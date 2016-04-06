@@ -34,6 +34,11 @@
       "$type": "Microsoft.Json.Schema.ToDotNet.DictionaryHint, Microsoft.Json.Schema.ToDotNet"
     }
   ],
+  "RunInfo.FileInfo": [
+    {
+      "$type": "Microsoft.Json.Schema.ToDotNet.DictionaryHint, Microsoft.Json.Schema.ToDotNet"
+    }
+  ],
   "RunInfo.Properties": [
     {
       "$type": "Microsoft.Json.Schema.ToDotNet.DictionaryHint, Microsoft.Json.Schema.ToDotNet"
