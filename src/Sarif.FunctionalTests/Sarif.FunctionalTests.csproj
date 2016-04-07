@@ -216,15 +216,6 @@
     <None Include="SarifConverterTestData\Fortify\bannedAPIs_m1.xml.sarif">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="SarifConverterTestData\Fortify\word_f1.xml.sarif">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="SarifConverterTestData\Fortify\word_f1_all.xml.sarif">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="SarifConverterTestData\Fortify\word_Fortify_Security_Report.xml.sarif">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
     <None Include="SarifConverterTestData\FxCop\FxCopExampleReport2.xml.sarif">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -296,15 +287,6 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="SarifConverterTestData\Fortify\bannedAPIs_m1.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="SarifConverterTestData\Fortify\word_f1.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="SarifConverterTestData\Fortify\word_f1_all.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="SarifConverterTestData\Fortify\word_Fortify_Security_Report.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>

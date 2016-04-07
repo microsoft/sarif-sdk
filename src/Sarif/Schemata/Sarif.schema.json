@@ -37,10 +37,27 @@
           "$ref": "#/definitions/physicalLocation"
         },
 
-        "message": 
-        {
+        "message": {
           "description": "A message associated with this annotation, if applicable.",
           "type": "string"
+        },
+
+        "properties": 
+        {
+          "description": "Key/value pairs that provide additional details about the code location.",
+          "type": "object",
+          "default": {}
+        },
+
+        "tags": 
+        {
+          "description": "A unique set of strings that provide additional information for the associated code location.",
+          "type": "array",
+          "items":
+          {
+            "type": "string",
+            "default": []
+          }
         }
       },
       "required": ["physicalLocation"]

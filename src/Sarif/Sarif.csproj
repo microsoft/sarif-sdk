@@ -50,6 +50,7 @@
     <Compile Include="Readers\ResultKindConverter.cs" />
     <Compile Include="Readers\SarifContractResolver.cs" />
     <Compile Include="Readers\SarifVersionConverter.cs" />
+    <Compile Include="Readers\UriConverter.cs" />
     <Compile Include="Readers\VersionConverter.cs" />
     <Compile Include="Ref.cs" />
     <Compile Include="SarifConstants.cs" />

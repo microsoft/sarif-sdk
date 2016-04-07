@@ -36,7 +36,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// A dictionary each of whose keys is a URI and each of whose values is an array of fileReference objects representing the location of a single file target scanned during the run.
         /// </summary>
         [DataMember(Name = "fileInfo", IsRequired = false, EmitDefaultValue = false)]
-        public IDictionary<string, IList<FileReference>> FileInfo { get; set; }
+        public IDictionary<Uri, IList<FileReference>> FileInfo { get; set; }
 
         /// <summary>
         /// An optional string specifying the date and time at which the run started.
@@ -299,7 +299,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="tags">
         /// An initialization value for the <see cref="P: Tags" /> property.
         /// </param>
-        public RunInfo(string invocationInfo, IDictionary<string, IList<FileReference>> fileInfo, DateTime runStartTime, DateTime runEndTime, string correlationId, string architecture, IDictionary<string, string> properties, IEnumerable<string> tags)
+        public RunInfo(string invocationInfo, IDictionary<Uri, IList<FileReference>> fileInfo, DateTime runStartTime, DateTime runEndTime, string correlationId, string architecture, IDictionary<string, string> properties, IEnumerable<string> tags)
         {
             Init(invocationInfo, fileInfo, runStartTime, runEndTime, correlationId, architecture, properties, tags);
         }
@@ -341,12 +341,12 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new RunInfo(this);
         }
 
-        private void Init(string invocationInfo, IDictionary<string, IList<FileReference>> fileInfo, DateTime runStartTime, DateTime runEndTime, string correlationId, string architecture, IDictionary<string, string> properties, IEnumerable<string> tags)
+        private void Init(string invocationInfo, IDictionary<Uri, IList<FileReference>> fileInfo, DateTime runStartTime, DateTime runEndTime, string correlationId, string architecture, IDictionary<string, string> properties, IEnumerable<string> tags)
         {
             InvocationInfo = invocationInfo;
             if (fileInfo != null)
             {
-                FileInfo = new Dictionary<string, IList<FileReference>>();
+                FileInfo = new Dictionary<Uri, IList<FileReference>>();
                 foreach (var value_0 in fileInfo)
                 {
                     var destination_0 = new List<FileReference>();

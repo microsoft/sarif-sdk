@@ -70,7 +70,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             };
 
             var fileInfoFactory = new FileInfoFactory(MimeType.DetermineFromFileExtension);
-            Dictionary<string, IList<FileReference>> fileInfoDictionary = fileInfoFactory.Create(results);
+            Dictionary<Uri, IList<FileReference>> fileInfoDictionary = fileInfoFactory.Create(results);
 
             var runInfo = fileInfoDictionary != null && fileInfoDictionary.Count > 0
                 ? new RunInfo { FileInfo = fileInfoDictionary }
