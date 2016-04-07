@@ -18,17 +18,11 @@ set PACKAGE_ROOT=bld\bin\nuget\%ID%.%VERSION%
 call %NUGET% push %PACKAGE_ROOT%.nupkg -Source %SOURCE%
 if "%ERRORLEVEL%" NEQ "0" (echo push to %SOURCE% FAILED && goto Exit)
 
-call %NUGET%push %PACKAGE_ROOT%.symbols.nupkg -Source https://nuget.smbsrc.net/
-if "%ERRORLEVEL%" NEQ "0" (echo push to symsource.org FAILED goto Exit)
-
 @REM Publish Driver
 set ID=Sarif.Driver
 set PACKAGE_ROOT=bld\bin\nuget\%ID%.%VERSION%
 
 call %NUGET% push %PACKAGE_ROOT%.nupkg -Source %SOURCE%
 if "%ERRORLEVEL%" NEQ "0" (echo push to %SOURCE% FAILED && goto Exit)
-
-call %NUGET%push %PACKAGE_ROOT%.symbols.nupkg -Source https://nuget.smbsrc.net/
-if "%ERRORLEVEL%" NEQ "0" (echo push to symbsource.org FAILED goto Exit)
 
 :Exit
