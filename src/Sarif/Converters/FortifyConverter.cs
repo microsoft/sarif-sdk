@@ -147,7 +147,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             if (fortify.Source != null)
             {
                 PhysicalLocation source = ConvertFortifyLocationToPhysicalLocation(fortify.Source);
-                result.ExecutionFlows = new[]
+                result.CodeFlows = new[]
                 {
                     new[]
                     {

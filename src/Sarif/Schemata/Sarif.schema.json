@@ -438,7 +438,7 @@
           }
         },
 
-        "executionFlows": 
+        "codeFlows": 
         {
           "description": "A grouped set of location, if available, that comprise annotated execution flows through code which are associated with this result.",
           "type": "array",
