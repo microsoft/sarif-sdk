@@ -363,7 +363,7 @@
         "insertedBytes": 
         {
           "description": "An optional string that specifies the byte sequence to be inserted at the byte offset specified by the offset property, measured from the beginning of the file.",
-          "type": "integer"
+          "type": "string"
         }
       },
       "required": ["offset", "deletedLength", "insertedBytes"]
