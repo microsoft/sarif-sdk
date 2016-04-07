@@ -7,15 +7,15 @@
       },
       "runInfo": {
         "fileInfo": {
-          "d:\\SecDevTools\\Main\\bin\\x86\\Debug\\FxCop\\FxCopTestData\\Crypto\\SecurityCryptographyRuleTests.dll": [
+          "file:///d:/SecDevTools/Main/bin/x86/Debug/FxCop/FxCopTestData/Crypto/SecurityCryptographyRuleTests.dll": [
             {
-              "uri": "d:\\SecDevTools\\Main\\bin\\x86\\Debug\\FxCop\\FxCopTestData\\Crypto\\SecurityCryptographyRuleTests.dll",
+              "uri": "file:///d:/SecDevTools/Main/bin/x86/Debug/FxCop/FxCopTestData/Crypto/SecurityCryptographyRuleTests.dll",
               "mimeType": "application/octet-stream"
             }
           ],
-          "d:\\SecDevTools\\Main\\src\\FxCop\\Source\\FxCopTestData\\SecurityCryptographyRuleTests\\DESCannotBeUsed.cs": [
+          "file:///d:/SecDevTools/Main/src/FxCop/Source/FxCopTestData/SecurityCryptographyRuleTests/DESCannotBeUsed.cs": [
             {
-              "uri": "d:\\SecDevTools\\Main\\src\\FxCop\\Source\\FxCopTestData\\SecurityCryptographyRuleTests\\DESCannotBeUsed.cs",
+              "uri": "file:///d:/SecDevTools/Main/src/FxCop/Source/FxCopTestData/SecurityCryptographyRuleTests/DESCannotBeUsed.cs",
               "mimeType": "text/x-csharp"
             }
           ]
@@ -50,7 +50,7 @@
           "locations": [
             {
               "analysisTarget": {
-                "uri": "d:\\SecDevTools\\Main\\bin\\x86\\Debug\\FxCop\\FxCopTestData\\Crypto\\SecurityCryptographyRuleTests.dll"
+                "uri": "file:///d:/SecDevTools/Main/bin/x86/Debug/FxCop/FxCopTestData/Crypto/SecurityCryptographyRuleTests.dll"
               },
               "logicalLocation": [
                 {
@@ -74,7 +74,7 @@
           "locations": [
             {
               "analysisTarget": {
-                "uri": "d:\\SecDevTools\\Main\\bin\\x86\\Debug\\FxCop\\FxCopTestData\\Crypto\\SecurityCryptographyRuleTests.dll"
+                "uri": "file:///d:/SecDevTools/Main/bin/x86/Debug/FxCop/FxCopTestData/Crypto/SecurityCryptographyRuleTests.dll"
               },
               "logicalLocation": [
                 {
@@ -107,7 +107,7 @@
           "locations": [
             {
               "analysisTarget": {
-                "uri": "d:\\SecDevTools\\Main\\bin\\x86\\Debug\\FxCop\\FxCopTestData\\Crypto\\SecurityCryptographyRuleTests.dll"
+                "uri": "file:///d:/SecDevTools/Main/bin/x86/Debug/FxCop/FxCopTestData/Crypto/SecurityCryptographyRuleTests.dll"
               },
               "logicalLocation": [
                 {
@@ -140,10 +140,10 @@
           "locations": [
             {
               "analysisTarget": {
-                "uri": "d:\\SecDevTools\\Main\\bin\\x86\\Debug\\FxCop\\FxCopTestData\\Crypto\\SecurityCryptographyRuleTests.dll"
+                "uri": "file:///d:/SecDevTools/Main/bin/x86/Debug/FxCop/FxCopTestData/Crypto/SecurityCryptographyRuleTests.dll"
               },
               "resultFile": {
-                "uri": "d:\\SecDevTools\\Main\\src\\FxCop\\Source\\FxCopTestData\\SecurityCryptographyRuleTests\\DESCannotBeUsed.cs",
+                "uri": "file:///d:/SecDevTools/Main/src/FxCop/Source/FxCopTestData/SecurityCryptographyRuleTests/DESCannotBeUsed.cs",
                 "region": {
                   "startLine": 14
                 }

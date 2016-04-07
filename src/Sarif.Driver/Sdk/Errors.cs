@@ -223,7 +223,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
         public static void LogExceptionLoadingPlugIn(string plugInFilePath, IAnalysisContext context, Exception ex)
         {
             context.Rule = Errors.InvalidConfiguration;
-            context.TargetUri = plugInFilePath.CreateUriForJsonSerialization();
+            context.TargetUri = new Uri(plugInFilePath);
 
             // An exception was raised attempting to load plug-in '{0}'. Exception information:
             // {1}

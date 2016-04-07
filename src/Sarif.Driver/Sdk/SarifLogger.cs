@@ -43,13 +43,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
 
             if (analysisTargets != null)
             {
-                    runInfo.FileInfo = new Dictionary<string, IList<FileReference>>();
+                runInfo.FileInfo = new Dictionary<Uri, IList<FileReference>>();
 
                 foreach (string target in analysisTargets)
                 {
                     var fileReference = new FileReference()
                     {
-                        Uri = target.CreateUriForJsonSerialization(),
+                        Uri = new Uri(target),
                     };
 
                     if (computeTargetsHash)
@@ -64,7 +64,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
                             }
                         });
                     }
-                        runInfo.FileInfo.Add(fileReference.Uri.OriginalString, new List<FileReference> { fileReference });
+                        runInfo.FileInfo.Add(fileReference.Uri, new List<FileReference> { fileReference });
                 }
             }
 
@@ -261,11 +261,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
                     new Sarif.Location {
                         AnalysisTarget = new PhysicalLocation
                         {
-                            // Why? When NewtonSoft serializes this Uri, it will use the
-                            // original string used to construct the Uri. For a file path, 
-                            // this will be the local file path. We want to persist this 
-                            // information using the file:// protocol rendering, however.
-                            Uri = targetPath.CreateUriForJsonSerialization(),
+                            Uri = new Uri(targetPath),
                             Region = region
                         }
                }};

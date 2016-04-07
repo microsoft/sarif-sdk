@@ -175,7 +175,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Validation
                     break;
             }
 
-            Uri analysisTargetUri = analysisTargetFilePath.CreateUriForJsonSerialization();
+            Uri analysisTargetUri = new Uri(analysisTargetFilePath);
 
             switch (error.Kind)
             {
