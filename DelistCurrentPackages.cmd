@@ -1,7 +1,7 @@
 @echo on
 call SetCurrentVersion.cmd
 
-set VERSION=%MAJOR%.%MINOR%.%PATCH%%PRERELEASE%
+set VERSION=%MAJOR_PREVIOUS%.%MINOR_PREVIOUS%.%PATCH_PREVIOUS%%PRERELEASE_PREVIOUS%
 set NUGET=.nuget\nuget.exe
 set SOURCE=https://nuget.org
 

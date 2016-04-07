@@ -210,7 +210,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         public void FortifyConverter_Convert_DoesNotFillInExecutionFlowWhenOnlyPrimaryIsPresent()
         {
             Result result = FortifyConverter.ConvertFortifyIssueToSarifIssue(GetBasicIssue());
-            Assert.IsNull(result.ExecutionFlows);
+            Assert.IsNull(result.CodeFlows);
         }
 
         [TestMethod]
@@ -219,8 +219,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             Builder builder = FortifyConverterTests.GetBasicBuilder();
             builder.Source = FortifyConverterTests.s_dummyPathSourceElement;
             Result result = FortifyConverter.ConvertFortifyIssueToSarifIssue(builder.ToImmutable());
-            Assert.AreEqual(1, result.ExecutionFlows.Count);
-            IList<AnnotatedCodeLocation> flow = result.ExecutionFlows[0];
+            Assert.AreEqual(1, result.CodeFlows.Count);
+            IList<AnnotatedCodeLocation> flow = result.CodeFlows[0];
             Assert.AreEqual("sourceFilePath", flow[0].PhysicalLocation.Uri.ToString());
             Assert.AreEqual(new Region { StartLine = 42 }, flow[0].PhysicalLocation.Region);
             Assert.AreEqual("filePath", flow[1].PhysicalLocation.Uri.ToString());

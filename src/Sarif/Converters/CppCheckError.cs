@@ -151,7 +151,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 // In the N != 1 case, set the overall location's location to
                 // the last entry in the execution flow.
                 lastLocationConverted = flow[flow.Count - 1].PhysicalLocation;
-                result.ExecutionFlows = new[] { flow };
+                result.CodeFlows = new[] { flow };
             }
 
             result.Locations = new[]

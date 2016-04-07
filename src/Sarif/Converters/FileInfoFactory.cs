@@ -49,9 +49,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
                 }
 
-                if (result.ExecutionFlows != null)
+                if (result.CodeFlows != null)
                 {
-                    foreach (IList<AnnotatedCodeLocation> codeFlow in result.ExecutionFlows)
+                    foreach (IList<AnnotatedCodeLocation> codeFlow in result.CodeFlows)
                     {
                         foreach (AnnotatedCodeLocation codeLocation in codeFlow)
                         {

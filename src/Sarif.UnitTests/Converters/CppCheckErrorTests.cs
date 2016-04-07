@@ -61,7 +61,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                     }
                 }
             });
-            Assert.IsNull(result.ExecutionFlows);
+            Assert.IsNull(result.CodeFlows);
         }
 
         [TestMethod]
@@ -80,8 +80,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 }
             });
 
-            Assert.AreEqual(1, result.ExecutionFlows.Count);
-            result.ExecutionFlows[0].Should().Equal(new[]
+            Assert.AreEqual(1, result.CodeFlows.Count);
+            result.CodeFlows[0].Should().Equal(new[]
                     {
                         new AnnotatedCodeLocation {
                             PhysicalLocation = new PhysicalLocation {
