@@ -36,7 +36,8 @@
   ],
   "RunInfo.FileInfo": [
     {
-      "$type": "Microsoft.Json.Schema.ToDotNet.DictionaryHint, Microsoft.Json.Schema.ToDotNet"
+      "$type": "Microsoft.Json.Schema.ToDotNet.DictionaryHint, Microsoft.Json.Schema.ToDotNet",
+      "keyTypeName": "Uri"
     }
   ],
   "RunInfo.Properties": [
