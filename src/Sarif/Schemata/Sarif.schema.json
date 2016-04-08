@@ -27,7 +27,7 @@
   {
     "annotatedCodeLocation": 
     {
-      "description": "A code annotation that consists of single physical location and associated message, used to express stacks, execution flow through a method, or other locations that are related to a result.",
+      "description": "A code annotation that consists of single physical location and associated message, used to express stacks, code flows through a method, or other locations that are related to a result.",
       "additionalProperties": false,
       "type": "object",
       "properties": {
@@ -457,7 +457,7 @@
 
         "codeFlows": 
         {
-          "description": "A grouped set of location, if available, that comprise annotated execution flows through code which are associated with this result.",
+          "description": "A grouped set of location, if available, that comprise annotated code flows through code which are associated with this result.",
           "type": "array",
           "minItems": 1,
           "items":
