@@ -9,7 +9,7 @@ The types in the SARIF SDK are in the `Microsoft.CodeAnalysis.Sarif` namespace.
 
 The SARIF SDK provides a set of classes which represent the elements of the SARIF format. We refer to this as the "SARIF object model". The root type that represents a SARIF log file is `SarifLog`. Other types in the SARIF object model are `Result`, `PhysicalLocation`, _etc._.
 
-Note: The SARIF SDK's build process automatically generates the SARIF object model classes from the SARIF JSON schema, which you can find at `src/Sarif/Sarif.schema.json`. So you won't find the source code for these classes in the repo.
+Note: The SARIF SDK's build process automatically generates the SARIF object model classes from the SARIF JSON schema, which you can find at [`src/Sarif/Schemata/Sarif.schema.json`](https://github.com/Microsoft/sarif-sdk/blob/master/src/Sarif/Schemata/Sarif.schema.json). So you won't find the source code for these classes in the repo.
 
 In addition to the object model, the SARIF SDK provides a set of helper classes to facilitate using Newtonsoft.Json to read and write SARIF log files.
 
