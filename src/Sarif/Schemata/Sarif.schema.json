@@ -686,7 +686,7 @@
 
         "results": 
         {
-          "description": "The set of results contained in an SARIF log.",
+          "description": "The set of results contained in an SARIF log. The results array can be omitted when a runLog is merely exporting ruleInfo metadata. It must be present (but may be empty) in the event that a log file represents an actual scan.",
           "type": "array",
           "minItems": 0,
           "items":
@@ -695,7 +695,7 @@
           }
         }
       },
-      "required": ["toolInfo", "results"]
+      "required": ["toolInfo"]
     },
     "toolInfo": 
     {
