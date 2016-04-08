@@ -1,6 +1,10 @@
 @echo on
 call SetCurrentVersion.cmd
 
+if "%PRERELEASE%" EQU "-developer" (
+echo Attempt to push working bits. Fix prerelease value and rebuild && goto Exit)
+)
+
 set VERSION=%MAJOR%.%MINOR%.%PATCH%%PRERELEASE%
 set NUGET=.nuget\nuget.exe
 set SOURCE=https://nuget.org
