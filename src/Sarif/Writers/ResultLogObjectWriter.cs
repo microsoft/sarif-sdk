@@ -12,8 +12,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
     /// <seealso cref="T:Microsoft.CodeAnalysis.Sarif.IResultLogWriter"/>
     public sealed class ResultLogObjectWriter : IResultLogWriter
     {
-        private RunInfo _runInfo;
-        private ToolInfo _toolInfo;
+        private Run _run;
+        private Tool _tool;
         private ImmutableList<Result> _issueList;
 
         /// <summary>Initializes a new instance of the <see cref="ResultLogObjectWriter"/> class.</summary>
@@ -22,13 +22,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             _issueList = ImmutableList<Result>.Empty;
         }
 
-        /// <summary>Gets the ToolInfo block.</summary>
-        /// <value>The <see cref="ToolInfo"/> block if it has been written; otherwise, null.</value>
-        public ToolInfo ToolInfo { get { return _toolInfo; } }
+        /// <summary>Gets the Tool block.</summary>
+        /// <value>The <see cref="Tool"/> block if it has been written; otherwise, null.</value>
+        public Tool Tool { get { return _tool; } }
 
         /// <summary>Gets the RuleInfo block.</summary>
-        /// <value>The <see cref="RunInfo"/> block if it has been written; otherwise, null.</value>
-        public RunInfo RunInfo { get { return _runInfo; } }
+        /// <value>The <see cref="Run"/> block if it has been written; otherwise, null.</value>
+        public Run Run { get { return _run; } }
 
         /// <summary>Gets the list of issues written so far.</summary>
         /// <value>The list of <see cref="Result"/> objects written so far.</value>
@@ -39,40 +39,40 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         /// <summary>Writes a tool information entry to the log.</summary>
         /// <exception cref="InvalidOperationException">Thrown if the tool info block has already been
         /// written.</exception>
-        /// <param name="toolInfo">The tool information to write.</param>
-        /// <seealso cref="M:Microsoft.CodeAnalysis.Sarif.IsarifWriter.WriteToolInfo(ToolInfo)"/>
-        public void WriteToolInfo(ToolInfo toolInfo)
+        /// <param name="tool">The tool information to write.</param>
+        /// <seealso cref="M:Microsoft.CodeAnalysis.Sarif.IsarifWriter.WriteTool(Tool)"/>
+        public void WriteTool(Tool tool)
         {
-            if (toolInfo == null)
+            if (tool == null)
             {
-                throw new ArgumentNullException(nameof(toolInfo));
+                throw new ArgumentNullException(nameof(tool));
             }
 
-            if (_toolInfo != null)
+            if (_tool != null)
             {
-                throw new InvalidOperationException(SarifResources.ToolInfoAlreadyWritten);
+                throw new InvalidOperationException(SarifResources.ToolAlreadyWritten);
             }
 
-            _toolInfo = toolInfo;
+            _tool = tool;
         }
         /// <summary>Writes a run information entry to the log.</summary>
         /// <exception cref="InvalidOperationException">Thrown if the tool info block has already been
         /// written.</exception>
-        /// <param name="toolInfo">The tool information to write.</param>
-        /// <seealso cref="M:Microsoft.CodeAnalysis.Sarif.IsarifWriter.WriteToolInfo(ToolInfo)"/>
-        public void WriteRunInfo(RunInfo runInfo)
+        /// <param name="tool">The tool information to write.</param>
+        /// <seealso cref="M:Microsoft.CodeAnalysis.Sarif.IsarifWriter.WriteTool(Tool)"/>
+        public void WriteRun(Run run)
         {
-            if (runInfo == null)
+            if (run == null)
             {
-                throw new ArgumentNullException(nameof(runInfo));
+                throw new ArgumentNullException(nameof(run));
             }
 
-            if (_runInfo != null)
+            if (_run != null)
             {
-                throw new InvalidOperationException(SarifResources.ToolInfoAlreadyWritten);
+                throw new InvalidOperationException(SarifResources.ToolAlreadyWritten);
             }
 
-            _runInfo = runInfo;
+            _run = run;
         }
 
         public void OpenResults() { }
@@ -80,8 +80,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         public void CloseResults() { }
 
         /// <summary>
-        /// Writes a result to the log. The log must have tool and run info written first by calling
-        /// <see cref="M:WriteToolAndRunInfo" />.
+        /// Writes a result to the log.
         /// </summary>
         /// <remarks>
         /// This function makes a copy of the data stored in <paramref name="result"/>; if a
@@ -102,17 +101,16 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 throw new ArgumentNullException("result");
             }
 
-            if (_toolInfo == null)
+            if (_tool == null)
             {
-                throw new InvalidOperationException(SarifResources.CannotWriteResultToolInfoMissing);
+                throw new InvalidOperationException(SarifResources.CannotWriteResultToolMissing);
             }
 
             _issueList = _issueList.Add(new Result(result));
         }
 
         /// <summary>
-        /// Writes a set of results to the log. The log must have tool and run info written first by calling
-        /// <see cref="M:WriteToolAndRunInfo" />.
+        /// Writes a set of results to the log.
         /// </summary>
         /// <remarks>
         /// This function makes a copy of the data stored in <paramref name="results"/>; if a

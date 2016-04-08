@@ -151,11 +151,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Sdk {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Cannot write result: ToolInfo not yet written..
+        ///   Looks up a localized string similar to Cannot write result: Tool not yet written..
         /// </summary>
-        internal static string CannotWriteResultToolInfoMissing {
+        internal static string CannotWriteResultToolMissing {
             get {
-                return ResourceManager.GetString("CannotWriteResultToolInfoMissing", resourceCulture);
+                return ResourceManager.GetString("CannotWriteResultToolMissing", resourceCulture);
             }
         }
         
@@ -322,20 +322,20 @@ namespace Microsoft.CodeAnalysis.Sarif.Sdk {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to RunInfo has already been written. It cannot be written again..
+        ///   Looks up a localized string similar to Run has already been written. It cannot be written again..
         /// </summary>
-        internal static string RunInfoAlreadyWritten {
+        internal static string RunAlreadyWritten {
             get {
-                return ResourceManager.GetString("RunInfoAlreadyWritten", resourceCulture);
+                return ResourceManager.GetString("RunAlreadyWritten", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to ToolInfo has already been written. It cannot be written again..
+        ///   Looks up a localized string similar to Tool has already been written. It cannot be written again..
         /// </summary>
-        internal static string ToolInfoAlreadyWritten {
+        internal static string ToolAlreadyWritten {
             get {
-                return ResourceManager.GetString("ToolInfoAlreadyWritten", resourceCulture);
+                return ResourceManager.GetString("ToolAlreadyWritten", resourceCulture);
             }
         }
     }

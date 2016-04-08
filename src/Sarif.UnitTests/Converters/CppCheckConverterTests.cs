@@ -44,7 +44,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 "<results> <cppcheck version=\"12.34\" /> <errors /> </results>");
 
             // We will transform the version above to a Semantic Versioning 2.0 form
-            Assert.AreEqual("12.34.0", results.ToolInfo.Version);
+            Assert.AreEqual("12.34.0", results.Tool.Version);
         }
 
         [TestMethod]
@@ -55,7 +55,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
   ""version"": ""1.0.0-beta.2"",
   ""runLogs"": [
     {
-      ""toolInfo"": {
+      ""tool"": {
         ""name"": ""CppCheck"",
         ""version"": ""12.34.0""
       },

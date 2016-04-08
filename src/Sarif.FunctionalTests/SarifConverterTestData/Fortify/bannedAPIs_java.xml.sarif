@@ -2,11 +2,11 @@
   "version": "1.0.0-beta.2",
   "runLogs": [
     {
-      "toolInfo": {
+      "tool": {
         "name": "Fortify"
       },
-      "runInfo": {
-        "fileInfo": {
+      "run": {
+        "files": {
           "bannedAPIs.java": [
             {
               "uri": "bannedAPIs.java",

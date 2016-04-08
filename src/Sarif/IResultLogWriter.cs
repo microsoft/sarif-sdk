@@ -19,8 +19,8 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <exception cref="InvalidOperationException">Thrown if the tool info block has already been
         /// written.</exception>
         /// <exception cref="ArgumentNullException">Thrown if <paramref name="info"/> is null.</exception>
-        /// <param name="toolInfo">The tool information to write.</param>
-        void WriteToolInfo(ToolInfo toolInfo);
+        /// <param name="tool">The tool information to write.</param>
+        void WriteTool(Tool tool);
 
         /// <summary>Writes run information to the log. This information may appear after
         /// the results, as it can contain data that can't be computed (such as the run
@@ -30,8 +30,8 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <exception cref="InvalidOperationException">Thrown if the tool info block has already been
         /// written.</exception>
         /// <exception cref="ArgumentNullException">Thrown if <paramref name="info"/> is null.</exception>
-        /// <param name="runInfo">The run information to write.</param>
-        void WriteRunInfo(RunInfo runInfo);
+        /// <param name="run">The run information to write.</param>
+        void WriteRun(Run run);
 
         /// <summary>
         /// Initialize the results array associated with the current output log. SARIF producers that
@@ -42,8 +42,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         void OpenResults();
 
         /// <summary>
-        /// Writes a result to the log. The log must have tool and run info written first by calling
-        /// <see cref="M:WriteToolAndRunInfo" />.
+        /// Writes a result to the log.
         /// </summary>
         /// <remarks>
         /// This function makes a copy of the data stored in <paramref name="result"/>; if a
@@ -71,8 +70,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         void CloseResults();
 
         /// <summary>
-        /// Writes a set of results to the log. The log must have tool and run info written first by calling
-        /// <see cref="M:WriteToolAndRunInfo" />.
+        /// Writes a set of results to the log.
         /// </summary>
         /// <remarks>
         /// This function makes a copy of the data stored in <paramref name="results"/>; if a

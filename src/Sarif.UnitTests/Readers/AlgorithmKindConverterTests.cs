@@ -17,8 +17,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
 
     public class AlgorithmKindConverterTests
     {
-        private static readonly RunInfo s_defaultRunInfo = new RunInfo();
-        private static readonly ToolInfo s_defaultToolInfo = new ToolInfo();
+        private static readonly Run s_defaultRunInfo = new Run();
+        private static readonly Tool s_defaultToolInfo = new Tool();
         private static readonly Result s_defaultResult = new Result();
 
         public AlgorithmKindConverterTests()
@@ -45,12 +45,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
         [TestMethod]
         public void AlgorithmKindGroestl()
         {
-            string expected = "{\"version\":\"1.0.0-beta.2\",\"runLogs\":[{\"toolInfo\":{\"name\":null},\"runInfo\":{\"fileInfo\":{\"http://abc/\":[{\"uri\":\"http://abc/\",\"hashes\":[{\"value\":null,\"algorithm\":\"Groestl\"}]}]}},\"results\":[{}]}]}";
+            string expected = "{\"version\":\"1.0.0-beta.2\",\"runLogs\":[{\"tool\":{\"name\":null},\"run\":{\"files\":{\"http://abc/\":[{\"uri\":\"http://abc/\",\"hashes\":[{\"value\":null,\"algorithm\":\"Groestl\"}]}]}},\"results\":[{}]}]}";
             string actual = GetJson(uut =>
             {
-                var runInfo = new RunInfo();
+                var run = new Run();
 
-                runInfo.FileInfo = new Dictionary<Uri, IList<FileReference>> {
+                run.Files = new Dictionary<Uri, IList<FileReference>> {
                     [new Uri("http://abc/")] = new List<FileReference>
                     {
                         new FileReference()
@@ -67,8 +67,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
                     }
                 };
 
-                uut.WriteToolInfo(s_defaultToolInfo);
-                uut.WriteRunInfo(runInfo);
+                uut.WriteTool(s_defaultToolInfo);
+                uut.WriteRun(run);
                 uut.WriteResult(s_defaultResult);
             });
             Assert.AreEqual(expected, actual);

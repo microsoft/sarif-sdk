@@ -288,12 +288,12 @@ public:
 
     void SetToolInfo(const SarifToolInfo &info)
     {
-        m_values[L"toolInfo"] = info.m_values;
+        m_values[L"tool"] = info.m_values;
     }
 
     void SetRunInfo(const SarifRunInfo &info)
     {
-        m_values[L"runInfo"] = info.m_values;
+        m_values[L"run"] = info.m_values;
     }
 
     void AddIssue(const SarifIssue &issue);

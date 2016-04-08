@@ -113,13 +113,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
             log.RunLogs = new List<RunLog>();
 
             var runLog = new RunLog();
-            runLog.ToolInfo = new ToolInfo();
+            runLog.Tool = new Tool();
 
-            runLog.ToolInfo.InitializeFromAssembly(this.GetType().Assembly, Prerelease);
+            runLog.Tool.InitializeFromAssembly(this.GetType().Assembly, Prerelease);
             runLog.Results = new List<Result>();
 
             log.RunLogs.Add(runLog);
-            runLog.RuleInfo = new List<RuleDescriptor>();
+            runLog.Rules = new List<RuleDescriptor>();
 
             SortedDictionary<int, RuleDescriptor> sortedRuleDescriptors = new SortedDictionary<int, RuleDescriptor>();
 
@@ -144,7 +144,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
 
             foreach (RuleDescriptor ruleDescriptor in sortedRuleDescriptors.Values)
             {
-                runLog.RuleInfo.Add(ruleDescriptor);
+                runLog.Rules.Add(ruleDescriptor);
             }
 
             var settings = new JsonSerializerSettings()

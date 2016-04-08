@@ -2,12 +2,12 @@
   "version": "1.0.0-beta.2",
   "runLogs": [
     {
-      "toolInfo": {
+      "tool": {
         "name": "CppCheck",
         "version": "1.66.0"
       },
-      "runInfo": {
-        "fileInfo": {
+      "run": {
+        "files": {
           "adler32.c": [
             {
               "uri": "adler32.c",

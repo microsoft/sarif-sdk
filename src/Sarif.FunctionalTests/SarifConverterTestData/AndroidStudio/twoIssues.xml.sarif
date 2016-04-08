@@ -2,11 +2,11 @@
   "version": "1.0.0-beta.2",
   "runLogs": [
     {
-      "toolInfo": {
+      "tool": {
         "name": "AndroidStudio"
       },
-      "runInfo": {
-        "fileInfo": {
+      "run": {
+        "files": {
           "yammer-droid-2/src/test/java/com/yammer/droid/AdditionOperationTest.java": [
             {
               "uri": "yammer-droid-2/src/test/java/com/yammer/droid/AdditionOperationTest.java",

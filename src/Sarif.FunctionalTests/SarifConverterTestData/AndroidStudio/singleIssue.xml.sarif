@@ -2,11 +2,11 @@
   "version": "1.0.0-beta.2",
   "runLogs": [
     {
-      "toolInfo": {
+      "tool": {
         "name": "AndroidStudio"
       },
-      "runInfo": {
-        "fileInfo": {
+      "run": {
+        "files": {
           "northwindtraders-droid-2/src/main/java/com/northwindtraders/droid/model/Model.java": [
             {
               "uri": "northwindtraders-droid-2/src/main/java/com/northwindtraders/droid/model/Model.java",

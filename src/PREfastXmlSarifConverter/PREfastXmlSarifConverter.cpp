@@ -402,24 +402,24 @@ HRESULT __stdcall Convert(const std::deque<XmlDefect> defectList, BSTR bstrOutpu
     SarifIssueLog issueLog;
     issueLog.SetVersion(L"0.4");
 
-    // Set ToolInfo
-    SarifToolInfo toolInfo;
-    toolInfo.SetName(L"PREfast");
-    toolInfo.SetFullName(L"PREfast Code Analysis");
-    toolInfo.SetVersion(L"14.0.0");
+    // Set Tool
+    SarifToolInfo tool;
+    tool.SetName(L"PREfast");
+    tool.SetFullName(L"PREfast Code Analysis");
+    tool.SetVersion(L"14.0.0");
 
-    // Set RunInfo
-    SarifRunInfo runInfo;
-    runInfo.SetCommandLineArguments(L"");
+    // Set Run
+    SarifRunInfo run;
+    run.SetCommandLineArguments(L"");
 
     std::wstring uriCmdLineSrc = L"";
     SarifFileReference fr1;
     fr1.SetURI(uriCmdLineSrc);
-    runInfo.AddAnalysisTarget(fr1);
+    run.AddAnalysisTarget(fr1);
 
     SarifRunLog runLog;
-    runLog.SetToolInfo(toolInfo);
-    runLog.SetRunInfo(runInfo);
+    runLog.SetToolInfo(tool);
+    runLog.SetRunInfo(run);
 
     for (const XmlDefect &defect : defectList)
     {

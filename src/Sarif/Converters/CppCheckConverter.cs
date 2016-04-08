@@ -113,7 +113,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
             reader.ReadEndElement(); // </results>
 
-            var toolInfo = new ToolInfo
+            var tool = new Tool
             {
                 Name = "CppCheck",
                 Version = version,
@@ -122,12 +122,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             var fileInfoFactory = new FileInfoFactory(uri => MimeType.Cpp);
             Dictionary<Uri, IList<FileReference>> fileInfoDictionary = fileInfoFactory.Create(results);
 
-            var runInfo = fileInfoDictionary != null && fileInfoDictionary.Count > 0
-                ? new RunInfo { FileInfo = fileInfoDictionary }
+            var run = fileInfoDictionary != null && fileInfoDictionary.Count > 0
+                ? new Run { Files = fileInfoDictionary }
                 : null;
 
-            issueWriter.WriteToolInfo(toolInfo);
-            if (runInfo != null) { issueWriter.WriteRunInfo(runInfo); }
+            issueWriter.WriteTool(tool);
+            if (run != null) { issueWriter.WriteRun(run); }
 
             issueWriter.OpenResults();
             issueWriter.WriteResults(results);
