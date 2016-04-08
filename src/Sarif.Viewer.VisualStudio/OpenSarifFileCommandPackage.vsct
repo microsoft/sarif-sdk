@@ -68,6 +68,7 @@
       <Button guid="guidOpenSarifFileCommandPackageCmdSet" id="OpenSarifFileCommandId" priority="0x0100" type="Button">
         <Parent guid="guidOpenSarifFileCommandPackageCmdSet" id="OpenFileSubMenuGroup" />
         <!--<Icon guid="guidImages" id="bmpPic1" />-->
+        <CommandFlag>AllowParams</CommandFlag>
         <Strings>
           <ButtonText>Open SARIF file...</ButtonText>
         </Strings>

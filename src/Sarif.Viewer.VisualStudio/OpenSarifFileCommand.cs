@@ -3,6 +3,7 @@
 
 using System;
 using System.ComponentModel.Design;
+using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 
@@ -66,11 +67,12 @@ namespace SarifViewer
             {
                 foreach (int command in s_commands)
                 {
-                    commandService.AddCommand(
-                        new MenuCommand(
+                    OleMenuCommand oleCommand = new OleMenuCommand(
                             this.MenuItemCallback,
-                            new CommandID(CommandSet, command))
-                        );
+                            new CommandID(CommandSet, command));
+                    oleCommand.ParametersDescription = "$";
+
+                    commandService.AddCommand(oleCommand);
                 }
             }
         }
@@ -113,70 +115,102 @@ namespace SarifViewer
         /// <param name="e">Event args.</param>
         private void MenuItemCallback(object sender, EventArgs e)
         {
-            MenuCommand menuCommand = (MenuCommand)sender;
+            OleMenuCommand menuCommand = (OleMenuCommand)sender;
+            OleMenuCmdEventArgs menuCmdEventArgs = (OleMenuCmdEventArgs)e;
+
+            bool isInputFileValid = false;
+            string logFile = menuCmdEventArgs.InValue as String;
+
+            // Verify if the input file is valid. i.e. it exists and has a valid file extension.
+            if (!String.IsNullOrWhiteSpace(logFile))
+            {
+                string logFileExtension = Path.GetExtension(logFile);
+
+                // Since we don't have a tool format, only accept *.sarif and *.json files as command input files.
+                if (logFileExtension.Equals(".sarif", StringComparison.OrdinalIgnoreCase) || logFileExtension.Equals(".json", StringComparison.OrdinalIgnoreCase))
+                {
+                    if (File.Exists(logFile))
+                    {
+                        isInputFileValid = true;
+                    }
+                }
+            }
+
             ToolFormat toolFormat = ToolFormat.None;
-            string title = "Open Static Analysis Results Interchange Format (SARIF) file";
-            string filter = "SARIF files (*.sarif;*.sarif.json)|*.sarif;*.sarif.json";
 
-            switch (menuCommand.CommandID.ID)
+            if (!isInputFileValid)
             {
-                // These constants expressed in our VSCT
-                case OpenSarifFileCommandId:
+                string title = "Open Static Analysis Results Interchange Format (SARIF) file";
+                string filter = "SARIF files (*.sarif;*.sarif.json)|*.sarif;*.sarif.json";
+
+                switch (menuCommand.CommandID.ID)
                 {
-                    // Native SARIF. All our defaults above are fine
-                    break;
+                    // These constants expressed in our VSCT
+                    case OpenSarifFileCommandId:
+                        {
+                            // Native SARIF. All our defaults above are fine
+                            break;
+                        }
+                    case OpenPREfastFileCommandId:
+                        {
+                            toolFormat = ToolFormat.PREfast;
+                            title = "Open PREfast XML log file";
+                            filter = "PREfast log files (*.xml)|*.xml";
+                            break;
+                        }
+                    case OpenFxCopFileCommandId:
+                        {
+                            // FxCop. TODO. We need project file support. FxCop
+                            // fullMessages look broken.
+                            toolFormat = ToolFormat.FxCop;
+                            title = "Open FxCop XML log file";
+                            filter = "FxCop report and project files (*.xml)|*.xml";
+                            break;
+                        }
+                    case OpenCppCheckFileCommandId:
+                        {
+                            toolFormat = ToolFormat.CppCheck;
+                            title = "Open CppCheck XML log file";
+                            filter = "CppCheck log files (*.xml)|*.xml";
+                            break;
+                        }
+                    case OpenClangFileCommandId:
+                        {
+                            toolFormat = ToolFormat.ClangAnalyzer;
+                            title = "Open Clang XML log file";
+                            filter = "Clang log files (*.xml)|*.xml";
+                            break;
+                        }
+                    case OpenAndroidStudioFileCommandId:
+                        {
+                            toolFormat = ToolFormat.AndroidStudio;
+                            title = "Open Android Studio XML log file";
+                            filter = "PREfast log files (*.xml)|*.xml";
+                            break;
+                        }
                 }
-                case OpenPREfastFileCommandId:
+
+                OpenFileDialog openFileDialog = new OpenFileDialog();
+
+                openFileDialog.Title = title;
+                openFileDialog.Filter = filter;
+                openFileDialog.RestoreDirectory = true;
+
+                if (!String.IsNullOrWhiteSpace(logFile))
                 {
-                    toolFormat = ToolFormat.PREfast;
-                    title = "Open PREfast XML log file";
-                    filter = "PREfast log files (*.xml)|*.xml";
-                    break;
+                    openFileDialog.FileName = Path.GetFileName(logFile);
+                    openFileDialog.InitialDirectory = Path.GetDirectoryName(logFile);
                 }
-                case OpenFxCopFileCommandId:
+
+                if (openFileDialog.ShowDialog() != DialogResult.OK)
                 {
-                    // FxCop. TODO. We need project file support. FxCop
-                    // fullMessages look broken.
-                    toolFormat = ToolFormat.FxCop;
-                    title = "Open FxCop XML log file";
-                    filter = "FxCop report and project files (*.xml)|*.xml";
-                    break;
+                    return;
                 }
-                case OpenCppCheckFileCommandId:
-                {
-                    toolFormat = ToolFormat.CppCheck;
-                    title = "Open CppCheck XML log file";
-                    filter = "CppCheck log files (*.xml)|*.xml";
-                    break;
-                }
-                case OpenClangFileCommandId:
-                {
-                    toolFormat = ToolFormat.ClangAnalyzer;
-                    title = "Open Clang XML log file";
-                    filter = "Clang log files (*.xml)|*.xml";
-                    break;
-                }
-                case OpenAndroidStudioFileCommandId:
-                {
-                    toolFormat = ToolFormat.AndroidStudio;
-                    title = "Open Android Studio XML log file";
-                    filter = "PREfast log files (*.xml)|*.xml";
-                    break;
-                }
+
+                logFile = openFileDialog.FileName;
             }
 
-            OpenFileDialog openFileDialog = new OpenFileDialog();
-
-            openFileDialog.Title = title;
-            openFileDialog.Filter = filter;
-            openFileDialog.RestoreDirectory = true;
-
-            if (openFileDialog.ShowDialog() != DialogResult.OK)
-            {
-                return;
-            }
-
-            ErrorListService.ProcessLogFile(openFileDialog.FileName, toolFormat);
+            ErrorListService.ProcessLogFile(logFile, toolFormat);
         }
     }
 }
