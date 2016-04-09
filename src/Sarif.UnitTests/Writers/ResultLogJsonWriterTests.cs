@@ -14,8 +14,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
     [TestClass]
     public class ResultLogJsonWriterTests
     {
-        private static readonly Run s_defaultRunInfo = new Run();
-        private static readonly Tool s_defaultToolInfo = new Tool();
+        private static readonly Run s_defaultRun = new Run();
+        private static readonly Tool s_defaultTool = new Tool();
         private static readonly Result s_defaultIssue = new Result();
 
         private static string GetJson(Action<ResultLogJsonWriter> testContent)
@@ -39,13 +39,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         }
 
         [TestMethod]
-        public void ResultLogJsonWriter_AcceptsIssuesAndToolInfo()
+        public void ResultLogJsonWriter_AcceptsIssuesAndTool()
         {
             string expected = "{\"version\":\"1.0.0-beta.2\",\"runLogs\":[{\"tool\":{\"name\":null},\"run\":{},\"results\":[{}]}]}";
             string actual = GetJson(uut =>
             {
-                uut.WriteTool(s_defaultToolInfo);
-                uut.WriteRun(s_defaultRunInfo);
+                uut.WriteTool(s_defaultTool);
+                uut.WriteRun(s_defaultRun);
                 uut.WriteResult(s_defaultIssue);
             });
             Assert.AreEqual(expected, actual);
@@ -57,8 +57,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         {
             GetJson(uut =>
             {
-                uut.WriteTool(s_defaultToolInfo);
-                uut.WriteTool(s_defaultToolInfo);
+                uut.WriteTool(s_defaultTool);
+                uut.WriteTool(s_defaultTool);
             });
         }
 
@@ -68,21 +68,21 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         {
             GetJson(uut =>
             {
-                uut.WriteRun(s_defaultRunInfo);
-                uut.WriteRun(s_defaultRunInfo);
+                uut.WriteRun(s_defaultRun);
+                uut.WriteRun(s_defaultRun);
             });
         }
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentNullException))]
-        public void ResultLogJsonWriter_RequiresNonNullToolInfo()
+        public void ResultLogJsonWriter_RequiresNonNullTool()
         {
             GetJson(uut => uut.WriteTool(null));
         }
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentNullException))]
-        public void ResultLogJsonWriter_RequiresNonNullRunInfo()
+        public void ResultLogJsonWriter_RequiresNonNullRun()
         {
             GetJson(uut => uut.WriteRun(null));
         }
@@ -93,23 +93,23 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         {
             GetJson(uut =>
             {
-                uut.WriteTool(s_defaultToolInfo);
-                uut.WriteRun(s_defaultRunInfo);
+                uut.WriteTool(s_defaultTool);
+                uut.WriteRun(s_defaultRun);
                 uut.WriteResult(null);
             });
         }
 
         [TestMethod]
         [ExpectedException(typeof(InvalidOperationException))]
-        public void ResultLogJsonWriter_CannotWriteToolInfoToDisposedWriter()
+        public void ResultLogJsonWriter_CannotWriteToolToDisposedWriter()
         {
             using (var str = new StringWriter())
             using (var json = new JsonTextWriter(str))
             using (var uut = new ResultLogJsonWriter(json))
             {
                 uut.Dispose();
-                uut.WriteTool(s_defaultToolInfo);
-                uut.WriteRun(s_defaultRunInfo);
+                uut.WriteTool(s_defaultTool);
+                uut.WriteRun(s_defaultRun);
             }
         }
 
@@ -121,8 +121,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             using (var json = new JsonTextWriter(str))
             using (var uut = new ResultLogJsonWriter(json))
             {
-                uut.WriteTool(s_defaultToolInfo);
-                uut.WriteRun(s_defaultRunInfo); uut.Dispose();
+                uut.WriteTool(s_defaultTool);
+                uut.WriteRun(s_defaultRun); uut.Dispose();
                 uut.WriteResult(s_defaultIssue);
             }
         }

@@ -23,7 +23,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             None = 0x0,
             Initialized = 0x1,
             ToolWritten = 0x2,
-            RuleInfoWritten = 0x4,
+            RulesWritten = 0x4,
             RunWritten = 0x8,
             ResultsInitialized = 0x10,
             ResultsClosed = 0x20,
@@ -102,7 +102,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             _writeConditions |= Conditions.RunWritten;
         }
 
-        public void WriteRuleInfo(IEnumerable<IRuleDescriptor> ruleDescriptors)
+        public void WriteRules(IEnumerable<IRuleDescriptor> ruleDescriptors)
         {
             if (ruleDescriptors == null)
             {
@@ -111,7 +111,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
             EnsureInitialized();
             EnsureResultsArrayIsNotOpen();
-            EnsureStateNotAlreadySet(Conditions.Disposed | Conditions.RuleInfoWritten);
+            EnsureStateNotAlreadySet(Conditions.Disposed | Conditions.RulesWritten);
 
             _jsonWriter.WritePropertyName("rules");
             _jsonWriter.WriteStartArray();
@@ -132,7 +132,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
             _jsonWriter.WriteEndArray();
 
-            _writeConditions |= Conditions.RuleInfoWritten;
+            _writeConditions |= Conditions.RulesWritten;
         }
 
         public void OpenResults()

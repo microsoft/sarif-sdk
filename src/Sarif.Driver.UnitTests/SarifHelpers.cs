@@ -13,12 +13,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
     {
         public static void ValidateRunLog(RunLog runLog, Action<Result> resultAction)
         {
-            ValidateToolInfo(runLog.Tool);
+            ValidateTool(runLog.Tool);
 
             foreach (Result result in runLog.Results) { resultAction(result); }
         }
 
-        public static void ValidateToolInfo(Tool tool)
+        public static void ValidateTool(Tool tool)
         {
             Assert.Equal("Sarif.Driver", tool.Name);
             // TODO version, etc

@@ -85,12 +85,12 @@ namespace SarifViewer
 
         private IRuleDescriptor GetRule(RunLog runLog, string ruleId)
         {
-            if (runLog.RuleInfo == null)
+            if (runLog.Rules == null)
             {
                 return null;
             }
 
-            foreach (IRuleDescriptor ruleDescriptor in runLog.RuleInfo)
+            foreach (IRuleDescriptor ruleDescriptor in runLog.Rules)
             {
                 if (ruleDescriptor.Id == ruleId) { return ruleDescriptor; }
             }
@@ -103,7 +103,7 @@ namespace SarifViewer
             List<SarifError> sarifErrors = new List<SarifError>();
 
             // Prefer optional fullName,  fall back to required Name property
-            string toolName = runLog.ToolInfo.FullName ?? runLog.ToolInfo.Name;
+            string toolName = runLog.Tool.FullName ?? runLog.Tool.Name;
 
             foreach (Result result in runLog.Results)
             {

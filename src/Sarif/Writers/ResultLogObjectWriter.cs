@@ -26,7 +26,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         /// <value>The <see cref="Tool"/> block if it has been written; otherwise, null.</value>
         public Tool Tool { get { return _tool; } }
 
-        /// <summary>Gets the RuleInfo block.</summary>
+        /// <summary>Gets the Rules block.</summary>
         /// <value>The <see cref="Run"/> block if it has been written; otherwise, null.</value>
         public Run Run { get { return _run; } }
 

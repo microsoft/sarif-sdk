@@ -17,8 +17,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
 
     public class AlgorithmKindConverterTests
     {
-        private static readonly Run s_defaultRunInfo = new Run();
-        private static readonly Tool s_defaultToolInfo = new Tool();
+        private static readonly Run s_defaultRun = new Run();
+        private static readonly Tool s_defaultTool = new Tool();
         private static readonly Result s_defaultResult = new Result();
 
         public AlgorithmKindConverterTests()
@@ -67,7 +67,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
                     }
                 };
 
-                uut.WriteTool(s_defaultToolInfo);
+                uut.WriteTool(s_defaultTool);
                 uut.WriteRun(run);
                 uut.WriteResult(s_defaultResult);
             });

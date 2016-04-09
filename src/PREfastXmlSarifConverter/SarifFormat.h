@@ -243,7 +243,7 @@ public:
     void AddHash(const SarifHash &hash);
 };
 
-class SarifRunInfo
+class SarifRun
 {
 public:
     json::Object m_values;
@@ -255,7 +255,7 @@ public:
     void AddAnalysisTarget(const SarifFileReference &target);
 };
 
-class SarifToolInfo
+class SarifTool
 {
 public:
     json::Object m_values;
@@ -286,12 +286,12 @@ class SarifRunLog
 public:
     json::Object m_values;
 
-    void SetToolInfo(const SarifToolInfo &info)
+    void SetTool(const SarifTool &info)
     {
         m_values[L"tool"] = info.m_values;
     }
 
-    void SetRunInfo(const SarifRunInfo &info)
+    void SetRun(const SarifRun &info)
     {
         m_values[L"run"] = info.m_values;
     }

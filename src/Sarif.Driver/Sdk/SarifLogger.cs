@@ -20,21 +20,21 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
         private ResultLogJsonWriter _issueLogJsonWriter;
         private HashSet<IRuleDescriptor> _ruleDescriptors;
 
-        public static Tool CreateDefaultToolInfo(string prereleaseInfo = null)
+        public static Tool CreateDefaultTool(string prereleaseInfo = null)
         {
             Assembly assembly = Assembly.GetEntryAssembly() ?? Assembly.GetExecutingAssembly();
             string name = Path.GetFileNameWithoutExtension(assembly.Location);
             Version version = assembly.GetName().Version;
 
-            Tool toolInfo = new Tool();
-            toolInfo.Name = name;
-            toolInfo.Version = version.Major.ToString() + "." + version.Minor.ToString() + "." + version.Build.ToString();
-            toolInfo.FullName = name + " " + toolInfo.Version + (prereleaseInfo ?? "");
+            Tool tool = new Tool();
+            tool.Name = name;
+            tool.Version = version.Major.ToString() + "." + version.Minor.ToString() + "." + version.Build.ToString();
+            tool.FullName = name + " " + tool.Version + (prereleaseInfo ?? "");
 
-            return toolInfo;
+            return tool;
         }
 
-        private static Run CreateRunInfo(
+        private static Run CreateRun(
             IEnumerable<string> analysisTargets,
             bool computeTargetsHash,
             IEnumerable<string> invocationTokensToRedact)
@@ -82,19 +82,19 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
             return run;
         }
 
-        public SarifLogger(string outputFilePath, bool verbose, Tool toolInfo, Run run)
+        public SarifLogger(string outputFilePath, bool verbose, Tool tool, Run run)
             : this (new StreamWriter(new FileStream(outputFilePath, FileMode.Create, FileAccess.Write, FileShare.None)),
                   verbose,
-                  toolInfo, 
+                  tool, 
                   run)
         {
 
         }
 
-        public SarifLogger(TextWriter textWriter, bool verbose, Tool toolInfo, Run run) : this(textWriter, verbose)
+        public SarifLogger(TextWriter textWriter, bool verbose, Tool tool, Run run) : this(textWriter, verbose)
         {
             _run = run;
-            _issueLogJsonWriter.WriteTool(toolInfo);
+            _issueLogJsonWriter.WriteTool(tool);
         }
 
         public SarifLogger(
@@ -122,10 +122,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
             string prereleaseInfo,
             IEnumerable<string> invocationTokensToRedact) : this(textWriter, verbose)
         {
-            Tool toolInfo = CreateDefaultToolInfo(prereleaseInfo);
-            _issueLogJsonWriter.WriteTool(toolInfo);
+            Tool tool = CreateDefaultTool(prereleaseInfo);
+            _issueLogJsonWriter.WriteTool(tool);
 
-            _run = CreateRunInfo(analysisTargets, computeTargetsHash, invocationTokensToRedact);
+            _run = CreateRun(analysisTargets, computeTargetsHash, invocationTokensToRedact);
         }
 
         public SarifLogger(TextWriter textWriter, bool verbose)
@@ -174,7 +174,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
                 // this data with an empty collection.
                 if (_ruleDescriptors != null)
                 {
-                    _issueLogJsonWriter.WriteRuleInfo(_ruleDescriptors);
+                    _issueLogJsonWriter.WriteRules(_ruleDescriptors);
                 }
 
                 _issueLogJsonWriter.Dispose();
