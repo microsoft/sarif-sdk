@@ -240,7 +240,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
                                 targets,
                                 analyzeOptions.ComputeTargetsHash,
                                 Prerelease,
-                                invocationInfoTokensToRedact : null)),
+                                invocationTokensToRedact : null)),
                     (ex) =>
                     {
                         Errors.LogExceptionCreatingLogFile(context, filePath, ex);

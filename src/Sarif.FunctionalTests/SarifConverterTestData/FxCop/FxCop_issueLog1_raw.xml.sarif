@@ -2,11 +2,11 @@
   "version": "1.0.0-beta.2",
   "runLogs": [
     {
-      "toolInfo": {
+      "tool": {
         "name": "FxCop"
       },
-      "runInfo": {
-        "fileInfo": {
+      "run": {
+        "files": {
           "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityCryptographyRuleTests.dll": [
             {
               "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityCryptographyRuleTests.dll",

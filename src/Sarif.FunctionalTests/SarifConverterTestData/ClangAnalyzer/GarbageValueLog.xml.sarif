@@ -2,11 +2,11 @@
   "version": "1.0.0-beta.2",
   "runLogs": [
     {
-      "toolInfo": {
+      "tool": {
         "name": "Clang"
       },
-      "runInfo": {
-        "fileInfo": {
+      "run": {
+        "files": {
           "jcmaster.c": [
             {
               "uri": "jcmaster.c",

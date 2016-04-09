@@ -49,7 +49,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
   ""version"": ""1.0.0-beta.2"",
   ""runLogs"": [
     {
-      ""toolInfo"": {
+      ""tool"": {
         ""name"": ""AndroidStudio""
       },
       ""results"": []

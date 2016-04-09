@@ -2,11 +2,11 @@
   "version": "1.0.0-beta.2",
   "runLogs": [
     {
-      "toolInfo": {
+      "tool": {
         "name": "AndroidStudio"
       },
-      "runInfo": {
-        "fileInfo": {
+      "run": {
+        "files": {
           "build/intermediates/exploded-aar/com.google.android.gms/play-services/4.4.52/res/values/wallet_styles.xml": [
             {
               "uri": "build/intermediates/exploded-aar/com.google.android.gms/play-services/4.4.52/res/values/wallet_styles.xml",

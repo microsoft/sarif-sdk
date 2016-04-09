@@ -2,7 +2,7 @@
   "version": "1.0.0-beta.2",
   "runLogs": [
     {
-      "toolInfo": {
+      "tool": {
         "name": "FxCop"
       },
       "results": [

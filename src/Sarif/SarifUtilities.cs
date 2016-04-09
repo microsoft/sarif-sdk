@@ -65,14 +65,14 @@ namespace Microsoft.CodeAnalysis.Sarif
             return dictionary;
         }
 
-        public static void InitializeFromAssembly(this ToolInfo toolInfo, Assembly assembly, string prereleaseInfo = null)
+        public static void InitializeFromAssembly(this Tool tool, Assembly assembly, string prereleaseInfo = null)
         {
             string name = Path.GetFileNameWithoutExtension(assembly.Location);
             Version version = assembly.GetName().Version;
 
-            toolInfo.Name = name;
-            toolInfo.Version = version.Major.ToString() + "." + version.Minor.ToString() + "." + version.Build.ToString();
-            toolInfo.FullName = name + " " + toolInfo.Version + (prereleaseInfo ?? "");
+            tool.Name = name;
+            tool.Version = version.Major.ToString() + "." + version.Minor.ToString() + "." + version.Build.ToString();
+            tool.FullName = name + " " + tool.Version + (prereleaseInfo ?? "");
         }
     }
 }

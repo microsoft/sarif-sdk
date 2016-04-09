@@ -64,7 +64,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 }
             }
 
-            var toolInfo = new ToolInfo
+            var tool = new Tool
             {
                 Name = "Fortify"
             };
@@ -72,12 +72,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             var fileInfoFactory = new FileInfoFactory(MimeType.DetermineFromFileExtension);
             Dictionary<Uri, IList<FileReference>> fileInfoDictionary = fileInfoFactory.Create(results);
 
-            var runInfo = fileInfoDictionary != null && fileInfoDictionary.Count > 0
-                ? new RunInfo { FileInfo = fileInfoDictionary }
+            var run = fileInfoDictionary != null && fileInfoDictionary.Count > 0
+                ? new Run { Files = fileInfoDictionary }
                 : null;
 
-            output.WriteToolInfo(toolInfo);
-            if (runInfo != null) { output.WriteRunInfo(runInfo); }
+            output.WriteTool(tool);
+            if (run != null) { output.WriteRun(run); }
 
             output.OpenResults();
             output.WriteResults(results);

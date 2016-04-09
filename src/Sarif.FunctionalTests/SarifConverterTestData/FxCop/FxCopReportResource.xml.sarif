@@ -2,11 +2,11 @@
   "version": "1.0.0-beta.2",
   "runLogs": [
     {
-      "toolInfo": {
+      "tool": {
         "name": "FxCop"
       },
-      "runInfo": {
-        "fileInfo": {
+      "run": {
+        "files": {
           "$(ProjectDir)/SpecifyCultureInfo/Microsoft.TeamFoundation.Build.Client.dll": [
             {
               "uri": "$(ProjectDir)/SpecifyCultureInfo/Microsoft.TeamFoundation.Build.Client.dll",

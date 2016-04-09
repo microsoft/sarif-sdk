@@ -21,7 +21,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
                 analysisTargets: Enumerable.Empty<string>(),
                 computeTargetsHash: false,
                 prereleaseInfo: null,
-                invocationInfoTokensToRedact: null);
+                invocationTokensToRedact: null);
 
             string result = textWriter.ToString();
 

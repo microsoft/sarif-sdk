@@ -14,36 +14,36 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
 {
     public class SarifLogger : IDisposable, IAnalysisLogger
     {
-        private RunInfo _runInfo;
+        private Run _run;
         private TextWriter _textWriter;
         private JsonTextWriter _jsonTextWriter;
         private ResultLogJsonWriter _issueLogJsonWriter;
         private HashSet<IRuleDescriptor> _ruleDescriptors;
 
-        public static ToolInfo CreateDefaultToolInfo(string prereleaseInfo = null)
+        public static Tool CreateDefaultTool(string prereleaseInfo = null)
         {
             Assembly assembly = Assembly.GetEntryAssembly() ?? Assembly.GetExecutingAssembly();
             string name = Path.GetFileNameWithoutExtension(assembly.Location);
             Version version = assembly.GetName().Version;
 
-            ToolInfo toolInfo = new ToolInfo();
-            toolInfo.Name = name;
-            toolInfo.Version = version.Major.ToString() + "." + version.Minor.ToString() + "." + version.Build.ToString();
-            toolInfo.FullName = name + " " + toolInfo.Version + (prereleaseInfo ?? "");
+            Tool tool = new Tool();
+            tool.Name = name;
+            tool.Version = version.Major.ToString() + "." + version.Minor.ToString() + "." + version.Build.ToString();
+            tool.FullName = name + " " + tool.Version + (prereleaseInfo ?? "");
 
-            return toolInfo;
+            return tool;
         }
 
-        private static RunInfo CreateRunInfo(
+        private static Run CreateRun(
             IEnumerable<string> analysisTargets,
             bool computeTargetsHash,
-            IEnumerable<string> invocationInfoTokensToRedact)
+            IEnumerable<string> invocationTokensToRedact)
         {
-            var runInfo = new RunInfo();
+            var run = new Run();
 
             if (analysisTargets != null)
             {
-                runInfo.FileInfo = new Dictionary<Uri, IList<FileReference>>();
+                run.Files = new Dictionary<Uri, IList<FileReference>>();
 
                 foreach (string target in analysisTargets)
                 {
@@ -64,37 +64,37 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
                             }
                         });
                     }
-                        runInfo.FileInfo.Add(fileReference.Uri, new List<FileReference> { fileReference });
+                        run.Files.Add(fileReference.Uri, new List<FileReference> { fileReference });
                 }
             }
 
-            string invocationInfo = Environment.CommandLine;
+            string invocation = Environment.CommandLine;
 
-            if (invocationInfoTokensToRedact != null)
+            if (invocationTokensToRedact != null)
             {
-                foreach (string tokenToRedact in invocationInfoTokensToRedact)
+                foreach (string tokenToRedact in invocationTokensToRedact)
                 {
-                    invocationInfo = invocationInfo.Replace(tokenToRedact, SarifConstants.RemovedMarker);
+                    invocation = invocation.Replace(tokenToRedact, SarifConstants.RemovedMarker);
                 }
             }
-            runInfo.InvocationInfo = invocationInfo;
-            runInfo.RunStartTime = DateTime.UtcNow;
-            return runInfo;
+            run.Invocation = invocation;
+            run.RunStartTime = DateTime.UtcNow;
+            return run;
         }
 
-        public SarifLogger(string outputFilePath, bool verbose, ToolInfo toolInfo, RunInfo runInfo)
+        public SarifLogger(string outputFilePath, bool verbose, Tool tool, Run run)
             : this (new StreamWriter(new FileStream(outputFilePath, FileMode.Create, FileAccess.Write, FileShare.None)),
                   verbose,
-                  toolInfo, 
-                  runInfo)
+                  tool, 
+                  run)
         {
 
         }
 
-        public SarifLogger(TextWriter textWriter, bool verbose, ToolInfo toolInfo, RunInfo runInfo) : this(textWriter, verbose)
+        public SarifLogger(TextWriter textWriter, bool verbose, Tool tool, Run run) : this(textWriter, verbose)
         {
-            _runInfo = runInfo;
-            _issueLogJsonWriter.WriteToolInfo(toolInfo);
+            _run = run;
+            _issueLogJsonWriter.WriteTool(tool);
         }
 
         public SarifLogger(
@@ -103,13 +103,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
             IEnumerable<string> analysisTargets,
             bool computeTargetsHash,
             string prereleaseInfo,
-            IEnumerable<string> invocationInfoTokensToRedact)
+            IEnumerable<string> invocationTokensToRedact)
             : this(new StreamWriter(new FileStream(outputFilePath, FileMode.Create, FileAccess.Write, FileShare.None)),
                     verbose,
                     analysisTargets,
                     computeTargetsHash, 
                     prereleaseInfo,
-                    invocationInfoTokensToRedact)
+                    invocationTokensToRedact)
         {
 
         }
@@ -120,12 +120,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
             IEnumerable<string> analysisTargets,
             bool computeTargetsHash,
             string prereleaseInfo,
-            IEnumerable<string> invocationInfoTokensToRedact) : this(textWriter, verbose)
+            IEnumerable<string> invocationTokensToRedact) : this(textWriter, verbose)
         {
-            ToolInfo toolInfo = CreateDefaultToolInfo(prereleaseInfo);
-            _issueLogJsonWriter.WriteToolInfo(toolInfo);
+            Tool tool = CreateDefaultTool(prereleaseInfo);
+            _issueLogJsonWriter.WriteTool(tool);
 
-            _runInfo = CreateRunInfo(analysisTargets, computeTargetsHash, invocationInfoTokensToRedact);
+            _run = CreateRun(analysisTargets, computeTargetsHash, invocationTokensToRedact);
         }
 
         public SarifLogger(TextWriter textWriter, bool verbose)
@@ -162,19 +162,19 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
             {
                 _issueLogJsonWriter.CloseResults();
 
-                if (_runInfo != null && _runInfo.RunStartTime != new DateTime())
+                if (_run != null && _run.RunStartTime != new DateTime())
                 {
-                    _runInfo.RunEndTime = DateTime.UtcNow;
+                    _run.RunEndTime = DateTime.UtcNow;
                 }
 
-                _issueLogJsonWriter.WriteRunInfo(_runInfo);
+                _issueLogJsonWriter.WriteRun(_run);
 
                 // Note: we write out the backing ruleDescriptors
                 // to prevent the property accessor from populating
                 // this data with an empty collection.
                 if (_ruleDescriptors != null)
                 {
-                    _issueLogJsonWriter.WriteRuleInfo(_ruleDescriptors);
+                    _issueLogJsonWriter.WriteRules(_ruleDescriptors);
                 }
 
                 _issueLogJsonWriter.Dispose();
@@ -190,12 +190,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
         public void AnalysisStarted()
         {
             _issueLogJsonWriter.OpenResults();
-            _runInfo.RunStartTime = DateTime.UtcNow;
+            _run.RunStartTime = DateTime.UtcNow;
         }
 
         public void AnalysisStopped(RuntimeConditions runtimeConditions)
         {
-            _runInfo.RunEndTime = DateTime.UtcNow;
+            _run.RunEndTime = DateTime.UtcNow;
         }
 
         public void Log(IRuleDescriptor rule, Result result)

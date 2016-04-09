@@ -22,9 +22,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         {
             None = 0x0,
             Initialized = 0x1,
-            ToolInfoWritten = 0x2,
-            RuleInfoWritten = 0x4,
-            RunInfoWritten = 0x8,
+            ToolWritten = 0x2,
+            RulesWritten = 0x4,
+            RunWritten = 0x8,
             ResultsInitialized = 0x10,
             ResultsClosed = 0x20,
             Disposed = 0x40
@@ -67,42 +67,42 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         /// <exception cref="InvalidOperationException">Thrown if the tool info block has already been
         /// written.</exception>
         /// <param name="info">The tool information to write.</param>
-        /// <seealso cref="M:Microsoft.CodeAnalysis.Sarif.IsarifWriter.WriteToolInfo(ToolInfo)"/>
-        public void WriteToolInfo(ToolInfo toolInfo)
+        /// <seealso cref="M:Microsoft.CodeAnalysis.Sarif.IsarifWriter.WriteTool(Tool)"/>
+        public void WriteTool(Tool tool)
         {
-            if (toolInfo == null)
+            if (tool == null)
             {
-                throw new ArgumentNullException("toolInfo");
+                throw new ArgumentNullException("tool");
             }
 
             EnsureInitialized();
             EnsureResultsArrayIsNotOpen();
-            EnsureStateNotAlreadySet(Conditions.Disposed | Conditions.ToolInfoWritten);
+            EnsureStateNotAlreadySet(Conditions.Disposed | Conditions.ToolWritten);
 
-            _jsonWriter.WritePropertyName("toolInfo");
-            _serializer.Serialize(_jsonWriter, toolInfo, typeof(ToolInfo));
+            _jsonWriter.WritePropertyName("tool");
+            _serializer.Serialize(_jsonWriter, tool, typeof(Tool));
 
-            _writeConditions |= Conditions.ToolInfoWritten;
+            _writeConditions |= Conditions.ToolWritten;
         }
 
-        public void WriteRunInfo(RunInfo runInfo)
+        public void WriteRun(Run run)
         {
-            if (runInfo == null)
+            if (run == null)
             {
-                throw new ArgumentNullException("runInfo");
+                throw new ArgumentNullException("run");
             }
 
             EnsureInitialized();
             EnsureResultsArrayIsNotOpen();
-            EnsureStateNotAlreadySet(Conditions.Disposed | Conditions.RunInfoWritten);
+            EnsureStateNotAlreadySet(Conditions.Disposed | Conditions.RunWritten);
 
-            _jsonWriter.WritePropertyName("runInfo");
-            _serializer.Serialize(_jsonWriter, runInfo, typeof(RunInfo));
+            _jsonWriter.WritePropertyName("run");
+            _serializer.Serialize(_jsonWriter, run, typeof(Run));
 
-            _writeConditions |= Conditions.RunInfoWritten;
+            _writeConditions |= Conditions.RunWritten;
         }
 
-        public void WriteRuleInfo(IEnumerable<IRuleDescriptor> ruleDescriptors)
+        public void WriteRules(IEnumerable<IRuleDescriptor> ruleDescriptors)
         {
             if (ruleDescriptors == null)
             {
@@ -111,9 +111,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
             EnsureInitialized();
             EnsureResultsArrayIsNotOpen();
-            EnsureStateNotAlreadySet(Conditions.Disposed | Conditions.RuleInfoWritten);
+            EnsureStateNotAlreadySet(Conditions.Disposed | Conditions.RulesWritten);
 
-            _jsonWriter.WritePropertyName("ruleInfo");
+            _jsonWriter.WritePropertyName("rules");
             _jsonWriter.WriteStartArray();
 
             foreach(IRuleDescriptor ruleDescriptor in ruleDescriptors)
@@ -132,7 +132,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
             _jsonWriter.WriteEndArray();
 
-            _writeConditions |= Conditions.RuleInfoWritten;
+            _writeConditions |= Conditions.RulesWritten;
         }
 
         public void OpenResults()
@@ -146,8 +146,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         }
 
         /// <summary>
-        /// Writes a result to the log. The log must have tool and run info written first by calling
-        /// <see cref="M:WriteToolAndRunInfo" />.
+        /// Writes a result to the log. 
         /// </summary>
         /// <remarks>
         /// This function makes a copy of the data stored in <paramref name="result"/>; if a
@@ -183,8 +182,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         }
 
         /// <summary>
-        /// Writes a set of results to the log. The log must have tool and run info written first by calling
-        /// <see cref="M:WriteToolAndRunInfo" />.
+        /// Writes a set of results to the log.
         /// </summary>
         /// <remarks>
         /// This function makes a copy of the data stored in <paramref name="results"/>; if a

@@ -86,7 +86,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Validation
                 analysisTargets: new[] { instanceFilePath, schemaFilePath },
                 computeTargetsHash: false,
                 prereleaseInfo: null,
-                invocationInfoTokensToRedact:null);
+                invocationTokensToRedact:null);
 
             _logger.AnalysisStarted();
         }

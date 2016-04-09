@@ -338,7 +338,7 @@ SarifFileReference::AddHash(const SarifHash &hash)
 }
 
 void
-SarifRunInfo::AddAnalysisTarget(const SarifFileReference &target)
+SarifRun::AddAnalysisTarget(const SarifFileReference &target)
 {
     m_values.GetArrayElement(L"analysisTargets").push_back(target.m_values);
 }
