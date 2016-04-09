@@ -82,7 +82,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         {
             var uut = new ResultLogObjectWriter();
             uut.WriteTool(s_defaultToolInfo);
-            uut.WriteRun(s_defaultRunInfo); uut.WriteResult(null);
+            uut.WriteRun(s_defaultRunInfo);
+            uut.WriteResult(null);
         }
     }
 }
