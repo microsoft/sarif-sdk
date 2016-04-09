@@ -249,7 +249,7 @@ public:
     json::Object m_values;
     void SetCommandLineArguments(const std::wstring &args)
     {
-        m_values[L"invocationInfo"] = args;
+        m_values[L"invocation"] = args;
     }
 
     void AddAnalysisTarget(const SarifFileReference &target);

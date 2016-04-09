@@ -37,7 +37,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
         private static Run CreateRunInfo(
             IEnumerable<string> analysisTargets,
             bool computeTargetsHash,
-            IEnumerable<string> invocationInfoTokensToRedact)
+            IEnumerable<string> invocationTokensToRedact)
         {
             var run = new Run();
 
@@ -68,16 +68,16 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
                 }
             }
 
-            string invocationInfo = Environment.CommandLine;
+            string invocation = Environment.CommandLine;
 
-            if (invocationInfoTokensToRedact != null)
+            if (invocationTokensToRedact != null)
             {
-                foreach (string tokenToRedact in invocationInfoTokensToRedact)
+                foreach (string tokenToRedact in invocationTokensToRedact)
                 {
-                    invocationInfo = invocationInfo.Replace(tokenToRedact, SarifConstants.RemovedMarker);
+                    invocation = invocation.Replace(tokenToRedact, SarifConstants.RemovedMarker);
                 }
             }
-            run.InvocationInfo = invocationInfo;
+            run.Invocation = invocation;
             run.RunStartTime = DateTime.UtcNow;
             return run;
         }
@@ -103,13 +103,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
             IEnumerable<string> analysisTargets,
             bool computeTargetsHash,
             string prereleaseInfo,
-            IEnumerable<string> invocationInfoTokensToRedact)
+            IEnumerable<string> invocationTokensToRedact)
             : this(new StreamWriter(new FileStream(outputFilePath, FileMode.Create, FileAccess.Write, FileShare.None)),
                     verbose,
                     analysisTargets,
                     computeTargetsHash, 
                     prereleaseInfo,
-                    invocationInfoTokensToRedact)
+                    invocationTokensToRedact)
         {
 
         }
@@ -120,12 +120,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
             IEnumerable<string> analysisTargets,
             bool computeTargetsHash,
             string prereleaseInfo,
-            IEnumerable<string> invocationInfoTokensToRedact) : this(textWriter, verbose)
+            IEnumerable<string> invocationTokensToRedact) : this(textWriter, verbose)
         {
             Tool toolInfo = CreateDefaultToolInfo(prereleaseInfo);
             _issueLogJsonWriter.WriteTool(toolInfo);
 
-            _run = CreateRunInfo(analysisTargets, computeTargetsHash, invocationInfoTokensToRedact);
+            _run = CreateRunInfo(analysisTargets, computeTargetsHash, invocationTokensToRedact);
         }
 
         public SarifLogger(TextWriter textWriter, bool verbose)
