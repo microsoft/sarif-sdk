@@ -3,8 +3,10 @@
 
 using System;
 using System.ComponentModel.Design;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Windows.Forms;
 
 using Microsoft.CodeAnalysis.Sarif;
@@ -118,27 +120,35 @@ namespace SarifViewer
             OleMenuCommand menuCommand = (OleMenuCommand)sender;
             OleMenuCmdEventArgs menuCmdEventArgs = (OleMenuCmdEventArgs)e;
 
-            bool isInputFileValid = false;
-            string logFile = menuCmdEventArgs.InValue as String;
+            string inputFile = menuCmdEventArgs.InValue as String;
+            string logFile = null;
 
-            // Verify if the input file is valid. i.e. it exists and has a valid file extension.
-            if (!String.IsNullOrWhiteSpace(logFile))
+            if (!String.IsNullOrWhiteSpace(inputFile))
             {
-                string logFileExtension = Path.GetExtension(logFile);
-
-                // Since we don't have a tool format, only accept *.sarif and *.json files as command input files.
-                if (logFileExtension.Equals(".sarif", StringComparison.OrdinalIgnoreCase) || logFileExtension.Equals(".json", StringComparison.OrdinalIgnoreCase))
+                // If the input file is a URL, download the file.
+                if (Uri.IsWellFormedUriString(inputFile, UriKind.Absolute))
                 {
-                    if (File.Exists(logFile))
+                    TryDownloadFile(inputFile, out logFile);
+                }
+                else
+                {
+                    // Verify if the input file is valid. i.e. it exists and has a valid file extension.
+                    string logFileExtension = Path.GetExtension(inputFile);
+
+                    // Since we don't have a tool format, only accept *.sarif and *.json files as command input files.
+                    if (logFileExtension.Equals(".sarif", StringComparison.OrdinalIgnoreCase) || logFileExtension.Equals(".json", StringComparison.OrdinalIgnoreCase))
                     {
-                        isInputFileValid = true;
+                        if (File.Exists(inputFile))
+                        {
+                            logFile = inputFile;
+                        }
                     }
                 }
             }
 
             ToolFormat toolFormat = ToolFormat.None;
 
-            if (!isInputFileValid)
+            if (logFile == null)
             {
                 string title = "Open Static Analysis Results Interchange Format (SARIF) file";
                 string filter = "SARIF files (*.sarif;*.sarif.json)|*.sarif;*.sarif.json";
@@ -196,10 +206,10 @@ namespace SarifViewer
                 openFileDialog.Filter = filter;
                 openFileDialog.RestoreDirectory = true;
 
-                if (!String.IsNullOrWhiteSpace(logFile))
+                if (!String.IsNullOrWhiteSpace(inputFile))
                 {
-                    openFileDialog.FileName = Path.GetFileName(logFile);
-                    openFileDialog.InitialDirectory = Path.GetDirectoryName(logFile);
+                    openFileDialog.FileName = Path.GetFileName(inputFile);
+                    openFileDialog.InitialDirectory = Path.GetDirectoryName(inputFile);
                 }
 
                 if (openFileDialog.ShowDialog() != DialogResult.OK)
@@ -211,6 +221,78 @@ namespace SarifViewer
             }
 
             ErrorListService.ProcessLogFile(logFile, toolFormat);
+        }
+
+        bool IsSarifProtocol(string path)
+        {
+            return path.StartsWith("sarif://", StringComparison.OrdinalIgnoreCase);
+        }
+
+        string ConvertSarifProtocol(string inputUrl)
+        {
+            int sarifProtocolLength;
+            string replacementProtocol;
+
+            // sarif:/// ==> file://
+            // sarif://  ==> http://
+            if (inputUrl.StartsWith("sarif:///", StringComparison.OrdinalIgnoreCase))
+            {
+                sarifProtocolLength = 9;
+                replacementProtocol = "file://";
+            }
+            else if (inputUrl.StartsWith("sarif://", StringComparison.OrdinalIgnoreCase))
+            {
+                sarifProtocolLength = 8;
+                replacementProtocol = "http://";
+            }
+            else
+            {
+                throw new ArgumentOutOfRangeException("inputUrl", $"The input URL does not use a known protocol. {inputUrl}");
+            }
+
+            string newUrl = inputUrl.Substring(sarifProtocolLength);
+            newUrl = replacementProtocol + newUrl;
+            return newUrl;
+        }
+
+        bool TryDownloadFile(string inputUrl, out string downloadedFilePath)
+        {
+            Uri inputUri = new Uri(inputUrl, UriKind.Absolute);
+            downloadedFilePath = Path.GetTempFileName();
+            string downloadUrl = null;
+
+            if (inputUri.Scheme.Equals("sarif", StringComparison.OrdinalIgnoreCase))
+            {
+                downloadUrl = ConvertSarifProtocol(inputUrl);
+            }
+            else if (inputUri.Scheme.Equals("http://", StringComparison.OrdinalIgnoreCase) || inputUri.Scheme.Equals("file://", StringComparison.OrdinalIgnoreCase))
+            {
+                downloadUrl = inputUrl;
+            }
+            else
+            {
+                throw new ArgumentOutOfRangeException("inputUrl", $"The input URL does not use a known protocol. {inputUrl}");
+            }
+
+            if (downloadUrl != null)
+            {
+                try
+                {
+                    using (WebClient webClient = new WebClient())
+                    {
+                        webClient.UseDefaultCredentials = true;
+                        webClient.DownloadFile(downloadUrl, downloadedFilePath);
+                    }
+                }
+                catch (Exception e)
+                {
+                    Trace.TraceError(e.ToString());
+                    File.Delete(downloadedFilePath);
+                    downloadedFilePath = null;
+                }
+            }
+
+            return File.Exists(downloadedFilePath);
         }
     }
 }
