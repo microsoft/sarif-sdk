@@ -34,16 +34,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 throw new ArgumentNullException("output");
             }
 
-
             try
             {
                 XmlReaderSettings settings = new XmlReaderSettings();
                 settings.IgnoreWhitespace = true;
                 settings.DtdProcessing = DtdProcessing.Ignore;
 
-                ToolInfo toolInfo = new ToolInfo();
-                toolInfo.Name = "Clang";
-                output.WriteToolAndRunInfo(toolInfo, null);
+                var results = new List<Result>();
 
                 using (XmlReader xmlReader = XmlReader.Create(input, settings))
                 {
@@ -53,10 +50,29 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                     {
                         using (var pListReader = xmlReader.ReadSubtree())
                         {
-                            this.ReadPlist(pListReader, output);
+                            this.ReadPlist(pListReader, results);
                         }
                     }
                 }
+
+                var tool = new Tool
+                {
+                    Name = "Clang"
+                };
+
+                var fileInfoFactory = new FileInfoFactory(MimeType.DetermineFromFileExtension);
+                Dictionary<Uri, IList<FileReference>> fileInfoDictionary = fileInfoFactory.Create(results);
+
+                var run = fileInfoDictionary != null && fileInfoDictionary.Count > 0
+                    ? new Run { Files = fileInfoDictionary }
+                    : null;
+
+                output.WriteTool(tool);
+                if (run != null) { output.WriteRun(run); }
+
+                output.OpenResults();
+                output.WriteResults(results);
+                output.CloseResults();
             }
             finally
             {
@@ -108,16 +124,22 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             return value ?? string.Empty;
         }
 
-        private void LogIssue(IDictionary<string, object> issueData, IResultLogWriter output)
+        private Result CreateResult(IDictionary<string, object> issueData)
         {
             if (issueData != null)
             {
+                // Used for Result.FullMessage 
                 string description = FindString(issueData, "description");
-                string category = FindString(issueData, "category");
+
+                // Used as rule id. 
                 string issueType = FindString(issueData, "type");
+                
+                // This data persisted to result property bag
+                string category = FindString(issueData, "category");
                 string issueContextKind = FindString(issueData, "issue_context_kind");
                 string issueContext = FindString(issueData, "issue_context");
                 string issueHash = FindString(issueData, "issue_hash");
+
                 int issueLine = 0;
                 int issueColumn = 0;
                 string fileName = null;
@@ -134,32 +156,36 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                     }
                 }
 
-                Result result = new Result
+                return new Result
                 {
-                    FullMessage = category + " : " + description,
-                    ShortMessage = issueType,
+                    RuleId = issueType,
+                    FullMessage = description,
                     Locations = new[]
                     {
                         new Location
                         {
-                            AnalysisTarget = new[]
+                            AnalysisTarget = new PhysicalLocation
                             {
-                                new PhysicalLocationComponent
+                                Uri = new Uri(fileName, UriKind.RelativeOrAbsolute),
+                                Region = new Region()
                                 {
-                                    Uri = new Uri(fileName, UriKind.RelativeOrAbsolute),
-                                    MimeType = MimeType.DetermineFromFileExtension(fileName),
-                                    Region = new Region()
-                                    {
-                                        StartLine = issueLine,
-                                        StartColumn = issueColumn
-                                    }
+                                    StartLine = issueLine,
+                                    StartColumn = issueColumn
                                 }
                             }
                         }
+                    },
+                    Properties = new Dictionary<string, string> {
+                        { "category", category },
+                        { "issue_context_kind", issueContextKind },
+                        { "issueContext", issueContext },
+                        { "issueHash", issueHash },
                     }
                 };
-
-                output.WriteResult(result);
+            }
+            else
+            {
+                return null;
             }
         }
 
@@ -303,7 +329,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             return dictionary;
         }
 
-        private void ReadPlistDictionary(XmlReader xmlReader, IResultLogWriter output)
+        private void ReadPlistDictionary(XmlReader xmlReader, IList<Result> results)
         {
             string keyName = string.Empty;
             bool readerMoved = false;       // ReadElementContentAsString reads to next element
@@ -353,7 +379,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
                                     if (keyName.Equals("diagnostics"))
                                     {
-                                        ReadDiagnostics(subTreeReader, output);
+                                        ReadDiagnostics(subTreeReader, results);
                                     }
 
                                     keyName = string.Empty;
@@ -369,7 +395,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             }
         }
 
-        private void ReadDiagnostics(XmlReader xmlReader, IResultLogWriter output)
+        private void ReadDiagnostics(XmlReader xmlReader, IList<Result> results)
         {
             xmlReader.Read(); // Read past the "array" element start.
 
@@ -382,7 +408,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                         using (var subTreeReader = xmlReader.ReadSubtree())
                         {
                             IDictionary<string, object> dictionary = ReadDictionary(subTreeReader);
-                            this.LogIssue(dictionary, output);
+                            Result result = this.CreateResult(dictionary);
+                            if (result != null)
+                            {
+                                results.Add(result);
+                            }
                         }
                     }
                 }
@@ -394,7 +424,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             }
         }
 
-        private void ReadPlist(XmlReader xmlReader, IResultLogWriter output)
+        private void ReadPlist(XmlReader xmlReader, IList<Result> results)
         {
             while (xmlReader.Read())
             {
@@ -404,7 +434,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                     {
                         using (var subTreeReader = xmlReader.ReadSubtree())
                         {
-                            this.ReadPlistDictionary(subTreeReader, output);
+                            this.ReadPlistDictionary(subTreeReader, results);
                         }
                     }
                 }

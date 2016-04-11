@@ -24,12 +24,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
             FullDescription = SdkResources.ERR0997_InvalidConfiguration_Description,
             FormatSpecifiers = RuleUtilities.BuildDictionary(SdkResources.ResourceManager,
                 new string[] {
+                    nameof(SdkResources.ERR0997_ExceptionAccessingFile),
                     nameof(SdkResources.ERR0997_ExceptionLoadingPdb),
                     nameof(SdkResources.ERR0997_ExceptionLoadingPlugIn),
                     nameof(SdkResources.ERR0997_ExceptionCreatingLogFile),
                     nameof(SdkResources.ERR0997_ExceptionLoadingAnalysisTarget),
                     nameof(SdkResources.ERR0997_ExceptionInstantiatingSkimmers),
                     nameof(SdkResources.ERR0997_MissingRuleConfiguration),
+                    nameof(SdkResources.ERR0997_MissingFile),
                     nameof(SdkResources.ERR0997_NoRulesLoaded),
                     nameof(SdkResources.ERR0997_NoValidAnalysisTargets)
                }, ERR0997)
@@ -152,7 +154,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
         {
             context.Rule = Errors.InvalidConfiguration;
 
-            // An exception was raised attempting to create output file '{0}'. Exception information:
+            // An exception was raised attempting to create output file: '{0}'. Exception information:
             // {1}
             context.Logger.Log(context.Rule,
                 RuleUtilities.BuildResult(ResultKind.ConfigurationError, context, null,
@@ -161,6 +163,34 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
                     ex.ToString()));
 
             context.RuntimeErrors |= RuntimeConditions.ExceptionCreatingLogfile;
+        }
+
+        public static void LogMissingFile(IAnalysisContext context, string fileName)
+        {
+            context.Rule = Errors.InvalidConfiguration;
+
+            // A required file specified on the command line could not be found:'{0}'. 
+            context.Logger.Log(context.Rule,
+                RuleUtilities.BuildResult(ResultKind.ConfigurationError, context, null,
+                    nameof(SdkResources.ERR0997_MissingFile),
+                    fileName));
+
+            context.RuntimeErrors |= RuntimeConditions.MissingFile;
+        }
+
+        public static void LogExceptionAccessingFile(IAnalysisContext context, string fileName, Exception ex)
+        {
+            context.Rule = Errors.InvalidConfiguration;
+
+            // An exception was raised accessing a file specified on the command-line: '{0}'. Exception information:
+            // {1}
+            context.Logger.Log(context.Rule,
+                RuleUtilities.BuildResult(ResultKind.ConfigurationError, context, null,
+                    nameof(SdkResources.ERR0997_ExceptionAccessingFile),
+                    fileName,
+                    ex.ToString()));
+
+            context.RuntimeErrors |= RuntimeConditions.ExceptionAccessingFile;
         }
 
 
@@ -193,7 +223,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
         public static void LogExceptionLoadingPlugIn(string plugInFilePath, IAnalysisContext context, Exception ex)
         {
             context.Rule = Errors.InvalidConfiguration;
-            context.TargetUri = plugInFilePath.CreateUriForJsonSerialization();
+            context.TargetUri = new Uri(plugInFilePath);
 
             // An exception was raised attempting to load plug-in '{0}'. Exception information:
             // {1}

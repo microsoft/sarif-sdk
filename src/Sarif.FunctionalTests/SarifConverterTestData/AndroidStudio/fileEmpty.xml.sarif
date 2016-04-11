@@ -1,9 +1,19 @@
 {
-  "version": "0.4",
+  "version": "1.0.0-beta.2",
   "runLogs": [
     {
-      "toolInfo": {
+      "tool": {
         "name": "AndroidStudio"
+      },
+      "run": {
+        "files": {
+          "northwindtraders-droid-2/src/main/java/com/northwindtraders/droid/model/Model.java": [
+            {
+              "uri": "northwindtraders-droid-2/src/main/java/com/northwindtraders/droid/model/Model.java",
+              "mimeType": "text/x-java-source"
+            }
+          ]
+        }
       },
       "results": [
         {
@@ -11,12 +21,9 @@
           "fullMessage": "Assertions are unreliable. Use BuildConfig.DEBUG conditional checks instead.",
           "locations": [
             {
-              "analysisTarget": [
-                {
-                  "uri": "northwindtraders-droid-2/src/main/java/com/northwindtraders/droid/model/Model.java",
-                  "mimeType": "text/x-java-source"
-                }
-              ],
+              "analysisTarget": {
+                "uri": "northwindtraders-droid-2/src/main/java/com/northwindtraders/droid/model/Model.java"
+              },
               "logicalLocation": [
                 {
                   "name": "northwindtraders-droid-2",

@@ -16,11 +16,17 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
             JsonContract contract = base.CreateContract(objectType);
 
             // this will only be called once and then cached
-            if (objectType == typeof(SarifVersion))
-                contract.Converter = SarifVersionConverter.Instance;
+            if (objectType == typeof(Uri))
+                contract.Converter = UriConverter.Instance;
+
+            if (objectType == typeof(DateTime))
+                contract.Converter = DateTimeConverter.Instance;
 
             if (objectType == typeof(Version))
                 contract.Converter = VersionConverter.Instance;
+
+            if (objectType == typeof(SarifVersion))
+                contract.Converter = SarifVersionConverter.Instance;
 
             if (objectType == typeof(ResultKind))
                 contract.Converter = ResultKindConverter.Instance;

@@ -245,7 +245,7 @@ namespace Microsoft.Sarif.Viewer
             fileName = remappedName;
 
             NewLineIndex newLineIndex = null;
-            if (!SarifExtensionMethods.IsFullyPopulated(region) && mimeType != MimeType.Binary)
+            if (!sarifError.RegionPopulated && mimeType != MimeType.Binary)
             {
                 if (!_fileToNewLineIndexMap.TryGetValue(fileName, out newLineIndex))
                 {

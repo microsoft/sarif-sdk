@@ -12,9 +12,16 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
     {
         [TestMethod]
         [ExpectedException(typeof(ArgumentNullException))]
-        public void MimeType_GuessesFromFileName_DisallowsNullParameters()
+        public void MimeType_GuessesFromFileName_DisallowsNullStringParameter()
         {
-            MimeType.DetermineFromFileExtension(null);
+            MimeType.DetermineFromFileExtension((string)null);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentNullException))]
+        public void MimeType_GuessesFromFileName_DisallowsNullUriParameter()
+        {
+            MimeType.DetermineFromFileExtension((Uri)null);
         }
 
         [TestMethod]

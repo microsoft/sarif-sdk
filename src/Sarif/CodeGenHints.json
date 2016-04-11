@@ -1,0 +1,122 @@
+{
+  "RuleDescriptor.Options": [
+    {
+      "$type": "Microsoft.Json.Schema.ToDotNet.DictionaryHint, Microsoft.Json.Schema.ToDotNet"
+    }
+  ],
+  "AnnotatedCodeLocation.Properties": [
+    {
+      "$type": "Microsoft.Json.Schema.ToDotNet.DictionaryHint, Microsoft.Json.Schema.ToDotNet"
+    }
+  ],
+  "FileReference.Properties": [
+    {
+      "$type": "Microsoft.Json.Schema.ToDotNet.DictionaryHint, Microsoft.Json.Schema.ToDotNet"
+    }
+  ],
+  "Location.Properties": [
+    {
+      "$type": "Microsoft.Json.Schema.ToDotNet.DictionaryHint, Microsoft.Json.Schema.ToDotNet"
+    }
+  ],
+  "Result.Properties": [
+    {
+      "$type": "Microsoft.Json.Schema.ToDotNet.DictionaryHint, Microsoft.Json.Schema.ToDotNet"
+    }
+  ],
+  "RuleDescriptor.FormatSpecifiers": [
+    {
+      "$type": "Microsoft.Json.Schema.ToDotNet.DictionaryHint, Microsoft.Json.Schema.ToDotNet"
+    }
+  ],
+  "RuleDescriptor.Properties": [
+    {
+      "$type": "Microsoft.Json.Schema.ToDotNet.DictionaryHint, Microsoft.Json.Schema.ToDotNet"
+    }
+  ],
+  "Run.Files": [
+    {
+      "$type": "Microsoft.Json.Schema.ToDotNet.DictionaryHint, Microsoft.Json.Schema.ToDotNet",
+      "keyTypeName": "Uri"
+    }
+  ],
+  "Run.Properties": [
+    {
+      "$type": "Microsoft.Json.Schema.ToDotNet.DictionaryHint, Microsoft.Json.Schema.ToDotNet"
+    }
+  ],
+  "ruleDescriptor": [
+    {
+      "$type": "Microsoft.Json.Schema.ToDotNet.InterfaceHint, Microsoft.Json.Schema.ToDotNet",
+      "description": "Interface exposed by objects that provide information about analysis rules."
+    }
+  ],
+  "SarifLog.Version": [
+    {
+      "$type": "Microsoft.Json.Schema.ToDotNet.EnumHint, Microsoft.Json.Schema.ToDotNet",
+      "typeName": "SarifVersion",
+      "description": "Possible values for the SARIF schema version.",
+      "zeroValue": "Unknown",
+      "enum": [
+        "OneZeroZeroBetaTwo"
+      ]
+    }
+  ],
+  "Hash.Algorithm": [
+    {
+      "$type": "Microsoft.Json.Schema.ToDotNet.EnumHint, Microsoft.Json.Schema.ToDotNet",
+      "typeName": "AlgorithmKind",
+      "description": "Values specifying different hashing algorithms.",
+      "zeroValue": "Unknown",
+      "enum": [
+        "Blake256",
+        "Blake512",
+        "Ecoh",
+        "Fsb",
+        "Gost",
+        "Groestl",
+        "Has160",
+        "Haval",
+        "JH",
+        "MD2",
+        "MD4",
+        "MD5",
+        "MD6",
+        "RadioGatun",
+        "RipeMD",
+        "RipeMD128",
+        "RipeMD160",
+        "RipeMD320",
+        "Sha1",
+        "Sha224",
+        "Sha256",
+        "Sha384",
+        "Sha512",
+        "Sha3",
+        "Skein",
+        "Snefru",
+        "SpectralHash",
+        "Swifft",
+        "Tiger",
+        "Whirlpool"
+      ]
+    }
+  ],
+  "Result.Kind": [
+    {
+      "$type": "Microsoft.Json.Schema.ToDotNet.EnumHint, Microsoft.Json.Schema.ToDotNet",
+      "typeName": "ResultKind",
+      "description": "Values specifying the category of the result.",
+      "zeroValue": "Unknown",
+      "enum": [
+        "Error",
+        "Warning",
+        "Pass",
+        "Note",
+        "NotApplicable",
+        "InternalError",
+        "ConfigurationError"
+      ]
+    }
+  ]
+}

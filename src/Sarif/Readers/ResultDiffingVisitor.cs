@@ -2,19 +2,19 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using System.Collections.Generic;
-using Microsoft.CodeAnalysis.Sarif.Sdk;
+using Microsoft.CodeAnalysis.Sarif;
 
 namespace Microsoft.CodeAnalysis.Sarif.Readers
 {
     public class ResultDiffingVisitor : SarifRewritingVisitor
     {
-        public ResultDiffingVisitor(ResultLog resultLog)
+        public ResultDiffingVisitor(SarifLog sarifLog)
         {
             this.AbsentResults = new HashSet<Result>();
             this.SharedResults = new HashSet<Result>();
             this.NewResults    = new HashSet<Result>();
 
-            VisitResultLog(resultLog);
+            VisitSarifLog(sarifLog);
         }
 
         public HashSet<Result> NewResults    { get; set; }

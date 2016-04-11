@@ -377,12 +377,5 @@ namespace Microsoft.CodeAnalysis.Sarif
                 Assert.AreEqual("deep_child", xml.LocalName);
             }
         }
-
-        [TestMethod]
-        public void Extensions_UriConversion()
-        {
-            Assert.IsTrue(@"c:\temp\foo.txt".CreateUriForJsonSerialization().OriginalString.StartsWith("file:"));
-            Assert.IsTrue(@"file://c:/temp/foo.txt".CreateUriForJsonSerialization().OriginalString.StartsWith("file:"));
-        }
     }
 }

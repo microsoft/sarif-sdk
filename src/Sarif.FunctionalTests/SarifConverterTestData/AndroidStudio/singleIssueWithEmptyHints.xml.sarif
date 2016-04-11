@@ -1,9 +1,19 @@
 {
-  "version": "0.4",
+  "version": "1.0.0-beta.2",
   "runLogs": [
     {
-      "toolInfo": {
+      "tool": {
         "name": "AndroidStudio"
+      },
+      "run": {
+        "files": {
+          "yammer-droid-2/src/test/java/com/yammer/droid/AdditionOperationTest.java": [
+            {
+              "uri": "yammer-droid-2/src/test/java/com/yammer/droid/AdditionOperationTest.java",
+              "mimeType": "text/x-java-source"
+            }
+          ]
+        }
       },
       "results": [
         {
@@ -12,15 +22,12 @@
           "shortMessage": "Method is never used.",
           "locations": [
             {
-              "resultFile": [
-                {
-                  "uri": "yammer-droid-2/src/test/java/com/yammer/droid/AdditionOperationTest.java",
-                  "mimeType": "text/x-java-source",
-                  "region": {
-                    "startLine": 10
-                  }
+              "resultFile": {
+                "uri": "yammer-droid-2/src/test/java/com/yammer/droid/AdditionOperationTest.java",
+                "region": {
+                  "startLine": 10
                 }
-              ],
+              },
               "logicalLocation": [
                 {
                   "name": "yammer-droid-2",

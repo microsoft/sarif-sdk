@@ -11,7 +11,6 @@ using Microsoft.CodeAnalysis.Sarif;
 using Microsoft.CodeAnalysis.Sarif.Driver;
 using Microsoft.CodeAnalysis.Sarif.Driver.Sdk;
 using Microsoft.CodeAnalysis.Sarif.Readers;
-using Microsoft.CodeAnalysis.Sarif.Sdk;
 using Microsoft.CodeAnalysis.Sarif.Writers;
 
 using Newtonsoft.Json;
@@ -24,7 +23,7 @@ namespace Microsoft.Sarif.Viewer
 
         public static void ProcessLogFile(string filePath, ToolFormat toolFormat = ToolFormat.None)
         {
-            ResultLog log;
+            SarifLog log;
 
             JsonSerializerSettings settings = new JsonSerializerSettings()
             {
@@ -65,13 +64,13 @@ namespace Microsoft.Sarif.Viewer
                 }
             }
 
-            log = JsonConvert.DeserializeObject<ResultLog>(logText, settings);
+            log = JsonConvert.DeserializeObject<SarifLog>(logText, settings);
             ProcessSarifLog(log);
         }
 
-        private static void ProcessSarifLog(ResultLog resultLog)
+        private static void ProcessSarifLog(SarifLog sarifLog)
         {
-            foreach (RunLog runLog in resultLog.RunLogs)
+            foreach (RunLog runLog in sarifLog.RunLogs)
             {
                 Instance.WriteRunLogToErrorList(runLog);
             }
@@ -88,12 +87,12 @@ namespace Microsoft.Sarif.Viewer
 
         private IRuleDescriptor GetRule(RunLog runLog, string ruleId)
         {
-            if (runLog.RuleInfo == null)
+            if (runLog.Rules == null)
             {
                 return null;
             }
 
-            foreach (IRuleDescriptor ruleDescriptor in runLog.RuleInfo)
+            foreach (IRuleDescriptor ruleDescriptor in runLog.Rules)
             {
                 if (ruleDescriptor.Id == ruleId) { return ruleDescriptor; }
             }
@@ -106,7 +105,7 @@ namespace Microsoft.Sarif.Viewer
             List<SarifError> sarifErrors = new List<SarifError>();
 
             // Prefer optional fullName,  fall back to required Name property
-            string toolName = runLog.ToolInfo.FullName ?? runLog.ToolInfo.Name;
+            string toolName = runLog.Tool.FullName ?? runLog.Tool.Name;
 
             foreach (Result result in runLog.Results)
             {
@@ -126,16 +125,16 @@ namespace Microsoft.Sarif.Viewer
                 {
                     region = null;
 
-                    PhysicalLocationComponent physicalLocation = null;
+                    PhysicalLocation physicalLocation = null;
                     if (location.ResultFile != null)
                     {
-                        physicalLocation = location.ResultFile[0];
+                        physicalLocation = location.ResultFile;
                         document = physicalLocation.Uri.LocalPath;
                         region = physicalLocation.Region;
                     }
                     else if (location.AnalysisTarget != null)
                     {
-                        physicalLocation = location.AnalysisTarget[0];
+                        physicalLocation = location.AnalysisTarget;
                         document = physicalLocation.Uri.LocalPath;
                         region = physicalLocation.Region;
                     }
@@ -162,12 +161,11 @@ namespace Microsoft.Sarif.Viewer
                         Category = category,
                         ShortMessage = shortMessage,
                         FullMessage = fullMessage,
-                        MimeType = physicalLocation?.MimeType,
                         Tool = toolName,
                         HelpLink = rule?.HelpUri?.ToString()                        
                     };
 
-                    CaptureAnnotatedCodeLocations(result.ExecutionFlows, AnnotatedCodeLocationKind.ExecutionFlow, sarifError);
+                    CaptureAnnotatedCodeLocations(result.CodeFlows, AnnotatedCodeLocationKind.ExecutionFlow, sarifError);
                     CaptureAnnotatedCodeLocations(result.Stacks, AnnotatedCodeLocationKind.Stack, sarifError);
 
                     // TODO need new code location kind
@@ -187,10 +185,10 @@ namespace Microsoft.Sarif.Viewer
                 {
                     foreach (AnnotatedCodeLocation annotation in result.RelatedLocations)
                     {
-                        PhysicalLocationComponent physicalLocation = annotation.PhysicalLocation[0];
+                        PhysicalLocation physicalLocation = annotation.PhysicalLocation;
                         region = physicalLocation.Region;
                         shortMessage = annotation.Message;
-                        document = annotation.PhysicalLocation[0].Uri.LocalPath;
+                        document = annotation.PhysicalLocation.Uri.LocalPath;
 
                         if (!this.documentToLineIndexMap.TryGetValue(document, out newLineIndex))
                         {
@@ -211,7 +209,6 @@ namespace Microsoft.Sarif.Viewer
                             Category = "Related Location", // or should we prefer original result category?
                             ShortMessage = shortMessage,
                             FullMessage = null,
-                            MimeType = physicalLocation?.MimeType,
                             Tool = toolName
                         };
 
@@ -243,7 +240,7 @@ namespace Microsoft.Sarif.Viewer
             {
                 foreach (AnnotatedCodeLocation codeLocation in codeLocations)
                 {
-                    PhysicalLocationComponent plc = codeLocation.PhysicalLocation.Last();
+                    PhysicalLocation plc = codeLocation.PhysicalLocation;
                     sarifError.Annotations.Add(new AnnotatedCodeLocationModel()
                     {
                         Index = annotationCollectionCount,

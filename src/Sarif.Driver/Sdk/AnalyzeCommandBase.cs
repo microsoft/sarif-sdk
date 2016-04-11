@@ -4,7 +4,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-
+using System.Security;
 using Microsoft.CodeAnalysis.Sarif.Sdk;
 
 namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
@@ -13,6 +13,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
         where TContext : IAnalysisContext, new()
         where TOptions : IAnalyzeOptions
     {
+        internal const string DEFAULT_POLICY_NAME = "default";
+
         private TContext rootContext;
 
         public Exception ExecutionException { get; set; }
@@ -58,34 +60,38 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
             // 0. Log analysis initiation
             logger.AnalysisStarted();
 
-            // 1. Create our configuration property bag, which will be 
-            //    shared with all rules during analysis
-            PropertyBag policy = CreateConfigurationFromOptions(analyzeOptions);
-
-            // 2. Create context object to pass to skimmers. The logger
+            // 1. Create context object to pass to skimmers. The logger
             //    and configuration objects are common to all context
             //    instances and will be passed on again for analysis.
-            this.rootContext = CreateContext(analyzeOptions, logger, policy, RuntimeErrors);
+            this.rootContext = CreateContext(analyzeOptions, logger, RuntimeErrors);
 
-            // 3. Produce a comprehensive set of analysis targets 
+            // 2. Perform any command line argument validation beyond what
+            //    the command line parser library is capable of.
+            ValidateOptions(this.rootContext, analyzeOptions);
+
+            // 3. Create our configuration property bag, which will be 
+            //    shared with all rules during analysis
+            ConfigureFromOptions(this.rootContext, analyzeOptions);
+
+            // 4. Produce a comprehensive set of analysis targets 
             HashSet<string> targets = CreateTargetsSet(analyzeOptions);
 
-            // 4. Proactively validate that we can locate and 
+            // 5. Proactively validate that we can locate and 
             //    access all analysis targets. Helper will return
             //    a list that potentially filters out files which
             //    did not exist, could not be accessed, etc.
             targets = ValidateTargetsExist(this.rootContext, targets);
 
-            // 5. Initialize report file, if configured.
+            // 6. Initialize report file, if configured.
             InitializeOutputFile(analyzeOptions, this.rootContext, targets);
 
-            // 6. Instantiate skimmers.
+            // 7. Instantiate skimmers.
             HashSet<ISkimmer<TContext>> skimmers = CreateSkimmers(this.rootContext);
 
-            // 7. Initialize skimmers. Initialize occurs a single time only.
+            // 8. Initialize skimmers. Initialize occurs a single time only.
             skimmers = InitializeSkimmers(skimmers, this.rootContext);
 
-            // 8. Run all analysis
+            // 9. Run all analysis
             AnalyzeTargets(analyzeOptions, skimmers, this.rootContext, targets);
 
             // 9. For test purposes, raise an unhandled exception if indicated
@@ -93,6 +99,63 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
             {
                 throw new InvalidOperationException(this.GetType().Name);
             }
+        }
+
+        protected virtual void ValidateOptions(TContext context, TOptions analyzeOptions)
+        {
+            bool succeeded = true;
+
+            succeeded &= ValidateFile(context, analyzeOptions.OutputFilePath, shouldExist: null);
+            succeeded &= ValidateFile(context, analyzeOptions.ConfigurationFilePath, shouldExist: true);
+            succeeded &= ValidateFiles(context, analyzeOptions.PlugInFilePaths, shouldExist: true);
+
+            if (!succeeded)
+            {
+                ThrowExitApplicationException(context, ExitReason.InvalidCommandLineOption);
+            }
+        }
+
+        private bool ValidateFiles(TContext context, IEnumerable<string> filePaths, bool shouldExist)
+        {
+            if (filePaths == null) { return true; }
+
+            bool succeeded = true;
+
+            foreach (string filePath in filePaths)
+            {
+                succeeded &= ValidateFile(context, filePath, shouldExist);
+            }
+
+            return succeeded;
+        }
+
+        private bool ValidateFile(TContext context, string filePath, bool? shouldExist)
+        {
+            if (filePath == null || filePath == DEFAULT_POLICY_NAME) { return true; }
+
+            Exception exception = null;
+
+            try
+            {
+                bool fileExists = File.Exists(filePath);
+
+                if (fileExists || shouldExist == null || !shouldExist.Value)
+                {
+                    return true;
+                }
+
+                Errors.LogMissingFile(context, filePath);
+            }
+            catch (IOException ex) { exception = ex; }
+            catch (SecurityException ex) { exception = ex; }
+            catch (UnauthorizedAccessException ex) { exception = ex; }
+
+            if (exception != null)
+            {
+                Errors.LogExceptionAccessingFile(context, filePath, exception);
+            }
+
+            return false;
         }
 
         internal AggregatingLogger InitializeLogger(IAnalyzeOptions analyzeOptions)
@@ -145,14 +208,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
 
         protected virtual TContext CreateContext(
             TOptions options, 
-            IAnalysisLogger logger,
-            PropertyBag policy,
+            IAnalysisLogger logger, 
             RuntimeConditions runtimeErrors,
             string filePath = null)
         {
             var context = new TContext();
             context.Logger = logger;
-            context.Policy = policy;
             context.RuntimeErrors = runtimeErrors;
 
             if (filePath != null)
@@ -178,7 +239,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
                                 analyzeOptions.Verbose,
                                 targets,
                                 analyzeOptions.ComputeTargetsHash,
-                                Prerelease)),
+                                Prerelease,
+                                invocationTokensToRedact : null)),
                     (ex) =>
                     {
                         Errors.LogExceptionCreatingLogFile(context, filePath, ex);
@@ -256,7 +318,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
             string target,
             HashSet<string> disabledSkimmers)
         {
-            var context = CreateContext(options, rootContext.Logger, rootContext.Policy, rootContext.RuntimeErrors, target);
+            var context = CreateContext(options, rootContext.Logger, rootContext.RuntimeErrors, target);
+            context.Policy = rootContext.Policy;
 
             if (context.TargetLoadException != null)
             {
@@ -356,7 +419,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
             return candidateSkimmers;
         }
 
-        private void ThrowExitApplicationException(TContext context, ExitReason exitReason, Exception innerException = null)
+        protected void ThrowExitApplicationException(TContext context, ExitReason exitReason, Exception innerException = null)
         {
             RuntimeErrors |= context.RuntimeErrors;
 
@@ -396,21 +459,21 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
         }
 
 
-        public virtual PropertyBag CreateConfigurationFromOptions(TOptions analyzeOptions)
+        public virtual void ConfigureFromOptions(TContext context, TOptions analyzeOptions)
         {
             PropertyBag configuration = null;
+
             string configurationFilePath = analyzeOptions.ConfigurationFilePath;
 
             if (!string.IsNullOrEmpty(configurationFilePath))
             {
                 configuration = new PropertyBag();
-                if (!configurationFilePath.Equals("default", StringComparison.OrdinalIgnoreCase))
+                if (!configurationFilePath.Equals(DEFAULT_POLICY_NAME, StringComparison.OrdinalIgnoreCase))
                 {
                     configuration.LoadFrom(configurationFilePath);
                 }
             }
-
-            return configuration;
+            context.Policy = configuration;
         }       
     }
 }

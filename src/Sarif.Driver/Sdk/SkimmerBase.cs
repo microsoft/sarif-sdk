@@ -16,14 +16,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
 
         abstract public Uri HelpUri { get;  }
 
-   
-        private Dictionary<string, string> formatSpecifiers;
+        private IDictionary<string, string> formatSpecifiers;
 
         abstract protected ResourceManager ResourceManager { get; }
 
         abstract protected IEnumerable<string> FormatSpecifierIds { get; }
 
-        virtual public Dictionary<string, string> FormatSpecifiers
+        virtual public IDictionary<string, string> FormatSpecifiers
         {
             get
             {
@@ -79,9 +78,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
 
         public virtual string Name {  get { return this.GetType().Name; } }
 
-        public Dictionary<string, string> Options { get; }
+        public IDictionary<string, string> Options { get; }
 
-        public Dictionary<string, string> Properties { get; }
+        public IDictionary<string, string> Properties { get; }
+
+        public IList<string> Tags { get; }
 
         public virtual void Initialize(TContext context) { }
 

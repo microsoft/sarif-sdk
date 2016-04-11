@@ -113,7 +113,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 };
 
                 // Make sure we can successfully deserialize what was just generated
-                ResultLog log = JsonConvert.DeserializeObject<ResultLog>(actualSarif, settings);
+                SarifLog log = JsonConvert.DeserializeObject<SarifLog>(actualSarif, settings);
 
                 actualSarif = JsonConvert.SerializeObject(log, settings);
                 if (expectedSarif == actualSarif)
