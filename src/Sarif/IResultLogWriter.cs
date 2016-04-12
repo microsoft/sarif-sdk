@@ -1,6 +1,7 @@
 ﻿// Copyright (c) Microsoft. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
+using System;
 using System.Collections.Generic;
 
 namespace Microsoft.CodeAnalysis.Sarif
@@ -32,6 +33,17 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <exception cref="ArgumentNullException">Thrown if <paramref name="info"/> is null.</exception>
         /// <param name="run">The run information to write.</param>
         void WriteRun(Run run);
+
+        /// <summary>
+        /// Write information about scanned files to the log. This information may appear
+        /// after the results, as the full list of scanned files might not be known until
+        /// all results have been generated.
+        /// </summary>
+        /// <param name="fileDictionary">
+        /// A dictionary whose keys are the URIs of scanned files and whose values provide
+        /// information about those files.
+        /// </param>
+        void WriteFiles(Dictionary<Uri, IList<FileData>> fileDictionary);
 
         /// <summary>
         /// Initialize the results array associated with the current output log. SARIF producers that

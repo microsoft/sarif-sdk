@@ -8,16 +8,16 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 {
     internal class FileInfoFactory
     {
-        private readonly Dictionary<Uri, IList<FileReference>> _fileInfoDictionary;
+        private readonly Dictionary<Uri, IList<FileData>> _fileInfoDictionary;
         private readonly Func<Uri, string> _mimeTypeClassifier;
 
         internal FileInfoFactory(Func<Uri, string> mimeTypeClassifier)
         {
             _mimeTypeClassifier = mimeTypeClassifier;
-            _fileInfoDictionary = new Dictionary<Uri, IList<FileReference>>();
+            _fileInfoDictionary = new Dictionary<Uri, IList<FileData>>();
         }
 
-        internal Dictionary<Uri, IList<FileReference>> Create(IEnumerable<Result> results)
+        internal Dictionary<Uri, IList<FileData>> Create(IEnumerable<Result> results)
         {
             foreach (Result result in results)
             {
@@ -27,12 +27,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                     {
                         if (location.AnalysisTarget != null)
                         {
-                            AddFileReference(location.AnalysisTarget);
+                            AddFile(location.AnalysisTarget);
                         }
 
                         if (location.ResultFile != null)
                         {
-                            AddFileReference(location.ResultFile);
+                            AddFile(location.ResultFile);
                         }
                     }
                 }
@@ -43,7 +43,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                     {
                         foreach (AnnotatedCodeLocation stackFrame in stack)
                         {
-                            AddFileReference(stackFrame.PhysicalLocation);
+                            AddFile(stackFrame.PhysicalLocation);
                         }
                     }
 
@@ -55,7 +55,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                     {
                         foreach (AnnotatedCodeLocation codeLocation in codeFlow)
                         {
-                            AddFileReference(codeLocation.PhysicalLocation);
+                            AddFile(codeLocation.PhysicalLocation);
                         }
                     }
                 }
@@ -64,7 +64,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 {
                     foreach (AnnotatedCodeLocation relatedLocation in result.RelatedLocations)
                     {
-                        AddFileReference(relatedLocation.PhysicalLocation);
+                        AddFile(relatedLocation.PhysicalLocation);
                     }
                 }
             }
@@ -72,7 +72,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             return _fileInfoDictionary;
         }
 
-        private void AddFileReference(PhysicalLocation physicalLocation)
+        private void AddFile(PhysicalLocation physicalLocation)
         {
             Uri key = physicalLocation.Uri;
 
@@ -80,11 +80,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             {
                 _fileInfoDictionary.Add(
                     key,
-                    new List<FileReference>
+                    new List<FileData>
                     {
-                        new FileReference
+                        new FileData
                         {
-                            Uri = physicalLocation.Uri,
                             MimeType = _mimeTypeClassifier(key)
                         }
                     });

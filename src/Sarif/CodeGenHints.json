@@ -1,5 +1,5 @@
 {
-  "RuleDescriptor.Options": [
+  "Rule.Options": [
     {
       "$type": "Microsoft.Json.Schema.ToDotNet.DictionaryHint, Microsoft.Json.Schema.ToDotNet"
     }
@@ -9,7 +9,7 @@
       "$type": "Microsoft.Json.Schema.ToDotNet.DictionaryHint, Microsoft.Json.Schema.ToDotNet"
     }
   ],
-  "FileReference.Properties": [
+  "FileData.Properties": [
     {
       "$type": "Microsoft.Json.Schema.ToDotNet.DictionaryHint, Microsoft.Json.Schema.ToDotNet"
     }
@@ -24,12 +24,12 @@
       "$type": "Microsoft.Json.Schema.ToDotNet.DictionaryHint, Microsoft.Json.Schema.ToDotNet"
     }
   ],
-  "RuleDescriptor.FormatSpecifiers": [
+  "Rule.MessageFormats": [
     {
       "$type": "Microsoft.Json.Schema.ToDotNet.DictionaryHint, Microsoft.Json.Schema.ToDotNet"
     }
   ],
-  "RuleDescriptor.Properties": [
+  "Rule.Properties": [
     {
       "$type": "Microsoft.Json.Schema.ToDotNet.DictionaryHint, Microsoft.Json.Schema.ToDotNet"
     }
@@ -45,7 +45,7 @@
       "$type": "Microsoft.Json.Schema.ToDotNet.DictionaryHint, Microsoft.Json.Schema.ToDotNet"
     }
   ],
-  "ruleDescriptor": [
+  "rule": [
     {
       "$type": "Microsoft.Json.Schema.ToDotNet.InterfaceHint, Microsoft.Json.Schema.ToDotNet",
       "description": "Interface exposed by objects that provide information about analysis rules."
@@ -58,7 +58,7 @@
       "description": "Possible values for the SARIF schema version.",
       "zeroValue": "Unknown",
       "enum": [
-        "OneZeroZeroBetaTwo"
+        "OneZeroZeroBetaThree"
       ]
     }
   ],

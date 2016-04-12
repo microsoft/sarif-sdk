@@ -17,12 +17,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
         private const string ERR0999 = "ERR0998";
         private const string ERR1001 = "ERR1001";
 
-        public static IRuleDescriptor InvalidConfiguration = new RuleDescriptor()
+        public static IRule InvalidConfiguration = new Rule()
         {
             Id = ERR0997,
             Name = nameof(InvalidConfiguration),
             FullDescription = SdkResources.ERR0997_InvalidConfiguration_Description,
-            FormatSpecifiers = RuleUtilities.BuildDictionary(SdkResources.ResourceManager,
+            MessageFormats = RuleUtilities.BuildDictionary(SdkResources.ResourceManager,
                 new string[] {
                     nameof(SdkResources.ERR0997_ExceptionAccessingFile),
                     nameof(SdkResources.ERR0997_ExceptionLoadingPdb),
@@ -37,12 +37,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
                }, ERR0997)
         };
 
-        public static IRuleDescriptor RuleDisabled = new RuleDescriptor()
+        public static IRule RuleDisabled = new Rule()
         {
             Id = ERR0998,
             Name = nameof(RuleDisabled),
             FullDescription = SdkResources.ERR0998_RuleDisabled_Description,
-            FormatSpecifiers = RuleUtilities.BuildDictionary(SdkResources.ResourceManager,
+            MessageFormats = RuleUtilities.BuildDictionary(SdkResources.ResourceManager,
                 new string[] {
                     nameof(SdkResources.ERR0998_ExceptionInCanAnalyze),
                     nameof(SdkResources.ERR0998_ExceptionInInitialize),
@@ -50,23 +50,23 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
                 }, ERR0998)
         };
 
-        public static IRuleDescriptor AnalysisHalted = new RuleDescriptor()
+        public static IRule AnalysisHalted = new Rule()
         {
             Id = ERR0999,
             Name = nameof(AnalysisHalted),
             FullDescription = SdkResources.ERR0999_AnalysisHalted_Description,
-            FormatSpecifiers = RuleUtilities.BuildDictionary(SdkResources.ResourceManager,
+            MessageFormats = RuleUtilities.BuildDictionary(SdkResources.ResourceManager,
                 new string[] {
                     nameof(SdkResources.ERR0999_UnhandledEngineException)
                 }, ERR0999)
         };
 
-        public static IRuleDescriptor ParseError = new RuleDescriptor()
+        public static IRule ParseError = new Rule()
         {
             Id = ERR1001,
             Name = nameof(ParseError),
             FullDescription = SdkResources.ERR1001_ParseError_Description,
-            FormatSpecifiers = RuleUtilities.BuildDictionary(SdkResources.ResourceManager,
+            MessageFormats = RuleUtilities.BuildDictionary(SdkResources.ResourceManager,
                 new string[] {
                     nameof(SdkResources.ERR1001_Default)
                 }, ERR1001)

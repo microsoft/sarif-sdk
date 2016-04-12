@@ -1,25 +1,21 @@
 {
-  "version": "1.0.0-beta.2",
-  "runLogs": [
+  "version": "1.0.0-beta.3",
+  "runs": [
     {
       "tool": {
         "name": "AndroidStudio"
       },
-      "run": {
-        "files": {
-          "gradle/wrapper/gradle-wrapper.properties": [
-            {
-              "uri": "gradle/wrapper/gradle-wrapper.properties",
-              "mimeType": "text/x-java-source"
-            }
-          ],
-          "local.properties": [
-            {
-              "uri": "local.properties",
-              "mimeType": "text/x-java-source"
-            }
-          ]
-        }
+      "files": {
+        "gradle/wrapper/gradle-wrapper.properties": [
+          {
+            "mimeType": "text/x-java-source"
+          }
+        ],
+        "local.properties": [
+          {
+            "mimeType": "text/x-java-source"
+          }
+        ]
       },
       "results": [
         {

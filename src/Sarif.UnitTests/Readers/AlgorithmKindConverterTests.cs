@@ -45,17 +45,18 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
         [TestMethod]
         public void AlgorithmKindGroestl()
         {
-            string expected = "{\"version\":\"1.0.0-beta.2\",\"runLogs\":[{\"tool\":{\"name\":null},\"run\":{\"files\":{\"http://abc/\":[{\"uri\":\"http://abc/\",\"hashes\":[{\"value\":null,\"algorithm\":\"Groestl\"}]}]}},\"results\":[{}]}]}";
+            string expected = "{\"version\":\"1.0.0-beta.3\",\"runs\":[{\"tool\":{\"name\":null},\"files\":{\"http://abc/\":[{\"hashes\":[{\"value\":null,\"algorithm\":\"Groestl\"}]}]},\"results\":[{}]}]}";
             string actual = GetJson(uut =>
             {
                 var run = new Run();
 
-                run.Files = new Dictionary<Uri, IList<FileReference>> {
-                    [new Uri("http://abc/")] = new List<FileReference>
+                uut.WriteTool(s_defaultTool);
+
+                var files = new Dictionary<Uri, IList<FileData>> {
+                    [new Uri("http://abc/")] = new List<FileData>
                     {
-                        new FileReference()
+                        new FileData()
                         {
-                            Uri = new Uri("http://abc/"),
                             Hashes = new[]
                             {
                                 new Hash()
@@ -67,9 +68,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
                     }
                 };
 
-                uut.WriteTool(s_defaultTool);
-                uut.WriteRun(run);
-                uut.WriteResult(s_defaultResult);
+                uut.WriteFiles(files);
+
+                uut.WriteResults(new[] { s_defaultResult });
             });
             Assert.AreEqual(expected, actual);
         }

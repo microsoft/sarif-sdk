@@ -1,19 +1,16 @@
 {
-  "version": "1.0.0-beta.2",
-  "runLogs": [
+  "version": "1.0.0-beta.3",
+  "runs": [
     {
       "tool": {
         "name": "Clang"
       },
-      "run": {
-        "files": {
-          "jcparam.c": [
-            {
-              "uri": "jcparam.c",
-              "mimeType": "text/x-cpp"
-            }
-          ]
-        }
+      "files": {
+        "jcparam.c": [
+          {
+            "mimeType": "text/x-cpp"
+          }
+        ]
       },
       "results": [
         {

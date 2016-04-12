@@ -7,7 +7,7 @@ using Microsoft.CodeAnalysis.Sarif.Sdk;
 
 namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
 {
-    internal class ExceptionRaisingRule : IRuleDescriptor, ISkimmer<TestAnalysisContext>
+    internal class ExceptionRaisingRule : IRule, ISkimmer<TestAnalysisContext>
     {
         internal static ExceptionCondition s_exceptionCondition;
 
@@ -72,7 +72,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
             }
         }
 
-        public IDictionary<string, string> FormatSpecifiers
+        public IDictionary<string, string> MessageFormats
         {
             get
             {

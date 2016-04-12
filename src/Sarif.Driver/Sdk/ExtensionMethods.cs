@@ -75,7 +75,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
                  ")";
         }
 
-        public static string FormatForVisualStudio(this Result result, IRuleDescriptor rule)
+        public static string FormatForVisualStudio(this Result result, IRule rule)
         {
             var messageLines = new List<string>();
             foreach (var location in result.Locations)
@@ -130,11 +130,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
 
             if (region.StartLine == 0)
             {
-                OffsetInfo offsetInfo = newLineIndex.GetOffsetInfoForOffset(region.CharOffset);
+                OffsetInfo offsetInfo = newLineIndex.GetOffsetInfoForOffset(region.Offset);
                 region.StartLine = offsetInfo.LineNumber;
                 region.StartColumn = offsetInfo.ColumnNumber;
 
-                offsetInfo = newLineIndex.GetOffsetInfoForOffset(region.CharOffset + region.Length);
+                offsetInfo = newLineIndex.GetOffsetInfoForOffset(region.Offset + region.Length);
                 region.StartLine = offsetInfo.LineNumber;
                 region.EndColumn = offsetInfo.ColumnNumber;
             }
@@ -145,14 +145,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
                 if (region.EndColumn == 0) { region.EndColumn = region.StartColumn; }
 
                 LineInfo lineInfo = newLineIndex.GetLineInfoForLine(region.StartLine);
-                region.CharOffset = lineInfo.StartOffset + (region.StartColumn - 1);
+                region.Offset = lineInfo.StartOffset + (region.StartColumn - 1);
 
                 lineInfo = newLineIndex.GetLineInfoForLine(region.EndLine);
-                region.Length = lineInfo.StartOffset + (region.EndColumn - 1) - region.CharOffset;
+                region.Length = lineInfo.StartOffset + (region.EndColumn - 1) - region.Offset;
             }
         }
 
-        public static string GetMessageText(this Result result, IRuleDescriptor rule, bool concise = false)
+        public static string GetMessageText(this Result result, IRule rule, bool concise = false)
         {
             if (concise && !string.IsNullOrEmpty(result.ShortMessage))
             {
@@ -166,15 +166,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
                 Debug.Assert(rule != null);
 
                 string ruleId = result.RuleId;
-                string formatSpecifierId = result.FormattedMessage.SpecifierId;
-                string formatSpecifier;
+                string formatId = result.FormattedMessage.FormatId;
+                string messageFormat;
 
                 string[] arguments = new string[result.FormattedMessage.Arguments.Count];
                 result.FormattedMessage.Arguments.CopyTo(arguments, 0);
 
-                Debug.Assert(rule.FormatSpecifiers.ContainsKey(formatSpecifierId));
+                Debug.Assert(rule.MessageFormats.ContainsKey(formatId));
 
-                formatSpecifier = rule.FormatSpecifiers[formatSpecifierId];
+                messageFormat = rule.MessageFormats[formatId];
 
 #if DEBUG
                 int argumentsCount = result.FormattedMessage.Arguments.Count;
@@ -183,11 +183,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
                 {
                     // If this assert fires, there are too many arguments for the specifier
                     // or there is an argument is skipped or not consumed in the specifier
-                    Debug.Assert(formatSpecifier.Contains("{" + i.ToString() + "}"));
+                    Debug.Assert(messageFormat.Contains("{" + i.ToString() + "}"));
                 }
 #endif
 
-                text = string.Format(formatSpecifier, arguments);
+                text = string.Format(messageFormat, arguments);
 
 #if DEBUG
                 // If this assert fires, an insufficient # of arguments might

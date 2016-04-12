@@ -10,25 +10,25 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
         private const string MSG1001 = "MSG1001";
         private const string MSG1002 = "MSG1002";
 
-        public static IRuleDescriptor AnalyzingTarget = new RuleDescriptor()
+        public static IRule AnalyzingTarget = new Rule()
         {
             // Analyzing {0}...
             Id = MSG1001,
             Name = nameof(AnalyzingTarget),
             FullDescription = SdkResources.MSG1001_AnalyzingTarget_Description,
-            FormatSpecifiers = RuleUtilities.BuildDictionary(SdkResources.ResourceManager,
+            MessageFormats = RuleUtilities.BuildDictionary(SdkResources.ResourceManager,
                 new string[] {
                     nameof(SdkResources.MSG1001_AnalyzingTarget),
                 }, MSG1001)
         };
 
-        public static IRuleDescriptor InvalidTarget = new RuleDescriptor()
+        public static IRule InvalidTarget = new Rule()
         {
             // A file was skipped as it does not appear to be a valid target for analysis.
             Id = MSG1002,
             Name = nameof(InvalidTarget),
             FullDescription = SdkResources.MSG1002_InvalidTarget_Description,
-            FormatSpecifiers = RuleUtilities.BuildDictionary(SdkResources.ResourceManager,
+            MessageFormats = RuleUtilities.BuildDictionary(SdkResources.ResourceManager,
                 new string[] {
                     nameof(SdkResources.MSG1002_InvalidFileType),
                     nameof(SdkResources.MSG1002_InvalidMetadata)

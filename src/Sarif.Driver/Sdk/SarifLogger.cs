@@ -18,7 +18,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
         private TextWriter _textWriter;
         private JsonTextWriter _jsonTextWriter;
         private ResultLogJsonWriter _issueLogJsonWriter;
-        private HashSet<IRuleDescriptor> _ruleDescriptors;
+        private HashSet<IRule> _rules;
 
         public static Tool CreateDefaultTool(string prereleaseInfo = null)
         {
@@ -43,14 +43,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
 
             if (analysisTargets != null)
             {
-                run.Files = new Dictionary<Uri, IList<FileReference>>();
+                run.Files = new Dictionary<Uri, IList<FileData>>();
 
                 foreach (string target in analysisTargets)
                 {
-                    var fileReference = new FileReference()
-                    {
-                        Uri = new Uri(target),
-                    };
+                    var fileReference = new FileData();
 
                     if (computeTargetsHash)
                     {
@@ -64,7 +61,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
                             }
                         });
                     }
-                        run.Files.Add(fileReference.Uri, new List<FileReference> { fileReference });
+                        run.Files.Add(new Uri(target), new List<FileData> { fileReference });
                 }
             }
 
@@ -78,7 +75,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
                 }
             }
             run.Invocation = invocation;
-            run.RunStartTime = DateTime.UtcNow;
+            run.StartTime = DateTime.UtcNow;
             return run;
         }
 
@@ -143,12 +140,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
             _issueLogJsonWriter = new ResultLogJsonWriter(_jsonTextWriter);
         }
 
-        public HashSet<IRuleDescriptor> RuleDescriptors
+        public HashSet<IRule> Rules
         {
             get
             {
-                _ruleDescriptors = _ruleDescriptors ?? new HashSet<IRuleDescriptor>();
-                return _ruleDescriptors;
+                _rules = _rules ?? new HashSet<IRule>();
+                return _rules;
             }
         }
 
@@ -162,19 +159,19 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
             {
                 _issueLogJsonWriter.CloseResults();
 
-                if (_run != null && _run.RunStartTime != new DateTime())
+                if (_run != null && _run.StartTime != new DateTime())
                 {
-                    _run.RunEndTime = DateTime.UtcNow;
+                    _run.EndTime = DateTime.UtcNow;
                 }
 
                 _issueLogJsonWriter.WriteRun(_run);
 
-                // Note: we write out the backing ruleDescriptors
+                // Note: we write out the backing rules
                 // to prevent the property accessor from populating
                 // this data with an empty collection.
-                if (_ruleDescriptors != null)
+                if (_rules != null)
                 {
-                    _issueLogJsonWriter.WriteRules(_ruleDescriptors);
+                    _issueLogJsonWriter.WriteRules(_rules);
                 }
 
                 _issueLogJsonWriter.Dispose();
@@ -190,15 +187,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
         public void AnalysisStarted()
         {
             _issueLogJsonWriter.OpenResults();
-            _run.RunStartTime = DateTime.UtcNow;
+            _run.StartTime = DateTime.UtcNow;
         }
 
         public void AnalysisStopped(RuntimeConditions runtimeConditions)
         {
-            _run.RunEndTime = DateTime.UtcNow;
+            _run.EndTime = DateTime.UtcNow;
         }
 
-        public void Log(IRuleDescriptor rule, Result result)
+        public void Log(IRule rule, Result result)
         {
             if (!ShouldLog(result.Kind))
             {
@@ -207,7 +204,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
 
             if (rule != null)
             {
-                RuleDescriptors.Add(rule);
+                Rules.Add(rule);
             }
 
             _issueLogJsonWriter.WriteResult(result);
@@ -225,18 +222,18 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
                     nameof(SdkResources.MSG1001_AnalyzingTarget)));
         }
 
-        public void Log(ResultKind messageKind, IAnalysisContext context, Region region, string formatSpecifierId, params string[] arguments)
+        public void Log(ResultKind messageKind, IAnalysisContext context, Region region, string formatId, params string[] arguments)
         {
             if (context.Rule != null)
             {
-                RuleDescriptors.Add(context.Rule);
+                Rules.Add(context.Rule);
             }
 
-            formatSpecifierId = RuleUtilities.NormalizeFormatSpecifierId(context.Rule.Id, formatSpecifierId);
-            LogJsonIssue(messageKind, context.TargetUri?.LocalPath, region, context.Rule.Id, formatSpecifierId, arguments);
+            formatId = RuleUtilities.NormalizeFormatId(context.Rule.Id, formatId);
+            LogJsonIssue(messageKind, context.TargetUri?.LocalPath, region, context.Rule.Id, formatId, arguments);
         }
 
-        private void LogJsonIssue(ResultKind messageKind, string targetPath, Region region, string ruleId, string formatSpecifierId, params string[] arguments)
+        private void LogJsonIssue(ResultKind messageKind, string targetPath, Region region, string ruleId, string formatId, params string[] arguments)
         {
             if (!ShouldLog(messageKind))
             {
@@ -249,7 +246,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
 
             result.FormattedMessage = new FormattedMessage()
             {
-                SpecifierId = formatSpecifierId,
+                FormatId = formatId,
                 Arguments = arguments
             };
              

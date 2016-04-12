@@ -68,9 +68,9 @@ namespace SarifViewer
 
         private static void ProcessSarifLog(SarifLog sarifLog)
         {
-            foreach (RunLog runLog in sarifLog.RunLogs)
+            foreach (Run run in sarifLog.Runs)
             {
-                Instance.WriteRunLogToErrorList(runLog);
+                Instance.WriteRunToErrorList(run);
             }
 
             SarifTableDataSource.Instance.BringToFront();
@@ -83,22 +83,22 @@ namespace SarifViewer
 
         private Dictionary<string, NewLineIndex> documentToLineIndexMap;
 
-        private IRuleDescriptor GetRule(RunLog runLog, string ruleId)
+        private IRule GetRule(Run runLog, string ruleId)
         {
             if (runLog.Rules == null)
             {
                 return null;
             }
 
-            foreach (IRuleDescriptor ruleDescriptor in runLog.Rules)
+            foreach (IRule rule in runLog.Rules)
             {
-                if (ruleDescriptor.Id == ruleId) { return ruleDescriptor; }
+                if (rule.Id == ruleId) { return rule; }
             }
 
             throw new InvalidOperationException();
         }
 
-        private void WriteRunLogToErrorList(RunLog runLog)
+        private void WriteRunToErrorList(Run runLog)
         {
             List<SarifError> sarifErrors = new List<SarifError>();
 
@@ -110,7 +110,7 @@ namespace SarifViewer
                 string category, document, shortMessage, fullMessage;
                 Region region;
                 NewLineIndex newLineIndex;
-                IRuleDescriptor rule = null;
+                IRule rule = null;
 
                 category = null;
 

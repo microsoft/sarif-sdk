@@ -36,7 +36,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
             _targetsCount++;
         }
 
-        public void Log(IRuleDescriptor rule, Result result)
+        public void Log(IRule rule, Result result)
         {
             Log(result.Kind, result.RuleId);
         }

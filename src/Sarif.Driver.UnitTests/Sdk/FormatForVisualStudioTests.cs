@@ -16,10 +16,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
     public class FormatForVisualStudioTests
     {
         private const string TestRuleId = "TST0001";
-        private const string TestFormatSpecifier = "testFormatSpecifier";
+        private const string TestFormatId = "testFormatSpecifier";
         private const string TestAnalysisTarget = @"C:\dir\file";
 
-        private static readonly RuleDescriptor TestRule = new RuleDescriptor(
+        private static readonly Rule TestRule = new Rule(
             TestRuleId,
             "ThisIsATest",
             "short description",
@@ -27,7 +27,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
             null,           // options
             new Dictionary<string, string>
             {
-                [TestFormatSpecifier] = "First: {0}, Second: {1}"
+                [TestFormatId] = "First: {0}, Second: {1}"
             },
             null,           // helpUri
             null,           // properties
@@ -188,7 +188,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
                 },
                 FormattedMessage = new FormattedMessage
                 {
-                    SpecifierId = TestFormatSpecifier,
+                    FormatId = TestFormatId,
                     Arguments = new List<string>
                     {
                         "42",

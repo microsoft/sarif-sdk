@@ -58,7 +58,7 @@ if "%ERRORLEVEL%" NEQ "0" (
 goto ExitFailed
 )
 
-msbuild /verbosity:minimal /target:rebuild src\Everything.sln /p:"Configuration=Release" /p:"Platform=Any CPU" /filelogger /fileloggerparameters:Verbosity=normal
+msbuild /verbosity:minimal /target:rebuild src\Everything.sln /p:"Configuration=Release" /p:"Platform=Any CPU" /filelogger /fileloggerparameters:Verbosity=detailed
 
 if "%ERRORLEVEL%" NEQ "0" (
 goto ExitFailed

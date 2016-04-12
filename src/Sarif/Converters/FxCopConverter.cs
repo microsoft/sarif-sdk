@@ -53,14 +53,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             };
 
             var fileInfoFactory = new FileInfoFactory(MimeType.DetermineFromFileExtension);
-            Dictionary<Uri, IList<FileReference>> fileInfoDictionary = fileInfoFactory.Create(results);
-
-            var run = fileInfoDictionary != null && fileInfoDictionary.Count > 0
-                ? new Run { Files = fileInfoDictionary }
-                : null;
+            Dictionary<Uri, IList<FileData>> fileDictionary = fileInfoFactory.Create(results);
 
             output.WriteTool(tool);
-            if (run != null) { output.WriteRun(run); }
+            if (fileDictionary != null && fileDictionary.Count > 0) { output.WriteFiles(fileDictionary); }
 
             output.OpenResults();
             output.WriteResults(results);

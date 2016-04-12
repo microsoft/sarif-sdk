@@ -1,25 +1,21 @@
 {
-  "version": "1.0.0-beta.2",
-  "runLogs": [
+  "version": "1.0.0-beta.3",
+  "runs": [
     {
       "tool": {
         "name": "FxCop"
       },
-      "run": {
-        "files": {
-          "file:///d:/SecDevTools/Main/bin/x86/Debug/FxCop/FxCopTestData/Crypto/SecurityCryptographyRuleTests.dll": [
-            {
-              "uri": "file:///d:/SecDevTools/Main/bin/x86/Debug/FxCop/FxCopTestData/Crypto/SecurityCryptographyRuleTests.dll",
-              "mimeType": "application/octet-stream"
-            }
-          ],
-          "file:///d:/SecDevTools/Main/src/FxCop/Source/FxCopTestData/SecurityCryptographyRuleTests/DESCannotBeUsed.cs": [
-            {
-              "uri": "file:///d:/SecDevTools/Main/src/FxCop/Source/FxCopTestData/SecurityCryptographyRuleTests/DESCannotBeUsed.cs",
-              "mimeType": "text/x-csharp"
-            }
-          ]
-        }
+      "files": {
+        "file:///d:/SecDevTools/Main/bin/x86/Debug/FxCop/FxCopTestData/Crypto/SecurityCryptographyRuleTests.dll": [
+          {
+            "mimeType": "application/octet-stream"
+          }
+        ],
+        "file:///d:/SecDevTools/Main/src/FxCop/Source/FxCopTestData/SecurityCryptographyRuleTests/DESCannotBeUsed.cs": [
+          {
+            "mimeType": "text/x-csharp"
+          }
+        ]
       },
       "results": [
         {

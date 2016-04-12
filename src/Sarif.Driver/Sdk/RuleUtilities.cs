@@ -11,11 +11,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
 {
     public static class RuleUtilities
     {
-        public static Result BuildResult(ResultKind messageKind, IAnalysisContext context, Region region, string formatSpecifierId, params string[] arguments)
+        public static Result BuildResult(ResultKind messageKind, IAnalysisContext context, Region region, string formatId, params string[] arguments)
         {
             string[] messageArguments = arguments;
 
-            formatSpecifierId = RuleUtilities.NormalizeFormatSpecifierId(context.Rule.Id, formatSpecifierId);
+            formatId = RuleUtilities.NormalizeFormatId(context.Rule.Id, formatId);
 
             string targetPath = context.TargetUri?.LocalPath;
 
@@ -34,7 +34,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
 
             result.FormattedMessage = new FormattedMessage()
             {
-                SpecifierId = formatSpecifierId,
+                FormatId = formatId,
                 Arguments = messageArguments
             };
 
@@ -66,7 +66,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
             {
                 string resourceValue = resourceManager.GetString(resourceName);
 
-                string normalizedResourceName = NormalizeFormatSpecifierId(ruleId, resourceName);
+                string normalizedResourceName = NormalizeFormatId(ruleId, resourceName);
 
                 // We need to use the non-normalized key to retrieve the resource value
                 dictionary[normalizedResourceName] = resourceValue;
@@ -75,13 +75,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
             return dictionary;
         }
 
-        public static string NormalizeFormatSpecifierId(string ruleId, string formatSpecifierId)
+        public static string NormalizeFormatId(string ruleId, string formatId)
         {
-            if (!string.IsNullOrEmpty(ruleId) && formatSpecifierId.StartsWith(ruleId + "_"))
+            if (!string.IsNullOrEmpty(ruleId) && formatId.StartsWith(ruleId + "_"))
             {
-                formatSpecifierId = formatSpecifierId.Substring(ruleId.Length + 1);
+                formatId = formatId.Substring(ruleId.Length + 1);
             }
-            return formatSpecifierId;
+            return formatId;
         }
     }
 }

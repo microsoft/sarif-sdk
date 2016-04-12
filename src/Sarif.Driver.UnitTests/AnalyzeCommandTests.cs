@@ -430,10 +430,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
             }
         }
 
-        public RunLog AnalyzeFile(string fileName)
+        public Run AnalyzeFile(string fileName)
         {
             string path = Path.GetTempFileName();
-            RunLog runLog = null;
+            Run run = null;
 
             try
             {
@@ -461,26 +461,26 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
 
                 SarifLog log = JsonConvert.DeserializeObject<SarifLog>(File.ReadAllText(path), settings);
                 Assert.NotNull(log);
-                Assert.Equal<int>(1, log.RunLogs.Count);
+                Assert.Equal<int>(1, log.Runs.Count);
 
-                runLog = log.RunLogs[0];
+                run = log.Runs[0];
             }
             finally
             {
                 File.Delete(path);
             }
 
-            return runLog;
+            return run;
         }
 
         [Fact]
         public void AnalyzeCommand_EndToEndAnalysisWithNoIssues()
         {
-            RunLog runLog = AnalyzeFile(this.GetType().Assembly.Location);
+            Run run = AnalyzeFile(this.GetType().Assembly.Location);
 
-            int issueCount = 0;
-            SarifHelpers.ValidateRunLog(runLog, (issue) => { issueCount++; });
-            Assert.Equal(1, issueCount);
+            int resultCount = 0;
+            SarifHelpers.ValidateRun(run, (issue) => { resultCount++; });
+            Assert.Equal(1, resultCount);
         }
     }
 }

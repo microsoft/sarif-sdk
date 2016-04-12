@@ -75,6 +75,20 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             _run = run;
         }
 
+        /// <summary>
+        /// Write information about scanned files to the log. This information may appear
+        /// after the results, as the full list of scanned files might not be known until
+        /// all results have been generated.
+        /// </summary>
+        /// <param name="fileDictionary">
+        /// A dictionary whose keys are the URIs of scanned files and whose values provide
+        /// information about those files.
+        /// </param>
+        public void WriteFiles(Dictionary<Uri, IList<FileData>> fileDictionary)
+        {
+            throw new NotImplementedException();
+        }
+
         public void OpenResults() { }
 
         public void CloseResults() { }
