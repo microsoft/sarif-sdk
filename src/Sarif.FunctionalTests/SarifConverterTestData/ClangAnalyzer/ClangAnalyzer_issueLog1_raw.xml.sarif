@@ -1,19 +1,16 @@
 {
-  "version": "1.0.0-beta.2",
-  "runLogs": [
+  "version": "1.0.0-beta.3",
+  "runs": [
     {
       "tool": {
         "name": "Clang"
       },
-      "run": {
-        "files": {
-          "jmemmgr.c": [
-            {
-              "uri": "jmemmgr.c",
-              "mimeType": "text/x-cpp"
-            }
-          ]
-        }
+      "files": {
+        "jmemmgr.c": [
+          {
+            "mimeType": "text/x-cpp"
+          }
+        ]
       },
       "results": [
         {

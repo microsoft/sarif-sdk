@@ -67,7 +67,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
             }
         }
 
-        public void Log(IRuleDescriptor rule, Result result)
+        public void Log(IRule rule, Result result)
         {
             string message = result.GetMessageText(rule, concise: false);
 
@@ -176,8 +176,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
             if (region != null)
             {
                 // TODO 
-                if (region.CharOffset > 0 ||
-                    region.ByteOffset > 0 ||
+                if (region.Offset > 0 ||
                     region.StartColumn == 0)
                 {
                     throw new NotImplementedException();

@@ -18,7 +18,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
         /// </summary>
         /// <param name="rule"></param>
         /// <param name="result"></param>
-        void Log(IRuleDescriptor rule, Result result);
+        void Log(IRule rule, Result result);
 
         /// <summary>
         /// Log a simple message for display to users (which 

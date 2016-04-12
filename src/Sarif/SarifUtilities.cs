@@ -18,7 +18,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return s_semVer200.IsMatch(versionString);
         }
 
-        private const string V1_0_0_BETA_2 = "1.0.0-beta.2";
+        private const string V1_0_0_BETA_3 = "1.0.0-beta.3";
 
         /// <summary>
         /// Returns an ISO 8601 compatible universal date time format string with
@@ -36,7 +36,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             switch (sarifVersionText)
             {
-                case V1_0_0_BETA_2: return SarifVersion.OneZeroZeroBetaTwo;
+                case V1_0_0_BETA_3: return SarifVersion.OneZeroZeroBetaTwo;
             }
 
             return SarifVersion.Unknown;
@@ -46,12 +46,12 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             switch (sarifVersion)
             {
-                case SarifVersion.OneZeroZeroBetaTwo: { return V1_0_0_BETA_2; }
+                case SarifVersion.OneZeroZeroBetaTwo: { return V1_0_0_BETA_3; }
             }
             return "unknown";
         }
 
-        public static Dictionary<string, string> BuildFormatSpecifiers(IEnumerable<string> resourceNames, ResourceManager resourceManager)
+        public static Dictionary<string, string> BuildMessageFormats(IEnumerable<string> resourceNames, ResourceManager resourceManager)
         {
             // Note this dictionary provides for case-insensitive keys
             var dictionary = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);

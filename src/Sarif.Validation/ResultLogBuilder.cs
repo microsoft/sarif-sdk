@@ -23,13 +23,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Validation
 
         private const string UnknownErrorFormatSpecifier = "unknownError";
 
-        private static readonly RuleDescriptor UnknownErrorRule = new RuleDescriptor(
+        private static readonly Rule UnknownErrorRule = new Rule(
             "SV0001",
             "UnknownError",
             Resources.UnknownErrorRuleDescription,
             Resources.UnknownErrorRuleDescription,
             null,           // options
-            new Dictionary<string, string>           // formatSpecifiers
+            new Dictionary<string, string>           // messageFormats
             {
                 [UnknownErrorFormatSpecifier] = Resources.UnknownErrorMessageFormat
             },
@@ -39,13 +39,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Validation
 
         private const string JsonSyntaxErrorFormatSpecifier = "syntaxError";
 
-        private static readonly RuleDescriptor JsonSyntaxErrorRule = new RuleDescriptor(
+        private static readonly Rule JsonSyntaxErrorRule = new Rule(
             "SV0002",
             "JsonSyntaxError",
             Resources.JsonSyntaxErrorRuleDescription,
             Resources.JsonSyntaxErrorRuleDescription,
             null,           // options
-            new Dictionary<string, string>           // formatSpecifiers
+            new Dictionary<string, string>           // messageFormats
             {
                 [JsonSyntaxErrorFormatSpecifier] = Resources.JsonSyntaxErrorMessageFormat
             },
@@ -55,13 +55,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Validation
 
         private const string JsonSchemaValidationErrorFormatSpecifier = "validationError";
 
-        private static readonly RuleDescriptor JsonSchemaValidationErrorRule = new RuleDescriptor(
+        private static readonly Rule JsonSchemaValidationErrorRule = new Rule(
             "SV0003",
             "JsonSchemaValidationError",
             Resources.JsonSchemaValidationErrorRuleDescription,
             Resources.JsonSchemaValidationErrorRuleDescription,
             null,           // options
-            new Dictionary<string, string>           // formatSpecifiers
+            new Dictionary<string, string>           // messageFormats
             {
                 [JsonSchemaValidationErrorFormatSpecifier] = Resources.JsonSchemaValidationErrorMessageFormat
             },
@@ -129,14 +129,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Validation
 
         private void LogError(JsonError error)
         {
-            IRuleDescriptor rule = GetRuleDescriptorForError(error);
+            IRule rule = GetRuleForError(error);
             Result result = MakeResultFromError(error);
 
             _logger.Log(rule, result);
             _messages.Add(result.FormatForVisualStudio(rule));
         }
 
-        private static IRuleDescriptor GetRuleDescriptorForError(JsonError error)
+        private static IRule GetRuleForError(JsonError error)
         {
             switch (error.Kind)
             {
@@ -206,7 +206,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Validation
             {
                 region = new Region
                 {
-                    CharOffset = error.Start,
+                    Offset = error.Start,
                     Length = error.Length
                 };
 

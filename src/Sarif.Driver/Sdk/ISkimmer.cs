@@ -5,7 +5,7 @@ using Microsoft.CodeAnalysis.Sarif.Sdk;
 
 namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
 {
-    public interface ISkimmer<TContext> : IRuleDescriptor
+    public interface ISkimmer<TContext> : IRule
     {
         /// <summary>
         /// Initialize method for skimmer instance. This method will only 

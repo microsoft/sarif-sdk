@@ -23,7 +23,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
 
             try
             {
-                ImmutableArray<IRuleDescriptor> skimmers = DriverUtilities.GetExports<IRuleDescriptor>(DefaultPlugInAssemblies);
+                ImmutableArray<IRule> skimmers = DriverUtilities.GetExports<IRule>(DefaultPlugInAssemblies);
 
                 string format = "";
                 string outputFilePath = exportOptions.OutputFilePath;
@@ -64,23 +64,23 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
             return result;
         }
 
-        private void OutputSonarQubeRulesMetada(string outputFilePath, ImmutableArray<IRuleDescriptor> skimmers)
+        private void OutputSonarQubeRulesMetada(string outputFilePath, ImmutableArray<IRule> skimmers)
         {
             const string TAB = "   ";
             var sb = new StringBuilder();
 
-            SortedDictionary<int, IRuleDescriptor> sortedRuleContexts = new SortedDictionary<int, IRuleDescriptor>();
+            SortedDictionary<int, IRule> sortedRuleContexts = new SortedDictionary<int, IRule>();
 
-            foreach (IRuleDescriptor ruleDescriptor in skimmers)
+            foreach (IRule rule in skimmers)
             {
-                int numericId = GetIdIntegerSuffix(ruleDescriptor.Id);
-                sortedRuleContexts[numericId] = ruleDescriptor;
+                int numericId = GetIdIntegerSuffix(rule.Id);
+                sortedRuleContexts[numericId] = rule;
             }
 
             sb.AppendLine("<?xml version='1.0' encoding='UTF-8'?>" + Environment.NewLine +
                          "<rules>");
 
-            foreach (IRuleDescriptor ruleContext in sortedRuleContexts.Values)
+            foreach (IRule ruleContext in sortedRuleContexts.Values)
             {
                 sb.AppendLine(TAB + "<rule>");
                 sb.AppendLine(TAB + TAB + "<key>" + ruleContext.Id + "</key>");
@@ -102,7 +102,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
             File.WriteAllText(outputFilePath, sb.ToString());
         }    
 
-        private void OutputSarifRulesMetada(string outputFilePath, ImmutableArray<IRuleDescriptor> skimmers, ImmutableArray<IOptionsProvider> options)
+        private void OutputSarifRulesMetada(string outputFilePath, ImmutableArray<IRule> skimmers, ImmutableArray<IOptionsProvider> options)
         {
             var log = new SarifLog();
 
@@ -110,41 +110,41 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
 
             // The SARIF spec currently requires an array
             // of run logs with at least one member
-            log.RunLogs = new List<RunLog>();
+            log.Runs = new List<Run>();
 
-            var runLog = new RunLog();
-            runLog.Tool = new Tool();
+            var run = new Run();
+            run.Tool = new Tool();
 
-            runLog.Tool.InitializeFromAssembly(this.GetType().Assembly, Prerelease);
-            runLog.Results = new List<Result>();
+            run.Tool.InitializeFromAssembly(this.GetType().Assembly, Prerelease);
+            run.Results = new List<Result>();
 
-            log.RunLogs.Add(runLog);
-            runLog.Rules = new List<RuleDescriptor>();
+            log.Runs.Add(run);
+            run.Rules = new List<Rule>();
 
-            SortedDictionary<int, RuleDescriptor> sortedRuleDescriptors = new SortedDictionary<int, RuleDescriptor>();
+            SortedDictionary<int, Rule> sortedRules = new SortedDictionary<int, Rule>();
 
-            foreach (IRuleDescriptor descriptor in skimmers)
+            foreach (IRule rule in skimmers)
             {
-                var ruleDescriptor = new RuleDescriptor();
+                var newRule = new Rule();
 
-                ruleDescriptor.Id = descriptor.Id;
-                ruleDescriptor.Name = descriptor.Name;
-                ruleDescriptor.Options = descriptor.Options;
-                ruleDescriptor.HelpUri = descriptor.HelpUri;
-                ruleDescriptor.Properties = descriptor.Properties;
-                ruleDescriptor.FullDescription = descriptor.FullDescription;
-                ruleDescriptor.FormatSpecifiers = descriptor.FormatSpecifiers;
+                newRule.Id = rule.Id;
+                newRule.Name = rule.Name;
+                newRule.Options = rule.Options;
+                newRule.HelpUri = rule.HelpUri;
+                newRule.Properties = rule.Properties;
+                newRule.FullDescription = rule.FullDescription;
+                newRule.MessageFormats = rule.MessageFormats;
 
-                ruleDescriptor.ShortDescription = ruleDescriptor.ShortDescription;
+                newRule.ShortDescription = rule.ShortDescription;
 
-                int numericId = GetIdIntegerSuffix(ruleDescriptor.Id);
+                int numericId = GetIdIntegerSuffix(newRule.Id);
 
-                sortedRuleDescriptors[numericId] = ruleDescriptor;
+                sortedRules[numericId] = newRule;
             }
 
-            foreach (RuleDescriptor ruleDescriptor in sortedRuleDescriptors.Values)
+            foreach (Rule rule in sortedRules.Values)
             {
-                runLog.Rules.Add(ruleDescriptor);
+                run.Rules.Add(rule);
             }
 
             var settings = new JsonSerializerSettings()

@@ -14,7 +14,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
 
         public PropertyBag Policy { get; set; }
 
-        public IRuleDescriptor Rule { get; set; }
+        public IRule Rule { get; set; }
 
         public Exception TargetLoadException { get; set; }
 

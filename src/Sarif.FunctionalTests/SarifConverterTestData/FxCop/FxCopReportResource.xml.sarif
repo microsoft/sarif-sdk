@@ -1,19 +1,16 @@
 {
-  "version": "1.0.0-beta.2",
-  "runLogs": [
+  "version": "1.0.0-beta.3",
+  "runs": [
     {
       "tool": {
         "name": "FxCop"
       },
-      "run": {
-        "files": {
-          "$(ProjectDir)/SpecifyCultureInfo/Microsoft.TeamFoundation.Build.Client.dll": [
-            {
-              "uri": "$(ProjectDir)/SpecifyCultureInfo/Microsoft.TeamFoundation.Build.Client.dll",
-              "mimeType": "application/octet-stream"
-            }
-          ]
-        }
+      "files": {
+        "$(ProjectDir)/SpecifyCultureInfo/Microsoft.TeamFoundation.Build.Client.dll": [
+          {
+            "mimeType": "application/octet-stream"
+          }
+        ]
       },
       "results": [
         {

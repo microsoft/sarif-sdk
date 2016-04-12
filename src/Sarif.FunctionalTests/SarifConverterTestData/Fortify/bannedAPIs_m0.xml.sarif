@@ -1,19 +1,16 @@
 {
-  "version": "1.0.0-beta.2",
-  "runLogs": [
+  "version": "1.0.0-beta.3",
+  "runs": [
     {
       "tool": {
         "name": "Fortify"
       },
-      "run": {
-        "files": {
-          "bannedAPIs.m": [
-            {
-              "uri": "bannedAPIs.m",
-              "mimeType": "application/octet-stream"
-            }
-          ]
-        }
+      "files": {
+        "bannedAPIs.m": [
+          {
+            "mimeType": "application/octet-stream"
+          }
+        ]
       },
       "results": [
         {

@@ -37,8 +37,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         }
 
         private const string empty = @"{
-  ""version"": ""1.0.0-beta.2"",
-  ""runLogs"": [
+  ""version"": ""1.0.0-beta.3"",
+  ""runs"": [
     {
       ""tool"": {
         ""name"": ""Clang""

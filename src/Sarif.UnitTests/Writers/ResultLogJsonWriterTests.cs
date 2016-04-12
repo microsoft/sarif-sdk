@@ -7,16 +7,14 @@ using System.Text;
 
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Newtonsoft.Json;
-using Microsoft.CodeAnalysis.Sarif.Sdk;
 
 namespace Microsoft.CodeAnalysis.Sarif.Writers
 {
     [TestClass]
     public class ResultLogJsonWriterTests
     {
-        private static readonly Run s_defaultRun = new Run();
         private static readonly Tool s_defaultTool = new Tool();
-        private static readonly Result s_defaultIssue = new Result();
+        private static readonly Result s_defaultResult = new Result();
 
         private static string GetJson(Action<ResultLogJsonWriter> testContent)
         {
@@ -34,19 +32,18 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         [TestMethod]
         public void ResultLogJsonWriter_DefaultIsEmpty()
         {
-            string expected = @"{""version"":""1.0.0-beta.2"",""runLogs"":[{}]}";
+            string expected = @"{""version"":""1.0.0-beta.3"",""runs"":[{}]}";
             Assert.AreEqual(expected, GetJson(delegate { }));
         }
 
         [TestMethod]
-        public void ResultLogJsonWriter_AcceptsIssuesAndTool()
+        public void ResultLogJsonWriter_AcceptsResultAndTool()
         {
-            string expected = "{\"version\":\"1.0.0-beta.2\",\"runLogs\":[{\"tool\":{\"name\":null},\"run\":{},\"results\":[{}]}]}";
+            string expected = "{\"version\":\"1.0.0-beta.3\",\"runs\":[{\"tool\":{\"name\":null},\"results\":[{}]}]}";
             string actual = GetJson(uut =>
             {
                 uut.WriteTool(s_defaultTool);
-                uut.WriteRun(s_defaultRun);
-                uut.WriteResult(s_defaultIssue);
+                uut.WriteResult(s_defaultResult);
             });
             Assert.AreEqual(expected, actual);
         }
@@ -64,12 +61,19 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
         [TestMethod]
         [ExpectedException(typeof(InvalidOperationException))]
-        public void ResultLogJsonWriter_runMayNotBeWrittenMoreThanOnce()
+        public void ResultLogJsonWriter_ResultsMayNotBeWrittenMoreThanOnce()
         {
+            var results = new[] { s_defaultResult };
+
             GetJson(uut =>
             {
-                uut.WriteRun(s_defaultRun);
-                uut.WriteRun(s_defaultRun);
+                uut.OpenResults();
+                uut.WriteResults(results);
+                uut.CloseResults();
+
+                uut.OpenResults();
+                uut.WriteResults(results);
+                uut.CloseResults();
             });
         }
 
@@ -82,19 +86,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentNullException))]
-        public void ResultLogJsonWriter_RequiresNonNullRun()
-        {
-            GetJson(uut => uut.WriteRun(null));
-        }
-
-        [TestMethod]
-        [ExpectedException(typeof(ArgumentNullException))]
-        public void ResultLogJsonWriter_RequiresNonNullIssue()
+        public void ResultLogJsonWriter_RequiresNonNullResult()
         {
             GetJson(uut =>
             {
                 uut.WriteTool(s_defaultTool);
-                uut.WriteRun(s_defaultRun);
                 uut.WriteResult(null);
             });
         }
@@ -109,21 +105,20 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             {
                 uut.Dispose();
                 uut.WriteTool(s_defaultTool);
-                uut.WriteRun(s_defaultRun);
             }
         }
 
         [TestMethod]
         [ExpectedException(typeof(InvalidOperationException))]
-        public void ResultLogJsonWriter_CannotWriteIssuesToDisposedWriter()
+        public void ResultLogJsonWriter_CannotWriteResultsToDisposedWriter()
         {
             using (var str = new StringWriter())
             using (var json = new JsonTextWriter(str))
             using (var uut = new ResultLogJsonWriter(json))
             {
                 uut.WriteTool(s_defaultTool);
-                uut.WriteRun(s_defaultRun); uut.Dispose();
-                uut.WriteResult(s_defaultIssue);
+                uut.Dispose();
+                uut.WriteResult(s_defaultResult);
             }
         }
 

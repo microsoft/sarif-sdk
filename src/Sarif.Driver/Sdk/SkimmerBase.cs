@@ -16,27 +16,27 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
 
         abstract public Uri HelpUri { get;  }
 
-        private IDictionary<string, string> formatSpecifiers;
+        private IDictionary<string, string> messageFormats;
 
         abstract protected ResourceManager ResourceManager { get; }
 
-        abstract protected IEnumerable<string> FormatSpecifierIds { get; }
+        abstract protected IEnumerable<string> FormatIds { get; }
 
-        virtual public IDictionary<string, string> FormatSpecifiers
+        virtual public IDictionary<string, string> MessageFormats
         {
             get
             {
-                if (this.formatSpecifiers == null)
+                if (this.messageFormats == null)
                 {
-                    this.formatSpecifiers = InitializeFormatSpecifiers();
+                    this.messageFormats = InitializeMessageFormats();
                 }
-                return this.formatSpecifiers;
+                return this.messageFormats;
             }
         }
 
-        private Dictionary<string, string> InitializeFormatSpecifiers()
+        private Dictionary<string, string> InitializeMessageFormats()
         {
-            return RuleUtilities.BuildDictionary(ResourceManager, FormatSpecifierIds, Id);
+            return RuleUtilities.BuildDictionary(ResourceManager, FormatIds, Id);
         }
 
         abstract public string Id { get; }

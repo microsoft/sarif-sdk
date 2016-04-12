@@ -1,25 +1,21 @@
 {
-  "version": "1.0.0-beta.2",
-  "runLogs": [
+  "version": "1.0.0-beta.3",
+  "runs": [
     {
       "tool": {
         "name": "AndroidStudio"
       },
-      "run": {
-        "files": {
-          "app/src/androidTest/java/microsoft/androidstudioformatexample/ApplicationTest.java": [
-            {
-              "uri": "app/src/androidTest/java/microsoft/androidstudioformatexample/ApplicationTest.java",
-              "mimeType": "text/x-java-source"
-            }
-          ],
-          "app/src/main/java/microsoft/androidstudioformatexample/MainActivity.java": [
-            {
-              "uri": "app/src/main/java/microsoft/androidstudioformatexample/MainActivity.java",
-              "mimeType": "text/x-java-source"
-            }
-          ]
-        }
+      "files": {
+        "app/src/androidTest/java/microsoft/androidstudioformatexample/ApplicationTest.java": [
+          {
+            "mimeType": "text/x-java-source"
+          }
+        ],
+        "app/src/main/java/microsoft/androidstudioformatexample/MainActivity.java": [
+          {
+            "mimeType": "text/x-java-source"
+          }
+        ]
       },
       "results": [
         {

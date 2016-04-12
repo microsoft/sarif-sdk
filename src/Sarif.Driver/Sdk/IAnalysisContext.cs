@@ -20,7 +20,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
 
         bool IsValidAnalysisTarget { get;  }
 
-        IRuleDescriptor Rule { get; set; }
+        IRule Rule { get; set; }
 
         PropertyBag Policy { get; set; }
         

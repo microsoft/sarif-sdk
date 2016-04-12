@@ -1,19 +1,16 @@
 {
-  "version": "1.0.0-beta.2",
-  "runLogs": [
+  "version": "1.0.0-beta.3",
+  "runs": [
     {
       "tool": {
         "name": "AndroidStudio"
       },
-      "run": {
-        "files": {
-          "northwindtraders-droid-2/src/main/java/com/northwindtraders/droid/model/Model.java": [
-            {
-              "uri": "northwindtraders-droid-2/src/main/java/com/northwindtraders/droid/model/Model.java",
-              "mimeType": "text/x-java-source"
-            }
-          ]
-        }
+      "files": {
+        "northwindtraders-droid-2/src/main/java/com/northwindtraders/droid/model/Model.java": [
+          {
+            "mimeType": "text/x-java-source"
+          }
+        ]
       },
       "results": [
         {

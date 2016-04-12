@@ -46,8 +46,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         }
 
         private const string EmptyResult = @"{
-  ""version"": ""1.0.0-beta.2"",
-  ""runLogs"": [
+  ""version"": ""1.0.0-beta.3"",
+  ""runs"": [
     {
       ""tool"": {
         ""name"": ""AndroidStudio""

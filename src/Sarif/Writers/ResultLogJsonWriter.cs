@@ -48,14 +48,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         {
             this.EnsureStateNotAlreadySet(Conditions.Disposed | Conditions.Initialized);
 
-            _jsonWriter.WriteStartObject(); // Begin: resultLog
+            _jsonWriter.WriteStartObject(); // Begin: sarifLog
             _jsonWriter.WritePropertyName("version");
             _jsonWriter.WriteValue(SarifVersion.OneZeroZeroBetaTwo.ConvertToText());
 
-            _jsonWriter.WritePropertyName("runLogs");
-            _jsonWriter.WriteStartArray(); // Begin: runLogs
+            _jsonWriter.WritePropertyName("runs");
+            _jsonWriter.WriteStartArray(); // Begin: runs
 
-            _jsonWriter.WriteStartObject(); // Begin: runLog
+            _jsonWriter.WriteStartObject(); // Begin: run
 
             _writeConditions |= Conditions.Initialized;
         }
@@ -89,7 +89,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         {
             if (run == null)
             {
-                throw new ArgumentNullException("run");
+                throw new ArgumentNullException(nameof(run));
             }
 
             EnsureInitialized();
@@ -102,11 +102,37 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             _writeConditions |= Conditions.RunWritten;
         }
 
-        public void WriteRules(IEnumerable<IRuleDescriptor> ruleDescriptors)
+        /// <summary>
+        /// Write information about scanned files to the log. This information may appear
+        /// after the results, as the full list of scanned files might not be known until
+        /// all results have been generated.
+        /// </summary>
+        /// <param name="fileDictionary">
+        /// A dictionary whose keys are the URIs of scanned files and whose values provide
+        /// information about those files.
+        /// </param>
+        public void WriteFiles(Dictionary<Uri, IList<FileData>> fileDictionary)
         {
-            if (ruleDescriptors == null)
+            if (fileDictionary == null)
             {
-                throw new ArgumentNullException("ruleDescriptors");
+                throw new ArgumentNullException(nameof(fileDictionary));
+            }
+
+            EnsureInitialized();
+            EnsureResultsArrayIsNotOpen();
+            EnsureStateNotAlreadySet(Conditions.Disposed | Conditions.RunWritten);
+
+            _jsonWriter.WritePropertyName("files");
+            _serializer.Serialize(_jsonWriter, fileDictionary, typeof(Dictionary<Uri, IList<FileData>>));
+
+            _writeConditions |= Conditions.RunWritten;
+        }
+
+        public void WriteRules(IEnumerable<IRule> rules)
+        {
+            if (rules == null)
+            {
+                throw new ArgumentNullException(nameof(rules));
             }
 
             EnsureInitialized();
@@ -116,18 +142,18 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             _jsonWriter.WritePropertyName("rules");
             _jsonWriter.WriteStartArray();
 
-            foreach(IRuleDescriptor ruleDescriptor in ruleDescriptors)
+            foreach(IRule rule in rules)
             {
-                RuleDescriptor descriptor = new RuleDescriptor();
-                descriptor.Id = ruleDescriptor.Id;
-                descriptor.Name = ruleDescriptor.Name;
-                descriptor.FullDescription = ruleDescriptor.FullDescription;
-                descriptor.ShortDescription = ruleDescriptor.ShortDescription;
-                descriptor.Options = ruleDescriptor.Options;
-                descriptor.Properties = ruleDescriptor.Properties;
-                descriptor.FormatSpecifiers = ruleDescriptor.FormatSpecifiers;
+                Rule newRule = new Rule();
+                newRule.Id = rule.Id;
+                newRule.Name = rule.Name;
+                newRule.FullDescription = rule.FullDescription;
+                newRule.ShortDescription = rule.ShortDescription;
+                newRule.Options = rule.Options;
+                newRule.Properties = rule.Properties;
+                newRule.MessageFormats = rule.MessageFormats;
 
-                _serializer.Serialize(_jsonWriter, descriptor, typeof(RuleDescriptor));
+                _serializer.Serialize(_jsonWriter, newRule, typeof(Rule));
             }
 
             _jsonWriter.WriteEndArray();
@@ -137,6 +163,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
         public void OpenResults()
         {
+            EnsureInitialized();
             EnsureResultsArrayIsNotOpen();
             EnsureStateNotAlreadySet(Conditions.Disposed | Conditions.ResultsClosed);
 
@@ -168,7 +195,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         {
             if (result == null)
             {
-                throw new ArgumentNullException("result");
+                throw new ArgumentNullException(nameof(result));
             }
 
             EnsureStateNotAlreadySet(Conditions.Disposed | Conditions.ResultsClosed);
@@ -243,16 +270,17 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             }
             else
             {
-                if ((_writeConditions & Conditions.ResultsInitialized) == Conditions.ResultsInitialized)
+                if ((_writeConditions & Conditions.ResultsInitialized) == Conditions.ResultsInitialized &&
+                    (_writeConditions & Conditions.ResultsClosed) != Conditions.ResultsClosed)
                 {
                     CloseResults();
                 }
 
                 // Log complete. Write the end object.
 
-                _jsonWriter.WriteEndObject(); // End: runLog
-                _jsonWriter.WriteEndArray();  // End: runLogs
-                _jsonWriter.WriteEndObject(); // End: resultsLog
+                _jsonWriter.WriteEndObject(); // End: run
+                _jsonWriter.WriteEndArray();  // End: runs
+                _jsonWriter.WriteEndObject(); // End: sarifLog
             }
 
             _writeConditions |= Conditions.Disposed;
