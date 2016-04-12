@@ -478,9 +478,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
         {
             Run run = AnalyzeFile(this.GetType().Assembly.Location);
 
-            int issueCount = 0;
-            SarifHelpers.ValidateRun(run, (issue) => { issueCount++; });
-            Assert.Equal(1, issueCount);
+            int resultCount = 0;
+            SarifHelpers.ValidateRun(run, (issue) => { resultCount++; });
+            Assert.Equal(1, resultCount);
         }
     }
 }

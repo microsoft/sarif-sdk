@@ -36,7 +36,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             switch (sarifVersionText)
             {
-                case V1_0_0_BETA_3: return SarifVersion.OneZeroZeroBetaTwo;
+                case V1_0_0_BETA_3: return SarifVersion.OneZeroZeroBetaThree;
             }
 
             return SarifVersion.Unknown;
@@ -46,7 +46,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             switch (sarifVersion)
             {
-                case SarifVersion.OneZeroZeroBetaTwo: { return V1_0_0_BETA_3; }
+                case SarifVersion.OneZeroZeroBetaThree: { return V1_0_0_BETA_3; }
             }
             return "unknown";
         }
