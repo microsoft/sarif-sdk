@@ -12,27 +12,23 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
     /// <seealso cref="T:Microsoft.CodeAnalysis.Sarif.IResultLogWriter"/>
     public sealed class ResultLogObjectWriter : IResultLogWriter
     {
-        private Run _run;
         private Tool _tool;
-        private ImmutableList<Result> _issueList;
+        private ImmutableList<Result> _resultList;
+        private ImmutableDictionary<Uri, IList<FileData>> _fileDictionary;
 
         /// <summary>Initializes a new instance of the <see cref="ResultLogObjectWriter"/> class.</summary>
         public ResultLogObjectWriter()
         {
-            _issueList = ImmutableList<Result>.Empty;
+            _resultList = ImmutableList<Result>.Empty;
         }
 
         /// <summary>Gets the Tool block.</summary>
         /// <value>The <see cref="Tool"/> block if it has been written; otherwise, null.</value>
         public Tool Tool { get { return _tool; } }
 
-        /// <summary>Gets the Rules block.</summary>
-        /// <value>The <see cref="Run"/> block if it has been written; otherwise, null.</value>
-        public Run Run { get { return _run; } }
-
         /// <summary>Gets the list of issues written so far.</summary>
         /// <value>The list of <see cref="Result"/> objects written so far.</value>
-        public ImmutableList<Result> IssueList { get { return _issueList; } }
+        public ImmutableList<Result> ResultList { get { return _resultList; } }
 
         public void Initialize() { }
 
@@ -55,25 +51,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
             _tool = tool;
         }
+
         /// <summary>Writes a run information entry to the log.</summary>
-        /// <exception cref="InvalidOperationException">Thrown if the tool info block has already been
-        /// written.</exception>
-        /// <param name="tool">The tool information to write.</param>
-        /// <seealso cref="M:Microsoft.CodeAnalysis.Sarif.IsarifWriter.WriteTool(Tool)"/>
-        public void WriteRun(Run run)
-        {
-            if (run == null)
-            {
-                throw new ArgumentNullException(nameof(run));
-            }
-
-            if (_run != null)
-            {
-                throw new InvalidOperationException(SarifResources.ToolAlreadyWritten);
-            }
-
-            _run = run;
-        }
+        public void WriteRun(Run run) { }
 
         /// <summary>
         /// Write information about scanned files to the log. This information may appear
@@ -86,7 +66,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         /// </param>
         public void WriteFiles(Dictionary<Uri, IList<FileData>> fileDictionary)
         {
-            throw new NotImplementedException();
+            if (fileDictionary == null)
+            {
+                throw new ArgumentNullException(nameof(fileDictionary));
+            }
+
+            _fileDictionary = ImmutableDictionary.CreateRange(fileDictionary);
         }
 
         public void OpenResults() { }
@@ -112,7 +97,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         {
             if (result == null)
             {
-                throw new ArgumentNullException("result");
+                throw new ArgumentNullException(nameof(result));
             }
 
             if (_tool == null)
@@ -120,7 +105,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 throw new InvalidOperationException(SarifResources.CannotWriteResultToolMissing);
             }
 
-            _issueList = _issueList.Add(new Result(result));
+            _resultList = _resultList.Add(new Result(result));
         }
 
         /// <summary>
