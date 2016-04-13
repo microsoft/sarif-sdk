@@ -4,6 +4,7 @@
 using System;
 using System.ComponentModel.Composition;
 using System.Reflection;
+using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -27,6 +28,8 @@ namespace Microsoft.Sarif.Viewer
     public class SarifTableControlEventProcessorProvider : ITableControlEventProcessorProvider
     {
         internal const string Name = "Sarif Table Event Processor";
+        private static readonly ConditionalWeakTable<IVsTextView, StrongBox<int>> cookieMap =
+            new ConditionalWeakTable<IVsTextView, StrongBox<int>>();
 
         public SarifTableControlEventProcessorProvider()
         {
@@ -76,8 +79,7 @@ namespace Microsoft.Sarif.Viewer
                 }
                 else
                 {
-                    // TODO
-                    //CloseVerticalContent(frame, error);
+                    CloseVerticalContent(frame, sarifError);
                 }
             }
 
@@ -90,15 +92,41 @@ namespace Microsoft.Sarif.Viewer
                 }
 
                 CodeLocations codeLocations = new CodeLocations();
-                codeLocations.SetItems(error.Annotations);
+                codeLocations.CurrentSarifError = error;
 
-                // TODO remove
+                // TODO: this needs to be a public API
                 var type = textView.GetType();
                 var mi = type.GetMethod(
                     "ShowAdditionalContent",
                     new Type[] { typeof(FrameworkElement), typeof(String)});
                  
-                mi.Invoke(textView, new object[] { codeLocations, "Code Analysis Details" });
+                int cookie = (int)mi.Invoke(textView, new object[] { codeLocations, "Code Analysis Details" });
+
+                cookieMap.Remove(textView);
+                cookieMap.Add(textView, new StrongBox<int>(cookie));
+            }
+
+            private void CloseVerticalContent(IVsWindowFrame frame, SarifError item)
+            {
+                IVsTextView textView = GetTextViewFromFrame(frame);
+                if (textView == null)
+                {
+                    return;
+                }
+
+                StrongBox<int> cookie;
+                if (cookieMap.TryGetValue(textView, out cookie))
+                {
+                    // TODO: this needs to be a public API
+                    var type = textView.GetType();
+                    var mi = type.GetMethod(
+                        "HideVerticalContent",
+                        new Type[] { typeof(int) });
+
+                    mi.Invoke(textView, new object[] { cookie.Value });
+
+                    cookieMap.Remove(textView);
+                }
             }
 
             private IVsTextView GetTextViewFromFrame(IVsWindowFrame frame)
