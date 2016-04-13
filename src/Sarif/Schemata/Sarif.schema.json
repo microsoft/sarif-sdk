@@ -527,7 +527,7 @@
 
         "shortDescription": 
         {
-          "description": "A concise description of the rule. Should be a single sentence that is understandable when displayed in when visible space is limited to a single line of text.",
+          "description": "A concise description of the rule. Should be a single sentence that is understandable when visible space is limited to a single line of text.",
           "type": "string"
         },
 
@@ -620,13 +620,13 @@
         },
 
         "startTime": {
-          "description": "The date and time at which the run started. See \"Date/time properties\" in the SARIF spec for the format.",
+          "description": "The date and time at which the run started. See \"Date/time properties\" in the SARIF spec for the required format.",
           "type": "string",
           "format": "date-time"
         },
 
         "endTime": {
-          "description": "The date and time at which the run ended. See \"Date/time properties\" in the  SARIF spec for the format.",
+          "description": "The date and time at which the run ended. See \"Date/time properties\" in the  SARIF spec for the required format.",
           "type": "string",
           "format": "date-time"
         },
