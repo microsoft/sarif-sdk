@@ -23,8 +23,8 @@
     <ProjectGuid>{FEBE7A56-524C-4B76-A899-23DBD8951C23}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>SarifViewer</RootNamespace>
-    <AssemblyName>SarifViewer</AssemblyName>
+    <RootNamespace>Microsoft.Sarif.Viewer</RootNamespace>
+    <AssemblyName>Microsoft.Sarif.Viewer</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <GeneratePkgDefFile>true</GeneratePkgDefFile>
     <IncludeAssemblyInVSIXContainer>true</IncludeAssemblyInVSIXContainer>
@@ -34,16 +34,30 @@
     <CopyOutputSymbolsToOutputDirectory>false</CopyOutputSymbolsToOutputDirectory>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="AnnotatedCodeLocationKindConverter.cs" />
+    <Compile Include="AnnotatedCodeLocationModel.cs" />
+    <Compile Include="CodeAnalysisResultManager.cs" />
+    <Compile Include="CodeLocations.xaml.cs">
+      <DependentUpon>CodeLocations.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="CodeLocationsConverter.cs" />
+    <Compile Include="CodeLocationsStyleSelector.cs" />
+    <Compile Include="CodeLocationsTemplateSelector.cs" />
     <Compile Include="Constants.cs" />
     <Compile Include="ErrorListService.cs" />
+    <Compile Include="ExtensionMethods.cs" />
     <Compile Include="Guids.cs" />
     <Compile Include="OpenSarifFileCommand.cs" />
+    <Compile Include="ProjectHelper.cs" />
+    <Compile Include="ProjectKind.cs" />
+    <Compile Include="ResultTextMarker.cs" />
     <Compile Include="SarifEditorFactory.cs" />
     <Compile Include="SarifFileAndContentDefinitions.cs" />
     <Compile Include="SarifTableControlEventProcessorProvider.cs" />
     <Compile Include="SarifViewerPackage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SarifError.cs" />
+    <Compile Include="SdkUiUtilities.cs" />
     <Compile Include="SinkManager.cs" />
     <Compile Include="TableDataSource.cs" />
     <Compile Include="SarifSnapshot.cs" />
@@ -69,7 +83,6 @@
     </VSCTCompile>
     <Content Include="Resources\OpenSarifFileCommand.png" />
     <Content Include="Resources\OpenSarifFileCommandPackage.ico" />
-    <Content Include="stylesheet.css" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="EnvDTE, Version=8.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
@@ -94,6 +107,7 @@
       <HintPath>..\packages\Microsoft.VisualStudio.CoreUtility.14.1.24720\lib\net45\Microsoft.VisualStudio.CoreUtility.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Microsoft.VisualStudio.Editor, Version=14.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
     <Reference Include="Microsoft.VisualStudio.Imaging, Version=14.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.VisualStudio.Imaging.14.1.24720\lib\net45\Microsoft.VisualStudio.Imaging.dll</HintPath>
       <Private>True</Private>
@@ -203,6 +217,7 @@
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Design" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Net" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xaml" />
     <Reference Include="System.Xml" />
@@ -223,6 +238,12 @@
       <Project>{cc9b247e-7103-4bf7-bdab-6e625b3680a8}</Project>
       <Name>Sarif</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="CodeLocations.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <PropertyGroup>
     <PreBuildEvent>

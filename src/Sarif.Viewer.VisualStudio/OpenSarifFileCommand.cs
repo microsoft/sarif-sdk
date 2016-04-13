@@ -3,7 +3,10 @@
 
 using System;
 using System.ComponentModel.Design;
+using System.Diagnostics;
+using System.IO;
 using System.Linq;
+using System.Net;
 using System.Windows.Forms;
 
 using Microsoft.CodeAnalysis.Sarif;
@@ -13,7 +16,7 @@ using Microsoft.VisualStudio.Shell;
 
 using Newtonsoft.Json;
 
-namespace SarifViewer
+namespace Microsoft.Sarif.Viewer
 {
     /// <summary>
     /// Command handler
@@ -66,11 +69,12 @@ namespace SarifViewer
             {
                 foreach (int command in s_commands)
                 {
-                    commandService.AddCommand(
-                        new MenuCommand(
+                    OleMenuCommand oleCommand = new OleMenuCommand(
                             this.MenuItemCallback,
-                            new CommandID(CommandSet, command))
-                        );
+                            new CommandID(CommandSet, command));
+                    oleCommand.ParametersDescription = "$";
+
+                    commandService.AddCommand(oleCommand);
                 }
             }
         }
@@ -113,70 +117,182 @@ namespace SarifViewer
         /// <param name="e">Event args.</param>
         private void MenuItemCallback(object sender, EventArgs e)
         {
-            MenuCommand menuCommand = (MenuCommand)sender;
+            OleMenuCommand menuCommand = (OleMenuCommand)sender;
+            OleMenuCmdEventArgs menuCmdEventArgs = (OleMenuCmdEventArgs)e;
+
+            string inputFile = menuCmdEventArgs.InValue as String;
+            string logFile = null;
+
+            if (!String.IsNullOrWhiteSpace(inputFile))
+            {
+                // If the input file is a URL, download the file.
+                if (Uri.IsWellFormedUriString(inputFile, UriKind.Absolute))
+                {
+                    TryDownloadFile(inputFile, out logFile);
+                }
+                else
+                {
+                    // Verify if the input file is valid. i.e. it exists and has a valid file extension.
+                    string logFileExtension = Path.GetExtension(inputFile);
+
+                    // Since we don't have a tool format, only accept *.sarif and *.json files as command input files.
+                    if (logFileExtension.Equals(".sarif", StringComparison.OrdinalIgnoreCase) || logFileExtension.Equals(".json", StringComparison.OrdinalIgnoreCase))
+                    {
+                        if (File.Exists(inputFile))
+                        {
+                            logFile = inputFile;
+                        }
+                    }
+                }
+            }
+
             ToolFormat toolFormat = ToolFormat.None;
-            string title = "Open Static Analysis Results Interchange Format (SARIF) file";
-            string filter = "SARIF files (*.sarif;*.sarif.json)|*.sarif;*.sarif.json";
 
-            switch (menuCommand.CommandID.ID)
+            if (logFile == null)
             {
-                // These constants expressed in our VSCT
-                case OpenSarifFileCommandId:
+                string title = "Open Static Analysis Results Interchange Format (SARIF) file";
+                string filter = "SARIF files (*.sarif;*.sarif.json)|*.sarif;*.sarif.json";
+
+                switch (menuCommand.CommandID.ID)
                 {
-                    // Native SARIF. All our defaults above are fine
-                    break;
+                    // These constants expressed in our VSCT
+                    case OpenSarifFileCommandId:
+                        {
+                            // Native SARIF. All our defaults above are fine
+                            break;
+                        }
+                    case OpenPREfastFileCommandId:
+                        {
+                            toolFormat = ToolFormat.PREfast;
+                            title = "Open PREfast XML log file";
+                            filter = "PREfast log files (*.xml)|*.xml";
+                            break;
+                        }
+                    case OpenFxCopFileCommandId:
+                        {
+                            // FxCop. TODO. We need project file support. FxCop
+                            // fullMessages look broken.
+                            toolFormat = ToolFormat.FxCop;
+                            title = "Open FxCop XML log file";
+                            filter = "FxCop report and project files (*.xml)|*.xml";
+                            break;
+                        }
+                    case OpenCppCheckFileCommandId:
+                        {
+                            toolFormat = ToolFormat.CppCheck;
+                            title = "Open CppCheck XML log file";
+                            filter = "CppCheck log files (*.xml)|*.xml";
+                            break;
+                        }
+                    case OpenClangFileCommandId:
+                        {
+                            toolFormat = ToolFormat.ClangAnalyzer;
+                            title = "Open Clang XML log file";
+                            filter = "Clang log files (*.xml)|*.xml";
+                            break;
+                        }
+                    case OpenAndroidStudioFileCommandId:
+                        {
+                            toolFormat = ToolFormat.AndroidStudio;
+                            title = "Open Android Studio XML log file";
+                            filter = "Android Studio log files (*.xml)|*.xml";
+                            break;
+                        }
                 }
-                case OpenPREfastFileCommandId:
+
+                OpenFileDialog openFileDialog = new OpenFileDialog();
+
+                openFileDialog.Title = title;
+                openFileDialog.Filter = filter;
+                openFileDialog.RestoreDirectory = true;
+
+                if (!String.IsNullOrWhiteSpace(inputFile))
                 {
-                    toolFormat = ToolFormat.PREfast;
-                    title = "Open PREfast XML log file";
-                    filter = "PREfast log files (*.xml)|*.xml";
-                    break;
+                    openFileDialog.FileName = Path.GetFileName(inputFile);
+                    openFileDialog.InitialDirectory = Path.GetDirectoryName(inputFile);
                 }
-                case OpenFxCopFileCommandId:
+
+                if (openFileDialog.ShowDialog() != DialogResult.OK)
                 {
-                    // FxCop. TODO. We need project file support. FxCop
-                    // fullMessages look broken.
-                    toolFormat = ToolFormat.FxCop;
-                    title = "Open FxCop XML log file";
-                    filter = "FxCop report and project files (*.xml)|*.xml";
-                    break;
+                    return;
                 }
-                case OpenCppCheckFileCommandId:
+
+                logFile = openFileDialog.FileName;
+            }
+
+            ErrorListService.ProcessLogFile(logFile, toolFormat);
+        }
+
+        bool IsSarifProtocol(string path)
+        {
+            return path.StartsWith("sarif://", StringComparison.OrdinalIgnoreCase);
+        }
+
+        string ConvertSarifProtocol(string inputUrl)
+        {
+            int sarifProtocolLength;
+            string replacementProtocol;
+
+            // sarif:/// ==> file://
+            // sarif://  ==> http://
+            if (inputUrl.StartsWith("sarif:///", StringComparison.OrdinalIgnoreCase))
+            {
+                sarifProtocolLength = 9;
+                replacementProtocol = "file://";
+            }
+            else if (inputUrl.StartsWith("sarif://", StringComparison.OrdinalIgnoreCase))
+            {
+                sarifProtocolLength = 8;
+                replacementProtocol = "http://";
+            }
+            else
+            {
+                throw new ArgumentOutOfRangeException("inputUrl", $"The input URL does not use a known protocol. {inputUrl}");
+            }
+
+            string newUrl = inputUrl.Substring(sarifProtocolLength);
+            newUrl = replacementProtocol + newUrl;
+            return newUrl;
+        }
+
+        bool TryDownloadFile(string inputUrl, out string downloadedFilePath)
+        {
+            Uri inputUri = new Uri(inputUrl, UriKind.Absolute);
+            downloadedFilePath = Path.GetTempFileName();
+            string downloadUrl = null;
+
+            if (inputUri.Scheme.Equals("sarif", StringComparison.OrdinalIgnoreCase))
+            {
+                downloadUrl = ConvertSarifProtocol(inputUrl);
+            }
+            else if (inputUri.Scheme.Equals("http://", StringComparison.OrdinalIgnoreCase) || inputUri.Scheme.Equals("file://", StringComparison.OrdinalIgnoreCase))
+            {
+                downloadUrl = inputUrl;
+            }
+            else
+            {
+                throw new ArgumentOutOfRangeException("inputUrl", $"The input URL does not use a known protocol. {inputUrl}");
+            }
+
+            if (downloadUrl != null)
+            {
+                try
                 {
-                    toolFormat = ToolFormat.CppCheck;
-                    title = "Open CppCheck XML log file";
-                    filter = "CppCheck log files (*.xml)|*.xml";
-                    break;
+                    using (WebClient webClient = new WebClient())
+                    {
+                        webClient.UseDefaultCredentials = true;
+                        webClient.DownloadFile(downloadUrl, downloadedFilePath);
+                    }
                 }
-                case OpenClangFileCommandId:
+                catch (Exception e)
                 {
-                    toolFormat = ToolFormat.ClangAnalyzer;
-                    title = "Open Clang XML log file";
-                    filter = "Clang log files (*.xml)|*.xml";
-                    break;
-                }
-                case OpenAndroidStudioFileCommandId:
-                {
-                    toolFormat = ToolFormat.AndroidStudio;
-                    title = "Open Android Studio XML log file";
-                    filter = "PREfast log files (*.xml)|*.xml";
-                    break;
+                    Trace.TraceError(e.ToString());
+                    File.Delete(downloadedFilePath);
+                    downloadedFilePath = null;
                 }
             }
 
-            OpenFileDialog openFileDialog = new OpenFileDialog();
-
-            openFileDialog.Title = title;
-            openFileDialog.Filter = filter;
-            openFileDialog.RestoreDirectory = true;
-
-            if (openFileDialog.ShowDialog() != DialogResult.OK)
-            {
-                return;
-            }
-
-            ErrorListService.ProcessLogFile(openFileDialog.FileName, toolFormat);
+            return File.Exists(downloadedFilePath);
         }
     }
 }

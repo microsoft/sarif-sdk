@@ -12,7 +12,7 @@ using Microsoft.VisualStudio.Shell.Interop;
 using Microsoft.VisualStudio.Shell.TableControl;
 using Microsoft.VisualStudio.Shell.TableManager;
 
-namespace SarifViewer
+namespace Microsoft.Sarif.Viewer
 {
     class SarifTableDataSource : ITableDataSource
     {

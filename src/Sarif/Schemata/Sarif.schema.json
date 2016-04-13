@@ -1,7 +1,7 @@
 {
   "$schema": "http://json-schema.org/draft-04/schema#",
   "title": "Static Analysis Results Format (SARIF) Version 1.0 JSON Schema (Draft 1.0.0-beta.3)",
-  "description": "Static Analysis Results Format (SARIF) Version 1.0 JSON Schema (Draft 1.0.0-beta.3): a standard format for the output of static analysis tools.",
+  "description": "Static Analysis Results Format (SARIF) Version 1.0 JSON Schema (Draft 1.0.0-beta.3): a standard format for the output of static analysis and other tools.",
   "additionalProperties": false,
   "type": "object",
   "properties": {
@@ -209,25 +209,25 @@
     },
     "location": 
     {
-      "description": "The location where a static analysis tool produced a result.",
+      "description": "The location where an analysis tool produced a result.",
       "additionalProperties": false,
       "type": "object",
       "properties": {
         "analysisTarget": 
         {
-          "description": "Identifies the file that the static analysis tool was instructed to scan. This need not be the same as the file where the result actually occurred.",
+          "description": "Identifies the file that the analysis tool was instructed to scan. This need not be the same as the file where the result actually occurred.",
           "$ref": "#/definitions/physicalLocation"
         },
 
         "resultFile": 
         {
-          "description": "Identifies the file where the static analysis tool produced the result.",
+          "description": "Identifies the file where the analysis tool produced the result.",
           "$ref": "#/definitions/physicalLocation"
         },
 
         "logicalLocation": 
         {
-          "description": "The logical location where the static analysis tool produced the result.",
+          "description": "The logical location where the analysis tool produced the result.",
           "type": "array",
           "items":
           {
@@ -376,7 +376,7 @@
     },
     "result": 
     {
-      "description": "A result produced by a static analysis tool.",
+      "description": "A result produced by an analysis tool.",
       "additionalProperties": false,
       "type": "object",
       "properties": {
@@ -576,7 +576,7 @@
     },
     "run": 
     {
-      "description": "Describes a single run of a static analysis tool, and contains the output of that run.",
+      "description": "Describes a single run of an analysis tool, and contains the output of that run.",
       "additionalProperties": false,
       "type": "object",
       "properties": {
@@ -660,7 +660,7 @@
     },
     "tool": 
     {
-      "description": "Describes the static analysis tool that was run.",
+      "description": "The analysis tool that was run.",
       "additionalProperties": false,
       "type": "object",
       "properties": {

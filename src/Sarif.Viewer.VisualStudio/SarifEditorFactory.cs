@@ -21,7 +21,7 @@ using Microsoft.VisualStudio.Shell.Interop;
 using IOleServiceProvider = Microsoft.VisualStudio.OLE.Interop.IServiceProvider;
 using Microsoft.CodeAnalysis.Sarif;
 
-namespace SarifViewer
+namespace Microsoft.Sarif.Viewer
 {
     /// <summary>
     /// Factory for creating our editors.

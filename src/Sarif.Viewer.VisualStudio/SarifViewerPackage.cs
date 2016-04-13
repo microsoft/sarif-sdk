@@ -9,7 +9,7 @@ using EnvDTE80;
 
 using Microsoft.VisualStudio.Shell;
 
-namespace SarifViewer
+namespace Microsoft.Sarif.Viewer
 {
     /// <summary>
     /// This is the class that implements the package exposed by this assembly.
@@ -27,6 +27,7 @@ namespace SarifViewer
     public sealed class SarifViewerPackage : Package
     {
         public static DTE2 Dte;
+        public static IServiceProvider ServiceProvider;
 
         private SarifEditorFactory _sarifEditorFactory;
 
@@ -46,6 +47,22 @@ namespace SarifViewer
             // initialization is the Initialize method.
 
             Dte = GetGlobalService(typeof(DTE)) as DTE2;
+            ServiceProvider = this;
+        }
+
+        public T GetService<S, T>()
+            where S : class
+            where T : class
+        {
+            try
+            {
+                return (T)this.GetService(typeof(S));
+            }
+            catch (Exception)
+            {
+                // If anything went wrong, just ignore it
+            }
+            return null;
         }
 
         #region Package Members
@@ -61,6 +78,8 @@ namespace SarifViewer
 
             _sarifEditorFactory = new SarifEditorFactory();
             RegisterEditorFactory(_sarifEditorFactory);
+
+            CodeAnalysisResultManager.Instance.Register();
         }
 
         #endregion
