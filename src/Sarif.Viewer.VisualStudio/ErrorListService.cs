@@ -4,6 +4,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Text;
 
 using Microsoft.CodeAnalysis.Sarif;
@@ -14,7 +15,7 @@ using Microsoft.CodeAnalysis.Sarif.Writers;
 
 using Newtonsoft.Json;
 
-namespace SarifViewer
+namespace Microsoft.Sarif.Viewer
 {
     public class ErrorListService
     {
@@ -38,7 +39,6 @@ namespace SarifViewer
             else if (toolFormat == ToolFormat.PREfast)
             {
                 logText = ToolFormatConverter.ConvertPREfastToStandardFormat(filePath);
-                File.WriteAllText(@"d:\repros\prefast.test.sarif", logText);
             }
             else
             {
@@ -154,7 +154,7 @@ namespace SarifViewer
                     {
                         Region = region,
                         RuleId = result.RuleId,
-                        RuleName = rule.Name,
+                        RuleName = rule?.Name,
                         Kind = result.Kind,
                         Category = category,
                         ShortMessage = shortMessage,
@@ -162,6 +162,12 @@ namespace SarifViewer
                         Tool = toolName,
                         HelpLink = rule?.HelpUri?.ToString()                        
                     };
+
+                    CaptureAnnotatedCodeLocations(result.CodeFlows, AnnotatedCodeLocationKind.ExecutionFlow, sarifError);
+                    CaptureAnnotatedCodeLocations(result.Stacks, AnnotatedCodeLocationKind.Stack, sarifError);
+
+                    // TODO need new code location kind
+                    //CaptureAnnotatedCodeLocations(result.RelatedLocations, AnnotatedCodeLocationKind.Stack, sarifError);
 
                     if (region != null)
                     {
@@ -172,6 +178,7 @@ namespace SarifViewer
                     sarifErrors.Add(sarifError);
                 }
 
+                // TODO zap this on implementing todo above
                 if (result.RelatedLocations != null)
                 {
                     foreach (AnnotatedCodeLocation annotation in result.RelatedLocations)
@@ -213,7 +220,35 @@ namespace SarifViewer
                     }
                 }
 
+                CodeAnalysisResultManager.Instance.SarifErrors = sarifErrors;
                 SarifTableDataSource.Instance.AddErrors(sarifErrors);
+            }
+        }
+
+        private static void CaptureAnnotatedCodeLocations(
+            IEnumerable<IEnumerable<AnnotatedCodeLocation>> codeLocationCollections, 
+            AnnotatedCodeLocationKind annotatedCodeLocationKind,
+            SarifError sarifError)
+        {
+            if (codeLocationCollections == null) { return; }
+
+            int annotationCollectionCount = 0;
+
+            foreach (IEnumerable<AnnotatedCodeLocation> codeLocations in codeLocationCollections)
+            {
+                foreach (AnnotatedCodeLocation codeLocation in codeLocations)
+                {
+                    PhysicalLocation plc = codeLocation.PhysicalLocation;
+                    sarifError.Annotations.Add(new AnnotatedCodeLocationModel()
+                    {
+                        Index = annotationCollectionCount,
+                        Kind = annotatedCodeLocationKind,
+                        Region = plc.Region,
+                        FilePath = plc.Uri.LocalPath,
+                        Message = codeLocation.Message
+                    });
+                }
+                annotationCollectionCount++;
             }
         }
 

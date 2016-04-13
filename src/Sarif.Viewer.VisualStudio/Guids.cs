@@ -1,7 +1,7 @@
 ﻿
 using System;
 
-namespace SarifViewer
+namespace Microsoft.Sarif.Viewer
 {
     internal sealed partial class Guids
     {

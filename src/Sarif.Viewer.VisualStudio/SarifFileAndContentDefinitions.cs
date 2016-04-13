@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.VisualStudio.Utilities;
 
-namespace SarifViewer
+namespace Microsoft.Sarif.Viewer
 {
     internal class SarifFileAndContentDefinitions
     {

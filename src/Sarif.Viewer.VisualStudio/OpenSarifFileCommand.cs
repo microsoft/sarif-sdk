@@ -16,7 +16,7 @@ using Microsoft.VisualStudio.Shell;
 
 using Newtonsoft.Json;
 
-namespace SarifViewer
+namespace Microsoft.Sarif.Viewer
 {
     /// <summary>
     /// Command handler
@@ -195,7 +195,7 @@ namespace SarifViewer
                         {
                             toolFormat = ToolFormat.AndroidStudio;
                             title = "Open Android Studio XML log file";
-                            filter = "PREfast log files (*.xml)|*.xml";
+                            filter = "Android Studio log files (*.xml)|*.xml";
                             break;
                         }
                 }
