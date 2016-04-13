@@ -80,7 +80,13 @@ namespace Microsoft.Sarif.Viewer
 
         public string HelpLink { get; set; }
 
-        public bool HasDetails { get { return Annotations.Count > 0; } }
+        public bool HasDetails
+        {
+            get
+            {
+                return this.Annotations.Count > 1 || !string.IsNullOrEmpty(this.Annotations[0].Message);
+            }
+        }
 
         public ObservableCollection<AnnotatedCodeLocationModel> Annotations { get; internal set;}
 

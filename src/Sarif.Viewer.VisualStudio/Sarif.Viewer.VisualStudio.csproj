@@ -59,7 +59,6 @@
     <Compile Include="SarifError.cs" />
     <Compile Include="SdkUiUtilities.cs" />
     <Compile Include="SinkManager.cs" />
-    <Compile Include="SourceLocation.cs" />
     <Compile Include="TableDataSource.cs" />
     <Compile Include="SarifSnapshot.cs" />
   </ItemGroup>

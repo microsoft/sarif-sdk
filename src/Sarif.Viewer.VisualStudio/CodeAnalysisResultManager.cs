@@ -291,7 +291,7 @@ namespace Microsoft.Sarif.Viewer
 
             // If remapping has somehow altered the file name itself,
             // we will bail on attempting to do any remapping
-            if (Path.GetFileName(fullPath) != resolvedFileName)
+            if (!Path.GetFileName(fullPath).Equals(resolvedFileName, StringComparison.OrdinalIgnoreCase))
             {
                 return fileName;
             }

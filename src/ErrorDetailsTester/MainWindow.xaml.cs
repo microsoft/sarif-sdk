@@ -74,7 +74,7 @@ namespace ErrorDetailsTester
                     }
                 }
             }
-            this.codeLocations.SetItems(items);
+            //this.codeLocations.SetItems(items);
         }
 
         private string RebaselineFileName(string fileName, List<Tuple<string, string>> remappedPathPrefixes)
@@ -196,7 +196,12 @@ namespace ErrorDetailsTester
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            string sarifText = File.ReadAllText(@"D:\repros\CppSa\espx\test\Expected-003.sarif");
+            string sarifText = "";
+
+            if (File.Exists(@"D:\repros\CppSa\espx\test\Expected-003.sarif"))
+            {
+                File.ReadAllText(@"D:\repros\CppSa\espx\test\Expected-003.sarif");
+            }
             PopulateControlFromSarifText(sarifText);
         }
 
@@ -217,9 +222,6 @@ namespace ErrorDetailsTester
             }
 
             string sarifText = ToolFormatConverter.ConvertPREfastToStandardFormat(ofd.FileName);
-
-            // TODO DON'T CHECK THIS IN
-            File.WriteAllText(@"d:\repros\converted_prefast.sarif", sarifText);
 
             PopulateControlFromSarifText(sarifText);
         }

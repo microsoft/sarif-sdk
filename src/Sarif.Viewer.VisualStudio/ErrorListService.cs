@@ -40,8 +40,6 @@ namespace Microsoft.Sarif.Viewer
             else if (toolFormat == ToolFormat.PREfast)
             {
                 logText = ToolFormatConverter.ConvertPREfastToStandardFormat(filePath);
-                // TODO REMOVE THIS
-                File.WriteAllText(@"d:\repros\prefast.test.sarif", logText);
             }
             else
             {

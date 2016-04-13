@@ -69,7 +69,8 @@
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
-                <TextBlock Grid.Column="0" Margin="0 0 6 0">
+                <TextBlock Grid.Column="0" Margin="6 0 6 0">
+                        Code:
                         <Hyperlink Style="{StaticResource HyperlinkStyleSelected}" Click="HelpHyperlink_Click" >
                             <Run Text="{Binding Path=CurrentSarifError.RuleId, Mode=OneTime}" />
                         </Hyperlink>

@@ -26,13 +26,6 @@ namespace Microsoft.Sarif.Viewer
         public CodeLocations()
         {
             InitializeComponent();
-
-            CurrentSarifError = new SarifError("fileName")
-            {
-                RuleId = "ruleId",
-                RuleName = "ruleName"
-            };
-
             this.detailsGrid.DataContext = this;
         }
 
@@ -42,9 +35,25 @@ namespace Microsoft.Sarif.Viewer
         {
         }
 
-        public SarifError CurrentSarifError { get; set; }
+        SarifError _sarifError;
+        public SarifError CurrentSarifError
+        {
+            get
+            {
+                return _sarifError;
+            }
 
-        public void SetItems(ObservableCollection<AnnotatedCodeLocationModel> items)
+            set
+            {
+                _sarifError = value;
+                if (_sarifError != null)
+                {
+                    SetItems(_sarifError.Annotations);
+                }
+            }
+        }
+
+        private void SetItems(ObservableCollection<AnnotatedCodeLocationModel> items)
         {
             // Set up data source 
             CollectionViewSource _csv = new CollectionViewSource();

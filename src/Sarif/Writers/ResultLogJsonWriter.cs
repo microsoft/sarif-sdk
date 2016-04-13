@@ -44,12 +44,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         /// <exception cref="InvalidOperationException">Thrown if the tool info block has already been
         /// written.</exception>
         /// <param name="info">The tool information to write.</param>
-        /// <seealso cref="M:Microsoft.CodeAnalysis.Sarif.IsarifWriter.WriteToolInfo(ToolInfo)"/>
-        public void WriteToolAndRunInfo(ToolInfo toolInfo, RunInfo runInfo)
+        /// <seealso cref="M:Microsoft.CodeAnalysis.Sarif.IsarifWriter.WriteTool(Tool)"/>
+        public void WriteToolAndRunInfo(ToolInfo tool, RunInfo run)
         {
-            if (toolInfo == null)
+            if (tool == null)
             {
-                throw new ArgumentNullException("toolInfo");
+                throw new ArgumentNullException("tool");
             }
 
             this.EnsureNotDisposed();
@@ -69,13 +69,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
             _jsonWriter.WriteStartObject(); // Begin: runLog
 
-            _jsonWriter.WritePropertyName("toolInfo");
-            _serializer.Serialize(_jsonWriter, toolInfo, typeof(ToolInfo));
+            _jsonWriter.WritePropertyName("tool");
+            _serializer.Serialize(_jsonWriter, tool, typeof(ToolInfo));
 
-            if (runInfo != null)
+            if (run != null)
             {
-                _jsonWriter.WritePropertyName("runInfo");
-                _serializer.Serialize(_jsonWriter, runInfo, typeof(RunInfo));
+                _jsonWriter.WritePropertyName("run");
+                _serializer.Serialize(_jsonWriter, run, typeof(RunInfo));
             }
 
             _jsonWriter.WritePropertyName("results");
@@ -85,7 +85,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
         public void WriteRuleInfo(IEnumerable<IRuleDescriptor> ruleDescriptors)
         {
-            _jsonWriter.WritePropertyName("ruleInfo");
+            _jsonWriter.WritePropertyName("rules");
             _jsonWriter.WriteStartArray();
 
             foreach(IRuleDescriptor ruleDescriptor in ruleDescriptors)
@@ -106,7 +106,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         }
 
         /// <summary>Writes a result to the log. The log must have tool info written first by calling
-        /// <see cref="M:WriteToolInfo" />.</summary>
+        /// <see cref="M:WriteTool" />.</summary>
         /// <remarks>This function makes a copy of the data stored in <paramref name="result"/>; if a
         /// client wishes to reuse the result instance to avoid allocations they can do so. (This function
         /// may invoke an internal copy of the result or serialize it in place to disk, etc.)</remarks>
