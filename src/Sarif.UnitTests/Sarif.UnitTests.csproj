@@ -26,8 +26,8 @@
     <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="Newtonsoft.Json, Version=8.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.8.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    <Reference Include="Newtonsoft.Json, Version=7.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.7.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
@@ -40,6 +40,10 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Sarif.Driver\Sarif.Driver.csproj">
+      <Project>{8ceaea61-b1a2-4777-bcbe-c9a129a5f6c5}</Project>
+      <Name>Sarif.Driver</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Sarif\Sarif.csproj">
       <Project>{cc9b247e-7103-4bf7-bdab-6e625b3680a8}</Project>
       <Name>Sarif</Name>
@@ -59,19 +63,17 @@
     <Compile Include="Converters\FortifyPathElementTests.cs" />
     <Compile Include="Converters\FortifyStringsTests.cs" />
     <Compile Include="Converters\FxCopConverterTests.cs" />
-    <Compile Include="EnumerableExtensions.cs" />
     <Compile Include="ExtensionsTests.cs" />
-    <Compile Include="ITempDirectory.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="Readers\AlgorithmKindConverterTests.cs" />
+    <Compile Include="SarifExtensionsTests.cs" />
+    <Compile Include="SarifLoggerTests.cs" />
     <Compile Include="SparseReaderDispatchTableTests.cs" />
     <Compile Include="SparseReaderTests.cs" />
-    <Compile Include="TempDirectory.cs" />
-    <Compile Include="TempFile.cs" />
     <Compile Include="Writers\ResultLogJsonWriterTests.cs" />
     <Compile Include="Writers\ResultLogObjectWriterTests.cs" />
     <Compile Include="ToolFormatConverterTests.cs" />

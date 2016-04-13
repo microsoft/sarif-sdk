@@ -1,9 +1,9 @@
 {
   "version": 1.0,
-  "toolInfo": {
+  "tool": {
     "toolName": "ApiScan"
   },
-  "runInfo": null,
+  "run": null,
   "issues": [
     {
       "fingerprint": "2D722741815E9C07D03C11FFD7CCCC7162847A4D77C472C3CBA7F31C7831B08C",

@@ -1,29 +1,41 @@
 {
-  "version": "0.4",
+  "version": "1.0.0-beta.2",
   "runLogs": [
     {
-      "toolInfo": {
+      "tool": {
         "name": "Clang"
+      },
+      "run": {
+        "files": {
+          "jcmarker.c": [
+            {
+              "uri": "jcmarker.c",
+              "mimeType": "text/x-cpp"
+            }
+          ]
+        }
       },
       "results": [
         {
-          "ruleId": null,
-          "fullMessage": "Logic error : Access to field 'sent_table' results in a dereference of a null pointer (loaded from variable 'htbl')",
-          "shortMessage": "Dereference of null pointer",
+          "ruleId": "Dereference of null pointer",
+          "fullMessage": "Access to field 'sent_table' results in a dereference of a null pointer (loaded from variable 'htbl')",
           "locations": [
             {
-              "analysisTarget": [
-                {
-                  "uri": "jcmarker.c",
-                  "mimeType": "text/x-cpp",
-                  "region": {
-                    "startLine": 200,
-                    "startColumn": 9
-                  }
+              "analysisTarget": {
+                "uri": "jcmarker.c",
+                "region": {
+                  "startLine": 200,
+                  "startColumn": 9
                 }
-              ]
+              }
             }
-          ]
+          ],
+          "properties": {
+            "category": "Logic error",
+            "issue_context_kind": "function",
+            "issueContext": "emit_dht",
+            "issueHash": "14"
+          }
         }
       ]
     }

@@ -9,10 +9,7 @@ SETLOCAL
 rd /s /q bld
 md bld\bin\nuget
 
-set MAJOR=1
-set MINOR=4
-set PATCH=33
-set PRERELEASE=-beta
+call SetCurrentVersion.cmd 
 
 set Platform=AnyCPU
 set Configuration=Release
@@ -55,8 +52,13 @@ sn -k GeneratedKey.snk
 )
 
 @REM Build all code
-%~dp0.nuget\NuGet.exe restore src\Everything.sln 
-msbuild /verbosity:minimal /target:rebuild src\Everything.sln /p:"Configuration=Release" /p:"Platform=Any CPU"
+%~dp0.nuget\NuGet.exe restore src\Everything.sln -ConfigFile .nuget\NuGet.Config
+
+if "%ERRORLEVEL%" NEQ "0" (
+goto ExitFailed
+)
+
+msbuild /verbosity:minimal /target:rebuild src\Everything.sln /p:"Configuration=Release" /p:"Platform=Any CPU" /filelogger /fileloggerparameters:Verbosity=normal
 
 if "%ERRORLEVEL%" NEQ "0" (
 goto ExitFailed
@@ -97,7 +99,7 @@ goto ExitFailed
 goto Exit
 
 :ExitFailed
-@echo  
+@echo.
 @echo SCRIPT FAILED
 
 :Exit

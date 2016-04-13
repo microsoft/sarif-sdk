@@ -1,86 +1,104 @@
 {
-  "version": "0.4",
+  "version": "1.0.0-beta.2",
   "runLogs": [
     {
-      "toolInfo": {
+      "tool": {
         "name": "Clang"
+      },
+      "run": {
+        "files": {
+          "jmemmgr.c": [
+            {
+              "uri": "jmemmgr.c",
+              "mimeType": "text/x-cpp"
+            }
+          ]
+        }
       },
       "results": [
         {
-          "ruleId": null,
-          "fullMessage": "Logic error : Dereference of null pointer",
-          "shortMessage": "Dereference of null pointer",
+          "ruleId": "Dereference of null pointer",
+          "fullMessage": "Dereference of null pointer",
           "locations": [
             {
-              "analysisTarget": [
-                {
-                  "uri": "jmemmgr.c",
-                  "mimeType": "text/x-cpp",
-                  "region": {
-                    "startLine": 369,
-                    "startColumn": 21
-                  }
+              "analysisTarget": {
+                "uri": "jmemmgr.c",
+                "region": {
+                  "startLine": 369,
+                  "startColumn": 21
                 }
-              ]
+              }
             }
-          ]
+          ],
+          "properties": {
+            "category": "Logic error",
+            "issue_context_kind": "function",
+            "issueContext": "alloc_large",
+            "issueHash": "25"
+          }
         },
         {
-          "ruleId": null,
-          "fullMessage": "Logic error : Array access (via field 'mem_buffer') results in a null pointer dereference",
-          "shortMessage": "Dereference of null pointer",
+          "ruleId": "Dereference of null pointer",
+          "fullMessage": "Array access (via field 'mem_buffer') results in a null pointer dereference",
           "locations": [
             {
-              "analysisTarget": [
-                {
-                  "uri": "jmemmgr.c",
-                  "mimeType": "text/x-cpp",
-                  "region": {
-                    "startLine": 824,
-                    "startColumn": 25
-                  }
+              "analysisTarget": {
+                "uri": "jmemmgr.c",
+                "region": {
+                  "startLine": 824,
+                  "startColumn": 25
                 }
-              ]
+              }
             }
-          ]
+          ],
+          "properties": {
+            "category": "Logic error",
+            "issue_context_kind": "function",
+            "issueContext": "access_virt_sarray",
+            "issueHash": "62"
+          }
         },
         {
-          "ruleId": null,
-          "fullMessage": "Logic error : Array access (via field 'mem_buffer') results in a null pointer dereference",
-          "shortMessage": "Dereference of null pointer",
+          "ruleId": "Dereference of null pointer",
+          "fullMessage": "Array access (via field 'mem_buffer') results in a null pointer dereference",
           "locations": [
             {
-              "analysisTarget": [
-                {
-                  "uri": "jmemmgr.c",
-                  "mimeType": "text/x-cpp",
-                  "region": {
-                    "startLine": 909,
-                    "startColumn": 25
-                  }
+              "analysisTarget": {
+                "uri": "jmemmgr.c",
+                "region": {
+                  "startLine": 909,
+                  "startColumn": 25
                 }
-              ]
+              }
             }
-          ]
+          ],
+          "properties": {
+            "category": "Logic error",
+            "issue_context_kind": "function",
+            "issueContext": "access_virt_barray",
+            "issueHash": "62"
+          }
         },
         {
-          "ruleId": null,
-          "fullMessage": "Logic error : Dereference of null pointer",
-          "shortMessage": "Dereference of null pointer",
+          "ruleId": "Dereference of null pointer",
+          "fullMessage": "Dereference of null pointer",
           "locations": [
             {
-              "analysisTarget": [
-                {
-                  "uri": "jmemmgr.c",
-                  "mimeType": "text/x-cpp",
-                  "region": {
-                    "startLine": 1067,
-                    "startColumn": 24
-                  }
+              "analysisTarget": {
+                "uri": "jmemmgr.c",
+                "region": {
+                  "startLine": 1067,
+                  "startColumn": 24
                 }
-              ]
+              }
             }
-          ]
+          ],
+          "properties": {
+            "category": "Logic error",
+            "issue_context_kind": "function",
+            "issueContext": "jinit_memory_mgr",
+            "issueHash": "38"
+          }
         }
       ]
     }

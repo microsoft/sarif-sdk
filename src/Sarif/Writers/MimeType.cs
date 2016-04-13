@@ -11,13 +11,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
     {
         /// <summary>Guesses an appropriate MIME type given the extension from a file name.</summary>
         /// <param name="fileName">File name from which MIME type shall be guessed.</param>
-        /// <returns>A string corresponding to the likely MIME type of <paramref name="fileName"/> given
-        /// its extension.</returns>
+        /// <returns>A string corresponding to the likely MIME type of <paramref name="fileName"/> given        public static string DetermineFromFileExtension(Uri fileUri)
         public static string DetermineFromFileExtension(string fileName)
         {
             if (fileName == null)
             {
-                throw new ArgumentNullException("fileName");
+                throw new ArgumentNullException(nameof(fileName));
             }
 
             foreach (ImmutableArray<string> tableEntry in s_extensionTable)
@@ -29,10 +28,31 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                     {
                         return tableEntry[0];
                     }
+
                 }
             }
-
             return MimeType.Binary;
+        }
+
+        /// <summary>Guesses an appropriate MIME type given the extension from a file name.</summary>
+        /// <param name="fileName">File name from which MIME type shall be guessed.</param>
+        /// <returns>A string corresponding to the likely MIME type of <paramref name="fileName"/> given
+        /// its extension.</returns>
+        public static string DetermineFromFileExtension(Uri fileUri)
+        {
+            if (fileUri == null)
+            {
+                throw new ArgumentNullException(nameof(fileUri));
+            }
+
+            string fileName = fileUri.ToString();
+
+            if (fileUri.IsAbsoluteUri && fileUri.IsFile)
+            {
+                fileName = fileUri.LocalPath;
+            }
+
+            return DetermineFromFileExtension(fileName);
         }
 
         /// <summary>The MIME type to use when no better MIME type is known.</summary>

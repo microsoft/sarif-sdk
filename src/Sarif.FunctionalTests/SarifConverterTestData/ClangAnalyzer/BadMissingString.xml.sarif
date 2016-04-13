@@ -1,29 +1,41 @@
 {
-  "version": "0.4",
+  "version": "1.0.0-beta.2",
   "runLogs": [
     {
-      "toolInfo": {
+      "tool": {
         "name": "Clang"
+      },
+      "run": {
+        "files": {
+          "jcparam.c": [
+            {
+              "uri": "jcparam.c",
+              "mimeType": "text/x-cpp"
+            }
+          ]
+        }
       },
       "results": [
         {
-          "ruleId": null,
-          "fullMessage": "Dead store : ",
-          "shortMessage": "Dead assignment",
+          "ruleId": "Dead assignment",
+          "fullMessage": "",
           "locations": [
             {
-              "analysisTarget": [
-                {
-                  "uri": "jcparam.c",
-                  "mimeType": "text/x-cpp",
-                  "region": {
-                    "startLine": 595,
-                    "startColumn": 5
-                  }
+              "analysisTarget": {
+                "uri": "jcparam.c",
+                "region": {
+                  "startLine": 595,
+                  "startColumn": 5
                 }
-              ]
+              }
             }
-          ]
+          ],
+          "properties": {
+            "category": "Dead store",
+            "issue_context_kind": "function",
+            "issueContext": "jpeg_simple_progression",
+            "issueHash": "57"
+          }
         }
       ]
     }

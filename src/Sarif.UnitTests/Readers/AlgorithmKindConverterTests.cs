@@ -2,10 +2,10 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Text;
 
-using Microsoft.CodeAnalysis.Sarif.Sdk;
 using Microsoft.CodeAnalysis.Sarif.Writers;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -17,8 +17,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
 
     public class AlgorithmKindConverterTests
     {
-        private static readonly RunInfo s_defaultRunInfo = new RunInfo();
-        private static readonly ToolInfo s_defaultToolInfo = new ToolInfo();
+        private static readonly Run s_defaultRun = new Run();
+        private static readonly Tool s_defaultTool = new Tool();
         private static readonly Result s_defaultResult = new Result();
 
         public AlgorithmKindConverterTests()
@@ -45,25 +45,30 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
         [TestMethod]
         public void AlgorithmKindGroestl()
         {
-            string expected = "{\"version\":\"0.4\",\"runLogs\":[{\"toolInfo\":{\"name\":null},\"runInfo\":{\"analysisTargets\":[{\"uri\":null,\"hashes\":[{\"value\":null,\"algorithm\":\"Groestl\"}]}]},\"results\":[{\"ruleId\":null,\"locations\":null}]}]}";
+            string expected = "{\"version\":\"1.0.0-beta.2\",\"runLogs\":[{\"tool\":{\"name\":null},\"run\":{\"files\":{\"http://abc/\":[{\"uri\":\"http://abc/\",\"hashes\":[{\"value\":null,\"algorithm\":\"Groestl\"}]}]}},\"results\":[{}]}]}";
             string actual = GetJson(uut =>
             {
-                var runInfo = new RunInfo();
+                var run = new Run();
 
-                runInfo.AnalysisTargets = new[] {
-                    new FileReference()
+                run.Files = new Dictionary<Uri, IList<FileReference>> {
+                    [new Uri("http://abc/")] = new List<FileReference>
                     {
-                         Hashes = new[]
-                         {
-                             new Hash()
-                             {
-                                Algorithm = AlgorithmKind.Groestl
-                             },
-                         }
+                        new FileReference()
+                        {
+                            Uri = new Uri("http://abc/"),
+                            Hashes = new[]
+                            {
+                                new Hash()
+                                {
+                                   Algorithm = AlgorithmKind.Groestl
+                                }
+                            }
+                        }
                     }
                 };
 
-                uut.WriteToolAndRunInfo(s_defaultToolInfo, runInfo);
+                uut.WriteTool(s_defaultTool);
+                uut.WriteRun(run);
                 uut.WriteResult(s_defaultResult);
             });
             Assert.AreEqual(expected, actual);

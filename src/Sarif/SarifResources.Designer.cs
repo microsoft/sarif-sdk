@@ -151,11 +151,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Sdk {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Cannot write result: ToolInfo not yet written..
+        ///   Looks up a localized string similar to Cannot write result: Tool not yet written..
         /// </summary>
-        internal static string CannotWriteResultToolInfoMissing {
+        internal static string CannotWriteResultToolMissing {
             get {
-                return ResourceManager.GetString("CannotWriteResultToolInfoMissing", resourceCulture);
+                return ResourceManager.GetString("CannotWriteResultToolMissing", resourceCulture);
             }
         }
         
@@ -304,11 +304,38 @@ namespace Microsoft.CodeAnalysis.Sarif.Sdk {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to ToolInfo cannot be written at this location (it has already been written)..
+        ///   Looks up a localized string similar to One or more invalid states were detected during serialization. This indicates that logging methods were called in the wrong order: {0}.
         /// </summary>
-        internal static string ToolInfoAlreadyWritten {
+        internal static string InvalidState {
             get {
-                return ResourceManager.GetString("ToolInfoAlreadyWritten", resourceCulture);
+                return ResourceManager.GetString("InvalidState", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Object cannot be serialized until results serialization is completed..
+        /// </summary>
+        internal static string ResultsSerializationNotComplete {
+            get {
+                return ResourceManager.GetString("ResultsSerializationNotComplete", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Run has already been written. It cannot be written again..
+        /// </summary>
+        internal static string RunAlreadyWritten {
+            get {
+                return ResourceManager.GetString("RunAlreadyWritten", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Tool has already been written. It cannot be written again..
+        /// </summary>
+        internal static string ToolAlreadyWritten {
+            get {
+                return ResourceManager.GetString("ToolAlreadyWritten", resourceCulture);
             }
         }
     }

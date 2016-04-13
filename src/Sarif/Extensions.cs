@@ -199,20 +199,6 @@ namespace Microsoft.CodeAnalysis.Sarif
         }
 
         /// <summary>
-        /// Creates a new <see cref="PhysicalLocationComponent"/> given a path.
-        /// </summary>
-        /// <param name="component">The path for which a <see cref="PhysicalLocationComponent"/> shall be created.</param>
-        /// <returns>A <see cref="PhysicalLocationComponent"/> with the URI and Mime-Type members filled out.</returns>
-        internal static PhysicalLocationComponent CreatePhysicalLocationComponent(string component)
-        {
-            return new PhysicalLocationComponent
-            {
-                Uri = component.CreateUriForJsonSerialization(),
-                MimeType = Writers.MimeType.DetermineFromFileExtension(component)
-            };
-        }
-
-        /// <summary>
         /// Creates a new region with the start line filled out.
         /// </summary>
         /// <param name="startLine">The line to set in the region.</param>
@@ -223,28 +209,6 @@ namespace Microsoft.CodeAnalysis.Sarif
             {
                 StartLine = startLine
             };
-        }
-
-        public static Uri CreateUriForJsonSerialization(this string uriText)
-        {
-            // Why these highjinks? When Newtonsoft JSON parsing code
-            // serializes a URI, it appears to consult the Uri.OriginalString
-            // member for file:/// Uris and to serialize the local path for
-            // these URIs to JSON, as opposed to emitting an actual file Uri.
-            // SARIF specifies that all Uri content must, in fact, comprise a
-            // Uri, so we construct a Uri first and then, if necessary, 
-            // create a second one using the file:/// representation as
-            // the original string passed to the constructor instance.
-            Uri result;
-
-            if (Uri.TryCreate(uriText, UriKind.RelativeOrAbsolute, out result) &&
-                result.IsFile &&
-                !result.OriginalString.StartsWith("file:"))
-            {
-                result = new Uri(result.ToString());
-            }
-
-            return result;
         }
     }
 }

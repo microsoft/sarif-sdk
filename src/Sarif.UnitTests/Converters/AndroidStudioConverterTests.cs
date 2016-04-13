@@ -10,7 +10,6 @@ using FluentAssertions;
 
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Microsoft.CodeAnalysis.Sarif.Writers;
-using Microsoft.CodeAnalysis.Sarif.Sdk;
 
 namespace Microsoft.CodeAnalysis.Sarif.Converters
 {
@@ -47,10 +46,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         }
 
         private const string EmptyResult = @"{
-  ""version"": ""0.4"",
+  ""version"": ""1.0.0-beta.2"",
   ""runLogs"": [
     {
-      ""toolInfo"": {
+      ""tool"": {
         ""name"": ""AndroidStudio""
       },
       ""results"": []
@@ -207,8 +206,7 @@ Possible resolution: delete", result.FullMessage);
             builder.EntryPointType = "file";
             builder.EntryPointName = "bad_file.java";
             Location loc = GetLocationForBuilder(builder);
-            Assert.AreEqual("expected_file.java", loc.ResultFile[0].Uri.ToString());
-            Assert.AreSame(MimeType.Java, loc.ResultFile[0].MimeType);
+            Assert.AreEqual("expected_file.java", loc.ResultFile.Uri.ToString());
         }
 
         [TestMethod]
@@ -334,13 +332,9 @@ Possible resolution: delete", result.FullMessage);
             builder.EntryPointName = null;
             Assert.AreEqual(new Location
             {
-                ResultFile = new[]
+                ResultFile = new PhysicalLocation
                 {
-                    new PhysicalLocationComponent
-                    {
-                        Uri = new Uri("File Goes Here", UriKind.RelativeOrAbsolute),
-                        MimeType = MimeType.Java
-                    }
+                    Uri = new Uri("File Goes Here", UriKind.RelativeOrAbsolute),
                 },
                 FullyQualifiedLogicalName = "LastResortModule",
                 LogicalLocation = new[]
@@ -360,7 +354,7 @@ Possible resolution: delete", result.FullMessage);
             var builder = AndroidStudioProblemTests.GetDefaultProblemBuilder();
             builder.File = "file://$PROJECT_DIR$/mydir/myfile.xml";
             Location loc = GetLocationForBuilder(builder);
-            Assert.AreEqual("mydir/myfile.xml", loc.ResultFile[0].Uri.ToString());
+            Assert.AreEqual("mydir/myfile.xml", loc.ResultFile.Uri.ToString());
         }
 
         [TestMethod]
@@ -369,7 +363,7 @@ Possible resolution: delete", result.FullMessage);
             var builder = AndroidStudioProblemTests.GetDefaultProblemBuilder();
             builder.Line = 42;
             Location loc = GetLocationForBuilder(builder);
-            Assert.AreEqual(42, loc.ResultFile[0].Region.StartLine);
+            Assert.AreEqual(42, loc.ResultFile.Region.StartLine);
         }
 
         private static Location GetLocationForBuilder(AndroidStudioProblem.Builder builder)

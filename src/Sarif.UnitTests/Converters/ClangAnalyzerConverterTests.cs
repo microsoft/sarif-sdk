@@ -37,10 +37,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         }
 
         private const string empty = @"{
-  ""version"": ""0.4"",
+  ""version"": ""1.0.0-beta.2"",
   ""runLogs"": [
     {
-      ""toolInfo"": {
+      ""tool"": {
         ""name"": ""Clang""
       },
       ""results"": []

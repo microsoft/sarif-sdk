@@ -64,7 +64,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
             }
         }
 
-        public Dictionary<string, string> Options
+        public IDictionary<string, string> Options
         {
             get
             {
@@ -72,7 +72,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
             }
         }
 
-        public Dictionary<string, string> FormatSpecifiers
+        public IDictionary<string, string> FormatSpecifiers
         {
             get
             {
@@ -80,7 +80,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
             }
         }
 
-        public Dictionary<string, string> Properties
+        public IDictionary<string, string> Properties
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+        }
+
+        public IList<string> Tags
         {
             get
             {

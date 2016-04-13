@@ -82,10 +82,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Validation
 
             _logger = new SarifLogger(
                 outputFilePath,
-                true,           // Produce verbose output.
-                new[] { instanceFilePath, schemaFilePath },
-                false,          // Do not compute target hash.
-                null);          // The version of this tool has no prerelease info.
+                verbose: true,
+                analysisTargets: new[] { instanceFilePath, schemaFilePath },
+                computeTargetsHash: false,
+                prereleaseInfo: null,
+                invocationTokensToRedact:null);
+
+            _logger.AnalysisStarted();
         }
 
         public IEnumerable<string> BuildLog(IEnumerable<JsonError> errors)
@@ -172,7 +175,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Validation
                     break;
             }
 
-            Uri analysisTargetUri = analysisTargetFilePath.CreateUriForJsonSerialization();
+            Uri analysisTargetUri = new Uri(analysisTargetFilePath);
 
             switch (error.Kind)
             {
@@ -214,16 +217,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Validation
                 region = new Region();
             }
 
-            var plc = new PhysicalLocationComponent
+            var plc = new PhysicalLocation
             {
                 Uri = analysisTargetUri,
-                MimeType = JsonMimeType,
                 Region = region
             };
 
             var location = new Location
             {
-                AnalysisTarget = new PhysicalLocationComponent[] { plc }
+                AnalysisTarget = new PhysicalLocation(plc)
             };
 
             result.Locations = new List<Location> { location };
@@ -243,6 +245,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Validation
                 {
                     if (_logger != null)
                     {
+                        _logger.AnalysisStopped(RuntimeConditions.NoErrors);
                         _logger.Dispose();
                     }
                 }

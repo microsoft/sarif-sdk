@@ -14,8 +14,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
     [TestClass]
     public class ResultLogJsonWriterTests
     {
-        private static readonly RunInfo s_defaultRunInfo = new RunInfo();
-        private static readonly ToolInfo s_defaultToolInfo = new ToolInfo();
+        private static readonly Run s_defaultRun = new Run();
+        private static readonly Tool s_defaultTool = new Tool();
         private static readonly Result s_defaultIssue = new Result();
 
         private static string GetJson(Action<ResultLogJsonWriter> testContent)
@@ -34,16 +34,18 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         [TestMethod]
         public void ResultLogJsonWriter_DefaultIsEmpty()
         {
-            Assert.AreEqual(String.Empty, GetJson(delegate { }));
+            string expected = @"{""version"":""1.0.0-beta.2"",""runLogs"":[{}]}";
+            Assert.AreEqual(expected, GetJson(delegate { }));
         }
 
         [TestMethod]
-        public void ResultLogJsonWriter_AcceptsIssuesAndToolInfo()
+        public void ResultLogJsonWriter_AcceptsIssuesAndTool()
         {
-            string expected = "{\"version\":\"0.4\",\"runLogs\":[{\"toolInfo\":{\"name\":null},\"runInfo\":{},\"results\":[{\"ruleId\":null,\"locations\":null}]}]}";
+            string expected = "{\"version\":\"1.0.0-beta.2\",\"runLogs\":[{\"tool\":{\"name\":null},\"run\":{},\"results\":[{}]}]}";
             string actual = GetJson(uut =>
             {
-                uut.WriteToolAndRunInfo(s_defaultToolInfo, s_defaultRunInfo);
+                uut.WriteTool(s_defaultTool);
+                uut.WriteRun(s_defaultRun);
                 uut.WriteResult(s_defaultIssue);
             });
             Assert.AreEqual(expected, actual);
@@ -51,33 +53,38 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
         [TestMethod]
         [ExpectedException(typeof(InvalidOperationException))]
-        public void ResultLogJsonWriter_RequiresToolInfoBeforeIssues()
+        public void ResultLogJsonWriter_toolMayNotBeWrittenMoreThanOnce()
         {
-            GetJson(uut => uut.WriteResult(s_defaultIssue));
+            GetJson(uut =>
+            {
+                uut.WriteTool(s_defaultTool);
+                uut.WriteTool(s_defaultTool);
+            });
         }
 
         [TestMethod]
         [ExpectedException(typeof(InvalidOperationException))]
-        public void ResultLogJsonWriter_ToolInfoMayNotBeWrittenMoreThanOnce()
+        public void ResultLogJsonWriter_runMayNotBeWrittenMoreThanOnce()
         {
             GetJson(uut =>
             {
-                uut.WriteToolAndRunInfo(s_defaultToolInfo, s_defaultRunInfo);
-                uut.WriteToolAndRunInfo(s_defaultToolInfo, s_defaultRunInfo);
+                uut.WriteRun(s_defaultRun);
+                uut.WriteRun(s_defaultRun);
             });
         }
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentNullException))]
-        public void ResultLogJsonWriter_RequiresNonNullToolInfo()
+        public void ResultLogJsonWriter_RequiresNonNullTool()
         {
-            GetJson(uut => uut.WriteToolAndRunInfo(null, s_defaultRunInfo));
+            GetJson(uut => uut.WriteTool(null));
         }
 
         [TestMethod]
-        public void ResultLogJsonWriter_NullRunInfoIsOK()
+        [ExpectedException(typeof(ArgumentNullException))]
+        public void ResultLogJsonWriter_RequiresNonNullRun()
         {
-            GetJson(uut => uut.WriteToolAndRunInfo(s_defaultToolInfo, null));
+            GetJson(uut => uut.WriteRun(null));
         }
 
         [TestMethod]
@@ -86,34 +93,36 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         {
             GetJson(uut =>
             {
-                uut.WriteToolAndRunInfo(s_defaultToolInfo, s_defaultRunInfo);
+                uut.WriteTool(s_defaultTool);
+                uut.WriteRun(s_defaultRun);
                 uut.WriteResult(null);
             });
         }
 
         [TestMethod]
-        [ExpectedException(typeof(ObjectDisposedException))]
-        public void ResultLogJsonWriter_CannotWriteToolInfoToDisposedWriter()
+        [ExpectedException(typeof(InvalidOperationException))]
+        public void ResultLogJsonWriter_CannotWriteToolToDisposedWriter()
         {
             using (var str = new StringWriter())
             using (var json = new JsonTextWriter(str))
             using (var uut = new ResultLogJsonWriter(json))
             {
                 uut.Dispose();
-                uut.WriteToolAndRunInfo(s_defaultToolInfo, s_defaultRunInfo);
+                uut.WriteTool(s_defaultTool);
+                uut.WriteRun(s_defaultRun);
             }
         }
 
         [TestMethod]
-        [ExpectedException(typeof(ObjectDisposedException))]
+        [ExpectedException(typeof(InvalidOperationException))]
         public void ResultLogJsonWriter_CannotWriteIssuesToDisposedWriter()
         {
             using (var str = new StringWriter())
             using (var json = new JsonTextWriter(str))
             using (var uut = new ResultLogJsonWriter(json))
             {
-                uut.WriteToolAndRunInfo(s_defaultToolInfo, s_defaultRunInfo);
-                uut.Dispose();
+                uut.WriteTool(s_defaultTool);
+                uut.WriteRun(s_defaultRun); uut.Dispose();
                 uut.WriteResult(s_defaultIssue);
             }
         }

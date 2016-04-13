@@ -14,8 +14,8 @@ namespace Microsoft.CodeAnalysis.Sarif.ConvertToSarif
         public string InputFilePath { get; internal set; }
 
         [Option(
-            'f',
-            "format",
+            't',
+            "tool",
             HelpText = "The tool format of the input file.")]
         public ToolFormat ToolFormat { get; internal set; }
 

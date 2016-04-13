@@ -104,22 +104,22 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
 
         private void OutputSarifRulesMetada(string outputFilePath, ImmutableArray<IRuleDescriptor> skimmers, ImmutableArray<IOptionsProvider> options)
         {
-            var log = new ResultLog();
+            var log = new SarifLog();
 
-            log.Version = SarifVersion.ZeroDotFour;
+            log.Version = SarifVersion.OneZeroZeroBetaTwo;
 
             // The SARIF spec currently requires an array
             // of run logs with at least one member
             log.RunLogs = new List<RunLog>();
 
             var runLog = new RunLog();
-            runLog.ToolInfo = new ToolInfo();
+            runLog.Tool = new Tool();
 
-            runLog.ToolInfo.InitializeFromAssembly(this.GetType().Assembly, Prerelease);
+            runLog.Tool.InitializeFromAssembly(this.GetType().Assembly, Prerelease);
             runLog.Results = new List<Result>();
 
             log.RunLogs.Add(runLog);
-            runLog.RuleInfo = new List<RuleDescriptor>();
+            runLog.Rules = new List<RuleDescriptor>();
 
             SortedDictionary<int, RuleDescriptor> sortedRuleDescriptors = new SortedDictionary<int, RuleDescriptor>();
 
@@ -144,13 +144,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
 
             foreach (RuleDescriptor ruleDescriptor in sortedRuleDescriptors.Values)
             {
-                runLog.RuleInfo.Add(ruleDescriptor);
+                runLog.Rules.Add(ruleDescriptor);
             }
 
             var settings = new JsonSerializerSettings()
             {
                 ContractResolver = SarifContractResolver.Instance,
-                Formatting = Formatting.Indented,
+                Formatting = Newtonsoft.Json.Formatting.Indented,
             };
             File.WriteAllText(outputFilePath, JsonConvert.SerializeObject(log, settings));
         }

@@ -17,21 +17,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
 
         public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
         {
-            switch ((string)reader.Value)
-            {
-                case "0.4": return SarifVersion.ZeroDotFour;
-            }
-
-            return SarifVersion.Unknown;
+            string sarifVersionText = (string)reader.Value;
+            return sarifVersionText.ConvertToSarifVersion();            
         }
 
         public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
         {
-            switch ((SarifVersion)value)
-            {
-                case SarifVersion.ZeroDotFour: { writer.WriteRawValue(@"""0.4"""); return; }
-            }
-            writer.WriteRawValue(@"""unknown"""); 
+            string sarifVersionText = ((SarifVersion)value).ConvertToText();
+            writer.WriteRawValue(@"""" + sarifVersionText + @""""); 
         }
     }
 }

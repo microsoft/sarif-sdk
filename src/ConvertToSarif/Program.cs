@@ -36,6 +36,11 @@ namespace Microsoft.CodeAnalysis.Sarif.ConvertToSarif
                     toolFormatConversionOptions |= ToolFormatConversionOptions.OverwriteExistingOutputFile;
                 };
 
+                if (string.IsNullOrEmpty(convertOptions.OutputFilePath))
+                {
+                    convertOptions.OutputFilePath = convertOptions.InputFilePath + ".sarif";
+                }
+
                 if (convertOptions.ToolFormat == ToolFormat.PREfast)
                 {
                     string sarif = ToolFormatConverter.ConvertPREfastToStandardFormat(convertOptions.InputFilePath);

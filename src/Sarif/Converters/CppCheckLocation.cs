@@ -2,12 +2,10 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using System;
-using System.Collections.Generic;
 using System.Globalization;
 using System.Xml;
 using Microsoft.CodeAnalysis.Sarif.Driver;
 using Microsoft.CodeAnalysis.Sarif.Sdk;
-using Microsoft.CodeAnalysis.Sarif.Writers;
 
 namespace Microsoft.CodeAnalysis.Sarif.Converters
 {
@@ -93,18 +91,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             return new CppCheckLocation(file, line);
         }
 
-        /// <summary>Converts this instance to a <see cref="List{PhysicalLocationComponent}"/>.</summary>
-        /// <returns>This instance as a <see cref="List{PhysicalLocationComponent}"/>.</returns>
-        public List<PhysicalLocationComponent> ToSarifPhysicalLocation()
+        /// <summary>Converts this instance to a <see cref="PhysicalLocation"/>.</summary>
+        /// <returns>This instance as a <see cref="PhysicalLocation"/>.</returns>
+        public PhysicalLocation ToSarifPhysicalLocation()
         {
-            return new List<PhysicalLocationComponent>
+            return new PhysicalLocation
             {
-                new PhysicalLocationComponent
-                {
-                    Uri = new Uri(this.File, UriKind.RelativeOrAbsolute),
-                    MimeType = MimeType.Cpp,
-                    Region = Extensions.CreateRegion(this.Line)
-                }
+                Uri = new Uri(this.File, UriKind.RelativeOrAbsolute),
+                Region = Extensions.CreateRegion(this.Line)
             };
         }
 
