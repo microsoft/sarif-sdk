@@ -4,23 +4,21 @@
 using System;
 
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Microsoft.CodeAnalysis.Sarif.Sdk;
 
 namespace Microsoft.CodeAnalysis.Sarif.Writers
 {
     [TestClass]
     public class ResultLogObjectWriterTests
     {
-        private static readonly Run s_defaultRun = new Run();
         private static readonly Tool s_defaultTool = new Tool();
-        private static readonly Result s_defaultIssue = new Result();
+        private static readonly Result s_defaultResult = new Result();
 
         [TestMethod]
         public void ResultLogObjectWriter_DefaultIsEmpty()
         {
             var uut = new ResultLogObjectWriter();
             Assert.IsNull(uut.Tool);
-            Assert.AreEqual(0, uut.IssueList.Count);
+            Assert.AreEqual(0, uut.ResultList.Count);
         }
 
         [TestMethod]
@@ -28,25 +26,23 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         {
             var uut = new ResultLogObjectWriter();
             uut.WriteTool(s_defaultTool);
-            uut.WriteRun(s_defaultRun);
-            uut.WriteResult(s_defaultIssue);
+            uut.WriteResult(s_defaultResult);
 
             Assert.AreEqual(s_defaultTool, uut.Tool);
-            Assert.AreEqual(1, uut.IssueList.Count);
-            Assert.AreEqual(s_defaultIssue, uut.IssueList[0]);
-            Assert.AreEqual(s_defaultRun, uut.Run);
+            Assert.AreEqual(1, uut.ResultList.Count);
+            Assert.AreEqual(s_defaultResult, uut.ResultList[0]);
         }
 
         [TestMethod]
         [ExpectedException(typeof(InvalidOperationException))]
         public void ResultLogObjectWriter_RequiresToolBeforeIssues()
         {
-            new ResultLogObjectWriter().WriteResult(s_defaultIssue);
+            new ResultLogObjectWriter().WriteResult(s_defaultResult);
         }
 
         [TestMethod]
         [ExpectedException(typeof(InvalidOperationException))]
-        public void ResultLogObjectWriter_toolMayNotBeWrittenMoreThanOnce()
+        public void ResultLogObjectWriter_ToolMayNotBeWrittenMoreThanOnce()
         {
             var uut = new ResultLogObjectWriter();
             uut.WriteTool(s_defaultTool);
@@ -55,11 +51,18 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
         [TestMethod]
         [ExpectedException(typeof(InvalidOperationException))]
-        public void ResultLogObjectWriter_runMayNotBeWrittenMoreThanOnce()
+        public void ResultLogObjectWriter_ResultsMayNotBeWrittenMoreThanOnce()
         {
             var uut = new ResultLogObjectWriter();
-            uut.WriteRun(s_defaultRun);
-            uut.WriteRun(s_defaultRun);
+            var results = new[] { s_defaultResult };
+
+            uut.OpenResults();
+            uut.WriteResults(results);
+            uut.CloseResults();
+
+            uut.OpenResults();
+            uut.WriteResults(results);
+            uut.CloseResults();
         }
 
         [TestMethod]
@@ -71,18 +74,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentNullException))]
-        public void ResultLogObjectWriter_RequiresNonNullRun()
-        {
-            new ResultLogObjectWriter().WriteRun(null);
-        }
-
-        [TestMethod]
-        [ExpectedException(typeof(ArgumentNullException))]
-        public void ResultLogObjectWriter_RequiresNonNullIssue()
+        public void ResultLogObjectWriter_RequiresNonNullResult()
         {
             var uut = new ResultLogObjectWriter();
             uut.WriteTool(s_defaultTool);
-            uut.WriteRun(s_defaultRun);
             uut.WriteResult(null);
         }
     }

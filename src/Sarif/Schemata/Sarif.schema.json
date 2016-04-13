@@ -89,7 +89,7 @@
       "required": ["uri", "replacements"]
     },
     "fileData": {
-      "description": "Represents a single file. In some cases, this file might be nested within another file.",
+      "description": "A single file. In some cases, this file might be nested within another file.",
       "additionalProperties": false,
       "type": "object",
       "properties": {
@@ -209,7 +209,7 @@
     },
     "location": 
     {
-      "description": "Specifies the location where an analysis tool produced a result.",
+      "description": "The location where an analysis tool produced a result.",
       "additionalProperties": false,
       "type": "object",
       "properties": {
@@ -227,7 +227,7 @@
 
         "logicalLocation": 
         {
-          "description": "Specifies the logical location where the analysis tool produced the result.",
+          "description": "The logical location where the analysis tool produced the result.",
           "type": "array",
           "items":
           {
@@ -270,9 +270,8 @@
           "type": "string"
         },
 
-        "kind": 
-        {
-          "description": "The type of construct this logicalLocationComponent refers to. Should be one of 'method', 'module', 'namespace', 'package', 'resource', or 'type', if any of those accurately describe the construct.",
+        "kind": {
+          "description": "The type of construct this logicalLocationComponent refers to. Should be one of 'assembly', 'attribute', 'binary', 'class', 'enum', 'field', 'lambda', 'local', 'method', 'module', 'namespace', 'package', 'parameter', 'property', 'resource', or, 'struct', if any of those accurately describe the construct.",
           "type": "string"
         }
       },
@@ -286,7 +285,7 @@
       "properties": {
         "uri": 
         {
-          "description": "Represents the location of the file as a valid URI.",
+          "description": "The location of the file as a valid URI.",
           "type": "string",
           "format": "uri"
         },
@@ -307,7 +306,7 @@
       "properties": {
         "startLine": 
         {
-          "description": "The line number of first character in the region.",
+          "description": "The line number of the first character in the region.",
           "type": "integer",
           "minimum": 1
         },
@@ -362,14 +361,14 @@
 
         "deletedLength": 
         {
-          "description": "Specifies the number of bytes to delete, starting at the byte offset specified by offset, measured from the beginning of the file.",
+          "description": "The number of bytes to delete, starting at the byte offset specified by offset, measured from the beginning of the file.",
           "type": "integer",
           "minimum": 1
         },
 
         "insertedBytes": 
         {
-          "description": "An optional string that specifies the byte sequence to be inserted at the byte offset specified by the 'offset' property, measured from the beginning of the file.",
+          "description": "The byte sequence to be inserted at the byte offset specified by the 'offset' property, measured from the beginning of the file.",
           "type": "string"
         }
       },
@@ -377,7 +376,7 @@
     },
     "result": 
     {
-      "description": "A single result produced by an analysis tool.",
+      "description": "A result produced by an analysis tool.",
       "additionalProperties": false,
       "type": "object",
       "properties": {
@@ -402,19 +401,19 @@
 
         "shortMessage": 
         {
-          "description": "A string that describes the result, displayed in user interface contexts where the available space is limited to a single line of text.",
+          "description": "A string that describes the result, displayed when visible space is limited to a single line of text.",
           "type": "string"
         },
 
         "formattedMessage": 
         {
-          "description": "A 'formattedMessage' object that can be used to construct a formatted message that describes the result. If the formatted message property is present on an result, the full message property shall not be present. If the full message property is present on an result, the formatted message property shall not be present",
+          "description": "A 'formattedMessage' object that can be used to construct a formatted message that describes the result. If the 'formattedMessage' property is present on a result, the 'fullMessage' property shall not be present. If the 'fullMessage' property is present on an result, the 'formattedMessage' property shall not be present",
           "$ref": "#/definitions/formattedMessage"
         },
 
         "locations": 
         {
-          "description": "Specifies one or more locations where the result occurred. Specify only one location unless the problem indicated by the result can only be corrected by making a change at every specified location.",
+          "description": "One or more locations where the result occurred. Specify only one location unless the problem indicated by the result can only be corrected by making a change at every specified location.",
           "type": "array",
           "minItems": 1,
           "items":
@@ -425,13 +424,13 @@
 
         "toolFingerprint": 
         {
-          "description": "A string that contributes to the process of uniquely identifying the result.",
+          "description": "A string that contributes to the unique identity of the result.",
           "type": "string"
         },
 
         "stacks": 
         {
-          "description": "An array of arrays of 'annotatedCodeLocation' objects, each inner array of which describes a single call stack.",
+          "description": "An array of arrays of 'annotatedCodeLocation' objects, each inner array of which comprises a call stack.",
           "type": "array",
           "minItems": 1,
           "items":
@@ -447,7 +446,7 @@
 
         "codeFlows": 
         {
-          "description": "An array of arrays of 'annotatedCodeLocation` objects, each inner array of which describes a single code flow (a possible execution path through the code).",
+          "description": "An array of arrays of 'annotatedCodeLocation` objects, each inner array of which comprises a code flow (a possible execution path through the code).",
           "type": "array",
           "minItems": 1,
           "items":
@@ -528,7 +527,7 @@
 
         "shortDescription": 
         {
-          "description": "A concise description of the rule. Should be a single sentence that is understandable when displayed in user interface contexts where the available space is limited to a single line of text.",
+          "description": "A concise description of the rule. Should be a single sentence that is understandable when visible space is limited to a single line of text.",
           "type": "string"
         },
 
@@ -546,7 +545,7 @@
 
         "messageFormats": 
         {
-          "description": "A set of name/value pairs with arbitrary names. The value within each name/value pair shall consist of plain text interspersed with placeholders, which can be use to construc a formatted message in combination with an arbitrary number of additional string arguments.",
+          "description": "A set of name/value pairs with arbitrary names. The value within each name/value pair shall consist of plain text interspersed with placeholders, which can be used to format a message in combination with an arbitrary number of additional string arguments.",
           "type": "object"
         },
 
@@ -582,7 +581,7 @@
       "type": "object",
       "properties": {
         "tool": {
-          "description": "Information about the tool or tool pipeline that generated the results in this log. A results log can only contain results produced by a single tool or tool pipeline. A results log can aggregate results from multiple tool log files, as long as context around the tool run (tool command-line arguments and the like) is identical for all aggregated files.",
+          "description": "Information about the tool or tool pipeline that generated the results in this run. A run can only contain results produced by a single tool or tool pipeline. A run can aggregate results from multiple log files, as long as context around the tool run (tool command-line arguments and the like) is identical for all aggregated files.",
           "$ref": "#/definitions/tool"
         },
 
@@ -592,7 +591,7 @@
         },
 
         "files": {
-          "description": "A dictionary each of whose keys is a URI and each of whose values is an array of file objects representing the location of a single file target scanned during the run.",
+          "description": "A dictionary, each of whose keys is a URI and each of whose values is an array of file objects representing the location of a single file scanned during the run.",
           "type": "object",
           "additionalProperties": {
             "type": "array",
@@ -603,7 +602,7 @@
         },
 
         "results": {
-          "description": "The set of results contained in an SARIF log. The results array can be omitted when a run is merely exporting rules metadata. It must be present (but may be empty) in the event that a log file represents an actual scan.",
+          "description": "The set of results contained in an SARIF log. The results array can be omitted when a run is solely exporting rules metadata. It must be present (but may be empty) in the event that a log file represents an actual scan.",
           "type": "array",
           "minItems": 0,
           "items": {
@@ -612,7 +611,7 @@
         },
 
         "rules": {
-          "description": "An array of rule descriptor objects that describe all rules associated with an analysis tool or a specific run of an analysis tool.",
+          "description": "An array of 'rule' objects that describe all rules associated with an analysis tool or a specific run of an analysis tool.",
           "type": "array",
           "minItems": 1,
           "items": {
@@ -621,19 +620,19 @@
         },
 
         "startTime": {
-          "description": "A string specifying the date and time at which the run started.",
+          "description": "The date and time at which the run started. See \"Date/time properties\" in the SARIF spec for the required format.",
           "type": "string",
           "format": "date-time"
         },
 
         "endTime": {
-          "description": "A string specifying the date and time at which the run ended.",
+          "description": "The date and time at which the run ended. See \"Date/time properties\" in the  SARIF spec for the required format.",
           "type": "string",
           "format": "date-time"
         },
 
         "correlationId": {
-          "description": "An identifier that allows the run to be associated with a larger automation process.",
+          "description": "An identifier that allows the run to be correlated with other artifacts produced by a larger automation process.",
           "type": "string"
         },
 
@@ -661,7 +660,7 @@
     },
     "tool": 
     {
-      "description": "Describes the analysis tool that was run.",
+      "description": "The analysis tool that was run.",
       "additionalProperties": false,
       "type": "object",
       "properties": {
@@ -683,9 +682,8 @@
           "type": "string"
         },
 
-        "fileVersion": 
-        {
-          "description": "For operating systems (such as Windows) that provide such data, the binary version of the tool's primary executable file.",
+        "fileVersion": {
+          "description": "The binary version of the tool's primary executable file (for operating systems such as Windows that provide that information).",
           "type": "string",
           "pattern": "[0-9]+(\\.[0-9]+){3}"
         }

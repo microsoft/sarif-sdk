@@ -50,7 +50,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
         [TestMethod]
         [ExpectedException(typeof(InvalidOperationException))]
-        public void ResultLogJsonWriter_toolMayNotBeWrittenMoreThanOnce()
+        public void ResultLogJsonWriter_ToolMayNotBeWrittenMoreThanOnce()
         {
             GetJson(uut =>
             {
