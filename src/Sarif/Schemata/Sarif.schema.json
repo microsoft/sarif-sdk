@@ -202,7 +202,7 @@
         "algorithm": 
         {
           "description": "A string specifying the name of the algorithm used to compute the hash value specified in the 'value' property.",
-          "enum": [ "BLAKE-256","BLAKE-512","ECOH","FSB","GOST","Groestl","HAS-160","HAVAL","JH","MD2","MD4","MD5","MD6","RadioGatun","RIPEMD","RIPEMD-128","RIPEMD-160","RIPEMD-320","SHA-1","SHA-224","SHA-256","SHA-384","SHA-512","SHA-3","Skein","Snefru","Spectral Hash","SWIFFT","Tiger","Whirlpool"]
+          "enum": [ "Authentihash", "BLAKE-256","BLAKE-512","ECOH","FSB","GOST","Groestl","HAS-160","HAVAL","JH","MD2","MD4","MD5","MD6","RadioGatun","RIPEMD","RIPEMD-128","RIPEMD-160","RIPEMD-320","Sdhash","SHA-1","SHA-224","SHA-256","SHA-384","SHA-512","SHA-3","Skein","Snefru","Spectral Hash","Ssdeep","SWIFFT","Tiger","Tlsh","Whirlpool"]
         }
       },
       "required": ["value", "algorithm"]
