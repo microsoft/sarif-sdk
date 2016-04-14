@@ -24,10 +24,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             Initialized = 0x1,
             ToolWritten = 0x2,
             RulesWritten = 0x4,
-            RunWritten = 0x8,
+            FilesWritten = 0x8,
             ResultsInitialized = 0x10,
             ResultsClosed = 0x20,
-            Disposed = 0x40
+            RunPropertiesWritten = 0x40,
+            Disposed = 0x80
         }
 
         private Conditions _writeConditions;
@@ -85,23 +86,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             _writeConditions |= Conditions.ToolWritten;
         }
 
-        public void WriteRun(Run run)
-        {
-            if (run == null)
-            {
-                throw new ArgumentNullException(nameof(run));
-            }
-
-            EnsureInitialized();
-            EnsureResultsArrayIsNotOpen();
-            EnsureStateNotAlreadySet(Conditions.Disposed | Conditions.RunWritten);
-
-            _jsonWriter.WritePropertyName("run");
-            _serializer.Serialize(_jsonWriter, run, typeof(Run));
-
-            _writeConditions |= Conditions.RunWritten;
-        }
-
         /// <summary>
         /// Write information about scanned files to the log. This information may appear
         /// after the results, as the full list of scanned files might not be known until
@@ -111,7 +95,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         /// A dictionary whose keys are the URIs of scanned files and whose values provide
         /// information about those files.
         /// </param>
-        public void WriteFiles(Dictionary<Uri, IList<FileData>> fileDictionary)
+        public void WriteFiles(IDictionary<Uri, IList<FileData>> fileDictionary)
         {
             if (fileDictionary == null)
             {
@@ -120,12 +104,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
             EnsureInitialized();
             EnsureResultsArrayIsNotOpen();
-            EnsureStateNotAlreadySet(Conditions.Disposed | Conditions.RunWritten);
+            EnsureStateNotAlreadySet(Conditions.Disposed | Conditions.FilesWritten);
 
             _jsonWriter.WritePropertyName("files");
             _serializer.Serialize(_jsonWriter, fileDictionary, typeof(Dictionary<Uri, IList<FileData>>));
 
-            _writeConditions |= Conditions.RunWritten;
+            _writeConditions |= Conditions.FilesWritten;
         }
 
         public void WriteRules(IEnumerable<IRule> rules)
@@ -251,6 +235,43 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
             _jsonWriter.WriteEndArray();
             _writeConditions |= Conditions.ResultsClosed;
+        }
+
+        public void WriteRunProperties(string invocation, DateTime startTime, DateTime endTime, string correlationId, string architecture)
+        {
+            EnsureInitialized();
+            EnsureResultsArrayIsNotOpen();
+            EnsureStateNotAlreadySet(Conditions.Disposed | Conditions.RunPropertiesWritten);
+
+            if (!string.IsNullOrEmpty(invocation))
+            {
+                _jsonWriter.WritePropertyName(nameof(invocation));
+                _jsonWriter.WriteValue(invocation);
+            }
+
+            if (startTime != new DateTime())
+            {
+                _jsonWriter.WritePropertyName(nameof(startTime));
+                _jsonWriter.WriteValue(startTime);
+            }
+
+            if (endTime != new DateTime())
+            {
+                _jsonWriter.WritePropertyName(nameof(endTime));
+                _jsonWriter.WriteValue(endTime);
+            }
+
+            if (!string.IsNullOrEmpty(correlationId))
+            {
+                _jsonWriter.WritePropertyName(nameof(correlationId));
+                _jsonWriter.WriteValue(correlationId);
+            }
+
+            if (!string.IsNullOrEmpty(architecture))
+            {
+                _jsonWriter.WritePropertyName(nameof(architecture));
+                _jsonWriter.WriteValue(architecture);
+            }
         }
 
         /// <summary>Writes the log footer and closes the underlying <see cref="JsonWriter"/>.</summary>

@@ -339,7 +339,7 @@ public:
         _bstr_t inpString = xmlText.c_str();
         IStream *pInStream = SHCreateMemStream( (BYTE*) inpString.operator char *(), inpString.length());
         
-        XmlToSarifConverter converter;
+		XmlToSarifConverter converter;
         return converter.InternalLoadXmlDefects(pInStream, defectList);
     }
 
@@ -399,8 +399,8 @@ extern "C"
 
 HRESULT __stdcall Convert(const std::deque<XmlDefect> defectList, BSTR bstrOutputFile, BSTR* pbstrSarifText)
 {
-    SarifIssueLog issueLog;
-    issueLog.SetVersion(L"0.4");
+    SarifLog issueLog;
+    issueLog.SetVersion(L"1.0.0-beta.3");
 
     // Set Tool
     SarifTool tool;
@@ -411,15 +411,7 @@ HRESULT __stdcall Convert(const std::deque<XmlDefect> defectList, BSTR bstrOutpu
     // Set Run
     SarifRun run;
     run.SetCommandLineArguments(L"");
-
-    std::wstring uriCmdLineSrc = L"";
-    SarifFileReference fr1;
-    fr1.SetURI(uriCmdLineSrc);
-    run.AddAnalysisTarget(fr1);
-
-    SarifRunLog runLog;
-    runLog.SetTool(tool);
-    runLog.SetRun(run);
+	run.SetTool(tool);
 
     for (const XmlDefect &defect : defectList)
     {
@@ -427,45 +419,33 @@ HRESULT __stdcall Convert(const std::deque<XmlDefect> defectList, BSTR bstrOutpu
         region.SetStartColumn(defect.m_sfa.GetColumnNo());
         region.SetStartLine(defect.m_sfa.GetLineNo());
 
-        SarifPhysicalLocationComponent plc;
-        plc.SetURI(uriCmdLineSrc);
-
-        std::wstring uriIssueFile = GetDefectUri(defect.m_sfa);
-        SarifPhysicalLocationComponent ifc;
+        std::wstring uriResultFile = GetDefectUri(defect.m_sfa);
+        SarifPhysicalLocation resultFile;
         SarifLocation location;
 
-        if (uriIssueFile != uriCmdLineSrc)
-        {
-            ifc.SetURI(uriIssueFile);
-            if (region.IsValid())
-                ifc.SetRegion(region);
-            location.AddIssueFileComponent(ifc);
-        }
+        resultFile.SetURI(uriResultFile);
+        if (region.IsValid())
+            resultFile.SetRegion(region);
+        location.SetResultFile(resultFile);
 
-        if (uriCmdLineSrc.length() > 0)
-        {
-            if (region.IsValid())
-                plc.SetRegion(region);
-        }
-        location.AddAnalysisTargetComponent(plc);
 
         location.SetFullyQualifiedLogicalName(defect.GetFunction());
         location.AddLogicalLocationComponent(defect.GetFunction(), L"method");
         location.AddProperty(L"decorated", defect.GetDecorated());
         location.AddProperty(L"funcline", defect.GetFunctionLine());
 
-        // Issue
-        SarifIssue issue;
-        issue.SetRuleId(defect.GetDefectCode());
-        issue.SetFullMessage(defect.GetDescription());
-        issue.AddLocation(location);
+        // Result
+        SarifResult result;
+		result.SetRuleId(defect.GetDefectCode());
+		result.SetFullMessage(defect.GetDescription());
+		result.AddLocation(location);
 
         if (wcslen(defect.GetProbability()) > 0)
-            issue.AddProperty(L"probability", defect.GetProbability());
+			result.AddProperty(L"probability", defect.GetProbability());
 
         if (wcslen(defect.GetRank()) > 0)
         {
-            issue.AddProperty(L"rank", defect.GetRank());
+			result.AddProperty(L"rank", defect.GetRank());
         }
 
         if (defect.m_category.size() > 0)
@@ -474,7 +454,7 @@ HRESULT __stdcall Convert(const std::deque<XmlDefect> defectList, BSTR bstrOutpu
             {
                 std::wstring key;
                 GetXmlToSarifMapping(std::wstring(mit.first), key);
-                issue.AddProperty(key, std::wstring(mit.second));
+				result.AddProperty(key, std::wstring(mit.second));
             }
         }
 
@@ -484,16 +464,16 @@ HRESULT __stdcall Convert(const std::deque<XmlDefect> defectList, BSTR bstrOutpu
             {
                 std::wstring key;
                 GetXmlToSarifMapping(std::wstring(mit.first), key);
-                issue.AddProperty(key, std::wstring(mit.second));
+				result.AddProperty(key, std::wstring(mit.second));
             }
         }
 
         if (defect.m_path.size() > 0)
         {
-            SarifExecutionFlowEntries entries;
+            SarifCodeFlow codeFlow;
             for (const XmlSfa &sfa : defect.m_path)
             {
-                SarifPhysicalLocationComponent fileLocation;
+                SarifPhysicalLocation fileLocation;
 
                 fileLocation.SetURI(GetDefectUri(sfa));
 
@@ -503,26 +483,27 @@ HRESULT __stdcall Convert(const std::deque<XmlDefect> defectList, BSTR bstrOutpu
                 if (region.IsValid())
                     fileLocation.SetRegion(region);
 
-                SarifExecutionFlowEntry entry;
-                entry.AddPhysicalLocationComponent(fileLocation);
+				SarifAnnotatedCodeLocation annotation;
+				annotation.SetPhysicalLocation(fileLocation);
+
+				codeFlow.AddAnnotatedCodeLocation(annotation);
 
                 const XmlKeyEvent &keyEvent = sfa.GetKeyEvent();
 
                 if (keyEvent.IsValid())
                 {
-                    entry.AddProperty(L"id", keyEvent.GetId());
-                    entry.AddProperty(L"kind", keyEvent.GetKind());
-                    entry.AddProperty(L"importance", keyEvent.GetImportance());
-                    entry.SetMessage(keyEvent.GetMessage());
-                }
+					annotation.AddProperty(L"id", keyEvent.GetId());
+					annotation.AddProperty(L"kind", keyEvent.GetKind());
+					annotation.AddProperty(L"importance", keyEvent.GetImportance());
 
-                entries.AddExecutionFlowEntry(entry);
+					annotation.SetMessage(keyEvent.GetMessage());
+                }
             }
-            issue.AddExecutionFlow(entries);
+			result.AddCodeFlow(codeFlow);
         }
-        runLog.AddIssue(issue);
+        run.AddResult(result);
     }
-    issueLog.AddRunLog(runLog);
+    issueLog.AddRun(run);
 
     std::wstring out = json::Serialize(issueLog.m_values);
 

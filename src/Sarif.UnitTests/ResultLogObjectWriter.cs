@@ -13,22 +13,24 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
     public sealed class ResultLogObjectWriter : IResultLogWriter
     {
         private Tool _tool;
-        private ImmutableList<Result> _resultList;
-        private ImmutableDictionary<Uri, IList<FileData>> _fileDictionary;
+        private ImmutableList<Result> _issueList;
 
         /// <summary>Initializes a new instance of the <see cref="ResultLogObjectWriter"/> class.</summary>
         public ResultLogObjectWriter()
         {
-            _resultList = ImmutableList<Result>.Empty;
+            _issueList = ImmutableList<Result>.Empty;
         }
 
         /// <summary>Gets the Tool block.</summary>
         /// <value>The <see cref="Tool"/> block if it has been written; otherwise, null.</value>
         public Tool Tool { get { return _tool; } }
 
+        /// <summary>Gets the Run object.</summary>
+        public Run Run { get; set;  }
+
         /// <summary>Gets the list of issues written so far.</summary>
         /// <value>The list of <see cref="Result"/> objects written so far.</value>
-        public ImmutableList<Result> ResultList { get { return _resultList; } }
+        public ImmutableList<Result> IssueList { get { return _issueList; } }
 
         public void Initialize() { }
 
@@ -52,8 +54,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             _tool = tool;
         }
 
-        /// <summary>Writes a run information entry to the log.</summary>
-        public void WriteRun(Run run) { }
+
+        public void WriteRunProperties(string invocation, DateTime startTime, DateTime endTime, string correlationId, string architecture)
+        {
+
+        }
 
         /// <summary>
         /// Write information about scanned files to the log. This information may appear
@@ -64,14 +69,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         /// A dictionary whose keys are the URIs of scanned files and whose values provide
         /// information about those files.
         /// </param>
-        public void WriteFiles(Dictionary<Uri, IList<FileData>> fileDictionary)
+        public void WriteFiles(IDictionary<Uri, IList<FileData>> fileDictionary)
         {
-            if (fileDictionary == null)
-            {
-                throw new ArgumentNullException(nameof(fileDictionary));
-            }
-
-            _fileDictionary = ImmutableDictionary.CreateRange(fileDictionary);
+            throw new NotImplementedException();
         }
 
         public void OpenResults() { }
@@ -97,7 +97,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         {
             if (result == null)
             {
-                throw new ArgumentNullException(nameof(result));
+                throw new ArgumentNullException("result");
             }
 
             if (_tool == null)
@@ -105,7 +105,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 throw new InvalidOperationException(SarifResources.CannotWriteResultToolMissing);
             }
 
-            _resultList = _resultList.Add(new Result(result));
+            _issueList = _issueList.Add(new Result(result));
         }
 
         /// <summary>

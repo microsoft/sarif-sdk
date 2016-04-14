@@ -207,14 +207,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         }
 
         [TestMethod]
-        public void FortifyConverter_Convert_DoesNotFillInExecutionFlowWhenOnlyPrimaryIsPresent()
+        public void FortifyConverter_Convert_DoesNotFillInCodeFlowWhenOnlyPrimaryIsPresent()
         {
             Result result = FortifyConverter.ConvertFortifyIssueToSarifIssue(GetBasicIssue());
             Assert.IsNull(result.CodeFlows);
         }
 
         [TestMethod]
-        public void FortifyConverter_Convert_FillsInExecutionFlowWhenSourceIsPresent()
+        public void FortifyConverter_Convert_FillsInCodeFlowWhenSourceIsPresent()
         {
             Builder builder = FortifyConverterTests.GetBasicBuilder();
             builder.Source = FortifyConverterTests.s_dummyPathSourceElement;

@@ -51,14 +51,26 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
 
                     if (computeTargetsHash)
                     {
-                        string sha256Hash = HashUtilities.ComputeSha256Hash(target) ?? "[could not compute file hash]";
+                        string md5, sha1, sha256;
+
+                        HashUtilities.ComputeHashes(target, out md5, out sha1, out sha256);
                         fileReference.Hashes = new List<Hash>(new Hash[]
                         {
                             new Hash()
                             {
-                                Value = sha256Hash,
+                                Value = md5,
+                                Algorithm = AlgorithmKind.MD5,
+                            },
+                            new Hash()
+                            {
+                                Value = sha1,
+                                Algorithm = AlgorithmKind.Sha1,
+                            },
+                            new Hash()
+                            {
+                                Value = sha256,
                                 Algorithm = AlgorithmKind.Sha256,
-                            }
+                            },
                         });
                     }
                         run.Files.Add(new Uri(target), new List<FileData> { fileReference });
@@ -164,7 +176,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
                     _run.EndTime = DateTime.UtcNow;
                 }
 
-                _issueLogJsonWriter.WriteRun(_run);
+                _issueLogJsonWriter.WriteRunProperties(
+                    invocation: _run.Invocation,
+                    startTime: _run.StartTime,
+                    endTime: _run.EndTime,
+                    correlationId: _run.CorrelationId,
+                    architecture: _run.Architecture);
+
+                if (_run.Files != null) { _issueLogJsonWriter.WriteFiles(_run.Files); }
 
                 // Note: we write out the backing rules
                 // to prevent the property accessor from populating

@@ -65,7 +65,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         }
 
         [TestMethod]
-        public void CppCheckError_ErrorWithMultipleLocationsFillsOutExecutionFlow()
+        public void CppCheckError_ErrorWithMultipleLocationsFillsOutCodeFlow()
         {
             Result result = new CppCheckError("id", "message", "verbose", "my fancy severity", ImmutableArray.Create(
                 new CppCheckLocation("foo.cpp", 1234),

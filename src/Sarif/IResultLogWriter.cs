@@ -23,16 +23,14 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="tool">The tool information to write.</param>
         void WriteTool(Tool tool);
 
-        /// <summary>Writes run information to the log. This information may appear after
+        /// <summary>Writes run information to the log. These properties may appear after
         /// the results, as it can contain data that can't be computed (such as the run
         /// end time) until all results have been generated.</summary>
         /// <exception cref="IOException">A file IO error occured. Clients implementing
         /// <see cref="IToolFileConverter"/> should allow these exceptions to propagate.</exception>
-        /// <exception cref="InvalidOperationException">Thrown if the tool info block has already been
+        /// <exception cref="InvalidOperationException">Thrown if the properties already been
         /// written.</exception>
-        /// <exception cref="ArgumentNullException">Thrown if <paramref name="info"/> is null.</exception>
-        /// <param name="run">The run information to write.</param>
-        void WriteRun(Run run);
+        void WriteRunProperties(string invocation, DateTime startTime, DateTime endTime, string correlationId, string architecture);
 
         /// <summary>
         /// Write information about scanned files to the log. This information may appear
@@ -43,7 +41,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// A dictionary whose keys are the URIs of scanned files and whose values provide
         /// information about those files.
         /// </param>
-        void WriteFiles(Dictionary<Uri, IList<FileData>> fileDictionary);
+        void WriteFiles(IDictionary<Uri, IList<FileData>> fileDictionary);
 
         /// <summary>
         /// Initialize the results array associated with the current output log. SARIF producers that
