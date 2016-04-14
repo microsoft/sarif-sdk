@@ -52,7 +52,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
             if (!string.IsNullOrEmpty(fileVersion.CompanyName)) { tool.Properties["CompanyName"] = fileVersion.CompanyName; };
             if (!string.IsNullOrEmpty(fileVersion.ProductName)) { tool.Properties["ProductName"] = fileVersion.ProductName; };
 
-            if (!string.IsNullOrEmpty(fileVersion.ProductName) && fileVersion.ProductVersion != tool.Version)
+            if (!string.IsNullOrEmpty(fileVersion.ProductVersion) && fileVersion.ProductVersion != tool.Version)
             {
                 tool.Properties["ProductVersion"] = fileVersion.ProductVersion;
             };
