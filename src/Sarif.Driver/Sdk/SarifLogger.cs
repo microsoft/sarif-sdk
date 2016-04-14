@@ -50,11 +50,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
             if (!string.IsNullOrEmpty(fileVersion.FileName)) { tool.Properties["FileName"] = fileVersion.FileName; };
             if (!string.IsNullOrEmpty(fileVersion.Comments)) { tool.Properties["Comments"] = fileVersion.Comments; };
             if (!string.IsNullOrEmpty(fileVersion.CompanyName)) { tool.Properties["CompanyName"] = fileVersion.CompanyName; };
-            if (!string.IsNullOrEmpty(fileVersion.ProductVersion)) { tool.Properties["ProductVersion"] = fileVersion.ProductName; };
+            if (!string.IsNullOrEmpty(fileVersion.ProductName)) { tool.Properties["ProductName"] = fileVersion.ProductName; };
 
             if (!string.IsNullOrEmpty(fileVersion.ProductName) && fileVersion.ProductVersion != tool.Version)
             {
-                tool.Properties["ProductName"] = fileVersion.ProductVersion;
+                tool.Properties["ProductVersion"] = fileVersion.ProductVersion;
             };
 
             if (tool.Properties.Count == 0) { tool.Properties = null; }
