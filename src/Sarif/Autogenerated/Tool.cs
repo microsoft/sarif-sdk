@@ -60,7 +60,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// Key/value pairs that provide additional information about the tool.
         /// </summary>
         [DataMember(Name = "properties", IsRequired = false, EmitDefaultValue = false)]
-        public object Properties { get; set; }
+        public IDictionary<string, string> Properties { get; set; }
 
         /// <summary>
         /// A set of distinct strings that provide additional information about the tool.
@@ -105,17 +105,28 @@ namespace Microsoft.CodeAnalysis.Sarif
 
                 if (Properties != null)
                 {
-                    result = (result * 31) + Properties.GetHashCode();
+                    // Use xor for dictionaries to be order-independent.
+                    int xor_0 = 0;
+                    foreach (var value_0 in Properties)
+                    {
+                        xor_0 ^= value_0.Key.GetHashCode();
+                        if (value_0.Value != null)
+                        {
+                            xor_0 ^= value_0.Value.GetHashCode();
+                        }
+                    }
+
+                    result = (result * 31) + xor_0;
                 }
 
                 if (Tags != null)
                 {
-                    foreach (var value_0 in Tags)
+                    foreach (var value_1 in Tags)
                     {
                         result = result * 31;
-                        if (value_0 != null)
+                        if (value_1 != null)
                         {
-                            result = (result * 31) + value_0.GetHashCode();
+                            result = (result * 31) + value_1.GetHashCode();
                         }
                     }
                 }
@@ -156,9 +167,26 @@ namespace Microsoft.CodeAnalysis.Sarif
                 return false;
             }
 
-            if (!Object.Equals(Properties, other.Properties))
+            if (!Object.ReferenceEquals(Properties, other.Properties))
             {
-                return false;
+                if (Properties == null || other.Properties == null || Properties.Count != other.Properties.Count)
+                {
+                    return false;
+                }
+
+                foreach (var value_0 in Properties)
+                {
+                    string value_1;
+                    if (!other.Properties.TryGetValue(value_0.Key, out value_1))
+                    {
+                        return false;
+                    }
+
+                    if (value_0.Value != value_1)
+                    {
+                        return false;
+                    }
+                }
             }
 
             if (!Object.ReferenceEquals(Tags, other.Tags))
@@ -216,7 +244,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="tags">
         /// An initialization value for the <see cref="P: Tags" /> property.
         /// </param>
-        public Tool(string name, string fullName, string version, string semanticVersion, string fileVersion, object properties, IEnumerable<string> tags)
+        public Tool(string name, string fullName, string version, string semanticVersion, string fileVersion, IDictionary<string, string> properties, IEnumerable<string> tags)
         {
             Init(name, fullName, version, semanticVersion, fileVersion, properties, tags);
         }
@@ -258,14 +286,18 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new Tool(this);
         }
 
-        private void Init(string name, string fullName, string version, string semanticVersion, string fileVersion, object properties, IEnumerable<string> tags)
+        private void Init(string name, string fullName, string version, string semanticVersion, string fileVersion, IDictionary<string, string> properties, IEnumerable<string> tags)
         {
             Name = name;
             FullName = fullName;
             Version = version;
             SemanticVersion = semanticVersion;
             FileVersion = fileVersion;
-            Properties = properties;
+            if (properties != null)
+            {
+                Properties = new Dictionary<string, string>(properties);
+            }
+
             if (tags != null)
             {
                 var destination_0 = new List<string>();
