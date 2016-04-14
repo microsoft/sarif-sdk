@@ -416,7 +416,8 @@ HRESULT __stdcall Convert(const std::deque<XmlDefect> defectList, BSTR bstrOutpu
     for (const XmlDefect &defect : defectList)
     {
         SarifRegion region;
-        region.SetStartColumn(defect.m_sfa.GetColumnNo());
+		// PREfast columns are 0-indexed. SARIF requires 1-based.
+        region.SetStartColumn(defect.m_sfa.GetColumnNo() + 1);
         region.SetStartLine(defect.m_sfa.GetLineNo());
 
         std::wstring uriResultFile = GetDefectUri(defect.m_sfa);
@@ -478,7 +479,8 @@ HRESULT __stdcall Convert(const std::deque<XmlDefect> defectList, BSTR bstrOutpu
                 fileLocation.SetURI(GetDefectUri(sfa));
 
                 SarifRegion region;
-                region.SetStartColumn(sfa.GetColumnNo());
+				// PREfast columns are 0-index. SARIF specifies 1-based
+                region.SetStartColumn(sfa.GetColumnNo() + 1);
                 region.SetStartLine(sfa.GetLineNo());
                 if (region.IsValid())
                     fileLocation.SetRegion(region);
