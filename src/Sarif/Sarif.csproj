@@ -74,7 +74,6 @@
     <Compile Include="ToolFormat.cs" />
     <Compile Include="VersionConstants.cs" />
     <Compile Include="Writers\ResultLogJsonWriter.cs" />
-    <Compile Include="Writers\ResultLogObjectWriter.cs" />
     <Compile Include="Writers\MimeType.cs" />
   </ItemGroup>
   <ItemGroup>

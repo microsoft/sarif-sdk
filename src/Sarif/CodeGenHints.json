@@ -118,5 +118,10 @@
         "ConfigurationError"
       ]
     }
+  ],
+  "Tool.Properties": [
+    {
+      "$type": "Microsoft.Json.Schema.ToDotNet.DictionaryHint, Microsoft.Json.Schema.ToDotNet"
+    }
   ]
 }

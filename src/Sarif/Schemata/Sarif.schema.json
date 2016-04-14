@@ -664,21 +664,23 @@
       "additionalProperties": false,
       "type": "object",
       "properties": {
-        "name": 
-        {
+        "name": {
           "description": "The name of the tool.",
           "type": "string"
         },
 
-        "fullName": 
-        {
+        "fullName": {
           "description": "The name of the tool along with its version and any other useful identifying information, such as its locale.",
           "type": "string"
         },
 
-        "version": 
-        {
+        "version": {
           "description": "The tool version.",
+          "type": "string"
+        },
+
+        "semanticVersion": {
+          "description": "The tool version rendered as Semantic Versioning 2.0.",
           "type": "string"
         },
 
@@ -686,6 +688,21 @@
           "description": "The binary version of the tool's primary executable file (for operating systems such as Windows that provide that information).",
           "type": "string",
           "pattern": "[0-9]+(\\.[0-9]+){3}"
+        },
+
+        "properties": {
+          "description": "Key/value pairs that provide additional information about the tool.",
+          "type": "object",
+          "default": { }
+        },
+
+        "tags": {
+          "description": "A set of distinct strings that provide additional information about the tool.",
+          "type": "array",
+          "items": {
+            "type": "string",
+            "default": [ ]
+          }
         }
       },
       "required": ["name"]

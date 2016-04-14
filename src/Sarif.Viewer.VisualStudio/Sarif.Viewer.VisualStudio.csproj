@@ -34,6 +34,7 @@
     <CopyOutputSymbolsToOutputDirectory>false</CopyOutputSymbolsToOutputDirectory>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="AnnotatedCodeLocationKind.cs" />
     <Compile Include="AnnotatedCodeLocationKindConverter.cs" />
     <Compile Include="AnnotatedCodeLocationModel.cs" />
     <Compile Include="CodeAnalysisResultManager.cs" />

@@ -3,6 +3,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Reflection;
 using Microsoft.CodeAnalysis.Sarif.Readers;
@@ -24,12 +25,39 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
         {
             Assembly assembly = Assembly.GetEntryAssembly() ?? Assembly.GetExecutingAssembly();
             string name = Path.GetFileNameWithoutExtension(assembly.Location);
-            Version version = assembly.GetName().Version;
 
             Tool tool = new Tool();
+
+            // 'name'
             tool.Name = name;
-            tool.Version = version.Major.ToString() + "." + version.Minor.ToString() + "." + version.Build.ToString();
+
+            // 'version' : primary tool version.
+            Version version = assembly.GetName().Version;
+            tool.Version = version.ToString();
+
+            // Synthesized semver 2.0 version required by spec
+            tool.SemanticVersion = version.Major.ToString() + "." + version.Minor.ToString() + "." + version.Build.ToString();
+
+            // Binary file version
+            FileVersionInfo fileVersion = FileVersionInfo.GetVersionInfo(assembly.Location);
+            tool.FileVersion = fileVersion.FileVersion;
+
             tool.FullName = name + " " + tool.Version + (prereleaseInfo ?? "");
+
+            tool.Properties = new Dictionary<string, string>();
+
+            if (!string.IsNullOrEmpty(fileVersion.Language)) { tool.Properties["Language"] = fileVersion.Language; };
+            if (!string.IsNullOrEmpty(fileVersion.FileName)) { tool.Properties["FileName"] = fileVersion.FileName; };
+            if (!string.IsNullOrEmpty(fileVersion.Comments)) { tool.Properties["Comments"] = fileVersion.Comments; };
+            if (!string.IsNullOrEmpty(fileVersion.CompanyName)) { tool.Properties["CompanyName"] = fileVersion.CompanyName; };
+            if (!string.IsNullOrEmpty(fileVersion.ProductVersion)) { tool.Properties["ProductVersion"] = fileVersion.ProductName; };
+
+            if (!string.IsNullOrEmpty(fileVersion.ProductName) && fileVersion.ProductVersion != tool.Version)
+            {
+                tool.Properties["ProductName"] = fileVersion.ProductVersion;
+            };
+
+            if (tool.Properties.Count == 0) { tool.Properties = null; }
 
             return tool;
         }
@@ -51,14 +79,26 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
 
                     if (computeTargetsHash)
                     {
-                        string sha256Hash = HashUtilities.ComputeSha256Hash(target) ?? "[could not compute file hash]";
+                        string md5, sha1, sha256;
+
+                        HashUtilities.ComputeHashes(target, out md5, out sha1, out sha256);
                         fileReference.Hashes = new List<Hash>(new Hash[]
                         {
                             new Hash()
                             {
-                                Value = sha256Hash,
+                                Value = md5,
+                                Algorithm = AlgorithmKind.MD5,
+                            },
+                            new Hash()
+                            {
+                                Value = sha1,
+                                Algorithm = AlgorithmKind.Sha1,
+                            },
+                            new Hash()
+                            {
+                                Value = sha256,
                                 Algorithm = AlgorithmKind.Sha256,
-                            }
+                            },
                         });
                     }
                         run.Files.Add(new Uri(target), new List<FileData> { fileReference });
@@ -164,7 +204,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
                     _run.EndTime = DateTime.UtcNow;
                 }
 
-                _issueLogJsonWriter.WriteRun(_run);
+                _issueLogJsonWriter.WriteRunProperties(
+                    invocation: _run.Invocation,
+                    startTime: _run.StartTime,
+                    endTime: _run.EndTime,
+                    correlationId: _run.CorrelationId,
+                    architecture: _run.Architecture);
+
+                if (_run.Files != null) { _issueLogJsonWriter.WriteFiles(_run.Files); }
 
                 // Note: we write out the backing rules
                 // to prevent the property accessor from populating

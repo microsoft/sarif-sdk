@@ -163,7 +163,7 @@ namespace Microsoft.Sarif.Viewer
                         HelpLink = rule?.HelpUri?.ToString()                        
                     };
 
-                    CaptureAnnotatedCodeLocations(result.CodeFlows, AnnotatedCodeLocationKind.ExecutionFlow, sarifError);
+                    CaptureAnnotatedCodeLocations(result.CodeFlows, AnnotatedCodeLocationKind.CodeFlow, sarifError);
                     CaptureAnnotatedCodeLocations(result.Stacks, AnnotatedCodeLocationKind.Stack, sarifError);
 
                     // TODO need new code location kind

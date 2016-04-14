@@ -175,23 +175,14 @@ SarifRegion::SetEndColumn(const std::wstring &value)
 }
 
 void 
-SarifRegion::SetCharOffset(const std::wstring &value)
+SarifRegion::SetOffset
+(const std::wstring &value)
 {
 	wchar_t * pEnd;
 	int intVal = wcstol(value.c_str(), &pEnd, BASE10);
     if (*pEnd)
         throw std::exception("Invalid Char Offset specified.");
 	SetCharOffset(intVal);
-}
-
-void 
-SarifRegion::SetByteOffset(const std::wstring &value)
-{
-	wchar_t * pEnd;
-	int intVal = wcstol(value.c_str(), &pEnd, BASE10);
-    if (*pEnd)
-        throw std::exception("Invalid Byte Offset specified.");
-	SetByteOffset(intVal);
 }
 
 void 
@@ -211,19 +202,6 @@ SarifFileChange::AddReplacement(const SarifReplacement &replacement)
 }
 
 void 
-SarifLocation::AddAnalysisTargetComponent(const SarifPhysicalLocationComponent &component)
-{
-    m_values.GetArrayElement(L"analysisTarget").push_back(component.m_values);
-}
-
-void 
-SarifLocation::AddIssueFileComponent(const SarifPhysicalLocationComponent &component)
-{
-    m_values.GetArrayElement(L"resultFile").push_back(component.m_values);
-}
-
-
-void 
 SarifLocation::AddLogicalLocationComponent(const std::wstring &name, const wchar_t *locationKind)
 {
     SarifLogicalLocationComponent location;
@@ -238,44 +216,26 @@ SarifLocation::AddLogicalLocationComponent(const SarifLogicalLocationComponent &
     m_values.GetArrayElement(L"logicalLocation").push_back(component.m_values);
 }
 
-void 
-SarifLocation::SetFullyQualifiedLogicalName(const std::wstring &fqn)
-{
-    m_values[L"fullyQualifiedLogicalName"] = fqn;
-}
-
-void 
+void
 SarifLocation::AddProperty(const std::wstring &key, const std::wstring &value)
 {
-    if (m_values.find(L"properties") == m_values.end())
-        m_values[L"properties"] = json::Object();
-    m_values[L"properties"][key] = value;
-}
-
-void 
-SarifExecutionFlowEntry::SetMessage(const std::wstring &value)
-{
-	m_values[L"message"] = AddEscapeCharacters(value);
-}
-
-void 
-SarifExecutionFlowEntry::AddPhysicalLocationComponent(const SarifPhysicalLocationComponent &component)
-{
-    m_values.GetArrayElement(L"physicalLocation").push_back(component.m_values);
-}
-
-void 
-SarifExecutionFlowEntry::AddProperty(const std::wstring &key, const std::wstring &value)
-{
-    if (m_values.find(L"properties") == m_values.end())
-        m_values[L"properties"] = json::Object();
-    m_values[L"properties"][key] = value;
+	if (m_values.find(L"properties") == m_values.end())
+		m_values[L"properties"] = json::Object();
+	m_values[L"properties"][key] = value;
 }
 
 void
-SarifExecutionFlowEntries::AddExecutionFlowEntry(const SarifExecutionFlowEntry &entry)
+SarifCodeFlow::AddAnnotatedCodeLocation(const SarifAnnotatedCodeLocation &location)
 {
-    m_values.GetArrayElement(L"executionFlowEntries").push_back(entry.m_values);
+    m_values.push_back(location.m_values);
+}
+
+void
+SarifAnnotatedCodeLocation::AddProperty(const std::wstring &key, const std::wstring &value)
+{
+	if (m_values.find(L"properties") == m_values.end())
+		m_values[L"properties"] = json::Object();
+	m_values[L"properties"][key] = value;
 }
 
 void 
@@ -285,13 +245,7 @@ SarifFix::AddFileChange(const SarifFileChange &change)
 }
 
 void 
-SarifIssue::SetFullMessage(const std::wstring &message)
-{
-	m_values[L"fullMessage"] = AddEscapeCharacters(message);
-}
-
-void 
-SarifIssue::AddProperty(const std::wstring &key, const std::wstring &value)
+SarifResult::AddProperty(const std::wstring &key, const std::wstring &value)
 {
     if (m_values.find(L"properties") == m_values.end())
         m_values[L"properties"] = json::Object();
@@ -299,31 +253,25 @@ SarifIssue::AddProperty(const std::wstring &key, const std::wstring &value)
 }
 
 void
-SarifIssue::AddLocation(const SarifLocation &location)
+SarifResult::AddLocation(const SarifLocation &location)
 {
     m_values.GetArrayElement(L"locations").push_back(location.m_values);
 }
 
 void
-SarifIssue::AddExecutionFlow(const SarifExecutionFlowEntries &exeFlow)
+SarifResult::AddCodeFlow(const SarifCodeFlow &codeFlow)
 {
-    m_values.GetArrayElement(L"executionFlows").push_back(exeFlow.m_values);
+    m_values.GetArrayElement(L"codeFlows").push_back(codeFlow.m_values);
 }
 
 void
-SarifIssue::AddStack(const SarifExecutionFlowEntries &exeFlow)
-{
-    m_values.GetArrayElement(L"stacks").push_back(exeFlow.m_values);
-}
-
-void
-SarifIssue::AddFix(const SarifFix &fix)
+SarifResult::AddFix(const SarifFix &fix)
 {
     m_values.GetArrayElement(L"fixes").push_back(fix.m_values);
 }
 
 void 
-SarifFileReference::AddHash(const std::wstring &algoritm, const std::wstring &value)
+SarifFile::AddHash(const std::wstring &algoritm, const std::wstring &value)
 {
     SarifHash hash;
     hash.SetAlgorithm(algoritm);
@@ -332,26 +280,29 @@ SarifFileReference::AddHash(const std::wstring &algoritm, const std::wstring &va
 }
 
 void
-SarifFileReference::AddHash(const SarifHash &hash)
+SarifFile::AddHash(const SarifHash &hash)
 {
     m_values.GetArrayElement(L"hashes").push_back(hash.m_values);
 }
 
 void
-SarifRun::AddAnalysisTarget(const SarifFileReference &target)
+SarifRun::AddFile(const std::wstring &key, const SarifFile &file)
 {
-    m_values.GetArrayElement(L"analysisTargets").push_back(target.m_values);
+	if (m_values.find(L"files") == m_values.end())
+		m_values[L"file"] = json::Object();
+
+	m_values[L"files"][key] = file.m_values;
 }
 
 void 
-SarifRunLog::AddIssue(const SarifIssue &issue)
+SarifRun::AddResult(const SarifResult &result)
 {
-    m_values.GetArrayElement(L"results").push_back(issue.m_values);
+    m_values.GetArrayElement(L"results").push_back(result.m_values);
 }
 
 void
-SarifIssueLog::AddRunLog(const SarifRunLog &log)
+SarifLog::AddRun(const SarifRun &run)
 {
-    m_values.GetArrayElement(L"runLogs").push_back(log.m_values);
+    m_values.GetArrayElement(L"runs").push_back(run.m_values);
 }
 

@@ -17,7 +17,7 @@ namespace Microsoft.Sarif.Viewer
             {
                 case AnnotatedCodeLocationKind.Unknown: { return "Unknown"; }
                 case AnnotatedCodeLocationKind.Stack: { return "Stack(s)"; }
-                case AnnotatedCodeLocationKind.ExecutionFlow: { return "Execution Flow(s)"; }
+                case AnnotatedCodeLocationKind.CodeFlow: { return "Code Flow(s)"; }
             }
             throw new InvalidOperationException("Unexpected annotated location kind:" + kind.ToString());
         }
