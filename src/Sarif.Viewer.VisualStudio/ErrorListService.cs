@@ -90,7 +90,7 @@ namespace Microsoft.Sarif.Viewer
                 return null;
             }
 
-            foreach (IRule rule in runLog.Rules)
+            foreach (Rule rule in runLog.Rules.Values)
             {
                 if (rule.Id == ruleId) { return rule; }
             }
@@ -163,11 +163,9 @@ namespace Microsoft.Sarif.Viewer
                         HelpLink = rule?.HelpUri?.ToString()                        
                     };
 
-                    CaptureAnnotatedCodeLocations(result.CodeFlows, AnnotatedCodeLocationKind.CodeFlow, sarifError);
-                    CaptureAnnotatedCodeLocations(result.Stacks, AnnotatedCodeLocationKind.Stack, sarifError);
-
-                    // TODO need new code location kind
-                    //CaptureAnnotatedCodeLocations(result.RelatedLocations, AnnotatedCodeLocationKind.Stack, sarifError);
+                    CaptureAnnotatedCodeLocationCollections(result.Stacks, AnnotatedCodeLocationKind.Stack, sarifError);
+                    CaptureAnnotatedCodeLocationCollections(result.CodeFlows, AnnotatedCodeLocationKind.CodeFlow, sarifError);
+                     CaptureAnnotatedCodeLocations(result.RelatedLocations, AnnotatedCodeLocationKind.Stack, sarifError);
 
                     if (region != null)
                     {
@@ -225,29 +223,43 @@ namespace Microsoft.Sarif.Viewer
             }
         }
 
-        private static void CaptureAnnotatedCodeLocations(
+        private static void CaptureAnnotatedCodeLocationCollections(
             IEnumerable<IEnumerable<AnnotatedCodeLocation>> codeLocationCollections, 
             AnnotatedCodeLocationKind annotatedCodeLocationKind,
             SarifError sarifError)
         {
-            if (codeLocationCollections == null) { return; }
-
-            int annotationCollectionCount = 0;
+            if (codeLocationCollections == null)
+            {
+                return;
+            }
 
             foreach (IEnumerable<AnnotatedCodeLocation> codeLocations in codeLocationCollections)
             {
-                foreach (AnnotatedCodeLocation codeLocation in codeLocations)
+                CaptureAnnotatedCodeLocations(codeLocations, annotatedCodeLocationKind, sarifError);
+            }
+        }
+
+        private static void CaptureAnnotatedCodeLocations(IEnumerable<AnnotatedCodeLocation> codeLocations, AnnotatedCodeLocationKind annotatedCodeLocationKind, SarifError sarifError)
+        {
+            if (codeLocations == null)
+            {
+                return;
+            }
+
+            int annotationCollectionCount = 0;
+
+            foreach (AnnotatedCodeLocation codeLocation in codeLocations)
+            {
+                PhysicalLocation plc = codeLocation.PhysicalLocation;
+                sarifError.Annotations.Add(new AnnotatedCodeLocationModel()
                 {
-                    PhysicalLocation plc = codeLocation.PhysicalLocation;
-                    sarifError.Annotations.Add(new AnnotatedCodeLocationModel()
-                    {
-                        Index = annotationCollectionCount,
-                        Kind = annotatedCodeLocationKind,
-                        Region = plc.Region,
-                        FilePath = plc.Uri.LocalPath,
-                        Message = codeLocation.Message
-                    });
-                }
+                    Index = annotationCollectionCount,
+                    Kind = annotatedCodeLocationKind,
+                    Region = plc.Region,
+                    FilePath = plc.Uri.LocalPath,
+                    Message = codeLocation.Message
+                });
+
                 annotationCollectionCount++;
             }
         }

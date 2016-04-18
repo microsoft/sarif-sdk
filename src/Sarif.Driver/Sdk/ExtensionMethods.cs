@@ -169,16 +169,24 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
                 string formatId = result.FormattedMessage.FormatId;
                 string messageFormat;
 
-                string[] arguments = new string[result.FormattedMessage.Arguments.Count];
-                result.FormattedMessage.Arguments.CopyTo(arguments, 0);
+                string[] arguments = null;
+
+                if (result.FormattedMessage.Arguments != null)
+                {
+                    arguments = new string[result.FormattedMessage.Arguments.Count];
+                    result.FormattedMessage.Arguments.CopyTo(arguments, 0);
+                }
+                else
+                {
+                    arguments = new string[0];
+                }
 
                 Debug.Assert(rule.MessageFormats.ContainsKey(formatId));
 
                 messageFormat = rule.MessageFormats[formatId];
 
 #if DEBUG
-                int argumentsCount = result.FormattedMessage.Arguments.Count;
-
+                int argumentsCount = arguments.Length;
                 for (int i = 0; i < argumentsCount; i++)
                 {
                     // If this assert fires, there are too many arguments for the specifier

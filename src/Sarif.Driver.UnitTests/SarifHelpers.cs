@@ -20,7 +20,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
 
         public static void ValidateTool(Tool tool)
         {
-            Assert.Equal("Sarif.Driver", tool.Name);
+            Assert.Equal("Sarif", tool.Name);
             // TODO version, etc
         }
     }

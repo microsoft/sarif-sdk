@@ -26,8 +26,8 @@
     <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="Newtonsoft.Json, Version=7.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.7.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.6.0.8\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
@@ -64,11 +64,6 @@
     <Compile Include="Converters\FortifyStringsTests.cs" />
     <Compile Include="Converters\FxCopConverterTests.cs" />
     <Compile Include="ExtensionsTests.cs" />
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Resources.resx</DependentUpon>
-    </Compile>
     <Compile Include="Readers\AlgorithmKindConverterTests.cs" />
     <Compile Include="ResultLogObjectWriter.cs" />
     <Compile Include="SarifExtensionsTests.cs" />
@@ -82,7 +77,6 @@
     <Compile Include="Writers\MimeTypeTests.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="app.config" />
     <None Include="ExternalData\Binary with unsupported image type.csv" />
     <None Include="ExternalData\Binary with unsupported image type.csv.sarif" />
     <None Include="ExternalData\Documentation Not Found.csv" />
@@ -90,13 +84,6 @@
     <None Include="ExternalData\Missing Symbols.csv" />
     <None Include="ExternalData\Missing Symbols.csv.sarif" />
     <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Properties\Resources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <Content Include="ExternalData\apiscanlogo.gif" />

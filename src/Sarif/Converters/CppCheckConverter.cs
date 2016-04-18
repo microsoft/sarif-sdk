@@ -120,7 +120,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             };
 
             var fileInfoFactory = new FileInfoFactory(uri => MimeType.Cpp);
-            Dictionary<Uri, IList<FileData>> fileDictionary = fileInfoFactory.Create(results);
+            Dictionary<string, IList<FileData>> fileDictionary = fileInfoFactory.Create(results);
 
             issueWriter.WriteTool(tool);
             if (fileDictionary != null && fileDictionary.Count > 0) { issueWriter.WriteFiles(fileDictionary); }

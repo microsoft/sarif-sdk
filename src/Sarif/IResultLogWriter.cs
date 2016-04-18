@@ -41,7 +41,19 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// A dictionary whose keys are the URIs of scanned files and whose values provide
         /// information about those files.
         /// </param>
-        void WriteFiles(IDictionary<Uri, IList<FileData>> fileDictionary);
+        void WriteFiles(IDictionary<string, IList<FileData>> fileDictionary);
+
+        /// <summary>
+        /// Write information about rules to the log. This information may appear
+        /// after the results, as the relevant set of rules might not be known until
+        /// all results have been generated. A Sarif file may also contain only rules
+        /// metadata.
+        /// </summary>
+        /// <param name="fileDictionary">
+        /// A dictionary whose keys are the URIs of scanned files and whose values provide
+        /// information about those files.
+        /// </param>
+        void WriteRules(IDictionary<string, IRule> rules);
 
         /// <summary>
         /// Initialize the results array associated with the current output log. SARIF producers that

@@ -69,7 +69,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         /// A dictionary whose keys are the URIs of scanned files and whose values provide
         /// information about those files.
         /// </param>
-        public void WriteFiles(IDictionary<Uri, IList<FileData>> fileDictionary)
+        public void WriteFiles(IDictionary<string, IList<FileData>> fileDictionary)
         {
             throw new NotImplementedException();
         }
@@ -135,6 +135,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             {
                 WriteResult(result);
             }
+        }
+
+        public void WriteRules(IDictionary<string, IRule> rules)
+        {
+            throw new NotImplementedException();
         }
     }
 }

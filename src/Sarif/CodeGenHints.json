@@ -36,13 +36,18 @@
   ],
   "Run.Files": [
     {
-      "$type": "Microsoft.Json.Schema.ToDotNet.DictionaryHint, Microsoft.Json.Schema.ToDotNet",
-      "keyTypeName": "Uri"
+      "$type": "Microsoft.Json.Schema.ToDotNet.DictionaryHint, Microsoft.Json.Schema.ToDotNet"
     }
   ],
   "Run.Properties": [
     {
       "$type": "Microsoft.Json.Schema.ToDotNet.DictionaryHint, Microsoft.Json.Schema.ToDotNet"
+    }
+  ],
+  "Run.Rules": [
+    {
+      "$type": "Microsoft.Json.Schema.ToDotNet.DictionaryHint, Microsoft.Json.Schema.ToDotNet",
+      "valueTypeName": "Rule"
     }
   ],
   "rule": [

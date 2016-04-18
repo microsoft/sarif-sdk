@@ -119,7 +119,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
             run.Results = new List<Result>();
 
             log.Runs.Add(run);
-            run.Rules = new List<Rule>();
+            run.Rules = new Dictionary<string, Rule>();
 
             SortedDictionary<int, Rule> sortedRules = new SortedDictionary<int, Rule>();
 
@@ -144,7 +144,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
 
             foreach (Rule rule in sortedRules.Values)
             {
-                run.Rules.Add(rule);
+                run.Rules[rule.Id] = rule;
             }
 
             var settings = new JsonSerializerSettings()
