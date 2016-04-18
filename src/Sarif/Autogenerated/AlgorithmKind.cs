@@ -8,10 +8,11 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// <summary>
     /// Values specifying different hashing algorithms.
     /// </summary>
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.10.0.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.11.0.0")]
     public enum AlgorithmKind
     {
         Unknown,
+        Authentihash,
         Blake256,
         Blake512,
         Ecoh,
@@ -30,6 +31,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         RipeMD128,
         RipeMD160,
         RipeMD320,
+        Sdhash,
         Sha1,
         Sha224,
         Sha256,
@@ -39,8 +41,10 @@ namespace Microsoft.CodeAnalysis.Sarif
         Skein,
         Snefru,
         SpectralHash,
+        Ssdeep,
         Swifft,
         Tiger,
+        Tlsh,
         Whirlpool
     }
 }

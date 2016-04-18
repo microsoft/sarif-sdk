@@ -9,6 +9,12 @@
       "$type": "Microsoft.Json.Schema.ToDotNet.DictionaryHint, Microsoft.Json.Schema.ToDotNet"
     }
   ],
+  "file": [
+    {
+      "$type": "Microsoft.Json.Schema.ToDotNet.ClassNameHint, Microsoft.Json.Schema.ToDotNet",
+      "className": "FileData"
+    }
+  ],
   "FileData.Properties": [
     {
       "$type": "Microsoft.Json.Schema.ToDotNet.DictionaryHint, Microsoft.Json.Schema.ToDotNet"
@@ -74,6 +80,7 @@
       "description": "Values specifying different hashing algorithms.",
       "zeroValue": "Unknown",
       "enum": [
+        "Authentihash",
         "Blake256",
         "Blake512",
         "Ecoh",
@@ -92,6 +99,7 @@
         "RipeMD128",
         "RipeMD160",
         "RipeMD320",
+        "Sdhash",
         "Sha1",
         "Sha224",
         "Sha256",
@@ -101,8 +109,10 @@
         "Skein",
         "Snefru",
         "SpectralHash",
+        "Ssdeep",
         "Swifft",
         "Tiger",
+        "Tlsh",
         "Whirlpool"
       ]
     }
