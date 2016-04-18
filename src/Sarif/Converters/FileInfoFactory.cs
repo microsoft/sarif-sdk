@@ -8,16 +8,16 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 {
     internal class FileInfoFactory
     {
-        private readonly Dictionary<Uri, IList<FileData>> _fileInfoDictionary;
-        private readonly Func<Uri, string> _mimeTypeClassifier;
+        private readonly Dictionary<string, IList<FileData>> _fileInfoDictionary;
+        private readonly Func<string, string> _mimeTypeClassifier;
 
-        internal FileInfoFactory(Func<Uri, string> mimeTypeClassifier)
+        internal FileInfoFactory(Func<string, string> mimeTypeClassifier)
         {
             _mimeTypeClassifier = mimeTypeClassifier;
-            _fileInfoDictionary = new Dictionary<Uri, IList<FileData>>();
+            _fileInfoDictionary = new Dictionary<string, IList<FileData>>();
         }
 
-        internal Dictionary<Uri, IList<FileData>> Create(IEnumerable<Result> results)
+        internal Dictionary<string, IList<FileData>> Create(IEnumerable<Result> results)
         {
             foreach (Result result in results)
             {
@@ -74,7 +74,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
         private void AddFile(PhysicalLocation physicalLocation)
         {
-            Uri key = physicalLocation.Uri;
+            string key = physicalLocation.Uri.ToString();
 
             if (!_fileInfoDictionary.ContainsKey(key))
             {

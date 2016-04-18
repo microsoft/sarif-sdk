@@ -52,8 +52,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
 
                 uut.WriteTool(s_defaultTool);
 
-                var files = new Dictionary<Uri, IList<FileData>> {
-                    [new Uri("http://abc/")] = new List<FileData>
+                var files = new Dictionary<string, IList<FileData>> {
+                    ["http://abc/"] = new List<FileData>
                     {
                         new FileData()
                         {

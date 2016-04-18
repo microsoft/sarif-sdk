@@ -324,9 +324,13 @@ namespace Microsoft.CodeAnalysis.Sarif
 
                 if (node.Rules != null)
                 {
-                    for (int index_0 = 0; index_0 < node.Rules.Count; ++index_0)
+                    foreach (var key in node.Rules.Keys)
                     {
-                        node.Rules[index_0] = VisitNullChecked(node.Rules[index_0]);
+                        var value = node.Rules[key];
+                        if (value != null)
+                        {
+                            node.Rules[key] = VisitNullChecked(value);
+                        }
                     }
                 }
             }

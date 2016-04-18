@@ -95,7 +95,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         /// A dictionary whose keys are the URIs of scanned files and whose values provide
         /// information about those files.
         /// </param>
-        public void WriteFiles(IDictionary<Uri, IList<FileData>> fileDictionary)
+        public void WriteFiles(IDictionary<string, IList<FileData>> fileDictionary)
         {
             if (fileDictionary == null)
             {
@@ -112,7 +112,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             _writeConditions |= Conditions.FilesWritten;
         }
 
-        public void WriteRules(IEnumerable<IRule> rules)
+        public void WriteRules(IDictionary<string, IRule> rules)
         {
             if (rules == null)
             {
@@ -124,23 +124,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             EnsureStateNotAlreadySet(Conditions.Disposed | Conditions.RulesWritten);
 
             _jsonWriter.WritePropertyName("rules");
-            _jsonWriter.WriteStartArray();
-
-            foreach(IRule rule in rules)
-            {
-                Rule newRule = new Rule();
-                newRule.Id = rule.Id;
-                newRule.Name = rule.Name;
-                newRule.FullDescription = rule.FullDescription;
-                newRule.ShortDescription = rule.ShortDescription;
-                newRule.Options = rule.Options;
-                newRule.Properties = rule.Properties;
-                newRule.MessageFormats = rule.MessageFormats;
-
-                _serializer.Serialize(_jsonWriter, newRule, typeof(Rule));
-            }
-
-            _jsonWriter.WriteEndArray();
+            _serializer.Serialize(_jsonWriter, rules, typeof(Dictionary<string, Rule>));
 
             _writeConditions |= Conditions.RulesWritten;
         }

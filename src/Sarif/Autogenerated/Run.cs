@@ -42,7 +42,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// A dictionary, each of whose keys is a URI and each of whose values is an array of file objects representing the location of a single file scanned during the run.
         /// </summary>
         [DataMember(Name = "files", IsRequired = false, EmitDefaultValue = false)]
-        public IDictionary<Uri, IList<FileData>> Files { get; set; }
+        public IDictionary<string, IList<FileData>> Files { get; set; }
 
         /// <summary>
         /// The set of results contained in an SARIF log. The results array can be omitted when a run is solely exporting rules metadata. It must be present (but may be empty) in the event that a log file represents an actual scan.
@@ -51,10 +51,10 @@ namespace Microsoft.CodeAnalysis.Sarif
         public IList<Result> Results { get; set; }
 
         /// <summary>
-        /// An array of 'rule' objects that describe all rules associated with an analysis tool or a specific run of an analysis tool.
+        /// A dictionary, each of whose keys is a string and each of whose values is a 'rule' object, that describe all rules associated with an analysis tool or a specific run of an analysis tool.
         /// </summary>
         [DataMember(Name = "rules", IsRequired = false, EmitDefaultValue = false)]
-        public IList<Rule> Rules { get; set; }
+        public IDictionary<string, Rule> Rules { get; set; }
 
         /// <summary>
         /// The date and time at which the run started. See "Date/time properties" in the SARIF spec for the required format.
@@ -142,14 +142,18 @@ namespace Microsoft.CodeAnalysis.Sarif
 
                 if (Rules != null)
                 {
+                    // Use xor for dictionaries to be order-independent.
+                    int xor_1 = 0;
                     foreach (var value_2 in Rules)
                     {
-                        result = result * 31;
-                        if (value_2 != null)
+                        xor_1 ^= value_2.Key.GetHashCode();
+                        if (value_2.Value != null)
                         {
-                            result = (result * 31) + value_2.GetHashCode();
+                            xor_1 ^= value_2.Value.GetHashCode();
                         }
                     }
+
+                    result = (result * 31) + xor_1;
                 }
 
                 result = (result * 31) + StartTime.GetHashCode();
@@ -167,17 +171,17 @@ namespace Microsoft.CodeAnalysis.Sarif
                 if (Properties != null)
                 {
                     // Use xor for dictionaries to be order-independent.
-                    int xor_1 = 0;
+                    int xor_2 = 0;
                     foreach (var value_3 in Properties)
                     {
-                        xor_1 ^= value_3.Key.GetHashCode();
+                        xor_2 ^= value_3.Key.GetHashCode();
                         if (value_3.Value != null)
                         {
-                            xor_1 ^= value_3.Value.GetHashCode();
+                            xor_2 ^= value_3.Value.GetHashCode();
                         }
                     }
 
-                    result = (result * 31) + xor_1;
+                    result = (result * 31) + xor_2;
                 }
 
                 if (Tags != null)
@@ -274,19 +278,20 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             if (!Object.ReferenceEquals(Rules, other.Rules))
             {
-                if (Rules == null || other.Rules == null)
+                if (Rules == null || other.Rules == null || Rules.Count != other.Rules.Count)
                 {
                     return false;
                 }
 
-                if (Rules.Count != other.Rules.Count)
+                foreach (var value_2 in Rules)
                 {
-                    return false;
-                }
+                    Rule value_3;
+                    if (!other.Rules.TryGetValue(value_2.Key, out value_3))
+                    {
+                        return false;
+                    }
 
-                for (int index_2 = 0; index_2 < Rules.Count; ++index_2)
-                {
-                    if (!Object.Equals(Rules[index_2], other.Rules[index_2]))
+                    if (!Object.Equals(value_2.Value, value_3))
                     {
                         return false;
                     }
@@ -320,15 +325,15 @@ namespace Microsoft.CodeAnalysis.Sarif
                     return false;
                 }
 
-                foreach (var value_2 in Properties)
+                foreach (var value_4 in Properties)
                 {
-                    string value_3;
-                    if (!other.Properties.TryGetValue(value_2.Key, out value_3))
+                    string value_5;
+                    if (!other.Properties.TryGetValue(value_4.Key, out value_5))
                     {
                         return false;
                     }
 
-                    if (value_2.Value != value_3)
+                    if (value_4.Value != value_5)
                     {
                         return false;
                     }
@@ -347,9 +352,9 @@ namespace Microsoft.CodeAnalysis.Sarif
                     return false;
                 }
 
-                for (int index_3 = 0; index_3 < Tags.Count; ++index_3)
+                for (int index_2 = 0; index_2 < Tags.Count; ++index_2)
                 {
-                    if (Tags[index_3] != other.Tags[index_3])
+                    if (Tags[index_2] != other.Tags[index_2])
                     {
                         return false;
                     }
@@ -402,7 +407,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="tags">
         /// An initialization value for the <see cref="P: Tags" /> property.
         /// </param>
-        public Run(Tool tool, string invocation, IDictionary<Uri, IList<FileData>> files, IEnumerable<Result> results, IEnumerable<Rule> rules, DateTime startTime, DateTime endTime, string correlationId, string architecture, IDictionary<string, string> properties, IEnumerable<string> tags)
+        public Run(Tool tool, string invocation, IDictionary<string, IList<FileData>> files, IEnumerable<Result> results, IDictionary<string, Rule> rules, DateTime startTime, DateTime endTime, string correlationId, string architecture, IDictionary<string, string> properties, IEnumerable<string> tags)
         {
             Init(tool, invocation, files, results, rules, startTime, endTime, correlationId, architecture, properties, tags);
         }
@@ -444,7 +449,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new Run(this);
         }
 
-        private void Init(Tool tool, string invocation, IDictionary<Uri, IList<FileData>> files, IEnumerable<Result> results, IEnumerable<Rule> rules, DateTime startTime, DateTime endTime, string correlationId, string architecture, IDictionary<string, string> properties, IEnumerable<string> tags)
+        private void Init(Tool tool, string invocation, IDictionary<string, IList<FileData>> files, IEnumerable<Result> results, IDictionary<string, Rule> rules, DateTime startTime, DateTime endTime, string correlationId, string architecture, IDictionary<string, string> properties, IEnumerable<string> tags)
         {
             if (tool != null)
             {
@@ -454,7 +459,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             Invocation = invocation;
             if (files != null)
             {
-                Files = new Dictionary<Uri, IList<FileData>>();
+                Files = new Dictionary<string, IList<FileData>>();
                 foreach (var value_0 in files)
                 {
                     var destination_0 = new List<FileData>();
@@ -494,20 +499,11 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             if (rules != null)
             {
-                var destination_2 = new List<Rule>();
+                Rules = new Dictionary<string, Rule>();
                 foreach (var value_3 in rules)
                 {
-                    if (value_3 == null)
-                    {
-                        destination_2.Add(null);
-                    }
-                    else
-                    {
-                        destination_2.Add(new Rule(value_3));
-                    }
+                    Rules.Add(value_3.Key, new Rule(value_3.Value));
                 }
-
-                Rules = destination_2;
             }
 
             StartTime = startTime;
@@ -521,13 +517,13 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             if (tags != null)
             {
-                var destination_3 = new List<string>();
+                var destination_2 = new List<string>();
                 foreach (var value_4 in tags)
                 {
-                    destination_3.Add(value_4);
+                    destination_2.Add(value_4);
                 }
 
-                Tags = destination_3;
+                Tags = destination_2;
             }
         }
     }
