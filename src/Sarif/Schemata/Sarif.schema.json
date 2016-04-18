@@ -88,7 +88,7 @@
       },
       "required": ["uri", "replacements"]
     },
-    "fileData": {
+    "file": {
       "description": "A single file. In some cases, this file might be nested within another file.",
       "additionalProperties": false,
       "type": "object",
@@ -596,7 +596,7 @@
           "additionalProperties": {
             "type": "array",
             "items": {
-              "$ref": "#/definitions/fileData"
+              "$ref": "#/definitions/file"
             }
           }
         },

@@ -9,6 +9,12 @@
       "$type": "Microsoft.Json.Schema.ToDotNet.DictionaryHint, Microsoft.Json.Schema.ToDotNet"
     }
   ],
+  "file": [
+    {
+      "$type": "Microsoft.Json.Schema.ToDotNet.ClassNameHint, Microsoft.Json.Schema.ToDotNet",
+      "className": "FileData"
+    }
+  ],
   "FileData.Properties": [
     {
       "$type": "Microsoft.Json.Schema.ToDotNet.DictionaryHint, Microsoft.Json.Schema.ToDotNet"

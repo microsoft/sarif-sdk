@@ -11,7 +11,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// A hash value of some file or collection of files, together with the algorithm used to compute the hash.
     /// </summary>
     [DataContract]
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.10.0.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.11.0.0")]
     public partial class Hash : ISarifNode, IEquatable<Hash>
     {
         /// <summary>

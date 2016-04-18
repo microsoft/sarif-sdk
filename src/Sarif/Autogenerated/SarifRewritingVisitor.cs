@@ -9,7 +9,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// <summary>
     /// Rewriting visitor for the Sarif object model.
     /// </summary>
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.10.0.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.11.0.0")]
     public abstract class SarifRewritingVisitor
     {
         /// <summary>
