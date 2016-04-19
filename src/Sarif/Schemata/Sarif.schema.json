@@ -5,89 +5,76 @@
   "additionalProperties": false,
   "type": "object",
   "properties": {
-    "version": 
-    {
+    "version": {
       "description": "The SARIF format version of this log file.",
-      "enum": ["1.0.0-beta.3"]
+      "enum": [ "1.0.0-beta.3" ]
     },
 
-    "runs": 
-    {
+    "runs": {
       "description": "The set of runs contained in this log file.",
       "type": "array",
       "minItems": 1,
-      "items":
-      {
+      "items": {
         "$ref": "#/definitions/run"
       }
     }
   },
-  "required": ["version", "runs"],
-  "definitions":
-  {
-    "annotatedCodeLocation": 
-    {
+  "required": [ "version", "runs" ],
+  "definitions": {
+    "annotatedCodeLocation": {
       "description": "A code annotation that consists of single physical location and associated message, used to express stacks, code flows through a method, or other locations that are related to a result.",
       "additionalProperties": false,
       "type": "object",
       "properties": {
-        "physicalLocation": 
-        {
+        "physicalLocation": {
           "description": "A code location to which this annotation refers.",
           "$ref": "#/definitions/physicalLocation"
         },
 
         "message": {
-          "description": "A message associated with this annotation, if applicable.",
+          "description": "A message relevant to this annotation, if applicable.",
           "type": "string"
         },
 
-        "properties": 
-        {
+        "properties": {
           "description": "Key/value pairs that provide additional details about the code location.",
           "type": "object",
-          "default": {}
+          "default": { }
         },
 
-        "tags": 
-        {
-          "description": "A unique set of strings that provide additional information for the associated code location.",
+        "tags": {
+          "description": "A unique set of strings that provide additional information for the code location.",
           "type": "array",
           "uniqueItems": true,
-          "items":
-          {
+          "items": {
             "type": "string",
-            "default": []
+            "default": [ ]
           }
         }
       },
-      "required": ["physicalLocation"]
+      "required": [ "physicalLocation" ]
     },
-    "fileChange": 
-    {
+    "fileChange": {
       "description": "A change to a single file.",
       "additionalProperties": false,
       "type": "object",
       "properties": {
-        "uri": 
-        {
+        "uri": {
           "description": "A string that represents the location of the file to change as a valid URI.",
           "type": "string",
           "format": "uri"
         },
 
-        "replacements": 
-        {
+        "replacements": {
           "description": "An array of replacement objects, each of which represents the replacement of a single range of bytes in a single file specified by 'uri'.",
           "type": "array",
           "minItems": 1,
-          "items":
-          {
+          "items": {
             "$ref": "#/definitions/replacement"
           }
         }
       },
-      "required": ["uri", "replacements"]
+      "required": [ "uri", "replacements" ]
     },
     "file": {
       "description": "A single file. In some cases, this file might be nested within another file.",
@@ -141,88 +128,74 @@
         }
       }
     },
-    "fix": 
-    {
+    "fix": {
       "description": "A proposed fix for the problem represented by a result object. A fix specifies a set of file to modify. For each file, it specifies a set of bytes to remove, and provides a set of new bytes to replace them.",
       "additionalProperties": false,
       "type": "object",
       "properties": {
-        "description": 
-        {
+        "description": {
           "description": "A string that describes the proposed fix, enabling viewers to present a proposed change to an end user.",
           "type": "string"
         },
 
-        "fileChanges": 
-        {
-          "description": "A message associated with this annotation, if applicable.",
+        "fileChanges": {
+          "description": "A message relevant to this annotation, if applicable.",
           "type": "array",
-          "items":
-          {
+          "items": {
             "$ref": "#/definitions/fileChange"
           }
         }
       },
-      "required": ["description", "fileChanges"]
+      "required": [ "description", "fileChanges" ]
     },
-    "formattedMessage": 
-    {
+    "formattedMessage": {
       "description": "Contains information that can be used to construct a formatted message that describes a result.",
       "additionalProperties": false,
       "type": "object",
       "properties": {
-        "formatId": 
-        {
+        "formatId": {
           "description": "A string that identifies the message format used to format the message that describes this result. The value of formatId must correspond to one of the names in the set of name/value pairs contained in the 'messageFormats' property of the rule object whose 'id' property matches the 'ruleId' property of this result.",
           "type": "string"
         },
 
-        "arguments": 
-        {
+        "arguments": {
           "description": "An array of strings that will be used, in combination with a message format, to construct a result message.",
           "type": "array",
-          "items":
-          {
+          "items": {
             "type": "string"
           }
         }
       },
-      "required": ["formatId"]
+      "required": [ "formatId" ]
     },
-    "hash": 
-    {
+    "hash": {
       "description": "A hash value of some file or collection of files, together with the algorithm used to compute the hash.",
       "additionalProperties": false,
       "type": "object",
       "properties": {
-        "value": 
-        {
+        "value": {
           "description": "The hash value of some file or collection of files, computed by the algorithm named in the 'algorithm' property.",
           "type": "string"
         },
 
-        "algorithm": 
-        {
+        "algorithm": {
           "description": "A string specifying the name of the algorithm used to compute the hash value specified in the 'value' property.",
-          "enum": [ "Authentihash", "BLAKE-256","BLAKE-512","ECOH","FSB","GOST","Groestl","HAS-160","HAVAL","JH","MD2","MD4","MD5","MD6","RadioGatun","RIPEMD","RIPEMD-128","RIPEMD-160","RIPEMD-320","Sdhash","SHA-1","SHA-224","SHA-256","SHA-384","SHA-512","SHA-3","Skein","Snefru","Spectral Hash","Ssdeep","SWIFFT","Tiger","Tlsh","Whirlpool"]
+          "enum": [ "Authentihash", "BLAKE-256", "BLAKE-512", "ECOH", "FSB", "GOST", "Groestl", "HAS-160", "HAVAL", "JH", "MD2", "MD4", "MD5", "MD6", "RadioGatun", "RIPEMD", "RIPEMD-128", "RIPEMD-160", "RIPEMD-320", "Sdhash", "SHA-1", "SHA-224", "SHA-256", "SHA-384", "SHA-512", "SHA-3", "Skein", "Snefru", "Spectral Hash", "Ssdeep", "SWIFFT", "Tiger", "Tlsh", "Whirlpool" ]
         }
       },
-      "required": ["value", "algorithm"]
+      "required": [ "value", "algorithm" ]
     },
-    "location": 
-    {
+    "location": {
       "description": "The location where an analysis tool produced a result.",
       "additionalProperties": false,
       "type": "object",
       "properties": {
-        "analysisTarget": 
-        {
+        "analysisTarget": {
           "description": "Identifies the file that the analysis tool was instructed to scan. This need not be the same as the file where the result actually occurred.",
           "$ref": "#/definitions/physicalLocation"
         },
 
-        "resultFile": 
-        {
+        "resultFile": {
           "description": "Identifies the file where the analysis tool produced the result.",
           "$ref": "#/definitions/physicalLocation"
         },
@@ -233,15 +206,14 @@
         },
 
         "logicalLocationKey": {
-          "description": "A string used as a key into the logicalLocations dictionary, in case the string specified by logicalLocation is not unique.",
-          "type":  "string"
+          "description": "A string used as a key into the logicalLocations dictionary, in case the string specified by 'fullyQualifiedLogicalName' is not unique.",
+          "type": "string"
         },
 
-        "properties": 
-        {
+        "properties": {
           "description": "Key/value pairs that provide additional information about the location.",
           "type": "object",
-          "default": {}
+          "default": { }
         },
 
         "tags": {
@@ -255,14 +227,12 @@
         }
       }
     },
-    "logicalLocationComponent": 
-    {
+    "logicalLocationComponent": {
       "description": "A component of a logical location.",
       "additionalProperties": false,
       "type": "object",
       "properties": {
-        "name": 
-        {
+        "name": {
           "description": "Identifies the construct in which the result occurred. For example, this property might contain the name of a class or a method.",
           "type": "string"
         },
@@ -271,59 +241,50 @@
           "description": "The type of construct this logicalLocationComponent refers to. Should be one of 'declaration', 'function', 'member', 'module', 'namespace', 'package', 'resource', or 'type', if any of those accurately describe the construct.",
           "type": "string"
         }
-      },
-      "required": ["name"]
+      }
     },
-    "physicalLocation": 
-    {
+    "physicalLocation": {
       "description": "The physical location where a result was detected. Specifies a reference to a programming artifact together with a range of bytes or characters within that artifact.",
       "additionalProperties": false,
       "type": "object",
       "properties": {
-        "uri": 
-        {
+        "uri": {
           "description": "The location of the file as a valid URI.",
           "type": "string",
           "format": "uri"
         },
 
-        "region": 
-        {
+        "region": {
           "description": "The region within the file where the result was detected.",
           "$ref": "#/definitions/region"
         }
       },
-      "required": ["uri"]
+      "required": [ "uri" ]
     },
-    "region": 
-    {
+    "region": {
       "description": "A region within a file where a result was detected.",
       "additionalProperties": false,
       "type": "object",
       "properties": {
-        "startLine": 
-        {
+        "startLine": {
           "description": "The line number of the first character in the region.",
           "type": "integer",
           "minimum": 1
         },
 
-        "startColumn": 
-        {
+        "startColumn": {
           "description": "The column number of the first character in the region.",
           "type": "integer",
           "minimum": 1
         },
 
-        "endLine": 
-        {
+        "endLine": {
           "description": "The line number of the last character in the region.",
           "type": "integer",
           "minimum": 1
         },
 
-        "endColumn": 
-        {
+        "endColumn": {
           "description": "The column number of the last character in the region.",
           "type": "integer",
           "minimum": 1
@@ -335,230 +296,193 @@
           "minimum": 0
         },
 
-        "length": 
-        {
+        "length": {
           "description": "The length of the region in bytes or characters.",
           "type": "integer",
           "minimum": 0
         }
       }
     },
-    "replacement": 
-    {
+    "replacement": {
       "description": "The replacement of a single range of bytes in a file. Specifies the location within the file where the replacement is to be made, the number of bytes to remove at that location, and a sequence of bytes to insert at that location.",
       "additionalProperties": false,
       "type": "object",
       "properties": {
-        "offset": 
-        {
+        "offset": {
           "description": "A non-negative integer specifying the offset in bytes from the beginning of the file at which bytes are to be removed, inserted or both. An offset of 0 shall denote the first byte in the file.",
           "type": "integer",
           "minimum": 0
         },
 
-        "deletedLength": 
-        {
+        "deletedLength": {
           "description": "The number of bytes to delete, starting at the byte offset specified by offset, measured from the beginning of the file.",
           "type": "integer",
           "minimum": 1
         },
 
-        "insertedBytes": 
-        {
+        "insertedBytes": {
           "description": "The byte sequence to be inserted at the byte offset specified by the 'offset' property, measured from the beginning of the file.",
           "type": "string"
         }
       },
-      "required": ["offset"]
+      "required": [ "offset" ]
     },
-    "result": 
-    {
+    "result": {
       "description": "A result produced by an analysis tool.",
       "additionalProperties": false,
       "type": "object",
       "properties": {
-        "ruleId": 
-        {
+        "ruleId": {
           "description": "A stable, opaque identifier for the rule that was evaluated to produce the result.",
           "type": "string"
         },
 
-        "kind": 
-        {
+        "kind": {
           "description": "The kind of observation this result represents. If this property is not present, its implied value is 'warning'.",
           "default": "warning",
           "enum": [ "pass", "warning", "error", "notApplicable", "configurationError", "internalError", "note" ]
         },
 
-        "fullMessage": 
-        {
+        "fullMessage": {
           "description": "A string that describes the result.",
           "type": "string"
         },
 
-        "shortMessage": 
-        {
+        "shortMessage": {
           "description": "A string that describes the result, displayed when visible space is limited to a single line of text.",
           "type": "string"
         },
 
-        "formattedMessage": 
-        {
+        "formattedMessage": {
           "description": "A 'formattedMessage' object that can be used to construct a formatted message that describes the result. If the 'formattedMessage' property is present on a result, the 'fullMessage' property shall not be present. If the 'fullMessage' property is present on an result, the 'formattedMessage' property shall not be present",
           "$ref": "#/definitions/formattedMessage"
         },
 
-        "locations": 
-        {
+        "locations": {
           "description": "One or more locations where the result occurred. Specify only one location unless the problem indicated by the result can only be corrected by making a change at every specified location.",
           "type": "array",
           "minItems": 1,
-          "items":
-          {
+          "items": {
             "$ref": "#/definitions/location"
           }
         },
 
-        "toolFingerprint": 
-        {
+        "toolFingerprint": {
           "description": "A string that contributes to the unique identity of the result.",
           "type": "string"
         },
 
-        "stacks": 
-        {
+        "stacks": {
           "description": "An array of arrays of 'annotatedCodeLocation' objects, each inner array of which comprises a call stack.",
           "type": "array",
           "minItems": 1,
-          "items":
-          {
+          "items": {
             "type": "array",
             "minItems": 1,
-            "items":
-            {
+            "items": {
               "$ref": "#/definitions/annotatedCodeLocation"
             }
           }
         },
 
-        "codeFlows": 
-        {
+        "codeFlows": {
           "description": "An array of arrays of 'annotatedCodeLocation` objects, each inner array of which comprises a code flow (a possible execution path through the code).",
           "type": "array",
           "minItems": 1,
-          "items":
-          {
+          "items": {
             "type": "array",
             "minItems": 1,
-            "items":
-            {
+            "items": {
               "$ref": "#/definitions/annotatedCodeLocation"
             }
           }
         },
 
-        "relatedLocations": 
-        {
+        "relatedLocations": {
           "description": "A grouped set of locations and messages, if available, that represent code areas that are related to this result.",
           "type": "array",
           "minItems": 1,
-          "items":
-          {
+          "items": {
             "$ref": "#/definitions/annotatedCodeLocation"
           }
         },
 
-        "isSuppressedInSource": 
-        {
+        "isSuppressedInSource": {
           "description": "A flag indicating whether or not this result was suppressed in source code.",
           "type": "boolean"
         },
 
-        "fixes": 
-        {
+        "fixes": {
           "description": "An array of 'fix' objects, each of which represents a proposed fix to the problem indicated by the result.",
           "type": "array",
           "minItems": 1,
-          "items":
-          {
+          "items": {
             "$ref": "#/definitions/fix"
           }
         },
 
-        "properties": 
-        {
+        "properties": {
           "description": "Key/value pairs that provide additional information about the result.",
           "type": "object",
-          "default": {}
+          "default": { }
         },
 
-        "tags": 
-        {
+        "tags": {
           "description": "A set of distinct strings that provide additional information about the result.",
           "type": "array",
           "uniqueItems": true,
-          "items":
-          {
+          "items": {
             "type": "string",
-            "default": []
+            "default": [ ]
           }
         }
       }
     },
-    "rule": 
-    {
+    "rule": {
       "description": "Describes an analysis rule.",
       "additionalProperties": false,
       "type": "object",
       "properties": {
-        "id": 
-        {
+        "id": {
           "description": "A stable, opaque identifier for the rule.",
           "type": "string"
         },
 
-        "name": 
-        {
+        "name": {
           "description": "A rule identifier that is understandable to an end user.",
           "type": "string"
         },
 
-        "shortDescription": 
-        {
+        "shortDescription": {
           "description": "A concise description of the rule. Should be a single sentence that is understandable when visible space is limited to a single line of text.",
           "type": "string"
         },
 
-        "fullDescription": 
-        {
+        "fullDescription": {
           "description": "A string that describes the rule. Should, as far as possible, provide details sufficient to enable resolution of any problem indicated by the result.",
           "type": "string"
         },
 
-        "options": 
-        {
+        "options": {
           "description": "A dictionary consisting of a set of name/value pairs with arbitrary names. Describes the set of configurable options supported by the rule. The value within each name/value pair shall be a string, which may be the empty string. The value shall not be a dictionary or sub-object.",
           "type": "object"
         },
 
-        "messageFormats": 
-        {
+        "messageFormats": {
           "description": "A set of name/value pairs with arbitrary names. The value within each name/value pair shall consist of plain text interspersed with placeholders, which can be used to format a message in combination with an arbitrary number of additional string arguments.",
           "type": "object"
         },
 
-        "helpUri": 
-        {
+        "helpUri": {
           "description": "A URI where the primary documentation for the rule can be found.",
           "type": "string",
           "format": "uri"
         },
 
-        "properties": 
-        {
+        "properties": {
           "description": "Key/value pairs that provide additional information about the rule.",
           "type": "object",
-          "default": {}
+          "default": { }
         },
 
         "tags": {
@@ -571,10 +495,9 @@
           }
         }
       },
-      "required": ["id"]
+      "required": [ "id" ]
     },
-    "run": 
-    {
+    "run": {
       "description": "Describes a single run of an analysis tool, and contains the output of that run.",
       "additionalProperties": false,
       "type": "object",
@@ -668,8 +591,7 @@
       },
       "required": [ "tool" ]
     },
-    "tool": 
-    {
+    "tool": {
       "description": "The analysis tool that was run.",
       "additionalProperties": false,
       "type": "object",
@@ -716,7 +638,7 @@
           }
         }
       },
-      "required": ["name"]
+      "required": [ "name" ]
     }
   }
 }

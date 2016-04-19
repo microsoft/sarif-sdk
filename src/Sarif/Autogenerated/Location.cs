@@ -45,7 +45,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         public string FullyQualifiedLogicalName { get; set; }
 
         /// <summary>
-        /// A string used as a key into the logicalLocations dictionary, in case the string specified by logicalLocation is not unique.
+        /// A string used as a key into the logicalLocations dictionary, in case the string specified by 'fullyQualifiedLogicalName' is not unique.
         /// </summary>
         [DataMember(Name = "logicalLocationKey", IsRequired = false, EmitDefaultValue = false)]
         public string LogicalLocationKey { get; set; }

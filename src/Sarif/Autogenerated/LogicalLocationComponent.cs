@@ -28,7 +28,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <summary>
         /// Identifies the construct in which the result occurred. For example, this property might contain the name of a class or a method.
         /// </summary>
-        [DataMember(Name = "name", IsRequired = true)]
+        [DataMember(Name = "name", IsRequired = false, EmitDefaultValue = false)]
         public string Name { get; set; }
 
         /// <summary>
