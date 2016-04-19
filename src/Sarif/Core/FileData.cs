@@ -26,7 +26,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             {
                 var fileData = new FileData()
                 {
-                    MimeType = SarifWriters.MimeType.DetermineFromFileExtension(uri.ToString())
+                    MimeType = SarifWriters.MimeType.DetermineFromFileExtension(uri)
                 };
 
                 if (files.Count == 0)
@@ -36,13 +36,13 @@ namespace Microsoft.CodeAnalysis.Sarif
                 }
                 else if (files.Count == 1)
                 {
-                    fileData.PathFromParent = "#" + uri.ToString();
-                    fileDataKey = fileDataKey + fileData.PathFromParent;
+                    fileData.PathFromParent = uri.ToString();
+                    fileDataKey = fileDataKey + "#" + fileData.PathFromParent;
                 }
                 else
                 {
                     Debug.Assert(!uri.IsAbsoluteUri);                    
-                    fileData.PathFromParent = "/" + uri.ToString();
+                    fileData.PathFromParent = uri.ToString();
                     fileDataKey = fileDataKey + fileData.PathFromParent;
                 }
 
