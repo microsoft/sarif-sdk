@@ -173,13 +173,6 @@ namespace Microsoft.CodeAnalysis.Sarif
             {
                 node.AnalysisTarget = VisitNullChecked(node.AnalysisTarget);
                 node.ResultFile = VisitNullChecked(node.ResultFile);
-                if (node.LogicalLocation != null)
-                {
-                    for (int index_0 = 0; index_0 < node.LogicalLocation.Count; ++index_0)
-                    {
-                        node.LogicalLocation[index_0] = VisitNullChecked(node.LogicalLocation[index_0]);
-                    }
-                }
             }
 
             return node;
@@ -309,6 +302,21 @@ namespace Microsoft.CodeAnalysis.Sarif
                             for (int index_0 = 0; index_0 < node.Files[key].Count; ++index_0)
                             {
                                 node.Files[key][index_0] = VisitNullChecked(node.Files[key][index_0]);
+                            }
+                        }
+                    }
+                }
+
+                if (node.LogicalLocations != null)
+                {
+                    foreach (var key in node.LogicalLocations.Keys)
+                    {
+                        var value = node.LogicalLocations[key];
+                        if (value != null)
+                        {
+                            for (int index_0 = 0; index_0 < node.LogicalLocations[key].Count; ++index_0)
+                            {
+                                node.LogicalLocations[key][index_0] = VisitNullChecked(node.LogicalLocations[key][index_0]);
                             }
                         }
                     }

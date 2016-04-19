@@ -17,6 +17,52 @@
           }
         ]
       },
+      "logicalLocations": {
+        "SecurityCryptographyRuleTests": [
+          {
+            "name": "SecurityCryptographyRuleTests",
+            "kind": "namespace"
+          }
+        ],
+        "securitycryptographyruletests.dll": [
+          {
+            "name": "securitycryptographyruletests.dll",
+            "kind": "module"
+          }
+        ],
+        "SecurityCryptographyRuleTests.DESCannotBeUsed": [
+          {
+            "name": "securitycryptographyruletests.dll",
+            "kind": "module"
+          },
+          {
+            "name": "SecurityCryptographyRuleTests",
+            "kind": "namespace"
+          },
+          {
+            "name": "DESCannotBeUsed",
+            "kind": "type"
+          }
+        ],
+        "SecurityCryptographyRuleTests.DESCannotBeUsed.EncryptData(System.String,System.String,System.Byte[],System.Byte[])": [
+          {
+            "name": "securitycryptographyruletests.dll",
+            "kind": "module"
+          },
+          {
+            "name": "SecurityCryptographyRuleTests",
+            "kind": "namespace"
+          },
+          {
+            "name": "DESCannotBeUsed",
+            "kind": "type"
+          },
+          {
+            "name": "#EncryptData(System.String,System.String,System.Byte[],System.Byte[])",
+            "kind": "method"
+          }
+        ]
+      },
       "results": [
         {
           "ruleId": "CA904",
@@ -24,13 +70,7 @@
           "shortMessage": "DeclareTypesInMicrosoftOrSystemNamespace",
           "locations": [
             {
-              "logicalLocation": [
-                {
-                  "name": "SecurityCryptographyRuleTests",
-                  "kind": "namespace"
-                }
-              ],
-              "fullyQualifiedLogicalName": "SecurityCryptographyRuleTests"
+              "logicalLocation": "SecurityCryptographyRuleTests"
             }
           ],
           "properties": {
@@ -48,13 +88,7 @@
               "analysisTarget": {
                 "uri": "file:///d:/SecDevTools/Main/bin/x86/Debug/FxCop/FxCopTestData/Crypto/SecurityCryptographyRuleTests.dll"
               },
-              "logicalLocation": [
-                {
-                  "name": "securitycryptographyruletests.dll",
-                  "kind": "module"
-                }
-              ],
-              "fullyQualifiedLogicalName": "securitycryptographyruletests.dll"
+              "logicalLocation": "securitycryptographyruletests.dll"
             }
           ],
           "properties": {
@@ -72,21 +106,7 @@
               "analysisTarget": {
                 "uri": "file:///d:/SecDevTools/Main/bin/x86/Debug/FxCop/FxCopTestData/Crypto/SecurityCryptographyRuleTests.dll"
               },
-              "logicalLocation": [
-                {
-                  "name": "securitycryptographyruletests.dll",
-                  "kind": "module"
-                },
-                {
-                  "name": "SecurityCryptographyRuleTests",
-                  "kind": "namespace"
-                },
-                {
-                  "name": "DESCannotBeUsed",
-                  "kind": "type"
-                }
-              ],
-              "fullyQualifiedLogicalName": "SecurityCryptographyRuleTests.DESCannotBeUsed"
+              "logicalLocation": "SecurityCryptographyRuleTests.DESCannotBeUsed"
             }
           ],
           "toolFingerprint": "DES#Type",
@@ -105,21 +125,7 @@
               "analysisTarget": {
                 "uri": "file:///d:/SecDevTools/Main/bin/x86/Debug/FxCop/FxCopTestData/Crypto/SecurityCryptographyRuleTests.dll"
               },
-              "logicalLocation": [
-                {
-                  "name": "securitycryptographyruletests.dll",
-                  "kind": "module"
-                },
-                {
-                  "name": "SecurityCryptographyRuleTests",
-                  "kind": "namespace"
-                },
-                {
-                  "name": "DESCannotBeUsed",
-                  "kind": "type"
-                }
-              ],
-              "fullyQualifiedLogicalName": "SecurityCryptographyRuleTests.DESCannotBeUsed"
+              "logicalLocation": "SecurityCryptographyRuleTests.DESCannotBeUsed"
             }
           ],
           "toolFingerprint": "CSharp2_0",
@@ -144,25 +150,7 @@
                   "startLine": 14
                 }
               },
-              "logicalLocation": [
-                {
-                  "name": "securitycryptographyruletests.dll",
-                  "kind": "module"
-                },
-                {
-                  "name": "SecurityCryptographyRuleTests",
-                  "kind": "namespace"
-                },
-                {
-                  "name": "DESCannotBeUsed",
-                  "kind": "type"
-                },
-                {
-                  "name": "#EncryptData(System.String,System.String,System.Byte[],System.Byte[])",
-                  "kind": "method"
-                }
-              ],
-              "fullyQualifiedLogicalName": "SecurityCryptographyRuleTests.DESCannotBeUsed.EncryptData(System.String,System.String,System.Byte[],System.Byte[])"
+              "logicalLocation": "SecurityCryptographyRuleTests.DESCannotBeUsed.EncryptData(System.String,System.String,System.Byte[],System.Byte[])"
             }
           ],
           "properties": {

@@ -17,6 +17,36 @@
           }
         ]
       },
+      "logicalLocations": {
+        "app\\microsoft.androidstudioformatexample\\microsoft.androidstudioformatexample.MainActivity": [
+          {
+            "name": "app",
+            "kind": "android-module"
+          },
+          {
+            "name": "microsoft.androidstudioformatexample",
+            "kind": "package"
+          },
+          {
+            "name": "microsoft.androidstudioformatexample.MainActivity",
+            "kind": "type"
+          }
+        ],
+        "app\\microsoft.androidstudioformatexample\\microsoft.androidstudioformatexample.NamespaceTypo": [
+          {
+            "name": "app",
+            "kind": "android-module"
+          },
+          {
+            "name": "microsoft.androidstudioformatexample",
+            "kind": "package"
+          },
+          {
+            "name": "microsoft.androidstudioformatexample.NamespaceTypo",
+            "kind": "type"
+          }
+        ]
+      },
       "results": [
         {
           "ruleId": "Declaration access can be weaker",
@@ -30,21 +60,7 @@
                   "startLine": 9
                 }
               },
-              "logicalLocation": [
-                {
-                  "name": "app",
-                  "kind": "android-module"
-                },
-                {
-                  "name": "microsoft.androidstudioformatexample",
-                  "kind": "package"
-                },
-                {
-                  "name": "microsoft.androidstudioformatexample.MainActivity",
-                  "kind": "type"
-                }
-              ],
-              "fullyQualifiedLogicalName": "app\\microsoft.androidstudioformatexample\\microsoft.androidstudioformatexample.MainActivity"
+              "logicalLocation": "app\\microsoft.androidstudioformatexample\\microsoft.androidstudioformatexample.MainActivity"
             }
           ],
           "properties": {
@@ -64,21 +80,7 @@
                   "startLine": 6
                 }
               },
-              "logicalLocation": [
-                {
-                  "name": "app",
-                  "kind": "android-module"
-                },
-                {
-                  "name": "microsoft.androidstudioformatexample",
-                  "kind": "package"
-                },
-                {
-                  "name": "microsoft.androidstudioformatexample.NamespaceTypo",
-                  "kind": "type"
-                }
-              ],
-              "fullyQualifiedLogicalName": "app\\microsoft.androidstudioformatexample\\microsoft.androidstudioformatexample.NamespaceTypo"
+              "logicalLocation": "app\\microsoft.androidstudioformatexample\\microsoft.androidstudioformatexample.NamespaceTypo"
             }
           ],
           "properties": {

@@ -66,10 +66,24 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         /// all results have been generated.
         /// </summary>
         /// <param name="fileDictionary">
-        /// A dictionary whose keys are the URIs of scanned files and whose values provide
-        /// information about those files.
+        /// A dictionary whose keys are the strings representing the locations of scanned files
+        /// and whose values provide information about those files.
         /// </param>
         public void WriteFiles(IDictionary<string, IList<FileData>> fileDictionary)
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// Write information about the logical locations where results were produced to
+        /// the log. This information may appear after the results, as the full list of
+        /// logical locations will not be known until all results have been generated.
+        /// </summary>
+        /// <param name="logicalLocationDictionary">
+        /// A dictionary whose keys are strings specifying a logical location and
+        /// whose values provide information about each component of the logical location.
+        /// </param>
+        public void WriteLogicalLocations(IDictionary<string, LogicalLocationComponent[]> logicalLocationDictionary)
         {
             throw new NotImplementedException();
         }

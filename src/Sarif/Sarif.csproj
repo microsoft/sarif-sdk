@@ -32,6 +32,7 @@
   <ItemGroup>
     <Compile Include="Converters\AndroidStudioProblem.cs" />
     <Compile Include="Converters\AndroidStudioStrings.cs" />
+    <Compile Include="Converters\ToolFileConverterBase.cs" />
     <Compile Include="Converters\CppCheckError.cs" />
     <Compile Include="Converters\CppCheckLocation.cs" />
     <Compile Include="Converters\CppCheckStrings.cs" />

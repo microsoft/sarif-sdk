@@ -28,7 +28,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             ResultsInitialized = 0x10,
             ResultsClosed = 0x20,
             RunPropertiesWritten = 0x40,
-            Disposed = 0x80
+            LogicalLocationsWritten = 0x80,
+            Disposed = 0x100
         }
 
         private Conditions _writeConditions;
@@ -110,6 +111,32 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             _serializer.Serialize(_jsonWriter, fileDictionary, typeof(Dictionary<Uri, IList<FileData>>));
 
             _writeConditions |= Conditions.FilesWritten;
+        }
+
+        /// <summary>
+        /// Write information about the logical locations where results were produced to
+        /// the log. This information may appear after the results, as the full list of
+        /// logical locations will not be known until all results have been generated.
+        /// </summary>
+        /// <param name="logicalLocationDictionary">
+        /// A dictionary whose keys are strings specifying a logical location and
+        /// whose values provide information about each component of the logical location.
+        /// </param>
+        public void WriteLogicalLocations(IDictionary<string, LogicalLocationComponent[]> logicalLocationDictionary)
+        {
+            if (logicalLocationDictionary == null)
+            {
+                throw new ArgumentNullException(nameof(logicalLocationDictionary));
+            }
+
+            EnsureInitialized();
+            EnsureResultsArrayIsNotOpen();
+            EnsureStateNotAlreadySet(Conditions.Disposed | Conditions.LogicalLocationsWritten);
+
+            _jsonWriter.WritePropertyName("logicalLocations");
+            _serializer.Serialize(_jsonWriter, logicalLocationDictionary, typeof(Dictionary<string, LogicalLocationComponent[]>));
+
+            _writeConditions |= Conditions.LogicalLocationsWritten;
         }
 
         public void WriteRules(IDictionary<string, IRule> rules)

@@ -47,6 +47,30 @@
           }
         ]
       },
+      "logicalLocations": {
+        "AndroidStudioFormatExample": [
+          {
+            "name": "AndroidStudioFormatExample",
+            "kind": "android-module"
+          }
+        ],
+        "app": [
+          {
+            "name": "app",
+            "kind": "android-module"
+          }
+        ],
+        "app\\microsoft.androidstudioformatexample": [
+          {
+            "name": "app",
+            "kind": "android-module"
+          },
+          {
+            "name": "microsoft.androidstudioformatexample",
+            "kind": "package"
+          }
+        ]
+      },
       "results": [
         {
           "ruleId": "Typo",
@@ -62,13 +86,7 @@
                   "startLine": 8
                 }
               },
-              "logicalLocation": [
-                {
-                  "name": "AndroidStudioFormatExample",
-                  "kind": "android-module"
-                }
-              ],
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+              "logicalLocation": "AndroidStudioFormatExample"
             }
           ],
           "properties": {
@@ -90,13 +108,7 @@
                   "startLine": 13
                 }
               },
-              "logicalLocation": [
-                {
-                  "name": "AndroidStudioFormatExample",
-                  "kind": "android-module"
-                }
-              ],
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+              "logicalLocation": "AndroidStudioFormatExample"
             }
           ],
           "properties": {
@@ -118,13 +130,7 @@
                   "startLine": 13
                 }
               },
-              "logicalLocation": [
-                {
-                  "name": "AndroidStudioFormatExample",
-                  "kind": "android-module"
-                }
-              ],
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+              "logicalLocation": "AndroidStudioFormatExample"
             }
           ],
           "properties": {
@@ -146,13 +152,7 @@
                   "startLine": 17
                 }
               },
-              "logicalLocation": [
-                {
-                  "name": "AndroidStudioFormatExample",
-                  "kind": "android-module"
-                }
-              ],
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+              "logicalLocation": "AndroidStudioFormatExample"
             }
           ],
           "properties": {
@@ -174,13 +174,7 @@
                   "startLine": 3
                 }
               },
-              "logicalLocation": [
-                {
-                  "name": "AndroidStudioFormatExample",
-                  "kind": "android-module"
-                }
-              ],
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+              "logicalLocation": "AndroidStudioFormatExample"
             }
           ],
           "properties": {
@@ -202,13 +196,7 @@
                   "startLine": 5
                 }
               },
-              "logicalLocation": [
-                {
-                  "name": "AndroidStudioFormatExample",
-                  "kind": "android-module"
-                }
-              ],
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+              "logicalLocation": "AndroidStudioFormatExample"
             }
           ],
           "properties": {
@@ -230,13 +218,7 @@
                   "startLine": 30
                 }
               },
-              "logicalLocation": [
-                {
-                  "name": "AndroidStudioFormatExample",
-                  "kind": "android-module"
-                }
-              ],
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+              "logicalLocation": "AndroidStudioFormatExample"
             }
           ],
           "properties": {
@@ -258,13 +240,7 @@
                   "startLine": 31
                 }
               },
-              "logicalLocation": [
-                {
-                  "name": "AndroidStudioFormatExample",
-                  "kind": "android-module"
-                }
-              ],
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+              "logicalLocation": "AndroidStudioFormatExample"
             }
           ],
           "properties": {
@@ -286,13 +262,7 @@
                   "startLine": 33
                 }
               },
-              "logicalLocation": [
-                {
-                  "name": "AndroidStudioFormatExample",
-                  "kind": "android-module"
-                }
-              ],
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+              "logicalLocation": "AndroidStudioFormatExample"
             }
           ],
           "properties": {
@@ -314,13 +284,7 @@
                   "startLine": 34
                 }
               },
-              "logicalLocation": [
-                {
-                  "name": "AndroidStudioFormatExample",
-                  "kind": "android-module"
-                }
-              ],
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+              "logicalLocation": "AndroidStudioFormatExample"
             }
           ],
           "properties": {
@@ -342,13 +306,7 @@
                   "startLine": 35
                 }
               },
-              "logicalLocation": [
-                {
-                  "name": "AndroidStudioFormatExample",
-                  "kind": "android-module"
-                }
-              ],
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+              "logicalLocation": "AndroidStudioFormatExample"
             }
           ],
           "properties": {
@@ -370,13 +328,7 @@
                   "startLine": 40
                 }
               },
-              "logicalLocation": [
-                {
-                  "name": "AndroidStudioFormatExample",
-                  "kind": "android-module"
-                }
-              ],
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+              "logicalLocation": "AndroidStudioFormatExample"
             }
           ],
           "properties": {
@@ -398,13 +350,7 @@
                   "startLine": 41
                 }
               },
-              "logicalLocation": [
-                {
-                  "name": "AndroidStudioFormatExample",
-                  "kind": "android-module"
-                }
-              ],
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+              "logicalLocation": "AndroidStudioFormatExample"
             }
           ],
           "properties": {
@@ -426,13 +372,7 @@
                   "startLine": 43
                 }
               },
-              "logicalLocation": [
-                {
-                  "name": "AndroidStudioFormatExample",
-                  "kind": "android-module"
-                }
-              ],
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+              "logicalLocation": "AndroidStudioFormatExample"
             }
           ],
           "properties": {
@@ -454,13 +394,7 @@
                   "startLine": 45
                 }
               },
-              "logicalLocation": [
-                {
-                  "name": "AndroidStudioFormatExample",
-                  "kind": "android-module"
-                }
-              ],
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+              "logicalLocation": "AndroidStudioFormatExample"
             }
           ],
           "properties": {
@@ -482,13 +416,7 @@
                   "startLine": 46
                 }
               },
-              "logicalLocation": [
-                {
-                  "name": "AndroidStudioFormatExample",
-                  "kind": "android-module"
-                }
-              ],
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+              "logicalLocation": "AndroidStudioFormatExample"
             }
           ],
           "properties": {
@@ -510,13 +438,7 @@
                   "startLine": 47
                 }
               },
-              "logicalLocation": [
-                {
-                  "name": "AndroidStudioFormatExample",
-                  "kind": "android-module"
-                }
-              ],
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+              "logicalLocation": "AndroidStudioFormatExample"
             }
           ],
           "properties": {
@@ -538,13 +460,7 @@
                   "startLine": 60
                 }
               },
-              "logicalLocation": [
-                {
-                  "name": "AndroidStudioFormatExample",
-                  "kind": "android-module"
-                }
-              ],
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+              "logicalLocation": "AndroidStudioFormatExample"
             }
           ],
           "properties": {
@@ -566,13 +482,7 @@
                   "startLine": 64
                 }
               },
-              "logicalLocation": [
-                {
-                  "name": "AndroidStudioFormatExample",
-                  "kind": "android-module"
-                }
-              ],
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+              "logicalLocation": "AndroidStudioFormatExample"
             }
           ],
           "properties": {
@@ -594,13 +504,7 @@
                   "startLine": 73
                 }
               },
-              "logicalLocation": [
-                {
-                  "name": "AndroidStudioFormatExample",
-                  "kind": "android-module"
-                }
-              ],
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+              "logicalLocation": "AndroidStudioFormatExample"
             }
           ],
           "properties": {
@@ -622,13 +526,7 @@
                   "startLine": 74
                 }
               },
-              "logicalLocation": [
-                {
-                  "name": "AndroidStudioFormatExample",
-                  "kind": "android-module"
-                }
-              ],
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+              "logicalLocation": "AndroidStudioFormatExample"
             }
           ],
           "properties": {
@@ -650,13 +548,7 @@
                   "startLine": 76
                 }
               },
-              "logicalLocation": [
-                {
-                  "name": "AndroidStudioFormatExample",
-                  "kind": "android-module"
-                }
-              ],
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+              "logicalLocation": "AndroidStudioFormatExample"
             }
           ],
           "properties": {
@@ -678,13 +570,7 @@
                   "startLine": 78
                 }
               },
-              "logicalLocation": [
-                {
-                  "name": "AndroidStudioFormatExample",
-                  "kind": "android-module"
-                }
-              ],
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+              "logicalLocation": "AndroidStudioFormatExample"
             }
           ],
           "properties": {
@@ -706,13 +592,7 @@
                   "startLine": 85
                 }
               },
-              "logicalLocation": [
-                {
-                  "name": "AndroidStudioFormatExample",
-                  "kind": "android-module"
-                }
-              ],
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+              "logicalLocation": "AndroidStudioFormatExample"
             }
           ],
           "properties": {
@@ -734,13 +614,7 @@
                   "startLine": 93
                 }
               },
-              "logicalLocation": [
-                {
-                  "name": "AndroidStudioFormatExample",
-                  "kind": "android-module"
-                }
-              ],
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+              "logicalLocation": "AndroidStudioFormatExample"
             }
           ],
           "properties": {
@@ -762,13 +636,7 @@
                   "startLine": 94
                 }
               },
-              "logicalLocation": [
-                {
-                  "name": "AndroidStudioFormatExample",
-                  "kind": "android-module"
-                }
-              ],
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+              "logicalLocation": "AndroidStudioFormatExample"
             }
           ],
           "properties": {
@@ -790,13 +658,7 @@
                   "startLine": 99
                 }
               },
-              "logicalLocation": [
-                {
-                  "name": "AndroidStudioFormatExample",
-                  "kind": "android-module"
-                }
-              ],
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+              "logicalLocation": "AndroidStudioFormatExample"
             }
           ],
           "properties": {
@@ -818,13 +680,7 @@
                   "startLine": 110
                 }
               },
-              "logicalLocation": [
-                {
-                  "name": "AndroidStudioFormatExample",
-                  "kind": "android-module"
-                }
-              ],
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+              "logicalLocation": "AndroidStudioFormatExample"
             }
           ],
           "properties": {
@@ -846,13 +702,7 @@
                   "startLine": 110
                 }
               },
-              "logicalLocation": [
-                {
-                  "name": "AndroidStudioFormatExample",
-                  "kind": "android-module"
-                }
-              ],
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+              "logicalLocation": "AndroidStudioFormatExample"
             }
           ],
           "properties": {
@@ -874,13 +724,7 @@
                   "startLine": 110
                 }
               },
-              "logicalLocation": [
-                {
-                  "name": "AndroidStudioFormatExample",
-                  "kind": "android-module"
-                }
-              ],
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+              "logicalLocation": "AndroidStudioFormatExample"
             }
           ],
           "properties": {
@@ -902,13 +746,7 @@
                   "startLine": 113
                 }
               },
-              "logicalLocation": [
-                {
-                  "name": "AndroidStudioFormatExample",
-                  "kind": "android-module"
-                }
-              ],
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+              "logicalLocation": "AndroidStudioFormatExample"
             }
           ],
           "properties": {
@@ -930,13 +768,7 @@
                   "startLine": 114
                 }
               },
-              "logicalLocation": [
-                {
-                  "name": "AndroidStudioFormatExample",
-                  "kind": "android-module"
-                }
-              ],
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+              "logicalLocation": "AndroidStudioFormatExample"
             }
           ],
           "properties": {
@@ -958,13 +790,7 @@
                   "startLine": 115
                 }
               },
-              "logicalLocation": [
-                {
-                  "name": "AndroidStudioFormatExample",
-                  "kind": "android-module"
-                }
-              ],
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+              "logicalLocation": "AndroidStudioFormatExample"
             }
           ],
           "properties": {
@@ -986,13 +812,7 @@
                   "startLine": 116
                 }
               },
-              "logicalLocation": [
-                {
-                  "name": "AndroidStudioFormatExample",
-                  "kind": "android-module"
-                }
-              ],
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+              "logicalLocation": "AndroidStudioFormatExample"
             }
           ],
           "properties": {
@@ -1014,13 +834,7 @@
                   "startLine": 118
                 }
               },
-              "logicalLocation": [
-                {
-                  "name": "AndroidStudioFormatExample",
-                  "kind": "android-module"
-                }
-              ],
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+              "logicalLocation": "AndroidStudioFormatExample"
             }
           ],
           "properties": {
@@ -1042,13 +856,7 @@
                   "startLine": 119
                 }
               },
-              "logicalLocation": [
-                {
-                  "name": "AndroidStudioFormatExample",
-                  "kind": "android-module"
-                }
-              ],
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+              "logicalLocation": "AndroidStudioFormatExample"
             }
           ],
           "properties": {
@@ -1070,13 +878,7 @@
                   "startLine": 119
                 }
               },
-              "logicalLocation": [
-                {
-                  "name": "AndroidStudioFormatExample",
-                  "kind": "android-module"
-                }
-              ],
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+              "logicalLocation": "AndroidStudioFormatExample"
             }
           ],
           "properties": {
@@ -1098,13 +900,7 @@
                   "startLine": 119
                 }
               },
-              "logicalLocation": [
-                {
-                  "name": "AndroidStudioFormatExample",
-                  "kind": "android-module"
-                }
-              ],
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+              "logicalLocation": "AndroidStudioFormatExample"
             }
           ],
           "properties": {
@@ -1126,13 +922,7 @@
                   "startLine": 121
                 }
               },
-              "logicalLocation": [
-                {
-                  "name": "AndroidStudioFormatExample",
-                  "kind": "android-module"
-                }
-              ],
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+              "logicalLocation": "AndroidStudioFormatExample"
             }
           ],
           "properties": {
@@ -1154,13 +944,7 @@
                   "startLine": 122
                 }
               },
-              "logicalLocation": [
-                {
-                  "name": "AndroidStudioFormatExample",
-                  "kind": "android-module"
-                }
-              ],
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+              "logicalLocation": "AndroidStudioFormatExample"
             }
           ],
           "properties": {
@@ -1182,13 +966,7 @@
                   "startLine": 122
                 }
               },
-              "logicalLocation": [
-                {
-                  "name": "AndroidStudioFormatExample",
-                  "kind": "android-module"
-                }
-              ],
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+              "logicalLocation": "AndroidStudioFormatExample"
             }
           ],
           "properties": {
@@ -1210,13 +988,7 @@
                   "startLine": 125
                 }
               },
-              "logicalLocation": [
-                {
-                  "name": "AndroidStudioFormatExample",
-                  "kind": "android-module"
-                }
-              ],
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+              "logicalLocation": "AndroidStudioFormatExample"
             }
           ],
           "properties": {
@@ -1238,13 +1010,7 @@
                   "startLine": 125
                 }
               },
-              "logicalLocation": [
-                {
-                  "name": "AndroidStudioFormatExample",
-                  "kind": "android-module"
-                }
-              ],
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+              "logicalLocation": "AndroidStudioFormatExample"
             }
           ],
           "properties": {
@@ -1266,13 +1032,7 @@
                   "startLine": 126
                 }
               },
-              "logicalLocation": [
-                {
-                  "name": "AndroidStudioFormatExample",
-                  "kind": "android-module"
-                }
-              ],
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+              "logicalLocation": "AndroidStudioFormatExample"
             }
           ],
           "properties": {
@@ -1294,13 +1054,7 @@
                   "startLine": 127
                 }
               },
-              "logicalLocation": [
-                {
-                  "name": "AndroidStudioFormatExample",
-                  "kind": "android-module"
-                }
-              ],
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+              "logicalLocation": "AndroidStudioFormatExample"
             }
           ],
           "properties": {
@@ -1322,13 +1076,7 @@
                   "startLine": 128
                 }
               },
-              "logicalLocation": [
-                {
-                  "name": "AndroidStudioFormatExample",
-                  "kind": "android-module"
-                }
-              ],
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+              "logicalLocation": "AndroidStudioFormatExample"
             }
           ],
           "properties": {
@@ -1350,13 +1098,7 @@
                   "startLine": 128
                 }
               },
-              "logicalLocation": [
-                {
-                  "name": "AndroidStudioFormatExample",
-                  "kind": "android-module"
-                }
-              ],
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+              "logicalLocation": "AndroidStudioFormatExample"
             }
           ],
           "properties": {
@@ -1378,13 +1120,7 @@
                   "startLine": 128
                 }
               },
-              "logicalLocation": [
-                {
-                  "name": "AndroidStudioFormatExample",
-                  "kind": "android-module"
-                }
-              ],
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+              "logicalLocation": "AndroidStudioFormatExample"
             }
           ],
           "properties": {
@@ -1406,13 +1142,7 @@
                   "startLine": 133
                 }
               },
-              "logicalLocation": [
-                {
-                  "name": "AndroidStudioFormatExample",
-                  "kind": "android-module"
-                }
-              ],
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+              "logicalLocation": "AndroidStudioFormatExample"
             }
           ],
           "properties": {
@@ -1434,13 +1164,7 @@
                   "startLine": 133
                 }
               },
-              "logicalLocation": [
-                {
-                  "name": "AndroidStudioFormatExample",
-                  "kind": "android-module"
-                }
-              ],
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+              "logicalLocation": "AndroidStudioFormatExample"
             }
           ],
           "properties": {
@@ -1462,13 +1186,7 @@
                   "startLine": 134
                 }
               },
-              "logicalLocation": [
-                {
-                  "name": "AndroidStudioFormatExample",
-                  "kind": "android-module"
-                }
-              ],
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+              "logicalLocation": "AndroidStudioFormatExample"
             }
           ],
           "properties": {
@@ -1490,13 +1208,7 @@
                   "startLine": 137
                 }
               },
-              "logicalLocation": [
-                {
-                  "name": "AndroidStudioFormatExample",
-                  "kind": "android-module"
-                }
-              ],
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+              "logicalLocation": "AndroidStudioFormatExample"
             }
           ],
           "properties": {
@@ -1518,13 +1230,7 @@
                   "startLine": 137
                 }
               },
-              "logicalLocation": [
-                {
-                  "name": "AndroidStudioFormatExample",
-                  "kind": "android-module"
-                }
-              ],
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+              "logicalLocation": "AndroidStudioFormatExample"
             }
           ],
           "properties": {
@@ -1546,13 +1252,7 @@
                   "startLine": 139
                 }
               },
-              "logicalLocation": [
-                {
-                  "name": "AndroidStudioFormatExample",
-                  "kind": "android-module"
-                }
-              ],
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+              "logicalLocation": "AndroidStudioFormatExample"
             }
           ],
           "properties": {
@@ -1574,13 +1274,7 @@
                   "startLine": 154
                 }
               },
-              "logicalLocation": [
-                {
-                  "name": "AndroidStudioFormatExample",
-                  "kind": "android-module"
-                }
-              ],
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+              "logicalLocation": "AndroidStudioFormatExample"
             }
           ],
           "properties": {
@@ -1602,13 +1296,7 @@
                   "startLine": 161
                 }
               },
-              "logicalLocation": [
-                {
-                  "name": "AndroidStudioFormatExample",
-                  "kind": "android-module"
-                }
-              ],
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+              "logicalLocation": "AndroidStudioFormatExample"
             }
           ],
           "properties": {
@@ -1630,13 +1318,7 @@
                   "startLine": 162
                 }
               },
-              "logicalLocation": [
-                {
-                  "name": "AndroidStudioFormatExample",
-                  "kind": "android-module"
-                }
-              ],
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+              "logicalLocation": "AndroidStudioFormatExample"
             }
           ],
           "properties": {
@@ -1658,13 +1340,7 @@
                   "startLine": 162
                 }
               },
-              "logicalLocation": [
-                {
-                  "name": "AndroidStudioFormatExample",
-                  "kind": "android-module"
-                }
-              ],
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+              "logicalLocation": "AndroidStudioFormatExample"
             }
           ],
           "properties": {
@@ -1686,13 +1362,7 @@
                   "startLine": 164
                 }
               },
-              "logicalLocation": [
-                {
-                  "name": "AndroidStudioFormatExample",
-                  "kind": "android-module"
-                }
-              ],
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+              "logicalLocation": "AndroidStudioFormatExample"
             }
           ],
           "properties": {
@@ -1714,13 +1384,7 @@
                   "startLine": 9
                 }
               },
-              "logicalLocation": [
-                {
-                  "name": "AndroidStudioFormatExample",
-                  "kind": "android-module"
-                }
-              ],
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+              "logicalLocation": "AndroidStudioFormatExample"
             }
           ],
           "properties": {
@@ -1742,13 +1406,7 @@
                   "startLine": 14
                 }
               },
-              "logicalLocation": [
-                {
-                  "name": "AndroidStudioFormatExample",
-                  "kind": "android-module"
-                }
-              ],
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+              "logicalLocation": "AndroidStudioFormatExample"
             }
           ],
           "properties": {
@@ -1770,13 +1428,7 @@
                   "startLine": 15
                 }
               },
-              "logicalLocation": [
-                {
-                  "name": "AndroidStudioFormatExample",
-                  "kind": "android-module"
-                }
-              ],
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+              "logicalLocation": "AndroidStudioFormatExample"
             }
           ],
           "properties": {
@@ -1798,13 +1450,7 @@
                   "startLine": 15
                 }
               },
-              "logicalLocation": [
-                {
-                  "name": "AndroidStudioFormatExample",
-                  "kind": "android-module"
-                }
-              ],
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+              "logicalLocation": "AndroidStudioFormatExample"
             }
           ],
           "properties": {
@@ -1826,13 +1472,7 @@
                   "startLine": 17
                 }
               },
-              "logicalLocation": [
-                {
-                  "name": "AndroidStudioFormatExample",
-                  "kind": "android-module"
-                }
-              ],
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+              "logicalLocation": "AndroidStudioFormatExample"
             }
           ],
           "properties": {
@@ -1854,13 +1494,7 @@
                   "startLine": 20
                 }
               },
-              "logicalLocation": [
-                {
-                  "name": "AndroidStudioFormatExample",
-                  "kind": "android-module"
-                }
-              ],
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+              "logicalLocation": "AndroidStudioFormatExample"
             }
           ],
           "properties": {
@@ -1882,13 +1516,7 @@
                   "startLine": 24
                 }
               },
-              "logicalLocation": [
-                {
-                  "name": "AndroidStudioFormatExample",
-                  "kind": "android-module"
-                }
-              ],
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+              "logicalLocation": "AndroidStudioFormatExample"
             }
           ],
           "properties": {
@@ -1910,13 +1538,7 @@
                   "startLine": 24
                 }
               },
-              "logicalLocation": [
-                {
-                  "name": "AndroidStudioFormatExample",
-                  "kind": "android-module"
-                }
-              ],
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+              "logicalLocation": "AndroidStudioFormatExample"
             }
           ],
           "properties": {
@@ -1938,13 +1560,7 @@
                   "startLine": 32
                 }
               },
-              "logicalLocation": [
-                {
-                  "name": "AndroidStudioFormatExample",
-                  "kind": "android-module"
-                }
-              ],
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+              "logicalLocation": "AndroidStudioFormatExample"
             }
           ],
           "properties": {
@@ -1966,13 +1582,7 @@
                   "startLine": 38
                 }
               },
-              "logicalLocation": [
-                {
-                  "name": "AndroidStudioFormatExample",
-                  "kind": "android-module"
-                }
-              ],
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+              "logicalLocation": "AndroidStudioFormatExample"
             }
           ],
           "properties": {
@@ -1994,13 +1604,7 @@
                   "startLine": 46
                 }
               },
-              "logicalLocation": [
-                {
-                  "name": "AndroidStudioFormatExample",
-                  "kind": "android-module"
-                }
-              ],
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+              "logicalLocation": "AndroidStudioFormatExample"
             }
           ],
           "properties": {
@@ -2022,13 +1626,7 @@
                   "startLine": 49
                 }
               },
-              "logicalLocation": [
-                {
-                  "name": "AndroidStudioFormatExample",
-                  "kind": "android-module"
-                }
-              ],
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+              "logicalLocation": "AndroidStudioFormatExample"
             }
           ],
           "properties": {
@@ -2050,13 +1648,7 @@
                   "startLine": 51
                 }
               },
-              "logicalLocation": [
-                {
-                  "name": "AndroidStudioFormatExample",
-                  "kind": "android-module"
-                }
-              ],
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+              "logicalLocation": "AndroidStudioFormatExample"
             }
           ],
           "properties": {
@@ -2078,13 +1670,7 @@
                   "startLine": 52
                 }
               },
-              "logicalLocation": [
-                {
-                  "name": "AndroidStudioFormatExample",
-                  "kind": "android-module"
-                }
-              ],
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+              "logicalLocation": "AndroidStudioFormatExample"
             }
           ],
           "properties": {
@@ -2106,13 +1692,7 @@
                   "startLine": 52
                 }
               },
-              "logicalLocation": [
-                {
-                  "name": "AndroidStudioFormatExample",
-                  "kind": "android-module"
-                }
-              ],
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+              "logicalLocation": "AndroidStudioFormatExample"
             }
           ],
           "properties": {
@@ -2134,13 +1714,7 @@
                   "startLine": 60
                 }
               },
-              "logicalLocation": [
-                {
-                  "name": "AndroidStudioFormatExample",
-                  "kind": "android-module"
-                }
-              ],
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+              "logicalLocation": "AndroidStudioFormatExample"
             }
           ],
           "properties": {
@@ -2162,13 +1736,7 @@
                   "startLine": 63
                 }
               },
-              "logicalLocation": [
-                {
-                  "name": "AndroidStudioFormatExample",
-                  "kind": "android-module"
-                }
-              ],
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+              "logicalLocation": "AndroidStudioFormatExample"
             }
           ],
           "properties": {
@@ -2190,13 +1758,7 @@
                   "startLine": 75
                 }
               },
-              "logicalLocation": [
-                {
-                  "name": "AndroidStudioFormatExample",
-                  "kind": "android-module"
-                }
-              ],
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+              "logicalLocation": "AndroidStudioFormatExample"
             }
           ],
           "properties": {
@@ -2218,13 +1780,7 @@
                   "startLine": 75
                 }
               },
-              "logicalLocation": [
-                {
-                  "name": "AndroidStudioFormatExample",
-                  "kind": "android-module"
-                }
-              ],
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+              "logicalLocation": "AndroidStudioFormatExample"
             }
           ],
           "properties": {
@@ -2246,13 +1802,7 @@
                   "startLine": 79
                 }
               },
-              "logicalLocation": [
-                {
-                  "name": "AndroidStudioFormatExample",
-                  "kind": "android-module"
-                }
-              ],
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+              "logicalLocation": "AndroidStudioFormatExample"
             }
           ],
           "properties": {
@@ -2274,13 +1824,7 @@
                   "startLine": 79
                 }
               },
-              "logicalLocation": [
-                {
-                  "name": "AndroidStudioFormatExample",
-                  "kind": "android-module"
-                }
-              ],
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+              "logicalLocation": "AndroidStudioFormatExample"
             }
           ],
           "properties": {
@@ -2302,13 +1846,7 @@
                   "startLine": 88
                 }
               },
-              "logicalLocation": [
-                {
-                  "name": "AndroidStudioFormatExample",
-                  "kind": "android-module"
-                }
-              ],
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+              "logicalLocation": "AndroidStudioFormatExample"
             }
           ],
           "properties": {
@@ -2330,13 +1868,7 @@
                   "startLine": 8
                 }
               },
-              "logicalLocation": [
-                {
-                  "name": "app",
-                  "kind": "android-module"
-                }
-              ],
-              "fullyQualifiedLogicalName": "app"
+              "logicalLocation": "app"
             }
           ],
           "properties": {
@@ -2358,13 +1890,7 @@
                   "startLine": 3
                 }
               },
-              "logicalLocation": [
-                {
-                  "name": "app",
-                  "kind": "android-module"
-                }
-              ],
-              "fullyQualifiedLogicalName": "app"
+              "logicalLocation": "app"
             }
           ],
           "properties": {
@@ -2386,13 +1912,7 @@
                   "startLine": 2
                 }
               },
-              "logicalLocation": [
-                {
-                  "name": "app",
-                  "kind": "android-module"
-                }
-              ],
-              "fullyQualifiedLogicalName": "app"
+              "logicalLocation": "app"
             }
           ],
           "properties": {
@@ -2414,17 +1934,7 @@
                   "startLine": 4
                 }
               },
-              "logicalLocation": [
-                {
-                  "name": "app",
-                  "kind": "android-module"
-                },
-                {
-                  "name": "microsoft.androidstudioformatexample",
-                  "kind": "package"
-                }
-              ],
-              "fullyQualifiedLogicalName": "app\\microsoft.androidstudioformatexample"
+              "logicalLocation": "app\\microsoft.androidstudioformatexample"
             }
           ],
           "properties": {

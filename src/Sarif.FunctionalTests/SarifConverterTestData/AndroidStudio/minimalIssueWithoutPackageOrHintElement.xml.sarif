@@ -12,6 +12,14 @@
           }
         ]
       },
+      "logicalLocations": {
+        "android20140909": [
+          {
+            "name": "android20140909",
+            "kind": "android-module"
+          }
+        ]
+      },
       "results": [
         {
           "ruleId": "Android Resources Validation",
@@ -27,13 +35,7 @@
                   "startLine": 6
                 }
               },
-              "logicalLocation": [
-                {
-                  "name": "android20140909",
-                  "kind": "android-module"
-                }
-              ],
-              "fullyQualifiedLogicalName": "android20140909"
+              "logicalLocation": "android20140909"
             }
           ],
           "properties": {

@@ -17,6 +17,36 @@
           }
         ]
       },
+      "logicalLocations": {
+        "app\\microsoft.androidstudioformatexample\\microsoft.androidstudioformatexample.ApplicationTest ApplicationTest()": [
+          {
+            "name": "app",
+            "kind": "android-module"
+          },
+          {
+            "name": "microsoft.androidstudioformatexample",
+            "kind": "package"
+          },
+          {
+            "name": "microsoft.androidstudioformatexample.ApplicationTest ApplicationTest()",
+            "kind": "method"
+          }
+        ],
+        "app\\microsoft.androidstudioformatexample\\microsoft.androidstudioformatexample.MainActivity": [
+          {
+            "name": "app",
+            "kind": "android-module"
+          },
+          {
+            "name": "microsoft.androidstudioformatexample",
+            "kind": "package"
+          },
+          {
+            "name": "microsoft.androidstudioformatexample.MainActivity",
+            "kind": "type"
+          }
+        ]
+      },
       "results": [
         {
           "ruleId": "unused declaration",
@@ -30,21 +60,7 @@
                   "startLine": 10
                 }
               },
-              "logicalLocation": [
-                {
-                  "name": "app",
-                  "kind": "android-module"
-                },
-                {
-                  "name": "microsoft.androidstudioformatexample",
-                  "kind": "package"
-                },
-                {
-                  "name": "microsoft.androidstudioformatexample.ApplicationTest ApplicationTest()",
-                  "kind": "method"
-                }
-              ],
-              "fullyQualifiedLogicalName": "app\\microsoft.androidstudioformatexample\\microsoft.androidstudioformatexample.ApplicationTest ApplicationTest()"
+              "logicalLocation": "app\\microsoft.androidstudioformatexample\\microsoft.androidstudioformatexample.ApplicationTest ApplicationTest()"
             }
           ],
           "properties": {
@@ -64,21 +80,7 @@
                   "startLine": 1
                 }
               },
-              "logicalLocation": [
-                {
-                  "name": "app",
-                  "kind": "android-module"
-                },
-                {
-                  "name": "microsoft.androidstudioformatexample",
-                  "kind": "package"
-                },
-                {
-                  "name": "microsoft.androidstudioformatexample.MainActivity",
-                  "kind": "type"
-                }
-              ],
-              "fullyQualifiedLogicalName": "app\\microsoft.androidstudioformatexample\\microsoft.androidstudioformatexample.MainActivity"
+              "logicalLocation": "app\\microsoft.androidstudioformatexample\\microsoft.androidstudioformatexample.MainActivity"
             }
           ],
           "properties": {

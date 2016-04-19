@@ -12,6 +12,18 @@
           }
         ]
       },
+      "logicalLocations": {
+        "OMStrings.resources": [
+          {
+            "name": "microsoft.teamfoundation.build.client.dll",
+            "kind": "module"
+          },
+          {
+            "name": "OMStrings.resources",
+            "kind": "resource"
+          }
+        ]
+      },
       "results": [
         {
           "ruleId": "CA1701",
@@ -22,17 +34,7 @@
               "analysisTarget": {
                 "uri": "$(ProjectDir)/SpecifyCultureInfo/Microsoft.TeamFoundation.Build.Client.dll"
               },
-              "logicalLocation": [
-                {
-                  "name": "microsoft.teamfoundation.build.client.dll",
-                  "kind": "module"
-                },
-                {
-                  "name": "OMStrings.resources",
-                  "kind": "resource"
-                }
-              ],
-              "fullyQualifiedLogicalName": "OMStrings.resources"
+              "logicalLocation": "OMStrings.resources"
             }
           ],
           "toolFingerprint": "Logon#StringResourceShouldBeCompoundWord",

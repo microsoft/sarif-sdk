@@ -12,6 +12,22 @@
           }
         ]
       },
+      "logicalLocations": {
+        "app\\microsoft.androidstudioformatexample\\microsoft.androidstudioformatexample.MainActivity java.lang.String ForCanBeForeachExample()": [
+          {
+            "name": "app",
+            "kind": "android-module"
+          },
+          {
+            "name": "microsoft.androidstudioformatexample",
+            "kind": "package"
+          },
+          {
+            "name": "microsoft.androidstudioformatexample.MainActivity java.lang.String ForCanBeForeachExample()",
+            "kind": "method"
+          }
+        ]
+      },
       "results": [
         {
           "ruleId": "'for' loop replaceable with 'foreach'",
@@ -24,21 +40,7 @@
                   "startLine": 42
                 }
               },
-              "logicalLocation": [
-                {
-                  "name": "app",
-                  "kind": "android-module"
-                },
-                {
-                  "name": "microsoft.androidstudioformatexample",
-                  "kind": "package"
-                },
-                {
-                  "name": "microsoft.androidstudioformatexample.MainActivity java.lang.String ForCanBeForeachExample()",
-                  "kind": "method"
-                }
-              ],
-              "fullyQualifiedLogicalName": "app\\microsoft.androidstudioformatexample\\microsoft.androidstudioformatexample.MainActivity java.lang.String ForCanBeForeachExample()"
+              "logicalLocation": "app\\microsoft.androidstudioformatexample\\microsoft.androidstudioformatexample.MainActivity java.lang.String ForCanBeForeachExample()"
             }
           ],
           "properties": {

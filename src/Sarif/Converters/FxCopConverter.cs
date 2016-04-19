@@ -21,14 +21,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
     /// FxCop project files are not supported due to 
     /// loss of source location information
     ///</remarks>
-    internal sealed class FxCopConverter : IToolFileConverter
+    internal sealed class FxCopConverter : ToolFileConverterBase
     {
         /// <summary>
         /// Convert FxCop log to SARIF format stream
         /// </summary>
         /// <param name="input">FxCop log stream</param>
         /// <param name="output">output stream</param>
-        public void Convert(Stream input, IResultLogWriter output)
+        public override void Convert(Stream input, IResultLogWriter output)
         {
             if (input == null)
             {
@@ -40,11 +40,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 throw (new ArgumentNullException("output"));
             }
 
+            LogicalLocationsDictionary.Clear();
+
             var context = new FxCopLogReader.Context();
 
             var results = new List<Result>();
             var reader = new FxCopLogReader();
-            reader.IssueRead += (FxCopLogReader.Context current) => { results.Add(CreateIssue(current)); };
+            reader.ResultRead += (FxCopLogReader.Context current) => { results.Add(CreateResult(current)); };
             reader.Read(context, input);
 
             Tool tool = new Tool
@@ -56,14 +58,23 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             Dictionary<string, IList<FileData>> fileDictionary = fileInfoFactory.Create(results);
 
             output.WriteTool(tool);
-            if (fileDictionary != null && fileDictionary.Count > 0) { output.WriteFiles(fileDictionary); }
+
+            if (fileDictionary != null && fileDictionary.Any())
+            {
+                output.WriteFiles(fileDictionary);
+            }
+
+            if (LogicalLocationsDictionary != null && LogicalLocationsDictionary.Any())
+            {
+                output.WriteLogicalLocations(LogicalLocationsDictionary);
+            }
 
             output.OpenResults();
             output.WriteResults(results);
             output.CloseResults();
         }
 
-        internal static Result CreateIssue(FxCopLogReader.Context context)
+        internal Result CreateResult(FxCopLogReader.Context context)
         {
             Result result = new Result();
 
@@ -76,12 +87,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             result.RuleId = context.CheckId;
             result.FullMessage = context.Message;
             result.ShortMessage = context.Typename;
-            Location loc = new Location();
-            result.Locations = new[] { loc };
+            var location = new Location();
+            result.Locations = new[] { location };
 
             if (!String.IsNullOrEmpty(context.Target))
             {
-                loc.AnalysisTarget = new PhysicalLocation
+                location.AnalysisTarget = new PhysicalLocation
                 {
                     Uri = new Uri(context.Target, UriKind.RelativeOrAbsolute)
                 };
@@ -90,23 +101,20 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             string sourceFile = GetFilePath(context);
             if (!String.IsNullOrWhiteSpace(sourceFile))
             {
-                loc.ResultFile = new PhysicalLocation
+                location.ResultFile = new PhysicalLocation
                 {
                     Uri = new Uri(sourceFile, UriKind.RelativeOrAbsolute),
                     Region = context.Line == null ? null : Extensions.CreateRegion(context.Line.Value)
                 };
             }
 
-            loc.FullyQualifiedLogicalName = CreateSignature(context);
-            var logicalLocation = new List<LogicalLocationComponent>();
-            TryAddLogicalLocationComponent(logicalLocation, context.Module, LogicalLocationKind.ClrModule);
-            TryAddLogicalLocationComponent(logicalLocation, context.Resource, LogicalLocationKind.ClrResource);
-            TryAddLogicalLocationComponent(logicalLocation, context.Namespace, LogicalLocationKind.ClrNamespace);
-            TryAddLogicalLocationComponent(logicalLocation, context.Type, LogicalLocationKind.ClrType);
-            TryAddLogicalLocationComponent(logicalLocation, context.Member, LogicalLocationKind.ClrFunction);
-            if (logicalLocation.Count != 0)
+            location.LogicalLocation = CreateSignature(context);
+
+            IList<LogicalLocationComponent> logicalLocationComponents = CreateLogicalLocationComponents(context);
+
+            if (logicalLocationComponents.Any())
             {
-                loc.LogicalLocation = logicalLocation;
+                AddLogicalLocation(location, logicalLocationComponents);
             }
 
             var properties = new Dictionary<string, string>();
@@ -162,6 +170,19 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             }
         }
 
+        private IList<LogicalLocationComponent> CreateLogicalLocationComponents(FxCopLogReader.Context context)
+        {
+            var logicalLocationComponents = new List<LogicalLocationComponent>();
+
+            TryAddLogicalLocationComponent(logicalLocationComponents, context.Module, LogicalLocationKind.ClrModule);
+            TryAddLogicalLocationComponent(logicalLocationComponents, context.Resource, LogicalLocationKind.ClrResource);
+            TryAddLogicalLocationComponent(logicalLocationComponents, context.Namespace, LogicalLocationKind.ClrNamespace);
+            TryAddLogicalLocationComponent(logicalLocationComponents, context.Type, LogicalLocationKind.ClrType);
+            TryAddLogicalLocationComponent(logicalLocationComponents, context.Member, LogicalLocationKind.ClrFunction);
+
+            return logicalLocationComponents;
+        }
+
         private static void TryAddLogicalLocationComponent(List<LogicalLocationComponent> location, string value, string kind)
         {
             if (!String.IsNullOrWhiteSpace(value))
@@ -190,7 +211,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
     {
         public delegate void OnIssueRead(Context context);
 
-        public event OnIssueRead IssueRead;
+        public event OnIssueRead ResultRead;
 
         private readonly SparseReaderDispatchTable _dispatchTable;
 
@@ -577,9 +598,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             string exception = MakeExceptionMessage(kind, checkId, context.ExceptionType, context.ExceptionMessage, context.StackTrace, context.InnerExceptionType, context.InnerExceptionMessage, context.InnerStackTrace);
             context.RefineIssue(exception, null, null, null, null, null, null);
 
-            if (IssueRead != null)
+            if (ResultRead != null)
             {
-                IssueRead(context);
+                ResultRead(context);
             }
 
             context.ClearIssue();
@@ -760,9 +781,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
             context.RefineIssue(message, name, certainty, level, path, file, line);
 
-            if (IssueRead != null)
+            if (ResultRead != null)
             {
-                IssueRead(context);
+                ResultRead(context);
             }
 
             context.ClearIssue();

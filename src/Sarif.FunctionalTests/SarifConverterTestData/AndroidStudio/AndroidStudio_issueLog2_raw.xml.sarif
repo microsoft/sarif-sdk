@@ -12,6 +12,22 @@
           }
         ]
       },
+      "logicalLocations": {
+        "app\\microsoft.androidstudioformatexample\\microsoft.androidstudioformatexample.NamespaceTypo": [
+          {
+            "name": "app",
+            "kind": "android-module"
+          },
+          {
+            "name": "microsoft.androidstudioformatexample",
+            "kind": "package"
+          },
+          {
+            "name": "microsoft.androidstudioformatexample.NamespaceTypo",
+            "kind": "type"
+          }
+        ]
+      },
       "results": [
         {
           "ruleId": "Default File Template Usage",
@@ -24,21 +40,7 @@
                   "startLine": 3
                 }
               },
-              "logicalLocation": [
-                {
-                  "name": "app",
-                  "kind": "android-module"
-                },
-                {
-                  "name": "microsoft.androidstudioformatexample",
-                  "kind": "package"
-                },
-                {
-                  "name": "microsoft.androidstudioformatexample.NamespaceTypo",
-                  "kind": "type"
-                }
-              ],
-              "fullyQualifiedLogicalName": "app\\microsoft.androidstudioformatexample\\microsoft.androidstudioformatexample.NamespaceTypo"
+              "logicalLocation": "app\\microsoft.androidstudioformatexample\\microsoft.androidstudioformatexample.NamespaceTypo"
             }
           ],
           "properties": {

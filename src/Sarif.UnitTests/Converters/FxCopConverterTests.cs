@@ -355,7 +355,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         }
 
         [TestMethod]
-        public void FxCopConverter_CreateIssue_FakeContext_Member()
+        public void FxCopConverter_CreateResult_FakeContext_Member()
         {
             var context = TestHelper.CreateProjectContext();
 
@@ -367,7 +367,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             context.RefineMessage("CA0000", "VeryUsefulCheck", "1", "FakeCategory", "Breaking");
             context.RefineIssue("hello!", "test", "uncertain", "error", @"source", "myfile.cs", 13);
 
-            Assert.AreEqual(new Result
+            string expectedLogicalLocation = "mynamespace.mytype.mymember(string)";
+
+            var expectedResult = new Result
             {
                 RuleId = "CA0000",
                 ShortMessage = "VeryUsefulCheck",
@@ -386,30 +388,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                             Uri = new Uri("source\\myfile.cs", UriKind.RelativeOrAbsolute),
                             Region = new Region { StartLine = 13 }
                         },
-                        FullyQualifiedLogicalName = "mynamespace.mytype.mymember(string)",
-                        LogicalLocation = new[]
-                        {
-                            new LogicalLocationComponent
-                            {
-                                Name = "mybinary.dll",
-                                Kind = LogicalLocationKind.ClrModule
-                            },
-                            new LogicalLocationComponent
-                            {
-                                Name = "mynamespace",
-                                Kind = LogicalLocationKind.ClrNamespace
-                            },
-                            new LogicalLocationComponent
-                            {
-                                Name = "mytype",
-                                Kind = LogicalLocationKind.ClrType
-                            },
-                            new LogicalLocationComponent
-                            {
-                                Name = "mymember(string)",
-                                Kind = LogicalLocationKind.ClrFunction
-                            }
-                        }
+                        LogicalLocation = expectedLogicalLocation,
                     }
                 },
                 Properties = new Dictionary<string, string>
@@ -418,7 +397,40 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                     {"Category", "FakeCategory"},
                     {"FixCategory", "Breaking" }
                 }
-            }, FxCopConverter.CreateIssue(context));
+            };
+
+            var expectedLogicalLocationComponents = new[]
+            {
+                new LogicalLocationComponent
+                {
+                    Name = "mybinary.dll",
+                    Kind = LogicalLocationKind.ClrModule
+                },
+                new LogicalLocationComponent
+                {
+                    Name = "mynamespace",
+                    Kind = LogicalLocationKind.ClrNamespace
+                },
+                new LogicalLocationComponent
+                {
+                    Name = "mytype",
+                    Kind = LogicalLocationKind.ClrType
+                },
+                new LogicalLocationComponent
+                {
+                    Name = "mymember(string)",
+                    Kind = LogicalLocationKind.ClrFunction
+                }
+            };
+
+            var converter = new FxCopConverter();
+            Result result = converter.CreateResult(context);
+
+            result.Should().Be(expectedResult);
+
+            converter.LogicalLocationsDictionary.Keys.Should().ContainSingle(expectedLogicalLocation);
+            var actualLogicalLocationComponents = converter.LogicalLocationsDictionary[expectedLogicalLocation];
+            actualLogicalLocationComponents.Should().Equal(expectedLogicalLocationComponents);
         }
 
         [TestMethod]
@@ -433,39 +445,52 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             context.RefineMessage("CA0000", "VeryUsefulCheck", null, null, null);
             context.RefineIssue("hello!", null, null, null, null, null, null);
 
-            FxCopConverter.CreateIssue(context).Locations.Should().Equal(
-                new[] {
-                    new Location
+            var expectedLogicalLocation = "mynamespace.mytype.mymember(string)";
+
+            var expectedLocations = new[]
+            {
+                new Location
+                {
+                    AnalysisTarget = new PhysicalLocation
                     {
-                        AnalysisTarget = new PhysicalLocation
-                        {
-                            Uri = new Uri("mybinary.dll", UriKind.RelativeOrAbsolute),
-                        },
-                        FullyQualifiedLogicalName = "mynamespace.mytype.mymember(string)",
-                        LogicalLocation = new[]
-                        {
-                            new LogicalLocationComponent
-                            {
-                                Name = "mynamespace",
-                                Kind = LogicalLocationKind.ClrNamespace
-                            },
-                            new LogicalLocationComponent
-                            {
-                                Name = "mytype",
-                                Kind = LogicalLocationKind.ClrType
-                            },
-                            new LogicalLocationComponent
-                            {
-                                Name = "mymember(string)",
-                                Kind = LogicalLocationKind.ClrFunction
-                            }
-                        }
-                    }
-                });
+                        Uri = new Uri("mybinary.dll", UriKind.RelativeOrAbsolute),
+                    },
+
+                    LogicalLocation = expectedLogicalLocation
+                }
+            };
+
+            var expectedLogicalLocationComponents = new[]
+            {
+                new LogicalLocationComponent
+                {
+                    Name = "mynamespace",
+                    Kind = LogicalLocationKind.ClrNamespace
+                },
+                new LogicalLocationComponent
+                {
+                    Name = "mytype",
+                    Kind = LogicalLocationKind.ClrType
+                },
+                new LogicalLocationComponent
+                {
+                    Name = "mymember(string)",
+                    Kind = LogicalLocationKind.ClrFunction
+                }
+            };
+
+            var converter = new FxCopConverter();
+            Result result = converter.CreateResult(context);
+
+            result.Locations.Should().Equal(expectedLocations);
+
+            converter.LogicalLocationsDictionary.Keys.Should().ContainSingle(expectedLogicalLocation);
+            var actualLogicalLocationComponents = converter.LogicalLocationsDictionary[expectedLogicalLocation];
+            actualLogicalLocationComponents.Should().Equal(expectedLogicalLocationComponents);
         }
 
         [TestMethod]
-        public void FxCopConverter_CreateIssue_FakeContext_Resource()
+        public void FxCopConverter_CreateResult_FakeContext_Resource()
         {
             var context = TestHelper.CreateProjectContext();
 
@@ -475,7 +500,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             context.RefineMessage("CA0000", "VeryUsefulCheck", null, null, null);
             context.RefineIssue("hello!", "test", null, null, @"source", "myfile.cs", 13);
 
-            FxCopConverter.CreateIssue(context).Locations.Should().Equal(new[]
+            var expectedLogicalLocation = "myresource.resx";
+
+            var expectedLocations = new[]
             {
                 new Location
                 {
@@ -488,26 +515,36 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                             Uri = new Uri("source\\myfile.cs", UriKind.RelativeOrAbsolute),
                             Region = new Region { StartLine = 13 }
                     },
-                    FullyQualifiedLogicalName = "myresource.resx",
-                    LogicalLocation = new[]
-                    {
-                        new LogicalLocationComponent
-                        {
-                            Name = "mybinary.dll",
-                            Kind = LogicalLocationKind.ClrModule
-                        },
-                        new LogicalLocationComponent
-                        {
-                            Name = "myresource.resx",
-                            Kind = LogicalLocationKind.ClrResource
-                        }
-                    }
+                    LogicalLocation = expectedLogicalLocation,
                 }
-            });
+            };
+
+            var expectedLogicalLocationComponents = new[]
+            {
+                new LogicalLocationComponent
+                {
+                    Name = "mybinary.dll",
+                    Kind = LogicalLocationKind.ClrModule
+                },
+                new LogicalLocationComponent
+                {
+                    Name = "myresource.resx",
+                    Kind = LogicalLocationKind.ClrResource
+                }
+            };
+
+            var converter = new FxCopConverter();
+            Result result = converter.CreateResult(context);
+
+            result.Locations.Should().Equal(expectedLocations);
+
+            converter.LogicalLocationsDictionary.Keys.Should().ContainSingle(expectedLogicalLocation);
+            var actualLogicalLocationComponents = converter.LogicalLocationsDictionary[expectedLogicalLocation];
+            actualLogicalLocationComponents.Should().Equal(expectedLogicalLocationComponents);
         }
 
         [TestMethod]
-        public void FxCopConverter_CreateIssue_FakeContext_NoModule_Resource()
+        public void FxCopConverter_CreateResult_FakeContext_NoModule_Resource()
         {
             var context = TestHelper.CreateProjectContext();
 
@@ -516,7 +553,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             context.RefineMessage("CA0000", "VeryUsefulCheck", null, null, null);
             context.RefineIssue("hello!", "test", null, null, null, null, null);
 
-            Assert.AreEqual(@"myresource.resx", FxCopConverter.CreateIssue(context).Locations[0].FullyQualifiedLogicalName);
+            var converter = new FxCopConverter();
+            Result result = converter.CreateResult(context);
+
+            result.Locations[0].LogicalLocation.Should().Be(@"myresource.resx");
         }
     }
 

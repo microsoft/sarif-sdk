@@ -12,6 +12,22 @@
           }
         ]
       },
+      "logicalLocations": {
+        "app\\microsoft.androidstudioformatexample\\microsoft.androidstudioformatexample.MainActivity boolean onOptionsItemSelected(android.view.MenuItem item)": [
+          {
+            "name": "app",
+            "kind": "android-module"
+          },
+          {
+            "name": "microsoft.androidstudioformatexample",
+            "kind": "package"
+          },
+          {
+            "name": "microsoft.androidstudioformatexample.MainActivity boolean onOptionsItemSelected(android.view.MenuItem item)",
+            "kind": "method"
+          }
+        ]
+      },
       "results": [
         {
           "ruleId": "'if' statement may be replaced with && or || expression",
@@ -24,21 +40,7 @@
                   "startLine": 31
                 }
               },
-              "logicalLocation": [
-                {
-                  "name": "app",
-                  "kind": "android-module"
-                },
-                {
-                  "name": "microsoft.androidstudioformatexample",
-                  "kind": "package"
-                },
-                {
-                  "name": "microsoft.androidstudioformatexample.MainActivity boolean onOptionsItemSelected(android.view.MenuItem item)",
-                  "kind": "method"
-                }
-              ],
-              "fullyQualifiedLogicalName": "app\\microsoft.androidstudioformatexample\\microsoft.androidstudioformatexample.MainActivity boolean onOptionsItemSelected(android.view.MenuItem item)"
+              "logicalLocation": "app\\microsoft.androidstudioformatexample\\microsoft.androidstudioformatexample.MainActivity boolean onOptionsItemSelected(android.view.MenuItem item)"
             }
           ],
           "properties": {

@@ -5,6 +5,14 @@
       "tool": {
         "name": "FxCop"
       },
+      "logicalLocations": {
+        "SecurityCryptographyRuleTests": [
+          {
+            "name": "SecurityCryptographyRuleTests",
+            "kind": "namespace"
+          }
+        ]
+      },
       "results": [
         {
           "ruleId": "CA904",
@@ -12,13 +20,7 @@
           "shortMessage": "DeclareTypesInMicrosoftOrSystemNamespace",
           "locations": [
             {
-              "logicalLocation": [
-                {
-                  "name": "SecurityCryptographyRuleTests",
-                  "kind": "namespace"
-                }
-              ],
-              "fullyQualifiedLogicalName": "SecurityCryptographyRuleTests"
+              "logicalLocation": "SecurityCryptographyRuleTests"
             }
           ],
           "properties": {
