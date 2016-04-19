@@ -9,17 +9,17 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
     /// <summary>A class containing utility functions for working with MIME types.</summary>
     public static class MimeType
     {
-        /// <summary>Guesses an appropriate MIME type given the extension from a file name.</summary>
-        /// <param name="fileName">File path from which MIME type shall be guessed.</param>
-        /// <returns>A string corresponding to the likely MIME type of <paramref name="filePath"/>
-        public static string DetermineFromFileExtension(string fileName)
+        /// <summary>Guesses filePath appropriate MIME type given the extension from a file name.</summary>
+        /// <param name="path">File path from which MIME type shall be guessed.</param>
+        /// <returns>A string corresponding to the likely MIME type of <paramref name="path"/>
+        public static string DetermineFromFileExtension(string path)
         {
-            if (fileName == null)
+            if (path == null)
             {
-                throw new ArgumentNullException(nameof(fileName));
+                throw new ArgumentNullException(nameof(path));
             }
 
-            if (System.IO.Directory.Exists(fileName))
+            if (System.IO.Directory.Exists(path))
             {
                 return MimeType.Directory;
             }
@@ -29,7 +29,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 // Each entry in the table is of the form [ mimeType, ext1, ext2, ... extN ]
                 for (int idx = 1; idx < tableEntry.Length; ++idx)
                 {
-                    if (HasExtension(fileName, tableEntry[idx]))
+                    if (HasExtension(path, tableEntry[idx]))
                     {
                         return tableEntry[0];
                     }
