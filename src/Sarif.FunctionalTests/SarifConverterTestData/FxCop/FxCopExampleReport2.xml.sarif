@@ -70,7 +70,7 @@
           "shortMessage": "DeclareTypesInMicrosoftOrSystemNamespace",
           "locations": [
             {
-              "logicalLocation": "SecurityCryptographyRuleTests"
+              "fullyQualifiedLogicalName": "SecurityCryptographyRuleTests"
             }
           ],
           "properties": {
@@ -88,7 +88,7 @@
               "analysisTarget": {
                 "uri": "file:///d:/SecDevTools/Main/bin/x86/Debug/FxCop/FxCopTestData/Crypto/SecurityCryptographyRuleTests.dll"
               },
-              "logicalLocation": "securitycryptographyruletests.dll"
+              "fullyQualifiedLogicalName": "securitycryptographyruletests.dll"
             }
           ],
           "properties": {
@@ -106,7 +106,7 @@
               "analysisTarget": {
                 "uri": "file:///d:/SecDevTools/Main/bin/x86/Debug/FxCop/FxCopTestData/Crypto/SecurityCryptographyRuleTests.dll"
               },
-              "logicalLocation": "SecurityCryptographyRuleTests.DESCannotBeUsed"
+              "fullyQualifiedLogicalName": "SecurityCryptographyRuleTests.DESCannotBeUsed"
             }
           ],
           "toolFingerprint": "DES#Type",
@@ -125,7 +125,7 @@
               "analysisTarget": {
                 "uri": "file:///d:/SecDevTools/Main/bin/x86/Debug/FxCop/FxCopTestData/Crypto/SecurityCryptographyRuleTests.dll"
               },
-              "logicalLocation": "SecurityCryptographyRuleTests.DESCannotBeUsed"
+              "fullyQualifiedLogicalName": "SecurityCryptographyRuleTests.DESCannotBeUsed"
             }
           ],
           "toolFingerprint": "CSharp2_0",
@@ -150,7 +150,7 @@
                   "startLine": 14
                 }
               },
-              "logicalLocation": "SecurityCryptographyRuleTests.DESCannotBeUsed.EncryptData(System.String,System.String,System.Byte[],System.Byte[])"
+              "fullyQualifiedLogicalName": "SecurityCryptographyRuleTests.DESCannotBeUsed.EncryptData(System.String,System.String,System.Byte[],System.Byte[])"
             }
           ],
           "properties": {

@@ -138,7 +138,7 @@ namespace Microsoft.Sarif.Viewer
                     }
                     else
                     {
-                        document = location.LogicalLocation;
+                        document = location.FullyQualifiedLogicalName;
                     }
 
                     rule = GetRule(runLog, result.RuleId);

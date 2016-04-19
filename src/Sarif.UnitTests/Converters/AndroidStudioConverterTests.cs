@@ -233,7 +233,7 @@ Possible resolution: delete", result.FullMessage);
 
             var expectedLocation = new Location
             {
-                LogicalLocation = "my_fancy_binary\\my_method",
+                FullyQualifiedLogicalName = "my_fancy_binary\\my_method",
             };
 
             var expectedLogicalLocationComponents = new[]
@@ -268,7 +268,7 @@ Possible resolution: delete", result.FullMessage);
 
             var expectedLocation = new Location
             {
-                LogicalLocation = "my_method"
+                FullyQualifiedLogicalName = "my_method"
             };
 
             var expectedLogicalLocationComponents = new[]
@@ -298,7 +298,7 @@ Possible resolution: delete", result.FullMessage);
 
             var expectedLocation = new Location
             {
-                LogicalLocation = "FancyPackageName\\my_method"
+                FullyQualifiedLogicalName = "FancyPackageName\\my_method"
             };
 
             var expectedLogicalLocationComponents = new[]
@@ -332,7 +332,7 @@ Possible resolution: delete", result.FullMessage);
 
             var expectedLocation = new Location
             {
-                LogicalLocation = "FancyPackageName"
+                FullyQualifiedLogicalName = "FancyPackageName"
             };
 
             var expectedLogicalLocationComponents = new[]
@@ -365,7 +365,7 @@ Possible resolution: delete", result.FullMessage);
                 {
                     Uri = new Uri("File Goes Here", UriKind.RelativeOrAbsolute),
                 },
-                LogicalLocation = "LastResortModule"
+                FullyQualifiedLogicalName = "LastResortModule"
             };
 
             var expectedLogicalLocationComponents = new[]

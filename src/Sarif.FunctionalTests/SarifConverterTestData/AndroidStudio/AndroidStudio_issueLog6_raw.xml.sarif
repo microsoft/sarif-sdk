@@ -60,7 +60,7 @@
                   "startLine": 37
                 }
               },
-              "logicalLocation": "app\\microsoft.androidstudioformatexample\\microsoft.androidstudioformatexample.MainActivity java.lang.String ForCanBeForeachExample()"
+              "fullyQualifiedLogicalName": "app\\microsoft.androidstudioformatexample\\microsoft.androidstudioformatexample.MainActivity java.lang.String ForCanBeForeachExample()"
             }
           ],
           "properties": {
@@ -80,7 +80,7 @@
                   "startLine": 6
                 }
               },
-              "logicalLocation": "app\\microsoft.androidstudioformatexample\\microsoft.androidstudioformatexample.NamespaceTypo"
+              "fullyQualifiedLogicalName": "app\\microsoft.androidstudioformatexample\\microsoft.androidstudioformatexample.NamespaceTypo"
             }
           ],
           "properties": {

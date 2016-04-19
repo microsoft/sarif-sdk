@@ -34,7 +34,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         {
             Location location = new Location
             {
-                LogicalLocation = "a"
+                FullyQualifiedLogicalName = "a"
             };
 
             LogicalLocationComponent[] logicalLocationComponents = new[]
@@ -62,12 +62,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         {
             Location location1 = new Location
             {
-                LogicalLocation = "a"
+                FullyQualifiedLogicalName = "a"
             };
 
             Location location2 = new Location
             {
-                LogicalLocation = "a"
+                FullyQualifiedLogicalName = "a"
             };
 
             LogicalLocationComponent[] logicalLocationComponents = new[]
@@ -97,7 +97,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         {
             Location location1 = new Location
             {
-                LogicalLocation = "a"
+                FullyQualifiedLogicalName = "a"
             };
 
             LogicalLocationComponent[] logicalLocationComponents1 = new[]
@@ -111,7 +111,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
             Location location2 = new Location
             {
-                LogicalLocation = "a"
+                FullyQualifiedLogicalName = "a"
             };
 
             LogicalLocationComponent[] logicalLocationComponents2 = new[]
@@ -125,7 +125,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
             Location location3 = new Location
             {
-                LogicalLocation = "a"
+                FullyQualifiedLogicalName = "a"
             };
 
             LogicalLocationComponent[] logicalLocationComponents3 = new[]

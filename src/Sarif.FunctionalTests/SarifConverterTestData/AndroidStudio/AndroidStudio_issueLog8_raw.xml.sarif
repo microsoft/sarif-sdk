@@ -60,7 +60,7 @@
                   "startLine": 9
                 }
               },
-              "logicalLocation": "app\\microsoft.androidstudioformatexample\\microsoft.androidstudioformatexample.MainActivity"
+              "fullyQualifiedLogicalName": "app\\microsoft.androidstudioformatexample\\microsoft.androidstudioformatexample.MainActivity"
             }
           ],
           "properties": {
@@ -80,7 +80,7 @@
                   "startLine": 6
                 }
               },
-              "logicalLocation": "app\\microsoft.androidstudioformatexample\\microsoft.androidstudioformatexample.NamespaceTypo"
+              "fullyQualifiedLogicalName": "app\\microsoft.androidstudioformatexample\\microsoft.androidstudioformatexample.NamespaceTypo"
             }
           ],
           "properties": {

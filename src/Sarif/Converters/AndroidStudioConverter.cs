@@ -175,7 +175,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
             if (logicalLocationComponents.Count != 0)
             {
-                location.LogicalLocation = String.Join("\\", logicalLocationComponents.Select(x => x.Name));
+                location.FullyQualifiedLogicalName = String.Join("\\", logicalLocationComponents.Select(x => x.Name));
 
                 AddLogicalLocation(location, logicalLocationComponents);
             }

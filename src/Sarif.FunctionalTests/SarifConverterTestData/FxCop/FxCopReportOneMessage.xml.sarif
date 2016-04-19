@@ -20,7 +20,7 @@
           "shortMessage": "DeclareTypesInMicrosoftOrSystemNamespace",
           "locations": [
             {
-              "logicalLocation": "SecurityCryptographyRuleTests"
+              "fullyQualifiedLogicalName": "SecurityCryptographyRuleTests"
             }
           ],
           "properties": {

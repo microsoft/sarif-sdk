@@ -40,7 +40,7 @@
                   "startLine": 42
                 }
               },
-              "logicalLocation": "app\\microsoft.androidstudioformatexample\\microsoft.androidstudioformatexample.MainActivity java.lang.String ForCanBeForeachExample()"
+              "fullyQualifiedLogicalName": "app\\microsoft.androidstudioformatexample\\microsoft.androidstudioformatexample.MainActivity java.lang.String ForCanBeForeachExample()"
             }
           ],
           "properties": {

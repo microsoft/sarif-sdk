@@ -35,7 +35,7 @@
                   "startLine": 242
                 }
               },
-              "logicalLocation": "com.northwindtraders.droid.model"
+              "fullyQualifiedLogicalName": "com.northwindtraders.droid.model"
             }
           ],
           "properties": {

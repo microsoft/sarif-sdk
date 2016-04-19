@@ -388,7 +388,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                             Uri = new Uri("source\\myfile.cs", UriKind.RelativeOrAbsolute),
                             Region = new Region { StartLine = 13 }
                         },
-                        LogicalLocation = expectedLogicalLocation,
+                        FullyQualifiedLogicalName = expectedLogicalLocation,
                     }
                 },
                 Properties = new Dictionary<string, string>
@@ -456,7 +456,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                         Uri = new Uri("mybinary.dll", UriKind.RelativeOrAbsolute),
                     },
 
-                    LogicalLocation = expectedLogicalLocation
+                    FullyQualifiedLogicalName = expectedLogicalLocation
                 }
             };
 
@@ -515,7 +515,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                             Uri = new Uri("source\\myfile.cs", UriKind.RelativeOrAbsolute),
                             Region = new Region { StartLine = 13 }
                     },
-                    LogicalLocation = expectedLogicalLocation,
+                    FullyQualifiedLogicalName = expectedLogicalLocation,
                 }
             };
 
@@ -556,7 +556,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             var converter = new FxCopConverter();
             Result result = converter.CreateResult(context);
 
-            result.Locations[0].LogicalLocation.Should().Be(@"myresource.resx");
+            result.Locations[0].FullyQualifiedLogicalName.Should().Be(@"myresource.resx");
         }
     }
 

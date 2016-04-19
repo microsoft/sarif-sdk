@@ -34,7 +34,7 @@
               "analysisTarget": {
                 "uri": "$(ProjectDir)/SpecifyCultureInfo/Microsoft.TeamFoundation.Build.Client.dll"
               },
-              "logicalLocation": "OMStrings.resources"
+              "fullyQualifiedLogicalName": "OMStrings.resources"
             }
           ],
           "toolFingerprint": "Logon#StringResourceShouldBeCompoundWord",

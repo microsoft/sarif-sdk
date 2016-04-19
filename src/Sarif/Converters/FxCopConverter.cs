@@ -108,7 +108,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 };
             }
 
-            location.LogicalLocation = CreateSignature(context);
+            location.FullyQualifiedLogicalName = CreateSignature(context);
 
             IList<LogicalLocationComponent> logicalLocationComponents = CreateLogicalLocationComponents(context);
 

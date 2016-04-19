@@ -41,7 +41,7 @@
                   "startLine": 10
                 }
               },
-              "logicalLocation": "yammer-droid-2\\com.yammer.droid\\com.yammer.droid.AdditionOperationTest void testStuff()"
+              "fullyQualifiedLogicalName": "yammer-droid-2\\com.yammer.droid\\com.yammer.droid.AdditionOperationTest void testStuff()"
             }
           ],
           "properties": {

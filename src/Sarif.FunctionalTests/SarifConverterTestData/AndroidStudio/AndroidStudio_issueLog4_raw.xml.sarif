@@ -40,7 +40,7 @@
                   "startLine": 31
                 }
               },
-              "logicalLocation": "app\\microsoft.androidstudioformatexample\\microsoft.androidstudioformatexample.MainActivity boolean onOptionsItemSelected(android.view.MenuItem item)"
+              "fullyQualifiedLogicalName": "app\\microsoft.androidstudioformatexample\\microsoft.androidstudioformatexample.MainActivity boolean onOptionsItemSelected(android.view.MenuItem item)"
             }
           ],
           "properties": {

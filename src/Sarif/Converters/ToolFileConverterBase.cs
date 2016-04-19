@@ -29,14 +29,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         protected internal void AddLogicalLocation(Location location, IList<LogicalLocationComponent> logicalLocationComponents)
         {
             int disambiguator = 0;
-            string logicalLocationKey = location.LogicalLocation;
+            string logicalLocationKey = location.FullyQualifiedLogicalName;
             while (LogicalLocationsDictionary.ContainsKey(logicalLocationKey) && !logicalLocationComponents.SequenceEqual(LogicalLocationsDictionary[logicalLocationKey]))
             {
-                logicalLocationKey = location.LogicalLocation + "-" + disambiguator.ToString(CultureInfo.InvariantCulture);
+                logicalLocationKey = location.FullyQualifiedLogicalName + "-" + disambiguator.ToString(CultureInfo.InvariantCulture);
                 ++disambiguator;
             }
 
-            if (!logicalLocationKey.Equals(location.LogicalLocation, StringComparison.Ordinal))
+            if (!logicalLocationKey.Equals(location.FullyQualifiedLogicalName, StringComparison.Ordinal))
             {
                 location.LogicalLocationKey = logicalLocationKey;
             }

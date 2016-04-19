@@ -33,7 +33,7 @@
               "analysisTarget": {
                 "uri": "northwindtraders-droid-2/src/main/java/com/northwindtraders/droid/model/Model.java"
               },
-              "logicalLocation": "northwindtraders-droid-2\\com.northwindtraders.droid.model"
+              "fullyQualifiedLogicalName": "northwindtraders-droid-2\\com.northwindtraders.droid.model"
             }
           ],
           "properties": {
