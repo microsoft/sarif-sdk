@@ -17,13 +17,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
     {
         protected ToolFileConverterBase()
         {
-            LogicalLocationsDictionary = new Dictionary<string, LogicalLocationComponent[]>();
+            LogicalLocationsDictionary = new Dictionary<string, IList<LogicalLocationComponent>>();
         }
 
         public abstract void Convert(Stream input, IResultLogWriter output);
 
         // internal as well as protected it can be exercised by unit tests.
-        protected internal IDictionary<string, LogicalLocationComponent[]> LogicalLocationsDictionary { get; }
+        protected internal IDictionary<string, IList<LogicalLocationComponent>> LogicalLocationsDictionary { get; }
 
         // internal as well as protected it can be exercised by unit tests.
         protected internal void AddLogicalLocation(Location location, IList<LogicalLocationComponent> logicalLocationComponents)

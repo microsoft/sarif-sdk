@@ -51,19 +51,19 @@
         "AndroidStudioFormatExample": [
           {
             "name": "AndroidStudioFormatExample",
-            "kind": "android-module"
+            "kind": "module"
           }
         ],
         "app": [
           {
             "name": "app",
-            "kind": "android-module"
+            "kind": "module"
           }
         ],
         "app\\microsoft.androidstudioformatexample": [
           {
             "name": "app",
-            "kind": "android-module"
+            "kind": "module"
           },
           {
             "name": "microsoft.androidstudioformatexample",

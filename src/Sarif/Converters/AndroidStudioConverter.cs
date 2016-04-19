@@ -142,7 +142,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 logicalLocationComponents.Add(new LogicalLocationComponent
                 {
                     Name = problem.Module,
-                    Kind = LogicalLocationKind.AndroidModule
+                    Kind = LogicalLocationKind.Module
                 });
             }
 
@@ -151,7 +151,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 logicalLocationComponents.Add(new LogicalLocationComponent
                 {
                     Name = problem.Package,
-                    Kind = LogicalLocationKind.JvmPackage
+                    Kind = LogicalLocationKind.Package
                 });
             }
 
@@ -160,7 +160,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 logicalLocationComponents.Add(new LogicalLocationComponent
                 {
                     Name = problem.EntryPointName,
-                    Kind = LogicalLocationKind.JvmType
+                    Kind = LogicalLocationKind.Type
                 });
             }
 
@@ -169,7 +169,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 logicalLocationComponents.Add(new LogicalLocationComponent
                 {
                     Name = problem.EntryPointName,
-                    Kind = LogicalLocationKind.JvmFunction
+                    Kind = LogicalLocationKind.Member
                 });
             }
 

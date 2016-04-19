@@ -404,22 +404,22 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 new LogicalLocationComponent
                 {
                     Name = "mybinary.dll",
-                    Kind = LogicalLocationKind.ClrModule
+                    Kind = LogicalLocationKind.Module
                 },
                 new LogicalLocationComponent
                 {
                     Name = "mynamespace",
-                    Kind = LogicalLocationKind.ClrNamespace
+                    Kind = LogicalLocationKind.Namespace
                 },
                 new LogicalLocationComponent
                 {
                     Name = "mytype",
-                    Kind = LogicalLocationKind.ClrType
+                    Kind = LogicalLocationKind.Type
                 },
                 new LogicalLocationComponent
                 {
                     Name = "mymember(string)",
-                    Kind = LogicalLocationKind.ClrFunction
+                    Kind = LogicalLocationKind.Member
                 }
             };
 
@@ -465,17 +465,17 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 new LogicalLocationComponent
                 {
                     Name = "mynamespace",
-                    Kind = LogicalLocationKind.ClrNamespace
+                    Kind = LogicalLocationKind.Namespace
                 },
                 new LogicalLocationComponent
                 {
                     Name = "mytype",
-                    Kind = LogicalLocationKind.ClrType
+                    Kind = LogicalLocationKind.Type
                 },
                 new LogicalLocationComponent
                 {
                     Name = "mymember(string)",
-                    Kind = LogicalLocationKind.ClrFunction
+                    Kind = LogicalLocationKind.Member
                 }
             };
 
@@ -524,12 +524,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 new LogicalLocationComponent
                 {
                     Name = "mybinary.dll",
-                    Kind = LogicalLocationKind.ClrModule
+                    Kind = LogicalLocationKind.Module
                 },
                 new LogicalLocationComponent
                 {
                     Name = "myresource.resx",
-                    Kind = LogicalLocationKind.ClrResource
+                    Kind = LogicalLocationKind.Resource
                 }
             };
 

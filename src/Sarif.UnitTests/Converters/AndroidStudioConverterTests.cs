@@ -241,12 +241,12 @@ Possible resolution: delete", result.FullMessage);
                 new LogicalLocationComponent
                 {
                     Name = "my_fancy_binary",
-                    Kind = LogicalLocationKind.AndroidModule
+                    Kind = LogicalLocationKind.Module
                 },
                 new LogicalLocationComponent
                 {
                     Name = "my_method",
-                    Kind = LogicalLocationKind.JvmFunction
+                    Kind = LogicalLocationKind.Member
                 }
             };
 
@@ -276,7 +276,7 @@ Possible resolution: delete", result.FullMessage);
                 new LogicalLocationComponent
                 {
                     Name = "my_method",
-                    Kind = LogicalLocationKind.JvmFunction
+                    Kind = LogicalLocationKind.Member
                 }
             };
 
@@ -306,12 +306,12 @@ Possible resolution: delete", result.FullMessage);
                 new LogicalLocationComponent
                 {
                     Name = "FancyPackageName",
-                    Kind = LogicalLocationKind.JvmPackage
+                    Kind = LogicalLocationKind.Package
                 },
                 new LogicalLocationComponent
                 {
                     Name = "my_method",
-                    Kind = LogicalLocationKind.JvmFunction
+                    Kind = LogicalLocationKind.Member
                 }
             };
 
@@ -340,7 +340,7 @@ Possible resolution: delete", result.FullMessage);
                 new LogicalLocationComponent
                 {
                     Name = "FancyPackageName",
-                    Kind = LogicalLocationKind.JvmPackage
+                    Kind = LogicalLocationKind.Package
                 }
             };
 
@@ -373,7 +373,7 @@ Possible resolution: delete", result.FullMessage);
                 new LogicalLocationComponent
                 {
                     Name = "LastResortModule",
-                    Kind = LogicalLocationKind.AndroidModule
+                    Kind = LogicalLocationKind.Module
                 }
             };
 
@@ -404,7 +404,7 @@ Possible resolution: delete", result.FullMessage);
         private struct LocationInfo
         {
             public Location Location;
-            public LogicalLocationComponent[] LogicalLocationComponents;
+            public IList<LogicalLocationComponent> LogicalLocationComponents;
         }
 
         private static LocationInfo GetLocationInfoForBuilder(AndroidStudioProblem.Builder builder)
@@ -415,9 +415,9 @@ Possible resolution: delete", result.FullMessage);
             Location location = result.Locations[0];
 
             string logicalLocationKey = converter.LogicalLocationsDictionary.Keys.SingleOrDefault();
-            LogicalLocationComponent[] logicalLocationComponents = logicalLocationKey != null
+            IList<LogicalLocationComponent> logicalLocationComponents = logicalLocationKey != null
                 ? converter.LogicalLocationsDictionary[logicalLocationKey]
-                : new LogicalLocationComponent[0];
+                : new List<LogicalLocationComponent>(0);
 
             return new LocationInfo
             {

@@ -42,7 +42,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 new LogicalLocationComponent
                 {
                     Name = "a",
-                    Kind = LogicalLocationKind.ClrNamespace
+                    Kind = LogicalLocationKind.Namespace
                 },
             };
 
@@ -75,7 +75,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 new LogicalLocationComponent
                 {
                     Name = "a",
-                    Kind = LogicalLocationKind.ClrNamespace
+                    Kind = LogicalLocationKind.Namespace
                 }
             };
 
@@ -105,7 +105,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 new LogicalLocationComponent
                 {
                     Name = "a",
-                    Kind = LogicalLocationKind.ClrNamespace
+                    Kind = LogicalLocationKind.Namespace
                 }
             };
 
@@ -119,7 +119,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 new LogicalLocationComponent
                 {
                     Name = "a",
-                    Kind = LogicalLocationKind.JvmPackage
+                    Kind = LogicalLocationKind.Package
                 }
             };
 
@@ -133,7 +133,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 new LogicalLocationComponent
                 {
                     Name = "a",
-                    Kind = LogicalLocationKind.AndroidModule
+                    Kind = LogicalLocationKind.Module
                 }
             };
 

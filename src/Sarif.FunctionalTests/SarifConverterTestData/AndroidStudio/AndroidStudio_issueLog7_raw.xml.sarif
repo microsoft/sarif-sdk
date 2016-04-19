@@ -21,7 +21,7 @@
         "AndroidStudioFormatExample": [
           {
             "name": "AndroidStudioFormatExample",
-            "kind": "android-module"
+            "kind": "module"
           }
         ]
       },

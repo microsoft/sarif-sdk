@@ -59,7 +59,7 @@
           },
           {
             "name": "#EncryptData(System.String,System.String,System.Byte[],System.Byte[])",
-            "kind": "method"
+            "kind": "member"
           }
         ]
       },

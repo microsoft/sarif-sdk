@@ -16,7 +16,7 @@
         "northwindtraders-droid-2": [
           {
             "name": "northwindtraders-droid-2",
-            "kind": "android-module"
+            "kind": "module"
           }
         ]
       },

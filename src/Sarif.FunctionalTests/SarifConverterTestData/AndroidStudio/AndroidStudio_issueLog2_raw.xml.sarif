@@ -16,7 +16,7 @@
         "app\\microsoft.androidstudioformatexample\\microsoft.androidstudioformatexample.NamespaceTypo": [
           {
             "name": "app",
-            "kind": "android-module"
+            "kind": "module"
           },
           {
             "name": "microsoft.androidstudioformatexample",

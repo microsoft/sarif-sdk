@@ -16,7 +16,7 @@
         "yammer-droid-2\\com.yammer.droid\\com.yammer.droid.AdditionOperationTest void testStuff()": [
           {
             "name": "yammer-droid-2",
-            "kind": "android-module"
+            "kind": "module"
           },
           {
             "name": "com.yammer.droid",
@@ -24,7 +24,7 @@
           },
           {
             "name": "com.yammer.droid.AdditionOperationTest void testStuff()",
-            "kind": "method"
+            "kind": "member"
           }
         ]
       },

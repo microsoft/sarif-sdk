@@ -231,7 +231,7 @@
           },
           {
             "name": "#EncryptData(System.String,System.String,System.Byte[],System.Byte[])",
-            "kind": "method"
+            "kind": "member"
           }
         ],
         "SecurityCryptographyRuleTests.DSACannotBeUsed": [
@@ -263,7 +263,7 @@
           },
           {
             "name": "#DSASignHash(System.Byte[],System.Security.Cryptography.DSAParameters,System.String)",
-            "kind": "method"
+            "kind": "member"
           }
         ],
         "SecurityCryptographyRuleTests.DSACannotBeUsed.DSAVerifyHash(System.Byte[],System.Byte[],System.Security.Cryptography.DSAParameters,System.String)": [
@@ -281,7 +281,7 @@
           },
           {
             "name": "#DSAVerifyHash(System.Byte[],System.Byte[],System.Security.Cryptography.DSAParameters,System.String)",
-            "kind": "method"
+            "kind": "member"
           }
         ],
         "SecurityCryptographyRuleTests.DSACannotBeUsed.Main()": [
@@ -299,7 +299,7 @@
           },
           {
             "name": "#Main()",
-            "kind": "method"
+            "kind": "member"
           }
         ],
         "SecurityCryptographyRuleTests.MD5CannotBeUsed": [
@@ -331,7 +331,7 @@
           },
           {
             "name": "#GetMd5Hash(System.Security.Cryptography.MD5,System.String)",
-            "kind": "method"
+            "kind": "member"
           }
         ],
         "SecurityCryptographyRuleTests.MD5CannotBeUsed.Main(System.String[])": [
@@ -349,7 +349,7 @@
           },
           {
             "name": "#Main(System.String[])",
-            "kind": "method"
+            "kind": "member"
           }
         ],
         "SecurityCryptographyRuleTests.MD5CannotBeUsed.VerifyMd5Hash(System.Security.Cryptography.MD5,System.String,System.String)": [
@@ -367,7 +367,7 @@
           },
           {
             "name": "#VerifyMd5Hash(System.Security.Cryptography.MD5,System.String,System.String)",
-            "kind": "method"
+            "kind": "member"
           }
         ],
         "SecurityCryptographyRuleTests.RC2CannotBeUsed": [
@@ -399,7 +399,7 @@
           },
           {
             "name": "#DecryptBytes(System.Security.Cryptography.SymmetricAlgorithm,System.Byte[])",
-            "kind": "method"
+            "kind": "member"
           }
         ],
         "SecurityCryptographyRuleTests.RC2CannotBeUsed.EncryptString(System.Security.Cryptography.SymmetricAlgorithm,System.String)": [
@@ -417,7 +417,7 @@
           },
           {
             "name": "#EncryptString(System.Security.Cryptography.SymmetricAlgorithm,System.String)",
-            "kind": "method"
+            "kind": "member"
           }
         ],
         "SecurityCryptographyRuleTests.RC2CannotBeUsed.Main()": [
@@ -435,7 +435,7 @@
           },
           {
             "name": "#Main()",
-            "kind": "method"
+            "kind": "member"
           }
         ],
         "SecurityCryptographyRuleTests.RC2Impl..ctor()": [
@@ -453,7 +453,7 @@
           },
           {
             "name": "#.ctor()",
-            "kind": "method"
+            "kind": "member"
           }
         ],
         "SecurityCryptographyRuleTests.RijndaelCannotBeUsed": [
@@ -485,7 +485,7 @@
           },
           {
             "name": "#DecryptStringFromBytes(System.Byte[],System.Byte[],System.Byte[])",
-            "kind": "method"
+            "kind": "member"
           }
         ],
         "SecurityCryptographyRuleTests.RijndaelCannotBeUsed.EncryptStringToBytes(System.String,System.Byte[],System.Byte[])": [
@@ -503,7 +503,7 @@
           },
           {
             "name": "#EncryptStringToBytes(System.String,System.Byte[],System.Byte[])",
-            "kind": "method"
+            "kind": "member"
           }
         ],
         "SecurityCryptographyRuleTests.RijndaelCannotBeUsed.Main()": [
@@ -521,7 +521,7 @@
           },
           {
             "name": "#Main()",
-            "kind": "method"
+            "kind": "member"
           }
         ],
         "SecurityCryptographyRuleTests.RIPEMD160IsNotRecommended": [
@@ -553,7 +553,7 @@
           },
           {
             "name": "#Main(System.String[])",
-            "kind": "method"
+            "kind": "member"
           }
         ],
         "SecurityCryptographyRuleTests.RIPEMD160IsNotRecommended.PrintByteArray(System.Byte[])": [
@@ -571,7 +571,7 @@
           },
           {
             "name": "#PrintByteArray(System.Byte[])",
-            "kind": "method"
+            "kind": "member"
           }
         ],
         "SecurityCryptographyRuleTests.RSAProviderNeeds2048bitKey": [
@@ -603,7 +603,7 @@
           },
           {
             "name": "#Main()",
-            "kind": "method"
+            "kind": "member"
           }
         ],
         "SecurityCryptographyRuleTests.RSAProviderNeeds2048bitKey.RSADecrypt(System.Byte[],System.Security.Cryptography.RSAParameters,System.Boolean)": [
@@ -621,7 +621,7 @@
           },
           {
             "name": "#RSADecrypt(System.Byte[],System.Security.Cryptography.RSAParameters,System.Boolean)",
-            "kind": "method"
+            "kind": "member"
           }
         ],
         "SecurityCryptographyRuleTests.RSAProviderNeeds2048bitKey.RSAEncrypt(System.Byte[],System.Security.Cryptography.RSAParameters,System.Boolean)": [
@@ -639,7 +639,7 @@
           },
           {
             "name": "#RSAEncrypt(System.Byte[],System.Security.Cryptography.RSAParameters,System.Boolean)",
-            "kind": "method"
+            "kind": "member"
           }
         ],
         "SecurityCryptographyRuleTests.SHA1CannotBeUsed": [
@@ -671,7 +671,7 @@
           },
           {
             "name": "#Main()",
-            "kind": "method"
+            "kind": "member"
           }
         ],
         "SecurityCryptographyRuleTests.TripleDESCannotBeUsed": [
@@ -703,7 +703,7 @@
           },
           {
             "name": "#DecryptStringFromBytes(System.Byte[],System.Byte[],System.Byte[])",
-            "kind": "method"
+            "kind": "member"
           }
         ],
         "SecurityCryptographyRuleTests.TripleDESCannotBeUsed.EncryptStringToBytes(System.String,System.Byte[],System.Byte[])": [
@@ -721,7 +721,7 @@
           },
           {
             "name": "#EncryptStringToBytes(System.String,System.Byte[],System.Byte[])",
-            "kind": "method"
+            "kind": "member"
           }
         ],
         "SecurityCryptographyRuleTests.TripleDESCannotBeUsed.Main()": [
@@ -739,7 +739,7 @@
           },
           {
             "name": "#Main()",
-            "kind": "method"
+            "kind": "member"
           }
         ],
         "securityxmlruletests.dll": [
@@ -763,7 +763,7 @@
           },
           {
             "name": "#Test1(System.String)",
-            "kind": "method"
+            "kind": "member"
           }
         ],
         "FxCopUnsafeXml.DoNotAllowDtdOnXmlReader.Test1206P(System.String)": [
@@ -781,7 +781,7 @@
           },
           {
             "name": "#Test1206P(System.String)",
-            "kind": "method"
+            "kind": "member"
           }
         ],
         "FxCopUnsafeXml.DoNotAllowDtdOnXmlReader.Test2(System.String)": [
@@ -799,7 +799,7 @@
           },
           {
             "name": "#Test2(System.String)",
-            "kind": "method"
+            "kind": "member"
           }
         ],
         "FxCopUnsafeXml.DoNotAllowDtdOnXmlReader.Test3(System.String)": [
@@ -817,7 +817,7 @@
           },
           {
             "name": "#Test3(System.String)",
-            "kind": "method"
+            "kind": "member"
           }
         ],
         "FxCopUnsafeXml.DoNotAllowDtdOnXmlReader.Test6(System.String)": [
@@ -835,7 +835,7 @@
           },
           {
             "name": "#Test6(System.String)",
-            "kind": "method"
+            "kind": "member"
           }
         ],
         "FxCopUnsafeXml.DoNotAllowDtdOnXmlTextReader.Test1(System.String)": [
@@ -853,7 +853,7 @@
           },
           {
             "name": "#Test1(System.String)",
-            "kind": "method"
+            "kind": "member"
           }
         ],
         "FxCopUnsafeXml.DoNotAllowDtdOnXmlTextReader.Test1205P(System.String)": [
@@ -871,7 +871,7 @@
           },
           {
             "name": "#Test1205P(System.String)",
-            "kind": "method"
+            "kind": "member"
           }
         ],
         "FxCopUnsafeXml.DoNotAllowDtdOnXmlTextReader.Test2(System.String)": [
@@ -889,7 +889,7 @@
           },
           {
             "name": "#Test2(System.String)",
-            "kind": "method"
+            "kind": "member"
           }
         ],
         "FxCopUnsafeXml.DoNotAllowDtdOnXmlTextReader.Test3(System.String)": [
@@ -907,7 +907,7 @@
           },
           {
             "name": "#Test3(System.String)",
-            "kind": "method"
+            "kind": "member"
           }
         ],
         "FxCopUnsafeXml.DoNotAllowDtdOnXmlTextReader.Test4(System.String)": [
@@ -925,7 +925,7 @@
           },
           {
             "name": "#Test4(System.String)",
-            "kind": "method"
+            "kind": "member"
           }
         ],
         "FxCopUnsafeXml.DoNotAllowDtdOnXmlTextReader.Test5(System.String,System.Boolean)": [
@@ -943,7 +943,7 @@
           },
           {
             "name": "#Test5(System.String,System.Boolean)",
-            "kind": "method"
+            "kind": "member"
           }
         ],
         "FxCopUnsafeXml.DoNotAllowDtdOnXmlTextReader.Test6(System.String)": [
@@ -961,7 +961,7 @@
           },
           {
             "name": "#Test6(System.String)",
-            "kind": "method"
+            "kind": "member"
           }
         ],
         "FxCopUnsafeXml.DoNotAllowDtdOnXmlTextReader.Test7(System.String)": [
@@ -979,7 +979,7 @@
           },
           {
             "name": "#Test7(System.String)",
-            "kind": "method"
+            "kind": "member"
           }
         ],
         "FxCopUnsafeXml.DoNotUseLoadXml.TestMethod(System.String)": [
@@ -997,7 +997,7 @@
           },
           {
             "name": "#TestMethod(System.String)",
-            "kind": "method"
+            "kind": "member"
           }
         ],
         "FxCopUnsafeXml.DoNotUseLoadXml.TestMethod1(System.String)": [
@@ -1015,7 +1015,7 @@
           },
           {
             "name": "#TestMethod1(System.String)",
-            "kind": "method"
+            "kind": "member"
           }
         ],
         "FxCopUnsafeXml.DoNotUseSetInnerXml.TestMethod(System.String)": [
@@ -1033,7 +1033,7 @@
           },
           {
             "name": "#TestMethod(System.String)",
-            "kind": "method"
+            "kind": "member"
           }
         ],
         "FxCopUnsafeXml.DoNotUseSetInnerXml.TestMethod1(System.String)": [
@@ -1051,7 +1051,7 @@
           },
           {
             "name": "#TestMethod1(System.String)",
-            "kind": "method"
+            "kind": "member"
           }
         ],
         "FxCopUnsafeXml.DoNotUseSetInnerXml.TestMethod2(System.String)": [
@@ -1069,7 +1069,7 @@
           },
           {
             "name": "#TestMethod2(System.String)",
-            "kind": "method"
+            "kind": "member"
           }
         ],
         "FxCopUnsafeXml.DoNotUseSetInnerXml.TestMethod3(System.String)": [
@@ -1087,7 +1087,7 @@
           },
           {
             "name": "#TestMethod3(System.String)",
-            "kind": "method"
+            "kind": "member"
           }
         ],
         "FxCopUnsafeXml.DoNotUseXslTransform..ctor()": [
@@ -1105,7 +1105,7 @@
           },
           {
             "name": "#.ctor()",
-            "kind": "method"
+            "kind": "member"
           }
         ],
         "FxCopUnsafeXml.DoNotUseXslTransform.xslTransform": [
@@ -1123,7 +1123,7 @@
           },
           {
             "name": "#xslTransform",
-            "kind": "method"
+            "kind": "member"
           }
         ],
         "FxCopUnsafeXml.ReviewClassesDerivedFromXmlTextReader.Method()": [
@@ -1141,7 +1141,7 @@
           },
           {
             "name": "#Method()",
-            "kind": "method"
+            "kind": "member"
           }
         ],
         "FxCopUnsafeXml.ReviewDataViewConnectionString.TestMethod1216(System.String)": [
@@ -1159,7 +1159,7 @@
           },
           {
             "name": "#TestMethod1216(System.String)",
-            "kind": "method"
+            "kind": "member"
           }
         ],
         "FxCopUnsafeXml.ReviewDtdProcessingAssignment.Test(System.String)": [
@@ -1177,7 +1177,7 @@
           },
           {
             "name": "#Test(System.String)",
-            "kind": "method"
+            "kind": "member"
           }
         ],
         "FxCopUnsafeXml.ReviewDtdProcessingAssignment.TestMethod(System.Xml.XmlReader)": [
@@ -1195,7 +1195,7 @@
           },
           {
             "name": "#TestMethod(System.Xml.XmlReader)",
-            "kind": "method"
+            "kind": "member"
           }
         ],
         "FxCopUnsafeXml.ReviewTrustedXsltUse.TestMethod()": [
@@ -1213,7 +1213,7 @@
           },
           {
             "name": "#TestMethod()",
-            "kind": "method"
+            "kind": "member"
           }
         ],
         "FxCopUnsafeXml.ReviewWebControlForSet_Data": [
@@ -1245,7 +1245,7 @@
           },
           {
             "name": "#TestMethod34(System.String)",
-            "kind": "method"
+            "kind": "member"
           }
         ],
         "FxCopUnsafeXml.ReviewWebControlForSet_DocumentContent": [
@@ -1277,7 +1277,7 @@
           },
           {
             "name": "#TestMethod(System.String)",
-            "kind": "method"
+            "kind": "member"
           }
         ],
         "FxCopUnsafeXml.TextReaderImplNeedsSettingsAndResolver": [
@@ -1309,7 +1309,7 @@
           },
           {
             "name": "#TestMethod(System.String)",
-            "kind": "method"
+            "kind": "member"
           }
         ],
         "FxCopUnsafeXml.UseXmlReaderForDataSetReadXml.TestMethod1214(System.String)": [
@@ -1327,7 +1327,7 @@
           },
           {
             "name": "#TestMethod1214(System.String)",
-            "kind": "method"
+            "kind": "member"
           }
         ],
         "FxCopUnsafeXml.UseXmlReaderForDataSetReadXml.TestMethod1214Ok(System.Xml.XmlReader)": [
@@ -1345,7 +1345,7 @@
           },
           {
             "name": "#TestMethod1214Ok(System.Xml.XmlReader)",
-            "kind": "method"
+            "kind": "member"
           }
         ],
         "FxCopUnsafeXml.UseXmlReaderForDataSetReadXmlSchema.TestMethod1215(System.String)": [
@@ -1363,7 +1363,7 @@
           },
           {
             "name": "#TestMethod1215(System.String)",
-            "kind": "method"
+            "kind": "member"
           }
         ],
         "FxCopUnsafeXml.UseXmlReaderForDataSetReadXmlSchema.TestMethod1215Ok(System.Xml.XmlReader)": [
@@ -1381,7 +1381,7 @@
           },
           {
             "name": "#TestMethod1215Ok(System.Xml.XmlReader)",
-            "kind": "method"
+            "kind": "member"
           }
         ],
         "FxCopUnsafeXml.UseXmlReaderForDataTableReadXml.TestMethod(System.IO.Stream)": [
@@ -1399,7 +1399,7 @@
           },
           {
             "name": "#TestMethod(System.IO.Stream)",
-            "kind": "method"
+            "kind": "member"
           }
         ],
         "FxCopUnsafeXml.UseXmlReaderForDataTableReadXml.TestMethod1(System.Xml.XmlReader)": [
@@ -1417,7 +1417,7 @@
           },
           {
             "name": "#TestMethod1(System.Xml.XmlReader)",
-            "kind": "method"
+            "kind": "member"
           }
         ],
         "FxCopUnsafeXml.UseXmlReaderForDataTableReadXmlSchema.TestMethod(System.IO.Stream)": [
@@ -1435,7 +1435,7 @@
           },
           {
             "name": "#TestMethod(System.IO.Stream)",
-            "kind": "method"
+            "kind": "member"
           }
         ],
         "FxCopUnsafeXml.UseXmlReaderForDataTableReadXmlSchema.TestMethod1(System.Xml.XmlReader)": [
@@ -1453,7 +1453,7 @@
           },
           {
             "name": "#TestMethod1(System.Xml.XmlReader)",
-            "kind": "method"
+            "kind": "member"
           }
         ],
         "FxCopUnsafeXml.UseXmlReaderForDeserialize.TestMethod1221(System.IO.Stream)": [
@@ -1471,7 +1471,7 @@
           },
           {
             "name": "#TestMethod1221(System.IO.Stream)",
-            "kind": "method"
+            "kind": "member"
           }
         ],
         "FxCopUnsafeXml.UseXmlReaderForDeserialize.TestMethod1221Ok(System.Xml.XmlTextReader)": [
@@ -1489,7 +1489,7 @@
           },
           {
             "name": "#TestMethod1221Ok(System.Xml.XmlTextReader)",
-            "kind": "method"
+            "kind": "member"
           }
         ],
         "FxCopUnsafeXml.UseXmlReaderForLoad.TestMethod(System.String)": [
@@ -1507,7 +1507,7 @@
           },
           {
             "name": "#TestMethod(System.String)",
-            "kind": "method"
+            "kind": "member"
           }
         ],
         "FxCopUnsafeXml.UseXmlReaderForLoad.TestMethod1(System.String)": [
@@ -1525,7 +1525,7 @@
           },
           {
             "name": "#TestMethod1(System.String)",
-            "kind": "method"
+            "kind": "member"
           }
         ],
         "FxCopUnsafeXml.UseXmlReaderForLoad.TestMethod2(System.String)": [
@@ -1543,7 +1543,7 @@
           },
           {
             "name": "#TestMethod2(System.String)",
-            "kind": "method"
+            "kind": "member"
           }
         ],
         "FxCopUnsafeXml.UseXmlReaderForLoad.TestMethod3(System.String)": [
@@ -1561,7 +1561,7 @@
           },
           {
             "name": "#TestMethod3(System.String)",
-            "kind": "method"
+            "kind": "member"
           }
         ],
         "FxCopUnsafeXml.UseXmlReaderForSchemaRead.TestMethod18(System.String)": [
@@ -1579,7 +1579,7 @@
           },
           {
             "name": "#TestMethod18(System.String)",
-            "kind": "method"
+            "kind": "member"
           }
         ],
         "FxCopUnsafeXml.UseXmlReaderForSchemaRead.TestMethod19(System.Xml.XmlTextReader)": [
@@ -1597,7 +1597,7 @@
           },
           {
             "name": "#TestMethod19(System.Xml.XmlTextReader)",
-            "kind": "method"
+            "kind": "member"
           }
         ],
         "FxCopUnsafeXml.UseXmlReaderForValidatingReader.TestMethod1213(System.IO.Stream)": [
@@ -1615,7 +1615,7 @@
           },
           {
             "name": "#TestMethod1213(System.IO.Stream)",
-            "kind": "method"
+            "kind": "member"
           }
         ],
         "FxCopUnsafeXml.UseXmlReaderForValidatingReader.TestMethod1213Ok(System.Xml.XmlReader)": [
@@ -1633,7 +1633,7 @@
           },
           {
             "name": "#TestMethod1213Ok(System.Xml.XmlReader)",
-            "kind": "method"
+            "kind": "member"
           }
         ],
         "FxCopUnsafeXml.UseXmlReaderForXPathDocument.TestMethod16(System.String)": [
@@ -1651,7 +1651,7 @@
           },
           {
             "name": "#TestMethod16(System.String)",
-            "kind": "method"
+            "kind": "member"
           }
         ],
         "FxCopUnsafeXml.UseXmlReaderForXPathDocument.TestMethod17(System.Xml.XmlReader)": [
@@ -1669,7 +1669,7 @@
           },
           {
             "name": "#TestMethod17(System.Xml.XmlReader)",
-            "kind": "method"
+            "kind": "member"
           }
         ],
         "FxCopUnsafeXml.UseXmlSecureResolver": [
@@ -1701,7 +1701,7 @@
           },
           {
             "name": "#LoadTest1()",
-            "kind": "method"
+            "kind": "member"
           }
         ],
         "FxCopUnsafeXml.UseXmlSecureResolver.LoadTest2()": [
@@ -1719,7 +1719,7 @@
           },
           {
             "name": "#LoadTest2()",
-            "kind": "method"
+            "kind": "member"
           }
         ],
         "FxCopUnsafeXml.UseXmlSecureResolver.LoadTest3()": [
@@ -1737,7 +1737,7 @@
           },
           {
             "name": "#LoadTest3()",
-            "kind": "method"
+            "kind": "member"
           }
         ],
         "FxCopUnsafeXml.UseXmlSecureResolver.LoadTest4()": [
@@ -1755,7 +1755,7 @@
           },
           {
             "name": "#LoadTest4()",
-            "kind": "method"
+            "kind": "member"
           }
         ],
         "FxCopUnsafeXml.UseXmlSecureResolver.LoadTest5()": [
@@ -1773,7 +1773,7 @@
           },
           {
             "name": "#LoadTest5()",
-            "kind": "method"
+            "kind": "member"
           }
         ],
         "FxCopUnsafeXml.UseXmlSecureResolver.LoadTest6()": [
@@ -1791,7 +1791,7 @@
           },
           {
             "name": "#LoadTest6()",
-            "kind": "method"
+            "kind": "member"
           }
         ],
         "FxCopUnsafeXml.UseXmlSecureResolver.SuppresionTest1()": [
@@ -1809,7 +1809,7 @@
           },
           {
             "name": "#SuppresionTest1()",
-            "kind": "method"
+            "kind": "member"
           }
         ],
         "FxCopUnsafeXml.UseXmlSecureResolver.SuppresionTest2(System.String)": [
@@ -1827,7 +1827,7 @@
           },
           {
             "name": "#SuppresionTest2(System.String)",
-            "kind": "method"
+            "kind": "member"
           }
         ],
         "FxCopUnsafeXml.UseXmlSecureResolver.SuppresionTest3(System.String)": [
@@ -1845,7 +1845,7 @@
           },
           {
             "name": "#SuppresionTest3(System.String)",
-            "kind": "method"
+            "kind": "member"
           }
         ],
         "FxCopUnsafeXml.UseXmlSecureResolver.TransformTest1(System.String)": [
@@ -1863,7 +1863,7 @@
           },
           {
             "name": "#TransformTest1(System.String)",
-            "kind": "method"
+            "kind": "member"
           }
         ],
         "FxCopUnsafeXml.UseXmlSecureResolver.TransformTest2(System.String)": [
@@ -1881,7 +1881,7 @@
           },
           {
             "name": "#TransformTest2(System.String)",
-            "kind": "method"
+            "kind": "member"
           }
         ],
         "FxCopUnsafeXml.UseXmlSecureResolver.TransformTest3(System.String)": [
@@ -1899,7 +1899,7 @@
           },
           {
             "name": "#TransformTest3(System.String)",
-            "kind": "method"
+            "kind": "member"
           }
         ],
         "FxCopUnsafeXml.UseXmlSecureResolver.TransformTest4(System.String)": [
@@ -1917,7 +1917,7 @@
           },
           {
             "name": "#TransformTest4(System.String)",
-            "kind": "method"
+            "kind": "member"
           }
         ],
         "FxCopUnsafeXml.UseXmlSecureResolver.TransformTest5(System.String)": [
@@ -1935,7 +1935,7 @@
           },
           {
             "name": "#TransformTest5(System.String)",
-            "kind": "method"
+            "kind": "member"
           }
         ],
         "FxCopUnsafeXml.UseXmlSecureResolver.XmlDocumentTest1()": [
@@ -1953,7 +1953,7 @@
           },
           {
             "name": "#XmlDocumentTest1()",
-            "kind": "method"
+            "kind": "member"
           }
         ],
         "FxCopUnsafeXml.UseXmlSecureResolver.XmlDocumentTest2()": [
@@ -1971,7 +1971,7 @@
           },
           {
             "name": "#XmlDocumentTest2()",
-            "kind": "method"
+            "kind": "member"
           }
         ],
         "FxCopUnsafeXml.UseXmlSecureResolver.XmlDocumentTest3()": [
@@ -1989,7 +1989,7 @@
           },
           {
             "name": "#XmlDocumentTest3()",
-            "kind": "method"
+            "kind": "member"
           }
         ],
         "FxCopUnsafeXml.UseXmlSecureResolver.XmlDocumentTest4(System.Xml.XmlSecureResolver)": [
@@ -2007,7 +2007,7 @@
           },
           {
             "name": "#XmlDocumentTest4(System.Xml.XmlSecureResolver)",
-            "kind": "method"
+            "kind": "member"
           }
         ],
         "FxCopUnsafeXml.UseXmlSecureResolver.XmlDocumentTest5()": [
@@ -2025,7 +2025,7 @@
           },
           {
             "name": "#XmlDocumentTest5()",
-            "kind": "method"
+            "kind": "member"
           }
         ],
         "FxCopUnsafeXml.UseXmlSecureResolver.XmlDocumentTest6()": [
@@ -2043,7 +2043,7 @@
           },
           {
             "name": "#XmlDocumentTest6()",
-            "kind": "method"
+            "kind": "member"
           }
         ],
         "FxCopUnsafeXml.UseXmlSecureResolver.XmlDocumentTest7()": [
@@ -2061,7 +2061,7 @@
           },
           {
             "name": "#XmlDocumentTest7()",
-            "kind": "method"
+            "kind": "member"
           }
         ],
         "FxCopUnsafeXml.UseXmlSecureResolver.XmlDocumentTest8()": [
@@ -2079,7 +2079,7 @@
           },
           {
             "name": "#XmlDocumentTest8()",
-            "kind": "method"
+            "kind": "member"
           }
         ],
         "FxCopUnsafeXml.UseXmlSecureResolver.XmlReaderTest1()": [
@@ -2097,7 +2097,7 @@
           },
           {
             "name": "#XmlReaderTest1()",
-            "kind": "method"
+            "kind": "member"
           }
         ],
         "FxCopUnsafeXml.UseXmlSecureResolver.XmlReaderTest10()": [
@@ -2115,7 +2115,7 @@
           },
           {
             "name": "#XmlReaderTest10()",
-            "kind": "method"
+            "kind": "member"
           }
         ],
         "FxCopUnsafeXml.UseXmlSecureResolver.XmlReaderTest2()": [
@@ -2133,7 +2133,7 @@
           },
           {
             "name": "#XmlReaderTest2()",
-            "kind": "method"
+            "kind": "member"
           }
         ],
         "FxCopUnsafeXml.UseXmlSecureResolver.XmlReaderTest3(System.Xml.XmlSecureResolver)": [
@@ -2151,7 +2151,7 @@
           },
           {
             "name": "#XmlReaderTest3(System.Xml.XmlSecureResolver)",
-            "kind": "method"
+            "kind": "member"
           }
         ],
         "FxCopUnsafeXml.UseXmlSecureResolver.XmlReaderTest4(System.Xml.XmlSecureResolver)": [
@@ -2169,7 +2169,7 @@
           },
           {
             "name": "#XmlReaderTest4(System.Xml.XmlSecureResolver)",
-            "kind": "method"
+            "kind": "member"
           }
         ],
         "FxCopUnsafeXml.UseXmlSecureResolver.XmlReaderTest5()": [
@@ -2187,7 +2187,7 @@
           },
           {
             "name": "#XmlReaderTest5()",
-            "kind": "method"
+            "kind": "member"
           }
         ],
         "FxCopUnsafeXml.UseXmlSecureResolver.XmlReaderTest6()": [
@@ -2205,7 +2205,7 @@
           },
           {
             "name": "#XmlReaderTest6()",
-            "kind": "method"
+            "kind": "member"
           }
         ],
         "FxCopUnsafeXml.UseXmlSecureResolver.XmlReaderTest7()": [
@@ -2223,7 +2223,7 @@
           },
           {
             "name": "#XmlReaderTest7()",
-            "kind": "method"
+            "kind": "member"
           }
         ],
         "FxCopUnsafeXml.UseXmlSecureResolver.XmlReaderTest8()": [
@@ -2241,7 +2241,7 @@
           },
           {
             "name": "#XmlReaderTest8()",
-            "kind": "method"
+            "kind": "member"
           }
         ],
         "FxCopUnsafeXml.UseXmlSecureResolver.XmlReaderTest9(System.Xml.XmlReaderSettings)": [
@@ -2259,7 +2259,7 @@
           },
           {
             "name": "#XmlReaderTest9(System.Xml.XmlReaderSettings)",
-            "kind": "method"
+            "kind": "member"
           }
         ],
         "SecurityXmlRuleTests.DoNotAddStringsToXmlSchema.TestMethod(System.String,System.String)": [
@@ -2277,7 +2277,7 @@
           },
           {
             "name": "#TestMethod(System.String,System.String)",
-            "kind": "method"
+            "kind": "member"
           }
         ],
         "SecurityXmlRuleTests.DoNotAddStringsToXmlSchema.TestMethod(System.Xml.Schema.XmlSchema)": [
@@ -2295,7 +2295,7 @@
           },
           {
             "name": "#TestMethod(System.Xml.Schema.XmlSchema)",
-            "kind": "method"
+            "kind": "member"
           }
         ]
       },

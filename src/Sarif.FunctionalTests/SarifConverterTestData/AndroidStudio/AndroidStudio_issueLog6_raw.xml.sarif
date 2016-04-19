@@ -21,7 +21,7 @@
         "app\\microsoft.androidstudioformatexample\\microsoft.androidstudioformatexample.MainActivity java.lang.String ForCanBeForeachExample()": [
           {
             "name": "app",
-            "kind": "android-module"
+            "kind": "module"
           },
           {
             "name": "microsoft.androidstudioformatexample",
@@ -29,13 +29,13 @@
           },
           {
             "name": "microsoft.androidstudioformatexample.MainActivity java.lang.String ForCanBeForeachExample()",
-            "kind": "method"
+            "kind": "member"
           }
         ],
         "app\\microsoft.androidstudioformatexample\\microsoft.androidstudioformatexample.NamespaceTypo": [
           {
             "name": "app",
-            "kind": "android-module"
+            "kind": "module"
           },
           {
             "name": "microsoft.androidstudioformatexample",

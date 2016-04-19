@@ -21,7 +21,7 @@
         "yammer-droid-2\\com.yammer.droid\\com.yammer.droid.AdditionOperationTest void testStuff()": [
           {
             "name": "yammer-droid-2",
-            "kind": "android-module"
+            "kind": "module"
           },
           {
             "name": "com.yammer.droid",
@@ -29,13 +29,13 @@
           },
           {
             "name": "com.yammer.droid.AdditionOperationTest void testStuff()",
-            "kind": "method"
+            "kind": "member"
           }
         ],
         "yammer-droid-2\\com.yammer.droid.ui\\com.yammer.droid.ui.MessageUIBean.TYPE TYPE(int position)": [
           {
             "name": "yammer-droid-2",
-            "kind": "android-module"
+            "kind": "module"
           },
           {
             "name": "com.yammer.droid.ui",
@@ -43,7 +43,7 @@
           },
           {
             "name": "com.yammer.droid.ui.MessageUIBean.TYPE TYPE(int position)",
-            "kind": "method"
+            "kind": "member"
           }
         ]
       },

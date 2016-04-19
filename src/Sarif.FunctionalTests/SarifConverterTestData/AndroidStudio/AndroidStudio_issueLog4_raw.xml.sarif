@@ -16,7 +16,7 @@
         "app\\microsoft.androidstudioformatexample\\microsoft.androidstudioformatexample.MainActivity boolean onOptionsItemSelected(android.view.MenuItem item)": [
           {
             "name": "app",
-            "kind": "android-module"
+            "kind": "module"
           },
           {
             "name": "microsoft.androidstudioformatexample",
@@ -24,7 +24,7 @@
           },
           {
             "name": "microsoft.androidstudioformatexample.MainActivity boolean onOptionsItemSelected(android.view.MenuItem item)",
-            "kind": "method"
+            "kind": "member"
           }
         ]
       },

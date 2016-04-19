@@ -174,11 +174,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         {
             var logicalLocationComponents = new List<LogicalLocationComponent>();
 
-            TryAddLogicalLocationComponent(logicalLocationComponents, context.Module, LogicalLocationKind.ClrModule);
-            TryAddLogicalLocationComponent(logicalLocationComponents, context.Resource, LogicalLocationKind.ClrResource);
-            TryAddLogicalLocationComponent(logicalLocationComponents, context.Namespace, LogicalLocationKind.ClrNamespace);
-            TryAddLogicalLocationComponent(logicalLocationComponents, context.Type, LogicalLocationKind.ClrType);
-            TryAddLogicalLocationComponent(logicalLocationComponents, context.Member, LogicalLocationKind.ClrFunction);
+            TryAddLogicalLocationComponent(logicalLocationComponents, context.Module, LogicalLocationKind.Module);
+            TryAddLogicalLocationComponent(logicalLocationComponents, context.Resource, LogicalLocationKind.Resource);
+            TryAddLogicalLocationComponent(logicalLocationComponents, context.Namespace, LogicalLocationKind.Namespace);
+            TryAddLogicalLocationComponent(logicalLocationComponents, context.Type, LogicalLocationKind.Type);
+            TryAddLogicalLocationComponent(logicalLocationComponents, context.Member, LogicalLocationKind.Member);
 
             return logicalLocationComponents;
         }

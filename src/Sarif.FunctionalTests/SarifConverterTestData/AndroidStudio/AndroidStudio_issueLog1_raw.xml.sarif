@@ -21,7 +21,7 @@
         "app\\microsoft.androidstudioformatexample\\microsoft.androidstudioformatexample.ApplicationTest ApplicationTest()": [
           {
             "name": "app",
-            "kind": "android-module"
+            "kind": "module"
           },
           {
             "name": "microsoft.androidstudioformatexample",
@@ -29,13 +29,13 @@
           },
           {
             "name": "microsoft.androidstudioformatexample.ApplicationTest ApplicationTest()",
-            "kind": "method"
+            "kind": "member"
           }
         ],
         "app\\microsoft.androidstudioformatexample\\microsoft.androidstudioformatexample.MainActivity": [
           {
             "name": "app",
-            "kind": "android-module"
+            "kind": "module"
           },
           {
             "name": "microsoft.androidstudioformatexample",

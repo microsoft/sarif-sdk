@@ -32,7 +32,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         public string Name { get; set; }
 
         /// <summary>
-        /// The type of construct this logicalLocationComponent refers to. Should be one of 'assembly', 'attribute', 'binary', 'class', 'enum', 'field', 'lambda', 'local', 'method', 'module', 'namespace', 'package', 'parameter', 'property', 'resource', or, 'struct', if any of those accurately describe the construct.
+        /// The type of construct this logicalLocationComponent refers to. Should be one of 'assembly', 'attribute', 'binary', 'class', 'enum', 'field', 'function', 'lambda', 'local', 'method', 'module', 'namespace', 'package', 'parameter', 'property', 'resource', 'struct', or 'type', if any of those accurately describe the construct.
         /// </summary>
         [DataMember(Name = "kind", IsRequired = false, EmitDefaultValue = false)]
         public string Kind { get; set; }
