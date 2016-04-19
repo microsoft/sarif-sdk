@@ -9,6 +9,12 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Microsoft.CodeAnalysis.Sarif.Converters
 {
+    /// <summary>
+    /// The logic for populating the logicalLocations dictionary is encapsulated
+    /// in the abstract base class <see cref="ToolFileConverterBase"/>, from which
+    /// converters such as <see cref="FxCopConverter"/> and <see cref="AndroidStudioConverter"/>
+    /// derive. These unit tests exercise that logic.
+    /// </summary>
     [TestClass]
     public class ToolFileConverterBaseTests
     {
