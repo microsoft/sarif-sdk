@@ -12,6 +12,22 @@
           }
         ]
       },
+      "logicalLocations": {
+        "yammer-droid-2\\com.yammer.droid\\com.yammer.droid.AdditionOperationTest void testStuff()": [
+          {
+            "name": "yammer-droid-2",
+            "kind": "module"
+          },
+          {
+            "name": "com.yammer.droid",
+            "kind": "package"
+          },
+          {
+            "name": "com.yammer.droid.AdditionOperationTest void testStuff()",
+            "kind": "member"
+          }
+        ]
+      },
       "results": [
         {
           "ruleId": "unused declaration",
@@ -25,20 +41,6 @@
                   "startLine": 10
                 }
               },
-              "logicalLocation": [
-                {
-                  "name": "yammer-droid-2",
-                  "kind": "android-module"
-                },
-                {
-                  "name": "com.yammer.droid",
-                  "kind": "package"
-                },
-                {
-                  "name": "com.yammer.droid.AdditionOperationTest void testStuff()",
-                  "kind": "method"
-                }
-              ],
               "fullyQualifiedLogicalName": "yammer-droid-2\\com.yammer.droid\\com.yammer.droid.AdditionOperationTest void testStuff()"
             }
           ],

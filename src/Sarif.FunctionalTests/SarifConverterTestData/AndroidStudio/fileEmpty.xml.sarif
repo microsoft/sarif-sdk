@@ -12,6 +12,18 @@
           }
         ]
       },
+      "logicalLocations": {
+        "northwindtraders-droid-2\\com.northwindtraders.droid.model": [
+          {
+            "name": "northwindtraders-droid-2",
+            "kind": "module"
+          },
+          {
+            "name": "com.northwindtraders.droid.model",
+            "kind": "package"
+          }
+        ]
+      },
       "results": [
         {
           "ruleId": "Assertions",
@@ -21,16 +33,6 @@
               "analysisTarget": {
                 "uri": "northwindtraders-droid-2/src/main/java/com/northwindtraders/droid/model/Model.java"
               },
-              "logicalLocation": [
-                {
-                  "name": "northwindtraders-droid-2",
-                  "kind": "android-module"
-                },
-                {
-                  "name": "com.northwindtraders.droid.model",
-                  "kind": "package"
-                }
-              ],
               "fullyQualifiedLogicalName": "northwindtraders-droid-2\\com.northwindtraders.droid.model"
             }
           ],

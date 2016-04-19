@@ -54,6 +54,7 @@
     <Compile Include="Converters\AndroidStudioStringsTests.cs" />
     <Compile Include="Converters\AndroidStudioConverterTests.cs" />
     <Compile Include="Converters\ClangAnalyzerConverterTests.cs" />
+    <Compile Include="Converters\ToolFileConverterBaseTests.cs" />
     <Compile Include="Converters\CppCheckConverterTests.cs" />
     <Compile Include="Converters\CppCheckStringsTests.cs" />
     <Compile Include="Converters\CppCheckErrorTests.cs" />

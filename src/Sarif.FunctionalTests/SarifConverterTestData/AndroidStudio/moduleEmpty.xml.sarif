@@ -12,6 +12,14 @@
           }
         ]
       },
+      "logicalLocations": {
+        "com.northwindtraders.droid.model": [
+          {
+            "name": "com.northwindtraders.droid.model",
+            "kind": "package"
+          }
+        ]
+      },
       "results": [
         {
           "ruleId": "Assertions",
@@ -27,12 +35,6 @@
                   "startLine": 242
                 }
               },
-              "logicalLocation": [
-                {
-                  "name": "com.northwindtraders.droid.model",
-                  "kind": "package"
-                }
-              ],
               "fullyQualifiedLogicalName": "com.northwindtraders.droid.model"
             }
           ],

@@ -39,16 +39,16 @@ namespace Microsoft.CodeAnalysis.Sarif
         public PhysicalLocation ResultFile { get; set; }
 
         /// <summary>
-        /// The logical location where the analysis tool produced the result.
-        /// </summary>
-        [DataMember(Name = "logicalLocation", IsRequired = false, EmitDefaultValue = false)]
-        public IList<LogicalLocationComponent> LogicalLocation { get; set; }
-
-        /// <summary>
-        /// A string that summarizes the information in logicalLocation in a format consistent with the programming language in which the programmatic constructs expressed by logicalLocation were expressed.
+        /// The fully qualified name of the logical location where the analysis tool produced the result.
         /// </summary>
         [DataMember(Name = "fullyQualifiedLogicalName", IsRequired = false, EmitDefaultValue = false)]
         public string FullyQualifiedLogicalName { get; set; }
+
+        /// <summary>
+        /// A string used as a key into the logicalLocations dictionary, in case the string specified by logicalLocation is not unique.
+        /// </summary>
+        [DataMember(Name = "logicalLocationKey", IsRequired = false, EmitDefaultValue = false)]
+        public string LogicalLocationKey { get; set; }
 
         /// <summary>
         /// Key/value pairs that provide additional information about the location.
@@ -82,33 +82,26 @@ namespace Microsoft.CodeAnalysis.Sarif
                     result = (result * 31) + ResultFile.GetHashCode();
                 }
 
-                if (LogicalLocation != null)
-                {
-                    foreach (var value_0 in LogicalLocation)
-                    {
-                        result = result * 31;
-                        if (value_0 != null)
-                        {
-                            result = (result * 31) + value_0.GetHashCode();
-                        }
-                    }
-                }
-
                 if (FullyQualifiedLogicalName != null)
                 {
                     result = (result * 31) + FullyQualifiedLogicalName.GetHashCode();
+                }
+
+                if (LogicalLocationKey != null)
+                {
+                    result = (result * 31) + LogicalLocationKey.GetHashCode();
                 }
 
                 if (Properties != null)
                 {
                     // Use xor for dictionaries to be order-independent.
                     int xor_0 = 0;
-                    foreach (var value_1 in Properties)
+                    foreach (var value_0 in Properties)
                     {
-                        xor_0 ^= value_1.Key.GetHashCode();
-                        if (value_1.Value != null)
+                        xor_0 ^= value_0.Key.GetHashCode();
+                        if (value_0.Value != null)
                         {
-                            xor_0 ^= value_1.Value.GetHashCode();
+                            xor_0 ^= value_0.Value.GetHashCode();
                         }
                     }
 
@@ -117,12 +110,12 @@ namespace Microsoft.CodeAnalysis.Sarif
 
                 if (Tags != null)
                 {
-                    foreach (var value_2 in Tags)
+                    foreach (var value_1 in Tags)
                     {
                         result = result * 31;
-                        if (value_2 != null)
+                        if (value_1 != null)
                         {
-                            result = (result * 31) + value_2.GetHashCode();
+                            result = (result * 31) + value_1.GetHashCode();
                         }
                     }
                 }
@@ -148,28 +141,12 @@ namespace Microsoft.CodeAnalysis.Sarif
                 return false;
             }
 
-            if (!Object.ReferenceEquals(LogicalLocation, other.LogicalLocation))
+            if (FullyQualifiedLogicalName != other.FullyQualifiedLogicalName)
             {
-                if (LogicalLocation == null || other.LogicalLocation == null)
-                {
-                    return false;
-                }
-
-                if (LogicalLocation.Count != other.LogicalLocation.Count)
-                {
-                    return false;
-                }
-
-                for (int index_0 = 0; index_0 < LogicalLocation.Count; ++index_0)
-                {
-                    if (!Object.Equals(LogicalLocation[index_0], other.LogicalLocation[index_0]))
-                    {
-                        return false;
-                    }
-                }
+                return false;
             }
 
-            if (FullyQualifiedLogicalName != other.FullyQualifiedLogicalName)
+            if (LogicalLocationKey != other.LogicalLocationKey)
             {
                 return false;
             }
@@ -208,9 +185,9 @@ namespace Microsoft.CodeAnalysis.Sarif
                     return false;
                 }
 
-                for (int index_1 = 0; index_1 < Tags.Count; ++index_1)
+                for (int index_0 = 0; index_0 < Tags.Count; ++index_0)
                 {
-                    if (Tags[index_1] != other.Tags[index_1])
+                    if (Tags[index_0] != other.Tags[index_0])
                     {
                         return false;
                     }
@@ -236,11 +213,11 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="resultFile">
         /// An initialization value for the <see cref="P: ResultFile" /> property.
         /// </param>
-        /// <param name="logicalLocation">
-        /// An initialization value for the <see cref="P: LogicalLocation" /> property.
-        /// </param>
         /// <param name="fullyQualifiedLogicalName">
         /// An initialization value for the <see cref="P: FullyQualifiedLogicalName" /> property.
+        /// </param>
+        /// <param name="logicalLocationKey">
+        /// An initialization value for the <see cref="P: LogicalLocationKey" /> property.
         /// </param>
         /// <param name="properties">
         /// An initialization value for the <see cref="P: Properties" /> property.
@@ -248,9 +225,9 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="tags">
         /// An initialization value for the <see cref="P: Tags" /> property.
         /// </param>
-        public Location(PhysicalLocation analysisTarget, PhysicalLocation resultFile, IEnumerable<LogicalLocationComponent> logicalLocation, string fullyQualifiedLogicalName, IDictionary<string, string> properties, IEnumerable<string> tags)
+        public Location(PhysicalLocation analysisTarget, PhysicalLocation resultFile, string fullyQualifiedLogicalName, string logicalLocationKey, IDictionary<string, string> properties, IEnumerable<string> tags)
         {
-            Init(analysisTarget, resultFile, logicalLocation, fullyQualifiedLogicalName, properties, tags);
+            Init(analysisTarget, resultFile, fullyQualifiedLogicalName, logicalLocationKey, properties, tags);
         }
 
         /// <summary>
@@ -269,7 +246,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 throw new ArgumentNullException(nameof(other));
             }
 
-            Init(other.AnalysisTarget, other.ResultFile, other.LogicalLocation, other.FullyQualifiedLogicalName, other.Properties, other.Tags);
+            Init(other.AnalysisTarget, other.ResultFile, other.FullyQualifiedLogicalName, other.LogicalLocationKey, other.Properties, other.Tags);
         }
 
         ISarifNode ISarifNode.DeepClone()
@@ -290,7 +267,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new Location(this);
         }
 
-        private void Init(PhysicalLocation analysisTarget, PhysicalLocation resultFile, IEnumerable<LogicalLocationComponent> logicalLocation, string fullyQualifiedLogicalName, IDictionary<string, string> properties, IEnumerable<string> tags)
+        private void Init(PhysicalLocation analysisTarget, PhysicalLocation resultFile, string fullyQualifiedLogicalName, string logicalLocationKey, IDictionary<string, string> properties, IEnumerable<string> tags)
         {
             if (analysisTarget != null)
             {
@@ -302,25 +279,8 @@ namespace Microsoft.CodeAnalysis.Sarif
                 ResultFile = new PhysicalLocation(resultFile);
             }
 
-            if (logicalLocation != null)
-            {
-                var destination_0 = new List<LogicalLocationComponent>();
-                foreach (var value_0 in logicalLocation)
-                {
-                    if (value_0 == null)
-                    {
-                        destination_0.Add(null);
-                    }
-                    else
-                    {
-                        destination_0.Add(new LogicalLocationComponent(value_0));
-                    }
-                }
-
-                LogicalLocation = destination_0;
-            }
-
             FullyQualifiedLogicalName = fullyQualifiedLogicalName;
+            LogicalLocationKey = logicalLocationKey;
             if (properties != null)
             {
                 Properties = new Dictionary<string, string>(properties);
@@ -328,13 +288,13 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             if (tags != null)
             {
-                var destination_1 = new List<string>();
-                foreach (var value_1 in tags)
+                var destination_0 = new List<string>();
+                foreach (var value_0 in tags)
                 {
-                    destination_1.Add(value_1);
+                    destination_0.Add(value_0);
                 }
 
-                Tags = destination_1;
+                Tags = destination_0;
             }
         }
     }

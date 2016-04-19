@@ -17,7 +17,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
     /// <summary>
     /// Converts an xml log file of the Android Studio format into the SARIF format
     /// </summary>
-    internal class AndroidStudioConverter : IToolFileConverter
+    internal class AndroidStudioConverter : ToolFileConverterBase
     {
         private readonly NameTable _nameTable;
         private readonly AndroidStudioStrings _strings;
@@ -36,7 +36,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         /// </summary>
         /// <param name="input">The Android Studio formatted log.</param>
         /// <param name="output">The SarifLog to write the output to.</param>
-        public void Convert(Stream input, IResultLogWriter output)
+        public override void Convert(Stream input, IResultLogWriter output)
         {
             if (input == null)
             {
@@ -47,6 +47,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             {
                 throw new ArgumentNullException("output");
             }
+
+            LogicalLocationsDictionary.Clear();
 
             XmlReaderSettings settings = new XmlReaderSettings
             {
@@ -72,7 +74,16 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             Dictionary<string, IList<FileData>> fileDictionary = fileInfoFactory.Create(results);
 
             output.WriteTool(tool);
-            if (fileDictionary != null && fileDictionary.Count > 0) { output.WriteFiles(fileDictionary); }
+
+            if (fileDictionary != null && fileDictionary.Any())
+            {
+                output.WriteFiles(fileDictionary);
+            }
+
+            if (LogicalLocationsDictionary != null && LogicalLocationsDictionary.Any())
+            {
+                output.WriteLogicalLocations(LogicalLocationsDictionary);
+            }
 
             output.OpenResults();
             output.WriteResults(results);
@@ -97,7 +108,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 var problem = AndroidStudioProblem.Parse(xmlReader, _strings);
                 if (problem != null)
                 {
-                    results.Add(ConvertProblemToSarifIssue(problem));
+                    results.Add(ConvertProblemToSarifResult(problem));
                 }
             }
 
@@ -106,7 +117,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             return results;
         }
 
-        public static Result ConvertProblemToSarifIssue(AndroidStudioProblem problem)
+        public Result ConvertProblemToSarifResult(AndroidStudioProblem problem)
         {
             var result = new Result();
             result.RuleId = problem.ProblemClass;
@@ -124,48 +135,49 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             result.Properties = GetSarifIssuePropertiesForProblem(problem);
             var location = new Location();
             result.Locations = new[] { location };
-            var logicalLocation = new List<LogicalLocationComponent>();
+            var logicalLocationComponents = new List<LogicalLocationComponent>();
 
             if (!String.IsNullOrWhiteSpace(problem.Module))
             {
-                logicalLocation.Add(new LogicalLocationComponent
+                logicalLocationComponents.Add(new LogicalLocationComponent
                 {
                     Name = problem.Module,
-                    Kind = LogicalLocationKind.AndroidModule
+                    Kind = LogicalLocationKind.Module
                 });
             }
 
             if (!String.IsNullOrWhiteSpace(problem.Package))
             {
-                logicalLocation.Add(new LogicalLocationComponent
+                logicalLocationComponents.Add(new LogicalLocationComponent
                 {
                     Name = problem.Package,
-                    Kind = LogicalLocationKind.JvmPackage
+                    Kind = LogicalLocationKind.Package
                 });
             }
 
             if ("class".Equals(problem.EntryPointType, StringComparison.OrdinalIgnoreCase))
             {
-                logicalLocation.Add(new LogicalLocationComponent
+                logicalLocationComponents.Add(new LogicalLocationComponent
                 {
                     Name = problem.EntryPointName,
-                    Kind = LogicalLocationKind.JvmType
+                    Kind = LogicalLocationKind.Type
                 });
             }
 
             if ("method".Equals(problem.EntryPointType, StringComparison.OrdinalIgnoreCase))
             {
-                logicalLocation.Add(new LogicalLocationComponent
+                logicalLocationComponents.Add(new LogicalLocationComponent
                 {
                     Name = problem.EntryPointName,
-                    Kind = LogicalLocationKind.JvmFunction
+                    Kind = LogicalLocationKind.Member
                 });
             }
 
-            if (logicalLocation.Count != 0)
+            if (logicalLocationComponents.Count != 0)
             {
-                location.LogicalLocation = logicalLocation;
-                location.FullyQualifiedLogicalName = String.Join("\\", location.LogicalLocation.Select(x => x.Name));
+                location.FullyQualifiedLogicalName = String.Join("\\", logicalLocationComponents.Select(x => x.Name));
+
+                AddLogicalLocation(location, logicalLocationComponents);
             }
 
             string file = problem.File;

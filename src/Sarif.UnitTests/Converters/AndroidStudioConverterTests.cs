@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.IO;
+using System.Linq;
 using System.Xml;
 using FluentAssertions;
 
@@ -57,7 +58,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
   ]
 }";
         [TestMethod]
-        public void AndroidStudioConverter_Convert_NoIssues()
+        public void AndroidStudioConverter_Convert_NoResults()
         {
             string androidStudioLog = @"<?xml version=""1.0"" encoding=""UTF-8""?><problems></problems>";
             string actualJson = Utilities.GetConverterJson(_converter, androidStudioLog);
@@ -65,7 +66,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         }
 
         [TestMethod]
-        public void AndroidStudioConverter_Convert_EmptyIssue()
+        public void AndroidStudioConverter_Convert_EmptyResult()
         {
             string androidStudioLog = @"<?xml version=""1.0"" encoding=""UTF-8""?><problems><problem></problem></problems>";
             string actualJson = Utilities.GetConverterJson(_converter, androidStudioLog);
@@ -73,7 +74,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         }
 
         [TestMethod]
-        public void AndroidStudioConverter_Convert_EmptyIssueSingleTag()
+        public void AndroidStudioConverter_Convert_EmptyResultSingleTag()
         {
             string androidStudioLog = @"<?xml version=""1.0"" encoding=""UTF-8""?><problems><problem /></problems>";
             string actualJson = Utilities.GetConverterJson(_converter, androidStudioLog);
@@ -115,18 +116,19 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         }
 
         [TestMethod]
-        public void AndroidStudioConverter_ConvertToSarifIssue_EmptyHintsDoNotAffectDescription()
+        public void AndroidStudioConverter_ConvertToSarifResult_EmptyHintsDoNotAffectDescription()
         {
             var builder = AndroidStudioProblemTests.GetDefaultProblemBuilder();
             builder.Description = "hungry EVIL zombies";
             var uut = new AndroidStudioProblem(builder);
-            Result result = AndroidStudioConverter.ConvertProblemToSarifIssue(uut);
+
+            Result result = new AndroidStudioConverter().ConvertProblemToSarifResult(uut);
             Assert.IsNull(result.ShortMessage);
             Assert.AreEqual("hungry EVIL zombies", result.FullMessage);
         }
 
         [TestMethod]
-        public void AndroidStudioConverter_ConvertToSarifIssue_HintsAreStapledToDescription()
+        public void AndroidStudioConverter_ConvertToSarifResult_HintsAreStapledToDescription()
         {
             var builder = new AndroidStudioProblem.Builder
             {
@@ -137,7 +139,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             };
 
             var uut = new AndroidStudioProblem(builder);
-            Result result = AndroidStudioConverter.ConvertProblemToSarifIssue(uut);
+            Result result = new AndroidStudioConverter().ConvertProblemToSarifResult(uut);
             Assert.AreEqual("hungry EVIL zombies", result.ShortMessage);
             Assert.AreEqual(@"hungry EVIL zombies
 Possible resolution: comment
@@ -145,53 +147,53 @@ Possible resolution: delete", result.FullMessage);
         }
 
         [TestMethod]
-        public void AndroidStudioConverter_ConvertToSarifIssue_UsesProblemClassForRuleId()
+        public void AndroidStudioConverter_ConvertToSarifResult_UsesProblemClassForRuleId()
         {
             var uut = AndroidStudioProblemTests.GetDefaultProblem();
-            Result result = AndroidStudioConverter.ConvertProblemToSarifIssue(uut);
+            Result result = new AndroidStudioConverter().ConvertProblemToSarifResult(uut);
             Assert.AreEqual("A Problematic Problem", result.RuleId);
         }
 
         [TestMethod]
-        public void AndroidStudioConverter_ConvertToSarifIssue_HasNoPropertiesIfAttributeKeyAndSeverity()
+        public void AndroidStudioConverter_ConvertToSarifResult_HasNoPropertiesIfAttributeKeyAndSeverity()
         {
             var uut = AndroidStudioProblemTests.GetDefaultProblem();
-            Result result = AndroidStudioConverter.ConvertProblemToSarifIssue(uut);
+            Result result = new AndroidStudioConverter().ConvertProblemToSarifResult(uut);
             Assert.IsNull(result.Properties);
         }
 
         [TestMethod]
-        public void AndroidStudioConverter_ConvertToSarifIssue_AttributeKeyIsPersistedInProperties()
+        public void AndroidStudioConverter_ConvertToSarifResult_AttributeKeyIsPersistedInProperties()
         {
             var builder = AndroidStudioProblemTests.GetDefaultProblemBuilder();
             builder.AttributeKey = "key";
             var uut = new AndroidStudioProblem(builder);
-            Result result = AndroidStudioConverter.ConvertProblemToSarifIssue(uut);
+            Result result = new AndroidStudioConverter().ConvertProblemToSarifResult(uut);
             result.Properties.Should().Equal(new Dictionary<string, string> {
                 {"attributeKey", "key"}
             });
         }
 
         [TestMethod]
-        public void AndroidStudioConverter_ConvertToSarifIssue_SeverityIsPersistedInProperties()
+        public void AndroidStudioConverter_ConvertToSarifResult_SeverityIsPersistedInProperties()
         {
             var builder = AndroidStudioProblemTests.GetDefaultProblemBuilder();
             builder.Severity = "warning";
             var uut = new AndroidStudioProblem(builder);
-            Result result = AndroidStudioConverter.ConvertProblemToSarifIssue(uut);
+            Result result = new AndroidStudioConverter().ConvertProblemToSarifResult(uut);
             result.Properties.Should().Equal(new Dictionary<string, string> {
                 {"severity", "warning"}
             });
         }
 
         [TestMethod]
-        public void AndroidStudioConverter_ConvertToSarifIssue_MultiplePropertiesArePersisted()
+        public void AndroidStudioConverter_ConvertToSarifResult_MultiplePropertiesArePersisted()
         {
             var builder = AndroidStudioProblemTests.GetDefaultProblemBuilder();
             builder.AttributeKey = "key";
             builder.Severity = "warning";
             var uut = new AndroidStudioProblem(builder);
-            Result result = AndroidStudioConverter.ConvertProblemToSarifIssue(uut);
+            Result result = new AndroidStudioConverter().ConvertProblemToSarifResult(uut);
             result.Properties.Should().Equal(new Dictionary<string, string> {
                 {"severity", "warning"},
                 {"attributeKey", "key"}
@@ -199,58 +201,63 @@ Possible resolution: delete", result.FullMessage);
         }
 
         [TestMethod]
-        public void AndroidStudioConverter_ConvertSarifIssue_RecordsTopLevelFileAsSourceFile()
+        public void AndroidStudioConverter_ConvertSarifResult_RecordsTopLevelFileAsSourceFile()
         {
             var builder = AndroidStudioProblemTests.GetDefaultProblemBuilder();
             builder.File = "expected_file.java";
             builder.EntryPointType = "file";
             builder.EntryPointName = "bad_file.java";
-            Location loc = GetLocationForBuilder(builder);
-            Assert.AreEqual("expected_file.java", loc.ResultFile.Uri.ToString());
+            Location loc = GetLocationInfoForBuilder(builder).Location;
+            loc.ResultFile.Uri.ToString().Should().Be("expected_file.java");
         }
 
         [TestMethod]
-        public void AndroidStudioConverter_ConvertSarifIssue_DoesNotRecordTopLevelEntryPointAsSourceFile()
+        public void AndroidStudioConverter_ConvertSarifResult_DoesNotRecordTopLevelEntryPointAsSourceFile()
         {
             var builder = AndroidStudioProblemTests.GetDefaultProblemBuilder();
             builder.File = null;
             builder.EntryPointType = "file";
             builder.EntryPointName = "expected_file.java";
-            Location loc = GetLocationForBuilder(builder);
-            Assert.IsNull(loc.ResultFile);
+            Location loc = GetLocationInfoForBuilder(builder).Location;
+            loc.ResultFile.Should().BeNull();
         }
 
         [TestMethod]
-        public void AndroidStudioConverter_ConvertSarifIssue_RecordsModuleAsTopLevelIfPresent()
+        public void AndroidStudioConverter_ConvertSarifResult_RecordsModuleAsTopLevelIfPresent()
         {
             var builder = AndroidStudioProblemTests.GetDefaultProblemBuilder();
             builder.File = null;
             builder.Module = "my_fancy_binary";
             builder.EntryPointType = "method";
             builder.EntryPointName = "my_method";
-            Assert.AreEqual(
-                new Location
+
+            var expectedLocation = new Location
+            {
+                FullyQualifiedLogicalName = "my_fancy_binary\\my_method",
+            };
+
+            var expectedLogicalLocationComponents = new[]
+            {
+                new LogicalLocationComponent
                 {
-                    FullyQualifiedLogicalName = "my_fancy_binary\\my_method",
-                    LogicalLocation = new[]
-                    {
-                        new LogicalLocationComponent
-                        {
-                            Name = "my_fancy_binary",
-                            Kind = LogicalLocationKind.AndroidModule
-                        },
-                        new LogicalLocationComponent
-                        {
-                            Name = "my_method",
-                            Kind = LogicalLocationKind.JvmFunction
-                        }
-                    }
+                    Name = "my_fancy_binary",
+                    Kind = LogicalLocationKind.Module
+                },
+                new LogicalLocationComponent
+                {
+                    Name = "my_method",
+                    Kind = LogicalLocationKind.Member
                 }
-                , GetLocationForBuilder(builder));
+            };
+
+            LocationInfo locationInfo = GetLocationInfoForBuilder(builder);
+
+            locationInfo.Location.Should().Be(expectedLocation);
+            locationInfo.LogicalLocationComponents.SequenceEqual(expectedLogicalLocationComponents).Should().BeTrue();
         }
 
         [TestMethod]
-        public void AndroidStudioConverter_ConvertSarifIssue_GeneratesLocationWithOnlyMethodEntryPoint()
+        public void AndroidStudioConverter_ConvertSarifResult_GeneratesLocationWithOnlyMethodEntryPoint()
         {
             var builder = AndroidStudioProblemTests.GetDefaultProblemBuilder();
             builder.File = null;
@@ -258,22 +265,29 @@ Possible resolution: delete", result.FullMessage);
             builder.Module = null;
             builder.EntryPointType = "method";
             builder.EntryPointName = "my_method";
-            Assert.AreEqual(new Location
+
+            var expectedLocation = new Location
             {
-                FullyQualifiedLogicalName = "my_method",
-                LogicalLocation = new[]
+                FullyQualifiedLogicalName = "my_method"
+            };
+
+            var expectedLogicalLocationComponents = new[]
+            {
+                new LogicalLocationComponent
                 {
-                    new LogicalLocationComponent
-                    {
-                        Name = "my_method",
-                        Kind = LogicalLocationKind.JvmFunction
-                    }
+                    Name = "my_method",
+                    Kind = LogicalLocationKind.Member
                 }
-            }, GetLocationForBuilder(builder));
+            };
+
+            LocationInfo locationInfo = GetLocationInfoForBuilder(builder);
+
+            locationInfo.Location.Should().Be(expectedLocation);
+            locationInfo.LogicalLocationComponents.SequenceEqual(expectedLogicalLocationComponents).Should().BeTrue();
         }
 
         [TestMethod]
-        public void AndroidStudioConverter_ConvertSarifIssue_GeneratesLocationWithMethodEntryPointAndPackage()
+        public void AndroidStudioConverter_ConvertSarifResult_GeneratesLocationWithMethodEntryPointAndPackage()
         {
             var builder = AndroidStudioProblemTests.GetDefaultProblemBuilder();
             builder.File = null;
@@ -281,94 +295,135 @@ Possible resolution: delete", result.FullMessage);
             builder.Module = null;
             builder.EntryPointType = "method";
             builder.EntryPointName = "my_method";
-            Assert.AreEqual(new Location
+
+            var expectedLocation = new Location
             {
-                FullyQualifiedLogicalName = "FancyPackageName\\my_method",
-                LogicalLocation = new[]
+                FullyQualifiedLogicalName = "FancyPackageName\\my_method"
+            };
+
+            var expectedLogicalLocationComponents = new[]
+            {
+                new LogicalLocationComponent
                 {
-                    new LogicalLocationComponent
-                    {
-                        Name = "FancyPackageName",
-                        Kind = LogicalLocationKind.JvmPackage
-                    },
-                    new LogicalLocationComponent
-                    {
-                        Name = "my_method",
-                        Kind = LogicalLocationKind.JvmFunction
-                    }
+                    Name = "FancyPackageName",
+                    Kind = LogicalLocationKind.Package
+                },
+                new LogicalLocationComponent
+                {
+                    Name = "my_method",
+                    Kind = LogicalLocationKind.Member
                 }
-            }, GetLocationForBuilder(builder));
+            };
+
+            LocationInfo locationInfo = GetLocationInfoForBuilder(builder);
+
+            locationInfo.Location.Should().Be(expectedLocation);
+            locationInfo.LogicalLocationComponents.SequenceEqual(expectedLogicalLocationComponents).Should().BeTrue();
         }
 
         [TestMethod]
-        public void AndroidStudioConverter_ConvertSarifIssue_GeneratesLocationWithOnlyPackage()
+        public void AndroidStudioConverter_ConvertSarifResult_GeneratesLocationWithOnlyPackage()
         {
             var builder = AndroidStudioProblemTests.GetDefaultProblemBuilder();
             builder.File = null;
             builder.Package = "FancyPackageName";
             builder.Module = null;
             builder.EntryPointName = null;
-            Assert.AreEqual(new Location
+
+            var expectedLocation = new Location
             {
-                FullyQualifiedLogicalName = "FancyPackageName",
-                LogicalLocation = new[]
+                FullyQualifiedLogicalName = "FancyPackageName"
+            };
+
+            var expectedLogicalLocationComponents = new[]
+            {
+                new LogicalLocationComponent
                 {
-                    new LogicalLocationComponent
-                    {
-                        Name = "FancyPackageName",
-                        Kind = LogicalLocationKind.JvmPackage
-                    }
+                    Name = "FancyPackageName",
+                    Kind = LogicalLocationKind.Package
                 }
-            }, GetLocationForBuilder(builder));
+            };
+
+            LocationInfo locationInfo = GetLocationInfoForBuilder(builder);
+
+            locationInfo.Location.Should().Be(expectedLocation);
+            locationInfo.LogicalLocationComponents.SequenceEqual(expectedLogicalLocationComponents).Should().BeTrue();
         }
 
         [TestMethod]
-        public void AndroidStudioConverter_ConvertSarifIssue_CanRecordSourceFileAndModule()
+        public void AndroidStudioConverter_ConvertSarifResult_CanRecordSourceFileAndModule()
         {
             var builder = AndroidStudioProblemTests.GetDefaultProblemBuilder();
             builder.File = "File Goes Here";
             builder.Package = null;
             builder.Module = "LastResortModule";
             builder.EntryPointName = null;
-            Assert.AreEqual(new Location
+
+            var expectedLocation = new Location
             {
                 ResultFile = new PhysicalLocation
                 {
                     Uri = new Uri("File Goes Here", UriKind.RelativeOrAbsolute),
                 },
-                FullyQualifiedLogicalName = "LastResortModule",
-                LogicalLocation = new[]
+                FullyQualifiedLogicalName = "LastResortModule"
+            };
+
+            var expectedLogicalLocationComponents = new[]
+            {
+                new LogicalLocationComponent
                 {
-                    new LogicalLocationComponent
-                    {
-                        Name = "LastResortModule",
-                        Kind = LogicalLocationKind.AndroidModule
-                    }
+                    Name = "LastResortModule",
+                    Kind = LogicalLocationKind.Module
                 }
-            }, GetLocationForBuilder(builder));
+            };
+
+            LocationInfo locationInfo = GetLocationInfoForBuilder(builder);
+
+            locationInfo.Location.Should().Be(expectedLocation);
+            locationInfo.LogicalLocationComponents.SequenceEqual(expectedLogicalLocationComponents).Should().BeTrue();
         }
 
         [TestMethod]
-        public void AndroidStudioConverter_ConvertSarifIssue_RemovesProjectDirPrefix()
+        public void AndroidStudioConverter_ConvertSarifResult_RemovesProjectDirPrefix()
         {
             var builder = AndroidStudioProblemTests.GetDefaultProblemBuilder();
             builder.File = "file://$PROJECT_DIR$/mydir/myfile.xml";
-            Location loc = GetLocationForBuilder(builder);
-            Assert.AreEqual("mydir/myfile.xml", loc.ResultFile.Uri.ToString());
+            LocationInfo locationInfo = GetLocationInfoForBuilder(builder);
+            locationInfo.Location.ResultFile.Uri.ToString().Should().Be("mydir/myfile.xml");
         }
 
         [TestMethod]
-        public void AndroidStudioConverter_ConvertSarifIssue_PersistsSourceLineInfo()
+        public void AndroidStudioConverter_ConvertSarifResult_PersistsSourceLineInfo()
         {
             var builder = AndroidStudioProblemTests.GetDefaultProblemBuilder();
             builder.Line = 42;
-            Location loc = GetLocationForBuilder(builder);
-            Assert.AreEqual(42, loc.ResultFile.Region.StartLine);
+            LocationInfo locationInfo = GetLocationInfoForBuilder(builder);
+            locationInfo.Location.ResultFile.Region.StartLine.Should().Be(42);
         }
 
-        private static Location GetLocationForBuilder(AndroidStudioProblem.Builder builder)
+        private struct LocationInfo
         {
-            return AndroidStudioConverter.ConvertProblemToSarifIssue(new AndroidStudioProblem(builder)).Locations[0];
+            public Location Location;
+            public IList<LogicalLocationComponent> LogicalLocationComponents;
+        }
+
+        private static LocationInfo GetLocationInfoForBuilder(AndroidStudioProblem.Builder builder)
+        {
+            var converter = new AndroidStudioConverter();
+            Result result = converter.ConvertProblemToSarifResult(new AndroidStudioProblem(builder));
+
+            Location location = result.Locations[0];
+
+            string logicalLocationKey = converter.LogicalLocationsDictionary.Keys.SingleOrDefault();
+            IList<LogicalLocationComponent> logicalLocationComponents = logicalLocationKey != null
+                ? converter.LogicalLocationsDictionary[logicalLocationKey]
+                : new List<LogicalLocationComponent>(0);
+
+            return new LocationInfo
+            {
+                Location = location,
+                LogicalLocationComponents = logicalLocationComponents
+            };
         }
     }
 }

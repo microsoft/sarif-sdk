@@ -47,6 +47,30 @@
           }
         ]
       },
+      "logicalLocations": {
+        "AndroidStudioFormatExample": [
+          {
+            "name": "AndroidStudioFormatExample",
+            "kind": "module"
+          }
+        ],
+        "app": [
+          {
+            "name": "app",
+            "kind": "module"
+          }
+        ],
+        "app\\microsoft.androidstudioformatexample": [
+          {
+            "name": "app",
+            "kind": "module"
+          },
+          {
+            "name": "microsoft.androidstudioformatexample",
+            "kind": "package"
+          }
+        ]
+      },
       "results": [
         {
           "ruleId": "Typo",
@@ -62,12 +86,6 @@
                   "startLine": 8
                 }
               },
-              "logicalLocation": [
-                {
-                  "name": "AndroidStudioFormatExample",
-                  "kind": "android-module"
-                }
-              ],
               "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
             }
           ],
@@ -90,12 +108,6 @@
                   "startLine": 13
                 }
               },
-              "logicalLocation": [
-                {
-                  "name": "AndroidStudioFormatExample",
-                  "kind": "android-module"
-                }
-              ],
               "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
             }
           ],
@@ -118,12 +130,6 @@
                   "startLine": 13
                 }
               },
-              "logicalLocation": [
-                {
-                  "name": "AndroidStudioFormatExample",
-                  "kind": "android-module"
-                }
-              ],
               "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
             }
           ],
@@ -146,12 +152,6 @@
                   "startLine": 17
                 }
               },
-              "logicalLocation": [
-                {
-                  "name": "AndroidStudioFormatExample",
-                  "kind": "android-module"
-                }
-              ],
               "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
             }
           ],
@@ -174,12 +174,6 @@
                   "startLine": 3
                 }
               },
-              "logicalLocation": [
-                {
-                  "name": "AndroidStudioFormatExample",
-                  "kind": "android-module"
-                }
-              ],
               "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
             }
           ],
@@ -202,12 +196,6 @@
                   "startLine": 5
                 }
               },
-              "logicalLocation": [
-                {
-                  "name": "AndroidStudioFormatExample",
-                  "kind": "android-module"
-                }
-              ],
               "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
             }
           ],
@@ -230,12 +218,6 @@
                   "startLine": 30
                 }
               },
-              "logicalLocation": [
-                {
-                  "name": "AndroidStudioFormatExample",
-                  "kind": "android-module"
-                }
-              ],
               "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
             }
           ],
@@ -258,12 +240,6 @@
                   "startLine": 31
                 }
               },
-              "logicalLocation": [
-                {
-                  "name": "AndroidStudioFormatExample",
-                  "kind": "android-module"
-                }
-              ],
               "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
             }
           ],
@@ -286,12 +262,6 @@
                   "startLine": 33
                 }
               },
-              "logicalLocation": [
-                {
-                  "name": "AndroidStudioFormatExample",
-                  "kind": "android-module"
-                }
-              ],
               "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
             }
           ],
@@ -314,12 +284,6 @@
                   "startLine": 34
                 }
               },
-              "logicalLocation": [
-                {
-                  "name": "AndroidStudioFormatExample",
-                  "kind": "android-module"
-                }
-              ],
               "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
             }
           ],
@@ -342,12 +306,6 @@
                   "startLine": 35
                 }
               },
-              "logicalLocation": [
-                {
-                  "name": "AndroidStudioFormatExample",
-                  "kind": "android-module"
-                }
-              ],
               "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
             }
           ],
@@ -370,12 +328,6 @@
                   "startLine": 40
                 }
               },
-              "logicalLocation": [
-                {
-                  "name": "AndroidStudioFormatExample",
-                  "kind": "android-module"
-                }
-              ],
               "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
             }
           ],
@@ -398,12 +350,6 @@
                   "startLine": 41
                 }
               },
-              "logicalLocation": [
-                {
-                  "name": "AndroidStudioFormatExample",
-                  "kind": "android-module"
-                }
-              ],
               "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
             }
           ],
@@ -426,12 +372,6 @@
                   "startLine": 43
                 }
               },
-              "logicalLocation": [
-                {
-                  "name": "AndroidStudioFormatExample",
-                  "kind": "android-module"
-                }
-              ],
               "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
             }
           ],
@@ -454,12 +394,6 @@
                   "startLine": 45
                 }
               },
-              "logicalLocation": [
-                {
-                  "name": "AndroidStudioFormatExample",
-                  "kind": "android-module"
-                }
-              ],
               "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
             }
           ],
@@ -482,12 +416,6 @@
                   "startLine": 46
                 }
               },
-              "logicalLocation": [
-                {
-                  "name": "AndroidStudioFormatExample",
-                  "kind": "android-module"
-                }
-              ],
               "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
             }
           ],
@@ -510,12 +438,6 @@
                   "startLine": 47
                 }
               },
-              "logicalLocation": [
-                {
-                  "name": "AndroidStudioFormatExample",
-                  "kind": "android-module"
-                }
-              ],
               "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
             }
           ],
@@ -538,12 +460,6 @@
                   "startLine": 60
                 }
               },
-              "logicalLocation": [
-                {
-                  "name": "AndroidStudioFormatExample",
-                  "kind": "android-module"
-                }
-              ],
               "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
             }
           ],
@@ -566,12 +482,6 @@
                   "startLine": 64
                 }
               },
-              "logicalLocation": [
-                {
-                  "name": "AndroidStudioFormatExample",
-                  "kind": "android-module"
-                }
-              ],
               "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
             }
           ],
@@ -594,12 +504,6 @@
                   "startLine": 73
                 }
               },
-              "logicalLocation": [
-                {
-                  "name": "AndroidStudioFormatExample",
-                  "kind": "android-module"
-                }
-              ],
               "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
             }
           ],
@@ -622,12 +526,6 @@
                   "startLine": 74
                 }
               },
-              "logicalLocation": [
-                {
-                  "name": "AndroidStudioFormatExample",
-                  "kind": "android-module"
-                }
-              ],
               "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
             }
           ],
@@ -650,12 +548,6 @@
                   "startLine": 76
                 }
               },
-              "logicalLocation": [
-                {
-                  "name": "AndroidStudioFormatExample",
-                  "kind": "android-module"
-                }
-              ],
               "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
             }
           ],
@@ -678,12 +570,6 @@
                   "startLine": 78
                 }
               },
-              "logicalLocation": [
-                {
-                  "name": "AndroidStudioFormatExample",
-                  "kind": "android-module"
-                }
-              ],
               "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
             }
           ],
@@ -706,12 +592,6 @@
                   "startLine": 85
                 }
               },
-              "logicalLocation": [
-                {
-                  "name": "AndroidStudioFormatExample",
-                  "kind": "android-module"
-                }
-              ],
               "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
             }
           ],
@@ -734,12 +614,6 @@
                   "startLine": 93
                 }
               },
-              "logicalLocation": [
-                {
-                  "name": "AndroidStudioFormatExample",
-                  "kind": "android-module"
-                }
-              ],
               "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
             }
           ],
@@ -762,12 +636,6 @@
                   "startLine": 94
                 }
               },
-              "logicalLocation": [
-                {
-                  "name": "AndroidStudioFormatExample",
-                  "kind": "android-module"
-                }
-              ],
               "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
             }
           ],
@@ -790,12 +658,6 @@
                   "startLine": 99
                 }
               },
-              "logicalLocation": [
-                {
-                  "name": "AndroidStudioFormatExample",
-                  "kind": "android-module"
-                }
-              ],
               "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
             }
           ],
@@ -818,12 +680,6 @@
                   "startLine": 110
                 }
               },
-              "logicalLocation": [
-                {
-                  "name": "AndroidStudioFormatExample",
-                  "kind": "android-module"
-                }
-              ],
               "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
             }
           ],
@@ -846,12 +702,6 @@
                   "startLine": 110
                 }
               },
-              "logicalLocation": [
-                {
-                  "name": "AndroidStudioFormatExample",
-                  "kind": "android-module"
-                }
-              ],
               "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
             }
           ],
@@ -874,12 +724,6 @@
                   "startLine": 110
                 }
               },
-              "logicalLocation": [
-                {
-                  "name": "AndroidStudioFormatExample",
-                  "kind": "android-module"
-                }
-              ],
               "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
             }
           ],
@@ -902,12 +746,6 @@
                   "startLine": 113
                 }
               },
-              "logicalLocation": [
-                {
-                  "name": "AndroidStudioFormatExample",
-                  "kind": "android-module"
-                }
-              ],
               "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
             }
           ],
@@ -930,12 +768,6 @@
                   "startLine": 114
                 }
               },
-              "logicalLocation": [
-                {
-                  "name": "AndroidStudioFormatExample",
-                  "kind": "android-module"
-                }
-              ],
               "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
             }
           ],
@@ -958,12 +790,6 @@
                   "startLine": 115
                 }
               },
-              "logicalLocation": [
-                {
-                  "name": "AndroidStudioFormatExample",
-                  "kind": "android-module"
-                }
-              ],
               "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
             }
           ],
@@ -986,12 +812,6 @@
                   "startLine": 116
                 }
               },
-              "logicalLocation": [
-                {
-                  "name": "AndroidStudioFormatExample",
-                  "kind": "android-module"
-                }
-              ],
               "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
             }
           ],
@@ -1014,12 +834,6 @@
                   "startLine": 118
                 }
               },
-              "logicalLocation": [
-                {
-                  "name": "AndroidStudioFormatExample",
-                  "kind": "android-module"
-                }
-              ],
               "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
             }
           ],
@@ -1042,12 +856,6 @@
                   "startLine": 119
                 }
               },
-              "logicalLocation": [
-                {
-                  "name": "AndroidStudioFormatExample",
-                  "kind": "android-module"
-                }
-              ],
               "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
             }
           ],
@@ -1070,12 +878,6 @@
                   "startLine": 119
                 }
               },
-              "logicalLocation": [
-                {
-                  "name": "AndroidStudioFormatExample",
-                  "kind": "android-module"
-                }
-              ],
               "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
             }
           ],
@@ -1098,12 +900,6 @@
                   "startLine": 119
                 }
               },
-              "logicalLocation": [
-                {
-                  "name": "AndroidStudioFormatExample",
-                  "kind": "android-module"
-                }
-              ],
               "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
             }
           ],
@@ -1126,12 +922,6 @@
                   "startLine": 121
                 }
               },
-              "logicalLocation": [
-                {
-                  "name": "AndroidStudioFormatExample",
-                  "kind": "android-module"
-                }
-              ],
               "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
             }
           ],
@@ -1154,12 +944,6 @@
                   "startLine": 122
                 }
               },
-              "logicalLocation": [
-                {
-                  "name": "AndroidStudioFormatExample",
-                  "kind": "android-module"
-                }
-              ],
               "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
             }
           ],
@@ -1182,12 +966,6 @@
                   "startLine": 122
                 }
               },
-              "logicalLocation": [
-                {
-                  "name": "AndroidStudioFormatExample",
-                  "kind": "android-module"
-                }
-              ],
               "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
             }
           ],
@@ -1210,12 +988,6 @@
                   "startLine": 125
                 }
               },
-              "logicalLocation": [
-                {
-                  "name": "AndroidStudioFormatExample",
-                  "kind": "android-module"
-                }
-              ],
               "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
             }
           ],
@@ -1238,12 +1010,6 @@
                   "startLine": 125
                 }
               },
-              "logicalLocation": [
-                {
-                  "name": "AndroidStudioFormatExample",
-                  "kind": "android-module"
-                }
-              ],
               "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
             }
           ],
@@ -1266,12 +1032,6 @@
                   "startLine": 126
                 }
               },
-              "logicalLocation": [
-                {
-                  "name": "AndroidStudioFormatExample",
-                  "kind": "android-module"
-                }
-              ],
               "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
             }
           ],
@@ -1294,12 +1054,6 @@
                   "startLine": 127
                 }
               },
-              "logicalLocation": [
-                {
-                  "name": "AndroidStudioFormatExample",
-                  "kind": "android-module"
-                }
-              ],
               "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
             }
           ],
@@ -1322,12 +1076,6 @@
                   "startLine": 128
                 }
               },
-              "logicalLocation": [
-                {
-                  "name": "AndroidStudioFormatExample",
-                  "kind": "android-module"
-                }
-              ],
               "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
             }
           ],
@@ -1350,12 +1098,6 @@
                   "startLine": 128
                 }
               },
-              "logicalLocation": [
-                {
-                  "name": "AndroidStudioFormatExample",
-                  "kind": "android-module"
-                }
-              ],
               "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
             }
           ],
@@ -1378,12 +1120,6 @@
                   "startLine": 128
                 }
               },
-              "logicalLocation": [
-                {
-                  "name": "AndroidStudioFormatExample",
-                  "kind": "android-module"
-                }
-              ],
               "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
             }
           ],
@@ -1406,12 +1142,6 @@
                   "startLine": 133
                 }
               },
-              "logicalLocation": [
-                {
-                  "name": "AndroidStudioFormatExample",
-                  "kind": "android-module"
-                }
-              ],
               "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
             }
           ],
@@ -1434,12 +1164,6 @@
                   "startLine": 133
                 }
               },
-              "logicalLocation": [
-                {
-                  "name": "AndroidStudioFormatExample",
-                  "kind": "android-module"
-                }
-              ],
               "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
             }
           ],
@@ -1462,12 +1186,6 @@
                   "startLine": 134
                 }
               },
-              "logicalLocation": [
-                {
-                  "name": "AndroidStudioFormatExample",
-                  "kind": "android-module"
-                }
-              ],
               "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
             }
           ],
@@ -1490,12 +1208,6 @@
                   "startLine": 137
                 }
               },
-              "logicalLocation": [
-                {
-                  "name": "AndroidStudioFormatExample",
-                  "kind": "android-module"
-                }
-              ],
               "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
             }
           ],
@@ -1518,12 +1230,6 @@
                   "startLine": 137
                 }
               },
-              "logicalLocation": [
-                {
-                  "name": "AndroidStudioFormatExample",
-                  "kind": "android-module"
-                }
-              ],
               "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
             }
           ],
@@ -1546,12 +1252,6 @@
                   "startLine": 139
                 }
               },
-              "logicalLocation": [
-                {
-                  "name": "AndroidStudioFormatExample",
-                  "kind": "android-module"
-                }
-              ],
               "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
             }
           ],
@@ -1574,12 +1274,6 @@
                   "startLine": 154
                 }
               },
-              "logicalLocation": [
-                {
-                  "name": "AndroidStudioFormatExample",
-                  "kind": "android-module"
-                }
-              ],
               "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
             }
           ],
@@ -1602,12 +1296,6 @@
                   "startLine": 161
                 }
               },
-              "logicalLocation": [
-                {
-                  "name": "AndroidStudioFormatExample",
-                  "kind": "android-module"
-                }
-              ],
               "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
             }
           ],
@@ -1630,12 +1318,6 @@
                   "startLine": 162
                 }
               },
-              "logicalLocation": [
-                {
-                  "name": "AndroidStudioFormatExample",
-                  "kind": "android-module"
-                }
-              ],
               "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
             }
           ],
@@ -1658,12 +1340,6 @@
                   "startLine": 162
                 }
               },
-              "logicalLocation": [
-                {
-                  "name": "AndroidStudioFormatExample",
-                  "kind": "android-module"
-                }
-              ],
               "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
             }
           ],
@@ -1686,12 +1362,6 @@
                   "startLine": 164
                 }
               },
-              "logicalLocation": [
-                {
-                  "name": "AndroidStudioFormatExample",
-                  "kind": "android-module"
-                }
-              ],
               "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
             }
           ],
@@ -1714,12 +1384,6 @@
                   "startLine": 9
                 }
               },
-              "logicalLocation": [
-                {
-                  "name": "AndroidStudioFormatExample",
-                  "kind": "android-module"
-                }
-              ],
               "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
             }
           ],
@@ -1742,12 +1406,6 @@
                   "startLine": 14
                 }
               },
-              "logicalLocation": [
-                {
-                  "name": "AndroidStudioFormatExample",
-                  "kind": "android-module"
-                }
-              ],
               "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
             }
           ],
@@ -1770,12 +1428,6 @@
                   "startLine": 15
                 }
               },
-              "logicalLocation": [
-                {
-                  "name": "AndroidStudioFormatExample",
-                  "kind": "android-module"
-                }
-              ],
               "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
             }
           ],
@@ -1798,12 +1450,6 @@
                   "startLine": 15
                 }
               },
-              "logicalLocation": [
-                {
-                  "name": "AndroidStudioFormatExample",
-                  "kind": "android-module"
-                }
-              ],
               "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
             }
           ],
@@ -1826,12 +1472,6 @@
                   "startLine": 17
                 }
               },
-              "logicalLocation": [
-                {
-                  "name": "AndroidStudioFormatExample",
-                  "kind": "android-module"
-                }
-              ],
               "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
             }
           ],
@@ -1854,12 +1494,6 @@
                   "startLine": 20
                 }
               },
-              "logicalLocation": [
-                {
-                  "name": "AndroidStudioFormatExample",
-                  "kind": "android-module"
-                }
-              ],
               "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
             }
           ],
@@ -1882,12 +1516,6 @@
                   "startLine": 24
                 }
               },
-              "logicalLocation": [
-                {
-                  "name": "AndroidStudioFormatExample",
-                  "kind": "android-module"
-                }
-              ],
               "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
             }
           ],
@@ -1910,12 +1538,6 @@
                   "startLine": 24
                 }
               },
-              "logicalLocation": [
-                {
-                  "name": "AndroidStudioFormatExample",
-                  "kind": "android-module"
-                }
-              ],
               "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
             }
           ],
@@ -1938,12 +1560,6 @@
                   "startLine": 32
                 }
               },
-              "logicalLocation": [
-                {
-                  "name": "AndroidStudioFormatExample",
-                  "kind": "android-module"
-                }
-              ],
               "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
             }
           ],
@@ -1966,12 +1582,6 @@
                   "startLine": 38
                 }
               },
-              "logicalLocation": [
-                {
-                  "name": "AndroidStudioFormatExample",
-                  "kind": "android-module"
-                }
-              ],
               "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
             }
           ],
@@ -1994,12 +1604,6 @@
                   "startLine": 46
                 }
               },
-              "logicalLocation": [
-                {
-                  "name": "AndroidStudioFormatExample",
-                  "kind": "android-module"
-                }
-              ],
               "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
             }
           ],
@@ -2022,12 +1626,6 @@
                   "startLine": 49
                 }
               },
-              "logicalLocation": [
-                {
-                  "name": "AndroidStudioFormatExample",
-                  "kind": "android-module"
-                }
-              ],
               "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
             }
           ],
@@ -2050,12 +1648,6 @@
                   "startLine": 51
                 }
               },
-              "logicalLocation": [
-                {
-                  "name": "AndroidStudioFormatExample",
-                  "kind": "android-module"
-                }
-              ],
               "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
             }
           ],
@@ -2078,12 +1670,6 @@
                   "startLine": 52
                 }
               },
-              "logicalLocation": [
-                {
-                  "name": "AndroidStudioFormatExample",
-                  "kind": "android-module"
-                }
-              ],
               "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
             }
           ],
@@ -2106,12 +1692,6 @@
                   "startLine": 52
                 }
               },
-              "logicalLocation": [
-                {
-                  "name": "AndroidStudioFormatExample",
-                  "kind": "android-module"
-                }
-              ],
               "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
             }
           ],
@@ -2134,12 +1714,6 @@
                   "startLine": 60
                 }
               },
-              "logicalLocation": [
-                {
-                  "name": "AndroidStudioFormatExample",
-                  "kind": "android-module"
-                }
-              ],
               "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
             }
           ],
@@ -2162,12 +1736,6 @@
                   "startLine": 63
                 }
               },
-              "logicalLocation": [
-                {
-                  "name": "AndroidStudioFormatExample",
-                  "kind": "android-module"
-                }
-              ],
               "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
             }
           ],
@@ -2190,12 +1758,6 @@
                   "startLine": 75
                 }
               },
-              "logicalLocation": [
-                {
-                  "name": "AndroidStudioFormatExample",
-                  "kind": "android-module"
-                }
-              ],
               "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
             }
           ],
@@ -2218,12 +1780,6 @@
                   "startLine": 75
                 }
               },
-              "logicalLocation": [
-                {
-                  "name": "AndroidStudioFormatExample",
-                  "kind": "android-module"
-                }
-              ],
               "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
             }
           ],
@@ -2246,12 +1802,6 @@
                   "startLine": 79
                 }
               },
-              "logicalLocation": [
-                {
-                  "name": "AndroidStudioFormatExample",
-                  "kind": "android-module"
-                }
-              ],
               "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
             }
           ],
@@ -2274,12 +1824,6 @@
                   "startLine": 79
                 }
               },
-              "logicalLocation": [
-                {
-                  "name": "AndroidStudioFormatExample",
-                  "kind": "android-module"
-                }
-              ],
               "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
             }
           ],
@@ -2302,12 +1846,6 @@
                   "startLine": 88
                 }
               },
-              "logicalLocation": [
-                {
-                  "name": "AndroidStudioFormatExample",
-                  "kind": "android-module"
-                }
-              ],
               "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
             }
           ],
@@ -2330,12 +1868,6 @@
                   "startLine": 8
                 }
               },
-              "logicalLocation": [
-                {
-                  "name": "app",
-                  "kind": "android-module"
-                }
-              ],
               "fullyQualifiedLogicalName": "app"
             }
           ],
@@ -2358,12 +1890,6 @@
                   "startLine": 3
                 }
               },
-              "logicalLocation": [
-                {
-                  "name": "app",
-                  "kind": "android-module"
-                }
-              ],
               "fullyQualifiedLogicalName": "app"
             }
           ],
@@ -2386,12 +1912,6 @@
                   "startLine": 2
                 }
               },
-              "logicalLocation": [
-                {
-                  "name": "app",
-                  "kind": "android-module"
-                }
-              ],
               "fullyQualifiedLogicalName": "app"
             }
           ],
@@ -2414,16 +1934,6 @@
                   "startLine": 4
                 }
               },
-              "logicalLocation": [
-                {
-                  "name": "app",
-                  "kind": "android-module"
-                },
-                {
-                  "name": "microsoft.androidstudioformatexample",
-                  "kind": "package"
-                }
-              ],
               "fullyQualifiedLogicalName": "app\\microsoft.androidstudioformatexample"
             }
           ],

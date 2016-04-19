@@ -12,6 +12,14 @@
           }
         ]
       },
+      "logicalLocations": {
+        "northwindtraders-droid-2": [
+          {
+            "name": "northwindtraders-droid-2",
+            "kind": "module"
+          }
+        ]
+      },
       "results": [
         {
           "ruleId": "Assertions",
@@ -27,12 +35,6 @@
                   "startLine": 242
                 }
               },
-              "logicalLocation": [
-                {
-                  "name": "northwindtraders-droid-2",
-                  "kind": "android-module"
-                }
-              ],
               "fullyQualifiedLogicalName": "northwindtraders-droid-2"
             }
           ],

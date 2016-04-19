@@ -8,25 +8,13 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// </summary>
     public static class LogicalLocationKind
     {
-        /// <summary>The MIME type for android modules.</summary>
-        public static readonly string AndroidModule = "android-module";
-
-        /// <summary>The MIME type for namespaces in the CLR.</summary>
-        public static readonly string ClrNamespace = "namespace";
-        /// <summary>The MIME type for functions in the CLR.</summary>
-        public static readonly string ClrFunction = "method";
-        /// <summary>The MIME type for types in the CLR.</summary>
-        public static readonly string ClrType = "type";
-        /// <summary>The MIME type for embedded resources in the CLR.</summary>
-        public static readonly string ClrResource = "resource";
-        /// <summary>The MIME type for modules in the CLR.</summary>
-        public static readonly string ClrModule = "module";
-
-        /// <summary>The MIME type for packages in the JVM.</summary>
-        public static readonly string JvmPackage = "package";
-        /// <summary>The MIME type for functions in the JVM.</summary>
-        public static readonly string JvmFunction = "method";
-        /// <summary>The MIME type for classes in the JVM.</summary>
-        public static readonly string JvmType = "type";
+        public static readonly string Declaration = "declaration";
+        public static readonly string Function = "function";
+        public static readonly string Member = "member";
+        public static readonly string Module = "module";
+        public static readonly string Namespace = "namespace";
+        public static readonly string Package = "package";
+        public static readonly string Resource = "resource";
+        public static readonly string Type = "type";
     }
 }

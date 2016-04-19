@@ -17,6 +17,14 @@
           }
         ]
       },
+      "logicalLocations": {
+        "AndroidStudioFormatExample": [
+          {
+            "name": "AndroidStudioFormatExample",
+            "kind": "module"
+          }
+        ]
+      },
       "results": [
         {
           "ruleId": "Unused Property",
@@ -32,12 +40,6 @@
                   "startLine": 2
                 }
               },
-              "logicalLocation": [
-                {
-                  "name": "AndroidStudioFormatExample",
-                  "kind": "android-module"
-                }
-              ],
               "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
             }
           ],
@@ -60,12 +62,6 @@
                   "startLine": 3
                 }
               },
-              "logicalLocation": [
-                {
-                  "name": "AndroidStudioFormatExample",
-                  "kind": "android-module"
-                }
-              ],
               "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
             }
           ],
@@ -88,12 +84,6 @@
                   "startLine": 4
                 }
               },
-              "logicalLocation": [
-                {
-                  "name": "AndroidStudioFormatExample",
-                  "kind": "android-module"
-                }
-              ],
               "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
             }
           ],
@@ -116,12 +106,6 @@
                   "startLine": 5
                 }
               },
-              "logicalLocation": [
-                {
-                  "name": "AndroidStudioFormatExample",
-                  "kind": "android-module"
-                }
-              ],
               "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
             }
           ],
@@ -144,12 +128,6 @@
                   "startLine": 6
                 }
               },
-              "logicalLocation": [
-                {
-                  "name": "AndroidStudioFormatExample",
-                  "kind": "android-module"
-                }
-              ],
               "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
             }
           ],
@@ -172,12 +150,6 @@
                   "startLine": 10
                 }
               },
-              "logicalLocation": [
-                {
-                  "name": "AndroidStudioFormatExample",
-                  "kind": "android-module"
-                }
-              ],
               "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
             }
           ],
