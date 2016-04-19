@@ -10,13 +10,18 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
     public static class MimeType
     {
         /// <summary>Guesses an appropriate MIME type given the extension from a file name.</summary>
-        /// <param name="fileName">File name from which MIME type shall be guessed.</param>
-        /// <returns>A string corresponding to the likely MIME type of <paramref name="fileName"/> given        public static string DetermineFromFileExtension(Uri fileUri)
+        /// <param name="fileName">File path from which MIME type shall be guessed.</param>
+        /// <returns>A string corresponding to the likely MIME type of <paramref name="filePath"/>
         public static string DetermineFromFileExtension(string fileName)
         {
             if (fileName == null)
             {
                 throw new ArgumentNullException(nameof(fileName));
+            }
+
+            if (System.IO.Directory.Exists(fileName))
+            {
+                return MimeType.Directory;
             }
 
             foreach (ImmutableArray<string> tableEntry in s_extensionTable)
@@ -64,6 +69,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         public static readonly string Java = "text/x-java-source";
         /// <summary>The MIME type for binaries.</summary>
         public static readonly string Binary = "application/octet-stream";
+        /// <summary>The MIME type for directories.</summary>
+        public static readonly string Directory = "application/x-directory";
         /// <summary>The MIME type used for CSharp files.</summary>
         public static readonly string CSharp = "text/x-csharp";
 

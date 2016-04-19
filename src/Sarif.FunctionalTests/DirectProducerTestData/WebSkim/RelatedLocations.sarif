@@ -10,7 +10,7 @@
         "fileVersion": "7.0.20811.0",
         "properties": {
           "Language": "Language Neutral",
-          "FileName": "D:\\src\\SecDevTools\\Main\\bin\\x64\\Debug\\ModernCop\\mod50.exe",
+          "FileName": "d:\\src\\SecDevTools\\Main\\bin\\x64\\Debug\\ModernCop\\mod50.exe",
           "CompanyName": "Microsoft Corporation"
         }
       },
@@ -27,7 +27,7 @@
           "locations": [
             {
               "analysisTarget": {
-                "uri": "file:///D:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_JavaScriptRules/Semantic/VariableDeclaredMultipleTimes.js",
+                "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_JavaScriptRules/Semantic/VariableDeclaredMultipleTimes.js",
                 "region": {
                   "startLine": 1,
                   "startColumn": 44
@@ -43,13 +43,13 @@
             "formatId": "Error",
             "arguments": [
               "repeated",
-              null
+              ""
             ]
           },
           "locations": [
             {
               "analysisTarget": {
-                "uri": "file:///D:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_JavaScriptRules/Semantic/VariableDeclaredMultipleTimes.js",
+                "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_JavaScriptRules/Semantic/VariableDeclaredMultipleTimes.js",
                 "region": {
                   "startLine": 5,
                   "startColumn": 9
@@ -60,10 +60,10 @@
           "relatedLocations": [
             {
               "physicalLocation": {
-                "uri": "file:///D:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_JavaScriptRules/Semantic/VariableDeclaredMultipleTimes.js",
+                "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_JavaScriptRules/Semantic/VariableDeclaredMultipleTimes.js",
                 "region": {
                   "startLine": 4,
-                  "startColumn": -14
+                  "startColumn": 9
                 }
               },
               "message": "The previous declaration was here."
@@ -79,7 +79,7 @@
           "locations": [
             {
               "analysisTarget": {
-                "uri": "file:///D:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_JavaScriptRules/Semantic/VariableDeclaredMultipleTimes.js",
+                "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_JavaScriptRules/Semantic/VariableDeclaredMultipleTimes.js",
                 "region": {
                   "startLine": 1
                 }
@@ -89,7 +89,7 @@
         }
       ],
       "files": {
-        "file:///D:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_JavaScriptRules/Semantic/VariableDeclaredMultipleTimes.js": [
+        "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_JavaScriptRules/Semantic/VariableDeclaredMultipleTimes.js": [
           {
             "mimeType": "text/javascript"
           }
@@ -133,9 +133,9 @@
           ]
         }
       },
-      "invocation": "\"D:\\src\\SecDevTools\\Main\\bin\\x64\\Debug\\ModernCop\\mod50.exe\"  /file D:\\src\\SecDevTools\\Main\\src\\ModernCop\\Source\\WebRules.Test.Unit\\ModernCopTestData\\WebRules_JavaScriptRules\\Semantic\\VariableDeclaredMultipleTimes.js  /out d:\\repros\\RelatedLocations.sarif ",
-      "startTime": "2016-04-18T15:45:24.6397412Z",
-      "endTime": "2016-04-18T15:45:25.9150412Z"
+      "invocation": "mod50  analyze /file d:\\src\\SecDevTools\\Main\\src\\ModernCop\\Source\\WebRules.Test.Unit\\ModernCopTestData\\WebRules_PackageRules\\..\\WebRules_JavaScriptRules\\Semantic\\VariableDeclaredMultipleTimes.js /out d:\\repros\\ModernCopSarif\\RelatedLocations.sarif",
+      "startTime": "2016-04-19T07:55:37.8750055Z",
+      "endTime": "2016-04-19T07:55:39.2510944Z"
     }
   ]
 }
