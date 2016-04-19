@@ -53,5 +53,19 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         {
             Assert.AreEqual("text/xml", MimeType.DetermineFromFileExtension(".xml"));
         }
+
+        [TestMethod]
+        public void MimeType_Directory()
+        {
+            string directory = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+            Assert.AreEqual("application/x-directory", MimeType.DetermineFromFileExtension(directory));
+        }
+
+        [TestMethod]
+        public void MimeType_DirectoryUri()
+        {
+            string directory = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+            Assert.AreEqual("application/x-directory", MimeType.DetermineFromFileExtension(new Uri(directory)));
+        }
     }
 }
