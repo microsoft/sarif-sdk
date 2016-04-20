@@ -74,6 +74,10 @@ namespace Microsoft.CodeAnalysis.Sarif
                     return VisitRun((Run)node);
                 case SarifNodeKind.SarifLog:
                     return VisitSarifLog((SarifLog)node);
+                case SarifNodeKind.StackFrame:
+                    return VisitStackFrame((StackFrame)node);
+                case SarifNodeKind.StackTrace:
+                    return VisitStackTrace((StackTrace)node);
                 case SarifNodeKind.Tool:
                     return VisitTool((Tool)node);
                 default:
@@ -355,6 +359,33 @@ namespace Microsoft.CodeAnalysis.Sarif
                     for (int index_0 = 0; index_0 < node.Runs.Count; ++index_0)
                     {
                         node.Runs[index_0] = VisitNullChecked(node.Runs[index_0]);
+                    }
+                }
+            }
+
+            return node;
+        }
+
+        public virtual StackFrame VisitStackFrame(StackFrame node)
+        {
+            if (node != null)
+            {
+                node.File = VisitNullChecked(node.File);
+                node.Region = VisitNullChecked(node.Region);
+            }
+
+            return node;
+        }
+
+        public virtual StackTrace VisitStackTrace(StackTrace node)
+        {
+            if (node != null)
+            {
+                if (node.Frames != null)
+                {
+                    for (int index_0 = 0; index_0 < node.Frames.Count; ++index_0)
+                    {
+                        node.Frames[index_0] = VisitNullChecked(node.Frames[index_0]);
                     }
                 }
             }

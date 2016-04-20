@@ -66,7 +66,6 @@
         },
         "file": {
           "description": "A file that contains the code that is executing.",
-          "type": "string",
           "$ref": "#/definitions/physicalLocation"
         },
         "module": {
@@ -79,11 +78,11 @@
         },
         "functionAddress": {
           "description": "The address of the method or function that is executing.",
-          "type": "integer",
+          "type": "integer"
         },
         "language": {
           "description": "The programming language of the code that is executing.",
-          "type": "string",
+          "type": "string"
         },
         "parameters": {
           "description": "The parameters of the call that is executing.",
@@ -91,7 +90,8 @@
           "items": {
             "type": "string",
             "default": [ ]
-          },
+          }
+        },
         "region": {
           "description": "Information that helps locate the executing code, within a file or as an offset from a function or method.",
           "type": "string",
@@ -111,7 +111,7 @@
             "default": [ ]
           }
         }
-      },
+      }
     },
     "annotatedCodeLocation": {
       "description": "A code annotation that consists of single physical location and associated message, used to express stacks, code flows through a method, or other locations that are related to a result.",
