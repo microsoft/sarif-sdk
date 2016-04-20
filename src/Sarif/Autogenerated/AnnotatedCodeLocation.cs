@@ -33,7 +33,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         public PhysicalLocation PhysicalLocation { get; set; }
 
         /// <summary>
-        /// A message associated with this annotation, if applicable.
+        /// A message relevant to this annotation, if applicable.
         /// </summary>
         [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
         public string Message { get; set; }
@@ -45,7 +45,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         public IDictionary<string, string> Properties { get; set; }
 
         /// <summary>
-        /// A unique set of strings that provide additional information for the associated code location.
+        /// A unique set of strings that provide additional information for the code location.
         /// </summary>
         [DataMember(Name = "tags", IsRequired = false, EmitDefaultValue = false)]
         public IList<string> Tags { get; set; }
