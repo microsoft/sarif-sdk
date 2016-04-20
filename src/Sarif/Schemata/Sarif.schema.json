@@ -21,6 +21,98 @@
   },
   "required": [ "version", "runs" ],
   "definitions": {
+    "stackTrace": {
+      "description": "A call stack that is relevant to a result.",
+      "additionalProperties": false,
+      "type": "object",
+      "properties": {
+        "message": {
+          "description": "A message relevant to this call stack, if applicable.",
+          "type": "string"
+        },
+        "frames": {
+          "description": "An array of stack frames that represent a sequence of call, rendered in reverse chronological order, that comprise the call stack.",
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/definitions/stackFrame"
+          }
+        },
+        "properties": {
+          "description": "Key/value pairs that provide additional details about the code location.",
+          "type": "object",
+          "default": { }
+        },
+        "tags": {
+          "description": "A unique set of strings that provide additional information for the code location.",
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "default": [ ]
+          }
+        }
+      },
+      "required": [ "frames" ]
+    },
+    "stackFrame": {
+      "description": "A function call within a stack trace.",
+      "additionalProperties": false,
+      "type": "object",
+      "properties": {
+        "message": {
+          "description": "A message relevant to this stack frame, if applicable.",
+          "type": "string"
+        },
+        "file": {
+          "description": "A file that contains the code that is executing.",
+          "type": "string",
+          "$ref": "#/definitions/physicalLocation"
+        },
+        "module": {
+          "description": "The name of the module that contains the code that is executing.",
+          "type": "string"
+        },
+        "function": {
+          "description": "The name of the method or function that is executing.",
+          "type": "string"
+        },
+        "functionAddress": {
+          "description": "The address of the method or function that is executing.",
+          "type": "integer",
+        },
+        "language": {
+          "description": "The programming language of the code that is executing.",
+          "type": "string",
+        },
+        "parameters": {
+          "description": "The parameters of the call that is executing.",
+          "type": "array",
+          "items": {
+            "type": "string",
+            "default": [ ]
+          },
+        "region": {
+          "description": "Information that helps locate the executing code, within a file or as an offset from a function or method.",
+          "type": "string",
+          "$ref": "#/definitions/region"
+        },
+        "properties": {
+          "description": "Key/value pairs that provide additional details about the stack frame.",
+          "type": "object",
+          "default": { }
+        },
+        "tags": {
+          "description": "A unique set of strings that provide additional information for the stack frame.",
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "default": [ ]
+          }
+        }
+      },
+    },
     "annotatedCodeLocation": {
       "description": "A code annotation that consists of single physical location and associated message, used to express stacks, code flows through a method, or other locations that are related to a result.",
       "additionalProperties": false,
