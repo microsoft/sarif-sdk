@@ -19,19 +19,17 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
         private const string TestFormatId = "testFormatSpecifier";
         private const string TestAnalysisTarget = @"C:\dir\file";
 
-        private static readonly Rule TestRule = new Rule(
-            TestRuleId,
-            "ThisIsATest",
-            "short description",
-            "full description",
-            null,           // options
-            new Dictionary<string, string>
+        private static readonly Rule TestRule = new Rule
+        {
+            Id = TestRuleId,
+            Name = "ThisIsATest",
+            ShortDescription = "short description",
+            FullDescription = "full description",
+            MessageFormats = new Dictionary<string, string>
             {
                 [TestFormatId] = "First: {0}, Second: {1}"
-            },
-            null,           // helpUri
-            null,           // properties
-            null);          // tags
+            }
+        };
 
         private static readonly Region MultiLineTestRegion = new Region
         {

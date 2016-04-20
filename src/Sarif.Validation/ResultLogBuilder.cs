@@ -3,6 +3,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Microsoft.CodeAnalysis.Sarif.Driver;
 using Microsoft.CodeAnalysis.Sarif.Driver.Sdk;
 
@@ -23,51 +24,46 @@ namespace Microsoft.CodeAnalysis.Sarif.Validation
 
         private const string UnknownErrorFormatSpecifier = "unknownError";
 
-        private static readonly Rule UnknownErrorRule = new Rule(
-            "SV0001",
-            "UnknownError",
-            Resources.UnknownErrorRuleDescription,
-            Resources.UnknownErrorRuleDescription,
-            null,           // options
-            new Dictionary<string, string>           // messageFormats
+        private static readonly Rule UnknownErrorRule = new Rule
+        {
+            Id = "SV0001",
+            Name = "UnknownError",
+            ShortDescription = Resources.UnknownErrorRuleDescription,
+            FullDescription = Resources.UnknownErrorRuleDescription,
+            Options = null,
+            MessageFormats = new Dictionary<string, string>
             {
                 [UnknownErrorFormatSpecifier] = Resources.UnknownErrorMessageFormat
-            },
-            null,           // helpUri
-            null,           // properties
-            null);          // tags
+            }
+        };
 
         private const string JsonSyntaxErrorFormatSpecifier = "syntaxError";
 
-        private static readonly Rule JsonSyntaxErrorRule = new Rule(
-            "SV0002",
-            "JsonSyntaxError",
-            Resources.JsonSyntaxErrorRuleDescription,
-            Resources.JsonSyntaxErrorRuleDescription,
-            null,           // options
-            new Dictionary<string, string>           // messageFormats
+        private static readonly Rule JsonSyntaxErrorRule = new Rule
+        {
+            Id = "SV0002",
+            Name = "JsonSyntaxError",
+            ShortDescription = Resources.JsonSyntaxErrorRuleDescription,
+            FullDescription = Resources.JsonSyntaxErrorRuleDescription,
+            MessageFormats = new Dictionary<string, string>
             {
                 [JsonSyntaxErrorFormatSpecifier] = Resources.JsonSyntaxErrorMessageFormat
-            },
-            null,           // helpUri
-            null,           // properties
-            null);          // tags
+            }
+        };
 
         private const string JsonSchemaValidationErrorFormatSpecifier = "validationError";
 
-        private static readonly Rule JsonSchemaValidationErrorRule = new Rule(
-            "SV0003",
-            "JsonSchemaValidationError",
-            Resources.JsonSchemaValidationErrorRuleDescription,
-            Resources.JsonSchemaValidationErrorRuleDescription,
-            null,           // options
-            new Dictionary<string, string>           // messageFormats
+        private static readonly Rule JsonSchemaValidationErrorRule = new Rule
+        {
+            Id = "SV0003",
+            Name = "JsonSchemaValidationError",
+            ShortDescription = Resources.JsonSchemaValidationErrorRuleDescription,
+            FullDescription = Resources.JsonSchemaValidationErrorRuleDescription,
+            MessageFormats = new Dictionary<string, string>
             {
                 [JsonSchemaValidationErrorFormatSpecifier] = Resources.JsonSchemaValidationErrorMessageFormat
-            },
-            null,           // helpUri
-            null,           // properties
-            null);          // tags
+            }
+        };
 
         public ResultLogBuilder(
             string instanceFilePath,
@@ -182,22 +178,31 @@ namespace Microsoft.CodeAnalysis.Sarif.Validation
                 case JsonErrorKind.Syntax:
                     result.RuleId = JsonSyntaxErrorRule.Id;
                     result.Kind = ResultKind.Error;
-                    result.FormattedMessage = new FormattedMessage(
-                        JsonSyntaxErrorFormatSpecifier, new string[] { error.Message });
+                    result.FormattedMessage = new FormattedMessage
+                    {
+                        FormatId = JsonSyntaxErrorFormatSpecifier,
+                        Arguments = new[] { error.Message }
+                    };
                     break;
 
                 case JsonErrorKind.Validation:
                     result.RuleId = JsonSchemaValidationErrorRule.Id;
                     result.Kind = ResultKind.Error;
-                    result.FormattedMessage = new FormattedMessage(
-                        JsonSchemaValidationErrorFormatSpecifier, new string[] { error.Message });
+                    result.FormattedMessage = new FormattedMessage
+                    {
+                        FormatId = JsonSchemaValidationErrorFormatSpecifier,
+                        Arguments = new[] { error.Message }
+                    };
                     break;
 
                 default:
                     result.RuleId = UnknownErrorRule.Id;
                     result.Kind = ResultKind.InternalError;
-                    result.FormattedMessage = new FormattedMessage(
-                        UnknownErrorFormatSpecifier, new string[] { error.Kind.ToString() });
+                    result.FormattedMessage = new FormattedMessage
+                    {
+                        FormatId = UnknownErrorFormatSpecifier,
+                        Arguments = new string[] { error.Kind.ToString() }
+                    };
                     break;
             }
 
@@ -217,15 +222,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Validation
                 region = new Region();
             }
 
-            var plc = new PhysicalLocation
-            {
-                Uri = analysisTargetUri,
-                Region = region
-            };
-
             var location = new Location
             {
-                AnalysisTarget = new PhysicalLocation(plc)
+                AnalysisTarget = new PhysicalLocation
+                {
+                    Uri = analysisTargetUri,
+                    Region = region
+                }
             };
 
             result.Locations = new List<Location> { location };
