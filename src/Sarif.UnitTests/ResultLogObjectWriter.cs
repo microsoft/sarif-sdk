@@ -3,7 +3,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Collections.Immutable;
 using Microsoft.CodeAnalysis.Sarif.Sdk;
 
 namespace Microsoft.CodeAnalysis.Sarif.Writers
@@ -13,13 +12,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
     public sealed class ResultLogObjectWriter : IResultLogWriter
     {
         private Tool _tool;
-        private ImmutableList<Result> _issueList;
-
-        /// <summary>Initializes a new instance of the <see cref="ResultLogObjectWriter"/> class.</summary>
-        public ResultLogObjectWriter()
-        {
-            _issueList = ImmutableList<Result>.Empty;
-        }
 
         /// <summary>Gets the Tool block.</summary>
         /// <value>The <see cref="Tool"/> block if it has been written; otherwise, null.</value>
@@ -27,10 +19,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
         /// <summary>Gets the Run object.</summary>
         public Run Run { get; set;  }
-
-        /// <summary>Gets the list of issues written so far.</summary>
-        /// <value>The list of <see cref="Result"/> objects written so far.</value>
-        public ImmutableList<Result> IssueList { get { return _issueList; } }
 
         public void Initialize() { }
 
@@ -118,8 +106,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             {
                 throw new InvalidOperationException(SarifResources.CannotWriteResultToolMissing);
             }
-
-            _issueList = _issueList.Add(new Result(result));
         }
 
         /// <summary>
