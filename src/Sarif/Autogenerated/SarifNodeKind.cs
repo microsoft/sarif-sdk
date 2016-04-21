@@ -20,9 +20,9 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// </summary>
         SarifLog,
         /// <summary>
-        /// A value indicating that the <see cref="ISarifNode" /> object is of type <see cref="StackTrace" />.
+        /// A value indicating that the <see cref="ISarifNode" /> object is of type <see cref="Stack" />.
         /// </summary>
-        StackTrace,
+        Stack,
         /// <summary>
         /// A value indicating that the <see cref="ISarifNode" /> object is of type <see cref="StackFrame" />.
         /// </summary>

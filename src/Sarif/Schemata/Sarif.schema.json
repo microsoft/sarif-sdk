@@ -21,7 +21,7 @@
   },
   "required": [ "version", "runs" ],
   "definitions": {
-    "stackTrace": {
+    "stack": {
       "description": "A call stack that is relevant to a result.",
       "additionalProperties": false,
       "type": "object",
@@ -64,19 +64,23 @@
           "description": "A message relevant to this stack frame, if applicable.",
           "type": "string"
         },
-        "file": {
-          "description": "A file that contains the code that is executing.",
+        "sourceFile": {
+          "description": "A code location to which this stack frame refers.",
           "$ref": "#/definitions/physicalLocation"
         },
         "module": {
           "description": "The name of the module that contains the code that is executing.",
           "type": "string"
         },
-        "function": {
-          "description": "The name of the method or function that is executing.",
+        "fullyQualifiedLogicalName": {
+          "description": "The fully qualified name of the method or function that is executing.",
           "type": "string"
         },
-        "functionAddress": {
+        "logicalLocationKey": {
+          "description": "A string used as a key into the logicalLocations dictionary, in case the string specified by 'fullyQualifiedLogicalName' is not unique.",
+          "type": "string"
+        },
+        "address": {
           "description": "The address of the method or function that is executing.",
           "type": "integer"
         },
@@ -91,11 +95,6 @@
             "type": "string",
             "default": [ ]
           }
-        },
-        "region": {
-          "description": "Information that helps locate the executing code, within a file or as an offset from a function or method.",
-          "type": "string",
-          "$ref": "#/definitions/region"
         },
         "properties": {
           "description": "Key/value pairs that provide additional details about the stack frame.",

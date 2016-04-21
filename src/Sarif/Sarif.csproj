@@ -41,6 +41,7 @@
     <Compile Include="Converters\FortifyPathElement.cs" />
     <Compile Include="Converters\FortifyStrings.cs" />
     <Compile Include="Core\FileData.cs" />
+    <Compile Include="Core\Stack.cs" />
     <Compile Include="Core\Tool.cs" />
     <Compile Include="Extensions.cs" />
     <Compile Include="IgnoreOptions.cs" />
