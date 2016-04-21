@@ -77,8 +77,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         public static Stack Create(string stackTrace)
         {
-            Stack stack;
-            stack = new Stack();
+            Stack stack = new Stack();
             
             if (string.IsNullOrEmpty(stackTrace))
             {
@@ -163,6 +162,5 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             return sb.ToString();
         }
-
     }
 }
