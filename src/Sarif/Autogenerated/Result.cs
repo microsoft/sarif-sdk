@@ -69,10 +69,10 @@ namespace Microsoft.CodeAnalysis.Sarif
         public string ToolFingerprint { get; set; }
 
         /// <summary>
-        /// An array of arrays of 'annotatedCodeLocation' objects, each inner array of which comprises a call stack.
+        /// An array of 'stack' objects relevant to the result.
         /// </summary>
         [DataMember(Name = "stacks", IsRequired = false, EmitDefaultValue = false)]
-        public IList<IList<AnnotatedCodeLocation>> Stacks { get; set; }
+        public IList<Stack> Stacks { get; set; }
 
         /// <summary>
         /// An array of arrays of 'annotatedCodeLocation` objects, each inner array of which comprises a code flow (a possible execution path through the code).
@@ -165,31 +165,24 @@ namespace Microsoft.CodeAnalysis.Sarif
                         result = result * 31;
                         if (value_1 != null)
                         {
-                            foreach (var value_2 in value_1)
-                            {
-                                result = result * 31;
-                                if (value_2 != null)
-                                {
-                                    result = (result * 31) + value_2.GetHashCode();
-                                }
-                            }
+                            result = (result * 31) + value_1.GetHashCode();
                         }
                     }
                 }
 
                 if (CodeFlows != null)
                 {
-                    foreach (var value_3 in CodeFlows)
+                    foreach (var value_2 in CodeFlows)
                     {
                         result = result * 31;
-                        if (value_3 != null)
+                        if (value_2 != null)
                         {
-                            foreach (var value_4 in value_3)
+                            foreach (var value_3 in value_2)
                             {
                                 result = result * 31;
-                                if (value_4 != null)
+                                if (value_3 != null)
                                 {
-                                    result = (result * 31) + value_4.GetHashCode();
+                                    result = (result * 31) + value_3.GetHashCode();
                                 }
                             }
                         }
@@ -198,7 +191,20 @@ namespace Microsoft.CodeAnalysis.Sarif
 
                 if (RelatedLocations != null)
                 {
-                    foreach (var value_5 in RelatedLocations)
+                    foreach (var value_4 in RelatedLocations)
+                    {
+                        result = result * 31;
+                        if (value_4 != null)
+                        {
+                            result = (result * 31) + value_4.GetHashCode();
+                        }
+                    }
+                }
+
+                result = (result * 31) + IsSuppressedInSource.GetHashCode();
+                if (Fixes != null)
+                {
+                    foreach (var value_5 in Fixes)
                     {
                         result = result * 31;
                         if (value_5 != null)
@@ -208,29 +214,16 @@ namespace Microsoft.CodeAnalysis.Sarif
                     }
                 }
 
-                result = (result * 31) + IsSuppressedInSource.GetHashCode();
-                if (Fixes != null)
-                {
-                    foreach (var value_6 in Fixes)
-                    {
-                        result = result * 31;
-                        if (value_6 != null)
-                        {
-                            result = (result * 31) + value_6.GetHashCode();
-                        }
-                    }
-                }
-
                 if (Properties != null)
                 {
                     // Use xor for dictionaries to be order-independent.
                     int xor_0 = 0;
-                    foreach (var value_7 in Properties)
+                    foreach (var value_6 in Properties)
                     {
-                        xor_0 ^= value_7.Key.GetHashCode();
-                        if (value_7.Value != null)
+                        xor_0 ^= value_6.Key.GetHashCode();
+                        if (value_6.Value != null)
                         {
-                            xor_0 ^= value_7.Value.GetHashCode();
+                            xor_0 ^= value_6.Value.GetHashCode();
                         }
                     }
 
@@ -239,12 +232,12 @@ namespace Microsoft.CodeAnalysis.Sarif
 
                 if (Tags != null)
                 {
-                    foreach (var value_8 in Tags)
+                    foreach (var value_7 in Tags)
                     {
                         result = result * 31;
-                        if (value_8 != null)
+                        if (value_7 != null)
                         {
-                            result = (result * 31) + value_8.GetHashCode();
+                            result = (result * 31) + value_7.GetHashCode();
                         }
                     }
                 }
@@ -325,25 +318,9 @@ namespace Microsoft.CodeAnalysis.Sarif
 
                 for (int index_1 = 0; index_1 < Stacks.Count; ++index_1)
                 {
-                    if (!Object.ReferenceEquals(Stacks[index_1], other.Stacks[index_1]))
+                    if (!Object.Equals(Stacks[index_1], other.Stacks[index_1]))
                     {
-                        if (Stacks[index_1] == null || other.Stacks[index_1] == null)
-                        {
-                            return false;
-                        }
-
-                        if (Stacks[index_1].Count != other.Stacks[index_1].Count)
-                        {
-                            return false;
-                        }
-
-                        for (int index_2 = 0; index_2 < Stacks[index_1].Count; ++index_2)
-                        {
-                            if (!Object.Equals(Stacks[index_1][index_2], other.Stacks[index_1][index_2]))
-                            {
-                                return false;
-                            }
-                        }
+                        return false;
                     }
                 }
             }
@@ -360,23 +337,23 @@ namespace Microsoft.CodeAnalysis.Sarif
                     return false;
                 }
 
-                for (int index_3 = 0; index_3 < CodeFlows.Count; ++index_3)
+                for (int index_2 = 0; index_2 < CodeFlows.Count; ++index_2)
                 {
-                    if (!Object.ReferenceEquals(CodeFlows[index_3], other.CodeFlows[index_3]))
+                    if (!Object.ReferenceEquals(CodeFlows[index_2], other.CodeFlows[index_2]))
                     {
-                        if (CodeFlows[index_3] == null || other.CodeFlows[index_3] == null)
+                        if (CodeFlows[index_2] == null || other.CodeFlows[index_2] == null)
                         {
                             return false;
                         }
 
-                        if (CodeFlows[index_3].Count != other.CodeFlows[index_3].Count)
+                        if (CodeFlows[index_2].Count != other.CodeFlows[index_2].Count)
                         {
                             return false;
                         }
 
-                        for (int index_4 = 0; index_4 < CodeFlows[index_3].Count; ++index_4)
+                        for (int index_3 = 0; index_3 < CodeFlows[index_2].Count; ++index_3)
                         {
-                            if (!Object.Equals(CodeFlows[index_3][index_4], other.CodeFlows[index_3][index_4]))
+                            if (!Object.Equals(CodeFlows[index_2][index_3], other.CodeFlows[index_2][index_3]))
                             {
                                 return false;
                             }
@@ -397,9 +374,9 @@ namespace Microsoft.CodeAnalysis.Sarif
                     return false;
                 }
 
-                for (int index_5 = 0; index_5 < RelatedLocations.Count; ++index_5)
+                for (int index_4 = 0; index_4 < RelatedLocations.Count; ++index_4)
                 {
-                    if (!Object.Equals(RelatedLocations[index_5], other.RelatedLocations[index_5]))
+                    if (!Object.Equals(RelatedLocations[index_4], other.RelatedLocations[index_4]))
                     {
                         return false;
                     }
@@ -423,9 +400,9 @@ namespace Microsoft.CodeAnalysis.Sarif
                     return false;
                 }
 
-                for (int index_6 = 0; index_6 < Fixes.Count; ++index_6)
+                for (int index_5 = 0; index_5 < Fixes.Count; ++index_5)
                 {
-                    if (!Object.Equals(Fixes[index_6], other.Fixes[index_6]))
+                    if (!Object.Equals(Fixes[index_5], other.Fixes[index_5]))
                     {
                         return false;
                     }
@@ -466,9 +443,9 @@ namespace Microsoft.CodeAnalysis.Sarif
                     return false;
                 }
 
-                for (int index_7 = 0; index_7 < Tags.Count; ++index_7)
+                for (int index_6 = 0; index_6 < Tags.Count; ++index_6)
                 {
-                    if (Tags[index_7] != other.Tags[index_7])
+                    if (Tags[index_6] != other.Tags[index_6])
                     {
                         return false;
                     }
@@ -530,7 +507,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="tags">
         /// An initialization value for the <see cref="P: Tags" /> property.
         /// </param>
-        public Result(string ruleId, ResultKind kind, string fullMessage, string shortMessage, FormattedMessage formattedMessage, IEnumerable<Location> locations, string toolFingerprint, IEnumerable<IEnumerable<AnnotatedCodeLocation>> stacks, IEnumerable<IEnumerable<AnnotatedCodeLocation>> codeFlows, IEnumerable<AnnotatedCodeLocation> relatedLocations, bool isSuppressedInSource, IEnumerable<Fix> fixes, IDictionary<string, string> properties, IEnumerable<string> tags)
+        public Result(string ruleId, ResultKind kind, string fullMessage, string shortMessage, FormattedMessage formattedMessage, IEnumerable<Location> locations, string toolFingerprint, IEnumerable<Stack> stacks, IEnumerable<IEnumerable<AnnotatedCodeLocation>> codeFlows, IEnumerable<AnnotatedCodeLocation> relatedLocations, bool isSuppressedInSource, IEnumerable<Fix> fixes, IDictionary<string, string> properties, IEnumerable<string> tags)
         {
             Init(ruleId, kind, fullMessage, shortMessage, formattedMessage, locations, toolFingerprint, stacks, codeFlows, relatedLocations, isSuppressedInSource, fixes, properties, tags);
         }
@@ -572,7 +549,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new Result(this);
         }
 
-        private void Init(string ruleId, ResultKind kind, string fullMessage, string shortMessage, FormattedMessage formattedMessage, IEnumerable<Location> locations, string toolFingerprint, IEnumerable<IEnumerable<AnnotatedCodeLocation>> stacks, IEnumerable<IEnumerable<AnnotatedCodeLocation>> codeFlows, IEnumerable<AnnotatedCodeLocation> relatedLocations, bool isSuppressedInSource, IEnumerable<Fix> fixes, IDictionary<string, string> properties, IEnumerable<string> tags)
+        private void Init(string ruleId, ResultKind kind, string fullMessage, string shortMessage, FormattedMessage formattedMessage, IEnumerable<Location> locations, string toolFingerprint, IEnumerable<Stack> stacks, IEnumerable<IEnumerable<AnnotatedCodeLocation>> codeFlows, IEnumerable<AnnotatedCodeLocation> relatedLocations, bool isSuppressedInSource, IEnumerable<Fix> fixes, IDictionary<string, string> properties, IEnumerable<string> tags)
         {
             RuleId = ruleId;
             Kind = kind;
@@ -604,7 +581,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             ToolFingerprint = toolFingerprint;
             if (stacks != null)
             {
-                var destination_1 = new List<IList<AnnotatedCodeLocation>>();
+                var destination_1 = new List<Stack>();
                 foreach (var value_1 in stacks)
                 {
                     if (value_1 == null)
@@ -613,20 +590,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                     }
                     else
                     {
-                        var destination_2 = new List<AnnotatedCodeLocation>();
-                        foreach (var value_2 in value_1)
-                        {
-                            if (value_2 == null)
-                            {
-                                destination_2.Add(null);
-                            }
-                            else
-                            {
-                                destination_2.Add(new AnnotatedCodeLocation(value_2));
-                            }
-                        }
-
-                        destination_1.Add(destination_2);
+                        destination_1.Add(new Stack(value_1));
                     }
                 }
 
@@ -635,39 +599,58 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             if (codeFlows != null)
             {
-                var destination_3 = new List<IList<AnnotatedCodeLocation>>();
-                foreach (var value_3 in codeFlows)
+                var destination_2 = new List<IList<AnnotatedCodeLocation>>();
+                foreach (var value_2 in codeFlows)
                 {
-                    if (value_3 == null)
+                    if (value_2 == null)
                     {
-                        destination_3.Add(null);
+                        destination_2.Add(null);
                     }
                     else
                     {
-                        var destination_4 = new List<AnnotatedCodeLocation>();
-                        foreach (var value_4 in value_3)
+                        var destination_3 = new List<AnnotatedCodeLocation>();
+                        foreach (var value_3 in value_2)
                         {
-                            if (value_4 == null)
+                            if (value_3 == null)
                             {
-                                destination_4.Add(null);
+                                destination_3.Add(null);
                             }
                             else
                             {
-                                destination_4.Add(new AnnotatedCodeLocation(value_4));
+                                destination_3.Add(new AnnotatedCodeLocation(value_3));
                             }
                         }
 
-                        destination_3.Add(destination_4);
+                        destination_2.Add(destination_3);
                     }
                 }
 
-                CodeFlows = destination_3;
+                CodeFlows = destination_2;
             }
 
             if (relatedLocations != null)
             {
-                var destination_5 = new List<AnnotatedCodeLocation>();
-                foreach (var value_5 in relatedLocations)
+                var destination_4 = new List<AnnotatedCodeLocation>();
+                foreach (var value_4 in relatedLocations)
+                {
+                    if (value_4 == null)
+                    {
+                        destination_4.Add(null);
+                    }
+                    else
+                    {
+                        destination_4.Add(new AnnotatedCodeLocation(value_4));
+                    }
+                }
+
+                RelatedLocations = destination_4;
+            }
+
+            IsSuppressedInSource = isSuppressedInSource;
+            if (fixes != null)
+            {
+                var destination_5 = new List<Fix>();
+                foreach (var value_5 in fixes)
                 {
                     if (value_5 == null)
                     {
@@ -675,30 +658,11 @@ namespace Microsoft.CodeAnalysis.Sarif
                     }
                     else
                     {
-                        destination_5.Add(new AnnotatedCodeLocation(value_5));
+                        destination_5.Add(new Fix(value_5));
                     }
                 }
 
-                RelatedLocations = destination_5;
-            }
-
-            IsSuppressedInSource = isSuppressedInSource;
-            if (fixes != null)
-            {
-                var destination_6 = new List<Fix>();
-                foreach (var value_6 in fixes)
-                {
-                    if (value_6 == null)
-                    {
-                        destination_6.Add(null);
-                    }
-                    else
-                    {
-                        destination_6.Add(new Fix(value_6));
-                    }
-                }
-
-                Fixes = destination_6;
+                Fixes = destination_5;
             }
 
             if (properties != null)
@@ -708,13 +672,13 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             if (tags != null)
             {
-                var destination_7 = new List<string>();
-                foreach (var value_7 in tags)
+                var destination_6 = new List<string>();
+                foreach (var value_6 in tags)
                 {
-                    destination_7.Add(value_7);
+                    destination_6.Add(value_6);
                 }
 
-                Tags = destination_7;
+                Tags = destination_6;
             }
         }
     }

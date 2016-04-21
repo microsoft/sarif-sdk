@@ -9,7 +9,7 @@ using System.Runtime.Serialization;
 namespace Microsoft.CodeAnalysis.Sarif
 {
     /// <summary>
-    /// A code annotation that consists of single physical location and associated message, used to express stacks, code flows through a method, or other locations that are related to a result.
+    /// A code annotation that consists of single physical location and associated message, used to express code flows through a method, or other locations that are related to a result.
     /// </summary>
     [DataContract]
     [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.11.0.0")]

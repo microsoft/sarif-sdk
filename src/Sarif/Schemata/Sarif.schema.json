@@ -21,8 +21,99 @@
   },
   "required": [ "version", "runs" ],
   "definitions": {
+    "stack": {
+      "description": "A call stack that is relevant to a result.",
+      "additionalProperties": false,
+      "type": "object",
+      "properties": {
+        "message": {
+          "description": "A message relevant to this call stack, if applicable.",
+          "type": "string"
+        },
+        "frames": {
+          "description": "An array of stack frames that represent a sequence of call, rendered in reverse chronological order, that comprise the call stack.",
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/definitions/stackFrame"
+          }
+        },
+        "properties": {
+          "description": "Key/value pairs that provide additional details about the code location.",
+          "type": "object",
+          "default": { }
+        },
+        "tags": {
+          "description": "A unique set of strings that provide additional information for the code location.",
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "default": [ ]
+          }
+        }
+      },
+      "required": [ "frames" ]
+    },
+    "stackFrame": {
+      "description": "A function call within a stack trace.",
+      "additionalProperties": false,
+      "type": "object",
+      "properties": {
+        "message": {
+          "description": "A message relevant to this stack frame, if applicable.",
+          "type": "string"
+        },
+        "location": {
+          "description": "A code location to which this stack frame refers.",
+          "$ref": "#/definitions/physicalLocation"
+        },
+        "module": {
+          "description": "The name of the module that contains the code that is executing.",
+          "type": "string"
+        },
+        "fullyQualifiedLogicalName": {
+          "description": "The fully qualified name of the method or function that is executing.",
+          "type": "string"
+        },
+        "logicalLocationKey": {
+          "description": "A string used as a key into the logicalLocations dictionary, in case the string specified by 'fullyQualifiedLogicalName' is not unique.",
+          "type": "string"
+        },
+        "address": {
+          "description": "The address of the method or function that is executing.",
+          "type": "integer"
+        },
+        "language": {
+          "description": "The programming language of the code that is executing.",
+          "type": "string"
+        },
+        "parameters": {
+          "description": "The parameters of the call that is executing.",
+          "type": "array",
+          "items": {
+            "type": "string",
+            "default": [ ]
+          }
+        },
+        "properties": {
+          "description": "Key/value pairs that provide additional details about the stack frame.",
+          "type": "object",
+          "default": { }
+        },
+        "tags": {
+          "description": "A unique set of strings that provide additional information for the stack frame.",
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "default": [ ]
+          }
+        }
+      }
+    },
     "annotatedCodeLocation": {
-      "description": "A code annotation that consists of single physical location and associated message, used to express stacks, code flows through a method, or other locations that are related to a result.",
+      "description": "A code annotation that consists of single physical location and associated message, used to express code flows through a method, or other locations that are related to a result.",
       "additionalProperties": false,
       "type": "object",
       "properties": {
@@ -373,15 +464,11 @@
         },
 
         "stacks": {
-          "description": "An array of arrays of 'annotatedCodeLocation' objects, each inner array of which comprises a call stack.",
+          "description": "An array of 'stack' objects relevant to the result.",
           "type": "array",
           "minItems": 1,
           "items": {
-            "type": "array",
-            "minItems": 1,
-            "items": {
-              "$ref": "#/definitions/annotatedCodeLocation"
-            }
+            "$ref": "#/definitions/stack"
           }
         },
 
