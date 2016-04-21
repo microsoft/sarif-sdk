@@ -12,7 +12,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// A single file. In some cases, this file might be nested within another file.
     /// </summary>
     [DataContract]
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.11.0.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.14.0.0")]
     public partial class FileData : ISarifNode, IEquatable<FileData>
     {
         /// <summary>
@@ -54,7 +54,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// An array of hash objects, each of which specifies a hashed value for the file, along with the name of the algorithm used to compute the hash.
         /// </summary>
         [DataMember(Name = "hashes", IsRequired = false, EmitDefaultValue = false)]
-        public IList<Hash> Hashes { get; set; }
+        public ISet<Hash> Hashes { get; set; }
 
         /// <summary>
         /// Key/value pairs that provide additional information about the file.
@@ -66,7 +66,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// A set of distinct strings that provide additional information about the file.
         /// </summary>
         [DataMember(Name = "tags", IsRequired = false, EmitDefaultValue = false)]
-        public IList<string> Tags { get; set; }
+        public ISet<string> Tags { get; set; }
 
         public override bool Equals(object other)
         {
@@ -168,17 +168,9 @@ namespace Microsoft.CodeAnalysis.Sarif
                     return false;
                 }
 
-                if (Hashes.Count != other.Hashes.Count)
+                if (!Hashes.SetEquals(other.Hashes))
                 {
                     return false;
-                }
-
-                for (int index_0 = 0; index_0 < Hashes.Count; ++index_0)
-                {
-                    if (!Object.Equals(Hashes[index_0], other.Hashes[index_0]))
-                    {
-                        return false;
-                    }
                 }
             }
 
@@ -211,17 +203,9 @@ namespace Microsoft.CodeAnalysis.Sarif
                     return false;
                 }
 
-                if (Tags.Count != other.Tags.Count)
+                if (!Tags.SetEquals(other.Tags))
                 {
                     return false;
-                }
-
-                for (int index_1 = 0; index_1 < Tags.Count; ++index_1)
-                {
-                    if (Tags[index_1] != other.Tags[index_1])
-                    {
-                        return false;
-                    }
                 }
             }
 
@@ -259,7 +243,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="tags">
         /// An initialization value for the <see cref="P: Tags" /> property.
         /// </param>
-        public FileData(string pathFromParent, int offsetFromParent, int length, string mimeType, IEnumerable<Hash> hashes, IDictionary<string, string> properties, IEnumerable<string> tags)
+        public FileData(string pathFromParent, int offsetFromParent, int length, string mimeType, ISet<Hash> hashes, IDictionary<string, string> properties, ISet<string> tags)
         {
             Init(pathFromParent, offsetFromParent, length, mimeType, hashes, properties, tags);
         }
@@ -301,7 +285,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new FileData(this);
         }
 
-        private void Init(string pathFromParent, int offsetFromParent, int length, string mimeType, IEnumerable<Hash> hashes, IDictionary<string, string> properties, IEnumerable<string> tags)
+        private void Init(string pathFromParent, int offsetFromParent, int length, string mimeType, ISet<Hash> hashes, IDictionary<string, string> properties, ISet<string> tags)
         {
             PathFromParent = pathFromParent;
             OffsetFromParent = offsetFromParent;
@@ -309,7 +293,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             MimeType = mimeType;
             if (hashes != null)
             {
-                var destination_0 = new List<Hash>();
+                var destination_0 = new HashSet<Hash>();
                 foreach (var value_0 in hashes)
                 {
                     if (value_0 == null)
@@ -332,7 +316,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             if (tags != null)
             {
-                var destination_1 = new List<string>();
+                var destination_1 = new HashSet<string>();
                 foreach (var value_1 in tags)
                 {
                     destination_1.Add(value_1);

@@ -110,13 +110,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
 
             // The SARIF spec currently requires an array
             // of run logs with at least one member
-            log.Runs = new List<Run>();
+            log.Runs = new HashSet<Run>();
 
             var run = new Run();
             run.Tool = new Tool();
 
             run.Tool.InitializeFromAssembly(this.GetType().Assembly, Prerelease);
-            run.Results = new List<Result>();
+            run.Results = new HashSet<Result>();
 
             log.Runs.Add(run);
             run.Rules = new Dictionary<string, Rule>();

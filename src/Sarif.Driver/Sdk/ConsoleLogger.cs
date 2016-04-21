@@ -3,7 +3,7 @@
 
 using System;
 using System.IO;
-using Microsoft.CodeAnalysis.Sarif.Sdk;
+using System.Linq;
 
 namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
 {
@@ -73,7 +73,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
 
             // TODO we need better retrieval for locations than these defaults
             // Note that we can potentially emit many messages from a single result
-            PhysicalLocation physicalLocation = result.Locations?[0].ResultFile ?? result.Locations?[0].AnalysisTarget;
+            PhysicalLocation physicalLocation = result.Locations?.First().ResultFile ?? result.Locations?.First().AnalysisTarget;
             WriteToConsole(
                 result.Kind,
                 physicalLocation?.Uri,

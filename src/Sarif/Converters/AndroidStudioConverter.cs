@@ -59,7 +59,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 DtdProcessing = DtdProcessing.Ignore
             };
 
-            IList<Result> results;
+            ISet<Result> results;
             using (XmlReader xmlReader = XmlReader.Create(input, settings))
             {
                 results = ProcessAndroidStudioLog(xmlReader);
@@ -96,9 +96,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         /// <returns>
         /// A list of the <see cref="Result"/> objects translated from the AndroidStudio format.
         /// </returns>
-        private IList<Result> ProcessAndroidStudioLog(XmlReader xmlReader)
+        private ISet<Result> ProcessAndroidStudioLog(XmlReader xmlReader)
         {
-            var results = new List<Result>();
+            var results = new HashSet<Result>();
 
             int problemsDepth = xmlReader.Depth;
             xmlReader.ReadStartElement(_strings.Problems);
@@ -134,7 +134,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
             result.Properties = GetSarifIssuePropertiesForProblem(problem);
             var location = new Location();
-            result.Locations = new[] { location };
             var logicalLocationComponents = new List<LogicalLocationComponent>();
 
             if (!String.IsNullOrWhiteSpace(problem.Module))
@@ -202,6 +201,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                     Uri = RemoveBadRoot(problem.EntryPointName)
                 };
             }
+
+            result.Locations = new HashSet<Location> { location };
 
             return result;
         }

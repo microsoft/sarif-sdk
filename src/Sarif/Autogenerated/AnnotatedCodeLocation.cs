@@ -12,7 +12,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// A code annotation that consists of single physical location and associated message, used to express stacks, code flows through a method, or other locations that are related to a result.
     /// </summary>
     [DataContract]
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.11.0.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.14.0.0")]
     public partial class AnnotatedCodeLocation : ISarifNode, IEquatable<AnnotatedCodeLocation>
     {
         /// <summary>
@@ -48,7 +48,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// A unique set of strings that provide additional information for the code location.
         /// </summary>
         [DataMember(Name = "tags", IsRequired = false, EmitDefaultValue = false)]
-        public IList<string> Tags { get; set; }
+        public ISet<string> Tags { get; set; }
 
         public override bool Equals(object other)
         {
@@ -148,17 +148,9 @@ namespace Microsoft.CodeAnalysis.Sarif
                     return false;
                 }
 
-                if (Tags.Count != other.Tags.Count)
+                if (!Tags.SetEquals(other.Tags))
                 {
                     return false;
-                }
-
-                for (int index_0 = 0; index_0 < Tags.Count; ++index_0)
-                {
-                    if (Tags[index_0] != other.Tags[index_0])
-                    {
-                        return false;
-                    }
                 }
             }
 
@@ -187,7 +179,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="tags">
         /// An initialization value for the <see cref="P: Tags" /> property.
         /// </param>
-        public AnnotatedCodeLocation(PhysicalLocation physicalLocation, string message, IDictionary<string, string> properties, IEnumerable<string> tags)
+        public AnnotatedCodeLocation(PhysicalLocation physicalLocation, string message, IDictionary<string, string> properties, ISet<string> tags)
         {
             Init(physicalLocation, message, properties, tags);
         }
@@ -229,7 +221,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new AnnotatedCodeLocation(this);
         }
 
-        private void Init(PhysicalLocation physicalLocation, string message, IDictionary<string, string> properties, IEnumerable<string> tags)
+        private void Init(PhysicalLocation physicalLocation, string message, IDictionary<string, string> properties, ISet<string> tags)
         {
             if (physicalLocation != null)
             {
@@ -244,7 +236,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             if (tags != null)
             {
-                var destination_0 = new List<string>();
+                var destination_0 = new HashSet<string>();
                 foreach (var value_0 in tags)
                 {
                     destination_0.Add(value_0);

@@ -12,7 +12,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// A result produced by an analysis tool.
     /// </summary>
     [DataContract]
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.11.0.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.14.0.0")]
     public partial class Result : ISarifNode, IEquatable<Result>
     {
         /// <summary>
@@ -60,7 +60,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// One or more locations where the result occurred. Specify only one location unless the problem indicated by the result can only be corrected by making a change at every specified location.
         /// </summary>
         [DataMember(Name = "locations", IsRequired = false, EmitDefaultValue = false)]
-        public IList<Location> Locations { get; set; }
+        public ISet<Location> Locations { get; set; }
 
         /// <summary>
         /// A string that contributes to the unique identity of the result.
@@ -84,7 +84,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// A grouped set of locations and messages, if available, that represent code areas that are related to this result.
         /// </summary>
         [DataMember(Name = "relatedLocations", IsRequired = false, EmitDefaultValue = false)]
-        public IList<AnnotatedCodeLocation> RelatedLocations { get; set; }
+        public ISet<AnnotatedCodeLocation> RelatedLocations { get; set; }
 
         /// <summary>
         /// A flag indicating whether or not this result was suppressed in source code.
@@ -96,7 +96,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// An array of 'fix' objects, each of which represents a proposed fix to the problem indicated by the result.
         /// </summary>
         [DataMember(Name = "fixes", IsRequired = false, EmitDefaultValue = false)]
-        public IList<Fix> Fixes { get; set; }
+        public ISet<Fix> Fixes { get; set; }
 
         /// <summary>
         /// Key/value pairs that provide additional information about the result.
@@ -108,7 +108,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// A set of distinct strings that provide additional information about the result.
         /// </summary>
         [DataMember(Name = "tags", IsRequired = false, EmitDefaultValue = false)]
-        public IList<string> Tags { get; set; }
+        public ISet<string> Tags { get; set; }
 
         public override bool Equals(object other)
         {
@@ -292,17 +292,9 @@ namespace Microsoft.CodeAnalysis.Sarif
                     return false;
                 }
 
-                if (Locations.Count != other.Locations.Count)
+                if (!Locations.SetEquals(other.Locations))
                 {
                     return false;
-                }
-
-                for (int index_0 = 0; index_0 < Locations.Count; ++index_0)
-                {
-                    if (!Object.Equals(Locations[index_0], other.Locations[index_0]))
-                    {
-                        return false;
-                    }
                 }
             }
 
@@ -323,23 +315,23 @@ namespace Microsoft.CodeAnalysis.Sarif
                     return false;
                 }
 
-                for (int index_1 = 0; index_1 < Stacks.Count; ++index_1)
+                for (int index_0 = 0; index_0 < Stacks.Count; ++index_0)
                 {
-                    if (!Object.ReferenceEquals(Stacks[index_1], other.Stacks[index_1]))
+                    if (!Object.ReferenceEquals(Stacks[index_0], other.Stacks[index_0]))
                     {
-                        if (Stacks[index_1] == null || other.Stacks[index_1] == null)
+                        if (Stacks[index_0] == null || other.Stacks[index_0] == null)
                         {
                             return false;
                         }
 
-                        if (Stacks[index_1].Count != other.Stacks[index_1].Count)
+                        if (Stacks[index_0].Count != other.Stacks[index_0].Count)
                         {
                             return false;
                         }
 
-                        for (int index_2 = 0; index_2 < Stacks[index_1].Count; ++index_2)
+                        for (int index_1 = 0; index_1 < Stacks[index_0].Count; ++index_1)
                         {
-                            if (!Object.Equals(Stacks[index_1][index_2], other.Stacks[index_1][index_2]))
+                            if (!Object.Equals(Stacks[index_0][index_1], other.Stacks[index_0][index_1]))
                             {
                                 return false;
                             }
@@ -360,23 +352,23 @@ namespace Microsoft.CodeAnalysis.Sarif
                     return false;
                 }
 
-                for (int index_3 = 0; index_3 < CodeFlows.Count; ++index_3)
+                for (int index_2 = 0; index_2 < CodeFlows.Count; ++index_2)
                 {
-                    if (!Object.ReferenceEquals(CodeFlows[index_3], other.CodeFlows[index_3]))
+                    if (!Object.ReferenceEquals(CodeFlows[index_2], other.CodeFlows[index_2]))
                     {
-                        if (CodeFlows[index_3] == null || other.CodeFlows[index_3] == null)
+                        if (CodeFlows[index_2] == null || other.CodeFlows[index_2] == null)
                         {
                             return false;
                         }
 
-                        if (CodeFlows[index_3].Count != other.CodeFlows[index_3].Count)
+                        if (CodeFlows[index_2].Count != other.CodeFlows[index_2].Count)
                         {
                             return false;
                         }
 
-                        for (int index_4 = 0; index_4 < CodeFlows[index_3].Count; ++index_4)
+                        for (int index_3 = 0; index_3 < CodeFlows[index_2].Count; ++index_3)
                         {
-                            if (!Object.Equals(CodeFlows[index_3][index_4], other.CodeFlows[index_3][index_4]))
+                            if (!Object.Equals(CodeFlows[index_2][index_3], other.CodeFlows[index_2][index_3]))
                             {
                                 return false;
                             }
@@ -392,17 +384,9 @@ namespace Microsoft.CodeAnalysis.Sarif
                     return false;
                 }
 
-                if (RelatedLocations.Count != other.RelatedLocations.Count)
+                if (!RelatedLocations.SetEquals(other.RelatedLocations))
                 {
                     return false;
-                }
-
-                for (int index_5 = 0; index_5 < RelatedLocations.Count; ++index_5)
-                {
-                    if (!Object.Equals(RelatedLocations[index_5], other.RelatedLocations[index_5]))
-                    {
-                        return false;
-                    }
                 }
             }
 
@@ -418,17 +402,9 @@ namespace Microsoft.CodeAnalysis.Sarif
                     return false;
                 }
 
-                if (Fixes.Count != other.Fixes.Count)
+                if (!Fixes.SetEquals(other.Fixes))
                 {
                     return false;
-                }
-
-                for (int index_6 = 0; index_6 < Fixes.Count; ++index_6)
-                {
-                    if (!Object.Equals(Fixes[index_6], other.Fixes[index_6]))
-                    {
-                        return false;
-                    }
                 }
             }
 
@@ -461,17 +437,9 @@ namespace Microsoft.CodeAnalysis.Sarif
                     return false;
                 }
 
-                if (Tags.Count != other.Tags.Count)
+                if (!Tags.SetEquals(other.Tags))
                 {
                     return false;
-                }
-
-                for (int index_7 = 0; index_7 < Tags.Count; ++index_7)
-                {
-                    if (Tags[index_7] != other.Tags[index_7])
-                    {
-                        return false;
-                    }
                 }
             }
 
@@ -530,7 +498,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="tags">
         /// An initialization value for the <see cref="P: Tags" /> property.
         /// </param>
-        public Result(string ruleId, ResultKind kind, string fullMessage, string shortMessage, FormattedMessage formattedMessage, IEnumerable<Location> locations, string toolFingerprint, IEnumerable<IEnumerable<AnnotatedCodeLocation>> stacks, IEnumerable<IEnumerable<AnnotatedCodeLocation>> codeFlows, IEnumerable<AnnotatedCodeLocation> relatedLocations, bool isSuppressedInSource, IEnumerable<Fix> fixes, IDictionary<string, string> properties, IEnumerable<string> tags)
+        public Result(string ruleId, ResultKind kind, string fullMessage, string shortMessage, FormattedMessage formattedMessage, ISet<Location> locations, string toolFingerprint, IEnumerable<IEnumerable<AnnotatedCodeLocation>> stacks, IEnumerable<IEnumerable<AnnotatedCodeLocation>> codeFlows, ISet<AnnotatedCodeLocation> relatedLocations, bool isSuppressedInSource, ISet<Fix> fixes, IDictionary<string, string> properties, ISet<string> tags)
         {
             Init(ruleId, kind, fullMessage, shortMessage, formattedMessage, locations, toolFingerprint, stacks, codeFlows, relatedLocations, isSuppressedInSource, fixes, properties, tags);
         }
@@ -572,7 +540,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new Result(this);
         }
 
-        private void Init(string ruleId, ResultKind kind, string fullMessage, string shortMessage, FormattedMessage formattedMessage, IEnumerable<Location> locations, string toolFingerprint, IEnumerable<IEnumerable<AnnotatedCodeLocation>> stacks, IEnumerable<IEnumerable<AnnotatedCodeLocation>> codeFlows, IEnumerable<AnnotatedCodeLocation> relatedLocations, bool isSuppressedInSource, IEnumerable<Fix> fixes, IDictionary<string, string> properties, IEnumerable<string> tags)
+        private void Init(string ruleId, ResultKind kind, string fullMessage, string shortMessage, FormattedMessage formattedMessage, ISet<Location> locations, string toolFingerprint, IEnumerable<IEnumerable<AnnotatedCodeLocation>> stacks, IEnumerable<IEnumerable<AnnotatedCodeLocation>> codeFlows, ISet<AnnotatedCodeLocation> relatedLocations, bool isSuppressedInSource, ISet<Fix> fixes, IDictionary<string, string> properties, ISet<string> tags)
         {
             RuleId = ruleId;
             Kind = kind;
@@ -585,7 +553,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             if (locations != null)
             {
-                var destination_0 = new List<Location>();
+                var destination_0 = new HashSet<Location>();
                 foreach (var value_0 in locations)
                 {
                     if (value_0 == null)
@@ -666,7 +634,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             if (relatedLocations != null)
             {
-                var destination_5 = new List<AnnotatedCodeLocation>();
+                var destination_5 = new HashSet<AnnotatedCodeLocation>();
                 foreach (var value_5 in relatedLocations)
                 {
                     if (value_5 == null)
@@ -685,7 +653,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             IsSuppressedInSource = isSuppressedInSource;
             if (fixes != null)
             {
-                var destination_6 = new List<Fix>();
+                var destination_6 = new HashSet<Fix>();
                 foreach (var value_6 in fixes)
                 {
                     if (value_6 == null)
@@ -708,7 +676,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             if (tags != null)
             {
-                var destination_7 = new List<string>();
+                var destination_7 = new HashSet<string>();
                 foreach (var value_7 in tags)
                 {
                     destination_7.Add(value_7);
