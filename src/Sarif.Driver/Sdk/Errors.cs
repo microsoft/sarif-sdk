@@ -238,11 +238,18 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
         public static void LogUnhandledRuleExceptionAssessingTargetApplicability(
             HashSet<string> disabledSkimmers,
             IAnalysisContext context,
-            Exception ex)
+            Exception exception)
         {
             string ruleId = context.Rule.Id;
             string ruleName = context.Rule.Name;
             context.Rule = Errors.RuleDisabled;
+
+            Result result = RuleUtilities.BuildResult(ResultKind.InternalError, context, null,
+                                nameof(SdkResources.ERR0998_ExceptionInCanAnalyze),
+                                ruleName,
+                                exception.ToString());
+
+            result.Stacks = new List<Stack>(Stack.Create(exception));
 
             // An unhandled exception was raised attempting to determine whether '{0}' 
             // is a valid analysis target for check '{1}' (which has been disabled 
@@ -250,11 +257,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
             // from a problem related to parsing image metadata and not specific to 
             // the rule, however. Exception information:
             // {2}
-            context.Logger.Log(context.Rule,
-                RuleUtilities.BuildResult(ResultKind.InternalError, context, null,
-                    nameof(SdkResources.ERR0998_ExceptionInCanAnalyze),
-                    ruleName,
-                    ex.ToString()));
+            context.Logger.Log(context.Rule, result);
 
             if (disabledSkimmers != null) { disabledSkimmers.Add(ruleId); }
 
@@ -262,7 +265,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
         }
 
 
-        public static void LogUnhandledExceptionInitializingRule(IAnalysisContext context, Exception ex)
+        public static void LogUnhandledExceptionInitializingRule(IAnalysisContext context, Exception exception)
         {
             string ruleId = context.Rule.Id;
             string ruleName = context.Rule.Name;
@@ -273,11 +276,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
             var errorContext = new AnalysisContext();
             errorContext.Rule = Errors.RuleDisabled;
 
-            context.Logger.Log(errorContext.Rule,
-                RuleUtilities.BuildResult(ResultKind.InternalError, errorContext, null,
-                    nameof(SdkResources.ERR0998_ExceptionInInitialize),
-                    ruleName,
-                    ex.ToString()));
+            Result result = RuleUtilities.BuildResult(ResultKind.InternalError, errorContext, null,
+                                nameof(SdkResources.ERR0998_ExceptionInInitialize),
+                                ruleName,
+                                exception.ToString());
+
+            result.Stacks = new List<Stack>(Stack.Create(exception));
+
+            context.Logger.Log(errorContext.Rule, result);
 
             context.RuntimeErrors |= RuntimeConditions.ExceptionInSkimmerInitialize;
         }
@@ -285,11 +291,18 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
         public static RuntimeConditions LogUnhandledRuleExceptionAnalyzingTarget(
             HashSet<string> disabledSkimmers,
             IAnalysisContext context,
-            Exception ex)
+            Exception exception)
         {
             string ruleId = context.Rule.Id;
             string ruleName = context.Rule.Name;
             context.Rule = Errors.RuleDisabled;
+
+            Result result = RuleUtilities.BuildResult(ResultKind.InternalError, context, null,
+                                nameof(SdkResources.ERR0998_ExceptionInAnalyze),
+                                ruleName,
+                                exception.ToString());
+
+            result.Stacks = new List<Stack>(Stack.Create(exception));
 
             // An unhandled exception was encountered analyzing '{0}' for check '{1}', 
             // which has been disabled for the remainder of the analysis.The 
@@ -297,26 +310,25 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
             // image metadata and not specific to the rule, however.
             // Exception information:
             // {2}
-            context.Logger.Log(context.Rule,
-                RuleUtilities.BuildResult(ResultKind.InternalError, context, null,
-                    nameof(SdkResources.ERR0998_ExceptionInAnalyze),
-                    ruleName,
-                    ex.ToString()));
+            context.Logger.Log(context.Rule, result);
 
             if (disabledSkimmers != null) { disabledSkimmers.Add(ruleId); }
 
             return RuntimeConditions.ExceptionInSkimmerAnalyze;
         }
 
-        public static RuntimeConditions LogUnhandledEngineException(IAnalysisContext context, Exception ex)
+        public static RuntimeConditions LogUnhandledEngineException(IAnalysisContext context, Exception exception)
         {
             context.Rule = Errors.AnalysisHalted;
 
+            Result result = RuleUtilities.BuildResult(ResultKind.InternalError, context, null,
+                                nameof(SdkResources.ERR0999_UnhandledEngineException),
+                                exception.ToString());
+
+            result.Stacks = new List<Stack>(Stack.Create(exception));
+
             // An unhandled exception was raised during analysis: {0}
-            context.Logger.Log(context.Rule,
-                RuleUtilities.BuildResult(ResultKind.InternalError, context, null,
-                    nameof(SdkResources.ERR0999_UnhandledEngineException),
-                    ex.ToString()));
+            context.Logger.Log(context.Rule, result);
 
             return RuntimeConditions.ExceptionInEngine;
         }

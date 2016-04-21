@@ -64,7 +64,7 @@
           "description": "A message relevant to this stack frame, if applicable.",
           "type": "string"
         },
-        "sourceFile": {
+        "location": {
           "description": "A code location to which this stack frame refers.",
           "$ref": "#/definitions/physicalLocation"
         },
@@ -113,7 +113,7 @@
       }
     },
     "annotatedCodeLocation": {
-      "description": "A code annotation that consists of single physical location and associated message, used to express stacks, code flows through a method, or other locations that are related to a result.",
+      "description": "A code annotation that consists of single physical location and associated message, used to express code flows through a method, or other locations that are related to a result.",
       "additionalProperties": false,
       "type": "object",
       "properties": {
@@ -464,15 +464,11 @@
         },
 
         "stacks": {
-          "description": "An array of arrays of 'annotatedCodeLocation' objects, each inner array of which comprises a call stack.",
+          "description": "An array of 'stack' objects relevant to the result.",
           "type": "array",
           "minItems": 1,
           "items": {
-            "type": "array",
-            "minItems": 1,
-            "items": {
-              "$ref": "#/definitions/annotatedCodeLocation"
-            }
+            "$ref": "#/definitions/stack"
           }
         },
 

@@ -236,14 +236,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 {
                     for (int index_0 = 0; index_0 < node.Stacks.Count; ++index_0)
                     {
-                        var value_0 = node.Stacks[index_0];
-                        if (value_0 != null)
-                        {
-                            for (int index_1 = 0; index_1 < value_0.Count; ++index_1)
-                            {
-                                value_0[index_1] = VisitNullChecked(value_0[index_1]);
-                            }
-                        }
+                        node.Stacks[index_0] = VisitNullChecked(node.Stacks[index_0]);
                     }
                 }
 
@@ -386,7 +379,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             if (node != null)
             {
-                node.SourceFile = VisitNullChecked(node.SourceFile);
+                node.Location = VisitNullChecked(node.Location);
             }
 
             return node;

@@ -163,9 +163,11 @@ namespace Microsoft.Sarif.Viewer
                         HelpLink = rule?.HelpUri?.ToString()                        
                     };
 
-                    CaptureAnnotatedCodeLocationCollections(result.Stacks, AnnotatedCodeLocationKind.Stack, sarifError);
+                    IEnumerable<IEnumerable<AnnotatedCodeLocation>> stackLocations = CreateAnnotationsFromStacks(result.Stacks);
+
+                    CaptureAnnotatedCodeLocationCollections(stackLocations, AnnotatedCodeLocationKind.Stack, sarifError);
                     CaptureAnnotatedCodeLocationCollections(result.CodeFlows, AnnotatedCodeLocationKind.CodeFlow, sarifError);
-                     CaptureAnnotatedCodeLocations(result.RelatedLocations, AnnotatedCodeLocationKind.Stack, sarifError);
+                    CaptureAnnotatedCodeLocations(result.RelatedLocations, AnnotatedCodeLocationKind.Stack, sarifError);
 
                     if (region != null)
                     {
@@ -221,6 +223,33 @@ namespace Microsoft.Sarif.Viewer
                 CodeAnalysisResultManager.Instance.SarifErrors = sarifErrors;
                 SarifTableDataSource.Instance.AddErrors(sarifErrors);
             }
+        }
+
+        private IEnumerable<IEnumerable<AnnotatedCodeLocation>> CreateAnnotationsFromStacks(IList<Stack> stacks)
+        {
+            List<List<AnnotatedCodeLocation>> codeLocationCollections = new List<List<AnnotatedCodeLocation>>();
+
+            foreach (Stack stack in stacks)
+            {
+                if (stack.Frames == null) { continue; }
+
+                List<AnnotatedCodeLocation> codeLocations = new List<AnnotatedCodeLocation>();
+
+                foreach (StackFrame stackFrame in stack.Frames)
+                {
+                    codeLocations.Add(new AnnotatedCodeLocation()
+                    {
+                        Message = stackFrame.ToString(),
+                        PhysicalLocation = new PhysicalLocation()
+                        {
+                            Uri = stackFrame.Location.Uri,
+                            Region = stackFrame.Location.Region
+                        }
+                    });
+                }
+                codeLocationCollections.Add(codeLocations);
+            }
+            return codeLocationCollections;
         }
 
         private static void CaptureAnnotatedCodeLocationCollections(
