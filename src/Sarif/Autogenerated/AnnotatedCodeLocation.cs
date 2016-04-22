@@ -33,7 +33,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         public PhysicalLocation PhysicalLocation { get; set; }
 
         /// <summary>
-        /// A message relevant to this annotation, if applicable.
+        /// A message relevant to this annotation.
         /// </summary>
         [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
         public string Message { get; set; }

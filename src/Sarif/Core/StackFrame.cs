@@ -28,8 +28,8 @@ namespace Microsoft.CodeAnalysis.Sarif
         public static StackFrame Create(System.Diagnostics.StackFrame dotNetStackFrame)
         {
             // This value is -1 if not present
-            string fileName = dotNetStackFrame.GetFileName();
             int ilOffset = dotNetStackFrame.GetILOffset();
+            string fileName = dotNetStackFrame.GetFileName();
             int nativeOffset = dotNetStackFrame.GetNativeOffset();
             MethodBase methodBase = dotNetStackFrame.GetMethod();
             Assembly assembly = methodBase?.DeclaringType.Assembly;
@@ -38,7 +38,8 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             StackFrame stackFrame = new StackFrame
             {
-                Module = assembly?.GetName().Name
+                Module = assembly?.GetName().Name,
+                FullyQualifiedLogicalName = fullyQualifiedName
             };
 
 

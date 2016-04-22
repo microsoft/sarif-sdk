@@ -27,11 +27,11 @@
       "type": "object",
       "properties": {
         "message": {
-          "description": "A message relevant to this call stack, if applicable.",
+          "description": "A message relevant to this call stack.",
           "type": "string"
         },
         "frames": {
-          "description": "An array of stack frames that represent a sequence of call, rendered in reverse chronological order, that comprise the call stack.",
+          "description": "An array of stack frames that represent a sequence of calls, rendered in reverse chronological order, that comprise the call stack.",
           "type": "array",
           "minItems": 1,
           "items": {
@@ -39,12 +39,12 @@
           }
         },
         "properties": {
-          "description": "Key/value pairs that provide additional details about the code location.",
+          "description": "Key/value pairs that provide additional details about the stack.",
           "type": "object",
           "default": { }
         },
         "tags": {
-          "description": "A unique set of strings that provide additional information for the code location.",
+          "description": "A unique set of strings that provide additional information for the stack.",
           "type": "array",
           "uniqueItems": true,
           "items": {
@@ -61,7 +61,7 @@
       "type": "object",
       "properties": {
         "message": {
-          "description": "A message relevant to this stack frame, if applicable.",
+          "description": "A message relevant to this stack frame.",
           "type": "string"
         },
         "uri": {
@@ -132,7 +132,7 @@
         },
 
         "message": {
-          "description": "A message relevant to this annotation, if applicable.",
+          "description": "A message relevant to this annotation.",
           "type": "string"
         },
 
@@ -239,7 +239,7 @@
         },
 
         "fileChanges": {
-          "description": "A message relevant to this annotation, if applicable.",
+          "description": "A message relevant to this annotation.",
           "type": "array",
           "items": {
             "$ref": "#/definitions/fileChange"
