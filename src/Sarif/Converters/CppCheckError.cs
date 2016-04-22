@@ -154,7 +154,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 result.CodeFlows = new[] { flow };
             }
 
-            result.Locations = new[]
+            result.Locations = new HashSet<Location>
             {
                 new Location
                 {

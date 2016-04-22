@@ -3,6 +3,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
 {
@@ -42,7 +43,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
 
         public void Log(IRule rule, Result result)
         {
-            NoteTestResult(result.Kind, result.Locations[0].AnalysisTarget.Uri.LocalPath);
+            NoteTestResult(result.Kind, result.Locations.First().AnalysisTarget.Uri.LocalPath);
         }
 
         public void NoteTestResult(ResultKind messageKind, string targetPath)

@@ -12,7 +12,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// Describes a single run of an analysis tool, and contains the output of that run.
     /// </summary>
     [DataContract]
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.11.0.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.14.0.0")]
     public partial class Run : ISarifNode, IEquatable<Run>
     {
         /// <summary>
@@ -54,7 +54,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// The set of results contained in an SARIF log. The results array can be omitted when a run is solely exporting rules metadata. It must be present (but may be empty) in the event that a log file represents an actual scan.
         /// </summary>
         [DataMember(Name = "results", IsRequired = false, EmitDefaultValue = false)]
-        public IList<Result> Results { get; set; }
+        public ISet<Result> Results { get; set; }
 
         /// <summary>
         /// A dictionary, each of whose keys is a string and each of whose values is a 'rule' object, that describe all rules associated with an analysis tool or a specific run of an analysis tool.
@@ -96,7 +96,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// A set of distinct strings that provide additional information about the run.
         /// </summary>
         [DataMember(Name = "tags", IsRequired = false, EmitDefaultValue = false)]
-        public IList<string> Tags { get; set; }
+        public ISet<string> Tags { get; set; }
 
         public override bool Equals(object other)
         {
@@ -322,17 +322,9 @@ namespace Microsoft.CodeAnalysis.Sarif
                     return false;
                 }
 
-                if (Results.Count != other.Results.Count)
+                if (!Results.SetEquals(other.Results))
                 {
                     return false;
-                }
-
-                for (int index_2 = 0; index_2 < Results.Count; ++index_2)
-                {
-                    if (!Object.Equals(Results[index_2], other.Results[index_2]))
-                    {
-                        return false;
-                    }
                 }
             }
 
@@ -407,17 +399,9 @@ namespace Microsoft.CodeAnalysis.Sarif
                     return false;
                 }
 
-                if (Tags.Count != other.Tags.Count)
+                if (!Tags.SetEquals(other.Tags))
                 {
                     return false;
-                }
-
-                for (int index_3 = 0; index_3 < Tags.Count; ++index_3)
-                {
-                    if (Tags[index_3] != other.Tags[index_3])
-                    {
-                        return false;
-                    }
                 }
             }
 
@@ -470,7 +454,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="tags">
         /// An initialization value for the <see cref="P: Tags" /> property.
         /// </param>
-        public Run(Tool tool, string invocation, IDictionary<string, IList<FileData>> files, IDictionary<string, IList<LogicalLocationComponent>> logicalLocations, IEnumerable<Result> results, IDictionary<string, Rule> rules, DateTime startTime, DateTime endTime, string correlationId, string architecture, IDictionary<string, string> properties, IEnumerable<string> tags)
+        public Run(Tool tool, string invocation, IDictionary<string, IList<FileData>> files, IDictionary<string, IList<LogicalLocationComponent>> logicalLocations, ISet<Result> results, IDictionary<string, Rule> rules, DateTime startTime, DateTime endTime, string correlationId, string architecture, IDictionary<string, string> properties, ISet<string> tags)
         {
             Init(tool, invocation, files, logicalLocations, results, rules, startTime, endTime, correlationId, architecture, properties, tags);
         }
@@ -512,7 +496,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new Run(this);
         }
 
-        private void Init(Tool tool, string invocation, IDictionary<string, IList<FileData>> files, IDictionary<string, IList<LogicalLocationComponent>> logicalLocations, IEnumerable<Result> results, IDictionary<string, Rule> rules, DateTime startTime, DateTime endTime, string correlationId, string architecture, IDictionary<string, string> properties, IEnumerable<string> tags)
+        private void Init(Tool tool, string invocation, IDictionary<string, IList<FileData>> files, IDictionary<string, IList<LogicalLocationComponent>> logicalLocations, ISet<Result> results, IDictionary<string, Rule> rules, DateTime startTime, DateTime endTime, string correlationId, string architecture, IDictionary<string, string> properties, ISet<string> tags)
         {
             if (tool != null)
             {
@@ -566,7 +550,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             if (results != null)
             {
-                var destination_2 = new List<Result>();
+                var destination_2 = new HashSet<Result>();
                 foreach (var value_4 in results)
                 {
                     if (value_4 == null)
@@ -602,7 +586,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             if (tags != null)
             {
-                var destination_3 = new List<string>();
+                var destination_3 = new HashSet<string>();
                 foreach (var value_6 in tags)
                 {
                     destination_3.Add(value_6);

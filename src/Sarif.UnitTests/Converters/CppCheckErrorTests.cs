@@ -4,6 +4,7 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.Immutable;
+using System.Linq;
 using System.Xml;
 using FluentAssertions;
 
@@ -40,7 +41,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             Assert.AreEqual("message", result.ShortMessage);
             Assert.AreEqual("verbose", result.FullMessage);
             result.Properties.Should().Equal(new Dictionary<string, string> { { "Severity", "style" } });
-            Assert.AreEqual("file.cpp", result.Locations[0].ResultFile.Uri.ToString());
+            Assert.AreEqual("file.cpp", result.Locations.First().ResultFile.Uri.ToString());
         }
 
         [TestMethod]

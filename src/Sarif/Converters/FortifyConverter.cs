@@ -132,7 +132,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             result.Properties = extraProperties;
 
             PhysicalLocation primaryOrSink = ConvertFortifyLocationToPhysicalLocation(fortify.PrimaryOrSink);
-            result.Locations = new[]
+            result.Locations = new HashSet<Location>
             {
                 new Location
                 {

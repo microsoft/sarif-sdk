@@ -12,7 +12,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// A proposed fix for the problem represented by a result object. A fix specifies a set of file to modify. For each file, it specifies a set of bytes to remove, and provides a set of new bytes to replace them.
     /// </summary>
     [DataContract]
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.11.0.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.14.0.0")]
     public partial class Fix : ISarifNode, IEquatable<Fix>
     {
         /// <summary>
@@ -36,7 +36,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// A message relevant to this annotation.
         /// </summary>
         [DataMember(Name = "fileChanges", IsRequired = true)]
-        public IList<FileChange> FileChanges { get; set; }
+        public ISet<FileChange> FileChanges { get; set; }
 
         public override bool Equals(object other)
         {
@@ -88,17 +88,9 @@ namespace Microsoft.CodeAnalysis.Sarif
                     return false;
                 }
 
-                if (FileChanges.Count != other.FileChanges.Count)
+                if (!FileChanges.SetEquals(other.FileChanges))
                 {
                     return false;
-                }
-
-                for (int index_0 = 0; index_0 < FileChanges.Count; ++index_0)
-                {
-                    if (!Object.Equals(FileChanges[index_0], other.FileChanges[index_0]))
-                    {
-                        return false;
-                    }
                 }
             }
 
@@ -121,7 +113,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="fileChanges">
         /// An initialization value for the <see cref="P: FileChanges" /> property.
         /// </param>
-        public Fix(string description, IEnumerable<FileChange> fileChanges)
+        public Fix(string description, ISet<FileChange> fileChanges)
         {
             Init(description, fileChanges);
         }
@@ -163,12 +155,12 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new Fix(this);
         }
 
-        private void Init(string description, IEnumerable<FileChange> fileChanges)
+        private void Init(string description, ISet<FileChange> fileChanges)
         {
             Description = description;
             if (fileChanges != null)
             {
-                var destination_0 = new List<FileChange>();
+                var destination_0 = new HashSet<FileChange>();
                 foreach (var value_0 in fileChanges)
                 {
                     if (value_0 == null)

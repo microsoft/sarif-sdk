@@ -4,10 +4,8 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Reflection;
 using System.Text;
 using System.Text.RegularExpressions;
-using DotNetStackFrame = System.Diagnostics.StackFrame;
 
 namespace Microsoft.CodeAnalysis.Sarif
 {
@@ -27,12 +25,12 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// inner exceptions and handles aggregated exceptions.
         /// </summary>
         /// <param name="exception"></param>
-        public static IList<Stack> CreateStacks(Exception exception)
+        public static ISet<Stack> CreateStacks(Exception exception)
         {
-            List<Stack> stacks;
+            HashSet<Stack> stacks;
             Queue<Exception> exceptions;
 
-            stacks = new List<Stack>();
+            stacks = new HashSet<Stack>();
             exceptions = new Queue<Exception>(new Exception[] { exception });
 
             while (exceptions.Count > 0)

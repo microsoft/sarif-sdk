@@ -5,7 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.IO;
-
+using System.Linq;
 using FluentAssertions;
 
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -202,8 +202,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             builder.Source = FortifyConverterTests.s_dummyPathSourceElement;
             Result result = FortifyConverter.ConvertFortifyIssueToSarifIssue(builder.ToImmutable());
             Assert.AreEqual(1, result.Locations.Count);
-            Assert.AreEqual("filePath", result.Locations[0].ResultFile.Uri.ToString());
-            Assert.AreEqual(new Region { StartLine = 1729 }, result.Locations[0].ResultFile.Region);
+            Assert.AreEqual("filePath", result.Locations.First().ResultFile.Uri.ToString());
+            Assert.AreEqual(new Region { StartLine = 1729 }, result.Locations.First().ResultFile.Region);
         }
 
         [TestMethod]

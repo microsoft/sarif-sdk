@@ -41,7 +41,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
                         string md5, sha1, sha256;
 
                         HashUtilities.ComputeHashes(target, out md5, out sha1, out sha256);
-                        fileReference.Hashes = new List<Hash>(new Hash[]
+                        fileReference.Hashes = new HashSet<Hash>
                         {
                             new Hash()
                             {
@@ -58,7 +58,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
                                 Value = sha256,
                                 Algorithm = AlgorithmKind.Sha256,
                             },
-                        });
+                        };
                     }
                         run.Files.Add(new Uri(target).ToString(), new List<FileData> { fileReference });
                 }
@@ -260,7 +260,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
 
             if (targetPath != null)
             {
-                result.Locations = new[] {
+                result.Locations = new HashSet<Location> {
                     new Sarif.Location {
                         AnalysisTarget = new PhysicalLocation
                         {

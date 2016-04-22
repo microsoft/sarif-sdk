@@ -4,6 +4,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using FluentAssertions;
 
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -375,7 +376,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 ShortMessage = "VeryUsefulCheck",
                 FullMessage = "hello!",
                 ToolFingerprint = "1#test",
-                Locations = new[]
+                Locations = new HashSet<Location>
                 {
                     new Location
                     {
@@ -556,7 +557,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             var converter = new FxCopConverter();
             Result result = converter.CreateResult(context);
 
-            result.Locations[0].FullyQualifiedLogicalName.Should().Be(@"myresource.resx");
+            result.Locations.First().FullyQualifiedLogicalName.Should().Be(@"myresource.resx");
         }
     }
 

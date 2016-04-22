@@ -11,6 +11,7 @@ using Newtonsoft.Json;
 
 using Xunit;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
 {
@@ -463,7 +464,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
                 Assert.NotNull(log);
                 Assert.Equal<int>(1, log.Runs.Count);
 
-                run = log.Runs[0];
+                run = log.Runs.First();
             }
             finally
             {

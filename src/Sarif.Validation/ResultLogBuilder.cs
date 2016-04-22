@@ -231,7 +231,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Validation
                 }
             };
 
-            result.Locations = new List<Location> { location };
+            result.Locations = new HashSet<Location> { location };
 
             return result;
         }

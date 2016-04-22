@@ -256,7 +256,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
             // complete stack details are rendered as part of the 
             // result fullMessage
 
-            result.Stacks = new List<Stack>(Stack.CreateStacks(exception));
+            result.Stacks = new HashSet<Stack>(Stack.CreateStacks(exception));
 
             // An unhandled exception was raised attempting to determine whether '{0}' 
             // is a valid analysis target for check '{1}' (which has been disabled 

@@ -3,13 +3,14 @@
 
 using System;
 using System.CodeDom.Compiler;
+using System.Collections.Generic;
 
 namespace Microsoft.CodeAnalysis.Sarif
 {
     /// <summary>
     /// Rewriting visitor for the Sarif object model.
     /// </summary>
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.11.0.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.14.0.0")]
     public abstract class SarifRewritingVisitor
     {
         /// <summary>
@@ -127,10 +128,13 @@ namespace Microsoft.CodeAnalysis.Sarif
             {
                 if (node.Hashes != null)
                 {
-                    for (int index_0 = 0; index_0 < node.Hashes.Count; ++index_0)
+                    var newSet = new HashSet<Hash>();
+                    foreach (Hash value in node.Hashes)
                     {
-                        node.Hashes[index_0] = VisitNullChecked(node.Hashes[index_0]);
+                        newSet.Add(VisitNullChecked(value));
                     }
+
+                    node.Hashes = newSet;
                 }
             }
 
@@ -143,10 +147,13 @@ namespace Microsoft.CodeAnalysis.Sarif
             {
                 if (node.FileChanges != null)
                 {
-                    for (int index_0 = 0; index_0 < node.FileChanges.Count; ++index_0)
+                    var newSet = new HashSet<FileChange>();
+                    foreach (FileChange value in node.FileChanges)
                     {
-                        node.FileChanges[index_0] = VisitNullChecked(node.FileChanges[index_0]);
+                        newSet.Add(VisitNullChecked(value));
                     }
+
+                    node.FileChanges = newSet;
                 }
             }
 
@@ -226,18 +233,24 @@ namespace Microsoft.CodeAnalysis.Sarif
                 node.FormattedMessage = VisitNullChecked(node.FormattedMessage);
                 if (node.Locations != null)
                 {
-                    for (int index_0 = 0; index_0 < node.Locations.Count; ++index_0)
+                    var newSet = new HashSet<Location>();
+                    foreach (Location value in node.Locations)
                     {
-                        node.Locations[index_0] = VisitNullChecked(node.Locations[index_0]);
+                        newSet.Add(VisitNullChecked(value));
                     }
+
+                    node.Locations = newSet;
                 }
 
                 if (node.Stacks != null)
                 {
-                    for (int index_0 = 0; index_0 < node.Stacks.Count; ++index_0)
+                    var newSet = new HashSet<Stack>();
+                    foreach (Stack value in node.Stacks)
                     {
-                        node.Stacks[index_0] = VisitNullChecked(node.Stacks[index_0]);
+                        newSet.Add(VisitNullChecked(value));
                     }
+
+                    node.Stacks = newSet;
                 }
 
                 if (node.CodeFlows != null)
@@ -257,18 +270,24 @@ namespace Microsoft.CodeAnalysis.Sarif
 
                 if (node.RelatedLocations != null)
                 {
-                    for (int index_0 = 0; index_0 < node.RelatedLocations.Count; ++index_0)
+                    var newSet = new HashSet<AnnotatedCodeLocation>();
+                    foreach (AnnotatedCodeLocation value in node.RelatedLocations)
                     {
-                        node.RelatedLocations[index_0] = VisitNullChecked(node.RelatedLocations[index_0]);
+                        newSet.Add(VisitNullChecked(value));
                     }
+
+                    node.RelatedLocations = newSet;
                 }
 
                 if (node.Fixes != null)
                 {
-                    for (int index_0 = 0; index_0 < node.Fixes.Count; ++index_0)
+                    var newSet = new HashSet<Fix>();
+                    foreach (Fix value in node.Fixes)
                     {
-                        node.Fixes[index_0] = VisitNullChecked(node.Fixes[index_0]);
+                        newSet.Add(VisitNullChecked(value));
                     }
+
+                    node.Fixes = newSet;
                 }
             }
 
@@ -321,10 +340,13 @@ namespace Microsoft.CodeAnalysis.Sarif
 
                 if (node.Results != null)
                 {
-                    for (int index_0 = 0; index_0 < node.Results.Count; ++index_0)
+                    var newSet = new HashSet<Result>();
+                    foreach (Result value in node.Results)
                     {
-                        node.Results[index_0] = VisitNullChecked(node.Results[index_0]);
+                        newSet.Add(VisitNullChecked(value));
                     }
+
+                    node.Results = newSet;
                 }
 
                 if (node.Rules != null)
@@ -349,10 +371,13 @@ namespace Microsoft.CodeAnalysis.Sarif
             {
                 if (node.Runs != null)
                 {
-                    for (int index_0 = 0; index_0 < node.Runs.Count; ++index_0)
+                    var newSet = new HashSet<Run>();
+                    foreach (Run value in node.Runs)
                     {
-                        node.Runs[index_0] = VisitNullChecked(node.Runs[index_0]);
+                        newSet.Add(VisitNullChecked(value));
                     }
+
+                    node.Runs = newSet;
                 }
             }
 

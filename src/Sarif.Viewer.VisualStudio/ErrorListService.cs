@@ -198,7 +198,7 @@ namespace Microsoft.Sarif.Viewer
             sarifErrors.Add(sarifError);
         }
 
-        private IEnumerable<IEnumerable<AnnotatedCodeLocation>> CreateAnnotationsFromStacks(IList<Stack> stacks)
+        private IEnumerable<IEnumerable<AnnotatedCodeLocation>> CreateAnnotationsFromStacks(IEnumerable<Stack> stacks)
         {
             List<List<AnnotatedCodeLocation>> codeLocationCollections = new List<List<AnnotatedCodeLocation>>();
 
@@ -215,8 +215,12 @@ namespace Microsoft.Sarif.Viewer
                         Message = stackFrame.ToString(),
                         PhysicalLocation = new PhysicalLocation
                         {
-                            Uri = stackFrame.Location.Uri,
-                            Region = stackFrame.Location.Region
+                            Uri = stackFrame.Uri,
+                            Region = new Region
+                            {
+                                StartLine = stackFrame.Line,
+                                StartColumn = stackFrame.Column
+                            }
                         }
                     });
                 }

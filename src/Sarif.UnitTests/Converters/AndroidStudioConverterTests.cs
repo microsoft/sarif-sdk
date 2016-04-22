@@ -412,7 +412,7 @@ Possible resolution: delete", result.FullMessage);
             var converter = new AndroidStudioConverter();
             Result result = converter.ConvertProblemToSarifResult(new AndroidStudioProblem(builder));
 
-            Location location = result.Locations[0];
+            Location location = result.Locations.First();
 
             string logicalLocationKey = converter.LogicalLocationsDictionary.Keys.SingleOrDefault();
             IList<LogicalLocationComponent> logicalLocationComponents = logicalLocationKey != null

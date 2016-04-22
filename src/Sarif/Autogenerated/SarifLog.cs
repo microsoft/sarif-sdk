@@ -12,7 +12,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// Static Analysis Results Format (SARIF) Version 1.0 JSON Schema (Draft 1.0.0-beta.3): a standard format for the output of static analysis and other tools.
     /// </summary>
     [DataContract]
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.11.0.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.14.0.0")]
     public partial class SarifLog : ISarifNode, IEquatable<SarifLog>
     {
         /// <summary>
@@ -36,7 +36,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// The set of runs contained in this log file.
         /// </summary>
         [DataMember(Name = "runs", IsRequired = true)]
-        public IList<Run> Runs { get; set; }
+        public ISet<Run> Runs { get; set; }
 
         public override bool Equals(object other)
         {
@@ -84,17 +84,9 @@ namespace Microsoft.CodeAnalysis.Sarif
                     return false;
                 }
 
-                if (Runs.Count != other.Runs.Count)
+                if (!Runs.SetEquals(other.Runs))
                 {
                     return false;
-                }
-
-                for (int index_0 = 0; index_0 < Runs.Count; ++index_0)
-                {
-                    if (!Object.Equals(Runs[index_0], other.Runs[index_0]))
-                    {
-                        return false;
-                    }
                 }
             }
 
@@ -117,7 +109,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="runs">
         /// An initialization value for the <see cref="P: Runs" /> property.
         /// </param>
-        public SarifLog(SarifVersion version, IEnumerable<Run> runs)
+        public SarifLog(SarifVersion version, ISet<Run> runs)
         {
             Init(version, runs);
         }
@@ -159,12 +151,12 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new SarifLog(this);
         }
 
-        private void Init(SarifVersion version, IEnumerable<Run> runs)
+        private void Init(SarifVersion version, ISet<Run> runs)
         {
             Version = version;
             if (runs != null)
             {
-                var destination_0 = new List<Run>();
+                var destination_0 = new HashSet<Run>();
                 foreach (var value_0 in runs)
                 {
                     if (value_0 == null)

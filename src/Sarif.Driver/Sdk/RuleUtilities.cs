@@ -42,13 +42,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
 
             if (targetPath != null)
             {
-                result.Locations = new[] {
-                new Sarif.Location {
-                    AnalysisTarget = new PhysicalLocation
-                    {
-                        Uri = new Uri(targetPath),
-                        Region = region
-                    }
+                result.Locations = new HashSet<Location> {
+                    new Sarif.Location {
+                        AnalysisTarget = new PhysicalLocation
+                        {
+                            Uri = new Uri(targetPath),
+                            Region = region
+                        }
                }};
             }
             return result;
