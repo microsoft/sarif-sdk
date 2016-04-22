@@ -18,7 +18,7 @@ function Build-Baselines($toolName)
     $sourceExtension = "xml"
 
     Write-Host "Building baselines for $toolName..."
-    $toolDirectory = Join-Path "$PSScriptRoot\SarifConverterTestData" $toolName
+    $toolDirectory = Join-Path "$PSScriptRoot\ConverterTestData" $toolName
     $sourceExtension = "*.$sourceExtension"
     Get-ChildItem $toolDirectory -Filter $sourceExtension | ForEach-Object {
         Write-Host "    $_ -> $_.sarif"
@@ -34,7 +34,7 @@ function Build-Baselines($toolName)
     }
 }
 
-$allTools = (Get-ChildItem "$PSScriptRoot\SarifConverterTestData" -Directory | ForEach-Object { $_.Name })
+$allTools = (Get-ChildItem "$PSScriptRoot\ConverterTestData" -Directory | ForEach-Object { $_.Name })
 if ($ToolName -and ($allTools -inotcontains $ToolName)) {
     Throw "Unrecognized tool name $ToolName"
 }

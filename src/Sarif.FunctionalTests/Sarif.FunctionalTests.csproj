@@ -80,160 +80,181 @@
     <Compile Include="SarifValidatorTests.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="DirectProducerTestData\BinSkim\CallStacksFromException.sarif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="DirectProducerTestData\WebSkim\LocalizedBundleDoubleNesting.sarif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="DirectProducerTestData\WebSkim\NestedLocationsFromAppX.sarif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="DirectProducerTestData\WebSkim\NestedLocationsFromDirectoryNoTrailingSlash.sarif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="DirectProducerTestData\WebSkim\NestedLocationsFromDirectoryTrailingSlash.sarif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="DirectProducerTestData\WebSkim\RelatedLocations.sarif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="DirectProducerTestData\WebSkim\SimpleBundleDoubleNesting.sarif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="SarifConverterTestData\AndroidStudio\AndroidStudio_issueLog1_raw.xml">
+    <None Include="ConverterTestData\AndroidStudio\AndroidStudio_issueLog1_raw.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="SarifConverterTestData\AndroidStudio\AndroidStudio_issueLog1_raw.xml.sarif">
+    <None Include="ConverterTestData\AndroidStudio\AndroidStudio_issueLog1_raw.xml.sarif">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="SarifConverterTestData\AndroidStudio\AndroidStudio_issueLog2_raw.xml">
+    <None Include="ConverterTestData\AndroidStudio\AndroidStudio_issueLog2_raw.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="SarifConverterTestData\AndroidStudio\AndroidStudio_issueLog2_raw.xml.sarif">
+    <None Include="ConverterTestData\AndroidStudio\AndroidStudio_issueLog2_raw.xml.sarif">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="SarifConverterTestData\AndroidStudio\AndroidStudio_issueLog3_raw.xml">
+    <None Include="ConverterTestData\AndroidStudio\AndroidStudio_issueLog3_raw.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="SarifConverterTestData\AndroidStudio\AndroidStudio_issueLog3_raw.xml.sarif">
+    <None Include="ConverterTestData\AndroidStudio\AndroidStudio_issueLog3_raw.xml.sarif">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="SarifConverterTestData\AndroidStudio\AndroidStudio_issueLog4_raw.xml">
+    <None Include="ConverterTestData\AndroidStudio\AndroidStudio_issueLog4_raw.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="SarifConverterTestData\AndroidStudio\AndroidStudio_issueLog4_raw.xml.sarif">
+    <None Include="ConverterTestData\AndroidStudio\AndroidStudio_issueLog4_raw.xml.sarif">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="SarifConverterTestData\AndroidStudio\AndroidStudio_issueLog5_raw.xml">
+    <None Include="ConverterTestData\AndroidStudio\AndroidStudio_issueLog5_raw.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="SarifConverterTestData\AndroidStudio\AndroidStudio_issueLog5_raw.xml.sarif">
+    <None Include="ConverterTestData\AndroidStudio\AndroidStudio_issueLog5_raw.xml.sarif">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="SarifConverterTestData\AndroidStudio\AndroidStudio_issueLog6_raw.xml">
+    <None Include="ConverterTestData\AndroidStudio\AndroidStudio_issueLog6_raw.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="SarifConverterTestData\AndroidStudio\AndroidStudio_issueLog6_raw.xml.sarif">
+    <None Include="ConverterTestData\AndroidStudio\AndroidStudio_issueLog6_raw.xml.sarif">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="SarifConverterTestData\AndroidStudio\AndroidStudio_issueLog7_raw.xml">
+    <None Include="ConverterTestData\AndroidStudio\AndroidStudio_issueLog7_raw.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="SarifConverterTestData\AndroidStudio\AndroidStudio_issueLog7_raw.xml.sarif">
+    <None Include="ConverterTestData\AndroidStudio\AndroidStudio_issueLog7_raw.xml.sarif">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="SarifConverterTestData\AndroidStudio\AndroidStudio_issueLog8_raw.xml">
+    <None Include="ConverterTestData\AndroidStudio\AndroidStudio_issueLog8_raw.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="SarifConverterTestData\AndroidStudio\AndroidStudio_issueLog8_raw.xml.sarif">
+    <None Include="ConverterTestData\AndroidStudio\AndroidStudio_issueLog8_raw.xml.sarif">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="SarifConverterTestData\AndroidStudio\attributeKeyMissing.xml.sarif">
+    <None Include="ConverterTestData\AndroidStudio\attributeKeyMissing.xml.sarif">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="SarifConverterTestData\AndroidStudio\extraComment.xml.sarif">
+    <None Include="ConverterTestData\AndroidStudio\extraComment.xml.sarif">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="SarifConverterTestData\AndroidStudio\fileEmpty.xml.sarif">
+    <None Include="ConverterTestData\AndroidStudio\fileEmpty.xml.sarif">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="SarifConverterTestData\AndroidStudio\minimalIssueWithoutPackageOrHintElement.xml.sarif">
+    <None Include="ConverterTestData\AndroidStudio\minimalIssueWithoutPackageOrHintElement.xml.sarif">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="SarifConverterTestData\AndroidStudio\moduleEmpty.xml.sarif">
+    <None Include="ConverterTestData\AndroidStudio\moduleEmpty.xml.sarif">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="SarifConverterTestData\AndroidStudio\packageBeforeModule.xml.sarif">
+    <None Include="ConverterTestData\AndroidStudio\packageBeforeModule.xml.sarif">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="SarifConverterTestData\AndroidStudio\packageEmpty.xml.sarif">
+    <None Include="ConverterTestData\AndroidStudio\packageEmpty.xml.sarif">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="SarifConverterTestData\AndroidStudio\problemClassSeverityMissing.xml.sarif">
+    <None Include="ConverterTestData\AndroidStudio\problemClassSeverityMissing.xml.sarif">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="SarifConverterTestData\AndroidStudio\singleIssue.xml.sarif">
+    <None Include="ConverterTestData\AndroidStudio\singleIssue.xml.sarif">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="SarifConverterTestData\AndroidStudio\singleIssueWithEmptyHints.xml.sarif">
+    <None Include="ConverterTestData\AndroidStudio\singleIssueWithEmptyHints.xml.sarif">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="SarifConverterTestData\AndroidStudio\singleIssueWithHints.xml.sarif">
+    <None Include="ConverterTestData\AndroidStudio\singleIssueWithHints.xml.sarif">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="SarifConverterTestData\AndroidStudio\twoIssues.xml.sarif">
+    <None Include="ConverterTestData\AndroidStudio\twoIssues.xml.sarif">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="SarifConverterTestData\ClangAnalyzer\ArrayDataTypes.xml.sarif">
+    <None Include="ConverterTestData\ClangAnalyzer\ArrayDataTypes.xml.sarif">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="SarifConverterTestData\ClangAnalyzer\BadMissingString.xml.sarif">
+    <None Include="ConverterTestData\ClangAnalyzer\BadMissingString.xml.sarif">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="SarifConverterTestData\ClangAnalyzer\ClangAnalyzer_issueLog1_raw.xml">
+    <None Include="ConverterTestData\ClangAnalyzer\ClangAnalyzer_issueLog1_raw.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="SarifConverterTestData\ClangAnalyzer\ClangAnalyzer_issueLog1_raw.xml.sarif">
+    <None Include="ConverterTestData\ClangAnalyzer\ClangAnalyzer_issueLog1_raw.xml.sarif">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="SarifConverterTestData\ClangAnalyzer\DictionaryDataTypes.xml.sarif">
+    <None Include="ConverterTestData\ClangAnalyzer\DictionaryDataTypes.xml.sarif">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="SarifConverterTestData\ClangAnalyzer\DivByZero.xml.sarif">
+    <None Include="ConverterTestData\ClangAnalyzer\DivByZero.xml.sarif">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="SarifConverterTestData\ClangAnalyzer\FileNumberCoverage.xml.sarif">
+    <None Include="ConverterTestData\ClangAnalyzer\FileNumberCoverage.xml.sarif">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="SarifConverterTestData\ClangAnalyzer\GarbageValueLog.xml.sarif">
+    <None Include="ConverterTestData\ClangAnalyzer\GarbageValueLog.xml.sarif">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="SarifConverterTestData\ClangAnalyzer\MediumLog.xml.sarif">
+    <None Include="ConverterTestData\ClangAnalyzer\MediumLog.xml.sarif">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="SarifConverterTestData\ClangAnalyzer\MissingLocation.xml.sarif">
+    <None Include="ConverterTestData\ClangAnalyzer\MissingLocation.xml.sarif">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="SarifConverterTestData\ClangAnalyzer\RealLog.xml.sarif">
+    <None Include="ConverterTestData\ClangAnalyzer\RealLog.xml.sarif">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="SarifConverterTestData\CppCheck\CppCheck_issueLog1_raw.xml">
+    <None Include="ConverterTestData\CppCheck\CppCheck_issueLog1_raw.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="SarifConverterTestData\CppCheck\CppCheck_issueLog1_raw.xml.sarif">
+    <None Include="ConverterTestData\CppCheck\CppCheck_issueLog1_raw.xml.sarif">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="SarifConverterTestData\Fortify\bannedAPIs_java.xml.sarif">
+    <None Include="ConverterTestData\Fortify\bannedAPIs_java.xml.sarif">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="SarifConverterTestData\Fortify\bannedAPIs_m0.xml.sarif">
+    <None Include="ConverterTestData\Fortify\bannedAPIs_m0.xml.sarif">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="SarifConverterTestData\Fortify\bannedAPIs_m1.xml.sarif">
+    <None Include="ConverterTestData\Fortify\bannedAPIs_m1.xml.sarif">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="SarifConverterTestData\FxCop\FxCopExampleReport2.xml.sarif">
+    <None Include="ConverterTestData\FxCop\FxCopExampleReport2.xml.sarif">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="SarifConverterTestData\FxCop\FxCopExceptions.xml.sarif">
+    <None Include="ConverterTestData\FxCop\FxCopExceptions.xml.sarif">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="SarifConverterTestData\FxCop\FxCopNoTargets.xml.sarif">
+    <None Include="ConverterTestData\FxCop\FxCopNoTargets.xml.sarif">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="SarifConverterTestData\FxCop\FxCopReportOneMessage.xml.sarif">
+    <None Include="ConverterTestData\FxCop\FxCopReportOneMessage.xml.sarif">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="SarifConverterTestData\FxCop\FxCopReportResource.xml.sarif">
+    <None Include="ConverterTestData\FxCop\FxCopReportResource.xml.sarif">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="SarifConverterTestData\FxCop\FxCop_issueLog1_raw.xml">
+    <None Include="ConverterTestData\FxCop\FxCop_issueLog1_raw.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="SarifConverterTestData\FxCop\FxCop_issueLog1_raw.xml.sarif">
+    <None Include="ConverterTestData\FxCop\FxCop_issueLog1_raw.xml.sarif">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
@@ -241,97 +262,97 @@
     <None Include="UpdateBaselines.ps1" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="SarifConverterTestData\AndroidStudio\attributeKeyMissing.xml">
+    <None Include="ConverterTestData\AndroidStudio\attributeKeyMissing.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="SarifConverterTestData\AndroidStudio\extraComment.xml">
+    <None Include="ConverterTestData\AndroidStudio\extraComment.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="SarifConverterTestData\AndroidStudio\fileEmpty.xml">
+    <None Include="ConverterTestData\AndroidStudio\fileEmpty.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="SarifConverterTestData\AndroidStudio\minimalIssueWithoutPackageOrHintElement.xml">
+    <None Include="ConverterTestData\AndroidStudio\minimalIssueWithoutPackageOrHintElement.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="SarifConverterTestData\AndroidStudio\moduleEmpty.xml">
+    <None Include="ConverterTestData\AndroidStudio\moduleEmpty.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="SarifConverterTestData\AndroidStudio\packageBeforeModule.xml">
+    <None Include="ConverterTestData\AndroidStudio\packageBeforeModule.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="SarifConverterTestData\AndroidStudio\packageEmpty.xml">
+    <None Include="ConverterTestData\AndroidStudio\packageEmpty.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="SarifConverterTestData\AndroidStudio\problemClassSeverityMissing.xml">
+    <None Include="ConverterTestData\AndroidStudio\problemClassSeverityMissing.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="SarifConverterTestData\AndroidStudio\singleIssue.xml">
+    <None Include="ConverterTestData\AndroidStudio\singleIssue.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="SarifConverterTestData\AndroidStudio\singleIssueWithEmptyHints.xml">
+    <None Include="ConverterTestData\AndroidStudio\singleIssueWithEmptyHints.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="SarifConverterTestData\AndroidStudio\singleIssueWithHints.xml">
+    <None Include="ConverterTestData\AndroidStudio\singleIssueWithHints.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="SarifConverterTestData\AndroidStudio\twoIssues.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="SarifConverterTestData\Fortify\bannedAPIs_java.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="SarifConverterTestData\Fortify\bannedAPIs_m0.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="SarifConverterTestData\Fortify\bannedAPIs_m1.xml">
+    <None Include="ConverterTestData\AndroidStudio\twoIssues.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
   <ItemGroup>
-    <None Include="SarifConverterTestData\FxCop\FxCopExampleReport2.xml">
+    <None Include="ConverterTestData\Fortify\bannedAPIs_java.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="SarifConverterTestData\FxCop\FxCopExceptions.xml">
+    <None Include="ConverterTestData\Fortify\bannedAPIs_m0.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="SarifConverterTestData\FxCop\FxCopNoTargets.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="SarifConverterTestData\FxCop\FxCopReportOneMessage.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="SarifConverterTestData\FxCop\FxCopReportResource.xml">
+    <None Include="ConverterTestData\Fortify\bannedAPIs_m1.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
   <ItemGroup>
-    <None Include="SarifConverterTestData\ClangAnalyzer\ArrayDataTypes.xml">
+    <None Include="ConverterTestData\FxCop\FxCopExampleReport2.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="SarifConverterTestData\ClangAnalyzer\BadMissingString.xml">
+    <None Include="ConverterTestData\FxCop\FxCopExceptions.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="SarifConverterTestData\ClangAnalyzer\DictionaryDataTypes.xml">
+    <None Include="ConverterTestData\FxCop\FxCopNoTargets.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="SarifConverterTestData\ClangAnalyzer\DivByZero.xml">
+    <None Include="ConverterTestData\FxCop\FxCopReportOneMessage.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="SarifConverterTestData\ClangAnalyzer\FileNumberCoverage.xml">
+    <None Include="ConverterTestData\FxCop\FxCopReportResource.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="SarifConverterTestData\ClangAnalyzer\GarbageValueLog.xml">
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ConverterTestData\ClangAnalyzer\ArrayDataTypes.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="SarifConverterTestData\ClangAnalyzer\MediumLog.xml">
+    <None Include="ConverterTestData\ClangAnalyzer\BadMissingString.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="SarifConverterTestData\ClangAnalyzer\MissingLocation.xml">
+    <None Include="ConverterTestData\ClangAnalyzer\DictionaryDataTypes.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="SarifConverterTestData\ClangAnalyzer\RealLog.xml">
+    <None Include="ConverterTestData\ClangAnalyzer\DivByZero.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ConverterTestData\ClangAnalyzer\FileNumberCoverage.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ConverterTestData\ClangAnalyzer\GarbageValueLog.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ConverterTestData\ClangAnalyzer\MediumLog.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ConverterTestData\ClangAnalyzer\MissingLocation.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ConverterTestData\ClangAnalyzer\RealLog.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>

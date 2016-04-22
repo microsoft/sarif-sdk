@@ -29,14 +29,14 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <summary>
         /// The path to the file within its containing file.
         /// </summary>
-        [DataMember(Name = "pathFromParent", IsRequired = false, EmitDefaultValue = false)]
-        public string PathFromParent { get; set; }
+        [DataMember(Name = "uri", IsRequired = false, EmitDefaultValue = false)]
+        public Uri Uri { get; set; }
 
         /// <summary>
         /// The offset in bytes of the file within its containing file.
         /// </summary>
-        [DataMember(Name = "offsetFromParent", IsRequired = false, EmitDefaultValue = false)]
-        public int OffsetFromParent { get; set; }
+        [DataMember(Name = "offset", IsRequired = false, EmitDefaultValue = false)]
+        public int Offset { get; set; }
 
         /// <summary>
         /// The length of the file in bytes.
@@ -78,12 +78,12 @@ namespace Microsoft.CodeAnalysis.Sarif
             int result = 17;
             unchecked
             {
-                if (PathFromParent != null)
+                if (Uri != null)
                 {
-                    result = (result * 31) + PathFromParent.GetHashCode();
+                    result = (result * 31) + Uri.GetHashCode();
                 }
 
-                result = (result * 31) + OffsetFromParent.GetHashCode();
+                result = (result * 31) + Offset.GetHashCode();
                 result = (result * 31) + Length.GetHashCode();
                 if (MimeType != null)
                 {
@@ -141,12 +141,12 @@ namespace Microsoft.CodeAnalysis.Sarif
                 return false;
             }
 
-            if (PathFromParent != other.PathFromParent)
+            if (Uri != other.Uri)
             {
                 return false;
             }
 
-            if (OffsetFromParent != other.OffsetFromParent)
+            if (Offset != other.Offset)
             {
                 return false;
             }
@@ -222,11 +222,11 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <summary>
         /// Initializes a new instance of the <see cref="FileData" /> class from the supplied values.
         /// </summary>
-        /// <param name="pathFromParent">
-        /// An initialization value for the <see cref="P: PathFromParent" /> property.
+        /// <param name="uri">
+        /// An initialization value for the <see cref="P: Uri" /> property.
         /// </param>
-        /// <param name="offsetFromParent">
-        /// An initialization value for the <see cref="P: OffsetFromParent" /> property.
+        /// <param name="offset">
+        /// An initialization value for the <see cref="P: Offset" /> property.
         /// </param>
         /// <param name="length">
         /// An initialization value for the <see cref="P: Length" /> property.
@@ -243,9 +243,9 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="tags">
         /// An initialization value for the <see cref="P: Tags" /> property.
         /// </param>
-        public FileData(string pathFromParent, int offsetFromParent, int length, string mimeType, ISet<Hash> hashes, IDictionary<string, string> properties, ISet<string> tags)
+        public FileData(Uri uri, int offset, int length, string mimeType, ISet<Hash> hashes, IDictionary<string, string> properties, ISet<string> tags)
         {
-            Init(pathFromParent, offsetFromParent, length, mimeType, hashes, properties, tags);
+            Init(uri, offset, length, mimeType, hashes, properties, tags);
         }
 
         /// <summary>
@@ -264,7 +264,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 throw new ArgumentNullException(nameof(other));
             }
 
-            Init(other.PathFromParent, other.OffsetFromParent, other.Length, other.MimeType, other.Hashes, other.Properties, other.Tags);
+            Init(other.Uri, other.Offset, other.Length, other.MimeType, other.Hashes, other.Properties, other.Tags);
         }
 
         ISarifNode ISarifNode.DeepClone()
@@ -285,10 +285,14 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new FileData(this);
         }
 
-        private void Init(string pathFromParent, int offsetFromParent, int length, string mimeType, ISet<Hash> hashes, IDictionary<string, string> properties, ISet<string> tags)
+        private void Init(Uri uri, int offset, int length, string mimeType, ISet<Hash> hashes, IDictionary<string, string> properties, ISet<string> tags)
         {
-            PathFromParent = pathFromParent;
-            OffsetFromParent = offsetFromParent;
+            if (uri != null)
+            {
+                Uri = new Uri(uri.OriginalString, uri.IsAbsoluteUri ? UriKind.Absolute : UriKind.Relative);
+            }
+
+            Offset = offset;
             Length = length;
             MimeType = mimeType;
             if (hashes != null)
