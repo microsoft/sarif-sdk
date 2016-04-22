@@ -1,0 +1,165 @@
+{
+  "version": "1.0.0-beta.3",
+  "runs": [
+    {
+      "tool": {
+        "name": "FxCop"
+      },
+      "files": {
+        "file:///d:/SecDevTools/Main/bin/x86/Debug/FxCop/FxCopTestData/Crypto/SecurityCryptographyRuleTests.dll": [
+          {
+            "mimeType": "application/octet-stream"
+          }
+        ],
+        "file:///d:/SecDevTools/Main/src/FxCop/Source/FxCopTestData/SecurityCryptographyRuleTests/DESCannotBeUsed.cs": [
+          {
+            "mimeType": "text/x-csharp"
+          }
+        ]
+      },
+      "logicalLocations": {
+        "SecurityCryptographyRuleTests": [
+          {
+            "name": "SecurityCryptographyRuleTests",
+            "kind": "namespace"
+          }
+        ],
+        "securitycryptographyruletests.dll": [
+          {
+            "name": "securitycryptographyruletests.dll",
+            "kind": "module"
+          }
+        ],
+        "SecurityCryptographyRuleTests.DESCannotBeUsed": [
+          {
+            "name": "securitycryptographyruletests.dll",
+            "kind": "module"
+          },
+          {
+            "name": "SecurityCryptographyRuleTests",
+            "kind": "namespace"
+          },
+          {
+            "name": "DESCannotBeUsed",
+            "kind": "type"
+          }
+        ],
+        "SecurityCryptographyRuleTests.DESCannotBeUsed.EncryptData(System.String,System.String,System.Byte[],System.Byte[])": [
+          {
+            "name": "securitycryptographyruletests.dll",
+            "kind": "module"
+          },
+          {
+            "name": "SecurityCryptographyRuleTests",
+            "kind": "namespace"
+          },
+          {
+            "name": "DESCannotBeUsed",
+            "kind": "type"
+          },
+          {
+            "name": "#EncryptData(System.String,System.String,System.Byte[],System.Byte[])",
+            "kind": "member"
+          }
+        ]
+      },
+      "results": [
+        {
+          "ruleId": "CA904",
+          "fullMessage": "Redefine the types in namespace 'SecurityCryptographyRuleTests' in the Microsoft or System namespace. Public types that will never ship externally can be defined in the MS namespace. Consider disabling this rule when analyzing code that does not ship externally.",
+          "shortMessage": "DeclareTypesInMicrosoftOrSystemNamespace",
+          "locations": [
+            {
+              "fullyQualifiedLogicalName": "SecurityCryptographyRuleTests"
+            }
+          ],
+          "properties": {
+            "Level": "Error",
+            "Category": "Microsoft.MSInternal",
+            "FixCategory": "Breaking"
+          }
+        },
+        {
+          "ruleId": "CA1014",
+          "fullMessage": "Mark 'SecurityCryptographyRuleTests.dll' with CLSCompliant(true) because it exposes externally visible types.",
+          "shortMessage": "MarkAssembliesWithClsCompliant",
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///d:/SecDevTools/Main/bin/x86/Debug/FxCop/FxCopTestData/Crypto/SecurityCryptographyRuleTests.dll"
+              },
+              "fullyQualifiedLogicalName": "securitycryptographyruletests.dll"
+            }
+          ],
+          "properties": {
+            "Level": "Error",
+            "Category": "Microsoft.Design",
+            "FixCategory": "NonBreaking"
+          }
+        },
+        {
+          "ruleId": "CA1709",
+          "fullMessage": "Correct the casing of 'DES' in type name 'DESCannotBeUsed' by changing it to 'Des'.",
+          "shortMessage": "IdentifiersShouldBeCasedCorrectly",
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///d:/SecDevTools/Main/bin/x86/Debug/FxCop/FxCopTestData/Crypto/SecurityCryptographyRuleTests.dll"
+              },
+              "fullyQualifiedLogicalName": "SecurityCryptographyRuleTests.DESCannotBeUsed"
+            }
+          ],
+          "toolFingerprint": "DES#Type",
+          "properties": {
+            "Level": "Error",
+            "Category": "Microsoft.Naming",
+            "FixCategory": "Breaking"
+          }
+        },
+        {
+          "ruleId": "CA1053",
+          "fullMessage": "Because type 'DESCannotBeUsed' contains only 'static' members, mark it as 'static' to prevent the compiler from adding a default public constructor.",
+          "shortMessage": "StaticHolderTypesShouldNotHaveConstructors",
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///d:/SecDevTools/Main/bin/x86/Debug/FxCop/FxCopTestData/Crypto/SecurityCryptographyRuleTests.dll"
+              },
+              "fullyQualifiedLogicalName": "SecurityCryptographyRuleTests.DESCannotBeUsed"
+            }
+          ],
+          "toolFingerprint": "CSharp2_0",
+          "properties": {
+            "Level": "Error",
+            "Category": "Microsoft.Design",
+            "FixCategory": "Breaking"
+          }
+        },
+        {
+          "ruleId": "CA1811",
+          "fullMessage": "'DESCannotBeUsed.EncryptData(string, string, byte[], byte[])' appears to have no upstream public or protected callers.",
+          "shortMessage": "AvoidUncalledPrivateCode",
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///d:/SecDevTools/Main/bin/x86/Debug/FxCop/FxCopTestData/Crypto/SecurityCryptographyRuleTests.dll"
+              },
+              "resultFile": {
+                "uri": "file:///d:/SecDevTools/Main/src/FxCop/Source/FxCopTestData/SecurityCryptographyRuleTests/DESCannotBeUsed.cs",
+                "region": {
+                  "startLine": 14
+                }
+              },
+              "fullyQualifiedLogicalName": "SecurityCryptographyRuleTests.DESCannotBeUsed.EncryptData(System.String,System.String,System.Byte[],System.Byte[])"
+            }
+          ],
+          "properties": {
+            "Level": "Warning",
+            "Category": "Microsoft.Performance",
+            "FixCategory": "NonBreaking"
+          }
+        }
+      ]
+    }
+  ]
+}
