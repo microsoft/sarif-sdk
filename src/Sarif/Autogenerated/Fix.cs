@@ -36,7 +36,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// A message relevant to this annotation.
         /// </summary>
         [DataMember(Name = "fileChanges", IsRequired = true)]
-        public ISet<FileChange> FileChanges { get; set; }
+        public IList<FileChange> FileChanges { get; set; }
 
         public override bool Equals(object other)
         {
@@ -88,9 +88,17 @@ namespace Microsoft.CodeAnalysis.Sarif
                     return false;
                 }
 
-                if (!FileChanges.SetEquals(other.FileChanges))
+                if (FileChanges.Count != other.FileChanges.Count)
                 {
                     return false;
+                }
+
+                for (int index_0 = 0; index_0 < FileChanges.Count; ++index_0)
+                {
+                    if (!Object.Equals(FileChanges[index_0], other.FileChanges[index_0]))
+                    {
+                        return false;
+                    }
                 }
             }
 
@@ -113,7 +121,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="fileChanges">
         /// An initialization value for the <see cref="P: FileChanges" /> property.
         /// </param>
-        public Fix(string description, ISet<FileChange> fileChanges)
+        public Fix(string description, IEnumerable<FileChange> fileChanges)
         {
             Init(description, fileChanges);
         }
@@ -155,12 +163,12 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new Fix(this);
         }
 
-        private void Init(string description, ISet<FileChange> fileChanges)
+        private void Init(string description, IEnumerable<FileChange> fileChanges)
         {
             Description = description;
             if (fileChanges != null)
             {
-                var destination_0 = new HashSet<FileChange>();
+                var destination_0 = new List<FileChange>();
                 foreach (var value_0 in fileChanges)
                 {
                     if (value_0 == null)
