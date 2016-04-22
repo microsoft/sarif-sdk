@@ -75,5 +75,12 @@ namespace Microsoft.CodeAnalysis.Sarif
             tool.Version = version.Major.ToString() + "." + version.Minor.ToString() + "." + version.Build.ToString();
             tool.FullName = name + " " + tool.Version + (prereleaseInfo ?? "");
         }
+
+        public static string FormatMessage(this Exception exception)
+        {
+            // Retrieves a formatted message that includes exception type details, e.g.
+            // System.InvalidOperationException: Operation is not valid due to the current state of the object.
+            return exception.ToString().Split(new string[] { Environment.NewLine }, StringSplitOptions.None)[0];
+        }
     }
 }

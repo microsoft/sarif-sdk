@@ -247,9 +247,16 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
             Result result = RuleUtilities.BuildResult(ResultKind.InternalError, context, null,
                                 nameof(SdkResources.ERR0998_ExceptionInCanAnalyze),
                                 ruleName,
-                                exception.ToString());
+                                exception.FormatMessage());
 
-            result.Stacks = new List<Stack>(Stack.Create(exception));
+            // We populate stacks only in cases where the tool developer
+            // might benefit from troubleshooting an unexpected problem.
+            // We do not populate stacks in other helpers where exceptions
+            // indicate configuration problems. For these cases, the 
+            // complete stack details are rendered as part of the 
+            // result fullMessage
+
+            result.Stacks = new List<Stack>(Stack.CreateStacks(exception));
 
             // An unhandled exception was raised attempting to determine whether '{0}' 
             // is a valid analysis target for check '{1}' (which has been disabled 
@@ -279,9 +286,16 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
             Result result = RuleUtilities.BuildResult(ResultKind.InternalError, errorContext, null,
                                 nameof(SdkResources.ERR0998_ExceptionInInitialize),
                                 ruleName,
-                                exception.ToString());
+                                exception.FormatMessage());
 
-            result.Stacks = new List<Stack>(Stack.Create(exception));
+            // We populate stacks only in cases where the tool developer
+            // might benefit from troubleshooting an unexpected problem.
+            // We do not populate stacks in other helpers where exceptions
+            // indicate configuration problems. For these cases, the 
+            // complete stack details are rendered as part of the 
+            // result fullMessage
+
+            result.Stacks = Stack.CreateStacks(exception);
 
             context.Logger.Log(errorContext.Rule, result);
 
@@ -300,9 +314,16 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
             Result result = RuleUtilities.BuildResult(ResultKind.InternalError, context, null,
                                 nameof(SdkResources.ERR0998_ExceptionInAnalyze),
                                 ruleName,
-                                exception.ToString());
+                                exception.FormatMessage());
 
-            result.Stacks = new List<Stack>(Stack.Create(exception));
+            // We populate stacks only in cases where the tool developer
+            // might benefit from troubleshooting an unexpected problem.
+            // We do not populate stacks in other helpers where exceptions
+            // indicate configuration problems. For these cases, the 
+            // complete stack details are rendered as part of the 
+            // result fullMessage
+
+            result.Stacks = Stack.CreateStacks(exception);
 
             // An unhandled exception was encountered analyzing '{0}' for check '{1}', 
             // which has been disabled for the remainder of the analysis.The 
@@ -323,9 +344,16 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
 
             Result result = RuleUtilities.BuildResult(ResultKind.InternalError, context, null,
                                 nameof(SdkResources.ERR0999_UnhandledEngineException),
-                                exception.ToString());
+                                exception.FormatMessage());
 
-            result.Stacks = new List<Stack>(Stack.Create(exception));
+            // We populate stacks only in cases where the tool developer
+            // might benefit from troubleshooting an unexpected problem.
+            // We do not populate stacks in other helpers where exceptions
+            // indicate configuration problems. For these cases, the 
+            // complete stack details are rendered as part of the 
+            // result fullMessage
+
+            result.Stacks = Stack.CreateStacks(exception);
 
             // An unhandled exception was raised during analysis: {0}
             context.Logger.Log(context.Rule, result);

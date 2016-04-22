@@ -379,7 +379,6 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             if (node != null)
             {
-                node.Location = VisitNullChecked(node.Location);
             }
 
             return node;

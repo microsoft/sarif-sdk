@@ -107,10 +107,8 @@ namespace Microsoft.Sarif.Viewer
 
             foreach (Result result in runLog.Results)
             {
-                string category, document, shortMessage, fullMessage;
+                string category, document;
                 Region region;
-                NewLineIndex newLineIndex;
-                IRule rule = null;
 
                 category = null;
 
@@ -119,110 +117,85 @@ namespace Microsoft.Sarif.Viewer
                     result.Properties.TryGetValue("category", out category);
                 }
 
-                foreach (Location location in result.Locations)
+
+                if (result.Locations != null)
                 {
-                    region = null;
 
-                    PhysicalLocation physicalLocation = null;
-                    if (location.ResultFile != null)
+                    foreach (Location location in result?.Locations)
                     {
-                        physicalLocation = location.ResultFile;
-                        document = physicalLocation.Uri.LocalPath;
-                        region = physicalLocation.Region;
+                        region = null;
+
+                        PhysicalLocation physicalLocation = null;
+                        if (location.ResultFile != null)
+                        {
+                            physicalLocation = location.ResultFile;
+                            document = physicalLocation.Uri.LocalPath;
+                            region = physicalLocation.Region;
+                        }
+                        else if (location.AnalysisTarget != null)
+                        {
+                            physicalLocation = location.AnalysisTarget;
+                            document = physicalLocation.Uri.LocalPath;
+                            region = physicalLocation.Region;
+                        }
+                        else
+                        {
+                            document = location.FullyQualifiedLogicalName;
+                        }
+
+                        AddResult(runLog, sarifErrors, toolName, result, category, document, region);
                     }
-                    else if (location.AnalysisTarget != null)
-                    {
-                        physicalLocation = location.AnalysisTarget;
-                        document = physicalLocation.Uri.LocalPath;
-                        region = physicalLocation.Region;
-                    }
-                    else
-                    {
-                        document = location.FullyQualifiedLogicalName;
-                    }
-
-                    rule = GetRule(runLog, result.RuleId);
-                    shortMessage = result.GetMessageText(rule, concise: true);
-                    fullMessage = result.GetMessageText(rule, concise: false);
-
-                    if (shortMessage == fullMessage)
-                    {
-                        fullMessage = null;
-                    }
-
-                    SarifError sarifError = new SarifError(document)
-                    {
-                        Region = region,
-                        RuleId = result.RuleId,
-                        RuleName = rule?.Name,
-                        Kind = result.Kind,
-                        Category = category,
-                        ShortMessage = shortMessage,
-                        FullMessage = fullMessage,
-                        Tool = toolName,
-                        HelpLink = rule?.HelpUri?.ToString()                        
-                    };
-
-                    IEnumerable<IEnumerable<AnnotatedCodeLocation>> stackLocations = CreateAnnotationsFromStacks(result.Stacks);
-
-                    CaptureAnnotatedCodeLocationCollections(stackLocations, AnnotatedCodeLocationKind.Stack, sarifError);
-                    CaptureAnnotatedCodeLocationCollections(result.CodeFlows, AnnotatedCodeLocationKind.CodeFlow, sarifError);
-                    CaptureAnnotatedCodeLocations(result.RelatedLocations, AnnotatedCodeLocationKind.Stack, sarifError);
-
-                    if (region != null)
-                    {
-                        sarifError.ColumnNumber = region.StartColumn - 1;
-                        sarifError.LineNumber = region.StartLine - 1;
-                    }
-
-                    sarifErrors.Add(sarifError);
                 }
-
-                // TODO zap this on implementing todo above
-                if (result.RelatedLocations != null)
+                else
                 {
-                    foreach (AnnotatedCodeLocation annotation in result.RelatedLocations)
-                    {
-                        PhysicalLocation physicalLocation = annotation.PhysicalLocation;
-                        region = physicalLocation.Region;
-                        shortMessage = annotation.Message;
-                        document = annotation.PhysicalLocation.Uri.LocalPath;
-
-                        if (!this.documentToLineIndexMap.TryGetValue(document, out newLineIndex))
-                        {
-                            this.documentToLineIndexMap[document] = newLineIndex = new NewLineIndex(File.ReadAllText(document));
-                        }
-
-                        if (region != null)
-                        {
-                            region.Populate(newLineIndex);
-                        }
-
-                        SarifError sarifError = new SarifError(document)
-                        {
-                            Region = region,
-                            RuleId = result.RuleId,
-                            RuleName = rule?.Name,
-                            Kind = ResultKind.Note,
-                            Category = "Related Location", // or should we prefer original result category?
-                            ShortMessage = shortMessage,
-                            FullMessage = null,
-                            Tool = toolName
-                        };
-
-                        if (region != null)
-                        {
-                            sarifError.ColumnNumber = region.StartColumn - 1;
-                            sarifError.LineNumber = region.StartLine - 1;
-                        }
-
-                        sarifErrors.Add(sarifError);
-                    }
+                    AddResult(runLog, sarifErrors, toolName, result, category, document: @"d:\repros\test.txt", region: null);
                 }
 
                 CodeAnalysisResultManager.Instance.SarifErrors = sarifErrors;
                 SarifTableDataSource.Instance.AddErrors(sarifErrors);
             }
+        }
+
+        private void AddResult(Run runLog, List<SarifError> sarifErrors, string toolName, Result result, string category, string document, Region region)
+        {
+            IRule rule;
+            string shortMessage, fullMessage;
+
+            rule = GetRule(runLog, result.RuleId);
+            shortMessage = result.GetMessageText(rule, concise: true);
+            fullMessage = result.GetMessageText(rule, concise: false);
+
+            if (shortMessage == fullMessage)
+            {
+                fullMessage = null;
+            }
+
+            SarifError sarifError = new SarifError(document)
+            {
+                Region = region,
+                RuleId = result.RuleId,
+                RuleName = rule?.Name,
+                Kind = result.Kind,
+                Category = category,
+                ShortMessage = shortMessage,
+                FullMessage = fullMessage,
+                Tool = toolName,
+                HelpLink = rule?.HelpUri?.ToString()
+            };
+
+            IEnumerable<IEnumerable<AnnotatedCodeLocation>> stackLocations = CreateAnnotationsFromStacks(result.Stacks);
+
+            CreateAnnotatedCodeLocationCollections(stackLocations, AnnotatedCodeLocationKind.Stack, sarifError);
+            CreateAnnotatedCodeLocationCollections(result.CodeFlows, AnnotatedCodeLocationKind.CodeFlow, sarifError);
+            CaptureAnnotatedCodeLocations(result.RelatedLocations, AnnotatedCodeLocationKind.Stack, sarifError);
+
+            if (region != null)
+            {
+                sarifError.ColumnNumber = region.StartColumn - 1;
+                sarifError.LineNumber = region.StartLine - 1;
+            }
+
+            sarifErrors.Add(sarifError);
         }
 
         private IEnumerable<IEnumerable<AnnotatedCodeLocation>> CreateAnnotationsFromStacks(IList<Stack> stacks)
@@ -233,14 +206,14 @@ namespace Microsoft.Sarif.Viewer
             {
                 if (stack.Frames == null) { continue; }
 
-                List<AnnotatedCodeLocation> codeLocations = new List<AnnotatedCodeLocation>();
+                var codeLocations = new List<AnnotatedCodeLocation>();
 
                 foreach (StackFrame stackFrame in stack.Frames)
                 {
-                    codeLocations.Add(new AnnotatedCodeLocation()
+                    codeLocations.Add(new AnnotatedCodeLocation
                     {
                         Message = stackFrame.ToString(),
-                        PhysicalLocation = new PhysicalLocation()
+                        PhysicalLocation = new PhysicalLocation
                         {
                             Uri = stackFrame.Location.Uri,
                             Region = stackFrame.Location.Region
@@ -252,7 +225,7 @@ namespace Microsoft.Sarif.Viewer
             return codeLocationCollections;
         }
 
-        private static void CaptureAnnotatedCodeLocationCollections(
+        private static void CreateAnnotatedCodeLocationCollections(
             IEnumerable<IEnumerable<AnnotatedCodeLocation>> codeLocationCollections, 
             AnnotatedCodeLocationKind annotatedCodeLocationKind,
             SarifError sarifError)

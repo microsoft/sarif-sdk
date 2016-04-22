@@ -35,35 +35,24 @@ namespace Microsoft.CodeAnalysis.Sarif
             Assembly assembly = methodBase?.DeclaringType.Assembly;
             string fullyQualifiedName = CreateFullyQualifiedName(methodBase);
 
-            PhysicalLocation physicalLocation;
-            
+
+            StackFrame stackFrame = new StackFrame
+            {
+                Module = assembly?.GetName().Name
+            };
+
+
             if (fileName != null)
             {
-                physicalLocation = new PhysicalLocation()
-                {
-                    Uri = new Uri(fileName),
-                    Region = new Region()
-                    {
-                        StartLine = dotNetStackFrame.GetFileLineNumber(),
-                        StartColumn = dotNetStackFrame.GetFileColumnNumber(),
-                        Offset = ilOffset
-                    }
-                };
-            }
-            else
-            {
-                physicalLocation = new PhysicalLocation()
-                {
-                    Region = new Region() { Offset = ilOffset }
-                };
+                stackFrame.Uri = new Uri(fileName);
+                stackFrame.Line = dotNetStackFrame.GetFileLineNumber();
+                stackFrame.Column = dotNetStackFrame.GetFileColumnNumber();
             }
 
-            StackFrame stackFrame = new StackFrame()
+            if (ilOffset != -1)
             {
-                FullyQualifiedLogicalName = fullyQualifiedName,
-                Location = physicalLocation,
-                Module = assembly?.GetName().Name,                 
-            };
+                stackFrame.Offset = ilOffset;
+            }
 
             if (nativeOffset != -1)
             {
@@ -80,10 +69,10 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             string result = AT + this.FullyQualifiedLogicalName;
 
-            if (Location?.Uri != null)
+            if (this.Uri != null)
             {
-                string lineNumber = Location.Region.StartLine.ToString(CultureInfo.InvariantCulture);
-                string fileName = Location.Uri.LocalPath;
+                string lineNumber = this.Line.ToString(CultureInfo.InvariantCulture);
+                string fileName = this.Uri.LocalPath;
 
                 result += IN + fileName + LINE + " " + lineNumber;
             }
@@ -91,17 +80,17 @@ namespace Microsoft.CodeAnalysis.Sarif
             return result;
         }
 
-        public static string CreateFullyQualifiedName(MethodBase methodBase)
+        private static string CreateFullyQualifiedName(MethodBase methodBase)
         {
             if (methodBase == null) { return null;  }
 
             var sb = new StringBuilder();
 
-            Type t = methodBase.DeclaringType;
+            Type type = methodBase.DeclaringType;
             // if there is a type (non global method) print it
-            if (t != null)
+            if (type != null)
             {
-                sb.Append(t.FullName.Replace('+', '.'));
+                sb.Append(type.FullName.Replace('+', '.'));
                 sb.Append(".");
             }
             sb.Append(methodBase.Name);
@@ -109,22 +98,22 @@ namespace Microsoft.CodeAnalysis.Sarif
             // deal with the generic portion of the method
             if (methodBase is MethodInfo && ((MethodInfo)methodBase).IsGenericMethod)
             {
-                Type[] typars = ((MethodInfo)methodBase).GetGenericArguments();
+                Type[] typeArguments = ((MethodInfo)methodBase).GetGenericArguments();
                 sb.Append("[");
                 int k = 0;
-                bool fFirstTyParam = true;
-                while (k < typars.Length)
+                bool firstTypeParameter = true;
+                while (k < typeArguments.Length)
                 {
-                    if (fFirstTyParam == false)
+                    if (firstTypeParameter == false)
                     {
                         sb.Append(",");
                     }
                     else
                     {
-                        fFirstTyParam = false;
+                        firstTypeParameter = false;
                     }
 
-                    sb.Append(typars[k].Name);
+                    sb.Append(typeArguments[k].Name);
                     k++;
                 }
                 sb.Append("]");
@@ -132,25 +121,25 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             // arguments printing
             sb.Append("(");
-            ParameterInfo[] pi = methodBase.GetParameters();
-            bool fFirstParam = true;
-            for (int j = 0; j < pi.Length; j++)
+            ParameterInfo[] parameterInfos = methodBase.GetParameters();
+            bool firstParameterInfo = true;
+            for (int j = 0; j < parameterInfos.Length; j++)
             {
-                if (fFirstParam == false)
+                if (firstParameterInfo == false)
                 {
                     sb.Append(", ");
                 }
                 else
                 {
-                    fFirstParam = false;
+                    firstParameterInfo = false;
                 }
 
                 String typeName = "<UnknownType>";
-                if (pi[j].ParameterType != null)
+                if (parameterInfos[j].ParameterType != null)
                 {
-                    typeName = pi[j].ParameterType.Name;
+                    typeName = parameterInfos[j].ParameterType.Name;
                 }
-                sb.Append(typeName + " " + pi[j].Name);
+                sb.Append(typeName + " " + parameterInfos[j].Name);
             }
             sb.Append(")");
 
