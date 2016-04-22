@@ -36,7 +36,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// The set of runs contained in this log file.
         /// </summary>
         [DataMember(Name = "runs", IsRequired = true)]
-        public ISet<Run> Runs { get; set; }
+        public IList<Run> Runs { get; set; }
 
         public override bool Equals(object other)
         {
@@ -84,9 +84,17 @@ namespace Microsoft.CodeAnalysis.Sarif
                     return false;
                 }
 
-                if (!Runs.SetEquals(other.Runs))
+                if (Runs.Count != other.Runs.Count)
                 {
                     return false;
+                }
+
+                for (int index_0 = 0; index_0 < Runs.Count; ++index_0)
+                {
+                    if (!Object.Equals(Runs[index_0], other.Runs[index_0]))
+                    {
+                        return false;
+                    }
                 }
             }
 
@@ -109,7 +117,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="runs">
         /// An initialization value for the <see cref="P: Runs" /> property.
         /// </param>
-        public SarifLog(SarifVersion version, ISet<Run> runs)
+        public SarifLog(SarifVersion version, IEnumerable<Run> runs)
         {
             Init(version, runs);
         }
@@ -151,12 +159,12 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new SarifLog(this);
         }
 
-        private void Init(SarifVersion version, ISet<Run> runs)
+        private void Init(SarifVersion version, IEnumerable<Run> runs)
         {
             Version = version;
             if (runs != null)
             {
-                var destination_0 = new HashSet<Run>();
+                var destination_0 = new List<Run>();
                 foreach (var value_0 in runs)
                 {
                     if (value_0 == null)

@@ -147,13 +147,10 @@ namespace Microsoft.CodeAnalysis.Sarif
             {
                 if (node.FileChanges != null)
                 {
-                    var newSet = new HashSet<FileChange>();
-                    foreach (FileChange value in node.FileChanges)
+                    for (int index_0 = 0; index_0 < node.FileChanges.Count; ++index_0)
                     {
-                        newSet.Add(VisitNullChecked(value));
+                        node.FileChanges[index_0] = VisitNullChecked(node.FileChanges[index_0]);
                     }
-
-                    node.FileChanges = newSet;
                 }
             }
 
@@ -371,13 +368,10 @@ namespace Microsoft.CodeAnalysis.Sarif
             {
                 if (node.Runs != null)
                 {
-                    var newSet = new HashSet<Run>();
-                    foreach (Run value in node.Runs)
+                    for (int index_0 = 0; index_0 < node.Runs.Count; ++index_0)
                     {
-                        newSet.Add(VisitNullChecked(value));
+                        node.Runs[index_0] = VisitNullChecked(node.Runs[index_0]);
                     }
-
-                    node.Runs = newSet;
                 }
             }
 
