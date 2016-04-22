@@ -72,7 +72,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// An array of 'stack' objects relevant to the result.
         /// </summary>
         [DataMember(Name = "stacks", IsRequired = false, EmitDefaultValue = false)]
-        public IList<Stack> Stacks { get; set; }
+        public ISet<Stack> Stacks { get; set; }
 
         /// <summary>
         /// An array of arrays of 'annotatedCodeLocation` objects, each inner array of which comprises a code flow (a possible execution path through the code).
@@ -303,17 +303,9 @@ namespace Microsoft.CodeAnalysis.Sarif
                     return false;
                 }
 
-                if (Stacks.Count != other.Stacks.Count)
+                if (!Stacks.SetEquals(other.Stacks))
                 {
                     return false;
-                }
-
-                for (int index_0 = 0; index_0 < Stacks.Count; ++index_0)
-                {
-                    if (!Object.Equals(Stacks[index_0], other.Stacks[index_0]))
-                    {
-                        return false;
-                    }
                 }
             }
 
@@ -329,23 +321,23 @@ namespace Microsoft.CodeAnalysis.Sarif
                     return false;
                 }
 
-                for (int index_1 = 0; index_1 < CodeFlows.Count; ++index_1)
+                for (int index_0 = 0; index_0 < CodeFlows.Count; ++index_0)
                 {
-                    if (!Object.ReferenceEquals(CodeFlows[index_1], other.CodeFlows[index_1]))
+                    if (!Object.ReferenceEquals(CodeFlows[index_0], other.CodeFlows[index_0]))
                     {
-                        if (CodeFlows[index_1] == null || other.CodeFlows[index_1] == null)
+                        if (CodeFlows[index_0] == null || other.CodeFlows[index_0] == null)
                         {
                             return false;
                         }
 
-                        if (CodeFlows[index_1].Count != other.CodeFlows[index_1].Count)
+                        if (CodeFlows[index_0].Count != other.CodeFlows[index_0].Count)
                         {
                             return false;
                         }
 
-                        for (int index_2 = 0; index_2 < CodeFlows[index_1].Count; ++index_2)
+                        for (int index_1 = 0; index_1 < CodeFlows[index_0].Count; ++index_1)
                         {
-                            if (!Object.Equals(CodeFlows[index_1][index_2], other.CodeFlows[index_1][index_2]))
+                            if (!Object.Equals(CodeFlows[index_0][index_1], other.CodeFlows[index_0][index_1]))
                             {
                                 return false;
                             }
@@ -475,7 +467,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="tags">
         /// An initialization value for the <see cref="P: Tags" /> property.
         /// </param>
-        public Result(string ruleId, ResultKind kind, string fullMessage, string shortMessage, FormattedMessage formattedMessage, ISet<Location> locations, string toolFingerprint, IEnumerable<Stack> stacks, IEnumerable<IEnumerable<AnnotatedCodeLocation>> codeFlows, ISet<AnnotatedCodeLocation> relatedLocations, bool isSuppressedInSource, ISet<Fix> fixes, IDictionary<string, string> properties, ISet<string> tags)
+        public Result(string ruleId, ResultKind kind, string fullMessage, string shortMessage, FormattedMessage formattedMessage, ISet<Location> locations, string toolFingerprint, ISet<Stack> stacks, IEnumerable<IEnumerable<AnnotatedCodeLocation>> codeFlows, ISet<AnnotatedCodeLocation> relatedLocations, bool isSuppressedInSource, ISet<Fix> fixes, IDictionary<string, string> properties, ISet<string> tags)
         {
             Init(ruleId, kind, fullMessage, shortMessage, formattedMessage, locations, toolFingerprint, stacks, codeFlows, relatedLocations, isSuppressedInSource, fixes, properties, tags);
         }
@@ -517,7 +509,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new Result(this);
         }
 
-        private void Init(string ruleId, ResultKind kind, string fullMessage, string shortMessage, FormattedMessage formattedMessage, ISet<Location> locations, string toolFingerprint, IEnumerable<Stack> stacks, IEnumerable<IEnumerable<AnnotatedCodeLocation>> codeFlows, ISet<AnnotatedCodeLocation> relatedLocations, bool isSuppressedInSource, ISet<Fix> fixes, IDictionary<string, string> properties, ISet<string> tags)
+        private void Init(string ruleId, ResultKind kind, string fullMessage, string shortMessage, FormattedMessage formattedMessage, ISet<Location> locations, string toolFingerprint, ISet<Stack> stacks, IEnumerable<IEnumerable<AnnotatedCodeLocation>> codeFlows, ISet<AnnotatedCodeLocation> relatedLocations, bool isSuppressedInSource, ISet<Fix> fixes, IDictionary<string, string> properties, ISet<string> tags)
         {
             RuleId = ruleId;
             Kind = kind;
@@ -549,7 +541,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             ToolFingerprint = toolFingerprint;
             if (stacks != null)
             {
-                var destination_1 = new List<Stack>();
+                var destination_1 = new HashSet<Stack>();
                 foreach (var value_1 in stacks)
                 {
                     if (value_1 == null)

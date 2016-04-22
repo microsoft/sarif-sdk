@@ -244,10 +244,13 @@ namespace Microsoft.CodeAnalysis.Sarif
 
                 if (node.Stacks != null)
                 {
-                    for (int index_0 = 0; index_0 < node.Stacks.Count; ++index_0)
+                    var newSet = new HashSet<Stack>();
+                    foreach (Stack value in node.Stacks)
                     {
-                        node.Stacks[index_0] = VisitNullChecked(node.Stacks[index_0]);
+                        newSet.Add(VisitNullChecked(value));
                     }
+
+                    node.Stacks = newSet;
                 }
 
                 if (node.CodeFlows != null)

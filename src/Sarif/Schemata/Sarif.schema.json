@@ -480,6 +480,7 @@
           "description": "An array of 'stack' objects relevant to the result.",
           "type": "array",
           "minItems": 1,
+          "uniqueItems": true,
           "items": {
             "$ref": "#/definitions/stack"
           }

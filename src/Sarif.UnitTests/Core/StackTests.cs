@@ -36,7 +36,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             }
             catch (ArgumentException exception)
             {
-                IList<Stack> stacks = Stack.CreateStacks(exception);
+                IList<Stack> stacks = Stack.CreateStacks(exception).ToList();
 
                 stacks.Count.Should().Be(1);
                 Assert.AreEqual(exception.StackTrace, stacks[0].ToString());
@@ -58,7 +58,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             {
                 Exception containerException = new InvalidOperationException("test exception", exception);
 
-                IList<Stack> stacks = Stack.CreateStacks(containerException);
+                IList<Stack> stacks = Stack.CreateStacks(containerException).ToList();
 
                 stacks.Count.Should().Be(2);
                 containerException.StackTrace.Should().Be(null);
@@ -85,7 +85,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
                 var aggregated = new AggregateException(innerException1, innerException2);
 
-                IList<Stack> stacks = Stack.CreateStacks(aggregated);
+                IList<Stack> stacks = Stack.CreateStacks(aggregated).ToList();
 
                 stacks.Count.Should().Be(4);
                 aggregated.StackTrace.Should().Be(null);

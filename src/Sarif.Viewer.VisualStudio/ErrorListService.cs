@@ -198,7 +198,7 @@ namespace Microsoft.Sarif.Viewer
             sarifErrors.Add(sarifError);
         }
 
-        private IEnumerable<IEnumerable<AnnotatedCodeLocation>> CreateAnnotationsFromStacks(IList<Stack> stacks)
+        private IEnumerable<IEnumerable<AnnotatedCodeLocation>> CreateAnnotationsFromStacks(IEnumerable<Stack> stacks)
         {
             List<List<AnnotatedCodeLocation>> codeLocationCollections = new List<List<AnnotatedCodeLocation>>();
 
