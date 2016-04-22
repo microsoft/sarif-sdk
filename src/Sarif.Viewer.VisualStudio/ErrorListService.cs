@@ -215,8 +215,12 @@ namespace Microsoft.Sarif.Viewer
                         Message = stackFrame.ToString(),
                         PhysicalLocation = new PhysicalLocation
                         {
-                            Uri = stackFrame.Location.Uri,
-                            Region = stackFrame.Location.Region
+                            Uri = stackFrame.Uri,
+                            Region = new Region
+                            {
+                                StartLine = stackFrame.Line,
+                                StartColumn = stackFrame.Column
+                            }
                         }
                     });
                 }
