@@ -70,7 +70,7 @@ namespace Microsoft.Sarif.Viewer
                 IVsWindowFrame frame;
                 if (!CodeAnalysisResultManager.Instance.TryNavigateTo(sarifError, out frame))
                 {
-                    return;
+                    //return;
                 }
 
                 if (sarifError.HasDetails)

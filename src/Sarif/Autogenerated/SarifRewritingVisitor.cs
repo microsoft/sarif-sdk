@@ -75,6 +75,10 @@ namespace Microsoft.CodeAnalysis.Sarif
                     return VisitRun((Run)node);
                 case SarifNodeKind.SarifLog:
                     return VisitSarifLog((SarifLog)node);
+                case SarifNodeKind.Stack:
+                    return VisitStack((Stack)node);
+                case SarifNodeKind.StackFrame:
+                    return VisitStackFrame((StackFrame)node);
                 case SarifNodeKind.Tool:
                     return VisitTool((Tool)node);
                 default:
@@ -242,14 +246,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 {
                     for (int index_0 = 0; index_0 < node.Stacks.Count; ++index_0)
                     {
-                        var value_0 = node.Stacks[index_0];
-                        if (value_0 != null)
-                        {
-                            for (int index_1 = 0; index_1 < value_0.Count; ++index_1)
-                            {
-                                value_0[index_1] = VisitNullChecked(value_0[index_1]);
-                            }
-                        }
+                        node.Stacks[index_0] = VisitNullChecked(node.Stacks[index_0]);
                     }
                 }
 
@@ -379,6 +376,31 @@ namespace Microsoft.CodeAnalysis.Sarif
 
                     node.Runs = newSet;
                 }
+            }
+
+            return node;
+        }
+
+        public virtual Stack VisitStack(Stack node)
+        {
+            if (node != null)
+            {
+                if (node.Frames != null)
+                {
+                    for (int index_0 = 0; index_0 < node.Frames.Count; ++index_0)
+                    {
+                        node.Frames[index_0] = VisitNullChecked(node.Frames[index_0]);
+                    }
+                }
+            }
+
+            return node;
+        }
+
+        public virtual StackFrame VisitStackFrame(StackFrame node)
+        {
+            if (node != null)
+            {
             }
 
             return node;

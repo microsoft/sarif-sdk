@@ -9,11 +9,11 @@ using System.Runtime.Serialization;
 namespace Microsoft.CodeAnalysis.Sarif
 {
     /// <summary>
-    /// A code annotation that consists of single physical location and associated message, used to express code flows through a method, or other locations that are related to a result.
+    /// A call stack that is relevant to a result.
     /// </summary>
     [DataContract]
     [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.14.0.0")]
-    public partial class AnnotatedCodeLocation : ISarifNode, IEquatable<AnnotatedCodeLocation>
+    public partial class Stack : ISarifNode, IEquatable<Stack>
     {
         /// <summary>
         /// Gets a value indicating the type of object implementing <see cref="ISarifNode" />.
@@ -22,37 +22,37 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             get
             {
-                return SarifNodeKind.AnnotatedCodeLocation;
+                return SarifNodeKind.Stack;
             }
         }
 
         /// <summary>
-        /// A code location to which this annotation refers.
-        /// </summary>
-        [DataMember(Name = "physicalLocation", IsRequired = true)]
-        public PhysicalLocation PhysicalLocation { get; set; }
-
-        /// <summary>
-        /// A message relevant to this annotation.
+        /// A message relevant to this call stack.
         /// </summary>
         [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
         public string Message { get; set; }
 
         /// <summary>
-        /// Key/value pairs that provide additional details about the code location.
+        /// An array of stack frames that represent a sequence of calls, rendered in reverse chronological order, that comprise the call stack.
+        /// </summary>
+        [DataMember(Name = "frames", IsRequired = true)]
+        public IList<StackFrame> Frames { get; set; }
+
+        /// <summary>
+        /// Key/value pairs that provide additional details about the stack.
         /// </summary>
         [DataMember(Name = "properties", IsRequired = false, EmitDefaultValue = false)]
         public IDictionary<string, string> Properties { get; set; }
 
         /// <summary>
-        /// A unique set of strings that provide additional information for the code location.
+        /// A unique set of strings that provide additional information for the stack.
         /// </summary>
         [DataMember(Name = "tags", IsRequired = false, EmitDefaultValue = false)]
         public ISet<string> Tags { get; set; }
 
         public override bool Equals(object other)
         {
-            return Equals(other as AnnotatedCodeLocation);
+            return Equals(other as Stack);
         }
 
         public override int GetHashCode()
@@ -60,26 +60,33 @@ namespace Microsoft.CodeAnalysis.Sarif
             int result = 17;
             unchecked
             {
-                if (PhysicalLocation != null)
-                {
-                    result = (result * 31) + PhysicalLocation.GetHashCode();
-                }
-
                 if (Message != null)
                 {
                     result = (result * 31) + Message.GetHashCode();
+                }
+
+                if (Frames != null)
+                {
+                    foreach (var value_0 in Frames)
+                    {
+                        result = result * 31;
+                        if (value_0 != null)
+                        {
+                            result = (result * 31) + value_0.GetHashCode();
+                        }
+                    }
                 }
 
                 if (Properties != null)
                 {
                     // Use xor for dictionaries to be order-independent.
                     int xor_0 = 0;
-                    foreach (var value_0 in Properties)
+                    foreach (var value_1 in Properties)
                     {
-                        xor_0 ^= value_0.Key.GetHashCode();
-                        if (value_0.Value != null)
+                        xor_0 ^= value_1.Key.GetHashCode();
+                        if (value_1.Value != null)
                         {
-                            xor_0 ^= value_0.Value.GetHashCode();
+                            xor_0 ^= value_1.Value.GetHashCode();
                         }
                     }
 
@@ -88,12 +95,12 @@ namespace Microsoft.CodeAnalysis.Sarif
 
                 if (Tags != null)
                 {
-                    foreach (var value_1 in Tags)
+                    foreach (var value_2 in Tags)
                     {
                         result = result * 31;
-                        if (value_1 != null)
+                        if (value_2 != null)
                         {
-                            result = (result * 31) + value_1.GetHashCode();
+                            result = (result * 31) + value_2.GetHashCode();
                         }
                     }
                 }
@@ -102,14 +109,9 @@ namespace Microsoft.CodeAnalysis.Sarif
             return result;
         }
 
-        public bool Equals(AnnotatedCodeLocation other)
+        public bool Equals(Stack other)
         {
             if (other == null)
-            {
-                return false;
-            }
-
-            if (!Object.Equals(PhysicalLocation, other.PhysicalLocation))
             {
                 return false;
             }
@@ -117,6 +119,27 @@ namespace Microsoft.CodeAnalysis.Sarif
             if (Message != other.Message)
             {
                 return false;
+            }
+
+            if (!Object.ReferenceEquals(Frames, other.Frames))
+            {
+                if (Frames == null || other.Frames == null)
+                {
+                    return false;
+                }
+
+                if (Frames.Count != other.Frames.Count)
+                {
+                    return false;
+                }
+
+                for (int index_0 = 0; index_0 < Frames.Count; ++index_0)
+                {
+                    if (!Object.Equals(Frames[index_0], other.Frames[index_0]))
+                    {
+                        return false;
+                    }
+                }
             }
 
             if (!Object.ReferenceEquals(Properties, other.Properties))
@@ -158,20 +181,20 @@ namespace Microsoft.CodeAnalysis.Sarif
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="AnnotatedCodeLocation" /> class.
+        /// Initializes a new instance of the <see cref="Stack" /> class.
         /// </summary>
-        public AnnotatedCodeLocation()
+        public Stack()
         {
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="AnnotatedCodeLocation" /> class from the supplied values.
+        /// Initializes a new instance of the <see cref="Stack" /> class from the supplied values.
         /// </summary>
-        /// <param name="physicalLocation">
-        /// An initialization value for the <see cref="P: PhysicalLocation" /> property.
-        /// </param>
         /// <param name="message">
         /// An initialization value for the <see cref="P: Message" /> property.
+        /// </param>
+        /// <param name="frames">
+        /// An initialization value for the <see cref="P: Frames" /> property.
         /// </param>
         /// <param name="properties">
         /// An initialization value for the <see cref="P: Properties" /> property.
@@ -179,13 +202,13 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="tags">
         /// An initialization value for the <see cref="P: Tags" /> property.
         /// </param>
-        public AnnotatedCodeLocation(PhysicalLocation physicalLocation, string message, IDictionary<string, string> properties, ISet<string> tags)
+        public Stack(string message, IEnumerable<StackFrame> frames, IDictionary<string, string> properties, ISet<string> tags)
         {
-            Init(physicalLocation, message, properties, tags);
+            Init(message, frames, properties, tags);
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="AnnotatedCodeLocation" /> class from the specified instance.
+        /// Initializes a new instance of the <see cref="Stack" /> class from the specified instance.
         /// </summary>
         /// <param name="other">
         /// The instance from which the new instance is to be initialized.
@@ -193,14 +216,14 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <exception cref="ArgumentNullException">
         /// Thrown if <paramref name="other" /> is null.
         /// </exception>
-        public AnnotatedCodeLocation(AnnotatedCodeLocation other)
+        public Stack(Stack other)
         {
             if (other == null)
             {
                 throw new ArgumentNullException(nameof(other));
             }
 
-            Init(other.PhysicalLocation, other.Message, other.Properties, other.Tags);
+            Init(other.Message, other.Frames, other.Properties, other.Tags);
         }
 
         ISarifNode ISarifNode.DeepClone()
@@ -211,24 +234,37 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <summary>
         /// Creates a deep copy of this instance.
         /// </summary>
-        public AnnotatedCodeLocation DeepClone()
+        public Stack DeepClone()
         {
-            return (AnnotatedCodeLocation)DeepCloneCore();
+            return (Stack)DeepCloneCore();
         }
 
         private ISarifNode DeepCloneCore()
         {
-            return new AnnotatedCodeLocation(this);
+            return new Stack(this);
         }
 
-        private void Init(PhysicalLocation physicalLocation, string message, IDictionary<string, string> properties, ISet<string> tags)
+        private void Init(string message, IEnumerable<StackFrame> frames, IDictionary<string, string> properties, ISet<string> tags)
         {
-            if (physicalLocation != null)
+            Message = message;
+            if (frames != null)
             {
-                PhysicalLocation = new PhysicalLocation(physicalLocation);
+                var destination_0 = new List<StackFrame>();
+                foreach (var value_0 in frames)
+                {
+                    if (value_0 == null)
+                    {
+                        destination_0.Add(null);
+                    }
+                    else
+                    {
+                        destination_0.Add(new StackFrame(value_0));
+                    }
+                }
+
+                Frames = destination_0;
             }
 
-            Message = message;
             if (properties != null)
             {
                 Properties = new Dictionary<string, string>(properties);
@@ -236,13 +272,13 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             if (tags != null)
             {
-                var destination_0 = new HashSet<string>();
-                foreach (var value_0 in tags)
+                var destination_1 = new HashSet<string>();
+                foreach (var value_1 in tags)
                 {
-                    destination_0.Add(value_0);
+                    destination_1.Add(value_1);
                 }
 
-                Tags = destination_0;
+                Tags = destination_1;
             }
         }
     }

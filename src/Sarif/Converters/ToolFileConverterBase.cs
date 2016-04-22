@@ -23,7 +23,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         public abstract void Convert(Stream input, IResultLogWriter output);
 
         // internal as well as protected it can be exercised by unit tests.
-        protected internal IDictionary<string, IList<LogicalLocationComponent>> LogicalLocationsDictionary { get; }
+        protected internal IDictionary<string, IList<LogicalLocationComponent>> LogicalLocationsDictionary { get; private set;  }
 
         // internal as well as protected it can be exercised by unit tests.
         protected internal void AddLogicalLocation(Location location, IList<LogicalLocationComponent> logicalLocationComponents)

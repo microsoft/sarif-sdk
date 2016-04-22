@@ -88,7 +88,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             result.FullMessage = context.Message;
             result.ShortMessage = context.Typename;
             var location = new Location();
-            result.Locations = new HashSet<Location> { location };
 
             if (!String.IsNullOrEmpty(context.Target))
             {
@@ -116,6 +115,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             {
                 AddLogicalLocation(location, logicalLocationComponents);
             }
+
+            result.Locations = new HashSet<Location> { location };
 
             var properties = new Dictionary<string, string>();
             TryAddProperty(properties, context.Level, "Level");
