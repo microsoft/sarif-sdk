@@ -181,12 +181,13 @@
       "additionalProperties": false,
       "type": "object",
       "properties": {
-        "pathFromParent": {
+        "uri": {
           "description": "The path to the file within its containing file.",
-          "type": "string"
+          "type": "string",
+          "format": "uri"
         },
 
-        "offsetFromParent": {
+        "offset": {
           "description": "The offset in bytes of the file within its containing file.",
           "type": "integer"
         },

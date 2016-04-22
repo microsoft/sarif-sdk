@@ -36,14 +36,14 @@ namespace Microsoft.CodeAnalysis.Sarif
                 }
                 else if (files.Count == 1)
                 {
-                    fileData.PathFromParent = uri.ToString();
-                    fileDataKey = fileDataKey + "#" + fileData.PathFromParent;
+                    fileData.Uri = uri;
+                    fileDataKey = fileDataKey + "#" + fileData.Uri.ToString();
                 }
                 else
                 {
                     Debug.Assert(!uri.IsAbsoluteUri);                    
-                    fileData.PathFromParent = uri.ToString();
-                    fileDataKey = fileDataKey + fileData.PathFromParent;
+                    fileData.Uri = uri;
+                    fileDataKey = fileDataKey + fileData.Uri.ToString();
                 }
 
                 files.Add(fileData);

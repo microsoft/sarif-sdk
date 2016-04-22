@@ -10,7 +10,7 @@
         "fileVersion": "7.0.20811.0",
         "properties": {
           "Language": "Language Neutral",
-          "FileName": "d:\\src\\SecDevTools\\Main\\bin\\x64\\Debug\\ModernCop\\mod50.exe",
+          "FileName": "D:\\src\\SecDevTools\\Main\\bin\\x64\\Release\\ModernCop\\mod50.exe",
           "CompanyName": "Microsoft Corporation"
         }
       },
@@ -3289,7 +3289,7 @@
             "mimeType": "application/x-directory"
           },
           {
-            "pathFromParent": "js/minified.js",
+            "uri": "js/minified.js",
             "mimeType": "text/javascript"
           }
         ],
@@ -3298,7 +3298,7 @@
             "mimeType": "application/x-directory"
           },
           {
-            "pathFromParent": "js/default.js",
+            "uri": "js/default.js",
             "mimeType": "text/javascript"
           }
         ]
@@ -3398,9 +3398,9 @@
           ]
         }
       },
-      "invocation": "mod50  analyze /appx d:\\src\\SecDevTools\\Main\\src\\ModernCop\\Source\\WebRules.Test.Unit\\ModernCopTestData\\WebRules_PackageRules\\MinificationRuleApp /out d:\\repros\\ModernCopSarif\\NestedLocationsFromDirectoryTrailingSlash.sarif",
-      "startTime": "2016-04-19T07:55:43.5831628Z",
-      "endTime": "2016-04-19T07:55:45.18398Z"
+      "invocation": "mod50  analyze /appx d:\\src\\SecDevTools\\Main\\src\\ModernCop\\Source\\WebRules.Test.Unit\\ModernCopTestData\\WebRules_PackageRules\\MinificationRuleApp /out d:\\src\\sarif-sdk\\src\\Sarif.FunctionalTests\\DirectProducerTestData\\WebSkim\\NestedLocationsFromDirectoryTrailingSlash.sarif",
+      "startTime": "2016-04-22T20:43:04.8167101Z",
+      "endTime": "2016-04-22T20:43:06.3023916Z"
     }
   ]
 }
