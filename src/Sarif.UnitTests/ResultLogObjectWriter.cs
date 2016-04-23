@@ -137,7 +137,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             }
         }
 
-        public void WriteRules(IDictionary<string, IRule> rules)
+        public void WriteRules(IDictionary<string, Rule> rules)
         {
             throw new NotImplementedException();
         }
