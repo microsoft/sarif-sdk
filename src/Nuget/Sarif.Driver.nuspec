@@ -15,7 +15,7 @@
     <tags>command line driver utilities static analysis sarif framework utils driver.utilities</tags>
     <dependencies>
       <group>
-        <dependency id="Sarif.Sdk" version="1.4.$patch$-beta" />
+        <dependency id="Sarif.Sdk" version="$major$.$minor$.$patch$-beta" />
         <dependency id="Newtonsoft.Json" version="6.0.0" />
         <dependency id="Microsoft.Composition" version="1.0.30" />
         <dependency id="System.Collections.Immutable" version="1.1.37" />
