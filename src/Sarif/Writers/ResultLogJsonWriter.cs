@@ -139,7 +139,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             _writeConditions |= Conditions.LogicalLocationsWritten;
         }
 
-        public void WriteRules(IDictionary<string, IRule> rules)
+        public void WriteRules(IDictionary<string, Rule> rules)
         {
             if (rules == null)
             {

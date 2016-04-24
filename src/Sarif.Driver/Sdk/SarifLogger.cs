@@ -19,7 +19,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
         private TextWriter _textWriter;
         private JsonTextWriter _jsonTextWriter;
         private ResultLogJsonWriter _issueLogJsonWriter;
-        private Dictionary<string, IRule> _rules;
+        private Dictionary<string, Rule> _rules;
 
         private static Run CreateRun(
             IEnumerable<string> analysisTargets,
@@ -139,11 +139,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
             _issueLogJsonWriter = new ResultLogJsonWriter(_jsonTextWriter);
         }
 
-        public Dictionary<string, IRule> Rules
+        public Dictionary<string, Rule> Rules
         {
             get
             {
-                _rules = _rules ?? new Dictionary<string, IRule>();
+                _rules = _rules ?? new Dictionary<string, Rule>();
                 return _rules;
             }
         }
@@ -208,10 +208,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
                 return;
             }
 
-            if (rule != null)
-            {
-                Rules[rule.Id] = rule; 
-            }
+            AddRule(rule);
 
             _issueLogJsonWriter.WriteResult(result);
         }
@@ -232,11 +229,41 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
         {
             if (context.Rule != null)
             {
-                Rules[context.Rule.Id] = context.Rule;
+                AddRule(context.Rule);
             }
 
             formatId = RuleUtilities.NormalizeFormatId(context.Rule.Id, formatId);
             LogJsonIssue(messageKind, context.TargetUri?.LocalPath, region, context.Rule.Id, formatId, arguments);
+        }
+
+        private void AddRule(IRule rule)
+        {
+            if (rule == null || Rules.ContainsKey(rule.Id))
+            {
+                return;
+            }
+
+            Rule persistedRule = rule as Rule;
+
+            if (persistedRule == null)
+            {
+                // Someone has implemented their own IRule instance
+                // This can break our serialization story, so we'll
+                // make a copy into the SDK Rule type
+                persistedRule = new Rule()
+                {
+                    FullDescription = rule.FullDescription,
+                    HelpUri = rule.HelpUri,
+                    Id = rule.Id,
+                    MessageFormats = rule.MessageFormats,
+                    Name = rule.Name,
+                    Options = rule.Options,
+                    Properties = rule.Properties,
+                    ShortDescription = rule.ShortDescription,
+                    Tags = rule.Tags
+                };
+            }
+            Rules[rule.Id] = persistedRule;
         }
 
         private void LogJsonIssue(ResultKind messageKind, string targetPath, Region region, string ruleId, string formatId, params string[] arguments)
