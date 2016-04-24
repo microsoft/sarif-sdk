@@ -3,11 +3,9 @@
 
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Globalization;
 using System.Reflection;
 using System.Text;
-using DotNetStackFrame = System.Diagnostics.StackFrame;
 
 namespace Microsoft.CodeAnalysis.Sarif
 {

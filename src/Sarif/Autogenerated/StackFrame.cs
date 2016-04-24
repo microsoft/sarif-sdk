@@ -12,7 +12,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// A function call within a stack trace.
     /// </summary>
     [DataContract]
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.14.0.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.15.0.0")]
     public partial class StackFrame : ISarifNode, IEquatable<StackFrame>
     {
         /// <summary>

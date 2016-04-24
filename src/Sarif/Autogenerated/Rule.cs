@@ -12,7 +12,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// Describes an analysis rule.
     /// </summary>
     [DataContract]
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.14.0.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.15.0.0")]
     public partial class Rule : IRule, ISarifNode, IEquatable<Rule>
     {
         /// <summary>
