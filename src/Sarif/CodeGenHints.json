@@ -1,156 +1,166 @@
 {
   "Rule.Options": [
     {
-      "$type": "Microsoft.Json.Schema.ToDotNet.DictionaryHint, Microsoft.Json.Schema.ToDotNet"
+      "kind": "DictionaryHint"
     }
   ],
   "AnnotatedCodeLocation.Properties": [
     {
-      "$type": "Microsoft.Json.Schema.ToDotNet.DictionaryHint, Microsoft.Json.Schema.ToDotNet"
+      "kind": "DictionaryHint" 
     }
   ],
   "file": [
     {
-      "$type": "Microsoft.Json.Schema.ToDotNet.ClassNameHint, Microsoft.Json.Schema.ToDotNet",
-      "className": "FileData"
+      "kind": "ClassNameHint",
+      "arguments": {
+        "className": "FileData"
+      }
     }
   ],
   "FileData.Properties": [
     {
-      "$type": "Microsoft.Json.Schema.ToDotNet.DictionaryHint, Microsoft.Json.Schema.ToDotNet"
+      "kind": "DictionaryHint"
     }
   ],
   "Location.Properties": [
     {
-      "$type": "Microsoft.Json.Schema.ToDotNet.DictionaryHint, Microsoft.Json.Schema.ToDotNet"
+      "kind": "DictionaryHint"
     }
   ],
   "Result.Properties": [
     {
-      "$type": "Microsoft.Json.Schema.ToDotNet.DictionaryHint, Microsoft.Json.Schema.ToDotNet"
+      "kind": "DictionaryHint"
     }
   ],
   "Rule.MessageFormats": [
     {
-      "$type": "Microsoft.Json.Schema.ToDotNet.DictionaryHint, Microsoft.Json.Schema.ToDotNet"
+      "kind": "DictionaryHint"
     }
   ],
   "Rule.Properties": [
     {
-      "$type": "Microsoft.Json.Schema.ToDotNet.DictionaryHint, Microsoft.Json.Schema.ToDotNet"
+      "kind": "DictionaryHint"
     }
   ],
   "Run.Files": [
     {
-      "$type": "Microsoft.Json.Schema.ToDotNet.DictionaryHint, Microsoft.Json.Schema.ToDotNet"
+      "kind": "DictionaryHint"
     }
   ],
   "Run.LogicalLocations": [
     {
-      "$type": "Microsoft.Json.Schema.ToDotNet.DictionaryHint, Microsoft.Json.Schema.ToDotNet"
+      "kind": "DictionaryHint"
     }
   ],
   "Run.Properties": [
     {
-      "$type": "Microsoft.Json.Schema.ToDotNet.DictionaryHint, Microsoft.Json.Schema.ToDotNet"
+      "kind": "DictionaryHint" 
     }
   ],
   "Run.Rules": [
     {
-      "$type": "Microsoft.Json.Schema.ToDotNet.DictionaryHint, Microsoft.Json.Schema.ToDotNet"
+      "kind": "DictionaryHint"
     }
   ],
   "rule": [
     {
-      "$type": "Microsoft.Json.Schema.ToDotNet.InterfaceHint, Microsoft.Json.Schema.ToDotNet",
-      "description": "Interface exposed by objects that provide information about analysis rules."
+      "kind": "InterfaceHint",
+      "arguments": {
+        "description": "Interface exposed by objects that provide information about analysis rules."
+      }
     }
   ],
   "SarifLog.Version": [
     {
-      "$type": "Microsoft.Json.Schema.ToDotNet.EnumHint, Microsoft.Json.Schema.ToDotNet",
-      "typeName": "SarifVersion",
-      "description": "Possible values for the SARIF schema version.",
-      "zeroValue": "Unknown",
-      "enum": [
-        "OneZeroZeroBetaThree"
-      ]
+      "kind": "EnumHint",
+      "arguments": {
+        "typeName": "SarifVersion",
+        "description": "Possible values for the SARIF schema version.",
+        "zeroValue": "Unknown",
+        "enumValues": [
+          "OneZeroZeroBetaThree"
+        ]
+      }
     }
   ],
   "Stack.Properties": [
     {
-      "$type": "Microsoft.Json.Schema.ToDotNet.DictionaryHint, Microsoft.Json.Schema.ToDotNet"
+      "kind": "DictionaryHint" 
     }
   ],
   "StackFrame.Properties": [
     {
-      "$type": "Microsoft.Json.Schema.ToDotNet.DictionaryHint, Microsoft.Json.Schema.ToDotNet"
+      "kind": "DictionaryHint"
     }
   ],
   "Hash.Algorithm": [
     {
-      "$type": "Microsoft.Json.Schema.ToDotNet.EnumHint, Microsoft.Json.Schema.ToDotNet",
-      "typeName": "AlgorithmKind",
-      "description": "Values specifying different hashing algorithms.",
-      "zeroValue": "Unknown",
-      "enum": [
-        "Authentihash",
-        "Blake256",
-        "Blake512",
-        "Ecoh",
-        "Fsb",
-        "Gost",
-        "Groestl",
-        "Has160",
-        "Haval",
-        "JH",
-        "MD2",
-        "MD4",
-        "MD5",
-        "MD6",
-        "RadioGatun",
-        "RipeMD",
-        "RipeMD128",
-        "RipeMD160",
-        "RipeMD320",
-        "Sdhash",
-        "Sha1",
-        "Sha224",
-        "Sha256",
-        "Sha384",
-        "Sha512",
-        "Sha3",
-        "Skein",
-        "Snefru",
-        "SpectralHash",
-        "Ssdeep",
-        "Swifft",
-        "Tiger",
-        "Tlsh",
-        "Whirlpool"
-      ]
+      "kind": "EnumHint",
+      "arguments": {
+        "typeName": "AlgorithmKind",
+        "description": "Values specifying different hashing algorithms.",
+        "zeroValue": "Unknown",
+        "enumValues": [
+          "Authentihash",
+          "Blake256",
+          "Blake512",
+          "Ecoh",
+          "Fsb",
+          "Gost",
+          "Groestl",
+          "Has160",
+          "Haval",
+          "JH",
+          "MD2",
+          "MD4",
+          "MD5",
+          "MD6",
+          "RadioGatun",
+          "RipeMD",
+          "RipeMD128",
+          "RipeMD160",
+          "RipeMD320",
+          "Sdhash",
+          "Sha1",
+          "Sha224",
+          "Sha256",
+          "Sha384",
+          "Sha512",
+          "Sha3",
+          "Skein",
+          "Snefru",
+          "SpectralHash",
+          "Ssdeep",
+          "Swifft",
+          "Tiger",
+          "Tlsh",
+          "Whirlpool"
+        ]
+      }
     }
   ],
   "Result.Kind": [
     {
-      "$type": "Microsoft.Json.Schema.ToDotNet.EnumHint, Microsoft.Json.Schema.ToDotNet",
-      "typeName": "ResultKind",
-      "description": "Values specifying the category of the result.",
-      "zeroValue": "Unknown",
-      "enum": [
-        "Error",
-        "Warning",
-        "Pass",
-        "Note",
-        "NotApplicable",
-        "InternalError",
-        "ConfigurationError"
-      ]
+      "kind": "EnumHint",
+      "arguments": {
+        "typeName": "ResultKind",
+        "description": "Values specifying the category of the result.",
+        "zeroValue": "Unknown",
+        "enumValues": [
+          "Error",
+          "Warning",
+          "Pass",
+          "Note",
+          "NotApplicable",
+          "InternalError",
+          "ConfigurationError"
+        ]
+      }
     }
   ],
   "Tool.Properties": [
     {
-      "$type": "Microsoft.Json.Schema.ToDotNet.DictionaryHint, Microsoft.Json.Schema.ToDotNet"
+      "kind": "DictionaryHint"
     }
   ]
 }

@@ -10,7 +10,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// <summary>
     /// Interface exposed by objects that provide information about analysis rules.
     /// </summary>
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.14.0.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.15.0.0")]
     public interface IRule
     {
         /// <summary>
