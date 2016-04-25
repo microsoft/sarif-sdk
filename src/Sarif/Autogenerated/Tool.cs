@@ -12,7 +12,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// The analysis tool that was run.
     /// </summary>
     [DataContract]
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.15.0.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.16.0.0")]
     public partial class Tool : ISarifNode, IEquatable<Tool>
     {
         /// <summary>

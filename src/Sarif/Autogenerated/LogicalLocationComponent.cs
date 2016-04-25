@@ -11,7 +11,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// A component of a logical location.
     /// </summary>
     [DataContract]
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.15.0.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.16.0.0")]
     public partial class LogicalLocationComponent : ISarifNode, IEquatable<LogicalLocationComponent>
     {
         /// <summary>
