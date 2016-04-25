@@ -1,12 +1,12 @@
 {
-  "Rule.Options": [
+  "CodeFlow.Properties": [
     {
       "kind": "DictionaryHint"
     }
   ],
   "AnnotatedCodeLocation.Properties": [
     {
-      "kind": "DictionaryHint" 
+      "kind": "DictionaryHint"
     }
   ],
   "file": [
@@ -54,7 +54,7 @@
   ],
   "Run.Properties": [
     {
-      "kind": "DictionaryHint" 
+      "kind": "DictionaryHint"
     }
   ],
   "Run.Rules": [
@@ -85,7 +85,7 @@
   ],
   "Stack.Properties": [
     {
-      "kind": "DictionaryHint" 
+      "kind": "DictionaryHint"
     }
   ],
   "StackFrame.Properties": [

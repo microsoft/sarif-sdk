@@ -1163,24 +1163,26 @@
             }
           ],
           "codeFlows": [
-            [
-              {
-                "physicalLocation": {
-                  "uri": "zutil.c",
-                  "region": {
-                    "startLine": 309
+            {
+              "locations": [
+                {
+                  "physicalLocation": {
+                    "uri": "zutil.c",
+                    "region": {
+                      "startLine": 309
+                    }
+                  }
+                },
+                {
+                  "physicalLocation": {
+                    "uri": "zutil.c",
+                    "region": {
+                      "startLine": 309
+                    }
                   }
                 }
-              },
-              {
-                "physicalLocation": {
-                  "uri": "zutil.c",
-                  "region": {
-                    "startLine": 309
-                  }
-                }
-              }
-            ]
+              ]
+            }
           ],
           "properties": {
             "Severity": "style"
@@ -1728,24 +1730,26 @@
             }
           ],
           "codeFlows": [
-            [
-              {
-                "physicalLocation": {
-                  "uri": "contrib\\minizip\\miniunz.c",
-                  "region": {
-                    "startLine": 632
+            {
+              "locations": [
+                {
+                  "physicalLocation": {
+                    "uri": "contrib\\minizip\\miniunz.c",
+                    "region": {
+                      "startLine": 632
+                    }
+                  }
+                },
+                {
+                  "physicalLocation": {
+                    "uri": "contrib\\minizip\\miniunz.c",
+                    "region": {
+                      "startLine": 602
+                    }
                   }
                 }
-              },
-              {
-                "physicalLocation": {
-                  "uri": "contrib\\minizip\\miniunz.c",
-                  "region": {
-                    "startLine": 602
-                  }
-                }
-              }
-            ]
+              ]
+            }
           ],
           "properties": {
             "Severity": "warning"
@@ -1869,24 +1873,26 @@
             }
           ],
           "codeFlows": [
-            [
-              {
-                "physicalLocation": {
-                  "uri": "contrib\\minizip\\minizip.c",
-                  "region": {
-                    "startLine": 204
+            {
+              "locations": [
+                {
+                  "physicalLocation": {
+                    "uri": "contrib\\minizip\\minizip.c",
+                    "region": {
+                      "startLine": 204
+                    }
+                  }
+                },
+                {
+                  "physicalLocation": {
+                    "uri": "contrib\\minizip\\minizip.c",
+                    "region": {
+                      "startLine": 193
+                    }
                   }
                 }
-              },
-              {
-                "physicalLocation": {
-                  "uri": "contrib\\minizip\\minizip.c",
-                  "region": {
-                    "startLine": 193
-                  }
-                }
-              }
-            ]
+              ]
+            }
           ],
           "properties": {
             "Severity": "warning"
@@ -2098,24 +2104,26 @@
             }
           ],
           "codeFlows": [
-            [
-              {
-                "physicalLocation": {
-                  "uri": "contrib\\minizip\\unzip.c",
-                  "region": {
-                    "startLine": 1665
+            {
+              "locations": [
+                {
+                  "physicalLocation": {
+                    "uri": "contrib\\minizip\\unzip.c",
+                    "region": {
+                      "startLine": 1665
+                    }
+                  }
+                },
+                {
+                  "physicalLocation": {
+                    "uri": "contrib\\minizip\\unzip.c",
+                    "region": {
+                      "startLine": 1663
+                    }
                   }
                 }
-              },
-              {
-                "physicalLocation": {
-                  "uri": "contrib\\minizip\\unzip.c",
-                  "region": {
-                    "startLine": 1663
-                  }
-                }
-              }
-            ]
+              ]
+            }
           ],
           "properties": {
             "Severity": "warning"
@@ -2152,24 +2160,26 @@
             }
           ],
           "codeFlows": [
-            [
-              {
-                "physicalLocation": {
-                  "uri": "contrib\\minizip\\zip.c",
-                  "region": {
-                    "startLine": 1037
+            {
+              "locations": [
+                {
+                  "physicalLocation": {
+                    "uri": "contrib\\minizip\\zip.c",
+                    "region": {
+                      "startLine": 1037
+                    }
+                  }
+                },
+                {
+                  "physicalLocation": {
+                    "uri": "contrib\\minizip\\zip.c",
+                    "region": {
+                      "startLine": 1038
+                    }
                   }
                 }
-              },
-              {
-                "physicalLocation": {
-                  "uri": "contrib\\minizip\\zip.c",
-                  "region": {
-                    "startLine": 1038
-                  }
-                }
-              }
-            ]
+              ]
+            }
           ],
           "properties": {
             "Severity": "performance"
@@ -2189,24 +2199,26 @@
             }
           ],
           "codeFlows": [
-            [
-              {
-                "physicalLocation": {
-                  "uri": "contrib\\minizip\\zip.c",
-                  "region": {
-                    "startLine": 1038
+            {
+              "locations": [
+                {
+                  "physicalLocation": {
+                    "uri": "contrib\\minizip\\zip.c",
+                    "region": {
+                      "startLine": 1038
+                    }
+                  }
+                },
+                {
+                  "physicalLocation": {
+                    "uri": "contrib\\minizip\\zip.c",
+                    "region": {
+                      "startLine": 1040
+                    }
                   }
                 }
-              },
-              {
-                "physicalLocation": {
-                  "uri": "contrib\\minizip\\zip.c",
-                  "region": {
-                    "startLine": 1040
-                  }
-                }
-              }
-            ]
+              ]
+            }
           ],
           "properties": {
             "Severity": "performance"
@@ -2226,24 +2238,26 @@
             }
           ],
           "codeFlows": [
-            [
-              {
-                "physicalLocation": {
-                  "uri": "contrib\\minizip\\zip.c",
-                  "region": {
-                    "startLine": 1040
+            {
+              "locations": [
+                {
+                  "physicalLocation": {
+                    "uri": "contrib\\minizip\\zip.c",
+                    "region": {
+                      "startLine": 1040
+                    }
+                  }
+                },
+                {
+                  "physicalLocation": {
+                    "uri": "contrib\\minizip\\zip.c",
+                    "region": {
+                      "startLine": 1041
+                    }
                   }
                 }
-              },
-              {
-                "physicalLocation": {
-                  "uri": "contrib\\minizip\\zip.c",
-                  "region": {
-                    "startLine": 1041
-                  }
-                }
-              }
-            ]
+              ]
+            }
           ],
           "properties": {
             "Severity": "performance"
@@ -3032,24 +3046,26 @@
             }
           ],
           "codeFlows": [
-            [
-              {
-                "physicalLocation": {
-                  "uri": "examples\\gzappend.c",
-                  "region": {
-                    "startLine": 415
+            {
+              "locations": [
+                {
+                  "physicalLocation": {
+                    "uri": "examples\\gzappend.c",
+                    "region": {
+                      "startLine": 415
+                    }
+                  }
+                },
+                {
+                  "physicalLocation": {
+                    "uri": "examples\\gzappend.c",
+                    "region": {
+                      "startLine": 396
+                    }
                   }
                 }
-              },
-              {
-                "physicalLocation": {
-                  "uri": "examples\\gzappend.c",
-                  "region": {
-                    "startLine": 396
-                  }
-                }
-              }
-            ]
+              ]
+            }
           ],
           "properties": {
             "Severity": "warning"

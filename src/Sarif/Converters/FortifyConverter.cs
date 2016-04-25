@@ -143,12 +143,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             if (fortify.Source != null)
             {
                 PhysicalLocation source = ConvertFortifyLocationToPhysicalLocation(fortify.Source);
-                result.CodeFlows = new[]
+                result.CodeFlows = new HashSet<CodeFlow>
                 {
-                    new[]
+                    new CodeFlow
                     {
-                        new AnnotatedCodeLocation { PhysicalLocation = source },
-                        new AnnotatedCodeLocation { PhysicalLocation = primaryOrSink }
+                        Locations = new List<AnnotatedCodeLocation>
+                        {
+                            new AnnotatedCodeLocation { PhysicalLocation = source },
+                            new AnnotatedCodeLocation { PhysicalLocation = primaryOrSink }
+                        }
                     }
                 };
             }

@@ -51,9 +51,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
                 if (result.CodeFlows != null)
                 {
-                    foreach (IList<AnnotatedCodeLocation> codeFlow in result.CodeFlows)
+                    foreach (CodeFlow codeFlow in result.CodeFlows)
                     {
-                        foreach (AnnotatedCodeLocation codeLocation in codeFlow)
+                        foreach (AnnotatedCodeLocation codeLocation in codeFlow.Locations)
                         {
                             AddFile(codeLocation.PhysicalLocation);
                         }

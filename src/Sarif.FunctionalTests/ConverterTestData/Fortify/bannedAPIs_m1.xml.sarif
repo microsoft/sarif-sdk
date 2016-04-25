@@ -259,24 +259,26 @@
           ],
           "toolFingerprint": "369F89B3A439BA2AF8F1855325039376",
           "codeFlows": [
-            [
-              {
-                "physicalLocation": {
-                  "uri": "bannedAPIs.m",
-                  "region": {
-                    "startLine": 239
+            {
+              "locations": [
+                {
+                  "physicalLocation": {
+                    "uri": "bannedAPIs.m",
+                    "region": {
+                      "startLine": 239
+                    }
+                  }
+                },
+                {
+                  "physicalLocation": {
+                    "uri": "bannedAPIs.m",
+                    "region": {
+                      "startLine": 255
+                    }
                   }
                 }
-              },
-              {
-                "physicalLocation": {
-                  "uri": "bannedAPIs.m",
-                  "region": {
-                    "startLine": 255
-                  }
-                }
-              }
-            ]
+              ]
+            }
           ],
           "properties": {
             "kingdom": "Input Validation and Representation",
@@ -300,24 +302,26 @@
           ],
           "toolFingerprint": "079F0BA2AF3FD6DE8D3044AAA2EC0975",
           "codeFlows": [
-            [
-              {
-                "physicalLocation": {
-                  "uri": "bannedAPIs.m",
-                  "region": {
-                    "startLine": 134
+            {
+              "locations": [
+                {
+                  "physicalLocation": {
+                    "uri": "bannedAPIs.m",
+                    "region": {
+                      "startLine": 134
+                    }
+                  }
+                },
+                {
+                  "physicalLocation": {
+                    "uri": "bannedAPIs.m",
+                    "region": {
+                      "startLine": 200
+                    }
                   }
                 }
-              },
-              {
-                "physicalLocation": {
-                  "uri": "bannedAPIs.m",
-                  "region": {
-                    "startLine": 200
-                  }
-                }
-              }
-            ]
+              ]
+            }
           ],
           "properties": {
             "kingdom": "Input Validation and Representation",
@@ -341,24 +345,26 @@
           ],
           "toolFingerprint": "88A313BC2B1970AD9A72CDE6984F1D7D",
           "codeFlows": [
-            [
-              {
-                "physicalLocation": {
-                  "uri": "bannedAPIs.m",
-                  "region": {
-                    "startLine": 239
+            {
+              "locations": [
+                {
+                  "physicalLocation": {
+                    "uri": "bannedAPIs.m",
+                    "region": {
+                      "startLine": 239
+                    }
+                  }
+                },
+                {
+                  "physicalLocation": {
+                    "uri": "bannedAPIs.m",
+                    "region": {
+                      "startLine": 205
+                    }
                   }
                 }
-              },
-              {
-                "physicalLocation": {
-                  "uri": "bannedAPIs.m",
-                  "region": {
-                    "startLine": 205
-                  }
-                }
-              }
-            ]
+              ]
+            }
           ],
           "properties": {
             "kingdom": "Input Validation and Representation",
@@ -382,24 +388,26 @@
           ],
           "toolFingerprint": "B61201418FA0655BB2B63FA66FBE5DA2",
           "codeFlows": [
-            [
-              {
-                "physicalLocation": {
-                  "uri": "bannedAPIs.m",
-                  "region": {
-                    "startLine": 243
+            {
+              "locations": [
+                {
+                  "physicalLocation": {
+                    "uri": "bannedAPIs.m",
+                    "region": {
+                      "startLine": 243
+                    }
+                  }
+                },
+                {
+                  "physicalLocation": {
+                    "uri": "bannedAPIs.m",
+                    "region": {
+                      "startLine": 257
+                    }
                   }
                 }
-              },
-              {
-                "physicalLocation": {
-                  "uri": "bannedAPIs.m",
-                  "region": {
-                    "startLine": 257
-                  }
-                }
-              }
-            ]
+              ]
+            }
           ],
           "properties": {
             "kingdom": "Input Validation and Representation",
@@ -423,24 +431,26 @@
           ],
           "toolFingerprint": "3B1A3BF8E84286E49AE14B93537A3815",
           "codeFlows": [
-            [
-              {
-                "physicalLocation": {
-                  "uri": "bannedAPIs.m",
-                  "region": {
-                    "startLine": 239
+            {
+              "locations": [
+                {
+                  "physicalLocation": {
+                    "uri": "bannedAPIs.m",
+                    "region": {
+                      "startLine": 239
+                    }
+                  }
+                },
+                {
+                  "physicalLocation": {
+                    "uri": "bannedAPIs.m",
+                    "region": {
+                      "startLine": 204
+                    }
                   }
                 }
-              },
-              {
-                "physicalLocation": {
-                  "uri": "bannedAPIs.m",
-                  "region": {
-                    "startLine": 204
-                  }
-                }
-              }
-            ]
+              ]
+            }
           ],
           "properties": {
             "kingdom": "Input Validation and Representation",
@@ -464,24 +474,26 @@
           ],
           "toolFingerprint": "A0B07FC1302B5E5E37E0C8E0505C2F52",
           "codeFlows": [
-            [
-              {
-                "physicalLocation": {
-                  "uri": "bannedAPIs.m",
-                  "region": {
-                    "startLine": 134
+            {
+              "locations": [
+                {
+                  "physicalLocation": {
+                    "uri": "bannedAPIs.m",
+                    "region": {
+                      "startLine": 134
+                    }
+                  }
+                },
+                {
+                  "physicalLocation": {
+                    "uri": "bannedAPIs.m",
+                    "region": {
+                      "startLine": 205
+                    }
                   }
                 }
-              },
-              {
-                "physicalLocation": {
-                  "uri": "bannedAPIs.m",
-                  "region": {
-                    "startLine": 205
-                  }
-                }
-              }
-            ]
+              ]
+            }
           ],
           "properties": {
             "kingdom": "Input Validation and Representation",
@@ -505,24 +517,26 @@
           ],
           "toolFingerprint": "8D5D851CB3B5F07CF87266C1557F5356",
           "codeFlows": [
-            [
-              {
-                "physicalLocation": {
-                  "uri": "bannedAPIs.m",
-                  "region": {
-                    "startLine": 243
+            {
+              "locations": [
+                {
+                  "physicalLocation": {
+                    "uri": "bannedAPIs.m",
+                    "region": {
+                      "startLine": 243
+                    }
+                  }
+                },
+                {
+                  "physicalLocation": {
+                    "uri": "bannedAPIs.m",
+                    "region": {
+                      "startLine": 255
+                    }
                   }
                 }
-              },
-              {
-                "physicalLocation": {
-                  "uri": "bannedAPIs.m",
-                  "region": {
-                    "startLine": 255
-                  }
-                }
-              }
-            ]
+              ]
+            }
           ],
           "properties": {
             "kingdom": "Input Validation and Representation",
@@ -546,24 +560,26 @@
           ],
           "toolFingerprint": "236007A7E2324B82AAE44CC2CC25F4BA",
           "codeFlows": [
-            [
-              {
-                "physicalLocation": {
-                  "uri": "bannedAPIs.m",
-                  "region": {
-                    "startLine": 236
+            {
+              "locations": [
+                {
+                  "physicalLocation": {
+                    "uri": "bannedAPIs.m",
+                    "region": {
+                      "startLine": 236
+                    }
+                  }
+                },
+                {
+                  "physicalLocation": {
+                    "uri": "bannedAPIs.m",
+                    "region": {
+                      "startLine": 255
+                    }
                   }
                 }
-              },
-              {
-                "physicalLocation": {
-                  "uri": "bannedAPIs.m",
-                  "region": {
-                    "startLine": 255
-                  }
-                }
-              }
-            ]
+              ]
+            }
           ],
           "properties": {
             "kingdom": "Input Validation and Representation",
@@ -587,24 +603,26 @@
           ],
           "toolFingerprint": "349E661BC9DAB17F2B943A6FF0734FC1",
           "codeFlows": [
-            [
-              {
-                "physicalLocation": {
-                  "uri": "bannedAPIs.m",
-                  "region": {
-                    "startLine": 142
+            {
+              "locations": [
+                {
+                  "physicalLocation": {
+                    "uri": "bannedAPIs.m",
+                    "region": {
+                      "startLine": 142
+                    }
+                  }
+                },
+                {
+                  "physicalLocation": {
+                    "uri": "bannedAPIs.m",
+                    "region": {
+                      "startLine": 259
+                    }
                   }
                 }
-              },
-              {
-                "physicalLocation": {
-                  "uri": "bannedAPIs.m",
-                  "region": {
-                    "startLine": 259
-                  }
-                }
-              }
-            ]
+              ]
+            }
           ],
           "properties": {
             "kingdom": "Input Validation and Representation",
@@ -628,24 +646,26 @@
           ],
           "toolFingerprint": "4E16D65621351C2E580DB210E77F62CD",
           "codeFlows": [
-            [
-              {
-                "physicalLocation": {
-                  "uri": "bannedAPIs.m",
-                  "region": {
-                    "startLine": 236
+            {
+              "locations": [
+                {
+                  "physicalLocation": {
+                    "uri": "bannedAPIs.m",
+                    "region": {
+                      "startLine": 236
+                    }
+                  }
+                },
+                {
+                  "physicalLocation": {
+                    "uri": "bannedAPIs.m",
+                    "region": {
+                      "startLine": 204
+                    }
                   }
                 }
-              },
-              {
-                "physicalLocation": {
-                  "uri": "bannedAPIs.m",
-                  "region": {
-                    "startLine": 204
-                  }
-                }
-              }
-            ]
+              ]
+            }
           ],
           "properties": {
             "kingdom": "Input Validation and Representation",
@@ -669,24 +689,26 @@
           ],
           "toolFingerprint": "36D0CE5DFDCF68A4211DD991DF297401",
           "codeFlows": [
-            [
-              {
-                "physicalLocation": {
-                  "uri": "bannedAPIs.m",
-                  "region": {
-                    "startLine": 237
+            {
+              "locations": [
+                {
+                  "physicalLocation": {
+                    "uri": "bannedAPIs.m",
+                    "region": {
+                      "startLine": 237
+                    }
+                  }
+                },
+                {
+                  "physicalLocation": {
+                    "uri": "bannedAPIs.m",
+                    "region": {
+                      "startLine": 199
+                    }
                   }
                 }
-              },
-              {
-                "physicalLocation": {
-                  "uri": "bannedAPIs.m",
-                  "region": {
-                    "startLine": 199
-                  }
-                }
-              }
-            ]
+              ]
+            }
           ],
           "properties": {
             "kingdom": "Input Validation and Representation",
@@ -710,24 +732,26 @@
           ],
           "toolFingerprint": "82731CC5FB8AC8C7982CF7CEC49EE3A2",
           "codeFlows": [
-            [
-              {
-                "physicalLocation": {
-                  "uri": "bannedAPIs.m",
-                  "region": {
-                    "startLine": 236
+            {
+              "locations": [
+                {
+                  "physicalLocation": {
+                    "uri": "bannedAPIs.m",
+                    "region": {
+                      "startLine": 236
+                    }
+                  }
+                },
+                {
+                  "physicalLocation": {
+                    "uri": "bannedAPIs.m",
+                    "region": {
+                      "startLine": 225
+                    }
                   }
                 }
-              },
-              {
-                "physicalLocation": {
-                  "uri": "bannedAPIs.m",
-                  "region": {
-                    "startLine": 225
-                  }
-                }
-              }
-            ]
+              ]
+            }
           ],
           "properties": {
             "kingdom": "Input Validation and Representation",
@@ -751,24 +775,26 @@
           ],
           "toolFingerprint": "1467EABFD44A49CF856C06F03477ACA8",
           "codeFlows": [
-            [
-              {
-                "physicalLocation": {
-                  "uri": "bannedAPIs.m",
-                  "region": {
-                    "startLine": 239
+            {
+              "locations": [
+                {
+                  "physicalLocation": {
+                    "uri": "bannedAPIs.m",
+                    "region": {
+                      "startLine": 239
+                    }
+                  }
+                },
+                {
+                  "physicalLocation": {
+                    "uri": "bannedAPIs.m",
+                    "region": {
+                      "startLine": 259
+                    }
                   }
                 }
-              },
-              {
-                "physicalLocation": {
-                  "uri": "bannedAPIs.m",
-                  "region": {
-                    "startLine": 259
-                  }
-                }
-              }
-            ]
+              ]
+            }
           ],
           "properties": {
             "kingdom": "Input Validation and Representation",
@@ -792,24 +818,26 @@
           ],
           "toolFingerprint": "B55FE3672FC2A0E466693855B5FE0815",
           "codeFlows": [
-            [
-              {
-                "physicalLocation": {
-                  "uri": "bannedAPIs.m",
-                  "region": {
-                    "startLine": 243
+            {
+              "locations": [
+                {
+                  "physicalLocation": {
+                    "uri": "bannedAPIs.m",
+                    "region": {
+                      "startLine": 243
+                    }
+                  }
+                },
+                {
+                  "physicalLocation": {
+                    "uri": "bannedAPIs.m",
+                    "region": {
+                      "startLine": 259
+                    }
                   }
                 }
-              },
-              {
-                "physicalLocation": {
-                  "uri": "bannedAPIs.m",
-                  "region": {
-                    "startLine": 259
-                  }
-                }
-              }
-            ]
+              ]
+            }
           ],
           "properties": {
             "kingdom": "Input Validation and Representation",
@@ -833,24 +861,26 @@
           ],
           "toolFingerprint": "EDDF4F65D3BED2F29F48521FCCB64F0A",
           "codeFlows": [
-            [
-              {
-                "physicalLocation": {
-                  "uri": "bannedAPIs.m",
-                  "region": {
-                    "startLine": 236
+            {
+              "locations": [
+                {
+                  "physicalLocation": {
+                    "uri": "bannedAPIs.m",
+                    "region": {
+                      "startLine": 236
+                    }
+                  }
+                },
+                {
+                  "physicalLocation": {
+                    "uri": "bannedAPIs.m",
+                    "region": {
+                      "startLine": 199
+                    }
                   }
                 }
-              },
-              {
-                "physicalLocation": {
-                  "uri": "bannedAPIs.m",
-                  "region": {
-                    "startLine": 199
-                  }
-                }
-              }
-            ]
+              ]
+            }
           ],
           "properties": {
             "kingdom": "Input Validation and Representation",
@@ -874,24 +904,26 @@
           ],
           "toolFingerprint": "3D0258A36CF9480EE83ED0FF720CE317",
           "codeFlows": [
-            [
-              {
-                "physicalLocation": {
-                  "uri": "bannedAPIs.m",
-                  "region": {
-                    "startLine": 237
+            {
+              "locations": [
+                {
+                  "physicalLocation": {
+                    "uri": "bannedAPIs.m",
+                    "region": {
+                      "startLine": 237
+                    }
+                  }
+                },
+                {
+                  "physicalLocation": {
+                    "uri": "bannedAPIs.m",
+                    "region": {
+                      "startLine": 204
+                    }
                   }
                 }
-              },
-              {
-                "physicalLocation": {
-                  "uri": "bannedAPIs.m",
-                  "region": {
-                    "startLine": 204
-                  }
-                }
-              }
-            ]
+              ]
+            }
           ],
           "properties": {
             "kingdom": "Input Validation and Representation",
@@ -915,24 +947,26 @@
           ],
           "toolFingerprint": "AB102E292739E6A26083D04E771F90C2",
           "codeFlows": [
-            [
-              {
-                "physicalLocation": {
-                  "uri": "bannedAPIs.m",
-                  "region": {
-                    "startLine": 237
+            {
+              "locations": [
+                {
+                  "physicalLocation": {
+                    "uri": "bannedAPIs.m",
+                    "region": {
+                      "startLine": 237
+                    }
+                  }
+                },
+                {
+                  "physicalLocation": {
+                    "uri": "bannedAPIs.m",
+                    "region": {
+                      "startLine": 257
+                    }
                   }
                 }
-              },
-              {
-                "physicalLocation": {
-                  "uri": "bannedAPIs.m",
-                  "region": {
-                    "startLine": 257
-                  }
-                }
-              }
-            ]
+              ]
+            }
           ],
           "properties": {
             "kingdom": "Input Validation and Representation",
@@ -956,24 +990,26 @@
           ],
           "toolFingerprint": "F4EAD2528E3175B5202ADCFFED7C1FA1",
           "codeFlows": [
-            [
-              {
-                "physicalLocation": {
-                  "uri": "bannedAPIs.m",
-                  "region": {
-                    "startLine": 142
+            {
+              "locations": [
+                {
+                  "physicalLocation": {
+                    "uri": "bannedAPIs.m",
+                    "region": {
+                      "startLine": 142
+                    }
+                  }
+                },
+                {
+                  "physicalLocation": {
+                    "uri": "bannedAPIs.m",
+                    "region": {
+                      "startLine": 225
+                    }
                   }
                 }
-              },
-              {
-                "physicalLocation": {
-                  "uri": "bannedAPIs.m",
-                  "region": {
-                    "startLine": 225
-                  }
-                }
-              }
-            ]
+              ]
+            }
           ],
           "properties": {
             "kingdom": "Input Validation and Representation",
@@ -997,24 +1033,26 @@
           ],
           "toolFingerprint": "7925DB4016AE4B1174FC0EC71869F815",
           "codeFlows": [
-            [
-              {
-                "physicalLocation": {
-                  "uri": "bannedAPIs.m",
-                  "region": {
-                    "startLine": 243
+            {
+              "locations": [
+                {
+                  "physicalLocation": {
+                    "uri": "bannedAPIs.m",
+                    "region": {
+                      "startLine": 243
+                    }
+                  }
+                },
+                {
+                  "physicalLocation": {
+                    "uri": "bannedAPIs.m",
+                    "region": {
+                      "startLine": 199
+                    }
                   }
                 }
-              },
-              {
-                "physicalLocation": {
-                  "uri": "bannedAPIs.m",
-                  "region": {
-                    "startLine": 199
-                  }
-                }
-              }
-            ]
+              ]
+            }
           ],
           "properties": {
             "kingdom": "Input Validation and Representation",
@@ -1038,24 +1076,26 @@
           ],
           "toolFingerprint": "E37E8EFAFB4F6703FEF354C1D3957A31",
           "codeFlows": [
-            [
-              {
-                "physicalLocation": {
-                  "uri": "bannedAPIs.m",
-                  "region": {
-                    "startLine": 237
+            {
+              "locations": [
+                {
+                  "physicalLocation": {
+                    "uri": "bannedAPIs.m",
+                    "region": {
+                      "startLine": 237
+                    }
+                  }
+                },
+                {
+                  "physicalLocation": {
+                    "uri": "bannedAPIs.m",
+                    "region": {
+                      "startLine": 205
+                    }
                   }
                 }
-              },
-              {
-                "physicalLocation": {
-                  "uri": "bannedAPIs.m",
-                  "region": {
-                    "startLine": 205
-                  }
-                }
-              }
-            ]
+              ]
+            }
           ],
           "properties": {
             "kingdom": "Input Validation and Representation",
@@ -1079,24 +1119,26 @@
           ],
           "toolFingerprint": "E538381D55AF9DF1C2B83DEB26C17057",
           "codeFlows": [
-            [
-              {
-                "physicalLocation": {
-                  "uri": "bannedAPIs.m",
-                  "region": {
-                    "startLine": 237
+            {
+              "locations": [
+                {
+                  "physicalLocation": {
+                    "uri": "bannedAPIs.m",
+                    "region": {
+                      "startLine": 237
+                    }
+                  }
+                },
+                {
+                  "physicalLocation": {
+                    "uri": "bannedAPIs.m",
+                    "region": {
+                      "startLine": 259
+                    }
                   }
                 }
-              },
-              {
-                "physicalLocation": {
-                  "uri": "bannedAPIs.m",
-                  "region": {
-                    "startLine": 259
-                  }
-                }
-              }
-            ]
+              ]
+            }
           ],
           "properties": {
             "kingdom": "Input Validation and Representation",
@@ -1120,24 +1162,26 @@
           ],
           "toolFingerprint": "F6D5C779C9BAA9FA70BB308389F9FB1F",
           "codeFlows": [
-            [
-              {
-                "physicalLocation": {
-                  "uri": "bannedAPIs.m",
-                  "region": {
-                    "startLine": 238
+            {
+              "locations": [
+                {
+                  "physicalLocation": {
+                    "uri": "bannedAPIs.m",
+                    "region": {
+                      "startLine": 238
+                    }
+                  }
+                },
+                {
+                  "physicalLocation": {
+                    "uri": "bannedAPIs.m",
+                    "region": {
+                      "startLine": 205
+                    }
                   }
                 }
-              },
-              {
-                "physicalLocation": {
-                  "uri": "bannedAPIs.m",
-                  "region": {
-                    "startLine": 205
-                  }
-                }
-              }
-            ]
+              ]
+            }
           ],
           "properties": {
             "kingdom": "Input Validation and Representation",
@@ -1161,24 +1205,26 @@
           ],
           "toolFingerprint": "904355449876787C23BBEFFCC3652FD8",
           "codeFlows": [
-            [
-              {
-                "physicalLocation": {
-                  "uri": "bannedAPIs.m",
-                  "region": {
-                    "startLine": 238
+            {
+              "locations": [
+                {
+                  "physicalLocation": {
+                    "uri": "bannedAPIs.m",
+                    "region": {
+                      "startLine": 238
+                    }
+                  }
+                },
+                {
+                  "physicalLocation": {
+                    "uri": "bannedAPIs.m",
+                    "region": {
+                      "startLine": 255
+                    }
                   }
                 }
-              },
-              {
-                "physicalLocation": {
-                  "uri": "bannedAPIs.m",
-                  "region": {
-                    "startLine": 255
-                  }
-                }
-              }
-            ]
+              ]
+            }
           ],
           "properties": {
             "kingdom": "Input Validation and Representation",
@@ -1202,24 +1248,26 @@
           ],
           "toolFingerprint": "E22B697F1D4A2D0FF91C3F01B3226781",
           "codeFlows": [
-            [
-              {
-                "physicalLocation": {
-                  "uri": "bannedAPIs.m",
-                  "region": {
-                    "startLine": 239
+            {
+              "locations": [
+                {
+                  "physicalLocation": {
+                    "uri": "bannedAPIs.m",
+                    "region": {
+                      "startLine": 239
+                    }
+                  }
+                },
+                {
+                  "physicalLocation": {
+                    "uri": "bannedAPIs.m",
+                    "region": {
+                      "startLine": 259
+                    }
                   }
                 }
-              },
-              {
-                "physicalLocation": {
-                  "uri": "bannedAPIs.m",
-                  "region": {
-                    "startLine": 259
-                  }
-                }
-              }
-            ]
+              ]
+            }
           ],
           "properties": {
             "kingdom": "Input Validation and Representation",
@@ -1243,24 +1291,26 @@
           ],
           "toolFingerprint": "2C723B1BE13419DE1EE73755B963A151",
           "codeFlows": [
-            [
-              {
-                "physicalLocation": {
-                  "uri": "bannedAPIs.m",
-                  "region": {
-                    "startLine": 238
+            {
+              "locations": [
+                {
+                  "physicalLocation": {
+                    "uri": "bannedAPIs.m",
+                    "region": {
+                      "startLine": 238
+                    }
+                  }
+                },
+                {
+                  "physicalLocation": {
+                    "uri": "bannedAPIs.m",
+                    "region": {
+                      "startLine": 259
+                    }
                   }
                 }
-              },
-              {
-                "physicalLocation": {
-                  "uri": "bannedAPIs.m",
-                  "region": {
-                    "startLine": 259
-                  }
-                }
-              }
-            ]
+              ]
+            }
           ],
           "properties": {
             "kingdom": "Input Validation and Representation",
@@ -1284,24 +1334,26 @@
           ],
           "toolFingerprint": "59DDA3BCFAC68E8CE5F87A3410D1E4C4",
           "codeFlows": [
-            [
-              {
-                "physicalLocation": {
-                  "uri": "bannedAPIs.m",
-                  "region": {
-                    "startLine": 134
+            {
+              "locations": [
+                {
+                  "physicalLocation": {
+                    "uri": "bannedAPIs.m",
+                    "region": {
+                      "startLine": 134
+                    }
+                  }
+                },
+                {
+                  "physicalLocation": {
+                    "uri": "bannedAPIs.m",
+                    "region": {
+                      "startLine": 199
+                    }
                   }
                 }
-              },
-              {
-                "physicalLocation": {
-                  "uri": "bannedAPIs.m",
-                  "region": {
-                    "startLine": 199
-                  }
-                }
-              }
-            ]
+              ]
+            }
           ],
           "properties": {
             "kingdom": "Input Validation and Representation",
@@ -1325,24 +1377,26 @@
           ],
           "toolFingerprint": "6D6B130BB95150D28C0EA0989F13B76C",
           "codeFlows": [
-            [
-              {
-                "physicalLocation": {
-                  "uri": "bannedAPIs.m",
-                  "region": {
-                    "startLine": 239
+            {
+              "locations": [
+                {
+                  "physicalLocation": {
+                    "uri": "bannedAPIs.m",
+                    "region": {
+                      "startLine": 239
+                    }
+                  }
+                },
+                {
+                  "physicalLocation": {
+                    "uri": "bannedAPIs.m",
+                    "region": {
+                      "startLine": 200
+                    }
                   }
                 }
-              },
-              {
-                "physicalLocation": {
-                  "uri": "bannedAPIs.m",
-                  "region": {
-                    "startLine": 200
-                  }
-                }
-              }
-            ]
+              ]
+            }
           ],
           "properties": {
             "kingdom": "Input Validation and Representation",
@@ -1366,24 +1420,26 @@
           ],
           "toolFingerprint": "52C8C29C09C50723F93C057876945289",
           "codeFlows": [
-            [
-              {
-                "physicalLocation": {
-                  "uri": "bannedAPIs.m",
-                  "region": {
-                    "startLine": 134
+            {
+              "locations": [
+                {
+                  "physicalLocation": {
+                    "uri": "bannedAPIs.m",
+                    "region": {
+                      "startLine": 134
+                    }
+                  }
+                },
+                {
+                  "physicalLocation": {
+                    "uri": "bannedAPIs.m",
+                    "region": {
+                      "startLine": 204
+                    }
                   }
                 }
-              },
-              {
-                "physicalLocation": {
-                  "uri": "bannedAPIs.m",
-                  "region": {
-                    "startLine": 204
-                  }
-                }
-              }
-            ]
+              ]
+            }
           ],
           "properties": {
             "kingdom": "Input Validation and Representation",
@@ -1407,24 +1463,26 @@
           ],
           "toolFingerprint": "E64D9B15CDE12302F1E0BC7E4F81CC8D",
           "codeFlows": [
-            [
-              {
-                "physicalLocation": {
-                  "uri": "bannedAPIs.m",
-                  "region": {
-                    "startLine": 237
+            {
+              "locations": [
+                {
+                  "physicalLocation": {
+                    "uri": "bannedAPIs.m",
+                    "region": {
+                      "startLine": 237
+                    }
+                  }
+                },
+                {
+                  "physicalLocation": {
+                    "uri": "bannedAPIs.m",
+                    "region": {
+                      "startLine": 255
+                    }
                   }
                 }
-              },
-              {
-                "physicalLocation": {
-                  "uri": "bannedAPIs.m",
-                  "region": {
-                    "startLine": 255
-                  }
-                }
-              }
-            ]
+              ]
+            }
           ],
           "properties": {
             "kingdom": "Input Validation and Representation",
@@ -1448,24 +1506,26 @@
           ],
           "toolFingerprint": "9571D01CEF126F0AC62DECA8C9948D51",
           "codeFlows": [
-            [
-              {
-                "physicalLocation": {
-                  "uri": "bannedAPIs.m",
-                  "region": {
-                    "startLine": 243
+            {
+              "locations": [
+                {
+                  "physicalLocation": {
+                    "uri": "bannedAPIs.m",
+                    "region": {
+                      "startLine": 243
+                    }
+                  }
+                },
+                {
+                  "physicalLocation": {
+                    "uri": "bannedAPIs.m",
+                    "region": {
+                      "startLine": 200
+                    }
                   }
                 }
-              },
-              {
-                "physicalLocation": {
-                  "uri": "bannedAPIs.m",
-                  "region": {
-                    "startLine": 200
-                  }
-                }
-              }
-            ]
+              ]
+            }
           ],
           "properties": {
             "kingdom": "Input Validation and Representation",
@@ -1489,24 +1549,26 @@
           ],
           "toolFingerprint": "8D675A9184E5EE999DA1230CFCA31FF1",
           "codeFlows": [
-            [
-              {
-                "physicalLocation": {
-                  "uri": "bannedAPIs.m",
-                  "region": {
-                    "startLine": 134
+            {
+              "locations": [
+                {
+                  "physicalLocation": {
+                    "uri": "bannedAPIs.m",
+                    "region": {
+                      "startLine": 134
+                    }
+                  }
+                },
+                {
+                  "physicalLocation": {
+                    "uri": "bannedAPIs.m",
+                    "region": {
+                      "startLine": 257
+                    }
                   }
                 }
-              },
-              {
-                "physicalLocation": {
-                  "uri": "bannedAPIs.m",
-                  "region": {
-                    "startLine": 257
-                  }
-                }
-              }
-            ]
+              ]
+            }
           ],
           "properties": {
             "kingdom": "Input Validation and Representation",
@@ -1530,24 +1592,26 @@
           ],
           "toolFingerprint": "9A97F79B12F672BB124D767DA1A39A50",
           "codeFlows": [
-            [
-              {
-                "physicalLocation": {
-                  "uri": "bannedAPIs.m",
-                  "region": {
-                    "startLine": 239
+            {
+              "locations": [
+                {
+                  "physicalLocation": {
+                    "uri": "bannedAPIs.m",
+                    "region": {
+                      "startLine": 239
+                    }
+                  }
+                },
+                {
+                  "physicalLocation": {
+                    "uri": "bannedAPIs.m",
+                    "region": {
+                      "startLine": 257
+                    }
                   }
                 }
-              },
-              {
-                "physicalLocation": {
-                  "uri": "bannedAPIs.m",
-                  "region": {
-                    "startLine": 257
-                  }
-                }
-              }
-            ]
+              ]
+            }
           ],
           "properties": {
             "kingdom": "Input Validation and Representation",
@@ -1571,24 +1635,26 @@
           ],
           "toolFingerprint": "EF88307D8F6E4FEC828F7D03963E8CCB",
           "codeFlows": [
-            [
-              {
-                "physicalLocation": {
-                  "uri": "bannedAPIs.m",
-                  "region": {
-                    "startLine": 237
+            {
+              "locations": [
+                {
+                  "physicalLocation": {
+                    "uri": "bannedAPIs.m",
+                    "region": {
+                      "startLine": 237
+                    }
+                  }
+                },
+                {
+                  "physicalLocation": {
+                    "uri": "bannedAPIs.m",
+                    "region": {
+                      "startLine": 257
+                    }
                   }
                 }
-              },
-              {
-                "physicalLocation": {
-                  "uri": "bannedAPIs.m",
-                  "region": {
-                    "startLine": 257
-                  }
-                }
-              }
-            ]
+              ]
+            }
           ],
           "properties": {
             "kingdom": "Input Validation and Representation",
@@ -1612,24 +1678,26 @@
           ],
           "toolFingerprint": "F943FA9002D0649DE86DD64585CABCF6",
           "codeFlows": [
-            [
-              {
-                "physicalLocation": {
-                  "uri": "bannedAPIs.m",
-                  "region": {
-                    "startLine": 236
+            {
+              "locations": [
+                {
+                  "physicalLocation": {
+                    "uri": "bannedAPIs.m",
+                    "region": {
+                      "startLine": 236
+                    }
+                  }
+                },
+                {
+                  "physicalLocation": {
+                    "uri": "bannedAPIs.m",
+                    "region": {
+                      "startLine": 255
+                    }
                   }
                 }
-              },
-              {
-                "physicalLocation": {
-                  "uri": "bannedAPIs.m",
-                  "region": {
-                    "startLine": 255
-                  }
-                }
-              }
-            ]
+              ]
+            }
           ],
           "properties": {
             "kingdom": "Input Validation and Representation",
@@ -1653,24 +1721,26 @@
           ],
           "toolFingerprint": "0AED1B3043F4DD47AE27EF691675B9FF",
           "codeFlows": [
-            [
-              {
-                "physicalLocation": {
-                  "uri": "bannedAPIs.m",
-                  "region": {
-                    "startLine": 237
+            {
+              "locations": [
+                {
+                  "physicalLocation": {
+                    "uri": "bannedAPIs.m",
+                    "region": {
+                      "startLine": 237
+                    }
+                  }
+                },
+                {
+                  "physicalLocation": {
+                    "uri": "bannedAPIs.m",
+                    "region": {
+                      "startLine": 223
+                    }
                   }
                 }
-              },
-              {
-                "physicalLocation": {
-                  "uri": "bannedAPIs.m",
-                  "region": {
-                    "startLine": 223
-                  }
-                }
-              }
-            ]
+              ]
+            }
           ],
           "properties": {
             "kingdom": "Input Validation and Representation",
@@ -1694,24 +1764,26 @@
           ],
           "toolFingerprint": "40AA064CA5E749DAD9888A9590EB96CD",
           "codeFlows": [
-            [
-              {
-                "physicalLocation": {
-                  "uri": "bannedAPIs.m",
-                  "region": {
-                    "startLine": 238
+            {
+              "locations": [
+                {
+                  "physicalLocation": {
+                    "uri": "bannedAPIs.m",
+                    "region": {
+                      "startLine": 238
+                    }
+                  }
+                },
+                {
+                  "physicalLocation": {
+                    "uri": "bannedAPIs.m",
+                    "region": {
+                      "startLine": 257
+                    }
                   }
                 }
-              },
-              {
-                "physicalLocation": {
-                  "uri": "bannedAPIs.m",
-                  "region": {
-                    "startLine": 257
-                  }
-                }
-              }
-            ]
+              ]
+            }
           ],
           "properties": {
             "kingdom": "Input Validation and Representation",
@@ -1735,24 +1807,26 @@
           ],
           "toolFingerprint": "F4EAD2528E3175B5202ADCFFED7C1FA0",
           "codeFlows": [
-            [
-              {
-                "physicalLocation": {
-                  "uri": "bannedAPIs.m",
-                  "region": {
-                    "startLine": 134
+            {
+              "locations": [
+                {
+                  "physicalLocation": {
+                    "uri": "bannedAPIs.m",
+                    "region": {
+                      "startLine": 134
+                    }
+                  }
+                },
+                {
+                  "physicalLocation": {
+                    "uri": "bannedAPIs.m",
+                    "region": {
+                      "startLine": 225
+                    }
                   }
                 }
-              },
-              {
-                "physicalLocation": {
-                  "uri": "bannedAPIs.m",
-                  "region": {
-                    "startLine": 225
-                  }
-                }
-              }
-            ]
+              ]
+            }
           ],
           "properties": {
             "kingdom": "Input Validation and Representation",
@@ -1776,24 +1850,26 @@
           ],
           "toolFingerprint": "EDAE315A9552940016EF8C009A0CD659",
           "codeFlows": [
-            [
-              {
-                "physicalLocation": {
-                  "uri": "bannedAPIs.m",
-                  "region": {
-                    "startLine": 236
+            {
+              "locations": [
+                {
+                  "physicalLocation": {
+                    "uri": "bannedAPIs.m",
+                    "region": {
+                      "startLine": 236
+                    }
+                  }
+                },
+                {
+                  "physicalLocation": {
+                    "uri": "bannedAPIs.m",
+                    "region": {
+                      "startLine": 199
+                    }
                   }
                 }
-              },
-              {
-                "physicalLocation": {
-                  "uri": "bannedAPIs.m",
-                  "region": {
-                    "startLine": 199
-                  }
-                }
-              }
-            ]
+              ]
+            }
           ],
           "properties": {
             "kingdom": "Input Validation and Representation",
@@ -1817,24 +1893,26 @@
           ],
           "toolFingerprint": "9660AD8BC1959880FD17723FA06BCCBC",
           "codeFlows": [
-            [
-              {
-                "physicalLocation": {
-                  "uri": "bannedAPIs.m",
-                  "region": {
-                    "startLine": 236
+            {
+              "locations": [
+                {
+                  "physicalLocation": {
+                    "uri": "bannedAPIs.m",
+                    "region": {
+                      "startLine": 236
+                    }
+                  }
+                },
+                {
+                  "physicalLocation": {
+                    "uri": "bannedAPIs.m",
+                    "region": {
+                      "startLine": 200
+                    }
                   }
                 }
-              },
-              {
-                "physicalLocation": {
-                  "uri": "bannedAPIs.m",
-                  "region": {
-                    "startLine": 200
-                  }
-                }
-              }
-            ]
+              ]
+            }
           ],
           "properties": {
             "kingdom": "Input Validation and Representation",
@@ -1858,24 +1936,26 @@
           ],
           "toolFingerprint": "8D675A9184E5EE999DA1230CFCA31FF2",
           "codeFlows": [
-            [
-              {
-                "physicalLocation": {
-                  "uri": "bannedAPIs.m",
-                  "region": {
-                    "startLine": 142
+            {
+              "locations": [
+                {
+                  "physicalLocation": {
+                    "uri": "bannedAPIs.m",
+                    "region": {
+                      "startLine": 142
+                    }
+                  }
+                },
+                {
+                  "physicalLocation": {
+                    "uri": "bannedAPIs.m",
+                    "region": {
+                      "startLine": 257
+                    }
                   }
                 }
-              },
-              {
-                "physicalLocation": {
-                  "uri": "bannedAPIs.m",
-                  "region": {
-                    "startLine": 257
-                  }
-                }
-              }
-            ]
+              ]
+            }
           ],
           "properties": {
             "kingdom": "Input Validation and Representation",
@@ -1899,24 +1979,26 @@
           ],
           "toolFingerprint": "F221C74F42779C7186A4B108AD32C9A9",
           "codeFlows": [
-            [
-              {
-                "physicalLocation": {
-                  "uri": "bannedAPIs.m",
-                  "region": {
-                    "startLine": 238
+            {
+              "locations": [
+                {
+                  "physicalLocation": {
+                    "uri": "bannedAPIs.m",
+                    "region": {
+                      "startLine": 238
+                    }
+                  }
+                },
+                {
+                  "physicalLocation": {
+                    "uri": "bannedAPIs.m",
+                    "region": {
+                      "startLine": 199
+                    }
                   }
                 }
-              },
-              {
-                "physicalLocation": {
-                  "uri": "bannedAPIs.m",
-                  "region": {
-                    "startLine": 199
-                  }
-                }
-              }
-            ]
+              ]
+            }
           ],
           "properties": {
             "kingdom": "Input Validation and Representation",
@@ -1940,24 +2022,26 @@
           ],
           "toolFingerprint": "A33A049936ACEF1BBBE88CCA4297473B",
           "codeFlows": [
-            [
-              {
-                "physicalLocation": {
-                  "uri": "bannedAPIs.m",
-                  "region": {
-                    "startLine": 236
+            {
+              "locations": [
+                {
+                  "physicalLocation": {
+                    "uri": "bannedAPIs.m",
+                    "region": {
+                      "startLine": 236
+                    }
+                  }
+                },
+                {
+                  "physicalLocation": {
+                    "uri": "bannedAPIs.m",
+                    "region": {
+                      "startLine": 259
+                    }
                   }
                 }
-              },
-              {
-                "physicalLocation": {
-                  "uri": "bannedAPIs.m",
-                  "region": {
-                    "startLine": 259
-                  }
-                }
-              }
-            ]
+              ]
+            }
           ],
           "properties": {
             "kingdom": "Input Validation and Representation",
@@ -1981,24 +2065,26 @@
           ],
           "toolFingerprint": "47510283C86CAE3258A4116864B27A62",
           "codeFlows": [
-            [
-              {
-                "physicalLocation": {
-                  "uri": "bannedAPIs.m",
-                  "region": {
-                    "startLine": 142
+            {
+              "locations": [
+                {
+                  "physicalLocation": {
+                    "uri": "bannedAPIs.m",
+                    "region": {
+                      "startLine": 142
+                    }
+                  }
+                },
+                {
+                  "physicalLocation": {
+                    "uri": "bannedAPIs.m",
+                    "region": {
+                      "startLine": 255
+                    }
                   }
                 }
-              },
-              {
-                "physicalLocation": {
-                  "uri": "bannedAPIs.m",
-                  "region": {
-                    "startLine": 255
-                  }
-                }
-              }
-            ]
+              ]
+            }
           ],
           "properties": {
             "kingdom": "Input Validation and Representation",
@@ -2022,24 +2108,26 @@
           ],
           "toolFingerprint": "2006F3F3FB10F19706D5D7D6013DD9A2",
           "codeFlows": [
-            [
-              {
-                "physicalLocation": {
-                  "uri": "bannedAPIs.m",
-                  "region": {
-                    "startLine": 239
+            {
+              "locations": [
+                {
+                  "physicalLocation": {
+                    "uri": "bannedAPIs.m",
+                    "region": {
+                      "startLine": 239
+                    }
+                  }
+                },
+                {
+                  "physicalLocation": {
+                    "uri": "bannedAPIs.m",
+                    "region": {
+                      "startLine": 257
+                    }
                   }
                 }
-              },
-              {
-                "physicalLocation": {
-                  "uri": "bannedAPIs.m",
-                  "region": {
-                    "startLine": 257
-                  }
-                }
-              }
-            ]
+              ]
+            }
           ],
           "properties": {
             "kingdom": "Input Validation and Representation",
@@ -2063,24 +2151,26 @@
           ],
           "toolFingerprint": "7C71422FF16A25931644F5B63BE22B79",
           "codeFlows": [
-            [
-              {
-                "physicalLocation": {
-                  "uri": "bannedAPIs.m",
-                  "region": {
-                    "startLine": 236
+            {
+              "locations": [
+                {
+                  "physicalLocation": {
+                    "uri": "bannedAPIs.m",
+                    "region": {
+                      "startLine": 236
+                    }
+                  }
+                },
+                {
+                  "physicalLocation": {
+                    "uri": "bannedAPIs.m",
+                    "region": {
+                      "startLine": 205
+                    }
                   }
                 }
-              },
-              {
-                "physicalLocation": {
-                  "uri": "bannedAPIs.m",
-                  "region": {
-                    "startLine": 205
-                  }
-                }
-              }
-            ]
+              ]
+            }
           ],
           "properties": {
             "kingdom": "Input Validation and Representation",
@@ -2104,24 +2194,26 @@
           ],
           "toolFingerprint": "079F0BA2AF3FD6DE8D3044AAA2EC0976",
           "codeFlows": [
-            [
-              {
-                "physicalLocation": {
-                  "uri": "bannedAPIs.m",
-                  "region": {
-                    "startLine": 142
+            {
+              "locations": [
+                {
+                  "physicalLocation": {
+                    "uri": "bannedAPIs.m",
+                    "region": {
+                      "startLine": 142
+                    }
+                  }
+                },
+                {
+                  "physicalLocation": {
+                    "uri": "bannedAPIs.m",
+                    "region": {
+                      "startLine": 200
+                    }
                   }
                 }
-              },
-              {
-                "physicalLocation": {
-                  "uri": "bannedAPIs.m",
-                  "region": {
-                    "startLine": 200
-                  }
-                }
-              }
-            ]
+              ]
+            }
           ],
           "properties": {
             "kingdom": "Input Validation and Representation",
@@ -2145,24 +2237,26 @@
           ],
           "toolFingerprint": "E2F4654ECCD989CC6542178BAF661260",
           "codeFlows": [
-            [
-              {
-                "physicalLocation": {
-                  "uri": "bannedAPIs.m",
-                  "region": {
-                    "startLine": 239
+            {
+              "locations": [
+                {
+                  "physicalLocation": {
+                    "uri": "bannedAPIs.m",
+                    "region": {
+                      "startLine": 239
+                    }
+                  }
+                },
+                {
+                  "physicalLocation": {
+                    "uri": "bannedAPIs.m",
+                    "region": {
+                      "startLine": 199
+                    }
                   }
                 }
-              },
-              {
-                "physicalLocation": {
-                  "uri": "bannedAPIs.m",
-                  "region": {
-                    "startLine": 199
-                  }
-                }
-              }
-            ]
+              ]
+            }
           ],
           "properties": {
             "kingdom": "Input Validation and Representation",
@@ -2186,24 +2280,26 @@
           ],
           "toolFingerprint": "B33A31E8B58A12691BC68729582F6E50",
           "codeFlows": [
-            [
-              {
-                "physicalLocation": {
-                  "uri": "bannedAPIs.m",
-                  "region": {
-                    "startLine": 237
+            {
+              "locations": [
+                {
+                  "physicalLocation": {
+                    "uri": "bannedAPIs.m",
+                    "region": {
+                      "startLine": 237
+                    }
+                  }
+                },
+                {
+                  "physicalLocation": {
+                    "uri": "bannedAPIs.m",
+                    "region": {
+                      "startLine": 200
+                    }
                   }
                 }
-              },
-              {
-                "physicalLocation": {
-                  "uri": "bannedAPIs.m",
-                  "region": {
-                    "startLine": 200
-                  }
-                }
-              }
-            ]
+              ]
+            }
           ],
           "properties": {
             "kingdom": "Input Validation and Representation",
@@ -2227,24 +2323,26 @@
           ],
           "toolFingerprint": "247C4B8ADE15F1B4B50C0C8C1FADC70C",
           "codeFlows": [
-            [
-              {
-                "physicalLocation": {
-                  "uri": "bannedAPIs.m",
-                  "region": {
-                    "startLine": 236
+            {
+              "locations": [
+                {
+                  "physicalLocation": {
+                    "uri": "bannedAPIs.m",
+                    "region": {
+                      "startLine": 236
+                    }
+                  }
+                },
+                {
+                  "physicalLocation": {
+                    "uri": "bannedAPIs.m",
+                    "region": {
+                      "startLine": 259
+                    }
                   }
                 }
-              },
-              {
-                "physicalLocation": {
-                  "uri": "bannedAPIs.m",
-                  "region": {
-                    "startLine": 259
-                  }
-                }
-              }
-            ]
+              ]
+            }
           ],
           "properties": {
             "kingdom": "Input Validation and Representation",
@@ -2268,24 +2366,26 @@
           ],
           "toolFingerprint": "19CCD2C8F0E97A3E2CE5AEE97B9E7F30",
           "codeFlows": [
-            [
-              {
-                "physicalLocation": {
-                  "uri": "bannedAPIs.m",
-                  "region": {
-                    "startLine": 236
+            {
+              "locations": [
+                {
+                  "physicalLocation": {
+                    "uri": "bannedAPIs.m",
+                    "region": {
+                      "startLine": 236
+                    }
+                  }
+                },
+                {
+                  "physicalLocation": {
+                    "uri": "bannedAPIs.m",
+                    "region": {
+                      "startLine": 225
+                    }
                   }
                 }
-              },
-              {
-                "physicalLocation": {
-                  "uri": "bannedAPIs.m",
-                  "region": {
-                    "startLine": 225
-                  }
-                }
-              }
-            ]
+              ]
+            }
           ],
           "properties": {
             "kingdom": "Input Validation and Representation",
@@ -2309,24 +2409,26 @@
           ],
           "toolFingerprint": "349E661BC9DAB17F2B943A6FF0734FC0",
           "codeFlows": [
-            [
-              {
-                "physicalLocation": {
-                  "uri": "bannedAPIs.m",
-                  "region": {
-                    "startLine": 134
+            {
+              "locations": [
+                {
+                  "physicalLocation": {
+                    "uri": "bannedAPIs.m",
+                    "region": {
+                      "startLine": 134
+                    }
+                  }
+                },
+                {
+                  "physicalLocation": {
+                    "uri": "bannedAPIs.m",
+                    "region": {
+                      "startLine": 259
+                    }
                   }
                 }
-              },
-              {
-                "physicalLocation": {
-                  "uri": "bannedAPIs.m",
-                  "region": {
-                    "startLine": 259
-                  }
-                }
-              }
-            ]
+              ]
+            }
           ],
           "properties": {
             "kingdom": "Input Validation and Representation",
@@ -2350,24 +2452,26 @@
           ],
           "toolFingerprint": "BD1FA971642E27B8F6132EC97E3B9974",
           "codeFlows": [
-            [
-              {
-                "physicalLocation": {
-                  "uri": "bannedAPIs.m",
-                  "region": {
-                    "startLine": 237
+            {
+              "locations": [
+                {
+                  "physicalLocation": {
+                    "uri": "bannedAPIs.m",
+                    "region": {
+                      "startLine": 237
+                    }
+                  }
+                },
+                {
+                  "physicalLocation": {
+                    "uri": "bannedAPIs.m",
+                    "region": {
+                      "startLine": 225
+                    }
                   }
                 }
-              },
-              {
-                "physicalLocation": {
-                  "uri": "bannedAPIs.m",
-                  "region": {
-                    "startLine": 225
-                  }
-                }
-              }
-            ]
+              ]
+            }
           ],
           "properties": {
             "kingdom": "Input Validation and Representation",
@@ -2391,24 +2495,26 @@
           ],
           "toolFingerprint": "B91BE4B2A10F34298E592DF1EB4D566A",
           "codeFlows": [
-            [
-              {
-                "physicalLocation": {
-                  "uri": "bannedAPIs.m",
-                  "region": {
-                    "startLine": 236
+            {
+              "locations": [
+                {
+                  "physicalLocation": {
+                    "uri": "bannedAPIs.m",
+                    "region": {
+                      "startLine": 236
+                    }
+                  }
+                },
+                {
+                  "physicalLocation": {
+                    "uri": "bannedAPIs.m",
+                    "region": {
+                      "startLine": 223
+                    }
                   }
                 }
-              },
-              {
-                "physicalLocation": {
-                  "uri": "bannedAPIs.m",
-                  "region": {
-                    "startLine": 223
-                  }
-                }
-              }
-            ]
+              ]
+            }
           ],
           "properties": {
             "kingdom": "Input Validation and Representation",
@@ -2432,24 +2538,26 @@
           ],
           "toolFingerprint": "BFB0F10810A1DA7A3C0565CB35583340",
           "codeFlows": [
-            [
-              {
-                "physicalLocation": {
-                  "uri": "bannedAPIs.m",
-                  "region": {
-                    "startLine": 142
+            {
+              "locations": [
+                {
+                  "physicalLocation": {
+                    "uri": "bannedAPIs.m",
+                    "region": {
+                      "startLine": 142
+                    }
+                  }
+                },
+                {
+                  "physicalLocation": {
+                    "uri": "bannedAPIs.m",
+                    "region": {
+                      "startLine": 223
+                    }
                   }
                 }
-              },
-              {
-                "physicalLocation": {
-                  "uri": "bannedAPIs.m",
-                  "region": {
-                    "startLine": 223
-                  }
-                }
-              }
-            ]
+              ]
+            }
           ],
           "properties": {
             "kingdom": "Input Validation and Representation",
@@ -2473,24 +2581,26 @@
           ],
           "toolFingerprint": "A26FD1A933E9A17CE78C14E08C2A94D8",
           "codeFlows": [
-            [
-              {
-                "physicalLocation": {
-                  "uri": "bannedAPIs.m",
-                  "region": {
-                    "startLine": 238
+            {
+              "locations": [
+                {
+                  "physicalLocation": {
+                    "uri": "bannedAPIs.m",
+                    "region": {
+                      "startLine": 238
+                    }
+                  }
+                },
+                {
+                  "physicalLocation": {
+                    "uri": "bannedAPIs.m",
+                    "region": {
+                      "startLine": 200
+                    }
                   }
                 }
-              },
-              {
-                "physicalLocation": {
-                  "uri": "bannedAPIs.m",
-                  "region": {
-                    "startLine": 200
-                  }
-                }
-              }
-            ]
+              ]
+            }
           ],
           "properties": {
             "kingdom": "Input Validation and Representation",
@@ -2514,24 +2624,26 @@
           ],
           "toolFingerprint": "44156512276E1548B5509F94381EACA4",
           "codeFlows": [
-            [
-              {
-                "physicalLocation": {
-                  "uri": "bannedAPIs.m",
-                  "region": {
-                    "startLine": 237
+            {
+              "locations": [
+                {
+                  "physicalLocation": {
+                    "uri": "bannedAPIs.m",
+                    "region": {
+                      "startLine": 237
+                    }
+                  }
+                },
+                {
+                  "physicalLocation": {
+                    "uri": "bannedAPIs.m",
+                    "region": {
+                      "startLine": 199
+                    }
                   }
                 }
-              },
-              {
-                "physicalLocation": {
-                  "uri": "bannedAPIs.m",
-                  "region": {
-                    "startLine": 199
-                  }
-                }
-              }
-            ]
+              ]
+            }
           ],
           "properties": {
             "kingdom": "Input Validation and Representation",
@@ -2555,24 +2667,26 @@
           ],
           "toolFingerprint": "47510283C86CAE3258A4116864B27A61",
           "codeFlows": [
-            [
-              {
-                "physicalLocation": {
-                  "uri": "bannedAPIs.m",
-                  "region": {
-                    "startLine": 134
+            {
+              "locations": [
+                {
+                  "physicalLocation": {
+                    "uri": "bannedAPIs.m",
+                    "region": {
+                      "startLine": 134
+                    }
+                  }
+                },
+                {
+                  "physicalLocation": {
+                    "uri": "bannedAPIs.m",
+                    "region": {
+                      "startLine": 255
+                    }
                   }
                 }
-              },
-              {
-                "physicalLocation": {
-                  "uri": "bannedAPIs.m",
-                  "region": {
-                    "startLine": 255
-                  }
-                }
-              }
-            ]
+              ]
+            }
           ],
           "properties": {
             "kingdom": "Input Validation and Representation",
@@ -2596,24 +2710,26 @@
           ],
           "toolFingerprint": "44063AE6F90F88C349BC8348AC04F43C",
           "codeFlows": [
-            [
-              {
-                "physicalLocation": {
-                  "uri": "bannedAPIs.m",
-                  "region": {
-                    "startLine": 238
+            {
+              "locations": [
+                {
+                  "physicalLocation": {
+                    "uri": "bannedAPIs.m",
+                    "region": {
+                      "startLine": 238
+                    }
+                  }
+                },
+                {
+                  "physicalLocation": {
+                    "uri": "bannedAPIs.m",
+                    "region": {
+                      "startLine": 204
+                    }
                   }
                 }
-              },
-              {
-                "physicalLocation": {
-                  "uri": "bannedAPIs.m",
-                  "region": {
-                    "startLine": 204
-                  }
-                }
-              }
-            ]
+              ]
+            }
           ],
           "properties": {
             "kingdom": "Input Validation and Representation",
@@ -2637,24 +2753,26 @@
           ],
           "toolFingerprint": "E71FA539B5E6073AAF585E88BCB22F5D",
           "codeFlows": [
-            [
-              {
-                "physicalLocation": {
-                  "uri": "bannedAPIs.m",
-                  "region": {
-                    "startLine": 238
+            {
+              "locations": [
+                {
+                  "physicalLocation": {
+                    "uri": "bannedAPIs.m",
+                    "region": {
+                      "startLine": 238
+                    }
+                  }
+                },
+                {
+                  "physicalLocation": {
+                    "uri": "bannedAPIs.m",
+                    "region": {
+                      "startLine": 223
+                    }
                   }
                 }
-              },
-              {
-                "physicalLocation": {
-                  "uri": "bannedAPIs.m",
-                  "region": {
-                    "startLine": 223
-                  }
-                }
-              }
-            ]
+              ]
+            }
           ],
           "properties": {
             "kingdom": "Input Validation and Representation",
@@ -2678,24 +2796,26 @@
           ],
           "toolFingerprint": "9E7020B20F73EB80C1B9E8FFD1698E43",
           "codeFlows": [
-            [
-              {
-                "physicalLocation": {
-                  "uri": "bannedAPIs.m",
-                  "region": {
-                    "startLine": 237
+            {
+              "locations": [
+                {
+                  "physicalLocation": {
+                    "uri": "bannedAPIs.m",
+                    "region": {
+                      "startLine": 237
+                    }
+                  }
+                },
+                {
+                  "physicalLocation": {
+                    "uri": "bannedAPIs.m",
+                    "region": {
+                      "startLine": 223
+                    }
                   }
                 }
-              },
-              {
-                "physicalLocation": {
-                  "uri": "bannedAPIs.m",
-                  "region": {
-                    "startLine": 223
-                  }
-                }
-              }
-            ]
+              ]
+            }
           ],
           "properties": {
             "kingdom": "Input Validation and Representation",
@@ -2719,24 +2839,26 @@
           ],
           "toolFingerprint": "B7273D0D158330965C761515BD294F48",
           "codeFlows": [
-            [
-              {
-                "physicalLocation": {
-                  "uri": "bannedAPIs.m",
-                  "region": {
-                    "startLine": 243
+            {
+              "locations": [
+                {
+                  "physicalLocation": {
+                    "uri": "bannedAPIs.m",
+                    "region": {
+                      "startLine": 243
+                    }
+                  }
+                },
+                {
+                  "physicalLocation": {
+                    "uri": "bannedAPIs.m",
+                    "region": {
+                      "startLine": 223
+                    }
                   }
                 }
-              },
-              {
-                "physicalLocation": {
-                  "uri": "bannedAPIs.m",
-                  "region": {
-                    "startLine": 223
-                  }
-                }
-              }
-            ]
+              ]
+            }
           ],
           "properties": {
             "kingdom": "Input Validation and Representation",
@@ -2760,24 +2882,26 @@
           ],
           "toolFingerprint": "10E19E731065F10BDAAF98F8095ED514",
           "codeFlows": [
-            [
-              {
-                "physicalLocation": {
-                  "uri": "bannedAPIs.m",
-                  "region": {
-                    "startLine": 236
+            {
+              "locations": [
+                {
+                  "physicalLocation": {
+                    "uri": "bannedAPIs.m",
+                    "region": {
+                      "startLine": 236
+                    }
+                  }
+                },
+                {
+                  "physicalLocation": {
+                    "uri": "bannedAPIs.m",
+                    "region": {
+                      "startLine": 257
+                    }
                   }
                 }
-              },
-              {
-                "physicalLocation": {
-                  "uri": "bannedAPIs.m",
-                  "region": {
-                    "startLine": 257
-                  }
-                }
-              }
-            ]
+              ]
+            }
           ],
           "properties": {
             "kingdom": "Input Validation and Representation",
@@ -2801,24 +2925,26 @@
           ],
           "toolFingerprint": "26AEAC68BBF988FED92D872810DAA0A2",
           "codeFlows": [
-            [
-              {
-                "physicalLocation": {
-                  "uri": "bannedAPIs.m",
-                  "region": {
-                    "startLine": 238
+            {
+              "locations": [
+                {
+                  "physicalLocation": {
+                    "uri": "bannedAPIs.m",
+                    "region": {
+                      "startLine": 238
+                    }
+                  }
+                },
+                {
+                  "physicalLocation": {
+                    "uri": "bannedAPIs.m",
+                    "region": {
+                      "startLine": 199
+                    }
                   }
                 }
-              },
-              {
-                "physicalLocation": {
-                  "uri": "bannedAPIs.m",
-                  "region": {
-                    "startLine": 199
-                  }
-                }
-              }
-            ]
+              ]
+            }
           ],
           "properties": {
             "kingdom": "Input Validation and Representation",
@@ -2842,24 +2968,26 @@
           ],
           "toolFingerprint": "BFB0F10810A1DA7A3C0565CB3558333F",
           "codeFlows": [
-            [
-              {
-                "physicalLocation": {
-                  "uri": "bannedAPIs.m",
-                  "region": {
-                    "startLine": 134
+            {
+              "locations": [
+                {
+                  "physicalLocation": {
+                    "uri": "bannedAPIs.m",
+                    "region": {
+                      "startLine": 134
+                    }
+                  }
+                },
+                {
+                  "physicalLocation": {
+                    "uri": "bannedAPIs.m",
+                    "region": {
+                      "startLine": 223
+                    }
                   }
                 }
-              },
-              {
-                "physicalLocation": {
-                  "uri": "bannedAPIs.m",
-                  "region": {
-                    "startLine": 223
-                  }
-                }
-              }
-            ]
+              ]
+            }
           ],
           "properties": {
             "kingdom": "Input Validation and Representation",
@@ -2883,24 +3011,26 @@
           ],
           "toolFingerprint": "3806636845C687DD3D898C7687DF6047",
           "codeFlows": [
-            [
-              {
-                "physicalLocation": {
-                  "uri": "bannedAPIs.m",
-                  "region": {
-                    "startLine": 239
+            {
+              "locations": [
+                {
+                  "physicalLocation": {
+                    "uri": "bannedAPIs.m",
+                    "region": {
+                      "startLine": 239
+                    }
+                  }
+                },
+                {
+                  "physicalLocation": {
+                    "uri": "bannedAPIs.m",
+                    "region": {
+                      "startLine": 200
+                    }
                   }
                 }
-              },
-              {
-                "physicalLocation": {
-                  "uri": "bannedAPIs.m",
-                  "region": {
-                    "startLine": 200
-                  }
-                }
-              }
-            ]
+              ]
+            }
           ],
           "properties": {
             "kingdom": "Input Validation and Representation",
@@ -2924,24 +3054,26 @@
           ],
           "toolFingerprint": "75E96A16B6963CB20C667DDDE99FA4EC",
           "codeFlows": [
-            [
-              {
-                "physicalLocation": {
-                  "uri": "bannedAPIs.m",
-                  "region": {
-                    "startLine": 238
+            {
+              "locations": [
+                {
+                  "physicalLocation": {
+                    "uri": "bannedAPIs.m",
+                    "region": {
+                      "startLine": 238
+                    }
+                  }
+                },
+                {
+                  "physicalLocation": {
+                    "uri": "bannedAPIs.m",
+                    "region": {
+                      "startLine": 225
+                    }
                   }
                 }
-              },
-              {
-                "physicalLocation": {
-                  "uri": "bannedAPIs.m",
-                  "region": {
-                    "startLine": 225
-                  }
-                }
-              }
-            ]
+              ]
+            }
           ],
           "properties": {
             "kingdom": "Input Validation and Representation",
@@ -2965,24 +3097,26 @@
           ],
           "toolFingerprint": "84E9E10DEB89A40B0B597E654EBD3E45",
           "codeFlows": [
-            [
-              {
-                "physicalLocation": {
-                  "uri": "bannedAPIs.m",
-                  "region": {
-                    "startLine": 239
+            {
+              "locations": [
+                {
+                  "physicalLocation": {
+                    "uri": "bannedAPIs.m",
+                    "region": {
+                      "startLine": 239
+                    }
+                  }
+                },
+                {
+                  "physicalLocation": {
+                    "uri": "bannedAPIs.m",
+                    "region": {
+                      "startLine": 225
+                    }
                   }
                 }
-              },
-              {
-                "physicalLocation": {
-                  "uri": "bannedAPIs.m",
-                  "region": {
-                    "startLine": 225
-                  }
-                }
-              }
-            ]
+              ]
+            }
           ],
           "properties": {
             "kingdom": "Input Validation and Representation",
@@ -3006,24 +3140,26 @@
           ],
           "toolFingerprint": "0E8A2FECC2E40403211DA7125B360CFA",
           "codeFlows": [
-            [
-              {
-                "physicalLocation": {
-                  "uri": "bannedAPIs.m",
-                  "region": {
-                    "startLine": 238
+            {
+              "locations": [
+                {
+                  "physicalLocation": {
+                    "uri": "bannedAPIs.m",
+                    "region": {
+                      "startLine": 238
+                    }
+                  }
+                },
+                {
+                  "physicalLocation": {
+                    "uri": "bannedAPIs.m",
+                    "region": {
+                      "startLine": 257
+                    }
                   }
                 }
-              },
-              {
-                "physicalLocation": {
-                  "uri": "bannedAPIs.m",
-                  "region": {
-                    "startLine": 257
-                  }
-                }
-              }
-            ]
+              ]
+            }
           ],
           "properties": {
             "kingdom": "Input Validation and Representation",
@@ -3047,24 +3183,26 @@
           ],
           "toolFingerprint": "96D9D7CBC80B6B14ABAC9D07B2DB1E3C",
           "codeFlows": [
-            [
-              {
-                "physicalLocation": {
-                  "uri": "bannedAPIs.m",
-                  "region": {
-                    "startLine": 236
+            {
+              "locations": [
+                {
+                  "physicalLocation": {
+                    "uri": "bannedAPIs.m",
+                    "region": {
+                      "startLine": 236
+                    }
+                  }
+                },
+                {
+                  "physicalLocation": {
+                    "uri": "bannedAPIs.m",
+                    "region": {
+                      "startLine": 200
+                    }
                   }
                 }
-              },
-              {
-                "physicalLocation": {
-                  "uri": "bannedAPIs.m",
-                  "region": {
-                    "startLine": 200
-                  }
-                }
-              }
-            ]
+              ]
+            }
           ],
           "properties": {
             "kingdom": "Input Validation and Representation",
@@ -3088,24 +3226,26 @@
           ],
           "toolFingerprint": "AA424588C1A8B265AF06B431DF09326B",
           "codeFlows": [
-            [
-              {
-                "physicalLocation": {
-                  "uri": "bannedAPIs.m",
-                  "region": {
-                    "startLine": 239
+            {
+              "locations": [
+                {
+                  "physicalLocation": {
+                    "uri": "bannedAPIs.m",
+                    "region": {
+                      "startLine": 239
+                    }
+                  }
+                },
+                {
+                  "physicalLocation": {
+                    "uri": "bannedAPIs.m",
+                    "region": {
+                      "startLine": 225
+                    }
                   }
                 }
-              },
-              {
-                "physicalLocation": {
-                  "uri": "bannedAPIs.m",
-                  "region": {
-                    "startLine": 225
-                  }
-                }
-              }
-            ]
+              ]
+            }
           ],
           "properties": {
             "kingdom": "Input Validation and Representation",
@@ -3129,24 +3269,26 @@
           ],
           "toolFingerprint": "59DDA3BCFAC68E8CE5F87A3410D1E4C5",
           "codeFlows": [
-            [
-              {
-                "physicalLocation": {
-                  "uri": "bannedAPIs.m",
-                  "region": {
-                    "startLine": 142
+            {
+              "locations": [
+                {
+                  "physicalLocation": {
+                    "uri": "bannedAPIs.m",
+                    "region": {
+                      "startLine": 142
+                    }
+                  }
+                },
+                {
+                  "physicalLocation": {
+                    "uri": "bannedAPIs.m",
+                    "region": {
+                      "startLine": 199
+                    }
                   }
                 }
-              },
-              {
-                "physicalLocation": {
-                  "uri": "bannedAPIs.m",
-                  "region": {
-                    "startLine": 199
-                  }
-                }
-              }
-            ]
+              ]
+            }
           ],
           "properties": {
             "kingdom": "Input Validation and Representation",
@@ -3170,24 +3312,26 @@
           ],
           "toolFingerprint": "62A32C7373CBDA644946AB9FC29ED44E",
           "codeFlows": [
-            [
-              {
-                "physicalLocation": {
-                  "uri": "bannedAPIs.m",
-                  "region": {
-                    "startLine": 237
+            {
+              "locations": [
+                {
+                  "physicalLocation": {
+                    "uri": "bannedAPIs.m",
+                    "region": {
+                      "startLine": 237
+                    }
+                  }
+                },
+                {
+                  "physicalLocation": {
+                    "uri": "bannedAPIs.m",
+                    "region": {
+                      "startLine": 255
+                    }
                   }
                 }
-              },
-              {
-                "physicalLocation": {
-                  "uri": "bannedAPIs.m",
-                  "region": {
-                    "startLine": 255
-                  }
-                }
-              }
-            ]
+              ]
+            }
           ],
           "properties": {
             "kingdom": "Input Validation and Representation",
@@ -3211,24 +3355,26 @@
           ],
           "toolFingerprint": "52C8C29C09C50723F93C05787694528A",
           "codeFlows": [
-            [
-              {
-                "physicalLocation": {
-                  "uri": "bannedAPIs.m",
-                  "region": {
-                    "startLine": 142
+            {
+              "locations": [
+                {
+                  "physicalLocation": {
+                    "uri": "bannedAPIs.m",
+                    "region": {
+                      "startLine": 142
+                    }
+                  }
+                },
+                {
+                  "physicalLocation": {
+                    "uri": "bannedAPIs.m",
+                    "region": {
+                      "startLine": 204
+                    }
                   }
                 }
-              },
-              {
-                "physicalLocation": {
-                  "uri": "bannedAPIs.m",
-                  "region": {
-                    "startLine": 204
-                  }
-                }
-              }
-            ]
+              ]
+            }
           ],
           "properties": {
             "kingdom": "Input Validation and Representation",
@@ -3252,24 +3398,26 @@
           ],
           "toolFingerprint": "BDC8FC3C5AAE67B07F46EC48B928AA6E",
           "codeFlows": [
-            [
-              {
-                "physicalLocation": {
-                  "uri": "bannedAPIs.m",
-                  "region": {
-                    "startLine": 238
+            {
+              "locations": [
+                {
+                  "physicalLocation": {
+                    "uri": "bannedAPIs.m",
+                    "region": {
+                      "startLine": 238
+                    }
+                  }
+                },
+                {
+                  "physicalLocation": {
+                    "uri": "bannedAPIs.m",
+                    "region": {
+                      "startLine": 225
+                    }
                   }
                 }
-              },
-              {
-                "physicalLocation": {
-                  "uri": "bannedAPIs.m",
-                  "region": {
-                    "startLine": 225
-                  }
-                }
-              }
-            ]
+              ]
+            }
           ],
           "properties": {
             "kingdom": "Input Validation and Representation",
@@ -3293,24 +3441,26 @@
           ],
           "toolFingerprint": "344BBA91D5E184883A40424532EE84E4",
           "codeFlows": [
-            [
-              {
-                "physicalLocation": {
-                  "uri": "bannedAPIs.m",
-                  "region": {
-                    "startLine": 237
+            {
+              "locations": [
+                {
+                  "physicalLocation": {
+                    "uri": "bannedAPIs.m",
+                    "region": {
+                      "startLine": 237
+                    }
+                  }
+                },
+                {
+                  "physicalLocation": {
+                    "uri": "bannedAPIs.m",
+                    "region": {
+                      "startLine": 259
+                    }
                   }
                 }
-              },
-              {
-                "physicalLocation": {
-                  "uri": "bannedAPIs.m",
-                  "region": {
-                    "startLine": 259
-                  }
-                }
-              }
-            ]
+              ]
+            }
           ],
           "properties": {
             "kingdom": "Input Validation and Representation",
@@ -3334,24 +3484,26 @@
           ],
           "toolFingerprint": "39C90BE84174878645162127D2EEF7A5",
           "codeFlows": [
-            [
-              {
-                "physicalLocation": {
-                  "uri": "bannedAPIs.m",
-                  "region": {
-                    "startLine": 238
+            {
+              "locations": [
+                {
+                  "physicalLocation": {
+                    "uri": "bannedAPIs.m",
+                    "region": {
+                      "startLine": 238
+                    }
+                  }
+                },
+                {
+                  "physicalLocation": {
+                    "uri": "bannedAPIs.m",
+                    "region": {
+                      "startLine": 259
+                    }
                   }
                 }
-              },
-              {
-                "physicalLocation": {
-                  "uri": "bannedAPIs.m",
-                  "region": {
-                    "startLine": 259
-                  }
-                }
-              }
-            ]
+              ]
+            }
           ],
           "properties": {
             "kingdom": "Input Validation and Representation",
@@ -3375,24 +3527,26 @@
           ],
           "toolFingerprint": "5D50AA0FEB1A20778BFB7E4347D76973",
           "codeFlows": [
-            [
-              {
-                "physicalLocation": {
-                  "uri": "bannedAPIs.m",
-                  "region": {
-                    "startLine": 238
+            {
+              "locations": [
+                {
+                  "physicalLocation": {
+                    "uri": "bannedAPIs.m",
+                    "region": {
+                      "startLine": 238
+                    }
+                  }
+                },
+                {
+                  "physicalLocation": {
+                    "uri": "bannedAPIs.m",
+                    "region": {
+                      "startLine": 255
+                    }
                   }
                 }
-              },
-              {
-                "physicalLocation": {
-                  "uri": "bannedAPIs.m",
-                  "region": {
-                    "startLine": 255
-                  }
-                }
-              }
-            ]
+              ]
+            }
           ],
           "properties": {
             "kingdom": "Input Validation and Representation",
@@ -3416,24 +3570,26 @@
           ],
           "toolFingerprint": "330A5219AFAD58232673BDC844F05F8C",
           "codeFlows": [
-            [
-              {
-                "physicalLocation": {
-                  "uri": "bannedAPIs.m",
-                  "region": {
-                    "startLine": 236
+            {
+              "locations": [
+                {
+                  "physicalLocation": {
+                    "uri": "bannedAPIs.m",
+                    "region": {
+                      "startLine": 236
+                    }
+                  }
+                },
+                {
+                  "physicalLocation": {
+                    "uri": "bannedAPIs.m",
+                    "region": {
+                      "startLine": 257
+                    }
                   }
                 }
-              },
-              {
-                "physicalLocation": {
-                  "uri": "bannedAPIs.m",
-                  "region": {
-                    "startLine": 257
-                  }
-                }
-              }
-            ]
+              ]
+            }
           ],
           "properties": {
             "kingdom": "Input Validation and Representation",
@@ -3457,24 +3613,26 @@
           ],
           "toolFingerprint": "175D03E66213F6F75A01CBDCB0AE3EB9",
           "codeFlows": [
-            [
-              {
-                "physicalLocation": {
-                  "uri": "bannedAPIs.m",
-                  "region": {
-                    "startLine": 238
+            {
+              "locations": [
+                {
+                  "physicalLocation": {
+                    "uri": "bannedAPIs.m",
+                    "region": {
+                      "startLine": 238
+                    }
+                  }
+                },
+                {
+                  "physicalLocation": {
+                    "uri": "bannedAPIs.m",
+                    "region": {
+                      "startLine": 200
+                    }
                   }
                 }
-              },
-              {
-                "physicalLocation": {
-                  "uri": "bannedAPIs.m",
-                  "region": {
-                    "startLine": 200
-                  }
-                }
-              }
-            ]
+              ]
+            }
           ],
           "properties": {
             "kingdom": "Input Validation and Representation",
@@ -3498,24 +3656,26 @@
           ],
           "toolFingerprint": "BC044DF5332F926B896F8936F416D6E8",
           "codeFlows": [
-            [
-              {
-                "physicalLocation": {
-                  "uri": "bannedAPIs.m",
-                  "region": {
-                    "startLine": 236
+            {
+              "locations": [
+                {
+                  "physicalLocation": {
+                    "uri": "bannedAPIs.m",
+                    "region": {
+                      "startLine": 236
+                    }
+                  }
+                },
+                {
+                  "physicalLocation": {
+                    "uri": "bannedAPIs.m",
+                    "region": {
+                      "startLine": 223
+                    }
                   }
                 }
-              },
-              {
-                "physicalLocation": {
-                  "uri": "bannedAPIs.m",
-                  "region": {
-                    "startLine": 223
-                  }
-                }
-              }
-            ]
+              ]
+            }
           ],
           "properties": {
             "kingdom": "Input Validation and Representation",
@@ -3539,24 +3699,26 @@
           ],
           "toolFingerprint": "E27AB6F7D5CB058B498C2829C7C4A2C0",
           "codeFlows": [
-            [
-              {
-                "physicalLocation": {
-                  "uri": "bannedAPIs.m",
-                  "region": {
-                    "startLine": 239
+            {
+              "locations": [
+                {
+                  "physicalLocation": {
+                    "uri": "bannedAPIs.m",
+                    "region": {
+                      "startLine": 239
+                    }
+                  }
+                },
+                {
+                  "physicalLocation": {
+                    "uri": "bannedAPIs.m",
+                    "region": {
+                      "startLine": 223
+                    }
                   }
                 }
-              },
-              {
-                "physicalLocation": {
-                  "uri": "bannedAPIs.m",
-                  "region": {
-                    "startLine": 223
-                  }
-                }
-              }
-            ]
+              ]
+            }
           ],
           "properties": {
             "kingdom": "Input Validation and Representation",
@@ -3580,24 +3742,26 @@
           ],
           "toolFingerprint": "ED8F0F4C67561029F8075C463B097306",
           "codeFlows": [
-            [
-              {
-                "physicalLocation": {
-                  "uri": "bannedAPIs.m",
-                  "region": {
-                    "startLine": 243
+            {
+              "locations": [
+                {
+                  "physicalLocation": {
+                    "uri": "bannedAPIs.m",
+                    "region": {
+                      "startLine": 243
+                    }
+                  }
+                },
+                {
+                  "physicalLocation": {
+                    "uri": "bannedAPIs.m",
+                    "region": {
+                      "startLine": 225
+                    }
                   }
                 }
-              },
-              {
-                "physicalLocation": {
-                  "uri": "bannedAPIs.m",
-                  "region": {
-                    "startLine": 225
-                  }
-                }
-              }
-            ]
+              ]
+            }
           ],
           "properties": {
             "kingdom": "Input Validation and Representation",
@@ -3621,24 +3785,26 @@
           ],
           "toolFingerprint": "1AC9B8150ED658E10BC361EF320AF5E9",
           "codeFlows": [
-            [
-              {
-                "physicalLocation": {
-                  "uri": "bannedAPIs.m",
-                  "region": {
-                    "startLine": 239
+            {
+              "locations": [
+                {
+                  "physicalLocation": {
+                    "uri": "bannedAPIs.m",
+                    "region": {
+                      "startLine": 239
+                    }
+                  }
+                },
+                {
+                  "physicalLocation": {
+                    "uri": "bannedAPIs.m",
+                    "region": {
+                      "startLine": 199
+                    }
                   }
                 }
-              },
-              {
-                "physicalLocation": {
-                  "uri": "bannedAPIs.m",
-                  "region": {
-                    "startLine": 199
-                  }
-                }
-              }
-            ]
+              ]
+            }
           ],
           "properties": {
             "kingdom": "Input Validation and Representation",
@@ -3662,24 +3828,26 @@
           ],
           "toolFingerprint": "19FE9DA1DE9428F0751A2552B44AB7D3",
           "codeFlows": [
-            [
-              {
-                "physicalLocation": {
-                  "uri": "bannedAPIs.m",
-                  "region": {
-                    "startLine": 237
+            {
+              "locations": [
+                {
+                  "physicalLocation": {
+                    "uri": "bannedAPIs.m",
+                    "region": {
+                      "startLine": 237
+                    }
+                  }
+                },
+                {
+                  "physicalLocation": {
+                    "uri": "bannedAPIs.m",
+                    "region": {
+                      "startLine": 225
+                    }
                   }
                 }
-              },
-              {
-                "physicalLocation": {
-                  "uri": "bannedAPIs.m",
-                  "region": {
-                    "startLine": 225
-                  }
-                }
-              }
-            ]
+              ]
+            }
           ],
           "properties": {
             "kingdom": "Input Validation and Representation",
@@ -3703,24 +3871,26 @@
           ],
           "toolFingerprint": "27BAADAEA67E3A01F374F982944504CC",
           "codeFlows": [
-            [
-              {
-                "physicalLocation": {
-                  "uri": "bannedAPIs.m",
-                  "region": {
-                    "startLine": 239
+            {
+              "locations": [
+                {
+                  "physicalLocation": {
+                    "uri": "bannedAPIs.m",
+                    "region": {
+                      "startLine": 239
+                    }
+                  }
+                },
+                {
+                  "physicalLocation": {
+                    "uri": "bannedAPIs.m",
+                    "region": {
+                      "startLine": 255
+                    }
                   }
                 }
-              },
-              {
-                "physicalLocation": {
-                  "uri": "bannedAPIs.m",
-                  "region": {
-                    "startLine": 255
-                  }
-                }
-              }
-            ]
+              ]
+            }
           ],
           "properties": {
             "kingdom": "Input Validation and Representation",
@@ -3744,24 +3914,26 @@
           ],
           "toolFingerprint": "A0B07FC1302B5E5E37E0C8E0505C2F53",
           "codeFlows": [
-            [
-              {
-                "physicalLocation": {
-                  "uri": "bannedAPIs.m",
-                  "region": {
-                    "startLine": 142
+            {
+              "locations": [
+                {
+                  "physicalLocation": {
+                    "uri": "bannedAPIs.m",
+                    "region": {
+                      "startLine": 142
+                    }
+                  }
+                },
+                {
+                  "physicalLocation": {
+                    "uri": "bannedAPIs.m",
+                    "region": {
+                      "startLine": 205
+                    }
                   }
                 }
-              },
-              {
-                "physicalLocation": {
-                  "uri": "bannedAPIs.m",
-                  "region": {
-                    "startLine": 205
-                  }
-                }
-              }
-            ]
+              ]
+            }
           ],
           "properties": {
             "kingdom": "Input Validation and Representation",
@@ -3785,24 +3957,26 @@
           ],
           "toolFingerprint": "7BEDDF5666EB0F4E889F65731A58D2D7",
           "codeFlows": [
-            [
-              {
-                "physicalLocation": {
-                  "uri": "bannedAPIs.m",
-                  "region": {
-                    "startLine": 237
+            {
+              "locations": [
+                {
+                  "physicalLocation": {
+                    "uri": "bannedAPIs.m",
+                    "region": {
+                      "startLine": 237
+                    }
+                  }
+                },
+                {
+                  "physicalLocation": {
+                    "uri": "bannedAPIs.m",
+                    "region": {
+                      "startLine": 200
+                    }
                   }
                 }
-              },
-              {
-                "physicalLocation": {
-                  "uri": "bannedAPIs.m",
-                  "region": {
-                    "startLine": 200
-                  }
-                }
-              }
-            ]
+              ]
+            }
           ],
           "properties": {
             "kingdom": "Input Validation and Representation",
@@ -3826,24 +4000,26 @@
           ],
           "toolFingerprint": "2736DA7D7ACC4048BDEE38D4A10F4D76",
           "codeFlows": [
-            [
-              {
-                "physicalLocation": {
-                  "uri": "bannedAPIs.m",
-                  "region": {
-                    "startLine": 239
+            {
+              "locations": [
+                {
+                  "physicalLocation": {
+                    "uri": "bannedAPIs.m",
+                    "region": {
+                      "startLine": 239
+                    }
+                  }
+                },
+                {
+                  "physicalLocation": {
+                    "uri": "bannedAPIs.m",
+                    "region": {
+                      "startLine": 223
+                    }
                   }
                 }
-              },
-              {
-                "physicalLocation": {
-                  "uri": "bannedAPIs.m",
-                  "region": {
-                    "startLine": 223
-                  }
-                }
-              }
-            ]
+              ]
+            }
           ],
           "properties": {
             "kingdom": "Input Validation and Representation",
@@ -3867,24 +4043,26 @@
           ],
           "toolFingerprint": "8893BCF1861EC9CF1A98B85B0E953FD7",
           "codeFlows": [
-            [
-              {
-                "physicalLocation": {
-                  "uri": "bannedAPIs.m",
-                  "region": {
-                    "startLine": 238
+            {
+              "locations": [
+                {
+                  "physicalLocation": {
+                    "uri": "bannedAPIs.m",
+                    "region": {
+                      "startLine": 238
+                    }
+                  }
+                },
+                {
+                  "physicalLocation": {
+                    "uri": "bannedAPIs.m",
+                    "region": {
+                      "startLine": 223
+                    }
                   }
                 }
-              },
-              {
-                "physicalLocation": {
-                  "uri": "bannedAPIs.m",
-                  "region": {
-                    "startLine": 223
-                  }
-                }
-              }
-            ]
+              ]
+            }
           ],
           "properties": {
             "kingdom": "Input Validation and Representation",
@@ -3950,24 +4128,26 @@
           ],
           "toolFingerprint": "C7916675D2052C6D8187E27154A47009",
           "codeFlows": [
-            [
-              {
-                "physicalLocation": {
-                  "uri": "bannedAPIs.m",
-                  "region": {
-                    "startLine": 236
+            {
+              "locations": [
+                {
+                  "physicalLocation": {
+                    "uri": "bannedAPIs.m",
+                    "region": {
+                      "startLine": 236
+                    }
+                  }
+                },
+                {
+                  "physicalLocation": {
+                    "uri": "bannedAPIs.m",
+                    "region": {
+                      "startLine": 87
+                    }
                   }
                 }
-              },
-              {
-                "physicalLocation": {
-                  "uri": "bannedAPIs.m",
-                  "region": {
-                    "startLine": 87
-                  }
-                }
-              }
-            ]
+              ]
+            }
           ],
           "properties": {
             "kingdom": "Input Validation and Representation",
@@ -3991,24 +4171,26 @@
           ],
           "toolFingerprint": "E97A2D6BAF232260AC303E4940AB5509",
           "codeFlows": [
-            [
-              {
-                "physicalLocation": {
-                  "uri": "bannedAPIs.m",
-                  "region": {
-                    "startLine": 236
+            {
+              "locations": [
+                {
+                  "physicalLocation": {
+                    "uri": "bannedAPIs.m",
+                    "region": {
+                      "startLine": 236
+                    }
+                  }
+                },
+                {
+                  "physicalLocation": {
+                    "uri": "bannedAPIs.m",
+                    "region": {
+                      "startLine": 279
+                    }
                   }
                 }
-              },
-              {
-                "physicalLocation": {
-                  "uri": "bannedAPIs.m",
-                  "region": {
-                    "startLine": 279
-                  }
-                }
-              }
-            ]
+              ]
+            }
           ],
           "properties": {
             "kingdom": "Input Validation and Representation",
@@ -4032,24 +4214,26 @@
           ],
           "toolFingerprint": "65F814D3D0C6F5D61B8B07229C5054D5",
           "codeFlows": [
-            [
-              {
-                "physicalLocation": {
-                  "uri": "bannedAPIs.m",
-                  "region": {
-                    "startLine": 239
+            {
+              "locations": [
+                {
+                  "physicalLocation": {
+                    "uri": "bannedAPIs.m",
+                    "region": {
+                      "startLine": 239
+                    }
+                  }
+                },
+                {
+                  "physicalLocation": {
+                    "uri": "bannedAPIs.m",
+                    "region": {
+                      "startLine": 87
+                    }
                   }
                 }
-              },
-              {
-                "physicalLocation": {
-                  "uri": "bannedAPIs.m",
-                  "region": {
-                    "startLine": 87
-                  }
-                }
-              }
-            ]
+              ]
+            }
           ],
           "properties": {
             "kingdom": "Input Validation and Representation",
@@ -4073,24 +4257,26 @@
           ],
           "toolFingerprint": "D82800828C73CF9882FABCC523B305FB",
           "codeFlows": [
-            [
-              {
-                "physicalLocation": {
-                  "uri": "bannedAPIs.m",
-                  "region": {
-                    "startLine": 134
+            {
+              "locations": [
+                {
+                  "physicalLocation": {
+                    "uri": "bannedAPIs.m",
+                    "region": {
+                      "startLine": 134
+                    }
+                  }
+                },
+                {
+                  "physicalLocation": {
+                    "uri": "bannedAPIs.m",
+                    "region": {
+                      "startLine": 279
+                    }
                   }
                 }
-              },
-              {
-                "physicalLocation": {
-                  "uri": "bannedAPIs.m",
-                  "region": {
-                    "startLine": 279
-                  }
-                }
-              }
-            ]
+              ]
+            }
           ],
           "properties": {
             "kingdom": "Input Validation and Representation",
@@ -4114,24 +4300,26 @@
           ],
           "toolFingerprint": "87CCC6BEFD09409265D8E7127CD280FE",
           "codeFlows": [
-            [
-              {
-                "physicalLocation": {
-                  "uri": "bannedAPIs.m",
-                  "region": {
-                    "startLine": 237
+            {
+              "locations": [
+                {
+                  "physicalLocation": {
+                    "uri": "bannedAPIs.m",
+                    "region": {
+                      "startLine": 237
+                    }
+                  }
+                },
+                {
+                  "physicalLocation": {
+                    "uri": "bannedAPIs.m",
+                    "region": {
+                      "startLine": 87
+                    }
                   }
                 }
-              },
-              {
-                "physicalLocation": {
-                  "uri": "bannedAPIs.m",
-                  "region": {
-                    "startLine": 87
-                  }
-                }
-              }
-            ]
+              ]
+            }
           ],
           "properties": {
             "kingdom": "Input Validation and Representation",
@@ -4155,24 +4343,26 @@
           ],
           "toolFingerprint": "D82800828C73CF9882FABCC523B305FC",
           "codeFlows": [
-            [
-              {
-                "physicalLocation": {
-                  "uri": "bannedAPIs.m",
-                  "region": {
-                    "startLine": 142
+            {
+              "locations": [
+                {
+                  "physicalLocation": {
+                    "uri": "bannedAPIs.m",
+                    "region": {
+                      "startLine": 142
+                    }
+                  }
+                },
+                {
+                  "physicalLocation": {
+                    "uri": "bannedAPIs.m",
+                    "region": {
+                      "startLine": 279
+                    }
                   }
                 }
-              },
-              {
-                "physicalLocation": {
-                  "uri": "bannedAPIs.m",
-                  "region": {
-                    "startLine": 279
-                  }
-                }
-              }
-            ]
+              ]
+            }
           ],
           "properties": {
             "kingdom": "Input Validation and Representation",
@@ -4196,24 +4386,26 @@
           ],
           "toolFingerprint": "DB93D0F298DA2DDC22A9EC7D8A9D6B7F",
           "codeFlows": [
-            [
-              {
-                "physicalLocation": {
-                  "uri": "bannedAPIs.m",
-                  "region": {
-                    "startLine": 142
+            {
+              "locations": [
+                {
+                  "physicalLocation": {
+                    "uri": "bannedAPIs.m",
+                    "region": {
+                      "startLine": 142
+                    }
+                  }
+                },
+                {
+                  "physicalLocation": {
+                    "uri": "bannedAPIs.m",
+                    "region": {
+                      "startLine": 87
+                    }
                   }
                 }
-              },
-              {
-                "physicalLocation": {
-                  "uri": "bannedAPIs.m",
-                  "region": {
-                    "startLine": 87
-                  }
-                }
-              }
-            ]
+              ]
+            }
           ],
           "properties": {
             "kingdom": "Input Validation and Representation",
@@ -4237,24 +4429,26 @@
           ],
           "toolFingerprint": "7167C91DAF29CF8FFC6F8102C238FA27",
           "codeFlows": [
-            [
-              {
-                "physicalLocation": {
-                  "uri": "bannedAPIs.m",
-                  "region": {
-                    "startLine": 237
+            {
+              "locations": [
+                {
+                  "physicalLocation": {
+                    "uri": "bannedAPIs.m",
+                    "region": {
+                      "startLine": 237
+                    }
+                  }
+                },
+                {
+                  "physicalLocation": {
+                    "uri": "bannedAPIs.m",
+                    "region": {
+                      "startLine": 279
+                    }
                   }
                 }
-              },
-              {
-                "physicalLocation": {
-                  "uri": "bannedAPIs.m",
-                  "region": {
-                    "startLine": 279
-                  }
-                }
-              }
-            ]
+              ]
+            }
           ],
           "properties": {
             "kingdom": "Input Validation and Representation",
@@ -4278,24 +4472,26 @@
           ],
           "toolFingerprint": "4AD7C542C06E5B215D308282E30494BF",
           "codeFlows": [
-            [
-              {
-                "physicalLocation": {
-                  "uri": "bannedAPIs.m",
-                  "region": {
-                    "startLine": 239
+            {
+              "locations": [
+                {
+                  "physicalLocation": {
+                    "uri": "bannedAPIs.m",
+                    "region": {
+                      "startLine": 239
+                    }
+                  }
+                },
+                {
+                  "physicalLocation": {
+                    "uri": "bannedAPIs.m",
+                    "region": {
+                      "startLine": 279
+                    }
                   }
                 }
-              },
-              {
-                "physicalLocation": {
-                  "uri": "bannedAPIs.m",
-                  "region": {
-                    "startLine": 279
-                  }
-                }
-              }
-            ]
+              ]
+            }
           ],
           "properties": {
             "kingdom": "Input Validation and Representation",
@@ -4319,24 +4515,26 @@
           ],
           "toolFingerprint": "1C80821B323D117284544B40EFD8A5B3",
           "codeFlows": [
-            [
-              {
-                "physicalLocation": {
-                  "uri": "bannedAPIs.m",
-                  "region": {
-                    "startLine": 238
+            {
+              "locations": [
+                {
+                  "physicalLocation": {
+                    "uri": "bannedAPIs.m",
+                    "region": {
+                      "startLine": 238
+                    }
+                  }
+                },
+                {
+                  "physicalLocation": {
+                    "uri": "bannedAPIs.m",
+                    "region": {
+                      "startLine": 87
+                    }
                   }
                 }
-              },
-              {
-                "physicalLocation": {
-                  "uri": "bannedAPIs.m",
-                  "region": {
-                    "startLine": 87
-                  }
-                }
-              }
-            ]
+              ]
+            }
           ],
           "properties": {
             "kingdom": "Input Validation and Representation",
@@ -4360,24 +4558,26 @@
           ],
           "toolFingerprint": "AD182EE22933927AAC966D5DDC668E1B",
           "codeFlows": [
-            [
-              {
-                "physicalLocation": {
-                  "uri": "bannedAPIs.m",
-                  "region": {
-                    "startLine": 238
+            {
+              "locations": [
+                {
+                  "physicalLocation": {
+                    "uri": "bannedAPIs.m",
+                    "region": {
+                      "startLine": 238
+                    }
+                  }
+                },
+                {
+                  "physicalLocation": {
+                    "uri": "bannedAPIs.m",
+                    "region": {
+                      "startLine": 279
+                    }
                   }
                 }
-              },
-              {
-                "physicalLocation": {
-                  "uri": "bannedAPIs.m",
-                  "region": {
-                    "startLine": 279
-                  }
-                }
-              }
-            ]
+              ]
+            }
           ],
           "properties": {
             "kingdom": "Input Validation and Representation",
@@ -4401,24 +4601,26 @@
           ],
           "toolFingerprint": "DB93D0F298DA2DDC22A9EC7D8A9D6B7E",
           "codeFlows": [
-            [
-              {
-                "physicalLocation": {
-                  "uri": "bannedAPIs.m",
-                  "region": {
-                    "startLine": 134
+            {
+              "locations": [
+                {
+                  "physicalLocation": {
+                    "uri": "bannedAPIs.m",
+                    "region": {
+                      "startLine": 134
+                    }
+                  }
+                },
+                {
+                  "physicalLocation": {
+                    "uri": "bannedAPIs.m",
+                    "region": {
+                      "startLine": 87
+                    }
                   }
                 }
-              },
-              {
-                "physicalLocation": {
-                  "uri": "bannedAPIs.m",
-                  "region": {
-                    "startLine": 87
-                  }
-                }
-              }
-            ]
+              ]
+            }
           ],
           "properties": {
             "kingdom": "Input Validation and Representation",

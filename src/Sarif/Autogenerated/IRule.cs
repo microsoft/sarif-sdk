@@ -34,11 +34,6 @@ namespace Microsoft.CodeAnalysis.Sarif
         string FullDescription { get; }
 
         /// <summary>
-        /// A dictionary consisting of a set of name/value pairs with arbitrary names. Describes the set of configurable options supported by the rule. The value within each name/value pair shall be a string, which may be the empty string. The value shall not be a dictionary or sub-object.
-        /// </summary>
-        IDictionary<string, string> Options { get; }
-
-        /// <summary>
         /// A set of name/value pairs with arbitrary names. The value within each name/value pair shall consist of plain text interspersed with placeholders, which can be used to format a message in combination with an arbitrary number of additional string arguments.
         /// </summary>
         IDictionary<string, string> MessageFormats { get; }
