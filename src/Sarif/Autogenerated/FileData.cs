@@ -12,7 +12,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// A single file. In some cases, this file might be nested within another file.
     /// </summary>
     [DataContract]
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.15.0.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.16.0.0")]
     public partial class FileData : ISarifNode, IEquatable<FileData>
     {
         /// <summary>
