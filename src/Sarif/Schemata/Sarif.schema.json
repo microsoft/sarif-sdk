@@ -47,9 +47,9 @@
           "description": "A unique set of strings that provide additional information for the stack.",
           "type": "array",
           "uniqueItems": true,
+          "default": [ ],
           "items": {
-            "type": "string",
-            "default": [ ]
+            "type": "string"
           }
         }
       },
@@ -114,9 +114,9 @@
           "description": "A unique set of strings that provide additional information for the stack frame.",
           "type": "array",
           "uniqueItems": true,
+          "default": [ ],
           "items": {
-            "type": "string",
-            "default": [ ]
+            "type": "string"
           }
         }
       }
@@ -146,13 +146,45 @@
           "description": "A unique set of strings that provide additional information for the code location.",
           "type": "array",
           "uniqueItems": true,
+          "default": [ ],
           "items": {
-            "type": "string",
-            "default": [ ]
+            "type": "string"
           }
         }
       },
       "required": [ "physicalLocation" ]
+    },
+    "codeFlow": {
+      "type": "object",
+      "properties": {
+        "message": {
+          "description": "A message relevant to the code flow",
+          "type": "string"
+        },
+        "locations": {
+          "description": "An array of 'annotatedCodeLocation' objects, each of which describes a single location visited by the tool in the course of producing the result.",
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/definitions/annotatedCodeLocation"
+          }
+        },
+        "properties": {
+          "description": "Key/value pairs that provide additional details about the code flow.",
+          "type": "object",
+          "default": { }
+        },
+        "tags": {
+          "description": "A unique set of strings that provide additional information for the code flow.",
+          "type": "array",
+          "uniqueItems": true,
+          "default": [ ],
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [ "locations" ]
     },
     "fileChange": {
       "description": "A change to a single file.",
@@ -223,9 +255,9 @@
           "description": "A set of distinct strings that provide additional information about the file.",
           "type": "array",
           "uniqueItems": true,
+          "default": [ ],
           "items": {
-            "type": "string",
-            "default": [ ]
+            "type": "string"
           }
         }
       }
@@ -322,9 +354,9 @@
           "description": "A set of distinct strings that provide additional information about the location.",
           "type": "array",
           "uniqueItems": true,
+          "default": [ ],
           "items": {
-            "type": "string",
-            "default": [ ]
+            "type": "string"
           }
         }
       }
@@ -486,15 +518,12 @@
         },
 
         "codeFlows": {
-          "description": "An array of arrays of 'annotatedCodeLocation` objects, each inner array of which comprises a code flow (a possible execution path through the code).",
+          "description": "An array of 'codeFlow' objects relevant to the result.",
           "type": "array",
           "minItems": 1,
+          "uniqueItems": true,
           "items": {
-            "type": "array",
-            "minItems": 1,
-            "items": {
-              "$ref": "#/definitions/annotatedCodeLocation"
-            }
+            "$ref": "#/definitions/codeFlow"
           }
         },
 
@@ -533,9 +562,9 @@
           "description": "A set of distinct strings that provide additional information about the result.",
           "type": "array",
           "uniqueItems": true,
+          "default": [ ],
           "items": {
-            "type": "string",
-            "default": [ ]
+            "type": "string"
           }
         }
       }
@@ -591,9 +620,9 @@
           "description": "A set of distinct strings that provide additional information about the rule.",
           "type": "array",
           "uniqueItems": true,
+          "default": [ ],
           "items": {
-            "type": "string",
-            "default": [ ]
+            "type": "string"
           }
         }
       },
@@ -686,9 +715,9 @@
           "description": "A set of distinct strings that provide additional information about the run.",
           "type": "array",
           "uniqueItems": true,
+          "default": [ ],
           "items": {
-            "type": "string",
-            "default": [ ]
+            "type": "string"
           }
         }
       },
@@ -735,9 +764,9 @@
           "description": "A set of distinct strings that provide additional information about the tool.",
           "type": "array",
           "uniqueItems": true,
+          "default": [ ],
           "items": {
-            "type": "string",
-            "default": [ ]
+            "type": "string"
           }
         }
       },

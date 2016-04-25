@@ -75,10 +75,10 @@ namespace Microsoft.CodeAnalysis.Sarif
         public ISet<Stack> Stacks { get; set; }
 
         /// <summary>
-        /// An array of arrays of 'annotatedCodeLocation` objects, each inner array of which comprises a code flow (a possible execution path through the code).
+        /// An array of 'codeFlow' objects relevant to the result.
         /// </summary>
         [DataMember(Name = "codeFlows", IsRequired = false, EmitDefaultValue = false)]
-        public IList<IList<AnnotatedCodeLocation>> CodeFlows { get; set; }
+        public ISet<CodeFlow> CodeFlows { get; set; }
 
         /// <summary>
         /// A grouped set of locations and messages, if available, that represent code areas that are related to this result.
@@ -177,21 +177,27 @@ namespace Microsoft.CodeAnalysis.Sarif
                         result = result * 31;
                         if (value_2 != null)
                         {
-                            foreach (var value_3 in value_2)
-                            {
-                                result = result * 31;
-                                if (value_3 != null)
-                                {
-                                    result = (result * 31) + value_3.GetHashCode();
-                                }
-                            }
+                            result = (result * 31) + value_2.GetHashCode();
                         }
                     }
                 }
 
                 if (RelatedLocations != null)
                 {
-                    foreach (var value_4 in RelatedLocations)
+                    foreach (var value_3 in RelatedLocations)
+                    {
+                        result = result * 31;
+                        if (value_3 != null)
+                        {
+                            result = (result * 31) + value_3.GetHashCode();
+                        }
+                    }
+                }
+
+                result = (result * 31) + IsSuppressedInSource.GetHashCode();
+                if (Fixes != null)
+                {
+                    foreach (var value_4 in Fixes)
                     {
                         result = result * 31;
                         if (value_4 != null)
@@ -201,29 +207,16 @@ namespace Microsoft.CodeAnalysis.Sarif
                     }
                 }
 
-                result = (result * 31) + IsSuppressedInSource.GetHashCode();
-                if (Fixes != null)
-                {
-                    foreach (var value_5 in Fixes)
-                    {
-                        result = result * 31;
-                        if (value_5 != null)
-                        {
-                            result = (result * 31) + value_5.GetHashCode();
-                        }
-                    }
-                }
-
                 if (Properties != null)
                 {
                     // Use xor for dictionaries to be order-independent.
                     int xor_0 = 0;
-                    foreach (var value_6 in Properties)
+                    foreach (var value_5 in Properties)
                     {
-                        xor_0 ^= value_6.Key.GetHashCode();
-                        if (value_6.Value != null)
+                        xor_0 ^= value_5.Key.GetHashCode();
+                        if (value_5.Value != null)
                         {
-                            xor_0 ^= value_6.Value.GetHashCode();
+                            xor_0 ^= value_5.Value.GetHashCode();
                         }
                     }
 
@@ -232,12 +225,12 @@ namespace Microsoft.CodeAnalysis.Sarif
 
                 if (Tags != null)
                 {
-                    foreach (var value_7 in Tags)
+                    foreach (var value_6 in Tags)
                     {
                         result = result * 31;
-                        if (value_7 != null)
+                        if (value_6 != null)
                         {
-                            result = (result * 31) + value_7.GetHashCode();
+                            result = (result * 31) + value_6.GetHashCode();
                         }
                     }
                 }
@@ -316,33 +309,9 @@ namespace Microsoft.CodeAnalysis.Sarif
                     return false;
                 }
 
-                if (CodeFlows.Count != other.CodeFlows.Count)
+                if (!CodeFlows.SetEquals(other.CodeFlows))
                 {
                     return false;
-                }
-
-                for (int index_0 = 0; index_0 < CodeFlows.Count; ++index_0)
-                {
-                    if (!Object.ReferenceEquals(CodeFlows[index_0], other.CodeFlows[index_0]))
-                    {
-                        if (CodeFlows[index_0] == null || other.CodeFlows[index_0] == null)
-                        {
-                            return false;
-                        }
-
-                        if (CodeFlows[index_0].Count != other.CodeFlows[index_0].Count)
-                        {
-                            return false;
-                        }
-
-                        for (int index_1 = 0; index_1 < CodeFlows[index_0].Count; ++index_1)
-                        {
-                            if (!Object.Equals(CodeFlows[index_0][index_1], other.CodeFlows[index_0][index_1]))
-                            {
-                                return false;
-                            }
-                        }
-                    }
                 }
             }
 
@@ -467,7 +436,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="tags">
         /// An initialization value for the <see cref="P: Tags" /> property.
         /// </param>
-        public Result(string ruleId, ResultKind kind, string fullMessage, string shortMessage, FormattedMessage formattedMessage, ISet<Location> locations, string toolFingerprint, ISet<Stack> stacks, IEnumerable<IEnumerable<AnnotatedCodeLocation>> codeFlows, ISet<AnnotatedCodeLocation> relatedLocations, bool isSuppressedInSource, ISet<Fix> fixes, IDictionary<string, string> properties, ISet<string> tags)
+        public Result(string ruleId, ResultKind kind, string fullMessage, string shortMessage, FormattedMessage formattedMessage, ISet<Location> locations, string toolFingerprint, ISet<Stack> stacks, ISet<CodeFlow> codeFlows, ISet<AnnotatedCodeLocation> relatedLocations, bool isSuppressedInSource, ISet<Fix> fixes, IDictionary<string, string> properties, ISet<string> tags)
         {
             Init(ruleId, kind, fullMessage, shortMessage, formattedMessage, locations, toolFingerprint, stacks, codeFlows, relatedLocations, isSuppressedInSource, fixes, properties, tags);
         }
@@ -509,7 +478,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new Result(this);
         }
 
-        private void Init(string ruleId, ResultKind kind, string fullMessage, string shortMessage, FormattedMessage formattedMessage, ISet<Location> locations, string toolFingerprint, ISet<Stack> stacks, IEnumerable<IEnumerable<AnnotatedCodeLocation>> codeFlows, ISet<AnnotatedCodeLocation> relatedLocations, bool isSuppressedInSource, ISet<Fix> fixes, IDictionary<string, string> properties, ISet<string> tags)
+        private void Init(string ruleId, ResultKind kind, string fullMessage, string shortMessage, FormattedMessage formattedMessage, ISet<Location> locations, string toolFingerprint, ISet<Stack> stacks, ISet<CodeFlow> codeFlows, ISet<AnnotatedCodeLocation> relatedLocations, bool isSuppressedInSource, ISet<Fix> fixes, IDictionary<string, string> properties, ISet<string> tags)
         {
             RuleId = ruleId;
             Kind = kind;
@@ -559,7 +528,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             if (codeFlows != null)
             {
-                var destination_2 = new List<IList<AnnotatedCodeLocation>>();
+                var destination_2 = new HashSet<CodeFlow>();
                 foreach (var value_2 in codeFlows)
                 {
                     if (value_2 == null)
@@ -568,20 +537,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                     }
                     else
                     {
-                        var destination_3 = new List<AnnotatedCodeLocation>();
-                        foreach (var value_3 in value_2)
-                        {
-                            if (value_3 == null)
-                            {
-                                destination_3.Add(null);
-                            }
-                            else
-                            {
-                                destination_3.Add(new AnnotatedCodeLocation(value_3));
-                            }
-                        }
-
-                        destination_2.Add(destination_3);
+                        destination_2.Add(new CodeFlow(value_2));
                     }
                 }
 
@@ -590,8 +546,27 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             if (relatedLocations != null)
             {
-                var destination_4 = new HashSet<AnnotatedCodeLocation>();
-                foreach (var value_4 in relatedLocations)
+                var destination_3 = new HashSet<AnnotatedCodeLocation>();
+                foreach (var value_3 in relatedLocations)
+                {
+                    if (value_3 == null)
+                    {
+                        destination_3.Add(null);
+                    }
+                    else
+                    {
+                        destination_3.Add(new AnnotatedCodeLocation(value_3));
+                    }
+                }
+
+                RelatedLocations = destination_3;
+            }
+
+            IsSuppressedInSource = isSuppressedInSource;
+            if (fixes != null)
+            {
+                var destination_4 = new HashSet<Fix>();
+                foreach (var value_4 in fixes)
                 {
                     if (value_4 == null)
                     {
@@ -599,30 +574,11 @@ namespace Microsoft.CodeAnalysis.Sarif
                     }
                     else
                     {
-                        destination_4.Add(new AnnotatedCodeLocation(value_4));
+                        destination_4.Add(new Fix(value_4));
                     }
                 }
 
-                RelatedLocations = destination_4;
-            }
-
-            IsSuppressedInSource = isSuppressedInSource;
-            if (fixes != null)
-            {
-                var destination_5 = new HashSet<Fix>();
-                foreach (var value_5 in fixes)
-                {
-                    if (value_5 == null)
-                    {
-                        destination_5.Add(null);
-                    }
-                    else
-                    {
-                        destination_5.Add(new Fix(value_5));
-                    }
-                }
-
-                Fixes = destination_5;
+                Fixes = destination_4;
             }
 
             if (properties != null)
@@ -632,13 +588,13 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             if (tags != null)
             {
-                var destination_6 = new HashSet<string>();
-                foreach (var value_6 in tags)
+                var destination_5 = new HashSet<string>();
+                foreach (var value_5 in tags)
                 {
-                    destination_6.Add(value_6);
+                    destination_5.Add(value_5);
                 }
 
-                Tags = destination_6;
+                Tags = destination_5;
             }
         }
     }

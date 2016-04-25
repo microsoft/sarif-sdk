@@ -82,7 +82,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             });
 
             Assert.AreEqual(1, result.CodeFlows.Count);
-            result.CodeFlows[0].Should().Equal(new[]
+            result.CodeFlows.First().Locations.ToArray().Should().Equal(new[]
                     {
                         new AnnotatedCodeLocation {
                             PhysicalLocation = new PhysicalLocation {

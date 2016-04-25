@@ -183,10 +183,11 @@ namespace Microsoft.Sarif.Viewer
                 HelpLink = rule?.HelpUri?.ToString()
             };
 
-            IEnumerable<IEnumerable<AnnotatedCodeLocation>> stackLocations = CreateAnnotationsFromStacks(result.Stacks);
+            IEnumerable<IEnumerable<AnnotatedCodeLocation>> stackLocations = CreateAnnotatedCodeLocationsFromStacks(result.Stacks);
+            IEnumerable<IEnumerable<AnnotatedCodeLocation>> codeFlowLocations = CreateAnnotatedCodeLocationsFromCodeFlows(result.CodeFlows);
 
             CreateAnnotatedCodeLocationCollections(stackLocations, AnnotatedCodeLocationKind.Stack, sarifError);
-            CreateAnnotatedCodeLocationCollections(result.CodeFlows, AnnotatedCodeLocationKind.CodeFlow, sarifError);
+            CreateAnnotatedCodeLocationCollections(codeFlowLocations, AnnotatedCodeLocationKind.CodeFlow, sarifError);
             CaptureAnnotatedCodeLocations(result.RelatedLocations, AnnotatedCodeLocationKind.Stack, sarifError);
 
             if (region != null)
@@ -198,7 +199,7 @@ namespace Microsoft.Sarif.Viewer
             sarifErrors.Add(sarifError);
         }
 
-        private IEnumerable<IEnumerable<AnnotatedCodeLocation>> CreateAnnotationsFromStacks(IEnumerable<Stack> stacks)
+        private IEnumerable<IEnumerable<AnnotatedCodeLocation>> CreateAnnotatedCodeLocationsFromStacks(IEnumerable<Stack> stacks)
         {
             List<List<AnnotatedCodeLocation>> codeLocationCollections = new List<List<AnnotatedCodeLocation>>();
 
@@ -224,6 +225,20 @@ namespace Microsoft.Sarif.Viewer
                         }
                     });
                 }
+                codeLocationCollections.Add(codeLocations);
+            }
+            return codeLocationCollections;
+        }
+
+        private IEnumerable<IEnumerable<AnnotatedCodeLocation>> CreateAnnotatedCodeLocationsFromCodeFlows(IEnumerable<CodeFlow> codeFlows)
+        {
+            List<List<AnnotatedCodeLocation>> codeLocationCollections = new List<List<AnnotatedCodeLocation>>();
+
+            foreach (CodeFlow codeFlow in codeFlows)
+            {
+                if (codeFlow.Locations == null) { continue; }
+
+                var codeLocations = new List<AnnotatedCodeLocation>(codeFlow.Locations);
                 codeLocationCollections.Add(codeLocations);
             }
             return codeLocationCollections;
