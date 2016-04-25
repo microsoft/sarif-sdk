@@ -610,8 +610,8 @@
         },
 
         "invocation": {
-          "description": "A string containing the runtime parameters with which the tool was invoked. For command line tools, this string may consist of the completely specified command line used to invoke the tool.",
-          "type": "string"
+          "description": "Describes the runtime environment, including parameterization, of the analysis tool run.",
+          "$ref": "#definitions/invocation"
         },
 
         "files": {
@@ -653,47 +653,11 @@
             "$ref": "#/definitions/rule"
           }
         },
-
-        "startTime": {
-          "description": "The date and time at which the run started. See \"Date/time properties\" in the SARIF spec for the required format.",
-          "type": "string",
-          "format": "date-time"
-        },
-
-        "endTime": {
-          "description": "The date and time at which the run ended. See \"Date/time properties\" in the  SARIF spec for the required format.",
-          "type": "string",
-          "format": "date-time"
-        },
-
-        "correlationId": {
-          "description": "An identifier that allows the run to be correlated with other artifacts produced by a larger automation process.",
-          "type": "string"
-        },
-
-        "architecture": {
-          "description": "An identifier that specifies the hardware architecture for which the run was targeted.",
-          "type": "string"
-        },
-
-        "properties": {
-          "description": "Key/value pairs that provide additional information about the run.",
-          "type": "object",
-          "default": { }
-        },
-
-        "tags": {
-          "description": "A set of distinct strings that provide additional information about the run.",
-          "type": "array",
-          "uniqueItems": true,
-          "items": {
-            "type": "string",
-            "default": [ ]
-          }
         }
       },
       "required": [ "tool" ]
     },
+
     "tool": {
       "description": "The analysis tool that was run.",
       "additionalProperties": false,
@@ -742,6 +706,74 @@
         }
       },
       "required": [ "name" ]
-    }
+    },
+
+    "invocation": {
+      "description": "The runtime environment of the analysis too run.",
+      "additionalProperties": false,
+      "type": "object",
+      "properties": {
+        
+        "parameters": {
+          "description": "A string containing the runtime parameters with which the tool was invoked. For command line tools, this string may consist of the completely specified command line used to invoke the tool.",
+          "type": "string"
+        },
+
+        "startTime": {
+          "description": "The date and time at which the run started. See \"Date/time properties\" in the SARIF spec for the required format.",
+          "type": "string",
+          "format": "date-time"
+        },
+
+        "endTime": {
+          "description": "The date and time at which the run ended. See \"Date/time properties\" in the  SARIF spec for the required format.",
+          "type": "string",
+          "format": "date-time"
+        },
+
+        "correlationId": {
+          "description": "An identifier that allows the run to be correlated with other artifacts produced by a larger automation process.",
+          "type": "string"
+        },
+
+        "architecture": {
+          "description": "The hardware architecture for which the run was targeted.",
+          "type": "string"
+        },
+
+        "processId": {
+          "description": "The process identifier for the analysis tool run.",
+          "type": "string"
+        },
+
+        "workingDirectory": {
+          "description": "The working directory for the analysis rool run.",
+          "type": "string",
+          "default": { }
+        },
+
+        "environmentVariables": {
+          "description": "The environment variables associated with the analysis tool process, expressed as key/value pairs.",
+          "type": "object",
+          "default": { }
+        },
+
+        "properties": {
+          "description": "Key/value pairs that provide additional information about the run.",
+          "type": "object",
+          "default": { }
+        },       
+
+        "tags": {
+          "description": "A set of distinct strings that provide additional information about the run.",
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "default": [ ]
+          }
+        },
+        "required": { [ "name" ] }
+      }
   }
 }
