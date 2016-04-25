@@ -12,7 +12,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
     public class ResultDiffingVisitorTests
     {
         [TestMethod]
-        public void DetectsAbsentAndNewResults()
+        public void ResultDiffingVisitor_DetectsAbsentAndNewResults()
         {
             var result1 = new Result
             {
