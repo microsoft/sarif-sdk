@@ -81,16 +81,7 @@
     <Compile Include="Writers\MimeTypeTests.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="ExternalData\Binary with unsupported image type.csv" />
-    <None Include="ExternalData\Binary with unsupported image type.csv.sarif" />
-    <None Include="ExternalData\Documentation Not Found.csv" />
-    <None Include="ExternalData\Documentation Not Found.csv.sarif" />
-    <None Include="ExternalData\Missing Symbols.csv" />
-    <None Include="ExternalData\Missing Symbols.csv.sarif" />
     <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="ExternalData\apiscanlogo.gif" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
