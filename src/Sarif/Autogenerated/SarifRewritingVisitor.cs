@@ -4,6 +4,7 @@
 using System;
 using System.CodeDom.Compiler;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Microsoft.CodeAnalysis.Sarif
 {
@@ -307,7 +308,8 @@ namespace Microsoft.CodeAnalysis.Sarif
                 node.Tool = VisitNullChecked(node.Tool);
                 if (node.Files != null)
                 {
-                    foreach (var key in node.Files.Keys)
+                    var keys = node.Files.Keys.ToArray();
+                    foreach (var key in keys)
                     {
                         var value = node.Files[key];
                         if (value != null)
@@ -322,7 +324,8 @@ namespace Microsoft.CodeAnalysis.Sarif
 
                 if (node.LogicalLocations != null)
                 {
-                    foreach (var key in node.LogicalLocations.Keys)
+                    var keys = node.LogicalLocations.Keys.ToArray();
+                    foreach (var key in keys)
                     {
                         var value = node.LogicalLocations[key];
                         if (value != null)
@@ -348,7 +351,8 @@ namespace Microsoft.CodeAnalysis.Sarif
 
                 if (node.Rules != null)
                 {
-                    foreach (var key in node.Rules.Keys)
+                    var keys = node.Rules.Keys.ToArray();
+                    foreach (var key in keys)
                     {
                         var value = node.Rules[key];
                         if (value != null)
