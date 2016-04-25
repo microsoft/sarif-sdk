@@ -43,9 +43,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         }
 
 
-        public void WriteRunProperties(string invocation, DateTime startTime, DateTime endTime, string correlationId, string architecture)
+        public void WriteRunProperties(Invocation invocation)
         {
-
         }
 
         /// <summary>

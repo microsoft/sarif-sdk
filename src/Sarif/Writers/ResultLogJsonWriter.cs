@@ -248,41 +248,18 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             _writeConditions |= Conditions.ResultsClosed;
         }
 
-        public void WriteRunProperties(string invocation, DateTime startTime, DateTime endTime, string correlationId, string architecture)
+        public void WriteRunProperties(Invocation invocation)
         {
+            if (invocation == null)
+            {
+                throw new ArgumentNullException(nameof(invocation));
+            }
+
             EnsureInitialized();
             EnsureResultsArrayIsNotOpen();
             EnsureStateNotAlreadySet(Conditions.Disposed | Conditions.RunPropertiesWritten);
 
-            if (!string.IsNullOrEmpty(invocation))
-            {
-                _jsonWriter.WritePropertyName(nameof(invocation));
-                _jsonWriter.WriteValue(invocation);
-            }
-
-            if (startTime != new DateTime())
-            {
-                _jsonWriter.WritePropertyName(nameof(startTime));
-                _jsonWriter.WriteValue(startTime);
-            }
-
-            if (endTime != new DateTime())
-            {
-                _jsonWriter.WritePropertyName(nameof(endTime));
-                _jsonWriter.WriteValue(endTime);
-            }
-
-            if (!string.IsNullOrEmpty(correlationId))
-            {
-                _jsonWriter.WritePropertyName(nameof(correlationId));
-                _jsonWriter.WriteValue(correlationId);
-            }
-
-            if (!string.IsNullOrEmpty(architecture))
-            {
-                _jsonWriter.WritePropertyName(nameof(architecture));
-                _jsonWriter.WriteValue(architecture);
-            }
+            _serializer.Serialize(_jsonWriter, invocation, typeof(Invocation));
         }
 
         /// <summary>Writes the log footer and closes the underlying <see cref="JsonWriter"/>.</summary>

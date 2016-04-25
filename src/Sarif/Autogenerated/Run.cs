@@ -33,10 +33,10 @@ namespace Microsoft.CodeAnalysis.Sarif
         public Tool Tool { get; set; }
 
         /// <summary>
-        /// A string containing the runtime parameters with which the tool was invoked. For command line tools, this string may consist of the completely specified command line used to invoke the tool.
+        /// Describes the runtime environment, including parameterization, of the analysis tool run.
         /// </summary>
         [DataMember(Name = "invocation", IsRequired = false, EmitDefaultValue = false)]
-        public string Invocation { get; set; }
+        public Invocation Invocation { get; set; }
 
         /// <summary>
         /// A dictionary, each of whose keys is a URI and each of whose values is an array of file objects representing the location of a single file scanned during the run.
@@ -61,42 +61,6 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// </summary>
         [DataMember(Name = "rules", IsRequired = false, EmitDefaultValue = false)]
         public IDictionary<string, Rule> Rules { get; set; }
-
-        /// <summary>
-        /// The date and time at which the run started. See "Date/time properties" in the SARIF spec for the required format.
-        /// </summary>
-        [DataMember(Name = "startTime", IsRequired = false, EmitDefaultValue = false)]
-        public DateTime StartTime { get; set; }
-
-        /// <summary>
-        /// The date and time at which the run ended. See "Date/time properties" in the  SARIF spec for the required format.
-        /// </summary>
-        [DataMember(Name = "endTime", IsRequired = false, EmitDefaultValue = false)]
-        public DateTime EndTime { get; set; }
-
-        /// <summary>
-        /// An identifier that allows the run to be correlated with other artifacts produced by a larger automation process.
-        /// </summary>
-        [DataMember(Name = "correlationId", IsRequired = false, EmitDefaultValue = false)]
-        public string CorrelationId { get; set; }
-
-        /// <summary>
-        /// An identifier that specifies the hardware architecture for which the run was targeted.
-        /// </summary>
-        [DataMember(Name = "architecture", IsRequired = false, EmitDefaultValue = false)]
-        public string Architecture { get; set; }
-
-        /// <summary>
-        /// Key/value pairs that provide additional information about the run.
-        /// </summary>
-        [DataMember(Name = "properties", IsRequired = false, EmitDefaultValue = false)]
-        public IDictionary<string, string> Properties { get; set; }
-
-        /// <summary>
-        /// A set of distinct strings that provide additional information about the run.
-        /// </summary>
-        [DataMember(Name = "tags", IsRequired = false, EmitDefaultValue = false)]
-        public ISet<string> Tags { get; set; }
 
         public override bool Equals(object other)
         {
@@ -177,46 +141,6 @@ namespace Microsoft.CodeAnalysis.Sarif
 
                     result = (result * 31) + xor_2;
                 }
-
-                result = (result * 31) + StartTime.GetHashCode();
-                result = (result * 31) + EndTime.GetHashCode();
-                if (CorrelationId != null)
-                {
-                    result = (result * 31) + CorrelationId.GetHashCode();
-                }
-
-                if (Architecture != null)
-                {
-                    result = (result * 31) + Architecture.GetHashCode();
-                }
-
-                if (Properties != null)
-                {
-                    // Use xor for dictionaries to be order-independent.
-                    int xor_3 = 0;
-                    foreach (var value_4 in Properties)
-                    {
-                        xor_3 ^= value_4.Key.GetHashCode();
-                        if (value_4.Value != null)
-                        {
-                            xor_3 ^= value_4.Value.GetHashCode();
-                        }
-                    }
-
-                    result = (result * 31) + xor_3;
-                }
-
-                if (Tags != null)
-                {
-                    foreach (var value_5 in Tags)
-                    {
-                        result = result * 31;
-                        if (value_5 != null)
-                        {
-                            result = (result * 31) + value_5.GetHashCode();
-                        }
-                    }
-                }
             }
 
             return result;
@@ -234,7 +158,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 return false;
             }
 
-            if (Invocation != other.Invocation)
+            if (!Object.Equals(Invocation, other.Invocation))
             {
                 return false;
             }
@@ -350,61 +274,6 @@ namespace Microsoft.CodeAnalysis.Sarif
                 }
             }
 
-            if (StartTime != other.StartTime)
-            {
-                return false;
-            }
-
-            if (EndTime != other.EndTime)
-            {
-                return false;
-            }
-
-            if (CorrelationId != other.CorrelationId)
-            {
-                return false;
-            }
-
-            if (Architecture != other.Architecture)
-            {
-                return false;
-            }
-
-            if (!Object.ReferenceEquals(Properties, other.Properties))
-            {
-                if (Properties == null || other.Properties == null || Properties.Count != other.Properties.Count)
-                {
-                    return false;
-                }
-
-                foreach (var value_6 in Properties)
-                {
-                    string value_7;
-                    if (!other.Properties.TryGetValue(value_6.Key, out value_7))
-                    {
-                        return false;
-                    }
-
-                    if (value_6.Value != value_7)
-                    {
-                        return false;
-                    }
-                }
-            }
-
-            if (!Object.ReferenceEquals(Tags, other.Tags))
-            {
-                if (Tags == null || other.Tags == null)
-                {
-                    return false;
-                }
-
-                if (!Tags.SetEquals(other.Tags))
-                {
-                    return false;
-                }
-            }
-
             return true;
         }
 
@@ -436,27 +305,9 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="rules">
         /// An initialization value for the <see cref="P: Rules" /> property.
         /// </param>
-        /// <param name="startTime">
-        /// An initialization value for the <see cref="P: StartTime" /> property.
-        /// </param>
-        /// <param name="endTime">
-        /// An initialization value for the <see cref="P: EndTime" /> property.
-        /// </param>
-        /// <param name="correlationId">
-        /// An initialization value for the <see cref="P: CorrelationId" /> property.
-        /// </param>
-        /// <param name="architecture">
-        /// An initialization value for the <see cref="P: Architecture" /> property.
-        /// </param>
-        /// <param name="properties">
-        /// An initialization value for the <see cref="P: Properties" /> property.
-        /// </param>
-        /// <param name="tags">
-        /// An initialization value for the <see cref="P: Tags" /> property.
-        /// </param>
-        public Run(Tool tool, string invocation, IDictionary<string, IList<FileData>> files, IDictionary<string, IList<LogicalLocationComponent>> logicalLocations, ISet<Result> results, IDictionary<string, Rule> rules, DateTime startTime, DateTime endTime, string correlationId, string architecture, IDictionary<string, string> properties, ISet<string> tags)
+        public Run(Tool tool, Invocation invocation, IDictionary<string, IList<FileData>> files, IDictionary<string, IList<LogicalLocationComponent>> logicalLocations, ISet<Result> results, IDictionary<string, Rule> rules)
         {
-            Init(tool, invocation, files, logicalLocations, results, rules, startTime, endTime, correlationId, architecture, properties, tags);
+            Init(tool, invocation, files, logicalLocations, results, rules);
         }
 
         /// <summary>
@@ -475,7 +326,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 throw new ArgumentNullException(nameof(other));
             }
 
-            Init(other.Tool, other.Invocation, other.Files, other.LogicalLocations, other.Results, other.Rules, other.StartTime, other.EndTime, other.CorrelationId, other.Architecture, other.Properties, other.Tags);
+            Init(other.Tool, other.Invocation, other.Files, other.LogicalLocations, other.Results, other.Rules);
         }
 
         ISarifNode ISarifNode.DeepClone()
@@ -496,14 +347,18 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new Run(this);
         }
 
-        private void Init(Tool tool, string invocation, IDictionary<string, IList<FileData>> files, IDictionary<string, IList<LogicalLocationComponent>> logicalLocations, ISet<Result> results, IDictionary<string, Rule> rules, DateTime startTime, DateTime endTime, string correlationId, string architecture, IDictionary<string, string> properties, ISet<string> tags)
+        private void Init(Tool tool, Invocation invocation, IDictionary<string, IList<FileData>> files, IDictionary<string, IList<LogicalLocationComponent>> logicalLocations, ISet<Result> results, IDictionary<string, Rule> rules)
         {
             if (tool != null)
             {
                 Tool = new Tool(tool);
             }
 
-            Invocation = invocation;
+            if (invocation != null)
+            {
+                Invocation = new Invocation(invocation);
+            }
+
             if (files != null)
             {
                 Files = new Dictionary<string, IList<FileData>>();
@@ -573,26 +428,6 @@ namespace Microsoft.CodeAnalysis.Sarif
                 {
                     Rules.Add(value_5.Key, new Rule(value_5.Value));
                 }
-            }
-
-            StartTime = startTime;
-            EndTime = endTime;
-            CorrelationId = correlationId;
-            Architecture = architecture;
-            if (properties != null)
-            {
-                Properties = new Dictionary<string, string>(properties);
-            }
-
-            if (tags != null)
-            {
-                var destination_3 = new HashSet<string>();
-                foreach (var value_6 in tags)
-                {
-                    destination_3.Add(value_6);
-                }
-
-                Tags = destination_3;
             }
         }
     }

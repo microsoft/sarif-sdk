@@ -73,8 +73,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
                     invocation = invocation.Replace(tokenToRedact, SarifConstants.RemovedMarker);
                 }
             }
-            run.Invocation = invocation;
-            run.StartTime = DateTime.UtcNow;
+            run.Invocation = new Invocation
+            {
+                StartTime = DateTime.UtcNow
+            };
             return run;
         }
 
@@ -158,17 +160,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
             {
                 _issueLogJsonWriter.CloseResults();
 
-                if (_run != null && _run.StartTime != new DateTime())
+                if (_run?.Invocation?.StartTime != new DateTime())
                 {
-                    _run.EndTime = DateTime.UtcNow;
+                    _run.Invocation.EndTime = DateTime.UtcNow;
                 }
 
-                _issueLogJsonWriter.WriteRunProperties(
-                    invocation: _run.Invocation,
-                    startTime: _run.StartTime,
-                    endTime: _run.EndTime,
-                    correlationId: _run.CorrelationId,
-                    architecture: _run.Architecture);
+                _issueLogJsonWriter.WriteRunProperties(invocation: _run.Invocation);
 
                 if (_run.Files != null) { _issueLogJsonWriter.WriteFiles(_run.Files); }
 
@@ -193,12 +190,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
         public void AnalysisStarted()
         {
             _issueLogJsonWriter.OpenResults();
-            _run.StartTime = DateTime.UtcNow;
+            _run.Invocation = new Invocation
+            {
+                StartTime = DateTime.UtcNow
+            };
         }
 
         public void AnalysisStopped(RuntimeConditions runtimeConditions)
         {
-            _run.EndTime = DateTime.UtcNow;
+            _run.Invocation.EndTime = DateTime.UtcNow;
         }
 
         public void Log(IRule rule, Result result)

@@ -20,14 +20,6 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// </summary>
         SarifLog,
         /// <summary>
-        /// A value indicating that the <see cref="ISarifNode" /> object is of type <see cref="Stack" />.
-        /// </summary>
-        Stack,
-        /// <summary>
-        /// A value indicating that the <see cref="ISarifNode" /> object is of type <see cref="StackFrame" />.
-        /// </summary>
-        StackFrame,
-        /// <summary>
         /// A value indicating that the <see cref="ISarifNode" /> object is of type <see cref="AnnotatedCodeLocation" />.
         /// </summary>
         AnnotatedCodeLocation,
@@ -51,6 +43,10 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// A value indicating that the <see cref="ISarifNode" /> object is of type <see cref="Hash" />.
         /// </summary>
         Hash,
+        /// <summary>
+        /// A value indicating that the <see cref="ISarifNode" /> object is of type <see cref="Invocation" />.
+        /// </summary>
+        Invocation,
         /// <summary>
         /// A value indicating that the <see cref="ISarifNode" /> object is of type <see cref="Location" />.
         /// </summary>
@@ -83,6 +79,14 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// A value indicating that the <see cref="ISarifNode" /> object is of type <see cref="Run" />.
         /// </summary>
         Run,
+        /// <summary>
+        /// A value indicating that the <see cref="ISarifNode" /> object is of type <see cref="Stack" />.
+        /// </summary>
+        Stack,
+        /// <summary>
+        /// A value indicating that the <see cref="ISarifNode" /> object is of type <see cref="StackFrame" />.
+        /// </summary>
+        StackFrame,
         /// <summary>
         /// A value indicating that the <see cref="ISarifNode" /> object is of type <see cref="Tool" />.
         /// </summary>

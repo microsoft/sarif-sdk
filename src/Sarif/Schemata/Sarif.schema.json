@@ -21,106 +21,6 @@
   },
   "required": [ "version", "runs" ],
   "definitions": {
-    "stack": {
-      "description": "A call stack that is relevant to a result.",
-      "additionalProperties": false,
-      "type": "object",
-      "properties": {
-        "message": {
-          "description": "A message relevant to this call stack.",
-          "type": "string"
-        },
-        "frames": {
-          "description": "An array of stack frames that represent a sequence of calls, rendered in reverse chronological order, that comprise the call stack.",
-          "type": "array",
-          "minItems": 1,
-          "items": {
-            "$ref": "#/definitions/stackFrame"
-          }
-        },
-        "properties": {
-          "description": "Key/value pairs that provide additional details about the stack.",
-          "type": "object",
-          "default": { }
-        },
-        "tags": {
-          "description": "A unique set of strings that provide additional information for the stack.",
-          "type": "array",
-          "uniqueItems": true,
-          "items": {
-            "type": "string",
-            "default": [ ]
-          }
-        }
-      },
-      "required": [ "frames" ]
-    },
-    "stackFrame": {
-      "description": "A function call within a stack trace.",
-      "additionalProperties": false,
-      "type": "object",
-      "properties": {
-        "message": {
-          "description": "A message relevant to this stack frame.",
-          "type": "string"
-        },
-        "uri": {
-          "description": "The uri of the source code file to which this stack frame refers.",
-          "type": "string",
-          "format": "uri"
-        },
-        "line": {
-          "description": "The line of the location to which this stack frame refers.",
-          "type": "integer"
-        },
-        "column": {
-          "description": "The line of the location to which this stack frame refers.",
-          "type": "integer"
-        },
-        "module": {
-          "description": "The name of the module that contains the code that is executing.",
-          "type": "string"
-        },
-        "fullyQualifiedLogicalName": {
-          "description": "The fully qualified name of the method or function that is executing.",
-          "type": "string"
-        },
-        "logicalLocationKey": {
-          "description": "A string used as a key into the logicalLocations dictionary, in case the string specified by 'fullyQualifiedLogicalName' is not unique.",
-          "type": "string"
-        },
-        "address": {
-          "description": "The address of the method or function that is executing.",
-          "type": "integer"
-        },
-        "offset": {
-          "description": "The offset from the method or function that is executing.",
-          "type": "integer"
-        },
-        "parameters": {
-          "description": "The parameters of the call that is executing.",
-          "type": "array",
-          "items": {
-            "type": "string",
-            "default": [ ]
-          }
-        },
-        "properties": {
-          "description": "Key/value pairs that provide additional details about the stack frame.",
-          "type": "object",
-          "default": { }
-        },
-        "tags": {
-          "description": "A unique set of strings that provide additional information for the stack frame.",
-          "type": "array",
-          "uniqueItems": true,
-          "items": {
-            "type": "string",
-            "default": [ ]
-          }
-        }
-      }
-    },
     "annotatedCodeLocation": {
       "description": "A code annotation that consists of single physical location and associated message, used to express code flows through a method, or other locations that are related to a result.",
       "additionalProperties": false,
@@ -286,6 +186,73 @@
         }
       },
       "required": [ "value", "algorithm" ]
+    },
+    "invocation": {
+      "description": "The runtime environment of the analysis too run.",
+      "additionalProperties": false,
+      "type": "object",
+      "properties": {
+
+        "parameters": {
+          "description": "A string containing the runtime parameters with which the tool was invoked. For command line tools, this string may consist of the completely specified command line used to invoke the tool.",
+          "type": "string"
+        },
+
+        "startTime": {
+          "description": "The date and time at which the run started. See \"Date/time properties\" in the SARIF spec for the required format.",
+          "type": "string",
+          "format": "date-time"
+        },
+
+        "endTime": {
+          "description": "The date and time at which the run ended. See \"Date/time properties\" in the  SARIF spec for the required format.",
+          "type": "string",
+          "format": "date-time"
+        },
+
+        "correlationId": {
+          "description": "An identifier that allows the run to be correlated with other artifacts produced by a larger automation process.",
+          "type": "string"
+        },
+
+        "architecture": {
+          "description": "The hardware architecture for which the run was targeted.",
+          "type": "string"
+        },
+
+        "processId": {
+          "description": "The process identifier for the analysis tool run.",
+          "type": "string"
+        },
+
+        "workingDirectory": {
+          "description": "The working directory for the analysis rool run.",
+          "type": "string",
+          "default": { }
+        },
+
+        "environmentVariables": {
+          "description": "The environment variables associated with the analysis tool process, expressed as key/value pairs.",
+          "type": "object",
+          "default": { }
+        },
+
+        "properties": {
+          "description": "Key/value pairs that provide additional information about the run.",
+          "type": "object",
+          "default": { }
+        },
+
+        "tags": {
+          "description": "A set of distinct strings that provide additional information about the run.",
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "default": [ ]
+          }
+        }
+      }
     },
     "location": {
       "description": "The location where an analysis tool produced a result.",
@@ -611,7 +578,7 @@
 
         "invocation": {
           "description": "Describes the runtime environment, including parameterization, of the analysis tool run.",
-          "$ref": "#definitions/invocation"
+          "$ref": "#/definitions/invocation"
         },
 
         "files": {
@@ -653,11 +620,109 @@
             "$ref": "#/definitions/rule"
           }
         },
-        }
       },
       "required": [ "tool" ]
     },
-
+    "stack": {
+      "description": "A call stack that is relevant to a result.",
+      "additionalProperties": false,
+      "type": "object",
+      "properties": {
+        "message": {
+          "description": "A message relevant to this call stack.",
+          "type": "string"
+        },
+        "frames": {
+          "description": "An array of stack frames that represent a sequence of calls, rendered in reverse chronological order, that comprise the call stack.",
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/definitions/stackFrame"
+          }
+        },
+        "properties": {
+          "description": "Key/value pairs that provide additional details about the stack.",
+          "type": "object",
+          "default": { }
+        },
+        "tags": {
+          "description": "A unique set of strings that provide additional information for the stack.",
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "default": [ ]
+          }
+        }
+      },
+      "required": [ "frames" ]
+    },
+    "stackFrame": {
+      "description": "A function call within a stack trace.",
+      "additionalProperties": false,
+      "type": "object",
+      "properties": {
+        "message": {
+          "description": "A message relevant to this stack frame.",
+          "type": "string"
+        },
+        "uri": {
+          "description": "The uri of the source code file to which this stack frame refers.",
+          "type": "string",
+          "format": "uri"
+        },
+        "line": {
+          "description": "The line of the location to which this stack frame refers.",
+          "type": "integer"
+        },
+        "column": {
+          "description": "The line of the location to which this stack frame refers.",
+          "type": "integer"
+        },
+        "module": {
+          "description": "The name of the module that contains the code that is executing.",
+          "type": "string"
+        },
+        "fullyQualifiedLogicalName": {
+          "description": "The fully qualified name of the method or function that is executing.",
+          "type": "string"
+        },
+        "logicalLocationKey": {
+          "description": "A string used as a key into the logicalLocations dictionary, in case the string specified by 'fullyQualifiedLogicalName' is not unique.",
+          "type": "string"
+        },
+        "address": {
+          "description": "The address of the method or function that is executing.",
+          "type": "integer"
+        },
+        "offset": {
+          "description": "The offset from the method or function that is executing.",
+          "type": "integer"
+        },
+        "parameters": {
+          "description": "The parameters of the call that is executing.",
+          "type": "array",
+          "items": {
+            "type": "string",
+            "default": [ ]
+          }
+        },
+        "properties": {
+          "description": "Key/value pairs that provide additional details about the stack frame.",
+          "type": "object",
+          "default": { }
+        },
+        "tags": {
+          "description": "A unique set of strings that provide additional information for the stack frame.",
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "default": [ ]
+          }
+        }
+      }
+    },
     "tool": {
       "description": "The analysis tool that was run.",
       "additionalProperties": false,
@@ -706,74 +771,6 @@
         }
       },
       "required": [ "name" ]
-    },
-
-    "invocation": {
-      "description": "The runtime environment of the analysis too run.",
-      "additionalProperties": false,
-      "type": "object",
-      "properties": {
-        
-        "parameters": {
-          "description": "A string containing the runtime parameters with which the tool was invoked. For command line tools, this string may consist of the completely specified command line used to invoke the tool.",
-          "type": "string"
-        },
-
-        "startTime": {
-          "description": "The date and time at which the run started. See \"Date/time properties\" in the SARIF spec for the required format.",
-          "type": "string",
-          "format": "date-time"
-        },
-
-        "endTime": {
-          "description": "The date and time at which the run ended. See \"Date/time properties\" in the  SARIF spec for the required format.",
-          "type": "string",
-          "format": "date-time"
-        },
-
-        "correlationId": {
-          "description": "An identifier that allows the run to be correlated with other artifacts produced by a larger automation process.",
-          "type": "string"
-        },
-
-        "architecture": {
-          "description": "The hardware architecture for which the run was targeted.",
-          "type": "string"
-        },
-
-        "processId": {
-          "description": "The process identifier for the analysis tool run.",
-          "type": "string"
-        },
-
-        "workingDirectory": {
-          "description": "The working directory for the analysis rool run.",
-          "type": "string",
-          "default": { }
-        },
-
-        "environmentVariables": {
-          "description": "The environment variables associated with the analysis tool process, expressed as key/value pairs.",
-          "type": "object",
-          "default": { }
-        },
-
-        "properties": {
-          "description": "Key/value pairs that provide additional information about the run.",
-          "type": "object",
-          "default": { }
-        },       
-
-        "tags": {
-          "description": "A set of distinct strings that provide additional information about the run.",
-          "type": "array",
-          "uniqueItems": true,
-          "items": {
-            "type": "string",
-            "default": [ ]
-          }
-        },
-        "required": { [ "name" ] }
-      }
+    }
   }
 }

@@ -23,14 +23,14 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="tool">The tool information to write.</param>
         void WriteTool(Tool tool);
 
-        /// <summary>Writes run information to the log. These properties may appear after
+        /// <summary>Writes run information to the log. This object may appear after
         /// the results, as it can contain data that can't be computed (such as the run
         /// end time) until all results have been generated.</summary>
         /// <exception cref="IOException">A file IO error occured. Clients implementing
         /// <see cref="IToolFileConverter"/> should allow these exceptions to propagate.</exception>
-        /// <exception cref="InvalidOperationException">Thrown if the properties already been
+        /// <exception cref="InvalidOperationException">Thrown if the object has already been
         /// written.</exception>
-        void WriteRunProperties(string invocation, DateTime startTime, DateTime endTime, string correlationId, string architecture);
+        void WriteRunProperties(Invocation invocation);
 
         /// <summary>
         /// Write information about scanned files to the log. This information may appear
