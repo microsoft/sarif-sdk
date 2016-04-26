@@ -188,7 +188,7 @@
       "required": [ "value", "algorithm" ]
     },
     "invocation": {
-      "description": "The runtime environment of the analysis too run.",
+      "description": "The runtime environment of the analysis tool run.",
       "additionalProperties": false,
       "type": "object",
       "properties": {
@@ -215,14 +215,14 @@
           "type": "string"
         },
 
-        "architecture": {
-          "description": "The hardware architecture for which the run was targeted.",
+        "machine": {
+          "description": "The machine that hosted the analysis tool run.",
           "type": "string"
         },
 
         "processId": {
           "description": "The process identifier for the analysis tool run.",
-          "type": "string"
+          "type": "integer"
         },
 
         "workingDirectory": {
@@ -619,7 +619,7 @@
           "additionalProperties": {
             "$ref": "#/definitions/rule"
           }
-        },
+        }
       },
       "required": [ "tool" ]
     },

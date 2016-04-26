@@ -133,9 +133,13 @@
           ]
         }
       },
-      "invocation": "mod50  analyze /file d:\\src\\SecDevTools\\Main\\src\\ModernCop\\Source\\WebRules.Test.Unit\\ModernCopTestData\\WebRules_PackageRules\\..\\WebRules_JavaScriptRules\\Semantic\\VariableDeclaredMultipleTimes.js /out d:\\src\\sarif-sdk\\src\\Sarif.FunctionalTests\\DirectProducerTestData\\WebSkim\\RelatedLocations.sarif",
-      "startTime": "2016-04-22T20:42:59.5018326Z",
-      "endTime": "2016-04-22T20:43:00.799056Z"
+      "invocation": {
+        "parameters": "mod50  analyze /file d:\\src\\SecDevTools\\Main\\src\\ModernCop\\Source\\WebRules.Test.Unit\\ModernCopTestData\\WebRules_PackageRules\\..\\WebRules_JavaScriptRules\\Semantic\\VariableDeclaredMultipleTimes.js /out d:\\src\\sarif-sdk\\src\\Sarif.FunctionalTests\\DirectProducerTestData\\WebSkim\\RelatedLocations.sarif",
+        "startTime": "2016-04-26T20:57:34.92Z",
+        "endTime": "2016-04-26T20:57:36.37Z",
+        "processId": 45304,
+        "workingDirectory": "D:\\src\\SecDevTools\\Main\\bin\\x64\\Release\\ModernCop"
+      }
     }
   ]
 }

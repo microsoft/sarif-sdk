@@ -27,7 +27,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             FilesWritten = 0x8,
             ResultsInitialized = 0x10,
             ResultsClosed = 0x20,
-            RunPropertiesWritten = 0x40,
+            InvocationWritten = 0x40,
             LogicalLocationsWritten = 0x80,
             Disposed = 0x100
         }
@@ -248,7 +248,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             _writeConditions |= Conditions.ResultsClosed;
         }
 
-        public void WriteRunProperties(Invocation invocation)
+        public void WriteInvocation(Invocation invocation)
         {
             if (invocation == null)
             {
@@ -257,8 +257,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
             EnsureInitialized();
             EnsureResultsArrayIsNotOpen();
-            EnsureStateNotAlreadySet(Conditions.Disposed | Conditions.RunPropertiesWritten);
+            EnsureStateNotAlreadySet(Conditions.Disposed | Conditions.InvocationWritten);
 
+            _jsonWriter.WritePropertyName("invocation");
             _serializer.Serialize(_jsonWriter, invocation, typeof(Invocation));
         }
 

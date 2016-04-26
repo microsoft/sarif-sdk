@@ -43,7 +43,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         }
 
 
-        public void WriteRunProperties(Invocation invocation)
+        public void WriteInvocation(Invocation invocation)
         {
         }
 

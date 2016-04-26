@@ -65,9 +65,13 @@
           ]
         }
       },
-      "invocation": "mod50  analyze /appx d:\\src\\SecDevTools\\Main\\src\\ModernCop\\Source\\Mod50.Test.Unit\\ModernCopTestData\\Mod50\\CompiledPackages\\FoodAndDrink_4.0.35.0_x86.appxbundle /out d:\\src\\sarif-sdk\\src\\Sarif.FunctionalTests\\DirectProducerTestData\\WebSkim\\LocalizedBundleDoubleNesting.sarif",
-      "startTime": "2016-04-22T20:43:08.8786821Z",
-      "endTime": "2016-04-22T20:43:15.0919642Z"
+      "invocation": {
+        "parameters": "mod50  analyze /appx d:\\src\\SecDevTools\\Main\\src\\ModernCop\\Source\\Mod50.Test.Unit\\ModernCopTestData\\Mod50\\CompiledPackages\\FoodAndDrink_4.0.35.0_x86.appxbundle /out d:\\src\\sarif-sdk\\src\\Sarif.FunctionalTests\\DirectProducerTestData\\WebSkim\\LocalizedBundleDoubleNesting.sarif",
+        "startTime": "2016-04-26T20:57:44.96Z",
+        "endTime": "2016-04-26T20:57:51.24Z",
+        "processId": 28400,
+        "workingDirectory": "D:\\src\\SecDevTools\\Main\\bin\\x64\\Release\\ModernCop"
+      }
     }
   ]
 }

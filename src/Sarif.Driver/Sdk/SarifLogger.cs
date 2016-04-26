@@ -3,9 +3,8 @@
 
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.IO;
-using System.Reflection;
+using System.Linq;
 using Microsoft.CodeAnalysis.Sarif.Readers;
 using Microsoft.CodeAnalysis.Sarif.Writers;
 
@@ -64,20 +63,33 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
                 }
             }
 
-            string invocation = Environment.CommandLine;
+
+            run.Invocation = Invocation.Create();
 
             if (invocationTokensToRedact != null)
             {
-                foreach (string tokenToRedact in invocationTokensToRedact)
+                run.Invocation.Machine = Redact(run.Invocation.Machine, invocationTokensToRedact);
+                run.Invocation.Parameters = Redact(run.Invocation.Parameters, invocationTokensToRedact);
+                run.Invocation.WorkingDirectory = Redact(run.Invocation.WorkingDirectory, invocationTokensToRedact);
+
+                string[] keys = run.Invocation.EnvironmentVariables.Keys.ToArray();
+
+                foreach (string key in keys)
                 {
-                    invocation = invocation.Replace(tokenToRedact, SarifConstants.RemovedMarker);
+                    string value = run.Invocation.EnvironmentVariables[key];
+                    run.Invocation.EnvironmentVariables[key] = Redact(value, invocationTokensToRedact);
                 }
             }
-            run.Invocation = new Invocation
-            {
-                StartTime = DateTime.UtcNow
-            };
             return run;
+        }
+
+        private static string Redact(string text, IEnumerable<string> tokensToRedact)
+        {
+            foreach (string tokenToRedact in tokensToRedact)
+            {
+                text = text.Replace(tokenToRedact, SarifConstants.RemovedMarker);
+            }
+            return text;
         }
 
         public SarifLogger(string outputFilePath, bool verbose, Tool tool, Run run)
@@ -165,16 +177,19 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
                     _run.Invocation.EndTime = DateTime.UtcNow;
                 }
 
-                _issueLogJsonWriter.WriteRunProperties(invocation: _run.Invocation);
-
-                if (_run.Files != null) { _issueLogJsonWriter.WriteFiles(_run.Files); }
-
                 // Note: we write out the backing rules
                 // to prevent the property accessor from populating
                 // this data with an empty collection.
                 if (_rules != null)
                 {
                     _issueLogJsonWriter.WriteRules(_rules);
+                }
+
+                if (_run.Files != null) { _issueLogJsonWriter.WriteFiles(_run.Files); }
+
+                if (_run.Invocation != null)
+                {
+                    _issueLogJsonWriter.WriteInvocation(invocation: _run.Invocation);
                 }
 
                 _issueLogJsonWriter.Dispose();
@@ -190,10 +205,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
         public void AnalysisStarted()
         {
             _issueLogJsonWriter.OpenResults();
-            _run.Invocation = new Invocation
-            {
-                StartTime = DateTime.UtcNow
-            };
+            _run.Invocation = Invocation.Create();
         }
 
         public void AnalysisStopped(RuntimeConditions runtimeConditions)

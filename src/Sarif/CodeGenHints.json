@@ -62,6 +62,11 @@
       "kind": "DictionaryHint"
     }
   ],
+  "Invocation.EnvironmentVariables": [
+    {
+      "kind": "DictionaryHint"
+    }
+  ],
   "rule": [
     {
       "kind": "InterfaceHint",

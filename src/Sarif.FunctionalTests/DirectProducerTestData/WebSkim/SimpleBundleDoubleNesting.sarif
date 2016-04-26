@@ -320,6 +320,249 @@
           ]
         },
         {
+          "ruleId": "JS2074",
+          "kind": "error",
+          "formattedMessage": {
+            "formatId": "Error",
+            "arguments": [
+              "nav",
+              "variable",
+              "nav"
+            ]
+          },
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/Mod50.Test.Unit/ModernCopTestData/Mod50/CompiledPackages/SimpleJSApp.appxbundle#/pages/hub/hub.js",
+                "region": {
+                  "startLine": 4,
+                  "startColumn": 7
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "JS3092",
+          "kind": "error",
+          "formattedMessage": {
+            "formatId": "Error",
+            "arguments": [
+              "WinJS.Application",
+              "sessionState"
+            ]
+          },
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/Mod50.Test.Unit/ModernCopTestData/Mod50/CompiledPackages/SimpleJSApp.appxbundle#/pages/hub/hub.js",
+                "region": {
+                  "startLine": 5,
+                  "startColumn": 37
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "JS2074",
+          "kind": "error",
+          "formattedMessage": {
+            "formatId": "Error",
+            "arguments": [
+              "util",
+              "variable",
+              "util"
+            ]
+          },
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/Mod50.Test.Unit/ModernCopTestData/Mod50/CompiledPackages/SimpleJSApp.appxbundle#/pages/hub/hub.js",
+                "region": {
+                  "startLine": 6,
+                  "startColumn": 7
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "JS3058",
+          "kind": "error",
+          "formattedMessage": {
+            "formatId": "Error",
+            "arguments": [
+              "Data"
+            ]
+          },
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/Mod50.Test.Unit/ModernCopTestData/Mod50/CompiledPackages/SimpleJSApp.appxbundle#/pages/hub/hub.js",
+                "region": {
+                  "startLine": 9,
+                  "startColumn": 25
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "JS2074",
+          "kind": "error",
+          "formattedMessage": {
+            "formatId": "Error",
+            "arguments": [
+              "args",
+              "parameter",
+              "args"
+            ]
+          },
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/Mod50.Test.Unit/ModernCopTestData/Mod50/CompiledPackages/SimpleJSApp.appxbundle#/pages/hub/hub.js",
+                "region": {
+                  "startLine": 21,
+                  "startColumn": 33
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "JS3047",
+          "kind": "error",
+          "formattedMessage": {
+            "formatId": "Error"
+          },
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/Mod50.Test.Unit/ModernCopTestData/Mod50/CompiledPackages/SimpleJSApp.appxbundle#/pages/hub/hub.js",
+                "region": {
+                  "startLine": 24,
+                  "startColumn": 11
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "JS2074",
+          "kind": "error",
+          "formattedMessage": {
+            "formatId": "Error",
+            "arguments": [
+              "args",
+              "parameter",
+              "args"
+            ]
+          },
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/Mod50.Test.Unit/ModernCopTestData/Mod50/CompiledPackages/SimpleJSApp.appxbundle#/pages/hub/hub.js",
+                "region": {
+                  "startLine": 24,
+                  "startColumn": 39
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "JS2074",
+          "kind": "error",
+          "formattedMessage": {
+            "formatId": "Error",
+            "arguments": [
+              "args",
+              "parameter",
+              "args"
+            ]
+          },
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/Mod50.Test.Unit/ModernCopTestData/Mod50/CompiledPackages/SimpleJSApp.appxbundle#/pages/hub/hub.js",
+                "region": {
+                  "startLine": 36,
+                  "startColumn": 63
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "JS3057",
+          "kind": "error",
+          "formattedMessage": {
+            "formatId": "Error",
+            "arguments": [
+              "string",
+              "Object"
+            ]
+          },
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/Mod50.Test.Unit/ModernCopTestData/Mod50/CompiledPackages/SimpleJSApp.appxbundle#/pages/hub/hub.js",
+                "region": {
+                  "startLine": 37,
+                  "startColumn": 26
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "JS2074",
+          "kind": "error",
+          "formattedMessage": {
+            "formatId": "Error",
+            "arguments": [
+              "args",
+              "parameter",
+              "args"
+            ]
+          },
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/Mod50.Test.Unit/ModernCopTestData/Mod50/CompiledPackages/SimpleJSApp.appxbundle#/pages/hub/hub.js",
+                "region": {
+                  "startLine": 40,
+                  "startColumn": 61
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "JS3057",
+          "kind": "error",
+          "formattedMessage": {
+            "formatId": "Error",
+            "arguments": [
+              "string",
+              "Object"
+            ]
+          },
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/Mod50.Test.Unit/ModernCopTestData/Mod50/CompiledPackages/SimpleJSApp.appxbundle#/pages/hub/hub.js",
+                "region": {
+                  "startLine": 42,
+                  "startColumn": 26
+                }
+              }
+            }
+          ]
+        },
+        {
           "ruleId": "JS2027",
           "kind": "warning",
           "formattedMessage": {
@@ -744,268 +987,6 @@
                 "region": {
                   "startLine": 54,
                   "startColumn": 121
-                }
-              }
-            }
-          ]
-        },
-        {
-          "ruleId": "JS2074",
-          "kind": "error",
-          "formattedMessage": {
-            "formatId": "Error",
-            "arguments": [
-              "nav",
-              "variable",
-              "nav"
-            ]
-          },
-          "locations": [
-            {
-              "analysisTarget": {
-                "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/Mod50.Test.Unit/ModernCopTestData/Mod50/CompiledPackages/SimpleJSApp.appxbundle#/pages/hub/hub.js",
-                "region": {
-                  "startLine": 4,
-                  "startColumn": 7
-                }
-              }
-            }
-          ]
-        },
-        {
-          "ruleId": "JS3092",
-          "kind": "error",
-          "formattedMessage": {
-            "formatId": "Error",
-            "arguments": [
-              "WinJS.Application",
-              "sessionState"
-            ]
-          },
-          "locations": [
-            {
-              "analysisTarget": {
-                "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/Mod50.Test.Unit/ModernCopTestData/Mod50/CompiledPackages/SimpleJSApp.appxbundle#/pages/hub/hub.js",
-                "region": {
-                  "startLine": 5,
-                  "startColumn": 37
-                }
-              }
-            }
-          ]
-        },
-        {
-          "ruleId": "JS2074",
-          "kind": "error",
-          "formattedMessage": {
-            "formatId": "Error",
-            "arguments": [
-              "util",
-              "variable",
-              "util"
-            ]
-          },
-          "locations": [
-            {
-              "analysisTarget": {
-                "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/Mod50.Test.Unit/ModernCopTestData/Mod50/CompiledPackages/SimpleJSApp.appxbundle#/pages/hub/hub.js",
-                "region": {
-                  "startLine": 6,
-                  "startColumn": 7
-                }
-              }
-            }
-          ]
-        },
-        {
-          "ruleId": "JS3058",
-          "kind": "error",
-          "formattedMessage": {
-            "formatId": "Error",
-            "arguments": [
-              "Data"
-            ]
-          },
-          "locations": [
-            {
-              "analysisTarget": {
-                "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/Mod50.Test.Unit/ModernCopTestData/Mod50/CompiledPackages/SimpleJSApp.appxbundle#/pages/hub/hub.js",
-                "region": {
-                  "startLine": 9,
-                  "startColumn": 25
-                }
-              }
-            }
-          ]
-        },
-        {
-          "ruleId": "JS2074",
-          "kind": "error",
-          "formattedMessage": {
-            "formatId": "Error",
-            "arguments": [
-              "args",
-              "parameter",
-              "args"
-            ]
-          },
-          "locations": [
-            {
-              "analysisTarget": {
-                "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/Mod50.Test.Unit/ModernCopTestData/Mod50/CompiledPackages/SimpleJSApp.appxbundle#/pages/hub/hub.js",
-                "region": {
-                  "startLine": 21,
-                  "startColumn": 33
-                }
-              }
-            }
-          ]
-        },
-        {
-          "ruleId": "JS3047",
-          "kind": "error",
-          "formattedMessage": {
-            "formatId": "Error"
-          },
-          "locations": [
-            {
-              "analysisTarget": {
-                "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/Mod50.Test.Unit/ModernCopTestData/Mod50/CompiledPackages/SimpleJSApp.appxbundle#/pages/hub/hub.js",
-                "region": {
-                  "startLine": 24,
-                  "startColumn": 11
-                }
-              }
-            }
-          ]
-        },
-        {
-          "ruleId": "JS2074",
-          "kind": "error",
-          "formattedMessage": {
-            "formatId": "Error",
-            "arguments": [
-              "args",
-              "parameter",
-              "args"
-            ]
-          },
-          "locations": [
-            {
-              "analysisTarget": {
-                "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/Mod50.Test.Unit/ModernCopTestData/Mod50/CompiledPackages/SimpleJSApp.appxbundle#/pages/hub/hub.js",
-                "region": {
-                  "startLine": 24,
-                  "startColumn": 39
-                }
-              }
-            }
-          ]
-        },
-        {
-          "ruleId": "JS2074",
-          "kind": "error",
-          "formattedMessage": {
-            "formatId": "Error",
-            "arguments": [
-              "args",
-              "parameter",
-              "args"
-            ]
-          },
-          "locations": [
-            {
-              "analysisTarget": {
-                "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/Mod50.Test.Unit/ModernCopTestData/Mod50/CompiledPackages/SimpleJSApp.appxbundle#/pages/hub/hub.js",
-                "region": {
-                  "startLine": 36,
-                  "startColumn": 63
-                }
-              }
-            }
-          ]
-        },
-        {
-          "ruleId": "JS3057",
-          "kind": "error",
-          "formattedMessage": {
-            "formatId": "Error",
-            "arguments": [
-              "string",
-              "Object"
-            ]
-          },
-          "locations": [
-            {
-              "analysisTarget": {
-                "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/Mod50.Test.Unit/ModernCopTestData/Mod50/CompiledPackages/SimpleJSApp.appxbundle#/pages/hub/hub.js",
-                "region": {
-                  "startLine": 37,
-                  "startColumn": 26
-                }
-              }
-            }
-          ]
-        },
-        {
-          "ruleId": "JS2074",
-          "kind": "error",
-          "formattedMessage": {
-            "formatId": "Error",
-            "arguments": [
-              "args",
-              "parameter",
-              "args"
-            ]
-          },
-          "locations": [
-            {
-              "analysisTarget": {
-                "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/Mod50.Test.Unit/ModernCopTestData/Mod50/CompiledPackages/SimpleJSApp.appxbundle#/pages/hub/hub.js",
-                "region": {
-                  "startLine": 40,
-                  "startColumn": 61
-                }
-              }
-            }
-          ]
-        },
-        {
-          "ruleId": "JS3057",
-          "kind": "error",
-          "formattedMessage": {
-            "formatId": "Error",
-            "arguments": [
-              "string",
-              "Object"
-            ]
-          },
-          "locations": [
-            {
-              "analysisTarget": {
-                "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/Mod50.Test.Unit/ModernCopTestData/Mod50/CompiledPackages/SimpleJSApp.appxbundle#/pages/hub/hub.js",
-                "region": {
-                  "startLine": 42,
-                  "startColumn": 26
-                }
-              }
-            }
-          ]
-        },
-        {
-          "ruleId": "JS3054",
-          "kind": "error",
-          "formattedMessage": {
-            "formatId": "Error",
-            "arguments": []
-          },
-          "locations": [
-            {
-              "analysisTarget": {
-                "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/Mod50.Test.Unit/ModernCopTestData/Mod50/CompiledPackages/SimpleJSApp.appxbundle#/js/data.js",
-                "region": {
-                  "startLine": 44,
-                  "startColumn": 5
                 }
               }
             }
@@ -1841,6 +1822,25 @@
               }
             }
           ]
+        },
+        {
+          "ruleId": "JS3054",
+          "kind": "error",
+          "formattedMessage": {
+            "formatId": "Error",
+            "arguments": []
+          },
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/Mod50.Test.Unit/ModernCopTestData/Mod50/CompiledPackages/SimpleJSApp.appxbundle#/js/data.js",
+                "region": {
+                  "startLine": 44,
+                  "startColumn": 5
+                }
+              }
+            }
+          ]
         }
       ],
       "files": {
@@ -1905,15 +1905,6 @@
             "mimeType": "text/javascript"
           }
         ],
-        "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/Mod50.Test.Unit/ModernCopTestData/Mod50/CompiledPackages/SimpleJSApp.appxbundle#/js/default.js": [
-          {
-            "mimeType": "application/octet-stream"
-          },
-          {
-            "uri": "/js/default.js",
-            "mimeType": "text/javascript"
-          }
-        ],
         "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/Mod50.Test.Unit/ModernCopTestData/Mod50/CompiledPackages/SimpleJSApp.appxbundle#/pages/hub/hub.js": [
           {
             "mimeType": "application/octet-stream"
@@ -1923,12 +1914,12 @@
             "mimeType": "text/javascript"
           }
         ],
-        "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/Mod50.Test.Unit/ModernCopTestData/Mod50/CompiledPackages/SimpleJSApp.appxbundle#/js/data.js": [
+        "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/Mod50.Test.Unit/ModernCopTestData/Mod50/CompiledPackages/SimpleJSApp.appxbundle#/js/default.js": [
           {
             "mimeType": "application/octet-stream"
           },
           {
-            "uri": "/js/data.js",
+            "uri": "/js/default.js",
             "mimeType": "text/javascript"
           }
         ],
@@ -1938,6 +1929,15 @@
           },
           {
             "uri": "/js/navigator.js",
+            "mimeType": "text/javascript"
+          }
+        ],
+        "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/Mod50.Test.Unit/ModernCopTestData/Mod50/CompiledPackages/SimpleJSApp.appxbundle#/js/data.js": [
+          {
+            "mimeType": "application/octet-stream"
+          },
+          {
+            "uri": "/js/data.js",
             "mimeType": "text/javascript"
           }
         ]
@@ -2014,6 +2014,29 @@
             "semantic"
           ]
         },
+        "JS3058": {
+          "id": "JS3058",
+          "name": "DeclareVariablesBeforeUse",
+          "shortDescription": "Declare variables explicitly before use.",
+          "messageFormats": {
+            "Error": "Variable '{0}' undeclared. This error must be resolved before further semantic analysis can be done."
+          },
+          "tags": [
+            "js",
+            "semantic"
+          ]
+        },
+        "JS3047": {
+          "id": "JS3047",
+          "name": "ProvideExplicitSemicolons",
+          "shortDescription": "Provide explicit semicolons.",
+          "messageFormats": {
+            "Error": "Provide an explicit semicolon."
+          },
+          "tags": [
+            "js"
+          ]
+        },
         "JS2027": {
           "id": "JS2027",
           "name": "PunctuateCommentsCorrectly",
@@ -2060,29 +2083,6 @@
             "js"
           ]
         },
-        "JS3047": {
-          "id": "JS3047",
-          "name": "ProvideExplicitSemicolons",
-          "shortDescription": "Provide explicit semicolons.",
-          "messageFormats": {
-            "Error": "Provide an explicit semicolon."
-          },
-          "tags": [
-            "js"
-          ]
-        },
-        "JS3058": {
-          "id": "JS3058",
-          "name": "DeclareVariablesBeforeUse",
-          "shortDescription": "Declare variables explicitly before use.",
-          "messageFormats": {
-            "Error": "Variable '{0}' undeclared. This error must be resolved before further semantic analysis can be done."
-          },
-          "tags": [
-            "js",
-            "semantic"
-          ]
-        },
         "JS2001": {
           "id": "JS2001",
           "name": "DoNotUseEval",
@@ -2093,6 +2093,17 @@
           "tags": [
             "js",
             "sdl"
+          ]
+        },
+        "JS2023": {
+          "id": "JS2023",
+          "name": "UseDoubleQuotesForStringLiterals",
+          "shortDescription": "Use double quotes where possible to declare string literals.",
+          "messageFormats": {
+            "Warning": "Use double quotes where possible to declare string literals. For string literals that represent HTML snippets, encapsulate embedded attribute names using single quotes."
+          },
+          "tags": [
+            "js"
           ]
         },
         "JS3054": {
@@ -2106,22 +2117,15 @@
             "js",
             "semantic"
           ]
-        },
-        "JS2023": {
-          "id": "JS2023",
-          "name": "UseDoubleQuotesForStringLiterals",
-          "shortDescription": "Use double quotes where possible to declare string literals.",
-          "messageFormats": {
-            "Warning": "Use double quotes where possible to declare string literals. For string literals that represent HTML snippets, encapsulate embedded attribute names using single quotes."
-          },
-          "tags": [
-            "js"
-          ]
         }
       },
-      "invocation": "mod50  analyze /appx d:\\src\\SecDevTools\\Main\\src\\ModernCop\\Source\\Mod50.Test.Unit\\ModernCopTestData\\Mod50\\CompiledPackages\\SimpleJSApp.appxbundle /out d:\\src\\sarif-sdk\\src\\Sarif.FunctionalTests\\DirectProducerTestData\\WebSkim\\SimpleDBundleoubleNesting.sarif",
-      "startTime": "2016-04-22T20:43:06.6084406Z",
-      "endTime": "2016-04-22T20:43:08.5794285Z"
+      "invocation": {
+        "parameters": "mod50  analyze /appx d:\\src\\SecDevTools\\Main\\src\\ModernCop\\Source\\Mod50.Test.Unit\\ModernCopTestData\\Mod50\\CompiledPackages\\SimpleJSApp.appxbundle /out d:\\src\\sarif-sdk\\src\\Sarif.FunctionalTests\\DirectProducerTestData\\WebSkim\\SimpleBundleDoubleNesting.sarif",
+        "startTime": "2016-04-26T20:57:42.79Z",
+        "endTime": "2016-04-26T20:57:44.61Z",
+        "processId": 21764,
+        "workingDirectory": "D:\\src\\SecDevTools\\Main\\bin\\x64\\Release\\ModernCop"
+      }
     }
   ]
 }

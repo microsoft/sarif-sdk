@@ -30,7 +30,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <see cref="IToolFileConverter"/> should allow these exceptions to propagate.</exception>
         /// <exception cref="InvalidOperationException">Thrown if the object has already been
         /// written.</exception>
-        void WriteRunProperties(Invocation invocation);
+        void WriteInvocation(Invocation invocation);
 
         /// <summary>
         /// Write information about scanned files to the log. This information may appear
