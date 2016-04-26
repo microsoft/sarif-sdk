@@ -8,7 +8,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// <summary>
     /// A set of values for all the types that implement <see cref="ISarifNode" />.
     /// </summary>
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.16.0.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.15.0.0")]
     public enum SarifNodeKind
     {
         /// <summary>

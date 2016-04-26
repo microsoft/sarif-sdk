@@ -8,7 +8,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// <summary>
     /// Values specifying the category of the result.
     /// </summary>
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.16.0.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.15.0.0")]
     public enum ResultKind
     {
         Unknown,

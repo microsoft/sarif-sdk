@@ -12,7 +12,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// The location where an analysis tool produced a result.
     /// </summary>
     [DataContract]
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.16.0.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.15.0.0")]
     public partial class Location : ISarifNode, IEquatable<Location>
     {
         /// <summary>
