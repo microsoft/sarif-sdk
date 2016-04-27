@@ -77,9 +77,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Validation
 
             _logger = new SarifLogger(
                 outputFilePath,
-                verbose: true,
                 analysisTargets: new[] { instanceFilePath, schemaFilePath },
+                verbose: true,
                 computeTargetsHash: false,
+                logEnvironment: false,
                 prereleaseInfo: null,
                 invocationTokensToRedact:null);
 

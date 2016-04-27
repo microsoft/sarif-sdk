@@ -40,7 +40,6 @@ namespace Microsoft.CodeAnalysis.Sarif
             tool.Properties = new Dictionary<string, string>();
 
             if (!string.IsNullOrEmpty(fileVersion.Language)) { tool.Properties["Language"] = fileVersion.Language; };
-            if (!string.IsNullOrEmpty(fileVersion.FileName)) { tool.Properties["FileName"] = fileVersion.FileName; };
             if (!string.IsNullOrEmpty(fileVersion.Comments)) { tool.Properties["Comments"] = fileVersion.Comments; };
             if (!string.IsNullOrEmpty(fileVersion.CompanyName)) { tool.Properties["CompanyName"] = fileVersion.CompanyName; };
             if (!string.IsNullOrEmpty(fileVersion.ProductName)) { tool.Properties["ProductName"] = fileVersion.ProductName; };

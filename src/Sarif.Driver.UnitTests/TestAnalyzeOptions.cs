@@ -14,6 +14,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
 
         public bool ComputeTargetsHash { get; set; }
 
+        public bool LogEnvironment { get; set; }
+
         public string OutputFilePath { get; set; }
 
         public IEnumerable<string> PlugInFilePaths { get; set;  }

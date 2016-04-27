@@ -60,6 +60,8 @@ namespace Microsoft.CodeAnalysis.Sarif
                     return VisitFormattedMessage((FormattedMessage)node);
                 case SarifNodeKind.Hash:
                     return VisitHash((Hash)node);
+                case SarifNodeKind.Invocation:
+                    return VisitInvocation((Invocation)node);
                 case SarifNodeKind.Location:
                     return VisitLocation((Location)node);
                 case SarifNodeKind.LogicalLocationComponent:
@@ -194,6 +196,15 @@ namespace Microsoft.CodeAnalysis.Sarif
             return node;
         }
 
+        public virtual Invocation VisitInvocation(Invocation node)
+        {
+            if (node != null)
+            {
+            }
+
+            return node;
+        }
+
         public virtual Location VisitLocation(Location node)
         {
             if (node != null)
@@ -320,6 +331,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             if (node != null)
             {
                 node.Tool = VisitNullChecked(node.Tool);
+                node.Invocation = VisitNullChecked(node.Invocation);
                 if (node.Files != null)
                 {
                     var keys = node.Files.Keys.ToArray();

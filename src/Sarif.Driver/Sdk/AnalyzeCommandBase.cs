@@ -236,11 +236,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
                     () => aggregatingLogger.Loggers.Add(
                             new SarifLogger(
                                 analyzeOptions.OutputFilePath,
-                                analyzeOptions.Verbose,
                                 targets,
+                                analyzeOptions.Verbose,
+                                analyzeOptions.LogEnvironment,
                                 analyzeOptions.ComputeTargetsHash,
                                 Prerelease,
-                                invocationTokensToRedact : null)),
+                                invocationTokensToRedact : GenerateSensitiveTokensList())),
                     (ex) =>
                     {
                         Errors.LogExceptionCreatingLogFile(context, filePath, ex);
@@ -248,6 +249,23 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
                     }
                 );
             }
+        }
+
+        private IEnumerable<string> GenerateSensitiveTokensList()
+        {
+            var result = new List<String>();
+
+            result.Add(Environment.MachineName);
+            result.Add(Environment.UserName);
+            result.Add(Environment.UserDomainName);
+
+            string userDnsDomain = Environment.GetEnvironmentVariable("USERDNSDOMAIN");
+            string logonServer = Environment.GetEnvironmentVariable("LOGONSERVER");
+
+            if (!string.IsNullOrEmpty(userDnsDomain)) { result.Add(userDnsDomain); }
+            if (!string.IsNullOrEmpty(logonServer)) { result.Add(logonServer); }
+
+            return result;
         }
 
         public void InvokeCatchingRelevantIOExceptions(Action action, Action<Exception> exceptionHandler)

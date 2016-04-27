@@ -27,7 +27,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             FilesWritten = 0x8,
             ResultsInitialized = 0x10,
             ResultsClosed = 0x20,
-            RunPropertiesWritten = 0x40,
+            InvocationWritten = 0x40,
             LogicalLocationsWritten = 0x80,
             Disposed = 0x100
         }
@@ -52,7 +52,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
             _jsonWriter.WriteStartObject(); // Begin: sarifLog
             _jsonWriter.WritePropertyName("version");
-            _jsonWriter.WriteValue(SarifVersion.OneZeroZeroBetaThree.ConvertToText());
+            _jsonWriter.WriteValue(SarifVersion.OneZeroZeroBetaFour.ConvertToText());
 
             _jsonWriter.WritePropertyName("runs");
             _jsonWriter.WriteStartArray(); // Begin: runs
@@ -248,41 +248,19 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             _writeConditions |= Conditions.ResultsClosed;
         }
 
-        public void WriteRunProperties(string invocation, DateTime startTime, DateTime endTime, string correlationId, string architecture)
+        public void WriteInvocation(Invocation invocation)
         {
+            if (invocation == null)
+            {
+                throw new ArgumentNullException(nameof(invocation));
+            }
+
             EnsureInitialized();
             EnsureResultsArrayIsNotOpen();
-            EnsureStateNotAlreadySet(Conditions.Disposed | Conditions.RunPropertiesWritten);
+            EnsureStateNotAlreadySet(Conditions.Disposed | Conditions.InvocationWritten);
 
-            if (!string.IsNullOrEmpty(invocation))
-            {
-                _jsonWriter.WritePropertyName(nameof(invocation));
-                _jsonWriter.WriteValue(invocation);
-            }
-
-            if (startTime != new DateTime())
-            {
-                _jsonWriter.WritePropertyName(nameof(startTime));
-                _jsonWriter.WriteValue(startTime);
-            }
-
-            if (endTime != new DateTime())
-            {
-                _jsonWriter.WritePropertyName(nameof(endTime));
-                _jsonWriter.WriteValue(endTime);
-            }
-
-            if (!string.IsNullOrEmpty(correlationId))
-            {
-                _jsonWriter.WritePropertyName(nameof(correlationId));
-                _jsonWriter.WriteValue(correlationId);
-            }
-
-            if (!string.IsNullOrEmpty(architecture))
-            {
-                _jsonWriter.WritePropertyName(nameof(architecture));
-                _jsonWriter.WriteValue(architecture);
-            }
+            _jsonWriter.WritePropertyName("invocation");
+            _serializer.Serialize(_jsonWriter, invocation, typeof(Invocation));
         }
 
         /// <summary>Writes the log footer and closes the underlying <see cref="JsonWriter"/>.</summary>
