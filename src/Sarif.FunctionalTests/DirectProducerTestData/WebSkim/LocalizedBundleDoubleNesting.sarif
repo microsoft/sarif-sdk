@@ -1,5 +1,5 @@
 {
-  "version": "1.0.0-beta.3",
+  "version": "1.0.0-beta.4",
   "runs": [
     {
       "tool": {
@@ -10,7 +10,6 @@
         "fileVersion": "7.0.20811.0",
         "properties": {
           "Language": "Language Neutral",
-          "FileName": "D:\\src\\SecDevTools\\Main\\bin\\x64\\Release\\ModernCop\\mod50.exe",
           "CompanyName": "Microsoft Corporation"
         }
       },
@@ -66,11 +65,12 @@
         }
       },
       "invocation": {
-        "parameters": "mod50  analyze /appx d:\\src\\SecDevTools\\Main\\src\\ModernCop\\Source\\Mod50.Test.Unit\\ModernCopTestData\\Mod50\\CompiledPackages\\FoodAndDrink_4.0.35.0_x86.appxbundle /out d:\\src\\sarif-sdk\\src\\Sarif.FunctionalTests\\DirectProducerTestData\\WebSkim\\LocalizedBundleDoubleNesting.sarif",
-        "startTime": "2016-04-26T20:57:44.96Z",
-        "endTime": "2016-04-26T20:57:51.24Z",
-        "processId": 28400,
-        "workingDirectory": "D:\\src\\SecDevTools\\Main\\bin\\x64\\Release\\ModernCop"
+        "parameters": "D:\\src\\SecDevTools\\Main\\bin\\x64\\Debug\\ModernCop\\mod50.exe  analyze /appx d:\\src\\SecDevTools\\Main\\src\\ModernCop\\Source\\Mod50.Test.Unit\\ModernCopTestData\\Mod50\\CompiledPackages\\FoodAndDrink_4.0.35.0_x86.appxbundle /out .\\LocalizedBundleDoubleNesting.sarif",
+        "startTime": "2016-04-27T18:33:54.68Z",
+        "endTime": "2016-04-27T18:34:01.09Z",
+        "processId": 31848,
+        "fileName": "D:\\src\\SecDevTools\\Main\\bin\\x64\\Debug\\ModernCop\\mod50.exe",
+        "workingDirectory": "d:\\src\\sarif-sdk\\src\\Sarif.FunctionalTests\\DirectProducerTestData\\WebSkim"
       }
     }
   ]

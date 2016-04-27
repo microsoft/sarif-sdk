@@ -83,7 +83,7 @@
         "description": "Possible values for the SARIF schema version.",
         "zeroValue": "Unknown",
         "enumValues": [
-          "OneZeroZeroBetaThree"
+          "OneZeroZeroBetaFour"
         ]
       }
     }

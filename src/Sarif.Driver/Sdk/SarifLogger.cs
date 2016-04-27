@@ -23,6 +23,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
         private static Run CreateRun(
             IEnumerable<string> analysisTargets,
             bool computeTargetsHash,
+            bool logEnvironment,
             IEnumerable<string> invocationTokensToRedact)
         {
             var run = new Run();
@@ -59,25 +60,32 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
                             },
                         };
                     }
-                        run.Files.Add(new Uri(target).ToString(), new List<FileData> { fileReference });
+                    run.Files.Add(new Uri(target).ToString(), new List<FileData> { fileReference });
                 }
             }
 
 
-            run.Invocation = Invocation.Create();
+            run.Invocation = Invocation.Create(logEnvironment);
 
+            // TODO we should actually redact across the complete log file context
+            // by a dedicated rewriting visitor or some other approach.
             if (invocationTokensToRedact != null)
             {
+                run.Invocation.Parameters = Redact(run.Invocation.Parameters, invocationTokensToRedact);
                 run.Invocation.Machine = Redact(run.Invocation.Machine, invocationTokensToRedact);
+                run.Invocation.Account = Redact(run.Invocation.Account, invocationTokensToRedact);
                 run.Invocation.Parameters = Redact(run.Invocation.Parameters, invocationTokensToRedact);
                 run.Invocation.WorkingDirectory = Redact(run.Invocation.WorkingDirectory, invocationTokensToRedact);
 
-                string[] keys = run.Invocation.EnvironmentVariables.Keys.ToArray();
-
-                foreach (string key in keys)
+                if (run.Invocation.EnvironmentVariables != null)
                 {
-                    string value = run.Invocation.EnvironmentVariables[key];
-                    run.Invocation.EnvironmentVariables[key] = Redact(value, invocationTokensToRedact);
+                    string[] keys = run.Invocation.EnvironmentVariables.Keys.ToArray();
+
+                    foreach (string key in keys)
+                    {
+                        string value = run.Invocation.EnvironmentVariables[key];
+                        run.Invocation.EnvironmentVariables[key] = Redact(value, invocationTokensToRedact);
+                    }
                 }
             }
             return run;
@@ -85,6 +93,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
 
         private static string Redact(string text, IEnumerable<string> tokensToRedact)
         {
+            if (text == null ) { return text; }
+
             foreach (string tokenToRedact in tokensToRedact)
             {
                 text = text.Replace(tokenToRedact, SarifConstants.RemovedMarker);
@@ -92,16 +102,24 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
             return text;
         }
 
-        public SarifLogger(string outputFilePath, bool verbose, Tool tool, Run run)
-            : this (new StreamWriter(new FileStream(outputFilePath, FileMode.Create, FileAccess.Write, FileShare.None)),
+        public SarifLogger(
+            string outputFilePath, 
+            bool verbose,
+            Tool tool, 
+            Run run)
+            : this(new StreamWriter(new FileStream(outputFilePath, FileMode.Create, FileAccess.Write, FileShare.None)),
                   verbose,
-                  tool, 
+                  tool,
                   run)
         {
 
         }
 
-        public SarifLogger(TextWriter textWriter, bool verbose, Tool tool, Run run) : this(textWriter, verbose)
+        public SarifLogger(
+            TextWriter textWriter, 
+            bool verbose, 
+            Tool tool, 
+            Run run) : this(textWriter, verbose)
         {
             _run = run;
             _issueLogJsonWriter.WriteTool(tool);
@@ -109,15 +127,17 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
 
         public SarifLogger(
             string outputFilePath,
-            bool verbose,
             IEnumerable<string> analysisTargets,
+            bool verbose,
+            bool logEnvironment,
             bool computeTargetsHash,
             string prereleaseInfo,
             IEnumerable<string> invocationTokensToRedact)
             : this(new StreamWriter(new FileStream(outputFilePath, FileMode.Create, FileAccess.Write, FileShare.None)),
-                    verbose,
                     analysisTargets,
-                    computeTargetsHash, 
+                    verbose,
+                    logEnvironment,
+                    computeTargetsHash,
                     prereleaseInfo,
                     invocationTokensToRedact)
         {
@@ -126,8 +146,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
 
         public SarifLogger(
             TextWriter textWriter,
-            bool verbose,
             IEnumerable<string> analysisTargets,
+            bool verbose,
+            bool logEnvironment,
             bool computeTargetsHash,
             string prereleaseInfo,
             IEnumerable<string> invocationTokensToRedact) : this(textWriter, verbose)
@@ -135,7 +156,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
             Tool tool = Tool.CreateFromAssemblyData(prereleaseInfo);
             _issueLogJsonWriter.WriteTool(tool);
 
-            _run = CreateRun(analysisTargets, computeTargetsHash, invocationTokensToRedact);
+            _run = CreateRun(
+                analysisTargets,             
+                computeTargetsHash,
+                logEnvironment,
+                invocationTokensToRedact);
         }
 
         public SarifLogger(TextWriter textWriter, bool verbose)
@@ -165,7 +190,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
         public bool Verbose { get; set; }
 
         public void Dispose()
-        {    
+        {
             // Disposing the json writer closes the stream but the textwriter 
             // still needs to be disposed or closed to write the results
             if (_issueLogJsonWriter != null)
@@ -222,7 +247,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
 
             if (rule != null)
             {
-                Rules[rule.Id] = rule; 
+                Rules[rule.Id] = rule;
             }
 
             _issueLogJsonWriter.WriteResult(result);
@@ -267,7 +292,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
                 FormatId = formatId,
                 Arguments = arguments
             };
-             
+
             result.Kind = messageKind;
 
             if (targetPath != null)
@@ -317,6 +342,3 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
         }
     }
 }
-
-
-

@@ -51,6 +51,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
         public bool ComputeTargetsHash { get; set; }
 
         [Option(
+            'e',
+            "environment",
+            HelpText = "Log machine environment details of run to output file. WARNING: This option records potentially sensitive information (such as all environment variable values) to any emitted log.")]
+        public bool LogEnvironment { get; set; }
+
+        [Option(
             'p',
             "plug-in",
             Separator = ';',

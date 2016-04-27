@@ -55,9 +55,10 @@ namespace Microsoft.CodeAnalysis.Sarif
 
                 using (var sarifLogger = new SarifLogger(
                     textWriter,
-                    verbose: false,
                     analysisTargets: null,
+                    verbose: false,
                     computeTargetsHash: false,
+                    logEnvironment: false,
                     prereleaseInfo: null,
                     invocationTokensToRedact: tokensToRedact)) { }
 

@@ -236,8 +236,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
                     () => aggregatingLogger.Loggers.Add(
                             new SarifLogger(
                                 analyzeOptions.OutputFilePath,
-                                analyzeOptions.Verbose,
                                 targets,
+                                analyzeOptions.Verbose,
+                                analyzeOptions.LogEnvironment,
                                 analyzeOptions.ComputeTargetsHash,
                                 Prerelease,
                                 invocationTokensToRedact : GenerateSensitiveTokensList())),

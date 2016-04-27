@@ -1,5 +1,5 @@
 {
-  "version": "1.0.0-beta.3",
+  "version": "1.0.0-beta.4",
   "runs": [
     {
       "tool": {
@@ -10,7 +10,6 @@
         "fileVersion": "7.0.20811.0",
         "properties": {
           "Language": "Language Neutral",
-          "FileName": "D:\\src\\SecDevTools\\Main\\bin\\x64\\Release\\ModernCop\\mod50.exe",
           "CompanyName": "Microsoft Corporation"
         }
       },
@@ -3399,11 +3398,12 @@
         }
       },
       "invocation": {
-        "parameters": "mod50  analyze /appx d:\\src\\SecDevTools\\Main\\src\\ModernCop\\Source\\WebRules.Test.Unit\\ModernCopTestData\\WebRules_PackageRules\\MinificationRuleApp.appx /out d:\\src\\sarif-sdk\\src\\Sarif.FunctionalTests\\DirectProducerTestData\\WebSkim\\NestedLocationsFromAppX.sarif",
-        "startTime": "2016-04-26T20:57:36.69Z",
-        "endTime": "2016-04-26T20:57:38.52Z",
-        "processId": 22092,
-        "workingDirectory": "D:\\src\\SecDevTools\\Main\\bin\\x64\\Release\\ModernCop"
+        "parameters": "D:\\src\\SecDevTools\\Main\\bin\\x64\\Debug\\ModernCop\\mod50.exe  analyze /appx d:\\src\\SecDevTools\\Main\\src\\ModernCop\\Source\\WebRules.Test.Unit\\ModernCopTestData\\WebRules_PackageRules\\MinificationRuleApp.appx /out .\\NestedLocationsFromAppX.sarif",
+        "startTime": "2016-04-27T18:33:46.05Z",
+        "endTime": "2016-04-27T18:33:47.95Z",
+        "processId": 26544,
+        "fileName": "D:\\src\\SecDevTools\\Main\\bin\\x64\\Debug\\ModernCop\\mod50.exe",
+        "workingDirectory": "d:\\src\\sarif-sdk\\src\\Sarif.FunctionalTests\\DirectProducerTestData\\WebSkim"
       }
     }
   ]

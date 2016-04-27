@@ -1,13 +1,13 @@
 {
   "$schema": "http://json-schema.org/draft-04/schema#",
-  "title": "Static Analysis Results Format (SARIF) Version 1.0 JSON Schema (Draft 1.0.0-beta.3)",
-  "description": "Static Analysis Results Format (SARIF) Version 1.0 JSON Schema (Draft 1.0.0-beta.3): a standard format for the output of static analysis and other tools.",
+  "title": "Static Analysis Results Format (SARIF) Version 1.0 JSON Schema (Draft 1.0.0-beta.4)",
+  "description": "Static Analysis Results Format (SARIF) Version 1.0 JSON Schema (Draft 1.0.0-beta.4): a standard format for the output of static analysis and other tools.",
   "additionalProperties": false,
   "type": "object",
   "properties": {
     "version": {
       "description": "The SARIF format version of this log file.",
-      "enum": [ "1.0.0-beta.3" ]
+      "enum": [ "1.0.0-beta.4" ]
     },
 
     "runs": {
@@ -220,9 +220,20 @@
           "type": "string"
         },
 
+        "account": {
+          "description": "The account that ran the analysis tool.",
+          "type": "string"
+        },
+
         "processId": {
-          "description": "The process identifier for the analysis tool run.",
+          "description": "The process id for the analysis tool run.",
           "type": "integer"
+        },
+
+        "fileName": {
+          "description": "The fully qualified path to the analysis tool.",
+          "type": "string",
+          "default": { }
         },
 
         "workingDirectory": {

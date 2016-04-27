@@ -4,22 +4,32 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Reflection;
 
 namespace Microsoft.CodeAnalysis.Sarif
 {
     public partial class Invocation
     {
-        public static Invocation Create()
+        public static Invocation Create(bool emitMachineEnvironment = false)
         {
-            return new Invocation
+            var invocation = new Invocation();
+
+            invocation.StartTime = DateTime.UtcNow;
+            invocation.ProcessId = System.Diagnostics.Process.GetCurrentProcess().Id;
+            invocation.WorkingDirectory = Environment.CurrentDirectory;
+            invocation.Parameters = Environment.CommandLine;
+
+            if (emitMachineEnvironment)
             {
-                StartTime = DateTime.UtcNow,
-                EnvironmentVariables = CopyEnvironmentVariables(),
-                Parameters = Environment.CommandLine,
-                Machine = Environment.MachineName,
-                ProcessId = System.Diagnostics.Process.GetCurrentProcess().Id,
-                WorkingDirectory = Environment.CurrentDirectory
-            };
+                invocation.Machine = Environment.MachineName;
+                invocation.Account = Environment.UserName;
+                invocation.EnvironmentVariables = CopyEnvironmentVariables();
+            }
+
+            Assembly assembly = Assembly.GetEntryAssembly() ?? Assembly.GetExecutingAssembly();
+            invocation.FileName = assembly.Location;
+
+            return invocation;
         }
 
         private static IDictionary<string, string> CopyEnvironmentVariables()

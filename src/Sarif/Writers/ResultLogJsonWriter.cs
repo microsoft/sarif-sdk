@@ -52,7 +52,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
             _jsonWriter.WriteStartObject(); // Begin: sarifLog
             _jsonWriter.WritePropertyName("version");
-            _jsonWriter.WriteValue(SarifVersion.OneZeroZeroBetaThree.ConvertToText());
+            _jsonWriter.WriteValue(SarifVersion.OneZeroZeroBetaFour.ConvertToText());
 
             _jsonWriter.WritePropertyName("runs");
             _jsonWriter.WriteStartArray(); // Begin: runs
