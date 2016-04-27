@@ -48,6 +48,8 @@ namespace Microsoft.CodeAnalysis.Sarif
             {
                 case SarifNodeKind.AnnotatedCodeLocation:
                     return VisitAnnotatedCodeLocation((AnnotatedCodeLocation)node);
+                case SarifNodeKind.CodeFlow:
+                    return VisitCodeFlow((CodeFlow)node);
                 case SarifNodeKind.FileChange:
                     return VisitFileChange((FileChange)node);
                 case SarifNodeKind.FileData:
@@ -104,6 +106,22 @@ namespace Microsoft.CodeAnalysis.Sarif
             if (node != null)
             {
                 node.PhysicalLocation = VisitNullChecked(node.PhysicalLocation);
+            }
+
+            return node;
+        }
+
+        public virtual CodeFlow VisitCodeFlow(CodeFlow node)
+        {
+            if (node != null)
+            {
+                if (node.Locations != null)
+                {
+                    for (int index_0 = 0; index_0 < node.Locations.Count; ++index_0)
+                    {
+                        node.Locations[index_0] = VisitNullChecked(node.Locations[index_0]);
+                    }
+                }
             }
 
             return node;
@@ -264,17 +282,13 @@ namespace Microsoft.CodeAnalysis.Sarif
 
                 if (node.CodeFlows != null)
                 {
-                    for (int index_0 = 0; index_0 < node.CodeFlows.Count; ++index_0)
+                    var newSet = new HashSet<CodeFlow>();
+                    foreach (CodeFlow value in node.CodeFlows)
                     {
-                        var value_0 = node.CodeFlows[index_0];
-                        if (value_0 != null)
-                        {
-                            for (int index_1 = 0; index_1 < value_0.Count; ++index_1)
-                            {
-                                value_0[index_1] = VisitNullChecked(value_0[index_1]);
-                            }
-                        }
+                        newSet.Add(VisitNullChecked(value));
                     }
+
+                    node.CodeFlows = newSet;
                 }
 
                 if (node.RelatedLocations != null)

@@ -30,7 +30,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Validation
             Name = "UnknownError",
             ShortDescription = Resources.UnknownErrorRuleDescription,
             FullDescription = Resources.UnknownErrorRuleDescription,
-            Options = null,
             MessageFormats = new Dictionary<string, string>
             {
                 [UnknownErrorFormatSpecifier] = Resources.UnknownErrorMessageFormat

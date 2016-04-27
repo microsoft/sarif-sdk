@@ -129,7 +129,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
 
                 newRule.Id = rule.Id;
                 newRule.Name = rule.Name;
-                newRule.Options = rule.Options;
                 newRule.HelpUri = rule.HelpUri;
                 newRule.Properties = rule.Properties;
                 newRule.FullDescription = rule.FullDescription;

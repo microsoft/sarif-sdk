@@ -141,17 +141,26 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             }
             else
             {
-                var flow = new List<AnnotatedCodeLocation>();
-                flow.Capacity = this.Locations.Length;
+                var locations = new List<AnnotatedCodeLocation>
+                {
+                    Capacity = this.Locations.Length
+                };
+
                 foreach (CppCheckLocation loc in this.Locations)
                 {
-                    flow.Add(new AnnotatedCodeLocation { PhysicalLocation = loc.ToSarifPhysicalLocation() });
+                    locations.Add(new AnnotatedCodeLocation { PhysicalLocation = loc.ToSarifPhysicalLocation() });
                 }
+
+                var flow = new CodeFlow
+                {
+                    Locations = locations
+                };
+
+                result.CodeFlows = new HashSet<CodeFlow> { flow };
 
                 // In the N != 1 case, set the overall location's location to
                 // the last entry in the execution flow.
-                lastLocationConverted = flow[flow.Count - 1].PhysicalLocation;
-                result.CodeFlows = new[] { flow };
+                lastLocationConverted = locations[locations.Count - 1].PhysicalLocation;
             }
 
             result.Locations = new HashSet<Location>
