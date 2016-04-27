@@ -258,9 +258,9 @@
           "description": "A set of distinct strings that provide additional information about the run.",
           "type": "array",
           "uniqueItems": true,
+          "default": [ ],
           "items": {
             "type": "string",
-            "default": [ ]
           }
         }
       }
