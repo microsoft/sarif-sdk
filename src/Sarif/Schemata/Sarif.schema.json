@@ -292,7 +292,7 @@
           "uniqueItems": true,
           "default": [ ],
           "items": {
-            "type": "string",
+            "type": "string"
           }
         }
       }
