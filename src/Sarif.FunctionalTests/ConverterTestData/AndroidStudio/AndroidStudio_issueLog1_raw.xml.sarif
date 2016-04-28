@@ -50,8 +50,7 @@
       "results": [
         {
           "ruleId": "unused declaration",
-          "fullMessage": "Constructor is never used.\r\nPossible resolution: comment\r\nPossible resolution: delete",
-          "shortMessage": "Constructor is never used.",
+          "message": "Constructor is never used.\r\nPossible resolution: comment\r\nPossible resolution: delete",
           "locations": [
             {
               "resultFile": {
@@ -70,8 +69,7 @@
         },
         {
           "ruleId": "unused declaration",
-          "fullMessage": "Class is not instantiated.\r\nPossible resolution: comment\r\nPossible resolution: delete",
-          "shortMessage": "Class is not instantiated.",
+          "message": "Class is not instantiated.\r\nPossible resolution: comment\r\nPossible resolution: delete",
           "locations": [
             {
               "resultFile": {

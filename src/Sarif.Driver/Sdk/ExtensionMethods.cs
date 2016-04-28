@@ -153,13 +153,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
         }
 
         public static string GetMessageText(this Result result, IRule rule, bool concise = false)
-        {
-            if (concise && !string.IsNullOrEmpty(result.ShortMessage))
-            {
-                return result.ShortMessage;
-            }
-
-            string text = result.FullMessage;
+        {            
+            string text = result.Message;
 
             if (string.IsNullOrEmpty(text))
             {

@@ -31,7 +31,7 @@
       "results": [
         {
           "ruleId": "'for' loop replaceable with 'foreach'",
-          "fullMessage": "<code>for</code> loop replaceable with 'foreach' #loc",
+          "message": "<code>for</code> loop replaceable with 'foreach' #loc",
           "locations": [
             {
               "resultFile": {

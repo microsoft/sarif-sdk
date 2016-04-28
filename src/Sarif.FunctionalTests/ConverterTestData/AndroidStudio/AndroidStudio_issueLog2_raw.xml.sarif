@@ -31,7 +31,7 @@
       "results": [
         {
           "ruleId": "Default File Template Usage",
-          "fullMessage": "Default File template",
+          "message": "Default File template",
           "locations": [
             {
               "resultFile": {

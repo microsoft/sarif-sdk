@@ -15,7 +15,7 @@
       "results": [
         {
           "ruleId": "Dead assignment",
-          "fullMessage": "",
+          "message": "",
           "locations": [
             {
               "analysisTarget": {

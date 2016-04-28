@@ -31,8 +31,7 @@
       "results": [
         {
           "ruleId": "unused declaration",
-          "fullMessage": "Method is never used.\r\nPossible resolution: comment\r\nPossible resolution: delete",
-          "shortMessage": "Method is never used.",
+          "message": "Method is never used.\r\nPossible resolution: comment\r\nPossible resolution: delete",
           "locations": [
             {
               "resultFile": {

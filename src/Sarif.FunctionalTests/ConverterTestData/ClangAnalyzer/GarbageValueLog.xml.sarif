@@ -15,7 +15,7 @@
       "results": [
         {
           "ruleId": "Result of operation is garbage or undefined",
-          "fullMessage": "The left operand of '<' is a garbage value",
+          "message": "The left operand of '<' is a garbage value",
           "locations": [
             {
               "analysisTarget": {

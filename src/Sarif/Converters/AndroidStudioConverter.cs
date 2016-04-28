@@ -124,12 +124,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             string description = AndroidStudioConverter.GetShortDescriptionForProblem(problem);
             if (problem.Hints.IsEmpty)
             {
-                result.FullMessage = description;
+                result.Message = description;
             }
             else
             {
-                result.ShortMessage = description;
-                result.FullMessage = GenerateFullMessage(description, problem.Hints);
+                result.Message = GenerateFullMessage(description, problem.Hints);
             }
 
             result.Properties = GetSarifIssuePropertiesForProblem(problem);

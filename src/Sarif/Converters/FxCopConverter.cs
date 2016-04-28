@@ -85,8 +85,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             }
 
             result.RuleId = context.CheckId;
-            result.FullMessage = context.Message;
-            result.ShortMessage = context.Typename;
+            result.Message = context.Message;
             var location = new Location();
 
             if (!String.IsNullOrEmpty(context.Target))

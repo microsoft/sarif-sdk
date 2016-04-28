@@ -50,8 +50,7 @@
       "results": [
         {
           "ruleId": "Declaration access can be weaker",
-          "fullMessage": "Can be package local\r\nPossible resolution: packageLocal",
-          "shortMessage": "Can be package local",
+          "message": "Can be package local\r\nPossible resolution: packageLocal",
           "locations": [
             {
               "resultFile": {
@@ -70,8 +69,7 @@
         },
         {
           "ruleId": "Declaration access can be weaker",
-          "fullMessage": "Can be package local\r\nPossible resolution: packageLocal",
-          "shortMessage": "Can be package local",
+          "message": "Can be package local\r\nPossible resolution: packageLocal",
           "locations": [
             {
               "resultFile": {

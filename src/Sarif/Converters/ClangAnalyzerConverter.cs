@@ -155,7 +155,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 return new Result
                 {
                     RuleId = issueType,
-                    FullMessage = description,
+                    Message = description,
                     Locations = new HashSet<Location>
                     {
                         new Location

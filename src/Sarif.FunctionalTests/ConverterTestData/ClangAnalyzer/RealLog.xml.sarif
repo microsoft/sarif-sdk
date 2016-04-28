@@ -15,7 +15,7 @@
       "results": [
         {
           "ruleId": "Dereference of null pointer",
-          "fullMessage": "Dereference of null pointer",
+          "message": "Dereference of null pointer",
           "locations": [
             {
               "analysisTarget": {
@@ -36,7 +36,7 @@
         },
         {
           "ruleId": "Dereference of null pointer",
-          "fullMessage": "Array access (via field 'mem_buffer') results in a null pointer dereference",
+          "message": "Array access (via field 'mem_buffer') results in a null pointer dereference",
           "locations": [
             {
               "analysisTarget": {
@@ -57,7 +57,7 @@
         },
         {
           "ruleId": "Dereference of null pointer",
-          "fullMessage": "Array access (via field 'mem_buffer') results in a null pointer dereference",
+          "message": "Array access (via field 'mem_buffer') results in a null pointer dereference",
           "locations": [
             {
               "analysisTarget": {
@@ -78,7 +78,7 @@
         },
         {
           "ruleId": "Dereference of null pointer",
-          "fullMessage": "Dereference of null pointer",
+          "message": "Dereference of null pointer",
           "locations": [
             {
               "analysisTarget": {
