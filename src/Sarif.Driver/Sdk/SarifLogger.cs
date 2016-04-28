@@ -287,7 +287,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
 
             result.RuleId = ruleId;
 
-            result.FormattedMessage = new FormattedMessage()
+            result.FormattedRuleMessage = new FormattedRuleMessage()
             {
                 FormatId = formatId,
                 Arguments = arguments

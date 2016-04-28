@@ -56,8 +56,8 @@ namespace Microsoft.CodeAnalysis.Sarif
                     return VisitFileData((FileData)node);
                 case SarifNodeKind.Fix:
                     return VisitFix((Fix)node);
-                case SarifNodeKind.FormattedMessage:
-                    return VisitFormattedMessage((FormattedMessage)node);
+                case SarifNodeKind.FormattedRuleMessage:
+                    return VisitFormattedRuleMessage((FormattedRuleMessage)node);
                 case SarifNodeKind.Hash:
                     return VisitHash((Hash)node);
                 case SarifNodeKind.Invocation:
@@ -178,7 +178,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return node;
         }
 
-        public virtual FormattedMessage VisitFormattedMessage(FormattedMessage node)
+        public virtual FormattedRuleMessage VisitFormattedRuleMessage(FormattedRuleMessage node)
         {
             if (node != null)
             {
@@ -257,7 +257,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             if (node != null)
             {
-                node.FormattedMessage = VisitNullChecked(node.FormattedMessage);
+                node.FormattedRuleMessage = VisitNullChecked(node.FormattedRuleMessage);
                 if (node.Locations != null)
                 {
                     var newSet = new HashSet<Location>();

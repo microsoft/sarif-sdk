@@ -166,15 +166,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
                 Debug.Assert(rule != null);
 
                 string ruleId = result.RuleId;
-                string formatId = result.FormattedMessage.FormatId;
+                string formatId = result.FormattedRuleMessage.FormatId;
                 string messageFormat;
 
                 string[] arguments = null;
 
-                if (result.FormattedMessage.Arguments != null)
+                if (result.FormattedRuleMessage.Arguments != null)
                 {
-                    arguments = new string[result.FormattedMessage.Arguments.Count];
-                    result.FormattedMessage.Arguments.CopyTo(arguments, 0);
+                    arguments = new string[result.FormattedRuleMessage.Arguments.Count];
+                    result.FormattedRuleMessage.Arguments.CopyTo(arguments, 0);
                 }
                 else
                 {

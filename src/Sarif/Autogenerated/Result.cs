@@ -51,10 +51,10 @@ namespace Microsoft.CodeAnalysis.Sarif
         public string ShortMessage { get; set; }
 
         /// <summary>
-        /// A 'formattedMessage' object that can be used to construct a formatted message that describes the result. If the 'formattedMessage' property is present on a result, the 'fullMessage' property shall not be present. If the 'fullMessage' property is present on an result, the 'formattedMessage' property shall not be present
+        /// A 'formattedRuleMessage' object that can be used to construct a formatted message that describes the result. If the 'formattedMessage' property is present on a result, the 'fullMessage' property shall not be present. If the 'fullMessage' property is present on an result, the 'formattedMessage' property shall not be present
         /// </summary>
-        [DataMember(Name = "formattedMessage", IsRequired = false, EmitDefaultValue = false)]
-        public FormattedMessage FormattedMessage { get; set; }
+        [DataMember(Name = "formattedRuleMessage", IsRequired = false, EmitDefaultValue = false)]
+        public FormattedRuleMessage FormattedRuleMessage { get; set; }
 
         /// <summary>
         /// One or more locations where the result occurred. Specify only one location unless the problem indicated by the result can only be corrected by making a change at every specified location.
@@ -136,9 +136,9 @@ namespace Microsoft.CodeAnalysis.Sarif
                     result = (result * 31) + ShortMessage.GetHashCode();
                 }
 
-                if (FormattedMessage != null)
+                if (FormattedRuleMessage != null)
                 {
-                    result = (result * 31) + FormattedMessage.GetHashCode();
+                    result = (result * 31) + FormattedRuleMessage.GetHashCode();
                 }
 
                 if (Locations != null)
@@ -266,7 +266,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 return false;
             }
 
-            if (!Object.Equals(FormattedMessage, other.FormattedMessage))
+            if (!Object.Equals(FormattedRuleMessage, other.FormattedRuleMessage))
             {
                 return false;
             }
@@ -406,8 +406,8 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="shortMessage">
         /// An initialization value for the <see cref="P: ShortMessage" /> property.
         /// </param>
-        /// <param name="formattedMessage">
-        /// An initialization value for the <see cref="P: FormattedMessage" /> property.
+        /// <param name="formattedRuleMessage">
+        /// An initialization value for the <see cref="P: FormattedRuleMessage" /> property.
         /// </param>
         /// <param name="locations">
         /// An initialization value for the <see cref="P: Locations" /> property.
@@ -436,9 +436,9 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="tags">
         /// An initialization value for the <see cref="P: Tags" /> property.
         /// </param>
-        public Result(string ruleId, ResultKind kind, string fullMessage, string shortMessage, FormattedMessage formattedMessage, ISet<Location> locations, string toolFingerprint, ISet<Stack> stacks, ISet<CodeFlow> codeFlows, ISet<AnnotatedCodeLocation> relatedLocations, bool isSuppressedInSource, ISet<Fix> fixes, IDictionary<string, string> properties, ISet<string> tags)
+        public Result(string ruleId, ResultKind kind, string fullMessage, string shortMessage, FormattedRuleMessage formattedRuleMessage, ISet<Location> locations, string toolFingerprint, ISet<Stack> stacks, ISet<CodeFlow> codeFlows, ISet<AnnotatedCodeLocation> relatedLocations, bool isSuppressedInSource, ISet<Fix> fixes, IDictionary<string, string> properties, ISet<string> tags)
         {
-            Init(ruleId, kind, fullMessage, shortMessage, formattedMessage, locations, toolFingerprint, stacks, codeFlows, relatedLocations, isSuppressedInSource, fixes, properties, tags);
+            Init(ruleId, kind, fullMessage, shortMessage, formattedRuleMessage, locations, toolFingerprint, stacks, codeFlows, relatedLocations, isSuppressedInSource, fixes, properties, tags);
         }
 
         /// <summary>
@@ -457,7 +457,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 throw new ArgumentNullException(nameof(other));
             }
 
-            Init(other.RuleId, other.Kind, other.FullMessage, other.ShortMessage, other.FormattedMessage, other.Locations, other.ToolFingerprint, other.Stacks, other.CodeFlows, other.RelatedLocations, other.IsSuppressedInSource, other.Fixes, other.Properties, other.Tags);
+            Init(other.RuleId, other.Kind, other.FullMessage, other.ShortMessage, other.FormattedRuleMessage, other.Locations, other.ToolFingerprint, other.Stacks, other.CodeFlows, other.RelatedLocations, other.IsSuppressedInSource, other.Fixes, other.Properties, other.Tags);
         }
 
         ISarifNode ISarifNode.DeepClone()
@@ -478,15 +478,15 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new Result(this);
         }
 
-        private void Init(string ruleId, ResultKind kind, string fullMessage, string shortMessage, FormattedMessage formattedMessage, ISet<Location> locations, string toolFingerprint, ISet<Stack> stacks, ISet<CodeFlow> codeFlows, ISet<AnnotatedCodeLocation> relatedLocations, bool isSuppressedInSource, ISet<Fix> fixes, IDictionary<string, string> properties, ISet<string> tags)
+        private void Init(string ruleId, ResultKind kind, string fullMessage, string shortMessage, FormattedRuleMessage formattedRuleMessage, ISet<Location> locations, string toolFingerprint, ISet<Stack> stacks, ISet<CodeFlow> codeFlows, ISet<AnnotatedCodeLocation> relatedLocations, bool isSuppressedInSource, ISet<Fix> fixes, IDictionary<string, string> properties, ISet<string> tags)
         {
             RuleId = ruleId;
             Kind = kind;
             FullMessage = fullMessage;
             ShortMessage = shortMessage;
-            if (formattedMessage != null)
+            if (formattedRuleMessage != null)
             {
-                FormattedMessage = new FormattedMessage(formattedMessage);
+                FormattedRuleMessage = new FormattedRuleMessage(formattedRuleMessage);
             }
 
             if (locations != null)

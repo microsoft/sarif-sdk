@@ -178,7 +178,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Validation
                 case JsonErrorKind.Syntax:
                     result.RuleId = JsonSyntaxErrorRule.Id;
                     result.Kind = ResultKind.Error;
-                    result.FormattedMessage = new FormattedMessage
+                    result.FormattedRuleMessage = new FormattedRuleMessage
                     {
                         FormatId = JsonSyntaxErrorFormatSpecifier,
                         Arguments = new[] { error.Message }
@@ -188,7 +188,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Validation
                 case JsonErrorKind.Validation:
                     result.RuleId = JsonSchemaValidationErrorRule.Id;
                     result.Kind = ResultKind.Error;
-                    result.FormattedMessage = new FormattedMessage
+                    result.FormattedRuleMessage = new FormattedRuleMessage
                     {
                         FormatId = JsonSchemaValidationErrorFormatSpecifier,
                         Arguments = new[] { error.Message }
@@ -198,7 +198,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Validation
                 default:
                     result.RuleId = UnknownErrorRule.Id;
                     result.Kind = ResultKind.InternalError;
-                    result.FormattedMessage = new FormattedMessage
+                    result.FormattedRuleMessage = new FormattedRuleMessage
                     {
                         FormatId = UnknownErrorFormatSpecifier,
                         Arguments = new string[] { error.Kind.ToString() }

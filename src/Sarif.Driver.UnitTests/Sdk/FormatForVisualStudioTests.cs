@@ -184,7 +184,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
                         }
                     }
                 },
-                FormattedMessage = new FormattedMessage
+                FormattedRuleMessage = new FormattedRuleMessage
                 {
                     FormatId = TestFormatId,
                     Arguments = new List<string>

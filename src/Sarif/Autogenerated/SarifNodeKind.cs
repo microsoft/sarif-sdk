@@ -40,9 +40,9 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// </summary>
         Fix,
         /// <summary>
-        /// A value indicating that the <see cref="ISarifNode" /> object is of type <see cref="FormattedMessage" />.
+        /// A value indicating that the <see cref="ISarifNode" /> object is of type <see cref="FormattedRuleMessage" />.
         /// </summary>
-        FormattedMessage,
+        FormattedRuleMessage,
         /// <summary>
         /// A value indicating that the <see cref="ISarifNode" /> object is of type <see cref="Hash" />.
         /// </summary>
