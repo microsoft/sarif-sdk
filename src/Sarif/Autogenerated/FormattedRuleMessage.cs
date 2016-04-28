@@ -13,7 +13,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// </summary>
     [DataContract]
     [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.16.0.0")]
-    public partial class FormattedMessage : ISarifNode, IEquatable<FormattedMessage>
+    public partial class FormattedRuleMessage : ISarifNode, IEquatable<FormattedRuleMessage>
     {
         /// <summary>
         /// Gets a value indicating the type of object implementing <see cref="ISarifNode" />.
@@ -22,7 +22,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             get
             {
-                return SarifNodeKind.FormattedMessage;
+                return SarifNodeKind.FormattedRuleMessage;
             }
         }
 
@@ -40,7 +40,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         public override bool Equals(object other)
         {
-            return Equals(other as FormattedMessage);
+            return Equals(other as FormattedRuleMessage);
         }
 
         public override int GetHashCode()
@@ -69,7 +69,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return result;
         }
 
-        public bool Equals(FormattedMessage other)
+        public bool Equals(FormattedRuleMessage other)
         {
             if (other == null)
             {
@@ -106,14 +106,14 @@ namespace Microsoft.CodeAnalysis.Sarif
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="FormattedMessage" /> class.
+        /// Initializes a new instance of the <see cref="FormattedRuleMessage" /> class.
         /// </summary>
-        public FormattedMessage()
+        public FormattedRuleMessage()
         {
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="FormattedMessage" /> class from the supplied values.
+        /// Initializes a new instance of the <see cref="FormattedRuleMessage" /> class from the supplied values.
         /// </summary>
         /// <param name="formatId">
         /// An initialization value for the <see cref="P: FormatId" /> property.
@@ -121,13 +121,13 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="arguments">
         /// An initialization value for the <see cref="P: Arguments" /> property.
         /// </param>
-        public FormattedMessage(string formatId, IEnumerable<string> arguments)
+        public FormattedRuleMessage(string formatId, IEnumerable<string> arguments)
         {
             Init(formatId, arguments);
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="FormattedMessage" /> class from the specified instance.
+        /// Initializes a new instance of the <see cref="FormattedRuleMessage" /> class from the specified instance.
         /// </summary>
         /// <param name="other">
         /// The instance from which the new instance is to be initialized.
@@ -135,7 +135,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <exception cref="ArgumentNullException">
         /// Thrown if <paramref name="other" /> is null.
         /// </exception>
-        public FormattedMessage(FormattedMessage other)
+        public FormattedRuleMessage(FormattedRuleMessage other)
         {
             if (other == null)
             {
@@ -153,14 +153,14 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <summary>
         /// Creates a deep copy of this instance.
         /// </summary>
-        public FormattedMessage DeepClone()
+        public FormattedRuleMessage DeepClone()
         {
-            return (FormattedMessage)DeepCloneCore();
+            return (FormattedRuleMessage)DeepCloneCore();
         }
 
         private ISarifNode DeepCloneCore()
         {
-            return new FormattedMessage(this);
+            return new FormattedRuleMessage(this);
         }
 
         private void Init(string formatId, IEnumerable<string> arguments)

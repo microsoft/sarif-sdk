@@ -182,7 +182,7 @@
       },
       "required": [ "description", "fileChanges" ]
     },
-    "formattedMessage": {
+    "formattedRuleMessage": {
       "description": "Contains information that can be used to construct a formatted message that describes a result.",
       "additionalProperties": false,
       "type": "object",
@@ -465,9 +465,9 @@
           "type": "string"
         },
 
-        "formattedMessage": {
-          "description": "A 'formattedMessage' object that can be used to construct a formatted message that describes the result. If the 'formattedMessage' property is present on a result, the 'fullMessage' property shall not be present. If the 'fullMessage' property is present on an result, the 'formattedMessage' property shall not be present",
-          "$ref": "#/definitions/formattedMessage"
+        "formattedRuleMessage": {
+          "description": "A 'formattedRuleMessage' object that can be used to construct a formatted message that describes the result. If the 'formattedMessage' property is present on a result, the 'fullMessage' property shall not be present. If the 'fullMessage' property is present on an result, the 'formattedMessage' property shall not be present",
+          "$ref": "#/definitions/formattedRuleMessage"
         },
 
         "locations": {

@@ -32,7 +32,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
                 arguments.CopyTo(messageArguments, 1);
             }
 
-            result.FormattedMessage = new FormattedMessage()
+            result.FormattedRuleMessage = new FormattedRuleMessage()
             {
                 FormatId = formatId,
                 Arguments = messageArguments
