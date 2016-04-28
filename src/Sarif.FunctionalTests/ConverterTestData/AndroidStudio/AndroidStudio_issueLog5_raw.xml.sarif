@@ -74,7 +74,7 @@
       "results": [
         {
           "ruleId": "Typo",
-          "fullMessage": "Typo: In word 'userguide'",
+          "message": "Typo: In word 'userguide'",
           "locations": [
             {
               "analysisTarget": {
@@ -96,7 +96,7 @@
         },
         {
           "ruleId": "Typo",
-          "fullMessage": "Typo: In word 'jvmargs'",
+          "message": "Typo: In word 'jvmargs'",
           "locations": [
             {
               "analysisTarget": {
@@ -118,7 +118,7 @@
         },
         {
           "ruleId": "Typo",
-          "fullMessage": "Typo: In word 'Dfile'",
+          "message": "Typo: In word 'Dfile'",
           "locations": [
             {
               "analysisTarget": {
@@ -140,7 +140,7 @@
         },
         {
           "ruleId": "Typo",
-          "fullMessage": "Typo: In word 'userguide'",
+          "message": "Typo: In word 'userguide'",
           "locations": [
             {
               "analysisTarget": {
@@ -162,7 +162,7 @@
         },
         {
           "ruleId": "Typo",
-          "fullMessage": "Typo: In word 'dists'",
+          "message": "Typo: In word 'dists'",
           "locations": [
             {
               "analysisTarget": {
@@ -184,7 +184,7 @@
         },
         {
           "ruleId": "Typo",
-          "fullMessage": "Typo: In word 'dists'",
+          "message": "Typo: In word 'dists'",
           "locations": [
             {
               "analysisTarget": {
@@ -206,7 +206,7 @@
         },
         {
           "ruleId": "Typo",
-          "fullMessage": "Typo: In word 'cygwin'",
+          "message": "Typo: In word 'cygwin'",
           "locations": [
             {
               "analysisTarget": {
@@ -228,7 +228,7 @@
         },
         {
           "ruleId": "Typo",
-          "fullMessage": "Typo: In word 'msys'",
+          "message": "Typo: In word 'msys'",
           "locations": [
             {
               "analysisTarget": {
@@ -250,7 +250,7 @@
         },
         {
           "ruleId": "Typo",
-          "fullMessage": "Typo: In word 'uname'",
+          "message": "Typo: In word 'uname'",
           "locations": [
             {
               "analysisTarget": {
@@ -272,7 +272,7 @@
         },
         {
           "ruleId": "Typo",
-          "fullMessage": "Typo: In word 'CYGWIN'",
+          "message": "Typo: In word 'CYGWIN'",
           "locations": [
             {
               "analysisTarget": {
@@ -294,7 +294,7 @@
         },
         {
           "ruleId": "Typo",
-          "fullMessage": "Typo: In word 'cygwin'",
+          "message": "Typo: In word 'cygwin'",
           "locations": [
             {
               "analysisTarget": {
@@ -316,7 +316,7 @@
         },
         {
           "ruleId": "Typo",
-          "fullMessage": "Typo: In word 'MINGW'",
+          "message": "Typo: In word 'MINGW'",
           "locations": [
             {
               "analysisTarget": {
@@ -338,7 +338,7 @@
         },
         {
           "ruleId": "Typo",
-          "fullMessage": "Typo: In word 'msys'",
+          "message": "Typo: In word 'msys'",
           "locations": [
             {
               "analysisTarget": {
@@ -360,7 +360,7 @@
         },
         {
           "ruleId": "Typo",
-          "fullMessage": "Typo: In word 'esac'",
+          "message": "Typo: In word 'esac'",
           "locations": [
             {
               "analysisTarget": {
@@ -382,7 +382,7 @@
         },
         {
           "ruleId": "Typo",
-          "fullMessage": "Typo: In word 'Cygwin'",
+          "message": "Typo: In word 'Cygwin'",
           "locations": [
             {
               "analysisTarget": {
@@ -404,7 +404,7 @@
         },
         {
           "ruleId": "Typo",
-          "fullMessage": "Typo: In word 'cygwin'",
+          "message": "Typo: In word 'cygwin'",
           "locations": [
             {
               "analysisTarget": {
@@ -426,7 +426,7 @@
         },
         {
           "ruleId": "Typo",
-          "fullMessage": "Typo: In word 'cygpath'",
+          "message": "Typo: In word 'cygpath'",
           "locations": [
             {
               "analysisTarget": {
@@ -448,7 +448,7 @@
         },
         {
           "ruleId": "Typo",
-          "fullMessage": "Typo: In word 'dirname'",
+          "message": "Typo: In word 'dirname'",
           "locations": [
             {
               "analysisTarget": {
@@ -470,7 +470,7 @@
         },
         {
           "ruleId": "Typo",
-          "fullMessage": "Typo: In word 'dirname'",
+          "message": "Typo: In word 'dirname'",
           "locations": [
             {
               "analysisTarget": {
@@ -492,7 +492,7 @@
         },
         {
           "ruleId": "Typo",
-          "fullMessage": "Typo: In word 'executables'",
+          "message": "Typo: In word 'executables'",
           "locations": [
             {
               "analysisTarget": {
@@ -514,7 +514,7 @@
         },
         {
           "ruleId": "Typo",
-          "fullMessage": "Typo: In word 'JAVACMD'",
+          "message": "Typo: In word 'JAVACMD'",
           "locations": [
             {
               "analysisTarget": {
@@ -536,7 +536,7 @@
         },
         {
           "ruleId": "Typo",
-          "fullMessage": "Typo: In word 'JAVACMD'",
+          "message": "Typo: In word 'JAVACMD'",
           "locations": [
             {
               "analysisTarget": {
@@ -558,7 +558,7 @@
         },
         {
           "ruleId": "Typo",
-          "fullMessage": "Typo: In word 'JAVACMD'",
+          "message": "Typo: In word 'JAVACMD'",
           "locations": [
             {
               "analysisTarget": {
@@ -580,7 +580,7 @@
         },
         {
           "ruleId": "Typo",
-          "fullMessage": "Typo: In word 'JAVACMD'",
+          "message": "Typo: In word 'JAVACMD'",
           "locations": [
             {
               "analysisTarget": {
@@ -602,7 +602,7 @@
         },
         {
           "ruleId": "Typo",
-          "fullMessage": "Typo: In word 'cygwin'",
+          "message": "Typo: In word 'cygwin'",
           "locations": [
             {
               "analysisTarget": {
@@ -624,7 +624,7 @@
         },
         {
           "ruleId": "Typo",
-          "fullMessage": "Typo: In word 'ulimit'",
+          "message": "Typo: In word 'ulimit'",
           "locations": [
             {
               "analysisTarget": {
@@ -646,7 +646,7 @@
         },
         {
           "ruleId": "Typo",
-          "fullMessage": "Typo: In word 'ulimit'",
+          "message": "Typo: In word 'ulimit'",
           "locations": [
             {
               "analysisTarget": {
@@ -668,7 +668,7 @@
         },
         {
           "ruleId": "Typo",
-          "fullMessage": "Typo: In word 'Xdock'",
+          "message": "Typo: In word 'Xdock'",
           "locations": [
             {
               "analysisTarget": {
@@ -690,7 +690,7 @@
         },
         {
           "ruleId": "Typo",
-          "fullMessage": "Typo: In word 'icns'",
+          "message": "Typo: In word 'icns'",
           "locations": [
             {
               "analysisTarget": {
@@ -712,7 +712,7 @@
         },
         {
           "ruleId": "Typo",
-          "fullMessage": "Typo: In word 'Cygwin'",
+          "message": "Typo: In word 'Cygwin'",
           "locations": [
             {
               "analysisTarget": {
@@ -734,7 +734,7 @@
         },
         {
           "ruleId": "Typo",
-          "fullMessage": "Typo: In word 'cygwin'",
+          "message": "Typo: In word 'cygwin'",
           "locations": [
             {
               "analysisTarget": {
@@ -756,7 +756,7 @@
         },
         {
           "ruleId": "Typo",
-          "fullMessage": "Typo: In word 'cygpath'",
+          "message": "Typo: In word 'cygpath'",
           "locations": [
             {
               "analysisTarget": {
@@ -778,7 +778,7 @@
         },
         {
           "ruleId": "Typo",
-          "fullMessage": "Typo: In word 'cygpath'",
+          "message": "Typo: In word 'cygpath'",
           "locations": [
             {
               "analysisTarget": {
@@ -800,7 +800,7 @@
         },
         {
           "ruleId": "Typo",
-          "fullMessage": "Typo: In word 'cygpath'",
+          "message": "Typo: In word 'cygpath'",
           "locations": [
             {
               "analysisTarget": {
@@ -822,7 +822,7 @@
         },
         {
           "ruleId": "Typo",
-          "fullMessage": "Typo: In word 'ROOTDIRSRAW'",
+          "message": "Typo: In word 'ROOTDIRSRAW'",
           "locations": [
             {
               "analysisTarget": {
@@ -844,7 +844,7 @@
         },
         {
           "ruleId": "Typo",
-          "fullMessage": "Typo: In word 'maxdepth'",
+          "message": "Typo: In word 'maxdepth'",
           "locations": [
             {
               "analysisTarget": {
@@ -866,7 +866,7 @@
         },
         {
           "ruleId": "Typo",
-          "fullMessage": "Typo: In word 'mindepth'",
+          "message": "Typo: In word 'mindepth'",
           "locations": [
             {
               "analysisTarget": {
@@ -888,7 +888,7 @@
         },
         {
           "ruleId": "Typo",
-          "fullMessage": "Typo: In word 'ROOTDIRSRAW'",
+          "message": "Typo: In word 'ROOTDIRSRAW'",
           "locations": [
             {
               "analysisTarget": {
@@ -910,7 +910,7 @@
         },
         {
           "ruleId": "Typo",
-          "fullMessage": "Typo: In word 'ROOTDIRS'",
+          "message": "Typo: In word 'ROOTDIRS'",
           "locations": [
             {
               "analysisTarget": {
@@ -932,7 +932,7 @@
         },
         {
           "ruleId": "Typo",
-          "fullMessage": "Typo: In word 'OURCYGPATTERN'",
+          "message": "Typo: In word 'OURCYGPATTERN'",
           "locations": [
             {
               "analysisTarget": {
@@ -954,7 +954,7 @@
         },
         {
           "ruleId": "Typo",
-          "fullMessage": "Typo: In word 'ROOTDIRS'",
+          "message": "Typo: In word 'ROOTDIRS'",
           "locations": [
             {
               "analysisTarget": {
@@ -976,7 +976,7 @@
         },
         {
           "ruleId": "Typo",
-          "fullMessage": "Typo: In word 'cygpath'",
+          "message": "Typo: In word 'cygpath'",
           "locations": [
             {
               "analysisTarget": {
@@ -998,7 +998,7 @@
         },
         {
           "ruleId": "Typo",
-          "fullMessage": "Typo: In word 'CYGPATTERN'",
+          "message": "Typo: In word 'CYGPATTERN'",
           "locations": [
             {
               "analysisTarget": {
@@ -1020,7 +1020,7 @@
         },
         {
           "ruleId": "Typo",
-          "fullMessage": "Typo: In word 'OURCYGPATTERN'",
+          "message": "Typo: In word 'OURCYGPATTERN'",
           "locations": [
             {
               "analysisTarget": {
@@ -1042,7 +1042,7 @@
         },
         {
           "ruleId": "Typo",
-          "fullMessage": "Typo: In word 'CYGPATTERN'",
+          "message": "Typo: In word 'CYGPATTERN'",
           "locations": [
             {
               "analysisTarget": {
@@ -1064,7 +1064,7 @@
         },
         {
           "ruleId": "Typo",
-          "fullMessage": "Typo: In word 'egrep'",
+          "message": "Typo: In word 'egrep'",
           "locations": [
             {
               "analysisTarget": {
@@ -1086,7 +1086,7 @@
         },
         {
           "ruleId": "Typo",
-          "fullMessage": "Typo: In word 'OURCYGPATTERN'",
+          "message": "Typo: In word 'OURCYGPATTERN'",
           "locations": [
             {
               "analysisTarget": {
@@ -1108,7 +1108,7 @@
         },
         {
           "ruleId": "Typo",
-          "fullMessage": "Typo: In word 'egrep'",
+          "message": "Typo: In word 'egrep'",
           "locations": [
             {
               "analysisTarget": {
@@ -1130,7 +1130,7 @@
         },
         {
           "ruleId": "Typo",
-          "fullMessage": "Typo: In word 'eval'",
+          "message": "Typo: In word 'eval'",
           "locations": [
             {
               "analysisTarget": {
@@ -1152,7 +1152,7 @@
         },
         {
           "ruleId": "Typo",
-          "fullMessage": "Typo: In word 'cygpath'",
+          "message": "Typo: In word 'cygpath'",
           "locations": [
             {
               "analysisTarget": {
@@ -1174,7 +1174,7 @@
         },
         {
           "ruleId": "Typo",
-          "fullMessage": "Typo: In word 'eval'",
+          "message": "Typo: In word 'eval'",
           "locations": [
             {
               "analysisTarget": {
@@ -1196,7 +1196,7 @@
         },
         {
           "ruleId": "Typo",
-          "fullMessage": "Typo: In word 'esac'",
+          "message": "Typo: In word 'esac'",
           "locations": [
             {
               "analysisTarget": {
@@ -1218,7 +1218,7 @@
         },
         {
           "ruleId": "Typo",
-          "fullMessage": "Typo: In word 'eval'",
+          "message": "Typo: In word 'eval'",
           "locations": [
             {
               "analysisTarget": {
@@ -1240,7 +1240,7 @@
         },
         {
           "ruleId": "Typo",
-          "fullMessage": "Typo: In word 'Dorg'",
+          "message": "Typo: In word 'Dorg'",
           "locations": [
             {
               "analysisTarget": {
@@ -1262,7 +1262,7 @@
         },
         {
           "ruleId": "Typo",
-          "fullMessage": "Typo: In word 'appname'",
+          "message": "Typo: In word 'appname'",
           "locations": [
             {
               "analysisTarget": {
@@ -1284,7 +1284,7 @@
         },
         {
           "ruleId": "Typo",
-          "fullMessage": "Typo: In word 'JAVACMD'",
+          "message": "Typo: In word 'JAVACMD'",
           "locations": [
             {
               "analysisTarget": {
@@ -1306,7 +1306,7 @@
         },
         {
           "ruleId": "Typo",
-          "fullMessage": "Typo: In word 'setlocal'",
+          "message": "Typo: In word 'setlocal'",
           "locations": [
             {
               "analysisTarget": {
@@ -1328,7 +1328,7 @@
         },
         {
           "ruleId": "Typo",
-          "fullMessage": "Typo: In word 'DIRNAME'",
+          "message": "Typo: In word 'DIRNAME'",
           "locations": [
             {
               "analysisTarget": {
@@ -1350,7 +1350,7 @@
         },
         {
           "ruleId": "Typo",
-          "fullMessage": "Typo: In word 'DIRNAME'",
+          "message": "Typo: In word 'DIRNAME'",
           "locations": [
             {
               "analysisTarget": {
@@ -1372,7 +1372,7 @@
         },
         {
           "ruleId": "Typo",
-          "fullMessage": "Typo: In word 'DIRNAME'",
+          "message": "Typo: In word 'DIRNAME'",
           "locations": [
             {
               "analysisTarget": {
@@ -1394,7 +1394,7 @@
         },
         {
           "ruleId": "Typo",
-          "fullMessage": "Typo: In word 'goto'",
+          "message": "Typo: In word 'goto'",
           "locations": [
             {
               "analysisTarget": {
@@ -1416,7 +1416,7 @@
         },
         {
           "ruleId": "Typo",
-          "fullMessage": "Typo: In word 'ERRORLEVEL'",
+          "message": "Typo: In word 'ERRORLEVEL'",
           "locations": [
             {
               "analysisTarget": {
@@ -1438,7 +1438,7 @@
         },
         {
           "ruleId": "Typo",
-          "fullMessage": "Typo: In word 'goto'",
+          "message": "Typo: In word 'goto'",
           "locations": [
             {
               "analysisTarget": {
@@ -1460,7 +1460,7 @@
         },
         {
           "ruleId": "Typo",
-          "fullMessage": "Typo: In word 'goto'",
+          "message": "Typo: In word 'goto'",
           "locations": [
             {
               "analysisTarget": {
@@ -1482,7 +1482,7 @@
         },
         {
           "ruleId": "Typo",
-          "fullMessage": "Typo: In word 'goto'",
+          "message": "Typo: In word 'goto'",
           "locations": [
             {
               "analysisTarget": {
@@ -1504,7 +1504,7 @@
         },
         {
           "ruleId": "Typo",
-          "fullMessage": "Typo: In word 'goto'",
+          "message": "Typo: In word 'goto'",
           "locations": [
             {
               "analysisTarget": {
@@ -1526,7 +1526,7 @@
         },
         {
           "ruleId": "Typo",
-          "fullMessage": "Typo: In word 'Windowz'",
+          "message": "Typo: In word 'Windowz'",
           "locations": [
             {
               "analysisTarget": {
@@ -1548,7 +1548,7 @@
         },
         {
           "ruleId": "Typo",
-          "fullMessage": "Typo: In word 'goto'",
+          "message": "Typo: In word 'goto'",
           "locations": [
             {
               "analysisTarget": {
@@ -1570,7 +1570,7 @@
         },
         {
           "ruleId": "Typo",
-          "fullMessage": "Typo: In word 'eval'",
+          "message": "Typo: In word 'eval'",
           "locations": [
             {
               "analysisTarget": {
@@ -1592,7 +1592,7 @@
         },
         {
           "ruleId": "Typo",
-          "fullMessage": "Typo: In word 'goto'",
+          "message": "Typo: In word 'goto'",
           "locations": [
             {
               "analysisTarget": {
@@ -1614,7 +1614,7 @@
         },
         {
           "ruleId": "Typo",
-          "fullMessage": "Typo: In word 'goto'",
+          "message": "Typo: In word 'goto'",
           "locations": [
             {
               "analysisTarget": {
@@ -1636,7 +1636,7 @@
         },
         {
           "ruleId": "Typo",
-          "fullMessage": "Typo: In word 'goto'",
+          "message": "Typo: In word 'goto'",
           "locations": [
             {
               "analysisTarget": {
@@ -1658,7 +1658,7 @@
         },
         {
           "ruleId": "Typo",
-          "fullMessage": "Typo: In word 'Dorg'",
+          "message": "Typo: In word 'Dorg'",
           "locations": [
             {
               "analysisTarget": {
@@ -1680,7 +1680,7 @@
         },
         {
           "ruleId": "Typo",
-          "fullMessage": "Typo: In word 'appname'",
+          "message": "Typo: In word 'appname'",
           "locations": [
             {
               "analysisTarget": {
@@ -1702,7 +1702,7 @@
         },
         {
           "ruleId": "Typo",
-          "fullMessage": "Typo: In word 'ERRORLEVEL'",
+          "message": "Typo: In word 'ERRORLEVEL'",
           "locations": [
             {
               "analysisTarget": {
@@ -1724,7 +1724,7 @@
         },
         {
           "ruleId": "Typo",
-          "fullMessage": "Typo: In word 'goto'",
+          "message": "Typo: In word 'goto'",
           "locations": [
             {
               "analysisTarget": {
@@ -1746,7 +1746,7 @@
         },
         {
           "ruleId": "Typo",
-          "fullMessage": "Typo: In word 'endlocal'",
+          "message": "Typo: In word 'endlocal'",
           "locations": [
             {
               "analysisTarget": {
@@ -1768,7 +1768,7 @@
         },
         {
           "ruleId": "Typo",
-          "fullMessage": "Typo: In word 'androidstudioformatexample'",
+          "message": "Typo: In word 'androidstudioformatexample'",
           "locations": [
             {
               "analysisTarget": {
@@ -1790,7 +1790,7 @@
         },
         {
           "ruleId": "Typo",
-          "fullMessage": "Typo: In word 'androidstudioformatexample'",
+          "message": "Typo: In word 'androidstudioformatexample'",
           "locations": [
             {
               "analysisTarget": {
@@ -1812,7 +1812,7 @@
         },
         {
           "ruleId": "Typo",
-          "fullMessage": "Typo: In word 'dimens'",
+          "message": "Typo: In word 'dimens'",
           "locations": [
             {
               "analysisTarget": {
@@ -1834,7 +1834,7 @@
         },
         {
           "ruleId": "Typo",
-          "fullMessage": "Typo: In word 'daknis'",
+          "message": "Typo: In word 'daknis'",
           "locations": [
             {
               "analysisTarget": {

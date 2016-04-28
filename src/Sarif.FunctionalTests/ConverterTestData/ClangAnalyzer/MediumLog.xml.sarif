@@ -15,7 +15,7 @@
       "results": [
         {
           "ruleId": "Dereference of null pointer",
-          "fullMessage": "Access to field 'sent_table' results in a dereference of a null pointer (loaded from variable 'htbl')",
+          "message": "Access to field 'sent_table' results in a dereference of a null pointer (loaded from variable 'htbl')",
           "locations": [
             {
               "analysisTarget": {

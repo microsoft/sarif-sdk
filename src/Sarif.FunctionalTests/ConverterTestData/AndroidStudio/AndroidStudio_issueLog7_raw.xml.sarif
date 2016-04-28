@@ -28,7 +28,7 @@
       "results": [
         {
           "ruleId": "Unused Property",
-          "fullMessage": "Unused property",
+          "message": "Unused property",
           "locations": [
             {
               "analysisTarget": {
@@ -50,7 +50,7 @@
         },
         {
           "ruleId": "Unused Property",
-          "fullMessage": "Unused property",
+          "message": "Unused property",
           "locations": [
             {
               "analysisTarget": {
@@ -72,7 +72,7 @@
         },
         {
           "ruleId": "Unused Property",
-          "fullMessage": "Unused property",
+          "message": "Unused property",
           "locations": [
             {
               "analysisTarget": {
@@ -94,7 +94,7 @@
         },
         {
           "ruleId": "Unused Property",
-          "fullMessage": "Unused property",
+          "message": "Unused property",
           "locations": [
             {
               "analysisTarget": {
@@ -116,7 +116,7 @@
         },
         {
           "ruleId": "Unused Property",
-          "fullMessage": "Unused property",
+          "message": "Unused property",
           "locations": [
             {
               "analysisTarget": {
@@ -138,7 +138,7 @@
         },
         {
           "ruleId": "Unused Property",
-          "fullMessage": "Unused property",
+          "message": "Unused property",
           "locations": [
             {
               "analysisTarget": {

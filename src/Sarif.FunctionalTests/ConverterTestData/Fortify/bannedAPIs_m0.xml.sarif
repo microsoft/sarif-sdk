@@ -15,7 +15,7 @@
       "results": [
         {
           "ruleId": "Null Dereference",
-          "fullMessage": "The function MiscTests() in bannedAPIs.m can crash the program by dereferencing a null pointer on line 172.",
+          "message": "The function MiscTests() in bannedAPIs.m can crash the program by dereferencing a null pointer on line 172.",
           "locations": [
             {
               "resultFile": {
@@ -36,7 +36,7 @@
         },
         {
           "ruleId": "Dangerous Function",
-          "fullMessage": "The function gets() cannot be used safely.  It should not be used.",
+          "message": "The function gets() cannot be used safely.  It should not be used.",
           "locations": [
             {
               "resultFile": {
@@ -57,7 +57,7 @@
         },
         {
           "ruleId": "Buffer Overflow: Format String",
-          "fullMessage": "The format string argument to sscanf() at bannedAPIs.m line 240 does not properly limit the amount of data the function can write, which allows the program to write outside the bounds of allocated memory. This behavior could corrupt data, crash the program, or lead to the execution of malicious code",
+          "message": "The format string argument to sscanf() at bannedAPIs.m line 240 does not properly limit the amount of data the function can write, which allows the program to write outside the bounds of allocated memory. This behavior could corrupt data, crash the program, or lead to the execution of malicious code",
           "locations": [
             {
               "resultFile": {
@@ -78,7 +78,7 @@
         },
         {
           "ruleId": "Buffer Overflow: Format String",
-          "fullMessage": "The format string argument to sscanf() at bannedAPIs.m line 240 does not properly limit the amount of data the function can write, which allows the program to write outside the bounds of allocated memory. This behavior could corrupt data, crash the program, or lead to the execution of malicious code",
+          "message": "The format string argument to sscanf() at bannedAPIs.m line 240 does not properly limit the amount of data the function can write, which allows the program to write outside the bounds of allocated memory. This behavior could corrupt data, crash the program, or lead to the execution of malicious code",
           "locations": [
             {
               "resultFile": {
@@ -99,7 +99,7 @@
         },
         {
           "ruleId": "Buffer Overflow: Format String",
-          "fullMessage": "The format string argument to fscanf() at bannedAPIs.m line 238 does not properly limit the amount of data the function can write, which allows the program to write outside the bounds of allocated memory. This behavior could corrupt data, crash the program, or lead to the execution of malicious code",
+          "message": "The format string argument to fscanf() at bannedAPIs.m line 238 does not properly limit the amount of data the function can write, which allows the program to write outside the bounds of allocated memory. This behavior could corrupt data, crash the program, or lead to the execution of malicious code",
           "locations": [
             {
               "resultFile": {
@@ -120,7 +120,7 @@
         },
         {
           "ruleId": "Buffer Overflow: Format String",
-          "fullMessage": "The format string argument to scanf() at bannedAPIs.m line 236 does not properly limit the amount of data the function can write, which allows the program to write outside the bounds of allocated memory. This behavior could corrupt data, crash the program, or lead to the execution of malicious code",
+          "message": "The format string argument to scanf() at bannedAPIs.m line 236 does not properly limit the amount of data the function can write, which allows the program to write outside the bounds of allocated memory. This behavior could corrupt data, crash the program, or lead to the execution of malicious code",
           "locations": [
             {
               "resultFile": {
@@ -141,7 +141,7 @@
         },
         {
           "ruleId": "Buffer Overflow: Format String",
-          "fullMessage": "The format string argument to scanf() at bannedAPIs.m line 236 does not properly limit the amount of data the function can write, which allows the program to write outside the bounds of allocated memory. This behavior could corrupt data, crash the program, or lead to the execution of malicious code",
+          "message": "The format string argument to scanf() at bannedAPIs.m line 236 does not properly limit the amount of data the function can write, which allows the program to write outside the bounds of allocated memory. This behavior could corrupt data, crash the program, or lead to the execution of malicious code",
           "locations": [
             {
               "resultFile": {
@@ -162,7 +162,7 @@
         },
         {
           "ruleId": "Buffer Overflow: Format String",
-          "fullMessage": "The format string argument to vscanf() at bannedAPIs.m line 254 does not properly limit the amount of data the function can write, which allows the program to write outside the bounds of allocated memory. This behavior could corrupt data, crash the program, or lead to the execution of malicious code",
+          "message": "The format string argument to vscanf() at bannedAPIs.m line 254 does not properly limit the amount of data the function can write, which allows the program to write outside the bounds of allocated memory. This behavior could corrupt data, crash the program, or lead to the execution of malicious code",
           "locations": [
             {
               "resultFile": {
@@ -183,7 +183,7 @@
         },
         {
           "ruleId": "Buffer Overflow: Format String",
-          "fullMessage": "The format string argument to fscanf() at bannedAPIs.m line 238 does not properly limit the amount of data the function can write, which allows the program to write outside the bounds of allocated memory. This behavior could corrupt data, crash the program, or lead to the execution of malicious code",
+          "message": "The format string argument to fscanf() at bannedAPIs.m line 238 does not properly limit the amount of data the function can write, which allows the program to write outside the bounds of allocated memory. This behavior could corrupt data, crash the program, or lead to the execution of malicious code",
           "locations": [
             {
               "resultFile": {
@@ -204,7 +204,7 @@
         },
         {
           "ruleId": "Buffer Overflow: Format String",
-          "fullMessage": "The format string argument to vfscanf() at bannedAPIs.m line 256 does not properly limit the amount of data the function can write, which allows the program to write outside the bounds of allocated memory. This behavior could corrupt data, crash the program, or lead to the execution of malicious code",
+          "message": "The format string argument to vfscanf() at bannedAPIs.m line 256 does not properly limit the amount of data the function can write, which allows the program to write outside the bounds of allocated memory. This behavior could corrupt data, crash the program, or lead to the execution of malicious code",
           "locations": [
             {
               "resultFile": {
@@ -225,7 +225,7 @@
         },
         {
           "ruleId": "Buffer Overflow: Format String",
-          "fullMessage": "The format string argument to vsscanf() at bannedAPIs.m line 258 does not properly limit the amount of data the function can write, which allows the program to write outside the bounds of allocated memory. This behavior could corrupt data, crash the program, or lead to the execution of malicious code",
+          "message": "The format string argument to vsscanf() at bannedAPIs.m line 258 does not properly limit the amount of data the function can write, which allows the program to write outside the bounds of allocated memory. This behavior could corrupt data, crash the program, or lead to the execution of malicious code",
           "locations": [
             {
               "resultFile": {
@@ -246,7 +246,7 @@
         },
         {
           "ruleId": "Format String",
-          "fullMessage": "An attacker can control the format string argument to vfwprintf() at bannedAPIs.m line 225, allowing an attack much like a buffer overflow.",
+          "message": "An attacker can control the format string argument to vfwprintf() at bannedAPIs.m line 225, allowing an attack much like a buffer overflow.",
           "locations": [
             {
               "resultFile": {
@@ -289,7 +289,7 @@
         },
         {
           "ruleId": "Format String",
-          "fullMessage": "An attacker can control the format string argument to vfwprintf() at bannedAPIs.m line 225, allowing an attack much like a buffer overflow.",
+          "message": "An attacker can control the format string argument to vfwprintf() at bannedAPIs.m line 225, allowing an attack much like a buffer overflow.",
           "locations": [
             {
               "resultFile": {
@@ -332,7 +332,7 @@
         },
         {
           "ruleId": "Format String",
-          "fullMessage": "An attacker can control the format string argument to vwprintf() at bannedAPIs.m line 223, allowing an attack much like a buffer overflow.",
+          "message": "An attacker can control the format string argument to vwprintf() at bannedAPIs.m line 223, allowing an attack much like a buffer overflow.",
           "locations": [
             {
               "resultFile": {
@@ -375,7 +375,7 @@
         },
         {
           "ruleId": "Format String",
-          "fullMessage": "An attacker can control the format string argument to fwprintf() at bannedAPIs.m line 205, allowing an attack much like a buffer overflow.",
+          "message": "An attacker can control the format string argument to fwprintf() at bannedAPIs.m line 205, allowing an attack much like a buffer overflow.",
           "locations": [
             {
               "resultFile": {
@@ -418,7 +418,7 @@
         },
         {
           "ruleId": "Format String",
-          "fullMessage": "An attacker can control the format string argument to fprintf() at bannedAPIs.m line 200, allowing an attack much like a buffer overflow.",
+          "message": "An attacker can control the format string argument to fprintf() at bannedAPIs.m line 200, allowing an attack much like a buffer overflow.",
           "locations": [
             {
               "resultFile": {
@@ -461,7 +461,7 @@
         },
         {
           "ruleId": "Format String",
-          "fullMessage": "An attacker can control the format string argument to vfwprintf() at bannedAPIs.m line 225, allowing an attack much like a buffer overflow.",
+          "message": "An attacker can control the format string argument to vfwprintf() at bannedAPIs.m line 225, allowing an attack much like a buffer overflow.",
           "locations": [
             {
               "resultFile": {
@@ -504,7 +504,7 @@
         },
         {
           "ruleId": "Format String",
-          "fullMessage": "An attacker can control the format string argument to fprintf() at bannedAPIs.m line 200, allowing an attack much like a buffer overflow.",
+          "message": "An attacker can control the format string argument to fprintf() at bannedAPIs.m line 200, allowing an attack much like a buffer overflow.",
           "locations": [
             {
               "resultFile": {
@@ -547,7 +547,7 @@
         },
         {
           "ruleId": "Format String",
-          "fullMessage": "An attacker can control the format string argument to printf() at bannedAPIs.m line 199, allowing an attack much like a buffer overflow.",
+          "message": "An attacker can control the format string argument to printf() at bannedAPIs.m line 199, allowing an attack much like a buffer overflow.",
           "locations": [
             {
               "resultFile": {
@@ -590,7 +590,7 @@
         },
         {
           "ruleId": "Format String",
-          "fullMessage": "An attacker can control the format string argument to vwprintf() at bannedAPIs.m line 223, allowing an attack much like a buffer overflow.",
+          "message": "An attacker can control the format string argument to vwprintf() at bannedAPIs.m line 223, allowing an attack much like a buffer overflow.",
           "locations": [
             {
               "resultFile": {
@@ -633,7 +633,7 @@
         },
         {
           "ruleId": "Format String",
-          "fullMessage": "An attacker can control the format string argument to vfwscanf() at bannedAPIs.m line 257, allowing an attack much like a buffer overflow.",
+          "message": "An attacker can control the format string argument to vfwscanf() at bannedAPIs.m line 257, allowing an attack much like a buffer overflow.",
           "locations": [
             {
               "resultFile": {
@@ -676,7 +676,7 @@
         },
         {
           "ruleId": "Format String",
-          "fullMessage": "An attacker can control the format string argument to vswscanf() at bannedAPIs.m line 259, allowing an attack much like a buffer overflow.",
+          "message": "An attacker can control the format string argument to vswscanf() at bannedAPIs.m line 259, allowing an attack much like a buffer overflow.",
           "locations": [
             {
               "resultFile": {
@@ -719,7 +719,7 @@
         },
         {
           "ruleId": "Format String",
-          "fullMessage": "An attacker can control the format string argument to vwscanf() at bannedAPIs.m line 255, allowing an attack much like a buffer overflow.",
+          "message": "An attacker can control the format string argument to vwscanf() at bannedAPIs.m line 255, allowing an attack much like a buffer overflow.",
           "locations": [
             {
               "resultFile": {
@@ -762,7 +762,7 @@
         },
         {
           "ruleId": "Format String",
-          "fullMessage": "An attacker can control the format string argument to vwprintf() at bannedAPIs.m line 223, allowing an attack much like a buffer overflow.",
+          "message": "An attacker can control the format string argument to vwprintf() at bannedAPIs.m line 223, allowing an attack much like a buffer overflow.",
           "locations": [
             {
               "resultFile": {
@@ -805,7 +805,7 @@
         },
         {
           "ruleId": "Format String",
-          "fullMessage": "An attacker can control the format string argument to printf() at bannedAPIs.m line 199, allowing an attack much like a buffer overflow.",
+          "message": "An attacker can control the format string argument to printf() at bannedAPIs.m line 199, allowing an attack much like a buffer overflow.",
           "locations": [
             {
               "resultFile": {
@@ -848,7 +848,7 @@
         },
         {
           "ruleId": "Format String",
-          "fullMessage": "An attacker can control the format string argument to printf() at bannedAPIs.m line 199, allowing an attack much like a buffer overflow.",
+          "message": "An attacker can control the format string argument to printf() at bannedAPIs.m line 199, allowing an attack much like a buffer overflow.",
           "locations": [
             {
               "resultFile": {
@@ -891,7 +891,7 @@
         },
         {
           "ruleId": "Format String",
-          "fullMessage": "An attacker can control the format string argument to wprintf() at bannedAPIs.m line 204, allowing an attack much like a buffer overflow.",
+          "message": "An attacker can control the format string argument to wprintf() at bannedAPIs.m line 204, allowing an attack much like a buffer overflow.",
           "locations": [
             {
               "resultFile": {
@@ -934,7 +934,7 @@
         },
         {
           "ruleId": "Format String",
-          "fullMessage": "An attacker can control the format string argument to vfwscanf() at bannedAPIs.m line 257, allowing an attack much like a buffer overflow.",
+          "message": "An attacker can control the format string argument to vfwscanf() at bannedAPIs.m line 257, allowing an attack much like a buffer overflow.",
           "locations": [
             {
               "resultFile": {
@@ -977,7 +977,7 @@
         },
         {
           "ruleId": "Format String",
-          "fullMessage": "An attacker can control the format string argument to vwprintf() at bannedAPIs.m line 223, allowing an attack much like a buffer overflow.",
+          "message": "An attacker can control the format string argument to vwprintf() at bannedAPIs.m line 223, allowing an attack much like a buffer overflow.",
           "locations": [
             {
               "resultFile": {
@@ -1020,7 +1020,7 @@
         },
         {
           "ruleId": "Format String",
-          "fullMessage": "An attacker can control the format string argument to vwscanf() at bannedAPIs.m line 255, allowing an attack much like a buffer overflow.",
+          "message": "An attacker can control the format string argument to vwscanf() at bannedAPIs.m line 255, allowing an attack much like a buffer overflow.",
           "locations": [
             {
               "resultFile": {
@@ -1063,7 +1063,7 @@
         },
         {
           "ruleId": "Format String",
-          "fullMessage": "An attacker can control the format string argument to vfwprintf() at bannedAPIs.m line 225, allowing an attack much like a buffer overflow.",
+          "message": "An attacker can control the format string argument to vfwprintf() at bannedAPIs.m line 225, allowing an attack much like a buffer overflow.",
           "locations": [
             {
               "resultFile": {
@@ -1106,7 +1106,7 @@
         },
         {
           "ruleId": "Format String",
-          "fullMessage": "An attacker can control the format string argument to vwscanf() at bannedAPIs.m line 255, allowing an attack much like a buffer overflow.",
+          "message": "An attacker can control the format string argument to vwscanf() at bannedAPIs.m line 255, allowing an attack much like a buffer overflow.",
           "locations": [
             {
               "resultFile": {
@@ -1149,7 +1149,7 @@
         },
         {
           "ruleId": "Format String",
-          "fullMessage": "An attacker can control the format string argument to vfwscanf() at bannedAPIs.m line 257, allowing an attack much like a buffer overflow.",
+          "message": "An attacker can control the format string argument to vfwscanf() at bannedAPIs.m line 257, allowing an attack much like a buffer overflow.",
           "locations": [
             {
               "resultFile": {
@@ -1192,7 +1192,7 @@
         },
         {
           "ruleId": "Format String",
-          "fullMessage": "An attacker can control the format string argument to vswscanf() at bannedAPIs.m line 259, allowing an attack much like a buffer overflow.",
+          "message": "An attacker can control the format string argument to vswscanf() at bannedAPIs.m line 259, allowing an attack much like a buffer overflow.",
           "locations": [
             {
               "resultFile": {
@@ -1235,7 +1235,7 @@
         },
         {
           "ruleId": "Format String",
-          "fullMessage": "An attacker can control the format string argument to vswscanf() at bannedAPIs.m line 259, allowing an attack much like a buffer overflow.",
+          "message": "An attacker can control the format string argument to vswscanf() at bannedAPIs.m line 259, allowing an attack much like a buffer overflow.",
           "locations": [
             {
               "resultFile": {
@@ -1278,7 +1278,7 @@
         },
         {
           "ruleId": "Format String",
-          "fullMessage": "An attacker can control the format string argument to vwscanf() at bannedAPIs.m line 255, allowing an attack much like a buffer overflow.",
+          "message": "An attacker can control the format string argument to vwscanf() at bannedAPIs.m line 255, allowing an attack much like a buffer overflow.",
           "locations": [
             {
               "resultFile": {
@@ -1321,7 +1321,7 @@
         },
         {
           "ruleId": "Format String",
-          "fullMessage": "An attacker can control the format string argument to fwprintf() at bannedAPIs.m line 205, allowing an attack much like a buffer overflow.",
+          "message": "An attacker can control the format string argument to fwprintf() at bannedAPIs.m line 205, allowing an attack much like a buffer overflow.",
           "locations": [
             {
               "resultFile": {
@@ -1364,7 +1364,7 @@
         },
         {
           "ruleId": "Format String",
-          "fullMessage": "An attacker can control the format string argument to vwprintf() at bannedAPIs.m line 223, allowing an attack much like a buffer overflow.",
+          "message": "An attacker can control the format string argument to vwprintf() at bannedAPIs.m line 223, allowing an attack much like a buffer overflow.",
           "locations": [
             {
               "resultFile": {
@@ -1407,7 +1407,7 @@
         },
         {
           "ruleId": "Format String",
-          "fullMessage": "An attacker can control the format string argument to vfwprintf() at bannedAPIs.m line 225, allowing an attack much like a buffer overflow.",
+          "message": "An attacker can control the format string argument to vfwprintf() at bannedAPIs.m line 225, allowing an attack much like a buffer overflow.",
           "locations": [
             {
               "resultFile": {
@@ -1450,7 +1450,7 @@
         },
         {
           "ruleId": "Format String",
-          "fullMessage": "An attacker can control the format string argument to vfwscanf() at bannedAPIs.m line 257, allowing an attack much like a buffer overflow.",
+          "message": "An attacker can control the format string argument to vfwscanf() at bannedAPIs.m line 257, allowing an attack much like a buffer overflow.",
           "locations": [
             {
               "resultFile": {
@@ -1493,7 +1493,7 @@
         },
         {
           "ruleId": "Format String",
-          "fullMessage": "An attacker can control the format string argument to vfwscanf() at bannedAPIs.m line 257, allowing an attack much like a buffer overflow.",
+          "message": "An attacker can control the format string argument to vfwscanf() at bannedAPIs.m line 257, allowing an attack much like a buffer overflow.",
           "locations": [
             {
               "resultFile": {
@@ -1536,7 +1536,7 @@
         },
         {
           "ruleId": "Format String",
-          "fullMessage": "An attacker can control the format string argument to vwscanf() at bannedAPIs.m line 255, allowing an attack much like a buffer overflow.",
+          "message": "An attacker can control the format string argument to vwscanf() at bannedAPIs.m line 255, allowing an attack much like a buffer overflow.",
           "locations": [
             {
               "resultFile": {
@@ -1579,7 +1579,7 @@
         },
         {
           "ruleId": "Format String",
-          "fullMessage": "An attacker can control the format string argument to vfwscanf() at bannedAPIs.m line 257, allowing an attack much like a buffer overflow.",
+          "message": "An attacker can control the format string argument to vfwscanf() at bannedAPIs.m line 257, allowing an attack much like a buffer overflow.",
           "locations": [
             {
               "resultFile": {
@@ -1622,7 +1622,7 @@
         },
         {
           "ruleId": "Format String",
-          "fullMessage": "An attacker can control the format string argument to vfwprintf() at bannedAPIs.m line 225, allowing an attack much like a buffer overflow.",
+          "message": "An attacker can control the format string argument to vfwprintf() at bannedAPIs.m line 225, allowing an attack much like a buffer overflow.",
           "locations": [
             {
               "resultFile": {
@@ -1665,7 +1665,7 @@
         },
         {
           "ruleId": "Format String",
-          "fullMessage": "An attacker can control the format string argument to printf() at bannedAPIs.m line 199, allowing an attack much like a buffer overflow.",
+          "message": "An attacker can control the format string argument to printf() at bannedAPIs.m line 199, allowing an attack much like a buffer overflow.",
           "locations": [
             {
               "resultFile": {
@@ -1708,7 +1708,7 @@
         },
         {
           "ruleId": "Format String",
-          "fullMessage": "An attacker can control the format string argument to wprintf() at bannedAPIs.m line 204, allowing an attack much like a buffer overflow.",
+          "message": "An attacker can control the format string argument to wprintf() at bannedAPIs.m line 204, allowing an attack much like a buffer overflow.",
           "locations": [
             {
               "resultFile": {
@@ -1751,7 +1751,7 @@
         },
         {
           "ruleId": "Format String",
-          "fullMessage": "An attacker can control the format string argument to printf() at bannedAPIs.m line 199, allowing an attack much like a buffer overflow.",
+          "message": "An attacker can control the format string argument to printf() at bannedAPIs.m line 199, allowing an attack much like a buffer overflow.",
           "locations": [
             {
               "resultFile": {
@@ -1794,7 +1794,7 @@
         },
         {
           "ruleId": "Format String",
-          "fullMessage": "An attacker can control the format string argument to fwprintf() at bannedAPIs.m line 205, allowing an attack much like a buffer overflow.",
+          "message": "An attacker can control the format string argument to fwprintf() at bannedAPIs.m line 205, allowing an attack much like a buffer overflow.",
           "locations": [
             {
               "resultFile": {
@@ -1837,7 +1837,7 @@
         },
         {
           "ruleId": "Format String",
-          "fullMessage": "An attacker can control the format string argument to vfwscanf() at bannedAPIs.m line 257, allowing an attack much like a buffer overflow.",
+          "message": "An attacker can control the format string argument to vfwscanf() at bannedAPIs.m line 257, allowing an attack much like a buffer overflow.",
           "locations": [
             {
               "resultFile": {
@@ -1880,7 +1880,7 @@
         },
         {
           "ruleId": "Format String",
-          "fullMessage": "An attacker can control the format string argument to vwscanf() at bannedAPIs.m line 255, allowing an attack much like a buffer overflow.",
+          "message": "An attacker can control the format string argument to vwscanf() at bannedAPIs.m line 255, allowing an attack much like a buffer overflow.",
           "locations": [
             {
               "resultFile": {
@@ -1923,7 +1923,7 @@
         },
         {
           "ruleId": "Format String",
-          "fullMessage": "An attacker can control the format string argument to vfwprintf() at bannedAPIs.m line 225, allowing an attack much like a buffer overflow.",
+          "message": "An attacker can control the format string argument to vfwprintf() at bannedAPIs.m line 225, allowing an attack much like a buffer overflow.",
           "locations": [
             {
               "resultFile": {
@@ -1966,7 +1966,7 @@
         },
         {
           "ruleId": "Format String",
-          "fullMessage": "An attacker can control the format string argument to printf() at bannedAPIs.m line 199, allowing an attack much like a buffer overflow.",
+          "message": "An attacker can control the format string argument to printf() at bannedAPIs.m line 199, allowing an attack much like a buffer overflow.",
           "locations": [
             {
               "resultFile": {
@@ -2009,7 +2009,7 @@
         },
         {
           "ruleId": "Format String",
-          "fullMessage": "An attacker can control the format string argument to vswscanf() at bannedAPIs.m line 259, allowing an attack much like a buffer overflow.",
+          "message": "An attacker can control the format string argument to vswscanf() at bannedAPIs.m line 259, allowing an attack much like a buffer overflow.",
           "locations": [
             {
               "resultFile": {
@@ -2052,7 +2052,7 @@
         },
         {
           "ruleId": "Format String",
-          "fullMessage": "An attacker can control the format string argument to fwprintf() at bannedAPIs.m line 205, allowing an attack much like a buffer overflow.",
+          "message": "An attacker can control the format string argument to fwprintf() at bannedAPIs.m line 205, allowing an attack much like a buffer overflow.",
           "locations": [
             {
               "resultFile": {
@@ -2095,7 +2095,7 @@
         },
         {
           "ruleId": "Format String",
-          "fullMessage": "An attacker can control the format string argument to printf() at bannedAPIs.m line 199, allowing an attack much like a buffer overflow.",
+          "message": "An attacker can control the format string argument to printf() at bannedAPIs.m line 199, allowing an attack much like a buffer overflow.",
           "locations": [
             {
               "resultFile": {
@@ -2138,7 +2138,7 @@
         },
         {
           "ruleId": "Format String",
-          "fullMessage": "An attacker can control the format string argument to vwprintf() at bannedAPIs.m line 223, allowing an attack much like a buffer overflow.",
+          "message": "An attacker can control the format string argument to vwprintf() at bannedAPIs.m line 223, allowing an attack much like a buffer overflow.",
           "locations": [
             {
               "resultFile": {
@@ -2181,7 +2181,7 @@
         },
         {
           "ruleId": "Format String",
-          "fullMessage": "An attacker can control the format string argument to vfwscanf() at bannedAPIs.m line 257, allowing an attack much like a buffer overflow.",
+          "message": "An attacker can control the format string argument to vfwscanf() at bannedAPIs.m line 257, allowing an attack much like a buffer overflow.",
           "locations": [
             {
               "resultFile": {
@@ -2224,7 +2224,7 @@
         },
         {
           "ruleId": "Format String",
-          "fullMessage": "An attacker can control the format string argument to vswscanf() at bannedAPIs.m line 259, allowing an attack much like a buffer overflow.",
+          "message": "An attacker can control the format string argument to vswscanf() at bannedAPIs.m line 259, allowing an attack much like a buffer overflow.",
           "locations": [
             {
               "resultFile": {
@@ -2267,7 +2267,7 @@
         },
         {
           "ruleId": "Format String",
-          "fullMessage": "An attacker can control the format string argument to fprintf() at bannedAPIs.m line 200, allowing an attack much like a buffer overflow.",
+          "message": "An attacker can control the format string argument to fprintf() at bannedAPIs.m line 200, allowing an attack much like a buffer overflow.",
           "locations": [
             {
               "resultFile": {
@@ -2310,7 +2310,7 @@
         },
         {
           "ruleId": "Format String",
-          "fullMessage": "An attacker can control the format string argument to vfwprintf() at bannedAPIs.m line 225, allowing an attack much like a buffer overflow.",
+          "message": "An attacker can control the format string argument to vfwprintf() at bannedAPIs.m line 225, allowing an attack much like a buffer overflow.",
           "locations": [
             {
               "resultFile": {
@@ -2353,7 +2353,7 @@
         },
         {
           "ruleId": "Format String",
-          "fullMessage": "An attacker can control the format string argument to fprintf() at bannedAPIs.m line 200, allowing an attack much like a buffer overflow.",
+          "message": "An attacker can control the format string argument to fprintf() at bannedAPIs.m line 200, allowing an attack much like a buffer overflow.",
           "locations": [
             {
               "resultFile": {
@@ -2396,7 +2396,7 @@
         },
         {
           "ruleId": "Format String",
-          "fullMessage": "An attacker can control the format string argument to fwprintf() at bannedAPIs.m line 205, allowing an attack much like a buffer overflow.",
+          "message": "An attacker can control the format string argument to fwprintf() at bannedAPIs.m line 205, allowing an attack much like a buffer overflow.",
           "locations": [
             {
               "resultFile": {
@@ -2439,7 +2439,7 @@
         },
         {
           "ruleId": "Format String",
-          "fullMessage": "An attacker can control the format string argument to wprintf() at bannedAPIs.m line 204, allowing an attack much like a buffer overflow.",
+          "message": "An attacker can control the format string argument to wprintf() at bannedAPIs.m line 204, allowing an attack much like a buffer overflow.",
           "locations": [
             {
               "resultFile": {
@@ -2482,7 +2482,7 @@
         },
         {
           "ruleId": "Format String",
-          "fullMessage": "An attacker can control the format string argument to fprintf() at bannedAPIs.m line 200, allowing an attack much like a buffer overflow.",
+          "message": "An attacker can control the format string argument to fprintf() at bannedAPIs.m line 200, allowing an attack much like a buffer overflow.",
           "locations": [
             {
               "resultFile": {
@@ -2525,7 +2525,7 @@
         },
         {
           "ruleId": "Format String",
-          "fullMessage": "An attacker can control the format string argument to wprintf() at bannedAPIs.m line 204, allowing an attack much like a buffer overflow.",
+          "message": "An attacker can control the format string argument to wprintf() at bannedAPIs.m line 204, allowing an attack much like a buffer overflow.",
           "locations": [
             {
               "resultFile": {
@@ -2568,7 +2568,7 @@
         },
         {
           "ruleId": "Format String",
-          "fullMessage": "An attacker can control the format string argument to vfwscanf() at bannedAPIs.m line 257, allowing an attack much like a buffer overflow.",
+          "message": "An attacker can control the format string argument to vfwscanf() at bannedAPIs.m line 257, allowing an attack much like a buffer overflow.",
           "locations": [
             {
               "resultFile": {
@@ -2611,7 +2611,7 @@
         },
         {
           "ruleId": "Format String",
-          "fullMessage": "An attacker can control the format string argument to printf() at bannedAPIs.m line 199, allowing an attack much like a buffer overflow.",
+          "message": "An attacker can control the format string argument to printf() at bannedAPIs.m line 199, allowing an attack much like a buffer overflow.",
           "locations": [
             {
               "resultFile": {
@@ -2654,7 +2654,7 @@
         },
         {
           "ruleId": "Format String",
-          "fullMessage": "An attacker can control the format string argument to printf() at bannedAPIs.m line 199, allowing an attack much like a buffer overflow.",
+          "message": "An attacker can control the format string argument to printf() at bannedAPIs.m line 199, allowing an attack much like a buffer overflow.",
           "locations": [
             {
               "resultFile": {
@@ -2697,7 +2697,7 @@
         },
         {
           "ruleId": "Format String",
-          "fullMessage": "An attacker can control the format string argument to fprintf() at bannedAPIs.m line 200, allowing an attack much like a buffer overflow.",
+          "message": "An attacker can control the format string argument to fprintf() at bannedAPIs.m line 200, allowing an attack much like a buffer overflow.",
           "locations": [
             {
               "resultFile": {
@@ -2740,7 +2740,7 @@
         },
         {
           "ruleId": "Format String",
-          "fullMessage": "An attacker can control the format string argument to vswscanf() at bannedAPIs.m line 259, allowing an attack much like a buffer overflow.",
+          "message": "An attacker can control the format string argument to vswscanf() at bannedAPIs.m line 259, allowing an attack much like a buffer overflow.",
           "locations": [
             {
               "resultFile": {
@@ -2783,7 +2783,7 @@
         },
         {
           "ruleId": "Format String",
-          "fullMessage": "An attacker can control the format string argument to vwprintf() at bannedAPIs.m line 223, allowing an attack much like a buffer overflow.",
+          "message": "An attacker can control the format string argument to vwprintf() at bannedAPIs.m line 223, allowing an attack much like a buffer overflow.",
           "locations": [
             {
               "resultFile": {
@@ -2826,7 +2826,7 @@
         },
         {
           "ruleId": "Format String",
-          "fullMessage": "An attacker can control the format string argument to vswscanf() at bannedAPIs.m line 259, allowing an attack much like a buffer overflow.",
+          "message": "An attacker can control the format string argument to vswscanf() at bannedAPIs.m line 259, allowing an attack much like a buffer overflow.",
           "locations": [
             {
               "resultFile": {
@@ -2869,7 +2869,7 @@
         },
         {
           "ruleId": "Format String",
-          "fullMessage": "An attacker can control the format string argument to wprintf() at bannedAPIs.m line 204, allowing an attack much like a buffer overflow.",
+          "message": "An attacker can control the format string argument to wprintf() at bannedAPIs.m line 204, allowing an attack much like a buffer overflow.",
           "locations": [
             {
               "resultFile": {
@@ -2912,7 +2912,7 @@
         },
         {
           "ruleId": "Format String",
-          "fullMessage": "An attacker can control the format string argument to vfwprintf() at bannedAPIs.m line 225, allowing an attack much like a buffer overflow.",
+          "message": "An attacker can control the format string argument to vfwprintf() at bannedAPIs.m line 225, allowing an attack much like a buffer overflow.",
           "locations": [
             {
               "resultFile": {
@@ -2955,7 +2955,7 @@
         },
         {
           "ruleId": "Format String",
-          "fullMessage": "An attacker can control the format string argument to vwscanf() at bannedAPIs.m line 255, allowing an attack much like a buffer overflow.",
+          "message": "An attacker can control the format string argument to vwscanf() at bannedAPIs.m line 255, allowing an attack much like a buffer overflow.",
           "locations": [
             {
               "resultFile": {
@@ -2998,7 +2998,7 @@
         },
         {
           "ruleId": "Format String",
-          "fullMessage": "An attacker can control the format string argument to printf() at bannedAPIs.m line 199, allowing an attack much like a buffer overflow.",
+          "message": "An attacker can control the format string argument to printf() at bannedAPIs.m line 199, allowing an attack much like a buffer overflow.",
           "locations": [
             {
               "resultFile": {
@@ -3041,7 +3041,7 @@
         },
         {
           "ruleId": "Format String",
-          "fullMessage": "An attacker can control the format string argument to vfwprintf() at bannedAPIs.m line 225, allowing an attack much like a buffer overflow.",
+          "message": "An attacker can control the format string argument to vfwprintf() at bannedAPIs.m line 225, allowing an attack much like a buffer overflow.",
           "locations": [
             {
               "resultFile": {
@@ -3084,7 +3084,7 @@
         },
         {
           "ruleId": "Format String",
-          "fullMessage": "An attacker can control the format string argument to fprintf() at bannedAPIs.m line 200, allowing an attack much like a buffer overflow.",
+          "message": "An attacker can control the format string argument to fprintf() at bannedAPIs.m line 200, allowing an attack much like a buffer overflow.",
           "locations": [
             {
               "resultFile": {
@@ -3127,7 +3127,7 @@
         },
         {
           "ruleId": "Format String",
-          "fullMessage": "An attacker can control the format string argument to vfwprintf() at bannedAPIs.m line 225, allowing an attack much like a buffer overflow.",
+          "message": "An attacker can control the format string argument to vfwprintf() at bannedAPIs.m line 225, allowing an attack much like a buffer overflow.",
           "locations": [
             {
               "resultFile": {
@@ -3170,7 +3170,7 @@
         },
         {
           "ruleId": "Format String",
-          "fullMessage": "An attacker can control the format string argument to vfwscanf() at bannedAPIs.m line 257, allowing an attack much like a buffer overflow.",
+          "message": "An attacker can control the format string argument to vfwscanf() at bannedAPIs.m line 257, allowing an attack much like a buffer overflow.",
           "locations": [
             {
               "resultFile": {
@@ -3213,7 +3213,7 @@
         },
         {
           "ruleId": "Format String",
-          "fullMessage": "An attacker can control the format string argument to fwprintf() at bannedAPIs.m line 205, allowing an attack much like a buffer overflow.",
+          "message": "An attacker can control the format string argument to fwprintf() at bannedAPIs.m line 205, allowing an attack much like a buffer overflow.",
           "locations": [
             {
               "resultFile": {
@@ -3256,7 +3256,7 @@
         },
         {
           "ruleId": "Format String",
-          "fullMessage": "An attacker can control the format string argument to fprintf() at bannedAPIs.m line 200, allowing an attack much like a buffer overflow.",
+          "message": "An attacker can control the format string argument to fprintf() at bannedAPIs.m line 200, allowing an attack much like a buffer overflow.",
           "locations": [
             {
               "resultFile": {
@@ -3299,7 +3299,7 @@
         },
         {
           "ruleId": "Format String",
-          "fullMessage": "An attacker can control the format string argument to vswscanf() at bannedAPIs.m line 259, allowing an attack much like a buffer overflow.",
+          "message": "An attacker can control the format string argument to vswscanf() at bannedAPIs.m line 259, allowing an attack much like a buffer overflow.",
           "locations": [
             {
               "resultFile": {
@@ -3342,7 +3342,7 @@
         },
         {
           "ruleId": "Format String",
-          "fullMessage": "An attacker can control the format string argument to vwscanf() at bannedAPIs.m line 255, allowing an attack much like a buffer overflow.",
+          "message": "An attacker can control the format string argument to vwscanf() at bannedAPIs.m line 255, allowing an attack much like a buffer overflow.",
           "locations": [
             {
               "resultFile": {
@@ -3385,7 +3385,7 @@
         },
         {
           "ruleId": "Format String",
-          "fullMessage": "An attacker can control the format string argument to fprintf() at bannedAPIs.m line 200, allowing an attack much like a buffer overflow.",
+          "message": "An attacker can control the format string argument to fprintf() at bannedAPIs.m line 200, allowing an attack much like a buffer overflow.",
           "locations": [
             {
               "resultFile": {
@@ -3428,7 +3428,7 @@
         },
         {
           "ruleId": "Format String",
-          "fullMessage": "An attacker can control the format string argument to vwscanf() at bannedAPIs.m line 255, allowing an attack much like a buffer overflow.",
+          "message": "An attacker can control the format string argument to vwscanf() at bannedAPIs.m line 255, allowing an attack much like a buffer overflow.",
           "locations": [
             {
               "resultFile": {
@@ -3471,7 +3471,7 @@
         },
         {
           "ruleId": "Format String",
-          "fullMessage": "An attacker can control the format string argument to vwprintf() at bannedAPIs.m line 223, allowing an attack much like a buffer overflow.",
+          "message": "An attacker can control the format string argument to vwprintf() at bannedAPIs.m line 223, allowing an attack much like a buffer overflow.",
           "locations": [
             {
               "resultFile": {
@@ -3514,7 +3514,7 @@
         },
         {
           "ruleId": "Format String",
-          "fullMessage": "An attacker can control the format string argument to vswscanf() at bannedAPIs.m line 259, allowing an attack much like a buffer overflow.",
+          "message": "An attacker can control the format string argument to vswscanf() at bannedAPIs.m line 259, allowing an attack much like a buffer overflow.",
           "locations": [
             {
               "resultFile": {
@@ -3557,7 +3557,7 @@
         },
         {
           "ruleId": "Format String",
-          "fullMessage": "An attacker can control the format string argument to vwscanf() at bannedAPIs.m line 255, allowing an attack much like a buffer overflow.",
+          "message": "An attacker can control the format string argument to vwscanf() at bannedAPIs.m line 255, allowing an attack much like a buffer overflow.",
           "locations": [
             {
               "resultFile": {
@@ -3600,7 +3600,7 @@
         },
         {
           "ruleId": "Format String",
-          "fullMessage": "An attacker can control the format string argument to vwprintf() at bannedAPIs.m line 223, allowing an attack much like a buffer overflow.",
+          "message": "An attacker can control the format string argument to vwprintf() at bannedAPIs.m line 223, allowing an attack much like a buffer overflow.",
           "locations": [
             {
               "resultFile": {
@@ -3643,7 +3643,7 @@
         },
         {
           "ruleId": "Format String",
-          "fullMessage": "An attacker can control the format string argument to vwprintf() at bannedAPIs.m line 223, allowing an attack much like a buffer overflow.",
+          "message": "An attacker can control the format string argument to vwprintf() at bannedAPIs.m line 223, allowing an attack much like a buffer overflow.",
           "locations": [
             {
               "resultFile": {
@@ -3686,7 +3686,7 @@
         },
         {
           "ruleId": "Format String",
-          "fullMessage": "An attacker can control the format string argument to vfwscanf() at bannedAPIs.m line 257, allowing an attack much like a buffer overflow.",
+          "message": "An attacker can control the format string argument to vfwscanf() at bannedAPIs.m line 257, allowing an attack much like a buffer overflow.",
           "locations": [
             {
               "resultFile": {
@@ -3729,7 +3729,7 @@
         },
         {
           "ruleId": "Format String",
-          "fullMessage": "An attacker can control the format string argument to wprintf() at bannedAPIs.m line 204, allowing an attack much like a buffer overflow.",
+          "message": "An attacker can control the format string argument to wprintf() at bannedAPIs.m line 204, allowing an attack much like a buffer overflow.",
           "locations": [
             {
               "resultFile": {
@@ -3772,7 +3772,7 @@
         },
         {
           "ruleId": "Format String",
-          "fullMessage": "An attacker can control the format string argument to vwprintf() at bannedAPIs.m line 223, allowing an attack much like a buffer overflow.",
+          "message": "An attacker can control the format string argument to vwprintf() at bannedAPIs.m line 223, allowing an attack much like a buffer overflow.",
           "locations": [
             {
               "resultFile": {
@@ -3815,7 +3815,7 @@
         },
         {
           "ruleId": "Format String",
-          "fullMessage": "An attacker can control the format string argument to vwscanf() at bannedAPIs.m line 255, allowing an attack much like a buffer overflow.",
+          "message": "An attacker can control the format string argument to vwscanf() at bannedAPIs.m line 255, allowing an attack much like a buffer overflow.",
           "locations": [
             {
               "resultFile": {
@@ -3858,7 +3858,7 @@
         },
         {
           "ruleId": "Format String",
-          "fullMessage": "An attacker can control the format string argument to fprintf() at bannedAPIs.m line 200, allowing an attack much like a buffer overflow.",
+          "message": "An attacker can control the format string argument to fprintf() at bannedAPIs.m line 200, allowing an attack much like a buffer overflow.",
           "locations": [
             {
               "resultFile": {
@@ -3901,7 +3901,7 @@
         },
         {
           "ruleId": "Format String",
-          "fullMessage": "An attacker can control the format string argument to vswscanf() at bannedAPIs.m line 259, allowing an attack much like a buffer overflow.",
+          "message": "An attacker can control the format string argument to vswscanf() at bannedAPIs.m line 259, allowing an attack much like a buffer overflow.",
           "locations": [
             {
               "resultFile": {
@@ -3944,7 +3944,7 @@
         },
         {
           "ruleId": "Format String",
-          "fullMessage": "An attacker can control the format string argument to fprintf() at bannedAPIs.m line 200, allowing an attack much like a buffer overflow.",
+          "message": "An attacker can control the format string argument to fprintf() at bannedAPIs.m line 200, allowing an attack much like a buffer overflow.",
           "locations": [
             {
               "resultFile": {
@@ -3987,7 +3987,7 @@
         },
         {
           "ruleId": "Format String",
-          "fullMessage": "An attacker can control the format string argument to printf() at bannedAPIs.m line 199, allowing an attack much like a buffer overflow.",
+          "message": "An attacker can control the format string argument to printf() at bannedAPIs.m line 199, allowing an attack much like a buffer overflow.",
           "locations": [
             {
               "resultFile": {
@@ -4030,7 +4030,7 @@
         },
         {
           "ruleId": "Format String",
-          "fullMessage": "An attacker can control the format string argument to vswscanf() at bannedAPIs.m line 259, allowing an attack much like a buffer overflow.",
+          "message": "An attacker can control the format string argument to vswscanf() at bannedAPIs.m line 259, allowing an attack much like a buffer overflow.",
           "locations": [
             {
               "resultFile": {
@@ -4073,7 +4073,7 @@
         },
         {
           "ruleId": "Format String: Argument Number Mismatch",
-          "fullMessage": " The program uses an improperly constructed format string that contains a different number of conversion specifiers than the function has arguments. Incorrect format strings can lead the program to read data outside the bounds of allocated memory, which can allow access to sensitive information, introduce incorrect behavior, or crash the program. \n",
+          "message": " The program uses an improperly constructed format string that contains a different number of conversion specifiers than the function has arguments. Incorrect format strings can lead the program to read data outside the bounds of allocated memory, which can allow access to sensitive information, introduce incorrect behavior, or crash the program. \n",
           "locations": [
             {
               "resultFile": {
@@ -4094,7 +4094,7 @@
         },
         {
           "ruleId": "Format String: Argument Type Mismatch",
-          "fullMessage": " The program uses an improperly constructed format string that contains conversion specifiers that do not align with the types of the arguments passed to the function. Incorrect format strings can lead the program to convert values incorrectly and potentially read or write outside the bounds of allocated memory, which can introduce incorrect behavior or crash the program. \n",
+          "message": " The program uses an improperly constructed format string that contains conversion specifiers that do not align with the types of the arguments passed to the function. Incorrect format strings can lead the program to convert values incorrectly and potentially read or write outside the bounds of allocated memory, which can introduce incorrect behavior or crash the program. \n",
           "locations": [
             {
               "resultFile": {
@@ -4115,7 +4115,7 @@
         },
         {
           "ruleId": "Buffer Overflow",
-          "fullMessage": "The function LikelyBannedTests() in bannedAPIs.m writes outside the bounds of allocated memory on line 279, which could corrupt data, cause the program to crash, or lead to the execution of malicious code.",
+          "message": "The function LikelyBannedTests() in bannedAPIs.m writes outside the bounds of allocated memory on line 279, which could corrupt data, cause the program to crash, or lead to the execution of malicious code.",
           "locations": [
             {
               "resultFile": {
@@ -4158,7 +4158,7 @@
         },
         {
           "ruleId": "Buffer Overflow",
-          "fullMessage": "The function WideCharStringTests() in bannedAPIs.m writes outside the bounds of allocated memory on line 87, which could corrupt data, cause the program to crash, or lead to the execution of malicious code.",
+          "message": "The function WideCharStringTests() in bannedAPIs.m writes outside the bounds of allocated memory on line 87, which could corrupt data, cause the program to crash, or lead to the execution of malicious code.",
           "locations": [
             {
               "resultFile": {
@@ -4201,7 +4201,7 @@
         },
         {
           "ruleId": "Buffer Overflow",
-          "fullMessage": "The function WideCharStringTests() in bannedAPIs.m writes outside the bounds of allocated memory on line 87, which could corrupt data, cause the program to crash, or lead to the execution of malicious code.",
+          "message": "The function WideCharStringTests() in bannedAPIs.m writes outside the bounds of allocated memory on line 87, which could corrupt data, cause the program to crash, or lead to the execution of malicious code.",
           "locations": [
             {
               "resultFile": {
@@ -4244,7 +4244,7 @@
         },
         {
           "ruleId": "Buffer Overflow",
-          "fullMessage": "The function LikelyBannedTests() in bannedAPIs.m writes outside the bounds of allocated memory on line 279, which could corrupt data, cause the program to crash, or lead to the execution of malicious code.",
+          "message": "The function LikelyBannedTests() in bannedAPIs.m writes outside the bounds of allocated memory on line 279, which could corrupt data, cause the program to crash, or lead to the execution of malicious code.",
           "locations": [
             {
               "resultFile": {
@@ -4287,7 +4287,7 @@
         },
         {
           "ruleId": "Buffer Overflow",
-          "fullMessage": "The function LikelyBannedTests() in bannedAPIs.m writes outside the bounds of allocated memory on line 279, which could corrupt data, cause the program to crash, or lead to the execution of malicious code.",
+          "message": "The function LikelyBannedTests() in bannedAPIs.m writes outside the bounds of allocated memory on line 279, which could corrupt data, cause the program to crash, or lead to the execution of malicious code.",
           "locations": [
             {
               "resultFile": {
@@ -4330,7 +4330,7 @@
         },
         {
           "ruleId": "Buffer Overflow",
-          "fullMessage": "The function WideCharStringTests() in bannedAPIs.m writes outside the bounds of allocated memory on line 87, which could corrupt data, cause the program to crash, or lead to the execution of malicious code.",
+          "message": "The function WideCharStringTests() in bannedAPIs.m writes outside the bounds of allocated memory on line 87, which could corrupt data, cause the program to crash, or lead to the execution of malicious code.",
           "locations": [
             {
               "resultFile": {
@@ -4373,7 +4373,7 @@
         },
         {
           "ruleId": "Buffer Overflow",
-          "fullMessage": "The function LikelyBannedTests() in bannedAPIs.m writes outside the bounds of allocated memory on line 279, which could corrupt data, cause the program to crash, or lead to the execution of malicious code.",
+          "message": "The function LikelyBannedTests() in bannedAPIs.m writes outside the bounds of allocated memory on line 279, which could corrupt data, cause the program to crash, or lead to the execution of malicious code.",
           "locations": [
             {
               "resultFile": {
@@ -4416,7 +4416,7 @@
         },
         {
           "ruleId": "Buffer Overflow",
-          "fullMessage": "The function WideCharStringTests() in bannedAPIs.m writes outside the bounds of allocated memory on line 87, which could corrupt data, cause the program to crash, or lead to the execution of malicious code.",
+          "message": "The function WideCharStringTests() in bannedAPIs.m writes outside the bounds of allocated memory on line 87, which could corrupt data, cause the program to crash, or lead to the execution of malicious code.",
           "locations": [
             {
               "resultFile": {
@@ -4459,7 +4459,7 @@
         },
         {
           "ruleId": "Buffer Overflow",
-          "fullMessage": "The function WideCharStringTests() in bannedAPIs.m writes outside the bounds of allocated memory on line 87, which could corrupt data, cause the program to crash, or lead to the execution of malicious code.",
+          "message": "The function WideCharStringTests() in bannedAPIs.m writes outside the bounds of allocated memory on line 87, which could corrupt data, cause the program to crash, or lead to the execution of malicious code.",
           "locations": [
             {
               "resultFile": {
@@ -4502,7 +4502,7 @@
         },
         {
           "ruleId": "Buffer Overflow",
-          "fullMessage": "The function LikelyBannedTests() in bannedAPIs.m writes outside the bounds of allocated memory on line 279, which could corrupt data, cause the program to crash, or lead to the execution of malicious code.",
+          "message": "The function LikelyBannedTests() in bannedAPIs.m writes outside the bounds of allocated memory on line 279, which could corrupt data, cause the program to crash, or lead to the execution of malicious code.",
           "locations": [
             {
               "resultFile": {
@@ -4545,7 +4545,7 @@
         },
         {
           "ruleId": "Buffer Overflow",
-          "fullMessage": "The function LikelyBannedTests() in bannedAPIs.m writes outside the bounds of allocated memory on line 279, which could corrupt data, cause the program to crash, or lead to the execution of malicious code.",
+          "message": "The function LikelyBannedTests() in bannedAPIs.m writes outside the bounds of allocated memory on line 279, which could corrupt data, cause the program to crash, or lead to the execution of malicious code.",
           "locations": [
             {
               "resultFile": {
@@ -4588,7 +4588,7 @@
         },
         {
           "ruleId": "Buffer Overflow",
-          "fullMessage": "The function WideCharStringTests() in bannedAPIs.m writes outside the bounds of allocated memory on line 87, which could corrupt data, cause the program to crash, or lead to the execution of malicious code.",
+          "message": "The function WideCharStringTests() in bannedAPIs.m writes outside the bounds of allocated memory on line 87, which could corrupt data, cause the program to crash, or lead to the execution of malicious code.",
           "locations": [
             {
               "resultFile": {

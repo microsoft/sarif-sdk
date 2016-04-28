@@ -15,7 +15,7 @@
       "results": [
         {
           "ruleId": "Division by zero",
-          "fullMessage": "Division by zero",
+          "message": "Division by zero",
           "locations": [
             {
               "analysisTarget": {

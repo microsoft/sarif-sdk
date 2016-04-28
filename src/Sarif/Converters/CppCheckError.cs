@@ -124,14 +124,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 Properties = new Dictionary<string, string> { { "Severity", this.Severity } }
             };
 
-            if (this.Message == this.VerboseMessage)
-            {
-                result.FullMessage = this.Message;
+            if (!string.IsNullOrEmpty(this.VerboseMessage))
+            { 
+                result.Message = this.VerboseMessage;
             }
             else
             {
-                result.FullMessage = this.VerboseMessage;
-                result.ShortMessage = this.Message;
+                result.Message = this.Message;
             }
 
             PhysicalLocation lastLocationConverted;

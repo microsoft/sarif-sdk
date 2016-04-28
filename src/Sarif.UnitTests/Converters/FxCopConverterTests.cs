@@ -373,8 +373,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             var expectedResult = new Result
             {
                 RuleId = "CA0000",
-                ShortMessage = "VeryUsefulCheck",
-                FullMessage = "hello!",
+                Message = "hello!",
                 ToolFingerprint = "1#test",
                 Locations = new HashSet<Location>
                 {

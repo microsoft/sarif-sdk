@@ -107,14 +107,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         public void FortifyConverter_Convert_ShortMessageIsUnset()
         {
             Result result = FortifyConverter.ConvertFortifyIssueToSarifIssue(FortifyConverterTests.GetBasicIssue());
-            Assert.IsNull(result.ShortMessage);
         }
 
         [TestMethod]
         public void FortifyConverter_Convert_FullMessageFallsBackToCategoryIfNoAbstractPresent()
         {
             Result result = FortifyConverter.ConvertFortifyIssueToSarifIssue(FortifyConverterTests.GetBasicIssue());
-            result.FullMessage.Should().Contain("cat");
+            result.Message.Should().Contain("cat");
         }
 
         [TestMethod]
@@ -123,7 +122,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             Builder builder = FortifyConverterTests.GetBasicBuilder();
             builder.Abstract = "Some abstract message";
             Result result = FortifyConverter.ConvertFortifyIssueToSarifIssue(builder.ToImmutable());
-            Assert.AreEqual("Some abstract message", result.FullMessage);
+            Assert.AreEqual("Some abstract message", result.Message);
         }
 
         [TestMethod]
@@ -132,7 +131,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             Builder builder = FortifyConverterTests.GetBasicBuilder();
             builder.AbstractCustom = "Some abstract custom message";
             Result result = FortifyConverter.ConvertFortifyIssueToSarifIssue(builder.ToImmutable());
-            Assert.AreEqual("Some abstract custom message", result.FullMessage);
+            Assert.AreEqual("Some abstract custom message", result.Message);
         }
 
         [TestMethod]
@@ -143,7 +142,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             builder.AbstractCustom = "Some abstract custom message";
             Result result = FortifyConverter.ConvertFortifyIssueToSarifIssue(builder.ToImmutable());
             Assert.AreEqual("Some abstract message" + Environment.NewLine + "Some abstract custom message",
-                result.FullMessage);
+                result.Message);
         }
 
         [TestMethod]

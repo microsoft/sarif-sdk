@@ -123,8 +123,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             var uut = new AndroidStudioProblem(builder);
 
             Result result = new AndroidStudioConverter().ConvertProblemToSarifResult(uut);
-            Assert.IsNull(result.ShortMessage);
-            Assert.AreEqual("hungry EVIL zombies", result.FullMessage);
+            Assert.AreEqual("hungry EVIL zombies", result.Message);
         }
 
         [TestMethod]
@@ -140,10 +139,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
             var uut = new AndroidStudioProblem(builder);
             Result result = new AndroidStudioConverter().ConvertProblemToSarifResult(uut);
-            Assert.AreEqual("hungry EVIL zombies", result.ShortMessage);
             Assert.AreEqual(@"hungry EVIL zombies
 Possible resolution: comment
-Possible resolution: delete", result.FullMessage);
+Possible resolution: delete", result.Message);
         }
 
         [TestMethod]

@@ -104,11 +104,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
             if (messageComponents.Count == 0)
             {
-                result.FullMessage = String.Format(CultureInfo.InvariantCulture, SarifResources.FortifyFallbackMessage, result.RuleId);
+                result.Message = String.Format(CultureInfo.InvariantCulture, SarifResources.FortifyFallbackMessage, result.RuleId);
             }
             else
             {
-                result.FullMessage = String.Join(Environment.NewLine, messageComponents);
+                result.Message = String.Join(Environment.NewLine, messageComponents);
             }
 
             var extraProperties = new Dictionary<string, string>();

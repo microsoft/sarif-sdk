@@ -39,16 +39,10 @@ namespace Microsoft.CodeAnalysis.Sarif
         public ResultKind Kind { get; set; }
 
         /// <summary>
-        /// A string that describes the result.
+        /// A string that describes the result. The first sentence of the message only will be displayed when visible space is limited.
         /// </summary>
-        [DataMember(Name = "fullMessage", IsRequired = false, EmitDefaultValue = false)]
-        public string FullMessage { get; set; }
-
-        /// <summary>
-        /// A string that describes the result, displayed when visible space is limited to a single line of text.
-        /// </summary>
-        [DataMember(Name = "shortMessage", IsRequired = false, EmitDefaultValue = false)]
-        public string ShortMessage { get; set; }
+        [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
+        public string Message { get; set; }
 
         /// <summary>
         /// A 'formattedRuleMessage' object that can be used to construct a formatted message that describes the result. If the 'formattedMessage' property is present on a result, the 'fullMessage' property shall not be present. If the 'fullMessage' property is present on an result, the 'formattedMessage' property shall not be present
@@ -61,6 +55,12 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// </summary>
         [DataMember(Name = "locations", IsRequired = false, EmitDefaultValue = false)]
         public ISet<Location> Locations { get; set; }
+
+        /// <summary>
+        /// A source code fragment that illustrates the result.
+        /// </summary>
+        [DataMember(Name = "codeSnippet", IsRequired = false, EmitDefaultValue = false)]
+        public string CodeSnippet { get; set; }
 
         /// <summary>
         /// A string that contributes to the unique identity of the result.
@@ -126,14 +126,9 @@ namespace Microsoft.CodeAnalysis.Sarif
                 }
 
                 result = (result * 31) + Kind.GetHashCode();
-                if (FullMessage != null)
+                if (Message != null)
                 {
-                    result = (result * 31) + FullMessage.GetHashCode();
-                }
-
-                if (ShortMessage != null)
-                {
-                    result = (result * 31) + ShortMessage.GetHashCode();
+                    result = (result * 31) + Message.GetHashCode();
                 }
 
                 if (FormattedRuleMessage != null)
@@ -151,6 +146,11 @@ namespace Microsoft.CodeAnalysis.Sarif
                             result = (result * 31) + value_0.GetHashCode();
                         }
                     }
+                }
+
+                if (CodeSnippet != null)
+                {
+                    result = (result * 31) + CodeSnippet.GetHashCode();
                 }
 
                 if (ToolFingerprint != null)
@@ -256,12 +256,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 return false;
             }
 
-            if (FullMessage != other.FullMessage)
-            {
-                return false;
-            }
-
-            if (ShortMessage != other.ShortMessage)
+            if (Message != other.Message)
             {
                 return false;
             }
@@ -282,6 +277,11 @@ namespace Microsoft.CodeAnalysis.Sarif
                 {
                     return false;
                 }
+            }
+
+            if (CodeSnippet != other.CodeSnippet)
+            {
+                return false;
             }
 
             if (ToolFingerprint != other.ToolFingerprint)
@@ -400,17 +400,17 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="kind">
         /// An initialization value for the <see cref="P: Kind" /> property.
         /// </param>
-        /// <param name="fullMessage">
-        /// An initialization value for the <see cref="P: FullMessage" /> property.
-        /// </param>
-        /// <param name="shortMessage">
-        /// An initialization value for the <see cref="P: ShortMessage" /> property.
+        /// <param name="message">
+        /// An initialization value for the <see cref="P: Message" /> property.
         /// </param>
         /// <param name="formattedRuleMessage">
         /// An initialization value for the <see cref="P: FormattedRuleMessage" /> property.
         /// </param>
         /// <param name="locations">
         /// An initialization value for the <see cref="P: Locations" /> property.
+        /// </param>
+        /// <param name="codeSnippet">
+        /// An initialization value for the <see cref="P: CodeSnippet" /> property.
         /// </param>
         /// <param name="toolFingerprint">
         /// An initialization value for the <see cref="P: ToolFingerprint" /> property.
@@ -436,9 +436,9 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="tags">
         /// An initialization value for the <see cref="P: Tags" /> property.
         /// </param>
-        public Result(string ruleId, ResultKind kind, string fullMessage, string shortMessage, FormattedRuleMessage formattedRuleMessage, ISet<Location> locations, string toolFingerprint, ISet<Stack> stacks, ISet<CodeFlow> codeFlows, ISet<AnnotatedCodeLocation> relatedLocations, bool isSuppressedInSource, ISet<Fix> fixes, IDictionary<string, string> properties, ISet<string> tags)
+        public Result(string ruleId, ResultKind kind, string message, FormattedRuleMessage formattedRuleMessage, ISet<Location> locations, string codeSnippet, string toolFingerprint, ISet<Stack> stacks, ISet<CodeFlow> codeFlows, ISet<AnnotatedCodeLocation> relatedLocations, bool isSuppressedInSource, ISet<Fix> fixes, IDictionary<string, string> properties, ISet<string> tags)
         {
-            Init(ruleId, kind, fullMessage, shortMessage, formattedRuleMessage, locations, toolFingerprint, stacks, codeFlows, relatedLocations, isSuppressedInSource, fixes, properties, tags);
+            Init(ruleId, kind, message, formattedRuleMessage, locations, codeSnippet, toolFingerprint, stacks, codeFlows, relatedLocations, isSuppressedInSource, fixes, properties, tags);
         }
 
         /// <summary>
@@ -457,7 +457,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 throw new ArgumentNullException(nameof(other));
             }
 
-            Init(other.RuleId, other.Kind, other.FullMessage, other.ShortMessage, other.FormattedRuleMessage, other.Locations, other.ToolFingerprint, other.Stacks, other.CodeFlows, other.RelatedLocations, other.IsSuppressedInSource, other.Fixes, other.Properties, other.Tags);
+            Init(other.RuleId, other.Kind, other.Message, other.FormattedRuleMessage, other.Locations, other.CodeSnippet, other.ToolFingerprint, other.Stacks, other.CodeFlows, other.RelatedLocations, other.IsSuppressedInSource, other.Fixes, other.Properties, other.Tags);
         }
 
         ISarifNode ISarifNode.DeepClone()
@@ -478,12 +478,11 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new Result(this);
         }
 
-        private void Init(string ruleId, ResultKind kind, string fullMessage, string shortMessage, FormattedRuleMessage formattedRuleMessage, ISet<Location> locations, string toolFingerprint, ISet<Stack> stacks, ISet<CodeFlow> codeFlows, ISet<AnnotatedCodeLocation> relatedLocations, bool isSuppressedInSource, ISet<Fix> fixes, IDictionary<string, string> properties, ISet<string> tags)
+        private void Init(string ruleId, ResultKind kind, string message, FormattedRuleMessage formattedRuleMessage, ISet<Location> locations, string codeSnippet, string toolFingerprint, ISet<Stack> stacks, ISet<CodeFlow> codeFlows, ISet<AnnotatedCodeLocation> relatedLocations, bool isSuppressedInSource, ISet<Fix> fixes, IDictionary<string, string> properties, ISet<string> tags)
         {
             RuleId = ruleId;
             Kind = kind;
-            FullMessage = fullMessage;
-            ShortMessage = shortMessage;
+            Message = message;
             if (formattedRuleMessage != null)
             {
                 FormattedRuleMessage = new FormattedRuleMessage(formattedRuleMessage);
@@ -507,6 +506,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 Locations = destination_0;
             }
 
+            CodeSnippet = codeSnippet;
             ToolFingerprint = toolFingerprint;
             if (stacks != null)
             {

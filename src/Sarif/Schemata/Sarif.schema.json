@@ -455,13 +455,8 @@
           "enum": [ "pass", "warning", "error", "notApplicable", "configurationError", "internalError", "note" ]
         },
 
-        "fullMessage": {
-          "description": "A string that describes the result.",
-          "type": "string"
-        },
-
-        "shortMessage": {
-          "description": "A string that describes the result, displayed when visible space is limited to a single line of text.",
+        "message": {
+          "description": "A string that describes the result. The first sentence of the message only will be displayed when visible space is limited.",
           "type": "string"
         },
 
@@ -478,6 +473,11 @@
           "items": {
             "$ref": "#/definitions/location"
           }
+        },
+
+        "codeSnippet": {
+          "description": "A source code fragment that illustrates the result.",
+          "type": "string"
         },
 
         "toolFingerprint": {

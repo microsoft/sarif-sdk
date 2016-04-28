@@ -15,7 +15,7 @@
       "results": [
         {
           "ruleId": "Dead assignment",
-          "fullMessage": "Value stored to 'scanptr' is never read",
+          "message": "Value stored to 'scanptr' is never read",
           "locations": [
             {
               "analysisTarget": {
