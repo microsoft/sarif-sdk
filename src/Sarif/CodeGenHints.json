@@ -22,9 +22,27 @@
       "kind": "DictionaryHint"
     }
   ],
+  "Invocation.EnvironmentVariables": [
+    {
+      "kind": "DictionaryHint"
+    }
+  ],
   "Location.Properties": [
     {
       "kind": "DictionaryHint"
+    }
+  ],
+  "Result.IsSuppressedInSource": [
+    {
+      "kind": "EnumHint",
+      "arguments": {
+        "typeName": "IsSuppressedInSource",
+        "description": "Indicates whether a result has been suppressed in source (or if that information is unknown).",
+        "zeroValue": "Unknown",
+        "enumValues": [
+          "True,False"
+        ]
+      }
     }
   ],
   "Result.Properties": [
@@ -58,11 +76,6 @@
     }
   ],
   "Run.Rules": [
-    {
-      "kind": "DictionaryHint"
-    }
-  ],
-  "Invocation.EnvironmentVariables": [
     {
       "kind": "DictionaryHint"
     }

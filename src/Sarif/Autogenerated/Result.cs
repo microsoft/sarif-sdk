@@ -87,10 +87,10 @@ namespace Microsoft.CodeAnalysis.Sarif
         public ISet<AnnotatedCodeLocation> RelatedLocations { get; set; }
 
         /// <summary>
-        /// A flag indicating whether or not this result was suppressed in source code.
+        /// A flag indicating whether or not this result was suppressed in source code (or 'unknown' is that information isn't known).
         /// </summary>
         [DataMember(Name = "isSuppressedInSource", IsRequired = false, EmitDefaultValue = false)]
-        public bool IsSuppressedInSource { get; set; }
+        public IsSuppressedInSource IsSuppressedInSource { get; set; }
 
         /// <summary>
         /// An array of 'fix' objects, each of which represents a proposed fix to the problem indicated by the result.
@@ -436,7 +436,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="tags">
         /// An initialization value for the <see cref="P: Tags" /> property.
         /// </param>
-        public Result(string ruleId, ResultKind kind, string message, FormattedRuleMessage formattedRuleMessage, ISet<Location> locations, string codeSnippet, string toolFingerprint, ISet<Stack> stacks, ISet<CodeFlow> codeFlows, ISet<AnnotatedCodeLocation> relatedLocations, bool isSuppressedInSource, ISet<Fix> fixes, IDictionary<string, string> properties, ISet<string> tags)
+        public Result(string ruleId, ResultKind kind, string message, FormattedRuleMessage formattedRuleMessage, ISet<Location> locations, string codeSnippet, string toolFingerprint, ISet<Stack> stacks, ISet<CodeFlow> codeFlows, ISet<AnnotatedCodeLocation> relatedLocations, IsSuppressedInSource isSuppressedInSource, ISet<Fix> fixes, IDictionary<string, string> properties, ISet<string> tags)
         {
             Init(ruleId, kind, message, formattedRuleMessage, locations, codeSnippet, toolFingerprint, stacks, codeFlows, relatedLocations, isSuppressedInSource, fixes, properties, tags);
         }
@@ -478,7 +478,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new Result(this);
         }
 
-        private void Init(string ruleId, ResultKind kind, string message, FormattedRuleMessage formattedRuleMessage, ISet<Location> locations, string codeSnippet, string toolFingerprint, ISet<Stack> stacks, ISet<CodeFlow> codeFlows, ISet<AnnotatedCodeLocation> relatedLocations, bool isSuppressedInSource, ISet<Fix> fixes, IDictionary<string, string> properties, ISet<string> tags)
+        private void Init(string ruleId, ResultKind kind, string message, FormattedRuleMessage formattedRuleMessage, ISet<Location> locations, string codeSnippet, string toolFingerprint, ISet<Stack> stacks, ISet<CodeFlow> codeFlows, ISet<AnnotatedCodeLocation> relatedLocations, IsSuppressedInSource isSuppressedInSource, ISet<Fix> fixes, IDictionary<string, string> properties, ISet<string> tags)
         {
             RuleId = ruleId;
             Kind = kind;

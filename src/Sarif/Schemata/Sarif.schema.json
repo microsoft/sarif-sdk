@@ -516,8 +516,8 @@
         },
 
         "isSuppressedInSource": {
-          "description": "A flag indicating whether or not this result was suppressed in source code.",
-          "type": "boolean"
+          "description": "A flag indicating whether or not this result was suppressed in source code (or 'unknown' is that information isn't known).",
+          "enum": [ "unknown", "true", "false" ]
         },
 
         "fixes": {
