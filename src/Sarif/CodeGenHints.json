@@ -40,7 +40,8 @@
         "description": "Indicates whether a result has been suppressed in source (or if that information is unknown).",
         "zeroValue": "Unknown",
         "enumValues": [
-          "True,False"
+          "Suppressed",
+          "NotSuppressed"
         ]
       }
     }

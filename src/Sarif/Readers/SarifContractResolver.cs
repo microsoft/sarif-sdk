@@ -34,6 +34,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
             if (objectType == typeof(AlgorithmKind))
                 contract.Converter = AlgorithmKindConverter.Instance;
 
+            if (objectType == typeof(IsSuppressedInSource))
+                contract.Converter = IsSuppressedInSourceConverter.Instance;
+
             return contract;
         }
     }

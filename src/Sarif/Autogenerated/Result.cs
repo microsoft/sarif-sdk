@@ -87,7 +87,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         public ISet<AnnotatedCodeLocation> RelatedLocations { get; set; }
 
         /// <summary>
-        /// A flag indicating whether or not this result was suppressed in source code (or 'unknown' is that information isn't known).
+        /// A flag indicating whether or not this result was suppressed in source code (or 'unknown' if that information isn't known).
         /// </summary>
         [DataMember(Name = "isSuppressedInSource", IsRequired = false, EmitDefaultValue = false)]
         public IsSuppressedInSource IsSuppressedInSource { get; set; }

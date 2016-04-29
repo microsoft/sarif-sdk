@@ -14,13 +14,12 @@ using Newtonsoft.Json;
 namespace Microsoft.CodeAnalysis.Sarif.Readers
 {
     [TestClass]
-    public class AlgorithmKindConverterTests
+    public class InSourceSuppressionConverterTests
     {
         private static readonly Run s_defaultRun = new Run();
         private static readonly Tool s_defaultTool = new Tool();
-        private static readonly Result s_defaultResult = new Result();
 
-        public AlgorithmKindConverterTests()
+        public InSourceSuppressionConverterTests()
         {
             JsonConvert.DefaultSettings = () => new JsonSerializerSettings
             {
@@ -42,34 +41,39 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
         }
 
         [TestMethod]
-        public void AlgorithmKindGroestl()
+        public void IsSuppressedInSource_Suppressed()
         {
-            string expected = "{\"version\":\"1.0.0-beta.4\",\"runs\":[{\"tool\":{\"name\":null},\"files\":{\"http://abc/\":[{\"hashes\":[{\"value\":null,\"algorithm\":\"Groestl\"}]}]},\"results\":[{}]}]}";
+            string expected = "{\"version\":\"1.0.0-beta.4\",\"runs\":[{\"tool\":{\"name\":null},\"results\":[{\"isSuppressedInSource\":\"suppressed\"}]}]}";
             string actual = GetJson(uut =>
             {
                 var run = new Run();
 
                 uut.WriteTool(s_defaultTool);
 
-                var files = new Dictionary<string, IList<FileData>> {
-                    ["http://abc/"] = new List<FileData>
+                uut.WriteResults(new[] { new Result
                     {
-                        new FileData()
-                        {
-                            Hashes = new HashSet<Hash>
-                            {
-                                new Hash()
-                                {
-                                   Algorithm = AlgorithmKind.Groestl
-                                }
-                            }
-                        }
+                        IsSuppressedInSource = Sarif.IsSuppressedInSource.Suppressed
                     }
-                };
+                });
+            });
+            Assert.AreEqual(expected, actual);
+        }
 
-                uut.WriteFiles(files);
+        [TestMethod]
+        public void IsSuppressedInSource_Unknown()
+        {
+            string expected = "{\"version\":\"1.0.0-beta.4\",\"runs\":[{\"tool\":{\"name\":null},\"results\":[{}]}]}";
+            string actual = GetJson(uut =>
+            {
+                var run = new Run();
 
-                uut.WriteResults(new[] { s_defaultResult });
+                uut.WriteTool(s_defaultTool);
+
+                uut.WriteResults(new[] { new Result
+                    {
+                        IsSuppressedInSource = Sarif.IsSuppressedInSource.Unknown
+                    }
+                });
             });
             Assert.AreEqual(expected, actual);
         }

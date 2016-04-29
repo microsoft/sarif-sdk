@@ -80,6 +80,9 @@
     <Compile Include="SarifValidatorTests.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="ConverterTestData\FxCop\FxCopProjectAllMessageStates.fxcop">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="DirectProducerTestData\WebSkim\LocalizedBundleDoubleNesting.sarif">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -358,6 +361,11 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="DirectProducerTestData\BinSkim\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="ConverterTestData\FxCop\FxCopReportAllMessageStates.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

@@ -12,6 +12,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     public enum IsSuppressedInSource
     {
         Unknown,
-        True,False
+        Suppressed,
+        NotSuppressed
     }
 }

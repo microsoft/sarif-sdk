@@ -60,7 +60,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
         {
             switch ((AlgorithmKind)value)
             {
-                case AlgorithmKind.Blake256: { writer.WriteRawValue("\"\"BLAKE-256\"\""); return; }
+                case AlgorithmKind.Blake256: { writer.WriteRawValue("\"BLAKE-256\""); return; }
                 case AlgorithmKind.Blake512: { writer.WriteRawValue("\"BLAKE-512\""); return; }
                 case AlgorithmKind.Ecoh: { writer.WriteRawValue("\"ECOH\""); return; }
                 case AlgorithmKind.Fsb: { writer.WriteRawValue("\"FSB\""); return; }

@@ -516,8 +516,11 @@
         },
 
         "isSuppressedInSource": {
-          "description": "A flag indicating whether or not this result was suppressed in source code (or 'unknown' is that information isn't known).",
-          "enum": [ "unknown", "true", "false" ]
+          "description": "A flag indicating whether or not this result was suppressed in source code (or 'unknown' if that information isn't known).",
+          "enum": [
+            "suppressed",
+            "notSuppressed"
+          ]
         },
 
         "fixes": {
