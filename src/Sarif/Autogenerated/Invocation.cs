@@ -12,7 +12,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// The runtime environment of the analysis tool run.
     /// </summary>
     [DataContract]
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.16.0.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.19.0.0")]
     public partial class Invocation : ISarifNode, IEquatable<Invocation>
     {
         /// <summary>
@@ -96,7 +96,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// A set of distinct strings that provide additional information about the run.
         /// </summary>
         [DataMember(Name = "tags", IsRequired = false, EmitDefaultValue = false)]
-        public ISet<string> Tags { get; set; }
+        public IList<string> Tags { get; set; }
 
         public override bool Equals(object other)
         {
@@ -264,9 +264,17 @@ namespace Microsoft.CodeAnalysis.Sarif
                     return false;
                 }
 
-                if (!Tags.SetEquals(other.Tags))
+                if (Tags.Count != other.Tags.Count)
                 {
                     return false;
+                }
+
+                for (int index_0 = 0; index_0 < Tags.Count; ++index_0)
+                {
+                    if (Tags[index_0] != other.Tags[index_0])
+                    {
+                        return false;
+                    }
                 }
             }
 
@@ -319,7 +327,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="tags">
         /// An initialization value for the <see cref="P: Tags" /> property.
         /// </param>
-        public Invocation(string parameters, DateTime startTime, DateTime endTime, string correlationId, string machine, string account, int processId, string fileName, string workingDirectory, IDictionary<string, string> environmentVariables, object properties, ISet<string> tags)
+        public Invocation(string parameters, DateTime startTime, DateTime endTime, string correlationId, string machine, string account, int processId, string fileName, string workingDirectory, IDictionary<string, string> environmentVariables, object properties, IEnumerable<string> tags)
         {
             Init(parameters, startTime, endTime, correlationId, machine, account, processId, fileName, workingDirectory, environmentVariables, properties, tags);
         }
@@ -361,7 +369,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new Invocation(this);
         }
 
-        private void Init(string parameters, DateTime startTime, DateTime endTime, string correlationId, string machine, string account, int processId, string fileName, string workingDirectory, IDictionary<string, string> environmentVariables, object properties, ISet<string> tags)
+        private void Init(string parameters, DateTime startTime, DateTime endTime, string correlationId, string machine, string account, int processId, string fileName, string workingDirectory, IDictionary<string, string> environmentVariables, object properties, IEnumerable<string> tags)
         {
             Parameters = parameters;
             StartTime = startTime;
@@ -380,7 +388,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             Properties = properties;
             if (tags != null)
             {
-                var destination_0 = new HashSet<string>();
+                var destination_0 = new List<string>();
                 foreach (var value_0 in tags)
                 {
                     destination_0.Add(value_0);

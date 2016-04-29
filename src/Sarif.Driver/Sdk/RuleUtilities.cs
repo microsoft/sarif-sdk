@@ -41,7 +41,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
 
             if (targetPath != null)
             {
-                result.Locations = new HashSet<Location> {
+                result.Locations = new List<Location> {
                     new Sarif.Location {
                         AnalysisTarget = new PhysicalLocation
                         {

@@ -201,7 +201,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 };
             }
 
-            result.Locations = new HashSet<Location> { location };
+            result.Locations = new List<Location> { location };
 
             return result;
         }

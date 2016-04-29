@@ -12,7 +12,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// A result produced by an analysis tool.
     /// </summary>
     [DataContract]
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.16.0.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.19.0.0")]
     public partial class Result : ISarifNode, IEquatable<Result>
     {
         /// <summary>
@@ -54,7 +54,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// One or more locations where the result occurred. Specify only one location unless the problem indicated by the result can only be corrected by making a change at every specified location.
         /// </summary>
         [DataMember(Name = "locations", IsRequired = false, EmitDefaultValue = false)]
-        public ISet<Location> Locations { get; set; }
+        public IList<Location> Locations { get; set; }
 
         /// <summary>
         /// A source code fragment that illustrates the result.
@@ -72,19 +72,19 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// An array of 'stack' objects relevant to the result.
         /// </summary>
         [DataMember(Name = "stacks", IsRequired = false, EmitDefaultValue = false)]
-        public ISet<Stack> Stacks { get; set; }
+        public IList<Stack> Stacks { get; set; }
 
         /// <summary>
         /// An array of 'codeFlow' objects relevant to the result.
         /// </summary>
         [DataMember(Name = "codeFlows", IsRequired = false, EmitDefaultValue = false)]
-        public ISet<CodeFlow> CodeFlows { get; set; }
+        public IList<CodeFlow> CodeFlows { get; set; }
 
         /// <summary>
         /// A grouped set of locations and messages, if available, that represent code areas that are related to this result.
         /// </summary>
         [DataMember(Name = "relatedLocations", IsRequired = false, EmitDefaultValue = false)]
-        public ISet<AnnotatedCodeLocation> RelatedLocations { get; set; }
+        public IList<AnnotatedCodeLocation> RelatedLocations { get; set; }
 
         /// <summary>
         /// A flag indicating whether or not this result was suppressed in source code.
@@ -96,7 +96,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// An array of 'fix' objects, each of which represents a proposed fix to the problem indicated by the result.
         /// </summary>
         [DataMember(Name = "fixes", IsRequired = false, EmitDefaultValue = false)]
-        public ISet<Fix> Fixes { get; set; }
+        public IList<Fix> Fixes { get; set; }
 
         /// <summary>
         /// Key/value pairs that provide additional information about the result.
@@ -108,7 +108,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// A set of distinct strings that provide additional information about the result.
         /// </summary>
         [DataMember(Name = "tags", IsRequired = false, EmitDefaultValue = false)]
-        public ISet<string> Tags { get; set; }
+        public IList<string> Tags { get; set; }
 
         public override bool Equals(object other)
         {
@@ -273,9 +273,17 @@ namespace Microsoft.CodeAnalysis.Sarif
                     return false;
                 }
 
-                if (!Locations.SetEquals(other.Locations))
+                if (Locations.Count != other.Locations.Count)
                 {
                     return false;
+                }
+
+                for (int index_0 = 0; index_0 < Locations.Count; ++index_0)
+                {
+                    if (!Object.Equals(Locations[index_0], other.Locations[index_0]))
+                    {
+                        return false;
+                    }
                 }
             }
 
@@ -296,9 +304,17 @@ namespace Microsoft.CodeAnalysis.Sarif
                     return false;
                 }
 
-                if (!Stacks.SetEquals(other.Stacks))
+                if (Stacks.Count != other.Stacks.Count)
                 {
                     return false;
+                }
+
+                for (int index_1 = 0; index_1 < Stacks.Count; ++index_1)
+                {
+                    if (!Object.Equals(Stacks[index_1], other.Stacks[index_1]))
+                    {
+                        return false;
+                    }
                 }
             }
 
@@ -309,9 +325,17 @@ namespace Microsoft.CodeAnalysis.Sarif
                     return false;
                 }
 
-                if (!CodeFlows.SetEquals(other.CodeFlows))
+                if (CodeFlows.Count != other.CodeFlows.Count)
                 {
                     return false;
+                }
+
+                for (int index_2 = 0; index_2 < CodeFlows.Count; ++index_2)
+                {
+                    if (!Object.Equals(CodeFlows[index_2], other.CodeFlows[index_2]))
+                    {
+                        return false;
+                    }
                 }
             }
 
@@ -322,9 +346,17 @@ namespace Microsoft.CodeAnalysis.Sarif
                     return false;
                 }
 
-                if (!RelatedLocations.SetEquals(other.RelatedLocations))
+                if (RelatedLocations.Count != other.RelatedLocations.Count)
                 {
                     return false;
+                }
+
+                for (int index_3 = 0; index_3 < RelatedLocations.Count; ++index_3)
+                {
+                    if (!Object.Equals(RelatedLocations[index_3], other.RelatedLocations[index_3]))
+                    {
+                        return false;
+                    }
                 }
             }
 
@@ -340,9 +372,17 @@ namespace Microsoft.CodeAnalysis.Sarif
                     return false;
                 }
 
-                if (!Fixes.SetEquals(other.Fixes))
+                if (Fixes.Count != other.Fixes.Count)
                 {
                     return false;
+                }
+
+                for (int index_4 = 0; index_4 < Fixes.Count; ++index_4)
+                {
+                    if (!Object.Equals(Fixes[index_4], other.Fixes[index_4]))
+                    {
+                        return false;
+                    }
                 }
             }
 
@@ -375,9 +415,17 @@ namespace Microsoft.CodeAnalysis.Sarif
                     return false;
                 }
 
-                if (!Tags.SetEquals(other.Tags))
+                if (Tags.Count != other.Tags.Count)
                 {
                     return false;
+                }
+
+                for (int index_5 = 0; index_5 < Tags.Count; ++index_5)
+                {
+                    if (Tags[index_5] != other.Tags[index_5])
+                    {
+                        return false;
+                    }
                 }
             }
 
@@ -436,7 +484,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="tags">
         /// An initialization value for the <see cref="P: Tags" /> property.
         /// </param>
-        public Result(string ruleId, ResultLevel level, string message, FormattedRuleMessage formattedRuleMessage, ISet<Location> locations, string codeSnippet, string toolFingerprint, ISet<Stack> stacks, ISet<CodeFlow> codeFlows, ISet<AnnotatedCodeLocation> relatedLocations, bool isSuppressedInSource, ISet<Fix> fixes, IDictionary<string, string> properties, ISet<string> tags)
+        public Result(string ruleId, ResultLevel level, string message, FormattedRuleMessage formattedRuleMessage, IEnumerable<Location> locations, string codeSnippet, string toolFingerprint, IEnumerable<Stack> stacks, IEnumerable<CodeFlow> codeFlows, IEnumerable<AnnotatedCodeLocation> relatedLocations, bool isSuppressedInSource, IEnumerable<Fix> fixes, IDictionary<string, string> properties, IEnumerable<string> tags)
         {
             Init(ruleId, level, message, formattedRuleMessage, locations, codeSnippet, toolFingerprint, stacks, codeFlows, relatedLocations, isSuppressedInSource, fixes, properties, tags);
         }
@@ -478,7 +526,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new Result(this);
         }
 
-        private void Init(string ruleId, ResultLevel level, string message, FormattedRuleMessage formattedRuleMessage, ISet<Location> locations, string codeSnippet, string toolFingerprint, ISet<Stack> stacks, ISet<CodeFlow> codeFlows, ISet<AnnotatedCodeLocation> relatedLocations, bool isSuppressedInSource, ISet<Fix> fixes, IDictionary<string, string> properties, ISet<string> tags)
+        private void Init(string ruleId, ResultLevel level, string message, FormattedRuleMessage formattedRuleMessage, IEnumerable<Location> locations, string codeSnippet, string toolFingerprint, IEnumerable<Stack> stacks, IEnumerable<CodeFlow> codeFlows, IEnumerable<AnnotatedCodeLocation> relatedLocations, bool isSuppressedInSource, IEnumerable<Fix> fixes, IDictionary<string, string> properties, IEnumerable<string> tags)
         {
             RuleId = ruleId;
             Level = level;
@@ -490,7 +538,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             if (locations != null)
             {
-                var destination_0 = new HashSet<Location>();
+                var destination_0 = new List<Location>();
                 foreach (var value_0 in locations)
                 {
                     if (value_0 == null)
@@ -510,7 +558,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             ToolFingerprint = toolFingerprint;
             if (stacks != null)
             {
-                var destination_1 = new HashSet<Stack>();
+                var destination_1 = new List<Stack>();
                 foreach (var value_1 in stacks)
                 {
                     if (value_1 == null)
@@ -528,7 +576,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             if (codeFlows != null)
             {
-                var destination_2 = new HashSet<CodeFlow>();
+                var destination_2 = new List<CodeFlow>();
                 foreach (var value_2 in codeFlows)
                 {
                     if (value_2 == null)
@@ -546,7 +594,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             if (relatedLocations != null)
             {
-                var destination_3 = new HashSet<AnnotatedCodeLocation>();
+                var destination_3 = new List<AnnotatedCodeLocation>();
                 foreach (var value_3 in relatedLocations)
                 {
                     if (value_3 == null)
@@ -565,7 +613,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             IsSuppressedInSource = isSuppressedInSource;
             if (fixes != null)
             {
-                var destination_4 = new HashSet<Fix>();
+                var destination_4 = new List<Fix>();
                 foreach (var value_4 in fixes)
                 {
                     if (value_4 == null)
@@ -588,7 +636,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             if (tags != null)
             {
-                var destination_5 = new HashSet<string>();
+                var destination_5 = new List<string>();
                 foreach (var value_5 in tags)
                 {
                     destination_5.Add(value_5);

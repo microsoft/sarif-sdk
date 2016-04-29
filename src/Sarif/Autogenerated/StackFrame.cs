@@ -12,7 +12,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// A function call within a stack trace.
     /// </summary>
     [DataContract]
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.16.0.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.19.0.0")]
     public partial class StackFrame : ISarifNode, IEquatable<StackFrame>
     {
         /// <summary>
@@ -96,7 +96,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// A unique set of strings that provide additional information about the stack frame.
         /// </summary>
         [DataMember(Name = "tags", IsRequired = false, EmitDefaultValue = false)]
-        public ISet<string> Tags { get; set; }
+        public IList<string> Tags { get; set; }
 
         public override bool Equals(object other)
         {
@@ -283,9 +283,17 @@ namespace Microsoft.CodeAnalysis.Sarif
                     return false;
                 }
 
-                if (!Tags.SetEquals(other.Tags))
+                if (Tags.Count != other.Tags.Count)
                 {
                     return false;
+                }
+
+                for (int index_1 = 0; index_1 < Tags.Count; ++index_1)
+                {
+                    if (Tags[index_1] != other.Tags[index_1])
+                    {
+                        return false;
+                    }
                 }
             }
 
@@ -338,7 +346,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="tags">
         /// An initialization value for the <see cref="P: Tags" /> property.
         /// </param>
-        public StackFrame(string message, Uri uri, int line, int column, string module, string fullyQualifiedLogicalName, string logicalLocationKey, int address, int offset, IEnumerable<string> parameters, IDictionary<string, string> properties, ISet<string> tags)
+        public StackFrame(string message, Uri uri, int line, int column, string module, string fullyQualifiedLogicalName, string logicalLocationKey, int address, int offset, IEnumerable<string> parameters, IDictionary<string, string> properties, IEnumerable<string> tags)
         {
             Init(message, uri, line, column, module, fullyQualifiedLogicalName, logicalLocationKey, address, offset, parameters, properties, tags);
         }
@@ -380,7 +388,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new StackFrame(this);
         }
 
-        private void Init(string message, Uri uri, int line, int column, string module, string fullyQualifiedLogicalName, string logicalLocationKey, int address, int offset, IEnumerable<string> parameters, IDictionary<string, string> properties, ISet<string> tags)
+        private void Init(string message, Uri uri, int line, int column, string module, string fullyQualifiedLogicalName, string logicalLocationKey, int address, int offset, IEnumerable<string> parameters, IDictionary<string, string> properties, IEnumerable<string> tags)
         {
             Message = message;
             if (uri != null)
@@ -413,7 +421,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             if (tags != null)
             {
-                var destination_1 = new HashSet<string>();
+                var destination_1 = new List<string>();
                 foreach (var value_1 in tags)
                 {
                     destination_1.Add(value_1);

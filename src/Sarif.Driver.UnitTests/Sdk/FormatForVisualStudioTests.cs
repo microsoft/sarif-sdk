@@ -173,7 +173,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
             {
                 RuleId = TestRuleId,
                 Level = level,
-                Locations = new HashSet<Location>
+                Locations = new List<Location>
                 {
                     new Location
                     {

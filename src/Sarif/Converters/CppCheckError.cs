@@ -155,14 +155,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                     Locations = locations
                 };
 
-                result.CodeFlows = new HashSet<CodeFlow> { flow };
+                result.CodeFlows = new List<CodeFlow> { flow };
 
                 // In the N != 1 case, set the overall location's location to
                 // the last entry in the execution flow.
                 lastLocationConverted = locations[locations.Count - 1].PhysicalLocation;
             }
 
-            result.Locations = new HashSet<Location>
+            result.Locations = new List<Location>
             {
                 new Location
                 {

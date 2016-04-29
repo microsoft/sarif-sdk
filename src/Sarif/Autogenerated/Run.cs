@@ -12,7 +12,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// Describes a single run of an analysis tool, and contains the output of that run.
     /// </summary>
     [DataContract]
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.16.0.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.19.0.0")]
     public partial class Run : ISarifNode, IEquatable<Run>
     {
         /// <summary>
@@ -54,7 +54,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// The set of results contained in an SARIF log. The results array can be omitted when a run is solely exporting rules metadata. It must be present (but may be empty) in the event that a log file represents an actual scan.
         /// </summary>
         [DataMember(Name = "results", IsRequired = false, EmitDefaultValue = false)]
-        public ISet<Result> Results { get; set; }
+        public IList<Result> Results { get; set; }
 
         /// <summary>
         /// A list of runtime conditions detected by the tool in the course of the analysis.
@@ -282,9 +282,17 @@ namespace Microsoft.CodeAnalysis.Sarif
                     return false;
                 }
 
-                if (!Results.SetEquals(other.Results))
+                if (Results.Count != other.Results.Count)
                 {
                     return false;
+                }
+
+                for (int index_2 = 0; index_2 < Results.Count; ++index_2)
+                {
+                    if (!Object.Equals(Results[index_2], other.Results[index_2]))
+                    {
+                        return false;
+                    }
                 }
             }
 
@@ -300,9 +308,9 @@ namespace Microsoft.CodeAnalysis.Sarif
                     return false;
                 }
 
-                for (int index_2 = 0; index_2 < ToolNotifications.Count; ++index_2)
+                for (int index_3 = 0; index_3 < ToolNotifications.Count; ++index_3)
                 {
-                    if (!Object.Equals(ToolNotifications[index_2], other.ToolNotifications[index_2]))
+                    if (!Object.Equals(ToolNotifications[index_3], other.ToolNotifications[index_3]))
                     {
                         return false;
                     }
@@ -321,9 +329,9 @@ namespace Microsoft.CodeAnalysis.Sarif
                     return false;
                 }
 
-                for (int index_3 = 0; index_3 < ConfigurationNotifications.Count; ++index_3)
+                for (int index_4 = 0; index_4 < ConfigurationNotifications.Count; ++index_4)
                 {
-                    if (!Object.Equals(ConfigurationNotifications[index_3], other.ConfigurationNotifications[index_3]))
+                    if (!Object.Equals(ConfigurationNotifications[index_4], other.ConfigurationNotifications[index_4]))
                     {
                         return false;
                     }
@@ -389,7 +397,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="rules">
         /// An initialization value for the <see cref="P: Rules" /> property.
         /// </param>
-        public Run(Tool tool, Invocation invocation, IDictionary<string, IList<FileData>> files, IDictionary<string, IList<LogicalLocationComponent>> logicalLocations, ISet<Result> results, IEnumerable<Notification> toolNotifications, IEnumerable<Notification> configurationNotifications, IDictionary<string, Rule> rules)
+        public Run(Tool tool, Invocation invocation, IDictionary<string, IList<FileData>> files, IDictionary<string, IList<LogicalLocationComponent>> logicalLocations, IEnumerable<Result> results, IEnumerable<Notification> toolNotifications, IEnumerable<Notification> configurationNotifications, IDictionary<string, Rule> rules)
         {
             Init(tool, invocation, files, logicalLocations, results, toolNotifications, configurationNotifications, rules);
         }
@@ -431,7 +439,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new Run(this);
         }
 
-        private void Init(Tool tool, Invocation invocation, IDictionary<string, IList<FileData>> files, IDictionary<string, IList<LogicalLocationComponent>> logicalLocations, ISet<Result> results, IEnumerable<Notification> toolNotifications, IEnumerable<Notification> configurationNotifications, IDictionary<string, Rule> rules)
+        private void Init(Tool tool, Invocation invocation, IDictionary<string, IList<FileData>> files, IDictionary<string, IList<LogicalLocationComponent>> logicalLocations, IEnumerable<Result> results, IEnumerable<Notification> toolNotifications, IEnumerable<Notification> configurationNotifications, IDictionary<string, Rule> rules)
         {
             if (tool != null)
             {
@@ -489,7 +497,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             if (results != null)
             {
-                var destination_2 = new HashSet<Result>();
+                var destination_2 = new List<Result>();
                 foreach (var value_4 in results)
                 {
                     if (value_4 == null)

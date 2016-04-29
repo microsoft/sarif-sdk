@@ -115,7 +115,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 AddLogicalLocation(location, logicalLocationComponents);
             }
 
-            result.Locations = new HashSet<Location> { location };
+            result.Locations = new List<Location> { location };
 
             var properties = new Dictionary<string, string>();
             TryAddProperty(properties, context.Level, "Level");

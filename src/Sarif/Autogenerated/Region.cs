@@ -11,7 +11,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// A region within a file where a result was detected.
     /// </summary>
     [DataContract]
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.16.0.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.19.0.0")]
     public partial class Region : ISarifNode, IEquatable<Region>
     {
         /// <summary>

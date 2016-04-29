@@ -12,7 +12,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// The location where an analysis tool produced a result.
     /// </summary>
     [DataContract]
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.16.0.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.19.0.0")]
     public partial class Location : ISarifNode, IEquatable<Location>
     {
         /// <summary>
@@ -60,7 +60,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// A set of distinct strings that provide additional information about the location.
         /// </summary>
         [DataMember(Name = "tags", IsRequired = false, EmitDefaultValue = false)]
-        public ISet<string> Tags { get; set; }
+        public IList<string> Tags { get; set; }
 
         public override bool Equals(object other)
         {
@@ -180,9 +180,17 @@ namespace Microsoft.CodeAnalysis.Sarif
                     return false;
                 }
 
-                if (!Tags.SetEquals(other.Tags))
+                if (Tags.Count != other.Tags.Count)
                 {
                     return false;
+                }
+
+                for (int index_0 = 0; index_0 < Tags.Count; ++index_0)
+                {
+                    if (Tags[index_0] != other.Tags[index_0])
+                    {
+                        return false;
+                    }
                 }
             }
 
@@ -217,7 +225,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="tags">
         /// An initialization value for the <see cref="P: Tags" /> property.
         /// </param>
-        public Location(PhysicalLocation analysisTarget, PhysicalLocation resultFile, string fullyQualifiedLogicalName, string logicalLocationKey, IDictionary<string, string> properties, ISet<string> tags)
+        public Location(PhysicalLocation analysisTarget, PhysicalLocation resultFile, string fullyQualifiedLogicalName, string logicalLocationKey, IDictionary<string, string> properties, IEnumerable<string> tags)
         {
             Init(analysisTarget, resultFile, fullyQualifiedLogicalName, logicalLocationKey, properties, tags);
         }
@@ -259,7 +267,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new Location(this);
         }
 
-        private void Init(PhysicalLocation analysisTarget, PhysicalLocation resultFile, string fullyQualifiedLogicalName, string logicalLocationKey, IDictionary<string, string> properties, ISet<string> tags)
+        private void Init(PhysicalLocation analysisTarget, PhysicalLocation resultFile, string fullyQualifiedLogicalName, string logicalLocationKey, IDictionary<string, string> properties, IEnumerable<string> tags)
         {
             if (analysisTarget != null)
             {
@@ -280,7 +288,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             if (tags != null)
             {
-                var destination_0 = new HashSet<string>();
+                var destination_0 = new List<string>();
                 foreach (var value_0 in tags)
                 {
                     destination_0.Add(value_0);
