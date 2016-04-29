@@ -6,18 +6,14 @@ using System.CodeDom.Compiler;
 namespace Microsoft.CodeAnalysis.Sarif
 {
     /// <summary>
-    /// Values specifying the category of the result.
+    /// Values specifying the level of a notification.
     /// </summary>
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.16.0.0")]
-    public enum ResultKind
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.19.0.0")]
+    public enum NotificationLevel
     {
         Unknown,
-        Error,
-        Warning,
-        Pass,
         Note,
-        NotApplicable,
-        InternalError,
-        ConfigurationError
+        Warning,
+        Error
     }
 }

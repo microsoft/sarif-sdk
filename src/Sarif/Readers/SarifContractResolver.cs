@@ -19,19 +19,22 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
             if (objectType == typeof(Uri))
                 contract.Converter = UriConverter.Instance;
 
-            if (objectType == typeof(DateTime))
+            else if (objectType == typeof(DateTime))
                 contract.Converter = DateTimeConverter.Instance;
 
-            if (objectType == typeof(Version))
+            else if (objectType == typeof(Version))
                 contract.Converter = VersionConverter.Instance;
 
-            if (objectType == typeof(SarifVersion))
+            else if (objectType == typeof(SarifVersion))
                 contract.Converter = SarifVersionConverter.Instance;
 
-            if (objectType == typeof(ResultKind))
-                contract.Converter = ResultKindConverter.Instance;
+            else if (objectType == typeof(ResultLevel))
+                contract.Converter = EnumConverter.Instance;
 
-            if (objectType == typeof(AlgorithmKind))
+            else if (objectType == typeof(NotificationLevel))
+                contract.Converter = EnumConverter.Instance;
+
+            else if (objectType == typeof(AlgorithmKind))
                 contract.Converter = AlgorithmKindConverter.Instance;
 
             return contract;

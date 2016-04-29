@@ -88,7 +88,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
                         CultureInfo.InvariantCulture, "{0}{1}: {2} {3}: {4}",
                         path,
                         physicalLocation.Region.FormatForVisualStudio(),
-                        result.Kind.FormatForVisualStudio(),
+                        result.Level.FormatForVisualStudio(),
                         result.RuleId,
                         result.GetMessageText(rule)
                         ));
@@ -97,16 +97,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
             return string.Join(Environment.NewLine, messageLines);
         }
 
-        public static string FormatForVisualStudio(this ResultKind kind)
+        public static string FormatForVisualStudio(this ResultLevel level)
         {
-            switch (kind)
+            switch (level)
             {
-                case ResultKind.Error:
-                case ResultKind.ConfigurationError:
-                case ResultKind.InternalError:
+                case ResultLevel.Error:
                     return "error";
 
-                case ResultKind.Warning:
+                case ResultLevel.Warning:
                     return "warning";
 
                 default:

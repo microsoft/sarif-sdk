@@ -3,100 +3,64 @@
 
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
+using System.Linq;
 using System.Reflection;
-using System.Text;
-using Microsoft.CodeAnalysis.Sarif.Sdk;
 
 namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
 {
     public static class Errors
     {
-        private const string ERR0997 = "ERR0997";
-        private const string ERR0998 = "ERR0998";
-        private const string ERR0999 = "ERR0998";
-        private const string ERR1001 = "ERR1001";
+        // Configuration errors:
+        private const string Notification_ExceptionLoadingAnalysisTarget = "ExceptionLoadingAnalysisTarget";
+        private const string Notification_ExceptionLoadingPdb = "ExceptionLoadingPdb";
+        private const string Notification_ExceptionInstantiatingSkimmers = "ExceptionInstantiatingSkimmers";
+        private const string Notification_NoRulesLoaded = "NoRulesLoaded";
+        private const string Notification_NoValidAnalysisTargets = "NoValidAnalysisTargets";
+        private const string Notification_ExceptionCreatingLogFile = "ExceptionCreatingLogFile";
+        private const string Notification_MissingFile = "MissingFile";
+        private const string Notification_ExceptionAccessingFile = "ExceptionAccessingFile";
+        private const string Notification_MissingRuleConfiguration = "MissingRuleConfiguration";
+        private const string Notification_ExceptionLoadingPlugIn = "ExceptionLoadingPlugIn";
 
-        public static IRule InvalidConfiguration = new Rule()
-        {
-            Id = ERR0997,
-            Name = nameof(InvalidConfiguration),
-            FullDescription = SdkResources.ERR0997_InvalidConfiguration_Description,
-            MessageFormats = RuleUtilities.BuildDictionary(SdkResources.ResourceManager,
-                new string[] {
-                    nameof(SdkResources.ERR0997_ExceptionAccessingFile),
-                    nameof(SdkResources.ERR0997_ExceptionLoadingPdb),
-                    nameof(SdkResources.ERR0997_ExceptionLoadingPlugIn),
-                    nameof(SdkResources.ERR0997_ExceptionCreatingLogFile),
-                    nameof(SdkResources.ERR0997_ExceptionLoadingAnalysisTarget),
-                    nameof(SdkResources.ERR0997_ExceptionInstantiatingSkimmers),
-                    nameof(SdkResources.ERR0997_MissingRuleConfiguration),
-                    nameof(SdkResources.ERR0997_MissingFile),
-                    nameof(SdkResources.ERR0997_NoRulesLoaded),
-                    nameof(SdkResources.ERR0997_NoValidAnalysisTargets)
-               }, ERR0997)
-        };
+        // Rule disabling tool errors:
+        private const string Notification_ExceptionInCanAnalyze = "ExceptionInCanAnalyze";
+        private const string Notification_ExceptionInInitialize = "ExceptionInInitialize";
+        private const string Notification_ExceptionInAnalyze = "ExceptionInAnalyze";
 
-        public static IRule RuleDisabled = new Rule()
-        {
-            Id = ERR0998,
-            Name = nameof(RuleDisabled),
-            FullDescription = SdkResources.ERR0998_RuleDisabled_Description,
-            MessageFormats = RuleUtilities.BuildDictionary(SdkResources.ResourceManager,
-                new string[] {
-                    nameof(SdkResources.ERR0998_ExceptionInCanAnalyze),
-                    nameof(SdkResources.ERR0998_ExceptionInInitialize),
-                    nameof(SdkResources.ERR0998_ExceptionInAnalyze)
-                }, ERR0998)
-        };
+        // Analysis halting tool errors:
+        private const string Notification_UnhandledEngineException = "UnhandledEngineException";
 
-        public static IRule AnalysisHalted = new Rule()
-        {
-            Id = ERR0999,
-            Name = nameof(AnalysisHalted),
-            FullDescription = SdkResources.ERR0999_AnalysisHalted_Description,
-            MessageFormats = RuleUtilities.BuildDictionary(SdkResources.ResourceManager,
-                new string[] {
-                    nameof(SdkResources.ERR0999_UnhandledEngineException)
-                }, ERR0999)
-        };
-
-        public static IRule ParseError = new Rule()
-        {
-            Id = ERR1001,
-            Name = nameof(ParseError),
-            FullDescription = SdkResources.ERR1001_ParseError_Description,
-            MessageFormats = RuleUtilities.BuildDictionary(SdkResources.ResourceManager,
-                new string[] {
-                    nameof(SdkResources.ERR1001_Default)
-                }, ERR1001)
-        };
+        // Parse errors:
+        private const string Notification_ParseError = "ParseError";
 
         public static void LogExceptionLoadingTarget(IAnalysisContext context)
         {
-            context.Rule = Errors.InvalidConfiguration;
-
-            // An exception was raised attempting to load analysis target '{0}'. Exception information:
-            // {1}
-            context.Logger.Log(context.Rule,
-                RuleUtilities.BuildResult(ResultKind.ConfigurationError, context, null,
-                    nameof(SdkResources.ERR0997_ExceptionLoadingAnalysisTarget),
-                    context.TargetLoadException.ToString()));
+            // Could not load analysis target '{0}'.
+            context.Logger.LogConfigurationNotification(
+                CreateNotification(
+                    Notification_ExceptionLoadingAnalysisTarget,
+                    NotificationLevel.Error,
+                    context.TargetLoadException,
+                    context.TargetUri.LocalPath));
 
             context.RuntimeErrors |= RuntimeConditions.ExceptionLoadingTargetFile;
         }
 
-        public static void LogExceptionLoadingPdb(IAnalysisContext context, string exceptionMessage)
+        public static void LogExceptionLoadingPdb(IAnalysisContext context, Exception exception)
         {
             string ruleName = context.Rule.Name;
-            context.Rule = Errors.InvalidConfiguration;
 
-            // '{0}' was not evaluated for check '{1}' as an exception occurred loading its pdb: '{2}'
-            context.Logger.Log(context.Rule,
-                RuleUtilities.BuildResult(ResultKind.ConfigurationError, context, null,
-                    nameof(SdkResources.ERR0997_ExceptionLoadingPdb),
-                    ruleName,
-                   exceptionMessage));
+            // '{0}' was not evaluated for check '{1}' because its PDB could not be loaded.
+            context.Logger.LogConfigurationNotification(
+                CreateNotification(
+                    Notification_ExceptionLoadingPdb,
+                    context.Rule.Id,
+                    NotificationLevel.Error,
+                    exception,
+                    context.TargetUri.LocalPath,
+                    context.Rule.Name));
 
             context.RuntimeErrors |= RuntimeConditions.ExceptionLoadingPdb;
         }
@@ -104,133 +68,120 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
         public static void LogExceptionInstantiatingSkimmers(
             IAnalysisContext context,
             IEnumerable<Assembly> skimmerAssemblies,
-            Exception ex)
+            Exception exception)
         {
-            context.Rule = Errors.InvalidConfiguration;
+            string plugins = string.Join(", ",
+                skimmerAssemblies.Select(sa => '"' +  Path.GetFileName(sa.Location) + '"'));
 
-            var sb = new StringBuilder();
-            foreach (Assembly assembly in skimmerAssemblies)
-            {
-                sb.Append(Path.GetFileName(assembly.Location) + (sb.Length > 0 ? "," : ""));
-            }
-
-            // An exception was raised attempting to instantiate skimmers from
-            // the following locations: '{0}'. Exception information:
-            // {1}
-            context.Logger.Log(context.Rule,
-                RuleUtilities.BuildResult(ResultKind.ConfigurationError, context, null,
-                    nameof(SdkResources.ERR0997_ExceptionInstantiatingSkimmers),
-                    sb.ToString(),
-                    ex.ToString()));
+            // Could not instantiate skimmers from the following plugins: {0}
+            context.Logger.LogConfigurationNotification(
+                CreateNotification(
+                    Notification_ExceptionInstantiatingSkimmers,
+                    NotificationLevel.Error,
+                    exception,
+                    plugins));
 
             context.RuntimeErrors |= RuntimeConditions.ExceptionInstantiatingSkimmers;
         }
 
         public static void LogNoRulesLoaded(IAnalysisContext context)
         {
-            context.Rule = Errors.InvalidConfiguration;
-
             // No analysis rules could be instantiated.
-            context.Logger.Log(context.Rule,
-                RuleUtilities.BuildResult(ResultKind.ConfigurationError, context, null,
-                    nameof(SdkResources.ERR0997_NoRulesLoaded)));
+            context.Logger.LogConfigurationNotification(
+                CreateNotification(
+                    Notification_NoRulesLoaded,
+                    NotificationLevel.Error,
+                    null));
 
             context.RuntimeErrors |= RuntimeConditions.NoRulesLoaded;
         }
 
         public static void LogNoValidAnalysisTargets(IAnalysisContext context)
         {
-            context.Rule = Errors.InvalidConfiguration;
-
             // No valid analysis targets were specified.
-            context.Logger.Log(context.Rule,
-                RuleUtilities.BuildResult(ResultKind.ConfigurationError, context, null,
-                    nameof(SdkResources.ERR0997_NoValidAnalysisTargets)));
+            context.Logger.LogConfigurationNotification(
+                CreateNotification(
+                    Notification_NoValidAnalysisTargets,
+                    NotificationLevel.Error,
+                    null));
 
             context.RuntimeErrors |= RuntimeConditions.NoValidAnalysisTargets;
         }
 
-        public static void LogExceptionCreatingLogFile(IAnalysisContext context, string fileName, Exception ex)
+        public static void LogExceptionCreatingLogFile(IAnalysisContext context, string fileName, Exception exception)
         {
-            context.Rule = Errors.InvalidConfiguration;
-
-            // An exception was raised attempting to create output file: '{0}'. Exception information:
-            // {1}
-            context.Logger.Log(context.Rule,
-                RuleUtilities.BuildResult(ResultKind.ConfigurationError, context, null,
-                    nameof(SdkResources.ERR0997_ExceptionCreatingLogFile),
-                    fileName,
-                    ex.ToString()));
+            // Could not create output file: '{0}'
+            context.Logger.LogConfigurationNotification(
+                CreateNotification(
+                    Notification_ExceptionCreatingLogFile,
+                    NotificationLevel.Error,
+                    exception,
+                    fileName));
 
             context.RuntimeErrors |= RuntimeConditions.ExceptionCreatingLogfile;
         }
 
         public static void LogMissingFile(IAnalysisContext context, string fileName)
         {
-            context.Rule = Errors.InvalidConfiguration;
-
-            // A required file specified on the command line could not be found:'{0}'. 
-            context.Logger.Log(context.Rule,
-                RuleUtilities.BuildResult(ResultKind.ConfigurationError, context, null,
-                    nameof(SdkResources.ERR0997_MissingFile),
+            // A required file specified on the command line could not be found: '{0}'. 
+            context.Logger.LogConfigurationNotification(
+                CreateNotification(
+                    Notification_MissingFile,
+                    NotificationLevel.Error,
+                    null,
                     fileName));
 
             context.RuntimeErrors |= RuntimeConditions.MissingFile;
         }
 
-        public static void LogExceptionAccessingFile(IAnalysisContext context, string fileName, Exception ex)
+        public static void LogExceptionAccessingFile(IAnalysisContext context, string fileName, Exception exception)
         {
-            context.Rule = Errors.InvalidConfiguration;
-
-            // An exception was raised accessing a file specified on the command-line: '{0}'. Exception information:
-            // {1}
-            context.Logger.Log(context.Rule,
-                RuleUtilities.BuildResult(ResultKind.ConfigurationError, context, null,
-                    nameof(SdkResources.ERR0997_ExceptionAccessingFile),
-                    fileName,
-                    ex.ToString()));
+            // Could not access a file specified on the command-line: '{0}'.
+            context.Logger.LogConfigurationNotification(
+                CreateNotification(
+                    Notification_ExceptionAccessingFile,
+                    NotificationLevel.Error,
+                    exception,
+                    fileName));
 
             context.RuntimeErrors |= RuntimeConditions.ExceptionAccessingFile;
         }
 
-
         public static void LogMissingRuleConfiguration(IAnalysisContext context, string reasonForNotAnalyzing)
         {            
-            string ruleName = context.Rule.Name;
-            context.Rule = Errors.InvalidConfiguration;
-
             Assembly assembly = Assembly.GetEntryAssembly();
             assembly = assembly ?? Assembly.GetExecutingAssembly();
             string exeName = Path.GetFileName(assembly.Location);
 
-            // Check '{1}' was disabled while analyzing '{0}' because the analysis
-            // was not configured with required policy ({1}). To resolve this,
-            // configure and provide a policy file on the {2} command-line using
+            // Check '{0}' was disabled while analyzing '{1}' because the analysis
+            // was not configured with required policy ({2}). To resolve this,
+            // configure and provide a policy file on the {3} command-line using
             // the --policy argument (recommended), or pass '--config default'
-            // to invoke built-in settings. Invoke the {2} 'exportConfig' command
+            // to invoke built-in settings. Invoke the {3} 'exportConfig' command
             // to produce an initial configuration file that can be edited, if
             // necessary, and passed back into the tool.
-            context.Logger.Log(context.Rule,
-                RuleUtilities.BuildResult(ResultKind.ConfigurationError, context, null,
-                    nameof(SdkResources.ERR0997_MissingRuleConfiguration),
-                    ruleName,
-                    reasonForNotAnalyzing,
-                    exeName));
+            context.Logger.LogConfigurationNotification(
+                CreateNotification(
+                    Notification_MissingRuleConfiguration,
+                    NotificationLevel.Error,
+                    null,
+                    context.Rule.Name,
+                    string.Empty,           // BUG: There were fewer arguments specified than required by the format string
+                    reasonForNotAnalyzing,  // ... and it doesn't look like this fits with the message for {2}
+                    exeName));              // ... but this is pretty clearly {3}.
 
             context.RuntimeErrors |= RuntimeConditions.RuleMissingRequiredConfiguration;
         }
 
-        public static void LogExceptionLoadingPlugIn(string plugInFilePath, IAnalysisContext context, Exception ex)
+        public static void LogExceptionLoadingPlugIn(string plugInFilePath, IAnalysisContext context, Exception exception)
         {
-            context.Rule = Errors.InvalidConfiguration;
-            context.TargetUri = new Uri(plugInFilePath);
-
-            // An exception was raised attempting to load plug-in '{0}'. Exception information:
-            // {1}
-            context.Logger.Log(context.Rule,
-                RuleUtilities.BuildResult(ResultKind.ConfigurationError, context, null,
-                    nameof(SdkResources.ERR0997_ExceptionLoadingPlugIn),
-                    ex.ToString()));
+            // Could not load plug-in '{0}'.
+            context.Logger.LogConfigurationNotification(
+                CreateNotification(
+                    Notification_ExceptionLoadingPlugIn,
+                    NotificationLevel.Error,
+                    exception,
+                    plugInFilePath));
 
             context.RuntimeErrors |= RuntimeConditions.ExceptionLoadingAnalysisPlugIn;
         }
@@ -240,33 +191,21 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
             IAnalysisContext context,
             Exception exception)
         {
-            string ruleId = context.Rule.Id;
-            string ruleName = context.Rule.Name;
-            context.Rule = Errors.RuleDisabled;
-
-            Result result = RuleUtilities.BuildResult(ResultKind.InternalError, context, null,
-                                nameof(SdkResources.ERR0998_ExceptionInCanAnalyze),
-                                ruleName,
-                                exception.FormatMessage());
-
-            // We populate stacks only in cases where the tool developer
-            // might benefit from troubleshooting an unexpected problem.
-            // We do not populate stacks in other helpers where exceptions
-            // indicate configuration problems. For these cases, the 
-            // complete stack details are rendered as part of the 
-            // result fullMessage
-
-            result.Stacks = new HashSet<Stack>(Stack.CreateStacks(exception));
-
-            // An unhandled exception was raised attempting to determine whether '{0}' 
+            // An unhandled exception was raised attempting to determine whether '{0}'
             // is a valid analysis target for check '{1}' (which has been disabled 
             // for the remainder of the analysis). The exception may have resulted 
             // from a problem related to parsing image metadata and not specific to 
-            // the rule, however. Exception information:
-            // {2}
-            context.Logger.Log(context.Rule, result);
+            // the rule, however.
+            context.Logger.LogToolNotification(
+                CreateNotification(
+                    Notification_ExceptionInCanAnalyze,
+                    context.Rule.Id,
+                    NotificationLevel.Error,
+                    exception,
+                    context.TargetUri.LocalPath,
+                    context.Rule.Name));
 
-            if (disabledSkimmers != null) { disabledSkimmers.Add(ruleId); }
+            if (disabledSkimmers != null) { disabledSkimmers.Add(context.Rule.Id); }
 
             context.RuntimeErrors |= RuntimeConditions.ExceptionRaisedInSkimmerCanAnalyze;
         }
@@ -276,28 +215,16 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
         {
             string ruleId = context.Rule.Id;
             string ruleName = context.Rule.Name;
-            // An unhandled exception was encountered initializing check '{0}:', which 
-            // has been disabled for the remainder of the analysis. Exception information:
-            // {1}
 
-            var errorContext = new AnalysisContext();
-            errorContext.Rule = Errors.RuleDisabled;
-
-            Result result = RuleUtilities.BuildResult(ResultKind.InternalError, errorContext, null,
-                                nameof(SdkResources.ERR0998_ExceptionInInitialize),
-                                ruleName,
-                                exception.FormatMessage());
-
-            // We populate stacks only in cases where the tool developer
-            // might benefit from troubleshooting an unexpected problem.
-            // We do not populate stacks in other helpers where exceptions
-            // indicate configuration problems. For these cases, the 
-            // complete stack details are rendered as part of the 
-            // result fullMessage
-
-            result.Stacks = Stack.CreateStacks(exception);
-
-            context.Logger.Log(errorContext.Rule, result);
+            // An unhandled exception was encountered initializing check '{0}', which 
+            // has been disabled for the remainder of the analysis.
+            context.Logger.LogToolNotification(
+                CreateNotification(
+                Notification_ExceptionInInitialize,
+                context.Rule.Id,
+                NotificationLevel.Error,
+                exception,
+                context.Rule.Name));
 
             context.RuntimeErrors |= RuntimeConditions.ExceptionInSkimmerInitialize;
         }
@@ -307,71 +234,99 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
             IAnalysisContext context,
             Exception exception)
         {
-            string ruleId = context.Rule.Id;
-            string ruleName = context.Rule.Name;
-            context.Rule = Errors.RuleDisabled;
-
-            Result result = RuleUtilities.BuildResult(ResultKind.InternalError, context, null,
-                                nameof(SdkResources.ERR0998_ExceptionInAnalyze),
-                                ruleName,
-                                exception.FormatMessage());
-
-            // We populate stacks only in cases where the tool developer
-            // might benefit from troubleshooting an unexpected problem.
-            // We do not populate stacks in other helpers where exceptions
-            // indicate configuration problems. For these cases, the 
-            // complete stack details are rendered as part of the 
-            // result fullMessage
-
-            result.Stacks = Stack.CreateStacks(exception);
-
             // An unhandled exception was encountered analyzing '{0}' for check '{1}', 
             // which has been disabled for the remainder of the analysis.The 
             // exception may have resulted from a problem related to parsing 
             // image metadata and not specific to the rule, however.
-            // Exception information:
-            // {2}
-            context.Logger.Log(context.Rule, result);
+            context.Logger.LogToolNotification(
+                CreateNotification(
+                    Notification_ExceptionInAnalyze,
+                    context.Rule.Id,
+                    NotificationLevel.Error,
+                    exception,
+                    context.TargetUri.LocalPath,
+                    context.Rule.Name));
 
-            if (disabledSkimmers != null) { disabledSkimmers.Add(ruleId); }
+            if (disabledSkimmers != null) { disabledSkimmers.Add(context.Rule.Id); }
 
             return RuntimeConditions.ExceptionInSkimmerAnalyze;
         }
 
         public static RuntimeConditions LogUnhandledEngineException(IAnalysisContext context, Exception exception)
         {
-            context.Rule = Errors.AnalysisHalted;
-
-            Result result = RuleUtilities.BuildResult(ResultKind.InternalError, context, null,
-                                nameof(SdkResources.ERR0999_UnhandledEngineException),
-                                exception.FormatMessage());
-
-            // We populate stacks only in cases where the tool developer
-            // might benefit from troubleshooting an unexpected problem.
-            // We do not populate stacks in other helpers where exceptions
-            // indicate configuration problems. For these cases, the 
-            // complete stack details are rendered as part of the 
-            // result fullMessage
-
-            result.Stacks = Stack.CreateStacks(exception);
-
-            // An unhandled exception was raised during analysis: {0}
-            context.Logger.Log(context.Rule, result);
+            // An unhandled exception was raised during analysis.
+            context.Logger.LogToolNotification(
+                CreateNotification(
+                    Notification_UnhandledEngineException,
+                    NotificationLevel.Error,
+                    exception));
 
             return RuntimeConditions.ExceptionInEngine;
         }
 
         public static void LogTargetParseError(IAnalysisContext context, Region region, string message)
         {
-            context.Rule = Errors.ParseError;
-
-            // An error occurred parsing '{0}': {1}
-            context.Logger.Log(context.Rule,
-                RuleUtilities.BuildResult(ResultKind.Error, context, region,
-                    nameof(SdkResources.ERR1001_Default),
+            // {0}({1}): error {2}: {3}
+            context.Logger.LogToolNotification(
+                CreateNotification(
+                    Notification_ParseError,
+                    NotificationLevel.Error,
+                    null,
+                    context.TargetUri.LocalPath,
+                    region.FormatForVisualStudio(),
+                    Notification_ParseError,
                     message));
 
             context.RuntimeErrors |= RuntimeConditions.TargetParseError;
+        }
+
+        private static Notification CreateNotification(
+            string notificationId,
+            NotificationLevel level,
+            Exception exception,
+            params object[] args)
+        {
+            return CreateNotification(notificationId, null, level, exception, args);
+        }
+
+        private static Notification CreateNotification(
+            string notificationId,
+            string ruleId,
+            NotificationLevel level,
+            Exception exception,
+            params object[] args)
+        {            
+            string messageFormat = GetMessageFormatResourceForNotification(notificationId);
+
+            string message = string.Format(CultureInfo.CurrentCulture, messageFormat, args);
+
+            string exceptionMessage = exception?.Message;
+            if (!string.IsNullOrEmpty(exceptionMessage))
+            {
+                message += "\n" + exceptionMessage;
+            }
+
+            var exceptionData = exception != null
+                ? ExceptionData.Create(exception)
+                : null;
+
+            return new Notification
+            {
+                Id = notificationId,
+                RuleId = ruleId,
+                Level = level,
+                Message = message,
+                Exception = exceptionData
+            };
+        }
+
+        private static string GetMessageFormatResourceForNotification(string notificationId)
+        {
+            string resourceName = "Notification_" + notificationId;
+
+            return (string)typeof(SdkResources)
+                            .GetProperty(resourceName, BindingFlags.NonPublic | BindingFlags.Static)
+                            .GetValue(obj: null, index: null);
         }
     }
 }

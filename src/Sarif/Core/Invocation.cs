@@ -17,7 +17,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             invocation.StartTime = DateTime.UtcNow;
             invocation.ProcessId = System.Diagnostics.Process.GetCurrentProcess().Id;
             invocation.WorkingDirectory = Environment.CurrentDirectory;
-            invocation.Parameters = Environment.CommandLine;
+            invocation.CommandLine = Environment.CommandLine;
 
             if (emitMachineEnvironment)
             {

@@ -1,10 +1,23 @@
 {
+  "AnnotatedCodeLocation.Properties": [
+    {
+      "kind": "DictionaryHint"
+    }
+  ],
   "CodeFlow.Properties": [
     {
       "kind": "DictionaryHint"
     }
   ],
-  "AnnotatedCodeLocation.Properties": [
+  "exception": [
+    {
+      "kind": "ClassNameHint",
+      "arguments": {
+        "className": "ExceptionData"
+      }
+    }
+  ],
+  "ExceptionData.Properties": [
     {
       "kind": "DictionaryHint"
     }
@@ -23,6 +36,11 @@
     }
   ],
   "Location.Properties": [
+    {
+      "kind": "DictionaryHint"
+    }
+  ],
+  "Notification.Properties": [
     {
       "kind": "DictionaryHint"
     }
@@ -144,21 +162,34 @@
       }
     }
   ],
-  "Result.Kind": [
+  "Notification.Level": [
     {
       "kind": "EnumHint",
       "arguments": {
-        "typeName": "ResultKind",
-        "description": "Values specifying the category of the result.",
+        "typeName": "NotificationLevel",
+        "description": "Values specifying the level of a notification.",
         "zeroValue": "Unknown",
         "enumValues": [
-          "Error",
+          "Note",
           "Warning",
+          "Error"
+        ]
+      }
+    }
+  ],
+  "Result.Level": [
+    {
+      "kind": "EnumHint",
+      "arguments": {
+        "typeName": "ResultLevel",
+        "description": "Values specifying the level of a result.",
+        "zeroValue": "Unknown",
+        "enumValues": [
+          "NotApplicable",
           "Pass",
           "Note",
-          "NotApplicable",
-          "InternalError",
-          "ConfigurationError"
+          "Warning",
+          "Error"
         ]
       }
     }

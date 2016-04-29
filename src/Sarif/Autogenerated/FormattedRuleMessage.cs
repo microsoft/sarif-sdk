@@ -12,7 +12,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// Contains information that can be used to construct a formatted message that describes a result.
     /// </summary>
     [DataContract]
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.16.0.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.19.0.0")]
     public partial class FormattedRuleMessage : ISarifNode, IEquatable<FormattedRuleMessage>
     {
         /// <summary>

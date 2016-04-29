@@ -44,7 +44,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
             // '{0}' was not evaluated for check '{1}:{2}' as the analysis
             // is not relevant based on observed metadata: {3}.
             context.Logger.Log(context.Rule,
-                RuleUtilities.BuildResult(ResultKind.NotApplicable, context, null,
+                RuleUtilities.BuildResult(ResultLevel.NotApplicable, context, null,
                     nameof(SdkResources.MSG1002_InvalidMetadata),
                     ruleId,
                     ruleName,
@@ -60,7 +60,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
             // '{0}' was not analyzed as it does not appear
             // to be a valid file type for analysis.
             context.Logger.Log(context.Rule,
-                RuleUtilities.BuildResult(ResultKind.NotApplicable, context, null,
+                RuleUtilities.BuildResult(ResultLevel.NotApplicable, context, null,
                     nameof(SdkResources.MSG1002_InvalidFileType)));
 
             context.RuntimeErrors |= RuntimeConditions.TargetNotValidToAnalyze;

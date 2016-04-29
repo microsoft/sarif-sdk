@@ -9,11 +9,11 @@ using System.Runtime.Serialization;
 namespace Microsoft.CodeAnalysis.Sarif
 {
     /// <summary>
-    /// The location where an analysis tool produced a result.
+    /// Describes a condition relevant to the tool itself, as opposed to being relevant to a target being analyzed by the tool.
     /// </summary>
     [DataContract]
     [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.19.0.0")]
-    public partial class Location : ISarifNode, IEquatable<Location>
+    public partial class Notification : ISarifNode, IEquatable<Notification>
     {
         /// <summary>
         /// Gets a value indicating the type of object implementing <see cref="ISarifNode" />.
@@ -22,49 +22,61 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             get
             {
-                return SarifNodeKind.Location;
+                return SarifNodeKind.Notification;
             }
         }
 
         /// <summary>
-        /// Identifies the file that the analysis tool was instructed to scan. This need not be the same as the file where the result actually occurred.
+        /// An identifier for the condition that was encountered.
         /// </summary>
-        [DataMember(Name = "analysisTarget", IsRequired = false, EmitDefaultValue = false)]
-        public PhysicalLocation AnalysisTarget { get; set; }
+        [DataMember(Name = "id", IsRequired = false, EmitDefaultValue = false)]
+        public string Id { get; set; }
 
         /// <summary>
-        /// Identifies the file where the analysis tool produced the result.
+        /// The stable, unique identifier of the rule (if any) to which this notification is relevant.
         /// </summary>
-        [DataMember(Name = "resultFile", IsRequired = false, EmitDefaultValue = false)]
-        public PhysicalLocation ResultFile { get; set; }
+        [DataMember(Name = "ruleId", IsRequired = false, EmitDefaultValue = false)]
+        public string RuleId { get; set; }
 
         /// <summary>
-        /// The fully qualified name of the logical location where the analysis tool produced the result.
+        /// A string that describes the condition that was encountered.
         /// </summary>
-        [DataMember(Name = "fullyQualifiedLogicalName", IsRequired = false, EmitDefaultValue = false)]
-        public string FullyQualifiedLogicalName { get; set; }
+        [DataMember(Name = "message", IsRequired = true)]
+        public string Message { get; set; }
 
         /// <summary>
-        /// A string used as a key into the logicalLocations dictionary, in case the string specified by 'fullyQualifiedLogicalName' is not unique.
+        /// A value specifying the severity level of the notification.
         /// </summary>
-        [DataMember(Name = "logicalLocationKey", IsRequired = false, EmitDefaultValue = false)]
-        public string LogicalLocationKey { get; set; }
+        [DataMember(Name = "level", IsRequired = false, EmitDefaultValue = false)]
+        public NotificationLevel Level { get; set; }
 
         /// <summary>
-        /// Key/value pairs that provide additional information about the location.
+        /// The date and time at which the analysis tool generated the notification.
+        /// </summary>
+        [DataMember(Name = "time", IsRequired = false, EmitDefaultValue = false)]
+        public DateTime Time { get; set; }
+
+        /// <summary>
+        /// The runtime exception, if any, relevant to this notification.
+        /// </summary>
+        [DataMember(Name = "exception", IsRequired = false, EmitDefaultValue = false)]
+        public ExceptionData Exception { get; set; }
+
+        /// <summary>
+        /// Key/value pairs that provide additional information about the notification.
         /// </summary>
         [DataMember(Name = "properties", IsRequired = false, EmitDefaultValue = false)]
         public IDictionary<string, string> Properties { get; set; }
 
         /// <summary>
-        /// A set of distinct strings that provide additional information about the location.
+        /// A set of distinct strings that provide additional information about the notification.
         /// </summary>
         [DataMember(Name = "tags", IsRequired = false, EmitDefaultValue = false)]
         public IList<string> Tags { get; set; }
 
         public override bool Equals(object other)
         {
-            return Equals(other as Location);
+            return Equals(other as Notification);
         }
 
         public override int GetHashCode()
@@ -72,24 +84,26 @@ namespace Microsoft.CodeAnalysis.Sarif
             int result = 17;
             unchecked
             {
-                if (AnalysisTarget != null)
+                if (Id != null)
                 {
-                    result = (result * 31) + AnalysisTarget.GetHashCode();
+                    result = (result * 31) + Id.GetHashCode();
                 }
 
-                if (ResultFile != null)
+                if (RuleId != null)
                 {
-                    result = (result * 31) + ResultFile.GetHashCode();
+                    result = (result * 31) + RuleId.GetHashCode();
                 }
 
-                if (FullyQualifiedLogicalName != null)
+                if (Message != null)
                 {
-                    result = (result * 31) + FullyQualifiedLogicalName.GetHashCode();
+                    result = (result * 31) + Message.GetHashCode();
                 }
 
-                if (LogicalLocationKey != null)
+                result = (result * 31) + Level.GetHashCode();
+                result = (result * 31) + Time.GetHashCode();
+                if (Exception != null)
                 {
-                    result = (result * 31) + LogicalLocationKey.GetHashCode();
+                    result = (result * 31) + Exception.GetHashCode();
                 }
 
                 if (Properties != null)
@@ -124,29 +138,39 @@ namespace Microsoft.CodeAnalysis.Sarif
             return result;
         }
 
-        public bool Equals(Location other)
+        public bool Equals(Notification other)
         {
             if (other == null)
             {
                 return false;
             }
 
-            if (!Object.Equals(AnalysisTarget, other.AnalysisTarget))
+            if (Id != other.Id)
             {
                 return false;
             }
 
-            if (!Object.Equals(ResultFile, other.ResultFile))
+            if (RuleId != other.RuleId)
             {
                 return false;
             }
 
-            if (FullyQualifiedLogicalName != other.FullyQualifiedLogicalName)
+            if (Message != other.Message)
             {
                 return false;
             }
 
-            if (LogicalLocationKey != other.LogicalLocationKey)
+            if (Level != other.Level)
+            {
+                return false;
+            }
+
+            if (Time != other.Time)
+            {
+                return false;
+            }
+
+            if (!Object.Equals(Exception, other.Exception))
             {
                 return false;
             }
@@ -198,26 +222,32 @@ namespace Microsoft.CodeAnalysis.Sarif
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="Location" /> class.
+        /// Initializes a new instance of the <see cref="Notification" /> class.
         /// </summary>
-        public Location()
+        public Notification()
         {
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="Location" /> class from the supplied values.
+        /// Initializes a new instance of the <see cref="Notification" /> class from the supplied values.
         /// </summary>
-        /// <param name="analysisTarget">
-        /// An initialization value for the <see cref="P: AnalysisTarget" /> property.
+        /// <param name="id">
+        /// An initialization value for the <see cref="P: Id" /> property.
         /// </param>
-        /// <param name="resultFile">
-        /// An initialization value for the <see cref="P: ResultFile" /> property.
+        /// <param name="ruleId">
+        /// An initialization value for the <see cref="P: RuleId" /> property.
         /// </param>
-        /// <param name="fullyQualifiedLogicalName">
-        /// An initialization value for the <see cref="P: FullyQualifiedLogicalName" /> property.
+        /// <param name="message">
+        /// An initialization value for the <see cref="P: Message" /> property.
         /// </param>
-        /// <param name="logicalLocationKey">
-        /// An initialization value for the <see cref="P: LogicalLocationKey" /> property.
+        /// <param name="level">
+        /// An initialization value for the <see cref="P: Level" /> property.
+        /// </param>
+        /// <param name="time">
+        /// An initialization value for the <see cref="P: Time" /> property.
+        /// </param>
+        /// <param name="exception">
+        /// An initialization value for the <see cref="P: Exception" /> property.
         /// </param>
         /// <param name="properties">
         /// An initialization value for the <see cref="P: Properties" /> property.
@@ -225,13 +255,13 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="tags">
         /// An initialization value for the <see cref="P: Tags" /> property.
         /// </param>
-        public Location(PhysicalLocation analysisTarget, PhysicalLocation resultFile, string fullyQualifiedLogicalName, string logicalLocationKey, IDictionary<string, string> properties, IEnumerable<string> tags)
+        public Notification(string id, string ruleId, string message, NotificationLevel level, DateTime time, ExceptionData exception, IDictionary<string, string> properties, IEnumerable<string> tags)
         {
-            Init(analysisTarget, resultFile, fullyQualifiedLogicalName, logicalLocationKey, properties, tags);
+            Init(id, ruleId, message, level, time, exception, properties, tags);
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="Location" /> class from the specified instance.
+        /// Initializes a new instance of the <see cref="Notification" /> class from the specified instance.
         /// </summary>
         /// <param name="other">
         /// The instance from which the new instance is to be initialized.
@@ -239,14 +269,14 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <exception cref="ArgumentNullException">
         /// Thrown if <paramref name="other" /> is null.
         /// </exception>
-        public Location(Location other)
+        public Notification(Notification other)
         {
             if (other == null)
             {
                 throw new ArgumentNullException(nameof(other));
             }
 
-            Init(other.AnalysisTarget, other.ResultFile, other.FullyQualifiedLogicalName, other.LogicalLocationKey, other.Properties, other.Tags);
+            Init(other.Id, other.RuleId, other.Message, other.Level, other.Time, other.Exception, other.Properties, other.Tags);
         }
 
         ISarifNode ISarifNode.DeepClone()
@@ -257,30 +287,28 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <summary>
         /// Creates a deep copy of this instance.
         /// </summary>
-        public Location DeepClone()
+        public Notification DeepClone()
         {
-            return (Location)DeepCloneCore();
+            return (Notification)DeepCloneCore();
         }
 
         private ISarifNode DeepCloneCore()
         {
-            return new Location(this);
+            return new Notification(this);
         }
 
-        private void Init(PhysicalLocation analysisTarget, PhysicalLocation resultFile, string fullyQualifiedLogicalName, string logicalLocationKey, IDictionary<string, string> properties, IEnumerable<string> tags)
+        private void Init(string id, string ruleId, string message, NotificationLevel level, DateTime time, ExceptionData exception, IDictionary<string, string> properties, IEnumerable<string> tags)
         {
-            if (analysisTarget != null)
+            Id = id;
+            RuleId = ruleId;
+            Message = message;
+            Level = level;
+            Time = time;
+            if (exception != null)
             {
-                AnalysisTarget = new PhysicalLocation(analysisTarget);
+                Exception = new ExceptionData(exception);
             }
 
-            if (resultFile != null)
-            {
-                ResultFile = new PhysicalLocation(resultFile);
-            }
-
-            FullyQualifiedLogicalName = fullyQualifiedLogicalName;
-            LogicalLocationKey = logicalLocationKey;
             if (properties != null)
             {
                 Properties = new Dictionary<string, string>(properties);

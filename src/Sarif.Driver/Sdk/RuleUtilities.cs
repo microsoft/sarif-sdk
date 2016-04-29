@@ -5,13 +5,12 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Resources;
-using Microsoft.CodeAnalysis.Sarif.Sdk;
 
 namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
 {
     public static class RuleUtilities
     {
-        public static Result BuildResult(ResultKind messageKind, IAnalysisContext context, Region region, string formatId, params string[] arguments)
+        public static Result BuildResult(ResultLevel level, IAnalysisContext context, Region region, string formatId, params string[] arguments)
         {
             string[] messageArguments = arguments;
 
@@ -38,11 +37,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
                 Arguments = messageArguments
             };
 
-            result.Kind = messageKind;
+            result.Level = level;
 
             if (targetPath != null)
             {
-                result.Locations = new HashSet<Location> {
+                result.Locations = new List<Location> {
                     new Sarif.Location {
                         AnalysisTarget = new PhysicalLocation
                         {

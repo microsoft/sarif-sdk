@@ -57,7 +57,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
                     {
                         new FileData()
                         {
-                            Hashes = new HashSet<Hash>
+                            Hashes = new List<Hash>
                             {
                                 new Hash()
                                 {

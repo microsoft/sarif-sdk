@@ -6,12 +6,16 @@ using System.CodeDom.Compiler;
 namespace Microsoft.CodeAnalysis.Sarif
 {
     /// <summary>
-    /// Possible values for the SARIF schema version.
+    /// Values specifying the level of a result.
     /// </summary>
     [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.19.0.0")]
-    public enum SarifVersion
+    public enum ResultLevel
     {
         Unknown,
-        OneZeroZeroBetaFour
+        NotApplicable,
+        Pass,
+        Note,
+        Warning,
+        Error
     }
 }

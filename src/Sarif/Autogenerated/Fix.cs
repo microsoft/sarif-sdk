@@ -12,7 +12,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// A proposed fix for the problem represented by a result object. A fix specifies a set of file to modify. For each file, it specifies a set of bytes to remove, and provides a set of new bytes to replace them.
     /// </summary>
     [DataContract]
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.16.0.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.19.0.0")]
     public partial class Fix : ISarifNode, IEquatable<Fix>
     {
         /// <summary>
@@ -33,7 +33,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         public string Description { get; set; }
 
         /// <summary>
-        /// A message relevant to this annotation.
+        /// One or more file changes that comprise a fix for a result.
         /// </summary>
         [DataMember(Name = "fileChanges", IsRequired = true)]
         public IList<FileChange> FileChanges { get; set; }

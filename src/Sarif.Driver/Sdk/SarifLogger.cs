@@ -41,7 +41,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
                         string md5, sha1, sha256;
 
                         HashUtilities.ComputeHashes(target, out md5, out sha1, out sha256);
-                        fileReference.Hashes = new HashSet<Hash>
+                        fileReference.Hashes = new List<Hash>
                         {
                             new Hash()
                             {
@@ -71,10 +71,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
             // by a dedicated rewriting visitor or some other approach.
             if (invocationTokensToRedact != null)
             {
-                run.Invocation.Parameters = Redact(run.Invocation.Parameters, invocationTokensToRedact);
+                run.Invocation.CommandLine = Redact(run.Invocation.CommandLine, invocationTokensToRedact);
                 run.Invocation.Machine = Redact(run.Invocation.Machine, invocationTokensToRedact);
                 run.Invocation.Account = Redact(run.Invocation.Account, invocationTokensToRedact);
-                run.Invocation.Parameters = Redact(run.Invocation.Parameters, invocationTokensToRedact);
+                run.Invocation.CommandLine = Redact(run.Invocation.CommandLine, invocationTokensToRedact);
                 run.Invocation.WorkingDirectory = Redact(run.Invocation.WorkingDirectory, invocationTokensToRedact);
 
                 if (run.Invocation.EnvironmentVariables != null)
@@ -240,7 +240,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
 
         public void Log(IRule rule, Result result)
         {
-            if (!ShouldLog(result.Kind))
+            if (!ShouldLog(result.Level))
             {
                 return;
             }
@@ -261,11 +261,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
             // through all aggregated loggers.
             context.Rule = Notes.AnalyzingTarget;
             Log(context.Rule,
-                RuleUtilities.BuildResult(ResultKind.Note, context, null,
+                RuleUtilities.BuildResult(ResultLevel.Note, context, null,
                     nameof(SdkResources.MSG1001_AnalyzingTarget)));
         }
 
-        public void Log(ResultKind messageKind, IAnalysisContext context, Region region, string formatId, params string[] arguments)
+        public void Log(ResultLevel messageKind, IAnalysisContext context, Region region, string formatId, params string[] arguments)
         {
             if (context.Rule != null)
             {
@@ -276,9 +276,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
             LogJsonIssue(messageKind, context.TargetUri?.LocalPath, region, context.Rule.Id, formatId, arguments);
         }
 
-        private void LogJsonIssue(ResultKind messageKind, string targetPath, Region region, string ruleId, string formatId, params string[] arguments)
+        private void LogJsonIssue(ResultLevel level, string targetPath, Region region, string ruleId, string formatId, params string[] arguments)
         {
-            if (!ShouldLog(messageKind))
+            if (!ShouldLog(level))
             {
                 return;
             }
@@ -293,11 +293,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
                 Arguments = arguments
             };
 
-            result.Kind = messageKind;
+            result.Level = level;
 
             if (targetPath != null)
             {
-                result.Locations = new HashSet<Location> {
+                result.Locations = new List<Location> {
                     new Sarif.Location {
                         AnalysisTarget = new PhysicalLocation
                         {
@@ -310,13 +310,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
             _issueLogJsonWriter.WriteResult(result);
         }
 
-        public bool ShouldLog(ResultKind messageKind)
+        public bool ShouldLog(ResultLevel level)
         {
-            switch (messageKind)
+            switch (level)
             {
-                case ResultKind.Note:
-                case ResultKind.Pass:
-                case ResultKind.NotApplicable:
+                case ResultLevel.Note:
+                case ResultLevel.Pass:
+                case ResultLevel.NotApplicable:
                 {
                     if (!Verbose)
                     {
@@ -325,10 +325,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
                     break;
                 }
 
-                case ResultKind.Error:
-                case ResultKind.Warning:
-                case ResultKind.InternalError:
-                case ResultKind.ConfigurationError:
+                case ResultLevel.Error:
+                case ResultLevel.Warning:
                 {
                     break;
                 }
@@ -339,6 +337,16 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
                 }
             }
             return true;
+        }
+
+        public void LogToolNotification(Notification notification)
+        {
+            _run.ToolNotifications.Add(notification);
+        }
+
+        public void LogConfigurationNotification(Notification notification)
+        {
+            _run.ConfigurationNotifications.Add(notification);
         }
     }
 }

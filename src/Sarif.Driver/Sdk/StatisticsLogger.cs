@@ -4,8 +4,6 @@
 using System;
 using System.Diagnostics;
 
-using Microsoft.CodeAnalysis.Sarif.Sdk;
-
 namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
 {
     public class StatisticsLogger : IAnalysisLogger
@@ -38,57 +36,43 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
 
         public void Log(IRule rule, Result result)
         {
-            Log(result.Kind, result.RuleId);
+            Log(result.Level, result.RuleId);
+        }
+
+        public void LogToolNotification(Notification notification)
+        {
+        }
+
+        public void LogConfigurationNotification(Notification notification)
+        {
         }
 
         public void LogMessage(bool verbose, string message)
         {
-
         }
 
-        public void Log(ResultKind messageKind, string ruleId)
+        public void Log(ResultLevel level, string ruleId)
         {
-            switch (messageKind)
+            switch (level)
             {
-
-                case ResultKind.Pass:
-                    {
-                        break;
-                    }
-
-                case ResultKind.Error:
-                {
+                case ResultLevel.Pass:
                     break;
-                }
 
-                case ResultKind.Warning:
-                {
+                case ResultLevel.Error:
                     break;
-                }
 
-                case ResultKind.NotApplicable:
-                    {
-                        if (ruleId == Notes.InvalidTarget.Id)
-                        {
-                            _invalidTargetsCount++;
-                        }
-                        break;
-                    }
+                case ResultLevel.Warning:
+                    break;
 
-                case ResultKind.InternalError:
+                case ResultLevel.NotApplicable:
+                    if (ruleId == Notes.InvalidTarget.Id)
                     {
-                        break;
+                        _invalidTargetsCount++;
                     }
-
-                case ResultKind.ConfigurationError:
-                    {
-                        break;
-                    }
+                    break;
 
                 default:
-                    {
-                        throw new InvalidOperationException();
-                    }
+                    throw new InvalidOperationException();
             }
         }
 

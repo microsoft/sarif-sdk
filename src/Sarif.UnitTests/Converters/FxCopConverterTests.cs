@@ -375,7 +375,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 RuleId = "CA0000",
                 Message = "hello!",
                 ToolFingerprint = "1#test",
-                Locations = new HashSet<Location>
+                Locations = new List<Location>
                 {
                     new Location
                     {

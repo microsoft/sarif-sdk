@@ -42,6 +42,7 @@
     <Compile Include="Converters\FortifyStrings.cs" />
     <Compile Include="Core\FileData.cs" />
     <Compile Include="Core\Invocation.cs" />
+    <Compile Include="Core\ExceptionData.cs" />
     <Compile Include="Core\Stack.cs" />
     <Compile Include="Core\StackFrame.cs" />
     <Compile Include="Core\Tool.cs" />
@@ -53,7 +54,7 @@
     <Compile Include="Readers\AlgorithmKindConverter.cs" />
     <Compile Include="Readers\DateTimeConverter.cs" />
     <Compile Include="Readers\ResultDiffingVisitor.cs" />
-    <Compile Include="Readers\ResultKindConverter.cs" />
+    <Compile Include="Readers\EnumConverter.cs" />
     <Compile Include="Readers\SarifContractResolver.cs" />
     <Compile Include="Readers\SarifVersionConverter.cs" />
     <Compile Include="Readers\UriConverter.cs" />

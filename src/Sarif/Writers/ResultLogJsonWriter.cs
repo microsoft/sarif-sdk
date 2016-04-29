@@ -3,7 +3,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 
 using Microsoft.CodeAnalysis.Sarif.Readers;
 using Microsoft.CodeAnalysis.Sarif.Sdk;
@@ -29,7 +28,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             ResultsClosed = 0x20,
             InvocationWritten = 0x40,
             LogicalLocationsWritten = 0x80,
-            Disposed = 0x100
+            ToolNotificationsWritten = 0x100,
+            ConfigurationNotificationsWritten = 0x200,
+            Disposed = 0x40000000
         }
 
         private Conditions _writeConditions;
@@ -261,6 +262,42 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
             _jsonWriter.WritePropertyName("invocation");
             _serializer.Serialize(_jsonWriter, invocation, typeof(Invocation));
+
+            _writeConditions |= Conditions.InvocationWritten;
+        }
+
+        public void WriteToolNotifications(IEnumerable<Notification> notifications)
+        {
+            if (notifications == null)
+            {
+                throw new ArgumentNullException(nameof(notifications));
+            }
+
+            EnsureInitialized();
+            EnsureResultsArrayIsNotOpen();
+            EnsureStateNotAlreadySet(Conditions.Disposed | Conditions.ToolNotificationsWritten);
+
+            _jsonWriter.WritePropertyName("toolNotifications");
+            _serializer.Serialize(_jsonWriter, notifications, notifications.GetType());
+
+            _writeConditions |= Conditions.ToolNotificationsWritten;
+        }
+
+        public void WriteConfigurationNotifications(IEnumerable<Notification> notifications)
+        {
+            if (notifications == null)
+            {
+                throw new ArgumentNullException(nameof(notifications));
+            }
+
+            EnsureInitialized();
+            EnsureResultsArrayIsNotOpen();
+            EnsureStateNotAlreadySet(Conditions.Disposed | Conditions.ConfigurationNotificationsWritten);
+
+            _jsonWriter.WritePropertyName("configurationNotifications");
+            _serializer.Serialize(_jsonWriter, notifications, notifications.GetType());
+
+            _writeConditions |= Conditions.ConfigurationNotificationsWritten;
         }
 
         /// <summary>Writes the log footer and closes the underlying <see cref="JsonWriter"/>.</summary>

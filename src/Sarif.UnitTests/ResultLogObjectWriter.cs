@@ -140,5 +140,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         {
             throw new NotImplementedException();
         }
+
+        public void WriteToolNotifications(IEnumerable<Notification> notifications)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void WriteConfigurationNotifications(IEnumerable<Notification> notifications)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

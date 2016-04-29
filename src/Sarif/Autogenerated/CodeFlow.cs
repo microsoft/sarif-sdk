@@ -9,7 +9,7 @@ using System.Runtime.Serialization;
 namespace Microsoft.CodeAnalysis.Sarif
 {
     [DataContract]
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.16.0.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.19.0.0")]
     public partial class CodeFlow : ISarifNode, IEquatable<CodeFlow>
     {
         /// <summary>
@@ -36,16 +36,16 @@ namespace Microsoft.CodeAnalysis.Sarif
         public IList<AnnotatedCodeLocation> Locations { get; set; }
 
         /// <summary>
-        /// Key/value pairs that provide additional details about the code flow.
+        /// Key/value pairs that provide additional information about the code flow.
         /// </summary>
         [DataMember(Name = "properties", IsRequired = false, EmitDefaultValue = false)]
         public IDictionary<string, string> Properties { get; set; }
 
         /// <summary>
-        /// A unique set of strings that provide additional information for the code flow.
+        /// A unique set of strings that provide additional information about the code flow.
         /// </summary>
         [DataMember(Name = "tags", IsRequired = false, EmitDefaultValue = false)]
-        public ISet<string> Tags { get; set; }
+        public IList<string> Tags { get; set; }
 
         public override bool Equals(object other)
         {
@@ -168,9 +168,17 @@ namespace Microsoft.CodeAnalysis.Sarif
                     return false;
                 }
 
-                if (!Tags.SetEquals(other.Tags))
+                if (Tags.Count != other.Tags.Count)
                 {
                     return false;
+                }
+
+                for (int index_1 = 0; index_1 < Tags.Count; ++index_1)
+                {
+                    if (Tags[index_1] != other.Tags[index_1])
+                    {
+                        return false;
+                    }
                 }
             }
 
@@ -199,7 +207,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="tags">
         /// An initialization value for the <see cref="P: Tags" /> property.
         /// </param>
-        public CodeFlow(string message, IEnumerable<AnnotatedCodeLocation> locations, IDictionary<string, string> properties, ISet<string> tags)
+        public CodeFlow(string message, IEnumerable<AnnotatedCodeLocation> locations, IDictionary<string, string> properties, IEnumerable<string> tags)
         {
             Init(message, locations, properties, tags);
         }
@@ -241,7 +249,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new CodeFlow(this);
         }
 
-        private void Init(string message, IEnumerable<AnnotatedCodeLocation> locations, IDictionary<string, string> properties, ISet<string> tags)
+        private void Init(string message, IEnumerable<AnnotatedCodeLocation> locations, IDictionary<string, string> properties, IEnumerable<string> tags)
         {
             Message = message;
             if (locations != null)
@@ -269,7 +277,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             if (tags != null)
             {
-                var destination_1 = new HashSet<string>();
+                var destination_1 = new List<string>();
                 foreach (var value_1 in tags)
                 {
                     destination_1.Add(value_1);
