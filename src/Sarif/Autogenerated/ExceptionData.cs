@@ -24,10 +24,10 @@ namespace Microsoft.CodeAnalysis.Sarif
         }
 
         /// <summary>
-        /// The fully qualified type name of the object that was thrown.
+        /// A string that identifies the kind of exception, for example, the fully qualified type name of an object that was thrown, or the symbolic name of a signal.
         /// </summary>
-        [DataMember(Name = "type", IsRequired = false, EmitDefaultValue = false)]
-        public string Type { get; set; }
+        [DataMember(Name = "kind", IsRequired = false, EmitDefaultValue = false)]
+        public string Kind { get; set; }
 
         /// <summary>
         /// A string that describes the exception.
@@ -57,9 +57,9 @@ namespace Microsoft.CodeAnalysis.Sarif
             int result = 17;
             unchecked
             {
-                if (Type != null)
+                if (Kind != null)
                 {
-                    result = (result * 31) + Type.GetHashCode();
+                    result = (result * 31) + Kind.GetHashCode();
                 }
 
                 if (Message != null)
@@ -95,7 +95,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 return false;
             }
 
-            if (Type != other.Type)
+            if (Kind != other.Kind)
             {
                 return false;
             }
@@ -144,8 +144,8 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <summary>
         /// Initializes a new instance of the <see cref="ExceptionData" /> class from the supplied values.
         /// </summary>
-        /// <param name="type">
-        /// An initialization value for the <see cref="P: Type" /> property.
+        /// <param name="kind">
+        /// An initialization value for the <see cref="P: Kind" /> property.
         /// </param>
         /// <param name="message">
         /// An initialization value for the <see cref="P: Message" /> property.
@@ -156,9 +156,9 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="innerExceptions">
         /// An initialization value for the <see cref="P: InnerExceptions" /> property.
         /// </param>
-        public ExceptionData(string type, string message, Stack stack, IEnumerable<ExceptionData> innerExceptions)
+        public ExceptionData(string kind, string message, Stack stack, IEnumerable<ExceptionData> innerExceptions)
         {
-            Init(type, message, stack, innerExceptions);
+            Init(kind, message, stack, innerExceptions);
         }
 
         /// <summary>
@@ -177,7 +177,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 throw new ArgumentNullException(nameof(other));
             }
 
-            Init(other.Type, other.Message, other.Stack, other.InnerExceptions);
+            Init(other.Kind, other.Message, other.Stack, other.InnerExceptions);
         }
 
         ISarifNode ISarifNode.DeepClone()
@@ -198,9 +198,9 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new ExceptionData(this);
         }
 
-        private void Init(string type, string message, Stack stack, IEnumerable<ExceptionData> innerExceptions)
+        private void Init(string kind, string message, Stack stack, IEnumerable<ExceptionData> innerExceptions)
         {
-            Type = type;
+            Kind = kind;
             Message = message;
             if (stack != null)
             {

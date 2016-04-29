@@ -1,32 +1,34 @@
 ﻿// Copyright (c) Microsoft. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
+
 using System;
 using Newtonsoft.Json;
 
 namespace Microsoft.CodeAnalysis.Sarif.Readers
 {
-    public class NotificationLevelConverter : JsonConverter
+    public class EnumConverter : JsonConverter
     {
-        public static readonly NotificationLevelConverter Instance = new NotificationLevelConverter();
+        public static readonly EnumConverter Instance = new EnumConverter();
 
         public override bool CanConvert(Type objectType)
         {
-            return objectType == typeof(NotificationLevel);
+            return objectType == typeof(ResultLevel)
+                || objectType == typeof(NotificationLevel);
         }
 
         public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
         {
             string value = (string)reader.Value;
-            return Enum.Parse(typeof(NotificationLevel), value.Substring(0, 1).ToUpper() + value.Substring(1));
+            return Enum.Parse(objectType, value.Substring(0, 1).ToUpper() + value.Substring(1));
         }
 
         public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
         {            
-            string notificationLevelString = value.ToString();
+            string resultLevelString = value.ToString();
 
-            notificationLevelString = notificationLevelString.Substring(0, 1).ToLower() + notificationLevelString.Substring(1);
+            resultLevelString = resultLevelString.Substring(0, 1).ToLower() + resultLevelString.Substring(1);
 
-            writer.WriteRawValue("\"" + notificationLevelString + "\"");
+            writer.WriteRawValue("\"" + resultLevelString + "\"");
         }
     }
 }

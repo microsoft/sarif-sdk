@@ -89,9 +89,9 @@
     "exception": {
       "type": "object",
       "properties": {
-        "type": {
+        "kind": {
           "type": "string",
-          "description": "The fully qualified type name of the object that was thrown."
+          "description": "A string that identifies the kind of exception, for example, the fully qualified type name of an object that was thrown, or the symbolic name of a signal."
         },
 
         "message": {
@@ -252,8 +252,8 @@
       "type": "object",
       "properties": {
 
-        "parameters": {
-          "description": "A string containing the runtime parameters with which the tool was invoked. For command line tools, this string may consist of the completely specified command line used to invoke the tool.",
+        "commandLine": {
+          "description": "The command line used to invoke the tool.",
           "type": "string"
         },
 
@@ -384,10 +384,10 @@
     },
     "notification": {
       "type": "object",
-      "description": "Describes a condition relevant to the tool itself, as opposed to being relevant to a file being analyzed by the tool.",
+      "description": "Describes a condition relevant to the tool itself, as opposed to being relevant to a target being analyzed by the tool.",
       "properties": {
         "id": {
-          "description": "A stable, unique identifier for the condition that was encountered.",
+          "description": "An identifier for the condition that was encountered.",
           "type": "string"
         },
 
@@ -414,7 +414,7 @@
         },
 
         "exception": {
-          "description": "The runtime exception, if any, which caused this notification.",
+          "description": "The runtime exception, if any, relevant to this notification.",
           "$ref": "#/definitions/exception"
         },
 

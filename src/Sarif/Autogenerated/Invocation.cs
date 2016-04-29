@@ -27,10 +27,10 @@ namespace Microsoft.CodeAnalysis.Sarif
         }
 
         /// <summary>
-        /// A string containing the runtime parameters with which the tool was invoked. For command line tools, this string may consist of the completely specified command line used to invoke the tool.
+        /// The command line used to invoke the tool.
         /// </summary>
-        [DataMember(Name = "parameters", IsRequired = false, EmitDefaultValue = false)]
-        public string Parameters { get; set; }
+        [DataMember(Name = "commandLine", IsRequired = false, EmitDefaultValue = false)]
+        public string CommandLine { get; set; }
 
         /// <summary>
         /// The date and time at which the run started. See "Date/time properties" in the SARIF spec for the required format.
@@ -108,9 +108,9 @@ namespace Microsoft.CodeAnalysis.Sarif
             int result = 17;
             unchecked
             {
-                if (Parameters != null)
+                if (CommandLine != null)
                 {
-                    result = (result * 31) + Parameters.GetHashCode();
+                    result = (result * 31) + CommandLine.GetHashCode();
                 }
 
                 result = (result * 31) + StartTime.GetHashCode();
@@ -185,7 +185,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 return false;
             }
 
-            if (Parameters != other.Parameters)
+            if (CommandLine != other.CommandLine)
             {
                 return false;
             }
@@ -291,8 +291,8 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <summary>
         /// Initializes a new instance of the <see cref="Invocation" /> class from the supplied values.
         /// </summary>
-        /// <param name="parameters">
-        /// An initialization value for the <see cref="P: Parameters" /> property.
+        /// <param name="commandLine">
+        /// An initialization value for the <see cref="P: CommandLine" /> property.
         /// </param>
         /// <param name="startTime">
         /// An initialization value for the <see cref="P: StartTime" /> property.
@@ -327,9 +327,9 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="tags">
         /// An initialization value for the <see cref="P: Tags" /> property.
         /// </param>
-        public Invocation(string parameters, DateTime startTime, DateTime endTime, string correlationId, string machine, string account, int processId, string fileName, string workingDirectory, IDictionary<string, string> environmentVariables, object properties, IEnumerable<string> tags)
+        public Invocation(string commandLine, DateTime startTime, DateTime endTime, string correlationId, string machine, string account, int processId, string fileName, string workingDirectory, IDictionary<string, string> environmentVariables, object properties, IEnumerable<string> tags)
         {
-            Init(parameters, startTime, endTime, correlationId, machine, account, processId, fileName, workingDirectory, environmentVariables, properties, tags);
+            Init(commandLine, startTime, endTime, correlationId, machine, account, processId, fileName, workingDirectory, environmentVariables, properties, tags);
         }
 
         /// <summary>
@@ -348,7 +348,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 throw new ArgumentNullException(nameof(other));
             }
 
-            Init(other.Parameters, other.StartTime, other.EndTime, other.CorrelationId, other.Machine, other.Account, other.ProcessId, other.FileName, other.WorkingDirectory, other.EnvironmentVariables, other.Properties, other.Tags);
+            Init(other.CommandLine, other.StartTime, other.EndTime, other.CorrelationId, other.Machine, other.Account, other.ProcessId, other.FileName, other.WorkingDirectory, other.EnvironmentVariables, other.Properties, other.Tags);
         }
 
         ISarifNode ISarifNode.DeepClone()
@@ -369,9 +369,9 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new Invocation(this);
         }
 
-        private void Init(string parameters, DateTime startTime, DateTime endTime, string correlationId, string machine, string account, int processId, string fileName, string workingDirectory, IDictionary<string, string> environmentVariables, object properties, IEnumerable<string> tags)
+        private void Init(string commandLine, DateTime startTime, DateTime endTime, string correlationId, string machine, string account, int processId, string fileName, string workingDirectory, IDictionary<string, string> environmentVariables, object properties, IEnumerable<string> tags)
         {
-            Parameters = parameters;
+            CommandLine = commandLine;
             StartTime = startTime;
             EndTime = endTime;
             CorrelationId = correlationId;

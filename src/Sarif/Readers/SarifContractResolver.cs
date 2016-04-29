@@ -29,10 +29,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
                 contract.Converter = SarifVersionConverter.Instance;
 
             else if (objectType == typeof(ResultLevel))
-                contract.Converter = ResultLevelConverter.Instance;
+                contract.Converter = EnumConverter.Instance;
 
             else if (objectType == typeof(NotificationLevel))
-                contract.Converter = NotificationLevelConverter.Instance;
+                contract.Converter = EnumConverter.Instance;
 
             else if (objectType == typeof(AlgorithmKind))
                 contract.Converter = AlgorithmKindConverter.Instance;

@@ -160,7 +160,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to An exception was raised analyzing &apos;{0}&apos; for check &apos;{1}&apos; (which has been disabled for the remainder of the analysis). The exception may have resulted from a problem related to parsing image metadata and not specific to the rule, however..
+        ///   Looks up a localized string similar to An exception was raised analyzing &apos;{0}&apos; for check &apos;{1}&apos; (which has been disabled). The exception may have resulted from a problem related to parsing image metadata and not specific to the rule, however..
         /// </summary>
         internal static string Notification_ExceptionInAnalyze {
             get {
@@ -169,7 +169,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to An exception was raised attempting to determine whether &apos;{0}&apos; is a valid analysis target for check &apos;{1}&apos; (which has been disabled for the remainder of the analysis). The exception may have resulted from a problem related to parsing the analysis target and not specific to the rule, however..
+        ///   Looks up a localized string similar to An exception was raised attempting to determine whether &apos;{0}&apos; is a valid analysis target for check &apos;{1}&apos; (which has been disabled). The exception may have resulted from a problem related to parsing the analysis target and not specific to the rule, however..
         /// </summary>
         internal static string Notification_ExceptionInCanAnalyze {
             get {
@@ -178,7 +178,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to An exception was raised initializing check &apos;{0}&apos; (which has been disabled for the remainder of the analysis)..
+        ///   Looks up a localized string similar to An exception was raised initializing check &apos;{0}&apos; (which has been disabled)..
         /// </summary>
         internal static string Notification_ExceptionInInitialize {
             get {

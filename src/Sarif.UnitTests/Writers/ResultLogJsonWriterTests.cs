@@ -162,7 +162,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         public static readonly Invocation s_invocation = new Invocation
         {
             Machine = "MY_MACHINE",
-            Parameters = "/a /b c.dll"
+            CommandLine = "/a /b c.dll"
         };
 
         [TestMethod]
@@ -177,7 +177,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         ""name"": null
       },
       ""invocation"": {
-        ""parameters"": ""/a /b c.dll"",
+        ""commandLine"": ""/a /b c.dll"",
         ""machine"": ""MY_MACHINE""
       }
     }
@@ -217,13 +217,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 Time = DateTime.ParseExact("04/29/2016", ShortDateFormat, CultureInfo.InvariantCulture),
                 Exception = new ExceptionData
                 {
-                    Type = "System.AggregateException",
+                    Kind = "System.AggregateException",
                     Message = "Bad thing",
                     InnerExceptions = new[]
                     {
                         new ExceptionData
                         {
-                            Type = "System.ArgumentNullException",
+                            Kind = "System.ArgumentNullException",
                             Message = "x cannot be null",
                             Stack = new Stack
                             {
@@ -258,11 +258,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
           ""level"": ""error"",
           ""time"": ""2016-04-29T00:00:00.00Z"",
           ""exception"": {
-            ""type"": ""System.AggregateException"",
+            ""kind"": ""System.AggregateException"",
             ""message"": ""Bad thing"",
             ""innerExceptions"": [
               {
-                ""type"": ""System.ArgumentNullException"",
+                ""kind"": ""System.ArgumentNullException"",
                 ""message"": ""x cannot be null"",
                 ""stack"": {
                   ""frames"": [

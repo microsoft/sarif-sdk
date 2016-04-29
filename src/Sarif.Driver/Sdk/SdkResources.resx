@@ -121,10 +121,10 @@
     <value>An analysis target was analyzed.</value>
   </data>
   <data name="Notification_ExceptionInAnalyze" xml:space="preserve">
-    <value>An exception was raised analyzing '{0}' for check '{1}' (which has been disabled for the remainder of the analysis). The exception may have resulted from a problem related to parsing image metadata and not specific to the rule, however.</value>
+    <value>An exception was raised analyzing '{0}' for check '{1}' (which has been disabled). The exception may have resulted from a problem related to parsing image metadata and not specific to the rule, however.</value>
   </data>
   <data name="Notification_ExceptionInCanAnalyze" xml:space="preserve">
-    <value>An exception was raised attempting to determine whether '{0}' is a valid analysis target for check '{1}' (which has been disabled for the remainder of the analysis). The exception may have resulted from a problem related to parsing the analysis target and not specific to the rule, however.</value>
+    <value>An exception was raised attempting to determine whether '{0}' is a valid analysis target for check '{1}' (which has been disabled). The exception may have resulted from a problem related to parsing the analysis target and not specific to the rule, however.</value>
   </data>
   <data name="Notification_ExceptionCreatingLogFile" xml:space="preserve">
     <value>Could not create output file '{0}'.</value>
@@ -133,7 +133,7 @@
     <value>An exception was raised during analysis.</value>
   </data>
   <data name="Notification_ExceptionInInitialize" xml:space="preserve">
-    <value>An exception was raised initializing check '{0}' (which has been disabled for the remainder of the analysis).</value>
+    <value>An exception was raised initializing check '{0}' (which has been disabled).</value>
   </data>
   <data name="Notification_ExceptionLoadingPlugIn" xml:space="preserve">
     <value>Could not load the plug-in '{0}'.</value>

@@ -9,7 +9,7 @@ using System.Runtime.Serialization;
 namespace Microsoft.CodeAnalysis.Sarif
 {
     /// <summary>
-    /// Describes a condition relevant to the tool itself, as opposed to being relevant to a file being analyzed by the tool.
+    /// Describes a condition relevant to the tool itself, as opposed to being relevant to a target being analyzed by the tool.
     /// </summary>
     [DataContract]
     [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.19.0.0")]
@@ -27,7 +27,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         }
 
         /// <summary>
-        /// A stable, unique identifier for the condition that was encountered.
+        /// An identifier for the condition that was encountered.
         /// </summary>
         [DataMember(Name = "id", IsRequired = false, EmitDefaultValue = false)]
         public string Id { get; set; }
@@ -57,7 +57,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         public DateTime Time { get; set; }
 
         /// <summary>
-        /// The runtime exception, if any, which caused this notification.
+        /// The runtime exception, if any, relevant to this notification.
         /// </summary>
         [DataMember(Name = "exception", IsRequired = false, EmitDefaultValue = false)]
         public ExceptionData Exception { get; set; }

@@ -53,9 +53,8 @@
     <Compile Include="MultiplyByPrimesHash.cs" />
     <Compile Include="Readers\AlgorithmKindConverter.cs" />
     <Compile Include="Readers\DateTimeConverter.cs" />
-    <Compile Include="Readers\NotificationLevelConverter.cs" />
     <Compile Include="Readers\ResultDiffingVisitor.cs" />
-    <Compile Include="Readers\ResultLevelConverter.cs" />
+    <Compile Include="Readers\EnumConverter.cs" />
     <Compile Include="Readers\SarifContractResolver.cs" />
     <Compile Include="Readers\SarifVersionConverter.cs" />
     <Compile Include="Readers\UriConverter.cs" />
