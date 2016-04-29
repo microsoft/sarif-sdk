@@ -158,9 +158,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
 
         [Theory]
         [MemberData(nameof(ResultFormatForVisualStudioTestCases))]
-        public void Result_FormatForVisualStudioTests(ResultLevel kind, Region region, string expected)
+        public void Result_FormatForVisualStudioTests(ResultLevel level, Region region, string expected)
         {
-            Result result = MakeResultFromTestCase(kind, region);
+            Result result = MakeResultFromTestCase(level, region);
 
             string actual = result.FormatForVisualStudio(TestRule);
 

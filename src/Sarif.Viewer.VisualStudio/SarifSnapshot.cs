@@ -144,9 +144,9 @@ namespace Microsoft.Sarif.Viewer
             return content != null;
         }
 
-        private __VSERRORCATEGORY GetSeverity(ResultLevel kind)
+        private __VSERRORCATEGORY GetSeverity(ResultLevel level)
         {
-            switch (kind)
+            switch (level)
             {
                 case ResultLevel.Error:
                 {

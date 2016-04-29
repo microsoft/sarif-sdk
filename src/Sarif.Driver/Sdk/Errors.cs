@@ -37,7 +37,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
 
         public static void LogExceptionLoadingTarget(IAnalysisContext context)
         {
-            // Could not load analysis target "{0}".
+            // Could not load analysis target '{0}'.
             context.Logger.LogConfigurationNotification(
                 CreateNotification(
                     Notification_ExceptionLoadingAnalysisTarget,
@@ -52,7 +52,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
         {
             string ruleName = context.Rule.Name;
 
-            // "{0}" was not evaluated for check "{1}" because its PDB could not be loaded.
+            // '{0}' was not evaluated for check '{1}' because its PDB could not be loaded.
             context.Logger.LogConfigurationNotification(
                 CreateNotification(
                     Notification_ExceptionLoadingPdb,
@@ -110,7 +110,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
 
         public static void LogExceptionCreatingLogFile(IAnalysisContext context, string fileName, Exception exception)
         {
-            // Could not create output file: "{0}"
+            // Could not create output file: '{0}'
             context.Logger.LogConfigurationNotification(
                 CreateNotification(
                     Notification_ExceptionCreatingLogFile,
@@ -123,7 +123,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
 
         public static void LogMissingFile(IAnalysisContext context, string fileName)
         {
-            // A required file specified on the command line could not be found: "{0}". 
+            // A required file specified on the command line could not be found: '{0}'. 
             context.Logger.LogConfigurationNotification(
                 CreateNotification(
                     Notification_MissingFile,
@@ -136,7 +136,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
 
         public static void LogExceptionAccessingFile(IAnalysisContext context, string fileName, Exception exception)
         {
-            // Could not access a file specified on the command-line: "{0}".
+            // Could not access a file specified on the command-line: '{0}'.
             context.Logger.LogConfigurationNotification(
                 CreateNotification(
                     Notification_ExceptionAccessingFile,
@@ -175,7 +175,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
 
         public static void LogExceptionLoadingPlugIn(string plugInFilePath, IAnalysisContext context, Exception exception)
         {
-            // Could not load plug-in "{0}".
+            // Could not load plug-in '{0}'.
             context.Logger.LogConfigurationNotification(
                 CreateNotification(
                     Notification_ExceptionLoadingPlugIn,
@@ -191,8 +191,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
             IAnalysisContext context,
             Exception exception)
         {
-            // An unhandled exception was raised attempting to determine whether "{0}"
-            // is a valid analysis target for check "{1}" (which has been disabled 
+            // An unhandled exception was raised attempting to determine whether '{0}'
+            // is a valid analysis target for check '{1}' (which has been disabled 
             // for the remainder of the analysis). The exception may have resulted 
             // from a problem related to parsing image metadata and not specific to 
             // the rule, however.
@@ -216,7 +216,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
             string ruleId = context.Rule.Id;
             string ruleName = context.Rule.Name;
 
-            // An unhandled exception was encountered initializing check "{0}", which 
+            // An unhandled exception was encountered initializing check '{0}', which 
             // has been disabled for the remainder of the analysis.
             context.Logger.LogToolNotification(
                 CreateNotification(
@@ -234,7 +234,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
             IAnalysisContext context,
             Exception exception)
         {
-            // An unhandled exception was encountered analyzing "{0}" for check "{1}", 
+            // An unhandled exception was encountered analyzing '{0}' for check '{1}', 
             // which has been disabled for the remainder of the analysis.The 
             // exception may have resulted from a problem related to parsing 
             // image metadata and not specific to the rule, however.
