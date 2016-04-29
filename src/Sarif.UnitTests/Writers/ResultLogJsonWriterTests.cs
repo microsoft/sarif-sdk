@@ -2,6 +2,7 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using System;
+using System.Globalization;
 using System.IO;
 using System.Text;
 
@@ -13,6 +14,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
     [TestClass]
     public class ResultLogJsonWriterTests
     {
+        private static readonly string SchemaVersion =
+            SarifUtilities.ConvertToText(SarifVersion.OneZeroZeroBetaFour);
+
         private static readonly Tool s_defaultTool = new Tool();
         private static readonly Result s_defaultResult = new Result();
 
@@ -20,7 +24,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         {
             StringBuilder result = new StringBuilder();
             using (var str = new StringWriter(result))
-            using (var json = new JsonTextWriter(str))
+            using (var json = new JsonTextWriter(str) { Formatting = Formatting.Indented })
             using (var uut = new ResultLogJsonWriter(json))
             {
                 testContent(uut);
@@ -32,14 +36,33 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         [TestMethod]
         public void ResultLogJsonWriter_DefaultIsEmpty()
         {
-            string expected = @"{""version"":""1.0.0-beta.4"",""runs"":[{}]}";
+            string expected =
+@"{
+  ""version"": """ + SchemaVersion + @""",
+  ""runs"": [
+    {}
+  ]
+}";
             Assert.AreEqual(expected, GetJson(delegate { }));
         }
 
         [TestMethod]
         public void ResultLogJsonWriter_AcceptsResultAndTool()
         {
-            string expected = "{\"version\":\"1.0.0-beta.4\",\"runs\":[{\"tool\":{\"name\":null},\"results\":[{}]}]}";
+            string expected =
+@"{
+  ""version"": """ + SchemaVersion + @""",
+  ""runs"": [
+    {
+      ""tool"": {
+        ""name"": null
+      },
+      ""results"": [
+        {}
+      ]
+    }
+  ]
+}";
             string actual = GetJson(uut =>
             {
                 uut.WriteTool(s_defaultTool);
@@ -134,6 +157,134 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 uut.Dispose();
                 uut.Dispose();
             }
+        }
+
+        private const string ShortDateFormat = "d";
+        private static readonly Notification[] s_notifications = new[]
+        {
+            new Notification
+            {
+                Id = "NOT0001",
+                RuleId = "TST0001",
+                Level = NotificationLevel.Error,
+                Message = "This is a test",
+                Time = DateTime.ParseExact("04/29/2016", ShortDateFormat, CultureInfo.InvariantCulture),
+                Exception = new ExceptionData
+                {
+                    Type = "System.AggregateException",
+                    Message = "Bad thing",
+                    InnerExceptions = new[]
+                    {
+                        new ExceptionData
+                        {
+                            Type = "System.ArgumentNullException",
+                            Message = "x cannot be null",
+                            Stack = new Stack
+                            {
+                                Frames = new StackFrame[]
+                                {
+                                    new StackFrame
+                                    {
+                                        Module = "a.dll",
+                                        FullyQualifiedLogicalName = "N1.N2.C.M1",
+                                        Line = 10
+                                    },
+
+                                    new StackFrame
+                                    {
+                                        Module = "a.dll",
+                                        FullyQualifiedLogicalName = "N1.N2.C.M2",
+                                        Line = 6
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        };
+
+        private const string SerializedNotification =
+@"        {
+          ""id"": ""NOT0001"",
+          ""ruleId"": ""TST0001"",
+          ""message"": ""This is a test"",
+          ""level"": ""error"",
+          ""time"": ""2016-04-29T00:00:00.00Z"",
+          ""exception"": {
+            ""type"": ""System.AggregateException"",
+            ""message"": ""Bad thing"",
+            ""innerExceptions"": [
+              {
+                ""type"": ""System.ArgumentNullException"",
+                ""message"": ""x cannot be null"",
+                ""stack"": {
+                  ""frames"": [
+                    {
+                      ""line"": 10,
+                      ""module"": ""a.dll"",
+                      ""fullyQualifiedLogicalName"": ""N1.N2.C.M1""
+                    },
+                    {
+                      ""line"": 6,
+                      ""module"": ""a.dll"",
+                      ""fullyQualifiedLogicalName"": ""N1.N2.C.M2""
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        }";
+
+        [TestMethod]
+        public void ResultLogJsonWriter_WritesConfigurationNotifications()
+        {
+            string expected =
+@"{
+  ""version"": """ + SchemaVersion + @""",
+  ""runs"": [
+    {
+      ""tool"": {
+        ""name"": null
+      },
+      ""configurationNotifications"": [
+" + SerializedNotification + @"
+      ]
+    }
+  ]
+}";
+            string actual = GetJson(uut =>
+            {
+                uut.WriteTool(s_defaultTool);
+                uut.WriteConfigurationNotifications(s_notifications);
+            });
+            Assert.AreEqual(expected, actual);
+        }
+
+        [TestMethod]
+        public void ResultLogJsonWriter_WritesToolNotifications()
+        {
+            string expected =
+@"{
+  ""version"": """ + SchemaVersion + @""",
+  ""runs"": [
+    {
+      ""tool"": {
+        ""name"": null
+      },
+      ""toolNotifications"": [
+" + SerializedNotification + @"
+      ]
+    }
+  ]
+}";
+            string actual = GetJson(uut =>
+            {
+                uut.WriteTool(s_defaultTool);
+                uut.WriteToolNotifications(s_notifications);
+            });
+            Assert.AreEqual(expected, actual);
         }
     }
 }
