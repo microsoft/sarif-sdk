@@ -200,7 +200,7 @@
         },
 
         "fileChanges": {
-          "description": "A message relevant to this annotation.",
+          "description": "One or more file changes that comprise a fix for a result.",
           "type": "array",
           "items": {
             "$ref": "#/definitions/fileChange"
