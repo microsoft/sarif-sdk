@@ -39,13 +39,13 @@ namespace Microsoft.CodeAnalysis.Sarif
         public IList<StackFrame> Frames { get; set; }
 
         /// <summary>
-        /// Key/value pairs that provide additional details about the stack.
+        /// Key/value pairs that provide additional information about the stack.
         /// </summary>
         [DataMember(Name = "properties", IsRequired = false, EmitDefaultValue = false)]
         public IDictionary<string, string> Properties { get; set; }
 
         /// <summary>
-        /// A unique set of strings that provide additional information for the stack.
+        /// A unique set of strings that provide additional information about the stack.
         /// </summary>
         [DataMember(Name = "tags", IsRequired = false, EmitDefaultValue = false)]
         public ISet<string> Tags { get; set; }

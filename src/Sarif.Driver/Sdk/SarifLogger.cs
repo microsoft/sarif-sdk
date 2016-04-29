@@ -240,7 +240,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
 
         public void Log(IRule rule, Result result)
         {
-            if (!ShouldLog(result.Kind))
+            if (!ShouldLog(result.Level))
             {
                 return;
             }
@@ -261,11 +261,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
             // through all aggregated loggers.
             context.Rule = Notes.AnalyzingTarget;
             Log(context.Rule,
-                RuleUtilities.BuildResult(ResultKind.Note, context, null,
+                RuleUtilities.BuildResult(ResultLevel.Note, context, null,
                     nameof(SdkResources.MSG1001_AnalyzingTarget)));
         }
 
-        public void Log(ResultKind messageKind, IAnalysisContext context, Region region, string formatId, params string[] arguments)
+        public void Log(ResultLevel messageKind, IAnalysisContext context, Region region, string formatId, params string[] arguments)
         {
             if (context.Rule != null)
             {
@@ -276,9 +276,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
             LogJsonIssue(messageKind, context.TargetUri?.LocalPath, region, context.Rule.Id, formatId, arguments);
         }
 
-        private void LogJsonIssue(ResultKind messageKind, string targetPath, Region region, string ruleId, string formatId, params string[] arguments)
+        private void LogJsonIssue(ResultLevel level, string targetPath, Region region, string ruleId, string formatId, params string[] arguments)
         {
-            if (!ShouldLog(messageKind))
+            if (!ShouldLog(level))
             {
                 return;
             }
@@ -293,7 +293,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
                 Arguments = arguments
             };
 
-            result.Kind = messageKind;
+            result.Level = level;
 
             if (targetPath != null)
             {
@@ -310,13 +310,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
             _issueLogJsonWriter.WriteResult(result);
         }
 
-        public bool ShouldLog(ResultKind messageKind)
+        public bool ShouldLog(ResultLevel level)
         {
-            switch (messageKind)
+            switch (level)
             {
-                case ResultKind.Note:
-                case ResultKind.Pass:
-                case ResultKind.NotApplicable:
+                case ResultLevel.Note:
+                case ResultLevel.Pass:
+                case ResultLevel.NotApplicable:
                 {
                     if (!Verbose)
                     {
@@ -325,10 +325,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
                     break;
                 }
 
-                case ResultKind.Error:
-                case ResultKind.Warning:
-                case ResultKind.InternalError:
-                case ResultKind.ConfigurationError:
+                case ResultLevel.Error:
+                case ResultLevel.Warning:
                 {
                     break;
                 }
@@ -339,6 +337,16 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
                 }
             }
             return true;
+        }
+
+        public void LogToolNotification(Notification notification)
+        {
+            _run.ToolNotifications.Add(notification);
+        }
+
+        public void LogConfigurationNotification(Notification notification)
+        {
+            _run.ConfigurationNotifications.Add(notification);
         }
     }
 }

@@ -175,7 +175,7 @@ namespace Microsoft.Sarif.Viewer
                 Region = region,
                 RuleId = result.RuleId,
                 RuleName = rule?.Name,
-                Kind = result.Kind,
+                Level = result.Level,
                 Category = category,
                 ShortMessage = shortMessage,
                 FullMessage = fullMessage,
@@ -285,12 +285,9 @@ namespace Microsoft.Sarif.Viewer
             }
         }
 
-        private static bool IsError(ResultKind kind)
+        private static bool IsError(ResultLevel level)
         {
-            return 
-                kind == ResultKind.ConfigurationError ||
-                kind == ResultKind.Error ||
-                kind == ResultKind.InternalError;
+            return level == ResultLevel.Error;
         }
     }
 }

@@ -4,6 +4,7 @@
 using System;
 using System.IO;
 using System.Linq;
+using System.Text;
 
 namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
 {
@@ -75,52 +76,50 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
             // Note that we can potentially emit many messages from a single result
             PhysicalLocation physicalLocation = result.Locations?.First().ResultFile ?? result.Locations?.First().AnalysisTarget;
             WriteToConsole(
-                result.Kind,
+                result.Level,
                 physicalLocation?.Uri,
                 physicalLocation?.Region,
                 result.RuleId,
                 message);
         }
 
-        private void WriteToConsole(ResultKind messageKind, Uri uri, Region region, string ruleId, string message)
+        private void WriteToConsole(ResultLevel level, Uri uri, Region region, string ruleId, string message)
         {
-            switch (messageKind)
+            switch (level)
             {
-
-                // These result types are optionally emitted
-                case ResultKind.Pass:
-                case ResultKind.Note:
-                case ResultKind.NotApplicable:
-                {
-                    if (Verbose)
+                // These result types are optionally emitted.
+                case ResultLevel.Pass:
+                case ResultLevel.Note:
+                case ResultLevel.NotApplicable:
                     {
-                        Console.WriteLine(GetMessageText(uri, region, ruleId, message, messageKind));
+                        if (Verbose)
+                        {
+                            Console.WriteLine(GetMessageText(uri, region, ruleId, message, level));
+                        }
+                        break;
                     }
-                    break;
-                }
 
-                // These result types are alwayss emitted
-                case ResultKind.Error:
-                case ResultKind.Warning:
-                case ResultKind.InternalError:
-                case ResultKind.ConfigurationError:
-                {
-                    Console.WriteLine(GetMessageText(uri, region, ruleId, message, messageKind));
-                    break;
-                }
+                // These result types are always emitted.
+                case ResultLevel.Error:
+                case ResultLevel.Warning:
+                    {
+                        Console.WriteLine(GetMessageText(uri, region, ruleId, message, level));
+                        break;
+                    }
 
                 default:
-                {
-                    throw new InvalidOperationException();
-                }
+                    {
+                        throw new InvalidOperationException();
+                    }
             }
         }
-        public static string GetMessageText(
-            Uri uri, 
+
+        private static string GetMessageText(
+            Uri uri,
             Region region,
             string ruleId,
-            string message, 
-            ResultKind messageKind)
+            string message,
+            ResultLevel resultLevel)
         {
             string path = null;
 
@@ -139,34 +138,24 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
 
             string issueType = null;
 
-            switch (messageKind)
+            switch (resultLevel)
             {
-                case ResultKind.ConfigurationError:
-                case ResultKind.InternalError:
-                case ResultKind.Error:
-                {
+                case ResultLevel.Error:
                     issueType = "error";
                     break;
-                }
 
-                case ResultKind.Warning:
-                {
+                case ResultLevel.Warning:
                     issueType = "warning";
                     break;
-                }
 
-                case ResultKind.NotApplicable:
-                case ResultKind.Note:
-                case ResultKind.Pass:
-                {
-                        issueType = "info";
-                        break;
-                    }
+                case ResultLevel.NotApplicable:
+                case ResultLevel.Note:
+                case ResultLevel.Pass:
+                    issueType = "info";
+                    break;
 
                 default:
-                    {
-                        throw new InvalidOperationException("Unknown message kind:" + messageKind.ToString());
-                    }
+                    throw new InvalidOperationException("Unknown message kind:" + resultLevel.ToString());
             }
 
             string detailedDiagnosis = NormalizeMessage(message, enquote: false);
@@ -191,8 +180,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
             }
 
             string result = (path != null ? (path + location + ": ") : "") +
-                   issueType + (!string.IsNullOrEmpty(ruleId) ? " " : "")  +
-                   (messageKind != ResultKind.Note ? ruleId : "" ) + ": " +
+                   issueType + (!string.IsNullOrEmpty(ruleId) ? " " : "") +
+                   (resultLevel != ResultLevel.Note ? ruleId : "") + ": " +
                    detailedDiagnosis;
 
             return result;
@@ -203,6 +192,73 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
             return (enquote ? "\"" : "") +
                 message.Replace('"', '\'') +
                 (enquote ? "\"" : "");
+        }
+
+        public void LogToolNotification(Notification notification)
+        {
+            WriteToConsole(notification);
+        }
+
+        public void LogConfigurationNotification(Notification notification)
+        {
+            WriteToConsole(notification);
+        }
+
+        private void WriteToConsole(Notification notification)
+        {
+            switch (notification.Level)
+            {
+                // This notification type is optionally emitted.
+                case NotificationLevel.Note:
+                    if (Verbose)
+                    {
+                        Console.WriteLine(FormatNotificationMessage(notification));
+                    }
+                    break;
+
+                // These notification types are always emitted.
+                case NotificationLevel.Error:
+                case NotificationLevel.Warning:
+                    Console.WriteLine(FormatNotificationMessage(notification));
+                    break;
+
+                default:
+                    throw new InvalidOperationException();
+            }
+        }
+
+        private string FormatNotificationMessage(Notification notification)
+        {
+            string issueType = null;
+
+            switch (notification.Level)
+            {
+                case NotificationLevel.Error:
+                case NotificationLevel.Warning:
+                case NotificationLevel.Note:
+                    issueType = notification.Level.ToString();
+                    issueType = issueType.Substring(0, 1).ToLowerInvariant() + issueType.Substring(1);
+                    break;
+
+                default:
+                    throw new InvalidOperationException("Unknown notification level: " + notification.Level);
+            }
+
+            var sb = new StringBuilder(issueType);
+
+            if (!string.IsNullOrEmpty(notification.Id))
+            {
+                sb.Append($" {notification.Id}: ");
+            }
+
+            if (!string.IsNullOrEmpty(notification.RuleId))
+            {
+                sb.Append($"{notification.RuleId}: ");
+            }
+
+            sb.Append(notification.Message);
+
+            return sb.ToString();
         }
     }
 }

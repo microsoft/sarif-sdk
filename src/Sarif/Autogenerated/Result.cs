@@ -35,8 +35,8 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <summary>
         /// The kind of observation this result represents. If this property is not present, its implied value is 'warning'.
         /// </summary>
-        [DataMember(Name = "kind", IsRequired = false, EmitDefaultValue = false)]
-        public ResultKind Kind { get; set; }
+        [DataMember(Name = "level", IsRequired = false, EmitDefaultValue = false)]
+        public ResultLevel Level { get; set; }
 
         /// <summary>
         /// A string that describes the result. The first sentence of the message only will be displayed when visible space is limited.
@@ -125,7 +125,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                     result = (result * 31) + RuleId.GetHashCode();
                 }
 
-                result = (result * 31) + Kind.GetHashCode();
+                result = (result * 31) + Level.GetHashCode();
                 if (Message != null)
                 {
                     result = (result * 31) + Message.GetHashCode();
@@ -251,7 +251,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 return false;
             }
 
-            if (Kind != other.Kind)
+            if (Level != other.Level)
             {
                 return false;
             }
@@ -397,8 +397,8 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="ruleId">
         /// An initialization value for the <see cref="P: RuleId" /> property.
         /// </param>
-        /// <param name="kind">
-        /// An initialization value for the <see cref="P: Kind" /> property.
+        /// <param name="level">
+        /// An initialization value for the <see cref="P: Level" /> property.
         /// </param>
         /// <param name="message">
         /// An initialization value for the <see cref="P: Message" /> property.
@@ -436,9 +436,9 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="tags">
         /// An initialization value for the <see cref="P: Tags" /> property.
         /// </param>
-        public Result(string ruleId, ResultKind kind, string message, FormattedRuleMessage formattedRuleMessage, ISet<Location> locations, string codeSnippet, string toolFingerprint, ISet<Stack> stacks, ISet<CodeFlow> codeFlows, ISet<AnnotatedCodeLocation> relatedLocations, bool isSuppressedInSource, ISet<Fix> fixes, IDictionary<string, string> properties, ISet<string> tags)
+        public Result(string ruleId, ResultLevel level, string message, FormattedRuleMessage formattedRuleMessage, ISet<Location> locations, string codeSnippet, string toolFingerprint, ISet<Stack> stacks, ISet<CodeFlow> codeFlows, ISet<AnnotatedCodeLocation> relatedLocations, bool isSuppressedInSource, ISet<Fix> fixes, IDictionary<string, string> properties, ISet<string> tags)
         {
-            Init(ruleId, kind, message, formattedRuleMessage, locations, codeSnippet, toolFingerprint, stacks, codeFlows, relatedLocations, isSuppressedInSource, fixes, properties, tags);
+            Init(ruleId, level, message, formattedRuleMessage, locations, codeSnippet, toolFingerprint, stacks, codeFlows, relatedLocations, isSuppressedInSource, fixes, properties, tags);
         }
 
         /// <summary>
@@ -457,7 +457,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 throw new ArgumentNullException(nameof(other));
             }
 
-            Init(other.RuleId, other.Kind, other.Message, other.FormattedRuleMessage, other.Locations, other.CodeSnippet, other.ToolFingerprint, other.Stacks, other.CodeFlows, other.RelatedLocations, other.IsSuppressedInSource, other.Fixes, other.Properties, other.Tags);
+            Init(other.RuleId, other.Level, other.Message, other.FormattedRuleMessage, other.Locations, other.CodeSnippet, other.ToolFingerprint, other.Stacks, other.CodeFlows, other.RelatedLocations, other.IsSuppressedInSource, other.Fixes, other.Properties, other.Tags);
         }
 
         ISarifNode ISarifNode.DeepClone()
@@ -478,10 +478,10 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new Result(this);
         }
 
-        private void Init(string ruleId, ResultKind kind, string message, FormattedRuleMessage formattedRuleMessage, ISet<Location> locations, string codeSnippet, string toolFingerprint, ISet<Stack> stacks, ISet<CodeFlow> codeFlows, ISet<AnnotatedCodeLocation> relatedLocations, bool isSuppressedInSource, ISet<Fix> fixes, IDictionary<string, string> properties, ISet<string> tags)
+        private void Init(string ruleId, ResultLevel level, string message, FormattedRuleMessage formattedRuleMessage, ISet<Location> locations, string codeSnippet, string toolFingerprint, ISet<Stack> stacks, ISet<CodeFlow> codeFlows, ISet<AnnotatedCodeLocation> relatedLocations, bool isSuppressedInSource, ISet<Fix> fixes, IDictionary<string, string> properties, ISet<string> tags)
         {
             RuleId = ruleId;
-            Kind = kind;
+            Level = level;
             Message = message;
             if (formattedRuleMessage != null)
             {

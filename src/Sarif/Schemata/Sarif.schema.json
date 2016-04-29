@@ -37,13 +37,13 @@
         },
 
         "properties": {
-          "description": "Key/value pairs that provide additional details about the code location.",
+          "description": "Key/value pairs that provide additional information about the code location.",
           "type": "object",
           "default": { }
         },
 
         "tags": {
-          "description": "A unique set of strings that provide additional information for the code location.",
+          "description": "A unique set of strings that provide additional information about the code location.",
           "type": "array",
           "uniqueItems": true,
           "default": [ ],
@@ -70,12 +70,12 @@
           }
         },
         "properties": {
-          "description": "Key/value pairs that provide additional details about the code flow.",
+          "description": "Key/value pairs that provide additional information about the code flow.",
           "type": "object",
           "default": { }
         },
         "tags": {
-          "description": "A unique set of strings that provide additional information for the code flow.",
+          "description": "A unique set of strings that provide additional information about the code flow.",
           "type": "array",
           "uniqueItems": true,
           "default": [ ],
@@ -85,6 +85,33 @@
         }
       },
       "required": [ "locations" ]
+    },
+    "exception": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "description": "The fully qualified type name of the object that was thrown."
+        },
+
+        "message": {
+          "type": "string",
+          "description": "A string that describes the exception."
+        },
+
+        "stack": {
+          "description": "The sequence of function calls leading to the exception.",
+          "$ref": "#/definitions/stack"
+        },
+
+        "innerExceptions": {
+          "type": "array",
+          "description": "An array of exception objects each of which is considered a cause of this exception.",
+          "items": {
+            "$ref": "#/definitions/exception"
+          }
+        }
+      }
     },
     "fileChange": {
       "description": "A change to a single file.",
@@ -355,6 +382,60 @@
         }
       }
     },
+    "notification": {
+      "type": "object",
+      "description": "Describes a condition relevant to the tool itself, as opposed to being relevant to a file being analyzed by the tool.",
+      "properties": {
+        "id": {
+          "description": "A stable, unique identifier for the condition that was encountered.",
+          "type": "string"
+        },
+
+        "ruleId": {
+          "description": "The stable, unique identifier of the rule (if any) to which this notification is relevant.",
+          "type": "string"
+        },
+
+        "message": {
+          "description": "A string that describes the condition that was encountered.",
+          "type": "string"
+        },
+
+        "level": {
+          "description": "A value specifying the severity level of the notification.",
+          "default": "warning",
+          "enum": [ "note", "warning", "error" ]
+        },
+
+        "time": {
+          "description": "The date and time at which the analysis tool generated the notification.",
+          "type": "string",
+          "format": "date-time"
+        },
+
+        "exception": {
+          "description": "The runtime exception, if any, which caused this notification.",
+          "$ref": "#/definitions/exception"
+        },
+
+        "properties": {
+          "description": "Key/value pairs that provide additional information about the notification.",
+          "type": "object",
+          "default": { }
+        },
+
+        "tags": {
+          "description": "A set of distinct strings that provide additional information about the notification.",
+          "type": "array",
+          "uniqueItems": true,
+          "default": [ ],
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [ "message" ]
+    },
     "physicalLocation": {
       "description": "The physical location where a result was detected. Specifies a reference to a programming artifact together with a range of bytes or characters within that artifact.",
       "additionalProperties": false,
@@ -449,10 +530,10 @@
           "type": "string"
         },
 
-        "kind": {
+        "level": {
           "description": "The kind of observation this result represents. If this property is not present, its implied value is 'warning'.",
           "default": "warning",
-          "enum": [ "pass", "warning", "error", "notApplicable", "configurationError", "internalError", "note" ]
+          "enum": [ "notApplicable", "pass", "note", "warning", "error" ]
         },
 
         "message": {
@@ -648,6 +729,22 @@
           }
         },
 
+        "toolNotifications": {
+          "description": "A list of runtime conditions detected by the tool in the course of the analysis.",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/notification"
+          }
+        },
+
+        "configurationNotifications": {
+          "description": "A list of conditions detected by the tool that are relevant to the tool's configuration.",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/notification"
+          }
+        },
+
         "rules": {
           "description": "A dictionary, each of whose keys is a string and each of whose values is a 'rule' object, that describe all rules associated with an analysis tool or a specific run of an analysis tool.",
           "type": "object",
@@ -676,12 +773,12 @@
           }
         },
         "properties": {
-          "description": "Key/value pairs that provide additional details about the stack.",
+          "description": "Key/value pairs that provide additional information about the stack.",
           "type": "object",
           "default": { }
         },
         "tags": {
-          "description": "A unique set of strings that provide additional information for the stack.",
+          "description": "A unique set of strings that provide additional information about the stack.",
           "type": "array",
           "uniqueItems": true,
           "items": {
@@ -743,12 +840,12 @@
           }
         },
         "properties": {
-          "description": "Key/value pairs that provide additional details about the stack frame.",
+          "description": "Key/value pairs that provide additional information about the stack frame.",
           "type": "object",
           "default": { }
         },
         "tags": {
-          "description": "A unique set of strings that provide additional information for the stack frame.",
+          "description": "A unique set of strings that provide additional information about the stack frame.",
           "type": "array",
           "uniqueItems": true,
           "default": [ ],

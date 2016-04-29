@@ -43,42 +43,46 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
 
         public void Log(IRule rule, Result result)
         {
-            NoteTestResult(result.Kind, result.Locations.First().AnalysisTarget.Uri.LocalPath);
+            NoteTestResult(result.Level, result.Locations.First().AnalysisTarget.Uri.LocalPath);
         }
 
-        public void NoteTestResult(ResultKind messageKind, string targetPath)
+        public void NoteTestResult(ResultLevel level, string targetPath)
         {
-            switch (messageKind)
+            switch (level)
             {
-                case ResultKind.Pass:
+                case ResultLevel.Pass:
                 {
                     PassTargets.Add(targetPath);
                     break;
                 }
 
-                case ResultKind.Error:
+                case ResultLevel.Error:
                 {
                     FailTargets.Add(targetPath);
                     break;
                 }
 
-                case ResultKind.NotApplicable:
+                case ResultLevel.NotApplicable:
                 {
                     NotApplicableTargets.Add(targetPath);
                     break;
                 }
 
-                case ResultKind.Note:
-                case ResultKind.InternalError:
-                case ResultKind.ConfigurationError:
-                {
-                    throw new NotImplementedException();
-                }
                 default:
                 {
                     throw new InvalidOperationException();
                 }
             }
+        }
+
+        public void LogToolNotification(Notification notification)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void LogConfigurationNotification(Notification notification)
+        {
+            throw new NotImplementedException();
         }
     }
 }

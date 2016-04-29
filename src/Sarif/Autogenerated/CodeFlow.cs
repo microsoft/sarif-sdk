@@ -36,13 +36,13 @@ namespace Microsoft.CodeAnalysis.Sarif
         public IList<AnnotatedCodeLocation> Locations { get; set; }
 
         /// <summary>
-        /// Key/value pairs that provide additional details about the code flow.
+        /// Key/value pairs that provide additional information about the code flow.
         /// </summary>
         [DataMember(Name = "properties", IsRequired = false, EmitDefaultValue = false)]
         public IDictionary<string, string> Properties { get; set; }
 
         /// <summary>
-        /// A unique set of strings that provide additional information for the code flow.
+        /// A unique set of strings that provide additional information about the code flow.
         /// </summary>
         [DataMember(Name = "tags", IsRequired = false, EmitDefaultValue = false)]
         public ISet<string> Tags { get; set; }

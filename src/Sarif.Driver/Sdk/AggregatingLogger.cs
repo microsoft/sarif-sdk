@@ -70,5 +70,21 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
                 logger.Log(rule, result);
             }
         }
+
+        public void LogToolNotification(Notification notification)
+        {
+            foreach (IAnalysisLogger logger in Loggers)
+            {
+                logger.LogToolNotification(notification);
+            }
+        }
+
+        public void LogConfigurationNotification(Notification notification)
+        {
+            foreach (IAnalysisLogger logger in Loggers)
+            {
+                logger.LogConfigurationNotification(notification);
+            }
+        }
     }
 }

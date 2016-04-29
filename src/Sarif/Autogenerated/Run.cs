@@ -57,6 +57,18 @@ namespace Microsoft.CodeAnalysis.Sarif
         public ISet<Result> Results { get; set; }
 
         /// <summary>
+        /// A list of runtime conditions detected by the tool in the course of the analysis.
+        /// </summary>
+        [DataMember(Name = "toolNotifications", IsRequired = false, EmitDefaultValue = false)]
+        public IList<Notification> ToolNotifications { get; set; }
+
+        /// <summary>
+        /// A list of conditions detected by the tool that are relevant to the tool's configuration.
+        /// </summary>
+        [DataMember(Name = "configurationNotifications", IsRequired = false, EmitDefaultValue = false)]
+        public IList<Notification> ConfigurationNotifications { get; set; }
+
+        /// <summary>
         /// A dictionary, each of whose keys is a string and each of whose values is a 'rule' object, that describe all rules associated with an analysis tool or a specific run of an analysis tool.
         /// </summary>
         [DataMember(Name = "rules", IsRequired = false, EmitDefaultValue = false)]
@@ -126,16 +138,40 @@ namespace Microsoft.CodeAnalysis.Sarif
                     }
                 }
 
+                if (ToolNotifications != null)
+                {
+                    foreach (var value_3 in ToolNotifications)
+                    {
+                        result = result * 31;
+                        if (value_3 != null)
+                        {
+                            result = (result * 31) + value_3.GetHashCode();
+                        }
+                    }
+                }
+
+                if (ConfigurationNotifications != null)
+                {
+                    foreach (var value_4 in ConfigurationNotifications)
+                    {
+                        result = result * 31;
+                        if (value_4 != null)
+                        {
+                            result = (result * 31) + value_4.GetHashCode();
+                        }
+                    }
+                }
+
                 if (Rules != null)
                 {
                     // Use xor for dictionaries to be order-independent.
                     int xor_2 = 0;
-                    foreach (var value_3 in Rules)
+                    foreach (var value_5 in Rules)
                     {
-                        xor_2 ^= value_3.Key.GetHashCode();
-                        if (value_3.Value != null)
+                        xor_2 ^= value_5.Key.GetHashCode();
+                        if (value_5.Value != null)
                         {
-                            xor_2 ^= value_3.Value.GetHashCode();
+                            xor_2 ^= value_5.Value.GetHashCode();
                         }
                     }
 
@@ -252,6 +288,48 @@ namespace Microsoft.CodeAnalysis.Sarif
                 }
             }
 
+            if (!Object.ReferenceEquals(ToolNotifications, other.ToolNotifications))
+            {
+                if (ToolNotifications == null || other.ToolNotifications == null)
+                {
+                    return false;
+                }
+
+                if (ToolNotifications.Count != other.ToolNotifications.Count)
+                {
+                    return false;
+                }
+
+                for (int index_2 = 0; index_2 < ToolNotifications.Count; ++index_2)
+                {
+                    if (!Object.Equals(ToolNotifications[index_2], other.ToolNotifications[index_2]))
+                    {
+                        return false;
+                    }
+                }
+            }
+
+            if (!Object.ReferenceEquals(ConfigurationNotifications, other.ConfigurationNotifications))
+            {
+                if (ConfigurationNotifications == null || other.ConfigurationNotifications == null)
+                {
+                    return false;
+                }
+
+                if (ConfigurationNotifications.Count != other.ConfigurationNotifications.Count)
+                {
+                    return false;
+                }
+
+                for (int index_3 = 0; index_3 < ConfigurationNotifications.Count; ++index_3)
+                {
+                    if (!Object.Equals(ConfigurationNotifications[index_3], other.ConfigurationNotifications[index_3]))
+                    {
+                        return false;
+                    }
+                }
+            }
+
             if (!Object.ReferenceEquals(Rules, other.Rules))
             {
                 if (Rules == null || other.Rules == null || Rules.Count != other.Rules.Count)
@@ -302,12 +380,18 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="results">
         /// An initialization value for the <see cref="P: Results" /> property.
         /// </param>
+        /// <param name="toolNotifications">
+        /// An initialization value for the <see cref="P: ToolNotifications" /> property.
+        /// </param>
+        /// <param name="configurationNotifications">
+        /// An initialization value for the <see cref="P: ConfigurationNotifications" /> property.
+        /// </param>
         /// <param name="rules">
         /// An initialization value for the <see cref="P: Rules" /> property.
         /// </param>
-        public Run(Tool tool, Invocation invocation, IDictionary<string, IList<FileData>> files, IDictionary<string, IList<LogicalLocationComponent>> logicalLocations, ISet<Result> results, IDictionary<string, Rule> rules)
+        public Run(Tool tool, Invocation invocation, IDictionary<string, IList<FileData>> files, IDictionary<string, IList<LogicalLocationComponent>> logicalLocations, ISet<Result> results, IEnumerable<Notification> toolNotifications, IEnumerable<Notification> configurationNotifications, IDictionary<string, Rule> rules)
         {
-            Init(tool, invocation, files, logicalLocations, results, rules);
+            Init(tool, invocation, files, logicalLocations, results, toolNotifications, configurationNotifications, rules);
         }
 
         /// <summary>
@@ -326,7 +410,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 throw new ArgumentNullException(nameof(other));
             }
 
-            Init(other.Tool, other.Invocation, other.Files, other.LogicalLocations, other.Results, other.Rules);
+            Init(other.Tool, other.Invocation, other.Files, other.LogicalLocations, other.Results, other.ToolNotifications, other.ConfigurationNotifications, other.Rules);
         }
 
         ISarifNode ISarifNode.DeepClone()
@@ -347,7 +431,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new Run(this);
         }
 
-        private void Init(Tool tool, Invocation invocation, IDictionary<string, IList<FileData>> files, IDictionary<string, IList<LogicalLocationComponent>> logicalLocations, ISet<Result> results, IDictionary<string, Rule> rules)
+        private void Init(Tool tool, Invocation invocation, IDictionary<string, IList<FileData>> files, IDictionary<string, IList<LogicalLocationComponent>> logicalLocations, ISet<Result> results, IEnumerable<Notification> toolNotifications, IEnumerable<Notification> configurationNotifications, IDictionary<string, Rule> rules)
         {
             if (tool != null)
             {
@@ -421,12 +505,48 @@ namespace Microsoft.CodeAnalysis.Sarif
                 Results = destination_2;
             }
 
+            if (toolNotifications != null)
+            {
+                var destination_3 = new List<Notification>();
+                foreach (var value_5 in toolNotifications)
+                {
+                    if (value_5 == null)
+                    {
+                        destination_3.Add(null);
+                    }
+                    else
+                    {
+                        destination_3.Add(new Notification(value_5));
+                    }
+                }
+
+                ToolNotifications = destination_3;
+            }
+
+            if (configurationNotifications != null)
+            {
+                var destination_4 = new List<Notification>();
+                foreach (var value_6 in configurationNotifications)
+                {
+                    if (value_6 == null)
+                    {
+                        destination_4.Add(null);
+                    }
+                    else
+                    {
+                        destination_4.Add(new Notification(value_6));
+                    }
+                }
+
+                ConfigurationNotifications = destination_4;
+            }
+
             if (rules != null)
             {
                 Rules = new Dictionary<string, Rule>();
-                foreach (var value_5 in rules)
+                foreach (var value_7 in rules)
                 {
-                    Rules.Add(value_5.Key, new Rule(value_5.Value));
+                    Rules.Add(value_7.Key, new Rule(value_7.Value));
                 }
             }
         }

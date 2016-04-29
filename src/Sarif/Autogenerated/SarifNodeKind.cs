@@ -28,6 +28,10 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// </summary>
         CodeFlow,
         /// <summary>
+        /// A value indicating that the <see cref="ISarifNode" /> object is of type <see cref="ExceptionData" />.
+        /// </summary>
+        ExceptionData,
+        /// <summary>
         /// A value indicating that the <see cref="ISarifNode" /> object is of type <see cref="FileChange" />.
         /// </summary>
         FileChange,
@@ -59,6 +63,10 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// A value indicating that the <see cref="ISarifNode" /> object is of type <see cref="LogicalLocationComponent" />.
         /// </summary>
         LogicalLocationComponent,
+        /// <summary>
+        /// A value indicating that the <see cref="ISarifNode" /> object is of type <see cref="Notification" />.
+        /// </summary>
+        Notification,
         /// <summary>
         /// A value indicating that the <see cref="ISarifNode" /> object is of type <see cref="PhysicalLocation" />.
         /// </summary>

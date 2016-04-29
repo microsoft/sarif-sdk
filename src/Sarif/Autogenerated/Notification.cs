@@ -9,11 +9,11 @@ using System.Runtime.Serialization;
 namespace Microsoft.CodeAnalysis.Sarif
 {
     /// <summary>
-    /// A code annotation that consists of single physical location and associated message, used to express code flows through a method, or other locations that are related to a result.
+    /// Describes a condition relevant to the tool itself, as opposed to being relevant to a file being analyzed by the tool.
     /// </summary>
     [DataContract]
     [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.16.0.0")]
-    public partial class AnnotatedCodeLocation : ISarifNode, IEquatable<AnnotatedCodeLocation>
+    public partial class Notification : ISarifNode, IEquatable<Notification>
     {
         /// <summary>
         /// Gets a value indicating the type of object implementing <see cref="ISarifNode" />.
@@ -22,37 +22,61 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             get
             {
-                return SarifNodeKind.AnnotatedCodeLocation;
+                return SarifNodeKind.Notification;
             }
         }
 
         /// <summary>
-        /// A code location to which this annotation refers.
+        /// A stable, unique identifier for the condition that was encountered.
         /// </summary>
-        [DataMember(Name = "physicalLocation", IsRequired = true)]
-        public PhysicalLocation PhysicalLocation { get; set; }
+        [DataMember(Name = "id", IsRequired = false, EmitDefaultValue = false)]
+        public string Id { get; set; }
 
         /// <summary>
-        /// A message relevant to this annotation.
+        /// The stable, unique identifier of the rule (if any) to which this notification is relevant.
         /// </summary>
-        [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
+        [DataMember(Name = "ruleId", IsRequired = false, EmitDefaultValue = false)]
+        public string RuleId { get; set; }
+
+        /// <summary>
+        /// A string that describes the condition that was encountered.
+        /// </summary>
+        [DataMember(Name = "message", IsRequired = true)]
         public string Message { get; set; }
 
         /// <summary>
-        /// Key/value pairs that provide additional information about the code location.
+        /// A value specifying the severity level of the notification.
+        /// </summary>
+        [DataMember(Name = "level", IsRequired = false, EmitDefaultValue = false)]
+        public NotificationLevel Level { get; set; }
+
+        /// <summary>
+        /// The date and time at which the analysis tool generated the notification.
+        /// </summary>
+        [DataMember(Name = "time", IsRequired = false, EmitDefaultValue = false)]
+        public DateTime Time { get; set; }
+
+        /// <summary>
+        /// The runtime exception, if any, which caused this notification.
+        /// </summary>
+        [DataMember(Name = "exception", IsRequired = false, EmitDefaultValue = false)]
+        public ExceptionData Exception { get; set; }
+
+        /// <summary>
+        /// Key/value pairs that provide additional information about the notification.
         /// </summary>
         [DataMember(Name = "properties", IsRequired = false, EmitDefaultValue = false)]
         public IDictionary<string, string> Properties { get; set; }
 
         /// <summary>
-        /// A unique set of strings that provide additional information about the code location.
+        /// A set of distinct strings that provide additional information about the notification.
         /// </summary>
         [DataMember(Name = "tags", IsRequired = false, EmitDefaultValue = false)]
         public ISet<string> Tags { get; set; }
 
         public override bool Equals(object other)
         {
-            return Equals(other as AnnotatedCodeLocation);
+            return Equals(other as Notification);
         }
 
         public override int GetHashCode()
@@ -60,14 +84,26 @@ namespace Microsoft.CodeAnalysis.Sarif
             int result = 17;
             unchecked
             {
-                if (PhysicalLocation != null)
+                if (Id != null)
                 {
-                    result = (result * 31) + PhysicalLocation.GetHashCode();
+                    result = (result * 31) + Id.GetHashCode();
+                }
+
+                if (RuleId != null)
+                {
+                    result = (result * 31) + RuleId.GetHashCode();
                 }
 
                 if (Message != null)
                 {
                     result = (result * 31) + Message.GetHashCode();
+                }
+
+                result = (result * 31) + Level.GetHashCode();
+                result = (result * 31) + Time.GetHashCode();
+                if (Exception != null)
+                {
+                    result = (result * 31) + Exception.GetHashCode();
                 }
 
                 if (Properties != null)
@@ -102,19 +138,39 @@ namespace Microsoft.CodeAnalysis.Sarif
             return result;
         }
 
-        public bool Equals(AnnotatedCodeLocation other)
+        public bool Equals(Notification other)
         {
             if (other == null)
             {
                 return false;
             }
 
-            if (!Object.Equals(PhysicalLocation, other.PhysicalLocation))
+            if (Id != other.Id)
+            {
+                return false;
+            }
+
+            if (RuleId != other.RuleId)
             {
                 return false;
             }
 
             if (Message != other.Message)
+            {
+                return false;
+            }
+
+            if (Level != other.Level)
+            {
+                return false;
+            }
+
+            if (Time != other.Time)
+            {
+                return false;
+            }
+
+            if (!Object.Equals(Exception, other.Exception))
             {
                 return false;
             }
@@ -158,20 +214,32 @@ namespace Microsoft.CodeAnalysis.Sarif
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="AnnotatedCodeLocation" /> class.
+        /// Initializes a new instance of the <see cref="Notification" /> class.
         /// </summary>
-        public AnnotatedCodeLocation()
+        public Notification()
         {
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="AnnotatedCodeLocation" /> class from the supplied values.
+        /// Initializes a new instance of the <see cref="Notification" /> class from the supplied values.
         /// </summary>
-        /// <param name="physicalLocation">
-        /// An initialization value for the <see cref="P: PhysicalLocation" /> property.
+        /// <param name="id">
+        /// An initialization value for the <see cref="P: Id" /> property.
+        /// </param>
+        /// <param name="ruleId">
+        /// An initialization value for the <see cref="P: RuleId" /> property.
         /// </param>
         /// <param name="message">
         /// An initialization value for the <see cref="P: Message" /> property.
+        /// </param>
+        /// <param name="level">
+        /// An initialization value for the <see cref="P: Level" /> property.
+        /// </param>
+        /// <param name="time">
+        /// An initialization value for the <see cref="P: Time" /> property.
+        /// </param>
+        /// <param name="exception">
+        /// An initialization value for the <see cref="P: Exception" /> property.
         /// </param>
         /// <param name="properties">
         /// An initialization value for the <see cref="P: Properties" /> property.
@@ -179,13 +247,13 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="tags">
         /// An initialization value for the <see cref="P: Tags" /> property.
         /// </param>
-        public AnnotatedCodeLocation(PhysicalLocation physicalLocation, string message, IDictionary<string, string> properties, ISet<string> tags)
+        public Notification(string id, string ruleId, string message, NotificationLevel level, DateTime time, ExceptionData exception, IDictionary<string, string> properties, ISet<string> tags)
         {
-            Init(physicalLocation, message, properties, tags);
+            Init(id, ruleId, message, level, time, exception, properties, tags);
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="AnnotatedCodeLocation" /> class from the specified instance.
+        /// Initializes a new instance of the <see cref="Notification" /> class from the specified instance.
         /// </summary>
         /// <param name="other">
         /// The instance from which the new instance is to be initialized.
@@ -193,14 +261,14 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <exception cref="ArgumentNullException">
         /// Thrown if <paramref name="other" /> is null.
         /// </exception>
-        public AnnotatedCodeLocation(AnnotatedCodeLocation other)
+        public Notification(Notification other)
         {
             if (other == null)
             {
                 throw new ArgumentNullException(nameof(other));
             }
 
-            Init(other.PhysicalLocation, other.Message, other.Properties, other.Tags);
+            Init(other.Id, other.RuleId, other.Message, other.Level, other.Time, other.Exception, other.Properties, other.Tags);
         }
 
         ISarifNode ISarifNode.DeepClone()
@@ -211,24 +279,28 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <summary>
         /// Creates a deep copy of this instance.
         /// </summary>
-        public AnnotatedCodeLocation DeepClone()
+        public Notification DeepClone()
         {
-            return (AnnotatedCodeLocation)DeepCloneCore();
+            return (Notification)DeepCloneCore();
         }
 
         private ISarifNode DeepCloneCore()
         {
-            return new AnnotatedCodeLocation(this);
+            return new Notification(this);
         }
 
-        private void Init(PhysicalLocation physicalLocation, string message, IDictionary<string, string> properties, ISet<string> tags)
+        private void Init(string id, string ruleId, string message, NotificationLevel level, DateTime time, ExceptionData exception, IDictionary<string, string> properties, ISet<string> tags)
         {
-            if (physicalLocation != null)
+            Id = id;
+            RuleId = ruleId;
+            Message = message;
+            Level = level;
+            Time = time;
+            if (exception != null)
             {
-                PhysicalLocation = new PhysicalLocation(physicalLocation);
+                Exception = new ExceptionData(exception);
             }
 
-            Message = message;
             if (properties != null)
             {
                 Properties = new Dictionary<string, string>(properties);

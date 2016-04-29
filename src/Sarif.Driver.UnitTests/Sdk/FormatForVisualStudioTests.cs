@@ -69,56 +69,56 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
             // Test each ResultKind value.
             new object[]
             {
-                ResultKind.Error,
+                ResultLevel.Error,
                 MultiLineTestRegion,
                 $"{TestAnalysisTarget}(2,4,3,5): error {TestRuleId}: First: 42, Second: 54"
             },
 
             new object[]
             {
-                ResultKind.ConfigurationError,
+                ResultLevel.Error,
                 MultiLineTestRegion,
                 $"{TestAnalysisTarget}(2,4,3,5): error {TestRuleId}: First: 42, Second: 54"
             },
 
             new object[]
             {
-                ResultKind.InternalError,
+                ResultLevel.Error,
                 MultiLineTestRegion,
                 $"{TestAnalysisTarget}(2,4,3,5): error {TestRuleId}: First: 42, Second: 54"
             },
 
             new object[]
             {
-                ResultKind.Warning,
+                ResultLevel.Warning,
                 MultiLineTestRegion,
                 $"{TestAnalysisTarget}(2,4,3,5): warning {TestRuleId}: First: 42, Second: 54"
             },
 
             new object[]
             {
-                ResultKind.NotApplicable,
+                ResultLevel.NotApplicable,
                 MultiLineTestRegion,
                 $"{TestAnalysisTarget}(2,4,3,5): info {TestRuleId}: First: 42, Second: 54"
             },
 
             new object[]
             {
-                ResultKind.Note,
+                ResultLevel.Note,
                 MultiLineTestRegion,
                 $"{TestAnalysisTarget}(2,4,3,5): info {TestRuleId}: First: 42, Second: 54"
             },
 
             new object[]
             {
-                ResultKind.Pass,
+                ResultLevel.Pass,
                 MultiLineTestRegion,
                 $"{TestAnalysisTarget}(2,4,3,5): info {TestRuleId}: First: 42, Second: 54"
             },
 
             new object[]
             {
-                ResultKind.Unknown,
+                ResultLevel.Unknown,
                 MultiLineTestRegion,
                 $"{TestAnalysisTarget}(2,4,3,5): info {TestRuleId}: First: 42, Second: 54"
             },
@@ -126,7 +126,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
             // Test formatting of a single-line multi-column region (previous tests used a multi-line region).
             new object[]
             {
-                ResultKind.Error,
+                ResultLevel.Error,
                 SingleLineMultiColumnTestRegion,
                 $"{TestAnalysisTarget}(2,4-5): error {TestRuleId}: First: 42, Second: 54"
             },
@@ -134,7 +134,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
             // Test formatting of a single-line single-column region.
             new object[]
             {
-                ResultKind.Error,
+                ResultLevel.Error,
                 SingleLineSingleColumnTestRegion,
                 $"{TestAnalysisTarget}(2,4): error {TestRuleId}: First: 42, Second: 54"
             },
@@ -142,7 +142,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
             // Test formatting of a single-line region with no column specified.
             new object[]
             {
-                ResultKind.Error,
+                ResultLevel.Error,
                 SingleLineNoColumnTestRegion,
                 $"{TestAnalysisTarget}(2): error {TestRuleId}: First: 42, Second: 54"
             },
@@ -150,7 +150,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
             // Test formatting of a multi-line region with no columns specified.
             new object[]
             {
-                ResultKind.Error,
+                ResultLevel.Error,
                 MultiLineNoColumnTestRegion,
                 $"{TestAnalysisTarget}(2-3): error {TestRuleId}: First: 42, Second: 54"
             },
@@ -158,7 +158,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
 
         [Theory]
         [MemberData(nameof(ResultFormatForVisualStudioTestCases))]
-        public void Result_FormatForVisualStudioTests(ResultKind kind, Region region, string expected)
+        public void Result_FormatForVisualStudioTests(ResultLevel kind, Region region, string expected)
         {
             Result result = MakeResultFromTestCase(kind, region);
 
@@ -167,12 +167,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
             actual.Should().Be(expected);
         }
 
-        private Result MakeResultFromTestCase(ResultKind kind, Region region)
+        private Result MakeResultFromTestCase(ResultLevel level, Region region)
         {
             return new Result
             {
                 RuleId = TestRuleId,
-                Kind = kind,
+                Level = level,
                 Locations = new HashSet<Location>
                 {
                     new Location
