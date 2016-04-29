@@ -33,7 +33,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         public string Description { get; set; }
 
         /// <summary>
-        /// A message relevant to this annotation.
+        /// One or more file changes that comprise a fix for a result.
         /// </summary>
         [DataMember(Name = "fileChanges", IsRequired = true)]
         public IList<FileChange> FileChanges { get; set; }
