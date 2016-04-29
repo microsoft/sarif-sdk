@@ -262,6 +262,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
             _jsonWriter.WritePropertyName("invocation");
             _serializer.Serialize(_jsonWriter, invocation, typeof(Invocation));
+
+            _writeConditions |= Conditions.InvocationWritten;
         }
 
         public void WriteToolNotifications(IEnumerable<Notification> notifications)
@@ -277,6 +279,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
             _jsonWriter.WritePropertyName("toolNotifications");
             _serializer.Serialize(_jsonWriter, notifications, notifications.GetType());
+
+            _writeConditions |= Conditions.ToolNotificationsWritten;
         }
 
         public void WriteConfigurationNotifications(IEnumerable<Notification> notifications)
@@ -292,6 +296,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
             _jsonWriter.WritePropertyName("configurationNotifications");
             _serializer.Serialize(_jsonWriter, notifications, notifications.GetType());
+
+            _writeConditions |= Conditions.ConfigurationNotificationsWritten;
         }
 
         /// <summary>Writes the log footer and closes the underlying <see cref="JsonWriter"/>.</summary>

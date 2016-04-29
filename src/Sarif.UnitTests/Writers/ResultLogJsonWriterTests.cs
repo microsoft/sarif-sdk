@@ -159,6 +159,52 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             }
         }
 
+        public static readonly Invocation s_invocation = new Invocation
+        {
+            Machine = "MY_MACHINE",
+            Parameters = "/a /b c.dll"
+        };
+
+        [TestMethod]
+        public void ResultLogJsonWriter_WritesInvocation()
+        {
+            string expected =
+@"{
+  ""version"": """ + SchemaVersion + @""",
+  ""runs"": [
+    {
+      ""tool"": {
+        ""name"": null
+      },
+      ""invocation"": {
+        ""parameters"": ""/a /b c.dll"",
+        ""machine"": ""MY_MACHINE""
+      }
+    }
+  ]
+}";
+            string actual = GetJson(uut =>
+            {
+                uut.WriteTool(s_defaultTool);
+                uut.WriteInvocation(s_invocation);
+            });
+            Assert.AreEqual(expected, actual);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(InvalidOperationException))]
+        public void ResultLogJsonWriter_CannotWriteInvocationTwice()
+        {
+            using (var str = new StringWriter())
+            using (var json = new JsonTextWriter(str))
+            using (var uut = new ResultLogJsonWriter(json))
+            {
+                uut.WriteTool(s_defaultTool);
+                uut.WriteInvocation(s_invocation);
+                uut.WriteInvocation(s_invocation);
+            }
+        }
+
         private const string ShortDateFormat = "d";
         private static readonly Notification[] s_notifications = new[]
         {
@@ -285,6 +331,34 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 uut.WriteToolNotifications(s_notifications);
             });
             Assert.AreEqual(expected, actual);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(InvalidOperationException))]
+        public void ResultLogJsonWriter_CannotWriteToolNotificationsTwice()
+        {
+            using (var str = new StringWriter())
+            using (var json = new JsonTextWriter(str))
+            using (var uut = new ResultLogJsonWriter(json))
+            {
+                uut.WriteTool(s_defaultTool);
+                uut.WriteToolNotifications(s_notifications);
+                uut.WriteToolNotifications(s_notifications);
+            }
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(InvalidOperationException))]
+        public void ResultLogJsonWriter_CannotWriteConfigurationNotificationsTwice()
+        {
+            using (var str = new StringWriter())
+            using (var json = new JsonTextWriter(str))
+            using (var uut = new ResultLogJsonWriter(json))
+            {
+                uut.WriteTool(s_defaultTool);
+                uut.WriteConfigurationNotifications(s_notifications);
+                uut.WriteConfigurationNotifications(s_notifications);
+            }
         }
     }
 }
