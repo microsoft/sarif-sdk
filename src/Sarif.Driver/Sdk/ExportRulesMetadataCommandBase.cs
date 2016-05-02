@@ -116,7 +116,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
             run.Tool = new Tool();
 
             run.Tool.InitializeFromAssembly(this.GetType().Assembly, Prerelease);
-            run.Results = new HashSet<Result>();
+            run.Results = new List<Result>();
 
             log.Runs.Add(run);
             run.Rules = new Dictionary<string, Rule>();

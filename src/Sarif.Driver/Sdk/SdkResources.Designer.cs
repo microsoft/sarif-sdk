@@ -61,186 +61,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to An exception was raised accessing a file specified on the command line:&apos;{0}&apos;. Exception information:
-        ///{1}.
-        /// </summary>
-        internal static string ERR0997_ExceptionAccessingFile {
-            get {
-                return ResourceManager.GetString("ERR0997_ExceptionAccessingFile", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to An exception was raised attempting to create output file: &apos;{0}&apos;. Exception information:
-        ///{1}.
-        /// </summary>
-        internal static string ERR0997_ExceptionCreatingLogFile {
-            get {
-                return ResourceManager.GetString("ERR0997_ExceptionCreatingLogFile", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to An exception was raised attempting to instantiate skimmers from the following plugins&apos;{0}&apos;. Exception information:
-        ///{1}.
-        /// </summary>
-        internal static string ERR0997_ExceptionInstantiatingSkimmers {
-            get {
-                return ResourceManager.GetString("ERR0997_ExceptionInstantiatingSkimmers", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to An exception was raised attempting to load analysis target: &apos;{0}&apos;. Exception information:
-        ///{1}.
-        /// </summary>
-        internal static string ERR0997_ExceptionLoadingAnalysisTarget {
-            get {
-                return ResourceManager.GetString("ERR0997_ExceptionLoadingAnalysisTarget", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to &apos;{0}&apos; was not evaluated for check &apos;{1}&apos; as an exception occurred loading its pdb: &apos;{2}&apos;.
-        /// </summary>
-        internal static string ERR0997_ExceptionLoadingPdb {
-            get {
-                return ResourceManager.GetString("ERR0997_ExceptionLoadingPdb", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to An exception was raised attempting to load plug-in: &apos;{0}&apos;. Exception information:
-        ///{1}.
-        /// </summary>
-        internal static string ERR0997_ExceptionLoadingPlugIn {
-            get {
-                return ResourceManager.GetString("ERR0997_ExceptionLoadingPlugIn", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to An unhandled exception was raised while configuring analysis for execution..
-        /// </summary>
-        internal static string ERR0997_InvalidConfiguration_Description {
-            get {
-                return ResourceManager.GetString("ERR0997_InvalidConfiguration_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to A required file specified on the command line could not be found: &apos;{0}&apos;..
-        /// </summary>
-        internal static string ERR0997_MissingFile {
-            get {
-                return ResourceManager.GetString("ERR0997_MissingFile", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Check &apos;{1}&apos; was disabled while analyzing &apos;{0}&apos; because the analysis was not configured with required policy ({2}). To resolve this, configure and provide a policy file on the {3} command-line using the --policy argument (recommended), or pass &apos;--config default&apos; to invoke built-in settings. Invoke the {3} &apos;exportConfig&apos; command to produce an initial configuration file that can be edited, if necessary, and passed back into the tool..
-        /// </summary>
-        internal static string ERR0997_MissingRuleConfiguration {
-            get {
-                return ResourceManager.GetString("ERR0997_MissingRuleConfiguration", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to No analysis rules could be instantiated..
-        /// </summary>
-        internal static string ERR0997_NoRulesLoaded {
-            get {
-                return ResourceManager.GetString("ERR0997_NoRulesLoaded", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to No valid analysis targets were specified..
-        /// </summary>
-        internal static string ERR0997_NoValidAnalysisTargets {
-            get {
-                return ResourceManager.GetString("ERR0997_NoValidAnalysisTargets", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to An exception was raised analyzing &apos;{0}&apos; for check &apos;{1}&apos; (which has been disabled for the remainder of the analysis). The exception may have resulted from a problem related to parsing image metadata and not specific to the rule, however. Exception information:
-        ///{2}.
-        /// </summary>
-        internal static string ERR0998_ExceptionInAnalyze {
-            get {
-                return ResourceManager.GetString("ERR0998_ExceptionInAnalyze", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to An exception was raised attempting to determine whether &apos;{0}&apos; is a valid analysis target for check &apos;{1}&apos; (which has been disabled for the remainder of the analysis). The exception may have resulted from a problem related to parsing the analysis target and not specific to the rule, however. Exception information:
-        ///{2}.
-        /// </summary>
-        internal static string ERR0998_ExceptionInCanAnalyze {
-            get {
-                return ResourceManager.GetString("ERR0998_ExceptionInCanAnalyze", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to An exception was raised initializing check &apos;{0}&apos; (which has been disabled for the remainder of the analysis). Exception information:
-        ///{1}.
-        /// </summary>
-        internal static string ERR0998_ExceptionInInitialize {
-            get {
-                return ResourceManager.GetString("ERR0998_ExceptionInInitialize", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to A rule was disabled due to an unrecoverable error, such as an exception raised during execution or an absence of required configuration..
-        /// </summary>
-        internal static string ERR0998_RuleDisabled_Description {
-            get {
-                return ResourceManager.GetString("ERR0998_RuleDisabled_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Analysis halted and was incomplete due to an unrecoverable error such as an unhandled exception..
-        /// </summary>
-        internal static string ERR0999_AnalysisHalted_Description {
-            get {
-                return ResourceManager.GetString("ERR0999_AnalysisHalted_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to An exception was raised during analysis:
-        ///{0}.
-        /// </summary>
-        internal static string ERR0999_UnhandledEngineException {
-            get {
-                return ResourceManager.GetString("ERR0999_UnhandledEngineException", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to An error occurred parsing &apos;{0}&apos;: {1}.
-        /// </summary>
-        internal static string ERR1001_Default {
-            get {
-                return ResourceManager.GetString("ERR1001_Default", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to A parse error occurred..
-        /// </summary>
-        internal static string ERR1001_ParseError_Description {
-            get {
-                return ResourceManager.GetString("ERR1001_ParseError_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Analysis completed successfully..
         /// </summary>
         internal static string MSG_AnalysisCompletedSuccessfully {
@@ -318,6 +138,141 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk {
         internal static string MSG1002_InvalidTarget_Description {
             get {
                 return ResourceManager.GetString("MSG1002_InvalidTarget_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Could not access a file specified on the command line: &apos;{0}&apos;..
+        /// </summary>
+        internal static string Notification_ExceptionAccessingFile {
+            get {
+                return ResourceManager.GetString("Notification_ExceptionAccessingFile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Could not create output file &apos;{0}&apos;..
+        /// </summary>
+        internal static string Notification_ExceptionCreatingLogFile {
+            get {
+                return ResourceManager.GetString("Notification_ExceptionCreatingLogFile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to An exception was raised analyzing &apos;{0}&apos; for check &apos;{1}&apos; (which has been disabled). The exception may have resulted from a problem related to parsing image metadata and not specific to the rule, however..
+        /// </summary>
+        internal static string Notification_ExceptionInAnalyze {
+            get {
+                return ResourceManager.GetString("Notification_ExceptionInAnalyze", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to An exception was raised attempting to determine whether &apos;{0}&apos; is a valid analysis target for check &apos;{1}&apos; (which has been disabled). The exception may have resulted from a problem related to parsing the analysis target and not specific to the rule, however..
+        /// </summary>
+        internal static string Notification_ExceptionInCanAnalyze {
+            get {
+                return ResourceManager.GetString("Notification_ExceptionInCanAnalyze", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to An exception was raised initializing check &apos;{0}&apos; (which has been disabled)..
+        /// </summary>
+        internal static string Notification_ExceptionInInitialize {
+            get {
+                return ResourceManager.GetString("Notification_ExceptionInInitialize", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Could not instantiate skimmers from the following plugins: {0}..
+        /// </summary>
+        internal static string Notification_ExceptionInstantiatingSkimmers {
+            get {
+                return ResourceManager.GetString("Notification_ExceptionInstantiatingSkimmers", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Could not load analysis target &apos;{0}&apos;..
+        /// </summary>
+        internal static string Notification_ExceptionLoadingAnalysisTarget {
+            get {
+                return ResourceManager.GetString("Notification_ExceptionLoadingAnalysisTarget", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &apos;{0}&apos; was not evaluated for check &apos;{1}&apos; because its PDB could not be loaded..
+        /// </summary>
+        internal static string Notification_ExceptionLoadingPdb {
+            get {
+                return ResourceManager.GetString("Notification_ExceptionLoadingPdb", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Could not load the plug-in &apos;{0}&apos;..
+        /// </summary>
+        internal static string Notification_ExceptionLoadingPlugIn {
+            get {
+                return ResourceManager.GetString("Notification_ExceptionLoadingPlugIn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to A required file specified on the command line could not be found: &apos;{0}&apos;..
+        /// </summary>
+        internal static string Notification_MissingFile {
+            get {
+                return ResourceManager.GetString("Notification_MissingFile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Check &apos;{0}&apos; was disabled while analyzing &apos;{1}&apos; because the analysis was not configured with required policy ({2}). To resolve this, configure and provide a policy file on the {3} command-line using the --policy argument (recommended), or pass &apos;--config default&apos; to invoke built-in settings. Invoke the {3} &apos;exportConfig&apos; command to produce an initial configuration file that can be edited, if necessary, and passed back into the tool..
+        /// </summary>
+        internal static string Notification_MissingRuleConfiguration {
+            get {
+                return ResourceManager.GetString("Notification_MissingRuleConfiguration", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Could not instantiate any analysis rules..
+        /// </summary>
+        internal static string Notification_NoRulesLoaded {
+            get {
+                return ResourceManager.GetString("Notification_NoRulesLoaded", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No valid analysis targets were specified..
+        /// </summary>
+        internal static string Notification_NoValidAnalysisTargets {
+            get {
+                return ResourceManager.GetString("Notification_NoValidAnalysisTargets", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0}{1}: error {2}: {3}.
+        /// </summary>
+        internal static string Notification_ParseError {
+            get {
+                return ResourceManager.GetString("Notification_ParseError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to An exception was raised during analysis..
+        /// </summary>
+        internal static string Notification_UnhandledEngineException {
+            get {
+                return ResourceManager.GetString("Notification_UnhandledEngineException", resourceCulture);
             }
         }
     }

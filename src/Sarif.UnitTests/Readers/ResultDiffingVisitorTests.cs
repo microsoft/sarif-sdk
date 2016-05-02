@@ -35,7 +35,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
                 {
                     new Run
                     {
-                        Results = new HashSet<Result>
+                        Results = new List<Result>
                         {
                             result1,
                             result2

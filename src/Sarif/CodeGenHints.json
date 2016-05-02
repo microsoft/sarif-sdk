@@ -1,10 +1,23 @@
 {
+  "AnnotatedCodeLocation.Properties": [
+    {
+      "kind": "DictionaryHint"
+    }
+  ],
   "CodeFlow.Properties": [
     {
       "kind": "DictionaryHint"
     }
   ],
-  "AnnotatedCodeLocation.Properties": [
+  "exception": [
+    {
+      "kind": "ClassNameHint",
+      "arguments": {
+        "className": "ExceptionData"
+      }
+    }
+  ],
+  "ExceptionData.Properties": [
     {
       "kind": "DictionaryHint"
     }
@@ -22,29 +35,14 @@
       "kind": "DictionaryHint"
     }
   ],
-  "Invocation.EnvironmentVariables": [
-    {
-      "kind": "DictionaryHint"
-    }
-  ],
   "Location.Properties": [
     {
       "kind": "DictionaryHint"
     }
   ],
-  "Result.BaselineStatus": [
+  "Notification.Properties": [
     {
-      "kind": "EnumHint",
-      "arguments": {
-        "typeName": "BaselineStatus",
-        "description": "Provides the status of a result relative to a baseline.",
-        "zeroValue": "None",
-        "enumValues": [
-          "New",
-          "Existing",
-          "Absent"
-        ]
-      }
+      "kind": "DictionaryHint"
     }
   ],
   "Result.Properties": [
@@ -78,6 +76,11 @@
     }
   ],
   "Run.Rules": [
+    {
+      "kind": "DictionaryHint"
+    }
+  ],
+  "Invocation.EnvironmentVariables": [
     {
       "kind": "DictionaryHint"
     }
@@ -159,21 +162,34 @@
       }
     }
   ],
-  "Result.Kind": [
+  "Notification.Level": [
     {
       "kind": "EnumHint",
       "arguments": {
-        "typeName": "ResultKind",
-        "description": "Values specifying the category of the result.",
+        "typeName": "NotificationLevel",
+        "description": "Values specifying the level of a notification.",
         "zeroValue": "Unknown",
         "enumValues": [
-          "Error",
+          "Note",
           "Warning",
+          "Error"
+        ]
+      }
+    }
+  ],
+  "Result.Level": [
+    {
+      "kind": "EnumHint",
+      "arguments": {
+        "typeName": "ResultLevel",
+        "description": "Values specifying the level of a result.",
+        "zeroValue": "Unknown",
+        "enumValues": [
+          "NotApplicable",
           "Pass",
           "Note",
-          "NotApplicable",
-          "InternalError",
-          "ConfigurationError"
+          "Warning",
+          "Error"
         ]
       }
     }

@@ -79,11 +79,11 @@ namespace Microsoft.Sarif.Viewer
                 }
                 else if (columnName == StandardTableKeyNames.ErrorSeverity)
                 {
-                    content = GetSeverity(_errors[index].Kind);
+                    content = GetSeverity(_errors[index].Level);
                 }
                 else if (columnName == StandardTableKeyNames.Priority)
                 {
-                    content = GetSeverity(_errors[index].Kind) == __VSERRORCATEGORY.EC_ERROR
+                    content = GetSeverity(_errors[index].Level) == __VSERRORCATEGORY.EC_ERROR
                         ? vsTaskPriority.vsTaskPriorityHigh
                         : vsTaskPriority.vsTaskPriorityMedium;
                 }
@@ -144,23 +144,21 @@ namespace Microsoft.Sarif.Viewer
             return content != null;
         }
 
-        private __VSERRORCATEGORY GetSeverity(ResultKind kind)
+        private __VSERRORCATEGORY GetSeverity(ResultLevel level)
         {
-            switch (kind)
+            switch (level)
             {
-                case ResultKind.ConfigurationError:
-                case ResultKind.InternalError:
-                case ResultKind.Error:
+                case ResultLevel.Error:
                 {
                     return __VSERRORCATEGORY.EC_ERROR;
                 }
-                case ResultKind.Warning:
+                case ResultLevel.Warning:
                 {
                     return __VSERRORCATEGORY.EC_WARNING;
                 }
-                case ResultKind.NotApplicable:
-                case ResultKind.Pass:
-                case ResultKind.Note:
+                case ResultLevel.NotApplicable:
+                case ResultLevel.Pass:
+                case ResultLevel.Note:
                 {
                     return __VSERRORCATEGORY.EC_MESSAGE;
                 }

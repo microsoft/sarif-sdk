@@ -120,48 +120,32 @@
   <data name="MSG1001_AnalyzingTarget_Description" xml:space="preserve">
     <value>An analysis target was analyzed.</value>
   </data>
-  <data name="ERR0998_ExceptionInAnalyze" xml:space="preserve">
-    <value>An exception was raised analyzing '{0}' for check '{1}' (which has been disabled for the remainder of the analysis). The exception may have resulted from a problem related to parsing image metadata and not specific to the rule, however. Exception information:
-{2}</value>
+  <data name="Notification_ExceptionInAnalyze" xml:space="preserve">
+    <value>An exception was raised analyzing '{0}' for check '{1}' (which has been disabled). The exception may have resulted from a problem related to parsing image metadata and not specific to the rule, however.</value>
   </data>
-  <data name="ERR0998_ExceptionInCanAnalyze" xml:space="preserve">
-    <value>An exception was raised attempting to determine whether '{0}' is a valid analysis target for check '{1}' (which has been disabled for the remainder of the analysis). The exception may have resulted from a problem related to parsing the analysis target and not specific to the rule, however. Exception information:
-{2}</value>
+  <data name="Notification_ExceptionInCanAnalyze" xml:space="preserve">
+    <value>An exception was raised attempting to determine whether '{0}' is a valid analysis target for check '{1}' (which has been disabled). The exception may have resulted from a problem related to parsing the analysis target and not specific to the rule, however.</value>
   </data>
-  <data name="ERR0997_ExceptionCreatingLogFile" xml:space="preserve">
-    <value>An exception was raised attempting to create output file: '{0}'. Exception information:
-{1}</value>
+  <data name="Notification_ExceptionCreatingLogFile" xml:space="preserve">
+    <value>Could not create output file '{0}'.</value>
   </data>
-  <data name="ERR0999_UnhandledEngineException" xml:space="preserve">
-    <value>An exception was raised during analysis:
-{0}</value>
+  <data name="Notification_UnhandledEngineException" xml:space="preserve">
+    <value>An exception was raised during analysis.</value>
   </data>
-  <data name="ERR0999_AnalysisHalted_Description" xml:space="preserve">
-    <value>Analysis halted and was incomplete due to an unrecoverable error such as an unhandled exception.</value>
+  <data name="Notification_ExceptionInInitialize" xml:space="preserve">
+    <value>An exception was raised initializing check '{0}' (which has been disabled).</value>
   </data>
-  <data name="ERR0998_ExceptionInInitialize" xml:space="preserve">
-    <value>An exception was raised initializing check '{0}' (which has been disabled for the remainder of the analysis). Exception information:
-{1}</value>
+  <data name="Notification_ExceptionLoadingPlugIn" xml:space="preserve">
+    <value>Could not load the plug-in '{0}'.</value>
   </data>
-  <data name="ERR0998_RuleDisabled_Description" xml:space="preserve">
-    <value>A rule was disabled due to an unrecoverable error, such as an exception raised during execution or an absence of required configuration.</value>
-  </data>
-  <data name="ERR0997_ExceptionLoadingPlugIn" xml:space="preserve">
-    <value>An exception was raised attempting to load plug-in: '{0}'. Exception information:
-{1}</value>
-  </data>
-  <data name="ERR0997_ExceptionLoadingAnalysisTarget" xml:space="preserve">
-    <value>An exception was raised attempting to load analysis target: '{0}'. Exception information:
-{1}</value>
-  </data>
-  <data name="ERR0997_InvalidConfiguration_Description" xml:space="preserve">
-    <value>An unhandled exception was raised while configuring analysis for execution.</value>
+  <data name="Notification_ExceptionLoadingAnalysisTarget" xml:space="preserve">
+    <value>Could not load analysis target '{0}'.</value>
   </data>
   <data name="MSG1002_InvalidTarget_Description" xml:space="preserve">
     <value>A file was skipped as it does not appear to be a valid target for analysis.</value>
   </data>
-  <data name="ERR0997_MissingRuleConfiguration" xml:space="preserve">
-    <value>Check '{1}' was disabled while analyzing '{0}' because the analysis was not configured with required policy ({2}). To resolve this, configure and provide a policy file on the {3} command-line using the --policy argument (recommended), or pass '--config default' to invoke built-in settings. Invoke the {3} 'exportConfig' command to produce an initial configuration file that can be edited, if necessary, and passed back into the tool.</value>
+  <data name="Notification_MissingRuleConfiguration" xml:space="preserve">
+    <value>Check '{0}' was disabled while analyzing '{1}' because the analysis was not configured with required policy ({2}). To resolve this, configure and provide a policy file on the {3} command-line using the --policy argument (recommended), or pass '--config default' to invoke built-in settings. Invoke the {3} 'exportConfig' command to produce an initial configuration file that can be edited, if necessary, and passed back into the tool.</value>
   </data>
   <data name="MSG1002_InvalidFileType" xml:space="preserve">
     <value>'{0}' was not analyzed as it does not appear to be a valid file type for analysis.</value>
@@ -172,11 +156,8 @@
   <data name="MSG_UnexpectedApplicationExit" xml:space="preserve">
     <value>Analysis halted prematurely due to a fatal execution condition.</value>
   </data>
-  <data name="ERR1001_Default" xml:space="preserve">
-    <value>An error occurred parsing '{0}': {1}</value>
-  </data>
-  <data name="ERR1001_ParseError_Description" xml:space="preserve">
-    <value>A parse error occurred.</value>
+  <data name="Notification_ParseError" xml:space="preserve">
+    <value>{0}{1}: error {2}: {3}</value>
   </data>
   <data name="MSG1001_AnalyzingTarget" xml:space="preserve">
     <value>Analyzing '{0}'...</value>
@@ -190,24 +171,22 @@
   <data name="MSG_Analyzing" xml:space="preserve">
     <value>Analyzing...</value>
   </data>
-  <data name="ERR0997_ExceptionInstantiatingSkimmers" xml:space="preserve">
-    <value>An exception was raised attempting to instantiate skimmers from the following plugins'{0}'. Exception information:
-{1}</value>
+  <data name="Notification_ExceptionInstantiatingSkimmers" xml:space="preserve">
+    <value>Could not instantiate skimmers from the following plugins: {0}.</value>
   </data>
-  <data name="ERR0997_ExceptionLoadingPdb" xml:space="preserve">
-    <value>'{0}' was not evaluated for check '{1}' as an exception occurred loading its pdb: '{2}'</value>
+  <data name="Notification_ExceptionLoadingPdb" xml:space="preserve">
+    <value>'{0}' was not evaluated for check '{1}' because its PDB could not be loaded.</value>
   </data>
-  <data name="ERR0997_NoRulesLoaded" xml:space="preserve">
-    <value>No analysis rules could be instantiated.</value>
+  <data name="Notification_NoRulesLoaded" xml:space="preserve">
+    <value>Could not instantiate any analysis rules.</value>
   </data>
-  <data name="ERR0997_NoValidAnalysisTargets" xml:space="preserve">
+  <data name="Notification_NoValidAnalysisTargets" xml:space="preserve">
     <value>No valid analysis targets were specified.</value>
   </data>
-  <data name="ERR0997_ExceptionAccessingFile" xml:space="preserve">
-    <value>An exception was raised accessing a file specified on the command line:'{0}'. Exception information:
-{1}</value>
+  <data name="Notification_ExceptionAccessingFile" xml:space="preserve">
+    <value>Could not access a file specified on the command line: '{0}'.</value>
   </data>
-  <data name="ERR0997_MissingFile" xml:space="preserve">
+  <data name="Notification_MissingFile" xml:space="preserve">
     <value>A required file specified on the command line could not be found: '{0}'.</value>
   </data>
 </root>

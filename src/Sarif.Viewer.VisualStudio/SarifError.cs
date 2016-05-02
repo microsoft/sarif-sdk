@@ -72,7 +72,7 @@ namespace Microsoft.Sarif.Viewer
 
         public string Category { get; set; }
 
-        public ResultKind Kind { get; set; }
+        public ResultLevel Level { get; set; }
 
         public string RuleId { get; set; }
 
