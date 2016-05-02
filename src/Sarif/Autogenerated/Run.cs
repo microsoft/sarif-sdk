@@ -74,6 +74,18 @@ namespace Microsoft.CodeAnalysis.Sarif
         [DataMember(Name = "rules", IsRequired = false, EmitDefaultValue = false)]
         public IDictionary<string, Rule> Rules { get; set; }
 
+        /// <summary>
+        /// An identifier for the run.
+        /// </summary>
+        [DataMember(Name = "id", IsRequired = false, EmitDefaultValue = false)]
+        public string Id { get; set; }
+
+        /// <summary>
+        /// A global identifier that allows the run to be correlated with other artifacts produced by a larger automation process.
+        /// </summary>
+        [DataMember(Name = "correlationId", IsRequired = false, EmitDefaultValue = false)]
+        public string CorrelationId { get; set; }
+
         public override bool Equals(object other)
         {
             return Equals(other as Run);
@@ -176,6 +188,16 @@ namespace Microsoft.CodeAnalysis.Sarif
                     }
 
                     result = (result * 31) + xor_2;
+                }
+
+                if (Id != null)
+                {
+                    result = (result * 31) + Id.GetHashCode();
+                }
+
+                if (CorrelationId != null)
+                {
+                    result = (result * 31) + CorrelationId.GetHashCode();
                 }
             }
 
@@ -360,6 +382,16 @@ namespace Microsoft.CodeAnalysis.Sarif
                 }
             }
 
+            if (Id != other.Id)
+            {
+                return false;
+            }
+
+            if (CorrelationId != other.CorrelationId)
+            {
+                return false;
+            }
+
             return true;
         }
 
@@ -397,9 +429,15 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="rules">
         /// An initialization value for the <see cref="P: Rules" /> property.
         /// </param>
-        public Run(Tool tool, Invocation invocation, IDictionary<string, IList<FileData>> files, IDictionary<string, IList<LogicalLocationComponent>> logicalLocations, IEnumerable<Result> results, IEnumerable<Notification> toolNotifications, IEnumerable<Notification> configurationNotifications, IDictionary<string, Rule> rules)
+        /// <param name="id">
+        /// An initialization value for the <see cref="P: Id" /> property.
+        /// </param>
+        /// <param name="correlationId">
+        /// An initialization value for the <see cref="P: CorrelationId" /> property.
+        /// </param>
+        public Run(Tool tool, Invocation invocation, IDictionary<string, IList<FileData>> files, IDictionary<string, IList<LogicalLocationComponent>> logicalLocations, IEnumerable<Result> results, IEnumerable<Notification> toolNotifications, IEnumerable<Notification> configurationNotifications, IDictionary<string, Rule> rules, string id, string correlationId)
         {
-            Init(tool, invocation, files, logicalLocations, results, toolNotifications, configurationNotifications, rules);
+            Init(tool, invocation, files, logicalLocations, results, toolNotifications, configurationNotifications, rules, id, correlationId);
         }
 
         /// <summary>
@@ -418,7 +456,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 throw new ArgumentNullException(nameof(other));
             }
 
-            Init(other.Tool, other.Invocation, other.Files, other.LogicalLocations, other.Results, other.ToolNotifications, other.ConfigurationNotifications, other.Rules);
+            Init(other.Tool, other.Invocation, other.Files, other.LogicalLocations, other.Results, other.ToolNotifications, other.ConfigurationNotifications, other.Rules, other.Id, other.CorrelationId);
         }
 
         ISarifNode ISarifNode.DeepClone()
@@ -439,7 +477,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new Run(this);
         }
 
-        private void Init(Tool tool, Invocation invocation, IDictionary<string, IList<FileData>> files, IDictionary<string, IList<LogicalLocationComponent>> logicalLocations, IEnumerable<Result> results, IEnumerable<Notification> toolNotifications, IEnumerable<Notification> configurationNotifications, IDictionary<string, Rule> rules)
+        private void Init(Tool tool, Invocation invocation, IDictionary<string, IList<FileData>> files, IDictionary<string, IList<LogicalLocationComponent>> logicalLocations, IEnumerable<Result> results, IEnumerable<Notification> toolNotifications, IEnumerable<Notification> configurationNotifications, IDictionary<string, Rule> rules, string id, string correlationId)
         {
             if (tool != null)
             {
@@ -557,6 +595,9 @@ namespace Microsoft.CodeAnalysis.Sarif
                     Rules.Add(value_7.Key, new Rule(value_7.Value));
                 }
             }
+
+            Id = id;
+            CorrelationId = correlationId;
         }
     }
 }

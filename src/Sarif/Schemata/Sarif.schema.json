@@ -269,11 +269,6 @@
           "format": "date-time"
         },
 
-        "correlationId": {
-          "description": "An identifier that allows the run to be correlated with other artifacts produced by a larger automation process.",
-          "type": "string"
-        },
-
         "machine": {
           "description": "The machine that hosted the analysis tool run.",
           "type": "string"
@@ -757,6 +752,16 @@
           "additionalProperties": {
             "$ref": "#/definitions/rule"
           }
+        },
+
+        "id": {
+          "description": "An identifier for the run.",
+          "type": "string"
+        },
+
+        "correlationId": {
+          "description": "A global identifier that allows the run to be correlated with other artifacts produced by a larger automation process.",
+          "type": "string"
         }
       },
       "required": [ "tool" ]
