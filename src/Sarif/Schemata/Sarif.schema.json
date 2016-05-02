@@ -269,6 +269,11 @@
           "format": "date-time"
         },
 
+        "correlationId": {
+          "description": "An identifier that allows the run to be correlated with other artifacts produced by a larger automation process.",
+          "type": "string"
+        },
+
         "machine": {
           "description": "The machine that hosted the analysis tool run.",
           "type": "string"
@@ -700,16 +705,6 @@
         "tool": {
           "description": "Information about the tool or tool pipeline that generated the results in this run. A run can only contain results produced by a single tool or tool pipeline. A run can aggregate results from multiple log files, as long as context around the tool run (tool command-line arguments and the like) is identical for all aggregated files.",
           "$ref": "#/definitions/tool"
-        },
-
-        "id": {
-          "description": "An identifier for the run.",
-          "type": "string"
-        },
-
-        "correlationId": {
-          "description": "An identifier that allows the run to be correlated with other artifacts produced by a larger automation process.",
-          "type": "string"
         },
 
         "invocation": {
