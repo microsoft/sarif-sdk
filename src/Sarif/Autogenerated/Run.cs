@@ -33,18 +33,6 @@ namespace Microsoft.CodeAnalysis.Sarif
         public Tool Tool { get; set; }
 
         /// <summary>
-        /// An identifier for the run.
-        /// </summary>
-        [DataMember(Name = "id", IsRequired = false, EmitDefaultValue = false)]
-        public string Id { get; set; }
-
-        /// <summary>
-        /// An identifier that allows the run to be correlated with other artifacts produced by a larger automation process.
-        /// </summary>
-        [DataMember(Name = "correlationId", IsRequired = false, EmitDefaultValue = false)]
-        public string CorrelationId { get; set; }
-
-        /// <summary>
         /// Describes the runtime environment, including parameterization, of the analysis tool run.
         /// </summary>
         [DataMember(Name = "invocation", IsRequired = false, EmitDefaultValue = false)]
@@ -99,16 +87,6 @@ namespace Microsoft.CodeAnalysis.Sarif
                 if (Tool != null)
                 {
                     result = (result * 31) + Tool.GetHashCode();
-                }
-
-                if (Id != null)
-                {
-                    result = (result * 31) + Id.GetHashCode();
-                }
-
-                if (CorrelationId != null)
-                {
-                    result = (result * 31) + CorrelationId.GetHashCode();
                 }
 
                 if (Invocation != null)
@@ -212,16 +190,6 @@ namespace Microsoft.CodeAnalysis.Sarif
             }
 
             if (!Object.Equals(Tool, other.Tool))
-            {
-                return false;
-            }
-
-            if (Id != other.Id)
-            {
-                return false;
-            }
-
-            if (CorrelationId != other.CorrelationId)
             {
                 return false;
             }
@@ -408,12 +376,6 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="tool">
         /// An initialization value for the <see cref="P: Tool" /> property.
         /// </param>
-        /// <param name="id">
-        /// An initialization value for the <see cref="P: Id" /> property.
-        /// </param>
-        /// <param name="correlationId">
-        /// An initialization value for the <see cref="P: CorrelationId" /> property.
-        /// </param>
         /// <param name="invocation">
         /// An initialization value for the <see cref="P: Invocation" /> property.
         /// </param>
@@ -435,9 +397,9 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="rules">
         /// An initialization value for the <see cref="P: Rules" /> property.
         /// </param>
-        public Run(Tool tool, string id, string correlationId, Invocation invocation, IDictionary<string, IList<FileData>> files, IDictionary<string, IList<LogicalLocationComponent>> logicalLocations, IEnumerable<Result> results, IEnumerable<Notification> toolNotifications, IEnumerable<Notification> configurationNotifications, IDictionary<string, Rule> rules)
+        public Run(Tool tool, Invocation invocation, IDictionary<string, IList<FileData>> files, IDictionary<string, IList<LogicalLocationComponent>> logicalLocations, IEnumerable<Result> results, IEnumerable<Notification> toolNotifications, IEnumerable<Notification> configurationNotifications, IDictionary<string, Rule> rules)
         {
-            Init(tool, id, correlationId, invocation, files, logicalLocations, results, toolNotifications, configurationNotifications, rules);
+            Init(tool, invocation, files, logicalLocations, results, toolNotifications, configurationNotifications, rules);
         }
 
         /// <summary>
@@ -456,7 +418,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 throw new ArgumentNullException(nameof(other));
             }
 
-            Init(other.Tool, other.Id, other.CorrelationId, other.Invocation, other.Files, other.LogicalLocations, other.Results, other.ToolNotifications, other.ConfigurationNotifications, other.Rules);
+            Init(other.Tool, other.Invocation, other.Files, other.LogicalLocations, other.Results, other.ToolNotifications, other.ConfigurationNotifications, other.Rules);
         }
 
         ISarifNode ISarifNode.DeepClone()
@@ -477,15 +439,13 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new Run(this);
         }
 
-        private void Init(Tool tool, string id, string correlationId, Invocation invocation, IDictionary<string, IList<FileData>> files, IDictionary<string, IList<LogicalLocationComponent>> logicalLocations, IEnumerable<Result> results, IEnumerable<Notification> toolNotifications, IEnumerable<Notification> configurationNotifications, IDictionary<string, Rule> rules)
+        private void Init(Tool tool, Invocation invocation, IDictionary<string, IList<FileData>> files, IDictionary<string, IList<LogicalLocationComponent>> logicalLocations, IEnumerable<Result> results, IEnumerable<Notification> toolNotifications, IEnumerable<Notification> configurationNotifications, IDictionary<string, Rule> rules)
         {
             if (tool != null)
             {
                 Tool = new Tool(tool);
             }
 
-            Id = id;
-            CorrelationId = correlationId;
             if (invocation != null)
             {
                 Invocation = new Invocation(invocation);

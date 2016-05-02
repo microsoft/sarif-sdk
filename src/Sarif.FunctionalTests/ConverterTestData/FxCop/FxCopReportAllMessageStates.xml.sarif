@@ -11,7 +11,7 @@
             "mimeType": "application/octet-stream"
           }
         ],
-        "file:///c:/users/user/documents/visual studio 2015/Projects/WpfApplication5/WpfApplication5/Foo.cs": [
+        "file:///c:/users/user/documents/visual studio 2015/Projects/WpfApplication5/WpfApplication5/Frz.cs": [
           {
             "mimeType": "text/x-csharp"
           }
@@ -30,7 +30,7 @@
             "kind": "module"
           }
         ],
-        "WpfApplication5.Foo": [
+        "WpfApplication5.Frz": [
           {
             "name": "wpfapplication5.exe",
             "kind": "module"
@@ -40,11 +40,11 @@
             "kind": "namespace"
           },
           {
-            "name": "Foo",
+            "name": "Frz",
             "kind": "type"
           }
         ],
-        "WpfApplication5.Foo.Baz()": [
+        "WpfApplication5.Frz.Baz()": [
           {
             "name": "wpfapplication5.exe",
             "kind": "module"
@@ -54,7 +54,7 @@
             "kind": "namespace"
           },
           {
-            "name": "Foo",
+            "name": "Frz",
             "kind": "type"
           },
           {
@@ -192,13 +192,13 @@
         },
         {
           "ruleId": "CA1053",
-          "message": "Because type 'Foo' contains only 'static' members, mark it as 'static' to prevent the compiler from adding a default public constructor.",
+          "message": "Because type 'Frz' contains only 'static' members, mark it as 'static' to prevent the compiler from adding a default public constructor.",
           "locations": [
             {
               "analysisTarget": {
                 "uri": "file:///C:/Users/user/Documents/Visual Studio 2015/Projects/WpfApplication5/WpfApplication5/bin/Debug/WpfApplication5.exe"
               },
-              "fullyQualifiedLogicalName": "WpfApplication5.Foo"
+              "fullyQualifiedLogicalName": "WpfApplication5.Frz"
             }
           ],
           "toolFingerprint": "CSharp2_0",
@@ -210,19 +210,19 @@
         },
         {
           "ruleId": "CA1704",
-          "message": "Correct the spelling of 'Baz' in member name 'Foo.Baz()' or remove it entirely if it represents any sort of Hungarian notation.",
+          "message": "Correct the spelling of 'Baz' in member name 'Frz.Baz()' or remove it entirely if it represents any sort of Hungarian notation.",
           "locations": [
             {
               "analysisTarget": {
                 "uri": "file:///C:/Users/user/Documents/Visual Studio 2015/Projects/WpfApplication5/WpfApplication5/bin/Debug/WpfApplication5.exe"
               },
               "resultFile": {
-                "uri": "file:///c:/users/user/documents/visual studio 2015/Projects/WpfApplication5/WpfApplication5/Foo.cs",
+                "uri": "file:///c:/users/user/documents/visual studio 2015/Projects/WpfApplication5/WpfApplication5/Frz.cs",
                 "region": {
                   "startLine": 11
                 }
               },
-              "fullyQualifiedLogicalName": "WpfApplication5.Foo.Baz()"
+              "fullyQualifiedLogicalName": "WpfApplication5.Frz.Baz()"
             }
           ],
           "toolFingerprint": "Baz#Member",
@@ -234,19 +234,19 @@
         },
         {
           "ruleId": "CA1822",
-          "message": "The 'this' parameter (or 'Me' in Visual Basic) of 'Foo.Baz()' is never used. Mark the member as static (or Shared in Visual Basic) or use 'this'/'Me' in the method body or at least one property accessor, if appropriate.",
+          "message": "The 'this' parameter (or 'Me' in Visual Basic) of 'Frz.Baz()' is never used. Mark the member as static (or Shared in Visual Basic) or use 'this'/'Me' in the method body or at least one property accessor, if appropriate.",
           "locations": [
             {
               "analysisTarget": {
                 "uri": "file:///C:/Users/user/Documents/Visual Studio 2015/Projects/WpfApplication5/WpfApplication5/bin/Debug/WpfApplication5.exe"
               },
               "resultFile": {
-                "uri": "file:///c:/users/user/documents/visual studio 2015/Projects/WpfApplication5/WpfApplication5/Foo.cs",
+                "uri": "file:///c:/users/user/documents/visual studio 2015/Projects/WpfApplication5/WpfApplication5/Frz.cs",
                 "region": {
                   "startLine": 11
                 }
               },
-              "fullyQualifiedLogicalName": "WpfApplication5.Foo.Baz()"
+              "fullyQualifiedLogicalName": "WpfApplication5.Frz.Baz()"
             }
           ],
           "properties": {

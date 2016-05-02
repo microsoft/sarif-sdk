@@ -2,7 +2,7 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using System;
-using System.Collections.Generic;
+
 using Newtonsoft.Json;
 
 namespace Microsoft.CodeAnalysis.Sarif.Readers
@@ -18,7 +18,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
 
         public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
         {
-            SuppressionStates result = SuppressionStates.None;
+            int result = 0;
+
+            // What's happening in this code? We express [Flags] enums in JSON as arrays of
+            // strings. On deserialization, we walk the array, locate each string, 
+            // and convert it to its equivalent enum value. Because we don't have a strong
+            // sense of the destination type, we simply treat the enum values as numbers
+            // and OR them together. This number will eventually be unboxed and assigned
+            // to the target enum property.
 
             // Read start of array
             reader.Read();
@@ -26,7 +33,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
             while (reader.TokenType == JsonToken.String)
             {
                 string enumName = EnumConverter.ConvertToPascalCase((string)reader.Value);
-                result |= (SuppressionStates)Enum.Parse(typeof(SuppressionStates), enumName);
+                result |= (int)Enum.Parse(objectType, enumName);
                 reader.Read();
             }
 

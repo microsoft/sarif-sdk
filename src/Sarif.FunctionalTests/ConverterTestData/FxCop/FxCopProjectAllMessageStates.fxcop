@@ -56,11 +56,11 @@
       <Namespaces>
        <Namespace Name="WpfApplication5">
         <Types>
-         <Type Name="Foo">
+         <Type Name="Frz">
           <Messages>
            <Message TypeName="StaticHolderTypesShouldNotHaveConstructors" Category="Microsoft.Design" CheckId="CA1053" Created="2016-04-28 23:34:54Z">
             <Issue Name="CSharp2_0">
-             <Item>'Foo'</Item>
+             <Item>'Frz'</Item>
             </Issue>
            </Message>
           </Messages>
@@ -70,11 +70,11 @@
              <Message Id="Baz" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Created="2016-04-28 23:34:19Z">
               <Issue Name="Member">
                <Item>Baz</Item>
-               <Item>'Foo.Baz()'</Item>
+               <Item>'Frz.Baz()'</Item>
               </Issue>
              </Message>
              <Message TypeName="MarkMembersAsStatic" Category="Microsoft.Performance" CheckId="CA1822" Status="Absent" Created="2016-04-28 23:34:19Z" FixCategory="DependsOnFix">
-              <Issue>The 'this' parameter (or 'Me' in Visual Basic) of 'Foo.Baz()' is never used. Mark the member as static (or Shared in Visual Basic) or use 'this'/'Me' in the method body or at least one property accessor, if appropriate.</Issue>
+              <Issue>The 'this' parameter (or 'Me' in Visual Basic) of 'Frz.Baz()' is never used. Mark the member as static (or Shared in Visual Basic) or use 'this'/'Me' in the method body or at least one property accessor, if appropriate.</Issue>
              </Message>
             </Messages>
            </Member>

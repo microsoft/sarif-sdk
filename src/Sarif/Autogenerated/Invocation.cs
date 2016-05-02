@@ -45,6 +45,12 @@ namespace Microsoft.CodeAnalysis.Sarif
         public DateTime EndTime { get; set; }
 
         /// <summary>
+        /// An identifier that allows the run to be correlated with other artifacts produced by a larger automation process.
+        /// </summary>
+        [DataMember(Name = "correlationId", IsRequired = false, EmitDefaultValue = false)]
+        public string CorrelationId { get; set; }
+
+        /// <summary>
         /// The machine that hosted the analysis tool run.
         /// </summary>
         [DataMember(Name = "machine", IsRequired = false, EmitDefaultValue = false)]
@@ -109,6 +115,11 @@ namespace Microsoft.CodeAnalysis.Sarif
 
                 result = (result * 31) + StartTime.GetHashCode();
                 result = (result * 31) + EndTime.GetHashCode();
+                if (CorrelationId != null)
+                {
+                    result = (result * 31) + CorrelationId.GetHashCode();
+                }
+
                 if (Machine != null)
                 {
                     result = (result * 31) + Machine.GetHashCode();
@@ -185,6 +196,11 @@ namespace Microsoft.CodeAnalysis.Sarif
             }
 
             if (EndTime != other.EndTime)
+            {
+                return false;
+            }
+
+            if (CorrelationId != other.CorrelationId)
             {
                 return false;
             }
@@ -284,6 +300,9 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="endTime">
         /// An initialization value for the <see cref="P: EndTime" /> property.
         /// </param>
+        /// <param name="correlationId">
+        /// An initialization value for the <see cref="P: CorrelationId" /> property.
+        /// </param>
         /// <param name="machine">
         /// An initialization value for the <see cref="P: Machine" /> property.
         /// </param>
@@ -308,9 +327,9 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="tags">
         /// An initialization value for the <see cref="P: Tags" /> property.
         /// </param>
-        public Invocation(string commandLine, DateTime startTime, DateTime endTime, string machine, string account, int processId, string fileName, string workingDirectory, IDictionary<string, string> environmentVariables, object properties, IEnumerable<string> tags)
+        public Invocation(string commandLine, DateTime startTime, DateTime endTime, string correlationId, string machine, string account, int processId, string fileName, string workingDirectory, IDictionary<string, string> environmentVariables, object properties, IEnumerable<string> tags)
         {
-            Init(commandLine, startTime, endTime, machine, account, processId, fileName, workingDirectory, environmentVariables, properties, tags);
+            Init(commandLine, startTime, endTime, correlationId, machine, account, processId, fileName, workingDirectory, environmentVariables, properties, tags);
         }
 
         /// <summary>
@@ -329,7 +348,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 throw new ArgumentNullException(nameof(other));
             }
 
-            Init(other.CommandLine, other.StartTime, other.EndTime, other.Machine, other.Account, other.ProcessId, other.FileName, other.WorkingDirectory, other.EnvironmentVariables, other.Properties, other.Tags);
+            Init(other.CommandLine, other.StartTime, other.EndTime, other.CorrelationId, other.Machine, other.Account, other.ProcessId, other.FileName, other.WorkingDirectory, other.EnvironmentVariables, other.Properties, other.Tags);
         }
 
         ISarifNode ISarifNode.DeepClone()
@@ -350,11 +369,12 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new Invocation(this);
         }
 
-        private void Init(string commandLine, DateTime startTime, DateTime endTime, string machine, string account, int processId, string fileName, string workingDirectory, IDictionary<string, string> environmentVariables, object properties, IEnumerable<string> tags)
+        private void Init(string commandLine, DateTime startTime, DateTime endTime, string correlationId, string machine, string account, int processId, string fileName, string workingDirectory, IDictionary<string, string> environmentVariables, object properties, IEnumerable<string> tags)
         {
             CommandLine = commandLine;
             StartTime = startTime;
             EndTime = endTime;
+            CorrelationId = correlationId;
             Machine = machine;
             Account = account;
             ProcessId = processId;

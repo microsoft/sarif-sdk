@@ -22,20 +22,20 @@
      <Namespaces>
       <Namespace Name="WpfApplication5">
        <Types>
-        <Type Name="Foo" Kind="Class" Accessibility="Public" ExternallyVisible="True">
+        <Type Name="Frz" Kind="Class" Accessibility="Public" ExternallyVisible="True">
          <Messages>
           <Message TypeName="StaticHolderTypesShouldNotHaveConstructors" Category="Microsoft.Design" CheckId="CA1053" Status="Active" Created="2016-04-28 23:34:54Z" FixCategory="Breaking">
-           <Issue Name="CSharp2_0" Certainty="90" Level="Error">Because type 'Foo' contains only 'static' members, mark it as 'static' to prevent the compiler from adding a default public constructor.</Issue>
+           <Issue Name="CSharp2_0" Certainty="90" Level="Error">Because type 'Frz' contains only 'static' members, mark it as 'static' to prevent the compiler from adding a default public constructor.</Issue>
           </Message>
          </Messages>
          <Members>
           <Member Name="#Baz()" Kind="Method" Static="False" Accessibility="Public" ExternallyVisible="True">
            <Messages>
             <Message Id="Baz" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Status="Active" Created="2016-04-28 23:34:19Z" FixCategory="Breaking">
-             <Issue Name="Member" Certainty="75" Level="CriticalWarning" Path="c:\users\user\documents\visual studio 2015\Projects\WpfApplication5\WpfApplication5" File="Foo.cs" Line="11">Correct the spelling of 'Baz' in member name 'Foo.Baz()' or remove it entirely if it represents any sort of Hungarian notation.</Issue>
+             <Issue Name="Member" Certainty="75" Level="CriticalWarning" Path="c:\users\user\documents\visual studio 2015\Projects\WpfApplication5\WpfApplication5" File="Frz.cs" Line="11">Correct the spelling of 'Baz' in member name 'Frz.Baz()' or remove it entirely if it represents any sort of Hungarian notation.</Issue>
             </Message>
             <Message TypeName="MarkMembersAsStatic" Category="Microsoft.Performance" CheckId="CA1822" Status="Absent" Created="2016-04-28 23:34:19Z" FixCategory="DependsOnFix" LastSeen="2016-04-28 23:34:42Z">
-             <Issue Certainty="95" Level="Warning" Path="c:\users\user\documents\visual studio 2015\Projects\WpfApplication5\WpfApplication5" File="Foo.cs" Line="11">The 'this' parameter (or 'Me' in Visual Basic) of 'Foo.Baz()' is never used. Mark the member as static (or Shared in Visual Basic) or use 'this'/'Me' in the method body or at least one property accessor, if appropriate.</Issue>
+             <Issue Certainty="95" Level="Warning" Path="c:\users\user\documents\visual studio 2015\Projects\WpfApplication5\WpfApplication5" File="Frz.cs" Line="11">The 'this' parameter (or 'Me' in Visual Basic) of 'Frz.Baz()' is never used. Mark the member as static (or Shared in Visual Basic) or use 'this'/'Me' in the method body or at least one property accessor, if appropriate.</Issue>
             </Message>
            </Messages>
           </Member>
