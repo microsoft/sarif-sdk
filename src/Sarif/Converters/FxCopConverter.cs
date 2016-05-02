@@ -88,12 +88,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
             if ("ExcludedInSource".Equals(status))
             {
-                result.SuppressionStates = new List<SuppressionStatus>();
-                result.SuppressionStates.Add(SuppressionStatus.SuppressedInSource);
+                result.SuppressionStates = SuppressionStates.SuppressedInSource;
             }
             else if ("ExcludedInProject".Equals(status))
             {
-                result.SuppressionStatus = SuppressionStatus.SuppressedInBaseline;
+                result.SuppressionStates = SuppressionStates.SuppressedInBaseline;
             }
 
             result.RuleId = context.CheckId;
@@ -717,7 +716,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             reader.ReadChildren(SchemaStrings.ElementNamespaces, parent);
         }
 
-        private static void ReadNamespace(SparseReader reader, object parent)
+        private void ReadNamespace(SparseReader reader, object parent)
         {
             Context context = (Context)parent;
 
@@ -766,7 +765,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             reader.ReadChildren(SchemaStrings.ElementMessages, parent);
         }
 
-        private static void ReadMessage(SparseReader reader, object parent)
+        private void ReadMessage(SparseReader reader, object parent)
         {
             Context context = (Context)parent;
 
@@ -778,7 +777,21 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             string status = reader.ReadAttributeString(SchemaStrings.AttributeStatus);
 
             context.RefineMessage(checkId, typename, messageId, category, fixCategory, status);
+
+            if ("Excluded".Equals(status) || "ExcludedInSource".Equals(status))
+            {
+                // FxCop doesn't actually emit message details for most excluded items
+                // and so we must fire here for these items, as the scan for child
+                // <Issue> elements may not produce anything. FxCop seems to emit
+                // issues for excluded items which are at the namespace level only.
+                if (ResultRead != null)
+                {
+                    ResultRead(context);
+                }
+            }
+
             reader.ReadChildren(SchemaStrings.ElementMessage, parent);
+
             context.ClearMessage();
         }
 

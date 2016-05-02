@@ -41,9 +41,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
         }
 
         [TestMethod]
-        public void SuppressionStatus_Suppressed()
+        public void SuppressionStatus_SuppressedInSource()
         {
-            string expected = "{\"version\":\"1.0.0-beta.4\",\"runs\":[{\"tool\":{\"name\":null},\"results\":[{\"suppressionStatus\":\"suppressed\"}]}]}";
+            string expected = "{\"version\":\"1.0.0-beta.4\",\"runs\":[{\"tool\":{\"name\":null},\"results\":[{\"suppressionStates\":[\"suppressedInSource\"]}]}]}";
             string actual = GetJson(uut =>
             {
                 var run = new Run();
@@ -52,15 +52,47 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
 
                 uut.WriteResults(new[] { new Result
                     {
-                        SuppressionStatus = SuppressionStatus.SuppressedInSource
+                        SuppressionStates = SuppressionStates.SuppressedInSource
                     }
                 });
             });
             Assert.AreEqual(expected, actual);
+
+            var settings = new JsonSerializerSettings()
+            {
+                ContractResolver = new SarifContractResolver()
+            };
+
+            var sarifLog = JsonConvert.DeserializeObject<SarifLog>(actual, settings);
+            Assert.AreEqual(SuppressionStates.SuppressedInSource, sarifLog.Runs[0].Results[0].SuppressionStates);
         }
 
         [TestMethod]
-        public void BaselineStatus_None()
+        public void SuppressionStatus_SuppressedInSourceAndBaseline()
+        {
+            string expected = "{\"version\":\"1.0.0-beta.4\",\"runs\":[{\"tool\":{\"name\":null},\"results\":[{\"suppressionStates\":[\"suppressedInSource\",\"suppressedInBaseline\"]}]}]}";
+            string actual = GetJson(uut =>
+            {
+                var run = new Run();
+
+                uut.WriteTool(s_defaultTool);
+
+                uut.WriteResults(new[] { new Result
+                    {
+                        SuppressionStates = SuppressionStates.SuppressedInSource | SuppressionStates.SuppressedInBaseline
+                    }
+                });
+            });
+            Assert.AreEqual(expected, actual);
+
+            var sarifLog = JsonConvert.DeserializeObject<SarifLog>(actual);
+            Assert.AreEqual(
+                SuppressionStates.SuppressedInSource | SuppressionStates.SuppressedInBaseline, 
+                sarifLog.Runs[0].Results[0].SuppressionStates);
+        }
+
+        [TestMethod]
+        public void BaselineState_None()
         {
             string expected = "{\"version\":\"1.0.0-beta.4\",\"runs\":[{\"tool\":{\"name\":null},\"results\":[{}]}]}";
             string actual = GetJson(uut =>
@@ -71,7 +103,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
 
                 uut.WriteResults(new[] { new Result
                     {
-                        BaselineStatus = Sarif.BaselineStatus.None
+                        BaselineState = Sarif.BaselineState.None
                     }
                 });
             });

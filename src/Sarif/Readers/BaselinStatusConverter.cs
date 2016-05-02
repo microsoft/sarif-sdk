@@ -8,19 +8,19 @@ using Newtonsoft.Json;
 
 namespace Microsoft.CodeAnalysis.Sarif.Readers
 {
-    public class BaselineStatusConverter : JsonConverter
+    public class BaselineStateConverter : JsonConverter
     {
-        public static readonly BaselineStatusConverter Instance = new BaselineStatusConverter();
+        public static readonly BaselineStateConverter Instance = new BaselineStateConverter();
 
         public override bool CanConvert(Type objectType)
         {
-            return objectType == typeof(BaselineStatus);
+            return objectType == typeof(BaselineState);
         }
 
         public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
         {
             string value = (string)reader.Value;
-            return Enum.Parse(typeof(BaselineStatus), value.Substring(0, 1).ToUpper() + value.Substring(1));
+            return Enum.Parse(typeof(BaselineState), value.Substring(0, 1).ToUpper() + value.Substring(1));
         }
 
         public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)

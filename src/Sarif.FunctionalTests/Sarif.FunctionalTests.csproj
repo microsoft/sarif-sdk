@@ -83,6 +83,9 @@
     <None Include="ConverterTestData\FxCop\FxCopProjectAllMessageStates.fxcop">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="ConverterTestData\FxCop\FxCopReportAllMessageStates.xml.sarif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="DirectProducerTestData\WebSkim\LocalizedBundleDoubleNesting.sarif">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

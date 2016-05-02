@@ -8,28 +8,28 @@ using Newtonsoft.Json;
 
 namespace Microsoft.CodeAnalysis.Sarif.Readers
 {
-    public class SuppressionStatusConverter : JsonConverter
+    public class SuppressionStatesConverter : JsonConverter
     {
-        public static readonly SuppressionStatusConverter Instance = new SuppressionStatusConverter();
+        public static readonly SuppressionStatesConverter Instance = new SuppressionStatesConverter();
 
         public override bool CanConvert(Type objectType)
         {
-            return objectType == typeof(SuppressionStatus);
+            return objectType == typeof(SuppressionStates);
         }
 
         public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
         {
             string value = (string)reader.Value;
-            return Enum.Parse(typeof(SuppressionStatus), value.Substring(0, 1).ToUpper() + value.Substring(1));
+            return Enum.Parse(typeof(SuppressionStates), value.Substring(0, 1).ToUpper() + value.Substring(1));
         }
 
         public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
         {
-            string resultKindString = value.ToString();
+            string suppressionStates = value.ToString();
 
-            resultKindString = resultKindString.Substring(0, 1).ToLower() + resultKindString.Substring(1);
+            suppressionStates = suppressionStates.Substring(0, 1).ToLower() + suppressionStates.Substring(1);
 
-            writer.WriteRawValue("\"" + resultKindString + "\"");
+            writer.WriteRawValue("\"" + suppressionStates + "\"");
         }
     }
 }

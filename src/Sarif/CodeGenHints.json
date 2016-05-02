@@ -45,6 +45,35 @@
       "kind": "DictionaryHint"
     }
   ],
+  "Result.BaselineState": [
+    {
+      "kind": "EnumHint",
+      "arguments": {
+        "typeName": "BaselineState",
+        "description": "The state of a result relative to a baseline of a previous run.",
+        "zeroValue": "None",
+        "enumValues": [
+          "Existing",
+          "New",
+          "Absent"
+        ]
+      }
+    }
+  ],
+  "Result.SuppressionStates": [
+    {
+      "kind": "EnumHint",
+      "arguments": {
+        "typeName": "SuppressionStates",
+        "description": "The state of a result relative to a baseline of a previous run.",
+        "zeroValue": "None",
+        "enumValues": [
+          "SuppressedInSource",
+          "SuppressedInBaseline"
+        ]
+      }
+    }
+  ],
   "Result.Properties": [
     {
       "kind": "DictionaryHint"

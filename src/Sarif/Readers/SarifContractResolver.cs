@@ -4,6 +4,7 @@
 using Newtonsoft.Json.Serialization;
 using System;
 using Microsoft.CodeAnalysis.Sarif.Sdk;
+using System.Collections.Generic;
 
 namespace Microsoft.CodeAnalysis.Sarif.Readers
 {
@@ -34,11 +35,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
             else if (objectType == typeof(NotificationLevel))
                 contract.Converter = EnumConverter.Instance;
 
-            else if (objectType == typeof(AlgorithmKind))
-                contract.Converter = AlgorithmKindConverter.Instance;
+            if (objectType == typeof(AlgorithmKind))
+                contract.Converter = EnumConverter.Instance;
 
-            if (objectType == typeof(BaselineStatus))
-                contract.Converter = BaselineStatusConverter.Instance;
+            if (objectType == typeof(BaselineState))
+                contract.Converter = EnumConverter.Instance;
+
+            if (objectType == typeof(SuppressionStates))
+                contract.Converter = FlagsEnumConverter.Instance;
 
             return contract;
         }

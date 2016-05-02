@@ -69,6 +69,7 @@
     <Compile Include="Core\StackTests.cs" />
     <Compile Include="ExtensionsTests.cs" />
     <Compile Include="Readers\AlgorithmKindConverterTests.cs" />
+    <Compile Include="Readers\EnumConverterTests.cs" />
     <Compile Include="Readers\IsSuppressedInSourceConverterTests.cs" />
     <Compile Include="Readers\ResultDiffingVisitorTests.cs" />
     <Compile Include="ResultLogObjectWriter.cs" />

@@ -378,8 +378,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 RuleId = "CA0000",
                 Message = "hello!",
                 ToolFingerprint = "1#test",
-//                BaselineStatus = BaselineStatus.,
-                Locations = new HashSet<Location>
+                SuppressionStates = SuppressionStates.SuppressedInSource,
+                Locations = new List<Location>
                 {
                     new Location
                     {
