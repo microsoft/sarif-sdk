@@ -89,7 +89,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
             foreach (var testTuple in testTuples)
             {
                 string expected = 
-                    "{\"version\":\"1.0.0-beta.4\",\"runs\":[{\"tool\":{\"name\":null},\"files\":{\"http://abc/\":[{\"hashes\":[{\"value\":null,\"algorithm\":\"" +
+                    "{\"$schema\":\"http://json.schemastore.org/sarif-1.0.0\",\"version\":\"1.0.0-beta.4\",\"runs\":[{\"tool\":{\"name\":null},\"files\":{\"http://abc/\":[{\"hashes\":[{\"value\":null,\"algorithm\":\"" +
                     testTuple.Item2 +  
                     "\"}]}]},\"results\":[{}]}]}";
 

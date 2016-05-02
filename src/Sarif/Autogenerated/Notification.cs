@@ -39,6 +39,12 @@ namespace Microsoft.CodeAnalysis.Sarif
         public string RuleId { get; set; }
 
         /// <summary>
+        /// The analysis target (if any) to which this notification is relevant.
+        /// </summary>
+        [DataMember(Name = "analysisTarget", IsRequired = false, EmitDefaultValue = false)]
+        public PhysicalLocation AnalysisTarget { get; set; }
+
+        /// <summary>
         /// A string that describes the condition that was encountered.
         /// </summary>
         [DataMember(Name = "message", IsRequired = true)]
@@ -92,6 +98,11 @@ namespace Microsoft.CodeAnalysis.Sarif
                 if (RuleId != null)
                 {
                     result = (result * 31) + RuleId.GetHashCode();
+                }
+
+                if (AnalysisTarget != null)
+                {
+                    result = (result * 31) + AnalysisTarget.GetHashCode();
                 }
 
                 if (Message != null)
@@ -151,6 +162,11 @@ namespace Microsoft.CodeAnalysis.Sarif
             }
 
             if (RuleId != other.RuleId)
+            {
+                return false;
+            }
+
+            if (!Object.Equals(AnalysisTarget, other.AnalysisTarget))
             {
                 return false;
             }
@@ -237,6 +253,9 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="ruleId">
         /// An initialization value for the <see cref="P: RuleId" /> property.
         /// </param>
+        /// <param name="analysisTarget">
+        /// An initialization value for the <see cref="P: AnalysisTarget" /> property.
+        /// </param>
         /// <param name="message">
         /// An initialization value for the <see cref="P: Message" /> property.
         /// </param>
@@ -255,9 +274,9 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="tags">
         /// An initialization value for the <see cref="P: Tags" /> property.
         /// </param>
-        public Notification(string id, string ruleId, string message, NotificationLevel level, DateTime time, ExceptionData exception, IDictionary<string, string> properties, IEnumerable<string> tags)
+        public Notification(string id, string ruleId, PhysicalLocation analysisTarget, string message, NotificationLevel level, DateTime time, ExceptionData exception, IDictionary<string, string> properties, IEnumerable<string> tags)
         {
-            Init(id, ruleId, message, level, time, exception, properties, tags);
+            Init(id, ruleId, analysisTarget, message, level, time, exception, properties, tags);
         }
 
         /// <summary>
@@ -276,7 +295,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 throw new ArgumentNullException(nameof(other));
             }
 
-            Init(other.Id, other.RuleId, other.Message, other.Level, other.Time, other.Exception, other.Properties, other.Tags);
+            Init(other.Id, other.RuleId, other.AnalysisTarget, other.Message, other.Level, other.Time, other.Exception, other.Properties, other.Tags);
         }
 
         ISarifNode ISarifNode.DeepClone()
@@ -297,10 +316,15 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new Notification(this);
         }
 
-        private void Init(string id, string ruleId, string message, NotificationLevel level, DateTime time, ExceptionData exception, IDictionary<string, string> properties, IEnumerable<string> tags)
+        private void Init(string id, string ruleId, PhysicalLocation analysisTarget, string message, NotificationLevel level, DateTime time, ExceptionData exception, IDictionary<string, string> properties, IEnumerable<string> tags)
         {
             Id = id;
             RuleId = ruleId;
+            if (analysisTarget != null)
+            {
+                AnalysisTarget = new PhysicalLocation(analysisTarget);
+            }
+
             Message = message;
             Level = level;
             Time = time;

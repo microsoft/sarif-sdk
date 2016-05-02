@@ -19,6 +19,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return s_semVer200.IsMatch(versionString);
         }
 
+        private const string V1_0_0 = "1.0.0";
         private const string V1_0_0_BETA_4 = "1.0.0-beta.4";
 
         /// <summary>
@@ -50,6 +51,11 @@ namespace Microsoft.CodeAnalysis.Sarif
                 case SarifVersion.OneZeroZeroBetaFour: { return V1_0_0_BETA_4; }
             }
             return "unknown";
+        }
+
+        public static Uri ConvertToSchemaUri(this SarifVersion sarifVersion)
+        {
+            return new Uri("http://json.schemastore.org/sarif-" + V1_0_0, UriKind.Absolute);
         }
 
         public static Dictionary<string, string> BuildMessageFormats(IEnumerable<string> resourceNames, ResourceManager resourceManager)
