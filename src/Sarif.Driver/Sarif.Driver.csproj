@@ -2,6 +2,8 @@
 <Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <ProjectGuid>{8CEAEA61-B1A2-4777-BCBE-C9A129A5F6C5}</ProjectGuid>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup>
     <RootNamespace>Microsoft.CodeAnalysis.Sarif.Driver</RootNamespace>
