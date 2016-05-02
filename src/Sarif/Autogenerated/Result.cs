@@ -85,12 +85,14 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// </summary>
         [DataMember(Name = "relatedLocations", IsRequired = false, EmitDefaultValue = false)]
         public ISet<AnnotatedCodeLocation> RelatedLocations { get; set; }
+        [DataMember(Name = "suppressionStates", IsRequired = false, EmitDefaultValue = false)]
+        public IList<string> SuppressionStates { get; set; }
 
         /// <summary>
-        /// A flag indicating whether or not this result was suppressed in source code (or 'unknown' if that information isn't known).
+        /// The state of a result relative to a baseline of a previous run.
         /// </summary>
-        [DataMember(Name = "isSuppressedInSource", IsRequired = false, EmitDefaultValue = false)]
-        public IsSuppressedInSource IsSuppressedInSource { get; set; }
+        [DataMember(Name = "baselineStatus", IsRequired = false, EmitDefaultValue = false)]
+        public BaselineStatus BaselineStatus { get; set; }
 
         /// <summary>
         /// An array of 'fix' objects, each of which represents a proposed fix to the problem indicated by the result.
@@ -194,10 +196,9 @@ namespace Microsoft.CodeAnalysis.Sarif
                     }
                 }
 
-                result = (result * 31) + IsSuppressedInSource.GetHashCode();
-                if (Fixes != null)
+                if (SuppressionStates != null)
                 {
-                    foreach (var value_4 in Fixes)
+                    foreach (var value_4 in SuppressionStates)
                     {
                         result = result * 31;
                         if (value_4 != null)
@@ -207,16 +208,29 @@ namespace Microsoft.CodeAnalysis.Sarif
                     }
                 }
 
+                result = (result * 31) + BaselineStatus.GetHashCode();
+                if (Fixes != null)
+                {
+                    foreach (var value_5 in Fixes)
+                    {
+                        result = result * 31;
+                        if (value_5 != null)
+                        {
+                            result = (result * 31) + value_5.GetHashCode();
+                        }
+                    }
+                }
+
                 if (Properties != null)
                 {
                     // Use xor for dictionaries to be order-independent.
                     int xor_0 = 0;
-                    foreach (var value_5 in Properties)
+                    foreach (var value_6 in Properties)
                     {
-                        xor_0 ^= value_5.Key.GetHashCode();
-                        if (value_5.Value != null)
+                        xor_0 ^= value_6.Key.GetHashCode();
+                        if (value_6.Value != null)
                         {
-                            xor_0 ^= value_5.Value.GetHashCode();
+                            xor_0 ^= value_6.Value.GetHashCode();
                         }
                     }
 
@@ -225,12 +239,12 @@ namespace Microsoft.CodeAnalysis.Sarif
 
                 if (Tags != null)
                 {
-                    foreach (var value_6 in Tags)
+                    foreach (var value_7 in Tags)
                     {
                         result = result * 31;
-                        if (value_6 != null)
+                        if (value_7 != null)
                         {
-                            result = (result * 31) + value_6.GetHashCode();
+                            result = (result * 31) + value_7.GetHashCode();
                         }
                     }
                 }
@@ -328,7 +342,28 @@ namespace Microsoft.CodeAnalysis.Sarif
                 }
             }
 
-            if (IsSuppressedInSource != other.IsSuppressedInSource)
+            if (!Object.ReferenceEquals(SuppressionStates, other.SuppressionStates))
+            {
+                if (SuppressionStates == null || other.SuppressionStates == null)
+                {
+                    return false;
+                }
+
+                if (SuppressionStates.Count != other.SuppressionStates.Count)
+                {
+                    return false;
+                }
+
+                for (int index_0 = 0; index_0 < SuppressionStates.Count; ++index_0)
+                {
+                    if (SuppressionStates[index_0] != other.SuppressionStates[index_0])
+                    {
+                        return false;
+                    }
+                }
+            }
+
+            if (BaselineStatus != other.BaselineStatus)
             {
                 return false;
             }
@@ -424,8 +459,11 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="relatedLocations">
         /// An initialization value for the <see cref="P: RelatedLocations" /> property.
         /// </param>
-        /// <param name="isSuppressedInSource">
-        /// An initialization value for the <see cref="P: IsSuppressedInSource" /> property.
+        /// <param name="suppressionStates">
+        /// An initialization value for the <see cref="P: SuppressionStates" /> property.
+        /// </param>
+        /// <param name="baselineStatus">
+        /// An initialization value for the <see cref="P: BaselineStatus" /> property.
         /// </param>
         /// <param name="fixes">
         /// An initialization value for the <see cref="P: Fixes" /> property.
@@ -436,9 +474,9 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="tags">
         /// An initialization value for the <see cref="P: Tags" /> property.
         /// </param>
-        public Result(string ruleId, ResultKind kind, string message, FormattedRuleMessage formattedRuleMessage, ISet<Location> locations, string codeSnippet, string toolFingerprint, ISet<Stack> stacks, ISet<CodeFlow> codeFlows, ISet<AnnotatedCodeLocation> relatedLocations, IsSuppressedInSource isSuppressedInSource, ISet<Fix> fixes, IDictionary<string, string> properties, ISet<string> tags)
+        public Result(string ruleId, ResultKind kind, string message, FormattedRuleMessage formattedRuleMessage, ISet<Location> locations, string codeSnippet, string toolFingerprint, ISet<Stack> stacks, ISet<CodeFlow> codeFlows, ISet<AnnotatedCodeLocation> relatedLocations, IEnumerable<string> suppressionStates, BaselineStatus baselineStatus, ISet<Fix> fixes, IDictionary<string, string> properties, ISet<string> tags)
         {
-            Init(ruleId, kind, message, formattedRuleMessage, locations, codeSnippet, toolFingerprint, stacks, codeFlows, relatedLocations, isSuppressedInSource, fixes, properties, tags);
+            Init(ruleId, kind, message, formattedRuleMessage, locations, codeSnippet, toolFingerprint, stacks, codeFlows, relatedLocations, suppressionStates, baselineStatus, fixes, properties, tags);
         }
 
         /// <summary>
@@ -457,7 +495,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 throw new ArgumentNullException(nameof(other));
             }
 
-            Init(other.RuleId, other.Kind, other.Message, other.FormattedRuleMessage, other.Locations, other.CodeSnippet, other.ToolFingerprint, other.Stacks, other.CodeFlows, other.RelatedLocations, other.IsSuppressedInSource, other.Fixes, other.Properties, other.Tags);
+            Init(other.RuleId, other.Kind, other.Message, other.FormattedRuleMessage, other.Locations, other.CodeSnippet, other.ToolFingerprint, other.Stacks, other.CodeFlows, other.RelatedLocations, other.SuppressionStates, other.BaselineStatus, other.Fixes, other.Properties, other.Tags);
         }
 
         ISarifNode ISarifNode.DeepClone()
@@ -478,7 +516,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new Result(this);
         }
 
-        private void Init(string ruleId, ResultKind kind, string message, FormattedRuleMessage formattedRuleMessage, ISet<Location> locations, string codeSnippet, string toolFingerprint, ISet<Stack> stacks, ISet<CodeFlow> codeFlows, ISet<AnnotatedCodeLocation> relatedLocations, IsSuppressedInSource isSuppressedInSource, ISet<Fix> fixes, IDictionary<string, string> properties, ISet<string> tags)
+        private void Init(string ruleId, ResultKind kind, string message, FormattedRuleMessage formattedRuleMessage, ISet<Location> locations, string codeSnippet, string toolFingerprint, ISet<Stack> stacks, ISet<CodeFlow> codeFlows, ISet<AnnotatedCodeLocation> relatedLocations, IEnumerable<string> suppressionStates, BaselineStatus baselineStatus, ISet<Fix> fixes, IDictionary<string, string> properties, ISet<string> tags)
         {
             RuleId = ruleId;
             Kind = kind;
@@ -562,23 +600,34 @@ namespace Microsoft.CodeAnalysis.Sarif
                 RelatedLocations = destination_3;
             }
 
-            IsSuppressedInSource = isSuppressedInSource;
+            if (suppressionStates != null)
+            {
+                var destination_4 = new List<string>();
+                foreach (var value_4 in suppressionStates)
+                {
+                    destination_4.Add(value_4);
+                }
+
+                SuppressionStates = destination_4;
+            }
+
+            BaselineStatus = baselineStatus;
             if (fixes != null)
             {
-                var destination_4 = new HashSet<Fix>();
-                foreach (var value_4 in fixes)
+                var destination_5 = new HashSet<Fix>();
+                foreach (var value_5 in fixes)
                 {
-                    if (value_4 == null)
+                    if (value_5 == null)
                     {
-                        destination_4.Add(null);
+                        destination_5.Add(null);
                     }
                     else
                     {
-                        destination_4.Add(new Fix(value_4));
+                        destination_5.Add(new Fix(value_5));
                     }
                 }
 
-                Fixes = destination_4;
+                Fixes = destination_5;
             }
 
             if (properties != null)
@@ -588,13 +637,13 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             if (tags != null)
             {
-                var destination_5 = new HashSet<string>();
-                foreach (var value_5 in tags)
+                var destination_6 = new HashSet<string>();
+                foreach (var value_6 in tags)
                 {
-                    destination_5.Add(value_5);
+                    destination_6.Add(value_6);
                 }
 
-                Tags = destination_5;
+                Tags = destination_6;
             }
         }
     }

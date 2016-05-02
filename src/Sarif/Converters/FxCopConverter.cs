@@ -84,6 +84,18 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 result.ToolFingerprint = uniqueId;
             }
 
+            string status = context.Status;
+
+            if ("ExcludedInSource".Equals(status))
+            {
+                result.SuppressionStates = new List<SuppressionStatus>();
+                result.SuppressionStates.Add(SuppressionStatus.SuppressedInSource);
+            }
+            else if ("ExcludedInProject".Equals(status))
+            {
+                result.SuppressionStatus = SuppressionStatus.SuppressedInBaseline;
+            }
+
             result.RuleId = context.CheckId;
             result.Message = context.Message;
             var location = new Location();
@@ -94,6 +106,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 {
                     Uri = new Uri(context.Target, UriKind.RelativeOrAbsolute)
                 };
+
             }
 
             string sourceFile = GetFilePath(context);
@@ -248,6 +261,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             public string Category { get; private set; }
             public string Typename { get; private set; }
             public string FixCategory { get; private set; }
+            public string Status { get; private set; }
             public string Message { get; private set; }
             public string Result { get; private set; }
             public string Certainty { get; private set; }
@@ -318,13 +332,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 ClearMessage();
             }
 
-            public void RefineMessage(string checkId, string typename, string messageId, string category, string fixcategory)
+            public void RefineMessage(string checkId, string typename, string messageId, string category, string fixcategory, string status)
             {
                 CheckId = checkId;
                 MessageId = messageId;
                 Category = category;
                 Typename = typename;
                 FixCategory = fixcategory;
+                Status = status;
 
                 ClearIssue();
             }
@@ -405,6 +420,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             {
                 RefineModule(null);
             }
+
             public void ClearResource()
             {
                 RefineResource(null);
@@ -427,7 +443,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
             public void ClearMessage()
             {
-                RefineMessage(null, null, null, null, null);
+                RefineMessage(null, null, null, null, null, null);
             }
 
             public void ClearIssue()
@@ -759,8 +775,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             string category = reader.ReadAttributeString(SchemaStrings.AttributeCategory);
             string checkId = reader.ReadAttributeString(SchemaStrings.AttributeCheckId);
             string fixCategory = reader.ReadAttributeString(SchemaStrings.AttributeFixCategory);
+            string status = reader.ReadAttributeString(SchemaStrings.AttributeStatus);
 
-            context.RefineMessage(checkId, typename, messageId, category, fixCategory);
+            context.RefineMessage(checkId, typename, messageId, category, fixCategory, status);
             reader.ReadChildren(SchemaStrings.ElementMessage, parent);
             context.ClearMessage();
         }

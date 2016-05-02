@@ -6,13 +6,14 @@ using System.CodeDom.Compiler;
 namespace Microsoft.CodeAnalysis.Sarif
 {
     /// <summary>
-    /// Indicates whether a result has been suppressed in source (or if that information is unknown).
+    /// Provides the status of a result relative to a baseline.
     /// </summary>
     [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.16.0.0")]
-    public enum IsSuppressedInSource
+    public enum BaselineStatus
     {
-        Unknown,
-        Suppressed,
-        NotSuppressed
+        None,
+        New,
+        Existing,
+        Absent
     }
 }

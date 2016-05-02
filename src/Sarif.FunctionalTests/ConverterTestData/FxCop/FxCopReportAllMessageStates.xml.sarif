@@ -1,0 +1,175 @@
+{
+  "version": "1.0.0-beta.4",
+  "runs": [
+    {
+      "tool": {
+        "name": "FxCop"
+      },
+      "files": {
+        "file:///C:/Users/user/Documents/Visual Studio 2015/Projects/WpfApplication5/WpfApplication5/bin/Debug/WpfApplication5.exe": [
+          {
+            "mimeType": "application/octet-stream"
+          }
+        ],
+        "file:///c:/users/user/documents/visual studio 2015/Projects/WpfApplication5/WpfApplication5/Foo.cs": [
+          {
+            "mimeType": "text/x-csharp"
+          }
+        ]
+      },
+      "logicalLocations": {
+        "WpfApplication5": [
+          {
+            "name": "WpfApplication5",
+            "kind": "namespace"
+          }
+        ],
+        "WpfApplication5.Foo": [
+          {
+            "name": "wpfapplication5.exe",
+            "kind": "module"
+          },
+          {
+            "name": "WpfApplication5",
+            "kind": "namespace"
+          },
+          {
+            "name": "Foo",
+            "kind": "type"
+          }
+        ],
+        "WpfApplication5.Foo.Baz()": [
+          {
+            "name": "wpfapplication5.exe",
+            "kind": "module"
+          },
+          {
+            "name": "WpfApplication5",
+            "kind": "namespace"
+          },
+          {
+            "name": "Foo",
+            "kind": "type"
+          },
+          {
+            "name": "#Baz()",
+            "kind": "member"
+          }
+        ],
+        "WpfApplication5.Properties.Resources": [
+          {
+            "name": "wpfapplication5.exe",
+            "kind": "module"
+          },
+          {
+            "name": "WpfApplication5.Properties",
+            "kind": "namespace"
+          },
+          {
+            "name": "Resources",
+            "kind": "type"
+          }
+        ]
+      },
+      "results": [
+        {
+          "ruleId": "CA904",
+          "message": "Redefine the types in namespace 'WpfApplication5' in the Microsoft or System namespace. Public types that will never ship externally can be defined in the MS namespace. Consider disabling this rule when analyzing code that does not ship externally.",
+          "locations": [
+            {
+              "fullyQualifiedLogicalName": "WpfApplication5"
+            }
+          ],
+          "suppressionStatus": 1,
+          "properties": {
+            "Level": "Error",
+            "Category": "Microsoft.MSInternal",
+            "FixCategory": "Breaking"
+          }
+        },
+        {
+          "ruleId": "CA1053",
+          "message": "Because type 'Foo' contains only 'static' members, mark it as 'static' to prevent the compiler from adding a default public constructor.",
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///C:/Users/user/Documents/Visual Studio 2015/Projects/WpfApplication5/WpfApplication5/bin/Debug/WpfApplication5.exe"
+              },
+              "fullyQualifiedLogicalName": "WpfApplication5.Foo"
+            }
+          ],
+          "toolFingerprint": "CSharp2_0",
+          "properties": {
+            "Level": "Error",
+            "Category": "Microsoft.Design",
+            "FixCategory": "Breaking"
+          }
+        },
+        {
+          "ruleId": "CA1704",
+          "message": "Correct the spelling of 'Baz' in member name 'Foo.Baz()' or remove it entirely if it represents any sort of Hungarian notation.",
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///C:/Users/user/Documents/Visual Studio 2015/Projects/WpfApplication5/WpfApplication5/bin/Debug/WpfApplication5.exe"
+              },
+              "resultFile": {
+                "uri": "file:///c:/users/user/documents/visual studio 2015/Projects/WpfApplication5/WpfApplication5/Foo.cs",
+                "region": {
+                  "startLine": 11
+                }
+              },
+              "fullyQualifiedLogicalName": "WpfApplication5.Foo.Baz()"
+            }
+          ],
+          "toolFingerprint": "Baz#Member",
+          "properties": {
+            "Level": "CriticalWarning",
+            "Category": "Microsoft.Naming",
+            "FixCategory": "Breaking"
+          }
+        },
+        {
+          "ruleId": "CA1822",
+          "message": "The 'this' parameter (or 'Me' in Visual Basic) of 'Foo.Baz()' is never used. Mark the member as static (or Shared in Visual Basic) or use 'this'/'Me' in the method body or at least one property accessor, if appropriate.",
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///C:/Users/user/Documents/Visual Studio 2015/Projects/WpfApplication5/WpfApplication5/bin/Debug/WpfApplication5.exe"
+              },
+              "resultFile": {
+                "uri": "file:///c:/users/user/documents/visual studio 2015/Projects/WpfApplication5/WpfApplication5/Foo.cs",
+                "region": {
+                  "startLine": 11
+                }
+              },
+              "fullyQualifiedLogicalName": "WpfApplication5.Foo.Baz()"
+            }
+          ],
+          "properties": {
+            "Level": "Warning",
+            "Category": "Microsoft.Performance",
+            "FixCategory": "DependsOnFix"
+          }
+        },
+        {
+          "ruleId": "CA1812",
+          "message": "'Resources' is an internal class that is apparently never instantiated. If so, remove the code from the assembly. If this class is intended to contain only static methods, consider adding a private constructor to prevent the compiler from generating a default constructor.",
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///C:/Users/user/Documents/Visual Studio 2015/Projects/WpfApplication5/WpfApplication5/bin/Debug/WpfApplication5.exe"
+              },
+              "fullyQualifiedLogicalName": "WpfApplication5.Properties.Resources"
+            }
+          ],
+          "properties": {
+            "Level": "Warning",
+            "Category": "Microsoft.Performance",
+            "FixCategory": "NonBreaking"
+          }
+        }
+      ]
+    }
+  ]
+}

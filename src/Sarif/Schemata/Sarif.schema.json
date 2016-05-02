@@ -515,11 +515,23 @@
           }
         },
 
-        "isSuppressedInSource": {
-          "description": "A flag indicating whether or not this result was suppressed in source code (or 'unknown' if that information isn't known).",
+        "suppressionStates": {
+          "type": "array",
+          "items": {
+            "description": "A flag value indicating one or more suppression conditions.",
+            "enum": [
+              "suppressedInSource",
+              "suppressedInBaseline"
+            ]
+          }
+        },
+
+        "baselineStatus": {
+          "description": "The state of a result relative to a baseline of a previous run.",
           "enum": [
-            "suppressed",
-            "notSuppressed"
+            "new",
+            "existing",
+            "absent"
           ]
         },
 

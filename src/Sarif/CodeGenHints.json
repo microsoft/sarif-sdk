@@ -32,16 +32,17 @@
       "kind": "DictionaryHint"
     }
   ],
-  "Result.IsSuppressedInSource": [
+  "Result.BaselineStatus": [
     {
       "kind": "EnumHint",
       "arguments": {
-        "typeName": "IsSuppressedInSource",
-        "description": "Indicates whether a result has been suppressed in source (or if that information is unknown).",
-        "zeroValue": "Unknown",
+        "typeName": "BaselineStatus",
+        "description": "Provides the status of a result relative to a baseline.",
+        "zeroValue": "None",
         "enumValues": [
-          "Suppressed",
-          "NotSuppressed"
+          "New",
+          "Existing",
+          "Absent"
         ]
       }
     }

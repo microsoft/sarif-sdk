@@ -41,9 +41,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
         }
 
         [TestMethod]
-        public void IsSuppressedInSource_Suppressed()
+        public void SuppressionStatus_Suppressed()
         {
-            string expected = "{\"version\":\"1.0.0-beta.4\",\"runs\":[{\"tool\":{\"name\":null},\"results\":[{\"isSuppressedInSource\":\"suppressed\"}]}]}";
+            string expected = "{\"version\":\"1.0.0-beta.4\",\"runs\":[{\"tool\":{\"name\":null},\"results\":[{\"suppressionStatus\":\"suppressed\"}]}]}";
             string actual = GetJson(uut =>
             {
                 var run = new Run();
@@ -52,7 +52,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
 
                 uut.WriteResults(new[] { new Result
                     {
-                        IsSuppressedInSource = Sarif.IsSuppressedInSource.Suppressed
+                        SuppressionStatus = SuppressionStatus.SuppressedInSource
                     }
                 });
             });
@@ -60,7 +60,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
         }
 
         [TestMethod]
-        public void IsSuppressedInSource_Unknown()
+        public void BaselineStatus_None()
         {
             string expected = "{\"version\":\"1.0.0-beta.4\",\"runs\":[{\"tool\":{\"name\":null},\"results\":[{}]}]}";
             string actual = GetJson(uut =>
@@ -71,7 +71,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
 
                 uut.WriteResults(new[] { new Result
                     {
-                        IsSuppressedInSource = Sarif.IsSuppressedInSource.Unknown
+                        BaselineStatus = Sarif.BaselineStatus.None
                     }
                 });
             });
