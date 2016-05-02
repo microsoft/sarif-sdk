@@ -57,6 +57,12 @@ namespace Microsoft.CodeAnalysis.Sarif
         public string FileVersion { get; set; }
 
         /// <summary>
+        /// The tool language (expressed as an ISO 649 two-letter lowercase culture code) and region (expressed as an ISO 3166 two-letter uppercase subculture code associated with a country or region).
+        /// </summary>
+        [DataMember(Name = "language", IsRequired = false, EmitDefaultValue = false)]
+        public string Language { get; set; }
+
+        /// <summary>
         /// Key/value pairs that provide additional information about the tool.
         /// </summary>
         [DataMember(Name = "properties", IsRequired = false, EmitDefaultValue = false)]
@@ -101,6 +107,11 @@ namespace Microsoft.CodeAnalysis.Sarif
                 if (FileVersion != null)
                 {
                     result = (result * 31) + FileVersion.GetHashCode();
+                }
+
+                if (Language != null)
+                {
+                    result = (result * 31) + Language.GetHashCode();
                 }
 
                 if (Properties != null)
@@ -163,6 +174,11 @@ namespace Microsoft.CodeAnalysis.Sarif
             }
 
             if (FileVersion != other.FileVersion)
+            {
+                return false;
+            }
+
+            if (Language != other.Language)
             {
                 return false;
             }
@@ -238,15 +254,18 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="fileVersion">
         /// An initialization value for the <see cref="P: FileVersion" /> property.
         /// </param>
+        /// <param name="language">
+        /// An initialization value for the <see cref="P: Language" /> property.
+        /// </param>
         /// <param name="properties">
         /// An initialization value for the <see cref="P: Properties" /> property.
         /// </param>
         /// <param name="tags">
         /// An initialization value for the <see cref="P: Tags" /> property.
         /// </param>
-        public Tool(string name, string fullName, string version, string semanticVersion, string fileVersion, IDictionary<string, string> properties, IEnumerable<string> tags)
+        public Tool(string name, string fullName, string version, string semanticVersion, string fileVersion, string language, IDictionary<string, string> properties, IEnumerable<string> tags)
         {
-            Init(name, fullName, version, semanticVersion, fileVersion, properties, tags);
+            Init(name, fullName, version, semanticVersion, fileVersion, language, properties, tags);
         }
 
         /// <summary>
@@ -265,7 +284,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 throw new ArgumentNullException(nameof(other));
             }
 
-            Init(other.Name, other.FullName, other.Version, other.SemanticVersion, other.FileVersion, other.Properties, other.Tags);
+            Init(other.Name, other.FullName, other.Version, other.SemanticVersion, other.FileVersion, other.Language, other.Properties, other.Tags);
         }
 
         ISarifNode ISarifNode.DeepClone()
@@ -286,13 +305,14 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new Tool(this);
         }
 
-        private void Init(string name, string fullName, string version, string semanticVersion, string fileVersion, IDictionary<string, string> properties, IEnumerable<string> tags)
+        private void Init(string name, string fullName, string version, string semanticVersion, string fileVersion, string language, IDictionary<string, string> properties, IEnumerable<string> tags)
         {
             Name = name;
             FullName = fullName;
             Version = version;
             SemanticVersion = semanticVersion;
             FileVersion = fileVersion;
+            Language = language;
             if (properties != null)
             {
                 Properties = new Dictionary<string, string>(properties);

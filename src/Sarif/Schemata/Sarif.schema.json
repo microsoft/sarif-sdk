@@ -892,6 +892,11 @@
           "pattern": "[0-9]+(\\.[0-9]+){3}"
         },
 
+        "language": {
+          "description": "The tool language (expressed as an ISO 649 two-letter lowercase culture code) and region (expressed as an ISO 3166 two-letter uppercase subculture code associated with a country or region).",
+          "type": "string"
+        },
+
         "properties": {
           "description": "Key/value pairs that provide additional information about the tool.",
           "type": "object",
