@@ -15,7 +15,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
     public class ResultLogJsonWriterTests
     {
         private static readonly string SchemaVersion =
-            SarifUtilities.ConvertToText(SarifVersion.OneZeroZeroBetaFour);
+            SarifUtilities.ConvertToText(SarifVersion.OneZeroZero);
 
         private static readonly Tool s_defaultTool = new Tool();
         private static readonly Result s_defaultResult = new Result();
@@ -38,6 +38,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         {
             string expected =
 @"{
+  ""$schema"": ""http://json.schemastore.org/sarif-" + SchemaVersion + @""",
   ""version"": """ + SchemaVersion + @""",
   ""runs"": [
     {}
@@ -51,6 +52,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         {
             string expected =
 @"{
+  ""$schema"": ""http://json.schemastore.org/sarif-" + SchemaVersion + @""",
   ""version"": """ + SchemaVersion + @""",
   ""runs"": [
     {
@@ -170,6 +172,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         {
             string expected =
 @"{
+  ""$schema"": ""http://json.schemastore.org/sarif-" + SchemaVersion + @""",
   ""version"": """ + SchemaVersion + @""",
   ""runs"": [
     {
@@ -214,6 +217,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 RuleId = "TST0001",
                 Level = NotificationLevel.Error,
                 Message = "This is a test",
+                AnalysisTarget = new PhysicalLocation
+                {
+                    Uri = new Uri("file:///C:/src/a.cs"),
+                    Region = new Region
+                    {
+                        StartLine = 3,
+                        StartColumn = 12
+                    }
+                },
                 Time = DateTime.ParseExact("04/29/2016", ShortDateFormat, CultureInfo.InvariantCulture),
                 Exception = new ExceptionData
                 {
@@ -254,6 +266,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 @"        {
           ""id"": ""NOT0001"",
           ""ruleId"": ""TST0001"",
+          ""analysisTarget"": {
+            ""uri"": ""file:///C:/src/a.cs"",
+            ""region"": {
+              ""startLine"": 3,
+              ""startColumn"": 12
+            }
+          },
           ""message"": ""This is a test"",
           ""level"": ""error"",
           ""time"": ""2016-04-29T00:00:00.00Z"",
@@ -288,6 +307,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         {
             string expected =
 @"{
+  ""$schema"": ""http://json.schemastore.org/sarif-" + SchemaVersion + @""",
   ""version"": """ + SchemaVersion + @""",
   ""runs"": [
     {
@@ -313,6 +333,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         {
             string expected =
 @"{
+  ""$schema"": ""http://json.schemastore.org/sarif-" + SchemaVersion + @""",
   ""version"": """ + SchemaVersion + @""",
   ""runs"": [
     {
