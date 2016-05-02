@@ -1,5 +1,5 @@
 {
-  "version": "1.0.0",
+  "version": "1.0.0-beta.4",
   "runs": [
     {
       "tool": {
@@ -1828,7 +1828,7 @@
           "level": "error",
           "formattedRuleMessage": {
             "formatId": "Error",
-            "arguments": []
+            "arguments": [ ]
           },
           "locations": [
             {
@@ -1995,7 +1995,7 @@
           "name": "DeclarePropertiesBeforeUse",
           "shortDescription": "Declare properties before accessing them.",
           "messageFormats": {
-            "Error": "'{0}' does not contain a definition for '{1}'. Declare this property explicitly before using it."
+            "Error": "{0}' does not contain a definition for '{1}'. Declare this property explicitly before using it."
           },
           "tags": [
             "js",

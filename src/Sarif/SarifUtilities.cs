@@ -20,6 +20,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         }
 
         private const string V1_0_0 = "1.0.0";
+        private const string V1_0_0_BETA_4 = "1.0.0-beta.4";
 
         /// <summary>
         /// Returns an ISO 8601 compatible universal date time format string with
@@ -37,7 +38,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             switch (sarifVersionText)
             {
-                case V1_0_0: return SarifVersion.OneZeroZero;
+                case V1_0_0_BETA_4: return SarifVersion.OneZeroZeroBetaFour;
             }
 
             return SarifVersion.Unknown;
@@ -47,14 +48,14 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             switch (sarifVersion)
             {
-                case SarifVersion.OneZeroZero: { return V1_0_0; }
+                case SarifVersion.OneZeroZeroBetaFour: { return V1_0_0_BETA_4; }
             }
             return "unknown";
         }
 
         public static Uri ConvertToSchemaUri(this SarifVersion sarifVersion)
         {
-            return new Uri("http://json.schemastore.org/sarif-" + sarifVersion.ConvertToText(), UriKind.Absolute);
+            return new Uri("http://json.schemastore.org/sarif-" + V1_0_0, UriKind.Absolute);
         }
 
         public static Dictionary<string, string> BuildMessageFormats(IEnumerable<string> resourceNames, ResourceManager resourceManager)

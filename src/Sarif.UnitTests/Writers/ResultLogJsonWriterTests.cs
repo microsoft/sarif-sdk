@@ -15,7 +15,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
     public class ResultLogJsonWriterTests
     {
         private static readonly string SchemaVersion =
-            SarifUtilities.ConvertToText(SarifVersion.OneZeroZero);
+            SarifUtilities.ConvertToText(SarifVersion.OneZeroZeroBetaFour);
 
         private static readonly Tool s_defaultTool = new Tool();
         private static readonly Result s_defaultResult = new Result();
@@ -38,7 +38,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         {
             string expected =
 @"{
-  ""$schema"": ""http://json.schemastore.org/sarif-" + SchemaVersion + @""",
+  ""$schema"": ""http://json.schemastore.org/sarif-1.0.0"",
   ""version"": """ + SchemaVersion + @""",
   ""runs"": [
     {}
@@ -52,7 +52,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         {
             string expected =
 @"{
-  ""$schema"": ""http://json.schemastore.org/sarif-" + SchemaVersion + @""",
+  ""$schema"": ""http://json.schemastore.org/sarif-1.0.0"",
   ""version"": """ + SchemaVersion + @""",
   ""runs"": [
     {
@@ -172,7 +172,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         {
             string expected =
 @"{
-  ""$schema"": ""http://json.schemastore.org/sarif-" + SchemaVersion + @""",
+  ""$schema"": ""http://json.schemastore.org/sarif-1.0.0"",
   ""version"": """ + SchemaVersion + @""",
   ""runs"": [
     {
@@ -307,7 +307,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         {
             string expected =
 @"{
-  ""$schema"": ""http://json.schemastore.org/sarif-" + SchemaVersion + @""",
+  ""$schema"": ""http://json.schemastore.org/sarif-1.0.0"",
   ""version"": """ + SchemaVersion + @""",
   ""runs"": [
     {
@@ -333,7 +333,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         {
             string expected =
 @"{
-  ""$schema"": ""http://json.schemastore.org/sarif-" + SchemaVersion + @""",
+  ""$schema"": ""http://json.schemastore.org/sarif-1.0.0"",
   ""version"": """ + SchemaVersion + @""",
   ""runs"": [
     {
