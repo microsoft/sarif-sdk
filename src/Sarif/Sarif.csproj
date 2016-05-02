@@ -25,8 +25,11 @@
       <HintPath>..\packages\System.Collections.Immutable.1.1.37\lib\portable-net45+win8+wp8+wpa81\System.Collections.Immutable.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
@@ -51,8 +54,8 @@
     <Compile Include="IResultLogWriter.cs" />
     <Compile Include="LogicalLocationKind.cs" />
     <Compile Include="MultiplyByPrimesHash.cs" />
-    <Compile Include="Readers\AlgorithmKindConverter.cs" />
     <Compile Include="Readers\DateTimeConverter.cs" />
+    <Compile Include="Readers\FlagsEnumConverter.cs" />
     <Compile Include="Readers\ResultDiffingVisitor.cs" />
     <Compile Include="Readers\EnumConverter.cs" />
     <Compile Include="Readers\SarifContractResolver.cs" />

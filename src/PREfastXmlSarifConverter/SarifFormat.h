@@ -203,7 +203,7 @@ public:
 
     void SetSuppressedInSource(const std::wstring &value)
     {
-        m_values[L"isSuppressedInSource"] = value;
+        m_values[L"SuppressionStates"] = value;
     }
 
     void SetRuleId(const std::wstring &id)

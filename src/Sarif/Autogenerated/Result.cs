@@ -85,12 +85,14 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// </summary>
         [DataMember(Name = "relatedLocations", IsRequired = false, EmitDefaultValue = false)]
         public IList<AnnotatedCodeLocation> RelatedLocations { get; set; }
+        [DataMember(Name = "suppressionStates", IsRequired = false, EmitDefaultValue = false)]
+        public SuppressionStates SuppressionStates { get; set; }
 
         /// <summary>
-        /// A flag indicating whether or not this result was suppressed in source code.
+        /// The state of a result relative to a baseline of a previous run.
         /// </summary>
-        [DataMember(Name = "isSuppressedInSource", IsRequired = false, EmitDefaultValue = false)]
-        public bool IsSuppressedInSource { get; set; }
+        [DataMember(Name = "baselineState", IsRequired = false, EmitDefaultValue = false)]
+        public BaselineState BaselineState { get; set; }
 
         /// <summary>
         /// An array of 'fix' objects, each of which represents a proposed fix to the problem indicated by the result.
@@ -194,7 +196,8 @@ namespace Microsoft.CodeAnalysis.Sarif
                     }
                 }
 
-                result = (result * 31) + IsSuppressedInSource.GetHashCode();
+                result = (result * 31) + SuppressionStates.GetHashCode();
+                result = (result * 31) + BaselineState.GetHashCode();
                 if (Fixes != null)
                 {
                     foreach (var value_4 in Fixes)
@@ -360,7 +363,12 @@ namespace Microsoft.CodeAnalysis.Sarif
                 }
             }
 
-            if (IsSuppressedInSource != other.IsSuppressedInSource)
+            if (SuppressionStates != other.SuppressionStates)
+            {
+                return false;
+            }
+
+            if (BaselineState != other.BaselineState)
             {
                 return false;
             }
@@ -472,8 +480,11 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="relatedLocations">
         /// An initialization value for the <see cref="P: RelatedLocations" /> property.
         /// </param>
-        /// <param name="isSuppressedInSource">
-        /// An initialization value for the <see cref="P: IsSuppressedInSource" /> property.
+        /// <param name="suppressionStates">
+        /// An initialization value for the <see cref="P: SuppressionStates" /> property.
+        /// </param>
+        /// <param name="baselineState">
+        /// An initialization value for the <see cref="P: BaselineState" /> property.
         /// </param>
         /// <param name="fixes">
         /// An initialization value for the <see cref="P: Fixes" /> property.
@@ -484,9 +495,9 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="tags">
         /// An initialization value for the <see cref="P: Tags" /> property.
         /// </param>
-        public Result(string ruleId, ResultLevel level, string message, FormattedRuleMessage formattedRuleMessage, IEnumerable<Location> locations, string codeSnippet, string toolFingerprint, IEnumerable<Stack> stacks, IEnumerable<CodeFlow> codeFlows, IEnumerable<AnnotatedCodeLocation> relatedLocations, bool isSuppressedInSource, IEnumerable<Fix> fixes, IDictionary<string, string> properties, IEnumerable<string> tags)
+        public Result(string ruleId, ResultLevel level, string message, FormattedRuleMessage formattedRuleMessage, IEnumerable<Location> locations, string codeSnippet, string toolFingerprint, IEnumerable<Stack> stacks, IEnumerable<CodeFlow> codeFlows, IEnumerable<AnnotatedCodeLocation> relatedLocations, SuppressionStates suppressionStates, BaselineState baselineState, IEnumerable<Fix> fixes, IDictionary<string, string> properties, IEnumerable<string> tags)
         {
-            Init(ruleId, level, message, formattedRuleMessage, locations, codeSnippet, toolFingerprint, stacks, codeFlows, relatedLocations, isSuppressedInSource, fixes, properties, tags);
+            Init(ruleId, level, message, formattedRuleMessage, locations, codeSnippet, toolFingerprint, stacks, codeFlows, relatedLocations, suppressionStates, baselineState, fixes, properties, tags);
         }
 
         /// <summary>
@@ -505,7 +516,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 throw new ArgumentNullException(nameof(other));
             }
 
-            Init(other.RuleId, other.Level, other.Message, other.FormattedRuleMessage, other.Locations, other.CodeSnippet, other.ToolFingerprint, other.Stacks, other.CodeFlows, other.RelatedLocations, other.IsSuppressedInSource, other.Fixes, other.Properties, other.Tags);
+            Init(other.RuleId, other.Level, other.Message, other.FormattedRuleMessage, other.Locations, other.CodeSnippet, other.ToolFingerprint, other.Stacks, other.CodeFlows, other.RelatedLocations, other.SuppressionStates, other.BaselineState, other.Fixes, other.Properties, other.Tags);
         }
 
         ISarifNode ISarifNode.DeepClone()
@@ -526,7 +537,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new Result(this);
         }
 
-        private void Init(string ruleId, ResultLevel level, string message, FormattedRuleMessage formattedRuleMessage, IEnumerable<Location> locations, string codeSnippet, string toolFingerprint, IEnumerable<Stack> stacks, IEnumerable<CodeFlow> codeFlows, IEnumerable<AnnotatedCodeLocation> relatedLocations, bool isSuppressedInSource, IEnumerable<Fix> fixes, IDictionary<string, string> properties, IEnumerable<string> tags)
+        private void Init(string ruleId, ResultLevel level, string message, FormattedRuleMessage formattedRuleMessage, IEnumerable<Location> locations, string codeSnippet, string toolFingerprint, IEnumerable<Stack> stacks, IEnumerable<CodeFlow> codeFlows, IEnumerable<AnnotatedCodeLocation> relatedLocations, SuppressionStates suppressionStates, BaselineState baselineState, IEnumerable<Fix> fixes, IDictionary<string, string> properties, IEnumerable<string> tags)
         {
             RuleId = ruleId;
             Level = level;
@@ -610,7 +621,8 @@ namespace Microsoft.CodeAnalysis.Sarif
                 RelatedLocations = destination_3;
             }
 
-            IsSuppressedInSource = isSuppressedInSource;
+            SuppressionStates = suppressionStates;
+            BaselineState = baselineState;
             if (fixes != null)
             {
                 var destination_4 = new List<Fix>();
