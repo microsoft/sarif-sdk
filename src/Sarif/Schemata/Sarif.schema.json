@@ -5,6 +5,10 @@
   "additionalProperties": false,
   "type": "object",
   "properties": {
+    "$schema": {
+      "type": "string",
+      "format": "uri"
+    },
     "version": {
       "description": "The SARIF format version of this log file.",
       "enum": [ "1.0.0-beta.4" ]
@@ -389,6 +393,11 @@
         "ruleId": {
           "description": "The stable, unique identifier of the rule (if any) to which this notification is relevant.",
           "type": "string"
+        },
+
+        "analysisTarget": {
+          "description": "The analysis target (if any) to which this notification is relevant.",
+          "$ref": "#/definitions/physicalLocation"
         },
 
         "message": {

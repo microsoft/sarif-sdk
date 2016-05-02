@@ -247,6 +247,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             if (node != null)
             {
+                node.AnalysisTarget = VisitNullChecked(node.AnalysisTarget);
                 node.Exception = VisitNullChecked(node.Exception);
             }
 
