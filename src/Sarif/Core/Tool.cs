@@ -4,6 +4,7 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Globalization;
 using System.IO;
 using System.Reflection;
 
@@ -38,6 +39,8 @@ namespace Microsoft.CodeAnalysis.Sarif
             tool.FullName = name + " " + tool.Version + (prereleaseInfo ?? "");
 
             tool.Properties = new Dictionary<string, string>();
+
+            tool.Language = CultureInfo.CurrentCulture.Name;
 
             if (!string.IsNullOrEmpty(fileVersion.Language)) { tool.Properties["Language"] = fileVersion.Language; };
             if (!string.IsNullOrEmpty(fileVersion.Comments)) { tool.Properties["Comments"] = fileVersion.Comments; };
