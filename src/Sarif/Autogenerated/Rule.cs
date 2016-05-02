@@ -57,6 +57,12 @@ namespace Microsoft.CodeAnalysis.Sarif
         public IDictionary<string, string> MessageFormats { get; set; }
 
         /// <summary>
+        /// A value specifying the default severity level of the notification.
+        /// </summary>
+        [DataMember(Name = "defaultLevel", IsRequired = false, EmitDefaultValue = false)]
+        public ResultLevel DefaultLevel { get; set; }
+
+        /// <summary>
         /// A URI where the primary documentation for the rule can be found.
         /// </summary>
         [DataMember(Name = "helpUri", IsRequired = false, EmitDefaultValue = false)]
@@ -120,6 +126,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                     result = (result * 31) + xor_0;
                 }
 
+                result = (result * 31) + DefaultLevel.GetHashCode();
                 if (HelpUri != null)
                 {
                     result = (result * 31) + HelpUri.GetHashCode();
@@ -206,6 +213,11 @@ namespace Microsoft.CodeAnalysis.Sarif
                 }
             }
 
+            if (DefaultLevel != other.DefaultLevel)
+            {
+                return false;
+            }
+
             if (HelpUri != other.HelpUri)
             {
                 return false;
@@ -282,6 +294,9 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="messageFormats">
         /// An initialization value for the <see cref="P: MessageFormats" /> property.
         /// </param>
+        /// <param name="defaultLevel">
+        /// An initialization value for the <see cref="P: DefaultLevel" /> property.
+        /// </param>
         /// <param name="helpUri">
         /// An initialization value for the <see cref="P: HelpUri" /> property.
         /// </param>
@@ -291,9 +306,9 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="tags">
         /// An initialization value for the <see cref="P: Tags" /> property.
         /// </param>
-        public Rule(string id, string name, string shortDescription, string fullDescription, IDictionary<string, string> messageFormats, Uri helpUri, IDictionary<string, string> properties, IEnumerable<string> tags)
+        public Rule(string id, string name, string shortDescription, string fullDescription, IDictionary<string, string> messageFormats, ResultLevel defaultLevel, Uri helpUri, IDictionary<string, string> properties, IEnumerable<string> tags)
         {
-            Init(id, name, shortDescription, fullDescription, messageFormats, helpUri, properties, tags);
+            Init(id, name, shortDescription, fullDescription, messageFormats, defaultLevel, helpUri, properties, tags);
         }
 
         /// <summary>
@@ -312,7 +327,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 throw new ArgumentNullException(nameof(other));
             }
 
-            Init(other.Id, other.Name, other.ShortDescription, other.FullDescription, other.MessageFormats, other.HelpUri, other.Properties, other.Tags);
+            Init(other.Id, other.Name, other.ShortDescription, other.FullDescription, other.MessageFormats, other.DefaultLevel, other.HelpUri, other.Properties, other.Tags);
         }
 
         ISarifNode ISarifNode.DeepClone()
@@ -333,7 +348,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new Rule(this);
         }
 
-        private void Init(string id, string name, string shortDescription, string fullDescription, IDictionary<string, string> messageFormats, Uri helpUri, IDictionary<string, string> properties, IEnumerable<string> tags)
+        private void Init(string id, string name, string shortDescription, string fullDescription, IDictionary<string, string> messageFormats, ResultLevel defaultLevel, Uri helpUri, IDictionary<string, string> properties, IEnumerable<string> tags)
         {
             Id = id;
             Name = name;
@@ -344,6 +359,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 MessageFormats = new Dictionary<string, string>(messageFormats);
             }
 
+            DefaultLevel = defaultLevel;
             if (helpUri != null)
             {
                 HelpUri = new Uri(helpUri.OriginalString, helpUri.IsAbsoluteUri ? UriKind.Absolute : UriKind.Relative);

@@ -50,6 +50,23 @@
       "kind": "DictionaryHint"
     }
   ],
+  "Rule.DefaultLevel": [
+    {
+      "kind": "EnumHint",
+      "arguments": {
+        "typeName": "ResultLevel",
+        "description": "Values specifying the level of a result.",
+        "zeroValue": "Unknown",
+        "enumValues": [
+          "NotApplicable",
+          "Pass",
+          "Note",
+          "Warning",
+          "Error"
+        ]
+      }
+    }
+  ],
   "Rule.MessageFormats": [
     {
       "kind": "DictionaryHint"

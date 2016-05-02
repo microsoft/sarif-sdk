@@ -658,6 +658,12 @@
           "type": "object"
         },
 
+        "defaultLevel": {
+          "description": "A value specifying the default severity level of the notification.",
+          "default": "warning",
+          "enum": [ "note", "notApplicable", "pass", "warning", "error" ]
+        },
+
         "helpUri": {
           "description": "A URI where the primary documentation for the rule can be found.",
           "type": "string",

@@ -39,6 +39,11 @@ namespace Microsoft.CodeAnalysis.Sarif
         IDictionary<string, string> MessageFormats { get; }
 
         /// <summary>
+        /// A value specifying the default severity level of the notification.
+        /// </summary>
+        ResultLevel DefaultLevel { get; }
+
+        /// <summary>
         /// A URI where the primary documentation for the rule can be found.
         /// </summary>
         Uri HelpUri { get; }

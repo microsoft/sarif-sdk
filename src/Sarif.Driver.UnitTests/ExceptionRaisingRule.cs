@@ -39,6 +39,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
             }
         }
 
+        public ResultLevel DefaultLevel {  get { return ResultLevel.Warning; } }
+
         public string Name
         {
             get
