@@ -40,6 +40,11 @@
           "type": "string"
         },
 
+        "kind": {
+          "description": "A string that provides more information on the meaning of this annotation. Should be one of , if any of those accurately describe the annotation.",
+          "enum": [ "declaration", "use", "branchTrue", "branchFalse", "call", "callReturn", "assignment", "functionEnter", "functionExit", "source", "sanitizer", "sink" ]
+        },
+
         "properties": {
           "description": "Key/value pairs that provide additional information about the code location.",
           "type": "object",
@@ -245,7 +250,7 @@
 
         "algorithm": {
           "description": "A string specifying the name of the algorithm used to compute the hash value specified in the 'value' property.",
-          "enum": [ "Authentihash", "BLAKE-256", "BLAKE-512", "ECOH", "FSB", "GOST", "Groestl", "HAS-160", "HAVAL", "JH", "MD2", "MD4", "MD5", "MD6", "RadioGatun", "RIPEMD", "RIPEMD-128", "RIPEMD-160", "RIPEMD-320", "Sdhash", "SHA-1", "SHA-224", "SHA-256", "SHA-384", "SHA-512", "SHA-3", "Skein", "Snefru", "Spectral Hash", "Ssdeep", "SWIFFT", "Tiger", "Tlsh", "Whirlpool" ]
+          "enum": [ "authentihash", "blake256", "blake512", "ecoh", "fsb", "gost", "groestl", "has160", "haval", "jh", "md2", "md4", "md5", "md6", "radioGatun", "ripeMD", "ripeMD128", "ripeMD160", "ripeMD320", "sdhash", "sha1", "sha224", "sha256", "sha384", "sha512", "sha3", "skein", "snefru", "spectralHash", "ssdeep", "swifft", "tiger", "tlsh", "whirlpool" ]
         }
       },
       "required": [ "value", "algorithm" ]

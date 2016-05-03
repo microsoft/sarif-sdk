@@ -327,22 +327,19 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
                 ? ExceptionData.Create(exception)
                 : null;
 
+            var physicalLocation = uri != null
+                ? new PhysicalLocation { Uri = uri }
+                : null;
+
             var notification = new Notification
             {
+                AnalysisTarget = physicalLocation,
                 Id = notificationId,
                 RuleId = ruleId,
                 Level = level,
                 Message = message,
                 Exception = exceptionData
             };
-
-            if (uri != null)
-            {
-                notification.AnalysisTarget = new PhysicalLocation
-                {
-                    Uri = uri
-                };
-            }
 
             return notification;
         }

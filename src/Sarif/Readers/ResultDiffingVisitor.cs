@@ -41,16 +41,19 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
 
             this.NewResults.Clear();
 
-            foreach (Result result in actual)
+            if (actual != null)
             {
-                if (this.AbsentResults.Contains(result))
+                foreach (Result result in actual)
                 {
-                    this.SharedResults.Add(result);
-                    this.AbsentResults.Remove(result);
-                }
-                else
-                {
-                    this.NewResults.Add(result);
+                    if (this.AbsentResults.Contains(result))
+                    {
+                        this.SharedResults.Add(result);
+                        this.AbsentResults.Remove(result);
+                    }
+                    else
+                    {
+                        this.NewResults.Add(result);
+                    }
                 }
             }
 
