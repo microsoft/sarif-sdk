@@ -3,6 +3,7 @@
 
 using System;
 using System.CodeDom.Compiler;
+using System.Collections.Generic;
 using System.Runtime.Serialization;
 
 namespace Microsoft.CodeAnalysis.Sarif
@@ -11,9 +12,13 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// The physical location where a result was detected. Specifies a reference to a programming artifact together with a range of bytes or characters within that artifact.
     /// </summary>
     [DataContract]
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.20.0.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.21.0.0")]
     public partial class PhysicalLocation : ISarifNode
     {
+        public static IEqualityComparer<PhysicalLocation> ValueComparer => PhysicalLocationEqualityComparer.Instance;
+
+        public bool ValueEquals(PhysicalLocation other) => ValueComparer.Equals(this, other);
+
         /// <summary>
         /// Gets a value indicating the type of object implementing <see cref="ISarifNode" />.
         /// </summary>

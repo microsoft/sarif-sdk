@@ -3,6 +3,7 @@
 
 using System;
 using System.CodeDom.Compiler;
+using System.Collections.Generic;
 using System.Runtime.Serialization;
 
 namespace Microsoft.CodeAnalysis.Sarif
@@ -11,9 +12,13 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// A hash value of some file or collection of files, together with the algorithm used to compute the hash.
     /// </summary>
     [DataContract]
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.20.0.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.21.0.0")]
     public partial class Hash : ISarifNode
     {
+        public static IEqualityComparer<Hash> ValueComparer => HashEqualityComparer.Instance;
+
+        public bool ValueEquals(Hash other) => ValueComparer.Equals(this, other);
+
         /// <summary>
         /// Gets a value indicating the type of object implementing <see cref="ISarifNode" />.
         /// </summary>

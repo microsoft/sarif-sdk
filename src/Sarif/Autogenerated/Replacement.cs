@@ -3,6 +3,7 @@
 
 using System;
 using System.CodeDom.Compiler;
+using System.Collections.Generic;
 using System.Runtime.Serialization;
 
 namespace Microsoft.CodeAnalysis.Sarif
@@ -11,9 +12,13 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// The replacement of a single range of bytes in a file. Specifies the location within the file where the replacement is to be made, the number of bytes to remove at that location, and a sequence of bytes to insert at that location.
     /// </summary>
     [DataContract]
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.20.0.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.21.0.0")]
     public partial class Replacement : ISarifNode
     {
+        public static IEqualityComparer<Replacement> ValueComparer => ReplacementEqualityComparer.Instance;
+
+        public bool ValueEquals(Replacement other) => ValueComparer.Equals(this, other);
+
         /// <summary>
         /// Gets a value indicating the type of object implementing <see cref="ISarifNode" />.
         /// </summary>

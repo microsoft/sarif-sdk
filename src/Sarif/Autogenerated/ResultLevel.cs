@@ -8,7 +8,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// <summary>
     /// Values specifying the level of a result.
     /// </summary>
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.20.0.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.21.0.0")]
     public enum ResultLevel
     {
         Unknown,

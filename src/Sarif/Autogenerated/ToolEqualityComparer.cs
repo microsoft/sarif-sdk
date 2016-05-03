@@ -10,10 +10,10 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// <summary>
     /// Defines methods to support the comparison of objects of type Tool for equality.
     /// </summary>
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.20.0.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.21.0.0")]
     public sealed class ToolEqualityComparer : IEqualityComparer<Tool>
     {
-        public static readonly ToolEqualityComparer Instance = new ToolEqualityComparer();
+        internal static readonly ToolEqualityComparer Instance = new ToolEqualityComparer();
 
         public bool Equals(Tool left, Tool right)
         {

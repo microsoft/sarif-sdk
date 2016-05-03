@@ -10,10 +10,10 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// <summary>
     /// Defines methods to support the comparison of objects of type Stack for equality.
     /// </summary>
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.20.0.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.21.0.0")]
     public sealed class StackEqualityComparer : IEqualityComparer<Stack>
     {
-        public static readonly StackEqualityComparer Instance = new StackEqualityComparer();
+        internal static readonly StackEqualityComparer Instance = new StackEqualityComparer();
 
         public bool Equals(Stack left, Stack right)
         {

@@ -9,9 +9,13 @@ using System.Runtime.Serialization;
 namespace Microsoft.CodeAnalysis.Sarif
 {
     [DataContract]
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.20.0.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.21.0.0")]
     public partial class ExceptionData : ISarifNode
     {
+        public static IEqualityComparer<ExceptionData> ValueComparer => ExceptionDataEqualityComparer.Instance;
+
+        public bool ValueEquals(ExceptionData other) => ValueComparer.Equals(this, other);
+
         /// <summary>
         /// Gets a value indicating the type of object implementing <see cref="ISarifNode" />.
         /// </summary>

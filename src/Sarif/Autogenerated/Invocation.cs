@@ -12,9 +12,13 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// The runtime environment of the analysis tool run.
     /// </summary>
     [DataContract]
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.20.0.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.21.0.0")]
     public partial class Invocation : ISarifNode
     {
+        public static IEqualityComparer<Invocation> ValueComparer => InvocationEqualityComparer.Instance;
+
+        public bool ValueEquals(Invocation other) => ValueComparer.Equals(this, other);
+
         /// <summary>
         /// Gets a value indicating the type of object implementing <see cref="ISarifNode" />.
         /// </summary>

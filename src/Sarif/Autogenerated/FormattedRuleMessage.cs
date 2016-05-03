@@ -12,9 +12,13 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// Contains information that can be used to construct a formatted message that describes a result.
     /// </summary>
     [DataContract]
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.20.0.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.21.0.0")]
     public partial class FormattedRuleMessage : ISarifNode
     {
+        public static IEqualityComparer<FormattedRuleMessage> ValueComparer => FormattedRuleMessageEqualityComparer.Instance;
+
+        public bool ValueEquals(FormattedRuleMessage other) => ValueComparer.Equals(this, other);
+
         /// <summary>
         /// Gets a value indicating the type of object implementing <see cref="ISarifNode" />.
         /// </summary>

@@ -10,10 +10,10 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// <summary>
     /// Defines methods to support the comparison of objects of type Fix for equality.
     /// </summary>
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.20.0.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.21.0.0")]
     public sealed class FixEqualityComparer : IEqualityComparer<Fix>
     {
-        public static readonly FixEqualityComparer Instance = new FixEqualityComparer();
+        internal static readonly FixEqualityComparer Instance = new FixEqualityComparer();
 
         public bool Equals(Fix left, Fix right)
         {

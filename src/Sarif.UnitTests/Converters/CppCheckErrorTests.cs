@@ -59,7 +59,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                         Region = new Region { StartLine = 1234 }
                     }
                 }
-            }, LocationEqualityComparer.Instance).Should().BeTrue();
+            }, Location.ValueComparer).Should().BeTrue();
             Assert.IsNull(result.CodeFlows);
         }
 
@@ -78,7 +78,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                             Region = new Region { StartLine = 5678 }
                         }
                     }
-                }, LocationEqualityComparer.Instance).Should().BeTrue();
+                }, Location.ValueComparer).Should().BeTrue();
 
             Assert.AreEqual(1, result.CodeFlows.Count);
             result.CodeFlows.First().Locations.SequenceEqual(new[]
@@ -95,7 +95,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                             Region = new Region { StartLine = 5678 }
                         }
                     }
-                }, AnnotatedCodeLocationEqualityComparer.Instance).Should().BeTrue();
+                }, AnnotatedCodeLocation.ValueComparer).Should().BeTrue();
         }
 
         [TestMethod]

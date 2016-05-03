@@ -10,10 +10,10 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// <summary>
     /// Defines methods to support the comparison of objects of type Run for equality.
     /// </summary>
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.20.0.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.21.0.0")]
     public sealed class RunEqualityComparer : IEqualityComparer<Run>
     {
-        public static readonly RunEqualityComparer Instance = new RunEqualityComparer();
+        internal static readonly RunEqualityComparer Instance = new RunEqualityComparer();
 
         public bool Equals(Run left, Run right)
         {

@@ -12,9 +12,13 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// A result produced by an analysis tool.
     /// </summary>
     [DataContract]
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.20.0.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.21.0.0")]
     public partial class Result : ISarifNode
     {
+        public static IEqualityComparer<Result> ValueComparer => ResultEqualityComparer.Instance;
+
+        public bool ValueEquals(Result other) => ValueComparer.Equals(this, other);
+
         /// <summary>
         /// Gets a value indicating the type of object implementing <see cref="ISarifNode" />.
         /// </summary>

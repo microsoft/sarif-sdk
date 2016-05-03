@@ -10,10 +10,10 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// <summary>
     /// Defines methods to support the comparison of objects of type Region for equality.
     /// </summary>
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.20.0.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.21.0.0")]
     public sealed class RegionEqualityComparer : IEqualityComparer<Region>
     {
-        public static readonly RegionEqualityComparer Instance = new RegionEqualityComparer();
+        internal static readonly RegionEqualityComparer Instance = new RegionEqualityComparer();
 
         public bool Equals(Region left, Region right)
         {

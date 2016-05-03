@@ -10,10 +10,10 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// <summary>
     /// Defines methods to support the comparison of objects of type Result for equality.
     /// </summary>
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.20.0.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.21.0.0")]
     public sealed class ResultEqualityComparer : IEqualityComparer<Result>
     {
-        public static readonly ResultEqualityComparer Instance = new ResultEqualityComparer();
+        internal static readonly ResultEqualityComparer Instance = new ResultEqualityComparer();
 
         public bool Equals(Result left, Result right)
         {

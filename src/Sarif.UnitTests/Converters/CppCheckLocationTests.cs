@@ -70,12 +70,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         {
             PhysicalLocation result = new CppCheckLocation("foo.cpp", 42).ToSarifPhysicalLocation();
             Assert.IsTrue(
-                PhysicalLocationEqualityComparer.Instance.Equals(
+                result.ValueEquals(
                     new PhysicalLocation
                     {
                         Uri = new Uri("foo.cpp", UriKind.RelativeOrAbsolute),
                         Region = new Region { StartLine = 42 }
-                    }, result));
+                    }));
         }
 
         [TestMethod]

@@ -10,10 +10,10 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// <summary>
     /// Defines methods to support the comparison of objects of type AnnotatedCodeLocation for equality.
     /// </summary>
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.20.0.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.21.0.0")]
     public sealed class AnnotatedCodeLocationEqualityComparer : IEqualityComparer<AnnotatedCodeLocation>
     {
-        public static readonly AnnotatedCodeLocationEqualityComparer Instance = new AnnotatedCodeLocationEqualityComparer();
+        internal static readonly AnnotatedCodeLocationEqualityComparer Instance = new AnnotatedCodeLocationEqualityComparer();
 
         public bool Equals(AnnotatedCodeLocation left, AnnotatedCodeLocation right)
         {

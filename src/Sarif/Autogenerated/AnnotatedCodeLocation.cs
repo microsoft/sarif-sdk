@@ -12,9 +12,13 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// A code annotation that consists of single physical location and associated message, used to express code flows through a method, or other locations that are related to a result.
     /// </summary>
     [DataContract]
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.20.0.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.21.0.0")]
     public partial class AnnotatedCodeLocation : ISarifNode
     {
+        public static IEqualityComparer<AnnotatedCodeLocation> ValueComparer => AnnotatedCodeLocationEqualityComparer.Instance;
+
+        public bool ValueEquals(AnnotatedCodeLocation other) => ValueComparer.Equals(this, other);
+
         /// <summary>
         /// Gets a value indicating the type of object implementing <see cref="ISarifNode" />.
         /// </summary>

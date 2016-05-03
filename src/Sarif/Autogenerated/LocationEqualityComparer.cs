@@ -10,10 +10,10 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// <summary>
     /// Defines methods to support the comparison of objects of type Location for equality.
     /// </summary>
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.20.0.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.21.0.0")]
     public sealed class LocationEqualityComparer : IEqualityComparer<Location>
     {
-        public static readonly LocationEqualityComparer Instance = new LocationEqualityComparer();
+        internal static readonly LocationEqualityComparer Instance = new LocationEqualityComparer();
 
         public bool Equals(Location left, Location right)
         {

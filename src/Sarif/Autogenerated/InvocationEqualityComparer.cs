@@ -10,10 +10,10 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// <summary>
     /// Defines methods to support the comparison of objects of type Invocation for equality.
     /// </summary>
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.20.0.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.21.0.0")]
     public sealed class InvocationEqualityComparer : IEqualityComparer<Invocation>
     {
-        public static readonly InvocationEqualityComparer Instance = new InvocationEqualityComparer();
+        internal static readonly InvocationEqualityComparer Instance = new InvocationEqualityComparer();
 
         public bool Equals(Invocation left, Invocation right)
         {

@@ -10,10 +10,10 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// <summary>
     /// Defines methods to support the comparison of objects of type StackFrame for equality.
     /// </summary>
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.20.0.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.21.0.0")]
     public sealed class StackFrameEqualityComparer : IEqualityComparer<StackFrame>
     {
-        public static readonly StackFrameEqualityComparer Instance = new StackFrameEqualityComparer();
+        internal static readonly StackFrameEqualityComparer Instance = new StackFrameEqualityComparer();
 
         public bool Equals(StackFrame left, StackFrame right)
         {
