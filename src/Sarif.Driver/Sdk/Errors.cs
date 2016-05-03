@@ -40,6 +40,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
             // Could not load analysis target '{0}'.
             context.Logger.LogConfigurationNotification(
                 CreateNotification(
+                    context.TargetUri,
                     Notification_ExceptionLoadingAnalysisTarget,
                     NotificationLevel.Error,
                     context.TargetLoadException,
@@ -55,6 +56,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
             // '{0}' was not evaluated for check '{1}' because its PDB could not be loaded.
             context.Logger.LogConfigurationNotification(
                 CreateNotification(
+                    context.TargetUri,
                     Notification_ExceptionLoadingPdb,
                     context.Rule.Id,
                     NotificationLevel.Error,
@@ -76,6 +78,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
             // Could not instantiate skimmers from the following plugins: {0}
             context.Logger.LogConfigurationNotification(
                 CreateNotification(
+                    context.TargetUri,
                     Notification_ExceptionInstantiatingSkimmers,
                     NotificationLevel.Error,
                     exception,
@@ -89,6 +92,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
             // No analysis rules could be instantiated.
             context.Logger.LogConfigurationNotification(
                 CreateNotification(
+                    context.TargetUri,
                     Notification_NoRulesLoaded,
                     NotificationLevel.Error,
                     null));
@@ -101,6 +105,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
             // No valid analysis targets were specified.
             context.Logger.LogConfigurationNotification(
                 CreateNotification(
+                    context.TargetUri,
                     Notification_NoValidAnalysisTargets,
                     NotificationLevel.Error,
                     null));
@@ -113,6 +118,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
             // Could not create output file: '{0}'
             context.Logger.LogConfigurationNotification(
                 CreateNotification(
+                    context.TargetUri,
                     Notification_ExceptionCreatingLogFile,
                     NotificationLevel.Error,
                     exception,
@@ -126,6 +132,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
             // A required file specified on the command line could not be found: '{0}'. 
             context.Logger.LogConfigurationNotification(
                 CreateNotification(
+                    context.TargetUri,
                     Notification_MissingFile,
                     NotificationLevel.Error,
                     null,
@@ -139,6 +146,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
             // Could not access a file specified on the command-line: '{0}'.
             context.Logger.LogConfigurationNotification(
                 CreateNotification(
+                    context.TargetUri,
                     Notification_ExceptionAccessingFile,
                     NotificationLevel.Error,
                     exception,
@@ -162,6 +170,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
             // necessary, and passed back into the tool.
             context.Logger.LogConfigurationNotification(
                 CreateNotification(
+                    context.TargetUri,
                     Notification_MissingRuleConfiguration,
                     NotificationLevel.Error,
                     null,
@@ -178,6 +187,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
             // Could not load plug-in '{0}'.
             context.Logger.LogConfigurationNotification(
                 CreateNotification(
+                    context.TargetUri,
                     Notification_ExceptionLoadingPlugIn,
                     NotificationLevel.Error,
                     exception,
@@ -198,6 +208,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
             // the rule, however.
             context.Logger.LogToolNotification(
                 CreateNotification(
+                    context.TargetUri,
                     Notification_ExceptionInCanAnalyze,
                     context.Rule.Id,
                     NotificationLevel.Error,
@@ -220,6 +231,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
             // has been disabled for the remainder of the analysis.
             context.Logger.LogToolNotification(
                 CreateNotification(
+                context.TargetUri,
                 Notification_ExceptionInInitialize,
                 context.Rule.Id,
                 NotificationLevel.Error,
@@ -240,6 +252,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
             // image metadata and not specific to the rule, however.
             context.Logger.LogToolNotification(
                 CreateNotification(
+                    context.TargetUri,
                     Notification_ExceptionInAnalyze,
                     context.Rule.Id,
                     NotificationLevel.Error,
@@ -257,6 +270,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
             // An unhandled exception was raised during analysis.
             context.Logger.LogToolNotification(
                 CreateNotification(
+                    context.TargetUri,
                     Notification_UnhandledEngineException,
                     NotificationLevel.Error,
                     exception));
@@ -269,6 +283,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
             // {0}({1}): error {2}: {3}
             context.Logger.LogToolNotification(
                 CreateNotification(
+                    context.TargetUri,
                     Notification_ParseError,
                     NotificationLevel.Error,
                     null,
@@ -281,15 +296,17 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
         }
 
         private static Notification CreateNotification(
+            Uri uri,
             string notificationId,
             NotificationLevel level,
             Exception exception,
             params object[] args)
         {
-            return CreateNotification(notificationId, null, level, exception, args);
+            return CreateNotification(uri, notificationId, null, level, exception, args);
         }
 
         private static Notification CreateNotification(
+            Uri uri,
             string notificationId,
             string ruleId,
             NotificationLevel level,
@@ -310,14 +327,21 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
                 ? ExceptionData.Create(exception)
                 : null;
 
-            return new Notification
+            var physicalLocation = uri != null
+                ? new PhysicalLocation { Uri = uri }
+                : null;
+
+            var notification = new Notification
             {
+                AnalysisTarget = physicalLocation,
                 Id = notificationId,
                 RuleId = ruleId,
                 Level = level,
                 Message = message,
                 Exception = exceptionData
             };
+
+            return notification;
         }
 
         private static string GetMessageFormatResourceForNotification(string notificationId)
