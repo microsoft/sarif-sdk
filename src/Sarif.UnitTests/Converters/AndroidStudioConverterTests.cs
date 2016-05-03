@@ -251,8 +251,14 @@ Possible resolution: delete", result.Message);
 
             LocationInfo locationInfo = GetLocationInfoForBuilder(builder);
 
-            locationInfo.Location.Should().Be(expectedLocation);
-            locationInfo.LogicalLocationComponents.SequenceEqual(expectedLogicalLocationComponents).Should().BeTrue();
+            LocationEqualityComparer.Instance.Equals(locationInfo.Location, expectedLocation)
+                .Should().BeTrue();
+
+            locationInfo.LogicalLocationComponents
+                .SequenceEqual(
+                    expectedLogicalLocationComponents,
+                    LogicalLocationComponentEqualityComparer.Instance)
+                .Should().BeTrue();
         }
 
         [TestMethod]
@@ -281,8 +287,14 @@ Possible resolution: delete", result.Message);
 
             LocationInfo locationInfo = GetLocationInfoForBuilder(builder);
 
-            locationInfo.Location.Should().Be(expectedLocation);
-            locationInfo.LogicalLocationComponents.SequenceEqual(expectedLogicalLocationComponents).Should().BeTrue();
+            LocationEqualityComparer.Instance.Equals(locationInfo.Location, expectedLocation)
+                .Should().BeTrue();
+
+            locationInfo.LogicalLocationComponents
+                .SequenceEqual(
+                    expectedLogicalLocationComponents,
+                    LogicalLocationComponentEqualityComparer.Instance)
+                .Should().BeTrue();
         }
 
         [TestMethod]
@@ -316,8 +328,14 @@ Possible resolution: delete", result.Message);
 
             LocationInfo locationInfo = GetLocationInfoForBuilder(builder);
 
-            locationInfo.Location.Should().Be(expectedLocation);
-            locationInfo.LogicalLocationComponents.SequenceEqual(expectedLogicalLocationComponents).Should().BeTrue();
+            LocationEqualityComparer.Instance.Equals(locationInfo.Location, expectedLocation)
+                .Should().BeTrue();
+
+            locationInfo.LogicalLocationComponents
+                .SequenceEqual(
+                    expectedLogicalLocationComponents,
+                    LogicalLocationComponentEqualityComparer.Instance)
+                .Should().BeTrue();
         }
 
         [TestMethod]
@@ -345,8 +363,14 @@ Possible resolution: delete", result.Message);
 
             LocationInfo locationInfo = GetLocationInfoForBuilder(builder);
 
-            locationInfo.Location.Should().Be(expectedLocation);
-            locationInfo.LogicalLocationComponents.SequenceEqual(expectedLogicalLocationComponents).Should().BeTrue();
+            LocationEqualityComparer.Instance.Equals(locationInfo.Location, expectedLocation)
+                .Should().BeTrue();
+
+            locationInfo.LogicalLocationComponents
+                .SequenceEqual(
+                    expectedLogicalLocationComponents,
+                    LogicalLocationComponentEqualityComparer.Instance)
+                .Should().BeTrue();
         }
 
         [TestMethod]
@@ -378,8 +402,14 @@ Possible resolution: delete", result.Message);
 
             LocationInfo locationInfo = GetLocationInfoForBuilder(builder);
 
-            locationInfo.Location.Should().Be(expectedLocation);
-            locationInfo.LogicalLocationComponents.SequenceEqual(expectedLogicalLocationComponents).Should().BeTrue();
+            LocationEqualityComparer.Instance.Equals(locationInfo.Location, expectedLocation).
+                Should().BeTrue();
+
+            locationInfo.LogicalLocationComponents
+                .SequenceEqual(
+                    expectedLogicalLocationComponents,
+                    LogicalLocationComponentEqualityComparer.Instance)
+                .Should().BeTrue();
         }
 
         [TestMethod]

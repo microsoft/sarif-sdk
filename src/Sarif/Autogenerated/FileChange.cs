@@ -12,8 +12,8 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// A change to a single file.
     /// </summary>
     [DataContract]
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.19.0.0")]
-    public partial class FileChange : ISarifNode, IEquatable<FileChange>
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.20.0.0")]
+    public partial class FileChange : ISarifNode
     {
         /// <summary>
         /// Gets a value indicating the type of object implementing <see cref="ISarifNode" />.
@@ -37,73 +37,6 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// </summary>
         [DataMember(Name = "replacements", IsRequired = true)]
         public IList<Replacement> Replacements { get; set; }
-
-        public override bool Equals(object other)
-        {
-            return Equals(other as FileChange);
-        }
-
-        public override int GetHashCode()
-        {
-            int result = 17;
-            unchecked
-            {
-                if (Uri != null)
-                {
-                    result = (result * 31) + Uri.GetHashCode();
-                }
-
-                if (Replacements != null)
-                {
-                    foreach (var value_0 in Replacements)
-                    {
-                        result = result * 31;
-                        if (value_0 != null)
-                        {
-                            result = (result * 31) + value_0.GetHashCode();
-                        }
-                    }
-                }
-            }
-
-            return result;
-        }
-
-        public bool Equals(FileChange other)
-        {
-            if (other == null)
-            {
-                return false;
-            }
-
-            if (Uri != other.Uri)
-            {
-                return false;
-            }
-
-            if (!Object.ReferenceEquals(Replacements, other.Replacements))
-            {
-                if (Replacements == null || other.Replacements == null)
-                {
-                    return false;
-                }
-
-                if (Replacements.Count != other.Replacements.Count)
-                {
-                    return false;
-                }
-
-                for (int index_0 = 0; index_0 < Replacements.Count; ++index_0)
-                {
-                    if (!Object.Equals(Replacements[index_0], other.Replacements[index_0]))
-                    {
-                        return false;
-                    }
-                }
-            }
-
-            return true;
-        }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="FileChange" /> class.

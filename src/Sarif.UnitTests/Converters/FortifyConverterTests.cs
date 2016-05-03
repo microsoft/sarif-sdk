@@ -202,7 +202,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             Result result = FortifyConverter.ConvertFortifyIssueToSarifIssue(builder.ToImmutable());
             Assert.AreEqual(1, result.Locations.Count);
             Assert.AreEqual("filePath", result.Locations.First().ResultFile.Uri.ToString());
-            Assert.AreEqual(new Region { StartLine = 1729 }, result.Locations.First().ResultFile.Region);
+            Assert.IsTrue(RegionEqualityComparer.Instance.Equals(
+                new Region { StartLine = 1729 }, result.Locations.First().ResultFile.Region));
         }
 
         [TestMethod]
@@ -221,9 +222,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             Assert.AreEqual(1, result.CodeFlows.Count);
             IList<AnnotatedCodeLocation> flowLocations = result.CodeFlows.First().Locations;
             Assert.AreEqual("sourceFilePath", flowLocations[0].PhysicalLocation.Uri.ToString());
-            Assert.AreEqual(new Region { StartLine = 42 }, flowLocations[0].PhysicalLocation.Region);
+            Assert.IsTrue(RegionEqualityComparer.Instance.Equals(
+                    new Region { StartLine = 42 }, flowLocations[0].PhysicalLocation.Region));
             Assert.AreEqual("filePath", flowLocations[1].PhysicalLocation.Uri.ToString());
-            Assert.AreEqual(new Region { StartLine = 1729 }, flowLocations[1].PhysicalLocation.Region);
+            Assert.IsTrue(RegionEqualityComparer.Instance.Equals(
+                new Region { StartLine = 1729 }, flowLocations[1].PhysicalLocation.Region));
         }
     }
 }

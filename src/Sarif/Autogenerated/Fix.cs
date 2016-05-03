@@ -12,8 +12,8 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// A proposed fix for the problem represented by a result object. A fix specifies a set of file to modify. For each file, it specifies a set of bytes to remove, and provides a set of new bytes to replace them.
     /// </summary>
     [DataContract]
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.19.0.0")]
-    public partial class Fix : ISarifNode, IEquatable<Fix>
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.20.0.0")]
+    public partial class Fix : ISarifNode
     {
         /// <summary>
         /// Gets a value indicating the type of object implementing <see cref="ISarifNode" />.
@@ -37,73 +37,6 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// </summary>
         [DataMember(Name = "fileChanges", IsRequired = true)]
         public IList<FileChange> FileChanges { get; set; }
-
-        public override bool Equals(object other)
-        {
-            return Equals(other as Fix);
-        }
-
-        public override int GetHashCode()
-        {
-            int result = 17;
-            unchecked
-            {
-                if (Description != null)
-                {
-                    result = (result * 31) + Description.GetHashCode();
-                }
-
-                if (FileChanges != null)
-                {
-                    foreach (var value_0 in FileChanges)
-                    {
-                        result = result * 31;
-                        if (value_0 != null)
-                        {
-                            result = (result * 31) + value_0.GetHashCode();
-                        }
-                    }
-                }
-            }
-
-            return result;
-        }
-
-        public bool Equals(Fix other)
-        {
-            if (other == null)
-            {
-                return false;
-            }
-
-            if (Description != other.Description)
-            {
-                return false;
-            }
-
-            if (!Object.ReferenceEquals(FileChanges, other.FileChanges))
-            {
-                if (FileChanges == null || other.FileChanges == null)
-                {
-                    return false;
-                }
-
-                if (FileChanges.Count != other.FileChanges.Count)
-                {
-                    return false;
-                }
-
-                for (int index_0 = 0; index_0 < FileChanges.Count; ++index_0)
-                {
-                    if (!Object.Equals(FileChanges[index_0], other.FileChanges[index_0]))
-                    {
-                        return false;
-                    }
-                }
-            }
-
-            return true;
-        }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Fix" /> class.
