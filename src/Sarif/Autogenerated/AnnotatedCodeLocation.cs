@@ -39,12 +39,6 @@ namespace Microsoft.CodeAnalysis.Sarif
         public string Message { get; set; }
 
         /// <summary>
-        /// A string that provides more information on the meaning of this annotation. Should be one of , if any of those accurately describe the annotation.
-        /// </summary>
-        [DataMember(Name = "kind", IsRequired = false, EmitDefaultValue = false)]
-        public string Kind { get; set; }
-
-        /// <summary>
         /// Key/value pairs that provide additional information about the code location.
         /// </summary>
         [DataMember(Name = "properties", IsRequired = false, EmitDefaultValue = false)]
@@ -74,11 +68,6 @@ namespace Microsoft.CodeAnalysis.Sarif
                 if (Message != null)
                 {
                     result = (result * 31) + Message.GetHashCode();
-                }
-
-                if (Kind != null)
-                {
-                    result = (result * 31) + Kind.GetHashCode();
                 }
 
                 if (Properties != null)
@@ -126,11 +115,6 @@ namespace Microsoft.CodeAnalysis.Sarif
             }
 
             if (Message != other.Message)
-            {
-                return false;
-            }
-
-            if (Kind != other.Kind)
             {
                 return false;
             }
@@ -197,18 +181,15 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="message">
         /// An initialization value for the <see cref="P: Message" /> property.
         /// </param>
-        /// <param name="kind">
-        /// An initialization value for the <see cref="P: Kind" /> property.
-        /// </param>
         /// <param name="properties">
         /// An initialization value for the <see cref="P: Properties" /> property.
         /// </param>
         /// <param name="tags">
         /// An initialization value for the <see cref="P: Tags" /> property.
         /// </param>
-        public AnnotatedCodeLocation(PhysicalLocation physicalLocation, string message, string kind, IDictionary<string, string> properties, IEnumerable<string> tags)
+        public AnnotatedCodeLocation(PhysicalLocation physicalLocation, string message, IDictionary<string, string> properties, IEnumerable<string> tags)
         {
-            Init(physicalLocation, message, kind, properties, tags);
+            Init(physicalLocation, message, properties, tags);
         }
 
         /// <summary>
@@ -227,7 +208,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 throw new ArgumentNullException(nameof(other));
             }
 
-            Init(other.PhysicalLocation, other.Message, other.Kind, other.Properties, other.Tags);
+            Init(other.PhysicalLocation, other.Message, other.Properties, other.Tags);
         }
 
         ISarifNode ISarifNode.DeepClone()
@@ -248,7 +229,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new AnnotatedCodeLocation(this);
         }
 
-        private void Init(PhysicalLocation physicalLocation, string message, string kind, IDictionary<string, string> properties, IEnumerable<string> tags)
+        private void Init(PhysicalLocation physicalLocation, string message, IDictionary<string, string> properties, IEnumerable<string> tags)
         {
             if (physicalLocation != null)
             {
@@ -256,7 +237,6 @@ namespace Microsoft.CodeAnalysis.Sarif
             }
 
             Message = message;
-            Kind = kind;
             if (properties != null)
             {
                 Properties = new Dictionary<string, string>(properties);
