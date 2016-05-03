@@ -156,7 +156,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             EnsureStateNotAlreadySet(Conditions.Disposed | Conditions.RulesWritten);
 
             _jsonWriter.WritePropertyName("rules");
-            _serializer.Serialize(_jsonWriter, rules, typeof(Dictionary<string, Rule>));
+            _serializer.Serialize(_jsonWriter, rules, typeof(Dictionary<string, IRule>));
 
             _writeConditions |= Conditions.RulesWritten;
         }
