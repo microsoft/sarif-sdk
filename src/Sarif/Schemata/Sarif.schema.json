@@ -40,11 +40,6 @@
           "type": "string"
         },
 
-        "kind": {
-          "description": "A string that provides more information on the meaning of this annotation. Should be one of , if any of those accurately describe the annotation.",
-          "enum": [ "declaration", "use", "branchTrue", "branchFalse", "call", "callReturn", "assignment", "functionEnter", "functionExit", "source", "sanitizer", "sink" ]
-        },
-
         "properties": {
           "description": "Key/value pairs that provide additional information about the code location.",
           "type": "object",
