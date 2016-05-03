@@ -124,17 +124,20 @@ namespace Microsoft.Sarif.Viewer
                     foreach (Location location in result?.Locations)
                     {
                         region = null;
+                        Uri uri;
 
                         PhysicalLocation physicalLocation = null;
                         if (location.ResultFile != null)
                         {
                             physicalLocation = location.ResultFile;
-                            document = physicalLocation.Uri.LocalPath;
+                            uri = physicalLocation.Uri;
+                            document = uri.IsAbsoluteUri ? uri.LocalPath : uri.ToString();
                             region = physicalLocation.Region;
                         }
                         else if (location.AnalysisTarget != null)
                         {
                             physicalLocation = location.AnalysisTarget;
+                            uri = physicalLocation.Uri;
                             document = physicalLocation.Uri.LocalPath;
                             region = physicalLocation.Region;
                         }
@@ -201,6 +204,8 @@ namespace Microsoft.Sarif.Viewer
 
         private IEnumerable<IEnumerable<AnnotatedCodeLocation>> CreateAnnotatedCodeLocationsFromStacks(IEnumerable<Stack> stacks)
         {
+            if (stacks == null) { return null; }
+
             List<List<AnnotatedCodeLocation>> codeLocationCollections = new List<List<AnnotatedCodeLocation>>();
 
             foreach (Stack stack in stacks)
@@ -232,6 +237,8 @@ namespace Microsoft.Sarif.Viewer
 
         private IEnumerable<IEnumerable<AnnotatedCodeLocation>> CreateAnnotatedCodeLocationsFromCodeFlows(IEnumerable<CodeFlow> codeFlows)
         {
+            if (codeFlows == null) { return null; }
+
             List<List<AnnotatedCodeLocation>> codeLocationCollections = new List<List<AnnotatedCodeLocation>>();
 
             foreach (CodeFlow codeFlow in codeFlows)
@@ -249,10 +256,7 @@ namespace Microsoft.Sarif.Viewer
             AnnotatedCodeLocationKind annotatedCodeLocationKind,
             SarifError sarifError)
         {
-            if (codeLocationCollections == null)
-            {
-                return;
-            }
+            if (codeLocationCollections == null) { return; }
 
             foreach (IEnumerable<AnnotatedCodeLocation> codeLocations in codeLocationCollections)
             {

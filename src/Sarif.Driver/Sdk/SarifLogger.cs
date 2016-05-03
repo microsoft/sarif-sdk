@@ -341,11 +341,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
 
         public void LogToolNotification(Notification notification)
         {
+            _run.ToolNotifications = _run.ToolNotifications ?? new List<Notification>();
             _run.ToolNotifications.Add(notification);
         }
 
         public void LogConfigurationNotification(Notification notification)
         {
+            _run.ConfigurationNotifications = _run.ConfigurationNotifications ?? new List<Notification>();
             _run.ConfigurationNotifications.Add(notification);
         }
     }
