@@ -56,6 +56,7 @@
     <Compile Include="MultiplyByPrimesHash.cs" />
     <Compile Include="Readers\DateTimeConverter.cs" />
     <Compile Include="Readers\FlagsEnumConverter.cs" />
+    <Compile Include="Readers\IRuleConverter.cs" />
     <Compile Include="Readers\ResultDiffingVisitor.cs" />
     <Compile Include="Readers\EnumConverter.cs" />
     <Compile Include="Readers\SarifContractResolver.cs" />
