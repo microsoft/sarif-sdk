@@ -197,6 +197,16 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
             {
                 _issueLogJsonWriter.CloseResults();
 
+                if (_run.ConfigurationNotifications != null)
+                {
+                    _issueLogJsonWriter.WriteConfigurationNotifications(_run.ConfigurationNotifications);
+                }
+
+                if (_run.ToolNotifications != null)
+                {
+                    _issueLogJsonWriter.WriteToolNotifications(_run.ToolNotifications);
+                }
+
                 if (_run?.Invocation?.StartTime != new DateTime())
                 {
                     _run.Invocation.EndTime = DateTime.UtcNow;
