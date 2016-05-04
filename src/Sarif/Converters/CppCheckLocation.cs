@@ -26,12 +26,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         {
             if (String.IsNullOrWhiteSpace(file))
             {
-                throw new ArgumentException(SarifResources.CppCheckLocationNameEmpty, "file");
+                throw new ArgumentException(SdkResources.CppCheckLocationNameEmpty, "file");
             }
 
             if (line < 0)
             {
-                throw new ArgumentOutOfRangeException("line", SarifResources.CppCheckLocationNegativeLine);
+                throw new ArgumentOutOfRangeException("line", SdkResources.CppCheckLocationNegativeLine);
             }
 
             this.File = file;
@@ -55,7 +55,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         {
             if (!reader.IsStartElement(strings.Location))
             {
-                throw reader.CreateException(SarifResources.CppCheckLocationElementNameIncorrect);
+                throw reader.CreateException(SdkResources.CppCheckLocationElementNameIncorrect);
             }
 
             string file = null;
@@ -76,12 +76,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
             if (file == null)
             {
-                throw reader.CreateException(SarifResources.CppCheckLocationMissingName);
+                throw reader.CreateException(SdkResources.CppCheckLocationMissingName);
             }
 
             if (lineText == null)
             {
-                throw reader.CreateException(SarifResources.CppCheckLocationMissingLine);
+                throw reader.CreateException(SdkResources.CppCheckLocationMissingLine);
             }
 
             int line = XmlConvert.ToInt32(lineText);
@@ -160,7 +160,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         /// <seealso cref="M:System.ValueType.ToString()"/>
         public override string ToString()
         {
-            return String.Format(CultureInfo.InvariantCulture, SarifResources.CppCheckLocationFormat,
+            return String.Format(CultureInfo.InvariantCulture, SdkResources.CppCheckLocationFormat,
                 this.File, this.Line);
         }
     }

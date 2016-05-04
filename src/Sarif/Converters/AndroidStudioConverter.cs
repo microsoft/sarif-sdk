@@ -215,7 +215,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             string desc = problem.Description;
             if (desc == null)
             {
-                return String.Format(CultureInfo.InvariantCulture, SarifResources.AndroidStudioDescriptionUnknown, problem.ProblemClass);
+                return String.Format(CultureInfo.InvariantCulture, SdkResources.AndroidStudioDescriptionUnknown, problem.ProblemClass);
             }
 
             return desc;
@@ -249,7 +249,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             foreach (string hint in hints)
             {
                 sb.AppendLine();
-                sb.AppendFormat(CultureInfo.InvariantCulture, SarifResources.AndroidStudioHintStaple, hint);
+                sb.AppendFormat(CultureInfo.InvariantCulture, SdkResources.AndroidStudioHintStaple, hint);
             }
 
             return sb.ToString();

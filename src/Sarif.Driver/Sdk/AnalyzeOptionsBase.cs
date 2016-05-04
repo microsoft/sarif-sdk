@@ -5,6 +5,8 @@ using System.Collections.Generic;
 
 using CommandLine;
 
+using Microsoft.CodeAnalysis.Sarif.Sdk;
+
 namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
 {
     [Verb("analyze", HelpText = "Analyze one or more binary files for security and correctness issues.")]

@@ -5,7 +5,7 @@ using System;
 using System.Collections.Generic;
 
 using FluentAssertions;
-
+using Microsoft.CodeAnalysis.Sarif.Sdk;
 using Xunit;
 
 namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk

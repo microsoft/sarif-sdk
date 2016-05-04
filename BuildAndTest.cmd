@@ -28,7 +28,7 @@ echo     public static class VersionConstants                                   
 echo     {                                                                          >> %SDK_VERSION_CONSTANTS%
 echo         public const string Prerelease = "%PRERELEASE%";                       >> %SDK_VERSION_CONSTANTS%
 echo         public const string AssemblyVersion = "%MAJOR%.%MINOR%.%PATCH%";       >> %SDK_VERSION_CONSTANTS%
-echo         public const string FileVersion = AssemblyVersion + ".0";              >> %SDK_VERSION_CONSTANTS%
+echo         public const string FileVersion = "%MAJOR%.%MINOR%.%PATCH%" + ".0";    >> %SDK_VERSION_CONSTANTS%
 echo         public const string Version = AssemblyVersion + Prerelease;            >> %SDK_VERSION_CONSTANTS%
 echo     }                                                                          >> %SDK_VERSION_CONSTANTS%
 echo  }                                                                             >> %SDK_VERSION_CONSTANTS%

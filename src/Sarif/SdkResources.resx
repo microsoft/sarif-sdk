@@ -1,0 +1,294 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AndroidStudioDescriptionUnknown" xml:space="preserve">
+    <value>The check {0} detected a failure.</value>
+  </data>
+  <data name="AndroidStudioEntryPointMissingRequiredData" xml:space="preserve">
+    <value>Android Studio input for entry point was missing FQNAME or TYPE.</value>
+  </data>
+  <data name="AndroidStudioFileMissing" xml:space="preserve">
+    <value>The file name was not present in an Android Studio problem, even though a line number was present.</value>
+  </data>
+  <data name="AndroidStudioHasNoLocationInformation" xml:space="preserve">
+    <value>The Android Studio problem has no identifying location information.</value>
+  </data>
+  <data name="AndroidStudioHintElementMissingValue" xml:space="preserve">
+    <value>A "hint" element was missing a value in an Android Studio log.</value>
+  </data>
+  <data name="AndroidStudioHintsElementContainedNonHint" xml:space="preserve">
+    <value>Expected the Hints element to contain only Hint elements, but another element was observed.</value>
+  </data>
+  <data name="AndroidStudioHintStaple" xml:space="preserve">
+    <value>Possible resolution: {0}</value>
+  </data>
+  <data name="AndroidStudioInvalidLineNumber" xml:space="preserve">
+    <value>Expected a non-negative line number for Android Studio problem element.</value>
+  </data>
+  <data name="AndroidStudioNotProblemElement" xml:space="preserve">
+    <value>Attempted to parse a Problem element, but some other data was present.</value>
+  </data>
+  <data name="AndroidStudioProblemMissingProblemClass" xml:space="preserve">
+    <value>An AndroidStudio problem could not be created because required "problem class" element was missing.</value>
+  </data>
+  <data name="CannotWriteResultToolMissing" xml:space="preserve">
+    <value>Cannot write result: Tool not yet written.</value>
+  </data>
+  <data name="CppCheckCppCheckElementMissing" xml:space="preserve">
+    <value>CppCheck file did not start with "results/cppcheck" element with version information.</value>
+  </data>
+  <data name="CppCheckElementNotError" xml:space="preserve">
+    <value>Could not parse CppCheck error node; element name was not error.</value>
+  </data>
+  <data name="CppCheckErrorsElementMissing" xml:space="preserve">
+    <value>CppCheck file did not contain the errors element in the expected location.</value>
+  </data>
+  <data name="CppCheckLocationElementNameIncorrect" xml:space="preserve">
+    <value>Could not parse CppCheck location node; element name was not 'location'.</value>
+  </data>
+  <data name="CppCheckLocationFormat" xml:space="preserve">
+    <value>{0} line {1}</value>
+  </data>
+  <data name="CppCheckLocationMissingLine" xml:space="preserve">
+    <value>The `line` attribute for a CppCheck &lt;location&gt; was not set.</value>
+  </data>
+  <data name="CppCheckLocationMissingName" xml:space="preserve">
+    <value>The `file` attribute for a CppCheck &lt;location&gt; was not set.</value>
+  </data>
+  <data name="CppCheckLocationNameEmpty" xml:space="preserve">
+    <value>The `file` value for a CppCheckLocation was empty.</value>
+  </data>
+  <data name="CppCheckLocationNegativeLine" xml:space="preserve">
+    <value>The `line` value for a CppCheckLocation must be positive.</value>
+  </data>
+  <data name="InvalidParentXml" xml:space="preserve">
+    <value>Element expected to be located under a different parent element.</value>
+  </data>
+  <data name="ExpectedElementNamed" xml:space="preserve">
+    <value>Expected to find an element named {0}.</value>
+  </data>
+  <data name="FortifyBadLineNumber" xml:space="preserve">
+    <value>Fortify PathElement has non-positive line start value.</value>
+  </data>
+  <data name="FortifyNotValidResult" xml:space="preserve">
+    <value>Result did not match the Fortify schema.</value>
+  </data>
+  <data name="FortifyNotValidPathElement" xml:space="preserve">
+    <value>A node did not match the PathElement portion of the Fortify schema.</value>
+  </data>
+  <data name="FortifyFallbackMessage" xml:space="preserve">
+    <value>Fortify failure in {0}.</value>
+  </data>
+  <data name="CppCheckMissingLocation" xml:space="preserve">
+    <value>A CppCheck entry must have a nonzero number of locations.</value>
+  </data>
+  <data name="InvalidState" xml:space="preserve">
+    <value>One or more invalid states were detected during serialization. This indicates that logging methods were called in the wrong order: {0}</value>
+  </data>
+  <data name="ResultsSerializationNotComplete" xml:space="preserve">
+    <value>Object cannot be serialized until results serialization is completed.</value>
+  </data>
+  <data name="RunAlreadyWritten" xml:space="preserve">
+    <value>Run has already been written. It cannot be written again.</value>
+  </data>
+  <data name="ToolAlreadyWritten" xml:space="preserve">
+    <value>Tool has already been written. It cannot be written again.</value>
+  </data>
+  <data name="LineNumberWasOutOfRange" xml:space="preserve">
+    <value>Line number supplied was out of range [1, numberOfLinesInFile + 1)</value>
+  </data>
+  <data name="MSG1001_AnalyzingTarget" xml:space="preserve">
+    <value>Analyzing '{0}'...</value>
+  </data>
+  <data name="MSG1001_AnalyzingTarget_Description" xml:space="preserve">
+    <value>An analysis target was analyzed.</value>
+  </data>
+  <data name="MSG1002_InvalidFileType" xml:space="preserve">
+    <value>'{0}' was not analyzed as it does not appear to be a valid file type for analysis.</value>
+  </data>
+  <data name="MSG1002_InvalidMetadata" xml:space="preserve">
+    <value>'{0}' was not evaluated for check '{1}:{2}' as the analysis is not relevant based on observed metadata: {3}.</value>
+  </data>
+  <data name="MSG1002_InvalidTarget_Description" xml:space="preserve">
+    <value>A file was skipped as it does not appear to be a valid target for analysis.</value>
+  </data>
+  <data name="MSG_AnalysisCompletedSuccessfully" xml:space="preserve">
+    <value>Analysis completed successfully.</value>
+  </data>
+  <data name="MSG_AnalysisIncomplete" xml:space="preserve">
+    <value>Analysis finished but was not complete due to non-fatal runtime errors.</value>
+  </data>
+  <data name="MSG_Analyzing" xml:space="preserve">
+    <value>Analyzing...</value>
+  </data>
+  <data name="MSG_UnexpectedApplicationExit" xml:space="preserve">
+    <value>Analysis halted prematurely due to a fatal execution condition.</value>
+  </data>
+  <data name="Notification_ExceptionAccessingFile" xml:space="preserve">
+    <value>Could not access a file specified on the command line: '{0}'.</value>
+  </data>
+  <data name="Notification_ExceptionCreatingLogFile" xml:space="preserve">
+    <value>Could not create output file '{0}'.</value>
+  </data>
+  <data name="Notification_ExceptionInAnalyze" xml:space="preserve">
+    <value>An exception was raised analyzing '{0}' for check '{1}' (which has been disabled). The exception may have resulted from a problem related to parsing image metadata and not specific to the rule, however.</value>
+  </data>
+  <data name="Notification_ExceptionInCanAnalyze" xml:space="preserve">
+    <value>An exception was raised attempting to determine whether '{0}' is a valid analysis target for check '{1}' (which has been disabled). The exception may have resulted from a problem related to parsing the analysis target and not specific to the rule, however.</value>
+  </data>
+  <data name="Notification_ExceptionInInitialize" xml:space="preserve">
+    <value>An exception was raised initializing check '{0}' (which has been disabled).</value>
+  </data>
+  <data name="Notification_ExceptionInstantiatingSkimmers" xml:space="preserve">
+    <value>Could not instantiate skimmers from the following plugins: {0}.</value>
+  </data>
+  <data name="Notification_ExceptionLoadingAnalysisTarget" xml:space="preserve">
+    <value>Could not load analysis target '{0}'.</value>
+  </data>
+  <data name="Notification_ExceptionLoadingPdb" xml:space="preserve">
+    <value>'{0}' was not evaluated for check '{1}' because its PDB could not be loaded.</value>
+  </data>
+  <data name="Notification_ExceptionLoadingPlugIn" xml:space="preserve">
+    <value>Could not load the plug-in '{0}'.</value>
+  </data>
+  <data name="Notification_MissingFile" xml:space="preserve">
+    <value>A required file specified on the command line could not be found: '{0}'.</value>
+  </data>
+  <data name="Notification_MissingRuleConfiguration" xml:space="preserve">
+    <value>Check '{0}' was disabled while analyzing '{1}' because the analysis was not configured with required policy ({2}). To resolve this, configure and provide a policy file on the {3} command-line using the --policy argument (recommended), or pass '--config default' to invoke built-in settings. Invoke the {3} 'exportConfig' command to produce an initial configuration file that can be edited, if necessary, and passed back into the tool.</value>
+  </data>
+  <data name="Notification_NoRulesLoaded" xml:space="preserve">
+    <value>Could not instantiate any analysis rules.</value>
+  </data>
+  <data name="Notification_NoValidAnalysisTargets" xml:space="preserve">
+    <value>No valid analysis targets were specified.</value>
+  </data>
+  <data name="Notification_ParseError" xml:space="preserve">
+    <value>{0}{1}: error {2}: {3}</value>
+  </data>
+  <data name="Notification_UnhandledEngineException" xml:space="preserve">
+    <value>An exception was raised during analysis.</value>
+  </data>
+  <data name="ValueCannotBeNegative" xml:space="preserve">
+    <value>The value cannot be negative.</value>
+  </data>
+  <data name="ValueMustBeAtLeastOne" xml:space="preserve">
+    <value>The value must be greater than or equal to 1.</value>
+  </data>
+</root>

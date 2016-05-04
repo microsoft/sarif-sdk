@@ -60,7 +60,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
             if (!Ref.Equal(reader.LocalName, _strings.CppCheck))
             {
-                throw reader.CreateException(SarifResources.CppCheckCppCheckElementMissing);
+                throw reader.CreateException(SdkResources.CppCheckCppCheckElementMissing);
             }
 
             string version = reader.GetAttribute(_strings.Version);
@@ -82,14 +82,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
             if (String.IsNullOrWhiteSpace(version))
             {
-                throw reader.CreateException(SarifResources.CppCheckCppCheckElementMissing);
+                throw reader.CreateException(SdkResources.CppCheckCppCheckElementMissing);
             }
 
             reader.Skip(); // <cppcheck />
 
             if (!Ref.Equal(reader.LocalName, _strings.Errors))
             {
-                throw reader.CreateException(SarifResources.CppCheckErrorsElementMissing);
+                throw reader.CreateException(SdkResources.CppCheckErrorsElementMissing);
             }
 
             var results = new List<Result>();

@@ -36,7 +36,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
             if (_tool != null)
             {
-                throw new InvalidOperationException(SarifResources.ToolAlreadyWritten);
+                throw new InvalidOperationException(SdkResources.ToolAlreadyWritten);
             }
 
             _tool = tool;
@@ -103,7 +103,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
             if (_tool == null)
             {
-                throw new InvalidOperationException(SarifResources.CannotWriteResultToolMissing);
+                throw new InvalidOperationException(SdkResources.CannotWriteResultToolMissing);
             }
         }
 

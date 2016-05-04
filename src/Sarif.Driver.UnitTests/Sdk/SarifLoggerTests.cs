@@ -4,6 +4,7 @@
 using System.IO;
 using System.Linq;
 using FluentAssertions;
+using Microsoft.CodeAnalysis.Sarif.Sdk.Writers;
 using Xunit;
 
 namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk

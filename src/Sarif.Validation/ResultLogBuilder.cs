@@ -6,6 +6,8 @@ using System.Collections.Generic;
 using System.Linq;
 using Microsoft.CodeAnalysis.Sarif.Driver;
 using Microsoft.CodeAnalysis.Sarif.Driver.Sdk;
+using Microsoft.CodeAnalysis.Sarif.Sdk;
+using Microsoft.CodeAnalysis.Sarif.Sdk.Writers;
 
 namespace Microsoft.CodeAnalysis.Sarif.Validation
 {

@@ -8,6 +8,7 @@ using System.Reflection;
 using System.Text;
 using FluentAssertions;
 using Microsoft.CodeAnalysis.Sarif.Driver.Sdk;
+using Microsoft.CodeAnalysis.Sarif.Sdk.Writers;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Microsoft.CodeAnalysis.Sarif

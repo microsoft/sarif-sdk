@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Security;
 using Microsoft.CodeAnalysis.Sarif.Sdk;
+using Microsoft.CodeAnalysis.Sarif.Sdk.Writers;
 
 namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
 {
@@ -441,7 +442,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
         {
             RuntimeErrors |= context.RuntimeErrors;
 
-            throw new ExitApplicationException<ExitReason>(SdkResources.MSG_UnexpectedApplicationExit, innerException)
+            throw new ExitApplicationException<ExitReason>(DriverResources.MSG_UnexpectedApplicationExit, innerException)
             {
                 ExitReason = exitReason
             };

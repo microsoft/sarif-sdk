@@ -154,7 +154,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             //</xs:element>
             if (!xmlReader.IsStartElement(strings.Issue))
             {
-                throw xmlReader.CreateException(SarifResources.FortifyNotValidResult);
+                throw xmlReader.CreateException(SdkResources.FortifyNotValidResult);
             }
 
             string iid = null;

@@ -164,7 +164,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 }
                 else
                 {
-                    throw xmlReader.CreateException(SarifResources.ExpectedElementNamed, elementName);
+                    throw xmlReader.CreateException(SdkResources.ExpectedElementNamed, elementName);
                 }
             }
 
