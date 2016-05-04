@@ -12,9 +12,14 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// Describes a condition relevant to the tool itself, as opposed to being relevant to a target being analyzed by the tool.
     /// </summary>
     [DataContract]
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.19.0.0")]
-    public partial class Notification : ISarifNode, IEquatable<Notification>
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.22.0.0")]
+    public partial class Notification : ISarifNode
     {
+        public static IEqualityComparer<Notification> ValueComparer => NotificationEqualityComparer.Instance;
+
+        public bool ValueEquals(Notification other) => ValueComparer.Equals(this, other);
+        public int ValueGetHashCode() => ValueComparer.GetHashCode(this);
+
         /// <summary>
         /// Gets a value indicating the type of object implementing <see cref="ISarifNode" />.
         /// </summary>
@@ -79,163 +84,6 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// </summary>
         [DataMember(Name = "tags", IsRequired = false, EmitDefaultValue = false)]
         public IList<string> Tags { get; set; }
-
-        public override bool Equals(object other)
-        {
-            return Equals(other as Notification);
-        }
-
-        public override int GetHashCode()
-        {
-            int result = 17;
-            unchecked
-            {
-                if (Id != null)
-                {
-                    result = (result * 31) + Id.GetHashCode();
-                }
-
-                if (RuleId != null)
-                {
-                    result = (result * 31) + RuleId.GetHashCode();
-                }
-
-                if (AnalysisTarget != null)
-                {
-                    result = (result * 31) + AnalysisTarget.GetHashCode();
-                }
-
-                if (Message != null)
-                {
-                    result = (result * 31) + Message.GetHashCode();
-                }
-
-                result = (result * 31) + Level.GetHashCode();
-                result = (result * 31) + Time.GetHashCode();
-                if (Exception != null)
-                {
-                    result = (result * 31) + Exception.GetHashCode();
-                }
-
-                if (Properties != null)
-                {
-                    // Use xor for dictionaries to be order-independent.
-                    int xor_0 = 0;
-                    foreach (var value_0 in Properties)
-                    {
-                        xor_0 ^= value_0.Key.GetHashCode();
-                        if (value_0.Value != null)
-                        {
-                            xor_0 ^= value_0.Value.GetHashCode();
-                        }
-                    }
-
-                    result = (result * 31) + xor_0;
-                }
-
-                if (Tags != null)
-                {
-                    foreach (var value_1 in Tags)
-                    {
-                        result = result * 31;
-                        if (value_1 != null)
-                        {
-                            result = (result * 31) + value_1.GetHashCode();
-                        }
-                    }
-                }
-            }
-
-            return result;
-        }
-
-        public bool Equals(Notification other)
-        {
-            if (other == null)
-            {
-                return false;
-            }
-
-            if (Id != other.Id)
-            {
-                return false;
-            }
-
-            if (RuleId != other.RuleId)
-            {
-                return false;
-            }
-
-            if (!Object.Equals(AnalysisTarget, other.AnalysisTarget))
-            {
-                return false;
-            }
-
-            if (Message != other.Message)
-            {
-                return false;
-            }
-
-            if (Level != other.Level)
-            {
-                return false;
-            }
-
-            if (Time != other.Time)
-            {
-                return false;
-            }
-
-            if (!Object.Equals(Exception, other.Exception))
-            {
-                return false;
-            }
-
-            if (!Object.ReferenceEquals(Properties, other.Properties))
-            {
-                if (Properties == null || other.Properties == null || Properties.Count != other.Properties.Count)
-                {
-                    return false;
-                }
-
-                foreach (var value_0 in Properties)
-                {
-                    string value_1;
-                    if (!other.Properties.TryGetValue(value_0.Key, out value_1))
-                    {
-                        return false;
-                    }
-
-                    if (value_0.Value != value_1)
-                    {
-                        return false;
-                    }
-                }
-            }
-
-            if (!Object.ReferenceEquals(Tags, other.Tags))
-            {
-                if (Tags == null || other.Tags == null)
-                {
-                    return false;
-                }
-
-                if (Tags.Count != other.Tags.Count)
-                {
-                    return false;
-                }
-
-                for (int index_0 = 0; index_0 < Tags.Count; ++index_0)
-                {
-                    if (Tags[index_0] != other.Tags[index_0])
-                    {
-                        return false;
-                    }
-                }
-            }
-
-            return true;
-        }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Notification" /> class.

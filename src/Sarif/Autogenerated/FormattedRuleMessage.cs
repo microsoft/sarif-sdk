@@ -12,9 +12,14 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// Contains information that can be used to construct a formatted message that describes a result.
     /// </summary>
     [DataContract]
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.19.0.0")]
-    public partial class FormattedRuleMessage : ISarifNode, IEquatable<FormattedRuleMessage>
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.22.0.0")]
+    public partial class FormattedRuleMessage : ISarifNode
     {
+        public static IEqualityComparer<FormattedRuleMessage> ValueComparer => FormattedRuleMessageEqualityComparer.Instance;
+
+        public bool ValueEquals(FormattedRuleMessage other) => ValueComparer.Equals(this, other);
+        public int ValueGetHashCode() => ValueComparer.GetHashCode(this);
+
         /// <summary>
         /// Gets a value indicating the type of object implementing <see cref="ISarifNode" />.
         /// </summary>
@@ -37,73 +42,6 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// </summary>
         [DataMember(Name = "arguments", IsRequired = false, EmitDefaultValue = false)]
         public IList<string> Arguments { get; set; }
-
-        public override bool Equals(object other)
-        {
-            return Equals(other as FormattedRuleMessage);
-        }
-
-        public override int GetHashCode()
-        {
-            int result = 17;
-            unchecked
-            {
-                if (FormatId != null)
-                {
-                    result = (result * 31) + FormatId.GetHashCode();
-                }
-
-                if (Arguments != null)
-                {
-                    foreach (var value_0 in Arguments)
-                    {
-                        result = result * 31;
-                        if (value_0 != null)
-                        {
-                            result = (result * 31) + value_0.GetHashCode();
-                        }
-                    }
-                }
-            }
-
-            return result;
-        }
-
-        public bool Equals(FormattedRuleMessage other)
-        {
-            if (other == null)
-            {
-                return false;
-            }
-
-            if (FormatId != other.FormatId)
-            {
-                return false;
-            }
-
-            if (!Object.ReferenceEquals(Arguments, other.Arguments))
-            {
-                if (Arguments == null || other.Arguments == null)
-                {
-                    return false;
-                }
-
-                if (Arguments.Count != other.Arguments.Count)
-                {
-                    return false;
-                }
-
-                for (int index_0 = 0; index_0 < Arguments.Count; ++index_0)
-                {
-                    if (Arguments[index_0] != other.Arguments[index_0])
-                    {
-                        return false;
-                    }
-                }
-            }
-
-            return true;
-        }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="FormattedRuleMessage" /> class.

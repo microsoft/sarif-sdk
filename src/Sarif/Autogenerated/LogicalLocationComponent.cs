@@ -3,6 +3,7 @@
 
 using System;
 using System.CodeDom.Compiler;
+using System.Collections.Generic;
 using System.Runtime.Serialization;
 
 namespace Microsoft.CodeAnalysis.Sarif
@@ -11,9 +12,14 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// A component of a logical location.
     /// </summary>
     [DataContract]
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.19.0.0")]
-    public partial class LogicalLocationComponent : ISarifNode, IEquatable<LogicalLocationComponent>
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.22.0.0")]
+    public partial class LogicalLocationComponent : ISarifNode
     {
+        public static IEqualityComparer<LogicalLocationComponent> ValueComparer => LogicalLocationComponentEqualityComparer.Instance;
+
+        public bool ValueEquals(LogicalLocationComponent other) => ValueComparer.Equals(this, other);
+        public int ValueGetHashCode() => ValueComparer.GetHashCode(this);
+
         /// <summary>
         /// Gets a value indicating the type of object implementing <see cref="ISarifNode" />.
         /// </summary>
@@ -36,50 +42,6 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// </summary>
         [DataMember(Name = "kind", IsRequired = false, EmitDefaultValue = false)]
         public string Kind { get; set; }
-
-        public override bool Equals(object other)
-        {
-            return Equals(other as LogicalLocationComponent);
-        }
-
-        public override int GetHashCode()
-        {
-            int result = 17;
-            unchecked
-            {
-                if (Name != null)
-                {
-                    result = (result * 31) + Name.GetHashCode();
-                }
-
-                if (Kind != null)
-                {
-                    result = (result * 31) + Kind.GetHashCode();
-                }
-            }
-
-            return result;
-        }
-
-        public bool Equals(LogicalLocationComponent other)
-        {
-            if (other == null)
-            {
-                return false;
-            }
-
-            if (Name != other.Name)
-            {
-                return false;
-            }
-
-            if (Kind != other.Kind)
-            {
-                return false;
-            }
-
-            return true;
-        }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="LogicalLocationComponent" /> class.

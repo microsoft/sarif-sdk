@@ -12,9 +12,14 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// Describes an analysis rule.
     /// </summary>
     [DataContract]
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.19.0.0")]
-    public partial class Rule : IRule, ISarifNode, IEquatable<Rule>
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.22.0.0")]
+    public partial class Rule : IRule, ISarifNode
     {
+        public static IEqualityComparer<Rule> ValueComparer => RuleEqualityComparer.Instance;
+
+        public bool ValueEquals(Rule other) => ValueComparer.Equals(this, other);
+        public int ValueGetHashCode() => ValueComparer.GetHashCode(this);
+
         /// <summary>
         /// Gets a value indicating the type of object implementing <see cref="ISarifNode" />.
         /// </summary>
@@ -79,195 +84,6 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// </summary>
         [DataMember(Name = "tags", IsRequired = false, EmitDefaultValue = false)]
         public IList<string> Tags { get; set; }
-
-        public override bool Equals(object other)
-        {
-            return Equals(other as Rule);
-        }
-
-        public override int GetHashCode()
-        {
-            int result = 17;
-            unchecked
-            {
-                if (Id != null)
-                {
-                    result = (result * 31) + Id.GetHashCode();
-                }
-
-                if (Name != null)
-                {
-                    result = (result * 31) + Name.GetHashCode();
-                }
-
-                if (ShortDescription != null)
-                {
-                    result = (result * 31) + ShortDescription.GetHashCode();
-                }
-
-                if (FullDescription != null)
-                {
-                    result = (result * 31) + FullDescription.GetHashCode();
-                }
-
-                if (MessageFormats != null)
-                {
-                    // Use xor for dictionaries to be order-independent.
-                    int xor_0 = 0;
-                    foreach (var value_0 in MessageFormats)
-                    {
-                        xor_0 ^= value_0.Key.GetHashCode();
-                        if (value_0.Value != null)
-                        {
-                            xor_0 ^= value_0.Value.GetHashCode();
-                        }
-                    }
-
-                    result = (result * 31) + xor_0;
-                }
-
-                result = (result * 31) + DefaultLevel.GetHashCode();
-                if (HelpUri != null)
-                {
-                    result = (result * 31) + HelpUri.GetHashCode();
-                }
-
-                if (Properties != null)
-                {
-                    // Use xor for dictionaries to be order-independent.
-                    int xor_1 = 0;
-                    foreach (var value_1 in Properties)
-                    {
-                        xor_1 ^= value_1.Key.GetHashCode();
-                        if (value_1.Value != null)
-                        {
-                            xor_1 ^= value_1.Value.GetHashCode();
-                        }
-                    }
-
-                    result = (result * 31) + xor_1;
-                }
-
-                if (Tags != null)
-                {
-                    foreach (var value_2 in Tags)
-                    {
-                        result = result * 31;
-                        if (value_2 != null)
-                        {
-                            result = (result * 31) + value_2.GetHashCode();
-                        }
-                    }
-                }
-            }
-
-            return result;
-        }
-
-        public bool Equals(Rule other)
-        {
-            if (other == null)
-            {
-                return false;
-            }
-
-            if (Id != other.Id)
-            {
-                return false;
-            }
-
-            if (Name != other.Name)
-            {
-                return false;
-            }
-
-            if (ShortDescription != other.ShortDescription)
-            {
-                return false;
-            }
-
-            if (FullDescription != other.FullDescription)
-            {
-                return false;
-            }
-
-            if (!Object.ReferenceEquals(MessageFormats, other.MessageFormats))
-            {
-                if (MessageFormats == null || other.MessageFormats == null || MessageFormats.Count != other.MessageFormats.Count)
-                {
-                    return false;
-                }
-
-                foreach (var value_0 in MessageFormats)
-                {
-                    string value_1;
-                    if (!other.MessageFormats.TryGetValue(value_0.Key, out value_1))
-                    {
-                        return false;
-                    }
-
-                    if (value_0.Value != value_1)
-                    {
-                        return false;
-                    }
-                }
-            }
-
-            if (DefaultLevel != other.DefaultLevel)
-            {
-                return false;
-            }
-
-            if (HelpUri != other.HelpUri)
-            {
-                return false;
-            }
-
-            if (!Object.ReferenceEquals(Properties, other.Properties))
-            {
-                if (Properties == null || other.Properties == null || Properties.Count != other.Properties.Count)
-                {
-                    return false;
-                }
-
-                foreach (var value_2 in Properties)
-                {
-                    string value_3;
-                    if (!other.Properties.TryGetValue(value_2.Key, out value_3))
-                    {
-                        return false;
-                    }
-
-                    if (value_2.Value != value_3)
-                    {
-                        return false;
-                    }
-                }
-            }
-
-            if (!Object.ReferenceEquals(Tags, other.Tags))
-            {
-                if (Tags == null || other.Tags == null)
-                {
-                    return false;
-                }
-
-                if (Tags.Count != other.Tags.Count)
-                {
-                    return false;
-                }
-
-                for (int index_0 = 0; index_0 < Tags.Count; ++index_0)
-                {
-                    if (Tags[index_0] != other.Tags[index_0])
-                    {
-                        return false;
-                    }
-                }
-            }
-
-            return true;
-        }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Rule" /> class.

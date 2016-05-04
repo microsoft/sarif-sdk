@@ -9,9 +9,14 @@ using System.Runtime.Serialization;
 namespace Microsoft.CodeAnalysis.Sarif
 {
     [DataContract]
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.19.0.0")]
-    public partial class CodeFlow : ISarifNode, IEquatable<CodeFlow>
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.22.0.0")]
+    public partial class CodeFlow : ISarifNode
     {
+        public static IEqualityComparer<CodeFlow> ValueComparer => CodeFlowEqualityComparer.Instance;
+
+        public bool ValueEquals(CodeFlow other) => ValueComparer.Equals(this, other);
+        public int ValueGetHashCode() => ValueComparer.GetHashCode(this);
+
         /// <summary>
         /// Gets a value indicating the type of object implementing <see cref="ISarifNode" />.
         /// </summary>
@@ -46,144 +51,6 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// </summary>
         [DataMember(Name = "tags", IsRequired = false, EmitDefaultValue = false)]
         public IList<string> Tags { get; set; }
-
-        public override bool Equals(object other)
-        {
-            return Equals(other as CodeFlow);
-        }
-
-        public override int GetHashCode()
-        {
-            int result = 17;
-            unchecked
-            {
-                if (Message != null)
-                {
-                    result = (result * 31) + Message.GetHashCode();
-                }
-
-                if (Locations != null)
-                {
-                    foreach (var value_0 in Locations)
-                    {
-                        result = result * 31;
-                        if (value_0 != null)
-                        {
-                            result = (result * 31) + value_0.GetHashCode();
-                        }
-                    }
-                }
-
-                if (Properties != null)
-                {
-                    // Use xor for dictionaries to be order-independent.
-                    int xor_0 = 0;
-                    foreach (var value_1 in Properties)
-                    {
-                        xor_0 ^= value_1.Key.GetHashCode();
-                        if (value_1.Value != null)
-                        {
-                            xor_0 ^= value_1.Value.GetHashCode();
-                        }
-                    }
-
-                    result = (result * 31) + xor_0;
-                }
-
-                if (Tags != null)
-                {
-                    foreach (var value_2 in Tags)
-                    {
-                        result = result * 31;
-                        if (value_2 != null)
-                        {
-                            result = (result * 31) + value_2.GetHashCode();
-                        }
-                    }
-                }
-            }
-
-            return result;
-        }
-
-        public bool Equals(CodeFlow other)
-        {
-            if (other == null)
-            {
-                return false;
-            }
-
-            if (Message != other.Message)
-            {
-                return false;
-            }
-
-            if (!Object.ReferenceEquals(Locations, other.Locations))
-            {
-                if (Locations == null || other.Locations == null)
-                {
-                    return false;
-                }
-
-                if (Locations.Count != other.Locations.Count)
-                {
-                    return false;
-                }
-
-                for (int index_0 = 0; index_0 < Locations.Count; ++index_0)
-                {
-                    if (!Object.Equals(Locations[index_0], other.Locations[index_0]))
-                    {
-                        return false;
-                    }
-                }
-            }
-
-            if (!Object.ReferenceEquals(Properties, other.Properties))
-            {
-                if (Properties == null || other.Properties == null || Properties.Count != other.Properties.Count)
-                {
-                    return false;
-                }
-
-                foreach (var value_0 in Properties)
-                {
-                    string value_1;
-                    if (!other.Properties.TryGetValue(value_0.Key, out value_1))
-                    {
-                        return false;
-                    }
-
-                    if (value_0.Value != value_1)
-                    {
-                        return false;
-                    }
-                }
-            }
-
-            if (!Object.ReferenceEquals(Tags, other.Tags))
-            {
-                if (Tags == null || other.Tags == null)
-                {
-                    return false;
-                }
-
-                if (Tags.Count != other.Tags.Count)
-                {
-                    return false;
-                }
-
-                for (int index_1 = 0; index_1 < Tags.Count; ++index_1)
-                {
-                    if (Tags[index_1] != other.Tags[index_1])
-                    {
-                        return false;
-                    }
-                }
-            }
-
-            return true;
-        }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="CodeFlow" /> class.

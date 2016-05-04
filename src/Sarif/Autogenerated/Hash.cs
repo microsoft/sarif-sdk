@@ -3,6 +3,7 @@
 
 using System;
 using System.CodeDom.Compiler;
+using System.Collections.Generic;
 using System.Runtime.Serialization;
 
 namespace Microsoft.CodeAnalysis.Sarif
@@ -11,9 +12,14 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// A hash value of some file or collection of files, together with the algorithm used to compute the hash.
     /// </summary>
     [DataContract]
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.19.0.0")]
-    public partial class Hash : ISarifNode, IEquatable<Hash>
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.22.0.0")]
+    public partial class Hash : ISarifNode
     {
+        public static IEqualityComparer<Hash> ValueComparer => HashEqualityComparer.Instance;
+
+        public bool ValueEquals(Hash other) => ValueComparer.Equals(this, other);
+        public int ValueGetHashCode() => ValueComparer.GetHashCode(this);
+
         /// <summary>
         /// Gets a value indicating the type of object implementing <see cref="ISarifNode" />.
         /// </summary>
@@ -36,47 +42,6 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// </summary>
         [DataMember(Name = "algorithm", IsRequired = true)]
         public AlgorithmKind Algorithm { get; set; }
-
-        public override bool Equals(object other)
-        {
-            return Equals(other as Hash);
-        }
-
-        public override int GetHashCode()
-        {
-            int result = 17;
-            unchecked
-            {
-                if (Value != null)
-                {
-                    result = (result * 31) + Value.GetHashCode();
-                }
-
-                result = (result * 31) + Algorithm.GetHashCode();
-            }
-
-            return result;
-        }
-
-        public bool Equals(Hash other)
-        {
-            if (other == null)
-            {
-                return false;
-            }
-
-            if (Value != other.Value)
-            {
-                return false;
-            }
-
-            if (Algorithm != other.Algorithm)
-            {
-                return false;
-            }
-
-            return true;
-        }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Hash" /> class.

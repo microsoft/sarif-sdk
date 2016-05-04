@@ -3,6 +3,7 @@
 
 using System;
 using System.CodeDom.Compiler;
+using System.Collections.Generic;
 using System.Runtime.Serialization;
 
 namespace Microsoft.CodeAnalysis.Sarif
@@ -11,9 +12,14 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// A region within a file where a result was detected.
     /// </summary>
     [DataContract]
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.19.0.0")]
-    public partial class Region : ISarifNode, IEquatable<Region>
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.22.0.0")]
+    public partial class Region : ISarifNode
     {
+        public static IEqualityComparer<Region> ValueComparer => RegionEqualityComparer.Instance;
+
+        public bool ValueEquals(Region other) => ValueComparer.Equals(this, other);
+        public int ValueGetHashCode() => ValueComparer.GetHashCode(this);
+
         /// <summary>
         /// Gets a value indicating the type of object implementing <see cref="ISarifNode" />.
         /// </summary>
@@ -60,67 +66,6 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// </summary>
         [DataMember(Name = "length", IsRequired = false, EmitDefaultValue = false)]
         public int Length { get; set; }
-
-        public override bool Equals(object other)
-        {
-            return Equals(other as Region);
-        }
-
-        public override int GetHashCode()
-        {
-            int result = 17;
-            unchecked
-            {
-                result = (result * 31) + StartLine.GetHashCode();
-                result = (result * 31) + StartColumn.GetHashCode();
-                result = (result * 31) + EndLine.GetHashCode();
-                result = (result * 31) + EndColumn.GetHashCode();
-                result = (result * 31) + Offset.GetHashCode();
-                result = (result * 31) + Length.GetHashCode();
-            }
-
-            return result;
-        }
-
-        public bool Equals(Region other)
-        {
-            if (other == null)
-            {
-                return false;
-            }
-
-            if (StartLine != other.StartLine)
-            {
-                return false;
-            }
-
-            if (StartColumn != other.StartColumn)
-            {
-                return false;
-            }
-
-            if (EndLine != other.EndLine)
-            {
-                return false;
-            }
-
-            if (EndColumn != other.EndColumn)
-            {
-                return false;
-            }
-
-            if (Offset != other.Offset)
-            {
-                return false;
-            }
-
-            if (Length != other.Length)
-            {
-                return false;
-            }
-
-            return true;
-        }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Region" /> class.

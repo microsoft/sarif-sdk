@@ -30,7 +30,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         {
             int disambiguator = 0;
             string logicalLocationKey = location.FullyQualifiedLogicalName;
-            while (LogicalLocationsDictionary.ContainsKey(logicalLocationKey) && !logicalLocationComponents.SequenceEqual(LogicalLocationsDictionary[logicalLocationKey]))
+            while (LogicalLocationsDictionary.ContainsKey(logicalLocationKey) && !logicalLocationComponents.SequenceEqual(LogicalLocationsDictionary[logicalLocationKey], LogicalLocationComponent.ValueComparer))
             {
                 logicalLocationKey = location.FullyQualifiedLogicalName + "-" + disambiguator.ToString(CultureInfo.InvariantCulture);
                 ++disambiguator;

@@ -12,9 +12,14 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// The runtime environment of the analysis tool run.
     /// </summary>
     [DataContract]
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.19.0.0")]
-    public partial class Invocation : ISarifNode, IEquatable<Invocation>
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.22.0.0")]
+    public partial class Invocation : ISarifNode
     {
+        public static IEqualityComparer<Invocation> ValueComparer => InvocationEqualityComparer.Instance;
+
+        public bool ValueEquals(Invocation other) => ValueComparer.Equals(this, other);
+        public int ValueGetHashCode() => ValueComparer.GetHashCode(this);
+
         /// <summary>
         /// Gets a value indicating the type of object implementing <see cref="ISarifNode" />.
         /// </summary>
@@ -91,179 +96,6 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// </summary>
         [DataMember(Name = "tags", IsRequired = false, EmitDefaultValue = false)]
         public IList<string> Tags { get; set; }
-
-        public override bool Equals(object other)
-        {
-            return Equals(other as Invocation);
-        }
-
-        public override int GetHashCode()
-        {
-            int result = 17;
-            unchecked
-            {
-                if (CommandLine != null)
-                {
-                    result = (result * 31) + CommandLine.GetHashCode();
-                }
-
-                result = (result * 31) + StartTime.GetHashCode();
-                result = (result * 31) + EndTime.GetHashCode();
-                if (Machine != null)
-                {
-                    result = (result * 31) + Machine.GetHashCode();
-                }
-
-                if (Account != null)
-                {
-                    result = (result * 31) + Account.GetHashCode();
-                }
-
-                result = (result * 31) + ProcessId.GetHashCode();
-                if (FileName != null)
-                {
-                    result = (result * 31) + FileName.GetHashCode();
-                }
-
-                if (WorkingDirectory != null)
-                {
-                    result = (result * 31) + WorkingDirectory.GetHashCode();
-                }
-
-                if (EnvironmentVariables != null)
-                {
-                    // Use xor for dictionaries to be order-independent.
-                    int xor_0 = 0;
-                    foreach (var value_0 in EnvironmentVariables)
-                    {
-                        xor_0 ^= value_0.Key.GetHashCode();
-                        if (value_0.Value != null)
-                        {
-                            xor_0 ^= value_0.Value.GetHashCode();
-                        }
-                    }
-
-                    result = (result * 31) + xor_0;
-                }
-
-                if (Properties != null)
-                {
-                    result = (result * 31) + Properties.GetHashCode();
-                }
-
-                if (Tags != null)
-                {
-                    foreach (var value_1 in Tags)
-                    {
-                        result = result * 31;
-                        if (value_1 != null)
-                        {
-                            result = (result * 31) + value_1.GetHashCode();
-                        }
-                    }
-                }
-            }
-
-            return result;
-        }
-
-        public bool Equals(Invocation other)
-        {
-            if (other == null)
-            {
-                return false;
-            }
-
-            if (CommandLine != other.CommandLine)
-            {
-                return false;
-            }
-
-            if (StartTime != other.StartTime)
-            {
-                return false;
-            }
-
-            if (EndTime != other.EndTime)
-            {
-                return false;
-            }
-
-            if (Machine != other.Machine)
-            {
-                return false;
-            }
-
-            if (Account != other.Account)
-            {
-                return false;
-            }
-
-            if (ProcessId != other.ProcessId)
-            {
-                return false;
-            }
-
-            if (FileName != other.FileName)
-            {
-                return false;
-            }
-
-            if (WorkingDirectory != other.WorkingDirectory)
-            {
-                return false;
-            }
-
-            if (!Object.ReferenceEquals(EnvironmentVariables, other.EnvironmentVariables))
-            {
-                if (EnvironmentVariables == null || other.EnvironmentVariables == null || EnvironmentVariables.Count != other.EnvironmentVariables.Count)
-                {
-                    return false;
-                }
-
-                foreach (var value_0 in EnvironmentVariables)
-                {
-                    string value_1;
-                    if (!other.EnvironmentVariables.TryGetValue(value_0.Key, out value_1))
-                    {
-                        return false;
-                    }
-
-                    if (value_0.Value != value_1)
-                    {
-                        return false;
-                    }
-                }
-            }
-
-            if (!Object.Equals(Properties, other.Properties))
-            {
-                return false;
-            }
-
-            if (!Object.ReferenceEquals(Tags, other.Tags))
-            {
-                if (Tags == null || other.Tags == null)
-                {
-                    return false;
-                }
-
-                if (Tags.Count != other.Tags.Count)
-                {
-                    return false;
-                }
-
-                for (int index_0 = 0; index_0 < Tags.Count; ++index_0)
-                {
-                    if (Tags[index_0] != other.Tags[index_0])
-                    {
-                        return false;
-                    }
-                }
-            }
-
-            return true;
-        }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Invocation" /> class.

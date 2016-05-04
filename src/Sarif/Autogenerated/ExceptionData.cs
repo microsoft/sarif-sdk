@@ -9,9 +9,14 @@ using System.Runtime.Serialization;
 namespace Microsoft.CodeAnalysis.Sarif
 {
     [DataContract]
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.19.0.0")]
-    public partial class ExceptionData : ISarifNode, IEquatable<ExceptionData>
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.22.0.0")]
+    public partial class ExceptionData : ISarifNode
     {
+        public static IEqualityComparer<ExceptionData> ValueComparer => ExceptionDataEqualityComparer.Instance;
+
+        public bool ValueEquals(ExceptionData other) => ValueComparer.Equals(this, other);
+        public int ValueGetHashCode() => ValueComparer.GetHashCode(this);
+
         /// <summary>
         /// Gets a value indicating the type of object implementing <see cref="ISarifNode" />.
         /// </summary>
@@ -46,93 +51,6 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// </summary>
         [DataMember(Name = "innerExceptions", IsRequired = false, EmitDefaultValue = false)]
         public IList<ExceptionData> InnerExceptions { get; set; }
-
-        public override bool Equals(object other)
-        {
-            return Equals(other as ExceptionData);
-        }
-
-        public override int GetHashCode()
-        {
-            int result = 17;
-            unchecked
-            {
-                if (Kind != null)
-                {
-                    result = (result * 31) + Kind.GetHashCode();
-                }
-
-                if (Message != null)
-                {
-                    result = (result * 31) + Message.GetHashCode();
-                }
-
-                if (Stack != null)
-                {
-                    result = (result * 31) + Stack.GetHashCode();
-                }
-
-                if (InnerExceptions != null)
-                {
-                    foreach (var value_0 in InnerExceptions)
-                    {
-                        result = result * 31;
-                        if (value_0 != null)
-                        {
-                            result = (result * 31) + value_0.GetHashCode();
-                        }
-                    }
-                }
-            }
-
-            return result;
-        }
-
-        public bool Equals(ExceptionData other)
-        {
-            if (other == null)
-            {
-                return false;
-            }
-
-            if (Kind != other.Kind)
-            {
-                return false;
-            }
-
-            if (Message != other.Message)
-            {
-                return false;
-            }
-
-            if (!Object.Equals(Stack, other.Stack))
-            {
-                return false;
-            }
-
-            if (!Object.ReferenceEquals(InnerExceptions, other.InnerExceptions))
-            {
-                if (InnerExceptions == null || other.InnerExceptions == null)
-                {
-                    return false;
-                }
-
-                if (InnerExceptions.Count != other.InnerExceptions.Count)
-                {
-                    return false;
-                }
-
-                for (int index_0 = 0; index_0 < InnerExceptions.Count; ++index_0)
-                {
-                    if (!Object.Equals(InnerExceptions[index_0], other.InnerExceptions[index_0]))
-                    {
-                        return false;
-                    }
-                }
-            }
-
-            return true;
-        }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ExceptionData" /> class.

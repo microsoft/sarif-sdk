@@ -3,6 +3,7 @@
 
 using System;
 using System.CodeDom.Compiler;
+using System.Collections.Generic;
 using System.Runtime.Serialization;
 
 namespace Microsoft.CodeAnalysis.Sarif
@@ -11,9 +12,14 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// The physical location where a result was detected. Specifies a reference to a programming artifact together with a range of bytes or characters within that artifact.
     /// </summary>
     [DataContract]
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.19.0.0")]
-    public partial class PhysicalLocation : ISarifNode, IEquatable<PhysicalLocation>
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.22.0.0")]
+    public partial class PhysicalLocation : ISarifNode
     {
+        public static IEqualityComparer<PhysicalLocation> ValueComparer => PhysicalLocationEqualityComparer.Instance;
+
+        public bool ValueEquals(PhysicalLocation other) => ValueComparer.Equals(this, other);
+        public int ValueGetHashCode() => ValueComparer.GetHashCode(this);
+
         /// <summary>
         /// Gets a value indicating the type of object implementing <see cref="ISarifNode" />.
         /// </summary>
@@ -36,50 +42,6 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// </summary>
         [DataMember(Name = "region", IsRequired = false, EmitDefaultValue = false)]
         public Region Region { get; set; }
-
-        public override bool Equals(object other)
-        {
-            return Equals(other as PhysicalLocation);
-        }
-
-        public override int GetHashCode()
-        {
-            int result = 17;
-            unchecked
-            {
-                if (Uri != null)
-                {
-                    result = (result * 31) + Uri.GetHashCode();
-                }
-
-                if (Region != null)
-                {
-                    result = (result * 31) + Region.GetHashCode();
-                }
-            }
-
-            return result;
-        }
-
-        public bool Equals(PhysicalLocation other)
-        {
-            if (other == null)
-            {
-                return false;
-            }
-
-            if (Uri != other.Uri)
-            {
-                return false;
-            }
-
-            if (!Object.Equals(Region, other.Region))
-            {
-                return false;
-            }
-
-            return true;
-        }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="PhysicalLocation" /> class.

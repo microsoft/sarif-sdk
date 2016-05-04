@@ -12,9 +12,14 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// The analysis tool that was run.
     /// </summary>
     [DataContract]
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.19.0.0")]
-    public partial class Tool : ISarifNode, IEquatable<Tool>
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.22.0.0")]
+    public partial class Tool : ISarifNode
     {
+        public static IEqualityComparer<Tool> ValueComparer => ToolEqualityComparer.Instance;
+
+        public bool ValueEquals(Tool other) => ValueComparer.Equals(this, other);
+        public int ValueGetHashCode() => ValueComparer.GetHashCode(this);
+
         /// <summary>
         /// Gets a value indicating the type of object implementing <see cref="ISarifNode" />.
         /// </summary>
@@ -73,161 +78,6 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// </summary>
         [DataMember(Name = "tags", IsRequired = false, EmitDefaultValue = false)]
         public IList<string> Tags { get; set; }
-
-        public override bool Equals(object other)
-        {
-            return Equals(other as Tool);
-        }
-
-        public override int GetHashCode()
-        {
-            int result = 17;
-            unchecked
-            {
-                if (Name != null)
-                {
-                    result = (result * 31) + Name.GetHashCode();
-                }
-
-                if (FullName != null)
-                {
-                    result = (result * 31) + FullName.GetHashCode();
-                }
-
-                if (Version != null)
-                {
-                    result = (result * 31) + Version.GetHashCode();
-                }
-
-                if (SemanticVersion != null)
-                {
-                    result = (result * 31) + SemanticVersion.GetHashCode();
-                }
-
-                if (FileVersion != null)
-                {
-                    result = (result * 31) + FileVersion.GetHashCode();
-                }
-
-                if (Language != null)
-                {
-                    result = (result * 31) + Language.GetHashCode();
-                }
-
-                if (Properties != null)
-                {
-                    // Use xor for dictionaries to be order-independent.
-                    int xor_0 = 0;
-                    foreach (var value_0 in Properties)
-                    {
-                        xor_0 ^= value_0.Key.GetHashCode();
-                        if (value_0.Value != null)
-                        {
-                            xor_0 ^= value_0.Value.GetHashCode();
-                        }
-                    }
-
-                    result = (result * 31) + xor_0;
-                }
-
-                if (Tags != null)
-                {
-                    foreach (var value_1 in Tags)
-                    {
-                        result = result * 31;
-                        if (value_1 != null)
-                        {
-                            result = (result * 31) + value_1.GetHashCode();
-                        }
-                    }
-                }
-            }
-
-            return result;
-        }
-
-        public bool Equals(Tool other)
-        {
-            if (other == null)
-            {
-                return false;
-            }
-
-            if (Name != other.Name)
-            {
-                return false;
-            }
-
-            if (FullName != other.FullName)
-            {
-                return false;
-            }
-
-            if (Version != other.Version)
-            {
-                return false;
-            }
-
-            if (SemanticVersion != other.SemanticVersion)
-            {
-                return false;
-            }
-
-            if (FileVersion != other.FileVersion)
-            {
-                return false;
-            }
-
-            if (Language != other.Language)
-            {
-                return false;
-            }
-
-            if (!Object.ReferenceEquals(Properties, other.Properties))
-            {
-                if (Properties == null || other.Properties == null || Properties.Count != other.Properties.Count)
-                {
-                    return false;
-                }
-
-                foreach (var value_0 in Properties)
-                {
-                    string value_1;
-                    if (!other.Properties.TryGetValue(value_0.Key, out value_1))
-                    {
-                        return false;
-                    }
-
-                    if (value_0.Value != value_1)
-                    {
-                        return false;
-                    }
-                }
-            }
-
-            if (!Object.ReferenceEquals(Tags, other.Tags))
-            {
-                if (Tags == null || other.Tags == null)
-                {
-                    return false;
-                }
-
-                if (Tags.Count != other.Tags.Count)
-                {
-                    return false;
-                }
-
-                for (int index_0 = 0; index_0 < Tags.Count; ++index_0)
-                {
-                    if (Tags[index_0] != other.Tags[index_0])
-                    {
-                        return false;
-                    }
-                }
-            }
-
-            return true;
-        }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Tool" /> class.

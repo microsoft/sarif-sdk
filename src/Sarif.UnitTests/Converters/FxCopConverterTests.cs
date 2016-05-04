@@ -430,11 +430,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             var converter = new FxCopConverter();
             Result result = converter.CreateResult(context);
 
-            result.Should().Be(expectedResult);
+            result.ValueEquals(expectedResult).Should().BeTrue();
 
             converter.LogicalLocationsDictionary.Keys.Should().ContainSingle(expectedLogicalLocation);
             var actualLogicalLocationComponents = converter.LogicalLocationsDictionary[expectedLogicalLocation];
-            actualLogicalLocationComponents.Should().Equal(expectedLogicalLocationComponents);
+            actualLogicalLocationComponents.SequenceEqual(
+                    expectedLogicalLocationComponents,
+                    LogicalLocationComponent.ValueComparer)
+                .Should().BeTrue();
         }
 
         [TestMethod]
@@ -486,11 +489,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             var converter = new FxCopConverter();
             Result result = converter.CreateResult(context);
 
-            result.Locations.Should().Equal(expectedLocations);
+            result.Locations.SequenceEqual(expectedLocations, Location.ValueComparer).Should().BeTrue();
 
             converter.LogicalLocationsDictionary.Keys.Should().ContainSingle(expectedLogicalLocation);
             var actualLogicalLocationComponents = converter.LogicalLocationsDictionary[expectedLogicalLocation];
-            actualLogicalLocationComponents.Should().Equal(expectedLogicalLocationComponents);
+            actualLogicalLocationComponents.SequenceEqual(
+                    expectedLogicalLocationComponents,
+                    LogicalLocationComponent.ValueComparer)
+                .Should().BeTrue();
         }
 
         [TestMethod]
@@ -540,11 +546,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             var converter = new FxCopConverter();
             Result result = converter.CreateResult(context);
 
-            result.Locations.Should().Equal(expectedLocations);
+            result.Locations.SequenceEqual(expectedLocations, Location.ValueComparer).Should().BeTrue();
 
             converter.LogicalLocationsDictionary.Keys.Should().ContainSingle(expectedLogicalLocation);
             var actualLogicalLocationComponents = converter.LogicalLocationsDictionary[expectedLogicalLocation];
-            actualLogicalLocationComponents.Should().Equal(expectedLogicalLocationComponents);
+            actualLogicalLocationComponents.SequenceEqual(
+                    expectedLogicalLocationComponents,
+                    LogicalLocationComponent.ValueComparer)
+                .Should().BeTrue();
         }
 
         [TestMethod]

@@ -11,7 +11,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// <summary>
     /// A single file. In some cases, this file might be nested within another file.
     /// </summary>
-    public partial class FileData : ISarifNode, IEquatable<FileData>
+    public partial class FileData : ISarifNode
     {
         public static IList<FileData> Create(IEnumerable<Uri> uris, out string fileDataKey)
         {

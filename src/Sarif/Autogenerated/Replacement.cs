@@ -3,6 +3,7 @@
 
 using System;
 using System.CodeDom.Compiler;
+using System.Collections.Generic;
 using System.Runtime.Serialization;
 
 namespace Microsoft.CodeAnalysis.Sarif
@@ -11,9 +12,14 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// The replacement of a single range of bytes in a file. Specifies the location within the file where the replacement is to be made, the number of bytes to remove at that location, and a sequence of bytes to insert at that location.
     /// </summary>
     [DataContract]
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.19.0.0")]
-    public partial class Replacement : ISarifNode, IEquatable<Replacement>
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.22.0.0")]
+    public partial class Replacement : ISarifNode
     {
+        public static IEqualityComparer<Replacement> ValueComparer => ReplacementEqualityComparer.Instance;
+
+        public bool ValueEquals(Replacement other) => ValueComparer.Equals(this, other);
+        public int ValueGetHashCode() => ValueComparer.GetHashCode(this);
+
         /// <summary>
         /// Gets a value indicating the type of object implementing <see cref="ISarifNode" />.
         /// </summary>
@@ -42,52 +48,6 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// </summary>
         [DataMember(Name = "insertedBytes", IsRequired = false, EmitDefaultValue = false)]
         public string InsertedBytes { get; set; }
-
-        public override bool Equals(object other)
-        {
-            return Equals(other as Replacement);
-        }
-
-        public override int GetHashCode()
-        {
-            int result = 17;
-            unchecked
-            {
-                result = (result * 31) + Offset.GetHashCode();
-                result = (result * 31) + DeletedLength.GetHashCode();
-                if (InsertedBytes != null)
-                {
-                    result = (result * 31) + InsertedBytes.GetHashCode();
-                }
-            }
-
-            return result;
-        }
-
-        public bool Equals(Replacement other)
-        {
-            if (other == null)
-            {
-                return false;
-            }
-
-            if (Offset != other.Offset)
-            {
-                return false;
-            }
-
-            if (DeletedLength != other.DeletedLength)
-            {
-                return false;
-            }
-
-            if (InsertedBytes != other.InsertedBytes)
-            {
-                return false;
-            }
-
-            return true;
-        }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Replacement" /> class.
