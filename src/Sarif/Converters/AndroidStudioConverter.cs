@@ -98,7 +98,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         /// </returns>
         private ISet<Result> ProcessAndroidStudioLog(XmlReader xmlReader)
         {
-            var results = new HashSet<Result>();
+            var results = new HashSet<Result>(Result.ValueComparer);
 
             int problemsDepth = xmlReader.Depth;
             xmlReader.ReadStartElement(_strings.Problems);

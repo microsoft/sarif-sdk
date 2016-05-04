@@ -691,28 +691,6 @@
         },
         {
           "ruleId": "Typo",
-          "message": "Typo: In word 'Xdock'",
-          "locations": [
-            {
-              "analysisTarget": {
-                "uri": "gradlew"
-              },
-              "resultFile": {
-                "uri": "gradlew",
-                "region": {
-                  "startLine": 110
-                }
-              },
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
-            }
-          ],
-          "properties": {
-            "severity": "TYPO",
-            "attributeKey": "TYPO"
-          }
-        },
-        {
-          "ruleId": "Typo",
           "message": "Typo: In word 'icns'",
           "locations": [
             {
@@ -955,28 +933,6 @@
         },
         {
           "ruleId": "Typo",
-          "message": "Typo: In word 'ROOTDIRS'",
-          "locations": [
-            {
-              "analysisTarget": {
-                "uri": "gradlew"
-              },
-              "resultFile": {
-                "uri": "gradlew",
-                "region": {
-                  "startLine": 122
-                }
-              },
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
-            }
-          ],
-          "properties": {
-            "severity": "TYPO",
-            "attributeKey": "TYPO"
-          }
-        },
-        {
-          "ruleId": "Typo",
           "message": "Typo: In word 'OURCYGPATTERN'",
           "locations": [
             {
@@ -1053,28 +1009,6 @@
                 "uri": "gradlew",
                 "region": {
                   "startLine": 127
-                }
-              },
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
-            }
-          ],
-          "properties": {
-            "severity": "TYPO",
-            "attributeKey": "TYPO"
-          }
-        },
-        {
-          "ruleId": "Typo",
-          "message": "Typo: In word 'OURCYGPATTERN'",
-          "locations": [
-            {
-              "analysisTarget": {
-                "uri": "gradlew"
-              },
-              "resultFile": {
-                "uri": "gradlew",
-                "region": {
-                  "startLine": 128
                 }
               },
               "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
@@ -1405,28 +1339,6 @@
                 "uri": "gradlew.bat",
                 "region": {
                   "startLine": 14
-                }
-              },
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
-            }
-          ],
-          "properties": {
-            "severity": "TYPO",
-            "attributeKey": "TYPO"
-          }
-        },
-        {
-          "ruleId": "Typo",
-          "message": "Typo: In word 'DIRNAME'",
-          "locations": [
-            {
-              "analysisTarget": {
-                "uri": "gradlew.bat"
-              },
-              "resultFile": {
-                "uri": "gradlew.bat",
-                "region": {
-                  "startLine": 15
                 }
               },
               "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
