@@ -80,7 +80,6 @@
     <Compile Include="SarifValidatorTests.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="app.config" />
     <None Include="ConverterTestData\FxCop\FxCopProjectAllMessageStates.fxcop">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

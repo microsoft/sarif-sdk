@@ -130,7 +130,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\GeneratedKey.snk" />
-    <None Include="app.config" />
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>
