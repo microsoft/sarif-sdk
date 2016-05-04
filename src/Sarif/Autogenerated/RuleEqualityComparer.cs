@@ -10,8 +10,8 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// <summary>
     /// Defines methods to support the comparison of objects of type Rule for equality.
     /// </summary>
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.21.0.0")]
-    public sealed class RuleEqualityComparer : IEqualityComparer<Rule>
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.22.0.0")]
+    internal sealed class RuleEqualityComparer : IEqualityComparer<Rule>
     {
         internal static readonly RuleEqualityComparer Instance = new RuleEqualityComparer();
 

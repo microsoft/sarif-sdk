@@ -10,8 +10,8 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// <summary>
     /// Defines methods to support the comparison of objects of type Hash for equality.
     /// </summary>
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.21.0.0")]
-    public sealed class HashEqualityComparer : IEqualityComparer<Hash>
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.22.0.0")]
+    internal sealed class HashEqualityComparer : IEqualityComparer<Hash>
     {
         internal static readonly HashEqualityComparer Instance = new HashEqualityComparer();
 

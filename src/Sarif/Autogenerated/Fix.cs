@@ -12,12 +12,13 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// A proposed fix for the problem represented by a result object. A fix specifies a set of file to modify. For each file, it specifies a set of bytes to remove, and provides a set of new bytes to replace them.
     /// </summary>
     [DataContract]
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.21.0.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.22.0.0")]
     public partial class Fix : ISarifNode
     {
         public static IEqualityComparer<Fix> ValueComparer => FixEqualityComparer.Instance;
 
         public bool ValueEquals(Fix other) => ValueComparer.Equals(this, other);
+        public int ValueGetHashCode() => ValueComparer.GetHashCode(this);
 
         /// <summary>
         /// Gets a value indicating the type of object implementing <see cref="ISarifNode" />.

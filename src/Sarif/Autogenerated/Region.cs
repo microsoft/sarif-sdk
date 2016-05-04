@@ -12,12 +12,13 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// A region within a file where a result was detected.
     /// </summary>
     [DataContract]
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.21.0.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.22.0.0")]
     public partial class Region : ISarifNode
     {
         public static IEqualityComparer<Region> ValueComparer => RegionEqualityComparer.Instance;
 
         public bool ValueEquals(Region other) => ValueComparer.Equals(this, other);
+        public int ValueGetHashCode() => ValueComparer.GetHashCode(this);
 
         /// <summary>
         /// Gets a value indicating the type of object implementing <see cref="ISarifNode" />.

@@ -10,7 +10,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// <summary>
     /// Defines methods to support the comparison of objects of type SarifLog for equality.
     /// </summary>
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.21.0.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.22.0.0")]
     public sealed class SarifLogEqualityComparer : IEqualityComparer<SarifLog>
     {
         internal static readonly SarifLogEqualityComparer Instance = new SarifLogEqualityComparer();
@@ -27,7 +27,6 @@ namespace Microsoft.CodeAnalysis.Sarif
                 return false;
             }
 
-            var runEqualityComparer = new RunEqualityComparer();
             if (left.SchemaUri != right.SchemaUri)
             {
                 return false;
@@ -52,7 +51,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
                 for (int index_0 = 0; index_0 < left.Runs.Count; ++index_0)
                 {
-                    if (!runEqualityComparer.Equals(left.Runs[index_0], right.Runs[index_0]))
+                    if (!Run.ValueComparer.Equals(left.Runs[index_0], right.Runs[index_0]))
                     {
                         return false;
                     }

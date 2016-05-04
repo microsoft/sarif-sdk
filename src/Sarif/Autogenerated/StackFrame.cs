@@ -12,12 +12,13 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// A function call within a stack trace.
     /// </summary>
     [DataContract]
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.21.0.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.22.0.0")]
     public partial class StackFrame : ISarifNode
     {
         public static IEqualityComparer<StackFrame> ValueComparer => StackFrameEqualityComparer.Instance;
 
         public bool ValueEquals(StackFrame other) => ValueComparer.Equals(this, other);
+        public int ValueGetHashCode() => ValueComparer.GetHashCode(this);
 
         /// <summary>
         /// Gets a value indicating the type of object implementing <see cref="ISarifNode" />.

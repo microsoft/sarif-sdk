@@ -10,8 +10,8 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// <summary>
     /// Defines methods to support the comparison of objects of type Fix for equality.
     /// </summary>
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.21.0.0")]
-    public sealed class FixEqualityComparer : IEqualityComparer<Fix>
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.22.0.0")]
+    internal sealed class FixEqualityComparer : IEqualityComparer<Fix>
     {
         internal static readonly FixEqualityComparer Instance = new FixEqualityComparer();
 
@@ -27,7 +27,6 @@ namespace Microsoft.CodeAnalysis.Sarif
                 return false;
             }
 
-            var fileChangeEqualityComparer = new FileChangeEqualityComparer();
             if (left.Description != right.Description)
             {
                 return false;
@@ -47,7 +46,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
                 for (int index_0 = 0; index_0 < left.FileChanges.Count; ++index_0)
                 {
-                    if (!fileChangeEqualityComparer.Equals(left.FileChanges[index_0], right.FileChanges[index_0]))
+                    if (!FileChange.ValueComparer.Equals(left.FileChanges[index_0], right.FileChanges[index_0]))
                     {
                         return false;
                     }
@@ -79,7 +78,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                         result = result * 31;
                         if (value_0 != null)
                         {
-                            result = (result * 31) + value_0.GetHashCode();
+                            result = (result * 31) + value_0.ValueGetHashCode();
                         }
                     }
                 }

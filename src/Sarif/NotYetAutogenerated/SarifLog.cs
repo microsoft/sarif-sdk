@@ -12,12 +12,13 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// Static Analysis Results Format (SARIF) Version 1.0.0 JSON Schema: a standard format for the output of static analysis and other tools.
     /// </summary>
     [DataContract]
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.21.0.0")]
-    public partial class SarifLog : ISarifNode, IEquatable<SarifLog>
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.22.0.0")]
+    public partial class SarifLog : ISarifNode
     {
         public static IEqualityComparer<SarifLog> ValueComparer => SarifLogEqualityComparer.Instance;
 
         public bool ValueEquals(SarifLog other) => ValueComparer.Equals(this, other);
+        public int ValueGetHashCode() => ValueComparer.GetHashCode(this);
 
         /// <summary>
         /// Gets a value indicating the type of object implementing <see cref="ISarifNode" />.
@@ -47,69 +48,6 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// </summary>
         [DataMember(Name = "runs", IsRequired = true)]
         public IList<Run> Runs { get; set; }
-
-        public override bool Equals(object other)
-        {
-            return Equals(other as SarifLog);
-        }
-
-        public override int GetHashCode()
-        {
-            int result = 17;
-            unchecked
-            {
-                result = (result * 31) + Version.GetHashCode();
-                if (Runs != null)
-                {
-                    foreach (var value_0 in Runs)
-                    {
-                        result = result * 31;
-                        if (value_0 != null)
-                        {
-                            result = (result * 31) + value_0.GetHashCode();
-                        }
-                    }
-                }
-            }
-
-            return result;
-        }
-
-        public bool Equals(SarifLog other)
-        {
-            if (other == null)
-            {
-                return false;
-            }
-
-            if (Version != other.Version)
-            {
-                return false;
-            }
-
-            if (!Object.ReferenceEquals(Runs, other.Runs))
-            {
-                if (Runs == null || other.Runs == null)
-                {
-                    return false;
-                }
-
-                if (Runs.Count != other.Runs.Count)
-                {
-                    return false;
-                }
-
-                for (int index_0 = 0; index_0 < Runs.Count; ++index_0)
-                {
-                    if (!Object.Equals(Runs[index_0], other.Runs[index_0]))
-                    {
-                        return false;
-                    }
-                }
-            }
-
-            return true;
-        }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="SarifLog" /> class.

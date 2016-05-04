@@ -10,8 +10,8 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// <summary>
     /// Defines methods to support the comparison of objects of type ExceptionData for equality.
     /// </summary>
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.21.0.0")]
-    public sealed class ExceptionDataEqualityComparer : IEqualityComparer<ExceptionData>
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.22.0.0")]
+    internal sealed class ExceptionDataEqualityComparer : IEqualityComparer<ExceptionData>
     {
         internal static readonly ExceptionDataEqualityComparer Instance = new ExceptionDataEqualityComparer();
 
@@ -27,8 +27,6 @@ namespace Microsoft.CodeAnalysis.Sarif
                 return false;
             }
 
-            var exceptionDataEqualityComparer = new ExceptionDataEqualityComparer();
-            var stackEqualityComparer = new StackEqualityComparer();
             if (left.Kind != right.Kind)
             {
                 return false;
@@ -39,7 +37,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 return false;
             }
 
-            if (!stackEqualityComparer.Equals(left.Stack, right.Stack))
+            if (!Stack.ValueComparer.Equals(left.Stack, right.Stack))
             {
                 return false;
             }
@@ -58,7 +56,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
                 for (int index_0 = 0; index_0 < left.InnerExceptions.Count; ++index_0)
                 {
-                    if (!exceptionDataEqualityComparer.Equals(left.InnerExceptions[index_0], right.InnerExceptions[index_0]))
+                    if (!ExceptionData.ValueComparer.Equals(left.InnerExceptions[index_0], right.InnerExceptions[index_0]))
                     {
                         return false;
                     }
@@ -90,7 +88,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
                 if (obj.Stack != null)
                 {
-                    result = (result * 31) + obj.Stack.GetHashCode();
+                    result = (result * 31) + obj.Stack.ValueGetHashCode();
                 }
 
                 if (obj.InnerExceptions != null)
@@ -100,7 +98,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                         result = result * 31;
                         if (value_0 != null)
                         {
-                            result = (result * 31) + value_0.GetHashCode();
+                            result = (result * 31) + value_0.ValueGetHashCode();
                         }
                     }
                 }

@@ -12,12 +12,13 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// The location where an analysis tool produced a result.
     /// </summary>
     [DataContract]
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.21.0.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.22.0.0")]
     public partial class Location : ISarifNode
     {
         public static IEqualityComparer<Location> ValueComparer => LocationEqualityComparer.Instance;
 
         public bool ValueEquals(Location other) => ValueComparer.Equals(this, other);
+        public int ValueGetHashCode() => ValueComparer.GetHashCode(this);
 
         /// <summary>
         /// Gets a value indicating the type of object implementing <see cref="ISarifNode" />.

@@ -10,8 +10,8 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// <summary>
     /// Defines methods to support the comparison of objects of type Stack for equality.
     /// </summary>
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.21.0.0")]
-    public sealed class StackEqualityComparer : IEqualityComparer<Stack>
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.22.0.0")]
+    internal sealed class StackEqualityComparer : IEqualityComparer<Stack>
     {
         internal static readonly StackEqualityComparer Instance = new StackEqualityComparer();
 
@@ -27,7 +27,6 @@ namespace Microsoft.CodeAnalysis.Sarif
                 return false;
             }
 
-            var stackFrameEqualityComparer = new StackFrameEqualityComparer();
             if (left.Message != right.Message)
             {
                 return false;
@@ -47,7 +46,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
                 for (int index_0 = 0; index_0 < left.Frames.Count; ++index_0)
                 {
-                    if (!stackFrameEqualityComparer.Equals(left.Frames[index_0], right.Frames[index_0]))
+                    if (!StackFrame.ValueComparer.Equals(left.Frames[index_0], right.Frames[index_0]))
                     {
                         return false;
                     }
@@ -122,7 +121,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                         result = result * 31;
                         if (value_2 != null)
                         {
-                            result = (result * 31) + value_2.GetHashCode();
+                            result = (result * 31) + value_2.ValueGetHashCode();
                         }
                     }
                 }

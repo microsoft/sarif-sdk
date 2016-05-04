@@ -10,8 +10,8 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// <summary>
     /// Defines methods to support the comparison of objects of type Notification for equality.
     /// </summary>
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.21.0.0")]
-    public sealed class NotificationEqualityComparer : IEqualityComparer<Notification>
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.22.0.0")]
+    internal sealed class NotificationEqualityComparer : IEqualityComparer<Notification>
     {
         internal static readonly NotificationEqualityComparer Instance = new NotificationEqualityComparer();
 
@@ -27,8 +27,6 @@ namespace Microsoft.CodeAnalysis.Sarif
                 return false;
             }
 
-            var exceptionDataEqualityComparer = new ExceptionDataEqualityComparer();
-            var physicalLocationEqualityComparer = new PhysicalLocationEqualityComparer();
             if (left.Id != right.Id)
             {
                 return false;
@@ -39,7 +37,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 return false;
             }
 
-            if (!physicalLocationEqualityComparer.Equals(left.AnalysisTarget, right.AnalysisTarget))
+            if (!PhysicalLocation.ValueComparer.Equals(left.AnalysisTarget, right.AnalysisTarget))
             {
                 return false;
             }
@@ -59,7 +57,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 return false;
             }
 
-            if (!exceptionDataEqualityComparer.Equals(left.Exception, right.Exception))
+            if (!ExceptionData.ValueComparer.Equals(left.Exception, right.Exception))
             {
                 return false;
             }
@@ -132,7 +130,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
                 if (obj.AnalysisTarget != null)
                 {
-                    result = (result * 31) + obj.AnalysisTarget.GetHashCode();
+                    result = (result * 31) + obj.AnalysisTarget.ValueGetHashCode();
                 }
 
                 if (obj.Message != null)
@@ -144,7 +142,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 result = (result * 31) + obj.Time.GetHashCode();
                 if (obj.Exception != null)
                 {
-                    result = (result * 31) + obj.Exception.GetHashCode();
+                    result = (result * 31) + obj.Exception.ValueGetHashCode();
                 }
 
                 if (obj.Properties != null)

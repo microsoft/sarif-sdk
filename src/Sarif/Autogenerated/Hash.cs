@@ -12,12 +12,13 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// A hash value of some file or collection of files, together with the algorithm used to compute the hash.
     /// </summary>
     [DataContract]
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.21.0.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.22.0.0")]
     public partial class Hash : ISarifNode
     {
         public static IEqualityComparer<Hash> ValueComparer => HashEqualityComparer.Instance;
 
         public bool ValueEquals(Hash other) => ValueComparer.Equals(this, other);
+        public int ValueGetHashCode() => ValueComparer.GetHashCode(this);
 
         /// <summary>
         /// Gets a value indicating the type of object implementing <see cref="ISarifNode" />.

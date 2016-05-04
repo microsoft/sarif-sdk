@@ -10,8 +10,8 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// <summary>
     /// Defines methods to support the comparison of objects of type Run for equality.
     /// </summary>
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.21.0.0")]
-    public sealed class RunEqualityComparer : IEqualityComparer<Run>
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.22.0.0")]
+    internal sealed class RunEqualityComparer : IEqualityComparer<Run>
     {
         internal static readonly RunEqualityComparer Instance = new RunEqualityComparer();
 
@@ -27,19 +27,12 @@ namespace Microsoft.CodeAnalysis.Sarif
                 return false;
             }
 
-            var fileDataEqualityComparer = new FileDataEqualityComparer();
-            var invocationEqualityComparer = new InvocationEqualityComparer();
-            var logicalLocationComponentEqualityComparer = new LogicalLocationComponentEqualityComparer();
-            var notificationEqualityComparer = new NotificationEqualityComparer();
-            var resultEqualityComparer = new ResultEqualityComparer();
-            var ruleEqualityComparer = new RuleEqualityComparer();
-            var toolEqualityComparer = new ToolEqualityComparer();
-            if (!toolEqualityComparer.Equals(left.Tool, right.Tool))
+            if (!Tool.ValueComparer.Equals(left.Tool, right.Tool))
             {
                 return false;
             }
 
-            if (!invocationEqualityComparer.Equals(left.Invocation, right.Invocation))
+            if (!Invocation.ValueComparer.Equals(left.Invocation, right.Invocation))
             {
                 return false;
             }
@@ -73,7 +66,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
                         for (int index_0 = 0; index_0 < value_0.Value.Count; ++index_0)
                         {
-                            if (!fileDataEqualityComparer.Equals(value_0.Value[index_0], value_1[index_0]))
+                            if (!FileData.ValueComparer.Equals(value_0.Value[index_0], value_1[index_0]))
                             {
                                 return false;
                             }
@@ -111,7 +104,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
                         for (int index_1 = 0; index_1 < value_2.Value.Count; ++index_1)
                         {
-                            if (!logicalLocationComponentEqualityComparer.Equals(value_2.Value[index_1], value_3[index_1]))
+                            if (!LogicalLocationComponent.ValueComparer.Equals(value_2.Value[index_1], value_3[index_1]))
                             {
                                 return false;
                             }
@@ -134,7 +127,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
                 for (int index_2 = 0; index_2 < left.Results.Count; ++index_2)
                 {
-                    if (!resultEqualityComparer.Equals(left.Results[index_2], right.Results[index_2]))
+                    if (!Result.ValueComparer.Equals(left.Results[index_2], right.Results[index_2]))
                     {
                         return false;
                     }
@@ -155,7 +148,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
                 for (int index_3 = 0; index_3 < left.ToolNotifications.Count; ++index_3)
                 {
-                    if (!notificationEqualityComparer.Equals(left.ToolNotifications[index_3], right.ToolNotifications[index_3]))
+                    if (!Notification.ValueComparer.Equals(left.ToolNotifications[index_3], right.ToolNotifications[index_3]))
                     {
                         return false;
                     }
@@ -176,7 +169,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
                 for (int index_4 = 0; index_4 < left.ConfigurationNotifications.Count; ++index_4)
                 {
-                    if (!notificationEqualityComparer.Equals(left.ConfigurationNotifications[index_4], right.ConfigurationNotifications[index_4]))
+                    if (!Notification.ValueComparer.Equals(left.ConfigurationNotifications[index_4], right.ConfigurationNotifications[index_4]))
                     {
                         return false;
                     }
@@ -198,7 +191,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                         return false;
                     }
 
-                    if (!ruleEqualityComparer.Equals(value_4.Value, value_5))
+                    if (!Rule.ValueComparer.Equals(value_4.Value, value_5))
                     {
                         return false;
                     }
@@ -230,12 +223,12 @@ namespace Microsoft.CodeAnalysis.Sarif
             {
                 if (obj.Tool != null)
                 {
-                    result = (result * 31) + obj.Tool.GetHashCode();
+                    result = (result * 31) + obj.Tool.ValueGetHashCode();
                 }
 
                 if (obj.Invocation != null)
                 {
-                    result = (result * 31) + obj.Invocation.GetHashCode();
+                    result = (result * 31) + obj.Invocation.ValueGetHashCode();
                 }
 
                 if (obj.Files != null)
@@ -277,7 +270,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                         result = result * 31;
                         if (value_8 != null)
                         {
-                            result = (result * 31) + value_8.GetHashCode();
+                            result = (result * 31) + value_8.ValueGetHashCode();
                         }
                     }
                 }
@@ -289,7 +282,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                         result = result * 31;
                         if (value_9 != null)
                         {
-                            result = (result * 31) + value_9.GetHashCode();
+                            result = (result * 31) + value_9.ValueGetHashCode();
                         }
                     }
                 }
@@ -301,7 +294,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                         result = result * 31;
                         if (value_10 != null)
                         {
-                            result = (result * 31) + value_10.GetHashCode();
+                            result = (result * 31) + value_10.ValueGetHashCode();
                         }
                     }
                 }

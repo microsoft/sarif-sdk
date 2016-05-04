@@ -10,8 +10,8 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// <summary>
     /// Defines methods to support the comparison of objects of type FileChange for equality.
     /// </summary>
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.21.0.0")]
-    public sealed class FileChangeEqualityComparer : IEqualityComparer<FileChange>
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.22.0.0")]
+    internal sealed class FileChangeEqualityComparer : IEqualityComparer<FileChange>
     {
         internal static readonly FileChangeEqualityComparer Instance = new FileChangeEqualityComparer();
 
@@ -27,7 +27,6 @@ namespace Microsoft.CodeAnalysis.Sarif
                 return false;
             }
 
-            var replacementEqualityComparer = new ReplacementEqualityComparer();
             if (left.Uri != right.Uri)
             {
                 return false;
@@ -47,7 +46,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
                 for (int index_0 = 0; index_0 < left.Replacements.Count; ++index_0)
                 {
-                    if (!replacementEqualityComparer.Equals(left.Replacements[index_0], right.Replacements[index_0]))
+                    if (!Replacement.ValueComparer.Equals(left.Replacements[index_0], right.Replacements[index_0]))
                     {
                         return false;
                     }
@@ -79,7 +78,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                         result = result * 31;
                         if (value_0 != null)
                         {
-                            result = (result * 31) + value_0.GetHashCode();
+                            result = (result * 31) + value_0.ValueGetHashCode();
                         }
                     }
                 }

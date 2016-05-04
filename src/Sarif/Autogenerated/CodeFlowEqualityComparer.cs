@@ -10,8 +10,8 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// <summary>
     /// Defines methods to support the comparison of objects of type CodeFlow for equality.
     /// </summary>
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.21.0.0")]
-    public sealed class CodeFlowEqualityComparer : IEqualityComparer<CodeFlow>
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.22.0.0")]
+    internal sealed class CodeFlowEqualityComparer : IEqualityComparer<CodeFlow>
     {
         internal static readonly CodeFlowEqualityComparer Instance = new CodeFlowEqualityComparer();
 
@@ -27,7 +27,6 @@ namespace Microsoft.CodeAnalysis.Sarif
                 return false;
             }
 
-            var annotatedCodeLocationEqualityComparer = new AnnotatedCodeLocationEqualityComparer();
             if (left.Message != right.Message)
             {
                 return false;
@@ -47,7 +46,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
                 for (int index_0 = 0; index_0 < left.Locations.Count; ++index_0)
                 {
-                    if (!annotatedCodeLocationEqualityComparer.Equals(left.Locations[index_0], right.Locations[index_0]))
+                    if (!AnnotatedCodeLocation.ValueComparer.Equals(left.Locations[index_0], right.Locations[index_0]))
                     {
                         return false;
                     }
@@ -122,7 +121,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                         result = result * 31;
                         if (value_2 != null)
                         {
-                            result = (result * 31) + value_2.GetHashCode();
+                            result = (result * 31) + value_2.ValueGetHashCode();
                         }
                     }
                 }

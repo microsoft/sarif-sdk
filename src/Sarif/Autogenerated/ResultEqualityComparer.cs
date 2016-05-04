@@ -10,8 +10,8 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// <summary>
     /// Defines methods to support the comparison of objects of type Result for equality.
     /// </summary>
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.21.0.0")]
-    public sealed class ResultEqualityComparer : IEqualityComparer<Result>
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.22.0.0")]
+    internal sealed class ResultEqualityComparer : IEqualityComparer<Result>
     {
         internal static readonly ResultEqualityComparer Instance = new ResultEqualityComparer();
 
@@ -27,12 +27,6 @@ namespace Microsoft.CodeAnalysis.Sarif
                 return false;
             }
 
-            var annotatedCodeLocationEqualityComparer = new AnnotatedCodeLocationEqualityComparer();
-            var codeFlowEqualityComparer = new CodeFlowEqualityComparer();
-            var fixEqualityComparer = new FixEqualityComparer();
-            var formattedRuleMessageEqualityComparer = new FormattedRuleMessageEqualityComparer();
-            var locationEqualityComparer = new LocationEqualityComparer();
-            var stackEqualityComparer = new StackEqualityComparer();
             if (left.RuleId != right.RuleId)
             {
                 return false;
@@ -48,7 +42,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 return false;
             }
 
-            if (!formattedRuleMessageEqualityComparer.Equals(left.FormattedRuleMessage, right.FormattedRuleMessage))
+            if (!FormattedRuleMessage.ValueComparer.Equals(left.FormattedRuleMessage, right.FormattedRuleMessage))
             {
                 return false;
             }
@@ -67,7 +61,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
                 for (int index_0 = 0; index_0 < left.Locations.Count; ++index_0)
                 {
-                    if (!locationEqualityComparer.Equals(left.Locations[index_0], right.Locations[index_0]))
+                    if (!Location.ValueComparer.Equals(left.Locations[index_0], right.Locations[index_0]))
                     {
                         return false;
                     }
@@ -98,7 +92,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
                 for (int index_1 = 0; index_1 < left.Stacks.Count; ++index_1)
                 {
-                    if (!stackEqualityComparer.Equals(left.Stacks[index_1], right.Stacks[index_1]))
+                    if (!Stack.ValueComparer.Equals(left.Stacks[index_1], right.Stacks[index_1]))
                     {
                         return false;
                     }
@@ -119,7 +113,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
                 for (int index_2 = 0; index_2 < left.CodeFlows.Count; ++index_2)
                 {
-                    if (!codeFlowEqualityComparer.Equals(left.CodeFlows[index_2], right.CodeFlows[index_2]))
+                    if (!CodeFlow.ValueComparer.Equals(left.CodeFlows[index_2], right.CodeFlows[index_2]))
                     {
                         return false;
                     }
@@ -140,7 +134,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
                 for (int index_3 = 0; index_3 < left.RelatedLocations.Count; ++index_3)
                 {
-                    if (!annotatedCodeLocationEqualityComparer.Equals(left.RelatedLocations[index_3], right.RelatedLocations[index_3]))
+                    if (!AnnotatedCodeLocation.ValueComparer.Equals(left.RelatedLocations[index_3], right.RelatedLocations[index_3]))
                     {
                         return false;
                     }
@@ -171,7 +165,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
                 for (int index_4 = 0; index_4 < left.Fixes.Count; ++index_4)
                 {
-                    if (!fixEqualityComparer.Equals(left.Fixes[index_4], right.Fixes[index_4]))
+                    if (!Fix.ValueComparer.Equals(left.Fixes[index_4], right.Fixes[index_4]))
                     {
                         return false;
                     }
@@ -247,7 +241,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
                 if (obj.FormattedRuleMessage != null)
                 {
-                    result = (result * 31) + obj.FormattedRuleMessage.GetHashCode();
+                    result = (result * 31) + obj.FormattedRuleMessage.ValueGetHashCode();
                 }
 
                 if (obj.Locations != null)
@@ -257,7 +251,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                         result = result * 31;
                         if (value_2 != null)
                         {
-                            result = (result * 31) + value_2.GetHashCode();
+                            result = (result * 31) + value_2.ValueGetHashCode();
                         }
                     }
                 }
@@ -279,7 +273,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                         result = result * 31;
                         if (value_3 != null)
                         {
-                            result = (result * 31) + value_3.GetHashCode();
+                            result = (result * 31) + value_3.ValueGetHashCode();
                         }
                     }
                 }
@@ -291,7 +285,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                         result = result * 31;
                         if (value_4 != null)
                         {
-                            result = (result * 31) + value_4.GetHashCode();
+                            result = (result * 31) + value_4.ValueGetHashCode();
                         }
                     }
                 }
@@ -303,7 +297,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                         result = result * 31;
                         if (value_5 != null)
                         {
-                            result = (result * 31) + value_5.GetHashCode();
+                            result = (result * 31) + value_5.ValueGetHashCode();
                         }
                     }
                 }
@@ -317,7 +311,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                         result = result * 31;
                         if (value_6 != null)
                         {
-                            result = (result * 31) + value_6.GetHashCode();
+                            result = (result * 31) + value_6.ValueGetHashCode();
                         }
                     }
                 }

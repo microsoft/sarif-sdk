@@ -10,8 +10,8 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// <summary>
     /// Defines methods to support the comparison of objects of type AnnotatedCodeLocation for equality.
     /// </summary>
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.21.0.0")]
-    public sealed class AnnotatedCodeLocationEqualityComparer : IEqualityComparer<AnnotatedCodeLocation>
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.22.0.0")]
+    internal sealed class AnnotatedCodeLocationEqualityComparer : IEqualityComparer<AnnotatedCodeLocation>
     {
         internal static readonly AnnotatedCodeLocationEqualityComparer Instance = new AnnotatedCodeLocationEqualityComparer();
 
@@ -27,8 +27,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 return false;
             }
 
-            var physicalLocationEqualityComparer = new PhysicalLocationEqualityComparer();
-            if (!physicalLocationEqualityComparer.Equals(left.PhysicalLocation, right.PhysicalLocation))
+            if (!PhysicalLocation.ValueComparer.Equals(left.PhysicalLocation, right.PhysicalLocation))
             {
                 return false;
             }
@@ -96,7 +95,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             {
                 if (obj.PhysicalLocation != null)
                 {
-                    result = (result * 31) + obj.PhysicalLocation.GetHashCode();
+                    result = (result * 31) + obj.PhysicalLocation.ValueGetHashCode();
                 }
 
                 if (obj.Message != null)

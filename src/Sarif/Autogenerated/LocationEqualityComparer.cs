@@ -10,8 +10,8 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// <summary>
     /// Defines methods to support the comparison of objects of type Location for equality.
     /// </summary>
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.21.0.0")]
-    public sealed class LocationEqualityComparer : IEqualityComparer<Location>
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.22.0.0")]
+    internal sealed class LocationEqualityComparer : IEqualityComparer<Location>
     {
         internal static readonly LocationEqualityComparer Instance = new LocationEqualityComparer();
 
@@ -27,13 +27,12 @@ namespace Microsoft.CodeAnalysis.Sarif
                 return false;
             }
 
-            var physicalLocationEqualityComparer = new PhysicalLocationEqualityComparer();
-            if (!physicalLocationEqualityComparer.Equals(left.AnalysisTarget, right.AnalysisTarget))
+            if (!PhysicalLocation.ValueComparer.Equals(left.AnalysisTarget, right.AnalysisTarget))
             {
                 return false;
             }
 
-            if (!physicalLocationEqualityComparer.Equals(left.ResultFile, right.ResultFile))
+            if (!PhysicalLocation.ValueComparer.Equals(left.ResultFile, right.ResultFile))
             {
                 return false;
             }
@@ -106,12 +105,12 @@ namespace Microsoft.CodeAnalysis.Sarif
             {
                 if (obj.AnalysisTarget != null)
                 {
-                    result = (result * 31) + obj.AnalysisTarget.GetHashCode();
+                    result = (result * 31) + obj.AnalysisTarget.ValueGetHashCode();
                 }
 
                 if (obj.ResultFile != null)
                 {
-                    result = (result * 31) + obj.ResultFile.GetHashCode();
+                    result = (result * 31) + obj.ResultFile.ValueGetHashCode();
                 }
 
                 if (obj.FullyQualifiedLogicalName != null)
