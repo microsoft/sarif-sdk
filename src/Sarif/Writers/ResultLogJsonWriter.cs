@@ -5,7 +5,6 @@ using System;
 using System.Collections.Generic;
 
 using Microsoft.CodeAnalysis.Sarif.Readers;
-using Microsoft.CodeAnalysis.Sarif.Sdk;
 
 using Newtonsoft.Json;
 

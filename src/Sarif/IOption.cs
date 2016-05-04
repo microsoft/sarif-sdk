@@ -3,7 +3,7 @@
 
 using System;
 
-namespace Microsoft.CodeAnalysis.Sarif.Sdk
+namespace Microsoft.CodeAnalysis.Sarif
 {
     public interface IOption
     {

@@ -8,13 +8,13 @@ using System.Runtime.Serialization;
 namespace Microsoft.CodeAnalysis.Sarif
 {
     [Serializable]
-    public class StringSet : HashSet<string>
+    public class IntegerSet : HashSet<int>
     {
-        public StringSet() { }
+        public IntegerSet() { }
 
-        public StringSet(IEnumerable<string> strings) : base(strings) { }
+        public IntegerSet(IEnumerable<int> values) : base(values) { }
 
-        protected StringSet(SerializationInfo info, StreamingContext context)
+        protected IntegerSet(SerializationInfo info, StreamingContext context)
             : base(info, context)
         {
         }

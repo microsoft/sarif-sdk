@@ -6,7 +6,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 
-namespace Microsoft.CodeAnalysis.Sarif.Sdk
+namespace Microsoft.CodeAnalysis.Sarif
 {
     public class ConsoleLogger : IAnalysisLogger
     {

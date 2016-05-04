@@ -10,8 +10,6 @@ PURPOSE, MERCHANTABILITY, OR NON-INFRINGEMENT.
 ***************************************************************************/
 
 using System;
-using System.Diagnostics;
-using System.Globalization;
 using System.Security.Permissions;
 using System.Runtime.InteropServices;
 using Microsoft.VisualStudio;
@@ -19,7 +17,6 @@ using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
 
 using IOleServiceProvider = Microsoft.VisualStudio.OLE.Interop.IServiceProvider;
-using Microsoft.CodeAnalysis.Sarif;
 
 namespace Microsoft.Sarif.Viewer
 {

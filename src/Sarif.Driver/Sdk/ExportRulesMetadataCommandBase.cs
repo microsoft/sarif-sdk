@@ -6,13 +6,11 @@ using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.IO;
 using System.Text;
-
-using Microsoft.CodeAnalysis.Sarif.Sdk;
 using Microsoft.CodeAnalysis.Sarif.Readers;
 
 using Newtonsoft.Json;
 
-namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
+namespace Microsoft.CodeAnalysis.Sarif.Driver
 {
     public abstract class ExportRulesMetadataCommandBase : PlugInDriverCommand<ExportRulesMetadataOptions>
     {

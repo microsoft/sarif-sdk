@@ -5,17 +5,15 @@
     {
       "tool": {
         "name": "BinSkim",
-        "fullName": "BinSkim 1.3.0.0-beta",
-        "version": "1.3.0.0",
-        "semanticVersion": "1.3.0",
-        "fileVersion": "1.3.2.0",
+        "fullName": "BinSkim 1.3.2.0-beta",
+        "version": "1.3.2.0",
+        "semanticVersion": "1.3.2",
         "language": "en-US",
         "properties": {
-          "Language": "Language Neutral",
           "Comments": "A security and correctness analyzer for portable executable and MSIL formats.",
           "CompanyName": "Microsoft",
           "ProductName": "BinSkim Portable Executable Analyzer",
-          "ProductVersion": "1.3.2.0"
+          "SarifLoggerVersion": "1.5.20.0"
         }
       },
       "results": [
@@ -3430,13 +3428,13 @@
             "stack": {
               "frames": [
                 {
-                  "uri": "file:///d:/src/binskim/src/BinaryParsers/ProgramDatabase/Pdb.cs",
+                  "uri": "file:///D:/src/binskim/src/BinaryParsers/ProgramDatabase/Pdb.cs",
                   "line": 111,
                   "fullyQualifiedLogicalName": "Microsoft.CodeAnalysis.BinaryParsers.ProgramDatabase.Pdb.Init(String peOrPdbPath, String symbolPath)"
                 },
                 {
-                  "uri": "file:///d:/src/binskim/src/BinSkim.Sdk/BinaryAnalyzerContext.cs",
-                  "line": 82,
+                  "uri": "file:///D:/src/binskim/src/BinSkim.Sdk/BinaryAnalyzerContext.cs",
+                  "line": 81,
                   "fullyQualifiedLogicalName": "Microsoft.CodeAnalysis.IL.Sdk.BinaryAnalyzerContext.get_Pdb()"
                 }
               ]
@@ -3451,7 +3449,7 @@
                       "fullyQualifiedLogicalName": "Dia2Lib.IDiaDataSource.loadDataForExe(String executable, String searchPath, Object pCallback)"
                     },
                     {
-                      "uri": "file:///d:/src/binskim/src/BinaryParsers/ProgramDatabase/Pdb.cs",
+                      "uri": "file:///D:/src/binskim/src/BinaryParsers/ProgramDatabase/Pdb.cs",
                       "line": 107,
                       "fullyQualifiedLogicalName": "Microsoft.CodeAnalysis.BinaryParsers.ProgramDatabase.Pdb.Init(String peOrPdbPath, String symbolPath)"
                     }
@@ -3476,13 +3474,13 @@
             "stack": {
               "frames": [
                 {
-                  "uri": "file:///d:/src/binskim/src/BinaryParsers/ProgramDatabase/Pdb.cs",
+                  "uri": "file:///D:/src/binskim/src/BinaryParsers/ProgramDatabase/Pdb.cs",
                   "line": 111,
                   "fullyQualifiedLogicalName": "Microsoft.CodeAnalysis.BinaryParsers.ProgramDatabase.Pdb.Init(String peOrPdbPath, String symbolPath)"
                 },
                 {
-                  "uri": "file:///d:/src/binskim/src/BinSkim.Sdk/BinaryAnalyzerContext.cs",
-                  "line": 82,
+                  "uri": "file:///D:/src/binskim/src/BinSkim.Sdk/BinaryAnalyzerContext.cs",
+                  "line": 81,
                   "fullyQualifiedLogicalName": "Microsoft.CodeAnalysis.IL.Sdk.BinaryAnalyzerContext.get_Pdb()"
                 }
               ]
@@ -3497,7 +3495,7 @@
                       "fullyQualifiedLogicalName": "Dia2Lib.IDiaDataSource.loadDataForExe(String executable, String searchPath, Object pCallback)"
                     },
                     {
-                      "uri": "file:///d:/src/binskim/src/BinaryParsers/ProgramDatabase/Pdb.cs",
+                      "uri": "file:///D:/src/binskim/src/BinaryParsers/ProgramDatabase/Pdb.cs",
                       "line": 107,
                       "fullyQualifiedLogicalName": "Microsoft.CodeAnalysis.BinaryParsers.ProgramDatabase.Pdb.Init(String peOrPdbPath, String symbolPath)"
                     }
@@ -3522,13 +3520,13 @@
             "stack": {
               "frames": [
                 {
-                  "uri": "file:///d:/src/binskim/src/BinaryParsers/ProgramDatabase/Pdb.cs",
+                  "uri": "file:///D:/src/binskim/src/BinaryParsers/ProgramDatabase/Pdb.cs",
                   "line": 111,
                   "fullyQualifiedLogicalName": "Microsoft.CodeAnalysis.BinaryParsers.ProgramDatabase.Pdb.Init(String peOrPdbPath, String symbolPath)"
                 },
                 {
-                  "uri": "file:///d:/src/binskim/src/BinSkim.Sdk/BinaryAnalyzerContext.cs",
-                  "line": 82,
+                  "uri": "file:///D:/src/binskim/src/BinSkim.Sdk/BinaryAnalyzerContext.cs",
+                  "line": 81,
                   "fullyQualifiedLogicalName": "Microsoft.CodeAnalysis.IL.Sdk.BinaryAnalyzerContext.get_Pdb()"
                 }
               ]
@@ -3543,7 +3541,7 @@
                       "fullyQualifiedLogicalName": "Dia2Lib.IDiaDataSource.loadDataForExe(String executable, String searchPath, Object pCallback)"
                     },
                     {
-                      "uri": "file:///d:/src/binskim/src/BinaryParsers/ProgramDatabase/Pdb.cs",
+                      "uri": "file:///D:/src/binskim/src/BinaryParsers/ProgramDatabase/Pdb.cs",
                       "line": 107,
                       "fullyQualifiedLogicalName": "Microsoft.CodeAnalysis.BinaryParsers.ProgramDatabase.Pdb.Init(String peOrPdbPath, String symbolPath)"
                     }
@@ -3568,13 +3566,13 @@
             "stack": {
               "frames": [
                 {
-                  "uri": "file:///d:/src/binskim/src/BinaryParsers/ProgramDatabase/Pdb.cs",
+                  "uri": "file:///D:/src/binskim/src/BinaryParsers/ProgramDatabase/Pdb.cs",
                   "line": 111,
                   "fullyQualifiedLogicalName": "Microsoft.CodeAnalysis.BinaryParsers.ProgramDatabase.Pdb.Init(String peOrPdbPath, String symbolPath)"
                 },
                 {
-                  "uri": "file:///d:/src/binskim/src/BinSkim.Sdk/BinaryAnalyzerContext.cs",
-                  "line": 82,
+                  "uri": "file:///D:/src/binskim/src/BinSkim.Sdk/BinaryAnalyzerContext.cs",
+                  "line": 81,
                   "fullyQualifiedLogicalName": "Microsoft.CodeAnalysis.IL.Sdk.BinaryAnalyzerContext.get_Pdb()"
                 }
               ]
@@ -3589,7 +3587,7 @@
                       "fullyQualifiedLogicalName": "Dia2Lib.IDiaDataSource.loadDataForExe(String executable, String searchPath, Object pCallback)"
                     },
                     {
-                      "uri": "file:///d:/src/binskim/src/BinaryParsers/ProgramDatabase/Pdb.cs",
+                      "uri": "file:///D:/src/binskim/src/BinaryParsers/ProgramDatabase/Pdb.cs",
                       "line": 107,
                       "fullyQualifiedLogicalName": "Microsoft.CodeAnalysis.BinaryParsers.ProgramDatabase.Pdb.Init(String peOrPdbPath, String symbolPath)"
                     }
@@ -3614,13 +3612,13 @@
             "stack": {
               "frames": [
                 {
-                  "uri": "file:///d:/src/binskim/src/BinaryParsers/ProgramDatabase/Pdb.cs",
+                  "uri": "file:///D:/src/binskim/src/BinaryParsers/ProgramDatabase/Pdb.cs",
                   "line": 111,
                   "fullyQualifiedLogicalName": "Microsoft.CodeAnalysis.BinaryParsers.ProgramDatabase.Pdb.Init(String peOrPdbPath, String symbolPath)"
                 },
                 {
-                  "uri": "file:///d:/src/binskim/src/BinSkim.Sdk/BinaryAnalyzerContext.cs",
-                  "line": 82,
+                  "uri": "file:///D:/src/binskim/src/BinSkim.Sdk/BinaryAnalyzerContext.cs",
+                  "line": 81,
                   "fullyQualifiedLogicalName": "Microsoft.CodeAnalysis.IL.Sdk.BinaryAnalyzerContext.get_Pdb()"
                 }
               ]
@@ -3635,7 +3633,7 @@
                       "fullyQualifiedLogicalName": "Dia2Lib.IDiaDataSource.loadDataForExe(String executable, String searchPath, Object pCallback)"
                     },
                     {
-                      "uri": "file:///d:/src/binskim/src/BinaryParsers/ProgramDatabase/Pdb.cs",
+                      "uri": "file:///D:/src/binskim/src/BinaryParsers/ProgramDatabase/Pdb.cs",
                       "line": 107,
                       "fullyQualifiedLogicalName": "Microsoft.CodeAnalysis.BinaryParsers.ProgramDatabase.Pdb.Init(String peOrPdbPath, String symbolPath)"
                     }
@@ -3660,13 +3658,13 @@
             "stack": {
               "frames": [
                 {
-                  "uri": "file:///d:/src/binskim/src/BinaryParsers/ProgramDatabase/Pdb.cs",
+                  "uri": "file:///D:/src/binskim/src/BinaryParsers/ProgramDatabase/Pdb.cs",
                   "line": 111,
                   "fullyQualifiedLogicalName": "Microsoft.CodeAnalysis.BinaryParsers.ProgramDatabase.Pdb.Init(String peOrPdbPath, String symbolPath)"
                 },
                 {
-                  "uri": "file:///d:/src/binskim/src/BinSkim.Sdk/BinaryAnalyzerContext.cs",
-                  "line": 82,
+                  "uri": "file:///D:/src/binskim/src/BinSkim.Sdk/BinaryAnalyzerContext.cs",
+                  "line": 81,
                   "fullyQualifiedLogicalName": "Microsoft.CodeAnalysis.IL.Sdk.BinaryAnalyzerContext.get_Pdb()"
                 }
               ]
@@ -3681,7 +3679,7 @@
                       "fullyQualifiedLogicalName": "Dia2Lib.IDiaDataSource.loadDataForExe(String executable, String searchPath, Object pCallback)"
                     },
                     {
-                      "uri": "file:///d:/src/binskim/src/BinaryParsers/ProgramDatabase/Pdb.cs",
+                      "uri": "file:///D:/src/binskim/src/BinaryParsers/ProgramDatabase/Pdb.cs",
                       "line": 107,
                       "fullyQualifiedLogicalName": "Microsoft.CodeAnalysis.BinaryParsers.ProgramDatabase.Pdb.Init(String peOrPdbPath, String symbolPath)"
                     }
@@ -3706,13 +3704,13 @@
             "stack": {
               "frames": [
                 {
-                  "uri": "file:///d:/src/binskim/src/BinaryParsers/ProgramDatabase/Pdb.cs",
+                  "uri": "file:///D:/src/binskim/src/BinaryParsers/ProgramDatabase/Pdb.cs",
                   "line": 111,
                   "fullyQualifiedLogicalName": "Microsoft.CodeAnalysis.BinaryParsers.ProgramDatabase.Pdb.Init(String peOrPdbPath, String symbolPath)"
                 },
                 {
-                  "uri": "file:///d:/src/binskim/src/BinSkim.Sdk/BinaryAnalyzerContext.cs",
-                  "line": 82,
+                  "uri": "file:///D:/src/binskim/src/BinSkim.Sdk/BinaryAnalyzerContext.cs",
+                  "line": 81,
                   "fullyQualifiedLogicalName": "Microsoft.CodeAnalysis.IL.Sdk.BinaryAnalyzerContext.get_Pdb()"
                 }
               ]
@@ -3727,7 +3725,7 @@
                       "fullyQualifiedLogicalName": "Dia2Lib.IDiaDataSource.loadDataForExe(String executable, String searchPath, Object pCallback)"
                     },
                     {
-                      "uri": "file:///d:/src/binskim/src/BinaryParsers/ProgramDatabase/Pdb.cs",
+                      "uri": "file:///D:/src/binskim/src/BinaryParsers/ProgramDatabase/Pdb.cs",
                       "line": 107,
                       "fullyQualifiedLogicalName": "Microsoft.CodeAnalysis.BinaryParsers.ProgramDatabase.Pdb.Init(String peOrPdbPath, String symbolPath)"
                     }
@@ -3752,13 +3750,13 @@
             "stack": {
               "frames": [
                 {
-                  "uri": "file:///d:/src/binskim/src/BinaryParsers/ProgramDatabase/Pdb.cs",
+                  "uri": "file:///D:/src/binskim/src/BinaryParsers/ProgramDatabase/Pdb.cs",
                   "line": 111,
                   "fullyQualifiedLogicalName": "Microsoft.CodeAnalysis.BinaryParsers.ProgramDatabase.Pdb.Init(String peOrPdbPath, String symbolPath)"
                 },
                 {
-                  "uri": "file:///d:/src/binskim/src/BinSkim.Sdk/BinaryAnalyzerContext.cs",
-                  "line": 82,
+                  "uri": "file:///D:/src/binskim/src/BinSkim.Sdk/BinaryAnalyzerContext.cs",
+                  "line": 81,
                   "fullyQualifiedLogicalName": "Microsoft.CodeAnalysis.IL.Sdk.BinaryAnalyzerContext.get_Pdb()"
                 }
               ]
@@ -3773,7 +3771,7 @@
                       "fullyQualifiedLogicalName": "Dia2Lib.IDiaDataSource.loadDataForExe(String executable, String searchPath, Object pCallback)"
                     },
                     {
-                      "uri": "file:///d:/src/binskim/src/BinaryParsers/ProgramDatabase/Pdb.cs",
+                      "uri": "file:///D:/src/binskim/src/BinaryParsers/ProgramDatabase/Pdb.cs",
                       "line": 107,
                       "fullyQualifiedLogicalName": "Microsoft.CodeAnalysis.BinaryParsers.ProgramDatabase.Pdb.Init(String peOrPdbPath, String symbolPath)"
                     }
@@ -3798,13 +3796,13 @@
             "stack": {
               "frames": [
                 {
-                  "uri": "file:///d:/src/binskim/src/BinaryParsers/ProgramDatabase/Pdb.cs",
+                  "uri": "file:///D:/src/binskim/src/BinaryParsers/ProgramDatabase/Pdb.cs",
                   "line": 111,
                   "fullyQualifiedLogicalName": "Microsoft.CodeAnalysis.BinaryParsers.ProgramDatabase.Pdb.Init(String peOrPdbPath, String symbolPath)"
                 },
                 {
-                  "uri": "file:///d:/src/binskim/src/BinSkim.Sdk/BinaryAnalyzerContext.cs",
-                  "line": 82,
+                  "uri": "file:///D:/src/binskim/src/BinSkim.Sdk/BinaryAnalyzerContext.cs",
+                  "line": 81,
                   "fullyQualifiedLogicalName": "Microsoft.CodeAnalysis.IL.Sdk.BinaryAnalyzerContext.get_Pdb()"
                 }
               ]
@@ -3819,7 +3817,7 @@
                       "fullyQualifiedLogicalName": "Dia2Lib.IDiaDataSource.loadDataForExe(String executable, String searchPath, Object pCallback)"
                     },
                     {
-                      "uri": "file:///d:/src/binskim/src/BinaryParsers/ProgramDatabase/Pdb.cs",
+                      "uri": "file:///D:/src/binskim/src/BinaryParsers/ProgramDatabase/Pdb.cs",
                       "line": 107,
                       "fullyQualifiedLogicalName": "Microsoft.CodeAnalysis.BinaryParsers.ProgramDatabase.Pdb.Init(String peOrPdbPath, String symbolPath)"
                     }
@@ -3844,13 +3842,13 @@
             "stack": {
               "frames": [
                 {
-                  "uri": "file:///d:/src/binskim/src/BinaryParsers/ProgramDatabase/Pdb.cs",
+                  "uri": "file:///D:/src/binskim/src/BinaryParsers/ProgramDatabase/Pdb.cs",
                   "line": 111,
                   "fullyQualifiedLogicalName": "Microsoft.CodeAnalysis.BinaryParsers.ProgramDatabase.Pdb.Init(String peOrPdbPath, String symbolPath)"
                 },
                 {
-                  "uri": "file:///d:/src/binskim/src/BinSkim.Sdk/BinaryAnalyzerContext.cs",
-                  "line": 82,
+                  "uri": "file:///D:/src/binskim/src/BinSkim.Sdk/BinaryAnalyzerContext.cs",
+                  "line": 81,
                   "fullyQualifiedLogicalName": "Microsoft.CodeAnalysis.IL.Sdk.BinaryAnalyzerContext.get_Pdb()"
                 }
               ]
@@ -3865,7 +3863,7 @@
                       "fullyQualifiedLogicalName": "Dia2Lib.IDiaDataSource.loadDataForExe(String executable, String searchPath, Object pCallback)"
                     },
                     {
-                      "uri": "file:///d:/src/binskim/src/BinaryParsers/ProgramDatabase/Pdb.cs",
+                      "uri": "file:///D:/src/binskim/src/BinaryParsers/ProgramDatabase/Pdb.cs",
                       "line": 107,
                       "fullyQualifiedLogicalName": "Microsoft.CodeAnalysis.BinaryParsers.ProgramDatabase.Pdb.Init(String peOrPdbPath, String symbolPath)"
                     }
@@ -3890,13 +3888,13 @@
             "stack": {
               "frames": [
                 {
-                  "uri": "file:///d:/src/binskim/src/BinaryParsers/ProgramDatabase/Pdb.cs",
+                  "uri": "file:///D:/src/binskim/src/BinaryParsers/ProgramDatabase/Pdb.cs",
                   "line": 111,
                   "fullyQualifiedLogicalName": "Microsoft.CodeAnalysis.BinaryParsers.ProgramDatabase.Pdb.Init(String peOrPdbPath, String symbolPath)"
                 },
                 {
-                  "uri": "file:///d:/src/binskim/src/BinSkim.Sdk/BinaryAnalyzerContext.cs",
-                  "line": 82,
+                  "uri": "file:///D:/src/binskim/src/BinSkim.Sdk/BinaryAnalyzerContext.cs",
+                  "line": 81,
                   "fullyQualifiedLogicalName": "Microsoft.CodeAnalysis.IL.Sdk.BinaryAnalyzerContext.get_Pdb()"
                 }
               ]
@@ -3911,7 +3909,7 @@
                       "fullyQualifiedLogicalName": "Dia2Lib.IDiaDataSource.loadDataForExe(String executable, String searchPath, Object pCallback)"
                     },
                     {
-                      "uri": "file:///d:/src/binskim/src/BinaryParsers/ProgramDatabase/Pdb.cs",
+                      "uri": "file:///D:/src/binskim/src/BinaryParsers/ProgramDatabase/Pdb.cs",
                       "line": 107,
                       "fullyQualifiedLogicalName": "Microsoft.CodeAnalysis.BinaryParsers.ProgramDatabase.Pdb.Init(String peOrPdbPath, String symbolPath)"
                     }
@@ -3936,13 +3934,13 @@
             "stack": {
               "frames": [
                 {
-                  "uri": "file:///d:/src/binskim/src/BinaryParsers/ProgramDatabase/Pdb.cs",
+                  "uri": "file:///D:/src/binskim/src/BinaryParsers/ProgramDatabase/Pdb.cs",
                   "line": 111,
                   "fullyQualifiedLogicalName": "Microsoft.CodeAnalysis.BinaryParsers.ProgramDatabase.Pdb.Init(String peOrPdbPath, String symbolPath)"
                 },
                 {
-                  "uri": "file:///d:/src/binskim/src/BinSkim.Sdk/BinaryAnalyzerContext.cs",
-                  "line": 82,
+                  "uri": "file:///D:/src/binskim/src/BinSkim.Sdk/BinaryAnalyzerContext.cs",
+                  "line": 81,
                   "fullyQualifiedLogicalName": "Microsoft.CodeAnalysis.IL.Sdk.BinaryAnalyzerContext.get_Pdb()"
                 }
               ]
@@ -3957,7 +3955,7 @@
                       "fullyQualifiedLogicalName": "Dia2Lib.IDiaDataSource.loadDataForExe(String executable, String searchPath, Object pCallback)"
                     },
                     {
-                      "uri": "file:///d:/src/binskim/src/BinaryParsers/ProgramDatabase/Pdb.cs",
+                      "uri": "file:///D:/src/binskim/src/BinaryParsers/ProgramDatabase/Pdb.cs",
                       "line": 107,
                       "fullyQualifiedLogicalName": "Microsoft.CodeAnalysis.BinaryParsers.ProgramDatabase.Pdb.Init(String peOrPdbPath, String symbolPath)"
                     }
@@ -3982,13 +3980,13 @@
             "stack": {
               "frames": [
                 {
-                  "uri": "file:///d:/src/binskim/src/BinaryParsers/ProgramDatabase/Pdb.cs",
+                  "uri": "file:///D:/src/binskim/src/BinaryParsers/ProgramDatabase/Pdb.cs",
                   "line": 111,
                   "fullyQualifiedLogicalName": "Microsoft.CodeAnalysis.BinaryParsers.ProgramDatabase.Pdb.Init(String peOrPdbPath, String symbolPath)"
                 },
                 {
-                  "uri": "file:///d:/src/binskim/src/BinSkim.Sdk/BinaryAnalyzerContext.cs",
-                  "line": 82,
+                  "uri": "file:///D:/src/binskim/src/BinSkim.Sdk/BinaryAnalyzerContext.cs",
+                  "line": 81,
                   "fullyQualifiedLogicalName": "Microsoft.CodeAnalysis.IL.Sdk.BinaryAnalyzerContext.get_Pdb()"
                 }
               ]
@@ -4003,7 +4001,7 @@
                       "fullyQualifiedLogicalName": "Dia2Lib.IDiaDataSource.loadDataForExe(String executable, String searchPath, Object pCallback)"
                     },
                     {
-                      "uri": "file:///d:/src/binskim/src/BinaryParsers/ProgramDatabase/Pdb.cs",
+                      "uri": "file:///D:/src/binskim/src/BinaryParsers/ProgramDatabase/Pdb.cs",
                       "line": 107,
                       "fullyQualifiedLogicalName": "Microsoft.CodeAnalysis.BinaryParsers.ProgramDatabase.Pdb.Init(String peOrPdbPath, String symbolPath)"
                     }
@@ -4028,13 +4026,13 @@
             "stack": {
               "frames": [
                 {
-                  "uri": "file:///d:/src/binskim/src/BinaryParsers/ProgramDatabase/Pdb.cs",
+                  "uri": "file:///D:/src/binskim/src/BinaryParsers/ProgramDatabase/Pdb.cs",
                   "line": 111,
                   "fullyQualifiedLogicalName": "Microsoft.CodeAnalysis.BinaryParsers.ProgramDatabase.Pdb.Init(String peOrPdbPath, String symbolPath)"
                 },
                 {
-                  "uri": "file:///d:/src/binskim/src/BinSkim.Sdk/BinaryAnalyzerContext.cs",
-                  "line": 82,
+                  "uri": "file:///D:/src/binskim/src/BinSkim.Sdk/BinaryAnalyzerContext.cs",
+                  "line": 81,
                   "fullyQualifiedLogicalName": "Microsoft.CodeAnalysis.IL.Sdk.BinaryAnalyzerContext.get_Pdb()"
                 }
               ]
@@ -4049,7 +4047,7 @@
                       "fullyQualifiedLogicalName": "Dia2Lib.IDiaDataSource.loadDataForExe(String executable, String searchPath, Object pCallback)"
                     },
                     {
-                      "uri": "file:///d:/src/binskim/src/BinaryParsers/ProgramDatabase/Pdb.cs",
+                      "uri": "file:///D:/src/binskim/src/BinaryParsers/ProgramDatabase/Pdb.cs",
                       "line": 107,
                       "fullyQualifiedLogicalName": "Microsoft.CodeAnalysis.BinaryParsers.ProgramDatabase.Pdb.Init(String peOrPdbPath, String symbolPath)"
                     }
@@ -4074,13 +4072,13 @@
             "stack": {
               "frames": [
                 {
-                  "uri": "file:///d:/src/binskim/src/BinaryParsers/ProgramDatabase/Pdb.cs",
+                  "uri": "file:///D:/src/binskim/src/BinaryParsers/ProgramDatabase/Pdb.cs",
                   "line": 111,
                   "fullyQualifiedLogicalName": "Microsoft.CodeAnalysis.BinaryParsers.ProgramDatabase.Pdb.Init(String peOrPdbPath, String symbolPath)"
                 },
                 {
-                  "uri": "file:///d:/src/binskim/src/BinSkim.Sdk/BinaryAnalyzerContext.cs",
-                  "line": 82,
+                  "uri": "file:///D:/src/binskim/src/BinSkim.Sdk/BinaryAnalyzerContext.cs",
+                  "line": 81,
                   "fullyQualifiedLogicalName": "Microsoft.CodeAnalysis.IL.Sdk.BinaryAnalyzerContext.get_Pdb()"
                 }
               ]
@@ -4095,7 +4093,7 @@
                       "fullyQualifiedLogicalName": "Dia2Lib.IDiaDataSource.loadDataForExe(String executable, String searchPath, Object pCallback)"
                     },
                     {
-                      "uri": "file:///d:/src/binskim/src/BinaryParsers/ProgramDatabase/Pdb.cs",
+                      "uri": "file:///D:/src/binskim/src/BinaryParsers/ProgramDatabase/Pdb.cs",
                       "line": 107,
                       "fullyQualifiedLogicalName": "Microsoft.CodeAnalysis.BinaryParsers.ProgramDatabase.Pdb.Init(String peOrPdbPath, String symbolPath)"
                     }
@@ -4120,13 +4118,13 @@
             "stack": {
               "frames": [
                 {
-                  "uri": "file:///d:/src/binskim/src/BinaryParsers/ProgramDatabase/Pdb.cs",
+                  "uri": "file:///D:/src/binskim/src/BinaryParsers/ProgramDatabase/Pdb.cs",
                   "line": 111,
                   "fullyQualifiedLogicalName": "Microsoft.CodeAnalysis.BinaryParsers.ProgramDatabase.Pdb.Init(String peOrPdbPath, String symbolPath)"
                 },
                 {
-                  "uri": "file:///d:/src/binskim/src/BinSkim.Sdk/BinaryAnalyzerContext.cs",
-                  "line": 82,
+                  "uri": "file:///D:/src/binskim/src/BinSkim.Sdk/BinaryAnalyzerContext.cs",
+                  "line": 81,
                   "fullyQualifiedLogicalName": "Microsoft.CodeAnalysis.IL.Sdk.BinaryAnalyzerContext.get_Pdb()"
                 }
               ]
@@ -4141,7 +4139,7 @@
                       "fullyQualifiedLogicalName": "Dia2Lib.IDiaDataSource.loadDataForExe(String executable, String searchPath, Object pCallback)"
                     },
                     {
-                      "uri": "file:///d:/src/binskim/src/BinaryParsers/ProgramDatabase/Pdb.cs",
+                      "uri": "file:///D:/src/binskim/src/BinaryParsers/ProgramDatabase/Pdb.cs",
                       "line": 107,
                       "fullyQualifiedLogicalName": "Microsoft.CodeAnalysis.BinaryParsers.ProgramDatabase.Pdb.Init(String peOrPdbPath, String symbolPath)"
                     }
@@ -4166,13 +4164,13 @@
             "stack": {
               "frames": [
                 {
-                  "uri": "file:///d:/src/binskim/src/BinaryParsers/ProgramDatabase/Pdb.cs",
+                  "uri": "file:///D:/src/binskim/src/BinaryParsers/ProgramDatabase/Pdb.cs",
                   "line": 111,
                   "fullyQualifiedLogicalName": "Microsoft.CodeAnalysis.BinaryParsers.ProgramDatabase.Pdb.Init(String peOrPdbPath, String symbolPath)"
                 },
                 {
-                  "uri": "file:///d:/src/binskim/src/BinSkim.Sdk/BinaryAnalyzerContext.cs",
-                  "line": 82,
+                  "uri": "file:///D:/src/binskim/src/BinSkim.Sdk/BinaryAnalyzerContext.cs",
+                  "line": 81,
                   "fullyQualifiedLogicalName": "Microsoft.CodeAnalysis.IL.Sdk.BinaryAnalyzerContext.get_Pdb()"
                 }
               ]
@@ -4187,7 +4185,7 @@
                       "fullyQualifiedLogicalName": "Dia2Lib.IDiaDataSource.loadDataForExe(String executable, String searchPath, Object pCallback)"
                     },
                     {
-                      "uri": "file:///d:/src/binskim/src/BinaryParsers/ProgramDatabase/Pdb.cs",
+                      "uri": "file:///D:/src/binskim/src/BinaryParsers/ProgramDatabase/Pdb.cs",
                       "line": 107,
                       "fullyQualifiedLogicalName": "Microsoft.CodeAnalysis.BinaryParsers.ProgramDatabase.Pdb.Init(String peOrPdbPath, String symbolPath)"
                     }
@@ -4212,13 +4210,13 @@
             "stack": {
               "frames": [
                 {
-                  "uri": "file:///d:/src/binskim/src/BinaryParsers/ProgramDatabase/Pdb.cs",
+                  "uri": "file:///D:/src/binskim/src/BinaryParsers/ProgramDatabase/Pdb.cs",
                   "line": 111,
                   "fullyQualifiedLogicalName": "Microsoft.CodeAnalysis.BinaryParsers.ProgramDatabase.Pdb.Init(String peOrPdbPath, String symbolPath)"
                 },
                 {
-                  "uri": "file:///d:/src/binskim/src/BinSkim.Sdk/BinaryAnalyzerContext.cs",
-                  "line": 82,
+                  "uri": "file:///D:/src/binskim/src/BinSkim.Sdk/BinaryAnalyzerContext.cs",
+                  "line": 81,
                   "fullyQualifiedLogicalName": "Microsoft.CodeAnalysis.IL.Sdk.BinaryAnalyzerContext.get_Pdb()"
                 }
               ]
@@ -4233,7 +4231,7 @@
                       "fullyQualifiedLogicalName": "Dia2Lib.IDiaDataSource.loadDataForExe(String executable, String searchPath, Object pCallback)"
                     },
                     {
-                      "uri": "file:///d:/src/binskim/src/BinaryParsers/ProgramDatabase/Pdb.cs",
+                      "uri": "file:///D:/src/binskim/src/BinaryParsers/ProgramDatabase/Pdb.cs",
                       "line": 107,
                       "fullyQualifiedLogicalName": "Microsoft.CodeAnalysis.BinaryParsers.ProgramDatabase.Pdb.Init(String peOrPdbPath, String symbolPath)"
                     }
@@ -4258,13 +4256,13 @@
             "stack": {
               "frames": [
                 {
-                  "uri": "file:///d:/src/binskim/src/BinaryParsers/ProgramDatabase/Pdb.cs",
+                  "uri": "file:///D:/src/binskim/src/BinaryParsers/ProgramDatabase/Pdb.cs",
                   "line": 111,
                   "fullyQualifiedLogicalName": "Microsoft.CodeAnalysis.BinaryParsers.ProgramDatabase.Pdb.Init(String peOrPdbPath, String symbolPath)"
                 },
                 {
-                  "uri": "file:///d:/src/binskim/src/BinSkim.Sdk/BinaryAnalyzerContext.cs",
-                  "line": 82,
+                  "uri": "file:///D:/src/binskim/src/BinSkim.Sdk/BinaryAnalyzerContext.cs",
+                  "line": 81,
                   "fullyQualifiedLogicalName": "Microsoft.CodeAnalysis.IL.Sdk.BinaryAnalyzerContext.get_Pdb()"
                 }
               ]
@@ -4279,7 +4277,7 @@
                       "fullyQualifiedLogicalName": "Dia2Lib.IDiaDataSource.loadDataForExe(String executable, String searchPath, Object pCallback)"
                     },
                     {
-                      "uri": "file:///d:/src/binskim/src/BinaryParsers/ProgramDatabase/Pdb.cs",
+                      "uri": "file:///D:/src/binskim/src/BinaryParsers/ProgramDatabase/Pdb.cs",
                       "line": 107,
                       "fullyQualifiedLogicalName": "Microsoft.CodeAnalysis.BinaryParsers.ProgramDatabase.Pdb.Init(String peOrPdbPath, String symbolPath)"
                     }
@@ -4304,13 +4302,13 @@
             "stack": {
               "frames": [
                 {
-                  "uri": "file:///d:/src/binskim/src/BinaryParsers/ProgramDatabase/Pdb.cs",
+                  "uri": "file:///D:/src/binskim/src/BinaryParsers/ProgramDatabase/Pdb.cs",
                   "line": 111,
                   "fullyQualifiedLogicalName": "Microsoft.CodeAnalysis.BinaryParsers.ProgramDatabase.Pdb.Init(String peOrPdbPath, String symbolPath)"
                 },
                 {
-                  "uri": "file:///d:/src/binskim/src/BinSkim.Sdk/BinaryAnalyzerContext.cs",
-                  "line": 82,
+                  "uri": "file:///D:/src/binskim/src/BinSkim.Sdk/BinaryAnalyzerContext.cs",
+                  "line": 81,
                   "fullyQualifiedLogicalName": "Microsoft.CodeAnalysis.IL.Sdk.BinaryAnalyzerContext.get_Pdb()"
                 }
               ]
@@ -4325,7 +4323,7 @@
                       "fullyQualifiedLogicalName": "Dia2Lib.IDiaDataSource.loadDataForExe(String executable, String searchPath, Object pCallback)"
                     },
                     {
-                      "uri": "file:///d:/src/binskim/src/BinaryParsers/ProgramDatabase/Pdb.cs",
+                      "uri": "file:///D:/src/binskim/src/BinaryParsers/ProgramDatabase/Pdb.cs",
                       "line": 107,
                       "fullyQualifiedLogicalName": "Microsoft.CodeAnalysis.BinaryParsers.ProgramDatabase.Pdb.Init(String peOrPdbPath, String symbolPath)"
                     }
@@ -4350,13 +4348,13 @@
             "stack": {
               "frames": [
                 {
-                  "uri": "file:///d:/src/binskim/src/BinaryParsers/ProgramDatabase/Pdb.cs",
+                  "uri": "file:///D:/src/binskim/src/BinaryParsers/ProgramDatabase/Pdb.cs",
                   "line": 111,
                   "fullyQualifiedLogicalName": "Microsoft.CodeAnalysis.BinaryParsers.ProgramDatabase.Pdb.Init(String peOrPdbPath, String symbolPath)"
                 },
                 {
-                  "uri": "file:///d:/src/binskim/src/BinSkim.Sdk/BinaryAnalyzerContext.cs",
-                  "line": 82,
+                  "uri": "file:///D:/src/binskim/src/BinSkim.Sdk/BinaryAnalyzerContext.cs",
+                  "line": 81,
                   "fullyQualifiedLogicalName": "Microsoft.CodeAnalysis.IL.Sdk.BinaryAnalyzerContext.get_Pdb()"
                 }
               ]
@@ -4371,7 +4369,7 @@
                       "fullyQualifiedLogicalName": "Dia2Lib.IDiaDataSource.loadDataForExe(String executable, String searchPath, Object pCallback)"
                     },
                     {
-                      "uri": "file:///d:/src/binskim/src/BinaryParsers/ProgramDatabase/Pdb.cs",
+                      "uri": "file:///D:/src/binskim/src/BinaryParsers/ProgramDatabase/Pdb.cs",
                       "line": 107,
                       "fullyQualifiedLogicalName": "Microsoft.CodeAnalysis.BinaryParsers.ProgramDatabase.Pdb.Init(String peOrPdbPath, String symbolPath)"
                     }
@@ -4396,13 +4394,13 @@
             "stack": {
               "frames": [
                 {
-                  "uri": "file:///d:/src/binskim/src/BinaryParsers/ProgramDatabase/Pdb.cs",
+                  "uri": "file:///D:/src/binskim/src/BinaryParsers/ProgramDatabase/Pdb.cs",
                   "line": 111,
                   "fullyQualifiedLogicalName": "Microsoft.CodeAnalysis.BinaryParsers.ProgramDatabase.Pdb.Init(String peOrPdbPath, String symbolPath)"
                 },
                 {
-                  "uri": "file:///d:/src/binskim/src/BinSkim.Sdk/BinaryAnalyzerContext.cs",
-                  "line": 82,
+                  "uri": "file:///D:/src/binskim/src/BinSkim.Sdk/BinaryAnalyzerContext.cs",
+                  "line": 81,
                   "fullyQualifiedLogicalName": "Microsoft.CodeAnalysis.IL.Sdk.BinaryAnalyzerContext.get_Pdb()"
                 }
               ]
@@ -4417,7 +4415,7 @@
                       "fullyQualifiedLogicalName": "Dia2Lib.IDiaDataSource.loadDataForExe(String executable, String searchPath, Object pCallback)"
                     },
                     {
-                      "uri": "file:///d:/src/binskim/src/BinaryParsers/ProgramDatabase/Pdb.cs",
+                      "uri": "file:///D:/src/binskim/src/BinaryParsers/ProgramDatabase/Pdb.cs",
                       "line": 107,
                       "fullyQualifiedLogicalName": "Microsoft.CodeAnalysis.BinaryParsers.ProgramDatabase.Pdb.Init(String peOrPdbPath, String symbolPath)"
                     }
@@ -4442,13 +4440,13 @@
             "stack": {
               "frames": [
                 {
-                  "uri": "file:///d:/src/binskim/src/BinaryParsers/ProgramDatabase/Pdb.cs",
+                  "uri": "file:///D:/src/binskim/src/BinaryParsers/ProgramDatabase/Pdb.cs",
                   "line": 111,
                   "fullyQualifiedLogicalName": "Microsoft.CodeAnalysis.BinaryParsers.ProgramDatabase.Pdb.Init(String peOrPdbPath, String symbolPath)"
                 },
                 {
-                  "uri": "file:///d:/src/binskim/src/BinSkim.Sdk/BinaryAnalyzerContext.cs",
-                  "line": 82,
+                  "uri": "file:///D:/src/binskim/src/BinSkim.Sdk/BinaryAnalyzerContext.cs",
+                  "line": 81,
                   "fullyQualifiedLogicalName": "Microsoft.CodeAnalysis.IL.Sdk.BinaryAnalyzerContext.get_Pdb()"
                 }
               ]
@@ -4463,7 +4461,7 @@
                       "fullyQualifiedLogicalName": "Dia2Lib.IDiaDataSource.loadDataForExe(String executable, String searchPath, Object pCallback)"
                     },
                     {
-                      "uri": "file:///d:/src/binskim/src/BinaryParsers/ProgramDatabase/Pdb.cs",
+                      "uri": "file:///D:/src/binskim/src/BinaryParsers/ProgramDatabase/Pdb.cs",
                       "line": 107,
                       "fullyQualifiedLogicalName": "Microsoft.CodeAnalysis.BinaryParsers.ProgramDatabase.Pdb.Init(String peOrPdbPath, String symbolPath)"
                     }
@@ -4488,13 +4486,13 @@
             "stack": {
               "frames": [
                 {
-                  "uri": "file:///d:/src/binskim/src/BinaryParsers/ProgramDatabase/Pdb.cs",
+                  "uri": "file:///D:/src/binskim/src/BinaryParsers/ProgramDatabase/Pdb.cs",
                   "line": 111,
                   "fullyQualifiedLogicalName": "Microsoft.CodeAnalysis.BinaryParsers.ProgramDatabase.Pdb.Init(String peOrPdbPath, String symbolPath)"
                 },
                 {
-                  "uri": "file:///d:/src/binskim/src/BinSkim.Sdk/BinaryAnalyzerContext.cs",
-                  "line": 82,
+                  "uri": "file:///D:/src/binskim/src/BinSkim.Sdk/BinaryAnalyzerContext.cs",
+                  "line": 81,
                   "fullyQualifiedLogicalName": "Microsoft.CodeAnalysis.IL.Sdk.BinaryAnalyzerContext.get_Pdb()"
                 }
               ]
@@ -4509,7 +4507,7 @@
                       "fullyQualifiedLogicalName": "Dia2Lib.IDiaDataSource.loadDataForExe(String executable, String searchPath, Object pCallback)"
                     },
                     {
-                      "uri": "file:///d:/src/binskim/src/BinaryParsers/ProgramDatabase/Pdb.cs",
+                      "uri": "file:///D:/src/binskim/src/BinaryParsers/ProgramDatabase/Pdb.cs",
                       "line": 107,
                       "fullyQualifiedLogicalName": "Microsoft.CodeAnalysis.BinaryParsers.ProgramDatabase.Pdb.Init(String peOrPdbPath, String symbolPath)"
                     }
@@ -4534,13 +4532,13 @@
             "stack": {
               "frames": [
                 {
-                  "uri": "file:///d:/src/binskim/src/BinaryParsers/ProgramDatabase/Pdb.cs",
+                  "uri": "file:///D:/src/binskim/src/BinaryParsers/ProgramDatabase/Pdb.cs",
                   "line": 111,
                   "fullyQualifiedLogicalName": "Microsoft.CodeAnalysis.BinaryParsers.ProgramDatabase.Pdb.Init(String peOrPdbPath, String symbolPath)"
                 },
                 {
-                  "uri": "file:///d:/src/binskim/src/BinSkim.Sdk/BinaryAnalyzerContext.cs",
-                  "line": 82,
+                  "uri": "file:///D:/src/binskim/src/BinSkim.Sdk/BinaryAnalyzerContext.cs",
+                  "line": 81,
                   "fullyQualifiedLogicalName": "Microsoft.CodeAnalysis.IL.Sdk.BinaryAnalyzerContext.get_Pdb()"
                 }
               ]
@@ -4555,7 +4553,7 @@
                       "fullyQualifiedLogicalName": "Dia2Lib.IDiaDataSource.loadDataForExe(String executable, String searchPath, Object pCallback)"
                     },
                     {
-                      "uri": "file:///d:/src/binskim/src/BinaryParsers/ProgramDatabase/Pdb.cs",
+                      "uri": "file:///D:/src/binskim/src/BinaryParsers/ProgramDatabase/Pdb.cs",
                       "line": 107,
                       "fullyQualifiedLogicalName": "Microsoft.CodeAnalysis.BinaryParsers.ProgramDatabase.Pdb.Init(String peOrPdbPath, String symbolPath)"
                     }
@@ -4580,13 +4578,13 @@
             "stack": {
               "frames": [
                 {
-                  "uri": "file:///d:/src/binskim/src/BinaryParsers/ProgramDatabase/Pdb.cs",
+                  "uri": "file:///D:/src/binskim/src/BinaryParsers/ProgramDatabase/Pdb.cs",
                   "line": 111,
                   "fullyQualifiedLogicalName": "Microsoft.CodeAnalysis.BinaryParsers.ProgramDatabase.Pdb.Init(String peOrPdbPath, String symbolPath)"
                 },
                 {
-                  "uri": "file:///d:/src/binskim/src/BinSkim.Sdk/BinaryAnalyzerContext.cs",
-                  "line": 82,
+                  "uri": "file:///D:/src/binskim/src/BinSkim.Sdk/BinaryAnalyzerContext.cs",
+                  "line": 81,
                   "fullyQualifiedLogicalName": "Microsoft.CodeAnalysis.IL.Sdk.BinaryAnalyzerContext.get_Pdb()"
                 }
               ]
@@ -4601,7 +4599,7 @@
                       "fullyQualifiedLogicalName": "Dia2Lib.IDiaDataSource.loadDataForExe(String executable, String searchPath, Object pCallback)"
                     },
                     {
-                      "uri": "file:///d:/src/binskim/src/BinaryParsers/ProgramDatabase/Pdb.cs",
+                      "uri": "file:///D:/src/binskim/src/BinaryParsers/ProgramDatabase/Pdb.cs",
                       "line": 107,
                       "fullyQualifiedLogicalName": "Microsoft.CodeAnalysis.BinaryParsers.ProgramDatabase.Pdb.Init(String peOrPdbPath, String symbolPath)"
                     }
@@ -4626,13 +4624,13 @@
             "stack": {
               "frames": [
                 {
-                  "uri": "file:///d:/src/binskim/src/BinaryParsers/ProgramDatabase/Pdb.cs",
+                  "uri": "file:///D:/src/binskim/src/BinaryParsers/ProgramDatabase/Pdb.cs",
                   "line": 111,
                   "fullyQualifiedLogicalName": "Microsoft.CodeAnalysis.BinaryParsers.ProgramDatabase.Pdb.Init(String peOrPdbPath, String symbolPath)"
                 },
                 {
-                  "uri": "file:///d:/src/binskim/src/BinSkim.Sdk/BinaryAnalyzerContext.cs",
-                  "line": 82,
+                  "uri": "file:///D:/src/binskim/src/BinSkim.Sdk/BinaryAnalyzerContext.cs",
+                  "line": 81,
                   "fullyQualifiedLogicalName": "Microsoft.CodeAnalysis.IL.Sdk.BinaryAnalyzerContext.get_Pdb()"
                 }
               ]
@@ -4647,7 +4645,7 @@
                       "fullyQualifiedLogicalName": "Dia2Lib.IDiaDataSource.loadDataForExe(String executable, String searchPath, Object pCallback)"
                     },
                     {
-                      "uri": "file:///d:/src/binskim/src/BinaryParsers/ProgramDatabase/Pdb.cs",
+                      "uri": "file:///D:/src/binskim/src/BinaryParsers/ProgramDatabase/Pdb.cs",
                       "line": 107,
                       "fullyQualifiedLogicalName": "Microsoft.CodeAnalysis.BinaryParsers.ProgramDatabase.Pdb.Init(String peOrPdbPath, String symbolPath)"
                     }
@@ -4672,13 +4670,13 @@
             "stack": {
               "frames": [
                 {
-                  "uri": "file:///d:/src/binskim/src/BinaryParsers/ProgramDatabase/Pdb.cs",
+                  "uri": "file:///D:/src/binskim/src/BinaryParsers/ProgramDatabase/Pdb.cs",
                   "line": 111,
                   "fullyQualifiedLogicalName": "Microsoft.CodeAnalysis.BinaryParsers.ProgramDatabase.Pdb.Init(String peOrPdbPath, String symbolPath)"
                 },
                 {
-                  "uri": "file:///d:/src/binskim/src/BinSkim.Sdk/BinaryAnalyzerContext.cs",
-                  "line": 82,
+                  "uri": "file:///D:/src/binskim/src/BinSkim.Sdk/BinaryAnalyzerContext.cs",
+                  "line": 81,
                   "fullyQualifiedLogicalName": "Microsoft.CodeAnalysis.IL.Sdk.BinaryAnalyzerContext.get_Pdb()"
                 }
               ]
@@ -4693,7 +4691,7 @@
                       "fullyQualifiedLogicalName": "Dia2Lib.IDiaDataSource.loadDataForExe(String executable, String searchPath, Object pCallback)"
                     },
                     {
-                      "uri": "file:///d:/src/binskim/src/BinaryParsers/ProgramDatabase/Pdb.cs",
+                      "uri": "file:///D:/src/binskim/src/BinaryParsers/ProgramDatabase/Pdb.cs",
                       "line": 107,
                       "fullyQualifiedLogicalName": "Microsoft.CodeAnalysis.BinaryParsers.ProgramDatabase.Pdb.Init(String peOrPdbPath, String symbolPath)"
                     }
@@ -4718,13 +4716,13 @@
             "stack": {
               "frames": [
                 {
-                  "uri": "file:///d:/src/binskim/src/BinaryParsers/ProgramDatabase/Pdb.cs",
+                  "uri": "file:///D:/src/binskim/src/BinaryParsers/ProgramDatabase/Pdb.cs",
                   "line": 111,
                   "fullyQualifiedLogicalName": "Microsoft.CodeAnalysis.BinaryParsers.ProgramDatabase.Pdb.Init(String peOrPdbPath, String symbolPath)"
                 },
                 {
-                  "uri": "file:///d:/src/binskim/src/BinSkim.Sdk/BinaryAnalyzerContext.cs",
-                  "line": 82,
+                  "uri": "file:///D:/src/binskim/src/BinSkim.Sdk/BinaryAnalyzerContext.cs",
+                  "line": 81,
                   "fullyQualifiedLogicalName": "Microsoft.CodeAnalysis.IL.Sdk.BinaryAnalyzerContext.get_Pdb()"
                 }
               ]
@@ -4739,7 +4737,7 @@
                       "fullyQualifiedLogicalName": "Dia2Lib.IDiaDataSource.loadDataForExe(String executable, String searchPath, Object pCallback)"
                     },
                     {
-                      "uri": "file:///d:/src/binskim/src/BinaryParsers/ProgramDatabase/Pdb.cs",
+                      "uri": "file:///D:/src/binskim/src/BinaryParsers/ProgramDatabase/Pdb.cs",
                       "line": 107,
                       "fullyQualifiedLogicalName": "Microsoft.CodeAnalysis.BinaryParsers.ProgramDatabase.Pdb.Init(String peOrPdbPath, String symbolPath)"
                     }
@@ -4764,13 +4762,13 @@
             "stack": {
               "frames": [
                 {
-                  "uri": "file:///d:/src/binskim/src/BinaryParsers/ProgramDatabase/Pdb.cs",
+                  "uri": "file:///D:/src/binskim/src/BinaryParsers/ProgramDatabase/Pdb.cs",
                   "line": 111,
                   "fullyQualifiedLogicalName": "Microsoft.CodeAnalysis.BinaryParsers.ProgramDatabase.Pdb.Init(String peOrPdbPath, String symbolPath)"
                 },
                 {
-                  "uri": "file:///d:/src/binskim/src/BinSkim.Sdk/BinaryAnalyzerContext.cs",
-                  "line": 82,
+                  "uri": "file:///D:/src/binskim/src/BinSkim.Sdk/BinaryAnalyzerContext.cs",
+                  "line": 81,
                   "fullyQualifiedLogicalName": "Microsoft.CodeAnalysis.IL.Sdk.BinaryAnalyzerContext.get_Pdb()"
                 }
               ]
@@ -4785,7 +4783,7 @@
                       "fullyQualifiedLogicalName": "Dia2Lib.IDiaDataSource.loadDataForExe(String executable, String searchPath, Object pCallback)"
                     },
                     {
-                      "uri": "file:///d:/src/binskim/src/BinaryParsers/ProgramDatabase/Pdb.cs",
+                      "uri": "file:///D:/src/binskim/src/BinaryParsers/ProgramDatabase/Pdb.cs",
                       "line": 107,
                       "fullyQualifiedLogicalName": "Microsoft.CodeAnalysis.BinaryParsers.ProgramDatabase.Pdb.Init(String peOrPdbPath, String symbolPath)"
                     }
@@ -4810,13 +4808,13 @@
             "stack": {
               "frames": [
                 {
-                  "uri": "file:///d:/src/binskim/src/BinaryParsers/ProgramDatabase/Pdb.cs",
+                  "uri": "file:///D:/src/binskim/src/BinaryParsers/ProgramDatabase/Pdb.cs",
                   "line": 111,
                   "fullyQualifiedLogicalName": "Microsoft.CodeAnalysis.BinaryParsers.ProgramDatabase.Pdb.Init(String peOrPdbPath, String symbolPath)"
                 },
                 {
-                  "uri": "file:///d:/src/binskim/src/BinSkim.Sdk/BinaryAnalyzerContext.cs",
-                  "line": 82,
+                  "uri": "file:///D:/src/binskim/src/BinSkim.Sdk/BinaryAnalyzerContext.cs",
+                  "line": 81,
                   "fullyQualifiedLogicalName": "Microsoft.CodeAnalysis.IL.Sdk.BinaryAnalyzerContext.get_Pdb()"
                 }
               ]
@@ -4831,7 +4829,7 @@
                       "fullyQualifiedLogicalName": "Dia2Lib.IDiaDataSource.loadDataForExe(String executable, String searchPath, Object pCallback)"
                     },
                     {
-                      "uri": "file:///d:/src/binskim/src/BinaryParsers/ProgramDatabase/Pdb.cs",
+                      "uri": "file:///D:/src/binskim/src/BinaryParsers/ProgramDatabase/Pdb.cs",
                       "line": 107,
                       "fullyQualifiedLogicalName": "Microsoft.CodeAnalysis.BinaryParsers.ProgramDatabase.Pdb.Init(String peOrPdbPath, String symbolPath)"
                     }
@@ -4856,13 +4854,13 @@
             "stack": {
               "frames": [
                 {
-                  "uri": "file:///d:/src/binskim/src/BinaryParsers/ProgramDatabase/Pdb.cs",
+                  "uri": "file:///D:/src/binskim/src/BinaryParsers/ProgramDatabase/Pdb.cs",
                   "line": 111,
                   "fullyQualifiedLogicalName": "Microsoft.CodeAnalysis.BinaryParsers.ProgramDatabase.Pdb.Init(String peOrPdbPath, String symbolPath)"
                 },
                 {
-                  "uri": "file:///d:/src/binskim/src/BinSkim.Sdk/BinaryAnalyzerContext.cs",
-                  "line": 82,
+                  "uri": "file:///D:/src/binskim/src/BinSkim.Sdk/BinaryAnalyzerContext.cs",
+                  "line": 81,
                   "fullyQualifiedLogicalName": "Microsoft.CodeAnalysis.IL.Sdk.BinaryAnalyzerContext.get_Pdb()"
                 }
               ]
@@ -4877,7 +4875,7 @@
                       "fullyQualifiedLogicalName": "Dia2Lib.IDiaDataSource.loadDataForExe(String executable, String searchPath, Object pCallback)"
                     },
                     {
-                      "uri": "file:///d:/src/binskim/src/BinaryParsers/ProgramDatabase/Pdb.cs",
+                      "uri": "file:///D:/src/binskim/src/BinaryParsers/ProgramDatabase/Pdb.cs",
                       "line": 107,
                       "fullyQualifiedLogicalName": "Microsoft.CodeAnalysis.BinaryParsers.ProgramDatabase.Pdb.Init(String peOrPdbPath, String symbolPath)"
                     }
@@ -4902,13 +4900,13 @@
             "stack": {
               "frames": [
                 {
-                  "uri": "file:///d:/src/binskim/src/BinaryParsers/ProgramDatabase/Pdb.cs",
+                  "uri": "file:///D:/src/binskim/src/BinaryParsers/ProgramDatabase/Pdb.cs",
                   "line": 111,
                   "fullyQualifiedLogicalName": "Microsoft.CodeAnalysis.BinaryParsers.ProgramDatabase.Pdb.Init(String peOrPdbPath, String symbolPath)"
                 },
                 {
-                  "uri": "file:///d:/src/binskim/src/BinSkim.Sdk/BinaryAnalyzerContext.cs",
-                  "line": 82,
+                  "uri": "file:///D:/src/binskim/src/BinSkim.Sdk/BinaryAnalyzerContext.cs",
+                  "line": 81,
                   "fullyQualifiedLogicalName": "Microsoft.CodeAnalysis.IL.Sdk.BinaryAnalyzerContext.get_Pdb()"
                 }
               ]
@@ -4923,7 +4921,7 @@
                       "fullyQualifiedLogicalName": "Dia2Lib.IDiaDataSource.loadDataForExe(String executable, String searchPath, Object pCallback)"
                     },
                     {
-                      "uri": "file:///d:/src/binskim/src/BinaryParsers/ProgramDatabase/Pdb.cs",
+                      "uri": "file:///D:/src/binskim/src/BinaryParsers/ProgramDatabase/Pdb.cs",
                       "line": 107,
                       "fullyQualifiedLogicalName": "Microsoft.CodeAnalysis.BinaryParsers.ProgramDatabase.Pdb.Init(String peOrPdbPath, String symbolPath)"
                     }
@@ -4948,13 +4946,13 @@
             "stack": {
               "frames": [
                 {
-                  "uri": "file:///d:/src/binskim/src/BinaryParsers/ProgramDatabase/Pdb.cs",
+                  "uri": "file:///D:/src/binskim/src/BinaryParsers/ProgramDatabase/Pdb.cs",
                   "line": 111,
                   "fullyQualifiedLogicalName": "Microsoft.CodeAnalysis.BinaryParsers.ProgramDatabase.Pdb.Init(String peOrPdbPath, String symbolPath)"
                 },
                 {
-                  "uri": "file:///d:/src/binskim/src/BinSkim.Sdk/BinaryAnalyzerContext.cs",
-                  "line": 82,
+                  "uri": "file:///D:/src/binskim/src/BinSkim.Sdk/BinaryAnalyzerContext.cs",
+                  "line": 81,
                   "fullyQualifiedLogicalName": "Microsoft.CodeAnalysis.IL.Sdk.BinaryAnalyzerContext.get_Pdb()"
                 }
               ]
@@ -4969,7 +4967,7 @@
                       "fullyQualifiedLogicalName": "Dia2Lib.IDiaDataSource.loadDataForExe(String executable, String searchPath, Object pCallback)"
                     },
                     {
-                      "uri": "file:///d:/src/binskim/src/BinaryParsers/ProgramDatabase/Pdb.cs",
+                      "uri": "file:///D:/src/binskim/src/BinaryParsers/ProgramDatabase/Pdb.cs",
                       "line": 107,
                       "fullyQualifiedLogicalName": "Microsoft.CodeAnalysis.BinaryParsers.ProgramDatabase.Pdb.Init(String peOrPdbPath, String symbolPath)"
                     }
@@ -4994,13 +4992,13 @@
             "stack": {
               "frames": [
                 {
-                  "uri": "file:///d:/src/binskim/src/BinaryParsers/ProgramDatabase/Pdb.cs",
+                  "uri": "file:///D:/src/binskim/src/BinaryParsers/ProgramDatabase/Pdb.cs",
                   "line": 111,
                   "fullyQualifiedLogicalName": "Microsoft.CodeAnalysis.BinaryParsers.ProgramDatabase.Pdb.Init(String peOrPdbPath, String symbolPath)"
                 },
                 {
-                  "uri": "file:///d:/src/binskim/src/BinSkim.Sdk/BinaryAnalyzerContext.cs",
-                  "line": 82,
+                  "uri": "file:///D:/src/binskim/src/BinSkim.Sdk/BinaryAnalyzerContext.cs",
+                  "line": 81,
                   "fullyQualifiedLogicalName": "Microsoft.CodeAnalysis.IL.Sdk.BinaryAnalyzerContext.get_Pdb()"
                 }
               ]
@@ -5015,7 +5013,7 @@
                       "fullyQualifiedLogicalName": "Dia2Lib.IDiaDataSource.loadDataForExe(String executable, String searchPath, Object pCallback)"
                     },
                     {
-                      "uri": "file:///d:/src/binskim/src/BinaryParsers/ProgramDatabase/Pdb.cs",
+                      "uri": "file:///D:/src/binskim/src/BinaryParsers/ProgramDatabase/Pdb.cs",
                       "line": 107,
                       "fullyQualifiedLogicalName": "Microsoft.CodeAnalysis.BinaryParsers.ProgramDatabase.Pdb.Init(String peOrPdbPath, String symbolPath)"
                     }
@@ -5040,13 +5038,13 @@
             "stack": {
               "frames": [
                 {
-                  "uri": "file:///d:/src/binskim/src/BinaryParsers/ProgramDatabase/Pdb.cs",
+                  "uri": "file:///D:/src/binskim/src/BinaryParsers/ProgramDatabase/Pdb.cs",
                   "line": 111,
                   "fullyQualifiedLogicalName": "Microsoft.CodeAnalysis.BinaryParsers.ProgramDatabase.Pdb.Init(String peOrPdbPath, String symbolPath)"
                 },
                 {
-                  "uri": "file:///d:/src/binskim/src/BinSkim.Sdk/BinaryAnalyzerContext.cs",
-                  "line": 82,
+                  "uri": "file:///D:/src/binskim/src/BinSkim.Sdk/BinaryAnalyzerContext.cs",
+                  "line": 81,
                   "fullyQualifiedLogicalName": "Microsoft.CodeAnalysis.IL.Sdk.BinaryAnalyzerContext.get_Pdb()"
                 }
               ]
@@ -5061,7 +5059,7 @@
                       "fullyQualifiedLogicalName": "Dia2Lib.IDiaDataSource.loadDataForExe(String executable, String searchPath, Object pCallback)"
                     },
                     {
-                      "uri": "file:///d:/src/binskim/src/BinaryParsers/ProgramDatabase/Pdb.cs",
+                      "uri": "file:///D:/src/binskim/src/BinaryParsers/ProgramDatabase/Pdb.cs",
                       "line": 107,
                       "fullyQualifiedLogicalName": "Microsoft.CodeAnalysis.BinaryParsers.ProgramDatabase.Pdb.Init(String peOrPdbPath, String symbolPath)"
                     }
@@ -5086,13 +5084,13 @@
             "stack": {
               "frames": [
                 {
-                  "uri": "file:///d:/src/binskim/src/BinaryParsers/ProgramDatabase/Pdb.cs",
+                  "uri": "file:///D:/src/binskim/src/BinaryParsers/ProgramDatabase/Pdb.cs",
                   "line": 111,
                   "fullyQualifiedLogicalName": "Microsoft.CodeAnalysis.BinaryParsers.ProgramDatabase.Pdb.Init(String peOrPdbPath, String symbolPath)"
                 },
                 {
-                  "uri": "file:///d:/src/binskim/src/BinSkim.Sdk/BinaryAnalyzerContext.cs",
-                  "line": 82,
+                  "uri": "file:///D:/src/binskim/src/BinSkim.Sdk/BinaryAnalyzerContext.cs",
+                  "line": 81,
                   "fullyQualifiedLogicalName": "Microsoft.CodeAnalysis.IL.Sdk.BinaryAnalyzerContext.get_Pdb()"
                 }
               ]
@@ -5107,7 +5105,7 @@
                       "fullyQualifiedLogicalName": "Dia2Lib.IDiaDataSource.loadDataForExe(String executable, String searchPath, Object pCallback)"
                     },
                     {
-                      "uri": "file:///d:/src/binskim/src/BinaryParsers/ProgramDatabase/Pdb.cs",
+                      "uri": "file:///D:/src/binskim/src/BinaryParsers/ProgramDatabase/Pdb.cs",
                       "line": 107,
                       "fullyQualifiedLogicalName": "Microsoft.CodeAnalysis.BinaryParsers.ProgramDatabase.Pdb.Init(String peOrPdbPath, String symbolPath)"
                     }
@@ -5132,13 +5130,13 @@
             "stack": {
               "frames": [
                 {
-                  "uri": "file:///d:/src/binskim/src/BinaryParsers/ProgramDatabase/Pdb.cs",
+                  "uri": "file:///D:/src/binskim/src/BinaryParsers/ProgramDatabase/Pdb.cs",
                   "line": 111,
                   "fullyQualifiedLogicalName": "Microsoft.CodeAnalysis.BinaryParsers.ProgramDatabase.Pdb.Init(String peOrPdbPath, String symbolPath)"
                 },
                 {
-                  "uri": "file:///d:/src/binskim/src/BinSkim.Sdk/BinaryAnalyzerContext.cs",
-                  "line": 82,
+                  "uri": "file:///D:/src/binskim/src/BinSkim.Sdk/BinaryAnalyzerContext.cs",
+                  "line": 81,
                   "fullyQualifiedLogicalName": "Microsoft.CodeAnalysis.IL.Sdk.BinaryAnalyzerContext.get_Pdb()"
                 }
               ]
@@ -5153,7 +5151,7 @@
                       "fullyQualifiedLogicalName": "Dia2Lib.IDiaDataSource.loadDataForExe(String executable, String searchPath, Object pCallback)"
                     },
                     {
-                      "uri": "file:///d:/src/binskim/src/BinaryParsers/ProgramDatabase/Pdb.cs",
+                      "uri": "file:///D:/src/binskim/src/BinaryParsers/ProgramDatabase/Pdb.cs",
                       "line": 107,
                       "fullyQualifiedLogicalName": "Microsoft.CodeAnalysis.BinaryParsers.ProgramDatabase.Pdb.Init(String peOrPdbPath, String symbolPath)"
                     }
@@ -5178,13 +5176,13 @@
             "stack": {
               "frames": [
                 {
-                  "uri": "file:///d:/src/binskim/src/BinaryParsers/ProgramDatabase/Pdb.cs",
+                  "uri": "file:///D:/src/binskim/src/BinaryParsers/ProgramDatabase/Pdb.cs",
                   "line": 111,
                   "fullyQualifiedLogicalName": "Microsoft.CodeAnalysis.BinaryParsers.ProgramDatabase.Pdb.Init(String peOrPdbPath, String symbolPath)"
                 },
                 {
-                  "uri": "file:///d:/src/binskim/src/BinSkim.Sdk/BinaryAnalyzerContext.cs",
-                  "line": 82,
+                  "uri": "file:///D:/src/binskim/src/BinSkim.Sdk/BinaryAnalyzerContext.cs",
+                  "line": 81,
                   "fullyQualifiedLogicalName": "Microsoft.CodeAnalysis.IL.Sdk.BinaryAnalyzerContext.get_Pdb()"
                 }
               ]
@@ -5199,7 +5197,7 @@
                       "fullyQualifiedLogicalName": "Dia2Lib.IDiaDataSource.loadDataForExe(String executable, String searchPath, Object pCallback)"
                     },
                     {
-                      "uri": "file:///d:/src/binskim/src/BinaryParsers/ProgramDatabase/Pdb.cs",
+                      "uri": "file:///D:/src/binskim/src/BinaryParsers/ProgramDatabase/Pdb.cs",
                       "line": 107,
                       "fullyQualifiedLogicalName": "Microsoft.CodeAnalysis.BinaryParsers.ProgramDatabase.Pdb.Init(String peOrPdbPath, String symbolPath)"
                     }
@@ -5224,13 +5222,13 @@
             "stack": {
               "frames": [
                 {
-                  "uri": "file:///d:/src/binskim/src/BinaryParsers/ProgramDatabase/Pdb.cs",
+                  "uri": "file:///D:/src/binskim/src/BinaryParsers/ProgramDatabase/Pdb.cs",
                   "line": 111,
                   "fullyQualifiedLogicalName": "Microsoft.CodeAnalysis.BinaryParsers.ProgramDatabase.Pdb.Init(String peOrPdbPath, String symbolPath)"
                 },
                 {
-                  "uri": "file:///d:/src/binskim/src/BinSkim.Sdk/BinaryAnalyzerContext.cs",
-                  "line": 82,
+                  "uri": "file:///D:/src/binskim/src/BinSkim.Sdk/BinaryAnalyzerContext.cs",
+                  "line": 81,
                   "fullyQualifiedLogicalName": "Microsoft.CodeAnalysis.IL.Sdk.BinaryAnalyzerContext.get_Pdb()"
                 }
               ]
@@ -5245,7 +5243,7 @@
                       "fullyQualifiedLogicalName": "Dia2Lib.IDiaDataSource.loadDataForExe(String executable, String searchPath, Object pCallback)"
                     },
                     {
-                      "uri": "file:///d:/src/binskim/src/BinaryParsers/ProgramDatabase/Pdb.cs",
+                      "uri": "file:///D:/src/binskim/src/BinaryParsers/ProgramDatabase/Pdb.cs",
                       "line": 107,
                       "fullyQualifiedLogicalName": "Microsoft.CodeAnalysis.BinaryParsers.ProgramDatabase.Pdb.Init(String peOrPdbPath, String symbolPath)"
                     }
@@ -5270,13 +5268,13 @@
             "stack": {
               "frames": [
                 {
-                  "uri": "file:///d:/src/binskim/src/BinaryParsers/ProgramDatabase/Pdb.cs",
+                  "uri": "file:///D:/src/binskim/src/BinaryParsers/ProgramDatabase/Pdb.cs",
                   "line": 111,
                   "fullyQualifiedLogicalName": "Microsoft.CodeAnalysis.BinaryParsers.ProgramDatabase.Pdb.Init(String peOrPdbPath, String symbolPath)"
                 },
                 {
-                  "uri": "file:///d:/src/binskim/src/BinSkim.Sdk/BinaryAnalyzerContext.cs",
-                  "line": 82,
+                  "uri": "file:///D:/src/binskim/src/BinSkim.Sdk/BinaryAnalyzerContext.cs",
+                  "line": 81,
                   "fullyQualifiedLogicalName": "Microsoft.CodeAnalysis.IL.Sdk.BinaryAnalyzerContext.get_Pdb()"
                 }
               ]
@@ -5291,7 +5289,7 @@
                       "fullyQualifiedLogicalName": "Dia2Lib.IDiaDataSource.loadDataForExe(String executable, String searchPath, Object pCallback)"
                     },
                     {
-                      "uri": "file:///d:/src/binskim/src/BinaryParsers/ProgramDatabase/Pdb.cs",
+                      "uri": "file:///D:/src/binskim/src/BinaryParsers/ProgramDatabase/Pdb.cs",
                       "line": 107,
                       "fullyQualifiedLogicalName": "Microsoft.CodeAnalysis.BinaryParsers.ProgramDatabase.Pdb.Init(String peOrPdbPath, String symbolPath)"
                     }
@@ -5316,13 +5314,13 @@
             "stack": {
               "frames": [
                 {
-                  "uri": "file:///d:/src/binskim/src/BinaryParsers/ProgramDatabase/Pdb.cs",
+                  "uri": "file:///D:/src/binskim/src/BinaryParsers/ProgramDatabase/Pdb.cs",
                   "line": 111,
                   "fullyQualifiedLogicalName": "Microsoft.CodeAnalysis.BinaryParsers.ProgramDatabase.Pdb.Init(String peOrPdbPath, String symbolPath)"
                 },
                 {
-                  "uri": "file:///d:/src/binskim/src/BinSkim.Sdk/BinaryAnalyzerContext.cs",
-                  "line": 82,
+                  "uri": "file:///D:/src/binskim/src/BinSkim.Sdk/BinaryAnalyzerContext.cs",
+                  "line": 81,
                   "fullyQualifiedLogicalName": "Microsoft.CodeAnalysis.IL.Sdk.BinaryAnalyzerContext.get_Pdb()"
                 }
               ]
@@ -5337,7 +5335,7 @@
                       "fullyQualifiedLogicalName": "Dia2Lib.IDiaDataSource.loadDataForExe(String executable, String searchPath, Object pCallback)"
                     },
                     {
-                      "uri": "file:///d:/src/binskim/src/BinaryParsers/ProgramDatabase/Pdb.cs",
+                      "uri": "file:///D:/src/binskim/src/BinaryParsers/ProgramDatabase/Pdb.cs",
                       "line": 107,
                       "fullyQualifiedLogicalName": "Microsoft.CodeAnalysis.BinaryParsers.ProgramDatabase.Pdb.Init(String peOrPdbPath, String symbolPath)"
                     }
@@ -5362,13 +5360,13 @@
             "stack": {
               "frames": [
                 {
-                  "uri": "file:///d:/src/binskim/src/BinaryParsers/ProgramDatabase/Pdb.cs",
+                  "uri": "file:///D:/src/binskim/src/BinaryParsers/ProgramDatabase/Pdb.cs",
                   "line": 111,
                   "fullyQualifiedLogicalName": "Microsoft.CodeAnalysis.BinaryParsers.ProgramDatabase.Pdb.Init(String peOrPdbPath, String symbolPath)"
                 },
                 {
-                  "uri": "file:///d:/src/binskim/src/BinSkim.Sdk/BinaryAnalyzerContext.cs",
-                  "line": 82,
+                  "uri": "file:///D:/src/binskim/src/BinSkim.Sdk/BinaryAnalyzerContext.cs",
+                  "line": 81,
                   "fullyQualifiedLogicalName": "Microsoft.CodeAnalysis.IL.Sdk.BinaryAnalyzerContext.get_Pdb()"
                 }
               ]
@@ -5383,7 +5381,7 @@
                       "fullyQualifiedLogicalName": "Dia2Lib.IDiaDataSource.loadDataForExe(String executable, String searchPath, Object pCallback)"
                     },
                     {
-                      "uri": "file:///d:/src/binskim/src/BinaryParsers/ProgramDatabase/Pdb.cs",
+                      "uri": "file:///D:/src/binskim/src/BinaryParsers/ProgramDatabase/Pdb.cs",
                       "line": 107,
                       "fullyQualifiedLogicalName": "Microsoft.CodeAnalysis.BinaryParsers.ProgramDatabase.Pdb.Init(String peOrPdbPath, String symbolPath)"
                     }
@@ -5408,13 +5406,13 @@
             "stack": {
               "frames": [
                 {
-                  "uri": "file:///d:/src/binskim/src/BinaryParsers/ProgramDatabase/Pdb.cs",
+                  "uri": "file:///D:/src/binskim/src/BinaryParsers/ProgramDatabase/Pdb.cs",
                   "line": 111,
                   "fullyQualifiedLogicalName": "Microsoft.CodeAnalysis.BinaryParsers.ProgramDatabase.Pdb.Init(String peOrPdbPath, String symbolPath)"
                 },
                 {
-                  "uri": "file:///d:/src/binskim/src/BinSkim.Sdk/BinaryAnalyzerContext.cs",
-                  "line": 82,
+                  "uri": "file:///D:/src/binskim/src/BinSkim.Sdk/BinaryAnalyzerContext.cs",
+                  "line": 81,
                   "fullyQualifiedLogicalName": "Microsoft.CodeAnalysis.IL.Sdk.BinaryAnalyzerContext.get_Pdb()"
                 }
               ]
@@ -5429,7 +5427,7 @@
                       "fullyQualifiedLogicalName": "Dia2Lib.IDiaDataSource.loadDataForExe(String executable, String searchPath, Object pCallback)"
                     },
                     {
-                      "uri": "file:///d:/src/binskim/src/BinaryParsers/ProgramDatabase/Pdb.cs",
+                      "uri": "file:///D:/src/binskim/src/BinaryParsers/ProgramDatabase/Pdb.cs",
                       "line": 107,
                       "fullyQualifiedLogicalName": "Microsoft.CodeAnalysis.BinaryParsers.ProgramDatabase.Pdb.Init(String peOrPdbPath, String symbolPath)"
                     }
@@ -5454,13 +5452,13 @@
             "stack": {
               "frames": [
                 {
-                  "uri": "file:///d:/src/binskim/src/BinaryParsers/ProgramDatabase/Pdb.cs",
+                  "uri": "file:///D:/src/binskim/src/BinaryParsers/ProgramDatabase/Pdb.cs",
                   "line": 111,
                   "fullyQualifiedLogicalName": "Microsoft.CodeAnalysis.BinaryParsers.ProgramDatabase.Pdb.Init(String peOrPdbPath, String symbolPath)"
                 },
                 {
-                  "uri": "file:///d:/src/binskim/src/BinSkim.Sdk/BinaryAnalyzerContext.cs",
-                  "line": 82,
+                  "uri": "file:///D:/src/binskim/src/BinSkim.Sdk/BinaryAnalyzerContext.cs",
+                  "line": 81,
                   "fullyQualifiedLogicalName": "Microsoft.CodeAnalysis.IL.Sdk.BinaryAnalyzerContext.get_Pdb()"
                 }
               ]
@@ -5475,7 +5473,7 @@
                       "fullyQualifiedLogicalName": "Dia2Lib.IDiaDataSource.loadDataForExe(String executable, String searchPath, Object pCallback)"
                     },
                     {
-                      "uri": "file:///d:/src/binskim/src/BinaryParsers/ProgramDatabase/Pdb.cs",
+                      "uri": "file:///D:/src/binskim/src/BinaryParsers/ProgramDatabase/Pdb.cs",
                       "line": 107,
                       "fullyQualifiedLogicalName": "Microsoft.CodeAnalysis.BinaryParsers.ProgramDatabase.Pdb.Init(String peOrPdbPath, String symbolPath)"
                     }
@@ -5500,13 +5498,13 @@
             "stack": {
               "frames": [
                 {
-                  "uri": "file:///d:/src/binskim/src/BinaryParsers/ProgramDatabase/Pdb.cs",
+                  "uri": "file:///D:/src/binskim/src/BinaryParsers/ProgramDatabase/Pdb.cs",
                   "line": 111,
                   "fullyQualifiedLogicalName": "Microsoft.CodeAnalysis.BinaryParsers.ProgramDatabase.Pdb.Init(String peOrPdbPath, String symbolPath)"
                 },
                 {
-                  "uri": "file:///d:/src/binskim/src/BinSkim.Sdk/BinaryAnalyzerContext.cs",
-                  "line": 82,
+                  "uri": "file:///D:/src/binskim/src/BinSkim.Sdk/BinaryAnalyzerContext.cs",
+                  "line": 81,
                   "fullyQualifiedLogicalName": "Microsoft.CodeAnalysis.IL.Sdk.BinaryAnalyzerContext.get_Pdb()"
                 }
               ]
@@ -5521,7 +5519,7 @@
                       "fullyQualifiedLogicalName": "Dia2Lib.IDiaDataSource.loadDataForExe(String executable, String searchPath, Object pCallback)"
                     },
                     {
-                      "uri": "file:///d:/src/binskim/src/BinaryParsers/ProgramDatabase/Pdb.cs",
+                      "uri": "file:///D:/src/binskim/src/BinaryParsers/ProgramDatabase/Pdb.cs",
                       "line": 107,
                       "fullyQualifiedLogicalName": "Microsoft.CodeAnalysis.BinaryParsers.ProgramDatabase.Pdb.Init(String peOrPdbPath, String symbolPath)"
                     }
@@ -5546,13 +5544,13 @@
             "stack": {
               "frames": [
                 {
-                  "uri": "file:///d:/src/binskim/src/BinaryParsers/ProgramDatabase/Pdb.cs",
+                  "uri": "file:///D:/src/binskim/src/BinaryParsers/ProgramDatabase/Pdb.cs",
                   "line": 111,
                   "fullyQualifiedLogicalName": "Microsoft.CodeAnalysis.BinaryParsers.ProgramDatabase.Pdb.Init(String peOrPdbPath, String symbolPath)"
                 },
                 {
-                  "uri": "file:///d:/src/binskim/src/BinSkim.Sdk/BinaryAnalyzerContext.cs",
-                  "line": 82,
+                  "uri": "file:///D:/src/binskim/src/BinSkim.Sdk/BinaryAnalyzerContext.cs",
+                  "line": 81,
                   "fullyQualifiedLogicalName": "Microsoft.CodeAnalysis.IL.Sdk.BinaryAnalyzerContext.get_Pdb()"
                 }
               ]
@@ -5567,7 +5565,7 @@
                       "fullyQualifiedLogicalName": "Dia2Lib.IDiaDataSource.loadDataForExe(String executable, String searchPath, Object pCallback)"
                     },
                     {
-                      "uri": "file:///d:/src/binskim/src/BinaryParsers/ProgramDatabase/Pdb.cs",
+                      "uri": "file:///D:/src/binskim/src/BinaryParsers/ProgramDatabase/Pdb.cs",
                       "line": 107,
                       "fullyQualifiedLogicalName": "Microsoft.CodeAnalysis.BinaryParsers.ProgramDatabase.Pdb.Init(String peOrPdbPath, String symbolPath)"
                     }
@@ -5592,13 +5590,13 @@
             "stack": {
               "frames": [
                 {
-                  "uri": "file:///d:/src/binskim/src/BinaryParsers/ProgramDatabase/Pdb.cs",
+                  "uri": "file:///D:/src/binskim/src/BinaryParsers/ProgramDatabase/Pdb.cs",
                   "line": 111,
                   "fullyQualifiedLogicalName": "Microsoft.CodeAnalysis.BinaryParsers.ProgramDatabase.Pdb.Init(String peOrPdbPath, String symbolPath)"
                 },
                 {
-                  "uri": "file:///d:/src/binskim/src/BinSkim.Sdk/BinaryAnalyzerContext.cs",
-                  "line": 82,
+                  "uri": "file:///D:/src/binskim/src/BinSkim.Sdk/BinaryAnalyzerContext.cs",
+                  "line": 81,
                   "fullyQualifiedLogicalName": "Microsoft.CodeAnalysis.IL.Sdk.BinaryAnalyzerContext.get_Pdb()"
                 }
               ]
@@ -5613,7 +5611,7 @@
                       "fullyQualifiedLogicalName": "Dia2Lib.IDiaDataSource.loadDataForExe(String executable, String searchPath, Object pCallback)"
                     },
                     {
-                      "uri": "file:///d:/src/binskim/src/BinaryParsers/ProgramDatabase/Pdb.cs",
+                      "uri": "file:///D:/src/binskim/src/BinaryParsers/ProgramDatabase/Pdb.cs",
                       "line": 107,
                       "fullyQualifiedLogicalName": "Microsoft.CodeAnalysis.BinaryParsers.ProgramDatabase.Pdb.Init(String peOrPdbPath, String symbolPath)"
                     }
@@ -5638,13 +5636,13 @@
             "stack": {
               "frames": [
                 {
-                  "uri": "file:///d:/src/binskim/src/BinaryParsers/ProgramDatabase/Pdb.cs",
+                  "uri": "file:///D:/src/binskim/src/BinaryParsers/ProgramDatabase/Pdb.cs",
                   "line": 111,
                   "fullyQualifiedLogicalName": "Microsoft.CodeAnalysis.BinaryParsers.ProgramDatabase.Pdb.Init(String peOrPdbPath, String symbolPath)"
                 },
                 {
-                  "uri": "file:///d:/src/binskim/src/BinSkim.Sdk/BinaryAnalyzerContext.cs",
-                  "line": 82,
+                  "uri": "file:///D:/src/binskim/src/BinSkim.Sdk/BinaryAnalyzerContext.cs",
+                  "line": 81,
                   "fullyQualifiedLogicalName": "Microsoft.CodeAnalysis.IL.Sdk.BinaryAnalyzerContext.get_Pdb()"
                 }
               ]
@@ -5659,7 +5657,7 @@
                       "fullyQualifiedLogicalName": "Dia2Lib.IDiaDataSource.loadDataForExe(String executable, String searchPath, Object pCallback)"
                     },
                     {
-                      "uri": "file:///d:/src/binskim/src/BinaryParsers/ProgramDatabase/Pdb.cs",
+                      "uri": "file:///D:/src/binskim/src/BinaryParsers/ProgramDatabase/Pdb.cs",
                       "line": 107,
                       "fullyQualifiedLogicalName": "Microsoft.CodeAnalysis.BinaryParsers.ProgramDatabase.Pdb.Init(String peOrPdbPath, String symbolPath)"
                     }
@@ -5684,13 +5682,13 @@
             "stack": {
               "frames": [
                 {
-                  "uri": "file:///d:/src/binskim/src/BinaryParsers/ProgramDatabase/Pdb.cs",
+                  "uri": "file:///D:/src/binskim/src/BinaryParsers/ProgramDatabase/Pdb.cs",
                   "line": 111,
                   "fullyQualifiedLogicalName": "Microsoft.CodeAnalysis.BinaryParsers.ProgramDatabase.Pdb.Init(String peOrPdbPath, String symbolPath)"
                 },
                 {
-                  "uri": "file:///d:/src/binskim/src/BinSkim.Sdk/BinaryAnalyzerContext.cs",
-                  "line": 82,
+                  "uri": "file:///D:/src/binskim/src/BinSkim.Sdk/BinaryAnalyzerContext.cs",
+                  "line": 81,
                   "fullyQualifiedLogicalName": "Microsoft.CodeAnalysis.IL.Sdk.BinaryAnalyzerContext.get_Pdb()"
                 }
               ]
@@ -5705,7 +5703,7 @@
                       "fullyQualifiedLogicalName": "Dia2Lib.IDiaDataSource.loadDataForExe(String executable, String searchPath, Object pCallback)"
                     },
                     {
-                      "uri": "file:///d:/src/binskim/src/BinaryParsers/ProgramDatabase/Pdb.cs",
+                      "uri": "file:///D:/src/binskim/src/BinaryParsers/ProgramDatabase/Pdb.cs",
                       "line": 107,
                       "fullyQualifiedLogicalName": "Microsoft.CodeAnalysis.BinaryParsers.ProgramDatabase.Pdb.Init(String peOrPdbPath, String symbolPath)"
                     }
@@ -5730,13 +5728,13 @@
             "stack": {
               "frames": [
                 {
-                  "uri": "file:///d:/src/binskim/src/BinaryParsers/ProgramDatabase/Pdb.cs",
+                  "uri": "file:///D:/src/binskim/src/BinaryParsers/ProgramDatabase/Pdb.cs",
                   "line": 111,
                   "fullyQualifiedLogicalName": "Microsoft.CodeAnalysis.BinaryParsers.ProgramDatabase.Pdb.Init(String peOrPdbPath, String symbolPath)"
                 },
                 {
-                  "uri": "file:///d:/src/binskim/src/BinSkim.Sdk/BinaryAnalyzerContext.cs",
-                  "line": 82,
+                  "uri": "file:///D:/src/binskim/src/BinSkim.Sdk/BinaryAnalyzerContext.cs",
+                  "line": 81,
                   "fullyQualifiedLogicalName": "Microsoft.CodeAnalysis.IL.Sdk.BinaryAnalyzerContext.get_Pdb()"
                 }
               ]
@@ -5751,7 +5749,7 @@
                       "fullyQualifiedLogicalName": "Dia2Lib.IDiaDataSource.loadDataForExe(String executable, String searchPath, Object pCallback)"
                     },
                     {
-                      "uri": "file:///d:/src/binskim/src/BinaryParsers/ProgramDatabase/Pdb.cs",
+                      "uri": "file:///D:/src/binskim/src/BinaryParsers/ProgramDatabase/Pdb.cs",
                       "line": 107,
                       "fullyQualifiedLogicalName": "Microsoft.CodeAnalysis.BinaryParsers.ProgramDatabase.Pdb.Init(String peOrPdbPath, String symbolPath)"
                     }
@@ -5776,13 +5774,13 @@
             "stack": {
               "frames": [
                 {
-                  "uri": "file:///d:/src/binskim/src/BinaryParsers/ProgramDatabase/Pdb.cs",
+                  "uri": "file:///D:/src/binskim/src/BinaryParsers/ProgramDatabase/Pdb.cs",
                   "line": 111,
                   "fullyQualifiedLogicalName": "Microsoft.CodeAnalysis.BinaryParsers.ProgramDatabase.Pdb.Init(String peOrPdbPath, String symbolPath)"
                 },
                 {
-                  "uri": "file:///d:/src/binskim/src/BinSkim.Sdk/BinaryAnalyzerContext.cs",
-                  "line": 82,
+                  "uri": "file:///D:/src/binskim/src/BinSkim.Sdk/BinaryAnalyzerContext.cs",
+                  "line": 81,
                   "fullyQualifiedLogicalName": "Microsoft.CodeAnalysis.IL.Sdk.BinaryAnalyzerContext.get_Pdb()"
                 }
               ]
@@ -5797,7 +5795,7 @@
                       "fullyQualifiedLogicalName": "Dia2Lib.IDiaDataSource.loadDataForExe(String executable, String searchPath, Object pCallback)"
                     },
                     {
-                      "uri": "file:///d:/src/binskim/src/BinaryParsers/ProgramDatabase/Pdb.cs",
+                      "uri": "file:///D:/src/binskim/src/BinaryParsers/ProgramDatabase/Pdb.cs",
                       "line": 107,
                       "fullyQualifiedLogicalName": "Microsoft.CodeAnalysis.BinaryParsers.ProgramDatabase.Pdb.Init(String peOrPdbPath, String symbolPath)"
                     }
@@ -5822,13 +5820,13 @@
             "stack": {
               "frames": [
                 {
-                  "uri": "file:///d:/src/binskim/src/BinaryParsers/ProgramDatabase/Pdb.cs",
+                  "uri": "file:///D:/src/binskim/src/BinaryParsers/ProgramDatabase/Pdb.cs",
                   "line": 111,
                   "fullyQualifiedLogicalName": "Microsoft.CodeAnalysis.BinaryParsers.ProgramDatabase.Pdb.Init(String peOrPdbPath, String symbolPath)"
                 },
                 {
-                  "uri": "file:///d:/src/binskim/src/BinSkim.Sdk/BinaryAnalyzerContext.cs",
-                  "line": 82,
+                  "uri": "file:///D:/src/binskim/src/BinSkim.Sdk/BinaryAnalyzerContext.cs",
+                  "line": 81,
                   "fullyQualifiedLogicalName": "Microsoft.CodeAnalysis.IL.Sdk.BinaryAnalyzerContext.get_Pdb()"
                 }
               ]
@@ -5843,7 +5841,7 @@
                       "fullyQualifiedLogicalName": "Dia2Lib.IDiaDataSource.loadDataForExe(String executable, String searchPath, Object pCallback)"
                     },
                     {
-                      "uri": "file:///d:/src/binskim/src/BinaryParsers/ProgramDatabase/Pdb.cs",
+                      "uri": "file:///D:/src/binskim/src/BinaryParsers/ProgramDatabase/Pdb.cs",
                       "line": 107,
                       "fullyQualifiedLogicalName": "Microsoft.CodeAnalysis.BinaryParsers.ProgramDatabase.Pdb.Init(String peOrPdbPath, String symbolPath)"
                     }
@@ -5868,13 +5866,13 @@
             "stack": {
               "frames": [
                 {
-                  "uri": "file:///d:/src/binskim/src/BinaryParsers/ProgramDatabase/Pdb.cs",
+                  "uri": "file:///D:/src/binskim/src/BinaryParsers/ProgramDatabase/Pdb.cs",
                   "line": 111,
                   "fullyQualifiedLogicalName": "Microsoft.CodeAnalysis.BinaryParsers.ProgramDatabase.Pdb.Init(String peOrPdbPath, String symbolPath)"
                 },
                 {
-                  "uri": "file:///d:/src/binskim/src/BinSkim.Sdk/BinaryAnalyzerContext.cs",
-                  "line": 82,
+                  "uri": "file:///D:/src/binskim/src/BinSkim.Sdk/BinaryAnalyzerContext.cs",
+                  "line": 81,
                   "fullyQualifiedLogicalName": "Microsoft.CodeAnalysis.IL.Sdk.BinaryAnalyzerContext.get_Pdb()"
                 }
               ]
@@ -5889,7 +5887,7 @@
                       "fullyQualifiedLogicalName": "Dia2Lib.IDiaDataSource.loadDataForExe(String executable, String searchPath, Object pCallback)"
                     },
                     {
-                      "uri": "file:///d:/src/binskim/src/BinaryParsers/ProgramDatabase/Pdb.cs",
+                      "uri": "file:///D:/src/binskim/src/BinaryParsers/ProgramDatabase/Pdb.cs",
                       "line": 107,
                       "fullyQualifiedLogicalName": "Microsoft.CodeAnalysis.BinaryParsers.ProgramDatabase.Pdb.Init(String peOrPdbPath, String symbolPath)"
                     }
@@ -8319,9 +8317,9 @@
       },
       "invocation": {
         "commandLine": "d:\\src\\binskim\\bld\\bin\\BinSkim.Driver\\x64_Release\\BinSkim.exe  analyze d:\\src\\binskim\\src\\BinSkim.Rules.FunctionalTests\\FunctionalTestsData\\*.dll d:\\src\\binskim\\src\\BinSkim.Rules.FunctionalTests\\FunctionalTestsData\\*.exe --hashes --recurse --config default -o .\\\\BinSkim.AllRules.sarif",
-        "startTime": "2016-05-04T00:15:51.17Z",
-        "endTime": "2016-05-04T00:15:57.25Z",
-        "processId": 54820,
+        "startTime": "2016-05-04T23:04:10.70Z",
+        "endTime": "2016-05-04T23:04:20.76Z",
+        "processId": 8000,
         "fileName": "d:\\src\\binskim\\bld\\bin\\BinSkim.Driver\\x64_Release\\BinSkim.exe",
         "workingDirectory": "d:\\src\\sarif-sdk\\src\\Sarif.FunctionalTests\\DirectProducerTestData\\BinSkim"
       }

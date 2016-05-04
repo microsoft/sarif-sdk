@@ -5,9 +5,8 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Globalization;
-using System.Linq;
 
-namespace Microsoft.CodeAnalysis.Sarif.Sdk
+namespace Microsoft.CodeAnalysis.Sarif
 {
     public static class ExtensionMethods
     {

@@ -5,10 +5,9 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Security;
-using Microsoft.CodeAnalysis.Sarif.Sdk;
-using Microsoft.CodeAnalysis.Sarif.Sdk.Writers;
+using Microsoft.CodeAnalysis.Sarif.Writers;
 
-namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
+namespace Microsoft.CodeAnalysis.Sarif.Driver
 {
     public abstract class AnalyzeCommandBase<TContext, TOptions> : PlugInDriverCommand<TOptions>
         where TContext : IAnalysisContext, new()

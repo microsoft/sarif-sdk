@@ -1,4 +1,5 @@
 {
+  "$schema": "http://json.schemastore.org/sarif-1.0.0",
   "version": "1.0.0-beta.4",
   "runs": [
     {
@@ -10,7 +11,6 @@
         "fileVersion": "7.0.20811.0",
         "language": "en-US",
         "properties": {
-          "Language": "Language Neutral",
           "CompanyName": "Microsoft Corporation"
         }
       },
@@ -3400,9 +3400,9 @@
       },
       "invocation": {
         "commandLine": "D:\\src\\SecDevTools\\Main\\bin\\x64\\Debug\\ModernCop\\mod50.exe  analyze /appx d:\\src\\SecDevTools\\Main\\src\\ModernCop\\Source\\WebRules.Test.Unit\\ModernCopTestData\\WebRules_PackageRules\\MinificationRuleApp.appx /out .\\NestedLocationsFromAppX.sarif",
-        "startTime": "2016-05-02T06:31:54.47Z",
-        "endTime": "2016-05-02T06:31:56.32Z",
-        "processId": 30108,
+        "startTime": "2016-05-04T23:03:18.98Z",
+        "endTime": "2016-05-04T23:03:21.14Z",
+        "processId": 7396,
         "fileName": "D:\\src\\SecDevTools\\Main\\bin\\x64\\Debug\\ModernCop\\mod50.exe",
         "workingDirectory": "d:\\src\\sarif-sdk\\src\\Sarif.FunctionalTests\\DirectProducerTestData\\WebSkim"
       }

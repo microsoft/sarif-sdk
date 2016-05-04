@@ -6,7 +6,7 @@ using System.Collections.Immutable;
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 
-namespace Microsoft.CodeAnalysis.Sarif.Sdk
+namespace Microsoft.CodeAnalysis.Sarif
 {
     /// <summary>
     /// An index of newline start locations in a string in order to relatively cheaply

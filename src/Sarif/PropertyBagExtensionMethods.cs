@@ -10,7 +10,7 @@ using System.Diagnostics;
 using System.Reflection;
 using System.Xml;
 
-namespace Microsoft.CodeAnalysis.Sarif.Sdk
+namespace Microsoft.CodeAnalysis.Sarif
 {
     public static class PropertyBagExtensionMethods
     {

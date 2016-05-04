@@ -3,7 +3,7 @@
 
 using CommandLine;
 
-namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
+namespace Microsoft.CodeAnalysis.Sarif.Driver
 {
     [Verb("exportConfig", HelpText = "Export rule options to an XML file that can be edited and used to configure subsequent analysis.")]
     public class ExportConfigurationOptions

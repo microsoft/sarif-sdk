@@ -5,16 +5,11 @@ using System;
 using System.ComponentModel.Design;
 using System.Diagnostics;
 using System.IO;
-using System.Linq;
 using System.Net;
 using System.Windows.Forms;
 
 using Microsoft.CodeAnalysis.Sarif;
-using Microsoft.CodeAnalysis.Sarif.Readers;
-using Microsoft.CodeAnalysis.Sarif.Sdk;
 using Microsoft.VisualStudio.Shell;
-
-using Newtonsoft.Json;
 
 namespace Microsoft.Sarif.Viewer
 {

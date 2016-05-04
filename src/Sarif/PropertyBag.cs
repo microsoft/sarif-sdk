@@ -9,7 +9,7 @@ using System.IO;
 using System.Runtime.Serialization;
 using System.Xml;
 
-namespace Microsoft.CodeAnalysis.Sarif.Sdk
+namespace Microsoft.CodeAnalysis.Sarif
 {
     [Serializable]
     public class PropertyBag : TypedPropertyBag<object>

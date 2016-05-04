@@ -4,10 +4,10 @@
 using System.IO;
 using System.Linq;
 using FluentAssertions;
-using Microsoft.CodeAnalysis.Sarif.Sdk.Writers;
+using Microsoft.CodeAnalysis.Sarif.Writers;
 using Xunit;
 
-namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
+namespace Microsoft.CodeAnalysis.Sarif.Driver
 {
     public class SarifLoggerTests
     {

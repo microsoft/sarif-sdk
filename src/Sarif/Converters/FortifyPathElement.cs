@@ -3,7 +3,6 @@
 
 using System;
 using System.Xml;
-using Microsoft.CodeAnalysis.Sarif.Sdk;
 
 namespace Microsoft.CodeAnalysis.Sarif.Converters
 {

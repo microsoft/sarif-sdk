@@ -92,6 +92,7 @@
     </Compile>
     <Compile Include="SparseReader.cs" />
     <Compile Include="SparseReaderDispatchTable.cs" />
+    <Compile Include="IntegerSet.cs" />
     <Compile Include="StringSet.cs" />
     <Compile Include="ToolFormatConversionOptions.cs" />
     <Compile Include="ToolFormatConverter.cs" />

@@ -3,7 +3,7 @@
 
 using System;
 
-namespace Microsoft.CodeAnalysis.Sarif.Sdk
+namespace Microsoft.CodeAnalysis.Sarif
 {
     // This enum is used to identify specific runtime conditions 
     // encountered during execution. This mechanism is used by

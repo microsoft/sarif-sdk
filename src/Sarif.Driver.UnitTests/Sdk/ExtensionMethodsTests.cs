@@ -3,11 +3,9 @@
 
 using FluentAssertions;
 
-using Microsoft.CodeAnalysis.Sarif.Sdk;
-
 using Xunit;
 
-namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
+namespace Microsoft.CodeAnalysis.Sarif.Driver
 {
     public class ExtensionMethodsTests
     {
