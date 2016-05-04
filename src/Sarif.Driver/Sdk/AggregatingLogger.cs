@@ -4,9 +4,7 @@
 using System;
 using System.Collections.Generic;
 
-using Microsoft.CodeAnalysis.Sarif.Sdk;
-
-namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
+namespace Microsoft.CodeAnalysis.Sarif.Driver
 {
     public class AggregatingLogger : IDisposable, IAnalysisLogger
     {

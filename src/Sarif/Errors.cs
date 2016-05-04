@@ -8,9 +8,7 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 
-using Microsoft.CodeAnalysis.Sarif.Sdk;
-
-namespace Microsoft.CodeAnalysis.Sarif.Sdk
+namespace Microsoft.CodeAnalysis.Sarif
 {
     public static class Errors
     {

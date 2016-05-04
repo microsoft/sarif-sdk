@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Microsoft.Sarif.Viewer
+﻿namespace Microsoft.Sarif.Viewer
 {
     public static class ProjectKind
     {

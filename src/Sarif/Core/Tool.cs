@@ -34,7 +34,11 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             // Binary file version
             FileVersionInfo fileVersion = FileVersionInfo.GetVersionInfo(assembly.Location);
-            tool.FileVersion = fileVersion.FileVersion;
+
+            if (fileVersion.FileVersion != tool.Version)
+            {
+                tool.FileVersion = fileVersion.FileVersion;
+            }
 
             tool.FullName = name + " " + tool.Version + (prereleaseInfo ?? "");
 
@@ -42,15 +46,9 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             tool.Language = CultureInfo.CurrentCulture.Name;
 
-            if (!string.IsNullOrEmpty(fileVersion.Language)) { tool.Properties["Language"] = fileVersion.Language; };
             if (!string.IsNullOrEmpty(fileVersion.Comments)) { tool.Properties["Comments"] = fileVersion.Comments; };
             if (!string.IsNullOrEmpty(fileVersion.CompanyName)) { tool.Properties["CompanyName"] = fileVersion.CompanyName; };
             if (!string.IsNullOrEmpty(fileVersion.ProductName)) { tool.Properties["ProductName"] = fileVersion.ProductName; };
-
-            if (!string.IsNullOrEmpty(fileVersion.ProductVersion) && fileVersion.ProductVersion != tool.Version)
-            {
-                tool.Properties["ProductVersion"] = fileVersion.ProductVersion;
-            };
 
             if (tool.Properties.Count == 0) { tool.Properties = null; }
 

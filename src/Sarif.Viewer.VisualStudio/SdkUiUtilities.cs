@@ -4,25 +4,18 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
-using System.ComponentModel;
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.Drawing;
 using System.IO;
-using System.Globalization;
 using System.Reflection;
 using System.Runtime.InteropServices;
-using System.Text;
 using System.Windows.Forms;
-using System.Xml;
 using Microsoft.VisualStudio;
 using Microsoft.VisualStudio.Shell.Interop;
-using Microsoft.Win32;
-using VSHelp = Microsoft.VisualStudio.VSHelp;
 
 using EnvDTE;
 using Microsoft.VisualStudio.Shell;
-using EnvDTE80;
 
 namespace Microsoft.Sarif.Viewer
 {

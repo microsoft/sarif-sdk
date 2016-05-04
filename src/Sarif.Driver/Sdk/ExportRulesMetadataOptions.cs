@@ -3,7 +3,7 @@
 
 using CommandLine;
 
-namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
+namespace Microsoft.CodeAnalysis.Sarif.Driver
 {
     [Verb("exportRules", HelpText = "Export rules metadata to a SARIF or SonarQube XML file.")]
     public class ExportRulesMetadataOptions

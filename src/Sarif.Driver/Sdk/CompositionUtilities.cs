@@ -7,7 +7,7 @@ using System.Composition.Convention;
 using System.Composition.Hosting;
 using System.Reflection;
 
-namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
+namespace Microsoft.CodeAnalysis.Sarif.Driver
 {
     internal static class DriverUtilities
     {

@@ -5,10 +5,9 @@ using System;
 using System.Collections.Generic;
 
 using FluentAssertions;
-using Microsoft.CodeAnalysis.Sarif.Sdk;
 using Xunit;
 
-namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
+namespace Microsoft.CodeAnalysis.Sarif.Driver
 {
     // These tests test the extension method Result.FormatForVisualStudio.
     // But by providing various Region objects and ResultKind values, they

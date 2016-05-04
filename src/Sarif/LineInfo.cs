@@ -4,7 +4,7 @@
 using System;
 using System.Globalization;
 
-namespace Microsoft.CodeAnalysis.Sarif.Sdk
+namespace Microsoft.CodeAnalysis.Sarif
 {
     /// <summary>Information about a line of text.</summary>
     public struct LineInfo : IEquatable<LineInfo>

@@ -5,7 +5,7 @@ using System;
 using System.Globalization;
 using System.Runtime.Serialization;
 
-namespace Microsoft.CodeAnalysis.Sarif.Sdk
+namespace Microsoft.CodeAnalysis.Sarif
 {
     /// <summary>Information about an offset in a block of text.</summary>
     [Serializable]

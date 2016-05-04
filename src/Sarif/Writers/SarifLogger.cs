@@ -3,14 +3,14 @@
 
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using Microsoft.CodeAnalysis.Sarif.Readers;
-using Microsoft.CodeAnalysis.Sarif.Writers;
 
 using Newtonsoft.Json;
 
-namespace Microsoft.CodeAnalysis.Sarif.Sdk.Writers
+namespace Microsoft.CodeAnalysis.Sarif.Writers
 {
     public class SarifLogger : IDisposable, IAnalysisLogger
     {
@@ -63,7 +63,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Sdk.Writers
                     run.Files.Add(new Uri(target).ToString(), new List<FileData> { fileReference });
                 }
             }
-
 
             run.Invocation = Invocation.Create(logEnvironment);
 
@@ -122,6 +121,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Sdk.Writers
             Run run) : this(textWriter, verbose)
         {
             _run = run;
+            SetSarifLoggerVersion(tool);
             _issueLogJsonWriter.WriteTool(tool);
         }
 
@@ -154,6 +154,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Sdk.Writers
             IEnumerable<string> invocationTokensToRedact) : this(textWriter, verbose)
         {
             Tool tool = Tool.CreateFromAssemblyData(prereleaseInfo);
+
+            SetSarifLoggerVersion(tool);
+
             _issueLogJsonWriter.WriteTool(tool);
 
             _run = CreateRun(
@@ -161,6 +164,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Sdk.Writers
                 computeTargetsHash,
                 logEnvironment,
                 invocationTokensToRedact);
+        }
+
+        private void SetSarifLoggerVersion(Tool tool)
+        {
+            tool.Properties = tool.Properties ?? new Dictionary<string, string>();
+
+            string sarifLoggerLocation = typeof(SarifLogger).Assembly.Location;
+
+            tool.Properties["SarifLoggerVersion"] = FileVersionInfo.GetVersionInfo(sarifLoggerLocation).FileVersion;
         }
 
         public SarifLogger(TextWriter textWriter, bool verbose)

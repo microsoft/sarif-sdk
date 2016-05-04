@@ -4,9 +4,8 @@
 using System;
 using System.Collections.Generic;
 using System.Resources;
-using Microsoft.CodeAnalysis.Sarif.Sdk;
 
-namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
+namespace Microsoft.CodeAnalysis.Sarif.Driver
 {
     public abstract class SkimmerBase<TContext>  : ISkimmer<TContext>
     {

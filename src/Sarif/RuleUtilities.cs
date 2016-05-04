@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Resources;
 
-namespace Microsoft.CodeAnalysis.Sarif.Sdk
+namespace Microsoft.CodeAnalysis.Sarif
 {
     public static class RuleUtilities
     {

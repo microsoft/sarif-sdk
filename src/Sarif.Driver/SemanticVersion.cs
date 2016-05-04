@@ -3,7 +3,6 @@
 
 using System;
 using System.Text.RegularExpressions;
-using Microsoft.CodeAnalysis.Sarif.Sdk;
 
 namespace Microsoft.CodeAnalysis.Sarif.Driver
 {

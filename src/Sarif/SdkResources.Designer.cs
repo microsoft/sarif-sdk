@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Microsoft.CodeAnalysis.Sarif.Sdk {
+namespace Microsoft.CodeAnalysis.Sarif {
     using System;
     
     
