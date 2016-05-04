@@ -14,7 +14,7 @@ using System.Globalization;
 // *                                                       *
 // ********************************************************/
 
-namespace Microsoft.CodeAnalysis.Sarif.Driver
+namespace Microsoft.CodeAnalysis.Sarif.Sdk
 {
     /// <summary>Multiply by primes hash calculator.</summary>
     public class MultiplyByPrimesHash

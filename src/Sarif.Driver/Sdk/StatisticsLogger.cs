@@ -4,6 +4,8 @@
 using System;
 using System.Diagnostics;
 
+using Microsoft.CodeAnalysis.Sarif.Sdk;
+
 namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
 {
     public class StatisticsLogger : IAnalysisLogger

@@ -120,8 +120,50 @@
   <data name="InvalidPE_Description" xml:space="preserve">
     <value>A binary was not analyzed as the it does not appear to be a valid portable executable.</value>
   </data>
+  <data name="MSG_AnalysisCompletedSuccessfully" xml:space="preserve">
+    <value>Analysis completed successfully.</value>
+  </data>
+  <data name="MSG_AnalysisIncomplete" xml:space="preserve">
+    <value>Analysis finished but was not complete due to non-fatal runtime errors.</value>
+  </data>
+  <data name="MSG_Analyzing" xml:space="preserve">
+    <value>Analyzing...</value>
+  </data>
+  <data name="MSG_UnexpectedApplicationExit" xml:space="preserve">
+    <value>Analysis halted prematurely due to a fatal execution condition.</value>
+  </data>
   <data name="NoAnalyzerPathsSpecified" xml:space="preserve">
     <value>No analyzer paths specified</value>
+  </data>
+  <data name="NonOwningDisposableViewAccess" xml:space="preserve">
+    <value>Attempted to access a DisposableEnumerable which is non-owning.</value>
+  </data>
+  <data name="PREfastDefectBuilderCannotFreeze" xml:space="preserve">
+    <value>Invalid PREfast defect state.</value>
+  </data>
+  <data name="PREfastDefectPrimaryLocationMissing" xml:space="preserve">
+    <value>PREfast defects require a main SFA where the defect occurs</value>
+  </data>
+  <data name="PREfastDefectProbabilityMustBeInRange" xml:space="preserve">
+    <value>Probability must be between 0.0 and 1.0, inclusive; or be unset.</value>
+  </data>
+  <data name="PREfastDefectRankMustBeInRange" xml:space="preserve">
+    <value>Rank must be between 0 and 10, inclusive; or be unset.</value>
+  </data>
+  <data name="PREfastDefectsRequireConteintInDescription" xml:space="preserve">
+    <value>PREfast defects require descriptions with content.</value>
+  </data>
+  <data name="PREfastDefectsRequireContentInDefectCode" xml:space="preserve">
+    <value>PREfast defects require content in their defect code.</value>
+  </data>
+  <data name="PREfastFunctionReferenceLineMustBeInRange" xml:space="preserve">
+    <value>The function line number must be strictly positive; files begin at line 1.</value>
+  </data>
+  <data name="PREfastKeyEventIdMustBeInRange" xml:space="preserve">
+    <value>KeyEvent ids must be strictly positive.</value>
+  </data>
+  <data name="PREfastSequenceNumberOutOfRange" xml:space="preserve">
+    <value>SequenceNumber must be positive, or 0 to disable sequence numbering.</value>
   </data>
   <data name="UnexpectedApplicationExit" xml:space="preserve">
     <value>Application exited unexpectedly.</value>
@@ -129,5 +171,8 @@
   <data name="UnhandledEngineException" xml:space="preserve">
     <value>An exception was raised during analysis:
 {0}</value>
+  </data>
+  <data name="XmlElementNameWasUnset" xml:space="preserve">
+    <value>The local element name was not set.</value>
   </data>
 </root>

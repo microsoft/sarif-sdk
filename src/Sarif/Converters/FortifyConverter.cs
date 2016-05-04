@@ -104,7 +104,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
             if (messageComponents.Count == 0)
             {
-                result.Message = String.Format(CultureInfo.InvariantCulture, SarifResources.FortifyFallbackMessage, result.RuleId);
+                result.Message = String.Format(CultureInfo.InvariantCulture, SdkResources.FortifyFallbackMessage, result.RuleId);
             }
             else
             {

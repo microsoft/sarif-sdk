@@ -35,7 +35,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         {
             if (locations.IsDefaultOrEmpty)
             {
-                throw new ArgumentException(SarifResources.CppCheckMissingLocation);
+                throw new ArgumentException(SdkResources.CppCheckMissingLocation);
             }
 
             this.Id = id;
@@ -60,7 +60,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         {
             if (!reader.IsStartElement(strings.Error))
             {
-                throw reader.CreateException(SarifResources.CppCheckElementNotError);
+                throw reader.CreateException(SdkResources.CppCheckElementNotError);
             }
 
             string id = null;

@@ -33,6 +33,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ConsoleLogger.cs" />
     <Compile Include="Converters\AndroidStudioProblem.cs" />
     <Compile Include="Converters\AndroidStudioStrings.cs" />
     <Compile Include="Converters\ToolFileConverterBase.cs" />
@@ -49,11 +50,27 @@
     <Compile Include="Core\Stack.cs" />
     <Compile Include="Core\StackFrame.cs" />
     <Compile Include="Core\Tool.cs" />
+    <Compile Include="Errors.cs" />
+    <Compile Include="ExtensionMethods.cs" />
     <Compile Include="Extensions.cs" />
+    <Compile Include="HashUtilities.cs" />
+    <Compile Include="IAnalysisContext.cs" />
+    <Compile Include="IAnalysisLogger.cs" />
+    <Compile Include="IAnalyzeOptions.cs" />
     <Compile Include="IgnoreOptions.cs" />
+    <Compile Include="IOption.cs" />
+    <Compile Include="IOptionsProvider.cs" />
     <Compile Include="IResultLogWriter.cs" />
+    <Compile Include="LineInfo.cs" />
     <Compile Include="LogicalLocationKind.cs" />
+    <Compile Include="MessageUtilities.cs" />
     <Compile Include="MultiplyByPrimesHash.cs" />
+    <Compile Include="NewLineIndex.cs" />
+    <Compile Include="Notes.cs" />
+    <Compile Include="OffsetInfo.cs" />
+    <Compile Include="PerLanguageOption.cs" />
+    <Compile Include="PropertyBag.cs" />
+    <Compile Include="PropertyBagExtensionMethods.cs" />
     <Compile Include="Readers\DateTimeConverter.cs" />
     <Compile Include="Readers\FlagsEnumConverter.cs" />
     <Compile Include="Readers\IRuleConverter.cs" />
@@ -64,15 +81,18 @@
     <Compile Include="Readers\UriConverter.cs" />
     <Compile Include="Readers\VersionConverter.cs" />
     <Compile Include="Ref.cs" />
+    <Compile Include="RuleUtilities.cs" />
+    <Compile Include="RuntimeConditions.cs" />
     <Compile Include="SarifConstants.cs" />
     <Compile Include="SarifUtilities.cs" />
-    <Compile Include="SarifResources.Designer.cs">
-      <DependentUpon>SarifResources.resx</DependentUpon>
-      <DesignTime>True</DesignTime>
+    <Compile Include="SdkResources.Designer.cs">
       <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SdkResources.resx</DependentUpon>
     </Compile>
     <Compile Include="SparseReader.cs" />
     <Compile Include="SparseReaderDispatchTable.cs" />
+    <Compile Include="StringSet.cs" />
     <Compile Include="ToolFormatConversionOptions.cs" />
     <Compile Include="ToolFormatConverter.cs" />
     <Compile Include="Converters\AndroidStudioConverter.cs" />
@@ -83,9 +103,11 @@
     <Compile Include="Converters\FxCopConverter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ToolFormat.cs" />
+    <Compile Include="TypedPropertyBag.cs" />
     <Compile Include="VersionConstants.cs" />
     <Compile Include="Writers\ResultLogJsonWriter.cs" />
     <Compile Include="Writers\MimeType.cs" />
+    <Compile Include="Writers\SarifLogger.cs" />
   </ItemGroup>
   <ItemGroup>
     <JsonSchemaFile Include="Schemata\Sarif.schema.json">
@@ -98,14 +120,14 @@
     <None Include="CopyrightNotice.txt" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="SarifResources.resx">
-      <SubType>Designer</SubType>
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>SarifResources.Designer.cs</LastGenOutput>
-      <CustomToolNamespace>Microsoft.CodeAnalysis.Sarif.Sdk</CustomToolNamespace>
-    </EmbeddedResource>
     <EmbeddedResource Include="Schemata\FxCopReport.xsd">
       <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SdkResources.resx">
+      <SubType>Designer</SubType>
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>SdkResources.Designer.cs</LastGenOutput>
+      <CustomToolNamespace>Microsoft.CodeAnalysis.Sarif.Sdk</CustomToolNamespace>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

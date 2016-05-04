@@ -351,7 +351,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             if (observedInvalidConditions != Conditions.None)
             {
                 // 	InvalidState	One or more invalid states were detected during serialization: {0}	
-                throw new InvalidOperationException(string.Format(SarifResources.InvalidState, observedInvalidConditions));
+                throw new InvalidOperationException(string.Format(SdkResources.InvalidState, observedInvalidConditions));
             }
         }
 
@@ -363,7 +363,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             if ((_writeConditions & Conditions.ResultsInitialized) == Conditions.ResultsInitialized &&
                 (_writeConditions & Conditions.ResultsClosed) != Conditions.ResultsClosed)
             {
-                throw new InvalidOperationException(SarifResources.ResultsSerializationNotComplete);
+                throw new InvalidOperationException(SdkResources.ResultsSerializationNotComplete);
             }
         }
     }
