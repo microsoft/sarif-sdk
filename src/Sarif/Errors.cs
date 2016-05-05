@@ -44,6 +44,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                     Notification_ExceptionLoadingAnalysisTarget,
                     NotificationLevel.Error,
                     context.TargetLoadException,
+                    false,
                     context.TargetUri.LocalPath));
 
             context.RuntimeErrors |= RuntimeConditions.ExceptionLoadingTargetFile;
@@ -61,6 +62,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                     context.Rule.Id,
                     NotificationLevel.Error,
                     exception,
+                    false,
                     context.TargetUri.LocalPath,
                     context.Rule.Name));
 
@@ -82,6 +84,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                     Notification_ExceptionInstantiatingSkimmers,
                     NotificationLevel.Error,
                     exception,
+                    false,
                     plugins));
 
             context.RuntimeErrors |= RuntimeConditions.ExceptionInstantiatingSkimmers;
@@ -95,7 +98,8 @@ namespace Microsoft.CodeAnalysis.Sarif
                     context.TargetUri,
                     Notification_NoRulesLoaded,
                     NotificationLevel.Error,
-                    null));
+                    null,
+                    false));
 
             context.RuntimeErrors |= RuntimeConditions.NoRulesLoaded;
         }
@@ -108,7 +112,8 @@ namespace Microsoft.CodeAnalysis.Sarif
                     context.TargetUri,
                     Notification_NoValidAnalysisTargets,
                     NotificationLevel.Error,
-                    null));
+                    null,
+                    false));
 
             context.RuntimeErrors |= RuntimeConditions.NoValidAnalysisTargets;
         }
@@ -122,6 +127,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                     Notification_ExceptionCreatingLogFile,
                     NotificationLevel.Error,
                     exception,
+                    false,
                     fileName));
 
             context.RuntimeErrors |= RuntimeConditions.ExceptionCreatingLogfile;
@@ -136,6 +142,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                     Notification_MissingFile,
                     NotificationLevel.Error,
                     null,
+                    false,
                     fileName));
 
             context.RuntimeErrors |= RuntimeConditions.MissingFile;
@@ -150,6 +157,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                     Notification_ExceptionAccessingFile,
                     NotificationLevel.Error,
                     exception,
+                    false,
                     fileName));
 
             context.RuntimeErrors |= RuntimeConditions.ExceptionAccessingFile;
@@ -174,6 +182,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                     Notification_MissingRuleConfiguration,
                     NotificationLevel.Error,
                     null,
+                    false,
                     context.Rule.Name,
                     string.Empty,           // BUG: There were fewer arguments specified than required by the format string
                     reasonForNotAnalyzing,  // ... and it doesn't look like this fits with the message for {2}
@@ -191,9 +200,28 @@ namespace Microsoft.CodeAnalysis.Sarif
                     Notification_ExceptionLoadingPlugIn,
                     NotificationLevel.Error,
                     exception,
+                    false,  
                     plugInFilePath));
 
             context.RuntimeErrors |= RuntimeConditions.ExceptionLoadingAnalysisPlugIn;
+        }
+
+        public static void LogTargetParseError(IAnalysisContext context, Region region, string message)
+        {
+            // {0}({1}): error {2}: {3}
+            context.Logger.LogConfigurationNotification(
+                CreateNotification(
+                    context.TargetUri,
+                    Notification_ParseError,
+                    NotificationLevel.Error,
+                    null,
+                    false,
+                    context.TargetUri.LocalPath,
+                    region.FormatForVisualStudio(),
+                    Notification_ParseError,
+                    message));
+
+            context.RuntimeErrors |= RuntimeConditions.TargetParseError;
         }
 
         public static void LogUnhandledRuleExceptionAssessingTargetApplicability(
@@ -213,6 +241,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                     context.Rule.Id,
                     NotificationLevel.Error,
                     exception,
+                    true,
                     context.TargetUri.LocalPath,
                     context.Rule.Name));
 
@@ -236,6 +265,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 context.Rule.Id,
                 NotificationLevel.Error,
                 exception,
+                true,
                 context.Rule.Name));
 
             context.RuntimeErrors |= RuntimeConditions.ExceptionInSkimmerInitialize;
@@ -257,6 +287,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                     context.Rule.Id,
                     NotificationLevel.Error,
                     exception,
+                    true,
                     context.TargetUri.LocalPath,
                     context.Rule.Name));
 
@@ -273,26 +304,10 @@ namespace Microsoft.CodeAnalysis.Sarif
                     context.TargetUri,
                     Notification_UnhandledEngineException,
                     NotificationLevel.Error,
-                    exception));
+                    exception,
+                    true));
 
             return RuntimeConditions.ExceptionInEngine;
-        }
-
-        public static void LogTargetParseError(IAnalysisContext context, Region region, string message)
-        {
-            // {0}({1}): error {2}: {3}
-            context.Logger.LogToolNotification(
-                CreateNotification(
-                    context.TargetUri,
-                    Notification_ParseError,
-                    NotificationLevel.Error,
-                    null,
-                    context.TargetUri.LocalPath,
-                    region.FormatForVisualStudio(),
-                    Notification_ParseError,
-                    message));
-
-            context.RuntimeErrors |= RuntimeConditions.TargetParseError;
         }
 
         private static Notification CreateNotification(
@@ -300,9 +315,10 @@ namespace Microsoft.CodeAnalysis.Sarif
             string notificationId,
             NotificationLevel level,
             Exception exception,
+            bool persistExceptionStack,
             params object[] args)
         {
-            return CreateNotification(uri, notificationId, null, level, exception, args);
+            return CreateNotification(uri, notificationId, null, level, exception, persistExceptionStack, args);
         }
 
         private static Notification CreateNotification(
@@ -311,6 +327,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             string ruleId,
             NotificationLevel level,
             Exception exception,
+            bool persistExceptionStack,
             params object[] args)
         {            
             string messageFormat = GetMessageFormatResourceForNotification(notificationId);
@@ -320,10 +337,10 @@ namespace Microsoft.CodeAnalysis.Sarif
             string exceptionMessage = exception?.Message;
             if (!string.IsNullOrEmpty(exceptionMessage))
             {
-                message += "\n" + exceptionMessage;
+                message += " ('" + exceptionMessage + "')";
             }
 
-            var exceptionData = exception != null
+            var exceptionData = exception != null && persistExceptionStack
                 ? ExceptionData.Create(exception)
                 : null;
 

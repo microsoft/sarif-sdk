@@ -6,13 +6,15 @@ using System.IO;
 using System.Reflection;
 using System.Text;
 using FluentAssertions;
+using Microsoft.CodeAnalysis.Sarif.Driver;
 using Microsoft.CodeAnalysis.Sarif.Writers;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Newtonsoft.Json;
 
 namespace Microsoft.CodeAnalysis.Sarif
 {
     [TestClass]
-    public class SarifLoggerTests
+    public class SarifLoggerTests : JsonTests
     {
         [TestMethod]
         public void SarifLogger_RedactedCommandLine()
@@ -65,6 +67,43 @@ namespace Microsoft.CodeAnalysis.Sarif
                 result.Split(new string[] { SarifConstants.RemovedMarker }, StringSplitOptions.None)
                     .Length.Should().Be(tokensToRedact.Length + 1, "redacting n tokens gives you n+1 removal markers");
             }
+        }
+
+        [TestMethod]
+        public void SarifLogger_WritesFileData()
+        {
+            var sb = new StringBuilder();
+            string file;
+
+            using (var tempFile = new TempFile(".cpp"))
+            using (var textWriter = new StringWriter(sb))            
+            {
+                File.WriteAllText(tempFile.Name, "#include \"windows.h\";");
+                file = tempFile.Name;
+
+                using (var sarifLogger = new SarifLogger(
+                    textWriter,
+                    analysisTargets: new string[] { tempFile.Name },
+                    verbose: false,
+                    computeTargetsHash: true,
+                    logEnvironment: false,
+                    prereleaseInfo: null,
+                    invocationTokensToRedact: null)) { }
+
+            }
+
+            string result = sb.ToString();
+
+            string fileDataKey = new Uri(file).ToString();
+
+            var sarifLog = JsonConvert.DeserializeObject<SarifLog>(result);
+            sarifLog.Runs[0].Files[fileDataKey][0].MimeType.Should().Be(MimeType.Cpp);
+            sarifLog.Runs[0].Files[fileDataKey][0].Hashes[0].Algorithm.Should().Be(AlgorithmKind.MD5);
+            sarifLog.Runs[0].Files[fileDataKey][0].Hashes[0].Value.Should().Be("4B9DC12934390387862CC4AB5E4A2159");
+            sarifLog.Runs[0].Files[fileDataKey][0].Hashes[1].Algorithm.Should().Be(AlgorithmKind.Sha1);
+            sarifLog.Runs[0].Files[fileDataKey][0].Hashes[1].Value.Should().Be("9B59B1C1E3F5F7013B10F6C6B7436293685BAACE");
+            sarifLog.Runs[0].Files[fileDataKey][0].Hashes[2].Algorithm.Should().Be(AlgorithmKind.Sha256);
+            sarifLog.Runs[0].Files[fileDataKey][0].Hashes[2].Value.Should().Be("0953D7B3ADA7FED683680D2107EE517A9DBEC2D0AF7594A91F058D104B7A2AEB");
         }
     }
 }

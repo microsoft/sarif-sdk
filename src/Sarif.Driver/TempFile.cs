@@ -4,6 +4,7 @@
 using System;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
+using System.Security;
 // Copyright (c) Microsoft. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
@@ -33,15 +34,16 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         /// <summary>Initializes a new instance of the <see cref="TempFile"/> class where the file name has the indicated extension.</summary>
         /// <param name="requestedExtension">The requested extension.</param>
         [SuppressMessage("Microsoft.Design", "CA1062:Validate arguments of public methods", MessageId = "0")]
-        public TempFile(string requestedExtension)
+        public TempFile(string requestedExtension) : this()
         {
-            string name = CreateTempName();
             if (!requestedExtension.StartsWith(".", StringComparison.Ordinal))
             {
-                name += ".";
+                this.Name += "." + requestedExtension;
             }
-
-            this.Name = name + requestedExtension;
+            else
+            {
+                this.Name = this.Name + requestedExtension;
+            }
         }
 
         /// <summary>Gets the name of the generated file.</summary>
@@ -65,7 +67,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         /// <seealso cref="M:System.IDisposable.Dispose()"/>
         public void Dispose()
         {
-            this.DisposeImpl();
+            this.DisposeImplementation();
             GC.SuppressFinalize(this);
         }
 
@@ -76,10 +78,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         /// <seealso cref="M:System.Object.Finalize()"/>
         ~TempFile()
         {
-            this.DisposeImpl();
+            this.DisposeImplementation();
         }
 
-        private void DisposeImpl()
+        private void DisposeImplementation()
         {
             try
             {
@@ -96,6 +98,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             catch (UnauthorizedAccessException)
             {
                 // Access denied; doesn't matter because this delete is best-effort.
+            }
+            catch (SecurityException)
+            {
+                // Other access issue; doesn't matter because this delete is best-effort.
             }
         }
     }

@@ -13,18 +13,10 @@ using Newtonsoft.Json;
 namespace Microsoft.CodeAnalysis.Sarif.Readers
 {
     [TestClass]
-    public class InSourceSuppressionConverterTests
+    public class InSourceSuppressionConverterTests : JsonTests
     {
         private static readonly Run s_defaultRun = new Run();
         private static readonly Tool s_defaultTool = new Tool();
-
-        public InSourceSuppressionConverterTests()
-        {
-            JsonConvert.DefaultSettings = () => new JsonSerializerSettings
-            {
-                ContractResolver = SarifContractResolver.Instance
-            };
-        }
 
         private static string GetJson(Action<ResultLogJsonWriter> testContent)
         {
@@ -57,12 +49,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
             });
             Assert.AreEqual(expected, actual);
 
-            var settings = new JsonSerializerSettings()
-            {
-                ContractResolver = new SarifContractResolver()
-            };
-
-            var sarifLog = JsonConvert.DeserializeObject<SarifLog>(actual, settings);
+            var sarifLog = JsonConvert.DeserializeObject<SarifLog>(actual);
             Assert.AreEqual(SuppressionStates.SuppressedInSource, sarifLog.Runs[0].Results[0].SuppressionStates);
         }
 

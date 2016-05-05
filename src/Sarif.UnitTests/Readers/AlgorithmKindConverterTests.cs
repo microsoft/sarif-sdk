@@ -15,19 +15,11 @@ using Newtonsoft.Json;
 namespace Microsoft.CodeAnalysis.Sarif.Readers
 {
     [TestClass]
-    public class AlgorithmKindConverterTests
+    public class AlgorithmKindConverterTests : JsonTests
     {
         private static readonly Run s_defaultRun = new Run();
         private static readonly Tool s_defaultTool = new Tool();
         private static readonly Result s_defaultResult = new Result();
-
-        public AlgorithmKindConverterTests()
-        {
-            JsonConvert.DefaultSettings = () => new JsonSerializerSettings
-            {
-                ContractResolver = SarifContractResolver.Instance
-            };
-        }
 
         private static string GetJson(Action<ResultLogJsonWriter> testContent)
         {
