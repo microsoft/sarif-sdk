@@ -14,20 +14,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
         [TestMethod]
         public void ResultDiffingVisitor_DetectsAbsentAndNewResults()
         {
-            var result1 = new Result
-            {
-                RuleId = "TST0001"
-            };
-
-            var result2 = new Result
-            {
-                RuleId = "TST0002"
-            };
-
-            var result3 = new Result
-            {
-                RuleId = "TST0003"
-            };
+            var result1 = new Result { RuleId = "TST0001" };
+            var result2 = new Result { RuleId = "TST0002" };
+            var result3 = new Result { RuleId = "TST0003" };
 
             var sarifLog = new SarifLog
             {
@@ -45,6 +34,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
             };
 
             var visitor = new ResultDiffingVisitor(sarifLog);
+
+            result2 = new Result { RuleId = "TST0002" };
+            result3 = new Result { RuleId = "TST0003" };
+
 
             var newResults = new Result[]
             {

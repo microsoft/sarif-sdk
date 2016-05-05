@@ -14,5 +14,6 @@
 * Persist mime-type for files in SarifLogger
 * Remove stack persistence for configuration notification exceptions
 * Reclassify 'could not parse target' as a configuration notification
+* Fix diffing visitor to diff using value type semantics rather than by reference equality
 
 
