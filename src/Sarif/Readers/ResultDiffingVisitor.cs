@@ -9,9 +9,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
     {
         public ResultDiffingVisitor(SarifLog sarifLog)
         {
-            this.AbsentResults = new HashSet<Result>(ResultEqualityComparer.Instance);
-            this.SharedResults = new HashSet<Result>(ResultEqualityComparer.Instance);
-            this.NewResults = new HashSet<Result>(ResultEqualityComparer.Instance);
+            this.AbsentResults = new HashSet<Result>(Result.ValueComparer);
+            this.SharedResults = new HashSet<Result>(Result.ValueComparer);
+            this.NewResults = new HashSet<Result>(Result.ValueComparer);
 
             VisitSarifLog(sarifLog);
         }
@@ -31,7 +31,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
 
             this.AbsentResults = this.SharedResults;
 
-            this.SharedResults = new HashSet<Result>(ResultEqualityComparer.Instance);
+            this.SharedResults = new HashSet<Result>(Result.ValueComparer);
 
             foreach (Result result in this.NewResults)
             {
