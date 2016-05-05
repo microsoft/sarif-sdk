@@ -9,14 +9,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
     {
         public ResultDiffingVisitor(SarifLog sarifLog)
         {
-            this.AbsentResults = new HashSet<Result>();
-            this.SharedResults = new HashSet<Result>();
-            this.NewResults    = new HashSet<Result>();
+            this.AbsentResults = new HashSet<Result>(Result.ValueComparer);
+            this.SharedResults = new HashSet<Result>(Result.ValueComparer);
+            this.NewResults = new HashSet<Result>(Result.ValueComparer);
 
             VisitSarifLog(sarifLog);
         }
 
-        public HashSet<Result> NewResults    { get; set; }
+        public HashSet<Result> NewResults { get; set; }
         public HashSet<Result> AbsentResults { get; set; }
         public HashSet<Result> SharedResults { get; set; }
 
@@ -31,7 +31,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
 
             this.AbsentResults = this.SharedResults;
 
-            this.SharedResults = new HashSet<Result>();
+            this.SharedResults = new HashSet<Result>(Result.ValueComparer);
 
             foreach (Result result in this.NewResults)
             {
@@ -56,11 +56,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
                 }
             }
 
-            return 
+            return
                 this.AbsentResults.Count == 0 &&
                 this.NewResults.Count == 0;
-       
+
         }
     }
-
 }

@@ -78,18 +78,17 @@ namespace Microsoft.CodeAnalysis.Sarif
             using (var tempFile = new TempFile(".cpp"))
             using (var textWriter = new StringWriter(sb))            
             {
-                File.WriteAllText(tempFile.Name, "#include \"windows.h\";");
                 file = tempFile.Name;
+                File.WriteAllText(file, "#include \"windows.h\";");
 
                 using (var sarifLogger = new SarifLogger(
                     textWriter,
-                    analysisTargets: new string[] { tempFile.Name },
+                    analysisTargets: new string[] { file },
                     verbose: false,
                     computeTargetsHash: true,
                     logEnvironment: false,
                     prereleaseInfo: null,
                     invocationTokensToRedact: null)) { }
-
             }
 
             string result = sb.ToString();
