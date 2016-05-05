@@ -12,7 +12,7 @@ using Newtonsoft.Json;
 namespace Microsoft.CodeAnalysis.Sarif.Writers
 {
     [TestClass]
-    public class ResultLogJsonWriterTests
+    public class ResultLogJsonWriterTests : JsonTests
     {
         private static readonly string SchemaVersion =
             SarifUtilities.ConvertToText(SarifVersion.OneZeroZeroBetaFour);

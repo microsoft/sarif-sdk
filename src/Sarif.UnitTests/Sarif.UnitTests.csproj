@@ -69,13 +69,13 @@
     <Compile Include="Core\StackTests.cs" />
     <Compile Include="EqualityComparerTests.cs" />
     <Compile Include="ExtensionsTests.cs" />
+    <Compile Include="JsonTests.cs" />
     <Compile Include="Readers\AlgorithmKindConverterTests.cs" />
     <Compile Include="Readers\EnumConverterTests.cs" />
     <Compile Include="Readers\IsSuppressedInSourceConverterTests.cs" />
     <Compile Include="Readers\ResultDiffingVisitorTests.cs" />
     <Compile Include="ResultLogObjectWriter.cs" />
     <Compile Include="SarifExtensionsTests.cs" />
-    <Compile Include="SarifLoggerTests.cs" />
     <Compile Include="SparseReaderDispatchTableTests.cs" />
     <Compile Include="SparseReaderTests.cs" />
     <Compile Include="Writers\ResultLogJsonWriterTests.cs" />
@@ -83,6 +83,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utilities.cs" />
     <Compile Include="Writers\MimeTypeTests.cs" />
+    <Compile Include="Writers\SarifLoggerTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

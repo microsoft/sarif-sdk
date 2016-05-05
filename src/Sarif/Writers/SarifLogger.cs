@@ -34,33 +34,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
                 foreach (string target in analysisTargets)
                 {
-                    var fileReference = new FileData();
+                    string fileDataKey;
 
-                    if (computeTargetsHash)
-                    {
-                        string md5, sha1, sha256;
+                    var fileData = FileData.Create(
+                        new Uri[] { new Uri(target, UriKind.RelativeOrAbsolute) }, 
+                        computeTargetsHash, 
+                        out fileDataKey);
 
-                        HashUtilities.ComputeHashes(target, out md5, out sha1, out sha256);
-                        fileReference.Hashes = new List<Hash>
-                        {
-                            new Hash()
-                            {
-                                Value = md5,
-                                Algorithm = AlgorithmKind.MD5,
-                            },
-                            new Hash()
-                            {
-                                Value = sha1,
-                                Algorithm = AlgorithmKind.Sha1,
-                            },
-                            new Hash()
-                            {
-                                Value = sha256,
-                                Algorithm = AlgorithmKind.Sha256,
-                            },
-                        };
-                    }
-                    run.Files.Add(new Uri(target).ToString(), new List<FileData> { fileReference });
+                    run.Files.Add(fileDataKey, fileData);
                 }
             }
 

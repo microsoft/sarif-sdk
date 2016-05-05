@@ -9,3 +9,10 @@
 * Rename Microsoft.CodeAnalysis.Sarif.Driver namespace to Microsoft.CodeAnalysis.Driver
 * Eliminate some tool version details. Add SarifLogger version as tool property
 
+
+## **v1.5.21-beta** [Driver](https://www.nuget.org/packages/Sarif.Driver/1.5.21-beta) | [SDK](https://www.nuget.org/packages/Sarif.Sdk/1.5.21-beta)
+* Persist mime-type for files in SarifLogger
+* Remove stack persistence for configuration notification exceptions
+* Reclassify 'could not parse target' as a configuration notification
+
+
