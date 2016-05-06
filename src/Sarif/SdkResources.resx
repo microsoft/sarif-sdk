@@ -291,4 +291,7 @@
   <data name="ValueMustBeAtLeastOne" xml:space="preserve">
     <value>The value must be greater than or equal to 1.</value>
   </data>
+  <data name="ApplicationException_InvalidJsonPropertyType" xml:space="preserve">
+    <value>Cannot determine the JSON type for property {0}, whose value {1} is of .NET type {2}.</value>
+  </data>
 </root>

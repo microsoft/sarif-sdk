@@ -74,10 +74,12 @@
     <Compile Include="Readers\DateTimeConverter.cs" />
     <Compile Include="Readers\FlagsEnumConverter.cs" />
     <Compile Include="Readers\IRuleConverter.cs" />
+    <Compile Include="Readers\PropertyBagConverter.cs" />
     <Compile Include="Readers\ResultDiffingVisitor.cs" />
     <Compile Include="Readers\EnumConverter.cs" />
     <Compile Include="Readers\SarifContractResolver.cs" />
     <Compile Include="Readers\SarifVersionConverter.cs" />
+    <Compile Include="Readers\SerializedPropertyInfo.cs" />
     <Compile Include="Readers\UriConverter.cs" />
     <Compile Include="Readers\VersionConverter.cs" />
     <Compile Include="Ref.cs" />

@@ -151,6 +151,15 @@ namespace Microsoft.CodeAnalysis.Sarif {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Cannot determine the JSON type for property {0}, whose value {1} is of .NET type {2}..
+        /// </summary>
+        internal static string ApplicationException_InvalidJsonPropertyType {
+            get {
+                return ResourceManager.GetString("ApplicationException_InvalidJsonPropertyType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Cannot write result: Tool not yet written..
         /// </summary>
         internal static string CannotWriteResultToolMissing {
