@@ -44,7 +44,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
     {}
   ]
 }";
-            Assert.AreEqual(expected, GetJson(delegate { }));
+            Assert.AreEqual(expected, GetJson(uut =>
+            {
+                uut.Initialize(id: null, correlationId: null);
+            }));
         }
 
         [TestMethod]
@@ -67,6 +70,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 }";
             string actual = GetJson(uut =>
             {
+                uut.Initialize(id: null, correlationId: null);
                 uut.WriteTool(s_defaultTool);
                 uut.WriteResult(s_defaultResult);
             });
@@ -188,6 +192,40 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 }";
             string actual = GetJson(uut =>
             {
+                uut.Initialize(id: null, correlationId: null);
+                uut.WriteTool(s_defaultTool);
+                uut.WriteInvocation(s_invocation);
+            });
+            Assert.AreEqual(expected, actual);
+        }
+
+        [TestMethod]
+        public void ResultLogJsonWriter_WritesIdAndCorrelationId()
+        {
+            string id = Guid.NewGuid().ToString();
+            string correlationId = Guid.NewGuid().ToString();
+
+            string expected =
+@"{
+  ""$schema"": ""http://json.schemastore.org/sarif-1.0.0"",
+  ""version"": """ + SchemaVersion + @""",
+  ""runs"": [
+    {
+      ""id"": """ + id + @""",
+      ""correlationId"": """ + correlationId + @""",
+      ""tool"": {
+        ""name"": null
+      },
+      ""invocation"": {
+        ""commandLine"": ""/a /b c.dll"",
+        ""machine"": ""MY_MACHINE""
+      }
+    }
+  ]
+}";
+            string actual = GetJson(uut =>
+            {
+                uut.Initialize(id: id, correlationId: correlationId);
                 uut.WriteTool(s_defaultTool);
                 uut.WriteInvocation(s_invocation);
             });
@@ -322,6 +360,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 }";
             string actual = GetJson(uut =>
             {
+                uut.Initialize(id: null, correlationId: null);
                 uut.WriteTool(s_defaultTool);
                 uut.WriteConfigurationNotifications(s_notifications);
             });
@@ -348,6 +387,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 }";
             string actual = GetJson(uut =>
             {
+                uut.Initialize(id: null, correlationId: null);
                 uut.WriteTool(s_defaultTool);
                 uut.WriteToolNotifications(s_notifications);
             });

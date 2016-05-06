@@ -19,7 +19,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         /// <summary>Gets the Run object.</summary>
         public Run Run { get; set;  }
 
-        public void Initialize() { }
+        public void Initialize(string id, string correlationId) { }
 
         /// <summary>Writes a tool information entry to the log.</summary>
         /// <exception cref="InvalidOperationException">Thrown if the tool info block has already been

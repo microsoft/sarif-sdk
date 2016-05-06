@@ -11,7 +11,9 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <summary>
         /// Initialize the current output log.
         /// </summary>
-        void Initialize();
+        /// <param name="id">A string that uniquely identifies a run.</param>
+        /// <param name="correlationId">A global identifier for a run that permits correlation with a larger automation process.</param> 
+        void Initialize(string id, string correlationId);
 
         /// <summary>Writes tool information to the log.</summary>
         /// <exception cref="IOException">A file IO error occured. Clients implementing
