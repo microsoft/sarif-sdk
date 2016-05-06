@@ -605,8 +605,8 @@
           "items": {
             "description": "A flag value indicating one or more suppression conditions.",
             "enum": [
-              "suppressedInSource",
-              "suppressedInBaseline"
+              "suppressed",
+              "suppressedInSource"
             ]
           }
         },
