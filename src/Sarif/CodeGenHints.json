@@ -2,11 +2,29 @@
   "AnnotatedCodeLocation.Properties": [
     {
       "kind": "DictionaryHint"
+    },
+    {
+      "kind": "AttributeHint",
+      "arguments": {
+        "typeName": "Newtonsoft.Json.JsonProperty",
+        "properties": {
+          "DefaultValueHandling": "Newtonsoft.Json.DefaultValueHandling.Ignore"
+        }
+      }
     }
   ],
   "CodeFlow.Properties": [
     {
       "kind": "DictionaryHint"
+    },
+    {
+      "kind": "AttributeHint",
+      "arguments": {
+        "typeName": "Newtonsoft.Json.JsonProperty",
+        "properties": {
+          "DefaultValueHandling": "Newtonsoft.Json.DefaultValueHandling.Ignore"
+        }
+      }
     }
   ],
   "exception": [
@@ -20,6 +38,15 @@
   "ExceptionData.Properties": [
     {
       "kind": "DictionaryHint"
+    },
+    {
+      "kind": "AttributeHint",
+      "arguments": {
+        "typeName": "Newtonsoft.Json.JsonProperty",
+        "properties": {
+          "DefaultValueHandling": "Newtonsoft.Json.DefaultValueHandling.Ignore"
+        }
+      }
     }
   ],
   "file": [
@@ -33,16 +60,62 @@
   "FileData.Properties": [
     {
       "kind": "DictionaryHint"
+    },
+    {
+      "kind": "AttributeHint",
+      "arguments": {
+        "typeName": "Newtonsoft.Json.JsonProperty",
+        "properties": {
+          "DefaultValueHandling": "Newtonsoft.Json.DefaultValueHandling.Ignore"
+        }
+      }
+    }
+  ],
+  "Invocation.EnvironmentVariables": [
+    {
+      "kind": "DictionaryHint"
+    }
+  ],
+  "Invocation.Properties": [
+    {
+      "kind": "DictionaryHint"
+    },
+    {
+      "kind": "AttributeHint",
+      "arguments": {
+        "typeName": "Newtonsoft.Json.JsonProperty",
+        "properties": {
+          "DefaultValueHandling": "Newtonsoft.Json.DefaultValueHandling.Ignore"
+        }
+      }
     }
   ],
   "Location.Properties": [
     {
       "kind": "DictionaryHint"
+    },
+    {
+      "kind": "AttributeHint",
+      "arguments": {
+        "typeName": "Newtonsoft.Json.JsonProperty",
+        "properties": {
+          "DefaultValueHandling": "Newtonsoft.Json.DefaultValueHandling.Ignore"
+        }
+      }
     }
   ],
   "Notification.Properties": [
     {
       "kind": "DictionaryHint"
+    },
+    {
+      "kind": "AttributeHint",
+      "arguments": {
+        "typeName": "Newtonsoft.Json.JsonProperty",
+        "properties": {
+          "DefaultValueHandling": "Newtonsoft.Json.DefaultValueHandling.Ignore"
+        }
+      }
     }
   ],
   "Result.BaselineState": [
@@ -77,6 +150,15 @@
   "Result.Properties": [
     {
       "kind": "DictionaryHint"
+    },
+    {
+      "kind": "AttributeHint",
+      "arguments": {
+        "typeName": "Newtonsoft.Json.JsonProperty",
+        "properties": {
+          "DefaultValueHandling": "Newtonsoft.Json.DefaultValueHandling.Ignore"
+        }
+      }
     }
   ],
   "Rule.DefaultLevel": [
@@ -104,6 +186,15 @@
   "Rule.Properties": [
     {
       "kind": "DictionaryHint"
+    },
+    {
+      "kind": "AttributeHint",
+      "arguments": {
+        "typeName": "Newtonsoft.Json.JsonProperty",
+        "properties": {
+          "DefaultValueHandling": "Newtonsoft.Json.DefaultValueHandling.Ignore"
+        }
+      }
     }
   ],
   "Run.Files": [
@@ -119,14 +210,18 @@
   "Run.Properties": [
     {
       "kind": "DictionaryHint"
+    },
+    {
+      "kind": "AttributeHint",
+      "arguments": {
+        "typeName": "Newtonsoft.Json.JsonProperty",
+        "properties": {
+          "DefaultValueHandling": "Newtonsoft.Json.DefaultValueHandling.Ignore"
+        }
+      }
     }
   ],
   "Run.Rules": [
-    {
-      "kind": "DictionaryHint"
-    }
-  ],
-  "Invocation.EnvironmentVariables": [
     {
       "kind": "DictionaryHint"
     }
@@ -155,11 +250,29 @@
   "Stack.Properties": [
     {
       "kind": "DictionaryHint"
+    },
+    {
+      "kind": "AttributeHint",
+      "arguments": {
+        "typeName": "Newtonsoft.Json.JsonProperty",
+        "properties": {
+          "DefaultValueHandling": "Newtonsoft.Json.DefaultValueHandling.Ignore"
+        }
+      }
     }
   ],
   "StackFrame.Properties": [
     {
       "kind": "DictionaryHint"
+    },
+    {
+      "kind": "AttributeHint",
+      "arguments": {
+        "typeName": "Newtonsoft.Json.JsonProperty",
+        "properties": {
+          "DefaultValueHandling": "Newtonsoft.Json.DefaultValueHandling.Ignore"
+        }
+      }
     }
   ],
   "Hash.Algorithm": [
@@ -243,6 +356,15 @@
   "Tool.Properties": [
     {
       "kind": "DictionaryHint"
+    },
+    {
+      "kind": "AttributeHint",
+      "arguments": {
+        "typeName": "Newtonsoft.Json.JsonProperty",
+        "properties": {
+          "DefaultValueHandling": "Newtonsoft.Json.DefaultValueHandling.Ignore"
+        }
+      }
     }
   ]
 }

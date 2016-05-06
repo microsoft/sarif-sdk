@@ -10,7 +10,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// <summary>
     /// Defines methods to support the comparison of objects of type Invocation for equality.
     /// </summary>
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.22.0.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.24.0.0")]
     internal sealed class InvocationEqualityComparer : IEqualityComparer<Invocation>
     {
         internal static readonly InvocationEqualityComparer Instance = new InvocationEqualityComparer();
@@ -89,9 +89,26 @@ namespace Microsoft.CodeAnalysis.Sarif
                 }
             }
 
-            if (!Object.Equals(left.Properties, right.Properties))
+            if (!Object.ReferenceEquals(left.Properties, right.Properties))
             {
-                return false;
+                if (left.Properties == null || right.Properties == null || left.Properties.Count != right.Properties.Count)
+                {
+                    return false;
+                }
+
+                foreach (var value_2 in left.Properties)
+                {
+                    string value_3;
+                    if (!right.Properties.TryGetValue(value_2.Key, out value_3))
+                    {
+                        return false;
+                    }
+
+                    if (value_2.Value != value_3)
+                    {
+                        return false;
+                    }
+                }
             }
 
             if (!Object.ReferenceEquals(left.Tags, right.Tags))
@@ -160,12 +177,12 @@ namespace Microsoft.CodeAnalysis.Sarif
                 {
                     // Use xor for dictionaries to be order-independent.
                     int xor_0 = 0;
-                    foreach (var value_2 in obj.EnvironmentVariables)
+                    foreach (var value_4 in obj.EnvironmentVariables)
                     {
-                        xor_0 ^= value_2.Key.GetHashCode();
-                        if (value_2.Value != null)
+                        xor_0 ^= value_4.Key.GetHashCode();
+                        if (value_4.Value != null)
                         {
-                            xor_0 ^= value_2.Value.GetHashCode();
+                            xor_0 ^= value_4.Value.GetHashCode();
                         }
                     }
 
@@ -174,17 +191,28 @@ namespace Microsoft.CodeAnalysis.Sarif
 
                 if (obj.Properties != null)
                 {
-                    result = (result * 31) + obj.Properties.GetHashCode();
+                    // Use xor for dictionaries to be order-independent.
+                    int xor_1 = 0;
+                    foreach (var value_5 in obj.Properties)
+                    {
+                        xor_1 ^= value_5.Key.GetHashCode();
+                        if (value_5.Value != null)
+                        {
+                            xor_1 ^= value_5.Value.GetHashCode();
+                        }
+                    }
+
+                    result = (result * 31) + xor_1;
                 }
 
                 if (obj.Tags != null)
                 {
-                    foreach (var value_3 in obj.Tags)
+                    foreach (var value_6 in obj.Tags)
                     {
                         result = result * 31;
-                        if (value_3 != null)
+                        if (value_6 != null)
                         {
-                            result = (result * 31) + value_3.GetHashCode();
+                            result = (result * 31) + value_6.GetHashCode();
                         }
                     }
                 }

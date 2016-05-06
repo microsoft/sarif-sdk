@@ -10,7 +10,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// <summary>
     /// Defines methods to support the comparison of objects of type CodeFlow for equality.
     /// </summary>
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.22.0.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.24.0.0")]
     internal sealed class CodeFlowEqualityComparer : IEqualityComparer<CodeFlow>
     {
         internal static readonly CodeFlowEqualityComparer Instance = new CodeFlowEqualityComparer();

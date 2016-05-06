@@ -12,7 +12,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// The runtime environment of the analysis tool run.
     /// </summary>
     [DataContract]
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.22.0.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.24.0.0")]
     public partial class Invocation : ISarifNode
     {
         public static IEqualityComparer<Invocation> ValueComparer => InvocationEqualityComparer.Instance;
@@ -89,7 +89,8 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// Key/value pairs that provide additional information about the run.
         /// </summary>
         [DataMember(Name = "properties", IsRequired = false, EmitDefaultValue = false)]
-        public object Properties { get; set; }
+        [Newtonsoft.Json.JsonProperty(DefaultValueHandling = Newtonsoft.Json.DefaultValueHandling.Ignore)]
+        public IDictionary<string, string> Properties { get; set; }
 
         /// <summary>
         /// A set of distinct strings that provide additional information about the run.
@@ -140,7 +141,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="tags">
         /// An initialization value for the <see cref="P: Tags" /> property.
         /// </param>
-        public Invocation(string commandLine, DateTime startTime, DateTime endTime, string machine, string account, int processId, string fileName, string workingDirectory, IDictionary<string, string> environmentVariables, object properties, IEnumerable<string> tags)
+        public Invocation(string commandLine, DateTime startTime, DateTime endTime, string machine, string account, int processId, string fileName, string workingDirectory, IDictionary<string, string> environmentVariables, IDictionary<string, string> properties, IEnumerable<string> tags)
         {
             Init(commandLine, startTime, endTime, machine, account, processId, fileName, workingDirectory, environmentVariables, properties, tags);
         }
@@ -182,7 +183,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new Invocation(this);
         }
 
-        private void Init(string commandLine, DateTime startTime, DateTime endTime, string machine, string account, int processId, string fileName, string workingDirectory, IDictionary<string, string> environmentVariables, object properties, IEnumerable<string> tags)
+        private void Init(string commandLine, DateTime startTime, DateTime endTime, string machine, string account, int processId, string fileName, string workingDirectory, IDictionary<string, string> environmentVariables, IDictionary<string, string> properties, IEnumerable<string> tags)
         {
             CommandLine = commandLine;
             StartTime = startTime;
@@ -197,7 +198,11 @@ namespace Microsoft.CodeAnalysis.Sarif
                 EnvironmentVariables = new Dictionary<string, string>(environmentVariables);
             }
 
-            Properties = properties;
+            if (properties != null)
+            {
+                Properties = new Dictionary<string, string>(properties);
+            }
+
             if (tags != null)
             {
                 var destination_0 = new List<string>();

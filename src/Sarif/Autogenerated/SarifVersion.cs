@@ -8,7 +8,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// <summary>
     /// Possible values for the SARIF schema version.
     /// </summary>
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.22.0.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.24.0.0")]
     public enum SarifVersion
     {
         Unknown,

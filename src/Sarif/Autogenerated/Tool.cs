@@ -12,7 +12,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// The analysis tool that was run.
     /// </summary>
     [DataContract]
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.22.0.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.24.0.0")]
     public partial class Tool : ISarifNode
     {
         public static IEqualityComparer<Tool> ValueComparer => ToolEqualityComparer.Instance;
@@ -71,6 +71,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// Key/value pairs that provide additional information about the tool.
         /// </summary>
         [DataMember(Name = "properties", IsRequired = false, EmitDefaultValue = false)]
+        [Newtonsoft.Json.JsonProperty(DefaultValueHandling = Newtonsoft.Json.DefaultValueHandling.Ignore)]
         public IDictionary<string, string> Properties { get; set; }
 
         /// <summary>
