@@ -8,7 +8,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// <summary>
     /// Values specifying the level of a notification.
     /// </summary>
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.24.0.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.27.0.0")]
     public enum NotificationLevel
     {
         Unknown,

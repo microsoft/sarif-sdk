@@ -1,15 +1,35 @@
 {
+  "annotatedCodeLocation": [
+    {
+      "kind": "BaseTypeHint",
+      "arguments": {
+        "baseTypeNames": [
+          "PropertyBagHolder"
+        ]
+      }
+    }
+  ],
   "AnnotatedCodeLocation.Properties": [
     {
       "kind": "DictionaryHint"
     },
     {
-      "kind": "AttributeHint",
+      "kind": "PropertyModifiersHint",
       "arguments": {
-        "typeName": "Newtonsoft.Json.JsonProperty",
-        "properties": {
-          "DefaultValueHandling": "Newtonsoft.Json.DefaultValueHandling.Ignore"
-        }
+        "modifiers": [
+          "public",
+          "override"
+        ]
+      }
+    }
+  ],
+  "codeFlow": [
+    {
+      "kind": "BaseTypeHint",
+      "arguments": {
+        "baseTypeNames": [
+          "PropertyBagHolder"
+        ]
       }
     }
   ],
@@ -18,12 +38,12 @@
       "kind": "DictionaryHint"
     },
     {
-      "kind": "AttributeHint",
+      "kind": "PropertyModifiersHint",
       "arguments": {
-        "typeName": "Newtonsoft.Json.JsonProperty",
-        "properties": {
-          "DefaultValueHandling": "Newtonsoft.Json.DefaultValueHandling.Ignore"
-        }
+        "modifiers": [
+          "public",
+          "override"
+        ]
       }
     }
   ],
@@ -35,20 +55,6 @@
       }
     }
   ],
-  "ExceptionData.Properties": [
-    {
-      "kind": "DictionaryHint"
-    },
-    {
-      "kind": "AttributeHint",
-      "arguments": {
-        "typeName": "Newtonsoft.Json.JsonProperty",
-        "properties": {
-          "DefaultValueHandling": "Newtonsoft.Json.DefaultValueHandling.Ignore"
-        }
-      }
-    }
-  ],
   "file": [
     {
       "kind": "ClassNameHint",
@@ -57,221 +63,27 @@
       }
     }
   ],
+  "fileData": [
+    {
+      "kind": "BaseTypeHint",
+      "arguments": {
+        "baseTypeNames": [
+          "PropertyBagHolder"
+        ]
+      }
+    }
+  ],
   "FileData.Properties": [
     {
       "kind": "DictionaryHint"
     },
     {
-      "kind": "AttributeHint",
+      "kind": "PropertyModifiersHint",
       "arguments": {
-        "typeName": "Newtonsoft.Json.JsonProperty",
-        "properties": {
-          "DefaultValueHandling": "Newtonsoft.Json.DefaultValueHandling.Ignore"
-        }
-      }
-    }
-  ],
-  "Invocation.EnvironmentVariables": [
-    {
-      "kind": "DictionaryHint"
-    }
-  ],
-  "Invocation.Properties": [
-    {
-      "kind": "DictionaryHint"
-    },
-    {
-      "kind": "AttributeHint",
-      "arguments": {
-        "typeName": "Newtonsoft.Json.JsonProperty",
-        "properties": {
-          "DefaultValueHandling": "Newtonsoft.Json.DefaultValueHandling.Ignore"
-        }
-      }
-    }
-  ],
-  "Location.Properties": [
-    {
-      "kind": "DictionaryHint"
-    },
-    {
-      "kind": "AttributeHint",
-      "arguments": {
-        "typeName": "Newtonsoft.Json.JsonProperty",
-        "properties": {
-          "DefaultValueHandling": "Newtonsoft.Json.DefaultValueHandling.Ignore"
-        }
-      }
-    }
-  ],
-  "Notification.Properties": [
-    {
-      "kind": "DictionaryHint"
-    },
-    {
-      "kind": "AttributeHint",
-      "arguments": {
-        "typeName": "Newtonsoft.Json.JsonProperty",
-        "properties": {
-          "DefaultValueHandling": "Newtonsoft.Json.DefaultValueHandling.Ignore"
-        }
-      }
-    }
-  ],
-  "Result.BaselineState": [
-    {
-      "kind": "EnumHint",
-      "arguments": {
-        "typeName": "BaselineState",
-        "description": "The state of a result relative to a baseline of a previous run.",
-        "zeroValue": "None",
-        "enumValues": [
-          "Existing",
-          "New",
-          "Absent"
+        "modifiers": [
+          "public",
+          "override"
         ]
-      }
-    }
-  ],
-  "Result.SuppressionStates": [
-    {
-      "kind": "EnumHint",
-      "arguments": {
-        "typeName": "SuppressionStates",
-        "description": "The state of a result relative to a baseline of a previous run.",
-        "zeroValue": "None",
-        "enumValues": [
-          "SuppressedInSource",
-          "SuppressedInBaseline"
-        ]
-      }
-    }
-  ],
-  "Result.Properties": [
-    {
-      "kind": "DictionaryHint"
-    },
-    {
-      "kind": "AttributeHint",
-      "arguments": {
-        "typeName": "Newtonsoft.Json.JsonProperty",
-        "properties": {
-          "DefaultValueHandling": "Newtonsoft.Json.DefaultValueHandling.Ignore"
-        }
-      }
-    }
-  ],
-  "Rule.DefaultLevel": [
-    {
-      "kind": "EnumHint",
-      "arguments": {
-        "typeName": "ResultLevel",
-        "description": "Values specifying the level of a result.",
-        "zeroValue": "Unknown",
-        "enumValues": [
-          "NotApplicable",
-          "Pass",
-          "Note",
-          "Warning",
-          "Error"
-        ]
-      }
-    }
-  ],
-  "Rule.MessageFormats": [
-    {
-      "kind": "DictionaryHint"
-    }
-  ],
-  "Rule.Properties": [
-    {
-      "kind": "DictionaryHint"
-    },
-    {
-      "kind": "AttributeHint",
-      "arguments": {
-        "typeName": "Newtonsoft.Json.JsonProperty",
-        "properties": {
-          "DefaultValueHandling": "Newtonsoft.Json.DefaultValueHandling.Ignore"
-        }
-      }
-    }
-  ],
-  "Run.Files": [
-    {
-      "kind": "DictionaryHint"
-    }
-  ],
-  "Run.LogicalLocations": [
-    {
-      "kind": "DictionaryHint"
-    }
-  ],
-  "Run.Properties": [
-    {
-      "kind": "DictionaryHint"
-    },
-    {
-      "kind": "AttributeHint",
-      "arguments": {
-        "typeName": "Newtonsoft.Json.JsonProperty",
-        "properties": {
-          "DefaultValueHandling": "Newtonsoft.Json.DefaultValueHandling.Ignore"
-        }
-      }
-    }
-  ],
-  "Run.Rules": [
-    {
-      "kind": "DictionaryHint"
-    }
-  ],
-  "rule": [
-    {
-      "kind": "InterfaceHint",
-      "arguments": {
-        "description": "Interface exposed by objects that provide information about analysis rules."
-      }
-    }
-  ],
-  "SarifLog.Version": [
-    {
-      "kind": "EnumHint",
-      "arguments": {
-        "typeName": "SarifVersion",
-        "description": "Possible values for the SARIF schema version.",
-        "zeroValue": "Unknown",
-        "enumValues": [
-          "OneZeroZeroBetaFour"
-        ]
-      }
-    }
-  ],
-  "Stack.Properties": [
-    {
-      "kind": "DictionaryHint"
-    },
-    {
-      "kind": "AttributeHint",
-      "arguments": {
-        "typeName": "Newtonsoft.Json.JsonProperty",
-        "properties": {
-          "DefaultValueHandling": "Newtonsoft.Json.DefaultValueHandling.Ignore"
-        }
-      }
-    }
-  ],
-  "StackFrame.Properties": [
-    {
-      "kind": "DictionaryHint"
-    },
-    {
-      "kind": "AttributeHint",
-      "arguments": {
-        "typeName": "Newtonsoft.Json.JsonProperty",
-        "properties": {
-          "DefaultValueHandling": "Newtonsoft.Json.DefaultValueHandling.Ignore"
-        }
       }
     }
   ],
@@ -321,6 +133,69 @@
       }
     }
   ],
+  "invocation": [
+    {
+      "kind": "BaseTypeHint",
+      "arguments": {
+        "baseTypeNames": [
+          "PropertyBagHolder"
+        ]
+      }
+    }
+  ],
+  "Invocation.EnvironmentVariables": [
+    {
+      "kind": "DictionaryHint"
+    }
+  ],
+  "Invocation.Properties": [
+    {
+      "kind": "DictionaryHint"
+    },
+    {
+      "kind": "PropertyModifiersHint",
+      "arguments": {
+        "modifiers": [
+          "public",
+          "override"
+        ]
+      }
+    }
+  ],
+  "location": [
+    {
+      "kind": "BaseTypeHint",
+      "arguments": {
+        "baseTypeNames": [
+          "PropertyBagHolder"
+        ]
+      }
+    }
+  ],
+  "Location.Properties": [
+    {
+      "kind": "DictionaryHint"
+    },
+    {
+      "kind": "PropertyModifiersHint",
+      "arguments": {
+        "modifiers": [
+          "public",
+          "override"
+        ]
+      }
+    }
+  ],
+  "notification": [
+    {
+      "kind": "BaseTypeHint",
+      "arguments": {
+        "baseTypeNames": [
+          "PropertyBagHolder"
+        ]
+      }
+    }
+  ],
   "Notification.Level": [
     {
       "kind": "EnumHint",
@@ -332,6 +207,45 @@
           "Note",
           "Warning",
           "Error"
+        ]
+      }
+    }
+  ],
+  "Notification.Properties": [
+    {
+      "kind": "DictionaryHint"
+    },
+    {
+      "kind": "PropertyModifiersHint",
+      "arguments": {
+        "modifiers": [
+          "public",
+          "override"
+        ]
+      }
+    }
+  ],
+  "result": [
+    {
+      "kind": "BaseTypeHint",
+      "arguments": {
+        "baseTypeNames": [
+          "PropertyBagHolder"
+        ]
+      }
+    }
+  ],
+  "Result.BaselineState": [
+    {
+      "kind": "EnumHint",
+      "arguments": {
+        "typeName": "BaselineState",
+        "description": "The state of a result relative to a baseline of a previous run.",
+        "zeroValue": "None",
+        "enumValues": [
+          "Existing",
+          "New",
+          "Absent"
         ]
       }
     }
@@ -353,17 +267,183 @@
       }
     }
   ],
+  "Result.SuppressionStates": [
+    {
+      "kind": "EnumHint",
+      "arguments": {
+        "typeName": "SuppressionStates",
+        "description": "The state of a result relative to a baseline of a previous run.",
+        "zeroValue": "None",
+        "enumValues": [
+          "SuppressedInSource",
+          "SuppressedInBaseline"
+        ]
+      }
+    }
+  ],
+  "Result.Properties": [
+    {
+      "kind": "DictionaryHint"
+    },
+    {
+      "kind": "PropertyModifiersHint",
+      "arguments": {
+        "modifiers": [
+          "public",
+          "override"
+        ]
+      }
+    }
+  ],
+  "rule": [
+    {
+      "kind": "InterfaceHint",
+      "arguments": {
+        "description": "Interface exposed by objects that provide information about analysis rules."
+      }
+    },
+    {
+      "kind": "BaseTypeHint",
+      "arguments": {
+        "baseTypeNames": [
+          "PropertyBagHolder"
+        ]
+      }
+    }
+  ],
+  "Rule.DefaultLevel": [
+    {
+      "kind": "EnumHint",
+      "arguments": {
+        "typeName": "ResultLevel",
+        "description": "Values specifying the level of a result.",
+        "zeroValue": "Unknown",
+        "enumValues": [
+          "NotApplicable",
+          "Pass",
+          "Note",
+          "Warning",
+          "Error"
+        ]
+      }
+    }
+  ],
+  "Rule.MessageFormats": [
+    {
+      "kind": "DictionaryHint"
+    }
+  ],
+  "Rule.Properties": [
+    {
+      "kind": "DictionaryHint"
+    },
+    {
+      "kind": "PropertyModifiersHint",
+      "arguments": {
+        "modifiers": [
+          "public",
+          "override"
+        ]
+      }
+    }
+  ],
+  "Run.Files": [
+    {
+      "kind": "DictionaryHint"
+    }
+  ],
+  "Run.LogicalLocations": [
+    {
+      "kind": "DictionaryHint"
+    }
+  ],
+  "Run.Rules": [
+    {
+      "kind": "DictionaryHint"
+    }
+  ],
+  "SarifLog.Version": [
+    {
+      "kind": "EnumHint",
+      "arguments": {
+        "typeName": "SarifVersion",
+        "description": "Possible values for the SARIF schema version.",
+        "zeroValue": "Unknown",
+        "enumValues": [
+          "OneZeroZeroBetaFour"
+        ]
+      }
+    }
+  ],
+  "stack": [
+    {
+      "kind": "BaseTypeHint",
+      "arguments": {
+        "baseTypeNames": [
+          "PropertyBagHolder"
+        ]
+      }
+    }
+  ],
+  "Stack.Properties": [
+    {
+      "kind": "DictionaryHint"
+    },
+    {
+      "kind": "PropertyModifiersHint",
+      "arguments": {
+        "modifiers": [
+          "public",
+          "override"
+        ]
+      }
+    }
+  ],
+  "stackFrame": [
+    {
+      "kind": "BaseTypeHint",
+      "arguments": {
+        "baseTypeNames": [
+          "PropertyBagHolder"
+        ]
+      }
+    }
+  ],
+  "StackFrame.Properties": [
+    {
+      "kind": "DictionaryHint"
+    },
+    {
+      "kind": "PropertyModifiersHint",
+      "arguments": {
+        "modifiers": [
+          "public",
+          "override"
+        ]
+      }
+    }
+  ],
+  "tool": [
+    {
+      "kind": "BaseTypeHint",
+      "arguments": {
+        "baseTypeNames": [
+          "PropertyBagHolder"
+        ]
+      }
+    }
+  ],
   "Tool.Properties": [
     {
       "kind": "DictionaryHint"
     },
     {
-      "kind": "AttributeHint",
+      "kind": "PropertyModifiersHint",
       "arguments": {
-        "typeName": "Newtonsoft.Json.JsonProperty",
-        "properties": {
-          "DefaultValueHandling": "Newtonsoft.Json.DefaultValueHandling.Ignore"
-        }
+        "modifiers": [
+          "public",
+          "override"
+        ]
       }
     }
   ]

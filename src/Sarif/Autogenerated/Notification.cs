@@ -12,8 +12,8 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// Describes a condition relevant to the tool itself, as opposed to being relevant to a target being analyzed by the tool.
     /// </summary>
     [DataContract]
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.24.0.0")]
-    public partial class Notification : ISarifNode
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.27.0.0")]
+    public partial class Notification : PropertyBagHolder, ISarifNode
     {
         public static IEqualityComparer<Notification> ValueComparer => NotificationEqualityComparer.Instance;
 
@@ -77,8 +77,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// Key/value pairs that provide additional information about the notification.
         /// </summary>
         [DataMember(Name = "properties", IsRequired = false, EmitDefaultValue = false)]
-        [Newtonsoft.Json.JsonProperty(DefaultValueHandling = Newtonsoft.Json.DefaultValueHandling.Ignore)]
-        public IDictionary<string, string> Properties { get; set; }
+        public override IDictionary<string, string> Properties { get; set; }
 
         /// <summary>
         /// A set of distinct strings that provide additional information about the notification.

@@ -12,8 +12,8 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// A call stack that is relevant to a result.
     /// </summary>
     [DataContract]
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.24.0.0")]
-    public partial class Stack : ISarifNode
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.27.0.0")]
+    public partial class Stack : PropertyBagHolder, ISarifNode
     {
         public static IEqualityComparer<Stack> ValueComparer => StackEqualityComparer.Instance;
 
@@ -47,8 +47,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// Key/value pairs that provide additional information about the stack.
         /// </summary>
         [DataMember(Name = "properties", IsRequired = false, EmitDefaultValue = false)]
-        [Newtonsoft.Json.JsonProperty(DefaultValueHandling = Newtonsoft.Json.DefaultValueHandling.Ignore)]
-        public IDictionary<string, string> Properties { get; set; }
+        public override IDictionary<string, string> Properties { get; set; }
 
         /// <summary>
         /// A unique set of strings that provide additional information about the stack.

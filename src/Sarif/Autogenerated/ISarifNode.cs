@@ -8,7 +8,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// <summary>
     /// An interface for all types generated from the Sarif schema.
     /// </summary>
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.24.0.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.27.0.0")]
     public interface ISarifNode
     {
         /// <summary>

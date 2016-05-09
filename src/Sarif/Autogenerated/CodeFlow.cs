@@ -9,8 +9,8 @@ using System.Runtime.Serialization;
 namespace Microsoft.CodeAnalysis.Sarif
 {
     [DataContract]
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.24.0.0")]
-    public partial class CodeFlow : ISarifNode
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.27.0.0")]
+    public partial class CodeFlow : PropertyBagHolder, ISarifNode
     {
         public static IEqualityComparer<CodeFlow> ValueComparer => CodeFlowEqualityComparer.Instance;
 
@@ -44,8 +44,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// Key/value pairs that provide additional information about the code flow.
         /// </summary>
         [DataMember(Name = "properties", IsRequired = false, EmitDefaultValue = false)]
-        [Newtonsoft.Json.JsonProperty(DefaultValueHandling = Newtonsoft.Json.DefaultValueHandling.Ignore)]
-        public IDictionary<string, string> Properties { get; set; }
+        public override IDictionary<string, string> Properties { get; set; }
 
         /// <summary>
         /// A unique set of strings that provide additional information about the code flow.

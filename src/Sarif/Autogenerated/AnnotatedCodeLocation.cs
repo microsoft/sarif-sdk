@@ -12,8 +12,8 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// A code annotation that consists of single physical location and associated message, used to express code flows through a method, or other locations that are related to a result.
     /// </summary>
     [DataContract]
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.24.0.0")]
-    public partial class AnnotatedCodeLocation : ISarifNode
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.27.0.0")]
+    public partial class AnnotatedCodeLocation : PropertyBagHolder, ISarifNode
     {
         public static IEqualityComparer<AnnotatedCodeLocation> ValueComparer => AnnotatedCodeLocationEqualityComparer.Instance;
 
@@ -47,8 +47,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// Key/value pairs that provide additional information about the code location.
         /// </summary>
         [DataMember(Name = "properties", IsRequired = false, EmitDefaultValue = false)]
-        [Newtonsoft.Json.JsonProperty(DefaultValueHandling = Newtonsoft.Json.DefaultValueHandling.Ignore)]
-        public IDictionary<string, string> Properties { get; set; }
+        public override IDictionary<string, string> Properties { get; set; }
 
         /// <summary>
         /// A unique set of strings that provide additional information about the code location.

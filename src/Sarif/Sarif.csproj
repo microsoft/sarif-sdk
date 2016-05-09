@@ -47,6 +47,7 @@
     <Compile Include="Core\FileData.cs" />
     <Compile Include="Core\Invocation.cs" />
     <Compile Include="Core\ExceptionData.cs" />
+    <Compile Include="Core\PropertyBagHolder.cs" />
     <Compile Include="Core\Stack.cs" />
     <Compile Include="Core\StackFrame.cs" />
     <Compile Include="Core\Tool.cs" />
