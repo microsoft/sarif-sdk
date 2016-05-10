@@ -10,7 +10,7 @@ using Newtonsoft.Json;
 
 namespace Microsoft.CodeAnalysis.Sarif.Core
 {
-    internal class PropertyBagHolderTestClass : PropertyBagHolder
+    internal class ConverterTestClass : PropertyBagHolder
     {
         internal override IDictionary<string, SerializedPropertyInfo> Properties { get; set; }
     }
@@ -19,9 +19,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Core
     public class PropertyBagConverterTests
     {
         private string _input;
-        private PropertyBagHolderTestClass _inputObject;
+        private ConverterTestClass _inputObject;
         private string _output;
-        private PropertyBagHolderTestClass _roundTrippedObject;
+        private ConverterTestClass _roundTrippedObject;
 
         [TestMethod]
         public void PropertyBagConverter_RoundTripsStringValuedProperty()
@@ -113,9 +113,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Core
 
         private void PerformRoundTrip()
         {
-            _inputObject = JsonConvert.DeserializeObject<PropertyBagHolderTestClass>(_input);
+            _inputObject = JsonConvert.DeserializeObject<ConverterTestClass>(_input);
             _output = JsonConvert.SerializeObject(_inputObject);
-            _roundTrippedObject = JsonConvert.DeserializeObject<PropertyBagHolderTestClass>(_output);
+            _roundTrippedObject = JsonConvert.DeserializeObject<ConverterTestClass>(_output);
 
             _output.Should().Be(_input);
         }
