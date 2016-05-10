@@ -1,0 +1,30 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<DEFECTS><DEFECT><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test169.cpp</FILENAME><LINE>21</LINE><COLUMN>4</COLUMN></SFA><DEFECTCODE>26061</DEFECTCODE><DESCRIPTION>Range postcondition violation
+PREFAST_NEWLINE
+The function has a __success annotation that is satisfied
+PREFAST_NEWLINE
+Annotation on function MyAPI3 requires that * p == _Old_((* p)) + 1
+PREFAST_NEWLINE
+[Annotation SAL_satisfies(* p == _Old_((* p)) + 1) at c:\somepath\test169.cpp(19)]
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+Values of variables:
+PREFAST_NEWLINE
+(*p) = (*p)`19
+PREFAST_NEWLINE
+</DESCRIPTION><FUNCTION>MyAPI3</FUNCTION><DECORATED>?MyAPI3@@YAJPAH@Z</DECORATED><FUNCLINE>19</FUNCLINE><PATH><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test169.cpp</FILENAME><LINE>19</LINE><COLUMN>8</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test169.cpp</FILENAME><LINE>21</LINE><COLUMN>4</COLUMN></SFA></PATH></DEFECT><DEFECT><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test169.cpp</FILENAME><LINE>27</LINE><COLUMN>4</COLUMN></SFA><DEFECTCODE>26061</DEFECTCODE><DESCRIPTION>Range postcondition violation
+PREFAST_NEWLINE
+The function has a __success annotation that is satisfied
+PREFAST_NEWLINE
+Annotation on function MyAPI4 requires that * p is == _Old_((* p)) + 1
+PREFAST_NEWLINE
+[Annotation SAL_relop("==", _Old_((* p)) + 1) at c:\somepath\test169.cpp(25)]
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+Values of variables:
+PREFAST_NEWLINE
+(*p) = (*p)`25
+PREFAST_NEWLINE
+</DESCRIPTION><FUNCTION>MyAPI4</FUNCTION><DECORATED>?MyAPI4@@YAJPAH@Z</DECORATED><FUNCLINE>25</FUNCLINE><PATH><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test169.cpp</FILENAME><LINE>25</LINE><COLUMN>8</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test169.cpp</FILENAME><LINE>27</LINE><COLUMN>4</COLUMN></SFA></PATH></DEFECT></DEFECTS>

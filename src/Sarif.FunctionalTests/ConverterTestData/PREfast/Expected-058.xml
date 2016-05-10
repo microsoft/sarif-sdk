@@ -1,0 +1,60 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<DEFECTS><DEFECT><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test058.cpp</FILENAME><LINE>11</LINE><COLUMN>12</COLUMN></SFA><DEFECTCODE>26019</DEFECTCODE><DESCRIPTION>Potential read overflow using expression 'acBits[iMax &gt;&gt; 8 &amp; 255]'
+PREFAST_NEWLINE
+This is likely to be due to incorrect or insufficient validation of the buffer access
+PREFAST_NEWLINE
+Buffer accessed is acBits
+PREFAST_NEWLINE
+Buffer is of length 16 elements (4 bytes/element) [size of variable]
+PREFAST_NEWLINE
+Accessing the element (4 bytes/element) at element offset {iMax &gt;&gt; 8 &amp; 255}`11
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+Values of variables:
+PREFAST_NEWLINE
+iMax = iMax`2
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+where
+PREFAST_NEWLINE
+{iMax &amp; 61440}`8 == 0
+PREFAST_NEWLINE
+iMax`2 == 256*{iMax &gt;&gt; 8}`11 + {(iMax`2) % 256}`11
+PREFAST_NEWLINE
+iMax`2 &lt;= 65535
+PREFAST_NEWLINE
+iMax`2 &gt;= 0
+PREFAST_NEWLINE
+{(iMax`2) % 256}`11 &lt;= 255
+PREFAST_NEWLINE
+{(iMax`2) % 256}`11 &gt;= 0
+PREFAST_NEWLINE
+{iMax &amp; 3840}`10 &lt;= 3840
+PREFAST_NEWLINE
+{iMax &amp; 3840}`10 &lt;= iMax`2
+PREFAST_NEWLINE
+{iMax &amp; 3840}`10 &gt;= 1
+PREFAST_NEWLINE
+{iMax &gt;&gt; 8 &amp; 255}`11 &lt;= 255
+PREFAST_NEWLINE
+{iMax &gt;&gt; 8 &amp; 255}`11 &lt;= {iMax &gt;&gt; 8}`11
+PREFAST_NEWLINE
+{iMax &gt;&gt; 8 &amp; 255}`11 &gt;= 0
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+Overrun access occurs when
+PREFAST_NEWLINE
+{iMax &gt;&gt; 8 &amp; 255}`11 &gt;= 16
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+There are other instances of this error:
+PREFAST_NEWLINE
+Potential read overflow using expression 'acBits[iMax &gt;&gt; 4 &amp; 255]' at line 13
+PREFAST_NEWLINE
+Potential read overflow using expression 'acBits[iMax]' at line 15
+PREFAST_NEWLINE
+</DESCRIPTION><FUNCTION>f</FUNCTION><DECORATED>?f@@YAXH@Z</DECORATED><FUNCLINE>2</FUNCLINE><PATH><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test058.cpp</FILENAME><LINE>2</LINE><COLUMN>5</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test058.cpp</FILENAME><LINE>4</LINE><COLUMN>8</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test058.cpp</FILENAME><LINE>5</LINE><COLUMN>13</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test058.cpp</FILENAME><LINE>8</LINE><COLUMN>14</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test058.cpp</FILENAME><LINE>10</LINE><COLUMN>18</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test058.cpp</FILENAME><LINE>11</LINE><COLUMN>12</COLUMN></SFA></PATH></DEFECT></DEFECTS>

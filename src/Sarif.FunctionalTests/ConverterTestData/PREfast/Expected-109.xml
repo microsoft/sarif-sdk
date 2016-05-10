@@ -1,0 +1,30 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<DEFECTS><DEFECT><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test109.cpp</FILENAME><LINE>26</LINE><COLUMN>22</COLUMN></SFA><DEFECTCODE>26017</DEFECTCODE><DESCRIPTION>Potential overflow using expression 'hpclrt-&gt;rgcv[icv]'
+PREFAST_NEWLINE
+Buffer accessed is _clrt::rgcv
+PREFAST_NEWLINE
+Buffer is of length 64 elements (4 bytes/element) [size of field]
+PREFAST_NEWLINE
+Accessing the element (4 bytes/element) at element offset icv`21
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+Values of variables:
+PREFAST_NEWLINE
+Pointer hpclrt is at offset 0 bytes from the start of hpclrt
+PREFAST_NEWLINE
+icv = icv`21
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+where
+PREFAST_NEWLINE
+icv`21 &gt;= 0
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+Overrun access occurs when
+PREFAST_NEWLINE
+icv`21 &gt;= 64
+PREFAST_NEWLINE
+</DESCRIPTION><FUNCTION>SetIcvOrgbClrt</FUNCTION><DECORATED>?SetIcvOrgbClrt@@YAXIPAJPAU_clrt@@@Z</DECORATED><FUNCLINE>21</FUNCLINE><PATH><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test109.cpp</FILENAME><LINE>21</LINE><COLUMN>5</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test109.cpp</FILENAME><LINE>23</LINE><COLUMN>7</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test109.cpp</FILENAME><LINE>24</LINE><COLUMN>18</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test109.cpp</FILENAME><LINE>26</LINE><COLUMN>22</COLUMN></SFA></PATH></DEFECT></DEFECTS>

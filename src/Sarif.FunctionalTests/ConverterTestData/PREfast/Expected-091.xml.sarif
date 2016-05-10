@@ -1,0 +1,83 @@
+{
+"version":"1.0.0-beta.4",
+"$schema":"http://json.schemastore.org/sarif-1.0.0",
+"runs":[
+  {
+    "tool":{
+      "name":"PREfast",
+      "fullName":"PREfast Code Analysis",
+      "version":"14.0.0"
+    },
+    "logicalLocations":{
+      "?RtlEncodeUtf16LE@@YA?AURTL_UCSCHAR_ENCODER_RETURN_VALUE@@EPAE0@Z":[
+        {
+          "kind":"method",
+          "name":"RtlEncodeUtf16LE"
+        }
+      ]
+    },
+    "results":[
+      {
+        "ruleId":"26061",
+        "message":"Range postcondition violation\nAnnotation on function RtlEncodeUtf16LE requires that (& result.RtlEncodeUtf16LE)->NewCursorValue >= begin && (& result.RtlEncodeUtf16LE)->NewCursorValue <= end\n[Annotation SAL_satisfies((& result.RtlEncodeUtf16LE)->NewCursorValue >= begin && (& result.RtlEncodeUtf16LE)->NewCursorValue <= end) at c:\\somepath\\test091.cpp(21)]\n\nValues of variables:\nPointer begin is at offset offset(begin)`21 bytes from the start of begin\n",
+        "locations":[
+          {
+            "resultFile":{
+              "uri":"file:///c:/somepath/test091.cpp",
+              "region":{
+                "startColumn":5,
+                "startLine":25
+              }
+            },
+            "fullyQualifiedLogicalName":"RtlEncodeUtf16LE",
+            "logicalLocationKey":"?RtlEncodeUtf16LE@@YA?AURTL_UCSCHAR_ENCODER_RETURN_VALUE@@EPAE0@Z",
+            "properties":{
+              "decorated":"?RtlEncodeUtf16LE@@YA?AURTL_UCSCHAR_ENCODER_RETURN_VALUE@@EPAE0@Z",
+              "funcline":"21"
+            }
+          }
+        ],
+        "codeFlows":[
+          {
+            "locations":[
+              {
+                "physicalLocation":{
+                  "uri":"file:///c:/somepath/test091.cpp",
+                  "region":{
+                    "startColumn":34,
+                    "startLine":21
+                  }
+                }
+              },{
+                "physicalLocation":{
+                  "uri":"file:///c:/somepath/test091.cpp",
+                  "region":{
+                    "startColumn":38,
+                    "startLine":23
+                  }
+                }
+              },{
+                "physicalLocation":{
+                  "uri":"file:///c:/somepath/test091.cpp",
+                  "region":{
+                    "startColumn":24,
+                    "startLine":24
+                  }
+                }
+              },{
+                "physicalLocation":{
+                  "uri":"file:///c:/somepath/test091.cpp",
+                  "region":{
+                    "startColumn":5,
+                    "startLine":25
+                  }
+                }
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+]
+}

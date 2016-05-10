@@ -1,0 +1,83 @@
+{
+"version":"1.0.0-beta.4",
+"$schema":"http://json.schemastore.org/sarif-1.0.0",
+"runs":[
+  {
+    "tool":{
+      "name":"PREfast",
+      "fullName":"PREfast Code Analysis",
+      "version":"14.0.0"
+    },
+    "logicalLocations":{
+      "??$?0HUuls_perf_counter_info@@X@?$pair@$$CBHUuls_perf_counter_info@@@std@@QAE@$$QAU?$pair@HUuls_perf_counter_info@@@1@@Z":[
+        {
+          "kind":"method",
+          "name":"std::pair<int const ,uls_perf_counter_info>::{ctor}"
+        }
+      ]
+    },
+    "results":[
+      {
+        "ruleId":"26035",
+        "message":"Possible precondition violation due to failure to null terminate string '& _Right->second'\nAccessing unannotated buffer (_Right->std::pair<int,uls_perf_counter_info>::second).uls_perf_counter_info::wzCounterSetName\nAssumed __inout annotation on function std::forward<uls_perf_counter_info> requires that {parameter 1}->wzCounterSetName is null terminated\n  where {parameter 1}->wzCounterSetName is & _Right->second [Field annotation SAL_nullTerminated at d:\\espsrcp\\esp\\tests\\nosal\\test181.cpp(11)]\n",
+        "locations":[
+          {
+            "resultFile":{
+              "uri":"file:///c:/somepath/utility",
+              "region":{
+                "startColumn":32,
+                "startLine":156
+              }
+            },
+            "fullyQualifiedLogicalName":"std::pair<int const ,uls_perf_counter_info>::{ctor}",
+            "logicalLocationKey":"??$?0HUuls_perf_counter_info@@X@?$pair@$$CBHUuls_perf_counter_info@@@std@@QAE@$$QAU?$pair@HUuls_perf_counter_info@@@1@@Z",
+            "properties":{
+              "decorated":"??$?0HUuls_perf_counter_info@@X@?$pair@$$CBHUuls_perf_counter_info@@@std@@QAE@$$QAU?$pair@HUuls_perf_counter_info@@@1@@Z",
+              "funcline":"152"
+            }
+          }
+        ],
+        "codeFlows":[
+          {
+            "locations":[
+              {
+                "physicalLocation":{
+                  "uri":"file:///c:/somepath/utility",
+                  "region":{
+                    "startColumn":3,
+                    "startLine":152
+                  }
+                }
+              },{
+                "physicalLocation":{
+                  "uri":"file:///c:/somepath/utility",
+                  "region":{
+                    "startColumn":32,
+                    "startLine":155
+                  }
+                }
+              },{
+                "physicalLocation":{
+                  "uri":"file:///c:/somepath/utility",
+                  "region":{
+                    "startColumn":32,
+                    "startLine":155
+                  }
+                }
+              },{
+                "physicalLocation":{
+                  "uri":"file:///c:/somepath/utility",
+                  "region":{
+                    "startColumn":32,
+                    "startLine":156
+                  }
+                }
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+]
+}

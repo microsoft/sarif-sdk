@@ -1,0 +1,67 @@
+{
+"version":"1.0.0-beta.4",
+"$schema":"http://json.schemastore.org/sarif-1.0.0",
+"runs":[
+  {
+    "tool":{
+      "name":"PREfast",
+      "fullName":"PREfast Code Analysis",
+      "version":"14.0.0"
+    },
+    "logicalLocations":{
+      "?bar@@YAXAAY01H@Z":[
+        {
+          "kind":"method",
+          "name":"bar"
+        }
+      ]
+    },
+    "results":[
+      {
+        "ruleId":"26007",
+        "message":"Possibly incorrect single element annotation on buffer\nOverflow using expression '(arr)[2]'\nBuffer arr is a parameter to this function declared on line 4\nBuffer lengths are from an assumed __inout annotation on the parameter\nBuffer is of length offset(arr)`4 + 8 bytes [from annotation valid(elementCount(1)) at c:\\somepath\\test024.cpp(4)]\nAccessing 4 bytes starting at byte offset 8\n\nValues of variables:\nPointer arr is at offset 0 bytes from the start of the buffer\n",
+        "locations":[
+          {
+            "resultFile":{
+              "uri":"file:///c:/somepath/test024.cpp",
+              "region":{
+                "startColumn":12,
+                "startLine":6
+              }
+            },
+            "fullyQualifiedLogicalName":"bar",
+            "logicalLocationKey":"?bar@@YAXAAY01H@Z",
+            "properties":{
+              "decorated":"?bar@@YAXAAY01H@Z",
+              "funcline":"4"
+            }
+          }
+        ],
+        "codeFlows":[
+          {
+            "locations":[
+              {
+                "physicalLocation":{
+                  "uri":"file:///c:/somepath/test024.cpp",
+                  "region":{
+                    "startColumn":6,
+                    "startLine":4
+                  }
+                }
+              },{
+                "physicalLocation":{
+                  "uri":"file:///c:/somepath/test024.cpp",
+                  "region":{
+                    "startColumn":12,
+                    "startLine":6
+                  }
+                }
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+]
+}

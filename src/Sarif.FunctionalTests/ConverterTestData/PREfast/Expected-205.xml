@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<DEFECTS>
+  <DEFECT>
+    <SFA>
+      <FILEPATH>c:\somepath\</FILEPATH>
+      <FILENAME>test205.cpp</FILENAME>
+      <LINE>22</LINE>
+      <COLUMN>12</COLUMN>
+    </SFA>
+    <DEFECTCODE>26014</DEFECTCODE>
+    <DESCRIPTION>Potential read overflow using expression 'a[idx]'
+PREFAST_NEWLINE
+This is likely to be due to incorrect or insufficient validation of the buffer access
+PREFAST_NEWLINE
+Buffer accessed is a
+PREFAST_NEWLINE
+Buffer is of length 10 elements (4 bytes/element) [size of variable]
+PREFAST_NEWLINE
+Accessing the element (4 bytes/element) at element offset (*Arglist)`15
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+Values of variables:
+PREFAST_NEWLINE
+idx = (*Arglist)`15
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+where
+PREFAST_NEWLINE
+{loop iterations}'20 == 0
+PREFAST_NEWLINE
+(*Arglist)`15 &lt;= 10
+PREFAST_NEWLINE
+(*Arglist)`15 &gt;= 0
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+Overrun access occurs when
+PREFAST_NEWLINE
+(*Arglist)`15 == 10
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+There are other instances of this error:
+PREFAST_NEWLINE
+Potential read overflow using expression 'a[idx]' at line 34
+PREFAST_NEWLINE
+</DESCRIPTION>
+    <FUNCTION>foo</FUNCTION>
+    <DECORATED>?foo@@YAXHHZZ</DECORATED>
+    <FUNCLINE>5</FUNCLINE>
+    <PATH>
+      <SFA>
+        <FILEPATH>c:\somepath\</FILEPATH>
+        <FILENAME>test205.cpp</FILENAME>
+        <LINE>5</LINE>
+        <COLUMN>8</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\somepath\</FILEPATH>
+        <FILENAME>test205.cpp</FILENAME>
+        <LINE>7</LINE>
+        <COLUMN>12</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\somepath\</FILEPATH>
+        <FILENAME>test205.cpp</FILENAME>
+        <LINE>8</LINE>
+        <COLUMN>4</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\somepath\</FILEPATH>
+        <FILENAME>test205.cpp</FILENAME>
+        <LINE>8</LINE>
+        <COLUMN>4</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\somepath\</FILEPATH>
+        <FILENAME>test205.cpp</FILENAME>
+        <LINE>10</LINE>
+        <COLUMN>8</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\somepath\</FILEPATH>
+        <FILENAME>test205.cpp</FILENAME>
+        <LINE>11</LINE>
+        <COLUMN>14</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\somepath\</FILEPATH>
+        <FILENAME>test205.cpp</FILENAME>
+        <LINE>11</LINE>
+        <COLUMN>21</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\somepath\</FILEPATH>
+        <FILENAME>test205.cpp</FILENAME>
+        <LINE>12</LINE>
+        <COLUMN>8</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\somepath\</FILEPATH>
+        <FILENAME>test205.cpp</FILENAME>
+        <LINE>12</LINE>
+        <COLUMN>18</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\somepath\</FILEPATH>
+        <FILENAME>test205.cpp</FILENAME>
+        <LINE>15</LINE>
+        <COLUMN>8</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\somepath\</FILEPATH>
+        <FILENAME>test205.cpp</FILENAME>
+        <LINE>15</LINE>
+        <COLUMN>14</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\somepath\</FILEPATH>
+        <FILENAME>test205.cpp</FILENAME>
+        <LINE>16</LINE>
+        <COLUMN>12</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\somepath\</FILEPATH>
+        <FILENAME>test205.cpp</FILENAME>
+        <LINE>19</LINE>
+        <COLUMN>8</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\somepath\</FILEPATH>
+        <FILENAME>test205.cpp</FILENAME>
+        <LINE>20</LINE>
+        <COLUMN>15</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\somepath\</FILEPATH>
+        <FILENAME>test205.cpp</FILENAME>
+        <LINE>22</LINE>
+        <COLUMN>12</COLUMN>
+      </SFA>
+    </PATH>
+  </DEFECT>
+</DEFECTS>

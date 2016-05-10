@@ -1,0 +1,336 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<DEFECTS><DEFECT><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test103.cpp</FILENAME><LINE>26</LINE><COLUMN>25</COLUMN></SFA><DEFECTCODE>26000</DEFECTCODE><DESCRIPTION>Overflow using expression '(us.buf)[us.MaxLength]'
+PREFAST_NEWLINE
+Buffer accessed is a
+PREFAST_NEWLINE
+Buffer is of length 100 bytes [size of variable]
+PREFAST_NEWLINE
+Accessing the byte at byte offset 100
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+Values of variables:
+PREFAST_NEWLINE
+us.US::MaxLength = 100
+PREFAST_NEWLINE
+us.US::buf = &amp;a
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+There are other instances of this error:
+PREFAST_NEWLINE
+Overflow using expression '(us.buf)[100]' at line 27
+PREFAST_NEWLINE
+</DESCRIPTION><FUNCTION>f</FUNCTION><DECORATED>?f@@YAXXZ</DECORATED><FUNCLINE>20</FUNCLINE><PATH><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test103.cpp</FILENAME><LINE>20</LINE><COLUMN>6</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test103.cpp</FILENAME><LINE>22</LINE><COLUMN>9</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test103.cpp</FILENAME><LINE>23</LINE><COLUMN>7</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test103.cpp</FILENAME><LINE>23</LINE><COLUMN>7</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test103.cpp</FILENAME><LINE>23</LINE><COLUMN>7</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test103.cpp</FILENAME><LINE>23</LINE><COLUMN>7</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test103.cpp</FILENAME><LINE>24</LINE><COLUMN>8</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test103.cpp</FILENAME><LINE>25</LINE><COLUMN>9</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test103.cpp</FILENAME><LINE>25</LINE><COLUMN>30</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test103.cpp</FILENAME><LINE>26</LINE><COLUMN>25</COLUMN></SFA></PATH></DEFECT><DEFECT><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test103.cpp</FILENAME><LINE>36</LINE><COLUMN>25</COLUMN></SFA><DEFECTCODE>26000</DEFECTCODE><DESCRIPTION>Overflow using expression '(us.buf)[us.MaxLength]'
+PREFAST_NEWLINE
+Buffer us.US::buf created during call to Fill1 on line 34
+PREFAST_NEWLINE
+Buffer lengths are from an assumed __inout annotation on the parameter
+PREFAST_NEWLINE
+Buffer is of length us.US::MaxLength`34 bytes [from field annotation SAL_writableTo(elementCount({parameter 1}-&gt;MaxLength)) at c:\somepath\test103.cpp(5) on function Fill1 called at line 34] OR
+PREFAST_NEWLINE
+  us.US::Length`34 bytes [from field annotation SAL_readableTo(elementCount({parameter 1}-&gt;Length)) at c:\somepath\test103.cpp(5) on function Fill1 called at line 34]
+PREFAST_NEWLINE
+Accessing the byte at byte offset us.US::MaxLength`34
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+Values of variables:
+PREFAST_NEWLINE
+Pointer us.US::buf is at offset 0 bytes from the start of the buffer
+PREFAST_NEWLINE
+us.US::MaxLength = us.US::MaxLength`34
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+where
+PREFAST_NEWLINE
+offset(us.US::buf)`34a == 0
+PREFAST_NEWLINE
+us.US::Length`34 &lt;= us.US::MaxLength`34
+PREFAST_NEWLINE
+us.US::Length`34 &gt;= 1
+PREFAST_NEWLINE
+us.US::MaxLength`34 &gt;= 1
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+There are other instances of this error:
+PREFAST_NEWLINE
+Potential read overflow using expression '(us.buf)[us.Length]' at line 35
+PREFAST_NEWLINE
+Potential overflow using expression '(us.buf)[100]' at line 37
+PREFAST_NEWLINE
+</DESCRIPTION><FUNCTION>f1</FUNCTION><DECORATED>?f1@@YAXXZ</DECORATED><FUNCLINE>30</FUNCLINE><PATH><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test103.cpp</FILENAME><LINE>30</LINE><COLUMN>7</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test103.cpp</FILENAME><LINE>32</LINE><COLUMN>9</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test103.cpp</FILENAME><LINE>33</LINE><COLUMN>7</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test103.cpp</FILENAME><LINE>33</LINE><COLUMN>7</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test103.cpp</FILENAME><LINE>33</LINE><COLUMN>7</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test103.cpp</FILENAME><LINE>33</LINE><COLUMN>7</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test103.cpp</FILENAME><LINE>34</LINE><COLUMN>9</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test103.cpp</FILENAME><LINE>35</LINE><COLUMN>9</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test103.cpp</FILENAME><LINE>35</LINE><COLUMN>30</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test103.cpp</FILENAME><LINE>36</LINE><COLUMN>25</COLUMN></SFA></PATH></DEFECT><DEFECT><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test103.cpp</FILENAME><LINE>42</LINE><COLUMN>22</COLUMN></SFA><DEFECTCODE>26014</DEFECTCODE><DESCRIPTION>Potential overflow using expression '(p-&gt;buf)[p-&gt;Length]'
+PREFAST_NEWLINE
+This is likely to be due to incorrect or insufficient validation of the buffer access
+PREFAST_NEWLINE
+Buffer (p-&gt;US::buf) is a parameter to this function declared on line 40
+PREFAST_NEWLINE
+Buffer lengths are from an assumed __inout annotation on the parameter
+PREFAST_NEWLINE
+Buffer is of length (p-&gt;US::MaxLength)`40 bytes [from field annotation SAL_writableTo(elementCount(p-&gt;MaxLength)) at c:\somepath\test103.cpp(5)] OR
+PREFAST_NEWLINE
+  (p-&gt;US::Length)`40 bytes [from field annotation SAL_readableTo(elementCount(p-&gt;Length)) at c:\somepath\test103.cpp(5)]
+PREFAST_NEWLINE
+Accessing the byte at byte offset (p-&gt;US::Length)`40
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+Values of variables:
+PREFAST_NEWLINE
+(p-&gt;US::Length) = (p-&gt;US::Length)`40
+PREFAST_NEWLINE
+Pointer (p-&gt;US::buf) is at offset 0 bytes from the start of the buffer
+PREFAST_NEWLINE
+Pointer p is at offset 0 bytes from the start of p
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+where
+PREFAST_NEWLINE
+(p-&gt;US::Length)`40 &lt;= (p-&gt;US::MaxLength)`40
+PREFAST_NEWLINE
+(p-&gt;US::Length)`40 &gt;= 1
+PREFAST_NEWLINE
+(p-&gt;US::MaxLength)`40 &gt;= 1
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+Overrun access occurs when
+PREFAST_NEWLINE
+(p-&gt;US::MaxLength)`40 == (p-&gt;US::Length)`40
+PREFAST_NEWLINE
+</DESCRIPTION><FUNCTION>g</FUNCTION><DECORATED>?g@@YAXPAUUS@@@Z</DECORATED><FUNCLINE>40</FUNCLINE><PATH><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test103.cpp</FILENAME><LINE>40</LINE><COLUMN>6</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test103.cpp</FILENAME><LINE>42</LINE><COLUMN>22</COLUMN></SFA></PATH></DEFECT><DEFECT><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test103.cpp</FILENAME><LINE>60</LINE><COLUMN>21</COLUMN></SFA><DEFECTCODE>26000</DEFECTCODE><DESCRIPTION>Read overflow using expression '(s.buf)[s.MaxLength]'
+PREFAST_NEWLINE
+Buffer s.US::buf created during call to Make on line 59
+PREFAST_NEWLINE
+Buffer lengths are from an assumed __inout annotation on the parameter
+PREFAST_NEWLINE
+Buffer is of length s.US::MaxLength`59 bytes [from field annotation SAL_writableTo(elementCount({parameter 1}-&gt;MaxLength)) at c:\somepath\test103.cpp(5) on function Make called at line 59] OR
+PREFAST_NEWLINE
+  s.US::Length`59 bytes [from field annotation SAL_readableTo(elementCount({parameter 1}-&gt;Length)) at c:\somepath\test103.cpp(5) on function Make called at line 59]
+PREFAST_NEWLINE
+Accessing the byte at byte offset s.US::MaxLength`59
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+Values of variables:
+PREFAST_NEWLINE
+Pointer s.US::buf is at offset 0 bytes from the start of the buffer
+PREFAST_NEWLINE
+s.US::MaxLength = s.US::MaxLength`59
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+where
+PREFAST_NEWLINE
+s.US::Length`59 &lt;= s.US::MaxLength`59
+PREFAST_NEWLINE
+s.US::Length`59 &gt;= 1
+PREFAST_NEWLINE
+s.US::MaxLength`59 &gt;= 1
+PREFAST_NEWLINE
+</DESCRIPTION><FUNCTION>g</FUNCTION><DECORATED>?g@@YAXXZ</DECORATED><FUNCLINE>56</FUNCLINE><PATH><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test103.cpp</FILENAME><LINE>56</LINE><COLUMN>6</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test103.cpp</FILENAME><LINE>58</LINE><COLUMN>7</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test103.cpp</FILENAME><LINE>59</LINE><COLUMN>8</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test103.cpp</FILENAME><LINE>60</LINE><COLUMN>21</COLUMN></SFA></PATH></DEFECT><DEFECT><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test103.cpp</FILENAME><LINE>71</LINE><COLUMN>22</COLUMN></SFA><DEFECTCODE>26014</DEFECTCODE><DESCRIPTION>Potential overflow using expression '(p-&gt;buf)[p-&gt;Length]'
+PREFAST_NEWLINE
+This is likely to be due to incorrect or insufficient validation of the buffer access
+PREFAST_NEWLINE
+Buffer (p-&gt;US::buf) is a parameter to this function declared on line 69
+PREFAST_NEWLINE
+Buffer lengths are from an assumed __inout annotation on the parameter
+PREFAST_NEWLINE
+Buffer is of length (p-&gt;US::MaxLength)`69 bytes [from field annotation SAL_writableTo(elementCount(p-&gt;MaxLength)) at c:\somepath\test103.cpp(5)] OR
+PREFAST_NEWLINE
+  (p-&gt;US::Length)`69 bytes [from field annotation SAL_readableTo(elementCount(p-&gt;Length)) at c:\somepath\test103.cpp(5)]
+PREFAST_NEWLINE
+Accessing the byte at byte offset (p-&gt;US::Length)`69
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+Values of variables:
+PREFAST_NEWLINE
+(p-&gt;US::Length) = (p-&gt;US::Length)`69
+PREFAST_NEWLINE
+Pointer (p-&gt;US::buf) is at offset 0 bytes from the start of the buffer
+PREFAST_NEWLINE
+Pointer p is at offset 0 bytes from the start of p
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+where
+PREFAST_NEWLINE
+(p-&gt;US::Length)`69 &lt;= (p-&gt;US::MaxLength)`69
+PREFAST_NEWLINE
+(p-&gt;US::Length)`69 &gt;= 1
+PREFAST_NEWLINE
+(p-&gt;US::MaxLength)`69 &gt;= 1
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+Overrun access occurs when
+PREFAST_NEWLINE
+(p-&gt;US::MaxLength)`69 == (p-&gt;US::Length)`69
+PREFAST_NEWLINE
+</DESCRIPTION><FUNCTION>bar</FUNCTION><DECORATED>?bar@@YAXPAUUS@@@Z</DECORATED><FUNCLINE>69</FUNCLINE><PATH><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test103.cpp</FILENAME><LINE>69</LINE><COLUMN>8</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test103.cpp</FILENAME><LINE>71</LINE><COLUMN>22</COLUMN></SFA></PATH></DEFECT><DEFECT><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test103.cpp</FILENAME><LINE>98</LINE><COLUMN>7</COLUMN></SFA><DEFECTCODE>26000</DEFECTCODE><DESCRIPTION>Overflow using expression '&amp; u'
+PREFAST_NEWLINE
+Buffer u.US::buf created during call to Init on line 95
+PREFAST_NEWLINE
+Buffer is of length u.US::MaxLength`95 bytes [from field annotation SAL_writableTo(elementCount({parameter 1}-&gt;MaxLength)) at c:\somepath\test103.cpp(5) on function Init called at line 95] OR
+PREFAST_NEWLINE
+  u.US::Length`95 bytes [from field annotation SAL_readableTo(elementCount({parameter 1}-&gt;Length)) at c:\somepath\test103.cpp(5) on function Init called at line 95]
+PREFAST_NEWLINE
+Accessing u.US::MaxLength`95 bytes starting at byte offset 1
+PREFAST_NEWLINE
+Assumed __inout annotation on function bar requires that {parameter 1}-&gt;buf is of length &gt;= {parameter 1}-&gt;MaxLength elements (1 bytes/element)
+PREFAST_NEWLINE
+  where {parameter 1}-&gt;buf is &amp; u; {parameter 1} is &amp; u
+PREFAST_NEWLINE
+[Field annotation SAL_writableTo(elementCount({parameter 1}-&gt;MaxLength)) at c:\somepath\test103.cpp(5)]
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+Values of variables:
+PREFAST_NEWLINE
+Pointer u.US::buf is at offset 1 bytes from the start of the buffer
+PREFAST_NEWLINE
+u.US::MaxLength = u.US::MaxLength`95
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+where
+PREFAST_NEWLINE
+u.US::Length`95 &lt;= u.US::MaxLength`95
+PREFAST_NEWLINE
+u.US::Length`95 &gt;= 1
+PREFAST_NEWLINE
+u.US::MaxLength`95 &gt;= 1
+PREFAST_NEWLINE
+</DESCRIPTION><FUNCTION>bad</FUNCTION><DECORATED>?bad@@YAXXZ</DECORATED><FUNCLINE>92</FUNCLINE><PATH><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test103.cpp</FILENAME><LINE>92</LINE><COLUMN>8</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test103.cpp</FILENAME><LINE>94</LINE><COLUMN>7</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test103.cpp</FILENAME><LINE>95</LINE><COLUMN>8</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test103.cpp</FILENAME><LINE>96</LINE><COLUMN>12</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test103.cpp</FILENAME><LINE>97</LINE><COLUMN>9</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test103.cpp</FILENAME><LINE>98</LINE><COLUMN>7</COLUMN></SFA></PATH></DEFECT><DEFECT><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test103.cpp</FILENAME><LINE>103</LINE><COLUMN>20</COLUMN></SFA><DEFECTCODE>26014</DEFECTCODE><DESCRIPTION>Potential read overflow using expression '(p-&gt;buf)[p-&gt;Length]'
+PREFAST_NEWLINE
+This is likely to be due to incorrect or insufficient validation of the buffer access
+PREFAST_NEWLINE
+Buffer (p-&gt;US::buf) is a parameter to this function declared on line 101
+PREFAST_NEWLINE
+Buffer lengths are from an assumed __in annotation on the parameter
+PREFAST_NEWLINE
+Buffer is of length (p-&gt;US::MaxLength)`101 bytes [from field annotation SAL_writableTo(elementCount(p-&gt;MaxLength)) at c:\somepath\test103.cpp(5)] OR
+PREFAST_NEWLINE
+  (p-&gt;US::Length)`101 bytes [from field annotation SAL_readableTo(elementCount(p-&gt;Length)) at c:\somepath\test103.cpp(5)]
+PREFAST_NEWLINE
+Accessing the byte at byte offset (p-&gt;US::Length)`101
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+Values of variables:
+PREFAST_NEWLINE
+(p-&gt;US::Length) = (p-&gt;US::Length)`101
+PREFAST_NEWLINE
+Pointer (p-&gt;US::buf) is at offset 0 bytes from the start of the buffer
+PREFAST_NEWLINE
+Pointer p is at offset 0 bytes from the start of p
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+where
+PREFAST_NEWLINE
+(p-&gt;US::Length)`101 &lt;= (p-&gt;US::MaxLength)`101
+PREFAST_NEWLINE
+(p-&gt;US::Length)`101 &gt;= 1
+PREFAST_NEWLINE
+(p-&gt;US::MaxLength)`101 &gt;= 1
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+Overrun access occurs when
+PREFAST_NEWLINE
+(p-&gt;US::MaxLength)`101 == (p-&gt;US::Length)`101
+PREFAST_NEWLINE
+</DESCRIPTION><FUNCTION>InferredIn</FUNCTION><DECORATED>?InferredIn@@YAXPBUUS@@@Z</DECORATED><FUNCLINE>101</FUNCLINE><PATH><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test103.cpp</FILENAME><LINE>101</LINE><COLUMN>15</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test103.cpp</FILENAME><LINE>103</LINE><COLUMN>20</COLUMN></SFA></PATH></DEFECT><DEFECT><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test103.cpp</FILENAME><LINE>109</LINE><COLUMN>14</COLUMN></SFA><DEFECTCODE>26044</DEFECTCODE><DESCRIPTION>Potential postcondition violation that could result in overflow
+PREFAST_NEWLINE
+This is likely to be due to incorrect or insufficient validation of the buffer access
+PREFAST_NEWLINE
+Buffer (p-&gt;US::buf) is a parameter to this function declared on line 106
+PREFAST_NEWLINE
+Buffer lengths are from an assumed __inout annotation on the parameter
+PREFAST_NEWLINE
+Buffer is of length (p-&gt;US::MaxLength)`106 bytes [from field annotation SAL_writableTo(elementCount(p-&gt;MaxLength)) at c:\somepath\test103.cpp(5)] OR
+PREFAST_NEWLINE
+  (p-&gt;US::Length)`106 bytes [from field annotation SAL_readableTo(elementCount(p-&gt;Length)) at c:\somepath\test103.cpp(5)]
+PREFAST_NEWLINE
+Accessing (p-&gt;US::Length)`106 + 1 bytes starting at byte offset 0
+PREFAST_NEWLINE
+Assumed __inout annotation on function TestInferredIn requires that p-&gt;buf is of length &gt;= p-&gt;Length elements (1 bytes/element)
+PREFAST_NEWLINE
+[Field annotation SAL_readableTo(elementCount(p-&gt;Length)) at c:\somepath\test103.cpp(5)]
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+Values of variables:
+PREFAST_NEWLINE
+(p-&gt;US::Length) = (p-&gt;US::Length)`106 + 1
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+where
+PREFAST_NEWLINE
+(p-&gt;US::Length)`106 &lt;= (p-&gt;US::MaxLength)`106
+PREFAST_NEWLINE
+(p-&gt;US::Length)`106 &gt;= 1
+PREFAST_NEWLINE
+(p-&gt;US::MaxLength)`106 &gt;= 1
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+Overrun access occurs when
+PREFAST_NEWLINE
+(p-&gt;US::MaxLength)`106 == (p-&gt;US::Length)`106
+PREFAST_NEWLINE
+</DESCRIPTION><FUNCTION>TestInferredIn</FUNCTION><DECORATED>?TestInferredIn@@YAXPAUUS@@@Z</DECORATED><FUNCLINE>106</FUNCLINE><PATH><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test103.cpp</FILENAME><LINE>106</LINE><COLUMN>19</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test103.cpp</FILENAME><LINE>108</LINE><COLUMN>13</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test103.cpp</FILENAME><LINE>109</LINE><COLUMN>14</COLUMN></SFA></PATH></DEFECT><DEFECT><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test103.cpp</FILENAME><LINE>109</LINE><COLUMN>14</COLUMN></SFA><DEFECTCODE>26014</DEFECTCODE><DESCRIPTION>Potential overflow using expression '(const struct US *)p'
+PREFAST_NEWLINE
+This is likely to be due to incorrect or insufficient validation of the buffer access
+PREFAST_NEWLINE
+Buffer (p-&gt;US::buf) is a parameter to this function declared on line 106
+PREFAST_NEWLINE
+Buffer lengths are from an assumed __inout annotation on the parameter
+PREFAST_NEWLINE
+Buffer is of length (p-&gt;US::MaxLength)`106 bytes [from field annotation SAL_writableTo(elementCount(p-&gt;MaxLength)) at c:\somepath\test103.cpp(5)] OR
+PREFAST_NEWLINE
+  (p-&gt;US::Length)`106 bytes [from field annotation SAL_readableTo(elementCount(p-&gt;Length)) at c:\somepath\test103.cpp(5)]
+PREFAST_NEWLINE
+Accessing (p-&gt;US::Length)`106 + 1 bytes starting at byte offset 0
+PREFAST_NEWLINE
+Assumed __in annotation on function InferredIn requires that {parameter 1}-&gt;buf is of length &gt;= {parameter 1}-&gt;Length elements (1 bytes/element)
+PREFAST_NEWLINE
+  where {parameter 1}-&gt;buf is (const struct US *)p; {parameter 1} is (const struct US *)p
+PREFAST_NEWLINE
+[Field annotation SAL_readableTo(elementCount({parameter 1}-&gt;Length)) at c:\somepath\test103.cpp(5)]
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+Values of variables:
+PREFAST_NEWLINE
+(p-&gt;US::Length) = (p-&gt;US::Length)`106 + 1
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+where
+PREFAST_NEWLINE
+(p-&gt;US::Length)`106 &lt;= (p-&gt;US::MaxLength)`106
+PREFAST_NEWLINE
+(p-&gt;US::Length)`106 &gt;= 1
+PREFAST_NEWLINE
+(p-&gt;US::MaxLength)`106 &gt;= 1
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+Overrun access occurs when
+PREFAST_NEWLINE
+(p-&gt;US::MaxLength)`106 == (p-&gt;US::Length)`106
+PREFAST_NEWLINE
+</DESCRIPTION><FUNCTION>TestInferredIn</FUNCTION><DECORATED>?TestInferredIn@@YAXPAUUS@@@Z</DECORATED><FUNCLINE>106</FUNCLINE><PATH><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test103.cpp</FILENAME><LINE>106</LINE><COLUMN>19</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test103.cpp</FILENAME><LINE>108</LINE><COLUMN>13</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test103.cpp</FILENAME><LINE>109</LINE><COLUMN>14</COLUMN></SFA></PATH></DEFECT></DEFECTS>

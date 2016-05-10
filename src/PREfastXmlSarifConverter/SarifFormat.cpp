@@ -104,14 +104,19 @@ GetDefectUri(const XmlSfa &sfa)
 bool 
 SarifRegion::IsValid()
 {
-    //This is handling a special case.PREfast indicates an internal error by emitting a "defect" whose line and column are 0, 0. 
-    //That is, PREfast is saying that this defect is not associated with any particular region in the file.
-    //The IsValid method returns false precisely when line, column = 0, 0.
-    //SARIF indicates that a defect is not associated with a region by omitting the region property from the physicalLocationComponent object.
-    //So here, we only set the region property when the defect is associated with a region.
+	//This is handling a special case.PREfast indicates an internal error by emitting a "defect" whose line and column are 0, 0. 
+	//That is, PREfast is saying that this defect is not associated with any particular region in the file.
+	//The IsValid method returns false precisely when line, column = 0, 0.
+	//SARIF indicates that a defect is not associated with a region by omitting the region property from the physicalLocationComponent object.
+	//So here, we only set the region property when the defect is associated with a region.
 
-    if (m_startLine > 0 && m_startColumn >= 0)
-        return true;
+	if (m_startLine > 0 && m_startColumn >= 0)
+	{
+		// Sarif uses a 1-indexed startColumn. Now that we know
+		// this region is valid, we will increment here
+		SetStartColumn(++m_startColumn);
+		return true;
+	}
     else if (m_startLine == 0 && m_startColumn == 0)
         return false;
     std::string error = "Invalid region specified.";
@@ -202,7 +207,7 @@ SarifFileChange::AddReplacement(const SarifReplacement &replacement)
 }
 
 void 
-SarifLocation::AddLogicalLocationComponent(const std::wstring &name, const wchar_t *locationKind)
+SarifLogicalLocation::AddLogicalLocationComponent(const std::wstring &name, const wchar_t *locationKind)
 {
     SarifLogicalLocationComponent location;
     location.SetLocationKind(locationKind);
@@ -211,9 +216,9 @@ SarifLocation::AddLogicalLocationComponent(const std::wstring &name, const wchar
 }
 
 void 
-SarifLocation::AddLogicalLocationComponent(const SarifLogicalLocationComponent &component)
+SarifLogicalLocation::AddLogicalLocationComponent(const SarifLogicalLocationComponent &component)
 {
-    m_values.GetArrayElement(L"logicalLocation").push_back(component.m_values);
+    m_values.push_back(component.m_values);
 }
 
 void
@@ -227,7 +232,7 @@ SarifLocation::AddProperty(const std::wstring &key, const std::wstring &value)
 void
 SarifCodeFlow::AddAnnotatedCodeLocation(const SarifAnnotatedCodeLocation &location)
 {
-    m_values.push_back(location.m_values);
+	m_values.GetArrayElement(L"locations").push_back(location.m_values);
 }
 
 void
@@ -294,6 +299,15 @@ SarifRun::AddFile(const std::wstring &key, const SarifFile &file)
 	m_values[L"files"][key] = file.m_values;
 }
 
+void
+SarifRun::AddLogicalLocation(const std::wstring &key, const SarifLogicalLocation &location)
+{
+	if (m_values.find(L"logicalLocations") == m_values.end())
+		m_values[L"logicalLocations"] = json::Object();
+
+	m_values[L"logicalLocations"][key] = location.m_values;
+}
+
 void 
 SarifRun::AddResult(const SarifResult &result)
 {
@@ -305,4 +319,3 @@ SarifLog::AddRun(const SarifRun &run)
 {
     m_values.GetArrayElement(L"runs").push_back(run.m_values);
 }
-

@@ -610,19 +610,19 @@ std::wstring json::Serialize(const Value& v)
 			
             bool IsNestedArray = false;
             const Value& innerValue = *it;
-            if (innerValue.GetType() == ObjectVal)
-            {
-                Object innerObj = innerValue.ToObject();
-                if (innerObj.mOrderedKeys.size() == 1)
-                {
-                    json::Value &nestedArray = innerObj[innerObj.mOrderedKeys[0]];
-                    if (nestedArray.GetType() == ArrayVal)
-                    {
-                        IsNestedArray = true;
-                        str += SerializeArray(nestedArray);
-                    }
-                }
-            }
+            //if (innerValue.GetType() == ObjectVal)
+            //{
+            //    Object innerObj = innerValue.ToObject();
+            //    if (innerObj.mOrderedKeys.size() == 1)
+            //    {
+            //        json::Value &nestedArray = innerObj[innerObj.mOrderedKeys[0]];
+            //        if (nestedArray.GetType() == ArrayVal)
+            //        {
+            //            IsNestedArray = true;
+            //            str += SerializeArray(nestedArray);
+            //        }
+            //    }
+            //}
             
             if (!IsNestedArray)
             {

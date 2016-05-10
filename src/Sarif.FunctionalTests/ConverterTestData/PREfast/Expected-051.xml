@@ -1,0 +1,24 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<DEFECTS><DEFECT><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test051.cpp</FILENAME><LINE>28</LINE><COLUMN>11</COLUMN></SFA><DEFECTCODE>26000</DEFECTCODE><DESCRIPTION>Overflow using expression '&amp; a'
+PREFAST_NEWLINE
+Buffer accessed is a
+PREFAST_NEWLINE
+Buffer is of length 10 elements (4 bytes/element) [size of variable]
+PREFAST_NEWLINE
+Accessing 11 elements (4 bytes/element) starting at element offset 0
+PREFAST_NEWLINE
+Annotation on function I::Fill requires that {parameter 2} is of length &gt;= * {parameter 3} elements (4 bytes/element)
+PREFAST_NEWLINE
+  where {parameter 2} is &amp; a; {parameter 3} is &amp; size
+PREFAST_NEWLINE
+[Annotation SAL_writableTo(elementCount(* {parameter 3})) at c:\somepath\test051.cpp(6)]
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+Values of variables:
+PREFAST_NEWLINE
+size = 11
+PREFAST_NEWLINE
+</DESCRIPTION><FUNCTION>g</FUNCTION><DECORATED>?g@@YAXPAVI@@@Z</DECORATED><FUNCLINE>24</FUNCLINE><PATH><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test051.cpp</FILENAME><LINE>24</LINE><COLUMN>5</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test051.cpp</FILENAME><LINE>26</LINE><COLUMN>8</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test051.cpp</FILENAME><LINE>27</LINE><COLUMN>13</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test051.cpp</FILENAME><LINE>27</LINE><COLUMN>20</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test051.cpp</FILENAME><LINE>28</LINE><COLUMN>11</COLUMN></SFA></PATH></DEFECT></DEFECTS>

@@ -1,0 +1,62 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<DEFECTS><DEFECT><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test038.cpp</FILENAME><LINE>21</LINE><COLUMN>4</COLUMN></SFA><DEFECTCODE>26017</DEFECTCODE><DESCRIPTION>Potential read overflow using expression 'buf-&gt;a[(int )(buf-&gt;b) - 97]'
+PREFAST_NEWLINE
+Buffer accessed is S1::a
+PREFAST_NEWLINE
+Buffer is of length 10 bytes [size of field]
+PREFAST_NEWLINE
+Accessing the byte at byte offset (buf-&gt;S1::b)`21 - 97
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+Values of variables:
+PREFAST_NEWLINE
+(buf-&gt;S1::b) = (buf-&gt;S1::b)`21
+PREFAST_NEWLINE
+Pointer buf is at offset 0 bytes from the start of buf
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+Overrun access occurs when
+PREFAST_NEWLINE
+(buf-&gt;S1::b)`21 &gt;= 107
+PREFAST_NEWLINE
+</DESCRIPTION><FUNCTION>g</FUNCTION><DECORATED>?g@@YAIPAUS1@@@Z</DECORATED><FUNCLINE>16</FUNCLINE><PATH><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test038.cpp</FILENAME><LINE>16</LINE><COLUMN>6</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test038.cpp</FILENAME><LINE>18</LINE><COLUMN>8</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test038.cpp</FILENAME><LINE>21</LINE><COLUMN>4</COLUMN></SFA></PATH></DEFECT><DEFECT><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test038.cpp</FILENAME><LINE>21</LINE><COLUMN>4</COLUMN></SFA><DEFECTCODE>26011</DEFECTCODE><DESCRIPTION>Potential read underflow using expression 'buf-&gt;a[(int )(buf-&gt;b) - 97]'
+PREFAST_NEWLINE
+Buffer accessed is S1::a
+PREFAST_NEWLINE
+Buffer is of length 10 bytes [size of field]
+PREFAST_NEWLINE
+Accessing the byte at byte offset (buf-&gt;S1::b)`21 - 97
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+Values of variables:
+PREFAST_NEWLINE
+(buf-&gt;S1::b) = (buf-&gt;S1::b)`21
+PREFAST_NEWLINE
+Pointer buf is at offset 0 bytes from the start of buf
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+Underflow access occurs when
+PREFAST_NEWLINE
+(buf-&gt;S1::b)`21 &lt;= 96
+PREFAST_NEWLINE
+</DESCRIPTION><FUNCTION>g</FUNCTION><DECORATED>?g@@YAIPAUS1@@@Z</DECORATED><FUNCLINE>16</FUNCLINE><PATH><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test038.cpp</FILENAME><LINE>16</LINE><COLUMN>6</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test038.cpp</FILENAME><LINE>18</LINE><COLUMN>8</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test038.cpp</FILENAME><LINE>21</LINE><COLUMN>4</COLUMN></SFA></PATH></DEFECT><DEFECT><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test038.cpp</FILENAME><LINE>27</LINE><COLUMN>11</COLUMN></SFA><DEFECTCODE>26024</DEFECTCODE><DESCRIPTION>Cast cannot be proven safe: "(struct S *)((PUCHAR)buf + offset)" Accessing 44 bytes starting at byte offset 0
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+Values of variables:
+PREFAST_NEWLINE
+Pointer buf is at offset offset(buf)`24 bytes from the start of the buffer
+PREFAST_NEWLINE
+offset = result.g`26a
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+There are other instances of this error:
+PREFAST_NEWLINE
+Potential overflow using expression 's-&gt;b' at line 30
+PREFAST_NEWLINE
+</DESCRIPTION><FUNCTION>f</FUNCTION><DECORATED>?f@@YAXPAUS1@@I@Z</DECORATED><FUNCLINE>24</FUNCLINE><PATH><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test038.cpp</FILENAME><LINE>24</LINE><COLUMN>5</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test038.cpp</FILENAME><LINE>26</LINE><COLUMN>10</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test038.cpp</FILENAME><LINE>26</LINE><COLUMN>20</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test038.cpp</FILENAME><LINE>26</LINE><COLUMN>20</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test038.cpp</FILENAME><LINE>27</LINE><COLUMN>7</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test038.cpp</FILENAME><LINE>27</LINE><COLUMN>11</COLUMN></SFA></PATH></DEFECT></DEFECTS>

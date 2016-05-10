@@ -1,0 +1,83 @@
+{
+"version":"1.0.0-beta.4",
+"$schema":"http://json.schemastore.org/sarif-1.0.0",
+"runs":[
+  {
+    "tool":{
+      "name":"PREfast",
+      "fullName":"PREfast Code Analysis",
+      "version":"14.0.0"
+    },
+    "logicalLocations":{
+      "?f@@YAXPAH0@Z":[
+        {
+          "kind":"method",
+          "name":"f"
+        }
+      ]
+    },
+    "results":[
+      {
+        "ruleId":"26000",
+        "message":"Overflow using expression 'a[10]'\nBuffer accessed is a\nBuffer is of length 10 elements (4 bytes\/element) [size of variable]\nAccessing the element (4 bytes\/element) at element offset 10\n\nThere are other instances of this error:\nOverflow using expression 'a[10]' at line 64\n",
+        "locations":[
+          {
+            "resultFile":{
+              "uri":"file:///c:/somepath/test036.cpp",
+              "region":{
+                "startColumn":9,
+                "startLine":60
+              }
+            },
+            "fullyQualifiedLogicalName":"f",
+            "logicalLocationKey":"?f@@YAXPAH0@Z",
+            "properties":{
+              "decorated":"?f@@YAXPAH0@Z",
+              "funcline":"56"
+            }
+          }
+        ],
+        "codeFlows":[
+          {
+            "locations":[
+              {
+                "physicalLocation":{
+                  "uri":"file:///c:/somepath/test036.cpp",
+                  "region":{
+                    "startColumn":6,
+                    "startLine":56
+                  }
+                }
+              },{
+                "physicalLocation":{
+                  "uri":"file:///c:/somepath/test036.cpp",
+                  "region":{
+                    "startColumn":6,
+                    "startLine":58
+                  }
+                }
+              },{
+                "physicalLocation":{
+                  "uri":"file:///c:/somepath/test036.cpp",
+                  "region":{
+                    "startColumn":8,
+                    "startLine":59
+                  }
+                }
+              },{
+                "physicalLocation":{
+                  "uri":"file:///c:/somepath/test036.cpp",
+                  "region":{
+                    "startColumn":9,
+                    "startLine":60
+                  }
+                }
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+]
+}

@@ -86,6 +86,459 @@
     <None Include="ConverterTestData\FxCop\FxCopReportAllMessageStates.xml.sarif">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="ConverterTestData\PREfast\Expected-001.xml.sarif" >
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ConverterTestData\PREfast\Expected-002.xml.sarif" >
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ConverterTestData\PREfast\Expected-003.xml.sarif" >
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ConverterTestData\PREfast\Expected-005.xml.sarif" >
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ConverterTestData\PREfast\Expected-008.xml.sarif" >
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ConverterTestData\PREfast\Expected-010.xml.sarif" >
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ConverterTestData\PREfast\Expected-011-amd64.xml.sarif" >
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ConverterTestData\PREfast\Expected-011.xml.sarif" >
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ConverterTestData\PREfast\Expected-013.xml.sarif" >
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ConverterTestData\PREfast\Expected-014.xml.sarif" >
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ConverterTestData\PREfast\Expected-016-amd64.xml.sarif" >
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ConverterTestData\PREfast\Expected-016.xml.sarif" >
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ConverterTestData\PREfast\Expected-017.xml.sarif" >
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ConverterTestData\PREfast\Expected-020.xml.sarif" >
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ConverterTestData\PREfast\Expected-021.xml.sarif" >
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ConverterTestData\PREfast\Expected-022.xml.sarif" >
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ConverterTestData\PREfast\Expected-023.xml.sarif" >
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ConverterTestData\PREfast\Expected-024.xml.sarif" >
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ConverterTestData\PREfast\Expected-031.xml.sarif" >
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ConverterTestData\PREfast\Expected-032.xml.sarif" >
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ConverterTestData\PREfast\Expected-035.xml.sarif" >
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ConverterTestData\PREfast\Expected-036.xml.sarif" >
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ConverterTestData\PREfast\Expected-037.xml.sarif" >
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ConverterTestData\PREfast\Expected-038-amd64.xml.sarif" >
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ConverterTestData\PREfast\Expected-038.xml.sarif" >
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ConverterTestData\PREfast\Expected-039.xml.sarif" >
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ConverterTestData\PREfast\Expected-040.xml.sarif" >
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ConverterTestData\PREfast\Expected-041.xml.sarif" >
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ConverterTestData\PREfast\Expected-042.xml.sarif" >
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ConverterTestData\PREfast\Expected-043.xml.sarif" >
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ConverterTestData\PREfast\Expected-045.xml.sarif" >
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ConverterTestData\PREfast\Expected-046.xml.sarif" >
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ConverterTestData\PREfast\Expected-047.xml.sarif" >
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ConverterTestData\PREfast\Expected-048.xml.sarif" >
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ConverterTestData\PREfast\Expected-049.xml.sarif" >
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ConverterTestData\PREfast\Expected-050.xml.sarif" >
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ConverterTestData\PREfast\Expected-051.xml.sarif" >
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ConverterTestData\PREfast\Expected-052.xml.sarif" >
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ConverterTestData\PREfast\Expected-054.xml.sarif" >
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ConverterTestData\PREfast\Expected-055.xml.sarif" >
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ConverterTestData\PREfast\Expected-057.xml.sarif" >
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ConverterTestData\PREfast\Expected-058.xml.sarif" >
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ConverterTestData\PREfast\Expected-059.xml.sarif" >
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ConverterTestData\PREfast\Expected-060.xml.sarif" >
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ConverterTestData\PREfast\Expected-061.xml.sarif" >
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ConverterTestData\PREfast\Expected-062.xml.sarif" >
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ConverterTestData\PREfast\Expected-063.xml.sarif" >
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ConverterTestData\PREfast\Expected-065.xml.sarif" >
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ConverterTestData\PREfast\Expected-066.xml.sarif" >
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ConverterTestData\PREfast\Expected-067.xml.sarif" >
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ConverterTestData\PREfast\Expected-070.xml.sarif" >
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ConverterTestData\PREfast\Expected-071.xml.sarif" >
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ConverterTestData\PREfast\Expected-072.xml.sarif" >
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ConverterTestData\PREfast\Expected-073.xml.sarif" >
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ConverterTestData\PREfast\Expected-074.xml.sarif" >
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ConverterTestData\PREfast\Expected-075.xml.sarif" >
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ConverterTestData\PREfast\Expected-076.xml.sarif" >
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ConverterTestData\PREfast\Expected-077.xml.sarif" >
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ConverterTestData\PREfast\Expected-078.xml.sarif" >
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ConverterTestData\PREfast\Expected-079.xml.sarif" >
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ConverterTestData\PREfast\Expected-080.xml.sarif" >
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ConverterTestData\PREfast\Expected-081.xml.sarif" >
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ConverterTestData\PREfast\Expected-082.xml.sarif" >
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ConverterTestData\PREfast\Expected-083.xml.sarif" >
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ConverterTestData\PREfast\Expected-084.xml.sarif" >
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ConverterTestData\PREfast\Expected-085.xml.sarif" >
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ConverterTestData\PREfast\Expected-086.xml.sarif" >
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ConverterTestData\PREfast\Expected-087.xml.sarif" >
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ConverterTestData\PREfast\Expected-088.xml.sarif" >
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ConverterTestData\PREfast\Expected-089-amd64.xml.sarif" >
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ConverterTestData\PREfast\Expected-089.xml.sarif" >
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ConverterTestData\PREfast\Expected-090.xml.sarif" >
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ConverterTestData\PREfast\Expected-091.xml.sarif" >
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ConverterTestData\PREfast\Expected-092.xml.sarif" >
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ConverterTestData\PREfast\Expected-093.xml.sarif" >
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ConverterTestData\PREfast\Expected-094.xml.sarif" >
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ConverterTestData\PREfast\Expected-095.xml.sarif" >
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ConverterTestData\PREfast\Expected-096.xml.sarif" >
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ConverterTestData\PREfast\Expected-097.xml.sarif" >
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ConverterTestData\PREfast\Expected-100.xml.sarif" >
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ConverterTestData\PREfast\Expected-101.xml.sarif" >
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ConverterTestData\PREfast\Expected-102.xml.sarif" >
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ConverterTestData\PREfast\Expected-103.xml.sarif" >
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ConverterTestData\PREfast\Expected-104.xml.sarif" >
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ConverterTestData\PREfast\Expected-106.xml.sarif" >
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ConverterTestData\PREfast\Expected-107.xml.sarif" >
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ConverterTestData\PREfast\Expected-108.xml.sarif" >
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ConverterTestData\PREfast\Expected-109.xml.sarif" >
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ConverterTestData\PREfast\Expected-110-amd64.xml.sarif" >
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ConverterTestData\PREfast\Expected-110.xml.sarif" >
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ConverterTestData\PREfast\Expected-111.xml.sarif" >
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ConverterTestData\PREfast\Expected-112.xml.sarif" >
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ConverterTestData\PREfast\Expected-113.xml.sarif" >
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ConverterTestData\PREfast\Expected-116.xml.sarif" >
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ConverterTestData\PREfast\Expected-117.xml.sarif" >
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ConverterTestData\PREfast\Expected-121.xml.sarif" >
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ConverterTestData\PREfast\Expected-122.xml.sarif" >
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ConverterTestData\PREfast\Expected-123.xml.sarif" >
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ConverterTestData\PREfast\Expected-126.xml.sarif" >
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ConverterTestData\PREfast\Expected-127.xml.sarif" >
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ConverterTestData\PREfast\Expected-128.xml.sarif" >
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ConverterTestData\PREfast\Expected-129.xml.sarif" >
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ConverterTestData\PREfast\Expected-130.xml.sarif" >
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ConverterTestData\PREfast\Expected-131.xml.sarif" >
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ConverterTestData\PREfast\Expected-132.xml.sarif" >
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ConverterTestData\PREfast\Expected-134.xml.sarif" >
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ConverterTestData\PREfast\Expected-136.xml.sarif" >
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ConverterTestData\PREfast\Expected-137.xml.sarif" >
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ConverterTestData\PREfast\Expected-138.xml.sarif" >
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ConverterTestData\PREfast\Expected-139.xml.sarif" >
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ConverterTestData\PREfast\Expected-140.xml.sarif" >
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ConverterTestData\PREfast\Expected-141-amd64.xml.sarif" >
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ConverterTestData\PREfast\Expected-141.xml.sarif" >
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ConverterTestData\PREfast\Expected-146.xml.sarif" >
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ConverterTestData\PREfast\Expected-150.xml.sarif" >
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ConverterTestData\PREfast\Expected-152.xml.sarif" >
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ConverterTestData\PREfast\Expected-155.xml.sarif" >
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ConverterTestData\PREfast\Expected-156.xml.sarif" >
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ConverterTestData\PREfast\Expected-157.xml.sarif" >
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ConverterTestData\PREfast\Expected-160.xml.sarif" >
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ConverterTestData\PREfast\Expected-162.xml.sarif" >
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ConverterTestData\PREfast\Expected-163.xml.sarif" >
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ConverterTestData\PREfast\Expected-166.xml.sarif" >
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ConverterTestData\PREfast\Expected-167.xml.sarif" >
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ConverterTestData\PREfast\Expected-168.xml.sarif" >
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ConverterTestData\PREfast\Expected-169.xml.sarif" >
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ConverterTestData\PREfast\Expected-170.xml.sarif" >
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ConverterTestData\PREfast\Expected-171.xml.sarif" >
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ConverterTestData\PREfast\Expected-172.xml.sarif" >
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ConverterTestData\PREfast\Expected-173.xml.sarif" >
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ConverterTestData\PREfast\Expected-178.xml.sarif" >
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ConverterTestData\PREfast\Expected-179.xml.sarif" >
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ConverterTestData\PREfast\Expected-180.xml.sarif" >
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ConverterTestData\PREfast\Expected-181.xml.sarif" >
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ConverterTestData\PREfast\Expected-182.xml.sarif" >
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ConverterTestData\PREfast\Expected-185.xml.sarif" >
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ConverterTestData\PREfast\Expected-186.xml.sarif" >
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ConverterTestData\PREfast\Expected-188.xml.sarif" >
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ConverterTestData\PREfast\Expected-192.xml.sarif" >
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ConverterTestData\PREfast\Expected-193.xml.sarif" >
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ConverterTestData\PREfast\Expected-194.xml.sarif" >
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ConverterTestData\PREfast\Expected-197-amd64.xml.sarif" >
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ConverterTestData\PREfast\Expected-197.xml.sarif" >
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ConverterTestData\PREfast\Expected-198-amd64.xml.sarif" >
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ConverterTestData\PREfast\Expected-198.xml.sarif" >
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ConverterTestData\PREfast\Expected-199-amd64.xml.sarif" >
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ConverterTestData\PREfast\Expected-199.xml.sarif" >
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ConverterTestData\PREfast\Expected-201.xml.sarif" >
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ConverterTestData\PREfast\Expected-203.xml.sarif" >
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ConverterTestData\PREfast\Expected-205-amd64.xml.sarif" >
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ConverterTestData\PREfast\Expected-205.xml.sarif" >
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="DirectProducerTestData\WebSkim\LocalizedBundleDoubleNesting.sarif">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -104,7 +557,9 @@
     <None Include="DirectProducerTestData\WebSkim\SimpleBundleDoubleNesting.sarif">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="packages.config" />
+    <None Include="packages.config" >
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <None Include="ConverterTestData\AndroidStudio\AndroidStudio_issueLog1_raw.xml">
@@ -262,7 +717,9 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <None Include="UpdateBaselines.ps1" />
+    <None Include="UpdateBaselines.ps1" >
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <None Include="ConverterTestData\AndroidStudio\attributeKeyMissing.xml">
@@ -369,6 +826,459 @@
     <Content Include="ConverterTestData\FxCop\FxCopReportAllMessageStates.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <None Include="ConverterTestData\PREfast\Expected-001.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ConverterTestData\PREfast\Expected-002.xml" >
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ConverterTestData\PREfast\Expected-003.xml" >
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None  Include="ConverterTestData\PREfast\Expected-005.xml" >
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None  Include="ConverterTestData\PREfast\Expected-008.xml" >
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ConverterTestData\PREfast\Expected-010.xml" >
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ConverterTestData\PREfast\Expected-011-amd64.xml" >
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ConverterTestData\PREfast\Expected-011.xml" >
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ConverterTestData\PREfast\Expected-013.xml" >
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ConverterTestData\PREfast\Expected-014.xml" >
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ConverterTestData\PREfast\Expected-016-amd64.xml" >
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ConverterTestData\PREfast\Expected-016.xml" >
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ConverterTestData\PREfast\Expected-017.xml" >
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ConverterTestData\PREfast\Expected-020.xml" >
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ConverterTestData\PREfast\Expected-021.xml" >
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ConverterTestData\PREfast\Expected-022.xml" >
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ConverterTestData\PREfast\Expected-023.xml" >
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ConverterTestData\PREfast\Expected-024.xml" >
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ConverterTestData\PREfast\Expected-031.xml" >
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ConverterTestData\PREfast\Expected-032.xml" >
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ConverterTestData\PREfast\Expected-035.xml" >
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ConverterTestData\PREfast\Expected-036.xml" >
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ConverterTestData\PREfast\Expected-037.xml" >
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ConverterTestData\PREfast\Expected-038-amd64.xml" >
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ConverterTestData\PREfast\Expected-038.xml" >
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ConverterTestData\PREfast\Expected-039.xml" >
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ConverterTestData\PREfast\Expected-040.xml" >
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ConverterTestData\PREfast\Expected-041.xml" >
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ConverterTestData\PREfast\Expected-042.xml" >
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ConverterTestData\PREfast\Expected-043.xml" >
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ConverterTestData\PREfast\Expected-045.xml" >
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ConverterTestData\PREfast\Expected-046.xml" >
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ConverterTestData\PREfast\Expected-047.xml" >
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ConverterTestData\PREfast\Expected-048.xml" >
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ConverterTestData\PREfast\Expected-049.xml" >
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ConverterTestData\PREfast\Expected-050.xml" >
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ConverterTestData\PREfast\Expected-051.xml" >
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ConverterTestData\PREfast\Expected-052.xml" >
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ConverterTestData\PREfast\Expected-054.xml" >
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ConverterTestData\PREfast\Expected-055.xml" >
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ConverterTestData\PREfast\Expected-057.xml" >
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ConverterTestData\PREfast\Expected-058.xml" >
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ConverterTestData\PREfast\Expected-059.xml" >
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ConverterTestData\PREfast\Expected-060.xml" >
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ConverterTestData\PREfast\Expected-061.xml" >
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ConverterTestData\PREfast\Expected-062.xml" >
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ConverterTestData\PREfast\Expected-063.xml" >
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ConverterTestData\PREfast\Expected-065.xml" >
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ConverterTestData\PREfast\Expected-066.xml" >
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ConverterTestData\PREfast\Expected-067.xml" >
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ConverterTestData\PREfast\Expected-070.xml" >
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ConverterTestData\PREfast\Expected-071.xml" >
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ConverterTestData\PREfast\Expected-072.xml" >
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ConverterTestData\PREfast\Expected-073.xml" >
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ConverterTestData\PREfast\Expected-074.xml" >
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ConverterTestData\PREfast\Expected-075.xml" >
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ConverterTestData\PREfast\Expected-076.xml" >
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ConverterTestData\PREfast\Expected-077.xml" >
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ConverterTestData\PREfast\Expected-078.xml" >
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ConverterTestData\PREfast\Expected-079.xml" >
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ConverterTestData\PREfast\Expected-080.xml" >
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ConverterTestData\PREfast\Expected-081.xml" >
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ConverterTestData\PREfast\Expected-082.xml" >
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ConverterTestData\PREfast\Expected-083.xml" >
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ConverterTestData\PREfast\Expected-084.xml" >
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ConverterTestData\PREfast\Expected-085.xml" >
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ConverterTestData\PREfast\Expected-086.xml" >
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ConverterTestData\PREfast\Expected-087.xml" >
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ConverterTestData\PREfast\Expected-088.xml" >
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ConverterTestData\PREfast\Expected-089-amd64.xml" >
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ConverterTestData\PREfast\Expected-089.xml" >
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ConverterTestData\PREfast\Expected-090.xml" >
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ConverterTestData\PREfast\Expected-091.xml" >
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ConverterTestData\PREfast\Expected-092.xml" >
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ConverterTestData\PREfast\Expected-093.xml" >
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ConverterTestData\PREfast\Expected-094.xml" >
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ConverterTestData\PREfast\Expected-095.xml" >
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ConverterTestData\PREfast\Expected-096.xml" >
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ConverterTestData\PREfast\Expected-097.xml" >
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ConverterTestData\PREfast\Expected-100.xml" >
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ConverterTestData\PREfast\Expected-101.xml" >
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ConverterTestData\PREfast\Expected-102.xml" >
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ConverterTestData\PREfast\Expected-103.xml" >
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ConverterTestData\PREfast\Expected-104.xml" >
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ConverterTestData\PREfast\Expected-106.xml" >
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ConverterTestData\PREfast\Expected-107.xml" >
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ConverterTestData\PREfast\Expected-108.xml" >
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ConverterTestData\PREfast\Expected-109.xml" >
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ConverterTestData\PREfast\Expected-110-amd64.xml" >
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ConverterTestData\PREfast\Expected-110.xml" >
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ConverterTestData\PREfast\Expected-111.xml" >
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ConverterTestData\PREfast\Expected-112.xml" >
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ConverterTestData\PREfast\Expected-113.xml" >
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ConverterTestData\PREfast\Expected-116.xml" >
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ConverterTestData\PREfast\Expected-117.xml" >
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ConverterTestData\PREfast\Expected-121.xml" >
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ConverterTestData\PREfast\Expected-122.xml" >
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ConverterTestData\PREfast\Expected-123.xml" >
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ConverterTestData\PREfast\Expected-126.xml" >
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ConverterTestData\PREfast\Expected-127.xml" >
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ConverterTestData\PREfast\Expected-128.xml" >
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ConverterTestData\PREfast\Expected-129.xml" >
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ConverterTestData\PREfast\Expected-130.xml" >
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ConverterTestData\PREfast\Expected-131.xml" >
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ConverterTestData\PREfast\Expected-132.xml" >
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ConverterTestData\PREfast\Expected-134.xml" >
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ConverterTestData\PREfast\Expected-136.xml" >
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ConverterTestData\PREfast\Expected-137.xml" >
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ConverterTestData\PREfast\Expected-138.xml" >
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ConverterTestData\PREfast\Expected-139.xml" >
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ConverterTestData\PREfast\Expected-140.xml" >
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ConverterTestData\PREfast\Expected-141-amd64.xml" >
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ConverterTestData\PREfast\Expected-141.xml" >
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ConverterTestData\PREfast\Expected-146.xml" >
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ConverterTestData\PREfast\Expected-150.xml" >
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ConverterTestData\PREfast\Expected-152.xml" >
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ConverterTestData\PREfast\Expected-155.xml" >
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ConverterTestData\PREfast\Expected-156.xml" >
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ConverterTestData\PREfast\Expected-157.xml" >
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ConverterTestData\PREfast\Expected-160.xml" >
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ConverterTestData\PREfast\Expected-162.xml" >
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ConverterTestData\PREfast\Expected-163.xml" >
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ConverterTestData\PREfast\Expected-166.xml" >
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ConverterTestData\PREfast\Expected-167.xml" >
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ConverterTestData\PREfast\Expected-168.xml" >
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ConverterTestData\PREfast\Expected-169.xml" >
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ConverterTestData\PREfast\Expected-170.xml" >
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ConverterTestData\PREfast\Expected-171.xml" >
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ConverterTestData\PREfast\Expected-172.xml" >
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ConverterTestData\PREfast\Expected-173.xml" >
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ConverterTestData\PREfast\Expected-178.xml" >
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ConverterTestData\PREfast\Expected-179.xml" >
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ConverterTestData\PREfast\Expected-180.xml" >
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ConverterTestData\PREfast\Expected-181.xml" >
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ConverterTestData\PREfast\Expected-182.xml" >
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ConverterTestData\PREfast\Expected-185.xml" >
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ConverterTestData\PREfast\Expected-186.xml" >
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ConverterTestData\PREfast\Expected-188.xml" >
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ConverterTestData\PREfast\Expected-192.xml" >
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ConverterTestData\PREfast\Expected-193.xml" >
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ConverterTestData\PREfast\Expected-194.xml" >
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ConverterTestData\PREfast\Expected-197-amd64.xml" >
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ConverterTestData\PREfast\Expected-197.xml" >
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ConverterTestData\PREfast\Expected-198-amd64.xml" >
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ConverterTestData\PREfast\Expected-198.xml" >
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ConverterTestData\PREfast\Expected-199-amd64.xml" >
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ConverterTestData\PREfast\Expected-199.xml" >
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ConverterTestData\PREfast\Expected-201.xml" >
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ConverterTestData\PREfast\Expected-203.xml" >
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ConverterTestData\PREfast\Expected-205-amd64.xml" >
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ConverterTestData\PREfast\Expected-205.xml" >
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

@@ -73,7 +73,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
                     s_directProducerTestCases = sarifFiles
                         .Except(InvalidFiles.Select(f => Path.Combine(DirectProducerTestDataDirectory, f)))
-                        .Select(file => new object[] { file });
+                        .Select(file => new object[] { file.ToLowerInvariant() });
                 }
 
                 return s_directProducerTestCases;
@@ -93,7 +93,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
                     s_converterTestCases = sarifFiles.Except(actualSarifFiles)
                         .Except(InvalidFiles.Select(f => Path.Combine(ConverterTestDataDirectory, f)))
-                        .Select(file => new object[] { file });
+                        .Select(file => new object[] { file.ToLowerInvariant() });
                 }
 
                 return s_converterTestCases;

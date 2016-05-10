@@ -1,0 +1,58 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<DEFECTS><DEFECT><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test134.cpp</FILENAME><LINE>41</LINE><COLUMN>13</COLUMN></SFA><DEFECTCODE>26015</DEFECTCODE><DESCRIPTION>Potential overflow using expression 'x[index]'
+PREFAST_NEWLINE
+Buffer access is apparently unbounded by the buffer size.  
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+In particular: index`39a is not constrained by any constant
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+Buffer accessed is x
+PREFAST_NEWLINE
+Buffer is of length 10 elements (4 bytes/element) [size of variable]
+PREFAST_NEWLINE
+Accessing the element (4 bytes/element) at element offset index`39a
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+ when function GetNumber2 called at line 39 fails.
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+Values of variables:
+PREFAST_NEWLINE
+index = index`39a
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+Overrun access occurs when
+PREFAST_NEWLINE
+index`39a &gt;= 10
+PREFAST_NEWLINE
+</DESCRIPTION><FUNCTION>UnsafeTestStatus</FUNCTION><DECORATED>?UnsafeTestStatus@@YAXJ@Z</DECORATED><FUNCLINE>34</FUNCLINE><PATH><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test134.cpp</FILENAME><LINE>34</LINE><COLUMN>5</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test134.cpp</FILENAME><LINE>36</LINE><COLUMN>8</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test134.cpp</FILENAME><LINE>37</LINE><COLUMN>8</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test134.cpp</FILENAME><LINE>39</LINE><COLUMN>14</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test134.cpp</FILENAME><LINE>41</LINE><COLUMN>13</COLUMN></SFA></PATH></DEFECT><DEFECT><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test134.cpp</FILENAME><LINE>41</LINE><COLUMN>13</COLUMN></SFA><DEFECTCODE>26011</DEFECTCODE><DESCRIPTION>Potential Underflow using expression 'x[index]'
+PREFAST_NEWLINE
+Buffer accessed is x
+PREFAST_NEWLINE
+Buffer is of length 10 elements (4 bytes/element) [size of variable]
+PREFAST_NEWLINE
+Accessing the element (4 bytes/element) at element offset index`39a
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+ when function GetNumber2 called at line 39 fails.
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+Values of variables:
+PREFAST_NEWLINE
+index = index`39a
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+Underflow access occurs when
+PREFAST_NEWLINE
+index`39a + 1 &lt;= 0
+PREFAST_NEWLINE
+</DESCRIPTION><FUNCTION>UnsafeTestStatus</FUNCTION><DECORATED>?UnsafeTestStatus@@YAXJ@Z</DECORATED><FUNCLINE>34</FUNCLINE><PATH><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test134.cpp</FILENAME><LINE>34</LINE><COLUMN>5</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test134.cpp</FILENAME><LINE>36</LINE><COLUMN>8</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test134.cpp</FILENAME><LINE>37</LINE><COLUMN>8</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test134.cpp</FILENAME><LINE>39</LINE><COLUMN>14</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test134.cpp</FILENAME><LINE>41</LINE><COLUMN>13</COLUMN></SFA></PATH></DEFECT></DEFECTS>
