@@ -1,0 +1,256 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<DEFECTS><DEFECT><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test100.cpp</FILENAME><LINE>26</LINE><COLUMN>10</COLUMN></SFA><DEFECTCODE>26015</DEFECTCODE><DESCRIPTION>Potential overflow using expression 'b-&gt;fp'
+PREFAST_NEWLINE
+Buffer access is apparently unbounded by the buffer size.  
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+In particular: cb`24 is not constrained by (b-&gt;_BUFFER::fcb)`24
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+Buffer (b-&gt;_BUFFER::fp) is a parameter to this function declared on line 24
+PREFAST_NEWLINE
+Buffer lengths are from an assumed __inout annotation on the parameter
+PREFAST_NEWLINE
+Buffer is of length (b-&gt;_BUFFER::fcb)`24 bytes [from field annotation SAL_writableTo(byteCount(b-&gt;fcb)) at c:\somepath\test100.cpp(7)]
+PREFAST_NEWLINE
+Accessing cb`24 bytes starting at byte offset 0
+PREFAST_NEWLINE
+Annotation on function memcpy requires that {parameter 1} is of length &gt;= {parameter 3} bytes
+PREFAST_NEWLINE
+  where {parameter 1} is b-&gt;fp; {parameter 3} is cb
+PREFAST_NEWLINE
+[Annotation _Out_(byteCount({parameter 3}))]
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+Values of variables:
+PREFAST_NEWLINE
+Pointer (b-&gt;_BUFFER::fp) is at offset 0 bytes from the start of the buffer
+PREFAST_NEWLINE
+Pointer b is at offset 0 bytes from the start of b
+PREFAST_NEWLINE
+cb = cb`24
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+where
+PREFAST_NEWLINE
+(b-&gt;_BUFFER::fcb)`24 &gt;= 1
+PREFAST_NEWLINE
+cb`24 &gt;= 1
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+Overrun access occurs when
+PREFAST_NEWLINE
+cb`24 &gt;= (b-&gt;_BUFFER::fcb)`24 + 1
+PREFAST_NEWLINE
+</DESCRIPTION><FUNCTION>bad1</FUNCTION><DECORATED>?bad1@@YAXPAXIPAU_BUFFER@@@Z</DECORATED><FUNCLINE>24</FUNCLINE><PATH><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test100.cpp</FILENAME><LINE>24</LINE><COLUMN>5</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test100.cpp</FILENAME><LINE>26</LINE><COLUMN>10</COLUMN></SFA></PATH></DEFECT><DEFECT><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test100.cpp</FILENAME><LINE>31</LINE><COLUMN>10</COLUMN></SFA><DEFECTCODE>26045</DEFECTCODE><DESCRIPTION>Potential postcondition violation that could result in overflow
+PREFAST_NEWLINE
+Buffer access is apparently unbounded by the buffer size.  
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+In particular: (b-&gt;_BUFFER::fcb)`29 is not constrained by cb`29
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+Buffer p is a parameter to this function declared on line 29
+PREFAST_NEWLINE
+Buffer is of length offset(p)`29 + cb`29 bytes [from annotation SAL_readableTo(byteCount(cb)) at c:\somepath\test100.cpp(29)]
+PREFAST_NEWLINE
+Accessing (b-&gt;_BUFFER::fcb)`29 bytes starting at byte offset 0
+PREFAST_NEWLINE
+Assumed __inout annotation on function bad2 requires that b-&gt;fp is of length &gt;= b-&gt;fcb bytes
+PREFAST_NEWLINE
+[Field annotation SAL_writableTo(byteCount(b-&gt;fcb)) at c:\somepath\test100.cpp(7)]
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+Values of variables:
+PREFAST_NEWLINE
+(b-&gt;_BUFFER::fcb) = (b-&gt;_BUFFER::fcb)`29
+PREFAST_NEWLINE
+Pointer (b-&gt;_BUFFER::fp) is at offset 0 bytes from the start of the buffer
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+where
+PREFAST_NEWLINE
+offset(p)`29 == 0
+PREFAST_NEWLINE
+(b-&gt;_BUFFER::fcb)`29 &gt;= 1
+PREFAST_NEWLINE
+cb`29 &gt;= 1
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+Overrun access occurs when
+PREFAST_NEWLINE
+(b-&gt;_BUFFER::fcb)`29 &gt;= cb`29 + 1
+PREFAST_NEWLINE
+</DESCRIPTION><FUNCTION>bad2</FUNCTION><DECORATED>?bad2@@YAXPAXIPAU_BUFFER@@@Z</DECORATED><FUNCLINE>29</FUNCLINE><PATH><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test100.cpp</FILENAME><LINE>29</LINE><COLUMN>5</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test100.cpp</FILENAME><LINE>31</LINE><COLUMN>10</COLUMN></SFA></PATH></DEFECT><DEFECT><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test100.cpp</FILENAME><LINE>55</LINE><COLUMN>9</COLUMN></SFA><DEFECTCODE>26061</DEFECTCODE><DESCRIPTION>Range postcondition violation
+PREFAST_NEWLINE
+Assumed __out annotation on function Buffer::Buffer requires that this-&gt;m_index is &gt;= 0
+PREFAST_NEWLINE
+[Field annotation SAL_range(0, this-&gt;m_len - 1) at c:\somepath\test100.cpp(38)]
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+Values of variables:
+PREFAST_NEWLINE
+(this-&gt;Buffer::m_index) = -2
+PREFAST_NEWLINE
+</DESCRIPTION><FUNCTION>Buffer::{ctor}</FUNCTION><DECORATED>??0Buffer@@QAE@PAH@Z</DECORATED><FUNCLINE>51</FUNCLINE><PATH><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test100.cpp</FILENAME><LINE>51</LINE><COLUMN>4</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test100.cpp</FILENAME><LINE>53</LINE><COLUMN>14</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test100.cpp</FILENAME><LINE>54</LINE><COLUMN>14</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test100.cpp</FILENAME><LINE>55</LINE><COLUMN>9</COLUMN></SFA></PATH></DEFECT><DEFECT><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test100.cpp</FILENAME><LINE>55</LINE><COLUMN>9</COLUMN></SFA><DEFECTCODE>26030</DEFECTCODE><DESCRIPTION>Postcondition violation that could result in overflow
+PREFAST_NEWLINE
+Buffer buf is a parameter to this function declared on line 51
+PREFAST_NEWLINE
+Buffer is of length offset(buf)`51 + 400 bytes [from annotation SAL_readableTo(elementCount(100)) at c:\somepath\test100.cpp(51)]
+PREFAST_NEWLINE
+Accessing 800 bytes starting at byte offset 0
+PREFAST_NEWLINE
+Assumed __out annotation on function Buffer::Buffer requires that this-&gt;m_buf is of length &gt;= this-&gt;m_len elements (4 bytes/element)
+PREFAST_NEWLINE
+[Field annotation SAL_writableTo(elementCount(this-&gt;m_len)) at c:\somepath\test100.cpp(36)]
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+Values of variables:
+PREFAST_NEWLINE
+(this-&gt;Buffer::m_len) = 200
+PREFAST_NEWLINE
+Pointer buf is at offset 0 bytes from the start of the buffer
+PREFAST_NEWLINE
+</DESCRIPTION><FUNCTION>Buffer::{ctor}</FUNCTION><DECORATED>??0Buffer@@QAE@PAH@Z</DECORATED><FUNCLINE>51</FUNCLINE><PATH><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test100.cpp</FILENAME><LINE>51</LINE><COLUMN>4</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test100.cpp</FILENAME><LINE>53</LINE><COLUMN>14</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test100.cpp</FILENAME><LINE>54</LINE><COLUMN>14</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test100.cpp</FILENAME><LINE>55</LINE><COLUMN>9</COLUMN></SFA></PATH></DEFECT><DEFECT><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test100.cpp</FILENAME><LINE>68</LINE><COLUMN>8</COLUMN></SFA><DEFECTCODE>26019</DEFECTCODE><DESCRIPTION>Potential read overflow using expression '(this-&gt;m_buf)[index]'
+PREFAST_NEWLINE
+Buffer access is apparently unbounded by the buffer size.  
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+In particular: index`66 is not constrained by (this-&gt;Buffer::m_len)`66
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+Buffer (this-&gt;Buffer::m_buf) is a parameter to this function declared on line 66
+PREFAST_NEWLINE
+Buffer lengths are from an assumed __inout annotation on the parameter
+PREFAST_NEWLINE
+Buffer is of length (this-&gt;Buffer::m_len)`66 elements (4 bytes/element) [from field annotation SAL_writableTo(elementCount(this-&gt;m_len)) at c:\somepath\test100.cpp(36)]
+PREFAST_NEWLINE
+Accessing the element (4 bytes/element) at element offset index`66
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+Values of variables:
+PREFAST_NEWLINE
+Pointer (this-&gt;Buffer::m_buf) is at offset 0 bytes from the start of the buffer
+PREFAST_NEWLINE
+Pointer this is at offset 0 bytes from the start of this
+PREFAST_NEWLINE
+index = index`66
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+where
+PREFAST_NEWLINE
+(this-&gt;Buffer::m_index)`66 &gt;= 0
+PREFAST_NEWLINE
+(this-&gt;Buffer::m_len)`66 &gt;= (this-&gt;Buffer::m_index)`66 + 1
+PREFAST_NEWLINE
+(this-&gt;Buffer::m_len)`66 &gt;= 1
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+Overrun access occurs when
+PREFAST_NEWLINE
+(this-&gt;Buffer::m_len)`66 &lt;= index`66
+PREFAST_NEWLINE
+</DESCRIPTION><FUNCTION>Buffer::badfetch</FUNCTION><DECORATED>?badfetch@Buffer@@QAEHH@Z</DECORATED><FUNCLINE>66</FUNCLINE><PATH><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test100.cpp</FILENAME><LINE>66</LINE><COLUMN>8</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test100.cpp</FILENAME><LINE>68</LINE><COLUMN>8</COLUMN></SFA></PATH></DEFECT><DEFECT><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test100.cpp</FILENAME><LINE>68</LINE><COLUMN>8</COLUMN></SFA><DEFECTCODE>26011</DEFECTCODE><DESCRIPTION>Potential read underflow using expression '(this-&gt;m_buf)[index]'
+PREFAST_NEWLINE
+Buffer (this-&gt;Buffer::m_buf) is a parameter to this function declared on line 66
+PREFAST_NEWLINE
+Buffer lengths are from an assumed __inout annotation on the parameter
+PREFAST_NEWLINE
+Buffer is of length (this-&gt;Buffer::m_len)`66 elements (4 bytes/element) [from field annotation SAL_writableTo(elementCount(this-&gt;m_len)) at c:\somepath\test100.cpp(36)]
+PREFAST_NEWLINE
+Accessing the element (4 bytes/element) at element offset index`66
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+Values of variables:
+PREFAST_NEWLINE
+Pointer (this-&gt;Buffer::m_buf) is at offset 0 bytes from the start of the buffer
+PREFAST_NEWLINE
+Pointer this is at offset 0 bytes from the start of this
+PREFAST_NEWLINE
+index = index`66
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+Underflow access occurs when
+PREFAST_NEWLINE
+index`66 + 1 &lt;= 0
+PREFAST_NEWLINE
+</DESCRIPTION><FUNCTION>Buffer::badfetch</FUNCTION><DECORATED>?badfetch@Buffer@@QAEHH@Z</DECORATED><FUNCLINE>66</FUNCLINE><PATH><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test100.cpp</FILENAME><LINE>66</LINE><COLUMN>8</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test100.cpp</FILENAME><LINE>68</LINE><COLUMN>8</COLUMN></SFA></PATH></DEFECT><DEFECT><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test100.cpp</FILENAME><LINE>74</LINE><COLUMN>4</COLUMN></SFA><DEFECTCODE>26000</DEFECTCODE><DESCRIPTION>Read overflow using expression '(b-&gt;m_buf)[b-&gt;m_len]'
+PREFAST_NEWLINE
+Buffer (b-&gt;Buffer::m_buf) is a parameter to this function declared on line 72
+PREFAST_NEWLINE
+Buffer lengths are from an assumed __inout annotation on the parameter
+PREFAST_NEWLINE
+Buffer is of length (b-&gt;Buffer::m_len)`72 elements (4 bytes/element) [from field annotation SAL_writableTo(elementCount(b-&gt;m_len)) at c:\somepath\test100.cpp(36)]
+PREFAST_NEWLINE
+Accessing the element (4 bytes/element) at element offset (b-&gt;Buffer::m_len)`72
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+Values of variables:
+PREFAST_NEWLINE
+(b-&gt;Buffer::m_len) = (b-&gt;Buffer::m_len)`72
+PREFAST_NEWLINE
+Pointer (b-&gt;Buffer::m_buf) is at offset 0 bytes from the start of the buffer
+PREFAST_NEWLINE
+Pointer b is at offset 0 bytes from the start of b
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+where
+PREFAST_NEWLINE
+(b-&gt;Buffer::m_index)`72 &gt;= 0
+PREFAST_NEWLINE
+(b-&gt;Buffer::m_len)`72 &gt;= (b-&gt;Buffer::m_index)`72 + 1
+PREFAST_NEWLINE
+(b-&gt;Buffer::m_len)`72 &gt;= 1
+PREFAST_NEWLINE
+</DESCRIPTION><FUNCTION>Bad1</FUNCTION><DECORATED>?Bad1@@YAHPAUBuffer@@@Z</DECORATED><FUNCLINE>72</FUNCLINE><PATH><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test100.cpp</FILENAME><LINE>72</LINE><COLUMN>4</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test100.cpp</FILENAME><LINE>74</LINE><COLUMN>4</COLUMN></SFA></PATH></DEFECT><DEFECT><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test100.cpp</FILENAME><LINE>90</LINE><COLUMN>13</COLUMN></SFA><DEFECTCODE>26000</DEFECTCODE><DESCRIPTION>Overflow using expression '(const struct Buffer *)(&amp; b)'
+PREFAST_NEWLINE
+Buffer result.new[] created during call to operator new[] on line 85
+PREFAST_NEWLINE
+Buffer is of length 400 bytes [from annotation _Post_writable_byte_size_(byteCount({parameter 1})) on function operator new[] called at line 85]
+PREFAST_NEWLINE
+Accessing 1600 bytes starting at byte offset 0
+PREFAST_NEWLINE
+Assumed __in annotation on function Good1 requires that {parameter 1}-&gt;m_buf is of length &gt;= {parameter 1}-&gt;m_len elements (4 bytes/element)
+PREFAST_NEWLINE
+  where {parameter 1}-&gt;m_buf is (const struct Buffer *)(&amp; b); {parameter 1} is (const struct Buffer *)(&amp; b)
+PREFAST_NEWLINE
+[Field annotation SAL_writableTo(elementCount({parameter 1}-&gt;m_len)) at c:\somepath\test100.cpp(36)]
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+Values of variables:
+PREFAST_NEWLINE
+Pointer b.Buffer::m_buf is at offset 0 bytes from the start of the buffer
+PREFAST_NEWLINE
+b.Buffer::m_len = 400
+PREFAST_NEWLINE
+</DESCRIPTION><FUNCTION>Bad2</FUNCTION><DECORATED>?Bad2@@YAXXZ</DECORATED><FUNCLINE>82</FUNCLINE><PATH><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test100.cpp</FILENAME><LINE>82</LINE><COLUMN>5</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test100.cpp</FILENAME><LINE>84</LINE><COLUMN>11</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test100.cpp</FILENAME><LINE>84</LINE><COLUMN>11</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test100.cpp</FILENAME><LINE>85</LINE><COLUMN>14</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test100.cpp</FILENAME><LINE>85</LINE><COLUMN>12</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test100.cpp</FILENAME><LINE>86</LINE><COLUMN>9</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test100.cpp</FILENAME><LINE>88</LINE><COLUMN>16</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test100.cpp</FILENAME><LINE>89</LINE><COLUMN>18</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test100.cpp</FILENAME><LINE>90</LINE><COLUMN>13</COLUMN></SFA></PATH></DEFECT></DEFECTS>

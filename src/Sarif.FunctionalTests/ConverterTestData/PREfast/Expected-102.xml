@@ -1,0 +1,40 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<DEFECTS><DEFECT><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test102.cpp</FILENAME><LINE>20</LINE><COLUMN>16</COLUMN></SFA><DEFECTCODE>26026</DEFECTCODE><DESCRIPTION>Cast cannot be proven safe: "(VARSTR *)result.malloc" Accessing 20 bytes starting at byte offset 0
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+Values of variables:
+PREFAST_NEWLINE
+Pointer result.malloc is at offset offset(result.malloc)`20a bytes from the start of the buffer
+PREFAST_NEWLINE
+</DESCRIPTION><FUNCTION>good1</FUNCTION><DECORATED>?good1@@YAPAU_VARSTR@@XZ</DECORATED><FUNCLINE>18</FUNCLINE><PATH><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test102.cpp</FILENAME><LINE>18</LINE><COLUMN>26</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test102.cpp</FILENAME><LINE>20</LINE><COLUMN>12</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test102.cpp</FILENAME><LINE>20</LINE><COLUMN>31</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test102.cpp</FILENAME><LINE>20</LINE><COLUMN>16</COLUMN></SFA></PATH></DEFECT><DEFECT><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test102.cpp</FILENAME><LINE>43</LINE><COLUMN>16</COLUMN></SFA><DEFECTCODE>26026</DEFECTCODE><DESCRIPTION>Cast cannot be proven safe: "(VARSTR *)result.malloc" Accessing 20 bytes starting at byte offset 0
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+Values of variables:
+PREFAST_NEWLINE
+Pointer result.malloc is at offset offset(result.malloc)`43a bytes from the start of the buffer
+PREFAST_NEWLINE
+</DESCRIPTION><FUNCTION>bad1</FUNCTION><DECORATED>?bad1@@YAPAU_VARSTR@@XZ</DECORATED><FUNCLINE>41</FUNCLINE><PATH><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test102.cpp</FILENAME><LINE>41</LINE><COLUMN>35</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test102.cpp</FILENAME><LINE>43</LINE><COLUMN>12</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test102.cpp</FILENAME><LINE>43</LINE><COLUMN>31</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test102.cpp</FILENAME><LINE>43</LINE><COLUMN>16</COLUMN></SFA></PATH></DEFECT><DEFECT><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test102.cpp</FILENAME><LINE>49</LINE><COLUMN>4</COLUMN></SFA><DEFECTCODE>26030</DEFECTCODE><DESCRIPTION>Postcondition violation that could result in overflow
+PREFAST_NEWLINE
+Buffer result.malloc created during call to malloc on line 43
+PREFAST_NEWLINE
+Buffer is of length 8 bytes [from annotation _Post_writable_byte_size_(byteCount({parameter 1})) on function malloc called at line 43]
+PREFAST_NEWLINE
+Accessing 20 bytes starting at byte offset 0
+PREFAST_NEWLINE
+Annotation on function bad1 requires that result.bad1 is of length &gt;= 1 elements (20 bytes/element)
+PREFAST_NEWLINE
+[Annotation SAL_writableTo(elementCount(1)) at c:\somepath\test102.cpp(41)]
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+Values of variables:
+PREFAST_NEWLINE
+Pointer v is at offset 0 bytes from the start of the buffer
+PREFAST_NEWLINE
+result.bad1 = v
+PREFAST_NEWLINE
+</DESCRIPTION><FUNCTION>bad1</FUNCTION><DECORATED>?bad1@@YAPAU_VARSTR@@XZ</DECORATED><FUNCLINE>41</FUNCLINE><PATH><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test102.cpp</FILENAME><LINE>41</LINE><COLUMN>35</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test102.cpp</FILENAME><LINE>43</LINE><COLUMN>12</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test102.cpp</FILENAME><LINE>43</LINE><COLUMN>31</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test102.cpp</FILENAME><LINE>43</LINE><COLUMN>16</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test102.cpp</FILENAME><LINE>44</LINE><COLUMN>8</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test102.cpp</FILENAME><LINE>46</LINE><COLUMN>14</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test102.cpp</FILENAME><LINE>47</LINE><COLUMN>13</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test102.cpp</FILENAME><LINE>49</LINE><COLUMN>4</COLUMN></SFA></PATH></DEFECT></DEFECTS>

@@ -1,0 +1,64 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<DEFECTS><DEFECT><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test171.cpp</FILENAME><LINE>13</LINE><COLUMN>12</COLUMN></SFA><DEFECTCODE>26006</DEFECTCODE><DESCRIPTION>Possibly incorrect single element annotation on string buffer
+PREFAST_NEWLINE
+Overflow using expression 'data[1]'
+PREFAST_NEWLINE
+Buffer data created during call to GetDataSimple on line 11
+PREFAST_NEWLINE
+Buffer is of length 1 bytes [from annotation SAL_readableTo(elementCount(1)) at c:\somepath\test171.cpp(4) on function GetDataSimple called at line 11]
+PREFAST_NEWLINE
+Accessing the byte at byte offset 1
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+Values of variables:
+PREFAST_NEWLINE
+Pointer data is at offset 0 bytes from the start of the buffer
+PREFAST_NEWLINE
+</DESCRIPTION><FUNCTION>UseDataSimple</FUNCTION><DECORATED>?UseDataSimple@@YAXXZ</DECORATED><FUNCLINE>8</FUNCLINE><PATH><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test171.cpp</FILENAME><LINE>8</LINE><COLUMN>5</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test171.cpp</FILENAME><LINE>10</LINE><COLUMN>19</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test171.cpp</FILENAME><LINE>11</LINE><COLUMN>17</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test171.cpp</FILENAME><LINE>12</LINE><COLUMN>12</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test171.cpp</FILENAME><LINE>13</LINE><COLUMN>12</COLUMN></SFA></PATH></DEFECT><DEFECT><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test171.cpp</FILENAME><LINE>27</LINE><COLUMN>12</COLUMN></SFA><DEFECTCODE>26014</DEFECTCODE><DESCRIPTION>Potential overflow using expression 'data[1]'
+PREFAST_NEWLINE
+This is likely to be due to incorrect or insufficient validation of the buffer access
+PREFAST_NEWLINE
+Buffer data created during call to GetDataSized on line 25
+PREFAST_NEWLINE
+Buffer is of length size`25a bytes [from annotation SAL_writableTo(byteCount(* {parameter 2})) at c:\somepath\test171.cpp(16) on function GetDataSized called at line 25]
+PREFAST_NEWLINE
+Accessing the byte at byte offset 1
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+Values of variables:
+PREFAST_NEWLINE
+Pointer data is at offset 0 bytes from the start of the buffer
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+where
+PREFAST_NEWLINE
+offset(data)`25a == 0
+PREFAST_NEWLINE
+size`25a &gt;= 1
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+Overrun access occurs when
+PREFAST_NEWLINE
+size`25a &lt;= 1
+PREFAST_NEWLINE
+</DESCRIPTION><FUNCTION>UseDataSized</FUNCTION><DECORATED>?UseDataSized@@YAXXZ</DECORATED><FUNCLINE>21</FUNCLINE><PATH><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test171.cpp</FILENAME><LINE>21</LINE><COLUMN>5</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test171.cpp</FILENAME><LINE>23</LINE><COLUMN>19</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test171.cpp</FILENAME><LINE>24</LINE><COLUMN>17</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test171.cpp</FILENAME><LINE>25</LINE><COLUMN>16</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test171.cpp</FILENAME><LINE>26</LINE><COLUMN>12</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test171.cpp</FILENAME><LINE>27</LINE><COLUMN>12</COLUMN></SFA></PATH></DEFECT><DEFECT><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test171.cpp</FILENAME><LINE>53</LINE><COLUMN>12</COLUMN></SFA><DEFECTCODE>26006</DEFECTCODE><DESCRIPTION>Possibly incorrect single element annotation on string buffer
+PREFAST_NEWLINE
+Overflow using expression 'data[1]'
+PREFAST_NEWLINE
+Buffer data created during call to GetData on line 50
+PREFAST_NEWLINE
+Buffer is of length 1 bytes [from annotation SAL_readableTo(elementCount(1)) at c:\somepath\test171.cpp(30) on function GetData called at line 50]
+PREFAST_NEWLINE
+Accessing the byte at byte offset 1
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+Values of variables:
+PREFAST_NEWLINE
+Pointer data is at offset 0 bytes from the start of the buffer
+PREFAST_NEWLINE
+</DESCRIPTION><FUNCTION>UseData</FUNCTION><DECORATED>?UseData@@YAXXZ</DECORATED><FUNCLINE>37</FUNCLINE><PATH><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test171.cpp</FILENAME><LINE>37</LINE><COLUMN>5</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test171.cpp</FILENAME><LINE>39</LINE><COLUMN>19</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test171.cpp</FILENAME><LINE>40</LINE><COLUMN>17</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test171.cpp</FILENAME><LINE>42</LINE><COLUMN>11</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test171.cpp</FILENAME><LINE>44</LINE><COLUMN>13</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test171.cpp</FILENAME><LINE>50</LINE><COLUMN>11</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test171.cpp</FILENAME><LINE>52</LINE><COLUMN>12</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test171.cpp</FILENAME><LINE>53</LINE><COLUMN>12</COLUMN></SFA></PATH></DEFECT></DEFECTS>

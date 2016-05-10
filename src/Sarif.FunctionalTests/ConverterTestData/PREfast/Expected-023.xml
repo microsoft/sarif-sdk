@@ -1,0 +1,98 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<DEFECTS><DEFECT><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test023.cpp</FILENAME><LINE>11</LINE><COLUMN>11</COLUMN></SFA><DEFECTCODE>26007</DEFECTCODE><DESCRIPTION>Possibly incorrect single element annotation on buffer
+PREFAST_NEWLINE
+Read overflow using expression '* (sz ++)'
+PREFAST_NEWLINE
+Buffer sz is a parameter to this function declared on line 9
+PREFAST_NEWLINE
+Buffer lengths are from an assumed __in annotation on the parameter
+PREFAST_NEWLINE
+Buffer is of length offset(sz)`9 + 1 bytes [from annotation valid(elementCount(1)) at c:\somepath\test023.cpp(9)]
+PREFAST_NEWLINE
+Accessing the byte at byte offset 1
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+Values of variables:
+PREFAST_NEWLINE
+Pointer sz is at offset 2 bytes from the start of the buffer
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+where
+PREFAST_NEWLINE
+offset(sz)`9 == 0
+PREFAST_NEWLINE
+{loop iterations}'11 == 0
+PREFAST_NEWLINE
+</DESCRIPTION><FUNCTION>bar</FUNCTION><DECORATED>?bar@@YAXPBD@Z</DECORATED><FUNCLINE>9</FUNCLINE><PATH><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test023.cpp</FILENAME><LINE>9</LINE><COLUMN>5</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test023.cpp</FILENAME><LINE>11</LINE><COLUMN>11</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test023.cpp</FILENAME><LINE>11</LINE><COLUMN>11</COLUMN></SFA></PATH></DEFECT><DEFECT><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test023.cpp</FILENAME><LINE>46</LINE><COLUMN>1</COLUMN></SFA><DEFECTCODE>26017</DEFECTCODE><DESCRIPTION>Possibly incorrect single element annotation on buffer
+PREFAST_NEWLINE
+Read overflow using expression '((signed char *)p)[8]'
+PREFAST_NEWLINE
+Buffer p is a parameter to this function declared on line 43
+PREFAST_NEWLINE
+Buffer is of length offset(p)`43 + 8 bytes [from annotation SAL_readableTo(elementCount(1)) at c:\somepath\test023.cpp(43)]
+PREFAST_NEWLINE
+Accessing the byte at byte offset 8
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+Values of variables:
+PREFAST_NEWLINE
+Pointer p is at offset 0 bytes from the start of the buffer
+PREFAST_NEWLINE
+</DESCRIPTION><FUNCTION>g</FUNCTION><DECORATED>?g@@YADPAX@Z</DECORATED><FUNCLINE>43</FUNCLINE><PATH><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test023.cpp</FILENAME><LINE>43</LINE><COLUMN>5</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test023.cpp</FILENAME><LINE>45</LINE><COLUMN>6</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test023.cpp</FILENAME><LINE>45</LINE><COLUMN>24</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test023.cpp</FILENAME><LINE>46</LINE><COLUMN>1</COLUMN></SFA></PATH></DEFECT><DEFECT><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test023.cpp</FILENAME><LINE>59</LINE><COLUMN>5</COLUMN></SFA><DEFECTCODE>26035</DEFECTCODE><DESCRIPTION>Possible precondition violation due to failure to null terminate string '&amp; a'
+PREFAST_NEWLINE
+Buffer accessed is a
+PREFAST_NEWLINE
+Annotation on function h requires that {parameter 1} is null terminated
+PREFAST_NEWLINE
+  where {parameter 1} is &amp; a [Annotation SAL_nullTerminated at c:\somepath\test023.cpp(6)]
+PREFAST_NEWLINE
+</DESCRIPTION><FUNCTION>g1</FUNCTION><DECORATED>?g1@@YAXXZ</DECORATED><FUNCLINE>56</FUNCLINE><PATH><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test023.cpp</FILENAME><LINE>56</LINE><COLUMN>5</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test023.cpp</FILENAME><LINE>58</LINE><COLUMN>9</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test023.cpp</FILENAME><LINE>58</LINE><COLUMN>9</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test023.cpp</FILENAME><LINE>59</LINE><COLUMN>5</COLUMN></SFA></PATH></DEFECT><DEFECT><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test023.cpp</FILENAME><LINE>67</LINE><COLUMN>11</COLUMN></SFA><DEFECTCODE>26024</DEFECTCODE><DESCRIPTION>Cast cannot be proven safe: "(struct T *)(p + 1)" Accessing 12 bytes starting at byte offset 0
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+Values of variables:
+PREFAST_NEWLINE
+Pointer p is at offset offset(p)`62 bytes from the start of the buffer
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+There are other instances of this error:
+PREFAST_NEWLINE
+Potential read overflow using expression '(q[i]).c' at line 70
+PREFAST_NEWLINE
+</DESCRIPTION><FUNCTION>blah</FUNCTION><DECORATED>?blah@@YAXPAUS@@I@Z</DECORATED><FUNCLINE>62</FUNCLINE><PATH><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test023.cpp</FILENAME><LINE>62</LINE><COLUMN>5</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test023.cpp</FILENAME><LINE>64</LINE><COLUMN>9</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test023.cpp</FILENAME><LINE>67</LINE><COLUMN>7</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test023.cpp</FILENAME><LINE>67</LINE><COLUMN>11</COLUMN></SFA></PATH></DEFECT><DEFECT><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test023.cpp</FILENAME><LINE>88</LINE><COLUMN>6</COLUMN></SFA><DEFECTCODE>26000</DEFECTCODE><DESCRIPTION>Overflow using expression 'p[n]'
+PREFAST_NEWLINE
+Buffer buf is a parameter to this function declared on line 82
+PREFAST_NEWLINE
+Buffer is of length offset(buf)`82 + 4*n`82 + 16 bytes [from annotation SAL_writableTo(byteCount(16 + n * 4)) at c:\somepath\test023.cpp(82)]
+PREFAST_NEWLINE
+Accessing 4 bytes starting at byte offset 4*n`82 + 16
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+Values of variables:
+PREFAST_NEWLINE
+Pointer p is at offset 16 bytes from the start of the buffer
+PREFAST_NEWLINE
+n = n`82
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+where
+PREFAST_NEWLINE
+offset(buf)`82 == 0
+PREFAST_NEWLINE
+n`82 &gt;= 1
+PREFAST_NEWLINE
+</DESCRIPTION><FUNCTION>foo</FUNCTION><DECORATED>?foo@@YAXPADI@Z</DECORATED><FUNCLINE>82</FUNCLINE><PATH><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test023.cpp</FILENAME><LINE>82</LINE><COLUMN>5</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test023.cpp</FILENAME><LINE>86</LINE><COLUMN>15</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test023.cpp</FILENAME><LINE>86</LINE><COLUMN>19</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test023.cpp</FILENAME><LINE>87</LINE><COLUMN>11</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test023.cpp</FILENAME><LINE>88</LINE><COLUMN>6</COLUMN></SFA></PATH></DEFECT><DEFECT><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test023.cpp</FILENAME><LINE>97</LINE><COLUMN>7</COLUMN></SFA><DEFECTCODE>26035</DEFECTCODE><DESCRIPTION>Possible precondition violation due to failure to null terminate string '&amp; s1'
+PREFAST_NEWLINE
+Buffer accessed is s1
+PREFAST_NEWLINE
+Annotation on function baz requires that {parameter 1} is null terminated
+PREFAST_NEWLINE
+  where {parameter 1} is &amp; s1 [Annotation SAL_nullTerminated at c:\somepath\test023.cpp(6)]
+PREFAST_NEWLINE
+</DESCRIPTION><FUNCTION>main</FUNCTION><DECORATED>main</DECORATED><FUNCLINE>91</FUNCLINE><PATH><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test023.cpp</FILENAME><LINE>91</LINE><COLUMN>5</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test023.cpp</FILENAME><LINE>93</LINE><COLUMN>9</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test023.cpp</FILENAME><LINE>93</LINE><COLUMN>9</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test023.cpp</FILENAME><LINE>96</LINE><COLUMN>7</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test023.cpp</FILENAME><LINE>97</LINE><COLUMN>7</COLUMN></SFA></PATH></DEFECT></DEFECTS>

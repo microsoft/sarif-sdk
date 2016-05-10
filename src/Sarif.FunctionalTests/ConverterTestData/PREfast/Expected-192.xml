@@ -1,0 +1,1526 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<DEFECTS><DEFECT><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>stralign.h</FILENAME><LINE>120</LINE><COLUMN>4</COLUMN></SFA><DEFECTCODE>26036</DEFECTCODE><DESCRIPTION>Possible postcondition violation due to failure to null terminate string
+PREFAST_NEWLINE
+Buffer result.wcscpy created during call to wcscpy on line 120
+PREFAST_NEWLINE
+Annotation on function ua_wcscpy requires that result.ua_wcscpy is null terminated
+PREFAST_NEWLINE
+[Annotation SAL_nullTerminated at c:\somepath\winnt.h(368)]
+PREFAST_NEWLINE
+</DESCRIPTION><FUNCTION>ua_wcscpy</FUNCTION><DECORATED>ua_wcscpy</DECORATED><FUNCLINE>109</FUNCLINE><PATH><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>stralign.h</FILENAME><LINE>109</LINE><COLUMN>0</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>stralign.h</FILENAME><LINE>120</LINE><COLUMN>17</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>stralign.h</FILENAME><LINE>120</LINE><COLUMN>4</COLUMN></SFA></PATH></DEFECT><DEFECT><SFA><FILEPATH>c:\somepath\crt\</FILEPATH><FILENAME>tchar.h</FILENAME><LINE>731</LINE><COLUMN>28</COLUMN></SFA><DEFECTCODE>26018</DEFECTCODE><DESCRIPTION>Potential read overflow of null terminated buffer using expression '* (_Cpc1 += result.wcsspn)'
+PREFAST_NEWLINE
+Buffer access is apparently unbounded by the buffer size.  
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+In particular: offset(_Cpc1)`725 is not constrained by nullpos(_Cpc1)`725
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+Buffer _Cpc1 is a parameter to this function declared on line 725
+PREFAST_NEWLINE
+Buffer is of length 2*nullpos(_Cpc1)`725 + 2 bytes [length of zero terminated string]
+PREFAST_NEWLINE
+Accessing 2 bytes starting at byte offset 2*result.wcsspn`731a
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+Values of variables:
+PREFAST_NEWLINE
+Pointer _Cpc1 is at offset 2*result.wcsspn`731a bytes from the start of the buffer
+PREFAST_NEWLINE
+result.wcsspn = result.wcsspn`731a
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+where
+PREFAST_NEWLINE
+offset(_Cpc1)`725 == 0
+PREFAST_NEWLINE
+nullpos(_Cpc1)`725 &gt;= 0
+PREFAST_NEWLINE
+result.wcsspn`731a &gt;= 0
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+Overrun access occurs when
+PREFAST_NEWLINE
+2*result.wcsspn`731a &gt;= 2*nullpos(_Cpc1)`725 + 1
+PREFAST_NEWLINE
+</DESCRIPTION><FUNCTION>_wcsspnp</FUNCTION><DECORATED>_wcsspnp</DECORATED><FUNCLINE>725</FUNCLINE><PATH><SFA><FILEPATH>c:\somepath\crt\</FILEPATH><FILENAME>tchar.h</FILENAME><LINE>725</LINE><COLUMN>202</COLUMN></SFA><SFA><FILEPATH>c:\somepath\crt\</FILEPATH><FILENAME>tchar.h</FILENAME><LINE>731</LINE><COLUMN>11</COLUMN></SFA><SFA><FILEPATH>c:\somepath\crt\</FILEPATH><FILENAME>tchar.h</FILENAME><LINE>731</LINE><COLUMN>45</COLUMN></SFA><SFA><FILEPATH>c:\somepath\crt\</FILEPATH><FILENAME>tchar.h</FILENAME><LINE>731</LINE><COLUMN>28</COLUMN></SFA></PATH></DEFECT><DEFECT><SFA><FILEPATH>c:\somepath\crt\</FILEPATH><FILENAME>tchar.h</FILENAME><LINE>781</LINE><COLUMN>18</COLUMN></SFA><DEFECTCODE>26018</DEFECTCODE><DESCRIPTION>Potential overflow of null terminated buffer using expression '_Dst'
+PREFAST_NEWLINE
+Buffer access is apparently unbounded by the buffer size.  
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+In particular: offset(_Dst)`770 is not constrained by nullpos(_Dst)`770
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+Buffer _Dst is a parameter to this function declared on line 770
+PREFAST_NEWLINE
+Buffer is of length 2*nullpos(_Dst)`770 + 2 bytes [length of zero terminated string]
+PREFAST_NEWLINE
+Accessing 2*_Count`770 bytes starting at byte offset 0
+PREFAST_NEWLINE
+Annotation on function wcsncat requires that {parameter 1} is of length &gt;= {parameter 3} elements (2 bytes/element)
+PREFAST_NEWLINE
+  where {parameter 1} is _Dst; {parameter 3} is _Count
+PREFAST_NEWLINE
+[Annotation SAL_writableTo(elementCount({parameter 3})) at c:\somepath\crt\string.h(295)]
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+Values of variables:
+PREFAST_NEWLINE
+Pointer _Dst is at offset 0 bytes from the start of the buffer
+PREFAST_NEWLINE
+_Count = _Count`770
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+where
+PREFAST_NEWLINE
+offset(_Dst)`770 == 0
+PREFAST_NEWLINE
+_Count`770 &gt;= 0
+PREFAST_NEWLINE
+nullpos(_Dst)`770 &gt;= 0
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+Overrun access occurs when
+PREFAST_NEWLINE
+2*_Count`770 &gt;= 2*nullpos(_Dst)`770 + 3
+PREFAST_NEWLINE
+</DESCRIPTION><FUNCTION>_wcsncat_l</FUNCTION><DECORATED>_wcsncat_l</DECORATED><FUNCLINE>770</FUNCLINE><PATH><SFA><FILEPATH>c:\somepath\crt\</FILEPATH><FILENAME>tchar.h</FILENAME><LINE>770</LINE><COLUMN>28</COLUMN></SFA><SFA><FILEPATH>c:\somepath\crt\</FILEPATH><FILENAME>tchar.h</FILENAME><LINE>781</LINE><COLUMN>18</COLUMN></SFA></PATH></DEFECT><DEFECT><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>strsafe.h</FILENAME><LINE>1575</LINE><COLUMN>4</COLUMN></SFA><DEFECTCODE>26036</DEFECTCODE><DESCRIPTION>Possible postcondition violation due to failure to null terminate string
+PREFAST_NEWLINE
+The function has a __success annotation that is satisfied
+PREFAST_NEWLINE
+Buffer pszDest is a parameter to this function declared on line 1459
+PREFAST_NEWLINE
+Annotation on function StringCbCopyExW requires that pszDest is null terminated
+PREFAST_NEWLINE
+[Annotation SAL_nullTerminated at c:\somepath\strsafe.h(1459)]
+PREFAST_NEWLINE
+</DESCRIPTION><FUNCTION>StringCbCopyExW</FUNCTION><DECORATED>?StringCbCopyExW@@YGJPAGIPBGPAPAGPAIK@Z</DECORATED><FUNCLINE>1459</FUNCLINE><PATH><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>strsafe.h</FILENAME><LINE>1459</LINE><COLUMN>0</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>strsafe.h</FILENAME><LINE>1467</LINE><COLUMN>12</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>strsafe.h</FILENAME><LINE>1468</LINE><COLUMN>11</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>strsafe.h</FILENAME><LINE>1468</LINE><COLUMN>28</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>strsafe.h</FILENAME><LINE>1470</LINE><COLUMN>30</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>strsafe.h</FILENAME><LINE>1470</LINE><COLUMN>7</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>strsafe.h</FILENAME><LINE>1472</LINE><COLUMN>25</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>strsafe.h</FILENAME><LINE>1474</LINE><COLUMN>23</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>strsafe.h</FILENAME><LINE>1474</LINE><COLUMN>36</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>strsafe.h</FILENAME><LINE>1475</LINE><COLUMN>15</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>strsafe.h</FILENAME><LINE>1475</LINE><COLUMN>30</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>strsafe.h</FILENAME><LINE>1477</LINE><COLUMN>33</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>strsafe.h</FILENAME><LINE>1477</LINE><COLUMN>11</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>strsafe.h</FILENAME><LINE>1479</LINE><COLUMN>29</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>strsafe.h</FILENAME><LINE>1481</LINE><COLUMN>24</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>strsafe.h</FILENAME><LINE>1483</LINE><COLUMN>19</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>strsafe.h</FILENAME><LINE>1485</LINE><COLUMN>20</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>strsafe.h</FILENAME><LINE>1543</LINE><COLUMN>29</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>strsafe.h</FILENAME><LINE>1544</LINE><COLUMN>21</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>strsafe.h</FILENAME><LINE>1556</LINE><COLUMN>29</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>strsafe.h</FILENAME><LINE>1556</LINE><COLUMN>42</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>strsafe.h</FILENAME><LINE>1575</LINE><COLUMN>4</COLUMN></SFA></PATH></DEFECT><DEFECT><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>strsafe.h</FILENAME><LINE>2591</LINE><COLUMN>33</COLUMN></SFA><DEFECTCODE>26019</DEFECTCODE><DESCRIPTION>Potential read overflow using expression '&amp; pszSrc'
+PREFAST_NEWLINE
+Buffer access is apparently unbounded by the buffer size.  
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+In particular: any constant is not constrained by cbToCopy`2571
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+Buffer pszSrc is a parameter to this function declared on line 2571
+PREFAST_NEWLINE
+Buffer is of length offset(pszSrc)`2571 + cbToCopy`2571 bytes [from annotation SAL_readableTo(byteCount(cbToCopy)) at c:\somepath\strsafe.h(2571)]
+PREFAST_NEWLINE
+Accessing 2 bytes starting at byte offset 0
+PREFAST_NEWLINE
+Annotation on function StringExValidateSrcW requires that * {parameter 1} is of length &gt;= 1 elements (2 bytes/element)
+PREFAST_NEWLINE
+  where * {parameter 1} is &amp; pszSrc
+PREFAST_NEWLINE
+[Annotation SAL_readableTo(elementCount(1)) at c:\somepath\strsafe.h(227)]
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+Values of variables:
+PREFAST_NEWLINE
+Pointer pszSrc is at offset 0 bytes from the start of the buffer
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+where
+PREFAST_NEWLINE
+offset(pszSrc)`2571 == 0
+PREFAST_NEWLINE
+cbToCopy`2571 == 2*{cbToCopy / 2}`2589 + {(cbToCopy`2571) % 2}`2589
+PREFAST_NEWLINE
+cbToCopy`2571 &gt;= 1
+PREFAST_NEWLINE
+{(cbToCopy`2571) % 2}`2589 &lt;= 1
+PREFAST_NEWLINE
+{(cbToCopy`2571) % 2}`2589 &gt;= 0
+PREFAST_NEWLINE
+{cbToCopy / 2}`2589 &gt;= 0
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+Overrun access occurs when
+PREFAST_NEWLINE
+cbToCopy`2571 == 1
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+There are other instances of this error:
+PREFAST_NEWLINE
+Potential read overflow using expression 'pszSrc' at line 2628
+PREFAST_NEWLINE
+</DESCRIPTION><FUNCTION>StringCbCopyNExW</FUNCTION><DECORATED>?StringCbCopyNExW@@YGJPAGIPBGIPAPAGPAIK@Z</DECORATED><FUNCLINE>2571</FUNCLINE><PATH><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>strsafe.h</FILENAME><LINE>2571</LINE><COLUMN>0</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>strsafe.h</FILENAME><LINE>2580</LINE><COLUMN>12</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>strsafe.h</FILENAME><LINE>2581</LINE><COLUMN>11</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>strsafe.h</FILENAME><LINE>2581</LINE><COLUMN>28</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>strsafe.h</FILENAME><LINE>2583</LINE><COLUMN>30</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>strsafe.h</FILENAME><LINE>2583</LINE><COLUMN>7</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>strsafe.h</FILENAME><LINE>2585</LINE><COLUMN>25</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>strsafe.h</FILENAME><LINE>2587</LINE><COLUMN>23</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>strsafe.h</FILENAME><LINE>2587</LINE><COLUMN>36</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>strsafe.h</FILENAME><LINE>2588</LINE><COLUMN>15</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>strsafe.h</FILENAME><LINE>2588</LINE><COLUMN>30</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>strsafe.h</FILENAME><LINE>2589</LINE><COLUMN>15</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>strsafe.h</FILENAME><LINE>2589</LINE><COLUMN>36</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>strsafe.h</FILENAME><LINE>2591</LINE><COLUMN>33</COLUMN></SFA></PATH></DEFECT><DEFECT><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>strsafe.h</FILENAME><LINE>4656</LINE><COLUMN>33</COLUMN></SFA><DEFECTCODE>26019</DEFECTCODE><DESCRIPTION>Potential read overflow using expression '&amp; pszSrc'
+PREFAST_NEWLINE
+Buffer access is apparently unbounded by the buffer size.  
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+In particular: any constant is not constrained by cbToAppend`4631
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+Buffer pszSrc is a parameter to this function declared on line 4631
+PREFAST_NEWLINE
+Buffer is of length offset(pszSrc)`4631 + cbToAppend`4631 bytes [from annotation SAL_readableTo(byteCount(cbToAppend)) at c:\somepath\strsafe.h(4631)]
+PREFAST_NEWLINE
+Accessing 2 bytes starting at byte offset 0
+PREFAST_NEWLINE
+Annotation on function StringExValidateSrcW requires that * {parameter 1} is of length &gt;= 1 elements (2 bytes/element)
+PREFAST_NEWLINE
+  where * {parameter 1} is &amp; pszSrc
+PREFAST_NEWLINE
+[Annotation SAL_readableTo(elementCount(1)) at c:\somepath\strsafe.h(227)]
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+Values of variables:
+PREFAST_NEWLINE
+Pointer pszSrc is at offset 0 bytes from the start of the buffer
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+where
+PREFAST_NEWLINE
+offset(pszSrc)`4631 == 0
+PREFAST_NEWLINE
+cbToAppend`4631 == 2*{cbToAppend / 2}`4654 + {(cbToAppend`4631) % 2}`4654
+PREFAST_NEWLINE
+cbToAppend`4631 &gt;= 1
+PREFAST_NEWLINE
+{(cbToAppend`4631) % 2}`4654 &lt;= 1
+PREFAST_NEWLINE
+{(cbToAppend`4631) % 2}`4654 &gt;= 0
+PREFAST_NEWLINE
+{cbToAppend / 2}`4654 &gt;= 0
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+Overrun access occurs when
+PREFAST_NEWLINE
+cbToAppend`4631 == 1
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+There are other instances of this error:
+PREFAST_NEWLINE
+Potential read overflow using expression 'pszSrc' at line 4683
+PREFAST_NEWLINE
+</DESCRIPTION><FUNCTION>StringCbCatNExW</FUNCTION><DECORATED>?StringCbCatNExW@@YGJPAGIPBGIPAPAGPAIK@Z</DECORATED><FUNCLINE>4631</FUNCLINE><PATH><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>strsafe.h</FILENAME><LINE>4631</LINE><COLUMN>0</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>strsafe.h</FILENAME><LINE>4640</LINE><COLUMN>12</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>strsafe.h</FILENAME><LINE>4641</LINE><COLUMN>11</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>strsafe.h</FILENAME><LINE>4641</LINE><COLUMN>28</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>strsafe.h</FILENAME><LINE>4642</LINE><COLUMN>11</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>strsafe.h</FILENAME><LINE>4644</LINE><COLUMN>39</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>strsafe.h</FILENAME><LINE>4644</LINE><COLUMN>7</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>strsafe.h</FILENAME><LINE>4650</LINE><COLUMN>25</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>strsafe.h</FILENAME><LINE>4652</LINE><COLUMN>23</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>strsafe.h</FILENAME><LINE>4652</LINE><COLUMN>44</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>strsafe.h</FILENAME><LINE>4653</LINE><COLUMN>15</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>strsafe.h</FILENAME><LINE>4653</LINE><COLUMN>38</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>strsafe.h</FILENAME><LINE>4654</LINE><COLUMN>15</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>strsafe.h</FILENAME><LINE>4654</LINE><COLUMN>40</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>strsafe.h</FILENAME><LINE>4656</LINE><COLUMN>33</COLUMN></SFA></PATH></DEFECT><DEFECT><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>strsafe.h</FILENAME><LINE>6913</LINE><COLUMN>4</COLUMN></SFA><DEFECTCODE>26036</DEFECTCODE><DESCRIPTION>Possible postcondition violation due to failure to null terminate string
+PREFAST_NEWLINE
+The function has a __success annotation that is satisfied
+PREFAST_NEWLINE
+Buffer pszDest is a parameter to this function declared on line 6791
+PREFAST_NEWLINE
+Annotation on function StringCbPrintfExW requires that pszDest is null terminated
+PREFAST_NEWLINE
+[Annotation SAL_nullTerminated at c:\somepath\strsafe.h(6791)]
+PREFAST_NEWLINE
+</DESCRIPTION><FUNCTION>StringCbPrintfExW</FUNCTION><DECORATED>?StringCbPrintfExW@@YAJPAGIPAPAGPAIKPBGZZ</DECORATED><FUNCLINE>6791</FUNCLINE><PATH><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>strsafe.h</FILENAME><LINE>6791</LINE><COLUMN>0</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>strsafe.h</FILENAME><LINE>6800</LINE><COLUMN>12</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>strsafe.h</FILENAME><LINE>6801</LINE><COLUMN>11</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>strsafe.h</FILENAME><LINE>6801</LINE><COLUMN>28</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>strsafe.h</FILENAME><LINE>6803</LINE><COLUMN>30</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>strsafe.h</FILENAME><LINE>6803</LINE><COLUMN>7</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>strsafe.h</FILENAME><LINE>6805</LINE><COLUMN>25</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>strsafe.h</FILENAME><LINE>6807</LINE><COLUMN>23</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>strsafe.h</FILENAME><LINE>6807</LINE><COLUMN>36</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>strsafe.h</FILENAME><LINE>6808</LINE><COLUMN>15</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>strsafe.h</FILENAME><LINE>6808</LINE><COLUMN>30</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>strsafe.h</FILENAME><LINE>6810</LINE><COLUMN>33</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>strsafe.h</FILENAME><LINE>6810</LINE><COLUMN>11</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>strsafe.h</FILENAME><LINE>6812</LINE><COLUMN>29</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>strsafe.h</FILENAME><LINE>6814</LINE><COLUMN>24</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>strsafe.h</FILENAME><LINE>6816</LINE><COLUMN>19</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>strsafe.h</FILENAME><LINE>6818</LINE><COLUMN>20</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>strsafe.h</FILENAME><LINE>6881</LINE><COLUMN>29</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>strsafe.h</FILENAME><LINE>6882</LINE><COLUMN>21</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>strsafe.h</FILENAME><LINE>6894</LINE><COLUMN>29</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>strsafe.h</FILENAME><LINE>6894</LINE><COLUMN>42</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>strsafe.h</FILENAME><LINE>6913</LINE><COLUMN>4</COLUMN></SFA></PATH></DEFECT><DEFECT><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>strsafe.h</FILENAME><LINE>9466</LINE><COLUMN>4</COLUMN></SFA><DEFECTCODE>26036</DEFECTCODE><DESCRIPTION>Possible postcondition violation due to failure to null terminate string
+PREFAST_NEWLINE
+The function has a __success annotation that is satisfied
+PREFAST_NEWLINE
+Buffer pszDest is a parameter to this function declared on line 9374
+PREFAST_NEWLINE
+Annotation on function StringCbGetsExW requires that pszDest is null terminated
+PREFAST_NEWLINE
+[Annotation SAL_nullTerminated at c:\somepath\strsafe.h(9374)]
+PREFAST_NEWLINE
+</DESCRIPTION><FUNCTION>StringCbGetsExW</FUNCTION><DECORATED>?StringCbGetsExW@@YGJPAGIPAPAGPAIK@Z</DECORATED><FUNCLINE>9374</FUNCLINE><PATH><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>strsafe.h</FILENAME><LINE>9374</LINE><COLUMN>0</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>strsafe.h</FILENAME><LINE>9381</LINE><COLUMN>12</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>strsafe.h</FILENAME><LINE>9382</LINE><COLUMN>11</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>strsafe.h</FILENAME><LINE>9382</LINE><COLUMN>28</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>strsafe.h</FILENAME><LINE>9384</LINE><COLUMN>30</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>strsafe.h</FILENAME><LINE>9384</LINE><COLUMN>7</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>strsafe.h</FILENAME><LINE>9386</LINE><COLUMN>25</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>strsafe.h</FILENAME><LINE>9388</LINE><COLUMN>23</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>strsafe.h</FILENAME><LINE>9388</LINE><COLUMN>36</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>strsafe.h</FILENAME><LINE>9389</LINE><COLUMN>15</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>strsafe.h</FILENAME><LINE>9389</LINE><COLUMN>30</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>strsafe.h</FILENAME><LINE>9391</LINE><COLUMN>20</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>strsafe.h</FILENAME><LINE>9393</LINE><COLUMN>15</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>strsafe.h</FILENAME><LINE>9395</LINE><COLUMN>16</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>strsafe.h</FILENAME><LINE>9432</LINE><COLUMN>29</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>strsafe.h</FILENAME><LINE>9433</LINE><COLUMN>21</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>strsafe.h</FILENAME><LINE>9445</LINE><COLUMN>29</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>strsafe.h</FILENAME><LINE>9446</LINE><COLUMN>16</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>strsafe.h</FILENAME><LINE>9447</LINE><COLUMN>16</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>strsafe.h</FILENAME><LINE>9466</LINE><COLUMN>4</COLUMN></SFA></PATH></DEFECT><DEFECT><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>strsafe.h</FILENAME><LINE>9573</LINE><COLUMN>4</COLUMN></SFA><DEFECTCODE>26071</DEFECTCODE><DESCRIPTION>Potential range postcondition violation
+PREFAST_NEWLINE
+The function has a __success annotation that is satisfied
+PREFAST_NEWLINE
+Annotation on function StringCchLengthA requires that * pcchLength is &lt;= _String_length_(psz)
+PREFAST_NEWLINE
+[Annotation SAL_relop("&lt;=", _String_length_(psz)) at c:\somepath\strsafe.h(9552)]
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+Values of variables:
+PREFAST_NEWLINE
+(*pcchLength) = (*pcchLength)`9565a
+PREFAST_NEWLINE
+Pointer psz is at offset 0 bytes from the start of psz
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+where
+PREFAST_NEWLINE
+offset(psz)`9552 == 0
+PREFAST_NEWLINE
+(*pcchLength)`9565a &gt;= 0
+PREFAST_NEWLINE
+cchMax`9552 &lt;= 2147483647
+PREFAST_NEWLINE
+cchMax`9552 &gt;= (*pcchLength)`9565a + 1
+PREFAST_NEWLINE
+cchMax`9552 &gt;= 1
+PREFAST_NEWLINE
+cchMax`9552 &gt;= nullpos(psz)`9565 + 1
+PREFAST_NEWLINE
+nullpos(psz)`9565 &gt;= 0
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+Range violation occurs when
+PREFAST_NEWLINE
+nullpos(psz)`9565 &gt;= (*pcchLength)`9565a + 1
+PREFAST_NEWLINE
+</DESCRIPTION><FUNCTION>StringCchLengthA</FUNCTION><DECORATED>?StringCchLengthA@@YGJPBDIPAI@Z</DECORATED><FUNCLINE>9552</FUNCLINE><PATH><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>strsafe.h</FILENAME><LINE>9552</LINE><COLUMN>0</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>strsafe.h</FILENAME><LINE>9557</LINE><COLUMN>12</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>strsafe.h</FILENAME><LINE>9559</LINE><COLUMN>9</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>strsafe.h</FILENAME><LINE>9559</LINE><COLUMN>30</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>strsafe.h</FILENAME><LINE>9565</LINE><COLUMN>32</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>strsafe.h</FILENAME><LINE>9565</LINE><COLUMN>11</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>strsafe.h</FILENAME><LINE>9568</LINE><COLUMN>25</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>strsafe.h</FILENAME><LINE>9573</LINE><COLUMN>4</COLUMN></SFA></PATH></DEFECT><DEFECT><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>strsafe.h</FILENAME><LINE>9605</LINE><COLUMN>4</COLUMN></SFA><DEFECTCODE>26071</DEFECTCODE><DESCRIPTION>Potential range postcondition violation
+PREFAST_NEWLINE
+The function has a __success annotation that is satisfied
+PREFAST_NEWLINE
+Annotation on function StringCchLengthW requires that * pcchLength is &lt;= _String_length_(psz)
+PREFAST_NEWLINE
+[Annotation SAL_relop("&lt;=", _String_length_(psz)) at c:\somepath\strsafe.h(9584)]
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+Values of variables:
+PREFAST_NEWLINE
+(*pcchLength) = (*pcchLength)`9597a
+PREFAST_NEWLINE
+Pointer psz is at offset offset(psz)`9584 bytes from the start of psz
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+where
+PREFAST_NEWLINE
+(*pcchLength)`9597a &gt;= 0
+PREFAST_NEWLINE
+cchMax`9584 &lt;= 2147483647
+PREFAST_NEWLINE
+cchMax`9584 &gt;= (*pcchLength)`9597a + 1
+PREFAST_NEWLINE
+cchMax`9584 &gt;= 1
+PREFAST_NEWLINE
+cchMax`9584 &gt;= nullpos(psz)`9597 + 1
+PREFAST_NEWLINE
+nullpos(psz)`9597 &gt;= 0
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+Range violation occurs when
+PREFAST_NEWLINE
+nullpos(psz)`9597 &gt;= (*pcchLength)`9597a + 1
+PREFAST_NEWLINE
+</DESCRIPTION><FUNCTION>StringCchLengthW</FUNCTION><DECORATED>?StringCchLengthW@@YGJPBGIPAI@Z</DECORATED><FUNCLINE>9584</FUNCLINE><PATH><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>strsafe.h</FILENAME><LINE>9584</LINE><COLUMN>0</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>strsafe.h</FILENAME><LINE>9589</LINE><COLUMN>12</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>strsafe.h</FILENAME><LINE>9591</LINE><COLUMN>9</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>strsafe.h</FILENAME><LINE>9591</LINE><COLUMN>30</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>strsafe.h</FILENAME><LINE>9597</LINE><COLUMN>32</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>strsafe.h</FILENAME><LINE>9597</LINE><COLUMN>11</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>strsafe.h</FILENAME><LINE>9600</LINE><COLUMN>25</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>strsafe.h</FILENAME><LINE>9605</LINE><COLUMN>4</COLUMN></SFA></PATH></DEFECT><DEFECT><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>strsafe.h</FILENAME><LINE>10259</LINE><COLUMN>4</COLUMN></SFA><DEFECTCODE>26061</DEFECTCODE><DESCRIPTION>Range postcondition violation
+PREFAST_NEWLINE
+The function has a __success annotation that is satisfied
+PREFAST_NEWLINE
+Annotation on function StringValidateDestAndLengthA requires that cchDest &gt; 0 &amp;&amp; cchDest &lt;= cchMax
+PREFAST_NEWLINE
+[Annotation SAL_satisfies(cchDest &gt; 0 &amp;&amp; cchDest &lt;= cchMax) at c:\somepath\strsafe.h(250)]
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+Values of variables:
+PREFAST_NEWLINE
+cchDest = cchDest`10240
+PREFAST_NEWLINE
+cchMax = cchMax`10240
+PREFAST_NEWLINE
+</DESCRIPTION><FUNCTION>StringValidateDestAndLengthA</FUNCTION><DECORATED>?StringValidateDestAndLengthA@@YGJPBDIPAII@Z</DECORATED><FUNCLINE>10240</FUNCLINE><PATH><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>strsafe.h</FILENAME><LINE>10240</LINE><COLUMN>0</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>strsafe.h</FILENAME><LINE>10246</LINE><COLUMN>12</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>strsafe.h</FILENAME><LINE>10248</LINE><COLUMN>28</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>strsafe.h</FILENAME><LINE>10248</LINE><COLUMN>7</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>strsafe.h</FILENAME><LINE>10250</LINE><COLUMN>25</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>strsafe.h</FILENAME><LINE>10252</LINE><COLUMN>32</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>strsafe.h</FILENAME><LINE>10252</LINE><COLUMN>11</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>strsafe.h</FILENAME><LINE>10259</LINE><COLUMN>4</COLUMN></SFA></PATH></DEFECT><DEFECT><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>strsafe.h</FILENAME><LINE>10315</LINE><COLUMN>4</COLUMN></SFA><DEFECTCODE>26061</DEFECTCODE><DESCRIPTION>Range postcondition violation
+PREFAST_NEWLINE
+The function has a __success annotation that is satisfied
+PREFAST_NEWLINE
+Annotation on function StringValidateDestAndLengthW requires that cchDest &gt; 0 &amp;&amp; cchDest &lt;= cchMax
+PREFAST_NEWLINE
+[Annotation SAL_satisfies(cchDest &gt; 0 &amp;&amp; cchDest &lt;= cchMax) at c:\somepath\strsafe.h(271)]
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+Values of variables:
+PREFAST_NEWLINE
+cchDest = cchDest`10296
+PREFAST_NEWLINE
+cchMax = cchMax`10296
+PREFAST_NEWLINE
+</DESCRIPTION><FUNCTION>StringValidateDestAndLengthW</FUNCTION><DECORATED>?StringValidateDestAndLengthW@@YGJPBGIPAII@Z</DECORATED><FUNCLINE>10296</FUNCLINE><PATH><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>strsafe.h</FILENAME><LINE>10296</LINE><COLUMN>0</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>strsafe.h</FILENAME><LINE>10302</LINE><COLUMN>12</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>strsafe.h</FILENAME><LINE>10304</LINE><COLUMN>28</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>strsafe.h</FILENAME><LINE>10304</LINE><COLUMN>7</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>strsafe.h</FILENAME><LINE>10306</LINE><COLUMN>25</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>strsafe.h</FILENAME><LINE>10308</LINE><COLUMN>32</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>strsafe.h</FILENAME><LINE>10308</LINE><COLUMN>11</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>strsafe.h</FILENAME><LINE>10315</LINE><COLUMN>4</COLUMN></SFA></PATH></DEFECT><DEFECT><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>strsafe.h</FILENAME><LINE>11068</LINE><COLUMN>4</COLUMN></SFA><DEFECTCODE>26071</DEFECTCODE><DESCRIPTION>Potential range postcondition violation
+PREFAST_NEWLINE
+The function has a __success annotation that is satisfied
+PREFAST_NEWLINE
+Annotation on function StringExHandleOtherFlagsA requires that * pcchRemaining is &lt;= cbDest / 1
+PREFAST_NEWLINE
+[Annotation SAL_range(0, cbDest / 1) at c:\somepath\strsafe.h(474)]
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+Values of variables:
+PREFAST_NEWLINE
+(*pcchRemaining) = (*pcchRemaining)`11069
+PREFAST_NEWLINE
+cbDest = 1
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+where
+PREFAST_NEWLINE
+cbDest`11010 == 1
+PREFAST_NEWLINE
+nullpos(pszDest)`11069 == 0
+PREFAST_NEWLINE
+offset(pszDest)`11010 == 0
+PREFAST_NEWLINE
+{(cbDest`11010) % 1}`11010 == 0
+PREFAST_NEWLINE
+{(cbDest`11010) / 1}`11010 == 1
+PREFAST_NEWLINE
+(*pcchRemaining)`11069 &gt;= 0
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+Range violation occurs when
+PREFAST_NEWLINE
+(*pcchRemaining)`11069 == 0
+PREFAST_NEWLINE
+</DESCRIPTION><FUNCTION>StringExHandleOtherFlagsA</FUNCTION><DECORATED>?StringExHandleOtherFlagsA@@YGJPADIIPAPADPAIK@Z</DECORATED><FUNCLINE>11010</FUNCLINE><PATH><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>strsafe.h</FILENAME><LINE>11010</LINE><COLUMN>0</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>strsafe.h</FILENAME><LINE>11018</LINE><COLUMN>11</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>strsafe.h</FILENAME><LINE>11018</LINE><COLUMN>28</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>strsafe.h</FILENAME><LINE>11020</LINE><COLUMN>21</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>strsafe.h</FILENAME><LINE>11022</LINE><COLUMN>17</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>strsafe.h</FILENAME><LINE>11022</LINE><COLUMN>34</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>strsafe.h</FILENAME><LINE>11035</LINE><COLUMN>16</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>strsafe.h</FILENAME><LINE>11059</LINE><COLUMN>17</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>strsafe.h</FILENAME><LINE>11059</LINE><COLUMN>34</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>strsafe.h</FILENAME><LINE>11068</LINE><COLUMN>4</COLUMN></SFA></PATH></DEFECT><DEFECT><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>strsafe.h</FILENAME><LINE>11137</LINE><COLUMN>4</COLUMN></SFA><DEFECTCODE>26071</DEFECTCODE><DESCRIPTION>Potential range postcondition violation
+PREFAST_NEWLINE
+The function has a __success annotation that is satisfied
+PREFAST_NEWLINE
+Annotation on function StringExHandleOtherFlagsW requires that * pcchRemaining is &lt;= cbDest / 2
+PREFAST_NEWLINE
+[Annotation SAL_range(0, cbDest / 2) at c:\somepath\strsafe.h(490)]
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+Values of variables:
+PREFAST_NEWLINE
+(*pcchRemaining) = (*pcchRemaining)`11138
+PREFAST_NEWLINE
+cbDest = cbDest`11079
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+where
+PREFAST_NEWLINE
+{(cbDest`11079) / 2}`11079 == 0
+PREFAST_NEWLINE
+cbDest`11079 == 2*{(cbDest`11079) / 2}`11079 + {(cbDest`11079) % 2}`11079
+PREFAST_NEWLINE
+(*pcchRemaining)`11138 &gt;= 0
+PREFAST_NEWLINE
+cbDest`11079 &lt;= 2
+PREFAST_NEWLINE
+cbDest`11079 &gt;= 1
+PREFAST_NEWLINE
+{(cbDest`11079) % 2}`11079 &lt;= 1
+PREFAST_NEWLINE
+{(cbDest`11079) % 2}`11079 &gt;= 0
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+Range violation occurs when
+PREFAST_NEWLINE
+(*pcchRemaining)`11138 + 1 &lt;= 0
+PREFAST_NEWLINE
+</DESCRIPTION><FUNCTION>StringExHandleOtherFlagsW</FUNCTION><DECORATED>?StringExHandleOtherFlagsW@@YGJPAGIIPAPAGPAIK@Z</DECORATED><FUNCLINE>11079</FUNCLINE><PATH><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>strsafe.h</FILENAME><LINE>11079</LINE><COLUMN>0</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>strsafe.h</FILENAME><LINE>11087</LINE><COLUMN>11</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>strsafe.h</FILENAME><LINE>11087</LINE><COLUMN>28</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>strsafe.h</FILENAME><LINE>11089</LINE><COLUMN>21</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>strsafe.h</FILENAME><LINE>11091</LINE><COLUMN>17</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>strsafe.h</FILENAME><LINE>11104</LINE><COLUMN>16</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>strsafe.h</FILENAME><LINE>11128</LINE><COLUMN>17</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>strsafe.h</FILENAME><LINE>11137</LINE><COLUMN>4</COLUMN></SFA></PATH></DEFECT><DEFECT><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>iosfwd</FILENAME><LINE>329</LINE><COLUMN>18</COLUMN></SFA><DEFECTCODE>26035</DEFECTCODE><DESCRIPTION>Possible precondition violation due to failure to null terminate string '_First'
+PREFAST_NEWLINE
+Buffer _First is a parameter to this function declared on line 326
+PREFAST_NEWLINE
+Annotation on function wcslen requires that {parameter 1} is null terminated
+PREFAST_NEWLINE
+  where {parameter 1} is _First [Annotation _Null_terminated(0)]
+PREFAST_NEWLINE
+</DESCRIPTION><FUNCTION>std::char_traits&lt;unsigned short&gt;::length</FUNCTION><DECORATED>?length@?$char_traits@G@std@@SAIPBG@Z</DECORATED><FUNCLINE>326</FUNCLINE><PATH><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>iosfwd</FILENAME><LINE>326</LINE><COLUMN>23</COLUMN></SFA><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>iosfwd</FILENAME><LINE>329</LINE><COLUMN>18</COLUMN></SFA></PATH></DEFECT><DEFECT><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>iosfwd</FILENAME><LINE>345</LINE><COLUMN>12</COLUMN></SFA><DEFECTCODE>26007</DEFECTCODE><DESCRIPTION>Possibly incorrect single element annotation on buffer
+PREFAST_NEWLINE
+Potential read overflow using expression '(const void *)_First2'
+PREFAST_NEWLINE
+Buffer _First2 is a parameter to this function declared on line 340
+PREFAST_NEWLINE
+Buffer lengths are from an assumed __in annotation on the parameter
+PREFAST_NEWLINE
+Buffer is of length offset(_First2)`340 + 2 bytes [from annotation valid(elementCount(1)) at c:\somepath\crt\stl70\iosfwd(340)]
+PREFAST_NEWLINE
+Accessing 2*_Count`340 bytes starting at byte offset 0
+PREFAST_NEWLINE
+Annotation on function memcpy_s requires that {parameter 3} is of length &gt;= {parameter 4} bytes
+PREFAST_NEWLINE
+  where {parameter 3} is (const void *)_First2; {parameter 4} is _Count * 2
+PREFAST_NEWLINE
+[Annotation SAL_readableTo(byteCount({parameter 4})) at c:\somepath\crt\string.h(55)]
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+Values of variables:
+PREFAST_NEWLINE
+Pointer _First2 is at offset 0 bytes from the start of the buffer
+PREFAST_NEWLINE
+_Count = _Count`340
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+where
+PREFAST_NEWLINE
+offset(_First2)`340 == 0
+PREFAST_NEWLINE
+_Count`340 &gt;= 0
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+Overrun access occurs when
+PREFAST_NEWLINE
+_Count`340 &gt;= 2
+PREFAST_NEWLINE
+</DESCRIPTION><FUNCTION>std::char_traits&lt;unsigned short&gt;::_Copy_s</FUNCTION><DECORATED>?_Copy_s@?$char_traits@G@std@@SAPAGPAGIPBGI@Z</DECORATED><FUNCLINE>340</FUNCLINE><PATH><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>iosfwd</FILENAME><LINE>340</LINE><COLUMN>23</COLUMN></SFA><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>iosfwd</FILENAME><LINE>345</LINE><COLUMN>12</COLUMN></SFA></PATH></DEFECT><DEFECT><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>iosfwd</FILENAME><LINE>345</LINE><COLUMN>12</COLUMN></SFA><DEFECTCODE>26006</DEFECTCODE><DESCRIPTION>Possibly incorrect single element annotation on string buffer
+PREFAST_NEWLINE
+Potential overflow using expression '(void *)_First1'
+PREFAST_NEWLINE
+Buffer _First1 is a parameter to this function declared on line 340
+PREFAST_NEWLINE
+Buffer lengths are from an assumed __inout annotation on the parameter
+PREFAST_NEWLINE
+Buffer is of length offset(_First1)`340 + 2 bytes [from annotation valid(elementCount(1)) at c:\somepath\crt\stl70\iosfwd(340)]
+PREFAST_NEWLINE
+Accessing 2*_Size_in_words`340 bytes starting at byte offset 0
+PREFAST_NEWLINE
+Annotation on function memcpy_s requires that {parameter 1} is of length &gt;= {parameter 2} bytes
+PREFAST_NEWLINE
+  where {parameter 1} is (void *)_First1; {parameter 2} is _Size_in_words * 2
+PREFAST_NEWLINE
+[Annotation SAL_writableTo(byteCount({parameter 2})) at c:\somepath\crt\string.h(55)]
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+Values of variables:
+PREFAST_NEWLINE
+Pointer _First1 is at offset 0 bytes from the start of the buffer
+PREFAST_NEWLINE
+_Size_in_words = _Size_in_words`340
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+where
+PREFAST_NEWLINE
+offset(_First1)`340 == 0
+PREFAST_NEWLINE
+_Size_in_words`340 &gt;= 0
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+Overrun access occurs when
+PREFAST_NEWLINE
+_Size_in_words`340 &gt;= 2
+PREFAST_NEWLINE
+</DESCRIPTION><FUNCTION>std::char_traits&lt;unsigned short&gt;::_Copy_s</FUNCTION><DECORATED>?_Copy_s@?$char_traits@G@std@@SAPAGPAGIPBGI@Z</DECORATED><FUNCLINE>340</FUNCLINE><PATH><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>iosfwd</FILENAME><LINE>340</LINE><COLUMN>23</COLUMN></SFA><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>iosfwd</FILENAME><LINE>345</LINE><COLUMN>12</COLUMN></SFA></PATH></DEFECT><DEFECT><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>iosfwd</FILENAME><LINE>369</LINE><COLUMN>14</COLUMN></SFA><DEFECTCODE>26007</DEFECTCODE><DESCRIPTION>Possibly incorrect single element annotation on buffer
+PREFAST_NEWLINE
+Potential read overflow using expression '_First2'
+PREFAST_NEWLINE
+Buffer _First2 is a parameter to this function declared on line 364
+PREFAST_NEWLINE
+Buffer lengths are from an assumed __in annotation on the parameter
+PREFAST_NEWLINE
+Buffer is of length offset(_First2)`364 + 2 bytes [from annotation valid(elementCount(1)) at c:\somepath\crt\stl70\iosfwd(364)]
+PREFAST_NEWLINE
+Accessing 2*_Count`364 bytes starting at byte offset 0
+PREFAST_NEWLINE
+Annotation on function wmemmove_s requires that {parameter 3} is of length &gt;= {parameter 4} elements (2 bytes/element)
+PREFAST_NEWLINE
+  where {parameter 3} is _First2; {parameter 4} is _Count
+PREFAST_NEWLINE
+[Annotation SAL_readableTo(elementCount({parameter 4})) at c:\somepath\crt\wchar.h(1270)]
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+Values of variables:
+PREFAST_NEWLINE
+Pointer _First2 is at offset 0 bytes from the start of the buffer
+PREFAST_NEWLINE
+_Count = _Count`364
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+where
+PREFAST_NEWLINE
+offset(_First2)`364 == 0
+PREFAST_NEWLINE
+_Count`364 &gt;= 0
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+Overrun access occurs when
+PREFAST_NEWLINE
+_Count`364 &gt;= 2
+PREFAST_NEWLINE
+</DESCRIPTION><FUNCTION>std::char_traits&lt;unsigned short&gt;::_Move_s</FUNCTION><DECORATED>?_Move_s@?$char_traits@G@std@@SAPAGPAGIPBGI@Z</DECORATED><FUNCLINE>364</FUNCLINE><PATH><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>iosfwd</FILENAME><LINE>364</LINE><COLUMN>23</COLUMN></SFA><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>iosfwd</FILENAME><LINE>369</LINE><COLUMN>14</COLUMN></SFA></PATH></DEFECT><DEFECT><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>iosfwd</FILENAME><LINE>369</LINE><COLUMN>14</COLUMN></SFA><DEFECTCODE>26006</DEFECTCODE><DESCRIPTION>Possibly incorrect single element annotation on string buffer
+PREFAST_NEWLINE
+Potential overflow using expression '_First1'
+PREFAST_NEWLINE
+Buffer _First1 is a parameter to this function declared on line 364
+PREFAST_NEWLINE
+Buffer lengths are from an assumed __inout annotation on the parameter
+PREFAST_NEWLINE
+Buffer is of length offset(_First1)`364 + 2 bytes [from annotation valid(elementCount(1)) at c:\somepath\crt\stl70\iosfwd(364)]
+PREFAST_NEWLINE
+Accessing 2*_Size_in_words`364 bytes starting at byte offset 0
+PREFAST_NEWLINE
+Annotation on function wmemmove_s requires that {parameter 1} is of length &gt;= {parameter 2} elements (2 bytes/element)
+PREFAST_NEWLINE
+  where {parameter 1} is _First1; {parameter 2} is _Size_in_words
+PREFAST_NEWLINE
+[Annotation SAL_writableTo(elementCount({parameter 2})) at c:\somepath\crt\wchar.h(1270)]
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+Values of variables:
+PREFAST_NEWLINE
+Pointer _First1 is at offset 0 bytes from the start of the buffer
+PREFAST_NEWLINE
+_Size_in_words = _Size_in_words`364
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+where
+PREFAST_NEWLINE
+offset(_First1)`364 == 0
+PREFAST_NEWLINE
+_Size_in_words`364 &gt;= 0
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+Overrun access occurs when
+PREFAST_NEWLINE
+_Size_in_words`364 &gt;= 2
+PREFAST_NEWLINE
+</DESCRIPTION><FUNCTION>std::char_traits&lt;unsigned short&gt;::_Move_s</FUNCTION><DECORATED>?_Move_s@?$char_traits@G@std@@SAPAGPAGIPBGI@Z</DECORATED><FUNCLINE>364</FUNCLINE><PATH><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>iosfwd</FILENAME><LINE>364</LINE><COLUMN>23</COLUMN></SFA><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>iosfwd</FILENAME><LINE>369</LINE><COLUMN>14</COLUMN></SFA></PATH></DEFECT><DEFECT><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>iosfwd</FILENAME><LINE>444</LINE><COLUMN>18</COLUMN></SFA><DEFECTCODE>26035</DEFECTCODE><DESCRIPTION>Possible precondition violation due to failure to null terminate string '_First'
+PREFAST_NEWLINE
+Buffer _First is a parameter to this function declared on line 441
+PREFAST_NEWLINE
+Annotation on function strlen requires that {parameter 1} is null terminated
+PREFAST_NEWLINE
+  where {parameter 1} is _First [Annotation _Null_terminated(0)]
+PREFAST_NEWLINE
+</DESCRIPTION><FUNCTION>std::char_traits&lt;char&gt;::length</FUNCTION><DECORATED>?length@?$char_traits@D@std@@SAIPBD@Z</DECORATED><FUNCLINE>441</FUNCLINE><PATH><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>iosfwd</FILENAME><LINE>441</LINE><COLUMN>23</COLUMN></SFA><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>iosfwd</FILENAME><LINE>444</LINE><COLUMN>18</COLUMN></SFA></PATH></DEFECT><DEFECT><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>iosfwd</FILENAME><LINE>460</LINE><COLUMN>12</COLUMN></SFA><DEFECTCODE>26007</DEFECTCODE><DESCRIPTION>Possibly incorrect single element annotation on buffer
+PREFAST_NEWLINE
+Potential overflow using expression '(void *)_First1'
+PREFAST_NEWLINE
+Buffer _First1 is a parameter to this function declared on line 455
+PREFAST_NEWLINE
+Buffer lengths are from an assumed __inout annotation on the parameter
+PREFAST_NEWLINE
+Buffer is of length offset(_First1)`455 + 1 bytes [from annotation valid(elementCount(1)) at c:\somepath\crt\stl70\iosfwd(455)]
+PREFAST_NEWLINE
+Accessing _Size_in_bytes`455 bytes starting at byte offset 0
+PREFAST_NEWLINE
+Annotation on function memcpy_s requires that {parameter 1} is of length &gt;= {parameter 2} bytes
+PREFAST_NEWLINE
+  where {parameter 1} is (void *)_First1; {parameter 2} is _Size_in_bytes
+PREFAST_NEWLINE
+[Annotation SAL_writableTo(byteCount({parameter 2})) at c:\somepath\crt\string.h(55)]
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+Values of variables:
+PREFAST_NEWLINE
+Pointer _First1 is at offset 0 bytes from the start of the buffer
+PREFAST_NEWLINE
+_Size_in_bytes = _Size_in_bytes`455
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+where
+PREFAST_NEWLINE
+offset(_First1)`455 == 0
+PREFAST_NEWLINE
+_Size_in_bytes`455 &gt;= 0
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+Overrun access occurs when
+PREFAST_NEWLINE
+_Size_in_bytes`455 &gt;= 2
+PREFAST_NEWLINE
+</DESCRIPTION><FUNCTION>std::char_traits&lt;char&gt;::_Copy_s</FUNCTION><DECORATED>?_Copy_s@?$char_traits@D@std@@SAPADPADIPBDI@Z</DECORATED><FUNCLINE>455</FUNCLINE><PATH><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>iosfwd</FILENAME><LINE>455</LINE><COLUMN>23</COLUMN></SFA><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>iosfwd</FILENAME><LINE>460</LINE><COLUMN>12</COLUMN></SFA></PATH></DEFECT><DEFECT><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>iosfwd</FILENAME><LINE>460</LINE><COLUMN>12</COLUMN></SFA><DEFECTCODE>26007</DEFECTCODE><DESCRIPTION>Possibly incorrect single element annotation on buffer
+PREFAST_NEWLINE
+Potential read overflow using expression '(const void *)_First2'
+PREFAST_NEWLINE
+Buffer _First2 is a parameter to this function declared on line 455
+PREFAST_NEWLINE
+Buffer lengths are from an assumed __in annotation on the parameter
+PREFAST_NEWLINE
+Buffer is of length offset(_First2)`455 + 1 bytes [from annotation valid(elementCount(1)) at c:\somepath\crt\stl70\iosfwd(455)]
+PREFAST_NEWLINE
+Accessing _Count`455 bytes starting at byte offset 0
+PREFAST_NEWLINE
+Annotation on function memcpy_s requires that {parameter 3} is of length &gt;= {parameter 4} bytes
+PREFAST_NEWLINE
+  where {parameter 3} is (const void *)_First2; {parameter 4} is _Count
+PREFAST_NEWLINE
+[Annotation SAL_readableTo(byteCount({parameter 4})) at c:\somepath\crt\string.h(55)]
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+Values of variables:
+PREFAST_NEWLINE
+Pointer _First2 is at offset 0 bytes from the start of the buffer
+PREFAST_NEWLINE
+_Count = _Count`455
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+where
+PREFAST_NEWLINE
+offset(_First2)`455 == 0
+PREFAST_NEWLINE
+_Count`455 &gt;= 0
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+Overrun access occurs when
+PREFAST_NEWLINE
+_Count`455 &gt;= 2
+PREFAST_NEWLINE
+</DESCRIPTION><FUNCTION>std::char_traits&lt;char&gt;::_Copy_s</FUNCTION><DECORATED>?_Copy_s@?$char_traits@D@std@@SAPADPADIPBDI@Z</DECORATED><FUNCLINE>455</FUNCLINE><PATH><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>iosfwd</FILENAME><LINE>455</LINE><COLUMN>23</COLUMN></SFA><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>iosfwd</FILENAME><LINE>460</LINE><COLUMN>12</COLUMN></SFA></PATH></DEFECT><DEFECT><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>iosfwd</FILENAME><LINE>484</LINE><COLUMN>13</COLUMN></SFA><DEFECTCODE>26007</DEFECTCODE><DESCRIPTION>Possibly incorrect single element annotation on buffer
+PREFAST_NEWLINE
+Potential overflow using expression '(void *)_First1'
+PREFAST_NEWLINE
+Buffer _First1 is a parameter to this function declared on line 479
+PREFAST_NEWLINE
+Buffer lengths are from an assumed __inout annotation on the parameter
+PREFAST_NEWLINE
+Buffer is of length offset(_First1)`479 + 1 bytes [from annotation valid(elementCount(1)) at c:\somepath\crt\stl70\iosfwd(479)]
+PREFAST_NEWLINE
+Accessing _Size_in_bytes`479 bytes starting at byte offset 0
+PREFAST_NEWLINE
+Annotation on function memmove_s requires that {parameter 1} is of length &gt;= {parameter 2} bytes
+PREFAST_NEWLINE
+  where {parameter 1} is (void *)_First1; {parameter 2} is _Size_in_bytes
+PREFAST_NEWLINE
+[Annotation SAL_writableTo(byteCount({parameter 2})) at c:\somepath\crt\string.h(102)]
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+Values of variables:
+PREFAST_NEWLINE
+Pointer _First1 is at offset 0 bytes from the start of the buffer
+PREFAST_NEWLINE
+_Size_in_bytes = _Size_in_bytes`479
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+where
+PREFAST_NEWLINE
+offset(_First1)`479 == 0
+PREFAST_NEWLINE
+_Size_in_bytes`479 &gt;= 0
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+Overrun access occurs when
+PREFAST_NEWLINE
+_Size_in_bytes`479 &gt;= 2
+PREFAST_NEWLINE
+</DESCRIPTION><FUNCTION>std::char_traits&lt;char&gt;::_Move_s</FUNCTION><DECORATED>?_Move_s@?$char_traits@D@std@@SAPADPADIPBDI@Z</DECORATED><FUNCLINE>479</FUNCLINE><PATH><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>iosfwd</FILENAME><LINE>479</LINE><COLUMN>23</COLUMN></SFA><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>iosfwd</FILENAME><LINE>484</LINE><COLUMN>13</COLUMN></SFA></PATH></DEFECT><DEFECT><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>iosfwd</FILENAME><LINE>484</LINE><COLUMN>13</COLUMN></SFA><DEFECTCODE>26007</DEFECTCODE><DESCRIPTION>Possibly incorrect single element annotation on buffer
+PREFAST_NEWLINE
+Potential read overflow using expression '(const void *)_First2'
+PREFAST_NEWLINE
+Buffer _First2 is a parameter to this function declared on line 479
+PREFAST_NEWLINE
+Buffer lengths are from an assumed __in annotation on the parameter
+PREFAST_NEWLINE
+Buffer is of length offset(_First2)`479 + 1 bytes [from annotation valid(elementCount(1)) at c:\somepath\crt\stl70\iosfwd(479)]
+PREFAST_NEWLINE
+Accessing _Count`479 bytes starting at byte offset 0
+PREFAST_NEWLINE
+Annotation on function memmove_s requires that {parameter 3} is of length &gt;= {parameter 4} bytes
+PREFAST_NEWLINE
+  where {parameter 3} is (const void *)_First2; {parameter 4} is _Count
+PREFAST_NEWLINE
+[Annotation SAL_readableTo(byteCount({parameter 4})) at c:\somepath\crt\string.h(102)]
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+Values of variables:
+PREFAST_NEWLINE
+Pointer _First2 is at offset 0 bytes from the start of the buffer
+PREFAST_NEWLINE
+_Count = _Count`479
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+where
+PREFAST_NEWLINE
+offset(_First2)`479 == 0
+PREFAST_NEWLINE
+_Count`479 &gt;= 0
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+Overrun access occurs when
+PREFAST_NEWLINE
+_Count`479 &gt;= 2
+PREFAST_NEWLINE
+</DESCRIPTION><FUNCTION>std::char_traits&lt;char&gt;::_Move_s</FUNCTION><DECORATED>?_Move_s@?$char_traits@D@std@@SAPADPADIPBDI@Z</DECORATED><FUNCLINE>479</FUNCLINE><PATH><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>iosfwd</FILENAME><LINE>479</LINE><COLUMN>23</COLUMN></SFA><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>iosfwd</FILENAME><LINE>484</LINE><COLUMN>13</COLUMN></SFA></PATH></DEFECT><DEFECT><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>xlocale</FILENAME><LINE>615</LINE><COLUMN>19</COLUMN></SFA><DEFECTCODE>26035</DEFECTCODE><DESCRIPTION>Possible precondition violation due to failure to null terminate string '_Ptr'
+PREFAST_NEWLINE
+Buffer _Ptr is a parameter to this function declared on line 605
+PREFAST_NEWLINE
+Annotation on function strlen requires that {parameter 1} is null terminated
+PREFAST_NEWLINE
+  where {parameter 1} is _Ptr [Annotation _Null_terminated(0)]
+PREFAST_NEWLINE
+</DESCRIPTION><FUNCTION>std::_Maklocstr</FUNCTION><DECORATED>??$_Maklocstr@G@std@@YAPAGPBDPAGABU_Cvtvec@@@Z</DECORATED><FUNCLINE>605</FUNCLINE><PATH><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>xlocale</FILENAME><LINE>605</LINE><COLUMN>18</COLUMN></SFA><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>xlocale</FILENAME><LINE>608</LINE><COLUMN>8</COLUMN></SFA><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>xlocale</FILENAME><LINE>608</LINE><COLUMN>16</COLUMN></SFA><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>xlocale</FILENAME><LINE>609</LINE><COLUMN>8</COLUMN></SFA><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>xlocale</FILENAME><LINE>610</LINE><COLUMN>13</COLUMN></SFA><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>xlocale</FILENAME><LINE>611</LINE><COLUMN>5</COLUMN></SFA><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>xlocale</FILENAME><LINE>612</LINE><COLUMN>9</COLUMN></SFA><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>xlocale</FILENAME><LINE>613</LINE><COLUMN>11</COLUMN></SFA><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>xlocale</FILENAME><LINE>613</LINE><COLUMN>21</COLUMN></SFA><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>xlocale</FILENAME><LINE>615</LINE><COLUMN>19</COLUMN></SFA></PATH></DEFECT><DEFECT><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>xlocale</FILENAME><LINE>883</LINE><COLUMN>28</COLUMN></SFA><DEFECTCODE>26006</DEFECTCODE><DESCRIPTION>Possibly incorrect single element annotation on string buffer
+PREFAST_NEWLINE
+Overflow using expression '_Mid2'
+PREFAST_NEWLINE
+Buffer _First2 is a parameter to this function declared on line 872
+PREFAST_NEWLINE
+Buffer lengths are from an assumed __inout annotation on the parameter
+PREFAST_NEWLINE
+Buffer is of length offset(_First2)`872 + 2 bytes [from annotation valid(elementCount(1)) at c:\somepath\crt\stl70\xlocale(872)] OR
+PREFAST_NEWLINE
+  offset(_First2)`872 + 2*{loop iterations}'882 + 2 bytes [from annotation SAL_readableTo(elementCount(1)) at c:\somepath\crt\stl70\xlocinfo.h(110) on function _Mbrtowc called at line 883]
+PREFAST_NEWLINE
+Accessing 2 bytes starting at byte offset 2
+PREFAST_NEWLINE
+Annotation on function _Mbrtowc requires that {parameter 1} is of length &gt;= 1 elements (2 bytes/element)
+PREFAST_NEWLINE
+  where {parameter 1} is _Mid2
+PREFAST_NEWLINE
+[Annotation SAL_writableTo(elementCount(1)) at c:\somepath\crt\stl70\xlocinfo.h(110)]
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+Values of variables:
+PREFAST_NEWLINE
+Pointer (*_Mid2) is at offset 2 bytes from the start of the buffer
+PREFAST_NEWLINE
+Pointer _Mid2 is at offset 0 bytes from the start of _Mid2
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+where
+PREFAST_NEWLINE
+offset(_First2)`872 == 0
+PREFAST_NEWLINE
+{loop iterations}'882 == 0
+PREFAST_NEWLINE
+</DESCRIPTION><FUNCTION>std::codecvt&lt;unsigned short,char,int&gt;::do_in</FUNCTION><DECORATED>?do_in@?$codecvt@GDH@std@@MBEHAAHPBD1AAPBDPAG3AAPAG@Z</DECORATED><FUNCLINE>872</FUNCLINE><PATH><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>xlocale</FILENAME><LINE>872</LINE><COLUMN>17</COLUMN></SFA><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>xlocale</FILENAME><LINE>878</LINE><COLUMN>8</COLUMN></SFA><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>xlocale</FILENAME><LINE>878</LINE><COLUMN>17</COLUMN></SFA><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>xlocale</FILENAME><LINE>879</LINE><COLUMN>9</COLUMN></SFA><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>xlocale</FILENAME><LINE>879</LINE><COLUMN>22</COLUMN></SFA><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>xlocale</FILENAME><LINE>879</LINE><COLUMN>32</COLUMN></SFA><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>xlocale</FILENAME><LINE>879</LINE><COLUMN>32</COLUMN></SFA><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>xlocale</FILENAME><LINE>880</LINE><COLUMN>6</COLUMN></SFA><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>xlocale</FILENAME><LINE>882</LINE><COLUMN>15</COLUMN></SFA><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>xlocale</FILENAME><LINE>882</LINE><COLUMN>34</COLUMN></SFA><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>xlocale</FILENAME><LINE>883</LINE><COLUMN>28</COLUMN></SFA><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>xlocale</FILENAME><LINE>883</LINE><COLUMN>18</COLUMN></SFA><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>xlocale</FILENAME><LINE>883</LINE><COLUMN>3</COLUMN></SFA><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>xlocale</FILENAME><LINE>899</LINE><COLUMN>15</COLUMN></SFA><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>xlocale</FILENAME><LINE>901</LINE><COLUMN>10</COLUMN></SFA><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>xlocale</FILENAME><LINE>902</LINE><COLUMN>4</COLUMN></SFA><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>xlocale</FILENAME><LINE>903</LINE><COLUMN>9</COLUMN></SFA><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>xlocale</FILENAME><LINE>882</LINE><COLUMN>15</COLUMN></SFA><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>xlocale</FILENAME><LINE>882</LINE><COLUMN>34</COLUMN></SFA><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>xlocale</FILENAME><LINE>883</LINE><COLUMN>28</COLUMN></SFA></PATH></DEFECT><DEFECT><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>xlocale</FILENAME><LINE>895</LINE><COLUMN>27</COLUMN></SFA><DEFECTCODE>26007</DEFECTCODE><DESCRIPTION>Possibly incorrect single element annotation on buffer
+PREFAST_NEWLINE
+Possible precondition violation due to failure to null terminate string '_Mid1'
+PREFAST_NEWLINE
+Buffer _First1 is a parameter to this function declared on line 872
+PREFAST_NEWLINE
+Buffer lengths are from an assumed __in annotation on the parameter
+PREFAST_NEWLINE
+Buffer is of length offset(_First1)`872 + 1 bytes [from annotation valid(elementCount(1)) at c:\somepath\crt\stl70\xlocale(872)]
+PREFAST_NEWLINE
+Annotation on function strlen requires that {parameter 1} is null terminated
+PREFAST_NEWLINE
+  where {parameter 1} is _Mid1 [Annotation _Null_terminated(0)]
+PREFAST_NEWLINE
+</DESCRIPTION><FUNCTION>std::codecvt&lt;unsigned short,char,int&gt;::do_in</FUNCTION><DECORATED>?do_in@?$codecvt@GDH@std@@MBEHAAHPBD1AAPBDPAG3AAPAG@Z</DECORATED><FUNCLINE>872</FUNCLINE><PATH><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>xlocale</FILENAME><LINE>872</LINE><COLUMN>17</COLUMN></SFA><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>xlocale</FILENAME><LINE>878</LINE><COLUMN>8</COLUMN></SFA><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>xlocale</FILENAME><LINE>878</LINE><COLUMN>17</COLUMN></SFA><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>xlocale</FILENAME><LINE>879</LINE><COLUMN>9</COLUMN></SFA><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>xlocale</FILENAME><LINE>879</LINE><COLUMN>22</COLUMN></SFA><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>xlocale</FILENAME><LINE>879</LINE><COLUMN>32</COLUMN></SFA><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>xlocale</FILENAME><LINE>879</LINE><COLUMN>32</COLUMN></SFA><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>xlocale</FILENAME><LINE>880</LINE><COLUMN>6</COLUMN></SFA><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>xlocale</FILENAME><LINE>882</LINE><COLUMN>15</COLUMN></SFA><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>xlocale</FILENAME><LINE>882</LINE><COLUMN>34</COLUMN></SFA><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>xlocale</FILENAME><LINE>883</LINE><COLUMN>28</COLUMN></SFA><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>xlocale</FILENAME><LINE>883</LINE><COLUMN>18</COLUMN></SFA><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>xlocale</FILENAME><LINE>883</LINE><COLUMN>3</COLUMN></SFA><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>xlocale</FILENAME><LINE>894</LINE><COLUMN>8</COLUMN></SFA><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>xlocale</FILENAME><LINE>895</LINE><COLUMN>27</COLUMN></SFA></PATH></DEFECT><DEFECT><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>xlocale</FILENAME><LINE>895</LINE><COLUMN>27</COLUMN></SFA><DEFECTCODE>26007</DEFECTCODE><DESCRIPTION>Possibly incorrect single element annotation on buffer
+PREFAST_NEWLINE
+Read overflow using expression '_Mid1'
+PREFAST_NEWLINE
+Buffer _First1 is a parameter to this function declared on line 872
+PREFAST_NEWLINE
+Buffer lengths are from an assumed __in annotation on the parameter
+PREFAST_NEWLINE
+Buffer is of length offset(_First1)`872 + 1 bytes [from annotation valid(elementCount(1)) at c:\somepath\crt\stl70\xlocale(872)] OR
+PREFAST_NEWLINE
+  offset(_First1)`872 + result.strlen`895a + 1 bytes [from annotation _In_(elementCount(return + 1)) on function strlen called at line 895]
+PREFAST_NEWLINE
+Accessing 1 bytes starting at byte offset result.strlen`895a + 1
+PREFAST_NEWLINE
+Annotation on function strlen requires that {parameter 1} is of length &gt;= 1 elements (1 bytes/element)
+PREFAST_NEWLINE
+  where {parameter 1} is _Mid1
+PREFAST_NEWLINE
+[Annotation _Pre_valid_(elementCount(1))]
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+Values of variables:
+PREFAST_NEWLINE
+Pointer (*_Mid1) is at offset result.strlen`895a + 1 bytes from the start of the buffer
+PREFAST_NEWLINE
+Pointer _Mid1 is at offset 0 bytes from the start of _Mid1
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+where
+PREFAST_NEWLINE
+offset((*_Mid1))`882 == 0
+PREFAST_NEWLINE
+offset(_First1)`872 == 0
+PREFAST_NEWLINE
+offset(_Last1)`872 == 0
+PREFAST_NEWLINE
+offset(_First1)`872 + result.strlen`895a == nullpos(_First1)`895
+PREFAST_NEWLINE
+nullpos(_First1)`895 &gt;= 0
+PREFAST_NEWLINE
+result.strlen`895a &gt;= 0
+PREFAST_NEWLINE
+</DESCRIPTION><FUNCTION>std::codecvt&lt;unsigned short,char,int&gt;::do_in</FUNCTION><DECORATED>?do_in@?$codecvt@GDH@std@@MBEHAAHPBD1AAPBDPAG3AAPAG@Z</DECORATED><FUNCLINE>872</FUNCLINE><PATH><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>xlocale</FILENAME><LINE>872</LINE><COLUMN>17</COLUMN></SFA><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>xlocale</FILENAME><LINE>878</LINE><COLUMN>8</COLUMN></SFA><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>xlocale</FILENAME><LINE>878</LINE><COLUMN>17</COLUMN></SFA><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>xlocale</FILENAME><LINE>879</LINE><COLUMN>9</COLUMN></SFA><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>xlocale</FILENAME><LINE>879</LINE><COLUMN>22</COLUMN></SFA><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>xlocale</FILENAME><LINE>879</LINE><COLUMN>32</COLUMN></SFA><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>xlocale</FILENAME><LINE>879</LINE><COLUMN>32</COLUMN></SFA><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>xlocale</FILENAME><LINE>880</LINE><COLUMN>6</COLUMN></SFA><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>xlocale</FILENAME><LINE>882</LINE><COLUMN>15</COLUMN></SFA><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>xlocale</FILENAME><LINE>882</LINE><COLUMN>34</COLUMN></SFA><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>xlocale</FILENAME><LINE>883</LINE><COLUMN>28</COLUMN></SFA><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>xlocale</FILENAME><LINE>883</LINE><COLUMN>18</COLUMN></SFA><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>xlocale</FILENAME><LINE>883</LINE><COLUMN>3</COLUMN></SFA><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>xlocale</FILENAME><LINE>894</LINE><COLUMN>8</COLUMN></SFA><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>xlocale</FILENAME><LINE>895</LINE><COLUMN>27</COLUMN></SFA><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>xlocale</FILENAME><LINE>895</LINE><COLUMN>12</COLUMN></SFA><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>xlocale</FILENAME><LINE>899</LINE><COLUMN>15</COLUMN></SFA><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>xlocale</FILENAME><LINE>901</LINE><COLUMN>10</COLUMN></SFA><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>xlocale</FILENAME><LINE>902</LINE><COLUMN>4</COLUMN></SFA><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>xlocale</FILENAME><LINE>903</LINE><COLUMN>9</COLUMN></SFA><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>xlocale</FILENAME><LINE>882</LINE><COLUMN>15</COLUMN></SFA><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>xlocale</FILENAME><LINE>882</LINE><COLUMN>34</COLUMN></SFA><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>xlocale</FILENAME><LINE>883</LINE><COLUMN>28</COLUMN></SFA><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>xlocale</FILENAME><LINE>883</LINE><COLUMN>18</COLUMN></SFA><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>xlocale</FILENAME><LINE>883</LINE><COLUMN>3</COLUMN></SFA><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>xlocale</FILENAME><LINE>894</LINE><COLUMN>8</COLUMN></SFA><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>xlocale</FILENAME><LINE>895</LINE><COLUMN>27</COLUMN></SFA></PATH></DEFECT><DEFECT><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>xlocale</FILENAME><LINE>920</LINE><COLUMN>26</COLUMN></SFA><DEFECTCODE>26007</DEFECTCODE><DESCRIPTION>Possibly incorrect single element annotation on buffer
+PREFAST_NEWLINE
+Potential overflow using expression '_Mid2'
+PREFAST_NEWLINE
+Buffer _First2 is a parameter to this function declared on line 908
+PREFAST_NEWLINE
+Buffer lengths are from an assumed __inout annotation on the parameter
+PREFAST_NEWLINE
+Buffer is of length offset(_First2)`908 + 1 bytes [from annotation valid(elementCount(1)) at c:\somepath\crt\stl70\xlocale(908)]
+PREFAST_NEWLINE
+Accessing 1 bytes starting at byte offset result._Wcrtomb`920a
+PREFAST_NEWLINE
+Annotation on function _Wcrtomb requires that {parameter 1} is of length &gt;= 1 elements (1 bytes/element)
+PREFAST_NEWLINE
+  where {parameter 1} is _Mid2
+PREFAST_NEWLINE
+[Annotation SAL_writableTo(elementCount(1)) at c:\somepath\crt\stl70\xlocinfo.h(112)]
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+Values of variables:
+PREFAST_NEWLINE
+Pointer (*_Mid2) is at offset result._Wcrtomb`920a bytes from the start of the buffer
+PREFAST_NEWLINE
+Pointer _Mid2 is at offset 0 bytes from the start of _Mid2
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+where
+PREFAST_NEWLINE
+offset((*_Mid2))`918 == 0
+PREFAST_NEWLINE
+offset(_First2)`908 == 0
+PREFAST_NEWLINE
+offset(_Last2)`908 == 0
+PREFAST_NEWLINE
+result._Wcrtomb`920a &gt;= 0
+PREFAST_NEWLINE
+result.___mb_cur_max_func`919a + result._Wcrtomb`920a &lt;= 0
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+Overrun access occurs when
+PREFAST_NEWLINE
+result._Wcrtomb`920a &gt;= 1
+PREFAST_NEWLINE
+</DESCRIPTION><FUNCTION>std::codecvt&lt;unsigned short,char,int&gt;::do_out</FUNCTION><DECORATED>?do_out@?$codecvt@GDH@std@@MBEHAAHPBG1AAPBGPAD3AAPAD@Z</DECORATED><FUNCLINE>908</FUNCLINE><PATH><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>xlocale</FILENAME><LINE>908</LINE><COLUMN>17</COLUMN></SFA><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>xlocale</FILENAME><LINE>914</LINE><COLUMN>8</COLUMN></SFA><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>xlocale</FILENAME><LINE>914</LINE><COLUMN>17</COLUMN></SFA><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>xlocale</FILENAME><LINE>915</LINE><COLUMN>9</COLUMN></SFA><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>xlocale</FILENAME><LINE>915</LINE><COLUMN>22</COLUMN></SFA><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>xlocale</FILENAME><LINE>915</LINE><COLUMN>32</COLUMN></SFA><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>xlocale</FILENAME><LINE>915</LINE><COLUMN>32</COLUMN></SFA><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>xlocale</FILENAME><LINE>916</LINE><COLUMN>6</COLUMN></SFA><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>xlocale</FILENAME><LINE>918</LINE><COLUMN>15</COLUMN></SFA><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>xlocale</FILENAME><LINE>918</LINE><COLUMN>34</COLUMN></SFA><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>xlocale</FILENAME><LINE>919</LINE><COLUMN>25</COLUMN></SFA><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>xlocale</FILENAME><LINE>919</LINE><COLUMN>28</COLUMN></SFA><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>xlocale</FILENAME><LINE>920</LINE><COLUMN>26</COLUMN></SFA><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>xlocale</FILENAME><LINE>920</LINE><COLUMN>16</COLUMN></SFA><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>xlocale</FILENAME><LINE>921</LINE><COLUMN>22</COLUMN></SFA><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>xlocale</FILENAME><LINE>924</LINE><COLUMN>5</COLUMN></SFA><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>xlocale</FILENAME><LINE>924</LINE><COLUMN>12</COLUMN></SFA><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>xlocale</FILENAME><LINE>924</LINE><COLUMN>10</COLUMN></SFA><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>xlocale</FILENAME><LINE>918</LINE><COLUMN>15</COLUMN></SFA><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>xlocale</FILENAME><LINE>918</LINE><COLUMN>34</COLUMN></SFA><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>xlocale</FILENAME><LINE>919</LINE><COLUMN>25</COLUMN></SFA><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>xlocale</FILENAME><LINE>919</LINE><COLUMN>28</COLUMN></SFA><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>xlocale</FILENAME><LINE>920</LINE><COLUMN>26</COLUMN></SFA></PATH></DEFECT><DEFECT><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>xlocale</FILENAME><LINE>920</LINE><COLUMN>26</COLUMN></SFA><DEFECTCODE>26007</DEFECTCODE><DESCRIPTION>Possibly incorrect single element annotation on buffer
+PREFAST_NEWLINE
+Read overflow using expression '* (_Mid1)'
+PREFAST_NEWLINE
+Buffer _First1 is a parameter to this function declared on line 908
+PREFAST_NEWLINE
+Buffer lengths are from an assumed __in annotation on the parameter
+PREFAST_NEWLINE
+Buffer is of length offset(_First1)`908 + 2 bytes [from annotation valid(elementCount(1)) at c:\somepath\crt\stl70\xlocale(908)]
+PREFAST_NEWLINE
+Accessing 2 bytes starting at byte offset 2
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+Values of variables:
+PREFAST_NEWLINE
+Pointer (*_Mid1) is at offset 2 bytes from the start of the buffer
+PREFAST_NEWLINE
+Pointer _Mid1 is at offset 0 bytes from the start of _Mid1
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+where
+PREFAST_NEWLINE
+delta_offset((*_Mid1))`918 == 0
+PREFAST_NEWLINE
+offset(_First1)`908 == 0
+PREFAST_NEWLINE
+offset(_Last1)`908 == 0
+PREFAST_NEWLINE
+{loop iterations}'918 == 0
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+There are other instances of this error:
+PREFAST_NEWLINE
+Possibly incorrect single element annotation on buffer at line 930
+PREFAST_NEWLINE
+</DESCRIPTION><FUNCTION>std::codecvt&lt;unsigned short,char,int&gt;::do_out</FUNCTION><DECORATED>?do_out@?$codecvt@GDH@std@@MBEHAAHPBG1AAPBGPAD3AAPAD@Z</DECORATED><FUNCLINE>908</FUNCLINE><PATH><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>xlocale</FILENAME><LINE>908</LINE><COLUMN>17</COLUMN></SFA><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>xlocale</FILENAME><LINE>914</LINE><COLUMN>8</COLUMN></SFA><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>xlocale</FILENAME><LINE>914</LINE><COLUMN>17</COLUMN></SFA><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>xlocale</FILENAME><LINE>915</LINE><COLUMN>9</COLUMN></SFA><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>xlocale</FILENAME><LINE>915</LINE><COLUMN>22</COLUMN></SFA><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>xlocale</FILENAME><LINE>915</LINE><COLUMN>32</COLUMN></SFA><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>xlocale</FILENAME><LINE>915</LINE><COLUMN>32</COLUMN></SFA><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>xlocale</FILENAME><LINE>916</LINE><COLUMN>6</COLUMN></SFA><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>xlocale</FILENAME><LINE>918</LINE><COLUMN>15</COLUMN></SFA><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>xlocale</FILENAME><LINE>918</LINE><COLUMN>34</COLUMN></SFA><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>xlocale</FILENAME><LINE>919</LINE><COLUMN>25</COLUMN></SFA><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>xlocale</FILENAME><LINE>919</LINE><COLUMN>28</COLUMN></SFA><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>xlocale</FILENAME><LINE>920</LINE><COLUMN>26</COLUMN></SFA><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>xlocale</FILENAME><LINE>920</LINE><COLUMN>16</COLUMN></SFA><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>xlocale</FILENAME><LINE>921</LINE><COLUMN>22</COLUMN></SFA><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>xlocale</FILENAME><LINE>924</LINE><COLUMN>5</COLUMN></SFA><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>xlocale</FILENAME><LINE>924</LINE><COLUMN>12</COLUMN></SFA><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>xlocale</FILENAME><LINE>924</LINE><COLUMN>10</COLUMN></SFA><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>xlocale</FILENAME><LINE>918</LINE><COLUMN>15</COLUMN></SFA><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>xlocale</FILENAME><LINE>918</LINE><COLUMN>34</COLUMN></SFA><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>xlocale</FILENAME><LINE>919</LINE><COLUMN>25</COLUMN></SFA><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>xlocale</FILENAME><LINE>919</LINE><COLUMN>28</COLUMN></SFA><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>xlocale</FILENAME><LINE>920</LINE><COLUMN>26</COLUMN></SFA></PATH></DEFECT><DEFECT><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>xlocale</FILENAME><LINE>997</LINE><COLUMN>27</COLUMN></SFA><DEFECTCODE>26007</DEFECTCODE><DESCRIPTION>Possibly incorrect single element annotation on buffer
+PREFAST_NEWLINE
+Possible precondition violation due to failure to null terminate string '_Mid1'
+PREFAST_NEWLINE
+Buffer _First1 is a parameter to this function declared on line 972
+PREFAST_NEWLINE
+Buffer lengths are from an assumed __in annotation on the parameter
+PREFAST_NEWLINE
+Buffer is of length offset(_First1)`972 + 1 bytes [from annotation valid(elementCount(1)) at c:\somepath\crt\stl70\xlocale(972)]
+PREFAST_NEWLINE
+Annotation on function strlen requires that {parameter 1} is null terminated
+PREFAST_NEWLINE
+  where {parameter 1} is _Mid1 [Annotation _Null_terminated(0)]
+PREFAST_NEWLINE
+</DESCRIPTION><FUNCTION>std::codecvt&lt;unsigned short,char,int&gt;::do_length</FUNCTION><DECORATED>?do_length@?$codecvt@GDH@std@@MBEHABHPBD1I@Z</DECORATED><FUNCLINE>972</FUNCLINE><PATH><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>xlocale</FILENAME><LINE>972</LINE><COLUMN>14</COLUMN></SFA><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>xlocale</FILENAME><LINE>976</LINE><COLUMN>6</COLUMN></SFA><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>xlocale</FILENAME><LINE>977</LINE><COLUMN>15</COLUMN></SFA><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>xlocale</FILENAME><LINE>978</LINE><COLUMN>11</COLUMN></SFA><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>xlocale</FILENAME><LINE>978</LINE><COLUMN>22</COLUMN></SFA><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>xlocale</FILENAME><LINE>980</LINE><COLUMN>15</COLUMN></SFA><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>xlocale</FILENAME><LINE>980</LINE><COLUMN>18</COLUMN></SFA><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>xlocale</FILENAME><LINE>981</LINE><COLUMN>19</COLUMN></SFA><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>xlocale</FILENAME><LINE>981</LINE><COLUMN>37</COLUMN></SFA><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>xlocale</FILENAME><LINE>983</LINE><COLUMN>7</COLUMN></SFA><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>xlocale</FILENAME><LINE>984</LINE><COLUMN>9</COLUMN></SFA><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>xlocale</FILENAME><LINE>986</LINE><COLUMN>28</COLUMN></SFA><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>xlocale</FILENAME><LINE>986</LINE><COLUMN>18</COLUMN></SFA><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>xlocale</FILENAME><LINE>986</LINE><COLUMN>3</COLUMN></SFA><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>xlocale</FILENAME><LINE>996</LINE><COLUMN>8</COLUMN></SFA><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>xlocale</FILENAME><LINE>997</LINE><COLUMN>27</COLUMN></SFA></PATH></DEFECT><DEFECT><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>xlocale</FILENAME><LINE>997</LINE><COLUMN>27</COLUMN></SFA><DEFECTCODE>26007</DEFECTCODE><DESCRIPTION>Possibly incorrect single element annotation on buffer
+PREFAST_NEWLINE
+Read overflow using expression '_Mid1'
+PREFAST_NEWLINE
+Buffer _First1 is a parameter to this function declared on line 972
+PREFAST_NEWLINE
+Buffer lengths are from an assumed __in annotation on the parameter
+PREFAST_NEWLINE
+Buffer is of length offset(_First1)`972 + 1 bytes [from annotation valid(elementCount(1)) at c:\somepath\crt\stl70\xlocale(972)] OR
+PREFAST_NEWLINE
+  offset(_First1)`972 + result.strlen`997a + 1 bytes [from annotation _In_(elementCount(return + 1)) on function strlen called at line 997]
+PREFAST_NEWLINE
+Accessing 1 bytes starting at byte offset result.strlen`997a + 1
+PREFAST_NEWLINE
+Annotation on function strlen requires that {parameter 1} is of length &gt;= 1 elements (1 bytes/element)
+PREFAST_NEWLINE
+  where {parameter 1} is _Mid1
+PREFAST_NEWLINE
+[Annotation _Pre_valid_(elementCount(1))]
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+Values of variables:
+PREFAST_NEWLINE
+Pointer _Mid1 is at offset result.strlen`997a + 1 bytes from the start of the buffer
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+where
+PREFAST_NEWLINE
+offset(_First1)`972 == 0
+PREFAST_NEWLINE
+offset(_Mid1)`981 == 0
+PREFAST_NEWLINE
+offset(_First1)`972 + result.strlen`997a == nullpos(_First1)`997
+PREFAST_NEWLINE
+nullpos(_First1)`997 &gt;= 0
+PREFAST_NEWLINE
+result.strlen`997a &gt;= 0
+PREFAST_NEWLINE
+</DESCRIPTION><FUNCTION>std::codecvt&lt;unsigned short,char,int&gt;::do_length</FUNCTION><DECORATED>?do_length@?$codecvt@GDH@std@@MBEHABHPBD1I@Z</DECORATED><FUNCLINE>972</FUNCLINE><PATH><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>xlocale</FILENAME><LINE>972</LINE><COLUMN>14</COLUMN></SFA><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>xlocale</FILENAME><LINE>976</LINE><COLUMN>6</COLUMN></SFA><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>xlocale</FILENAME><LINE>977</LINE><COLUMN>15</COLUMN></SFA><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>xlocale</FILENAME><LINE>978</LINE><COLUMN>11</COLUMN></SFA><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>xlocale</FILENAME><LINE>978</LINE><COLUMN>22</COLUMN></SFA><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>xlocale</FILENAME><LINE>980</LINE><COLUMN>15</COLUMN></SFA><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>xlocale</FILENAME><LINE>980</LINE><COLUMN>18</COLUMN></SFA><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>xlocale</FILENAME><LINE>981</LINE><COLUMN>19</COLUMN></SFA><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>xlocale</FILENAME><LINE>981</LINE><COLUMN>37</COLUMN></SFA><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>xlocale</FILENAME><LINE>983</LINE><COLUMN>7</COLUMN></SFA><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>xlocale</FILENAME><LINE>984</LINE><COLUMN>9</COLUMN></SFA><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>xlocale</FILENAME><LINE>986</LINE><COLUMN>28</COLUMN></SFA><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>xlocale</FILENAME><LINE>986</LINE><COLUMN>18</COLUMN></SFA><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>xlocale</FILENAME><LINE>986</LINE><COLUMN>3</COLUMN></SFA><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>xlocale</FILENAME><LINE>996</LINE><COLUMN>8</COLUMN></SFA><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>xlocale</FILENAME><LINE>997</LINE><COLUMN>27</COLUMN></SFA><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>xlocale</FILENAME><LINE>997</LINE><COLUMN>12</COLUMN></SFA><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>xlocale</FILENAME><LINE>1001</LINE><COLUMN>15</COLUMN></SFA><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>xlocale</FILENAME><LINE>1003</LINE><COLUMN>10</COLUMN></SFA><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>xlocale</FILENAME><LINE>1004</LINE><COLUMN>4</COLUMN></SFA><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>xlocale</FILENAME><LINE>981</LINE><COLUMN>19</COLUMN></SFA><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>xlocale</FILENAME><LINE>981</LINE><COLUMN>37</COLUMN></SFA><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>xlocale</FILENAME><LINE>983</LINE><COLUMN>7</COLUMN></SFA><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>xlocale</FILENAME><LINE>984</LINE><COLUMN>9</COLUMN></SFA><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>xlocale</FILENAME><LINE>986</LINE><COLUMN>28</COLUMN></SFA><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>xlocale</FILENAME><LINE>986</LINE><COLUMN>18</COLUMN></SFA><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>xlocale</FILENAME><LINE>986</LINE><COLUMN>3</COLUMN></SFA><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>xlocale</FILENAME><LINE>996</LINE><COLUMN>8</COLUMN></SFA><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>xlocale</FILENAME><LINE>997</LINE><COLUMN>27</COLUMN></SFA></PATH></DEFECT><DEFECT><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>xlocale</FILENAME><LINE>1525</LINE><COLUMN>28</COLUMN></SFA><DEFECTCODE>26007</DEFECTCODE><DESCRIPTION>Possibly incorrect single element annotation on buffer
+PREFAST_NEWLINE
+Read overflow using expression '* _First'
+PREFAST_NEWLINE
+Buffer _First is a parameter to this function declared on line 1520
+PREFAST_NEWLINE
+Buffer lengths are from an assumed __inout annotation on the parameter
+PREFAST_NEWLINE
+Buffer is of length offset(_First)`1520 + 1 bytes [from annotation valid(elementCount(1)) at c:\somepath\crt\stl70\xlocale(1520)]
+PREFAST_NEWLINE
+Accessing the byte at byte offset 1
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+Values of variables:
+PREFAST_NEWLINE
+Pointer _First is at offset 1 bytes from the start of the buffer
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+where
+PREFAST_NEWLINE
+offset(_First)`1520 == 0
+PREFAST_NEWLINE
+{loop iterations}'1524 == 0
+PREFAST_NEWLINE
+</DESCRIPTION><FUNCTION>std::ctype&lt;char&gt;::do_tolower</FUNCTION><DECORATED>?do_tolower@?$ctype@D@std@@MBEPBDPADPBD@Z</DECORATED><FUNCLINE>1520</FUNCLINE><PATH><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>xlocale</FILENAME><LINE>1520</LINE><COLUMN>23</COLUMN></SFA><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>xlocale</FILENAME><LINE>1524</LINE><COLUMN>1</COLUMN></SFA><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>xlocale</FILENAME><LINE>1525</LINE><COLUMN>28</COLUMN></SFA><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>xlocale</FILENAME><LINE>1525</LINE><COLUMN>11</COLUMN></SFA><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>xlocale</FILENAME><LINE>1524</LINE><COLUMN>11</COLUMN></SFA><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>xlocale</FILENAME><LINE>1524</LINE><COLUMN>1</COLUMN></SFA><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>xlocale</FILENAME><LINE>1525</LINE><COLUMN>28</COLUMN></SFA></PATH></DEFECT><DEFECT><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>xlocale</FILENAME><LINE>1539</LINE><COLUMN>28</COLUMN></SFA><DEFECTCODE>26007</DEFECTCODE><DESCRIPTION>Possibly incorrect single element annotation on buffer
+PREFAST_NEWLINE
+Read overflow using expression '* _First'
+PREFAST_NEWLINE
+Buffer _First is a parameter to this function declared on line 1534
+PREFAST_NEWLINE
+Buffer lengths are from an assumed __inout annotation on the parameter
+PREFAST_NEWLINE
+Buffer is of length offset(_First)`1534 + 1 bytes [from annotation valid(elementCount(1)) at c:\somepath\crt\stl70\xlocale(1534)]
+PREFAST_NEWLINE
+Accessing the byte at byte offset 1
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+Values of variables:
+PREFAST_NEWLINE
+Pointer _First is at offset 1 bytes from the start of the buffer
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+where
+PREFAST_NEWLINE
+offset(_First)`1534 == 0
+PREFAST_NEWLINE
+{loop iterations}'1538 == 0
+PREFAST_NEWLINE
+</DESCRIPTION><FUNCTION>std::ctype&lt;char&gt;::do_toupper</FUNCTION><DECORATED>?do_toupper@?$ctype@D@std@@MBEPBDPADPBD@Z</DECORATED><FUNCLINE>1534</FUNCLINE><PATH><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>xlocale</FILENAME><LINE>1534</LINE><COLUMN>23</COLUMN></SFA><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>xlocale</FILENAME><LINE>1538</LINE><COLUMN>1</COLUMN></SFA><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>xlocale</FILENAME><LINE>1539</LINE><COLUMN>28</COLUMN></SFA><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>xlocale</FILENAME><LINE>1539</LINE><COLUMN>11</COLUMN></SFA><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>xlocale</FILENAME><LINE>1538</LINE><COLUMN>11</COLUMN></SFA><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>xlocale</FILENAME><LINE>1538</LINE><COLUMN>1</COLUMN></SFA><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>xlocale</FILENAME><LINE>1539</LINE><COLUMN>28</COLUMN></SFA></PATH></DEFECT><DEFECT><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>xlocale</FILENAME><LINE>1563</LINE><COLUMN>12</COLUMN></SFA><DEFECTCODE>26007</DEFECTCODE><DESCRIPTION>Possibly incorrect single element annotation on buffer
+PREFAST_NEWLINE
+Potential overflow using expression '(void *)_Dest'
+PREFAST_NEWLINE
+Buffer _Dest is a parameter to this function declared on line 1557
+PREFAST_NEWLINE
+Buffer lengths are from an assumed __inout annotation on the parameter
+PREFAST_NEWLINE
+Buffer is of length offset(_Dest)`1557 + 1 bytes [from annotation valid(elementCount(1)) at c:\somepath\crt\stl70\xlocale(1557)]
+PREFAST_NEWLINE
+Accessing _Dest_size`1557 bytes starting at byte offset 0
+PREFAST_NEWLINE
+Annotation on function memcpy_s requires that {parameter 1} is of length &gt;= {parameter 2} bytes
+PREFAST_NEWLINE
+  where {parameter 1} is (void *)_Dest; {parameter 2} is _Dest_size
+PREFAST_NEWLINE
+[Annotation SAL_writableTo(byteCount({parameter 2})) at c:\somepath\crt\string.h(55)]
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+Values of variables:
+PREFAST_NEWLINE
+Pointer _Dest is at offset 0 bytes from the start of the buffer
+PREFAST_NEWLINE
+_Dest_size = _Dest_size`1557
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+where
+PREFAST_NEWLINE
+offset(_Dest)`1557 == 0
+PREFAST_NEWLINE
+offset(_First)`1557 == 0
+PREFAST_NEWLINE
+offset(_Last)`1557 == 0
+PREFAST_NEWLINE
+_Dest_size`1557 &gt;= 0
+PREFAST_NEWLINE
+_Dest_size`1557 &gt;= 0
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+Overrun access occurs when
+PREFAST_NEWLINE
+_Dest_size`1557 &gt;= 2
+PREFAST_NEWLINE
+</DESCRIPTION><FUNCTION>std::ctype&lt;char&gt;::_Do_widen_s</FUNCTION><DECORATED>?_Do_widen_s@?$ctype@D@std@@IBEPBDPBD0PADI@Z</DECORATED><FUNCLINE>1557</FUNCLINE><PATH><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>xlocale</FILENAME><LINE>1557</LINE><COLUMN>15</COLUMN></SFA><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>xlocale</FILENAME><LINE>1562</LINE><COLUMN>21</COLUMN></SFA><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>xlocale</FILENAME><LINE>1563</LINE><COLUMN>12</COLUMN></SFA></PATH></DEFECT><DEFECT><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>xlocale</FILENAME><LINE>1587</LINE><COLUMN>12</COLUMN></SFA><DEFECTCODE>26006</DEFECTCODE><DESCRIPTION>Possibly incorrect single element annotation on string buffer
+PREFAST_NEWLINE
+Potential overflow using expression '(void *)_Dest'
+PREFAST_NEWLINE
+Buffer _Dest is a parameter to this function declared on line 1581
+PREFAST_NEWLINE
+Buffer lengths are from an assumed __inout annotation on the parameter
+PREFAST_NEWLINE
+Buffer is of length offset(_Dest)`1581 + 1 bytes [from annotation valid(elementCount(1)) at c:\somepath\crt\stl70\xlocale(1581)]
+PREFAST_NEWLINE
+Accessing _Dest_size`1581 bytes starting at byte offset 0
+PREFAST_NEWLINE
+Annotation on function memcpy_s requires that {parameter 1} is of length &gt;= {parameter 2} bytes
+PREFAST_NEWLINE
+  where {parameter 1} is (void *)_Dest; {parameter 2} is _Dest_size
+PREFAST_NEWLINE
+[Annotation SAL_writableTo(byteCount({parameter 2})) at c:\somepath\crt\string.h(55)]
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+Values of variables:
+PREFAST_NEWLINE
+Pointer _Dest is at offset 0 bytes from the start of the buffer
+PREFAST_NEWLINE
+_Dest_size = _Dest_size`1581
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+where
+PREFAST_NEWLINE
+offset(_Dest)`1581 == 0
+PREFAST_NEWLINE
+offset(_First)`1581 == 0
+PREFAST_NEWLINE
+offset(_Last)`1581 == 0
+PREFAST_NEWLINE
+_Dest_size`1581 &gt;= 0
+PREFAST_NEWLINE
+_Dest_size`1581 &gt;= 0
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+Overrun access occurs when
+PREFAST_NEWLINE
+_Dest_size`1581 &gt;= 2
+PREFAST_NEWLINE
+</DESCRIPTION><FUNCTION>std::ctype&lt;char&gt;::_Do_narrow_s</FUNCTION><DECORATED>?_Do_narrow_s@?$ctype@D@std@@IBEPBDPBD0DPADI@Z</DECORATED><FUNCLINE>1581</FUNCLINE><PATH><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>xlocale</FILENAME><LINE>1581</LINE><COLUMN>15</COLUMN></SFA><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>xlocale</FILENAME><LINE>1586</LINE><COLUMN>21</COLUMN></SFA><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>xlocale</FILENAME><LINE>1587</LINE><COLUMN>12</COLUMN></SFA></PATH></DEFECT><DEFECT><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>xlocale</FILENAME><LINE>1760</LINE><COLUMN>16</COLUMN></SFA><DEFECTCODE>26007</DEFECTCODE><DESCRIPTION>Possibly incorrect single element annotation on buffer
+PREFAST_NEWLINE
+Read overflow using expression '* _First'
+PREFAST_NEWLINE
+Buffer _First is a parameter to this function declared on line 1756
+PREFAST_NEWLINE
+Buffer lengths are from an assumed __in annotation on the parameter
+PREFAST_NEWLINE
+Buffer is of length offset(_First)`1756 + 2 bytes [from annotation valid(elementCount(1)) at c:\somepath\crt\stl70\xlocale(1756)]
+PREFAST_NEWLINE
+Accessing 2 bytes starting at byte offset 2
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+Values of variables:
+PREFAST_NEWLINE
+Pointer _First is at offset 2 bytes from the start of the buffer
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+where
+PREFAST_NEWLINE
+offset(_First)`1756 == 0
+PREFAST_NEWLINE
+{loop iterations}'1760 == 0
+PREFAST_NEWLINE
+</DESCRIPTION><FUNCTION>std::ctype&lt;unsigned short&gt;::do_scan_is</FUNCTION><DECORATED>?do_scan_is@?$ctype@G@std@@MBEPBGFPBG0@Z</DECORATED><FUNCLINE>1756</FUNCLINE><PATH><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>xlocale</FILENAME><LINE>1756</LINE><COLUMN>23</COLUMN></SFA><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>xlocale</FILENAME><LINE>1760</LINE><COLUMN>1</COLUMN></SFA><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>xlocale</FILENAME><LINE>1760</LINE><COLUMN>16</COLUMN></SFA><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>xlocale</FILENAME><LINE>1760</LINE><COLUMN>16</COLUMN></SFA><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>xlocale</FILENAME><LINE>1760</LINE><COLUMN>37</COLUMN></SFA><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>xlocale</FILENAME><LINE>1760</LINE><COLUMN>1</COLUMN></SFA><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>xlocale</FILENAME><LINE>1760</LINE><COLUMN>16</COLUMN></SFA></PATH></DEFECT><DEFECT><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>xlocale</FILENAME><LINE>1769</LINE><COLUMN>15</COLUMN></SFA><DEFECTCODE>26007</DEFECTCODE><DESCRIPTION>Possibly incorrect single element annotation on buffer
+PREFAST_NEWLINE
+Read overflow using expression '* _First'
+PREFAST_NEWLINE
+Buffer _First is a parameter to this function declared on line 1765
+PREFAST_NEWLINE
+Buffer lengths are from an assumed __in annotation on the parameter
+PREFAST_NEWLINE
+Buffer is of length offset(_First)`1765 + 2 bytes [from annotation valid(elementCount(1)) at c:\somepath\crt\stl70\xlocale(1765)]
+PREFAST_NEWLINE
+Accessing 2 bytes starting at byte offset 2
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+Values of variables:
+PREFAST_NEWLINE
+Pointer _First is at offset 2 bytes from the start of the buffer
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+where
+PREFAST_NEWLINE
+offset(_First)`1765 == 0
+PREFAST_NEWLINE
+{loop iterations}'1769 == 0
+PREFAST_NEWLINE
+</DESCRIPTION><FUNCTION>std::ctype&lt;unsigned short&gt;::do_scan_not</FUNCTION><DECORATED>?do_scan_not@?$ctype@G@std@@MBEPBGFPBG0@Z</DECORATED><FUNCLINE>1765</FUNCLINE><PATH><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>xlocale</FILENAME><LINE>1765</LINE><COLUMN>23</COLUMN></SFA><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>xlocale</FILENAME><LINE>1769</LINE><COLUMN>1</COLUMN></SFA><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>xlocale</FILENAME><LINE>1769</LINE><COLUMN>15</COLUMN></SFA><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>xlocale</FILENAME><LINE>1769</LINE><COLUMN>15</COLUMN></SFA><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>xlocale</FILENAME><LINE>1769</LINE><COLUMN>36</COLUMN></SFA><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>xlocale</FILENAME><LINE>1769</LINE><COLUMN>1</COLUMN></SFA><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>xlocale</FILENAME><LINE>1769</LINE><COLUMN>15</COLUMN></SFA></PATH></DEFECT><DEFECT><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>xlocale</FILENAME><LINE>1784</LINE><COLUMN>22</COLUMN></SFA><DEFECTCODE>26006</DEFECTCODE><DESCRIPTION>Possibly incorrect single element annotation on string buffer
+PREFAST_NEWLINE
+Read overflow using expression '* _First'
+PREFAST_NEWLINE
+Buffer _First is a parameter to this function declared on line 1779
+PREFAST_NEWLINE
+Buffer lengths are from an assumed __inout annotation on the parameter
+PREFAST_NEWLINE
+Buffer is of length offset(_First)`1779 + 2 bytes [from annotation valid(elementCount(1)) at c:\somepath\crt\stl70\xlocale(1779)]
+PREFAST_NEWLINE
+Accessing 2 bytes starting at byte offset 2
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+Values of variables:
+PREFAST_NEWLINE
+Pointer _First is at offset 2 bytes from the start of the buffer
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+where
+PREFAST_NEWLINE
+offset(_First)`1779 == 0
+PREFAST_NEWLINE
+{loop iterations}'1783 == 0
+PREFAST_NEWLINE
+</DESCRIPTION><FUNCTION>std::ctype&lt;unsigned short&gt;::do_tolower</FUNCTION><DECORATED>?do_tolower@?$ctype@G@std@@MBEPBGPAGPBG@Z</DECORATED><FUNCLINE>1779</FUNCLINE><PATH><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>xlocale</FILENAME><LINE>1779</LINE><COLUMN>23</COLUMN></SFA><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>xlocale</FILENAME><LINE>1783</LINE><COLUMN>1</COLUMN></SFA><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>xlocale</FILENAME><LINE>1784</LINE><COLUMN>22</COLUMN></SFA><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>xlocale</FILENAME><LINE>1784</LINE><COLUMN>11</COLUMN></SFA><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>xlocale</FILENAME><LINE>1783</LINE><COLUMN>11</COLUMN></SFA><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>xlocale</FILENAME><LINE>1783</LINE><COLUMN>1</COLUMN></SFA><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>xlocale</FILENAME><LINE>1784</LINE><COLUMN>22</COLUMN></SFA></PATH></DEFECT><DEFECT><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>xlocale</FILENAME><LINE>1798</LINE><COLUMN>22</COLUMN></SFA><DEFECTCODE>26006</DEFECTCODE><DESCRIPTION>Possibly incorrect single element annotation on string buffer
+PREFAST_NEWLINE
+Read overflow using expression '* _First'
+PREFAST_NEWLINE
+Buffer _First is a parameter to this function declared on line 1793
+PREFAST_NEWLINE
+Buffer lengths are from an assumed __inout annotation on the parameter
+PREFAST_NEWLINE
+Buffer is of length offset(_First)`1793 + 2 bytes [from annotation valid(elementCount(1)) at c:\somepath\crt\stl70\xlocale(1793)]
+PREFAST_NEWLINE
+Accessing 2 bytes starting at byte offset 2
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+Values of variables:
+PREFAST_NEWLINE
+Pointer _First is at offset 2 bytes from the start of the buffer
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+where
+PREFAST_NEWLINE
+offset(_First)`1793 == 0
+PREFAST_NEWLINE
+{loop iterations}'1797 == 0
+PREFAST_NEWLINE
+</DESCRIPTION><FUNCTION>std::ctype&lt;unsigned short&gt;::do_toupper</FUNCTION><DECORATED>?do_toupper@?$ctype@G@std@@MBEPBGPAGPBG@Z</DECORATED><FUNCLINE>1793</FUNCLINE><PATH><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>xlocale</FILENAME><LINE>1793</LINE><COLUMN>23</COLUMN></SFA><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>xlocale</FILENAME><LINE>1797</LINE><COLUMN>1</COLUMN></SFA><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>xlocale</FILENAME><LINE>1798</LINE><COLUMN>22</COLUMN></SFA><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>xlocale</FILENAME><LINE>1798</LINE><COLUMN>11</COLUMN></SFA><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>xlocale</FILENAME><LINE>1797</LINE><COLUMN>11</COLUMN></SFA><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>xlocale</FILENAME><LINE>1797</LINE><COLUMN>1</COLUMN></SFA><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>xlocale</FILENAME><LINE>1798</LINE><COLUMN>22</COLUMN></SFA></PATH></DEFECT><DEFECT><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>xlocale</FILENAME><LINE>1831</LINE><COLUMN>20</COLUMN></SFA><DEFECTCODE>26007</DEFECTCODE><DESCRIPTION>Possibly incorrect single element annotation on buffer
+PREFAST_NEWLINE
+Read overflow using expression '* _First'
+PREFAST_NEWLINE
+Buffer _First is a parameter to this function declared on line 1824
+PREFAST_NEWLINE
+Buffer lengths are from an assumed __in annotation on the parameter
+PREFAST_NEWLINE
+Buffer is of length offset(_First)`1824 + 1 bytes [from annotation valid(elementCount(1)) at c:\somepath\crt\stl70\xlocale(1824)]
+PREFAST_NEWLINE
+Accessing the byte at byte offset 1
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+Values of variables:
+PREFAST_NEWLINE
+Pointer _First is at offset 1 bytes from the start of the buffer
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+where
+PREFAST_NEWLINE
+offset(_First)`1824 == 0
+PREFAST_NEWLINE
+offset(_Last)`1824 == 0
+PREFAST_NEWLINE
+{loop iterations}'1830 == 0
+PREFAST_NEWLINE
+_Dest_size`1824 &gt;= 0
+PREFAST_NEWLINE
+</DESCRIPTION><FUNCTION>std::ctype&lt;unsigned short&gt;::_Do_widen_s</FUNCTION><DECORATED>?_Do_widen_s@?$ctype@G@std@@IBEPBDPBD0PAGI@Z</DECORATED><FUNCLINE>1824</FUNCLINE><PATH><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>xlocale</FILENAME><LINE>1824</LINE><COLUMN>14</COLUMN></SFA><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>xlocale</FILENAME><LINE>1829</LINE><COLUMN>21</COLUMN></SFA><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>xlocale</FILENAME><LINE>1830</LINE><COLUMN>1</COLUMN></SFA><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>xlocale</FILENAME><LINE>1831</LINE><COLUMN>20</COLUMN></SFA><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>xlocale</FILENAME><LINE>1831</LINE><COLUMN>10</COLUMN></SFA><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>xlocale</FILENAME><LINE>1830</LINE><COLUMN>11</COLUMN></SFA><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>xlocale</FILENAME><LINE>1830</LINE><COLUMN>6</COLUMN></SFA><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>xlocale</FILENAME><LINE>1830</LINE><COLUMN>1</COLUMN></SFA><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>xlocale</FILENAME><LINE>1831</LINE><COLUMN>20</COLUMN></SFA></PATH></DEFECT><DEFECT><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>xlocale</FILENAME><LINE>1831</LINE><COLUMN>10</COLUMN></SFA><DEFECTCODE>26006</DEFECTCODE><DESCRIPTION>Possibly incorrect single element annotation on string buffer
+PREFAST_NEWLINE
+Overflow using expression '* _Dest'
+PREFAST_NEWLINE
+Buffer _Dest is a parameter to this function declared on line 1824
+PREFAST_NEWLINE
+Buffer lengths are from an assumed __inout annotation on the parameter
+PREFAST_NEWLINE
+Buffer is of length offset(_Dest)`1824 + 2 bytes [from annotation valid(elementCount(1)) at c:\somepath\crt\stl70\xlocale(1824)]
+PREFAST_NEWLINE
+Accessing 2 bytes starting at byte offset 2
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+Values of variables:
+PREFAST_NEWLINE
+Pointer _Dest is at offset 2 bytes from the start of the buffer
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+where
+PREFAST_NEWLINE
+offset(_Dest)`1824 == 0
+PREFAST_NEWLINE
+{loop iterations}'1830 == 0
+PREFAST_NEWLINE
+</DESCRIPTION><FUNCTION>std::ctype&lt;unsigned short&gt;::_Do_widen_s</FUNCTION><DECORATED>?_Do_widen_s@?$ctype@G@std@@IBEPBDPBD0PAGI@Z</DECORATED><FUNCLINE>1824</FUNCLINE><PATH><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>xlocale</FILENAME><LINE>1824</LINE><COLUMN>14</COLUMN></SFA><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>xlocale</FILENAME><LINE>1829</LINE><COLUMN>21</COLUMN></SFA><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>xlocale</FILENAME><LINE>1830</LINE><COLUMN>1</COLUMN></SFA><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>xlocale</FILENAME><LINE>1831</LINE><COLUMN>20</COLUMN></SFA><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>xlocale</FILENAME><LINE>1831</LINE><COLUMN>10</COLUMN></SFA><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>xlocale</FILENAME><LINE>1830</LINE><COLUMN>11</COLUMN></SFA><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>xlocale</FILENAME><LINE>1830</LINE><COLUMN>6</COLUMN></SFA><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>xlocale</FILENAME><LINE>1830</LINE><COLUMN>1</COLUMN></SFA><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>xlocale</FILENAME><LINE>1831</LINE><COLUMN>20</COLUMN></SFA><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>xlocale</FILENAME><LINE>1831</LINE><COLUMN>10</COLUMN></SFA></PATH></DEFECT><DEFECT><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>xlocale</FILENAME><LINE>1864</LINE><COLUMN>21</COLUMN></SFA><DEFECTCODE>26007</DEFECTCODE><DESCRIPTION>Possibly incorrect single element annotation on buffer
+PREFAST_NEWLINE
+Read overflow using expression '* _First'
+PREFAST_NEWLINE
+Buffer _First is a parameter to this function declared on line 1857
+PREFAST_NEWLINE
+Buffer lengths are from an assumed __in annotation on the parameter
+PREFAST_NEWLINE
+Buffer is of length offset(_First)`1857 + 2 bytes [from annotation valid(elementCount(1)) at c:\somepath\crt\stl70\xlocale(1857)]
+PREFAST_NEWLINE
+Accessing 2 bytes starting at byte offset 2
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+Values of variables:
+PREFAST_NEWLINE
+Pointer _First is at offset 2 bytes from the start of the buffer
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+where
+PREFAST_NEWLINE
+offset(_First)`1857 == 0
+PREFAST_NEWLINE
+offset(_Last)`1857 == 0
+PREFAST_NEWLINE
+{(offset(_Last)`1857 - offset(_First)`1857) % 2}`1862 == 0
+PREFAST_NEWLINE
+{(offset(_Last)`1857) / 2}`1862 == 0
+PREFAST_NEWLINE
+{loop iterations}'1863 == 0
+PREFAST_NEWLINE
+_Dest_size`1857 &gt;= 0
+PREFAST_NEWLINE
+</DESCRIPTION><FUNCTION>std::ctype&lt;unsigned short&gt;::_Do_narrow_s</FUNCTION><DECORATED>?_Do_narrow_s@?$ctype@G@std@@IBEPBGPBG0DPADI@Z</DECORATED><FUNCLINE>1857</FUNCLINE><PATH><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>xlocale</FILENAME><LINE>1857</LINE><COLUMN>15</COLUMN></SFA><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>xlocale</FILENAME><LINE>1862</LINE><COLUMN>21</COLUMN></SFA><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>xlocale</FILENAME><LINE>1863</LINE><COLUMN>1</COLUMN></SFA><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>xlocale</FILENAME><LINE>1864</LINE><COLUMN>21</COLUMN></SFA><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>xlocale</FILENAME><LINE>1864</LINE><COLUMN>10</COLUMN></SFA><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>xlocale</FILENAME><LINE>1863</LINE><COLUMN>11</COLUMN></SFA><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>xlocale</FILENAME><LINE>1863</LINE><COLUMN>6</COLUMN></SFA><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>xlocale</FILENAME><LINE>1863</LINE><COLUMN>1</COLUMN></SFA><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>xlocale</FILENAME><LINE>1864</LINE><COLUMN>21</COLUMN></SFA></PATH></DEFECT><DEFECT><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>xlocale</FILENAME><LINE>1864</LINE><COLUMN>10</COLUMN></SFA><DEFECTCODE>26006</DEFECTCODE><DESCRIPTION>Possibly incorrect single element annotation on string buffer
+PREFAST_NEWLINE
+Overflow using expression '* _Dest'
+PREFAST_NEWLINE
+Buffer _Dest is a parameter to this function declared on line 1857
+PREFAST_NEWLINE
+Buffer lengths are from an assumed __inout annotation on the parameter
+PREFAST_NEWLINE
+Buffer is of length offset(_Dest)`1857 + 1 bytes [from annotation valid(elementCount(1)) at c:\somepath\crt\stl70\xlocale(1857)]
+PREFAST_NEWLINE
+Accessing the byte at byte offset 1
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+Values of variables:
+PREFAST_NEWLINE
+Pointer _Dest is at offset 1 bytes from the start of the buffer
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+where
+PREFAST_NEWLINE
+offset(_Dest)`1857 == 0
+PREFAST_NEWLINE
+{loop iterations}'1863 == 0
+PREFAST_NEWLINE
+</DESCRIPTION><FUNCTION>std::ctype&lt;unsigned short&gt;::_Do_narrow_s</FUNCTION><DECORATED>?_Do_narrow_s@?$ctype@G@std@@IBEPBGPBG0DPADI@Z</DECORATED><FUNCLINE>1857</FUNCLINE><PATH><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>xlocale</FILENAME><LINE>1857</LINE><COLUMN>15</COLUMN></SFA><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>xlocale</FILENAME><LINE>1862</LINE><COLUMN>21</COLUMN></SFA><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>xlocale</FILENAME><LINE>1863</LINE><COLUMN>1</COLUMN></SFA><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>xlocale</FILENAME><LINE>1864</LINE><COLUMN>21</COLUMN></SFA><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>xlocale</FILENAME><LINE>1864</LINE><COLUMN>10</COLUMN></SFA><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>xlocale</FILENAME><LINE>1863</LINE><COLUMN>11</COLUMN></SFA><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>xlocale</FILENAME><LINE>1863</LINE><COLUMN>6</COLUMN></SFA><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>xlocale</FILENAME><LINE>1863</LINE><COLUMN>1</COLUMN></SFA><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>xlocale</FILENAME><LINE>1864</LINE><COLUMN>21</COLUMN></SFA><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>xlocale</FILENAME><LINE>1864</LINE><COLUMN>10</COLUMN></SFA></PATH></DEFECT><DEFECT><SFA><FILEPATH>d:\dev\win8\drivers\tablet\recognition\ink\core\inferno\src\</FILEPATH><FILENAME>loadtdnnbin.cpp</FILENAME><LINE>113</LINE><COLUMN>30</COLUMN></SFA><DEFECTCODE>26035</DEFECTCODE><DESCRIPTION>Possible precondition violation due to failure to null terminate string '++ pVersions'
+PREFAST_NEWLINE
+Buffer result.strchr created during call to strchr on line 108
+PREFAST_NEWLINE
+Annotation on function atoi requires that {parameter 1} is null terminated
+PREFAST_NEWLINE
+  where {parameter 1} is ++ pVersions [Annotation SAL_nullTerminated at c:\somepath\crt\stdlib.h(456)]
+PREFAST_NEWLINE
+</DESCRIPTION><FUNCTION>ReadBinHeader</FUNCTION><DECORATED>?ReadBinHeader@@YAPBEPAUtagNET_DESC@@PBEH@Z</DECORATED><FUNCLINE>57</FUNCLINE><PATH><SFA><FILEPATH>d:\dev\win8\drivers\tablet\recognition\ink\core\inferno\src\</FILEPATH><FILENAME>loadtdnnbin.cpp</FILENAME><LINE>57</LINE><COLUMN>12</COLUMN></SFA><SFA><FILEPATH>d:\dev\win8\drivers\tablet\recognition\ink\core\inferno\src\</FILEPATH><FILENAME>loadtdnnbin.cpp</FILENAME><LINE>59</LINE><COLUMN>16</COLUMN></SFA><SFA><FILEPATH>d:\dev\win8\drivers\tablet\recognition\ink\core\inferno\src\</FILEPATH><FILENAME>loadtdnnbin.cpp</FILENAME><LINE>59</LINE><COLUMN>24</COLUMN></SFA><SFA><FILEPATH>d:\dev\win8\drivers\tablet\recognition\ink\core\inferno\src\</FILEPATH><FILENAME>loadtdnnbin.cpp</FILENAME><LINE>59</LINE><COLUMN>48</COLUMN></SFA><SFA><FILEPATH>d:\dev\win8\drivers\tablet\recognition\ink\core\inferno\src\</FILEPATH><FILENAME>loadtdnnbin.cpp</FILENAME><LINE>60</LINE><COLUMN>10</COLUMN></SFA><SFA><FILEPATH>d:\dev\win8\drivers\tablet\recognition\ink\core\inferno\src\</FILEPATH><FILENAME>loadtdnnbin.cpp</FILENAME><LINE>61</LINE><COLUMN>17</COLUMN></SFA><SFA><FILEPATH>d:\dev\win8\drivers\tablet\recognition\ink\core\inferno\src\</FILEPATH><FILENAME>loadtdnnbin.cpp</FILENAME><LINE>61</LINE><COLUMN>22</COLUMN></SFA><SFA><FILEPATH>d:\dev\win8\drivers\tablet\recognition\ink\core\inferno\src\</FILEPATH><FILENAME>loadtdnnbin.cpp</FILENAME><LINE>61</LINE><COLUMN>29</COLUMN></SFA><SFA><FILEPATH>d:\dev\win8\drivers\tablet\recognition\ink\core\inferno\src\</FILEPATH><FILENAME>loadtdnnbin.cpp</FILENAME><LINE>62</LINE><COLUMN>16</COLUMN></SFA><SFA><FILEPATH>d:\dev\win8\drivers\tablet\recognition\ink\core\inferno\src\</FILEPATH><FILENAME>loadtdnnbin.cpp</FILENAME><LINE>64</LINE><COLUMN>9</COLUMN></SFA><SFA><FILEPATH>d:\dev\win8\drivers\tablet\recognition\ink\core\inferno\src\</FILEPATH><FILENAME>loadtdnnbin.cpp</FILENAME><LINE>68</LINE><COLUMN>12</COLUMN></SFA><SFA><FILEPATH>d:\dev\win8\drivers\tablet\recognition\ink\core\inferno\src\</FILEPATH><FILENAME>loadtdnnbin.cpp</FILENAME><LINE>70</LINE><COLUMN>9</COLUMN></SFA><SFA><FILEPATH>d:\dev\win8\drivers\tablet\recognition\ink\core\inferno\src\</FILEPATH><FILENAME>loadtdnnbin.cpp</FILENAME><LINE>73</LINE><COLUMN>13</COLUMN></SFA><SFA><FILEPATH>d:\dev\win8\drivers\tablet\recognition\ink\core\inferno\src\</FILEPATH><FILENAME>loadtdnnbin.cpp</FILENAME><LINE>78</LINE><COLUMN>9</COLUMN></SFA><SFA><FILEPATH>d:\dev\win8\drivers\tablet\recognition\ink\core\inferno\src\</FILEPATH><FILENAME>loadtdnnbin.cpp</FILENAME><LINE>85</LINE><COLUMN>22</COLUMN></SFA><SFA><FILEPATH>d:\dev\win8\drivers\tablet\recognition\ink\core\inferno\src\</FILEPATH><FILENAME>loadtdnnbin.cpp</FILENAME><LINE>85</LINE><COLUMN>13</COLUMN></SFA><SFA><FILEPATH>d:\dev\win8\drivers\tablet\recognition\ink\core\inferno\src\</FILEPATH><FILENAME>loadtdnnbin.cpp</FILENAME><LINE>86</LINE><COLUMN>13</COLUMN></SFA><SFA><FILEPATH>d:\dev\win8\drivers\tablet\recognition\ink\core\inferno\src\</FILEPATH><FILENAME>loadtdnnbin.cpp</FILENAME><LINE>91</LINE><COLUMN>20</COLUMN></SFA><SFA><FILEPATH>d:\dev\win8\drivers\tablet\recognition\ink\core\inferno\src\</FILEPATH><FILENAME>loadtdnnbin.cpp</FILENAME><LINE>91</LINE><COLUMN>20</COLUMN></SFA><SFA><FILEPATH>d:\dev\win8\drivers\tablet\recognition\ink\core\inferno\src\</FILEPATH><FILENAME>loadtdnnbin.cpp</FILENAME><LINE>98</LINE><COLUMN>14</COLUMN></SFA><SFA><FILEPATH>d:\dev\win8\drivers\tablet\recognition\ink\core\inferno\src\</FILEPATH><FILENAME>loadtdnnbin.cpp</FILENAME><LINE>99</LINE><COLUMN>17</COLUMN></SFA><SFA><FILEPATH>d:\dev\win8\drivers\tablet\recognition\ink\core\inferno\src\</FILEPATH><FILENAME>loadtdnnbin.cpp</FILENAME><LINE>99</LINE><COLUMN>52</COLUMN></SFA><SFA><FILEPATH>d:\dev\win8\drivers\tablet\recognition\ink\core\inferno\src\</FILEPATH><FILENAME>loadtdnnbin.cpp</FILENAME><LINE>103</LINE><COLUMN>30</COLUMN></SFA><SFA><FILEPATH>d:\dev\win8\drivers\tablet\recognition\ink\core\inferno\src\</FILEPATH><FILENAME>loadtdnnbin.cpp</FILENAME><LINE>103</LINE><COLUMN>24</COLUMN></SFA><SFA><FILEPATH>d:\dev\win8\drivers\tablet\recognition\ink\core\inferno\src\</FILEPATH><FILENAME>loadtdnnbin.cpp</FILENAME><LINE>104</LINE><COLUMN>27</COLUMN></SFA><SFA><FILEPATH>d:\dev\win8\drivers\tablet\recognition\ink\core\inferno\src\</FILEPATH><FILENAME>loadtdnnbin.cpp</FILENAME><LINE>108</LINE><COLUMN>22</COLUMN></SFA><SFA><FILEPATH>d:\dev\win8\drivers\tablet\recognition\ink\core\inferno\src\</FILEPATH><FILENAME>loadtdnnbin.cpp</FILENAME><LINE>108</LINE><COLUMN>14</COLUMN></SFA><SFA><FILEPATH>d:\dev\win8\drivers\tablet\recognition\ink\core\inferno\src\</FILEPATH><FILENAME>loadtdnnbin.cpp</FILENAME><LINE>109</LINE><COLUMN>8</COLUMN></SFA><SFA><FILEPATH>d:\dev\win8\drivers\tablet\recognition\ink\core\inferno\src\</FILEPATH><FILENAME>loadtdnnbin.cpp</FILENAME><LINE>113</LINE><COLUMN>30</COLUMN></SFA></PATH></DEFECT><DEFECT><SFA><FILEPATH>d:\dev\win8\drivers\tablet\recognition\ink\core\inferno\src\</FILEPATH><FILENAME>loadtdnnbin.cpp</FILENAME><LINE>116</LINE><COLUMN>16</COLUMN></SFA><DEFECTCODE>26019</DEFECTCODE><DESCRIPTION>Potential read overflow using expression '* ((int *)pBuf)'
+PREFAST_NEWLINE
+Buffer access is apparently unbounded by the buffer size.  
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+In particular: any constant is not constrained by cBuf`57
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+Buffer pBuf is a parameter to this function declared on line 57
+PREFAST_NEWLINE
+Buffer is of length offset(pBuf)`57 + cBuf`57 bytes [from annotation SAL_readableTo(byteCount(cBuf)) at d:\dev\win8\drivers\tablet\recognition\ink\core\inferno\inc\loadtdnnbin.h(70)]
+PREFAST_NEWLINE
+Accessing 4 bytes starting at byte offset 32
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+Values of variables:
+PREFAST_NEWLINE
+Pointer pBuf is at offset 32 bytes from the start of the buffer
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+where
+PREFAST_NEWLINE
+offset(pBuf)`57 == 0
+PREFAST_NEWLINE
+cBuf`57 &gt;= 33
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+Overrun access occurs when
+PREFAST_NEWLINE
+cBuf`57 &lt;= 35
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+There are other instances of this error:
+PREFAST_NEWLINE
+Potential read overflow using expression '* ((TDNN_TYPES *)pBuf)' at line 125
+PREFAST_NEWLINE
+Potential read overflow using expression '* ((TDNN_CREATE *)pBuf)' at line 142
+PREFAST_NEWLINE
+Potential read overflow using expression '* ((DWORD *)pBuf)' at line 150
+PREFAST_NEWLINE
+Potential read overflow using expression '* ((__time64_t *)pBuf)' at line 159
+PREFAST_NEWLINE
+Potential read overflow using expression '* ((TDNN_CREATE *)pBuf)' at line 168
+PREFAST_NEWLINE
+</DESCRIPTION><FUNCTION>ReadBinHeader</FUNCTION><DECORATED>?ReadBinHeader@@YAPBEPAUtagNET_DESC@@PBEH@Z</DECORATED><FUNCLINE>57</FUNCLINE><PATH><SFA><FILEPATH>d:\dev\win8\drivers\tablet\recognition\ink\core\inferno\src\</FILEPATH><FILENAME>loadtdnnbin.cpp</FILENAME><LINE>57</LINE><COLUMN>12</COLUMN></SFA><SFA><FILEPATH>d:\dev\win8\drivers\tablet\recognition\ink\core\inferno\src\</FILEPATH><FILENAME>loadtdnnbin.cpp</FILENAME><LINE>59</LINE><COLUMN>16</COLUMN></SFA><SFA><FILEPATH>d:\dev\win8\drivers\tablet\recognition\ink\core\inferno\src\</FILEPATH><FILENAME>loadtdnnbin.cpp</FILENAME><LINE>59</LINE><COLUMN>24</COLUMN></SFA><SFA><FILEPATH>d:\dev\win8\drivers\tablet\recognition\ink\core\inferno\src\</FILEPATH><FILENAME>loadtdnnbin.cpp</FILENAME><LINE>59</LINE><COLUMN>48</COLUMN></SFA><SFA><FILEPATH>d:\dev\win8\drivers\tablet\recognition\ink\core\inferno\src\</FILEPATH><FILENAME>loadtdnnbin.cpp</FILENAME><LINE>60</LINE><COLUMN>10</COLUMN></SFA><SFA><FILEPATH>d:\dev\win8\drivers\tablet\recognition\ink\core\inferno\src\</FILEPATH><FILENAME>loadtdnnbin.cpp</FILENAME><LINE>61</LINE><COLUMN>17</COLUMN></SFA><SFA><FILEPATH>d:\dev\win8\drivers\tablet\recognition\ink\core\inferno\src\</FILEPATH><FILENAME>loadtdnnbin.cpp</FILENAME><LINE>61</LINE><COLUMN>22</COLUMN></SFA><SFA><FILEPATH>d:\dev\win8\drivers\tablet\recognition\ink\core\inferno\src\</FILEPATH><FILENAME>loadtdnnbin.cpp</FILENAME><LINE>61</LINE><COLUMN>29</COLUMN></SFA><SFA><FILEPATH>d:\dev\win8\drivers\tablet\recognition\ink\core\inferno\src\</FILEPATH><FILENAME>loadtdnnbin.cpp</FILENAME><LINE>62</LINE><COLUMN>16</COLUMN></SFA><SFA><FILEPATH>d:\dev\win8\drivers\tablet\recognition\ink\core\inferno\src\</FILEPATH><FILENAME>loadtdnnbin.cpp</FILENAME><LINE>64</LINE><COLUMN>9</COLUMN></SFA><SFA><FILEPATH>d:\dev\win8\drivers\tablet\recognition\ink\core\inferno\src\</FILEPATH><FILENAME>loadtdnnbin.cpp</FILENAME><LINE>68</LINE><COLUMN>12</COLUMN></SFA><SFA><FILEPATH>d:\dev\win8\drivers\tablet\recognition\ink\core\inferno\src\</FILEPATH><FILENAME>loadtdnnbin.cpp</FILENAME><LINE>70</LINE><COLUMN>9</COLUMN></SFA><SFA><FILEPATH>d:\dev\win8\drivers\tablet\recognition\ink\core\inferno\src\</FILEPATH><FILENAME>loadtdnnbin.cpp</FILENAME><LINE>73</LINE><COLUMN>13</COLUMN></SFA><SFA><FILEPATH>d:\dev\win8\drivers\tablet\recognition\ink\core\inferno\src\</FILEPATH><FILENAME>loadtdnnbin.cpp</FILENAME><LINE>78</LINE><COLUMN>9</COLUMN></SFA><SFA><FILEPATH>d:\dev\win8\drivers\tablet\recognition\ink\core\inferno\src\</FILEPATH><FILENAME>loadtdnnbin.cpp</FILENAME><LINE>85</LINE><COLUMN>22</COLUMN></SFA><SFA><FILEPATH>d:\dev\win8\drivers\tablet\recognition\ink\core\inferno\src\</FILEPATH><FILENAME>loadtdnnbin.cpp</FILENAME><LINE>85</LINE><COLUMN>13</COLUMN></SFA><SFA><FILEPATH>d:\dev\win8\drivers\tablet\recognition\ink\core\inferno\src\</FILEPATH><FILENAME>loadtdnnbin.cpp</FILENAME><LINE>86</LINE><COLUMN>13</COLUMN></SFA><SFA><FILEPATH>d:\dev\win8\drivers\tablet\recognition\ink\core\inferno\src\</FILEPATH><FILENAME>loadtdnnbin.cpp</FILENAME><LINE>91</LINE><COLUMN>20</COLUMN></SFA><SFA><FILEPATH>d:\dev\win8\drivers\tablet\recognition\ink\core\inferno\src\</FILEPATH><FILENAME>loadtdnnbin.cpp</FILENAME><LINE>91</LINE><COLUMN>20</COLUMN></SFA><SFA><FILEPATH>d:\dev\win8\drivers\tablet\recognition\ink\core\inferno\src\</FILEPATH><FILENAME>loadtdnnbin.cpp</FILENAME><LINE>98</LINE><COLUMN>14</COLUMN></SFA><SFA><FILEPATH>d:\dev\win8\drivers\tablet\recognition\ink\core\inferno\src\</FILEPATH><FILENAME>loadtdnnbin.cpp</FILENAME><LINE>99</LINE><COLUMN>17</COLUMN></SFA><SFA><FILEPATH>d:\dev\win8\drivers\tablet\recognition\ink\core\inferno\src\</FILEPATH><FILENAME>loadtdnnbin.cpp</FILENAME><LINE>99</LINE><COLUMN>52</COLUMN></SFA><SFA><FILEPATH>d:\dev\win8\drivers\tablet\recognition\ink\core\inferno\src\</FILEPATH><FILENAME>loadtdnnbin.cpp</FILENAME><LINE>103</LINE><COLUMN>30</COLUMN></SFA><SFA><FILEPATH>d:\dev\win8\drivers\tablet\recognition\ink\core\inferno\src\</FILEPATH><FILENAME>loadtdnnbin.cpp</FILENAME><LINE>103</LINE><COLUMN>24</COLUMN></SFA><SFA><FILEPATH>d:\dev\win8\drivers\tablet\recognition\ink\core\inferno\src\</FILEPATH><FILENAME>loadtdnnbin.cpp</FILENAME><LINE>104</LINE><COLUMN>27</COLUMN></SFA><SFA><FILEPATH>d:\dev\win8\drivers\tablet\recognition\ink\core\inferno\src\</FILEPATH><FILENAME>loadtdnnbin.cpp</FILENAME><LINE>108</LINE><COLUMN>22</COLUMN></SFA><SFA><FILEPATH>d:\dev\win8\drivers\tablet\recognition\ink\core\inferno\src\</FILEPATH><FILENAME>loadtdnnbin.cpp</FILENAME><LINE>108</LINE><COLUMN>14</COLUMN></SFA><SFA><FILEPATH>d:\dev\win8\drivers\tablet\recognition\ink\core\inferno\src\</FILEPATH><FILENAME>loadtdnnbin.cpp</FILENAME><LINE>109</LINE><COLUMN>8</COLUMN></SFA><SFA><FILEPATH>d:\dev\win8\drivers\tablet\recognition\ink\core\inferno\src\</FILEPATH><FILENAME>loadtdnnbin.cpp</FILENAME><LINE>113</LINE><COLUMN>30</COLUMN></SFA><SFA><FILEPATH>d:\dev\win8\drivers\tablet\recognition\ink\core\inferno\src\</FILEPATH><FILENAME>loadtdnnbin.cpp</FILENAME><LINE>113</LINE><COLUMN>24</COLUMN></SFA><SFA><FILEPATH>d:\dev\win8\drivers\tablet\recognition\ink\core\inferno\src\</FILEPATH><FILENAME>loadtdnnbin.cpp</FILENAME><LINE>115</LINE><COLUMN>12</COLUMN></SFA><SFA><FILEPATH>d:\dev\win8\drivers\tablet\recognition\ink\core\inferno\src\</FILEPATH><FILENAME>loadtdnnbin.cpp</FILENAME><LINE>116</LINE><COLUMN>16</COLUMN></SFA></PATH></DEFECT><DEFECT><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>streambuf</FILENAME><LINE>346</LINE><COLUMN>12</COLUMN></SFA><DEFECTCODE>26006</DEFECTCODE><DESCRIPTION>Possibly incorrect single element annotation on string buffer
+PREFAST_NEWLINE
+Overflow using expression '* (_Ptr ++)'
+PREFAST_NEWLINE
+Buffer _Ptr is a parameter to this function declared on line 324
+PREFAST_NEWLINE
+Buffer lengths are from an assumed __inout annotation on the parameter
+PREFAST_NEWLINE
+Buffer is of length offset(_Ptr)`324 + 2 bytes [from annotation valid(elementCount(1)) at c:\somepath\crt\stl70\streambuf(324)]
+PREFAST_NEWLINE
+Accessing 2 bytes starting at byte offset 2
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+Values of variables:
+PREFAST_NEWLINE
+Pointer _Ptr is at offset 4 bytes from the start of the buffer
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+where
+PREFAST_NEWLINE
+delta__Copied`330 == 0
+PREFAST_NEWLINE
+delta__Count`330 == 0
+PREFAST_NEWLINE
+delta_offset(_Ptr)`330 == 0
+PREFAST_NEWLINE
+offset(_Ptr)`324 == 0
+PREFAST_NEWLINE
+{loop iterations}'330 == 0
+PREFAST_NEWLINE
+_Count`324 &gt;= 2
+PREFAST_NEWLINE
+</DESCRIPTION><FUNCTION>std::basic_streambuf&lt;unsigned short,std::char_traits&lt;unsigned short&gt; &gt;::_Xsgetn_s</FUNCTION><DECORATED>?_Xsgetn_s@?$basic_streambuf@GU?$char_traits@G@std@@@std@@IAEHPAGIH@Z</DECORATED><FUNCLINE>324</FUNCLINE><PATH><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>streambuf</FILENAME><LINE>324</LINE><COLUMN>13</COLUMN></SFA><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>streambuf</FILENAME><LINE>327</LINE><COLUMN>11</COLUMN></SFA><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>streambuf</FILENAME><LINE>328</LINE><COLUMN>13</COLUMN></SFA><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>streambuf</FILENAME><LINE>328</LINE><COLUMN>27</COLUMN></SFA><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>streambuf</FILENAME><LINE>328</LINE><COLUMN>2</COLUMN></SFA><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>streambuf</FILENAME><LINE>330</LINE><COLUMN>15</COLUMN></SFA><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>streambuf</FILENAME><LINE>330</LINE><COLUMN>1</COLUMN></SFA><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>streambuf</FILENAME><LINE>331</LINE><COLUMN>35</COLUMN></SFA><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>streambuf</FILENAME><LINE>331</LINE><COLUMN>25</COLUMN></SFA><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>streambuf</FILENAME><LINE>331</LINE><COLUMN>9</COLUMN></SFA><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>streambuf</FILENAME><LINE>342</LINE><COLUMN>62</COLUMN></SFA><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>streambuf</FILENAME><LINE>342</LINE><COLUMN>55</COLUMN></SFA><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>streambuf</FILENAME><LINE>342</LINE><COLUMN>45</COLUMN></SFA><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>streambuf</FILENAME><LINE>342</LINE><COLUMN>45</COLUMN></SFA><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>streambuf</FILENAME><LINE>342</LINE><COLUMN>32</COLUMN></SFA><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>streambuf</FILENAME><LINE>342</LINE><COLUMN>32</COLUMN></SFA><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>streambuf</FILENAME><LINE>346</LINE><COLUMN>35</COLUMN></SFA><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>streambuf</FILENAME><LINE>346</LINE><COLUMN>12</COLUMN></SFA><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>streambuf</FILENAME><LINE>347</LINE><COLUMN>4</COLUMN></SFA><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>streambuf</FILENAME><LINE>348</LINE><COLUMN>4</COLUMN></SFA><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>streambuf</FILENAME><LINE>330</LINE><COLUMN>1</COLUMN></SFA><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>streambuf</FILENAME><LINE>331</LINE><COLUMN>35</COLUMN></SFA><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>streambuf</FILENAME><LINE>331</LINE><COLUMN>25</COLUMN></SFA><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>streambuf</FILENAME><LINE>331</LINE><COLUMN>9</COLUMN></SFA><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>streambuf</FILENAME><LINE>342</LINE><COLUMN>62</COLUMN></SFA><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>streambuf</FILENAME><LINE>342</LINE><COLUMN>55</COLUMN></SFA><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>streambuf</FILENAME><LINE>342</LINE><COLUMN>45</COLUMN></SFA><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>streambuf</FILENAME><LINE>342</LINE><COLUMN>45</COLUMN></SFA><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>streambuf</FILENAME><LINE>342</LINE><COLUMN>32</COLUMN></SFA><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>streambuf</FILENAME><LINE>342</LINE><COLUMN>32</COLUMN></SFA><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>streambuf</FILENAME><LINE>346</LINE><COLUMN>35</COLUMN></SFA><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>streambuf</FILENAME><LINE>346</LINE><COLUMN>12</COLUMN></SFA></PATH></DEFECT><DEFECT><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>streambuf</FILENAME><LINE>346</LINE><COLUMN>12</COLUMN></SFA><DEFECTCODE>26007</DEFECTCODE><DESCRIPTION>Possibly incorrect single element annotation on buffer
+PREFAST_NEWLINE
+Overflow using expression '* (_Ptr ++)'
+PREFAST_NEWLINE
+Buffer _Ptr is a parameter to this function declared on line 324
+PREFAST_NEWLINE
+Buffer lengths are from an assumed __inout annotation on the parameter
+PREFAST_NEWLINE
+Buffer is of length offset(_Ptr)`324 + 1 bytes [from annotation valid(elementCount(1)) at c:\somepath\crt\stl70\streambuf(324)]
+PREFAST_NEWLINE
+Accessing the byte at byte offset 1
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+Values of variables:
+PREFAST_NEWLINE
+Pointer _Ptr is at offset 2 bytes from the start of the buffer
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+where
+PREFAST_NEWLINE
+delta__Copied`330 == 0
+PREFAST_NEWLINE
+delta__Count`330 == 0
+PREFAST_NEWLINE
+delta_offset(_Ptr)`330 == 0
+PREFAST_NEWLINE
+offset(_Ptr)`324 == 0
+PREFAST_NEWLINE
+{loop iterations}'330 == 0
+PREFAST_NEWLINE
+_Count`324 &gt;= 2
+PREFAST_NEWLINE
+</DESCRIPTION><FUNCTION>std::basic_streambuf&lt;char,std::char_traits&lt;char&gt; &gt;::_Xsgetn_s</FUNCTION><DECORATED>?_Xsgetn_s@?$basic_streambuf@DU?$char_traits@D@std@@@std@@IAEHPADIH@Z</DECORATED><FUNCLINE>324</FUNCLINE><PATH><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>streambuf</FILENAME><LINE>324</LINE><COLUMN>13</COLUMN></SFA><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>streambuf</FILENAME><LINE>327</LINE><COLUMN>11</COLUMN></SFA><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>streambuf</FILENAME><LINE>328</LINE><COLUMN>13</COLUMN></SFA><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>streambuf</FILENAME><LINE>328</LINE><COLUMN>27</COLUMN></SFA><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>streambuf</FILENAME><LINE>328</LINE><COLUMN>2</COLUMN></SFA><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>streambuf</FILENAME><LINE>330</LINE><COLUMN>15</COLUMN></SFA><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>streambuf</FILENAME><LINE>330</LINE><COLUMN>1</COLUMN></SFA><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>streambuf</FILENAME><LINE>331</LINE><COLUMN>35</COLUMN></SFA><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>streambuf</FILENAME><LINE>331</LINE><COLUMN>25</COLUMN></SFA><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>streambuf</FILENAME><LINE>331</LINE><COLUMN>9</COLUMN></SFA><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>streambuf</FILENAME><LINE>342</LINE><COLUMN>62</COLUMN></SFA><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>streambuf</FILENAME><LINE>342</LINE><COLUMN>55</COLUMN></SFA><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>streambuf</FILENAME><LINE>342</LINE><COLUMN>45</COLUMN></SFA><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>streambuf</FILENAME><LINE>342</LINE><COLUMN>45</COLUMN></SFA><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>streambuf</FILENAME><LINE>342</LINE><COLUMN>32</COLUMN></SFA><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>streambuf</FILENAME><LINE>342</LINE><COLUMN>32</COLUMN></SFA><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>streambuf</FILENAME><LINE>346</LINE><COLUMN>35</COLUMN></SFA><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>streambuf</FILENAME><LINE>346</LINE><COLUMN>12</COLUMN></SFA><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>streambuf</FILENAME><LINE>347</LINE><COLUMN>4</COLUMN></SFA><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>streambuf</FILENAME><LINE>348</LINE><COLUMN>4</COLUMN></SFA><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>streambuf</FILENAME><LINE>330</LINE><COLUMN>1</COLUMN></SFA><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>streambuf</FILENAME><LINE>331</LINE><COLUMN>35</COLUMN></SFA><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>streambuf</FILENAME><LINE>331</LINE><COLUMN>25</COLUMN></SFA><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>streambuf</FILENAME><LINE>331</LINE><COLUMN>9</COLUMN></SFA><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>streambuf</FILENAME><LINE>342</LINE><COLUMN>62</COLUMN></SFA><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>streambuf</FILENAME><LINE>342</LINE><COLUMN>55</COLUMN></SFA><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>streambuf</FILENAME><LINE>342</LINE><COLUMN>45</COLUMN></SFA><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>streambuf</FILENAME><LINE>342</LINE><COLUMN>45</COLUMN></SFA><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>streambuf</FILENAME><LINE>342</LINE><COLUMN>32</COLUMN></SFA><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>streambuf</FILENAME><LINE>342</LINE><COLUMN>32</COLUMN></SFA><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>streambuf</FILENAME><LINE>346</LINE><COLUMN>35</COLUMN></SFA><SFA><FILEPATH>c:\somepath\crt\stl70\</FILEPATH><FILENAME>streambuf</FILENAME><LINE>346</LINE><COLUMN>12</COLUMN></SFA></PATH></DEFECT></DEFECTS>

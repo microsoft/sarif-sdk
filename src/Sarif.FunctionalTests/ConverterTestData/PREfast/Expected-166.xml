@@ -1,0 +1,14 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<DEFECTS><DEFECT><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test166.cpp</FILENAME><LINE>22</LINE><COLUMN>11</COLUMN></SFA><DEFECTCODE>26035</DEFECTCODE><DESCRIPTION>Possible precondition violation due to failure to null terminate string '(PCWSTR)pszText'
+PREFAST_NEWLINE
+Accessing unannotated buffer pszText
+PREFAST_NEWLINE
+Annotation on function SetText requires that {parameter 1} is null terminated
+PREFAST_NEWLINE
+  where {parameter 1} is (PCWSTR)pszText [Annotation SAL_nullTerminated at c:\somepath\test166.cpp(9)]
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+ when function GetText called at line 21 fails.
+PREFAST_NEWLINE
+</DESCRIPTION><FUNCTION>Test1</FUNCTION><DECORATED>?Test1@@YAXXZ</DECORATED><FUNCLINE>17</FUNCLINE><PATH><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test166.cpp</FILENAME><LINE>17</LINE><COLUMN>5</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test166.cpp</FILENAME><LINE>19</LINE><COLUMN>10</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test166.cpp</FILENAME><LINE>21</LINE><COLUMN>11</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test166.cpp</FILENAME><LINE>22</LINE><COLUMN>11</COLUMN></SFA></PATH></DEFECT></DEFECTS>

@@ -1,0 +1,294 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<DEFECTS><DEFECT><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test086.cpp</FILENAME><LINE>18</LINE><COLUMN>14</COLUMN></SFA><DEFECTCODE>26000</DEFECTCODE><DESCRIPTION>Overflow using expression 's-&gt;a[100]'
+PREFAST_NEWLINE
+Buffer accessed is S::a
+PREFAST_NEWLINE
+Buffer is of length 100 elements (4 bytes/element) [size of field]
+PREFAST_NEWLINE
+Accessing the element (4 bytes/element) at element offset 100
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+Values of variables:
+PREFAST_NEWLINE
+Pointer s is at offset 0 bytes from the start of s
+PREFAST_NEWLINE
+</DESCRIPTION><FUNCTION>SimpleOverflow</FUNCTION><DECORATED>?SimpleOverflow@@YAXPAUS@@@Z</DECORATED><FUNCLINE>16</FUNCLINE><PATH><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test086.cpp</FILENAME><LINE>16</LINE><COLUMN>5</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test086.cpp</FILENAME><LINE>18</LINE><COLUMN>14</COLUMN></SFA></PATH></DEFECT><DEFECT><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test086.cpp</FILENAME><LINE>24</LINE><COLUMN>16</COLUMN></SFA><DEFECTCODE>26014</DEFECTCODE><DESCRIPTION>Potential overflow using expression 's-&gt;a[i]'
+PREFAST_NEWLINE
+This is likely to be due to incorrect or insufficient validation of the buffer access
+PREFAST_NEWLINE
+Buffer accessed is S::a
+PREFAST_NEWLINE
+Buffer is of length 100 elements (4 bytes/element) [size of field]
+PREFAST_NEWLINE
+Accessing the element (4 bytes/element) at element offset {loop iterations}'23 + 2
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+Values of variables:
+PREFAST_NEWLINE
+Pointer s is at offset 0 bytes from the start of s
+PREFAST_NEWLINE
+i = {loop iterations}'23 + 2
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+where
+PREFAST_NEWLINE
+{loop iterations}'23 &lt;= 98
+PREFAST_NEWLINE
+{loop iterations}'23 &gt;= 0
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+Overrun access occurs when
+PREFAST_NEWLINE
+{loop iterations}'23 == 98
+PREFAST_NEWLINE
+</DESCRIPTION><FUNCTION>OffByOne</FUNCTION><DECORATED>?OffByOne@@YAXPAUS@@@Z</DECORATED><FUNCLINE>21</FUNCLINE><PATH><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test086.cpp</FILENAME><LINE>21</LINE><COLUMN>5</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test086.cpp</FILENAME><LINE>23</LINE><COLUMN>13</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test086.cpp</FILENAME><LINE>23</LINE><COLUMN>17</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test086.cpp</FILENAME><LINE>23</LINE><COLUMN>22</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test086.cpp</FILENAME><LINE>24</LINE><COLUMN>16</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test086.cpp</FILENAME><LINE>23</LINE><COLUMN>31</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test086.cpp</FILENAME><LINE>23</LINE><COLUMN>22</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test086.cpp</FILENAME><LINE>24</LINE><COLUMN>16</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test086.cpp</FILENAME><LINE>23</LINE><COLUMN>31</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test086.cpp</FILENAME><LINE>23</LINE><COLUMN>22</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test086.cpp</FILENAME><LINE>24</LINE><COLUMN>16</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test086.cpp</FILENAME><LINE>23</LINE><COLUMN>31</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test086.cpp</FILENAME><LINE>23</LINE><COLUMN>22</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test086.cpp</FILENAME><LINE>24</LINE><COLUMN>16</COLUMN></SFA></PATH></DEFECT><DEFECT><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test086.cpp</FILENAME><LINE>31</LINE><COLUMN>17</COLUMN></SFA><DEFECTCODE>26017</DEFECTCODE><DESCRIPTION>Possibly incorrect single element annotation on struct buffer
+PREFAST_NEWLINE
+Overflow using expression 's-&gt;arr[i]'
+PREFAST_NEWLINE
+Buffer s is a parameter to this function declared on line 28
+PREFAST_NEWLINE
+Buffer lengths are from an assumed __inout annotation on the parameter
+PREFAST_NEWLINE
+Buffer is of length offset(s)`28 + 8 bytes [from annotation valid(elementCount(1)) at c:\somepath\test086.cpp(28)]
+PREFAST_NEWLINE
+Accessing 4 bytes starting at byte offset 8
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+Values of variables:
+PREFAST_NEWLINE
+Pointer s is at offset 0 bytes from the start of the buffer
+PREFAST_NEWLINE
+i = 1
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+where
+PREFAST_NEWLINE
+offset(s)`28 == 0
+PREFAST_NEWLINE
+{loop iterations}'30 == 0
+PREFAST_NEWLINE
+(s-&gt;Flex::count)`30 &gt;= 2
+PREFAST_NEWLINE
+</DESCRIPTION><FUNCTION>TestFlexArray</FUNCTION><DECORATED>?TestFlexArray@@YAXPAUFlex@@@Z</DECORATED><FUNCLINE>28</FUNCLINE><PATH><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test086.cpp</FILENAME><LINE>28</LINE><COLUMN>5</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test086.cpp</FILENAME><LINE>30</LINE><COLUMN>13</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test086.cpp</FILENAME><LINE>30</LINE><COLUMN>17</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test086.cpp</FILENAME><LINE>30</LINE><COLUMN>22</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test086.cpp</FILENAME><LINE>31</LINE><COLUMN>17</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test086.cpp</FILENAME><LINE>30</LINE><COLUMN>35</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test086.cpp</FILENAME><LINE>30</LINE><COLUMN>22</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test086.cpp</FILENAME><LINE>31</LINE><COLUMN>17</COLUMN></SFA></PATH></DEFECT><DEFECT><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test086.cpp</FILENAME><LINE>37</LINE><COLUMN>15</COLUMN></SFA><DEFECTCODE>26017</DEFECTCODE><DESCRIPTION>Potential overflow using expression 's-&gt;a[i]'
+PREFAST_NEWLINE
+Buffer accessed is S::a
+PREFAST_NEWLINE
+Buffer is of length 100 elements (4 bytes/element) [size of field]
+PREFAST_NEWLINE
+Accessing the element (4 bytes/element) at element offset {loop iterations}'36 + 2
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+Values of variables:
+PREFAST_NEWLINE
+Pointer s is at offset 0 bytes from the start of s
+PREFAST_NEWLINE
+i = {loop iterations}'36 + 2
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+where
+PREFAST_NEWLINE
+(s-&gt;S::count)`36 &gt;= {loop iterations}'36 + 3
+PREFAST_NEWLINE
+{loop iterations}'36 &gt;= 0
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+Overrun access occurs when
+PREFAST_NEWLINE
+{loop iterations}'36 &gt;= 98
+PREFAST_NEWLINE
+</DESCRIPTION><FUNCTION>bar</FUNCTION><DECORATED>?bar@@YAXPAUS@@@Z</DECORATED><FUNCLINE>34</FUNCLINE><PATH><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test086.cpp</FILENAME><LINE>34</LINE><COLUMN>5</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test086.cpp</FILENAME><LINE>36</LINE><COLUMN>13</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test086.cpp</FILENAME><LINE>36</LINE><COLUMN>17</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test086.cpp</FILENAME><LINE>36</LINE><COLUMN>22</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test086.cpp</FILENAME><LINE>37</LINE><COLUMN>15</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test086.cpp</FILENAME><LINE>36</LINE><COLUMN>35</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test086.cpp</FILENAME><LINE>36</LINE><COLUMN>22</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test086.cpp</FILENAME><LINE>37</LINE><COLUMN>15</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test086.cpp</FILENAME><LINE>36</LINE><COLUMN>35</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test086.cpp</FILENAME><LINE>36</LINE><COLUMN>22</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test086.cpp</FILENAME><LINE>37</LINE><COLUMN>15</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test086.cpp</FILENAME><LINE>36</LINE><COLUMN>35</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test086.cpp</FILENAME><LINE>36</LINE><COLUMN>22</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test086.cpp</FILENAME><LINE>37</LINE><COLUMN>15</COLUMN></SFA></PATH></DEFECT><DEFECT><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test086.cpp</FILENAME><LINE>43</LINE><COLUMN>13</COLUMN></SFA><DEFECTCODE>26000</DEFECTCODE><DESCRIPTION>Overflow using expression 's.a[100]'
+PREFAST_NEWLINE
+Buffer accessed is S::a
+PREFAST_NEWLINE
+Buffer is of length 100 elements (4 bytes/element) [size of field]
+PREFAST_NEWLINE
+Accessing the element (4 bytes/element) at element offset 100
+PREFAST_NEWLINE
+</DESCRIPTION><FUNCTION>TestLocal</FUNCTION><DECORATED>?TestLocal@@YAXXZ</DECORATED><FUNCLINE>40</FUNCLINE><PATH><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test086.cpp</FILENAME><LINE>40</LINE><COLUMN>5</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test086.cpp</FILENAME><LINE>42</LINE><COLUMN>6</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test086.cpp</FILENAME><LINE>43</LINE><COLUMN>13</COLUMN></SFA></PATH></DEFECT><DEFECT><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test086.cpp</FILENAME><LINE>54</LINE><COLUMN>16</COLUMN></SFA><DEFECTCODE>26000</DEFECTCODE><DESCRIPTION>Overflow using expression 'p-&gt;s.a[100]'
+PREFAST_NEWLINE
+Buffer accessed is S::a
+PREFAST_NEWLINE
+Buffer is of length 100 elements (4 bytes/element) [size of field]
+PREFAST_NEWLINE
+Accessing the element (4 bytes/element) at element offset 100
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+Values of variables:
+PREFAST_NEWLINE
+Pointer p is at offset 0 bytes from the start of p
+PREFAST_NEWLINE
+</DESCRIPTION><FUNCTION>TestPointedTo</FUNCTION><DECORATED>?TestPointedTo@@YAXPAUS1@@@Z</DECORATED><FUNCLINE>52</FUNCLINE><PATH><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test086.cpp</FILENAME><LINE>52</LINE><COLUMN>5</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test086.cpp</FILENAME><LINE>54</LINE><COLUMN>16</COLUMN></SFA></PATH></DEFECT><DEFECT><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test086.cpp</FILENAME><LINE>55</LINE><COLUMN>17</COLUMN></SFA><DEFECTCODE>26000</DEFECTCODE><DESCRIPTION>Overflow using expression 'p-&gt;p-&gt;a[100]'
+PREFAST_NEWLINE
+Buffer accessed is S::a
+PREFAST_NEWLINE
+Buffer is of length 100 elements (4 bytes/element) [size of field]
+PREFAST_NEWLINE
+Accessing the element (4 bytes/element) at element offset 100
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+Values of variables:
+PREFAST_NEWLINE
+Pointer (p-&gt;S1::p) is at offset 0 bytes from the start of (p-&gt;S1::p)
+PREFAST_NEWLINE
+Pointer p is at offset 0 bytes from the start of p
+PREFAST_NEWLINE
+</DESCRIPTION><FUNCTION>TestPointedTo</FUNCTION><DECORATED>?TestPointedTo@@YAXPAUS1@@@Z</DECORATED><FUNCLINE>52</FUNCLINE><PATH><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test086.cpp</FILENAME><LINE>52</LINE><COLUMN>5</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test086.cpp</FILENAME><LINE>54</LINE><COLUMN>16</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test086.cpp</FILENAME><LINE>55</LINE><COLUMN>17</COLUMN></SFA></PATH></DEFECT><DEFECT><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test086.cpp</FILENAME><LINE>68</LINE><COLUMN>25</COLUMN></SFA><DEFECTCODE>26014</DEFECTCODE><DESCRIPTION>Potential overflow using expression '(p-&gt;s[i]).a[j]'
+PREFAST_NEWLINE
+This is likely to be due to incorrect or insufficient validation of the buffer access
+PREFAST_NEWLINE
+Buffer accessed is S::a
+PREFAST_NEWLINE
+Buffer is of length 100 elements (4 bytes/element) [size of field]
+PREFAST_NEWLINE
+Accessing the element (4 bytes/element) at element offset {loop iterations}'67 + 2
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+Values of variables:
+PREFAST_NEWLINE
+Pointer p is at offset 0 bytes from the start of p
+PREFAST_NEWLINE
+i = 0
+PREFAST_NEWLINE
+j = {loop iterations}'67 + 2
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+where
+PREFAST_NEWLINE
+{loop iterations}'67 &lt;= 98
+PREFAST_NEWLINE
+{loop iterations}'67 &gt;= 0
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+Overrun access occurs when
+PREFAST_NEWLINE
+{loop iterations}'67 == 98
+PREFAST_NEWLINE
+</DESCRIPTION><FUNCTION>TestNestedStructArrays</FUNCTION><DECORATED>?TestNestedStructArrays@@YAXPAUComplex@@@Z</DECORATED><FUNCLINE>64</FUNCLINE><PATH><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test086.cpp</FILENAME><LINE>64</LINE><COLUMN>5</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test086.cpp</FILENAME><LINE>66</LINE><COLUMN>13</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test086.cpp</FILENAME><LINE>66</LINE><COLUMN>17</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test086.cpp</FILENAME><LINE>66</LINE><COLUMN>22</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test086.cpp</FILENAME><LINE>67</LINE><COLUMN>17</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test086.cpp</FILENAME><LINE>67</LINE><COLUMN>21</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test086.cpp</FILENAME><LINE>67</LINE><COLUMN>26</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test086.cpp</FILENAME><LINE>68</LINE><COLUMN>25</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test086.cpp</FILENAME><LINE>67</LINE><COLUMN>34</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test086.cpp</FILENAME><LINE>67</LINE><COLUMN>26</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test086.cpp</FILENAME><LINE>68</LINE><COLUMN>25</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test086.cpp</FILENAME><LINE>67</LINE><COLUMN>34</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test086.cpp</FILENAME><LINE>67</LINE><COLUMN>26</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test086.cpp</FILENAME><LINE>68</LINE><COLUMN>25</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test086.cpp</FILENAME><LINE>67</LINE><COLUMN>34</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test086.cpp</FILENAME><LINE>67</LINE><COLUMN>26</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test086.cpp</FILENAME><LINE>68</LINE><COLUMN>25</COLUMN></SFA></PATH></DEFECT><DEFECT><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test086.cpp</FILENAME><LINE>75</LINE><COLUMN>18</COLUMN></SFA><DEFECTCODE>26017</DEFECTCODE><DESCRIPTION>Possibly incorrect single element annotation on struct buffer
+PREFAST_NEWLINE
+Read overflow using expression '(p[i]).a'
+PREFAST_NEWLINE
+Buffer p is a parameter to this function declared on line 72
+PREFAST_NEWLINE
+Buffer lengths are from an assumed __inout annotation on the parameter
+PREFAST_NEWLINE
+Buffer is of length offset(p)`72 + 408 bytes [from annotation valid(elementCount(1)) at c:\somepath\test086.cpp(72)]
+PREFAST_NEWLINE
+Accessing 400 bytes starting at byte offset 412
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+Values of variables:
+PREFAST_NEWLINE
+Pointer p is at offset 0 bytes from the start of the buffer
+PREFAST_NEWLINE
+i = 1
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+where
+PREFAST_NEWLINE
+offset(p)`72 == 0
+PREFAST_NEWLINE
+{loop iterations}'74 == 0
+PREFAST_NEWLINE
+n`72 &gt;= 2
+PREFAST_NEWLINE
+</DESCRIPTION><FUNCTION>TestArrayOfStructs1</FUNCTION><DECORATED>?TestArrayOfStructs1@@YAXPAUS@@H@Z</DECORATED><FUNCLINE>72</FUNCLINE><PATH><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test086.cpp</FILENAME><LINE>72</LINE><COLUMN>5</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test086.cpp</FILENAME><LINE>74</LINE><COLUMN>13</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test086.cpp</FILENAME><LINE>74</LINE><COLUMN>17</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test086.cpp</FILENAME><LINE>74</LINE><COLUMN>22</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test086.cpp</FILENAME><LINE>75</LINE><COLUMN>18</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test086.cpp</FILENAME><LINE>74</LINE><COLUMN>28</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test086.cpp</FILENAME><LINE>74</LINE><COLUMN>22</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test086.cpp</FILENAME><LINE>75</LINE><COLUMN>18</COLUMN></SFA></PATH></DEFECT><DEFECT><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test086.cpp</FILENAME><LINE>82</LINE><COLUMN>18</COLUMN></SFA><DEFECTCODE>26014</DEFECTCODE><DESCRIPTION>Potential read overflow using expression '(p[i]).a'
+PREFAST_NEWLINE
+This is likely to be due to incorrect or insufficient validation of the buffer access
+PREFAST_NEWLINE
+Buffer p is a parameter to this function declared on line 79
+PREFAST_NEWLINE
+Buffer is of length offset(p)`79 + 408*n`79 bytes [from annotation SAL_readableTo(elementCount(n)) at c:\somepath\test086.cpp(79)]
+PREFAST_NEWLINE
+Accessing 400 bytes starting at byte offset 412
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+Values of variables:
+PREFAST_NEWLINE
+Pointer p is at offset 0 bytes from the start of the buffer
+PREFAST_NEWLINE
+i = 1
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+where
+PREFAST_NEWLINE
+offset(p)`79 == 0
+PREFAST_NEWLINE
+{loop iterations}'81 == 0
+PREFAST_NEWLINE
+n`79 &gt;= 1
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+Overrun access occurs when
+PREFAST_NEWLINE
+n`79 == 1
+PREFAST_NEWLINE
+</DESCRIPTION><FUNCTION>TestArrayOfStructs2</FUNCTION><DECORATED>?TestArrayOfStructs2@@YAXPAUS@@H@Z</DECORATED><FUNCLINE>79</FUNCLINE><PATH><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test086.cpp</FILENAME><LINE>79</LINE><COLUMN>5</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test086.cpp</FILENAME><LINE>81</LINE><COLUMN>13</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test086.cpp</FILENAME><LINE>81</LINE><COLUMN>17</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test086.cpp</FILENAME><LINE>81</LINE><COLUMN>22</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test086.cpp</FILENAME><LINE>82</LINE><COLUMN>18</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test086.cpp</FILENAME><LINE>81</LINE><COLUMN>29</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test086.cpp</FILENAME><LINE>81</LINE><COLUMN>22</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test086.cpp</FILENAME><LINE>82</LINE><COLUMN>18</COLUMN></SFA></PATH></DEFECT><DEFECT><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test086.cpp</FILENAME><LINE>89</LINE><COLUMN>20</COLUMN></SFA><DEFECTCODE>26014</DEFECTCODE><DESCRIPTION>Potential read overflow using expression '(p[i]).a'
+PREFAST_NEWLINE
+This is likely to be due to incorrect or insufficient validation of the buffer access
+PREFAST_NEWLINE
+Buffer p is a parameter to this function declared on line 86
+PREFAST_NEWLINE
+Buffer is of length offset(p)`86 + 408*n`86 bytes [from annotation SAL_readableTo(elementCount(n)) at c:\somepath\test086.cpp(86)]
+PREFAST_NEWLINE
+Accessing 400 bytes starting at byte offset 412
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+Values of variables:
+PREFAST_NEWLINE
+Pointer p is at offset 0 bytes from the start of the buffer
+PREFAST_NEWLINE
+i = 1
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+where
+PREFAST_NEWLINE
+offset(p)`86 == 0
+PREFAST_NEWLINE
+{loop iterations}'88 == 0
+PREFAST_NEWLINE
+n`86 &gt;= 1
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+Overrun access occurs when
+PREFAST_NEWLINE
+n`86 == 1
+PREFAST_NEWLINE
+</DESCRIPTION><FUNCTION>TestArrayOfStructs3</FUNCTION><DECORATED>?TestArrayOfStructs3@@YAXPAUS@@H@Z</DECORATED><FUNCLINE>86</FUNCLINE><PATH><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test086.cpp</FILENAME><LINE>86</LINE><COLUMN>5</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test086.cpp</FILENAME><LINE>88</LINE><COLUMN>13</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test086.cpp</FILENAME><LINE>88</LINE><COLUMN>17</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test086.cpp</FILENAME><LINE>88</LINE><COLUMN>22</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test086.cpp</FILENAME><LINE>89</LINE><COLUMN>20</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test086.cpp</FILENAME><LINE>88</LINE><COLUMN>29</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test086.cpp</FILENAME><LINE>88</LINE><COLUMN>22</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test086.cpp</FILENAME><LINE>89</LINE><COLUMN>20</COLUMN></SFA></PATH></DEFECT><DEFECT><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test086.cpp</FILENAME><LINE>89</LINE><COLUMN>20</COLUMN></SFA><DEFECTCODE>26000</DEFECTCODE><DESCRIPTION>Overflow using expression '(p[i]).a[100]'
+PREFAST_NEWLINE
+Buffer accessed is S::a
+PREFAST_NEWLINE
+Buffer is of length 100 elements (4 bytes/element) [size of field]
+PREFAST_NEWLINE
+Accessing the element (4 bytes/element) at element offset 100
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+Values of variables:
+PREFAST_NEWLINE
+Pointer p is at offset 0 bytes from the start of p
+PREFAST_NEWLINE
+i = 0
+PREFAST_NEWLINE
+</DESCRIPTION><FUNCTION>TestArrayOfStructs3</FUNCTION><DECORATED>?TestArrayOfStructs3@@YAXPAUS@@H@Z</DECORATED><FUNCLINE>86</FUNCLINE><PATH><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test086.cpp</FILENAME><LINE>86</LINE><COLUMN>5</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test086.cpp</FILENAME><LINE>88</LINE><COLUMN>13</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test086.cpp</FILENAME><LINE>88</LINE><COLUMN>17</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test086.cpp</FILENAME><LINE>88</LINE><COLUMN>22</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test086.cpp</FILENAME><LINE>89</LINE><COLUMN>20</COLUMN></SFA></PATH></DEFECT></DEFECTS>

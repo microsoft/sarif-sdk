@@ -33,13 +33,11 @@ namespace Microsoft.CodeAnalysis.Sarif
             Assembly assembly = methodBase?.DeclaringType.Assembly;
             string fullyQualifiedName = CreateFullyQualifiedName(methodBase);
 
-
             StackFrame stackFrame = new StackFrame
             {
                 Module = assembly?.GetName().Name,
                 FullyQualifiedLogicalName = fullyQualifiedName
             };
-
 
             if (fileName != null)
             {
