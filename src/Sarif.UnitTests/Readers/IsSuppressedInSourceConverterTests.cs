@@ -39,6 +39,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
             {
                 var run = new Run();
 
+                uut.Initialize(id: null, correlationId: null);
+
                 uut.WriteTool(s_defaultTool);
 
                 uut.WriteResults(new[] { new Result
@@ -60,7 +62,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
             string actual = GetJson(uut =>
             {
                 var run = new Run();
-
+                uut.Initialize(id: null, correlationId: null);
                 uut.WriteTool(s_defaultTool);
 
                 uut.WriteResults(new[] { new Result
@@ -84,6 +86,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
             string actual = GetJson(uut =>
             {
                 var run = new Run();
+
+                uut.Initialize(id: null, correlationId: null);
 
                 uut.WriteTool(s_defaultTool);
 

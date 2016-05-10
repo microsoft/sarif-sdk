@@ -53,7 +53,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             }
         }
 
-        private void ProcessCppCheckLog(XmlReader reader, IResultLogWriter issueWriter)
+        private void ProcessCppCheckLog(XmlReader reader, IResultLogWriter output)
         {
             reader.ReadStartElement(_strings.Results);
 
@@ -121,12 +121,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             var fileInfoFactory = new FileInfoFactory(uri => MimeType.Cpp);
             Dictionary<string, IList<FileData>> fileDictionary = fileInfoFactory.Create(results);
 
-            issueWriter.WriteTool(tool);
-            if (fileDictionary != null && fileDictionary.Count > 0) { issueWriter.WriteFiles(fileDictionary); }
+            output.Initialize(id: null, correlationId: null);
 
-            issueWriter.OpenResults();
-            issueWriter.WriteResults(results);
-            issueWriter.CloseResults();
+            output.WriteTool(tool);
+            if (fileDictionary != null && fileDictionary.Count > 0) { output.WriteFiles(fileDictionary); }
+
+            output.OpenResults();
+            output.WriteResults(results);
+            output.CloseResults();
         }
     }
 }

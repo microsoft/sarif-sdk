@@ -89,6 +89,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
                 {
                     var run = new Run();
 
+                    uut.Initialize(id: null, correlationId: null);
+
                     uut.WriteTool(s_defaultTool);
 
                     var files = new Dictionary<string, IList<FileData>>

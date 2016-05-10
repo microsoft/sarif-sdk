@@ -46,7 +46,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             _serializer.ContractResolver = SarifContractResolver.Instance;
         }
 
-        public void Initialize()
+        /// <summary>
+        /// Initializes the SARIF log by emitting properties and other constructs
+        /// sufficient to being populating a run with results.
+        /// </summary>
+        /// <param name="id">A string that uniquely identifies a run.</param>
+        /// <param name="correlationId">A global identifier for a run that permits correlation with a larger automation process.</param>
+        public void Initialize(string id, string correlationId)
         {
             this.EnsureStateNotAlreadySet(Conditions.Disposed | Conditions.Initialized);
 
@@ -62,6 +68,18 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             _jsonWriter.WriteStartArray(); // Begin: runs
 
             _jsonWriter.WriteStartObject(); // Begin: run
+
+            if (!string.IsNullOrEmpty(id))
+            {
+                _jsonWriter.WritePropertyName("id");
+                _serializer.Serialize(_jsonWriter, id, typeof(string));
+            }
+
+            if (!string.IsNullOrEmpty(correlationId))
+            {
+                _jsonWriter.WritePropertyName("correlationId");
+                _serializer.Serialize(_jsonWriter, correlationId, typeof(string));
+            }
 
             _writeConditions |= Conditions.Initialized;
         }
@@ -340,7 +358,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         {
             if (_writeConditions == Conditions.None)
             {
-                Initialize();
+                Initialize(id : Guid.NewGuid().ToString(), correlationId: null);
             }
         }
 

@@ -17,6 +17,7 @@
 
 ## **v1.5.22-beta** [Driver](https://www.nuget.org/packages/Sarif.Driver/1.5.22-beta) | [SDK](https://www.nuget.org/packages/Sarif.Sdk/1.5.22-beta)
 * Rename 'suppressedInBaseline' to 'suppressed'
+* Provide 'id' and 'correlationId' as arguments to ResultLogJsonWriter.Initialize. By default, 'id' is populated with a generated guid.
 
 
 
