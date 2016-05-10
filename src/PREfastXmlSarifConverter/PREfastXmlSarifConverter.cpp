@@ -14,7 +14,7 @@ HRESULT __stdcall ConvertToSarifHelperFromFile(BSTR bstrInputFile, BSTR bstrOutp
 class XmlToSarifConverter
 {
 private:
-    
+
     bool ReadProperty(IXmlReader *pReader, std::map<bstr_t, bstr_t>  &category)
     {
         while (!pReader->IsEOF())
@@ -228,61 +228,63 @@ private:
                     HRESULT hr = pReader->Read(&nodeType);
                     pReader->GetValue(&wszValue, &cchValue);
                     defect.SetDefectCode(wszValue);
-					pReader->Read(&nodeType);
+                    pReader->Read(&nodeType);
                 }
                 else if (wcscmp(wszLocalName, L"DESCRIPTION") == 0)
                 {
                     HRESULT hr = pReader->Read(&nodeType);
                     pReader->GetValue(&wszValue, &cchValue);
                     defect.SetDescription(wszValue);
-					pReader->Read(&nodeType);
+                    pReader->Read(&nodeType);
                 }
                 else if (wcscmp(wszLocalName, L"FUNCTION") == 0)
                 {
                     HRESULT hr = pReader->Read(&nodeType);
                     pReader->GetValue(&wszValue, &cchValue);
                     defect.SetFunction(wszValue);
-					pReader->Read(&nodeType);
+                    pReader->Read(&nodeType);
                 }
                 else if (wcscmp(wszLocalName, L"DECORATED") == 0)
                 {
                     HRESULT hr = pReader->Read(&nodeType);
                     pReader->GetValue(&wszValue, &cchValue);
                     defect.SetDecorated(wszValue);
-					pReader->Read(&nodeType);
+                    pReader->Read(&nodeType);
                 }
                 else if (wcscmp(wszLocalName, L"FUNCLINE") == 0)
                 {
                     HRESULT hr = pReader->Read(&nodeType);
                     pReader->GetValue(&wszValue, &cchValue);
                     defect.SetFunctionLine(wszValue);
-					pReader->Read(&nodeType);
+                    pReader->Read(&nodeType);
                 }
                 else if (wcscmp(wszLocalName, L"PROBABILITY") == 0)
                 {
                     HRESULT hr = pReader->Read(&nodeType);
                     pReader->GetValue(&wszValue, &cchValue);
                     defect.SetProbability(wszValue);
-					pReader->Read(&nodeType);
-				}
+                    pReader->Read(&nodeType);
+                }
                 else if (wcscmp(wszLocalName, L"RANK") == 0)
                 {
                     HRESULT hr = pReader->Read(&nodeType);
                     pReader->GetValue(&wszValue, &cchValue);
                     defect.SetRank(wszValue);
-					pReader->Read(&nodeType);
-				}
+                    pReader->Read(&nodeType);
+                }
                 else if (wcscmp(wszLocalName, L"CATEGORY") == 0)
                 {
                     HRESULT hr = pReader->Read(&nodeType);
                     pReader->GetValue(&wszValue, &cchValue);
                     ReadProperty(pReader, defect.m_category);
-                }    
+                    pReader->Read(&nodeType);
+                }
                 else if (wcscmp(wszLocalName, L"ADDITIONALINFO") == 0)
                 {
                     HRESULT hr = pReader->Read(&nodeType);
                     pReader->GetValue(&wszValue, &cchValue);
                     ReadProperty(pReader, defect.m_additionalInfo);
+                    pReader->Read(&nodeType);
                 }
             }
             else if (nodeType == XmlNodeType_EndElement)
@@ -297,7 +299,7 @@ private:
     bool InternalLoadXmlDefects(IStream *pInStream, std::deque<XmlDefect> &defectList)
     {
         IXmlReader *pReader = NULL;
-        HRESULT hr; 
+        HRESULT hr;
         if (FAILED(hr = CreateXmlReader(__uuidof(IXmlReader), (void**)&pReader, NULL)))
         {
             wprintf(L"Error creating xml reader, error is %08.8lx", hr);
@@ -342,9 +344,9 @@ public:
     static bool LoadXmlDefectFromString(const std::wstring xmlText, std::deque<XmlDefect> &defectList)
     {
         _bstr_t inpString = xmlText.c_str();
-        IStream *pInStream = SHCreateMemStream( (BYTE*) inpString.operator char *(), inpString.length());
-        
-		XmlToSarifConverter converter;
+        IStream *pInStream = SHCreateMemStream((BYTE*)inpString.operator char *(), inpString.length());
+
+        XmlToSarifConverter converter;
         return converter.InternalLoadXmlDefects(pInStream, defectList);
     }
 
@@ -360,7 +362,7 @@ public:
 
         XmlToSarifConverter converter;
         return converter.InternalLoadXmlDefects(pInFileStream, defectList);
-        
+
     }
 
 };
@@ -406,7 +408,7 @@ HRESULT __stdcall Convert(const std::deque<XmlDefect> defectList, BSTR bstrOutpu
 {
     SarifLog issueLog;
     issueLog.SetVersion(L"1.0.0-beta.4");
-	issueLog.SetSchema(L"http://json.schemastore.org/sarif-1.0.0");
+    issueLog.SetSchema(L"http://json.schemastore.org/sarif-1.0.0");
 
     // Set Tool
     SarifTool tool;
@@ -416,48 +418,48 @@ HRESULT __stdcall Convert(const std::deque<XmlDefect> defectList, BSTR bstrOutpu
 
     // Set Run
     SarifRun run;
-	run.SetTool(tool);
+    run.SetTool(tool);
 
-	for (const XmlDefect &defect : defectList)
-	{
-		SarifRegion region;
-		region.SetStartColumn(defect.m_sfa.GetColumnNo());
-		region.SetStartLine(defect.m_sfa.GetLineNo());
+    for (const XmlDefect &defect : defectList)
+    {
+        SarifRegion region;
+        region.SetStartColumn(defect.m_sfa.GetColumnNo());
+        region.SetStartLine(defect.m_sfa.GetLineNo());
 
-		std::wstring uriResultFile = GetDefectUri(defect.m_sfa);
-		SarifPhysicalLocation resultFile;
-		SarifLocation location;
+        std::wstring uriResultFile = GetDefectUri(defect.m_sfa);
+        SarifPhysicalLocation resultFile;
+        SarifLocation location;
 
-		resultFile.SetURI(uriResultFile);
-		if (region.IsValid())
-		{
-			resultFile.SetRegion(region);
-		}
+        resultFile.SetURI(uriResultFile);
+        if (region.IsValid())
+        {
+            resultFile.SetRegion(region);
+        }
         location.SetResultFile(resultFile);
 
         location.SetFullyQualifiedLogicalName(defect.GetFunction());
 
-		SarifLogicalLocation logicalLocation;
-		logicalLocation.AddLogicalLocationComponent(defect.GetFunction(), L"method");
+        SarifLogicalLocation logicalLocation;
+        logicalLocation.AddLogicalLocationComponent(defect.GetFunction(), L"method");
 
-		location.SetLogicalLocationKey(defect.GetDecorated());
-		run.AddLogicalLocation(defect.GetDecorated(), logicalLocation);
+        location.SetLogicalLocationKey(defect.GetDecorated());
+        run.AddLogicalLocation(defect.GetDecorated(), logicalLocation);
 
         location.AddProperty(L"decorated", defect.GetDecorated());
         location.AddProperty(L"funcline", defect.GetFunctionLine());
 
         // Result
         SarifResult result;
-		result.SetRuleId(defect.GetDefectCode());
-		result.SetMessage(defect.GetDescription());
-		result.AddLocation(location);
-		
+        result.SetRuleId(defect.GetDefectCode());
+        result.SetMessage(defect.GetDescription());
+        result.AddLocation(location);
+
         if (wcslen(defect.GetProbability()) > 0)
-			result.AddProperty(L"probability", defect.GetProbability());
+            result.AddProperty(L"probability", defect.GetProbability());
 
         if (wcslen(defect.GetRank()) > 0)
         {
-			result.AddProperty(L"rank", defect.GetRank());
+            result.AddProperty(L"rank", defect.GetRank());
         }
 
         if (defect.m_category.size() > 0)
@@ -466,7 +468,7 @@ HRESULT __stdcall Convert(const std::deque<XmlDefect> defectList, BSTR bstrOutpu
             {
                 std::wstring key;
                 GetXmlToSarifMapping(std::wstring(mit.first), key);
-				result.AddProperty(key, std::wstring(mit.second));
+                result.AddProperty(key, std::wstring(mit.second));
             }
         }
 
@@ -476,7 +478,7 @@ HRESULT __stdcall Convert(const std::deque<XmlDefect> defectList, BSTR bstrOutpu
             {
                 std::wstring key;
                 GetXmlToSarifMapping(std::wstring(mit.first), key);
-				result.AddProperty(key, std::wstring(mit.second));
+                result.AddProperty(key, std::wstring(mit.second));
             }
         }
 
@@ -484,36 +486,36 @@ HRESULT __stdcall Convert(const std::deque<XmlDefect> defectList, BSTR bstrOutpu
         {
             SarifCodeFlow codeFlow;
 
-			for (const XmlSfa &sfa : defect.m_path)
-			{
-				SarifPhysicalLocation fileLocation;
+            for (const XmlSfa &sfa : defect.m_path)
+            {
+                SarifPhysicalLocation fileLocation;
 
-				fileLocation.SetURI(GetDefectUri(sfa));
+                fileLocation.SetURI(GetDefectUri(sfa));
 
-				SarifRegion region;
-				region.SetStartColumn(sfa.GetColumnNo());
-				region.SetStartLine(sfa.GetLineNo());
-				if (region.IsValid())
-				{
-					fileLocation.SetRegion(region);
-				}
+                SarifRegion region;
+                region.SetStartColumn(sfa.GetColumnNo());
+                region.SetStartLine(sfa.GetLineNo());
+                if (region.IsValid())
+                {
+                    fileLocation.SetRegion(region);
+                }
 
-				SarifAnnotatedCodeLocation annotation;
-				annotation.SetPhysicalLocation(fileLocation);
+                SarifAnnotatedCodeLocation annotation;
+                annotation.SetPhysicalLocation(fileLocation);
 
                 const XmlKeyEvent &keyEvent = sfa.GetKeyEvent();
 
                 if (keyEvent.IsValid())
                 {
-					annotation.AddProperty(L"id", keyEvent.GetId());
-					annotation.AddProperty(L"kind", keyEvent.GetKind());
-					annotation.AddProperty(L"importance", keyEvent.GetImportance());
+                    annotation.AddProperty(L"id", keyEvent.GetId());
+                    annotation.AddProperty(L"kind", keyEvent.GetKind());
+                    annotation.AddProperty(L"importance", keyEvent.GetImportance());
 
-					annotation.SetMessage(keyEvent.GetMessage());
+                    annotation.SetMessage(keyEvent.GetMessage());
                 }
-				codeFlow.AddAnnotatedCodeLocation(annotation);
+                codeFlow.AddAnnotatedCodeLocation(annotation);
             }
-			result.AddCodeFlow(codeFlow);
+            result.AddCodeFlow(codeFlow);
         }
         run.AddResult(result);
     }
