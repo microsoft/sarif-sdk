@@ -73,6 +73,7 @@
     <LinkIncremental>true</LinkIncremental>
     <OutDir>$(SolutionDir)\..\bld\bin\$(ProjectName)\AnyCPU_$(Configuration)\</OutDir>
     <IntDir>$(SolutionDir)\..\bld\obj\$(ProjectName)\AnyCPU_$(Configuration)\</IntDir>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
@@ -81,6 +82,7 @@
     <LinkIncremental>false</LinkIncremental>
     <OutDir>$(SolutionDir)\..\bld\bin\$(ProjectName)\AnyCPU_$(Configuration)\</OutDir>
     <IntDir>$(SolutionDir)\..\bld\obj\$(ProjectName)\AnyCPU_$(Configuration)\</IntDir>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
