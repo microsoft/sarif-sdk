@@ -90,14 +90,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
             var propertyDictionary = (Dictionary<string, SerializedPropertyInfo>)value;
             foreach (string key in propertyDictionary.Keys)
             {
-                SerializedPropertyInfo propertyInfo = propertyDictionary[key];
                 writer.WritePropertyName(key);
-
-                string rawValue = propertyInfo.JTokenType == JTokenType.String
-                    ? '"' + propertyInfo.SerializedValue + '"'
-                    : propertyInfo.SerializedValue;
-
-                writer.WriteRawValue(rawValue);
+                writer.WriteRawValue(propertyDictionary[key].SerializedValue);
             }
 
             writer.WriteEndObject();

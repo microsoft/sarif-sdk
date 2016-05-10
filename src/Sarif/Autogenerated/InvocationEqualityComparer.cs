@@ -1,6 +1,7 @@
 // Copyright (c) Microsoft.  All Rights Reserved.
 // Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
+using Microsoft.CodeAnalysis.Sarif.Readers;
 using System;
 using System.CodeDom.Compiler;
 using System.Collections.Generic;
@@ -10,7 +11,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// <summary>
     /// Defines methods to support the comparison of objects of type Invocation for equality.
     /// </summary>
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.27.0.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.28.0.0")]
     internal sealed class InvocationEqualityComparer : IEqualityComparer<Invocation>
     {
         internal static readonly InvocationEqualityComparer Instance = new InvocationEqualityComparer();
@@ -67,7 +68,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 return false;
             }
 
-            if (!Object.ReferenceEquals(left.EnvironmentVariables, right.EnvironmentVariables))
+            if (!object.ReferenceEquals(left.EnvironmentVariables, right.EnvironmentVariables))
             {
                 if (left.EnvironmentVariables == null || right.EnvironmentVariables == null || left.EnvironmentVariables.Count != right.EnvironmentVariables.Count)
                 {
@@ -89,7 +90,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 }
             }
 
-            if (!Object.ReferenceEquals(left.Properties, right.Properties))
+            if (!object.ReferenceEquals(left.Properties, right.Properties))
             {
                 if (left.Properties == null || right.Properties == null || left.Properties.Count != right.Properties.Count)
                 {
@@ -98,20 +99,20 @@ namespace Microsoft.CodeAnalysis.Sarif
 
                 foreach (var value_2 in left.Properties)
                 {
-                    string value_3;
+                    SerializedPropertyInfo value_3;
                     if (!right.Properties.TryGetValue(value_2.Key, out value_3))
                     {
                         return false;
                     }
 
-                    if (value_2.Value != value_3)
+                    if (!object.Equals(value_2.Value, value_3))
                     {
                         return false;
                     }
                 }
             }
 
-            if (!Object.ReferenceEquals(left.Tags, right.Tags))
+            if (!object.ReferenceEquals(left.Tags, right.Tags))
             {
                 if (left.Tags == null || right.Tags == null)
                 {

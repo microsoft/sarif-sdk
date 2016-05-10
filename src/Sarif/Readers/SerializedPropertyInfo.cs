@@ -9,7 +9,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
     /// Describes a single entry in a JSON property bag (a JSON object whose keys have
     /// arbitrary names and whose values may be any JSON values).
     /// </summary>
-    internal class SerializedPropertyInfo
+    public class SerializedPropertyInfo
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="SerializedPropertyInfo"/> class.
@@ -54,6 +54,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
             JTokenType = jTokenType;
         }
 
+        public SerializedPropertyInfo(string value)
+            : this('"' + value + '"', JTokenType.String)
+        {
+        }
+
         /// <summary>
         /// Gets the string representation of the JSON value of the property.
         /// </summary>
@@ -63,5 +68,53 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
         /// Gets the JSON type of the property's value.
         /// </summary>
         public JTokenType JTokenType { get; }
+
+        public override bool Equals(object obj)
+        {
+            return Equals(obj as SerializedPropertyInfo);
+        }
+
+        private const int HashCodeSeedValue = 17;
+        private const int HashCodeCombiningValue = 31;
+
+        public override int GetHashCode()
+        {
+            int result = HashCodeSeedValue;
+            result = (result * HashCodeCombiningValue) + JTokenType.GetHashCode();
+            if (SerializedValue != null)
+            {
+                result = (result * HashCodeCombiningValue) + SerializedValue.GetHashCode();
+            }
+
+            return result;
+        }
+
+        public bool Equals(SerializedPropertyInfo other)
+        {
+            if (other == null)
+            {
+                return false;
+            }
+
+            if (JTokenType != other.JTokenType)
+            {
+                return false;
+            }
+
+            if (!ReferenceEquals(SerializedValue, other.SerializedValue))
+            {
+                if (SerializedValue == null || other.SerializedValue == null)
+                {
+                    return false;
+                }
+
+                if (!SerializedValue.Equals(other.SerializedValue))
+                {
+                    return false;
+                }
+            }
+
+            return true;
+        }
     }
 }

@@ -130,11 +130,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 newRule.Id = rule.Id;
                 newRule.Name = rule.Name;
                 newRule.HelpUri = rule.HelpUri;
-                newRule.Properties = rule.Properties;
                 newRule.FullDescription = rule.FullDescription;
                 newRule.MessageFormats = rule.MessageFormats;
 
                 newRule.ShortDescription = rule.ShortDescription;
+
+                foreach (string propertyName in rule.PropertyNames)
+                {
+                    newRule.SetProperty(propertyName, rule.GetProperty(propertyName));
+                }
 
                 int numericId = GetIdIntegerSuffix(newRule.Id);
 

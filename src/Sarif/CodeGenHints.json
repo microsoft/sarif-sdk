@@ -11,13 +11,20 @@
   ],
   "AnnotatedCodeLocation.Properties": [
     {
-      "kind": "DictionaryHint"
+      "kind": "DictionaryHint",
+      "arguments": {
+        "valueTypeName": "SerializedPropertyInfo",
+        "namespaceName": "Microsoft.CodeAnalysis.Sarif.Readers",
+        "comparisonKind": "ObjectEquals",
+        "hashKind": "ScalarReferenceType",
+        "initializationKind": "SimpleAssign"
+      }
     },
     {
       "kind": "PropertyModifiersHint",
       "arguments": {
         "modifiers": [
-          "public",
+          "internal",
           "override"
         ]
       }
@@ -35,13 +42,20 @@
   ],
   "CodeFlow.Properties": [
     {
-      "kind": "DictionaryHint"
+      "kind": "DictionaryHint",
+      "arguments": {
+        "valueTypeName": "SerializedPropertyInfo",
+        "namespaceName": "Microsoft.CodeAnalysis.Sarif.Readers",
+        "comparisonKind": "ObjectEquals",
+        "hashKind": "ScalarReferenceType",
+        "initializationKind": "SimpleAssign"
+      }
     },
     {
       "kind": "PropertyModifiersHint",
       "arguments": {
         "modifiers": [
-          "public",
+          "internal",
           "override"
         ]
       }
@@ -75,13 +89,20 @@
   ],
   "FileData.Properties": [
     {
-      "kind": "DictionaryHint"
+      "kind": "DictionaryHint",
+      "arguments": {
+        "valueTypeName": "SerializedPropertyInfo",
+        "namespaceName": "Microsoft.CodeAnalysis.Sarif.Readers",
+        "comparisonKind": "ObjectEquals",
+        "hashKind": "ScalarReferenceType",
+        "initializationKind": "SimpleAssign"
+      }
     },
     {
       "kind": "PropertyModifiersHint",
       "arguments": {
         "modifiers": [
-          "public",
+          "internal",
           "override"
         ]
       }
@@ -150,13 +171,20 @@
   ],
   "Invocation.Properties": [
     {
-      "kind": "DictionaryHint"
+      "kind": "DictionaryHint",
+      "arguments": {
+        "valueTypeName": "SerializedPropertyInfo",
+        "namespaceName": "Microsoft.CodeAnalysis.Sarif.Readers",
+        "comparisonKind": "ObjectEquals",
+        "hashKind": "ScalarReferenceType",
+        "initializationKind": "SimpleAssign"
+      }
     },
     {
       "kind": "PropertyModifiersHint",
       "arguments": {
         "modifiers": [
-          "public",
+          "internal",
           "override"
         ]
       }
@@ -174,13 +202,20 @@
   ],
   "Location.Properties": [
     {
-      "kind": "DictionaryHint"
+      "kind": "DictionaryHint",
+      "arguments": {
+        "valueTypeName": "SerializedPropertyInfo",
+        "namespaceName": "Microsoft.CodeAnalysis.Sarif.Readers",
+        "comparisonKind": "ObjectEquals",
+        "hashKind": "ScalarReferenceType",
+        "initializationKind": "SimpleAssign"
+      }
     },
     {
       "kind": "PropertyModifiersHint",
       "arguments": {
         "modifiers": [
-          "public",
+          "internal",
           "override"
         ]
       }
@@ -213,13 +248,20 @@
   ],
   "Notification.Properties": [
     {
-      "kind": "DictionaryHint"
+      "kind": "DictionaryHint",
+      "arguments": {
+        "valueTypeName": "SerializedPropertyInfo",
+        "namespaceName": "Microsoft.CodeAnalysis.Sarif.Readers",
+        "comparisonKind": "ObjectEquals",
+        "hashKind": "ScalarReferenceType",
+        "initializationKind": "SimpleAssign"
+      }
     },
     {
       "kind": "PropertyModifiersHint",
       "arguments": {
         "modifiers": [
-          "public",
+          "internal",
           "override"
         ]
       }
@@ -267,6 +309,27 @@
       }
     }
   ],
+  "Result.Properties": [
+    {
+      "kind": "DictionaryHint",
+      "arguments": {
+        "valueTypeName": "SerializedPropertyInfo",
+        "namespaceName": "Microsoft.CodeAnalysis.Sarif.Readers",
+        "comparisonKind": "ObjectEquals",
+        "hashKind": "ScalarReferenceType",
+        "initializationKind": "SimpleAssign"
+      }
+    },
+    {
+      "kind": "PropertyModifiersHint",
+      "arguments": {
+        "modifiers": [
+          "internal",
+          "override"
+        ]
+      }
+    }
+  ],
   "Result.SuppressionStates": [
     {
       "kind": "EnumHint",
@@ -277,20 +340,6 @@
         "enumValues": [
           "SuppressedInSource",
           "SuppressedInBaseline"
-        ]
-      }
-    }
-  ],
-  "Result.Properties": [
-    {
-      "kind": "DictionaryHint"
-    },
-    {
-      "kind": "PropertyModifiersHint",
-      "arguments": {
-        "modifiers": [
-          "public",
-          "override"
         ]
       }
     }
@@ -335,13 +384,20 @@
   ],
   "Rule.Properties": [
     {
-      "kind": "DictionaryHint"
+      "kind": "DictionaryHint",
+      "arguments": {
+        "valueTypeName": "SerializedPropertyInfo",
+        "namespaceName": "Microsoft.CodeAnalysis.Sarif.Readers",
+        "comparisonKind": "ObjectEquals",
+        "hashKind": "ScalarReferenceType",
+        "initializationKind": "SimpleAssign"
+      }
     },
     {
       "kind": "PropertyModifiersHint",
       "arguments": {
         "modifiers": [
-          "public",
+          "internal",
           "override"
         ]
       }
@@ -387,13 +443,20 @@
   ],
   "Stack.Properties": [
     {
-      "kind": "DictionaryHint"
+      "kind": "DictionaryHint",
+      "arguments": {
+        "valueTypeName": "SerializedPropertyInfo",
+        "namespaceName": "Microsoft.CodeAnalysis.Sarif.Readers",
+        "comparisonKind": "ObjectEquals",
+        "hashKind": "ScalarReferenceType",
+        "initializationKind": "SimpleAssign"
+      }
     },
     {
       "kind": "PropertyModifiersHint",
       "arguments": {
         "modifiers": [
-          "public",
+          "internal",
           "override"
         ]
       }
@@ -411,13 +474,20 @@
   ],
   "StackFrame.Properties": [
     {
-      "kind": "DictionaryHint"
+      "kind": "DictionaryHint",
+      "arguments": {
+        "valueTypeName": "SerializedPropertyInfo",
+        "namespaceName": "Microsoft.CodeAnalysis.Sarif.Readers",
+        "comparisonKind": "ObjectEquals",
+        "hashKind": "ScalarReferenceType",
+        "initializationKind": "SimpleAssign"
+      }
     },
     {
       "kind": "PropertyModifiersHint",
       "arguments": {
         "modifiers": [
-          "public",
+          "internal",
           "override"
         ]
       }
@@ -435,13 +505,20 @@
   ],
   "Tool.Properties": [
     {
-      "kind": "DictionaryHint"
+      "kind": "DictionaryHint",
+      "arguments": {
+        "valueTypeName": "SerializedPropertyInfo",
+        "namespaceName": "Microsoft.CodeAnalysis.Sarif.Readers",
+        "comparisonKind": "ObjectEquals",
+        "hashKind": "ScalarReferenceType",
+        "initializationKind": "SimpleAssign"
+      }
     },
     {
       "kind": "PropertyModifiersHint",
       "arguments": {
         "modifiers": [
-          "public",
+          "internal",
           "override"
         ]
       }

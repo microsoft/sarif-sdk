@@ -7,7 +7,7 @@ using System.Resources;
 
 namespace Microsoft.CodeAnalysis.Sarif.Driver
 {
-    public abstract class SkimmerBase<TContext>  : ISkimmer<TContext>
+    public abstract class SkimmerBase<TContext>  : PropertyBagHolder, ISkimmer<TContext>
     {
         public SkimmerBase()
         {
@@ -81,8 +81,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         public virtual string Name {  get { return this.GetType().Name; } }
 
         public IDictionary<string, string> Options { get; }
-
-        public IDictionary<string, string> Properties { get; }
 
         public IList<string> Tags { get; }
 

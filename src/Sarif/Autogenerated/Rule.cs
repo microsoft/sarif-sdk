@@ -1,6 +1,7 @@
 // Copyright (c) Microsoft.  All Rights Reserved.
 // Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
+using Microsoft.CodeAnalysis.Sarif.Readers;
 using System;
 using System.CodeDom.Compiler;
 using System.Collections.Generic;
@@ -12,7 +13,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// Describes an analysis rule.
     /// </summary>
     [DataContract]
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.27.0.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.28.0.0")]
     public partial class Rule : PropertyBagHolder, IRule, ISarifNode
     {
         public static IEqualityComparer<Rule> ValueComparer => RuleEqualityComparer.Instance;
@@ -77,7 +78,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// Key/value pairs that provide additional information about the rule.
         /// </summary>
         [DataMember(Name = "properties", IsRequired = false, EmitDefaultValue = false)]
-        public override IDictionary<string, string> Properties { get; set; }
+        internal override IDictionary<string, SerializedPropertyInfo> Properties { get; set; }
 
         /// <summary>
         /// A set of distinct strings that provide additional information about the rule.
@@ -122,7 +123,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="tags">
         /// An initialization value for the <see cref="P: Tags" /> property.
         /// </param>
-        public Rule(string id, string name, string shortDescription, string fullDescription, IDictionary<string, string> messageFormats, ResultLevel defaultLevel, Uri helpUri, IDictionary<string, string> properties, IEnumerable<string> tags)
+        public Rule(string id, string name, string shortDescription, string fullDescription, IDictionary<string, string> messageFormats, ResultLevel defaultLevel, Uri helpUri, IDictionary<string, SerializedPropertyInfo> properties, IEnumerable<string> tags)
         {
             Init(id, name, shortDescription, fullDescription, messageFormats, defaultLevel, helpUri, properties, tags);
         }
@@ -164,7 +165,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new Rule(this);
         }
 
-        private void Init(string id, string name, string shortDescription, string fullDescription, IDictionary<string, string> messageFormats, ResultLevel defaultLevel, Uri helpUri, IDictionary<string, string> properties, IEnumerable<string> tags)
+        private void Init(string id, string name, string shortDescription, string fullDescription, IDictionary<string, string> messageFormats, ResultLevel defaultLevel, Uri helpUri, IDictionary<string, SerializedPropertyInfo> properties, IEnumerable<string> tags)
         {
             Id = id;
             Name = name;
@@ -183,7 +184,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             if (properties != null)
             {
-                Properties = new Dictionary<string, string>(properties);
+                Properties = new Dictionary<string, SerializedPropertyInfo>(properties);
             }
 
             if (tags != null)

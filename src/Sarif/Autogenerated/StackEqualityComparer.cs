@@ -1,6 +1,7 @@
 // Copyright (c) Microsoft.  All Rights Reserved.
 // Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
+using Microsoft.CodeAnalysis.Sarif.Readers;
 using System;
 using System.CodeDom.Compiler;
 using System.Collections.Generic;
@@ -10,7 +11,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// <summary>
     /// Defines methods to support the comparison of objects of type Stack for equality.
     /// </summary>
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.27.0.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.28.0.0")]
     internal sealed class StackEqualityComparer : IEqualityComparer<Stack>
     {
         internal static readonly StackEqualityComparer Instance = new StackEqualityComparer();
@@ -32,7 +33,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 return false;
             }
 
-            if (!Object.ReferenceEquals(left.Frames, right.Frames))
+            if (!object.ReferenceEquals(left.Frames, right.Frames))
             {
                 if (left.Frames == null || right.Frames == null)
                 {
@@ -53,7 +54,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 }
             }
 
-            if (!Object.ReferenceEquals(left.Properties, right.Properties))
+            if (!object.ReferenceEquals(left.Properties, right.Properties))
             {
                 if (left.Properties == null || right.Properties == null || left.Properties.Count != right.Properties.Count)
                 {
@@ -62,20 +63,20 @@ namespace Microsoft.CodeAnalysis.Sarif
 
                 foreach (var value_0 in left.Properties)
                 {
-                    string value_1;
+                    SerializedPropertyInfo value_1;
                     if (!right.Properties.TryGetValue(value_0.Key, out value_1))
                     {
                         return false;
                     }
 
-                    if (value_0.Value != value_1)
+                    if (!object.Equals(value_0.Value, value_1))
                     {
                         return false;
                     }
                 }
             }
 
-            if (!Object.ReferenceEquals(left.Tags, right.Tags))
+            if (!object.ReferenceEquals(left.Tags, right.Tags))
             {
                 if (left.Tags == null || right.Tags == null)
                 {

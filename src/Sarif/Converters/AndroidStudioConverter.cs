@@ -9,7 +9,9 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Xml;
+using Microsoft.CodeAnalysis.Sarif.Readers;
 using Microsoft.CodeAnalysis.Sarif.Writers;
+using Newtonsoft.Json.Linq;
 
 namespace Microsoft.CodeAnalysis.Sarif.Converters
 {
@@ -220,17 +222,17 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             return desc;
         }
 
-        private static Dictionary<string, string> GetSarifIssuePropertiesForProblem(AndroidStudioProblem problem)
+        private static Dictionary<string, SerializedPropertyInfo> GetSarifIssuePropertiesForProblem(AndroidStudioProblem problem)
         {
-            var props = new Dictionary<string, string>();
+            var props = new Dictionary<string, SerializedPropertyInfo>();
             if (problem.Severity != null)
             {
-                props.Add("severity", problem.Severity);
+                props.Add("severity", new SerializedPropertyInfo(problem.Severity));
             }
 
             if (problem.AttributeKey != null)
             {
-                props.Add("attributeKey", problem.AttributeKey);
+                props.Add("attributeKey", new SerializedPropertyInfo(problem.AttributeKey));
             }
 
             if (props.Count == 0)

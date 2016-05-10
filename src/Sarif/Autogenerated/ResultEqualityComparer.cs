@@ -1,6 +1,7 @@
 // Copyright (c) Microsoft.  All Rights Reserved.
 // Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
+using Microsoft.CodeAnalysis.Sarif.Readers;
 using System;
 using System.CodeDom.Compiler;
 using System.Collections.Generic;
@@ -10,7 +11,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// <summary>
     /// Defines methods to support the comparison of objects of type Result for equality.
     /// </summary>
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.27.0.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.28.0.0")]
     internal sealed class ResultEqualityComparer : IEqualityComparer<Result>
     {
         internal static readonly ResultEqualityComparer Instance = new ResultEqualityComparer();
@@ -47,7 +48,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 return false;
             }
 
-            if (!Object.ReferenceEquals(left.Locations, right.Locations))
+            if (!object.ReferenceEquals(left.Locations, right.Locations))
             {
                 if (left.Locations == null || right.Locations == null)
                 {
@@ -78,7 +79,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 return false;
             }
 
-            if (!Object.ReferenceEquals(left.Stacks, right.Stacks))
+            if (!object.ReferenceEquals(left.Stacks, right.Stacks))
             {
                 if (left.Stacks == null || right.Stacks == null)
                 {
@@ -99,7 +100,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 }
             }
 
-            if (!Object.ReferenceEquals(left.CodeFlows, right.CodeFlows))
+            if (!object.ReferenceEquals(left.CodeFlows, right.CodeFlows))
             {
                 if (left.CodeFlows == null || right.CodeFlows == null)
                 {
@@ -120,7 +121,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 }
             }
 
-            if (!Object.ReferenceEquals(left.RelatedLocations, right.RelatedLocations))
+            if (!object.ReferenceEquals(left.RelatedLocations, right.RelatedLocations))
             {
                 if (left.RelatedLocations == null || right.RelatedLocations == null)
                 {
@@ -151,7 +152,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 return false;
             }
 
-            if (!Object.ReferenceEquals(left.Fixes, right.Fixes))
+            if (!object.ReferenceEquals(left.Fixes, right.Fixes))
             {
                 if (left.Fixes == null || right.Fixes == null)
                 {
@@ -172,7 +173,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 }
             }
 
-            if (!Object.ReferenceEquals(left.Properties, right.Properties))
+            if (!object.ReferenceEquals(left.Properties, right.Properties))
             {
                 if (left.Properties == null || right.Properties == null || left.Properties.Count != right.Properties.Count)
                 {
@@ -181,20 +182,20 @@ namespace Microsoft.CodeAnalysis.Sarif
 
                 foreach (var value_0 in left.Properties)
                 {
-                    string value_1;
+                    SerializedPropertyInfo value_1;
                     if (!right.Properties.TryGetValue(value_0.Key, out value_1))
                     {
                         return false;
                     }
 
-                    if (value_0.Value != value_1)
+                    if (!object.Equals(value_0.Value, value_1))
                     {
                         return false;
                     }
                 }
             }
 
-            if (!Object.ReferenceEquals(left.Tags, right.Tags))
+            if (!object.ReferenceEquals(left.Tags, right.Tags))
             {
                 if (left.Tags == null || right.Tags == null)
                 {

@@ -10,7 +10,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// <summary>
     /// Defines methods to support the comparison of objects of type Run for equality.
     /// </summary>
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.27.0.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.28.0.0")]
     internal sealed class RunEqualityComparer : IEqualityComparer<Run>
     {
         internal static readonly RunEqualityComparer Instance = new RunEqualityComparer();
@@ -37,7 +37,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 return false;
             }
 
-            if (!Object.ReferenceEquals(left.Files, right.Files))
+            if (!object.ReferenceEquals(left.Files, right.Files))
             {
                 if (left.Files == null || right.Files == null || left.Files.Count != right.Files.Count)
                 {
@@ -52,7 +52,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                         return false;
                     }
 
-                    if (!Object.ReferenceEquals(value_0.Value, value_1))
+                    if (!object.ReferenceEquals(value_0.Value, value_1))
                     {
                         if (value_0.Value == null || value_1 == null)
                         {
@@ -75,7 +75,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 }
             }
 
-            if (!Object.ReferenceEquals(left.LogicalLocations, right.LogicalLocations))
+            if (!object.ReferenceEquals(left.LogicalLocations, right.LogicalLocations))
             {
                 if (left.LogicalLocations == null || right.LogicalLocations == null || left.LogicalLocations.Count != right.LogicalLocations.Count)
                 {
@@ -90,7 +90,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                         return false;
                     }
 
-                    if (!Object.ReferenceEquals(value_2.Value, value_3))
+                    if (!object.ReferenceEquals(value_2.Value, value_3))
                     {
                         if (value_2.Value == null || value_3 == null)
                         {
@@ -113,7 +113,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 }
             }
 
-            if (!Object.ReferenceEquals(left.Results, right.Results))
+            if (!object.ReferenceEquals(left.Results, right.Results))
             {
                 if (left.Results == null || right.Results == null)
                 {
@@ -134,7 +134,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 }
             }
 
-            if (!Object.ReferenceEquals(left.ToolNotifications, right.ToolNotifications))
+            if (!object.ReferenceEquals(left.ToolNotifications, right.ToolNotifications))
             {
                 if (left.ToolNotifications == null || right.ToolNotifications == null)
                 {
@@ -155,7 +155,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 }
             }
 
-            if (!Object.ReferenceEquals(left.ConfigurationNotifications, right.ConfigurationNotifications))
+            if (!object.ReferenceEquals(left.ConfigurationNotifications, right.ConfigurationNotifications))
             {
                 if (left.ConfigurationNotifications == null || right.ConfigurationNotifications == null)
                 {
@@ -176,7 +176,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 }
             }
 
-            if (!Object.ReferenceEquals(left.Rules, right.Rules))
+            if (!object.ReferenceEquals(left.Rules, right.Rules))
             {
                 if (left.Rules == null || right.Rules == null || left.Rules.Count != right.Rules.Count)
                 {

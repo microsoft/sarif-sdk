@@ -42,15 +42,11 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             tool.FullName = name + " " + tool.Version + (prereleaseInfo ?? "");
 
-            tool.Properties = new Dictionary<string, string>();
-
             tool.Language = CultureInfo.CurrentCulture.Name;
 
-            if (!string.IsNullOrEmpty(fileVersion.Comments)) { tool.Properties["Comments"] = fileVersion.Comments; };
-            if (!string.IsNullOrEmpty(fileVersion.CompanyName)) { tool.Properties["CompanyName"] = fileVersion.CompanyName; };
-            if (!string.IsNullOrEmpty(fileVersion.ProductName)) { tool.Properties["ProductName"] = fileVersion.ProductName; };
-
-            if (tool.Properties.Count == 0) { tool.Properties = null; }
+            if (!string.IsNullOrEmpty(fileVersion.Comments)) { tool.SetProperty("Comments", fileVersion.Comments); }
+            if (!string.IsNullOrEmpty(fileVersion.CompanyName)) { tool.SetProperty("CompanyName", fileVersion.CompanyName); }
+            if (!string.IsNullOrEmpty(fileVersion.ProductName)) { tool.SetProperty("ProductName", fileVersion.ProductName); }
 
             return tool;
         }

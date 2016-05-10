@@ -110,25 +110,22 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 result.Message = String.Join(Environment.NewLine, messageComponents);
             }
 
-            var extraProperties = new Dictionary<string, string>();
-            extraProperties.Add("kingdom", fortify.Kingdom);
+            result.SetProperty("kingdom", fortify.Kingdom);
             if (fortify.Priority != null)
             {
-                extraProperties.Add("priority", fortify.Priority);
+                result.SetProperty("priority", fortify.Priority);
             }
 
             if (!fortify.CweIds.IsDefaultOrEmpty)
             {
-                extraProperties.Add("cwe", String.Join(", ",
+                result.SetProperty("cwe", String.Join(", ",
                     fortify.CweIds.Select(id => id.ToString(CultureInfo.InvariantCulture))));
             }
 
             if (fortify.RuleId != null)
             {
-                extraProperties.Add("fortifyRuleId", fortify.RuleId);
+                result.SetProperty("fortifyRuleId", fortify.RuleId);
             }
-
-            result.Properties = extraProperties;
 
             PhysicalLocation primaryOrSink = ConvertFortifyLocationToPhysicalLocation(fortify.PrimaryOrSink);
             result.Locations = new List<Location>

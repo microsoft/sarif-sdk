@@ -149,11 +149,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
         private void SetSarifLoggerVersion(Tool tool)
         {
-            tool.Properties = tool.Properties ?? new Dictionary<string, string>();
+            tool.Properties = tool.Properties ?? new Dictionary<string, SerializedPropertyInfo>();
 
             string sarifLoggerLocation = typeof(SarifLogger).Assembly.Location;
 
-            tool.Properties["SarifLoggerVersion"] = FileVersionInfo.GetVersionInfo(sarifLoggerLocation).FileVersion;
+            tool.SetProperty("SarifLoggerVersion", FileVersionInfo.GetVersionInfo(sarifLoggerLocation).FileVersion);
         }
 
         public SarifLogger(TextWriter textWriter, bool verbose)

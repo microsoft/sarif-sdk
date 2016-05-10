@@ -120,8 +120,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             var result = new Result
             {
                 RuleId = this.Id,
-                Properties = new Dictionary<string, string> { { "Severity", this.Severity } }
             };
+
+            result.SetProperty("Severity", this.Severity);
 
             if (!string.IsNullOrEmpty(this.VerboseMessage))
             { 

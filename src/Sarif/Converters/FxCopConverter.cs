@@ -129,14 +129,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
             result.Locations = new List<Location> { location };
 
-            var properties = new Dictionary<string, string>();
-            TryAddProperty(properties, context.Level, "Level");
-            TryAddProperty(properties, context.Category, "Category");
-            TryAddProperty(properties, context.FixCategory, "FixCategory");
-            if (properties.Count != 0)
-            {
-                result.Properties = properties;
-            }
+            TryAddProperty(result, context.Level, "Level");
+            TryAddProperty(result, context.Category, "Category");
+            TryAddProperty(result, context.FixCategory, "FixCategory");
 
             return result;
         }
@@ -207,11 +202,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             }
         }
 
-        private static void TryAddProperty(Dictionary<string, string> properties, string value, string key)
+        private static void TryAddProperty(Result result, string value, string key)
         {
             if (!String.IsNullOrWhiteSpace(value))
             {
-                properties.Add(key, value);
+                result.SetProperty(key, value);
             }
         }
     }

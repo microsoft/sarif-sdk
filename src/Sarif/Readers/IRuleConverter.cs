@@ -44,10 +44,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
                     Id = iRule.Id,
                     MessageFormats = iRule.MessageFormats,
                     Name = iRule.Name,
-                    Properties = iRule.Properties,
                     ShortDescription = iRule.ShortDescription,
                     Tags = iRule.Tags
                 };
+
+                foreach (string propertyName in iRule.PropertyNames)
+                {
+                    rule.SetProperty(propertyName, iRule.GetProperty(propertyName));
+                }
 
                 outgoing[key] = rule;
             }
