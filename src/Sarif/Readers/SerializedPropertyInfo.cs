@@ -54,11 +54,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
             JTokenType = jTokenType;
         }
 
-        public SerializedPropertyInfo(string value)
-            : this('"' + value + '"', JTokenType.String)
-        {
-        }
-
         /// <summary>
         /// Gets the string representation of the JSON value of the property.
         /// </summary>

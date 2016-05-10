@@ -134,7 +134,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 result.Message = GenerateFullMessage(description, problem.Hints);
             }
 
-            result.Properties = GetSarifIssuePropertiesForProblem(problem);
+            SetSarifResultPropertiesForProblem(result, problem);
             var location = new Location();
             var logicalLocationComponents = new List<LogicalLocationComponent>();
 
@@ -224,25 +224,17 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             return desc;
         }
 
-        private static Dictionary<string, SerializedPropertyInfo> GetSarifIssuePropertiesForProblem(AndroidStudioProblem problem)
+        private static void SetSarifResultPropertiesForProblem(Result result, AndroidStudioProblem problem)
         {
-            var props = new Dictionary<string, SerializedPropertyInfo>();
             if (problem.Severity != null)
             {
-                props.Add("severity", new SerializedPropertyInfo(problem.Severity));
+                result.SetProperty("severity", problem.Severity);
             }
 
             if (problem.AttributeKey != null)
             {
-                props.Add("attributeKey", new SerializedPropertyInfo(problem.AttributeKey));
+                result.SetProperty("attributeKey", problem.AttributeKey);
             }
-
-            if (props.Count == 0)
-            {
-                return null;
-            }
-
-            return props;
         }
 
         private static string GenerateFullMessage(string description, ImmutableArray<string> hints)
