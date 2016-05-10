@@ -1,6 +1,7 @@
 // Copyright (c) Microsoft.  All Rights Reserved.
 // Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
+using Microsoft.CodeAnalysis.Sarif.Readers;
 using System;
 using System.CodeDom.Compiler;
 using System.Collections.Generic;
@@ -10,8 +11,8 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// <summary>
     /// Interface exposed by objects that provide information about analysis rules.
     /// </summary>
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.22.0.0")]
-    public interface IRule
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.28.0.0")]
+    public partial interface IRule
     {
         /// <summary>
         /// A stable, opaque identifier for the rule.
@@ -47,11 +48,6 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// A URI where the primary documentation for the rule can be found.
         /// </summary>
         Uri HelpUri { get; }
-
-        /// <summary>
-        /// Key/value pairs that provide additional information about the rule.
-        /// </summary>
-        IDictionary<string, string> Properties { get; }
 
         /// <summary>
         /// A set of distinct strings that provide additional information about the rule.

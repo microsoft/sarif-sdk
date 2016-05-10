@@ -1,12 +1,64 @@
 {
+  "annotatedCodeLocation": [
+    {
+      "kind": "BaseTypeHint",
+      "arguments": {
+        "baseTypeNames": [
+          "PropertyBagHolder"
+        ]
+      }
+    }
+  ],
   "AnnotatedCodeLocation.Properties": [
     {
-      "kind": "DictionaryHint"
+      "kind": "DictionaryHint",
+      "arguments": {
+        "valueTypeName": "SerializedPropertyInfo",
+        "namespaceName": "Microsoft.CodeAnalysis.Sarif.Readers",
+        "comparisonKind": "ObjectEquals",
+        "hashKind": "ScalarReferenceType",
+        "initializationKind": "SimpleAssign"
+      }
+    },
+    {
+      "kind": "PropertyModifiersHint",
+      "arguments": {
+        "modifiers": [
+          "internal",
+          "override"
+        ]
+      }
+    }
+  ],
+  "codeFlow": [
+    {
+      "kind": "BaseTypeHint",
+      "arguments": {
+        "baseTypeNames": [
+          "PropertyBagHolder"
+        ]
+      }
     }
   ],
   "CodeFlow.Properties": [
     {
-      "kind": "DictionaryHint"
+      "kind": "DictionaryHint",
+      "arguments": {
+        "valueTypeName": "SerializedPropertyInfo",
+        "namespaceName": "Microsoft.CodeAnalysis.Sarif.Readers",
+        "comparisonKind": "ObjectEquals",
+        "hashKind": "ScalarReferenceType",
+        "initializationKind": "SimpleAssign"
+      }
+    },
+    {
+      "kind": "PropertyModifiersHint",
+      "arguments": {
+        "modifiers": [
+          "internal",
+          "override"
+        ]
+      }
     }
   ],
   "exception": [
@@ -17,11 +69,6 @@
       }
     }
   ],
-  "ExceptionData.Properties": [
-    {
-      "kind": "DictionaryHint"
-    }
-  ],
   "file": [
     {
       "kind": "ClassNameHint",
@@ -30,136 +77,35 @@
       }
     }
   ],
+  "fileData": [
+    {
+      "kind": "BaseTypeHint",
+      "arguments": {
+        "baseTypeNames": [
+          "PropertyBagHolder"
+        ]
+      }
+    }
+  ],
   "FileData.Properties": [
     {
-      "kind": "DictionaryHint"
-    }
-  ],
-  "Location.Properties": [
-    {
-      "kind": "DictionaryHint"
-    }
-  ],
-  "Notification.Properties": [
-    {
-      "kind": "DictionaryHint"
-    }
-  ],
-  "Result.BaselineState": [
-    {
-      "kind": "EnumHint",
+      "kind": "DictionaryHint",
       "arguments": {
-        "typeName": "BaselineState",
-        "description": "The state of a result relative to a baseline of a previous run.",
-        "zeroValue": "None",
-        "enumValues": [
-          "Existing",
-          "New",
-          "Absent"
+        "valueTypeName": "SerializedPropertyInfo",
+        "namespaceName": "Microsoft.CodeAnalysis.Sarif.Readers",
+        "comparisonKind": "ObjectEquals",
+        "hashKind": "ScalarReferenceType",
+        "initializationKind": "SimpleAssign"
+      }
+    },
+    {
+      "kind": "PropertyModifiersHint",
+      "arguments": {
+        "modifiers": [
+          "internal",
+          "override"
         ]
       }
-    }
-  ],
-  "Result.SuppressionStates": [
-    {
-      "kind": "EnumHint",
-      "arguments": {
-        "typeName": "SuppressionStates",
-        "description": "The state of a result relative to a baseline of a previous run.",
-        "zeroValue": "None",
-        "enumValues": [
-          "SuppressedInSource",
-          "SuppressedInBaseline"
-        ]
-      }
-    }
-  ],
-  "Result.Properties": [
-    {
-      "kind": "DictionaryHint"
-    }
-  ],
-  "Rule.DefaultLevel": [
-    {
-      "kind": "EnumHint",
-      "arguments": {
-        "typeName": "ResultLevel",
-        "description": "Values specifying the level of a result.",
-        "zeroValue": "Unknown",
-        "enumValues": [
-          "NotApplicable",
-          "Pass",
-          "Note",
-          "Warning",
-          "Error"
-        ]
-      }
-    }
-  ],
-  "Rule.MessageFormats": [
-    {
-      "kind": "DictionaryHint"
-    }
-  ],
-  "Rule.Properties": [
-    {
-      "kind": "DictionaryHint"
-    }
-  ],
-  "Run.Files": [
-    {
-      "kind": "DictionaryHint"
-    }
-  ],
-  "Run.LogicalLocations": [
-    {
-      "kind": "DictionaryHint"
-    }
-  ],
-  "Run.Properties": [
-    {
-      "kind": "DictionaryHint"
-    }
-  ],
-  "Run.Rules": [
-    {
-      "kind": "DictionaryHint"
-    }
-  ],
-  "Invocation.EnvironmentVariables": [
-    {
-      "kind": "DictionaryHint"
-    }
-  ],
-  "rule": [
-    {
-      "kind": "InterfaceHint",
-      "arguments": {
-        "description": "Interface exposed by objects that provide information about analysis rules."
-      }
-    }
-  ],
-  "SarifLog.Version": [
-    {
-      "kind": "EnumHint",
-      "arguments": {
-        "typeName": "SarifVersion",
-        "description": "Possible values for the SARIF schema version.",
-        "zeroValue": "Unknown",
-        "enumValues": [
-          "OneZeroZeroBetaFour"
-        ]
-      }
-    }
-  ],
-  "Stack.Properties": [
-    {
-      "kind": "DictionaryHint"
-    }
-  ],
-  "StackFrame.Properties": [
-    {
-      "kind": "DictionaryHint"
     }
   ],
   "Hash.Algorithm": [
@@ -208,6 +154,83 @@
       }
     }
   ],
+  "invocation": [
+    {
+      "kind": "BaseTypeHint",
+      "arguments": {
+        "baseTypeNames": [
+          "PropertyBagHolder"
+        ]
+      }
+    }
+  ],
+  "Invocation.EnvironmentVariables": [
+    {
+      "kind": "DictionaryHint"
+    }
+  ],
+  "Invocation.Properties": [
+    {
+      "kind": "DictionaryHint",
+      "arguments": {
+        "valueTypeName": "SerializedPropertyInfo",
+        "namespaceName": "Microsoft.CodeAnalysis.Sarif.Readers",
+        "comparisonKind": "ObjectEquals",
+        "hashKind": "ScalarReferenceType",
+        "initializationKind": "SimpleAssign"
+      }
+    },
+    {
+      "kind": "PropertyModifiersHint",
+      "arguments": {
+        "modifiers": [
+          "internal",
+          "override"
+        ]
+      }
+    }
+  ],
+  "location": [
+    {
+      "kind": "BaseTypeHint",
+      "arguments": {
+        "baseTypeNames": [
+          "PropertyBagHolder"
+        ]
+      }
+    }
+  ],
+  "Location.Properties": [
+    {
+      "kind": "DictionaryHint",
+      "arguments": {
+        "valueTypeName": "SerializedPropertyInfo",
+        "namespaceName": "Microsoft.CodeAnalysis.Sarif.Readers",
+        "comparisonKind": "ObjectEquals",
+        "hashKind": "ScalarReferenceType",
+        "initializationKind": "SimpleAssign"
+      }
+    },
+    {
+      "kind": "PropertyModifiersHint",
+      "arguments": {
+        "modifiers": [
+          "internal",
+          "override"
+        ]
+      }
+    }
+  ],
+  "notification": [
+    {
+      "kind": "BaseTypeHint",
+      "arguments": {
+        "baseTypeNames": [
+          "PropertyBagHolder"
+        ]
+      }
+    }
+  ],
   "Notification.Level": [
     {
       "kind": "EnumHint",
@@ -219,6 +242,52 @@
           "Note",
           "Warning",
           "Error"
+        ]
+      }
+    }
+  ],
+  "Notification.Properties": [
+    {
+      "kind": "DictionaryHint",
+      "arguments": {
+        "valueTypeName": "SerializedPropertyInfo",
+        "namespaceName": "Microsoft.CodeAnalysis.Sarif.Readers",
+        "comparisonKind": "ObjectEquals",
+        "hashKind": "ScalarReferenceType",
+        "initializationKind": "SimpleAssign"
+      }
+    },
+    {
+      "kind": "PropertyModifiersHint",
+      "arguments": {
+        "modifiers": [
+          "internal",
+          "override"
+        ]
+      }
+    }
+  ],
+  "result": [
+    {
+      "kind": "BaseTypeHint",
+      "arguments": {
+        "baseTypeNames": [
+          "PropertyBagHolder"
+        ]
+      }
+    }
+  ],
+  "Result.BaselineState": [
+    {
+      "kind": "EnumHint",
+      "arguments": {
+        "typeName": "BaselineState",
+        "description": "The state of a result relative to a baseline of a previous run.",
+        "zeroValue": "None",
+        "enumValues": [
+          "Existing",
+          "New",
+          "Absent"
         ]
       }
     }
@@ -240,9 +309,219 @@
       }
     }
   ],
-  "Tool.Properties": [
+  "Result.Properties": [
+    {
+      "kind": "DictionaryHint",
+      "arguments": {
+        "valueTypeName": "SerializedPropertyInfo",
+        "namespaceName": "Microsoft.CodeAnalysis.Sarif.Readers",
+        "comparisonKind": "ObjectEquals",
+        "hashKind": "ScalarReferenceType",
+        "initializationKind": "SimpleAssign"
+      }
+    },
+    {
+      "kind": "PropertyModifiersHint",
+      "arguments": {
+        "modifiers": [
+          "internal",
+          "override"
+        ]
+      }
+    }
+  ],
+  "Result.SuppressionStates": [
+    {
+      "kind": "EnumHint",
+      "arguments": {
+        "typeName": "SuppressionStates",
+        "description": "The state of a result relative to a baseline of a previous run.",
+        "zeroValue": "None",
+        "enumValues": [
+          "SuppressedInSource",
+          "SuppressedInBaseline"
+        ]
+      }
+    }
+  ],
+  "rule": [
+    {
+      "kind": "InterfaceHint",
+      "arguments": {
+        "description": "Interface exposed by objects that provide information about analysis rules."
+      }
+    },
+    {
+      "kind": "BaseTypeHint",
+      "arguments": {
+        "baseTypeNames": [
+          "PropertyBagHolder"
+        ]
+      }
+    }
+  ],
+  "Rule.DefaultLevel": [
+    {
+      "kind": "EnumHint",
+      "arguments": {
+        "typeName": "ResultLevel",
+        "description": "Values specifying the level of a result.",
+        "zeroValue": "Unknown",
+        "enumValues": [
+          "NotApplicable",
+          "Pass",
+          "Note",
+          "Warning",
+          "Error"
+        ]
+      }
+    }
+  ],
+  "Rule.MessageFormats": [
     {
       "kind": "DictionaryHint"
+    }
+  ],
+  "Rule.Properties": [
+    {
+      "kind": "DictionaryHint",
+      "arguments": {
+        "valueTypeName": "SerializedPropertyInfo",
+        "namespaceName": "Microsoft.CodeAnalysis.Sarif.Readers",
+        "comparisonKind": "ObjectEquals",
+        "hashKind": "ScalarReferenceType",
+        "initializationKind": "SimpleAssign"
+      }
+    },
+    {
+      "kind": "PropertyModifiersHint",
+      "arguments": {
+        "modifiers": [
+          "internal",
+          "override"
+        ]
+      }
+    }
+  ],
+  "Run.Files": [
+    {
+      "kind": "DictionaryHint"
+    }
+  ],
+  "Run.LogicalLocations": [
+    {
+      "kind": "DictionaryHint"
+    }
+  ],
+  "Run.Rules": [
+    {
+      "kind": "DictionaryHint"
+    }
+  ],
+  "SarifLog.Version": [
+    {
+      "kind": "EnumHint",
+      "arguments": {
+        "typeName": "SarifVersion",
+        "description": "Possible values for the SARIF schema version.",
+        "zeroValue": "Unknown",
+        "enumValues": [
+          "OneZeroZeroBetaFour"
+        ]
+      }
+    }
+  ],
+  "stack": [
+    {
+      "kind": "BaseTypeHint",
+      "arguments": {
+        "baseTypeNames": [
+          "PropertyBagHolder"
+        ]
+      }
+    }
+  ],
+  "Stack.Properties": [
+    {
+      "kind": "DictionaryHint",
+      "arguments": {
+        "valueTypeName": "SerializedPropertyInfo",
+        "namespaceName": "Microsoft.CodeAnalysis.Sarif.Readers",
+        "comparisonKind": "ObjectEquals",
+        "hashKind": "ScalarReferenceType",
+        "initializationKind": "SimpleAssign"
+      }
+    },
+    {
+      "kind": "PropertyModifiersHint",
+      "arguments": {
+        "modifiers": [
+          "internal",
+          "override"
+        ]
+      }
+    }
+  ],
+  "stackFrame": [
+    {
+      "kind": "BaseTypeHint",
+      "arguments": {
+        "baseTypeNames": [
+          "PropertyBagHolder"
+        ]
+      }
+    }
+  ],
+  "StackFrame.Properties": [
+    {
+      "kind": "DictionaryHint",
+      "arguments": {
+        "valueTypeName": "SerializedPropertyInfo",
+        "namespaceName": "Microsoft.CodeAnalysis.Sarif.Readers",
+        "comparisonKind": "ObjectEquals",
+        "hashKind": "ScalarReferenceType",
+        "initializationKind": "SimpleAssign"
+      }
+    },
+    {
+      "kind": "PropertyModifiersHint",
+      "arguments": {
+        "modifiers": [
+          "internal",
+          "override"
+        ]
+      }
+    }
+  ],
+  "tool": [
+    {
+      "kind": "BaseTypeHint",
+      "arguments": {
+        "baseTypeNames": [
+          "PropertyBagHolder"
+        ]
+      }
+    }
+  ],
+  "Tool.Properties": [
+    {
+      "kind": "DictionaryHint",
+      "arguments": {
+        "valueTypeName": "SerializedPropertyInfo",
+        "namespaceName": "Microsoft.CodeAnalysis.Sarif.Readers",
+        "comparisonKind": "ObjectEquals",
+        "hashKind": "ScalarReferenceType",
+        "initializationKind": "SimpleAssign"
+      }
+    },
+    {
+      "kind": "PropertyModifiersHint",
+      "arguments": {
+        "modifiers": [
+          "internal",
+          "override"
+        ]
+      }
     }
   ]
 }

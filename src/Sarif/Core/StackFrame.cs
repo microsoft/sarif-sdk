@@ -53,10 +53,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             if (nativeOffset != -1)
             {
-                stackFrame.Properties = new Dictionary<string, string>
-                {
-                    { "NativeOffset", nativeOffset.ToString(CultureInfo.InvariantCulture) }
-                };
+                stackFrame.SetProperty("NativeOffset", nativeOffset.ToString(CultureInfo.InvariantCulture));
             }
 
             return stackFrame;

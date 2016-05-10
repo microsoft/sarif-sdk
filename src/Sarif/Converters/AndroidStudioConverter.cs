@@ -9,7 +9,9 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Xml;
+using Microsoft.CodeAnalysis.Sarif.Readers;
 using Microsoft.CodeAnalysis.Sarif.Writers;
+using Newtonsoft.Json.Linq;
 
 namespace Microsoft.CodeAnalysis.Sarif.Converters
 {
@@ -132,7 +134,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 result.Message = GenerateFullMessage(description, problem.Hints);
             }
 
-            result.Properties = GetSarifIssuePropertiesForProblem(problem);
+            SetSarifResultPropertiesForProblem(result, problem);
             var location = new Location();
             var logicalLocationComponents = new List<LogicalLocationComponent>();
 
@@ -222,25 +224,17 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             return desc;
         }
 
-        private static Dictionary<string, string> GetSarifIssuePropertiesForProblem(AndroidStudioProblem problem)
+        private static void SetSarifResultPropertiesForProblem(Result result, AndroidStudioProblem problem)
         {
-            var props = new Dictionary<string, string>();
             if (problem.Severity != null)
             {
-                props.Add("severity", problem.Severity);
+                result.SetProperty("severity", problem.Severity);
             }
 
             if (problem.AttributeKey != null)
             {
-                props.Add("attributeKey", problem.AttributeKey);
+                result.SetProperty("attributeKey", problem.AttributeKey);
             }
-
-            if (props.Count == 0)
-            {
-                return null;
-            }
-
-            return props;
         }
 
         private static string GenerateFullMessage(string description, ImmutableArray<string> hints)

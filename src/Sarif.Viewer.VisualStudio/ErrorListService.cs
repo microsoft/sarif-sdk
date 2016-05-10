@@ -107,17 +107,10 @@ namespace Microsoft.Sarif.Viewer
                 string category, document;
                 Region region;
 
-                category = null;
-
-                if (result.Properties != null)
-                {
-                    result.Properties.TryGetValue("category", out category);
-                }
-
+                result.TryGetProperty("category", out category);
 
                 if (result.Locations != null)
                 {
-
                     foreach (Location location in result?.Locations)
                     {
                         region = null;

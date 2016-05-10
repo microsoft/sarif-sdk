@@ -3,10 +3,11 @@
 
 using System;
 using System.Collections.Generic;
+using Microsoft.CodeAnalysis.Sarif.Readers;
 
 namespace Microsoft.CodeAnalysis.Sarif.Driver
 {
-    internal class ExceptionRaisingRule : IRule, ISkimmer<TestAnalysisContext>
+    internal class ExceptionRaisingRule : PropertyBagHolder, IRule, ISkimmer<TestAnalysisContext>
     {
         internal static ExceptionCondition s_exceptionCondition;
 
@@ -81,9 +82,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             }
         }
 
-        public IDictionary<string, string> Properties
+        internal override IDictionary<string, SerializedPropertyInfo> Properties
         {
             get
+            {
+                throw new NotImplementedException();
+            }
+
+            set
             {
                 throw new NotImplementedException();
             }

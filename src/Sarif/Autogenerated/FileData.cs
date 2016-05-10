@@ -1,6 +1,7 @@
 // Copyright (c) Microsoft.  All Rights Reserved.
 // Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
+using Microsoft.CodeAnalysis.Sarif.Readers;
 using System;
 using System.CodeDom.Compiler;
 using System.Collections.Generic;
@@ -12,8 +13,8 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// A single file. In some cases, this file might be nested within another file.
     /// </summary>
     [DataContract]
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.22.0.0")]
-    public partial class FileData : ISarifNode
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.28.0.0")]
+    public partial class FileData : PropertyBagHolder, ISarifNode
     {
         public static IEqualityComparer<FileData> ValueComparer => FileDataEqualityComparer.Instance;
 
@@ -65,7 +66,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// Key/value pairs that provide additional information about the file.
         /// </summary>
         [DataMember(Name = "properties", IsRequired = false, EmitDefaultValue = false)]
-        public IDictionary<string, string> Properties { get; set; }
+        internal override IDictionary<string, SerializedPropertyInfo> Properties { get; set; }
 
         /// <summary>
         /// A set of distinct strings that provide additional information about the file.
@@ -104,7 +105,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="tags">
         /// An initialization value for the <see cref="P: Tags" /> property.
         /// </param>
-        public FileData(Uri uri, int offset, int length, string mimeType, IEnumerable<Hash> hashes, IDictionary<string, string> properties, IEnumerable<string> tags)
+        public FileData(Uri uri, int offset, int length, string mimeType, IEnumerable<Hash> hashes, IDictionary<string, SerializedPropertyInfo> properties, IEnumerable<string> tags)
         {
             Init(uri, offset, length, mimeType, hashes, properties, tags);
         }
@@ -146,7 +147,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new FileData(this);
         }
 
-        private void Init(Uri uri, int offset, int length, string mimeType, IEnumerable<Hash> hashes, IDictionary<string, string> properties, IEnumerable<string> tags)
+        private void Init(Uri uri, int offset, int length, string mimeType, IEnumerable<Hash> hashes, IDictionary<string, SerializedPropertyInfo> properties, IEnumerable<string> tags)
         {
             if (uri != null)
             {
@@ -176,7 +177,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             if (properties != null)
             {
-                Properties = new Dictionary<string, string>(properties);
+                Properties = new Dictionary<string, SerializedPropertyInfo>(properties);
             }
 
             if (tags != null)

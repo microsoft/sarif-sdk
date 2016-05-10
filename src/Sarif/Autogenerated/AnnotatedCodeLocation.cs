@@ -1,6 +1,7 @@
 // Copyright (c) Microsoft.  All Rights Reserved.
 // Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
+using Microsoft.CodeAnalysis.Sarif.Readers;
 using System;
 using System.CodeDom.Compiler;
 using System.Collections.Generic;
@@ -12,8 +13,8 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// A code annotation that consists of single physical location and associated message, used to express code flows through a method, or other locations that are related to a result.
     /// </summary>
     [DataContract]
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.22.0.0")]
-    public partial class AnnotatedCodeLocation : ISarifNode
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.28.0.0")]
+    public partial class AnnotatedCodeLocation : PropertyBagHolder, ISarifNode
     {
         public static IEqualityComparer<AnnotatedCodeLocation> ValueComparer => AnnotatedCodeLocationEqualityComparer.Instance;
 
@@ -47,7 +48,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// Key/value pairs that provide additional information about the code location.
         /// </summary>
         [DataMember(Name = "properties", IsRequired = false, EmitDefaultValue = false)]
-        public IDictionary<string, string> Properties { get; set; }
+        internal override IDictionary<string, SerializedPropertyInfo> Properties { get; set; }
 
         /// <summary>
         /// A unique set of strings that provide additional information about the code location.
@@ -77,7 +78,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="tags">
         /// An initialization value for the <see cref="P: Tags" /> property.
         /// </param>
-        public AnnotatedCodeLocation(PhysicalLocation physicalLocation, string message, IDictionary<string, string> properties, IEnumerable<string> tags)
+        public AnnotatedCodeLocation(PhysicalLocation physicalLocation, string message, IDictionary<string, SerializedPropertyInfo> properties, IEnumerable<string> tags)
         {
             Init(physicalLocation, message, properties, tags);
         }
@@ -119,7 +120,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new AnnotatedCodeLocation(this);
         }
 
-        private void Init(PhysicalLocation physicalLocation, string message, IDictionary<string, string> properties, IEnumerable<string> tags)
+        private void Init(PhysicalLocation physicalLocation, string message, IDictionary<string, SerializedPropertyInfo> properties, IEnumerable<string> tags)
         {
             if (physicalLocation != null)
             {
@@ -129,7 +130,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             Message = message;
             if (properties != null)
             {
-                Properties = new Dictionary<string, string>(properties);
+                Properties = new Dictionary<string, SerializedPropertyInfo>(properties);
             }
 
             if (tags != null)

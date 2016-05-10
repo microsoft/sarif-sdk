@@ -153,7 +153,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                     }
                 }
 
-                return new Result
+                var result = new Result
                 {
                     RuleId = issueType,
                     Message = description,
@@ -172,13 +172,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                             }
                         }
                     },
-                    Properties = new Dictionary<string, string> {
-                        { "category", category },
-                        { "issue_context_kind", issueContextKind },
-                        { "issueContext", issueContext },
-                        { "issueHash", issueHash },
-                    }
                 };
+
+                result.SetProperty("category", category);
+                result.SetProperty("issue_context_kind", issueContextKind);
+                result.SetProperty("issueContext", issueContext);
+                result.SetProperty("issueHash", issueHash);
+
+                return result;
             }
             else
             {

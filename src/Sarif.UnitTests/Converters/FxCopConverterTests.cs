@@ -394,14 +394,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                         },
                         FullyQualifiedLogicalName = expectedLogicalLocation,
                     }
-                },
-                Properties = new Dictionary<string, string>
-                {
-                    {"Level", "error"},
-                    {"Category", "FakeCategory"},
-                    {"FixCategory", "Breaking" }
                 }
             };
+
+            expectedResult.SetProperty("Level", "error");
+            expectedResult.SetProperty("Category", "FakeCategory");
+            expectedResult.SetProperty("FixCategory", "Breaking");
 
             var expectedLogicalLocationComponents = new[]
             {

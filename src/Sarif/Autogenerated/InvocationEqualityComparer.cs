@@ -1,6 +1,7 @@
 // Copyright (c) Microsoft.  All Rights Reserved.
 // Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
+using Microsoft.CodeAnalysis.Sarif.Readers;
 using System;
 using System.CodeDom.Compiler;
 using System.Collections.Generic;
@@ -10,7 +11,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// <summary>
     /// Defines methods to support the comparison of objects of type Invocation for equality.
     /// </summary>
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.22.0.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.28.0.0")]
     internal sealed class InvocationEqualityComparer : IEqualityComparer<Invocation>
     {
         internal static readonly InvocationEqualityComparer Instance = new InvocationEqualityComparer();
@@ -67,7 +68,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 return false;
             }
 
-            if (!Object.ReferenceEquals(left.EnvironmentVariables, right.EnvironmentVariables))
+            if (!object.ReferenceEquals(left.EnvironmentVariables, right.EnvironmentVariables))
             {
                 if (left.EnvironmentVariables == null || right.EnvironmentVariables == null || left.EnvironmentVariables.Count != right.EnvironmentVariables.Count)
                 {
@@ -89,12 +90,29 @@ namespace Microsoft.CodeAnalysis.Sarif
                 }
             }
 
-            if (!Object.Equals(left.Properties, right.Properties))
+            if (!object.ReferenceEquals(left.Properties, right.Properties))
             {
-                return false;
+                if (left.Properties == null || right.Properties == null || left.Properties.Count != right.Properties.Count)
+                {
+                    return false;
+                }
+
+                foreach (var value_2 in left.Properties)
+                {
+                    SerializedPropertyInfo value_3;
+                    if (!right.Properties.TryGetValue(value_2.Key, out value_3))
+                    {
+                        return false;
+                    }
+
+                    if (!object.Equals(value_2.Value, value_3))
+                    {
+                        return false;
+                    }
+                }
             }
 
-            if (!Object.ReferenceEquals(left.Tags, right.Tags))
+            if (!object.ReferenceEquals(left.Tags, right.Tags))
             {
                 if (left.Tags == null || right.Tags == null)
                 {
@@ -160,12 +178,12 @@ namespace Microsoft.CodeAnalysis.Sarif
                 {
                     // Use xor for dictionaries to be order-independent.
                     int xor_0 = 0;
-                    foreach (var value_2 in obj.EnvironmentVariables)
+                    foreach (var value_4 in obj.EnvironmentVariables)
                     {
-                        xor_0 ^= value_2.Key.GetHashCode();
-                        if (value_2.Value != null)
+                        xor_0 ^= value_4.Key.GetHashCode();
+                        if (value_4.Value != null)
                         {
-                            xor_0 ^= value_2.Value.GetHashCode();
+                            xor_0 ^= value_4.Value.GetHashCode();
                         }
                     }
 
@@ -174,17 +192,28 @@ namespace Microsoft.CodeAnalysis.Sarif
 
                 if (obj.Properties != null)
                 {
-                    result = (result * 31) + obj.Properties.GetHashCode();
+                    // Use xor for dictionaries to be order-independent.
+                    int xor_1 = 0;
+                    foreach (var value_5 in obj.Properties)
+                    {
+                        xor_1 ^= value_5.Key.GetHashCode();
+                        if (value_5.Value != null)
+                        {
+                            xor_1 ^= value_5.Value.GetHashCode();
+                        }
+                    }
+
+                    result = (result * 31) + xor_1;
                 }
 
                 if (obj.Tags != null)
                 {
-                    foreach (var value_3 in obj.Tags)
+                    foreach (var value_6 in obj.Tags)
                     {
                         result = result * 31;
-                        if (value_3 != null)
+                        if (value_6 != null)
                         {
-                            result = (result * 31) + value_3.GetHashCode();
+                            result = (result * 31) + value_6.GetHashCode();
                         }
                     }
                 }

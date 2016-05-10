@@ -149,10 +149,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         public void FortifyConverter_Convert_KingdomIsInProperties()
         {
             Result result = FortifyConverter.ConvertFortifyIssueToSarifIssue(FortifyConverterTests.GetBasicIssue());
-            result.Properties.Should().Equal(new Dictionary<string, string>
-            {
-                {"kingdom", "king" }
-            });
+            result.PropertyNames.Count.Should().Be(1);
+            result.GetProperty("kingdom").Should().Be("king");
         }
 
         [TestMethod]
@@ -160,12 +158,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         {
             Builder builder = FortifyConverterTests.GetBasicBuilder();
             Result result = FortifyConverter.ConvertFortifyIssueToSarifIssue(builder.ToImmutable());
-            Assert.IsTrue(result.Properties == null || !result.Properties.ContainsKey("priority"),
+            Assert.IsTrue(result.Properties == null || !result.PropertyNames.Contains("priority"),
                 "Priority was set to a null value.");
 
             builder.Priority = "HIGH";
             result = FortifyConverter.ConvertFortifyIssueToSarifIssue(builder.ToImmutable());
-            Assert.AreEqual("HIGH", result.Properties["priority"]);
+            Assert.AreEqual("HIGH", result.GetProperty("priority"));
         }
 
         [TestMethod]
@@ -178,7 +176,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
             builder.CweIds = ImmutableArray.Create(24, 42, 1729);
             result = FortifyConverter.ConvertFortifyIssueToSarifIssue(builder.ToImmutable());
-            Assert.AreEqual("24, 42, 1729", result.Properties["cwe"]);
+            Assert.AreEqual("24, 42, 1729", result.GetProperty("cwe"));
         }
 
         [TestMethod]
@@ -186,12 +184,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         {
             Builder builder = FortifyConverterTests.GetBasicBuilder();
             Result result = FortifyConverter.ConvertFortifyIssueToSarifIssue(builder.ToImmutable());
-            Assert.IsTrue(result.Properties == null || !result.Properties.ContainsKey("fortifyRuleId"),
+            Assert.IsTrue(result.Properties == null || !result.PropertyNames.Contains("fortifyRuleId"),
                 "Fortify RuleID was filled in when no ruleId was present.");
 
             builder.RuleId = "abc";
             result = FortifyConverter.ConvertFortifyIssueToSarifIssue(builder.ToImmutable());
-            Assert.AreEqual("abc", result.Properties["fortifyRuleId"]);
+            Assert.AreEqual("abc", result.GetProperty("fortifyRuleId"));
         }
 
         [TestMethod]

@@ -39,7 +39,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 .ToSarifIssue();
             Assert.AreEqual("id", result.RuleId);
             Assert.AreEqual("verbose", result.Message);
-            result.Properties.Should().Equal(new Dictionary<string, string> { { "Severity", "style" } });
+            result.PropertyNames.Count.Should().Be(1);
+            result.GetProperty("Severity").Should().Be("style");
             Assert.AreEqual("file.cpp", result.Locations.First().ResultFile.Uri.ToString());
         }
 
@@ -51,7 +52,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 )).ToSarifIssue();
             Assert.AreEqual("id", result.RuleId);
             Assert.AreEqual("verbose", result.Message);
-            result.Properties.Should().Equal(new Dictionary<string, string> { { "Severity", "my fancy severity" } });
+            result.PropertyNames.Count.Should().Be(1);
+            result.GetProperty("Severity").Should().Be("my fancy severity");
             result.Locations.SequenceEqual(new[] { new Location {
                     ResultFile = new PhysicalLocation
                     {

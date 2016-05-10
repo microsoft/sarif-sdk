@@ -1,6 +1,7 @@
 // Copyright (c) Microsoft.  All Rights Reserved.
 // Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
+using Microsoft.CodeAnalysis.Sarif.Readers;
 using System;
 using System.CodeDom.Compiler;
 using System.Collections.Generic;
@@ -12,8 +13,8 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// The analysis tool that was run.
     /// </summary>
     [DataContract]
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.22.0.0")]
-    public partial class Tool : ISarifNode
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.28.0.0")]
+    public partial class Tool : PropertyBagHolder, ISarifNode
     {
         public static IEqualityComparer<Tool> ValueComparer => ToolEqualityComparer.Instance;
 
@@ -71,7 +72,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// Key/value pairs that provide additional information about the tool.
         /// </summary>
         [DataMember(Name = "properties", IsRequired = false, EmitDefaultValue = false)]
-        public IDictionary<string, string> Properties { get; set; }
+        internal override IDictionary<string, SerializedPropertyInfo> Properties { get; set; }
 
         /// <summary>
         /// A set of distinct strings that provide additional information about the tool.
@@ -113,7 +114,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="tags">
         /// An initialization value for the <see cref="P: Tags" /> property.
         /// </param>
-        public Tool(string name, string fullName, string version, string semanticVersion, string fileVersion, string language, IDictionary<string, string> properties, IEnumerable<string> tags)
+        public Tool(string name, string fullName, string version, string semanticVersion, string fileVersion, string language, IDictionary<string, SerializedPropertyInfo> properties, IEnumerable<string> tags)
         {
             Init(name, fullName, version, semanticVersion, fileVersion, language, properties, tags);
         }
@@ -155,7 +156,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new Tool(this);
         }
 
-        private void Init(string name, string fullName, string version, string semanticVersion, string fileVersion, string language, IDictionary<string, string> properties, IEnumerable<string> tags)
+        private void Init(string name, string fullName, string version, string semanticVersion, string fileVersion, string language, IDictionary<string, SerializedPropertyInfo> properties, IEnumerable<string> tags)
         {
             Name = name;
             FullName = fullName;
@@ -165,7 +166,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             Language = language;
             if (properties != null)
             {
-                Properties = new Dictionary<string, string>(properties);
+                Properties = new Dictionary<string, SerializedPropertyInfo>(properties);
             }
 
             if (tags != null)

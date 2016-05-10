@@ -168,9 +168,8 @@ Possible resolution: delete", result.Message);
             builder.AttributeKey = "key";
             var uut = new AndroidStudioProblem(builder);
             Result result = new AndroidStudioConverter().ConvertProblemToSarifResult(uut);
-            result.Properties.Should().Equal(new Dictionary<string, string> {
-                {"attributeKey", "key"}
-            });
+            result.PropertyNames.Count.Should().Be(1);
+            result.GetProperty("attributeKey").Should().Be("key");
         }
 
         [TestMethod]
@@ -180,9 +179,8 @@ Possible resolution: delete", result.Message);
             builder.Severity = "warning";
             var uut = new AndroidStudioProblem(builder);
             Result result = new AndroidStudioConverter().ConvertProblemToSarifResult(uut);
-            result.Properties.Should().Equal(new Dictionary<string, string> {
-                {"severity", "warning"}
-            });
+            result.PropertyNames.Count.Should().Be(1);
+            result.GetProperty("severity").Should().Be("warning");
         }
 
         [TestMethod]
@@ -193,10 +191,9 @@ Possible resolution: delete", result.Message);
             builder.Severity = "warning";
             var uut = new AndroidStudioProblem(builder);
             Result result = new AndroidStudioConverter().ConvertProblemToSarifResult(uut);
-            result.Properties.Should().Equal(new Dictionary<string, string> {
-                {"severity", "warning"},
-                {"attributeKey", "key"}
-            });
+            result.PropertyNames.Count.Should().Be(2);
+            result.GetProperty("severity").Should().Be("warning");
+            result.GetProperty("attributeKey").Should().Be("key");
         }
 
         [TestMethod]

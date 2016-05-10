@@ -47,6 +47,9 @@
     <Compile Include="Core\FileData.cs" />
     <Compile Include="Core\Invocation.cs" />
     <Compile Include="Core\ExceptionData.cs" />
+    <Compile Include="Core\IPropertyBagHolder.cs" />
+    <Compile Include="Core\IRule.cs.cs" />
+    <Compile Include="Core\PropertyBagHolder.cs" />
     <Compile Include="Core\Stack.cs" />
     <Compile Include="Core\StackFrame.cs" />
     <Compile Include="Core\Tool.cs" />
@@ -74,10 +77,12 @@
     <Compile Include="Readers\DateTimeConverter.cs" />
     <Compile Include="Readers\FlagsEnumConverter.cs" />
     <Compile Include="Readers\IRuleConverter.cs" />
+    <Compile Include="Readers\PropertyBagConverter.cs" />
     <Compile Include="Readers\ResultDiffingVisitor.cs" />
     <Compile Include="Readers\EnumConverter.cs" />
     <Compile Include="Readers\SarifContractResolver.cs" />
     <Compile Include="Readers\SarifVersionConverter.cs" />
+    <Compile Include="Readers\SerializedPropertyInfo.cs" />
     <Compile Include="Readers\UriConverter.cs" />
     <Compile Include="Readers\VersionConverter.cs" />
     <Compile Include="Ref.cs" />
