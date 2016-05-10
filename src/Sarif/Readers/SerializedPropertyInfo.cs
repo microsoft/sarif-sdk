@@ -24,7 +24,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
         /// This representation allows properties to be read from JSON into memory and
         /// then round-tripped back to JSON, without storing "live" Json.NET objects.
         /// Live JSON objects hold references to their parent container, which would consume
-        /// alot of memory for objects that are part of a large JSON file.
+        /// a lot of memory for objects that are part of a large JSON file.
         /// </remarks>
         /// <example>
         /// The integer-value JSON property <code>"n": 42</code>

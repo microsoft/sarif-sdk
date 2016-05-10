@@ -1,6 +1,7 @@
 ﻿// Copyright (c) Microsoft.  All Rights Reserved.
 // Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using FluentAssertions;
@@ -83,6 +84,19 @@ namespace Microsoft.CodeAnalysis.Sarif.Core
 
             array = _roundTrippedObject.GetProperty<long[]>("a");
             array.SequenceEqual(new[] { 1L, 2L });
+        }
+
+        [TestMethod]
+        public void PropertyBagConverter_RoundTripsGuidValuedProperty()
+        {
+            _input = "{\"properties\":{\"g\":\"{12345678-90ab-cdef-1234-567890abcdef}\"}}";
+
+            PerformRoundTrip();
+
+            Guid expectedGuid = new Guid("{12345678-90ab-cdef-1234-567890abcdef}");
+
+            _inputObject.GetProperty<Guid>("g").Should().Be(expectedGuid);
+            _roundTrippedObject.GetProperty<Guid>("g").Should().Be(expectedGuid);
         }
 
         public class ObjectClass
