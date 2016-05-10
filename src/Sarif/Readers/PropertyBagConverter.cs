@@ -71,9 +71,19 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
                 }
 
                 string serializedValue = objectDictionary[key].ToString();
-                if (jTokenType == JTokenType.String)
+
+                switch (jTokenType)
                 {
-                    serializedValue = '"' + serializedValue + '"';
+                    case JTokenType.Boolean:
+                        serializedValue = serializedValue.ToLowerInvariant();
+                        break;
+
+                    case JTokenType.String:
+                        serializedValue = '"' + serializedValue + '"';
+                        break;
+
+                    default:
+                        break;
                 }
 
                 propertyDictionary.Add(

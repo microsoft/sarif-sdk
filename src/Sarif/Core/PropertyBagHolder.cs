@@ -5,7 +5,6 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
-using System.Runtime.Serialization;
 using Microsoft.CodeAnalysis.Sarif.Readers;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
@@ -17,6 +16,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// </summary>
     public abstract class PropertyBagHolder : IPropertyBagHolder
     {
+        [JsonIgnore]
         public IList<string> PropertyNames
         {
             get { return Properties.Keys.ToList(); }
