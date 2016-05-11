@@ -31,64 +31,24 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
             var propertyDictionary = new Dictionary<string, SerializedPropertyInfo>();
             foreach (string key in objectDictionary.Keys)
             {
-                JTokenType jTokenType = JTokenType.Undefined;
                 Type propertyType = objectDictionary[key].GetType();
 
-                if (propertyType == typeof(JObject))
+                string serializedValue = objectDictionary[key].ToString();
+                bool isString = false;
+
+                if (propertyType == typeof(bool))
                 {
-                    jTokenType = JTokenType.Object;
-                }
-                else if (propertyType == typeof(JArray))
-                {
-                    jTokenType = JTokenType.Array;
-                }
-                else if (propertyType == typeof(bool))
-                {
-                    jTokenType = JTokenType.Boolean;
-                }
-                else if (propertyType == typeof(long))
-                {
-                    jTokenType = JTokenType.Integer;
-                }
-                else if (propertyType == typeof(double))
-                {
-                    jTokenType = JTokenType.Float;
+                    serializedValue = serializedValue.ToLowerInvariant();
                 }
                 else if (propertyType == typeof(string))
                 {
-                    jTokenType = JTokenType.String;
-                }
-
-                if (jTokenType == JTokenType.Undefined)
-                {
-                    throw new ApplicationException(
-                        string.Format(
-                            CultureInfo.InvariantCulture,
-                            SdkResources.ApplicationException_InvalidJsonPropertyType,
-                            key,
-                            objectDictionary[key],
-                            propertyType));
-                }
-
-                string serializedValue = objectDictionary[key].ToString();
-
-                switch (jTokenType)
-                {
-                    case JTokenType.Boolean:
-                        serializedValue = serializedValue.ToLowerInvariant();
-                        break;
-
-                    case JTokenType.String:
-                        serializedValue = '"' + serializedValue + '"';
-                        break;
-
-                    default:
-                        break;
+                    serializedValue = '"' + serializedValue + '"';
+                    isString = true;
                 }
 
                 propertyDictionary.Add(
                     key,
-                    new SerializedPropertyInfo(serializedValue, jTokenType));
+                    new SerializedPropertyInfo(serializedValue, isString));
             }
 
             return propertyDictionary;

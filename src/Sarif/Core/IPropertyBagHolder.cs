@@ -12,7 +12,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     {
         string GetProperty(string propertyName);
         T GetProperty<T>(string propertyName);
-        void SetProperty(string propertyName, string value);
+        void SetProperty<T>(string propertyName, T value);
         IList<string> PropertyNames { get; }
     }
 }

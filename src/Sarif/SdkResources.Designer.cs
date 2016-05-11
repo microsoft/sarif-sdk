@@ -151,16 +151,7 @@ namespace Microsoft.CodeAnalysis.Sarif {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Cannot determine the JSON type for property {0}, whose value {1} is of .NET type {2}..
-        /// </summary>
-        internal static string ApplicationException_InvalidJsonPropertyType {
-            get {
-                return ResourceManager.GetString("ApplicationException_InvalidJsonPropertyType", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to The JSON type of the property &apos;{0}&apos; is &apos;{1}&apos;. The non-generic GetProperty method only works for properties whose JSON type is &apos;{2}&apos;. To retrieve a property with any other .NET type, call the generic method GetProperty&lt;T&gt;(string propertyName), where T is the .NET type of the object stored in the specified property..
+        ///   Looks up a localized string similar to The non-generic GetProperty method only works for properties that are JSON strings. To retrieve a property with any other .NET type, call the generic method GetProperty&lt;T&gt;(string propertyName), where T is the .NET type of the object stored in the specified property..
         /// </summary>
         internal static string CallGenericGetProperty {
             get {

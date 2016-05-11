@@ -114,8 +114,8 @@
       "arguments": {
         "typeName": "AlgorithmKind",
         "description": "Values specifying different hashing algorithms.",
-        "zeroValue": "Unknown",
-        "enumValues": [
+        "zeroValueName": "Unknown",
+        "enumNames": [
           "Authentihash",
           "Blake256",
           "Blake512",
@@ -237,8 +237,8 @@
       "arguments": {
         "typeName": "NotificationLevel",
         "description": "Values specifying the level of a notification.",
-        "zeroValue": "Unknown",
-        "enumValues": [
+        "zeroValueName": "Unknown",
+        "enumNames": [
           "Note",
           "Warning",
           "Error"
@@ -283,8 +283,8 @@
       "arguments": {
         "typeName": "BaselineState",
         "description": "The state of a result relative to a baseline of a previous run.",
-        "zeroValue": "None",
-        "enumValues": [
+        "zeroValueName": "None",
+        "enumNames": [
           "Existing",
           "New",
           "Absent"
@@ -298,8 +298,8 @@
       "arguments": {
         "typeName": "ResultLevel",
         "description": "Values specifying the level of a result.",
-        "zeroValue": "Unknown",
-        "enumValues": [
+        "zeroValueName": "Unknown",
+        "enumNames": [
           "NotApplicable",
           "Pass",
           "Note",
@@ -336,11 +336,13 @@
       "arguments": {
         "typeName": "SuppressionStates",
         "description": "The state of a result relative to a baseline of a previous run.",
-        "zeroValue": "None",
-        "enumValues": [
+        "flags": true,
+        "zeroValueName": "None",
+        "enumNames": [
           "SuppressedInSource",
           "SuppressedInBaseline"
-        ]
+        ],
+        "enumValues": [1, 2]
       }
     }
   ],
@@ -366,8 +368,8 @@
       "arguments": {
         "typeName": "ResultLevel",
         "description": "Values specifying the level of a result.",
-        "zeroValue": "Unknown",
-        "enumValues": [
+        "zeroValueName": "Unknown",
+        "enumNames": [
           "NotApplicable",
           "Pass",
           "Note",
@@ -424,8 +426,8 @@
       "arguments": {
         "typeName": "SarifVersion",
         "description": "Possible values for the SARIF schema version.",
-        "zeroValue": "Unknown",
-        "enumValues": [
+        "zeroValueName": "Unknown",
+        "enumNames": [
           "OneZeroZeroBetaFour"
         ]
       }
