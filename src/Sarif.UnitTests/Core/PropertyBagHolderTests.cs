@@ -77,7 +77,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Core
                 S = s;
             }
 
+            [JsonProperty("n")]
             public int N { get; }
+
+            [JsonProperty("s")]
             public string S { get; }
         }
 
@@ -99,6 +102,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Core
 
             new Guid(GuidString).ShouldSerializeAs(expectedOutput);
         }
+
+        [TestMethod]
+        public void PropertyBagHolder_SetProperty_SetsDateTimeProperty()
+        {
+            new DateTime(2016, 5, 11, 14, 28, 36, 123).ShouldSerializeAs("\"2016-05-11T14:28:36.123Z\"");
+        }
     }
 
     internal static class ExtensionsForPropertyBagHolderTests
@@ -110,7 +119,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Core
         {
             JsonConvert.DefaultSettings = () => new JsonSerializerSettings
             {
-                ContractResolver = new CamelCasePropertyNamesContractResolver()
+                ContractResolver = SarifContractResolver.Instance
             };
 
             string expectedOutput = "{\"properties\":{\"" + PropertyName + "\":" + serializedValue + "}}";
