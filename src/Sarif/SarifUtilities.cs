@@ -29,8 +29,8 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         /// <summary>
         /// Returns an ISO 8601 compatible universal date time format string with
-        /// centiseconds precision, used to produce times such as "2016-03-02T01:44:50Z"
-        public static readonly string SarifDateTimeFormatCentisecondsPrecision = "yyyy'-'MM'-'dd'T'HH':'mm':'ss.ff'Z'";
+        /// milliseconds precision, used to produce times such as "2016-03-02T01:44:50.123Z"
+        public static readonly string SarifDateTimeFormatMillisecondsPrecision = "yyyy'-'MM'-'dd'T'HH':'mm':'ss.fff'Z'";
 
 
         public static SarifVersion ConvertToSarifVersion(this string sarifVersionText)

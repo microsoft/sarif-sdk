@@ -13,7 +13,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
         // Note: this static property left mutable by design, in case SDK users
         // would like to alter format in some way that still conforms to the 
         // SARIF spec (e.g., a user might want more or less precision).
-        private static string s_dateTimeFormat = SarifUtilities.SarifDateTimeFormatCentisecondsPrecision;
+        private static string s_dateTimeFormat = SarifUtilities.SarifDateTimeFormatMillisecondsPrecision;
         public static string DateTimeFormat
         {
             get { return s_dateTimeFormat; }
