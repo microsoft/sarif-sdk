@@ -3,11 +3,9 @@
 
 using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.Linq;
 using Microsoft.CodeAnalysis.Sarif.Readers;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 
 namespace Microsoft.CodeAnalysis.Sarif
 {
@@ -43,15 +41,9 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         public string GetProperty(string propertyName)
         {
-            if (Properties[propertyName].JTokenType != JTokenType.String)
+            if (!Properties[propertyName].IsString)
             {
-                throw new InvalidOperationException(
-                    string.Format(
-                        CultureInfo.CurrentCulture,
-                        SdkResources.CallGenericGetProperty,
-                        propertyName,
-                        Properties[propertyName].JTokenType,
-                        JTokenType.String));
+                throw new InvalidOperationException(SdkResources.CallGenericGetProperty);
             }
 
             string value = Properties[propertyName].SerializedValue;
@@ -89,13 +81,13 @@ namespace Microsoft.CodeAnalysis.Sarif
                 Properties = new Dictionary<string, SerializedPropertyInfo>();
             }
 
-            JTokenType jTokenType = PropertyBagConverter.DotNetTypeToJTokenType(typeof(T));
+            bool isString = typeof(T) == typeof(string);
 
-            string serializedValue = typeof(T) == typeof(string)
+            string serializedValue = isString
                 ? '"' + value.ToString() + '"'
                 : JsonConvert.SerializeObject(value);
              
-            Properties[propertyName] = new SerializedPropertyInfo(serializedValue, jTokenType);
+            Properties[propertyName] = new SerializedPropertyInfo(serializedValue, isString);
         }
     }
 }

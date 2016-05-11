@@ -33,37 +33,22 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
             {
                 Type propertyType = objectDictionary[key].GetType();
 
-                JTokenType jTokenType = DotNetTypeToJTokenType(propertyType);
-                if (jTokenType == JTokenType.None)
-                {
-                    throw new InvalidOperationException(
-                        string.Format(
-                            CultureInfo.InvariantCulture,
-                            SdkResources.ApplicationException_InvalidJsonPropertyType,
-                            key,
-                            objectDictionary[key],
-                            propertyType));
-                }
-
                 string serializedValue = objectDictionary[key].ToString();
+                bool isString = false;
 
-                switch (jTokenType)
+                if (propertyType == typeof(bool))
                 {
-                    case JTokenType.Boolean:
-                        serializedValue = serializedValue.ToLowerInvariant();
-                        break;
-
-                    case JTokenType.String:
-                        serializedValue = '"' + serializedValue + '"';
-                        break;
-
-                    default:
-                        break;
+                    serializedValue = serializedValue.ToLowerInvariant();
+                }
+                else if (propertyType == typeof(string))
+                {
+                    serializedValue = '"' + serializedValue + '"';
+                    isString = true;
                 }
 
                 propertyDictionary.Add(
                     key,
-                    new SerializedPropertyInfo(serializedValue, jTokenType));
+                    new SerializedPropertyInfo(serializedValue, isString));
             }
 
             return propertyDictionary;
@@ -80,38 +65,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
             }
 
             writer.WriteEndObject();
-        }
-
-        public static JTokenType DotNetTypeToJTokenType(Type dotNetType)
-        {
-            JTokenType jTokenType = JTokenType.None;
-
-            if (dotNetType == typeof(JObject))
-            {
-                jTokenType = JTokenType.Object;
-            }
-            else if (dotNetType == typeof(JArray))
-            {
-                jTokenType = JTokenType.Array;
-            }
-            else if (dotNetType == typeof(bool))
-            {
-                jTokenType = JTokenType.Boolean;
-            }
-            else if (dotNetType == typeof(long))
-            {
-                jTokenType = JTokenType.Integer;
-            }
-            else if (dotNetType == typeof(double))
-            {
-                jTokenType = JTokenType.Float;
-            }
-            else if (dotNetType == typeof(string))
-            {
-                jTokenType = JTokenType.String;
-            }
-
-            return jTokenType;
         }
     }
 }
