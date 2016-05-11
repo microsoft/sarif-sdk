@@ -9,12 +9,12 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// <summary>
     /// The state of a result relative to a baseline of a previous run.
     /// </summary>
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.28.0.0")]
     [Flags]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.30.0.0")]
     public enum SuppressionStates
     {
         None,
-        SuppressedInSource = 0x1,
-        SuppressedInBaseline = 0x2
+        SuppressedInSource = 1,
+        SuppressedInBaseline = 2
     }
 }

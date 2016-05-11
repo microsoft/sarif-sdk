@@ -13,7 +13,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// Describes a condition relevant to the tool itself, as opposed to being relevant to a target being analyzed by the tool.
     /// </summary>
     [DataContract]
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.28.0.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.30.0.0")]
     public partial class Notification : PropertyBagHolder, ISarifNode
     {
         public static IEqualityComparer<Notification> ValueComparer => NotificationEqualityComparer.Instance;
