@@ -38,7 +38,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         public string Value { get; set; }
 
         /// <summary>
-        /// A string specifying the name of the algorithm used to compute the hash value specified in the 'value' property.
+        /// The name of the algorithm used to compute the hash value specified in the 'value' property.
         /// </summary>
         [DataMember(Name = "algorithm", IsRequired = true)]
         public AlgorithmKind Algorithm { get; set; }

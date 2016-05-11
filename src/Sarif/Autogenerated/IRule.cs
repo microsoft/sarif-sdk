@@ -48,10 +48,5 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// A URI where the primary documentation for the rule can be found.
         /// </summary>
         Uri HelpUri { get; }
-
-        /// <summary>
-        /// A set of distinct strings that provide additional information about the rule.
-        /// </summary>
-        IList<string> Tags { get; }
     }
 }

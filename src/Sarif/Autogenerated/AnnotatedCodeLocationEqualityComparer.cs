@@ -38,6 +38,11 @@ namespace Microsoft.CodeAnalysis.Sarif
                 return false;
             }
 
+            if (left.Kind != right.Kind)
+            {
+                return false;
+            }
+
             if (!object.ReferenceEquals(left.Properties, right.Properties))
             {
                 if (left.Properties == null || right.Properties == null || left.Properties.Count != right.Properties.Count)
@@ -54,27 +59,6 @@ namespace Microsoft.CodeAnalysis.Sarif
                     }
 
                     if (!object.Equals(value_0.Value, value_1))
-                    {
-                        return false;
-                    }
-                }
-            }
-
-            if (!object.ReferenceEquals(left.Tags, right.Tags))
-            {
-                if (left.Tags == null || right.Tags == null)
-                {
-                    return false;
-                }
-
-                if (left.Tags.Count != right.Tags.Count)
-                {
-                    return false;
-                }
-
-                for (int index_0 = 0; index_0 < left.Tags.Count; ++index_0)
-                {
-                    if (left.Tags[index_0] != right.Tags[index_0])
                     {
                         return false;
                     }
@@ -104,6 +88,11 @@ namespace Microsoft.CodeAnalysis.Sarif
                     result = (result * 31) + obj.Message.GetHashCode();
                 }
 
+                if (obj.Kind != null)
+                {
+                    result = (result * 31) + obj.Kind.GetHashCode();
+                }
+
                 if (obj.Properties != null)
                 {
                     // Use xor for dictionaries to be order-independent.
@@ -118,18 +107,6 @@ namespace Microsoft.CodeAnalysis.Sarif
                     }
 
                     result = (result * 31) + xor_0;
-                }
-
-                if (obj.Tags != null)
-                {
-                    foreach (var value_3 in obj.Tags)
-                    {
-                        result = result * 31;
-                        if (value_3 != null)
-                        {
-                            result = (result * 31) + value_3.GetHashCode();
-                        }
-                    }
                 }
             }
 

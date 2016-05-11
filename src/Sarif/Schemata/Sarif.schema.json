@@ -40,19 +40,25 @@
           "type": "string"
         },
 
+        "kind": {
+          "description": "A descriptive identifier that categorizes the annotation.",
+          "enum": [ "branchTrue", "branchFalse", "call", "callReturn", "declaration", "functionEnter", "functionExit", "sanitizer", "sink", "source", "use" ]
+        },
+
         "properties": {
           "description": "Key/value pairs that provide additional information about the code location.",
           "type": "object",
-          "default": { }
-        },
-
-        "tags": {
-          "description": "A unique set of strings that provide additional information about the code location.",
-          "type": "array",
-          "uniqueItems": true,
-          "default": [ ],
-          "items": {
-            "type": "string"
+          "additionalProperties": true,
+          "properties": {
+            "tags": {
+              "description": "A set of distinct strings that provide additional information.",
+              "type": "array",
+              "uniqueItems": true,
+              "default": [ ],
+              "items": {
+                "type": "string"
+              }
+            }
           }
         }
       },
@@ -76,17 +82,19 @@
         "properties": {
           "description": "Key/value pairs that provide additional information about the code flow.",
           "type": "object",
-          "default": { }
-        },
-        "tags": {
-          "description": "A unique set of strings that provide additional information about the code flow.",
-          "type": "array",
-          "uniqueItems": true,
-          "default": [ ],
-          "items": {
-            "type": "string"
+          "additionalProperties": true,
+          "properties": {
+            "tags": {
+              "description": "A set of distinct strings that provide additional information.",
+              "type": "array",
+              "uniqueItems": true,
+              "default": [ ],
+              "items": {
+                "type": "string"
+              }
+            }
           }
-        }
+        }       
       },
       "required": [ "locations" ]
     },
@@ -179,16 +187,17 @@
         "properties": {
           "description": "Key/value pairs that provide additional information about the file.",
           "type": "object",
-          "default": { }
-        },
-
-        "tags": {
-          "description": "A set of distinct strings that provide additional information about the file.",
-          "type": "array",
-          "uniqueItems": true,
-          "default": [ ],
-          "items": {
-            "type": "string"
+          "additionalProperties": true,
+          "properties": {
+            "tags": {
+              "description": "A set of distinct strings that provide additional information.",
+              "type": "array",
+              "uniqueItems": true,
+              "default": [ ],
+              "items": {
+                "type": "string"
+              }
+            }
           }
         }
       }
@@ -244,7 +253,7 @@
         },
 
         "algorithm": {
-          "description": "A string specifying the name of the algorithm used to compute the hash value specified in the 'value' property.",
+          "description": "The name of the algorithm used to compute the hash value specified in the 'value' property.",
           "enum": [ "authentihash", "blake256", "blake512", "ecoh", "fsb", "gost", "groestl", "has160", "haval", "jh", "md2", "md4", "md5", "md6", "radioGatun", "ripeMD", "ripeMD128", "ripeMD160", "ripeMD320", "sdhash", "sha1", "sha224", "sha256", "sha384", "sha512", "sha3", "skein", "snefru", "spectralHash", "ssdeep", "swifft", "tiger", "tlsh", "whirlpool" ]
         }
       },
@@ -309,16 +318,17 @@
         "properties": {
           "description": "Key/value pairs that provide additional information about the run.",
           "type": "object",
-          "default": { }
-        },
-
-        "tags": {
-          "description": "A set of distinct strings that provide additional information about the run.",
-          "type": "array",
-          "uniqueItems": true,
-          "default": [ ],
-          "items": {
-            "type": "string"
+          "additionalProperties": true,
+          "properties": {
+            "tags": {
+              "description": "A set of distinct strings that provide additional information.",
+              "type": "array",
+              "uniqueItems": true,
+              "default": [ ],
+              "items": {
+                "type": "string"
+              }
+            }
           }
         }
       }
@@ -351,16 +361,17 @@
         "properties": {
           "description": "Key/value pairs that provide additional information about the location.",
           "type": "object",
-          "default": { }
-        },
-
-        "tags": {
-          "description": "A set of distinct strings that provide additional information about the location.",
-          "type": "array",
-          "uniqueItems": true,
-          "default": [ ],
-          "items": {
-            "type": "string"
+          "additionalProperties": true,
+          "properties": {
+            "tags": {
+              "description": "A set of distinct strings that provide additional information.",
+              "type": "array",
+              "uniqueItems": true,
+              "default": [ ],
+              "items": {
+                "type": "string"
+              }
+            }
           }
         }
       }
@@ -425,16 +436,17 @@
         "properties": {
           "description": "Key/value pairs that provide additional information about the notification.",
           "type": "object",
-          "default": { }
-        },
-
-        "tags": {
-          "description": "A set of distinct strings that provide additional information about the notification.",
-          "type": "array",
-          "uniqueItems": true,
-          "default": [ ],
-          "items": {
-            "type": "string"
+          "additionalProperties": true,
+          "properties": {
+            "tags": {
+              "description": "A set of distinct strings that provide additional information.",
+              "type": "array",
+              "uniqueItems": true,
+              "default": [ ],
+              "items": {
+                "type": "string"
+              }
+            }
           }
         }
       },
@@ -565,6 +577,11 @@
           "type": "string"
         },
 
+        "id": {
+          "description": "A unique identifer for the result.",
+          "type": "string"
+        },
+
         "toolFingerprint": {
           "description": "A string that contributes to the unique identity of the result.",
           "type": "string"
@@ -633,16 +650,17 @@
         "properties": {
           "description": "Key/value pairs that provide additional information about the result.",
           "type": "object",
-          "default": { }
-        },
-
-        "tags": {
-          "description": "A set of distinct strings that provide additional information about the result.",
-          "type": "array",
-          "uniqueItems": true,
-          "default": [ ],
-          "items": {
-            "type": "string"
+          "additionalProperties": true,
+          "properties": {
+            "tags": {
+              "description": "A set of distinct strings that provide additional information.",
+              "type": "array",
+              "uniqueItems": true,
+              "default": [ ],
+              "items": {
+                "type": "string"
+              }
+            }
           }
         }
       }
@@ -692,16 +710,17 @@
         "properties": {
           "description": "Key/value pairs that provide additional information about the rule.",
           "type": "object",
-          "default": { }
-        },
-
-        "tags": {
-          "description": "A set of distinct strings that provide additional information about the rule.",
-          "type": "array",
-          "uniqueItems": true,
-          "default": [ ],
-          "items": {
-            "type": "string"
+          "additionalProperties": true,
+          "properties": {
+            "tags": {
+              "description": "A set of distinct strings that provide additional information.",
+              "type": "array",
+              "uniqueItems": true,
+              "default": [ ],
+              "items": {
+                "type": "string"
+              }
+            }
           }
         }
       },
@@ -810,15 +829,17 @@
         "properties": {
           "description": "Key/value pairs that provide additional information about the stack.",
           "type": "object",
-          "default": { }
-        },
-        "tags": {
-          "description": "A unique set of strings that provide additional information about the stack.",
-          "type": "array",
-          "uniqueItems": true,
-          "items": {
-            "type": "string",
-            "default": [ ]
+          "additionalProperties": true,
+          "properties": {
+            "tags": {
+              "description": "A set of distinct strings that provide additional information.",
+              "type": "array",
+              "uniqueItems": true,
+              "default": [ ],
+              "items": {
+                "type": "string"
+              }
+            }
           }
         }
       },
@@ -877,15 +898,17 @@
         "properties": {
           "description": "Key/value pairs that provide additional information about the stack frame.",
           "type": "object",
-          "default": { }
-        },
-        "tags": {
-          "description": "A unique set of strings that provide additional information about the stack frame.",
-          "type": "array",
-          "uniqueItems": true,
-          "default": [ ],
-          "items": {
-            "type": "string"
+          "additionalProperties": true,
+          "properties": {
+            "tags": {
+              "description": "A set of distinct strings that provide additional information.",
+              "type": "array",
+              "uniqueItems": true,
+              "default": [ ],
+              "items": {
+                "type": "string"
+              }
+            }
           }
         }
       }
@@ -929,17 +952,18 @@
         "properties": {
           "description": "Key/value pairs that provide additional information about the tool.",
           "type": "object",
-          "default": { }
-        },
-
-        "tags": {
-          "description": "A set of distinct strings that provide additional information about the tool.",
-          "type": "array",
-          "uniqueItems": true,
-          "default": [ ],
-          "items": {
-            "type": "string"
-          }
+          "additionalProperties": true,
+          "properties": {
+            "tags": {
+              "description": "A set of distinct strings that provide additional information.",
+              "type": "array",
+              "uniqueItems": true,
+              "default": [ ],
+              "items": {
+                "type": "string"
+              }
+            }
+          } 
         }
       },
       "required": [ "name" ]

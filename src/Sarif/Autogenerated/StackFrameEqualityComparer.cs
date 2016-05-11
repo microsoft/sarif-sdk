@@ -116,27 +116,6 @@ namespace Microsoft.CodeAnalysis.Sarif
                 }
             }
 
-            if (!object.ReferenceEquals(left.Tags, right.Tags))
-            {
-                if (left.Tags == null || right.Tags == null)
-                {
-                    return false;
-                }
-
-                if (left.Tags.Count != right.Tags.Count)
-                {
-                    return false;
-                }
-
-                for (int index_1 = 0; index_1 < left.Tags.Count; ++index_1)
-                {
-                    if (left.Tags[index_1] != right.Tags[index_1])
-                    {
-                        return false;
-                    }
-                }
-            }
-
             return true;
         }
 
@@ -205,18 +184,6 @@ namespace Microsoft.CodeAnalysis.Sarif
                     }
 
                     result = (result * 31) + xor_0;
-                }
-
-                if (obj.Tags != null)
-                {
-                    foreach (var value_4 in obj.Tags)
-                    {
-                        result = result * 31;
-                        if (value_4 != null)
-                        {
-                            result = (result * 31) + value_4.GetHashCode();
-                        }
-                    }
                 }
             }
 

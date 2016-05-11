@@ -74,6 +74,11 @@ namespace Microsoft.CodeAnalysis.Sarif
                 return false;
             }
 
+            if (left.Id != right.Id)
+            {
+                return false;
+            }
+
             if (left.ToolFingerprint != right.ToolFingerprint)
             {
                 return false;
@@ -195,27 +200,6 @@ namespace Microsoft.CodeAnalysis.Sarif
                 }
             }
 
-            if (!object.ReferenceEquals(left.Tags, right.Tags))
-            {
-                if (left.Tags == null || right.Tags == null)
-                {
-                    return false;
-                }
-
-                if (left.Tags.Count != right.Tags.Count)
-                {
-                    return false;
-                }
-
-                for (int index_5 = 0; index_5 < left.Tags.Count; ++index_5)
-                {
-                    if (left.Tags[index_5] != right.Tags[index_5])
-                    {
-                        return false;
-                    }
-                }
-            }
-
             return true;
         }
 
@@ -260,6 +244,11 @@ namespace Microsoft.CodeAnalysis.Sarif
                 if (obj.CodeSnippet != null)
                 {
                     result = (result * 31) + obj.CodeSnippet.GetHashCode();
+                }
+
+                if (obj.Id != null)
+                {
+                    result = (result * 31) + obj.Id.GetHashCode();
                 }
 
                 if (obj.ToolFingerprint != null)
@@ -331,18 +320,6 @@ namespace Microsoft.CodeAnalysis.Sarif
                     }
 
                     result = (result * 31) + xor_0;
-                }
-
-                if (obj.Tags != null)
-                {
-                    foreach (var value_8 in obj.Tags)
-                    {
-                        result = result * 31;
-                        if (value_8 != null)
-                        {
-                            result = (result * 31) + value_8.GetHashCode();
-                        }
-                    }
                 }
             }
 

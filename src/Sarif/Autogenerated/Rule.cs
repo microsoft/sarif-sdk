@@ -81,12 +81,6 @@ namespace Microsoft.CodeAnalysis.Sarif
         internal override IDictionary<string, SerializedPropertyInfo> Properties { get; set; }
 
         /// <summary>
-        /// A set of distinct strings that provide additional information about the rule.
-        /// </summary>
-        [DataMember(Name = "tags", IsRequired = false, EmitDefaultValue = false)]
-        public IList<string> Tags { get; set; }
-
-        /// <summary>
         /// Initializes a new instance of the <see cref="Rule" /> class.
         /// </summary>
         public Rule()
@@ -120,12 +114,9 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="properties">
         /// An initialization value for the <see cref="P: Properties" /> property.
         /// </param>
-        /// <param name="tags">
-        /// An initialization value for the <see cref="P: Tags" /> property.
-        /// </param>
-        public Rule(string id, string name, string shortDescription, string fullDescription, IDictionary<string, string> messageFormats, ResultLevel defaultLevel, Uri helpUri, IDictionary<string, SerializedPropertyInfo> properties, IEnumerable<string> tags)
+        public Rule(string id, string name, string shortDescription, string fullDescription, IDictionary<string, string> messageFormats, ResultLevel defaultLevel, Uri helpUri, IDictionary<string, SerializedPropertyInfo> properties)
         {
-            Init(id, name, shortDescription, fullDescription, messageFormats, defaultLevel, helpUri, properties, tags);
+            Init(id, name, shortDescription, fullDescription, messageFormats, defaultLevel, helpUri, properties);
         }
 
         /// <summary>
@@ -144,7 +135,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 throw new ArgumentNullException(nameof(other));
             }
 
-            Init(other.Id, other.Name, other.ShortDescription, other.FullDescription, other.MessageFormats, other.DefaultLevel, other.HelpUri, other.Properties, other.Tags);
+            Init(other.Id, other.Name, other.ShortDescription, other.FullDescription, other.MessageFormats, other.DefaultLevel, other.HelpUri, other.Properties);
         }
 
         ISarifNode ISarifNode.DeepClone()
@@ -165,7 +156,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new Rule(this);
         }
 
-        private void Init(string id, string name, string shortDescription, string fullDescription, IDictionary<string, string> messageFormats, ResultLevel defaultLevel, Uri helpUri, IDictionary<string, SerializedPropertyInfo> properties, IEnumerable<string> tags)
+        private void Init(string id, string name, string shortDescription, string fullDescription, IDictionary<string, string> messageFormats, ResultLevel defaultLevel, Uri helpUri, IDictionary<string, SerializedPropertyInfo> properties)
         {
             Id = id;
             Name = name;
@@ -185,17 +176,6 @@ namespace Microsoft.CodeAnalysis.Sarif
             if (properties != null)
             {
                 Properties = new Dictionary<string, SerializedPropertyInfo>(properties);
-            }
-
-            if (tags != null)
-            {
-                var destination_0 = new List<string>();
-                foreach (var value_0 in tags)
-                {
-                    destination_0.Add(value_0);
-                }
-
-                Tags = destination_0;
             }
         }
     }
