@@ -565,6 +565,11 @@
           "type": "string"
         },
 
+        "id": {
+          "description": "A unique identifer for the result.",
+          "type": "string"
+        },
+
         "toolFingerprint": {
           "description": "A string that contributes to the unique identity of the result.",
           "type": "string"

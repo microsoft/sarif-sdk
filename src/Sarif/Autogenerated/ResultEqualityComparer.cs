@@ -74,6 +74,11 @@ namespace Microsoft.CodeAnalysis.Sarif
                 return false;
             }
 
+            if (left.Id != right.Id)
+            {
+                return false;
+            }
+
             if (left.ToolFingerprint != right.ToolFingerprint)
             {
                 return false;
@@ -260,6 +265,11 @@ namespace Microsoft.CodeAnalysis.Sarif
                 if (obj.CodeSnippet != null)
                 {
                     result = (result * 31) + obj.CodeSnippet.GetHashCode();
+                }
+
+                if (obj.Id != null)
+                {
+                    result = (result * 31) + obj.Id.GetHashCode();
                 }
 
                 if (obj.ToolFingerprint != null)
