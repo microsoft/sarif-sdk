@@ -66,6 +66,7 @@
     <Compile Include="Converters\FortifyPathElementTests.cs" />
     <Compile Include="Converters\FortifyStringsTests.cs" />
     <Compile Include="Converters\FxCopConverterTests.cs" />
+    <Compile Include="Core\PropertyBagHolderTests.cs" />
     <Compile Include="Core\StackTests.cs" />
     <Compile Include="EqualityComparerTests.cs" />
     <Compile Include="ExtensionsTests.cs" />
