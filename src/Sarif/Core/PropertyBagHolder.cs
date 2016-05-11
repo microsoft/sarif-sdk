@@ -82,14 +82,19 @@ namespace Microsoft.CodeAnalysis.Sarif
             return JsonConvert.DeserializeObject<T>(Properties[propertyName].SerializedValue);
         }
 
-        public void SetProperty(string propertyName, string value)
+        public void SetProperty<T>(string propertyName, T value)
         {
             if (Properties == null)
             {
                 Properties = new Dictionary<string, SerializedPropertyInfo>();
             }
 
-            string serializedValue = '"' + value + '"';
+            if (typeof(T) != typeof(string))
+            {
+                throw new InvalidOperationException($"Cannot call SetProperty<T> with T={typeof(T)}. At present, SetProperty only supports T=string");
+            }
+
+            string serializedValue = '"' + value.ToString() + '"';
             Properties[propertyName] = new SerializedPropertyInfo(serializedValue, JTokenType.String);
         }
     }

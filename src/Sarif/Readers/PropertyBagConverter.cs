@@ -61,7 +61,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
 
                 if (jTokenType == JTokenType.Undefined)
                 {
-                    throw new ApplicationException(
+                    throw new InvalidOperationException(
                         string.Format(
                             CultureInfo.InvariantCulture,
                             SdkResources.ApplicationException_InvalidJsonPropertyType,
