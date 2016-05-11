@@ -31,35 +31,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
             var propertyDictionary = new Dictionary<string, SerializedPropertyInfo>();
             foreach (string key in objectDictionary.Keys)
             {
-                JTokenType jTokenType = JTokenType.Undefined;
                 Type propertyType = objectDictionary[key].GetType();
 
-                if (propertyType == typeof(JObject))
-                {
-                    jTokenType = JTokenType.Object;
-                }
-                else if (propertyType == typeof(JArray))
-                {
-                    jTokenType = JTokenType.Array;
-                }
-                else if (propertyType == typeof(bool))
-                {
-                    jTokenType = JTokenType.Boolean;
-                }
-                else if (propertyType == typeof(long))
-                {
-                    jTokenType = JTokenType.Integer;
-                }
-                else if (propertyType == typeof(double))
-                {
-                    jTokenType = JTokenType.Float;
-                }
-                else if (propertyType == typeof(string))
-                {
-                    jTokenType = JTokenType.String;
-                }
-
-                if (jTokenType == JTokenType.Undefined)
+                JTokenType jTokenType = DotNetTypeToJTokenType(propertyType);
+                if (jTokenType == JTokenType.None)
                 {
                     throw new InvalidOperationException(
                         string.Format(
@@ -105,6 +80,38 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
             }
 
             writer.WriteEndObject();
+        }
+
+        public static JTokenType DotNetTypeToJTokenType(Type dotNetType)
+        {
+            JTokenType jTokenType = JTokenType.None;
+
+            if (dotNetType == typeof(JObject))
+            {
+                jTokenType = JTokenType.Object;
+            }
+            else if (dotNetType == typeof(JArray))
+            {
+                jTokenType = JTokenType.Array;
+            }
+            else if (dotNetType == typeof(bool))
+            {
+                jTokenType = JTokenType.Boolean;
+            }
+            else if (dotNetType == typeof(long))
+            {
+                jTokenType = JTokenType.Integer;
+            }
+            else if (dotNetType == typeof(double))
+            {
+                jTokenType = JTokenType.Float;
+            }
+            else if (dotNetType == typeof(string))
+            {
+                jTokenType = JTokenType.String;
+            }
+
+            return jTokenType;
         }
     }
 }

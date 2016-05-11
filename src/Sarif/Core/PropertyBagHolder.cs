@@ -89,13 +89,13 @@ namespace Microsoft.CodeAnalysis.Sarif
                 Properties = new Dictionary<string, SerializedPropertyInfo>();
             }
 
-            if (typeof(T) != typeof(string))
-            {
-                throw new InvalidOperationException($"Cannot call SetProperty<T> with T={typeof(T)}. At present, SetProperty only supports T=string");
-            }
+            JTokenType jTokenType = PropertyBagConverter.DotNetTypeToJTokenType(typeof(T));
 
-            string serializedValue = '"' + value.ToString() + '"';
-            Properties[propertyName] = new SerializedPropertyInfo(serializedValue, JTokenType.String);
+            string serializedValue = typeof(T) == typeof(string)
+                ? '"' + value.ToString() + '"'
+                : JsonConvert.SerializeObject(value);
+             
+            Properties[propertyName] = new SerializedPropertyInfo(serializedValue, jTokenType);
         }
     }
 }
