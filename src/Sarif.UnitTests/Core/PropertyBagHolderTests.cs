@@ -93,7 +93,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Core
         [TestMethod]
         public void PropertyBagHolder_SetProperty_SetsGuidProperty()
         {
-            const string GuidString = "{12345678-1234-1234-1234-123456780abc}";
+            const string GuidString = "{12345678-1234-1234-1234-1234567890ab}";
 
             // Serializing will strip the braces. We could change SetProperty to
             // special-case Guid and write it out with braces, but there's no
