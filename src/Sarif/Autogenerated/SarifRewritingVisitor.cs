@@ -72,6 +72,8 @@ namespace Microsoft.CodeAnalysis.Sarif
                     return VisitNotification((Notification)node);
                 case SarifNodeKind.PhysicalLocation:
                     return VisitPhysicalLocation((PhysicalLocation)node);
+                case SarifNodeKind.PropertyBag:
+                    return VisitPropertyBag((PropertyBag)node);
                 case SarifNodeKind.Region:
                     return VisitRegion((Region)node);
                 case SarifNodeKind.Replacement:
@@ -259,6 +261,15 @@ namespace Microsoft.CodeAnalysis.Sarif
             if (node != null)
             {
                 node.Region = VisitNullChecked(node.Region);
+            }
+
+            return node;
+        }
+
+        public virtual PropertyBag VisitPropertyBag(PropertyBag node)
+        {
+            if (node != null)
+            {
             }
 
             return node;

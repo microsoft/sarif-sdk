@@ -14,7 +14,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
         }
 
-        public TypedPropertyBag(PropertyBag initializer, IEqualityComparer<string> comparer) : base(comparer)
+        public TypedPropertyBag(OptionsPropertyBag initializer, IEqualityComparer<string> comparer) : base(comparer)
         {
             if (initializer != null)
             {

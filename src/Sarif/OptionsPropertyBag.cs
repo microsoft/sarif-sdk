@@ -12,20 +12,20 @@ using System.Xml;
 namespace Microsoft.CodeAnalysis.Sarif
 {
     [Serializable]
-    public class PropertyBag : TypedPropertyBag<object>
+    public class OptionsPropertyBag : TypedPropertyBag<object>
     {
         internal const string DEFAULT_POLICY_NAME = "default";
 
-        public PropertyBag() : base() { }
+        public OptionsPropertyBag() : base() { }
 
-        public PropertyBag(
-            PropertyBag initializer = null,
+        public OptionsPropertyBag(
+            OptionsPropertyBag initializer = null,
             IEqualityComparer<string> comparer = null)
             : base(initializer, comparer)
         {
         }
 
-        protected PropertyBag(SerializationInfo info, StreamingContext context)
+        protected OptionsPropertyBag(SerializationInfo info, StreamingContext context)
             : base(info, context)
         {
         }
@@ -36,7 +36,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             if (setting == null) { throw new ArgumentNullException(nameof(setting)); }
 
-            PropertyBag properties = GetSettingsContainer(setting, cacheDefault);
+            OptionsPropertyBag properties = GetSettingsContainer(setting, cacheDefault);
 
             T value;
             if (!properties.TryGetProperty(setting.Name, out value) && setting.DefaultValue != null)
@@ -52,7 +52,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             if (setting == null) { throw new ArgumentNullException(nameof(setting)); }
 
-            PropertyBag properties = GetSettingsContainer(setting, true);
+            OptionsPropertyBag properties = GetSettingsContainer(setting, true);
 
             if (value == null && properties.ContainsKey(setting.Name))
             {
@@ -87,9 +87,9 @@ namespace Microsoft.CodeAnalysis.Sarif
             return false;
         }
 
-        private PropertyBag GetSettingsContainer(IOption setting, bool cacheDefault)
+        private OptionsPropertyBag GetSettingsContainer(IOption setting, bool cacheDefault)
         {
-            PropertyBag properties = this;
+            OptionsPropertyBag properties = this;
 
             if (String.IsNullOrEmpty(Name))
             {
@@ -97,13 +97,13 @@ namespace Microsoft.CodeAnalysis.Sarif
                 string featureOptionsName = setting.Feature + ".Options";
                 if (!TryGetValue(featureOptionsName, out propertiesObject))
                 {
-                    properties = new PropertyBag();
+                    properties = new OptionsPropertyBag();
                     if (cacheDefault) { this[featureOptionsName] = properties; }
                     properties.Name = featureOptionsName;
                 }
                 else
                 {
-                    properties = (PropertyBag)propertiesObject;
+                    properties = (OptionsPropertyBag)propertiesObject;
                 }
             }
             return properties;
@@ -143,7 +143,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             using (XmlReader reader = XmlReader.Create(stream))
             {
-                if (reader.IsStartElement(PropertyBagExtensionMethods.PROPERTIES_ID))
+                if (reader.IsStartElement(OptionsPropertyBagExtensionMethods.PROPERTIES_ID))
                 {
                     bool isEmpty = reader.IsEmptyElement;
                     this.Clear();
@@ -151,7 +151,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                     // Note: we do not recover the property bag id
                     //       as there is no current product use for the value
 
-                    reader.ReadStartElement(PropertyBagExtensionMethods.PROPERTIES_ID);
+                    reader.ReadStartElement(OptionsPropertyBagExtensionMethods.PROPERTIES_ID);
 
                     this.LoadPropertiesFromXmlStream(reader);
                     if (!isEmpty) reader.ReadEndElement();

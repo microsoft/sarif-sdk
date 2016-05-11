@@ -72,8 +72,8 @@
     <Compile Include="Notes.cs" />
     <Compile Include="OffsetInfo.cs" />
     <Compile Include="PerLanguageOption.cs" />
-    <Compile Include="PropertyBag.cs" />
-    <Compile Include="PropertyBagExtensionMethods.cs" />
+    <Compile Include="OptionsPropertyBag.cs" />
+    <Compile Include="OptionsPropertyBagExtensionMethods.cs" />
     <Compile Include="Readers\DateTimeConverter.cs" />
     <Compile Include="Readers\FlagsEnumConverter.cs" />
     <Compile Include="Readers\IRuleConverter.cs" />

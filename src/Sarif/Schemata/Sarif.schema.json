@@ -42,8 +42,7 @@
 
         "properties": {
           "description": "Key/value pairs that provide additional information about the code location.",
-          "type": "object",
-          "default": { }
+          "$ref": "#/definitions/propertyBag"
         },
 
         "tags": {
@@ -75,17 +74,7 @@
         },
         "properties": {
           "description": "Key/value pairs that provide additional information about the code flow.",
-          "type": "object",
-          "default": { }
-        },
-        "tags": {
-          "description": "A unique set of strings that provide additional information about the code flow.",
-          "type": "array",
-          "uniqueItems": true,
-          "default": [ ],
-          "items": {
-            "type": "string"
-          }
+          "$ref": "#/definitions/propertyBag"
         }
       },
       "required": [ "locations" ]
@@ -178,18 +167,7 @@
 
         "properties": {
           "description": "Key/value pairs that provide additional information about the file.",
-          "type": "object",
-          "default": { }
-        },
-
-        "tags": {
-          "description": "A set of distinct strings that provide additional information about the file.",
-          "type": "array",
-          "uniqueItems": true,
-          "default": [ ],
-          "items": {
-            "type": "string"
-          }
+          "$ref": "#/definitions/propertyBag"
         }
       }
     },
@@ -308,18 +286,7 @@
 
         "properties": {
           "description": "Key/value pairs that provide additional information about the run.",
-          "type": "object",
-          "default": { }
-        },
-
-        "tags": {
-          "description": "A set of distinct strings that provide additional information about the run.",
-          "type": "array",
-          "uniqueItems": true,
-          "default": [ ],
-          "items": {
-            "type": "string"
-          }
+          "$ref": "#/definitions/propertyBag"
         }
       }
     },
@@ -350,18 +317,7 @@
 
         "properties": {
           "description": "Key/value pairs that provide additional information about the location.",
-          "type": "object",
-          "default": { }
-        },
-
-        "tags": {
-          "description": "A set of distinct strings that provide additional information about the location.",
-          "type": "array",
-          "uniqueItems": true,
-          "default": [ ],
-          "items": {
-            "type": "string"
-          }
+          "$ref": "#/definitions/propertyBag"
         }
       }
     },
@@ -424,18 +380,7 @@
 
         "properties": {
           "description": "Key/value pairs that provide additional information about the notification.",
-          "type": "object",
-          "default": { }
-        },
-
-        "tags": {
-          "description": "A set of distinct strings that provide additional information about the notification.",
-          "type": "array",
-          "uniqueItems": true,
-          "default": [ ],
-          "items": {
-            "type": "string"
-          }
+          "$ref": "#/definitions/propertyBag"
         }
       },
       "required": [ "message" ]
@@ -457,6 +402,23 @@
         }
       },
       "required": [ "uri" ]
+    },
+    "propertyBag": {
+      "description": "Key/value pairs that provide additional information.",
+      "type": "object",
+      "additionalProperties": true,
+      "properties": {
+        "tags": {
+          "description": "A set of distinct strings that provide additional information.",
+          "type": "array",
+          "uniqueItems": true,
+          "default": [ ],
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "default": { }
     },
     "region": {
       "description": "A region within a file where a result was detected.",

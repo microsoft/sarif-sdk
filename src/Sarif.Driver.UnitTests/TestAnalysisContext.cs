@@ -11,7 +11,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
         public IAnalysisLogger Logger { get; set; }
 
-        public PropertyBag Policy { get; set; }
+        public OptionsPropertyBag Policy { get; set; }
 
         public IRule Rule { get; set; }
 
