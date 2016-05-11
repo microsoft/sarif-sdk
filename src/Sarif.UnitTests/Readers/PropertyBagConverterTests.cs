@@ -98,6 +98,19 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
             _roundTrippedObject.GetProperty<Guid>("g").Should().Be(expectedGuid);
         }
 
+        [TestMethod]
+        public void PropertyBagConverter_RoundTripsGuidPropertyWithoutBraces()
+        {
+            _input = "{\"properties\":{\"g\":\"12345678-90ab-cdef-1234-567890abcdef\"}}";
+
+            PerformRoundTrip();
+
+            Guid expectedGuid = new Guid("{12345678-90ab-cdef-1234-567890abcdef}");
+
+            _inputObject.GetProperty<Guid>("g").Should().Be(expectedGuid);
+            _roundTrippedObject.GetProperty<Guid>("g").Should().Be(expectedGuid);
+        }
+
         public class ObjectClass
         {
             public int One { get; set; }

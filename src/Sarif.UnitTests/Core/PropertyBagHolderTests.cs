@@ -1,6 +1,7 @@
 ﻿// Copyright (c) Microsoft.  All Rights Reserved.
 // Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
+using System;
 using System.Collections.Generic;
 using FluentAssertions;
 using Microsoft.CodeAnalysis.Sarif.Readers;
@@ -72,6 +73,19 @@ namespace Microsoft.CodeAnalysis.Sarif.Core
         {
             new TestObjectClass(42, "abc").ShouldSerializeAs("{\"n\":42,\"s\":\"abc\"}");
         }
+
+        [TestMethod]
+        public void PropertyBagHolder_SetProperty_SetsGuidProperty()
+        {
+            const string GuidString = "{12345678-1234-1234-1234-123456780abc}";
+
+            // Serializing will strip the braces. We could change SetProperty to
+            // special-case Guid and write it out with braces, but there's no
+            // point.
+            string expectedOutput = '"' + GuidString.Substring(1, GuidString.Length - 2) + '"';
+
+            new Guid(GuidString).ShouldSerializeAs(expectedOutput);
+        }
     }
 
     internal static class ExtensionsForPropertyBagHolderTests
@@ -86,7 +100,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Core
                 ContractResolver = new CamelCasePropertyNamesContractResolver()
             };
 
-            string expectedOutput = "{\"properties\":{\"" + PropertyName + "\":" + serializedValue+ "}}";
+            string expectedOutput = "{\"properties\":{\"" + PropertyName + "\":" + serializedValue + "}}";
             var inputObject = JsonConvert.DeserializeObject<TestClass>(Input);
             inputObject.GetProperty<long>(PropertyName).Should().Be(12);
 
