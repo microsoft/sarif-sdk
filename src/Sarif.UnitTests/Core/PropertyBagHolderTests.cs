@@ -56,6 +56,19 @@ namespace Microsoft.CodeAnalysis.Sarif.Core
             new string[] { "ab", "cde" }.ShouldSerializeAs("[\"ab\",\"cde\"]");
         }
 
+        // These tests show that any enumerable serializes as an array.
+        [TestMethod]
+        public void PropertyBagHolder_SetProperty_SetsStringArrayPropertyFromList()
+        {
+            new List<string> { "ab", "cde" }.ShouldSerializeAs("[\"ab\",\"cde\"]");
+        }
+
+        [TestMethod]
+        public void PropertyBagHolder_SetProperty_SetsStringArrayPropertyFromHashSet()
+        {
+            new HashSet<string> { "ab", "cde" }.ShouldSerializeAs("[\"ab\",\"cde\"]");
+        }
+
         public class TestObjectClass
         {
             public TestObjectClass(int n, string s)
