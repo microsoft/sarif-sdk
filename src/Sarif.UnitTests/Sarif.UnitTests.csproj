@@ -68,6 +68,7 @@
     <Compile Include="Converters\FxCopConverterTests.cs" />
     <Compile Include="Core\PropertyBagHolderTests.cs" />
     <Compile Include="Core\StackTests.cs" />
+    <Compile Include="Core\TagsTests.cs" />
     <Compile Include="EqualityComparerTests.cs" />
     <Compile Include="ExtensionsTests.cs" />
     <Compile Include="JsonTests.cs" />

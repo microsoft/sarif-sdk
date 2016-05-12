@@ -14,7 +14,6 @@ namespace Microsoft.CodeAnalysis.Sarif
     public enum SuppressionStates
     {
         None,
-        SuppressedInSource = 1,
-        SuppressedInBaseline = 2
+        SuppressedInSource = 1
     }
 }

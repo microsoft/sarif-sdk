@@ -3,6 +3,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using Microsoft.CodeAnalysis.Sarif.Readers;
 using Newtonsoft.Json;
@@ -14,10 +15,18 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// </summary>
     public abstract class PropertyBagHolder : IPropertyBagHolder
     {
+        protected PropertyBagHolder()
+        {
+            Tags = new Tags(this);
+        }
+
         [JsonIgnore]
         public IList<string> PropertyNames
         {
-            get { return Properties.Keys.ToList(); }
+            get
+            {
+                return Properties != null ? Properties.Keys.ToList() : new List<string>();
+            }
         }
 
         /// <summary>
@@ -41,6 +50,15 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         public string GetProperty(string propertyName)
         {
+            if (!PropertyNames.Contains(propertyName))
+            {
+                throw new InvalidOperationException(
+                    string.Format(
+                        CultureInfo.CurrentCulture,
+                        SdkResources.PropertyDoesNotExist,
+                        propertyName));
+            }
+
             if (!Properties[propertyName].IsString)
             {
                 throw new InvalidOperationException(SdkResources.CallGenericGetProperty);
@@ -71,6 +89,15 @@ namespace Microsoft.CodeAnalysis.Sarif
                 throw new InvalidOperationException(SdkResources.CallNonGenericGetProperty);
             }
 
+            if (!PropertyNames.Contains(propertyName))
+            {
+                throw new InvalidOperationException(
+                    string.Format(
+                        CultureInfo.CurrentCulture,
+                        SdkResources.PropertyDoesNotExist,
+                        propertyName));
+            }
+
             return JsonConvert.DeserializeObject<T>(Properties[propertyName].SerializedValue);
         }
 
@@ -89,5 +116,16 @@ namespace Microsoft.CodeAnalysis.Sarif
              
             Properties[propertyName] = new SerializedPropertyInfo(serializedValue, isString);
         }
+
+        public void RemoveProperty(string propertyName)
+        {
+            if (Properties != null)
+            {
+                Properties.Remove(propertyName);
+            }
+        }
+
+        [JsonIgnore]
+        public Tags Tags { get; }
     }
 }

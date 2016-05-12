@@ -556,6 +556,15 @@ namespace Microsoft.CodeAnalysis.Sarif {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Property &apos;{0}&apos; does not exist. Consider calling TryGetProperty instead..
+        /// </summary>
+        internal static string PropertyDoesNotExist {
+            get {
+                return ResourceManager.GetString("PropertyDoesNotExist", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Object cannot be serialized until results serialization is completed..
         /// </summary>
         internal static string ResultsSerializationNotComplete {

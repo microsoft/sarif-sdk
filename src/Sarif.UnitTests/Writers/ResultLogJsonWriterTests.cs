@@ -15,7 +15,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
     public class ResultLogJsonWriterTests : JsonTests
     {
         private static readonly string SchemaVersion =
-            SarifUtilities.ConvertToText(SarifVersion.OneZeroZeroBetaFour);
+            SarifUtilities.ConvertToText(SarifVersion.OneZeroZeroBetaFive);
 
         private static readonly Tool s_defaultTool = new Tool();
         private static readonly Result s_defaultResult = new Result();
@@ -38,7 +38,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         {
             string expected =
 @"{
-  ""$schema"": ""http://json.schemastore.org/sarif-1.0.0"",
+  ""$schema"": ""http://json.schemastore.org/sarif-1.0.0-beta.5"",
   ""version"": """ + SchemaVersion + @""",
   ""runs"": [
     {}
@@ -55,7 +55,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         {
             string expected =
 @"{
-  ""$schema"": ""http://json.schemastore.org/sarif-1.0.0"",
+  ""$schema"": ""http://json.schemastore.org/sarif-1.0.0-beta.5"",
   ""version"": """ + SchemaVersion + @""",
   ""runs"": [
     {
@@ -176,7 +176,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         {
             string expected =
 @"{
-  ""$schema"": ""http://json.schemastore.org/sarif-1.0.0"",
+  ""$schema"": ""http://json.schemastore.org/sarif-1.0.0-beta.5"",
   ""version"": """ + SchemaVersion + @""",
   ""runs"": [
     {
@@ -207,7 +207,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
             string expected =
 @"{
-  ""$schema"": ""http://json.schemastore.org/sarif-1.0.0"",
+  ""$schema"": ""http://json.schemastore.org/sarif-1.0.0-beta.5"",
   ""version"": """ + SchemaVersion + @""",
   ""runs"": [
     {
@@ -345,7 +345,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         {
             string expected =
 @"{
-  ""$schema"": ""http://json.schemastore.org/sarif-1.0.0"",
+  ""$schema"": ""http://json.schemastore.org/sarif-1.0.0-beta.5"",
   ""version"": """ + SchemaVersion + @""",
   ""runs"": [
     {
@@ -372,7 +372,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         {
             string expected =
 @"{
-  ""$schema"": ""http://json.schemastore.org/sarif-1.0.0"",
+  ""$schema"": ""http://json.schemastore.org/sarif-1.0.0-beta.5"",
   ""version"": """ + SchemaVersion + @""",
   ""runs"": [
     {
