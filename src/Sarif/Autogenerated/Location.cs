@@ -45,13 +45,13 @@ namespace Microsoft.CodeAnalysis.Sarif
         public PhysicalLocation ResultFile { get; set; }
 
         /// <summary>
-        /// The fully qualified name of the logical location where the analysis tool produced the result.
+        /// The fully qualified name of the logical location where the analysis tool produced the result. If 'localLocationKey' is not specified, this member is can used to retrieve the location logicalLocation from the logicalLocations dictionary, if one exists.
         /// </summary>
         [DataMember(Name = "fullyQualifiedLogicalName", IsRequired = false, EmitDefaultValue = false)]
         public string FullyQualifiedLogicalName { get; set; }
 
         /// <summary>
-        /// A string used as a key into the logicalLocations dictionary, in case the string specified by 'fullyQualifiedLogicalName' is not unique.
+        /// A key used to retrieve the location logicalLocation from the logicalLocations dictionary, when the string specified by 'fullyQualifiedLogicalName' is not unique.
         /// </summary>
         [DataMember(Name = "logicalLocationKey", IsRequired = false, EmitDefaultValue = false)]
         public string LogicalLocationKey { get; set; }

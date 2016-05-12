@@ -53,6 +53,11 @@ namespace Microsoft.CodeAnalysis.Sarif
                 return false;
             }
 
+            if (left.SarifLoggerVersion != right.SarifLoggerVersion)
+            {
+                return false;
+            }
+
             if (left.Language != right.Language)
             {
                 return false;
@@ -116,6 +121,11 @@ namespace Microsoft.CodeAnalysis.Sarif
                 if (obj.FileVersion != null)
                 {
                     result = (result * 31) + obj.FileVersion.GetHashCode();
+                }
+
+                if (obj.SarifLoggerVersion != null)
+                {
+                    result = (result * 31) + obj.SarifLoggerVersion.GetHashCode();
                 }
 
                 if (obj.Language != null)
