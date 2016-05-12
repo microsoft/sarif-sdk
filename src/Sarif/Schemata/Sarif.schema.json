@@ -367,7 +367,7 @@
         },
 
         "fullyQualifiedLogicalName": {
-          "description": "The fully qualified name of the logical location where the analysis tool produced the result. If 'localLocationKey' is not specified, this member is can used to retrieve the location logicalLocation from the logicalLocations dictionary, if one exists.",
+          "description": "The fully qualified name of the logical location where the analysis tool produced the result. If 'logicalLocationKey' is not specified, this member is can used to retrieve the location logicalLocation from the logicalLocations dictionary, if one exists.",
           "type": "string"
         },
 
