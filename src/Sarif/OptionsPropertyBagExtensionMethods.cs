@@ -12,7 +12,7 @@ using System.Xml;
 
 namespace Microsoft.CodeAnalysis.Sarif
 {
-    public static class PropertyBagExtensionMethods
+    public static class OptionsPropertyBagExtensionMethods
     {
         public static void SavePropertyBagToStream(
             this IDictionary propertyBag,
@@ -100,7 +100,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             // requirement by changing this code to process all
             // namespaces and to select the shortest type name
             // that results.                        
-            foreach (string nsPrefix in PropertyBag.DefaultNamespaces)
+            foreach (string nsPrefix in OptionsPropertyBag.DefaultNamespaces)
             {
                 if (typeName.StartsWith(nsPrefix, StringComparison.Ordinal))
                 {
@@ -150,7 +150,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
                     if (String.IsNullOrEmpty(typeName))
                     {
-                        nestedPropertyBag = new PropertyBag();
+                        nestedPropertyBag = new OptionsPropertyBag();
                     }
                     else
                     {
@@ -210,7 +210,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             if (type == null)
             {
-                foreach (string nsPrefix in PropertyBag.DefaultNamespaces)
+                foreach (string nsPrefix in OptionsPropertyBag.DefaultNamespaces)
                 {
                     type = GetType(nsPrefix + typeName);
                     if (type != null) { break; }

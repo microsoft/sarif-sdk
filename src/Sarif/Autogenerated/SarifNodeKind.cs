@@ -72,6 +72,10 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// </summary>
         PhysicalLocation,
         /// <summary>
+        /// A value indicating that the <see cref="ISarifNode" /> object is of type <see cref="PropertyBag" />.
+        /// </summary>
+        PropertyBag,
+        /// <summary>
         /// A value indicating that the <see cref="ISarifNode" /> object is of type <see cref="Region" />.
         /// </summary>
         Region,

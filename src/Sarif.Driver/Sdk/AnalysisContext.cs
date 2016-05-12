@@ -16,7 +16,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
         public IRule Rule { get; set; }
 
-        public PropertyBag Policy { get; set; }
+        public OptionsPropertyBag Policy { get; set; }
 
         public string MimeType { get; set; }
 
