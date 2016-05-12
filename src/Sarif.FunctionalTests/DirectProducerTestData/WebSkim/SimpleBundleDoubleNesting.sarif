@@ -1950,10 +1950,12 @@
           "messageFormats": {
             "Error": "Avoid use of dangerous application capabilities. Capability: {0}"
           },
-          "tags": [
-            "appx",
-            "sdl"
-          ]
+          "properties": {
+            "tags": [
+              "appx",
+              "sdl"
+            ]
+          }
         },
         "WEB1080": {
           "id": "WEB1080",
@@ -1962,9 +1964,11 @@
           "messageFormats": {
             "Error": "The <{0}> tag attributes are not ordered as specified on the analysis command-line. This violation was prompted by the '{1}' attribute. As currently configured, attributes should appear in the following order: {2}"
           },
-          "tags": [
-            "html"
-          ]
+          "properties": {
+            "tags": [
+              "html"
+            ]
+          }
         },
         "WEB1088": {
           "id": "WEB1088",
@@ -1973,10 +1977,12 @@
           "messageFormats": {
             "Error": "The <iframe>  tag should have a 'sandbox' attribute set with at least one valid option ('allow-forms', 'allow-same-origin', 'allow-scripts', or 'allow-top-navigation'). Setting both 'allow-scripts' and 'allow-same-origin' for a single <iframe> tag is not advised."
           },
-          "tags": [
-            "html",
-            "sdl"
-          ]
+          "properties": {
+            "tags": [
+              "html",
+              "sdl"
+            ]
+          }
         },
         "JS3092": {
           "id": "JS3092",
@@ -1985,10 +1991,12 @@
           "messageFormats": {
             "Error": "'{0}' does not contain a definition for '{1}'. Declare this property explicitly before using it."
           },
-          "tags": [
-            "js",
-            "semantic"
-          ]
+          "properties": {
+            "tags": [
+              "js",
+              "semantic"
+            ]
+          }
         },
         "JS2074": {
           "id": "JS2074",
@@ -1997,10 +2005,12 @@
           "messageFormats": {
             "Error": "The term '{0}' in {1} name '{2}' is not recognized. Correct the misspelling, if it is one, provide an alternate term, or add the term to the custom dictionary or as an in-source comment."
           },
-          "tags": [
-            "spelling",
-            "js"
-          ]
+          "properties": {
+            "tags": [
+              "spelling",
+              "js"
+            ]
+          }
         },
         "JS3057": {
           "id": "JS3057",
@@ -2009,10 +2019,12 @@
           "messageFormats": {
             "Error": "Call results in an implicit conversion of type '{0}' to '{1}'."
           },
-          "tags": [
-            "js",
-            "semantic"
-          ]
+          "properties": {
+            "tags": [
+              "js",
+              "semantic"
+            ]
+          }
         },
         "JS3058": {
           "id": "JS3058",
@@ -2021,10 +2033,12 @@
           "messageFormats": {
             "Error": "Variable '{0}' undeclared. This error must be resolved before further semantic analysis can be done."
           },
-          "tags": [
-            "js",
-            "semantic"
-          ]
+          "properties": {
+            "tags": [
+              "js",
+              "semantic"
+            ]
+          }
         },
         "JS3047": {
           "id": "JS3047",
@@ -2033,9 +2047,11 @@
           "messageFormats": {
             "Error": "Provide an explicit semicolon."
           },
-          "tags": [
-            "js"
-          ]
+          "properties": {
+            "tags": [
+              "js"
+            ]
+          }
         },
         "JS2027": {
           "id": "JS2027",
@@ -2044,9 +2060,11 @@
           "messageFormats": {
             "Warning": "Provide punctuation at the ends of sentences for multiline comments.  If this block is commented code, use '////' to open the comment line."
           },
-          "tags": [
-            "js"
-          ]
+          "properties": {
+            "tags": [
+              "js"
+            ]
+          }
         },
         "JS2073": {
           "id": "JS2073",
@@ -2055,10 +2073,12 @@
           "messageFormats": {
             "Error": "The term '{0}' found in comment text is not recognized. Correct the misspelling, if it is one, provide an alternate term, or add the term to the custom dictionary or as an in-source comment. If this is a reference to a DOM or other api which can’t be recased, wrap the term in apostrophes to resolve the warning, e.g., 'onmouseover'."
           },
-          "tags": [
-            "spelling",
-            "js"
-          ]
+          "properties": {
+            "tags": [
+              "spelling",
+              "js"
+            ]
+          }
         },
         "JS3053": {
           "id": "JS3053",
@@ -2067,10 +2087,12 @@
           "messageFormats": {
             "Error": "Function '{0}' does not take {1} arguments."
           },
-          "tags": [
-            "js",
-            "semantic"
-          ]
+          "properties": {
+            "tags": [
+              "js",
+              "semantic"
+            ]
+          }
         },
         "JS2045": {
           "id": "JS2045",
@@ -2079,9 +2101,11 @@
           "messageFormats": {
             "Warning": "Review empty blocks for correctness issues."
           },
-          "tags": [
-            "js"
-          ]
+          "properties": {
+            "tags": [
+              "js"
+            ]
+          }
         },
         "JS2001": {
           "id": "JS2001",
@@ -2090,10 +2114,12 @@
           "messageFormats": {
             "Error": "Do not use the 'eval' function or its functional equivalents, which obscure code function, complicate tooling, and are a source of non-performant and insecure code patterns. This violation occurred due to use of '{0}' detected in source. {1}"
           },
-          "tags": [
-            "js",
-            "sdl"
-          ]
+          "properties": {
+            "tags": [
+              "js",
+              "sdl"
+            ]
+          }
         },
         "JS2023": {
           "id": "JS2023",
@@ -2102,9 +2128,11 @@
           "messageFormats": {
             "Warning": "Use double quotes where possible to declare string literals. For string literals that represent HTML snippets, encapsulate embedded attribute names using single quotes."
           },
-          "tags": [
-            "js"
-          ]
+          "properties": {
+            "tags": [
+              "js"
+            ]
+          }
         },
         "JS3054": {
           "id": "JS3054",
@@ -2113,10 +2141,12 @@
           "messageFormats": {
             "Error": "Not all code paths return a value."
           },
-          "tags": [
-            "js",
-            "semantic"
-          ]
+          "properties": {
+            "tags": [
+              "js",
+              "semantic"
+            ]
+          }
         }
       },
       "invocation": {

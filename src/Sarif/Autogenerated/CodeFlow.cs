@@ -10,7 +10,7 @@ using System.Runtime.Serialization;
 namespace Microsoft.CodeAnalysis.Sarif
 {
     [DataContract]
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.30.0.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.31.0.0")]
     public partial class CodeFlow : PropertyBagHolder, ISarifNode
     {
         public static IEqualityComparer<CodeFlow> ValueComparer => CodeFlowEqualityComparer.Instance;
@@ -48,12 +48,6 @@ namespace Microsoft.CodeAnalysis.Sarif
         internal override IDictionary<string, SerializedPropertyInfo> Properties { get; set; }
 
         /// <summary>
-        /// A unique set of strings that provide additional information about the code flow.
-        /// </summary>
-        [DataMember(Name = "tags", IsRequired = false, EmitDefaultValue = false)]
-        public IList<string> Tags { get; set; }
-
-        /// <summary>
         /// Initializes a new instance of the <see cref="CodeFlow" /> class.
         /// </summary>
         public CodeFlow()
@@ -72,12 +66,9 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="properties">
         /// An initialization value for the <see cref="P: Properties" /> property.
         /// </param>
-        /// <param name="tags">
-        /// An initialization value for the <see cref="P: Tags" /> property.
-        /// </param>
-        public CodeFlow(string message, IEnumerable<AnnotatedCodeLocation> locations, IDictionary<string, SerializedPropertyInfo> properties, IEnumerable<string> tags)
+        public CodeFlow(string message, IEnumerable<AnnotatedCodeLocation> locations, IDictionary<string, SerializedPropertyInfo> properties)
         {
-            Init(message, locations, properties, tags);
+            Init(message, locations, properties);
         }
 
         /// <summary>
@@ -96,7 +87,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 throw new ArgumentNullException(nameof(other));
             }
 
-            Init(other.Message, other.Locations, other.Properties, other.Tags);
+            Init(other.Message, other.Locations, other.Properties);
         }
 
         ISarifNode ISarifNode.DeepClone()
@@ -117,7 +108,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new CodeFlow(this);
         }
 
-        private void Init(string message, IEnumerable<AnnotatedCodeLocation> locations, IDictionary<string, SerializedPropertyInfo> properties, IEnumerable<string> tags)
+        private void Init(string message, IEnumerable<AnnotatedCodeLocation> locations, IDictionary<string, SerializedPropertyInfo> properties)
         {
             Message = message;
             if (locations != null)
@@ -141,17 +132,6 @@ namespace Microsoft.CodeAnalysis.Sarif
             if (properties != null)
             {
                 Properties = new Dictionary<string, SerializedPropertyInfo>(properties);
-            }
-
-            if (tags != null)
-            {
-                var destination_1 = new List<string>();
-                foreach (var value_1 in tags)
-                {
-                    destination_1.Add(value_1);
-                }
-
-                Tags = destination_1;
             }
         }
     }

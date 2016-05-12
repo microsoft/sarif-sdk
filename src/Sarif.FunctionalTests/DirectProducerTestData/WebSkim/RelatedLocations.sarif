@@ -103,10 +103,12 @@
           "messageFormats": {
             "Error": "Code should run in strict mode wherever possible. {0}"
           },
-          "tags": [
-            "js",
-            "sdl"
-          ]
+          "properties": {
+            "tags": [
+              "js",
+              "sdl"
+            ]
+          }
         },
         "JS3085": {
           "id": "JS3085",
@@ -115,10 +117,12 @@
           "messageFormats": {
             "Error": "Variable '{0}' was previously defined in this scope. {1}"
           },
-          "tags": [
-            "js",
-            "semantic"
-          ]
+          "properties": {
+            "tags": [
+              "js",
+              "semantic"
+            ]
+          }
         },
         "JS1003": {
           "id": "JS1003",
@@ -127,10 +131,12 @@
           "messageFormats": {
             "Error": "Semantic analysis halted unexpectedly due to errors processing target or reference files."
           },
-          "tags": [
-            "js",
-            "semantic"
-          ]
+          "properties": {
+            "tags": [
+              "js",
+              "semantic"
+            ]
+          }
         }
       },
       "invocation": {

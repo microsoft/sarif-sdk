@@ -59,10 +59,12 @@
           "messageFormats": {
             "Error": "Avoid use of dangerous application capabilities. Capability: {0}"
           },
-          "tags": [
-            "appx",
-            "sdl"
-          ]
+          "properties": {
+            "tags": [
+              "appx",
+              "sdl"
+            ]
+          }
         }
       },
       "invocation": {

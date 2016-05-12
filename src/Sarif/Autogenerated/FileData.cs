@@ -13,7 +13,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// A single file. In some cases, this file might be nested within another file.
     /// </summary>
     [DataContract]
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.30.0.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.31.0.0")]
     public partial class FileData : PropertyBagHolder, ISarifNode
     {
         public static IEqualityComparer<FileData> ValueComparer => FileDataEqualityComparer.Instance;
@@ -69,12 +69,6 @@ namespace Microsoft.CodeAnalysis.Sarif
         internal override IDictionary<string, SerializedPropertyInfo> Properties { get; set; }
 
         /// <summary>
-        /// A set of distinct strings that provide additional information about the file.
-        /// </summary>
-        [DataMember(Name = "tags", IsRequired = false, EmitDefaultValue = false)]
-        public IList<string> Tags { get; set; }
-
-        /// <summary>
         /// Initializes a new instance of the <see cref="FileData" /> class.
         /// </summary>
         public FileData()
@@ -102,12 +96,9 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="properties">
         /// An initialization value for the <see cref="P: Properties" /> property.
         /// </param>
-        /// <param name="tags">
-        /// An initialization value for the <see cref="P: Tags" /> property.
-        /// </param>
-        public FileData(Uri uri, int offset, int length, string mimeType, IEnumerable<Hash> hashes, IDictionary<string, SerializedPropertyInfo> properties, IEnumerable<string> tags)
+        public FileData(Uri uri, int offset, int length, string mimeType, IEnumerable<Hash> hashes, IDictionary<string, SerializedPropertyInfo> properties)
         {
-            Init(uri, offset, length, mimeType, hashes, properties, tags);
+            Init(uri, offset, length, mimeType, hashes, properties);
         }
 
         /// <summary>
@@ -126,7 +117,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 throw new ArgumentNullException(nameof(other));
             }
 
-            Init(other.Uri, other.Offset, other.Length, other.MimeType, other.Hashes, other.Properties, other.Tags);
+            Init(other.Uri, other.Offset, other.Length, other.MimeType, other.Hashes, other.Properties);
         }
 
         ISarifNode ISarifNode.DeepClone()
@@ -147,7 +138,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new FileData(this);
         }
 
-        private void Init(Uri uri, int offset, int length, string mimeType, IEnumerable<Hash> hashes, IDictionary<string, SerializedPropertyInfo> properties, IEnumerable<string> tags)
+        private void Init(Uri uri, int offset, int length, string mimeType, IEnumerable<Hash> hashes, IDictionary<string, SerializedPropertyInfo> properties)
         {
             if (uri != null)
             {
@@ -178,17 +169,6 @@ namespace Microsoft.CodeAnalysis.Sarif
             if (properties != null)
             {
                 Properties = new Dictionary<string, SerializedPropertyInfo>(properties);
-            }
-
-            if (tags != null)
-            {
-                var destination_1 = new List<string>();
-                foreach (var value_1 in tags)
-                {
-                    destination_1.Add(value_1);
-                }
-
-                Tags = destination_1;
             }
         }
     }

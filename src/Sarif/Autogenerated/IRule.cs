@@ -11,7 +11,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// <summary>
     /// Interface exposed by objects that provide information about analysis rules.
     /// </summary>
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.30.0.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.31.0.0")]
     public partial interface IRule
     {
         /// <summary>
@@ -48,10 +48,5 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// A URI where the primary documentation for the rule can be found.
         /// </summary>
         Uri HelpUri { get; }
-
-        /// <summary>
-        /// A set of distinct strings that provide additional information about the rule.
-        /// </summary>
-        IList<string> Tags { get; }
     }
 }

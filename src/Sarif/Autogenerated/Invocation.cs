@@ -13,7 +13,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// The runtime environment of the analysis tool run.
     /// </summary>
     [DataContract]
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.30.0.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.31.0.0")]
     public partial class Invocation : PropertyBagHolder, ISarifNode
     {
         public static IEqualityComparer<Invocation> ValueComparer => InvocationEqualityComparer.Instance;
@@ -93,12 +93,6 @@ namespace Microsoft.CodeAnalysis.Sarif
         internal override IDictionary<string, SerializedPropertyInfo> Properties { get; set; }
 
         /// <summary>
-        /// A set of distinct strings that provide additional information about the run.
-        /// </summary>
-        [DataMember(Name = "tags", IsRequired = false, EmitDefaultValue = false)]
-        public IList<string> Tags { get; set; }
-
-        /// <summary>
         /// Initializes a new instance of the <see cref="Invocation" /> class.
         /// </summary>
         public Invocation()
@@ -138,12 +132,9 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="properties">
         /// An initialization value for the <see cref="P: Properties" /> property.
         /// </param>
-        /// <param name="tags">
-        /// An initialization value for the <see cref="P: Tags" /> property.
-        /// </param>
-        public Invocation(string commandLine, DateTime startTime, DateTime endTime, string machine, string account, int processId, string fileName, string workingDirectory, IDictionary<string, string> environmentVariables, IDictionary<string, SerializedPropertyInfo> properties, IEnumerable<string> tags)
+        public Invocation(string commandLine, DateTime startTime, DateTime endTime, string machine, string account, int processId, string fileName, string workingDirectory, IDictionary<string, string> environmentVariables, IDictionary<string, SerializedPropertyInfo> properties)
         {
-            Init(commandLine, startTime, endTime, machine, account, processId, fileName, workingDirectory, environmentVariables, properties, tags);
+            Init(commandLine, startTime, endTime, machine, account, processId, fileName, workingDirectory, environmentVariables, properties);
         }
 
         /// <summary>
@@ -162,7 +153,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 throw new ArgumentNullException(nameof(other));
             }
 
-            Init(other.CommandLine, other.StartTime, other.EndTime, other.Machine, other.Account, other.ProcessId, other.FileName, other.WorkingDirectory, other.EnvironmentVariables, other.Properties, other.Tags);
+            Init(other.CommandLine, other.StartTime, other.EndTime, other.Machine, other.Account, other.ProcessId, other.FileName, other.WorkingDirectory, other.EnvironmentVariables, other.Properties);
         }
 
         ISarifNode ISarifNode.DeepClone()
@@ -183,7 +174,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new Invocation(this);
         }
 
-        private void Init(string commandLine, DateTime startTime, DateTime endTime, string machine, string account, int processId, string fileName, string workingDirectory, IDictionary<string, string> environmentVariables, IDictionary<string, SerializedPropertyInfo> properties, IEnumerable<string> tags)
+        private void Init(string commandLine, DateTime startTime, DateTime endTime, string machine, string account, int processId, string fileName, string workingDirectory, IDictionary<string, string> environmentVariables, IDictionary<string, SerializedPropertyInfo> properties)
         {
             CommandLine = commandLine;
             StartTime = startTime;
@@ -201,17 +192,6 @@ namespace Microsoft.CodeAnalysis.Sarif
             if (properties != null)
             {
                 Properties = new Dictionary<string, SerializedPropertyInfo>(properties);
-            }
-
-            if (tags != null)
-            {
-                var destination_0 = new List<string>();
-                foreach (var value_0 in tags)
-                {
-                    destination_0.Add(value_0);
-                }
-
-                Tags = destination_0;
             }
         }
     }

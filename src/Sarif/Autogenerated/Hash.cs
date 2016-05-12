@@ -12,7 +12,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// A hash value of some file or collection of files, together with the algorithm used to compute the hash.
     /// </summary>
     [DataContract]
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.30.0.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.31.0.0")]
     public partial class Hash : ISarifNode
     {
         public static IEqualityComparer<Hash> ValueComparer => HashEqualityComparer.Instance;
@@ -38,7 +38,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         public string Value { get; set; }
 
         /// <summary>
-        /// A string specifying the name of the algorithm used to compute the hash value specified in the 'value' property.
+        /// The name of the algorithm used to compute the hash value specified in the 'value' property.
         /// </summary>
         [DataMember(Name = "algorithm", IsRequired = true)]
         public AlgorithmKind Algorithm { get; set; }

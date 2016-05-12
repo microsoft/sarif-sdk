@@ -48,16 +48,17 @@
         "properties": {
           "description": "Key/value pairs that provide additional information about the code location.",
           "type": "object",
-          "default": { }
-        },
-
-        "tags": {
-          "description": "A unique set of strings that provide additional information about the code location.",
-          "type": "array",
-          "uniqueItems": true,
-          "default": [ ],
-          "items": {
-            "type": "string"
+          "additionalProperties": true,
+          "properties": {
+            "tags": {
+              "description": "A set of distinct strings that provide additional information.",
+              "type": "array",
+              "uniqueItems": true,
+              "default": [ ],
+              "items": {
+                "type": "string"
+              }
+            }
           }
         }
       },
@@ -81,15 +82,17 @@
         "properties": {
           "description": "Key/value pairs that provide additional information about the code flow.",
           "type": "object",
-          "default": { }
-        },
-        "tags": {
-          "description": "A unique set of strings that provide additional information about the code flow.",
-          "type": "array",
-          "uniqueItems": true,
-          "default": [ ],
-          "items": {
-            "type": "string"
+          "additionalProperties": true,
+          "properties": {
+            "tags": {
+              "description": "A set of distinct strings that provide additional information.",
+              "type": "array",
+              "uniqueItems": true,
+              "default": [ ],
+              "items": {
+                "type": "string"
+              }
+            }
           }
         }
       },
@@ -184,16 +187,17 @@
         "properties": {
           "description": "Key/value pairs that provide additional information about the file.",
           "type": "object",
-          "default": { }
-        },
-
-        "tags": {
-          "description": "A set of distinct strings that provide additional information about the file.",
-          "type": "array",
-          "uniqueItems": true,
-          "default": [ ],
-          "items": {
-            "type": "string"
+          "additionalProperties": true,
+          "properties": {
+            "tags": {
+              "description": "A set of distinct strings that provide additional information.",
+              "type": "array",
+              "uniqueItems": true,
+              "default": [ ],
+              "items": {
+                "type": "string"
+              }
+            }
           }
         }
       }
@@ -314,16 +318,17 @@
         "properties": {
           "description": "Key/value pairs that provide additional information about the run.",
           "type": "object",
-          "default": { }
-        },
-
-        "tags": {
-          "description": "A set of distinct strings that provide additional information about the run.",
-          "type": "array",
-          "uniqueItems": true,
-          "default": [ ],
-          "items": {
-            "type": "string"
+          "additionalProperties": true,
+          "properties": {
+            "tags": {
+              "description": "A set of distinct strings that provide additional information.",
+              "type": "array",
+              "uniqueItems": true,
+              "default": [ ],
+              "items": {
+                "type": "string"
+              }
+            }
           }
         }
       }
@@ -356,16 +361,17 @@
         "properties": {
           "description": "Key/value pairs that provide additional information about the location.",
           "type": "object",
-          "default": { }
-        },
-
-        "tags": {
-          "description": "A set of distinct strings that provide additional information about the location.",
-          "type": "array",
-          "uniqueItems": true,
-          "default": [ ],
-          "items": {
-            "type": "string"
+          "additionalProperties": true,
+          "properties": {
+            "tags": {
+              "description": "A set of distinct strings that provide additional information.",
+              "type": "array",
+              "uniqueItems": true,
+              "default": [ ],
+              "items": {
+                "type": "string"
+              }
+            }
           }
         }
       }
@@ -430,16 +436,17 @@
         "properties": {
           "description": "Key/value pairs that provide additional information about the notification.",
           "type": "object",
-          "default": { }
-        },
-
-        "tags": {
-          "description": "A set of distinct strings that provide additional information about the notification.",
-          "type": "array",
-          "uniqueItems": true,
-          "default": [ ],
-          "items": {
-            "type": "string"
+          "additionalProperties": true,
+          "properties": {
+            "tags": {
+              "description": "A set of distinct strings that provide additional information.",
+              "type": "array",
+              "uniqueItems": true,
+              "default": [ ],
+              "items": {
+                "type": "string"
+              }
+            }
           }
         }
       },
@@ -643,16 +650,17 @@
         "properties": {
           "description": "Key/value pairs that provide additional information about the result.",
           "type": "object",
-          "default": { }
-        },
-
-        "tags": {
-          "description": "A set of distinct strings that provide additional information about the result.",
-          "type": "array",
-          "uniqueItems": true,
-          "default": [ ],
-          "items": {
-            "type": "string"
+          "additionalProperties": true,
+          "properties": {
+            "tags": {
+              "description": "A set of distinct strings that provide additional information.",
+              "type": "array",
+              "uniqueItems": true,
+              "default": [ ],
+              "items": {
+                "type": "string"
+              }
+            }
           }
         }
       }
@@ -702,16 +710,17 @@
         "properties": {
           "description": "Key/value pairs that provide additional information about the rule.",
           "type": "object",
-          "default": { }
-        },
-
-        "tags": {
-          "description": "A set of distinct strings that provide additional information about the rule.",
-          "type": "array",
-          "uniqueItems": true,
-          "default": [ ],
-          "items": {
-            "type": "string"
+          "additionalProperties": true,
+          "properties": {
+            "tags": {
+              "description": "A set of distinct strings that provide additional information.",
+              "type": "array",
+              "uniqueItems": true,
+              "default": [ ],
+              "items": {
+                "type": "string"
+              }
+            }
           }
         }
       },
@@ -820,15 +829,17 @@
         "properties": {
           "description": "Key/value pairs that provide additional information about the stack.",
           "type": "object",
-          "default": { }
-        },
-        "tags": {
-          "description": "A unique set of strings that provide additional information about the stack.",
-          "type": "array",
-          "uniqueItems": true,
-          "items": {
-            "type": "string",
-            "default": [ ]
+          "additionalProperties": true,
+          "properties": {
+            "tags": {
+              "description": "A set of distinct strings that provide additional information.",
+              "type": "array",
+              "uniqueItems": true,
+              "default": [ ],
+              "items": {
+                "type": "string"
+              }
+            }
           }
         }
       },
@@ -887,15 +898,17 @@
         "properties": {
           "description": "Key/value pairs that provide additional information about the stack frame.",
           "type": "object",
-          "default": { }
-        },
-        "tags": {
-          "description": "A unique set of strings that provide additional information about the stack frame.",
-          "type": "array",
-          "uniqueItems": true,
-          "default": [ ],
-          "items": {
-            "type": "string"
+          "additionalProperties": true,
+          "properties": {
+            "tags": {
+              "description": "A set of distinct strings that provide additional information.",
+              "type": "array",
+              "uniqueItems": true,
+              "default": [ ],
+              "items": {
+                "type": "string"
+              }
+            }
           }
         }
       }
@@ -939,17 +952,18 @@
         "properties": {
           "description": "Key/value pairs that provide additional information about the tool.",
           "type": "object",
-          "default": { }
-        },
-
-        "tags": {
-          "description": "A set of distinct strings that provide additional information about the tool.",
-          "type": "array",
-          "uniqueItems": true,
-          "default": [ ],
-          "items": {
-            "type": "string"
-          }
+          "additionalProperties": true,
+          "properties": {
+            "tags": {
+              "description": "A set of distinct strings that provide additional information.",
+              "type": "array",
+              "uniqueItems": true,
+              "default": [ ],
+              "items": {
+                "type": "string"
+              }
+            }
+          } 
         }
       },
       "required": [ "name" ]

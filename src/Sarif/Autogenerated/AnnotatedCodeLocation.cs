@@ -13,7 +13,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// A code annotation that consists of single physical location and associated message, used to express code flows through a method, or other locations that are related to a result.
     /// </summary>
     [DataContract]
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.30.0.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.31.0.0")]
     public partial class AnnotatedCodeLocation : PropertyBagHolder, ISarifNode
     {
         public static IEqualityComparer<AnnotatedCodeLocation> ValueComparer => AnnotatedCodeLocationEqualityComparer.Instance;
@@ -45,16 +45,16 @@ namespace Microsoft.CodeAnalysis.Sarif
         public string Message { get; set; }
 
         /// <summary>
+        /// A descriptive identifier that categorizes the annotation.
+        /// </summary>
+        [DataMember(Name = "kind", IsRequired = false, EmitDefaultValue = false)]
+        public string Kind { get; set; }
+
+        /// <summary>
         /// Key/value pairs that provide additional information about the code location.
         /// </summary>
         [DataMember(Name = "properties", IsRequired = false, EmitDefaultValue = false)]
         internal override IDictionary<string, SerializedPropertyInfo> Properties { get; set; }
-
-        /// <summary>
-        /// A unique set of strings that provide additional information about the code location.
-        /// </summary>
-        [DataMember(Name = "tags", IsRequired = false, EmitDefaultValue = false)]
-        public IList<string> Tags { get; set; }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="AnnotatedCodeLocation" /> class.
@@ -72,15 +72,15 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="message">
         /// An initialization value for the <see cref="P: Message" /> property.
         /// </param>
+        /// <param name="kind">
+        /// An initialization value for the <see cref="P: Kind" /> property.
+        /// </param>
         /// <param name="properties">
         /// An initialization value for the <see cref="P: Properties" /> property.
         /// </param>
-        /// <param name="tags">
-        /// An initialization value for the <see cref="P: Tags" /> property.
-        /// </param>
-        public AnnotatedCodeLocation(PhysicalLocation physicalLocation, string message, IDictionary<string, SerializedPropertyInfo> properties, IEnumerable<string> tags)
+        public AnnotatedCodeLocation(PhysicalLocation physicalLocation, string message, string kind, IDictionary<string, SerializedPropertyInfo> properties)
         {
-            Init(physicalLocation, message, properties, tags);
+            Init(physicalLocation, message, kind, properties);
         }
 
         /// <summary>
@@ -99,7 +99,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 throw new ArgumentNullException(nameof(other));
             }
 
-            Init(other.PhysicalLocation, other.Message, other.Properties, other.Tags);
+            Init(other.PhysicalLocation, other.Message, other.Kind, other.Properties);
         }
 
         ISarifNode ISarifNode.DeepClone()
@@ -120,7 +120,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new AnnotatedCodeLocation(this);
         }
 
-        private void Init(PhysicalLocation physicalLocation, string message, IDictionary<string, SerializedPropertyInfo> properties, IEnumerable<string> tags)
+        private void Init(PhysicalLocation physicalLocation, string message, string kind, IDictionary<string, SerializedPropertyInfo> properties)
         {
             if (physicalLocation != null)
             {
@@ -128,20 +128,10 @@ namespace Microsoft.CodeAnalysis.Sarif
             }
 
             Message = message;
+            Kind = kind;
             if (properties != null)
             {
                 Properties = new Dictionary<string, SerializedPropertyInfo>(properties);
-            }
-
-            if (tags != null)
-            {
-                var destination_0 = new List<string>();
-                foreach (var value_0 in tags)
-                {
-                    destination_0.Add(value_0);
-                }
-
-                Tags = destination_0;
             }
         }
     }

@@ -3311,10 +3311,12 @@
           "messageFormats": {
             "Error": "Do not ship obfuscated or minified code."
           },
-          "tags": [
-            "appx",
-            "sdl"
-          ]
+          "properties": {
+            "tags": [
+              "appx",
+              "sdl"
+            ]
+          }
         },
         "JS2021": {
           "id": "JS2021",
@@ -3323,9 +3325,11 @@
           "messageFormats": {
             "Warning": "All binary and ternary operators (with the exception of the '.' operator) should be separated from operands with spaces."
           },
-          "tags": [
-            "js"
-          ]
+          "properties": {
+            "tags": [
+              "js"
+            ]
+          }
         },
         "JS3085": {
           "id": "JS3085",
@@ -3334,10 +3338,12 @@
           "messageFormats": {
             "Error": "Variable '{0}' was previously defined in this scope. {1}"
           },
-          "tags": [
-            "js",
-            "semantic"
-          ]
+          "properties": {
+            "tags": [
+              "js",
+              "semantic"
+            ]
+          }
         },
         "JS1003": {
           "id": "JS1003",
@@ -3346,10 +3352,12 @@
           "messageFormats": {
             "Error": "Semantic analysis halted unexpectedly due to errors processing target or reference files."
           },
-          "tags": [
-            "js",
-            "semantic"
-          ]
+          "properties": {
+            "tags": [
+              "js",
+              "semantic"
+            ]
+          }
         },
         "JS2027": {
           "id": "JS2027",
@@ -3358,9 +3366,11 @@
           "messageFormats": {
             "Warning": "Provide punctuation at the ends of sentences for multiline comments.  If this block is commented code, use '////' to open the comment line."
           },
-          "tags": [
-            "js"
-          ]
+          "properties": {
+            "tags": [
+              "js"
+            ]
+          }
         },
         "JS2073": {
           "id": "JS2073",
@@ -3369,10 +3379,12 @@
           "messageFormats": {
             "Error": "The term '{0}' found in comment text is not recognized. Correct the misspelling, if it is one, provide an alternate term, or add the term to the custom dictionary or as an in-source comment. If this is a reference to a DOM or other api which can’t be recased, wrap the term in apostrophes to resolve the warning, e.g., 'onmouseover'."
           },
-          "tags": [
-            "spelling",
-            "js"
-          ]
+          "properties": {
+            "tags": [
+              "spelling",
+              "js"
+            ]
+          }
         },
         "JS2074": {
           "id": "JS2074",
@@ -3381,10 +3393,12 @@
           "messageFormats": {
             "Error": "The term '{0}' in {1} name '{2}' is not recognized. Correct the misspelling, if it is one, provide an alternate term, or add the term to the custom dictionary or as an in-source comment."
           },
-          "tags": [
-            "spelling",
-            "js"
-          ]
+          "properties": {
+            "tags": [
+              "spelling",
+              "js"
+            ]
+          }
         },
         "JS2045": {
           "id": "JS2045",
@@ -3393,9 +3407,11 @@
           "messageFormats": {
             "Warning": "Review empty blocks for correctness issues."
           },
-          "tags": [
-            "js"
-          ]
+          "properties": {
+            "tags": [
+              "js"
+            ]
+          }
         }
       },
       "invocation": {

@@ -13,7 +13,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// A function call within a stack trace.
     /// </summary>
     [DataContract]
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.30.0.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.31.0.0")]
     public partial class StackFrame : PropertyBagHolder, ISarifNode
     {
         public static IEqualityComparer<StackFrame> ValueComparer => StackFrameEqualityComparer.Instance;
@@ -99,12 +99,6 @@ namespace Microsoft.CodeAnalysis.Sarif
         internal override IDictionary<string, SerializedPropertyInfo> Properties { get; set; }
 
         /// <summary>
-        /// A unique set of strings that provide additional information about the stack frame.
-        /// </summary>
-        [DataMember(Name = "tags", IsRequired = false, EmitDefaultValue = false)]
-        public IList<string> Tags { get; set; }
-
-        /// <summary>
         /// Initializes a new instance of the <see cref="StackFrame" /> class.
         /// </summary>
         public StackFrame()
@@ -147,12 +141,9 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="properties">
         /// An initialization value for the <see cref="P: Properties" /> property.
         /// </param>
-        /// <param name="tags">
-        /// An initialization value for the <see cref="P: Tags" /> property.
-        /// </param>
-        public StackFrame(string message, Uri uri, int line, int column, string module, string fullyQualifiedLogicalName, string logicalLocationKey, int address, int offset, IEnumerable<string> parameters, IDictionary<string, SerializedPropertyInfo> properties, IEnumerable<string> tags)
+        public StackFrame(string message, Uri uri, int line, int column, string module, string fullyQualifiedLogicalName, string logicalLocationKey, int address, int offset, IEnumerable<string> parameters, IDictionary<string, SerializedPropertyInfo> properties)
         {
-            Init(message, uri, line, column, module, fullyQualifiedLogicalName, logicalLocationKey, address, offset, parameters, properties, tags);
+            Init(message, uri, line, column, module, fullyQualifiedLogicalName, logicalLocationKey, address, offset, parameters, properties);
         }
 
         /// <summary>
@@ -171,7 +162,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 throw new ArgumentNullException(nameof(other));
             }
 
-            Init(other.Message, other.Uri, other.Line, other.Column, other.Module, other.FullyQualifiedLogicalName, other.LogicalLocationKey, other.Address, other.Offset, other.Parameters, other.Properties, other.Tags);
+            Init(other.Message, other.Uri, other.Line, other.Column, other.Module, other.FullyQualifiedLogicalName, other.LogicalLocationKey, other.Address, other.Offset, other.Parameters, other.Properties);
         }
 
         ISarifNode ISarifNode.DeepClone()
@@ -192,7 +183,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new StackFrame(this);
         }
 
-        private void Init(string message, Uri uri, int line, int column, string module, string fullyQualifiedLogicalName, string logicalLocationKey, int address, int offset, IEnumerable<string> parameters, IDictionary<string, SerializedPropertyInfo> properties, IEnumerable<string> tags)
+        private void Init(string message, Uri uri, int line, int column, string module, string fullyQualifiedLogicalName, string logicalLocationKey, int address, int offset, IEnumerable<string> parameters, IDictionary<string, SerializedPropertyInfo> properties)
         {
             Message = message;
             if (uri != null)
@@ -221,17 +212,6 @@ namespace Microsoft.CodeAnalysis.Sarif
             if (properties != null)
             {
                 Properties = new Dictionary<string, SerializedPropertyInfo>(properties);
-            }
-
-            if (tags != null)
-            {
-                var destination_1 = new List<string>();
-                foreach (var value_1 in tags)
-                {
-                    destination_1.Add(value_1);
-                }
-
-                Tags = destination_1;
             }
         }
     }
