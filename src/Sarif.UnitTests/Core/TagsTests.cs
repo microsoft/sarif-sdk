@@ -142,5 +142,45 @@ namespace Microsoft.CodeAnalysis.Sarif.Core
 
             _testObject.Tags.Count.Should().Be(0);
         }
+
+        [TestMethod]
+        public void Tags_IsProperSubsetOf_ReturnsFalseWhenEmptyAndOtherIsEmpty()
+        {
+            _testObject.Tags.IsProperSubsetOf(new string[0]).Should().BeFalse();
+        }
+
+        [TestMethod]
+        public void Tags_IsProperSubsetOf_ReturnsTrueWhenEmptyAndOtherIsNonEmpty()
+        {
+            _testObject.Tags.IsProperSubsetOf(new[] { "x" }).Should().BeTrue();
+        }
+
+        [TestMethod]
+        public void Tags_IsProperSubsetOf_ReturnsFalseWhenNonEmptyAndOtherHasSameElements()
+        {
+            _testObject.Tags.Add("x");
+            _testObject.Tags.Add("y");
+
+            _testObject.Tags.IsProperSubsetOf(new[] { "x", "y" }).Should().BeFalse();
+        }
+
+        [TestMethod]
+        public void Tags_IsProperSubsetOf_ReturnsTrueWhenNonEmptyAndIsProperSupersetOfOther()
+        {
+            _testObject.Tags.Add("x");
+            _testObject.Tags.Add("y");
+
+            _testObject.Tags.IsProperSubsetOf(new[] { "z", "y", "x" }).Should().BeTrue();
+        }
+
+        [TestMethod]
+        public void Tags_IsProperSubsetOf_ReturnsFalseWhenEachSideHasSomeDifferentElements()
+        {
+            _testObject.Tags.Add("x");
+            _testObject.Tags.Add("y");
+            _testObject.Tags.Add("z");
+
+            _testObject.Tags.IsProperSubsetOf(new[] { "y", "z", "q" }).Should().BeFalse();
+        }
     }
 }

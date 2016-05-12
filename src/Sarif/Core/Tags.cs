@@ -11,6 +11,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     public class Tags : ISet<string>
     {
         private const string TagsPropertyName = "tags";
+        private static readonly ISet<string> Empty = new HashSet<string>();
 
         private readonly IPropertyBagHolder _propertyBagHolder;
 
@@ -37,14 +38,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         public bool Add(string item)
         {
-            ISet<string> tags = GetTags() ?? new HashSet<string>();
-            bool wasAdded = tags.Add(item);
-            if (wasAdded)
-            {
-                SetTags(tags);
-            }
-
-            return wasAdded;
+            return AddCore(item);
         }
 
         public void Clear()
@@ -94,7 +88,8 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         public bool IsProperSubsetOf(IEnumerable<string> other)
         {
-            throw new NotImplementedException();
+            ISet<string> tags = GetTags() ?? new HashSet<string>();
+            return tags.IsProperSubsetOf(other);
         }
 
         public bool IsProperSupersetOf(IEnumerable<string> other)
@@ -139,7 +134,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         void ICollection<string>.Add(string item)
         {
-            throw new NotImplementedException();
+            AddCore(item);
         }
 
         IEnumerator IEnumerable.GetEnumerator()
@@ -147,7 +142,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return GetEnumeratorCore();
         }
 
-        private HashSet<string> GetTags()
+        private ISet<string> GetTags()
         {
             HashSet<string> tags;
             return _propertyBagHolder.TryGetProperty(TagsPropertyName, out tags)
@@ -158,6 +153,18 @@ namespace Microsoft.CodeAnalysis.Sarif
         private void SetTags(ISet<string> tags)
         {
             _propertyBagHolder.SetProperty(TagsPropertyName, tags);
+        }
+
+        private bool AddCore(string item)
+        {
+            ISet<string> tags = GetTags() ?? new HashSet<string>();
+            bool wasAdded = tags.Add(item);
+            if (wasAdded)
+            {
+                SetTags(tags);
+            }
+
+            return wasAdded;
         }
 
         private IEnumerator<string> GetEnumeratorCore()
