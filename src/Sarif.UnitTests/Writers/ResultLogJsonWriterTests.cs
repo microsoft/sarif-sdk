@@ -15,7 +15,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
     public class ResultLogJsonWriterTests : JsonTests
     {
         private static readonly string SchemaVersion =
-            SarifUtilities.ConvertToText(SarifVersion.OneZeroZeroBetaFour);
+            SarifUtilities.ConvertToText(SarifVersion.OneZeroZeroBetaFive);
 
         private static readonly Tool s_defaultTool = new Tool();
         private static readonly Result s_defaultResult = new Result();

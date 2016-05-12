@@ -19,6 +19,126 @@ namespace Microsoft.CodeAnalysis.Sarif.Core
     [TestClass]
     public class PropertyBagHolderTests
     {
+        private const string PropertyName = "prop";
+
+        [TestMethod]
+        public void PropertyBagHolder_InitiallyHasNoProperties()
+        {
+            var testObject = new TestClass();
+
+            testObject.PropertyNames.Count.Should().Be(0);
+            testObject.ShouldNotContainProperty(PropertyName);
+        }
+
+        [TestMethod]
+        public void PropertyBagHolder_SetProperty_AddsSpecifiedProperty()
+        {
+            var inputObject = new TestClass();
+
+            inputObject.SetProperty(PropertyName, "x");
+
+            inputObject.PropertyNames.Count.Should().Be(1);
+            inputObject.ShouldContainProperty(PropertyName);
+            inputObject.GetProperty(PropertyName).Should().Be("x");
+        }
+
+        [TestMethod]
+        public void PropertyBagHolder_SetProperty_OverwritesExistingProperty()
+        {
+            var inputObject = new TestClass();
+            inputObject.SetProperty(PropertyName, "x");
+
+            inputObject.SetProperty(PropertyName, 2);
+
+            inputObject.PropertyNames.Count.Should().Be(1);
+            inputObject.ShouldContainProperty(PropertyName);
+            inputObject.GetProperty<int>(PropertyName).Should().Be(2);
+        }
+
+        [TestMethod]
+        public void PropertyBagHolder_GetProperty_ThrowsIfPropertyDoesNotExist()
+        {
+            var inputObject = new TestClass();
+
+            Action action = () => inputObject.GetProperty(PropertyName);
+
+            action.ShouldThrow<InvalidOperationException>().WithMessage($"*{PropertyName}*");
+        }
+
+        [TestMethod]
+        public void PropertyBagHolder_GetPropertyOfT_ThrowsIfPropertyDoesNotExist()
+        {
+            var inputObject = new TestClass();
+
+            Action action = () => inputObject.GetProperty<int>(PropertyName);
+
+            action.ShouldThrow<InvalidOperationException>().WithMessage($"*{PropertyName}*");
+        }
+
+        [TestMethod]
+        public void PropertyBagHolder_TryGetProperty_ReturnsTrueWhenPropertyExists()
+        {
+            var inputObject = new TestClass();
+            inputObject.SetProperty(PropertyName, "x");
+
+            string value;
+            inputObject.TryGetProperty(PropertyName, out value).Should().BeTrue();
+            value.Should().Be("x");
+        }
+
+        [TestMethod]
+        public void PropertyBagHolder_TryGetProperty_ReturnsFalseWhenPropertyDoesNotExist()
+        {
+            var inputObject = new TestClass();
+
+            string value;
+            inputObject.TryGetProperty(PropertyName, out value).Should().BeFalse();
+            value.Should().BeNull();
+        }
+
+        [TestMethod]
+        public void PropertyBagHolder_TryGetPropertyOfT_ReturnsTrueWhenPropertyExists()
+        {
+            var inputObject = new TestClass();
+            inputObject.SetProperty(PropertyName, 42);
+
+            int value;
+            inputObject.TryGetProperty<int>(PropertyName, out value).Should().BeTrue();
+            value.Should().Be(42);
+        }
+
+        [TestMethod]
+        public void PropertyBagHolder_TryGetPropertyOfT_ReturnsFalseWhenPropertyDoesNotExist()
+        {
+            var inputObject = new TestClass();
+
+            int value;
+            inputObject.TryGetProperty<int>(PropertyName, out value).Should().BeFalse();
+            value.Should().Be(0);
+        }
+
+        [TestMethod]
+        public void PropertyBagHolder_RemoveProperty_RemovesExistingProperty()
+        {
+            var inputObject = new TestClass();
+            inputObject.SetProperty(PropertyName, "x");
+
+            inputObject.RemoveProperty(PropertyName);
+
+            inputObject.PropertyNames.Count.Should().Be(0);
+            inputObject.ShouldNotContainProperty(PropertyName);
+        }
+
+        [TestMethod]
+        public void PropertyBagHolder_RemoveProperty_SucceedsIfPropertyDoesNotExist()
+        {
+            var inputObject = new TestClass();
+            inputObject.ShouldNotContainProperty(PropertyName);
+
+            inputObject.RemoveProperty(PropertyName);
+            inputObject.ShouldNotContainProperty(PropertyName);
+        }
+
         [TestMethod]
         public void PropertyBagHolder_SetProperty_SetsStringProperty()
         {
@@ -130,6 +250,21 @@ namespace Microsoft.CodeAnalysis.Sarif.Core
 
             var serializedObject = JsonConvert.SerializeObject(inputObject);
             serializedObject.Should().Be(expectedOutput);
+        }
+
+        internal static void ShouldContainProperty(this TestClass testObject, string propertyName)
+        {
+            testObject.ContainsProperty(propertyName).Should().BeTrue();
+        }
+
+        internal static void ShouldNotContainProperty(this TestClass testObject, string propertyName)
+        {
+            testObject.ContainsProperty(propertyName).Should().BeFalse();
+        }
+
+        private static bool ContainsProperty(this TestClass testObject, string propertyName)
+        {
+            return testObject.PropertyNames.Contains(propertyName);
         }
     }
 }

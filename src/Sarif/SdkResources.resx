@@ -297,4 +297,7 @@
   <data name="CallGenericGetProperty" xml:space="preserve">
     <value>The non-generic GetProperty method only works for properties that are JSON strings. To retrieve a property with any other .NET type, call the generic method GetProperty&lt;T&gt;(string propertyName), where T is the .NET type of the object stored in the specified property.</value>
   </data>
+  <data name="PropertyDoesNotExist" xml:space="preserve">
+    <value>Property '{0}' does not exist. Consider calling TryGetProperty instead.</value>
+  </data>
 </root>

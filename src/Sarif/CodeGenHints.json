@@ -339,10 +339,9 @@
         "flags": true,
         "zeroValueName": "None",
         "memberNames": [
-          "SuppressedInSource",
-          "SuppressedInBaseline"
+          "SuppressedInSource"
         ],
-        "memberValues": [1, 2]
+        "memberValues": [1]
       }
     }
   ],
@@ -428,7 +427,7 @@
         "description": "Possible values for the SARIF schema version.",
         "zeroValueName": "Unknown",
         "memberNames": [
-          "OneZeroZeroBetaFour"
+          "OneZeroZeroBetaFive"
         ]
       }
     }

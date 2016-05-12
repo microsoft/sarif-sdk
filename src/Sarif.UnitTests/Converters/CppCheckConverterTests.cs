@@ -53,7 +53,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             const string source = "<results> <cppcheck version=\"12.34\" /> <errors>   </errors> </results>";
             const string expected = @"{
   ""$schema"": ""http://json.schemastore.org/sarif-1.0.0"",
-  ""version"": ""1.0.0-beta.4"",
+  ""version"": ""1.0.0-beta.5"",
   ""runs"": [
     {
       ""tool"": {
