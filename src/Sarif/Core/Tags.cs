@@ -4,6 +4,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Microsoft.CodeAnalysis.Sarif
 {
@@ -27,7 +28,8 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             get
             {
-                return GetTags().Count;
+                ISet<string> tags = GetTags();
+                return tags != null ? tags.Count : 0;
             }
         }
 
@@ -39,7 +41,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             bool wasAdded = tags.Add(item);
             if (wasAdded)
             {
-                _propertyBagHolder.SetProperty("tags", tags);
+                SetTags(tags);
             }
 
             return wasAdded;
@@ -58,22 +60,36 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         public void CopyTo(string[] array, int arrayIndex)
         {
-            throw new NotImplementedException();
+            ISet<string> tags = GetTags();
+            if (tags != null)
+            {
+                tags.CopyTo(array, arrayIndex);
+            }
         }
 
         public void ExceptWith(IEnumerable<string> other)
         {
-            throw new NotImplementedException();
+            ISet<string> tags = GetTags();
+            if (tags != null)
+            {
+                tags.ExceptWith(other);
+                SetTags(tags);
+            }
         }
 
         public IEnumerator<string> GetEnumerator()
         {
-            return GetTags().GetEnumerator();
+            return GetEnumeratorCore();
         }
 
         public void IntersectWith(IEnumerable<string> other)
         {
-            throw new NotImplementedException();
+            ISet<string> tags = GetTags();
+            if (tags != null)
+            {
+                tags.IntersectWith(other);
+                SetTags(tags);
+            }
         }
 
         public bool IsProperSubsetOf(IEnumerable<string> other)
@@ -128,7 +144,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         IEnumerator IEnumerable.GetEnumerator()
         {
-            return GetTags().GetEnumerator();
+            return GetEnumeratorCore();
         }
 
         private HashSet<string> GetTags()
@@ -136,7 +152,20 @@ namespace Microsoft.CodeAnalysis.Sarif
             HashSet<string> tags;
             return _propertyBagHolder.TryGetProperty(TagsPropertyName, out tags)
                 ? tags
-                : new HashSet<string>();
+                : null;
+        }
+
+        private void SetTags(ISet<string> tags)
+        {
+            _propertyBagHolder.SetProperty(TagsPropertyName, tags);
+        }
+
+        private IEnumerator<string> GetEnumeratorCore()
+        {
+            ISet<string> tags = GetTags();
+            return tags != null
+                ? tags.GetEnumerator()
+                : Enumerable.Empty<string>().GetEnumerator();
         }
     }
 }
