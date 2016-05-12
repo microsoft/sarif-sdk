@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<DEFECTS>
+  <DEFECT>
+    <SFA>
+      <FILEPATH>d:\src\sarif-sdk\src\sarif.functionaltests\convertertestdata\prefast\src\advancedannotations\</FILEPATH>
+      <FILENAME>an_outwithdefect.cpp</FILENAME>
+      <LINE>4</LINE>
+      <COLUMN>12</COLUMN>
+    </SFA>
+    <DEFECTCODE>6101</DEFECTCODE>
+    <DESCRIPTION>Returning uninitialized memory '*target'.  A successful path through the function does not set the named _Out_ parameter. </DESCRIPTION>
+    <FUNCTION>Out6101</FUNCTION>
+    <DECORATED>?Out6101@@YAXPEAH_N@Z</DECORATED>
+    <FUNCLINE>4</FUNCLINE>
+    <PROBABILITY>1</PROBABILITY>
+    <RANK>3</RANK>
+    <CATEGORY>
+      <RULECATEGORY>mspft</RULECATEGORY>
+    </CATEGORY>
+    <PATH>
+      <SFA>
+        <FILEPATH>d:\src\sarif-sdk\src\sarif.functionaltests\convertertestdata\prefast\src\advancedannotations\</FILEPATH>
+        <FILENAME>an_outwithdefect.cpp</FILENAME>
+        <LINE>4</LINE>
+        <COLUMN>12</COLUMN>
+        <KEYEVENT>
+          <ID>1</ID>
+          <KIND>declaration</KIND>
+          <IMPORTANCE>Essential</IMPORTANCE>
+          <MESSAGE>'*target' is not initialized</MESSAGE>
+        </KEYEVENT>
+      </SFA>
+      <SFA>
+        <FILEPATH>d:\src\sarif-sdk\src\sarif.functionaltests\convertertestdata\prefast\src\advancedannotations\</FILEPATH>
+        <FILENAME>an_outwithdefect.cpp</FILENAME>
+        <LINE>6</LINE>
+        <COLUMN>8</COLUMN>
+        <KEYEVENT>
+          <ID>2</ID>
+          <KIND>branch</KIND>
+          <IMPORTANCE>Full</IMPORTANCE>
+          <MESSAGE>Skip this branch, (assume 'flag' is false)</MESSAGE>
+        </KEYEVENT>
+      </SFA>
+      <SFA>
+        <FILEPATH>d:\src\sarif-sdk\src\sarif.functionaltests\convertertestdata\prefast\src\advancedannotations\</FILEPATH>
+        <FILENAME>an_outwithdefect.cpp</FILENAME>
+        <LINE>8</LINE>
+        <COLUMN>0</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>d:\src\sarif-sdk\src\sarif.functionaltests\convertertestdata\prefast\src\advancedannotations\</FILEPATH>
+        <FILENAME>an_outwithdefect.cpp</FILENAME>
+        <LINE>4</LINE>
+        <COLUMN>12</COLUMN>
+        <KEYEVENT>
+          <ID>3</ID>
+          <KIND>usage</KIND>
+          <IMPORTANCE>Essential</IMPORTANCE>
+          <MESSAGE>'*target' is an _Out_ parameter that may not have been assigned to</MESSAGE>
+        </KEYEVENT>
+      </SFA>
+    </PATH>
+  </DEFECT>
+</DEFECTS>

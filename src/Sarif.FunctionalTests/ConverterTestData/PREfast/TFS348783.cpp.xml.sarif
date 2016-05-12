@@ -1,0 +1,98 @@
+{
+"version":"1.0.0-beta.4",
+"$schema":"http://json.schemastore.org/sarif-1.0.0",
+"runs":[
+  {
+    "tool":{
+      "name":"PREfast",
+      "fullName":"PREfast Code Analysis",
+      "version":"14.0.0"
+    },
+    "logicalLocations":{
+      "?count@@YAXPEB_W@Z":[
+        {
+          "kind":"method",
+          "name":"count"
+        }
+      ]
+    },
+    "results":[
+      {
+        "ruleId":"6386",
+        "message":"Buffer overrun while writing to 'buffer':  the writable size is '20' bytes, but '40' bytes might be written.",
+        "locations":[
+          {
+            "resultFile":{
+              "uri":"file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs348783.cpp",
+              "region":{
+                "startColumn":11,
+                "startLine":10
+              }
+            },
+            "fullyQualifiedLogicalName":"count",
+            "logicalLocationKey":"?count@@YAXPEB_W@Z",
+            "properties":{
+              "decorated":"?count@@YAXPEB_W@Z",
+              "funcline":"7"
+            }
+          }
+        ],
+        "properties":{
+          "probability":"1",
+          "rank":"4",
+          "ruleCategory":"mspft"
+        },
+        "codeFlows":[
+          {
+            "locations":[
+              {
+                "physicalLocation":{
+                  "uri":"file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs348783.cpp",
+                  "region":{
+                    "startColumn":11,
+                    "startLine":9
+                  }
+                },
+                "properties":{
+                  "id":"1",
+                  "kind":"declaration",
+                  "importance":"Essential"
+                },
+                "message":"'buffer' is an array of 10 elements (20 bytes)"
+              },{
+                "physicalLocation":{
+                  "uri":"file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs348783.cpp",
+                  "region":{
+                    "startColumn":11,
+                    "startLine":10
+                  }
+                },
+                "properties":{
+                  "id":"2",
+                  "kind":"declaration",
+                  "importance":"Full"
+                },
+                "message":"'buffer' is an Output from 'wcscpy_s' (declared at c:\\program files (x86)\\microsoft visual studio 11.0\\vc\\wpsdk\\wp80\\include\\string.h:285)"
+              },{
+                "physicalLocation":{
+                  "uri":"file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs348783.cpp",
+                  "region":{
+                    "startColumn":11,
+                    "startLine":10
+                  }
+                },
+                "properties":{
+                  "id":"3",
+                  "kind":"usage",
+                  "importance":"Essential"
+                },
+                "message":"Invalid write to 'buffer[19]', (writable range is 0 to 9)"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+]
+}

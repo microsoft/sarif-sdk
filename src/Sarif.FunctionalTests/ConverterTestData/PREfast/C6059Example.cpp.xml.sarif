@@ -1,0 +1,120 @@
+{
+"version":"1.0.0-beta.4",
+"$schema":"http://json.schemastore.org/sarif-1.0.0",
+"runs":[
+  {
+    "tool":{
+      "name":"PREfast",
+      "fullName":"PREfast Code Analysis",
+      "version":"14.0.0"
+    },
+    "logicalLocations":{
+      "?foo@@YAXXZ":[
+        {
+          "kind":"method",
+          "name":"foo"
+        }
+      ]
+    },
+    "results":[
+      {
+        "ruleId":"6059",
+        "message":"Misuse of length parameter in call to 'strncat'.  Pass the number of remaining characters, not the buffer size of 'a'.",
+        "locations":[
+          {
+            "resultFile":{
+              "uri":"file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/c6059/c6059example.cpp",
+              "region":{
+                "startColumn":10,
+                "startLine":10
+              }
+            },
+            "fullyQualifiedLogicalName":"foo",
+            "logicalLocationKey":"?foo@@YAXXZ",
+            "properties":{
+              "decorated":"?foo@@YAXXZ",
+              "funcline":"4"
+            }
+          }
+        ],
+        "properties":{
+          "probability":"1",
+          "rank":"1",
+          "ruleCategory":"mspft"
+        },
+        "codeFlows":[
+          {
+            "locations":[
+              {
+                "physicalLocation":{
+                  "uri":"file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/c6059/c6059example.cpp",
+                  "region":{
+                    "startColumn":8,
+                    "startLine":6
+                  }
+                },
+                "properties":{
+                  "id":"1",
+                  "kind":"declaration",
+                  "importance":"Essential"
+                },
+                "message":"'a' is an array of 35 elements (35 bytes)"
+              },{
+                "physicalLocation":{
+                  "uri":"file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/c6059/c6059example.cpp",
+                  "region":{
+                    "startColumn":8,
+                    "startLine":7
+                  }
+                }
+              },{
+                "physicalLocation":{
+                  "uri":"file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/c6059/c6059example.cpp",
+                  "region":{
+                    "startColumn":9,
+                    "startLine":9
+                  }
+                },
+                "properties":{
+                  "id":"2",
+                  "kind":"declaration",
+                  "importance":"Full"
+                },
+                "message":"'a' is an Output from 'strcpy' (declared at c:\\program files (x86)\\microsoft visual studio 11.0\\vc\\wpsdk\\wp80\\include\\string.h:110)"
+              },{
+                "physicalLocation":{
+                  "uri":"file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/c6059/c6059example.cpp",
+                  "region":{
+                    "startColumn":10,
+                    "startLine":10
+                  }
+                },
+                "properties":{
+                  "id":"3",
+                  "kind":"declaration",
+                  "importance":"Full"
+                },
+                "message":"'a' is an Output from 'strncat' (declared at c:\\program files (x86)\\microsoft visual studio 11.0\\vc\\wpsdk\\wp80\\include\\string.h:182)"
+              },{
+                "physicalLocation":{
+                  "uri":"file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/c6059/c6059example.cpp",
+                  "region":{
+                    "startColumn":10,
+                    "startLine":10
+                  }
+                },
+                "properties":{
+                  "id":"4",
+                  "kind":"usage",
+                  "importance":"Essential"
+                },
+                "message":"Length argument to 'strncat' should be less than the length of 'a'"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+]
+}

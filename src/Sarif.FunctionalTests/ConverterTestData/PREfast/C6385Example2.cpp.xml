@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<DEFECTS>
+  <DEFECT>
+    <SFA>
+      <FILEPATH>d:\src\sarif-sdk\src\sarif.functionaltests\convertertestdata\prefast\src\complex\c6385\</FILEPATH>
+      <FILENAME>c6385example2.cpp</FILENAME>
+      <LINE>7</LINE>
+      <COLUMN>9</COLUMN>
+    </SFA>
+    <DEFECTCODE>6385</DEFECTCODE>
+    <DESCRIPTION>Reading invalid data from 'a':  the readable size is '80' bytes, but 'i' bytes may be read.</DESCRIPTION>
+    <FUNCTION>C6385_Example2</FUNCTION>
+    <DECORATED>?C6385_Example2@@YAXH@Z</DECORATED>
+    <FUNCLINE>2</FUNCLINE>
+    <PROBABILITY>1</PROBABILITY>
+    <RANK>4</RANK>
+    <CATEGORY>
+      <RULECATEGORY>mspft</RULECATEGORY>
+    </CATEGORY>
+    <PATH>
+      <SFA>
+        <FILEPATH>d:\src\sarif-sdk\src\sarif.functionaltests\convertertestdata\prefast\src\complex\c6385\</FILEPATH>
+        <FILENAME>c6385example2.cpp</FILENAME>
+        <LINE>4</LINE>
+        <COLUMN>7</COLUMN>
+        <KEYEVENT>
+          <ID>1</ID>
+          <KIND>declaration</KIND>
+          <IMPORTANCE>Essential</IMPORTANCE>
+          <MESSAGE>'a' is an array of 20 elements (80 bytes)</MESSAGE>
+        </KEYEVENT>
+      </SFA>
+      <SFA>
+        <FILEPATH>d:\src\sarif-sdk\src\sarif.functionaltests\convertertestdata\prefast\src\complex\c6385\</FILEPATH>
+        <FILENAME>c6385example2.cpp</FILENAME>
+        <LINE>5</LINE>
+        <COLUMN>7</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>d:\src\sarif-sdk\src\sarif.functionaltests\convertertestdata\prefast\src\complex\c6385\</FILEPATH>
+        <FILENAME>c6385example2.cpp</FILENAME>
+        <LINE>6</LINE>
+        <COLUMN>12</COLUMN>
+        <KEYEVENT>
+          <ID>2</ID>
+          <KIND>branch</KIND>
+          <IMPORTANCE>Full</IMPORTANCE>
+          <MESSAGE>Enter this loop, (assume 'i&lt;=20')</MESSAGE>
+        </KEYEVENT>
+      </SFA>
+      <SFA>
+        <FILEPATH>d:\src\sarif-sdk\src\sarif.functionaltests\convertertestdata\prefast\src\complex\c6385\</FILEPATH>
+        <FILENAME>c6385example2.cpp</FILENAME>
+        <LINE>7</LINE>
+        <COLUMN>9</COLUMN>
+        <KEYEVENT>
+          <ID>3</ID>
+          <KIND>usage</KIND>
+          <IMPORTANCE>Essential</IMPORTANCE>
+          <MESSAGE>Invalid read from 'a[20]', (readable range is 0 to 19)</MESSAGE>
+        </KEYEVENT>
+      </SFA>
+    </PATH>
+  </DEFECT>
+</DEFECTS>

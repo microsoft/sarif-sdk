@@ -1,0 +1,98 @@
+{
+"version":"1.0.0-beta.4",
+"$schema":"http://json.schemastore.org/sarif-1.0.0",
+"runs":[
+  {
+    "tool":{
+      "name":"PREfast",
+      "fullName":"PREfast Code Analysis",
+      "version":"14.0.0"
+    },
+    "logicalLocations":{
+      "?DereferenceParameter@@YAXPEAH_N@Z":[
+        {
+          "kind":"method",
+          "name":"DereferenceParameter"
+        }
+      ]
+    },
+    "results":[
+      {
+        "ruleId":"6011",
+        "message":"Dereferencing NULL pointer 'source'. ",
+        "locations":[
+          {
+            "resultFile":{
+              "uri":"file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedannotations/an_inoptannotations.cpp",
+              "region":{
+                "startColumn":13,
+                "startLine":7
+              }
+            },
+            "fullyQualifiedLogicalName":"DereferenceParameter",
+            "logicalLocationKey":"?DereferenceParameter@@YAXPEAH_N@Z",
+            "properties":{
+              "decorated":"?DereferenceParameter@@YAXPEAH_N@Z",
+              "funcline":"4"
+            }
+          }
+        ],
+        "properties":{
+          "probability":"1",
+          "rank":"4",
+          "ruleCategory":"mspft"
+        },
+        "codeFlows":[
+          {
+            "locations":[
+              {
+                "physicalLocation":{
+                  "uri":"file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedannotations/an_inoptannotations.cpp",
+                  "region":{
+                    "startColumn":26,
+                    "startLine":4
+                  }
+                },
+                "properties":{
+                  "id":"1",
+                  "kind":"declaration",
+                  "importance":"Essential"
+                },
+                "message":"'source' may be NULL"
+              },{
+                "physicalLocation":{
+                  "uri":"file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedannotations/an_inoptannotations.cpp",
+                  "region":{
+                    "startColumn":9,
+                    "startLine":6
+                  }
+                },
+                "properties":{
+                  "id":"2",
+                  "kind":"branch",
+                  "importance":"Full"
+                },
+                "message":"Enter this branch, (assume 'flag')"
+              },{
+                "physicalLocation":{
+                  "uri":"file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedannotations/an_inoptannotations.cpp",
+                  "region":{
+                    "startColumn":13,
+                    "startLine":7
+                  }
+                },
+                "properties":{
+                  "id":"3",
+                  "kind":"usage",
+                  "importance":"Essential"
+                },
+                "message":"'source' is dereferenced, but may still be NULL"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+]
+}
