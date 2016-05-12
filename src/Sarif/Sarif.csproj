@@ -52,6 +52,7 @@
     <Compile Include="Core\PropertyBagHolder.cs" />
     <Compile Include="Core\Stack.cs" />
     <Compile Include="Core\StackFrame.cs" />
+    <Compile Include="Core\Tags.cs" />
     <Compile Include="Core\Tool.cs" />
     <Compile Include="Errors.cs" />
     <Compile Include="ExtensionMethods.cs" />

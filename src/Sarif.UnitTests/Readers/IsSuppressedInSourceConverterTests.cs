@@ -34,7 +34,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
         [TestMethod]
         public void SuppressionStatus_SuppressedInSource()
         {
-            string expected = "{\"$schema\":\"http://json.schemastore.org/sarif-1.0.0\",\"version\":\"1.0.0-beta.4\",\"runs\":[{\"tool\":{\"name\":null},\"results\":[{\"suppressionStates\":[\"suppressedInSource\"]}]}]}";
+            string expected = "{\"$schema\":\"http://json.schemastore.org/sarif-1.0.0-beta.5\",\"version\":\"1.0.0-beta.5\",\"runs\":[{\"tool\":{\"name\":null},\"results\":[{\"suppressionStates\":[\"suppressedInSource\"]}]}]}";
             string actual = GetJson(uut =>
             {
                 var run = new Run();
@@ -56,9 +56,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
         }
 
         [TestMethod]
-        public void SuppressionStatus_SuppressedInSourceAndBaseline()
+        public void BaselineState_None()
         {
-            string expected = "{\"$schema\":\"http://json.schemastore.org/sarif-1.0.0\",\"version\":\"1.0.0-beta.4\",\"runs\":[{\"tool\":{\"name\":null},\"results\":[{\"suppressionStates\":[\"suppressedInSource\",\"suppressedInBaseline\"]}]}]}";
+            string expected = "{\"$schema\":\"http://json.schemastore.org/sarif-1.0.0-beta.5\",\"version\":\"1.0.0-beta.5\",\"runs\":[{\"tool\":{\"name\":null},\"results\":[{}]}]}";
             string actual = GetJson(uut =>
             {
                 var run = new Run();
@@ -67,22 +67,21 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
 
                 uut.WriteResults(new[] { new Result
                     {
-                        SuppressionStates = SuppressionStates.SuppressedInSource | SuppressionStates.SuppressedInBaseline
+                        BaselineState = BaselineState.None
                     }
                 });
             });
             Assert.AreEqual(expected, actual);
 
             var sarifLog = JsonConvert.DeserializeObject<SarifLog>(actual);
-            Assert.AreEqual(
-                SuppressionStates.SuppressedInSource | SuppressionStates.SuppressedInBaseline, 
-                sarifLog.Runs[0].Results[0].SuppressionStates);
+            Assert.AreEqual(SuppressionStates.None, sarifLog.Runs[0].Results[0].SuppressionStates);
+            Assert.AreEqual(BaselineState.None, sarifLog.Runs[0].Results[0].BaselineState);
         }
 
         [TestMethod]
-        public void BaselineState_None()
+        public void BaselineState_Existing()
         {
-            string expected = "{\"$schema\":\"http://json.schemastore.org/sarif-1.0.0\",\"version\":\"1.0.0-beta.4\",\"runs\":[{\"tool\":{\"name\":null},\"results\":[{}]}]}";
+            string expected = "{\"$schema\":\"http://json.schemastore.org/sarif-1.0.0-beta.5\",\"version\":\"1.0.0-beta.5\",\"runs\":[{\"tool\":{\"name\":null},\"results\":[{\"baselineState\":\"existing\"}]}]}";
             string actual = GetJson(uut =>
             {
                 var run = new Run();
@@ -93,11 +92,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
 
                 uut.WriteResults(new[] { new Result
                     {
-                        BaselineState = Sarif.BaselineState.None
+                        BaselineState = BaselineState.Existing
                     }
                 });
             });
             Assert.AreEqual(expected, actual);
+
+            var sarifLog = JsonConvert.DeserializeObject<SarifLog>(actual);
+            Assert.AreEqual(SuppressionStates.None, sarifLog.Runs[0].Results[0].SuppressionStates);
+            Assert.AreEqual(BaselineState.Existing, sarifLog.Runs[0].Results[0].BaselineState);
         }
     }
 }

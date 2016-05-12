@@ -95,14 +95,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             }
         }
 
-        public IList<string> Tags
-        {
-            get
-            {
-                throw new NotImplementedException();
-            }
-        }
-
         public void Analyze(TestAnalysisContext context)
         {
             if (_exceptionCondition == ExceptionCondition.InvokingAnalyze)

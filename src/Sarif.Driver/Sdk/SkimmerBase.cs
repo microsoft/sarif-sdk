@@ -82,8 +82,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
         public IDictionary<string, string> Options { get; }
 
-        public IList<string> Tags { get; }
-
         public virtual void Initialize(TContext context) { }
 
         public virtual AnalysisApplicability CanAnalyze(TContext context, out string reasonIfNotApplicable)
