@@ -622,7 +622,6 @@
           "items": {
             "description": "A flag value indicating one or more suppression conditions.",
             "enum": [
-              "suppressed",
               "suppressedInSource"
             ]
           }
