@@ -34,7 +34,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
         [TestMethod]
         public void SuppressionStatus_SuppressedInSource()
         {
-            string expected = "{\"$schema\":\"http://json.schemastore.org/sarif-1.0.0\",\"version\":\"1.0.0-beta.5\",\"runs\":[{\"tool\":{\"name\":null},\"results\":[{\"suppressionStates\":[\"suppressedInSource\"]}]}]}";
+            string expected = "{\"$schema\":\"http://json.schemastore.org/sarif-1.0.0-beta.5\",\"version\":\"1.0.0-beta.5\",\"runs\":[{\"tool\":{\"name\":null},\"results\":[{\"suppressionStates\":[\"suppressedInSource\"]}]}]}";
             string actual = GetJson(uut =>
             {
                 var run = new Run();
@@ -58,7 +58,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
         [TestMethod]
         public void BaselineState_None()
         {
-            string expected = "{\"$schema\":\"http://json.schemastore.org/sarif-1.0.0\",\"version\":\"1.0.0-beta.5\",\"runs\":[{\"tool\":{\"name\":null},\"results\":[{}]}]}";
+            string expected = "{\"$schema\":\"http://json.schemastore.org/sarif-1.0.0-beta.5\",\"version\":\"1.0.0-beta.5\",\"runs\":[{\"tool\":{\"name\":null},\"results\":[{}]}]}";
             string actual = GetJson(uut =>
             {
                 var run = new Run();
@@ -81,7 +81,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
         [TestMethod]
         public void BaselineState_Existing()
         {
-            string expected = "{\"$schema\":\"http://json.schemastore.org/sarif-1.0.0\",\"version\":\"1.0.0-beta.5\",\"runs\":[{\"tool\":{\"name\":null},\"results\":[{\"baselineState\":\"existing\"}]}]}";
+            string expected = "{\"$schema\":\"http://json.schemastore.org/sarif-1.0.0-beta.5\",\"version\":\"1.0.0-beta.5\",\"runs\":[{\"tool\":{\"name\":null},\"results\":[{\"baselineState\":\"existing\"}]}]}";
             string actual = GetJson(uut =>
             {
                 var run = new Run();

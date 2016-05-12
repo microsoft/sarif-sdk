@@ -54,7 +54,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         public static Uri ConvertToSchemaUri(this SarifVersion sarifVersion)
         {
-            return new Uri("http://json.schemastore.org/sarif-" + V1_0_0, UriKind.Absolute);
+            return new Uri("http://json.schemastore.org/sarif-" + V1_0_0_BETA_5, UriKind.Absolute);
         }
 
         public static Dictionary<string, string> BuildMessageFormats(IEnumerable<string> resourceNames, ResourceManager resourceManager)
