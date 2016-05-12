@@ -63,6 +63,12 @@ namespace Microsoft.CodeAnalysis.Sarif
         public string FileVersion { get; set; }
 
         /// <summary>
+        /// A version that uniuquely identifies the logging component that generated this file, if it is versioned separately from the tool.
+        /// </summary>
+        [DataMember(Name = "sarifLoggerVersion", IsRequired = false, EmitDefaultValue = false)]
+        public string SarifLoggerVersion { get; set; }
+
+        /// <summary>
         /// The tool language (expressed as an ISO 649 two-letter lowercase culture code) and region (expressed as an ISO 3166 two-letter uppercase subculture code associated with a country or region).
         /// </summary>
         [DataMember(Name = "language", IsRequired = false, EmitDefaultValue = false)]
@@ -99,15 +105,18 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="fileVersion">
         /// An initialization value for the <see cref="P: FileVersion" /> property.
         /// </param>
+        /// <param name="sarifLoggerVersion">
+        /// An initialization value for the <see cref="P: SarifLoggerVersion" /> property.
+        /// </param>
         /// <param name="language">
         /// An initialization value for the <see cref="P: Language" /> property.
         /// </param>
         /// <param name="properties">
         /// An initialization value for the <see cref="P: Properties" /> property.
         /// </param>
-        public Tool(string name, string fullName, string version, string semanticVersion, string fileVersion, string language, IDictionary<string, SerializedPropertyInfo> properties)
+        public Tool(string name, string fullName, string version, string semanticVersion, string fileVersion, string sarifLoggerVersion, string language, IDictionary<string, SerializedPropertyInfo> properties)
         {
-            Init(name, fullName, version, semanticVersion, fileVersion, language, properties);
+            Init(name, fullName, version, semanticVersion, fileVersion, sarifLoggerVersion, language, properties);
         }
 
         /// <summary>
@@ -126,7 +135,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 throw new ArgumentNullException(nameof(other));
             }
 
-            Init(other.Name, other.FullName, other.Version, other.SemanticVersion, other.FileVersion, other.Language, other.Properties);
+            Init(other.Name, other.FullName, other.Version, other.SemanticVersion, other.FileVersion, other.SarifLoggerVersion, other.Language, other.Properties);
         }
 
         ISarifNode ISarifNode.DeepClone()
@@ -147,13 +156,14 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new Tool(this);
         }
 
-        private void Init(string name, string fullName, string version, string semanticVersion, string fileVersion, string language, IDictionary<string, SerializedPropertyInfo> properties)
+        private void Init(string name, string fullName, string version, string semanticVersion, string fileVersion, string sarifLoggerVersion, string language, IDictionary<string, SerializedPropertyInfo> properties)
         {
             Name = name;
             FullName = fullName;
             Version = version;
             SemanticVersion = semanticVersion;
             FileVersion = fileVersion;
+            SarifLoggerVersion = sarifLoggerVersion;
             Language = language;
             if (properties != null)
             {
