@@ -39,10 +39,16 @@ namespace Microsoft.CodeAnalysis.Sarif
         public string Id { get; set; }
 
         /// <summary>
-        /// The stable, unique identifier of the rule (if any) to which this notification is relevant.
+        /// The stable, unique identifier of the rule (if any) to which this notification is relevant. If 'ruleKey' is not specified, this member can be used to retrieve rule metadata from the rules dictionary, if it exists.
         /// </summary>
         [DataMember(Name = "ruleId", IsRequired = false, EmitDefaultValue = false)]
         public string RuleId { get; set; }
+
+        /// <summary>
+        /// A key used to retrieve the rule metadata from the rules dictionary that is relevant to the notificationn.
+        /// </summary>
+        [DataMember(Name = "ruleKey", IsRequired = false, EmitDefaultValue = false)]
+        public string RuleKey { get; set; }
 
         /// <summary>
         /// The analysis target (if any) to which this notification is relevant.
@@ -96,6 +102,9 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="ruleId">
         /// An initialization value for the <see cref="P: RuleId" /> property.
         /// </param>
+        /// <param name="ruleKey">
+        /// An initialization value for the <see cref="P: RuleKey" /> property.
+        /// </param>
         /// <param name="analysisTarget">
         /// An initialization value for the <see cref="P: AnalysisTarget" /> property.
         /// </param>
@@ -114,9 +123,9 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="properties">
         /// An initialization value for the <see cref="P: Properties" /> property.
         /// </param>
-        public Notification(string id, string ruleId, PhysicalLocation analysisTarget, string message, NotificationLevel level, DateTime time, ExceptionData exception, IDictionary<string, SerializedPropertyInfo> properties)
+        public Notification(string id, string ruleId, string ruleKey, PhysicalLocation analysisTarget, string message, NotificationLevel level, DateTime time, ExceptionData exception, IDictionary<string, SerializedPropertyInfo> properties)
         {
-            Init(id, ruleId, analysisTarget, message, level, time, exception, properties);
+            Init(id, ruleId, ruleKey, analysisTarget, message, level, time, exception, properties);
         }
 
         /// <summary>
@@ -135,7 +144,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 throw new ArgumentNullException(nameof(other));
             }
 
-            Init(other.Id, other.RuleId, other.AnalysisTarget, other.Message, other.Level, other.Time, other.Exception, other.Properties);
+            Init(other.Id, other.RuleId, other.RuleKey, other.AnalysisTarget, other.Message, other.Level, other.Time, other.Exception, other.Properties);
         }
 
         ISarifNode ISarifNode.DeepClone()
@@ -156,10 +165,11 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new Notification(this);
         }
 
-        private void Init(string id, string ruleId, PhysicalLocation analysisTarget, string message, NotificationLevel level, DateTime time, ExceptionData exception, IDictionary<string, SerializedPropertyInfo> properties)
+        private void Init(string id, string ruleId, string ruleKey, PhysicalLocation analysisTarget, string message, NotificationLevel level, DateTime time, ExceptionData exception, IDictionary<string, SerializedPropertyInfo> properties)
         {
             Id = id;
             RuleId = ruleId;
+            RuleKey = ruleKey;
             if (analysisTarget != null)
             {
                 AnalysisTarget = new PhysicalLocation(analysisTarget);
