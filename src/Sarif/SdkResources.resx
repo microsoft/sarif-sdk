@@ -291,13 +291,10 @@
   <data name="ValueMustBeAtLeastOne" xml:space="preserve">
     <value>The value must be greater than or equal to 1.</value>
   </data>
-  <data name="ApplicationException_InvalidJsonPropertyType" xml:space="preserve">
-    <value>Cannot determine the JSON type for property {0}, whose value {1} is of .NET type {2}.</value>
-  </data>
   <data name="CallNonGenericGetProperty" xml:space="preserve">
     <value>To retrieve a property with a string value, call the non-generic GetProperty method.</value>
   </data>
   <data name="CallGenericGetProperty" xml:space="preserve">
-    <value>The JSON type of the property '{0}' is '{1}'. The non-generic GetProperty method only works for properties whose JSON type is '{2}'. To retrieve a property with any other .NET type, call the generic method GetProperty&lt;T&gt;(string propertyName), where T is the .NET type of the object stored in the specified property.</value>
+    <value>The non-generic GetProperty method only works for properties that are JSON strings. To retrieve a property with any other .NET type, call the generic method GetProperty&lt;T&gt;(string propertyName), where T is the .NET type of the object stored in the specified property.</value>
   </data>
 </root>

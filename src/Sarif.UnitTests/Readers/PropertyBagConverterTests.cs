@@ -5,11 +5,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using FluentAssertions;
-using Microsoft.CodeAnalysis.Sarif.Readers;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Newtonsoft.Json;
 
-namespace Microsoft.CodeAnalysis.Sarif.Core
+namespace Microsoft.CodeAnalysis.Sarif.Readers
 {
     internal class ConverterTestClass : PropertyBagHolder
     {
@@ -25,7 +24,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Core
         private ConverterTestClass _roundTrippedObject;
 
         [TestMethod]
-        public void PropertyBagConverter_RoundTripsStringValuedProperty()
+        public void PropertyBagConverter_RoundTripsStringProperty()
         {
             _input = "{\"properties\":{\"s\":\"abc\"}}";
 
@@ -36,7 +35,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Core
         }
 
         [TestMethod]
-        public void PropertyBagConverter_RoundTripsIntegerValuedProperty()
+        public void PropertyBagConverter_RoundTripsIntegerProperty()
         {
             _input = "{\"properties\":{\"n\":42}}";
 
@@ -47,7 +46,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Core
         }
 
         [TestMethod]
-        public void PropertyBagConverter_RoundTripsBooleanValuedProperty()
+        public void PropertyBagConverter_RoundTripsBooleanProperty()
         {
             _input = "{\"properties\":{\"f\":true}}";
 
@@ -58,7 +57,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Core
         }
 
         [TestMethod]
-        public void PropertyBagConverter_RoundTripsFloatValuedProperty()
+        public void PropertyBagConverter_RoundTripsFloatProperty()
         {
             _input = "{\"properties\":{\"f\":3.14}}";
 
@@ -69,7 +68,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Core
         }
 
         [TestMethod]
-        public void PropertyBagConverter_RoundTripsArrayValuedProperty()
+        public void PropertyBagConverter_RoundTripsArrayProperty()
         {
             _input =
 @"{""properties"":{""a"":[
@@ -87,9 +86,22 @@ namespace Microsoft.CodeAnalysis.Sarif.Core
         }
 
         [TestMethod]
-        public void PropertyBagConverter_RoundTripsGuidValuedProperty()
+        public void PropertyBagConverter_RoundTripsGuidProperty()
         {
             _input = "{\"properties\":{\"g\":\"{12345678-90ab-cdef-1234-567890abcdef}\"}}";
+
+            PerformRoundTrip();
+
+            Guid expectedGuid = new Guid("{12345678-90ab-cdef-1234-567890abcdef}");
+
+            _inputObject.GetProperty<Guid>("g").Should().Be(expectedGuid);
+            _roundTrippedObject.GetProperty<Guid>("g").Should().Be(expectedGuid);
+        }
+
+        [TestMethod]
+        public void PropertyBagConverter_RoundTripsGuidPropertyWithoutBraces()
+        {
+            _input = "{\"properties\":{\"g\":\"12345678-90ab-cdef-1234-567890abcdef\"}}";
 
             PerformRoundTrip();
 
@@ -106,7 +118,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Core
         }
 
         [TestMethod]
-        public void PropertyBagConverter_RoundTripsObjectValuedProperty()
+        public void PropertyBagConverter_RoundTripsObjectProperty()
         {
             _input =
 @"{""properties"":{""o"":{

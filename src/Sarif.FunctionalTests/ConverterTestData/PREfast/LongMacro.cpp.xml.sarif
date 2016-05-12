@@ -23,7 +23,7 @@
         "locations":[
           {
             "resultFile":{
-              "uri":"file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/xml/longmacrocondition/longmacro.cpp",
+              "uri":"file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/longmacrocondition/longmacro.cpp",
               "region":{
                 "startColumn":2,
                 "startLine":12
@@ -47,7 +47,7 @@
             "locations":[
               {
                 "physicalLocation":{
-                  "uri":"file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/xml/longmacrocondition/longmacro.cpp",
+                  "uri":"file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/longmacrocondition/longmacro.cpp",
                   "region":{
                     "startColumn":6,
                     "startLine":5
@@ -61,7 +61,7 @@
                 "message":"'simpleVar' is not initialized"
               },{
                 "physicalLocation":{
-                  "uri":"file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/xml/longmacrocondition/longmacro.cpp",
+                  "uri":"file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/longmacrocondition/longmacro.cpp",
                   "region":{
                     "startColumn":7,
                     "startLine":7
@@ -75,7 +75,7 @@
                 "message":"Skip this branch, (assume '(((int)(hrLongVar)))>4' is false)"
               },{
                 "physicalLocation":{
-                  "uri":"file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/xml/longmacrocondition/longmacro.cpp",
+                  "uri":"file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/longmacrocondition/longmacro.cpp",
                   "region":{
                     "startColumn":2,
                     "startLine":12

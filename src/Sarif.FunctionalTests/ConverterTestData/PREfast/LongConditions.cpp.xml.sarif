@@ -35,7 +35,7 @@
         "locations":[
           {
             "resultFile":{
-              "uri":"file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/xml/longmacrocondition/longconditions.cpp",
+              "uri":"file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/longmacrocondition/longconditions.cpp",
               "region":{
                 "startColumn":2,
                 "startLine":16
@@ -59,7 +59,7 @@
             "locations":[
               {
                 "physicalLocation":{
-                  "uri":"file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/xml/longmacrocondition/longconditions.cpp",
+                  "uri":"file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/longmacrocondition/longconditions.cpp",
                   "region":{
                     "startColumn":6,
                     "startLine":7
@@ -73,7 +73,7 @@
                 "message":"'simpleVar' is not initialized"
               },{
                 "physicalLocation":{
-                  "uri":"file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/xml/longmacrocondition/longconditions.cpp",
+                  "uri":"file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/longmacrocondition/longconditions.cpp",
                   "region":{
                     "startColumn":54,
                     "startLine":10
@@ -87,7 +87,7 @@
                 "message":"Skip this branch, (assume '<branch condition>' is false)"
               },{
                 "physicalLocation":{
-                  "uri":"file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/xml/longmacrocondition/longconditions.cpp",
+                  "uri":"file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/longmacrocondition/longconditions.cpp",
                   "region":{
                     "startColumn":2,
                     "startLine":16
@@ -109,7 +109,7 @@
         "locations":[
           {
             "resultFile":{
-              "uri":"file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/xml/longmacrocondition/longconditions.cpp",
+              "uri":"file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/longmacrocondition/longconditions.cpp",
               "region":{
                 "startColumn":2,
                 "startLine":28
@@ -133,7 +133,7 @@
             "locations":[
               {
                 "physicalLocation":{
-                  "uri":"file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/xml/longmacrocondition/longconditions.cpp",
+                  "uri":"file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/longmacrocondition/longconditions.cpp",
                   "region":{
                     "startColumn":6,
                     "startLine":21
@@ -147,7 +147,7 @@
                 "message":"'simpleVar' is not initialized"
               },{
                 "physicalLocation":{
-                  "uri":"file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/xml/longmacrocondition/longconditions.cpp",
+                  "uri":"file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/longmacrocondition/longconditions.cpp",
                   "region":{
                     "startColumn":7,
                     "startLine":23
@@ -161,7 +161,7 @@
                 "message":"Skip this branch, (assume '!isInitializzedd' is false)"
               },{
                 "physicalLocation":{
-                  "uri":"file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/xml/longmacrocondition/longconditions.cpp",
+                  "uri":"file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/longmacrocondition/longconditions.cpp",
                   "region":{
                     "startColumn":2,
                     "startLine":28
@@ -183,7 +183,7 @@
         "locations":[
           {
             "resultFile":{
-              "uri":"file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/xml/longmacrocondition/longconditions.cpp",
+              "uri":"file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/longmacrocondition/longconditions.cpp",
               "region":{
                 "startColumn":2,
                 "startLine":40
@@ -207,7 +207,7 @@
             "locations":[
               {
                 "physicalLocation":{
-                  "uri":"file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/xml/longmacrocondition/longconditions.cpp",
+                  "uri":"file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/longmacrocondition/longconditions.cpp",
                   "region":{
                     "startColumn":6,
                     "startLine":33
@@ -221,7 +221,7 @@
                 "message":"'simpleVar' is not initialized"
               },{
                 "physicalLocation":{
-                  "uri":"file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/xml/longmacrocondition/longconditions.cpp",
+                  "uri":"file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/longmacrocondition/longconditions.cpp",
                   "region":{
                     "startColumn":7,
                     "startLine":35
@@ -235,7 +235,7 @@
                 "message":"Skip this branch, (assume '!isDefined' is false)"
               },{
                 "physicalLocation":{
-                  "uri":"file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/xml/longmacrocondition/longconditions.cpp",
+                  "uri":"file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/longmacrocondition/longconditions.cpp",
                   "region":{
                     "startColumn":2,
                     "startLine":40

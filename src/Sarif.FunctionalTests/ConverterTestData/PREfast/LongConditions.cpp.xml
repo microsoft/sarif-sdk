@@ -2,7 +2,7 @@
 <DEFECTS>
   <DEFECT>
     <SFA>
-      <FILEPATH>d:\src\sarif-sdk\src\sarif.functionaltests\convertertestdata\prefast\xml\longmacrocondition\</FILEPATH>
+      <FILEPATH>d:\src\sarif-sdk\src\sarif.functionaltests\convertertestdata\prefast\src\longmacrocondition\</FILEPATH>
       <FILENAME>longconditions.cpp</FILENAME>
       <LINE>16</LINE>
       <COLUMN>1</COLUMN>
@@ -19,7 +19,7 @@
     </CATEGORY>
     <PATH>
       <SFA>
-        <FILEPATH>d:\src\sarif-sdk\src\sarif.functionaltests\convertertestdata\prefast\xml\longmacrocondition\</FILEPATH>
+        <FILEPATH>d:\src\sarif-sdk\src\sarif.functionaltests\convertertestdata\prefast\src\longmacrocondition\</FILEPATH>
         <FILENAME>longconditions.cpp</FILENAME>
         <LINE>7</LINE>
         <COLUMN>5</COLUMN>
@@ -31,7 +31,7 @@
         </KEYEVENT>
       </SFA>
       <SFA>
-        <FILEPATH>d:\src\sarif-sdk\src\sarif.functionaltests\convertertestdata\prefast\xml\longmacrocondition\</FILEPATH>
+        <FILEPATH>d:\src\sarif-sdk\src\sarif.functionaltests\convertertestdata\prefast\src\longmacrocondition\</FILEPATH>
         <FILENAME>longconditions.cpp</FILENAME>
         <LINE>10</LINE>
         <COLUMN>53</COLUMN>
@@ -43,7 +43,7 @@
         </KEYEVENT>
       </SFA>
       <SFA>
-        <FILEPATH>d:\src\sarif-sdk\src\sarif.functionaltests\convertertestdata\prefast\xml\longmacrocondition\</FILEPATH>
+        <FILEPATH>d:\src\sarif-sdk\src\sarif.functionaltests\convertertestdata\prefast\src\longmacrocondition\</FILEPATH>
         <FILENAME>longconditions.cpp</FILENAME>
         <LINE>16</LINE>
         <COLUMN>1</COLUMN>
@@ -58,7 +58,7 @@
   </DEFECT>
   <DEFECT>
     <SFA>
-      <FILEPATH>d:\src\sarif-sdk\src\sarif.functionaltests\convertertestdata\prefast\xml\longmacrocondition\</FILEPATH>
+      <FILEPATH>d:\src\sarif-sdk\src\sarif.functionaltests\convertertestdata\prefast\src\longmacrocondition\</FILEPATH>
       <FILENAME>longconditions.cpp</FILENAME>
       <LINE>28</LINE>
       <COLUMN>1</COLUMN>
@@ -75,7 +75,7 @@
     </CATEGORY>
     <PATH>
       <SFA>
-        <FILEPATH>d:\src\sarif-sdk\src\sarif.functionaltests\convertertestdata\prefast\xml\longmacrocondition\</FILEPATH>
+        <FILEPATH>d:\src\sarif-sdk\src\sarif.functionaltests\convertertestdata\prefast\src\longmacrocondition\</FILEPATH>
         <FILENAME>longconditions.cpp</FILENAME>
         <LINE>21</LINE>
         <COLUMN>5</COLUMN>
@@ -87,7 +87,7 @@
         </KEYEVENT>
       </SFA>
       <SFA>
-        <FILEPATH>d:\src\sarif-sdk\src\sarif.functionaltests\convertertestdata\prefast\xml\longmacrocondition\</FILEPATH>
+        <FILEPATH>d:\src\sarif-sdk\src\sarif.functionaltests\convertertestdata\prefast\src\longmacrocondition\</FILEPATH>
         <FILENAME>longconditions.cpp</FILENAME>
         <LINE>23</LINE>
         <COLUMN>6</COLUMN>
@@ -99,7 +99,7 @@
         </KEYEVENT>
       </SFA>
       <SFA>
-        <FILEPATH>d:\src\sarif-sdk\src\sarif.functionaltests\convertertestdata\prefast\xml\longmacrocondition\</FILEPATH>
+        <FILEPATH>d:\src\sarif-sdk\src\sarif.functionaltests\convertertestdata\prefast\src\longmacrocondition\</FILEPATH>
         <FILENAME>longconditions.cpp</FILENAME>
         <LINE>28</LINE>
         <COLUMN>1</COLUMN>
@@ -114,7 +114,7 @@
   </DEFECT>
   <DEFECT>
     <SFA>
-      <FILEPATH>d:\src\sarif-sdk\src\sarif.functionaltests\convertertestdata\prefast\xml\longmacrocondition\</FILEPATH>
+      <FILEPATH>d:\src\sarif-sdk\src\sarif.functionaltests\convertertestdata\prefast\src\longmacrocondition\</FILEPATH>
       <FILENAME>longconditions.cpp</FILENAME>
       <LINE>40</LINE>
       <COLUMN>1</COLUMN>
@@ -131,7 +131,7 @@
     </CATEGORY>
     <PATH>
       <SFA>
-        <FILEPATH>d:\src\sarif-sdk\src\sarif.functionaltests\convertertestdata\prefast\xml\longmacrocondition\</FILEPATH>
+        <FILEPATH>d:\src\sarif-sdk\src\sarif.functionaltests\convertertestdata\prefast\src\longmacrocondition\</FILEPATH>
         <FILENAME>longconditions.cpp</FILENAME>
         <LINE>33</LINE>
         <COLUMN>5</COLUMN>
@@ -143,7 +143,7 @@
         </KEYEVENT>
       </SFA>
       <SFA>
-        <FILEPATH>d:\src\sarif-sdk\src\sarif.functionaltests\convertertestdata\prefast\xml\longmacrocondition\</FILEPATH>
+        <FILEPATH>d:\src\sarif-sdk\src\sarif.functionaltests\convertertestdata\prefast\src\longmacrocondition\</FILEPATH>
         <FILENAME>longconditions.cpp</FILENAME>
         <LINE>35</LINE>
         <COLUMN>6</COLUMN>
@@ -155,7 +155,7 @@
         </KEYEVENT>
       </SFA>
       <SFA>
-        <FILEPATH>d:\src\sarif-sdk\src\sarif.functionaltests\convertertestdata\prefast\xml\longmacrocondition\</FILEPATH>
+        <FILEPATH>d:\src\sarif-sdk\src\sarif.functionaltests\convertertestdata\prefast\src\longmacrocondition\</FILEPATH>
         <FILENAME>longconditions.cpp</FILENAME>
         <LINE>40</LINE>
         <COLUMN>1</COLUMN>

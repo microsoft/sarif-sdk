@@ -17,8 +17,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
         /// <param name="serializedValue">
         /// The string representation of the JSON value of the property.
         /// </param>
-        /// <param name="jTokenType">
-        /// The JSON type of the property's value.
+        /// <param name="isString">
+        /// <code>true</code> if the property is a string; otherwise <code>false</code>.
         /// </param>
         /// <remarks>
         /// This representation allows properties to be read from JSON into memory and
@@ -48,10 +48,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
         /// new SerializedPropertyInfo("{ \"a\": 1, \"b\": false }", JTokenType.Object)
         /// </code>
         /// </example>
-        public SerializedPropertyInfo(string serializedValue, JTokenType jTokenType)
+        public SerializedPropertyInfo(string serializedValue, bool isString)
         {
             SerializedValue = serializedValue;
-            JTokenType = jTokenType;
+            IsString = isString;
         }
 
         /// <summary>
@@ -60,9 +60,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
         public string SerializedValue { get; }
 
         /// <summary>
-        /// Gets the JSON type of the property's value.
+        /// Gets a value indicating whether the property is a string.
         /// </summary>
-        public JTokenType JTokenType { get; }
+        /// <remarks>
+        /// We need to know that because the <see cref="PropertyBagConverter"/> needs to
+        /// put an extra pair of quotes around strings before it writes them out.
+        /// </remarks>
+        public bool IsString { get; }
 
         public override bool Equals(object obj)
         {
@@ -75,7 +79,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
         public override int GetHashCode()
         {
             int result = HashCodeSeedValue;
-            result = (result * HashCodeCombiningValue) + JTokenType.GetHashCode();
+            result = (result * HashCodeCombiningValue) + IsString.GetHashCode();
             if (SerializedValue != null)
             {
                 result = (result * HashCodeCombiningValue) + SerializedValue.GetHashCode();
@@ -91,7 +95,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
                 return false;
             }
 
-            if (JTokenType != other.JTokenType)
+            if (IsString != other.IsString)
             {
                 return false;
             }

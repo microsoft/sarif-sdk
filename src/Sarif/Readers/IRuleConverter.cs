@@ -45,7 +45,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
                     MessageFormats = iRule.MessageFormats,
                     Name = iRule.Name,
                     ShortDescription = iRule.ShortDescription,
-                    Tags = iRule.Tags
                 };
 
                 foreach (string propertyName in iRule.PropertyNames)
