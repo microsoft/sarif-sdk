@@ -77,7 +77,7 @@
     <Compile Include="PropertyBagExtensionMethods.cs" />
     <Compile Include="Readers\DateTimeConverter.cs" />
     <Compile Include="Readers\FlagsEnumConverter.cs" />
-    <Compile Include="Readers\IRuleConverter.cs" />
+    <Compile Include="Readers\RuleDictionaryConverter.cs" />
     <Compile Include="Readers\PropertyBagConverter.cs" />
     <Compile Include="Readers\ResultDiffingVisitor.cs" />
     <Compile Include="Readers\EnumConverter.cs" />

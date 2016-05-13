@@ -44,7 +44,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
                 contract.Converter = FlagsEnumConverter.Instance;
 
             else if (objectType == typeof(Dictionary<string, IRule>))
-                contract.Converter = IRuleDictionaryConverter.Instance;
+                contract.Converter = RuleDictionaryConverter.Instance;
 
             else if (objectType == typeof(IDictionary<string, SerializedPropertyInfo>))
                 contract.Converter = PropertyBagConverter.Instance;
