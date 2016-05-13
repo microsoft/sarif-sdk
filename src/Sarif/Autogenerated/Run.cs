@@ -44,6 +44,12 @@ namespace Microsoft.CodeAnalysis.Sarif
         public Invocation Invocation { get; set; }
 
         /// <summary>
+        /// The file that the analysis tool was instructed to scan. This member is only populated if the run is directated against a single analysis target.
+        /// </summary>
+        [DataMember(Name = "analysisTarget", IsRequired = false, EmitDefaultValue = false)]
+        public PhysicalLocation AnalysisTarget { get; set; }
+
+        /// <summary>
         /// A dictionary, each of whose keys is a URI and each of whose values is an array of file objects representing the location of a single file scanned during the run.
         /// </summary>
         [DataMember(Name = "files", IsRequired = false, EmitDefaultValue = false)]
@@ -107,6 +113,9 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="invocation">
         /// An initialization value for the <see cref="P: Invocation" /> property.
         /// </param>
+        /// <param name="analysisTarget">
+        /// An initialization value for the <see cref="P: AnalysisTarget" /> property.
+        /// </param>
         /// <param name="files">
         /// An initialization value for the <see cref="P: Files" /> property.
         /// </param>
@@ -131,9 +140,9 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="correlationId">
         /// An initialization value for the <see cref="P: CorrelationId" /> property.
         /// </param>
-        public Run(Tool tool, Invocation invocation, IDictionary<string, IList<FileData>> files, IDictionary<string, IList<LogicalLocationComponent>> logicalLocations, IEnumerable<Result> results, IEnumerable<Notification> toolNotifications, IEnumerable<Notification> configurationNotifications, IDictionary<string, Rule> rules, string id, string correlationId)
+        public Run(Tool tool, Invocation invocation, PhysicalLocation analysisTarget, IDictionary<string, IList<FileData>> files, IDictionary<string, IList<LogicalLocationComponent>> logicalLocations, IEnumerable<Result> results, IEnumerable<Notification> toolNotifications, IEnumerable<Notification> configurationNotifications, IDictionary<string, Rule> rules, string id, string correlationId)
         {
-            Init(tool, invocation, files, logicalLocations, results, toolNotifications, configurationNotifications, rules, id, correlationId);
+            Init(tool, invocation, analysisTarget, files, logicalLocations, results, toolNotifications, configurationNotifications, rules, id, correlationId);
         }
 
         /// <summary>
@@ -152,7 +161,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 throw new ArgumentNullException(nameof(other));
             }
 
-            Init(other.Tool, other.Invocation, other.Files, other.LogicalLocations, other.Results, other.ToolNotifications, other.ConfigurationNotifications, other.Rules, other.Id, other.CorrelationId);
+            Init(other.Tool, other.Invocation, other.AnalysisTarget, other.Files, other.LogicalLocations, other.Results, other.ToolNotifications, other.ConfigurationNotifications, other.Rules, other.Id, other.CorrelationId);
         }
 
         ISarifNode ISarifNode.DeepClone()
@@ -173,7 +182,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new Run(this);
         }
 
-        private void Init(Tool tool, Invocation invocation, IDictionary<string, IList<FileData>> files, IDictionary<string, IList<LogicalLocationComponent>> logicalLocations, IEnumerable<Result> results, IEnumerable<Notification> toolNotifications, IEnumerable<Notification> configurationNotifications, IDictionary<string, Rule> rules, string id, string correlationId)
+        private void Init(Tool tool, Invocation invocation, PhysicalLocation analysisTarget, IDictionary<string, IList<FileData>> files, IDictionary<string, IList<LogicalLocationComponent>> logicalLocations, IEnumerable<Result> results, IEnumerable<Notification> toolNotifications, IEnumerable<Notification> configurationNotifications, IDictionary<string, Rule> rules, string id, string correlationId)
         {
             if (tool != null)
             {
@@ -183,6 +192,11 @@ namespace Microsoft.CodeAnalysis.Sarif
             if (invocation != null)
             {
                 Invocation = new Invocation(invocation);
+            }
+
+            if (analysisTarget != null)
+            {
+                AnalysisTarget = new PhysicalLocation(analysisTarget);
             }
 
             if (files != null)
