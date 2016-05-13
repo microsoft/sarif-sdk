@@ -308,5 +308,44 @@ namespace Microsoft.CodeAnalysis.Sarif.Core
 
             _testObject.Tags.IsSupersetOf(new[] { "y", "z", "q" }).Should().BeFalse();
         }
+
+        [TestMethod]
+        public void Tags_Overlaps_ReturnsFalseWhenBothAreEmpty()
+        {
+            _testObject.Tags.Overlaps(new string[0]).Should().BeFalse();
+        }
+
+        [TestMethod]
+        public void Tags_Overlaps_ReturnsFalseWhenEmptyAndOtherIsNonEmpty()
+        {
+            _testObject.Tags.Overlaps(new[] { "x" }).Should().BeFalse();
+        }
+
+        [TestMethod]
+        public void Tags_Overlaps_ReturnsFalseWhenNonEmptyAndOtherIsEmpty()
+        {
+            _testObject.Tags.Add("x");
+
+            _testObject.Tags.Overlaps(new string[0]).Should().BeFalse();
+        }
+
+        [TestMethod]
+        public void Tags_Overlaps_ReturnsFalseWhenDisjoint()
+        {
+            _testObject.Tags.Add("x");
+            _testObject.Tags.Add("y");
+
+            _testObject.Tags.Overlaps(new[] { "a", "b" }).Should().BeFalse();
+        }
+
+        [TestMethod]
+        public void Tags_Overlaps_ReturnsTrueWhenNonDisjoint()
+        {
+            _testObject.Tags.Add("x");
+            _testObject.Tags.Add("y");
+            _testObject.Tags.Add("q");
+
+            _testObject.Tags.Overlaps(new[] { "a", "b", "q" }).Should().BeTrue();
+        }
     }
 }

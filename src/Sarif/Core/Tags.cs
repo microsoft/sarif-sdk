@@ -110,7 +110,8 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         public bool Overlaps(IEnumerable<string> other)
         {
-            throw new NotImplementedException();
+            ISet<string> tags = GetTags() ?? Empty;
+            return tags.Overlaps(other);
         }
 
         public bool Remove(string item)
