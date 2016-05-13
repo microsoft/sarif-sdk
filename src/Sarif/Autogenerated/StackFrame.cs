@@ -47,8 +47,8 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <summary>
         /// A string that identifies the conceptual base for the 'uri' property (if it is relative), e.g.,'$(SolutionDir)' or '%SRCROOT%'.
         /// </summary>
-        [DataMember(Name = "relativeTo", IsRequired = false, EmitDefaultValue = false)]
-        public string RelativeTo { get; set; }
+        [DataMember(Name = "uriBaseId", IsRequired = false, EmitDefaultValue = false)]
+        public string UriBaseId { get; set; }
 
         /// <summary>
         /// The line of the location to which this stack frame refers.
@@ -120,8 +120,8 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="uri">
         /// An initialization value for the <see cref="P: Uri" /> property.
         /// </param>
-        /// <param name="relativeTo">
-        /// An initialization value for the <see cref="P: RelativeTo" /> property.
+        /// <param name="uriBaseId">
+        /// An initialization value for the <see cref="P: UriBaseId" /> property.
         /// </param>
         /// <param name="line">
         /// An initialization value for the <see cref="P: Line" /> property.
@@ -150,9 +150,9 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="properties">
         /// An initialization value for the <see cref="P: Properties" /> property.
         /// </param>
-        public StackFrame(string message, Uri uri, string relativeTo, int line, int column, string module, string fullyQualifiedLogicalName, string logicalLocationKey, int address, int offset, IEnumerable<string> parameters, IDictionary<string, SerializedPropertyInfo> properties)
+        public StackFrame(string message, Uri uri, string uriBaseId, int line, int column, string module, string fullyQualifiedLogicalName, string logicalLocationKey, int address, int offset, IEnumerable<string> parameters, IDictionary<string, SerializedPropertyInfo> properties)
         {
-            Init(message, uri, relativeTo, line, column, module, fullyQualifiedLogicalName, logicalLocationKey, address, offset, parameters, properties);
+            Init(message, uri, uriBaseId, line, column, module, fullyQualifiedLogicalName, logicalLocationKey, address, offset, parameters, properties);
         }
 
         /// <summary>
@@ -171,7 +171,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 throw new ArgumentNullException(nameof(other));
             }
 
-            Init(other.Message, other.Uri, other.RelativeTo, other.Line, other.Column, other.Module, other.FullyQualifiedLogicalName, other.LogicalLocationKey, other.Address, other.Offset, other.Parameters, other.Properties);
+            Init(other.Message, other.Uri, other.UriBaseId, other.Line, other.Column, other.Module, other.FullyQualifiedLogicalName, other.LogicalLocationKey, other.Address, other.Offset, other.Parameters, other.Properties);
         }
 
         ISarifNode ISarifNode.DeepClone()
@@ -192,7 +192,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new StackFrame(this);
         }
 
-        private void Init(string message, Uri uri, string relativeTo, int line, int column, string module, string fullyQualifiedLogicalName, string logicalLocationKey, int address, int offset, IEnumerable<string> parameters, IDictionary<string, SerializedPropertyInfo> properties)
+        private void Init(string message, Uri uri, string uriBaseId, int line, int column, string module, string fullyQualifiedLogicalName, string logicalLocationKey, int address, int offset, IEnumerable<string> parameters, IDictionary<string, SerializedPropertyInfo> properties)
         {
             Message = message;
             if (uri != null)
@@ -200,7 +200,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 Uri = new Uri(uri.OriginalString, uri.IsAbsoluteUri ? UriKind.Absolute : UriKind.Relative);
             }
 
-            RelativeTo = relativeTo;
+            UriBaseId = uriBaseId;
             Line = line;
             Column = column;
             Module = module;
