@@ -150,8 +150,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         private void SetSarifLoggerVersion(Tool tool)
         {
             string sarifLoggerLocation = typeof(SarifLogger).Assembly.Location;
-
-            tool.SetProperty("SarifLoggerVersion", FileVersionInfo.GetVersionInfo(sarifLoggerLocation).FileVersion);
+            tool.SarifLoggerVersion = FileVersionInfo.GetVersionInfo(sarifLoggerLocation).FileVersion;
         }
 
         public SarifLogger(TextWriter textWriter, bool verbose)
