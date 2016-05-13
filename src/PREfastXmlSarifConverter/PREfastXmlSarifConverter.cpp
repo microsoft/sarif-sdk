@@ -408,7 +408,7 @@ HRESULT __stdcall Convert(const std::deque<XmlDefect> defectList, BSTR bstrOutpu
 {
     SarifLog issueLog;
     issueLog.SetVersion(L"1.0.0-beta.5");
-    issueLog.SetSchema(L"http://json.schemastore.org/sarif-1.0.0");
+    issueLog.SetSchema(L"http://json.schemastore.org/sarif-1.0.0-beta.5");
 
     // Set Tool
     SarifTool tool;

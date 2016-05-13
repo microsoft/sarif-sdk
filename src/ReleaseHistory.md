@@ -23,6 +23,8 @@
 * Move 'tags' into properties (but provide top-level Tags member for setting/retrieving this data)
 * Add annotatedCodeLocation.kind enum (with values such as 'branch', 'declaration', et al.)
 * Update all converters to Sarif beta.5
+* Add option 'id' to each result, to allow correlation with external data, annotations, work items, etc.
+* Add flag to configure file hash computation to FileData.Create helper
 
 
 

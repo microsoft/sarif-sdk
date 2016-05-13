@@ -1,0 +1,92 @@
+{
+"version":"1.0.0-beta.5",
+"$schema":"http://json.schemastore.org/sarif-1.0.0-beta.5",
+"runs":[
+  {
+    "tool":{
+      "name":"PREfast",
+      "fullName":"PREfast Code Analysis",
+      "version":"14.0.0"
+    },
+    "logicalLocations":{
+      "?C6305_Example1@@YAHPEAH@Z":[
+        {
+          "kind":"method",
+          "name":"C6305_Example1"
+        }
+      ]
+    },
+    "results":[
+      {
+        "ruleId":"6305",
+        "message":"Potential mismatch between sizeof and countof quantities. Use sizeof() to scale byte sizes.",
+        "locations":[
+          {
+            "resultFile":{
+              "uri":"file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/c6305/c6305example.cpp",
+              "region":{
+                "startColumn":5,
+                "startLine":6
+              }
+            },
+            "fullyQualifiedLogicalName":"C6305_Example1",
+            "logicalLocationKey":"?C6305_Example1@@YAHPEAH@Z",
+            "properties":{
+              "decorated":"?C6305_Example1@@YAHPEAH@Z",
+              "funcline":"1"
+            }
+          }
+        ],
+        "properties":{
+          "probability":"1",
+          "rank":"2",
+          "ruleCategory":"mspft"
+        },
+        "codeFlows":[
+          {
+            "locations":[
+              {
+                "physicalLocation":{
+                  "uri":"file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/c6305/c6305example.cpp",
+                  "region":{
+                    "startColumn":8,
+                    "startLine":3
+                  }
+                }
+              },{
+                "physicalLocation":{
+                  "uri":"file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/c6305/c6305example.cpp",
+                  "region":{
+                    "startColumn":8,
+                    "startLine":4
+                  }
+                },
+                "properties":{
+                  "id":"1",
+                  "kind":"declaration",
+                  "importance":"Essential"
+                },
+                "message":"'cb' is a byte quantity"
+              },{
+                "physicalLocation":{
+                  "uri":"file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/c6305/c6305example.cpp",
+                  "region":{
+                    "startColumn":5,
+                    "startLine":6
+                  }
+                },
+                "properties":{
+                  "id":"2",
+                  "kind":"usage",
+                  "importance":"Essential"
+                },
+                "message":"Expression mixes element counts and byte quantities"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+]
+}

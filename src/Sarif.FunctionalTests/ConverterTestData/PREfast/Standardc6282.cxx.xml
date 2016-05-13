@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<DEFECTS>
+  <DEFECT>
+    <SFA>
+      <FILEPATH>d:\src\sarif-sdk\src\sarif.functionaltests\convertertestdata\prefast\src\standardux\</FILEPATH>
+      <FILENAME>standardc6282.cxx</FILENAME>
+      <LINE>16</LINE>
+      <COLUMN>12</COLUMN>
+    </SFA>
+    <DEFECTCODE>6282</DEFECTCODE>
+    <DESCRIPTION>Incorrect operator:  assignment of constant in Boolean context. Consider using '==' instead.</DESCRIPTION>
+    <FUNCTION>f_d</FUNCTION>
+    <DECORATED>?f_d@@YAXH@Z</DECORATED>
+    <FUNCLINE>14</FUNCLINE>
+    <PATH />
+  </DEFECT>
+</DEFECTS>

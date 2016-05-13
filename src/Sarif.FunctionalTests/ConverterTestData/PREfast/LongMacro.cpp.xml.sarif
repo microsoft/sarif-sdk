@@ -1,0 +1,98 @@
+{
+"version":"1.0.0-beta.5",
+"$schema":"http://json.schemastore.org/sarif-1.0.0-beta.5",
+"runs":[
+  {
+    "tool":{
+      "name":"PREfast",
+      "fullName":"PREfast Code Analysis",
+      "version":"14.0.0"
+    },
+    "logicalLocations":{
+      "?C6001MacroExpansion_Example@@YAHH@Z":[
+        {
+          "kind":"method",
+          "name":"C6001MacroExpansion_Example"
+        }
+      ]
+    },
+    "results":[
+      {
+        "ruleId":"6001",
+        "message":"Using uninitialized memory 'simpleVar'.",
+        "locations":[
+          {
+            "resultFile":{
+              "uri":"file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/longmacrocondition/longmacro.cpp",
+              "region":{
+                "startColumn":2,
+                "startLine":12
+              }
+            },
+            "fullyQualifiedLogicalName":"C6001MacroExpansion_Example",
+            "logicalLocationKey":"?C6001MacroExpansion_Example@@YAHH@Z",
+            "properties":{
+              "decorated":"?C6001MacroExpansion_Example@@YAHH@Z",
+              "funcline":"3"
+            }
+          }
+        ],
+        "properties":{
+          "probability":"1",
+          "rank":"3",
+          "ruleCategory":"mspft"
+        },
+        "codeFlows":[
+          {
+            "locations":[
+              {
+                "physicalLocation":{
+                  "uri":"file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/longmacrocondition/longmacro.cpp",
+                  "region":{
+                    "startColumn":6,
+                    "startLine":5
+                  }
+                },
+                "properties":{
+                  "id":"1",
+                  "kind":"declaration",
+                  "importance":"Essential"
+                },
+                "message":"'simpleVar' is not initialized"
+              },{
+                "physicalLocation":{
+                  "uri":"file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/longmacrocondition/longmacro.cpp",
+                  "region":{
+                    "startColumn":7,
+                    "startLine":7
+                  }
+                },
+                "properties":{
+                  "id":"2",
+                  "kind":"branch",
+                  "importance":"Full"
+                },
+                "message":"Skip this branch, (assume '(((int)(hrLongVar)))>4' is false)"
+              },{
+                "physicalLocation":{
+                  "uri":"file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/longmacrocondition/longmacro.cpp",
+                  "region":{
+                    "startColumn":2,
+                    "startLine":12
+                  }
+                },
+                "properties":{
+                  "id":"3",
+                  "kind":"usage",
+                  "importance":"Essential"
+                },
+                "message":"'simpleVar' is used, but may not have been initialized"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+]
+}
