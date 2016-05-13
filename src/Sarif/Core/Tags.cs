@@ -133,7 +133,8 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         public bool SetEquals(IEnumerable<string> other)
         {
-            throw new NotImplementedException();
+            ISet<string> tags = GetTags() ?? Empty;
+            return tags.SetEquals(other);
         }
 
         public void SymmetricExceptWith(IEnumerable<string> other)

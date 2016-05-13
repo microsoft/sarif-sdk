@@ -358,5 +358,57 @@ namespace Microsoft.CodeAnalysis.Sarif.Core
             wasRemoved.Should().BeFalse();
             _testObject.Tags.Should().BeEmpty();
         }
+
+        [TestMethod]
+        public void Tags_SetEquals_ReturnsTrueWhenBothAreEmpty()
+        {
+            _testObject.Tags.SetEquals(new string[0]).Should().BeTrue();
+        }
+
+        [TestMethod]
+        public void Tags_SetEquals_ReturnsFalseWhenEmptyAndOtherIsNonEmpty()
+        {
+            _testObject.Tags.SetEquals(new[] { "x" }).Should().BeFalse();
+        }
+
+        [TestMethod]
+        public void Tags_SetEqualsReturnsFalseWhenNonEmptyAndOtherIsEmpty()
+        {
+            InitializeTags("x");
+
+            _testObject.Tags.SetEquals(new string[0]).Should().BeFalse();
+        }
+
+        [TestMethod]
+        public void Tags_SetEquals_ReturnsTrueWhenHaveSameElements()
+        {
+            InitializeTags("x", "y");
+
+            _testObject.Tags.SetEquals(new[] { "x", "y" }).Should().BeTrue();
+        }
+
+        [TestMethod]
+        public void Tags_SetEquals_ReturnsTrueWhenHaveSameElementsRegardlessOfOrder()
+        {
+            InitializeTags("x", "y");
+
+            _testObject.Tags.SetEquals(new[] { "y", "x" }).Should().BeTrue();
+        }
+
+        [TestMethod]
+        public void Tags_SetEquals_ReturnsTrueWhenElementsAreRepeated()
+        {
+            InitializeTags("x", "y");
+
+            _testObject.Tags.SetEquals(new[] { "y", "x", "x", "y", "y" }).Should().BeTrue();
+        }
+
+        [TestMethod]
+        public void Tags_SetEquals_ReturnsTrueWhenHaveDifferentElements()
+        {
+            InitializeTags("x", "y");
+
+            _testObject.Tags.SetEquals(new[] { "x", "z" }).Should().BeFalse();
+        }
     }
 }
