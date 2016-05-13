@@ -4,14 +4,15 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Collections.Immutable;
 using System.Linq;
 
 namespace Microsoft.CodeAnalysis.Sarif
 {
     public class Tags : ISet<string>
     {
-        private const string TagsPropertyName = "tags";
-        private static readonly ISet<string> Empty = new HashSet<string>();
+        internal const string TagsPropertyName = "tags";
+        private static readonly ISet<string> Empty = ImmutableHashSet<string>.Empty;
 
         private readonly IPropertyBagHolder _propertyBagHolder;
 
@@ -29,8 +30,8 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             get
             {
-                ISet<string> tags = GetTags();
-                return tags != null ? tags.Count : 0;
+                ISet<string> tags = GetTags() ?? Empty;
+                return tags.Count;
             }
         }
 
@@ -48,17 +49,14 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         public bool Contains(string item)
         {
-            ISet<string> tags = GetTags();
-            return tags != null ? tags.Contains(item) : false;
+            ISet<string> tags = GetTags() ?? Empty;
+            return tags.Contains(item);
         }
 
         public void CopyTo(string[] array, int arrayIndex)
         {
-            ISet<string> tags = GetTags();
-            if (tags != null)
-            {
-                tags.CopyTo(array, arrayIndex);
-            }
+            ISet<string> tags = GetTags() ?? Empty;
+            tags.CopyTo(array, arrayIndex);
         }
 
         public void ExceptWith(IEnumerable<string> other)
@@ -88,48 +86,76 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         public bool IsProperSubsetOf(IEnumerable<string> other)
         {
-            ISet<string> tags = GetTags() ?? new HashSet<string>();
+            ISet<string> tags = GetTags() ?? Empty;
             return tags.IsProperSubsetOf(other);
         }
 
         public bool IsProperSupersetOf(IEnumerable<string> other)
         {
-            throw new NotImplementedException();
+            ISet<string> tags = GetTags() ?? Empty;
+            return tags.IsProperSupersetOf(other);
         }
 
         public bool IsSubsetOf(IEnumerable<string> other)
         {
-            throw new NotImplementedException();
+            ISet<string> tags = GetTags() ?? Empty;
+            return tags.IsSubsetOf(other);
         }
 
         public bool IsSupersetOf(IEnumerable<string> other)
         {
-            throw new NotImplementedException();
+            ISet<string> tags = GetTags() ?? Empty;
+            return tags.IsSupersetOf(other);
         }
 
         public bool Overlaps(IEnumerable<string> other)
         {
-            throw new NotImplementedException();
+            ISet<string> tags = GetTags() ?? Empty;
+            return tags.Overlaps(other);
         }
 
         public bool Remove(string item)
         {
-            throw new NotImplementedException();
+            bool wasRemoved = false;
+
+            ISet<string> tags = GetTags();
+            if (tags != null)
+            {
+                wasRemoved = tags.Remove(item);
+                if (wasRemoved)
+                {
+                    SetTags(tags);
+                }
+            }
+
+            return wasRemoved;
         }
 
         public bool SetEquals(IEnumerable<string> other)
         {
-            throw new NotImplementedException();
+            ISet<string> tags = GetTags() ?? Empty;
+            return tags.SetEquals(other);
         }
 
         public void SymmetricExceptWith(IEnumerable<string> other)
         {
-            throw new NotImplementedException();
+            ISet<string> tags = GetTags();
+            if (tags != null)
+            {
+                tags.SymmetricExceptWith(other);
+                SetTags(tags);
+            }
+            else
+            {
+                SetTags(other);
+            }
         }
 
         public void UnionWith(IEnumerable<string> other)
         {
-            throw new NotImplementedException();
+            ISet<string> tags = GetTags() ?? new HashSet<string>();
+            tags.UnionWith(other);
+            SetTags(tags);
         }
 
         void ICollection<string>.Add(string item)
@@ -150,7 +176,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 : null;
         }
 
-        private void SetTags(ISet<string> tags)
+        private void SetTags(IEnumerable<string> tags)
         {
             _propertyBagHolder.SetProperty(TagsPropertyName, tags);
         }
