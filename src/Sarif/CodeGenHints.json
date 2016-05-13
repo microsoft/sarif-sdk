@@ -9,6 +9,16 @@
       }
     }
   ],
+  "AnnotatedCodeLocation.Kind": [
+    {
+      "kind": "EnumHint",
+      "arguments": {
+        "typeName": "AnnotatedCodeLocationKind",
+        "flags": true,
+        "zeroValueName": "None"
+      }
+    }
+  ],
   "AnnotatedCodeLocation.Properties": [
     {
       "kind": "DictionaryHint",
