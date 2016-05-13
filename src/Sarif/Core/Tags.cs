@@ -11,7 +11,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 {
     public class Tags : ISet<string>
     {
-        private const string TagsPropertyName = "tags";
+        internal const string TagsPropertyName = "tags";
         private static readonly ISet<string> Empty = ImmutableHashSet<string>.Empty;
 
         private readonly IPropertyBagHolder _propertyBagHolder;
@@ -116,7 +116,19 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         public bool Remove(string item)
         {
-            throw new NotImplementedException();
+            bool wasRemoved = false;
+
+            ISet<string> tags = GetTags();
+            if (tags != null)
+            {
+                wasRemoved = tags.Remove(item);
+                if (wasRemoved)
+                {
+                    SetTags(tags);
+                }
+            }
+
+            return wasRemoved;
         }
 
         public bool SetEquals(IEnumerable<string> other)

@@ -18,6 +18,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Core
             internal override IDictionary<string, SerializedPropertyInfo> Properties { get; set; }
         }
 
+        private void InitializeTags(params string[] tags)
+        {
+            _testObject.SetProperty(Tags.TagsPropertyName, tags);
+        }
+
         [TestMethod]
         public void Tags_IsInitiallyEmpty()
         {
@@ -29,8 +34,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Core
         [TestMethod]
         public void Tags_Add_AddsTag()
         {
-            _testObject.Tags.Add("x");
+            bool wasAdded =_testObject.Tags.Add("x");
 
+            wasAdded.Should().BeTrue();
             _testObject.Tags.Count.Should().Be(1);
             _testObject.Tags.Contains("x").Should().BeTrue();
         }
@@ -38,9 +44,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Core
         [TestMethod]
         public void Tags_Add_AddsTagsOnlyOnce()
         {
-            _testObject.Tags.Add("x");
-            _testObject.Tags.Add("x");
+            InitializeTags("x");
 
+            bool wasAdded =_testObject.Tags.Add("x");
+
+            wasAdded.Should().BeFalse();
             _testObject.Tags.Count.Should().Be(1);
             _testObject.Tags.Contains("x").Should().BeTrue();
         }
@@ -48,8 +56,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Core
         [TestMethod]
         public void Tags_Add_AddsMultipleTags()
         {
-            _testObject.Tags.Add("x");
-            _testObject.Tags.Add("y");
+            InitializeTags("x", "y");
 
             _testObject.Tags.Count.Should().Be(2);
             _testObject.Tags.Contains("x").Should().BeTrue();
@@ -59,8 +66,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Core
         [TestMethod]
         public void Tags_Clear_ClearsTags()
         {
-            _testObject.Tags.Add("x");
-            _testObject.Tags.Add("y");
+            InitializeTags("x", "y");
 
             _testObject.Tags.Clear();
 
@@ -80,8 +86,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Core
         [TestMethod]
         public void Tags_CopyTo_CopiesToArray()
         {
-            _testObject.Tags.Add("x");
-            _testObject.Tags.Add("y");
+            InitializeTags("x", "y");
             var array = new string[] { "a", "b", "c", "d" };
 
             _testObject.Tags.CopyTo(array, 1);
@@ -102,10 +107,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Core
         [TestMethod]
         public void Tags_ExceptWith_RemovesSpecifiedElements()
         {
-            _testObject.Tags.Add("a");
-            _testObject.Tags.Add("b");
-            _testObject.Tags.Add("c");
-            _testObject.Tags.Add("d");
+            InitializeTags("a", "b", "c", "d");
 
             _testObject.Tags.ExceptWith(new[] { "b", "c", "e" });
 
@@ -124,10 +126,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Core
         [TestMethod]
         public void Tags_IntersectWith_ReturnsCommonElements()
         {
-            _testObject.Tags.Add("a");
-            _testObject.Tags.Add("b");
-            _testObject.Tags.Add("c");
-            _testObject.Tags.Add("d");
+            InitializeTags("a", "b", "c", "d");
 
             _testObject.Tags.IntersectWith(new[] { "b", "c", "e" });
 
@@ -158,8 +157,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Core
         [TestMethod]
         public void Tags_IsProperSubsetOf_ReturnsFalseWhenHaveSameElements()
         {
-            _testObject.Tags.Add("x");
-            _testObject.Tags.Add("y");
+            InitializeTags("x", "y");
 
             _testObject.Tags.IsProperSubsetOf(new[] { "x", "y" }).Should().BeFalse();
         }
@@ -167,8 +165,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Core
         [TestMethod]
         public void Tags_IsProperSubsetOf_ReturnsTrueWhenNonEmptyAndProperSubsetOfOther()
         {
-            _testObject.Tags.Add("x");
-            _testObject.Tags.Add("y");
+            InitializeTags("x", "y");
 
             _testObject.Tags.IsProperSubsetOf(new[] { "z", "y", "x" }).Should().BeTrue();
         }
@@ -176,9 +173,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Core
         [TestMethod]
         public void Tags_IsProperSubsetOf_ReturnsFalseWhenEachSideHasSomeDifferentElements()
         {
-            _testObject.Tags.Add("x");
-            _testObject.Tags.Add("y");
-            _testObject.Tags.Add("z");
+            InitializeTags("x", "y", "z");
 
             _testObject.Tags.IsProperSubsetOf(new[] { "y", "z", "q" }).Should().BeFalse();
         }
@@ -192,7 +187,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Core
         [TestMethod]
         public void Tags_IsProperSupersetOf_ReturnsTrueWhenNonEmptyAndOtherIsEmpty()
         {
-            _testObject.Tags.Add("x");
+            InitializeTags("x");
 
             _testObject.Tags.IsProperSupersetOf(new string[0]).Should().BeTrue();
         }
@@ -200,8 +195,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Core
         [TestMethod]
         public void Tags_IsProperSupersetOf_ReturnsFalseWhenHaveSameElements()
         {
-            _testObject.Tags.Add("x");
-            _testObject.Tags.Add("y");
+            InitializeTags("x", "y");
 
             _testObject.Tags.IsProperSupersetOf(new[] { "x", "y" }).Should().BeFalse();
         }
@@ -209,9 +203,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Core
         [TestMethod]
         public void Tags_IsProperSupersetOf_ReturnsTrueWhenNonEmptyAndProperSupersetOfOther()
         {
-            _testObject.Tags.Add("x");
-            _testObject.Tags.Add("y");
-            _testObject.Tags.Add("z");
+            InitializeTags("x", "y", "z");
 
             _testObject.Tags.IsProperSupersetOf(new[] { "y", "x" }).Should().BeTrue();
         }
@@ -219,9 +211,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Core
         [TestMethod]
         public void Tags_IsProperSupersetOf_ReturnsFalseWhenEachSideHasSomeDifferentElements()
         {
-            _testObject.Tags.Add("x");
-            _testObject.Tags.Add("y");
-            _testObject.Tags.Add("z");
+            InitializeTags("x", "y", "z");
 
             _testObject.Tags.IsProperSupersetOf(new[] { "y", "z", "q" }).Should().BeFalse();
         }
@@ -241,8 +231,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Core
         [TestMethod]
         public void Tags_IsSubsetOf_ReturnsTrueWhenHaveSameElements()
         {
-            _testObject.Tags.Add("x");
-            _testObject.Tags.Add("y");
+            InitializeTags("x", "y");
 
             _testObject.Tags.IsSubsetOf(new[] { "x", "y" }).Should().BeTrue();
         }
@@ -250,8 +239,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Core
         [TestMethod]
         public void Tags_IsSubsetOf_ReturnsTrueWhenNonEmptyAndProperSubsetOfOther()
         {
-            _testObject.Tags.Add("x");
-            _testObject.Tags.Add("y");
+            InitializeTags("x", "y");
 
             _testObject.Tags.IsSubsetOf(new[] { "z", "y", "x" }).Should().BeTrue();
         }
@@ -259,9 +247,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Core
         [TestMethod]
         public void Tags_IsSubsetOf_ReturnsFalseWhenEachSideHasSomeDifferentElements()
         {
-            _testObject.Tags.Add("x");
-            _testObject.Tags.Add("y");
-            _testObject.Tags.Add("z");
+            InitializeTags("x", "y", "z");
 
             _testObject.Tags.IsSubsetOf(new[] { "y", "z", "q" }).Should().BeFalse();
         }
@@ -275,7 +261,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Core
         [TestMethod]
         public void Tags_IsSupersetOf_ReturnsTrueWhenNonEmptyAndOtherIsEmpty()
         {
-            _testObject.Tags.Add("x");
+            InitializeTags("x");
 
             _testObject.Tags.IsSupersetOf(new string[0]).Should().BeTrue();
         }
@@ -283,8 +269,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Core
         [TestMethod]
         public void Tags_IsSupersetOf_ReturnsTrueWhenHaveSameElements()
         {
-            _testObject.Tags.Add("x");
-            _testObject.Tags.Add("y");
+            InitializeTags("x", "y");
 
             _testObject.Tags.IsSupersetOf(new[] { "x", "y" }).Should().BeTrue();
         }
@@ -292,9 +277,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Core
         [TestMethod]
         public void Tags_IsSupersetOf_ReturnsTrueWhenNonEmptyAndProperSupersetOfOther()
         {
-            _testObject.Tags.Add("x");
-            _testObject.Tags.Add("y");
-            _testObject.Tags.Add("z");
+            InitializeTags("x", "y", "z");
 
             _testObject.Tags.IsSupersetOf(new[] { "y", "x" }).Should().BeTrue();
         }
@@ -302,9 +285,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Core
         [TestMethod]
         public void Tags_IsSupersetOf_ReturnsFalseWhenEachSideHasSomeDifferentElements()
         {
-            _testObject.Tags.Add("x");
-            _testObject.Tags.Add("y");
-            _testObject.Tags.Add("z");
+            InitializeTags("x", "y", "z");
 
             _testObject.Tags.IsSupersetOf(new[] { "y", "z", "q" }).Should().BeFalse();
         }
@@ -324,7 +305,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Core
         [TestMethod]
         public void Tags_Overlaps_ReturnsFalseWhenNonEmptyAndOtherIsEmpty()
         {
-            _testObject.Tags.Add("x");
+            InitializeTags("x");
 
             _testObject.Tags.Overlaps(new string[0]).Should().BeFalse();
         }
@@ -332,8 +313,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Core
         [TestMethod]
         public void Tags_Overlaps_ReturnsFalseWhenDisjoint()
         {
-            _testObject.Tags.Add("x");
-            _testObject.Tags.Add("y");
+            InitializeTags("x", "y");
 
             _testObject.Tags.Overlaps(new[] { "a", "b" }).Should().BeFalse();
         }
@@ -341,11 +321,42 @@ namespace Microsoft.CodeAnalysis.Sarif.Core
         [TestMethod]
         public void Tags_Overlaps_ReturnsTrueWhenNonDisjoint()
         {
-            _testObject.Tags.Add("x");
-            _testObject.Tags.Add("y");
-            _testObject.Tags.Add("q");
+            InitializeTags("x", "y", "q");
 
             _testObject.Tags.Overlaps(new[] { "a", "b", "q" }).Should().BeTrue();
+        }
+
+        [TestMethod]
+        public void Tags_Remove_RemovesSpecifiedItem()
+        {
+            InitializeTags("x", "y");
+
+            bool wasRemoved = _testObject.Tags.Remove("x");
+
+            wasRemoved.Should().BeTrue();
+            _testObject.Tags.Count.Should().Be(1);
+            _testObject.Tags.Should().Contain("y");
+        }
+
+        [TestMethod]
+        public void Tags_Remove_WorksWhenItemIsNotPresent()
+        {
+            InitializeTags("y");
+
+            bool wasRemoved = _testObject.Tags.Remove("x");
+
+            wasRemoved.Should().BeFalse();
+            _testObject.Tags.Count.Should().Be(1);
+            _testObject.Tags.Should().Contain("y");
+        }
+
+        [TestMethod]
+        public void Tags_Remove_WorksOnEmptyTags()
+        {
+            bool wasRemoved = _testObject.Tags.Remove("x");
+
+            wasRemoved.Should().BeFalse();
+            _testObject.Tags.Should().BeEmpty();
         }
     }
 }
