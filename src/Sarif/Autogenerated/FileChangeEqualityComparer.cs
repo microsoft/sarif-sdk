@@ -32,6 +32,11 @@ namespace Microsoft.CodeAnalysis.Sarif
                 return false;
             }
 
+            if (left.RelativeTo != right.RelativeTo)
+            {
+                return false;
+            }
+
             if (!object.ReferenceEquals(left.Replacements, right.Replacements))
             {
                 if (left.Replacements == null || right.Replacements == null)
@@ -69,6 +74,11 @@ namespace Microsoft.CodeAnalysis.Sarif
                 if (obj.Uri != null)
                 {
                     result = (result * 31) + obj.Uri.GetHashCode();
+                }
+
+                if (obj.RelativeTo != null)
+                {
+                    result = (result * 31) + obj.RelativeTo.GetHashCode();
                 }
 
                 if (obj.Replacements != null)

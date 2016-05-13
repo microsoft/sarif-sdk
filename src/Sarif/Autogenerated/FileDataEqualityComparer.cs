@@ -33,6 +33,11 @@ namespace Microsoft.CodeAnalysis.Sarif
                 return false;
             }
 
+            if (left.RelativeTo != right.RelativeTo)
+            {
+                return false;
+            }
+
             if (left.Offset != right.Offset)
             {
                 return false;
@@ -107,6 +112,11 @@ namespace Microsoft.CodeAnalysis.Sarif
                 if (obj.Uri != null)
                 {
                     result = (result * 31) + obj.Uri.GetHashCode();
+                }
+
+                if (obj.RelativeTo != null)
+                {
+                    result = (result * 31) + obj.RelativeTo.GetHashCode();
                 }
 
                 result = (result * 31) + obj.Offset.GetHashCode();

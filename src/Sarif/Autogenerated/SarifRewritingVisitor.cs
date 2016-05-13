@@ -346,6 +346,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             {
                 node.Tool = VisitNullChecked(node.Tool);
                 node.Invocation = VisitNullChecked(node.Invocation);
+                node.AnalysisTarget = VisitNullChecked(node.AnalysisTarget);
                 if (node.Files != null)
                 {
                     var keys = node.Files.Keys.ToArray();

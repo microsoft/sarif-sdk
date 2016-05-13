@@ -37,6 +37,11 @@ namespace Microsoft.CodeAnalysis.Sarif
                 return false;
             }
 
+            if (!PhysicalLocation.ValueComparer.Equals(left.AnalysisTarget, right.AnalysisTarget))
+            {
+                return false;
+            }
+
             if (!object.ReferenceEquals(left.Files, right.Files))
             {
                 if (left.Files == null || right.Files == null || left.Files.Count != right.Files.Count)
@@ -229,6 +234,11 @@ namespace Microsoft.CodeAnalysis.Sarif
                 if (obj.Invocation != null)
                 {
                     result = (result * 31) + obj.Invocation.ValueGetHashCode();
+                }
+
+                if (obj.AnalysisTarget != null)
+                {
+                    result = (result * 31) + obj.AnalysisTarget.ValueGetHashCode();
                 }
 
                 if (obj.Files != null)
