@@ -23,6 +23,6 @@ namespace Microsoft.CodeAnalysis.Sarif
         Sanitizer,
         Sink,
         Source,
-        Use
+        Usage
     }
 }
