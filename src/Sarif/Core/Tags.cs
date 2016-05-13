@@ -153,7 +153,9 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         public void UnionWith(IEnumerable<string> other)
         {
-            throw new NotImplementedException();
+            ISet<string> tags = GetTags() ?? new HashSet<string>();
+            tags.UnionWith(other);
+            SetTags(tags);
         }
 
         void ICollection<string>.Add(string item)

@@ -449,5 +449,44 @@ namespace Microsoft.CodeAnalysis.Sarif.Core
             _testObject.Tags.Count.Should().Be(2);
             _testObject.Tags.Should().ContainInOrder("x", "z");
         }
+
+        [TestMethod]
+        public void Tags_UnionWith_EmptyWhenBothAreEmpty()
+        {
+            _testObject.Tags.UnionWith(new string[0]);
+
+            _testObject.Tags.Count.Should().Be(0);
+        }
+
+        [TestMethod]
+        public void Tags_UnionWith_OriginalElementsWhenOtherIsEmpty()
+        {
+            InitializeTags("x", "y");
+
+            _testObject.Tags.UnionWith(new string[0]);
+
+            _testObject.Tags.Count.Should().Be(2);
+            _testObject.Tags.Should().ContainInOrder("x", "y");
+        }
+
+        [TestMethod]
+        public void Tags_UnionWith_OtherElementsWhenEmpty()
+        {
+            _testObject.Tags.UnionWith(new[] { "x", "y" });
+
+            _testObject.Tags.Count.Should().Be(2);
+            _testObject.Tags.Should().ContainInOrder("x", "y");
+        }
+
+        [TestMethod]
+        public void Tags_UnionWith_CombinationOfElementsWhenBothAreNonEmpty()
+        {
+            InitializeTags("a", "b", "c", "d");
+
+            _testObject.Tags.UnionWith(new[] { "b", "c", "e", "f" });
+
+            _testObject.Tags.Count.Should().Be(6);
+            _testObject.Tags.Should().ContainInOrder("a", "b", "c", "d", "e", "f");
+        }
     }
 }
