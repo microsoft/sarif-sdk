@@ -86,97 +86,97 @@
     <None Include="ConverterTestData\FxCop\FxCopReportAllMessageStates.xml.sarif">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="ConverterTestData\PREfast\AA_IndexAlias.cpp.xml.sarif" >
+    <None Include="ConverterTestData\PREfast\AA_IndexAlias.cpp.xml.sarif">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="ConverterTestData\PREfast\AA_RememberOldAlias.cpp.xml.sarif" >
+    <None Include="ConverterTestData\PREfast\AA_RememberOldAlias.cpp.xml.sarif">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="ConverterTestData\PREfast\AB_IrrelevantBranch.cpp.xml.sarif" >
+    <None Include="ConverterTestData\PREfast\AB_IrrelevantBranch.cpp.xml.sarif">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="ConverterTestData\PREfast\AB_IrrelevantLoop.cpp.xml.sarif" >
+    <None Include="ConverterTestData\PREfast\AB_IrrelevantLoop.cpp.xml.sarif">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="ConverterTestData\PREfast\AB_IrrelevantSwitch.cpp.xml.sarif" >
+    <None Include="ConverterTestData\PREfast\AB_IrrelevantSwitch.cpp.xml.sarif">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="ConverterTestData\PREfast\AB_SecondLoop.cpp.xml.sarif" >
+    <None Include="ConverterTestData\PREfast\AB_SecondLoop.cpp.xml.sarif">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="ConverterTestData\PREfast\AdvancedC6305.cpp.xml.sarif" >
+    <None Include="ConverterTestData\PREfast\AdvancedC6305.cpp.xml.sarif">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="ConverterTestData\PREfast\AF_LocalRemoteFunctions.cpp.xml.sarif" >
+    <None Include="ConverterTestData\PREfast\AF_LocalRemoteFunctions.cpp.xml.sarif">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="ConverterTestData\PREfast\AM_AliasAndMaybeZero.cpp.xml.sarif" >
+    <None Include="ConverterTestData\PREfast\AM_AliasAndMaybeZero.cpp.xml.sarif">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="ConverterTestData\PREfast\AM_AliasAndSetValue.cpp.xml.sarif" >
+    <None Include="ConverterTestData\PREfast\AM_AliasAndSetValue.cpp.xml.sarif">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="ConverterTestData\PREfast\AM_BranchAndMaybeZero.cpp.xml.sarif" >
+    <None Include="ConverterTestData\PREfast\AM_BranchAndMaybeZero.cpp.xml.sarif">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="ConverterTestData\PREfast\AM_BranchAndSetValue.cpp.xml.sarif" >
+    <None Include="ConverterTestData\PREfast\AM_BranchAndSetValue.cpp.xml.sarif">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="ConverterTestData\PREfast\AN_Basic_C6053_4.cpp.xml.sarif" >
+    <None Include="ConverterTestData\PREfast\AN_Basic_C6053_4.cpp.xml.sarif">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="ConverterTestData\PREfast\AN_Basic_C6387.cpp.xml.sarif" >
+    <None Include="ConverterTestData\PREfast\AN_Basic_C6387.cpp.xml.sarif">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="ConverterTestData\PREfast\AN_FunctionAndInAnnotations.cpp.xml.sarif" >
+    <None Include="ConverterTestData\PREfast\AN_FunctionAndInAnnotations.cpp.xml.sarif">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="ConverterTestData\PREfast\AN_InOptAnnotations.cpp.xml.sarif" >
+    <None Include="ConverterTestData\PREfast\AN_InOptAnnotations.cpp.xml.sarif">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="ConverterTestData\PREfast\AN_OutWithDefect.cpp.xml.sarif" >
+    <None Include="ConverterTestData\PREfast\AN_OutWithDefect.cpp.xml.sarif">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="ConverterTestData\PREfast\C28182Example.cpp.xml.sarif" >
+    <None Include="ConverterTestData\PREfast\C28182Example.cpp.xml.sarif">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="ConverterTestData\PREfast\C6001Example.cpp.xml.sarif" >
+    <None Include="ConverterTestData\PREfast\C6001Example.cpp.xml.sarif">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="ConverterTestData\PREfast\C6001Example2.cpp.xml.sarif" >
+    <None Include="ConverterTestData\PREfast\C6001Example2.cpp.xml.sarif">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="ConverterTestData\PREfast\C6001Example3.cpp.xml.sarif" >
+    <None Include="ConverterTestData\PREfast\C6001Example3.cpp.xml.sarif">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="ConverterTestData\PREfast\C6011Example.cpp.xml.sarif" >
+    <None Include="ConverterTestData\PREfast\C6011Example.cpp.xml.sarif">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="ConverterTestData\PREfast\C6059Example.cpp.xml.sarif" >
+    <None Include="ConverterTestData\PREfast\C6059Example.cpp.xml.sarif">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="ConverterTestData\PREfast\C6200Example.cpp.xml.sarif" >
+    <None Include="ConverterTestData\PREfast\C6200Example.cpp.xml.sarif">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="ConverterTestData\PREfast\C6305Example.cpp.xml.sarif" >
+    <None Include="ConverterTestData\PREfast\C6305Example.cpp.xml.sarif">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="ConverterTestData\PREfast\C6385Example.cpp.xml.sarif" >
+    <None Include="ConverterTestData\PREfast\C6385Example.cpp.xml.sarif">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="ConverterTestData\PREfast\C6385Example2.cpp.xml.sarif" >
+    <None Include="ConverterTestData\PREfast\C6385Example2.cpp.xml.sarif">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="ConverterTestData\PREfast\C6385Example3.cpp.xml.sarif" >
+    <None Include="ConverterTestData\PREfast\C6385Example3.cpp.xml.sarif">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="ConverterTestData\PREfast\C6386Example.cpp.xml.sarif" >
+    <None Include="ConverterTestData\PREfast\C6386Example.cpp.xml.sarif">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="ConverterTestData\PREfast\C6386Example2.cpp.xml.sarif" >
+    <None Include="ConverterTestData\PREfast\C6386Example2.cpp.xml.sarif">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="ConverterTestData\PREfast\C6386Example3.cpp.xml.sarif" >
+    <None Include="ConverterTestData\PREfast\C6386Example3.cpp.xml.sarif">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="ConverterTestData\PREfast\Expected-001.xml.sarif">
@@ -632,55 +632,49 @@
     <None Include="ConverterTestData\PREfast\Expected-205.xml.sarif">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="ConverterTestData\PREfast\LongConditions.cpp.xml.sarif" >
+    <None Include="ConverterTestData\PREfast\LongConditions.cpp.xml.sarif">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="ConverterTestData\PREfast\LongMacro.cpp.xml.sarif" >
+    <None Include="ConverterTestData\PREfast\LongMacro.cpp.xml.sarif">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="ConverterTestData\PREfast\RelevantkeyEvents.cpp.xml.sarif" >
+    <None Include="ConverterTestData\PREfast\RelevantkeyEvents.cpp.xml.sarif">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="ConverterTestData\PREfast\RelevantKeyEvents2.cpp.xml.sarif" >
+    <None Include="ConverterTestData\PREfast\RelevantKeyEvents2.cpp.xml.sarif">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="ConverterTestData\PREfast\Standardc6259.cxx.xml.sarif" >
+    <None Include="ConverterTestData\PREfast\Standardc6259.cxx.xml.sarif">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="ConverterTestData\PREfast\Standardc6282.cxx.xml.sarif" >
+    <None Include="ConverterTestData\PREfast\Standardc6282.cxx.xml.sarif">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="ConverterTestData\PREfast\Standardc6306.cxx.xml.sarif" >
+    <None Include="ConverterTestData\PREfast\Standardc6306.cxx.xml.sarif">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="ConverterTestData\PREfast\Standardc6306.obj" >
+    <None Include="ConverterTestData\PREfast\Standardc6316.cxx.xml.sarif">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="ConverterTestData\PREfast\Standardc6316.cxx.xml.sarif" >
+    <None Include="ConverterTestData\PREfast\TFS260613.cpp.xml.sarif">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="ConverterTestData\PREfast\Standardc6316.obj" >
+    <None Include="ConverterTestData\PREfast\TFS348783.cpp.xml.sarif">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="ConverterTestData\PREfast\TFS260613.cpp.xml.sarif" >
+    <None Include="ConverterTestData\PREfast\TFS370524.cpp.xml.sarif">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="ConverterTestData\PREfast\TFS348783.cpp.xml.sarif" >
+    <None Include="ConverterTestData\PREfast\TFS372959.cpp.xml.sarif">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="ConverterTestData\PREfast\TFS370524.cpp.xml.sarif" >
+    <None Include="ConverterTestData\PREfast\TFS373273.cpp.xml.sarif">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="ConverterTestData\PREfast\TFS372959.cpp.xml.sarif" >
+    <None Include="ConverterTestData\PREfast\TFS375867.cpp.xml.sarif">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="ConverterTestData\PREfast\TFS373273.cpp.xml.sarif" >
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="ConverterTestData\PREfast\TFS375867.cpp.xml.sarif" >
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="ConverterTestData\PREfast\TFS378661.cpp.xml.sarif" >
+    <None Include="ConverterTestData\PREfast\TFS378661.cpp.xml.sarif">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="DirectProducerTestData\WebSkim\LocalizedBundleDoubleNesting.sarif">
