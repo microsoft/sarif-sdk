@@ -796,7 +796,7 @@
         },
 
         "analysisTarget": {
-          "description": "The file that the analysis tool was instructed to scan. This member is only populated if the run is directated against a single analysis target.",
+          "description": "The file that the analysis tool was instructed to scan. This member is only populated if the run is directed against a single analysis target.",
           "$ref": "#/definitions/physicalLocation"
         },
 
