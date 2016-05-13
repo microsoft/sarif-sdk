@@ -2,6 +2,7 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using System;
+using System.Diagnostics;
 using System.IO;
 using System.Reflection;
 using System.Text;
@@ -67,6 +68,32 @@ namespace Microsoft.CodeAnalysis.Sarif
                 result.Split(new string[] { SarifConstants.RemovedMarker }, StringSplitOptions.None)
                     .Length.Should().Be(tokensToRedact.Length + 1, "redacting n tokens gives you n+1 removal markers");
             }
+        }
+
+        [TestMethod]
+        public void SarifLogger_WritesSarifLoggerVersion()
+        {
+            var sb = new StringBuilder();
+
+            using (var textWriter = new StringWriter(sb))
+            {
+                using (var sarifLogger = new SarifLogger(
+                    textWriter,
+                    analysisTargets: new string[] { @"foo.cpp" },
+                    verbose: false,
+                    computeTargetsHash: false,
+                    logEnvironment: false,
+                    prereleaseInfo: null,
+                    invocationTokensToRedact: null)) { }
+            }
+
+            string result = sb.ToString();
+            var sarifLog = JsonConvert.DeserializeObject<SarifLog>(result);
+
+            string sarifLoggerLocation = typeof(SarifLogger).Assembly.Location;
+            string expectedVersion = FileVersionInfo.GetVersionInfo(sarifLoggerLocation).FileVersion;
+
+            sarifLog.Runs[0].Tool.SarifLoggerVersion.Should().Be(expectedVersion);
         }
 
         [TestMethod]

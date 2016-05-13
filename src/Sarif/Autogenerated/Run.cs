@@ -44,7 +44,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         public Invocation Invocation { get; set; }
 
         /// <summary>
-        /// The file that the analysis tool was instructed to scan. This member is only populated if the run is directated against a single analysis target.
+        /// The file that the analysis tool was instructed to scan. This member is only populated if the run is directed against a single analysis target.
         /// </summary>
         [DataMember(Name = "analysisTarget", IsRequired = false, EmitDefaultValue = false)]
         public PhysicalLocation AnalysisTarget { get; set; }
