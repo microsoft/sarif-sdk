@@ -28,6 +28,11 @@ namespace Microsoft.CodeAnalysis.Sarif
                 return false;
             }
 
+            if (left.Id != right.Id)
+            {
+                return false;
+            }
+
             if (!PhysicalLocation.ValueComparer.Equals(left.PhysicalLocation, right.PhysicalLocation))
             {
                 return false;
@@ -83,6 +88,11 @@ namespace Microsoft.CodeAnalysis.Sarif
             int result = 17;
             unchecked
             {
+                if (obj.Id != null)
+                {
+                    result = (result * 31) + obj.Id.GetHashCode();
+                }
+
                 if (obj.PhysicalLocation != null)
                 {
                     result = (result * 31) + obj.PhysicalLocation.ValueGetHashCode();

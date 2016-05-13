@@ -45,7 +45,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         public PhysicalLocation ResultFile { get; set; }
 
         /// <summary>
-        /// The fully qualified name of the logical location where the analysis tool produced the result. If 'logicalLocationKey' is not specified, this member is can used to retrieve the location logicalLocation from the logicalLocations dictionary, if one exists.
+        /// The human-readable fully qualified name of the logical location where the analysis tool produced the result. If 'logicalLocationKey' is not specified, this member is can used to retrieve the location logicalLocation from the logicalLocations dictionary, if one exists.
         /// </summary>
         [DataMember(Name = "fullyQualifiedLogicalName", IsRequired = false, EmitDefaultValue = false)]
         public string FullyQualifiedLogicalName { get; set; }
@@ -57,7 +57,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         public string LogicalLocationKey { get; set; }
 
         /// <summary>
-        /// The fully qualified name for the logical location, in the compiler's native format.
+        /// The machine-readable fully qualified name for the logical location where the analysis tool produced the result, such as the mangled function name provided by a C++ compiler that encodes calling convention, return type and other details along with the function name.
         /// </summary>
         [DataMember(Name = "decoratedName", IsRequired = false, EmitDefaultValue = false)]
         public string DecoratedName { get; set; }
