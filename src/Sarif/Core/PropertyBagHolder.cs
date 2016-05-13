@@ -3,6 +3,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Globalization;
 using System.Linq;
 using Microsoft.CodeAnalysis.Sarif.Readers;
@@ -115,6 +116,22 @@ namespace Microsoft.CodeAnalysis.Sarif
                 : JsonConvert.SerializeObject(value);
              
             Properties[propertyName] = new SerializedPropertyInfo(serializedValue, isString);
+        }
+
+        public void SetPropertiesFrom(IPropertyBagHolder other)
+        {
+            // We need the concrete class because the IPropertyBagHolder interface
+            // doesn't expose the raw Properties array.
+            PropertyBagHolder otherHolder = other as PropertyBagHolder;
+            Debug.Assert(otherHolder != null);
+                
+            Properties.Clear();
+            foreach (string propertyName in other.PropertyNames)
+            {
+                SerializedPropertyInfo otherInfo = otherHolder.Properties[propertyName];
+
+                Properties[propertyName] = new SerializedPropertyInfo(otherInfo.SerializedValue, otherInfo.IsString);
+            }
         }
 
         public void RemoveProperty(string propertyName)

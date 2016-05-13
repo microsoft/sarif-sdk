@@ -6,9 +6,13 @@ using Newtonsoft.Json;
 
 namespace Microsoft.CodeAnalysis.Sarif.Readers
 {
-    public class IRuleDictionaryConverter : JsonConverter
+    /// <summary>
+    /// This converter only exists because the version of Json.NET we're using (6.0.8)
+    /// can't write out a property whose static type is an interface.
+    /// </summary>
+    public class RuleDictionaryConverter : JsonConverter
     {
-        public static readonly IRuleDictionaryConverter Instance = new IRuleDictionaryConverter();
+        public static readonly RuleDictionaryConverter Instance = new RuleDictionaryConverter();
 
         public override bool CanConvert(Type objectType)
         {
@@ -47,10 +51,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
                     ShortDescription = iRule.ShortDescription,
                 };
 
-                foreach (string propertyName in iRule.PropertyNames)
-                {
-                    rule.SetProperty(propertyName, iRule.GetProperty(propertyName));
-                }
+                rule.SetPropertiesFrom(iRule);
 
                 outgoing[key] = rule;
             }
