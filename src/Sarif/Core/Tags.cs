@@ -139,7 +139,16 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         public void SymmetricExceptWith(IEnumerable<string> other)
         {
-            throw new NotImplementedException();
+            ISet<string> tags = GetTags();
+            if (tags != null)
+            {
+                tags.SymmetricExceptWith(other);
+                SetTags(tags);
+            }
+            else
+            {
+                SetTags(other);
+            }
         }
 
         public void UnionWith(IEnumerable<string> other)
@@ -165,7 +174,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 : null;
         }
 
-        private void SetTags(ISet<string> tags)
+        private void SetTags(IEnumerable<string> tags)
         {
             _propertyBagHolder.SetProperty(TagsPropertyName, tags);
         }

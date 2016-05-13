@@ -410,5 +410,44 @@ namespace Microsoft.CodeAnalysis.Sarif.Core
 
             _testObject.Tags.SetEquals(new[] { "x", "z" }).Should().BeFalse();
         }
+
+        [TestMethod]
+        public void Tags_SymmetricExceptWith_EmptyWhenBothAreEmpty()
+        {
+            _testObject.Tags.SymmetricExceptWith(new string[0]);
+
+            _testObject.Tags.Should().BeEmpty();
+        }
+
+        [TestMethod]
+        public void Tags_SymmetricExceptWith_OriginalElementsWhenOtherIsEmpty()
+        {
+            InitializeTags("x", "y");
+
+            _testObject.Tags.SymmetricExceptWith(new string[0]);
+
+            _testObject.Tags.Count.Should().Be(2);
+            _testObject.Tags.Should().ContainInOrder("x", "y");
+        }
+
+        [TestMethod]
+        public void Tags_SymmetricExceptWith_OtherElementsWhenEmpty()
+        {
+            _testObject.Tags.SymmetricExceptWith(new[] { "x", "y" });
+
+            _testObject.Tags.Count.Should().Be(2);
+            _testObject.Tags.Should().ContainInOrder("x", "y");
+        }
+
+        [TestMethod]
+        public void Tags_SymmetricExceptWith_ExcludesCommonElements()
+        {
+            InitializeTags("x", "y");
+
+            _testObject.Tags.SymmetricExceptWith(new[] { "z", "y" });
+
+            _testObject.Tags.Count.Should().Be(2);
+            _testObject.Tags.Should().ContainInOrder("x", "z");
+        }
     }
 }
