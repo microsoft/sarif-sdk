@@ -25,6 +25,7 @@
 * Update all converters to Sarif beta.5
 * Add option 'id' to each result, to allow correlation with external data, annotations, work items, etc.
 * Add flag to configure file hash computation to FileData.Create helper
-
+* Add 'relativeTo' conceptual base URI to all format URI properties (to allow all URIs to be relative)
+* Add 'analysisTarget' to invocation object, for cases where a single target is associated with a run
 
 
