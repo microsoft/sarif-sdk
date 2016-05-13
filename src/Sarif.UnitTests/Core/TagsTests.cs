@@ -144,7 +144,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Core
         }
 
         [TestMethod]
-        public void Tags_IsProperSubsetOf_ReturnsFalseWhenEmptyAndOtherIsEmpty()
+        public void Tags_IsProperSubsetOf_ReturnsFalseWhenBothAreEmpty()
         {
             _testObject.Tags.IsProperSubsetOf(new string[0]).Should().BeFalse();
         }
@@ -156,7 +156,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Core
         }
 
         [TestMethod]
-        public void Tags_IsProperSubsetOf_ReturnsFalseWhenNonEmptyAndOtherHasSameElements()
+        public void Tags_IsProperSubsetOf_ReturnsFalseWhenHaveSameElements()
         {
             _testObject.Tags.Add("x");
             _testObject.Tags.Add("y");
@@ -165,7 +165,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Core
         }
 
         [TestMethod]
-        public void Tags_IsProperSubsetOf_ReturnsTrueWhenNonEmptyAndIsProperSupersetOfOther()
+        public void Tags_IsProperSubsetOf_ReturnsTrueWhenNonEmptyAndProperSubsetOfOther()
         {
             _testObject.Tags.Add("x");
             _testObject.Tags.Add("y");
@@ -181,6 +181,132 @@ namespace Microsoft.CodeAnalysis.Sarif.Core
             _testObject.Tags.Add("z");
 
             _testObject.Tags.IsProperSubsetOf(new[] { "y", "z", "q" }).Should().BeFalse();
+        }
+
+        [TestMethod]
+        public void Tags_IsProperSupersetOf_ReturnsFalseWhenBothAreEmpty()
+        {
+            _testObject.Tags.IsProperSupersetOf(new string[0]).Should().BeFalse();
+        }
+
+        [TestMethod]
+        public void Tags_IsProperSupersetOf_ReturnsTrueWhenNonEmptyAndOtherIsEmpty()
+        {
+            _testObject.Tags.Add("x");
+
+            _testObject.Tags.IsProperSupersetOf(new string[0]).Should().BeTrue();
+        }
+
+        [TestMethod]
+        public void Tags_IsProperSupersetOf_ReturnsFalseWhenHaveSameElements()
+        {
+            _testObject.Tags.Add("x");
+            _testObject.Tags.Add("y");
+
+            _testObject.Tags.IsProperSupersetOf(new[] { "x", "y" }).Should().BeFalse();
+        }
+
+        [TestMethod]
+        public void Tags_IsProperSupersetOf_ReturnsTrueWhenNonEmptyAndProperSupersetOfOther()
+        {
+            _testObject.Tags.Add("x");
+            _testObject.Tags.Add("y");
+            _testObject.Tags.Add("z");
+
+            _testObject.Tags.IsProperSupersetOf(new[] { "y", "x" }).Should().BeTrue();
+        }
+
+        [TestMethod]
+        public void Tags_IsProperSupersetOf_ReturnsFalseWhenEachSideHasSomeDifferentElements()
+        {
+            _testObject.Tags.Add("x");
+            _testObject.Tags.Add("y");
+            _testObject.Tags.Add("z");
+
+            _testObject.Tags.IsProperSupersetOf(new[] { "y", "z", "q" }).Should().BeFalse();
+        }
+
+        [TestMethod]
+        public void Tags_IsSubsetOf_ReturnsTrueWhenBothAreEmpty()
+        {
+            _testObject.Tags.IsSubsetOf(new string[0]).Should().BeTrue();
+        }
+
+        [TestMethod]
+        public void Tags_IsSubsetOf_ReturnsTrueWhenEmptyAndOtherIsNonEmpty()
+        {
+            _testObject.Tags.IsSubsetOf(new[] { "x" }).Should().BeTrue();
+        }
+
+        [TestMethod]
+        public void Tags_IsSubsetOf_ReturnsTrueWhenHaveSameElements()
+        {
+            _testObject.Tags.Add("x");
+            _testObject.Tags.Add("y");
+
+            _testObject.Tags.IsSubsetOf(new[] { "x", "y" }).Should().BeTrue();
+        }
+
+        [TestMethod]
+        public void Tags_IsSubsetOf_ReturnsTrueWhenNonEmptyAndProperSubsetOfOther()
+        {
+            _testObject.Tags.Add("x");
+            _testObject.Tags.Add("y");
+
+            _testObject.Tags.IsSubsetOf(new[] { "z", "y", "x" }).Should().BeTrue();
+        }
+
+        [TestMethod]
+        public void Tags_IsSubsetOf_ReturnsFalseWhenEachSideHasSomeDifferentElements()
+        {
+            _testObject.Tags.Add("x");
+            _testObject.Tags.Add("y");
+            _testObject.Tags.Add("z");
+
+            _testObject.Tags.IsSubsetOf(new[] { "y", "z", "q" }).Should().BeFalse();
+        }
+
+        [TestMethod]
+        public void Tags_IsSupersetOf_ReturnsTrueWhenBothAreEmpty()
+        {
+            _testObject.Tags.IsSupersetOf(new string[0]).Should().BeTrue();
+        }
+
+        [TestMethod]
+        public void Tags_IsSupersetOf_ReturnsTrueWhenNonEmptyAndOtherIsEmpty()
+        {
+            _testObject.Tags.Add("x");
+
+            _testObject.Tags.IsSupersetOf(new string[0]).Should().BeTrue();
+        }
+
+        [TestMethod]
+        public void Tags_IsSupersetOf_ReturnsTrueWhenHaveSameElements()
+        {
+            _testObject.Tags.Add("x");
+            _testObject.Tags.Add("y");
+
+            _testObject.Tags.IsSupersetOf(new[] { "x", "y" }).Should().BeTrue();
+        }
+
+        [TestMethod]
+        public void Tags_IsSupersetOf_ReturnsTrueWhenNonEmptyAndProperSupersetOfOther()
+        {
+            _testObject.Tags.Add("x");
+            _testObject.Tags.Add("y");
+            _testObject.Tags.Add("z");
+
+            _testObject.Tags.IsSupersetOf(new[] { "y", "x" }).Should().BeTrue();
+        }
+
+        [TestMethod]
+        public void Tags_IsSupersetOf_ReturnsFalseWhenEachSideHasSomeDifferentElements()
+        {
+            _testObject.Tags.Add("x");
+            _testObject.Tags.Add("y");
+            _testObject.Tags.Add("z");
+
+            _testObject.Tags.IsSupersetOf(new[] { "y", "z", "q" }).Should().BeFalse();
         }
     }
 }
