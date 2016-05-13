@@ -48,7 +48,13 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// A descriptive identifier that categorizes the annotation.
         /// </summary>
         [DataMember(Name = "kind", IsRequired = false, EmitDefaultValue = false)]
-        public string Kind { get; set; }
+        public AnnotatedCodeLocationKind Kind { get; set; }
+
+        /// <summary>
+        /// True if this location is essential to understanding the code flow in which it occurs.
+        /// </summary>
+        [DataMember(Name = "essential", IsRequired = false, EmitDefaultValue = false)]
+        public bool Essential { get; set; }
 
         /// <summary>
         /// Key/value pairs that provide additional information about the code location.
@@ -75,12 +81,15 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="kind">
         /// An initialization value for the <see cref="P: Kind" /> property.
         /// </param>
+        /// <param name="essential">
+        /// An initialization value for the <see cref="P: Essential" /> property.
+        /// </param>
         /// <param name="properties">
         /// An initialization value for the <see cref="P: Properties" /> property.
         /// </param>
-        public AnnotatedCodeLocation(PhysicalLocation physicalLocation, string message, string kind, IDictionary<string, SerializedPropertyInfo> properties)
+        public AnnotatedCodeLocation(PhysicalLocation physicalLocation, string message, AnnotatedCodeLocationKind kind, bool essential, IDictionary<string, SerializedPropertyInfo> properties)
         {
-            Init(physicalLocation, message, kind, properties);
+            Init(physicalLocation, message, kind, essential, properties);
         }
 
         /// <summary>
@@ -99,7 +108,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 throw new ArgumentNullException(nameof(other));
             }
 
-            Init(other.PhysicalLocation, other.Message, other.Kind, other.Properties);
+            Init(other.PhysicalLocation, other.Message, other.Kind, other.Essential, other.Properties);
         }
 
         ISarifNode ISarifNode.DeepClone()
@@ -120,7 +129,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new AnnotatedCodeLocation(this);
         }
 
-        private void Init(PhysicalLocation physicalLocation, string message, string kind, IDictionary<string, SerializedPropertyInfo> properties)
+        private void Init(PhysicalLocation physicalLocation, string message, AnnotatedCodeLocationKind kind, bool essential, IDictionary<string, SerializedPropertyInfo> properties)
         {
             if (physicalLocation != null)
             {
@@ -129,6 +138,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             Message = message;
             Kind = kind;
+            Essential = essential;
             if (properties != null)
             {
                 Properties = new Dictionary<string, SerializedPropertyInfo>(properties);

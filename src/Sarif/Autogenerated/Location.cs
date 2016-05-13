@@ -57,6 +57,12 @@ namespace Microsoft.CodeAnalysis.Sarif
         public string LogicalLocationKey { get; set; }
 
         /// <summary>
+        /// The fully qualified name for the logical location, in the compiler's native format.
+        /// </summary>
+        [DataMember(Name = "decoratedName", IsRequired = false, EmitDefaultValue = false)]
+        public string DecoratedName { get; set; }
+
+        /// <summary>
         /// Key/value pairs that provide additional information about the location.
         /// </summary>
         [DataMember(Name = "properties", IsRequired = false, EmitDefaultValue = false)]
@@ -84,12 +90,15 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="logicalLocationKey">
         /// An initialization value for the <see cref="P: LogicalLocationKey" /> property.
         /// </param>
+        /// <param name="decoratedName">
+        /// An initialization value for the <see cref="P: DecoratedName" /> property.
+        /// </param>
         /// <param name="properties">
         /// An initialization value for the <see cref="P: Properties" /> property.
         /// </param>
-        public Location(PhysicalLocation analysisTarget, PhysicalLocation resultFile, string fullyQualifiedLogicalName, string logicalLocationKey, IDictionary<string, SerializedPropertyInfo> properties)
+        public Location(PhysicalLocation analysisTarget, PhysicalLocation resultFile, string fullyQualifiedLogicalName, string logicalLocationKey, string decoratedName, IDictionary<string, SerializedPropertyInfo> properties)
         {
-            Init(analysisTarget, resultFile, fullyQualifiedLogicalName, logicalLocationKey, properties);
+            Init(analysisTarget, resultFile, fullyQualifiedLogicalName, logicalLocationKey, decoratedName, properties);
         }
 
         /// <summary>
@@ -108,7 +117,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 throw new ArgumentNullException(nameof(other));
             }
 
-            Init(other.AnalysisTarget, other.ResultFile, other.FullyQualifiedLogicalName, other.LogicalLocationKey, other.Properties);
+            Init(other.AnalysisTarget, other.ResultFile, other.FullyQualifiedLogicalName, other.LogicalLocationKey, other.DecoratedName, other.Properties);
         }
 
         ISarifNode ISarifNode.DeepClone()
@@ -129,7 +138,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new Location(this);
         }
 
-        private void Init(PhysicalLocation analysisTarget, PhysicalLocation resultFile, string fullyQualifiedLogicalName, string logicalLocationKey, IDictionary<string, SerializedPropertyInfo> properties)
+        private void Init(PhysicalLocation analysisTarget, PhysicalLocation resultFile, string fullyQualifiedLogicalName, string logicalLocationKey, string decoratedName, IDictionary<string, SerializedPropertyInfo> properties)
         {
             if (analysisTarget != null)
             {
@@ -143,6 +152,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             FullyQualifiedLogicalName = fullyQualifiedLogicalName;
             LogicalLocationKey = logicalLocationKey;
+            DecoratedName = decoratedName;
             if (properties != null)
             {
                 Properties = new Dictionary<string, SerializedPropertyInfo>(properties);
