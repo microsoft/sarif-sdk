@@ -63,11 +63,6 @@ namespace Microsoft.CodeAnalysis.Sarif
                 return false;
             }
 
-            if (left.LogicalLocationKey != right.LogicalLocationKey)
-            {
-                return false;
-            }
-
             if (left.Address != right.Address)
             {
                 return false;
@@ -159,11 +154,6 @@ namespace Microsoft.CodeAnalysis.Sarif
                 if (obj.FullyQualifiedLogicalName != null)
                 {
                     result = (result * 31) + obj.FullyQualifiedLogicalName.GetHashCode();
-                }
-
-                if (obj.LogicalLocationKey != null)
-                {
-                    result = (result * 31) + obj.LogicalLocationKey.GetHashCode();
                 }
 
                 result = (result * 31) + obj.Address.GetHashCode();

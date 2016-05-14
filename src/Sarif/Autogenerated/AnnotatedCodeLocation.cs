@@ -45,6 +45,12 @@ namespace Microsoft.CodeAnalysis.Sarif
         public PhysicalLocation PhysicalLocation { get; set; }
 
         /// <summary>
+        /// The name of the module that contains the code that is executing.
+        /// </summary>
+        [DataMember(Name = "module", IsRequired = false, EmitDefaultValue = false)]
+        public string Module { get; set; }
+
+        /// <summary>
         /// A message relevant to this annotation.
         /// </summary>
         [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
@@ -84,6 +90,9 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="physicalLocation">
         /// An initialization value for the <see cref="P: PhysicalLocation" /> property.
         /// </param>
+        /// <param name="module">
+        /// An initialization value for the <see cref="P: Module" /> property.
+        /// </param>
         /// <param name="message">
         /// An initialization value for the <see cref="P: Message" /> property.
         /// </param>
@@ -96,9 +105,9 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="properties">
         /// An initialization value for the <see cref="P: Properties" /> property.
         /// </param>
-        public AnnotatedCodeLocation(string id, PhysicalLocation physicalLocation, string message, AnnotatedCodeLocationKind kind, bool essential, IDictionary<string, SerializedPropertyInfo> properties)
+        public AnnotatedCodeLocation(string id, PhysicalLocation physicalLocation, string module, string message, AnnotatedCodeLocationKind kind, bool essential, IDictionary<string, SerializedPropertyInfo> properties)
         {
-            Init(id, physicalLocation, message, kind, essential, properties);
+            Init(id, physicalLocation, module, message, kind, essential, properties);
         }
 
         /// <summary>
@@ -117,7 +126,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 throw new ArgumentNullException(nameof(other));
             }
 
-            Init(other.Id, other.PhysicalLocation, other.Message, other.Kind, other.Essential, other.Properties);
+            Init(other.Id, other.PhysicalLocation, other.Module, other.Message, other.Kind, other.Essential, other.Properties);
         }
 
         ISarifNode ISarifNode.DeepClone()
@@ -138,7 +147,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new AnnotatedCodeLocation(this);
         }
 
-        private void Init(string id, PhysicalLocation physicalLocation, string message, AnnotatedCodeLocationKind kind, bool essential, IDictionary<string, SerializedPropertyInfo> properties)
+        private void Init(string id, PhysicalLocation physicalLocation, string module, string message, AnnotatedCodeLocationKind kind, bool essential, IDictionary<string, SerializedPropertyInfo> properties)
         {
             Id = id;
             if (physicalLocation != null)
@@ -146,6 +155,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 PhysicalLocation = new PhysicalLocation(physicalLocation);
             }
 
+            Module = module;
             Message = message;
             Kind = kind;
             Essential = essential;

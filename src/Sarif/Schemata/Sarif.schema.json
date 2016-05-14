@@ -44,6 +44,11 @@
           "$ref": "#/definitions/physicalLocation"
         },
 
+        "module": {
+          "description": "The name of the module that contains the code that is executing.",
+          "type": "string"
+        },
+
         "message": {
           "description": "A message relevant to this annotation.",
           "type": "string"
@@ -965,11 +970,6 @@
           "type": "string"
         },
 
-        "logicalLocationKey": {
-          "description": "A string used as a key into the logicalLocations dictionary, in case the string specified by 'fullyQualifiedLogicalName' is not unique.",
-          "type": "string"
-        },
-
         "address": {
           "description": "The address of the method or function that is executing.",
           "type": "integer"
@@ -1006,7 +1006,9 @@
             }
           }
         }
-      }
+      },
+
+      "required": ["module", "fullyQualifiedLogicalName"]
     },
     "tool": {
       "description": "The analysis tool that was run.",
