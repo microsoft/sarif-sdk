@@ -142,6 +142,11 @@
           "description": "A string that describes the exception."
         },
 
+        "threadId": {
+          "description": "The thread identifier of the code that raised the exception.",
+          "type": "integer"
+        },
+
         "stack": {
           "description": "The sequence of function calls leading to the exception.",
           "$ref": "#/definitions/stack"
