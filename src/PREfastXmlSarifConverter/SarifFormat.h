@@ -25,10 +25,10 @@ class SarifRegion
 {
 	int m_startLine;
 	int m_startColumn;
+    static constexpr int BASE10 = 10;
 
 public:
 	json::Object m_values;
-	static constexpr int BASE10 = 10;
 
 	void SetStartLine(const std::wstring &value);
 	void SetStartColumn(const std::wstring &value);
@@ -85,6 +85,8 @@ public:
 
 class SarifAnnotatedCodeLocation
 {
+    static constexpr int BASE10 = 10;
+
 public:
 	json::Object m_values;
 
@@ -118,6 +120,12 @@ public:
 		m_values[L"essential"] = json::Value(essential);
 	}
 
+    void SetThreadId(int threadId)
+    {
+        m_values[L"threadId"] = json::Value(threadId);
+    }
+
+    void SetThreadId(const std::wstring &time);
 	void SetEssential(const std::wstring &essential);
 
 	void AddTag(const std::wstring &tag);
@@ -259,6 +267,8 @@ public:
 
 class SarifStackFrame
 {
+    static constexpr int BASE10 = 10;
+
 public:
 	json::Object m_values;
 
@@ -301,6 +311,13 @@ public:
 	{
 		m_values[L"offset"] = offset;
 	}
+
+    void SetThreadId(int threadId)
+    {
+        m_values[L"threadId"] = json::Value(threadId);
+    }
+
+    void SetThreadId(const std::wstring &time);
 
 	void AddParameter(const std::wstring &parameter);
 
@@ -565,6 +582,8 @@ public:
 
 class SarifNotification
 {
+    static constexpr int BASE10 = 10;
+
 public:
 	json::Object m_values;
 
@@ -603,10 +622,17 @@ public:
 		m_values[L"time"] = time;
 	}
 
-	void SetException(const SarifException &exception)
-	{
-		m_values[L"exception"] = exception.m_values;
-	}
+    void SetException(const SarifException &exception)
+    {
+        m_values[L"exception"] = exception.m_values;
+    }
+
+    void SetThreadId(int threadId)
+    {
+        m_values[L"threadId"] = json::Value(threadId);
+    }
+
+    void SetThreadId(const std::wstring &time);
 
 	void AddTag(const std::wstring &tag);
 	void AddProperty(const std::wstring &key, const std::wstring &value);

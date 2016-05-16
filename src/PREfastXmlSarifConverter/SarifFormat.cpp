@@ -245,6 +245,16 @@ SarifCodeFlow::AddLocation(const SarifAnnotatedCodeLocation &location)
 }
 
 void
+SarifAnnotatedCodeLocation::SetThreadId(const std::wstring &value)
+{
+    wchar_t * pEnd;
+    int intVal = wcstol(value.c_str(), &pEnd, BASE10);
+    if (*pEnd)
+        throw std::exception("Invalid Offset specified.");
+    SetThreadId(intVal);
+}
+
+void
 SarifAnnotatedCodeLocation::SetEssential(const std::wstring &value)
 {
 	const wchar_t* essential = value.c_str();
@@ -470,6 +480,16 @@ SarifFormattedMessage::AddArgument(const std::wstring &argument)
 }
 
 void
+SarifNotification::SetThreadId(const std::wstring &value)
+{
+    wchar_t * pEnd;
+    int intVal = wcstol(value.c_str(), &pEnd, BASE10);
+    if (*pEnd)
+        throw std::exception("Invalid Offset specified.");
+    SetThreadId(intVal);
+}
+
+void
 SarifNotification::AddTag(const std::wstring &tag)
 {
 	if (m_values.find(L"properties") == m_values.end())
@@ -536,6 +556,16 @@ SarifStack::AddProperty(const std::wstring &key, const std::wstring &value)
 		m_values[L"properties"] = json::Object();
 
 	m_values[L"properties"][key] = value;
+}
+
+void
+SarifStackFrame::SetThreadId(const std::wstring &value)
+{
+    wchar_t * pEnd;
+    int intVal = wcstol(value.c_str(), &pEnd, BASE10);
+    if (*pEnd)
+        throw std::exception("Invalid Offset specified.");
+    SetThreadId(intVal);
 }
 
 void
