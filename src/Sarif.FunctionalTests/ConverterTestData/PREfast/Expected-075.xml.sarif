@@ -8,44 +8,6 @@
       "fullName":"PREfast Code Analysis",
       "version":"14.0.0"
     },
-    "logicalLocations":{
-      "?f@@YAXPAD@Z":[
-        {
-          "kind":"method",
-          "name":"f"
-        }
-      ],
-      "?g@@YAXPAD@Z":[
-        {
-          "kind":"method",
-          "name":"g"
-        }
-      ],
-      "?h@@YAXPAG@Z":[
-        {
-          "kind":"method",
-          "name":"h"
-        }
-      ],
-      "?foo@@YAXPAG@Z":[
-        {
-          "kind":"method",
-          "name":"foo"
-        }
-      ],
-      "?foo1@@YAXPAG@Z":[
-        {
-          "kind":"method",
-          "name":"foo1"
-        }
-      ],
-      "?bar@@YAXPAG0@Z":[
-        {
-          "kind":"method",
-          "name":"bar"
-        }
-      ]
-    },
     "results":[
       {
         "ruleId":"26015",
@@ -60,9 +22,8 @@
               }
             },
             "fullyQualifiedLogicalName":"f",
-            "logicalLocationKey":"?f@@YAXPAD@Z",
+            "decoratedName":"?f@@YAXPAD@Z",
             "properties":{
-              "decorated":"?f@@YAXPAD@Z",
               "funcline":"7"
             }
           }
@@ -112,9 +73,8 @@
               }
             },
             "fullyQualifiedLogicalName":"g",
-            "logicalLocationKey":"?g@@YAXPAD@Z",
+            "decoratedName":"?g@@YAXPAD@Z",
             "properties":{
-              "decorated":"?g@@YAXPAD@Z",
               "funcline":"13"
             }
           }
@@ -180,9 +140,8 @@
               }
             },
             "fullyQualifiedLogicalName":"h",
-            "logicalLocationKey":"?h@@YAXPAG@Z",
+            "decoratedName":"?h@@YAXPAG@Z",
             "properties":{
-              "decorated":"?h@@YAXPAG@Z",
               "funcline":"20"
             }
           }
@@ -248,9 +207,8 @@
               }
             },
             "fullyQualifiedLogicalName":"foo",
-            "logicalLocationKey":"?foo@@YAXPAG@Z",
+            "decoratedName":"?foo@@YAXPAG@Z",
             "properties":{
-              "decorated":"?foo@@YAXPAG@Z",
               "funcline":"27"
             }
           }
@@ -324,9 +282,8 @@
               }
             },
             "fullyQualifiedLogicalName":"foo1",
-            "logicalLocationKey":"?foo1@@YAXPAG@Z",
+            "decoratedName":"?foo1@@YAXPAG@Z",
             "properties":{
-              "decorated":"?foo1@@YAXPAG@Z",
               "funcline":"37"
             }
           }
@@ -400,9 +357,8 @@
               }
             },
             "fullyQualifiedLogicalName":"bar",
-            "logicalLocationKey":"?bar@@YAXPAG0@Z",
+            "decoratedName":"?bar@@YAXPAG0@Z",
             "properties":{
-              "decorated":"?bar@@YAXPAG0@Z",
               "funcline":"47"
             }
           }

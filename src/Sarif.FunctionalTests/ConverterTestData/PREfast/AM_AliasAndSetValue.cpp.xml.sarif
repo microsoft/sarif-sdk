@@ -8,14 +8,6 @@
       "fullName":"PREfast Code Analysis",
       "version":"14.0.0"
     },
-    "logicalLocations":{
-      "?MergeAliasAndTen@@YAXPEAHH@Z":[
-        {
-          "kind":"method",
-          "name":"MergeAliasAndTen"
-        }
-      ]
-    },
     "results":[
       {
         "ruleId":"6385",
@@ -30,9 +22,8 @@
               }
             },
             "fullyQualifiedLogicalName":"MergeAliasAndTen",
-            "logicalLocationKey":"?MergeAliasAndTen@@YAXPEAHH@Z",
+            "decoratedName":"?MergeAliasAndTen@@YAXPEAHH@Z",
             "properties":{
-              "decorated":"?MergeAliasAndTen@@YAXPEAHH@Z",
               "funcline":"1"
             }
           }

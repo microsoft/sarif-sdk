@@ -8,20 +8,6 @@
       "fullName":"PREfast Code Analysis",
       "version":"14.0.0"
     },
-    "logicalLocations":{
-      "?BadGetData2@@YAXPAPAXPAK@Z":[
-        {
-          "kind":"method",
-          "name":"BadGetData2"
-        }
-      ],
-      "?foo@@YAXXZ":[
-        {
-          "kind":"method",
-          "name":"foo"
-        }
-      ]
-    },
     "results":[
       {
         "ruleId":"26007",
@@ -36,9 +22,8 @@
               }
             },
             "fullyQualifiedLogicalName":"BadGetData2",
-            "logicalLocationKey":"?BadGetData2@@YAXPAPAXPAK@Z",
+            "decoratedName":"?BadGetData2@@YAXPAPAXPAK@Z",
             "properties":{
-              "decorated":"?BadGetData2@@YAXPAPAXPAK@Z",
               "funcline":"16"
             }
           }
@@ -88,9 +73,8 @@
               }
             },
             "fullyQualifiedLogicalName":"foo",
-            "logicalLocationKey":"?foo@@YAXXZ",
+            "decoratedName":"?foo@@YAXXZ",
             "properties":{
-              "decorated":"?foo@@YAXXZ",
               "funcline":"35"
             }
           }
@@ -164,9 +148,8 @@
               }
             },
             "fullyQualifiedLogicalName":"foo",
-            "logicalLocationKey":"?foo@@YAXXZ",
+            "decoratedName":"?foo@@YAXXZ",
             "properties":{
-              "decorated":"?foo@@YAXXZ",
               "funcline":"35"
             }
           }
@@ -304,9 +287,8 @@
               }
             },
             "fullyQualifiedLogicalName":"foo",
-            "logicalLocationKey":"?foo@@YAXXZ",
+            "decoratedName":"?foo@@YAXXZ",
             "properties":{
-              "decorated":"?foo@@YAXXZ",
               "funcline":"35"
             }
           }

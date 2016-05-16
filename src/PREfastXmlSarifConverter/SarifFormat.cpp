@@ -327,23 +327,6 @@ SarifFix::AddFileChange(const SarifFileChange &change)
 }
 
 void
-SarifResult::AddTag(const std::wstring &tag)
-{
-    if (m_values.find(L"properties") == m_values.end())
-        m_values[L"properties"] = json::Object();
-
-    ((json::Object)m_values[L"properties"]).GetArrayElement(L"tags").push_back(tag);
-}
-
-void
-SarifResult::AddProperty(const std::wstring &key, const std::wstring &value)
-{
-    if (m_values.find(L"properties") == m_values.end())
-        m_values[L"properties"] = json::Object();
-    m_values[L"properties"][key] = value;
-}
-
-void
 SarifResult::AddLocation(const SarifLocation &location)
 {
     m_values.GetArrayElement(L"locations").push_back(location.m_values);
@@ -371,6 +354,24 @@ void
 SarifResult::AddFix(const SarifFix &fix)
 {
     m_values.GetArrayElement(L"fixes").push_back(fix.m_values);
+}
+
+void
+SarifResult::AddTag(const std::wstring &tag)
+{
+    if (m_values.find(L"properties") == m_values.end())
+        m_values[L"properties"] = json::Object();
+
+    ((json::Object)m_values[L"properties"]).GetArrayElement(L"tags").push_back(tag);
+}
+
+void
+SarifResult::AddProperty(const std::wstring &key, const std::wstring &value)
+{
+    if (m_values.find(L"properties") == m_values.end())
+        m_values[L"properties"] = json::Object();
+
+    m_values[L"properties"][key] = value;
 }
 
 void

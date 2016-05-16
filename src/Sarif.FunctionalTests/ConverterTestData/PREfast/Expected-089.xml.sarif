@@ -8,38 +8,6 @@
       "fullName":"PREfast Code Analysis",
       "version":"14.0.0"
     },
-    "logicalLocations":{
-      "?congruent1@@YAXPAPADI@Z":[
-        {
-          "kind":"method",
-          "name":"congruent1"
-        }
-      ],
-      "?congruent2@@YAXPAUEnum@@@Z":[
-        {
-          "kind":"method",
-          "name":"congruent2"
-        }
-      ],
-      "?congruent3@@YA_NPAUEnum@@PAHI@Z":[
-        {
-          "kind":"method",
-          "name":"congruent3"
-        }
-      ],
-      "?notcongruent1@@YAXPAUEnum@@@Z":[
-        {
-          "kind":"method",
-          "name":"notcongruent1"
-        }
-      ],
-      "?notcongruent2@@YAXPAUEnum@@@Z":[
-        {
-          "kind":"method",
-          "name":"notcongruent2"
-        }
-      ]
-    },
     "results":[
       {
         "ruleId":"26035",
@@ -54,9 +22,8 @@
               }
             },
             "fullyQualifiedLogicalName":"congruent1",
-            "logicalLocationKey":"?congruent1@@YAXPAPADI@Z",
+            "decoratedName":"?congruent1@@YAXPAPADI@Z",
             "properties":{
-              "decorated":"?congruent1@@YAXPAPADI@Z",
               "funcline":"7"
             }
           }
@@ -322,9 +289,8 @@
               }
             },
             "fullyQualifiedLogicalName":"congruent1",
-            "logicalLocationKey":"?congruent1@@YAXPAPADI@Z",
+            "decoratedName":"?congruent1@@YAXPAPADI@Z",
             "properties":{
-              "decorated":"?congruent1@@YAXPAPADI@Z",
               "funcline":"7"
             }
           }
@@ -606,9 +572,8 @@
               }
             },
             "fullyQualifiedLogicalName":"congruent2",
-            "logicalLocationKey":"?congruent2@@YAXPAUEnum@@@Z",
+            "decoratedName":"?congruent2@@YAXPAUEnum@@@Z",
             "properties":{
-              "decorated":"?congruent2@@YAXPAUEnum@@@Z",
               "funcline":"46"
             }
           }
@@ -778,9 +743,8 @@
               }
             },
             "fullyQualifiedLogicalName":"congruent2",
-            "logicalLocationKey":"?congruent2@@YAXPAUEnum@@@Z",
+            "decoratedName":"?congruent2@@YAXPAUEnum@@@Z",
             "properties":{
-              "decorated":"?congruent2@@YAXPAUEnum@@@Z",
               "funcline":"46"
             }
           }
@@ -1062,9 +1026,8 @@
               }
             },
             "fullyQualifiedLogicalName":"congruent3",
-            "logicalLocationKey":"?congruent3@@YA_NPAUEnum@@PAHI@Z",
+            "decoratedName":"?congruent3@@YA_NPAUEnum@@PAHI@Z",
             "properties":{
-              "decorated":"?congruent3@@YA_NPAUEnum@@PAHI@Z",
               "funcline":"76"
             }
           }
@@ -1266,9 +1229,8 @@
               }
             },
             "fullyQualifiedLogicalName":"notcongruent1",
-            "logicalLocationKey":"?notcongruent1@@YAXPAUEnum@@@Z",
+            "decoratedName":"?notcongruent1@@YAXPAUEnum@@@Z",
             "properties":{
-              "decorated":"?notcongruent1@@YAXPAUEnum@@@Z",
               "funcline":"103"
             }
           }
@@ -1678,9 +1640,8 @@
               }
             },
             "fullyQualifiedLogicalName":"notcongruent1",
-            "logicalLocationKey":"?notcongruent1@@YAXPAUEnum@@@Z",
+            "decoratedName":"?notcongruent1@@YAXPAUEnum@@@Z",
             "properties":{
-              "decorated":"?notcongruent1@@YAXPAUEnum@@@Z",
               "funcline":"103"
             }
           }
@@ -2090,9 +2051,8 @@
               }
             },
             "fullyQualifiedLogicalName":"notcongruent2",
-            "logicalLocationKey":"?notcongruent2@@YAXPAUEnum@@@Z",
+            "decoratedName":"?notcongruent2@@YAXPAUEnum@@@Z",
             "properties":{
-              "decorated":"?notcongruent2@@YAXPAUEnum@@@Z",
               "funcline":"137"
             }
           }
@@ -2310,9 +2270,8 @@
               }
             },
             "fullyQualifiedLogicalName":"notcongruent2",
-            "logicalLocationKey":"?notcongruent2@@YAXPAUEnum@@@Z",
+            "decoratedName":"?notcongruent2@@YAXPAUEnum@@@Z",
             "properties":{
-              "decorated":"?notcongruent2@@YAXPAUEnum@@@Z",
               "funcline":"137"
             }
           }

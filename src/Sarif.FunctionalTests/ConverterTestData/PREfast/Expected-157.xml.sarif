@@ -8,20 +8,6 @@
       "fullName":"PREfast Code Analysis",
       "version":"14.0.0"
     },
-    "logicalLocations":{
-      "?TestMyStructBufferOverrun@@YAXXZ":[
-        {
-          "kind":"method",
-          "name":"TestMyStructBufferOverrun"
-        }
-      ],
-      "?TestMyStructBufferOverrun2@@YAXXZ":[
-        {
-          "kind":"method",
-          "name":"TestMyStructBufferOverrun2"
-        }
-      ]
-    },
     "results":[
       {
         "ruleId":"26000",
@@ -36,9 +22,8 @@
               }
             },
             "fullyQualifiedLogicalName":"TestMyStructBufferOverrun",
-            "logicalLocationKey":"?TestMyStructBufferOverrun@@YAXXZ",
+            "decoratedName":"?TestMyStructBufferOverrun@@YAXXZ",
             "properties":{
-              "decorated":"?TestMyStructBufferOverrun@@YAXXZ",
               "funcline":"34"
             }
           }
@@ -112,9 +97,8 @@
               }
             },
             "fullyQualifiedLogicalName":"TestMyStructBufferOverrun2",
-            "logicalLocationKey":"?TestMyStructBufferOverrun2@@YAXXZ",
+            "decoratedName":"?TestMyStructBufferOverrun2@@YAXXZ",
             "properties":{
-              "decorated":"?TestMyStructBufferOverrun2@@YAXXZ",
               "funcline":"43"
             }
           }

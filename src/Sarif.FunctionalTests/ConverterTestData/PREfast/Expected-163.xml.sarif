@@ -8,14 +8,6 @@
       "fullName":"PREfast Code Analysis",
       "version":"14.0.0"
     },
-    "logicalLocations":{
-      "?MemberFunc@Class@@QAEJXZ":[
-        {
-          "kind":"method",
-          "name":"Class::MemberFunc"
-        }
-      ]
-    },
     "results":[
       {
         "ruleId":"26035",
@@ -30,9 +22,8 @@
               }
             },
             "fullyQualifiedLogicalName":"Class::MemberFunc",
-            "logicalLocationKey":"?MemberFunc@Class@@QAEJXZ",
+            "decoratedName":"?MemberFunc@Class@@QAEJXZ",
             "properties":{
-              "decorated":"?MemberFunc@Class@@QAEJXZ",
               "funcline":"17"
             }
           }
@@ -210,9 +201,8 @@
               }
             },
             "fullyQualifiedLogicalName":"Class::MemberFunc",
-            "logicalLocationKey":"?MemberFunc@Class@@QAEJXZ",
+            "decoratedName":"?MemberFunc@Class@@QAEJXZ",
             "properties":{
-              "decorated":"?MemberFunc@Class@@QAEJXZ",
               "funcline":"17"
             }
           }
@@ -390,9 +380,8 @@
               }
             },
             "fullyQualifiedLogicalName":"Class::MemberFunc",
-            "logicalLocationKey":"?MemberFunc@Class@@QAEJXZ",
+            "decoratedName":"?MemberFunc@Class@@QAEJXZ",
             "properties":{
-              "decorated":"?MemberFunc@Class@@QAEJXZ",
               "funcline":"17"
             }
           }
@@ -554,9 +543,8 @@
               }
             },
             "fullyQualifiedLogicalName":"Class::MemberFunc",
-            "logicalLocationKey":"?MemberFunc@Class@@QAEJXZ",
+            "decoratedName":"?MemberFunc@Class@@QAEJXZ",
             "properties":{
-              "decorated":"?MemberFunc@Class@@QAEJXZ",
               "funcline":"17"
             }
           }

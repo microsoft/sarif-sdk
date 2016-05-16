@@ -8,20 +8,6 @@
       "fullName":"PREfast Code Analysis",
       "version":"14.0.0"
     },
-    "logicalLocations":{
-      "?dualchartest@@YAXHPAY01D@Z":[
-        {
-          "kind":"method",
-          "name":"dualchartest"
-        }
-      ],
-      "main":[
-        {
-          "kind":"method",
-          "name":"main"
-        }
-      ]
-    },
     "results":[
       {
         "ruleId":"26000",
@@ -36,9 +22,8 @@
               }
             },
             "fullyQualifiedLogicalName":"dualchartest",
-            "logicalLocationKey":"?dualchartest@@YAXHPAY01D@Z",
+            "decoratedName":"?dualchartest@@YAXHPAY01D@Z",
             "properties":{
-              "decorated":"?dualchartest@@YAXHPAY01D@Z",
               "funcline":"10"
             }
           }
@@ -192,9 +177,8 @@
               }
             },
             "fullyQualifiedLogicalName":"main",
-            "logicalLocationKey":"main",
+            "decoratedName":"main",
             "properties":{
-              "decorated":"main",
               "funcline":"21"
             }
           }

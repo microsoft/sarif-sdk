@@ -8,50 +8,6 @@
       "fullName":"PREfast Code Analysis",
       "version":"14.0.0"
     },
-    "logicalLocations":{
-      "?g@@YAXPAD@Z":[
-        {
-          "kind":"method",
-          "name":"g"
-        }
-      ],
-      "?Bad@@YAXPADI@Z":[
-        {
-          "kind":"method",
-          "name":"Bad"
-        }
-      ],
-      "?ExplicitChar@@YAXXZ":[
-        {
-          "kind":"method",
-          "name":"ExplicitChar"
-        }
-      ],
-      "?GetItem@@YA_NHPAUItem@@@Z":[
-        {
-          "kind":"method",
-          "name":"GetItem"
-        }
-      ],
-      "?ArrInit4@@YAXXZ":[
-        {
-          "kind":"method",
-          "name":"ArrInit4"
-        }
-      ],
-      "?NotZeroMemroy@@YAXXZ":[
-        {
-          "kind":"method",
-          "name":"NotZeroMemroy"
-        }
-      ],
-      "?BadMemset@@YAXPAGI@Z":[
-        {
-          "kind":"method",
-          "name":"BadMemset"
-        }
-      ]
-    },
     "results":[
       {
         "ruleId":"26006",
@@ -66,9 +22,8 @@
               }
             },
             "fullyQualifiedLogicalName":"g",
-            "logicalLocationKey":"?g@@YAXPAD@Z",
+            "decoratedName":"?g@@YAXPAD@Z",
             "properties":{
-              "decorated":"?g@@YAXPAD@Z",
               "funcline":"25"
             }
           }
@@ -110,9 +65,8 @@
               }
             },
             "fullyQualifiedLogicalName":"Bad",
-            "logicalLocationKey":"?Bad@@YAXPADI@Z",
+            "decoratedName":"?Bad@@YAXPADI@Z",
             "properties":{
-              "decorated":"?Bad@@YAXPADI@Z",
               "funcline":"36"
             }
           }
@@ -154,9 +108,8 @@
               }
             },
             "fullyQualifiedLogicalName":"ExplicitChar",
-            "logicalLocationKey":"?ExplicitChar@@YAXXZ",
+            "decoratedName":"?ExplicitChar@@YAXXZ",
             "properties":{
-              "decorated":"?ExplicitChar@@YAXXZ",
               "funcline":"56"
             }
           }
@@ -310,9 +263,8 @@
               }
             },
             "fullyQualifiedLogicalName":"GetItem",
-            "logicalLocationKey":"?GetItem@@YA_NHPAUItem@@@Z",
+            "decoratedName":"?GetItem@@YA_NHPAUItem@@@Z",
             "properties":{
-              "decorated":"?GetItem@@YA_NHPAUItem@@@Z",
               "funcline":"72"
             }
           }
@@ -378,9 +330,8 @@
               }
             },
             "fullyQualifiedLogicalName":"ArrInit4",
-            "logicalLocationKey":"?ArrInit4@@YAXXZ",
+            "decoratedName":"?ArrInit4@@YAXXZ",
             "properties":{
-              "decorated":"?ArrInit4@@YAXXZ",
               "funcline":"114"
             }
           }
@@ -438,9 +389,8 @@
               }
             },
             "fullyQualifiedLogicalName":"NotZeroMemroy",
-            "logicalLocationKey":"?NotZeroMemroy@@YAXXZ",
+            "decoratedName":"?NotZeroMemroy@@YAXXZ",
             "properties":{
-              "decorated":"?NotZeroMemroy@@YAXXZ",
               "funcline":"128"
             }
           }
@@ -498,9 +448,8 @@
               }
             },
             "fullyQualifiedLogicalName":"BadMemset",
-            "logicalLocationKey":"?BadMemset@@YAXPAGI@Z",
+            "decoratedName":"?BadMemset@@YAXPAGI@Z",
             "properties":{
-              "decorated":"?BadMemset@@YAXPAGI@Z",
               "funcline":"147"
             }
           }

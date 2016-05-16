@@ -8,14 +8,6 @@
       "fullName":"PREfast Code Analysis",
       "version":"14.0.0"
     },
-    "logicalLocations":{
-      "?ImmersiveModeWNFCallback@@YAJPBXK@Z":[
-        {
-          "kind":"method",
-          "name":"ImmersiveModeWNFCallback"
-        }
-      ]
-    },
     "results":[
       {
         "ruleId":"26026",
@@ -30,9 +22,8 @@
               }
             },
             "fullyQualifiedLogicalName":"ImmersiveModeWNFCallback",
-            "logicalLocationKey":"?ImmersiveModeWNFCallback@@YAJPBXK@Z",
+            "decoratedName":"?ImmersiveModeWNFCallback@@YAJPBXK@Z",
             "properties":{
-              "decorated":"?ImmersiveModeWNFCallback@@YAJPBXK@Z",
               "funcline":"22"
             }
           }

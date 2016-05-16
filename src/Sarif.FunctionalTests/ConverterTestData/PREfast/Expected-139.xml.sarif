@@ -8,26 +8,6 @@
       "fullName":"PREfast Code Analysis",
       "version":"14.0.0"
     },
-    "logicalLocations":{
-      "?TestFailOnImpl@@YAHPBD@Z":[
-        {
-          "kind":"method",
-          "name":"TestFailOnImpl"
-        }
-      ],
-      "?TestFailOnCaller@@YAXXZ":[
-        {
-          "kind":"method",
-          "name":"TestFailOnCaller"
-        }
-      ],
-      "?TestWeirdAlloc@@YAXXZ":[
-        {
-          "kind":"method",
-          "name":"TestWeirdAlloc"
-        }
-      ]
-    },
     "results":[
       {
         "ruleId":"26061",
@@ -42,9 +22,8 @@
               }
             },
             "fullyQualifiedLogicalName":"TestFailOnImpl",
-            "logicalLocationKey":"?TestFailOnImpl@@YAHPBD@Z",
+            "decoratedName":"?TestFailOnImpl@@YAHPBD@Z",
             "properties":{
-              "decorated":"?TestFailOnImpl@@YAHPBD@Z",
               "funcline":"14"
             }
           }
@@ -118,9 +97,8 @@
               }
             },
             "fullyQualifiedLogicalName":"TestFailOnCaller",
-            "logicalLocationKey":"?TestFailOnCaller@@YAXXZ",
+            "decoratedName":"?TestFailOnCaller@@YAXXZ",
             "properties":{
-              "decorated":"?TestFailOnCaller@@YAXXZ",
               "funcline":"23"
             }
           }
@@ -194,9 +172,8 @@
               }
             },
             "fullyQualifiedLogicalName":"TestWeirdAlloc",
-            "logicalLocationKey":"?TestWeirdAlloc@@YAXXZ",
+            "decoratedName":"?TestWeirdAlloc@@YAXXZ",
             "properties":{
-              "decorated":"?TestWeirdAlloc@@YAXXZ",
               "funcline":"48"
             }
           }

@@ -8,26 +8,6 @@
       "fullName":"PREfast Code Analysis",
       "version":"14.0.0"
     },
-    "logicalLocations":{
-      "?BadGetWord1@@YAGPAPAD@Z":[
-        {
-          "kind":"method",
-          "name":"BadGetWord1"
-        }
-      ],
-      "?BadGetWord2@@YAGPAPAD@Z":[
-        {
-          "kind":"method",
-          "name":"BadGetWord2"
-        }
-      ],
-      "?GetDWord@@YAIPAPAD@Z":[
-        {
-          "kind":"method",
-          "name":"GetDWord"
-        }
-      ]
-    },
     "results":[
       {
         "ruleId":"26002",
@@ -42,9 +22,8 @@
               }
             },
             "fullyQualifiedLogicalName":"BadGetWord1",
-            "logicalLocationKey":"?BadGetWord1@@YAGPAPAD@Z",
+            "decoratedName":"?BadGetWord1@@YAGPAPAD@Z",
             "properties":{
-              "decorated":"?BadGetWord1@@YAGPAPAD@Z",
               "funcline":"28"
             }
           }
@@ -110,9 +89,8 @@
               }
             },
             "fullyQualifiedLogicalName":"BadGetWord2",
-            "logicalLocationKey":"?BadGetWord2@@YAGPAPAD@Z",
+            "decoratedName":"?BadGetWord2@@YAGPAPAD@Z",
             "properties":{
-              "decorated":"?BadGetWord2@@YAGPAPAD@Z",
               "funcline":"36"
             }
           }
@@ -178,9 +156,8 @@
               }
             },
             "fullyQualifiedLogicalName":"GetDWord",
-            "logicalLocationKey":"?GetDWord@@YAIPAPAD@Z",
+            "decoratedName":"?GetDWord@@YAIPAPAD@Z",
             "properties":{
-              "decorated":"?GetDWord@@YAIPAPAD@Z",
               "funcline":"45"
             }
           }

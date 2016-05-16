@@ -8,20 +8,6 @@
       "fullName":"PREfast Code Analysis",
       "version":"14.0.0"
     },
-    "logicalLocations":{
-      "?DontRememberOldAlias@@YAXPEAH@Z":[
-        {
-          "kind":"method",
-          "name":"DontRememberOldAlias"
-        }
-      ],
-      "?RememberOldAlias@@YAXHHPEAH@Z":[
-        {
-          "kind":"method",
-          "name":"RememberOldAlias"
-        }
-      ]
-    },
     "results":[
       {
         "ruleId":"6001",
@@ -36,9 +22,8 @@
               }
             },
             "fullyQualifiedLogicalName":"DontRememberOldAlias",
-            "logicalLocationKey":"?DontRememberOldAlias@@YAXPEAH@Z",
+            "decoratedName":"?DontRememberOldAlias@@YAXPEAH@Z",
             "properties":{
-              "decorated":"?DontRememberOldAlias@@YAXPEAH@Z",
               "funcline":"5"
             }
           }
@@ -117,9 +102,8 @@
               }
             },
             "fullyQualifiedLogicalName":"DontRememberOldAlias",
-            "logicalLocationKey":"?DontRememberOldAlias@@YAXPEAH@Z",
+            "decoratedName":"?DontRememberOldAlias@@YAXPEAH@Z",
             "properties":{
-              "decorated":"?DontRememberOldAlias@@YAXPEAH@Z",
               "funcline":"5"
             }
           }
@@ -202,9 +186,8 @@
               }
             },
             "fullyQualifiedLogicalName":"RememberOldAlias",
-            "logicalLocationKey":"?RememberOldAlias@@YAXHHPEAH@Z",
+            "decoratedName":"?RememberOldAlias@@YAXHHPEAH@Z",
             "properties":{
-              "decorated":"?RememberOldAlias@@YAXHHPEAH@Z",
               "funcline":"16"
             }
           }

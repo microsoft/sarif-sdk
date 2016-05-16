@@ -8,44 +8,6 @@
       "fullName":"PREfast Code Analysis",
       "version":"14.0.0"
     },
-    "logicalLocations":{
-      "?test2t@@YAXXZ":[
-        {
-          "kind":"method",
-          "name":"test2t"
-        }
-      ],
-      "?test2k@@YAXXZ":[
-        {
-          "kind":"method",
-          "name":"test2k"
-        }
-      ],
-      "?test2x@@YAXXZ":[
-        {
-          "kind":"method",
-          "name":"test2x"
-        }
-      ],
-      "?test2tu@@YAXXZ":[
-        {
-          "kind":"method",
-          "name":"test2tu"
-        }
-      ],
-      "?test2ku@@YAXXZ":[
-        {
-          "kind":"method",
-          "name":"test2ku"
-        }
-      ],
-      "?test2xu@@YAXXZ":[
-        {
-          "kind":"method",
-          "name":"test2xu"
-        }
-      ]
-    },
     "results":[
       {
         "ruleId":"26014",
@@ -60,9 +22,8 @@
               }
             },
             "fullyQualifiedLogicalName":"test2t",
-            "logicalLocationKey":"?test2t@@YAXXZ",
+            "decoratedName":"?test2t@@YAXXZ",
             "properties":{
-              "decorated":"?test2t@@YAXXZ",
               "funcline":"51"
             }
           }
@@ -232,9 +193,8 @@
               }
             },
             "fullyQualifiedLogicalName":"test2t",
-            "logicalLocationKey":"?test2t@@YAXXZ",
+            "decoratedName":"?test2t@@YAXXZ",
             "properties":{
-              "decorated":"?test2t@@YAXXZ",
               "funcline":"51"
             }
           }
@@ -428,9 +388,8 @@
               }
             },
             "fullyQualifiedLogicalName":"test2k",
-            "logicalLocationKey":"?test2k@@YAXXZ",
+            "decoratedName":"?test2k@@YAXXZ",
             "properties":{
-              "decorated":"?test2k@@YAXXZ",
               "funcline":"65"
             }
           }
@@ -600,9 +559,8 @@
               }
             },
             "fullyQualifiedLogicalName":"test2k",
-            "logicalLocationKey":"?test2k@@YAXXZ",
+            "decoratedName":"?test2k@@YAXXZ",
             "properties":{
-              "decorated":"?test2k@@YAXXZ",
               "funcline":"65"
             }
           }
@@ -796,9 +754,8 @@
               }
             },
             "fullyQualifiedLogicalName":"test2x",
-            "logicalLocationKey":"?test2x@@YAXXZ",
+            "decoratedName":"?test2x@@YAXXZ",
             "properties":{
-              "decorated":"?test2x@@YAXXZ",
               "funcline":"78"
             }
           }
@@ -920,9 +877,8 @@
               }
             },
             "fullyQualifiedLogicalName":"test2x",
-            "logicalLocationKey":"?test2x@@YAXXZ",
+            "decoratedName":"?test2x@@YAXXZ",
             "properties":{
-              "decorated":"?test2x@@YAXXZ",
               "funcline":"78"
             }
           }
@@ -1068,9 +1024,8 @@
               }
             },
             "fullyQualifiedLogicalName":"test2tu",
-            "logicalLocationKey":"?test2tu@@YAXXZ",
+            "decoratedName":"?test2tu@@YAXXZ",
             "properties":{
-              "decorated":"?test2tu@@YAXXZ",
               "funcline":"89"
             }
           }
@@ -1240,9 +1195,8 @@
               }
             },
             "fullyQualifiedLogicalName":"test2tu",
-            "logicalLocationKey":"?test2tu@@YAXXZ",
+            "decoratedName":"?test2tu@@YAXXZ",
             "properties":{
-              "decorated":"?test2tu@@YAXXZ",
               "funcline":"89"
             }
           }
@@ -1436,9 +1390,8 @@
               }
             },
             "fullyQualifiedLogicalName":"test2ku",
-            "logicalLocationKey":"?test2ku@@YAXXZ",
+            "decoratedName":"?test2ku@@YAXXZ",
             "properties":{
-              "decorated":"?test2ku@@YAXXZ",
               "funcline":"103"
             }
           }
@@ -1608,9 +1561,8 @@
               }
             },
             "fullyQualifiedLogicalName":"test2ku",
-            "logicalLocationKey":"?test2ku@@YAXXZ",
+            "decoratedName":"?test2ku@@YAXXZ",
             "properties":{
-              "decorated":"?test2ku@@YAXXZ",
               "funcline":"103"
             }
           }
@@ -1804,9 +1756,8 @@
               }
             },
             "fullyQualifiedLogicalName":"test2xu",
-            "logicalLocationKey":"?test2xu@@YAXXZ",
+            "decoratedName":"?test2xu@@YAXXZ",
             "properties":{
-              "decorated":"?test2xu@@YAXXZ",
               "funcline":"116"
             }
           }
@@ -1928,9 +1879,8 @@
               }
             },
             "fullyQualifiedLogicalName":"test2xu",
-            "logicalLocationKey":"?test2xu@@YAXXZ",
+            "decoratedName":"?test2xu@@YAXXZ",
             "properties":{
-              "decorated":"?test2xu@@YAXXZ",
               "funcline":"116"
             }
           }

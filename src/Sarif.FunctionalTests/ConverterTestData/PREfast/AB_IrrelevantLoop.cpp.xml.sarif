@@ -8,14 +8,6 @@
       "fullName":"PREfast Code Analysis",
       "version":"14.0.0"
     },
-    "logicalLocations":{
-      "?C6385_IrrelevantLoop@@YAXXZ":[
-        {
-          "kind":"method",
-          "name":"C6385_IrrelevantLoop"
-        }
-      ]
-    },
     "results":[
       {
         "ruleId":"6385",
@@ -30,9 +22,8 @@
               }
             },
             "fullyQualifiedLogicalName":"C6385_IrrelevantLoop",
-            "logicalLocationKey":"?C6385_IrrelevantLoop@@YAXXZ",
+            "decoratedName":"?C6385_IrrelevantLoop@@YAXXZ",
             "properties":{
-              "decorated":"?C6385_IrrelevantLoop@@YAXXZ",
               "funcline":"6"
             }
           }

@@ -8,38 +8,6 @@
       "fullName":"PREfast Code Analysis",
       "version":"14.0.0"
     },
-    "logicalLocations":{
-      "?SimpleBadCalls@@YAXPAX@Z":[
-        {
-          "kind":"method",
-          "name":"SimpleBadCalls"
-        }
-      ],
-      "?MadePAGAndBad@@YAXPAU_MyStruct@@@Z":[
-        {
-          "kind":"method",
-          "name":"MadePAGAndBad"
-        }
-      ],
-      "?NeverMadePAGAndBad@@YAXPAU_MyStruct@@@Z":[
-        {
-          "kind":"method",
-          "name":"NeverMadePAGAndBad"
-        }
-      ],
-      "?EnsureIndexingWorksBad@@YAXPAU_MyStruct@@@Z":[
-        {
-          "kind":"method",
-          "name":"EnsureIndexingWorksBad"
-        }
-      ],
-      "?BadUnicodeStringCall@@YAXU_UNICODE_STRING@@@Z":[
-        {
-          "kind":"method",
-          "name":"BadUnicodeStringCall"
-        }
-      ]
-    },
     "results":[
       {
         "ruleId":"26000",
@@ -54,9 +22,8 @@
               }
             },
             "fullyQualifiedLogicalName":"SimpleBadCalls",
-            "logicalLocationKey":"?SimpleBadCalls@@YAXPAX@Z",
+            "decoratedName":"?SimpleBadCalls@@YAXPAX@Z",
             "properties":{
-              "decorated":"?SimpleBadCalls@@YAXPAX@Z",
               "funcline":"8"
             }
           }
@@ -138,9 +105,8 @@
               }
             },
             "fullyQualifiedLogicalName":"SimpleBadCalls",
-            "logicalLocationKey":"?SimpleBadCalls@@YAXPAX@Z",
+            "decoratedName":"?SimpleBadCalls@@YAXPAX@Z",
             "properties":{
-              "decorated":"?SimpleBadCalls@@YAXPAX@Z",
               "funcline":"8"
             }
           }
@@ -222,9 +188,8 @@
               }
             },
             "fullyQualifiedLogicalName":"MadePAGAndBad",
-            "logicalLocationKey":"?MadePAGAndBad@@YAXPAU_MyStruct@@@Z",
+            "decoratedName":"?MadePAGAndBad@@YAXPAU_MyStruct@@@Z",
             "properties":{
-              "decorated":"?MadePAGAndBad@@YAXPAU_MyStruct@@@Z",
               "funcline":"27"
             }
           }
@@ -266,9 +231,8 @@
               }
             },
             "fullyQualifiedLogicalName":"NeverMadePAGAndBad",
-            "logicalLocationKey":"?NeverMadePAGAndBad@@YAXPAU_MyStruct@@@Z",
+            "decoratedName":"?NeverMadePAGAndBad@@YAXPAU_MyStruct@@@Z",
             "properties":{
-              "decorated":"?NeverMadePAGAndBad@@YAXPAU_MyStruct@@@Z",
               "funcline":"42"
             }
           }
@@ -310,9 +274,8 @@
               }
             },
             "fullyQualifiedLogicalName":"EnsureIndexingWorksBad",
-            "logicalLocationKey":"?EnsureIndexingWorksBad@@YAXPAU_MyStruct@@@Z",
+            "decoratedName":"?EnsureIndexingWorksBad@@YAXPAU_MyStruct@@@Z",
             "properties":{
-              "decorated":"?EnsureIndexingWorksBad@@YAXPAU_MyStruct@@@Z",
               "funcline":"64"
             }
           }
@@ -354,9 +317,8 @@
               }
             },
             "fullyQualifiedLogicalName":"BadUnicodeStringCall",
-            "logicalLocationKey":"?BadUnicodeStringCall@@YAXU_UNICODE_STRING@@@Z",
+            "decoratedName":"?BadUnicodeStringCall@@YAXU_UNICODE_STRING@@@Z",
             "properties":{
-              "decorated":"?BadUnicodeStringCall@@YAXU_UNICODE_STRING@@@Z",
               "funcline":"92"
             }
           }

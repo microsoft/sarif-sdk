@@ -8,20 +8,6 @@
       "fullName":"PREfast Code Analysis",
       "version":"14.0.0"
     },
-    "logicalLocations":{
-      "?ComplexMismatch1@@YAHXZ":[
-        {
-          "kind":"method",
-          "name":"ComplexMismatch1"
-        }
-      ],
-      "?ComplexMismatch2@@YAHXZ":[
-        {
-          "kind":"method",
-          "name":"ComplexMismatch2"
-        }
-      ]
-    },
     "results":[
       {
         "ruleId":"6305",
@@ -36,9 +22,8 @@
               }
             },
             "fullyQualifiedLogicalName":"ComplexMismatch1",
-            "logicalLocationKey":"?ComplexMismatch1@@YAHXZ",
+            "decoratedName":"?ComplexMismatch1@@YAHXZ",
             "properties":{
-              "decorated":"?ComplexMismatch1@@YAHXZ",
               "funcline":"4"
             }
           }
@@ -109,9 +94,8 @@
               }
             },
             "fullyQualifiedLogicalName":"ComplexMismatch2",
-            "logicalLocationKey":"?ComplexMismatch2@@YAHXZ",
+            "decoratedName":"?ComplexMismatch2@@YAHXZ",
             "properties":{
-              "decorated":"?ComplexMismatch2@@YAHXZ",
               "funcline":"15"
             }
           }

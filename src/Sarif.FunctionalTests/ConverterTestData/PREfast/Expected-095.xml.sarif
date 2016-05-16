@@ -8,14 +8,6 @@
       "fullName":"PREfast Code Analysis",
       "version":"14.0.0"
     },
-    "logicalLocations":{
-      "?KK@@YAXH@Z":[
-        {
-          "kind":"method",
-          "name":"KK"
-        }
-      ]
-    },
     "results":[
       {
         "ruleId":"26014",
@@ -30,9 +22,8 @@
               }
             },
             "fullyQualifiedLogicalName":"KK",
-            "logicalLocationKey":"?KK@@YAXH@Z",
+            "decoratedName":"?KK@@YAXH@Z",
             "properties":{
-              "decorated":"?KK@@YAXH@Z",
               "funcline":"42"
             }
           }
@@ -114,9 +105,8 @@
               }
             },
             "fullyQualifiedLogicalName":"KK",
-            "logicalLocationKey":"?KK@@YAXH@Z",
+            "decoratedName":"?KK@@YAXH@Z",
             "properties":{
-              "decorated":"?KK@@YAXH@Z",
               "funcline":"42"
             }
           }
@@ -198,9 +188,8 @@
               }
             },
             "fullyQualifiedLogicalName":"KK",
-            "logicalLocationKey":"?KK@@YAXH@Z",
+            "decoratedName":"?KK@@YAXH@Z",
             "properties":{
-              "decorated":"?KK@@YAXH@Z",
               "funcline":"42"
             }
           }
@@ -282,9 +271,8 @@
               }
             },
             "fullyQualifiedLogicalName":"KK",
-            "logicalLocationKey":"?KK@@YAXH@Z",
+            "decoratedName":"?KK@@YAXH@Z",
             "properties":{
-              "decorated":"?KK@@YAXH@Z",
               "funcline":"42"
             }
           }

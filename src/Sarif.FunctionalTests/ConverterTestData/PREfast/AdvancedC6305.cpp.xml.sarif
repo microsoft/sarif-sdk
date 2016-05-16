@@ -8,50 +8,6 @@
       "fullName":"PREfast Code Analysis",
       "version":"14.0.0"
     },
-    "logicalLocations":{
-      "?C6305FromAnnotation@@YAXPEAHH_N@Z":[
-        {
-          "kind":"method",
-          "name":"C6305FromAnnotation"
-        }
-      ],
-      "?RemoveRedundantKeyEvents1@@YAHPEA_W@Z":[
-        {
-          "kind":"method",
-          "name":"RemoveRedundantKeyEvents1"
-        }
-      ],
-      "?RemoveRedundantKeyEvents2@@YAHPEA_W@Z":[
-        {
-          "kind":"method",
-          "name":"RemoveRedundantKeyEvents2"
-        }
-      ],
-      "?CorrectAliasing@@YAHPEA_W@Z":[
-        {
-          "kind":"method",
-          "name":"CorrectAliasing"
-        }
-      ],
-      "?ShowKeyEventsWhenNoLocation@@YAHXZ":[
-        {
-          "kind":"method",
-          "name":"ShowKeyEventsWhenNoLocation"
-        }
-      ],
-      "?ShowKeyEventsWhenNoLocation2@@YAXXZ":[
-        {
-          "kind":"method",
-          "name":"ShowKeyEventsWhenNoLocation2"
-        }
-      ],
-      "?ShowKeyEventsForPointerArithmetic@@YAXPEAH@Z":[
-        {
-          "kind":"method",
-          "name":"ShowKeyEventsForPointerArithmetic"
-        }
-      ]
-    },
     "results":[
       {
         "ruleId":"6305",
@@ -66,9 +22,8 @@
               }
             },
             "fullyQualifiedLogicalName":"C6305FromAnnotation",
-            "logicalLocationKey":"?C6305FromAnnotation@@YAXPEAHH_N@Z",
+            "decoratedName":"?C6305FromAnnotation@@YAXPEAHH_N@Z",
             "properties":{
-              "decorated":"?C6305FromAnnotation@@YAXPEAHH_N@Z",
               "funcline":"5"
             }
           }
@@ -142,9 +97,8 @@
               }
             },
             "fullyQualifiedLogicalName":"RemoveRedundantKeyEvents1",
-            "logicalLocationKey":"?RemoveRedundantKeyEvents1@@YAHPEA_W@Z",
+            "decoratedName":"?RemoveRedundantKeyEvents1@@YAHPEA_W@Z",
             "properties":{
-              "decorated":"?RemoveRedundantKeyEvents1@@YAHPEA_W@Z",
               "funcline":"18"
             }
           }
@@ -207,9 +161,8 @@
               }
             },
             "fullyQualifiedLogicalName":"RemoveRedundantKeyEvents2",
-            "logicalLocationKey":"?RemoveRedundantKeyEvents2@@YAHPEA_W@Z",
+            "decoratedName":"?RemoveRedundantKeyEvents2@@YAHPEA_W@Z",
             "properties":{
-              "decorated":"?RemoveRedundantKeyEvents2@@YAHPEA_W@Z",
               "funcline":"29"
             }
           }
@@ -296,9 +249,8 @@
               }
             },
             "fullyQualifiedLogicalName":"RemoveRedundantKeyEvents2",
-            "logicalLocationKey":"?RemoveRedundantKeyEvents2@@YAHPEA_W@Z",
+            "decoratedName":"?RemoveRedundantKeyEvents2@@YAHPEA_W@Z",
             "properties":{
-              "decorated":"?RemoveRedundantKeyEvents2@@YAHPEA_W@Z",
               "funcline":"29"
             }
           }
@@ -369,9 +321,8 @@
               }
             },
             "fullyQualifiedLogicalName":"RemoveRedundantKeyEvents2",
-            "logicalLocationKey":"?RemoveRedundantKeyEvents2@@YAHPEA_W@Z",
+            "decoratedName":"?RemoveRedundantKeyEvents2@@YAHPEA_W@Z",
             "properties":{
-              "decorated":"?RemoveRedundantKeyEvents2@@YAHPEA_W@Z",
               "funcline":"29"
             }
           }
@@ -450,9 +401,8 @@
               }
             },
             "fullyQualifiedLogicalName":"RemoveRedundantKeyEvents2",
-            "logicalLocationKey":"?RemoveRedundantKeyEvents2@@YAHPEA_W@Z",
+            "decoratedName":"?RemoveRedundantKeyEvents2@@YAHPEA_W@Z",
             "properties":{
-              "decorated":"?RemoveRedundantKeyEvents2@@YAHPEA_W@Z",
               "funcline":"29"
             }
           }
@@ -507,9 +457,8 @@
               }
             },
             "fullyQualifiedLogicalName":"RemoveRedundantKeyEvents2",
-            "logicalLocationKey":"?RemoveRedundantKeyEvents2@@YAHPEA_W@Z",
+            "decoratedName":"?RemoveRedundantKeyEvents2@@YAHPEA_W@Z",
             "properties":{
-              "decorated":"?RemoveRedundantKeyEvents2@@YAHPEA_W@Z",
               "funcline":"29"
             }
           }
@@ -604,9 +553,8 @@
               }
             },
             "fullyQualifiedLogicalName":"CorrectAliasing",
-            "logicalLocationKey":"?CorrectAliasing@@YAHPEA_W@Z",
+            "decoratedName":"?CorrectAliasing@@YAHPEA_W@Z",
             "properties":{
-              "decorated":"?CorrectAliasing@@YAHPEA_W@Z",
               "funcline":"44"
             }
           }
@@ -681,9 +629,8 @@
               }
             },
             "fullyQualifiedLogicalName":"ShowKeyEventsWhenNoLocation",
-            "logicalLocationKey":"?ShowKeyEventsWhenNoLocation@@YAHXZ",
+            "decoratedName":"?ShowKeyEventsWhenNoLocation@@YAHXZ",
             "properties":{
-              "decorated":"?ShowKeyEventsWhenNoLocation@@YAHXZ",
               "funcline":"56"
             }
           }
@@ -742,9 +689,8 @@
               }
             },
             "fullyQualifiedLogicalName":"ShowKeyEventsWhenNoLocation2",
-            "logicalLocationKey":"?ShowKeyEventsWhenNoLocation2@@YAXXZ",
+            "decoratedName":"?ShowKeyEventsWhenNoLocation2@@YAXXZ",
             "properties":{
-              "decorated":"?ShowKeyEventsWhenNoLocation2@@YAXXZ",
               "funcline":"66"
             }
           }
@@ -803,9 +749,8 @@
               }
             },
             "fullyQualifiedLogicalName":"ShowKeyEventsForPointerArithmetic",
-            "logicalLocationKey":"?ShowKeyEventsForPointerArithmetic@@YAXPEAH@Z",
+            "decoratedName":"?ShowKeyEventsForPointerArithmetic@@YAXPEAH@Z",
             "properties":{
-              "decorated":"?ShowKeyEventsForPointerArithmetic@@YAXPEAH@Z",
               "funcline":"73"
             }
           }

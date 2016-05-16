@@ -8,14 +8,6 @@
       "fullName":"PREfast Code Analysis",
       "version":"14.0.0"
     },
-    "logicalLocations":{
-      "?UseLocalFunction@@YAHPEAH@Z":[
-        {
-          "kind":"method",
-          "name":"UseLocalFunction"
-        }
-      ]
-    },
     "results":[
       {
         "ruleId":"6011",
@@ -30,9 +22,8 @@
               }
             },
             "fullyQualifiedLogicalName":"UseLocalFunction",
-            "logicalLocationKey":"?UseLocalFunction@@YAHPEAH@Z",
+            "decoratedName":"?UseLocalFunction@@YAHPEAH@Z",
             "properties":{
-              "decorated":"?UseLocalFunction@@YAHPEAH@Z",
               "funcline":"7"
             }
           }

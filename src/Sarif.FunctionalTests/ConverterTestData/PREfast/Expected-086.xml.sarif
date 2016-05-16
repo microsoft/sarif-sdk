@@ -8,68 +8,6 @@
       "fullName":"PREfast Code Analysis",
       "version":"14.0.0"
     },
-    "logicalLocations":{
-      "?SimpleOverflow@@YAXPAUS@@@Z":[
-        {
-          "kind":"method",
-          "name":"SimpleOverflow"
-        }
-      ],
-      "?OffByOne@@YAXPAUS@@@Z":[
-        {
-          "kind":"method",
-          "name":"OffByOne"
-        }
-      ],
-      "?TestFlexArray@@YAXPAUFlex@@@Z":[
-        {
-          "kind":"method",
-          "name":"TestFlexArray"
-        }
-      ],
-      "?bar@@YAXPAUS@@@Z":[
-        {
-          "kind":"method",
-          "name":"bar"
-        }
-      ],
-      "?TestLocal@@YAXXZ":[
-        {
-          "kind":"method",
-          "name":"TestLocal"
-        }
-      ],
-      "?TestPointedTo@@YAXPAUS1@@@Z":[
-        {
-          "kind":"method",
-          "name":"TestPointedTo"
-        }
-      ],
-      "?TestNestedStructArrays@@YAXPAUComplex@@@Z":[
-        {
-          "kind":"method",
-          "name":"TestNestedStructArrays"
-        }
-      ],
-      "?TestArrayOfStructs1@@YAXPAUS@@H@Z":[
-        {
-          "kind":"method",
-          "name":"TestArrayOfStructs1"
-        }
-      ],
-      "?TestArrayOfStructs2@@YAXPAUS@@H@Z":[
-        {
-          "kind":"method",
-          "name":"TestArrayOfStructs2"
-        }
-      ],
-      "?TestArrayOfStructs3@@YAXPAUS@@H@Z":[
-        {
-          "kind":"method",
-          "name":"TestArrayOfStructs3"
-        }
-      ]
-    },
     "results":[
       {
         "ruleId":"26000",
@@ -84,9 +22,8 @@
               }
             },
             "fullyQualifiedLogicalName":"SimpleOverflow",
-            "logicalLocationKey":"?SimpleOverflow@@YAXPAUS@@@Z",
+            "decoratedName":"?SimpleOverflow@@YAXPAUS@@@Z",
             "properties":{
-              "decorated":"?SimpleOverflow@@YAXPAUS@@@Z",
               "funcline":"16"
             }
           }
@@ -128,9 +65,8 @@
               }
             },
             "fullyQualifiedLogicalName":"OffByOne",
-            "logicalLocationKey":"?OffByOne@@YAXPAUS@@@Z",
+            "decoratedName":"?OffByOne@@YAXPAUS@@@Z",
             "properties":{
-              "decorated":"?OffByOne@@YAXPAUS@@@Z",
               "funcline":"21"
             }
           }
@@ -268,9 +204,8 @@
               }
             },
             "fullyQualifiedLogicalName":"TestFlexArray",
-            "logicalLocationKey":"?TestFlexArray@@YAXPAUFlex@@@Z",
+            "decoratedName":"?TestFlexArray@@YAXPAUFlex@@@Z",
             "properties":{
-              "decorated":"?TestFlexArray@@YAXPAUFlex@@@Z",
               "funcline":"28"
             }
           }
@@ -360,9 +295,8 @@
               }
             },
             "fullyQualifiedLogicalName":"bar",
-            "logicalLocationKey":"?bar@@YAXPAUS@@@Z",
+            "decoratedName":"?bar@@YAXPAUS@@@Z",
             "properties":{
-              "decorated":"?bar@@YAXPAUS@@@Z",
               "funcline":"34"
             }
           }
@@ -500,9 +434,8 @@
               }
             },
             "fullyQualifiedLogicalName":"TestLocal",
-            "logicalLocationKey":"?TestLocal@@YAXXZ",
+            "decoratedName":"?TestLocal@@YAXXZ",
             "properties":{
-              "decorated":"?TestLocal@@YAXXZ",
               "funcline":"40"
             }
           }
@@ -552,9 +485,8 @@
               }
             },
             "fullyQualifiedLogicalName":"TestPointedTo",
-            "logicalLocationKey":"?TestPointedTo@@YAXPAUS1@@@Z",
+            "decoratedName":"?TestPointedTo@@YAXPAUS1@@@Z",
             "properties":{
-              "decorated":"?TestPointedTo@@YAXPAUS1@@@Z",
               "funcline":"52"
             }
           }
@@ -596,9 +528,8 @@
               }
             },
             "fullyQualifiedLogicalName":"TestPointedTo",
-            "logicalLocationKey":"?TestPointedTo@@YAXPAUS1@@@Z",
+            "decoratedName":"?TestPointedTo@@YAXPAUS1@@@Z",
             "properties":{
-              "decorated":"?TestPointedTo@@YAXPAUS1@@@Z",
               "funcline":"52"
             }
           }
@@ -648,9 +579,8 @@
               }
             },
             "fullyQualifiedLogicalName":"TestNestedStructArrays",
-            "logicalLocationKey":"?TestNestedStructArrays@@YAXPAUComplex@@@Z",
+            "decoratedName":"?TestNestedStructArrays@@YAXPAUComplex@@@Z",
             "properties":{
-              "decorated":"?TestNestedStructArrays@@YAXPAUComplex@@@Z",
               "funcline":"64"
             }
           }
@@ -812,9 +742,8 @@
               }
             },
             "fullyQualifiedLogicalName":"TestArrayOfStructs1",
-            "logicalLocationKey":"?TestArrayOfStructs1@@YAXPAUS@@H@Z",
+            "decoratedName":"?TestArrayOfStructs1@@YAXPAUS@@H@Z",
             "properties":{
-              "decorated":"?TestArrayOfStructs1@@YAXPAUS@@H@Z",
               "funcline":"72"
             }
           }
@@ -904,9 +833,8 @@
               }
             },
             "fullyQualifiedLogicalName":"TestArrayOfStructs2",
-            "logicalLocationKey":"?TestArrayOfStructs2@@YAXPAUS@@H@Z",
+            "decoratedName":"?TestArrayOfStructs2@@YAXPAUS@@H@Z",
             "properties":{
-              "decorated":"?TestArrayOfStructs2@@YAXPAUS@@H@Z",
               "funcline":"79"
             }
           }
@@ -996,9 +924,8 @@
               }
             },
             "fullyQualifiedLogicalName":"TestArrayOfStructs3",
-            "logicalLocationKey":"?TestArrayOfStructs3@@YAXPAUS@@H@Z",
+            "decoratedName":"?TestArrayOfStructs3@@YAXPAUS@@H@Z",
             "properties":{
-              "decorated":"?TestArrayOfStructs3@@YAXPAUS@@H@Z",
               "funcline":"86"
             }
           }
@@ -1088,9 +1015,8 @@
               }
             },
             "fullyQualifiedLogicalName":"TestArrayOfStructs3",
-            "logicalLocationKey":"?TestArrayOfStructs3@@YAXPAUS@@H@Z",
+            "decoratedName":"?TestArrayOfStructs3@@YAXPAUS@@H@Z",
             "properties":{
-              "decorated":"?TestArrayOfStructs3@@YAXPAUS@@H@Z",
               "funcline":"86"
             }
           }

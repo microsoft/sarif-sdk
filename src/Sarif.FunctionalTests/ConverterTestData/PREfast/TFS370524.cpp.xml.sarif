@@ -8,26 +8,6 @@
       "fullName":"PREfast Code Analysis",
       "version":"14.0.0"
     },
-    "logicalLocations":{
-      "?MissedAlias@MissedAliases@@AEAAHXZ":[
-        {
-          "kind":"method",
-          "name":"MissedAliases::MissedAlias"
-        }
-      ],
-      "?MissedAlias2@MissedAliases@@AEAAHXZ":[
-        {
-          "kind":"method",
-          "name":"MissedAliases::MissedAlias2"
-        }
-      ],
-      "?MissedAlias3@MissedAliases@@AEAAHPEAH@Z":[
-        {
-          "kind":"method",
-          "name":"MissedAliases::MissedAlias3"
-        }
-      ]
-    },
     "results":[
       {
         "ruleId":"6011",
@@ -42,9 +22,8 @@
               }
             },
             "fullyQualifiedLogicalName":"MissedAliases::MissedAlias",
-            "logicalLocationKey":"?MissedAlias@MissedAliases@@AEAAHXZ",
+            "decoratedName":"?MissedAlias@MissedAliases@@AEAAHXZ",
             "properties":{
-              "decorated":"?MissedAlias@MissedAliases@@AEAAHXZ",
               "funcline":"9"
             }
           }
@@ -107,9 +86,8 @@
               }
             },
             "fullyQualifiedLogicalName":"MissedAliases::MissedAlias2",
-            "logicalLocationKey":"?MissedAlias2@MissedAliases@@AEAAHXZ",
+            "decoratedName":"?MissedAlias2@MissedAliases@@AEAAHXZ",
             "properties":{
-              "decorated":"?MissedAlias2@MissedAliases@@AEAAHXZ",
               "funcline":"19"
             }
           }
@@ -172,9 +150,8 @@
               }
             },
             "fullyQualifiedLogicalName":"MissedAliases::MissedAlias3",
-            "logicalLocationKey":"?MissedAlias3@MissedAliases@@AEAAHPEAH@Z",
+            "decoratedName":"?MissedAlias3@MissedAliases@@AEAAHPEAH@Z",
             "properties":{
-              "decorated":"?MissedAlias3@MissedAliases@@AEAAHPEAH@Z",
               "funcline":"29"
             }
           }

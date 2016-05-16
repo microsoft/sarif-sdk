@@ -8,32 +8,6 @@
       "fullName":"PREfast Code Analysis",
       "version":"14.0.0"
     },
-    "logicalLocations":{
-      "?WritesArray@@YAXPEAJ@Z":[
-        {
-          "kind":"method",
-          "name":"WritesArray"
-        }
-      ],
-      "?WritesArrayRange@@YAXPEAJH@Z":[
-        {
-          "kind":"method",
-          "name":"WritesArrayRange"
-        }
-      ],
-      "?WritesArrayLoop@@YAXPEAJH@Z":[
-        {
-          "kind":"method",
-          "name":"WritesArrayLoop"
-        }
-      ],
-      "?WritesArrayCompare@@YAXPEAJH@Z":[
-        {
-          "kind":"method",
-          "name":"WritesArrayCompare"
-        }
-      ]
-    },
     "results":[
       {
         "ruleId":"6386",
@@ -48,9 +22,8 @@
               }
             },
             "fullyQualifiedLogicalName":"WritesArray",
-            "logicalLocationKey":"?WritesArray@@YAXPEAJ@Z",
+            "decoratedName":"?WritesArray@@YAXPEAJ@Z",
             "properties":{
-              "decorated":"?WritesArray@@YAXPEAJ@Z",
               "funcline":"6"
             }
           }
@@ -105,9 +78,8 @@
               }
             },
             "fullyQualifiedLogicalName":"WritesArrayRange",
-            "logicalLocationKey":"?WritesArrayRange@@YAXPEAJH@Z",
+            "decoratedName":"?WritesArrayRange@@YAXPEAJH@Z",
             "properties":{
-              "decorated":"?WritesArrayRange@@YAXPEAJH@Z",
               "funcline":"13"
             }
           }
@@ -162,9 +134,8 @@
               }
             },
             "fullyQualifiedLogicalName":"WritesArrayLoop",
-            "logicalLocationKey":"?WritesArrayLoop@@YAXPEAJH@Z",
+            "decoratedName":"?WritesArrayLoop@@YAXPEAJH@Z",
             "properties":{
-              "decorated":"?WritesArrayLoop@@YAXPEAJH@Z",
               "funcline":"20"
             }
           }
@@ -277,9 +248,8 @@
               }
             },
             "fullyQualifiedLogicalName":"WritesArrayCompare",
-            "logicalLocationKey":"?WritesArrayCompare@@YAXPEAJH@Z",
+            "decoratedName":"?WritesArrayCompare@@YAXPEAJH@Z",
             "properties":{
-              "decorated":"?WritesArrayCompare@@YAXPEAJH@Z",
               "funcline":"32"
             }
           }

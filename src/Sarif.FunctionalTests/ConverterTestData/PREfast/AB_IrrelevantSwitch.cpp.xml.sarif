@@ -8,14 +8,6 @@
       "fullName":"PREfast Code Analysis",
       "version":"14.0.0"
     },
-    "logicalLocations":{
-      "?C6385_MaybeRelevantSwitch@@YAXH_N@Z":[
-        {
-          "kind":"method",
-          "name":"C6385_MaybeRelevantSwitch"
-        }
-      ]
-    },
     "results":[
       {
         "ruleId":"6385",
@@ -30,9 +22,8 @@
               }
             },
             "fullyQualifiedLogicalName":"C6385_MaybeRelevantSwitch",
-            "logicalLocationKey":"?C6385_MaybeRelevantSwitch@@YAXH_N@Z",
+            "decoratedName":"?C6385_MaybeRelevantSwitch@@YAXH_N@Z",
             "properties":{
-              "decorated":"?C6385_MaybeRelevantSwitch@@YAXH_N@Z",
               "funcline":"9"
             }
           }

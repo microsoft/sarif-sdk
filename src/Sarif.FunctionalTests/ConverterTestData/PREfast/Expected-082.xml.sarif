@@ -8,20 +8,6 @@
       "fullName":"PREfast Code Analysis",
       "version":"14.0.0"
     },
-    "logicalLocations":{
-      "?EncodeBinary@@YAKPAGPAEK@Z":[
-        {
-          "kind":"method",
-          "name":"EncodeBinary"
-        }
-      ],
-      "?EncodeBinaryBad@@YAKPAGPAEK@Z":[
-        {
-          "kind":"method",
-          "name":"EncodeBinaryBad"
-        }
-      ]
-    },
     "results":[
       {
         "ruleId":"26005",
@@ -36,9 +22,8 @@
               }
             },
             "fullyQualifiedLogicalName":"EncodeBinary",
-            "logicalLocationKey":"?EncodeBinary@@YAKPAGPAEK@Z",
+            "decoratedName":"?EncodeBinary@@YAKPAGPAEK@Z",
             "properties":{
-              "decorated":"?EncodeBinary@@YAKPAGPAEK@Z",
               "funcline":"7"
             }
           }
@@ -184,9 +169,8 @@
               }
             },
             "fullyQualifiedLogicalName":"EncodeBinaryBad",
-            "logicalLocationKey":"?EncodeBinaryBad@@YAKPAGPAEK@Z",
+            "decoratedName":"?EncodeBinaryBad@@YAKPAGPAEK@Z",
             "properties":{
-              "decorated":"?EncodeBinaryBad@@YAKPAGPAEK@Z",
               "funcline":"43"
             }
           }
@@ -524,9 +508,8 @@
               }
             },
             "fullyQualifiedLogicalName":"EncodeBinaryBad",
-            "logicalLocationKey":"?EncodeBinaryBad@@YAKPAGPAEK@Z",
+            "decoratedName":"?EncodeBinaryBad@@YAKPAGPAEK@Z",
             "properties":{
-              "decorated":"?EncodeBinaryBad@@YAKPAGPAEK@Z",
               "funcline":"43"
             }
           }
@@ -672,9 +655,8 @@
               }
             },
             "fullyQualifiedLogicalName":"EncodeBinaryBad",
-            "logicalLocationKey":"?EncodeBinaryBad@@YAKPAGPAEK@Z",
+            "decoratedName":"?EncodeBinaryBad@@YAKPAGPAEK@Z",
             "properties":{
-              "decorated":"?EncodeBinaryBad@@YAKPAGPAEK@Z",
               "funcline":"43"
             }
           }

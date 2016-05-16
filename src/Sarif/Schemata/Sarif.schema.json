@@ -62,7 +62,7 @@
 
         "kind": {
           "description": "A descriptive identifier that categorizes the annotation.",
-          "enum": [ "branch", "call", "callReturn", "declaration", "functionEnter", "functionExit", "sanitizer", "sink", "source", "usage" ]
+          "enum": [ "alias", "branch", "call", "callReturn", "declaration", "functionEnter", "functionExit", "sanitizer", "sink", "source", "usage" ]
         },
 
         "essential": {

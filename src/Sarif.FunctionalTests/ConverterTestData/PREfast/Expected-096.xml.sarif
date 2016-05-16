@@ -8,44 +8,6 @@
       "fullName":"PREfast Code Analysis",
       "version":"14.0.0"
     },
-    "logicalLocations":{
-      "?MyFunction@@YAJPADH@Z":[
-        {
-          "kind":"method",
-          "name":"MyFunction"
-        }
-      ],
-      "?ConstantFoldingTest@@YAJK@Z":[
-        {
-          "kind":"method",
-          "name":"ConstantFoldingTest"
-        }
-      ],
-      "?MyFunction2@@YAXK@Z":[
-        {
-          "kind":"method",
-          "name":"MyFunction2"
-        }
-      ],
-      "?MyFunction3@@YAXK@Z":[
-        {
-          "kind":"method",
-          "name":"MyFunction3"
-        }
-      ],
-      "?MyFunction4@@YAXK@Z":[
-        {
-          "kind":"method",
-          "name":"MyFunction4"
-        }
-      ],
-      "?MyFunction5@@YAXK@Z":[
-        {
-          "kind":"method",
-          "name":"MyFunction5"
-        }
-      ]
-    },
     "results":[
       {
         "ruleId":"26036",
@@ -60,9 +22,8 @@
               }
             },
             "fullyQualifiedLogicalName":"MyFunction",
-            "logicalLocationKey":"?MyFunction@@YAJPADH@Z",
+            "decoratedName":"?MyFunction@@YAJPADH@Z",
             "properties":{
-              "decorated":"?MyFunction@@YAJPADH@Z",
               "funcline":"27"
             }
           }
@@ -160,9 +121,8 @@
               }
             },
             "fullyQualifiedLogicalName":"ConstantFoldingTest",
-            "logicalLocationKey":"?ConstantFoldingTest@@YAJK@Z",
+            "decoratedName":"?ConstantFoldingTest@@YAJK@Z",
             "properties":{
-              "decorated":"?ConstantFoldingTest@@YAJK@Z",
               "funcline":"43"
             }
           }
@@ -276,9 +236,8 @@
               }
             },
             "fullyQualifiedLogicalName":"ConstantFoldingTest",
-            "logicalLocationKey":"?ConstantFoldingTest@@YAJK@Z",
+            "decoratedName":"?ConstantFoldingTest@@YAJK@Z",
             "properties":{
-              "decorated":"?ConstantFoldingTest@@YAJK@Z",
               "funcline":"43"
             }
           }
@@ -392,9 +351,8 @@
               }
             },
             "fullyQualifiedLogicalName":"ConstantFoldingTest",
-            "logicalLocationKey":"?ConstantFoldingTest@@YAJK@Z",
+            "decoratedName":"?ConstantFoldingTest@@YAJK@Z",
             "properties":{
-              "decorated":"?ConstantFoldingTest@@YAJK@Z",
               "funcline":"43"
             }
           }
@@ -524,9 +482,8 @@
               }
             },
             "fullyQualifiedLogicalName":"ConstantFoldingTest",
-            "logicalLocationKey":"?ConstantFoldingTest@@YAJK@Z",
+            "decoratedName":"?ConstantFoldingTest@@YAJK@Z",
             "properties":{
-              "decorated":"?ConstantFoldingTest@@YAJK@Z",
               "funcline":"43"
             }
           }
@@ -656,9 +613,8 @@
               }
             },
             "fullyQualifiedLogicalName":"ConstantFoldingTest",
-            "logicalLocationKey":"?ConstantFoldingTest@@YAJK@Z",
+            "decoratedName":"?ConstantFoldingTest@@YAJK@Z",
             "properties":{
-              "decorated":"?ConstantFoldingTest@@YAJK@Z",
               "funcline":"43"
             }
           }
@@ -804,9 +760,8 @@
               }
             },
             "fullyQualifiedLogicalName":"ConstantFoldingTest",
-            "logicalLocationKey":"?ConstantFoldingTest@@YAJK@Z",
+            "decoratedName":"?ConstantFoldingTest@@YAJK@Z",
             "properties":{
-              "decorated":"?ConstantFoldingTest@@YAJK@Z",
               "funcline":"43"
             }
           }
@@ -952,9 +907,8 @@
               }
             },
             "fullyQualifiedLogicalName":"MyFunction2",
-            "logicalLocationKey":"?MyFunction2@@YAXK@Z",
+            "decoratedName":"?MyFunction2@@YAXK@Z",
             "properties":{
-              "decorated":"?MyFunction2@@YAXK@Z",
               "funcline":"71"
             }
           }
@@ -1044,9 +998,8 @@
               }
             },
             "fullyQualifiedLogicalName":"MyFunction2",
-            "logicalLocationKey":"?MyFunction2@@YAXK@Z",
+            "decoratedName":"?MyFunction2@@YAXK@Z",
             "properties":{
-              "decorated":"?MyFunction2@@YAXK@Z",
               "funcline":"71"
             }
           }
@@ -1136,9 +1089,8 @@
               }
             },
             "fullyQualifiedLogicalName":"MyFunction3",
-            "logicalLocationKey":"?MyFunction3@@YAXK@Z",
+            "decoratedName":"?MyFunction3@@YAXK@Z",
             "properties":{
-              "decorated":"?MyFunction3@@YAXK@Z",
               "funcline":"81"
             }
           }
@@ -1220,9 +1172,8 @@
               }
             },
             "fullyQualifiedLogicalName":"MyFunction3",
-            "logicalLocationKey":"?MyFunction3@@YAXK@Z",
+            "decoratedName":"?MyFunction3@@YAXK@Z",
             "properties":{
-              "decorated":"?MyFunction3@@YAXK@Z",
               "funcline":"81"
             }
           }
@@ -1304,9 +1255,8 @@
               }
             },
             "fullyQualifiedLogicalName":"MyFunction4",
-            "logicalLocationKey":"?MyFunction4@@YAXK@Z",
+            "decoratedName":"?MyFunction4@@YAXK@Z",
             "properties":{
-              "decorated":"?MyFunction4@@YAXK@Z",
               "funcline":"91"
             }
           }
@@ -1388,9 +1338,8 @@
               }
             },
             "fullyQualifiedLogicalName":"MyFunction4",
-            "logicalLocationKey":"?MyFunction4@@YAXK@Z",
+            "decoratedName":"?MyFunction4@@YAXK@Z",
             "properties":{
-              "decorated":"?MyFunction4@@YAXK@Z",
               "funcline":"91"
             }
           }
@@ -1472,9 +1421,8 @@
               }
             },
             "fullyQualifiedLogicalName":"MyFunction5",
-            "logicalLocationKey":"?MyFunction5@@YAXK@Z",
+            "decoratedName":"?MyFunction5@@YAXK@Z",
             "properties":{
-              "decorated":"?MyFunction5@@YAXK@Z",
               "funcline":"101"
             }
           }
@@ -1556,9 +1504,8 @@
               }
             },
             "fullyQualifiedLogicalName":"MyFunction5",
-            "logicalLocationKey":"?MyFunction5@@YAXK@Z",
+            "decoratedName":"?MyFunction5@@YAXK@Z",
             "properties":{
-              "decorated":"?MyFunction5@@YAXK@Z",
               "funcline":"101"
             }
           }

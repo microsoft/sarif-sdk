@@ -8,20 +8,6 @@
       "fullName":"PREfast Code Analysis",
       "version":"14.0.0"
     },
-    "logicalLocations":{
-      "?IrrelevantBranch_6011@@YAH_NH@Z":[
-        {
-          "kind":"method",
-          "name":"IrrelevantBranch_6011"
-        }
-      ],
-      "?C6385_MaybeRelevantBranch@@YAXH@Z":[
-        {
-          "kind":"method",
-          "name":"C6385_MaybeRelevantBranch"
-        }
-      ]
-    },
     "results":[
       {
         "ruleId":"6011",
@@ -36,9 +22,8 @@
               }
             },
             "fullyQualifiedLogicalName":"IrrelevantBranch_6011",
-            "logicalLocationKey":"?IrrelevantBranch_6011@@YAH_NH@Z",
+            "decoratedName":"?IrrelevantBranch_6011@@YAH_NH@Z",
             "properties":{
-              "decorated":"?IrrelevantBranch_6011@@YAH_NH@Z",
               "funcline":"3"
             }
           }
@@ -121,9 +106,8 @@
               }
             },
             "fullyQualifiedLogicalName":"C6385_MaybeRelevantBranch",
-            "logicalLocationKey":"?C6385_MaybeRelevantBranch@@YAXH@Z",
+            "decoratedName":"?C6385_MaybeRelevantBranch@@YAXH@Z",
             "properties":{
-              "decorated":"?C6385_MaybeRelevantBranch@@YAXH@Z",
               "funcline":"18"
             }
           }
@@ -194,9 +178,8 @@
               }
             },
             "fullyQualifiedLogicalName":"C6385_MaybeRelevantBranch",
-            "logicalLocationKey":"?C6385_MaybeRelevantBranch@@YAXH@Z",
+            "decoratedName":"?C6385_MaybeRelevantBranch@@YAXH@Z",
             "properties":{
-              "decorated":"?C6385_MaybeRelevantBranch@@YAXH@Z",
               "funcline":"18"
             }
           }

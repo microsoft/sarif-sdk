@@ -8,14 +8,6 @@
       "fullName":"PREfast Code Analysis",
       "version":"14.0.0"
     },
-    "logicalLocations":{
-      "?CreateLogString@@YAIPBDPAPAD@Z":[
-        {
-          "kind":"method",
-          "name":"CreateLogString"
-        }
-      ]
-    },
     "results":[
       {
         "ruleId":"26000",
@@ -30,9 +22,8 @@
               }
             },
             "fullyQualifiedLogicalName":"CreateLogString",
-            "logicalLocationKey":"?CreateLogString@@YAIPBDPAPAD@Z",
+            "decoratedName":"?CreateLogString@@YAIPBDPAPAD@Z",
             "properties":{
-              "decorated":"?CreateLogString@@YAIPBDPAPAD@Z",
               "funcline":"33"
             }
           }

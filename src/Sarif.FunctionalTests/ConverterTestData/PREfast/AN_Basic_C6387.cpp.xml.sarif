@@ -8,38 +8,6 @@
       "fullName":"PREfast Code Analysis",
       "version":"14.0.0"
     },
-    "logicalLocations":{
-      "?BasicC6387@@YAXXZ":[
-        {
-          "kind":"method",
-          "name":"BasicC6387"
-        }
-      ],
-      "?BasicC6387_Opt@@YAXPEAH@Z":[
-        {
-          "kind":"method",
-          "name":"BasicC6387_Opt"
-        }
-      ],
-      "?BasicC6387_PostNull@@YAXXZ":[
-        {
-          "kind":"method",
-          "name":"BasicC6387_PostNull"
-        }
-      ],
-      "?BasicC6387_Out@@YAXXZ":[
-        {
-          "kind":"method",
-          "name":"BasicC6387_Out"
-        }
-      ],
-      "?BasicC6387_OutNotNull@@YAXPEAPEAH@Z":[
-        {
-          "kind":"method",
-          "name":"BasicC6387_OutNotNull"
-        }
-      ]
-    },
     "results":[
       {
         "ruleId":"6387",
@@ -54,9 +22,8 @@
               }
             },
             "fullyQualifiedLogicalName":"BasicC6387",
-            "logicalLocationKey":"?BasicC6387@@YAXXZ",
+            "decoratedName":"?BasicC6387@@YAXXZ",
             "properties":{
-              "decorated":"?BasicC6387@@YAXXZ",
               "funcline":"12"
             }
           }
@@ -122,9 +89,8 @@
               }
             },
             "fullyQualifiedLogicalName":"BasicC6387_Opt",
-            "logicalLocationKey":"?BasicC6387_Opt@@YAXPEAH@Z",
+            "decoratedName":"?BasicC6387_Opt@@YAXPEAH@Z",
             "properties":{
-              "decorated":"?BasicC6387_Opt@@YAXPEAH@Z",
               "funcline":"20"
             }
           }
@@ -190,9 +156,8 @@
               }
             },
             "fullyQualifiedLogicalName":"BasicC6387_PostNull",
-            "logicalLocationKey":"?BasicC6387_PostNull@@YAXXZ",
+            "decoratedName":"?BasicC6387_PostNull@@YAXXZ",
             "properties":{
-              "decorated":"?BasicC6387_PostNull@@YAXXZ",
               "funcline":"26"
             }
           }
@@ -258,9 +223,8 @@
               }
             },
             "fullyQualifiedLogicalName":"BasicC6387_Out",
-            "logicalLocationKey":"?BasicC6387_Out@@YAXXZ",
+            "decoratedName":"?BasicC6387_Out@@YAXXZ",
             "properties":{
-              "decorated":"?BasicC6387_Out@@YAXXZ",
               "funcline":"34"
             }
           }
@@ -326,9 +290,8 @@
               }
             },
             "fullyQualifiedLogicalName":"BasicC6387_OutNotNull",
-            "logicalLocationKey":"?BasicC6387_OutNotNull@@YAXPEAPEAH@Z",
+            "decoratedName":"?BasicC6387_OutNotNull@@YAXPEAPEAH@Z",
             "properties":{
-              "decorated":"?BasicC6387_OutNotNull@@YAXPEAPEAH@Z",
               "funcline":"43"
             }
           }

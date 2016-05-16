@@ -8,14 +8,6 @@
       "fullName":"PREfast Code Analysis",
       "version":"14.0.0"
     },
-    "logicalLocations":{
-      "?CallUseValues@@YAX_N@Z":[
-        {
-          "kind":"method",
-          "name":"CallUseValues"
-        }
-      ]
-    },
     "results":[
       {
         "ruleId":"6001",
@@ -30,9 +22,8 @@
               }
             },
             "fullyQualifiedLogicalName":"CallUseValues",
-            "logicalLocationKey":"?CallUseValues@@YAX_N@Z",
+            "decoratedName":"?CallUseValues@@YAX_N@Z",
             "properties":{
-              "decorated":"?CallUseValues@@YAX_N@Z",
               "funcline":"6"
             }
           }

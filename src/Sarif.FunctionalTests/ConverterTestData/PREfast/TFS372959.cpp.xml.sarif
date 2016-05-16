@@ -8,56 +8,6 @@
       "fullName":"PREfast Code Analysis",
       "version":"14.0.0"
     },
-    "logicalLocations":{
-      "?MissedAlias@Missed6305@@AEAAHPEA_W@Z":[
-        {
-          "kind":"method",
-          "name":"Missed6305::MissedAlias"
-        }
-      ],
-      "?MissedAlias2@Missed6305@@AEAAHPEA_W@Z":[
-        {
-          "kind":"method",
-          "name":"Missed6305::MissedAlias2"
-        }
-      ],
-      "?MissedAliasPlusAssign@Missed6305@@AEAAHPEA_W@Z":[
-        {
-          "kind":"method",
-          "name":"Missed6305::MissedAliasPlusAssign"
-        }
-      ],
-      "?MissedAliasPlusAssign2@Missed6305@@AEAAHPEA_W@Z":[
-        {
-          "kind":"method",
-          "name":"Missed6305::MissedAliasPlusAssign2"
-        }
-      ],
-      "?MissedAlias_LocalIsCorrect@Missed6305@@AEAAHPEA_W@Z":[
-        {
-          "kind":"method",
-          "name":"Missed6305::MissedAlias_LocalIsCorrect"
-        }
-      ],
-      "?MissedAliasPlusAssign_LocalIsCorrect@Missed6305@@AEAAHPEA_W@Z":[
-        {
-          "kind":"method",
-          "name":"Missed6305::MissedAliasPlusAssign_LocalIsCorrect"
-        }
-      ],
-      "?SizeOfMissedForMember@Missed6305@@AEAAHPEAH@Z":[
-        {
-          "kind":"method",
-          "name":"Missed6305::SizeOfMissedForMember"
-        }
-      ],
-      "?SizeOfMissedForMember_LocalIsCorrect@Missed6305@@AEAAHPEAH@Z":[
-        {
-          "kind":"method",
-          "name":"Missed6305::SizeOfMissedForMember_LocalIsCorrect"
-        }
-      ]
-    },
     "results":[
       {
         "ruleId":"6305",
@@ -72,9 +22,8 @@
               }
             },
             "fullyQualifiedLogicalName":"Missed6305::MissedAlias",
-            "logicalLocationKey":"?MissedAlias@Missed6305@@AEAAHPEA_W@Z",
+            "decoratedName":"?MissedAlias@Missed6305@@AEAAHPEA_W@Z",
             "properties":{
-              "decorated":"?MissedAlias@Missed6305@@AEAAHPEA_W@Z",
               "funcline":"8"
             }
           }
@@ -145,9 +94,8 @@
               }
             },
             "fullyQualifiedLogicalName":"Missed6305::MissedAlias2",
-            "logicalLocationKey":"?MissedAlias2@Missed6305@@AEAAHPEA_W@Z",
+            "decoratedName":"?MissedAlias2@Missed6305@@AEAAHPEA_W@Z",
             "properties":{
-              "decorated":"?MissedAlias2@Missed6305@@AEAAHPEA_W@Z",
               "funcline":"20"
             }
           }
@@ -218,9 +166,8 @@
               }
             },
             "fullyQualifiedLogicalName":"Missed6305::MissedAliasPlusAssign",
-            "logicalLocationKey":"?MissedAliasPlusAssign@Missed6305@@AEAAHPEA_W@Z",
+            "decoratedName":"?MissedAliasPlusAssign@Missed6305@@AEAAHPEA_W@Z",
             "properties":{
-              "decorated":"?MissedAliasPlusAssign@Missed6305@@AEAAHPEA_W@Z",
               "funcline":"32"
             }
           }
@@ -291,9 +238,8 @@
               }
             },
             "fullyQualifiedLogicalName":"Missed6305::MissedAliasPlusAssign2",
-            "logicalLocationKey":"?MissedAliasPlusAssign2@Missed6305@@AEAAHPEA_W@Z",
+            "decoratedName":"?MissedAliasPlusAssign2@Missed6305@@AEAAHPEA_W@Z",
             "properties":{
-              "decorated":"?MissedAliasPlusAssign2@Missed6305@@AEAAHPEA_W@Z",
               "funcline":"44"
             }
           }
@@ -364,9 +310,8 @@
               }
             },
             "fullyQualifiedLogicalName":"Missed6305::MissedAlias_LocalIsCorrect",
-            "logicalLocationKey":"?MissedAlias_LocalIsCorrect@Missed6305@@AEAAHPEA_W@Z",
+            "decoratedName":"?MissedAlias_LocalIsCorrect@Missed6305@@AEAAHPEA_W@Z",
             "properties":{
-              "decorated":"?MissedAlias_LocalIsCorrect@Missed6305@@AEAAHPEA_W@Z",
               "funcline":"56"
             }
           }
@@ -441,9 +386,8 @@
               }
             },
             "fullyQualifiedLogicalName":"Missed6305::MissedAliasPlusAssign_LocalIsCorrect",
-            "logicalLocationKey":"?MissedAliasPlusAssign_LocalIsCorrect@Missed6305@@AEAAHPEA_W@Z",
+            "decoratedName":"?MissedAliasPlusAssign_LocalIsCorrect@Missed6305@@AEAAHPEA_W@Z",
             "properties":{
-              "decorated":"?MissedAliasPlusAssign_LocalIsCorrect@Missed6305@@AEAAHPEA_W@Z",
               "funcline":"68"
             }
           }
@@ -518,9 +462,8 @@
               }
             },
             "fullyQualifiedLogicalName":"Missed6305::SizeOfMissedForMember",
-            "logicalLocationKey":"?SizeOfMissedForMember@Missed6305@@AEAAHPEAH@Z",
+            "decoratedName":"?SizeOfMissedForMember@Missed6305@@AEAAHPEAH@Z",
             "properties":{
-              "decorated":"?SizeOfMissedForMember@Missed6305@@AEAAHPEAH@Z",
               "funcline":"83"
             }
           }
@@ -583,9 +526,8 @@
               }
             },
             "fullyQualifiedLogicalName":"Missed6305::SizeOfMissedForMember_LocalIsCorrect",
-            "logicalLocationKey":"?SizeOfMissedForMember_LocalIsCorrect@Missed6305@@AEAAHPEAH@Z",
+            "decoratedName":"?SizeOfMissedForMember_LocalIsCorrect@Missed6305@@AEAAHPEAH@Z",
             "properties":{
-              "decorated":"?SizeOfMissedForMember_LocalIsCorrect@Missed6305@@AEAAHPEAH@Z",
               "funcline":"92"
             }
           }

@@ -8,80 +8,6 @@
       "fullName":"PREfast Code Analysis",
       "version":"14.0.0"
     },
-    "logicalLocations":{
-      "?HResultSucceeded@@YAXJ@Z":[
-        {
-          "kind":"method",
-          "name":"HResultSucceeded"
-        }
-      ],
-      "?HResultSucceeded2@@YAXJ_N@Z":[
-        {
-          "kind":"method",
-          "name":"HResultSucceeded2"
-        }
-      ],
-      "?HResultSucceeded3@@YAXJ_N0@Z":[
-        {
-          "kind":"method",
-          "name":"HResultSucceeded3"
-        }
-      ],
-      "?HResultSucceeded4@@YAXJ@Z":[
-        {
-          "kind":"method",
-          "name":"HResultSucceeded4"
-        }
-      ],
-      "?HResultFailed@@YAXJ@Z":[
-        {
-          "kind":"method",
-          "name":"HResultFailed"
-        }
-      ],
-      "?HResultFailed2@@YAXJ_N@Z":[
-        {
-          "kind":"method",
-          "name":"HResultFailed2"
-        }
-      ],
-      "?HResultFailed3@@YAXJ_N0@Z":[
-        {
-          "kind":"method",
-          "name":"HResultFailed3"
-        }
-      ],
-      "?HResultFailed4@@YAXJ@Z":[
-        {
-          "kind":"method",
-          "name":"HResultFailed4"
-        }
-      ],
-      "?HResultSFalse@@YAXJ@Z":[
-        {
-          "kind":"method",
-          "name":"HResultSFalse"
-        }
-      ],
-      "?HResultSFalse2@@YAXJ_N0@Z":[
-        {
-          "kind":"method",
-          "name":"HResultSFalse2"
-        }
-      ],
-      "?HResultSOk@@YAXJ@Z":[
-        {
-          "kind":"method",
-          "name":"HResultSOk"
-        }
-      ],
-      "?HResultSOk2@@YAXJ@Z":[
-        {
-          "kind":"method",
-          "name":"HResultSOk2"
-        }
-      ]
-    },
     "results":[
       {
         "ruleId":"6011",
@@ -96,9 +22,8 @@
               }
             },
             "fullyQualifiedLogicalName":"HResultSucceeded",
-            "logicalLocationKey":"?HResultSucceeded@@YAXJ@Z",
+            "decoratedName":"?HResultSucceeded@@YAXJ@Z",
             "properties":{
-              "decorated":"?HResultSucceeded@@YAXJ@Z",
               "funcline":"6"
             }
           }
@@ -164,9 +89,8 @@
               }
             },
             "fullyQualifiedLogicalName":"HResultSucceeded2",
-            "logicalLocationKey":"?HResultSucceeded2@@YAXJ_N@Z",
+            "decoratedName":"?HResultSucceeded2@@YAXJ_N@Z",
             "properties":{
-              "decorated":"?HResultSucceeded2@@YAXJ_N@Z",
               "funcline":"15"
             }
           }
@@ -232,9 +156,8 @@
               }
             },
             "fullyQualifiedLogicalName":"HResultSucceeded3",
-            "logicalLocationKey":"?HResultSucceeded3@@YAXJ_N0@Z",
+            "decoratedName":"?HResultSucceeded3@@YAXJ_N0@Z",
             "properties":{
-              "decorated":"?HResultSucceeded3@@YAXJ_N0@Z",
               "funcline":"28"
             }
           }
@@ -300,9 +223,8 @@
               }
             },
             "fullyQualifiedLogicalName":"HResultSucceeded4",
-            "logicalLocationKey":"?HResultSucceeded4@@YAXJ@Z",
+            "decoratedName":"?HResultSucceeded4@@YAXJ@Z",
             "properties":{
-              "decorated":"?HResultSucceeded4@@YAXJ@Z",
               "funcline":"37"
             }
           }
@@ -368,9 +290,8 @@
               }
             },
             "fullyQualifiedLogicalName":"HResultFailed",
-            "logicalLocationKey":"?HResultFailed@@YAXJ@Z",
+            "decoratedName":"?HResultFailed@@YAXJ@Z",
             "properties":{
-              "decorated":"?HResultFailed@@YAXJ@Z",
               "funcline":"46"
             }
           }
@@ -436,9 +357,8 @@
               }
             },
             "fullyQualifiedLogicalName":"HResultFailed2",
-            "logicalLocationKey":"?HResultFailed2@@YAXJ_N@Z",
+            "decoratedName":"?HResultFailed2@@YAXJ_N@Z",
             "properties":{
-              "decorated":"?HResultFailed2@@YAXJ_N@Z",
               "funcline":"55"
             }
           }
@@ -504,9 +424,8 @@
               }
             },
             "fullyQualifiedLogicalName":"HResultFailed3",
-            "logicalLocationKey":"?HResultFailed3@@YAXJ_N0@Z",
+            "decoratedName":"?HResultFailed3@@YAXJ_N0@Z",
             "properties":{
-              "decorated":"?HResultFailed3@@YAXJ_N0@Z",
               "funcline":"68"
             }
           }
@@ -572,9 +491,8 @@
               }
             },
             "fullyQualifiedLogicalName":"HResultFailed4",
-            "logicalLocationKey":"?HResultFailed4@@YAXJ@Z",
+            "decoratedName":"?HResultFailed4@@YAXJ@Z",
             "properties":{
-              "decorated":"?HResultFailed4@@YAXJ@Z",
               "funcline":"77"
             }
           }
@@ -640,9 +558,8 @@
               }
             },
             "fullyQualifiedLogicalName":"HResultSFalse",
-            "logicalLocationKey":"?HResultSFalse@@YAXJ@Z",
+            "decoratedName":"?HResultSFalse@@YAXJ@Z",
             "properties":{
-              "decorated":"?HResultSFalse@@YAXJ@Z",
               "funcline":"86"
             }
           }
@@ -708,9 +625,8 @@
               }
             },
             "fullyQualifiedLogicalName":"HResultSFalse2",
-            "logicalLocationKey":"?HResultSFalse2@@YAXJ_N0@Z",
+            "decoratedName":"?HResultSFalse2@@YAXJ_N0@Z",
             "properties":{
-              "decorated":"?HResultSFalse2@@YAXJ_N0@Z",
               "funcline":"95"
             }
           }
@@ -776,9 +692,8 @@
               }
             },
             "fullyQualifiedLogicalName":"HResultSOk",
-            "logicalLocationKey":"?HResultSOk@@YAXJ@Z",
+            "decoratedName":"?HResultSOk@@YAXJ@Z",
             "properties":{
-              "decorated":"?HResultSOk@@YAXJ@Z",
               "funcline":"104"
             }
           }
@@ -844,9 +759,8 @@
               }
             },
             "fullyQualifiedLogicalName":"HResultSOk2",
-            "logicalLocationKey":"?HResultSOk2@@YAXJ@Z",
+            "decoratedName":"?HResultSOk2@@YAXJ@Z",
             "properties":{
-              "decorated":"?HResultSOk2@@YAXJ@Z",
               "funcline":"113"
             }
           }

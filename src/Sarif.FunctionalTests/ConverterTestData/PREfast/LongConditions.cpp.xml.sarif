@@ -8,26 +8,6 @@
       "fullName":"PREfast Code Analysis",
       "version":"14.0.0"
     },
-    "logicalLocations":{
-      "?C6001LongCondition_Example@@YAHXZ":[
-        {
-          "kind":"method",
-          "name":"C6001LongCondition_Example"
-        }
-      ],
-      "?C6001LongCondition15_Example@@YAHXZ":[
-        {
-          "kind":"method",
-          "name":"C6001LongCondition15_Example"
-        }
-      ],
-      "?C6001LongCondition14_Example@@YAHXZ":[
-        {
-          "kind":"method",
-          "name":"C6001LongCondition14_Example"
-        }
-      ]
-    },
     "results":[
       {
         "ruleId":"6001",
@@ -42,9 +22,8 @@
               }
             },
             "fullyQualifiedLogicalName":"C6001LongCondition_Example",
-            "logicalLocationKey":"?C6001LongCondition_Example@@YAHXZ",
+            "decoratedName":"?C6001LongCondition_Example@@YAHXZ",
             "properties":{
-              "decorated":"?C6001LongCondition_Example@@YAHXZ",
               "funcline":"5"
             }
           }
@@ -110,9 +89,8 @@
               }
             },
             "fullyQualifiedLogicalName":"C6001LongCondition15_Example",
-            "logicalLocationKey":"?C6001LongCondition15_Example@@YAHXZ",
+            "decoratedName":"?C6001LongCondition15_Example@@YAHXZ",
             "properties":{
-              "decorated":"?C6001LongCondition15_Example@@YAHXZ",
               "funcline":"19"
             }
           }
@@ -178,9 +156,8 @@
               }
             },
             "fullyQualifiedLogicalName":"C6001LongCondition14_Example",
-            "logicalLocationKey":"?C6001LongCondition14_Example@@YAHXZ",
+            "decoratedName":"?C6001LongCondition14_Example@@YAHXZ",
             "properties":{
-              "decorated":"?C6001LongCondition14_Example@@YAHXZ",
               "funcline":"31"
             }
           }

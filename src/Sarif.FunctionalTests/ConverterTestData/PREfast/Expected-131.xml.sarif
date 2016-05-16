@@ -8,14 +8,6 @@
       "fullName":"PREfast Code Analysis",
       "version":"14.0.0"
     },
-    "logicalLocations":{
-      "?NegDWord_Unsafe@@YAHXZ":[
-        {
-          "kind":"method",
-          "name":"NegDWord_Unsafe"
-        }
-      ]
-    },
     "results":[
       {
         "ruleId":"26017",
@@ -30,9 +22,8 @@
               }
             },
             "fullyQualifiedLogicalName":"NegDWord_Unsafe",
-            "logicalLocationKey":"?NegDWord_Unsafe@@YAHXZ",
+            "decoratedName":"?NegDWord_Unsafe@@YAHXZ",
             "properties":{
-              "decorated":"?NegDWord_Unsafe@@YAHXZ",
               "funcline":"15"
             }
           }

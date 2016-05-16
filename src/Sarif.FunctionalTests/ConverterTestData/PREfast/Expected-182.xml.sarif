@@ -8,14 +8,6 @@
       "fullName":"PREfast Code Analysis",
       "version":"14.0.0"
     },
-    "logicalLocations":{
-      "?certain_overflow@@YAXI@Z":[
-        {
-          "kind":"method",
-          "name":"certain_overflow"
-        }
-      ]
-    },
     "results":[
       {
         "ruleId":"26000",
@@ -30,9 +22,8 @@
               }
             },
             "fullyQualifiedLogicalName":"certain_overflow",
-            "logicalLocationKey":"?certain_overflow@@YAXI@Z",
+            "decoratedName":"?certain_overflow@@YAXI@Z",
             "properties":{
-              "decorated":"?certain_overflow@@YAXI@Z",
               "funcline":"7"
             }
           }

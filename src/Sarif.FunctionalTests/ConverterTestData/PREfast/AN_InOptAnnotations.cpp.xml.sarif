@@ -8,14 +8,6 @@
       "fullName":"PREfast Code Analysis",
       "version":"14.0.0"
     },
-    "logicalLocations":{
-      "?DereferenceParameter@@YAXPEAH_N@Z":[
-        {
-          "kind":"method",
-          "name":"DereferenceParameter"
-        }
-      ]
-    },
     "results":[
       {
         "ruleId":"6011",
@@ -30,9 +22,8 @@
               }
             },
             "fullyQualifiedLogicalName":"DereferenceParameter",
-            "logicalLocationKey":"?DereferenceParameter@@YAXPEAH_N@Z",
+            "decoratedName":"?DereferenceParameter@@YAXPEAH_N@Z",
             "properties":{
-              "decorated":"?DereferenceParameter@@YAXPEAH_N@Z",
               "funcline":"4"
             }
           }

@@ -8,26 +8,6 @@
       "fullName":"PREfast Code Analysis",
       "version":"14.0.0"
     },
-    "logicalLocations":{
-      "?C6011_OnlyOnSecondLoop@@YAXXZ":[
-        {
-          "kind":"method",
-          "name":"C6011_OnlyOnSecondLoop"
-        }
-      ],
-      "?C6011_OnlyOnSecondLoopWithParam@@YAXH@Z":[
-        {
-          "kind":"method",
-          "name":"C6011_OnlyOnSecondLoopWithParam"
-        }
-      ],
-      "?C6011_OnlyOnSecondLoopPlusRollbackDefect@@YAXH@Z":[
-        {
-          "kind":"method",
-          "name":"C6011_OnlyOnSecondLoopPlusRollbackDefect"
-        }
-      ]
-    },
     "results":[
       {
         "ruleId":"6011",
@@ -42,9 +22,8 @@
               }
             },
             "fullyQualifiedLogicalName":"C6011_OnlyOnSecondLoop",
-            "logicalLocationKey":"?C6011_OnlyOnSecondLoop@@YAXXZ",
+            "decoratedName":"?C6011_OnlyOnSecondLoop@@YAXXZ",
             "properties":{
-              "decorated":"?C6011_OnlyOnSecondLoop@@YAXXZ",
               "funcline":"8"
             }
           }
@@ -175,9 +154,8 @@
               }
             },
             "fullyQualifiedLogicalName":"C6011_OnlyOnSecondLoopWithParam",
-            "logicalLocationKey":"?C6011_OnlyOnSecondLoopWithParam@@YAXH@Z",
+            "decoratedName":"?C6011_OnlyOnSecondLoopWithParam@@YAXH@Z",
             "properties":{
-              "decorated":"?C6011_OnlyOnSecondLoopWithParam@@YAXH@Z",
               "funcline":"23"
             }
           }
@@ -308,9 +286,8 @@
               }
             },
             "fullyQualifiedLogicalName":"C6011_OnlyOnSecondLoopPlusRollbackDefect",
-            "logicalLocationKey":"?C6011_OnlyOnSecondLoopPlusRollbackDefect@@YAXH@Z",
+            "decoratedName":"?C6011_OnlyOnSecondLoopPlusRollbackDefect@@YAXH@Z",
             "properties":{
-              "decorated":"?C6011_OnlyOnSecondLoopPlusRollbackDefect@@YAXH@Z",
               "funcline":"38"
             }
           }
@@ -457,9 +434,8 @@
               }
             },
             "fullyQualifiedLogicalName":"C6011_OnlyOnSecondLoopPlusRollbackDefect",
-            "logicalLocationKey":"?C6011_OnlyOnSecondLoopPlusRollbackDefect@@YAXH@Z",
+            "decoratedName":"?C6011_OnlyOnSecondLoopPlusRollbackDefect@@YAXH@Z",
             "properties":{
-              "decorated":"?C6011_OnlyOnSecondLoopPlusRollbackDefect@@YAXH@Z",
               "funcline":"38"
             }
           }
@@ -633,9 +609,8 @@
               }
             },
             "fullyQualifiedLogicalName":"C6011_OnlyOnSecondLoopPlusRollbackDefect",
-            "logicalLocationKey":"?C6011_OnlyOnSecondLoopPlusRollbackDefect@@YAXH@Z",
+            "decoratedName":"?C6011_OnlyOnSecondLoopPlusRollbackDefect@@YAXH@Z",
             "properties":{
-              "decorated":"?C6011_OnlyOnSecondLoopPlusRollbackDefect@@YAXH@Z",
               "funcline":"38"
             }
           }

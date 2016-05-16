@@ -8,14 +8,6 @@
       "fullName":"PREfast Code Analysis",
       "version":"14.0.0"
     },
-    "logicalLocations":{
-      "?StrCchCopy@@YAJPADPBDI@Z":[
-        {
-          "kind":"method",
-          "name":"StrCchCopy"
-        }
-      ]
-    },
     "results":[
       {
         "ruleId":"26007",
@@ -30,9 +22,8 @@
               }
             },
             "fullyQualifiedLogicalName":"StrCchCopy",
-            "logicalLocationKey":"?StrCchCopy@@YAJPADPBDI@Z",
+            "decoratedName":"?StrCchCopy@@YAJPADPBDI@Z",
             "properties":{
-              "decorated":"?StrCchCopy@@YAJPADPBDI@Z",
               "funcline":"4"
             }
           }

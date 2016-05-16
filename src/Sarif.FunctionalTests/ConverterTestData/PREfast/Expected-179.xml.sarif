@@ -8,14 +8,6 @@
       "fullName":"PREfast Code Analysis",
       "version":"14.0.0"
     },
-    "logicalLocations":{
-      "?bar@@YAXPAU_DIGEST_PARAMETER@@@Z":[
-        {
-          "kind":"method",
-          "name":"bar"
-        }
-      ]
-    },
     "results":[
       {
         "ruleId":"26002",
@@ -30,9 +22,8 @@
               }
             },
             "fullyQualifiedLogicalName":"bar",
-            "logicalLocationKey":"?bar@@YAXPAU_DIGEST_PARAMETER@@@Z",
+            "decoratedName":"?bar@@YAXPAU_DIGEST_PARAMETER@@@Z",
             "properties":{
-              "decorated":"?bar@@YAXPAU_DIGEST_PARAMETER@@@Z",
               "funcline":"44"
             }
           }

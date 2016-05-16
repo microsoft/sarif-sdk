@@ -8,20 +8,6 @@
       "fullName":"PREfast Code Analysis",
       "version":"14.0.0"
     },
-    "logicalLocations":{
-      "?f@@YAXXZ":[
-        {
-          "kind":"method",
-          "name":"f"
-        }
-      ],
-      "?doExtensible@@YAXI@Z":[
-        {
-          "kind":"method",
-          "name":"doExtensible"
-        }
-      ]
-    },
     "results":[
       {
         "ruleId":"26026",
@@ -36,9 +22,8 @@
               }
             },
             "fullyQualifiedLogicalName":"f",
-            "logicalLocationKey":"?f@@YAXXZ",
+            "decoratedName":"?f@@YAXXZ",
             "properties":{
-              "decorated":"?f@@YAXXZ",
               "funcline":"12"
             }
           }
@@ -96,9 +81,8 @@
               }
             },
             "fullyQualifiedLogicalName":"doExtensible",
-            "logicalLocationKey":"?doExtensible@@YAXI@Z",
+            "decoratedName":"?doExtensible@@YAXI@Z",
             "properties":{
-              "decorated":"?doExtensible@@YAXI@Z",
               "funcline":"70"
             }
           }
@@ -276,9 +260,8 @@
               }
             },
             "fullyQualifiedLogicalName":"doExtensible",
-            "logicalLocationKey":"?doExtensible@@YAXI@Z",
+            "decoratedName":"?doExtensible@@YAXI@Z",
             "properties":{
-              "decorated":"?doExtensible@@YAXI@Z",
               "funcline":"70"
             }
           }
@@ -504,9 +487,8 @@
               }
             },
             "fullyQualifiedLogicalName":"doExtensible",
-            "logicalLocationKey":"?doExtensible@@YAXI@Z",
+            "decoratedName":"?doExtensible@@YAXI@Z",
             "properties":{
-              "decorated":"?doExtensible@@YAXI@Z",
               "funcline":"70"
             }
           }

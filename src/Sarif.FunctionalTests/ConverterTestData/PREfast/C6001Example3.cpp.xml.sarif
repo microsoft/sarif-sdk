@@ -8,14 +8,6 @@
       "fullName":"PREfast Code Analysis",
       "version":"14.0.0"
     },
-    "logicalLocations":{
-      "?C6001_Example3@@YAH_N0@Z":[
-        {
-          "kind":"method",
-          "name":"C6001_Example3"
-        }
-      ]
-    },
     "results":[
       {
         "ruleId":"6001",
@@ -30,9 +22,8 @@
               }
             },
             "fullyQualifiedLogicalName":"C6001_Example3",
-            "logicalLocationKey":"?C6001_Example3@@YAH_N0@Z",
+            "decoratedName":"?C6001_Example3@@YAH_N0@Z",
             "properties":{
-              "decorated":"?C6001_Example3@@YAH_N0@Z",
               "funcline":"2"
             }
           }

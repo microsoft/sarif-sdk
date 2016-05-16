@@ -8,32 +8,6 @@
       "fullName":"PREfast Code Analysis",
       "version":"14.0.0"
     },
-    "logicalLocations":{
-      "":[
-        {
-          "kind":"method",
-          "name":""
-        }
-      ],
-      "?test_b_a@@YAXPADPBVBase@@@Z":[
-        {
-          "kind":"method",
-          "name":"test_b_a"
-        }
-      ],
-      "?test_d_b@@YAXPADPBVDerived@@@Z":[
-        {
-          "kind":"method",
-          "name":"test_d_b"
-        }
-      ],
-      "?test_d_a@@YAXPADPBVDerived@@@Z":[
-        {
-          "kind":"method",
-          "name":"test_d_a"
-        }
-      ]
-    },
     "results":[
       {
         "ruleId":"28204",
@@ -48,9 +22,8 @@
               }
             },
             "fullyQualifiedLogicalName":"",
-            "logicalLocationKey":"",
+            "decoratedName":"",
             "properties":{
-              "decorated":"",
               "funcline":""
             }
           }
@@ -68,9 +41,8 @@
               }
             },
             "fullyQualifiedLogicalName":"test_b_a",
-            "logicalLocationKey":"?test_b_a@@YAXPADPBVBase@@@Z",
+            "decoratedName":"?test_b_a@@YAXPADPBVBase@@@Z",
             "properties":{
-              "decorated":"?test_b_a@@YAXPADPBVBase@@@Z",
               "funcline":"29"
             }
           }
@@ -112,9 +84,8 @@
               }
             },
             "fullyQualifiedLogicalName":"test_d_b",
-            "logicalLocationKey":"?test_d_b@@YAXPADPBVDerived@@@Z",
+            "decoratedName":"?test_d_b@@YAXPADPBVDerived@@@Z",
             "properties":{
-              "decorated":"?test_d_b@@YAXPADPBVDerived@@@Z",
               "funcline":"34"
             }
           }
@@ -156,9 +127,8 @@
               }
             },
             "fullyQualifiedLogicalName":"test_d_a",
-            "logicalLocationKey":"?test_d_a@@YAXPADPBVDerived@@@Z",
+            "decoratedName":"?test_d_a@@YAXPADPBVDerived@@@Z",
             "properties":{
-              "decorated":"?test_d_a@@YAXPADPBVDerived@@@Z",
               "funcline":"40"
             }
           }

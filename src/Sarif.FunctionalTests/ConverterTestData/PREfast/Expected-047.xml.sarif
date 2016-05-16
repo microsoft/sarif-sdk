@@ -8,20 +8,6 @@
       "fullName":"PREfast Code Analysis",
       "version":"14.0.0"
     },
-    "logicalLocations":{
-      "?SortList@@YAXXZ":[
-        {
-          "kind":"method",
-          "name":"SortList"
-        }
-      ],
-      "?SortListUnroll@@YAXXZ":[
-        {
-          "kind":"method",
-          "name":"SortListUnroll"
-        }
-      ]
-    },
     "results":[
       {
         "ruleId":"26015",
@@ -36,9 +22,8 @@
               }
             },
             "fullyQualifiedLogicalName":"SortList",
-            "logicalLocationKey":"?SortList@@YAXXZ",
+            "decoratedName":"?SortList@@YAXXZ",
             "properties":{
-              "decorated":"?SortList@@YAXXZ",
               "funcline":"174"
             }
           }
@@ -224,9 +209,8 @@
               }
             },
             "fullyQualifiedLogicalName":"SortListUnroll",
-            "logicalLocationKey":"?SortListUnroll@@YAXXZ",
+            "decoratedName":"?SortListUnroll@@YAXXZ",
             "properties":{
-              "decorated":"?SortListUnroll@@YAXXZ",
               "funcline":"186"
             }
           }

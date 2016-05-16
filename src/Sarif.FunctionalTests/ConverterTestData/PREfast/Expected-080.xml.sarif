@@ -8,44 +8,6 @@
       "fullName":"PREfast Code Analysis",
       "version":"14.0.0"
     },
-    "logicalLocations":{
-      "?g@@YAXHH@Z":[
-        {
-          "kind":"method",
-          "name":"g"
-        }
-      ],
-      "?nested@@YAXXZ":[
-        {
-          "kind":"method",
-          "name":"nested"
-        }
-      ],
-      "?call@@YADPADID@Z":[
-        {
-          "kind":"method",
-          "name":"call"
-        }
-      ],
-      "?call1@@YADPADID@Z":[
-        {
-          "kind":"method",
-          "name":"call1"
-        }
-      ],
-      "?TestRelopBad@@YAXII@Z":[
-        {
-          "kind":"method",
-          "name":"TestRelopBad"
-        }
-      ],
-      "?TestRelopGood@@YAXII@Z":[
-        {
-          "kind":"method",
-          "name":"TestRelopGood"
-        }
-      ]
-    },
     "results":[
       {
         "ruleId":"26000",
@@ -60,9 +22,8 @@
               }
             },
             "fullyQualifiedLogicalName":"g",
-            "logicalLocationKey":"?g@@YAXHH@Z",
+            "decoratedName":"?g@@YAXHH@Z",
             "properties":{
-              "decorated":"?g@@YAXHH@Z",
               "funcline":"31"
             }
           }
@@ -120,9 +81,8 @@
               }
             },
             "fullyQualifiedLogicalName":"nested",
-            "logicalLocationKey":"?nested@@YAXXZ",
+            "decoratedName":"?nested@@YAXXZ",
             "properties":{
-              "decorated":"?nested@@YAXXZ",
               "funcline":"39"
             }
           }
@@ -236,9 +196,8 @@
               }
             },
             "fullyQualifiedLogicalName":"nested",
-            "logicalLocationKey":"?nested@@YAXXZ",
+            "decoratedName":"?nested@@YAXXZ",
             "properties":{
-              "decorated":"?nested@@YAXXZ",
               "funcline":"39"
             }
           }
@@ -352,9 +311,8 @@
               }
             },
             "fullyQualifiedLogicalName":"call",
-            "logicalLocationKey":"?call@@YADPADID@Z",
+            "decoratedName":"?call@@YADPADID@Z",
             "properties":{
-              "decorated":"?call@@YADPADID@Z",
               "funcline":"53"
             }
           }
@@ -396,9 +354,8 @@
               }
             },
             "fullyQualifiedLogicalName":"call1",
-            "logicalLocationKey":"?call1@@YADPADID@Z",
+            "decoratedName":"?call1@@YADPADID@Z",
             "properties":{
-              "decorated":"?call1@@YADPADID@Z",
               "funcline":"58"
             }
           }
@@ -456,9 +413,8 @@
               }
             },
             "fullyQualifiedLogicalName":"TestRelopBad",
-            "logicalLocationKey":"?TestRelopBad@@YAXII@Z",
+            "decoratedName":"?TestRelopBad@@YAXII@Z",
             "properties":{
-              "decorated":"?TestRelopBad@@YAXII@Z",
               "funcline":"65"
             }
           }
@@ -532,9 +488,8 @@
               }
             },
             "fullyQualifiedLogicalName":"TestRelopGood",
-            "logicalLocationKey":"?TestRelopGood@@YAXII@Z",
+            "decoratedName":"?TestRelopGood@@YAXII@Z",
             "properties":{
-              "decorated":"?TestRelopGood@@YAXII@Z",
               "funcline":"73"
             }
           }

@@ -8,26 +8,6 @@
       "fullName":"PREfast Code Analysis",
       "version":"14.0.0"
     },
-    "logicalLocations":{
-      "?TxfConvertTxfFileIdToMungedName@@YAEPAHPAG@Z":[
-        {
-          "kind":"method",
-          "name":"TxfConvertTxfFileIdToMungedName"
-        }
-      ],
-      "?g@@YAXXZ":[
-        {
-          "kind":"method",
-          "name":"g"
-        }
-      ],
-      "?foo@@YAXPAHH@Z":[
-        {
-          "kind":"method",
-          "name":"foo"
-        }
-      ]
-    },
     "results":[
       {
         "ruleId":"26001",
@@ -42,9 +22,8 @@
               }
             },
             "fullyQualifiedLogicalName":"TxfConvertTxfFileIdToMungedName",
-            "logicalLocationKey":"?TxfConvertTxfFileIdToMungedName@@YAEPAHPAG@Z",
+            "decoratedName":"?TxfConvertTxfFileIdToMungedName@@YAEPAHPAG@Z",
             "properties":{
-              "decorated":"?TxfConvertTxfFileIdToMungedName@@YAEPAHPAG@Z",
               "funcline":"6"
             }
           }
@@ -710,9 +689,8 @@
               }
             },
             "fullyQualifiedLogicalName":"g",
-            "logicalLocationKey":"?g@@YAXXZ",
+            "decoratedName":"?g@@YAXXZ",
             "properties":{
-              "decorated":"?g@@YAXXZ",
               "funcline":"46"
             }
           }
@@ -1098,9 +1076,8 @@
               }
             },
             "fullyQualifiedLogicalName":"foo",
-            "logicalLocationKey":"?foo@@YAXPAHH@Z",
+            "decoratedName":"?foo@@YAXPAHH@Z",
             "properties":{
-              "decorated":"?foo@@YAXPAHH@Z",
               "funcline":"86"
             }
           }

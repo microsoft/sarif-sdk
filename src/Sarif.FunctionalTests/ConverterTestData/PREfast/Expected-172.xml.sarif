@@ -8,14 +8,6 @@
       "fullName":"PREfast Code Analysis",
       "version":"14.0.0"
     },
-    "logicalLocations":{
-      "?BadNullTerm@@YAIPAD@Z":[
-        {
-          "kind":"method",
-          "name":"BadNullTerm"
-        }
-      ]
-    },
     "results":[
       {
         "ruleId":"26018",
@@ -30,9 +22,8 @@
               }
             },
             "fullyQualifiedLogicalName":"BadNullTerm",
-            "logicalLocationKey":"?BadNullTerm@@YAIPAD@Z",
+            "decoratedName":"?BadNullTerm@@YAIPAD@Z",
             "properties":{
-              "decorated":"?BadNullTerm@@YAIPAD@Z",
               "funcline":"132"
             }
           }

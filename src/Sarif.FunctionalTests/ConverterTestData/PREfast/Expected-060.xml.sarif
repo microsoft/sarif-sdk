@@ -8,38 +8,6 @@
       "fullName":"PREfast Code Analysis",
       "version":"14.0.0"
     },
-    "logicalLocations":{
-      "?f@@YAXPAH0HH@Z":[
-        {
-          "kind":"method",
-          "name":"f"
-        }
-      ],
-      "?g@@YAHH@Z":[
-        {
-          "kind":"method",
-          "name":"g"
-        }
-      ],
-      "?foo@@YAXXZ":[
-        {
-          "kind":"method",
-          "name":"foo"
-        }
-      ],
-      "?bar@@YAHXZ":[
-        {
-          "kind":"method",
-          "name":"bar"
-        }
-      ],
-      "?ineqnoise@@YAHH@Z":[
-        {
-          "kind":"method",
-          "name":"ineqnoise"
-        }
-      ]
-    },
     "results":[
       {
         "ruleId":"26014",
@@ -54,9 +22,8 @@
               }
             },
             "fullyQualifiedLogicalName":"f",
-            "logicalLocationKey":"?f@@YAXPAH0HH@Z",
+            "decoratedName":"?f@@YAXPAH0HH@Z",
             "properties":{
-              "decorated":"?f@@YAXPAH0HH@Z",
               "funcline":"3"
             }
           }
@@ -146,9 +113,8 @@
               }
             },
             "fullyQualifiedLogicalName":"g",
-            "logicalLocationKey":"?g@@YAHH@Z",
+            "decoratedName":"?g@@YAHH@Z",
             "properties":{
-              "decorated":"?g@@YAHH@Z",
               "funcline":"12"
             }
           }
@@ -198,9 +164,8 @@
               }
             },
             "fullyQualifiedLogicalName":"g",
-            "logicalLocationKey":"?g@@YAHH@Z",
+            "decoratedName":"?g@@YAHH@Z",
             "properties":{
-              "decorated":"?g@@YAHH@Z",
               "funcline":"12"
             }
           }
@@ -250,9 +215,8 @@
               }
             },
             "fullyQualifiedLogicalName":"foo",
-            "logicalLocationKey":"?foo@@YAXXZ",
+            "decoratedName":"?foo@@YAXXZ",
             "properties":{
-              "decorated":"?foo@@YAXXZ",
               "funcline":"33"
             }
           }
@@ -326,9 +290,8 @@
               }
             },
             "fullyQualifiedLogicalName":"bar",
-            "logicalLocationKey":"?bar@@YAHXZ",
+            "decoratedName":"?bar@@YAHXZ",
             "properties":{
-              "decorated":"?bar@@YAHXZ",
               "funcline":"41"
             }
           }
@@ -506,9 +469,8 @@
               }
             },
             "fullyQualifiedLogicalName":"ineqnoise",
-            "logicalLocationKey":"?ineqnoise@@YAHH@Z",
+            "decoratedName":"?ineqnoise@@YAHH@Z",
             "properties":{
-              "decorated":"?ineqnoise@@YAHH@Z",
               "funcline":"76"
             }
           }

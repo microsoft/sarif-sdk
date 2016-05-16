@@ -8,20 +8,6 @@
       "fullName":"PREfast Code Analysis",
       "version":"14.0.0"
     },
-    "logicalLocations":{
-      "?BadFunctionKvtInNewArray@@YAHXZ":[
-        {
-          "kind":"method",
-          "name":"BadFunctionKvtInNewArray"
-        }
-      ],
-      "?BadFunctionKvtInConstructor@@YAHXZ":[
-        {
-          "kind":"method",
-          "name":"BadFunctionKvtInConstructor"
-        }
-      ]
-    },
     "results":[
       {
         "ruleId":"6385",
@@ -36,9 +22,8 @@
               }
             },
             "fullyQualifiedLogicalName":"BadFunctionKvtInNewArray",
-            "logicalLocationKey":"?BadFunctionKvtInNewArray@@YAHXZ",
+            "decoratedName":"?BadFunctionKvtInNewArray@@YAHXZ",
             "properties":{
-              "decorated":"?BadFunctionKvtInNewArray@@YAHXZ",
               "funcline":"8"
             }
           }
@@ -124,9 +109,8 @@
               }
             },
             "fullyQualifiedLogicalName":"BadFunctionKvtInConstructor",
-            "logicalLocationKey":"?BadFunctionKvtInConstructor@@YAHXZ",
+            "decoratedName":"?BadFunctionKvtInConstructor@@YAHXZ",
             "properties":{
-              "decorated":"?BadFunctionKvtInConstructor@@YAHXZ",
               "funcline":"34"
             }
           }

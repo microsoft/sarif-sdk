@@ -8,32 +8,6 @@
       "fullName":"PREfast Code Analysis",
       "version":"14.0.0"
     },
-    "logicalLocations":{
-      "?foo3@@YAXPAPAPAH0H@Z":[
-        {
-          "kind":"method",
-          "name":"foo3"
-        }
-      ],
-      "?SatFunc@@YAHHHPAD@Z":[
-        {
-          "kind":"method",
-          "name":"SatFunc"
-        }
-      ],
-      "?TestSat1@@YAXXZ":[
-        {
-          "kind":"method",
-          "name":"TestSat1"
-        }
-      ],
-      "?TestPresatBad@@YADHHPAD@Z":[
-        {
-          "kind":"method",
-          "name":"TestPresatBad"
-        }
-      ]
-    },
     "results":[
       {
         "ruleId":"26061",
@@ -48,9 +22,8 @@
               }
             },
             "fullyQualifiedLogicalName":"foo3",
-            "logicalLocationKey":"?foo3@@YAXPAPAPAH0H@Z",
+            "decoratedName":"?foo3@@YAXPAPAPAH0H@Z",
             "properties":{
-              "decorated":"?foo3@@YAXPAPAPAH0H@Z",
               "funcline":"18"
             }
           }
@@ -84,9 +57,8 @@
               }
             },
             "fullyQualifiedLogicalName":"SatFunc",
-            "logicalLocationKey":"?SatFunc@@YAHHHPAD@Z",
+            "decoratedName":"?SatFunc@@YAHHHPAD@Z",
             "properties":{
-              "decorated":"?SatFunc@@YAHHHPAD@Z",
               "funcline":"23"
             }
           }
@@ -128,9 +100,8 @@
               }
             },
             "fullyQualifiedLogicalName":"TestSat1",
-            "logicalLocationKey":"?TestSat1@@YAXXZ",
+            "decoratedName":"?TestSat1@@YAXXZ",
             "properties":{
-              "decorated":"?TestSat1@@YAXXZ",
               "funcline":"28"
             }
           }
@@ -180,9 +151,8 @@
               }
             },
             "fullyQualifiedLogicalName":"TestPresatBad",
-            "logicalLocationKey":"?TestPresatBad@@YADHHPAD@Z",
+            "decoratedName":"?TestPresatBad@@YADHHPAD@Z",
             "properties":{
-              "decorated":"?TestPresatBad@@YADHHPAD@Z",
               "funcline":"37"
             }
           }

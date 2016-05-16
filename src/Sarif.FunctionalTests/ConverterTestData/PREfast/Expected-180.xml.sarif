@@ -8,14 +8,6 @@
       "fullName":"PREfast Code Analysis",
       "version":"14.0.0"
     },
-    "logicalLocations":{
-      "?InvalidAliasing@@YAXPAKPAPAUMyStruct@@@Z":[
-        {
-          "kind":"method",
-          "name":"InvalidAliasing"
-        }
-      ]
-    },
     "results":[
       {
         "ruleId":"26030",
@@ -30,9 +22,8 @@
               }
             },
             "fullyQualifiedLogicalName":"InvalidAliasing",
-            "logicalLocationKey":"?InvalidAliasing@@YAXPAKPAPAUMyStruct@@@Z",
+            "decoratedName":"?InvalidAliasing@@YAXPAKPAPAUMyStruct@@@Z",
             "properties":{
-              "decorated":"?InvalidAliasing@@YAXPAKPAPAUMyStruct@@@Z",
               "funcline":"26"
             }
           }

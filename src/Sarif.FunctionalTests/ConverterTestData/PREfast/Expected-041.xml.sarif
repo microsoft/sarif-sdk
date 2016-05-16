@@ -8,56 +8,6 @@
       "fullName":"PREfast Code Analysis",
       "version":"14.0.0"
     },
-    "logicalLocations":{
-      "?baz@@YAXPAD@Z":[
-        {
-          "kind":"method",
-          "name":"baz"
-        }
-      ],
-      "?ref1@@YAXPADAAH@Z":[
-        {
-          "kind":"method",
-          "name":"ref1"
-        }
-      ],
-      "?ref2@@YAXPADAAH@Z":[
-        {
-          "kind":"method",
-          "name":"ref2"
-        }
-      ],
-      "?ref5@@YAXAAPAH0@Z":[
-        {
-          "kind":"method",
-          "name":"ref5"
-        }
-      ],
-      "?g@@YAXP6APAXPAHH@Z@Z":[
-        {
-          "kind":"method",
-          "name":"g"
-        }
-      ],
-      "?callDriver@@YAXXZ":[
-        {
-          "kind":"method",
-          "name":"callDriver"
-        }
-      ],
-      "?driverFn1@@YAXPAHH@Z":[
-        {
-          "kind":"method",
-          "name":"driverFn1"
-        }
-      ],
-      "main":[
-        {
-          "kind":"method",
-          "name":"main"
-        }
-      ]
-    },
     "results":[
       {
         "ruleId":"26000",
@@ -72,9 +22,8 @@
               }
             },
             "fullyQualifiedLogicalName":"baz",
-            "logicalLocationKey":"?baz@@YAXPAD@Z",
+            "decoratedName":"?baz@@YAXPAD@Z",
             "properties":{
-              "decorated":"?baz@@YAXPAD@Z",
               "funcline":"26"
             }
           }
@@ -116,9 +65,8 @@
               }
             },
             "fullyQualifiedLogicalName":"ref1",
-            "logicalLocationKey":"?ref1@@YAXPADAAH@Z",
+            "decoratedName":"?ref1@@YAXPADAAH@Z",
             "properties":{
-              "decorated":"?ref1@@YAXPADAAH@Z",
               "funcline":"48"
             }
           }
@@ -160,9 +108,8 @@
               }
             },
             "fullyQualifiedLogicalName":"ref2",
-            "logicalLocationKey":"?ref2@@YAXPADAAH@Z",
+            "decoratedName":"?ref2@@YAXPADAAH@Z",
             "properties":{
-              "decorated":"?ref2@@YAXPADAAH@Z",
               "funcline":"53"
             }
           }
@@ -204,9 +151,8 @@
               }
             },
             "fullyQualifiedLogicalName":"ref5",
-            "logicalLocationKey":"?ref5@@YAXAAPAH0@Z",
+            "decoratedName":"?ref5@@YAXAAPAH0@Z",
             "properties":{
-              "decorated":"?ref5@@YAXAAPAH0@Z",
               "funcline":"68"
             }
           }
@@ -256,9 +202,8 @@
               }
             },
             "fullyQualifiedLogicalName":"g",
-            "logicalLocationKey":"?g@@YAXP6APAXPAHH@Z@Z",
+            "decoratedName":"?g@@YAXP6APAXPAHH@Z@Z",
             "properties":{
-              "decorated":"?g@@YAXP6APAXPAHH@Z@Z",
               "funcline":"75"
             }
           }
@@ -308,9 +253,8 @@
               }
             },
             "fullyQualifiedLogicalName":"callDriver",
-            "logicalLocationKey":"?callDriver@@YAXXZ",
+            "decoratedName":"?callDriver@@YAXXZ",
             "properties":{
-              "decorated":"?callDriver@@YAXXZ",
               "funcline":"106"
             }
           }
@@ -360,9 +304,8 @@
               }
             },
             "fullyQualifiedLogicalName":"driverFn1",
-            "logicalLocationKey":"?driverFn1@@YAXPAHH@Z",
+            "decoratedName":"?driverFn1@@YAXPAHH@Z",
             "properties":{
-              "decorated":"?driverFn1@@YAXPAHH@Z",
               "funcline":"118"
             }
           }
@@ -404,9 +347,8 @@
               }
             },
             "fullyQualifiedLogicalName":"main",
-            "logicalLocationKey":"main",
+            "decoratedName":"main",
             "properties":{
-              "decorated":"main",
               "funcline":"191"
             }
           }
@@ -544,9 +486,8 @@
               }
             },
             "fullyQualifiedLogicalName":"main",
-            "logicalLocationKey":"main",
+            "decoratedName":"main",
             "properties":{
-              "decorated":"main",
               "funcline":"191"
             }
           }

@@ -8,14 +8,6 @@
       "fullName":"PREfast Code Analysis",
       "version":"14.0.0"
     },
-    "logicalLocations":{
-      "?C6001MacroExpansion_Example@@YAHH@Z":[
-        {
-          "kind":"method",
-          "name":"C6001MacroExpansion_Example"
-        }
-      ]
-    },
     "results":[
       {
         "ruleId":"6001",
@@ -30,9 +22,8 @@
               }
             },
             "fullyQualifiedLogicalName":"C6001MacroExpansion_Example",
-            "logicalLocationKey":"?C6001MacroExpansion_Example@@YAHH@Z",
+            "decoratedName":"?C6001MacroExpansion_Example@@YAHH@Z",
             "properties":{
-              "decorated":"?C6001MacroExpansion_Example@@YAHH@Z",
               "funcline":"3"
             }
           }

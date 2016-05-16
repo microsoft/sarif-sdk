@@ -8,14 +8,6 @@
       "fullName":"PREfast Code Analysis",
       "version":"14.0.0"
     },
-    "logicalLocations":{
-      "?FindARecord@@YAXPAGPAK1@Z":[
-        {
-          "kind":"method",
-          "name":"FindARecord"
-        }
-      ]
-    },
     "results":[
       {
         "ruleId":"26014",
@@ -30,9 +22,8 @@
               }
             },
             "fullyQualifiedLogicalName":"FindARecord",
-            "logicalLocationKey":"?FindARecord@@YAXPAGPAK1@Z",
+            "decoratedName":"?FindARecord@@YAXPAGPAK1@Z",
             "properties":{
-              "decorated":"?FindARecord@@YAXPAGPAK1@Z",
               "funcline":"8"
             }
           }

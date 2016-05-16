@@ -8,26 +8,6 @@
       "fullName":"PREfast Code Analysis",
       "version":"14.0.0"
     },
-    "logicalLocations":{
-      "?TestStrLenPrimOp1@@YAXXZ":[
-        {
-          "kind":"method",
-          "name":"TestStrLenPrimOp1"
-        }
-      ],
-      "?TestWcsLenPrimOp1@@YAXXZ":[
-        {
-          "kind":"method",
-          "name":"TestWcsLenPrimOp1"
-        }
-      ],
-      "?TestCountedString@@YAXPAG@Z":[
-        {
-          "kind":"method",
-          "name":"TestCountedString"
-        }
-      ]
-    },
     "results":[
       {
         "ruleId":"26000",
@@ -42,9 +22,8 @@
               }
             },
             "fullyQualifiedLogicalName":"TestStrLenPrimOp1",
-            "logicalLocationKey":"?TestStrLenPrimOp1@@YAXXZ",
+            "decoratedName":"?TestStrLenPrimOp1@@YAXXZ",
             "properties":{
-              "decorated":"?TestStrLenPrimOp1@@YAXXZ",
               "funcline":"14"
             }
           }
@@ -118,9 +97,8 @@
               }
             },
             "fullyQualifiedLogicalName":"TestWcsLenPrimOp1",
-            "logicalLocationKey":"?TestWcsLenPrimOp1@@YAXXZ",
+            "decoratedName":"?TestWcsLenPrimOp1@@YAXXZ",
             "properties":{
-              "decorated":"?TestWcsLenPrimOp1@@YAXXZ",
               "funcline":"45"
             }
           }
@@ -194,9 +172,8 @@
               }
             },
             "fullyQualifiedLogicalName":"TestCountedString",
-            "logicalLocationKey":"?TestCountedString@@YAXPAG@Z",
+            "decoratedName":"?TestCountedString@@YAXPAG@Z",
             "properties":{
-              "decorated":"?TestCountedString@@YAXPAG@Z",
               "funcline":"103"
             }
           }

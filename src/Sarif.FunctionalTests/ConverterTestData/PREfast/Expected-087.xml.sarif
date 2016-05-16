@@ -8,74 +8,6 @@
       "fullName":"PREfast Code Analysis",
       "version":"14.0.0"
     },
-    "logicalLocations":{
-      "?qcolon@@YAXPADIHH@Z":[
-        {
-          "kind":"method",
-          "name":"qcolon"
-        }
-      ],
-      "?callqcolon@@YAXXZ":[
-        {
-          "kind":"method",
-          "name":"callqcolon"
-        }
-      ],
-      "?TestAnd@@YAXPADI_N1@Z":[
-        {
-          "kind":"method",
-          "name":"TestAnd"
-        }
-      ],
-      "?TestOr@@YAXPADI_N1@Z":[
-        {
-          "kind":"method",
-          "name":"TestOr"
-        }
-      ],
-      "?CallAnd@@YAXXZ":[
-        {
-          "kind":"method",
-          "name":"CallAnd"
-        }
-      ],
-      "?CallOr@@YAXXZ":[
-        {
-          "kind":"method",
-          "name":"CallOr"
-        }
-      ],
-      "?CallDual@@YAXXZ":[
-        {
-          "kind":"method",
-          "name":"CallDual"
-        }
-      ],
-      "?BadDualBit@@YAXPADII@Z":[
-        {
-          "kind":"method",
-          "name":"BadDualBit"
-        }
-      ],
-      "?CallDualBit@@YAXXZ":[
-        {
-          "kind":"method",
-          "name":"CallDualBit"
-        }
-      ],
-      "?callcleveraw@@YAXXZ":[
-        {
-          "kind":"method",
-          "name":"callcleveraw"
-        }
-      ],
-      "?callfoo@@YAXXZ":[
-        {
-          "kind":"method",
-          "name":"callfoo"
-        }
-      ]
-    },
     "results":[
       {
         "ruleId":"26015",
@@ -90,9 +22,8 @@
               }
             },
             "fullyQualifiedLogicalName":"qcolon",
-            "logicalLocationKey":"?qcolon@@YAXPADIHH@Z",
+            "decoratedName":"?qcolon@@YAXPADIHH@Z",
             "properties":{
-              "decorated":"?qcolon@@YAXPADIHH@Z",
               "funcline":"3"
             }
           }
@@ -238,9 +169,8 @@
               }
             },
             "fullyQualifiedLogicalName":"callqcolon",
-            "logicalLocationKey":"?callqcolon@@YAXXZ",
+            "decoratedName":"?callqcolon@@YAXXZ",
             "properties":{
-              "decorated":"?callqcolon@@YAXXZ",
               "funcline":"24"
             }
           }
@@ -290,9 +220,8 @@
               }
             },
             "fullyQualifiedLogicalName":"callqcolon",
-            "logicalLocationKey":"?callqcolon@@YAXXZ",
+            "decoratedName":"?callqcolon@@YAXXZ",
             "properties":{
-              "decorated":"?callqcolon@@YAXXZ",
               "funcline":"24"
             }
           }
@@ -374,9 +303,8 @@
               }
             },
             "fullyQualifiedLogicalName":"TestAnd",
-            "logicalLocationKey":"?TestAnd@@YAXPADI_N1@Z",
+            "decoratedName":"?TestAnd@@YAXPADI_N1@Z",
             "properties":{
-              "decorated":"?TestAnd@@YAXPADI_N1@Z",
               "funcline":"39"
             }
           }
@@ -522,9 +450,8 @@
               }
             },
             "fullyQualifiedLogicalName":"TestOr",
-            "logicalLocationKey":"?TestOr@@YAXPADI_N1@Z",
+            "decoratedName":"?TestOr@@YAXPADI_N1@Z",
             "properties":{
-              "decorated":"?TestOr@@YAXPADI_N1@Z",
               "funcline":"57"
             }
           }
@@ -678,9 +605,8 @@
               }
             },
             "fullyQualifiedLogicalName":"CallAnd",
-            "logicalLocationKey":"?CallAnd@@YAXXZ",
+            "decoratedName":"?CallAnd@@YAXXZ",
             "properties":{
-              "decorated":"?CallAnd@@YAXXZ",
               "funcline":"78"
             }
           }
@@ -738,9 +664,8 @@
               }
             },
             "fullyQualifiedLogicalName":"CallOr",
-            "logicalLocationKey":"?CallOr@@YAXXZ",
+            "decoratedName":"?CallOr@@YAXXZ",
             "properties":{
-              "decorated":"?CallOr@@YAXXZ",
               "funcline":"104"
             }
           }
@@ -814,9 +739,8 @@
               }
             },
             "fullyQualifiedLogicalName":"CallDual",
-            "logicalLocationKey":"?CallDual@@YAXXZ",
+            "decoratedName":"?CallDual@@YAXXZ",
             "properties":{
-              "decorated":"?CallDual@@YAXXZ",
               "funcline":"133"
             }
           }
@@ -874,9 +798,8 @@
               }
             },
             "fullyQualifiedLogicalName":"BadDualBit",
-            "logicalLocationKey":"?BadDualBit@@YAXPADII@Z",
+            "decoratedName":"?BadDualBit@@YAXPADII@Z",
             "properties":{
-              "decorated":"?BadDualBit@@YAXPADII@Z",
               "funcline":"155"
             }
           }
@@ -982,9 +905,8 @@
               }
             },
             "fullyQualifiedLogicalName":"CallDualBit",
-            "logicalLocationKey":"?CallDualBit@@YAXXZ",
+            "decoratedName":"?CallDualBit@@YAXXZ",
             "properties":{
-              "decorated":"?CallDualBit@@YAXXZ",
               "funcline":"163"
             }
           }
@@ -1042,9 +964,8 @@
               }
             },
             "fullyQualifiedLogicalName":"callcleveraw",
-            "logicalLocationKey":"?callcleveraw@@YAXXZ",
+            "decoratedName":"?callcleveraw@@YAXXZ",
             "properties":{
-              "decorated":"?callcleveraw@@YAXXZ",
               "funcline":"258"
             }
           }
@@ -1110,9 +1031,8 @@
               }
             },
             "fullyQualifiedLogicalName":"callfoo",
-            "logicalLocationKey":"?callfoo@@YAXXZ",
+            "decoratedName":"?callfoo@@YAXXZ",
             "properties":{
-              "decorated":"?callfoo@@YAXXZ",
               "funcline":"276"
             }
           }

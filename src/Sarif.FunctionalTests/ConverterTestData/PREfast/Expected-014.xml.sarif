@@ -8,14 +8,6 @@
       "fullName":"PREfast Code Analysis",
       "version":"14.0.0"
     },
-    "logicalLocations":{
-      "?indexing@@YAXI@Z":[
-        {
-          "kind":"method",
-          "name":"indexing"
-        }
-      ]
-    },
     "results":[
       {
         "ruleId":"26014",
@@ -30,9 +22,8 @@
               }
             },
             "fullyQualifiedLogicalName":"indexing",
-            "logicalLocationKey":"?indexing@@YAXI@Z",
+            "decoratedName":"?indexing@@YAXI@Z",
             "properties":{
-              "decorated":"?indexing@@YAXI@Z",
               "funcline":"7"
             }
           }
@@ -98,9 +89,8 @@
               }
             },
             "fullyQualifiedLogicalName":"indexing",
-            "logicalLocationKey":"?indexing@@YAXI@Z",
+            "decoratedName":"?indexing@@YAXI@Z",
             "properties":{
-              "decorated":"?indexing@@YAXI@Z",
               "funcline":"7"
             }
           }
