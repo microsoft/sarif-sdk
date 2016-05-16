@@ -429,6 +429,14 @@
       "kind": "DictionaryHint"
     }
   ],
+  "SarifLog.$schema": [
+    {
+      "kind": "PropertyNameHint",
+      "arguments": {
+        "dotNetPropertyName": "SchemaUri"
+      }
+    }
+  ],
   "SarifLog.Version": [
     {
       "kind": "EnumHint",
