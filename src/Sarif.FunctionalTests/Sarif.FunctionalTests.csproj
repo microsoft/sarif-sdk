@@ -677,6 +677,54 @@
     <None Include="ConverterTestData\PREfast\TFS378661.cpp.xml.sarif">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="DirectProducerTestData\BinSkim\BinSkim.AllRules.sarif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="DirectProducerTestData\BinSkim\Corrupted_Native_x86_VS2013_Default.exe.sarif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="DirectProducerTestData\BinSkim\ManagedInteropAssemblyForAtlTestLibrary.dll.sarif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="DirectProducerTestData\BinSkim\ManagedResourcesOnly.dll.sarif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="DirectProducerTestData\BinSkim\Managed_x86_VS2013_Wpf.exe.sarif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="DirectProducerTestData\BinSkim\MixedMode_x64_VS2013_Default.dll.sarif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="DirectProducerTestData\BinSkim\MixedMode_x64_VS2013_NoPdb.exe.sarif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="DirectProducerTestData\BinSkim\MixedMode_x86_VS2013_Default.exe.sarif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="DirectProducerTestData\BinSkim\MixedMode_x86_VS2013_MissingPdb.dll.sarif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="DirectProducerTestData\BinSkim\Native_x64_VS2013_Default.dll.sarif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="DirectProducerTestData\BinSkim\Native_x64_VS2015_Default.dll.sarif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="DirectProducerTestData\BinSkim\Native_x86_VS2013_Default.exe.sarif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="DirectProducerTestData\BinSkim\Native_x86_VS2013_PdbMissing.exe.sarif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="DirectProducerTestData\BinSkim\Native_x86_VS2013_ResourceOnly.dll.sarif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="DirectProducerTestData\BinSkim\Native_x86_VS2015_AtlProxyStubPS.dll.sarif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="DirectProducerTestData\BinSkim\Native_x86_VS2015_Default.exe.sarif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="DirectProducerTestData\WebSkim\LocalizedBundleDoubleNesting.sarif">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -957,9 +1005,7 @@
   <ItemGroup>
     <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="DirectProducerTestData\BinSkim\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Content Include="ConverterTestData\FxCop\FxCopReportAllMessageStates.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
