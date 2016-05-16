@@ -972,7 +972,7 @@
         },
 
         "module": {
-          "description": "The name of the module that contains the code for this stack frame.",
+          "description": "The name of the module that contains the code of this stack frame.",
           "type": "string"
         },
 
