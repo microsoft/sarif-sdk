@@ -8,14 +8,6 @@
       "fullName":"PREfast Code Analysis",
       "version":"14.0.0"
     },
-    "logicalLocations":{
-      "?Irreducible@@YAXH@Z":[
-        {
-          "kind":"method",
-          "name":"Irreducible"
-        }
-      ]
-    },
     "results":[
       {
         "ruleId":"26051",
@@ -30,9 +22,8 @@
               }
             },
             "fullyQualifiedLogicalName":"Irreducible",
-            "logicalLocationKey":"?Irreducible@@YAXH@Z",
+            "decoratedName":"?Irreducible@@YAXH@Z",
             "properties":{
-              "decorated":"?Irreducible@@YAXH@Z",
               "funcline":"5"
             }
           }

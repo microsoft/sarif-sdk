@@ -8,20 +8,6 @@
       "fullName":"PREfast Code Analysis",
       "version":"14.0.0"
     },
-    "logicalLocations":{
-      "?index@@YAHPAHHH@Z":[
-        {
-          "kind":"method",
-          "name":"index"
-        }
-      ],
-      "main":[
-        {
-          "kind":"method",
-          "name":"main"
-        }
-      ]
-    },
     "results":[
       {
         "ruleId":"26011",
@@ -36,15 +22,15 @@
               }
             },
             "fullyQualifiedLogicalName":"index",
-            "logicalLocationKey":"?index@@YAHPAHHH@Z",
+            "decoratedName":"?index@@YAHPAHHH@Z",
             "properties":{
-              "decorated":"?index@@YAHPAHHH@Z",
               "funcline":"4"
             }
           }
         ],
         "codeFlows":[
           {
+            "message":"",
             "locations":[
               {
                 "physicalLocation":{
@@ -95,15 +81,15 @@
               }
             },
             "fullyQualifiedLogicalName":"index",
-            "logicalLocationKey":"?index@@YAHPAHHH@Z",
+            "decoratedName":"?index@@YAHPAHHH@Z",
             "properties":{
-              "decorated":"?index@@YAHPAHHH@Z",
               "funcline":"4"
             }
           }
         ],
         "codeFlows":[
           {
+            "message":"",
             "locations":[
               {
                 "physicalLocation":{
@@ -186,15 +172,15 @@
               }
             },
             "fullyQualifiedLogicalName":"main",
-            "logicalLocationKey":"main",
+            "decoratedName":"main",
             "properties":{
-              "decorated":"main",
               "funcline":"31"
             }
           }
         ],
         "codeFlows":[
           {
+            "message":"",
             "locations":[
               {
                 "physicalLocation":{
@@ -309,15 +295,15 @@
               }
             },
             "fullyQualifiedLogicalName":"main",
-            "logicalLocationKey":"main",
+            "decoratedName":"main",
             "properties":{
-              "decorated":"main",
               "funcline":"31"
             }
           }
         ],
         "codeFlows":[
           {
+            "message":"",
             "locations":[
               {
                 "physicalLocation":{

@@ -8,14 +8,6 @@
       "fullName":"PREfast Code Analysis",
       "version":"14.0.0"
     },
-    "logicalLocations":{
-      "?UnsafeTestStatus@@YAXJ@Z":[
-        {
-          "kind":"method",
-          "name":"UnsafeTestStatus"
-        }
-      ]
-    },
     "results":[
       {
         "ruleId":"26015",
@@ -30,15 +22,15 @@
               }
             },
             "fullyQualifiedLogicalName":"UnsafeTestStatus",
-            "logicalLocationKey":"?UnsafeTestStatus@@YAXJ@Z",
+            "decoratedName":"?UnsafeTestStatus@@YAXJ@Z",
             "properties":{
-              "decorated":"?UnsafeTestStatus@@YAXJ@Z",
               "funcline":"34"
             }
           }
         ],
         "codeFlows":[
           {
+            "message":"",
             "locations":[
               {
                 "physicalLocation":{
@@ -97,15 +89,15 @@
               }
             },
             "fullyQualifiedLogicalName":"UnsafeTestStatus",
-            "logicalLocationKey":"?UnsafeTestStatus@@YAXJ@Z",
+            "decoratedName":"?UnsafeTestStatus@@YAXJ@Z",
             "properties":{
-              "decorated":"?UnsafeTestStatus@@YAXJ@Z",
               "funcline":"34"
             }
           }
         ],
         "codeFlows":[
           {
+            "message":"",
             "locations":[
               {
                 "physicalLocation":{

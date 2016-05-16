@@ -8,80 +8,6 @@
       "fullName":"PREfast Code Analysis",
       "version":"14.0.0"
     },
-    "logicalLocations":{
-      "?g@@YAXH@Z":[
-        {
-          "kind":"method",
-          "name":"g"
-        }
-      ],
-      "?calladd9@@YAXXZ":[
-        {
-          "kind":"method",
-          "name":"calladd9"
-        }
-      ],
-      "?calladd1deref@@YAXXZ":[
-        {
-          "kind":"method",
-          "name":"calladd1deref"
-        }
-      ],
-      "?CallAccessor@@YAXPAUC@@@Z":[
-        {
-          "kind":"method",
-          "name":"CallAccessor"
-        }
-      ],
-      "?foo@@YAXXZ":[
-        {
-          "kind":"method",
-          "name":"foo"
-        }
-      ],
-      "?callAlloc@@YAXXZ":[
-        {
-          "kind":"method",
-          "name":"callAlloc"
-        }
-      ],
-      "?callRecursive@@YAXH@Z":[
-        {
-          "kind":"method",
-          "name":"callRecursive"
-        }
-      ],
-      "?repeated@@YAXXZ":[
-        {
-          "kind":"method",
-          "name":"repeated"
-        }
-      ],
-      "?CallAccess@@YAXPADI@Z":[
-        {
-          "kind":"method",
-          "name":"CallAccess"
-        }
-      ],
-      "?callLoop@@YAXI@Z":[
-        {
-          "kind":"method",
-          "name":"callLoop"
-        }
-      ],
-      "?callAdd@@YAXPAUS@@@Z":[
-        {
-          "kind":"method",
-          "name":"callAdd"
-        }
-      ],
-      "?callSet@@YAXPAUS@@@Z":[
-        {
-          "kind":"method",
-          "name":"callSet"
-        }
-      ]
-    },
     "results":[
       {
         "ruleId":"26000",
@@ -96,15 +22,15 @@
               }
             },
             "fullyQualifiedLogicalName":"g",
-            "logicalLocationKey":"?g@@YAXH@Z",
+            "decoratedName":"?g@@YAXH@Z",
             "properties":{
-              "decorated":"?g@@YAXH@Z",
               "funcline":"9"
             }
           }
         ],
         "codeFlows":[
           {
+            "message":"",
             "locations":[
               {
                 "physicalLocation":{
@@ -163,15 +89,15 @@
               }
             },
             "fullyQualifiedLogicalName":"calladd9",
-            "logicalLocationKey":"?calladd9@@YAXXZ",
+            "decoratedName":"?calladd9@@YAXXZ",
             "properties":{
-              "decorated":"?calladd9@@YAXXZ",
               "funcline":"30"
             }
           }
         ],
         "codeFlows":[
           {
+            "message":"",
             "locations":[
               {
                 "physicalLocation":{
@@ -222,15 +148,15 @@
               }
             },
             "fullyQualifiedLogicalName":"calladd1deref",
-            "logicalLocationKey":"?calladd1deref@@YAXXZ",
+            "decoratedName":"?calladd1deref@@YAXXZ",
             "properties":{
-              "decorated":"?calladd1deref@@YAXXZ",
               "funcline":"41"
             }
           }
         ],
         "codeFlows":[
           {
+            "message":"",
             "locations":[
               {
                 "physicalLocation":{
@@ -297,15 +223,15 @@
               }
             },
             "fullyQualifiedLogicalName":"CallAccessor",
-            "logicalLocationKey":"?CallAccessor@@YAXPAUC@@@Z",
+            "decoratedName":"?CallAccessor@@YAXPAUC@@@Z",
             "properties":{
-              "decorated":"?CallAccessor@@YAXPAUC@@@Z",
               "funcline":"70"
             }
           }
         ],
         "codeFlows":[
           {
+            "message":"",
             "locations":[
               {
                 "physicalLocation":{
@@ -380,15 +306,15 @@
               }
             },
             "fullyQualifiedLogicalName":"CallAccessor",
-            "logicalLocationKey":"?CallAccessor@@YAXPAUC@@@Z",
+            "decoratedName":"?CallAccessor@@YAXPAUC@@@Z",
             "properties":{
-              "decorated":"?CallAccessor@@YAXPAUC@@@Z",
               "funcline":"70"
             }
           }
         ],
         "codeFlows":[
           {
+            "message":"",
             "locations":[
               {
                 "physicalLocation":{
@@ -463,15 +389,15 @@
               }
             },
             "fullyQualifiedLogicalName":"foo",
-            "logicalLocationKey":"?foo@@YAXXZ",
+            "decoratedName":"?foo@@YAXXZ",
             "properties":{
-              "decorated":"?foo@@YAXXZ",
               "funcline":"86"
             }
           }
         ],
         "codeFlows":[
           {
+            "message":"",
             "locations":[
               {
                 "physicalLocation":{
@@ -538,15 +464,15 @@
               }
             },
             "fullyQualifiedLogicalName":"callAlloc",
-            "logicalLocationKey":"?callAlloc@@YAXXZ",
+            "decoratedName":"?callAlloc@@YAXXZ",
             "properties":{
-              "decorated":"?callAlloc@@YAXXZ",
               "funcline":"98"
             }
           }
         ],
         "codeFlows":[
           {
+            "message":"",
             "locations":[
               {
                 "physicalLocation":{
@@ -629,15 +555,15 @@
               }
             },
             "fullyQualifiedLogicalName":"callRecursive",
-            "logicalLocationKey":"?callRecursive@@YAXH@Z",
+            "decoratedName":"?callRecursive@@YAXH@Z",
             "properties":{
-              "decorated":"?callRecursive@@YAXH@Z",
               "funcline":"114"
             }
           }
         ],
         "codeFlows":[
           {
+            "message":"",
             "locations":[
               {
                 "physicalLocation":{
@@ -688,15 +614,15 @@
               }
             },
             "fullyQualifiedLogicalName":"callRecursive",
-            "logicalLocationKey":"?callRecursive@@YAXH@Z",
+            "decoratedName":"?callRecursive@@YAXH@Z",
             "properties":{
-              "decorated":"?callRecursive@@YAXH@Z",
               "funcline":"114"
             }
           }
         ],
         "codeFlows":[
           {
+            "message":"",
             "locations":[
               {
                 "physicalLocation":{
@@ -747,15 +673,15 @@
               }
             },
             "fullyQualifiedLogicalName":"repeated",
-            "logicalLocationKey":"?repeated@@YAXXZ",
+            "decoratedName":"?repeated@@YAXXZ",
             "properties":{
-              "decorated":"?repeated@@YAXXZ",
               "funcline":"125"
             }
           }
         ],
         "codeFlows":[
           {
+            "message":"",
             "locations":[
               {
                 "physicalLocation":{
@@ -846,15 +772,15 @@
               }
             },
             "fullyQualifiedLogicalName":"CallAccess",
-            "logicalLocationKey":"?CallAccess@@YAXPADI@Z",
+            "decoratedName":"?CallAccess@@YAXPADI@Z",
             "properties":{
-              "decorated":"?CallAccess@@YAXPADI@Z",
               "funcline":"138"
             }
           }
         ],
         "codeFlows":[
           {
+            "message":"",
             "locations":[
               {
                 "physicalLocation":{
@@ -889,15 +815,15 @@
               }
             },
             "fullyQualifiedLogicalName":"callLoop",
-            "logicalLocationKey":"?callLoop@@YAXI@Z",
+            "decoratedName":"?callLoop@@YAXI@Z",
             "properties":{
-              "decorated":"?callLoop@@YAXI@Z",
               "funcline":"161"
             }
           }
         ],
         "codeFlows":[
           {
+            "message":"",
             "locations":[
               {
                 "physicalLocation":{
@@ -956,15 +882,15 @@
               }
             },
             "fullyQualifiedLogicalName":"callAdd",
-            "logicalLocationKey":"?callAdd@@YAXPAUS@@@Z",
+            "decoratedName":"?callAdd@@YAXPAUS@@@Z",
             "properties":{
-              "decorated":"?callAdd@@YAXPAUS@@@Z",
               "funcline":"185"
             }
           }
         ],
         "codeFlows":[
           {
+            "message":"",
             "locations":[
               {
                 "physicalLocation":{
@@ -1031,15 +957,15 @@
               }
             },
             "fullyQualifiedLogicalName":"callSet",
-            "logicalLocationKey":"?callSet@@YAXPAUS@@@Z",
+            "decoratedName":"?callSet@@YAXPAUS@@@Z",
             "properties":{
-              "decorated":"?callSet@@YAXPAUS@@@Z",
               "funcline":"199"
             }
           }
         ],
         "codeFlows":[
           {
+            "message":"",
             "locations":[
               {
                 "physicalLocation":{

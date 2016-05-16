@@ -8,14 +8,6 @@
       "fullName":"PREfast Code Analysis",
       "version":"14.0.0"
     },
-    "logicalLocations":{
-      "?C6385_Example@@YAXH@Z":[
-        {
-          "kind":"method",
-          "name":"C6385_Example"
-        }
-      ]
-    },
     "results":[
       {
         "ruleId":"6385",
@@ -30,9 +22,8 @@
               }
             },
             "fullyQualifiedLogicalName":"C6385_Example",
-            "logicalLocationKey":"?C6385_Example@@YAXH@Z",
+            "decoratedName":"?C6385_Example@@YAXH@Z",
             "properties":{
-              "decorated":"?C6385_Example@@YAXH@Z",
               "funcline":"1"
             }
           }
@@ -44,6 +35,7 @@
         },
         "codeFlows":[
           {
+            "message":"",
             "locations":[
               {
                 "physicalLocation":{
@@ -53,12 +45,10 @@
                     "startLine":3
                   }
                 },
-                "properties":{
-                  "id":"1",
-                  "kind":"declaration",
-                  "importance":"Essential"
-                },
-                "message":"'a' is an array of 5 elements (5 bytes)"
+                "id":"1",
+                "kind":"declaration",
+                "message":"'a' is an array of 5 elements (5 bytes)",
+                "essential":true
               },{
                 "physicalLocation":{
                   "uri":"file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/relevantkeyevents/relevantkeyevents.cpp",
@@ -139,11 +129,8 @@
                     "startLine":6
                   }
                 },
-                "properties":{
-                  "id":"2",
-                  "kind":"branch",
-                  "importance":"Full"
-                },
+                "id":"2",
+                "kind":"branch",
                 "message":"Enter this branch, (assume 'i<=5')"
               },{
                 "physicalLocation":{
@@ -153,12 +140,10 @@
                     "startLine":8
                   }
                 },
-                "properties":{
-                  "id":"3",
-                  "kind":"usage",
-                  "importance":"Essential"
-                },
-                "message":"Invalid read from 'a[5]', (readable range is 0 to 4)"
+                "id":"3",
+                "kind":"usage",
+                "message":"Invalid read from 'a[5]', (readable range is 0 to 4)",
+                "essential":true
               }
             ]
           }

@@ -8,14 +8,6 @@
       "fullName":"PREfast Code Analysis",
       "version":"14.0.0"
     },
-    "logicalLocations":{
-      "?HpcellFromRwCol@@YAPAU_cell@@HH@Z":[
-        {
-          "kind":"method",
-          "name":"HpcellFromRwCol"
-        }
-      ]
-    },
     "results":[
       {
         "ruleId":"26002",
@@ -30,15 +22,15 @@
               }
             },
             "fullyQualifiedLogicalName":"HpcellFromRwCol",
-            "logicalLocationKey":"?HpcellFromRwCol@@YAPAU_cell@@HH@Z",
+            "decoratedName":"?HpcellFromRwCol@@YAPAU_cell@@HH@Z",
             "properties":{
-              "decorated":"?HpcellFromRwCol@@YAPAU_cell@@HH@Z",
               "funcline":"82"
             }
           }
         ],
         "codeFlows":[
           {
+            "message":"",
             "locations":[
               {
                 "physicalLocation":{
@@ -321,15 +313,15 @@
               }
             },
             "fullyQualifiedLogicalName":"HpcellFromRwCol",
-            "logicalLocationKey":"?HpcellFromRwCol@@YAPAU_cell@@HH@Z",
+            "decoratedName":"?HpcellFromRwCol@@YAPAU_cell@@HH@Z",
             "properties":{
-              "decorated":"?HpcellFromRwCol@@YAPAU_cell@@HH@Z",
               "funcline":"82"
             }
           }
         ],
         "codeFlows":[
           {
+            "message":"",
             "locations":[
               {
                 "physicalLocation":{
@@ -676,15 +668,15 @@
               }
             },
             "fullyQualifiedLogicalName":"HpcellFromRwCol",
-            "logicalLocationKey":"?HpcellFromRwCol@@YAPAU_cell@@HH@Z",
+            "decoratedName":"?HpcellFromRwCol@@YAPAU_cell@@HH@Z",
             "properties":{
-              "decorated":"?HpcellFromRwCol@@YAPAU_cell@@HH@Z",
               "funcline":"82"
             }
           }
         ],
         "codeFlows":[
           {
+            "message":"",
             "locations":[
               {
                 "physicalLocation":{
@@ -927,15 +919,15 @@
               }
             },
             "fullyQualifiedLogicalName":"HpcellFromRwCol",
-            "logicalLocationKey":"?HpcellFromRwCol@@YAPAU_cell@@HH@Z",
+            "decoratedName":"?HpcellFromRwCol@@YAPAU_cell@@HH@Z",
             "properties":{
-              "decorated":"?HpcellFromRwCol@@YAPAU_cell@@HH@Z",
               "funcline":"82"
             }
           }
         ],
         "codeFlows":[
           {
+            "message":"",
             "locations":[
               {
                 "physicalLocation":{

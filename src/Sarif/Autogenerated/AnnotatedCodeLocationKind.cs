@@ -14,6 +14,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     public enum AnnotatedCodeLocationKind
     {
         None,
+        Alias,
         Branch,
         Call,
         CallReturn,

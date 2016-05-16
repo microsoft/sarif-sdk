@@ -8,20 +8,6 @@
       "fullName":"PREfast Code Analysis",
       "version":"14.0.0"
     },
-    "logicalLocations":{
-      "??1CDXGKDX_DUMP_LOG@@QAE@XZ":[
-        {
-          "kind":"method",
-          "name":"CDXGKDX_DUMP_LOG::{dtor}"
-        }
-      ],
-      "main":[
-        {
-          "kind":"method",
-          "name":"main"
-        }
-      ]
-    },
     "results":[
       {
         "ruleId":"26003",
@@ -36,15 +22,15 @@
               }
             },
             "fullyQualifiedLogicalName":"CDXGKDX_DUMP_LOG::{dtor}",
-            "logicalLocationKey":"??1CDXGKDX_DUMP_LOG@@QAE@XZ",
+            "decoratedName":"??1CDXGKDX_DUMP_LOG@@QAE@XZ",
             "properties":{
-              "decorated":"??1CDXGKDX_DUMP_LOG@@QAE@XZ",
               "funcline":"23"
             }
           }
         ],
         "codeFlows":[
           {
+            "message":"",
             "locations":[
               {
                 "physicalLocation":{
@@ -239,15 +225,15 @@
               }
             },
             "fullyQualifiedLogicalName":"main",
-            "logicalLocationKey":"main",
+            "decoratedName":"main",
             "properties":{
-              "decorated":"main",
               "funcline":"32"
             }
           }
         ],
         "codeFlows":[
           {
+            "message":"",
             "locations":[
               {
                 "physicalLocation":{

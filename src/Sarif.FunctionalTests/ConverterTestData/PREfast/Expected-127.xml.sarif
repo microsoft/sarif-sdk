@@ -8,62 +8,6 @@
       "fullName":"PREfast Code Analysis",
       "version":"14.0.0"
     },
-    "logicalLocations":{
-      "?VariableWorker@@YAXHPAD@Z":[
-        {
-          "kind":"method",
-          "name":"VariableWorker"
-        }
-      ],
-      "?Bad1@@YAXXZ":[
-        {
-          "kind":"method",
-          "name":"Bad1"
-        }
-      ],
-      "?Bad2@@YAXH@Z":[
-        {
-          "kind":"method",
-          "name":"Bad2"
-        }
-      ],
-      "?RangeWhen1@@YAXHI@Z":[
-        {
-          "kind":"method",
-          "name":"RangeWhen1"
-        }
-      ],
-      "?Bad3@@YAXXZ":[
-        {
-          "kind":"method",
-          "name":"Bad3"
-        }
-      ],
-      "?WinHttpTestINT@@YAXPBGH@Z":[
-        {
-          "kind":"method",
-          "name":"WinHttpTestINT"
-        }
-      ],
-      "?myWcsCpy@@YAXPAGPBG@Z":[
-        {
-          "kind":"method",
-          "name":"myWcsCpy"
-        }
-      ],
-      "?CallWinHttpDWORD@@YAXPBG@Z":[
-        {
-          "kind":"method",
-          "name":"CallWinHttpDWORD"
-        }
-      ],
-      "?CallWinHttpINT@@YAXPBG@Z":[
-        {
-          "kind":"method",
-          "name":"CallWinHttpINT"
-        }
-      ]
-    },
     "results":[
       {
         "ruleId":"26000",
@@ -78,15 +22,15 @@
               }
             },
             "fullyQualifiedLogicalName":"VariableWorker",
-            "logicalLocationKey":"?VariableWorker@@YAXHPAD@Z",
+            "decoratedName":"?VariableWorker@@YAXHPAD@Z",
             "properties":{
-              "decorated":"?VariableWorker@@YAXHPAD@Z",
               "funcline":"6"
             }
           }
         ],
         "codeFlows":[
           {
+            "message":"",
             "locations":[
               {
                 "physicalLocation":{
@@ -129,15 +73,15 @@
               }
             },
             "fullyQualifiedLogicalName":"Bad1",
-            "logicalLocationKey":"?Bad1@@YAXXZ",
+            "decoratedName":"?Bad1@@YAXXZ",
             "properties":{
-              "decorated":"?Bad1@@YAXXZ",
               "funcline":"28"
             }
           }
         ],
         "codeFlows":[
           {
+            "message":"",
             "locations":[
               {
                 "physicalLocation":{
@@ -180,15 +124,15 @@
               }
             },
             "fullyQualifiedLogicalName":"Bad2",
-            "logicalLocationKey":"?Bad2@@YAXH@Z",
+            "decoratedName":"?Bad2@@YAXH@Z",
             "properties":{
-              "decorated":"?Bad2@@YAXH@Z",
               "funcline":"34"
             }
           }
         ],
         "codeFlows":[
           {
+            "message":"",
             "locations":[
               {
                 "physicalLocation":{
@@ -231,15 +175,15 @@
               }
             },
             "fullyQualifiedLogicalName":"RangeWhen1",
-            "logicalLocationKey":"?RangeWhen1@@YAXHI@Z",
+            "decoratedName":"?RangeWhen1@@YAXHI@Z",
             "properties":{
-              "decorated":"?RangeWhen1@@YAXHI@Z",
               "funcline":"47"
             }
           }
         ],
         "codeFlows":[
           {
+            "message":"",
             "locations":[
               {
                 "physicalLocation":{
@@ -306,15 +250,15 @@
               }
             },
             "fullyQualifiedLogicalName":"Bad3",
-            "logicalLocationKey":"?Bad3@@YAXXZ",
+            "decoratedName":"?Bad3@@YAXXZ",
             "properties":{
-              "decorated":"?Bad3@@YAXXZ",
               "funcline":"76"
             }
           }
         ],
         "codeFlows":[
           {
+            "message":"",
             "locations":[
               {
                 "physicalLocation":{
@@ -381,15 +325,15 @@
               }
             },
             "fullyQualifiedLogicalName":"WinHttpTestINT",
-            "logicalLocationKey":"?WinHttpTestINT@@YAXPBGH@Z",
+            "decoratedName":"?WinHttpTestINT@@YAXPBGH@Z",
             "properties":{
-              "decorated":"?WinHttpTestINT@@YAXPBGH@Z",
               "funcline":"104"
             }
           }
         ],
         "codeFlows":[
           {
+            "message":"",
             "locations":[
               {
                 "physicalLocation":{
@@ -512,15 +456,15 @@
               }
             },
             "fullyQualifiedLogicalName":"myWcsCpy",
-            "logicalLocationKey":"?myWcsCpy@@YAXPAGPBG@Z",
+            "decoratedName":"?myWcsCpy@@YAXPAGPBG@Z",
             "properties":{
-              "decorated":"?myWcsCpy@@YAXPAGPBG@Z",
               "funcline":"128"
             }
           }
         ],
         "codeFlows":[
           {
+            "message":"",
             "locations":[
               {
                 "physicalLocation":{
@@ -555,15 +499,15 @@
               }
             },
             "fullyQualifiedLogicalName":"CallWinHttpDWORD",
-            "logicalLocationKey":"?CallWinHttpDWORD@@YAXPBG@Z",
+            "decoratedName":"?CallWinHttpDWORD@@YAXPBG@Z",
             "properties":{
-              "decorated":"?CallWinHttpDWORD@@YAXPBG@Z",
               "funcline":"133"
             }
           }
         ],
         "codeFlows":[
           {
+            "message":"",
             "locations":[
               {
                 "physicalLocation":{
@@ -630,15 +574,15 @@
               }
             },
             "fullyQualifiedLogicalName":"CallWinHttpINT",
-            "logicalLocationKey":"?CallWinHttpINT@@YAXPBG@Z",
+            "decoratedName":"?CallWinHttpINT@@YAXPBG@Z",
             "properties":{
-              "decorated":"?CallWinHttpINT@@YAXPBG@Z",
               "funcline":"147"
             }
           }
         ],
         "codeFlows":[
           {
+            "message":"",
             "locations":[
               {
                 "physicalLocation":{

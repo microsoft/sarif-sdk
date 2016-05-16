@@ -8,14 +8,6 @@
       "fullName":"PREfast Code Analysis",
       "version":"14.0.0"
     },
-    "logicalLocations":{
-      "?Test@@YAXH@Z":[
-        {
-          "kind":"method",
-          "name":"Test"
-        }
-      ]
-    },
     "results":[
       {
         "ruleId":"26011",
@@ -30,15 +22,15 @@
               }
             },
             "fullyQualifiedLogicalName":"Test",
-            "logicalLocationKey":"?Test@@YAXH@Z",
+            "decoratedName":"?Test@@YAXH@Z",
             "properties":{
-              "decorated":"?Test@@YAXH@Z",
               "funcline":"43"
             }
           }
         ],
         "codeFlows":[
           {
+            "message":"",
             "locations":[
               {
                 "physicalLocation":{
@@ -313,15 +305,15 @@
               }
             },
             "fullyQualifiedLogicalName":"Test",
-            "logicalLocationKey":"?Test@@YAXH@Z",
+            "decoratedName":"?Test@@YAXH@Z",
             "properties":{
-              "decorated":"?Test@@YAXH@Z",
               "funcline":"43"
             }
           }
         ],
         "codeFlows":[
           {
+            "message":"",
             "locations":[
               {
                 "physicalLocation":{
@@ -596,15 +588,15 @@
               }
             },
             "fullyQualifiedLogicalName":"Test",
-            "logicalLocationKey":"?Test@@YAXH@Z",
+            "decoratedName":"?Test@@YAXH@Z",
             "properties":{
-              "decorated":"?Test@@YAXH@Z",
               "funcline":"43"
             }
           }
         ],
         "codeFlows":[
           {
+            "message":"",
             "locations":[
               {
                 "physicalLocation":{
@@ -711,15 +703,15 @@
               }
             },
             "fullyQualifiedLogicalName":"Test",
-            "logicalLocationKey":"?Test@@YAXH@Z",
+            "decoratedName":"?Test@@YAXH@Z",
             "properties":{
-              "decorated":"?Test@@YAXH@Z",
               "funcline":"43"
             }
           }
         ],
         "codeFlows":[
           {
+            "message":"",
             "locations":[
               {
                 "physicalLocation":{
@@ -906,15 +898,15 @@
               }
             },
             "fullyQualifiedLogicalName":"Test",
-            "logicalLocationKey":"?Test@@YAXH@Z",
+            "decoratedName":"?Test@@YAXH@Z",
             "properties":{
-              "decorated":"?Test@@YAXH@Z",
               "funcline":"43"
             }
           }
         ],
         "codeFlows":[
           {
+            "message":"",
             "locations":[
               {
                 "physicalLocation":{

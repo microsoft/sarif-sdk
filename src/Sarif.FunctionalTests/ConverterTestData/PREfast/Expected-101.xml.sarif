@@ -8,32 +8,6 @@
       "fullName":"PREfast Code Analysis",
       "version":"14.0.0"
     },
-    "logicalLocations":{
-      "?bad1@@YAXPAHIPAU_FLEXARRAY@@@Z":[
-        {
-          "kind":"method",
-          "name":"bad1"
-        }
-      ],
-      "?bad2@@YAPAU_FLEXARRAY@@I@Z":[
-        {
-          "kind":"method",
-          "name":"bad2"
-        }
-      ],
-      "?what@Foo@@QAEXPAU_FLEXARRAY@@PAHI@Z":[
-        {
-          "kind":"method",
-          "name":"Foo::what"
-        }
-      ],
-      "main":[
-        {
-          "kind":"method",
-          "name":"main"
-        }
-      ]
-    },
     "results":[
       {
         "ruleId":"26015",
@@ -48,15 +22,15 @@
               }
             },
             "fullyQualifiedLogicalName":"bad1",
-            "logicalLocationKey":"?bad1@@YAXPAHIPAU_FLEXARRAY@@@Z",
+            "decoratedName":"?bad1@@YAXPAHIPAU_FLEXARRAY@@@Z",
             "properties":{
-              "decorated":"?bad1@@YAXPAHIPAU_FLEXARRAY@@@Z",
               "funcline":"10"
             }
           }
         ],
         "codeFlows":[
           {
+            "message":"",
             "locations":[
               {
                 "physicalLocation":{
@@ -91,15 +65,15 @@
               }
             },
             "fullyQualifiedLogicalName":"bad2",
-            "logicalLocationKey":"?bad2@@YAPAU_FLEXARRAY@@I@Z",
+            "decoratedName":"?bad2@@YAPAU_FLEXARRAY@@I@Z",
             "properties":{
-              "decorated":"?bad2@@YAPAU_FLEXARRAY@@I@Z",
               "funcline":"26"
             }
           }
         ],
         "codeFlows":[
           {
+            "message":"",
             "locations":[
               {
                 "physicalLocation":{
@@ -174,15 +148,15 @@
               }
             },
             "fullyQualifiedLogicalName":"Foo::what",
-            "logicalLocationKey":"?what@Foo@@QAEXPAU_FLEXARRAY@@PAHI@Z",
+            "decoratedName":"?what@Foo@@QAEXPAU_FLEXARRAY@@PAHI@Z",
             "properties":{
-              "decorated":"?what@Foo@@QAEXPAU_FLEXARRAY@@PAHI@Z",
               "funcline":"36"
             }
           }
         ],
         "codeFlows":[
           {
+            "message":"",
             "locations":[
               {
                 "physicalLocation":{
@@ -217,15 +191,15 @@
               }
             },
             "fullyQualifiedLogicalName":"main",
-            "logicalLocationKey":"main",
+            "decoratedName":"main",
             "properties":{
-              "decorated":"main",
               "funcline":"42"
             }
           }
         ],
         "codeFlows":[
           {
+            "message":"",
             "locations":[
               {
                 "physicalLocation":{

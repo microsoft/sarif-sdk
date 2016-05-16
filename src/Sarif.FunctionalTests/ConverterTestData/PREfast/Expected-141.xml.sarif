@@ -8,26 +8,6 @@
       "fullName":"PREfast Code Analysis",
       "version":"14.0.0"
     },
-    "logicalLocations":{
-      "?ErrorTestFunc@@YAXXZ":[
-        {
-          "kind":"method",
-          "name":"ErrorTestFunc"
-        }
-      ],
-      "?UseRefParamsFromMyClass2@@YAXXZ":[
-        {
-          "kind":"method",
-          "name":"UseRefParamsFromMyClass2"
-        }
-      ],
-      "?UseRefParamsNoTemplate@@YAXXZ":[
-        {
-          "kind":"method",
-          "name":"UseRefParamsNoTemplate"
-        }
-      ]
-    },
     "results":[
       {
         "ruleId":"26000",
@@ -42,15 +22,15 @@
               }
             },
             "fullyQualifiedLogicalName":"ErrorTestFunc",
-            "logicalLocationKey":"?ErrorTestFunc@@YAXXZ",
+            "decoratedName":"?ErrorTestFunc@@YAXXZ",
             "properties":{
-              "decorated":"?ErrorTestFunc@@YAXXZ",
               "funcline":"47"
             }
           }
         ],
         "codeFlows":[
           {
+            "message":"",
             "locations":[
               {
                 "physicalLocation":{
@@ -125,15 +105,15 @@
               }
             },
             "fullyQualifiedLogicalName":"UseRefParamsFromMyClass2",
-            "logicalLocationKey":"?UseRefParamsFromMyClass2@@YAXXZ",
+            "decoratedName":"?UseRefParamsFromMyClass2@@YAXXZ",
             "properties":{
-              "decorated":"?UseRefParamsFromMyClass2@@YAXXZ",
               "funcline":"79"
             }
           }
         ],
         "codeFlows":[
           {
+            "message":"",
             "locations":[
               {
                 "physicalLocation":{
@@ -208,15 +188,15 @@
               }
             },
             "fullyQualifiedLogicalName":"UseRefParamsNoTemplate",
-            "logicalLocationKey":"?UseRefParamsNoTemplate@@YAXXZ",
+            "decoratedName":"?UseRefParamsNoTemplate@@YAXXZ",
             "properties":{
-              "decorated":"?UseRefParamsNoTemplate@@YAXXZ",
               "funcline":"99"
             }
           }
         ],
         "codeFlows":[
           {
+            "message":"",
             "locations":[
               {
                 "physicalLocation":{

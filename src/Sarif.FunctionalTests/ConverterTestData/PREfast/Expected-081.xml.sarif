@@ -8,32 +8,6 @@
       "fullName":"PREfast Code Analysis",
       "version":"14.0.0"
     },
-    "logicalLocations":{
-      "?f@@YAXII@Z":[
-        {
-          "kind":"method",
-          "name":"f"
-        }
-      ],
-      "?TestSafeInt@@YAXII@Z":[
-        {
-          "kind":"method",
-          "name":"TestSafeInt"
-        }
-      ],
-      "?R16_c@@YAXG@Z":[
-        {
-          "kind":"method",
-          "name":"R16_c"
-        }
-      ],
-      "?R16_f@@YAXF@Z":[
-        {
-          "kind":"method",
-          "name":"R16_f"
-        }
-      ]
-    },
     "results":[
       {
         "ruleId":"26000",
@@ -48,15 +22,15 @@
               }
             },
             "fullyQualifiedLogicalName":"f",
-            "logicalLocationKey":"?f@@YAXII@Z",
+            "decoratedName":"?f@@YAXII@Z",
             "properties":{
-              "decorated":"?f@@YAXII@Z",
               "funcline":"63"
             }
           }
         ],
         "codeFlows":[
           {
+            "message":"",
             "locations":[
               {
                 "physicalLocation":{
@@ -115,15 +89,15 @@
               }
             },
             "fullyQualifiedLogicalName":"TestSafeInt",
-            "logicalLocationKey":"?TestSafeInt@@YAXII@Z",
+            "decoratedName":"?TestSafeInt@@YAXII@Z",
             "properties":{
-              "decorated":"?TestSafeInt@@YAXII@Z",
               "funcline":"112"
             }
           }
         ],
         "codeFlows":[
           {
+            "message":"",
             "locations":[
               {
                 "physicalLocation":{
@@ -238,15 +212,15 @@
               }
             },
             "fullyQualifiedLogicalName":"R16_c",
-            "logicalLocationKey":"?R16_c@@YAXG@Z",
+            "decoratedName":"?R16_c@@YAXG@Z",
             "properties":{
-              "decorated":"?R16_c@@YAXG@Z",
               "funcline":"155"
             }
           }
         ],
         "codeFlows":[
           {
+            "message":"",
             "locations":[
               {
                 "physicalLocation":{
@@ -281,15 +255,15 @@
               }
             },
             "fullyQualifiedLogicalName":"R16_f",
-            "logicalLocationKey":"?R16_f@@YAXF@Z",
+            "decoratedName":"?R16_f@@YAXF@Z",
             "properties":{
-              "decorated":"?R16_f@@YAXF@Z",
               "funcline":"170"
             }
           }
         ],
         "codeFlows":[
           {
+            "message":"",
             "locations":[
               {
                 "physicalLocation":{

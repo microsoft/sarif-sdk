@@ -8,14 +8,6 @@
       "fullName":"PREfast Code Analysis",
       "version":"14.0.0"
     },
-    "logicalLocations":{
-      "?C6385_MaybeRelevantSwitch@@YAXH_N@Z":[
-        {
-          "kind":"method",
-          "name":"C6385_MaybeRelevantSwitch"
-        }
-      ]
-    },
     "results":[
       {
         "ruleId":"6385",
@@ -30,9 +22,8 @@
               }
             },
             "fullyQualifiedLogicalName":"C6385_MaybeRelevantSwitch",
-            "logicalLocationKey":"?C6385_MaybeRelevantSwitch@@YAXH_N@Z",
+            "decoratedName":"?C6385_MaybeRelevantSwitch@@YAXH_N@Z",
             "properties":{
-              "decorated":"?C6385_MaybeRelevantSwitch@@YAXH_N@Z",
               "funcline":"9"
             }
           }
@@ -44,6 +35,7 @@
         },
         "codeFlows":[
           {
+            "message":"",
             "locations":[
               {
                 "physicalLocation":{
@@ -53,12 +45,10 @@
                     "startLine":11
                   }
                 },
-                "properties":{
-                  "id":"1",
-                  "kind":"declaration",
-                  "importance":"Essential"
-                },
-                "message":"'data' is an array of 2 elements (8 bytes)"
+                "id":"1",
+                "kind":"declaration",
+                "message":"'data' is an array of 2 elements (8 bytes)",
+                "essential":true
               },{
                 "physicalLocation":{
                   "uri":"file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_irrelevantswitch.cpp",
@@ -83,12 +73,10 @@
                     "startLine":14
                   }
                 },
-                "properties":{
-                  "id":"2",
-                  "kind":"declaration",
-                  "importance":"Essential"
-                },
-                "message":"'index' is equal to 2"
+                "id":"2",
+                "kind":"declaration",
+                "message":"'index' is equal to 2",
+                "essential":true
               },{
                 "physicalLocation":{
                   "uri":"file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_irrelevantswitch.cpp",
@@ -97,11 +85,8 @@
                     "startLine":16
                   }
                 },
-                "properties":{
-                  "id":"3",
-                  "kind":"branch",
-                  "importance":"Full"
-                },
+                "id":"3",
+                "kind":"branch",
                 "message":"Assume switch ( 'flag' ) resolves to case 1: "
               },{
                 "physicalLocation":{
@@ -119,12 +104,10 @@
                     "startLine":30
                   }
                 },
-                "properties":{
-                  "id":"4",
-                  "kind":"usage",
-                  "importance":"Essential"
-                },
-                "message":"Invalid read from 'data[2]', (readable range is 0 to 1)"
+                "id":"4",
+                "kind":"usage",
+                "message":"Invalid read from 'data[2]', (readable range is 0 to 1)",
+                "essential":true
               }
             ]
           }

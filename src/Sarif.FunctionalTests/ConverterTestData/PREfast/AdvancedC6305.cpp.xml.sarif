@@ -8,50 +8,6 @@
       "fullName":"PREfast Code Analysis",
       "version":"14.0.0"
     },
-    "logicalLocations":{
-      "?C6305FromAnnotation@@YAXPEAHH_N@Z":[
-        {
-          "kind":"method",
-          "name":"C6305FromAnnotation"
-        }
-      ],
-      "?RemoveRedundantKeyEvents1@@YAHPEA_W@Z":[
-        {
-          "kind":"method",
-          "name":"RemoveRedundantKeyEvents1"
-        }
-      ],
-      "?RemoveRedundantKeyEvents2@@YAHPEA_W@Z":[
-        {
-          "kind":"method",
-          "name":"RemoveRedundantKeyEvents2"
-        }
-      ],
-      "?CorrectAliasing@@YAHPEA_W@Z":[
-        {
-          "kind":"method",
-          "name":"CorrectAliasing"
-        }
-      ],
-      "?ShowKeyEventsWhenNoLocation@@YAHXZ":[
-        {
-          "kind":"method",
-          "name":"ShowKeyEventsWhenNoLocation"
-        }
-      ],
-      "?ShowKeyEventsWhenNoLocation2@@YAXXZ":[
-        {
-          "kind":"method",
-          "name":"ShowKeyEventsWhenNoLocation2"
-        }
-      ],
-      "?ShowKeyEventsForPointerArithmetic@@YAXPEAH@Z":[
-        {
-          "kind":"method",
-          "name":"ShowKeyEventsForPointerArithmetic"
-        }
-      ]
-    },
     "results":[
       {
         "ruleId":"6305",
@@ -66,9 +22,8 @@
               }
             },
             "fullyQualifiedLogicalName":"C6305FromAnnotation",
-            "logicalLocationKey":"?C6305FromAnnotation@@YAXPEAHH_N@Z",
+            "decoratedName":"?C6305FromAnnotation@@YAXPEAHH_N@Z",
             "properties":{
-              "decorated":"?C6305FromAnnotation@@YAXPEAHH_N@Z",
               "funcline":"5"
             }
           }
@@ -80,6 +35,7 @@
         },
         "codeFlows":[
           {
+            "message":"",
             "locations":[
               {
                 "physicalLocation":{
@@ -89,12 +45,10 @@
                     "startLine":5
                   }
                 },
-                "properties":{
-                  "id":"1",
-                  "kind":"declaration",
-                  "importance":"Essential"
-                },
-                "message":"'inc' is a byte quantity"
+                "id":"1",
+                "kind":"declaration",
+                "message":"'inc' is a byte quantity",
+                "essential":true
               },{
                 "physicalLocation":{
                   "uri":"file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/c6305/advancedc6305.cpp",
@@ -111,11 +65,8 @@
                     "startLine":11
                   }
                 },
-                "properties":{
-                  "id":"2",
-                  "kind":"branch",
-                  "importance":"Full"
-                },
+                "id":"2",
+                "kind":"branch",
                 "message":"Enter this branch, (assume 'b')"
               },{
                 "physicalLocation":{
@@ -125,12 +76,10 @@
                     "startLine":12
                   }
                 },
-                "properties":{
-                  "id":"3",
-                  "kind":"usage",
-                  "importance":"Essential"
-                },
-                "message":"Expression mixes element counts and byte quantities"
+                "id":"3",
+                "kind":"usage",
+                "message":"Expression mixes element counts and byte quantities",
+                "essential":true
               }
             ]
           }
@@ -148,9 +97,8 @@
               }
             },
             "fullyQualifiedLogicalName":"RemoveRedundantKeyEvents1",
-            "logicalLocationKey":"?RemoveRedundantKeyEvents1@@YAHPEA_W@Z",
+            "decoratedName":"?RemoveRedundantKeyEvents1@@YAHPEA_W@Z",
             "properties":{
-              "decorated":"?RemoveRedundantKeyEvents1@@YAHPEA_W@Z",
               "funcline":"18"
             }
           }
@@ -162,6 +110,7 @@
         },
         "codeFlows":[
           {
+            "message":"",
             "locations":[
               {
                 "physicalLocation":{
@@ -179,12 +128,10 @@
                     "startLine":22
                   }
                 },
-                "properties":{
-                  "id":"1",
-                  "kind":"declaration",
-                  "importance":"Essential"
-                },
-                "message":"'j' is a byte quantity"
+                "id":"1",
+                "kind":"declaration",
+                "message":"'j' is a byte quantity",
+                "essential":true
               },{
                 "physicalLocation":{
                   "uri":"file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/c6305/advancedc6305.cpp",
@@ -193,12 +140,10 @@
                     "startLine":24
                   }
                 },
-                "properties":{
-                  "id":"2",
-                  "kind":"usage",
-                  "importance":"Essential"
-                },
-                "message":"Expression mixes element counts and byte quantities"
+                "id":"2",
+                "kind":"usage",
+                "message":"Expression mixes element counts and byte quantities",
+                "essential":true
               }
             ]
           }
@@ -216,9 +161,8 @@
               }
             },
             "fullyQualifiedLogicalName":"RemoveRedundantKeyEvents2",
-            "logicalLocationKey":"?RemoveRedundantKeyEvents2@@YAHPEA_W@Z",
+            "decoratedName":"?RemoveRedundantKeyEvents2@@YAHPEA_W@Z",
             "properties":{
-              "decorated":"?RemoveRedundantKeyEvents2@@YAHPEA_W@Z",
               "funcline":"29"
             }
           }
@@ -230,6 +174,7 @@
         },
         "codeFlows":[
           {
+            "message":"",
             "locations":[
               {
                 "physicalLocation":{
@@ -271,12 +216,10 @@
                     "startLine":36
                   }
                 },
-                "properties":{
-                  "id":"1",
-                  "kind":"declaration",
-                  "importance":"Essential"
-                },
-                "message":"'i' is a byte quantity"
+                "id":"1",
+                "kind":"declaration",
+                "message":"'i' is a byte quantity",
+                "essential":true
               },{
                 "physicalLocation":{
                   "uri":"file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/c6305/advancedc6305.cpp",
@@ -285,12 +228,10 @@
                     "startLine":38
                   }
                 },
-                "properties":{
-                  "id":"2",
-                  "kind":"usage",
-                  "importance":"Essential"
-                },
-                "message":"Expression mixes element counts and byte quantities"
+                "id":"2",
+                "kind":"usage",
+                "message":"Expression mixes element counts and byte quantities",
+                "essential":true
               }
             ]
           }
@@ -308,9 +249,8 @@
               }
             },
             "fullyQualifiedLogicalName":"RemoveRedundantKeyEvents2",
-            "logicalLocationKey":"?RemoveRedundantKeyEvents2@@YAHPEA_W@Z",
+            "decoratedName":"?RemoveRedundantKeyEvents2@@YAHPEA_W@Z",
             "properties":{
-              "decorated":"?RemoveRedundantKeyEvents2@@YAHPEA_W@Z",
               "funcline":"29"
             }
           }
@@ -322,6 +262,7 @@
         },
         "codeFlows":[
           {
+            "message":"",
             "locations":[
               {
                 "physicalLocation":{
@@ -339,12 +280,10 @@
                     "startLine":33
                   }
                 },
-                "properties":{
-                  "id":"1",
-                  "kind":"declaration",
-                  "importance":"Essential"
-                },
-                "message":"'i' is a byte quantity"
+                "id":"1",
+                "kind":"declaration",
+                "message":"'i' is a byte quantity",
+                "essential":true
               },{
                 "physicalLocation":{
                   "uri":"file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/c6305/advancedc6305.cpp",
@@ -361,12 +300,10 @@
                     "startLine":35
                   }
                 },
-                "properties":{
-                  "id":"2",
-                  "kind":"usage",
-                  "importance":"Essential"
-                },
-                "message":"Expression mixes element counts and byte quantities"
+                "id":"2",
+                "kind":"usage",
+                "message":"Expression mixes element counts and byte quantities",
+                "essential":true
               }
             ]
           }
@@ -384,9 +321,8 @@
               }
             },
             "fullyQualifiedLogicalName":"RemoveRedundantKeyEvents2",
-            "logicalLocationKey":"?RemoveRedundantKeyEvents2@@YAHPEA_W@Z",
+            "decoratedName":"?RemoveRedundantKeyEvents2@@YAHPEA_W@Z",
             "properties":{
-              "decorated":"?RemoveRedundantKeyEvents2@@YAHPEA_W@Z",
               "funcline":"29"
             }
           }
@@ -398,6 +334,7 @@
         },
         "codeFlows":[
           {
+            "message":"",
             "locations":[
               {
                 "physicalLocation":{
@@ -431,12 +368,10 @@
                     "startLine":35
                   }
                 },
-                "properties":{
-                  "id":"1",
-                  "kind":"declaration",
-                  "importance":"Essential"
-                },
-                "message":"'i' is a byte quantity"
+                "id":"1",
+                "kind":"declaration",
+                "message":"'i' is a byte quantity",
+                "essential":true
               },{
                 "physicalLocation":{
                   "uri":"file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/c6305/advancedc6305.cpp",
@@ -445,12 +380,10 @@
                     "startLine":36
                   }
                 },
-                "properties":{
-                  "id":"2",
-                  "kind":"usage",
-                  "importance":"Essential"
-                },
-                "message":"Expression mixes element counts and byte quantities"
+                "id":"2",
+                "kind":"usage",
+                "message":"Expression mixes element counts and byte quantities",
+                "essential":true
               }
             ]
           }
@@ -468,9 +401,8 @@
               }
             },
             "fullyQualifiedLogicalName":"RemoveRedundantKeyEvents2",
-            "logicalLocationKey":"?RemoveRedundantKeyEvents2@@YAHPEA_W@Z",
+            "decoratedName":"?RemoveRedundantKeyEvents2@@YAHPEA_W@Z",
             "properties":{
-              "decorated":"?RemoveRedundantKeyEvents2@@YAHPEA_W@Z",
               "funcline":"29"
             }
           }
@@ -482,6 +414,7 @@
         },
         "codeFlows":[
           {
+            "message":"",
             "locations":[
               {
                 "physicalLocation":{
@@ -491,12 +424,10 @@
                     "startLine":31
                   }
                 },
-                "properties":{
-                  "id":"1",
-                  "kind":"declaration",
-                  "importance":"Essential"
-                },
-                "message":"'i' is a byte quantity"
+                "id":"1",
+                "kind":"declaration",
+                "message":"'i' is a byte quantity",
+                "essential":true
               },{
                 "physicalLocation":{
                   "uri":"file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/c6305/advancedc6305.cpp",
@@ -505,12 +436,10 @@
                     "startLine":33
                   }
                 },
-                "properties":{
-                  "id":"2",
-                  "kind":"usage",
-                  "importance":"Essential"
-                },
-                "message":"Expression mixes element counts and byte quantities"
+                "id":"2",
+                "kind":"usage",
+                "message":"Expression mixes element counts and byte quantities",
+                "essential":true
               }
             ]
           }
@@ -528,9 +457,8 @@
               }
             },
             "fullyQualifiedLogicalName":"RemoveRedundantKeyEvents2",
-            "logicalLocationKey":"?RemoveRedundantKeyEvents2@@YAHPEA_W@Z",
+            "decoratedName":"?RemoveRedundantKeyEvents2@@YAHPEA_W@Z",
             "properties":{
-              "decorated":"?RemoveRedundantKeyEvents2@@YAHPEA_W@Z",
               "funcline":"29"
             }
           }
@@ -542,6 +470,7 @@
         },
         "codeFlows":[
           {
+            "message":"",
             "locations":[
               {
                 "physicalLocation":{
@@ -591,12 +520,10 @@
                     "startLine":38
                   }
                 },
-                "properties":{
-                  "id":"1",
-                  "kind":"declaration",
-                  "importance":"Essential"
-                },
-                "message":"'i' is a byte quantity"
+                "id":"1",
+                "kind":"declaration",
+                "message":"'i' is a byte quantity",
+                "essential":true
               },{
                 "physicalLocation":{
                   "uri":"file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/c6305/advancedc6305.cpp",
@@ -605,12 +532,10 @@
                     "startLine":39
                   }
                 },
-                "properties":{
-                  "id":"2",
-                  "kind":"usage",
-                  "importance":"Essential"
-                },
-                "message":"Expression mixes element counts and byte quantities"
+                "id":"2",
+                "kind":"usage",
+                "message":"Expression mixes element counts and byte quantities",
+                "essential":true
               }
             ]
           }
@@ -628,9 +553,8 @@
               }
             },
             "fullyQualifiedLogicalName":"CorrectAliasing",
-            "logicalLocationKey":"?CorrectAliasing@@YAHPEA_W@Z",
+            "decoratedName":"?CorrectAliasing@@YAHPEA_W@Z",
             "properties":{
-              "decorated":"?CorrectAliasing@@YAHPEA_W@Z",
               "funcline":"44"
             }
           }
@@ -642,6 +566,7 @@
         },
         "codeFlows":[
           {
+            "message":"",
             "locations":[
               {
                 "physicalLocation":{
@@ -659,12 +584,10 @@
                     "startLine":47
                   }
                 },
-                "properties":{
-                  "id":"1",
-                  "kind":"declaration",
-                  "importance":"Essential"
-                },
-                "message":"'j' is a byte quantity"
+                "id":"1",
+                "kind":"declaration",
+                "message":"'j' is a byte quantity",
+                "essential":true
               },{
                 "physicalLocation":{
                   "uri":"file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/c6305/advancedc6305.cpp",
@@ -673,12 +596,10 @@
                     "startLine":49
                   }
                 },
-                "properties":{
-                  "id":"2",
-                  "kind":"alias",
-                  "importance":"Essential"
-                },
-                "message":"(alias) 'i' receives a byte quantity from 'j'"
+                "id":"2",
+                "kind":"alias",
+                "message":"(alias) 'i' receives a byte quantity from 'j'",
+                "essential":true
               },{
                 "physicalLocation":{
                   "uri":"file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/c6305/advancedc6305.cpp",
@@ -687,12 +608,10 @@
                     "startLine":51
                   }
                 },
-                "properties":{
-                  "id":"3",
-                  "kind":"usage",
-                  "importance":"Essential"
-                },
-                "message":"Expression mixes element counts and byte quantities"
+                "id":"3",
+                "kind":"usage",
+                "message":"Expression mixes element counts and byte quantities",
+                "essential":true
               }
             ]
           }
@@ -710,9 +629,8 @@
               }
             },
             "fullyQualifiedLogicalName":"ShowKeyEventsWhenNoLocation",
-            "logicalLocationKey":"?ShowKeyEventsWhenNoLocation@@YAHXZ",
+            "decoratedName":"?ShowKeyEventsWhenNoLocation@@YAHXZ",
             "properties":{
-              "decorated":"?ShowKeyEventsWhenNoLocation@@YAHXZ",
               "funcline":"56"
             }
           }
@@ -724,6 +642,7 @@
         },
         "codeFlows":[
           {
+            "message":"",
             "locations":[
               {
                 "physicalLocation":{
@@ -749,12 +668,10 @@
                     "startLine":61
                   }
                 },
-                "properties":{
-                  "id":"1",
-                  "kind":"usage",
-                  "importance":"Essential"
-                },
-                "message":"Expression mixes element counts and byte quantities"
+                "id":"1",
+                "kind":"usage",
+                "message":"Expression mixes element counts and byte quantities",
+                "essential":true
               }
             ]
           }
@@ -772,9 +689,8 @@
               }
             },
             "fullyQualifiedLogicalName":"ShowKeyEventsWhenNoLocation2",
-            "logicalLocationKey":"?ShowKeyEventsWhenNoLocation2@@YAXXZ",
+            "decoratedName":"?ShowKeyEventsWhenNoLocation2@@YAXXZ",
             "properties":{
-              "decorated":"?ShowKeyEventsWhenNoLocation2@@YAXXZ",
               "funcline":"66"
             }
           }
@@ -786,6 +702,7 @@
         },
         "codeFlows":[
           {
+            "message":"",
             "locations":[
               {
                 "physicalLocation":{
@@ -811,12 +728,10 @@
                     "startLine":70
                   }
                 },
-                "properties":{
-                  "id":"1",
-                  "kind":"usage",
-                  "importance":"Essential"
-                },
-                "message":"Expression mixes element counts and byte quantities"
+                "id":"1",
+                "kind":"usage",
+                "message":"Expression mixes element counts and byte quantities",
+                "essential":true
               }
             ]
           }
@@ -834,9 +749,8 @@
               }
             },
             "fullyQualifiedLogicalName":"ShowKeyEventsForPointerArithmetic",
-            "logicalLocationKey":"?ShowKeyEventsForPointerArithmetic@@YAXPEAH@Z",
+            "decoratedName":"?ShowKeyEventsForPointerArithmetic@@YAXPEAH@Z",
             "properties":{
-              "decorated":"?ShowKeyEventsForPointerArithmetic@@YAXPEAH@Z",
               "funcline":"73"
             }
           }
@@ -848,6 +762,7 @@
         },
         "codeFlows":[
           {
+            "message":"",
             "locations":[
               {
                 "physicalLocation":{
@@ -857,12 +772,10 @@
                     "startLine":75
                   }
                 },
-                "properties":{
-                  "id":"1",
-                  "kind":"declaration",
-                  "importance":"Essential"
-                },
-                "message":"'cb' is a byte quantity"
+                "id":"1",
+                "kind":"declaration",
+                "message":"'cb' is a byte quantity",
+                "essential":true
               },{
                 "physicalLocation":{
                   "uri":"file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/c6305/advancedc6305.cpp",
@@ -871,12 +784,10 @@
                     "startLine":77
                   }
                 },
-                "properties":{
-                  "id":"2",
-                  "kind":"usage",
-                  "importance":"Essential"
-                },
-                "message":"Expression mixes element counts and byte quantities"
+                "id":"2",
+                "kind":"usage",
+                "message":"Expression mixes element counts and byte quantities",
+                "essential":true
               }
             ]
           }

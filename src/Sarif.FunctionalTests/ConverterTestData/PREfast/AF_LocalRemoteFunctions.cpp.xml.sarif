@@ -8,14 +8,6 @@
       "fullName":"PREfast Code Analysis",
       "version":"14.0.0"
     },
-    "logicalLocations":{
-      "?UseLocalFunction@@YAHPEAH@Z":[
-        {
-          "kind":"method",
-          "name":"UseLocalFunction"
-        }
-      ]
-    },
     "results":[
       {
         "ruleId":"6011",
@@ -30,9 +22,8 @@
               }
             },
             "fullyQualifiedLogicalName":"UseLocalFunction",
-            "logicalLocationKey":"?UseLocalFunction@@YAHPEAH@Z",
+            "decoratedName":"?UseLocalFunction@@YAHPEAH@Z",
             "properties":{
-              "decorated":"?UseLocalFunction@@YAHPEAH@Z",
               "funcline":"7"
             }
           }
@@ -44,6 +35,7 @@
         },
         "codeFlows":[
           {
+            "message":"",
             "locations":[
               {
                 "physicalLocation":{
@@ -53,11 +45,8 @@
                     "startLine":9
                   }
                 },
-                "properties":{
-                  "id":"1",
-                  "kind":"branch",
-                  "importance":"Full"
-                },
+                "id":"1",
+                "kind":"branch",
                 "message":"'p' may be NULL (Enter this branch)"
               },{
                 "physicalLocation":{
@@ -75,11 +64,8 @@
                     "startLine":11
                   }
                 },
-                "properties":{
-                  "id":"2",
-                  "kind":"declaration",
-                  "importance":"Full"
-                },
+                "id":"2",
+                "kind":"declaration",
                 "message":"'p' is an In\/Out argument to 'LocalFunction' (declared on line 3)"
               },{
                 "physicalLocation":{
@@ -89,11 +75,8 @@
                     "startLine":12
                   }
                 },
-                "properties":{
-                  "id":"3",
-                  "kind":"declaration",
-                  "importance":"Full"
-                },
+                "id":"3",
+                "kind":"declaration",
                 "message":"'p' is an In\/Out argument to 'RemoteFunction' (declared at d:\\src\\sarif-sdk\\src\\sarif.functionaltests\\convertertestdata\\prefast\\src\\advancedfunctions\\af_localremotefunctions.h:4)"
               },{
                 "physicalLocation":{
@@ -103,12 +86,10 @@
                     "startLine":13
                   }
                 },
-                "properties":{
-                  "id":"4",
-                  "kind":"usage",
-                  "importance":"Essential"
-                },
-                "message":"'p' is dereferenced, but may still be NULL"
+                "id":"4",
+                "kind":"usage",
+                "message":"'p' is dereferenced, but may still be NULL",
+                "essential":true
               }
             ]
           }

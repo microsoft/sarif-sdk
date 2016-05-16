@@ -8,44 +8,6 @@
       "fullName":"PREfast Code Analysis",
       "version":"14.0.0"
     },
-    "logicalLocations":{
-      "?bad1@@YAXPAXIPAU_BUFFER@@@Z":[
-        {
-          "kind":"method",
-          "name":"bad1"
-        }
-      ],
-      "?bad2@@YAXPAXIPAU_BUFFER@@@Z":[
-        {
-          "kind":"method",
-          "name":"bad2"
-        }
-      ],
-      "??0Buffer@@QAE@PAH@Z":[
-        {
-          "kind":"method",
-          "name":"Buffer::{ctor}"
-        }
-      ],
-      "?badfetch@Buffer@@QAEHH@Z":[
-        {
-          "kind":"method",
-          "name":"Buffer::badfetch"
-        }
-      ],
-      "?Bad1@@YAHPAUBuffer@@@Z":[
-        {
-          "kind":"method",
-          "name":"Bad1"
-        }
-      ],
-      "?Bad2@@YAXXZ":[
-        {
-          "kind":"method",
-          "name":"Bad2"
-        }
-      ]
-    },
     "results":[
       {
         "ruleId":"26015",
@@ -60,15 +22,15 @@
               }
             },
             "fullyQualifiedLogicalName":"bad1",
-            "logicalLocationKey":"?bad1@@YAXPAXIPAU_BUFFER@@@Z",
+            "decoratedName":"?bad1@@YAXPAXIPAU_BUFFER@@@Z",
             "properties":{
-              "decorated":"?bad1@@YAXPAXIPAU_BUFFER@@@Z",
               "funcline":"24"
             }
           }
         ],
         "codeFlows":[
           {
+            "message":"",
             "locations":[
               {
                 "physicalLocation":{
@@ -103,15 +65,15 @@
               }
             },
             "fullyQualifiedLogicalName":"bad2",
-            "logicalLocationKey":"?bad2@@YAXPAXIPAU_BUFFER@@@Z",
+            "decoratedName":"?bad2@@YAXPAXIPAU_BUFFER@@@Z",
             "properties":{
-              "decorated":"?bad2@@YAXPAXIPAU_BUFFER@@@Z",
               "funcline":"29"
             }
           }
         ],
         "codeFlows":[
           {
+            "message":"",
             "locations":[
               {
                 "physicalLocation":{
@@ -146,15 +108,15 @@
               }
             },
             "fullyQualifiedLogicalName":"Buffer::{ctor}",
-            "logicalLocationKey":"??0Buffer@@QAE@PAH@Z",
+            "decoratedName":"??0Buffer@@QAE@PAH@Z",
             "properties":{
-              "decorated":"??0Buffer@@QAE@PAH@Z",
               "funcline":"51"
             }
           }
         ],
         "codeFlows":[
           {
+            "message":"",
             "locations":[
               {
                 "physicalLocation":{
@@ -205,15 +167,15 @@
               }
             },
             "fullyQualifiedLogicalName":"Buffer::{ctor}",
-            "logicalLocationKey":"??0Buffer@@QAE@PAH@Z",
+            "decoratedName":"??0Buffer@@QAE@PAH@Z",
             "properties":{
-              "decorated":"??0Buffer@@QAE@PAH@Z",
               "funcline":"51"
             }
           }
         ],
         "codeFlows":[
           {
+            "message":"",
             "locations":[
               {
                 "physicalLocation":{
@@ -264,15 +226,15 @@
               }
             },
             "fullyQualifiedLogicalName":"Buffer::badfetch",
-            "logicalLocationKey":"?badfetch@Buffer@@QAEHH@Z",
+            "decoratedName":"?badfetch@Buffer@@QAEHH@Z",
             "properties":{
-              "decorated":"?badfetch@Buffer@@QAEHH@Z",
               "funcline":"66"
             }
           }
         ],
         "codeFlows":[
           {
+            "message":"",
             "locations":[
               {
                 "physicalLocation":{
@@ -307,15 +269,15 @@
               }
             },
             "fullyQualifiedLogicalName":"Buffer::badfetch",
-            "logicalLocationKey":"?badfetch@Buffer@@QAEHH@Z",
+            "decoratedName":"?badfetch@Buffer@@QAEHH@Z",
             "properties":{
-              "decorated":"?badfetch@Buffer@@QAEHH@Z",
               "funcline":"66"
             }
           }
         ],
         "codeFlows":[
           {
+            "message":"",
             "locations":[
               {
                 "physicalLocation":{
@@ -350,15 +312,15 @@
               }
             },
             "fullyQualifiedLogicalName":"Bad1",
-            "logicalLocationKey":"?Bad1@@YAHPAUBuffer@@@Z",
+            "decoratedName":"?Bad1@@YAHPAUBuffer@@@Z",
             "properties":{
-              "decorated":"?Bad1@@YAHPAUBuffer@@@Z",
               "funcline":"72"
             }
           }
         ],
         "codeFlows":[
           {
+            "message":"",
             "locations":[
               {
                 "physicalLocation":{
@@ -393,15 +355,15 @@
               }
             },
             "fullyQualifiedLogicalName":"Bad2",
-            "logicalLocationKey":"?Bad2@@YAXXZ",
+            "decoratedName":"?Bad2@@YAXXZ",
             "properties":{
-              "decorated":"?Bad2@@YAXXZ",
               "funcline":"82"
             }
           }
         ],
         "codeFlows":[
           {
+            "message":"",
             "locations":[
               {
                 "physicalLocation":{

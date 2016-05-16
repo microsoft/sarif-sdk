@@ -8,26 +8,6 @@
       "fullName":"PREfast Code Analysis",
       "version":"14.0.0"
     },
-    "logicalLocations":{
-      "?CompareToZero@@YAXPEAH@Z":[
-        {
-          "kind":"method",
-          "name":"CompareToZero"
-        }
-      ],
-      "?CompareToZeroParam@@YAXPEAH@Z":[
-        {
-          "kind":"method",
-          "name":"CompareToZeroParam"
-        }
-      ],
-      "?ComplexCompareToZero@@YAXPEAH@Z":[
-        {
-          "kind":"method",
-          "name":"ComplexCompareToZero"
-        }
-      ]
-    },
     "results":[
       {
         "ruleId":"6011",
@@ -42,9 +22,8 @@
               }
             },
             "fullyQualifiedLogicalName":"CompareToZero",
-            "logicalLocationKey":"?CompareToZero@@YAXPEAH@Z",
+            "decoratedName":"?CompareToZero@@YAXPEAH@Z",
             "properties":{
-              "decorated":"?CompareToZero@@YAXPEAH@Z",
               "funcline":"3"
             }
           }
@@ -56,6 +35,7 @@
         },
         "codeFlows":[
           {
+            "message":"",
             "locations":[
               {
                 "physicalLocation":{
@@ -73,11 +53,8 @@
                     "startLine":6
                   }
                 },
-                "properties":{
-                  "id":"1",
-                  "kind":"branch",
-                  "importance":"Full"
-                },
+                "id":"1",
+                "kind":"branch",
                 "message":"'p' may be NULL (Enter this branch)"
               },{
                 "physicalLocation":{
@@ -95,12 +72,10 @@
                     "startLine":8
                   }
                 },
-                "properties":{
-                  "id":"2",
-                  "kind":"usage",
-                  "importance":"Essential"
-                },
-                "message":"'p' is dereferenced, but may still be NULL"
+                "id":"2",
+                "kind":"usage",
+                "message":"'p' is dereferenced, but may still be NULL",
+                "essential":true
               }
             ]
           }
@@ -118,9 +93,8 @@
               }
             },
             "fullyQualifiedLogicalName":"CompareToZeroParam",
-            "logicalLocationKey":"?CompareToZeroParam@@YAXPEAH@Z",
+            "decoratedName":"?CompareToZeroParam@@YAXPEAH@Z",
             "properties":{
-              "decorated":"?CompareToZeroParam@@YAXPEAH@Z",
               "funcline":"11"
             }
           }
@@ -132,6 +106,7 @@
         },
         "codeFlows":[
           {
+            "message":"",
             "locations":[
               {
                 "physicalLocation":{
@@ -141,11 +116,8 @@
                     "startLine":13
                   }
                 },
-                "properties":{
-                  "id":"1",
-                  "kind":"branch",
-                  "importance":"Full"
-                },
+                "id":"1",
+                "kind":"branch",
                 "message":"'input' may be NULL (Skip this branch)"
               },{
                 "physicalLocation":{
@@ -155,12 +127,10 @@
                     "startLine":15
                   }
                 },
-                "properties":{
-                  "id":"2",
-                  "kind":"usage",
-                  "importance":"Essential"
-                },
-                "message":"'input' is dereferenced, but may still be NULL"
+                "id":"2",
+                "kind":"usage",
+                "message":"'input' is dereferenced, but may still be NULL",
+                "essential":true
               }
             ]
           }
@@ -178,9 +148,8 @@
               }
             },
             "fullyQualifiedLogicalName":"ComplexCompareToZero",
-            "logicalLocationKey":"?ComplexCompareToZero@@YAXPEAH@Z",
+            "decoratedName":"?ComplexCompareToZero@@YAXPEAH@Z",
             "properties":{
-              "decorated":"?ComplexCompareToZero@@YAXPEAH@Z",
               "funcline":"19"
             }
           }
@@ -192,6 +161,7 @@
         },
         "codeFlows":[
           {
+            "message":"",
             "locations":[
               {
                 "physicalLocation":{
@@ -209,11 +179,8 @@
                     "startLine":22
                   }
                 },
-                "properties":{
-                  "id":"1",
-                  "kind":"branch",
-                  "importance":"Full"
-                },
+                "id":"1",
+                "kind":"branch",
                 "message":"'p' may be NULL (Skip this branch)"
               },{
                 "physicalLocation":{
@@ -223,12 +190,10 @@
                     "startLine":24
                   }
                 },
-                "properties":{
-                  "id":"2",
-                  "kind":"usage",
-                  "importance":"Essential"
-                },
-                "message":"'p' is dereferenced, but may still be NULL"
+                "id":"2",
+                "kind":"usage",
+                "message":"'p' is dereferenced, but may still be NULL",
+                "essential":true
               }
             ]
           }

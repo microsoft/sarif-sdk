@@ -8,20 +8,6 @@
       "fullName":"PREfast Code Analysis",
       "version":"14.0.0"
     },
-    "logicalLocations":{
-      "?OutCaller1@@YAXXZ":[
-        {
-          "kind":"method",
-          "name":"OutCaller1"
-        }
-      ],
-      "?OutCaller2@@YAXXZ":[
-        {
-          "kind":"method",
-          "name":"OutCaller2"
-        }
-      ]
-    },
     "results":[
       {
         "ruleId":"26000",
@@ -36,15 +22,15 @@
               }
             },
             "fullyQualifiedLogicalName":"OutCaller1",
-            "logicalLocationKey":"?OutCaller1@@YAXXZ",
+            "decoratedName":"?OutCaller1@@YAXXZ",
             "properties":{
-              "decorated":"?OutCaller1@@YAXXZ",
               "funcline":"20"
             }
           }
         ],
         "codeFlows":[
           {
+            "message":"",
             "locations":[
               {
                 "physicalLocation":{
@@ -95,15 +81,15 @@
               }
             },
             "fullyQualifiedLogicalName":"OutCaller2",
-            "logicalLocationKey":"?OutCaller2@@YAXXZ",
+            "decoratedName":"?OutCaller2@@YAXXZ",
             "properties":{
-              "decorated":"?OutCaller2@@YAXXZ",
               "funcline":"53"
             }
           }
         ],
         "codeFlows":[
           {
+            "message":"",
             "locations":[
               {
                 "physicalLocation":{

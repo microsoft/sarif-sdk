@@ -8,14 +8,6 @@
       "fullName":"PREfast Code Analysis",
       "version":"14.0.0"
     },
-    "logicalLocations":{
-      "??$?0HUuls_perf_counter_info@@X@?$pair@$$CBHUuls_perf_counter_info@@@std@@QAE@$$QAU?$pair@HUuls_perf_counter_info@@@1@@Z":[
-        {
-          "kind":"method",
-          "name":"std::pair<int const ,uls_perf_counter_info>::{ctor}"
-        }
-      ]
-    },
     "results":[
       {
         "ruleId":"26035",
@@ -30,15 +22,15 @@
               }
             },
             "fullyQualifiedLogicalName":"std::pair<int const ,uls_perf_counter_info>::{ctor}",
-            "logicalLocationKey":"??$?0HUuls_perf_counter_info@@X@?$pair@$$CBHUuls_perf_counter_info@@@std@@QAE@$$QAU?$pair@HUuls_perf_counter_info@@@1@@Z",
+            "decoratedName":"??$?0HUuls_perf_counter_info@@X@?$pair@$$CBHUuls_perf_counter_info@@@std@@QAE@$$QAU?$pair@HUuls_perf_counter_info@@@1@@Z",
             "properties":{
-              "decorated":"??$?0HUuls_perf_counter_info@@X@?$pair@$$CBHUuls_perf_counter_info@@@std@@QAE@$$QAU?$pair@HUuls_perf_counter_info@@@1@@Z",
               "funcline":"152"
             }
           }
         ],
         "codeFlows":[
           {
+            "message":"",
             "locations":[
               {
                 "physicalLocation":{

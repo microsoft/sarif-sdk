@@ -8,26 +8,6 @@
       "fullName":"PREfast Code Analysis",
       "version":"14.0.0"
     },
-    "logicalLocations":{
-      "?UseDataSimple@@YAXXZ":[
-        {
-          "kind":"method",
-          "name":"UseDataSimple"
-        }
-      ],
-      "?UseDataSized@@YAXXZ":[
-        {
-          "kind":"method",
-          "name":"UseDataSized"
-        }
-      ],
-      "?UseData@@YAXXZ":[
-        {
-          "kind":"method",
-          "name":"UseData"
-        }
-      ]
-    },
     "results":[
       {
         "ruleId":"26006",
@@ -42,15 +22,15 @@
               }
             },
             "fullyQualifiedLogicalName":"UseDataSimple",
-            "logicalLocationKey":"?UseDataSimple@@YAXXZ",
+            "decoratedName":"?UseDataSimple@@YAXXZ",
             "properties":{
-              "decorated":"?UseDataSimple@@YAXXZ",
               "funcline":"8"
             }
           }
         ],
         "codeFlows":[
           {
+            "message":"",
             "locations":[
               {
                 "physicalLocation":{
@@ -109,15 +89,15 @@
               }
             },
             "fullyQualifiedLogicalName":"UseDataSized",
-            "logicalLocationKey":"?UseDataSized@@YAXXZ",
+            "decoratedName":"?UseDataSized@@YAXXZ",
             "properties":{
-              "decorated":"?UseDataSized@@YAXXZ",
               "funcline":"21"
             }
           }
         ],
         "codeFlows":[
           {
+            "message":"",
             "locations":[
               {
                 "physicalLocation":{
@@ -184,15 +164,15 @@
               }
             },
             "fullyQualifiedLogicalName":"UseData",
-            "logicalLocationKey":"?UseData@@YAXXZ",
+            "decoratedName":"?UseData@@YAXXZ",
             "properties":{
-              "decorated":"?UseData@@YAXXZ",
               "funcline":"37"
             }
           }
         ],
         "codeFlows":[
           {
+            "message":"",
             "locations":[
               {
                 "physicalLocation":{

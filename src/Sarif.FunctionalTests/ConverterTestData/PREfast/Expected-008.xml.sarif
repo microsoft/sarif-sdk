@@ -8,14 +8,6 @@
       "fullName":"PREfast Code Analysis",
       "version":"14.0.0"
     },
-    "logicalLocations":{
-      "?myConcat@@YA?AUbuffer@@PADH0H@Z":[
-        {
-          "kind":"method",
-          "name":"myConcat"
-        }
-      ]
-    },
     "results":[
       {
         "ruleId":"26014",
@@ -30,15 +22,15 @@
               }
             },
             "fullyQualifiedLogicalName":"myConcat",
-            "logicalLocationKey":"?myConcat@@YA?AUbuffer@@PADH0H@Z",
+            "decoratedName":"?myConcat@@YA?AUbuffer@@PADH0H@Z",
             "properties":{
-              "decorated":"?myConcat@@YA?AUbuffer@@PADH0H@Z",
               "funcline":"15"
             }
           }
         ],
         "codeFlows":[
           {
+            "message":"",
             "locations":[
               {
                 "physicalLocation":{

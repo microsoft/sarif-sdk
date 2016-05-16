@@ -8,14 +8,6 @@
       "fullName":"PREfast Code Analysis",
       "version":"14.0.0"
     },
-    "logicalLocations":{
-      "?HpcellFromRwCol@@YAPEAU_cell@@HH@Z":[
-        {
-          "kind":"method",
-          "name":"HpcellFromRwCol"
-        }
-      ]
-    },
     "results":[
       {
         "ruleId":"26002",
@@ -30,15 +22,15 @@
               }
             },
             "fullyQualifiedLogicalName":"HpcellFromRwCol",
-            "logicalLocationKey":"?HpcellFromRwCol@@YAPEAU_cell@@HH@Z",
+            "decoratedName":"?HpcellFromRwCol@@YAPEAU_cell@@HH@Z",
             "properties":{
-              "decorated":"?HpcellFromRwCol@@YAPEAU_cell@@HH@Z",
               "funcline":"82"
             }
           }
         ],
         "codeFlows":[
           {
+            "message":"",
             "locations":[
               {
                 "physicalLocation":{
@@ -47,13 +39,7 @@
                     "startColumn":61,
                     "startLine":82
                   }
-                },
-                "properties":{
-                  "id":"",
-                  "kind":"",
-                  "importance":""
-                },
-                "message":""
+                }
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/test110.cpp",
@@ -61,13 +47,7 @@
                     "startColumn":16,
                     "startLine":84
                   }
-                },
-                "properties":{
-                  "id":"",
-                  "kind":"",
-                  "importance":""
-                },
-                "message":""
+                }
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/test110.cpp",
@@ -75,13 +55,7 @@
                     "startColumn":15,
                     "startLine":85
                   }
-                },
-                "properties":{
-                  "id":"",
-                  "kind":"",
-                  "importance":""
-                },
-                "message":""
+                }
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/test110.cpp",
@@ -89,13 +63,7 @@
                     "startColumn":14,
                     "startLine":86
                   }
-                },
-                "properties":{
-                  "id":"",
-                  "kind":"",
-                  "importance":""
-                },
-                "message":""
+                }
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/test110.cpp",
@@ -103,13 +71,7 @@
                     "startColumn":9,
                     "startLine":87
                   }
-                },
-                "properties":{
-                  "id":"",
-                  "kind":"",
-                  "importance":""
-                },
-                "message":""
+                }
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/test110.cpp",
@@ -117,13 +79,7 @@
                     "startColumn":16,
                     "startLine":87
                   }
-                },
-                "properties":{
-                  "id":"",
-                  "kind":"",
-                  "importance":""
-                },
-                "message":""
+                }
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/test110.cpp",
@@ -131,13 +87,7 @@
                     "startColumn":9,
                     "startLine":88
                   }
-                },
-                "properties":{
-                  "id":"",
-                  "kind":"",
-                  "importance":""
-                },
-                "message":""
+                }
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/test110.cpp",
@@ -145,13 +95,7 @@
                     "startColumn":9,
                     "startLine":89
                   }
-                },
-                "properties":{
-                  "id":"",
-                  "kind":"",
-                  "importance":""
-                },
-                "message":""
+                }
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/test110.cpp",
@@ -159,13 +103,7 @@
                     "startColumn":9,
                     "startLine":90
                   }
-                },
-                "properties":{
-                  "id":"",
-                  "kind":"",
-                  "importance":""
-                },
-                "message":""
+                }
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/test110.cpp",
@@ -173,13 +111,7 @@
                     "startColumn":14,
                     "startLine":91
                   }
-                },
-                "properties":{
-                  "id":"",
-                  "kind":"",
-                  "importance":""
-                },
-                "message":""
+                }
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/test110.cpp",
@@ -187,13 +119,7 @@
                     "startColumn":20,
                     "startLine":92
                   }
-                },
-                "properties":{
-                  "id":"",
-                  "kind":"",
-                  "importance":""
-                },
-                "message":""
+                }
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/test110.cpp",
@@ -201,13 +127,7 @@
                     "startColumn":14,
                     "startLine":93
                   }
-                },
-                "properties":{
-                  "id":"",
-                  "kind":"",
-                  "importance":""
-                },
-                "message":""
+                }
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/test110.cpp",
@@ -215,13 +135,7 @@
                     "startColumn":10,
                     "startLine":95
                   }
-                },
-                "properties":{
-                  "id":"",
-                  "kind":"",
-                  "importance":""
-                },
-                "message":""
+                }
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/test110.cpp",
@@ -229,13 +143,7 @@
                     "startColumn":25,
                     "startLine":96
                   }
-                },
-                "properties":{
-                  "id":"",
-                  "kind":"",
-                  "importance":""
-                },
-                "message":""
+                }
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/test110.cpp",
@@ -243,13 +151,7 @@
                     "startColumn":11,
                     "startLine":96
                   }
-                },
-                "properties":{
-                  "id":"",
-                  "kind":"",
-                  "importance":""
-                },
-                "message":""
+                }
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/test110.cpp",
@@ -257,13 +159,7 @@
                     "startColumn":25,
                     "startLine":97
                   }
-                },
-                "properties":{
-                  "id":"",
-                  "kind":"",
-                  "importance":""
-                },
-                "message":""
+                }
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/test110.cpp",
@@ -271,13 +167,7 @@
                     "startColumn":11,
                     "startLine":97
                   }
-                },
-                "properties":{
-                  "id":"",
-                  "kind":"",
-                  "importance":""
-                },
-                "message":""
+                }
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/test110.cpp",
@@ -285,13 +175,7 @@
                     "startColumn":25,
                     "startLine":98
                   }
-                },
-                "properties":{
-                  "id":"",
-                  "kind":"",
-                  "importance":""
-                },
-                "message":""
+                }
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/test110.cpp",
@@ -299,13 +183,7 @@
                     "startColumn":11,
                     "startLine":98
                   }
-                },
-                "properties":{
-                  "id":"",
-                  "kind":"",
-                  "importance":""
-                },
-                "message":""
+                }
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/test110.cpp",
@@ -313,13 +191,7 @@
                     "startColumn":10,
                     "startLine":99
                   }
-                },
-                "properties":{
-                  "id":"",
-                  "kind":"",
-                  "importance":""
-                },
-                "message":""
+                }
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/test110.cpp",
@@ -327,13 +199,7 @@
                     "startColumn":25,
                     "startLine":100
                   }
-                },
-                "properties":{
-                  "id":"",
-                  "kind":"",
-                  "importance":""
-                },
-                "message":""
+                }
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/test110.cpp",
@@ -341,13 +207,7 @@
                     "startColumn":11,
                     "startLine":100
                   }
-                },
-                "properties":{
-                  "id":"",
-                  "kind":"",
-                  "importance":""
-                },
-                "message":""
+                }
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/test110.cpp",
@@ -355,13 +215,7 @@
                     "startColumn":10,
                     "startLine":101
                   }
-                },
-                "properties":{
-                  "id":"",
-                  "kind":"",
-                  "importance":""
-                },
-                "message":""
+                }
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/test110.cpp",
@@ -369,13 +223,7 @@
                     "startColumn":12,
                     "startLine":102
                   }
-                },
-                "properties":{
-                  "id":"",
-                  "kind":"",
-                  "importance":""
-                },
-                "message":""
+                }
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/test110.cpp",
@@ -383,13 +231,7 @@
                     "startColumn":26,
                     "startLine":102
                   }
-                },
-                "properties":{
-                  "id":"",
-                  "kind":"",
-                  "importance":""
-                },
-                "message":""
+                }
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/test110.cpp",
@@ -397,13 +239,7 @@
                     "startColumn":29,
                     "startLine":104
                   }
-                },
-                "properties":{
-                  "id":"",
-                  "kind":"",
-                  "importance":""
-                },
-                "message":""
+                }
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/test110.cpp",
@@ -411,13 +247,7 @@
                     "startColumn":11,
                     "startLine":104
                   }
-                },
-                "properties":{
-                  "id":"",
-                  "kind":"",
-                  "importance":""
-                },
-                "message":""
+                }
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/test110.cpp",
@@ -425,13 +255,7 @@
                     "startColumn":8,
                     "startLine":105
                   }
-                },
-                "properties":{
-                  "id":"",
-                  "kind":"",
-                  "importance":""
-                },
-                "message":""
+                }
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/test110.cpp",
@@ -439,13 +263,7 @@
                     "startColumn":18,
                     "startLine":106
                   }
-                },
-                "properties":{
-                  "id":"",
-                  "kind":"",
-                  "importance":""
-                },
-                "message":""
+                }
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/test110.cpp",
@@ -453,13 +271,7 @@
                     "startColumn":18,
                     "startLine":106
                   }
-                },
-                "properties":{
-                  "id":"",
-                  "kind":"",
-                  "importance":""
-                },
-                "message":""
+                }
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/test110.cpp",
@@ -467,13 +279,7 @@
                     "startColumn":12,
                     "startLine":108
                   }
-                },
-                "properties":{
-                  "id":"",
-                  "kind":"",
-                  "importance":""
-                },
-                "message":""
+                }
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/test110.cpp",
@@ -481,13 +287,7 @@
                     "startColumn":12,
                     "startLine":109
                   }
-                },
-                "properties":{
-                  "id":"",
-                  "kind":"",
-                  "importance":""
-                },
-                "message":""
+                }
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/test110.cpp",
@@ -495,13 +295,7 @@
                     "startColumn":11,
                     "startLine":110
                   }
-                },
-                "properties":{
-                  "id":"",
-                  "kind":"",
-                  "importance":""
-                },
-                "message":""
+                }
               }
             ]
           }
@@ -519,15 +313,15 @@
               }
             },
             "fullyQualifiedLogicalName":"HpcellFromRwCol",
-            "logicalLocationKey":"?HpcellFromRwCol@@YAPEAU_cell@@HH@Z",
+            "decoratedName":"?HpcellFromRwCol@@YAPEAU_cell@@HH@Z",
             "properties":{
-              "decorated":"?HpcellFromRwCol@@YAPEAU_cell@@HH@Z",
               "funcline":"82"
             }
           }
         ],
         "codeFlows":[
           {
+            "message":"",
             "locations":[
               {
                 "physicalLocation":{
@@ -536,13 +330,7 @@
                     "startColumn":61,
                     "startLine":82
                   }
-                },
-                "properties":{
-                  "id":"",
-                  "kind":"",
-                  "importance":""
-                },
-                "message":""
+                }
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/test110.cpp",
@@ -550,13 +338,7 @@
                     "startColumn":16,
                     "startLine":84
                   }
-                },
-                "properties":{
-                  "id":"",
-                  "kind":"",
-                  "importance":""
-                },
-                "message":""
+                }
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/test110.cpp",
@@ -564,13 +346,7 @@
                     "startColumn":15,
                     "startLine":85
                   }
-                },
-                "properties":{
-                  "id":"",
-                  "kind":"",
-                  "importance":""
-                },
-                "message":""
+                }
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/test110.cpp",
@@ -578,13 +354,7 @@
                     "startColumn":14,
                     "startLine":86
                   }
-                },
-                "properties":{
-                  "id":"",
-                  "kind":"",
-                  "importance":""
-                },
-                "message":""
+                }
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/test110.cpp",
@@ -592,13 +362,7 @@
                     "startColumn":9,
                     "startLine":87
                   }
-                },
-                "properties":{
-                  "id":"",
-                  "kind":"",
-                  "importance":""
-                },
-                "message":""
+                }
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/test110.cpp",
@@ -606,13 +370,7 @@
                     "startColumn":16,
                     "startLine":87
                   }
-                },
-                "properties":{
-                  "id":"",
-                  "kind":"",
-                  "importance":""
-                },
-                "message":""
+                }
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/test110.cpp",
@@ -620,13 +378,7 @@
                     "startColumn":9,
                     "startLine":88
                   }
-                },
-                "properties":{
-                  "id":"",
-                  "kind":"",
-                  "importance":""
-                },
-                "message":""
+                }
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/test110.cpp",
@@ -634,13 +386,7 @@
                     "startColumn":9,
                     "startLine":89
                   }
-                },
-                "properties":{
-                  "id":"",
-                  "kind":"",
-                  "importance":""
-                },
-                "message":""
+                }
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/test110.cpp",
@@ -648,13 +394,7 @@
                     "startColumn":9,
                     "startLine":90
                   }
-                },
-                "properties":{
-                  "id":"",
-                  "kind":"",
-                  "importance":""
-                },
-                "message":""
+                }
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/test110.cpp",
@@ -662,13 +402,7 @@
                     "startColumn":14,
                     "startLine":91
                   }
-                },
-                "properties":{
-                  "id":"",
-                  "kind":"",
-                  "importance":""
-                },
-                "message":""
+                }
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/test110.cpp",
@@ -676,13 +410,7 @@
                     "startColumn":20,
                     "startLine":92
                   }
-                },
-                "properties":{
-                  "id":"",
-                  "kind":"",
-                  "importance":""
-                },
-                "message":""
+                }
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/test110.cpp",
@@ -690,13 +418,7 @@
                     "startColumn":14,
                     "startLine":93
                   }
-                },
-                "properties":{
-                  "id":"",
-                  "kind":"",
-                  "importance":""
-                },
-                "message":""
+                }
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/test110.cpp",
@@ -704,13 +426,7 @@
                     "startColumn":10,
                     "startLine":95
                   }
-                },
-                "properties":{
-                  "id":"",
-                  "kind":"",
-                  "importance":""
-                },
-                "message":""
+                }
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/test110.cpp",
@@ -718,13 +434,7 @@
                     "startColumn":25,
                     "startLine":96
                   }
-                },
-                "properties":{
-                  "id":"",
-                  "kind":"",
-                  "importance":""
-                },
-                "message":""
+                }
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/test110.cpp",
@@ -732,13 +442,7 @@
                     "startColumn":11,
                     "startLine":96
                   }
-                },
-                "properties":{
-                  "id":"",
-                  "kind":"",
-                  "importance":""
-                },
-                "message":""
+                }
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/test110.cpp",
@@ -746,13 +450,7 @@
                     "startColumn":25,
                     "startLine":97
                   }
-                },
-                "properties":{
-                  "id":"",
-                  "kind":"",
-                  "importance":""
-                },
-                "message":""
+                }
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/test110.cpp",
@@ -760,13 +458,7 @@
                     "startColumn":11,
                     "startLine":97
                   }
-                },
-                "properties":{
-                  "id":"",
-                  "kind":"",
-                  "importance":""
-                },
-                "message":""
+                }
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/test110.cpp",
@@ -774,13 +466,7 @@
                     "startColumn":25,
                     "startLine":98
                   }
-                },
-                "properties":{
-                  "id":"",
-                  "kind":"",
-                  "importance":""
-                },
-                "message":""
+                }
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/test110.cpp",
@@ -788,13 +474,7 @@
                     "startColumn":11,
                     "startLine":98
                   }
-                },
-                "properties":{
-                  "id":"",
-                  "kind":"",
-                  "importance":""
-                },
-                "message":""
+                }
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/test110.cpp",
@@ -802,13 +482,7 @@
                     "startColumn":10,
                     "startLine":99
                   }
-                },
-                "properties":{
-                  "id":"",
-                  "kind":"",
-                  "importance":""
-                },
-                "message":""
+                }
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/test110.cpp",
@@ -816,13 +490,7 @@
                     "startColumn":25,
                     "startLine":100
                   }
-                },
-                "properties":{
-                  "id":"",
-                  "kind":"",
-                  "importance":""
-                },
-                "message":""
+                }
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/test110.cpp",
@@ -830,13 +498,7 @@
                     "startColumn":11,
                     "startLine":100
                   }
-                },
-                "properties":{
-                  "id":"",
-                  "kind":"",
-                  "importance":""
-                },
-                "message":""
+                }
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/test110.cpp",
@@ -844,13 +506,7 @@
                     "startColumn":10,
                     "startLine":101
                   }
-                },
-                "properties":{
-                  "id":"",
-                  "kind":"",
-                  "importance":""
-                },
-                "message":""
+                }
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/test110.cpp",
@@ -858,13 +514,7 @@
                     "startColumn":12,
                     "startLine":102
                   }
-                },
-                "properties":{
-                  "id":"",
-                  "kind":"",
-                  "importance":""
-                },
-                "message":""
+                }
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/test110.cpp",
@@ -872,13 +522,7 @@
                     "startColumn":26,
                     "startLine":102
                   }
-                },
-                "properties":{
-                  "id":"",
-                  "kind":"",
-                  "importance":""
-                },
-                "message":""
+                }
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/test110.cpp",
@@ -886,13 +530,7 @@
                     "startColumn":29,
                     "startLine":104
                   }
-                },
-                "properties":{
-                  "id":"",
-                  "kind":"",
-                  "importance":""
-                },
-                "message":""
+                }
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/test110.cpp",
@@ -900,13 +538,7 @@
                     "startColumn":11,
                     "startLine":104
                   }
-                },
-                "properties":{
-                  "id":"",
-                  "kind":"",
-                  "importance":""
-                },
-                "message":""
+                }
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/test110.cpp",
@@ -914,13 +546,7 @@
                     "startColumn":8,
                     "startLine":105
                   }
-                },
-                "properties":{
-                  "id":"",
-                  "kind":"",
-                  "importance":""
-                },
-                "message":""
+                }
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/test110.cpp",
@@ -928,13 +554,7 @@
                     "startColumn":18,
                     "startLine":106
                   }
-                },
-                "properties":{
-                  "id":"",
-                  "kind":"",
-                  "importance":""
-                },
-                "message":""
+                }
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/test110.cpp",
@@ -942,13 +562,7 @@
                     "startColumn":18,
                     "startLine":106
                   }
-                },
-                "properties":{
-                  "id":"",
-                  "kind":"",
-                  "importance":""
-                },
-                "message":""
+                }
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/test110.cpp",
@@ -956,13 +570,7 @@
                     "startColumn":12,
                     "startLine":108
                   }
-                },
-                "properties":{
-                  "id":"",
-                  "kind":"",
-                  "importance":""
-                },
-                "message":""
+                }
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/test110.cpp",
@@ -970,13 +578,7 @@
                     "startColumn":12,
                     "startLine":109
                   }
-                },
-                "properties":{
-                  "id":"",
-                  "kind":"",
-                  "importance":""
-                },
-                "message":""
+                }
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/test110.cpp",
@@ -984,13 +586,7 @@
                     "startColumn":11,
                     "startLine":110
                   }
-                },
-                "properties":{
-                  "id":"",
-                  "kind":"",
-                  "importance":""
-                },
-                "message":""
+                }
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/test110.cpp",
@@ -998,13 +594,7 @@
                     "startColumn":12,
                     "startLine":111
                   }
-                },
-                "properties":{
-                  "id":"",
-                  "kind":"",
-                  "importance":""
-                },
-                "message":""
+                }
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/test110.cpp",
@@ -1012,13 +602,7 @@
                     "startColumn":12,
                     "startLine":112
                   }
-                },
-                "properties":{
-                  "id":"",
-                  "kind":"",
-                  "importance":""
-                },
-                "message":""
+                }
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/test110.cpp",
@@ -1026,13 +610,7 @@
                     "startColumn":9,
                     "startLine":115
                   }
-                },
-                "properties":{
-                  "id":"",
-                  "kind":"",
-                  "importance":""
-                },
-                "message":""
+                }
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/test110.cpp",
@@ -1040,13 +618,7 @@
                     "startColumn":15,
                     "startLine":117
                   }
-                },
-                "properties":{
-                  "id":"",
-                  "kind":"",
-                  "importance":""
-                },
-                "message":""
+                }
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/test110.cpp",
@@ -1054,13 +626,7 @@
                     "startColumn":31,
                     "startLine":117
                   }
-                },
-                "properties":{
-                  "id":"",
-                  "kind":"",
-                  "importance":""
-                },
-                "message":""
+                }
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/test110.cpp",
@@ -1068,13 +634,7 @@
                     "startColumn":14,
                     "startLine":119
                   }
-                },
-                "properties":{
-                  "id":"",
-                  "kind":"",
-                  "importance":""
-                },
-                "message":""
+                }
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/test110.cpp",
@@ -1082,13 +642,7 @@
                     "startColumn":17,
                     "startLine":120
                   }
-                },
-                "properties":{
-                  "id":"",
-                  "kind":"",
-                  "importance":""
-                },
-                "message":""
+                }
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/test110.cpp",
@@ -1096,13 +650,7 @@
                     "startColumn":13,
                     "startLine":121
                   }
-                },
-                "properties":{
-                  "id":"",
-                  "kind":"",
-                  "importance":""
-                },
-                "message":""
+                }
               }
             ]
           }
@@ -1120,15 +668,15 @@
               }
             },
             "fullyQualifiedLogicalName":"HpcellFromRwCol",
-            "logicalLocationKey":"?HpcellFromRwCol@@YAPEAU_cell@@HH@Z",
+            "decoratedName":"?HpcellFromRwCol@@YAPEAU_cell@@HH@Z",
             "properties":{
-              "decorated":"?HpcellFromRwCol@@YAPEAU_cell@@HH@Z",
               "funcline":"82"
             }
           }
         ],
         "codeFlows":[
           {
+            "message":"",
             "locations":[
               {
                 "physicalLocation":{
@@ -1137,13 +685,7 @@
                     "startColumn":61,
                     "startLine":82
                   }
-                },
-                "properties":{
-                  "id":"",
-                  "kind":"",
-                  "importance":""
-                },
-                "message":""
+                }
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/test110.cpp",
@@ -1151,13 +693,7 @@
                     "startColumn":16,
                     "startLine":84
                   }
-                },
-                "properties":{
-                  "id":"",
-                  "kind":"",
-                  "importance":""
-                },
-                "message":""
+                }
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/test110.cpp",
@@ -1165,13 +701,7 @@
                     "startColumn":15,
                     "startLine":85
                   }
-                },
-                "properties":{
-                  "id":"",
-                  "kind":"",
-                  "importance":""
-                },
-                "message":""
+                }
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/test110.cpp",
@@ -1179,13 +709,7 @@
                     "startColumn":14,
                     "startLine":86
                   }
-                },
-                "properties":{
-                  "id":"",
-                  "kind":"",
-                  "importance":""
-                },
-                "message":""
+                }
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/test110.cpp",
@@ -1193,13 +717,7 @@
                     "startColumn":9,
                     "startLine":87
                   }
-                },
-                "properties":{
-                  "id":"",
-                  "kind":"",
-                  "importance":""
-                },
-                "message":""
+                }
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/test110.cpp",
@@ -1207,13 +725,7 @@
                     "startColumn":16,
                     "startLine":87
                   }
-                },
-                "properties":{
-                  "id":"",
-                  "kind":"",
-                  "importance":""
-                },
-                "message":""
+                }
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/test110.cpp",
@@ -1221,13 +733,7 @@
                     "startColumn":9,
                     "startLine":88
                   }
-                },
-                "properties":{
-                  "id":"",
-                  "kind":"",
-                  "importance":""
-                },
-                "message":""
+                }
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/test110.cpp",
@@ -1235,13 +741,7 @@
                     "startColumn":9,
                     "startLine":89
                   }
-                },
-                "properties":{
-                  "id":"",
-                  "kind":"",
-                  "importance":""
-                },
-                "message":""
+                }
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/test110.cpp",
@@ -1249,13 +749,7 @@
                     "startColumn":9,
                     "startLine":90
                   }
-                },
-                "properties":{
-                  "id":"",
-                  "kind":"",
-                  "importance":""
-                },
-                "message":""
+                }
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/test110.cpp",
@@ -1263,13 +757,7 @@
                     "startColumn":14,
                     "startLine":91
                   }
-                },
-                "properties":{
-                  "id":"",
-                  "kind":"",
-                  "importance":""
-                },
-                "message":""
+                }
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/test110.cpp",
@@ -1277,13 +765,7 @@
                     "startColumn":20,
                     "startLine":92
                   }
-                },
-                "properties":{
-                  "id":"",
-                  "kind":"",
-                  "importance":""
-                },
-                "message":""
+                }
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/test110.cpp",
@@ -1291,13 +773,7 @@
                     "startColumn":14,
                     "startLine":93
                   }
-                },
-                "properties":{
-                  "id":"",
-                  "kind":"",
-                  "importance":""
-                },
-                "message":""
+                }
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/test110.cpp",
@@ -1305,13 +781,7 @@
                     "startColumn":10,
                     "startLine":95
                   }
-                },
-                "properties":{
-                  "id":"",
-                  "kind":"",
-                  "importance":""
-                },
-                "message":""
+                }
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/test110.cpp",
@@ -1319,13 +789,7 @@
                     "startColumn":25,
                     "startLine":96
                   }
-                },
-                "properties":{
-                  "id":"",
-                  "kind":"",
-                  "importance":""
-                },
-                "message":""
+                }
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/test110.cpp",
@@ -1333,13 +797,7 @@
                     "startColumn":11,
                     "startLine":96
                   }
-                },
-                "properties":{
-                  "id":"",
-                  "kind":"",
-                  "importance":""
-                },
-                "message":""
+                }
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/test110.cpp",
@@ -1347,13 +805,7 @@
                     "startColumn":25,
                     "startLine":97
                   }
-                },
-                "properties":{
-                  "id":"",
-                  "kind":"",
-                  "importance":""
-                },
-                "message":""
+                }
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/test110.cpp",
@@ -1361,13 +813,7 @@
                     "startColumn":11,
                     "startLine":97
                   }
-                },
-                "properties":{
-                  "id":"",
-                  "kind":"",
-                  "importance":""
-                },
-                "message":""
+                }
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/test110.cpp",
@@ -1375,13 +821,7 @@
                     "startColumn":25,
                     "startLine":98
                   }
-                },
-                "properties":{
-                  "id":"",
-                  "kind":"",
-                  "importance":""
-                },
-                "message":""
+                }
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/test110.cpp",
@@ -1389,13 +829,7 @@
                     "startColumn":11,
                     "startLine":98
                   }
-                },
-                "properties":{
-                  "id":"",
-                  "kind":"",
-                  "importance":""
-                },
-                "message":""
+                }
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/test110.cpp",
@@ -1403,13 +837,7 @@
                     "startColumn":10,
                     "startLine":99
                   }
-                },
-                "properties":{
-                  "id":"",
-                  "kind":"",
-                  "importance":""
-                },
-                "message":""
+                }
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/test110.cpp",
@@ -1417,13 +845,7 @@
                     "startColumn":25,
                     "startLine":100
                   }
-                },
-                "properties":{
-                  "id":"",
-                  "kind":"",
-                  "importance":""
-                },
-                "message":""
+                }
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/test110.cpp",
@@ -1431,13 +853,7 @@
                     "startColumn":11,
                     "startLine":100
                   }
-                },
-                "properties":{
-                  "id":"",
-                  "kind":"",
-                  "importance":""
-                },
-                "message":""
+                }
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/test110.cpp",
@@ -1445,13 +861,7 @@
                     "startColumn":10,
                     "startLine":101
                   }
-                },
-                "properties":{
-                  "id":"",
-                  "kind":"",
-                  "importance":""
-                },
-                "message":""
+                }
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/test110.cpp",
@@ -1459,13 +869,7 @@
                     "startColumn":12,
                     "startLine":102
                   }
-                },
-                "properties":{
-                  "id":"",
-                  "kind":"",
-                  "importance":""
-                },
-                "message":""
+                }
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/test110.cpp",
@@ -1473,13 +877,7 @@
                     "startColumn":9,
                     "startLine":103
                   }
-                },
-                "properties":{
-                  "id":"",
-                  "kind":"",
-                  "importance":""
-                },
-                "message":""
+                }
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/test110.cpp",
@@ -1487,13 +885,7 @@
                     "startColumn":15,
                     "startLine":133
                   }
-                },
-                "properties":{
-                  "id":"",
-                  "kind":"",
-                  "importance":""
-                },
-                "message":""
+                }
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/test110.cpp",
@@ -1501,13 +893,7 @@
                     "startColumn":27,
                     "startLine":133
                   }
-                },
-                "properties":{
-                  "id":"",
-                  "kind":"",
-                  "importance":""
-                },
-                "message":""
+                }
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/test110.cpp",
@@ -1515,13 +901,7 @@
                     "startColumn":9,
                     "startLine":136
                   }
-                },
-                "properties":{
-                  "id":"",
-                  "kind":"",
-                  "importance":""
-                },
-                "message":""
+                }
               }
             ]
           }
@@ -1539,15 +919,15 @@
               }
             },
             "fullyQualifiedLogicalName":"HpcellFromRwCol",
-            "logicalLocationKey":"?HpcellFromRwCol@@YAPEAU_cell@@HH@Z",
+            "decoratedName":"?HpcellFromRwCol@@YAPEAU_cell@@HH@Z",
             "properties":{
-              "decorated":"?HpcellFromRwCol@@YAPEAU_cell@@HH@Z",
               "funcline":"82"
             }
           }
         ],
         "codeFlows":[
           {
+            "message":"",
             "locations":[
               {
                 "physicalLocation":{

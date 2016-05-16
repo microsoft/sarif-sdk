@@ -8,14 +8,6 @@
       "fullName":"PREfast Code Analysis",
       "version":"14.0.0"
     },
-    "logicalLocations":{
-      "?CountCharsInMultiSzW1@@YAKPBG@Z":[
-        {
-          "kind":"method",
-          "name":"CountCharsInMultiSzW1"
-        }
-      ]
-    },
     "results":[
       {
         "ruleId":"26016",
@@ -30,15 +22,15 @@
               }
             },
             "fullyQualifiedLogicalName":"CountCharsInMultiSzW1",
-            "logicalLocationKey":"?CountCharsInMultiSzW1@@YAKPBG@Z",
+            "decoratedName":"?CountCharsInMultiSzW1@@YAKPBG@Z",
             "properties":{
-              "decorated":"?CountCharsInMultiSzW1@@YAKPBG@Z",
               "funcline":"4"
             }
           }
         ],
         "codeFlows":[
           {
+            "message":"",
             "locations":[
               {
                 "physicalLocation":{

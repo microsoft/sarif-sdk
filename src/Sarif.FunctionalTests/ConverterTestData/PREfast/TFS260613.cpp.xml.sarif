@@ -8,20 +8,6 @@
       "fullName":"PREfast Code Analysis",
       "version":"14.0.0"
     },
-    "logicalLocations":{
-      "?ComplexMismatch1@@YAHXZ":[
-        {
-          "kind":"method",
-          "name":"ComplexMismatch1"
-        }
-      ],
-      "?ComplexMismatch2@@YAHXZ":[
-        {
-          "kind":"method",
-          "name":"ComplexMismatch2"
-        }
-      ]
-    },
     "results":[
       {
         "ruleId":"6305",
@@ -36,9 +22,8 @@
               }
             },
             "fullyQualifiedLogicalName":"ComplexMismatch1",
-            "logicalLocationKey":"?ComplexMismatch1@@YAHXZ",
+            "decoratedName":"?ComplexMismatch1@@YAHXZ",
             "properties":{
-              "decorated":"?ComplexMismatch1@@YAHXZ",
               "funcline":"4"
             }
           }
@@ -50,6 +35,7 @@
         },
         "codeFlows":[
           {
+            "message":"",
             "locations":[
               {
                 "physicalLocation":{
@@ -75,12 +61,10 @@
                     "startLine":9
                   }
                 },
-                "properties":{
-                  "id":"1",
-                  "kind":"declaration",
-                  "importance":"Essential"
-                },
-                "message":"'offset' is a byte quantity"
+                "id":"1",
+                "kind":"declaration",
+                "message":"'offset' is a byte quantity",
+                "essential":true
               },{
                 "physicalLocation":{
                   "uri":"file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs260613.cpp",
@@ -89,12 +73,10 @@
                     "startLine":10
                   }
                 },
-                "properties":{
-                  "id":"2",
-                  "kind":"usage",
-                  "importance":"Essential"
-                },
-                "message":"Expression mixes element counts and byte quantities"
+                "id":"2",
+                "kind":"usage",
+                "message":"Expression mixes element counts and byte quantities",
+                "essential":true
               }
             ]
           }
@@ -112,9 +94,8 @@
               }
             },
             "fullyQualifiedLogicalName":"ComplexMismatch2",
-            "logicalLocationKey":"?ComplexMismatch2@@YAHXZ",
+            "decoratedName":"?ComplexMismatch2@@YAHXZ",
             "properties":{
-              "decorated":"?ComplexMismatch2@@YAHXZ",
               "funcline":"15"
             }
           }
@@ -126,6 +107,7 @@
         },
         "codeFlows":[
           {
+            "message":"",
             "locations":[
               {
                 "physicalLocation":{
@@ -151,12 +133,10 @@
                     "startLine":20
                   }
                 },
-                "properties":{
-                  "id":"1",
-                  "kind":"usage",
-                  "importance":"Essential"
-                },
-                "message":"Expression mixes element counts and byte quantities"
+                "id":"1",
+                "kind":"usage",
+                "message":"Expression mixes element counts and byte quantities",
+                "essential":true
               }
             ]
           }

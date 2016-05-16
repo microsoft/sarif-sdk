@@ -8,14 +8,6 @@
       "fullName":"PREfast Code Analysis",
       "version":"14.0.0"
     },
-    "logicalLocations":{
-      "?C6001_Example1@@YAH_N0@Z":[
-        {
-          "kind":"method",
-          "name":"C6001_Example1"
-        }
-      ]
-    },
     "results":[
       {
         "ruleId":"6001",
@@ -30,9 +22,8 @@
               }
             },
             "fullyQualifiedLogicalName":"C6001_Example1",
-            "logicalLocationKey":"?C6001_Example1@@YAH_N0@Z",
+            "decoratedName":"?C6001_Example1@@YAH_N0@Z",
             "properties":{
-              "decorated":"?C6001_Example1@@YAH_N0@Z",
               "funcline":"2"
             }
           }
@@ -44,6 +35,7 @@
         },
         "codeFlows":[
           {
+            "message":"",
             "locations":[
               {
                 "physicalLocation":{
@@ -53,12 +45,10 @@
                     "startLine":4
                   }
                 },
-                "properties":{
-                  "id":"1",
-                  "kind":"declaration",
-                  "importance":"Essential"
-                },
-                "message":"'i' is not initialized"
+                "id":"1",
+                "kind":"declaration",
+                "message":"'i' is not initialized",
+                "essential":true
               },{
                 "physicalLocation":{
                   "uri":"file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/combinedwarnings/c6001example.cpp",
@@ -67,11 +57,8 @@
                     "startLine":5
                   }
                 },
-                "properties":{
-                  "id":"2",
-                  "kind":"branch",
-                  "importance":"Full"
-                },
+                "id":"2",
+                "kind":"branch",
                 "message":"Skip this branch, (assume 'b&&c' is false)"
               },{
                 "physicalLocation":{
@@ -81,12 +68,10 @@
                     "startLine":9
                   }
                 },
-                "properties":{
-                  "id":"3",
-                  "kind":"usage",
-                  "importance":"Essential"
-                },
-                "message":"'i' is used, but may not have been initialized"
+                "id":"3",
+                "kind":"usage",
+                "message":"'i' is used, but may not have been initialized",
+                "essential":true
               }
             ]
           }

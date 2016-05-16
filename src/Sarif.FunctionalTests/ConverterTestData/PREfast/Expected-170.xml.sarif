@@ -8,14 +8,6 @@
       "fullName":"PREfast Code Analysis",
       "version":"14.0.0"
     },
-    "logicalLocations":{
-      "?CopyNullTerminatedBufferToOffset@@YAXXZ":[
-        {
-          "kind":"method",
-          "name":"CopyNullTerminatedBufferToOffset"
-        }
-      ]
-    },
     "results":[
       {
         "ruleId":"26000",
@@ -30,15 +22,15 @@
               }
             },
             "fullyQualifiedLogicalName":"CopyNullTerminatedBufferToOffset",
-            "logicalLocationKey":"?CopyNullTerminatedBufferToOffset@@YAXXZ",
+            "decoratedName":"?CopyNullTerminatedBufferToOffset@@YAXXZ",
             "properties":{
-              "decorated":"?CopyNullTerminatedBufferToOffset@@YAXXZ",
               "funcline":"47"
             }
           }
         ],
         "codeFlows":[
           {
+            "message":"",
             "locations":[
               {
                 "physicalLocation":{

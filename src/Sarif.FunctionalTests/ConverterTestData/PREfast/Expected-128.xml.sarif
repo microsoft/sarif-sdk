@@ -8,14 +8,6 @@
       "fullName":"PREfast Code Analysis",
       "version":"14.0.0"
     },
-    "logicalLocations":{
-      "?GetDSNAMEBad@@YA_NKPAU_DSNAME@@KPAG@Z":[
-        {
-          "kind":"method",
-          "name":"GetDSNAMEBad"
-        }
-      ]
-    },
     "results":[
       {
         "ruleId":"26019",
@@ -30,15 +22,15 @@
               }
             },
             "fullyQualifiedLogicalName":"GetDSNAMEBad",
-            "logicalLocationKey":"?GetDSNAMEBad@@YA_NKPAU_DSNAME@@KPAG@Z",
+            "decoratedName":"?GetDSNAMEBad@@YA_NKPAU_DSNAME@@KPAG@Z",
             "properties":{
-              "decorated":"?GetDSNAMEBad@@YA_NKPAU_DSNAME@@KPAG@Z",
               "funcline":"58"
             }
           }
         ],
         "codeFlows":[
           {
+            "message":"",
             "locations":[
               {
                 "physicalLocation":{
@@ -121,15 +113,15 @@
               }
             },
             "fullyQualifiedLogicalName":"GetDSNAMEBad",
-            "logicalLocationKey":"?GetDSNAMEBad@@YA_NKPAU_DSNAME@@KPAG@Z",
+            "decoratedName":"?GetDSNAMEBad@@YA_NKPAU_DSNAME@@KPAG@Z",
             "properties":{
-              "decorated":"?GetDSNAMEBad@@YA_NKPAU_DSNAME@@KPAG@Z",
               "funcline":"58"
             }
           }
         ],
         "codeFlows":[
           {
+            "message":"",
             "locations":[
               {
                 "physicalLocation":{

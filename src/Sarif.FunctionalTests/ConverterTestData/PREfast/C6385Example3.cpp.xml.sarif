@@ -8,14 +8,6 @@
       "fullName":"PREfast Code Analysis",
       "version":"14.0.0"
     },
-    "logicalLocations":{
-      "?C6385_Example3@@YAXH@Z":[
-        {
-          "kind":"method",
-          "name":"C6385_Example3"
-        }
-      ]
-    },
     "results":[
       {
         "ruleId":"6385",
@@ -30,9 +22,8 @@
               }
             },
             "fullyQualifiedLogicalName":"C6385_Example3",
-            "logicalLocationKey":"?C6385_Example3@@YAXH@Z",
+            "decoratedName":"?C6385_Example3@@YAXH@Z",
             "properties":{
-              "decorated":"?C6385_Example3@@YAXH@Z",
               "funcline":"2"
             }
           }
@@ -44,6 +35,7 @@
         },
         "codeFlows":[
           {
+            "message":"",
             "locations":[
               {
                 "physicalLocation":{
@@ -53,12 +45,10 @@
                     "startLine":4
                   }
                 },
-                "properties":{
-                  "id":"1",
-                  "kind":"declaration",
-                  "importance":"Essential"
-                },
-                "message":"'a' is an array of 20 elements (80 bytes)"
+                "id":"1",
+                "kind":"declaration",
+                "message":"'a' is an array of 20 elements (80 bytes)",
+                "essential":true
               },{
                 "physicalLocation":{
                   "uri":"file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/complex/c6385/c6385example3.cpp",
@@ -75,12 +65,10 @@
                     "startLine":6
                   }
                 },
-                "properties":{
-                  "id":"2",
-                  "kind":"declaration",
-                  "importance":"Essential"
-                },
-                "message":"'i' is equal to 20"
+                "id":"2",
+                "kind":"declaration",
+                "message":"'i' is equal to 20",
+                "essential":true
               },{
                 "physicalLocation":{
                   "uri":"file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/complex/c6385/c6385example3.cpp",
@@ -89,11 +77,8 @@
                     "startLine":7
                   }
                 },
-                "properties":{
-                  "id":"3",
-                  "kind":"branch",
-                  "importance":"Full"
-                },
+                "id":"3",
+                "kind":"branch",
                 "message":"Enter this branch, (assume 'i>=0&&i<=20')"
               },{
                 "physicalLocation":{
@@ -103,12 +88,10 @@
                     "startLine":9
                   }
                 },
-                "properties":{
-                  "id":"4",
-                  "kind":"usage",
-                  "importance":"Essential"
-                },
-                "message":"Invalid read from 'a[20]', (readable range is 0 to 19)"
+                "id":"4",
+                "kind":"usage",
+                "message":"Invalid read from 'a[20]', (readable range is 0 to 19)",
+                "essential":true
               }
             ]
           }

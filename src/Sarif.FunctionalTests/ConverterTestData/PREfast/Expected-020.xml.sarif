@@ -8,14 +8,6 @@
       "fullName":"PREfast Code Analysis",
       "version":"14.0.0"
     },
-    "logicalLocations":{
-      "?g@@YAXPBG@Z":[
-        {
-          "kind":"method",
-          "name":"g"
-        }
-      ]
-    },
     "results":[
       {
         "ruleId":"26018",
@@ -30,15 +22,15 @@
               }
             },
             "fullyQualifiedLogicalName":"g",
-            "logicalLocationKey":"?g@@YAXPBG@Z",
+            "decoratedName":"?g@@YAXPBG@Z",
             "properties":{
-              "decorated":"?g@@YAXPBG@Z",
               "funcline":"9"
             }
           }
         ],
         "codeFlows":[
           {
+            "message":"",
             "locations":[
               {
                 "physicalLocation":{

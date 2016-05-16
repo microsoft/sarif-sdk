@@ -8,50 +8,6 @@
       "fullName":"PREfast Code Analysis",
       "version":"14.0.0"
     },
-    "logicalLocations":{
-      "?f@@YAXPAH0@Z":[
-        {
-          "kind":"method",
-          "name":"f"
-        }
-      ],
-      "?g@@YAXXZ":[
-        {
-          "kind":"method",
-          "name":"g"
-        }
-      ],
-      "?DoSomethingBad@@YAHPADPAI@Z":[
-        {
-          "kind":"method",
-          "name":"DoSomethingBad"
-        }
-      ],
-      "?foo@@YAPAXPAH@Z":[
-        {
-          "kind":"method",
-          "name":"foo"
-        }
-      ],
-      "?bar@@YAXXZ":[
-        {
-          "kind":"method",
-          "name":"bar"
-        }
-      ],
-      "?baz@@YAXPAHH@Z":[
-        {
-          "kind":"method",
-          "name":"baz"
-        }
-      ],
-      "main":[
-        {
-          "kind":"method",
-          "name":"main"
-        }
-      ]
-    },
     "results":[
       {
         "ruleId":"26061",
@@ -66,15 +22,15 @@
               }
             },
             "fullyQualifiedLogicalName":"f",
-            "logicalLocationKey":"?f@@YAXPAH0@Z",
+            "decoratedName":"?f@@YAXPAH0@Z",
             "properties":{
-              "decorated":"?f@@YAXPAH0@Z",
               "funcline":"4"
             }
           }
         ],
         "codeFlows":[
           {
+            "message":"",
             "locations":[
               {
                 "physicalLocation":{
@@ -109,15 +65,15 @@
               }
             },
             "fullyQualifiedLogicalName":"g",
-            "logicalLocationKey":"?g@@YAXXZ",
+            "decoratedName":"?g@@YAXXZ",
             "properties":{
-              "decorated":"?g@@YAXXZ",
               "funcline":"9"
             }
           }
         ],
         "codeFlows":[
           {
+            "message":"",
             "locations":[
               {
                 "physicalLocation":{
@@ -208,15 +164,15 @@
               }
             },
             "fullyQualifiedLogicalName":"DoSomethingBad",
-            "logicalLocationKey":"?DoSomethingBad@@YAHPADPAI@Z",
+            "decoratedName":"?DoSomethingBad@@YAHPADPAI@Z",
             "properties":{
-              "decorated":"?DoSomethingBad@@YAHPADPAI@Z",
               "funcline":"119"
             }
           }
         ],
         "codeFlows":[
           {
+            "message":"",
             "locations":[
               {
                 "physicalLocation":{
@@ -259,15 +215,15 @@
               }
             },
             "fullyQualifiedLogicalName":"foo",
-            "logicalLocationKey":"?foo@@YAPAXPAH@Z",
+            "decoratedName":"?foo@@YAPAXPAH@Z",
             "properties":{
-              "decorated":"?foo@@YAPAXPAH@Z",
               "funcline":"129"
             }
           }
         ],
         "codeFlows":[
           {
+            "message":"",
             "locations":[
               {
                 "physicalLocation":{
@@ -342,15 +298,15 @@
               }
             },
             "fullyQualifiedLogicalName":"bar",
-            "logicalLocationKey":"?bar@@YAXXZ",
+            "decoratedName":"?bar@@YAXXZ",
             "properties":{
-              "decorated":"?bar@@YAXXZ",
               "funcline":"148"
             }
           }
         ],
         "codeFlows":[
           {
+            "message":"",
             "locations":[
               {
                 "physicalLocation":{
@@ -441,15 +397,15 @@
               }
             },
             "fullyQualifiedLogicalName":"bar",
-            "logicalLocationKey":"?bar@@YAXXZ",
+            "decoratedName":"?bar@@YAXXZ",
             "properties":{
-              "decorated":"?bar@@YAXXZ",
               "funcline":"148"
             }
           }
         ],
         "codeFlows":[
           {
+            "message":"",
             "locations":[
               {
                 "physicalLocation":{
@@ -540,15 +496,15 @@
               }
             },
             "fullyQualifiedLogicalName":"baz",
-            "logicalLocationKey":"?baz@@YAXPAHH@Z",
+            "decoratedName":"?baz@@YAXPAHH@Z",
             "properties":{
-              "decorated":"?baz@@YAXPAHH@Z",
               "funcline":"177"
             }
           }
         ],
         "codeFlows":[
           {
+            "message":"",
             "locations":[
               {
                 "physicalLocation":{
@@ -591,15 +547,15 @@
               }
             },
             "fullyQualifiedLogicalName":"baz",
-            "logicalLocationKey":"?baz@@YAXPAHH@Z",
+            "decoratedName":"?baz@@YAXPAHH@Z",
             "properties":{
-              "decorated":"?baz@@YAXPAHH@Z",
               "funcline":"177"
             }
           }
         ],
         "codeFlows":[
           {
+            "message":"",
             "locations":[
               {
                 "physicalLocation":{
@@ -642,15 +598,15 @@
               }
             },
             "fullyQualifiedLogicalName":"main",
-            "logicalLocationKey":"main",
+            "decoratedName":"main",
             "properties":{
-              "decorated":"main",
               "funcline":"183"
             }
           }
         ],
         "codeFlows":[
           {
+            "message":"",
             "locations":[
               {
                 "physicalLocation":{

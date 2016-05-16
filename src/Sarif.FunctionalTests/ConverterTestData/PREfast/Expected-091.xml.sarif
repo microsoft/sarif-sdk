@@ -8,14 +8,6 @@
       "fullName":"PREfast Code Analysis",
       "version":"14.0.0"
     },
-    "logicalLocations":{
-      "?RtlEncodeUtf16LE@@YA?AURTL_UCSCHAR_ENCODER_RETURN_VALUE@@EPAE0@Z":[
-        {
-          "kind":"method",
-          "name":"RtlEncodeUtf16LE"
-        }
-      ]
-    },
     "results":[
       {
         "ruleId":"26061",
@@ -30,15 +22,15 @@
               }
             },
             "fullyQualifiedLogicalName":"RtlEncodeUtf16LE",
-            "logicalLocationKey":"?RtlEncodeUtf16LE@@YA?AURTL_UCSCHAR_ENCODER_RETURN_VALUE@@EPAE0@Z",
+            "decoratedName":"?RtlEncodeUtf16LE@@YA?AURTL_UCSCHAR_ENCODER_RETURN_VALUE@@EPAE0@Z",
             "properties":{
-              "decorated":"?RtlEncodeUtf16LE@@YA?AURTL_UCSCHAR_ENCODER_RETURN_VALUE@@EPAE0@Z",
               "funcline":"21"
             }
           }
         ],
         "codeFlows":[
           {
+            "message":"",
             "locations":[
               {
                 "physicalLocation":{

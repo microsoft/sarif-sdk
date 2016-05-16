@@ -8,14 +8,6 @@
       "fullName":"PREfast Code Analysis",
       "version":"14.0.0"
     },
-    "logicalLocations":{
-      "?PbLoadExtRstSst@@YAPAEPAU_srst@@HPAE1PAPAE@Z":[
-        {
-          "kind":"method",
-          "name":"PbLoadExtRstSst"
-        }
-      ]
-    },
     "results":[
       {
         "ruleId":"26024",
@@ -30,15 +22,15 @@
               }
             },
             "fullyQualifiedLogicalName":"PbLoadExtRstSst",
-            "logicalLocationKey":"?PbLoadExtRstSst@@YAPAEPAU_srst@@HPAE1PAPAE@Z",
+            "decoratedName":"?PbLoadExtRstSst@@YAPAEPAU_srst@@HPAE1PAPAE@Z",
             "properties":{
-              "decorated":"?PbLoadExtRstSst@@YAPAEPAU_srst@@HPAE1PAPAE@Z",
               "funcline":"103"
             }
           }
         ],
         "codeFlows":[
           {
+            "message":"",
             "locations":[
               {
                 "physicalLocation":{
@@ -265,15 +257,15 @@
               }
             },
             "fullyQualifiedLogicalName":"PbLoadExtRstSst",
-            "logicalLocationKey":"?PbLoadExtRstSst@@YAPAEPAU_srst@@HPAE1PAPAE@Z",
+            "decoratedName":"?PbLoadExtRstSst@@YAPAEPAU_srst@@HPAE1PAPAE@Z",
             "properties":{
-              "decorated":"?PbLoadExtRstSst@@YAPAEPAU_srst@@HPAE1PAPAE@Z",
               "funcline":"103"
             }
           }
         ],
         "codeFlows":[
           {
+            "message":"",
             "locations":[
               {
                 "physicalLocation":{
@@ -500,15 +492,15 @@
               }
             },
             "fullyQualifiedLogicalName":"PbLoadExtRstSst",
-            "logicalLocationKey":"?PbLoadExtRstSst@@YAPAEPAU_srst@@HPAE1PAPAE@Z",
+            "decoratedName":"?PbLoadExtRstSst@@YAPAEPAU_srst@@HPAE1PAPAE@Z",
             "properties":{
-              "decorated":"?PbLoadExtRstSst@@YAPAEPAU_srst@@HPAE1PAPAE@Z",
               "funcline":"103"
             }
           }
         ],
         "codeFlows":[
           {
+            "message":"",
             "locations":[
               {
                 "physicalLocation":{
@@ -743,15 +735,15 @@
               }
             },
             "fullyQualifiedLogicalName":"PbLoadExtRstSst",
-            "logicalLocationKey":"?PbLoadExtRstSst@@YAPAEPAU_srst@@HPAE1PAPAE@Z",
+            "decoratedName":"?PbLoadExtRstSst@@YAPAEPAU_srst@@HPAE1PAPAE@Z",
             "properties":{
-              "decorated":"?PbLoadExtRstSst@@YAPAEPAU_srst@@HPAE1PAPAE@Z",
               "funcline":"103"
             }
           }
         ],
         "codeFlows":[
           {
+            "message":"",
             "locations":[
               {
                 "physicalLocation":{
@@ -1082,15 +1074,15 @@
               }
             },
             "fullyQualifiedLogicalName":"PbLoadExtRstSst",
-            "logicalLocationKey":"?PbLoadExtRstSst@@YAPAEPAU_srst@@HPAE1PAPAE@Z",
+            "decoratedName":"?PbLoadExtRstSst@@YAPAEPAU_srst@@HPAE1PAPAE@Z",
             "properties":{
-              "decorated":"?PbLoadExtRstSst@@YAPAEPAU_srst@@HPAE1PAPAE@Z",
               "funcline":"103"
             }
           }
         ],
         "codeFlows":[
           {
+            "message":"",
             "locations":[
               {
                 "physicalLocation":{
@@ -1501,15 +1493,15 @@
               }
             },
             "fullyQualifiedLogicalName":"PbLoadExtRstSst",
-            "logicalLocationKey":"?PbLoadExtRstSst@@YAPAEPAU_srst@@HPAE1PAPAE@Z",
+            "decoratedName":"?PbLoadExtRstSst@@YAPAEPAU_srst@@HPAE1PAPAE@Z",
             "properties":{
-              "decorated":"?PbLoadExtRstSst@@YAPAEPAU_srst@@HPAE1PAPAE@Z",
               "funcline":"103"
             }
           }
         ],
         "codeFlows":[
           {
+            "message":"",
             "locations":[
               {
                 "physicalLocation":{
@@ -1744,15 +1736,15 @@
               }
             },
             "fullyQualifiedLogicalName":"PbLoadExtRstSst",
-            "logicalLocationKey":"?PbLoadExtRstSst@@YAPAEPAU_srst@@HPAE1PAPAE@Z",
+            "decoratedName":"?PbLoadExtRstSst@@YAPAEPAU_srst@@HPAE1PAPAE@Z",
             "properties":{
-              "decorated":"?PbLoadExtRstSst@@YAPAEPAU_srst@@HPAE1PAPAE@Z",
               "funcline":"103"
             }
           }
         ],
         "codeFlows":[
           {
+            "message":"",
             "locations":[
               {
                 "physicalLocation":{

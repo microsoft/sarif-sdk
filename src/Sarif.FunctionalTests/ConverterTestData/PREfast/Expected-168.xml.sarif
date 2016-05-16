@@ -8,20 +8,6 @@
       "fullName":"PREfast Code Analysis",
       "version":"14.0.0"
     },
-    "logicalLocations":{
-      "?TestSetToNull@@YAXXZ":[
-        {
-          "kind":"method",
-          "name":"TestSetToNull"
-        }
-      ],
-      "?TestSetToZero@@YAXXZ":[
-        {
-          "kind":"method",
-          "name":"TestSetToZero"
-        }
-      ]
-    },
     "results":[
       {
         "ruleId":"26000",
@@ -36,15 +22,15 @@
               }
             },
             "fullyQualifiedLogicalName":"TestSetToNull",
-            "logicalLocationKey":"?TestSetToNull@@YAXXZ",
+            "decoratedName":"?TestSetToNull@@YAXXZ",
             "properties":{
-              "decorated":"?TestSetToNull@@YAXXZ",
               "funcline":"9"
             }
           }
         ],
         "codeFlows":[
           {
+            "message":"",
             "locations":[
               {
                 "physicalLocation":{
@@ -111,15 +97,15 @@
               }
             },
             "fullyQualifiedLogicalName":"TestSetToZero",
-            "logicalLocationKey":"?TestSetToZero@@YAXXZ",
+            "decoratedName":"?TestSetToZero@@YAXXZ",
             "properties":{
-              "decorated":"?TestSetToZero@@YAXXZ",
               "funcline":"20"
             }
           }
         ],
         "codeFlows":[
           {
+            "message":"",
             "locations":[
               {
                 "physicalLocation":{

@@ -8,38 +8,6 @@
       "fullName":"PREfast Code Analysis",
       "version":"14.0.0"
     },
-    "logicalLocations":{
-      "?ScsiGetTotalSenseByteCountIndicated@@YAXPAXE@Z":[
-        {
-          "kind":"method",
-          "name":"ScsiGetTotalSenseByteCountIndicated"
-        }
-      ],
-      "?f715@@YAXJPAG@Z":[
-        {
-          "kind":"method",
-          "name":"f715"
-        }
-      ],
-      "?f819@@YAII@Z":[
-        {
-          "kind":"method",
-          "name":"f819"
-        }
-      ],
-      "?f869c@@YAXAAUStruct869@@@Z":[
-        {
-          "kind":"method",
-          "name":"f869c"
-        }
-      ],
-      "?f926@@YA_NPAU_MyStruct926@@JPAJ@Z":[
-        {
-          "kind":"method",
-          "name":"f926"
-        }
-      ]
-    },
     "results":[
       {
         "ruleId":"26026",
@@ -54,15 +22,15 @@
               }
             },
             "fullyQualifiedLogicalName":"ScsiGetTotalSenseByteCountIndicated",
-            "logicalLocationKey":"?ScsiGetTotalSenseByteCountIndicated@@YAXPAXE@Z",
+            "decoratedName":"?ScsiGetTotalSenseByteCountIndicated@@YAXPAXE@Z",
             "properties":{
-              "decorated":"?ScsiGetTotalSenseByteCountIndicated@@YAXPAXE@Z",
               "funcline":"62"
             }
           }
         ],
         "codeFlows":[
           {
+            "message":"",
             "locations":[
               {
                 "physicalLocation":{
@@ -129,15 +97,15 @@
               }
             },
             "fullyQualifiedLogicalName":"f715",
-            "logicalLocationKey":"?f715@@YAXJPAG@Z",
+            "decoratedName":"?f715@@YAXJPAG@Z",
             "properties":{
-              "decorated":"?f715@@YAXJPAG@Z",
               "funcline":"140"
             }
           }
         ],
         "codeFlows":[
           {
+            "message":"",
             "locations":[
               {
                 "physicalLocation":{
@@ -236,15 +204,15 @@
               }
             },
             "fullyQualifiedLogicalName":"f715",
-            "logicalLocationKey":"?f715@@YAXJPAG@Z",
+            "decoratedName":"?f715@@YAXJPAG@Z",
             "properties":{
-              "decorated":"?f715@@YAXJPAG@Z",
               "funcline":"140"
             }
           }
         ],
         "codeFlows":[
           {
+            "message":"",
             "locations":[
               {
                 "physicalLocation":{
@@ -327,15 +295,15 @@
               }
             },
             "fullyQualifiedLogicalName":"f819",
-            "logicalLocationKey":"?f819@@YAII@Z",
+            "decoratedName":"?f819@@YAII@Z",
             "properties":{
-              "decorated":"?f819@@YAII@Z",
               "funcline":"158"
             }
           }
         ],
         "codeFlows":[
           {
+            "message":"",
             "locations":[
               {
                 "physicalLocation":{
@@ -386,15 +354,15 @@
               }
             },
             "fullyQualifiedLogicalName":"f869c",
-            "logicalLocationKey":"?f869c@@YAXAAUStruct869@@@Z",
+            "decoratedName":"?f869c@@YAXAAUStruct869@@@Z",
             "properties":{
-              "decorated":"?f869c@@YAXAAUStruct869@@@Z",
               "funcline":"185"
             }
           }
         ],
         "codeFlows":[
           {
+            "message":"",
             "locations":[
               {
                 "physicalLocation":{
@@ -429,15 +397,15 @@
               }
             },
             "fullyQualifiedLogicalName":"f926",
-            "logicalLocationKey":"?f926@@YA_NPAU_MyStruct926@@JPAJ@Z",
+            "decoratedName":"?f926@@YA_NPAU_MyStruct926@@JPAJ@Z",
             "properties":{
-              "decorated":"?f926@@YA_NPAU_MyStruct926@@JPAJ@Z",
               "funcline":"265"
             }
           }
         ],
         "codeFlows":[
           {
+            "message":"",
             "locations":[
               {
                 "physicalLocation":{
@@ -480,15 +448,15 @@
               }
             },
             "fullyQualifiedLogicalName":"f926",
-            "logicalLocationKey":"?f926@@YA_NPAU_MyStruct926@@JPAJ@Z",
+            "decoratedName":"?f926@@YA_NPAU_MyStruct926@@JPAJ@Z",
             "properties":{
-              "decorated":"?f926@@YA_NPAU_MyStruct926@@JPAJ@Z",
               "funcline":"265"
             }
           }
         ],
         "codeFlows":[
           {
+            "message":"",
             "locations":[
               {
                 "physicalLocation":{

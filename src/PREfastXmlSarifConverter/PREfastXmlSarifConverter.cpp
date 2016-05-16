@@ -5,6 +5,10 @@
 #include "SarifFormat.h"
 #include "DefectXmlFormat.h"
 
+#if BUILD_CONSOLE
+#include <iostream>
+#endif
+
 extern "C" {__declspec(dllexport) BSTR __stdcall ConvertToSarif(BSTR bstrFilePath); }
 extern "C" {__declspec(dllexport) BSTR __stdcall ConvertToSarifFromXml(BSTR bstrXmlText); }
 
@@ -439,13 +443,8 @@ HRESULT __stdcall Convert(const std::deque<XmlDefect> defectList, BSTR bstrOutpu
 
         location.SetFullyQualifiedLogicalName(defect.GetFunction());
 
-        SarifLogicalLocation logicalLocation;
-        logicalLocation.AddLogicalLocationComponent(defect.GetFunction(), L"method");
+        location.SetDecoratedName(defect.GetDecorated());
 
-        location.SetLogicalLocationKey(defect.GetDecorated());
-        run.AddLogicalLocation(defect.GetDecorated(), logicalLocation);
-
-        location.AddProperty(L"decorated", defect.GetDecorated());
         location.AddProperty(L"funcline", defect.GetFunctionLine());
 
         // Result
@@ -507,13 +506,27 @@ HRESULT __stdcall Convert(const std::deque<XmlDefect> defectList, BSTR bstrOutpu
 
                 if (keyEvent.IsValid())
                 {
-                    annotation.AddProperty(L"id", keyEvent.GetId());
-                    annotation.AddProperty(L"kind", keyEvent.GetKind());
-                    annotation.AddProperty(L"importance", keyEvent.GetImportance());
+                    if (wcscmp(keyEvent.GetId(), L"") != 0)
+                    {
+                        annotation.SetId(keyEvent.GetId());
+                    }
 
-                    annotation.SetMessage(keyEvent.GetMessage());
+                    if (wcscmp(keyEvent.GetKind(), L"") != 0)
+                    {
+                        annotation.SetKind(keyEvent.GetKind());
+                    }
+
+                    if (wcscmp(keyEvent.GetKind(), L"") != 0)
+                    {
+                        annotation.SetMessage(keyEvent.GetMessage());
+                    }
+
+					if (wcscmp(keyEvent.GetImportance(), L"Essential") == 0)
+					{
+						annotation.SetEssential(L"true");
+					}
                 }
-                codeFlow.AddAnnotatedCodeLocation(annotation);
+                codeFlow.AddLocation(annotation);
             }
             result.AddCodeFlow(codeFlow);
         }

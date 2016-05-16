@@ -8,20 +8,6 @@
       "fullName":"PREfast Code Analysis",
       "version":"14.0.0"
     },
-    "logicalLocations":{
-      "?strchr@@YAPADPBDH@Z":[
-        {
-          "kind":"method",
-          "name":"strchr"
-        }
-      ],
-      "?AddExtensionControlBlock@@YAXPAEK@Z":[
-        {
-          "kind":"method",
-          "name":"AddExtensionControlBlock"
-        }
-      ]
-    },
     "results":[
       {
         "ruleId":"26007",
@@ -36,15 +22,15 @@
               }
             },
             "fullyQualifiedLogicalName":"strchr",
-            "logicalLocationKey":"?strchr@@YAPADPBDH@Z",
+            "decoratedName":"?strchr@@YAPADPBDH@Z",
             "properties":{
-              "decorated":"?strchr@@YAPADPBDH@Z",
               "funcline":"7"
             }
           }
         ],
         "codeFlows":[
           {
+            "message":"",
             "locations":[
               {
                 "physicalLocation":{
@@ -103,15 +89,15 @@
               }
             },
             "fullyQualifiedLogicalName":"AddExtensionControlBlock",
-            "logicalLocationKey":"?AddExtensionControlBlock@@YAXPAEK@Z",
+            "decoratedName":"?AddExtensionControlBlock@@YAXPAEK@Z",
             "properties":{
-              "decorated":"?AddExtensionControlBlock@@YAXPAEK@Z",
               "funcline":"31"
             }
           }
         ],
         "codeFlows":[
           {
+            "message":"",
             "locations":[
               {
                 "physicalLocation":{
@@ -330,15 +316,15 @@
               }
             },
             "fullyQualifiedLogicalName":"AddExtensionControlBlock",
-            "logicalLocationKey":"?AddExtensionControlBlock@@YAXPAEK@Z",
+            "decoratedName":"?AddExtensionControlBlock@@YAXPAEK@Z",
             "properties":{
-              "decorated":"?AddExtensionControlBlock@@YAXPAEK@Z",
               "funcline":"31"
             }
           }
         ],
         "codeFlows":[
           {
+            "message":"",
             "locations":[
               {
                 "physicalLocation":{

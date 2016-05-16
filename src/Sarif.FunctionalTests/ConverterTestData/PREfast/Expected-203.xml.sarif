@@ -8,14 +8,6 @@
       "fullName":"PREfast Code Analysis",
       "version":"14.0.0"
     },
-    "logicalLocations":{
-      "?ReproFunction@@YAXXZ":[
-        {
-          "kind":"method",
-          "name":"ReproFunction"
-        }
-      ]
-    },
     "results":[
       {
         "ruleId":"26000",
@@ -30,15 +22,15 @@
               }
             },
             "fullyQualifiedLogicalName":"ReproFunction",
-            "logicalLocationKey":"?ReproFunction@@YAXXZ",
+            "decoratedName":"?ReproFunction@@YAXXZ",
             "properties":{
-              "decorated":"?ReproFunction@@YAXXZ",
               "funcline":"1"
             }
           }
         ],
         "codeFlows":[
           {
+            "message":"",
             "locations":[
               {
                 "physicalLocation":{

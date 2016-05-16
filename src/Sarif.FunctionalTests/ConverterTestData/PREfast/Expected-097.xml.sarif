@@ -8,38 +8,6 @@
       "fullName":"PREfast Code Analysis",
       "version":"14.0.0"
     },
-    "logicalLocations":{
-      "?MyFunction1@@YAJK@Z":[
-        {
-          "kind":"method",
-          "name":"MyFunction1"
-        }
-      ],
-      "?MyFunction2@@YAXK@Z":[
-        {
-          "kind":"method",
-          "name":"MyFunction2"
-        }
-      ],
-      "?MyFunction3@@YAXK@Z":[
-        {
-          "kind":"method",
-          "name":"MyFunction3"
-        }
-      ],
-      "?MyFunction4@@YAXK@Z":[
-        {
-          "kind":"method",
-          "name":"MyFunction4"
-        }
-      ],
-      "?MyFunction5@@YAXK@Z":[
-        {
-          "kind":"method",
-          "name":"MyFunction5"
-        }
-      ]
-    },
     "results":[
       {
         "ruleId":"26001",
@@ -54,15 +22,15 @@
               }
             },
             "fullyQualifiedLogicalName":"MyFunction1",
-            "logicalLocationKey":"?MyFunction1@@YAJK@Z",
+            "decoratedName":"?MyFunction1@@YAJK@Z",
             "properties":{
-              "decorated":"?MyFunction1@@YAJK@Z",
               "funcline":"43"
             }
           }
         ],
         "codeFlows":[
           {
+            "message":"",
             "locations":[
               {
                 "physicalLocation":{
@@ -169,15 +137,15 @@
               }
             },
             "fullyQualifiedLogicalName":"MyFunction1",
-            "logicalLocationKey":"?MyFunction1@@YAJK@Z",
+            "decoratedName":"?MyFunction1@@YAJK@Z",
             "properties":{
-              "decorated":"?MyFunction1@@YAJK@Z",
               "funcline":"43"
             }
           }
         ],
         "codeFlows":[
           {
+            "message":"",
             "locations":[
               {
                 "physicalLocation":{
@@ -300,15 +268,15 @@
               }
             },
             "fullyQualifiedLogicalName":"MyFunction1",
-            "logicalLocationKey":"?MyFunction1@@YAJK@Z",
+            "decoratedName":"?MyFunction1@@YAJK@Z",
             "properties":{
-              "decorated":"?MyFunction1@@YAJK@Z",
               "funcline":"43"
             }
           }
         ],
         "codeFlows":[
           {
+            "message":"",
             "locations":[
               {
                 "physicalLocation":{
@@ -447,15 +415,15 @@
               }
             },
             "fullyQualifiedLogicalName":"MyFunction2",
-            "logicalLocationKey":"?MyFunction2@@YAXK@Z",
+            "decoratedName":"?MyFunction2@@YAXK@Z",
             "properties":{
-              "decorated":"?MyFunction2@@YAXK@Z",
               "funcline":"72"
             }
           }
         ],
         "codeFlows":[
           {
+            "message":"",
             "locations":[
               {
                 "physicalLocation":{
@@ -538,15 +506,15 @@
               }
             },
             "fullyQualifiedLogicalName":"MyFunction3",
-            "logicalLocationKey":"?MyFunction3@@YAXK@Z",
+            "decoratedName":"?MyFunction3@@YAXK@Z",
             "properties":{
-              "decorated":"?MyFunction3@@YAXK@Z",
               "funcline":"82"
             }
           }
         ],
         "codeFlows":[
           {
+            "message":"",
             "locations":[
               {
                 "physicalLocation":{
@@ -621,15 +589,15 @@
               }
             },
             "fullyQualifiedLogicalName":"MyFunction4",
-            "logicalLocationKey":"?MyFunction4@@YAXK@Z",
+            "decoratedName":"?MyFunction4@@YAXK@Z",
             "properties":{
-              "decorated":"?MyFunction4@@YAXK@Z",
               "funcline":"92"
             }
           }
         ],
         "codeFlows":[
           {
+            "message":"",
             "locations":[
               {
                 "physicalLocation":{
@@ -704,15 +672,15 @@
               }
             },
             "fullyQualifiedLogicalName":"MyFunction5",
-            "logicalLocationKey":"?MyFunction5@@YAXK@Z",
+            "decoratedName":"?MyFunction5@@YAXK@Z",
             "properties":{
-              "decorated":"?MyFunction5@@YAXK@Z",
               "funcline":"102"
             }
           }
         ],
         "codeFlows":[
           {
+            "message":"",
             "locations":[
               {
                 "physicalLocation":{

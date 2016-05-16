@@ -8,20 +8,6 @@
       "fullName":"PREfast Code Analysis",
       "version":"14.0.0"
     },
-    "logicalLocations":{
-      "?bar1@@YAXPAU_MyMDL@@PAXHK@Z":[
-        {
-          "kind":"method",
-          "name":"bar1"
-        }
-      ],
-      "?UseData@@YAXXZ":[
-        {
-          "kind":"method",
-          "name":"UseData"
-        }
-      ]
-    },
     "results":[
       {
         "ruleId":"26003",
@@ -36,15 +22,15 @@
               }
             },
             "fullyQualifiedLogicalName":"bar1",
-            "logicalLocationKey":"?bar1@@YAXPAU_MyMDL@@PAXHK@Z",
+            "decoratedName":"?bar1@@YAXPAU_MyMDL@@PAXHK@Z",
             "properties":{
-              "decorated":"?bar1@@YAXPAU_MyMDL@@PAXHK@Z",
               "funcline":"81"
             }
           }
         ],
         "codeFlows":[
           {
+            "message":"",
             "locations":[
               {
                 "physicalLocation":{
@@ -119,15 +105,15 @@
               }
             },
             "fullyQualifiedLogicalName":"bar1",
-            "logicalLocationKey":"?bar1@@YAXPAU_MyMDL@@PAXHK@Z",
+            "decoratedName":"?bar1@@YAXPAU_MyMDL@@PAXHK@Z",
             "properties":{
-              "decorated":"?bar1@@YAXPAU_MyMDL@@PAXHK@Z",
               "funcline":"81"
             }
           }
         ],
         "codeFlows":[
           {
+            "message":"",
             "locations":[
               {
                 "physicalLocation":{
@@ -218,15 +204,15 @@
               }
             },
             "fullyQualifiedLogicalName":"bar1",
-            "logicalLocationKey":"?bar1@@YAXPAU_MyMDL@@PAXHK@Z",
+            "decoratedName":"?bar1@@YAXPAU_MyMDL@@PAXHK@Z",
             "properties":{
-              "decorated":"?bar1@@YAXPAU_MyMDL@@PAXHK@Z",
               "funcline":"81"
             }
           }
         ],
         "codeFlows":[
           {
+            "message":"",
             "locations":[
               {
                 "physicalLocation":{
@@ -333,15 +319,15 @@
               }
             },
             "fullyQualifiedLogicalName":"UseData",
-            "logicalLocationKey":"?UseData@@YAXXZ",
+            "decoratedName":"?UseData@@YAXXZ",
             "properties":{
-              "decorated":"?UseData@@YAXXZ",
               "funcline":"145"
             }
           }
         ],
         "codeFlows":[
           {
+            "message":"",
             "locations":[
               {
                 "physicalLocation":{

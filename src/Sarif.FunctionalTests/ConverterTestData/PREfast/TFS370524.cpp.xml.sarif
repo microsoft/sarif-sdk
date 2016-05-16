@@ -8,26 +8,6 @@
       "fullName":"PREfast Code Analysis",
       "version":"14.0.0"
     },
-    "logicalLocations":{
-      "?MissedAlias@MissedAliases@@AEAAHXZ":[
-        {
-          "kind":"method",
-          "name":"MissedAliases::MissedAlias"
-        }
-      ],
-      "?MissedAlias2@MissedAliases@@AEAAHXZ":[
-        {
-          "kind":"method",
-          "name":"MissedAliases::MissedAlias2"
-        }
-      ],
-      "?MissedAlias3@MissedAliases@@AEAAHPEAH@Z":[
-        {
-          "kind":"method",
-          "name":"MissedAliases::MissedAlias3"
-        }
-      ]
-    },
     "results":[
       {
         "ruleId":"6011",
@@ -42,9 +22,8 @@
               }
             },
             "fullyQualifiedLogicalName":"MissedAliases::MissedAlias",
-            "logicalLocationKey":"?MissedAlias@MissedAliases@@AEAAHXZ",
+            "decoratedName":"?MissedAlias@MissedAliases@@AEAAHXZ",
             "properties":{
-              "decorated":"?MissedAlias@MissedAliases@@AEAAHXZ",
               "funcline":"9"
             }
           }
@@ -56,6 +35,7 @@
         },
         "codeFlows":[
           {
+            "message":"",
             "locations":[
               {
                 "physicalLocation":{
@@ -73,12 +53,10 @@
                     "startLine":12
                   }
                 },
-                "properties":{
-                  "id":"1",
-                  "kind":"declaration",
-                  "importance":"Essential"
-                },
-                "message":"'target' may be NULL"
+                "id":"1",
+                "kind":"declaration",
+                "message":"'target' may be NULL",
+                "essential":true
               },{
                 "physicalLocation":{
                   "uri":"file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs370524.cpp",
@@ -87,12 +65,10 @@
                     "startLine":13
                   }
                 },
-                "properties":{
-                  "id":"2",
-                  "kind":"usage",
-                  "importance":"Essential"
-                },
-                "message":"'target' is dereferenced, but may still be NULL"
+                "id":"2",
+                "kind":"usage",
+                "message":"'target' is dereferenced, but may still be NULL",
+                "essential":true
               }
             ]
           }
@@ -110,9 +86,8 @@
               }
             },
             "fullyQualifiedLogicalName":"MissedAliases::MissedAlias2",
-            "logicalLocationKey":"?MissedAlias2@MissedAliases@@AEAAHXZ",
+            "decoratedName":"?MissedAlias2@MissedAliases@@AEAAHXZ",
             "properties":{
-              "decorated":"?MissedAlias2@MissedAliases@@AEAAHXZ",
               "funcline":"19"
             }
           }
@@ -124,6 +99,7 @@
         },
         "codeFlows":[
           {
+            "message":"",
             "locations":[
               {
                 "physicalLocation":{
@@ -141,12 +117,10 @@
                     "startLine":22
                   }
                 },
-                "properties":{
-                  "id":"1",
-                  "kind":"declaration",
-                  "importance":"Essential"
-                },
-                "message":"'target' may be NULL"
+                "id":"1",
+                "kind":"declaration",
+                "message":"'target' may be NULL",
+                "essential":true
               },{
                 "physicalLocation":{
                   "uri":"file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs370524.cpp",
@@ -155,12 +129,10 @@
                     "startLine":23
                   }
                 },
-                "properties":{
-                  "id":"2",
-                  "kind":"usage",
-                  "importance":"Essential"
-                },
-                "message":"'target' is dereferenced, but may still be NULL"
+                "id":"2",
+                "kind":"usage",
+                "message":"'target' is dereferenced, but may still be NULL",
+                "essential":true
               }
             ]
           }
@@ -178,9 +150,8 @@
               }
             },
             "fullyQualifiedLogicalName":"MissedAliases::MissedAlias3",
-            "logicalLocationKey":"?MissedAlias3@MissedAliases@@AEAAHPEAH@Z",
+            "decoratedName":"?MissedAlias3@MissedAliases@@AEAAHPEAH@Z",
             "properties":{
-              "decorated":"?MissedAlias3@MissedAliases@@AEAAHPEAH@Z",
               "funcline":"29"
             }
           }
@@ -192,6 +163,7 @@
         },
         "codeFlows":[
           {
+            "message":"",
             "locations":[
               {
                 "physicalLocation":{
@@ -201,12 +173,10 @@
                     "startLine":31
                   }
                 },
-                "properties":{
-                  "id":"1",
-                  "kind":"declaration",
-                  "importance":"Essential"
-                },
-                "message":"'target' may be NULL"
+                "id":"1",
+                "kind":"declaration",
+                "message":"'target' may be NULL",
+                "essential":true
               },{
                 "physicalLocation":{
                   "uri":"file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs370524.cpp",
@@ -223,12 +193,10 @@
                     "startLine":33
                   }
                 },
-                "properties":{
-                  "id":"2",
-                  "kind":"usage",
-                  "importance":"Essential"
-                },
-                "message":"'target' is dereferenced, but may still be NULL"
+                "id":"2",
+                "kind":"usage",
+                "message":"'target' is dereferenced, but may still be NULL",
+                "essential":true
               }
             ]
           }

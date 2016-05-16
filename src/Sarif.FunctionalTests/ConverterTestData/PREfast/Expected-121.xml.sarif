@@ -8,26 +8,6 @@
       "fullName":"PREfast Code Analysis",
       "version":"14.0.0"
     },
-    "logicalLocations":{
-      "?Bad1@@YAXPAHH@Z":[
-        {
-          "kind":"method",
-          "name":"Bad1"
-        }
-      ],
-      "?Bad2@@YAPAHXZ":[
-        {
-          "kind":"method",
-          "name":"Bad2"
-        }
-      ],
-      "?Bad3@@YADPAUDataGetter@@@Z":[
-        {
-          "kind":"method",
-          "name":"Bad3"
-        }
-      ]
-    },
     "results":[
       {
         "ruleId":"26000",
@@ -42,15 +22,15 @@
               }
             },
             "fullyQualifiedLogicalName":"Bad1",
-            "logicalLocationKey":"?Bad1@@YAXPAHH@Z",
+            "decoratedName":"?Bad1@@YAXPAHH@Z",
             "properties":{
-              "decorated":"?Bad1@@YAXPAHH@Z",
               "funcline":"37"
             }
           }
         ],
         "codeFlows":[
           {
+            "message":"",
             "locations":[
               {
                 "physicalLocation":{
@@ -133,15 +113,15 @@
               }
             },
             "fullyQualifiedLogicalName":"Bad2",
-            "logicalLocationKey":"?Bad2@@YAPAHXZ",
+            "decoratedName":"?Bad2@@YAPAHXZ",
             "properties":{
-              "decorated":"?Bad2@@YAPAHXZ",
               "funcline":"59"
             }
           }
         ],
         "codeFlows":[
           {
+            "message":"",
             "locations":[
               {
                 "physicalLocation":{
@@ -224,15 +204,15 @@
               }
             },
             "fullyQualifiedLogicalName":"Bad3",
-            "logicalLocationKey":"?Bad3@@YADPAUDataGetter@@@Z",
+            "decoratedName":"?Bad3@@YADPAUDataGetter@@@Z",
             "properties":{
-              "decorated":"?Bad3@@YADPAUDataGetter@@@Z",
               "funcline":"90"
             }
           }
         ],
         "codeFlows":[
           {
+            "message":"",
             "locations":[
               {
                 "physicalLocation":{

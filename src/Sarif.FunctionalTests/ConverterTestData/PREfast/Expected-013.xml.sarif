@@ -8,20 +8,6 @@
       "fullName":"PREfast Code Analysis",
       "version":"14.0.0"
     },
-    "logicalLocations":{
-      "?indexing@@YAHI@Z":[
-        {
-          "kind":"method",
-          "name":"indexing"
-        }
-      ],
-      "?unannotated@@YAHPAH@Z":[
-        {
-          "kind":"method",
-          "name":"unannotated"
-        }
-      ]
-    },
     "results":[
       {
         "ruleId":"26000",
@@ -36,15 +22,15 @@
               }
             },
             "fullyQualifiedLogicalName":"indexing",
-            "logicalLocationKey":"?indexing@@YAHI@Z",
+            "decoratedName":"?indexing@@YAHI@Z",
             "properties":{
-              "decorated":"?indexing@@YAHI@Z",
               "funcline":"8"
             }
           }
         ],
         "codeFlows":[
           {
+            "message":"",
             "locations":[
               {
                 "physicalLocation":{
@@ -135,15 +121,15 @@
               }
             },
             "fullyQualifiedLogicalName":"unannotated",
-            "logicalLocationKey":"?unannotated@@YAHPAH@Z",
+            "decoratedName":"?unannotated@@YAHPAH@Z",
             "properties":{
-              "decorated":"?unannotated@@YAHPAH@Z",
               "funcline":"24"
             }
           }
         ],
         "codeFlows":[
           {
+            "message":"",
             "locations":[
               {
                 "physicalLocation":{
@@ -234,15 +220,15 @@
               }
             },
             "fullyQualifiedLogicalName":"unannotated",
-            "logicalLocationKey":"?unannotated@@YAHPAH@Z",
+            "decoratedName":"?unannotated@@YAHPAH@Z",
             "properties":{
-              "decorated":"?unannotated@@YAHPAH@Z",
               "funcline":"24"
             }
           }
         ],
         "codeFlows":[
           {
+            "message":"",
             "locations":[
               {
                 "physicalLocation":{

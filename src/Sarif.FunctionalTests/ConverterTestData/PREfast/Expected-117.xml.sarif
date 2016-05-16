@@ -8,26 +8,6 @@
       "fullName":"PREfast Code Analysis",
       "version":"14.0.0"
     },
-    "logicalLocations":{
-      "?foo@@YAPAHH@Z":[
-        {
-          "kind":"method",
-          "name":"foo"
-        }
-      ],
-      "?foo2b@@YAPADW4TT@@@Z":[
-        {
-          "kind":"method",
-          "name":"foo2b"
-        }
-      ],
-      "?foo3@@YAXI@Z":[
-        {
-          "kind":"method",
-          "name":"foo3"
-        }
-      ]
-    },
     "results":[
       {
         "ruleId":"26000",
@@ -42,15 +22,15 @@
               }
             },
             "fullyQualifiedLogicalName":"foo",
-            "logicalLocationKey":"?foo@@YAPAHH@Z",
+            "decoratedName":"?foo@@YAPAHH@Z",
             "properties":{
-              "decorated":"?foo@@YAPAHH@Z",
               "funcline":"4"
             }
           }
         ],
         "codeFlows":[
           {
+            "message":"",
             "locations":[
               {
                 "physicalLocation":{
@@ -157,15 +137,15 @@
               }
             },
             "fullyQualifiedLogicalName":"foo2b",
-            "logicalLocationKey":"?foo2b@@YAPADW4TT@@@Z",
+            "decoratedName":"?foo2b@@YAPADW4TT@@@Z",
             "properties":{
-              "decorated":"?foo2b@@YAPADW4TT@@@Z",
               "funcline":"90"
             }
           }
         ],
         "codeFlows":[
           {
+            "message":"",
             "locations":[
               {
                 "physicalLocation":{
@@ -296,15 +276,15 @@
               }
             },
             "fullyQualifiedLogicalName":"foo3",
-            "logicalLocationKey":"?foo3@@YAXI@Z",
+            "decoratedName":"?foo3@@YAXI@Z",
             "properties":{
-              "decorated":"?foo3@@YAXI@Z",
               "funcline":"143"
             }
           }
         ],
         "codeFlows":[
           {
+            "message":"",
             "locations":[
               {
                 "physicalLocation":{
@@ -379,15 +359,15 @@
               }
             },
             "fullyQualifiedLogicalName":"foo3",
-            "logicalLocationKey":"?foo3@@YAXI@Z",
+            "decoratedName":"?foo3@@YAXI@Z",
             "properties":{
-              "decorated":"?foo3@@YAXI@Z",
               "funcline":"143"
             }
           }
         ],
         "codeFlows":[
           {
+            "message":"",
             "locations":[
               {
                 "physicalLocation":{

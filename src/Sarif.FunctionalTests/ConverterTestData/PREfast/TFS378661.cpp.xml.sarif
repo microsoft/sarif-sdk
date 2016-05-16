@@ -8,32 +8,6 @@
       "fullName":"PREfast Code Analysis",
       "version":"14.0.0"
     },
-    "logicalLocations":{
-      "?WritesArray@@YAXPEAJ@Z":[
-        {
-          "kind":"method",
-          "name":"WritesArray"
-        }
-      ],
-      "?WritesArrayRange@@YAXPEAJH@Z":[
-        {
-          "kind":"method",
-          "name":"WritesArrayRange"
-        }
-      ],
-      "?WritesArrayLoop@@YAXPEAJH@Z":[
-        {
-          "kind":"method",
-          "name":"WritesArrayLoop"
-        }
-      ],
-      "?WritesArrayCompare@@YAXPEAJH@Z":[
-        {
-          "kind":"method",
-          "name":"WritesArrayCompare"
-        }
-      ]
-    },
     "results":[
       {
         "ruleId":"6386",
@@ -48,9 +22,8 @@
               }
             },
             "fullyQualifiedLogicalName":"WritesArray",
-            "logicalLocationKey":"?WritesArray@@YAXPEAJ@Z",
+            "decoratedName":"?WritesArray@@YAXPEAJ@Z",
             "properties":{
-              "decorated":"?WritesArray@@YAXPEAJ@Z",
               "funcline":"6"
             }
           }
@@ -62,6 +35,7 @@
         },
         "codeFlows":[
           {
+            "message":"",
             "locations":[
               {
                 "physicalLocation":{
@@ -71,12 +45,10 @@
                     "startLine":6
                   }
                 },
-                "properties":{
-                  "id":"1",
-                  "kind":"declaration",
-                  "importance":"Essential"
-                },
-                "message":"'seq' is an array of 5 elements (20 bytes)"
+                "id":"1",
+                "kind":"declaration",
+                "message":"'seq' is an array of 5 elements (20 bytes)",
+                "essential":true
               },{
                 "physicalLocation":{
                   "uri":"file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs378661.cpp",
@@ -85,12 +57,10 @@
                     "startLine":10
                   }
                 },
-                "properties":{
-                  "id":"2",
-                  "kind":"usage",
-                  "importance":"Essential"
-                },
-                "message":"Invalid write to 'seq[5]', (writable range is 0 to 4)"
+                "id":"2",
+                "kind":"usage",
+                "message":"Invalid write to 'seq[5]', (writable range is 0 to 4)",
+                "essential":true
               }
             ]
           }
@@ -108,9 +78,8 @@
               }
             },
             "fullyQualifiedLogicalName":"WritesArrayRange",
-            "logicalLocationKey":"?WritesArrayRange@@YAXPEAJH@Z",
+            "decoratedName":"?WritesArrayRange@@YAXPEAJH@Z",
             "properties":{
-              "decorated":"?WritesArrayRange@@YAXPEAJH@Z",
               "funcline":"13"
             }
           }
@@ -122,6 +91,7 @@
         },
         "codeFlows":[
           {
+            "message":"",
             "locations":[
               {
                 "physicalLocation":{
@@ -131,12 +101,10 @@
                     "startLine":13
                   }
                 },
-                "properties":{
-                  "id":"1",
-                  "kind":"declaration",
-                  "importance":"Essential"
-                },
-                "message":"'seq' is an array of 4 elements (16 bytes)"
+                "id":"1",
+                "kind":"declaration",
+                "message":"'seq' is an array of 4 elements (16 bytes)",
+                "essential":true
               },{
                 "physicalLocation":{
                   "uri":"file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs378661.cpp",
@@ -145,12 +113,10 @@
                     "startLine":17
                   }
                 },
-                "properties":{
-                  "id":"2",
-                  "kind":"usage",
-                  "importance":"Essential"
-                },
-                "message":"Invalid write to 'seq[4]', (writable range is 0 to 3)"
+                "id":"2",
+                "kind":"usage",
+                "message":"Invalid write to 'seq[4]', (writable range is 0 to 3)",
+                "essential":true
               }
             ]
           }
@@ -168,9 +134,8 @@
               }
             },
             "fullyQualifiedLogicalName":"WritesArrayLoop",
-            "logicalLocationKey":"?WritesArrayLoop@@YAXPEAJH@Z",
+            "decoratedName":"?WritesArrayLoop@@YAXPEAJH@Z",
             "properties":{
-              "decorated":"?WritesArrayLoop@@YAXPEAJH@Z",
               "funcline":"20"
             }
           }
@@ -182,6 +147,7 @@
         },
         "codeFlows":[
           {
+            "message":"",
             "locations":[
               {
                 "physicalLocation":{
@@ -191,12 +157,10 @@
                     "startLine":20
                   }
                 },
-                "properties":{
-                  "id":"1",
-                  "kind":"declaration",
-                  "importance":"Essential"
-                },
-                "message":"'seq' is an array of 1 elements (4 bytes)"
+                "id":"1",
+                "kind":"declaration",
+                "message":"'seq' is an array of 1 elements (4 bytes)",
+                "essential":true
               },{
                 "physicalLocation":{
                   "uri":"file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs378661.cpp",
@@ -221,11 +185,8 @@
                     "startLine":25
                   }
                 },
-                "properties":{
-                  "id":"2",
-                  "kind":"branch",
-                  "importance":"Full"
-                },
+                "id":"2",
+                "kind":"branch",
                 "message":"Enter this loop, (assume 'i<size')"
               },{
                 "physicalLocation":{
@@ -243,12 +204,10 @@
                     "startLine":25
                   }
                 },
-                "properties":{
-                  "id":"3",
-                  "kind":"declaration",
-                  "importance":"Essential"
-                },
-                "message":"'i' may equal 1"
+                "id":"3",
+                "kind":"declaration",
+                "message":"'i' may equal 1",
+                "essential":true
               },{
                 "physicalLocation":{
                   "uri":"file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs378661.cpp",
@@ -257,11 +216,8 @@
                     "startLine":25
                   }
                 },
-                "properties":{
-                  "id":"4",
-                  "kind":"branch",
-                  "importance":"Full"
-                },
+                "id":"4",
+                "kind":"branch",
                 "message":"Exit this loop, ('i<size' is false)"
               },{
                 "physicalLocation":{
@@ -271,12 +227,10 @@
                     "startLine":29
                   }
                 },
-                "properties":{
-                  "id":"5",
-                  "kind":"usage",
-                  "importance":"Essential"
-                },
-                "message":"Invalid write to 'seq[1]', (writable range is 0 to 0)"
+                "id":"5",
+                "kind":"usage",
+                "message":"Invalid write to 'seq[1]', (writable range is 0 to 0)",
+                "essential":true
               }
             ]
           }
@@ -294,9 +248,8 @@
               }
             },
             "fullyQualifiedLogicalName":"WritesArrayCompare",
-            "logicalLocationKey":"?WritesArrayCompare@@YAXPEAJH@Z",
+            "decoratedName":"?WritesArrayCompare@@YAXPEAJH@Z",
             "properties":{
-              "decorated":"?WritesArrayCompare@@YAXPEAJH@Z",
               "funcline":"32"
             }
           }
@@ -308,6 +261,7 @@
         },
         "codeFlows":[
           {
+            "message":"",
             "locations":[
               {
                 "physicalLocation":{
@@ -317,12 +271,10 @@
                     "startLine":32
                   }
                 },
-                "properties":{
-                  "id":"1",
-                  "kind":"declaration",
-                  "importance":"Essential"
-                },
-                "message":"'seq' is an array of 4 elements (16 bytes)"
+                "id":"1",
+                "kind":"declaration",
+                "message":"'seq' is an array of 4 elements (16 bytes)",
+                "essential":true
               },{
                 "physicalLocation":{
                   "uri":"file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs378661.cpp",
@@ -331,11 +283,8 @@
                     "startLine":36
                   }
                 },
-                "properties":{
-                  "id":"2",
-                  "kind":"branch",
-                  "importance":"Full"
-                },
+                "id":"2",
+                "kind":"branch",
                 "message":"'size' may equal 4 (Enter this branch)"
               },{
                 "physicalLocation":{
@@ -353,12 +302,10 @@
                     "startLine":40
                   }
                 },
-                "properties":{
-                  "id":"3",
-                  "kind":"usage",
-                  "importance":"Essential"
-                },
-                "message":"Invalid write to 'seq[4]', (writable range is 0 to 3)"
+                "id":"3",
+                "kind":"usage",
+                "message":"Invalid write to 'seq[4]', (writable range is 0 to 3)",
+                "essential":true
               }
             ]
           }
