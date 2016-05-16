@@ -216,3 +216,4 @@ _Pvt_Extensions/
 ModelManifest.xml
 
 PREfastXmlSarifConverter.dll
+/src/Sarif.Viewer.VisualStudio.VC.db

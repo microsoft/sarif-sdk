@@ -14,14 +14,10 @@ namespace Microsoft.Sarif.Viewer
         public CodeLocations()
         {
             InitializeComponent();
-            this.detailsGrid.DataContext = this;
+            //this.detailsGrid.DataContext = this;
         }
 
         public ObservableCollection<AnnotatedCodeLocationModel> Items { get; internal set; }
-
-        private void Control_Loaded(object sender, RoutedEventArgs e)
-        {
-        }
 
         SarifError _sarifError;
         public SarifError CurrentSarifError
@@ -74,7 +70,7 @@ namespace Microsoft.Sarif.Viewer
                 _csv.GroupDescriptions.Add(new PropertyGroupDescription("Index"));
             }
 
-            this.codeLocationsListView.DataContext = _csv;
+            //this.codeLocationsListView.DataContext = _csv;
         }
 
         private void CodeLocationsList_SelectionChanged(object sender, SelectionChangedEventArgs e)

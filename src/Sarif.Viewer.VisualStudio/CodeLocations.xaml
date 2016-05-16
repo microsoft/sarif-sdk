@@ -5,9 +5,16 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Microsoft.Sarif.Viewer"
              xmlns:shell="clr-namespace:Microsoft.VisualStudio.Shell;assembly=Microsoft.VisualStudio.Shell.14.0"
+             xmlns:viewModels="clr-namespace:Microsoft.Sarif.Viewer.ViewModels"
+             xmlns:converters="clr-namespace:Microsoft.Sarif.Viewer.Converters"
              mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="300" Loaded="Control_Loaded">
+             d:DesignHeight="300" 
+             d:DesignWidth="300"
+             d:DataContext="{x:Static viewModels:ViewModelLocator.DesignTime}">
     <UserControl.Resources>
+        <converters:DatabindingDebugConverter x:Key="databindingDebugConverter" />
+        <converters:FullWidthGridViewColumnConverter x:Key="fullWidthGridViewColumnConverter" />
+        <converters:StringToVisibilityConverter x:Key="stringToVisibilityConverter" />
         <local:AnnotatedCodeLocationKindConverter x:Key="kindConverter"/>
         <local:CodeLocationsConverter x:Key="locationsConverter"/>
         <Style x:Key="CodeLocationsStyle" TargetType="{x:Type GroupItem}">
@@ -57,49 +64,172 @@
             <Setter Property="Foreground" Value="{DynamicResource {x:Static shell:VsBrushes.AccentDarkKey}}" />
         </Style>
 
+        <DataTemplate x:Key="AnnotatedCodeLocationCollectionTemplate">
+            <Expander Header="{Binding Message}" IsExpanded="True" Width="Auto">
+                <Border BorderThickness="1" BorderBrush="LightGray">
+                    <ListView 
+                                Margin="2" 
+                                Name="codeLocationsListView" 
+                                ItemsSource="{Binding}"
+                                BorderThickness="0" 
+                                Height="Auto"
+                                HorizontalAlignment="Stretch"
+                                ScrollViewer.CanContentScroll="False"
+                                ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                                ScrollViewer.VerticalScrollBarVisibility="Disabled"
+                                SelectionChanged="CodeLocationsList_SelectionChanged">
+                        <ListView.GroupStyle>
+                            <GroupStyle ContainerStyleSelector="{StaticResource groupStyleSelector}" />
+                        </ListView.GroupStyle>
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn DisplayMemberBinding="{Binding Message}"  Header="Message"  Width="Auto"/>
+                                <GridViewColumn Header="Name" Width="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ListView} }, Converter={StaticResource fullWidthGridViewColumnConverter}}">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBlock>
+                                            <Run Text="{Binding FileName, Mode=OneWay}" /> Line <Run Text="{Binding Region.StartLine, Mode=OneWay}" />
+                                            </TextBlock>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                </Border>
+            </Expander>
+        </DataTemplate>
+
+        <DataTemplate x:Key="CodeLocationCollectionTemplate">
+                    <ListBox ItemsSource="{Binding}"
+                                HorizontalAlignment="Stretch"
+                             BorderThickness="0">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock>
+                                <Run Text="{Binding FileName, Mode=OneWay}" /> 
+                                Line <Run Text="{Binding Region.StartLine, Mode=OneWay}" />
+                            </TextBlock>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                    </ListBox>
+        </DataTemplate>
+
+        <DataTemplate x:Key="StackCollectionTemplate">
+            <Expander Header="{Binding Message}" IsExpanded="True" Width="Auto">
+                <Border BorderThickness="1" BorderBrush="LightGray">
+                    <ListView 
+                                Margin="2" 
+                                Name="codeLocationsListView" 
+                                ItemsSource="{Binding}"
+                                BorderThickness="0" 
+                                Height="Auto"
+                                HorizontalAlignment="Stretch"
+                                ScrollViewer.CanContentScroll="False"
+                                ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                                ScrollViewer.VerticalScrollBarVisibility="Disabled"
+                                SelectionChanged="CodeLocationsList_SelectionChanged">
+                        <ListView.GroupStyle>
+                            <GroupStyle ContainerStyleSelector="{StaticResource groupStyleSelector}" />
+                        </ListView.GroupStyle>
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn DisplayMemberBinding="{Binding Message}"  Header="Message"  Width="Auto"/>
+                                <GridViewColumn Header="Name" Width="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ListView} }, Converter={StaticResource fullWidthGridViewColumnConverter}}">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBlock>
+                                                <InlineUIContainer>
+                                                    <TextBlock Visibility="{Binding Module, Converter={StaticResource stringToVisibilityConverter}}">
+                                                        <Run Text="{Binding Module}" /><Run Text="!" />
+                                                    </TextBlock>
+                                                </InlineUIContainer><InlineUIContainer>
+                                                    <TextBlock Visibility="{Binding FullyQualifiedLogicalName, Converter={StaticResource stringToVisibilityConverter}}">
+                                                        <Run Text="{Binding FullyQualifiedLogicalName}" /><Run Text="!" />
+                                                    </TextBlock>
+                                                </InlineUIContainer>
+                                                <Run Text="{Binding FileName, Mode=OneWay}" /> Line <Run Text="{Binding Region.StartLine, Mode=OneWay}" /><InlineUIContainer>
+                                                    <TextBlock Visibility="{Binding Column, Converter={StaticResource stringToVisibilityConverter}}">
+                                                        <Run Text="Col " /><Run Text="{Binding Column}" />
+                                                    </TextBlock>
+                                                </InlineUIContainer>
+                                            </TextBlock>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                </Border>
+            </Expander>
+        </DataTemplate>
+
+        <Style TargetType="{x:Type Control}" x:Key="baseStyle">
+            <Setter Property="FontFamily" Value="Segoe UI" />
+            <Setter Property="FontSize" Value="9" />
+        </Style>
+        <Style TargetType="{x:Type Button}" BasedOn="{StaticResource baseStyle}"></Style>
+        <Style TargetType="{x:Type Label}" BasedOn="{StaticResource baseStyle}"></Style>
+        <Style TargetType="{x:Type TextBox}" BasedOn="{StaticResource baseStyle}"></Style>
+        <Style TargetType="{x:Type ListView}" BasedOn="{StaticResource baseStyle}"></Style>
+
     </UserControl.Resources>
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-        <StackPanel Grid.Row="0">
-            <Grid Name="detailsGrid">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto" />
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="Auto" />
-                </Grid.ColumnDefinitions>
-                <TextBlock Grid.Column="0" Margin="6 0 6 0">
+        <Grid Grid.Row="0" Name="detailsGrid" Margin="6 0 6 0">
+            <Grid.RowDefinitions>
+                <RowDefinition />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <Border>
+            <TextBlock Grid.Row="0">
                         Code:
                         <Hyperlink Style="{StaticResource HyperlinkStyleSelected}" Click="HelpHyperlink_Click" >
-                            <Run Text="{Binding Path=CurrentSarifError.RuleId, Mode=OneTime}" />
+                            <Run Text="{Binding Path=RuleId, Mode=OneTime}" />
                         </Hyperlink>
+                <Run Text="{Binding RuleName, Mode=OneTime}" FontWeight="Bold" />
                 </TextBlock>
-                <TextBlock Grid.Column="1" Name="SelectedItemTextRuleName" Text="{Binding CurrentSarifError.RuleName, Mode=OneTime}" FontWeight="Bold" />
-            </Grid>
-            <ListView 
-                Margin="2" 
-                Name="codeLocationsListView" 
-                ItemsSource="{Binding}"
-                BorderThickness="0" 
-                Height="Auto"
-                HorizontalAlignment="Stretch"
-                ScrollViewer.CanContentScroll="False"
-                ScrollViewer.HorizontalScrollBarVisibility="Disabled"
-                ScrollViewer.VerticalScrollBarVisibility="Disabled"
-                SelectionChanged="CodeLocationsList_SelectionChanged">
-                    <ListView.GroupStyle>
-                        <GroupStyle ContainerStyleSelector="{StaticResource groupStyleSelector}" />
-                    </ListView.GroupStyle>
-
-                    <!-- Set up columns -->
-                    <ListView.View>
-                        <GridView>
-                            <GridViewColumn DisplayMemberBinding="{Binding Location}"  Header="Location"    Width="100"/>
-                            <GridViewColumn DisplayMemberBinding="{Binding Message}"  Header="Message"  Width="100"/>
-                        </GridView>
-                    </ListView.View>
-                </ListView>
-        </StackPanel>
+            </Border>
+            <TextBlock Grid.Row="1" TextWrapping="Wrap" Text="{Binding Message}" FontFamily="Segoe UI" FontSize="9" Margin="5" />
+        </Grid>
+        <TabControl Grid.Row="1">
+            <TabItem>
+                <TabItem.Header>
+                    <TextBlock Text="Locations" FontSize="9" />
+                </TabItem.Header>
+                <ListBox ItemsSource="{Binding Locations}" ItemTemplate="{StaticResource CodeLocationCollectionTemplate}" />
+            </TabItem>
+            <TabItem>
+                <TabItem.Header>
+                    <TextBlock Text="Related Locations" FontSize="9" />
+                </TabItem.Header>
+                <ListBox ItemsSource="{Binding RelatedLocations}" ItemTemplate="{StaticResource CodeLocationCollectionTemplate}" />
+            </TabItem>
+            <TabItem>
+                <TabItem.Header>
+                    <TextBlock Text="Code Flows" FontSize="9" />
+                </TabItem.Header>
+                <ListBox ItemsSource="{Binding CodeFlows}" ItemTemplate="{StaticResource AnnotatedCodeLocationCollectionTemplate}" />
+            </TabItem>
+            <TabItem>
+                <TabItem.Header>
+                    <TextBlock Text="Stacks" FontSize="9" />
+                </TabItem.Header>
+                <ListBox ItemsSource="{Binding Stacks}" ItemTemplate="{StaticResource StackCollectionTemplate}" />
+            </TabItem>
+            <TabItem>
+                <TabItem.Header>
+                    <TextBlock Text="Fixes" FontSize="9" />
+                </TabItem.Header>
+                <ListBox ItemsSource="{Binding Stacks}" ItemTemplate="{StaticResource AnnotatedCodeLocationCollectionTemplate}" />
+            </TabItem>
+        </TabControl>
     </Grid>
 </UserControl>

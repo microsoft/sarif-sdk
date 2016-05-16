@@ -79,7 +79,7 @@ namespace Microsoft.Sarif.Viewer
         {
             get
             {
-                return this.Annotations.Count > 1 || !string.IsNullOrEmpty(this.Annotations[0].Message);
+                return this.Annotations.Count > 1 || (this.Annotations.Count > 0 && !string.IsNullOrEmpty(this.Annotations[0].Message));
             }
         }
 

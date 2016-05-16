@@ -344,7 +344,7 @@ namespace Microsoft.Sarif.Viewer
         {
             foreach(SarifError sarifError in SarifErrors)
             {
-                if (sarifError.FileName.Equals(fileName, StringComparison.OrdinalIgnoreCase))
+                if (sarifError.FileName != null && sarifError.FileName.Equals(fileName, StringComparison.OrdinalIgnoreCase))
                 {
                     sarifError.FileName = remappedName;
                 }

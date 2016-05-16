@@ -44,10 +44,18 @@
     <Compile Include="CodeLocationsConverter.cs" />
     <Compile Include="CodeLocationsStyleSelector.cs" />
     <Compile Include="CodeLocationsTemplateSelector.cs" />
+    <Compile Include="Converters\BindingDebugConverter.cs" />
+    <Compile Include="Converters\FullWidthGridViewColumnConverter.cs" />
+    <Compile Include="Converters\StringToVisibilityConverter.cs" />
+    <Compile Include="Models\StackCollection.cs" />
+    <Compile Include="Models\Stack.cs" />
+    <Compile Include="NotifyPropertyChangedObject.cs" />
     <Compile Include="Constants.cs" />
     <Compile Include="ErrorListService.cs" />
     <Compile Include="ExtensionMethods.cs" />
     <Compile Include="Guids.cs" />
+    <Compile Include="Models\AnnotatedCodeLocation.cs" />
+    <Compile Include="Models\AnnotatedCodeLocationCollection.cs" />
     <Compile Include="OpenSarifFileCommand.cs" />
     <Compile Include="ProjectHelper.cs" />
     <Compile Include="ProjectKind.cs" />
@@ -57,11 +65,13 @@
     <Compile Include="SarifTableControlEventProcessorProvider.cs" />
     <Compile Include="SarifViewerPackage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SarifError.cs" />
+    <Compile Include="Models\SarifError.cs" />
     <Compile Include="SdkUiUtilities.cs" />
     <Compile Include="SinkManager.cs" />
     <Compile Include="TableDataSource.cs" />
     <Compile Include="SarifSnapshot.cs" />
+    <Compile Include="ViewModels\ResultViewModel.cs" />
+    <Compile Include="ViewModels\ViewModelLocator.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -245,6 +255,7 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
+  <ItemGroup />
   <PropertyGroup>
     <PreBuildEvent>
       del $(SolutionDir)Sarif.Viewer.VisualStudio\PREfastXmlSarifConverter.dll
