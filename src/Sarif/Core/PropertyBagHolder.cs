@@ -124,12 +124,12 @@ namespace Microsoft.CodeAnalysis.Sarif
             // doesn't expose the raw Properties array.
             PropertyBagHolder otherHolder = other as PropertyBagHolder;
             Debug.Assert(otherHolder != null);
-                
-            Properties.Clear();
+
+            Properties = other.PropertyNames.Count > 0 ? new Dictionary<string, SerializedPropertyInfo>() : null;
+
             foreach (string propertyName in other.PropertyNames)
             {
                 SerializedPropertyInfo otherInfo = otherHolder.Properties[propertyName];
-
                 Properties[propertyName] = new SerializedPropertyInfo(otherInfo.SerializedValue, otherInfo.IsString);
             }
         }
