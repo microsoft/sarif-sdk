@@ -37,11 +37,6 @@ namespace Microsoft.CodeAnalysis.Sarif
                 return false;
             }
 
-            if (left.ThreadId != right.ThreadId)
-            {
-                return false;
-            }
-
             if (!Stack.ValueComparer.Equals(left.Stack, right.Stack))
             {
                 return false;
@@ -91,7 +86,6 @@ namespace Microsoft.CodeAnalysis.Sarif
                     result = (result * 31) + obj.Message.GetHashCode();
                 }
 
-                result = (result * 31) + obj.ThreadId.GetHashCode();
                 if (obj.Stack != null)
                 {
                     result = (result * 31) + obj.Stack.ValueGetHashCode();

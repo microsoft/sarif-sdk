@@ -41,12 +41,6 @@ namespace Microsoft.CodeAnalysis.Sarif
         public string Message { get; set; }
 
         /// <summary>
-        /// The thread identifier of the code that raised the exception.
-        /// </summary>
-        [DataMember(Name = "threadId", IsRequired = false, EmitDefaultValue = false)]
-        public int ThreadId { get; set; }
-
-        /// <summary>
         /// The sequence of function calls leading to the exception.
         /// </summary>
         [DataMember(Name = "stack", IsRequired = false, EmitDefaultValue = false)]
@@ -74,18 +68,15 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="message">
         /// An initialization value for the <see cref="P: Message" /> property.
         /// </param>
-        /// <param name="threadId">
-        /// An initialization value for the <see cref="P: ThreadId" /> property.
-        /// </param>
         /// <param name="stack">
         /// An initialization value for the <see cref="P: Stack" /> property.
         /// </param>
         /// <param name="innerExceptions">
         /// An initialization value for the <see cref="P: InnerExceptions" /> property.
         /// </param>
-        public ExceptionData(string kind, string message, int threadId, Stack stack, IEnumerable<ExceptionData> innerExceptions)
+        public ExceptionData(string kind, string message, Stack stack, IEnumerable<ExceptionData> innerExceptions)
         {
-            Init(kind, message, threadId, stack, innerExceptions);
+            Init(kind, message, stack, innerExceptions);
         }
 
         /// <summary>
@@ -104,7 +95,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 throw new ArgumentNullException(nameof(other));
             }
 
-            Init(other.Kind, other.Message, other.ThreadId, other.Stack, other.InnerExceptions);
+            Init(other.Kind, other.Message, other.Stack, other.InnerExceptions);
         }
 
         ISarifNode ISarifNode.DeepClone()
@@ -125,11 +116,10 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new ExceptionData(this);
         }
 
-        private void Init(string kind, string message, int threadId, Stack stack, IEnumerable<ExceptionData> innerExceptions)
+        private void Init(string kind, string message, Stack stack, IEnumerable<ExceptionData> innerExceptions)
         {
             Kind = kind;
             Message = message;
-            ThreadId = threadId;
             if (stack != null)
             {
                 Stack = new Stack(stack);

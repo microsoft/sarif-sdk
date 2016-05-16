@@ -31,6 +31,9 @@ namespace Microsoft.CodeAnalysis.Sarif
             }
         }
 
+        /// <summary>
+        /// The URI of the JSON schema corresponding to the version.
+        /// </summary>
         [DataMember(Name = "$schema", IsRequired = false, EmitDefaultValue = false)]
         public Uri SchemaUri { get; set; }
 
