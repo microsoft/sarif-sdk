@@ -7,6 +7,7 @@
   "properties": {
 
     "$schema": {
+      "description": "The URI of the JSON schema corresponding to the version.",
       "type": "string",
       "format": "uri"
     },
@@ -47,6 +48,11 @@
         "module": {
           "description": "The name of the module that contains the code that is executing.",
           "type": "string"
+        },
+
+        "threadId": {
+          "description": "The thread identifier of the code that is executing.",
+          "type": "integer"
         },
 
         "message": {
@@ -476,6 +482,11 @@
           "description": "A value specifying the severity level of the notification.",
           "default": "warning",
           "enum": [ "note", "warning", "error" ]
+        },
+
+        "threadId": {
+          "description": "The thread identifier of the code that generated the notification.",
+          "type": "integer"
         },
 
         "time": {
@@ -961,8 +972,13 @@
         },
 
         "module": {
-          "description": "The name of the module that contains the code that is executing.",
+          "description": "The name of the module that contains the code of this stack frame.",
           "type": "string"
+        },
+
+        "threadId": {
+          "description": "The thread identifier of the stack frame.",
+          "type": "integer"
         },
 
         "fullyQualifiedLogicalName": {

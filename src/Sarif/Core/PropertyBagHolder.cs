@@ -35,7 +35,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// </summary>
         [JsonConverter(typeof(PropertyBagConverter))]
         [JsonProperty("properties", DefaultValueHandling = DefaultValueHandling.Ignore)]
-        internal abstract IDictionary<string, SerializedPropertyInfo> Properties { get; set; }
+        internal virtual IDictionary<string, SerializedPropertyInfo> Properties { get; set; }
 
         public bool TryGetProperty(string propertyName, out string value)
         {
@@ -124,12 +124,12 @@ namespace Microsoft.CodeAnalysis.Sarif
             // doesn't expose the raw Properties array.
             PropertyBagHolder otherHolder = other as PropertyBagHolder;
             Debug.Assert(otherHolder != null);
-                
-            Properties.Clear();
+
+            Properties = other.PropertyNames.Count > 0 ? new Dictionary<string, SerializedPropertyInfo>() : null;
+
             foreach (string propertyName in other.PropertyNames)
             {
                 SerializedPropertyInfo otherInfo = otherHolder.Properties[propertyName];
-
                 Properties[propertyName] = new SerializedPropertyInfo(otherInfo.SerializedValue, otherInfo.IsString);
             }
         }

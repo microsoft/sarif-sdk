@@ -27,5 +27,6 @@
 * Add flag to configure file hash computation to FileData.Create helper
 * Add 'relativeTo' conceptual base URI to all format URI properties (to allow all URIs to be relative)
 * Add 'analysisTarget' to invocation object, for cases where a single target is associated with a run
+* Add 'threadId' to notification, annotatedCodeLocation and stackFrame.
 
 
