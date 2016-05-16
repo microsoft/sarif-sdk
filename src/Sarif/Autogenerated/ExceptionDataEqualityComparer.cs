@@ -10,7 +10,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// <summary>
     /// Defines methods to support the comparison of objects of type ExceptionData for equality.
     /// </summary>
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.32.0.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.33.0.0")]
     internal sealed class ExceptionDataEqualityComparer : IEqualityComparer<ExceptionData>
     {
         internal static readonly ExceptionDataEqualityComparer Instance = new ExceptionDataEqualityComparer();
@@ -33,11 +33,6 @@ namespace Microsoft.CodeAnalysis.Sarif
             }
 
             if (left.Message != right.Message)
-            {
-                return false;
-            }
-
-            if (left.ThreadId != right.ThreadId)
             {
                 return false;
             }
@@ -91,7 +86,6 @@ namespace Microsoft.CodeAnalysis.Sarif
                     result = (result * 31) + obj.Message.GetHashCode();
                 }
 
-                result = (result * 31) + obj.ThreadId.GetHashCode();
                 if (obj.Stack != null)
                 {
                     result = (result * 31) + obj.Stack.ValueGetHashCode();
