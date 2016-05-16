@@ -58,6 +58,11 @@ namespace Microsoft.CodeAnalysis.Sarif
                 return false;
             }
 
+            if (left.ThreadId != right.ThreadId)
+            {
+                return false;
+            }
+
             if (left.FullyQualifiedLogicalName != right.FullyQualifiedLogicalName)
             {
                 return false;
@@ -151,6 +156,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                     result = (result * 31) + obj.Module.GetHashCode();
                 }
 
+                result = (result * 31) + obj.ThreadId.GetHashCode();
                 if (obj.FullyQualifiedLogicalName != null)
                 {
                     result = (result * 31) + obj.FullyQualifiedLogicalName.GetHashCode();

@@ -63,10 +63,16 @@ namespace Microsoft.CodeAnalysis.Sarif
         public int Column { get; set; }
 
         /// <summary>
-        /// The name of the module that contains the code that is executing.
+        /// The name of the module that contains the code for this stack frame.
         /// </summary>
         [DataMember(Name = "module", IsRequired = true)]
         public string Module { get; set; }
+
+        /// <summary>
+        /// The thread identifier of the stack frame.
+        /// </summary>
+        [DataMember(Name = "threadId", IsRequired = false, EmitDefaultValue = false)]
+        public int ThreadId { get; set; }
 
         /// <summary>
         /// The fully qualified name of the method or function that is executing.
@@ -126,6 +132,9 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="module">
         /// An initialization value for the <see cref="P: Module" /> property.
         /// </param>
+        /// <param name="threadId">
+        /// An initialization value for the <see cref="P: ThreadId" /> property.
+        /// </param>
         /// <param name="fullyQualifiedLogicalName">
         /// An initialization value for the <see cref="P: FullyQualifiedLogicalName" /> property.
         /// </param>
@@ -141,9 +150,9 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="properties">
         /// An initialization value for the <see cref="P: Properties" /> property.
         /// </param>
-        public StackFrame(string message, Uri uri, string uriBaseId, int line, int column, string module, string fullyQualifiedLogicalName, int address, int offset, IEnumerable<string> parameters, IDictionary<string, SerializedPropertyInfo> properties)
+        public StackFrame(string message, Uri uri, string uriBaseId, int line, int column, string module, int threadId, string fullyQualifiedLogicalName, int address, int offset, IEnumerable<string> parameters, IDictionary<string, SerializedPropertyInfo> properties)
         {
-            Init(message, uri, uriBaseId, line, column, module, fullyQualifiedLogicalName, address, offset, parameters, properties);
+            Init(message, uri, uriBaseId, line, column, module, threadId, fullyQualifiedLogicalName, address, offset, parameters, properties);
         }
 
         /// <summary>
@@ -162,7 +171,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 throw new ArgumentNullException(nameof(other));
             }
 
-            Init(other.Message, other.Uri, other.UriBaseId, other.Line, other.Column, other.Module, other.FullyQualifiedLogicalName, other.Address, other.Offset, other.Parameters, other.Properties);
+            Init(other.Message, other.Uri, other.UriBaseId, other.Line, other.Column, other.Module, other.ThreadId, other.FullyQualifiedLogicalName, other.Address, other.Offset, other.Parameters, other.Properties);
         }
 
         ISarifNode ISarifNode.DeepClone()
@@ -183,7 +192,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new StackFrame(this);
         }
 
-        private void Init(string message, Uri uri, string uriBaseId, int line, int column, string module, string fullyQualifiedLogicalName, int address, int offset, IEnumerable<string> parameters, IDictionary<string, SerializedPropertyInfo> properties)
+        private void Init(string message, Uri uri, string uriBaseId, int line, int column, string module, int threadId, string fullyQualifiedLogicalName, int address, int offset, IEnumerable<string> parameters, IDictionary<string, SerializedPropertyInfo> properties)
         {
             Message = message;
             if (uri != null)
@@ -195,6 +204,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             Line = line;
             Column = column;
             Module = module;
+            ThreadId = threadId;
             FullyQualifiedLogicalName = fullyQualifiedLogicalName;
             Address = address;
             Offset = offset;
