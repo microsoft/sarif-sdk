@@ -58,6 +58,11 @@ namespace Microsoft.CodeAnalysis.Sarif
                 return false;
             }
 
+            if (left.ThreadId != right.ThreadId)
+            {
+                return false;
+            }
+
             if (left.Time != right.Time)
             {
                 return false;
@@ -129,6 +134,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 }
 
                 result = (result * 31) + obj.Level.GetHashCode();
+                result = (result * 31) + obj.ThreadId.GetHashCode();
                 result = (result * 31) + obj.Time.GetHashCode();
                 if (obj.Exception != null)
                 {

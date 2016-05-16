@@ -143,7 +143,7 @@
         },
 
         "threadId": {
-          "description": "The thread identifier of the code that raised the exception.",
+          "description": "The thread identifier of the code that handled the exception.",
           "type": "integer"
         },
 
