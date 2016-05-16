@@ -484,6 +484,11 @@
           "enum": [ "note", "warning", "error" ]
         },
 
+        "threadId": {
+          "description": "The thread identifier of the code that generated the notification.",
+          "type": "integer"
+        },
+
         "time": {
           "description": "The date and time at which the analysis tool generated the notification.",
           "type": "string",
