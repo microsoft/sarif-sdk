@@ -35,7 +35,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// </summary>
         [JsonConverter(typeof(PropertyBagConverter))]
         [JsonProperty("properties", DefaultValueHandling = DefaultValueHandling.Ignore)]
-        internal abstract IDictionary<string, SerializedPropertyInfo> Properties { get; set; }
+        internal virtual IDictionary<string, SerializedPropertyInfo> Properties { get; set; }
 
         public bool TryGetProperty(string propertyName, out string value)
         {
