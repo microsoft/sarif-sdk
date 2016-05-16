@@ -154,71 +154,79 @@ SarifRegion::SetStartColumn(const std::wstring &value)
 {
 	wchar_t * pEnd;
 	int intVal = wcstol(value.c_str(), &pEnd, BASE10);
-    if (*pEnd)
-        throw std::exception("Invalid Start Column specified.");
+	if (*pEnd)
+		throw std::exception("Invalid Start Column specified.");
 	SetStartColumn(intVal);
 }
 
-void 
+void
 SarifRegion::SetEndLine(const std::wstring &value)
 {
 	wchar_t * pEnd;
 	int intVal = wcstol(value.c_str(), &pEnd, BASE10);
-    if (*pEnd)
-        throw std::exception("Invalid End Line specified.");
+	if (*pEnd)
+		throw std::exception("Invalid End Line specified.");
 	SetEndLine(intVal);
 }
 
-void 
+void
 SarifRegion::SetEndColumn(const std::wstring &value)
 {
 	wchar_t * pEnd;
 	int intVal = wcstol(value.c_str(), &pEnd, BASE10);
-    if (*pEnd)
-        throw std::exception("Invalid End Column specified.");
+	if (*pEnd)
+		throw std::exception("Invalid End Column specified.");
 	SetEndColumn(intVal);
 }
 
-void 
-SarifRegion::SetOffset
-(const std::wstring &value)
+void
+SarifRegion::SetOffset(const std::wstring &value)
 {
 	wchar_t * pEnd;
 	int intVal = wcstol(value.c_str(), &pEnd, BASE10);
-    if (*pEnd)
-        throw std::exception("Invalid Char Offset specified.");
-	SetCharOffset(intVal);
+	if (*pEnd)
+		throw std::exception("Invalid Offset specified.");
+	SetOffset(intVal);
 }
 
-void 
+void
 SarifRegion::SetLength(const std::wstring &value)
 {
 	wchar_t * pEnd;
 	int intVal = wcstol(value.c_str(), &pEnd, BASE10);
-    if (*pEnd)
-        throw std::exception("Invalid Length specified.");
+	if (*pEnd)
+		throw std::exception("Invalid Length specified.");
 	SetLength(intVal);
 }
 
-void 
+void
 SarifFileChange::AddReplacement(const SarifReplacement &replacement)
 {
-    m_values.GetArrayElement(L"replacements").push_back(replacement.m_values);
+	m_values.GetArrayElement(L"replacements").push_back(replacement.m_values);
 }
 
-void 
+void
 SarifLogicalLocation::AddLogicalLocationComponent(const std::wstring &name, const wchar_t *locationKind)
 {
-    SarifLogicalLocationComponent location;
-    location.SetLocationKind(locationKind);
-    location.SetName(name);
-    AddLogicalLocationComponent(location);
+	SarifLogicalLocationComponent location;
+	location.SetLocationKind(locationKind);
+	location.SetName(name);
+	AddLogicalLocationComponent(location);
 }
 
-void 
+void
 SarifLogicalLocation::AddLogicalLocationComponent(const SarifLogicalLocationComponent &component)
 {
-    m_values.push_back(component.m_values);
+	m_values.push_back(component.m_values);
+}
+
+void
+SarifLocation::AddTag(const std::wstring &tag)
+{
+	if (m_values.find(L"properties") == m_values.end())
+		m_values[L"properties"] = json::Object();
+
+	((json::Object)m_values[L"properties"]).GetArrayElement(L"tags").push_back(tag);
 }
 
 void
@@ -226,13 +234,46 @@ SarifLocation::AddProperty(const std::wstring &key, const std::wstring &value)
 {
 	if (m_values.find(L"properties") == m_values.end())
 		m_values[L"properties"] = json::Object();
+
 	m_values[L"properties"][key] = value;
 }
 
 void
-SarifCodeFlow::AddAnnotatedCodeLocation(const SarifAnnotatedCodeLocation &location)
+SarifCodeFlow::AddLocation(const SarifAnnotatedCodeLocation &location)
 {
 	m_values.GetArrayElement(L"locations").push_back(location.m_values);
+}
+
+void
+SarifAnnotatedCodeLocation::SetEssential(const std::wstring &value)
+{
+	const wchar_t* essential = value.c_str();
+
+	if (wcscmp(essential, L"TRUE") == 0 ||
+		wcscmp(essential, L"True") == 0 ||
+		wcscmp(essential, L"true") == 0)
+	{
+		SetEssential(true);
+		return;
+	}
+
+	if (wcscmp(essential, L"FALSE") == 0 ||
+		wcscmp(essential, L"False") == 0 ||
+		wcscmp(essential, L"false") == 0)
+	{
+		SetEssential(false);
+	}
+
+	throw std::exception("Value could not be converted to bool.");
+}
+
+void
+SarifAnnotatedCodeLocation::AddTag(const std::wstring &tag)
+{
+	if (m_values.find(L"properties") == m_values.end())
+		m_values[L"properties"] = json::Object();
+
+	((json::Object)m_values[L"properties"]).GetArrayElement(L"tags").push_back(tag);
 }
 
 void
@@ -249,6 +290,15 @@ SarifFix::AddFileChange(const SarifFileChange &change)
     m_values.GetArrayElement(L"fileChanges").push_back(change.m_values);
 }
 
+void
+SarifResult::AddTag(const std::wstring &tag)
+{
+	if (m_values.find(L"properties") == m_values.end())
+		m_values[L"properties"] = json::Object();
+
+	((json::Object)m_values[L"properties"]).GetArrayElement(L"tags").push_back(tag);
+}
+
 void 
 SarifResult::AddProperty(const std::wstring &key, const std::wstring &value)
 {
@@ -260,13 +310,25 @@ SarifResult::AddProperty(const std::wstring &key, const std::wstring &value)
 void
 SarifResult::AddLocation(const SarifLocation &location)
 {
-    m_values.GetArrayElement(L"locations").push_back(location.m_values);
+	m_values.GetArrayElement(L"locations").push_back(location.m_values);
+}
+
+void
+SarifResult::AddRelatedLocation(const SarifAnnotatedCodeLocation &location)
+{
+	m_values.GetArrayElement(L"relatedLocations").push_back(location.m_values);
+}
+
+void
+SarifResult::AddStack(const SarifStack &stack)
+{
+	m_values.GetArrayElement(L"stacks").push_back(stack.m_values);
 }
 
 void
 SarifResult::AddCodeFlow(const SarifCodeFlow &codeFlow)
 {
-    m_values.GetArrayElement(L"codeFlows").push_back(codeFlow.m_values);
+	m_values.GetArrayElement(L"codeFlows").push_back(codeFlow.m_values);
 }
 
 void
@@ -291,12 +353,51 @@ SarifFile::AddHash(const SarifHash &hash)
 }
 
 void
+SarifFile::AddTag(const std::wstring &tag)
+{
+	if (m_values.find(L"properties") == m_values.end())
+		m_values[L"properties"] = json::Object();
+
+	((json::Object)m_values[L"properties"]).GetArrayElement(L"tags").push_back(tag);
+}
+
+void
+SarifFile::AddProperty(const std::wstring &key, const std::wstring &value)
+{
+	if (m_values.find(L"properties") == m_values.end())
+		m_values[L"properties"] = json::Object();
+
+	m_values[L"properties"][key] = value;
+}
+
+void
+SarifRun::AddRule(const std::wstring &key, const SarifRule &rule)
+{
+	if (m_values.find(L"rules") == m_values.end())
+		m_values[L"rules"] = json::Object();
+
+	m_values[L"rules"][key] = rule.m_values;
+}
+
+void
 SarifRun::AddFile(const std::wstring &key, const SarifFile &file)
 {
 	if (m_values.find(L"files") == m_values.end())
 		m_values[L"file"] = json::Object();
 
 	m_values[L"files"][key] = file.m_values;
+}
+
+void
+SarifRun::AddToolNotification(const SarifNotification &toolNotification)
+{
+	m_values.GetArrayElement(L"toolNotification").push_back(toolNotification.m_values);
+}
+
+void
+SarifRun::AddConfigurationNotification(const SarifNotification &configurationNotification)
+{
+	m_values.GetArrayElement(L"configurationNotifications").push_back(configurationNotification.m_values);
 }
 
 void
@@ -315,7 +416,168 @@ SarifRun::AddResult(const SarifResult &result)
 }
 
 void
+SarifRun::AddTag(const std::wstring &tag)
+{
+	if (m_values.find(L"properties") == m_values.end())
+		m_values[L"properties"] = json::Object();
+
+	((json::Object)m_values[L"properties"]).GetArrayElement(L"tags").push_back(tag);
+}
+
+void
+SarifRun::AddProperty(const std::wstring &key, const std::wstring &value)
+{
+	if (m_values.find(L"properties") == m_values.end())
+		m_values[L"properties"] = json::Object();
+
+	m_values[L"properties"][key] = value;
+}
+
+void
 SarifLog::AddRun(const SarifRun &run)
 {
     m_values.GetArrayElement(L"runs").push_back(run.m_values);
+}
+
+void
+SarifTool::AddTag(const std::wstring &tag)
+{
+	if (m_values.find(L"properties") == m_values.end())
+		m_values[L"properties"] = json::Object();
+
+	((json::Object)m_values[L"properties"]).GetArrayElement(L"tags").push_back(tag);
+}
+
+void
+SarifTool::AddProperty(const std::wstring &key, const std::wstring &value)
+{
+	if (m_values.find(L"properties") == m_values.end())
+		m_values[L"properties"] = json::Object();
+
+	m_values[L"properties"][key] = value;
+}
+
+void
+SarifException::AddInnerException(const SarifException &exception)
+{
+	m_values.GetArrayElement(L"innerException").push_back(exception.m_values);
+}
+
+void
+SarifFormattedMessage::AddArgument(const std::wstring &argument)
+{
+	m_values.GetArrayElement(L"arguments").push_back(argument);
+}
+
+void
+SarifNotification::AddTag(const std::wstring &tag)
+{
+	if (m_values.find(L"properties") == m_values.end())
+		m_values[L"properties"] = json::Object();
+
+	((json::Object)m_values[L"properties"]).GetArrayElement(L"tags").push_back(tag);
+}
+
+void
+SarifNotification::AddProperty(const std::wstring &key, const std::wstring &value)
+{
+	if (m_values.find(L"properties") == m_values.end())
+		m_values[L"properties"] = json::Object();
+
+	m_values[L"properties"][key] = value;
+}
+
+void
+SarifRule::AddMessageFormat(const std::wstring &key, const std::wstring &messageFormat)
+{
+	if (m_values.find(L"messageFormats") == m_values.end())
+		m_values[L"messageFormats"] = json::Object();
+
+	m_values[L"messageFormats"][key] = messageFormat;
+}
+
+void
+SarifRule::AddTag(const std::wstring &tag)
+{
+	if (m_values.find(L"properties") == m_values.end())
+		m_values[L"properties"] = json::Object();
+
+	((json::Object)m_values[L"properties"]).GetArrayElement(L"tags").push_back(tag);
+}
+
+void
+SarifRule::AddProperty(const std::wstring &key, const std::wstring &value)
+{
+	if (m_values.find(L"properties") == m_values.end())
+		m_values[L"properties"] = json::Object();
+
+	m_values[L"properties"][key] = value;
+}
+
+void
+SarifStack::AddFrame(const SarifStackFrame &stackFrame)
+{
+	m_values.GetArrayElement(L"frames").push_back(stackFrame.m_values);
+}
+
+void
+SarifStack::AddTag(const std::wstring &tag)
+{
+	if (m_values.find(L"properties") == m_values.end())
+		m_values[L"properties"] = json::Object();
+
+	((json::Object)m_values[L"properties"]).GetArrayElement(L"tags").push_back(tag);
+}
+
+void
+SarifStack::AddProperty(const std::wstring &key, const std::wstring &value)
+{
+	if (m_values.find(L"properties") == m_values.end())
+		m_values[L"properties"] = json::Object();
+
+	m_values[L"properties"][key] = value;
+}
+
+void
+SarifStackFrame::AddParameter(const std::wstring &parameter)
+{
+	m_values.GetArrayElement(L"parameters").push_back(parameter);
+}
+
+void
+SarifStackFrame::AddTag(const std::wstring &tag)
+{
+	if (m_values.find(L"properties") == m_values.end())
+		m_values[L"properties"] = json::Object();
+
+	((json::Object)m_values[L"properties"]).GetArrayElement(L"tags").push_back(tag);
+}
+
+void
+SarifStackFrame::AddProperty(const std::wstring &key, const std::wstring &value)
+{
+	if (m_values.find(L"properties") == m_values.end())
+		m_values[L"properties"] = json::Object();
+
+	m_values[L"properties"][key] = value;
+}
+
+void
+SarifReplacement::SetOffset(const std::wstring &value)
+{
+	wchar_t * pEnd;
+	int intVal = wcstol(value.c_str(), &pEnd, BASE10);
+	if (*pEnd)
+		throw std::exception("Invalid Offset specified.");
+	SetOffset(intVal);
+}
+
+void
+SarifReplacement::SetDeletedLength(const std::wstring &value)
+{
+	wchar_t * pEnd;
+	int intVal = wcstol(value.c_str(), &pEnd, BASE10);
+	if (*pEnd)
+		throw std::exception("Invalid Deleted Length specified.");
+	SetDeletedLength(intVal);
 }

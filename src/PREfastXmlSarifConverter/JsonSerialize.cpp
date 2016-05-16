@@ -464,7 +464,6 @@ Array& Object::GetArrayElement(const std::wstring& key)
     return mValues[key].ToWritableArray();
 }
 
-
 Object::ValueMap::const_iterator Object::begin() const
 {
 	return mValues.begin();

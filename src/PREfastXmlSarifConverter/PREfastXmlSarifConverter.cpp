@@ -507,13 +507,16 @@ HRESULT __stdcall Convert(const std::deque<XmlDefect> defectList, BSTR bstrOutpu
 
                 if (keyEvent.IsValid())
                 {
-                    annotation.AddProperty(L"id", keyEvent.GetId());
-                    annotation.AddProperty(L"kind", keyEvent.GetKind());
-                    annotation.AddProperty(L"importance", keyEvent.GetImportance());
+					annotation.SetId(keyEvent.GetId());
+					annotation.SetKind(keyEvent.GetKind());
+					annotation.SetMessage(keyEvent.GetMessage());
 
-                    annotation.SetMessage(keyEvent.GetMessage());
+					if (wcscmp(keyEvent.GetImportance(), L"essential") == 0)
+					{
+						annotation.SetEssential(L"true");
+					}
                 }
-                codeFlow.AddAnnotatedCodeLocation(annotation);
+                codeFlow.AddLocation(annotation);
             }
             result.AddCodeFlow(codeFlow);
         }
