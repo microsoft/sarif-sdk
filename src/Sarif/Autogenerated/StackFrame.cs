@@ -63,7 +63,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         public int Column { get; set; }
 
         /// <summary>
-        /// The name of the module that contains the code for this stack frame.
+        /// The name of the module that contains the code of this stack frame.
         /// </summary>
         [DataMember(Name = "module", IsRequired = true)]
         public string Module { get; set; }
