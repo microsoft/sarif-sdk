@@ -39,6 +39,12 @@ namespace Microsoft.CodeAnalysis.Sarif
         public Uri Uri { get; set; }
 
         /// <summary>
+        /// A string that identifies the conceptual base for the 'uri' property (if it is relative), e.g.,'$(SolutionDir)' or '%SRCROOT%'.
+        /// </summary>
+        [DataMember(Name = "uriBaseId", IsRequired = false, EmitDefaultValue = false)]
+        public string UriBaseId { get; set; }
+
+        /// <summary>
         /// The offset in bytes of the file within its containing file.
         /// </summary>
         [DataMember(Name = "offset", IsRequired = false, EmitDefaultValue = false)]
@@ -81,6 +87,9 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="uri">
         /// An initialization value for the <see cref="P: Uri" /> property.
         /// </param>
+        /// <param name="uriBaseId">
+        /// An initialization value for the <see cref="P: UriBaseId" /> property.
+        /// </param>
         /// <param name="offset">
         /// An initialization value for the <see cref="P: Offset" /> property.
         /// </param>
@@ -96,9 +105,9 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="properties">
         /// An initialization value for the <see cref="P: Properties" /> property.
         /// </param>
-        public FileData(Uri uri, int offset, int length, string mimeType, IEnumerable<Hash> hashes, IDictionary<string, SerializedPropertyInfo> properties)
+        public FileData(Uri uri, string uriBaseId, int offset, int length, string mimeType, IEnumerable<Hash> hashes, IDictionary<string, SerializedPropertyInfo> properties)
         {
-            Init(uri, offset, length, mimeType, hashes, properties);
+            Init(uri, uriBaseId, offset, length, mimeType, hashes, properties);
         }
 
         /// <summary>
@@ -117,7 +126,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 throw new ArgumentNullException(nameof(other));
             }
 
-            Init(other.Uri, other.Offset, other.Length, other.MimeType, other.Hashes, other.Properties);
+            Init(other.Uri, other.UriBaseId, other.Offset, other.Length, other.MimeType, other.Hashes, other.Properties);
         }
 
         ISarifNode ISarifNode.DeepClone()
@@ -138,13 +147,14 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new FileData(this);
         }
 
-        private void Init(Uri uri, int offset, int length, string mimeType, IEnumerable<Hash> hashes, IDictionary<string, SerializedPropertyInfo> properties)
+        private void Init(Uri uri, string uriBaseId, int offset, int length, string mimeType, IEnumerable<Hash> hashes, IDictionary<string, SerializedPropertyInfo> properties)
         {
             if (uri != null)
             {
                 Uri = new Uri(uri.OriginalString, uri.IsAbsoluteUri ? UriKind.Absolute : UriKind.Relative);
             }
 
+            UriBaseId = uriBaseId;
             Offset = offset;
             Length = length;
             MimeType = mimeType;

@@ -16,6 +16,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         bool TryGetProperty<T>(string propertyName, out T value);
         T GetProperty<T>(string propertyName);
         void SetProperty<T>(string propertyName, T value);
+        void SetPropertiesFrom(IPropertyBagHolder other);
         void RemoveProperty(string propertyName);
     }
 }

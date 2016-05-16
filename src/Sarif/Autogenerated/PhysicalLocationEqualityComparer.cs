@@ -32,6 +32,11 @@ namespace Microsoft.CodeAnalysis.Sarif
                 return false;
             }
 
+            if (left.UriBaseId != right.UriBaseId)
+            {
+                return false;
+            }
+
             if (!Region.ValueComparer.Equals(left.Region, right.Region))
             {
                 return false;
@@ -53,6 +58,11 @@ namespace Microsoft.CodeAnalysis.Sarif
                 if (obj.Uri != null)
                 {
                     result = (result * 31) + obj.Uri.GetHashCode();
+                }
+
+                if (obj.UriBaseId != null)
+                {
+                    result = (result * 31) + obj.UriBaseId.GetHashCode();
                 }
 
                 if (obj.Region != null)

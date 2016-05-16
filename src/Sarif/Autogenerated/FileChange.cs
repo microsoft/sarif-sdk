@@ -38,6 +38,12 @@ namespace Microsoft.CodeAnalysis.Sarif
         public Uri Uri { get; set; }
 
         /// <summary>
+        /// A string that identifies the conceptual base for the 'uri' property (if it is relative), e.g.,'$(SolutionDir)' or '%SRCROOT%'.
+        /// </summary>
+        [DataMember(Name = "uriBaseId", IsRequired = false, EmitDefaultValue = false)]
+        public string UriBaseId { get; set; }
+
+        /// <summary>
         /// An array of replacement objects, each of which represents the replacement of a single range of bytes in a single file specified by 'uri'.
         /// </summary>
         [DataMember(Name = "replacements", IsRequired = true)]
@@ -56,12 +62,15 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="uri">
         /// An initialization value for the <see cref="P: Uri" /> property.
         /// </param>
+        /// <param name="uriBaseId">
+        /// An initialization value for the <see cref="P: UriBaseId" /> property.
+        /// </param>
         /// <param name="replacements">
         /// An initialization value for the <see cref="P: Replacements" /> property.
         /// </param>
-        public FileChange(Uri uri, IEnumerable<Replacement> replacements)
+        public FileChange(Uri uri, string uriBaseId, IEnumerable<Replacement> replacements)
         {
-            Init(uri, replacements);
+            Init(uri, uriBaseId, replacements);
         }
 
         /// <summary>
@@ -80,7 +89,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 throw new ArgumentNullException(nameof(other));
             }
 
-            Init(other.Uri, other.Replacements);
+            Init(other.Uri, other.UriBaseId, other.Replacements);
         }
 
         ISarifNode ISarifNode.DeepClone()
@@ -101,13 +110,14 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new FileChange(this);
         }
 
-        private void Init(Uri uri, IEnumerable<Replacement> replacements)
+        private void Init(Uri uri, string uriBaseId, IEnumerable<Replacement> replacements)
         {
             if (uri != null)
             {
                 Uri = new Uri(uri.OriginalString, uri.IsAbsoluteUri ? UriKind.Absolute : UriKind.Relative);
             }
 
+            UriBaseId = uriBaseId;
             if (replacements != null)
             {
                 var destination_0 = new List<Replacement>();

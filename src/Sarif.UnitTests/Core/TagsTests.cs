@@ -18,6 +18,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Core
             internal override IDictionary<string, SerializedPropertyInfo> Properties { get; set; }
         }
 
+        private void InitializeTags(params string[] tags)
+        {
+            _testObject.SetProperty(Tags.TagsPropertyName, tags);
+        }
+
         [TestMethod]
         public void Tags_IsInitiallyEmpty()
         {
@@ -29,8 +34,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Core
         [TestMethod]
         public void Tags_Add_AddsTag()
         {
-            _testObject.Tags.Add("x");
+            bool wasAdded =_testObject.Tags.Add("x");
 
+            wasAdded.Should().BeTrue();
             _testObject.Tags.Count.Should().Be(1);
             _testObject.Tags.Contains("x").Should().BeTrue();
         }
@@ -38,9 +44,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Core
         [TestMethod]
         public void Tags_Add_AddsTagsOnlyOnce()
         {
-            _testObject.Tags.Add("x");
-            _testObject.Tags.Add("x");
+            InitializeTags("x");
 
+            bool wasAdded =_testObject.Tags.Add("x");
+
+            wasAdded.Should().BeFalse();
             _testObject.Tags.Count.Should().Be(1);
             _testObject.Tags.Contains("x").Should().BeTrue();
         }
@@ -48,8 +56,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Core
         [TestMethod]
         public void Tags_Add_AddsMultipleTags()
         {
-            _testObject.Tags.Add("x");
-            _testObject.Tags.Add("y");
+            InitializeTags("x", "y");
 
             _testObject.Tags.Count.Should().Be(2);
             _testObject.Tags.Contains("x").Should().BeTrue();
@@ -59,8 +66,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Core
         [TestMethod]
         public void Tags_Clear_ClearsTags()
         {
-            _testObject.Tags.Add("x");
-            _testObject.Tags.Add("y");
+            InitializeTags("x", "y");
 
             _testObject.Tags.Clear();
 
@@ -80,8 +86,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Core
         [TestMethod]
         public void Tags_CopyTo_CopiesToArray()
         {
-            _testObject.Tags.Add("x");
-            _testObject.Tags.Add("y");
+            InitializeTags("x", "y");
             var array = new string[] { "a", "b", "c", "d" };
 
             _testObject.Tags.CopyTo(array, 1);
@@ -102,10 +107,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Core
         [TestMethod]
         public void Tags_ExceptWith_RemovesSpecifiedElements()
         {
-            _testObject.Tags.Add("a");
-            _testObject.Tags.Add("b");
-            _testObject.Tags.Add("c");
-            _testObject.Tags.Add("d");
+            InitializeTags("a", "b", "c", "d");
 
             _testObject.Tags.ExceptWith(new[] { "b", "c", "e" });
 
@@ -124,10 +126,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Core
         [TestMethod]
         public void Tags_IntersectWith_ReturnsCommonElements()
         {
-            _testObject.Tags.Add("a");
-            _testObject.Tags.Add("b");
-            _testObject.Tags.Add("c");
-            _testObject.Tags.Add("d");
+            InitializeTags("a", "b", "c", "d");
 
             _testObject.Tags.IntersectWith(new[] { "b", "c", "e" });
 
@@ -144,7 +143,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Core
         }
 
         [TestMethod]
-        public void Tags_IsProperSubsetOf_ReturnsFalseWhenEmptyAndOtherIsEmpty()
+        public void Tags_IsProperSubsetOf_ReturnsFalseWhenBothAreEmpty()
         {
             _testObject.Tags.IsProperSubsetOf(new string[0]).Should().BeFalse();
         }
@@ -156,19 +155,17 @@ namespace Microsoft.CodeAnalysis.Sarif.Core
         }
 
         [TestMethod]
-        public void Tags_IsProperSubsetOf_ReturnsFalseWhenNonEmptyAndOtherHasSameElements()
+        public void Tags_IsProperSubsetOf_ReturnsFalseWhenHaveSameElements()
         {
-            _testObject.Tags.Add("x");
-            _testObject.Tags.Add("y");
+            InitializeTags("x", "y");
 
             _testObject.Tags.IsProperSubsetOf(new[] { "x", "y" }).Should().BeFalse();
         }
 
         [TestMethod]
-        public void Tags_IsProperSubsetOf_ReturnsTrueWhenNonEmptyAndIsProperSupersetOfOther()
+        public void Tags_IsProperSubsetOf_ReturnsTrueWhenNonEmptyAndProperSubsetOfOther()
         {
-            _testObject.Tags.Add("x");
-            _testObject.Tags.Add("y");
+            InitializeTags("x", "y");
 
             _testObject.Tags.IsProperSubsetOf(new[] { "z", "y", "x" }).Should().BeTrue();
         }
@@ -176,11 +173,320 @@ namespace Microsoft.CodeAnalysis.Sarif.Core
         [TestMethod]
         public void Tags_IsProperSubsetOf_ReturnsFalseWhenEachSideHasSomeDifferentElements()
         {
-            _testObject.Tags.Add("x");
-            _testObject.Tags.Add("y");
-            _testObject.Tags.Add("z");
+            InitializeTags("x", "y", "z");
 
             _testObject.Tags.IsProperSubsetOf(new[] { "y", "z", "q" }).Should().BeFalse();
+        }
+
+        [TestMethod]
+        public void Tags_IsProperSupersetOf_ReturnsFalseWhenBothAreEmpty()
+        {
+            _testObject.Tags.IsProperSupersetOf(new string[0]).Should().BeFalse();
+        }
+
+        [TestMethod]
+        public void Tags_IsProperSupersetOf_ReturnsTrueWhenNonEmptyAndOtherIsEmpty()
+        {
+            InitializeTags("x");
+
+            _testObject.Tags.IsProperSupersetOf(new string[0]).Should().BeTrue();
+        }
+
+        [TestMethod]
+        public void Tags_IsProperSupersetOf_ReturnsFalseWhenHaveSameElements()
+        {
+            InitializeTags("x", "y");
+
+            _testObject.Tags.IsProperSupersetOf(new[] { "x", "y" }).Should().BeFalse();
+        }
+
+        [TestMethod]
+        public void Tags_IsProperSupersetOf_ReturnsTrueWhenNonEmptyAndProperSupersetOfOther()
+        {
+            InitializeTags("x", "y", "z");
+
+            _testObject.Tags.IsProperSupersetOf(new[] { "y", "x" }).Should().BeTrue();
+        }
+
+        [TestMethod]
+        public void Tags_IsProperSupersetOf_ReturnsFalseWhenEachSideHasSomeDifferentElements()
+        {
+            InitializeTags("x", "y", "z");
+
+            _testObject.Tags.IsProperSupersetOf(new[] { "y", "z", "q" }).Should().BeFalse();
+        }
+
+        [TestMethod]
+        public void Tags_IsSubsetOf_ReturnsTrueWhenBothAreEmpty()
+        {
+            _testObject.Tags.IsSubsetOf(new string[0]).Should().BeTrue();
+        }
+
+        [TestMethod]
+        public void Tags_IsSubsetOf_ReturnsTrueWhenEmptyAndOtherIsNonEmpty()
+        {
+            _testObject.Tags.IsSubsetOf(new[] { "x" }).Should().BeTrue();
+        }
+
+        [TestMethod]
+        public void Tags_IsSubsetOf_ReturnsTrueWhenHaveSameElements()
+        {
+            InitializeTags("x", "y");
+
+            _testObject.Tags.IsSubsetOf(new[] { "x", "y" }).Should().BeTrue();
+        }
+
+        [TestMethod]
+        public void Tags_IsSubsetOf_ReturnsTrueWhenNonEmptyAndProperSubsetOfOther()
+        {
+            InitializeTags("x", "y");
+
+            _testObject.Tags.IsSubsetOf(new[] { "z", "y", "x" }).Should().BeTrue();
+        }
+
+        [TestMethod]
+        public void Tags_IsSubsetOf_ReturnsFalseWhenEachSideHasSomeDifferentElements()
+        {
+            InitializeTags("x", "y", "z");
+
+            _testObject.Tags.IsSubsetOf(new[] { "y", "z", "q" }).Should().BeFalse();
+        }
+
+        [TestMethod]
+        public void Tags_IsSupersetOf_ReturnsTrueWhenBothAreEmpty()
+        {
+            _testObject.Tags.IsSupersetOf(new string[0]).Should().BeTrue();
+        }
+
+        [TestMethod]
+        public void Tags_IsSupersetOf_ReturnsTrueWhenNonEmptyAndOtherIsEmpty()
+        {
+            InitializeTags("x");
+
+            _testObject.Tags.IsSupersetOf(new string[0]).Should().BeTrue();
+        }
+
+        [TestMethod]
+        public void Tags_IsSupersetOf_ReturnsTrueWhenHaveSameElements()
+        {
+            InitializeTags("x", "y");
+
+            _testObject.Tags.IsSupersetOf(new[] { "x", "y" }).Should().BeTrue();
+        }
+
+        [TestMethod]
+        public void Tags_IsSupersetOf_ReturnsTrueWhenNonEmptyAndProperSupersetOfOther()
+        {
+            InitializeTags("x", "y", "z");
+
+            _testObject.Tags.IsSupersetOf(new[] { "y", "x" }).Should().BeTrue();
+        }
+
+        [TestMethod]
+        public void Tags_IsSupersetOf_ReturnsFalseWhenEachSideHasSomeDifferentElements()
+        {
+            InitializeTags("x", "y", "z");
+
+            _testObject.Tags.IsSupersetOf(new[] { "y", "z", "q" }).Should().BeFalse();
+        }
+
+        [TestMethod]
+        public void Tags_Overlaps_ReturnsFalseWhenBothAreEmpty()
+        {
+            _testObject.Tags.Overlaps(new string[0]).Should().BeFalse();
+        }
+
+        [TestMethod]
+        public void Tags_Overlaps_ReturnsFalseWhenEmptyAndOtherIsNonEmpty()
+        {
+            _testObject.Tags.Overlaps(new[] { "x" }).Should().BeFalse();
+        }
+
+        [TestMethod]
+        public void Tags_Overlaps_ReturnsFalseWhenNonEmptyAndOtherIsEmpty()
+        {
+            InitializeTags("x");
+
+            _testObject.Tags.Overlaps(new string[0]).Should().BeFalse();
+        }
+
+        [TestMethod]
+        public void Tags_Overlaps_ReturnsFalseWhenDisjoint()
+        {
+            InitializeTags("x", "y");
+
+            _testObject.Tags.Overlaps(new[] { "a", "b" }).Should().BeFalse();
+        }
+
+        [TestMethod]
+        public void Tags_Overlaps_ReturnsTrueWhenNonDisjoint()
+        {
+            InitializeTags("x", "y", "q");
+
+            _testObject.Tags.Overlaps(new[] { "a", "b", "q" }).Should().BeTrue();
+        }
+
+        [TestMethod]
+        public void Tags_Remove_RemovesSpecifiedItem()
+        {
+            InitializeTags("x", "y");
+
+            bool wasRemoved = _testObject.Tags.Remove("x");
+
+            wasRemoved.Should().BeTrue();
+            _testObject.Tags.Count.Should().Be(1);
+            _testObject.Tags.Should().Contain("y");
+        }
+
+        [TestMethod]
+        public void Tags_Remove_WorksWhenItemIsNotPresent()
+        {
+            InitializeTags("y");
+
+            bool wasRemoved = _testObject.Tags.Remove("x");
+
+            wasRemoved.Should().BeFalse();
+            _testObject.Tags.Count.Should().Be(1);
+            _testObject.Tags.Should().Contain("y");
+        }
+
+        [TestMethod]
+        public void Tags_Remove_WorksOnEmptyTags()
+        {
+            bool wasRemoved = _testObject.Tags.Remove("x");
+
+            wasRemoved.Should().BeFalse();
+            _testObject.Tags.Should().BeEmpty();
+        }
+
+        [TestMethod]
+        public void Tags_SetEquals_ReturnsTrueWhenBothAreEmpty()
+        {
+            _testObject.Tags.SetEquals(new string[0]).Should().BeTrue();
+        }
+
+        [TestMethod]
+        public void Tags_SetEquals_ReturnsFalseWhenEmptyAndOtherIsNonEmpty()
+        {
+            _testObject.Tags.SetEquals(new[] { "x" }).Should().BeFalse();
+        }
+
+        [TestMethod]
+        public void Tags_SetEqualsReturnsFalseWhenNonEmptyAndOtherIsEmpty()
+        {
+            InitializeTags("x");
+
+            _testObject.Tags.SetEquals(new string[0]).Should().BeFalse();
+        }
+
+        [TestMethod]
+        public void Tags_SetEquals_ReturnsTrueWhenHaveSameElements()
+        {
+            InitializeTags("x", "y");
+
+            _testObject.Tags.SetEquals(new[] { "x", "y" }).Should().BeTrue();
+        }
+
+        [TestMethod]
+        public void Tags_SetEquals_ReturnsTrueWhenHaveSameElementsRegardlessOfOrder()
+        {
+            InitializeTags("x", "y");
+
+            _testObject.Tags.SetEquals(new[] { "y", "x" }).Should().BeTrue();
+        }
+
+        [TestMethod]
+        public void Tags_SetEquals_ReturnsTrueWhenElementsAreRepeated()
+        {
+            InitializeTags("x", "y");
+
+            _testObject.Tags.SetEquals(new[] { "y", "x", "x", "y", "y" }).Should().BeTrue();
+        }
+
+        [TestMethod]
+        public void Tags_SetEquals_ReturnsTrueWhenHaveDifferentElements()
+        {
+            InitializeTags("x", "y");
+
+            _testObject.Tags.SetEquals(new[] { "x", "z" }).Should().BeFalse();
+        }
+
+        [TestMethod]
+        public void Tags_SymmetricExceptWith_EmptyWhenBothAreEmpty()
+        {
+            _testObject.Tags.SymmetricExceptWith(new string[0]);
+
+            _testObject.Tags.Should().BeEmpty();
+        }
+
+        [TestMethod]
+        public void Tags_SymmetricExceptWith_OriginalElementsWhenOtherIsEmpty()
+        {
+            InitializeTags("x", "y");
+
+            _testObject.Tags.SymmetricExceptWith(new string[0]);
+
+            _testObject.Tags.Count.Should().Be(2);
+            _testObject.Tags.Should().ContainInOrder("x", "y");
+        }
+
+        [TestMethod]
+        public void Tags_SymmetricExceptWith_OtherElementsWhenEmpty()
+        {
+            _testObject.Tags.SymmetricExceptWith(new[] { "x", "y" });
+
+            _testObject.Tags.Count.Should().Be(2);
+            _testObject.Tags.Should().ContainInOrder("x", "y");
+        }
+
+        [TestMethod]
+        public void Tags_SymmetricExceptWith_ExcludesCommonElements()
+        {
+            InitializeTags("x", "y");
+
+            _testObject.Tags.SymmetricExceptWith(new[] { "z", "y" });
+
+            _testObject.Tags.Count.Should().Be(2);
+            _testObject.Tags.Should().ContainInOrder("x", "z");
+        }
+
+        [TestMethod]
+        public void Tags_UnionWith_EmptyWhenBothAreEmpty()
+        {
+            _testObject.Tags.UnionWith(new string[0]);
+
+            _testObject.Tags.Count.Should().Be(0);
+        }
+
+        [TestMethod]
+        public void Tags_UnionWith_OriginalElementsWhenOtherIsEmpty()
+        {
+            InitializeTags("x", "y");
+
+            _testObject.Tags.UnionWith(new string[0]);
+
+            _testObject.Tags.Count.Should().Be(2);
+            _testObject.Tags.Should().ContainInOrder("x", "y");
+        }
+
+        [TestMethod]
+        public void Tags_UnionWith_OtherElementsWhenEmpty()
+        {
+            _testObject.Tags.UnionWith(new[] { "x", "y" });
+
+            _testObject.Tags.Count.Should().Be(2);
+            _testObject.Tags.Should().ContainInOrder("x", "y");
+        }
+
+        [TestMethod]
+        public void Tags_UnionWith_CombinationOfElementsWhenBothAreNonEmpty()
+        {
+            InitializeTags("a", "b", "c", "d");
+
+            _testObject.Tags.UnionWith(new[] { "b", "c", "e", "f" });
+
+            _testObject.Tags.Count.Should().Be(6);
+            _testObject.Tags.Should().ContainInOrder("a", "b", "c", "d", "e", "f");
         }
     }
 }
