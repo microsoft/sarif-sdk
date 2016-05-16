@@ -44,6 +44,7 @@
         },
         "codeFlows":[
           {
+            "message":"",
             "locations":[
               {
                 "physicalLocation":{
@@ -53,12 +54,10 @@
                     "startLine":4
                   }
                 },
-                "properties":{
-                  "id":"1",
-                  "kind":"declaration",
-                  "importance":"Essential"
-                },
-                "message":"'*target' is not initialized"
+                "id":"1",
+                "kind":"declaration",
+                "message":"'*target' is not initialized",
+                "essential":true
               },{
                 "physicalLocation":{
                   "uri":"file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedannotations/an_outwithdefect.cpp",
@@ -67,11 +66,8 @@
                     "startLine":6
                   }
                 },
-                "properties":{
-                  "id":"2",
-                  "kind":"branch",
-                  "importance":"Full"
-                },
+                "id":"2",
+                "kind":"branch",
                 "message":"Skip this branch, (assume 'flag' is false)"
               },{
                 "physicalLocation":{
@@ -89,12 +85,10 @@
                     "startLine":4
                   }
                 },
-                "properties":{
-                  "id":"3",
-                  "kind":"usage",
-                  "importance":"Essential"
-                },
-                "message":"'*target' is an _Out_ parameter that may not have been assigned to"
+                "id":"3",
+                "kind":"usage",
+                "message":"'*target' is an _Out_ parameter that may not have been assigned to",
+                "essential":true
               }
             ]
           }

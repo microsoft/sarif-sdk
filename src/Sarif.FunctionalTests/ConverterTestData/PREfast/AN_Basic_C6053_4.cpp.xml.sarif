@@ -50,6 +50,7 @@
         },
         "codeFlows":[
           {
+            "message":"",
             "locations":[
               {
                 "physicalLocation":{
@@ -59,12 +60,10 @@
                     "startLine":11
                   }
                 },
-                "properties":{
-                  "id":"1",
-                  "kind":"declaration",
-                  "importance":"Essential"
-                },
-                "message":"'x' is Output from 'DoesNotZ', which may not zero-terminate it"
+                "id":"1",
+                "kind":"declaration",
+                "message":"'x' is Output from 'DoesNotZ', which may not zero-terminate it",
+                "essential":true
               },{
                 "physicalLocation":{
                   "uri":"file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedannotations/an_basic_c6053_4.cpp",
@@ -73,11 +72,8 @@
                     "startLine":13
                   }
                 },
-                "properties":{
-                  "id":"2",
-                  "kind":"usage",
-                  "importance":"Full"
-                },
+                "id":"2",
+                "kind":"usage",
                 "message":"'x' is an Input to 'RequiresZ' (declared on line 5)"
               },{
                 "physicalLocation":{
@@ -87,12 +83,10 @@
                     "startLine":13
                   }
                 },
-                "properties":{
-                  "id":"3",
-                  "kind":"usage",
-                  "importance":"Essential"
-                },
-                "message":"'x' is required to be zero-terminated by a SAL annotation on 'RequiresZ'"
+                "id":"3",
+                "kind":"usage",
+                "message":"'x' is required to be zero-terminated by a SAL annotation on 'RequiresZ'",
+                "essential":true
               }
             ]
           }
@@ -124,6 +118,7 @@
         },
         "codeFlows":[
           {
+            "message":"",
             "locations":[
               {
                 "physicalLocation":{
@@ -133,12 +128,10 @@
                     "startLine":19
                   }
                 },
-                "properties":{
-                  "id":"1",
-                  "kind":"declaration",
-                  "importance":"Essential"
-                },
-                "message":"This expression may not zero-terminate 'a'"
+                "id":"1",
+                "kind":"declaration",
+                "message":"This expression may not zero-terminate 'a'",
+                "essential":true
               },{
                 "physicalLocation":{
                   "uri":"file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedannotations/an_basic_c6053_4.cpp",
@@ -147,11 +140,8 @@
                     "startLine":21
                   }
                 },
-                "properties":{
-                  "id":"2",
-                  "kind":"usage",
-                  "importance":"Full"
-                },
+                "id":"2",
+                "kind":"usage",
                 "message":"'a' is an Input to 'RequiresZ' (declared on line 5)"
               },{
                 "physicalLocation":{
@@ -161,12 +151,10 @@
                     "startLine":21
                   }
                 },
-                "properties":{
-                  "id":"3",
-                  "kind":"usage",
-                  "importance":"Essential"
-                },
-                "message":"'a' is required to be zero-terminated by a SAL annotation on 'RequiresZ'"
+                "id":"3",
+                "kind":"usage",
+                "message":"'a' is required to be zero-terminated by a SAL annotation on 'RequiresZ'",
+                "essential":true
               }
             ]
           }

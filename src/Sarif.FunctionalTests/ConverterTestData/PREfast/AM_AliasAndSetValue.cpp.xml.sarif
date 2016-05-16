@@ -44,6 +44,7 @@
         },
         "codeFlows":[
           {
+            "message":"",
             "locations":[
               {
                 "physicalLocation":{
@@ -53,12 +54,10 @@
                     "startLine":3
                   }
                 },
-                "properties":{
-                  "id":"1",
-                  "kind":"declaration",
-                  "importance":"Essential"
-                },
-                "message":"'TwoElementArray' is an array of 2 elements (8 bytes)"
+                "id":"1",
+                "kind":"declaration",
+                "message":"'TwoElementArray' is an array of 2 elements (8 bytes)",
+                "essential":true
               },{
                 "physicalLocation":{
                   "uri":"file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedmerging/am_aliasandsetvalue.cpp",
@@ -67,11 +66,8 @@
                     "startLine":5
                   }
                 },
-                "properties":{
-                  "id":"2",
-                  "kind":"branch",
-                  "importance":"Full"
-                },
+                "id":"2",
+                "kind":"branch",
                 "message":"'b' may equal 10 (Enter this branch)"
               },{
                 "physicalLocation":{
@@ -81,12 +77,10 @@
                     "startLine":7
                   }
                 },
-                "properties":{
-                  "id":"3",
-                  "kind":"alias",
-                  "importance":"Essential"
-                },
-                "message":"(alias) 'index' receives the value of 'b' (which may be 10)"
+                "id":"3",
+                "kind":"alias",
+                "message":"(alias) 'index' receives the value of 'b' (which may be 10)",
+                "essential":true
               },{
                 "physicalLocation":{
                   "uri":"file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedmerging/am_aliasandsetvalue.cpp",
@@ -95,12 +89,10 @@
                     "startLine":9
                   }
                 },
-                "properties":{
-                  "id":"4",
-                  "kind":"usage",
-                  "importance":"Essential"
-                },
-                "message":"Invalid read from 'TwoElementArray[10]', (readable range is 0 to 1)"
+                "id":"4",
+                "kind":"usage",
+                "message":"Invalid read from 'TwoElementArray[10]', (readable range is 0 to 1)",
+                "essential":true
               }
             ]
           }

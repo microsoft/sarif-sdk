@@ -50,6 +50,7 @@
         },
         "codeFlows":[
           {
+            "message":"",
             "locations":[
               {
                 "physicalLocation":{
@@ -75,12 +76,10 @@
                     "startLine":9
                   }
                 },
-                "properties":{
-                  "id":"1",
-                  "kind":"declaration",
-                  "importance":"Essential"
-                },
-                "message":"'offset' is a byte quantity"
+                "id":"1",
+                "kind":"declaration",
+                "message":"'offset' is a byte quantity",
+                "essential":true
               },{
                 "physicalLocation":{
                   "uri":"file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs260613.cpp",
@@ -89,12 +88,10 @@
                     "startLine":10
                   }
                 },
-                "properties":{
-                  "id":"2",
-                  "kind":"usage",
-                  "importance":"Essential"
-                },
-                "message":"Expression mixes element counts and byte quantities"
+                "id":"2",
+                "kind":"usage",
+                "message":"Expression mixes element counts and byte quantities",
+                "essential":true
               }
             ]
           }
@@ -126,6 +123,7 @@
         },
         "codeFlows":[
           {
+            "message":"",
             "locations":[
               {
                 "physicalLocation":{
@@ -151,12 +149,10 @@
                     "startLine":20
                   }
                 },
-                "properties":{
-                  "id":"1",
-                  "kind":"usage",
-                  "importance":"Essential"
-                },
-                "message":"Expression mixes element counts and byte quantities"
+                "id":"1",
+                "kind":"usage",
+                "message":"Expression mixes element counts and byte quantities",
+                "essential":true
               }
             ]
           }

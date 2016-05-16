@@ -56,6 +56,7 @@
         },
         "codeFlows":[
           {
+            "message":"",
             "locations":[
               {
                 "physicalLocation":{
@@ -73,11 +74,8 @@
                     "startLine":6
                   }
                 },
-                "properties":{
-                  "id":"1",
-                  "kind":"branch",
-                  "importance":"Full"
-                },
+                "id":"1",
+                "kind":"branch",
                 "message":"'p' may be NULL (Enter this branch)"
               },{
                 "physicalLocation":{
@@ -95,12 +93,10 @@
                     "startLine":8
                   }
                 },
-                "properties":{
-                  "id":"2",
-                  "kind":"usage",
-                  "importance":"Essential"
-                },
-                "message":"'p' is dereferenced, but may still be NULL"
+                "id":"2",
+                "kind":"usage",
+                "message":"'p' is dereferenced, but may still be NULL",
+                "essential":true
               }
             ]
           }
@@ -132,6 +128,7 @@
         },
         "codeFlows":[
           {
+            "message":"",
             "locations":[
               {
                 "physicalLocation":{
@@ -141,11 +138,8 @@
                     "startLine":13
                   }
                 },
-                "properties":{
-                  "id":"1",
-                  "kind":"branch",
-                  "importance":"Full"
-                },
+                "id":"1",
+                "kind":"branch",
                 "message":"'input' may be NULL (Skip this branch)"
               },{
                 "physicalLocation":{
@@ -155,12 +149,10 @@
                     "startLine":15
                   }
                 },
-                "properties":{
-                  "id":"2",
-                  "kind":"usage",
-                  "importance":"Essential"
-                },
-                "message":"'input' is dereferenced, but may still be NULL"
+                "id":"2",
+                "kind":"usage",
+                "message":"'input' is dereferenced, but may still be NULL",
+                "essential":true
               }
             ]
           }
@@ -192,6 +184,7 @@
         },
         "codeFlows":[
           {
+            "message":"",
             "locations":[
               {
                 "physicalLocation":{
@@ -209,11 +202,8 @@
                     "startLine":22
                   }
                 },
-                "properties":{
-                  "id":"1",
-                  "kind":"branch",
-                  "importance":"Full"
-                },
+                "id":"1",
+                "kind":"branch",
                 "message":"'p' may be NULL (Skip this branch)"
               },{
                 "physicalLocation":{
@@ -223,12 +213,10 @@
                     "startLine":24
                   }
                 },
-                "properties":{
-                  "id":"2",
-                  "kind":"usage",
-                  "importance":"Essential"
-                },
-                "message":"'p' is dereferenced, but may still be NULL"
+                "id":"2",
+                "kind":"usage",
+                "message":"'p' is dereferenced, but may still be NULL",
+                "essential":true
               }
             ]
           }

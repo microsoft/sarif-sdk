@@ -44,6 +44,7 @@
         },
         "codeFlows":[
           {
+            "message":"",
             "locations":[
               {
                 "physicalLocation":{
@@ -53,12 +54,10 @@
                     "startLine":3
                   }
                 },
-                "properties":{
-                  "id":"1",
-                  "kind":"declaration",
-                  "importance":"Essential"
-                },
-                "message":"'a' is an array of 4 elements (4 bytes)"
+                "id":"1",
+                "kind":"declaration",
+                "message":"'a' is an array of 4 elements (4 bytes)",
+                "essential":true
               },{
                 "physicalLocation":{
                   "uri":"file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/combinedwarnings/c6386example.cpp",
@@ -67,12 +66,10 @@
                     "startLine":4
                   }
                 },
-                "properties":{
-                  "id":"2",
-                  "kind":"declaration",
-                  "importance":"Essential"
-                },
-                "message":"'j' is equal to 4"
+                "id":"2",
+                "kind":"declaration",
+                "message":"'j' is equal to 4",
+                "essential":true
               },{
                 "physicalLocation":{
                   "uri":"file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/combinedwarnings/c6386example.cpp",
@@ -81,11 +78,8 @@
                     "startLine":5
                   }
                 },
-                "properties":{
-                  "id":"3",
-                  "kind":"branch",
-                  "importance":"Full"
-                },
+                "id":"3",
+                "kind":"branch",
                 "message":"Skip this branch, (assume 'j<4' is false)"
               },{
                 "physicalLocation":{
@@ -95,12 +89,10 @@
                     "startLine":9
                   }
                 },
-                "properties":{
-                  "id":"4",
-                  "kind":"usage",
-                  "importance":"Essential"
-                },
-                "message":"Invalid write to 'a[4]', (writable range is 0 to 3)"
+                "id":"4",
+                "kind":"usage",
+                "message":"Invalid write to 'a[4]', (writable range is 0 to 3)",
+                "essential":true
               }
             ]
           }

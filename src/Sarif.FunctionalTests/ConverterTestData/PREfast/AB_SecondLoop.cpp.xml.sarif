@@ -56,6 +56,7 @@
         },
         "codeFlows":[
           {
+            "message":"",
             "locations":[
               {
                 "physicalLocation":{
@@ -65,12 +66,10 @@
                     "startLine":10
                   }
                 },
-                "properties":{
-                  "id":"1",
-                  "kind":"declaration",
-                  "importance":"Essential"
-                },
-                "message":"'source' is NULL"
+                "id":"1",
+                "kind":"declaration",
+                "message":"'source' is NULL",
+                "essential":true
               },{
                 "physicalLocation":{
                   "uri":"file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp",
@@ -95,11 +94,8 @@
                     "startLine":13
                   }
                 },
-                "properties":{
-                  "id":"2",
-                  "kind":"branch",
-                  "importance":"Full"
-                },
+                "id":"2",
+                "kind":"branch",
                 "message":"Enter this loop, (assume 'i<3')"
               },{
                 "physicalLocation":{
@@ -109,11 +105,8 @@
                     "startLine":15
                   }
                 },
-                "properties":{
-                  "id":"3",
-                  "kind":"branch",
-                  "importance":"Full"
-                },
+                "id":"3",
+                "kind":"branch",
                 "message":"Enter this branch, (assume '!flag')"
               },{
                 "physicalLocation":{
@@ -139,11 +132,8 @@
                     "startLine":13
                   }
                 },
-                "properties":{
-                  "id":"4",
-                  "kind":"branch",
-                  "importance":"Full"
-                },
+                "id":"4",
+                "kind":"branch",
                 "message":"Continue this loop, (assume 'i<3')"
               },{
                 "physicalLocation":{
@@ -153,11 +143,8 @@
                     "startLine":15
                   }
                 },
-                "properties":{
-                  "id":"5",
-                  "kind":"branch",
-                  "importance":"Full"
-                },
+                "id":"5",
+                "kind":"branch",
                 "message":"Skip this branch, (assume '!flag' is false)"
               },{
                 "physicalLocation":{
@@ -167,12 +154,10 @@
                     "startLine":18
                   }
                 },
-                "properties":{
-                  "id":"6",
-                  "kind":"usage",
-                  "importance":"Essential"
-                },
-                "message":"'source' is dereferenced, but may still be NULL"
+                "id":"6",
+                "kind":"usage",
+                "message":"'source' is dereferenced, but may still be NULL",
+                "essential":true
               }
             ]
           }
@@ -204,6 +189,7 @@
         },
         "codeFlows":[
           {
+            "message":"",
             "locations":[
               {
                 "physicalLocation":{
@@ -213,12 +199,10 @@
                     "startLine":25
                   }
                 },
-                "properties":{
-                  "id":"1",
-                  "kind":"declaration",
-                  "importance":"Essential"
-                },
-                "message":"'source' is NULL"
+                "id":"1",
+                "kind":"declaration",
+                "message":"'source' is NULL",
+                "essential":true
               },{
                 "physicalLocation":{
                   "uri":"file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp",
@@ -243,11 +227,8 @@
                     "startLine":28
                   }
                 },
-                "properties":{
-                  "id":"2",
-                  "kind":"branch",
-                  "importance":"Full"
-                },
+                "id":"2",
+                "kind":"branch",
                 "message":"Enter this loop, (assume 'i<param')"
               },{
                 "physicalLocation":{
@@ -257,11 +238,8 @@
                     "startLine":30
                   }
                 },
-                "properties":{
-                  "id":"3",
-                  "kind":"branch",
-                  "importance":"Full"
-                },
+                "id":"3",
+                "kind":"branch",
                 "message":"Enter this branch, (assume '!flag')"
               },{
                 "physicalLocation":{
@@ -287,11 +265,8 @@
                     "startLine":28
                   }
                 },
-                "properties":{
-                  "id":"4",
-                  "kind":"branch",
-                  "importance":"Full"
-                },
+                "id":"4",
+                "kind":"branch",
                 "message":"Continue this loop, (assume 'i<param')"
               },{
                 "physicalLocation":{
@@ -301,11 +276,8 @@
                     "startLine":30
                   }
                 },
-                "properties":{
-                  "id":"5",
-                  "kind":"branch",
-                  "importance":"Full"
-                },
+                "id":"5",
+                "kind":"branch",
                 "message":"Skip this branch, (assume '!flag' is false)"
               },{
                 "physicalLocation":{
@@ -315,12 +287,10 @@
                     "startLine":33
                   }
                 },
-                "properties":{
-                  "id":"6",
-                  "kind":"usage",
-                  "importance":"Essential"
-                },
-                "message":"'source' is dereferenced, but may still be NULL"
+                "id":"6",
+                "kind":"usage",
+                "message":"'source' is dereferenced, but may still be NULL",
+                "essential":true
               }
             ]
           }
@@ -352,6 +322,7 @@
         },
         "codeFlows":[
           {
+            "message":"",
             "locations":[
               {
                 "physicalLocation":{
@@ -361,12 +332,10 @@
                     "startLine":40
                   }
                 },
-                "properties":{
-                  "id":"1",
-                  "kind":"declaration",
-                  "importance":"Essential"
-                },
-                "message":"'source' is NULL"
+                "id":"1",
+                "kind":"declaration",
+                "message":"'source' is NULL",
+                "essential":true
               },{
                 "physicalLocation":{
                   "uri":"file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp",
@@ -407,11 +376,8 @@
                     "startLine":44
                   }
                 },
-                "properties":{
-                  "id":"2",
-                  "kind":"branch",
-                  "importance":"Full"
-                },
+                "id":"2",
+                "kind":"branch",
                 "message":"Enter this loop, (assume 'i<param')"
               },{
                 "physicalLocation":{
@@ -421,11 +387,8 @@
                     "startLine":46
                   }
                 },
-                "properties":{
-                  "id":"3",
-                  "kind":"branch",
-                  "importance":"Full"
-                },
+                "id":"3",
+                "kind":"branch",
                 "message":"Enter this branch, (assume '!flag')"
               },{
                 "physicalLocation":{
@@ -451,11 +414,8 @@
                     "startLine":44
                   }
                 },
-                "properties":{
-                  "id":"4",
-                  "kind":"branch",
-                  "importance":"Full"
-                },
+                "id":"4",
+                "kind":"branch",
                 "message":"Continue this loop, (assume 'i<param')"
               },{
                 "physicalLocation":{
@@ -465,11 +425,8 @@
                     "startLine":46
                   }
                 },
-                "properties":{
-                  "id":"5",
-                  "kind":"branch",
-                  "importance":"Full"
-                },
+                "id":"5",
+                "kind":"branch",
                 "message":"Skip this branch, (assume '!flag' is false)"
               },{
                 "physicalLocation":{
@@ -479,12 +436,10 @@
                     "startLine":49
                   }
                 },
-                "properties":{
-                  "id":"6",
-                  "kind":"usage",
-                  "importance":"Essential"
-                },
-                "message":"'source' is dereferenced, but may still be NULL"
+                "id":"6",
+                "kind":"usage",
+                "message":"'source' is dereferenced, but may still be NULL",
+                "essential":true
               }
             ]
           }
@@ -516,6 +471,7 @@
         },
         "codeFlows":[
           {
+            "message":"",
             "locations":[
               {
                 "physicalLocation":{
@@ -541,12 +497,10 @@
                     "startLine":42
                   }
                 },
-                "properties":{
-                  "id":"1",
-                  "kind":"declaration",
-                  "importance":"Essential"
-                },
-                "message":"'x' is an array of 2 elements (8 bytes)"
+                "id":"1",
+                "kind":"declaration",
+                "message":"'x' is an array of 2 elements (8 bytes)",
+                "essential":true
               },{
                 "physicalLocation":{
                   "uri":"file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp",
@@ -571,11 +525,8 @@
                     "startLine":44
                   }
                 },
-                "properties":{
-                  "id":"2",
-                  "kind":"branch",
-                  "importance":"Full"
-                },
+                "id":"2",
+                "kind":"branch",
                 "message":"Enter this loop, (assume 'i<param')"
               },{
                 "physicalLocation":{
@@ -585,11 +536,8 @@
                     "startLine":46
                   }
                 },
-                "properties":{
-                  "id":"3",
-                  "kind":"branch",
-                  "importance":"Full"
-                },
+                "id":"3",
+                "kind":"branch",
                 "message":"Enter this branch, (assume '!flag')"
               },{
                 "physicalLocation":{
@@ -615,11 +563,8 @@
                     "startLine":44
                   }
                 },
-                "properties":{
-                  "id":"4",
-                  "kind":"branch",
-                  "importance":"Full"
-                },
+                "id":"4",
+                "kind":"branch",
                 "message":"Continue this loop, (assume 'i<param')"
               },{
                 "physicalLocation":{
@@ -629,11 +574,8 @@
                     "startLine":46
                   }
                 },
-                "properties":{
-                  "id":"5",
-                  "kind":"branch",
-                  "importance":"Full"
-                },
+                "id":"5",
+                "kind":"branch",
                 "message":"Skip this branch, (assume '!flag' is false)"
               },{
                 "physicalLocation":{
@@ -659,11 +601,8 @@
                     "startLine":44
                   }
                 },
-                "properties":{
-                  "id":"6",
-                  "kind":"branch",
-                  "importance":"Full"
-                },
+                "id":"6",
+                "kind":"branch",
                 "message":"'param' may equal 2 (Exit this loop)"
               },{
                 "physicalLocation":{
@@ -673,12 +612,10 @@
                     "startLine":52
                   }
                 },
-                "properties":{
-                  "id":"7",
-                  "kind":"usage",
-                  "importance":"Essential"
-                },
-                "message":"Invalid read from 'x[2]', (readable range is 0 to 1)"
+                "id":"7",
+                "kind":"usage",
+                "message":"Invalid read from 'x[2]', (readable range is 0 to 1)",
+                "essential":true
               }
             ]
           }
@@ -710,6 +647,7 @@
         },
         "codeFlows":[
           {
+            "message":"",
             "locations":[
               {
                 "physicalLocation":{
@@ -743,12 +681,10 @@
                     "startLine":42
                   }
                 },
-                "properties":{
-                  "id":"1",
-                  "kind":"declaration",
-                  "importance":"Essential"
-                },
-                "message":"'y' is an array of 2 elements (8 bytes)"
+                "id":"1",
+                "kind":"declaration",
+                "message":"'y' is an array of 2 elements (8 bytes)",
+                "essential":true
               },{
                 "physicalLocation":{
                   "uri":"file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp",
@@ -765,11 +701,8 @@
                     "startLine":44
                   }
                 },
-                "properties":{
-                  "id":"2",
-                  "kind":"branch",
-                  "importance":"Full"
-                },
+                "id":"2",
+                "kind":"branch",
                 "message":"Enter this loop, (assume 'i<param')"
               },{
                 "physicalLocation":{
@@ -779,11 +712,8 @@
                     "startLine":46
                   }
                 },
-                "properties":{
-                  "id":"3",
-                  "kind":"branch",
-                  "importance":"Full"
-                },
+                "id":"3",
+                "kind":"branch",
                 "message":"Enter this branch, (assume '!flag')"
               },{
                 "physicalLocation":{
@@ -809,11 +739,8 @@
                     "startLine":44
                   }
                 },
-                "properties":{
-                  "id":"4",
-                  "kind":"branch",
-                  "importance":"Full"
-                },
+                "id":"4",
+                "kind":"branch",
                 "message":"'param' may equal 1 (Exit this loop)"
               },{
                 "physicalLocation":{
@@ -831,12 +758,10 @@
                     "startLine":53
                   }
                 },
-                "properties":{
-                  "id":"5",
-                  "kind":"usage",
-                  "importance":"Essential"
-                },
-                "message":"Invalid read from 'y[2]', (readable range is 0 to 1)"
+                "id":"5",
+                "kind":"usage",
+                "message":"Invalid read from 'y[2]', (readable range is 0 to 1)",
+                "essential":true
               }
             ]
           }

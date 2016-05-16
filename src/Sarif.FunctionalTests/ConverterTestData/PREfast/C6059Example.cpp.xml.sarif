@@ -44,6 +44,7 @@
         },
         "codeFlows":[
           {
+            "message":"",
             "locations":[
               {
                 "physicalLocation":{
@@ -53,12 +54,10 @@
                     "startLine":6
                   }
                 },
-                "properties":{
-                  "id":"1",
-                  "kind":"declaration",
-                  "importance":"Essential"
-                },
-                "message":"'a' is an array of 35 elements (35 bytes)"
+                "id":"1",
+                "kind":"declaration",
+                "message":"'a' is an array of 35 elements (35 bytes)",
+                "essential":true
               },{
                 "physicalLocation":{
                   "uri":"file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/c6059/c6059example.cpp",
@@ -75,11 +74,8 @@
                     "startLine":9
                   }
                 },
-                "properties":{
-                  "id":"2",
-                  "kind":"declaration",
-                  "importance":"Full"
-                },
+                "id":"2",
+                "kind":"declaration",
                 "message":"'a' is an Output from 'strcpy' (declared at c:\\program files (x86)\\microsoft visual studio 11.0\\vc\\wpsdk\\wp80\\include\\string.h:110)"
               },{
                 "physicalLocation":{
@@ -89,11 +85,8 @@
                     "startLine":10
                   }
                 },
-                "properties":{
-                  "id":"3",
-                  "kind":"declaration",
-                  "importance":"Full"
-                },
+                "id":"3",
+                "kind":"declaration",
                 "message":"'a' is an Output from 'strncat' (declared at c:\\program files (x86)\\microsoft visual studio 11.0\\vc\\wpsdk\\wp80\\include\\string.h:182)"
               },{
                 "physicalLocation":{
@@ -103,12 +96,10 @@
                     "startLine":10
                   }
                 },
-                "properties":{
-                  "id":"4",
-                  "kind":"usage",
-                  "importance":"Essential"
-                },
-                "message":"Length argument to 'strncat' should be less than the length of 'a'"
+                "id":"4",
+                "kind":"usage",
+                "message":"Length argument to 'strncat' should be less than the length of 'a'",
+                "essential":true
               }
             ]
           }

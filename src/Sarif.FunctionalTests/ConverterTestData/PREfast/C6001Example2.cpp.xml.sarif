@@ -44,6 +44,7 @@
         },
         "codeFlows":[
           {
+            "message":"",
             "locations":[
               {
                 "physicalLocation":{
@@ -61,12 +62,10 @@
                     "startLine":5
                   }
                 },
-                "properties":{
-                  "id":"1",
-                  "kind":"declaration",
-                  "importance":"Essential"
-                },
-                "message":"'i' is not initialized"
+                "id":"1",
+                "kind":"declaration",
+                "message":"'i' is not initialized",
+                "essential":true
               },{
                 "physicalLocation":{
                   "uri":"file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/complex/c6001/c6001example2.cpp",
@@ -75,11 +74,8 @@
                     "startLine":6
                   }
                 },
-                "properties":{
-                  "id":"2",
-                  "kind":"branch",
-                  "importance":"Full"
-                },
+                "id":"2",
+                "kind":"branch",
                 "message":"Enter this branch, (assume 'c')"
               },{
                 "physicalLocation":{
@@ -97,11 +93,8 @@
                     "startLine":8
                   }
                 },
-                "properties":{
-                  "id":"3",
-                  "kind":"branch",
-                  "importance":"Full"
-                },
+                "id":"3",
+                "kind":"branch",
                 "message":"Skip this branch, (assume 'b' is false)"
               },{
                 "physicalLocation":{
@@ -119,12 +112,10 @@
                     "startLine":17
                   }
                 },
-                "properties":{
-                  "id":"4",
-                  "kind":"usage",
-                  "importance":"Essential"
-                },
-                "message":"'i' is used, but may not have been initialized"
+                "id":"4",
+                "kind":"usage",
+                "message":"'i' is used, but may not have been initialized",
+                "essential":true
               }
             ]
           }

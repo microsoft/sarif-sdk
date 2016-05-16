@@ -51,6 +51,7 @@
         ],
         "codeFlows":[
           {
+            "message":"",
             "locations":[
               {
                 "physicalLocation":{
@@ -60,11 +61,8 @@
                     "startLine":47
                   }
                 },
-                "properties":{
-                  "id":"",
-                  "kind":"",
-                  "importance":""
-                },
+                "id":"",
+                "kind":"",
                 "message":""
               },{
                 "physicalLocation":{
@@ -74,11 +72,8 @@
                     "startLine":49
                   }
                 },
-                "properties":{
-                  "id":"",
-                  "kind":"",
-                  "importance":""
-                },
+                "id":"",
+                "kind":"",
                 "message":""
               },{
                 "physicalLocation":{
@@ -88,11 +83,8 @@
                     "startLine":50
                   }
                 },
-                "properties":{
-                  "id":"",
-                  "kind":"",
-                  "importance":""
-                },
+                "id":"",
+                "kind":"",
                 "message":""
               },{
                 "physicalLocation":{
@@ -102,11 +94,8 @@
                     "startLine":52
                   }
                 },
-                "properties":{
-                  "id":"",
-                  "kind":"",
-                  "importance":""
-                },
+                "id":"",
+                "kind":"",
                 "message":""
               },{
                 "physicalLocation":{
@@ -116,11 +105,8 @@
                     "startLine":52
                   }
                 },
-                "properties":{
-                  "id":"",
-                  "kind":"",
-                  "importance":""
-                },
+                "id":"",
+                "kind":"",
                 "message":""
               },{
                 "physicalLocation":{
@@ -130,11 +116,8 @@
                     "startLine":53
                   }
                 },
-                "properties":{
-                  "id":"",
-                  "kind":"",
-                  "importance":""
-                },
+                "id":"",
+                "kind":"",
                 "message":""
               },{
                 "physicalLocation":{
@@ -144,11 +127,8 @@
                     "startLine":55
                   }
                 },
-                "properties":{
-                  "id":"",
-                  "kind":"",
-                  "importance":""
-                },
+                "id":"",
+                "kind":"",
                 "message":""
               }
             ]
@@ -176,6 +156,7 @@
         ],
         "codeFlows":[
           {
+            "message":"",
             "locations":[
               {
                 "physicalLocation":{
@@ -185,11 +166,8 @@
                     "startLine":79
                   }
                 },
-                "properties":{
-                  "id":"",
-                  "kind":"",
-                  "importance":""
-                },
+                "id":"",
+                "kind":"",
                 "message":""
               },{
                 "physicalLocation":{
@@ -199,11 +177,8 @@
                     "startLine":81
                   }
                 },
-                "properties":{
-                  "id":"",
-                  "kind":"",
-                  "importance":""
-                },
+                "id":"",
+                "kind":"",
                 "message":""
               },{
                 "physicalLocation":{
@@ -213,11 +188,8 @@
                     "startLine":82
                   }
                 },
-                "properties":{
-                  "id":"",
-                  "kind":"",
-                  "importance":""
-                },
+                "id":"",
+                "kind":"",
                 "message":""
               },{
                 "physicalLocation":{
@@ -227,11 +199,8 @@
                     "startLine":83
                   }
                 },
-                "properties":{
-                  "id":"",
-                  "kind":"",
-                  "importance":""
-                },
+                "id":"",
+                "kind":"",
                 "message":""
               },{
                 "physicalLocation":{
@@ -241,11 +210,8 @@
                     "startLine":85
                   }
                 },
-                "properties":{
-                  "id":"",
-                  "kind":"",
-                  "importance":""
-                },
+                "id":"",
+                "kind":"",
                 "message":""
               },{
                 "physicalLocation":{
@@ -255,11 +221,8 @@
                     "startLine":86
                   }
                 },
-                "properties":{
-                  "id":"",
-                  "kind":"",
-                  "importance":""
-                },
+                "id":"",
+                "kind":"",
                 "message":""
               },{
                 "physicalLocation":{
@@ -269,11 +232,8 @@
                     "startLine":87
                   }
                 },
-                "properties":{
-                  "id":"",
-                  "kind":"",
-                  "importance":""
-                },
+                "id":"",
+                "kind":"",
                 "message":""
               }
             ]
@@ -301,6 +261,7 @@
         ],
         "codeFlows":[
           {
+            "message":"",
             "locations":[
               {
                 "physicalLocation":{
@@ -310,11 +271,8 @@
                     "startLine":99
                   }
                 },
-                "properties":{
-                  "id":"",
-                  "kind":"",
-                  "importance":""
-                },
+                "id":"",
+                "kind":"",
                 "message":""
               },{
                 "physicalLocation":{
@@ -324,11 +282,8 @@
                     "startLine":101
                   }
                 },
-                "properties":{
-                  "id":"",
-                  "kind":"",
-                  "importance":""
-                },
+                "id":"",
+                "kind":"",
                 "message":""
               },{
                 "physicalLocation":{
@@ -338,11 +293,8 @@
                     "startLine":102
                   }
                 },
-                "properties":{
-                  "id":"",
-                  "kind":"",
-                  "importance":""
-                },
+                "id":"",
+                "kind":"",
                 "message":""
               },{
                 "physicalLocation":{
@@ -352,11 +304,8 @@
                     "startLine":104
                   }
                 },
-                "properties":{
-                  "id":"",
-                  "kind":"",
-                  "importance":""
-                },
+                "id":"",
+                "kind":"",
                 "message":""
               },{
                 "physicalLocation":{
@@ -366,11 +315,8 @@
                     "startLine":105
                   }
                 },
-                "properties":{
-                  "id":"",
-                  "kind":"",
-                  "importance":""
-                },
+                "id":"",
+                "kind":"",
                 "message":""
               },{
                 "physicalLocation":{
@@ -380,11 +326,8 @@
                     "startLine":106
                   }
                 },
-                "properties":{
-                  "id":"",
-                  "kind":"",
-                  "importance":""
-                },
+                "id":"",
+                "kind":"",
                 "message":""
               }
             ]

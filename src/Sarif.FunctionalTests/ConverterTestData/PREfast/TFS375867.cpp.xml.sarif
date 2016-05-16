@@ -110,6 +110,7 @@
         },
         "codeFlows":[
           {
+            "message":"",
             "locations":[
               {
                 "physicalLocation":{
@@ -119,12 +120,10 @@
                     "startLine":8
                   }
                 },
-                "properties":{
-                  "id":"1",
-                  "kind":"declaration",
-                  "importance":"Essential"
-                },
-                "message":"'data' is NULL"
+                "id":"1",
+                "kind":"declaration",
+                "message":"'data' is NULL",
+                "essential":true
               },{
                 "physicalLocation":{
                   "uri":"file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs375867.cpp",
@@ -133,11 +132,8 @@
                     "startLine":9
                   }
                 },
-                "properties":{
-                  "id":"2",
-                  "kind":"branch",
-                  "importance":"Full"
-                },
+                "id":"2",
+                "kind":"branch",
                 "message":"Enter this branch, (assume 'SUCCEEDED(hr)')"
               },{
                 "physicalLocation":{
@@ -147,12 +143,10 @@
                     "startLine":11
                   }
                 },
-                "properties":{
-                  "id":"3",
-                  "kind":"usage",
-                  "importance":"Essential"
-                },
-                "message":"'data' is dereferenced, but may still be NULL"
+                "id":"3",
+                "kind":"usage",
+                "message":"'data' is dereferenced, but may still be NULL",
+                "essential":true
               }
             ]
           }
@@ -184,6 +178,7 @@
         },
         "codeFlows":[
           {
+            "message":"",
             "locations":[
               {
                 "physicalLocation":{
@@ -193,12 +188,10 @@
                     "startLine":17
                   }
                 },
-                "properties":{
-                  "id":"1",
-                  "kind":"declaration",
-                  "importance":"Essential"
-                },
-                "message":"'data' is NULL"
+                "id":"1",
+                "kind":"declaration",
+                "message":"'data' is NULL",
+                "essential":true
               },{
                 "physicalLocation":{
                   "uri":"file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs375867.cpp",
@@ -207,11 +200,8 @@
                     "startLine":18
                   }
                 },
-                "properties":{
-                  "id":"2",
-                  "kind":"branch",
-                  "importance":"Full"
-                },
+                "id":"2",
+                "kind":"branch",
                 "message":"Skip this branch, (assume 'SUCCEEDED(hr)&&b' is false)"
               },{
                 "physicalLocation":{
@@ -221,12 +211,10 @@
                     "startLine":24
                   }
                 },
-                "properties":{
-                  "id":"3",
-                  "kind":"usage",
-                  "importance":"Essential"
-                },
-                "message":"'data' is dereferenced, but may still be NULL"
+                "id":"3",
+                "kind":"usage",
+                "message":"'data' is dereferenced, but may still be NULL",
+                "essential":true
               }
             ]
           }
@@ -258,6 +246,7 @@
         },
         "codeFlows":[
           {
+            "message":"",
             "locations":[
               {
                 "physicalLocation":{
@@ -267,12 +256,10 @@
                     "startLine":30
                   }
                 },
-                "properties":{
-                  "id":"1",
-                  "kind":"declaration",
-                  "importance":"Essential"
-                },
-                "message":"'data' is NULL"
+                "id":"1",
+                "kind":"declaration",
+                "message":"'data' is NULL",
+                "essential":true
               },{
                 "physicalLocation":{
                   "uri":"file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs375867.cpp",
@@ -281,11 +268,8 @@
                     "startLine":31
                   }
                 },
-                "properties":{
-                  "id":"2",
-                  "kind":"branch",
-                  "importance":"Full"
-                },
+                "id":"2",
+                "kind":"branch",
                 "message":"Enter this branch, (assume '((SUCCEEDED(hr)||b))&&c')"
               },{
                 "physicalLocation":{
@@ -295,12 +279,10 @@
                     "startLine":33
                   }
                 },
-                "properties":{
-                  "id":"3",
-                  "kind":"usage",
-                  "importance":"Essential"
-                },
-                "message":"'data' is dereferenced, but may still be NULL"
+                "id":"3",
+                "kind":"usage",
+                "message":"'data' is dereferenced, but may still be NULL",
+                "essential":true
               }
             ]
           }
@@ -332,6 +314,7 @@
         },
         "codeFlows":[
           {
+            "message":"",
             "locations":[
               {
                 "physicalLocation":{
@@ -341,12 +324,10 @@
                     "startLine":39
                   }
                 },
-                "properties":{
-                  "id":"1",
-                  "kind":"declaration",
-                  "importance":"Essential"
-                },
-                "message":"'data' is NULL"
+                "id":"1",
+                "kind":"declaration",
+                "message":"'data' is NULL",
+                "essential":true
               },{
                 "physicalLocation":{
                   "uri":"file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs375867.cpp",
@@ -355,11 +336,8 @@
                     "startLine":40
                   }
                 },
-                "properties":{
-                  "id":"2",
-                  "kind":"branch",
-                  "importance":"Full"
-                },
+                "id":"2",
+                "kind":"branch",
                 "message":"Enter this branch, (assume '!SUCCEEDED(_hResult)')"
               },{
                 "physicalLocation":{
@@ -369,12 +347,10 @@
                     "startLine":42
                   }
                 },
-                "properties":{
-                  "id":"3",
-                  "kind":"usage",
-                  "importance":"Essential"
-                },
-                "message":"'data' is dereferenced, but may still be NULL"
+                "id":"3",
+                "kind":"usage",
+                "message":"'data' is dereferenced, but may still be NULL",
+                "essential":true
               }
             ]
           }
@@ -406,6 +382,7 @@
         },
         "codeFlows":[
           {
+            "message":"",
             "locations":[
               {
                 "physicalLocation":{
@@ -415,12 +392,10 @@
                     "startLine":48
                   }
                 },
-                "properties":{
-                  "id":"1",
-                  "kind":"declaration",
-                  "importance":"Essential"
-                },
-                "message":"'data' is NULL"
+                "id":"1",
+                "kind":"declaration",
+                "message":"'data' is NULL",
+                "essential":true
               },{
                 "physicalLocation":{
                   "uri":"file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs375867.cpp",
@@ -429,11 +404,8 @@
                     "startLine":49
                   }
                 },
-                "properties":{
-                  "id":"2",
-                  "kind":"branch",
-                  "importance":"Full"
-                },
+                "id":"2",
+                "kind":"branch",
                 "message":"Enter this branch, (assume 'FAILED(hr)')"
               },{
                 "physicalLocation":{
@@ -443,12 +415,10 @@
                     "startLine":51
                   }
                 },
-                "properties":{
-                  "id":"3",
-                  "kind":"usage",
-                  "importance":"Essential"
-                },
-                "message":"'data' is dereferenced, but may still be NULL"
+                "id":"3",
+                "kind":"usage",
+                "message":"'data' is dereferenced, but may still be NULL",
+                "essential":true
               }
             ]
           }
@@ -480,6 +450,7 @@
         },
         "codeFlows":[
           {
+            "message":"",
             "locations":[
               {
                 "physicalLocation":{
@@ -489,12 +460,10 @@
                     "startLine":57
                   }
                 },
-                "properties":{
-                  "id":"1",
-                  "kind":"declaration",
-                  "importance":"Essential"
-                },
-                "message":"'data' is NULL"
+                "id":"1",
+                "kind":"declaration",
+                "message":"'data' is NULL",
+                "essential":true
               },{
                 "physicalLocation":{
                   "uri":"file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs375867.cpp",
@@ -503,11 +472,8 @@
                     "startLine":58
                   }
                 },
-                "properties":{
-                  "id":"2",
-                  "kind":"branch",
-                  "importance":"Full"
-                },
+                "id":"2",
+                "kind":"branch",
                 "message":"Skip this branch, (assume 'FAILED(hr)&&b||SUCCEEDED(hr)' is false)"
               },{
                 "physicalLocation":{
@@ -517,12 +483,10 @@
                     "startLine":64
                   }
                 },
-                "properties":{
-                  "id":"3",
-                  "kind":"usage",
-                  "importance":"Essential"
-                },
-                "message":"'data' is dereferenced, but may still be NULL"
+                "id":"3",
+                "kind":"usage",
+                "message":"'data' is dereferenced, but may still be NULL",
+                "essential":true
               }
             ]
           }
@@ -554,6 +518,7 @@
         },
         "codeFlows":[
           {
+            "message":"",
             "locations":[
               {
                 "physicalLocation":{
@@ -563,12 +528,10 @@
                     "startLine":70
                   }
                 },
-                "properties":{
-                  "id":"1",
-                  "kind":"declaration",
-                  "importance":"Essential"
-                },
-                "message":"'data' is NULL"
+                "id":"1",
+                "kind":"declaration",
+                "message":"'data' is NULL",
+                "essential":true
               },{
                 "physicalLocation":{
                   "uri":"file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs375867.cpp",
@@ -577,11 +540,8 @@
                     "startLine":71
                   }
                 },
-                "properties":{
-                  "id":"2",
-                  "kind":"branch",
-                  "importance":"Full"
-                },
+                "id":"2",
+                "kind":"branch",
                 "message":"Enter this branch, (assume '((FAILED(Hr_2)||b))&&c')"
               },{
                 "physicalLocation":{
@@ -591,12 +551,10 @@
                     "startLine":73
                   }
                 },
-                "properties":{
-                  "id":"3",
-                  "kind":"usage",
-                  "importance":"Essential"
-                },
-                "message":"'data' is dereferenced, but may still be NULL"
+                "id":"3",
+                "kind":"usage",
+                "message":"'data' is dereferenced, but may still be NULL",
+                "essential":true
               }
             ]
           }
@@ -628,6 +586,7 @@
         },
         "codeFlows":[
           {
+            "message":"",
             "locations":[
               {
                 "physicalLocation":{
@@ -637,12 +596,10 @@
                     "startLine":79
                   }
                 },
-                "properties":{
-                  "id":"1",
-                  "kind":"declaration",
-                  "importance":"Essential"
-                },
-                "message":"'data' is NULL"
+                "id":"1",
+                "kind":"declaration",
+                "message":"'data' is NULL",
+                "essential":true
               },{
                 "physicalLocation":{
                   "uri":"file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs375867.cpp",
@@ -651,11 +608,8 @@
                     "startLine":80
                   }
                 },
-                "properties":{
-                  "id":"2",
-                  "kind":"branch",
-                  "importance":"Full"
-                },
+                "id":"2",
+                "kind":"branch",
                 "message":"Enter this branch, (assume '!FAILED(hr)')"
               },{
                 "physicalLocation":{
@@ -665,12 +619,10 @@
                     "startLine":82
                   }
                 },
-                "properties":{
-                  "id":"3",
-                  "kind":"usage",
-                  "importance":"Essential"
-                },
-                "message":"'data' is dereferenced, but may still be NULL"
+                "id":"3",
+                "kind":"usage",
+                "message":"'data' is dereferenced, but may still be NULL",
+                "essential":true
               }
             ]
           }
@@ -702,6 +654,7 @@
         },
         "codeFlows":[
           {
+            "message":"",
             "locations":[
               {
                 "physicalLocation":{
@@ -711,12 +664,10 @@
                     "startLine":88
                   }
                 },
-                "properties":{
-                  "id":"1",
-                  "kind":"declaration",
-                  "importance":"Essential"
-                },
-                "message":"'data' is NULL"
+                "id":"1",
+                "kind":"declaration",
+                "message":"'data' is NULL",
+                "essential":true
               },{
                 "physicalLocation":{
                   "uri":"file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs375867.cpp",
@@ -725,11 +676,8 @@
                     "startLine":89
                   }
                 },
-                "properties":{
-                  "id":"2",
-                  "kind":"branch",
-                  "importance":"Full"
-                },
+                "id":"2",
+                "kind":"branch",
                 "message":"Enter this branch, (assume 'hr==S_FALSE')"
               },{
                 "physicalLocation":{
@@ -739,12 +687,10 @@
                     "startLine":91
                   }
                 },
-                "properties":{
-                  "id":"3",
-                  "kind":"usage",
-                  "importance":"Essential"
-                },
-                "message":"'data' is dereferenced, but may still be NULL"
+                "id":"3",
+                "kind":"usage",
+                "message":"'data' is dereferenced, but may still be NULL",
+                "essential":true
               }
             ]
           }
@@ -776,6 +722,7 @@
         },
         "codeFlows":[
           {
+            "message":"",
             "locations":[
               {
                 "physicalLocation":{
@@ -785,12 +732,10 @@
                     "startLine":97
                   }
                 },
-                "properties":{
-                  "id":"1",
-                  "kind":"declaration",
-                  "importance":"Essential"
-                },
-                "message":"'data' is NULL"
+                "id":"1",
+                "kind":"declaration",
+                "message":"'data' is NULL",
+                "essential":true
               },{
                 "physicalLocation":{
                   "uri":"file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs375867.cpp",
@@ -799,11 +744,8 @@
                     "startLine":98
                   }
                 },
-                "properties":{
-                  "id":"2",
-                  "kind":"branch",
-                  "importance":"Full"
-                },
+                "id":"2",
+                "kind":"branch",
                 "message":"Enter this branch, (assume 'b&&((c||S_FALSE==hr))')"
               },{
                 "physicalLocation":{
@@ -813,12 +755,10 @@
                     "startLine":100
                   }
                 },
-                "properties":{
-                  "id":"3",
-                  "kind":"usage",
-                  "importance":"Essential"
-                },
-                "message":"'data' is dereferenced, but may still be NULL"
+                "id":"3",
+                "kind":"usage",
+                "message":"'data' is dereferenced, but may still be NULL",
+                "essential":true
               }
             ]
           }
@@ -850,6 +790,7 @@
         },
         "codeFlows":[
           {
+            "message":"",
             "locations":[
               {
                 "physicalLocation":{
@@ -859,12 +800,10 @@
                     "startLine":106
                   }
                 },
-                "properties":{
-                  "id":"1",
-                  "kind":"declaration",
-                  "importance":"Essential"
-                },
-                "message":"'data' is NULL"
+                "id":"1",
+                "kind":"declaration",
+                "message":"'data' is NULL",
+                "essential":true
               },{
                 "physicalLocation":{
                   "uri":"file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs375867.cpp",
@@ -873,11 +812,8 @@
                     "startLine":107
                   }
                 },
-                "properties":{
-                  "id":"2",
-                  "kind":"branch",
-                  "importance":"Full"
-                },
+                "id":"2",
+                "kind":"branch",
                 "message":"Enter this branch, (assume 'S_OK==hr')"
               },{
                 "physicalLocation":{
@@ -887,12 +823,10 @@
                     "startLine":109
                   }
                 },
-                "properties":{
-                  "id":"3",
-                  "kind":"usage",
-                  "importance":"Essential"
-                },
-                "message":"'data' is dereferenced, but may still be NULL"
+                "id":"3",
+                "kind":"usage",
+                "message":"'data' is dereferenced, but may still be NULL",
+                "essential":true
               }
             ]
           }
@@ -924,6 +858,7 @@
         },
         "codeFlows":[
           {
+            "message":"",
             "locations":[
               {
                 "physicalLocation":{
@@ -933,12 +868,10 @@
                     "startLine":115
                   }
                 },
-                "properties":{
-                  "id":"1",
-                  "kind":"declaration",
-                  "importance":"Essential"
-                },
-                "message":"'data' is NULL"
+                "id":"1",
+                "kind":"declaration",
+                "message":"'data' is NULL",
+                "essential":true
               },{
                 "physicalLocation":{
                   "uri":"file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs375867.cpp",
@@ -947,11 +880,8 @@
                     "startLine":116
                   }
                 },
-                "properties":{
-                  "id":"2",
-                  "kind":"branch",
-                  "importance":"Full"
-                },
+                "id":"2",
+                "kind":"branch",
                 "message":"Enter this branch, (assume '((S_FALSE+S_OK))==hr')"
               },{
                 "physicalLocation":{
@@ -961,12 +891,10 @@
                     "startLine":118
                   }
                 },
-                "properties":{
-                  "id":"3",
-                  "kind":"usage",
-                  "importance":"Essential"
-                },
-                "message":"'data' is dereferenced, but may still be NULL"
+                "id":"3",
+                "kind":"usage",
+                "message":"'data' is dereferenced, but may still be NULL",
+                "essential":true
               }
             ]
           }

@@ -44,6 +44,7 @@
         },
         "codeFlows":[
           {
+            "message":"",
             "locations":[
               {
                 "physicalLocation":{
@@ -53,12 +54,10 @@
                     "startLine":4
                   }
                 },
-                "properties":{
-                  "id":"1",
-                  "kind":"declaration",
-                  "importance":"Essential"
-                },
-                "message":"'a' is an array of 20 elements (80 bytes)"
+                "id":"1",
+                "kind":"declaration",
+                "message":"'a' is an array of 20 elements (80 bytes)",
+                "essential":true
               },{
                 "physicalLocation":{
                   "uri":"file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/complex/c6385/c6385example2.cpp",
@@ -75,11 +74,8 @@
                     "startLine":6
                   }
                 },
-                "properties":{
-                  "id":"2",
-                  "kind":"branch",
-                  "importance":"Full"
-                },
+                "id":"2",
+                "kind":"branch",
                 "message":"Enter this loop, (assume 'i<=20')"
               },{
                 "physicalLocation":{
@@ -89,12 +85,10 @@
                     "startLine":7
                   }
                 },
-                "properties":{
-                  "id":"3",
-                  "kind":"usage",
-                  "importance":"Essential"
-                },
-                "message":"Invalid read from 'a[20]', (readable range is 0 to 19)"
+                "id":"3",
+                "kind":"usage",
+                "message":"Invalid read from 'a[20]', (readable range is 0 to 19)",
+                "essential":true
               }
             ]
           }

@@ -511,7 +511,7 @@ HRESULT __stdcall Convert(const std::deque<XmlDefect> defectList, BSTR bstrOutpu
 					annotation.SetKind(keyEvent.GetKind());
 					annotation.SetMessage(keyEvent.GetMessage());
 
-					if (wcscmp(keyEvent.GetImportance(), L"essential") == 0)
+					if (wcscmp(keyEvent.GetImportance(), L"Essential") == 0)
 					{
 						annotation.SetEssential(L"true");
 					}

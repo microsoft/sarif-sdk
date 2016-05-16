@@ -44,6 +44,7 @@
         },
         "codeFlows":[
           {
+            "message":"",
             "locations":[
               {
                 "physicalLocation":{
@@ -53,12 +54,10 @@
                     "startLine":5
                   }
                 },
-                "properties":{
-                  "id":"1",
-                  "kind":"declaration",
-                  "importance":"Essential"
-                },
-                "message":"'p' may be NULL"
+                "id":"1",
+                "kind":"declaration",
+                "message":"'p' may be NULL",
+                "essential":true
               },{
                 "physicalLocation":{
                   "uri":"file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/combinedwarnings/c6011example.cpp",
@@ -67,12 +66,10 @@
                     "startLine":6
                   }
                 },
-                "properties":{
-                  "id":"2",
-                  "kind":"usage",
-                  "importance":"Essential"
-                },
-                "message":"'p' is dereferenced, but may still be NULL"
+                "id":"2",
+                "kind":"usage",
+                "message":"'p' is dereferenced, but may still be NULL",
+                "essential":true
               }
             ]
           }

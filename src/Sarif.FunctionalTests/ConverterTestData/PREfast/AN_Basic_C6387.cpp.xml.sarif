@@ -68,6 +68,7 @@
         },
         "codeFlows":[
           {
+            "message":"",
             "locations":[
               {
                 "physicalLocation":{
@@ -77,12 +78,10 @@
                     "startLine":14
                   }
                 },
-                "properties":{
-                  "id":"1",
-                  "kind":"declaration",
-                  "importance":"Essential"
-                },
-                "message":"'data' is NULL"
+                "id":"1",
+                "kind":"declaration",
+                "message":"'data' is NULL",
+                "essential":true
               },{
                 "physicalLocation":{
                   "uri":"file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedannotations/an_basic_c6387.cpp",
@@ -91,11 +90,8 @@
                     "startLine":16
                   }
                 },
-                "properties":{
-                  "id":"2",
-                  "kind":"usage",
-                  "importance":"Full"
-                },
+                "id":"2",
+                "kind":"usage",
                 "message":"'data' is an Input to 'RequiresNotNull' (declared on line 5)"
               },{
                 "physicalLocation":{
@@ -105,12 +101,10 @@
                     "startLine":16
                   }
                 },
-                "properties":{
-                  "id":"3",
-                  "kind":"usage",
-                  "importance":"Essential"
-                },
-                "message":"'data' should not be NULL, because this is not consistent with the SAL annotation on 'RequiresNotNull'"
+                "id":"3",
+                "kind":"usage",
+                "message":"'data' should not be NULL, because this is not consistent with the SAL annotation on 'RequiresNotNull'",
+                "essential":true
               }
             ]
           }
@@ -142,6 +136,7 @@
         },
         "codeFlows":[
           {
+            "message":"",
             "locations":[
               {
                 "physicalLocation":{
@@ -151,12 +146,10 @@
                     "startLine":20
                   }
                 },
-                "properties":{
-                  "id":"1",
-                  "kind":"declaration",
-                  "importance":"Essential"
-                },
-                "message":"'data' may be NULL"
+                "id":"1",
+                "kind":"declaration",
+                "message":"'data' may be NULL",
+                "essential":true
               },{
                 "physicalLocation":{
                   "uri":"file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedannotations/an_basic_c6387.cpp",
@@ -165,11 +158,8 @@
                     "startLine":22
                   }
                 },
-                "properties":{
-                  "id":"2",
-                  "kind":"usage",
-                  "importance":"Full"
-                },
+                "id":"2",
+                "kind":"usage",
                 "message":"'data' is an Input to 'RequiresNotNull' (declared on line 5)"
               },{
                 "physicalLocation":{
@@ -179,12 +169,10 @@
                     "startLine":22
                   }
                 },
-                "properties":{
-                  "id":"3",
-                  "kind":"usage",
-                  "importance":"Essential"
-                },
-                "message":"'data' should not be NULL, because this is not consistent with the SAL annotation on 'RequiresNotNull'"
+                "id":"3",
+                "kind":"usage",
+                "message":"'data' should not be NULL, because this is not consistent with the SAL annotation on 'RequiresNotNull'",
+                "essential":true
               }
             ]
           }
@@ -216,6 +204,7 @@
         },
         "codeFlows":[
           {
+            "message":"",
             "locations":[
               {
                 "physicalLocation":{
@@ -225,12 +214,10 @@
                     "startLine":28
                   }
                 },
-                "properties":{
-                  "id":"1",
-                  "kind":"declaration",
-                  "importance":"Essential"
-                },
-                "message":"'data' may be NULL"
+                "id":"1",
+                "kind":"declaration",
+                "message":"'data' may be NULL",
+                "essential":true
               },{
                 "physicalLocation":{
                   "uri":"file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedannotations/an_basic_c6387.cpp",
@@ -239,11 +226,8 @@
                     "startLine":30
                   }
                 },
-                "properties":{
-                  "id":"2",
-                  "kind":"usage",
-                  "importance":"Full"
-                },
+                "id":"2",
+                "kind":"usage",
                 "message":"'data' is an Input to 'RequiresNotNull' (declared on line 5)"
               },{
                 "physicalLocation":{
@@ -253,12 +237,10 @@
                     "startLine":30
                   }
                 },
-                "properties":{
-                  "id":"3",
-                  "kind":"usage",
-                  "importance":"Essential"
-                },
-                "message":"'data' should not be NULL, because this is not consistent with the SAL annotation on 'RequiresNotNull'"
+                "id":"3",
+                "kind":"usage",
+                "message":"'data' should not be NULL, because this is not consistent with the SAL annotation on 'RequiresNotNull'",
+                "essential":true
               }
             ]
           }
@@ -290,6 +272,7 @@
         },
         "codeFlows":[
           {
+            "message":"",
             "locations":[
               {
                 "physicalLocation":{
@@ -299,12 +282,10 @@
                     "startLine":36
                   }
                 },
-                "properties":{
-                  "id":"1",
-                  "kind":"declaration",
-                  "importance":"Essential"
-                },
-                "message":"'data' is NULL"
+                "id":"1",
+                "kind":"declaration",
+                "message":"'data' is NULL",
+                "essential":true
               },{
                 "physicalLocation":{
                   "uri":"file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedannotations/an_basic_c6387.cpp",
@@ -313,11 +294,8 @@
                     "startLine":38
                   }
                 },
-                "properties":{
-                  "id":"2",
-                  "kind":"declaration",
-                  "importance":"Full"
-                },
+                "id":"2",
+                "kind":"declaration",
                 "message":"'data' is an In\/Out argument to 'RequiresNotNullOut' (declared on line 7)"
               },{
                 "physicalLocation":{
@@ -327,12 +305,10 @@
                     "startLine":38
                   }
                 },
-                "properties":{
-                  "id":"3",
-                  "kind":"usage",
-                  "importance":"Essential"
-                },
-                "message":"'data' should not be NULL, because this is not consistent with the SAL annotation on 'RequiresNotNullOut'"
+                "id":"3",
+                "kind":"usage",
+                "message":"'data' should not be NULL, because this is not consistent with the SAL annotation on 'RequiresNotNullOut'",
+                "essential":true
               }
             ]
           }
@@ -364,6 +340,7 @@
         },
         "codeFlows":[
           {
+            "message":"",
             "locations":[
               {
                 "physicalLocation":{
@@ -381,12 +358,10 @@
                     "startLine":47
                   }
                 },
-                "properties":{
-                  "id":"1",
-                  "kind":"declaration",
-                  "importance":"Essential"
-                },
-                "message":"'*pOut' may be NULL"
+                "id":"1",
+                "kind":"declaration",
+                "message":"'*pOut' may be NULL",
+                "essential":true
               },{
                 "physicalLocation":{
                   "uri":"file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedannotations/an_basic_c6387.cpp",
@@ -403,12 +378,10 @@
                     "startLine":43
                   }
                 },
-                "properties":{
-                  "id":"2",
-                  "kind":"usage",
-                  "importance":"Essential"
-                },
-                "message":"'*pOut' should not be NULL, because this is not consistent with the SAL annotation on 'BasicC6387_OutNotNull'"
+                "id":"2",
+                "kind":"usage",
+                "message":"'*pOut' should not be NULL, because this is not consistent with the SAL annotation on 'BasicC6387_OutNotNull'",
+                "essential":true
               }
             ]
           }

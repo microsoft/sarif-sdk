@@ -44,6 +44,7 @@
         },
         "codeFlows":[
           {
+            "message":"",
             "locations":[
               {
                 "physicalLocation":{
@@ -61,12 +62,10 @@
                     "startLine":4
                   }
                 },
-                "properties":{
-                  "id":"1",
-                  "kind":"declaration",
-                  "importance":"Essential"
-                },
-                "message":"'cb' is a byte quantity"
+                "id":"1",
+                "kind":"declaration",
+                "message":"'cb' is a byte quantity",
+                "essential":true
               },{
                 "physicalLocation":{
                   "uri":"file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/c6305/c6305example.cpp",
@@ -75,12 +74,10 @@
                     "startLine":6
                   }
                 },
-                "properties":{
-                  "id":"2",
-                  "kind":"usage",
-                  "importance":"Essential"
-                },
-                "message":"Expression mixes element counts and byte quantities"
+                "id":"2",
+                "kind":"usage",
+                "message":"Expression mixes element counts and byte quantities",
+                "essential":true
               }
             ]
           }
