@@ -442,8 +442,8 @@
           "type": "string"
         },
 
-        "parent": {
-          "description": "Identifies the immediate parent of the construct in which the result occurred. For example, this property might contain the name of a namespace that holds a type.",
+        "parentKey": {
+          "description": "Identifies the key of the immediate parent of the construct in which the result occurred. For example, this property might point to a logical location that represents the namespace that holds a type.",
           "type": "string"
         },
 
