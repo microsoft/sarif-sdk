@@ -14,7 +14,7 @@ using Microsoft.VisualStudio.Shell.Interop;
 using Microsoft.VisualStudio.Shell.TableControl;
 using Microsoft.VisualStudio.Shell.TableManager;
 
-namespace Microsoft.Sarif.Viewer
+namespace Microsoft.Sarif.Viewer.ErrorList
 {
     /// <summary>
     /// This class provides a data snapshot for the current contents of the error list
@@ -22,24 +22,24 @@ namespace Microsoft.Sarif.Viewer
     internal class SarifSnapshot : TableEntriesSnapshotBase, IWpfTableEntriesSnapshot
     {
         private string _projectName;
-        private readonly List<SarifError> _errors;
+        private readonly List<SarifErrorListItem> _errors;
 
-        internal SarifSnapshot(string filePath, IEnumerable<SarifError> errors)
+        internal SarifSnapshot(string filePath, IEnumerable<SarifErrorListItem> errors)
         {
             FilePath = filePath;
-            _errors = new List<SarifError>(errors);
+            _errors = new List<SarifErrorListItem>(errors);
             Count = _errors.Count;
         }
 
         public override int Count { get; }
 
-        public IList<SarifError> Errors { get; }
+        public IList<SarifErrorListItem> Errors { get; }
 
         public string FilePath { get; }
 
         public override int VersionNumber { get; } = 1;
 
-        public SarifError GetItem(int index)
+        public SarifErrorListItem GetItem(int index)
         {
             return _errors[index];
         }
@@ -87,7 +87,7 @@ namespace Microsoft.Sarif.Viewer
                 }
                 else if (columnName == StandardTableKeyNames.BuildTool)
                 {
-                    content = _errors[index].Tool;
+                    content = _errors[index].ToolName;
                 }
                 else if (columnName == StandardTableKeyNames.ErrorCode)
                 {
@@ -131,7 +131,7 @@ namespace Microsoft.Sarif.Viewer
                 else if (columnName == StandardTableKeyNames.DetailsExpander)
                 {
                     var error = _errors[index];
-                    content = !string.IsNullOrEmpty(error.FullMessage);
+                    content = !string.IsNullOrEmpty(error.Message);
                 }
             }
 
@@ -167,7 +167,7 @@ namespace Microsoft.Sarif.Viewer
                 return null;
             }
 
-            SarifError sarifError = _errors[index];
+            SarifErrorListItem sarifError = _errors[index];
 
             IVsWindowFrame result;
             CodeAnalysisResultManager.Instance.TryNavigateTo(sarifError, out result);
@@ -195,7 +195,7 @@ namespace Microsoft.Sarif.Viewer
         {
             var error = _errors[index];
 
-            return (!string.IsNullOrEmpty(error.FullMessage));
+            return (!string.IsNullOrEmpty(error.Message));
         }
 
         public bool TryCreateDetailsContent(int index, out FrameworkElement expandedContent)
@@ -204,7 +204,7 @@ namespace Microsoft.Sarif.Viewer
 
             expandedContent = null;
 
-            if (string.IsNullOrWhiteSpace(error.FullMessage))
+            if (string.IsNullOrWhiteSpace(error.Message))
             {
                 return false;
             }
@@ -214,7 +214,7 @@ namespace Microsoft.Sarif.Viewer
                 Background = null,
                 Padding = new Thickness(10, 6, 10, 8),
                 TextWrapping = TextWrapping.Wrap,
-                Text = error.FullMessage
+                Text = error.Message
             };
 
             return true;
@@ -232,7 +232,7 @@ namespace Microsoft.Sarif.Viewer
 
             if (columnName == StandardTableKeyNames.Text)
             {
-                toolTip = _errors[index].FullMessage;
+                toolTip = _errors[index].Message;
             }
             return toolTip != null;
         }

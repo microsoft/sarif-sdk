@@ -7,7 +7,7 @@ using System.Linq;
 using System;
 using System.Collections.Generic;
 
-namespace Microsoft.Sarif.Viewer
+namespace Microsoft.Sarif.Viewer.ErrorList
 {
     class SinkManager : IDisposable
     {

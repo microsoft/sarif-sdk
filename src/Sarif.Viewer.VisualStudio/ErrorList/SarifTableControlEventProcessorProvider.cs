@@ -12,8 +12,11 @@ using Microsoft.VisualStudio.Shell.TableControl;
 using Microsoft.VisualStudio.Shell.TableManager;
 using Microsoft.VisualStudio.TextManager.Interop;
 using Microsoft.VisualStudio.Utilities;
+using Microsoft.Sarif.Viewer.Views;
+using Microsoft.Sarif.Viewer.ViewModels;
+using Microsoft.CodeAnalysis.Sarif;
 
-namespace Microsoft.Sarif.Viewer
+namespace Microsoft.Sarif.Viewer.ErrorList
 {
     [Export(typeof(ITableControlEventProcessorProvider))]
     [ManagerType(StandardTables.ErrorsTable)]
@@ -61,7 +64,7 @@ namespace Microsoft.Sarif.Viewer
                 e.Handled = true;
                 DeselectItems(snapshot);
 
-                SarifError sarifError = sarifSnapshot.GetItem(index);
+                SarifErrorListItem sarifError = sarifSnapshot.GetItem(index);
 
                 IVsWindowFrame frame;
                 if (!CodeAnalysisResultManager.Instance.TryNavigateTo(sarifError, out frame))
@@ -79,7 +82,7 @@ namespace Microsoft.Sarif.Viewer
                 }
             }
 
-            private void OpenOrReplaceVerticalContent(IVsWindowFrame frame, SarifError error)
+            private void OpenOrReplaceVerticalContent(IVsWindowFrame frame, SarifErrorListItem error)
             {
                 IVsTextView textView = GetTextViewFromFrame(frame);
                 if (textView == null)
@@ -88,7 +91,7 @@ namespace Microsoft.Sarif.Viewer
                 }
 
                 CodeLocations codeLocations = new CodeLocations();
-                codeLocations.CurrentSarifError = error;
+                codeLocations.DataContext = ViewModelLocator.DesignTime;
 
                 // TODO: this needs to be a public API
                 var type = textView.GetType();
@@ -102,7 +105,7 @@ namespace Microsoft.Sarif.Viewer
                 cookieMap.Add(textView, new StrongBox<int>(cookie));
             }
 
-            private void CloseVerticalContent(IVsWindowFrame frame, SarifError item)
+            private void CloseVerticalContent(IVsWindowFrame frame, SarifErrorListItem item)
             {
                 IVsTextView textView = GetTextViewFromFrame(frame);
                 if (textView == null)
@@ -146,7 +149,7 @@ namespace Microsoft.Sarif.Viewer
                 return textView;
             }
 
-            private void SelectItem(SarifError item)
+            private void SelectItem(SarifErrorListItem item)
             {
                 // TODO
             }

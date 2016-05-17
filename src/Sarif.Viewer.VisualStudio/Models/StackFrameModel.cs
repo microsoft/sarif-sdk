@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Microsoft.Sarif.Viewer.Models
 {
-    public class StackFrame : NotifyPropertyChangedObject
+    public class StackFrameModel : NotifyPropertyChangedObject
     {
         private string _message;
         private string _filePath;

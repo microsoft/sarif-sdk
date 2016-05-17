@@ -11,8 +11,9 @@ using Microsoft.CodeAnalysis.Sarif.Readers;
 using Microsoft.CodeAnalysis.Sarif.Writers;
 
 using Newtonsoft.Json;
+using Microsoft.Sarif.Viewer.Sarif;
 
-namespace Microsoft.Sarif.Viewer
+namespace Microsoft.Sarif.Viewer.ErrorList
 {
     public class ErrorListService
     {
@@ -80,101 +81,23 @@ namespace Microsoft.Sarif.Viewer
 
         private Dictionary<string, NewLineIndex> documentToLineIndexMap;
 
-        private IRule GetRule(Run runLog, string ruleId)
+        private void WriteRunToErrorList(Run run)
         {
-            if (runLog.Rules == null)
+            List<SarifErrorListItem> sarifErrors = new List<SarifErrorListItem>();
+
+            foreach (Result result in run.Results)
             {
-                return null;
+                SarifErrorListItem sarifError = GetResult(run, result);
+                sarifErrors.Add(sarifError);
             }
 
-            foreach (Rule rule in runLog.Rules.Values)
-            {
-                if (rule.Id == ruleId) { return rule; }
-            }
-
-            throw new InvalidOperationException();
+            CodeAnalysisResultManager.Instance.SarifErrors = sarifErrors;
+            SarifTableDataSource.Instance.AddErrors(sarifErrors);
         }
 
-        private void WriteRunToErrorList(Run runLog)
+        private SarifErrorListItem GetResult(Run run, Result result)
         {
-            List<SarifError> sarifErrors = new List<SarifError>();
-
-            // Prefer optional fullName,  fall back to required Name property
-            string toolName = runLog.Tool.FullName ?? runLog.Tool.Name;
-
-            foreach (Result result in runLog.Results)
-            {
-                string category, document;
-                Region region;
-
-                result.TryGetProperty("category", out category);
-
-                if (result.Locations != null)
-                {
-                    foreach (Location location in result?.Locations)
-                    {
-                        region = null;
-                        Uri uri;
-
-                        PhysicalLocation physicalLocation = null;
-                        if (location.ResultFile != null)
-                        {
-                            physicalLocation = location.ResultFile;
-                            uri = physicalLocation.Uri;
-                            document = uri.IsAbsoluteUri ? uri.LocalPath : uri.ToString();
-                            region = physicalLocation.Region;
-                        }
-                        else if (location.AnalysisTarget != null)
-                        {
-                            physicalLocation = location.AnalysisTarget;
-                            uri = physicalLocation.Uri;
-                            document = physicalLocation.Uri.LocalPath;
-                            region = physicalLocation.Region;
-                        }
-                        else
-                        {
-                            document = location.FullyQualifiedLogicalName;
-                        }
-
-                        AddResult(runLog, sarifErrors, toolName, result, category, document, region);
-                    }
-                }
-                else
-                {
-                    AddResult(runLog, sarifErrors, toolName, result, category, document: @"d:\repros\test.txt", region: null);
-                }
-
-                CodeAnalysisResultManager.Instance.SarifErrors = sarifErrors;
-                SarifTableDataSource.Instance.AddErrors(sarifErrors);
-            }
-        }
-
-        private void AddResult(Run runLog, List<SarifError> sarifErrors, string toolName, Result result, string category, string document, Region region)
-        {
-            IRule rule;
-            string shortMessage, fullMessage;
-
-            rule = GetRule(runLog, result.RuleId);
-            shortMessage = result.GetMessageText(rule, concise: true);
-            fullMessage = result.GetMessageText(rule, concise: false);
-
-            if (shortMessage == fullMessage)
-            {
-                fullMessage = null;
-            }
-
-            SarifError sarifError = new SarifError(document)
-            {
-                Region = region,
-                RuleId = result.RuleId,
-                RuleName = rule?.Name,
-                Level = result.Level,
-                Category = category,
-                ShortMessage = shortMessage,
-                FullMessage = fullMessage,
-                Tool = toolName,
-                HelpLink = rule?.HelpUri?.ToString()
-            };
+            SarifErrorListItem sarifError = new SarifErrorListItem(run, result);
 
             IEnumerable<IEnumerable<AnnotatedCodeLocation>> stackLocations = CreateAnnotatedCodeLocationsFromStacks(result.Stacks);
             IEnumerable<IEnumerable<AnnotatedCodeLocation>> codeFlowLocations = CreateAnnotatedCodeLocationsFromCodeFlows(result.CodeFlows);
@@ -183,13 +106,7 @@ namespace Microsoft.Sarif.Viewer
             CreateAnnotatedCodeLocationCollections(codeFlowLocations, AnnotatedCodeLocationKind.CodeFlow, sarifError);
             CaptureAnnotatedCodeLocations(result.RelatedLocations, AnnotatedCodeLocationKind.Stack, sarifError);
 
-            if (region != null)
-            {
-                sarifError.ColumnNumber = region.StartColumn - 1;
-                sarifError.LineNumber = region.StartLine - 1;
-            }
-
-            sarifErrors.Add(sarifError);
+            return sarifError;
         }
 
         private IEnumerable<IEnumerable<AnnotatedCodeLocation>> CreateAnnotatedCodeLocationsFromStacks(IEnumerable<Stack> stacks)
@@ -244,7 +161,7 @@ namespace Microsoft.Sarif.Viewer
         private static void CreateAnnotatedCodeLocationCollections(
             IEnumerable<IEnumerable<AnnotatedCodeLocation>> codeLocationCollections, 
             AnnotatedCodeLocationKind annotatedCodeLocationKind,
-            SarifError sarifError)
+            SarifErrorListItem sarifError)
         {
             if (codeLocationCollections == null) { return; }
 
@@ -254,7 +171,7 @@ namespace Microsoft.Sarif.Viewer
             }
         }
 
-        private static void CaptureAnnotatedCodeLocations(IEnumerable<AnnotatedCodeLocation> codeLocations, AnnotatedCodeLocationKind annotatedCodeLocationKind, SarifError sarifError)
+        private static void CaptureAnnotatedCodeLocations(IEnumerable<AnnotatedCodeLocation> codeLocations, AnnotatedCodeLocationKind annotatedCodeLocationKind, SarifErrorListItem sarifError)
         {
             if (codeLocations == null)
             {

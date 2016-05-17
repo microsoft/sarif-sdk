@@ -11,7 +11,7 @@ using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.TableControl;
 using Microsoft.VisualStudio.Shell.TableManager;
 
-namespace Microsoft.Sarif.Viewer
+namespace Microsoft.Sarif.Viewer.ErrorList
 {
     class SarifTableDataSource : ITableDataSource
     {
@@ -118,7 +118,7 @@ namespace Microsoft.Sarif.Viewer
             }
         }
 
-        public void AddErrors(IEnumerable<SarifError> errors)
+        public void AddErrors(IEnumerable<SarifErrorListItem> errors)
         {
             if (errors == null || !errors.Any())
                 return;

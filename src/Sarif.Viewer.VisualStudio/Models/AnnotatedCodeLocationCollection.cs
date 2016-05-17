@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Microsoft.Sarif.Viewer.Models
 {
-    public class AnnotatedCodeLocationCollection : ObservableCollection<AnnotatedCodeLocation>
+    public class AnnotatedCodeLocationCollection : ObservableCollection<AnnotatedCodeLocationModel>
     {
         private string _message;
 

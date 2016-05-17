@@ -10,6 +10,7 @@ using System.Windows.Forms;
 
 using Microsoft.CodeAnalysis.Sarif;
 using Microsoft.VisualStudio.Shell;
+using Microsoft.Sarif.Viewer.ErrorList;
 
 namespace Microsoft.Sarif.Viewer
 {

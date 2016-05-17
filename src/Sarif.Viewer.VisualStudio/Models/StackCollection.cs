@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Microsoft.Sarif.Viewer.Models
 {
-    public class StackCollection : ObservableCollection<StackFrame>
+    public class StackCollection : ObservableCollection<StackFrameModel>
     {
         private string _message;
 

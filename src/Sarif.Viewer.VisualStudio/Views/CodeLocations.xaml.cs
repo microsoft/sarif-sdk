@@ -4,7 +4,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 
-namespace Microsoft.Sarif.Viewer
+namespace Microsoft.Sarif.Viewer.Views
 {
     /// <summary>
     /// Interaction logic for CodeLocations.xaml
@@ -14,27 +14,6 @@ namespace Microsoft.Sarif.Viewer
         public CodeLocations()
         {
             InitializeComponent();
-            //this.detailsGrid.DataContext = this;
-        }
-
-        public ObservableCollection<AnnotatedCodeLocationModel> Items { get; internal set; }
-
-        SarifError _sarifError;
-        public SarifError CurrentSarifError
-        {
-            get
-            {
-                return _sarifError;
-            }
-
-            set
-            {
-                _sarifError = value;
-                if (_sarifError != null)
-                {
-                    SetItems(_sarifError.Annotations);
-                }
-            }
         }
 
         private void SetItems(ObservableCollection<AnnotatedCodeLocationModel> items)

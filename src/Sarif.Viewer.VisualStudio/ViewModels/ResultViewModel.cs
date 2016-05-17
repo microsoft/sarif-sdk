@@ -1,4 +1,6 @@
-﻿using Microsoft.Sarif.Viewer.Models;
+﻿using Microsoft.CodeAnalysis.Sarif;
+using Microsoft.Sarif.Viewer.Models;
+using Microsoft.Sarif.Viewer.Sarif;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -14,15 +16,15 @@ namespace Microsoft.Sarif.Viewer.ViewModels
         private string _ruleId;
         private string _ruleName;
         private string _message;
-        private ObservableCollection<AnnotatedCodeLocationCollection> _locations;
-        private ObservableCollection<AnnotatedCodeLocationCollection> _relatedLocations;
+        private AnnotatedCodeLocationCollection _locations;
+        private AnnotatedCodeLocationCollection _relatedLocations;
         private ObservableCollection<AnnotatedCodeLocationCollection> _codeFlows;
         private ObservableCollection<StackCollection> _stacks;
 
         public ResultViewModel()
         {
-            this._locations = new ObservableCollection<AnnotatedCodeLocationCollection>();
-            this._relatedLocations = new ObservableCollection<AnnotatedCodeLocationCollection>();
+            this._locations = new AnnotatedCodeLocationCollection(String.Empty);
+            this._relatedLocations = new AnnotatedCodeLocationCollection(String.Empty);
             this._codeFlows = new ObservableCollection<AnnotatedCodeLocationCollection>();
             this._stacks = new ObservableCollection<StackCollection>();
         }
@@ -77,7 +79,7 @@ namespace Microsoft.Sarif.Viewer.ViewModels
             }
         }
 
-        public ObservableCollection<AnnotatedCodeLocationCollection> Locations
+        public AnnotatedCodeLocationCollection Locations
         {
             get
             {
@@ -85,7 +87,7 @@ namespace Microsoft.Sarif.Viewer.ViewModels
             }
         }
 
-        public ObservableCollection<AnnotatedCodeLocationCollection> RelatedLocations
+        public AnnotatedCodeLocationCollection RelatedLocations
         {
             get
             {
