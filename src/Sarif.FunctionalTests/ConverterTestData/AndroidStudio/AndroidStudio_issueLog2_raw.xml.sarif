@@ -37,6 +37,7 @@
             {
               "resultFile": {
                 "uri": "app/src/main/java/microsoft/androidstudioformatexample/NamespaceTypo.java",
+                "uriBaseId": "$PROJECT_DIR$",
                 "region": {
                   "startLine": 3
                 }

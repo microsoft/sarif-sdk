@@ -26,16 +26,17 @@
           "locations": [
             {
               "analysisTarget": {
-                "uri": "build/intermediates/exploded-aar/com.google.android.gms/play-services/4.4.52/res/values/wallet_styles.xml"
+                "uri": "build/intermediates/exploded-aar/com.google.android.gms/play-services/4.4.52/res/values/wallet_styles.xml",
+                "uriBaseId": "$PROJECT_DIR$"
               },
               "resultFile": {
                 "uri": "build/intermediates/exploded-aar/com.google.android.gms/play-services/4.4.52/res/values/wallet_styles.xml",
+                "uriBaseId": "$PROJECT_DIR$",
                 "region": {
                   "startLine": 6
                 }
               },
-              "fullyQualifiedLogicalName": "android20140909\\file://$PROJECT_DIR$/build/intermediates/exploded-aar/com.google.android.gms/play-services/4.4.52/res/values/wallet_styles.xml",
-              "logicalLocationKey": "android20140909"
+              "fullyQualifiedLogicalName": "android20140909"
             }
           ],
           "properties": {

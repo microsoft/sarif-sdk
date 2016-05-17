@@ -145,57 +145,20 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 location.LogicalLocationKey = logicalLocationKey;
             }
 
-            //if (!String.IsNullOrWhiteSpace(problem.Module))
-            //{
-            //    logicalLocationComponents.Add(new LogicalLocationComponent
-            //    {
-            //        Name = problem.Module,
-            //        Kind = LogicalLocationKind.Module
-            //    });
-            //}
-
-            //if (!String.IsNullOrWhiteSpace(problem.Package))
-            //{
-            //    logicalLocationComponents.Add(new LogicalLocationComponent
-            //    {
-            //        Name = problem.Package,
-            //        Kind = LogicalLocationKind.Package
-            //    });
-            //}
-
-            //if ("class".Equals(problem.EntryPointType, StringComparison.OrdinalIgnoreCase))
-            //{
-            //    logicalLocationComponents.Add(new LogicalLocationComponent
-            //    {
-            //        Name = problem.EntryPointName,
-            //        Kind = LogicalLocationKind.Type
-            //    });
-            //}
-
-            //if ("method".Equals(problem.EntryPointType, StringComparison.OrdinalIgnoreCase))
-            //{
-            //    logicalLocationComponents.Add(new LogicalLocationComponent
-            //    {
-            //        Name = problem.EntryPointName,
-            //        Kind = LogicalLocationKind.Member
-            //    });
-            //}
-
-            //if (logicalLocationComponents.Count != 0)
-            //{
-            //    location.FullyQualifiedLogicalName = String.Join("\\", logicalLocationComponents.Select(x => x.Name));
-
-            //    AddLogicalLocation(location, logicalLocationComponents);
-            //}
-
+            Uri uri;
             string file = problem.File;
             if (!String.IsNullOrEmpty(file))
             {
                 location.ResultFile = new PhysicalLocation
                 {
-                    Uri = RemoveBadRoot(file),
                     Region = problem.Line <= 0 ? null : Extensions.CreateRegion(problem.Line)
                 };
+
+                if (RemoveBadRoot(file, out uri))
+                {
+                    location.ResultFile.UriBaseId = PROJECT_DIR;
+                }
+                location.ResultFile.Uri = uri;
             }
 
             if ("file".Equals(problem.EntryPointType, StringComparison.OrdinalIgnoreCase))
@@ -205,10 +168,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                     location.ResultFile = location.AnalysisTarget;
                 }
 
-                location.AnalysisTarget = new PhysicalLocation
+                location.AnalysisTarget = new PhysicalLocation();
+
+                if (RemoveBadRoot(problem.EntryPointName, out uri))
                 {
-                    Uri = RemoveBadRoot(problem.EntryPointName)
-                };
+                    location.AnalysisTarget.UriBaseId = PROJECT_DIR;
+                }
+                location.AnalysisTarget.Uri = uri;
             }
 
             result.Locations = new List<Location> { location };
@@ -218,7 +184,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
         private static string CreateSignature(AndroidStudioProblem problem)
         {
-            string[] parts = new string[] { problem.Module, problem.Package, problem.EntryPointName };
+            string entryPointName = problem.EntryPointName;
+            if ("file".Equals(problem.EntryPointType))
+            {
+                entryPointName = null;
+            }
+
+            string[] parts = new string[] { problem.Module, problem.Package, entryPointName };
             var updated = parts
                     .Where(part => !String.IsNullOrEmpty(part));
 
@@ -313,20 +285,26 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             return sb.ToString();
         }
 
-        private static Uri RemoveBadRoot(string path)
+        private const string PROJECT_DIR = "$PROJECT_DIR$";
+
+        private static bool RemoveBadRoot(string path, out Uri uri)
         {
-            const string badRoot = "file://$PROJECT_DIR$/";
+            const string badRoot = "file://" + PROJECT_DIR +"/";
+            bool removedBadRoot;
             string removed;
             if (path.StartsWith(badRoot, StringComparison.Ordinal))
             {
                 removed = path.Substring(badRoot.Length);
+                removedBadRoot = true;
             }
             else
             {
                 removed = path;
+                removedBadRoot = false;
             }
 
-            return new Uri(removed, UriKind.RelativeOrAbsolute);
+            uri = new Uri(removed, UriKind.RelativeOrAbsolute);
+            return removedBadRoot;
         }
     }
 }

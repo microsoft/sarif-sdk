@@ -47,6 +47,7 @@
             {
               "resultFile": {
                 "uri": "app/src/main/java/microsoft/androidstudioformatexample/MainActivity.java",
+                "uriBaseId": "$PROJECT_DIR$",
                 "region": {
                   "startLine": 37
                 }
@@ -66,6 +67,7 @@
             {
               "resultFile": {
                 "uri": "app/src/main/java/microsoft/androidstudioformatexample/NamespaceTypo.java",
+                "uriBaseId": "$PROJECT_DIR$",
                 "region": {
                   "startLine": 6
                 }

@@ -31,16 +31,17 @@
           "locations": [
             {
               "analysisTarget": {
-                "uri": "northwindtraders-droid-2/src/main/java/com/northwindtraders/droid/model/Model.java"
+                "uri": "northwindtraders-droid-2/src/main/java/com/northwindtraders/droid/model/Model.java",
+                "uriBaseId": "$PROJECT_DIR$"
               },
               "resultFile": {
                 "uri": "northwindtraders-droid-2/src/main/java/com/northwindtraders/droid/model/Model.java",
+                "uriBaseId": "$PROJECT_DIR$",
                 "region": {
                   "startLine": 242
                 }
               },
-              "fullyQualifiedLogicalName": "northwindtraders-droid-2\\com.northwindtraders.droid.model\\file://$PROJECT_DIR$/northwindtraders-droid-2/src/main/java/com/northwindtraders/droid/model/Model.java",
-              "logicalLocationKey": "northwindtraders-droid-2\\com.northwindtraders.droid.model"
+              "fullyQualifiedLogicalName": "northwindtraders-droid-2\\com.northwindtraders.droid.model"
             }
           ],
           "properties": {

@@ -70,16 +70,17 @@
           "locations": [
             {
               "analysisTarget": {
-                "uri": "gradle.properties"
+                "uri": "gradle.properties",
+                "uriBaseId": "$PROJECT_DIR$"
               },
               "resultFile": {
                 "uri": "gradle.properties",
+                "uriBaseId": "$PROJECT_DIR$",
                 "region": {
                   "startLine": 8
                 }
               },
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample\\file://$PROJECT_DIR$/gradle.properties",
-              "logicalLocationKey": "AndroidStudioFormatExample"
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
             }
           ],
           "properties": {
@@ -93,16 +94,17 @@
           "locations": [
             {
               "analysisTarget": {
-                "uri": "gradle.properties"
+                "uri": "gradle.properties",
+                "uriBaseId": "$PROJECT_DIR$"
               },
               "resultFile": {
                 "uri": "gradle.properties",
+                "uriBaseId": "$PROJECT_DIR$",
                 "region": {
                   "startLine": 13
                 }
               },
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample\\file://$PROJECT_DIR$/gradle.properties",
-              "logicalLocationKey": "AndroidStudioFormatExample"
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
             }
           ],
           "properties": {
@@ -116,16 +118,17 @@
           "locations": [
             {
               "analysisTarget": {
-                "uri": "gradle.properties"
+                "uri": "gradle.properties",
+                "uriBaseId": "$PROJECT_DIR$"
               },
               "resultFile": {
                 "uri": "gradle.properties",
+                "uriBaseId": "$PROJECT_DIR$",
                 "region": {
                   "startLine": 13
                 }
               },
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample\\file://$PROJECT_DIR$/gradle.properties",
-              "logicalLocationKey": "AndroidStudioFormatExample"
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
             }
           ],
           "properties": {
@@ -139,16 +142,17 @@
           "locations": [
             {
               "analysisTarget": {
-                "uri": "gradle.properties"
+                "uri": "gradle.properties",
+                "uriBaseId": "$PROJECT_DIR$"
               },
               "resultFile": {
                 "uri": "gradle.properties",
+                "uriBaseId": "$PROJECT_DIR$",
                 "region": {
                   "startLine": 17
                 }
               },
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample\\file://$PROJECT_DIR$/gradle.properties",
-              "logicalLocationKey": "AndroidStudioFormatExample"
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
             }
           ],
           "properties": {
@@ -162,16 +166,17 @@
           "locations": [
             {
               "analysisTarget": {
-                "uri": "gradle/wrapper/gradle-wrapper.properties"
+                "uri": "gradle/wrapper/gradle-wrapper.properties",
+                "uriBaseId": "$PROJECT_DIR$"
               },
               "resultFile": {
                 "uri": "gradle/wrapper/gradle-wrapper.properties",
+                "uriBaseId": "$PROJECT_DIR$",
                 "region": {
                   "startLine": 3
                 }
               },
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample\\file://$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.properties",
-              "logicalLocationKey": "AndroidStudioFormatExample"
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
             }
           ],
           "properties": {
@@ -185,16 +190,17 @@
           "locations": [
             {
               "analysisTarget": {
-                "uri": "gradle/wrapper/gradle-wrapper.properties"
+                "uri": "gradle/wrapper/gradle-wrapper.properties",
+                "uriBaseId": "$PROJECT_DIR$"
               },
               "resultFile": {
                 "uri": "gradle/wrapper/gradle-wrapper.properties",
+                "uriBaseId": "$PROJECT_DIR$",
                 "region": {
                   "startLine": 5
                 }
               },
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample\\file://$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.properties",
-              "logicalLocationKey": "AndroidStudioFormatExample"
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
             }
           ],
           "properties": {
@@ -208,16 +214,17 @@
           "locations": [
             {
               "analysisTarget": {
-                "uri": "gradlew"
+                "uri": "gradlew",
+                "uriBaseId": "$PROJECT_DIR$"
               },
               "resultFile": {
                 "uri": "gradlew",
+                "uriBaseId": "$PROJECT_DIR$",
                 "region": {
                   "startLine": 30
                 }
               },
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample\\file://$PROJECT_DIR$/gradlew",
-              "logicalLocationKey": "AndroidStudioFormatExample"
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
             }
           ],
           "properties": {
@@ -231,16 +238,17 @@
           "locations": [
             {
               "analysisTarget": {
-                "uri": "gradlew"
+                "uri": "gradlew",
+                "uriBaseId": "$PROJECT_DIR$"
               },
               "resultFile": {
                 "uri": "gradlew",
+                "uriBaseId": "$PROJECT_DIR$",
                 "region": {
                   "startLine": 31
                 }
               },
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample\\file://$PROJECT_DIR$/gradlew",
-              "logicalLocationKey": "AndroidStudioFormatExample"
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
             }
           ],
           "properties": {
@@ -254,16 +262,17 @@
           "locations": [
             {
               "analysisTarget": {
-                "uri": "gradlew"
+                "uri": "gradlew",
+                "uriBaseId": "$PROJECT_DIR$"
               },
               "resultFile": {
                 "uri": "gradlew",
+                "uriBaseId": "$PROJECT_DIR$",
                 "region": {
                   "startLine": 33
                 }
               },
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample\\file://$PROJECT_DIR$/gradlew",
-              "logicalLocationKey": "AndroidStudioFormatExample"
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
             }
           ],
           "properties": {
@@ -277,16 +286,17 @@
           "locations": [
             {
               "analysisTarget": {
-                "uri": "gradlew"
+                "uri": "gradlew",
+                "uriBaseId": "$PROJECT_DIR$"
               },
               "resultFile": {
                 "uri": "gradlew",
+                "uriBaseId": "$PROJECT_DIR$",
                 "region": {
                   "startLine": 34
                 }
               },
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample\\file://$PROJECT_DIR$/gradlew",
-              "logicalLocationKey": "AndroidStudioFormatExample"
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
             }
           ],
           "properties": {
@@ -300,16 +310,17 @@
           "locations": [
             {
               "analysisTarget": {
-                "uri": "gradlew"
+                "uri": "gradlew",
+                "uriBaseId": "$PROJECT_DIR$"
               },
               "resultFile": {
                 "uri": "gradlew",
+                "uriBaseId": "$PROJECT_DIR$",
                 "region": {
                   "startLine": 35
                 }
               },
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample\\file://$PROJECT_DIR$/gradlew",
-              "logicalLocationKey": "AndroidStudioFormatExample"
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
             }
           ],
           "properties": {
@@ -323,16 +334,17 @@
           "locations": [
             {
               "analysisTarget": {
-                "uri": "gradlew"
+                "uri": "gradlew",
+                "uriBaseId": "$PROJECT_DIR$"
               },
               "resultFile": {
                 "uri": "gradlew",
+                "uriBaseId": "$PROJECT_DIR$",
                 "region": {
                   "startLine": 40
                 }
               },
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample\\file://$PROJECT_DIR$/gradlew",
-              "logicalLocationKey": "AndroidStudioFormatExample"
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
             }
           ],
           "properties": {
@@ -346,16 +358,17 @@
           "locations": [
             {
               "analysisTarget": {
-                "uri": "gradlew"
+                "uri": "gradlew",
+                "uriBaseId": "$PROJECT_DIR$"
               },
               "resultFile": {
                 "uri": "gradlew",
+                "uriBaseId": "$PROJECT_DIR$",
                 "region": {
                   "startLine": 41
                 }
               },
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample\\file://$PROJECT_DIR$/gradlew",
-              "logicalLocationKey": "AndroidStudioFormatExample"
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
             }
           ],
           "properties": {
@@ -369,16 +382,17 @@
           "locations": [
             {
               "analysisTarget": {
-                "uri": "gradlew"
+                "uri": "gradlew",
+                "uriBaseId": "$PROJECT_DIR$"
               },
               "resultFile": {
                 "uri": "gradlew",
+                "uriBaseId": "$PROJECT_DIR$",
                 "region": {
                   "startLine": 43
                 }
               },
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample\\file://$PROJECT_DIR$/gradlew",
-              "logicalLocationKey": "AndroidStudioFormatExample"
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
             }
           ],
           "properties": {
@@ -392,16 +406,17 @@
           "locations": [
             {
               "analysisTarget": {
-                "uri": "gradlew"
+                "uri": "gradlew",
+                "uriBaseId": "$PROJECT_DIR$"
               },
               "resultFile": {
                 "uri": "gradlew",
+                "uriBaseId": "$PROJECT_DIR$",
                 "region": {
                   "startLine": 45
                 }
               },
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample\\file://$PROJECT_DIR$/gradlew",
-              "logicalLocationKey": "AndroidStudioFormatExample"
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
             }
           ],
           "properties": {
@@ -415,16 +430,17 @@
           "locations": [
             {
               "analysisTarget": {
-                "uri": "gradlew"
+                "uri": "gradlew",
+                "uriBaseId": "$PROJECT_DIR$"
               },
               "resultFile": {
                 "uri": "gradlew",
+                "uriBaseId": "$PROJECT_DIR$",
                 "region": {
                   "startLine": 46
                 }
               },
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample\\file://$PROJECT_DIR$/gradlew",
-              "logicalLocationKey": "AndroidStudioFormatExample"
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
             }
           ],
           "properties": {
@@ -438,16 +454,17 @@
           "locations": [
             {
               "analysisTarget": {
-                "uri": "gradlew"
+                "uri": "gradlew",
+                "uriBaseId": "$PROJECT_DIR$"
               },
               "resultFile": {
                 "uri": "gradlew",
+                "uriBaseId": "$PROJECT_DIR$",
                 "region": {
                   "startLine": 47
                 }
               },
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample\\file://$PROJECT_DIR$/gradlew",
-              "logicalLocationKey": "AndroidStudioFormatExample"
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
             }
           ],
           "properties": {
@@ -461,16 +478,17 @@
           "locations": [
             {
               "analysisTarget": {
-                "uri": "gradlew"
+                "uri": "gradlew",
+                "uriBaseId": "$PROJECT_DIR$"
               },
               "resultFile": {
                 "uri": "gradlew",
+                "uriBaseId": "$PROJECT_DIR$",
                 "region": {
                   "startLine": 60
                 }
               },
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample\\file://$PROJECT_DIR$/gradlew",
-              "logicalLocationKey": "AndroidStudioFormatExample"
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
             }
           ],
           "properties": {
@@ -484,16 +502,17 @@
           "locations": [
             {
               "analysisTarget": {
-                "uri": "gradlew"
+                "uri": "gradlew",
+                "uriBaseId": "$PROJECT_DIR$"
               },
               "resultFile": {
                 "uri": "gradlew",
+                "uriBaseId": "$PROJECT_DIR$",
                 "region": {
                   "startLine": 64
                 }
               },
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample\\file://$PROJECT_DIR$/gradlew",
-              "logicalLocationKey": "AndroidStudioFormatExample"
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
             }
           ],
           "properties": {
@@ -507,16 +526,17 @@
           "locations": [
             {
               "analysisTarget": {
-                "uri": "gradlew"
+                "uri": "gradlew",
+                "uriBaseId": "$PROJECT_DIR$"
               },
               "resultFile": {
                 "uri": "gradlew",
+                "uriBaseId": "$PROJECT_DIR$",
                 "region": {
                   "startLine": 73
                 }
               },
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample\\file://$PROJECT_DIR$/gradlew",
-              "logicalLocationKey": "AndroidStudioFormatExample"
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
             }
           ],
           "properties": {
@@ -530,16 +550,17 @@
           "locations": [
             {
               "analysisTarget": {
-                "uri": "gradlew"
+                "uri": "gradlew",
+                "uriBaseId": "$PROJECT_DIR$"
               },
               "resultFile": {
                 "uri": "gradlew",
+                "uriBaseId": "$PROJECT_DIR$",
                 "region": {
                   "startLine": 74
                 }
               },
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample\\file://$PROJECT_DIR$/gradlew",
-              "logicalLocationKey": "AndroidStudioFormatExample"
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
             }
           ],
           "properties": {
@@ -553,16 +574,17 @@
           "locations": [
             {
               "analysisTarget": {
-                "uri": "gradlew"
+                "uri": "gradlew",
+                "uriBaseId": "$PROJECT_DIR$"
               },
               "resultFile": {
                 "uri": "gradlew",
+                "uriBaseId": "$PROJECT_DIR$",
                 "region": {
                   "startLine": 76
                 }
               },
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample\\file://$PROJECT_DIR$/gradlew",
-              "logicalLocationKey": "AndroidStudioFormatExample"
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
             }
           ],
           "properties": {
@@ -576,16 +598,17 @@
           "locations": [
             {
               "analysisTarget": {
-                "uri": "gradlew"
+                "uri": "gradlew",
+                "uriBaseId": "$PROJECT_DIR$"
               },
               "resultFile": {
                 "uri": "gradlew",
+                "uriBaseId": "$PROJECT_DIR$",
                 "region": {
                   "startLine": 78
                 }
               },
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample\\file://$PROJECT_DIR$/gradlew",
-              "logicalLocationKey": "AndroidStudioFormatExample"
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
             }
           ],
           "properties": {
@@ -599,16 +622,17 @@
           "locations": [
             {
               "analysisTarget": {
-                "uri": "gradlew"
+                "uri": "gradlew",
+                "uriBaseId": "$PROJECT_DIR$"
               },
               "resultFile": {
                 "uri": "gradlew",
+                "uriBaseId": "$PROJECT_DIR$",
                 "region": {
                   "startLine": 85
                 }
               },
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample\\file://$PROJECT_DIR$/gradlew",
-              "logicalLocationKey": "AndroidStudioFormatExample"
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
             }
           ],
           "properties": {
@@ -622,16 +646,17 @@
           "locations": [
             {
               "analysisTarget": {
-                "uri": "gradlew"
+                "uri": "gradlew",
+                "uriBaseId": "$PROJECT_DIR$"
               },
               "resultFile": {
                 "uri": "gradlew",
+                "uriBaseId": "$PROJECT_DIR$",
                 "region": {
                   "startLine": 93
                 }
               },
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample\\file://$PROJECT_DIR$/gradlew",
-              "logicalLocationKey": "AndroidStudioFormatExample"
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
             }
           ],
           "properties": {
@@ -645,16 +670,17 @@
           "locations": [
             {
               "analysisTarget": {
-                "uri": "gradlew"
+                "uri": "gradlew",
+                "uriBaseId": "$PROJECT_DIR$"
               },
               "resultFile": {
                 "uri": "gradlew",
+                "uriBaseId": "$PROJECT_DIR$",
                 "region": {
                   "startLine": 94
                 }
               },
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample\\file://$PROJECT_DIR$/gradlew",
-              "logicalLocationKey": "AndroidStudioFormatExample"
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
             }
           ],
           "properties": {
@@ -668,16 +694,17 @@
           "locations": [
             {
               "analysisTarget": {
-                "uri": "gradlew"
+                "uri": "gradlew",
+                "uriBaseId": "$PROJECT_DIR$"
               },
               "resultFile": {
                 "uri": "gradlew",
+                "uriBaseId": "$PROJECT_DIR$",
                 "region": {
                   "startLine": 99
                 }
               },
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample\\file://$PROJECT_DIR$/gradlew",
-              "logicalLocationKey": "AndroidStudioFormatExample"
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
             }
           ],
           "properties": {
@@ -691,16 +718,17 @@
           "locations": [
             {
               "analysisTarget": {
-                "uri": "gradlew"
+                "uri": "gradlew",
+                "uriBaseId": "$PROJECT_DIR$"
               },
               "resultFile": {
                 "uri": "gradlew",
+                "uriBaseId": "$PROJECT_DIR$",
                 "region": {
                   "startLine": 110
                 }
               },
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample\\file://$PROJECT_DIR$/gradlew",
-              "logicalLocationKey": "AndroidStudioFormatExample"
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
             }
           ],
           "properties": {
@@ -714,16 +742,17 @@
           "locations": [
             {
               "analysisTarget": {
-                "uri": "gradlew"
+                "uri": "gradlew",
+                "uriBaseId": "$PROJECT_DIR$"
               },
               "resultFile": {
                 "uri": "gradlew",
+                "uriBaseId": "$PROJECT_DIR$",
                 "region": {
                   "startLine": 110
                 }
               },
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample\\file://$PROJECT_DIR$/gradlew",
-              "logicalLocationKey": "AndroidStudioFormatExample"
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
             }
           ],
           "properties": {
@@ -737,16 +766,17 @@
           "locations": [
             {
               "analysisTarget": {
-                "uri": "gradlew"
+                "uri": "gradlew",
+                "uriBaseId": "$PROJECT_DIR$"
               },
               "resultFile": {
                 "uri": "gradlew",
+                "uriBaseId": "$PROJECT_DIR$",
                 "region": {
                   "startLine": 113
                 }
               },
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample\\file://$PROJECT_DIR$/gradlew",
-              "logicalLocationKey": "AndroidStudioFormatExample"
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
             }
           ],
           "properties": {
@@ -760,16 +790,17 @@
           "locations": [
             {
               "analysisTarget": {
-                "uri": "gradlew"
+                "uri": "gradlew",
+                "uriBaseId": "$PROJECT_DIR$"
               },
               "resultFile": {
                 "uri": "gradlew",
+                "uriBaseId": "$PROJECT_DIR$",
                 "region": {
                   "startLine": 114
                 }
               },
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample\\file://$PROJECT_DIR$/gradlew",
-              "logicalLocationKey": "AndroidStudioFormatExample"
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
             }
           ],
           "properties": {
@@ -783,16 +814,17 @@
           "locations": [
             {
               "analysisTarget": {
-                "uri": "gradlew"
+                "uri": "gradlew",
+                "uriBaseId": "$PROJECT_DIR$"
               },
               "resultFile": {
                 "uri": "gradlew",
+                "uriBaseId": "$PROJECT_DIR$",
                 "region": {
                   "startLine": 115
                 }
               },
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample\\file://$PROJECT_DIR$/gradlew",
-              "logicalLocationKey": "AndroidStudioFormatExample"
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
             }
           ],
           "properties": {
@@ -806,16 +838,17 @@
           "locations": [
             {
               "analysisTarget": {
-                "uri": "gradlew"
+                "uri": "gradlew",
+                "uriBaseId": "$PROJECT_DIR$"
               },
               "resultFile": {
                 "uri": "gradlew",
+                "uriBaseId": "$PROJECT_DIR$",
                 "region": {
                   "startLine": 116
                 }
               },
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample\\file://$PROJECT_DIR$/gradlew",
-              "logicalLocationKey": "AndroidStudioFormatExample"
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
             }
           ],
           "properties": {
@@ -829,16 +862,17 @@
           "locations": [
             {
               "analysisTarget": {
-                "uri": "gradlew"
+                "uri": "gradlew",
+                "uriBaseId": "$PROJECT_DIR$"
               },
               "resultFile": {
                 "uri": "gradlew",
+                "uriBaseId": "$PROJECT_DIR$",
                 "region": {
                   "startLine": 118
                 }
               },
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample\\file://$PROJECT_DIR$/gradlew",
-              "logicalLocationKey": "AndroidStudioFormatExample"
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
             }
           ],
           "properties": {
@@ -852,16 +886,17 @@
           "locations": [
             {
               "analysisTarget": {
-                "uri": "gradlew"
+                "uri": "gradlew",
+                "uriBaseId": "$PROJECT_DIR$"
               },
               "resultFile": {
                 "uri": "gradlew",
+                "uriBaseId": "$PROJECT_DIR$",
                 "region": {
                   "startLine": 119
                 }
               },
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample\\file://$PROJECT_DIR$/gradlew",
-              "logicalLocationKey": "AndroidStudioFormatExample"
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
             }
           ],
           "properties": {
@@ -875,16 +910,17 @@
           "locations": [
             {
               "analysisTarget": {
-                "uri": "gradlew"
+                "uri": "gradlew",
+                "uriBaseId": "$PROJECT_DIR$"
               },
               "resultFile": {
                 "uri": "gradlew",
+                "uriBaseId": "$PROJECT_DIR$",
                 "region": {
                   "startLine": 119
                 }
               },
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample\\file://$PROJECT_DIR$/gradlew",
-              "logicalLocationKey": "AndroidStudioFormatExample"
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
             }
           ],
           "properties": {
@@ -898,16 +934,17 @@
           "locations": [
             {
               "analysisTarget": {
-                "uri": "gradlew"
+                "uri": "gradlew",
+                "uriBaseId": "$PROJECT_DIR$"
               },
               "resultFile": {
                 "uri": "gradlew",
+                "uriBaseId": "$PROJECT_DIR$",
                 "region": {
                   "startLine": 119
                 }
               },
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample\\file://$PROJECT_DIR$/gradlew",
-              "logicalLocationKey": "AndroidStudioFormatExample"
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
             }
           ],
           "properties": {
@@ -921,16 +958,17 @@
           "locations": [
             {
               "analysisTarget": {
-                "uri": "gradlew"
+                "uri": "gradlew",
+                "uriBaseId": "$PROJECT_DIR$"
               },
               "resultFile": {
                 "uri": "gradlew",
+                "uriBaseId": "$PROJECT_DIR$",
                 "region": {
                   "startLine": 121
                 }
               },
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample\\file://$PROJECT_DIR$/gradlew",
-              "logicalLocationKey": "AndroidStudioFormatExample"
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
             }
           ],
           "properties": {
@@ -944,16 +982,17 @@
           "locations": [
             {
               "analysisTarget": {
-                "uri": "gradlew"
+                "uri": "gradlew",
+                "uriBaseId": "$PROJECT_DIR$"
               },
               "resultFile": {
                 "uri": "gradlew",
+                "uriBaseId": "$PROJECT_DIR$",
                 "region": {
                   "startLine": 122
                 }
               },
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample\\file://$PROJECT_DIR$/gradlew",
-              "logicalLocationKey": "AndroidStudioFormatExample"
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
             }
           ],
           "properties": {
@@ -967,16 +1006,17 @@
           "locations": [
             {
               "analysisTarget": {
-                "uri": "gradlew"
+                "uri": "gradlew",
+                "uriBaseId": "$PROJECT_DIR$"
               },
               "resultFile": {
                 "uri": "gradlew",
+                "uriBaseId": "$PROJECT_DIR$",
                 "region": {
                   "startLine": 125
                 }
               },
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample\\file://$PROJECT_DIR$/gradlew",
-              "logicalLocationKey": "AndroidStudioFormatExample"
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
             }
           ],
           "properties": {
@@ -990,16 +1030,17 @@
           "locations": [
             {
               "analysisTarget": {
-                "uri": "gradlew"
+                "uri": "gradlew",
+                "uriBaseId": "$PROJECT_DIR$"
               },
               "resultFile": {
                 "uri": "gradlew",
+                "uriBaseId": "$PROJECT_DIR$",
                 "region": {
                   "startLine": 125
                 }
               },
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample\\file://$PROJECT_DIR$/gradlew",
-              "logicalLocationKey": "AndroidStudioFormatExample"
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
             }
           ],
           "properties": {
@@ -1013,16 +1054,17 @@
           "locations": [
             {
               "analysisTarget": {
-                "uri": "gradlew"
+                "uri": "gradlew",
+                "uriBaseId": "$PROJECT_DIR$"
               },
               "resultFile": {
                 "uri": "gradlew",
+                "uriBaseId": "$PROJECT_DIR$",
                 "region": {
                   "startLine": 126
                 }
               },
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample\\file://$PROJECT_DIR$/gradlew",
-              "logicalLocationKey": "AndroidStudioFormatExample"
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
             }
           ],
           "properties": {
@@ -1036,16 +1078,17 @@
           "locations": [
             {
               "analysisTarget": {
-                "uri": "gradlew"
+                "uri": "gradlew",
+                "uriBaseId": "$PROJECT_DIR$"
               },
               "resultFile": {
                 "uri": "gradlew",
+                "uriBaseId": "$PROJECT_DIR$",
                 "region": {
                   "startLine": 127
                 }
               },
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample\\file://$PROJECT_DIR$/gradlew",
-              "logicalLocationKey": "AndroidStudioFormatExample"
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
             }
           ],
           "properties": {
@@ -1059,16 +1102,17 @@
           "locations": [
             {
               "analysisTarget": {
-                "uri": "gradlew"
+                "uri": "gradlew",
+                "uriBaseId": "$PROJECT_DIR$"
               },
               "resultFile": {
                 "uri": "gradlew",
+                "uriBaseId": "$PROJECT_DIR$",
                 "region": {
                   "startLine": 128
                 }
               },
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample\\file://$PROJECT_DIR$/gradlew",
-              "logicalLocationKey": "AndroidStudioFormatExample"
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
             }
           ],
           "properties": {
@@ -1082,16 +1126,17 @@
           "locations": [
             {
               "analysisTarget": {
-                "uri": "gradlew"
+                "uri": "gradlew",
+                "uriBaseId": "$PROJECT_DIR$"
               },
               "resultFile": {
                 "uri": "gradlew",
+                "uriBaseId": "$PROJECT_DIR$",
                 "region": {
                   "startLine": 128
                 }
               },
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample\\file://$PROJECT_DIR$/gradlew",
-              "logicalLocationKey": "AndroidStudioFormatExample"
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
             }
           ],
           "properties": {
@@ -1105,16 +1150,17 @@
           "locations": [
             {
               "analysisTarget": {
-                "uri": "gradlew"
+                "uri": "gradlew",
+                "uriBaseId": "$PROJECT_DIR$"
               },
               "resultFile": {
                 "uri": "gradlew",
+                "uriBaseId": "$PROJECT_DIR$",
                 "region": {
                   "startLine": 133
                 }
               },
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample\\file://$PROJECT_DIR$/gradlew",
-              "logicalLocationKey": "AndroidStudioFormatExample"
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
             }
           ],
           "properties": {
@@ -1128,16 +1174,17 @@
           "locations": [
             {
               "analysisTarget": {
-                "uri": "gradlew"
+                "uri": "gradlew",
+                "uriBaseId": "$PROJECT_DIR$"
               },
               "resultFile": {
                 "uri": "gradlew",
+                "uriBaseId": "$PROJECT_DIR$",
                 "region": {
                   "startLine": 133
                 }
               },
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample\\file://$PROJECT_DIR$/gradlew",
-              "logicalLocationKey": "AndroidStudioFormatExample"
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
             }
           ],
           "properties": {
@@ -1151,16 +1198,17 @@
           "locations": [
             {
               "analysisTarget": {
-                "uri": "gradlew"
+                "uri": "gradlew",
+                "uriBaseId": "$PROJECT_DIR$"
               },
               "resultFile": {
                 "uri": "gradlew",
+                "uriBaseId": "$PROJECT_DIR$",
                 "region": {
                   "startLine": 134
                 }
               },
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample\\file://$PROJECT_DIR$/gradlew",
-              "logicalLocationKey": "AndroidStudioFormatExample"
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
             }
           ],
           "properties": {
@@ -1174,16 +1222,17 @@
           "locations": [
             {
               "analysisTarget": {
-                "uri": "gradlew"
+                "uri": "gradlew",
+                "uriBaseId": "$PROJECT_DIR$"
               },
               "resultFile": {
                 "uri": "gradlew",
+                "uriBaseId": "$PROJECT_DIR$",
                 "region": {
                   "startLine": 137
                 }
               },
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample\\file://$PROJECT_DIR$/gradlew",
-              "logicalLocationKey": "AndroidStudioFormatExample"
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
             }
           ],
           "properties": {
@@ -1197,16 +1246,17 @@
           "locations": [
             {
               "analysisTarget": {
-                "uri": "gradlew"
+                "uri": "gradlew",
+                "uriBaseId": "$PROJECT_DIR$"
               },
               "resultFile": {
                 "uri": "gradlew",
+                "uriBaseId": "$PROJECT_DIR$",
                 "region": {
                   "startLine": 137
                 }
               },
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample\\file://$PROJECT_DIR$/gradlew",
-              "logicalLocationKey": "AndroidStudioFormatExample"
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
             }
           ],
           "properties": {
@@ -1220,16 +1270,17 @@
           "locations": [
             {
               "analysisTarget": {
-                "uri": "gradlew"
+                "uri": "gradlew",
+                "uriBaseId": "$PROJECT_DIR$"
               },
               "resultFile": {
                 "uri": "gradlew",
+                "uriBaseId": "$PROJECT_DIR$",
                 "region": {
                   "startLine": 139
                 }
               },
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample\\file://$PROJECT_DIR$/gradlew",
-              "logicalLocationKey": "AndroidStudioFormatExample"
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
             }
           ],
           "properties": {
@@ -1243,16 +1294,17 @@
           "locations": [
             {
               "analysisTarget": {
-                "uri": "gradlew"
+                "uri": "gradlew",
+                "uriBaseId": "$PROJECT_DIR$"
               },
               "resultFile": {
                 "uri": "gradlew",
+                "uriBaseId": "$PROJECT_DIR$",
                 "region": {
                   "startLine": 154
                 }
               },
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample\\file://$PROJECT_DIR$/gradlew",
-              "logicalLocationKey": "AndroidStudioFormatExample"
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
             }
           ],
           "properties": {
@@ -1266,16 +1318,17 @@
           "locations": [
             {
               "analysisTarget": {
-                "uri": "gradlew"
+                "uri": "gradlew",
+                "uriBaseId": "$PROJECT_DIR$"
               },
               "resultFile": {
                 "uri": "gradlew",
+                "uriBaseId": "$PROJECT_DIR$",
                 "region": {
                   "startLine": 161
                 }
               },
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample\\file://$PROJECT_DIR$/gradlew",
-              "logicalLocationKey": "AndroidStudioFormatExample"
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
             }
           ],
           "properties": {
@@ -1289,16 +1342,17 @@
           "locations": [
             {
               "analysisTarget": {
-                "uri": "gradlew"
+                "uri": "gradlew",
+                "uriBaseId": "$PROJECT_DIR$"
               },
               "resultFile": {
                 "uri": "gradlew",
+                "uriBaseId": "$PROJECT_DIR$",
                 "region": {
                   "startLine": 162
                 }
               },
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample\\file://$PROJECT_DIR$/gradlew",
-              "logicalLocationKey": "AndroidStudioFormatExample"
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
             }
           ],
           "properties": {
@@ -1312,16 +1366,17 @@
           "locations": [
             {
               "analysisTarget": {
-                "uri": "gradlew"
+                "uri": "gradlew",
+                "uriBaseId": "$PROJECT_DIR$"
               },
               "resultFile": {
                 "uri": "gradlew",
+                "uriBaseId": "$PROJECT_DIR$",
                 "region": {
                   "startLine": 162
                 }
               },
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample\\file://$PROJECT_DIR$/gradlew",
-              "logicalLocationKey": "AndroidStudioFormatExample"
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
             }
           ],
           "properties": {
@@ -1335,16 +1390,17 @@
           "locations": [
             {
               "analysisTarget": {
-                "uri": "gradlew"
+                "uri": "gradlew",
+                "uriBaseId": "$PROJECT_DIR$"
               },
               "resultFile": {
                 "uri": "gradlew",
+                "uriBaseId": "$PROJECT_DIR$",
                 "region": {
                   "startLine": 164
                 }
               },
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample\\file://$PROJECT_DIR$/gradlew",
-              "logicalLocationKey": "AndroidStudioFormatExample"
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
             }
           ],
           "properties": {
@@ -1358,16 +1414,17 @@
           "locations": [
             {
               "analysisTarget": {
-                "uri": "gradlew.bat"
+                "uri": "gradlew.bat",
+                "uriBaseId": "$PROJECT_DIR$"
               },
               "resultFile": {
                 "uri": "gradlew.bat",
+                "uriBaseId": "$PROJECT_DIR$",
                 "region": {
                   "startLine": 9
                 }
               },
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample\\file://$PROJECT_DIR$/gradlew.bat",
-              "logicalLocationKey": "AndroidStudioFormatExample"
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
             }
           ],
           "properties": {
@@ -1381,16 +1438,17 @@
           "locations": [
             {
               "analysisTarget": {
-                "uri": "gradlew.bat"
+                "uri": "gradlew.bat",
+                "uriBaseId": "$PROJECT_DIR$"
               },
               "resultFile": {
                 "uri": "gradlew.bat",
+                "uriBaseId": "$PROJECT_DIR$",
                 "region": {
                   "startLine": 14
                 }
               },
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample\\file://$PROJECT_DIR$/gradlew.bat",
-              "logicalLocationKey": "AndroidStudioFormatExample"
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
             }
           ],
           "properties": {
@@ -1404,16 +1462,17 @@
           "locations": [
             {
               "analysisTarget": {
-                "uri": "gradlew.bat"
+                "uri": "gradlew.bat",
+                "uriBaseId": "$PROJECT_DIR$"
               },
               "resultFile": {
                 "uri": "gradlew.bat",
+                "uriBaseId": "$PROJECT_DIR$",
                 "region": {
                   "startLine": 15
                 }
               },
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample\\file://$PROJECT_DIR$/gradlew.bat",
-              "logicalLocationKey": "AndroidStudioFormatExample"
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
             }
           ],
           "properties": {
@@ -1427,16 +1486,17 @@
           "locations": [
             {
               "analysisTarget": {
-                "uri": "gradlew.bat"
+                "uri": "gradlew.bat",
+                "uriBaseId": "$PROJECT_DIR$"
               },
               "resultFile": {
                 "uri": "gradlew.bat",
+                "uriBaseId": "$PROJECT_DIR$",
                 "region": {
                   "startLine": 17
                 }
               },
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample\\file://$PROJECT_DIR$/gradlew.bat",
-              "logicalLocationKey": "AndroidStudioFormatExample"
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
             }
           ],
           "properties": {
@@ -1450,16 +1510,17 @@
           "locations": [
             {
               "analysisTarget": {
-                "uri": "gradlew.bat"
+                "uri": "gradlew.bat",
+                "uriBaseId": "$PROJECT_DIR$"
               },
               "resultFile": {
                 "uri": "gradlew.bat",
+                "uriBaseId": "$PROJECT_DIR$",
                 "region": {
                   "startLine": 20
                 }
               },
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample\\file://$PROJECT_DIR$/gradlew.bat",
-              "logicalLocationKey": "AndroidStudioFormatExample"
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
             }
           ],
           "properties": {
@@ -1473,16 +1534,17 @@
           "locations": [
             {
               "analysisTarget": {
-                "uri": "gradlew.bat"
+                "uri": "gradlew.bat",
+                "uriBaseId": "$PROJECT_DIR$"
               },
               "resultFile": {
                 "uri": "gradlew.bat",
+                "uriBaseId": "$PROJECT_DIR$",
                 "region": {
                   "startLine": 24
                 }
               },
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample\\file://$PROJECT_DIR$/gradlew.bat",
-              "logicalLocationKey": "AndroidStudioFormatExample"
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
             }
           ],
           "properties": {
@@ -1496,16 +1558,17 @@
           "locations": [
             {
               "analysisTarget": {
-                "uri": "gradlew.bat"
+                "uri": "gradlew.bat",
+                "uriBaseId": "$PROJECT_DIR$"
               },
               "resultFile": {
                 "uri": "gradlew.bat",
+                "uriBaseId": "$PROJECT_DIR$",
                 "region": {
                   "startLine": 24
                 }
               },
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample\\file://$PROJECT_DIR$/gradlew.bat",
-              "logicalLocationKey": "AndroidStudioFormatExample"
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
             }
           ],
           "properties": {
@@ -1519,16 +1582,17 @@
           "locations": [
             {
               "analysisTarget": {
-                "uri": "gradlew.bat"
+                "uri": "gradlew.bat",
+                "uriBaseId": "$PROJECT_DIR$"
               },
               "resultFile": {
                 "uri": "gradlew.bat",
+                "uriBaseId": "$PROJECT_DIR$",
                 "region": {
                   "startLine": 32
                 }
               },
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample\\file://$PROJECT_DIR$/gradlew.bat",
-              "logicalLocationKey": "AndroidStudioFormatExample"
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
             }
           ],
           "properties": {
@@ -1542,16 +1606,17 @@
           "locations": [
             {
               "analysisTarget": {
-                "uri": "gradlew.bat"
+                "uri": "gradlew.bat",
+                "uriBaseId": "$PROJECT_DIR$"
               },
               "resultFile": {
                 "uri": "gradlew.bat",
+                "uriBaseId": "$PROJECT_DIR$",
                 "region": {
                   "startLine": 38
                 }
               },
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample\\file://$PROJECT_DIR$/gradlew.bat",
-              "logicalLocationKey": "AndroidStudioFormatExample"
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
             }
           ],
           "properties": {
@@ -1565,16 +1630,17 @@
           "locations": [
             {
               "analysisTarget": {
-                "uri": "gradlew.bat"
+                "uri": "gradlew.bat",
+                "uriBaseId": "$PROJECT_DIR$"
               },
               "resultFile": {
                 "uri": "gradlew.bat",
+                "uriBaseId": "$PROJECT_DIR$",
                 "region": {
                   "startLine": 46
                 }
               },
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample\\file://$PROJECT_DIR$/gradlew.bat",
-              "logicalLocationKey": "AndroidStudioFormatExample"
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
             }
           ],
           "properties": {
@@ -1588,16 +1654,17 @@
           "locations": [
             {
               "analysisTarget": {
-                "uri": "gradlew.bat"
+                "uri": "gradlew.bat",
+                "uriBaseId": "$PROJECT_DIR$"
               },
               "resultFile": {
                 "uri": "gradlew.bat",
+                "uriBaseId": "$PROJECT_DIR$",
                 "region": {
                   "startLine": 49
                 }
               },
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample\\file://$PROJECT_DIR$/gradlew.bat",
-              "logicalLocationKey": "AndroidStudioFormatExample"
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
             }
           ],
           "properties": {
@@ -1611,16 +1678,17 @@
           "locations": [
             {
               "analysisTarget": {
-                "uri": "gradlew.bat"
+                "uri": "gradlew.bat",
+                "uriBaseId": "$PROJECT_DIR$"
               },
               "resultFile": {
                 "uri": "gradlew.bat",
+                "uriBaseId": "$PROJECT_DIR$",
                 "region": {
                   "startLine": 51
                 }
               },
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample\\file://$PROJECT_DIR$/gradlew.bat",
-              "logicalLocationKey": "AndroidStudioFormatExample"
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
             }
           ],
           "properties": {
@@ -1634,16 +1702,17 @@
           "locations": [
             {
               "analysisTarget": {
-                "uri": "gradlew.bat"
+                "uri": "gradlew.bat",
+                "uriBaseId": "$PROJECT_DIR$"
               },
               "resultFile": {
                 "uri": "gradlew.bat",
+                "uriBaseId": "$PROJECT_DIR$",
                 "region": {
                   "startLine": 52
                 }
               },
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample\\file://$PROJECT_DIR$/gradlew.bat",
-              "logicalLocationKey": "AndroidStudioFormatExample"
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
             }
           ],
           "properties": {
@@ -1657,16 +1726,17 @@
           "locations": [
             {
               "analysisTarget": {
-                "uri": "gradlew.bat"
+                "uri": "gradlew.bat",
+                "uriBaseId": "$PROJECT_DIR$"
               },
               "resultFile": {
                 "uri": "gradlew.bat",
+                "uriBaseId": "$PROJECT_DIR$",
                 "region": {
                   "startLine": 52
                 }
               },
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample\\file://$PROJECT_DIR$/gradlew.bat",
-              "logicalLocationKey": "AndroidStudioFormatExample"
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
             }
           ],
           "properties": {
@@ -1680,16 +1750,17 @@
           "locations": [
             {
               "analysisTarget": {
-                "uri": "gradlew.bat"
+                "uri": "gradlew.bat",
+                "uriBaseId": "$PROJECT_DIR$"
               },
               "resultFile": {
                 "uri": "gradlew.bat",
+                "uriBaseId": "$PROJECT_DIR$",
                 "region": {
                   "startLine": 60
                 }
               },
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample\\file://$PROJECT_DIR$/gradlew.bat",
-              "logicalLocationKey": "AndroidStudioFormatExample"
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
             }
           ],
           "properties": {
@@ -1703,16 +1774,17 @@
           "locations": [
             {
               "analysisTarget": {
-                "uri": "gradlew.bat"
+                "uri": "gradlew.bat",
+                "uriBaseId": "$PROJECT_DIR$"
               },
               "resultFile": {
                 "uri": "gradlew.bat",
+                "uriBaseId": "$PROJECT_DIR$",
                 "region": {
                   "startLine": 63
                 }
               },
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample\\file://$PROJECT_DIR$/gradlew.bat",
-              "logicalLocationKey": "AndroidStudioFormatExample"
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
             }
           ],
           "properties": {
@@ -1726,16 +1798,17 @@
           "locations": [
             {
               "analysisTarget": {
-                "uri": "gradlew.bat"
+                "uri": "gradlew.bat",
+                "uriBaseId": "$PROJECT_DIR$"
               },
               "resultFile": {
                 "uri": "gradlew.bat",
+                "uriBaseId": "$PROJECT_DIR$",
                 "region": {
                   "startLine": 75
                 }
               },
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample\\file://$PROJECT_DIR$/gradlew.bat",
-              "logicalLocationKey": "AndroidStudioFormatExample"
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
             }
           ],
           "properties": {
@@ -1749,16 +1822,17 @@
           "locations": [
             {
               "analysisTarget": {
-                "uri": "gradlew.bat"
+                "uri": "gradlew.bat",
+                "uriBaseId": "$PROJECT_DIR$"
               },
               "resultFile": {
                 "uri": "gradlew.bat",
+                "uriBaseId": "$PROJECT_DIR$",
                 "region": {
                   "startLine": 75
                 }
               },
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample\\file://$PROJECT_DIR$/gradlew.bat",
-              "logicalLocationKey": "AndroidStudioFormatExample"
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
             }
           ],
           "properties": {
@@ -1772,16 +1846,17 @@
           "locations": [
             {
               "analysisTarget": {
-                "uri": "gradlew.bat"
+                "uri": "gradlew.bat",
+                "uriBaseId": "$PROJECT_DIR$"
               },
               "resultFile": {
                 "uri": "gradlew.bat",
+                "uriBaseId": "$PROJECT_DIR$",
                 "region": {
                   "startLine": 79
                 }
               },
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample\\file://$PROJECT_DIR$/gradlew.bat",
-              "logicalLocationKey": "AndroidStudioFormatExample"
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
             }
           ],
           "properties": {
@@ -1795,16 +1870,17 @@
           "locations": [
             {
               "analysisTarget": {
-                "uri": "gradlew.bat"
+                "uri": "gradlew.bat",
+                "uriBaseId": "$PROJECT_DIR$"
               },
               "resultFile": {
                 "uri": "gradlew.bat",
+                "uriBaseId": "$PROJECT_DIR$",
                 "region": {
                   "startLine": 79
                 }
               },
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample\\file://$PROJECT_DIR$/gradlew.bat",
-              "logicalLocationKey": "AndroidStudioFormatExample"
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
             }
           ],
           "properties": {
@@ -1818,16 +1894,17 @@
           "locations": [
             {
               "analysisTarget": {
-                "uri": "gradlew.bat"
+                "uri": "gradlew.bat",
+                "uriBaseId": "$PROJECT_DIR$"
               },
               "resultFile": {
                 "uri": "gradlew.bat",
+                "uriBaseId": "$PROJECT_DIR$",
                 "region": {
                   "startLine": 88
                 }
               },
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample\\file://$PROJECT_DIR$/gradlew.bat",
-              "logicalLocationKey": "AndroidStudioFormatExample"
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
             }
           ],
           "properties": {
@@ -1841,16 +1918,17 @@
           "locations": [
             {
               "analysisTarget": {
-                "uri": "app/build.gradle"
+                "uri": "app/build.gradle",
+                "uriBaseId": "$PROJECT_DIR$"
               },
               "resultFile": {
                 "uri": "app/build.gradle",
+                "uriBaseId": "$PROJECT_DIR$",
                 "region": {
                   "startLine": 8
                 }
               },
-              "fullyQualifiedLogicalName": "app\\file://$PROJECT_DIR$/app/build.gradle",
-              "logicalLocationKey": "app"
+              "fullyQualifiedLogicalName": "app"
             }
           ],
           "properties": {
@@ -1864,16 +1942,17 @@
           "locations": [
             {
               "analysisTarget": {
-                "uri": "app/src/main/AndroidManifest.xml"
+                "uri": "app/src/main/AndroidManifest.xml",
+                "uriBaseId": "$PROJECT_DIR$"
               },
               "resultFile": {
                 "uri": "app/src/main/AndroidManifest.xml",
+                "uriBaseId": "$PROJECT_DIR$",
                 "region": {
                   "startLine": 3
                 }
               },
-              "fullyQualifiedLogicalName": "app\\file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml",
-              "logicalLocationKey": "app"
+              "fullyQualifiedLogicalName": "app"
             }
           ],
           "properties": {
@@ -1887,16 +1966,17 @@
           "locations": [
             {
               "analysisTarget": {
-                "uri": "app/src/main/res/values-w820dp/dimens.xml"
+                "uri": "app/src/main/res/values-w820dp/dimens.xml",
+                "uriBaseId": "$PROJECT_DIR$"
               },
               "resultFile": {
                 "uri": "app/src/main/res/values-w820dp/dimens.xml",
+                "uriBaseId": "$PROJECT_DIR$",
                 "region": {
                   "startLine": 2
                 }
               },
-              "fullyQualifiedLogicalName": "app\\file://$PROJECT_DIR$/app/src/main/res/values-w820dp/dimens.xml",
-              "logicalLocationKey": "app"
+              "fullyQualifiedLogicalName": "app"
             }
           ],
           "properties": {
@@ -1910,16 +1990,17 @@
           "locations": [
             {
               "analysisTarget": {
-                "uri": "app/src/main/java/microsoft/androidstudioformatexample/NamespaceTypo.java"
+                "uri": "app/src/main/java/microsoft/androidstudioformatexample/NamespaceTypo.java",
+                "uriBaseId": "$PROJECT_DIR$"
               },
               "resultFile": {
                 "uri": "app/src/main/java/microsoft/androidstudioformatexample/NamespaceTypo.java",
+                "uriBaseId": "$PROJECT_DIR$",
                 "region": {
                   "startLine": 4
                 }
               },
-              "fullyQualifiedLogicalName": "app\\microsoft.androidstudioformatexample\\file://$PROJECT_DIR$/app/src/main/java/microsoft/androidstudioformatexample/NamespaceTypo.java",
-              "logicalLocationKey": "app\\microsoft.androidstudioformatexample"
+              "fullyQualifiedLogicalName": "app\\microsoft.androidstudioformatexample"
             }
           ],
           "properties": {
