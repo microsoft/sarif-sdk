@@ -19,34 +19,30 @@
         ]
       },
       "logicalLocations": {
-        "yammer-droid-2\\com.yammer.droid\\com.yammer.droid.AdditionOperationTest void testStuff()": [
-          {
-            "name": "yammer-droid-2",
-            "kind": "module"
-          },
-          {
-            "name": "com.yammer.droid",
-            "kind": "package"
-          },
-          {
-            "name": "com.yammer.droid.AdditionOperationTest void testStuff()",
-            "kind": "member"
-          }
-        ],
-        "yammer-droid-2\\com.yammer.droid.ui\\com.yammer.droid.ui.MessageUIBean.TYPE TYPE(int position)": [
-          {
-            "name": "yammer-droid-2",
-            "kind": "module"
-          },
-          {
-            "name": "com.yammer.droid.ui",
-            "kind": "package"
-          },
-          {
-            "name": "com.yammer.droid.ui.MessageUIBean.TYPE TYPE(int position)",
-            "kind": "member"
-          }
-        ]
+        "yammer-droid-2": {
+          "name": "yammer-droid-2",
+          "kind": "module"
+        },
+        "yammer-droid-2\\com.yammer.droid": {
+          "name": "com.yammer.droid",
+          "parentKey": "yammer-droid-2",
+          "kind": "package"
+        },
+        "yammer-droid-2\\com.yammer.droid\\com.yammer.droid.AdditionOperationTest void testStuff()": {
+          "name": "com.yammer.droid.AdditionOperationTest void testStuff()",
+          "parentKey": "yammer-droid-2\\com.yammer.droid",
+          "kind": "member"
+        },
+        "yammer-droid-2\\com.yammer.droid.ui": {
+          "name": "com.yammer.droid.ui",
+          "parentKey": "yammer-droid-2",
+          "kind": "package"
+        },
+        "yammer-droid-2\\com.yammer.droid.ui\\com.yammer.droid.ui.MessageUIBean.TYPE TYPE(int position)": {
+          "name": "com.yammer.droid.ui.MessageUIBean.TYPE TYPE(int position)",
+          "parentKey": "yammer-droid-2\\com.yammer.droid.ui",
+          "kind": "member"
+        }
       },
       "results": [
         {

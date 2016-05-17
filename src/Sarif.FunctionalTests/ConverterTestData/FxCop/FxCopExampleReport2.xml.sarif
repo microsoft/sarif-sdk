@@ -19,50 +19,29 @@
         ]
       },
       "logicalLocations": {
-        "SecurityCryptographyRuleTests": [
-          {
-            "name": "SecurityCryptographyRuleTests",
-            "kind": "namespace"
-          }
-        ],
-        "securitycryptographyruletests.dll": [
-          {
-            "name": "securitycryptographyruletests.dll",
-            "kind": "module"
-          }
-        ],
-        "SecurityCryptographyRuleTests.DESCannotBeUsed": [
-          {
-            "name": "securitycryptographyruletests.dll",
-            "kind": "module"
-          },
-          {
-            "name": "SecurityCryptographyRuleTests",
-            "kind": "namespace"
-          },
-          {
-            "name": "DESCannotBeUsed",
-            "kind": "type"
-          }
-        ],
-        "SecurityCryptographyRuleTests.DESCannotBeUsed.EncryptData(System.String,System.String,System.Byte[],System.Byte[])": [
-          {
-            "name": "securitycryptographyruletests.dll",
-            "kind": "module"
-          },
-          {
-            "name": "SecurityCryptographyRuleTests",
-            "kind": "namespace"
-          },
-          {
-            "name": "DESCannotBeUsed",
-            "kind": "type"
-          },
-          {
-            "name": "#EncryptData(System.String,System.String,System.Byte[],System.Byte[])",
-            "kind": "member"
-          }
-        ]
+        "SecurityCryptographyRuleTests": {
+          "name": "SecurityCryptographyRuleTests",
+          "kind": "namespace"
+        },
+        "securitycryptographyruletests.dll": {
+          "name": "securitycryptographyruletests.dll",
+          "kind": "module"
+        },
+        "securitycryptographyruletests.dll!SecurityCryptographyRuleTests": {
+          "name": "SecurityCryptographyRuleTests",
+          "parentKey": "securitycryptographyruletests.dll",
+          "kind": "namespace"
+        },
+        "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.DESCannotBeUsed": {
+          "name": "DESCannotBeUsed",
+          "parentKey": "securitycryptographyruletests.dll!SecurityCryptographyRuleTests",
+          "kind": "type"
+        },
+        "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.DESCannotBeUsed.EncryptData(System.String,System.String,System.Byte[],System.Byte[])": {
+          "name": "EncryptData(System.String,System.String,System.Byte[],System.Byte[])",
+          "parentKey": "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.DESCannotBeUsed",
+          "kind": "member"
+        }
       },
       "results": [
         {
@@ -104,7 +83,7 @@
               "analysisTarget": {
                 "uri": "file:///d:/SecDevTools/Main/bin/x86/Debug/FxCop/FxCopTestData/Crypto/SecurityCryptographyRuleTests.dll"
               },
-              "fullyQualifiedLogicalName": "SecurityCryptographyRuleTests.DESCannotBeUsed"
+              "fullyQualifiedLogicalName": "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.DESCannotBeUsed"
             }
           ],
           "toolFingerprint": "DES#Type",
@@ -122,7 +101,7 @@
               "analysisTarget": {
                 "uri": "file:///d:/SecDevTools/Main/bin/x86/Debug/FxCop/FxCopTestData/Crypto/SecurityCryptographyRuleTests.dll"
               },
-              "fullyQualifiedLogicalName": "SecurityCryptographyRuleTests.DESCannotBeUsed"
+              "fullyQualifiedLogicalName": "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.DESCannotBeUsed"
             }
           ],
           "toolFingerprint": "CSharp2_0",
@@ -146,7 +125,7 @@
                   "startLine": 14
                 }
               },
-              "fullyQualifiedLogicalName": "SecurityCryptographyRuleTests.DESCannotBeUsed.EncryptData(System.String,System.String,System.Byte[],System.Byte[])"
+              "fullyQualifiedLogicalName": "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.DESCannotBeUsed.EncryptData(System.String,System.String,System.Byte[],System.Byte[])"
             }
           ],
           "properties": {

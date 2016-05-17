@@ -448,7 +448,7 @@
         },
 
         "kind": {
-          "description": "The type of construct this logicalLocationComponent refers to. Should be one of 'declaration', 'function', 'member', 'module', 'namespace', 'package', 'resource', or 'type', if any of those accurately describe the construct.",
+          "description": "The type of construct this logicalLocationComponent refers to. Should be one of 'function', 'member', 'module', 'namespace', 'package', 'resource', or 'type', if any of those accurately describe the construct.",
           "type": "string"
         }
       }
@@ -849,7 +849,10 @@
 
         "logicalLocations": {
           "description": "A dictionary, each of whose keys specifies a logical location such as a namespace, type or function.",
+          "type": "object",
+          "additionalProperties": {
           "$ref": "#/definitions/logicalLocation"
+          }
         },
 
         "results": {

@@ -7,12 +7,10 @@
         "name": "FxCop"
       },
       "logicalLocations": {
-        "SecurityCryptographyRuleTests": [
-          {
-            "name": "SecurityCryptographyRuleTests",
-            "kind": "namespace"
-          }
-        ]
+        "SecurityCryptographyRuleTests": {
+          "name": "SecurityCryptographyRuleTests",
+          "kind": "namespace"
+        }
       },
       "results": [
         {

@@ -14,12 +14,10 @@
         ]
       },
       "logicalLocations": {
-        "com.northwindtraders.droid.model": [
-          {
-            "name": "com.northwindtraders.droid.model",
-            "kind": "package"
-          }
-        ]
+        "com.northwindtraders.droid.model": {
+          "name": "com.northwindtraders.droid.model",
+          "kind": "package"
+        }
       },
       "results": [
         {
@@ -36,7 +34,8 @@
                   "startLine": 242
                 }
               },
-              "fullyQualifiedLogicalName": "com.northwindtraders.droid.model"
+              "fullyQualifiedLogicalName": "com.northwindtraders.droid.model\\file://$PROJECT_DIR$/northwindtraders-droid-2/src/main/java/com/northwindtraders/droid/model/Model.java",
+              "logicalLocationKey": "com.northwindtraders.droid.model"
             }
           ],
           "properties": {

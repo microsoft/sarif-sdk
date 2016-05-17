@@ -49,28 +49,19 @@
         ]
       },
       "logicalLocations": {
-        "AndroidStudioFormatExample": [
-          {
-            "name": "AndroidStudioFormatExample",
-            "kind": "module"
-          }
-        ],
-        "app": [
-          {
-            "name": "app",
-            "kind": "module"
-          }
-        ],
-        "app\\microsoft.androidstudioformatexample": [
-          {
-            "name": "app",
-            "kind": "module"
-          },
-          {
-            "name": "microsoft.androidstudioformatexample",
-            "kind": "package"
-          }
-        ]
+        "AndroidStudioFormatExample": {
+          "name": "AndroidStudioFormatExample",
+          "kind": "module"
+        },
+        "app": {
+          "name": "app",
+          "kind": "module"
+        },
+        "app\\microsoft.androidstudioformatexample": {
+          "name": "microsoft.androidstudioformatexample",
+          "parentKey": "app",
+          "kind": "package"
+        }
       },
       "results": [
         {
@@ -87,7 +78,8 @@
                   "startLine": 8
                 }
               },
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample\\file://$PROJECT_DIR$/gradle.properties",
+              "logicalLocationKey": "AndroidStudioFormatExample"
             }
           ],
           "properties": {
@@ -109,7 +101,8 @@
                   "startLine": 13
                 }
               },
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample\\file://$PROJECT_DIR$/gradle.properties",
+              "logicalLocationKey": "AndroidStudioFormatExample"
             }
           ],
           "properties": {
@@ -131,7 +124,8 @@
                   "startLine": 13
                 }
               },
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample\\file://$PROJECT_DIR$/gradle.properties",
+              "logicalLocationKey": "AndroidStudioFormatExample"
             }
           ],
           "properties": {
@@ -153,7 +147,8 @@
                   "startLine": 17
                 }
               },
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample\\file://$PROJECT_DIR$/gradle.properties",
+              "logicalLocationKey": "AndroidStudioFormatExample"
             }
           ],
           "properties": {
@@ -175,7 +170,8 @@
                   "startLine": 3
                 }
               },
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample\\file://$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.properties",
+              "logicalLocationKey": "AndroidStudioFormatExample"
             }
           ],
           "properties": {
@@ -197,7 +193,8 @@
                   "startLine": 5
                 }
               },
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample\\file://$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.properties",
+              "logicalLocationKey": "AndroidStudioFormatExample"
             }
           ],
           "properties": {
@@ -219,7 +216,8 @@
                   "startLine": 30
                 }
               },
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample\\file://$PROJECT_DIR$/gradlew",
+              "logicalLocationKey": "AndroidStudioFormatExample"
             }
           ],
           "properties": {
@@ -241,7 +239,8 @@
                   "startLine": 31
                 }
               },
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample\\file://$PROJECT_DIR$/gradlew",
+              "logicalLocationKey": "AndroidStudioFormatExample"
             }
           ],
           "properties": {
@@ -263,7 +262,8 @@
                   "startLine": 33
                 }
               },
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample\\file://$PROJECT_DIR$/gradlew",
+              "logicalLocationKey": "AndroidStudioFormatExample"
             }
           ],
           "properties": {
@@ -285,7 +285,8 @@
                   "startLine": 34
                 }
               },
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample\\file://$PROJECT_DIR$/gradlew",
+              "logicalLocationKey": "AndroidStudioFormatExample"
             }
           ],
           "properties": {
@@ -307,7 +308,8 @@
                   "startLine": 35
                 }
               },
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample\\file://$PROJECT_DIR$/gradlew",
+              "logicalLocationKey": "AndroidStudioFormatExample"
             }
           ],
           "properties": {
@@ -329,7 +331,8 @@
                   "startLine": 40
                 }
               },
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample\\file://$PROJECT_DIR$/gradlew",
+              "logicalLocationKey": "AndroidStudioFormatExample"
             }
           ],
           "properties": {
@@ -351,7 +354,8 @@
                   "startLine": 41
                 }
               },
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample\\file://$PROJECT_DIR$/gradlew",
+              "logicalLocationKey": "AndroidStudioFormatExample"
             }
           ],
           "properties": {
@@ -373,7 +377,8 @@
                   "startLine": 43
                 }
               },
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample\\file://$PROJECT_DIR$/gradlew",
+              "logicalLocationKey": "AndroidStudioFormatExample"
             }
           ],
           "properties": {
@@ -395,7 +400,8 @@
                   "startLine": 45
                 }
               },
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample\\file://$PROJECT_DIR$/gradlew",
+              "logicalLocationKey": "AndroidStudioFormatExample"
             }
           ],
           "properties": {
@@ -417,7 +423,8 @@
                   "startLine": 46
                 }
               },
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample\\file://$PROJECT_DIR$/gradlew",
+              "logicalLocationKey": "AndroidStudioFormatExample"
             }
           ],
           "properties": {
@@ -439,7 +446,8 @@
                   "startLine": 47
                 }
               },
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample\\file://$PROJECT_DIR$/gradlew",
+              "logicalLocationKey": "AndroidStudioFormatExample"
             }
           ],
           "properties": {
@@ -461,7 +469,8 @@
                   "startLine": 60
                 }
               },
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample\\file://$PROJECT_DIR$/gradlew",
+              "logicalLocationKey": "AndroidStudioFormatExample"
             }
           ],
           "properties": {
@@ -483,7 +492,8 @@
                   "startLine": 64
                 }
               },
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample\\file://$PROJECT_DIR$/gradlew",
+              "logicalLocationKey": "AndroidStudioFormatExample"
             }
           ],
           "properties": {
@@ -505,7 +515,8 @@
                   "startLine": 73
                 }
               },
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample\\file://$PROJECT_DIR$/gradlew",
+              "logicalLocationKey": "AndroidStudioFormatExample"
             }
           ],
           "properties": {
@@ -527,7 +538,8 @@
                   "startLine": 74
                 }
               },
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample\\file://$PROJECT_DIR$/gradlew",
+              "logicalLocationKey": "AndroidStudioFormatExample"
             }
           ],
           "properties": {
@@ -549,7 +561,8 @@
                   "startLine": 76
                 }
               },
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample\\file://$PROJECT_DIR$/gradlew",
+              "logicalLocationKey": "AndroidStudioFormatExample"
             }
           ],
           "properties": {
@@ -571,7 +584,8 @@
                   "startLine": 78
                 }
               },
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample\\file://$PROJECT_DIR$/gradlew",
+              "logicalLocationKey": "AndroidStudioFormatExample"
             }
           ],
           "properties": {
@@ -593,7 +607,8 @@
                   "startLine": 85
                 }
               },
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample\\file://$PROJECT_DIR$/gradlew",
+              "logicalLocationKey": "AndroidStudioFormatExample"
             }
           ],
           "properties": {
@@ -615,7 +630,8 @@
                   "startLine": 93
                 }
               },
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample\\file://$PROJECT_DIR$/gradlew",
+              "logicalLocationKey": "AndroidStudioFormatExample"
             }
           ],
           "properties": {
@@ -637,7 +653,8 @@
                   "startLine": 94
                 }
               },
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample\\file://$PROJECT_DIR$/gradlew",
+              "logicalLocationKey": "AndroidStudioFormatExample"
             }
           ],
           "properties": {
@@ -659,7 +676,8 @@
                   "startLine": 99
                 }
               },
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample\\file://$PROJECT_DIR$/gradlew",
+              "logicalLocationKey": "AndroidStudioFormatExample"
             }
           ],
           "properties": {
@@ -681,7 +699,8 @@
                   "startLine": 110
                 }
               },
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample\\file://$PROJECT_DIR$/gradlew",
+              "logicalLocationKey": "AndroidStudioFormatExample"
             }
           ],
           "properties": {
@@ -703,7 +722,8 @@
                   "startLine": 110
                 }
               },
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample\\file://$PROJECT_DIR$/gradlew",
+              "logicalLocationKey": "AndroidStudioFormatExample"
             }
           ],
           "properties": {
@@ -725,7 +745,8 @@
                   "startLine": 113
                 }
               },
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample\\file://$PROJECT_DIR$/gradlew",
+              "logicalLocationKey": "AndroidStudioFormatExample"
             }
           ],
           "properties": {
@@ -747,7 +768,8 @@
                   "startLine": 114
                 }
               },
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample\\file://$PROJECT_DIR$/gradlew",
+              "logicalLocationKey": "AndroidStudioFormatExample"
             }
           ],
           "properties": {
@@ -769,7 +791,8 @@
                   "startLine": 115
                 }
               },
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample\\file://$PROJECT_DIR$/gradlew",
+              "logicalLocationKey": "AndroidStudioFormatExample"
             }
           ],
           "properties": {
@@ -791,7 +814,8 @@
                   "startLine": 116
                 }
               },
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample\\file://$PROJECT_DIR$/gradlew",
+              "logicalLocationKey": "AndroidStudioFormatExample"
             }
           ],
           "properties": {
@@ -813,7 +837,8 @@
                   "startLine": 118
                 }
               },
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample\\file://$PROJECT_DIR$/gradlew",
+              "logicalLocationKey": "AndroidStudioFormatExample"
             }
           ],
           "properties": {
@@ -835,7 +860,8 @@
                   "startLine": 119
                 }
               },
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample\\file://$PROJECT_DIR$/gradlew",
+              "logicalLocationKey": "AndroidStudioFormatExample"
             }
           ],
           "properties": {
@@ -857,7 +883,8 @@
                   "startLine": 119
                 }
               },
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample\\file://$PROJECT_DIR$/gradlew",
+              "logicalLocationKey": "AndroidStudioFormatExample"
             }
           ],
           "properties": {
@@ -879,7 +906,8 @@
                   "startLine": 119
                 }
               },
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample\\file://$PROJECT_DIR$/gradlew",
+              "logicalLocationKey": "AndroidStudioFormatExample"
             }
           ],
           "properties": {
@@ -901,7 +929,8 @@
                   "startLine": 121
                 }
               },
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample\\file://$PROJECT_DIR$/gradlew",
+              "logicalLocationKey": "AndroidStudioFormatExample"
             }
           ],
           "properties": {
@@ -923,7 +952,8 @@
                   "startLine": 122
                 }
               },
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample\\file://$PROJECT_DIR$/gradlew",
+              "logicalLocationKey": "AndroidStudioFormatExample"
             }
           ],
           "properties": {
@@ -945,7 +975,8 @@
                   "startLine": 125
                 }
               },
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample\\file://$PROJECT_DIR$/gradlew",
+              "logicalLocationKey": "AndroidStudioFormatExample"
             }
           ],
           "properties": {
@@ -967,7 +998,8 @@
                   "startLine": 125
                 }
               },
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample\\file://$PROJECT_DIR$/gradlew",
+              "logicalLocationKey": "AndroidStudioFormatExample"
             }
           ],
           "properties": {
@@ -989,7 +1021,8 @@
                   "startLine": 126
                 }
               },
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample\\file://$PROJECT_DIR$/gradlew",
+              "logicalLocationKey": "AndroidStudioFormatExample"
             }
           ],
           "properties": {
@@ -1011,7 +1044,8 @@
                   "startLine": 127
                 }
               },
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample\\file://$PROJECT_DIR$/gradlew",
+              "logicalLocationKey": "AndroidStudioFormatExample"
             }
           ],
           "properties": {
@@ -1033,7 +1067,8 @@
                   "startLine": 128
                 }
               },
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample\\file://$PROJECT_DIR$/gradlew",
+              "logicalLocationKey": "AndroidStudioFormatExample"
             }
           ],
           "properties": {
@@ -1055,7 +1090,8 @@
                   "startLine": 128
                 }
               },
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample\\file://$PROJECT_DIR$/gradlew",
+              "logicalLocationKey": "AndroidStudioFormatExample"
             }
           ],
           "properties": {
@@ -1077,7 +1113,8 @@
                   "startLine": 133
                 }
               },
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample\\file://$PROJECT_DIR$/gradlew",
+              "logicalLocationKey": "AndroidStudioFormatExample"
             }
           ],
           "properties": {
@@ -1099,7 +1136,8 @@
                   "startLine": 133
                 }
               },
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample\\file://$PROJECT_DIR$/gradlew",
+              "logicalLocationKey": "AndroidStudioFormatExample"
             }
           ],
           "properties": {
@@ -1121,7 +1159,8 @@
                   "startLine": 134
                 }
               },
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample\\file://$PROJECT_DIR$/gradlew",
+              "logicalLocationKey": "AndroidStudioFormatExample"
             }
           ],
           "properties": {
@@ -1143,7 +1182,8 @@
                   "startLine": 137
                 }
               },
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample\\file://$PROJECT_DIR$/gradlew",
+              "logicalLocationKey": "AndroidStudioFormatExample"
             }
           ],
           "properties": {
@@ -1165,7 +1205,8 @@
                   "startLine": 137
                 }
               },
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample\\file://$PROJECT_DIR$/gradlew",
+              "logicalLocationKey": "AndroidStudioFormatExample"
             }
           ],
           "properties": {
@@ -1187,7 +1228,8 @@
                   "startLine": 139
                 }
               },
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample\\file://$PROJECT_DIR$/gradlew",
+              "logicalLocationKey": "AndroidStudioFormatExample"
             }
           ],
           "properties": {
@@ -1209,7 +1251,8 @@
                   "startLine": 154
                 }
               },
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample\\file://$PROJECT_DIR$/gradlew",
+              "logicalLocationKey": "AndroidStudioFormatExample"
             }
           ],
           "properties": {
@@ -1231,7 +1274,8 @@
                   "startLine": 161
                 }
               },
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample\\file://$PROJECT_DIR$/gradlew",
+              "logicalLocationKey": "AndroidStudioFormatExample"
             }
           ],
           "properties": {
@@ -1253,7 +1297,8 @@
                   "startLine": 162
                 }
               },
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample\\file://$PROJECT_DIR$/gradlew",
+              "logicalLocationKey": "AndroidStudioFormatExample"
             }
           ],
           "properties": {
@@ -1275,7 +1320,8 @@
                   "startLine": 162
                 }
               },
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample\\file://$PROJECT_DIR$/gradlew",
+              "logicalLocationKey": "AndroidStudioFormatExample"
             }
           ],
           "properties": {
@@ -1297,7 +1343,8 @@
                   "startLine": 164
                 }
               },
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample\\file://$PROJECT_DIR$/gradlew",
+              "logicalLocationKey": "AndroidStudioFormatExample"
             }
           ],
           "properties": {
@@ -1319,7 +1366,8 @@
                   "startLine": 9
                 }
               },
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample\\file://$PROJECT_DIR$/gradlew.bat",
+              "logicalLocationKey": "AndroidStudioFormatExample"
             }
           ],
           "properties": {
@@ -1341,7 +1389,8 @@
                   "startLine": 14
                 }
               },
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample\\file://$PROJECT_DIR$/gradlew.bat",
+              "logicalLocationKey": "AndroidStudioFormatExample"
             }
           ],
           "properties": {
@@ -1363,7 +1412,8 @@
                   "startLine": 15
                 }
               },
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample\\file://$PROJECT_DIR$/gradlew.bat",
+              "logicalLocationKey": "AndroidStudioFormatExample"
             }
           ],
           "properties": {
@@ -1385,7 +1435,8 @@
                   "startLine": 17
                 }
               },
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample\\file://$PROJECT_DIR$/gradlew.bat",
+              "logicalLocationKey": "AndroidStudioFormatExample"
             }
           ],
           "properties": {
@@ -1407,7 +1458,8 @@
                   "startLine": 20
                 }
               },
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample\\file://$PROJECT_DIR$/gradlew.bat",
+              "logicalLocationKey": "AndroidStudioFormatExample"
             }
           ],
           "properties": {
@@ -1429,7 +1481,8 @@
                   "startLine": 24
                 }
               },
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample\\file://$PROJECT_DIR$/gradlew.bat",
+              "logicalLocationKey": "AndroidStudioFormatExample"
             }
           ],
           "properties": {
@@ -1451,7 +1504,8 @@
                   "startLine": 24
                 }
               },
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample\\file://$PROJECT_DIR$/gradlew.bat",
+              "logicalLocationKey": "AndroidStudioFormatExample"
             }
           ],
           "properties": {
@@ -1473,7 +1527,8 @@
                   "startLine": 32
                 }
               },
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample\\file://$PROJECT_DIR$/gradlew.bat",
+              "logicalLocationKey": "AndroidStudioFormatExample"
             }
           ],
           "properties": {
@@ -1495,7 +1550,8 @@
                   "startLine": 38
                 }
               },
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample\\file://$PROJECT_DIR$/gradlew.bat",
+              "logicalLocationKey": "AndroidStudioFormatExample"
             }
           ],
           "properties": {
@@ -1517,7 +1573,8 @@
                   "startLine": 46
                 }
               },
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample\\file://$PROJECT_DIR$/gradlew.bat",
+              "logicalLocationKey": "AndroidStudioFormatExample"
             }
           ],
           "properties": {
@@ -1539,7 +1596,8 @@
                   "startLine": 49
                 }
               },
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample\\file://$PROJECT_DIR$/gradlew.bat",
+              "logicalLocationKey": "AndroidStudioFormatExample"
             }
           ],
           "properties": {
@@ -1561,7 +1619,8 @@
                   "startLine": 51
                 }
               },
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample\\file://$PROJECT_DIR$/gradlew.bat",
+              "logicalLocationKey": "AndroidStudioFormatExample"
             }
           ],
           "properties": {
@@ -1583,7 +1642,8 @@
                   "startLine": 52
                 }
               },
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample\\file://$PROJECT_DIR$/gradlew.bat",
+              "logicalLocationKey": "AndroidStudioFormatExample"
             }
           ],
           "properties": {
@@ -1605,7 +1665,8 @@
                   "startLine": 52
                 }
               },
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample\\file://$PROJECT_DIR$/gradlew.bat",
+              "logicalLocationKey": "AndroidStudioFormatExample"
             }
           ],
           "properties": {
@@ -1627,7 +1688,8 @@
                   "startLine": 60
                 }
               },
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample\\file://$PROJECT_DIR$/gradlew.bat",
+              "logicalLocationKey": "AndroidStudioFormatExample"
             }
           ],
           "properties": {
@@ -1649,7 +1711,8 @@
                   "startLine": 63
                 }
               },
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample\\file://$PROJECT_DIR$/gradlew.bat",
+              "logicalLocationKey": "AndroidStudioFormatExample"
             }
           ],
           "properties": {
@@ -1671,7 +1734,8 @@
                   "startLine": 75
                 }
               },
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample\\file://$PROJECT_DIR$/gradlew.bat",
+              "logicalLocationKey": "AndroidStudioFormatExample"
             }
           ],
           "properties": {
@@ -1693,7 +1757,8 @@
                   "startLine": 75
                 }
               },
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample\\file://$PROJECT_DIR$/gradlew.bat",
+              "logicalLocationKey": "AndroidStudioFormatExample"
             }
           ],
           "properties": {
@@ -1715,7 +1780,8 @@
                   "startLine": 79
                 }
               },
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample\\file://$PROJECT_DIR$/gradlew.bat",
+              "logicalLocationKey": "AndroidStudioFormatExample"
             }
           ],
           "properties": {
@@ -1737,7 +1803,8 @@
                   "startLine": 79
                 }
               },
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample\\file://$PROJECT_DIR$/gradlew.bat",
+              "logicalLocationKey": "AndroidStudioFormatExample"
             }
           ],
           "properties": {
@@ -1759,7 +1826,8 @@
                   "startLine": 88
                 }
               },
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample\\file://$PROJECT_DIR$/gradlew.bat",
+              "logicalLocationKey": "AndroidStudioFormatExample"
             }
           ],
           "properties": {
@@ -1781,7 +1849,8 @@
                   "startLine": 8
                 }
               },
-              "fullyQualifiedLogicalName": "app"
+              "fullyQualifiedLogicalName": "app\\file://$PROJECT_DIR$/app/build.gradle",
+              "logicalLocationKey": "app"
             }
           ],
           "properties": {
@@ -1803,7 +1872,8 @@
                   "startLine": 3
                 }
               },
-              "fullyQualifiedLogicalName": "app"
+              "fullyQualifiedLogicalName": "app\\file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml",
+              "logicalLocationKey": "app"
             }
           ],
           "properties": {
@@ -1825,7 +1895,8 @@
                   "startLine": 2
                 }
               },
-              "fullyQualifiedLogicalName": "app"
+              "fullyQualifiedLogicalName": "app\\file://$PROJECT_DIR$/app/src/main/res/values-w820dp/dimens.xml",
+              "logicalLocationKey": "app"
             }
           ],
           "properties": {
@@ -1847,7 +1918,8 @@
                   "startLine": 4
                 }
               },
-              "fullyQualifiedLogicalName": "app\\microsoft.androidstudioformatexample"
+              "fullyQualifiedLogicalName": "app\\microsoft.androidstudioformatexample\\file://$PROJECT_DIR$/app/src/main/java/microsoft/androidstudioformatexample/NamespaceTypo.java",
+              "logicalLocationKey": "app\\microsoft.androidstudioformatexample"
             }
           ],
           "properties": {

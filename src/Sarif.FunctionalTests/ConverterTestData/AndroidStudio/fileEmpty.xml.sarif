@@ -14,16 +14,15 @@
         ]
       },
       "logicalLocations": {
-        "northwindtraders-droid-2\\com.northwindtraders.droid.model": [
-          {
-            "name": "northwindtraders-droid-2",
-            "kind": "module"
-          },
-          {
-            "name": "com.northwindtraders.droid.model",
-            "kind": "package"
-          }
-        ]
+        "northwindtraders-droid-2": {
+          "name": "northwindtraders-droid-2",
+          "kind": "module"
+        },
+        "northwindtraders-droid-2\\com.northwindtraders.droid.model": {
+          "name": "com.northwindtraders.droid.model",
+          "parentKey": "northwindtraders-droid-2",
+          "kind": "package"
+        }
       },
       "results": [
         {
@@ -34,7 +33,8 @@
               "analysisTarget": {
                 "uri": "northwindtraders-droid-2/src/main/java/com/northwindtraders/droid/model/Model.java"
               },
-              "fullyQualifiedLogicalName": "northwindtraders-droid-2\\com.northwindtraders.droid.model"
+              "fullyQualifiedLogicalName": "northwindtraders-droid-2\\com.northwindtraders.droid.model\\file://$PROJECT_DIR$/northwindtraders-droid-2/src/main/java/com/northwindtraders/droid/model/Model.java",
+              "logicalLocationKey": "northwindtraders-droid-2\\com.northwindtraders.droid.model"
             }
           ],
           "properties": {

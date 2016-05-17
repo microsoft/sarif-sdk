@@ -14,16 +14,15 @@
         ]
       },
       "logicalLocations": {
-        "OMStrings.resources": [
-          {
-            "name": "microsoft.teamfoundation.build.client.dll",
-            "kind": "module"
-          },
-          {
-            "name": "OMStrings.resources",
-            "kind": "resource"
-          }
-        ]
+        "microsoft.teamfoundation.build.client.dll": {
+          "name": "microsoft.teamfoundation.build.client.dll",
+          "kind": "module"
+        },
+        "microsoft.teamfoundation.build.client.dll!OMStrings.resources": {
+          "name": "OMStrings.resources",
+          "parentKey": "microsoft.teamfoundation.build.client.dll",
+          "kind": "resource"
+        }
       },
       "results": [
         {
@@ -34,7 +33,7 @@
               "analysisTarget": {
                 "uri": "$(ProjectDir)/SpecifyCultureInfo/Microsoft.TeamFoundation.Build.Client.dll"
               },
-              "fullyQualifiedLogicalName": "OMStrings.resources"
+              "fullyQualifiedLogicalName": "microsoft.teamfoundation.build.client.dll!OMStrings.resources"
             }
           ],
           "toolFingerprint": "Logon#StringResourceShouldBeCompoundWord",

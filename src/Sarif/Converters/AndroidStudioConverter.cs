@@ -136,50 +136,57 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
             SetSarifResultPropertiesForProblem(result, problem);
             var location = new Location();
-            var logicalLocationComponents = new List<LogicalLocationComponent>();
+            location.FullyQualifiedLogicalName = CreateSignature(problem);
 
-            if (!String.IsNullOrWhiteSpace(problem.Module))
+            string logicalLocationKey = CreateLogicalLocation(problem);
+
+            if (logicalLocationKey != location.FullyQualifiedLogicalName)
             {
-                logicalLocationComponents.Add(new LogicalLocationComponent
-                {
-                    Name = problem.Module,
-                    Kind = LogicalLocationKind.Module
-                });
+                location.LogicalLocationKey = logicalLocationKey;
             }
 
-            if (!String.IsNullOrWhiteSpace(problem.Package))
-            {
-                logicalLocationComponents.Add(new LogicalLocationComponent
-                {
-                    Name = problem.Package,
-                    Kind = LogicalLocationKind.Package
-                });
-            }
+            //if (!String.IsNullOrWhiteSpace(problem.Module))
+            //{
+            //    logicalLocationComponents.Add(new LogicalLocationComponent
+            //    {
+            //        Name = problem.Module,
+            //        Kind = LogicalLocationKind.Module
+            //    });
+            //}
 
-            if ("class".Equals(problem.EntryPointType, StringComparison.OrdinalIgnoreCase))
-            {
-                logicalLocationComponents.Add(new LogicalLocationComponent
-                {
-                    Name = problem.EntryPointName,
-                    Kind = LogicalLocationKind.Type
-                });
-            }
+            //if (!String.IsNullOrWhiteSpace(problem.Package))
+            //{
+            //    logicalLocationComponents.Add(new LogicalLocationComponent
+            //    {
+            //        Name = problem.Package,
+            //        Kind = LogicalLocationKind.Package
+            //    });
+            //}
 
-            if ("method".Equals(problem.EntryPointType, StringComparison.OrdinalIgnoreCase))
-            {
-                logicalLocationComponents.Add(new LogicalLocationComponent
-                {
-                    Name = problem.EntryPointName,
-                    Kind = LogicalLocationKind.Member
-                });
-            }
+            //if ("class".Equals(problem.EntryPointType, StringComparison.OrdinalIgnoreCase))
+            //{
+            //    logicalLocationComponents.Add(new LogicalLocationComponent
+            //    {
+            //        Name = problem.EntryPointName,
+            //        Kind = LogicalLocationKind.Type
+            //    });
+            //}
 
-            if (logicalLocationComponents.Count != 0)
-            {
-                location.FullyQualifiedLogicalName = String.Join("\\", logicalLocationComponents.Select(x => x.Name));
+            //if ("method".Equals(problem.EntryPointType, StringComparison.OrdinalIgnoreCase))
+            //{
+            //    logicalLocationComponents.Add(new LogicalLocationComponent
+            //    {
+            //        Name = problem.EntryPointName,
+            //        Kind = LogicalLocationKind.Member
+            //    });
+            //}
 
-                AddLogicalLocation(location, logicalLocationComponents);
-            }
+            //if (logicalLocationComponents.Count != 0)
+            //{
+            //    location.FullyQualifiedLogicalName = String.Join("\\", logicalLocationComponents.Select(x => x.Name));
+
+            //    AddLogicalLocation(location, logicalLocationComponents);
+            //}
 
             string file = problem.File;
             if (!String.IsNullOrEmpty(file))
@@ -207,6 +214,62 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             result.Locations = new List<Location> { location };
 
             return result;
+        }
+
+        private static string CreateSignature(AndroidStudioProblem problem)
+        {
+            string[] parts = new string[] { problem.Module, problem.Package, problem.EntryPointName };
+            var updated = parts
+                    .Where(part => !String.IsNullOrEmpty(part));
+
+            string joinedParts = String.Join(@"\", updated);
+
+            if (String.IsNullOrEmpty(joinedParts))
+            {
+                return problem.Module;
+            }
+            else
+            {
+                return joinedParts;
+            }
+        }
+
+        private string CreateLogicalLocation(AndroidStudioProblem problem)
+        {
+            string parentLogicalLocationKey = null;
+
+            parentLogicalLocationKey = TryAddLogicalLocation(parentLogicalLocationKey, problem.Module, LogicalLocationKind.Module);
+            parentLogicalLocationKey = TryAddLogicalLocation(parentLogicalLocationKey, problem.Package, LogicalLocationKind.Package);
+
+            if (problem.EntryPointName != null)
+            {
+                if ("class".Equals(problem.EntryPointType, StringComparison.OrdinalIgnoreCase))
+                {
+                    parentLogicalLocationKey = TryAddLogicalLocation(parentLogicalLocationKey, problem.EntryPointName, LogicalLocationKind.Type);
+                }
+                else if ("method".Equals(problem.EntryPointType, StringComparison.OrdinalIgnoreCase))
+                {
+                    parentLogicalLocationKey = TryAddLogicalLocation(parentLogicalLocationKey, problem.EntryPointName, LogicalLocationKind.Member);
+                }
+            }
+
+            return parentLogicalLocationKey;
+        }
+
+        private string TryAddLogicalLocation(string parentKey, string value, string kind, string delimiter = @"\")
+        {
+            if (!String.IsNullOrEmpty(value))
+            {
+                var logicalLocation = new LogicalLocation
+                {
+                    ParentKey = parentKey,
+                    Kind = kind,
+                    Name = value
+                };
+
+                return AddLogicalLocation(logicalLocation, delimiter);
+            }
+            return parentKey;
         }
 
         /// <summary>Generates a user-facing description for a problem, using the description supplied at
