@@ -122,11 +122,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
             location.FullyQualifiedLogicalName = CreateSignature(context);
 
-            IList<LogicalLocationComponent> logicalLocationComponents = CreateLogicalLocationComponents(context);
+            string logicalLocationKey = CreateLogicalLocation(context);
 
-            if (logicalLocationComponents.Any())
+            if (logicalLocationKey != location.FullyQualifiedLogicalName)
             {
-                AddLogicalLocation(location, logicalLocationComponents);
+                location.LogicalLocationKey = logicalLocationKey;
             }
 
             result.Locations = new List<Location> { location };
@@ -140,12 +140,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
         private static string CreateSignature(FxCopLogReader.Context context)
         {
-            if (!String.IsNullOrEmpty(context.Resource))
-            {
-                return context.Resource;
-            }
-
-            string[] parts = new string[] { context.Namespace, context.Type, context.Member };
+            string[] parts = new string[] { context.Resource, context.Namespace, context.Type, context.Member };
             var updated = parts
                     .Where(part => !String.IsNullOrEmpty(part))
                     .Select(part => part.TrimStart('#'));
@@ -155,6 +150,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             if (String.IsNullOrEmpty(joinedParts))
             {
                 return context.Module;
+            }
+
+            if (!String.IsNullOrEmpty(context.Module))
+            {
+                return context.Module + "!" + joinedParts;
             }
             else
             {
@@ -179,29 +179,55 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             }
         }
 
-        private IList<LogicalLocationComponent> CreateLogicalLocationComponents(FxCopLogReader.Context context)
+        private string CreateLogicalLocation(FxCopLogReader.Context context)
         {
-            var logicalLocationComponents = new List<LogicalLocationComponent>();
+            string parentLogicalLocationKey = null;
+            string delimiter = null;
 
-            TryAddLogicalLocationComponent(logicalLocationComponents, context.Module, LogicalLocationKind.Module);
-            TryAddLogicalLocationComponent(logicalLocationComponents, context.Resource, LogicalLocationKind.Resource);
-            TryAddLogicalLocationComponent(logicalLocationComponents, context.Namespace, LogicalLocationKind.Namespace);
-            TryAddLogicalLocationComponent(logicalLocationComponents, context.Type, LogicalLocationKind.Type);
-            TryAddLogicalLocationComponent(logicalLocationComponents, context.Member, LogicalLocationKind.Member);
+            if (!string.IsNullOrEmpty(context.Module))
+            {
+                parentLogicalLocationKey = TryAddLogicalLocation(parentLogicalLocationKey, context.Module, LogicalLocationKind.Module);
+                delimiter = "!";
+            }
 
-            return logicalLocationComponents;
+            if (!string.IsNullOrEmpty(context.Resource))
+            {
+                parentLogicalLocationKey = TryAddLogicalLocation(parentLogicalLocationKey, context.Resource, LogicalLocationKind.Resource, delimiter);
+                delimiter = ".";
+            }
+
+
+            if (!string.IsNullOrEmpty(context.Namespace))
+            {
+                parentLogicalLocationKey = TryAddLogicalLocation(parentLogicalLocationKey, context.Namespace, LogicalLocationKind.Namespace, delimiter);
+                delimiter = ".";
+            }
+
+            if (!string.IsNullOrEmpty(context.Type))
+            {
+                parentLogicalLocationKey = TryAddLogicalLocation(parentLogicalLocationKey, context.Type, LogicalLocationKind.Type, delimiter);
+                delimiter = ".";
+            }
+
+            if (!string.IsNullOrEmpty(context.Member))
+            {
+                string member = context.Member != null ? context.Member.Trim('#') : null;
+                parentLogicalLocationKey = TryAddLogicalLocation(parentLogicalLocationKey, member, LogicalLocationKind.Member, delimiter);
+            }
+
+            return parentLogicalLocationKey;
         }
 
-        private static void TryAddLogicalLocationComponent(List<LogicalLocationComponent> location, string value, string kind)
+        private string TryAddLogicalLocation(string parentKey, string value, string kind, string delimiter = ".")
         {
-            if (!String.IsNullOrWhiteSpace(value))
+            var logicalLocation = new LogicalLocation
             {
-                location.Add(new LogicalLocationComponent
-                {
-                    Name = value,
-                    Kind = kind
-                });
-            }
+                ParentKey = parentKey,
+                Kind = kind,
+                Name = value
+            };
+
+            return AddLogicalLocation(logicalLocation, delimiter);
         }
 
         private static void TryAddProperty(Result result, string value, string key)

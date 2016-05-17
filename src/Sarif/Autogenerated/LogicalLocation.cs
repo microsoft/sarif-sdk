@@ -9,15 +9,15 @@ using System.Runtime.Serialization;
 namespace Microsoft.CodeAnalysis.Sarif
 {
     /// <summary>
-    /// A component of a logical location.
+    /// A logical location of a construct that produced a result.
     /// </summary>
     [DataContract]
     [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.33.0.0")]
-    public partial class LogicalLocationComponent : ISarifNode
+    public partial class LogicalLocation : ISarifNode
     {
-        public static IEqualityComparer<LogicalLocationComponent> ValueComparer => LogicalLocationComponentEqualityComparer.Instance;
+        public static IEqualityComparer<LogicalLocation> ValueComparer => LogicalLocationEqualityComparer.Instance;
 
-        public bool ValueEquals(LogicalLocationComponent other) => ValueComparer.Equals(this, other);
+        public bool ValueEquals(LogicalLocation other) => ValueComparer.Equals(this, other);
         public int ValueGetHashCode() => ValueComparer.GetHashCode(this);
 
         /// <summary>
@@ -27,7 +27,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             get
             {
-                return SarifNodeKind.LogicalLocationComponent;
+                return SarifNodeKind.LogicalLocation;
             }
         }
 
@@ -38,34 +38,43 @@ namespace Microsoft.CodeAnalysis.Sarif
         public string Name { get; set; }
 
         /// <summary>
-        /// The type of construct this logicalLocationComponent refers to. Should be one of 'declaration', 'function', 'member', 'module', 'namespace', 'package', 'resource', or 'type', if any of those accurately describe the construct.
+        /// Identifies the key of the immediate parent of the construct in which the result occurred. For example, this property might point to a logical location that represents the namespace that holds a type.
+        /// </summary>
+        [DataMember(Name = "parentKey", IsRequired = false, EmitDefaultValue = false)]
+        public string ParentKey { get; set; }
+
+        /// <summary>
+        /// The type of construct this logicalLocationComponent refers to. Should be one of 'function', 'member', 'module', 'namespace', 'package', 'resource', or 'type', if any of those accurately describe the construct.
         /// </summary>
         [DataMember(Name = "kind", IsRequired = false, EmitDefaultValue = false)]
         public string Kind { get; set; }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="LogicalLocationComponent" /> class.
+        /// Initializes a new instance of the <see cref="LogicalLocation" /> class.
         /// </summary>
-        public LogicalLocationComponent()
+        public LogicalLocation()
         {
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="LogicalLocationComponent" /> class from the supplied values.
+        /// Initializes a new instance of the <see cref="LogicalLocation" /> class from the supplied values.
         /// </summary>
         /// <param name="name">
         /// An initialization value for the <see cref="P: Name" /> property.
         /// </param>
+        /// <param name="parentKey">
+        /// An initialization value for the <see cref="P: ParentKey" /> property.
+        /// </param>
         /// <param name="kind">
         /// An initialization value for the <see cref="P: Kind" /> property.
         /// </param>
-        public LogicalLocationComponent(string name, string kind)
+        public LogicalLocation(string name, string parentKey, string kind)
         {
-            Init(name, kind);
+            Init(name, parentKey, kind);
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="LogicalLocationComponent" /> class from the specified instance.
+        /// Initializes a new instance of the <see cref="LogicalLocation" /> class from the specified instance.
         /// </summary>
         /// <param name="other">
         /// The instance from which the new instance is to be initialized.
@@ -73,14 +82,14 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <exception cref="ArgumentNullException">
         /// Thrown if <paramref name="other" /> is null.
         /// </exception>
-        public LogicalLocationComponent(LogicalLocationComponent other)
+        public LogicalLocation(LogicalLocation other)
         {
             if (other == null)
             {
                 throw new ArgumentNullException(nameof(other));
             }
 
-            Init(other.Name, other.Kind);
+            Init(other.Name, other.ParentKey, other.Kind);
         }
 
         ISarifNode ISarifNode.DeepClone()
@@ -91,19 +100,20 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <summary>
         /// Creates a deep copy of this instance.
         /// </summary>
-        public LogicalLocationComponent DeepClone()
+        public LogicalLocation DeepClone()
         {
-            return (LogicalLocationComponent)DeepCloneCore();
+            return (LogicalLocation)DeepCloneCore();
         }
 
         private ISarifNode DeepCloneCore()
         {
-            return new LogicalLocationComponent(this);
+            return new LogicalLocation(this);
         }
 
-        private void Init(string name, string kind)
+        private void Init(string name, string parentKey, string kind)
         {
             Name = name;
+            ParentKey = parentKey;
             Kind = kind;
         }
     }

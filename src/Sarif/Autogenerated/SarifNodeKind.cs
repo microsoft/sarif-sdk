@@ -60,9 +60,9 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// </summary>
         Location,
         /// <summary>
-        /// A value indicating that the <see cref="ISarifNode" /> object is of type <see cref="LogicalLocationComponent" />.
+        /// A value indicating that the <see cref="ISarifNode" /> object is of type <see cref="LogicalLocation" />.
         /// </summary>
-        LogicalLocationComponent,
+        LogicalLocation,
         /// <summary>
         /// A value indicating that the <see cref="ISarifNode" /> object is of type <see cref="Notification" />.
         /// </summary>

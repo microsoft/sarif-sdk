@@ -66,8 +66,8 @@ namespace Microsoft.CodeAnalysis.Sarif
                     return VisitInvocation((Invocation)node);
                 case SarifNodeKind.Location:
                     return VisitLocation((Location)node);
-                case SarifNodeKind.LogicalLocationComponent:
-                    return VisitLogicalLocationComponent((LogicalLocationComponent)node);
+                case SarifNodeKind.LogicalLocation:
+                    return VisitLogicalLocation((LogicalLocation)node);
                 case SarifNodeKind.Notification:
                     return VisitNotification((Notification)node);
                 case SarifNodeKind.PhysicalLocation:
@@ -234,7 +234,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return node;
         }
 
-        public virtual LogicalLocationComponent VisitLogicalLocationComponent(LogicalLocationComponent node)
+        public virtual LogicalLocation VisitLogicalLocation(LogicalLocation node)
         {
             if (node != null)
             {
@@ -371,10 +371,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                         var value = node.LogicalLocations[key];
                         if (value != null)
                         {
-                            for (int index_0 = 0; index_0 < node.LogicalLocations[key].Count; ++index_0)
-                            {
-                                node.LogicalLocations[key][index_0] = VisitNullChecked(node.LogicalLocations[key][index_0]);
-                            }
+                            node.LogicalLocations[key] = VisitNullChecked(value);
                         }
                     }
                 }

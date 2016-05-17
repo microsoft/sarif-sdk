@@ -56,10 +56,10 @@ namespace Microsoft.CodeAnalysis.Sarif
         public IDictionary<string, IList<FileData>> Files { get; set; }
 
         /// <summary>
-        /// A dictionary, each of whose keys specifies a fully qualified logical location such as a type nested within a namespace, and each of whose values is an array of logicalLocationComponent objects.
+        /// A dictionary, each of whose keys specifies a logical location such as a namespace, type or function.
         /// </summary>
         [DataMember(Name = "logicalLocations", IsRequired = false, EmitDefaultValue = false)]
-        public IDictionary<string, IList<LogicalLocationComponent>> LogicalLocations { get; set; }
+        public IDictionary<string, LogicalLocation> LogicalLocations { get; set; }
 
         /// <summary>
         /// The set of results contained in an SARIF log. The results array can be omitted when a run is solely exporting rules metadata. It must be present (but may be empty) in the event that a log file represents an actual scan.
@@ -140,7 +140,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="correlationId">
         /// An initialization value for the <see cref="P: CorrelationId" /> property.
         /// </param>
-        public Run(Tool tool, Invocation invocation, PhysicalLocation analysisTarget, IDictionary<string, IList<FileData>> files, IDictionary<string, IList<LogicalLocationComponent>> logicalLocations, IEnumerable<Result> results, IEnumerable<Notification> toolNotifications, IEnumerable<Notification> configurationNotifications, IDictionary<string, Rule> rules, string id, string correlationId)
+        public Run(Tool tool, Invocation invocation, PhysicalLocation analysisTarget, IDictionary<string, IList<FileData>> files, IDictionary<string, LogicalLocation> logicalLocations, IEnumerable<Result> results, IEnumerable<Notification> toolNotifications, IEnumerable<Notification> configurationNotifications, IDictionary<string, Rule> rules, string id, string correlationId)
         {
             Init(tool, invocation, analysisTarget, files, logicalLocations, results, toolNotifications, configurationNotifications, rules, id, correlationId);
         }
@@ -182,7 +182,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new Run(this);
         }
 
-        private void Init(Tool tool, Invocation invocation, PhysicalLocation analysisTarget, IDictionary<string, IList<FileData>> files, IDictionary<string, IList<LogicalLocationComponent>> logicalLocations, IEnumerable<Result> results, IEnumerable<Notification> toolNotifications, IEnumerable<Notification> configurationNotifications, IDictionary<string, Rule> rules, string id, string correlationId)
+        private void Init(Tool tool, Invocation invocation, PhysicalLocation analysisTarget, IDictionary<string, IList<FileData>> files, IDictionary<string, LogicalLocation> logicalLocations, IEnumerable<Result> results, IEnumerable<Notification> toolNotifications, IEnumerable<Notification> configurationNotifications, IDictionary<string, Rule> rules, string id, string correlationId)
         {
             if (tool != null)
             {
@@ -223,30 +223,35 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             if (logicalLocations != null)
             {
-                LogicalLocations = new Dictionary<string, IList<LogicalLocationComponent>>();
+                LogicalLocations = new Dictionary<string, LogicalLocation>();
                 foreach (var value_2 in logicalLocations)
                 {
-                    var destination_1 = new List<LogicalLocationComponent>();
-                    foreach (var value_3 in value_2.Value)
-                    {
-                        if (value_3 == null)
-                        {
-                            destination_1.Add(null);
-                        }
-                        else
-                        {
-                            destination_1.Add(new LogicalLocationComponent(value_3));
-                        }
-                    }
-
-                    LogicalLocations.Add(value_2.Key, destination_1);
+                    LogicalLocations.Add(value_2.Key, new LogicalLocation(value_2.Value));
                 }
             }
 
             if (results != null)
             {
-                var destination_2 = new List<Result>();
-                foreach (var value_4 in results)
+                var destination_1 = new List<Result>();
+                foreach (var value_3 in results)
+                {
+                    if (value_3 == null)
+                    {
+                        destination_1.Add(null);
+                    }
+                    else
+                    {
+                        destination_1.Add(new Result(value_3));
+                    }
+                }
+
+                Results = destination_1;
+            }
+
+            if (toolNotifications != null)
+            {
+                var destination_2 = new List<Notification>();
+                foreach (var value_4 in toolNotifications)
                 {
                     if (value_4 == null)
                     {
@@ -254,17 +259,17 @@ namespace Microsoft.CodeAnalysis.Sarif
                     }
                     else
                     {
-                        destination_2.Add(new Result(value_4));
+                        destination_2.Add(new Notification(value_4));
                     }
                 }
 
-                Results = destination_2;
+                ToolNotifications = destination_2;
             }
 
-            if (toolNotifications != null)
+            if (configurationNotifications != null)
             {
                 var destination_3 = new List<Notification>();
-                foreach (var value_5 in toolNotifications)
+                foreach (var value_5 in configurationNotifications)
                 {
                     if (value_5 == null)
                     {
@@ -276,33 +281,15 @@ namespace Microsoft.CodeAnalysis.Sarif
                     }
                 }
 
-                ToolNotifications = destination_3;
-            }
-
-            if (configurationNotifications != null)
-            {
-                var destination_4 = new List<Notification>();
-                foreach (var value_6 in configurationNotifications)
-                {
-                    if (value_6 == null)
-                    {
-                        destination_4.Add(null);
-                    }
-                    else
-                    {
-                        destination_4.Add(new Notification(value_6));
-                    }
-                }
-
-                ConfigurationNotifications = destination_4;
+                ConfigurationNotifications = destination_3;
             }
 
             if (rules != null)
             {
                 Rules = new Dictionary<string, Rule>();
-                foreach (var value_7 in rules)
+                foreach (var value_6 in rules)
                 {
-                    Rules.Add(value_7.Key, new Rule(value_7.Value));
+                    Rules.Add(value_6.Key, new Rule(value_6.Value));
                 }
             }
 

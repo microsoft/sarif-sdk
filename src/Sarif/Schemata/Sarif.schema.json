@@ -431,8 +431,8 @@
         }
       }
     },
-    "logicalLocationComponent": {
-      "description": "A component of a logical location.",
+    "logicalLocation": {
+      "description": "A logical location of a construct that produced a result.",
       "additionalProperties": false,
       "type": "object",
       "properties": {
@@ -442,8 +442,13 @@
           "type": "string"
         },
 
+        "parentKey": {
+          "description": "Identifies the key of the immediate parent of the construct in which the result occurred. For example, this property might point to a logical location that represents the namespace that holds a type.",
+          "type": "string"
+        },
+
         "kind": {
-          "description": "The type of construct this logicalLocationComponent refers to. Should be one of 'declaration', 'function', 'member', 'module', 'namespace', 'package', 'resource', or 'type', if any of those accurately describe the construct.",
+          "description": "The type of construct this logicalLocationComponent refers to. Should be one of 'function', 'member', 'module', 'namespace', 'package', 'resource', or 'type', if any of those accurately describe the construct.",
           "type": "string"
         }
       }
@@ -843,13 +848,10 @@
         },
 
         "logicalLocations": {
-          "description": "A dictionary, each of whose keys specifies a fully qualified logical location such as a type nested within a namespace, and each of whose values is an array of logicalLocationComponent objects.",
+          "description": "A dictionary, each of whose keys specifies a logical location such as a namespace, type or function.",
           "type": "object",
           "additionalProperties": {
-            "type": "array",
-            "items": {
-              "$ref": "#/definitions/logicalLocationComponent"
-            }
+          "$ref": "#/definitions/logicalLocation"
           }
         },
 

@@ -89,31 +89,15 @@ namespace Microsoft.CodeAnalysis.Sarif
 
                 foreach (var value_2 in left.LogicalLocations)
                 {
-                    IList<LogicalLocationComponent> value_3;
+                    LogicalLocation value_3;
                     if (!right.LogicalLocations.TryGetValue(value_2.Key, out value_3))
                     {
                         return false;
                     }
 
-                    if (!object.ReferenceEquals(value_2.Value, value_3))
+                    if (!LogicalLocation.ValueComparer.Equals(value_2.Value, value_3))
                     {
-                        if (value_2.Value == null || value_3 == null)
-                        {
-                            return false;
-                        }
-
-                        if (value_2.Value.Count != value_3.Count)
-                        {
-                            return false;
-                        }
-
-                        for (int index_1 = 0; index_1 < value_2.Value.Count; ++index_1)
-                        {
-                            if (!LogicalLocationComponent.ValueComparer.Equals(value_2.Value[index_1], value_3[index_1]))
-                            {
-                                return false;
-                            }
-                        }
+                        return false;
                     }
                 }
             }
@@ -130,9 +114,9 @@ namespace Microsoft.CodeAnalysis.Sarif
                     return false;
                 }
 
-                for (int index_2 = 0; index_2 < left.Results.Count; ++index_2)
+                for (int index_1 = 0; index_1 < left.Results.Count; ++index_1)
                 {
-                    if (!Result.ValueComparer.Equals(left.Results[index_2], right.Results[index_2]))
+                    if (!Result.ValueComparer.Equals(left.Results[index_1], right.Results[index_1]))
                     {
                         return false;
                     }
@@ -151,9 +135,9 @@ namespace Microsoft.CodeAnalysis.Sarif
                     return false;
                 }
 
-                for (int index_3 = 0; index_3 < left.ToolNotifications.Count; ++index_3)
+                for (int index_2 = 0; index_2 < left.ToolNotifications.Count; ++index_2)
                 {
-                    if (!Notification.ValueComparer.Equals(left.ToolNotifications[index_3], right.ToolNotifications[index_3]))
+                    if (!Notification.ValueComparer.Equals(left.ToolNotifications[index_2], right.ToolNotifications[index_2]))
                     {
                         return false;
                     }
@@ -172,9 +156,9 @@ namespace Microsoft.CodeAnalysis.Sarif
                     return false;
                 }
 
-                for (int index_4 = 0; index_4 < left.ConfigurationNotifications.Count; ++index_4)
+                for (int index_3 = 0; index_3 < left.ConfigurationNotifications.Count; ++index_3)
                 {
-                    if (!Notification.ValueComparer.Equals(left.ConfigurationNotifications[index_4], right.ConfigurationNotifications[index_4]))
+                    if (!Notification.ValueComparer.Equals(left.ConfigurationNotifications[index_3], right.ConfigurationNotifications[index_3]))
                     {
                         return false;
                     }

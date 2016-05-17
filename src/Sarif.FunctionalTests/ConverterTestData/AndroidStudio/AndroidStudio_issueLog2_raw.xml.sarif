@@ -14,20 +14,20 @@
         ]
       },
       "logicalLocations": {
-        "app\\microsoft.androidstudioformatexample\\microsoft.androidstudioformatexample.NamespaceTypo": [
-          {
-            "name": "app",
-            "kind": "module"
-          },
-          {
-            "name": "microsoft.androidstudioformatexample",
-            "kind": "package"
-          },
-          {
-            "name": "microsoft.androidstudioformatexample.NamespaceTypo",
-            "kind": "type"
-          }
-        ]
+        "app": {
+          "name": "app",
+          "kind": "module"
+        },
+        "app\\microsoft.androidstudioformatexample": {
+          "name": "microsoft.androidstudioformatexample",
+          "parentKey": "app",
+          "kind": "package"
+        },
+        "app\\microsoft.androidstudioformatexample\\microsoft.androidstudioformatexample.NamespaceTypo": {
+          "name": "microsoft.androidstudioformatexample.NamespaceTypo",
+          "parentKey": "app\\microsoft.androidstudioformatexample",
+          "kind": "type"
+        }
       },
       "results": [
         {
@@ -37,6 +37,7 @@
             {
               "resultFile": {
                 "uri": "app/src/main/java/microsoft/androidstudioformatexample/NamespaceTypo.java",
+                "uriBaseId": "$PROJECT_DIR$",
                 "region": {
                   "startLine": 3
                 }

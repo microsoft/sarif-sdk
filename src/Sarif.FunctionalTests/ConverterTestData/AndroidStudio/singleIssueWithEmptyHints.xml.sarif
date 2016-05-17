@@ -14,20 +14,20 @@
         ]
       },
       "logicalLocations": {
-        "yammer-droid-2\\com.yammer.droid\\com.yammer.droid.AdditionOperationTest void testStuff()": [
-          {
-            "name": "yammer-droid-2",
-            "kind": "module"
-          },
-          {
-            "name": "com.yammer.droid",
-            "kind": "package"
-          },
-          {
-            "name": "com.yammer.droid.AdditionOperationTest void testStuff()",
-            "kind": "member"
-          }
-        ]
+        "yammer-droid-2": {
+          "name": "yammer-droid-2",
+          "kind": "module"
+        },
+        "yammer-droid-2\\com.yammer.droid": {
+          "name": "com.yammer.droid",
+          "parentKey": "yammer-droid-2",
+          "kind": "package"
+        },
+        "yammer-droid-2\\com.yammer.droid\\com.yammer.droid.AdditionOperationTest void testStuff()": {
+          "name": "com.yammer.droid.AdditionOperationTest void testStuff()",
+          "parentKey": "yammer-droid-2\\com.yammer.droid",
+          "kind": "member"
+        }
       },
       "results": [
         {
@@ -37,6 +37,7 @@
             {
               "resultFile": {
                 "uri": "yammer-droid-2/src/test/java/com/yammer/droid/AdditionOperationTest.java",
+                "uriBaseId": "$PROJECT_DIR$",
                 "region": {
                   "startLine": 10
                 }

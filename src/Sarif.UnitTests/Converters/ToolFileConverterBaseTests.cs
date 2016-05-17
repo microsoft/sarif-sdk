@@ -37,24 +37,21 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 FullyQualifiedLogicalName = "a"
             };
 
-            LogicalLocationComponent[] logicalLocationComponents = new[]
+            var logicalLocation = new LogicalLocation
             {
-                new LogicalLocationComponent
-                {
-                    Name = "a",
-                    Kind = LogicalLocationKind.Namespace
-                },
+                Name = "a",
+                Kind = LogicalLocationKind.Namespace
             };
 
             var converter = new LogicalLocationTestConverter();
 
-            converter.AddLogicalLocation(location, logicalLocationComponents);
+            string logicalLocationKey = converter.AddLogicalLocation(logicalLocation);
 
-            location.LogicalLocationKey.Should().BeNull();
+            location.FullyQualifiedLogicalName.Should().Be(logicalLocationKey);
 
             converter.LogicalLocationsDictionary.Keys.Count.Should().Be(1);
             converter.LogicalLocationsDictionary.Keys.Should().Contain("a");
-            converter.LogicalLocationsDictionary["a"].SequenceEqual(logicalLocationComponents).Should().BeTrue();
+            converter.LogicalLocationsDictionary["a"].ValueEquals(logicalLocation).Should().BeTrue();
         }
 
         [TestMethod]
@@ -70,26 +67,30 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 FullyQualifiedLogicalName = "a"
             };
 
-            LogicalLocationComponent[] logicalLocationComponents = new[]
+            var logicalLocation1 = new LogicalLocation
             {
-                new LogicalLocationComponent
-                {
-                    Name = "a",
-                    Kind = LogicalLocationKind.Namespace
-                }
+                Name = "a",
+                Kind = LogicalLocationKind.Namespace
+            };
+
+            var logicalLocation2 = new LogicalLocation
+            {
+                Name = "a",
+                Kind = LogicalLocationKind.Namespace
             };
 
             var converter = new LogicalLocationTestConverter();
 
-            converter.AddLogicalLocation(location1, logicalLocationComponents);
-            converter.AddLogicalLocation(location2, logicalLocationComponents);
+            string logicalLocationKey = converter.AddLogicalLocation(logicalLocation1);
+            logicalLocationKey.Should().Be(location1.FullyQualifiedLogicalName);
 
-            location1.LogicalLocationKey.Should().BeNull();
-            location2.LogicalLocationKey.Should().BeNull();
+            logicalLocationKey = converter.AddLogicalLocation(logicalLocation2);
+            logicalLocationKey.Should().Be(location2.FullyQualifiedLogicalName);
 
             converter.LogicalLocationsDictionary.Keys.Count.Should().Be(1);
             converter.LogicalLocationsDictionary.Keys.Should().Contain("a");
-            converter.LogicalLocationsDictionary["a"].SequenceEqual(logicalLocationComponents).Should().BeTrue();
+            converter.LogicalLocationsDictionary["a"].ValueEquals(logicalLocation1).Should().BeTrue();
+            converter.LogicalLocationsDictionary["a"].ValueEquals(logicalLocation2).Should().BeTrue();
         }
 
         [TestMethod]
@@ -100,13 +101,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 FullyQualifiedLogicalName = "a"
             };
 
-            LogicalLocationComponent[] logicalLocationComponents1 = new[]
+            var logicalLocation1 = new LogicalLocation
             {
-                new LogicalLocationComponent
-                {
-                    Name = "a",
-                    Kind = LogicalLocationKind.Namespace
-                }
+                Name = "a",
+                Kind = LogicalLocationKind.Namespace
             };
 
             Location location2 = new Location
@@ -114,13 +112,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 FullyQualifiedLogicalName = "a"
             };
 
-            LogicalLocationComponent[] logicalLocationComponents2 = new[]
+            var logicalLocation2 = new LogicalLocation
             {
-                new LogicalLocationComponent
-                {
-                    Name = "a",
-                    Kind = LogicalLocationKind.Package
-                }
+                Name = "a",
+                Kind = LogicalLocationKind.Package
             };
 
             Location location3 = new Location
@@ -128,31 +123,29 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 FullyQualifiedLogicalName = "a"
             };
 
-            LogicalLocationComponent[] logicalLocationComponents3 = new[]
+            var logicalLocation3 = new LogicalLocation
             {
-                new LogicalLocationComponent
-                {
-                    Name = "a",
-                    Kind = LogicalLocationKind.Module
-                }
+                Name = "a",
+                Kind = LogicalLocationKind.Member
             };
 
             var converter = new LogicalLocationTestConverter();
 
-            converter.AddLogicalLocation(location1, logicalLocationComponents1);
-            converter.AddLogicalLocation(location2, logicalLocationComponents2);
-            converter.AddLogicalLocation(location3, logicalLocationComponents3);
+            string logicalLocationKey = converter.AddLogicalLocation(logicalLocation1);
+            logicalLocationKey.Should().Be("a");
 
-            location1.LogicalLocationKey.Should().BeNull();
-            location2.LogicalLocationKey.Should().Be("a-0");
-            location3.LogicalLocationKey.Should().Be("a-1");
+            logicalLocationKey = converter.AddLogicalLocation(logicalLocation2);
+            logicalLocationKey.Should().Be("a-0");
+
+            logicalLocationKey = converter.AddLogicalLocation(logicalLocation3);
+            logicalLocationKey.Should().Be("a-1");
 
             converter.LogicalLocationsDictionary.Keys.Count.Should().Be(3);
-            converter.LogicalLocationsDictionary["a"].SequenceEqual(logicalLocationComponents1).Should().BeTrue();
+            converter.LogicalLocationsDictionary["a"].ValueEquals(logicalLocation1).Should().BeTrue();
             converter.LogicalLocationsDictionary.Keys.Should().Contain("a-0");
-            converter.LogicalLocationsDictionary["a-0"].SequenceEqual(logicalLocationComponents2).Should().BeTrue();
+            converter.LogicalLocationsDictionary["a-0"].ValueEquals(logicalLocation2).Should().BeTrue();
             converter.LogicalLocationsDictionary.Keys.Should().Contain("a-1");
-            converter.LogicalLocationsDictionary["a-1"].SequenceEqual(logicalLocationComponents3).Should().BeTrue();
+            converter.LogicalLocationsDictionary["a-1"].ValueEquals(logicalLocation3).Should().BeTrue();
         }
     }
 }
