@@ -94,8 +94,14 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <summary>
         /// A global identifier that allows the run to be correlated with other artifacts produced by a larger automation process.
         /// </summary>
-        [DataMember(Name = "correlationId", IsRequired = false, EmitDefaultValue = false)]
-        public string CorrelationId { get; set; }
+        [DataMember(Name = "automationId", IsRequired = false, EmitDefaultValue = false)]
+        public string AutomationId { get; set; }
+
+        /// <summary>
+        /// The 'id' property of a separate (potentially external) SARIF 'run' instance that comprises the baseline that was used in order to compute result 'baselineState' properties for the run.
+        /// </summary>
+        [DataMember(Name = "baselineId", IsRequired = false, EmitDefaultValue = false)]
+        public string BaselineId { get; set; }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Run" /> class.
@@ -137,12 +143,15 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="id">
         /// An initialization value for the <see cref="P: Id" /> property.
         /// </param>
-        /// <param name="correlationId">
-        /// An initialization value for the <see cref="P: CorrelationId" /> property.
+        /// <param name="automationId">
+        /// An initialization value for the <see cref="P: AutomationId" /> property.
         /// </param>
-        public Run(Tool tool, Invocation invocation, PhysicalLocation analysisTarget, IDictionary<string, FileData> files, IDictionary<string, LogicalLocation> logicalLocations, IEnumerable<Result> results, IEnumerable<Notification> toolNotifications, IEnumerable<Notification> configurationNotifications, IDictionary<string, Rule> rules, string id, string correlationId)
+        /// <param name="baselineId">
+        /// An initialization value for the <see cref="P: BaselineId" /> property.
+        /// </param>
+        public Run(Tool tool, Invocation invocation, PhysicalLocation analysisTarget, IDictionary<string, FileData> files, IDictionary<string, LogicalLocation> logicalLocations, IEnumerable<Result> results, IEnumerable<Notification> toolNotifications, IEnumerable<Notification> configurationNotifications, IDictionary<string, Rule> rules, string id, string automationId, string baselineId)
         {
-            Init(tool, invocation, analysisTarget, files, logicalLocations, results, toolNotifications, configurationNotifications, rules, id, correlationId);
+            Init(tool, invocation, analysisTarget, files, logicalLocations, results, toolNotifications, configurationNotifications, rules, id, automationId, baselineId);
         }
 
         /// <summary>
@@ -161,7 +170,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 throw new ArgumentNullException(nameof(other));
             }
 
-            Init(other.Tool, other.Invocation, other.AnalysisTarget, other.Files, other.LogicalLocations, other.Results, other.ToolNotifications, other.ConfigurationNotifications, other.Rules, other.Id, other.CorrelationId);
+            Init(other.Tool, other.Invocation, other.AnalysisTarget, other.Files, other.LogicalLocations, other.Results, other.ToolNotifications, other.ConfigurationNotifications, other.Rules, other.Id, other.AutomationId, other.BaselineId);
         }
 
         ISarifNode ISarifNode.DeepClone()
@@ -182,7 +191,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new Run(this);
         }
 
-        private void Init(Tool tool, Invocation invocation, PhysicalLocation analysisTarget, IDictionary<string, FileData> files, IDictionary<string, LogicalLocation> logicalLocations, IEnumerable<Result> results, IEnumerable<Notification> toolNotifications, IEnumerable<Notification> configurationNotifications, IDictionary<string, Rule> rules, string id, string correlationId)
+        private void Init(Tool tool, Invocation invocation, PhysicalLocation analysisTarget, IDictionary<string, FileData> files, IDictionary<string, LogicalLocation> logicalLocations, IEnumerable<Result> results, IEnumerable<Notification> toolNotifications, IEnumerable<Notification> configurationNotifications, IDictionary<string, Rule> rules, string id, string automationId, string baselineId)
         {
             if (tool != null)
             {
@@ -281,7 +290,8 @@ namespace Microsoft.CodeAnalysis.Sarif
             }
 
             Id = id;
-            CorrelationId = correlationId;
+            AutomationId = automationId;
+            BaselineId = baselineId;
         }
     }
 }

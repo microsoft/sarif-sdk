@@ -32,5 +32,6 @@
 * Add logicalLocationKey and fullyQualifiedLogicalLocationName to annotatedCodeLocation
 * Add 'id' and 'essential' properties to annotatedCodeLocation
 * Rename 'toolFingerprint' to 'toolFingerprintContribution'
+* Add baselineId. Rename 'correlationId' to 'automationId'
 
 
