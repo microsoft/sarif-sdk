@@ -12,12 +12,15 @@ void GetXmlToSarifMapping(const std::wstring &prefastTag, std::wstring &sarifTag
 
 class SarifRegion
 {
-    int m_startLine;
-    int m_startColumn;
     static constexpr int BASE10 = 10;
+    json::Object m_values;
 
 public:
-    json::Object m_values;
+
+    const json::Object& GetJsonObject() const
+    {
+        return m_values;
+    }
 
     void SetStartLine(const std::wstring &value);
     void SetStartColumn(const std::wstring &value);
@@ -49,12 +52,19 @@ public:
     {
         m_values[L"length"] = json::Value(value);
     }
+
+    int GetStartLine() const;
+    int GetStartColumn() const;
 };
 
 class SarifPhysicalLocation
 {
-public:
     json::Object m_values;
+public:
+    const json::Object& GetJsonObject() const
+    {
+        return m_values;
+    }
 
     void SetURI(const std::wstring &uri)
     {
@@ -66,18 +76,22 @@ public:
         m_values[L"uriBaseId"] = uriBaseId;
     }
 
-    void SetRegion(SarifRegion region)
+    void SetRegion(const SarifRegion &region)
     {
-        m_values[L"region"] = region.m_values;
+        m_values[L"region"] = region.GetJsonObject();
     }
 };
 
 class SarifAnnotatedCodeLocation
 {
     static constexpr int BASE10 = 10;
+    json::Object m_values;
 
 public:
-    json::Object m_values;
+    const json::Object& GetJsonObject() const
+    {
+        return m_values;
+    }
 
     void SetId(const std::wstring &id)
     {
@@ -86,7 +100,7 @@ public:
 
     void SetPhysicalLocation(const SarifPhysicalLocation &physicalLocation)
     {
-        m_values[L"physicalLocation"] = physicalLocation.m_values;
+        m_values[L"physicalLocation"] = physicalLocation.GetJsonObject();
     }
 
     void SetModule(const std::wstring &module)
@@ -123,8 +137,12 @@ public:
 
 class SarifLogicalLocationComponent
 {
-public:
     json::Object m_values;
+public:
+    const json::Object& GetJsonObject() const
+    {
+        return m_values;
+    }
 
     void SetLocationKind(const std::wstring &value)
     {
@@ -140,9 +158,14 @@ public:
 class SarifReplacement
 {
     static constexpr int BASE10 = 10;
+    json::Object m_values;
 
 public:
-    json::Object m_values;
+
+    const json::Object& GetJsonObject() const
+    {
+        return m_values;
+    }
 
     void SetOffset(int value)
     {
@@ -165,8 +188,13 @@ public:
 
 class SarifFileChange
 {
-public:
     json::Object m_values;
+public:
+
+    const json::Object& GetJsonObject() const
+    {
+        return m_values;
+    }
 
     void SetURI(const std::wstring &uri)
     {
@@ -183,8 +211,13 @@ public:
 
 class SarifLocation
 {
-public:
     json::Object m_values;
+public:
+
+    const json::Object& GetJsonObject() const
+    {
+        return m_values;
+    }
 
     void SetFullyQualifiedLogicalName(const std::wstring &fqn)
     {
@@ -198,12 +231,12 @@ public:
 
     void SetAnalysisTarget(const SarifPhysicalLocation &physicalLocation)
     {
-        m_values[L"analysisTarget"] = physicalLocation.m_values;
+        m_values[L"analysisTarget"] = physicalLocation.GetJsonObject();
     }
 
     void SetResultFile(const SarifPhysicalLocation &physicalLocation)
     {
-        m_values[L"resultFile"] = physicalLocation.m_values;
+        m_values[L"resultFile"] = physicalLocation.GetJsonObject();
     }
 
     void SetDecoratedName(const std::wstring &decoratedName)
@@ -217,12 +250,17 @@ public:
 
 class SarifCodeFlow
 {
-public:
     json::Object m_values;
+public:
 
-    SarifCodeFlow() 
+    SarifCodeFlow()
     {
         SetMessage(L"");
+    }
+
+    const json::Object& GetJsonObject() const
+    {
+        return m_values;
     }
 
     void SetMessage(const std::wstring &message)
@@ -230,7 +268,7 @@ public:
         m_values[L"message"] = message;
     }
 
-    void AddLocation(const SarifAnnotatedCodeLocation &location);
+    void AddAnnotatedCodeLocation(const SarifAnnotatedCodeLocation &location);
 
     void AddTag(const std::wstring &tag);
     void AddProperty(const std::wstring &key, const std::wstring &value);
@@ -238,8 +276,13 @@ public:
 
 class SarifFix
 {
-public:
     json::Object m_values;
+public:
+
+    const json::Object& GetJsonObject() const
+    {
+        return m_values;
+    }
 
     void SetDescription(const std::wstring &value)
     {
@@ -251,8 +294,13 @@ public:
 
 class SarifFormattedMessage
 {
-public:
     json::Object m_values;
+public:
+
+    const json::Object& GetJsonObject() const
+    {
+        return m_values;
+    }
 
     void SetFormatId(const std::wstring &formatId)
     {
@@ -265,9 +313,14 @@ public:
 class SarifStackFrame
 {
     static constexpr int BASE10 = 10;
+    json::Object m_values;
 
 public:
-    json::Object m_values;
+
+    const json::Object& GetJsonObject() const
+    {
+        return m_values;
+    }
 
     void SetMessage(const std::wstring &msg)
     {
@@ -324,8 +377,13 @@ public:
 
 class SarifStack
 {
-public:
     json::Object m_values;
+public:
+
+    const json::Object& GetJsonObject() const
+    {
+        return m_values;
+    }
 
     void SetMessage(const std::wstring &msg)
     {
@@ -340,8 +398,13 @@ public:
 
 class SarifResult
 {
-public:
     json::Object m_values;
+public:
+
+    const json::Object& GetJsonObject() const
+    {
+        return m_values;
+    }
 
     void SetSuppressedInSource(const std::wstring &value)
     {
@@ -370,7 +433,7 @@ public:
 
     void SetFormattedRuleMessage(const SarifFormattedMessage &formattedRuleMessage)
     {
-        m_values[L"formattedRuleMessage"] = formattedRuleMessage.m_values;
+        m_values[L"formattedRuleMessage"] = formattedRuleMessage.GetJsonObject();
     }
 
     void SetToolFingerprint(const std::wstring &toolFingerprint)
@@ -405,8 +468,13 @@ public:
 
 class SarifHash
 {
-public:
     json::Object m_values;
+public:
+    const json::Object& GetJsonObject() const
+    {
+        return m_values;
+    }
+
     void SetAlgorithm(const std::wstring &algorithm)
     {
         m_values[L"algorithm"] = algorithm;
@@ -420,8 +488,13 @@ public:
 
 class SarifFile
 {
-public:
     json::Object m_values;
+public:
+
+    const json::Object& GetJsonObject() const
+    {
+        return m_values;
+    }
 
     void SetURI(const std::wstring &uri)
     {
@@ -457,8 +530,13 @@ public:
 
 class SarifTool
 {
-public:
     json::Object m_values;
+public:
+    const json::Object& GetJsonObject() const
+    {
+        return m_values;
+    }
+
     void SetName(const std::wstring &name)
     {
         m_values[L"name"] = name;
@@ -500,8 +578,12 @@ public:
 
 class SarifLogicalLocation
 {
-public:
     json::Array m_values;
+public:
+    const json::Array& GetJsonArray() const
+    {
+        return m_values;
+    }
 
     void AddLogicalLocationComponent(const std::wstring &name, const wchar_t *locationKind);
     void AddLogicalLocationComponent(const SarifLogicalLocationComponent &logicalLocationComponent);
@@ -509,17 +591,25 @@ public:
 
 class SarifInvocation
 {
-public:
     json::Object m_values;
-
+public:
+    const json::Object& GetJsonObject() const
+    {
+        return m_values;
+    }
     void AddTag(const std::wstring &tag);
     void AddProperty(const std::wstring &key, const std::wstring &value);
 };
 
 class SarifRule
 {
-public:
     json::Object m_values;
+public:
+
+    const json::Object& GetJsonObject() const
+    {
+        return m_values;
+    }
 
     void SetId(const std::wstring &id)
     {
@@ -559,8 +649,13 @@ public:
 
 class SarifException
 {
-public:
     json::Object m_values;
+public:
+
+    const json::Object& GetJsonObject() const
+    {
+        return m_values;
+    }
 
     void SetKind(const std::wstring &kind)
     {
@@ -574,7 +669,7 @@ public:
 
     void SetStack(const SarifStack &stack)
     {
-        m_values[L"stack"] = stack.m_values;
+        m_values[L"stack"] = stack.GetJsonObject();
     }
 
     void AddInnerException(const SarifException &innerException);
@@ -583,9 +678,14 @@ public:
 class SarifNotification
 {
     static constexpr int BASE10 = 10;
+    json::Object m_values;
 
 public:
-    json::Object m_values;
+
+    const json::Object& GetJsonObject() const
+    {
+        return m_values;
+    }
 
     void SetId(const std::wstring &id)
     {
@@ -604,7 +704,7 @@ public:
 
     void SetAnalysisTarget(const SarifPhysicalLocation &analysisTarget)
     {
-        m_values[L"analysisTarget"] = analysisTarget.m_values;
+        m_values[L"analysisTarget"] = analysisTarget.GetJsonObject();
     }
 
     void SetMessage(const std::wstring &message)
@@ -624,7 +724,7 @@ public:
 
     void SetException(const SarifException &exception)
     {
-        m_values[L"exception"] = exception.m_values;
+        m_values[L"exception"] = exception.GetJsonObject();
     }
 
     void SetThreadId(int threadId)
@@ -640,8 +740,13 @@ public:
 
 class SarifRun
 {
-public:
     json::Object m_values;
+public:
+
+    const json::Object& GetJsonObject() const
+    {
+        return m_values;
+    }
 
     void SetId(const std::wstring &id)
     {
@@ -655,17 +760,17 @@ public:
 
     void SetTool(const SarifTool &info)
     {
-        m_values[L"tool"] = info.m_values;
+        m_values[L"tool"] = info.GetJsonObject();
     }
 
     void SetInvocation(const SarifInvocation &invocation)
     {
-        m_values[L"invocation"] = invocation.m_values;
+        m_values[L"invocation"] = invocation.GetJsonObject();
     }
 
     void SetAnalysisTarget(const SarifPhysicalLocation &physicalLocation)
     {
-        m_values[L"analysisTarget"] = physicalLocation.m_values;
+        m_values[L"analysisTarget"] = physicalLocation.GetJsonObject();
     }
 
     void AddRule(const std::wstring &key, const SarifRule &rule);
@@ -678,8 +783,13 @@ public:
 
 class SarifLog
 {
-public:
     json::Object m_values;
+public:
+
+    const json::Object& GetJsonObject() const
+    {
+        return m_values;
+    }
 
     void SetVersion(const std::wstring &version)
     {
@@ -693,9 +803,3 @@ public:
 
     void AddRun(const SarifRun &run);
 };
-
-
-
-
-
-
