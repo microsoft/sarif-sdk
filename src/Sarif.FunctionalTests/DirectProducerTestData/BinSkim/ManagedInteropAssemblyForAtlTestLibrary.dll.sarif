@@ -3,7 +3,7 @@
   "version": "1.0.0-beta.5",
   "runs": [
     {
-      "id": "0827ca64-2dbc-4e82-9bd7-98330fa7033a",
+      "id": "a7eca8e9-98c8-463f-8b90-038a10cbe9fe",
       "tool": {
         "name": "BinSkim",
         "fullName": "BinSkim 1.3.3.0-beta",
@@ -497,9 +497,9 @@
       },
       "invocation": {
         "commandLine": "\"Z:\\bld\\bin\\BinSkim.Driver\\x86_Release\\BinSkim.exe\" analyze Z:\\src\\BinSkim.Driver.FunctionalTests\\BaselineTestsData\\ManagedInteropAssemblyForAtlTestLibrary.dll --output Z:\\src\\BinSkim.Driver.FunctionalTests\\BaselineTestsData\\Expected\\ManagedInteropAssemblyForAtlTestLibrary.dll.sarif.temp --verbose --hashes --config default",
-        "startTime": "2016-05-16T20:57:49.796Z",
-        "endTime": "2016-05-16T20:57:50.334Z",
-        "processId": 19444,
+        "startTime": "2016-05-16T21:25:55.872Z",
+        "endTime": "2016-05-16T21:25:56.392Z",
+        "processId": 28288,
         "fileName": "Z:\\bld\\bin\\BinSkim.Driver\\x86_Release\\BinSkim.exe",
         "workingDirectory": "Z:\\src\\BinSkim.Driver.FunctionalTests"
       }

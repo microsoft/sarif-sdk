@@ -8,16 +8,16 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 {
     internal class FileInfoFactory
     {
-        private readonly Dictionary<string, IList<FileData>> _fileInfoDictionary;
+        private readonly Dictionary<string, FileData> _fileInfoDictionary;
         private readonly Func<string, string> _mimeTypeClassifier;
 
         internal FileInfoFactory(Func<string, string> mimeTypeClassifier)
         {
             _mimeTypeClassifier = mimeTypeClassifier;
-            _fileInfoDictionary = new Dictionary<string, IList<FileData>>();
+            _fileInfoDictionary = new Dictionary<string, FileData>();
         }
 
-        internal Dictionary<string, IList<FileData>> Create(IEnumerable<Result> results)
+        internal Dictionary<string, FileData> Create(IEnumerable<Result> results)
         {
             foreach (Result result in results)
             {
@@ -88,12 +88,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             {
                 _fileInfoDictionary.Add(
                     key,
-                    new List<FileData>
+                    new FileData
                     {
-                        new FileData
-                        {
-                            MimeType = _mimeTypeClassifier(filePath)
-                        }
+                        MimeType = _mimeTypeClassifier(filePath)
+
                     });
             }
         }

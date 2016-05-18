@@ -355,10 +355,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                         var value = node.Files[key];
                         if (value != null)
                         {
-                            for (int index_0 = 0; index_0 < node.Files[key].Count; ++index_0)
-                            {
-                                node.Files[key][index_0] = VisitNullChecked(node.Files[key][index_0]);
-                            }
+                            node.Files[key] = VisitNullChecked(value);
                         }
                     }
                 }
