@@ -912,7 +912,7 @@
         },
 
         "baselineId": {
-          "description": "The 'id' property of a separate (potentially external) SARIF 'run' instance that comprises the baseline that was used in order to compute result 'baselineState' properties for the run.",
+          "description": "The 'id' property of a separate (potentially external) SARIF 'run' instance that comprises the baseline that was used to compute result 'baselineState' properties for the run.",
           "type": "string"
         }
       },
