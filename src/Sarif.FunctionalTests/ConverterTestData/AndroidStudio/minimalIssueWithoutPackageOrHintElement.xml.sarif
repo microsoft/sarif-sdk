@@ -7,11 +7,9 @@
         "name": "AndroidStudio"
       },
       "files": {
-        "build/intermediates/exploded-aar/com.google.android.gms/play-services/4.4.52/res/values/wallet_styles.xml": [
-          {
-            "mimeType": "text/x-java-source"
-          }
-        ]
+        "build/intermediates/exploded-aar/com.google.android.gms/play-services/4.4.52/res/values/wallet_styles.xml": {
+          "mimeType": "text/x-java-source"
+        }
       },
       "logicalLocations": {
         "android20140909": {

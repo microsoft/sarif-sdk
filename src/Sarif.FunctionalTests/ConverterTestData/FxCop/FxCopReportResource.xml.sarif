@@ -7,11 +7,9 @@
         "name": "FxCop"
       },
       "files": {
-        "$(ProjectDir)/SpecifyCultureInfo/Microsoft.TeamFoundation.Build.Client.dll": [
-          {
-            "mimeType": "application/octet-stream"
-          }
-        ]
+        "$(ProjectDir)/SpecifyCultureInfo/Microsoft.TeamFoundation.Build.Client.dll": {
+          "mimeType": "application/octet-stream"
+        }
       },
       "logicalLocations": {
         "microsoft.teamfoundation.build.client.dll": {

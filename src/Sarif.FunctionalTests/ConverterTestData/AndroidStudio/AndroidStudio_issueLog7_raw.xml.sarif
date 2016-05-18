@@ -7,16 +7,12 @@
         "name": "AndroidStudio"
       },
       "files": {
-        "gradle/wrapper/gradle-wrapper.properties": [
-          {
-            "mimeType": "text/x-java-source"
-          }
-        ],
-        "local.properties": [
-          {
-            "mimeType": "text/x-java-source"
-          }
-        ]
+        "gradle/wrapper/gradle-wrapper.properties": {
+          "mimeType": "text/x-java-source"
+        },
+        "local.properties": {
+          "mimeType": "text/x-java-source"
+        }
       },
       "logicalLocations": {
         "AndroidStudioFormatExample": {

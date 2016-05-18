@@ -7,16 +7,12 @@
         "name": "AndroidStudio"
       },
       "files": {
-        "app/src/androidTest/java/microsoft/androidstudioformatexample/ApplicationTest.java": [
-          {
-            "mimeType": "text/x-java-source"
-          }
-        ],
-        "app/src/main/java/microsoft/androidstudioformatexample/MainActivity.java": [
-          {
-            "mimeType": "text/x-java-source"
-          }
-        ]
+        "app/src/androidTest/java/microsoft/androidstudioformatexample/ApplicationTest.java": {
+          "mimeType": "text/x-java-source"
+        },
+        "app/src/main/java/microsoft/androidstudioformatexample/MainActivity.java": {
+          "mimeType": "text/x-java-source"
+        }
       },
       "logicalLocations": {
         "app": {

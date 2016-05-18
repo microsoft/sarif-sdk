@@ -69,16 +69,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
         ""name"": null
       },
       ""files"": {
-        ""http://abc/"": [
-          {
-            ""hashes"": [
-              {
-                ""value"": null,
-                ""algorithm"": """ + testTuple.Item2 +  @"""
-              }
-            ]
-          }
-        ]
+        ""http://abc/"": {
+          ""hashes"": [
+            {
+              ""value"": null,
+              ""algorithm"": """ + testTuple.Item2 + @"""
+            }
+          ]
+        }
       },
       ""results"": [
         {}
@@ -95,11 +93,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
 
                     uut.WriteTool(DefaultTool);
 
-                    var files = new Dictionary<string, IList<FileData>>
+                    var file = new Dictionary<string, FileData>
                     {
-                        ["http://abc/"] = new List<FileData>
-                        {
-                        new FileData()
+                        ["http://abc/"] = new FileData()
                         {
                             Hashes = new List<Hash>
                             {
@@ -109,17 +105,16 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
                                 }
                             }
                         }
-                        }
                     };
 
-                    uut.WriteFiles(files);
+                    uut.WriteFiles(file);
 
                     uut.WriteResults(new[] { DefaultResult });
                 });
                 Assert.AreEqual(expected, actual);
 
                 var sarifLog = JsonConvert.DeserializeObject<SarifLog>(actual);
-                Assert.AreEqual(testTuple.Item1, sarifLog.Runs[0].Files.Values.First()[0].Hashes[0].Algorithm);
+                Assert.AreEqual(testTuple.Item1, sarifLog.Runs[0].Files.Values.First().Hashes[0].Algorithm);
             }
         }
     }
