@@ -3,7 +3,7 @@
   "version": "1.0.0-beta.5",
   "runs": [
     {
-      "id": "cb41722e-065a-4292-af48-a5ee2dccb77b",
+      "id": "dacebb5f-614e-48f1-a57b-736ccaf5b131",
       "tool": {
         "name": "BinSkim",
         "fullName": "BinSkim 1.3.3.0-beta",
@@ -560,31 +560,29 @@
         }
       },
       "files": {
-        "file:///Z:/src/BinSkim.Driver.FunctionalTests/BaselineTestsData/MixedMode_x64_VS2013_Default.dll": [
-          {
-            "mimeType": "application/octet-stream",
-            "hashes": [
-              {
-                "value": "7450B749DB3518CA4193D0016C931796",
-                "algorithm": "md5"
-              },
-              {
-                "value": "562EC28F8F4CBF44CC912DDCA915E655B2680102",
-                "algorithm": "sha1"
-              },
-              {
-                "value": "4A6FE82E00091185CBEF072F5E1E0145DFE0510198FFFAA55B41325B66E18375",
-                "algorithm": "sha256"
-              }
-            ]
-          }
-        ]
+        "file:///Z:/src/BinSkim.Driver.FunctionalTests/BaselineTestsData/MixedMode_x64_VS2013_Default.dll": {
+          "mimeType": "application/octet-stream",
+          "hashes": [
+            {
+              "value": "7450B749DB3518CA4193D0016C931796",
+              "algorithm": "md5"
+            },
+            {
+              "value": "562EC28F8F4CBF44CC912DDCA915E655B2680102",
+              "algorithm": "sha1"
+            },
+            {
+              "value": "4A6FE82E00091185CBEF072F5E1E0145DFE0510198FFFAA55B41325B66E18375",
+              "algorithm": "sha256"
+            }
+          ]
+        }
       },
       "invocation": {
         "commandLine": "\"Z:\\bld\\bin\\BinSkim.Driver\\x86_Release\\BinSkim.exe\" analyze Z:\\src\\BinSkim.Driver.FunctionalTests\\BaselineTestsData\\MixedMode_x64_VS2013_Default.dll --output Z:\\src\\BinSkim.Driver.FunctionalTests\\BaselineTestsData\\Expected\\MixedMode_x64_VS2013_Default.dll.sarif.temp --verbose --hashes --config default",
-        "startTime": "2016-05-16T21:25:57.266Z",
-        "endTime": "2016-05-16T21:25:57.925Z",
-        "processId": 27748,
+        "startTime": "2016-05-18T21:18:08.404Z",
+        "endTime": "2016-05-18T21:18:09.127Z",
+        "processId": 31028,
         "fileName": "Z:\\bld\\bin\\BinSkim.Driver\\x86_Release\\BinSkim.exe",
         "workingDirectory": "Z:\\src\\BinSkim.Driver.FunctionalTests"
       }

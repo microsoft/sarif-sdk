@@ -82,7 +82,7 @@
               "fullyQualifiedLogicalName": "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.DESCannotBeUsed"
             }
           ],
-          "toolFingerprint": "DES#Type",
+          "toolFingerprintContribution": "DES#Type",
           "properties": {
             "Level": "Error",
             "Category": "Microsoft.Naming",
@@ -100,7 +100,7 @@
               "fullyQualifiedLogicalName": "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.DESCannotBeUsed"
             }
           ],
-          "toolFingerprint": "CSharp2_0",
+          "toolFingerprintContribution": "CSharp2_0",
           "properties": {
             "Level": "Error",
             "Category": "Microsoft.Design",
