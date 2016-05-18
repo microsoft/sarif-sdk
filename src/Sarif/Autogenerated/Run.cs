@@ -98,7 +98,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         public string AutomationId { get; set; }
 
         /// <summary>
-        /// The 'id' property of a separate (potentially external) SARIF 'run' instance that comprises the baseline that was used in order to compute result 'baselineState' properties for the run.
+        /// The 'id' property of a separate (potentially external) SARIF 'run' instance that comprises the baseline that was used to compute result 'baselineState' properties for the run.
         /// </summary>
         [DataMember(Name = "baselineId", IsRequired = false, EmitDefaultValue = false)]
         public string BaselineId { get; set; }

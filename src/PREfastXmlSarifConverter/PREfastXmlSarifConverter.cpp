@@ -526,7 +526,7 @@ HRESULT __stdcall Convert(const std::deque<XmlDefect> defectList, BSTR bstrOutpu
 						annotation.SetEssential(L"true");
 					}
                 }
-                codeFlow.AddLocation(annotation);
+                codeFlow.AddAnnotatedCodeLocation(annotation);
             }
             result.AddCodeFlow(codeFlow);
         }
@@ -534,7 +534,7 @@ HRESULT __stdcall Convert(const std::deque<XmlDefect> defectList, BSTR bstrOutpu
     }
     issueLog.AddRun(run);
 
-    std::wstring out = json::Serialize(issueLog.m_values);
+    std::wstring out = json::Serialize(issueLog.GetJsonObject());
 
     if (pbstrSarifText != NULL)
     {
