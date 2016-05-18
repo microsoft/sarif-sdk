@@ -7,11 +7,9 @@
         "name": "AndroidStudio"
       },
       "files": {
-        "northwindtraders-droid-2/src/main/java/com/northwindtraders/droid/model/Model.java": [
-          {
-            "mimeType": "text/x-java-source"
-          }
-        ]
+        "northwindtraders-droid-2/src/main/java/com/northwindtraders/droid/model/Model.java": {
+          "mimeType": "text/x-java-source"
+        }
       },
       "logicalLocations": {
         "northwindtraders-droid-2": {

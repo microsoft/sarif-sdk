@@ -10,7 +10,7 @@ using System.Runtime.Serialization;
 namespace Microsoft.CodeAnalysis.Sarif
 {
     /// <summary>
-    /// A code annotation that consists of single physical location and associated message, used to express code flows through a method, or other locations that are related to a result.
+    /// An annotation used to express code flows through a method or other locations that are related to a result.
     /// </summary>
     [DataContract]
     [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.33.0.0")]
@@ -39,10 +39,22 @@ namespace Microsoft.CodeAnalysis.Sarif
         public string Id { get; set; }
 
         /// <summary>
-        /// A code location to which this annotation refers.
+        /// A file location to which this annotation refers.
         /// </summary>
         [DataMember(Name = "physicalLocation", IsRequired = true)]
         public PhysicalLocation PhysicalLocation { get; set; }
+
+        /// <summary>
+        /// The fully qualified name of the method or function that is executing.
+        /// </summary>
+        [DataMember(Name = "fullyQualifiedLogicalName", IsRequired = false, EmitDefaultValue = false)]
+        public string FullyQualifiedLogicalName { get; set; }
+
+        /// <summary>
+        /// A key used to retrieve the annotation logicalLocation from the logicalLocations dictionary.
+        /// </summary>
+        [DataMember(Name = "logicalLocationKey", IsRequired = false, EmitDefaultValue = false)]
+        public string LogicalLocationKey { get; set; }
 
         /// <summary>
         /// The name of the module that contains the code that is executing.
@@ -96,6 +108,12 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="physicalLocation">
         /// An initialization value for the <see cref="P: PhysicalLocation" /> property.
         /// </param>
+        /// <param name="fullyQualifiedLogicalName">
+        /// An initialization value for the <see cref="P: FullyQualifiedLogicalName" /> property.
+        /// </param>
+        /// <param name="logicalLocationKey">
+        /// An initialization value for the <see cref="P: LogicalLocationKey" /> property.
+        /// </param>
         /// <param name="module">
         /// An initialization value for the <see cref="P: Module" /> property.
         /// </param>
@@ -114,9 +132,9 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="properties">
         /// An initialization value for the <see cref="P: Properties" /> property.
         /// </param>
-        public AnnotatedCodeLocation(string id, PhysicalLocation physicalLocation, string module, int threadId, string message, AnnotatedCodeLocationKind kind, bool essential, IDictionary<string, SerializedPropertyInfo> properties)
+        public AnnotatedCodeLocation(string id, PhysicalLocation physicalLocation, string fullyQualifiedLogicalName, string logicalLocationKey, string module, int threadId, string message, AnnotatedCodeLocationKind kind, bool essential, IDictionary<string, SerializedPropertyInfo> properties)
         {
-            Init(id, physicalLocation, module, threadId, message, kind, essential, properties);
+            Init(id, physicalLocation, fullyQualifiedLogicalName, logicalLocationKey, module, threadId, message, kind, essential, properties);
         }
 
         /// <summary>
@@ -135,7 +153,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 throw new ArgumentNullException(nameof(other));
             }
 
-            Init(other.Id, other.PhysicalLocation, other.Module, other.ThreadId, other.Message, other.Kind, other.Essential, other.Properties);
+            Init(other.Id, other.PhysicalLocation, other.FullyQualifiedLogicalName, other.LogicalLocationKey, other.Module, other.ThreadId, other.Message, other.Kind, other.Essential, other.Properties);
         }
 
         ISarifNode ISarifNode.DeepClone()
@@ -156,7 +174,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new AnnotatedCodeLocation(this);
         }
 
-        private void Init(string id, PhysicalLocation physicalLocation, string module, int threadId, string message, AnnotatedCodeLocationKind kind, bool essential, IDictionary<string, SerializedPropertyInfo> properties)
+        private void Init(string id, PhysicalLocation physicalLocation, string fullyQualifiedLogicalName, string logicalLocationKey, string module, int threadId, string message, AnnotatedCodeLocationKind kind, bool essential, IDictionary<string, SerializedPropertyInfo> properties)
         {
             Id = id;
             if (physicalLocation != null)
@@ -164,6 +182,8 @@ namespace Microsoft.CodeAnalysis.Sarif
                 PhysicalLocation = new PhysicalLocation(physicalLocation);
             }
 
+            FullyQualifiedLogicalName = fullyQualifiedLogicalName;
+            LogicalLocationKey = logicalLocationKey;
             Module = module;
             ThreadId = threadId;
             Message = message;

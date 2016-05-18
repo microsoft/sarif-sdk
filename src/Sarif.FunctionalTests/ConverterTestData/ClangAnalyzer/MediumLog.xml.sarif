@@ -7,11 +7,9 @@
         "name": "Clang"
       },
       "files": {
-        "jcmarker.c": [
-          {
-            "mimeType": "text/x-cpp"
-          }
-        ]
+        "jcmarker.c": {
+          "mimeType": "text/x-cpp"
+        }
       },
       "results": [
         {

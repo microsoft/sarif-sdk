@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+
 using Microsoft.CodeAnalysis.Sarif.Readers;
 
 using Newtonsoft.Json;
@@ -30,14 +31,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
             if (analysisTargets != null)
             {
-                run.Files = new Dictionary<string, IList<FileData>>();
+                run.Files = new Dictionary<string, FileData>();
 
                 foreach (string target in analysisTargets)
                 {
                     string fileDataKey;
 
                     var fileData = FileData.Create(
-                        new Uri[] { new Uri(target, UriKind.RelativeOrAbsolute) }, 
+                        new Uri(target, UriKind.RelativeOrAbsolute), 
                         computeTargetsHash, 
                         out fileDataKey);
 

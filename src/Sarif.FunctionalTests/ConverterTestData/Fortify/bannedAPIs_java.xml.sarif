@@ -7,11 +7,9 @@
         "name": "Fortify"
       },
       "files": {
-        "bannedAPIs.java": [
-          {
-            "mimeType": "text/x-java-source"
-          }
-        ]
+        "bannedAPIs.java": {
+          "mimeType": "text/x-java-source"
+        }
       },
       "results": [
         {

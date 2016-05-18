@@ -7,11 +7,9 @@
         "name": "Clang"
       },
       "files": {
-        "jmemmgr.c": [
-          {
-            "mimeType": "text/x-cpp"
-          }
-        ]
+        "jmemmgr.c": {
+          "mimeType": "text/x-cpp"
+        }
       },
       "results": [
         {

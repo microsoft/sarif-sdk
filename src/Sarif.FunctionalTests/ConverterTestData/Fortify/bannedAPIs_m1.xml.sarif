@@ -7,11 +7,9 @@
         "name": "Fortify"
       },
       "files": {
-        "bannedAPIs.m": [
-          {
-            "mimeType": "application/octet-stream"
-          }
-        ]
+        "bannedAPIs.m": {
+          "mimeType": "application/octet-stream"
+        }
       },
       "results": [
         {

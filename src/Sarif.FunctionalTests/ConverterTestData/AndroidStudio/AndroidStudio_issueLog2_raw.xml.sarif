@@ -7,11 +7,9 @@
         "name": "AndroidStudio"
       },
       "files": {
-        "app/src/main/java/microsoft/androidstudioformatexample/NamespaceTypo.java": [
-          {
-            "mimeType": "text/x-java-source"
-          }
-        ]
+        "app/src/main/java/microsoft/androidstudioformatexample/NamespaceTypo.java": {
+          "mimeType": "text/x-java-source"
+        }
       },
       "logicalLocations": {
         "app": {

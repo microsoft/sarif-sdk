@@ -118,7 +118,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         /// A dictionary whose keys are the URIs of scanned files and whose values provide
         /// information about those files.
         /// </param>
-        public void WriteFiles(IDictionary<string, IList<FileData>> fileDictionary)
+        public void WriteFiles(IDictionary<string, FileData> fileDictionary)
         {
             if (fileDictionary == null)
             {
@@ -130,7 +130,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             EnsureStateNotAlreadySet(Conditions.Disposed | Conditions.FilesWritten);
 
             _jsonWriter.WritePropertyName("files");
-            _serializer.Serialize(_jsonWriter, fileDictionary, typeof(Dictionary<Uri, IList<FileData>>));
+            _serializer.Serialize(_jsonWriter, fileDictionary, typeof(Dictionary<Uri, FileData>));
 
             _writeConditions |= Conditions.FilesWritten;
         }

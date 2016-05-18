@@ -7,16 +7,12 @@
         "name": "AndroidStudio"
       },
       "files": {
-        "yammer-droid-2/src/test/java/com/yammer/droid/AdditionOperationTest.java": [
-          {
-            "mimeType": "text/x-java-source"
-          }
-        ],
-        "yammer-droid-2/src/main/java/com/yammer/droid/ui/MessageUIBean.java": [
-          {
-            "mimeType": "text/x-java-source"
-          }
-        ]
+        "yammer-droid-2/src/test/java/com/yammer/droid/AdditionOperationTest.java": {
+          "mimeType": "text/x-java-source"
+        },
+        "yammer-droid-2/src/main/java/com/yammer/droid/ui/MessageUIBean.java": {
+          "mimeType": "text/x-java-source"
+        }
       },
       "logicalLocations": {
         "yammer-droid-2": {

@@ -7,11 +7,9 @@
         "name": "Clang"
       },
       "files": {
-        "jquant1.c": [
-          {
-            "mimeType": "text/x-cpp"
-          }
-        ]
+        "jquant1.c": {
+          "mimeType": "text/x-cpp"
+        }
       },
       "results": [
         {

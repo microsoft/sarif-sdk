@@ -7,46 +7,30 @@
         "name": "AndroidStudio"
       },
       "files": {
-        "gradle.properties": [
-          {
-            "mimeType": "text/x-java-source"
-          }
-        ],
-        "gradle/wrapper/gradle-wrapper.properties": [
-          {
-            "mimeType": "text/x-java-source"
-          }
-        ],
-        "gradlew": [
-          {
-            "mimeType": "text/x-java-source"
-          }
-        ],
-        "gradlew.bat": [
-          {
-            "mimeType": "text/x-java-source"
-          }
-        ],
-        "app/build.gradle": [
-          {
-            "mimeType": "text/x-java-source"
-          }
-        ],
-        "app/src/main/AndroidManifest.xml": [
-          {
-            "mimeType": "text/x-java-source"
-          }
-        ],
-        "app/src/main/res/values-w820dp/dimens.xml": [
-          {
-            "mimeType": "text/x-java-source"
-          }
-        ],
-        "app/src/main/java/microsoft/androidstudioformatexample/NamespaceTypo.java": [
-          {
-            "mimeType": "text/x-java-source"
-          }
-        ]
+        "gradle.properties": {
+          "mimeType": "text/x-java-source"
+        },
+        "gradle/wrapper/gradle-wrapper.properties": {
+          "mimeType": "text/x-java-source"
+        },
+        "gradlew": {
+          "mimeType": "text/x-java-source"
+        },
+        "gradlew.bat": {
+          "mimeType": "text/x-java-source"
+        },
+        "app/build.gradle": {
+          "mimeType": "text/x-java-source"
+        },
+        "app/src/main/AndroidManifest.xml": {
+          "mimeType": "text/x-java-source"
+        },
+        "app/src/main/res/values-w820dp/dimens.xml": {
+          "mimeType": "text/x-java-source"
+        },
+        "app/src/main/java/microsoft/androidstudioformatexample/NamespaceTypo.java": {
+          "mimeType": "text/x-java-source"
+        }
       },
       "logicalLocations": {
         "AndroidStudioFormatExample": {

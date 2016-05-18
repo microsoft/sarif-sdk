@@ -7,11 +7,9 @@
         "name": "Clang"
       },
       "files": {
-        "jcparam.c": [
-          {
-            "mimeType": "text/x-cpp"
-          }
-        ]
+        "jcparam.c": {
+          "mimeType": "text/x-cpp"
+        }
       },
       "results": [
         {

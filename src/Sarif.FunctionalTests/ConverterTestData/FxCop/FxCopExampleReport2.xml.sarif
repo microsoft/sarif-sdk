@@ -7,16 +7,12 @@
         "name": "FxCop"
       },
       "files": {
-        "file:///d:/SecDevTools/Main/bin/x86/Debug/FxCop/FxCopTestData/Crypto/SecurityCryptographyRuleTests.dll": [
-          {
-            "mimeType": "application/octet-stream"
-          }
-        ],
-        "file:///d:/SecDevTools/Main/src/FxCop/Source/FxCopTestData/SecurityCryptographyRuleTests/DESCannotBeUsed.cs": [
-          {
-            "mimeType": "text/x-csharp"
-          }
-        ]
+        "file:///d:/SecDevTools/Main/bin/x86/Debug/FxCop/FxCopTestData/Crypto/SecurityCryptographyRuleTests.dll": {
+          "mimeType": "application/octet-stream"
+        },
+        "file:///d:/SecDevTools/Main/src/FxCop/Source/FxCopTestData/SecurityCryptographyRuleTests/DESCannotBeUsed.cs": {
+          "mimeType": "text/x-csharp"
+        }
       },
       "logicalLocations": {
         "SecurityCryptographyRuleTests": {

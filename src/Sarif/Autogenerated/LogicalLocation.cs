@@ -38,7 +38,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         public string Name { get; set; }
 
         /// <summary>
-        /// Identifies the key of the immediate parent of the construct in which the result occurred. For example, this property might point to a logical location that represents the namespace that holds a type.
+        /// Identifies the key of the immediate parent of the construct in which the result was detected. For example, this property might point to a logical location that represents the namespace that holds a type.
         /// </summary>
         [DataMember(Name = "parentKey", IsRequired = false, EmitDefaultValue = false)]
         public string ParentKey { get; set; }

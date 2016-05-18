@@ -81,6 +81,12 @@ namespace Microsoft.CodeAnalysis.Sarif
         public string FullyQualifiedLogicalName { get; set; }
 
         /// <summary>
+        /// A key used to retrieve the stack frame logicalLocation from the logicalLocations dictionary, when the 'fullyQualifiedLogicalName' is not unique.
+        /// </summary>
+        [DataMember(Name = "logicalLocationKey", IsRequired = false, EmitDefaultValue = false)]
+        public string LogicalLocationKey { get; set; }
+
+        /// <summary>
         /// The address of the method or function that is executing.
         /// </summary>
         [DataMember(Name = "address", IsRequired = false, EmitDefaultValue = false)]
@@ -138,6 +144,9 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="fullyQualifiedLogicalName">
         /// An initialization value for the <see cref="P: FullyQualifiedLogicalName" /> property.
         /// </param>
+        /// <param name="logicalLocationKey">
+        /// An initialization value for the <see cref="P: LogicalLocationKey" /> property.
+        /// </param>
         /// <param name="address">
         /// An initialization value for the <see cref="P: Address" /> property.
         /// </param>
@@ -150,9 +159,9 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="properties">
         /// An initialization value for the <see cref="P: Properties" /> property.
         /// </param>
-        public StackFrame(string message, Uri uri, string uriBaseId, int line, int column, string module, int threadId, string fullyQualifiedLogicalName, int address, int offset, IEnumerable<string> parameters, IDictionary<string, SerializedPropertyInfo> properties)
+        public StackFrame(string message, Uri uri, string uriBaseId, int line, int column, string module, int threadId, string fullyQualifiedLogicalName, string logicalLocationKey, int address, int offset, IEnumerable<string> parameters, IDictionary<string, SerializedPropertyInfo> properties)
         {
-            Init(message, uri, uriBaseId, line, column, module, threadId, fullyQualifiedLogicalName, address, offset, parameters, properties);
+            Init(message, uri, uriBaseId, line, column, module, threadId, fullyQualifiedLogicalName, logicalLocationKey, address, offset, parameters, properties);
         }
 
         /// <summary>
@@ -171,7 +180,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 throw new ArgumentNullException(nameof(other));
             }
 
-            Init(other.Message, other.Uri, other.UriBaseId, other.Line, other.Column, other.Module, other.ThreadId, other.FullyQualifiedLogicalName, other.Address, other.Offset, other.Parameters, other.Properties);
+            Init(other.Message, other.Uri, other.UriBaseId, other.Line, other.Column, other.Module, other.ThreadId, other.FullyQualifiedLogicalName, other.LogicalLocationKey, other.Address, other.Offset, other.Parameters, other.Properties);
         }
 
         ISarifNode ISarifNode.DeepClone()
@@ -192,7 +201,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new StackFrame(this);
         }
 
-        private void Init(string message, Uri uri, string uriBaseId, int line, int column, string module, int threadId, string fullyQualifiedLogicalName, int address, int offset, IEnumerable<string> parameters, IDictionary<string, SerializedPropertyInfo> properties)
+        private void Init(string message, Uri uri, string uriBaseId, int line, int column, string module, int threadId, string fullyQualifiedLogicalName, string logicalLocationKey, int address, int offset, IEnumerable<string> parameters, IDictionary<string, SerializedPropertyInfo> properties)
         {
             Message = message;
             if (uri != null)
@@ -206,6 +215,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             Module = module;
             ThreadId = threadId;
             FullyQualifiedLogicalName = fullyQualifiedLogicalName;
+            LogicalLocationKey = logicalLocationKey;
             Address = address;
             Offset = offset;
             if (parameters != null)
