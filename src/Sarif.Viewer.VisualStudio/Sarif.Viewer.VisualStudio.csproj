@@ -41,6 +41,9 @@
     <Compile Include="Converters\Int32ToVisibilityConverter.cs" />
     <Compile Include="DelegateCommand.cs" />
     <Compile Include="DelegateCommandBase.cs" />
+    <Compile Include="Models\ReplacementModel.cs" />
+    <Compile Include="Models\FileChangeModel.cs" />
+    <Compile Include="Models\FixModel.cs" />
     <Compile Include="Sarif\StackFrame.extensions.cs" />
     <Compile Include="Sarif\Stack.extensions.cs" />
     <Compile Include="Sarif\CodeFlow.extensions.cs" />
