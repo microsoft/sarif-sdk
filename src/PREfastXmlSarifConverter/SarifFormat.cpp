@@ -111,32 +111,50 @@ SarifRegion::IsValid()
     //SARIF indicates that a defect is not associated with a region by omitting the region property from the physicalLocationComponent object.
     //So here, we only set the region property when the defect is associated with a region.
 
-    if (m_startLine > 0 && m_startColumn >= 0)
+    int startLine = GetStartLine();
+    int startColumn = GetStartColumn();
+    if (startLine > 0 && startColumn >= 0)
     {
         // Sarif uses a 1-indexed startColumn. Now that we know
         // this region is valid, we will increment here
-        SetStartColumn(++m_startColumn);
+        SetStartColumn(++startColumn);
         return true;
     }
-    else if (m_startLine == 0 && m_startColumn == 0)
+    else if (startLine == 0 && startColumn == 0)
         return false;
     std::string error = "Invalid region specified.";
-    error += "Start Line : " + std::to_string(m_startLine);
-    error += "Start Column : " + std::to_string(m_startColumn);
+    error += "Start Line : " + std::to_string(startLine);
+    error += "Start Column : " + std::to_string(startColumn);
     throw std::exception(error.c_str());
+}
+
+int
+SarifRegion::GetStartLine() const
+{
+    json::Object::ValueMap::const_iterator it = m_values.find(L"startLine");
+    if (it != m_values.end())
+        return it->second.ToInt();
+    return -1;
+}
+
+int
+SarifRegion::GetStartColumn() const
+{
+    json::Object::ValueMap::const_iterator it = m_values.find(L"startColumn");
+    if (it != m_values.end())
+        return it->second.ToInt();
+    return -1;
 }
 
 void
 SarifRegion::SetStartLine(int value)
 {
-    m_startLine = value;
     m_values[L"startLine"] = json::Value(value);
 }
 
 void
 SarifRegion::SetStartColumn(int value)
 {
-    m_startColumn = value;
     m_values[L"startColumn"] = json::Value(value);
 }
 
@@ -203,7 +221,7 @@ SarifRegion::SetLength(const std::wstring &value)
 void
 SarifFileChange::AddReplacement(const SarifReplacement &replacement)
 {
-    m_values.GetArrayElement(L"replacements").push_back(replacement.m_values);
+    m_values.GetArrayElement(L"replacements").push_back(replacement.GetJsonObject());
 }
 
 void
@@ -218,7 +236,7 @@ SarifLogicalLocation::AddLogicalLocationComponent(const std::wstring &name, cons
 void
 SarifLogicalLocation::AddLogicalLocationComponent(const SarifLogicalLocationComponent &component)
 {
-    m_values.push_back(component.m_values);
+    m_values.push_back(component.GetJsonObject());
 }
 
 void
@@ -248,7 +266,7 @@ SarifInvocation::AddTag(const std::wstring &tag)
     ((json::Object)m_values[L"properties"]).GetArrayElement(L"tags").push_back(tag);
 }
 
-void 
+void
 SarifInvocation::AddProperty(const std::wstring &key, const std::wstring &value)
 {
     if (m_values.find(L"properties") == m_values.end())
@@ -257,12 +275,12 @@ SarifInvocation::AddProperty(const std::wstring &key, const std::wstring &value)
 }
 
 void
-SarifCodeFlow::AddLocation(const SarifAnnotatedCodeLocation &location)
+SarifCodeFlow::AddAnnotatedCodeLocation(const SarifAnnotatedCodeLocation &location)
 {
-    m_values.GetArrayElement(L"locations").push_back(location.m_values);
+    m_values.GetArrayElement(L"locations").push_back(location.GetJsonObject());
 }
 
-void 
+void
 SarifCodeFlow::AddProperty(const std::wstring &key, const std::wstring &value)
 {
     if (m_values.find(L"properties") == m_values.end())
@@ -323,37 +341,37 @@ SarifAnnotatedCodeLocation::AddProperty(const std::wstring &key, const std::wstr
 void
 SarifFix::AddFileChange(const SarifFileChange &change)
 {
-    m_values.GetArrayElement(L"fileChanges").push_back(change.m_values);
+    m_values.GetArrayElement(L"fileChanges").push_back(change.GetJsonObject());
 }
 
 void
 SarifResult::AddLocation(const SarifLocation &location)
 {
-    m_values.GetArrayElement(L"locations").push_back(location.m_values);
+    m_values.GetArrayElement(L"locations").push_back(location.GetJsonObject());
 }
 
 void
 SarifResult::AddRelatedLocation(const SarifAnnotatedCodeLocation &location)
 {
-    m_values.GetArrayElement(L"relatedLocations").push_back(location.m_values);
+    m_values.GetArrayElement(L"relatedLocations").push_back(location.GetJsonObject());
 }
 
 void
 SarifResult::AddStack(const SarifStack &stack)
 {
-    m_values.GetArrayElement(L"stacks").push_back(stack.m_values);
+    m_values.GetArrayElement(L"stacks").push_back(stack.GetJsonObject());
 }
 
 void
 SarifResult::AddCodeFlow(const SarifCodeFlow &codeFlow)
 {
-    m_values.GetArrayElement(L"codeFlows").push_back(codeFlow.m_values);
+    m_values.GetArrayElement(L"codeFlows").push_back(codeFlow.GetJsonObject());
 }
 
 void
 SarifResult::AddFix(const SarifFix &fix)
 {
-    m_values.GetArrayElement(L"fixes").push_back(fix.m_values);
+    m_values.GetArrayElement(L"fixes").push_back(fix.GetJsonObject());
 }
 
 void
@@ -386,7 +404,7 @@ SarifFile::AddHash(const std::wstring &algoritm, const std::wstring &value)
 void
 SarifFile::AddHash(const SarifHash &hash)
 {
-    m_values.GetArrayElement(L"hashes").push_back(hash.m_values);
+    m_values.GetArrayElement(L"hashes").push_back(hash.GetJsonObject());
 }
 
 void
@@ -413,7 +431,7 @@ SarifRun::AddRule(const std::wstring &key, const SarifRule &rule)
     if (m_values.find(L"rules") == m_values.end())
         m_values[L"rules"] = json::Object();
 
-    m_values[L"rules"][key] = rule.m_values;
+    m_values[L"rules"][key] = rule.GetJsonObject();
 }
 
 void
@@ -422,19 +440,19 @@ SarifRun::AddFile(const std::wstring &key, const SarifFile &file)
     if (m_values.find(L"files") == m_values.end())
         m_values[L"files"] = json::Object();
 
-    m_values[L"files"][key] = file.m_values;
+    m_values[L"files"][key] = file.GetJsonObject();
 }
 
 void
 SarifRun::AddToolNotification(const SarifNotification &toolNotification)
 {
-    m_values.GetArrayElement(L"toolNotification").push_back(toolNotification.m_values);
+    m_values.GetArrayElement(L"toolNotification").push_back(toolNotification.GetJsonObject());
 }
 
 void
 SarifRun::AddConfigurationNotification(const SarifNotification &configurationNotification)
 {
-    m_values.GetArrayElement(L"configurationNotifications").push_back(configurationNotification.m_values);
+    m_values.GetArrayElement(L"configurationNotifications").push_back(configurationNotification.GetJsonObject());
 }
 
 void
@@ -443,19 +461,19 @@ SarifRun::AddLogicalLocation(const std::wstring &key, const SarifLogicalLocation
     if (m_values.find(L"logicalLocations") == m_values.end())
         m_values[L"logicalLocations"] = json::Object();
 
-    m_values[L"logicalLocations"][key] = location.m_values;
+    m_values[L"logicalLocations"][key] = location.GetJsonArray();
 }
 
 void
 SarifRun::AddResult(const SarifResult &result)
 {
-    m_values.GetArrayElement(L"results").push_back(result.m_values);
+    m_values.GetArrayElement(L"results").push_back(result.GetJsonObject());
 }
 
 void
 SarifLog::AddRun(const SarifRun &run)
 {
-    m_values.GetArrayElement(L"runs").push_back(run.m_values);
+    m_values.GetArrayElement(L"runs").push_back(run.GetJsonObject());
 }
 
 void
@@ -479,7 +497,7 @@ SarifTool::AddProperty(const std::wstring &key, const std::wstring &value)
 void
 SarifException::AddInnerException(const SarifException &exception)
 {
-    m_values.GetArrayElement(L"innerException").push_back(exception.m_values);
+    m_values.GetArrayElement(L"innerException").push_back(exception.GetJsonObject());
 }
 
 void
@@ -546,7 +564,7 @@ SarifRule::AddProperty(const std::wstring &key, const std::wstring &value)
 void
 SarifStack::AddFrame(const SarifStackFrame &stackFrame)
 {
-    m_values.GetArrayElement(L"frames").push_back(stackFrame.m_values);
+    m_values.GetArrayElement(L"frames").push_back(stackFrame.GetJsonObject());
 }
 
 void
