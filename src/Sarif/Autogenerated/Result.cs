@@ -83,8 +83,8 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <summary>
         /// A string that contributes to the unique identity of the result.
         /// </summary>
-        [DataMember(Name = "toolFingerprint", IsRequired = false, EmitDefaultValue = false)]
-        public string ToolFingerprint { get; set; }
+        [DataMember(Name = "toolFingerprintContribution", IsRequired = false, EmitDefaultValue = false)]
+        public string ToolFingerprintContribution { get; set; }
 
         /// <summary>
         /// An array of 'stack' objects relevant to the result.
@@ -158,8 +158,8 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="id">
         /// An initialization value for the <see cref="P: Id" /> property.
         /// </param>
-        /// <param name="toolFingerprint">
-        /// An initialization value for the <see cref="P: ToolFingerprint" /> property.
+        /// <param name="toolFingerprintContribution">
+        /// An initialization value for the <see cref="P: ToolFingerprintContribution" /> property.
         /// </param>
         /// <param name="stacks">
         /// An initialization value for the <see cref="P: Stacks" /> property.
@@ -182,9 +182,9 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="properties">
         /// An initialization value for the <see cref="P: Properties" /> property.
         /// </param>
-        public Result(string ruleId, string ruleKey, ResultLevel level, string message, FormattedRuleMessage formattedRuleMessage, IEnumerable<Location> locations, string codeSnippet, string id, string toolFingerprint, IEnumerable<Stack> stacks, IEnumerable<CodeFlow> codeFlows, IEnumerable<AnnotatedCodeLocation> relatedLocations, SuppressionStates suppressionStates, BaselineState baselineState, IEnumerable<Fix> fixes, IDictionary<string, SerializedPropertyInfo> properties)
+        public Result(string ruleId, string ruleKey, ResultLevel level, string message, FormattedRuleMessage formattedRuleMessage, IEnumerable<Location> locations, string codeSnippet, string id, string toolFingerprintContribution, IEnumerable<Stack> stacks, IEnumerable<CodeFlow> codeFlows, IEnumerable<AnnotatedCodeLocation> relatedLocations, SuppressionStates suppressionStates, BaselineState baselineState, IEnumerable<Fix> fixes, IDictionary<string, SerializedPropertyInfo> properties)
         {
-            Init(ruleId, ruleKey, level, message, formattedRuleMessage, locations, codeSnippet, id, toolFingerprint, stacks, codeFlows, relatedLocations, suppressionStates, baselineState, fixes, properties);
+            Init(ruleId, ruleKey, level, message, formattedRuleMessage, locations, codeSnippet, id, toolFingerprintContribution, stacks, codeFlows, relatedLocations, suppressionStates, baselineState, fixes, properties);
         }
 
         /// <summary>
@@ -203,7 +203,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 throw new ArgumentNullException(nameof(other));
             }
 
-            Init(other.RuleId, other.RuleKey, other.Level, other.Message, other.FormattedRuleMessage, other.Locations, other.CodeSnippet, other.Id, other.ToolFingerprint, other.Stacks, other.CodeFlows, other.RelatedLocations, other.SuppressionStates, other.BaselineState, other.Fixes, other.Properties);
+            Init(other.RuleId, other.RuleKey, other.Level, other.Message, other.FormattedRuleMessage, other.Locations, other.CodeSnippet, other.Id, other.ToolFingerprintContribution, other.Stacks, other.CodeFlows, other.RelatedLocations, other.SuppressionStates, other.BaselineState, other.Fixes, other.Properties);
         }
 
         ISarifNode ISarifNode.DeepClone()
@@ -224,7 +224,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new Result(this);
         }
 
-        private void Init(string ruleId, string ruleKey, ResultLevel level, string message, FormattedRuleMessage formattedRuleMessage, IEnumerable<Location> locations, string codeSnippet, string id, string toolFingerprint, IEnumerable<Stack> stacks, IEnumerable<CodeFlow> codeFlows, IEnumerable<AnnotatedCodeLocation> relatedLocations, SuppressionStates suppressionStates, BaselineState baselineState, IEnumerable<Fix> fixes, IDictionary<string, SerializedPropertyInfo> properties)
+        private void Init(string ruleId, string ruleKey, ResultLevel level, string message, FormattedRuleMessage formattedRuleMessage, IEnumerable<Location> locations, string codeSnippet, string id, string toolFingerprintContribution, IEnumerable<Stack> stacks, IEnumerable<CodeFlow> codeFlows, IEnumerable<AnnotatedCodeLocation> relatedLocations, SuppressionStates suppressionStates, BaselineState baselineState, IEnumerable<Fix> fixes, IDictionary<string, SerializedPropertyInfo> properties)
         {
             RuleId = ruleId;
             RuleKey = ruleKey;
@@ -255,7 +255,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             CodeSnippet = codeSnippet;
             Id = id;
-            ToolFingerprint = toolFingerprint;
+            ToolFingerprintContribution = toolFingerprintContribution;
             if (stacks != null)
             {
                 var destination_1 = new List<Stack>();

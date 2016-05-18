@@ -83,7 +83,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             string uniqueId = context.GetUniqueId();
             if (!String.IsNullOrWhiteSpace(uniqueId))
             {
-                result.ToolFingerprint = uniqueId;
+                result.ToolFingerprintContribution = uniqueId;
             }
 
             string status = context.Status;

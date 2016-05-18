@@ -927,7 +927,7 @@
               "fullyQualifiedLogicalName": "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.DESCannotBeUsed"
             }
           ],
-          "toolFingerprint": "DES#Type",
+          "toolFingerprintContribution": "DES#Type",
           "properties": {
             "Level": "Error",
             "Category": "Microsoft.Naming",
@@ -945,7 +945,7 @@
               "fullyQualifiedLogicalName": "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.DESCannotBeUsed"
             }
           ],
-          "toolFingerprint": "CSharp2_0",
+          "toolFingerprintContribution": "CSharp2_0",
           "properties": {
             "Level": "Error",
             "Category": "Microsoft.Design",
@@ -1015,7 +1015,7 @@
               "fullyQualifiedLogicalName": "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.DESCannotBeUsed.EncryptData(System.String,System.String,System.Byte[],System.Byte[])"
             }
           ],
-          "toolFingerprint": "ExceptionEdge",
+          "toolFingerprintContribution": "ExceptionEdge",
           "properties": {
             "Level": "Warning",
             "Category": "Microsoft.Reliability",
@@ -1039,7 +1039,7 @@
               "fullyQualifiedLogicalName": "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.DESCannotBeUsed.EncryptData(System.String,System.String,System.Byte[],System.Byte[])"
             }
           ],
-          "toolFingerprint": "ExceptionEdge",
+          "toolFingerprintContribution": "ExceptionEdge",
           "properties": {
             "Level": "Warning",
             "Category": "Microsoft.Reliability",
@@ -1063,7 +1063,7 @@
               "fullyQualifiedLogicalName": "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.DESCannotBeUsed.EncryptData(System.String,System.String,System.Byte[],System.Byte[])"
             }
           ],
-          "toolFingerprint": "NonExceptionEdge",
+          "toolFingerprintContribution": "NonExceptionEdge",
           "properties": {
             "Level": "Warning",
             "Category": "Microsoft.Reliability",
@@ -1110,7 +1110,7 @@
               "fullyQualifiedLogicalName": "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.DESCannotBeUsed.EncryptData(System.String,System.String,System.Byte[],System.Byte[])"
             }
           ],
-          "toolFingerprint": "System.Console.WriteLine(System.String)#KnownValue",
+          "toolFingerprintContribution": "System.Console.WriteLine(System.String)#KnownValue",
           "properties": {
             "Level": "Warning",
             "Category": "Microsoft.Globalization",
@@ -1134,7 +1134,7 @@
               "fullyQualifiedLogicalName": "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.DESCannotBeUsed.EncryptData(System.String,System.String,System.Byte[],System.Byte[])"
             }
           ],
-          "toolFingerprint": "System.Console.WriteLine(System.String,System.Object)#KnownValue",
+          "toolFingerprintContribution": "System.Console.WriteLine(System.String,System.Object)#KnownValue",
           "properties": {
             "Level": "Warning",
             "Category": "Microsoft.Globalization",
@@ -1152,7 +1152,7 @@
               "fullyQualifiedLogicalName": "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.DSACannotBeUsed"
             }
           ],
-          "toolFingerprint": "DSA#Type",
+          "toolFingerprintContribution": "DSA#Type",
           "properties": {
             "Level": "Error",
             "Category": "Microsoft.Naming",
@@ -1170,7 +1170,7 @@
               "fullyQualifiedLogicalName": "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.DSACannotBeUsed"
             }
           ],
-          "toolFingerprint": "CSharp2_0",
+          "toolFingerprintContribution": "CSharp2_0",
           "properties": {
             "Level": "Error",
             "Category": "Microsoft.Design",
@@ -1240,7 +1240,7 @@
               "fullyQualifiedLogicalName": "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.DSACannotBeUsed.DSASignHash(System.Byte[],System.Security.Cryptography.DSAParameters,System.String)"
             }
           ],
-          "toolFingerprint": "DSA#Member",
+          "toolFingerprintContribution": "DSA#Member",
           "properties": {
             "Level": "Error",
             "Category": "Microsoft.Naming",
@@ -1264,7 +1264,7 @@
               "fullyQualifiedLogicalName": "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.DSACannotBeUsed.DSASignHash(System.Byte[],System.Security.Cryptography.DSAParameters,System.String)"
             }
           ],
-          "toolFingerprint": "DSA#MemberParameter",
+          "toolFingerprintContribution": "DSA#MemberParameter",
           "properties": {
             "Level": "Error",
             "Category": "Microsoft.Naming",
@@ -1288,7 +1288,7 @@
               "fullyQualifiedLogicalName": "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.DSACannotBeUsed.DSASignHash(System.Byte[],System.Security.Cryptography.DSAParameters,System.String)"
             }
           ],
-          "toolFingerprint": "Hash#MemberParameter",
+          "toolFingerprintContribution": "Hash#MemberParameter",
           "properties": {
             "Level": "Error",
             "Category": "Microsoft.Naming",
@@ -1312,7 +1312,7 @@
               "fullyQualifiedLogicalName": "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.DSACannotBeUsed.DSASignHash(System.Byte[],System.Security.Cryptography.DSAParameters,System.String)"
             }
           ],
-          "toolFingerprint": "Hash#MemberParameter",
+          "toolFingerprintContribution": "Hash#MemberParameter",
           "properties": {
             "Level": "Error",
             "Category": "Microsoft.Naming",
@@ -1336,7 +1336,7 @@
               "fullyQualifiedLogicalName": "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.DSACannotBeUsed.DSASignHash(System.Byte[],System.Security.Cryptography.DSAParameters,System.String)"
             }
           ],
-          "toolFingerprint": "Alg#MemberParameter",
+          "toolFingerprintContribution": "Alg#MemberParameter",
           "properties": {
             "Level": "CriticalWarning",
             "Category": "Microsoft.Naming",
@@ -1360,7 +1360,7 @@
               "fullyQualifiedLogicalName": "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.DSACannotBeUsed.DSAVerifyHash(System.Byte[],System.Byte[],System.Security.Cryptography.DSAParameters,System.String)"
             }
           ],
-          "toolFingerprint": "DSA#Member",
+          "toolFingerprintContribution": "DSA#Member",
           "properties": {
             "Level": "Error",
             "Category": "Microsoft.Naming",
@@ -1384,7 +1384,7 @@
               "fullyQualifiedLogicalName": "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.DSACannotBeUsed.DSAVerifyHash(System.Byte[],System.Byte[],System.Security.Cryptography.DSAParameters,System.String)"
             }
           ],
-          "toolFingerprint": "DSA#MemberParameter",
+          "toolFingerprintContribution": "DSA#MemberParameter",
           "properties": {
             "Level": "Error",
             "Category": "Microsoft.Naming",
@@ -1408,7 +1408,7 @@
               "fullyQualifiedLogicalName": "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.DSACannotBeUsed.DSAVerifyHash(System.Byte[],System.Byte[],System.Security.Cryptography.DSAParameters,System.String)"
             }
           ],
-          "toolFingerprint": "Hash#MemberParameter",
+          "toolFingerprintContribution": "Hash#MemberParameter",
           "properties": {
             "Level": "Error",
             "Category": "Microsoft.Naming",
@@ -1432,7 +1432,7 @@
               "fullyQualifiedLogicalName": "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.DSACannotBeUsed.DSAVerifyHash(System.Byte[],System.Byte[],System.Security.Cryptography.DSAParameters,System.String)"
             }
           ],
-          "toolFingerprint": "Hash#MemberParameter",
+          "toolFingerprintContribution": "Hash#MemberParameter",
           "properties": {
             "Level": "Error",
             "Category": "Microsoft.Naming",
@@ -1456,7 +1456,7 @@
               "fullyQualifiedLogicalName": "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.DSACannotBeUsed.DSAVerifyHash(System.Byte[],System.Byte[],System.Security.Cryptography.DSAParameters,System.String)"
             }
           ],
-          "toolFingerprint": "Signed#MemberParameter",
+          "toolFingerprintContribution": "Signed#MemberParameter",
           "properties": {
             "Level": "Error",
             "Category": "Microsoft.Naming",
@@ -1480,7 +1480,7 @@
               "fullyQualifiedLogicalName": "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.DSACannotBeUsed.DSAVerifyHash(System.Byte[],System.Byte[],System.Security.Cryptography.DSAParameters,System.String)"
             }
           ],
-          "toolFingerprint": "Alg#MemberParameter",
+          "toolFingerprintContribution": "Alg#MemberParameter",
           "properties": {
             "Level": "CriticalWarning",
             "Category": "Microsoft.Naming",
@@ -1504,7 +1504,7 @@
               "fullyQualifiedLogicalName": "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.DSACannotBeUsed.Main()"
             }
           ],
-          "toolFingerprint": "System.Console.WriteLine(System.String)#KnownValue",
+          "toolFingerprintContribution": "System.Console.WriteLine(System.String)#KnownValue",
           "properties": {
             "Level": "Warning",
             "Category": "Microsoft.Globalization",
@@ -1528,7 +1528,7 @@
               "fullyQualifiedLogicalName": "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.DSACannotBeUsed.Main()"
             }
           ],
-          "toolFingerprint": "System.Console.WriteLine(System.String)#KnownValue",
+          "toolFingerprintContribution": "System.Console.WriteLine(System.String)#KnownValue",
           "properties": {
             "Level": "Warning",
             "Category": "Microsoft.Globalization",
@@ -1546,7 +1546,7 @@
               "fullyQualifiedLogicalName": "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.MD5CannotBeUsed"
             }
           ],
-          "toolFingerprint": "CSharp2_0",
+          "toolFingerprintContribution": "CSharp2_0",
           "properties": {
             "Level": "Error",
             "Category": "Microsoft.Design",
@@ -1616,7 +1616,7 @@
               "fullyQualifiedLogicalName": "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.MD5CannotBeUsed.Main(System.String[])"
             }
           ],
-          "toolFingerprint": "System.Console.WriteLine(System.String)#KnownValue",
+          "toolFingerprintContribution": "System.Console.WriteLine(System.String)#KnownValue",
           "properties": {
             "Level": "Warning",
             "Category": "Microsoft.Globalization",
@@ -1640,7 +1640,7 @@
               "fullyQualifiedLogicalName": "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.MD5CannotBeUsed.Main(System.String[])"
             }
           ],
-          "toolFingerprint": "System.Console.WriteLine(System.String)#KnownValue",
+          "toolFingerprintContribution": "System.Console.WriteLine(System.String)#KnownValue",
           "properties": {
             "Level": "Warning",
             "Category": "Microsoft.Globalization",
@@ -1664,7 +1664,7 @@
               "fullyQualifiedLogicalName": "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.MD5CannotBeUsed.Main(System.String[])"
             }
           ],
-          "toolFingerprint": "System.Console.WriteLine(System.String)#KnownValue",
+          "toolFingerprintContribution": "System.Console.WriteLine(System.String)#KnownValue",
           "properties": {
             "Level": "Warning",
             "Category": "Microsoft.Globalization",
@@ -1688,7 +1688,7 @@
               "fullyQualifiedLogicalName": "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.MD5CannotBeUsed.Main(System.String[])"
             }
           ],
-          "toolFingerprint": "System.Console.WriteLine(System.String)#KnownValue",
+          "toolFingerprintContribution": "System.Console.WriteLine(System.String)#KnownValue",
           "properties": {
             "Level": "Warning",
             "Category": "Microsoft.Globalization",
@@ -1735,7 +1735,7 @@
               "fullyQualifiedLogicalName": "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.MD5CannotBeUsed.Main(System.String[])"
             }
           ],
-          "toolFingerprint": "args",
+          "toolFingerprintContribution": "args",
           "properties": {
             "Level": "Warning",
             "Category": "Microsoft.Usage",
@@ -1776,7 +1776,7 @@
               "fullyQualifiedLogicalName": "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.RC2CannotBeUsed"
             }
           ],
-          "toolFingerprint": "CSharp2_0",
+          "toolFingerprintContribution": "CSharp2_0",
           "properties": {
             "Level": "Error",
             "Category": "Microsoft.Design",
@@ -1800,7 +1800,7 @@
               "fullyQualifiedLogicalName": "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.RC2CannotBeUsed.DecryptBytes(System.Security.Cryptography.SymmetricAlgorithm,System.Byte[])"
             }
           ],
-          "toolFingerprint": "Alg#MemberParameter",
+          "toolFingerprintContribution": "Alg#MemberParameter",
           "properties": {
             "Level": "CriticalWarning",
             "Category": "Microsoft.Naming",
@@ -1824,7 +1824,7 @@
               "fullyQualifiedLogicalName": "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.RC2CannotBeUsed.DecryptBytes(System.Security.Cryptography.SymmetricAlgorithm,System.Byte[])"
             }
           ],
-          "toolFingerprint": "sym#MemberParameter",
+          "toolFingerprintContribution": "sym#MemberParameter",
           "properties": {
             "Level": "CriticalWarning",
             "Category": "Microsoft.Naming",
@@ -1848,7 +1848,7 @@
               "fullyQualifiedLogicalName": "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.RC2CannotBeUsed.DecryptBytes(System.Security.Cryptography.SymmetricAlgorithm,System.Byte[])"
             }
           ],
-          "toolFingerprint": "bytes#LanguageIndependentMemberParameter",
+          "toolFingerprintContribution": "bytes#LanguageIndependentMemberParameter",
           "properties": {
             "Level": "Error",
             "Category": "Microsoft.Naming",
@@ -1872,7 +1872,7 @@
               "fullyQualifiedLogicalName": "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.RC2CannotBeUsed.DecryptBytes(System.Security.Cryptography.SymmetricAlgorithm,System.Byte[])"
             }
           ],
-          "toolFingerprint": "0",
+          "toolFingerprintContribution": "0",
           "properties": {
             "Level": "Warning",
             "Category": "Microsoft.Design",
@@ -1896,7 +1896,7 @@
               "fullyQualifiedLogicalName": "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.RC2CannotBeUsed.DecryptBytes(System.Security.Cryptography.SymmetricAlgorithm,System.Byte[])"
             }
           ],
-          "toolFingerprint": "1",
+          "toolFingerprintContribution": "1",
           "properties": {
             "Level": "Warning",
             "Category": "Microsoft.Design",
@@ -1920,7 +1920,7 @@
               "fullyQualifiedLogicalName": "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.RC2CannotBeUsed.EncryptString(System.Security.Cryptography.SymmetricAlgorithm,System.String)"
             }
           ],
-          "toolFingerprint": "Alg#MemberParameter",
+          "toolFingerprintContribution": "Alg#MemberParameter",
           "properties": {
             "Level": "CriticalWarning",
             "Category": "Microsoft.Naming",
@@ -1944,7 +1944,7 @@
               "fullyQualifiedLogicalName": "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.RC2CannotBeUsed.EncryptString(System.Security.Cryptography.SymmetricAlgorithm,System.String)"
             }
           ],
-          "toolFingerprint": "sym#MemberParameter",
+          "toolFingerprintContribution": "sym#MemberParameter",
           "properties": {
             "Level": "CriticalWarning",
             "Category": "Microsoft.Naming",
@@ -1968,7 +1968,7 @@
               "fullyQualifiedLogicalName": "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.RC2CannotBeUsed.EncryptString(System.Security.Cryptography.SymmetricAlgorithm,System.String)"
             }
           ],
-          "toolFingerprint": "string#LanguageIndependentMemberParameter",
+          "toolFingerprintContribution": "string#LanguageIndependentMemberParameter",
           "properties": {
             "Level": "Error",
             "Category": "Microsoft.Naming",
@@ -1992,7 +1992,7 @@
               "fullyQualifiedLogicalName": "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.RC2CannotBeUsed.EncryptString(System.Security.Cryptography.SymmetricAlgorithm,System.String)"
             }
           ],
-          "toolFingerprint": "0",
+          "toolFingerprintContribution": "0",
           "properties": {
             "Level": "Warning",
             "Category": "Microsoft.Design",
@@ -2016,7 +2016,7 @@
               "fullyQualifiedLogicalName": "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.RC2CannotBeUsed.Main()"
             }
           ],
-          "toolFingerprint": "NonExceptionEdge",
+          "toolFingerprintContribution": "NonExceptionEdge",
           "properties": {
             "Level": "Warning",
             "Category": "Microsoft.Reliability",
@@ -2040,7 +2040,7 @@
               "fullyQualifiedLogicalName": "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.RC2CannotBeUsed.Main()"
             }
           ],
-          "toolFingerprint": "System.Console.WriteLine(System.String)#KnownValue",
+          "toolFingerprintContribution": "System.Console.WriteLine(System.String)#KnownValue",
           "properties": {
             "Level": "Warning",
             "Category": "Microsoft.Globalization",
@@ -2064,7 +2064,7 @@
               "fullyQualifiedLogicalName": "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.RC2CannotBeUsed.Main()"
             }
           ],
-          "toolFingerprint": "System.Console.WriteLine(System.String)#KnownValue",
+          "toolFingerprintContribution": "System.Console.WriteLine(System.String)#KnownValue",
           "properties": {
             "Level": "Warning",
             "Category": "Microsoft.Globalization",
@@ -2145,7 +2145,7 @@
               "fullyQualifiedLogicalName": "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.RijndaelCannotBeUsed"
             }
           ],
-          "toolFingerprint": "CSharp2_0",
+          "toolFingerprintContribution": "CSharp2_0",
           "properties": {
             "Level": "Error",
             "Category": "Microsoft.Design",
@@ -2307,7 +2307,7 @@
               "fullyQualifiedLogicalName": "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.RijndaelCannotBeUsed.Main()"
             }
           ],
-          "toolFingerprint": "System.Console.WriteLine(System.String,System.Object)#KnownValue",
+          "toolFingerprintContribution": "System.Console.WriteLine(System.String,System.Object)#KnownValue",
           "properties": {
             "Level": "Warning",
             "Category": "Microsoft.Globalization",
@@ -2331,7 +2331,7 @@
               "fullyQualifiedLogicalName": "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.RijndaelCannotBeUsed.Main()"
             }
           ],
-          "toolFingerprint": "System.Console.WriteLine(System.String,System.Object)#KnownValue",
+          "toolFingerprintContribution": "System.Console.WriteLine(System.String,System.Object)#KnownValue",
           "properties": {
             "Level": "Warning",
             "Category": "Microsoft.Globalization",
@@ -2355,7 +2355,7 @@
               "fullyQualifiedLogicalName": "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.RijndaelCannotBeUsed.Main()"
             }
           ],
-          "toolFingerprint": "System.Console.WriteLine(System.String,System.Object)#KnownValue",
+          "toolFingerprintContribution": "System.Console.WriteLine(System.String,System.Object)#KnownValue",
           "properties": {
             "Level": "Warning",
             "Category": "Microsoft.Globalization",
@@ -2419,7 +2419,7 @@
               "fullyQualifiedLogicalName": "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.RIPEMD160IsNotRecommended"
             }
           ],
-          "toolFingerprint": "RIPEMD#Type",
+          "toolFingerprintContribution": "RIPEMD#Type",
           "properties": {
             "Level": "Error",
             "Category": "Microsoft.Naming",
@@ -2437,7 +2437,7 @@
               "fullyQualifiedLogicalName": "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.RIPEMD160IsNotRecommended"
             }
           ],
-          "toolFingerprint": "CSharp2_0",
+          "toolFingerprintContribution": "CSharp2_0",
           "properties": {
             "Level": "Error",
             "Category": "Microsoft.Design",
@@ -2461,7 +2461,7 @@
               "fullyQualifiedLogicalName": "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.RIPEMD160IsNotRecommended.Main(System.String[])"
             }
           ],
-          "toolFingerprint": "NonExceptionEdge",
+          "toolFingerprintContribution": "NonExceptionEdge",
           "properties": {
             "Level": "Warning",
             "Category": "Microsoft.Reliability",
@@ -2485,7 +2485,7 @@
               "fullyQualifiedLogicalName": "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.RIPEMD160IsNotRecommended.Main(System.String[])"
             }
           ],
-          "toolFingerprint": "System.Console.Write(System.String)#KnownValue",
+          "toolFingerprintContribution": "System.Console.Write(System.String)#KnownValue",
           "properties": {
             "Level": "Warning",
             "Category": "Microsoft.Globalization",
@@ -2509,7 +2509,7 @@
               "fullyQualifiedLogicalName": "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.RIPEMD160IsNotRecommended.Main(System.String[])"
             }
           ],
-          "toolFingerprint": "System.Console.WriteLine(System.String)#KnownValue",
+          "toolFingerprintContribution": "System.Console.WriteLine(System.String)#KnownValue",
           "properties": {
             "Level": "Warning",
             "Category": "Microsoft.Globalization",
@@ -2533,7 +2533,7 @@
               "fullyQualifiedLogicalName": "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.RIPEMD160IsNotRecommended.Main(System.String[])"
             }
           ],
-          "toolFingerprint": "System.Console.WriteLine(System.String)#KnownValue",
+          "toolFingerprintContribution": "System.Console.WriteLine(System.String)#KnownValue",
           "properties": {
             "Level": "Warning",
             "Category": "Microsoft.Globalization",
@@ -2580,7 +2580,7 @@
               "fullyQualifiedLogicalName": "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.RIPEMD160IsNotRecommended.Main(System.String[])"
             }
           ],
-          "toolFingerprint": "0",
+          "toolFingerprintContribution": "0",
           "properties": {
             "Level": "Warning",
             "Category": "Microsoft.Design",
@@ -2604,7 +2604,7 @@
               "fullyQualifiedLogicalName": "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.RIPEMD160IsNotRecommended.PrintByteArray(System.Byte[])"
             }
           ],
-          "toolFingerprint": "System.Console.Write(System.String)#KnownValue",
+          "toolFingerprintContribution": "System.Console.Write(System.String)#KnownValue",
           "properties": {
             "Level": "Warning",
             "Category": "Microsoft.Globalization",
@@ -2622,7 +2622,7 @@
               "fullyQualifiedLogicalName": "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.RIPEMD160IsNotRecommended.PrintByteArray(System.Byte[])"
             }
           ],
-          "toolFingerprint": "0",
+          "toolFingerprintContribution": "0",
           "properties": {
             "Level": "Warning",
             "Category": "Microsoft.Design",
@@ -2640,7 +2640,7 @@
               "fullyQualifiedLogicalName": "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.RSAProviderNeeds2048bitKey"
             }
           ],
-          "toolFingerprint": "RSA#Type",
+          "toolFingerprintContribution": "RSA#Type",
           "properties": {
             "Level": "Error",
             "Category": "Microsoft.Naming",
@@ -2658,7 +2658,7 @@
               "fullyQualifiedLogicalName": "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.RSAProviderNeeds2048bitKey"
             }
           ],
-          "toolFingerprint": "bit#Type",
+          "toolFingerprintContribution": "bit#Type",
           "properties": {
             "Level": "Error",
             "Category": "Microsoft.Naming",
@@ -2676,7 +2676,7 @@
               "fullyQualifiedLogicalName": "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.RSAProviderNeeds2048bitKey"
             }
           ],
-          "toolFingerprint": "CSharp2_0",
+          "toolFingerprintContribution": "CSharp2_0",
           "properties": {
             "Level": "Error",
             "Category": "Microsoft.Design",
@@ -2723,7 +2723,7 @@
               "fullyQualifiedLogicalName": "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.RSAProviderNeeds2048bitKey.Main()"
             }
           ],
-          "toolFingerprint": "System.Console.WriteLine(System.String)#KnownValue",
+          "toolFingerprintContribution": "System.Console.WriteLine(System.String)#KnownValue",
           "properties": {
             "Level": "Warning",
             "Category": "Microsoft.Globalization",
@@ -2747,7 +2747,7 @@
               "fullyQualifiedLogicalName": "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.RSAProviderNeeds2048bitKey.Main()"
             }
           ],
-          "toolFingerprint": "System.Console.WriteLine(System.String,System.Object)#KnownValue",
+          "toolFingerprintContribution": "System.Console.WriteLine(System.String,System.Object)#KnownValue",
           "properties": {
             "Level": "Warning",
             "Category": "Microsoft.Globalization",
@@ -2771,7 +2771,7 @@
               "fullyQualifiedLogicalName": "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.RSAProviderNeeds2048bitKey.RSADecrypt(System.Byte[],System.Security.Cryptography.RSAParameters,System.Boolean)"
             }
           ],
-          "toolFingerprint": "Data#MemberParameter",
+          "toolFingerprintContribution": "Data#MemberParameter",
           "properties": {
             "Level": "Error",
             "Category": "Microsoft.Naming",
@@ -2795,7 +2795,7 @@
               "fullyQualifiedLogicalName": "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.RSAProviderNeeds2048bitKey.RSADecrypt(System.Byte[],System.Security.Cryptography.RSAParameters,System.Boolean)"
             }
           ],
-          "toolFingerprint": "Do#MemberParameter",
+          "toolFingerprintContribution": "Do#MemberParameter",
           "properties": {
             "Level": "Error",
             "Category": "Microsoft.Naming",
@@ -2819,7 +2819,7 @@
               "fullyQualifiedLogicalName": "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.RSAProviderNeeds2048bitKey.RSADecrypt(System.Byte[],System.Security.Cryptography.RSAParameters,System.Boolean)"
             }
           ],
-          "toolFingerprint": "OAEP#MemberParameter",
+          "toolFingerprintContribution": "OAEP#MemberParameter",
           "properties": {
             "Level": "Error",
             "Category": "Microsoft.Naming",
@@ -2843,7 +2843,7 @@
               "fullyQualifiedLogicalName": "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.RSAProviderNeeds2048bitKey.RSADecrypt(System.Byte[],System.Security.Cryptography.RSAParameters,System.Boolean)"
             }
           ],
-          "toolFingerprint": "RSA#Member",
+          "toolFingerprintContribution": "RSA#Member",
           "properties": {
             "Level": "Error",
             "Category": "Microsoft.Naming",
@@ -2867,7 +2867,7 @@
               "fullyQualifiedLogicalName": "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.RSAProviderNeeds2048bitKey.RSADecrypt(System.Byte[],System.Security.Cryptography.RSAParameters,System.Boolean)"
             }
           ],
-          "toolFingerprint": "RSA#MemberParameter",
+          "toolFingerprintContribution": "RSA#MemberParameter",
           "properties": {
             "Level": "Error",
             "Category": "Microsoft.Naming",
@@ -2891,7 +2891,7 @@
               "fullyQualifiedLogicalName": "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.RSAProviderNeeds2048bitKey.RSAEncrypt(System.Byte[],System.Security.Cryptography.RSAParameters,System.Boolean)"
             }
           ],
-          "toolFingerprint": "Data#MemberParameter",
+          "toolFingerprintContribution": "Data#MemberParameter",
           "properties": {
             "Level": "Error",
             "Category": "Microsoft.Naming",
@@ -2915,7 +2915,7 @@
               "fullyQualifiedLogicalName": "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.RSAProviderNeeds2048bitKey.RSAEncrypt(System.Byte[],System.Security.Cryptography.RSAParameters,System.Boolean)"
             }
           ],
-          "toolFingerprint": "Do#MemberParameter",
+          "toolFingerprintContribution": "Do#MemberParameter",
           "properties": {
             "Level": "Error",
             "Category": "Microsoft.Naming",
@@ -2939,7 +2939,7 @@
               "fullyQualifiedLogicalName": "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.RSAProviderNeeds2048bitKey.RSAEncrypt(System.Byte[],System.Security.Cryptography.RSAParameters,System.Boolean)"
             }
           ],
-          "toolFingerprint": "OAEP#MemberParameter",
+          "toolFingerprintContribution": "OAEP#MemberParameter",
           "properties": {
             "Level": "Error",
             "Category": "Microsoft.Naming",
@@ -2963,7 +2963,7 @@
               "fullyQualifiedLogicalName": "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.RSAProviderNeeds2048bitKey.RSAEncrypt(System.Byte[],System.Security.Cryptography.RSAParameters,System.Boolean)"
             }
           ],
-          "toolFingerprint": "RSA#Member",
+          "toolFingerprintContribution": "RSA#Member",
           "properties": {
             "Level": "Error",
             "Category": "Microsoft.Naming",
@@ -2987,7 +2987,7 @@
               "fullyQualifiedLogicalName": "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.RSAProviderNeeds2048bitKey.RSAEncrypt(System.Byte[],System.Security.Cryptography.RSAParameters,System.Boolean)"
             }
           ],
-          "toolFingerprint": "RSA#MemberParameter",
+          "toolFingerprintContribution": "RSA#MemberParameter",
           "properties": {
             "Level": "Error",
             "Category": "Microsoft.Naming",
@@ -3005,7 +3005,7 @@
               "fullyQualifiedLogicalName": "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.SHA1CannotBeUsed"
             }
           ],
-          "toolFingerprint": "SHA#Type",
+          "toolFingerprintContribution": "SHA#Type",
           "properties": {
             "Level": "Error",
             "Category": "Microsoft.Naming",
@@ -3029,7 +3029,7 @@
               "fullyQualifiedLogicalName": "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.SHA1CannotBeUsed.Main()"
             }
           ],
-          "toolFingerprint": "NonExceptionEdge",
+          "toolFingerprintContribution": "NonExceptionEdge",
           "properties": {
             "Level": "Warning",
             "Category": "Microsoft.Reliability",
@@ -3076,7 +3076,7 @@
               "fullyQualifiedLogicalName": "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.SHA1CannotBeUsed.Main()"
             }
           ],
-          "toolFingerprint": "result",
+          "toolFingerprintContribution": "result",
           "properties": {
             "Level": "Warning",
             "Category": "Microsoft.Performance",
@@ -3117,7 +3117,7 @@
               "fullyQualifiedLogicalName": "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.TripleDESCannotBeUsed"
             }
           ],
-          "toolFingerprint": "DES#Type",
+          "toolFingerprintContribution": "DES#Type",
           "properties": {
             "Level": "Error",
             "Category": "Microsoft.Naming",
@@ -3135,7 +3135,7 @@
               "fullyQualifiedLogicalName": "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.TripleDESCannotBeUsed"
             }
           ],
-          "toolFingerprint": "CSharp2_0",
+          "toolFingerprintContribution": "CSharp2_0",
           "properties": {
             "Level": "Error",
             "Category": "Microsoft.Design",
@@ -3297,7 +3297,7 @@
               "fullyQualifiedLogicalName": "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.TripleDESCannotBeUsed.Main()"
             }
           ],
-          "toolFingerprint": "System.Console.WriteLine(System.String,System.Object)#KnownValue",
+          "toolFingerprintContribution": "System.Console.WriteLine(System.String,System.Object)#KnownValue",
           "properties": {
             "Level": "Warning",
             "Category": "Microsoft.Globalization",
@@ -3321,7 +3321,7 @@
               "fullyQualifiedLogicalName": "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.TripleDESCannotBeUsed.Main()"
             }
           ],
-          "toolFingerprint": "System.Console.WriteLine(System.String,System.Object)#KnownValue",
+          "toolFingerprintContribution": "System.Console.WriteLine(System.String,System.Object)#KnownValue",
           "properties": {
             "Level": "Warning",
             "Category": "Microsoft.Globalization",
@@ -3345,7 +3345,7 @@
               "fullyQualifiedLogicalName": "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.TripleDESCannotBeUsed.Main()"
             }
           ],
-          "toolFingerprint": "System.Console.WriteLine(System.String,System.Object)#KnownValue",
+          "toolFingerprintContribution": "System.Console.WriteLine(System.String,System.Object)#KnownValue",
           "properties": {
             "Level": "Warning",
             "Category": "Microsoft.Globalization",
@@ -3432,7 +3432,7 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.DoNotAllowDtdOnXmlReader.Test1(System.String)"
             }
           ],
-          "toolFingerprint": "NonExceptionEdge",
+          "toolFingerprintContribution": "NonExceptionEdge",
           "properties": {
             "Level": "Warning",
             "Category": "Microsoft.Reliability",
@@ -3479,7 +3479,7 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.DoNotAllowDtdOnXmlReader.Test1(System.String)"
             }
           ],
-          "toolFingerprint": "reader",
+          "toolFingerprintContribution": "reader",
           "properties": {
             "Level": "Warning",
             "Category": "Microsoft.Performance",
@@ -3503,7 +3503,7 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.DoNotAllowDtdOnXmlReader.Test1(System.String)"
             }
           ],
-          "toolFingerprint": "XmlReaderCreateWrongOverload",
+          "toolFingerprintContribution": "XmlReaderCreateWrongOverload",
           "properties": {
             "Level": "Warning",
             "Category": "Microsoft.Security.Xml",
@@ -3527,7 +3527,7 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.DoNotAllowDtdOnXmlReader.Test1206P(System.String)"
             }
           ],
-          "toolFingerprint": "NonExceptionEdge",
+          "toolFingerprintContribution": "NonExceptionEdge",
           "properties": {
             "Level": "Warning",
             "Category": "Microsoft.Reliability",
@@ -3620,7 +3620,7 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.DoNotAllowDtdOnXmlReader.Test1206P(System.String)"
             }
           ],
-          "toolFingerprint": "XmlReaderCreateWrongOverload",
+          "toolFingerprintContribution": "XmlReaderCreateWrongOverload",
           "properties": {
             "Level": "Warning",
             "Category": "Microsoft.Security.Xml",
@@ -3644,7 +3644,7 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.DoNotAllowDtdOnXmlReader.Test2(System.String)"
             }
           ],
-          "toolFingerprint": "NonExceptionEdge",
+          "toolFingerprintContribution": "NonExceptionEdge",
           "properties": {
             "Level": "Warning",
             "Category": "Microsoft.Reliability",
@@ -3691,7 +3691,7 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.DoNotAllowDtdOnXmlReader.Test2(System.String)"
             }
           ],
-          "toolFingerprint": "XmlReaderCreateWrongOverload",
+          "toolFingerprintContribution": "XmlReaderCreateWrongOverload",
           "properties": {
             "Level": "Warning",
             "Category": "Microsoft.Security.Xml",
@@ -3715,7 +3715,7 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.DoNotAllowDtdOnXmlReader.Test3(System.String)"
             }
           ],
-          "toolFingerprint": "NonExceptionEdge",
+          "toolFingerprintContribution": "NonExceptionEdge",
           "properties": {
             "Level": "Warning",
             "Category": "Microsoft.Reliability",
@@ -3762,7 +3762,7 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.DoNotAllowDtdOnXmlReader.Test3(System.String)"
             }
           ],
-          "toolFingerprint": "XmlReaderCreateWrongOverload",
+          "toolFingerprintContribution": "XmlReaderCreateWrongOverload",
           "properties": {
             "Level": "Warning",
             "Category": "Microsoft.Security.Xml",
@@ -3786,7 +3786,7 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.DoNotAllowDtdOnXmlReader.Test6(System.String)"
             }
           ],
-          "toolFingerprint": "NonExceptionEdge",
+          "toolFingerprintContribution": "NonExceptionEdge",
           "properties": {
             "Level": "Warning",
             "Category": "Microsoft.Reliability",
@@ -3856,7 +3856,7 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.DoNotAllowDtdOnXmlReader.Test6(System.String)"
             }
           ],
-          "toolFingerprint": "XmlReaderCreateWrongOverload",
+          "toolFingerprintContribution": "XmlReaderCreateWrongOverload",
           "properties": {
             "Level": "Warning",
             "Category": "Microsoft.Security.Xml",
@@ -3880,7 +3880,7 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.DoNotAllowDtdOnXmlTextReader.Test1(System.String)"
             }
           ],
-          "toolFingerprint": "NonExceptionEdge",
+          "toolFingerprintContribution": "NonExceptionEdge",
           "properties": {
             "Level": "Warning",
             "Category": "Microsoft.Reliability",
@@ -3927,7 +3927,7 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.DoNotAllowDtdOnXmlTextReader.Test1205P(System.String)"
             }
           ],
-          "toolFingerprint": "NonExceptionEdge",
+          "toolFingerprintContribution": "NonExceptionEdge",
           "properties": {
             "Level": "Warning",
             "Category": "Microsoft.Reliability",
@@ -3997,7 +3997,7 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.DoNotAllowDtdOnXmlTextReader.Test1205P(System.String)"
             }
           ],
-          "toolFingerprint": "reader",
+          "toolFingerprintContribution": "reader",
           "properties": {
             "Level": "Warning",
             "Category": "Microsoft.Performance",
@@ -4021,7 +4021,7 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.DoNotAllowDtdOnXmlTextReader.Test2(System.String)"
             }
           ],
-          "toolFingerprint": "NonExceptionEdge",
+          "toolFingerprintContribution": "NonExceptionEdge",
           "properties": {
             "Level": "Warning",
             "Category": "Microsoft.Reliability",
@@ -4068,7 +4068,7 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.DoNotAllowDtdOnXmlTextReader.Test3(System.String)"
             }
           ],
-          "toolFingerprint": "NonExceptionEdge",
+          "toolFingerprintContribution": "NonExceptionEdge",
           "properties": {
             "Level": "Warning",
             "Category": "Microsoft.Reliability",
@@ -4115,7 +4115,7 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.DoNotAllowDtdOnXmlTextReader.Test4(System.String)"
             }
           ],
-          "toolFingerprint": "NonExceptionEdge",
+          "toolFingerprintContribution": "NonExceptionEdge",
           "properties": {
             "Level": "Warning",
             "Category": "Microsoft.Reliability",
@@ -4162,7 +4162,7 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.DoNotAllowDtdOnXmlTextReader.Test5(System.String,System.Boolean)"
             }
           ],
-          "toolFingerprint": "NonExceptionEdge",
+          "toolFingerprintContribution": "NonExceptionEdge",
           "properties": {
             "Level": "Warning",
             "Category": "Microsoft.Reliability",
@@ -4232,7 +4232,7 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.DoNotAllowDtdOnXmlTextReader.Test6(System.String)"
             }
           ],
-          "toolFingerprint": "NonExceptionEdge",
+          "toolFingerprintContribution": "NonExceptionEdge",
           "properties": {
             "Level": "Warning",
             "Category": "Microsoft.Reliability",
@@ -4279,7 +4279,7 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.DoNotAllowDtdOnXmlTextReader.Test7(System.String)"
             }
           ],
-          "toolFingerprint": "ExceptionEdge",
+          "toolFingerprintContribution": "ExceptionEdge",
           "properties": {
             "Level": "Warning",
             "Category": "Microsoft.Reliability",
@@ -4303,7 +4303,7 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.DoNotAllowDtdOnXmlTextReader.Test7(System.String)"
             }
           ],
-          "toolFingerprint": "s#MemberParameterMoreMeaningfulName",
+          "toolFingerprintContribution": "s#MemberParameterMoreMeaningfulName",
           "properties": {
             "Level": "CriticalWarning",
             "Category": "Microsoft.Naming",
@@ -4350,7 +4350,7 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.DoNotAllowDtdOnXmlTextReader.Test7(System.String)"
             }
           ],
-          "toolFingerprint": "XmlDocument",
+          "toolFingerprintContribution": "XmlDocument",
           "properties": {
             "Level": "Warning",
             "Category": "Microsoft.Security.Xml",
@@ -4420,7 +4420,7 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.DoNotUseLoadXml.TestMethod(System.String)"
             }
           ],
-          "toolFingerprint": "XmlDocument",
+          "toolFingerprintContribution": "XmlDocument",
           "properties": {
             "Level": "Warning",
             "Category": "Microsoft.Security.Xml",
@@ -4490,7 +4490,7 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.DoNotUseLoadXml.TestMethod1(System.String)"
             }
           ],
-          "toolFingerprint": "XmlDocument",
+          "toolFingerprintContribution": "XmlDocument",
           "properties": {
             "Level": "Warning",
             "Category": "Microsoft.Security.Xml",
@@ -4560,7 +4560,7 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.DoNotUseSetInnerXml.TestMethod(System.String)"
             }
           ],
-          "toolFingerprint": "XmlDocument",
+          "toolFingerprintContribution": "XmlDocument",
           "properties": {
             "Level": "Warning",
             "Category": "Microsoft.Security.Xml",
@@ -4630,7 +4630,7 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.DoNotUseSetInnerXml.TestMethod1(System.String)"
             }
           ],
-          "toolFingerprint": "doc",
+          "toolFingerprintContribution": "doc",
           "properties": {
             "Level": "Warning",
             "Category": "Microsoft.Performance",
@@ -4654,7 +4654,7 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.DoNotUseSetInnerXml.TestMethod1(System.String)"
             }
           ],
-          "toolFingerprint": "XmlDocument",
+          "toolFingerprintContribution": "XmlDocument",
           "properties": {
             "Level": "Warning",
             "Category": "Microsoft.Security.Xml",
@@ -4724,7 +4724,7 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.DoNotUseSetInnerXml.TestMethod2(System.String)"
             }
           ],
-          "toolFingerprint": "XmlDocument",
+          "toolFingerprintContribution": "XmlDocument",
           "properties": {
             "Level": "Warning",
             "Category": "Microsoft.Security.Xml",
@@ -4794,7 +4794,7 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.DoNotUseSetInnerXml.TestMethod3(System.String)"
             }
           ],
-          "toolFingerprint": "doc",
+          "toolFingerprintContribution": "doc",
           "properties": {
             "Level": "Warning",
             "Category": "Microsoft.Performance",
@@ -4818,7 +4818,7 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.DoNotUseSetInnerXml.TestMethod3(System.String)"
             }
           ],
-          "toolFingerprint": "XmlDocument",
+          "toolFingerprintContribution": "XmlDocument",
           "properties": {
             "Level": "Warning",
             "Category": "Microsoft.Security.Xml",
@@ -4882,7 +4882,7 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.ReviewClassesDerivedFromXmlTextReader.Method()"
             }
           ],
-          "toolFingerprint": "NonExceptionEdge",
+          "toolFingerprintContribution": "NonExceptionEdge",
           "properties": {
             "Level": "Warning",
             "Category": "Microsoft.Reliability",
@@ -4975,7 +4975,7 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.ReviewDataViewConnectionString.TestMethod1216(System.String)"
             }
           ],
-          "toolFingerprint": "NonExceptionEdge",
+          "toolFingerprintContribution": "NonExceptionEdge",
           "properties": {
             "Level": "Warning",
             "Category": "Microsoft.Reliability",
@@ -4999,7 +4999,7 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.ReviewDataViewConnectionString.TestMethod1216(System.String)"
             }
           ],
-          "toolFingerprint": "NonExceptionEdge",
+          "toolFingerprintContribution": "NonExceptionEdge",
           "properties": {
             "Level": "Warning",
             "Category": "Microsoft.Reliability",
@@ -5023,7 +5023,7 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.ReviewDataViewConnectionString.TestMethod1216(System.String)"
             }
           ],
-          "toolFingerprint": "src#MemberParameter",
+          "toolFingerprintContribution": "src#MemberParameter",
           "properties": {
             "Level": "CriticalWarning",
             "Category": "Microsoft.Naming",
@@ -5139,7 +5139,7 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.ReviewDtdProcessingAssignment.Test(System.String)"
             }
           ],
-          "toolFingerprint": "NonExceptionEdge",
+          "toolFingerprintContribution": "NonExceptionEdge",
           "properties": {
             "Level": "Warning",
             "Category": "Microsoft.Reliability",
@@ -5186,7 +5186,7 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.ReviewDtdProcessingAssignment.Test(System.String)"
             }
           ],
-          "toolFingerprint": "reader",
+          "toolFingerprintContribution": "reader",
           "properties": {
             "Level": "Warning",
             "Category": "Microsoft.Performance",
@@ -5210,7 +5210,7 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.ReviewDtdProcessingAssignment.Test(System.String)"
             }
           ],
-          "toolFingerprint": "XmlReaderCreateWrongOverload",
+          "toolFingerprintContribution": "XmlReaderCreateWrongOverload",
           "properties": {
             "Level": "Warning",
             "Category": "Microsoft.Security.Xml",
@@ -5280,7 +5280,7 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.ReviewDtdProcessingAssignment.TestMethod(System.Xml.XmlReader)"
             }
           ],
-          "toolFingerprint": "0",
+          "toolFingerprintContribution": "0",
           "properties": {
             "Level": "Warning",
             "Category": "Microsoft.Design",
@@ -5327,7 +5327,7 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.ReviewTrustedXsltUse.TestMethod()"
             }
           ],
-          "toolFingerprint": "xsltSettings",
+          "toolFingerprintContribution": "xsltSettings",
           "properties": {
             "Level": "Warning",
             "Category": "Microsoft.Performance",
@@ -5368,7 +5368,7 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.ReviewWebControlForSet_Data"
             }
           ],
-          "toolFingerprint": "Type",
+          "toolFingerprintContribution": "Type",
           "properties": {
             "Level": "Error",
             "Category": "Microsoft.Naming",
@@ -5392,7 +5392,7 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.ReviewWebControlForSet_Data.TestMethod34(System.String)"
             }
           ],
-          "toolFingerprint": "NonExceptionEdge",
+          "toolFingerprintContribution": "NonExceptionEdge",
           "properties": {
             "Level": "Warning",
             "Category": "Microsoft.Reliability",
@@ -5456,7 +5456,7 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.ReviewWebControlForSet_DocumentContent"
             }
           ],
-          "toolFingerprint": "Type",
+          "toolFingerprintContribution": "Type",
           "properties": {
             "Level": "Error",
             "Category": "Microsoft.Naming",
@@ -5480,7 +5480,7 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.ReviewWebControlForSet_DocumentContent.TestMethod(System.String)"
             }
           ],
-          "toolFingerprint": "NonExceptionEdge",
+          "toolFingerprintContribution": "NonExceptionEdge",
           "properties": {
             "Level": "Warning",
             "Category": "Microsoft.Reliability",
@@ -5544,7 +5544,7 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.TextReaderImplNeedsSettingsAndResolver"
             }
           ],
-          "toolFingerprint": "Impl#Type",
+          "toolFingerprintContribution": "Impl#Type",
           "properties": {
             "Level": "CriticalWarning",
             "Category": "Microsoft.Naming",
@@ -5591,7 +5591,7 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.TextReaderImplNeedsSettingsAndResolver.TestMethod(System.String)"
             }
           ],
-          "toolFingerprint": "content",
+          "toolFingerprintContribution": "content",
           "properties": {
             "Level": "Warning",
             "Category": "Microsoft.Usage",
@@ -5615,7 +5615,7 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlReaderForDataSetReadXml.TestMethod1214(System.String)"
             }
           ],
-          "toolFingerprint": "NonExceptionEdge",
+          "toolFingerprintContribution": "NonExceptionEdge",
           "properties": {
             "Level": "Warning",
             "Category": "Microsoft.Reliability",
@@ -5708,7 +5708,7 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlReaderForDataSetReadXml.TestMethod1214Ok(System.Xml.XmlReader)"
             }
           ],
-          "toolFingerprint": "NonExceptionEdge",
+          "toolFingerprintContribution": "NonExceptionEdge",
           "properties": {
             "Level": "Warning",
             "Category": "Microsoft.Reliability",
@@ -5778,7 +5778,7 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlReaderForDataSetReadXmlSchema.TestMethod1215(System.String)"
             }
           ],
-          "toolFingerprint": "NonExceptionEdge",
+          "toolFingerprintContribution": "NonExceptionEdge",
           "properties": {
             "Level": "Warning",
             "Category": "Microsoft.Reliability",
@@ -5871,7 +5871,7 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlReaderForDataSetReadXmlSchema.TestMethod1215Ok(System.Xml.XmlReader)"
             }
           ],
-          "toolFingerprint": "NonExceptionEdge",
+          "toolFingerprintContribution": "NonExceptionEdge",
           "properties": {
             "Level": "Warning",
             "Category": "Microsoft.Reliability",
@@ -5941,7 +5941,7 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlReaderForDataTableReadXml.TestMethod(System.IO.Stream)"
             }
           ],
-          "toolFingerprint": "NonExceptionEdge",
+          "toolFingerprintContribution": "NonExceptionEdge",
           "properties": {
             "Level": "Warning",
             "Category": "Microsoft.Reliability",
@@ -6034,7 +6034,7 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlReaderForDataTableReadXml.TestMethod1(System.Xml.XmlReader)"
             }
           ],
-          "toolFingerprint": "NonExceptionEdge",
+          "toolFingerprintContribution": "NonExceptionEdge",
           "properties": {
             "Level": "Warning",
             "Category": "Microsoft.Reliability",
@@ -6104,7 +6104,7 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlReaderForDataTableReadXmlSchema.TestMethod(System.IO.Stream)"
             }
           ],
-          "toolFingerprint": "NonExceptionEdge",
+          "toolFingerprintContribution": "NonExceptionEdge",
           "properties": {
             "Level": "Warning",
             "Category": "Microsoft.Reliability",
@@ -6197,7 +6197,7 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlReaderForDataTableReadXmlSchema.TestMethod1(System.Xml.XmlReader)"
             }
           ],
-          "toolFingerprint": "NonExceptionEdge",
+          "toolFingerprintContribution": "NonExceptionEdge",
           "properties": {
             "Level": "Warning",
             "Category": "Microsoft.Reliability",
@@ -6405,7 +6405,7 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlReaderForLoad.TestMethod(System.String)"
             }
           ],
-          "toolFingerprint": "XmlDocument",
+          "toolFingerprintContribution": "XmlDocument",
           "properties": {
             "Level": "Warning",
             "Category": "Microsoft.Security.Xml",
@@ -6475,7 +6475,7 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlReaderForLoad.TestMethod1(System.String)"
             }
           ],
-          "toolFingerprint": "XmlDocument",
+          "toolFingerprintContribution": "XmlDocument",
           "properties": {
             "Level": "Warning",
             "Category": "Microsoft.Security.Xml",
@@ -6499,7 +6499,7 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlReaderForLoad.TestMethod2(System.String)"
             }
           ],
-          "toolFingerprint": "NonExceptionEdge",
+          "toolFingerprintContribution": "NonExceptionEdge",
           "properties": {
             "Level": "Warning",
             "Category": "Microsoft.Reliability",
@@ -6569,7 +6569,7 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlReaderForLoad.TestMethod2(System.String)"
             }
           ],
-          "toolFingerprint": "XmlDocument",
+          "toolFingerprintContribution": "XmlDocument",
           "properties": {
             "Level": "Warning",
             "Category": "Microsoft.Security.Xml",
@@ -6593,7 +6593,7 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlReaderForLoad.TestMethod3(System.String)"
             }
           ],
-          "toolFingerprint": "NonExceptionEdge",
+          "toolFingerprintContribution": "NonExceptionEdge",
           "properties": {
             "Level": "Warning",
             "Category": "Microsoft.Reliability",
@@ -6663,7 +6663,7 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlReaderForLoad.TestMethod3(System.String)"
             }
           ],
-          "toolFingerprint": "XmlDocument",
+          "toolFingerprintContribution": "XmlDocument",
           "properties": {
             "Level": "Warning",
             "Category": "Microsoft.Security.Xml",
@@ -6687,7 +6687,7 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlReaderForSchemaRead.TestMethod18(System.String)"
             }
           ],
-          "toolFingerprint": "NonExceptionEdge",
+          "toolFingerprintContribution": "NonExceptionEdge",
           "properties": {
             "Level": "Warning",
             "Category": "Microsoft.Reliability",
@@ -6734,7 +6734,7 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlReaderForSchemaRead.TestMethod18(System.String)"
             }
           ],
-          "toolFingerprint": "schema",
+          "toolFingerprintContribution": "schema",
           "properties": {
             "Level": "Warning",
             "Category": "Microsoft.Performance",
@@ -6827,7 +6827,7 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlReaderForSchemaRead.TestMethod19(System.Xml.XmlTextReader)"
             }
           ],
-          "toolFingerprint": "schema",
+          "toolFingerprintContribution": "schema",
           "properties": {
             "Level": "Warning",
             "Category": "Microsoft.Performance",
@@ -6874,7 +6874,7 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlReaderForValidatingReader.TestMethod1213(System.IO.Stream)"
             }
           ],
-          "toolFingerprint": "vr",
+          "toolFingerprintContribution": "vr",
           "properties": {
             "Level": "Warning",
             "Category": "Microsoft.Performance",
@@ -6921,7 +6921,7 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlReaderForValidatingReader.TestMethod1213Ok(System.Xml.XmlReader)"
             }
           ],
-          "toolFingerprint": "NonExceptionEdge",
+          "toolFingerprintContribution": "NonExceptionEdge",
           "properties": {
             "Level": "Warning",
             "Category": "Microsoft.Reliability",
@@ -6968,7 +6968,7 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlReaderForValidatingReader.TestMethod1213Ok(System.Xml.XmlReader)"
             }
           ],
-          "toolFingerprint": "vr",
+          "toolFingerprintContribution": "vr",
           "properties": {
             "Level": "Warning",
             "Category": "Microsoft.Performance",
@@ -7015,7 +7015,7 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlReaderForXPathDocument.TestMethod16(System.String)"
             }
           ],
-          "toolFingerprint": "doc",
+          "toolFingerprintContribution": "doc",
           "properties": {
             "Level": "Warning",
             "Category": "Microsoft.Performance",
@@ -7085,7 +7085,7 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlReaderForXPathDocument.TestMethod17(System.Xml.XmlReader)"
             }
           ],
-          "toolFingerprint": "doc",
+          "toolFingerprintContribution": "doc",
           "properties": {
             "Level": "Warning",
             "Category": "Microsoft.Performance",
@@ -7149,7 +7149,7 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlSecureResolver.LoadTest1()"
             }
           ],
-          "toolFingerprint": "XslCompiledTransformLoadWrongOverload",
+          "toolFingerprintContribution": "XslCompiledTransformLoadWrongOverload",
           "properties": {
             "Level": "Warning",
             "Category": "Microsoft.Security.Xml",
@@ -7288,7 +7288,7 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlSecureResolver.LoadTest5()"
             }
           ],
-          "toolFingerprint": "XslCompiledTransformLoadInsecureXmlResolve",
+          "toolFingerprintContribution": "XslCompiledTransformLoadInsecureXmlResolve",
           "properties": {
             "Level": "Warning",
             "Category": "Microsoft.Security.Xml",
@@ -7404,7 +7404,7 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlSecureResolver.SuppresionTest3(System.String)"
             }
           ],
-          "toolFingerprint": "NonExceptionEdge",
+          "toolFingerprintContribution": "NonExceptionEdge",
           "properties": {
             "Level": "Warning",
             "Category": "Microsoft.Reliability",
@@ -7428,7 +7428,7 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlSecureResolver.SuppresionTest3(System.String)"
             }
           ],
-          "toolFingerprint": "NonExceptionEdge",
+          "toolFingerprintContribution": "NonExceptionEdge",
           "properties": {
             "Level": "Warning",
             "Category": "Microsoft.Reliability",
@@ -7498,7 +7498,7 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlSecureResolver.TransformTest1(System.String)"
             }
           ],
-          "toolFingerprint": "NonExceptionEdge",
+          "toolFingerprintContribution": "NonExceptionEdge",
           "properties": {
             "Level": "Warning",
             "Category": "Microsoft.Reliability",
@@ -7522,7 +7522,7 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlSecureResolver.TransformTest1(System.String)"
             }
           ],
-          "toolFingerprint": "NonExceptionEdge",
+          "toolFingerprintContribution": "NonExceptionEdge",
           "properties": {
             "Level": "Warning",
             "Category": "Microsoft.Reliability",
@@ -7592,7 +7592,7 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlSecureResolver.TransformTest2(System.String)"
             }
           ],
-          "toolFingerprint": "NonExceptionEdge",
+          "toolFingerprintContribution": "NonExceptionEdge",
           "properties": {
             "Level": "Warning",
             "Category": "Microsoft.Reliability",
@@ -7616,7 +7616,7 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlSecureResolver.TransformTest2(System.String)"
             }
           ],
-          "toolFingerprint": "NonExceptionEdge",
+          "toolFingerprintContribution": "NonExceptionEdge",
           "properties": {
             "Level": "Warning",
             "Category": "Microsoft.Reliability",
@@ -7686,7 +7686,7 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlSecureResolver.TransformTest2(System.String)"
             }
           ],
-          "toolFingerprint": "XslCompiledTransformTransformInsecureXmlResolver",
+          "toolFingerprintContribution": "XslCompiledTransformTransformInsecureXmlResolver",
           "properties": {
             "Level": "Warning",
             "Category": "Microsoft.Security.Xml",
@@ -7710,7 +7710,7 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlSecureResolver.TransformTest3(System.String)"
             }
           ],
-          "toolFingerprint": "NonExceptionEdge",
+          "toolFingerprintContribution": "NonExceptionEdge",
           "properties": {
             "Level": "Warning",
             "Category": "Microsoft.Reliability",
@@ -7734,7 +7734,7 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlSecureResolver.TransformTest3(System.String)"
             }
           ],
-          "toolFingerprint": "NonExceptionEdge",
+          "toolFingerprintContribution": "NonExceptionEdge",
           "properties": {
             "Level": "Warning",
             "Category": "Microsoft.Reliability",
@@ -7827,7 +7827,7 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlSecureResolver.TransformTest4(System.String)"
             }
           ],
-          "toolFingerprint": "XslCompiledTransformTransformWrongOverload",
+          "toolFingerprintContribution": "XslCompiledTransformTransformWrongOverload",
           "properties": {
             "Level": "Warning",
             "Category": "Microsoft.Security.Xml",
@@ -7851,7 +7851,7 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlSecureResolver.TransformTest5(System.String)"
             }
           ],
-          "toolFingerprint": "NonExceptionEdge",
+          "toolFingerprintContribution": "NonExceptionEdge",
           "properties": {
             "Level": "Warning",
             "Category": "Microsoft.Reliability",
@@ -7898,7 +7898,7 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlSecureResolver.TransformTest5(System.String)"
             }
           ],
-          "toolFingerprint": "XslCompiledTransformTransformWrongOverload",
+          "toolFingerprintContribution": "XslCompiledTransformTransformWrongOverload",
           "properties": {
             "Level": "Warning",
             "Category": "Microsoft.Security.Xml",
@@ -7945,7 +7945,7 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlSecureResolver.XmlDocumentTest1()"
             }
           ],
-          "toolFingerprint": "doc",
+          "toolFingerprintContribution": "doc",
           "properties": {
             "Level": "Warning",
             "Category": "Microsoft.Performance",
@@ -7969,7 +7969,7 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlSecureResolver.XmlDocumentTest1()"
             }
           ],
-          "toolFingerprint": "XmlDocument",
+          "toolFingerprintContribution": "XmlDocument",
           "properties": {
             "Level": "Warning",
             "Category": "Microsoft.Security.Xml",
@@ -8039,7 +8039,7 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlSecureResolver.XmlDocumentTest3()"
             }
           ],
-          "toolFingerprint": "XmlDocument",
+          "toolFingerprintContribution": "XmlDocument",
           "properties": {
             "Level": "Warning",
             "Category": "Microsoft.Security.Xml",
@@ -8132,7 +8132,7 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlSecureResolver.XmlDocumentTest6()"
             }
           ],
-          "toolFingerprint": "XmlDocument",
+          "toolFingerprintContribution": "XmlDocument",
           "properties": {
             "Level": "Warning",
             "Category": "Microsoft.Security.Xml",
@@ -8202,7 +8202,7 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlSecureResolver.XmlDocumentTest8()"
             }
           ],
-          "toolFingerprint": "XmlDocument",
+          "toolFingerprintContribution": "XmlDocument",
           "properties": {
             "Level": "Warning",
             "Category": "Microsoft.Security.Xml",
@@ -8226,7 +8226,7 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlSecureResolver.XmlReaderTest1()"
             }
           ],
-          "toolFingerprint": "NonExceptionEdge",
+          "toolFingerprintContribution": "NonExceptionEdge",
           "properties": {
             "Level": "Warning",
             "Category": "Microsoft.Reliability",
@@ -8273,7 +8273,7 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlSecureResolver.XmlReaderTest1()"
             }
           ],
-          "toolFingerprint": "reader",
+          "toolFingerprintContribution": "reader",
           "properties": {
             "Level": "Warning",
             "Category": "Microsoft.Performance",
@@ -8297,7 +8297,7 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlSecureResolver.XmlReaderTest1()"
             }
           ],
-          "toolFingerprint": "XmlReaderCreateWrongOverload",
+          "toolFingerprintContribution": "XmlReaderCreateWrongOverload",
           "properties": {
             "Level": "Warning",
             "Category": "Microsoft.Security.Xml",
@@ -8321,7 +8321,7 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlSecureResolver.XmlReaderTest10()"
             }
           ],
-          "toolFingerprint": "NonExceptionEdge",
+          "toolFingerprintContribution": "NonExceptionEdge",
           "properties": {
             "Level": "Warning",
             "Category": "Microsoft.Reliability",
@@ -8368,7 +8368,7 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlSecureResolver.XmlReaderTest10()"
             }
           ],
-          "toolFingerprint": "reader",
+          "toolFingerprintContribution": "reader",
           "properties": {
             "Level": "Warning",
             "Category": "Microsoft.Performance",
@@ -8392,7 +8392,7 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlSecureResolver.XmlReaderTest2()"
             }
           ],
-          "toolFingerprint": "NonExceptionEdge",
+          "toolFingerprintContribution": "NonExceptionEdge",
           "properties": {
             "Level": "Warning",
             "Category": "Microsoft.Reliability",
@@ -8439,7 +8439,7 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlSecureResolver.XmlReaderTest2()"
             }
           ],
-          "toolFingerprint": "reader",
+          "toolFingerprintContribution": "reader",
           "properties": {
             "Level": "Warning",
             "Category": "Microsoft.Performance",
@@ -8463,7 +8463,7 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlSecureResolver.XmlReaderTest3(System.Xml.XmlSecureResolver)"
             }
           ],
-          "toolFingerprint": "NonExceptionEdge",
+          "toolFingerprintContribution": "NonExceptionEdge",
           "properties": {
             "Level": "Warning",
             "Category": "Microsoft.Reliability",
@@ -8510,7 +8510,7 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlSecureResolver.XmlReaderTest3(System.Xml.XmlSecureResolver)"
             }
           ],
-          "toolFingerprint": "reader",
+          "toolFingerprintContribution": "reader",
           "properties": {
             "Level": "Warning",
             "Category": "Microsoft.Performance",
@@ -8534,7 +8534,7 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlSecureResolver.XmlReaderTest4(System.Xml.XmlSecureResolver)"
             }
           ],
-          "toolFingerprint": "NonExceptionEdge",
+          "toolFingerprintContribution": "NonExceptionEdge",
           "properties": {
             "Level": "Warning",
             "Category": "Microsoft.Reliability",
@@ -8581,7 +8581,7 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlSecureResolver.XmlReaderTest4(System.Xml.XmlSecureResolver)"
             }
           ],
-          "toolFingerprint": "reader",
+          "toolFingerprintContribution": "reader",
           "properties": {
             "Level": "Warning",
             "Category": "Microsoft.Performance",
@@ -8605,7 +8605,7 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlSecureResolver.XmlReaderTest4(System.Xml.XmlSecureResolver)"
             }
           ],
-          "toolFingerprint": "resolver",
+          "toolFingerprintContribution": "resolver",
           "properties": {
             "Level": "Warning",
             "Category": "Microsoft.Usage",
@@ -8629,7 +8629,7 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlSecureResolver.XmlReaderTest4(System.Xml.XmlSecureResolver)"
             }
           ],
-          "toolFingerprint": "XmlReaderCreateInsecureXmlResolver",
+          "toolFingerprintContribution": "XmlReaderCreateInsecureXmlResolver",
           "properties": {
             "Level": "Warning",
             "Category": "Microsoft.Security.Xml",
@@ -8653,7 +8653,7 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlSecureResolver.XmlReaderTest5()"
             }
           ],
-          "toolFingerprint": "NonExceptionEdge",
+          "toolFingerprintContribution": "NonExceptionEdge",
           "properties": {
             "Level": "Warning",
             "Category": "Microsoft.Reliability",
@@ -8700,7 +8700,7 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlSecureResolver.XmlReaderTest5()"
             }
           ],
-          "toolFingerprint": "reader",
+          "toolFingerprintContribution": "reader",
           "properties": {
             "Level": "Warning",
             "Category": "Microsoft.Performance",
@@ -8724,7 +8724,7 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlSecureResolver.XmlReaderTest6()"
             }
           ],
-          "toolFingerprint": "NonExceptionEdge",
+          "toolFingerprintContribution": "NonExceptionEdge",
           "properties": {
             "Level": "Warning",
             "Category": "Microsoft.Reliability",
@@ -8771,7 +8771,7 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlSecureResolver.XmlReaderTest6()"
             }
           ],
-          "toolFingerprint": "reader",
+          "toolFingerprintContribution": "reader",
           "properties": {
             "Level": "Warning",
             "Category": "Microsoft.Performance",
@@ -8795,7 +8795,7 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlSecureResolver.XmlReaderTest7()"
             }
           ],
-          "toolFingerprint": "NonExceptionEdge",
+          "toolFingerprintContribution": "NonExceptionEdge",
           "properties": {
             "Level": "Warning",
             "Category": "Microsoft.Reliability",
@@ -8842,7 +8842,7 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlSecureResolver.XmlReaderTest7()"
             }
           ],
-          "toolFingerprint": "reader",
+          "toolFingerprintContribution": "reader",
           "properties": {
             "Level": "Warning",
             "Category": "Microsoft.Performance",
@@ -8866,7 +8866,7 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlSecureResolver.XmlReaderTest7()"
             }
           ],
-          "toolFingerprint": "XmlReaderCreateInsecureXmlResolver",
+          "toolFingerprintContribution": "XmlReaderCreateInsecureXmlResolver",
           "properties": {
             "Level": "Warning",
             "Category": "Microsoft.Security.Xml",
@@ -8890,7 +8890,7 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlSecureResolver.XmlReaderTest8()"
             }
           ],
-          "toolFingerprint": "NonExceptionEdge",
+          "toolFingerprintContribution": "NonExceptionEdge",
           "properties": {
             "Level": "Warning",
             "Category": "Microsoft.Reliability",
@@ -8937,7 +8937,7 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlSecureResolver.XmlReaderTest8()"
             }
           ],
-          "toolFingerprint": "reader",
+          "toolFingerprintContribution": "reader",
           "properties": {
             "Level": "Warning",
             "Category": "Microsoft.Performance",
@@ -8961,7 +8961,7 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlSecureResolver.XmlReaderTest8()"
             }
           ],
-          "toolFingerprint": "XmlReaderCreateInsecureXmlResolver",
+          "toolFingerprintContribution": "XmlReaderCreateInsecureXmlResolver",
           "properties": {
             "Level": "Warning",
             "Category": "Microsoft.Security.Xml",
@@ -8985,7 +8985,7 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlSecureResolver.XmlReaderTest9(System.Xml.XmlReaderSettings)"
             }
           ],
-          "toolFingerprint": "NonExceptionEdge",
+          "toolFingerprintContribution": "NonExceptionEdge",
           "properties": {
             "Level": "Warning",
             "Category": "Microsoft.Reliability",
@@ -9032,7 +9032,7 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlSecureResolver.XmlReaderTest9(System.Xml.XmlReaderSettings)"
             }
           ],
-          "toolFingerprint": "reader",
+          "toolFingerprintContribution": "reader",
           "properties": {
             "Level": "Warning",
             "Category": "Microsoft.Performance",
@@ -9056,7 +9056,7 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlSecureResolver.XmlReaderTest9(System.Xml.XmlReaderSettings)"
             }
           ],
-          "toolFingerprint": "XmlReaderCreateInsecureXmlResolver",
+          "toolFingerprintContribution": "XmlReaderCreateInsecureXmlResolver",
           "properties": {
             "Level": "Warning",
             "Category": "Microsoft.Security.Xml",

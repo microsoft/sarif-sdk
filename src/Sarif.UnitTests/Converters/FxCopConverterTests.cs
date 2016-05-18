@@ -377,7 +377,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             {
                 RuleId = "CA0000",
                 Message = "hello!",
-                ToolFingerprint = "1#test",
+                ToolFingerprintContribution = "1#test",
                 SuppressionStates = SuppressionStates.SuppressedInSource,
                 Locations = new List<Location>
                 {

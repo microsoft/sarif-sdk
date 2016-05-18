@@ -3,7 +3,7 @@
   "version": "1.0.0-beta.5",
   "runs": [
     {
-      "id": "a8f01705-4dcf-4a39-b2d5-7a57b1520b89",
+      "id": "42e551f7-3d7e-4b2c-9d7d-4f250c65a669",
       "tool": {
         "name": "BinSkim",
         "fullName": "BinSkim 1.3.3.0-beta",
@@ -6199,9 +6199,9 @@
       },
       "invocation": {
         "commandLine": "d:\\src\\binskim\\bld\\bin\\BinSkim.Driver\\x64_Release\\BinSkim.exe  analyze d:\\src\\binskim\\src\\BinSkim.Rules.FunctionalTests\\FunctionalTestsData\\*.dll d:\\src\\binskim\\src\\BinSkim.Rules.FunctionalTests\\FunctionalTestsData\\*.exe --hashes --recurse --config default -o .\\\\BinSkim.AllRules.sarif",
-        "startTime": "2016-05-18T01:07:21.774Z",
-        "endTime": "2016-05-18T01:07:27.627Z",
-        "processId": 31240,
+        "startTime": "2016-05-18T21:21:58.374Z",
+        "endTime": "2016-05-18T21:22:03.971Z",
+        "processId": 19660,
         "fileName": "d:\\src\\binskim\\bld\\bin\\BinSkim.Driver\\x64_Release\\BinSkim.exe",
         "workingDirectory": "d:\\src\\sarif-sdk\\src\\Sarif.FunctionalTests\\DirectProducerTestData\\BinSkim"
       }
