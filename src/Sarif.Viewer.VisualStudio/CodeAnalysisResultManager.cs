@@ -341,14 +341,11 @@ namespace Microsoft.Sarif.Viewer
             throw new NotImplementedException();
         }
 
-        internal void RemapFileNames(string fileName, string remappedName)
+        internal void RemapFileNames(string originalPath, string remappedPath)
         {
             foreach(SarifErrorListItem sarifError in SarifErrors)
             {
-                if (sarifError.FileName != null && sarifError.FileName.Equals(fileName, StringComparison.OrdinalIgnoreCase))
-                {
-                    sarifError.FileName = remappedName;
-                }
+                sarifError.RemapFilePath(originalPath, remappedPath);
             }
         }
 

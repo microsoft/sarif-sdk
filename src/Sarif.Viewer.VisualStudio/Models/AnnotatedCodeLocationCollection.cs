@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,6 +12,8 @@ namespace Microsoft.Sarif.Viewer.Models
     public class AnnotatedCodeLocationCollection : ObservableCollection<AnnotatedCodeLocationModel>
     {
         private string _message;
+        private AnnotatedCodeLocationModel _selectedItem;
+        private DelegateCommand<AnnotatedCodeLocationModel> _selectedCommand;
 
         public AnnotatedCodeLocationCollection(string message)
         {
@@ -32,6 +35,40 @@ namespace Microsoft.Sarif.Viewer.Models
                     this.OnPropertyChanged(new PropertyChangedEventArgs("Message"));
                 }
             }
+        }
+
+        public AnnotatedCodeLocationModel SelectedItem
+        {
+            get
+            {
+                return _selectedItem;
+            }
+            set
+            {
+                _selectedItem = value;
+            }
+        }
+
+        public DelegateCommand<AnnotatedCodeLocationModel> SelectedCommand
+        {
+            get
+            {
+                if (_selectedCommand == null)
+                {
+                    _selectedCommand = new DelegateCommand<AnnotatedCodeLocationModel>(l => SelectionChanged(l));
+                }
+
+                return _selectedCommand;
+            }
+            set
+            {
+                _selectedCommand = value;
+            }
+        }
+
+        private void SelectionChanged(AnnotatedCodeLocationModel selectedItem)
+        {
+            selectedItem.OnSelectKeyEvent();
         }
     }
 }

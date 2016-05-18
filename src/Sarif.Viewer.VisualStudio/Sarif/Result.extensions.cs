@@ -80,18 +80,5 @@ namespace Microsoft.Sarif.Viewer.Sarif
                 return null;
             }
         }
-
-        public static string GetCategory(this Result result)
-        {
-            if (result == null)
-            {
-                return null;
-            }
-
-            string category;
-            result.TryGetProperty("category", out category);
-
-            return category;
-        }
     }
 }

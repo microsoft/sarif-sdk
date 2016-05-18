@@ -1,53 +1,72 @@
-﻿// Copyright (c) Microsoft. All rights reserved.
-// Licensed under the MIT license. See LICENSE file in the project root for full license information.
-
-using System;
-using System.Diagnostics;
-
-using Microsoft.CodeAnalysis.Sarif;
+﻿using Microsoft.CodeAnalysis.Sarif;
 using Microsoft.VisualStudio.Shell.Interop;
 using Microsoft.VisualStudio.Text;
 using Microsoft.VisualStudio.Text.Editor;
 using Microsoft.VisualStudio.TextManager.Interop;
+using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace Microsoft.Sarif.Viewer
 {
-    public class AnnotatedCodeLocationModel
+    public abstract class CodeLocationObject : NotifyPropertyChangedObject
     {
-        // Fields for tracking the current marker and the document it's associated with
-        private ResultTextMarker m_lineMarker;
+        private ResultTextMarker _lineMarker;
+        private Region _region;
+        protected string _filePath;
 
         public ResultTextMarker LineMarker
         {
             get
             {
-                if (m_lineMarker == null)
+                if (_lineMarker == null)
                 {
                     Debug.Assert(Region != null);
-                    m_lineMarker = new ResultTextMarker(SarifViewerPackage.ServiceProvider, Region, FilePath);
+                    _lineMarker = new ResultTextMarker(SarifViewerPackage.ServiceProvider, Region, FilePath);
                 }
 
-                return m_lineMarker;
+                return _lineMarker;
             }
             set
             {
-                m_lineMarker = value;
+                _lineMarker = value;
             }
         }
 
-        public int Index { get; set; }
+        public Region Region
+        {
+            get
+            {
+                return _region;
+            }
+            set
+            {
+                if (value != _region)
+                {
+                    _region = value;
+                    NotifyPropertyChanged("Region");
+                }
+            }
+        }
 
-        public string Message { get; set; }
-
-        public string FilePath { get; set; }
-
-        public Region Region { get; set; }
-
-        public AnnotatedCodeLocationKind Kind { get; set; }
-
-        public bool IsSelected { get; set; }
-
-        public string Location { get { return Region.FormatForVisualStudio(); } }
+        public virtual string FilePath
+        {
+            get
+            {
+                return _filePath;
+            }
+            set
+            {
+                if (value != _filePath)
+                {
+                    _filePath = value;
+                    NotifyPropertyChanged("FilePath");
+                }
+            }
+        }
 
         public void OnDeselectKeyEvent()
         {

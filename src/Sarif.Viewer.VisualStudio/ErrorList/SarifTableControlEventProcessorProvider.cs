@@ -91,7 +91,7 @@ namespace Microsoft.Sarif.Viewer.ErrorList
                 }
 
                 CodeLocations codeLocations = new CodeLocations();
-                codeLocations.DataContext = ViewModelLocator.DesignTime;
+                codeLocations.DataContext = error;
 
                 // TODO: this needs to be a public API
                 var type = textView.GetType();

@@ -87,11 +87,11 @@ namespace Microsoft.Sarif.Viewer.ErrorList
                 }
                 else if (columnName == StandardTableKeyNames.BuildTool)
                 {
-                    content = _errors[index].ToolName;
+                    content = _errors[index].Tool.Name;
                 }
                 else if (columnName == StandardTableKeyNames.ErrorCode)
                 {
-                    content = _errors[index].RuleId;
+                    content = _errors[index].Rule.Id;
                 }
                 else if (columnName == StandardTableKeyNames.ProjectName)
                 {
@@ -126,7 +126,7 @@ namespace Microsoft.Sarif.Viewer.ErrorList
                 else if (columnName == StandardTableKeyNames.ErrorCodeToolTip)
                 {
                     var error = _errors[index];
-                    content = error.RuleId + ":" + error.RuleName;
+                    content = error.Rule.Id + ":" + error.Rule.Name;
                 }
                 else if (columnName == StandardTableKeyNames.DetailsExpander)
                 {

@@ -8,10 +8,9 @@ using System.Threading.Tasks;
 
 namespace Microsoft.Sarif.Viewer.Models
 {
-    public class StackFrameModel : NotifyPropertyChangedObject
+    public class StackFrameModel : CodeLocationObject
     {
         private string _message;
-        private string _filePath;
         private int _line;
         private int _column;
         private int _address;
@@ -99,7 +98,7 @@ namespace Microsoft.Sarif.Viewer.Models
             }
         }
 
-        public string FilePath
+        public override string FilePath
         {
             get
             {

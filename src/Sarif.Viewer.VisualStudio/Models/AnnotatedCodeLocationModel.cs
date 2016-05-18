@@ -8,13 +8,11 @@ using System.Threading.Tasks;
 
 namespace Microsoft.Sarif.Viewer.Models
 {
-    public class AnnotatedCodeLocationModel : NotifyPropertyChangedObject
+    public class AnnotatedCodeLocationModel : CodeLocationObject
     {
         private string _message;
         private string _logicalLocation;
-        private string _filePath;
         private string _module;
-        private Region _region;
 
         public string Message
         {
@@ -32,7 +30,7 @@ namespace Microsoft.Sarif.Viewer.Models
             }
         }
 
-        public string FilePath
+        public override string FilePath
         {
             get
             {
@@ -89,21 +87,9 @@ namespace Microsoft.Sarif.Viewer.Models
             }
         }
 
-        public Region Region
-        {
-            get
-            {
-                return this._region;
-            }
-            set
-            {
-                if (value != this._region)
-                {
-                    this._region = value;
-                    NotifyPropertyChanged("Region");
-                    NotifyPropertyChanged("Location");
-                }
-            }
-        }
+        public int Index { get; set; }
+        public string Kind { get; set; }
+        public bool IsSelected { get; set; }
+        public string Location { get { return Region.FormatForVisualStudio(); } }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using Microsoft.CodeAnalysis.Sarif;
+using Microsoft.Sarif.Viewer.Models;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -12,18 +13,28 @@ namespace Microsoft.Sarif.Viewer.Sarif
     {
         public static Microsoft.Sarif.Viewer.Models.AnnotatedCodeLocationModel ToAnnotatedCodeLocationModel(this Location location)
         {
-            Microsoft.Sarif.Viewer.Models.AnnotatedCodeLocationModel model = new Models.AnnotatedCodeLocationModel();
+            AnnotatedCodeLocationModel model = new AnnotatedCodeLocationModel();
+            PhysicalLocation physicalLocation = null;
 
-            if (location.AnalysisTarget != null)
+            if (location.ResultFile != null)
             {
-                model.Region = location.AnalysisTarget.Region;
+                physicalLocation = location.ResultFile;
+            }
+            else if (location.AnalysisTarget != null)
+            {
+                physicalLocation = location.AnalysisTarget;
+            }
 
-                if (location.AnalysisTarget.Uri != null)
+            if (physicalLocation != null)
+            {
+                model.Region = physicalLocation.Region;
+
+                if (physicalLocation.Uri != null)
                 {
-                    string path = location.AnalysisTarget.Uri.LocalPath;
+                    string path = physicalLocation.Uri.LocalPath;
                     if (!Path.IsPathRooted(path))
                     {
-                        path = location.AnalysisTarget.Uri.AbsoluteUri;
+                        path = physicalLocation.Uri.AbsoluteUri;
                     }
 
                     model.FilePath = path;

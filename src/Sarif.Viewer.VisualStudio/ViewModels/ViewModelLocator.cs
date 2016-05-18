@@ -11,9 +11,9 @@ namespace Microsoft.Sarif.Viewer.ViewModels
     public static class ViewModelLocator
     {
         static object _syncroot = new object();
-        static ResultViewModel _designTime = null;
+        static SarifErrorListItem _designTime = null;
 
-        public static ResultViewModel DesignTime
+        public static SarifErrorListItem DesignTime
         {
             get
             {
@@ -32,12 +32,17 @@ namespace Microsoft.Sarif.Viewer.ViewModels
             }
         }
 
-        private static ResultViewModel GetDesignTimeViewModel1()
+        private static SarifErrorListItem GetDesignTimeViewModel1()
         {
-            ResultViewModel viewModel = new ResultViewModel();
-            viewModel.RuleId = "CA1823";
-            viewModel.RuleName = "Avoid unused private fields";
+            SarifErrorListItem viewModel = new SarifErrorListItem();
             viewModel.Message = "Potential mismatch between sizeof and countof quantities. Use sizeof() to scale byte sizes.";
+
+            viewModel.Rule = new RuleModel()
+            {
+                Id = "CA1823",
+                Name = "Avoid unused private fields",
+
+             };
 
             viewModel.Locations.Add(new Models.AnnotatedCodeLocationModel()
             {
