@@ -516,7 +516,7 @@ HRESULT __stdcall Convert(const std::deque<XmlDefect> defectList, BSTR bstrOutpu
                         annotation.SetKind(keyEvent.GetKind());
                     }
 
-                    if (wcscmp(keyEvent.GetKind(), L"") != 0)
+                    if (wcscmp(keyEvent.GetMessage(), L"") != 0)
                     {
                         annotation.SetMessage(keyEvent.GetMessage());
                     }

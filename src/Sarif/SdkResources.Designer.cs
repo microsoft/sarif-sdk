@@ -295,33 +295,6 @@ namespace Microsoft.CodeAnalysis.Sarif {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to An exception was raised analyzing &apos;{0}&apos; for check &apos;{1}&apos; (which has been disabled). The exception may have resulted from a problem related to parsing image metadata and not specific to the rule, however..
-        /// </summary>
-        internal static string ERR997_ExceptionInAnalyze {
-            get {
-                return ResourceManager.GetString("ERR997_ExceptionInAnalyze", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to An exception was raised attempting to determine whether &apos;{0}&apos; is a valid analysis target for check &apos;{1}&apos; (which has been disabled). The exception may have resulted from a problem related to parsing the analysis target and not specific to the rule, however..
-        /// </summary>
-        internal static string ERR997_ExceptionInCanAnalyze {
-            get {
-                return ResourceManager.GetString("ERR997_ExceptionInCanAnalyze", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to An exception was raised initializing check &apos;{0}&apos; (which has been disabled)..
-        /// </summary>
-        internal static string ERR997_ExceptionInInitialize {
-            get {
-                return ResourceManager.GetString("ERR997_ExceptionInInitialize", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Could not instantiate skimmers from the following plugins: {0}..
         /// </summary>
         internal static string ERR997_ExceptionInstantiatingSkimmers {
@@ -390,6 +363,33 @@ namespace Microsoft.CodeAnalysis.Sarif {
         internal static string ERR997_NoValidAnalysisTargets {
             get {
                 return ResourceManager.GetString("ERR997_NoValidAnalysisTargets", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to An exception was raised analyzing &apos;{0}&apos; for check &apos;{1}&apos; (which has been disabled). The exception may have resulted from a problem related to parsing image metadata and not specific to the rule, however..
+        /// </summary>
+        internal static string ERR998_ExceptionInAnalyze {
+            get {
+                return ResourceManager.GetString("ERR998_ExceptionInAnalyze", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to An exception was raised attempting to determine whether &apos;{0}&apos; is a valid analysis target for check &apos;{1}&apos; (which has been disabled). The exception may have resulted from a problem related to parsing the analysis target and not specific to the rule, however..
+        /// </summary>
+        internal static string ERR998_ExceptionInCanAnalyze {
+            get {
+                return ResourceManager.GetString("ERR998_ExceptionInCanAnalyze", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to An exception was raised initializing check &apos;{0}&apos; (which has been disabled)..
+        /// </summary>
+        internal static string ERR998_ExceptionInInitialize {
+            get {
+                return ResourceManager.GetString("ERR998_ExceptionInInitialize", resourceCulture);
             }
         }
         
