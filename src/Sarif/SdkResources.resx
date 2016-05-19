@@ -240,13 +240,13 @@
   <data name="ERR997_ExceptionCreatingLogFile" xml:space="preserve">
     <value>Could not create output file '{0}'.</value>
   </data>
-  <data name="ERR997_ExceptionInAnalyze" xml:space="preserve">
+  <data name="ERR998_ExceptionInAnalyze" xml:space="preserve">
     <value>An exception was raised analyzing '{0}' for check '{1}' (which has been disabled). The exception may have resulted from a problem related to parsing image metadata and not specific to the rule, however.</value>
   </data>
-  <data name="ERR997_ExceptionInCanAnalyze" xml:space="preserve">
+  <data name="ERR998_ExceptionInCanAnalyze" xml:space="preserve">
     <value>An exception was raised attempting to determine whether '{0}' is a valid analysis target for check '{1}' (which has been disabled). The exception may have resulted from a problem related to parsing the analysis target and not specific to the rule, however.</value>
   </data>
-  <data name="ERR997_ExceptionInInitialize" xml:space="preserve">
+  <data name="ERR998_ExceptionInInitialize" xml:space="preserve">
     <value>An exception was raised initializing check '{0}' (which has been disabled).</value>
   </data>
   <data name="ERR997_ExceptionInstantiatingSkimmers" xml:space="preserve">

@@ -478,7 +478,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
             int resultCount = 0;
             SarifHelpers.ValidateRun(run, (issue) => { resultCount++; });
-            Assert.Equal(1, resultCount);
+            Assert.Equal(0, resultCount);
         }
     }
 }
