@@ -255,7 +255,6 @@ public:
 
     SarifCodeFlow()
     {
-        SetMessage(L"");
     }
 
     const json::Object& GetJsonObject() const
