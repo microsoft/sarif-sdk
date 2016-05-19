@@ -260,10 +260,21 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             // provided by the SDK Notes class, because we are in a specific
             // logger. If we called through a helper, we'd re-enter
             // through all aggregated loggers.
-            context.Rule = Notes.AnalyzingTarget;
-            Log(context.Rule,
-                RuleUtilities.BuildResult(ResultLevel.Note, context, null,
-                    nameof(SdkResources.MSG1001_AnalyzingTarget)));
+
+            // Analyzing target '{0}'...
+            string message = string.Format(
+                SdkResources.MSG001_AnalyzingTarget,
+                Path.GetFileName(context.TargetUri.LocalPath));
+
+            LogToolNotification(
+                new Notification
+                {
+                    AnalysisTarget = new PhysicalLocation { Uri = context.TargetUri },
+                    Id = Notes.MSG001_AnalyzingTarget,
+                    Message = message,
+                    Level = NotificationLevel.Note,
+                    Time = DateTime.UtcNow,
+                });
         }
 
         public void Log(ResultLevel messageKind, IAnalysisContext context, Region region, string formatId, params string[] arguments)
