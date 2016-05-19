@@ -520,11 +520,11 @@ namespace Microsoft.CodeAnalysis.Sarif {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to A file was skipped as it does not appear to be a valid target for analysis..
+        ///   Looks up a localized string similar to &apos;{0}&apos; was not evaluated for check &apos;{1}&apos; as the analysis is not relevant based on observed metadata: {2}..
         /// </summary>
-        internal static string MSG1002_InvalidTarget_Description {
+        internal static string NotApplicable_InvalidMetadata {
             get {
-                return ResourceManager.GetString("MSG1002_InvalidTarget_Description", resourceCulture);
+                return ResourceManager.GetString("NotApplicable_InvalidMetadata", resourceCulture);
             }
         }
         
@@ -552,15 +552,6 @@ namespace Microsoft.CodeAnalysis.Sarif {
         internal static string RunAlreadyWritten {
             get {
                 return ResourceManager.GetString("RunAlreadyWritten", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to &apos;{0}&apos; was not evaluated for check &apos;{1}&apos; as the analysis is not relevant based on observed metadata: {2}..
-        /// </summary>
-        internal static string SHARED_InvalidMetadata {
-            get {
-                return ResourceManager.GetString("SHARED_InvalidMetadata", resourceCulture);
             }
         }
         

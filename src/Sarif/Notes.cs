@@ -14,7 +14,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             // is not relevant based on observed metadata: {2}.
             context.Logger.Log(context.Rule,
                 RuleUtilities.BuildResult(ResultLevel.NotApplicable, context, null,
-                    nameof(SdkResources.SHARED_InvalidMetadata),
+                    nameof(SdkResources.NotApplicable_InvalidMetadata),
                     context.Rule.Name,
                     reasonForNotAnalyzing));
 

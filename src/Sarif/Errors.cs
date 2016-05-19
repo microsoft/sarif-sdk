@@ -176,17 +176,21 @@ namespace Microsoft.CodeAnalysis.Sarif
             // to invoke built-in settings. Invoke the {3} 'exportConfig' command
             // to produce an initial configuration file that can be edited, if
             // necessary, and passed back into the tool.
+            string message = string.Format(SdkResources.ERR997_MissingRuleConfiguration,
+                context.Rule.Name,
+                Path.GetFileName(context.TargetUri.LocalPath),
+                reasonForNotAnalyzing,
+                exeName);
+
             context.Logger.LogConfigurationNotification(
-                CreateNotification(
-                    context.TargetUri,
-                    ERR997_MissingRuleConfiguration,
-                    NotificationLevel.Error,
-                    null,
-                    false,
-                    context.Rule.Name,
-                    string.Empty,           // BUG: There were fewer arguments specified than required by the format string
-                    reasonForNotAnalyzing,  // ... and it doesn't look like this fits with the message for {2}
-                    exeName));              // ... but this is pretty clearly {3}.
+                new Notification
+                {
+                    AnalysisTarget = new PhysicalLocation { Uri = context.TargetUri },
+                    Id = ERR997_MissingRuleConfiguration,
+                    RuleId = context.Rule.Id,
+                    Level = NotificationLevel.Error,
+                    Message = message
+                });
 
             context.RuntimeErrors |= RuntimeConditions.RuleMissingRequiredConfiguration;
         }
@@ -363,7 +367,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         private static string GetMessageFormatResourceForNotification(string notificationId)
         {
-            string resourceName = "Notification_" + notificationId;
+            string resourceName = notificationId.Replace('.', '_');
 
             return (string)typeof(SdkResources)
                             .GetProperty(resourceName, BindingFlags.NonPublic | BindingFlags.Static)
