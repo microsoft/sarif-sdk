@@ -112,6 +112,7 @@
     <Compile Include="ToolFormat.cs" />
     <Compile Include="TypedPropertyBag.cs" />
     <Compile Include="VersionConstants.cs" />
+    <Compile Include="Warnings.cs" />
     <Compile Include="Writers\ResultLogJsonWriter.cs" />
     <Compile Include="Writers\MimeType.cs" />
     <Compile Include="Writers\SarifLogger.cs" />
@@ -134,7 +135,7 @@
       <SubType>Designer</SubType>
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>SdkResources.Designer.cs</LastGenOutput>
-      <CustomToolNamespace>Microsoft.CodeAnalysis.Sarif.Sdk</CustomToolNamespace>
+      <CustomToolNamespace>Microsoft.CodeAnalysis.Sarif</CustomToolNamespace>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

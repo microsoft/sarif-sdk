@@ -347,14 +347,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             }
             else if (!context.IsValidAnalysisTarget)
             {
-                Notes.LogExceptionInvalidTarget(context);
+                Warnings.LogExceptionInvalidTarget(context);
                 context.Dispose();
                 return context;
             }
 
-            context.Logger.AnalyzingTarget(context);
-
             // Analyzing '{0}'...
+            context.Logger.AnalyzingTarget(context);
 
             IEnumerable<ISkimmer<TContext>> applicableSkimmers = DetermineApplicabilityForTarget(skimmers, context, disabledSkimmers);
 

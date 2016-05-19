@@ -55,7 +55,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             if (this.Verbose)
             {
                 Console.WriteLine(string.Format(
-                    SdkResources.MSG1001_AnalyzingTarget,
+                    SdkResources.MSG001_AnalyzingTarget,
                         Path.GetFileName(context.TargetUri.LocalPath)));
             }
         }
