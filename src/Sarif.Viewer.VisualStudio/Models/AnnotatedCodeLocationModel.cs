@@ -13,6 +13,7 @@ namespace Microsoft.Sarif.Viewer.Models
         private string _message;
         private string _logicalLocation;
         private string _module;
+        private bool _isEssential;
 
         public string Message
         {
@@ -83,6 +84,22 @@ namespace Microsoft.Sarif.Viewer.Models
                 {
                     this._logicalLocation = value;
                     NotifyPropertyChanged("LogicalLocation");
+                }
+            }
+        }
+
+        public bool IsEssential
+        {
+            get
+            {
+                return this._isEssential;
+            }
+            set
+            {
+                if (value != this._isEssential)
+                {
+                    this._isEssential = value;
+                    NotifyPropertyChanged("IsEssential");
                 }
             }
         }
