@@ -294,4 +294,7 @@
   <data name="PropertyDoesNotExist" xml:space="preserve">
     <value>Property '{0}' does not exist. Consider calling TryGetProperty instead.</value>
   </data>
+  <data name="SARIF001_InvalidUri" xml:space="preserve">
+    <value>'uri' member of '{0}' instance is not valid: '{1}'</value>
+  </data>
 </root>

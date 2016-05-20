@@ -87,7 +87,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             string outputFilePath, 
             bool verbose,
             Tool tool, 
-            Run run)
+            Run run = null)
             : this(new StreamWriter(new FileStream(outputFilePath, FileMode.Create, FileAccess.Write, FileShare.None)),
                   verbose,
                   tool,
@@ -100,9 +100,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             TextWriter textWriter, 
             bool verbose, 
             Tool tool, 
-            Run run) : this(textWriter, verbose)
+            Run run = null) : this(textWriter, verbose)
         {
-            _run = run;
+            _run = run ?? new Run();
+            _run.Tool = tool;
+
             SetSarifLoggerVersion(tool);
             _issueLogJsonWriter.WriteTool(tool);
         }
@@ -198,7 +200,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                     _issueLogJsonWriter.WriteToolNotifications(_run.ToolNotifications);
                 }
 
-                if (_run?.Invocation?.StartTime != new DateTime())
+                if (_run?.Invocation != null && _run.Invocation.StartTime != default(DateTime))
                 {
                     _run.Invocation.EndTime = DateTime.UtcNow;
                 }
@@ -340,6 +342,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 case ResultLevel.Error:
                 case ResultLevel.Warning:
                 {
+                    break;
+                }
+
+                case ResultLevel.Unknown:
+                {
+                    // No explicit result level == 'warning'
                     break;
                 }
 
