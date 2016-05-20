@@ -74,6 +74,81 @@ namespace Microsoft.CodeAnalysis.Sarif
                  ")";
         }
 
+        public static string FormatForVisualStudio(this Result result, IRule rule)		
+        {		
+            var messageLines = new List<string>();		
+            foreach (var location in result.Locations)		
+            {		
+                PhysicalLocation physicalLocation = location.ResultFile ?? location.AnalysisTarget;		
+                Uri uri = physicalLocation.Uri;		
+                string path = uri.IsFile ? uri.LocalPath : uri.ToString();		
+                messageLines.Add(		
+                    string.Format(		
+                        CultureInfo.InvariantCulture, "{0}{1}: {2} {3}: {4}",		
+                        path,		
+                        physicalLocation.Region.FormatForVisualStudio(),		
+                        result.Level.FormatForVisualStudio(),		
+                        result.RuleId,		
+                        result.GetMessageText(rule)		
+                        ));		
+            }		
+		
+            return string.Join(Environment.NewLine, messageLines);		
+        }		
+		
+        public static string FormatForVisualStudio(this ResultLevel level)		
+        {		
+            switch (level)		
+            {		
+                case ResultLevel.Error:		
+                    return "error";		
+		
+                case ResultLevel.Warning:		
+                    return "warning";		
+		
+                default:		
+                    return "info";		
+            }		
+        }		
+		
+        /// <summary>		
+        /// Completely populate all Region property members. Missing data		
+        /// is computed based on the values that are already present.		
+        /// </summary>		
+        /// <param name="region"></param>		
+        /// <param name="newLineIndex"></param>		
+        public static void Populate(this Region region, NewLineIndex newLineIndex)		
+        {		
+            // TODO: we need charOffset and byteOffset to be expressed as		
+            // nullable types in order to differentiate between text		
+            // and binary file regions. For text files, we need to populate		
+            // startLine, etc. based on document offset. For now, we'll 		
+            // assume we're always looking at text files		
+		
+            if (region.StartLine == 0)		
+            {		
+                OffsetInfo offsetInfo = newLineIndex.GetOffsetInfoForOffset(region.Offset);		
+                region.StartLine = offsetInfo.LineNumber;		
+                region.StartColumn = offsetInfo.ColumnNumber;		
+		
+                offsetInfo = newLineIndex.GetOffsetInfoForOffset(region.Offset + region.Length);		
+                region.StartLine = offsetInfo.LineNumber;		
+                region.EndColumn = offsetInfo.ColumnNumber;		
+            }		
+            else		
+            {		
+                // Make endColumn and endLine explicit, if not expressed		
+                if (region.EndLine == 0) { region.EndLine = region.StartLine; }		
+                if (region.EndColumn == 0) { region.EndColumn = region.StartColumn; }		
+		
+                LineInfo lineInfo = newLineIndex.GetLineInfoForLine(region.StartLine);		
+                region.Offset = lineInfo.StartOffset + (region.StartColumn - 1);		
+		
+                lineInfo = newLineIndex.GetLineInfoForLine(region.EndLine);		
+                region.Length = lineInfo.StartOffset + (region.EndColumn - 1) - region.Offset;		
+            }		
+        }
+
         public static string GetMessageText(this Result result, IRule rule, bool concise = false)
         {
             string text = result.Message;
