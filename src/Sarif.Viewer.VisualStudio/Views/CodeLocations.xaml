@@ -98,68 +98,6 @@
             </TextBlock>
         </DataTemplate>
 
-        <DataTemplate x:Key="AnnotatedCodeLocationCollectionListBoxTemplate">
-            <ListBox ItemsSource="{Binding}"
-                     SelectedItem="{Binding SelectedItem, Mode=TwoWay}">
-                <ListBox.ItemTemplate>
-                    <DataTemplate>
-                        <Expander Header="{Binding Message}"
-                                  IsExpanded="True">
-                            <Border BorderThickness="1"
-                                    BorderBrush="LightGray">
-                                <ListView Margin="2"
-                                          ItemsSource="{Binding}"
-                                          BorderThickness="0"
-                                          Height="Auto"
-                                          HorizontalAlignment="Stretch"
-                                          ScrollViewer.CanContentScroll="true"
-                                          ScrollViewer.HorizontalScrollBarVisibility="Auto"
-                                          ScrollViewer.VerticalScrollBarVisibility="Auto"
-                                          SelectedItem="{Binding SelectedItem, Mode=TwoWay}">
-                                    <ListView.ItemContainerStyle>
-                                        <Style TargetType="ListViewItem">
-                                            <Setter Property="HorizontalContentAlignment"
-                                                    Value="Stretch" />
-                                            <Setter Property="HorizontalAlignment"
-                                                    Value="Stretch" />
-                                            <Setter Property="VerticalContentAlignment"
-                                                    Value="Stretch" />
-                                            <Setter Property="VerticalAlignment"
-                                                    Value="Stretch" />
-                                        </Style>
-                                    </ListView.ItemContainerStyle>
-                                    <ListView.View>
-                                        <GridView>
-                                            <GridViewColumn DisplayMemberBinding="{Binding Message}"
-                                                            Header="Message"
-                                                            Width="Auto"
-                                                            CellTemplate="{StaticResource GridViewClickEventCellTemplate}" />
-                                            <GridViewColumn Header="Name"
-                                                            Width="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ListView} }, Converter={StaticResource fullWidthGridViewColumnConverter}}">
-                                                <GridViewColumn.CellTemplate>
-                                                    <DataTemplate>
-                                                        <TextBlock>
-                                                            <TextBlock.InputBindings>
-                                                                <MouseBinding Gesture="LeftClick"
-                                                                              Command="{Binding DataContext.SelectedCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ListView}}}"
-                                                                              CommandParameter="{Binding}" />
-                                                            </TextBlock.InputBindings>
-                                                <Run Text="{Binding FilePath, Mode=OneWay}" /> Line <Run Text="{Binding Region.StartLine, Mode=OneWay}" />
-                                                        </TextBlock>
-                                                    </DataTemplate>
-                                                </GridViewColumn.CellTemplate>
-                                            </GridViewColumn>
-                                        </GridView>
-                                    </ListView.View>
-                                </ListView>
-                            </Border>
-                        </Expander>
-                    </DataTemplate>
-                </ListBox.ItemTemplate>
-            </ListBox>
-        </DataTemplate>
-
-
         <DataTemplate x:Key="AnnotatedCodeLocationCollectionDataGridTemplate">
             <ListBox ItemsSource="{Binding}"
                      SelectedItem="{Binding SelectedItem, Mode=TwoWay}">
@@ -178,7 +116,7 @@
                                         <DataGridTextColumn Header="Message"
                                                             Binding="{Binding Message}" />
                                         <DataGridTemplateColumn Header="Name"
-                                                                Width="*">
+                                                                Width="Auto">
                                             <DataGridTemplateColumn.CellTemplate>
                                                 <DataTemplate>
                                                     <TextBlock>
@@ -199,7 +137,7 @@
                                                 <DataTrigger Binding="{Binding IsEssential}"
                                                              Value="true">
                                                     <Setter Property="Background"
-                                                            Value="Red" />
+                                                            Value="LightPink" />
                                                 </DataTrigger>
                                             </Style.Triggers>
                                         </Style>

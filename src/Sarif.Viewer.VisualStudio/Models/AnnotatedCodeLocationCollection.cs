@@ -46,6 +46,8 @@ namespace Microsoft.Sarif.Viewer.Models
             set
             {
                 _selectedItem = value;
+
+                this.SelectionChanged(value);
             }
         }
 

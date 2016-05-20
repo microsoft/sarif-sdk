@@ -32,9 +32,9 @@ namespace Microsoft.Sarif.Viewer.Sarif
             }
 
             model.Message = location.Message;
-            model.Kind = location.Kind;
-            //model.LogicalLocation = location.FullyQualifiedLogicalName;
-            //model.IsEssential = location.Essential;
+            model.Kind = location.Kind.ToString();
+            model.LogicalLocation = location.FullyQualifiedLogicalName;
+            model.IsEssential = location.Essential;
 
             return model;
         }
