@@ -6,17 +6,28 @@ using Newtonsoft.Json;
 using System;
 using System.IO;
 using System.Text;
+using System.Collections.Generic;
 
 namespace Microsoft.CodeAnalysis.Sarif.Visitors
 {
     public class ValidatingVisitor : SarifRewritingVisitor, IDisposable
     {
-        private static Rule InvalidUri = new Rule()
+        private static Rule FileUriCanBeOmitted = new Rule()
         {
             Id = "SARIF001",
-            ShortDescription = "Uri was not valid.",
-            Name = nameof(InvalidUri)
+            ShortDescription = "File 'uri' property matches its files dictionary key and can be omitted.",
+            Name = nameof(FileUriCanBeOmitted),
+            MessageFormats = new Diction
         };
+
+        private static Rule LogicalLocationNameCanBeOmitted = new Rule()
+        {
+            Id = "SARIF002",
+            ShortDescription = "File 'uri' property matches its files dictionary key and can be omitted.",
+            Name = nameof(LogicalLocationNameCanBeOmitted)
+        };
+
+
 
         private SarifLogger _sarifLog;
 
@@ -28,53 +39,22 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             _sarifLog = new SarifLogger(writer, verbose: true, tool: tool);
         }
 
-        public override FileData VisitFileData(FileData node)
+        public override Run VisitRun(Run node)
         {
-            ValidateUri(node.Uri);
-            return base.VisitFileData(node);
+            ValidateFileKeysAreNotDuplicatedAsFileDataUris(node.Files);
+            ValidateLogicalLocationKeysAreNotDuplicatedAsLogicalLocationNames(node.LogicalLocations);
+
+            return base.VisitRun(node);
         }
 
-        public override PhysicalLocation VisitPhysicalLocation(PhysicalLocation node)
+        private void ValidateLogicalLocationKeysAreNotDuplicatedAsLogicalLocationNames(IDictionary<string, LogicalLocation> logicalLocations)
         {
-            ValidateUri(node.Uri);
-            return base.VisitPhysicalLocation(node);
+            if (logicalLocations == null) { return; }
         }
 
-        public override StackFrame VisitStackFrame(StackFrame node)
+        private void ValidateFileKeysAreNotDuplicatedAsFileDataUris(IDictionary<string, FileData> files)
         {
-            ValidateUri(node.Uri);
-            return base.VisitStackFrame(node);
-        }
-
-        public override Rule VisitRule(Rule node)
-        {
-            ValidateUri(node.HelpUri);
-            return base.VisitRule(node);
-        }
-
-        public override FileChange VisitFileChange(FileChange node)
-        {
-            ValidateUri(node.Uri);
-            return base.VisitFileChange(node);
-        }
-
-        private void ValidateUri(Uri uri)
-        {
-            if (!uri.IsWellFormedOriginalString())
-            {
-                // 'uri' member of '{0}' instance is not valid: '{1}'
-                string message = string.Format(
-                    SdkResources.SARIF001_InvalidUri,
-                    "fileData",
-                    uri.OriginalString);
-
-                _sarifLog.Log(InvalidUri,
-                    new Result
-                    {
-                        RuleId = InvalidUri.Id,
-                        Message = message
-                    });
-            }
+            if (files == null) { return; }
         }
 
         public void Dispose()
