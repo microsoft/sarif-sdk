@@ -36,9 +36,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             converter.Convert(null, new ResultLogObjectWriter());
         }
 
-        private const string empty = @"{
-  ""$schema"": ""http://json.schemastore.org/sarif-1.0.0"",
-  ""version"": ""1.0.0"",
+        private string empty = @"{
+  ""$schema"": """ + JsonTests.SarifSchemaUri + @""",
+  ""version"": """ + JsonTests.SarifFormatVersion + @""",
   ""runs"": [
     {
       ""tool"": {
