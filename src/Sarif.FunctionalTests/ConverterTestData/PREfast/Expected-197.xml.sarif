@@ -1,26 +1,11 @@
 {
-"version":"1.0.0-beta.4",
+"version":"1.0.0",
 "$schema":"http://json.schemastore.org/sarif-1.0.0",
 "runs":[
   {
     "tool":{
       "name":"PREfast",
-      "fullName":"PREfast Code Analysis",
-      "version":"14.0.0"
-    },
-    "logicalLocations":{
-      "?BadGetData2@@YAXPAPAXPAK@Z":[
-        {
-          "kind":"method",
-          "name":"BadGetData2"
-        }
-      ],
-      "?foo@@YAXXZ":[
-        {
-          "kind":"method",
-          "name":"foo"
-        }
-      ]
+      "fullName":"PREfast Code Analysis"
     },
     "results":[
       {
@@ -36,9 +21,8 @@
               }
             },
             "fullyQualifiedLogicalName":"BadGetData2",
-            "logicalLocationKey":"?BadGetData2@@YAXPAPAXPAK@Z",
+            "decoratedName":"?BadGetData2@@YAXPAPAXPAK@Z",
             "properties":{
-              "decorated":"?BadGetData2@@YAXPAPAXPAK@Z",
               "funcline":"16"
             }
           }
@@ -87,9 +71,8 @@
               }
             },
             "fullyQualifiedLogicalName":"foo",
-            "logicalLocationKey":"?foo@@YAXXZ",
+            "decoratedName":"?foo@@YAXXZ",
             "properties":{
-              "decorated":"?foo@@YAXXZ",
               "funcline":"35"
             }
           }
@@ -162,9 +145,8 @@
               }
             },
             "fullyQualifiedLogicalName":"foo",
-            "logicalLocationKey":"?foo@@YAXXZ",
+            "decoratedName":"?foo@@YAXXZ",
             "properties":{
-              "decorated":"?foo@@YAXXZ",
               "funcline":"35"
             }
           }
@@ -301,9 +283,8 @@
               }
             },
             "fullyQualifiedLogicalName":"foo",
-            "logicalLocationKey":"?foo@@YAXXZ",
+            "decoratedName":"?foo@@YAXXZ",
             "properties":{
-              "decorated":"?foo@@YAXXZ",
               "funcline":"35"
             }
           }

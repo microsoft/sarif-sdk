@@ -1,26 +1,11 @@
 {
-"version":"1.0.0-beta.4",
+"version":"1.0.0",
 "$schema":"http://json.schemastore.org/sarif-1.0.0",
 "runs":[
   {
     "tool":{
       "name":"PREfast",
-      "fullName":"PREfast Code Analysis",
-      "version":"14.0.0"
-    },
-    "logicalLocations":{
-      "?dualchartest@@YAXHPAY01D@Z":[
-        {
-          "kind":"method",
-          "name":"dualchartest"
-        }
-      ],
-      "main":[
-        {
-          "kind":"method",
-          "name":"main"
-        }
-      ]
+      "fullName":"PREfast Code Analysis"
     },
     "results":[
       {
@@ -36,9 +21,8 @@
               }
             },
             "fullyQualifiedLogicalName":"dualchartest",
-            "logicalLocationKey":"?dualchartest@@YAXHPAY01D@Z",
+            "decoratedName":"?dualchartest@@YAXHPAY01D@Z",
             "properties":{
-              "decorated":"?dualchartest@@YAXHPAY01D@Z",
               "funcline":"10"
             }
           }
@@ -191,9 +175,8 @@
               }
             },
             "fullyQualifiedLogicalName":"main",
-            "logicalLocationKey":"main",
+            "decoratedName":"main",
             "properties":{
-              "decorated":"main",
               "funcline":"21"
             }
           }

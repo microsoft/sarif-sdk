@@ -48,7 +48,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
         private const string EmptyResult = @"{
   ""$schema"": ""http://json.schemastore.org/sarif-1.0.0"",
-  ""version"": ""1.0.0-beta.4"",
+  ""version"": ""1.0.0"",
   ""runs"": [
     {
       ""tool"": {
@@ -232,29 +232,27 @@ Possible resolution: delete", result.Message);
                 FullyQualifiedLogicalName = "my_fancy_binary\\my_method",
             };
 
-            var expectedLogicalLocationComponents = new[]
+            var expectedLogicalLocations = new Dictionary<string, LogicalLocation>
             {
-                new LogicalLocationComponent
                 {
-                    Name = "my_fancy_binary",
-                    Kind = LogicalLocationKind.Module
+                    "my_fancy_binary", new LogicalLocation { ParentKey = null, Name = "my_fancy_binary", Kind = LogicalLocationKind.Module }
                 },
-                new LogicalLocationComponent
                 {
-                    Name = "my_method",
-                    Kind = LogicalLocationKind.Member
-                }
-            };
+                    @"my_fancy_binary\my_method",
+                    new LogicalLocation { ParentKey = "my_fancy_binary", Name = "my_method", Kind = LogicalLocationKind.Member }
+                },
+           };
 
-            LocationInfo locationInfo = GetLocationInfoForBuilder(builder);
+            var converter = new AndroidStudioConverter();
+            Result result = converter.ConvertProblemToSarifResult(new AndroidStudioProblem(builder));
 
-            locationInfo.Location.ValueEquals(expectedLocation).Should().BeTrue();
+            result.Locations[0].ValueEquals(expectedLocation).Should().BeTrue();
 
-            locationInfo.LogicalLocationComponents
-                .SequenceEqual(
-                    expectedLogicalLocationComponents,
-                    LogicalLocationComponent.ValueComparer)
-                .Should().BeTrue();
+            foreach (string key in expectedLogicalLocations.Keys)
+            {
+                expectedLogicalLocations[key].ValueEquals(converter.LogicalLocationsDictionary[key]).Should().BeTrue();
+            }
+            converter.LogicalLocationsDictionary.Count.Should().Be(expectedLogicalLocations.Count);
         }
 
         [TestMethod]
@@ -272,24 +270,23 @@ Possible resolution: delete", result.Message);
                 FullyQualifiedLogicalName = "my_method"
             };
 
-            var expectedLogicalLocationComponents = new[]
+            var expectedLogicalLocations = new Dictionary<string, LogicalLocation>
             {
-                new LogicalLocationComponent
                 {
-                    Name = "my_method",
-                    Kind = LogicalLocationKind.Member
-                }
-            };
+                    "my_method", new LogicalLocation { ParentKey = null, Name = "my_method", Kind = LogicalLocationKind.Member }
+                },
+           };
 
-            LocationInfo locationInfo = GetLocationInfoForBuilder(builder);
+            var converter = new AndroidStudioConverter();
+            Result result = converter.ConvertProblemToSarifResult(new AndroidStudioProblem(builder));
 
-            locationInfo.Location.ValueEquals(expectedLocation).Should().BeTrue();
+            result.Locations[0].ValueEquals(expectedLocation).Should().BeTrue();
 
-            locationInfo.LogicalLocationComponents
-                .SequenceEqual(
-                    expectedLogicalLocationComponents,
-                    LogicalLocationComponent.ValueComparer)
-                .Should().BeTrue();
+            foreach (string key in expectedLogicalLocations.Keys)
+            {
+                expectedLogicalLocations[key].ValueEquals(converter.LogicalLocationsDictionary[key]).Should().BeTrue();
+            }
+            converter.LogicalLocationsDictionary.Count.Should().Be(expectedLogicalLocations.Count);
         }
 
         [TestMethod]
@@ -306,30 +303,27 @@ Possible resolution: delete", result.Message);
             {
                 FullyQualifiedLogicalName = "FancyPackageName\\my_method"
             };
-
-            var expectedLogicalLocationComponents = new[]
+            
+            var expectedLogicalLocations = new Dictionary<string, LogicalLocation>
             {
-                new LogicalLocationComponent
                 {
-                    Name = "FancyPackageName",
-                    Kind = LogicalLocationKind.Package
+                    "FancyPackageName", new LogicalLocation { ParentKey = null, Name = "FancyPackageName", Kind = LogicalLocationKind.Package }
                 },
-                new LogicalLocationComponent
                 {
-                    Name = "my_method",
-                    Kind = LogicalLocationKind.Member
-                }
-            };
+                    @"FancyPackageName\my_method", new LogicalLocation { ParentKey = "FancyPackageName", Name = "my_method", Kind = LogicalLocationKind.Member }
+                },
+           };
 
-            LocationInfo locationInfo = GetLocationInfoForBuilder(builder);
+            var converter = new AndroidStudioConverter();
+            Result result = converter.ConvertProblemToSarifResult(new AndroidStudioProblem(builder));
 
-            locationInfo.Location.ValueEquals(expectedLocation).Should().BeTrue();
+            result.Locations[0].ValueEquals(expectedLocation).Should().BeTrue();
 
-            locationInfo.LogicalLocationComponents
-                .SequenceEqual(
-                    expectedLogicalLocationComponents,
-                    LogicalLocationComponent.ValueComparer)
-                .Should().BeTrue();
+            foreach (string key in expectedLogicalLocations.Keys)
+            {
+                expectedLogicalLocations[key].ValueEquals(converter.LogicalLocationsDictionary[key]).Should().BeTrue();
+            }
+            converter.LogicalLocationsDictionary.Count.Should().Be(expectedLogicalLocations.Count);
         }
 
         [TestMethod]
@@ -346,24 +340,23 @@ Possible resolution: delete", result.Message);
                 FullyQualifiedLogicalName = "FancyPackageName"
             };
 
-            var expectedLogicalLocationComponents = new[]
+            var expectedLogicalLocations = new Dictionary<string, LogicalLocation>
             {
-                new LogicalLocationComponent
                 {
-                    Name = "FancyPackageName",
-                    Kind = LogicalLocationKind.Package
+                    "FancyPackageName", new LogicalLocation { ParentKey = null, Name = "FancyPackageName", Kind = LogicalLocationKind.Package }
                 }
-            };
+           };
 
-            LocationInfo locationInfo = GetLocationInfoForBuilder(builder);
+            var converter = new AndroidStudioConverter();
+            Result result = converter.ConvertProblemToSarifResult(new AndroidStudioProblem(builder));
 
-            locationInfo.Location.ValueEquals(expectedLocation).Should().BeTrue();
+            result.Locations[0].ValueEquals(expectedLocation).Should().BeTrue();
 
-            locationInfo.LogicalLocationComponents
-                .SequenceEqual(
-                    expectedLogicalLocationComponents,
-                    LogicalLocationComponent.ValueComparer)
-                .Should().BeTrue();
+            foreach (string key in expectedLogicalLocations.Keys)
+            {
+                expectedLogicalLocations[key].ValueEquals(converter.LogicalLocationsDictionary[key]).Should().BeTrue();
+            }
+            converter.LogicalLocationsDictionary.Count.Should().Be(expectedLogicalLocations.Count);
         }
 
         [TestMethod]
@@ -384,24 +377,23 @@ Possible resolution: delete", result.Message);
                 FullyQualifiedLogicalName = "LastResortModule"
             };
 
-            var expectedLogicalLocationComponents = new[]
+            var expectedLogicalLocations = new Dictionary<string, LogicalLocation>
             {
-                new LogicalLocationComponent
                 {
-                    Name = "LastResortModule",
-                    Kind = LogicalLocationKind.Module
+                    "LastResortModule", new LogicalLocation { ParentKey = null, Name = "LastResortModule", Kind = LogicalLocationKind.Module }
                 }
-            };
+           };
 
-            LocationInfo locationInfo = GetLocationInfoForBuilder(builder);
+            var converter = new AndroidStudioConverter();
+            Result result = converter.ConvertProblemToSarifResult(new AndroidStudioProblem(builder));
 
-            locationInfo.Location.ValueEquals(expectedLocation).Should().BeTrue();
+            result.Locations[0].ValueEquals(expectedLocation).Should().BeTrue();
 
-            locationInfo.LogicalLocationComponents
-                .SequenceEqual(
-                    expectedLogicalLocationComponents,
-                    LogicalLocationComponent.ValueComparer)
-                .Should().BeTrue();
+            foreach (string key in expectedLogicalLocations.Keys)
+            {
+                expectedLogicalLocations[key].ValueEquals(converter.LogicalLocationsDictionary[key]).Should().BeTrue();
+            }
+            converter.LogicalLocationsDictionary.Count.Should().Be(expectedLogicalLocations.Count);
         }
 
         [TestMethod]
@@ -425,7 +417,7 @@ Possible resolution: delete", result.Message);
         private struct LocationInfo
         {
             public Location Location;
-            public IList<LogicalLocationComponent> LogicalLocationComponents;
+            public LogicalLocation LogicalLocation;
         }
 
         private static LocationInfo GetLocationInfoForBuilder(AndroidStudioProblem.Builder builder)
@@ -436,14 +428,14 @@ Possible resolution: delete", result.Message);
             Location location = result.Locations.First();
 
             string logicalLocationKey = converter.LogicalLocationsDictionary.Keys.SingleOrDefault();
-            IList<LogicalLocationComponent> logicalLocationComponents = logicalLocationKey != null
+            LogicalLocation logicalLocation = logicalLocationKey != null
                 ? converter.LogicalLocationsDictionary[logicalLocationKey]
-                : new List<LogicalLocationComponent>(0);
+                : null;
 
             return new LocationInfo
             {
                 Location = location,
-                LogicalLocationComponents = logicalLocationComponents
+                LogicalLocation = logicalLocation
             };
         }
     }

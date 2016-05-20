@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+
 using Microsoft.CodeAnalysis.Sarif.Readers;
 
 using Newtonsoft.Json;
@@ -30,14 +31,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
             if (analysisTargets != null)
             {
-                run.Files = new Dictionary<string, IList<FileData>>();
+                run.Files = new Dictionary<string, FileData>();
 
                 foreach (string target in analysisTargets)
                 {
                     string fileDataKey;
 
                     var fileData = FileData.Create(
-                        new Uri[] { new Uri(target, UriKind.RelativeOrAbsolute) }, 
+                        new Uri(target, UriKind.RelativeOrAbsolute), 
                         computeTargetsHash, 
                         out fileDataKey);
 
@@ -150,8 +151,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         private void SetSarifLoggerVersion(Tool tool)
         {
             string sarifLoggerLocation = typeof(SarifLogger).Assembly.Location;
-
-            tool.SetProperty("SarifLoggerVersion", FileVersionInfo.GetVersionInfo(sarifLoggerLocation).FileVersion);
+            tool.SarifLoggerVersion = FileVersionInfo.GetVersionInfo(sarifLoggerLocation).FileVersion;
         }
 
         public SarifLogger(TextWriter textWriter, bool verbose)
@@ -260,10 +260,21 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             // provided by the SDK Notes class, because we are in a specific
             // logger. If we called through a helper, we'd re-enter
             // through all aggregated loggers.
-            context.Rule = Notes.AnalyzingTarget;
-            Log(context.Rule,
-                RuleUtilities.BuildResult(ResultLevel.Note, context, null,
-                    nameof(SdkResources.MSG1001_AnalyzingTarget)));
+
+            // Analyzing target '{0}'...
+            string message = string.Format(
+                SdkResources.MSG001_AnalyzingTarget,
+                Path.GetFileName(context.TargetUri.LocalPath));
+
+            LogToolNotification(
+                new Notification
+                {
+                    PhysicalLocation = new PhysicalLocation { Uri = context.TargetUri },
+                    Id = Notes.MSG001_AnalyzingTarget,
+                    Message = message,
+                    Level = NotificationLevel.Note,
+                    Time = DateTime.UtcNow,
+                });
         }
 
         public void Log(ResultLevel messageKind, IAnalysisContext context, Region region, string formatId, params string[] arguments)

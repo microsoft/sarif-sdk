@@ -17,34 +17,33 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
     {
         protected ToolFileConverterBase()
         {
-            LogicalLocationsDictionary = new Dictionary<string, IList<LogicalLocationComponent>>();
+            LogicalLocationsDictionary = new Dictionary<string, LogicalLocation>();
         }
 
         public abstract void Convert(Stream input, IResultLogWriter output);
 
         // internal as well as protected it can be exercised by unit tests.
-        protected internal IDictionary<string, IList<LogicalLocationComponent>> LogicalLocationsDictionary { get; private set;  }
+        protected internal IDictionary<string, LogicalLocation> LogicalLocationsDictionary { get; private set;  }
 
         // internal as well as protected it can be exercised by unit tests.
-        protected internal void AddLogicalLocation(Location location, IList<LogicalLocationComponent> logicalLocationComponents)
+        protected internal string AddLogicalLocation(LogicalLocation logicalLocation, string delimiter = ".")
         {
             int disambiguator = 0;
-            string logicalLocationKey = location.FullyQualifiedLogicalName;
-            while (LogicalLocationsDictionary.ContainsKey(logicalLocationKey) && !logicalLocationComponents.SequenceEqual(LogicalLocationsDictionary[logicalLocationKey], LogicalLocationComponent.ValueComparer))
+            string logicalLocationKey = logicalLocation.ParentKey == null ? logicalLocation.Name : logicalLocation.ParentKey + delimiter + logicalLocation.Name;
+            string generatedKey = logicalLocationKey;
+
+            while (LogicalLocationsDictionary.ContainsKey(generatedKey) && !logicalLocation.ValueEquals(LogicalLocationsDictionary[generatedKey]))
             {
-                logicalLocationKey = location.FullyQualifiedLogicalName + "-" + disambiguator.ToString(CultureInfo.InvariantCulture);
+                generatedKey = logicalLocationKey + "-" + disambiguator.ToString(CultureInfo.InvariantCulture);
                 ++disambiguator;
             }
 
-            if (!logicalLocationKey.Equals(location.FullyQualifiedLogicalName, StringComparison.Ordinal))
+            if (!LogicalLocationsDictionary.ContainsKey(generatedKey))
             {
-                location.LogicalLocationKey = logicalLocationKey;
+                LogicalLocationsDictionary.Add(generatedKey, logicalLocation);
             }
 
-            if (!LogicalLocationsDictionary.ContainsKey(logicalLocationKey))
-            {
-                LogicalLocationsDictionary.Add(logicalLocationKey, logicalLocationComponents.ToArray());
-            }
+            return generatedKey;
         }
     }
 }

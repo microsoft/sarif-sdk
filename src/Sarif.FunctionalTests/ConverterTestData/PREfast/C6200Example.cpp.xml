@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<DEFECTS>
+  <DEFECT>
+    <SFA>
+      <FILEPATH>d:\src\sarif-sdk\src\sarif.functionaltests\convertertestdata\prefast\src\combinedwarnings\</FILEPATH>
+      <FILENAME>c6200example.cpp</FILENAME>
+      <LINE>11</LINE>
+      <COLUMN>9</COLUMN>
+    </SFA>
+    <DEFECTCODE>6200</DEFECTCODE>
+    <DESCRIPTION>Index '14' is out of valid index range '0' to '2' for non-stack buffer 'buff'.</DESCRIPTION>
+    <FUNCTION>C6200_Example</FUNCTION>
+    <DECORATED>?C6200_Example@@YAXXZ</DECORATED>
+    <FUNCLINE>3</FUNCLINE>
+    <PATH />
+  </DEFECT>
+</DEFECTS>

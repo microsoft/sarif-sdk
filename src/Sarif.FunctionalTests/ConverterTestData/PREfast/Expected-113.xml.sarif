@@ -1,44 +1,11 @@
 {
-"version":"1.0.0-beta.4",
+"version":"1.0.0",
 "$schema":"http://json.schemastore.org/sarif-1.0.0",
 "runs":[
   {
     "tool":{
       "name":"PREfast",
-      "fullName":"PREfast Code Analysis",
-      "version":"14.0.0"
-    },
-    "logicalLocations":{
-      "?test2p@@YAJPAH0@Z":[
-        {
-          "kind":"method",
-          "name":"test2p"
-        }
-      ],
-      "?test3p@@YAJPAH0@Z":[
-        {
-          "kind":"method",
-          "name":"test3p"
-        }
-      ],
-      "?test4p@@YAJPAH0@Z":[
-        {
-          "kind":"method",
-          "name":"test4p"
-        }
-      ],
-      "?test5p@@YAJPAH0@Z":[
-        {
-          "kind":"method",
-          "name":"test5p"
-        }
-      ],
-      "main":[
-        {
-          "kind":"method",
-          "name":"main"
-        }
-      ]
+      "fullName":"PREfast Code Analysis"
     },
     "results":[
       {
@@ -54,9 +21,8 @@
               }
             },
             "fullyQualifiedLogicalName":"test2p",
-            "logicalLocationKey":"?test2p@@YAJPAH0@Z",
+            "decoratedName":"?test2p@@YAJPAH0@Z",
             "properties":{
-              "decorated":"?test2p@@YAJPAH0@Z",
               "funcline":"26"
             }
           }
@@ -113,9 +79,8 @@
               }
             },
             "fullyQualifiedLogicalName":"test3p",
-            "logicalLocationKey":"?test3p@@YAJPAH0@Z",
+            "decoratedName":"?test3p@@YAJPAH0@Z",
             "properties":{
-              "decorated":"?test3p@@YAJPAH0@Z",
               "funcline":"56"
             }
           }
@@ -204,9 +169,8 @@
               }
             },
             "fullyQualifiedLogicalName":"test4p",
-            "logicalLocationKey":"?test4p@@YAJPAH0@Z",
+            "decoratedName":"?test4p@@YAJPAH0@Z",
             "properties":{
-              "decorated":"?test4p@@YAJPAH0@Z",
               "funcline":"88"
             }
           }
@@ -295,9 +259,8 @@
               }
             },
             "fullyQualifiedLogicalName":"test5p",
-            "logicalLocationKey":"?test5p@@YAJPAH0@Z",
+            "decoratedName":"?test5p@@YAJPAH0@Z",
             "properties":{
-              "decorated":"?test5p@@YAJPAH0@Z",
               "funcline":"104"
             }
           }
@@ -386,9 +349,8 @@
               }
             },
             "fullyQualifiedLogicalName":"main",
-            "logicalLocationKey":"main",
+            "decoratedName":"main",
             "properties":{
-              "decorated":"main",
               "funcline":"135"
             }
           }
@@ -493,9 +455,8 @@
               }
             },
             "fullyQualifiedLogicalName":"main",
-            "logicalLocationKey":"main",
+            "decoratedName":"main",
             "properties":{
-              "decorated":"main",
               "funcline":"135"
             }
           }

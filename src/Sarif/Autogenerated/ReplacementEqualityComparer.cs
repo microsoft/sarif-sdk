@@ -10,7 +10,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// <summary>
     /// Defines methods to support the comparison of objects of type Replacement for equality.
     /// </summary>
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.31.0.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.34.0.0")]
     internal sealed class ReplacementEqualityComparer : IEqualityComparer<Replacement>
     {
         internal static readonly ReplacementEqualityComparer Instance = new ReplacementEqualityComparer();

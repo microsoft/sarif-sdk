@@ -1,38 +1,11 @@
 {
-"version":"1.0.0-beta.4",
+"version":"1.0.0",
 "$schema":"http://json.schemastore.org/sarif-1.0.0",
 "runs":[
   {
     "tool":{
       "name":"PREfast",
-      "fullName":"PREfast Code Analysis",
-      "version":"14.0.0"
-    },
-    "logicalLocations":{
-      "?test3@@YAHH@Z":[
-        {
-          "kind":"method",
-          "name":"test3"
-        }
-      ],
-      "?test4@@YAHH@Z":[
-        {
-          "kind":"method",
-          "name":"test4"
-        }
-      ],
-      "?test5@@YAHH@Z":[
-        {
-          "kind":"method",
-          "name":"test5"
-        }
-      ],
-      "?test6@@YAHH@Z":[
-        {
-          "kind":"method",
-          "name":"test6"
-        }
-      ]
+      "fullName":"PREfast Code Analysis"
     },
     "results":[
       {
@@ -48,9 +21,8 @@
               }
             },
             "fullyQualifiedLogicalName":"test3",
-            "logicalLocationKey":"?test3@@YAHH@Z",
+            "decoratedName":"?test3@@YAHH@Z",
             "properties":{
-              "decorated":"?test3@@YAHH@Z",
               "funcline":"7"
             }
           }
@@ -131,9 +103,8 @@
               }
             },
             "fullyQualifiedLogicalName":"test4",
-            "logicalLocationKey":"?test4@@YAHH@Z",
+            "decoratedName":"?test4@@YAHH@Z",
             "properties":{
-              "decorated":"?test4@@YAHH@Z",
               "funcline":"17"
             }
           }
@@ -214,9 +185,8 @@
               }
             },
             "fullyQualifiedLogicalName":"test5",
-            "logicalLocationKey":"?test5@@YAHH@Z",
+            "decoratedName":"?test5@@YAHH@Z",
             "properties":{
-              "decorated":"?test5@@YAHH@Z",
               "funcline":"31"
             }
           }
@@ -289,9 +259,8 @@
               }
             },
             "fullyQualifiedLogicalName":"test5",
-            "logicalLocationKey":"?test5@@YAHH@Z",
+            "decoratedName":"?test5@@YAHH@Z",
             "properties":{
-              "decorated":"?test5@@YAHH@Z",
               "funcline":"31"
             }
           }
@@ -364,9 +333,8 @@
               }
             },
             "fullyQualifiedLogicalName":"test6",
-            "logicalLocationKey":"?test6@@YAHH@Z",
+            "decoratedName":"?test6@@YAHH@Z",
             "properties":{
-              "decorated":"?test6@@YAHH@Z",
               "funcline":"37"
             }
           }
@@ -439,9 +407,8 @@
               }
             },
             "fullyQualifiedLogicalName":"test6",
-            "logicalLocationKey":"?test6@@YAHH@Z",
+            "decoratedName":"?test6@@YAHH@Z",
             "properties":{
-              "decorated":"?test6@@YAHH@Z",
               "funcline":"37"
             }
           }

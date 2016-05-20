@@ -1,0 +1,187 @@
+{
+"version":"1.0.0",
+"$schema":"http://json.schemastore.org/sarif-1.0.0",
+"runs":[
+  {
+    "tool":{
+      "name":"PREfast",
+      "fullName":"PREfast Code Analysis"
+    },
+    "results":[
+      {
+        "ruleId":"6385",
+        "message":"Reading invalid data from 'data':  the readable size is 'n*4' bytes, but '24' bytes may be read.",
+        "locations":[
+          {
+            "resultFile":{
+              "uri":"file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs373273.cpp",
+              "region":{
+                "startColumn":6,
+                "startLine":16
+              }
+            },
+            "fullyQualifiedLogicalName":"BadFunctionKvtInNewArray",
+            "decoratedName":"?BadFunctionKvtInNewArray@@YAHXZ",
+            "properties":{
+              "funcline":"8"
+            }
+          }
+        ],
+        "properties":{
+          "probability":"1",
+          "rank":"4",
+          "ruleCategory":"mspft"
+        },
+        "codeFlows":[
+          {
+            "locations":[
+              {
+                "physicalLocation":{
+                  "uri":"file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs373273.cpp",
+                  "region":{
+                    "startColumn":6,
+                    "startLine":10
+                  }
+                },
+                "id":"1",
+                "kind":"declaration",
+                "message":"'n' is equal to 5",
+                "essential":true
+              },{
+                "physicalLocation":{
+                  "uri":"file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs373273.cpp",
+                  "region":{
+                    "startColumn":6,
+                    "startLine":11
+                  }
+                },
+                "id":"2",
+                "kind":"declaration",
+                "message":"'data' is an array of 5 elements (20 bytes)",
+                "essential":true
+              },{
+                "physicalLocation":{
+                  "uri":"file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs373273.cpp",
+                  "region":{
+                    "startColumn":10,
+                    "startLine":12
+                  }
+                }
+              },{
+                "physicalLocation":{
+                  "uri":"file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs373273.cpp",
+                  "region":{
+                    "startColumn":6,
+                    "startLine":14
+                  }
+                },
+                "id":"3",
+                "kind":"declaration",
+                "message":"'n' is an In\/Out argument to 'new[]' (declared at d:\\src\\sarif-sdk\\src\\sarif.functionaltests\\convertertestdata\\prefast\\predefined c++ types (compiler internal):38)"
+              },{
+                "physicalLocation":{
+                  "uri":"file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs373273.cpp",
+                  "region":{
+                    "startColumn":6,
+                    "startLine":16
+                  }
+                },
+                "id":"4",
+                "kind":"usage",
+                "message":"Invalid read from 'data[5]', (readable range is 0 to 4)",
+                "essential":true
+              }
+            ]
+          }
+        ]
+      },{
+        "ruleId":"6385",
+        "message":"Reading invalid data from 'data':  the readable size is 'n*4' bytes, but '24' bytes may be read.",
+        "locations":[
+          {
+            "resultFile":{
+              "uri":"file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs373273.cpp",
+              "region":{
+                "startColumn":6,
+                "startLine":42
+              }
+            },
+            "fullyQualifiedLogicalName":"BadFunctionKvtInConstructor",
+            "decoratedName":"?BadFunctionKvtInConstructor@@YAHXZ",
+            "properties":{
+              "funcline":"34"
+            }
+          }
+        ],
+        "properties":{
+          "probability":"1",
+          "rank":"4",
+          "ruleCategory":"mspft"
+        },
+        "codeFlows":[
+          {
+            "locations":[
+              {
+                "physicalLocation":{
+                  "uri":"file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs373273.cpp",
+                  "region":{
+                    "startColumn":6,
+                    "startLine":36
+                  }
+                },
+                "id":"1",
+                "kind":"declaration",
+                "message":"'n' is equal to 5",
+                "essential":true
+              },{
+                "physicalLocation":{
+                  "uri":"file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs373273.cpp",
+                  "region":{
+                    "startColumn":6,
+                    "startLine":37
+                  }
+                },
+                "id":"2",
+                "kind":"declaration",
+                "message":"'data' is an array of 5 elements (20 bytes)",
+                "essential":true
+              },{
+                "physicalLocation":{
+                  "uri":"file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs373273.cpp",
+                  "region":{
+                    "startColumn":10,
+                    "startLine":38
+                  }
+                }
+              },{
+                "physicalLocation":{
+                  "uri":"file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs373273.cpp",
+                  "region":{
+                    "startColumn":14,
+                    "startLine":40
+                  }
+                },
+                "id":"3",
+                "kind":"usage",
+                "message":"'n' is an Input to 'SampleClass::{ctor}' (declared on line 28)"
+              },{
+                "physicalLocation":{
+                  "uri":"file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs373273.cpp",
+                  "region":{
+                    "startColumn":6,
+                    "startLine":42
+                  }
+                },
+                "id":"4",
+                "kind":"usage",
+                "message":"Invalid read from 'data[5]', (readable range is 0 to 4)",
+                "essential":true
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+]
+}

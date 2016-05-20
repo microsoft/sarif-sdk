@@ -1,20 +1,11 @@
 {
-"version":"1.0.0-beta.4",
+"version":"1.0.0",
 "$schema":"http://json.schemastore.org/sarif-1.0.0",
 "runs":[
   {
     "tool":{
       "name":"PREfast",
-      "fullName":"PREfast Code Analysis",
-      "version":"14.0.0"
-    },
-    "logicalLocations":{
-      "?StrCchCopy@@YAJPADPBDI@Z":[
-        {
-          "kind":"method",
-          "name":"StrCchCopy"
-        }
-      ]
+      "fullName":"PREfast Code Analysis"
     },
     "results":[
       {
@@ -30,9 +21,8 @@
               }
             },
             "fullyQualifiedLogicalName":"StrCchCopy",
-            "logicalLocationKey":"?StrCchCopy@@YAJPADPBDI@Z",
+            "decoratedName":"?StrCchCopy@@YAJPADPBDI@Z",
             "properties":{
-              "decorated":"?StrCchCopy@@YAJPADPBDI@Z",
               "funcline":"4"
             }
           }

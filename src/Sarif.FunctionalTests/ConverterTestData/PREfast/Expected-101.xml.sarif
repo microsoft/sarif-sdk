@@ -1,38 +1,11 @@
 {
-"version":"1.0.0-beta.4",
+"version":"1.0.0",
 "$schema":"http://json.schemastore.org/sarif-1.0.0",
 "runs":[
   {
     "tool":{
       "name":"PREfast",
-      "fullName":"PREfast Code Analysis",
-      "version":"14.0.0"
-    },
-    "logicalLocations":{
-      "?bad1@@YAXPAHIPAU_FLEXARRAY@@@Z":[
-        {
-          "kind":"method",
-          "name":"bad1"
-        }
-      ],
-      "?bad2@@YAPAU_FLEXARRAY@@I@Z":[
-        {
-          "kind":"method",
-          "name":"bad2"
-        }
-      ],
-      "?what@Foo@@QAEXPAU_FLEXARRAY@@PAHI@Z":[
-        {
-          "kind":"method",
-          "name":"Foo::what"
-        }
-      ],
-      "main":[
-        {
-          "kind":"method",
-          "name":"main"
-        }
-      ]
+      "fullName":"PREfast Code Analysis"
     },
     "results":[
       {
@@ -48,9 +21,8 @@
               }
             },
             "fullyQualifiedLogicalName":"bad1",
-            "logicalLocationKey":"?bad1@@YAXPAHIPAU_FLEXARRAY@@@Z",
+            "decoratedName":"?bad1@@YAXPAHIPAU_FLEXARRAY@@@Z",
             "properties":{
-              "decorated":"?bad1@@YAXPAHIPAU_FLEXARRAY@@@Z",
               "funcline":"10"
             }
           }
@@ -91,9 +63,8 @@
               }
             },
             "fullyQualifiedLogicalName":"bad2",
-            "logicalLocationKey":"?bad2@@YAPAU_FLEXARRAY@@I@Z",
+            "decoratedName":"?bad2@@YAPAU_FLEXARRAY@@I@Z",
             "properties":{
-              "decorated":"?bad2@@YAPAU_FLEXARRAY@@I@Z",
               "funcline":"26"
             }
           }
@@ -174,9 +145,8 @@
               }
             },
             "fullyQualifiedLogicalName":"Foo::what",
-            "logicalLocationKey":"?what@Foo@@QAEXPAU_FLEXARRAY@@PAHI@Z",
+            "decoratedName":"?what@Foo@@QAEXPAU_FLEXARRAY@@PAHI@Z",
             "properties":{
-              "decorated":"?what@Foo@@QAEXPAU_FLEXARRAY@@PAHI@Z",
               "funcline":"36"
             }
           }
@@ -217,9 +187,8 @@
               }
             },
             "fullyQualifiedLogicalName":"main",
-            "logicalLocationKey":"main",
+            "decoratedName":"main",
             "properties":{
-              "decorated":"main",
               "funcline":"42"
             }
           }

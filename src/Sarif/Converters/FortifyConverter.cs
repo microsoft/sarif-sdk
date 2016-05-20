@@ -69,7 +69,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             };
 
             var fileInfoFactory = new FileInfoFactory(MimeType.DetermineFromFileExtension);
-            Dictionary<string, IList<FileData>> fileDictionary = fileInfoFactory.Create(results);
+            Dictionary<string, FileData> fileDictionary = fileInfoFactory.Create(results);
 
             output.Initialize(id: null, correlationId: null);
 
@@ -91,7 +91,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         {
             var result = new Result();
             result.RuleId = fortify.Category;
-            result.ToolFingerprint = fortify.InstanceId;
+            result.ToolFingerprintContribution = fortify.InstanceId;
             List<string> messageComponents = new List<string>();
             if (fortify.Abstract != null)
             {

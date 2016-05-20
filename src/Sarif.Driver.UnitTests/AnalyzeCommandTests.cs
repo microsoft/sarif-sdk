@@ -477,8 +477,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             Run run = AnalyzeFile(this.GetType().Assembly.Location);
 
             int resultCount = 0;
-            SarifHelpers.ValidateRun(run, (issue) => { resultCount++; });
-            Assert.Equal(1, resultCount);
+            int toolNotificationCount = 0;
+
+            SarifHelpers.ValidateRun(
+                run, 
+                (issue) => { resultCount++; },
+                (toolNotification) => { toolNotificationCount++; });
+
+            Assert.Equal(0, resultCount);
+            Assert.Equal(1, toolNotificationCount);
         }
     }
 }

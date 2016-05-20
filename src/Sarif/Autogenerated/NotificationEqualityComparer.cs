@@ -11,7 +11,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// <summary>
     /// Defines methods to support the comparison of objects of type Notification for equality.
     /// </summary>
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.31.0.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.34.0.0")]
     internal sealed class NotificationEqualityComparer : IEqualityComparer<Notification>
     {
         internal static readonly NotificationEqualityComparer Instance = new NotificationEqualityComparer();
@@ -38,7 +38,12 @@ namespace Microsoft.CodeAnalysis.Sarif
                 return false;
             }
 
-            if (!PhysicalLocation.ValueComparer.Equals(left.AnalysisTarget, right.AnalysisTarget))
+            if (left.RuleKey != right.RuleKey)
+            {
+                return false;
+            }
+
+            if (!PhysicalLocation.ValueComparer.Equals(left.PhysicalLocation, right.PhysicalLocation))
             {
                 return false;
             }
@@ -49,6 +54,11 @@ namespace Microsoft.CodeAnalysis.Sarif
             }
 
             if (left.Level != right.Level)
+            {
+                return false;
+            }
+
+            if (left.ThreadId != right.ThreadId)
             {
                 return false;
             }
@@ -108,9 +118,14 @@ namespace Microsoft.CodeAnalysis.Sarif
                     result = (result * 31) + obj.RuleId.GetHashCode();
                 }
 
-                if (obj.AnalysisTarget != null)
+                if (obj.RuleKey != null)
                 {
-                    result = (result * 31) + obj.AnalysisTarget.ValueGetHashCode();
+                    result = (result * 31) + obj.RuleKey.GetHashCode();
+                }
+
+                if (obj.PhysicalLocation != null)
+                {
+                    result = (result * 31) + obj.PhysicalLocation.ValueGetHashCode();
                 }
 
                 if (obj.Message != null)
@@ -119,6 +134,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 }
 
                 result = (result * 31) + obj.Level.GetHashCode();
+                result = (result * 31) + obj.ThreadId.GetHashCode();
                 result = (result * 31) + obj.Time.GetHashCode();
                 if (obj.Exception != null)
                 {

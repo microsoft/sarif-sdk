@@ -45,6 +45,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
         public void LogConfigurationNotification(Notification notification)
         {
+            if (notification.Id == Warnings.WRN997_InvalidTarget)
+            {
+                _invalidTargetsCount++;
+            }
         }
 
         public void LogMessage(bool verbose, string message)
@@ -65,10 +69,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                     break;
 
                 case ResultLevel.NotApplicable:
-                    if (ruleId == Notes.InvalidTarget.Id)
-                    {
-                        _invalidTargetsCount++;
-                    }
                     break;
 
                 default:

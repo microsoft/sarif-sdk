@@ -10,9 +10,13 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// </summary>
     public interface IPropertyBagHolder
     {
+        IList<string> PropertyNames { get; }
+        bool TryGetProperty(string propertyName, out string value);
         string GetProperty(string propertyName);
+        bool TryGetProperty<T>(string propertyName, out T value);
         T GetProperty<T>(string propertyName);
         void SetProperty<T>(string propertyName, T value);
-        IList<string> PropertyNames { get; }
+        void SetPropertiesFrom(IPropertyBagHolder other);
+        void RemoveProperty(string propertyName);
     }
 }

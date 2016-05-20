@@ -52,6 +52,7 @@
     <Compile Include="Core\PropertyBagHolder.cs" />
     <Compile Include="Core\Stack.cs" />
     <Compile Include="Core\StackFrame.cs" />
+    <Compile Include="Core\Tags.cs" />
     <Compile Include="Core\Tool.cs" />
     <Compile Include="Errors.cs" />
     <Compile Include="ExtensionMethods.cs" />
@@ -76,7 +77,7 @@
     <Compile Include="PropertyBagExtensionMethods.cs" />
     <Compile Include="Readers\DateTimeConverter.cs" />
     <Compile Include="Readers\FlagsEnumConverter.cs" />
-    <Compile Include="Readers\IRuleConverter.cs" />
+    <Compile Include="Readers\RuleDictionaryConverter.cs" />
     <Compile Include="Readers\PropertyBagConverter.cs" />
     <Compile Include="Readers\ResultDiffingVisitor.cs" />
     <Compile Include="Readers\EnumConverter.cs" />
@@ -111,6 +112,7 @@
     <Compile Include="ToolFormat.cs" />
     <Compile Include="TypedPropertyBag.cs" />
     <Compile Include="VersionConstants.cs" />
+    <Compile Include="Warnings.cs" />
     <Compile Include="Writers\ResultLogJsonWriter.cs" />
     <Compile Include="Writers\MimeType.cs" />
     <Compile Include="Writers\SarifLogger.cs" />
@@ -133,7 +135,7 @@
       <SubType>Designer</SubType>
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>SdkResources.Designer.cs</LastGenOutput>
-      <CustomToolNamespace>Microsoft.CodeAnalysis.Sarif.Sdk</CustomToolNamespace>
+      <CustomToolNamespace>Microsoft.CodeAnalysis.Sarif</CustomToolNamespace>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

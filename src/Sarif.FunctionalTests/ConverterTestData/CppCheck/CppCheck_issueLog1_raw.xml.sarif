@@ -1,6 +1,6 @@
 {
   "$schema": "http://json.schemastore.org/sarif-1.0.0",
-  "version": "1.0.0-beta.4",
+  "version": "1.0.0",
   "runs": [
     {
       "tool": {
@@ -8,176 +8,108 @@
         "version": "1.66.0"
       },
       "files": {
-        "adler32.c": [
-          {
-            "mimeType": "text/x-cpp"
-          }
-        ],
-        "crc32.c": [
-          {
-            "mimeType": "text/x-cpp"
-          }
-        ],
-        "deflate.c": [
-          {
-            "mimeType": "text/x-cpp"
-          }
-        ],
-        "gzlib.c": [
-          {
-            "mimeType": "text/x-cpp"
-          }
-        ],
-        "gzread.c": [
-          {
-            "mimeType": "text/x-cpp"
-          }
-        ],
-        "gzwrite.c": [
-          {
-            "mimeType": "text/x-cpp"
-          }
-        ],
-        "inflate.c": [
-          {
-            "mimeType": "text/x-cpp"
-          }
-        ],
-        "inftrees.c": [
-          {
-            "mimeType": "text/x-cpp"
-          }
-        ],
-        "trees.c": [
-          {
-            "mimeType": "text/x-cpp"
-          }
-        ],
-        "zutil.c": [
-          {
-            "mimeType": "text/x-cpp"
-          }
-        ],
-        "contrib\\infback9\\inftree9.c": [
-          {
-            "mimeType": "text/x-cpp"
-          }
-        ],
-        "contrib\\inflate86\\inffas86.c": [
-          {
-            "mimeType": "text/x-cpp"
-          }
-        ],
-        "contrib\\iostream2\\zstream_test.cpp": [
-          {
-            "mimeType": "text/x-cpp"
-          }
-        ],
-        "contrib\\masmx64\\inffas8664.c": [
-          {
-            "mimeType": "text/x-cpp"
-          }
-        ],
-        "contrib\\minizip\\iowin32.c": [
-          {
-            "mimeType": "text/x-cpp"
-          }
-        ],
-        "contrib\\minizip\\miniunz.c": [
-          {
-            "mimeType": "text/x-cpp"
-          }
-        ],
-        "contrib\\minizip\\minizip.c": [
-          {
-            "mimeType": "text/x-cpp"
-          }
-        ],
-        "contrib\\minizip\\mztools.c": [
-          {
-            "mimeType": "text/x-cpp"
-          }
-        ],
-        "contrib\\minizip\\unzip.c": [
-          {
-            "mimeType": "text/x-cpp"
-          }
-        ],
-        "contrib\\minizip\\zip.c": [
-          {
-            "mimeType": "text/x-cpp"
-          }
-        ],
-        "contrib\\minizip\\crypt.h": [
-          {
-            "mimeType": "text/x-cpp"
-          }
-        ],
-        "contrib\\puff\\puff.c": [
-          {
-            "mimeType": "text/x-cpp"
-          }
-        ],
-        "contrib\\puff\\pufftest.c": [
-          {
-            "mimeType": "text/x-cpp"
-          }
-        ],
-        "contrib\\testzlib\\testzlib.c": [
-          {
-            "mimeType": "text/x-cpp"
-          }
-        ],
-        "contrib\\untgz\\untgz.c": [
-          {
-            "mimeType": "text/x-cpp"
-          }
-        ],
-        "examples\\enough.c": [
-          {
-            "mimeType": "text/x-cpp"
-          }
-        ],
-        "examples\\gun.c": [
-          {
-            "mimeType": "text/x-cpp"
-          }
-        ],
-        "examples\\gzappend.c": [
-          {
-            "mimeType": "text/x-cpp"
-          }
-        ],
-        "examples\\gzjoin.c": [
-          {
-            "mimeType": "text/x-cpp"
-          }
-        ],
-        "examples\\gzlog.c": [
-          {
-            "mimeType": "text/x-cpp"
-          }
-        ],
-        "examples\\zran.c": [
-          {
-            "mimeType": "text/x-cpp"
-          }
-        ],
-        "test\\example.c": [
-          {
-            "mimeType": "text/x-cpp"
-          }
-        ],
-        "test\\infcover.c": [
-          {
-            "mimeType": "text/x-cpp"
-          }
-        ],
-        "test\\minigzip.c": [
-          {
-            "mimeType": "text/x-cpp"
-          }
-        ]
+        "adler32.c": {
+          "mimeType": "text/x-cpp"
+        },
+        "crc32.c": {
+          "mimeType": "text/x-cpp"
+        },
+        "deflate.c": {
+          "mimeType": "text/x-cpp"
+        },
+        "gzlib.c": {
+          "mimeType": "text/x-cpp"
+        },
+        "gzread.c": {
+          "mimeType": "text/x-cpp"
+        },
+        "gzwrite.c": {
+          "mimeType": "text/x-cpp"
+        },
+        "inflate.c": {
+          "mimeType": "text/x-cpp"
+        },
+        "inftrees.c": {
+          "mimeType": "text/x-cpp"
+        },
+        "trees.c": {
+          "mimeType": "text/x-cpp"
+        },
+        "zutil.c": {
+          "mimeType": "text/x-cpp"
+        },
+        "contrib\\infback9\\inftree9.c": {
+          "mimeType": "text/x-cpp"
+        },
+        "contrib\\inflate86\\inffas86.c": {
+          "mimeType": "text/x-cpp"
+        },
+        "contrib\\iostream2\\zstream_test.cpp": {
+          "mimeType": "text/x-cpp"
+        },
+        "contrib\\masmx64\\inffas8664.c": {
+          "mimeType": "text/x-cpp"
+        },
+        "contrib\\minizip\\iowin32.c": {
+          "mimeType": "text/x-cpp"
+        },
+        "contrib\\minizip\\miniunz.c": {
+          "mimeType": "text/x-cpp"
+        },
+        "contrib\\minizip\\minizip.c": {
+          "mimeType": "text/x-cpp"
+        },
+        "contrib\\minizip\\mztools.c": {
+          "mimeType": "text/x-cpp"
+        },
+        "contrib\\minizip\\unzip.c": {
+          "mimeType": "text/x-cpp"
+        },
+        "contrib\\minizip\\zip.c": {
+          "mimeType": "text/x-cpp"
+        },
+        "contrib\\minizip\\crypt.h": {
+          "mimeType": "text/x-cpp"
+        },
+        "contrib\\puff\\puff.c": {
+          "mimeType": "text/x-cpp"
+        },
+        "contrib\\puff\\pufftest.c": {
+          "mimeType": "text/x-cpp"
+        },
+        "contrib\\testzlib\\testzlib.c": {
+          "mimeType": "text/x-cpp"
+        },
+        "contrib\\untgz\\untgz.c": {
+          "mimeType": "text/x-cpp"
+        },
+        "examples\\enough.c": {
+          "mimeType": "text/x-cpp"
+        },
+        "examples\\gun.c": {
+          "mimeType": "text/x-cpp"
+        },
+        "examples\\gzappend.c": {
+          "mimeType": "text/x-cpp"
+        },
+        "examples\\gzjoin.c": {
+          "mimeType": "text/x-cpp"
+        },
+        "examples\\gzlog.c": {
+          "mimeType": "text/x-cpp"
+        },
+        "examples\\zran.c": {
+          "mimeType": "text/x-cpp"
+        },
+        "test\\example.c": {
+          "mimeType": "text/x-cpp"
+        },
+        "test\\infcover.c": {
+          "mimeType": "text/x-cpp"
+        },
+        "test\\minigzip.c": {
+          "mimeType": "text/x-cpp"
+        }
       },
       "results": [
         {

@@ -1,20 +1,11 @@
 {
-"version":"1.0.0-beta.4",
+"version":"1.0.0",
 "$schema":"http://json.schemastore.org/sarif-1.0.0",
 "runs":[
   {
     "tool":{
       "name":"PREfast",
-      "fullName":"PREfast Code Analysis",
-      "version":"14.0.0"
-    },
-    "logicalLocations":{
-      "?Test@@YAXH@Z":[
-        {
-          "kind":"method",
-          "name":"Test"
-        }
-      ]
+      "fullName":"PREfast Code Analysis"
     },
     "results":[
       {
@@ -30,9 +21,8 @@
               }
             },
             "fullyQualifiedLogicalName":"Test",
-            "logicalLocationKey":"?Test@@YAXH@Z",
+            "decoratedName":"?Test@@YAXH@Z",
             "properties":{
-              "decorated":"?Test@@YAXH@Z",
               "funcline":"43"
             }
           }
@@ -313,9 +303,8 @@
               }
             },
             "fullyQualifiedLogicalName":"Test",
-            "logicalLocationKey":"?Test@@YAXH@Z",
+            "decoratedName":"?Test@@YAXH@Z",
             "properties":{
-              "decorated":"?Test@@YAXH@Z",
               "funcline":"43"
             }
           }
@@ -596,9 +585,8 @@
               }
             },
             "fullyQualifiedLogicalName":"Test",
-            "logicalLocationKey":"?Test@@YAXH@Z",
+            "decoratedName":"?Test@@YAXH@Z",
             "properties":{
-              "decorated":"?Test@@YAXH@Z",
               "funcline":"43"
             }
           }
@@ -711,9 +699,8 @@
               }
             },
             "fullyQualifiedLogicalName":"Test",
-            "logicalLocationKey":"?Test@@YAXH@Z",
+            "decoratedName":"?Test@@YAXH@Z",
             "properties":{
-              "decorated":"?Test@@YAXH@Z",
               "funcline":"43"
             }
           }
@@ -906,9 +893,8 @@
               }
             },
             "fullyQualifiedLogicalName":"Test",
-            "logicalLocationKey":"?Test@@YAXH@Z",
+            "decoratedName":"?Test@@YAXH@Z",
             "properties":{
-              "decorated":"?Test@@YAXH@Z",
               "funcline":"43"
             }
           }

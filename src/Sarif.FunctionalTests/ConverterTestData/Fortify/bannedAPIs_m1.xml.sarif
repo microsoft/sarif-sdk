@@ -1,17 +1,15 @@
 {
   "$schema": "http://json.schemastore.org/sarif-1.0.0",
-  "version": "1.0.0-beta.4",
+  "version": "1.0.0",
   "runs": [
     {
       "tool": {
         "name": "Fortify"
       },
       "files": {
-        "bannedAPIs.m": [
-          {
-            "mimeType": "application/octet-stream"
-          }
-        ]
+        "bannedAPIs.m": {
+          "mimeType": "application/octet-stream"
+        }
       },
       "results": [
         {
@@ -27,7 +25,7 @@
               }
             }
           ],
-          "toolFingerprint": "30C5553B949CCCBFDA3AEF5D98E90CC4",
+          "toolFingerprintContribution": "30C5553B949CCCBFDA3AEF5D98E90CC4",
           "properties": {
             "kingdom": "Code Quality",
             "priority": "High",
@@ -48,7 +46,7 @@
               }
             }
           ],
-          "toolFingerprint": "23A9EC956EBD4DE3265979412C99C399",
+          "toolFingerprintContribution": "23A9EC956EBD4DE3265979412C99C399",
           "properties": {
             "kingdom": "API Abuse",
             "priority": "Critical",
@@ -69,7 +67,7 @@
               }
             }
           ],
-          "toolFingerprint": "66E83DC8F1956DE5D779F9F4CBFEA33F",
+          "toolFingerprintContribution": "66E83DC8F1956DE5D779F9F4CBFEA33F",
           "properties": {
             "kingdom": "Input Validation and Representation",
             "priority": "High",
@@ -90,7 +88,7 @@
               }
             }
           ],
-          "toolFingerprint": "BC721B0CA607643167C1FCF97A99049D",
+          "toolFingerprintContribution": "BC721B0CA607643167C1FCF97A99049D",
           "properties": {
             "kingdom": "Input Validation and Representation",
             "priority": "High",
@@ -111,7 +109,7 @@
               }
             }
           ],
-          "toolFingerprint": "66E83DC8F1956DE5D779F9F4CBFEA340",
+          "toolFingerprintContribution": "66E83DC8F1956DE5D779F9F4CBFEA340",
           "properties": {
             "kingdom": "Input Validation and Representation",
             "priority": "High",
@@ -132,7 +130,7 @@
               }
             }
           ],
-          "toolFingerprint": "BC721B0CA607643167C1FCF97A99049C",
+          "toolFingerprintContribution": "BC721B0CA607643167C1FCF97A99049C",
           "properties": {
             "kingdom": "Input Validation and Representation",
             "priority": "High",
@@ -153,7 +151,7 @@
               }
             }
           ],
-          "toolFingerprint": "B3851112605215EF7EE293C01F52625C",
+          "toolFingerprintContribution": "B3851112605215EF7EE293C01F52625C",
           "properties": {
             "kingdom": "Input Validation and Representation",
             "priority": "High",
@@ -174,7 +172,7 @@
               }
             }
           ],
-          "toolFingerprint": "6EDB6A8159343D7A730F8DA7AA953109",
+          "toolFingerprintContribution": "6EDB6A8159343D7A730F8DA7AA953109",
           "properties": {
             "kingdom": "Input Validation and Representation",
             "priority": "High",
@@ -195,7 +193,7 @@
               }
             }
           ],
-          "toolFingerprint": "EDF54498D1601A642A13590D0AF7CDF0",
+          "toolFingerprintContribution": "EDF54498D1601A642A13590D0AF7CDF0",
           "properties": {
             "kingdom": "Input Validation and Representation",
             "priority": "High",
@@ -216,7 +214,7 @@
               }
             }
           ],
-          "toolFingerprint": "F073D447A2825E29187509EFD3B86C65",
+          "toolFingerprintContribution": "F073D447A2825E29187509EFD3B86C65",
           "properties": {
             "kingdom": "Input Validation and Representation",
             "priority": "High",
@@ -237,7 +235,7 @@
               }
             }
           ],
-          "toolFingerprint": "F073D447A2825E29187509EFD3B86C66",
+          "toolFingerprintContribution": "F073D447A2825E29187509EFD3B86C66",
           "properties": {
             "kingdom": "Input Validation and Representation",
             "priority": "High",
@@ -258,7 +256,7 @@
               }
             }
           ],
-          "toolFingerprint": "369F89B3A439BA2AF8F1855325039376",
+          "toolFingerprintContribution": "369F89B3A439BA2AF8F1855325039376",
           "codeFlows": [
             {
               "locations": [
@@ -301,7 +299,7 @@
               }
             }
           ],
-          "toolFingerprint": "079F0BA2AF3FD6DE8D3044AAA2EC0975",
+          "toolFingerprintContribution": "079F0BA2AF3FD6DE8D3044AAA2EC0975",
           "codeFlows": [
             {
               "locations": [
@@ -344,7 +342,7 @@
               }
             }
           ],
-          "toolFingerprint": "88A313BC2B1970AD9A72CDE6984F1D7D",
+          "toolFingerprintContribution": "88A313BC2B1970AD9A72CDE6984F1D7D",
           "codeFlows": [
             {
               "locations": [
@@ -387,7 +385,7 @@
               }
             }
           ],
-          "toolFingerprint": "B61201418FA0655BB2B63FA66FBE5DA2",
+          "toolFingerprintContribution": "B61201418FA0655BB2B63FA66FBE5DA2",
           "codeFlows": [
             {
               "locations": [
@@ -430,7 +428,7 @@
               }
             }
           ],
-          "toolFingerprint": "3B1A3BF8E84286E49AE14B93537A3815",
+          "toolFingerprintContribution": "3B1A3BF8E84286E49AE14B93537A3815",
           "codeFlows": [
             {
               "locations": [
@@ -473,7 +471,7 @@
               }
             }
           ],
-          "toolFingerprint": "A0B07FC1302B5E5E37E0C8E0505C2F52",
+          "toolFingerprintContribution": "A0B07FC1302B5E5E37E0C8E0505C2F52",
           "codeFlows": [
             {
               "locations": [
@@ -516,7 +514,7 @@
               }
             }
           ],
-          "toolFingerprint": "8D5D851CB3B5F07CF87266C1557F5356",
+          "toolFingerprintContribution": "8D5D851CB3B5F07CF87266C1557F5356",
           "codeFlows": [
             {
               "locations": [
@@ -559,7 +557,7 @@
               }
             }
           ],
-          "toolFingerprint": "236007A7E2324B82AAE44CC2CC25F4BA",
+          "toolFingerprintContribution": "236007A7E2324B82AAE44CC2CC25F4BA",
           "codeFlows": [
             {
               "locations": [
@@ -602,7 +600,7 @@
               }
             }
           ],
-          "toolFingerprint": "349E661BC9DAB17F2B943A6FF0734FC1",
+          "toolFingerprintContribution": "349E661BC9DAB17F2B943A6FF0734FC1",
           "codeFlows": [
             {
               "locations": [
@@ -645,7 +643,7 @@
               }
             }
           ],
-          "toolFingerprint": "4E16D65621351C2E580DB210E77F62CD",
+          "toolFingerprintContribution": "4E16D65621351C2E580DB210E77F62CD",
           "codeFlows": [
             {
               "locations": [
@@ -688,7 +686,7 @@
               }
             }
           ],
-          "toolFingerprint": "36D0CE5DFDCF68A4211DD991DF297401",
+          "toolFingerprintContribution": "36D0CE5DFDCF68A4211DD991DF297401",
           "codeFlows": [
             {
               "locations": [
@@ -731,7 +729,7 @@
               }
             }
           ],
-          "toolFingerprint": "82731CC5FB8AC8C7982CF7CEC49EE3A2",
+          "toolFingerprintContribution": "82731CC5FB8AC8C7982CF7CEC49EE3A2",
           "codeFlows": [
             {
               "locations": [
@@ -774,7 +772,7 @@
               }
             }
           ],
-          "toolFingerprint": "1467EABFD44A49CF856C06F03477ACA8",
+          "toolFingerprintContribution": "1467EABFD44A49CF856C06F03477ACA8",
           "codeFlows": [
             {
               "locations": [
@@ -817,7 +815,7 @@
               }
             }
           ],
-          "toolFingerprint": "B55FE3672FC2A0E466693855B5FE0815",
+          "toolFingerprintContribution": "B55FE3672FC2A0E466693855B5FE0815",
           "codeFlows": [
             {
               "locations": [
@@ -860,7 +858,7 @@
               }
             }
           ],
-          "toolFingerprint": "EDDF4F65D3BED2F29F48521FCCB64F0A",
+          "toolFingerprintContribution": "EDDF4F65D3BED2F29F48521FCCB64F0A",
           "codeFlows": [
             {
               "locations": [
@@ -903,7 +901,7 @@
               }
             }
           ],
-          "toolFingerprint": "3D0258A36CF9480EE83ED0FF720CE317",
+          "toolFingerprintContribution": "3D0258A36CF9480EE83ED0FF720CE317",
           "codeFlows": [
             {
               "locations": [
@@ -946,7 +944,7 @@
               }
             }
           ],
-          "toolFingerprint": "AB102E292739E6A26083D04E771F90C2",
+          "toolFingerprintContribution": "AB102E292739E6A26083D04E771F90C2",
           "codeFlows": [
             {
               "locations": [
@@ -989,7 +987,7 @@
               }
             }
           ],
-          "toolFingerprint": "F4EAD2528E3175B5202ADCFFED7C1FA1",
+          "toolFingerprintContribution": "F4EAD2528E3175B5202ADCFFED7C1FA1",
           "codeFlows": [
             {
               "locations": [
@@ -1032,7 +1030,7 @@
               }
             }
           ],
-          "toolFingerprint": "7925DB4016AE4B1174FC0EC71869F815",
+          "toolFingerprintContribution": "7925DB4016AE4B1174FC0EC71869F815",
           "codeFlows": [
             {
               "locations": [
@@ -1075,7 +1073,7 @@
               }
             }
           ],
-          "toolFingerprint": "E37E8EFAFB4F6703FEF354C1D3957A31",
+          "toolFingerprintContribution": "E37E8EFAFB4F6703FEF354C1D3957A31",
           "codeFlows": [
             {
               "locations": [
@@ -1118,7 +1116,7 @@
               }
             }
           ],
-          "toolFingerprint": "E538381D55AF9DF1C2B83DEB26C17057",
+          "toolFingerprintContribution": "E538381D55AF9DF1C2B83DEB26C17057",
           "codeFlows": [
             {
               "locations": [
@@ -1161,7 +1159,7 @@
               }
             }
           ],
-          "toolFingerprint": "F6D5C779C9BAA9FA70BB308389F9FB1F",
+          "toolFingerprintContribution": "F6D5C779C9BAA9FA70BB308389F9FB1F",
           "codeFlows": [
             {
               "locations": [
@@ -1204,7 +1202,7 @@
               }
             }
           ],
-          "toolFingerprint": "904355449876787C23BBEFFCC3652FD8",
+          "toolFingerprintContribution": "904355449876787C23BBEFFCC3652FD8",
           "codeFlows": [
             {
               "locations": [
@@ -1247,7 +1245,7 @@
               }
             }
           ],
-          "toolFingerprint": "E22B697F1D4A2D0FF91C3F01B3226781",
+          "toolFingerprintContribution": "E22B697F1D4A2D0FF91C3F01B3226781",
           "codeFlows": [
             {
               "locations": [
@@ -1290,7 +1288,7 @@
               }
             }
           ],
-          "toolFingerprint": "2C723B1BE13419DE1EE73755B963A151",
+          "toolFingerprintContribution": "2C723B1BE13419DE1EE73755B963A151",
           "codeFlows": [
             {
               "locations": [
@@ -1333,7 +1331,7 @@
               }
             }
           ],
-          "toolFingerprint": "59DDA3BCFAC68E8CE5F87A3410D1E4C4",
+          "toolFingerprintContribution": "59DDA3BCFAC68E8CE5F87A3410D1E4C4",
           "codeFlows": [
             {
               "locations": [
@@ -1376,7 +1374,7 @@
               }
             }
           ],
-          "toolFingerprint": "6D6B130BB95150D28C0EA0989F13B76C",
+          "toolFingerprintContribution": "6D6B130BB95150D28C0EA0989F13B76C",
           "codeFlows": [
             {
               "locations": [
@@ -1419,7 +1417,7 @@
               }
             }
           ],
-          "toolFingerprint": "52C8C29C09C50723F93C057876945289",
+          "toolFingerprintContribution": "52C8C29C09C50723F93C057876945289",
           "codeFlows": [
             {
               "locations": [
@@ -1462,7 +1460,7 @@
               }
             }
           ],
-          "toolFingerprint": "E64D9B15CDE12302F1E0BC7E4F81CC8D",
+          "toolFingerprintContribution": "E64D9B15CDE12302F1E0BC7E4F81CC8D",
           "codeFlows": [
             {
               "locations": [
@@ -1505,7 +1503,7 @@
               }
             }
           ],
-          "toolFingerprint": "9571D01CEF126F0AC62DECA8C9948D51",
+          "toolFingerprintContribution": "9571D01CEF126F0AC62DECA8C9948D51",
           "codeFlows": [
             {
               "locations": [
@@ -1548,7 +1546,7 @@
               }
             }
           ],
-          "toolFingerprint": "8D675A9184E5EE999DA1230CFCA31FF1",
+          "toolFingerprintContribution": "8D675A9184E5EE999DA1230CFCA31FF1",
           "codeFlows": [
             {
               "locations": [
@@ -1591,7 +1589,7 @@
               }
             }
           ],
-          "toolFingerprint": "9A97F79B12F672BB124D767DA1A39A50",
+          "toolFingerprintContribution": "9A97F79B12F672BB124D767DA1A39A50",
           "codeFlows": [
             {
               "locations": [
@@ -1634,7 +1632,7 @@
               }
             }
           ],
-          "toolFingerprint": "EF88307D8F6E4FEC828F7D03963E8CCB",
+          "toolFingerprintContribution": "EF88307D8F6E4FEC828F7D03963E8CCB",
           "codeFlows": [
             {
               "locations": [
@@ -1677,7 +1675,7 @@
               }
             }
           ],
-          "toolFingerprint": "F943FA9002D0649DE86DD64585CABCF6",
+          "toolFingerprintContribution": "F943FA9002D0649DE86DD64585CABCF6",
           "codeFlows": [
             {
               "locations": [
@@ -1720,7 +1718,7 @@
               }
             }
           ],
-          "toolFingerprint": "0AED1B3043F4DD47AE27EF691675B9FF",
+          "toolFingerprintContribution": "0AED1B3043F4DD47AE27EF691675B9FF",
           "codeFlows": [
             {
               "locations": [
@@ -1763,7 +1761,7 @@
               }
             }
           ],
-          "toolFingerprint": "40AA064CA5E749DAD9888A9590EB96CD",
+          "toolFingerprintContribution": "40AA064CA5E749DAD9888A9590EB96CD",
           "codeFlows": [
             {
               "locations": [
@@ -1806,7 +1804,7 @@
               }
             }
           ],
-          "toolFingerprint": "F4EAD2528E3175B5202ADCFFED7C1FA0",
+          "toolFingerprintContribution": "F4EAD2528E3175B5202ADCFFED7C1FA0",
           "codeFlows": [
             {
               "locations": [
@@ -1849,7 +1847,7 @@
               }
             }
           ],
-          "toolFingerprint": "EDAE315A9552940016EF8C009A0CD659",
+          "toolFingerprintContribution": "EDAE315A9552940016EF8C009A0CD659",
           "codeFlows": [
             {
               "locations": [
@@ -1892,7 +1890,7 @@
               }
             }
           ],
-          "toolFingerprint": "9660AD8BC1959880FD17723FA06BCCBC",
+          "toolFingerprintContribution": "9660AD8BC1959880FD17723FA06BCCBC",
           "codeFlows": [
             {
               "locations": [
@@ -1935,7 +1933,7 @@
               }
             }
           ],
-          "toolFingerprint": "8D675A9184E5EE999DA1230CFCA31FF2",
+          "toolFingerprintContribution": "8D675A9184E5EE999DA1230CFCA31FF2",
           "codeFlows": [
             {
               "locations": [
@@ -1978,7 +1976,7 @@
               }
             }
           ],
-          "toolFingerprint": "F221C74F42779C7186A4B108AD32C9A9",
+          "toolFingerprintContribution": "F221C74F42779C7186A4B108AD32C9A9",
           "codeFlows": [
             {
               "locations": [
@@ -2021,7 +2019,7 @@
               }
             }
           ],
-          "toolFingerprint": "A33A049936ACEF1BBBE88CCA4297473B",
+          "toolFingerprintContribution": "A33A049936ACEF1BBBE88CCA4297473B",
           "codeFlows": [
             {
               "locations": [
@@ -2064,7 +2062,7 @@
               }
             }
           ],
-          "toolFingerprint": "47510283C86CAE3258A4116864B27A62",
+          "toolFingerprintContribution": "47510283C86CAE3258A4116864B27A62",
           "codeFlows": [
             {
               "locations": [
@@ -2107,7 +2105,7 @@
               }
             }
           ],
-          "toolFingerprint": "2006F3F3FB10F19706D5D7D6013DD9A2",
+          "toolFingerprintContribution": "2006F3F3FB10F19706D5D7D6013DD9A2",
           "codeFlows": [
             {
               "locations": [
@@ -2150,7 +2148,7 @@
               }
             }
           ],
-          "toolFingerprint": "7C71422FF16A25931644F5B63BE22B79",
+          "toolFingerprintContribution": "7C71422FF16A25931644F5B63BE22B79",
           "codeFlows": [
             {
               "locations": [
@@ -2193,7 +2191,7 @@
               }
             }
           ],
-          "toolFingerprint": "079F0BA2AF3FD6DE8D3044AAA2EC0976",
+          "toolFingerprintContribution": "079F0BA2AF3FD6DE8D3044AAA2EC0976",
           "codeFlows": [
             {
               "locations": [
@@ -2236,7 +2234,7 @@
               }
             }
           ],
-          "toolFingerprint": "E2F4654ECCD989CC6542178BAF661260",
+          "toolFingerprintContribution": "E2F4654ECCD989CC6542178BAF661260",
           "codeFlows": [
             {
               "locations": [
@@ -2279,7 +2277,7 @@
               }
             }
           ],
-          "toolFingerprint": "B33A31E8B58A12691BC68729582F6E50",
+          "toolFingerprintContribution": "B33A31E8B58A12691BC68729582F6E50",
           "codeFlows": [
             {
               "locations": [
@@ -2322,7 +2320,7 @@
               }
             }
           ],
-          "toolFingerprint": "247C4B8ADE15F1B4B50C0C8C1FADC70C",
+          "toolFingerprintContribution": "247C4B8ADE15F1B4B50C0C8C1FADC70C",
           "codeFlows": [
             {
               "locations": [
@@ -2365,7 +2363,7 @@
               }
             }
           ],
-          "toolFingerprint": "19CCD2C8F0E97A3E2CE5AEE97B9E7F30",
+          "toolFingerprintContribution": "19CCD2C8F0E97A3E2CE5AEE97B9E7F30",
           "codeFlows": [
             {
               "locations": [
@@ -2408,7 +2406,7 @@
               }
             }
           ],
-          "toolFingerprint": "349E661BC9DAB17F2B943A6FF0734FC0",
+          "toolFingerprintContribution": "349E661BC9DAB17F2B943A6FF0734FC0",
           "codeFlows": [
             {
               "locations": [
@@ -2451,7 +2449,7 @@
               }
             }
           ],
-          "toolFingerprint": "BD1FA971642E27B8F6132EC97E3B9974",
+          "toolFingerprintContribution": "BD1FA971642E27B8F6132EC97E3B9974",
           "codeFlows": [
             {
               "locations": [
@@ -2494,7 +2492,7 @@
               }
             }
           ],
-          "toolFingerprint": "B91BE4B2A10F34298E592DF1EB4D566A",
+          "toolFingerprintContribution": "B91BE4B2A10F34298E592DF1EB4D566A",
           "codeFlows": [
             {
               "locations": [
@@ -2537,7 +2535,7 @@
               }
             }
           ],
-          "toolFingerprint": "BFB0F10810A1DA7A3C0565CB35583340",
+          "toolFingerprintContribution": "BFB0F10810A1DA7A3C0565CB35583340",
           "codeFlows": [
             {
               "locations": [
@@ -2580,7 +2578,7 @@
               }
             }
           ],
-          "toolFingerprint": "A26FD1A933E9A17CE78C14E08C2A94D8",
+          "toolFingerprintContribution": "A26FD1A933E9A17CE78C14E08C2A94D8",
           "codeFlows": [
             {
               "locations": [
@@ -2623,7 +2621,7 @@
               }
             }
           ],
-          "toolFingerprint": "44156512276E1548B5509F94381EACA4",
+          "toolFingerprintContribution": "44156512276E1548B5509F94381EACA4",
           "codeFlows": [
             {
               "locations": [
@@ -2666,7 +2664,7 @@
               }
             }
           ],
-          "toolFingerprint": "47510283C86CAE3258A4116864B27A61",
+          "toolFingerprintContribution": "47510283C86CAE3258A4116864B27A61",
           "codeFlows": [
             {
               "locations": [
@@ -2709,7 +2707,7 @@
               }
             }
           ],
-          "toolFingerprint": "44063AE6F90F88C349BC8348AC04F43C",
+          "toolFingerprintContribution": "44063AE6F90F88C349BC8348AC04F43C",
           "codeFlows": [
             {
               "locations": [
@@ -2752,7 +2750,7 @@
               }
             }
           ],
-          "toolFingerprint": "E71FA539B5E6073AAF585E88BCB22F5D",
+          "toolFingerprintContribution": "E71FA539B5E6073AAF585E88BCB22F5D",
           "codeFlows": [
             {
               "locations": [
@@ -2795,7 +2793,7 @@
               }
             }
           ],
-          "toolFingerprint": "9E7020B20F73EB80C1B9E8FFD1698E43",
+          "toolFingerprintContribution": "9E7020B20F73EB80C1B9E8FFD1698E43",
           "codeFlows": [
             {
               "locations": [
@@ -2838,7 +2836,7 @@
               }
             }
           ],
-          "toolFingerprint": "B7273D0D158330965C761515BD294F48",
+          "toolFingerprintContribution": "B7273D0D158330965C761515BD294F48",
           "codeFlows": [
             {
               "locations": [
@@ -2881,7 +2879,7 @@
               }
             }
           ],
-          "toolFingerprint": "10E19E731065F10BDAAF98F8095ED514",
+          "toolFingerprintContribution": "10E19E731065F10BDAAF98F8095ED514",
           "codeFlows": [
             {
               "locations": [
@@ -2924,7 +2922,7 @@
               }
             }
           ],
-          "toolFingerprint": "26AEAC68BBF988FED92D872810DAA0A2",
+          "toolFingerprintContribution": "26AEAC68BBF988FED92D872810DAA0A2",
           "codeFlows": [
             {
               "locations": [
@@ -2967,7 +2965,7 @@
               }
             }
           ],
-          "toolFingerprint": "BFB0F10810A1DA7A3C0565CB3558333F",
+          "toolFingerprintContribution": "BFB0F10810A1DA7A3C0565CB3558333F",
           "codeFlows": [
             {
               "locations": [
@@ -3010,7 +3008,7 @@
               }
             }
           ],
-          "toolFingerprint": "3806636845C687DD3D898C7687DF6047",
+          "toolFingerprintContribution": "3806636845C687DD3D898C7687DF6047",
           "codeFlows": [
             {
               "locations": [
@@ -3053,7 +3051,7 @@
               }
             }
           ],
-          "toolFingerprint": "75E96A16B6963CB20C667DDDE99FA4EC",
+          "toolFingerprintContribution": "75E96A16B6963CB20C667DDDE99FA4EC",
           "codeFlows": [
             {
               "locations": [
@@ -3096,7 +3094,7 @@
               }
             }
           ],
-          "toolFingerprint": "84E9E10DEB89A40B0B597E654EBD3E45",
+          "toolFingerprintContribution": "84E9E10DEB89A40B0B597E654EBD3E45",
           "codeFlows": [
             {
               "locations": [
@@ -3139,7 +3137,7 @@
               }
             }
           ],
-          "toolFingerprint": "0E8A2FECC2E40403211DA7125B360CFA",
+          "toolFingerprintContribution": "0E8A2FECC2E40403211DA7125B360CFA",
           "codeFlows": [
             {
               "locations": [
@@ -3182,7 +3180,7 @@
               }
             }
           ],
-          "toolFingerprint": "96D9D7CBC80B6B14ABAC9D07B2DB1E3C",
+          "toolFingerprintContribution": "96D9D7CBC80B6B14ABAC9D07B2DB1E3C",
           "codeFlows": [
             {
               "locations": [
@@ -3225,7 +3223,7 @@
               }
             }
           ],
-          "toolFingerprint": "AA424588C1A8B265AF06B431DF09326B",
+          "toolFingerprintContribution": "AA424588C1A8B265AF06B431DF09326B",
           "codeFlows": [
             {
               "locations": [
@@ -3268,7 +3266,7 @@
               }
             }
           ],
-          "toolFingerprint": "59DDA3BCFAC68E8CE5F87A3410D1E4C5",
+          "toolFingerprintContribution": "59DDA3BCFAC68E8CE5F87A3410D1E4C5",
           "codeFlows": [
             {
               "locations": [
@@ -3311,7 +3309,7 @@
               }
             }
           ],
-          "toolFingerprint": "62A32C7373CBDA644946AB9FC29ED44E",
+          "toolFingerprintContribution": "62A32C7373CBDA644946AB9FC29ED44E",
           "codeFlows": [
             {
               "locations": [
@@ -3354,7 +3352,7 @@
               }
             }
           ],
-          "toolFingerprint": "52C8C29C09C50723F93C05787694528A",
+          "toolFingerprintContribution": "52C8C29C09C50723F93C05787694528A",
           "codeFlows": [
             {
               "locations": [
@@ -3397,7 +3395,7 @@
               }
             }
           ],
-          "toolFingerprint": "BDC8FC3C5AAE67B07F46EC48B928AA6E",
+          "toolFingerprintContribution": "BDC8FC3C5AAE67B07F46EC48B928AA6E",
           "codeFlows": [
             {
               "locations": [
@@ -3440,7 +3438,7 @@
               }
             }
           ],
-          "toolFingerprint": "344BBA91D5E184883A40424532EE84E4",
+          "toolFingerprintContribution": "344BBA91D5E184883A40424532EE84E4",
           "codeFlows": [
             {
               "locations": [
@@ -3483,7 +3481,7 @@
               }
             }
           ],
-          "toolFingerprint": "39C90BE84174878645162127D2EEF7A5",
+          "toolFingerprintContribution": "39C90BE84174878645162127D2EEF7A5",
           "codeFlows": [
             {
               "locations": [
@@ -3526,7 +3524,7 @@
               }
             }
           ],
-          "toolFingerprint": "5D50AA0FEB1A20778BFB7E4347D76973",
+          "toolFingerprintContribution": "5D50AA0FEB1A20778BFB7E4347D76973",
           "codeFlows": [
             {
               "locations": [
@@ -3569,7 +3567,7 @@
               }
             }
           ],
-          "toolFingerprint": "330A5219AFAD58232673BDC844F05F8C",
+          "toolFingerprintContribution": "330A5219AFAD58232673BDC844F05F8C",
           "codeFlows": [
             {
               "locations": [
@@ -3612,7 +3610,7 @@
               }
             }
           ],
-          "toolFingerprint": "175D03E66213F6F75A01CBDCB0AE3EB9",
+          "toolFingerprintContribution": "175D03E66213F6F75A01CBDCB0AE3EB9",
           "codeFlows": [
             {
               "locations": [
@@ -3655,7 +3653,7 @@
               }
             }
           ],
-          "toolFingerprint": "BC044DF5332F926B896F8936F416D6E8",
+          "toolFingerprintContribution": "BC044DF5332F926B896F8936F416D6E8",
           "codeFlows": [
             {
               "locations": [
@@ -3698,7 +3696,7 @@
               }
             }
           ],
-          "toolFingerprint": "E27AB6F7D5CB058B498C2829C7C4A2C0",
+          "toolFingerprintContribution": "E27AB6F7D5CB058B498C2829C7C4A2C0",
           "codeFlows": [
             {
               "locations": [
@@ -3741,7 +3739,7 @@
               }
             }
           ],
-          "toolFingerprint": "ED8F0F4C67561029F8075C463B097306",
+          "toolFingerprintContribution": "ED8F0F4C67561029F8075C463B097306",
           "codeFlows": [
             {
               "locations": [
@@ -3784,7 +3782,7 @@
               }
             }
           ],
-          "toolFingerprint": "1AC9B8150ED658E10BC361EF320AF5E9",
+          "toolFingerprintContribution": "1AC9B8150ED658E10BC361EF320AF5E9",
           "codeFlows": [
             {
               "locations": [
@@ -3827,7 +3825,7 @@
               }
             }
           ],
-          "toolFingerprint": "19FE9DA1DE9428F0751A2552B44AB7D3",
+          "toolFingerprintContribution": "19FE9DA1DE9428F0751A2552B44AB7D3",
           "codeFlows": [
             {
               "locations": [
@@ -3870,7 +3868,7 @@
               }
             }
           ],
-          "toolFingerprint": "27BAADAEA67E3A01F374F982944504CC",
+          "toolFingerprintContribution": "27BAADAEA67E3A01F374F982944504CC",
           "codeFlows": [
             {
               "locations": [
@@ -3913,7 +3911,7 @@
               }
             }
           ],
-          "toolFingerprint": "A0B07FC1302B5E5E37E0C8E0505C2F53",
+          "toolFingerprintContribution": "A0B07FC1302B5E5E37E0C8E0505C2F53",
           "codeFlows": [
             {
               "locations": [
@@ -3956,7 +3954,7 @@
               }
             }
           ],
-          "toolFingerprint": "7BEDDF5666EB0F4E889F65731A58D2D7",
+          "toolFingerprintContribution": "7BEDDF5666EB0F4E889F65731A58D2D7",
           "codeFlows": [
             {
               "locations": [
@@ -3999,7 +3997,7 @@
               }
             }
           ],
-          "toolFingerprint": "2736DA7D7ACC4048BDEE38D4A10F4D76",
+          "toolFingerprintContribution": "2736DA7D7ACC4048BDEE38D4A10F4D76",
           "codeFlows": [
             {
               "locations": [
@@ -4042,7 +4040,7 @@
               }
             }
           ],
-          "toolFingerprint": "8893BCF1861EC9CF1A98B85B0E953FD7",
+          "toolFingerprintContribution": "8893BCF1861EC9CF1A98B85B0E953FD7",
           "codeFlows": [
             {
               "locations": [
@@ -4085,7 +4083,7 @@
               }
             }
           ],
-          "toolFingerprint": "B20E17F4A2B9C7A437696F31D05FD4A6",
+          "toolFingerprintContribution": "B20E17F4A2B9C7A437696F31D05FD4A6",
           "properties": {
             "kingdom": "Code Quality",
             "priority": "High",
@@ -4106,7 +4104,7 @@
               }
             }
           ],
-          "toolFingerprint": "9B64D2BB197A4616AA23A98041CF1618",
+          "toolFingerprintContribution": "9B64D2BB197A4616AA23A98041CF1618",
           "properties": {
             "kingdom": "Code Quality",
             "priority": "High",
@@ -4127,7 +4125,7 @@
               }
             }
           ],
-          "toolFingerprint": "C7916675D2052C6D8187E27154A47009",
+          "toolFingerprintContribution": "C7916675D2052C6D8187E27154A47009",
           "codeFlows": [
             {
               "locations": [
@@ -4170,7 +4168,7 @@
               }
             }
           ],
-          "toolFingerprint": "E97A2D6BAF232260AC303E4940AB5509",
+          "toolFingerprintContribution": "E97A2D6BAF232260AC303E4940AB5509",
           "codeFlows": [
             {
               "locations": [
@@ -4213,7 +4211,7 @@
               }
             }
           ],
-          "toolFingerprint": "65F814D3D0C6F5D61B8B07229C5054D5",
+          "toolFingerprintContribution": "65F814D3D0C6F5D61B8B07229C5054D5",
           "codeFlows": [
             {
               "locations": [
@@ -4256,7 +4254,7 @@
               }
             }
           ],
-          "toolFingerprint": "D82800828C73CF9882FABCC523B305FB",
+          "toolFingerprintContribution": "D82800828C73CF9882FABCC523B305FB",
           "codeFlows": [
             {
               "locations": [
@@ -4299,7 +4297,7 @@
               }
             }
           ],
-          "toolFingerprint": "87CCC6BEFD09409265D8E7127CD280FE",
+          "toolFingerprintContribution": "87CCC6BEFD09409265D8E7127CD280FE",
           "codeFlows": [
             {
               "locations": [
@@ -4342,7 +4340,7 @@
               }
             }
           ],
-          "toolFingerprint": "D82800828C73CF9882FABCC523B305FC",
+          "toolFingerprintContribution": "D82800828C73CF9882FABCC523B305FC",
           "codeFlows": [
             {
               "locations": [
@@ -4385,7 +4383,7 @@
               }
             }
           ],
-          "toolFingerprint": "DB93D0F298DA2DDC22A9EC7D8A9D6B7F",
+          "toolFingerprintContribution": "DB93D0F298DA2DDC22A9EC7D8A9D6B7F",
           "codeFlows": [
             {
               "locations": [
@@ -4428,7 +4426,7 @@
               }
             }
           ],
-          "toolFingerprint": "7167C91DAF29CF8FFC6F8102C238FA27",
+          "toolFingerprintContribution": "7167C91DAF29CF8FFC6F8102C238FA27",
           "codeFlows": [
             {
               "locations": [
@@ -4471,7 +4469,7 @@
               }
             }
           ],
-          "toolFingerprint": "4AD7C542C06E5B215D308282E30494BF",
+          "toolFingerprintContribution": "4AD7C542C06E5B215D308282E30494BF",
           "codeFlows": [
             {
               "locations": [
@@ -4514,7 +4512,7 @@
               }
             }
           ],
-          "toolFingerprint": "1C80821B323D117284544B40EFD8A5B3",
+          "toolFingerprintContribution": "1C80821B323D117284544B40EFD8A5B3",
           "codeFlows": [
             {
               "locations": [
@@ -4557,7 +4555,7 @@
               }
             }
           ],
-          "toolFingerprint": "AD182EE22933927AAC966D5DDC668E1B",
+          "toolFingerprintContribution": "AD182EE22933927AAC966D5DDC668E1B",
           "codeFlows": [
             {
               "locations": [
@@ -4600,7 +4598,7 @@
               }
             }
           ],
-          "toolFingerprint": "DB93D0F298DA2DDC22A9EC7D8A9D6B7E",
+          "toolFingerprintContribution": "DB93D0F298DA2DDC22A9EC7D8A9D6B7E",
           "codeFlows": [
             {
               "locations": [

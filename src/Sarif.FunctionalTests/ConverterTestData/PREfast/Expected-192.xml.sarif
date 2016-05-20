@@ -1,236 +1,11 @@
 {
-"version":"1.0.0-beta.4",
+"version":"1.0.0",
 "$schema":"http://json.schemastore.org/sarif-1.0.0",
 "runs":[
   {
     "tool":{
       "name":"PREfast",
-      "fullName":"PREfast Code Analysis",
-      "version":"14.0.0"
-    },
-    "logicalLocations":{
-      "ua_wcscpy":[
-        {
-          "kind":"method",
-          "name":"ua_wcscpy"
-        }
-      ],
-      "_wcsspnp":[
-        {
-          "kind":"method",
-          "name":"_wcsspnp"
-        }
-      ],
-      "_wcsncat_l":[
-        {
-          "kind":"method",
-          "name":"_wcsncat_l"
-        }
-      ],
-      "?StringCbCopyExW@@YGJPAGIPBGPAPAGPAIK@Z":[
-        {
-          "kind":"method",
-          "name":"StringCbCopyExW"
-        }
-      ],
-      "?StringCbCopyNExW@@YGJPAGIPBGIPAPAGPAIK@Z":[
-        {
-          "kind":"method",
-          "name":"StringCbCopyNExW"
-        }
-      ],
-      "?StringCbCatNExW@@YGJPAGIPBGIPAPAGPAIK@Z":[
-        {
-          "kind":"method",
-          "name":"StringCbCatNExW"
-        }
-      ],
-      "?StringCbPrintfExW@@YAJPAGIPAPAGPAIKPBGZZ":[
-        {
-          "kind":"method",
-          "name":"StringCbPrintfExW"
-        }
-      ],
-      "?StringCbGetsExW@@YGJPAGIPAPAGPAIK@Z":[
-        {
-          "kind":"method",
-          "name":"StringCbGetsExW"
-        }
-      ],
-      "?StringCchLengthA@@YGJPBDIPAI@Z":[
-        {
-          "kind":"method",
-          "name":"StringCchLengthA"
-        }
-      ],
-      "?StringCchLengthW@@YGJPBGIPAI@Z":[
-        {
-          "kind":"method",
-          "name":"StringCchLengthW"
-        }
-      ],
-      "?StringValidateDestAndLengthA@@YGJPBDIPAII@Z":[
-        {
-          "kind":"method",
-          "name":"StringValidateDestAndLengthA"
-        }
-      ],
-      "?StringValidateDestAndLengthW@@YGJPBGIPAII@Z":[
-        {
-          "kind":"method",
-          "name":"StringValidateDestAndLengthW"
-        }
-      ],
-      "?StringExHandleOtherFlagsA@@YGJPADIIPAPADPAIK@Z":[
-        {
-          "kind":"method",
-          "name":"StringExHandleOtherFlagsA"
-        }
-      ],
-      "?StringExHandleOtherFlagsW@@YGJPAGIIPAPAGPAIK@Z":[
-        {
-          "kind":"method",
-          "name":"StringExHandleOtherFlagsW"
-        }
-      ],
-      "?length@?$char_traits@G@std@@SAIPBG@Z":[
-        {
-          "kind":"method",
-          "name":"std::char_traits<unsigned short>::length"
-        }
-      ],
-      "?_Copy_s@?$char_traits@G@std@@SAPAGPAGIPBGI@Z":[
-        {
-          "kind":"method",
-          "name":"std::char_traits<unsigned short>::_Copy_s"
-        }
-      ],
-      "?_Move_s@?$char_traits@G@std@@SAPAGPAGIPBGI@Z":[
-        {
-          "kind":"method",
-          "name":"std::char_traits<unsigned short>::_Move_s"
-        }
-      ],
-      "?length@?$char_traits@D@std@@SAIPBD@Z":[
-        {
-          "kind":"method",
-          "name":"std::char_traits<char>::length"
-        }
-      ],
-      "?_Copy_s@?$char_traits@D@std@@SAPADPADIPBDI@Z":[
-        {
-          "kind":"method",
-          "name":"std::char_traits<char>::_Copy_s"
-        }
-      ],
-      "?_Move_s@?$char_traits@D@std@@SAPADPADIPBDI@Z":[
-        {
-          "kind":"method",
-          "name":"std::char_traits<char>::_Move_s"
-        }
-      ],
-      "??$_Maklocstr@G@std@@YAPAGPBDPAGABU_Cvtvec@@@Z":[
-        {
-          "kind":"method",
-          "name":"std::_Maklocstr"
-        }
-      ],
-      "?do_in@?$codecvt@GDH@std@@MBEHAAHPBD1AAPBDPAG3AAPAG@Z":[
-        {
-          "kind":"method",
-          "name":"std::codecvt<unsigned short,char,int>::do_in"
-        }
-      ],
-      "?do_out@?$codecvt@GDH@std@@MBEHAAHPBG1AAPBGPAD3AAPAD@Z":[
-        {
-          "kind":"method",
-          "name":"std::codecvt<unsigned short,char,int>::do_out"
-        }
-      ],
-      "?do_length@?$codecvt@GDH@std@@MBEHABHPBD1I@Z":[
-        {
-          "kind":"method",
-          "name":"std::codecvt<unsigned short,char,int>::do_length"
-        }
-      ],
-      "?do_tolower@?$ctype@D@std@@MBEPBDPADPBD@Z":[
-        {
-          "kind":"method",
-          "name":"std::ctype<char>::do_tolower"
-        }
-      ],
-      "?do_toupper@?$ctype@D@std@@MBEPBDPADPBD@Z":[
-        {
-          "kind":"method",
-          "name":"std::ctype<char>::do_toupper"
-        }
-      ],
-      "?_Do_widen_s@?$ctype@D@std@@IBEPBDPBD0PADI@Z":[
-        {
-          "kind":"method",
-          "name":"std::ctype<char>::_Do_widen_s"
-        }
-      ],
-      "?_Do_narrow_s@?$ctype@D@std@@IBEPBDPBD0DPADI@Z":[
-        {
-          "kind":"method",
-          "name":"std::ctype<char>::_Do_narrow_s"
-        }
-      ],
-      "?do_scan_is@?$ctype@G@std@@MBEPBGFPBG0@Z":[
-        {
-          "kind":"method",
-          "name":"std::ctype<unsigned short>::do_scan_is"
-        }
-      ],
-      "?do_scan_not@?$ctype@G@std@@MBEPBGFPBG0@Z":[
-        {
-          "kind":"method",
-          "name":"std::ctype<unsigned short>::do_scan_not"
-        }
-      ],
-      "?do_tolower@?$ctype@G@std@@MBEPBGPAGPBG@Z":[
-        {
-          "kind":"method",
-          "name":"std::ctype<unsigned short>::do_tolower"
-        }
-      ],
-      "?do_toupper@?$ctype@G@std@@MBEPBGPAGPBG@Z":[
-        {
-          "kind":"method",
-          "name":"std::ctype<unsigned short>::do_toupper"
-        }
-      ],
-      "?_Do_widen_s@?$ctype@G@std@@IBEPBDPBD0PAGI@Z":[
-        {
-          "kind":"method",
-          "name":"std::ctype<unsigned short>::_Do_widen_s"
-        }
-      ],
-      "?_Do_narrow_s@?$ctype@G@std@@IBEPBGPBG0DPADI@Z":[
-        {
-          "kind":"method",
-          "name":"std::ctype<unsigned short>::_Do_narrow_s"
-        }
-      ],
-      "?ReadBinHeader@@YAPBEPAUtagNET_DESC@@PBEH@Z":[
-        {
-          "kind":"method",
-          "name":"ReadBinHeader"
-        }
-      ],
-      "?_Xsgetn_s@?$basic_streambuf@GU?$char_traits@G@std@@@std@@IAEHPAGIH@Z":[
-        {
-          "kind":"method",
-          "name":"std::basic_streambuf<unsigned short,std::char_traits<unsigned short> >::_Xsgetn_s"
-        }
-      ],
-      "?_Xsgetn_s@?$basic_streambuf@DU?$char_traits@D@std@@@std@@IAEHPADIH@Z":[
-        {
-          "kind":"method",
-          "name":"std::basic_streambuf<char,std::char_traits<char> >::_Xsgetn_s"
-        }
-      ]
+      "fullName":"PREfast Code Analysis"
     },
     "results":[
       {
@@ -246,9 +21,8 @@
               }
             },
             "fullyQualifiedLogicalName":"ua_wcscpy",
-            "logicalLocationKey":"ua_wcscpy",
+            "decoratedName":"ua_wcscpy",
             "properties":{
-              "decorated":"ua_wcscpy",
               "funcline":"109"
             }
           }
@@ -297,9 +71,8 @@
               }
             },
             "fullyQualifiedLogicalName":"_wcsspnp",
-            "logicalLocationKey":"_wcsspnp",
+            "decoratedName":"_wcsspnp",
             "properties":{
-              "decorated":"_wcsspnp",
               "funcline":"725"
             }
           }
@@ -356,9 +129,8 @@
               }
             },
             "fullyQualifiedLogicalName":"_wcsncat_l",
-            "logicalLocationKey":"_wcsncat_l",
+            "decoratedName":"_wcsncat_l",
             "properties":{
-              "decorated":"_wcsncat_l",
               "funcline":"770"
             }
           }
@@ -399,9 +171,8 @@
               }
             },
             "fullyQualifiedLogicalName":"StringCbCopyExW",
-            "logicalLocationKey":"?StringCbCopyExW@@YGJPAGIPBGPAPAGPAIK@Z",
+            "decoratedName":"?StringCbCopyExW@@YGJPAGIPBGPAPAGPAIK@Z",
             "properties":{
-              "decorated":"?StringCbCopyExW@@YGJPAGIPBGPAPAGPAIK@Z",
               "funcline":"1459"
             }
           }
@@ -602,9 +373,8 @@
               }
             },
             "fullyQualifiedLogicalName":"StringCbCopyNExW",
-            "logicalLocationKey":"?StringCbCopyNExW@@YGJPAGIPBGIPAPAGPAIK@Z",
+            "decoratedName":"?StringCbCopyNExW@@YGJPAGIPBGIPAPAGPAIK@Z",
             "properties":{
-              "decorated":"?StringCbCopyNExW@@YGJPAGIPBGIPAPAGPAIK@Z",
               "funcline":"2571"
             }
           }
@@ -741,9 +511,8 @@
               }
             },
             "fullyQualifiedLogicalName":"StringCbCatNExW",
-            "logicalLocationKey":"?StringCbCatNExW@@YGJPAGIPBGIPAPAGPAIK@Z",
+            "decoratedName":"?StringCbCatNExW@@YGJPAGIPBGIPAPAGPAIK@Z",
             "properties":{
-              "decorated":"?StringCbCatNExW@@YGJPAGIPBGIPAPAGPAIK@Z",
               "funcline":"4631"
             }
           }
@@ -888,9 +657,8 @@
               }
             },
             "fullyQualifiedLogicalName":"StringCbPrintfExW",
-            "logicalLocationKey":"?StringCbPrintfExW@@YAJPAGIPAPAGPAIKPBGZZ",
+            "decoratedName":"?StringCbPrintfExW@@YAJPAGIPAPAGPAIKPBGZZ",
             "properties":{
-              "decorated":"?StringCbPrintfExW@@YAJPAGIPAPAGPAIKPBGZZ",
               "funcline":"6791"
             }
           }
@@ -1091,9 +859,8 @@
               }
             },
             "fullyQualifiedLogicalName":"StringCbGetsExW",
-            "logicalLocationKey":"?StringCbGetsExW@@YGJPAGIPAPAGPAIK@Z",
+            "decoratedName":"?StringCbGetsExW@@YGJPAGIPAPAGPAIK@Z",
             "properties":{
-              "decorated":"?StringCbGetsExW@@YGJPAGIPAPAGPAIK@Z",
               "funcline":"9374"
             }
           }
@@ -1278,9 +1045,8 @@
               }
             },
             "fullyQualifiedLogicalName":"StringCchLengthA",
-            "logicalLocationKey":"?StringCchLengthA@@YGJPBDIPAI@Z",
+            "decoratedName":"?StringCchLengthA@@YGJPBDIPAI@Z",
             "properties":{
-              "decorated":"?StringCchLengthA@@YGJPBDIPAI@Z",
               "funcline":"9552"
             }
           }
@@ -1369,9 +1135,8 @@
               }
             },
             "fullyQualifiedLogicalName":"StringCchLengthW",
-            "logicalLocationKey":"?StringCchLengthW@@YGJPBGIPAI@Z",
+            "decoratedName":"?StringCchLengthW@@YGJPBGIPAI@Z",
             "properties":{
-              "decorated":"?StringCchLengthW@@YGJPBGIPAI@Z",
               "funcline":"9584"
             }
           }
@@ -1460,9 +1225,8 @@
               }
             },
             "fullyQualifiedLogicalName":"StringValidateDestAndLengthA",
-            "logicalLocationKey":"?StringValidateDestAndLengthA@@YGJPBDIPAII@Z",
+            "decoratedName":"?StringValidateDestAndLengthA@@YGJPBDIPAII@Z",
             "properties":{
-              "decorated":"?StringValidateDestAndLengthA@@YGJPBDIPAII@Z",
               "funcline":"10240"
             }
           }
@@ -1551,9 +1315,8 @@
               }
             },
             "fullyQualifiedLogicalName":"StringValidateDestAndLengthW",
-            "logicalLocationKey":"?StringValidateDestAndLengthW@@YGJPBGIPAII@Z",
+            "decoratedName":"?StringValidateDestAndLengthW@@YGJPBGIPAII@Z",
             "properties":{
-              "decorated":"?StringValidateDestAndLengthW@@YGJPBGIPAII@Z",
               "funcline":"10296"
             }
           }
@@ -1642,9 +1405,8 @@
               }
             },
             "fullyQualifiedLogicalName":"StringExHandleOtherFlagsA",
-            "logicalLocationKey":"?StringExHandleOtherFlagsA@@YGJPADIIPAPADPAIK@Z",
+            "decoratedName":"?StringExHandleOtherFlagsA@@YGJPADIIPAPADPAIK@Z",
             "properties":{
-              "decorated":"?StringExHandleOtherFlagsA@@YGJPADIIPAPADPAIK@Z",
               "funcline":"11010"
             }
           }
@@ -1749,9 +1511,8 @@
               }
             },
             "fullyQualifiedLogicalName":"StringExHandleOtherFlagsW",
-            "logicalLocationKey":"?StringExHandleOtherFlagsW@@YGJPAGIIPAPAGPAIK@Z",
+            "decoratedName":"?StringExHandleOtherFlagsW@@YGJPAGIIPAPAGPAIK@Z",
             "properties":{
-              "decorated":"?StringExHandleOtherFlagsW@@YGJPAGIIPAPAGPAIK@Z",
               "funcline":"11079"
             }
           }
@@ -1840,9 +1601,8 @@
               }
             },
             "fullyQualifiedLogicalName":"std::char_traits<unsigned short>::length",
-            "logicalLocationKey":"?length@?$char_traits@G@std@@SAIPBG@Z",
+            "decoratedName":"?length@?$char_traits@G@std@@SAIPBG@Z",
             "properties":{
-              "decorated":"?length@?$char_traits@G@std@@SAIPBG@Z",
               "funcline":"326"
             }
           }
@@ -1883,9 +1643,8 @@
               }
             },
             "fullyQualifiedLogicalName":"std::char_traits<unsigned short>::_Copy_s",
-            "logicalLocationKey":"?_Copy_s@?$char_traits@G@std@@SAPAGPAGIPBGI@Z",
+            "decoratedName":"?_Copy_s@?$char_traits@G@std@@SAPAGPAGIPBGI@Z",
             "properties":{
-              "decorated":"?_Copy_s@?$char_traits@G@std@@SAPAGPAGIPBGI@Z",
               "funcline":"340"
             }
           }
@@ -1926,9 +1685,8 @@
               }
             },
             "fullyQualifiedLogicalName":"std::char_traits<unsigned short>::_Copy_s",
-            "logicalLocationKey":"?_Copy_s@?$char_traits@G@std@@SAPAGPAGIPBGI@Z",
+            "decoratedName":"?_Copy_s@?$char_traits@G@std@@SAPAGPAGIPBGI@Z",
             "properties":{
-              "decorated":"?_Copy_s@?$char_traits@G@std@@SAPAGPAGIPBGI@Z",
               "funcline":"340"
             }
           }
@@ -1969,9 +1727,8 @@
               }
             },
             "fullyQualifiedLogicalName":"std::char_traits<unsigned short>::_Move_s",
-            "logicalLocationKey":"?_Move_s@?$char_traits@G@std@@SAPAGPAGIPBGI@Z",
+            "decoratedName":"?_Move_s@?$char_traits@G@std@@SAPAGPAGIPBGI@Z",
             "properties":{
-              "decorated":"?_Move_s@?$char_traits@G@std@@SAPAGPAGIPBGI@Z",
               "funcline":"364"
             }
           }
@@ -2012,9 +1769,8 @@
               }
             },
             "fullyQualifiedLogicalName":"std::char_traits<unsigned short>::_Move_s",
-            "logicalLocationKey":"?_Move_s@?$char_traits@G@std@@SAPAGPAGIPBGI@Z",
+            "decoratedName":"?_Move_s@?$char_traits@G@std@@SAPAGPAGIPBGI@Z",
             "properties":{
-              "decorated":"?_Move_s@?$char_traits@G@std@@SAPAGPAGIPBGI@Z",
               "funcline":"364"
             }
           }
@@ -2055,9 +1811,8 @@
               }
             },
             "fullyQualifiedLogicalName":"std::char_traits<char>::length",
-            "logicalLocationKey":"?length@?$char_traits@D@std@@SAIPBD@Z",
+            "decoratedName":"?length@?$char_traits@D@std@@SAIPBD@Z",
             "properties":{
-              "decorated":"?length@?$char_traits@D@std@@SAIPBD@Z",
               "funcline":"441"
             }
           }
@@ -2098,9 +1853,8 @@
               }
             },
             "fullyQualifiedLogicalName":"std::char_traits<char>::_Copy_s",
-            "logicalLocationKey":"?_Copy_s@?$char_traits@D@std@@SAPADPADIPBDI@Z",
+            "decoratedName":"?_Copy_s@?$char_traits@D@std@@SAPADPADIPBDI@Z",
             "properties":{
-              "decorated":"?_Copy_s@?$char_traits@D@std@@SAPADPADIPBDI@Z",
               "funcline":"455"
             }
           }
@@ -2141,9 +1895,8 @@
               }
             },
             "fullyQualifiedLogicalName":"std::char_traits<char>::_Copy_s",
-            "logicalLocationKey":"?_Copy_s@?$char_traits@D@std@@SAPADPADIPBDI@Z",
+            "decoratedName":"?_Copy_s@?$char_traits@D@std@@SAPADPADIPBDI@Z",
             "properties":{
-              "decorated":"?_Copy_s@?$char_traits@D@std@@SAPADPADIPBDI@Z",
               "funcline":"455"
             }
           }
@@ -2184,9 +1937,8 @@
               }
             },
             "fullyQualifiedLogicalName":"std::char_traits<char>::_Move_s",
-            "logicalLocationKey":"?_Move_s@?$char_traits@D@std@@SAPADPADIPBDI@Z",
+            "decoratedName":"?_Move_s@?$char_traits@D@std@@SAPADPADIPBDI@Z",
             "properties":{
-              "decorated":"?_Move_s@?$char_traits@D@std@@SAPADPADIPBDI@Z",
               "funcline":"479"
             }
           }
@@ -2227,9 +1979,8 @@
               }
             },
             "fullyQualifiedLogicalName":"std::char_traits<char>::_Move_s",
-            "logicalLocationKey":"?_Move_s@?$char_traits@D@std@@SAPADPADIPBDI@Z",
+            "decoratedName":"?_Move_s@?$char_traits@D@std@@SAPADPADIPBDI@Z",
             "properties":{
-              "decorated":"?_Move_s@?$char_traits@D@std@@SAPADPADIPBDI@Z",
               "funcline":"479"
             }
           }
@@ -2270,9 +2021,8 @@
               }
             },
             "fullyQualifiedLogicalName":"std::_Maklocstr",
-            "logicalLocationKey":"??$_Maklocstr@G@std@@YAPAGPBDPAGABU_Cvtvec@@@Z",
+            "decoratedName":"??$_Maklocstr@G@std@@YAPAGPBDPAGABU_Cvtvec@@@Z",
             "properties":{
-              "decorated":"??$_Maklocstr@G@std@@YAPAGPBDPAGABU_Cvtvec@@@Z",
               "funcline":"605"
             }
           }
@@ -2377,9 +2127,8 @@
               }
             },
             "fullyQualifiedLogicalName":"std::codecvt<unsigned short,char,int>::do_in",
-            "logicalLocationKey":"?do_in@?$codecvt@GDH@std@@MBEHAAHPBD1AAPBDPAG3AAPAG@Z",
+            "decoratedName":"?do_in@?$codecvt@GDH@std@@MBEHAAHPBD1AAPBDPAG3AAPAG@Z",
             "properties":{
-              "decorated":"?do_in@?$codecvt@GDH@std@@MBEHAAHPBD1AAPBDPAG3AAPAG@Z",
               "funcline":"872"
             }
           }
@@ -2564,9 +2313,8 @@
               }
             },
             "fullyQualifiedLogicalName":"std::codecvt<unsigned short,char,int>::do_in",
-            "logicalLocationKey":"?do_in@?$codecvt@GDH@std@@MBEHAAHPBD1AAPBDPAG3AAPAG@Z",
+            "decoratedName":"?do_in@?$codecvt@GDH@std@@MBEHAAHPBD1AAPBDPAG3AAPAG@Z",
             "properties":{
-              "decorated":"?do_in@?$codecvt@GDH@std@@MBEHAAHPBD1AAPBDPAG3AAPAG@Z",
               "funcline":"872"
             }
           }
@@ -2711,9 +2459,8 @@
               }
             },
             "fullyQualifiedLogicalName":"std::codecvt<unsigned short,char,int>::do_in",
-            "logicalLocationKey":"?do_in@?$codecvt@GDH@std@@MBEHAAHPBD1AAPBDPAG3AAPAG@Z",
+            "decoratedName":"?do_in@?$codecvt@GDH@std@@MBEHAAHPBD1AAPBDPAG3AAPAG@Z",
             "properties":{
-              "decorated":"?do_in@?$codecvt@GDH@std@@MBEHAAHPBD1AAPBDPAG3AAPAG@Z",
               "funcline":"872"
             }
           }
@@ -2954,9 +2701,8 @@
               }
             },
             "fullyQualifiedLogicalName":"std::codecvt<unsigned short,char,int>::do_out",
-            "logicalLocationKey":"?do_out@?$codecvt@GDH@std@@MBEHAAHPBG1AAPBGPAD3AAPAD@Z",
+            "decoratedName":"?do_out@?$codecvt@GDH@std@@MBEHAAHPBG1AAPBGPAD3AAPAD@Z",
             "properties":{
-              "decorated":"?do_out@?$codecvt@GDH@std@@MBEHAAHPBG1AAPBGPAD3AAPAD@Z",
               "funcline":"908"
             }
           }
@@ -3165,9 +2911,8 @@
               }
             },
             "fullyQualifiedLogicalName":"std::codecvt<unsigned short,char,int>::do_out",
-            "logicalLocationKey":"?do_out@?$codecvt@GDH@std@@MBEHAAHPBG1AAPBGPAD3AAPAD@Z",
+            "decoratedName":"?do_out@?$codecvt@GDH@std@@MBEHAAHPBG1AAPBGPAD3AAPAD@Z",
             "properties":{
-              "decorated":"?do_out@?$codecvt@GDH@std@@MBEHAAHPBG1AAPBGPAD3AAPAD@Z",
               "funcline":"908"
             }
           }
@@ -3376,9 +3121,8 @@
               }
             },
             "fullyQualifiedLogicalName":"std::codecvt<unsigned short,char,int>::do_length",
-            "logicalLocationKey":"?do_length@?$codecvt@GDH@std@@MBEHABHPBD1I@Z",
+            "decoratedName":"?do_length@?$codecvt@GDH@std@@MBEHABHPBD1I@Z",
             "properties":{
-              "decorated":"?do_length@?$codecvt@GDH@std@@MBEHABHPBD1I@Z",
               "funcline":"972"
             }
           }
@@ -3531,9 +3275,8 @@
               }
             },
             "fullyQualifiedLogicalName":"std::codecvt<unsigned short,char,int>::do_length",
-            "logicalLocationKey":"?do_length@?$codecvt@GDH@std@@MBEHABHPBD1I@Z",
+            "decoratedName":"?do_length@?$codecvt@GDH@std@@MBEHABHPBD1I@Z",
             "properties":{
-              "decorated":"?do_length@?$codecvt@GDH@std@@MBEHABHPBD1I@Z",
               "funcline":"972"
             }
           }
@@ -3790,9 +3533,8 @@
               }
             },
             "fullyQualifiedLogicalName":"std::ctype<char>::do_tolower",
-            "logicalLocationKey":"?do_tolower@?$ctype@D@std@@MBEPBDPADPBD@Z",
+            "decoratedName":"?do_tolower@?$ctype@D@std@@MBEPBDPADPBD@Z",
             "properties":{
-              "decorated":"?do_tolower@?$ctype@D@std@@MBEPBDPADPBD@Z",
               "funcline":"1520"
             }
           }
@@ -3873,9 +3615,8 @@
               }
             },
             "fullyQualifiedLogicalName":"std::ctype<char>::do_toupper",
-            "logicalLocationKey":"?do_toupper@?$ctype@D@std@@MBEPBDPADPBD@Z",
+            "decoratedName":"?do_toupper@?$ctype@D@std@@MBEPBDPADPBD@Z",
             "properties":{
-              "decorated":"?do_toupper@?$ctype@D@std@@MBEPBDPADPBD@Z",
               "funcline":"1534"
             }
           }
@@ -3956,9 +3697,8 @@
               }
             },
             "fullyQualifiedLogicalName":"std::ctype<char>::_Do_widen_s",
-            "logicalLocationKey":"?_Do_widen_s@?$ctype@D@std@@IBEPBDPBD0PADI@Z",
+            "decoratedName":"?_Do_widen_s@?$ctype@D@std@@IBEPBDPBD0PADI@Z",
             "properties":{
-              "decorated":"?_Do_widen_s@?$ctype@D@std@@IBEPBDPBD0PADI@Z",
               "funcline":"1557"
             }
           }
@@ -4007,9 +3747,8 @@
               }
             },
             "fullyQualifiedLogicalName":"std::ctype<char>::_Do_narrow_s",
-            "logicalLocationKey":"?_Do_narrow_s@?$ctype@D@std@@IBEPBDPBD0DPADI@Z",
+            "decoratedName":"?_Do_narrow_s@?$ctype@D@std@@IBEPBDPBD0DPADI@Z",
             "properties":{
-              "decorated":"?_Do_narrow_s@?$ctype@D@std@@IBEPBDPBD0DPADI@Z",
               "funcline":"1581"
             }
           }
@@ -4058,9 +3797,8 @@
               }
             },
             "fullyQualifiedLogicalName":"std::ctype<unsigned short>::do_scan_is",
-            "logicalLocationKey":"?do_scan_is@?$ctype@G@std@@MBEPBGFPBG0@Z",
+            "decoratedName":"?do_scan_is@?$ctype@G@std@@MBEPBGFPBG0@Z",
             "properties":{
-              "decorated":"?do_scan_is@?$ctype@G@std@@MBEPBGFPBG0@Z",
               "funcline":"1756"
             }
           }
@@ -4141,9 +3879,8 @@
               }
             },
             "fullyQualifiedLogicalName":"std::ctype<unsigned short>::do_scan_not",
-            "logicalLocationKey":"?do_scan_not@?$ctype@G@std@@MBEPBGFPBG0@Z",
+            "decoratedName":"?do_scan_not@?$ctype@G@std@@MBEPBGFPBG0@Z",
             "properties":{
-              "decorated":"?do_scan_not@?$ctype@G@std@@MBEPBGFPBG0@Z",
               "funcline":"1765"
             }
           }
@@ -4224,9 +3961,8 @@
               }
             },
             "fullyQualifiedLogicalName":"std::ctype<unsigned short>::do_tolower",
-            "logicalLocationKey":"?do_tolower@?$ctype@G@std@@MBEPBGPAGPBG@Z",
+            "decoratedName":"?do_tolower@?$ctype@G@std@@MBEPBGPAGPBG@Z",
             "properties":{
-              "decorated":"?do_tolower@?$ctype@G@std@@MBEPBGPAGPBG@Z",
               "funcline":"1779"
             }
           }
@@ -4307,9 +4043,8 @@
               }
             },
             "fullyQualifiedLogicalName":"std::ctype<unsigned short>::do_toupper",
-            "logicalLocationKey":"?do_toupper@?$ctype@G@std@@MBEPBGPAGPBG@Z",
+            "decoratedName":"?do_toupper@?$ctype@G@std@@MBEPBGPAGPBG@Z",
             "properties":{
-              "decorated":"?do_toupper@?$ctype@G@std@@MBEPBGPAGPBG@Z",
               "funcline":"1793"
             }
           }
@@ -4390,9 +4125,8 @@
               }
             },
             "fullyQualifiedLogicalName":"std::ctype<unsigned short>::_Do_widen_s",
-            "logicalLocationKey":"?_Do_widen_s@?$ctype@G@std@@IBEPBDPBD0PAGI@Z",
+            "decoratedName":"?_Do_widen_s@?$ctype@G@std@@IBEPBDPBD0PAGI@Z",
             "properties":{
-              "decorated":"?_Do_widen_s@?$ctype@G@std@@IBEPBDPBD0PAGI@Z",
               "funcline":"1824"
             }
           }
@@ -4489,9 +4223,8 @@
               }
             },
             "fullyQualifiedLogicalName":"std::ctype<unsigned short>::_Do_widen_s",
-            "logicalLocationKey":"?_Do_widen_s@?$ctype@G@std@@IBEPBDPBD0PAGI@Z",
+            "decoratedName":"?_Do_widen_s@?$ctype@G@std@@IBEPBDPBD0PAGI@Z",
             "properties":{
-              "decorated":"?_Do_widen_s@?$ctype@G@std@@IBEPBDPBD0PAGI@Z",
               "funcline":"1824"
             }
           }
@@ -4596,9 +4329,8 @@
               }
             },
             "fullyQualifiedLogicalName":"std::ctype<unsigned short>::_Do_narrow_s",
-            "logicalLocationKey":"?_Do_narrow_s@?$ctype@G@std@@IBEPBGPBG0DPADI@Z",
+            "decoratedName":"?_Do_narrow_s@?$ctype@G@std@@IBEPBGPBG0DPADI@Z",
             "properties":{
-              "decorated":"?_Do_narrow_s@?$ctype@G@std@@IBEPBGPBG0DPADI@Z",
               "funcline":"1857"
             }
           }
@@ -4695,9 +4427,8 @@
               }
             },
             "fullyQualifiedLogicalName":"std::ctype<unsigned short>::_Do_narrow_s",
-            "logicalLocationKey":"?_Do_narrow_s@?$ctype@G@std@@IBEPBGPBG0DPADI@Z",
+            "decoratedName":"?_Do_narrow_s@?$ctype@G@std@@IBEPBGPBG0DPADI@Z",
             "properties":{
-              "decorated":"?_Do_narrow_s@?$ctype@G@std@@IBEPBGPBG0DPADI@Z",
               "funcline":"1857"
             }
           }
@@ -4802,9 +4533,8 @@
               }
             },
             "fullyQualifiedLogicalName":"ReadBinHeader",
-            "logicalLocationKey":"?ReadBinHeader@@YAPBEPAUtagNET_DESC@@PBEH@Z",
+            "decoratedName":"?ReadBinHeader@@YAPBEPAUtagNET_DESC@@PBEH@Z",
             "properties":{
-              "decorated":"?ReadBinHeader@@YAPBEPAUtagNET_DESC@@PBEH@Z",
               "funcline":"57"
             }
           }
@@ -5061,9 +4791,8 @@
               }
             },
             "fullyQualifiedLogicalName":"ReadBinHeader",
-            "logicalLocationKey":"?ReadBinHeader@@YAPBEPAUtagNET_DESC@@PBEH@Z",
+            "decoratedName":"?ReadBinHeader@@YAPBEPAUtagNET_DESC@@PBEH@Z",
             "properties":{
-              "decorated":"?ReadBinHeader@@YAPBEPAUtagNET_DESC@@PBEH@Z",
               "funcline":"57"
             }
           }
@@ -5344,9 +5073,8 @@
               }
             },
             "fullyQualifiedLogicalName":"std::basic_streambuf<unsigned short,std::char_traits<unsigned short> >::_Xsgetn_s",
-            "logicalLocationKey":"?_Xsgetn_s@?$basic_streambuf@GU?$char_traits@G@std@@@std@@IAEHPAGIH@Z",
+            "decoratedName":"?_Xsgetn_s@?$basic_streambuf@GU?$char_traits@G@std@@@std@@IAEHPAGIH@Z",
             "properties":{
-              "decorated":"?_Xsgetn_s@?$basic_streambuf@GU?$char_traits@G@std@@@std@@IAEHPAGIH@Z",
               "funcline":"324"
             }
           }
@@ -5627,9 +5355,8 @@
               }
             },
             "fullyQualifiedLogicalName":"std::basic_streambuf<char,std::char_traits<char> >::_Xsgetn_s",
-            "logicalLocationKey":"?_Xsgetn_s@?$basic_streambuf@DU?$char_traits@D@std@@@std@@IAEHPADIH@Z",
+            "decoratedName":"?_Xsgetn_s@?$basic_streambuf@DU?$char_traits@D@std@@@std@@IAEHPADIH@Z",
             "properties":{
-              "decorated":"?_Xsgetn_s@?$basic_streambuf@DU?$char_traits@D@std@@@std@@IAEHPADIH@Z",
               "funcline":"324"
             }
           }

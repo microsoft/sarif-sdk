@@ -1,26 +1,11 @@
 {
-"version":"1.0.0-beta.4",
+"version":"1.0.0",
 "$schema":"http://json.schemastore.org/sarif-1.0.0",
 "runs":[
   {
     "tool":{
       "name":"PREfast",
-      "fullName":"PREfast Code Analysis",
-      "version":"14.0.0"
-    },
-    "logicalLocations":{
-      "?strchr@@YAPADPBDH@Z":[
-        {
-          "kind":"method",
-          "name":"strchr"
-        }
-      ],
-      "?AddExtensionControlBlock@@YAXPAEK@Z":[
-        {
-          "kind":"method",
-          "name":"AddExtensionControlBlock"
-        }
-      ]
+      "fullName":"PREfast Code Analysis"
     },
     "results":[
       {
@@ -36,9 +21,8 @@
               }
             },
             "fullyQualifiedLogicalName":"strchr",
-            "logicalLocationKey":"?strchr@@YAPADPBDH@Z",
+            "decoratedName":"?strchr@@YAPADPBDH@Z",
             "properties":{
-              "decorated":"?strchr@@YAPADPBDH@Z",
               "funcline":"7"
             }
           }
@@ -103,9 +87,8 @@
               }
             },
             "fullyQualifiedLogicalName":"AddExtensionControlBlock",
-            "logicalLocationKey":"?AddExtensionControlBlock@@YAXPAEK@Z",
+            "decoratedName":"?AddExtensionControlBlock@@YAXPAEK@Z",
             "properties":{
-              "decorated":"?AddExtensionControlBlock@@YAXPAEK@Z",
               "funcline":"31"
             }
           }
@@ -330,9 +313,8 @@
               }
             },
             "fullyQualifiedLogicalName":"AddExtensionControlBlock",
-            "logicalLocationKey":"?AddExtensionControlBlock@@YAXPAEK@Z",
+            "decoratedName":"?AddExtensionControlBlock@@YAXPAEK@Z",
             "properties":{
-              "decorated":"?AddExtensionControlBlock@@YAXPAEK@Z",
               "funcline":"31"
             }
           }

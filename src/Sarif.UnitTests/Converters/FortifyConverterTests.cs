@@ -96,11 +96,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             Builder builder = FortifyConverterTests.GetBasicBuilder();
             builder.InstanceId = "a";
             Result resultA = FortifyConverter.ConvertFortifyIssueToSarifIssue(builder.ToImmutable());
-            Assert.AreEqual("a", resultA.ToolFingerprint);
+            Assert.AreEqual("a", resultA.ToolFingerprintContribution);
 
             builder.InstanceId = null; // IID is optional
             Result resultNull = FortifyConverter.ConvertFortifyIssueToSarifIssue(builder.ToImmutable());
-            Assert.IsNull(resultNull.ToolFingerprint);
+            Assert.IsNull(resultNull.ToolFingerprintContribution);
         }
 
         [TestMethod]

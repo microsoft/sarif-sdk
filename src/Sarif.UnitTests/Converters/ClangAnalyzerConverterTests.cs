@@ -38,7 +38,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
         private const string empty = @"{
   ""$schema"": ""http://json.schemastore.org/sarif-1.0.0"",
-  ""version"": ""1.0.0-beta.4"",
+  ""version"": ""1.0.0"",
   ""runs"": [
     {
       ""tool"": {

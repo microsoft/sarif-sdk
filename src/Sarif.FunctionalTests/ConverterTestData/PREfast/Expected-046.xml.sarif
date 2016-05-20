@@ -1,44 +1,11 @@
 {
-"version":"1.0.0-beta.4",
+"version":"1.0.0",
 "$schema":"http://json.schemastore.org/sarif-1.0.0",
 "runs":[
   {
     "tool":{
       "name":"PREfast",
-      "fullName":"PREfast Code Analysis",
-      "version":"14.0.0"
-    },
-    "logicalLocations":{
-      "?f@@YAXQBUS@@@Z":[
-        {
-          "kind":"method",
-          "name":"f"
-        }
-      ],
-      "?f1@@YAXPBD@Z":[
-        {
-          "kind":"method",
-          "name":"f1"
-        }
-      ],
-      "?f2@@YAXPBG@Z":[
-        {
-          "kind":"method",
-          "name":"f2"
-        }
-      ],
-      "?f3@@YAXPBG@Z":[
-        {
-          "kind":"method",
-          "name":"f3"
-        }
-      ],
-      "?f4@@YAXPBE@Z":[
-        {
-          "kind":"method",
-          "name":"f4"
-        }
-      ]
+      "fullName":"PREfast Code Analysis"
     },
     "results":[
       {
@@ -54,9 +21,8 @@
               }
             },
             "fullyQualifiedLogicalName":"f",
-            "logicalLocationKey":"?f@@YAXQBUS@@@Z",
+            "decoratedName":"?f@@YAXQBUS@@@Z",
             "properties":{
-              "decorated":"?f@@YAXQBUS@@@Z",
               "funcline":"13"
             }
           }
@@ -97,9 +63,8 @@
               }
             },
             "fullyQualifiedLogicalName":"f1",
-            "logicalLocationKey":"?f1@@YAXPBD@Z",
+            "decoratedName":"?f1@@YAXPBD@Z",
             "properties":{
-              "decorated":"?f1@@YAXPBD@Z",
               "funcline":"18"
             }
           }
@@ -148,9 +113,8 @@
               }
             },
             "fullyQualifiedLogicalName":"f2",
-            "logicalLocationKey":"?f2@@YAXPBG@Z",
+            "decoratedName":"?f2@@YAXPBG@Z",
             "properties":{
-              "decorated":"?f2@@YAXPBG@Z",
               "funcline":"23"
             }
           }
@@ -199,9 +163,8 @@
               }
             },
             "fullyQualifiedLogicalName":"f3",
-            "logicalLocationKey":"?f3@@YAXPBG@Z",
+            "decoratedName":"?f3@@YAXPBG@Z",
             "properties":{
-              "decorated":"?f3@@YAXPBG@Z",
               "funcline":"28"
             }
           }
@@ -250,9 +213,8 @@
               }
             },
             "fullyQualifiedLogicalName":"f4",
-            "logicalLocationKey":"?f4@@YAXPBE@Z",
+            "decoratedName":"?f4@@YAXPBE@Z",
             "properties":{
-              "decorated":"?f4@@YAXPBE@Z",
               "funcline":"38"
             }
           }

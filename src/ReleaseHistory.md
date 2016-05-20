@@ -16,8 +16,23 @@
 * Fix diffing visitor to diff using value type semantics rather than by reference equality
 
 ## **v1.5.22-beta** [Driver](https://www.nuget.org/packages/Sarif.Driver/1.5.22-beta) | [SDK](https://www.nuget.org/packages/Sarif.Sdk/1.5.22-beta)
-* Rename 'suppressedInBaseline' to 'suppressed'
-* Provide 'id' and 'correlationId' as arguments to ResultLogJsonWriter.Initialize. By default, 'id' is populated with a generated guid.
-
+* Add suppressionStates enum (with a single current value, indicating 'suppressedInSource')
+* Add 'id' and 'correlationId' as arguments to ResultLogJsonWriter.Initialize. Log 'id' is populated with a generated guid by default.
+* Add 'sarifLoggerVersion' that identifies the SDK logger version used to produce a log file.
+* Provide serialization of arbitrary JSON content to 'properties' members.
+* Move 'tags' into properties (but provide top-level Tags member for setting/retrieving this data)
+* Add annotatedCodeLocation.kind enum (with values such as 'branch', 'declaration', et al.)
+* Update all converters to Sarif beta.5
+* Add optional 'id' to each result, to allow correlation with external data, annotations, work items, etc.
+* Add flag to configure file hash computation to FileData.Create helper
+* Add 'uriBaseId' conceptual base URI to all format URI properties (to allow all URIs to be relative)
+* Add 'analysisTargetUri' to run object, for cases where a single target is associated with a run
+* Add 'threadId' to notification, annotatedCodeLocation and stackFrame.
+* Rework files and logicalLocations dictionary to store discrete items (with parent keys), not arrays
+* Add logicalLocationKey and fullyQualifiedLogicalLocationName to annotatedCodeLocation
+* Add 'id' and 'essential' properties to annotatedCodeLocation
+* Rename 'toolFingerprint' to 'toolFingerprintContribution'
+* Add baselineId. Rename 'correlationId' to 'automationId'
+* Add 'physicalLocation' property to notification
 
 

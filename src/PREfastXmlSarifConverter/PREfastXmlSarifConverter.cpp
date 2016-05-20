@@ -5,6 +5,10 @@
 #include "SarifFormat.h"
 #include "DefectXmlFormat.h"
 
+#if BUILD_CONSOLE
+#include <iostream>
+#endif
+
 extern "C" {__declspec(dllexport) BSTR __stdcall ConvertToSarif(BSTR bstrFilePath); }
 extern "C" {__declspec(dllexport) BSTR __stdcall ConvertToSarifFromXml(BSTR bstrXmlText); }
 
@@ -407,14 +411,13 @@ extern "C"
 HRESULT __stdcall Convert(const std::deque<XmlDefect> defectList, BSTR bstrOutputFile, BSTR* pbstrSarifText)
 {
     SarifLog issueLog;
-    issueLog.SetVersion(L"1.0.0-beta.4");
+    issueLog.SetVersion(L"1.0.0");
     issueLog.SetSchema(L"http://json.schemastore.org/sarif-1.0.0");
 
     // Set Tool
     SarifTool tool;
     tool.SetName(L"PREfast");
     tool.SetFullName(L"PREfast Code Analysis");
-    tool.SetVersion(L"14.0.0");
 
     // Set Run
     SarifRun run;
@@ -439,13 +442,8 @@ HRESULT __stdcall Convert(const std::deque<XmlDefect> defectList, BSTR bstrOutpu
 
         location.SetFullyQualifiedLogicalName(defect.GetFunction());
 
-        SarifLogicalLocation logicalLocation;
-        logicalLocation.AddLogicalLocationComponent(defect.GetFunction(), L"method");
+        location.SetDecoratedName(defect.GetDecorated());
 
-        location.SetLogicalLocationKey(defect.GetDecorated());
-        run.AddLogicalLocation(defect.GetDecorated(), logicalLocation);
-
-        location.AddProperty(L"decorated", defect.GetDecorated());
         location.AddProperty(L"funcline", defect.GetFunctionLine());
 
         // Result
@@ -507,11 +505,25 @@ HRESULT __stdcall Convert(const std::deque<XmlDefect> defectList, BSTR bstrOutpu
 
                 if (keyEvent.IsValid())
                 {
-                    annotation.AddProperty(L"id", keyEvent.GetId());
-                    annotation.AddProperty(L"kind", keyEvent.GetKind());
-                    annotation.AddProperty(L"importance", keyEvent.GetImportance());
+                    if (wcscmp(keyEvent.GetId(), L"") != 0)
+                    {
+                        annotation.SetId(keyEvent.GetId());
+                    }
 
-                    annotation.SetMessage(keyEvent.GetMessage());
+                    if (wcscmp(keyEvent.GetKind(), L"") != 0)
+                    {
+                        annotation.SetKind(keyEvent.GetKind());
+                    }
+
+                    if (wcscmp(keyEvent.GetMessage(), L"") != 0)
+                    {
+                        annotation.SetMessage(keyEvent.GetMessage());
+                    }
+
+					if (wcscmp(keyEvent.GetImportance(), L"Essential") == 0)
+					{
+						annotation.SetEssential(L"true");
+					}
                 }
                 codeFlow.AddAnnotatedCodeLocation(annotation);
             }
@@ -521,7 +533,7 @@ HRESULT __stdcall Convert(const std::deque<XmlDefect> defectList, BSTR bstrOutpu
     }
     issueLog.AddRun(run);
 
-    std::wstring out = json::Serialize(issueLog.m_values);
+    std::wstring out = json::Serialize(issueLog.GetJsonObject());
 
     if (pbstrSarifText != NULL)
     {

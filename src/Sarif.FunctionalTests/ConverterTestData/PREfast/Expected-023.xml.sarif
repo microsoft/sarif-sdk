@@ -1,50 +1,11 @@
 {
-"version":"1.0.0-beta.4",
+"version":"1.0.0",
 "$schema":"http://json.schemastore.org/sarif-1.0.0",
 "runs":[
   {
     "tool":{
       "name":"PREfast",
-      "fullName":"PREfast Code Analysis",
-      "version":"14.0.0"
-    },
-    "logicalLocations":{
-      "?bar@@YAXPBD@Z":[
-        {
-          "kind":"method",
-          "name":"bar"
-        }
-      ],
-      "?g@@YADPAX@Z":[
-        {
-          "kind":"method",
-          "name":"g"
-        }
-      ],
-      "?g1@@YAXXZ":[
-        {
-          "kind":"method",
-          "name":"g1"
-        }
-      ],
-      "?blah@@YAXPAUS@@I@Z":[
-        {
-          "kind":"method",
-          "name":"blah"
-        }
-      ],
-      "?foo@@YAXPADI@Z":[
-        {
-          "kind":"method",
-          "name":"foo"
-        }
-      ],
-      "main":[
-        {
-          "kind":"method",
-          "name":"main"
-        }
-      ]
+      "fullName":"PREfast Code Analysis"
     },
     "results":[
       {
@@ -60,9 +21,8 @@
               }
             },
             "fullyQualifiedLogicalName":"bar",
-            "logicalLocationKey":"?bar@@YAXPBD@Z",
+            "decoratedName":"?bar@@YAXPBD@Z",
             "properties":{
-              "decorated":"?bar@@YAXPBD@Z",
               "funcline":"9"
             }
           }
@@ -111,9 +71,8 @@
               }
             },
             "fullyQualifiedLogicalName":"g",
-            "logicalLocationKey":"?g@@YADPAX@Z",
+            "decoratedName":"?g@@YADPAX@Z",
             "properties":{
-              "decorated":"?g@@YADPAX@Z",
               "funcline":"43"
             }
           }
@@ -170,9 +129,8 @@
               }
             },
             "fullyQualifiedLogicalName":"g1",
-            "logicalLocationKey":"?g1@@YAXXZ",
+            "decoratedName":"?g1@@YAXXZ",
             "properties":{
-              "decorated":"?g1@@YAXXZ",
               "funcline":"56"
             }
           }
@@ -229,9 +187,8 @@
               }
             },
             "fullyQualifiedLogicalName":"blah",
-            "logicalLocationKey":"?blah@@YAXPAUS@@I@Z",
+            "decoratedName":"?blah@@YAXPAUS@@I@Z",
             "properties":{
-              "decorated":"?blah@@YAXPAUS@@I@Z",
               "funcline":"62"
             }
           }
@@ -288,9 +245,8 @@
               }
             },
             "fullyQualifiedLogicalName":"foo",
-            "logicalLocationKey":"?foo@@YAXPADI@Z",
+            "decoratedName":"?foo@@YAXPADI@Z",
             "properties":{
-              "decorated":"?foo@@YAXPADI@Z",
               "funcline":"82"
             }
           }
@@ -355,9 +311,8 @@
               }
             },
             "fullyQualifiedLogicalName":"main",
-            "logicalLocationKey":"main",
+            "decoratedName":"main",
             "properties":{
-              "decorated":"main",
               "funcline":"91"
             }
           }

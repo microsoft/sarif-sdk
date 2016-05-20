@@ -72,7 +72,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             };
 
             var fileInfoFactory = new FileInfoFactory(uri => MimeType.Java);
-            Dictionary<string, IList<FileData>> fileDictionary = fileInfoFactory.Create(results);
+            Dictionary<string, FileData> fileDictionary = fileInfoFactory.Create(results);
 
             output.Initialize(id: null, correlationId: null);
 
@@ -136,59 +136,29 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
             SetSarifResultPropertiesForProblem(result, problem);
             var location = new Location();
-            var logicalLocationComponents = new List<LogicalLocationComponent>();
+            location.FullyQualifiedLogicalName = CreateSignature(problem);
 
-            if (!String.IsNullOrWhiteSpace(problem.Module))
+            string logicalLocationKey = CreateLogicalLocation(problem);
+
+            if (logicalLocationKey != location.FullyQualifiedLogicalName)
             {
-                logicalLocationComponents.Add(new LogicalLocationComponent
-                {
-                    Name = problem.Module,
-                    Kind = LogicalLocationKind.Module
-                });
+                location.LogicalLocationKey = logicalLocationKey;
             }
 
-            if (!String.IsNullOrWhiteSpace(problem.Package))
-            {
-                logicalLocationComponents.Add(new LogicalLocationComponent
-                {
-                    Name = problem.Package,
-                    Kind = LogicalLocationKind.Package
-                });
-            }
-
-            if ("class".Equals(problem.EntryPointType, StringComparison.OrdinalIgnoreCase))
-            {
-                logicalLocationComponents.Add(new LogicalLocationComponent
-                {
-                    Name = problem.EntryPointName,
-                    Kind = LogicalLocationKind.Type
-                });
-            }
-
-            if ("method".Equals(problem.EntryPointType, StringComparison.OrdinalIgnoreCase))
-            {
-                logicalLocationComponents.Add(new LogicalLocationComponent
-                {
-                    Name = problem.EntryPointName,
-                    Kind = LogicalLocationKind.Member
-                });
-            }
-
-            if (logicalLocationComponents.Count != 0)
-            {
-                location.FullyQualifiedLogicalName = String.Join("\\", logicalLocationComponents.Select(x => x.Name));
-
-                AddLogicalLocation(location, logicalLocationComponents);
-            }
-
+            Uri uri;
             string file = problem.File;
             if (!String.IsNullOrEmpty(file))
             {
                 location.ResultFile = new PhysicalLocation
                 {
-                    Uri = RemoveBadRoot(file),
                     Region = problem.Line <= 0 ? null : Extensions.CreateRegion(problem.Line)
                 };
+
+                if (RemoveBadRoot(file, out uri))
+                {
+                    location.ResultFile.UriBaseId = PROJECT_DIR;
+                }
+                location.ResultFile.Uri = uri;
             }
 
             if ("file".Equals(problem.EntryPointType, StringComparison.OrdinalIgnoreCase))
@@ -198,15 +168,80 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                     location.ResultFile = location.AnalysisTarget;
                 }
 
-                location.AnalysisTarget = new PhysicalLocation
+                location.AnalysisTarget = new PhysicalLocation();
+
+                if (RemoveBadRoot(problem.EntryPointName, out uri))
                 {
-                    Uri = RemoveBadRoot(problem.EntryPointName)
-                };
+                    location.AnalysisTarget.UriBaseId = PROJECT_DIR;
+                }
+                location.AnalysisTarget.Uri = uri;
             }
 
             result.Locations = new List<Location> { location };
 
             return result;
+        }
+
+        private static string CreateSignature(AndroidStudioProblem problem)
+        {
+            string entryPointName = problem.EntryPointName;
+            if ("file".Equals(problem.EntryPointType))
+            {
+                entryPointName = null;
+            }
+
+            string[] parts = new string[] { problem.Module, problem.Package, entryPointName };
+            var updated = parts
+                    .Where(part => !String.IsNullOrEmpty(part));
+
+            string joinedParts = String.Join(@"\", updated);
+
+            if (String.IsNullOrEmpty(joinedParts))
+            {
+                return problem.Module;
+            }
+            else
+            {
+                return joinedParts;
+            }
+        }
+
+        private string CreateLogicalLocation(AndroidStudioProblem problem)
+        {
+            string parentLogicalLocationKey = null;
+
+            parentLogicalLocationKey = TryAddLogicalLocation(parentLogicalLocationKey, problem.Module, LogicalLocationKind.Module);
+            parentLogicalLocationKey = TryAddLogicalLocation(parentLogicalLocationKey, problem.Package, LogicalLocationKind.Package);
+
+            if (problem.EntryPointName != null)
+            {
+                if ("class".Equals(problem.EntryPointType, StringComparison.OrdinalIgnoreCase))
+                {
+                    parentLogicalLocationKey = TryAddLogicalLocation(parentLogicalLocationKey, problem.EntryPointName, LogicalLocationKind.Type);
+                }
+                else if ("method".Equals(problem.EntryPointType, StringComparison.OrdinalIgnoreCase))
+                {
+                    parentLogicalLocationKey = TryAddLogicalLocation(parentLogicalLocationKey, problem.EntryPointName, LogicalLocationKind.Member);
+                }
+            }
+
+            return parentLogicalLocationKey;
+        }
+
+        private string TryAddLogicalLocation(string parentKey, string value, string kind, string delimiter = @"\")
+        {
+            if (!String.IsNullOrEmpty(value))
+            {
+                var logicalLocation = new LogicalLocation
+                {
+                    ParentKey = parentKey,
+                    Kind = kind,
+                    Name = value
+                };
+
+                return AddLogicalLocation(logicalLocation, delimiter);
+            }
+            return parentKey;
         }
 
         /// <summary>Generates a user-facing description for a problem, using the description supplied at
@@ -250,20 +285,26 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             return sb.ToString();
         }
 
-        private static Uri RemoveBadRoot(string path)
+        private const string PROJECT_DIR = "$PROJECT_DIR$";
+
+        private static bool RemoveBadRoot(string path, out Uri uri)
         {
-            const string badRoot = "file://$PROJECT_DIR$/";
+            const string badRoot = "file://" + PROJECT_DIR +"/";
+            bool removedBadRoot;
             string removed;
             if (path.StartsWith(badRoot, StringComparison.Ordinal))
             {
                 removed = path.Substring(badRoot.Length);
+                removedBadRoot = true;
             }
             else
             {
                 removed = path;
+                removedBadRoot = false;
             }
 
-            return new Uri(removed, UriKind.RelativeOrAbsolute);
+            uri = new Uri(removed, UriKind.RelativeOrAbsolute);
+            return removedBadRoot;
         }
     }
 }

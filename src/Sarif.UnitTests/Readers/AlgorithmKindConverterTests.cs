@@ -3,11 +3,7 @@
 
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
-using System.Text;
-
-using Microsoft.CodeAnalysis.Sarif.Writers;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 using Newtonsoft.Json;
@@ -17,23 +13,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
     [TestClass]
     public class AlgorithmKindConverterTests : JsonTests
     {
-        private static readonly Run s_defaultRun = new Run();
-        private static readonly Tool s_defaultTool = new Tool();
-        private static readonly Result s_defaultResult = new Result();
-
-        private static string GetJson(Action<ResultLogJsonWriter> testContent)
-        {
-            StringBuilder result = new StringBuilder();
-            using (var str = new StringWriter(result))
-            using (var json = new JsonTextWriter(str))
-            using (var uut = new ResultLogJsonWriter(json))
-            {
-                testContent(uut);
-            }
-
-            return result.ToString();
-        }
-
         [TestMethod]
         public void AlgorithmKind_AllMembers()
         {
@@ -80,10 +59,31 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
 
             foreach (var testTuple in testTuples)
             {
-                string expected = 
-                    "{\"$schema\":\"http://json.schemastore.org/sarif-1.0.0\",\"version\":\"1.0.0-beta.4\",\"runs\":[{\"tool\":{\"name\":null},\"files\":{\"http://abc/\":[{\"hashes\":[{\"value\":null,\"algorithm\":\"" +
-                    testTuple.Item2 +  
-                    "\"}]}]},\"results\":[{}]}]}";
+                string expected =
+@"{
+  ""$schema"": """ + SarifSchemaUri + @""",
+  ""version"": """ + SarifFormatVersion + @""",
+  ""runs"": [
+    {
+      ""tool"": {
+        ""name"": null
+      },
+      ""files"": {
+        ""http://abc/"": {
+          ""hashes"": [
+            {
+              ""value"": null,
+              ""algorithm"": """ + testTuple.Item2 + @"""
+            }
+          ]
+        }
+      },
+      ""results"": [
+        {}
+      ]
+    }
+  ]
+}";
 
                 string actual = GetJson(uut =>
                 {
@@ -91,13 +91,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
 
                     uut.Initialize(id: null, correlationId: null);
 
-                    uut.WriteTool(s_defaultTool);
+                    uut.WriteTool(DefaultTool);
 
-                    var files = new Dictionary<string, IList<FileData>>
+                    var file = new Dictionary<string, FileData>
                     {
-                        ["http://abc/"] = new List<FileData>
-                        {
-                        new FileData()
+                        ["http://abc/"] = new FileData()
                         {
                             Hashes = new List<Hash>
                             {
@@ -107,17 +105,16 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
                                 }
                             }
                         }
-                        }
                     };
 
-                    uut.WriteFiles(files);
+                    uut.WriteFiles(file);
 
-                    uut.WriteResults(new[] { s_defaultResult });
+                    uut.WriteResults(new[] { DefaultResult });
                 });
                 Assert.AreEqual(expected, actual);
 
                 var sarifLog = JsonConvert.DeserializeObject<SarifLog>(actual);
-                Assert.AreEqual(testTuple.Item1, sarifLog.Runs[0].Files.Values.First()[0].Hashes[0].Algorithm);
+                Assert.AreEqual(testTuple.Item1, sarifLog.Runs[0].Files.Values.First().Hashes[0].Algorithm);
             }
         }
     }

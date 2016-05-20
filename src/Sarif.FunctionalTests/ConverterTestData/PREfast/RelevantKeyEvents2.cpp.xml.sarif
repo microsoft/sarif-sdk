@@ -1,0 +1,108 @@
+{
+"version":"1.0.0",
+"$schema":"http://json.schemastore.org/sarif-1.0.0",
+"runs":[
+  {
+    "tool":{
+      "name":"PREfast",
+      "fullName":"PREfast Code Analysis"
+    },
+    "results":[
+      {
+        "ruleId":"28182",
+        "message":"Dereferencing NULL pointer. 'pNode' contains the same NULL value as 'pNodeFree' did. ",
+        "locations":[
+          {
+            "resultFile":{
+              "uri":"file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/relevantkeyevents/relevantkeyevents2.cpp",
+              "region":{
+                "startColumn":18,
+                "startLine":24
+              }
+            },
+            "fullyQualifiedLogicalName":"fun",
+            "decoratedName":"?fun@@YAXXZ",
+            "properties":{
+              "funcline":"10"
+            }
+          }
+        ],
+        "properties":{
+          "probability":"1",
+          "rank":"3",
+          "ruleCategory":"mspft"
+        },
+        "codeFlows":[
+          {
+            "locations":[
+              {
+                "physicalLocation":{
+                  "uri":"file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/relevantkeyevents/relevantkeyevents2.cpp",
+                  "region":{
+                    "startColumn":19,
+                    "startLine":12
+                  }
+                },
+                "id":"1",
+                "kind":"branch",
+                "message":"'pNodeFree' may be NULL (Enter this branch)"
+              },{
+                "physicalLocation":{
+                  "uri":"file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/relevantkeyevents/relevantkeyevents2.cpp",
+                  "region":{
+                    "startColumn":14,
+                    "startLine":14
+                  }
+                }
+              },{
+                "physicalLocation":{
+                  "uri":"file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/relevantkeyevents/relevantkeyevents2.cpp",
+                  "region":{
+                    "startColumn":18,
+                    "startLine":16
+                  }
+                }
+              },{
+                "physicalLocation":{
+                  "uri":"file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/relevantkeyevents/relevantkeyevents2.cpp",
+                  "region":{
+                    "startColumn":38,
+                    "startLine":16
+                  }
+                },
+                "id":"2",
+                "kind":"branch",
+                "message":"Skip this loop, (assume 'i>=0' is false)"
+              },{
+                "physicalLocation":{
+                  "uri":"file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/relevantkeyevents/relevantkeyevents2.cpp",
+                  "region":{
+                    "startColumn":9,
+                    "startLine":23
+                  }
+                },
+                "id":"3",
+                "kind":"alias",
+                "message":"(alias) 'pNode' receives the value of 'pNodeFree' (which may be NULL)",
+                "essential":true
+              },{
+                "physicalLocation":{
+                  "uri":"file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/relevantkeyevents/relevantkeyevents2.cpp",
+                  "region":{
+                    "startColumn":18,
+                    "startLine":24
+                  }
+                },
+                "id":"4",
+                "kind":"usage",
+                "message":"'pNode' is dereferenced, but may still be NULL",
+                "essential":true
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+]
+}

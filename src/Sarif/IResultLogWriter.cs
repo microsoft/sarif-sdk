@@ -42,7 +42,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// A dictionary whose keys are the strings representing the locations of scanned files
         /// and whose values provide information about those files.
         /// </param>
-        void WriteFiles(IDictionary<string, IList<FileData>> fileDictionary);
+        void WriteFiles(IDictionary<string, FileData> filesDictionary);
 
         /// <summary>
         /// Write information about the logical locations where results were produced to
@@ -53,7 +53,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// A dictionary whose keys are strings specifying a logical location and
         /// whose values provide information about each component of the logical location.
         /// </param>
-        void WriteLogicalLocations(IDictionary<string, IList<LogicalLocationComponent>> logicalLocationDictionary);
+        void WriteLogicalLocations(IDictionary<string, LogicalLocation> logicalLocationsDictionary);
 
         /// <summary>
         /// Write information about rules to the log. This information may appear

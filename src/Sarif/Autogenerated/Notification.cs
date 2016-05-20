@@ -13,7 +13,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// Describes a condition relevant to the tool itself, as opposed to being relevant to a target being analyzed by the tool.
     /// </summary>
     [DataContract]
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.31.0.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.34.0.0")]
     public partial class Notification : PropertyBagHolder, ISarifNode
     {
         public static IEqualityComparer<Notification> ValueComparer => NotificationEqualityComparer.Instance;
@@ -39,16 +39,22 @@ namespace Microsoft.CodeAnalysis.Sarif
         public string Id { get; set; }
 
         /// <summary>
-        /// The stable, unique identifier of the rule (if any) to which this notification is relevant.
+        /// The stable, unique identifier of the rule (if any) to which this notification is relevant. If 'ruleKey' is not specified, this member can be used to retrieve rule metadata from the rules dictionary, if it exists.
         /// </summary>
         [DataMember(Name = "ruleId", IsRequired = false, EmitDefaultValue = false)]
         public string RuleId { get; set; }
 
         /// <summary>
-        /// The analysis target (if any) to which this notification is relevant.
+        /// A key used to retrieve the rule metadata from the rules dictionary that is relevant to the notificationn.
         /// </summary>
-        [DataMember(Name = "analysisTarget", IsRequired = false, EmitDefaultValue = false)]
-        public PhysicalLocation AnalysisTarget { get; set; }
+        [DataMember(Name = "ruleKey", IsRequired = false, EmitDefaultValue = false)]
+        public string RuleKey { get; set; }
+
+        /// <summary>
+        /// The file and region relevant to this notification.
+        /// </summary>
+        [DataMember(Name = "physicalLocation", IsRequired = false, EmitDefaultValue = false)]
+        public PhysicalLocation PhysicalLocation { get; set; }
 
         /// <summary>
         /// A string that describes the condition that was encountered.
@@ -61,6 +67,12 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// </summary>
         [DataMember(Name = "level", IsRequired = false, EmitDefaultValue = false)]
         public NotificationLevel Level { get; set; }
+
+        /// <summary>
+        /// The thread identifier of the code that generated the notification.
+        /// </summary>
+        [DataMember(Name = "threadId", IsRequired = false, EmitDefaultValue = false)]
+        public int ThreadId { get; set; }
 
         /// <summary>
         /// The date and time at which the analysis tool generated the notification.
@@ -96,14 +108,20 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="ruleId">
         /// An initialization value for the <see cref="P: RuleId" /> property.
         /// </param>
-        /// <param name="analysisTarget">
-        /// An initialization value for the <see cref="P: AnalysisTarget" /> property.
+        /// <param name="ruleKey">
+        /// An initialization value for the <see cref="P: RuleKey" /> property.
+        /// </param>
+        /// <param name="physicalLocation">
+        /// An initialization value for the <see cref="P: PhysicalLocation" /> property.
         /// </param>
         /// <param name="message">
         /// An initialization value for the <see cref="P: Message" /> property.
         /// </param>
         /// <param name="level">
         /// An initialization value for the <see cref="P: Level" /> property.
+        /// </param>
+        /// <param name="threadId">
+        /// An initialization value for the <see cref="P: ThreadId" /> property.
         /// </param>
         /// <param name="time">
         /// An initialization value for the <see cref="P: Time" /> property.
@@ -114,9 +132,9 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="properties">
         /// An initialization value for the <see cref="P: Properties" /> property.
         /// </param>
-        public Notification(string id, string ruleId, PhysicalLocation analysisTarget, string message, NotificationLevel level, DateTime time, ExceptionData exception, IDictionary<string, SerializedPropertyInfo> properties)
+        public Notification(string id, string ruleId, string ruleKey, PhysicalLocation physicalLocation, string message, NotificationLevel level, int threadId, DateTime time, ExceptionData exception, IDictionary<string, SerializedPropertyInfo> properties)
         {
-            Init(id, ruleId, analysisTarget, message, level, time, exception, properties);
+            Init(id, ruleId, ruleKey, physicalLocation, message, level, threadId, time, exception, properties);
         }
 
         /// <summary>
@@ -135,7 +153,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 throw new ArgumentNullException(nameof(other));
             }
 
-            Init(other.Id, other.RuleId, other.AnalysisTarget, other.Message, other.Level, other.Time, other.Exception, other.Properties);
+            Init(other.Id, other.RuleId, other.RuleKey, other.PhysicalLocation, other.Message, other.Level, other.ThreadId, other.Time, other.Exception, other.Properties);
         }
 
         ISarifNode ISarifNode.DeepClone()
@@ -156,17 +174,19 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new Notification(this);
         }
 
-        private void Init(string id, string ruleId, PhysicalLocation analysisTarget, string message, NotificationLevel level, DateTime time, ExceptionData exception, IDictionary<string, SerializedPropertyInfo> properties)
+        private void Init(string id, string ruleId, string ruleKey, PhysicalLocation physicalLocation, string message, NotificationLevel level, int threadId, DateTime time, ExceptionData exception, IDictionary<string, SerializedPropertyInfo> properties)
         {
             Id = id;
             RuleId = ruleId;
-            if (analysisTarget != null)
+            RuleKey = ruleKey;
+            if (physicalLocation != null)
             {
-                AnalysisTarget = new PhysicalLocation(analysisTarget);
+                PhysicalLocation = new PhysicalLocation(physicalLocation);
             }
 
             Message = message;
             Level = level;
+            ThreadId = threadId;
             Time = time;
             if (exception != null)
             {

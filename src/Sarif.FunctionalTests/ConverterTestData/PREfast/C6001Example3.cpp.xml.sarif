@@ -1,0 +1,127 @@
+{
+"version":"1.0.0",
+"$schema":"http://json.schemastore.org/sarif-1.0.0",
+"runs":[
+  {
+    "tool":{
+      "name":"PREfast",
+      "fullName":"PREfast Code Analysis"
+    },
+    "results":[
+      {
+        "ruleId":"6001",
+        "message":"Using uninitialized memory 'i'.",
+        "locations":[
+          {
+            "resultFile":{
+              "uri":"file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/complex/c6001/c6001example3.cpp",
+              "region":{
+                "startColumn":6,
+                "startLine":11
+              }
+            },
+            "fullyQualifiedLogicalName":"C6001_Example3",
+            "decoratedName":"?C6001_Example3@@YAH_N0@Z",
+            "properties":{
+              "funcline":"2"
+            }
+          }
+        ],
+        "properties":{
+          "probability":"1",
+          "rank":"3",
+          "ruleCategory":"mspft"
+        },
+        "codeFlows":[
+          {
+            "locations":[
+              {
+                "physicalLocation":{
+                  "uri":"file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/complex/c6001/c6001example3.cpp",
+                  "region":{
+                    "startColumn":6,
+                    "startLine":4
+                  }
+                },
+                "id":"1",
+                "kind":"declaration",
+                "message":"'i' is not initialized",
+                "essential":true
+              },{
+                "physicalLocation":{
+                  "uri":"file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/complex/c6001/c6001example3.cpp",
+                  "region":{
+                    "startColumn":2,
+                    "startLine":5
+                  }
+                },
+                "id":"2",
+                "kind":"branch",
+                "message":"Go to labelb"
+              },{
+                "physicalLocation":{
+                  "uri":"file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/complex/c6001/c6001example3.cpp",
+                  "region":{
+                    "startColumn":1,
+                    "startLine":8
+                  }
+                }
+              },{
+                "physicalLocation":{
+                  "uri":"file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/complex/c6001/c6001example3.cpp",
+                  "region":{
+                    "startColumn":2,
+                    "startLine":9
+                  }
+                },
+                "id":"3",
+                "kind":"branch",
+                "message":"Go to labela"
+              },{
+                "physicalLocation":{
+                  "uri":"file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/complex/c6001/c6001example3.cpp",
+                  "region":{
+                    "startColumn":1,
+                    "startLine":6
+                  }
+                }
+              },{
+                "physicalLocation":{
+                  "uri":"file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/complex/c6001/c6001example3.cpp",
+                  "region":{
+                    "startColumn":2,
+                    "startLine":7
+                  }
+                },
+                "id":"4",
+                "kind":"branch",
+                "message":"Go to labelc"
+              },{
+                "physicalLocation":{
+                  "uri":"file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/complex/c6001/c6001example3.cpp",
+                  "region":{
+                    "startColumn":1,
+                    "startLine":10
+                  }
+                }
+              },{
+                "physicalLocation":{
+                  "uri":"file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/complex/c6001/c6001example3.cpp",
+                  "region":{
+                    "startColumn":6,
+                    "startLine":11
+                  }
+                },
+                "id":"5",
+                "kind":"usage",
+                "message":"'i' is used, but may not have been initialized",
+                "essential":true
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+]
+}

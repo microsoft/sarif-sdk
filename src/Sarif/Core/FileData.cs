@@ -13,32 +13,25 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// </summary>
     public partial class FileData : ISarifNode
     {
-        public static IList<FileData> Create(IEnumerable<Uri> uris, bool computeHashes, out string fileDataKey)
+        public static FileData Create(Uri uri, bool computeHashes, out string fileDataKey)
         {
-            if (uris == null) { throw new ArgumentNullException(nameof(uris)); }
+            if (uri == null) { throw new ArgumentNullException(nameof(uri)); }
 
             fileDataKey = null;
 
-            List<FileData> files = new List<FileData>();
-
-            foreach (Uri uri in uris)
+            var fileData = new FileData()
             {
-                var fileData = new FileData()
-                {
-                    MimeType = SarifWriters.MimeType.DetermineFromFileExtension(uri)
-                };
+                MimeType = SarifWriters.MimeType.DetermineFromFileExtension(uri)
+            };
 
-                if (files.Count == 0)
-                {
-                    Debug.Assert(uri.IsAbsoluteUri);
-                    fileDataKey = uri.ToString();
+            fileDataKey = uri.ToString();
 
-                    if (computeHashes && uri.IsAbsoluteUri && uri.IsFile)
-                    {
-                        string md5, sha1, sha256;
+            if (computeHashes && uri.IsAbsoluteUri && uri.IsFile)
+            {
+                string md5, sha1, sha256;
 
-                        HashUtilities.ComputeHashes(uri.LocalPath, out md5, out sha1, out sha256);
-                        fileData.Hashes = new List<Hash>
+                HashUtilities.ComputeHashes(uri.LocalPath, out md5, out sha1, out sha256);
+                fileData.Hashes = new List<Hash>
                         {
                             new Hash()
                             {
@@ -56,24 +49,22 @@ namespace Microsoft.CodeAnalysis.Sarif
                                 Algorithm = AlgorithmKind.Sha256,
                             },
                         };
-                    }
-                }
-                else if (files.Count == 1)
-                {
-                    fileData.Uri = uri;
-                    fileDataKey = fileDataKey + "#" + fileData.Uri.ToString();
-                }
-                else
-                {
-                    Debug.Assert(!uri.IsAbsoluteUri);                    
-                    fileData.Uri = uri;
-                    fileDataKey = fileDataKey + fileData.Uri.ToString();
-                }
-
-                files.Add(fileData);
             }
+            //else if (files.Count == 1)
+            //{
+            //    fileData.Uri = uri;
+            //    fileDataKey = fileDataKey + "#" + fileData.Uri.ToString();
+            //}
+            //else
+            //{
+            //    Debug.Assert(!uri.IsAbsoluteUri);                    
+            //    fileData.Uri = uri;
+            //    fileDataKey = fileDataKey + fileData.Uri.ToString();
+            //}
 
-            return files;
+            //files.Add(fileData);
+
+            return fileData;
         }
     }
 }

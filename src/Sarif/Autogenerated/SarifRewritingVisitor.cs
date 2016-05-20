@@ -11,7 +11,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// <summary>
     /// Rewriting visitor for the Sarif object model.
     /// </summary>
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.31.0.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.34.0.0")]
     public abstract class SarifRewritingVisitor
     {
         /// <summary>
@@ -66,8 +66,8 @@ namespace Microsoft.CodeAnalysis.Sarif
                     return VisitInvocation((Invocation)node);
                 case SarifNodeKind.Location:
                     return VisitLocation((Location)node);
-                case SarifNodeKind.LogicalLocationComponent:
-                    return VisitLogicalLocationComponent((LogicalLocationComponent)node);
+                case SarifNodeKind.LogicalLocation:
+                    return VisitLogicalLocation((LogicalLocation)node);
                 case SarifNodeKind.Notification:
                     return VisitNotification((Notification)node);
                 case SarifNodeKind.PhysicalLocation:
@@ -234,7 +234,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return node;
         }
 
-        public virtual LogicalLocationComponent VisitLogicalLocationComponent(LogicalLocationComponent node)
+        public virtual LogicalLocation VisitLogicalLocation(LogicalLocation node)
         {
             if (node != null)
             {
@@ -247,7 +247,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             if (node != null)
             {
-                node.AnalysisTarget = VisitNullChecked(node.AnalysisTarget);
+                node.PhysicalLocation = VisitNullChecked(node.PhysicalLocation);
                 node.Exception = VisitNullChecked(node.Exception);
             }
 
@@ -354,10 +354,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                         var value = node.Files[key];
                         if (value != null)
                         {
-                            for (int index_0 = 0; index_0 < node.Files[key].Count; ++index_0)
-                            {
-                                node.Files[key][index_0] = VisitNullChecked(node.Files[key][index_0]);
-                            }
+                            node.Files[key] = VisitNullChecked(value);
                         }
                     }
                 }
@@ -370,10 +367,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                         var value = node.LogicalLocations[key];
                         if (value != null)
                         {
-                            for (int index_0 = 0; index_0 < node.LogicalLocations[key].Count; ++index_0)
-                            {
-                                node.LogicalLocations[key][index_0] = VisitNullChecked(node.LogicalLocations[key][index_0]);
-                            }
+                            node.LogicalLocations[key] = VisitNullChecked(value);
                         }
                     }
                 }

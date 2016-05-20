@@ -1,20 +1,11 @@
 {
-"version":"1.0.0-beta.4",
+"version":"1.0.0",
 "$schema":"http://json.schemastore.org/sarif-1.0.0",
 "runs":[
   {
     "tool":{
       "name":"PREfast",
-      "fullName":"PREfast Code Analysis",
-      "version":"14.0.0"
-    },
-    "logicalLocations":{
-      "?UlpFixupIISLogRecord@@YAHPAULOG_DATA@@@Z":[
-        {
-          "kind":"method",
-          "name":"UlpFixupIISLogRecord"
-        }
-      ]
+      "fullName":"PREfast Code Analysis"
     },
     "results":[
       {
@@ -30,9 +21,8 @@
               }
             },
             "fullyQualifiedLogicalName":"UlpFixupIISLogRecord",
-            "logicalLocationKey":"?UlpFixupIISLogRecord@@YAHPAULOG_DATA@@@Z",
+            "decoratedName":"?UlpFixupIISLogRecord@@YAHPAULOG_DATA@@@Z",
             "properties":{
-              "decorated":"?UlpFixupIISLogRecord@@YAHPAULOG_DATA@@@Z",
               "funcline":"13"
             }
           }

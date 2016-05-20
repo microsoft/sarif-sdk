@@ -1,32 +1,11 @@
 {
-"version":"1.0.0-beta.4",
+"version":"1.0.0",
 "$schema":"http://json.schemastore.org/sarif-1.0.0",
 "runs":[
   {
     "tool":{
       "name":"PREfast",
-      "fullName":"PREfast Code Analysis",
-      "version":"14.0.0"
-    },
-    "logicalLocations":{
-      "?g@@YAXXZ":[
-        {
-          "kind":"method",
-          "name":"g"
-        }
-      ],
-      "?foo@@YAXXZ":[
-        {
-          "kind":"method",
-          "name":"foo"
-        }
-      ],
-      "?bar@@YAXH@Z":[
-        {
-          "kind":"method",
-          "name":"bar"
-        }
-      ]
+      "fullName":"PREfast Code Analysis"
     },
     "results":[
       {
@@ -42,9 +21,8 @@
               }
             },
             "fullyQualifiedLogicalName":"g",
-            "logicalLocationKey":"?g@@YAXXZ",
+            "decoratedName":"?g@@YAXXZ",
             "properties":{
-              "decorated":"?g@@YAXXZ",
               "funcline":"23"
             }
           }
@@ -101,9 +79,8 @@
               }
             },
             "fullyQualifiedLogicalName":"foo",
-            "logicalLocationKey":"?foo@@YAXXZ",
+            "decoratedName":"?foo@@YAXXZ",
             "properties":{
-              "decorated":"?foo@@YAXXZ",
               "funcline":"29"
             }
           }
@@ -152,9 +129,8 @@
               }
             },
             "fullyQualifiedLogicalName":"bar",
-            "logicalLocationKey":"?bar@@YAXH@Z",
+            "decoratedName":"?bar@@YAXH@Z",
             "properties":{
-              "decorated":"?bar@@YAXH@Z",
               "funcline":"35"
             }
           }

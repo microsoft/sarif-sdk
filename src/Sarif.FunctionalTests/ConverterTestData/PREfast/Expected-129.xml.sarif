@@ -1,32 +1,11 @@
 {
-"version":"1.0.0-beta.4",
+"version":"1.0.0",
 "$schema":"http://json.schemastore.org/sarif-1.0.0",
 "runs":[
   {
     "tool":{
       "name":"PREfast",
-      "fullName":"PREfast Code Analysis",
-      "version":"14.0.0"
-    },
-    "logicalLocations":{
-      "?BadGetWord1@@YAGPAPAD@Z":[
-        {
-          "kind":"method",
-          "name":"BadGetWord1"
-        }
-      ],
-      "?BadGetWord2@@YAGPAPAD@Z":[
-        {
-          "kind":"method",
-          "name":"BadGetWord2"
-        }
-      ],
-      "?GetDWord@@YAIPAPAD@Z":[
-        {
-          "kind":"method",
-          "name":"GetDWord"
-        }
-      ]
+      "fullName":"PREfast Code Analysis"
     },
     "results":[
       {
@@ -42,9 +21,8 @@
               }
             },
             "fullyQualifiedLogicalName":"BadGetWord1",
-            "logicalLocationKey":"?BadGetWord1@@YAGPAPAD@Z",
+            "decoratedName":"?BadGetWord1@@YAGPAPAD@Z",
             "properties":{
-              "decorated":"?BadGetWord1@@YAGPAPAD@Z",
               "funcline":"28"
             }
           }
@@ -109,9 +87,8 @@
               }
             },
             "fullyQualifiedLogicalName":"BadGetWord2",
-            "logicalLocationKey":"?BadGetWord2@@YAGPAPAD@Z",
+            "decoratedName":"?BadGetWord2@@YAGPAPAD@Z",
             "properties":{
-              "decorated":"?BadGetWord2@@YAGPAPAD@Z",
               "funcline":"36"
             }
           }
@@ -176,9 +153,8 @@
               }
             },
             "fullyQualifiedLogicalName":"GetDWord",
-            "logicalLocationKey":"?GetDWord@@YAIPAPAD@Z",
+            "decoratedName":"?GetDWord@@YAIPAPAD@Z",
             "properties":{
-              "decorated":"?GetDWord@@YAIPAPAD@Z",
               "funcline":"45"
             }
           }

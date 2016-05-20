@@ -1,76 +1,51 @@
 {
   "$schema": "http://json.schemastore.org/sarif-1.0.0",
-  "version": "1.0.0-beta.4",
+  "version": "1.0.0",
   "runs": [
     {
       "tool": {
         "name": "AndroidStudio"
       },
       "files": {
-        "gradle.properties": [
-          {
-            "mimeType": "text/x-java-source"
-          }
-        ],
-        "gradle/wrapper/gradle-wrapper.properties": [
-          {
-            "mimeType": "text/x-java-source"
-          }
-        ],
-        "gradlew": [
-          {
-            "mimeType": "text/x-java-source"
-          }
-        ],
-        "gradlew.bat": [
-          {
-            "mimeType": "text/x-java-source"
-          }
-        ],
-        "app/build.gradle": [
-          {
-            "mimeType": "text/x-java-source"
-          }
-        ],
-        "app/src/main/AndroidManifest.xml": [
-          {
-            "mimeType": "text/x-java-source"
-          }
-        ],
-        "app/src/main/res/values-w820dp/dimens.xml": [
-          {
-            "mimeType": "text/x-java-source"
-          }
-        ],
-        "app/src/main/java/microsoft/androidstudioformatexample/NamespaceTypo.java": [
-          {
-            "mimeType": "text/x-java-source"
-          }
-        ]
+        "gradle.properties": {
+          "mimeType": "text/x-java-source"
+        },
+        "gradle/wrapper/gradle-wrapper.properties": {
+          "mimeType": "text/x-java-source"
+        },
+        "gradlew": {
+          "mimeType": "text/x-java-source"
+        },
+        "gradlew.bat": {
+          "mimeType": "text/x-java-source"
+        },
+        "app/build.gradle": {
+          "mimeType": "text/x-java-source"
+        },
+        "app/src/main/AndroidManifest.xml": {
+          "mimeType": "text/x-java-source"
+        },
+        "app/src/main/res/values-w820dp/dimens.xml": {
+          "mimeType": "text/x-java-source"
+        },
+        "app/src/main/java/microsoft/androidstudioformatexample/NamespaceTypo.java": {
+          "mimeType": "text/x-java-source"
+        }
       },
       "logicalLocations": {
-        "AndroidStudioFormatExample": [
-          {
-            "name": "AndroidStudioFormatExample",
-            "kind": "module"
-          }
-        ],
-        "app": [
-          {
-            "name": "app",
-            "kind": "module"
-          }
-        ],
-        "app\\microsoft.androidstudioformatexample": [
-          {
-            "name": "app",
-            "kind": "module"
-          },
-          {
-            "name": "microsoft.androidstudioformatexample",
-            "kind": "package"
-          }
-        ]
+        "AndroidStudioFormatExample": {
+          "name": "AndroidStudioFormatExample",
+          "kind": "module"
+        },
+        "app": {
+          "name": "app",
+          "kind": "module"
+        },
+        "app\\microsoft.androidstudioformatexample": {
+          "name": "microsoft.androidstudioformatexample",
+          "parentKey": "app",
+          "kind": "package"
+        }
       },
       "results": [
         {
@@ -79,10 +54,12 @@
           "locations": [
             {
               "analysisTarget": {
-                "uri": "gradle.properties"
+                "uri": "gradle.properties",
+                "uriBaseId": "$PROJECT_DIR$"
               },
               "resultFile": {
                 "uri": "gradle.properties",
+                "uriBaseId": "$PROJECT_DIR$",
                 "region": {
                   "startLine": 8
                 }
@@ -101,10 +78,12 @@
           "locations": [
             {
               "analysisTarget": {
-                "uri": "gradle.properties"
+                "uri": "gradle.properties",
+                "uriBaseId": "$PROJECT_DIR$"
               },
               "resultFile": {
                 "uri": "gradle.properties",
+                "uriBaseId": "$PROJECT_DIR$",
                 "region": {
                   "startLine": 13
                 }
@@ -123,10 +102,12 @@
           "locations": [
             {
               "analysisTarget": {
-                "uri": "gradle.properties"
+                "uri": "gradle.properties",
+                "uriBaseId": "$PROJECT_DIR$"
               },
               "resultFile": {
                 "uri": "gradle.properties",
+                "uriBaseId": "$PROJECT_DIR$",
                 "region": {
                   "startLine": 13
                 }
@@ -145,10 +126,12 @@
           "locations": [
             {
               "analysisTarget": {
-                "uri": "gradle.properties"
+                "uri": "gradle.properties",
+                "uriBaseId": "$PROJECT_DIR$"
               },
               "resultFile": {
                 "uri": "gradle.properties",
+                "uriBaseId": "$PROJECT_DIR$",
                 "region": {
                   "startLine": 17
                 }
@@ -167,10 +150,12 @@
           "locations": [
             {
               "analysisTarget": {
-                "uri": "gradle/wrapper/gradle-wrapper.properties"
+                "uri": "gradle/wrapper/gradle-wrapper.properties",
+                "uriBaseId": "$PROJECT_DIR$"
               },
               "resultFile": {
                 "uri": "gradle/wrapper/gradle-wrapper.properties",
+                "uriBaseId": "$PROJECT_DIR$",
                 "region": {
                   "startLine": 3
                 }
@@ -189,10 +174,12 @@
           "locations": [
             {
               "analysisTarget": {
-                "uri": "gradle/wrapper/gradle-wrapper.properties"
+                "uri": "gradle/wrapper/gradle-wrapper.properties",
+                "uriBaseId": "$PROJECT_DIR$"
               },
               "resultFile": {
                 "uri": "gradle/wrapper/gradle-wrapper.properties",
+                "uriBaseId": "$PROJECT_DIR$",
                 "region": {
                   "startLine": 5
                 }
@@ -211,10 +198,12 @@
           "locations": [
             {
               "analysisTarget": {
-                "uri": "gradlew"
+                "uri": "gradlew",
+                "uriBaseId": "$PROJECT_DIR$"
               },
               "resultFile": {
                 "uri": "gradlew",
+                "uriBaseId": "$PROJECT_DIR$",
                 "region": {
                   "startLine": 30
                 }
@@ -233,10 +222,12 @@
           "locations": [
             {
               "analysisTarget": {
-                "uri": "gradlew"
+                "uri": "gradlew",
+                "uriBaseId": "$PROJECT_DIR$"
               },
               "resultFile": {
                 "uri": "gradlew",
+                "uriBaseId": "$PROJECT_DIR$",
                 "region": {
                   "startLine": 31
                 }
@@ -255,10 +246,12 @@
           "locations": [
             {
               "analysisTarget": {
-                "uri": "gradlew"
+                "uri": "gradlew",
+                "uriBaseId": "$PROJECT_DIR$"
               },
               "resultFile": {
                 "uri": "gradlew",
+                "uriBaseId": "$PROJECT_DIR$",
                 "region": {
                   "startLine": 33
                 }
@@ -277,10 +270,12 @@
           "locations": [
             {
               "analysisTarget": {
-                "uri": "gradlew"
+                "uri": "gradlew",
+                "uriBaseId": "$PROJECT_DIR$"
               },
               "resultFile": {
                 "uri": "gradlew",
+                "uriBaseId": "$PROJECT_DIR$",
                 "region": {
                   "startLine": 34
                 }
@@ -299,10 +294,12 @@
           "locations": [
             {
               "analysisTarget": {
-                "uri": "gradlew"
+                "uri": "gradlew",
+                "uriBaseId": "$PROJECT_DIR$"
               },
               "resultFile": {
                 "uri": "gradlew",
+                "uriBaseId": "$PROJECT_DIR$",
                 "region": {
                   "startLine": 35
                 }
@@ -321,10 +318,12 @@
           "locations": [
             {
               "analysisTarget": {
-                "uri": "gradlew"
+                "uri": "gradlew",
+                "uriBaseId": "$PROJECT_DIR$"
               },
               "resultFile": {
                 "uri": "gradlew",
+                "uriBaseId": "$PROJECT_DIR$",
                 "region": {
                   "startLine": 40
                 }
@@ -343,10 +342,12 @@
           "locations": [
             {
               "analysisTarget": {
-                "uri": "gradlew"
+                "uri": "gradlew",
+                "uriBaseId": "$PROJECT_DIR$"
               },
               "resultFile": {
                 "uri": "gradlew",
+                "uriBaseId": "$PROJECT_DIR$",
                 "region": {
                   "startLine": 41
                 }
@@ -365,10 +366,12 @@
           "locations": [
             {
               "analysisTarget": {
-                "uri": "gradlew"
+                "uri": "gradlew",
+                "uriBaseId": "$PROJECT_DIR$"
               },
               "resultFile": {
                 "uri": "gradlew",
+                "uriBaseId": "$PROJECT_DIR$",
                 "region": {
                   "startLine": 43
                 }
@@ -387,10 +390,12 @@
           "locations": [
             {
               "analysisTarget": {
-                "uri": "gradlew"
+                "uri": "gradlew",
+                "uriBaseId": "$PROJECT_DIR$"
               },
               "resultFile": {
                 "uri": "gradlew",
+                "uriBaseId": "$PROJECT_DIR$",
                 "region": {
                   "startLine": 45
                 }
@@ -409,10 +414,12 @@
           "locations": [
             {
               "analysisTarget": {
-                "uri": "gradlew"
+                "uri": "gradlew",
+                "uriBaseId": "$PROJECT_DIR$"
               },
               "resultFile": {
                 "uri": "gradlew",
+                "uriBaseId": "$PROJECT_DIR$",
                 "region": {
                   "startLine": 46
                 }
@@ -431,10 +438,12 @@
           "locations": [
             {
               "analysisTarget": {
-                "uri": "gradlew"
+                "uri": "gradlew",
+                "uriBaseId": "$PROJECT_DIR$"
               },
               "resultFile": {
                 "uri": "gradlew",
+                "uriBaseId": "$PROJECT_DIR$",
                 "region": {
                   "startLine": 47
                 }
@@ -453,10 +462,12 @@
           "locations": [
             {
               "analysisTarget": {
-                "uri": "gradlew"
+                "uri": "gradlew",
+                "uriBaseId": "$PROJECT_DIR$"
               },
               "resultFile": {
                 "uri": "gradlew",
+                "uriBaseId": "$PROJECT_DIR$",
                 "region": {
                   "startLine": 60
                 }
@@ -475,10 +486,12 @@
           "locations": [
             {
               "analysisTarget": {
-                "uri": "gradlew"
+                "uri": "gradlew",
+                "uriBaseId": "$PROJECT_DIR$"
               },
               "resultFile": {
                 "uri": "gradlew",
+                "uriBaseId": "$PROJECT_DIR$",
                 "region": {
                   "startLine": 64
                 }
@@ -497,10 +510,12 @@
           "locations": [
             {
               "analysisTarget": {
-                "uri": "gradlew"
+                "uri": "gradlew",
+                "uriBaseId": "$PROJECT_DIR$"
               },
               "resultFile": {
                 "uri": "gradlew",
+                "uriBaseId": "$PROJECT_DIR$",
                 "region": {
                   "startLine": 73
                 }
@@ -519,10 +534,12 @@
           "locations": [
             {
               "analysisTarget": {
-                "uri": "gradlew"
+                "uri": "gradlew",
+                "uriBaseId": "$PROJECT_DIR$"
               },
               "resultFile": {
                 "uri": "gradlew",
+                "uriBaseId": "$PROJECT_DIR$",
                 "region": {
                   "startLine": 74
                 }
@@ -541,10 +558,12 @@
           "locations": [
             {
               "analysisTarget": {
-                "uri": "gradlew"
+                "uri": "gradlew",
+                "uriBaseId": "$PROJECT_DIR$"
               },
               "resultFile": {
                 "uri": "gradlew",
+                "uriBaseId": "$PROJECT_DIR$",
                 "region": {
                   "startLine": 76
                 }
@@ -563,10 +582,12 @@
           "locations": [
             {
               "analysisTarget": {
-                "uri": "gradlew"
+                "uri": "gradlew",
+                "uriBaseId": "$PROJECT_DIR$"
               },
               "resultFile": {
                 "uri": "gradlew",
+                "uriBaseId": "$PROJECT_DIR$",
                 "region": {
                   "startLine": 78
                 }
@@ -585,10 +606,12 @@
           "locations": [
             {
               "analysisTarget": {
-                "uri": "gradlew"
+                "uri": "gradlew",
+                "uriBaseId": "$PROJECT_DIR$"
               },
               "resultFile": {
                 "uri": "gradlew",
+                "uriBaseId": "$PROJECT_DIR$",
                 "region": {
                   "startLine": 85
                 }
@@ -607,10 +630,12 @@
           "locations": [
             {
               "analysisTarget": {
-                "uri": "gradlew"
+                "uri": "gradlew",
+                "uriBaseId": "$PROJECT_DIR$"
               },
               "resultFile": {
                 "uri": "gradlew",
+                "uriBaseId": "$PROJECT_DIR$",
                 "region": {
                   "startLine": 93
                 }
@@ -629,10 +654,12 @@
           "locations": [
             {
               "analysisTarget": {
-                "uri": "gradlew"
+                "uri": "gradlew",
+                "uriBaseId": "$PROJECT_DIR$"
               },
               "resultFile": {
                 "uri": "gradlew",
+                "uriBaseId": "$PROJECT_DIR$",
                 "region": {
                   "startLine": 94
                 }
@@ -651,10 +678,12 @@
           "locations": [
             {
               "analysisTarget": {
-                "uri": "gradlew"
+                "uri": "gradlew",
+                "uriBaseId": "$PROJECT_DIR$"
               },
               "resultFile": {
                 "uri": "gradlew",
+                "uriBaseId": "$PROJECT_DIR$",
                 "region": {
                   "startLine": 99
                 }
@@ -673,10 +702,12 @@
           "locations": [
             {
               "analysisTarget": {
-                "uri": "gradlew"
+                "uri": "gradlew",
+                "uriBaseId": "$PROJECT_DIR$"
               },
               "resultFile": {
                 "uri": "gradlew",
+                "uriBaseId": "$PROJECT_DIR$",
                 "region": {
                   "startLine": 110
                 }
@@ -695,10 +726,12 @@
           "locations": [
             {
               "analysisTarget": {
-                "uri": "gradlew"
+                "uri": "gradlew",
+                "uriBaseId": "$PROJECT_DIR$"
               },
               "resultFile": {
                 "uri": "gradlew",
+                "uriBaseId": "$PROJECT_DIR$",
                 "region": {
                   "startLine": 110
                 }
@@ -717,10 +750,12 @@
           "locations": [
             {
               "analysisTarget": {
-                "uri": "gradlew"
+                "uri": "gradlew",
+                "uriBaseId": "$PROJECT_DIR$"
               },
               "resultFile": {
                 "uri": "gradlew",
+                "uriBaseId": "$PROJECT_DIR$",
                 "region": {
                   "startLine": 113
                 }
@@ -739,10 +774,12 @@
           "locations": [
             {
               "analysisTarget": {
-                "uri": "gradlew"
+                "uri": "gradlew",
+                "uriBaseId": "$PROJECT_DIR$"
               },
               "resultFile": {
                 "uri": "gradlew",
+                "uriBaseId": "$PROJECT_DIR$",
                 "region": {
                   "startLine": 114
                 }
@@ -761,10 +798,12 @@
           "locations": [
             {
               "analysisTarget": {
-                "uri": "gradlew"
+                "uri": "gradlew",
+                "uriBaseId": "$PROJECT_DIR$"
               },
               "resultFile": {
                 "uri": "gradlew",
+                "uriBaseId": "$PROJECT_DIR$",
                 "region": {
                   "startLine": 115
                 }
@@ -783,10 +822,12 @@
           "locations": [
             {
               "analysisTarget": {
-                "uri": "gradlew"
+                "uri": "gradlew",
+                "uriBaseId": "$PROJECT_DIR$"
               },
               "resultFile": {
                 "uri": "gradlew",
+                "uriBaseId": "$PROJECT_DIR$",
                 "region": {
                   "startLine": 116
                 }
@@ -805,10 +846,12 @@
           "locations": [
             {
               "analysisTarget": {
-                "uri": "gradlew"
+                "uri": "gradlew",
+                "uriBaseId": "$PROJECT_DIR$"
               },
               "resultFile": {
                 "uri": "gradlew",
+                "uriBaseId": "$PROJECT_DIR$",
                 "region": {
                   "startLine": 118
                 }
@@ -827,10 +870,12 @@
           "locations": [
             {
               "analysisTarget": {
-                "uri": "gradlew"
+                "uri": "gradlew",
+                "uriBaseId": "$PROJECT_DIR$"
               },
               "resultFile": {
                 "uri": "gradlew",
+                "uriBaseId": "$PROJECT_DIR$",
                 "region": {
                   "startLine": 119
                 }
@@ -849,10 +894,12 @@
           "locations": [
             {
               "analysisTarget": {
-                "uri": "gradlew"
+                "uri": "gradlew",
+                "uriBaseId": "$PROJECT_DIR$"
               },
               "resultFile": {
                 "uri": "gradlew",
+                "uriBaseId": "$PROJECT_DIR$",
                 "region": {
                   "startLine": 119
                 }
@@ -871,10 +918,12 @@
           "locations": [
             {
               "analysisTarget": {
-                "uri": "gradlew"
+                "uri": "gradlew",
+                "uriBaseId": "$PROJECT_DIR$"
               },
               "resultFile": {
                 "uri": "gradlew",
+                "uriBaseId": "$PROJECT_DIR$",
                 "region": {
                   "startLine": 119
                 }
@@ -893,10 +942,12 @@
           "locations": [
             {
               "analysisTarget": {
-                "uri": "gradlew"
+                "uri": "gradlew",
+                "uriBaseId": "$PROJECT_DIR$"
               },
               "resultFile": {
                 "uri": "gradlew",
+                "uriBaseId": "$PROJECT_DIR$",
                 "region": {
                   "startLine": 121
                 }
@@ -915,10 +966,12 @@
           "locations": [
             {
               "analysisTarget": {
-                "uri": "gradlew"
+                "uri": "gradlew",
+                "uriBaseId": "$PROJECT_DIR$"
               },
               "resultFile": {
                 "uri": "gradlew",
+                "uriBaseId": "$PROJECT_DIR$",
                 "region": {
                   "startLine": 122
                 }
@@ -937,10 +990,12 @@
           "locations": [
             {
               "analysisTarget": {
-                "uri": "gradlew"
+                "uri": "gradlew",
+                "uriBaseId": "$PROJECT_DIR$"
               },
               "resultFile": {
                 "uri": "gradlew",
+                "uriBaseId": "$PROJECT_DIR$",
                 "region": {
                   "startLine": 125
                 }
@@ -959,10 +1014,12 @@
           "locations": [
             {
               "analysisTarget": {
-                "uri": "gradlew"
+                "uri": "gradlew",
+                "uriBaseId": "$PROJECT_DIR$"
               },
               "resultFile": {
                 "uri": "gradlew",
+                "uriBaseId": "$PROJECT_DIR$",
                 "region": {
                   "startLine": 125
                 }
@@ -981,10 +1038,12 @@
           "locations": [
             {
               "analysisTarget": {
-                "uri": "gradlew"
+                "uri": "gradlew",
+                "uriBaseId": "$PROJECT_DIR$"
               },
               "resultFile": {
                 "uri": "gradlew",
+                "uriBaseId": "$PROJECT_DIR$",
                 "region": {
                   "startLine": 126
                 }
@@ -1003,10 +1062,12 @@
           "locations": [
             {
               "analysisTarget": {
-                "uri": "gradlew"
+                "uri": "gradlew",
+                "uriBaseId": "$PROJECT_DIR$"
               },
               "resultFile": {
                 "uri": "gradlew",
+                "uriBaseId": "$PROJECT_DIR$",
                 "region": {
                   "startLine": 127
                 }
@@ -1025,10 +1086,12 @@
           "locations": [
             {
               "analysisTarget": {
-                "uri": "gradlew"
+                "uri": "gradlew",
+                "uriBaseId": "$PROJECT_DIR$"
               },
               "resultFile": {
                 "uri": "gradlew",
+                "uriBaseId": "$PROJECT_DIR$",
                 "region": {
                   "startLine": 128
                 }
@@ -1047,10 +1110,12 @@
           "locations": [
             {
               "analysisTarget": {
-                "uri": "gradlew"
+                "uri": "gradlew",
+                "uriBaseId": "$PROJECT_DIR$"
               },
               "resultFile": {
                 "uri": "gradlew",
+                "uriBaseId": "$PROJECT_DIR$",
                 "region": {
                   "startLine": 128
                 }
@@ -1069,10 +1134,12 @@
           "locations": [
             {
               "analysisTarget": {
-                "uri": "gradlew"
+                "uri": "gradlew",
+                "uriBaseId": "$PROJECT_DIR$"
               },
               "resultFile": {
                 "uri": "gradlew",
+                "uriBaseId": "$PROJECT_DIR$",
                 "region": {
                   "startLine": 133
                 }
@@ -1091,10 +1158,12 @@
           "locations": [
             {
               "analysisTarget": {
-                "uri": "gradlew"
+                "uri": "gradlew",
+                "uriBaseId": "$PROJECT_DIR$"
               },
               "resultFile": {
                 "uri": "gradlew",
+                "uriBaseId": "$PROJECT_DIR$",
                 "region": {
                   "startLine": 133
                 }
@@ -1113,10 +1182,12 @@
           "locations": [
             {
               "analysisTarget": {
-                "uri": "gradlew"
+                "uri": "gradlew",
+                "uriBaseId": "$PROJECT_DIR$"
               },
               "resultFile": {
                 "uri": "gradlew",
+                "uriBaseId": "$PROJECT_DIR$",
                 "region": {
                   "startLine": 134
                 }
@@ -1135,10 +1206,12 @@
           "locations": [
             {
               "analysisTarget": {
-                "uri": "gradlew"
+                "uri": "gradlew",
+                "uriBaseId": "$PROJECT_DIR$"
               },
               "resultFile": {
                 "uri": "gradlew",
+                "uriBaseId": "$PROJECT_DIR$",
                 "region": {
                   "startLine": 137
                 }
@@ -1157,10 +1230,12 @@
           "locations": [
             {
               "analysisTarget": {
-                "uri": "gradlew"
+                "uri": "gradlew",
+                "uriBaseId": "$PROJECT_DIR$"
               },
               "resultFile": {
                 "uri": "gradlew",
+                "uriBaseId": "$PROJECT_DIR$",
                 "region": {
                   "startLine": 137
                 }
@@ -1179,10 +1254,12 @@
           "locations": [
             {
               "analysisTarget": {
-                "uri": "gradlew"
+                "uri": "gradlew",
+                "uriBaseId": "$PROJECT_DIR$"
               },
               "resultFile": {
                 "uri": "gradlew",
+                "uriBaseId": "$PROJECT_DIR$",
                 "region": {
                   "startLine": 139
                 }
@@ -1201,10 +1278,12 @@
           "locations": [
             {
               "analysisTarget": {
-                "uri": "gradlew"
+                "uri": "gradlew",
+                "uriBaseId": "$PROJECT_DIR$"
               },
               "resultFile": {
                 "uri": "gradlew",
+                "uriBaseId": "$PROJECT_DIR$",
                 "region": {
                   "startLine": 154
                 }
@@ -1223,10 +1302,12 @@
           "locations": [
             {
               "analysisTarget": {
-                "uri": "gradlew"
+                "uri": "gradlew",
+                "uriBaseId": "$PROJECT_DIR$"
               },
               "resultFile": {
                 "uri": "gradlew",
+                "uriBaseId": "$PROJECT_DIR$",
                 "region": {
                   "startLine": 161
                 }
@@ -1245,10 +1326,12 @@
           "locations": [
             {
               "analysisTarget": {
-                "uri": "gradlew"
+                "uri": "gradlew",
+                "uriBaseId": "$PROJECT_DIR$"
               },
               "resultFile": {
                 "uri": "gradlew",
+                "uriBaseId": "$PROJECT_DIR$",
                 "region": {
                   "startLine": 162
                 }
@@ -1267,10 +1350,12 @@
           "locations": [
             {
               "analysisTarget": {
-                "uri": "gradlew"
+                "uri": "gradlew",
+                "uriBaseId": "$PROJECT_DIR$"
               },
               "resultFile": {
                 "uri": "gradlew",
+                "uriBaseId": "$PROJECT_DIR$",
                 "region": {
                   "startLine": 162
                 }
@@ -1289,10 +1374,12 @@
           "locations": [
             {
               "analysisTarget": {
-                "uri": "gradlew"
+                "uri": "gradlew",
+                "uriBaseId": "$PROJECT_DIR$"
               },
               "resultFile": {
                 "uri": "gradlew",
+                "uriBaseId": "$PROJECT_DIR$",
                 "region": {
                   "startLine": 164
                 }
@@ -1311,10 +1398,12 @@
           "locations": [
             {
               "analysisTarget": {
-                "uri": "gradlew.bat"
+                "uri": "gradlew.bat",
+                "uriBaseId": "$PROJECT_DIR$"
               },
               "resultFile": {
                 "uri": "gradlew.bat",
+                "uriBaseId": "$PROJECT_DIR$",
                 "region": {
                   "startLine": 9
                 }
@@ -1333,10 +1422,12 @@
           "locations": [
             {
               "analysisTarget": {
-                "uri": "gradlew.bat"
+                "uri": "gradlew.bat",
+                "uriBaseId": "$PROJECT_DIR$"
               },
               "resultFile": {
                 "uri": "gradlew.bat",
+                "uriBaseId": "$PROJECT_DIR$",
                 "region": {
                   "startLine": 14
                 }
@@ -1355,10 +1446,12 @@
           "locations": [
             {
               "analysisTarget": {
-                "uri": "gradlew.bat"
+                "uri": "gradlew.bat",
+                "uriBaseId": "$PROJECT_DIR$"
               },
               "resultFile": {
                 "uri": "gradlew.bat",
+                "uriBaseId": "$PROJECT_DIR$",
                 "region": {
                   "startLine": 15
                 }
@@ -1377,10 +1470,12 @@
           "locations": [
             {
               "analysisTarget": {
-                "uri": "gradlew.bat"
+                "uri": "gradlew.bat",
+                "uriBaseId": "$PROJECT_DIR$"
               },
               "resultFile": {
                 "uri": "gradlew.bat",
+                "uriBaseId": "$PROJECT_DIR$",
                 "region": {
                   "startLine": 17
                 }
@@ -1399,10 +1494,12 @@
           "locations": [
             {
               "analysisTarget": {
-                "uri": "gradlew.bat"
+                "uri": "gradlew.bat",
+                "uriBaseId": "$PROJECT_DIR$"
               },
               "resultFile": {
                 "uri": "gradlew.bat",
+                "uriBaseId": "$PROJECT_DIR$",
                 "region": {
                   "startLine": 20
                 }
@@ -1421,10 +1518,12 @@
           "locations": [
             {
               "analysisTarget": {
-                "uri": "gradlew.bat"
+                "uri": "gradlew.bat",
+                "uriBaseId": "$PROJECT_DIR$"
               },
               "resultFile": {
                 "uri": "gradlew.bat",
+                "uriBaseId": "$PROJECT_DIR$",
                 "region": {
                   "startLine": 24
                 }
@@ -1443,10 +1542,12 @@
           "locations": [
             {
               "analysisTarget": {
-                "uri": "gradlew.bat"
+                "uri": "gradlew.bat",
+                "uriBaseId": "$PROJECT_DIR$"
               },
               "resultFile": {
                 "uri": "gradlew.bat",
+                "uriBaseId": "$PROJECT_DIR$",
                 "region": {
                   "startLine": 24
                 }
@@ -1465,10 +1566,12 @@
           "locations": [
             {
               "analysisTarget": {
-                "uri": "gradlew.bat"
+                "uri": "gradlew.bat",
+                "uriBaseId": "$PROJECT_DIR$"
               },
               "resultFile": {
                 "uri": "gradlew.bat",
+                "uriBaseId": "$PROJECT_DIR$",
                 "region": {
                   "startLine": 32
                 }
@@ -1487,10 +1590,12 @@
           "locations": [
             {
               "analysisTarget": {
-                "uri": "gradlew.bat"
+                "uri": "gradlew.bat",
+                "uriBaseId": "$PROJECT_DIR$"
               },
               "resultFile": {
                 "uri": "gradlew.bat",
+                "uriBaseId": "$PROJECT_DIR$",
                 "region": {
                   "startLine": 38
                 }
@@ -1509,10 +1614,12 @@
           "locations": [
             {
               "analysisTarget": {
-                "uri": "gradlew.bat"
+                "uri": "gradlew.bat",
+                "uriBaseId": "$PROJECT_DIR$"
               },
               "resultFile": {
                 "uri": "gradlew.bat",
+                "uriBaseId": "$PROJECT_DIR$",
                 "region": {
                   "startLine": 46
                 }
@@ -1531,10 +1638,12 @@
           "locations": [
             {
               "analysisTarget": {
-                "uri": "gradlew.bat"
+                "uri": "gradlew.bat",
+                "uriBaseId": "$PROJECT_DIR$"
               },
               "resultFile": {
                 "uri": "gradlew.bat",
+                "uriBaseId": "$PROJECT_DIR$",
                 "region": {
                   "startLine": 49
                 }
@@ -1553,10 +1662,12 @@
           "locations": [
             {
               "analysisTarget": {
-                "uri": "gradlew.bat"
+                "uri": "gradlew.bat",
+                "uriBaseId": "$PROJECT_DIR$"
               },
               "resultFile": {
                 "uri": "gradlew.bat",
+                "uriBaseId": "$PROJECT_DIR$",
                 "region": {
                   "startLine": 51
                 }
@@ -1575,10 +1686,12 @@
           "locations": [
             {
               "analysisTarget": {
-                "uri": "gradlew.bat"
+                "uri": "gradlew.bat",
+                "uriBaseId": "$PROJECT_DIR$"
               },
               "resultFile": {
                 "uri": "gradlew.bat",
+                "uriBaseId": "$PROJECT_DIR$",
                 "region": {
                   "startLine": 52
                 }
@@ -1597,10 +1710,12 @@
           "locations": [
             {
               "analysisTarget": {
-                "uri": "gradlew.bat"
+                "uri": "gradlew.bat",
+                "uriBaseId": "$PROJECT_DIR$"
               },
               "resultFile": {
                 "uri": "gradlew.bat",
+                "uriBaseId": "$PROJECT_DIR$",
                 "region": {
                   "startLine": 52
                 }
@@ -1619,10 +1734,12 @@
           "locations": [
             {
               "analysisTarget": {
-                "uri": "gradlew.bat"
+                "uri": "gradlew.bat",
+                "uriBaseId": "$PROJECT_DIR$"
               },
               "resultFile": {
                 "uri": "gradlew.bat",
+                "uriBaseId": "$PROJECT_DIR$",
                 "region": {
                   "startLine": 60
                 }
@@ -1641,10 +1758,12 @@
           "locations": [
             {
               "analysisTarget": {
-                "uri": "gradlew.bat"
+                "uri": "gradlew.bat",
+                "uriBaseId": "$PROJECT_DIR$"
               },
               "resultFile": {
                 "uri": "gradlew.bat",
+                "uriBaseId": "$PROJECT_DIR$",
                 "region": {
                   "startLine": 63
                 }
@@ -1663,10 +1782,12 @@
           "locations": [
             {
               "analysisTarget": {
-                "uri": "gradlew.bat"
+                "uri": "gradlew.bat",
+                "uriBaseId": "$PROJECT_DIR$"
               },
               "resultFile": {
                 "uri": "gradlew.bat",
+                "uriBaseId": "$PROJECT_DIR$",
                 "region": {
                   "startLine": 75
                 }
@@ -1685,10 +1806,12 @@
           "locations": [
             {
               "analysisTarget": {
-                "uri": "gradlew.bat"
+                "uri": "gradlew.bat",
+                "uriBaseId": "$PROJECT_DIR$"
               },
               "resultFile": {
                 "uri": "gradlew.bat",
+                "uriBaseId": "$PROJECT_DIR$",
                 "region": {
                   "startLine": 75
                 }
@@ -1707,10 +1830,12 @@
           "locations": [
             {
               "analysisTarget": {
-                "uri": "gradlew.bat"
+                "uri": "gradlew.bat",
+                "uriBaseId": "$PROJECT_DIR$"
               },
               "resultFile": {
                 "uri": "gradlew.bat",
+                "uriBaseId": "$PROJECT_DIR$",
                 "region": {
                   "startLine": 79
                 }
@@ -1729,10 +1854,12 @@
           "locations": [
             {
               "analysisTarget": {
-                "uri": "gradlew.bat"
+                "uri": "gradlew.bat",
+                "uriBaseId": "$PROJECT_DIR$"
               },
               "resultFile": {
                 "uri": "gradlew.bat",
+                "uriBaseId": "$PROJECT_DIR$",
                 "region": {
                   "startLine": 79
                 }
@@ -1751,10 +1878,12 @@
           "locations": [
             {
               "analysisTarget": {
-                "uri": "gradlew.bat"
+                "uri": "gradlew.bat",
+                "uriBaseId": "$PROJECT_DIR$"
               },
               "resultFile": {
                 "uri": "gradlew.bat",
+                "uriBaseId": "$PROJECT_DIR$",
                 "region": {
                   "startLine": 88
                 }
@@ -1773,10 +1902,12 @@
           "locations": [
             {
               "analysisTarget": {
-                "uri": "app/build.gradle"
+                "uri": "app/build.gradle",
+                "uriBaseId": "$PROJECT_DIR$"
               },
               "resultFile": {
                 "uri": "app/build.gradle",
+                "uriBaseId": "$PROJECT_DIR$",
                 "region": {
                   "startLine": 8
                 }
@@ -1795,10 +1926,12 @@
           "locations": [
             {
               "analysisTarget": {
-                "uri": "app/src/main/AndroidManifest.xml"
+                "uri": "app/src/main/AndroidManifest.xml",
+                "uriBaseId": "$PROJECT_DIR$"
               },
               "resultFile": {
                 "uri": "app/src/main/AndroidManifest.xml",
+                "uriBaseId": "$PROJECT_DIR$",
                 "region": {
                   "startLine": 3
                 }
@@ -1817,10 +1950,12 @@
           "locations": [
             {
               "analysisTarget": {
-                "uri": "app/src/main/res/values-w820dp/dimens.xml"
+                "uri": "app/src/main/res/values-w820dp/dimens.xml",
+                "uriBaseId": "$PROJECT_DIR$"
               },
               "resultFile": {
                 "uri": "app/src/main/res/values-w820dp/dimens.xml",
+                "uriBaseId": "$PROJECT_DIR$",
                 "region": {
                   "startLine": 2
                 }
@@ -1839,10 +1974,12 @@
           "locations": [
             {
               "analysisTarget": {
-                "uri": "app/src/main/java/microsoft/androidstudioformatexample/NamespaceTypo.java"
+                "uri": "app/src/main/java/microsoft/androidstudioformatexample/NamespaceTypo.java",
+                "uriBaseId": "$PROJECT_DIR$"
               },
               "resultFile": {
                 "uri": "app/src/main/java/microsoft/androidstudioformatexample/NamespaceTypo.java",
+                "uriBaseId": "$PROJECT_DIR$",
                 "region": {
                   "startLine": 4
                 }

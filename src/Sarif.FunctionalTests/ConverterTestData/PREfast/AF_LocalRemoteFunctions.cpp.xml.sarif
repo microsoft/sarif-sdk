@@ -1,0 +1,99 @@
+{
+"version":"1.0.0",
+"$schema":"http://json.schemastore.org/sarif-1.0.0",
+"runs":[
+  {
+    "tool":{
+      "name":"PREfast",
+      "fullName":"PREfast Code Analysis"
+    },
+    "results":[
+      {
+        "ruleId":"6011",
+        "message":"Dereferencing NULL pointer 'p'. ",
+        "locations":[
+          {
+            "resultFile":{
+              "uri":"file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedfunctions/af_localremotefunctions.cpp",
+              "region":{
+                "startColumn":2,
+                "startLine":13
+              }
+            },
+            "fullyQualifiedLogicalName":"UseLocalFunction",
+            "decoratedName":"?UseLocalFunction@@YAHPEAH@Z",
+            "properties":{
+              "funcline":"7"
+            }
+          }
+        ],
+        "properties":{
+          "probability":"1",
+          "rank":"4",
+          "ruleCategory":"mspft"
+        },
+        "codeFlows":[
+          {
+            "locations":[
+              {
+                "physicalLocation":{
+                  "uri":"file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedfunctions/af_localremotefunctions.cpp",
+                  "region":{
+                    "startColumn":8,
+                    "startLine":9
+                  }
+                },
+                "id":"1",
+                "kind":"branch",
+                "message":"'p' may be NULL (Enter this branch)"
+              },{
+                "physicalLocation":{
+                  "uri":"file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedfunctions/af_localremotefunctions.cpp",
+                  "region":{
+                    "startColumn":7,
+                    "startLine":10
+                  }
+                }
+              },{
+                "physicalLocation":{
+                  "uri":"file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedfunctions/af_localremotefunctions.cpp",
+                  "region":{
+                    "startColumn":15,
+                    "startLine":11
+                  }
+                },
+                "id":"2",
+                "kind":"declaration",
+                "message":"'p' is an In\/Out argument to 'LocalFunction' (declared on line 3)"
+              },{
+                "physicalLocation":{
+                  "uri":"file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedfunctions/af_localremotefunctions.cpp",
+                  "region":{
+                    "startColumn":19,
+                    "startLine":12
+                  }
+                },
+                "id":"3",
+                "kind":"declaration",
+                "message":"'p' is an In\/Out argument to 'RemoteFunction' (declared at d:\\src\\sarif-sdk\\src\\sarif.functionaltests\\convertertestdata\\prefast\\src\\advancedfunctions\\af_localremotefunctions.h:4)"
+              },{
+                "physicalLocation":{
+                  "uri":"file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedfunctions/af_localremotefunctions.cpp",
+                  "region":{
+                    "startColumn":2,
+                    "startLine":13
+                  }
+                },
+                "id":"4",
+                "kind":"usage",
+                "message":"'p' is dereferenced, but may still be NULL",
+                "essential":true
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+]
+}

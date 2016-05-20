@@ -1,26 +1,11 @@
 {
-"version":"1.0.0-beta.4",
+"version":"1.0.0",
 "$schema":"http://json.schemastore.org/sarif-1.0.0",
 "runs":[
   {
     "tool":{
       "name":"PREfast",
-      "fullName":"PREfast Code Analysis",
-      "version":"14.0.0"
-    },
-    "logicalLocations":{
-      "?f@@YAXXZ":[
-        {
-          "kind":"method",
-          "name":"f"
-        }
-      ],
-      "?doExtensible@@YAXI@Z":[
-        {
-          "kind":"method",
-          "name":"doExtensible"
-        }
-      ]
+      "fullName":"PREfast Code Analysis"
     },
     "results":[
       {
@@ -36,9 +21,8 @@
               }
             },
             "fullyQualifiedLogicalName":"f",
-            "logicalLocationKey":"?f@@YAXXZ",
+            "decoratedName":"?f@@YAXXZ",
             "properties":{
-              "decorated":"?f@@YAXXZ",
               "funcline":"12"
             }
           }
@@ -95,9 +79,8 @@
               }
             },
             "fullyQualifiedLogicalName":"doExtensible",
-            "logicalLocationKey":"?doExtensible@@YAXI@Z",
+            "decoratedName":"?doExtensible@@YAXI@Z",
             "properties":{
-              "decorated":"?doExtensible@@YAXI@Z",
               "funcline":"70"
             }
           }
@@ -274,9 +257,8 @@
               }
             },
             "fullyQualifiedLogicalName":"doExtensible",
-            "logicalLocationKey":"?doExtensible@@YAXI@Z",
+            "decoratedName":"?doExtensible@@YAXI@Z",
             "properties":{
-              "decorated":"?doExtensible@@YAXI@Z",
               "funcline":"70"
             }
           }
@@ -501,9 +483,8 @@
               }
             },
             "fullyQualifiedLogicalName":"doExtensible",
-            "logicalLocationKey":"?doExtensible@@YAXI@Z",
+            "decoratedName":"?doExtensible@@YAXI@Z",
             "properties":{
-              "decorated":"?doExtensible@@YAXI@Z",
               "funcline":"70"
             }
           }

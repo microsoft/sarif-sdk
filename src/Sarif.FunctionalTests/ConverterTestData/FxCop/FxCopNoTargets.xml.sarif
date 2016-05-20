@@ -1,6 +1,6 @@
 {
   "$schema": "http://json.schemastore.org/sarif-1.0.0",
-  "version": "1.0.0-beta.4",
+  "version": "1.0.0",
   "runs": [
     {
       "tool": {
@@ -13,7 +13,7 @@
           "locations": [
             {}
           ],
-          "toolFingerprint": "Microsoft.FxCop.Common.AssemblyLoadException"
+          "toolFingerprintContribution": "Microsoft.FxCop.Common.AssemblyLoadException"
         },
         {
           "ruleId": "CA0052",
@@ -21,7 +21,7 @@
           "locations": [
             {}
           ],
-          "toolFingerprint": "Microsoft.FxCop.Sdk.FxCopException"
+          "toolFingerprintContribution": "Microsoft.FxCop.Sdk.FxCopException"
         }
       ]
     }

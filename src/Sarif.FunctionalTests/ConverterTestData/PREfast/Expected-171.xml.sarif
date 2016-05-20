@@ -1,32 +1,11 @@
 {
-"version":"1.0.0-beta.4",
+"version":"1.0.0",
 "$schema":"http://json.schemastore.org/sarif-1.0.0",
 "runs":[
   {
     "tool":{
       "name":"PREfast",
-      "fullName":"PREfast Code Analysis",
-      "version":"14.0.0"
-    },
-    "logicalLocations":{
-      "?UseDataSimple@@YAXXZ":[
-        {
-          "kind":"method",
-          "name":"UseDataSimple"
-        }
-      ],
-      "?UseDataSized@@YAXXZ":[
-        {
-          "kind":"method",
-          "name":"UseDataSized"
-        }
-      ],
-      "?UseData@@YAXXZ":[
-        {
-          "kind":"method",
-          "name":"UseData"
-        }
-      ]
+      "fullName":"PREfast Code Analysis"
     },
     "results":[
       {
@@ -42,9 +21,8 @@
               }
             },
             "fullyQualifiedLogicalName":"UseDataSimple",
-            "logicalLocationKey":"?UseDataSimple@@YAXXZ",
+            "decoratedName":"?UseDataSimple@@YAXXZ",
             "properties":{
-              "decorated":"?UseDataSimple@@YAXXZ",
               "funcline":"8"
             }
           }
@@ -109,9 +87,8 @@
               }
             },
             "fullyQualifiedLogicalName":"UseDataSized",
-            "logicalLocationKey":"?UseDataSized@@YAXXZ",
+            "decoratedName":"?UseDataSized@@YAXXZ",
             "properties":{
-              "decorated":"?UseDataSized@@YAXXZ",
               "funcline":"21"
             }
           }
@@ -184,9 +161,8 @@
               }
             },
             "fullyQualifiedLogicalName":"UseData",
-            "logicalLocationKey":"?UseData@@YAXXZ",
+            "decoratedName":"?UseData@@YAXXZ",
             "properties":{
-              "decorated":"?UseData@@YAXXZ",
               "funcline":"37"
             }
           }

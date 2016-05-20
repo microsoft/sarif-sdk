@@ -78,7 +78,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         {
             get
             {
-                throw new NotImplementedException();
+                return new Dictionary<string, string> { { nameof(SdkResources.NotApplicable_InvalidMetadata) , SdkResources.NotApplicable_InvalidMetadata }};
             }
         }
 
@@ -90,14 +90,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             }
 
             set
-            {
-                throw new NotImplementedException();
-            }
-        }
-
-        public IList<string> Tags
-        {
-            get
             {
                 throw new NotImplementedException();
             }

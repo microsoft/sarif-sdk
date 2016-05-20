@@ -4,7 +4,6 @@
 using System;
 using System.Globalization;
 using System.IO;
-using System.Text;
 
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Newtonsoft.Json;
@@ -14,32 +13,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
     [TestClass]
     public class ResultLogJsonWriterTests : JsonTests
     {
-        private static readonly string SchemaVersion =
-            SarifUtilities.ConvertToText(SarifVersion.OneZeroZeroBetaFour);
-
-        private static readonly Tool s_defaultTool = new Tool();
-        private static readonly Result s_defaultResult = new Result();
-
-        private static string GetJson(Action<ResultLogJsonWriter> testContent)
-        {
-            StringBuilder result = new StringBuilder();
-            using (var str = new StringWriter(result))
-            using (var json = new JsonTextWriter(str) { Formatting = Formatting.Indented })
-            using (var uut = new ResultLogJsonWriter(json))
-            {
-                testContent(uut);
-            }
-
-            return result.ToString();
-        }
-
         [TestMethod]
         public void ResultLogJsonWriter_DefaultIsEmpty()
         {
             string expected =
 @"{
-  ""$schema"": ""http://json.schemastore.org/sarif-1.0.0"",
-  ""version"": """ + SchemaVersion + @""",
+  ""$schema"": """ + SarifSchemaUri + @""",
+  ""version"": """ + SarifFormatVersion + @""",
   ""runs"": [
     {}
   ]
@@ -55,8 +35,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         {
             string expected =
 @"{
-  ""$schema"": ""http://json.schemastore.org/sarif-1.0.0"",
-  ""version"": """ + SchemaVersion + @""",
+  ""$schema"": """ + SarifSchemaUri + @""",
+  ""version"": """ + SarifFormatVersion + @""",
   ""runs"": [
     {
       ""tool"": {
@@ -71,8 +51,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             string actual = GetJson(uut =>
             {
                 uut.Initialize(id: null, correlationId: null);
-                uut.WriteTool(s_defaultTool);
-                uut.WriteResult(s_defaultResult);
+                uut.WriteTool(DefaultTool);
+                uut.WriteResult(DefaultResult);
             });
             Assert.AreEqual(expected, actual);
         }
@@ -83,8 +63,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         {
             GetJson(uut =>
             {
-                uut.WriteTool(s_defaultTool);
-                uut.WriteTool(s_defaultTool);
+                uut.WriteTool(DefaultTool);
+                uut.WriteTool(DefaultTool);
             });
         }
 
@@ -92,7 +72,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         [ExpectedException(typeof(InvalidOperationException))]
         public void ResultLogJsonWriter_ResultsMayNotBeWrittenMoreThanOnce()
         {
-            var results = new[] { s_defaultResult };
+            var results = new[] { DefaultResult };
 
             GetJson(uut =>
             {
@@ -119,7 +99,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         {
             GetJson(uut =>
             {
-                uut.WriteTool(s_defaultTool);
+                uut.WriteTool(DefaultTool);
                 uut.WriteResult(null);
             });
         }
@@ -133,7 +113,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             using (var uut = new ResultLogJsonWriter(json))
             {
                 uut.Dispose();
-                uut.WriteTool(s_defaultTool);
+                uut.WriteTool(DefaultTool);
             }
         }
 
@@ -145,9 +125,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             using (var json = new JsonTextWriter(str))
             using (var uut = new ResultLogJsonWriter(json))
             {
-                uut.WriteTool(s_defaultTool);
+                uut.WriteTool(DefaultTool);
                 uut.Dispose();
-                uut.WriteResult(s_defaultResult);
+                uut.WriteResult(DefaultResult);
             }
         }
 
@@ -176,8 +156,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         {
             string expected =
 @"{
-  ""$schema"": ""http://json.schemastore.org/sarif-1.0.0"",
-  ""version"": """ + SchemaVersion + @""",
+  ""$schema"": """ + SarifSchemaUri + @""",
+  ""version"": """ + SarifFormatVersion + @""",
   ""runs"": [
     {
       ""tool"": {
@@ -193,7 +173,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             string actual = GetJson(uut =>
             {
                 uut.Initialize(id: null, correlationId: null);
-                uut.WriteTool(s_defaultTool);
+                uut.WriteTool(DefaultTool);
                 uut.WriteInvocation(s_invocation);
             });
             Assert.AreEqual(expected, actual);
@@ -207,8 +187,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
             string expected =
 @"{
-  ""$schema"": ""http://json.schemastore.org/sarif-1.0.0"",
-  ""version"": """ + SchemaVersion + @""",
+  ""$schema"": """ + SarifSchemaUri + @""",
+  ""version"": """ + SarifFormatVersion + @""",
   ""runs"": [
     {
       ""id"": """ + id + @""",
@@ -226,7 +206,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             string actual = GetJson(uut =>
             {
                 uut.Initialize(id: id, correlationId: correlationId);
-                uut.WriteTool(s_defaultTool);
+                uut.WriteTool(DefaultTool);
                 uut.WriteInvocation(s_invocation);
             });
             Assert.AreEqual(expected, actual);
@@ -240,7 +220,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             using (var json = new JsonTextWriter(str))
             using (var uut = new ResultLogJsonWriter(json))
             {
-                uut.WriteTool(s_defaultTool);
+                uut.WriteTool(DefaultTool);
                 uut.WriteInvocation(s_invocation);
                 uut.WriteInvocation(s_invocation);
             }
@@ -255,7 +235,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 RuleId = "TST0001",
                 Level = NotificationLevel.Error,
                 Message = "This is a test",
-                AnalysisTarget = new PhysicalLocation
+                PhysicalLocation = new PhysicalLocation
                 {
                     Uri = new Uri("file:///C:/src/a.cs"),
                     Region = new Region
@@ -304,7 +284,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 @"        {
           ""id"": ""NOT0001"",
           ""ruleId"": ""TST0001"",
-          ""analysisTarget"": {
+          ""physicalLocation"": {
             ""uri"": ""file:///C:/src/a.cs"",
             ""region"": {
               ""startLine"": 3,
@@ -345,8 +325,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         {
             string expected =
 @"{
-  ""$schema"": ""http://json.schemastore.org/sarif-1.0.0"",
-  ""version"": """ + SchemaVersion + @""",
+  ""$schema"": """ + SarifSchemaUri + @""",
+  ""version"": """ + SarifFormatVersion + @""",
   ""runs"": [
     {
       ""tool"": {
@@ -361,7 +341,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             string actual = GetJson(uut =>
             {
                 uut.Initialize(id: null, correlationId: null);
-                uut.WriteTool(s_defaultTool);
+                uut.WriteTool(DefaultTool);
                 uut.WriteConfigurationNotifications(s_notifications);
             });
             Assert.AreEqual(expected, actual);
@@ -372,8 +352,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         {
             string expected =
 @"{
-  ""$schema"": ""http://json.schemastore.org/sarif-1.0.0"",
-  ""version"": """ + SchemaVersion + @""",
+  ""$schema"": """ + SarifSchemaUri + @""",
+  ""version"": """ + SarifFormatVersion + @""",
   ""runs"": [
     {
       ""tool"": {
@@ -388,7 +368,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             string actual = GetJson(uut =>
             {
                 uut.Initialize(id: null, correlationId: null);
-                uut.WriteTool(s_defaultTool);
+                uut.WriteTool(DefaultTool);
                 uut.WriteToolNotifications(s_notifications);
             });
             Assert.AreEqual(expected, actual);
@@ -402,7 +382,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             using (var json = new JsonTextWriter(str))
             using (var uut = new ResultLogJsonWriter(json))
             {
-                uut.WriteTool(s_defaultTool);
+                uut.WriteTool(DefaultTool);
                 uut.WriteToolNotifications(s_notifications);
                 uut.WriteToolNotifications(s_notifications);
             }
@@ -416,7 +396,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             using (var json = new JsonTextWriter(str))
             using (var uut = new ResultLogJsonWriter(json))
             {
-                uut.WriteTool(s_defaultTool);
+                uut.WriteTool(DefaultTool);
                 uut.WriteConfigurationNotifications(s_notifications);
                 uut.WriteConfigurationNotifications(s_notifications);
             }

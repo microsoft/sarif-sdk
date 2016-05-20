@@ -1,0 +1,144 @@
+{
+"version":"1.0.0",
+"$schema":"http://json.schemastore.org/sarif-1.0.0",
+"runs":[
+  {
+    "tool":{
+      "name":"PREfast",
+      "fullName":"PREfast Code Analysis"
+    },
+    "results":[
+      {
+        "ruleId":"6001",
+        "message":"Using uninitialized memory 'data'.",
+        "locations":[
+          {
+            "resultFile":{
+              "uri":"file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedmerging/am_branchandsetvalue.cpp",
+              "region":{
+                "startColumn":10,
+                "startLine":8
+              }
+            },
+            "fullyQualifiedLogicalName":"CompareToTen",
+            "decoratedName":"?CompareToTen@@YAXPEAHH@Z",
+            "properties":{
+              "funcline":"2"
+            }
+          }
+        ],
+        "properties":{
+          "probability":"1",
+          "rank":"3",
+          "ruleCategory":"mspft"
+        },
+        "codeFlows":[
+          {
+            "locations":[
+              {
+                "physicalLocation":{
+                  "uri":"file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedmerging/am_branchandsetvalue.cpp",
+                  "region":{
+                    "startColumn":6,
+                    "startLine":4
+                  }
+                },
+                "id":"1",
+                "kind":"declaration",
+                "message":"'data' is not initialized",
+                "essential":true
+              },{
+                "physicalLocation":{
+                  "uri":"file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedmerging/am_branchandsetvalue.cpp",
+                  "region":{
+                    "startColumn":8,
+                    "startLine":6
+                  }
+                }
+              },{
+                "physicalLocation":{
+                  "uri":"file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedmerging/am_branchandsetvalue.cpp",
+                  "region":{
+                    "startColumn":10,
+                    "startLine":8
+                  }
+                },
+                "id":"2",
+                "kind":"usage",
+                "message":"'data' is used, but may not have been initialized",
+                "essential":true
+              }
+            ]
+          }
+        ]
+      },{
+        "ruleId":"6385",
+        "message":"Reading invalid data from 'data':  the readable size is '40' bytes, but 'b' bytes may be read.",
+        "locations":[
+          {
+            "resultFile":{
+              "uri":"file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedmerging/am_branchandsetvalue.cpp",
+              "region":{
+                "startColumn":10,
+                "startLine":8
+              }
+            },
+            "fullyQualifiedLogicalName":"CompareToTen",
+            "decoratedName":"?CompareToTen@@YAXPEAHH@Z",
+            "properties":{
+              "funcline":"2"
+            }
+          }
+        ],
+        "properties":{
+          "probability":"1",
+          "rank":"4",
+          "ruleCategory":"mspft"
+        },
+        "codeFlows":[
+          {
+            "locations":[
+              {
+                "physicalLocation":{
+                  "uri":"file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedmerging/am_branchandsetvalue.cpp",
+                  "region":{
+                    "startColumn":6,
+                    "startLine":4
+                  }
+                },
+                "id":"1",
+                "kind":"declaration",
+                "message":"'data' is an array of 10 elements (40 bytes)",
+                "essential":true
+              },{
+                "physicalLocation":{
+                  "uri":"file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedmerging/am_branchandsetvalue.cpp",
+                  "region":{
+                    "startColumn":8,
+                    "startLine":6
+                  }
+                },
+                "id":"2",
+                "kind":"branch",
+                "message":"'b' may equal 10 (Enter this branch)"
+              },{
+                "physicalLocation":{
+                  "uri":"file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedmerging/am_branchandsetvalue.cpp",
+                  "region":{
+                    "startColumn":10,
+                    "startLine":8
+                  }
+                },
+                "id":"3",
+                "kind":"usage",
+                "message":"Invalid read from 'data[10]', (readable range is 0 to 9)",
+                "essential":true
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+]
+}

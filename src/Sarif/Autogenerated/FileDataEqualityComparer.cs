@@ -11,7 +11,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// <summary>
     /// Defines methods to support the comparison of objects of type FileData for equality.
     /// </summary>
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.31.0.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.34.0.0")]
     internal sealed class FileDataEqualityComparer : IEqualityComparer<FileData>
     {
         internal static readonly FileDataEqualityComparer Instance = new FileDataEqualityComparer();
@@ -29,6 +29,16 @@ namespace Microsoft.CodeAnalysis.Sarif
             }
 
             if (left.Uri != right.Uri)
+            {
+                return false;
+            }
+
+            if (left.UriBaseId != right.UriBaseId)
+            {
+                return false;
+            }
+
+            if (left.ParentKey != right.ParentKey)
             {
                 return false;
             }
@@ -107,6 +117,16 @@ namespace Microsoft.CodeAnalysis.Sarif
                 if (obj.Uri != null)
                 {
                     result = (result * 31) + obj.Uri.GetHashCode();
+                }
+
+                if (obj.UriBaseId != null)
+                {
+                    result = (result * 31) + obj.UriBaseId.GetHashCode();
+                }
+
+                if (obj.ParentKey != null)
+                {
+                    result = (result * 31) + obj.ParentKey.GetHashCode();
                 }
 
                 result = (result * 31) + obj.Offset.GetHashCode();

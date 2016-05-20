@@ -1,20 +1,11 @@
 {
-"version":"1.0.0-beta.4",
+"version":"1.0.0",
 "$schema":"http://json.schemastore.org/sarif-1.0.0",
 "runs":[
   {
     "tool":{
       "name":"PREfast",
-      "fullName":"PREfast Code Analysis",
-      "version":"14.0.0"
-    },
-    "logicalLocations":{
-      "?MemberFunc@Class@@QAEJXZ":[
-        {
-          "kind":"method",
-          "name":"Class::MemberFunc"
-        }
-      ]
+      "fullName":"PREfast Code Analysis"
     },
     "results":[
       {
@@ -30,9 +21,8 @@
               }
             },
             "fullyQualifiedLogicalName":"Class::MemberFunc",
-            "logicalLocationKey":"?MemberFunc@Class@@QAEJXZ",
+            "decoratedName":"?MemberFunc@Class@@QAEJXZ",
             "properties":{
-              "decorated":"?MemberFunc@Class@@QAEJXZ",
               "funcline":"17"
             }
           }
@@ -209,9 +199,8 @@
               }
             },
             "fullyQualifiedLogicalName":"Class::MemberFunc",
-            "logicalLocationKey":"?MemberFunc@Class@@QAEJXZ",
+            "decoratedName":"?MemberFunc@Class@@QAEJXZ",
             "properties":{
-              "decorated":"?MemberFunc@Class@@QAEJXZ",
               "funcline":"17"
             }
           }
@@ -388,9 +377,8 @@
               }
             },
             "fullyQualifiedLogicalName":"Class::MemberFunc",
-            "logicalLocationKey":"?MemberFunc@Class@@QAEJXZ",
+            "decoratedName":"?MemberFunc@Class@@QAEJXZ",
             "properties":{
-              "decorated":"?MemberFunc@Class@@QAEJXZ",
               "funcline":"17"
             }
           }
@@ -551,9 +539,8 @@
               }
             },
             "fullyQualifiedLogicalName":"Class::MemberFunc",
-            "logicalLocationKey":"?MemberFunc@Class@@QAEJXZ",
+            "decoratedName":"?MemberFunc@Class@@QAEJXZ",
             "properties":{
-              "decorated":"?MemberFunc@Class@@QAEJXZ",
               "funcline":"17"
             }
           }

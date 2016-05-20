@@ -1,20 +1,11 @@
 {
-"version":"1.0.0-beta.4",
+"version":"1.0.0",
 "$schema":"http://json.schemastore.org/sarif-1.0.0",
 "runs":[
   {
     "tool":{
       "name":"PREfast",
-      "fullName":"PREfast Code Analysis",
-      "version":"14.0.0"
-    },
-    "logicalLocations":{
-      "?PbLoadExtRstSst@@YAPAEPAU_srst@@HPAE1PAPAE@Z":[
-        {
-          "kind":"method",
-          "name":"PbLoadExtRstSst"
-        }
-      ]
+      "fullName":"PREfast Code Analysis"
     },
     "results":[
       {
@@ -30,9 +21,8 @@
               }
             },
             "fullyQualifiedLogicalName":"PbLoadExtRstSst",
-            "logicalLocationKey":"?PbLoadExtRstSst@@YAPAEPAU_srst@@HPAE1PAPAE@Z",
+            "decoratedName":"?PbLoadExtRstSst@@YAPAEPAU_srst@@HPAE1PAPAE@Z",
             "properties":{
-              "decorated":"?PbLoadExtRstSst@@YAPAEPAU_srst@@HPAE1PAPAE@Z",
               "funcline":"103"
             }
           }
@@ -265,9 +255,8 @@
               }
             },
             "fullyQualifiedLogicalName":"PbLoadExtRstSst",
-            "logicalLocationKey":"?PbLoadExtRstSst@@YAPAEPAU_srst@@HPAE1PAPAE@Z",
+            "decoratedName":"?PbLoadExtRstSst@@YAPAEPAU_srst@@HPAE1PAPAE@Z",
             "properties":{
-              "decorated":"?PbLoadExtRstSst@@YAPAEPAU_srst@@HPAE1PAPAE@Z",
               "funcline":"103"
             }
           }
@@ -500,9 +489,8 @@
               }
             },
             "fullyQualifiedLogicalName":"PbLoadExtRstSst",
-            "logicalLocationKey":"?PbLoadExtRstSst@@YAPAEPAU_srst@@HPAE1PAPAE@Z",
+            "decoratedName":"?PbLoadExtRstSst@@YAPAEPAU_srst@@HPAE1PAPAE@Z",
             "properties":{
-              "decorated":"?PbLoadExtRstSst@@YAPAEPAU_srst@@HPAE1PAPAE@Z",
               "funcline":"103"
             }
           }
@@ -743,9 +731,8 @@
               }
             },
             "fullyQualifiedLogicalName":"PbLoadExtRstSst",
-            "logicalLocationKey":"?PbLoadExtRstSst@@YAPAEPAU_srst@@HPAE1PAPAE@Z",
+            "decoratedName":"?PbLoadExtRstSst@@YAPAEPAU_srst@@HPAE1PAPAE@Z",
             "properties":{
-              "decorated":"?PbLoadExtRstSst@@YAPAEPAU_srst@@HPAE1PAPAE@Z",
               "funcline":"103"
             }
           }
@@ -1082,9 +1069,8 @@
               }
             },
             "fullyQualifiedLogicalName":"PbLoadExtRstSst",
-            "logicalLocationKey":"?PbLoadExtRstSst@@YAPAEPAU_srst@@HPAE1PAPAE@Z",
+            "decoratedName":"?PbLoadExtRstSst@@YAPAEPAU_srst@@HPAE1PAPAE@Z",
             "properties":{
-              "decorated":"?PbLoadExtRstSst@@YAPAEPAU_srst@@HPAE1PAPAE@Z",
               "funcline":"103"
             }
           }
@@ -1501,9 +1487,8 @@
               }
             },
             "fullyQualifiedLogicalName":"PbLoadExtRstSst",
-            "logicalLocationKey":"?PbLoadExtRstSst@@YAPAEPAU_srst@@HPAE1PAPAE@Z",
+            "decoratedName":"?PbLoadExtRstSst@@YAPAEPAU_srst@@HPAE1PAPAE@Z",
             "properties":{
-              "decorated":"?PbLoadExtRstSst@@YAPAEPAU_srst@@HPAE1PAPAE@Z",
               "funcline":"103"
             }
           }
@@ -1744,9 +1729,8 @@
               }
             },
             "fullyQualifiedLogicalName":"PbLoadExtRstSst",
-            "logicalLocationKey":"?PbLoadExtRstSst@@YAPAEPAU_srst@@HPAE1PAPAE@Z",
+            "decoratedName":"?PbLoadExtRstSst@@YAPAEPAU_srst@@HPAE1PAPAE@Z",
             "properties":{
-              "decorated":"?PbLoadExtRstSst@@YAPAEPAU_srst@@HPAE1PAPAE@Z",
               "funcline":"103"
             }
           }

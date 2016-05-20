@@ -1,26 +1,11 @@
 {
-"version":"1.0.0-beta.4",
+"version":"1.0.0",
 "$schema":"http://json.schemastore.org/sarif-1.0.0",
 "runs":[
   {
     "tool":{
       "name":"PREfast",
-      "fullName":"PREfast Code Analysis",
-      "version":"14.0.0"
-    },
-    "logicalLocations":{
-      "?InitAttrBag@@YAXPAVCHtmTag@@@Z":[
-        {
-          "kind":"method",
-          "name":"InitAttrBag"
-        }
-      ],
-      "?MergeAttrBag@@YAXPAVCHtmTag@@@Z":[
-        {
-          "kind":"method",
-          "name":"MergeAttrBag"
-        }
-      ]
+      "fullName":"PREfast Code Analysis"
     },
     "results":[
       {
@@ -36,9 +21,8 @@
               }
             },
             "fullyQualifiedLogicalName":"InitAttrBag",
-            "logicalLocationKey":"?InitAttrBag@@YAXPAVCHtmTag@@@Z",
+            "decoratedName":"?InitAttrBag@@YAXPAVCHtmTag@@@Z",
             "properties":{
-              "decorated":"?InitAttrBag@@YAXPAVCHtmTag@@@Z",
               "funcline":"57"
             }
           }
@@ -247,9 +231,8 @@
               }
             },
             "fullyQualifiedLogicalName":"InitAttrBag",
-            "logicalLocationKey":"?InitAttrBag@@YAXPAVCHtmTag@@@Z",
+            "decoratedName":"?InitAttrBag@@YAXPAVCHtmTag@@@Z",
             "properties":{
-              "decorated":"?InitAttrBag@@YAXPAVCHtmTag@@@Z",
               "funcline":"57"
             }
           }
@@ -466,9 +449,8 @@
               }
             },
             "fullyQualifiedLogicalName":"InitAttrBag",
-            "logicalLocationKey":"?InitAttrBag@@YAXPAVCHtmTag@@@Z",
+            "decoratedName":"?InitAttrBag@@YAXPAVCHtmTag@@@Z",
             "properties":{
-              "decorated":"?InitAttrBag@@YAXPAVCHtmTag@@@Z",
               "funcline":"57"
             }
           }
@@ -693,9 +675,8 @@
               }
             },
             "fullyQualifiedLogicalName":"MergeAttrBag",
-            "logicalLocationKey":"?MergeAttrBag@@YAXPAVCHtmTag@@@Z",
+            "decoratedName":"?MergeAttrBag@@YAXPAVCHtmTag@@@Z",
             "properties":{
-              "decorated":"?MergeAttrBag@@YAXPAVCHtmTag@@@Z",
               "funcline":"79"
             }
           }
@@ -848,9 +829,8 @@
               }
             },
             "fullyQualifiedLogicalName":"MergeAttrBag",
-            "logicalLocationKey":"?MergeAttrBag@@YAXPAVCHtmTag@@@Z",
+            "decoratedName":"?MergeAttrBag@@YAXPAVCHtmTag@@@Z",
             "properties":{
-              "decorated":"?MergeAttrBag@@YAXPAVCHtmTag@@@Z",
               "funcline":"79"
             }
           }
@@ -1011,9 +991,8 @@
               }
             },
             "fullyQualifiedLogicalName":"MergeAttrBag",
-            "logicalLocationKey":"?MergeAttrBag@@YAXPAVCHtmTag@@@Z",
+            "decoratedName":"?MergeAttrBag@@YAXPAVCHtmTag@@@Z",
             "properties":{
-              "decorated":"?MergeAttrBag@@YAXPAVCHtmTag@@@Z",
               "funcline":"79"
             }
           }

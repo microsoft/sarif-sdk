@@ -56,7 +56,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         {
             this.EnsureStateNotAlreadySet(Conditions.Disposed | Conditions.Initialized);
 
-            SarifVersion sarifVersion = SarifVersion.OneZeroZeroBetaFour;
+            SarifVersion sarifVersion = SarifVersion.OneZeroZero;
 
             _jsonWriter.WriteStartObject(); // Begin: sarifLog
             _jsonWriter.WritePropertyName("$schema");
@@ -118,7 +118,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         /// A dictionary whose keys are the URIs of scanned files and whose values provide
         /// information about those files.
         /// </param>
-        public void WriteFiles(IDictionary<string, IList<FileData>> fileDictionary)
+        public void WriteFiles(IDictionary<string, FileData> fileDictionary)
         {
             if (fileDictionary == null)
             {
@@ -130,7 +130,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             EnsureStateNotAlreadySet(Conditions.Disposed | Conditions.FilesWritten);
 
             _jsonWriter.WritePropertyName("files");
-            _serializer.Serialize(_jsonWriter, fileDictionary, typeof(Dictionary<Uri, IList<FileData>>));
+            _serializer.Serialize(_jsonWriter, fileDictionary, typeof(Dictionary<Uri, FileData>));
 
             _writeConditions |= Conditions.FilesWritten;
         }
@@ -144,11 +144,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         /// A dictionary whose keys are strings specifying a logical location and
         /// whose values provide information about each component of the logical location.
         /// </param>
-        public void WriteLogicalLocations(IDictionary<string, IList<LogicalLocationComponent>> logicalLocationDictionary)
+        public void WriteLogicalLocations(IDictionary<string, LogicalLocation> logicalLocationsDictionary)
         {
-            if (logicalLocationDictionary == null)
+            if (logicalLocationsDictionary == null)
             {
-                throw new ArgumentNullException(nameof(logicalLocationDictionary));
+                throw new ArgumentNullException(nameof(logicalLocationsDictionary));
             }
 
             EnsureInitialized();
@@ -156,7 +156,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             EnsureStateNotAlreadySet(Conditions.Disposed | Conditions.LogicalLocationsWritten);
 
             _jsonWriter.WritePropertyName("logicalLocations");
-            _serializer.Serialize(_jsonWriter, logicalLocationDictionary, typeof(Dictionary<string, IList<LogicalLocationComponent>>));
+            _serializer.Serialize(_jsonWriter, logicalLocationsDictionary, typeof(Dictionary<string, LogicalLocation>));
 
             _writeConditions |= Conditions.LogicalLocationsWritten;
         }

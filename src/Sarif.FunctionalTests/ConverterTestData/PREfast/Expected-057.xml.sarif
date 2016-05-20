@@ -1,44 +1,11 @@
 {
-"version":"1.0.0-beta.4",
+"version":"1.0.0",
 "$schema":"http://json.schemastore.org/sarif-1.0.0",
 "runs":[
   {
     "tool":{
       "name":"PREfast",
-      "fullName":"PREfast Code Analysis",
-      "version":"14.0.0"
-    },
-    "logicalLocations":{
-      "?TestPtrDiff1@@YAXPAH0@Z":[
-        {
-          "kind":"method",
-          "name":"TestPtrDiff1"
-        }
-      ],
-      "?Bad@@YAXXZ":[
-        {
-          "kind":"method",
-          "name":"Bad"
-        }
-      ],
-      "?TestPtrDiffChar2@@YAXPAD0@Z":[
-        {
-          "kind":"method",
-          "name":"TestPtrDiffChar2"
-        }
-      ],
-      "?Read@@YAXPAD0PAPAD@Z":[
-        {
-          "kind":"method",
-          "name":"Read"
-        }
-      ],
-      "?PtrDiffIntBad@@YAXPAH0@Z":[
-        {
-          "kind":"method",
-          "name":"PtrDiffIntBad"
-        }
-      ]
+      "fullName":"PREfast Code Analysis"
     },
     "results":[
       {
@@ -54,9 +21,8 @@
               }
             },
             "fullyQualifiedLogicalName":"TestPtrDiff1",
-            "logicalLocationKey":"?TestPtrDiff1@@YAXPAH0@Z",
+            "decoratedName":"?TestPtrDiff1@@YAXPAH0@Z",
             "properties":{
-              "decorated":"?TestPtrDiff1@@YAXPAH0@Z",
               "funcline":"4"
             }
           }
@@ -97,9 +63,8 @@
               }
             },
             "fullyQualifiedLogicalName":"Bad",
-            "logicalLocationKey":"?Bad@@YAXXZ",
+            "decoratedName":"?Bad@@YAXXZ",
             "properties":{
-              "decorated":"?Bad@@YAXXZ",
               "funcline":"15"
             }
           }
@@ -148,9 +113,8 @@
               }
             },
             "fullyQualifiedLogicalName":"TestPtrDiffChar2",
-            "logicalLocationKey":"?TestPtrDiffChar2@@YAXPAD0@Z",
+            "decoratedName":"?TestPtrDiffChar2@@YAXPAD0@Z",
             "properties":{
-              "decorated":"?TestPtrDiffChar2@@YAXPAD0@Z",
               "funcline":"31"
             }
           }
@@ -199,9 +163,8 @@
               }
             },
             "fullyQualifiedLogicalName":"Read",
-            "logicalLocationKey":"?Read@@YAXPAD0PAPAD@Z",
+            "decoratedName":"?Read@@YAXPAD0PAPAD@Z",
             "properties":{
-              "decorated":"?Read@@YAXPAD0PAPAD@Z",
               "funcline":"64"
             }
           }
@@ -346,9 +309,8 @@
               }
             },
             "fullyQualifiedLogicalName":"PtrDiffIntBad",
-            "logicalLocationKey":"?PtrDiffIntBad@@YAXPAH0@Z",
+            "decoratedName":"?PtrDiffIntBad@@YAXPAH0@Z",
             "properties":{
-              "decorated":"?PtrDiffIntBad@@YAXPAH0@Z",
               "funcline":"92"
             }
           }

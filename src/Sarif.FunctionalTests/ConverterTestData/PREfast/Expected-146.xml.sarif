@@ -1,38 +1,11 @@
 {
-"version":"1.0.0-beta.4",
+"version":"1.0.0",
 "$schema":"http://json.schemastore.org/sarif-1.0.0",
 "runs":[
   {
     "tool":{
       "name":"PREfast",
-      "fullName":"PREfast Code Analysis",
-      "version":"14.0.0"
-    },
-    "logicalLocations":{
-      "?Test5_1@@YAXXZ":[
-        {
-          "kind":"method",
-          "name":"Test5_1"
-        }
-      ],
-      "?Test5_2@@YAXXZ":[
-        {
-          "kind":"method",
-          "name":"Test5_2"
-        }
-      ],
-      "?Test5_3@@YAXXZ":[
-        {
-          "kind":"method",
-          "name":"Test5_3"
-        }
-      ],
-      "?Get2S_6@@YAXPAPAUS6@@@Z":[
-        {
-          "kind":"method",
-          "name":"Get2S_6"
-        }
-      ]
+      "fullName":"PREfast Code Analysis"
     },
     "results":[
       {
@@ -48,9 +21,8 @@
               }
             },
             "fullyQualifiedLogicalName":"Test5_1",
-            "logicalLocationKey":"?Test5_1@@YAXXZ",
+            "decoratedName":"?Test5_1@@YAXXZ",
             "properties":{
-              "decorated":"?Test5_1@@YAXXZ",
               "funcline":"157"
             }
           }
@@ -123,9 +95,8 @@
               }
             },
             "fullyQualifiedLogicalName":"Test5_2",
-            "logicalLocationKey":"?Test5_2@@YAXXZ",
+            "decoratedName":"?Test5_2@@YAXXZ",
             "properties":{
-              "decorated":"?Test5_2@@YAXXZ",
               "funcline":"165"
             }
           }
@@ -190,9 +161,8 @@
               }
             },
             "fullyQualifiedLogicalName":"Test5_3",
-            "logicalLocationKey":"?Test5_3@@YAXXZ",
+            "decoratedName":"?Test5_3@@YAXXZ",
             "properties":{
-              "decorated":"?Test5_3@@YAXXZ",
               "funcline":"173"
             }
           }
@@ -273,9 +243,8 @@
               }
             },
             "fullyQualifiedLogicalName":"Get2S_6",
-            "logicalLocationKey":"?Get2S_6@@YAXPAPAUS6@@@Z",
+            "decoratedName":"?Get2S_6@@YAXPAPAUS6@@@Z",
             "properties":{
-              "decorated":"?Get2S_6@@YAXPAPAUS6@@@Z",
               "funcline":"225"
             }
           }
@@ -348,9 +317,8 @@
               }
             },
             "fullyQualifiedLogicalName":"Get2S_6",
-            "logicalLocationKey":"?Get2S_6@@YAXPAPAUS6@@@Z",
+            "decoratedName":"?Get2S_6@@YAXPAPAUS6@@@Z",
             "properties":{
-              "decorated":"?Get2S_6@@YAXPAPAUS6@@@Z",
               "funcline":"225"
             }
           }

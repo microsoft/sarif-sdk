@@ -1,26 +1,11 @@
 {
-"version":"1.0.0-beta.4",
+"version":"1.0.0",
 "$schema":"http://json.schemastore.org/sarif-1.0.0",
 "runs":[
   {
     "tool":{
       "name":"PREfast",
-      "fullName":"PREfast Code Analysis",
-      "version":"14.0.0"
-    },
-    "logicalLocations":{
-      "?good1@@YAPAU_VARSTR@@XZ":[
-        {
-          "kind":"method",
-          "name":"good1"
-        }
-      ],
-      "?bad1@@YAPAU_VARSTR@@XZ":[
-        {
-          "kind":"method",
-          "name":"bad1"
-        }
-      ]
+      "fullName":"PREfast Code Analysis"
     },
     "results":[
       {
@@ -36,9 +21,8 @@
               }
             },
             "fullyQualifiedLogicalName":"good1",
-            "logicalLocationKey":"?good1@@YAPAU_VARSTR@@XZ",
+            "decoratedName":"?good1@@YAPAU_VARSTR@@XZ",
             "properties":{
-              "decorated":"?good1@@YAPAU_VARSTR@@XZ",
               "funcline":"18"
             }
           }
@@ -95,9 +79,8 @@
               }
             },
             "fullyQualifiedLogicalName":"bad1",
-            "logicalLocationKey":"?bad1@@YAPAU_VARSTR@@XZ",
+            "decoratedName":"?bad1@@YAPAU_VARSTR@@XZ",
             "properties":{
-              "decorated":"?bad1@@YAPAU_VARSTR@@XZ",
               "funcline":"41"
             }
           }
@@ -154,9 +137,8 @@
               }
             },
             "fullyQualifiedLogicalName":"bad1",
-            "logicalLocationKey":"?bad1@@YAPAU_VARSTR@@XZ",
+            "decoratedName":"?bad1@@YAPAU_VARSTR@@XZ",
             "properties":{
-              "decorated":"?bad1@@YAPAU_VARSTR@@XZ",
               "funcline":"41"
             }
           }

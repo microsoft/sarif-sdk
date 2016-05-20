@@ -9,11 +9,25 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 {
     internal static class SarifHelpers
     {
-        public static void ValidateRun(Run run, Action<Result> resultAction)
+        public static void ValidateRun(Run run, Action<Result> resultAction, Action<Notification> toolNotificationAction)
         {
             ValidateTool(run.Tool);
 
-            foreach (Result result in run.Results) { resultAction(result); }
+            if (run.Results != null)
+            {
+                foreach (Result result in run.Results)
+                {
+                    resultAction(result);
+                }
+            }
+
+            if (run.ToolNotifications != null)
+            {
+                foreach (Notification result in run.ToolNotifications)
+                {
+                    toolNotificationAction(result);
+                }
+            }
         }
 
         public static void ValidateTool(Tool tool)

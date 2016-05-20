@@ -1,20 +1,11 @@
 {
-"version":"1.0.0-beta.4",
+"version":"1.0.0",
 "$schema":"http://json.schemastore.org/sarif-1.0.0",
 "runs":[
   {
     "tool":{
       "name":"PREfast",
-      "fullName":"PREfast Code Analysis",
-      "version":"14.0.0"
-    },
-    "logicalLocations":{
-      "?myConcat@@YA?AUbuffer@@PADH0H@Z":[
-        {
-          "kind":"method",
-          "name":"myConcat"
-        }
-      ]
+      "fullName":"PREfast Code Analysis"
     },
     "results":[
       {
@@ -30,9 +21,8 @@
               }
             },
             "fullyQualifiedLogicalName":"myConcat",
-            "logicalLocationKey":"?myConcat@@YA?AUbuffer@@PADH0H@Z",
+            "decoratedName":"?myConcat@@YA?AUbuffer@@PADH0H@Z",
             "properties":{
-              "decorated":"?myConcat@@YA?AUbuffer@@PADH0H@Z",
               "funcline":"15"
             }
           }

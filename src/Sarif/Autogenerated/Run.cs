@@ -12,7 +12,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// Describes a single run of an analysis tool, and contains the output of that run.
     /// </summary>
     [DataContract]
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.31.0.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.34.0.0")]
     public partial class Run : ISarifNode
     {
         public static IEqualityComparer<Run> ValueComparer => RunEqualityComparer.Instance;
@@ -44,16 +44,22 @@ namespace Microsoft.CodeAnalysis.Sarif
         public Invocation Invocation { get; set; }
 
         /// <summary>
+        /// The URI of the file that the analysis tool was instructed to scan. This member is only populated if the run is directed against a single analysis target.
+        /// </summary>
+        [DataMember(Name = "analysisTargetUri", IsRequired = false, EmitDefaultValue = false)]
+        public Uri AnalysisTargetUri { get; set; }
+
+        /// <summary>
         /// A dictionary, each of whose keys is a URI and each of whose values is an array of file objects representing the location of a single file scanned during the run.
         /// </summary>
         [DataMember(Name = "files", IsRequired = false, EmitDefaultValue = false)]
-        public IDictionary<string, IList<FileData>> Files { get; set; }
+        public IDictionary<string, FileData> Files { get; set; }
 
         /// <summary>
-        /// A dictionary, each of whose keys specifies a fully qualified logical location such as a type nested within a namespace, and each of whose values is an array of logicalLocationComponent objects.
+        /// A dictionary, each of whose keys specifies a logical location such as a namespace, type or function.
         /// </summary>
         [DataMember(Name = "logicalLocations", IsRequired = false, EmitDefaultValue = false)]
-        public IDictionary<string, IList<LogicalLocationComponent>> LogicalLocations { get; set; }
+        public IDictionary<string, LogicalLocation> LogicalLocations { get; set; }
 
         /// <summary>
         /// The set of results contained in an SARIF log. The results array can be omitted when a run is solely exporting rules metadata. It must be present (but may be empty) in the event that a log file represents an actual scan.
@@ -88,8 +94,14 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <summary>
         /// A global identifier that allows the run to be correlated with other artifacts produced by a larger automation process.
         /// </summary>
-        [DataMember(Name = "correlationId", IsRequired = false, EmitDefaultValue = false)]
-        public string CorrelationId { get; set; }
+        [DataMember(Name = "automationId", IsRequired = false, EmitDefaultValue = false)]
+        public string AutomationId { get; set; }
+
+        /// <summary>
+        /// The 'id' property of a separate (potentially external) SARIF 'run' instance that comprises the baseline that was used to compute result 'baselineState' properties for the run.
+        /// </summary>
+        [DataMember(Name = "baselineId", IsRequired = false, EmitDefaultValue = false)]
+        public string BaselineId { get; set; }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Run" /> class.
@@ -106,6 +118,9 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// </param>
         /// <param name="invocation">
         /// An initialization value for the <see cref="P: Invocation" /> property.
+        /// </param>
+        /// <param name="analysisTargetUri">
+        /// An initialization value for the <see cref="P: AnalysisTargetUri" /> property.
         /// </param>
         /// <param name="files">
         /// An initialization value for the <see cref="P: Files" /> property.
@@ -128,12 +143,15 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="id">
         /// An initialization value for the <see cref="P: Id" /> property.
         /// </param>
-        /// <param name="correlationId">
-        /// An initialization value for the <see cref="P: CorrelationId" /> property.
+        /// <param name="automationId">
+        /// An initialization value for the <see cref="P: AutomationId" /> property.
         /// </param>
-        public Run(Tool tool, Invocation invocation, IDictionary<string, IList<FileData>> files, IDictionary<string, IList<LogicalLocationComponent>> logicalLocations, IEnumerable<Result> results, IEnumerable<Notification> toolNotifications, IEnumerable<Notification> configurationNotifications, IDictionary<string, Rule> rules, string id, string correlationId)
+        /// <param name="baselineId">
+        /// An initialization value for the <see cref="P: BaselineId" /> property.
+        /// </param>
+        public Run(Tool tool, Invocation invocation, Uri analysisTargetUri, IDictionary<string, FileData> files, IDictionary<string, LogicalLocation> logicalLocations, IEnumerable<Result> results, IEnumerable<Notification> toolNotifications, IEnumerable<Notification> configurationNotifications, IDictionary<string, Rule> rules, string id, string automationId, string baselineId)
         {
-            Init(tool, invocation, files, logicalLocations, results, toolNotifications, configurationNotifications, rules, id, correlationId);
+            Init(tool, invocation, analysisTargetUri, files, logicalLocations, results, toolNotifications, configurationNotifications, rules, id, automationId, baselineId);
         }
 
         /// <summary>
@@ -152,7 +170,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 throw new ArgumentNullException(nameof(other));
             }
 
-            Init(other.Tool, other.Invocation, other.Files, other.LogicalLocations, other.Results, other.ToolNotifications, other.ConfigurationNotifications, other.Rules, other.Id, other.CorrelationId);
+            Init(other.Tool, other.Invocation, other.AnalysisTargetUri, other.Files, other.LogicalLocations, other.Results, other.ToolNotifications, other.ConfigurationNotifications, other.Rules, other.Id, other.AutomationId, other.BaselineId);
         }
 
         ISarifNode ISarifNode.DeepClone()
@@ -173,7 +191,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new Run(this);
         }
 
-        private void Init(Tool tool, Invocation invocation, IDictionary<string, IList<FileData>> files, IDictionary<string, IList<LogicalLocationComponent>> logicalLocations, IEnumerable<Result> results, IEnumerable<Notification> toolNotifications, IEnumerable<Notification> configurationNotifications, IDictionary<string, Rule> rules, string id, string correlationId)
+        private void Init(Tool tool, Invocation invocation, Uri analysisTargetUri, IDictionary<string, FileData> files, IDictionary<string, LogicalLocation> logicalLocations, IEnumerable<Result> results, IEnumerable<Notification> toolNotifications, IEnumerable<Notification> configurationNotifications, IDictionary<string, Rule> rules, string id, string automationId, string baselineId)
         {
             if (tool != null)
             {
@@ -185,54 +203,69 @@ namespace Microsoft.CodeAnalysis.Sarif
                 Invocation = new Invocation(invocation);
             }
 
+            if (analysisTargetUri != null)
+            {
+                AnalysisTargetUri = new Uri(analysisTargetUri.OriginalString, analysisTargetUri.IsAbsoluteUri ? UriKind.Absolute : UriKind.Relative);
+            }
+
             if (files != null)
             {
-                Files = new Dictionary<string, IList<FileData>>();
+                Files = new Dictionary<string, FileData>();
                 foreach (var value_0 in files)
                 {
-                    var destination_0 = new List<FileData>();
-                    foreach (var value_1 in value_0.Value)
-                    {
-                        if (value_1 == null)
-                        {
-                            destination_0.Add(null);
-                        }
-                        else
-                        {
-                            destination_0.Add(new FileData(value_1));
-                        }
-                    }
-
-                    Files.Add(value_0.Key, destination_0);
+                    Files.Add(value_0.Key, new FileData(value_0.Value));
                 }
             }
 
             if (logicalLocations != null)
             {
-                LogicalLocations = new Dictionary<string, IList<LogicalLocationComponent>>();
-                foreach (var value_2 in logicalLocations)
+                LogicalLocations = new Dictionary<string, LogicalLocation>();
+                foreach (var value_1 in logicalLocations)
                 {
-                    var destination_1 = new List<LogicalLocationComponent>();
-                    foreach (var value_3 in value_2.Value)
-                    {
-                        if (value_3 == null)
-                        {
-                            destination_1.Add(null);
-                        }
-                        else
-                        {
-                            destination_1.Add(new LogicalLocationComponent(value_3));
-                        }
-                    }
-
-                    LogicalLocations.Add(value_2.Key, destination_1);
+                    LogicalLocations.Add(value_1.Key, new LogicalLocation(value_1.Value));
                 }
             }
 
             if (results != null)
             {
-                var destination_2 = new List<Result>();
-                foreach (var value_4 in results)
+                var destination_0 = new List<Result>();
+                foreach (var value_2 in results)
+                {
+                    if (value_2 == null)
+                    {
+                        destination_0.Add(null);
+                    }
+                    else
+                    {
+                        destination_0.Add(new Result(value_2));
+                    }
+                }
+
+                Results = destination_0;
+            }
+
+            if (toolNotifications != null)
+            {
+                var destination_1 = new List<Notification>();
+                foreach (var value_3 in toolNotifications)
+                {
+                    if (value_3 == null)
+                    {
+                        destination_1.Add(null);
+                    }
+                    else
+                    {
+                        destination_1.Add(new Notification(value_3));
+                    }
+                }
+
+                ToolNotifications = destination_1;
+            }
+
+            if (configurationNotifications != null)
+            {
+                var destination_2 = new List<Notification>();
+                foreach (var value_4 in configurationNotifications)
                 {
                     if (value_4 == null)
                     {
@@ -240,60 +273,25 @@ namespace Microsoft.CodeAnalysis.Sarif
                     }
                     else
                     {
-                        destination_2.Add(new Result(value_4));
+                        destination_2.Add(new Notification(value_4));
                     }
                 }
 
-                Results = destination_2;
-            }
-
-            if (toolNotifications != null)
-            {
-                var destination_3 = new List<Notification>();
-                foreach (var value_5 in toolNotifications)
-                {
-                    if (value_5 == null)
-                    {
-                        destination_3.Add(null);
-                    }
-                    else
-                    {
-                        destination_3.Add(new Notification(value_5));
-                    }
-                }
-
-                ToolNotifications = destination_3;
-            }
-
-            if (configurationNotifications != null)
-            {
-                var destination_4 = new List<Notification>();
-                foreach (var value_6 in configurationNotifications)
-                {
-                    if (value_6 == null)
-                    {
-                        destination_4.Add(null);
-                    }
-                    else
-                    {
-                        destination_4.Add(new Notification(value_6));
-                    }
-                }
-
-                ConfigurationNotifications = destination_4;
+                ConfigurationNotifications = destination_2;
             }
 
             if (rules != null)
             {
                 Rules = new Dictionary<string, Rule>();
-                foreach (var value_7 in rules)
+                foreach (var value_5 in rules)
                 {
-                    Rules.Add(value_7.Key, new Rule(value_7.Value));
+                    Rules.Add(value_5.Key, new Rule(value_5.Value));
                 }
             }
 
             Id = id;
-            CorrelationId = correlationId;
+            AutomationId = automationId;
+            BaselineId = baselineId;
         }
     }
 }

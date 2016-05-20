@@ -1,0 +1,34 @@
+{
+"version":"1.0.0",
+"$schema":"http://json.schemastore.org/sarif-1.0.0",
+"runs":[
+  {
+    "tool":{
+      "name":"PREfast",
+      "fullName":"PREfast Code Analysis"
+    },
+    "results":[
+      {
+        "ruleId":"6282",
+        "message":"Incorrect operator:  assignment of constant in Boolean context. Consider using '==' instead.",
+        "locations":[
+          {
+            "resultFile":{
+              "uri":"file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/standardux/standardc6282.cxx",
+              "region":{
+                "startColumn":13,
+                "startLine":16
+              }
+            },
+            "fullyQualifiedLogicalName":"f_d",
+            "decoratedName":"?f_d@@YAXH@Z",
+            "properties":{
+              "funcline":"14"
+            }
+          }
+        ]
+      }
+    ]
+  }
+]
+}

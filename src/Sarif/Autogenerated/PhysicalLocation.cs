@@ -12,7 +12,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// The physical location where a result was detected. Specifies a reference to a programming artifact together with a range of bytes or characters within that artifact.
     /// </summary>
     [DataContract]
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.31.0.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.34.0.0")]
     public partial class PhysicalLocation : ISarifNode
     {
         public static IEqualityComparer<PhysicalLocation> ValueComparer => PhysicalLocationEqualityComparer.Instance;
@@ -38,6 +38,12 @@ namespace Microsoft.CodeAnalysis.Sarif
         public Uri Uri { get; set; }
 
         /// <summary>
+        /// A string that identifies the conceptual base for the 'uri' property (if it is relative), e.g.,'$(SolutionDir)' or '%SRCROOT%'.
+        /// </summary>
+        [DataMember(Name = "uriBaseId", IsRequired = false, EmitDefaultValue = false)]
+        public string UriBaseId { get; set; }
+
+        /// <summary>
         /// The region within the file where the result was detected.
         /// </summary>
         [DataMember(Name = "region", IsRequired = false, EmitDefaultValue = false)]
@@ -56,12 +62,15 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="uri">
         /// An initialization value for the <see cref="P: Uri" /> property.
         /// </param>
+        /// <param name="uriBaseId">
+        /// An initialization value for the <see cref="P: UriBaseId" /> property.
+        /// </param>
         /// <param name="region">
         /// An initialization value for the <see cref="P: Region" /> property.
         /// </param>
-        public PhysicalLocation(Uri uri, Region region)
+        public PhysicalLocation(Uri uri, string uriBaseId, Region region)
         {
-            Init(uri, region);
+            Init(uri, uriBaseId, region);
         }
 
         /// <summary>
@@ -80,7 +89,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 throw new ArgumentNullException(nameof(other));
             }
 
-            Init(other.Uri, other.Region);
+            Init(other.Uri, other.UriBaseId, other.Region);
         }
 
         ISarifNode ISarifNode.DeepClone()
@@ -101,13 +110,14 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new PhysicalLocation(this);
         }
 
-        private void Init(Uri uri, Region region)
+        private void Init(Uri uri, string uriBaseId, Region region)
         {
             if (uri != null)
             {
                 Uri = new Uri(uri.OriginalString, uri.IsAbsoluteUri ? UriKind.Absolute : UriKind.Relative);
             }
 
+            UriBaseId = uriBaseId;
             if (region != null)
             {
                 Region = new Region(region);

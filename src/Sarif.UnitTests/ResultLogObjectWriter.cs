@@ -55,7 +55,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         /// A dictionary whose keys are the strings representing the locations of scanned files
         /// and whose values provide information about those files.
         /// </param>
-        public void WriteFiles(IDictionary<string, IList<FileData>> fileDictionary)
+        public void WriteFiles(IDictionary<string, FileData> fileDictionary)
         {
             throw new NotImplementedException();
         }
@@ -69,7 +69,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         /// A dictionary whose keys are strings specifying a logical location and
         /// whose values provide information about each component of the logical location.
         /// </param>
-        public void WriteLogicalLocations(IDictionary<string, IList<LogicalLocationComponent>> logicalLocationDictionary)
+        public void WriteLogicalLocations(IDictionary<string, LogicalLocation> logicalLocationDictionary)
         {
             throw new NotImplementedException();
         }

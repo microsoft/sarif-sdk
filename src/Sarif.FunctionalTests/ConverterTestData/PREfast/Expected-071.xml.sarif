@@ -1,62 +1,11 @@
 {
-"version":"1.0.0-beta.4",
+"version":"1.0.0",
 "$schema":"http://json.schemastore.org/sarif-1.0.0",
 "runs":[
   {
     "tool":{
       "name":"PREfast",
-      "fullName":"PREfast Code Analysis",
-      "version":"14.0.0"
-    },
-    "logicalLocations":{
-      "?f@@YAXPADIPBD@Z":[
-        {
-          "kind":"method",
-          "name":"f"
-        }
-      ],
-      "?f1@@YAXPADIPBD@Z":[
-        {
-          "kind":"method",
-          "name":"f1"
-        }
-      ],
-      "?f2@@YAXPADIPBD@Z":[
-        {
-          "kind":"method",
-          "name":"f2"
-        }
-      ],
-      "?foo@@YAXPAGI@Z":[
-        {
-          "kind":"method",
-          "name":"foo"
-        }
-      ],
-      "?GetComputerName@@YAXPADPAI@Z":[
-        {
-          "kind":"method",
-          "name":"GetComputerName"
-        }
-      ],
-      "?TestFields@@YAXPADHH@Z":[
-        {
-          "kind":"method",
-          "name":"TestFields"
-        }
-      ],
-      "?f@@YAXPADPAI@Z":[
-        {
-          "kind":"method",
-          "name":"f"
-        }
-      ],
-      "?Division@@YAXXZ":[
-        {
-          "kind":"method",
-          "name":"Division"
-        }
-      ]
+      "fullName":"PREfast Code Analysis"
     },
     "results":[
       {
@@ -72,9 +21,8 @@
               }
             },
             "fullyQualifiedLogicalName":"f",
-            "logicalLocationKey":"?f@@YAXPADIPBD@Z",
+            "decoratedName":"?f@@YAXPADIPBD@Z",
             "properties":{
-              "decorated":"?f@@YAXPADIPBD@Z",
               "funcline":"7"
             }
           }
@@ -155,9 +103,8 @@
               }
             },
             "fullyQualifiedLogicalName":"f1",
-            "logicalLocationKey":"?f1@@YAXPADIPBD@Z",
+            "decoratedName":"?f1@@YAXPADIPBD@Z",
             "properties":{
-              "decorated":"?f1@@YAXPADIPBD@Z",
               "funcline":"21"
             }
           }
@@ -238,9 +185,8 @@
               }
             },
             "fullyQualifiedLogicalName":"f1",
-            "logicalLocationKey":"?f1@@YAXPADIPBD@Z",
+            "decoratedName":"?f1@@YAXPADIPBD@Z",
             "properties":{
-              "decorated":"?f1@@YAXPADIPBD@Z",
               "funcline":"21"
             }
           }
@@ -353,9 +299,8 @@
               }
             },
             "fullyQualifiedLogicalName":"f2",
-            "logicalLocationKey":"?f2@@YAXPADIPBD@Z",
+            "decoratedName":"?f2@@YAXPADIPBD@Z",
             "properties":{
-              "decorated":"?f2@@YAXPADIPBD@Z",
               "funcline":"34"
             }
           }
@@ -428,9 +373,8 @@
               }
             },
             "fullyQualifiedLogicalName":"foo",
-            "logicalLocationKey":"?foo@@YAXPAGI@Z",
+            "decoratedName":"?foo@@YAXPAGI@Z",
             "properties":{
-              "decorated":"?foo@@YAXPAGI@Z",
               "funcline":"48"
             }
           }
@@ -487,9 +431,8 @@
               }
             },
             "fullyQualifiedLogicalName":"GetComputerName",
-            "logicalLocationKey":"?GetComputerName@@YAXPADPAI@Z",
+            "decoratedName":"?GetComputerName@@YAXPADPAI@Z",
             "properties":{
-              "decorated":"?GetComputerName@@YAXPADPAI@Z",
               "funcline":"70"
             }
           }
@@ -522,9 +465,8 @@
               }
             },
             "fullyQualifiedLogicalName":"TestFields",
-            "logicalLocationKey":"?TestFields@@YAXPADHH@Z",
+            "decoratedName":"?TestFields@@YAXPADHH@Z",
             "properties":{
-              "decorated":"?TestFields@@YAXPADHH@Z",
               "funcline":"103"
             }
           }
@@ -597,9 +539,8 @@
               }
             },
             "fullyQualifiedLogicalName":"TestFields",
-            "logicalLocationKey":"?TestFields@@YAXPADHH@Z",
+            "decoratedName":"?TestFields@@YAXPADHH@Z",
             "properties":{
-              "decorated":"?TestFields@@YAXPADHH@Z",
               "funcline":"103"
             }
           }
@@ -672,9 +613,8 @@
               }
             },
             "fullyQualifiedLogicalName":"f",
-            "logicalLocationKey":"?f@@YAXPADPAI@Z",
+            "decoratedName":"?f@@YAXPADPAI@Z",
             "properties":{
-              "decorated":"?f@@YAXPADPAI@Z",
               "funcline":"116"
             }
           }
@@ -715,9 +655,8 @@
               }
             },
             "fullyQualifiedLogicalName":"Division",
-            "logicalLocationKey":"?Division@@YAXXZ",
+            "decoratedName":"?Division@@YAXXZ",
             "properties":{
-              "decorated":"?Division@@YAXXZ",
               "funcline":"128"
             }
           }

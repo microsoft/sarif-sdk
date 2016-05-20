@@ -12,7 +12,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// Static Analysis Results Format (SARIF) Version 1.0.0 JSON Schema: a standard format for the output of static analysis and other tools.
     /// </summary>
     [DataContract]
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.31.0.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.34.0.0")]
     public partial class SarifLog : ISarifNode
     {
         public static IEqualityComparer<SarifLog> ValueComparer => SarifLogEqualityComparer.Instance;
@@ -32,9 +32,9 @@ namespace Microsoft.CodeAnalysis.Sarif
         }
 
         /// <summary>
-        /// The URI of the JSON schema corresponding to <see cref="Version"/>.
+        /// The URI of the JSON schema corresponding to the version.
         /// </summary>
-        [DataMember(Name="$schema")]
+        [DataMember(Name = "$schema", IsRequired = false, EmitDefaultValue = false)]
         public Uri SchemaUri { get; set; }
 
         /// <summary>
@@ -59,15 +59,18 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <summary>
         /// Initializes a new instance of the <see cref="SarifLog" /> class from the supplied values.
         /// </summary>
+        /// <param name="schemaUri">
+        /// An initialization value for the <see cref="P: SchemaUri" /> property.
+        /// </param>
         /// <param name="version">
         /// An initialization value for the <see cref="P: Version" /> property.
         /// </param>
         /// <param name="runs">
         /// An initialization value for the <see cref="P: Runs" /> property.
         /// </param>
-        public SarifLog(SarifVersion version, IEnumerable<Run> runs)
+        public SarifLog(Uri schemaUri, SarifVersion version, IEnumerable<Run> runs)
         {
-            Init(version, runs);
+            Init(schemaUri, version, runs);
         }
 
         /// <summary>
@@ -86,7 +89,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 throw new ArgumentNullException(nameof(other));
             }
 
-            Init(other.Version, other.Runs);
+            Init(other.SchemaUri, other.Version, other.Runs);
         }
 
         ISarifNode ISarifNode.DeepClone()
@@ -107,8 +110,13 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new SarifLog(this);
         }
 
-        private void Init(SarifVersion version, IEnumerable<Run> runs)
+        private void Init(Uri schemaUri, SarifVersion version, IEnumerable<Run> runs)
         {
+            if (schemaUri != null)
+            {
+                SchemaUri = new Uri(schemaUri.OriginalString, schemaUri.IsAbsoluteUri ? UriKind.Absolute : UriKind.Relative);
+            }
+
             Version = version;
             if (runs != null)
             {

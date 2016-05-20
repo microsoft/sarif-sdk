@@ -1,26 +1,11 @@
 {
-"version":"1.0.0-beta.4",
+"version":"1.0.0",
 "$schema":"http://json.schemastore.org/sarif-1.0.0",
 "runs":[
   {
     "tool":{
       "name":"PREfast",
-      "fullName":"PREfast Code Analysis",
-      "version":"14.0.0"
-    },
-    "logicalLocations":{
-      "?EncodeBinary@@YAKPAGPAEK@Z":[
-        {
-          "kind":"method",
-          "name":"EncodeBinary"
-        }
-      ],
-      "?EncodeBinaryBad@@YAKPAGPAEK@Z":[
-        {
-          "kind":"method",
-          "name":"EncodeBinaryBad"
-        }
-      ]
+      "fullName":"PREfast Code Analysis"
     },
     "results":[
       {
@@ -36,9 +21,8 @@
               }
             },
             "fullyQualifiedLogicalName":"EncodeBinary",
-            "logicalLocationKey":"?EncodeBinary@@YAKPAGPAEK@Z",
+            "decoratedName":"?EncodeBinary@@YAKPAGPAEK@Z",
             "properties":{
-              "decorated":"?EncodeBinary@@YAKPAGPAEK@Z",
               "funcline":"7"
             }
           }
@@ -183,9 +167,8 @@
               }
             },
             "fullyQualifiedLogicalName":"EncodeBinaryBad",
-            "logicalLocationKey":"?EncodeBinaryBad@@YAKPAGPAEK@Z",
+            "decoratedName":"?EncodeBinaryBad@@YAKPAGPAEK@Z",
             "properties":{
-              "decorated":"?EncodeBinaryBad@@YAKPAGPAEK@Z",
               "funcline":"43"
             }
           }
@@ -522,9 +505,8 @@
               }
             },
             "fullyQualifiedLogicalName":"EncodeBinaryBad",
-            "logicalLocationKey":"?EncodeBinaryBad@@YAKPAGPAEK@Z",
+            "decoratedName":"?EncodeBinaryBad@@YAKPAGPAEK@Z",
             "properties":{
-              "decorated":"?EncodeBinaryBad@@YAKPAGPAEK@Z",
               "funcline":"43"
             }
           }
@@ -669,9 +651,8 @@
               }
             },
             "fullyQualifiedLogicalName":"EncodeBinaryBad",
-            "logicalLocationKey":"?EncodeBinaryBad@@YAKPAGPAEK@Z",
+            "decoratedName":"?EncodeBinaryBad@@YAKPAGPAEK@Z",
             "properties":{
-              "decorated":"?EncodeBinaryBad@@YAKPAGPAEK@Z",
               "funcline":"43"
             }
           }

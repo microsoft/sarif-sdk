@@ -13,27 +13,27 @@ namespace Microsoft.CodeAnalysis.Sarif
     public static class Errors
     {
         // Configuration errors:
-        private const string Notification_ExceptionLoadingAnalysisTarget = "ExceptionLoadingAnalysisTarget";
-        private const string Notification_ExceptionLoadingPdb = "ExceptionLoadingPdb";
-        private const string Notification_ExceptionInstantiatingSkimmers = "ExceptionInstantiatingSkimmers";
-        private const string Notification_NoRulesLoaded = "NoRulesLoaded";
-        private const string Notification_NoValidAnalysisTargets = "NoValidAnalysisTargets";
-        private const string Notification_ExceptionCreatingLogFile = "ExceptionCreatingLogFile";
-        private const string Notification_MissingFile = "MissingFile";
-        private const string Notification_ExceptionAccessingFile = "ExceptionAccessingFile";
-        private const string Notification_MissingRuleConfiguration = "MissingRuleConfiguration";
-        private const string Notification_ExceptionLoadingPlugIn = "ExceptionLoadingPlugIn";
+        private const string ERR997_ExceptionLoadingAnalysisTarget = "ERR997.ExceptionLoadingAnalysisTarget";
+        private const string ERR997_ExceptionLoadingPdb = "ERR997.ExceptionLoadingPdb";
+        private const string ERR997_ExceptionInstantiatingSkimmers = "ERR997.ExceptionInstantiatingSkimmers";
+        private const string ERR997_NoRulesLoaded = "ERR997.NoRulesLoaded";
+        private const string ERR997_NoValidAnalysisTargets = "ERR997.NoValidAnalysisTargets";
+        private const string ERR997_ExceptionCreatingLogFile = "ERR997.ExceptionCreatingLogFile";
+        private const string ERR997_MissingFile = "ERR997.MissingFile";
+        private const string ERR997_ExceptionAccessingFile = "ERR997.ExceptionAccessingFile";
+        private const string ERR997_MissingRuleConfiguration = "ERR997.MissingRuleConfiguration";
+        private const string ERR997_ExceptionLoadingPlugIn = "ERR997.ExceptionLoadingPlugIn";
 
         // Rule disabling tool errors:
-        private const string Notification_ExceptionInCanAnalyze = "ExceptionInCanAnalyze";
-        private const string Notification_ExceptionInInitialize = "ExceptionInInitialize";
-        private const string Notification_ExceptionInAnalyze = "ExceptionInAnalyze";
+        private const string ERR998_ExceptionInCanAnalyze = "ERR998.ExceptionInCanAnalyze";
+        private const string ERR998_ExceptionInInitialize = "ERR998.ExceptionInInitialize";
+        private const string ERR998_ExceptionInAnalyze = "ERR998.ExceptionInAnalyze";
 
         // Analysis halting tool errors:
-        private const string Notification_UnhandledEngineException = "UnhandledEngineException";
+        private const string ERR999UnhandledEngineException = "ERR999.UnhandledEngineException";
 
         // Parse errors:
-        private const string Notification_ParseError = "ParseError";
+        private const string ERR1000_ParseError = "ERR1000.ParseError";
 
         public static void LogExceptionLoadingTarget(IAnalysisContext context)
         {
@@ -41,7 +41,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             context.Logger.LogConfigurationNotification(
                 CreateNotification(
                     context.TargetUri,
-                    Notification_ExceptionLoadingAnalysisTarget,
+                    ERR997_ExceptionLoadingAnalysisTarget,
                     NotificationLevel.Error,
                     context.TargetLoadException,
                     false,
@@ -58,7 +58,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             context.Logger.LogConfigurationNotification(
                 CreateNotification(
                     context.TargetUri,
-                    Notification_ExceptionLoadingPdb,
+                    ERR997_ExceptionLoadingPdb,
                     context.Rule.Id,
                     NotificationLevel.Error,
                     exception,
@@ -81,7 +81,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             context.Logger.LogConfigurationNotification(
                 CreateNotification(
                     context.TargetUri,
-                    Notification_ExceptionInstantiatingSkimmers,
+                    ERR997_ExceptionInstantiatingSkimmers,
                     NotificationLevel.Error,
                     exception,
                     false,
@@ -96,7 +96,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             context.Logger.LogConfigurationNotification(
                 CreateNotification(
                     context.TargetUri,
-                    Notification_NoRulesLoaded,
+                    ERR997_NoRulesLoaded,
                     NotificationLevel.Error,
                     null,
                     false));
@@ -110,7 +110,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             context.Logger.LogConfigurationNotification(
                 CreateNotification(
                     context.TargetUri,
-                    Notification_NoValidAnalysisTargets,
+                    ERR997_NoValidAnalysisTargets,
                     NotificationLevel.Error,
                     null,
                     false));
@@ -124,7 +124,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             context.Logger.LogConfigurationNotification(
                 CreateNotification(
                     context.TargetUri,
-                    Notification_ExceptionCreatingLogFile,
+                    ERR997_ExceptionCreatingLogFile,
                     NotificationLevel.Error,
                     exception,
                     false,
@@ -139,7 +139,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             context.Logger.LogConfigurationNotification(
                 CreateNotification(
                     context.TargetUri,
-                    Notification_MissingFile,
+                    ERR997_MissingFile,
                     NotificationLevel.Error,
                     null,
                     false,
@@ -154,7 +154,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             context.Logger.LogConfigurationNotification(
                 CreateNotification(
                     context.TargetUri,
-                    Notification_ExceptionAccessingFile,
+                    ERR997_ExceptionAccessingFile,
                     NotificationLevel.Error,
                     exception,
                     false,
@@ -176,17 +176,21 @@ namespace Microsoft.CodeAnalysis.Sarif
             // to invoke built-in settings. Invoke the {3} 'exportConfig' command
             // to produce an initial configuration file that can be edited, if
             // necessary, and passed back into the tool.
+            string message = string.Format(SdkResources.ERR997_MissingRuleConfiguration,
+                context.Rule.Name,
+                Path.GetFileName(context.TargetUri.LocalPath),
+                reasonForNotAnalyzing,
+                exeName);
+
             context.Logger.LogConfigurationNotification(
-                CreateNotification(
-                    context.TargetUri,
-                    Notification_MissingRuleConfiguration,
-                    NotificationLevel.Error,
-                    null,
-                    false,
-                    context.Rule.Name,
-                    string.Empty,           // BUG: There were fewer arguments specified than required by the format string
-                    reasonForNotAnalyzing,  // ... and it doesn't look like this fits with the message for {2}
-                    exeName));              // ... but this is pretty clearly {3}.
+                new Notification
+                {
+                    PhysicalLocation = new PhysicalLocation { Uri = context.TargetUri },
+                    Id = ERR997_MissingRuleConfiguration,
+                    RuleId = context.Rule.Id,
+                    Level = NotificationLevel.Error,
+                    Message = message
+                });
 
             context.RuntimeErrors |= RuntimeConditions.RuleMissingRequiredConfiguration;
         }
@@ -197,7 +201,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             context.Logger.LogConfigurationNotification(
                 CreateNotification(
                     context.TargetUri,
-                    Notification_ExceptionLoadingPlugIn,
+                    ERR997_ExceptionLoadingPlugIn,
                     NotificationLevel.Error,
                     exception,
                     false,  
@@ -212,13 +216,13 @@ namespace Microsoft.CodeAnalysis.Sarif
             context.Logger.LogConfigurationNotification(
                 CreateNotification(
                     context.TargetUri,
-                    Notification_ParseError,
+                    ERR1000_ParseError,
                     NotificationLevel.Error,
                     null,
                     false,
                     context.TargetUri.LocalPath,
                     region.FormatForVisualStudio(),
-                    Notification_ParseError,
+                    ERR1000_ParseError,
                     message));
 
             context.RuntimeErrors |= RuntimeConditions.TargetParseError;
@@ -237,7 +241,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             context.Logger.LogToolNotification(
                 CreateNotification(
                     context.TargetUri,
-                    Notification_ExceptionInCanAnalyze,
+                    ERR998_ExceptionInCanAnalyze,
                     context.Rule.Id,
                     NotificationLevel.Error,
                     exception,
@@ -261,7 +265,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             context.Logger.LogToolNotification(
                 CreateNotification(
                 context.TargetUri,
-                Notification_ExceptionInInitialize,
+                ERR998_ExceptionInInitialize,
                 context.Rule.Id,
                 NotificationLevel.Error,
                 exception,
@@ -283,7 +287,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             context.Logger.LogToolNotification(
                 CreateNotification(
                     context.TargetUri,
-                    Notification_ExceptionInAnalyze,
+                    ERR998_ExceptionInAnalyze,
                     context.Rule.Id,
                     NotificationLevel.Error,
                     exception,
@@ -302,7 +306,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             context.Logger.LogToolNotification(
                 CreateNotification(
                     context.TargetUri,
-                    Notification_UnhandledEngineException,
+                    ERR999UnhandledEngineException,
                     NotificationLevel.Error,
                     exception,
                     true));
@@ -350,7 +354,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             var notification = new Notification
             {
-                AnalysisTarget = physicalLocation,
+                PhysicalLocation = physicalLocation,
                 Id = notificationId,
                 RuleId = ruleId,
                 Level = level,
@@ -363,7 +367,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         private static string GetMessageFormatResourceForNotification(string notificationId)
         {
-            string resourceName = "Notification_" + notificationId;
+            string resourceName = notificationId.Replace('.', '_');
 
             return (string)typeof(SdkResources)
                             .GetProperty(resourceName, BindingFlags.NonPublic | BindingFlags.Static)

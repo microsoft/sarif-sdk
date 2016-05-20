@@ -1,29 +1,26 @@
 {
   "$schema": "http://json.schemastore.org/sarif-1.0.0",
-  "version": "1.0.0-beta.4",
+  "version": "1.0.0",
   "runs": [
     {
       "tool": {
         "name": "FxCop"
       },
       "files": {
-        "$(ProjectDir)/SpecifyCultureInfo/Microsoft.TeamFoundation.Build.Client.dll": [
-          {
-            "mimeType": "application/octet-stream"
-          }
-        ]
+        "$(ProjectDir)/SpecifyCultureInfo/Microsoft.TeamFoundation.Build.Client.dll": {
+          "mimeType": "application/octet-stream"
+        }
       },
       "logicalLocations": {
-        "OMStrings.resources": [
-          {
-            "name": "microsoft.teamfoundation.build.client.dll",
-            "kind": "module"
-          },
-          {
-            "name": "OMStrings.resources",
-            "kind": "resource"
-          }
-        ]
+        "microsoft.teamfoundation.build.client.dll": {
+          "name": "microsoft.teamfoundation.build.client.dll",
+          "kind": "module"
+        },
+        "microsoft.teamfoundation.build.client.dll!OMStrings.resources": {
+          "name": "OMStrings.resources",
+          "parentKey": "microsoft.teamfoundation.build.client.dll",
+          "kind": "resource"
+        }
       },
       "results": [
         {
@@ -34,10 +31,10 @@
               "analysisTarget": {
                 "uri": "$(ProjectDir)/SpecifyCultureInfo/Microsoft.TeamFoundation.Build.Client.dll"
               },
-              "fullyQualifiedLogicalName": "OMStrings.resources"
+              "fullyQualifiedLogicalName": "microsoft.teamfoundation.build.client.dll!OMStrings.resources"
             }
           ],
-          "toolFingerprint": "Logon#StringResourceShouldBeCompoundWord",
+          "toolFingerprintContribution": "Logon#StringResourceShouldBeCompoundWord",
           "properties": {
             "Category": "Microsoft.Naming"
           }

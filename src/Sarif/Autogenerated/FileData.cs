@@ -13,7 +13,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// A single file. In some cases, this file might be nested within another file.
     /// </summary>
     [DataContract]
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.31.0.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.34.0.0")]
     public partial class FileData : PropertyBagHolder, ISarifNode
     {
         public static IEqualityComparer<FileData> ValueComparer => FileDataEqualityComparer.Instance;
@@ -37,6 +37,18 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// </summary>
         [DataMember(Name = "uri", IsRequired = false, EmitDefaultValue = false)]
         public Uri Uri { get; set; }
+
+        /// <summary>
+        /// A string that identifies the conceptual base for the 'uri' property (if it is relative), e.g.,'$(SolutionDir)' or '%SRCROOT%'.
+        /// </summary>
+        [DataMember(Name = "uriBaseId", IsRequired = false, EmitDefaultValue = false)]
+        public string UriBaseId { get; set; }
+
+        /// <summary>
+        /// Identifies the key of the immediate parent of the file, if this file is nested.
+        /// </summary>
+        [DataMember(Name = "parentKey", IsRequired = false, EmitDefaultValue = false)]
+        public string ParentKey { get; set; }
 
         /// <summary>
         /// The offset in bytes of the file within its containing file.
@@ -81,6 +93,12 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="uri">
         /// An initialization value for the <see cref="P: Uri" /> property.
         /// </param>
+        /// <param name="uriBaseId">
+        /// An initialization value for the <see cref="P: UriBaseId" /> property.
+        /// </param>
+        /// <param name="parentKey">
+        /// An initialization value for the <see cref="P: ParentKey" /> property.
+        /// </param>
         /// <param name="offset">
         /// An initialization value for the <see cref="P: Offset" /> property.
         /// </param>
@@ -96,9 +114,9 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="properties">
         /// An initialization value for the <see cref="P: Properties" /> property.
         /// </param>
-        public FileData(Uri uri, int offset, int length, string mimeType, IEnumerable<Hash> hashes, IDictionary<string, SerializedPropertyInfo> properties)
+        public FileData(Uri uri, string uriBaseId, string parentKey, int offset, int length, string mimeType, IEnumerable<Hash> hashes, IDictionary<string, SerializedPropertyInfo> properties)
         {
-            Init(uri, offset, length, mimeType, hashes, properties);
+            Init(uri, uriBaseId, parentKey, offset, length, mimeType, hashes, properties);
         }
 
         /// <summary>
@@ -117,7 +135,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 throw new ArgumentNullException(nameof(other));
             }
 
-            Init(other.Uri, other.Offset, other.Length, other.MimeType, other.Hashes, other.Properties);
+            Init(other.Uri, other.UriBaseId, other.ParentKey, other.Offset, other.Length, other.MimeType, other.Hashes, other.Properties);
         }
 
         ISarifNode ISarifNode.DeepClone()
@@ -138,13 +156,15 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new FileData(this);
         }
 
-        private void Init(Uri uri, int offset, int length, string mimeType, IEnumerable<Hash> hashes, IDictionary<string, SerializedPropertyInfo> properties)
+        private void Init(Uri uri, string uriBaseId, string parentKey, int offset, int length, string mimeType, IEnumerable<Hash> hashes, IDictionary<string, SerializedPropertyInfo> properties)
         {
             if (uri != null)
             {
                 Uri = new Uri(uri.OriginalString, uri.IsAbsoluteUri ? UriKind.Absolute : UriKind.Relative);
             }
 
+            UriBaseId = uriBaseId;
+            ParentKey = parentKey;
             Offset = offset;
             Length = length;
             MimeType = mimeType;

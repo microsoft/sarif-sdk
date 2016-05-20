@@ -377,7 +377,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             {
                 RuleId = "CA0000",
                 Message = "hello!",
-                ToolFingerprint = "1#test",
+                ToolFingerprintContribution = "1#test",
                 SuppressionStates = SuppressionStates.SuppressedInSource,
                 Locations = new List<Location>
                 {
@@ -401,41 +401,32 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             expectedResult.SetProperty("Category", "FakeCategory");
             expectedResult.SetProperty("FixCategory", "Breaking");
 
-            var expectedLogicalLocationComponents = new[]
+            var expectedLogicalLocations = new Dictionary<string, LogicalLocation>
             {
-                new LogicalLocationComponent
                 {
-                    Name = "mybinary.dll",
-                    Kind = LogicalLocationKind.Module
+                    "mybinary.dll", new LogicalLocation { ParentKey = null, Name = "mybinary.dll", Kind = LogicalLocationKind.Module }
                 },
-                new LogicalLocationComponent
                 {
-                    Name = "mynamespace",
-                    Kind = LogicalLocationKind.Namespace
+                    "mybinary.dll!mynamespace",
+                    new LogicalLocation { ParentKey = "mybinary.dll", Name = "mynamespace", Kind = LogicalLocationKind.Namespace }
                 },
-                new LogicalLocationComponent
                 {
-                    Name = "mytype",
-                    Kind = LogicalLocationKind.Type
+                    "mybinary.dll!mynamespace.mytype",
+                    new LogicalLocation { ParentKey = "mybinary.dll!mynamespace", Name = "mytype", Kind = LogicalLocationKind.Type }
                 },
-                new LogicalLocationComponent
                 {
-                    Name = "mymember(string)",
-                    Kind = LogicalLocationKind.Member
-                }
-            };
+                    "mybinary.dll!mynamespace.mytype.mymember(string)",
+                    new LogicalLocation { ParentKey = "mybinary.dll!mynamespace.mytype", Name = "mymember(string)", Kind = LogicalLocationKind.Member }
+                }            };
 
             var converter = new FxCopConverter();
             Result result = converter.CreateResult(context);
 
-            result.ValueEquals(expectedResult).Should().BeTrue();
-
-            converter.LogicalLocationsDictionary.Keys.Should().ContainSingle(expectedLogicalLocation);
-            var actualLogicalLocationComponents = converter.LogicalLocationsDictionary[expectedLogicalLocation];
-            actualLogicalLocationComponents.SequenceEqual(
-                    expectedLogicalLocationComponents,
-                    LogicalLocationComponent.ValueComparer)
-                .Should().BeTrue();
+            foreach (string key in expectedLogicalLocations.Keys)
+            {
+                expectedLogicalLocations[key].ValueEquals(converter.LogicalLocationsDictionary[key]).Should().BeTrue();
+            }
+            converter.LogicalLocationsDictionary.Count.Should().Be(expectedLogicalLocations.Count);
         }
 
         [TestMethod]
@@ -465,36 +456,30 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 }
             };
 
-            var expectedLogicalLocationComponents = new[]
+            var expectedLogicalLocations = new Dictionary<string, LogicalLocation>
             {
-                new LogicalLocationComponent
                 {
-                    Name = "mynamespace",
-                    Kind = LogicalLocationKind.Namespace
+                    "mynamespace",
+                    new LogicalLocation { ParentKey = null, Name = "mynamespace", Kind = LogicalLocationKind.Namespace }
                 },
-                new LogicalLocationComponent
                 {
-                    Name = "mytype",
-                    Kind = LogicalLocationKind.Type
+                    "mynamespace.mytype",
+                    new LogicalLocation { ParentKey = "mynamespace", Name = "mytype", Kind = LogicalLocationKind.Type }
                 },
-                new LogicalLocationComponent
                 {
-                    Name = "mymember(string)",
-                    Kind = LogicalLocationKind.Member
+                    "mynamespace.mytype.mymember(string)",
+                    new LogicalLocation { ParentKey = "mynamespace.mytype", Name = "mymember(string)", Kind = LogicalLocationKind.Member }
                 }
             };
 
             var converter = new FxCopConverter();
             Result result = converter.CreateResult(context);
 
-            result.Locations.SequenceEqual(expectedLocations, Location.ValueComparer).Should().BeTrue();
-
-            converter.LogicalLocationsDictionary.Keys.Should().ContainSingle(expectedLogicalLocation);
-            var actualLogicalLocationComponents = converter.LogicalLocationsDictionary[expectedLogicalLocation];
-            actualLogicalLocationComponents.SequenceEqual(
-                    expectedLogicalLocationComponents,
-                    LogicalLocationComponent.ValueComparer)
-                .Should().BeTrue();
+            foreach (string key in expectedLogicalLocations.Keys)
+            {
+                expectedLogicalLocations[key].ValueEquals(converter.LogicalLocationsDictionary[key]).Should().BeTrue();
+            }
+            converter.LogicalLocationsDictionary.Count.Should().Be(expectedLogicalLocations.Count);
         }
 
         [TestMethod]
@@ -527,31 +512,26 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 }
             };
 
-            var expectedLogicalLocationComponents = new[]
+            var expectedLogicalLocations = new Dictionary<string, LogicalLocation>
             {
-                new LogicalLocationComponent
                 {
-                    Name = "mybinary.dll",
-                    Kind = LogicalLocationKind.Module
+                    "mybinary.dll",
+                    new LogicalLocation { ParentKey = null, Name = "mybinary.dll", Kind = LogicalLocationKind.Module }
                 },
-                new LogicalLocationComponent
                 {
-                    Name = "myresource.resx",
-                    Kind = LogicalLocationKind.Resource
-                }
+                    "mybinary.dll!myresource.resx",
+                    new LogicalLocation { ParentKey = "mybinary.dll", Name = "myresource.resx",Kind = LogicalLocationKind.Resource }
+                },
             };
 
             var converter = new FxCopConverter();
             Result result = converter.CreateResult(context);
 
-            result.Locations.SequenceEqual(expectedLocations, Location.ValueComparer).Should().BeTrue();
-
-            converter.LogicalLocationsDictionary.Keys.Should().ContainSingle(expectedLogicalLocation);
-            var actualLogicalLocationComponents = converter.LogicalLocationsDictionary[expectedLogicalLocation];
-            actualLogicalLocationComponents.SequenceEqual(
-                    expectedLogicalLocationComponents,
-                    LogicalLocationComponent.ValueComparer)
-                .Should().BeTrue();
+            foreach (string key in expectedLogicalLocations.Keys)
+            {
+                expectedLogicalLocations[key].ValueEquals(converter.LogicalLocationsDictionary[key]).Should().BeTrue();
+            }
+            converter.LogicalLocationsDictionary.Count.Should().Be(expectedLogicalLocations.Count);
         }
 
         [TestMethod]

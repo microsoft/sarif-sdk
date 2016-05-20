@@ -1,20 +1,11 @@
 {
-"version":"1.0.0-beta.4",
+"version":"1.0.0",
 "$schema":"http://json.schemastore.org/sarif-1.0.0",
 "runs":[
   {
     "tool":{
       "name":"PREfast",
-      "fullName":"PREfast Code Analysis",
-      "version":"14.0.0"
-    },
-    "logicalLocations":{
-      "?Irreducible@@YAXH@Z":[
-        {
-          "kind":"method",
-          "name":"Irreducible"
-        }
-      ]
+      "fullName":"PREfast Code Analysis"
     },
     "results":[
       {
@@ -30,9 +21,8 @@
               }
             },
             "fullyQualifiedLogicalName":"Irreducible",
-            "logicalLocationKey":"?Irreducible@@YAXH@Z",
+            "decoratedName":"?Irreducible@@YAXH@Z",
             "properties":{
-              "decorated":"?Irreducible@@YAXH@Z",
               "funcline":"5"
             }
           }
