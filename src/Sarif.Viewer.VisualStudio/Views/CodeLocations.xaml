@@ -88,16 +88,7 @@
 
         <!-- Control Templates-->
 
-        <DataTemplate x:Key="GridViewClickEventCellTemplate">
-            <TextBlock Text="{Binding}">
-                <TextBlock.InputBindings>
-                    <MouseBinding Gesture="LeftClick"
-                                  Command="{Binding DataContext.SelectedCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ListView}}}"
-                                  CommandParameter="{Binding}" />
-                </TextBlock.InputBindings>
-            </TextBlock>
-        </DataTemplate>
-
+        <!-- Code Flows Template -->
         <DataTemplate x:Key="AnnotatedCodeLocationCollectionDataGridTemplate">
             <ListBox ItemsSource="{Binding}"
                      SelectedItem="{Binding SelectedItem, Mode=TwoWay}">
@@ -151,6 +142,7 @@
         </DataTemplate>
 
 
+        <!-- Location and Related Location Template -->
         <DataTemplate x:Key="CodeLocationCollectionTemplate">
             <ListBox ItemsSource="{Binding}"
                      SelectedItem="{Binding SelectedItem, Mode=TwoWay}">
@@ -177,6 +169,7 @@
             </ListBox>
         </DataTemplate>
 
+        <!-- Stacks Template -->
         <DataTemplate x:Key="StackCollectionTemplate">
             <Expander Header="{Binding Message}"
                       IsExpanded="True"
@@ -227,6 +220,7 @@
             </Expander>
         </DataTemplate>
 
+        <!-- Fixes Template -->
         <DataTemplate x:Key="FixCollectionTemplate">
             <TreeView ItemsSource="{Binding}">
                 <TreeView.Resources>
@@ -260,6 +254,7 @@
             </TreeView>
         </DataTemplate>
 
+        <!-- Rule Template - Displays info about the rule for the result. -->
         <DataTemplate x:Key="RuleTemplate">
             <Grid>
                 <Grid.RowDefinitions>
@@ -348,7 +343,7 @@
             </Grid>
         </DataTemplate>
 
-
+        <!-- Tool Template - Displays info about the tool which raised the result. -->
         <DataTemplate x:Key="ToolTemplate">
             <Grid>
                 <Grid.RowDefinitions>
@@ -410,12 +405,15 @@
 
     </UserControl.Resources>
 
+    <!-- The user control starts here. -->
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
+
+        <!-- This is the header of the dialog. It displays general info about the result. -->
         <Grid Grid.Row="0"
               Margin="6 0 6 0">
             <Grid.RowDefinitions>
@@ -425,8 +423,8 @@
             <Grid.ColumnDefinitions>
                 <ColumnDefinition />
             </Grid.ColumnDefinitions>
-            <Border>
-                <TextBlock Grid.Row="0">
+            <Border Grid.Row="0">
+                <TextBlock>
                         Code:
                         <Hyperlink Style="{StaticResource HyperlinkStyleSelected}">
                             <Run Text="{Binding Path=Rule.Id, Mode=OneTime}" />
@@ -441,6 +439,8 @@
                        FontFamily="Segoe UI"
                        Margin="5" />
         </Grid>
+        
+        <!-- These are the tabs which display the result information. -->
         <TabControl Grid.Row="1"
                     SelectedValue="{Binding SelectedTab, Mode=TwoWay}">
             <TabItem>
