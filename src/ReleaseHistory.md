@@ -35,4 +35,7 @@
 * Add baselineId. Rename 'correlationId' to 'automationId'
 * Add 'physicalLocation' property to notification
 
+## **v1.5.23-beta** [Driver](https://www.nuget.org/packages/Sarif.Driver/1.5.23-beta) | [SDK](https://www.nuget.org/packages/Sarif.Sdk/1.5.23-beta)
+* NOTHING YET
+
 
