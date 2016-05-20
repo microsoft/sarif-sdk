@@ -21,7 +21,12 @@ namespace Microsoft.Sarif.Viewer.Sarif
             ReplacementModel model = new ReplacementModel();
 
             model.DeletedLength = replacement.DeletedLength;
-            model.InsertedBytes = replacement.InsertedBytes;
+
+            if (!String.IsNullOrEmpty(replacement.InsertedBytes))
+            {
+                model.InsertedBytes = Encoding.UTF8.GetString(Convert.FromBase64String(replacement.InsertedBytes));
+            }
+
             model.Offset = replacement.Offset;
 
             return model;

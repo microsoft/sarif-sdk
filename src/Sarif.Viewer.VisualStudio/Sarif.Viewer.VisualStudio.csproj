@@ -38,6 +38,7 @@
   <ItemGroup>
     <Compile Include="CodeAnalysisResultManager.cs" />
     <Compile Include="CodeLocationObject.cs" />
+    <Compile Include="Converters\EnumerableToCountConverter - Copy.cs" />
     <Compile Include="Converters\Int32ToVisibilityConverter.cs" />
     <Compile Include="DelegateCommand.cs" />
     <Compile Include="DelegateCommandBase.cs" />

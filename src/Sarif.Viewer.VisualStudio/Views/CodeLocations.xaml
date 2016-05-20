@@ -22,6 +22,7 @@
         <converters:FullWidthGridViewColumnConverter x:Key="fullWidthGridViewColumnConverter" />
         <converters:StringToVisibilityConverter x:Key="stringToVisibilityConverter" />
         <converters:Int32ToVisibilityConverter x:Key="int32ToVisibilityConverter" />
+        <converters:EnumerableToCountConverter x:Key="enumerableToCountConverter" />
 
         <!-- Default Styles-->
         <Style TargetType="{x:Type Control}"
@@ -415,21 +416,33 @@
                     SelectedValue="{Binding SelectedTab, Mode=TwoWay}">
             <TabItem>
                 <TabItem.Header>
-                    <TextBlock Text="Locations" />
+                    <TextBlock>
+                        <Run Text="Locations (" />
+                        <Run Text="{Binding Locations, Mode=OneWay, Converter={StaticResource enumerableToCountConverter}}" />
+                        <Run Text=")" />
+                    </TextBlock>
                 </TabItem.Header>
                 <ContentControl ContentTemplate="{StaticResource CodeLocationCollectionTemplate}"
                                 Content="{Binding Locations}" />
             </TabItem>
             <TabItem>
                 <TabItem.Header>
-                    <TextBlock Text="Related Locations" />
+                    <TextBlock>
+                        <Run Text="Related Locations (" />
+                        <Run Text="{Binding RelatedLocations, Mode=OneWay, Converter={StaticResource enumerableToCountConverter}}" />
+                        <Run Text=")" />
+                    </TextBlock>
                 </TabItem.Header>
                 <ContentControl ContentTemplate="{StaticResource CodeLocationCollectionTemplate}"
                                 Content="{Binding RelatedLocations}" />
             </TabItem>
             <TabItem>
                 <TabItem.Header>
-                    <TextBlock Text="Code Flows" />
+                    <TextBlock>
+                        <Run Text="Code Flows (" />
+                        <Run Text="{Binding CodeFlows, Mode=OneWay, Converter={StaticResource enumerableToCountConverter}}" />
+                        <Run Text=")" />
+                    </TextBlock>
                 </TabItem.Header>
                 <ListBox ItemsSource="{Binding CodeFlows}"
                          ItemTemplate="{StaticResource AnnotatedCodeLocationCollectionTemplate}"
@@ -449,25 +462,47 @@
             </TabItem>
             <TabItem>
                 <TabItem.Header>
-                    <TextBlock Text="Stacks" />
+                    <TextBlock>
+                        <Run Text="Stacks (" />
+                        <Run Text="{Binding Stacks, Mode=OneWay, Converter={StaticResource enumerableToCountConverter}}" />
+                        <Run Text=")" />
+                    </TextBlock>
                 </TabItem.Header>
+
                 <ListBox ItemsSource="{Binding Stacks}"
                          ItemTemplate="{StaticResource StackCollectionTemplate}" />
             </TabItem>
             <TabItem>
                 <TabItem.Header>
-                    <TextBlock Text="Fixes" />
+                    <TextBlock>
+                        <Run Text="Fixes (" />
+                        <Run Text="{Binding Fixes, Mode=OneWay, Converter={StaticResource enumerableToCountConverter}}" />
+                        <Run Text=")" />
+                    </TextBlock>
                 </TabItem.Header>
                 <TreeView ItemsSource="{Binding Fixes}">
                     <TreeView.Resources>
-                        <DataTemplate DataType="{x:Type models:FixModel}">
+                        <HierarchicalDataTemplate DataType="{x:Type models:FixModel}" ItemsSource="{Binding FileChanges}">
                             <TextBlock Text="{Binding Description}" />
-                        </DataTemplate>
-                        <DataTemplate DataType="{x:Type models:FileChangeModel}">
+                        </HierarchicalDataTemplate>
+                        <HierarchicalDataTemplate DataType="{x:Type models:FileChangeModel}" ItemsSource="{Binding Replacements}">
                             <TextBlock Text="{Binding FileName}" />
-                        </DataTemplate>
-                        <HierarchicalDataTemplate DataType="{x:Type models:FixModel}" ItemsSource="{Binding Path=FileChanges}">
-                            <TextBlock Text="{Binding FileName}" />
+                        </HierarchicalDataTemplate>
+                        <HierarchicalDataTemplate DataType="{x:Type models:ReplacementModel}">
+                            <DockPanel>
+                                <TextBlock DockPanel.Dock="Top">
+                                    Start as offset <Run Text="{Binding Offset}" />.
+                                </TextBlock>
+                                <TextBlock DockPanel.Dock="Top" Visibility="{Binding DeletedLength, Converter={StaticResource int32ToVisibilityConverter}}">
+                                    Delete <Run Text="{Binding DeletedLength}" /> bytes.
+                                </TextBlock>
+                                <TextBlock DockPanel.Dock="Top" Visibility="{Binding InsertedBytes, Converter={StaticResource stringToVisibilityConverter}}">
+                                    Insert the string "<Run Text="{Binding InsertedBytes}" />".
+                                </TextBlock>
+                                <TextBlock>
+                                    <LineBreak />
+                                </TextBlock>
+                            </DockPanel>
                         </HierarchicalDataTemplate>
                     </TreeView.Resources>
                 </TreeView>
