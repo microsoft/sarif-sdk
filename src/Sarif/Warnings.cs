@@ -22,7 +22,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             context.Logger.LogConfigurationNotification(
                 new Notification
                 {
-                    AnalysisTarget = new PhysicalLocation { Uri = context.TargetUri },
+                    PhysicalLocation = new PhysicalLocation { Uri = context.TargetUri },
                     Id = WRN997_InvalidTarget,
                     Message = message,
                     Level = NotificationLevel.Note,

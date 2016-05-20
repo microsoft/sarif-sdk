@@ -44,10 +44,10 @@ namespace Microsoft.CodeAnalysis.Sarif
         public Invocation Invocation { get; set; }
 
         /// <summary>
-        /// The file that the analysis tool was instructed to scan. This member is only populated if the run is directed against a single analysis target.
+        /// The URI of the file that the analysis tool was instructed to scan. This member is only populated if the run is directed against a single analysis target.
         /// </summary>
-        [DataMember(Name = "analysisTarget", IsRequired = false, EmitDefaultValue = false)]
-        public PhysicalLocation AnalysisTarget { get; set; }
+        [DataMember(Name = "analysisTargetUri", IsRequired = false, EmitDefaultValue = false)]
+        public Uri AnalysisTargetUri { get; set; }
 
         /// <summary>
         /// A dictionary, each of whose keys is a URI and each of whose values is an array of file objects representing the location of a single file scanned during the run.
@@ -119,8 +119,8 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="invocation">
         /// An initialization value for the <see cref="P: Invocation" /> property.
         /// </param>
-        /// <param name="analysisTarget">
-        /// An initialization value for the <see cref="P: AnalysisTarget" /> property.
+        /// <param name="analysisTargetUri">
+        /// An initialization value for the <see cref="P: AnalysisTargetUri" /> property.
         /// </param>
         /// <param name="files">
         /// An initialization value for the <see cref="P: Files" /> property.
@@ -149,9 +149,9 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="baselineId">
         /// An initialization value for the <see cref="P: BaselineId" /> property.
         /// </param>
-        public Run(Tool tool, Invocation invocation, PhysicalLocation analysisTarget, IDictionary<string, FileData> files, IDictionary<string, LogicalLocation> logicalLocations, IEnumerable<Result> results, IEnumerable<Notification> toolNotifications, IEnumerable<Notification> configurationNotifications, IDictionary<string, Rule> rules, string id, string automationId, string baselineId)
+        public Run(Tool tool, Invocation invocation, Uri analysisTargetUri, IDictionary<string, FileData> files, IDictionary<string, LogicalLocation> logicalLocations, IEnumerable<Result> results, IEnumerable<Notification> toolNotifications, IEnumerable<Notification> configurationNotifications, IDictionary<string, Rule> rules, string id, string automationId, string baselineId)
         {
-            Init(tool, invocation, analysisTarget, files, logicalLocations, results, toolNotifications, configurationNotifications, rules, id, automationId, baselineId);
+            Init(tool, invocation, analysisTargetUri, files, logicalLocations, results, toolNotifications, configurationNotifications, rules, id, automationId, baselineId);
         }
 
         /// <summary>
@@ -170,7 +170,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 throw new ArgumentNullException(nameof(other));
             }
 
-            Init(other.Tool, other.Invocation, other.AnalysisTarget, other.Files, other.LogicalLocations, other.Results, other.ToolNotifications, other.ConfigurationNotifications, other.Rules, other.Id, other.AutomationId, other.BaselineId);
+            Init(other.Tool, other.Invocation, other.AnalysisTargetUri, other.Files, other.LogicalLocations, other.Results, other.ToolNotifications, other.ConfigurationNotifications, other.Rules, other.Id, other.AutomationId, other.BaselineId);
         }
 
         ISarifNode ISarifNode.DeepClone()
@@ -191,7 +191,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new Run(this);
         }
 
-        private void Init(Tool tool, Invocation invocation, PhysicalLocation analysisTarget, IDictionary<string, FileData> files, IDictionary<string, LogicalLocation> logicalLocations, IEnumerable<Result> results, IEnumerable<Notification> toolNotifications, IEnumerable<Notification> configurationNotifications, IDictionary<string, Rule> rules, string id, string automationId, string baselineId)
+        private void Init(Tool tool, Invocation invocation, Uri analysisTargetUri, IDictionary<string, FileData> files, IDictionary<string, LogicalLocation> logicalLocations, IEnumerable<Result> results, IEnumerable<Notification> toolNotifications, IEnumerable<Notification> configurationNotifications, IDictionary<string, Rule> rules, string id, string automationId, string baselineId)
         {
             if (tool != null)
             {
@@ -203,9 +203,9 @@ namespace Microsoft.CodeAnalysis.Sarif
                 Invocation = new Invocation(invocation);
             }
 
-            if (analysisTarget != null)
+            if (analysisTargetUri != null)
             {
-                AnalysisTarget = new PhysicalLocation(analysisTarget);
+                AnalysisTargetUri = new Uri(analysisTargetUri.OriginalString, analysisTargetUri.IsAbsoluteUri ? UriKind.Absolute : UriKind.Relative);
             }
 
             if (files != null)

@@ -247,7 +247,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             if (node != null)
             {
-                node.AnalysisTarget = VisitNullChecked(node.AnalysisTarget);
+                node.PhysicalLocation = VisitNullChecked(node.PhysicalLocation);
                 node.Exception = VisitNullChecked(node.Exception);
             }
 
@@ -346,7 +346,6 @@ namespace Microsoft.CodeAnalysis.Sarif
             {
                 node.Tool = VisitNullChecked(node.Tool);
                 node.Invocation = VisitNullChecked(node.Invocation);
-                node.AnalysisTarget = VisitNullChecked(node.AnalysisTarget);
                 if (node.Files != null)
                 {
                     var keys = node.Files.Keys.ToArray();

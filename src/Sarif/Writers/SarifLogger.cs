@@ -269,7 +269,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             LogToolNotification(
                 new Notification
                 {
-                    AnalysisTarget = new PhysicalLocation { Uri = context.TargetUri },
+                    PhysicalLocation = new PhysicalLocation { Uri = context.TargetUri },
                     Id = Notes.MSG001_AnalyzingTarget,
                     Message = message,
                     Level = NotificationLevel.Note,

@@ -235,7 +235,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 RuleId = "TST0001",
                 Level = NotificationLevel.Error,
                 Message = "This is a test",
-                AnalysisTarget = new PhysicalLocation
+                PhysicalLocation = new PhysicalLocation
                 {
                     Uri = new Uri("file:///C:/src/a.cs"),
                     Region = new Region
@@ -284,7 +284,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 @"        {
           ""id"": ""NOT0001"",
           ""ruleId"": ""TST0001"",
-          ""analysisTarget"": {
+          ""physicalLocation"": {
             ""uri"": ""file:///C:/src/a.cs"",
             ""region"": {
               ""startLine"": 3,

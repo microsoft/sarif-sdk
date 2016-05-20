@@ -411,14 +411,13 @@ extern "C"
 HRESULT __stdcall Convert(const std::deque<XmlDefect> defectList, BSTR bstrOutputFile, BSTR* pbstrSarifText)
 {
     SarifLog issueLog;
-    issueLog.SetVersion(L"1.0.0-beta.5");
-    issueLog.SetSchema(L"http://json.schemastore.org/sarif-1.0.0-beta.5");
+    issueLog.SetVersion(L"1.0.0");
+    issueLog.SetSchema(L"http://json.schemastore.org/sarif-1.0.0");
 
     // Set Tool
     SarifTool tool;
     tool.SetName(L"PREfast");
     tool.SetFullName(L"PREfast Code Analysis");
-    tool.SetVersion(L"14.0.0");
 
     // Set Run
     SarifRun run;
