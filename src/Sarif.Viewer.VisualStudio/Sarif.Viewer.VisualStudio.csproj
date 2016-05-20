@@ -44,6 +44,9 @@
     <Compile Include="Models\ReplacementModel.cs" />
     <Compile Include="Models\FileChangeModel.cs" />
     <Compile Include="Models\FixModel.cs" />
+    <Compile Include="Sarif\Replacement.extensions.cs" />
+    <Compile Include="Sarif\FileChange.extensions.cs" />
+    <Compile Include="Sarif\Fix.extensions.cs" />
     <Compile Include="Sarif\StackFrame.extensions.cs" />
     <Compile Include="Sarif\Stack.extensions.cs" />
     <Compile Include="Sarif\CodeFlow.extensions.cs" />

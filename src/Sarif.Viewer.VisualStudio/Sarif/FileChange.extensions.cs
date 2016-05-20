@@ -1,0 +1,40 @@
+﻿using Microsoft.CodeAnalysis.Sarif;
+using Microsoft.Sarif.Viewer.Models;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Microsoft.Sarif.Viewer.Sarif
+{
+    static class FileChangeExtensions
+    {
+        public static FileChangeModel ToFileChangeModel(this FileChange fileChange)
+        {
+            if (fileChange == null)
+            {
+                return null;
+            }
+
+            FileChangeModel model = new FileChangeModel();
+
+            if (fileChange.Replacements != null)
+            {
+                model.FilePath = fileChange.Uri.LocalPath;
+                if (!Path.IsPathRooted(model.FilePath))
+                {
+                    model.FilePath = fileChange.Uri.AbsoluteUri;
+                }
+
+                foreach (Replacement replacement in fileChange.Replacements)
+                {
+                    model.Replacements.Add(replacement.ToReplacementModel());
+                }
+            }
+
+            return model;
+        }
+    }
+}

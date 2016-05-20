@@ -6,6 +6,7 @@
              xmlns:local="clr-namespace:Microsoft.Sarif.Viewer.Views"
              xmlns:viewer="clr-namespace:Microsoft.Sarif.Viewer"
              xmlns:shell="clr-namespace:Microsoft.VisualStudio.Shell;assembly=Microsoft.VisualStudio.Shell.14.0"
+             xmlns:models="clr-namespace:Microsoft.Sarif.Viewer.Models"
              xmlns:viewModels="clr-namespace:Microsoft.Sarif.Viewer.ViewModels"
              xmlns:converters="clr-namespace:Microsoft.Sarif.Viewer.Converters"
              mc:Ignorable="d"
@@ -457,8 +458,19 @@
                 <TabItem.Header>
                     <TextBlock Text="Fixes" />
                 </TabItem.Header>
-                <ListBox ItemsSource="{Binding Stacks}"
-                         ItemTemplate="{StaticResource StackCollectionTemplate}" />
+                <TreeView ItemsSource="{Binding Fixes}">
+                    <TreeView.Resources>
+                        <DataTemplate DataType="{x:Type models:FixModel}">
+                            <TextBlock Text="{Binding Description}" />
+                        </DataTemplate>
+                        <DataTemplate DataType="{x:Type models:FileChangeModel}">
+                            <TextBlock Text="{Binding FileName}" />
+                        </DataTemplate>
+                        <HierarchicalDataTemplate DataType="{x:Type models:FixModel}" ItemsSource="{Binding Path=FileChanges}">
+                            <TextBlock Text="{Binding FileName}" />
+                        </HierarchicalDataTemplate>
+                    </TreeView.Resources>
+                </TreeView>
             </TabItem>
             <TabItem>
                 <TabItem.Header>

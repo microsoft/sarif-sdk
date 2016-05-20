@@ -13,6 +13,7 @@ namespace Microsoft.Sarif.Viewer.ViewModels
         static object _syncroot = new object();
         static SarifErrorListItem _designTime = null;
 
+        // This is the view model displayed by the Visual Studio designer.
         public static SarifErrorListItem DesignTime
         {
             get
@@ -150,6 +151,18 @@ namespace Microsoft.Sarif.Viewer.ViewModels
                 FullyQualifiedLogicalName = "Your.PIA.External()",
             });
             viewModel.Stacks.Add(stack1);
+
+            FixModel fix1 = new FixModel("Replace *.Close() with *.Dispose().");
+            FileChangeModel fileChange11 = new FileChangeModel();
+            fileChange11.FilePath = @"D:\GitHub\Jinu-NuGet.Services.Metadata\src\Ng\Catalog2Dnx.cs";
+            fileChange11.Replacements.Add(new ReplacementModel()
+            {
+                Offset = 1234,
+                DeletedLength = ".Close()".Length,
+                InsertedBytes = ".Dispose()",
+            });
+            fix1.FileChanges.Add(fileChange11);
+            viewModel.Fixes.Add(fix1);
 
             return viewModel;
         }

@@ -22,6 +22,7 @@ namespace Microsoft.Sarif.Viewer
         private AnnotatedCodeLocationCollection _relatedLocations;
         private ObservableCollection<AnnotatedCodeLocationCollection> _codeFlows;
         private ObservableCollection<StackCollection> _stacks;
+        private ObservableCollection<FixModel> _fixes;
 
         internal SarifErrorListItem()
         {
@@ -29,6 +30,7 @@ namespace Microsoft.Sarif.Viewer
             this._relatedLocations = new AnnotatedCodeLocationCollection(String.Empty);
             this._codeFlows = new ObservableCollection<AnnotatedCodeLocationCollection>();
             this._stacks = new ObservableCollection<StackCollection>();
+            this._fixes = new ObservableCollection<FixModel>();
         }
 
         public SarifErrorListItem(Run run, Result result) : this()
@@ -79,6 +81,14 @@ namespace Microsoft.Sarif.Viewer
                 foreach (Stack stack in result.Stacks)
                 {
                     this.Stacks.Add(stack.ToStackCollection());
+                }
+            }
+
+            if (result.Fixes != null)
+            {
+                foreach (Fix fix in result.Fixes)
+                {
+                    this.Fixes.Add(fix.ToFixModel());
                 }
             }
         }
@@ -191,6 +201,14 @@ namespace Microsoft.Sarif.Viewer
             get
             {
                 return this._stacks;
+            }
+        }
+
+        public ObservableCollection<FixModel> Fixes
+        {
+            get
+            {
+                return this._fixes;
             }
         }
 
