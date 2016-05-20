@@ -98,12 +98,16 @@
             </TextBlock>
         </DataTemplate>
 
-        <DataTemplate x:Key="AnnotatedCodeLocationCollectionTemplate">
-            <Expander Header="{Binding Message}"
+        <DataTemplate x:Key="AnnotatedCodeLocationCollectionListBoxTemplate">
+            <ListBox ItemsSource="{Binding}"
+                     SelectedItem="{Binding SelectedItem, Mode=TwoWay}">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <Expander Header="{Binding Message}"
                       IsExpanded="True">
-                <Border BorderThickness="1"
+                            <Border BorderThickness="1"
                         BorderBrush="LightGray">
-                    <ListView Margin="2"
+                                <ListView Margin="2"
                               Name="codeLocationsListView"
                               ItemsSource="{Binding}"
                               BorderThickness="0"
@@ -113,44 +117,47 @@
                               ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                               ScrollViewer.VerticalScrollBarVisibility="Disabled"
                               SelectedItem="{Binding SelectedItem, Mode=TwoWay}">
-                        <ListView.ItemContainerStyle>
-                            <Style TargetType="ListViewItem">
-                                <Setter Property="HorizontalContentAlignment"
+                                    <ListView.ItemContainerStyle>
+                                        <Style TargetType="ListViewItem">
+                                            <Setter Property="HorizontalContentAlignment"
                                         Value="Stretch" />
-                                <Setter Property="HorizontalAlignment"
+                                            <Setter Property="HorizontalAlignment"
                                         Value="Stretch" />
-                                <Setter Property="VerticalContentAlignment"
+                                            <Setter Property="VerticalContentAlignment"
                                         Value="Stretch" />
-                                <Setter Property="VerticalAlignment"
+                                            <Setter Property="VerticalAlignment"
                                         Value="Stretch" />
-                            </Style>
-                        </ListView.ItemContainerStyle>
-                        <ListView.View>
-                            <GridView>
-                                <GridViewColumn DisplayMemberBinding="{Binding Message}"
+                                        </Style>
+                                    </ListView.ItemContainerStyle>
+                                    <ListView.View>
+                                        <GridView>
+                                            <GridViewColumn DisplayMemberBinding="{Binding Message}"
                                                 Header="Message"
                                                 Width="Auto"
                                                 CellTemplate="{StaticResource GridViewClickEventCellTemplate}" />
-                                <GridViewColumn Header="Name"
+                                            <GridViewColumn Header="Name"
                                                 Width="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ListView} }, Converter={StaticResource fullWidthGridViewColumnConverter}}">
-                                    <GridViewColumn.CellTemplate>
-                                        <DataTemplate>
-                                            <TextBlock>
-                                                <TextBlock.InputBindings>
-                                                    <MouseBinding Gesture="LeftClick"
+                                                <GridViewColumn.CellTemplate>
+                                                    <DataTemplate>
+                                                        <TextBlock>
+                                                            <TextBlock.InputBindings>
+                                                                <MouseBinding Gesture="LeftClick"
                                                                   Command="{Binding DataContext.SelectedCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ListView}}}"
                                                                   CommandParameter="{Binding}" />
-                                                </TextBlock.InputBindings>
+                                                            </TextBlock.InputBindings>
                                                 <Run Text="{Binding FilePath, Mode=OneWay}" /> Line <Run Text="{Binding Region.StartLine, Mode=OneWay}" />
-                                            </TextBlock>
-                                        </DataTemplate>
-                                    </GridViewColumn.CellTemplate>
-                                </GridViewColumn>
-                            </GridView>
-                        </ListView.View>
-                    </ListView>
-                </Border>
-            </Expander>
+                                                        </TextBlock>
+                                                    </DataTemplate>
+                                                </GridViewColumn.CellTemplate>
+                                            </GridViewColumn>
+                                        </GridView>
+                                    </ListView.View>
+                                </ListView>
+                            </Border>
+                        </Expander>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
         </DataTemplate>
 
         <DataTemplate x:Key="CodeLocationCollectionTemplate">
@@ -230,6 +237,35 @@
             </Expander>
         </DataTemplate>
 
+        <DataTemplate x:Key="FixCollectionTemplate">
+            <TreeView ItemsSource="{Binding}">
+                <TreeView.Resources>
+                    <HierarchicalDataTemplate DataType="{x:Type models:FixModel}" ItemsSource="{Binding FileChanges}">
+                        <TextBlock Text="{Binding Description}" />
+                    </HierarchicalDataTemplate>
+                    <HierarchicalDataTemplate DataType="{x:Type models:FileChangeModel}" ItemsSource="{Binding Replacements}">
+                        <TextBlock Text="{Binding FileName}" />
+                    </HierarchicalDataTemplate>
+                    <HierarchicalDataTemplate DataType="{x:Type models:ReplacementModel}">
+                        <DockPanel>
+                            <TextBlock DockPanel.Dock="Top">
+                                    Start as offset <Run Text="{Binding Offset}" />.
+                            </TextBlock>
+                            <TextBlock DockPanel.Dock="Top" Visibility="{Binding DeletedLength, Converter={StaticResource int32ToVisibilityConverter}}">
+                                    Delete <Run Text="{Binding DeletedLength}" /> bytes.
+                            </TextBlock>
+                            <TextBlock DockPanel.Dock="Top" Visibility="{Binding InsertedBytes, Converter={StaticResource stringToVisibilityConverter}}">
+                                    Insert the string "<Run Text="{Binding InsertedBytes}" />".
+                            </TextBlock>
+                            <TextBlock>
+                                    <LineBreak />
+                            </TextBlock>
+                        </DockPanel>
+                    </HierarchicalDataTemplate>
+                </TreeView.Resources>
+            </TreeView>
+        </DataTemplate>
+        
         <DataTemplate x:Key="RuleTemplate">
             <Grid>
                 <Grid.RowDefinitions>
@@ -444,21 +480,9 @@
                         <Run Text=")" />
                     </TextBlock>
                 </TabItem.Header>
-                <ListBox ItemsSource="{Binding CodeFlows}"
-                         ItemTemplate="{StaticResource AnnotatedCodeLocationCollectionTemplate}"
-                         ScrollViewer.CanContentScroll="True"
-                         ScrollViewer.VerticalScrollBarVisibility="Auto">
-                    <ListBox.Template>
-                        <ControlTemplate>
-                            <ScrollViewer x:Name="ScrollViewer"
-                                          Padding="{TemplateBinding Padding}"
-                                          VerticalScrollBarVisibility="Auto"
-                                          CanContentScroll="True">
-                                <ItemsPresenter />
-                            </ScrollViewer>
-                        </ControlTemplate>
-                    </ListBox.Template>
-                </ListBox>
+
+                <ContentControl ContentTemplate="{StaticResource AnnotatedCodeLocationCollectionListBoxTemplate}"
+                                Content="{Binding CodeFlows}" />
             </TabItem>
             <TabItem>
                 <TabItem.Header>
@@ -480,32 +504,9 @@
                         <Run Text=")" />
                     </TextBlock>
                 </TabItem.Header>
-                <TreeView ItemsSource="{Binding Fixes}">
-                    <TreeView.Resources>
-                        <HierarchicalDataTemplate DataType="{x:Type models:FixModel}" ItemsSource="{Binding FileChanges}">
-                            <TextBlock Text="{Binding Description}" />
-                        </HierarchicalDataTemplate>
-                        <HierarchicalDataTemplate DataType="{x:Type models:FileChangeModel}" ItemsSource="{Binding Replacements}">
-                            <TextBlock Text="{Binding FileName}" />
-                        </HierarchicalDataTemplate>
-                        <HierarchicalDataTemplate DataType="{x:Type models:ReplacementModel}">
-                            <DockPanel>
-                                <TextBlock DockPanel.Dock="Top">
-                                    Start as offset <Run Text="{Binding Offset}" />.
-                                </TextBlock>
-                                <TextBlock DockPanel.Dock="Top" Visibility="{Binding DeletedLength, Converter={StaticResource int32ToVisibilityConverter}}">
-                                    Delete <Run Text="{Binding DeletedLength}" /> bytes.
-                                </TextBlock>
-                                <TextBlock DockPanel.Dock="Top" Visibility="{Binding InsertedBytes, Converter={StaticResource stringToVisibilityConverter}}">
-                                    Insert the string "<Run Text="{Binding InsertedBytes}" />".
-                                </TextBlock>
-                                <TextBlock>
-                                    <LineBreak />
-                                </TextBlock>
-                            </DockPanel>
-                        </HierarchicalDataTemplate>
-                    </TreeView.Resources>
-                </TreeView>
+
+                <ContentControl ContentTemplate="{StaticResource FixCollectionTemplate}"
+                                Content="{Binding Fixes}" />
             </TabItem>
             <TabItem>
                 <TabItem.Header>
