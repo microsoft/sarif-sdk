@@ -556,6 +556,15 @@ namespace Microsoft.CodeAnalysis.Sarif {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to &apos;uri&apos; member of &apos;{0}&apos; instance is not valid: &apos;{1}&apos;.
+        /// </summary>
+        internal static string SARIF001_InvalidUri {
+            get {
+                return ResourceManager.GetString("SARIF001_InvalidUri", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Tool has already been written. It cannot be written again..
         /// </summary>
         internal static string ToolAlreadyWritten {
