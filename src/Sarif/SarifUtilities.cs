@@ -38,6 +38,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             switch (sarifVersionText)
             {
                 case V1_0_0_BETA_5: return SarifVersion.OneZeroZeroBetaFive;
+                case V1_0_0: return SarifVersion.OneZeroZero;
             }
 
             return SarifVersion.Unknown;
@@ -48,13 +49,14 @@ namespace Microsoft.CodeAnalysis.Sarif
             switch (sarifVersion)
             {
                 case SarifVersion.OneZeroZeroBetaFive: { return V1_0_0_BETA_5; }
+                case SarifVersion.OneZeroZero: { return V1_0_0; }
             }
             return "unknown";
         }
 
         public static Uri ConvertToSchemaUri(this SarifVersion sarifVersion)
         {
-            return new Uri("http://json.schemastore.org/sarif-" + V1_0_0_BETA_5, UriKind.Absolute);
+            return new Uri("http://json.schemastore.org/sarif-" + V1_0_0, UriKind.Absolute);
         }
 
         public static Dictionary<string, string> BuildMessageFormats(IEnumerable<string> resourceNames, ResourceManager resourceManager)

@@ -12,7 +12,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 {
     public abstract class JsonTests
     {
-        private const SarifVersion CurrentVersion = SarifVersion.OneZeroZeroBetaFive;
+        private const SarifVersion CurrentVersion = SarifVersion.OneZeroZero;
 
         protected static readonly string SarifSchemaUri =
             SarifUtilities.ConvertToSchemaUri(CurrentVersion).OriginalString;

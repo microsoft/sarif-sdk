@@ -1,12 +1,11 @@
 {
-"version":"1.0.0-beta.5",
-"$schema":"http://json.schemastore.org/sarif-1.0.0-beta.5",
+"version":"1.0.0",
+"$schema":"http://json.schemastore.org/sarif-1.0.0",
 "runs":[
   {
     "tool":{
       "name":"PREfast",
-      "fullName":"PREfast Code Analysis",
-      "version":"14.0.0"
+      "fullName":"PREfast Code Analysis"
     },
     "results":[
       {
@@ -261,153 +260,6 @@
                   "region":{
                     "startColumn":8,
                     "startLine":33
-                  }
-                },
-                "id":"6",
-                "kind":"usage",
-                "message":"'source' is dereferenced, but may still be NULL",
-                "essential":true
-              }
-            ]
-          }
-        ]
-      },{
-        "ruleId":"6011",
-        "message":"Dereferencing NULL pointer 'source'. ",
-        "locations":[
-          {
-            "resultFile":{
-              "uri":"file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp",
-              "region":{
-                "startColumn":8,
-                "startLine":49
-              }
-            },
-            "fullyQualifiedLogicalName":"C6011_OnlyOnSecondLoopPlusRollbackDefect",
-            "decoratedName":"?C6011_OnlyOnSecondLoopPlusRollbackDefect@@YAXH@Z",
-            "properties":{
-              "funcline":"38"
-            }
-          }
-        ],
-        "properties":{
-          "probability":"1",
-          "rank":"4",
-          "ruleCategory":"mspft"
-        },
-        "codeFlows":[
-          {
-            "locations":[
-              {
-                "physicalLocation":{
-                  "uri":"file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp",
-                  "region":{
-                    "startColumn":6,
-                    "startLine":40
-                  }
-                },
-                "id":"1",
-                "kind":"declaration",
-                "message":"'source' is NULL",
-                "essential":true
-              },{
-                "physicalLocation":{
-                  "uri":"file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp",
-                  "region":{
-                    "startColumn":7,
-                    "startLine":41
-                  }
-                }
-              },{
-                "physicalLocation":{
-                  "uri":"file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp",
-                  "region":{
-                    "startColumn":9,
-                    "startLine":42
-                  }
-                }
-              },{
-                "physicalLocation":{
-                  "uri":"file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp",
-                  "region":{
-                    "startColumn":23,
-                    "startLine":42
-                  }
-                }
-              },{
-                "physicalLocation":{
-                  "uri":"file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp",
-                  "region":{
-                    "startColumn":11,
-                    "startLine":44
-                  }
-                }
-              },{
-                "physicalLocation":{
-                  "uri":"file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp",
-                  "region":{
-                    "startColumn":17,
-                    "startLine":44
-                  }
-                },
-                "id":"2",
-                "kind":"branch",
-                "message":"Enter this loop, (assume 'i<param')"
-              },{
-                "physicalLocation":{
-                  "uri":"file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp",
-                  "region":{
-                    "startColumn":7,
-                    "startLine":46
-                  }
-                },
-                "id":"3",
-                "kind":"branch",
-                "message":"Enter this branch, (assume '!flag')"
-              },{
-                "physicalLocation":{
-                  "uri":"file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp",
-                  "region":{
-                    "startColumn":9,
-                    "startLine":47
-                  }
-                }
-              },{
-                "physicalLocation":{
-                  "uri":"file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp",
-                  "region":{
-                    "startColumn":26,
-                    "startLine":44
-                  }
-                }
-              },{
-                "physicalLocation":{
-                  "uri":"file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp",
-                  "region":{
-                    "startColumn":17,
-                    "startLine":44
-                  }
-                },
-                "id":"4",
-                "kind":"branch",
-                "message":"Continue this loop, (assume 'i<param')"
-              },{
-                "physicalLocation":{
-                  "uri":"file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp",
-                  "region":{
-                    "startColumn":7,
-                    "startLine":46
-                  }
-                },
-                "id":"5",
-                "kind":"branch",
-                "message":"Skip this branch, (assume '!flag' is false)"
-              },{
-                "physicalLocation":{
-                  "uri":"file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp",
-                  "region":{
-                    "startColumn":8,
-                    "startLine":49
                   }
                 },
                 "id":"6",
@@ -731,6 +583,153 @@
                 "id":"5",
                 "kind":"usage",
                 "message":"Invalid read from 'y[2]', (readable range is 0 to 1)",
+                "essential":true
+              }
+            ]
+          }
+        ]
+      },{
+        "ruleId":"6011",
+        "message":"Dereferencing NULL pointer 'source'. ",
+        "locations":[
+          {
+            "resultFile":{
+              "uri":"file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp",
+              "region":{
+                "startColumn":8,
+                "startLine":49
+              }
+            },
+            "fullyQualifiedLogicalName":"C6011_OnlyOnSecondLoopPlusRollbackDefect",
+            "decoratedName":"?C6011_OnlyOnSecondLoopPlusRollbackDefect@@YAXH@Z",
+            "properties":{
+              "funcline":"38"
+            }
+          }
+        ],
+        "properties":{
+          "probability":"1",
+          "rank":"4",
+          "ruleCategory":"mspft"
+        },
+        "codeFlows":[
+          {
+            "locations":[
+              {
+                "physicalLocation":{
+                  "uri":"file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp",
+                  "region":{
+                    "startColumn":6,
+                    "startLine":40
+                  }
+                },
+                "id":"1",
+                "kind":"declaration",
+                "message":"'source' is NULL",
+                "essential":true
+              },{
+                "physicalLocation":{
+                  "uri":"file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp",
+                  "region":{
+                    "startColumn":7,
+                    "startLine":41
+                  }
+                }
+              },{
+                "physicalLocation":{
+                  "uri":"file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp",
+                  "region":{
+                    "startColumn":9,
+                    "startLine":42
+                  }
+                }
+              },{
+                "physicalLocation":{
+                  "uri":"file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp",
+                  "region":{
+                    "startColumn":23,
+                    "startLine":42
+                  }
+                }
+              },{
+                "physicalLocation":{
+                  "uri":"file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp",
+                  "region":{
+                    "startColumn":11,
+                    "startLine":44
+                  }
+                }
+              },{
+                "physicalLocation":{
+                  "uri":"file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp",
+                  "region":{
+                    "startColumn":17,
+                    "startLine":44
+                  }
+                },
+                "id":"2",
+                "kind":"branch",
+                "message":"Enter this loop, (assume 'i<param')"
+              },{
+                "physicalLocation":{
+                  "uri":"file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp",
+                  "region":{
+                    "startColumn":7,
+                    "startLine":46
+                  }
+                },
+                "id":"3",
+                "kind":"branch",
+                "message":"Enter this branch, (assume '!flag')"
+              },{
+                "physicalLocation":{
+                  "uri":"file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp",
+                  "region":{
+                    "startColumn":9,
+                    "startLine":47
+                  }
+                }
+              },{
+                "physicalLocation":{
+                  "uri":"file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp",
+                  "region":{
+                    "startColumn":26,
+                    "startLine":44
+                  }
+                }
+              },{
+                "physicalLocation":{
+                  "uri":"file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp",
+                  "region":{
+                    "startColumn":17,
+                    "startLine":44
+                  }
+                },
+                "id":"4",
+                "kind":"branch",
+                "message":"Continue this loop, (assume 'i<param')"
+              },{
+                "physicalLocation":{
+                  "uri":"file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp",
+                  "region":{
+                    "startColumn":7,
+                    "startLine":46
+                  }
+                },
+                "id":"5",
+                "kind":"branch",
+                "message":"Skip this branch, (assume '!flag' is false)"
+              },{
+                "physicalLocation":{
+                  "uri":"file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp",
+                  "region":{
+                    "startColumn":8,
+                    "startLine":49
+                  }
+                },
+                "id":"6",
+                "kind":"usage",
+                "message":"'source' is dereferenced, but may still be NULL",
                 "essential":true
               }
             ]

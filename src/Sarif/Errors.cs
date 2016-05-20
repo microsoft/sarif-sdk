@@ -185,7 +185,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             context.Logger.LogConfigurationNotification(
                 new Notification
                 {
-                    AnalysisTarget = new PhysicalLocation { Uri = context.TargetUri },
+                    PhysicalLocation = new PhysicalLocation { Uri = context.TargetUri },
                     Id = ERR997_MissingRuleConfiguration,
                     RuleId = context.Rule.Id,
                     Level = NotificationLevel.Error,
@@ -354,7 +354,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             var notification = new Notification
             {
-                AnalysisTarget = physicalLocation,
+                PhysicalLocation = physicalLocation,
                 Id = notificationId,
                 RuleId = ruleId,
                 Level = level,

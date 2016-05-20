@@ -297,9 +297,11 @@
       "arguments": {
         "typeName": "SarifVersion",
         "description": "Possible values for the SARIF schema version.",
+        "allowMemberCountMismatch": true,
         "zeroValueName": "Unknown",
         "memberNames": [
-          "OneZeroZeroBetaFive"
+          "OneZeroZeroBetaFive",
+          "OneZeroZero"
         ]
       }
     }

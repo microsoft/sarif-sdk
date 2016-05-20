@@ -26,12 +26,13 @@
 * Add optional 'id' to each result, to allow correlation with external data, annotations, work items, etc.
 * Add flag to configure file hash computation to FileData.Create helper
 * Add 'uriBaseId' conceptual base URI to all format URI properties (to allow all URIs to be relative)
-* Add 'analysisTarget' to invocation object, for cases where a single target is associated with a run
+* Add 'analysisTargetUri' to run object, for cases where a single target is associated with a run
 * Add 'threadId' to notification, annotatedCodeLocation and stackFrame.
 * Rework files and logicalLocations dictionary to store discrete items (with parent keys), not arrays
 * Add logicalLocationKey and fullyQualifiedLogicalLocationName to annotatedCodeLocation
 * Add 'id' and 'essential' properties to annotatedCodeLocation
 * Rename 'toolFingerprint' to 'toolFingerprintContribution'
 * Add baselineId. Rename 'correlationId' to 'automationId'
+* Add 'physicalLocation' property to notification
 
 
