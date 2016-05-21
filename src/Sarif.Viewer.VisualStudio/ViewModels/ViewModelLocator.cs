@@ -8,6 +8,10 @@ using System.Windows;
 
 namespace Microsoft.Sarif.Viewer.ViewModels
 {
+    /// <summary>
+    /// This type is only used by the VS designer. It provides the data which is 
+    /// displayed in the designer. 
+    /// </summary>
     public static class ViewModelLocator
     {
         static object _syncroot = new object();
