@@ -19,7 +19,6 @@
 
         <!-- Converters -->
         <converters:DatabindingDebugConverter x:Key="databindingDebugConverter" />
-        <converters:FullWidthGridViewColumnConverter x:Key="fullWidthGridViewColumnConverter" />
         <converters:StringToVisibilityConverter x:Key="stringToVisibilityConverter" />
         <converters:Int32ToVisibilityConverter x:Key="int32ToVisibilityConverter" />
         <converters:EnumerableToCountConverter x:Key="enumerableToCountConverter" />
@@ -190,8 +189,7 @@
                                 <GridViewColumn DisplayMemberBinding="{Binding Message}"
                                                 Header="Message"
                                                 Width="Auto" />
-                                <GridViewColumn Header="Name"
-                                                Width="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ListView} }, Converter={StaticResource fullWidthGridViewColumnConverter}}">
+                                <GridViewColumn Header="Name">
                                     <GridViewColumn.CellTemplate>
                                         <DataTemplate>
                                             <TextBlock>
