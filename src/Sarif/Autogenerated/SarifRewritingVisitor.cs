@@ -11,7 +11,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// <summary>
     /// Rewriting visitor for the Sarif object model.
     /// </summary>
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.33.0.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.34.0.0")]
     public abstract class SarifRewritingVisitor
     {
         /// <summary>
@@ -247,7 +247,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             if (node != null)
             {
-                node.AnalysisTarget = VisitNullChecked(node.AnalysisTarget);
+                node.PhysicalLocation = VisitNullChecked(node.PhysicalLocation);
                 node.Exception = VisitNullChecked(node.Exception);
             }
 
@@ -346,7 +346,6 @@ namespace Microsoft.CodeAnalysis.Sarif
             {
                 node.Tool = VisitNullChecked(node.Tool);
                 node.Invocation = VisitNullChecked(node.Invocation);
-                node.AnalysisTarget = VisitNullChecked(node.AnalysisTarget);
                 if (node.Files != null)
                 {
                     var keys = node.Files.Keys.ToArray();

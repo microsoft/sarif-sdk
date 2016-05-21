@@ -13,7 +13,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// A function call within a stack trace.
     /// </summary>
     [DataContract]
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.33.0.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.34.0.0")]
     public partial class StackFrame : PropertyBagHolder, ISarifNode
     {
         public static IEqualityComparer<StackFrame> ValueComparer => StackFrameEqualityComparer.Instance;
@@ -65,7 +65,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <summary>
         /// The name of the module that contains the code of this stack frame.
         /// </summary>
-        [DataMember(Name = "module", IsRequired = true)]
+        [DataMember(Name = "module", IsRequired = false, EmitDefaultValue = false)]
         public string Module { get; set; }
 
         /// <summary>
