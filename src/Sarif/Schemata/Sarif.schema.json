@@ -280,7 +280,7 @@
           }
         }
       },
-      "required": [ "fileChanges" ]
+      "required": [ "description", "fileChanges" ]
     },
     "formattedRuleMessage": {
       "description": "Contains information that can be used to construct a formatted message that describes a result.",
