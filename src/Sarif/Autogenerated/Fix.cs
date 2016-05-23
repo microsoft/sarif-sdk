@@ -34,7 +34,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <summary>
         /// A string that describes the proposed fix, enabling viewers to present a proposed change to an end user.
         /// </summary>
-        [DataMember(Name = "description", IsRequired = true)]
+        [DataMember(Name = "description", IsRequired = false, EmitDefaultValue = false)]
         public string Description { get; set; }
 
         /// <summary>
