@@ -1520,4 +1520,5 @@
   <Target Name="CopySchema" AfterTargets="Build">
     <Copy SourceFiles="$(SolutionDir)\Sarif\Schemata\Sarif.schema.json" DestinationFolder="$(OutDir)" />
   </Target>
+  <ProjectExtensions />
 </Project>
