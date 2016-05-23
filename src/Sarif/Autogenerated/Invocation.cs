@@ -13,7 +13,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// The runtime environment of the analysis tool run.
     /// </summary>
     [DataContract]
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.34.0.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.35.0.0")]
     public partial class Invocation : PropertyBagHolder, ISarifNode
     {
         public static IEqualityComparer<Invocation> ValueComparer => InvocationEqualityComparer.Instance;
