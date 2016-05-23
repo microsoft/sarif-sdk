@@ -10,7 +10,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// A descriptive identifier that categorizes the annotation.
     /// </summary>
     [Flags]
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.34.0.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.35.0.0")]
     public enum AnnotatedCodeLocationKind
     {
         None,
