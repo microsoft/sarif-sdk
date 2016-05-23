@@ -104,6 +104,12 @@ namespace Microsoft.CodeAnalysis.Sarif
         public string BaselineId { get; set; }
 
         /// <summary>
+        /// The hardware architecture for which the run was targeted.
+        /// </summary>
+        [DataMember(Name = "architecture", IsRequired = false, EmitDefaultValue = false)]
+        public string Architecture { get; set; }
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="Run" /> class.
         /// </summary>
         public Run()
@@ -149,9 +155,12 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="baselineId">
         /// An initialization value for the <see cref="P: BaselineId" /> property.
         /// </param>
-        public Run(Tool tool, Invocation invocation, Uri analysisTargetUri, IDictionary<string, FileData> files, IDictionary<string, LogicalLocation> logicalLocations, IEnumerable<Result> results, IEnumerable<Notification> toolNotifications, IEnumerable<Notification> configurationNotifications, IDictionary<string, Rule> rules, string id, string automationId, string baselineId)
+        /// <param name="architecture">
+        /// An initialization value for the <see cref="P: Architecture" /> property.
+        /// </param>
+        public Run(Tool tool, Invocation invocation, Uri analysisTargetUri, IDictionary<string, FileData> files, IDictionary<string, LogicalLocation> logicalLocations, IEnumerable<Result> results, IEnumerable<Notification> toolNotifications, IEnumerable<Notification> configurationNotifications, IDictionary<string, Rule> rules, string id, string automationId, string baselineId, string architecture)
         {
-            Init(tool, invocation, analysisTargetUri, files, logicalLocations, results, toolNotifications, configurationNotifications, rules, id, automationId, baselineId);
+            Init(tool, invocation, analysisTargetUri, files, logicalLocations, results, toolNotifications, configurationNotifications, rules, id, automationId, baselineId, architecture);
         }
 
         /// <summary>
@@ -170,7 +179,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 throw new ArgumentNullException(nameof(other));
             }
 
-            Init(other.Tool, other.Invocation, other.AnalysisTargetUri, other.Files, other.LogicalLocations, other.Results, other.ToolNotifications, other.ConfigurationNotifications, other.Rules, other.Id, other.AutomationId, other.BaselineId);
+            Init(other.Tool, other.Invocation, other.AnalysisTargetUri, other.Files, other.LogicalLocations, other.Results, other.ToolNotifications, other.ConfigurationNotifications, other.Rules, other.Id, other.AutomationId, other.BaselineId, other.Architecture);
         }
 
         ISarifNode ISarifNode.DeepClone()
@@ -191,7 +200,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new Run(this);
         }
 
-        private void Init(Tool tool, Invocation invocation, Uri analysisTargetUri, IDictionary<string, FileData> files, IDictionary<string, LogicalLocation> logicalLocations, IEnumerable<Result> results, IEnumerable<Notification> toolNotifications, IEnumerable<Notification> configurationNotifications, IDictionary<string, Rule> rules, string id, string automationId, string baselineId)
+        private void Init(Tool tool, Invocation invocation, Uri analysisTargetUri, IDictionary<string, FileData> files, IDictionary<string, LogicalLocation> logicalLocations, IEnumerable<Result> results, IEnumerable<Notification> toolNotifications, IEnumerable<Notification> configurationNotifications, IDictionary<string, Rule> rules, string id, string automationId, string baselineId, string architecture)
         {
             if (tool != null)
             {
@@ -292,6 +301,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             Id = id;
             AutomationId = automationId;
             BaselineId = baselineId;
+            Architecture = architecture;
         }
     }
 }

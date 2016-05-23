@@ -36,6 +36,8 @@
 * Add 'physicalLocation' property to notification
 
 ## **v1.5.23-beta** [Driver](https://www.nuget.org/packages/Sarif.Driver/1.5.23-beta) | [SDK](https://www.nuget.org/packages/Sarif.Sdk/1.5.23-beta)
-* NOTHING YET
+* Rename 'codeSnippet' to 'snippet'
+* Remove requirement to specify 'description' on code fixes
+* Add 'architecture' back to 'run' object
 
 
