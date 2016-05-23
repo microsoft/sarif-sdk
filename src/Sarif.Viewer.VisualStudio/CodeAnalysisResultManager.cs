@@ -11,6 +11,7 @@ using Microsoft.CodeAnalysis.Sarif;
 using Microsoft.CodeAnalysis.Sarif.Writers;
 using Microsoft.VisualStudio.Shell.Interop;
 using Microsoft.Win32;
+using Microsoft.Sarif.Viewer.Sarif;
 
 namespace Microsoft.Sarif.Viewer
 {
@@ -35,7 +36,7 @@ namespace Microsoft.Sarif.Viewer
 
         private CodeAnalysisResultManager()
         {
-            this.SarifErrors = new List<SarifError>();
+            this.SarifErrors = new List<SarifErrorListItem>();
             _remappedFilePaths = new Dictionary<string, string>();
             _remappedPathPrefixes = new List<Tuple<string, string>>();
             _fileToNewLineIndexMap = new Dictionary<string, NewLineIndex>();
@@ -59,10 +60,10 @@ namespace Microsoft.Sarif.Viewer
 
         public static CodeAnalysisResultManager Instance = new CodeAnalysisResultManager();
 
-        public IList<SarifError> SarifErrors { get; set; }
+        public IList<SarifErrorListItem> SarifErrors { get; set; }
 
-        SarifError m_currentSarifError;
-        public SarifError CurrentSarifError
+        SarifErrorListItem m_currentSarifError;
+        public SarifErrorListItem CurrentSarifError
         {
             get
             {
@@ -211,13 +212,13 @@ namespace Microsoft.Sarif.Viewer
             return S_OK;
         }
 
-        internal bool TryNavigateTo(SarifError sarifError, out IVsWindowFrame result)
+        internal bool TryNavigateTo(SarifErrorListItem sarifError, out IVsWindowFrame result)
         {
             CodeAnalysisResultManager.Instance.CurrentSarifError = sarifError;
             return TryNavigateTo(sarifError, sarifError.FileName, MimeType.Binary, sarifError.Region, sarifError.LineMarker, out result);
         }
 
-        internal bool TryNavigateTo(SarifError sarifError, string fileName, string mimeType, Region region, ResultTextMarker marker, out IVsWindowFrame result)
+        internal bool TryNavigateTo(SarifErrorListItem sarifError, string fileName, string mimeType, Region region, ResultTextMarker marker, out IVsWindowFrame result)
         {
             result = null;
 
@@ -335,19 +336,16 @@ namespace Microsoft.Sarif.Viewer
             return S_OK;
         }
 
-        internal static bool CanNavigateTo(SarifError sarifError)
+        internal static bool CanNavigateTo(SarifErrorListItem sarifError)
         {
             throw new NotImplementedException();
         }
 
-        internal void RemapFileNames(string fileName, string remappedName)
+        internal void RemapFileNames(string originalPath, string remappedPath)
         {
-            foreach(SarifError sarifError in SarifErrors)
+            foreach(SarifErrorListItem sarifError in SarifErrors)
             {
-                if (sarifError.FileName.Equals(fileName, StringComparison.OrdinalIgnoreCase))
-                {
-                    sarifError.FileName = remappedName;
-                }
+                sarifError.RemapFilePath(originalPath, remappedPath);
             }
         }
 
@@ -400,7 +398,7 @@ namespace Microsoft.Sarif.Viewer
             {
                 if (SarifErrors != null)
                 {
-                    foreach (SarifError sarifError in SarifErrors)
+                    foreach (SarifErrorListItem sarifError in SarifErrors)
                     {
                         sarifError.AttachToDocument(documentName, (long)docCookie, pFrame);
                     }
@@ -415,7 +413,7 @@ namespace Microsoft.Sarif.Viewer
         {
             if (SarifErrors != null)
             {
-                foreach (SarifError sarifError in SarifErrors)
+                foreach (SarifErrorListItem sarifError in SarifErrors)
                 {
                     sarifError.DetachFromDocument((long)docCookie);
                 }
