@@ -26,12 +26,18 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
         {
             Uri uri = ((Uri)value);
 
-            if (uri.IsAbsoluteUri && uri.IsFile && (uri.LocalPath == uri.OriginalString))
-            {
-                uri = new Uri(uri.ToString());
-            }
+            string uriValue = UriToString(uri);
 
-            writer.WriteValue(uri.ToString());
+            writer.WriteValue(uriValue);
+        }
+
+        internal static string UriToString(Uri uri)
+        {
+            if (uri.IsAbsoluteUri)
+            {
+                return uri.AbsoluteUri;
+            }
+            return uri.ToString();
         }
     }
 }

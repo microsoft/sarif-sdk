@@ -112,6 +112,7 @@
     <Compile Include="ToolFormat.cs" />
     <Compile Include="TypedPropertyBag.cs" />
     <Compile Include="VersionConstants.cs" />
+    <Compile Include="Visitors\ValidatingVisitor.cs" />
     <Compile Include="Warnings.cs" />
     <Compile Include="Writers\ResultLogJsonWriter.cs" />
     <Compile Include="Writers\MimeType.cs" />
