@@ -74,7 +74,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 }
             }
 
-            if (left.CodeSnippet != right.CodeSnippet)
+            if (left.Snippet != right.Snippet)
             {
                 return false;
             }
@@ -251,9 +251,9 @@ namespace Microsoft.CodeAnalysis.Sarif
                     }
                 }
 
-                if (obj.CodeSnippet != null)
+                if (obj.Snippet != null)
                 {
-                    result = (result * 31) + obj.CodeSnippet.GetHashCode();
+                    result = (result * 31) + obj.Snippet.GetHashCode();
                 }
 
                 if (obj.Id != null)

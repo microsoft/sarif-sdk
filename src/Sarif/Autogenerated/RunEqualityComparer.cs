@@ -186,6 +186,11 @@ namespace Microsoft.CodeAnalysis.Sarif
                 return false;
             }
 
+            if (left.Architecture != right.Architecture)
+            {
+                return false;
+            }
+
             return true;
         }
 
@@ -311,6 +316,11 @@ namespace Microsoft.CodeAnalysis.Sarif
                 if (obj.BaselineId != null)
                 {
                     result = (result * 31) + obj.BaselineId.GetHashCode();
+                }
+
+                if (obj.Architecture != null)
+                {
+                    result = (result * 31) + obj.Architecture.GetHashCode();
                 }
             }
 
