@@ -16,12 +16,6 @@
     <AssemblyOriginatorKeyFile>..\TestKey.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <Import Project="$([MSBuild]::GetDirectoryNameOfFileAbove($(MSBuildThisFileDirectory).., build.props))\build.props" />
-  <PropertyGroup>
-    <!-- Override the TargetFrameworkVersion specified in build.props. This project must target
-         .NET 4.5.2 because the Microsoft.Json.Schema package, upon which this project depends, targets
-         that version. -->
-    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
-  </PropertyGroup>
   <ItemGroup>
     <Reference Include="FluentAssertions, Version=4.2.1.0, Culture=neutral, PublicKeyToken=33f2691a05b67b6a, processorArchitecture=MSIL">
       <HintPath>..\packages\FluentAssertions.4.2.1\lib\net45\FluentAssertions.dll</HintPath>
@@ -35,8 +29,8 @@
       <HintPath>..\packages\Newtonsoft.Json.6.0.8\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Microsoft.Json.Schema, Version=0.36.0.0, Culture=neutral, PublicKeyToken=7aebd41ac4801eb9, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.Json.Schema.0.36.0\lib\net45\Microsoft.Json.Schema.dll</HintPath>
+    <Reference Include="Microsoft.Json.Schema, Version=0.37.0.0, Culture=neutral, PublicKeyToken=7aebd41ac4801eb9, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Json.Schema.0.37.0\lib\net45\Microsoft.Json.Schema.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
