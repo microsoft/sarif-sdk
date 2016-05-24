@@ -18,9 +18,9 @@
   <Import Project="$([MSBuild]::GetDirectoryNameOfFileAbove($(MSBuildThisFileDirectory).., build.props))\build.props" />
   <PropertyGroup>
     <!-- Override the TargetFrameworkVersion specified in build.props. This project must target
-         .NET 4.6 because the Sarif.Validator project, upon which this project depends, targets
+         .NET 4.5.2 because the Microsoft.Json.Schema package, upon which this project depends, targets
          that version. -->
-    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="FluentAssertions, Version=4.2.1.0, Culture=neutral, PublicKeyToken=33f2691a05b67b6a, processorArchitecture=MSIL">
@@ -33,6 +33,10 @@
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.6.0.8\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Json.Schema, Version=0.36.0.0, Culture=neutral, PublicKeyToken=7aebd41ac4801eb9, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Json.Schema.0.36.0\lib\net45\Microsoft.Json.Schema.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
@@ -64,10 +68,6 @@
     <ProjectReference Include="..\Sarif.Driver\Sarif.Driver.csproj">
       <Project>{8ceaea61-b1a2-4777-bcbe-c9a129a5f6c5}</Project>
       <Name>Sarif.Driver</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Sarif.Validation\Sarif.Validation.csproj">
-      <Project>{ea09f93d-153a-476f-9ff8-c2acc1c7f712}</Project>
-      <Name>Sarif.Validation</Name>
     </ProjectReference>
     <ProjectReference Include="..\Sarif\Sarif.csproj">
       <Project>{cc9b247e-7103-4bf7-bdab-6e625b3680a8}</Project>

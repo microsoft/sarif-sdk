@@ -13,7 +13,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// An annotation used to express code flows through a method or other locations that are related to a result.
     /// </summary>
     [DataContract]
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.35.0.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.36.0.0")]
     public partial class AnnotatedCodeLocation : PropertyBagHolder, ISarifNode
     {
         public static IEqualityComparer<AnnotatedCodeLocation> ValueComparer => AnnotatedCodeLocationEqualityComparer.Instance;
