@@ -765,7 +765,16 @@
             }
           }
         }
-      }
+      },
+
+      "anyOf": [
+        {
+          "required": [ "ruleId" ]
+        },
+        {
+          "required": [ "ruleKey" ]
+        }
+      ]
     },
     "rule": {
       "description": "Describes an analysis rule.",
