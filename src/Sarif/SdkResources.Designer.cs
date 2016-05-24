@@ -538,6 +538,15 @@ namespace Microsoft.CodeAnalysis.Sarif {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The rule id &apos;{0}&apos; specified by the result does not match the actual id of the rule &apos;{1}&apos;.
+        /// </summary>
+        internal static string ResultRuleIdDoesNotMatchRule {
+            get {
+                return ResourceManager.GetString("ResultRuleIdDoesNotMatchRule", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Object cannot be serialized until results serialization is completed..
         /// </summary>
         internal static string ResultsSerializationNotComplete {

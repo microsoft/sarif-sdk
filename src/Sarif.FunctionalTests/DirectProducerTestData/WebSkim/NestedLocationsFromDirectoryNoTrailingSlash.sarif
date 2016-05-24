@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "runs": [
     {
-      "id": "2c5e090a-95b4-47b0-b90f-d842bc3b92a6",
+      "id": "c4305c2a-ffca-4d00-8ae2-009c46c42eba",
       "tool": {
         "name": "ModernCop",
         "fullName": "mod50 7.0.7000.0",
@@ -17,7 +17,7 @@
       },
       "results": [
         {
-          "ruleId": "M1003",
+          "ruleKey": "M1003.DoNotShipObfuscatedCode",
           "level": "error",
           "formattedRuleMessage": {
             "formatId": "Error"
@@ -34,7 +34,7 @@
           ]
         },
         {
-          "ruleId": "JS2021",
+          "ruleKey": "JS2021.SeparateBinaryOperatorArgumentsWithSpaces",
           "level": "warning",
           "formattedRuleMessage": {
             "formatId": "Warning"
@@ -49,10 +49,11 @@
                 }
               }
             }
-          ]
+          ],
+          "snippet": "var apple=2"
         },
         {
-          "ruleId": "JS3085",
+          "ruleKey": "JS3085.VariableDeclaredMultipleTimes",
           "level": "error",
           "formattedRuleMessage": {
             "formatId": "Error",
@@ -86,7 +87,7 @@
           ]
         },
         {
-          "ruleId": "JS2021",
+          "ruleKey": "JS2021.SeparateBinaryOperatorArgumentsWithSpaces",
           "level": "warning",
           "formattedRuleMessage": {
             "formatId": "Warning"
@@ -101,10 +102,11 @@
                 }
               }
             }
-          ]
+          ],
+          "snippet": "var apple=2"
         },
         {
-          "ruleId": "JS3085",
+          "ruleKey": "JS3085.VariableDeclaredMultipleTimes",
           "level": "error",
           "formattedRuleMessage": {
             "formatId": "Error",
@@ -138,7 +140,7 @@
           ]
         },
         {
-          "ruleId": "JS2021",
+          "ruleKey": "JS2021.SeparateBinaryOperatorArgumentsWithSpaces",
           "level": "warning",
           "formattedRuleMessage": {
             "formatId": "Warning"
@@ -153,10 +155,11 @@
                 }
               }
             }
-          ]
+          ],
+          "snippet": "var apple=2"
         },
         {
-          "ruleId": "JS3085",
+          "ruleKey": "JS3085.VariableDeclaredMultipleTimes",
           "level": "error",
           "formattedRuleMessage": {
             "formatId": "Error",
@@ -190,7 +193,7 @@
           ]
         },
         {
-          "ruleId": "JS2021",
+          "ruleKey": "JS2021.SeparateBinaryOperatorArgumentsWithSpaces",
           "level": "warning",
           "formattedRuleMessage": {
             "formatId": "Warning"
@@ -205,10 +208,11 @@
                 }
               }
             }
-          ]
+          ],
+          "snippet": "var apple=2"
         },
         {
-          "ruleId": "JS3085",
+          "ruleKey": "JS3085.VariableDeclaredMultipleTimes",
           "level": "error",
           "formattedRuleMessage": {
             "formatId": "Error",
@@ -242,7 +246,7 @@
           ]
         },
         {
-          "ruleId": "JS2021",
+          "ruleKey": "JS2021.SeparateBinaryOperatorArgumentsWithSpaces",
           "level": "warning",
           "formattedRuleMessage": {
             "formatId": "Warning"
@@ -257,10 +261,11 @@
                 }
               }
             }
-          ]
+          ],
+          "snippet": "var apple=2"
         },
         {
-          "ruleId": "JS3085",
+          "ruleKey": "JS3085.VariableDeclaredMultipleTimes",
           "level": "error",
           "formattedRuleMessage": {
             "formatId": "Error",
@@ -294,7 +299,7 @@
           ]
         },
         {
-          "ruleId": "JS2021",
+          "ruleKey": "JS2021.SeparateBinaryOperatorArgumentsWithSpaces",
           "level": "warning",
           "formattedRuleMessage": {
             "formatId": "Warning"
@@ -309,10 +314,11 @@
                 }
               }
             }
-          ]
+          ],
+          "snippet": "var apple=2"
         },
         {
-          "ruleId": "JS3085",
+          "ruleKey": "JS3085.VariableDeclaredMultipleTimes",
           "level": "error",
           "formattedRuleMessage": {
             "formatId": "Error",
@@ -346,7 +352,7 @@
           ]
         },
         {
-          "ruleId": "JS2021",
+          "ruleKey": "JS2021.SeparateBinaryOperatorArgumentsWithSpaces",
           "level": "warning",
           "formattedRuleMessage": {
             "formatId": "Warning"
@@ -361,10 +367,11 @@
                 }
               }
             }
-          ]
+          ],
+          "snippet": "var apple=2"
         },
         {
-          "ruleId": "JS3085",
+          "ruleKey": "JS3085.VariableDeclaredMultipleTimes",
           "level": "error",
           "formattedRuleMessage": {
             "formatId": "Error",
@@ -398,7 +405,7 @@
           ]
         },
         {
-          "ruleId": "JS2021",
+          "ruleKey": "JS2021.SeparateBinaryOperatorArgumentsWithSpaces",
           "level": "warning",
           "formattedRuleMessage": {
             "formatId": "Warning"
@@ -413,10 +420,11 @@
                 }
               }
             }
-          ]
+          ],
+          "snippet": "var apple=2"
         },
         {
-          "ruleId": "JS3085",
+          "ruleKey": "JS3085.VariableDeclaredMultipleTimes",
           "level": "error",
           "formattedRuleMessage": {
             "formatId": "Error",
@@ -450,7 +458,7 @@
           ]
         },
         {
-          "ruleId": "JS2021",
+          "ruleKey": "JS2021.SeparateBinaryOperatorArgumentsWithSpaces",
           "level": "warning",
           "formattedRuleMessage": {
             "formatId": "Warning"
@@ -465,10 +473,11 @@
                 }
               }
             }
-          ]
+          ],
+          "snippet": "var apple=2"
         },
         {
-          "ruleId": "JS3085",
+          "ruleKey": "JS3085.VariableDeclaredMultipleTimes",
           "level": "error",
           "formattedRuleMessage": {
             "formatId": "Error",
@@ -502,7 +511,7 @@
           ]
         },
         {
-          "ruleId": "JS2021",
+          "ruleKey": "JS2021.SeparateBinaryOperatorArgumentsWithSpaces",
           "level": "warning",
           "formattedRuleMessage": {
             "formatId": "Warning"
@@ -517,10 +526,11 @@
                 }
               }
             }
-          ]
+          ],
+          "snippet": "var apple=2"
         },
         {
-          "ruleId": "JS3085",
+          "ruleKey": "JS3085.VariableDeclaredMultipleTimes",
           "level": "error",
           "formattedRuleMessage": {
             "formatId": "Error",
@@ -554,7 +564,7 @@
           ]
         },
         {
-          "ruleId": "JS2021",
+          "ruleKey": "JS2021.SeparateBinaryOperatorArgumentsWithSpaces",
           "level": "warning",
           "formattedRuleMessage": {
             "formatId": "Warning"
@@ -569,10 +579,11 @@
                 }
               }
             }
-          ]
+          ],
+          "snippet": "var apple=2"
         },
         {
-          "ruleId": "JS3085",
+          "ruleKey": "JS3085.VariableDeclaredMultipleTimes",
           "level": "error",
           "formattedRuleMessage": {
             "formatId": "Error",
@@ -606,7 +617,7 @@
           ]
         },
         {
-          "ruleId": "JS2021",
+          "ruleKey": "JS2021.SeparateBinaryOperatorArgumentsWithSpaces",
           "level": "warning",
           "formattedRuleMessage": {
             "formatId": "Warning"
@@ -621,10 +632,11 @@
                 }
               }
             }
-          ]
+          ],
+          "snippet": "var apple=2"
         },
         {
-          "ruleId": "JS3085",
+          "ruleKey": "JS3085.VariableDeclaredMultipleTimes",
           "level": "error",
           "formattedRuleMessage": {
             "formatId": "Error",
@@ -658,7 +670,7 @@
           ]
         },
         {
-          "ruleId": "JS2021",
+          "ruleKey": "JS2021.SeparateBinaryOperatorArgumentsWithSpaces",
           "level": "warning",
           "formattedRuleMessage": {
             "formatId": "Warning"
@@ -673,10 +685,11 @@
                 }
               }
             }
-          ]
+          ],
+          "snippet": "var apple=2"
         },
         {
-          "ruleId": "JS3085",
+          "ruleKey": "JS3085.VariableDeclaredMultipleTimes",
           "level": "error",
           "formattedRuleMessage": {
             "formatId": "Error",
@@ -710,7 +723,7 @@
           ]
         },
         {
-          "ruleId": "JS2021",
+          "ruleKey": "JS2021.SeparateBinaryOperatorArgumentsWithSpaces",
           "level": "warning",
           "formattedRuleMessage": {
             "formatId": "Warning"
@@ -725,10 +738,11 @@
                 }
               }
             }
-          ]
+          ],
+          "snippet": "var apple=2"
         },
         {
-          "ruleId": "JS3085",
+          "ruleKey": "JS3085.VariableDeclaredMultipleTimes",
           "level": "error",
           "formattedRuleMessage": {
             "formatId": "Error",
@@ -762,7 +776,7 @@
           ]
         },
         {
-          "ruleId": "JS2021",
+          "ruleKey": "JS2021.SeparateBinaryOperatorArgumentsWithSpaces",
           "level": "warning",
           "formattedRuleMessage": {
             "formatId": "Warning"
@@ -777,10 +791,11 @@
                 }
               }
             }
-          ]
+          ],
+          "snippet": "var apple=2"
         },
         {
-          "ruleId": "JS3085",
+          "ruleKey": "JS3085.VariableDeclaredMultipleTimes",
           "level": "error",
           "formattedRuleMessage": {
             "formatId": "Error",
@@ -814,7 +829,7 @@
           ]
         },
         {
-          "ruleId": "JS2021",
+          "ruleKey": "JS2021.SeparateBinaryOperatorArgumentsWithSpaces",
           "level": "warning",
           "formattedRuleMessage": {
             "formatId": "Warning"
@@ -829,10 +844,11 @@
                 }
               }
             }
-          ]
+          ],
+          "snippet": "var apple=2"
         },
         {
-          "ruleId": "JS3085",
+          "ruleKey": "JS3085.VariableDeclaredMultipleTimes",
           "level": "error",
           "formattedRuleMessage": {
             "formatId": "Error",
@@ -866,7 +882,7 @@
           ]
         },
         {
-          "ruleId": "JS2021",
+          "ruleKey": "JS2021.SeparateBinaryOperatorArgumentsWithSpaces",
           "level": "warning",
           "formattedRuleMessage": {
             "formatId": "Warning"
@@ -881,10 +897,11 @@
                 }
               }
             }
-          ]
+          ],
+          "snippet": "var apple=2"
         },
         {
-          "ruleId": "JS3085",
+          "ruleKey": "JS3085.VariableDeclaredMultipleTimes",
           "level": "error",
           "formattedRuleMessage": {
             "formatId": "Error",
@@ -918,7 +935,7 @@
           ]
         },
         {
-          "ruleId": "JS2021",
+          "ruleKey": "JS2021.SeparateBinaryOperatorArgumentsWithSpaces",
           "level": "warning",
           "formattedRuleMessage": {
             "formatId": "Warning"
@@ -933,10 +950,11 @@
                 }
               }
             }
-          ]
+          ],
+          "snippet": "var apple=2"
         },
         {
-          "ruleId": "JS3085",
+          "ruleKey": "JS3085.VariableDeclaredMultipleTimes",
           "level": "error",
           "formattedRuleMessage": {
             "formatId": "Error",
@@ -970,7 +988,7 @@
           ]
         },
         {
-          "ruleId": "JS2021",
+          "ruleKey": "JS2021.SeparateBinaryOperatorArgumentsWithSpaces",
           "level": "warning",
           "formattedRuleMessage": {
             "formatId": "Warning"
@@ -985,10 +1003,11 @@
                 }
               }
             }
-          ]
+          ],
+          "snippet": "var apple=2"
         },
         {
-          "ruleId": "JS3085",
+          "ruleKey": "JS3085.VariableDeclaredMultipleTimes",
           "level": "error",
           "formattedRuleMessage": {
             "formatId": "Error",
@@ -1022,7 +1041,7 @@
           ]
         },
         {
-          "ruleId": "JS2021",
+          "ruleKey": "JS2021.SeparateBinaryOperatorArgumentsWithSpaces",
           "level": "warning",
           "formattedRuleMessage": {
             "formatId": "Warning"
@@ -1037,10 +1056,11 @@
                 }
               }
             }
-          ]
+          ],
+          "snippet": "var apple=2"
         },
         {
-          "ruleId": "JS3085",
+          "ruleKey": "JS3085.VariableDeclaredMultipleTimes",
           "level": "error",
           "formattedRuleMessage": {
             "formatId": "Error",
@@ -1074,7 +1094,7 @@
           ]
         },
         {
-          "ruleId": "JS2021",
+          "ruleKey": "JS2021.SeparateBinaryOperatorArgumentsWithSpaces",
           "level": "warning",
           "formattedRuleMessage": {
             "formatId": "Warning"
@@ -1089,10 +1109,11 @@
                 }
               }
             }
-          ]
+          ],
+          "snippet": "var apple=2"
         },
         {
-          "ruleId": "JS3085",
+          "ruleKey": "JS3085.VariableDeclaredMultipleTimes",
           "level": "error",
           "formattedRuleMessage": {
             "formatId": "Error",
@@ -1126,7 +1147,7 @@
           ]
         },
         {
-          "ruleId": "JS2021",
+          "ruleKey": "JS2021.SeparateBinaryOperatorArgumentsWithSpaces",
           "level": "warning",
           "formattedRuleMessage": {
             "formatId": "Warning"
@@ -1141,10 +1162,11 @@
                 }
               }
             }
-          ]
+          ],
+          "snippet": "var apple=2"
         },
         {
-          "ruleId": "JS3085",
+          "ruleKey": "JS3085.VariableDeclaredMultipleTimes",
           "level": "error",
           "formattedRuleMessage": {
             "formatId": "Error",
@@ -1178,7 +1200,7 @@
           ]
         },
         {
-          "ruleId": "JS2021",
+          "ruleKey": "JS2021.SeparateBinaryOperatorArgumentsWithSpaces",
           "level": "warning",
           "formattedRuleMessage": {
             "formatId": "Warning"
@@ -1193,10 +1215,11 @@
                 }
               }
             }
-          ]
+          ],
+          "snippet": "var apple=2"
         },
         {
-          "ruleId": "JS3085",
+          "ruleKey": "JS3085.VariableDeclaredMultipleTimes",
           "level": "error",
           "formattedRuleMessage": {
             "formatId": "Error",
@@ -1230,7 +1253,7 @@
           ]
         },
         {
-          "ruleId": "JS2021",
+          "ruleKey": "JS2021.SeparateBinaryOperatorArgumentsWithSpaces",
           "level": "warning",
           "formattedRuleMessage": {
             "formatId": "Warning"
@@ -1245,10 +1268,11 @@
                 }
               }
             }
-          ]
+          ],
+          "snippet": "var apple=2"
         },
         {
-          "ruleId": "JS3085",
+          "ruleKey": "JS3085.VariableDeclaredMultipleTimes",
           "level": "error",
           "formattedRuleMessage": {
             "formatId": "Error",
@@ -1282,7 +1306,7 @@
           ]
         },
         {
-          "ruleId": "JS2021",
+          "ruleKey": "JS2021.SeparateBinaryOperatorArgumentsWithSpaces",
           "level": "warning",
           "formattedRuleMessage": {
             "formatId": "Warning"
@@ -1297,10 +1321,11 @@
                 }
               }
             }
-          ]
+          ],
+          "snippet": "var apple=2"
         },
         {
-          "ruleId": "JS3085",
+          "ruleKey": "JS3085.VariableDeclaredMultipleTimes",
           "level": "error",
           "formattedRuleMessage": {
             "formatId": "Error",
@@ -1334,7 +1359,7 @@
           ]
         },
         {
-          "ruleId": "JS2021",
+          "ruleKey": "JS2021.SeparateBinaryOperatorArgumentsWithSpaces",
           "level": "warning",
           "formattedRuleMessage": {
             "formatId": "Warning"
@@ -1349,10 +1374,11 @@
                 }
               }
             }
-          ]
+          ],
+          "snippet": "var apple=2"
         },
         {
-          "ruleId": "JS3085",
+          "ruleKey": "JS3085.VariableDeclaredMultipleTimes",
           "level": "error",
           "formattedRuleMessage": {
             "formatId": "Error",
@@ -1386,7 +1412,7 @@
           ]
         },
         {
-          "ruleId": "JS2021",
+          "ruleKey": "JS2021.SeparateBinaryOperatorArgumentsWithSpaces",
           "level": "warning",
           "formattedRuleMessage": {
             "formatId": "Warning"
@@ -1401,10 +1427,11 @@
                 }
               }
             }
-          ]
+          ],
+          "snippet": "var apple=2"
         },
         {
-          "ruleId": "JS3085",
+          "ruleKey": "JS3085.VariableDeclaredMultipleTimes",
           "level": "error",
           "formattedRuleMessage": {
             "formatId": "Error",
@@ -1438,7 +1465,7 @@
           ]
         },
         {
-          "ruleId": "JS2021",
+          "ruleKey": "JS2021.SeparateBinaryOperatorArgumentsWithSpaces",
           "level": "warning",
           "formattedRuleMessage": {
             "formatId": "Warning"
@@ -1453,10 +1480,11 @@
                 }
               }
             }
-          ]
+          ],
+          "snippet": "var apple=2"
         },
         {
-          "ruleId": "JS3085",
+          "ruleKey": "JS3085.VariableDeclaredMultipleTimes",
           "level": "error",
           "formattedRuleMessage": {
             "formatId": "Error",
@@ -1490,7 +1518,7 @@
           ]
         },
         {
-          "ruleId": "JS2021",
+          "ruleKey": "JS2021.SeparateBinaryOperatorArgumentsWithSpaces",
           "level": "warning",
           "formattedRuleMessage": {
             "formatId": "Warning"
@@ -1505,10 +1533,11 @@
                 }
               }
             }
-          ]
+          ],
+          "snippet": "var apple=2"
         },
         {
-          "ruleId": "JS3085",
+          "ruleKey": "JS3085.VariableDeclaredMultipleTimes",
           "level": "error",
           "formattedRuleMessage": {
             "formatId": "Error",
@@ -1542,7 +1571,7 @@
           ]
         },
         {
-          "ruleId": "JS2021",
+          "ruleKey": "JS2021.SeparateBinaryOperatorArgumentsWithSpaces",
           "level": "warning",
           "formattedRuleMessage": {
             "formatId": "Warning"
@@ -1557,10 +1586,11 @@
                 }
               }
             }
-          ]
+          ],
+          "snippet": "var apple=2"
         },
         {
-          "ruleId": "JS3085",
+          "ruleKey": "JS3085.VariableDeclaredMultipleTimes",
           "level": "error",
           "formattedRuleMessage": {
             "formatId": "Error",
@@ -1594,7 +1624,7 @@
           ]
         },
         {
-          "ruleId": "JS2021",
+          "ruleKey": "JS2021.SeparateBinaryOperatorArgumentsWithSpaces",
           "level": "warning",
           "formattedRuleMessage": {
             "formatId": "Warning"
@@ -1609,10 +1639,11 @@
                 }
               }
             }
-          ]
+          ],
+          "snippet": "var apple=2"
         },
         {
-          "ruleId": "JS3085",
+          "ruleKey": "JS3085.VariableDeclaredMultipleTimes",
           "level": "error",
           "formattedRuleMessage": {
             "formatId": "Error",
@@ -1646,7 +1677,7 @@
           ]
         },
         {
-          "ruleId": "JS2021",
+          "ruleKey": "JS2021.SeparateBinaryOperatorArgumentsWithSpaces",
           "level": "warning",
           "formattedRuleMessage": {
             "formatId": "Warning"
@@ -1661,10 +1692,11 @@
                 }
               }
             }
-          ]
+          ],
+          "snippet": "var apple=2"
         },
         {
-          "ruleId": "JS3085",
+          "ruleKey": "JS3085.VariableDeclaredMultipleTimes",
           "level": "error",
           "formattedRuleMessage": {
             "formatId": "Error",
@@ -1698,7 +1730,7 @@
           ]
         },
         {
-          "ruleId": "JS2021",
+          "ruleKey": "JS2021.SeparateBinaryOperatorArgumentsWithSpaces",
           "level": "warning",
           "formattedRuleMessage": {
             "formatId": "Warning"
@@ -1713,10 +1745,11 @@
                 }
               }
             }
-          ]
+          ],
+          "snippet": "var apple=2"
         },
         {
-          "ruleId": "JS3085",
+          "ruleKey": "JS3085.VariableDeclaredMultipleTimes",
           "level": "error",
           "formattedRuleMessage": {
             "formatId": "Error",
@@ -1750,7 +1783,7 @@
           ]
         },
         {
-          "ruleId": "JS2021",
+          "ruleKey": "JS2021.SeparateBinaryOperatorArgumentsWithSpaces",
           "level": "warning",
           "formattedRuleMessage": {
             "formatId": "Warning"
@@ -1765,10 +1798,11 @@
                 }
               }
             }
-          ]
+          ],
+          "snippet": "var apple=2"
         },
         {
-          "ruleId": "JS3085",
+          "ruleKey": "JS3085.VariableDeclaredMultipleTimes",
           "level": "error",
           "formattedRuleMessage": {
             "formatId": "Error",
@@ -1802,7 +1836,7 @@
           ]
         },
         {
-          "ruleId": "JS2021",
+          "ruleKey": "JS2021.SeparateBinaryOperatorArgumentsWithSpaces",
           "level": "warning",
           "formattedRuleMessage": {
             "formatId": "Warning"
@@ -1817,10 +1851,11 @@
                 }
               }
             }
-          ]
+          ],
+          "snippet": "var apple=2"
         },
         {
-          "ruleId": "JS3085",
+          "ruleKey": "JS3085.VariableDeclaredMultipleTimes",
           "level": "error",
           "formattedRuleMessage": {
             "formatId": "Error",
@@ -1854,7 +1889,7 @@
           ]
         },
         {
-          "ruleId": "JS2021",
+          "ruleKey": "JS2021.SeparateBinaryOperatorArgumentsWithSpaces",
           "level": "warning",
           "formattedRuleMessage": {
             "formatId": "Warning"
@@ -1869,10 +1904,11 @@
                 }
               }
             }
-          ]
+          ],
+          "snippet": "var apple=2"
         },
         {
-          "ruleId": "JS3085",
+          "ruleKey": "JS3085.VariableDeclaredMultipleTimes",
           "level": "error",
           "formattedRuleMessage": {
             "formatId": "Error",
@@ -1906,7 +1942,7 @@
           ]
         },
         {
-          "ruleId": "JS2021",
+          "ruleKey": "JS2021.SeparateBinaryOperatorArgumentsWithSpaces",
           "level": "warning",
           "formattedRuleMessage": {
             "formatId": "Warning"
@@ -1921,10 +1957,11 @@
                 }
               }
             }
-          ]
+          ],
+          "snippet": "var apple=2"
         },
         {
-          "ruleId": "JS3085",
+          "ruleKey": "JS3085.VariableDeclaredMultipleTimes",
           "level": "error",
           "formattedRuleMessage": {
             "formatId": "Error",
@@ -1958,7 +1995,7 @@
           ]
         },
         {
-          "ruleId": "JS2021",
+          "ruleKey": "JS2021.SeparateBinaryOperatorArgumentsWithSpaces",
           "level": "warning",
           "formattedRuleMessage": {
             "formatId": "Warning"
@@ -1973,10 +2010,11 @@
                 }
               }
             }
-          ]
+          ],
+          "snippet": "var apple=2"
         },
         {
-          "ruleId": "JS3085",
+          "ruleKey": "JS3085.VariableDeclaredMultipleTimes",
           "level": "error",
           "formattedRuleMessage": {
             "formatId": "Error",
@@ -2010,7 +2048,7 @@
           ]
         },
         {
-          "ruleId": "JS2021",
+          "ruleKey": "JS2021.SeparateBinaryOperatorArgumentsWithSpaces",
           "level": "warning",
           "formattedRuleMessage": {
             "formatId": "Warning"
@@ -2025,10 +2063,11 @@
                 }
               }
             }
-          ]
+          ],
+          "snippet": "var apple=2"
         },
         {
-          "ruleId": "JS3085",
+          "ruleKey": "JS3085.VariableDeclaredMultipleTimes",
           "level": "error",
           "formattedRuleMessage": {
             "formatId": "Error",
@@ -2062,7 +2101,7 @@
           ]
         },
         {
-          "ruleId": "JS2021",
+          "ruleKey": "JS2021.SeparateBinaryOperatorArgumentsWithSpaces",
           "level": "warning",
           "formattedRuleMessage": {
             "formatId": "Warning"
@@ -2077,10 +2116,11 @@
                 }
               }
             }
-          ]
+          ],
+          "snippet": "var apple=2"
         },
         {
-          "ruleId": "JS3085",
+          "ruleKey": "JS3085.VariableDeclaredMultipleTimes",
           "level": "error",
           "formattedRuleMessage": {
             "formatId": "Error",
@@ -2114,7 +2154,7 @@
           ]
         },
         {
-          "ruleId": "JS2021",
+          "ruleKey": "JS2021.SeparateBinaryOperatorArgumentsWithSpaces",
           "level": "warning",
           "formattedRuleMessage": {
             "formatId": "Warning"
@@ -2129,10 +2169,11 @@
                 }
               }
             }
-          ]
+          ],
+          "snippet": "var apple=2"
         },
         {
-          "ruleId": "JS3085",
+          "ruleKey": "JS3085.VariableDeclaredMultipleTimes",
           "level": "error",
           "formattedRuleMessage": {
             "formatId": "Error",
@@ -2166,7 +2207,7 @@
           ]
         },
         {
-          "ruleId": "JS2021",
+          "ruleKey": "JS2021.SeparateBinaryOperatorArgumentsWithSpaces",
           "level": "warning",
           "formattedRuleMessage": {
             "formatId": "Warning"
@@ -2181,10 +2222,11 @@
                 }
               }
             }
-          ]
+          ],
+          "snippet": "var apple=2"
         },
         {
-          "ruleId": "JS3085",
+          "ruleKey": "JS3085.VariableDeclaredMultipleTimes",
           "level": "error",
           "formattedRuleMessage": {
             "formatId": "Error",
@@ -2218,7 +2260,7 @@
           ]
         },
         {
-          "ruleId": "JS2021",
+          "ruleKey": "JS2021.SeparateBinaryOperatorArgumentsWithSpaces",
           "level": "warning",
           "formattedRuleMessage": {
             "formatId": "Warning"
@@ -2233,10 +2275,11 @@
                 }
               }
             }
-          ]
+          ],
+          "snippet": "var apple=2"
         },
         {
-          "ruleId": "JS3085",
+          "ruleKey": "JS3085.VariableDeclaredMultipleTimes",
           "level": "error",
           "formattedRuleMessage": {
             "formatId": "Error",
@@ -2270,7 +2313,7 @@
           ]
         },
         {
-          "ruleId": "JS2021",
+          "ruleKey": "JS2021.SeparateBinaryOperatorArgumentsWithSpaces",
           "level": "warning",
           "formattedRuleMessage": {
             "formatId": "Warning"
@@ -2285,10 +2328,11 @@
                 }
               }
             }
-          ]
+          ],
+          "snippet": "var apple=2"
         },
         {
-          "ruleId": "JS3085",
+          "ruleKey": "JS3085.VariableDeclaredMultipleTimes",
           "level": "error",
           "formattedRuleMessage": {
             "formatId": "Error",
@@ -2322,7 +2366,7 @@
           ]
         },
         {
-          "ruleId": "JS2021",
+          "ruleKey": "JS2021.SeparateBinaryOperatorArgumentsWithSpaces",
           "level": "warning",
           "formattedRuleMessage": {
             "formatId": "Warning"
@@ -2337,10 +2381,11 @@
                 }
               }
             }
-          ]
+          ],
+          "snippet": "var apple=2"
         },
         {
-          "ruleId": "JS3085",
+          "ruleKey": "JS3085.VariableDeclaredMultipleTimes",
           "level": "error",
           "formattedRuleMessage": {
             "formatId": "Error",
@@ -2374,7 +2419,7 @@
           ]
         },
         {
-          "ruleId": "JS2021",
+          "ruleKey": "JS2021.SeparateBinaryOperatorArgumentsWithSpaces",
           "level": "warning",
           "formattedRuleMessage": {
             "formatId": "Warning"
@@ -2389,10 +2434,11 @@
                 }
               }
             }
-          ]
+          ],
+          "snippet": "var apple=2"
         },
         {
-          "ruleId": "JS3085",
+          "ruleKey": "JS3085.VariableDeclaredMultipleTimes",
           "level": "error",
           "formattedRuleMessage": {
             "formatId": "Error",
@@ -2426,7 +2472,7 @@
           ]
         },
         {
-          "ruleId": "JS2021",
+          "ruleKey": "JS2021.SeparateBinaryOperatorArgumentsWithSpaces",
           "level": "warning",
           "formattedRuleMessage": {
             "formatId": "Warning"
@@ -2441,10 +2487,11 @@
                 }
               }
             }
-          ]
+          ],
+          "snippet": "var apple=2"
         },
         {
-          "ruleId": "JS3085",
+          "ruleKey": "JS3085.VariableDeclaredMultipleTimes",
           "level": "error",
           "formattedRuleMessage": {
             "formatId": "Error",
@@ -2478,7 +2525,7 @@
           ]
         },
         {
-          "ruleId": "JS2021",
+          "ruleKey": "JS2021.SeparateBinaryOperatorArgumentsWithSpaces",
           "level": "warning",
           "formattedRuleMessage": {
             "formatId": "Warning"
@@ -2493,10 +2540,11 @@
                 }
               }
             }
-          ]
+          ],
+          "snippet": "var apple=2"
         },
         {
-          "ruleId": "JS3085",
+          "ruleKey": "JS3085.VariableDeclaredMultipleTimes",
           "level": "error",
           "formattedRuleMessage": {
             "formatId": "Error",
@@ -2530,7 +2578,7 @@
           ]
         },
         {
-          "ruleId": "JS2021",
+          "ruleKey": "JS2021.SeparateBinaryOperatorArgumentsWithSpaces",
           "level": "warning",
           "formattedRuleMessage": {
             "formatId": "Warning"
@@ -2545,10 +2593,11 @@
                 }
               }
             }
-          ]
+          ],
+          "snippet": "var apple=2"
         },
         {
-          "ruleId": "JS3085",
+          "ruleKey": "JS3085.VariableDeclaredMultipleTimes",
           "level": "error",
           "formattedRuleMessage": {
             "formatId": "Error",
@@ -2582,7 +2631,7 @@
           ]
         },
         {
-          "ruleId": "JS2021",
+          "ruleKey": "JS2021.SeparateBinaryOperatorArgumentsWithSpaces",
           "level": "warning",
           "formattedRuleMessage": {
             "formatId": "Warning"
@@ -2597,10 +2646,11 @@
                 }
               }
             }
-          ]
+          ],
+          "snippet": "var apple=2"
         },
         {
-          "ruleId": "JS3085",
+          "ruleKey": "JS3085.VariableDeclaredMultipleTimes",
           "level": "error",
           "formattedRuleMessage": {
             "formatId": "Error",
@@ -2634,7 +2684,7 @@
           ]
         },
         {
-          "ruleId": "JS2021",
+          "ruleKey": "JS2021.SeparateBinaryOperatorArgumentsWithSpaces",
           "level": "warning",
           "formattedRuleMessage": {
             "formatId": "Warning"
@@ -2649,10 +2699,11 @@
                 }
               }
             }
-          ]
+          ],
+          "snippet": "var apple=2"
         },
         {
-          "ruleId": "JS3085",
+          "ruleKey": "JS3085.VariableDeclaredMultipleTimes",
           "level": "error",
           "formattedRuleMessage": {
             "formatId": "Error",
@@ -2686,7 +2737,7 @@
           ]
         },
         {
-          "ruleId": "JS2021",
+          "ruleKey": "JS2021.SeparateBinaryOperatorArgumentsWithSpaces",
           "level": "warning",
           "formattedRuleMessage": {
             "formatId": "Warning"
@@ -2701,10 +2752,11 @@
                 }
               }
             }
-          ]
+          ],
+          "snippet": "var apple=2"
         },
         {
-          "ruleId": "JS3085",
+          "ruleKey": "JS3085.VariableDeclaredMultipleTimes",
           "level": "error",
           "formattedRuleMessage": {
             "formatId": "Error",
@@ -2738,7 +2790,7 @@
           ]
         },
         {
-          "ruleId": "JS2021",
+          "ruleKey": "JS2021.SeparateBinaryOperatorArgumentsWithSpaces",
           "level": "warning",
           "formattedRuleMessage": {
             "formatId": "Warning"
@@ -2753,10 +2805,11 @@
                 }
               }
             }
-          ]
+          ],
+          "snippet": "var apple=2"
         },
         {
-          "ruleId": "JS3085",
+          "ruleKey": "JS3085.VariableDeclaredMultipleTimes",
           "level": "error",
           "formattedRuleMessage": {
             "formatId": "Error",
@@ -2790,7 +2843,7 @@
           ]
         },
         {
-          "ruleId": "JS2021",
+          "ruleKey": "JS2021.SeparateBinaryOperatorArgumentsWithSpaces",
           "level": "warning",
           "formattedRuleMessage": {
             "formatId": "Warning"
@@ -2805,10 +2858,11 @@
                 }
               }
             }
-          ]
+          ],
+          "snippet": "var apple=2"
         },
         {
-          "ruleId": "JS3085",
+          "ruleKey": "JS3085.VariableDeclaredMultipleTimes",
           "level": "error",
           "formattedRuleMessage": {
             "formatId": "Error",
@@ -2842,7 +2896,7 @@
           ]
         },
         {
-          "ruleId": "JS2021",
+          "ruleKey": "JS2021.SeparateBinaryOperatorArgumentsWithSpaces",
           "level": "warning",
           "formattedRuleMessage": {
             "formatId": "Warning"
@@ -2857,10 +2911,11 @@
                 }
               }
             }
-          ]
+          ],
+          "snippet": "var apple=2"
         },
         {
-          "ruleId": "JS3085",
+          "ruleKey": "JS3085.VariableDeclaredMultipleTimes",
           "level": "error",
           "formattedRuleMessage": {
             "formatId": "Error",
@@ -2894,7 +2949,7 @@
           ]
         },
         {
-          "ruleId": "JS2021",
+          "ruleKey": "JS2021.SeparateBinaryOperatorArgumentsWithSpaces",
           "level": "warning",
           "formattedRuleMessage": {
             "formatId": "Warning"
@@ -2909,10 +2964,11 @@
                 }
               }
             }
-          ]
+          ],
+          "snippet": "var apple=2"
         },
         {
-          "ruleId": "JS3085",
+          "ruleKey": "JS3085.VariableDeclaredMultipleTimes",
           "level": "error",
           "formattedRuleMessage": {
             "formatId": "Error",
@@ -2946,7 +3002,7 @@
           ]
         },
         {
-          "ruleId": "JS2021",
+          "ruleKey": "JS2021.SeparateBinaryOperatorArgumentsWithSpaces",
           "level": "warning",
           "formattedRuleMessage": {
             "formatId": "Warning"
@@ -2961,10 +3017,11 @@
                 }
               }
             }
-          ]
+          ],
+          "snippet": "var apple=2"
         },
         {
-          "ruleId": "JS3085",
+          "ruleKey": "JS3085.VariableDeclaredMultipleTimes",
           "level": "error",
           "formattedRuleMessage": {
             "formatId": "Error",
@@ -2998,7 +3055,7 @@
           ]
         },
         {
-          "ruleId": "JS2021",
+          "ruleKey": "JS2021.SeparateBinaryOperatorArgumentsWithSpaces",
           "level": "warning",
           "formattedRuleMessage": {
             "formatId": "Warning"
@@ -3013,10 +3070,11 @@
                 }
               }
             }
-          ]
+          ],
+          "snippet": "var apple=2"
         },
         {
-          "ruleId": "JS3085",
+          "ruleKey": "JS3085.VariableDeclaredMultipleTimes",
           "level": "error",
           "formattedRuleMessage": {
             "formatId": "Error",
@@ -3050,7 +3108,7 @@
           ]
         },
         {
-          "ruleId": "JS2021",
+          "ruleKey": "JS2021.SeparateBinaryOperatorArgumentsWithSpaces",
           "level": "warning",
           "formattedRuleMessage": {
             "formatId": "Warning"
@@ -3065,10 +3123,11 @@
                 }
               }
             }
-          ]
+          ],
+          "snippet": "var apple=2"
         },
         {
-          "ruleId": "JS3085",
+          "ruleKey": "JS3085.VariableDeclaredMultipleTimes",
           "level": "error",
           "formattedRuleMessage": {
             "formatId": "Error",
@@ -3102,7 +3161,7 @@
           ]
         },
         {
-          "ruleId": "JS2021",
+          "ruleKey": "JS2021.SeparateBinaryOperatorArgumentsWithSpaces",
           "level": "warning",
           "formattedRuleMessage": {
             "formatId": "Warning"
@@ -3117,10 +3176,11 @@
                 }
               }
             }
-          ]
+          ],
+          "snippet": "var apple=2"
         },
         {
-          "ruleId": "JS1003",
+          "ruleKey": "JS1003.SemanticAnalysisHalted",
           "level": "error",
           "formattedRuleMessage": {
             "formatId": "Error"
@@ -3137,7 +3197,7 @@
           ]
         },
         {
-          "ruleId": "JS2027",
+          "ruleKey": "JS2027.PunctuateCommentsCorrectly",
           "level": "warning",
           "formattedRuleMessage": {
             "formatId": "Warning"
@@ -3151,10 +3211,11 @@
                 }
               }
             }
-          ]
+          ],
+          "snippet": "// For an introduction to the Blank template, see the following documentation:\r\n// http://go.microsoft.com/fwlink/?LinkId=232509"
         },
         {
-          "ruleId": "JS2073",
+          "ruleKey": "JS2073.CommentIsMisspelled",
           "level": "error",
           "formattedRuleMessage": {
             "formatId": "Error",
@@ -3173,10 +3234,11 @@
                 }
               }
             }
-          ]
+          ],
+          "snippet": "// For an introduction to the Blank template, see the following documentation:\r\n// http://go.microsoft.com/fwlink/?LinkId=232509"
         },
         {
-          "ruleId": "JS2073",
+          "ruleKey": "JS2073.CommentIsMisspelled",
           "level": "error",
           "formattedRuleMessage": {
             "formatId": "Error",
@@ -3195,10 +3257,11 @@
                 }
               }
             }
-          ]
+          ],
+          "snippet": "// For an introduction to the Blank template, see the following documentation:\r\n// http://go.microsoft.com/fwlink/?LinkId=232509"
         },
         {
-          "ruleId": "JS2074",
+          "ruleKey": "JS2074.IdentifierNameIsMisspelled",
           "level": "error",
           "formattedRuleMessage": {
             "formatId": "Error",
@@ -3218,10 +3281,11 @@
                 }
               }
             }
-          ]
+          ],
+          "snippet": "function (args) {\r\n        if (args.detail.kind === activation.ActivationKind.launch) {\r\n            if (args.detail.previousExecutionState !== activation.ApplicationExecutionState.terminated) {\r\n                // TODO: This application has been newly launched. Initialize\r\n                // your application here.\r\n            } else {\r\n                // TODO: This application has been reactivated from suspension.\r\n                // Restore application state here.\r\n            }\r\n            args.setPromise(WinJS.UI.processAll());\r\n        }\r\n    }"
         },
         {
-          "ruleId": "JS2045",
+          "ruleKey": "JS2045.ReviewEmptyBlocks",
           "level": "warning",
           "formattedRuleMessage": {
             "formatId": "Warning"
@@ -3236,10 +3300,11 @@
                 }
               }
             }
-          ]
+          ],
+          "snippet": "if (args.detail.previousExecutionState !== activation.ApplicationExecutionState.terminated) {\r\n                // TODO: This application has been newly launched. Initialize\r\n                // your application here.\r\n            } else {\r\n                // TODO: This application has been reactivated from suspension.\r\n                // Restore application state here.\r\n            }"
         },
         {
-          "ruleId": "JS2074",
+          "ruleKey": "JS2074.IdentifierNameIsMisspelled",
           "level": "error",
           "formattedRuleMessage": {
             "formatId": "Error",
@@ -3259,10 +3324,11 @@
                 }
               }
             }
-          ]
+          ],
+          "snippet": "function (args) {\r\n        // TODO: This application is about to be suspended. Save any state\r\n        // that needs to persist across suspensions here. You might use the\r\n        // WinJS.Application.sessionState object, which is automatically\r\n        // saved and restored across suspension. If you need to complete an\r\n        // asynchronous operation before your application is suspended, call\r\n        // args.setPromise().\r\n    }"
         },
         {
-          "ruleId": "JS2073",
+          "ruleKey": "JS2073.CommentIsMisspelled",
           "level": "error",
           "formattedRuleMessage": {
             "formatId": "Error",
@@ -3281,7 +3347,8 @@
                 }
               }
             }
-          ]
+          ],
+          "snippet": "// TODO: This application is about to be suspended. Save any state\r\n        // that needs to persist across suspensions here. You might use the\r\n        // WinJS.Application.sessionState object, which is automatically\r\n        // saved and restored across suspension. If you need to complete an\r\n        // asynchronous operation before your application is suspended, call\r\n        // args.setPromise()."
         }
       ],
       "files": {
@@ -3300,7 +3367,7 @@
         }
       },
       "rules": {
-        "M1003": {
+        "M1003.DoNotShipObfuscatedCode": {
           "id": "M1003",
           "name": "DoNotShipObfuscatedCode",
           "shortDescription": "Do not ship obfuscated or minified code.",
@@ -3311,7 +3378,7 @@
             "tags": ["appx","sdl"]
           }
         },
-        "JS2021": {
+        "JS2021.SeparateBinaryOperatorArgumentsWithSpaces": {
           "id": "JS2021",
           "name": "SeparateBinaryOperatorArgumentsWithSpaces",
           "shortDescription": "Binary and ternary operators should be separated from operands with spaces.",
@@ -3322,7 +3389,7 @@
             "tags": ["js"]
           }
         },
-        "JS3085": {
+        "JS3085.VariableDeclaredMultipleTimes": {
           "id": "JS3085",
           "name": "VariableDeclaredMultipleTimes",
           "shortDescription": "Do not declare multiple variables with an identical name in the same scope.",
@@ -3333,7 +3400,7 @@
             "tags": ["js","semantic"]
           }
         },
-        "JS1003": {
+        "JS1003.SemanticAnalysisHalted": {
           "id": "JS1003",
           "name": "SemanticAnalysisHalted",
           "shortDescription": "Semantic analysis halted unexpectedly due to errors processing target or reference files.",
@@ -3344,7 +3411,7 @@
             "tags": ["js","semantic"]
           }
         },
-        "JS2027": {
+        "JS2027.PunctuateCommentsCorrectly": {
           "id": "JS2027",
           "name": "PunctuateCommentsCorrectly",
           "shortDescription": "Provide punctuation at the ends of sentences for multiline comments.",
@@ -3355,7 +3422,7 @@
             "tags": ["js"]
           }
         },
-        "JS2073": {
+        "JS2073.CommentIsMisspelled": {
           "id": "JS2073",
           "name": "CommentIsMisspelled",
           "shortDescription": "Review text for possible misspelling.",
@@ -3366,7 +3433,7 @@
             "tags": ["spelling","js"]
           }
         },
-        "JS2074": {
+        "JS2074.IdentifierNameIsMisspelled": {
           "id": "JS2074",
           "name": "IdentifierNameIsMisspelled",
           "shortDescription": "Review identifier name for possible misspelling.",
@@ -3377,7 +3444,7 @@
             "tags": ["spelling","js"]
           }
         },
-        "JS2045": {
+        "JS2045.ReviewEmptyBlocks": {
           "id": "JS2045",
           "name": "ReviewEmptyBlocks",
           "shortDescription": "Review empty blocks for correctness issues.",
@@ -3391,9 +3458,9 @@
       },
       "invocation": {
         "commandLine": "D:\\src\\SecDevTools\\Main\\bin\\x64\\Debug\\ModernCop\\mod50.exe  analyze /appx d:\\src\\SecDevTools\\Main\\src\\ModernCop\\Source\\WebRules.Test.Unit\\ModernCopTestData\\WebRules_PackageRules\\MinificationRuleApp /out .\\NestedLocationsFromDirectoryNoTrailingSlash.sarif",
-        "startTime": "2016-05-23T19:05:21.099Z",
-        "endTime": "2016-05-23T19:05:22.682Z",
-        "processId": 16780,
+        "startTime": "2016-05-24T00:17:50.837Z",
+        "endTime": "2016-05-24T00:17:52.366Z",
+        "processId": 38576,
         "fileName": "D:\\src\\SecDevTools\\Main\\bin\\x64\\Debug\\ModernCop\\mod50.exe",
         "workingDirectory": "d:\\src\\sarif-sdk\\src\\Sarif.FunctionalTests\\DirectProducerTestData\\WebSkim"
       }
