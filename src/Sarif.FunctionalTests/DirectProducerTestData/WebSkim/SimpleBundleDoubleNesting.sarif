@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "runs": [
     {
-      "id": "6cdc2173-c8e6-464c-bbae-260aef3eeb24",
+      "id": "d49f3711-7798-4136-a44b-6b6a66593748",
       "tool": {
         "name": "ModernCop",
         "fullName": "mod50 7.0.7000.0",
@@ -17,7 +17,7 @@
       },
       "results": [
         {
-          "ruleId": "M1001",
+          "ruleKey": "M1001.AvoidDangerousCapabilities",
           "level": "error",
           "formattedRuleMessage": {
             "formatId": "Error",
@@ -37,7 +37,7 @@
           ]
         },
         {
-          "ruleId": "M1001",
+          "ruleKey": "M1001.AvoidDangerousCapabilities",
           "level": "error",
           "formattedRuleMessage": {
             "formatId": "Error",
@@ -57,7 +57,7 @@
           ]
         },
         {
-          "ruleId": "M1001",
+          "ruleKey": "M1001.AvoidDangerousCapabilities",
           "level": "error",
           "formattedRuleMessage": {
             "formatId": "Error",
@@ -77,7 +77,7 @@
           ]
         },
         {
-          "ruleId": "WEB1080",
+          "ruleKey": "WEB1080.AttributesAreNotOrderedCorrectly",
           "level": "error",
           "formattedRuleMessage": {
             "formatId": "Error",
@@ -100,7 +100,7 @@
           ]
         },
         {
-          "ruleId": "WEB1080",
+          "ruleKey": "WEB1080.AttributesAreNotOrderedCorrectly",
           "level": "error",
           "formattedRuleMessage": {
             "formatId": "Error",
@@ -123,7 +123,7 @@
           ]
         },
         {
-          "ruleId": "WEB1088",
+          "ruleKey": "WEB1088.IframeHasInvalidSandboxAttribute",
           "level": "error",
           "formattedRuleMessage": {
             "formatId": "Error"
@@ -141,7 +141,7 @@
           ]
         },
         {
-          "ruleId": "WEB1080",
+          "ruleKey": "WEB1080.AttributesAreNotOrderedCorrectly",
           "level": "error",
           "formattedRuleMessage": {
             "formatId": "Error",
@@ -164,7 +164,7 @@
           ]
         },
         {
-          "ruleId": "WEB1080",
+          "ruleKey": "WEB1080.AttributesAreNotOrderedCorrectly",
           "level": "error",
           "formattedRuleMessage": {
             "formatId": "Error",
@@ -187,7 +187,7 @@
           ]
         },
         {
-          "ruleId": "WEB1080",
+          "ruleKey": "WEB1080.AttributesAreNotOrderedCorrectly",
           "level": "error",
           "formattedRuleMessage": {
             "formatId": "Error",
@@ -210,118 +210,7 @@
           ]
         },
         {
-          "ruleId": "JS3092",
-          "level": "error",
-          "formattedRuleMessage": {
-            "formatId": "Error",
-            "arguments": [
-              "Object.prototype",
-              "createGrouped"
-            ]
-          },
-          "locations": [
-            {
-              "analysisTarget": {
-                "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/Mod50.Test.Unit/ModernCopTestData/Mod50/CompiledPackages/SimpleJSApp.appxbundle#/SimpleJSApp_1.0.0.1_AnyCPU.appx/pages/section/section.js",
-                "region": {
-                  "startLine": 18,
-                  "startColumn": 40
-                }
-              }
-            }
-          ]
-        },
-        {
-          "ruleId": "JS3092",
-          "level": "error",
-          "formattedRuleMessage": {
-            "formatId": "Error",
-            "arguments": [
-              "Object.prototype",
-              "dispose"
-            ]
-          },
-          "locations": [
-            {
-              "analysisTarget": {
-                "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/Mod50.Test.Unit/ModernCopTestData/Mod50/CompiledPackages/SimpleJSApp.appxbundle#/SimpleJSApp_1.0.0.1_AnyCPU.appx/pages/section/section.js",
-                "region": {
-                  "startLine": 36,
-                  "startColumn": 25
-                }
-              }
-            }
-          ]
-        },
-        {
-          "ruleId": "JS2074",
-          "level": "error",
-          "formattedRuleMessage": {
-            "formatId": "Error",
-            "arguments": [
-              "args",
-              "parameter",
-              "args"
-            ]
-          },
-          "locations": [
-            {
-              "analysisTarget": {
-                "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/Mod50.Test.Unit/ModernCopTestData/Mod50/CompiledPackages/SimpleJSApp.appxbundle#/SimpleJSApp_1.0.0.1_AnyCPU.appx/pages/section/section.js",
-                "region": {
-                  "startLine": 46,
-                  "startColumn": 21
-                }
-              }
-            }
-          ]
-        },
-        {
-          "ruleId": "JS3092",
-          "level": "error",
-          "formattedRuleMessage": {
-            "formatId": "Error",
-            "arguments": [
-              "Object.prototype",
-              "getAt"
-            ]
-          },
-          "locations": [
-            {
-              "analysisTarget": {
-                "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/Mod50.Test.Unit/ModernCopTestData/Mod50/CompiledPackages/SimpleJSApp.appxbundle#/SimpleJSApp_1.0.0.1_AnyCPU.appx/pages/section/section.js",
-                "region": {
-                  "startLine": 47,
-                  "startColumn": 36
-                }
-              }
-            }
-          ]
-        },
-        {
-          "ruleId": "JS3057",
-          "level": "error",
-          "formattedRuleMessage": {
-            "formatId": "Error",
-            "arguments": [
-              "string",
-              "Object"
-            ]
-          },
-          "locations": [
-            {
-              "analysisTarget": {
-                "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/Mod50.Test.Unit/ModernCopTestData/Mod50/CompiledPackages/SimpleJSApp.appxbundle#/SimpleJSApp_1.0.0.1_AnyCPU.appx/pages/section/section.js",
-                "region": {
-                  "startLine": 48,
-                  "startColumn": 39
-                }
-              }
-            }
-          ]
-        },
-        {
-          "ruleId": "JS2074",
+          "ruleKey": "JS2074.IdentifierNameIsMisspelled",
           "level": "error",
           "formattedRuleMessage": {
             "formatId": "Error",
@@ -341,10 +230,11 @@
                 }
               }
             }
-          ]
+          ],
+          "snippet": "var nav = WinJS.Navigation"
         },
         {
-          "ruleId": "JS3092",
+          "ruleKey": "JS3092.DeclarePropertiesBeforeUse",
           "level": "error",
           "formattedRuleMessage": {
             "formatId": "Error",
@@ -366,7 +256,7 @@
           ]
         },
         {
-          "ruleId": "JS2074",
+          "ruleKey": "JS2074.IdentifierNameIsMisspelled",
           "level": "error",
           "formattedRuleMessage": {
             "formatId": "Error",
@@ -386,10 +276,11 @@
                 }
               }
             }
-          ]
+          ],
+          "snippet": "var util = WinJS.Utilities"
         },
         {
-          "ruleId": "JS3058",
+          "ruleKey": "JS3058.DeclareVariablesBeforeUse",
           "level": "error",
           "formattedRuleMessage": {
             "formatId": "Error",
@@ -410,7 +301,7 @@
           ]
         },
         {
-          "ruleId": "JS2074",
+          "ruleKey": "JS2074.IdentifierNameIsMisspelled",
           "level": "error",
           "formattedRuleMessage": {
             "formatId": "Error",
@@ -430,10 +321,11 @@
                 }
               }
             }
-          ]
+          ],
+          "snippet": "function (args) {\r\n                args.detail.section.onheaderinvoked(args);\r\n            }"
         },
         {
-          "ruleId": "JS3047",
+          "ruleKey": "JS3047.ProvideExplicitSemicolons",
           "level": "error",
           "formattedRuleMessage": {
             "formatId": "Error"
@@ -448,10 +340,11 @@
                 }
               }
             }
-          ]
+          ],
+          "snippet": "hub.onloadingstatechanged = function (args) {\r\n                if (args.srcElement === hub.element && args.detail.loadingState === \"complete\") {\r\n                    hub.onloadingstatechanged = null;\r\n                    hub.element.focus();\r\n                }\r\n            }"
         },
         {
-          "ruleId": "JS2074",
+          "ruleKey": "JS2074.IdentifierNameIsMisspelled",
           "level": "error",
           "formattedRuleMessage": {
             "formatId": "Error",
@@ -471,10 +364,11 @@
                 }
               }
             }
-          ]
+          ],
+          "snippet": "function (args) {\r\n                if (args.srcElement === hub.element && args.detail.loadingState === \"complete\") {\r\n                    hub.onloadingstatechanged = null;\r\n                    hub.element.focus();\r\n                }\r\n            }"
         },
         {
-          "ruleId": "JS2074",
+          "ruleKey": "JS2074.IdentifierNameIsMisspelled",
           "level": "error",
           "formattedRuleMessage": {
             "formatId": "Error",
@@ -494,10 +388,11 @@
                 }
               }
             }
-          ]
+          ],
+          "snippet": "function (args) {\r\n            nav.navigate(\"/pages/section/section.html\", { title: args.detail.section.header, groupKey: section3Group.key });\r\n        }"
         },
         {
-          "ruleId": "JS3057",
+          "ruleKey": "JS3057.AvoidImplicitTypeCoercion",
           "level": "error",
           "formattedRuleMessage": {
             "formatId": "Error",
@@ -519,7 +414,7 @@
           ]
         },
         {
-          "ruleId": "JS2074",
+          "ruleKey": "JS2074.IdentifierNameIsMisspelled",
           "level": "error",
           "formattedRuleMessage": {
             "formatId": "Error",
@@ -539,10 +434,11 @@
                 }
               }
             }
-          ]
+          ],
+          "snippet": "function (args) {\r\n            var item = Data.getItemReference(section3Items.getAt(args.detail.itemIndex));\r\n            nav.navigate(\"/pages/item/item.html\", { item: item });\r\n        }"
         },
         {
-          "ruleId": "JS3057",
+          "ruleKey": "JS3057.AvoidImplicitTypeCoercion",
           "level": "error",
           "formattedRuleMessage": {
             "formatId": "Error",
@@ -564,7 +460,119 @@
           ]
         },
         {
-          "ruleId": "JS2027",
+          "ruleKey": "JS3092.DeclarePropertiesBeforeUse",
+          "level": "error",
+          "formattedRuleMessage": {
+            "formatId": "Error",
+            "arguments": [
+              "Object.prototype",
+              "createGrouped"
+            ]
+          },
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/Mod50.Test.Unit/ModernCopTestData/Mod50/CompiledPackages/SimpleJSApp.appxbundle#/SimpleJSApp_1.0.0.1_AnyCPU.appx/pages/section/section.js",
+                "region": {
+                  "startLine": 18,
+                  "startColumn": 40
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleKey": "JS3092.DeclarePropertiesBeforeUse",
+          "level": "error",
+          "formattedRuleMessage": {
+            "formatId": "Error",
+            "arguments": [
+              "Object.prototype",
+              "dispose"
+            ]
+          },
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/Mod50.Test.Unit/ModernCopTestData/Mod50/CompiledPackages/SimpleJSApp.appxbundle#/SimpleJSApp_1.0.0.1_AnyCPU.appx/pages/section/section.js",
+                "region": {
+                  "startLine": 36,
+                  "startColumn": 25
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleKey": "JS2074.IdentifierNameIsMisspelled",
+          "level": "error",
+          "formattedRuleMessage": {
+            "formatId": "Error",
+            "arguments": [
+              "args",
+              "parameter",
+              "args"
+            ]
+          },
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/Mod50.Test.Unit/ModernCopTestData/Mod50/CompiledPackages/SimpleJSApp.appxbundle#/SimpleJSApp_1.0.0.1_AnyCPU.appx/pages/section/section.js",
+                "region": {
+                  "startLine": 46,
+                  "startColumn": 21
+                }
+              }
+            }
+          ],
+          "snippet": "function (args) {\r\n            var item = this._items.getAt(args.detail.itemIndex);\r\n            WinJS.Navigation.navigate(\"/pages/item/item.html\", { item: Data.getItemReference(item) });\r\n        }"
+        },
+        {
+          "ruleKey": "JS3092.DeclarePropertiesBeforeUse",
+          "level": "error",
+          "formattedRuleMessage": {
+            "formatId": "Error",
+            "arguments": [
+              "Object.prototype",
+              "getAt"
+            ]
+          },
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/Mod50.Test.Unit/ModernCopTestData/Mod50/CompiledPackages/SimpleJSApp.appxbundle#/SimpleJSApp_1.0.0.1_AnyCPU.appx/pages/section/section.js",
+                "region": {
+                  "startLine": 47,
+                  "startColumn": 36
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleKey": "JS3057.AvoidImplicitTypeCoercion",
+          "level": "error",
+          "formattedRuleMessage": {
+            "formatId": "Error",
+            "arguments": [
+              "string",
+              "Object"
+            ]
+          },
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/Mod50.Test.Unit/ModernCopTestData/Mod50/CompiledPackages/SimpleJSApp.appxbundle#/SimpleJSApp_1.0.0.1_AnyCPU.appx/pages/section/section.js",
+                "region": {
+                  "startLine": 48,
+                  "startColumn": 39
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleKey": "JS2027.PunctuateCommentsCorrectly",
           "level": "warning",
           "formattedRuleMessage": {
             "formatId": "Warning"
@@ -578,10 +586,11 @@
                 }
               }
             }
-          ]
+          ],
+          "snippet": "// For an introduction to the Hub template, see the following documentation:\r\n// http://go.microsoft.com/fwlink/?LinkID=286574"
         },
         {
-          "ruleId": "JS2073",
+          "ruleKey": "JS2073.CommentIsMisspelled",
           "level": "error",
           "formattedRuleMessage": {
             "formatId": "Error",
@@ -600,10 +609,11 @@
                 }
               }
             }
-          ]
+          ],
+          "snippet": "// For an introduction to the Hub template, see the following documentation:\r\n// http://go.microsoft.com/fwlink/?LinkID=286574"
         },
         {
-          "ruleId": "JS2073",
+          "ruleKey": "JS2073.CommentIsMisspelled",
           "level": "error",
           "formattedRuleMessage": {
             "formatId": "Error",
@@ -622,10 +632,11 @@
                 }
               }
             }
-          ]
+          ],
+          "snippet": "// For an introduction to the Hub template, see the following documentation:\r\n// http://go.microsoft.com/fwlink/?LinkID=286574"
         },
         {
-          "ruleId": "JS2074",
+          "ruleKey": "JS2074.IdentifierNameIsMisspelled",
           "level": "error",
           "formattedRuleMessage": {
             "formatId": "Error",
@@ -645,10 +656,11 @@
                 }
               }
             }
-          ]
+          ],
+          "snippet": "var nav = WinJS.Navigation"
         },
         {
-          "ruleId": "JS2074",
+          "ruleKey": "JS2074.IdentifierNameIsMisspelled",
           "level": "error",
           "formattedRuleMessage": {
             "formatId": "Error",
@@ -668,10 +680,11 @@
                 }
               }
             }
-          ]
+          ],
+          "snippet": "var sched = WinJS.Utilities.Scheduler"
         },
         {
-          "ruleId": "JS3092",
+          "ruleKey": "JS3092.DeclarePropertiesBeforeUse",
           "level": "error",
           "formattedRuleMessage": {
             "formatId": "Error",
@@ -693,7 +706,7 @@
           ]
         },
         {
-          "ruleId": "JS3053",
+          "ruleKey": "JS3053.IncorrectNumberOfArguments",
           "level": "error",
           "formattedRuleMessage": {
             "formatId": "Error",
@@ -715,7 +728,7 @@
           ]
         },
         {
-          "ruleId": "JS2074",
+          "ruleKey": "JS2074.IdentifierNameIsMisspelled",
           "level": "error",
           "formattedRuleMessage": {
             "formatId": "Error",
@@ -735,10 +748,11 @@
                 }
               }
             }
-          ]
+          ],
+          "snippet": "function (args) {\r\n        if (args.detail.kind === activation.ActivationKind.launch) {\r\n            if (args.detail.previousExecutionState !== activation.ApplicationExecutionState.terminated) {\r\n                // TODO: This application has been newly launched. Initialize\r\n                // your application here.\r\n            } else {\r\n                // TODO: This application has been reactivated from suspension.\r\n                // Restore application state here.\r\n            }\r\n\r\n            nav.history = app.sessionState.history || {};\r\n            nav.history.current.initialPlaceholder = true;\r\n\r\n            // Optimize the load of the application and while the splash screen is shown, execute high priority scheduled work.\r\n            ui.disableAnimations();\r\n            var p = ui.processAll().then(function () {\r\n                return nav.navigate(nav.location || Application.navigator.home, nav.state);\r\n            }).then(function () {\r\n                return sched.requestDrain(sched.Priority.aboveNormal + 1);\r\n            }).then(function () {\r\n                ui.enableAnimations();\r\n            });\r\n\r\n            args.setPromise(p);\r\n        }\r\n    }"
         },
         {
-          "ruleId": "JS2045",
+          "ruleKey": "JS2045.ReviewEmptyBlocks",
           "level": "warning",
           "formattedRuleMessage": {
             "formatId": "Warning"
@@ -753,10 +767,11 @@
                 }
               }
             }
-          ]
+          ],
+          "snippet": "if (args.detail.previousExecutionState !== activation.ApplicationExecutionState.terminated) {\r\n                // TODO: This application has been newly launched. Initialize\r\n                // your application here.\r\n            } else {\r\n                // TODO: This application has been reactivated from suspension.\r\n                // Restore application state here.\r\n            }"
         },
         {
-          "ruleId": "JS3092",
+          "ruleKey": "JS3092.DeclarePropertiesBeforeUse",
           "level": "error",
           "formattedRuleMessage": {
             "formatId": "Error",
@@ -778,7 +793,7 @@
           ]
         },
         {
-          "ruleId": "JS3092",
+          "ruleKey": "JS3092.DeclarePropertiesBeforeUse",
           "level": "error",
           "formattedRuleMessage": {
             "formatId": "Error",
@@ -800,7 +815,7 @@
           ]
         },
         {
-          "ruleId": "JS3053",
+          "ruleKey": "JS3053.IncorrectNumberOfArguments",
           "level": "error",
           "formattedRuleMessage": {
             "formatId": "Error",
@@ -822,7 +837,7 @@
           ]
         },
         {
-          "ruleId": "JS3092",
+          "ruleKey": "JS3092.DeclarePropertiesBeforeUse",
           "level": "error",
           "formattedRuleMessage": {
             "formatId": "Error",
@@ -844,7 +859,7 @@
           ]
         },
         {
-          "ruleId": "JS3047",
+          "ruleKey": "JS3047.ProvideExplicitSemicolons",
           "level": "error",
           "formattedRuleMessage": {
             "formatId": "Error"
@@ -859,10 +874,11 @@
                 }
               }
             }
-          ]
+          ],
+          "snippet": "app.insecureFunction(input)"
         },
         {
-          "ruleId": "JS3092",
+          "ruleKey": "JS3092.DeclarePropertiesBeforeUse",
           "level": "error",
           "formattedRuleMessage": {
             "formatId": "Error",
@@ -884,7 +900,7 @@
           ]
         },
         {
-          "ruleId": "JS3058",
+          "ruleKey": "JS3058.DeclareVariablesBeforeUse",
           "level": "error",
           "formattedRuleMessage": {
             "formatId": "Error",
@@ -905,7 +921,7 @@
           ]
         },
         {
-          "ruleId": "JS2001",
+          "ruleKey": "JS2001.DoNotUseEval",
           "level": "error",
           "formattedRuleMessage": {
             "formatId": "Error",
@@ -924,10 +940,11 @@
                 }
               }
             }
-          ]
+          ],
+          "snippet": "eval(input)"
         },
         {
-          "ruleId": "JS2074",
+          "ruleKey": "JS2074.IdentifierNameIsMisspelled",
           "level": "error",
           "formattedRuleMessage": {
             "formatId": "Error",
@@ -947,10 +964,11 @@
                 }
               }
             }
-          ]
+          ],
+          "snippet": "function (args) {\r\n        // TODO: This application is about to be suspended. Save any state\r\n        // that needs to persist across suspensions here. If you need to \r\n        // complete an asynchronous operation before your application is \r\n        // suspended, call args.setPromise().\r\n        app.sessionState.history = nav.history;\r\n    }"
         },
         {
-          "ruleId": "JS3092",
+          "ruleKey": "JS3092.DeclarePropertiesBeforeUse",
           "level": "error",
           "formattedRuleMessage": {
             "formatId": "Error",
@@ -972,7 +990,7 @@
           ]
         },
         {
-          "ruleId": "JS2073",
+          "ruleKey": "JS2073.CommentIsMisspelled",
           "level": "error",
           "formattedRuleMessage": {
             "formatId": "Error",
@@ -991,10 +1009,11 @@
                 }
               }
             }
-          ]
+          ],
+          "snippet": "// TODO: This application is about to be suspended. Save any state\r\n        // that needs to persist across suspensions here. If you need to \r\n        // complete an asynchronous operation before your application is \r\n        // suspended, call args.setPromise()."
         },
         {
-          "ruleId": "JS2074",
+          "ruleKey": "JS2074.IdentifierNameIsMisspelled",
           "level": "error",
           "formattedRuleMessage": {
             "formatId": "Error",
@@ -1014,10 +1033,11 @@
                 }
               }
             }
-          ]
+          ],
+          "snippet": "var nav = WinJS.Navigation"
         },
         {
-          "ruleId": "JS3053",
+          "ruleKey": "JS3053.IncorrectNumberOfArguments",
           "level": "error",
           "formattedRuleMessage": {
             "formatId": "Error",
@@ -1039,7 +1059,7 @@
           ]
         },
         {
-          "ruleId": "JS3092",
+          "ruleKey": "JS3092.DeclarePropertiesBeforeUse",
           "level": "error",
           "formattedRuleMessage": {
             "formatId": "Error",
@@ -1061,7 +1081,7 @@
           ]
         },
         {
-          "ruleId": "JS3053",
+          "ruleKey": "JS3053.IncorrectNumberOfArguments",
           "level": "error",
           "formattedRuleMessage": {
             "formatId": "Error",
@@ -1083,7 +1103,7 @@
           ]
         },
         {
-          "ruleId": "JS2023",
+          "ruleKey": "JS2023.UseDoubleQuotesForStringLiterals",
           "level": "warning",
           "formattedRuleMessage": {
             "formatId": "Warning"
@@ -1098,10 +1118,11 @@
                 }
               }
             }
-          ]
+          ],
+          "snippet": "'navigating'"
         },
         {
-          "ruleId": "JS3092",
+          "ruleKey": "JS3092.DeclarePropertiesBeforeUse",
           "level": "error",
           "formattedRuleMessage": {
             "formatId": "Error",
@@ -1123,7 +1144,7 @@
           ]
         },
         {
-          "ruleId": "JS2023",
+          "ruleKey": "JS2023.UseDoubleQuotesForStringLiterals",
           "level": "warning",
           "formattedRuleMessage": {
             "formatId": "Warning"
@@ -1138,10 +1159,11 @@
                 }
               }
             }
-          ]
+          ],
+          "snippet": "'navigated'"
         },
         {
-          "ruleId": "JS3092",
+          "ruleKey": "JS3092.DeclarePropertiesBeforeUse",
           "level": "error",
           "formattedRuleMessage": {
             "formatId": "Error",
@@ -1163,7 +1185,7 @@
           ]
         },
         {
-          "ruleId": "JS3092",
+          "ruleKey": "JS3092.DeclarePropertiesBeforeUse",
           "level": "error",
           "formattedRuleMessage": {
             "formatId": "Error",
@@ -1185,7 +1207,7 @@
           ]
         },
         {
-          "ruleId": "JS3058",
+          "ruleKey": "JS3058.DeclareVariablesBeforeUse",
           "level": "error",
           "formattedRuleMessage": {
             "formatId": "Error",
@@ -1206,7 +1228,7 @@
           ]
         },
         {
-          "ruleId": "JS3092",
+          "ruleKey": "JS3092.DeclarePropertiesBeforeUse",
           "level": "error",
           "formattedRuleMessage": {
             "formatId": "Error",
@@ -1228,7 +1250,7 @@
           ]
         },
         {
-          "ruleId": "JS2074",
+          "ruleKey": "JS2074.IdentifierNameIsMisspelled",
           "level": "error",
           "formattedRuleMessage": {
             "formatId": "Error",
@@ -1248,10 +1270,11 @@
                 }
               }
             }
-          ]
+          ],
+          "snippet": "_lastViewstate: 0"
         },
         {
-          "ruleId": "JS3092",
+          "ruleKey": "JS3092.DeclarePropertiesBeforeUse",
           "level": "error",
           "formattedRuleMessage": {
             "formatId": "Error",
@@ -1273,7 +1296,7 @@
           ]
         },
         {
-          "ruleId": "JS3092",
+          "ruleKey": "JS3092.DeclarePropertiesBeforeUse",
           "level": "error",
           "formattedRuleMessage": {
             "formatId": "Error",
@@ -1295,7 +1318,7 @@
           ]
         },
         {
-          "ruleId": "JS3092",
+          "ruleKey": "JS3092.DeclarePropertiesBeforeUse",
           "level": "error",
           "formattedRuleMessage": {
             "formatId": "Error",
@@ -1317,7 +1340,7 @@
           ]
         },
         {
-          "ruleId": "JS3092",
+          "ruleKey": "JS3092.DeclarePropertiesBeforeUse",
           "level": "error",
           "formattedRuleMessage": {
             "formatId": "Error",
@@ -1339,7 +1362,7 @@
           ]
         },
         {
-          "ruleId": "JS3092",
+          "ruleKey": "JS3092.DeclarePropertiesBeforeUse",
           "level": "error",
           "formattedRuleMessage": {
             "formatId": "Error",
@@ -1361,7 +1384,7 @@
           ]
         },
         {
-          "ruleId": "JS3092",
+          "ruleKey": "JS3092.DeclarePropertiesBeforeUse",
           "level": "error",
           "formattedRuleMessage": {
             "formatId": "Error",
@@ -1383,7 +1406,7 @@
           ]
         },
         {
-          "ruleId": "JS3092",
+          "ruleKey": "JS3092.DeclarePropertiesBeforeUse",
           "level": "error",
           "formattedRuleMessage": {
             "formatId": "Error",
@@ -1405,7 +1428,7 @@
           ]
         },
         {
-          "ruleId": "JS3057",
+          "ruleKey": "JS3057.AvoidImplicitTypeCoercion",
           "level": "error",
           "formattedRuleMessage": {
             "formatId": "Error",
@@ -1427,7 +1450,7 @@
           ]
         },
         {
-          "ruleId": "JS3092",
+          "ruleKey": "JS3092.DeclarePropertiesBeforeUse",
           "level": "error",
           "formattedRuleMessage": {
             "formatId": "Error",
@@ -1449,7 +1472,7 @@
           ]
         },
         {
-          "ruleId": "JS3092",
+          "ruleKey": "JS3092.DeclarePropertiesBeforeUse",
           "level": "error",
           "formattedRuleMessage": {
             "formatId": "Error",
@@ -1471,7 +1494,7 @@
           ]
         },
         {
-          "ruleId": "JS3092",
+          "ruleKey": "JS3092.DeclarePropertiesBeforeUse",
           "level": "error",
           "formattedRuleMessage": {
             "formatId": "Error",
@@ -1493,7 +1516,7 @@
           ]
         },
         {
-          "ruleId": "JS3053",
+          "ruleKey": "JS3053.IncorrectNumberOfArguments",
           "level": "error",
           "formattedRuleMessage": {
             "formatId": "Error",
@@ -1515,7 +1538,7 @@
           ]
         },
         {
-          "ruleId": "JS3092",
+          "ruleKey": "JS3092.DeclarePropertiesBeforeUse",
           "level": "error",
           "formattedRuleMessage": {
             "formatId": "Error",
@@ -1537,7 +1560,7 @@
           ]
         },
         {
-          "ruleId": "JS2074",
+          "ruleKey": "JS2074.IdentifierNameIsMisspelled",
           "level": "error",
           "formattedRuleMessage": {
             "formatId": "Error",
@@ -1557,10 +1580,11 @@
                 }
               }
             }
-          ]
+          ],
+          "snippet": "function (args) {\r\n                    var newElement = this._createPageElement();\r\n                    this._element.appendChild(newElement);\r\n\r\n                    this._lastNavigationPromise.cancel();\r\n\r\n                    var that = this;\r\n                    this._lastNavigationPromise = WinJS.Promise.as().then(function () {\r\n                        return WinJS.UI.Pages.render(args.detail.location, newElement, args.detail.state);\r\n                    }).then(function parentElement(control) {\r\n                        var oldElement = that.pageElement;\r\n                        // Cleanup and remove previous element\r\n                        if (oldElement.winControl) {\r\n                            if (oldElement.winControl.unload) {\r\n                                oldElement.winControl.unload();\r\n                            }\r\n                            oldElement.winControl.dispose();\r\n                        }\r\n                        oldElement.parentNode.removeChild(oldElement);\r\n                        oldElement.innerText = \"\";\r\n                    });\r\n\r\n                    args.detail.setPromise(this._lastNavigationPromise);\r\n                }"
         },
         {
-          "ruleId": "JS3092",
+          "ruleKey": "JS3092.DeclarePropertiesBeforeUse",
           "level": "error",
           "formattedRuleMessage": {
             "formatId": "Error",
@@ -1582,7 +1606,7 @@
           ]
         },
         {
-          "ruleId": "JS3092",
+          "ruleKey": "JS3092.DeclarePropertiesBeforeUse",
           "level": "error",
           "formattedRuleMessage": {
             "formatId": "Error",
@@ -1604,7 +1628,7 @@
           ]
         },
         {
-          "ruleId": "JS3053",
+          "ruleKey": "JS3053.IncorrectNumberOfArguments",
           "level": "error",
           "formattedRuleMessage": {
             "formatId": "Error",
@@ -1626,7 +1650,7 @@
           ]
         },
         {
-          "ruleId": "JS3092",
+          "ruleKey": "JS3092.DeclarePropertiesBeforeUse",
           "level": "error",
           "formattedRuleMessage": {
             "formatId": "Error",
@@ -1648,7 +1672,7 @@
           ]
         },
         {
-          "ruleId": "JS3092",
+          "ruleKey": "JS3092.DeclarePropertiesBeforeUse",
           "level": "error",
           "formattedRuleMessage": {
             "formatId": "Error",
@@ -1670,7 +1694,7 @@
           ]
         },
         {
-          "ruleId": "JS3092",
+          "ruleKey": "JS3092.DeclarePropertiesBeforeUse",
           "level": "error",
           "formattedRuleMessage": {
             "formatId": "Error",
@@ -1692,7 +1716,7 @@
           ]
         },
         {
-          "ruleId": "JS3092",
+          "ruleKey": "JS3092.DeclarePropertiesBeforeUse",
           "level": "error",
           "formattedRuleMessage": {
             "formatId": "Error",
@@ -1714,7 +1738,7 @@
           ]
         },
         {
-          "ruleId": "JS3092",
+          "ruleKey": "JS3092.DeclarePropertiesBeforeUse",
           "level": "error",
           "formattedRuleMessage": {
             "formatId": "Error",
@@ -1736,7 +1760,7 @@
           ]
         },
         {
-          "ruleId": "JS2074",
+          "ruleKey": "JS2074.IdentifierNameIsMisspelled",
           "level": "error",
           "formattedRuleMessage": {
             "formatId": "Error",
@@ -1756,10 +1780,11 @@
                 }
               }
             }
-          ]
+          ],
+          "snippet": "function (args) {\r\n                    if (this.pageControl && this.pageControl.updateLayout) {\r\n                        this.pageControl.updateLayout.call(this.pageControl, this.pageElement);\r\n                    }\r\n                }"
         },
         {
-          "ruleId": "JS3057",
+          "ruleKey": "JS3057.AvoidImplicitTypeCoercion",
           "level": "error",
           "formattedRuleMessage": {
             "formatId": "Error",
@@ -1781,7 +1806,7 @@
           ]
         },
         {
-          "ruleId": "JS3092",
+          "ruleKey": "JS3092.DeclarePropertiesBeforeUse",
           "level": "error",
           "formattedRuleMessage": {
             "formatId": "Error",
@@ -1803,7 +1828,7 @@
           ]
         },
         {
-          "ruleId": "JS3092",
+          "ruleKey": "JS3092.DeclarePropertiesBeforeUse",
           "level": "error",
           "formattedRuleMessage": {
             "formatId": "Error",
@@ -1825,7 +1850,7 @@
           ]
         },
         {
-          "ruleId": "JS3054",
+          "ruleKey": "JS3054.NotAllCodePathsReturnValue",
           "level": "error",
           "formattedRuleMessage": {
             "formatId": "Error",
@@ -1873,13 +1898,13 @@
           "parentKey": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/Mod50.Test.Unit/ModernCopTestData/Mod50/CompiledPackages/SimpleJSApp.appxbundle#/SimpleJSApp_1.0.0.1_AnyCPU.appx",
           "mimeType": "text/html"
         },
-        "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/Mod50.Test.Unit/ModernCopTestData/Mod50/CompiledPackages/SimpleJSApp.appxbundle#/SimpleJSApp_1.0.0.1_AnyCPU.appx/pages/section/section.js": {
-          "uri": "/pages/section/section.js",
+        "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/Mod50.Test.Unit/ModernCopTestData/Mod50/CompiledPackages/SimpleJSApp.appxbundle#/SimpleJSApp_1.0.0.1_AnyCPU.appx/pages/hub/hub.js": {
+          "uri": "/pages/hub/hub.js",
           "parentKey": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/Mod50.Test.Unit/ModernCopTestData/Mod50/CompiledPackages/SimpleJSApp.appxbundle#/SimpleJSApp_1.0.0.1_AnyCPU.appx",
           "mimeType": "text/javascript"
         },
-        "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/Mod50.Test.Unit/ModernCopTestData/Mod50/CompiledPackages/SimpleJSApp.appxbundle#/SimpleJSApp_1.0.0.1_AnyCPU.appx/pages/hub/hub.js": {
-          "uri": "/pages/hub/hub.js",
+        "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/Mod50.Test.Unit/ModernCopTestData/Mod50/CompiledPackages/SimpleJSApp.appxbundle#/SimpleJSApp_1.0.0.1_AnyCPU.appx/pages/section/section.js": {
+          "uri": "/pages/section/section.js",
           "parentKey": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/Mod50.Test.Unit/ModernCopTestData/Mod50/CompiledPackages/SimpleJSApp.appxbundle#/SimpleJSApp_1.0.0.1_AnyCPU.appx",
           "mimeType": "text/javascript"
         },
@@ -1900,7 +1925,7 @@
         }
       },
       "rules": {
-        "M1001": {
+        "M1001.AvoidDangerousCapabilities": {
           "id": "M1001",
           "name": "AvoidDangerousCapabilities",
           "shortDescription": "Avoid use of dangerous application capabilities.",
@@ -1911,7 +1936,7 @@
             "tags": ["appx","sdl"]
           }
         },
-        "WEB1080": {
+        "WEB1080.AttributesAreNotOrderedCorrectly": {
           "id": "WEB1080",
           "name": "AttributesAreNotOrderedCorrectly",
           "shortDescription": "The tag attribute values are not ordered correctly.",
@@ -1922,7 +1947,7 @@
             "tags": ["html"]
           }
         },
-        "WEB1088": {
+        "WEB1088.IframeHasInvalidSandboxAttribute": {
           "id": "WEB1088",
           "name": "IframeHasInvalidSandboxAttribute",
           "shortDescription": "The <Iframe> tag has a missing or invalid sandbox attribute value.",
@@ -1933,18 +1958,7 @@
             "tags": ["html","sdl"]
           }
         },
-        "JS3092": {
-          "id": "JS3092",
-          "name": "DeclarePropertiesBeforeUse",
-          "shortDescription": "Declare properties before accessing them.",
-          "messageFormats": {
-            "Error": "'{0}' does not contain a definition for '{1}'. Declare this property explicitly before using it."
-          },
-          "properties": {
-            "tags": ["js","semantic"]
-          }
-        },
-        "JS2074": {
+        "JS2074.IdentifierNameIsMisspelled": {
           "id": "JS2074",
           "name": "IdentifierNameIsMisspelled",
           "shortDescription": "Review identifier name for possible misspelling.",
@@ -1955,18 +1969,18 @@
             "tags": ["spelling","js"]
           }
         },
-        "JS3057": {
-          "id": "JS3057",
-          "name": "AvoidImplicitTypeCoercion",
-          "shortDescription": "Avoid calls that result in implicit type coercion.",
+        "JS3092.DeclarePropertiesBeforeUse": {
+          "id": "JS3092",
+          "name": "DeclarePropertiesBeforeUse",
+          "shortDescription": "Declare properties before accessing them.",
           "messageFormats": {
-            "Error": "Call results in an implicit conversion of type '{0}' to '{1}'."
+            "Error": "'{0}' does not contain a definition for '{1}'. Declare this property explicitly before using it."
           },
           "properties": {
             "tags": ["js","semantic"]
           }
         },
-        "JS3058": {
+        "JS3058.DeclareVariablesBeforeUse": {
           "id": "JS3058",
           "name": "DeclareVariablesBeforeUse",
           "shortDescription": "Declare variables explicitly before use.",
@@ -1977,7 +1991,7 @@
             "tags": ["js","semantic"]
           }
         },
-        "JS3047": {
+        "JS3047.ProvideExplicitSemicolons": {
           "id": "JS3047",
           "name": "ProvideExplicitSemicolons",
           "shortDescription": "Provide explicit semicolons.",
@@ -1988,7 +2002,18 @@
             "tags": ["js"]
           }
         },
-        "JS2027": {
+        "JS3057.AvoidImplicitTypeCoercion": {
+          "id": "JS3057",
+          "name": "AvoidImplicitTypeCoercion",
+          "shortDescription": "Avoid calls that result in implicit type coercion.",
+          "messageFormats": {
+            "Error": "Call results in an implicit conversion of type '{0}' to '{1}'."
+          },
+          "properties": {
+            "tags": ["js","semantic"]
+          }
+        },
+        "JS2027.PunctuateCommentsCorrectly": {
           "id": "JS2027",
           "name": "PunctuateCommentsCorrectly",
           "shortDescription": "Provide punctuation at the ends of sentences for multiline comments.",
@@ -1999,7 +2024,7 @@
             "tags": ["js"]
           }
         },
-        "JS2073": {
+        "JS2073.CommentIsMisspelled": {
           "id": "JS2073",
           "name": "CommentIsMisspelled",
           "shortDescription": "Review text for possible misspelling.",
@@ -2010,7 +2035,7 @@
             "tags": ["spelling","js"]
           }
         },
-        "JS3053": {
+        "JS3053.IncorrectNumberOfArguments": {
           "id": "JS3053",
           "name": "IncorrectNumberOfArguments",
           "shortDescription": "Incorrect number of arguments in function call.",
@@ -2021,7 +2046,7 @@
             "tags": ["js","semantic"]
           }
         },
-        "JS2045": {
+        "JS2045.ReviewEmptyBlocks": {
           "id": "JS2045",
           "name": "ReviewEmptyBlocks",
           "shortDescription": "Review empty blocks for correctness issues.",
@@ -2032,7 +2057,7 @@
             "tags": ["js"]
           }
         },
-        "JS2001": {
+        "JS2001.DoNotUseEval": {
           "id": "JS2001",
           "name": "DoNotUseEval",
           "shortDescription": "Do not use the 'eval' function or its functional equivalents.",
@@ -2043,7 +2068,7 @@
             "tags": ["js","sdl"]
           }
         },
-        "JS2023": {
+        "JS2023.UseDoubleQuotesForStringLiterals": {
           "id": "JS2023",
           "name": "UseDoubleQuotesForStringLiterals",
           "shortDescription": "Use double quotes where possible to declare string literals.",
@@ -2054,7 +2079,7 @@
             "tags": ["js"]
           }
         },
-        "JS3054": {
+        "JS3054.NotAllCodePathsReturnValue": {
           "id": "JS3054",
           "name": "NotAllCodePathsReturnValue",
           "shortDescription": "Not all code paths return a value.",
@@ -2068,9 +2093,9 @@
       },
       "invocation": {
         "commandLine": "D:\\src\\SecDevTools\\Main\\bin\\x64\\Debug\\ModernCop\\mod50.exe  analyze /appx d:\\src\\SecDevTools\\Main\\src\\ModernCop\\Source\\Mod50.Test.Unit\\ModernCopTestData\\Mod50\\CompiledPackages\\SimpleJSApp.appxbundle /out .\\SimpleBundleDoubleNesting.sarif",
-        "startTime": "2016-05-23T19:05:24.839Z",
-        "endTime": "2016-05-23T19:05:26.636Z",
-        "processId": 25964,
+        "startTime": "2016-05-24T00:17:54.504Z",
+        "endTime": "2016-05-24T00:17:56.280Z",
+        "processId": 20600,
         "fileName": "D:\\src\\SecDevTools\\Main\\bin\\x64\\Debug\\ModernCop\\mod50.exe",
         "workingDirectory": "d:\\src\\sarif-sdk\\src\\Sarif.FunctionalTests\\DirectProducerTestData\\WebSkim"
       }

@@ -131,5 +131,29 @@ namespace Microsoft.CodeAnalysis.Sarif
             sarifLog.Runs[0].Files[fileDataKey].Hashes[2].Algorithm.Should().Be(AlgorithmKind.Sha256);
             sarifLog.Runs[0].Files[fileDataKey].Hashes[2].Value.Should().Be("0953D7B3ADA7FED683680D2107EE517A9DBEC2D0AF7594A91F058D104B7A2AEB");
         }
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentException))]
+        public void SarifLogger_ResultAndRuleIdMismatch()
+        {
+            var sb = new StringBuilder();
+
+            using (var writer = new StringWriter(sb))
+            using (var sarifLogger = new SarifLogger(writer, verbose: true))
+            {
+                var rule = new Rule()
+                {
+                    Id = "ActualId"
+                };
+
+                var result = new Result()
+                {
+                    RuleId = "IncorrectRuleId",
+                    Message = "test message"
+                };
+
+                sarifLogger.Log(rule, result);
+            }
+        }
     }
 }

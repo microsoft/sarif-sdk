@@ -188,17 +188,19 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             {
                 _issueLogJsonWriter.CloseResults();
 
-                if (_run.ConfigurationNotifications != null)
+                if (_run != null && _run.ConfigurationNotifications != null)
                 {
                     _issueLogJsonWriter.WriteConfigurationNotifications(_run.ConfigurationNotifications);
                 }
 
-                if (_run.ToolNotifications != null)
+                if (_run != null && _run.ToolNotifications != null)
                 {
                     _issueLogJsonWriter.WriteToolNotifications(_run.ToolNotifications);
                 }
 
-                if (_run?.Invocation?.StartTime != new DateTime())
+                if (_run != null && 
+                    _run.Invocation != null &&
+                    _run.Invocation.StartTime != new DateTime())
                 {
                     _run.Invocation.EndTime = DateTime.UtcNow;
                 }
@@ -211,9 +213,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                     _issueLogJsonWriter.WriteRules(_rules);
                 }
 
-                if (_run.Files != null) { _issueLogJsonWriter.WriteFiles(_run.Files); }
+                if (_run != null && _run.Files != null) { _issueLogJsonWriter.WriteFiles(_run.Files); }
 
-                if (_run.Invocation != null)
+                if (_run != null && _run.Invocation != null)
                 {
                     _issueLogJsonWriter.WriteInvocation(invocation: _run.Invocation);
                 }
@@ -241,6 +243,16 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
         public void Log(IRule rule, Result result)
         {
+            if (rule.Id != result.RuleId)
+            {
+                //The rule id '{0}' specified by the result does not match the actual id of the rule '{1}'
+                string message = string.Format(SdkResources.ResultRuleIdDoesNotMatchRule,
+                    result.RuleId.ToString(),
+                    rule.Id.ToString());
+
+                throw new ArgumentException(message);
+            }
+
             if (!ShouldLog(result.Level))
             {
                 return;
@@ -248,7 +260,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
             if (rule != null)
             {
-                Rules[rule.Id] = rule;
+                Rules[result.RuleKey ?? result.RuleId] = rule;
             }
 
             _issueLogJsonWriter.WriteResult(result);
@@ -285,7 +297,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             }
 
             formatId = RuleUtilities.NormalizeFormatId(context.Rule.Id, formatId);
-            LogJsonIssue(messageKind, context.TargetUri?.LocalPath, region, context.Rule.Id, formatId, arguments);
+            LogJsonIssue(messageKind, context.TargetUri.LocalPath, region, context.Rule.Id, formatId, arguments);
         }
 
         private void LogJsonIssue(ResultLevel level, string targetPath, Region region, string ruleId, string formatId, params string[] arguments)
