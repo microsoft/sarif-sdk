@@ -38,7 +38,8 @@
   <ItemGroup>
     <Compile Include="CodeAnalysisResultManager.cs" />
     <Compile Include="CodeLocationObject.cs" />
-    <Compile Include="Converters\EnumerableToCountConverter - Copy.cs" />
+    <Compile Include="Converters\CollectionToVisiblityConverter.cs" />
+    <Compile Include="Converters\CollectionToCountConverter.cs" />
     <Compile Include="Converters\Int32ToVisibilityConverter.cs" />
     <Compile Include="DelegateCommand.cs" />
     <Compile Include="DelegateCommandBase.cs" />
@@ -103,6 +104,7 @@
     <Content Include="PREfastXmlSarifConverter.dll">
       <IncludeInVSIX>true</IncludeInVSIX>
     </Content>
+    <None Include="readme.md" />
     <Content Include="Triskele.ico">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <IncludeInVSIX>true</IncludeInVSIX>
