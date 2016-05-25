@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "runs": [
     {
-      "id": "5efb14b8-5fb7-40dd-8030-fe262e88866b",
+      "id": "c5f502a1-d2b4-4def-89e5-567ccad25f18",
       "tool": {
         "name": "ModernCop",
         "fullName": "mod50 7.0.7000.0",
@@ -3505,30 +3505,16 @@
               "analysisTarget": {
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/default.js",
                 "region": {
-                  "startLine": 1
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 2,
+                  "endColumn": 49,
+                  "length": 128
                 }
               }
             }
           ],
           "snippet": "// For an introduction to the Blank template, see the following documentation:\r\n// http://go.microsoft.com/fwlink/?LinkId=232509"
-        },
-        {
-          "ruleKey": "JS2045.ReviewEmptyBlocks",
-          "level": "warning",
-          "formattedRuleMessage": {
-            "formatId": "Warning"
-          },
-          "locations": [
-            {
-              "analysisTarget": {
-                "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/default.js",
-                "region": {
-                  "startLine": 1
-                }
-              }
-            }
-          ],
-          "snippet": "if (args.detail.previousExecutionState !== activation.ApplicationExecutionState.terminated) {\r\n                // TODO: This application has been newly launched. Initialize\r\n                // your application here.\r\n            } else {\r\n                // TODO: This application has been reactivated from suspension.\r\n                // Restore application state here.\r\n            }"
         },
         {
           "ruleKey": "JS2073.CommentIsMisspelled",
@@ -3609,6 +3595,29 @@
             }
           ],
           "snippet": "function (args) {\r\n        if (args.detail.kind === activation.ActivationKind.launch) {\r\n            if (args.detail.previousExecutionState !== activation.ApplicationExecutionState.terminated) {\r\n                // TODO: This application has been newly launched. Initialize\r\n                // your application here.\r\n            } else {\r\n                // TODO: This application has been reactivated from suspension.\r\n                // Restore application state here.\r\n            }\r\n            args.setPromise(WinJS.UI.processAll());\r\n        }\r\n    }"
+        },
+        {
+          "ruleKey": "JS2045.ReviewEmptyBlocks",
+          "level": "warning",
+          "formattedRuleMessage": {
+            "formatId": "Warning"
+          },
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/default.js",
+                "region": {
+                  "startLine": 13,
+                  "startColumn": 13,
+                  "endLine": 19,
+                  "endColumn": 14,
+                  "offset": 440,
+                  "length": 385
+                }
+              }
+            }
+          ],
+          "snippet": "if (args.detail.previousExecutionState !== activation.ApplicationExecutionState.terminated) {\r\n                // TODO: This application has been newly launched. Initialize\r\n                // your application here.\r\n            } else {\r\n                // TODO: This application has been reactivated from suspension.\r\n                // Restore application state here.\r\n            }"
         },
         {
           "ruleKey": "JS2074.IdentifierNameIsMisspelled",
@@ -3736,23 +3745,12 @@
             "tags": ["js"]
           }
         },
-        "JS2045.ReviewEmptyBlocks": {
-          "id": "JS2045",
-          "name": "ReviewEmptyBlocks",
-          "shortDescription": "Review empty blocks for correctness issues.",
-          "messageFormats": {
-            "Warning": "Review empty blocks for correctness issues."
-          },
-          "properties": {
-            "tags": ["js"]
-          }
-        },
         "JS2073.CommentIsMisspelled": {
           "id": "JS2073",
           "name": "CommentIsMisspelled",
           "shortDescription": "Review text for possible misspelling.",
           "messageFormats": {
-            "Error": "The term '{0}' found in comment text is not recognized. Correct the misspelling, if it is one, provide an alternate term, or add the term to the custom dictionary or as an in-source comment. If this is a reference to a DOM or other api which can’t be recased, wrap the term in apostrophes to resolve the warning, e.g., 'onmouseover'."
+            "Error": "The term '{0}' found in comment text '{1}' is not recognized. Correct the misspelling, if it is one, provide an alternate term, or add the term to the custom dictionary or as an in-source comment. If this is a reference to a DOM or other api which can’t be recased, wrap the term in apostrophes to resolve the warning, e.g., 'onmouseover'."
           },
           "properties": {
             "tags": ["spelling","js"]
@@ -3768,13 +3766,24 @@
           "properties": {
             "tags": ["spelling","js"]
           }
+        },
+        "JS2045.ReviewEmptyBlocks": {
+          "id": "JS2045",
+          "name": "ReviewEmptyBlocks",
+          "shortDescription": "Review empty blocks for correctness issues.",
+          "messageFormats": {
+            "Warning": "Review empty blocks for correctness issues."
+          },
+          "properties": {
+            "tags": ["js"]
+          }
         }
       },
       "invocation": {
         "commandLine": "D:\\src\\SecDevTools\\Main\\bin\\x64\\Debug\\ModernCop\\mod50.exe  analyze /appx d:\\src\\SecDevTools\\Main\\src\\ModernCop\\Source\\WebRules.Test.Unit\\ModernCopTestData\\WebRules_PackageRules\\MinificationRuleApp /out .\\NestedLocationsFromDirectoryTrailingSlash.sarif",
-        "startTime": "2016-05-25T03:58:05.061Z",
-        "endTime": "2016-05-25T03:58:06.702Z",
-        "processId": 8576,
+        "startTime": "2016-05-25T07:03:33.353Z",
+        "endTime": "2016-05-25T07:03:35.019Z",
+        "processId": 38920,
         "fileName": "D:\\src\\SecDevTools\\Main\\bin\\x64\\Debug\\ModernCop\\mod50.exe",
         "workingDirectory": "d:\\src\\sarif-sdk\\src\\Sarif.FunctionalTests\\DirectProducerTestData\\WebSkim"
       }

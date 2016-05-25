@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "runs": [
     {
-      "id": "bacf510e-ae16-477e-b9ba-246e8f56c67a",
+      "id": "f9bbb3bc-05b4-4f47-abe1-3cb8cbaeda94",
       "tool": {
         "name": "ModernCop",
         "fullName": "mod50 7.0.7000.0",
@@ -139,7 +139,11 @@
               "analysisTarget": {
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/Mod50.Test.Unit/ModernCopTestData/Mod50/CompiledPackages/SimpleJSApp.appxbundle#/SimpleJSApp_1.0.0.1_AnyCPU.appx/default.html",
                 "region": {
-                  "startLine": 1
+                  "startLine": 23,
+                  "startColumn": 5,
+                  "endColumn": 30,
+                  "offset": 936,
+                  "length": 25
                 }
               }
             }
@@ -224,22 +228,124 @@
           ]
         },
         {
-          "ruleKey": "JS3047.ProvideExplicitSemicolons",
+          "ruleKey": "JS3092.DeclarePropertiesBeforeUse",
           "level": "error",
           "formattedRuleMessage": {
-            "formatId": "Error"
+            "formatId": "Error",
+            "arguments": [
+              "Object.prototype",
+              "createGrouped"
+            ]
           },
           "locations": [
             {
               "analysisTarget": {
-                "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/Mod50.Test.Unit/ModernCopTestData/Mod50/CompiledPackages/SimpleJSApp.appxbundle#/SimpleJSApp_1.0.0.1_AnyCPU.appx/pages/hub/hub.js",
+                "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/Mod50.Test.Unit/ModernCopTestData/Mod50/CompiledPackages/SimpleJSApp.appxbundle#/SimpleJSApp_1.0.0.1_AnyCPU.appx/pages/section/section.js",
                 "region": {
-                  "startLine": 1
+                  "startLine": 18,
+                  "startColumn": 41,
+                  "offset": 577
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleKey": "JS3092.DeclarePropertiesBeforeUse",
+          "level": "error",
+          "formattedRuleMessage": {
+            "formatId": "Error",
+            "arguments": [
+              "Object.prototype",
+              "dispose"
+            ]
+          },
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/Mod50.Test.Unit/ModernCopTestData/Mod50/CompiledPackages/SimpleJSApp.appxbundle#/SimpleJSApp_1.0.0.1_AnyCPU.appx/pages/section/section.js",
+                "region": {
+                  "startLine": 36,
+                  "startColumn": 26,
+                  "offset": 1368
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleKey": "JS2074.IdentifierNameIsMisspelled",
+          "level": "error",
+          "formattedRuleMessage": {
+            "formatId": "Error",
+            "arguments": [
+              "args",
+              "parameter",
+              "args"
+            ]
+          },
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/Mod50.Test.Unit/ModernCopTestData/Mod50/CompiledPackages/SimpleJSApp.appxbundle#/SimpleJSApp_1.0.0.1_AnyCPU.appx/pages/section/section.js",
+                "region": {
+                  "startLine": 46,
+                  "startColumn": 23,
+                  "endLine": 49,
+                  "endColumn": 10,
+                  "offset": 1668,
+                  "length": 198
                 }
               }
             }
           ],
-          "snippet": "hub.onloadingstatechanged = function (args) {\r\n                if (args.srcElement === hub.element && args.detail.loadingState === \"complete\") {\r\n                    hub.onloadingstatechanged = null;\r\n                    hub.element.focus();\r\n                }\r\n            }"
+          "snippet": "function (args) {\r\n            var item = this._items.getAt(args.detail.itemIndex);\r\n            WinJS.Navigation.navigate(\"/pages/item/item.html\", { item: Data.getItemReference(item) });\r\n        }"
+        },
+        {
+          "ruleKey": "JS3092.DeclarePropertiesBeforeUse",
+          "level": "error",
+          "formattedRuleMessage": {
+            "formatId": "Error",
+            "arguments": [
+              "Object.prototype",
+              "getAt"
+            ]
+          },
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/Mod50.Test.Unit/ModernCopTestData/Mod50/CompiledPackages/SimpleJSApp.appxbundle#/SimpleJSApp_1.0.0.1_AnyCPU.appx/pages/section/section.js",
+                "region": {
+                  "startLine": 47,
+                  "startColumn": 37,
+                  "offset": 1723
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleKey": "JS3057.AvoidImplicitTypeCoercion",
+          "level": "error",
+          "formattedRuleMessage": {
+            "formatId": "Error",
+            "arguments": [
+              "string",
+              "Object"
+            ]
+          },
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/Mod50.Test.Unit/ModernCopTestData/Mod50/CompiledPackages/SimpleJSApp.appxbundle#/SimpleJSApp_1.0.0.1_AnyCPU.appx/pages/section/section.js",
+                "region": {
+                  "startLine": 48,
+                  "startColumn": 40,
+                  "offset": 1792
+                }
+              }
+            }
+          ]
         },
         {
           "ruleKey": "JS2074.IdentifierNameIsMisspelled",
@@ -367,6 +473,29 @@
             }
           ],
           "snippet": "function (args) {\r\n                args.detail.section.onheaderinvoked(args);\r\n            }"
+        },
+        {
+          "ruleKey": "JS3047.ProvideExplicitSemicolons",
+          "level": "error",
+          "formattedRuleMessage": {
+            "formatId": "Error"
+          },
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/Mod50.Test.Unit/ModernCopTestData/Mod50/CompiledPackages/SimpleJSApp.appxbundle#/SimpleJSApp_1.0.0.1_AnyCPU.appx/pages/hub/hub.js",
+                "region": {
+                  "startLine": 24,
+                  "startColumn": 13,
+                  "endLine": 29,
+                  "endColumn": 14,
+                  "offset": 908,
+                  "length": 275
+                }
+              }
+            }
+          ],
+          "snippet": "hub.onloadingstatechanged = function (args) {\r\n                if (args.srcElement === hub.element && args.detail.loadingState === \"complete\") {\r\n                    hub.onloadingstatechanged = null;\r\n                    hub.element.focus();\r\n                }\r\n            }"
         },
         {
           "ruleKey": "JS2074.IdentifierNameIsMisspelled",
@@ -499,148 +628,6 @@
           ]
         },
         {
-          "ruleKey": "JS3092.DeclarePropertiesBeforeUse",
-          "level": "error",
-          "formattedRuleMessage": {
-            "formatId": "Error",
-            "arguments": [
-              "Object.prototype",
-              "createGrouped"
-            ]
-          },
-          "locations": [
-            {
-              "analysisTarget": {
-                "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/Mod50.Test.Unit/ModernCopTestData/Mod50/CompiledPackages/SimpleJSApp.appxbundle#/SimpleJSApp_1.0.0.1_AnyCPU.appx/pages/section/section.js",
-                "region": {
-                  "startLine": 18,
-                  "startColumn": 41,
-                  "offset": 577
-                }
-              }
-            }
-          ]
-        },
-        {
-          "ruleKey": "JS3092.DeclarePropertiesBeforeUse",
-          "level": "error",
-          "formattedRuleMessage": {
-            "formatId": "Error",
-            "arguments": [
-              "Object.prototype",
-              "dispose"
-            ]
-          },
-          "locations": [
-            {
-              "analysisTarget": {
-                "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/Mod50.Test.Unit/ModernCopTestData/Mod50/CompiledPackages/SimpleJSApp.appxbundle#/SimpleJSApp_1.0.0.1_AnyCPU.appx/pages/section/section.js",
-                "region": {
-                  "startLine": 36,
-                  "startColumn": 26,
-                  "offset": 1368
-                }
-              }
-            }
-          ]
-        },
-        {
-          "ruleKey": "JS2074.IdentifierNameIsMisspelled",
-          "level": "error",
-          "formattedRuleMessage": {
-            "formatId": "Error",
-            "arguments": [
-              "args",
-              "parameter",
-              "args"
-            ]
-          },
-          "locations": [
-            {
-              "analysisTarget": {
-                "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/Mod50.Test.Unit/ModernCopTestData/Mod50/CompiledPackages/SimpleJSApp.appxbundle#/SimpleJSApp_1.0.0.1_AnyCPU.appx/pages/section/section.js",
-                "region": {
-                  "startLine": 46,
-                  "startColumn": 23,
-                  "endLine": 49,
-                  "endColumn": 10,
-                  "offset": 1668,
-                  "length": 198
-                }
-              }
-            }
-          ],
-          "snippet": "function (args) {\r\n            var item = this._items.getAt(args.detail.itemIndex);\r\n            WinJS.Navigation.navigate(\"/pages/item/item.html\", { item: Data.getItemReference(item) });\r\n        }"
-        },
-        {
-          "ruleKey": "JS3092.DeclarePropertiesBeforeUse",
-          "level": "error",
-          "formattedRuleMessage": {
-            "formatId": "Error",
-            "arguments": [
-              "Object.prototype",
-              "getAt"
-            ]
-          },
-          "locations": [
-            {
-              "analysisTarget": {
-                "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/Mod50.Test.Unit/ModernCopTestData/Mod50/CompiledPackages/SimpleJSApp.appxbundle#/SimpleJSApp_1.0.0.1_AnyCPU.appx/pages/section/section.js",
-                "region": {
-                  "startLine": 47,
-                  "startColumn": 37,
-                  "offset": 1723
-                }
-              }
-            }
-          ]
-        },
-        {
-          "ruleKey": "JS3057.AvoidImplicitTypeCoercion",
-          "level": "error",
-          "formattedRuleMessage": {
-            "formatId": "Error",
-            "arguments": [
-              "string",
-              "Object"
-            ]
-          },
-          "locations": [
-            {
-              "analysisTarget": {
-                "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/Mod50.Test.Unit/ModernCopTestData/Mod50/CompiledPackages/SimpleJSApp.appxbundle#/SimpleJSApp_1.0.0.1_AnyCPU.appx/pages/section/section.js",
-                "region": {
-                  "startLine": 48,
-                  "startColumn": 40,
-                  "offset": 1792
-                }
-              }
-            }
-          ]
-        },
-        {
-          "ruleKey": "JS2001.DoNotUseEval",
-          "level": "error",
-          "formattedRuleMessage": {
-            "formatId": "Error",
-            "arguments": [
-              "window.eval",
-              ""
-            ]
-          },
-          "locations": [
-            {
-              "analysisTarget": {
-                "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/Mod50.Test.Unit/ModernCopTestData/Mod50/CompiledPackages/SimpleJSApp.appxbundle#/SimpleJSApp_1.0.0.1_AnyCPU.appx/js/default.js",
-                "region": {
-                  "startLine": 1
-                }
-              }
-            }
-          ],
-          "snippet": "eval(input)"
-        },
-        {
           "ruleKey": "JS2027.PunctuateCommentsCorrectly",
           "level": "warning",
           "formattedRuleMessage": {
@@ -651,48 +638,16 @@
               "analysisTarget": {
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/Mod50.Test.Unit/ModernCopTestData/Mod50/CompiledPackages/SimpleJSApp.appxbundle#/SimpleJSApp_1.0.0.1_AnyCPU.appx/js/default.js",
                 "region": {
-                  "startLine": 1
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 2,
+                  "endColumn": 49,
+                  "length": 126
                 }
               }
             }
           ],
           "snippet": "// For an introduction to the Hub template, see the following documentation:\r\n// http://go.microsoft.com/fwlink/?LinkID=286574"
-        },
-        {
-          "ruleKey": "JS2045.ReviewEmptyBlocks",
-          "level": "warning",
-          "formattedRuleMessage": {
-            "formatId": "Warning"
-          },
-          "locations": [
-            {
-              "analysisTarget": {
-                "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/Mod50.Test.Unit/ModernCopTestData/Mod50/CompiledPackages/SimpleJSApp.appxbundle#/SimpleJSApp_1.0.0.1_AnyCPU.appx/js/default.js",
-                "region": {
-                  "startLine": 1
-                }
-              }
-            }
-          ],
-          "snippet": "if (args.detail.previousExecutionState !== activation.ApplicationExecutionState.terminated) {\r\n                // TODO: This application has been newly launched. Initialize\r\n                // your application here.\r\n            } else {\r\n                // TODO: This application has been reactivated from suspension.\r\n                // Restore application state here.\r\n            }"
-        },
-        {
-          "ruleKey": "JS3047.ProvideExplicitSemicolons",
-          "level": "error",
-          "formattedRuleMessage": {
-            "formatId": "Error"
-          },
-          "locations": [
-            {
-              "analysisTarget": {
-                "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/Mod50.Test.Unit/ModernCopTestData/Mod50/CompiledPackages/SimpleJSApp.appxbundle#/SimpleJSApp_1.0.0.1_AnyCPU.appx/js/default.js",
-                "region": {
-                  "startLine": 1
-                }
-              }
-            }
-          ],
-          "snippet": "app.insecureFunction(input)"
         },
         {
           "ruleKey": "JS2073.CommentIsMisspelled",
@@ -875,6 +830,29 @@
           "snippet": "function (args) {\r\n        if (args.detail.kind === activation.ActivationKind.launch) {\r\n            if (args.detail.previousExecutionState !== activation.ApplicationExecutionState.terminated) {\r\n                // TODO: This application has been newly launched. Initialize\r\n                // your application here.\r\n            } else {\r\n                // TODO: This application has been reactivated from suspension.\r\n                // Restore application state here.\r\n            }\r\n\r\n            nav.history = app.sessionState.history || {};\r\n            nav.history.current.initialPlaceholder = true;\r\n\r\n            // Optimize the load of the application and while the splash screen is shown, execute high priority scheduled work.\r\n            ui.disableAnimations();\r\n            var p = ui.processAll().then(function () {\r\n                return nav.navigate(nav.location || Application.navigator.home, nav.state);\r\n            }).then(function () {\r\n                return sched.requestDrain(sched.Priority.aboveNormal + 1);\r\n            }).then(function () {\r\n                ui.enableAnimations();\r\n            });\r\n\r\n            args.setPromise(p);\r\n        }\r\n    }"
         },
         {
+          "ruleKey": "JS2045.ReviewEmptyBlocks",
+          "level": "warning",
+          "formattedRuleMessage": {
+            "formatId": "Warning"
+          },
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/Mod50.Test.Unit/ModernCopTestData/Mod50/CompiledPackages/SimpleJSApp.appxbundle#/SimpleJSApp_1.0.0.1_AnyCPU.appx/js/default.js",
+                "region": {
+                  "startLine": 14,
+                  "startColumn": 13,
+                  "endLine": 20,
+                  "endColumn": 14,
+                  "offset": 500,
+                  "length": 385
+                }
+              }
+            }
+          ],
+          "snippet": "if (args.detail.previousExecutionState !== activation.ApplicationExecutionState.terminated) {\r\n                // TODO: This application has been newly launched. Initialize\r\n                // your application here.\r\n            } else {\r\n                // TODO: This application has been reactivated from suspension.\r\n                // Restore application state here.\r\n            }"
+        },
+        {
           "ruleKey": "JS3092.DeclarePropertiesBeforeUse",
           "level": "error",
           "formattedRuleMessage": {
@@ -967,6 +945,28 @@
           ]
         },
         {
+          "ruleKey": "JS3047.ProvideExplicitSemicolons",
+          "level": "error",
+          "formattedRuleMessage": {
+            "formatId": "Error"
+          },
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/Mod50.Test.Unit/ModernCopTestData/Mod50/CompiledPackages/SimpleJSApp.appxbundle#/SimpleJSApp_1.0.0.1_AnyCPU.appx/js/default.js",
+                "region": {
+                  "startLine": 39,
+                  "startColumn": 5,
+                  "endColumn": 32,
+                  "offset": 1589,
+                  "length": 27
+                }
+              }
+            }
+          ],
+          "snippet": "app.insecureFunction(input)"
+        },
+        {
           "ruleKey": "JS3092.DeclarePropertiesBeforeUse",
           "level": "error",
           "formattedRuleMessage": {
@@ -1010,6 +1010,32 @@
               }
             }
           ]
+        },
+        {
+          "ruleKey": "JS2001.DoNotUseEval",
+          "level": "error",
+          "formattedRuleMessage": {
+            "formatId": "Error",
+            "arguments": [
+              "window.eval",
+              ""
+            ]
+          },
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/Mod50.Test.Unit/ModernCopTestData/Mod50/CompiledPackages/SimpleJSApp.appxbundle#/SimpleJSApp_1.0.0.1_AnyCPU.appx/js/default.js",
+                "region": {
+                  "startLine": 41,
+                  "startColumn": 9,
+                  "endColumn": 20,
+                  "offset": 1633,
+                  "length": 11
+                }
+              }
+            }
+          ],
+          "snippet": "eval(input)"
         },
         {
           "ruleKey": "JS2074.IdentifierNameIsMisspelled",
@@ -1087,42 +1113,6 @@
             }
           ],
           "snippet": "// TODO: This application is about to be suspended. Save any state\r\n        // that needs to persist across suspensions here. If you need to \r\n        // complete an asynchronous operation before your application is \r\n        // suspended, call args.setPromise()."
-        },
-        {
-          "ruleKey": "JS2023.UseDoubleQuotesForStringLiterals",
-          "level": "warning",
-          "formattedRuleMessage": {
-            "formatId": "Warning"
-          },
-          "locations": [
-            {
-              "analysisTarget": {
-                "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/Mod50.Test.Unit/ModernCopTestData/Mod50/CompiledPackages/SimpleJSApp.appxbundle#/SimpleJSApp_1.0.0.1_AnyCPU.appx/js/navigator.js",
-                "region": {
-                  "startLine": 1
-                }
-              }
-            }
-          ],
-          "snippet": "'navigated'"
-        },
-        {
-          "ruleKey": "JS2023.UseDoubleQuotesForStringLiterals",
-          "level": "warning",
-          "formattedRuleMessage": {
-            "formatId": "Warning"
-          },
-          "locations": [
-            {
-              "analysisTarget": {
-                "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/Mod50.Test.Unit/ModernCopTestData/Mod50/CompiledPackages/SimpleJSApp.appxbundle#/SimpleJSApp_1.0.0.1_AnyCPU.appx/js/navigator.js",
-                "region": {
-                  "startLine": 1
-                }
-              }
-            }
-          ],
-          "snippet": "'navigating'"
         },
         {
           "ruleKey": "JS2074.IdentifierNameIsMisspelled",
@@ -1221,6 +1211,28 @@
           ]
         },
         {
+          "ruleKey": "JS2023.UseDoubleQuotesForStringLiterals",
+          "level": "warning",
+          "formattedRuleMessage": {
+            "formatId": "Warning"
+          },
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/Mod50.Test.Unit/ModernCopTestData/Mod50/CompiledPackages/SimpleJSApp.appxbundle#/SimpleJSApp_1.0.0.1_AnyCPU.appx/js/navigator.js",
+                "region": {
+                  "startLine": 25,
+                  "startColumn": 48,
+                  "endColumn": 60,
+                  "offset": 971,
+                  "length": 12
+                }
+              }
+            }
+          ],
+          "snippet": "'navigating'"
+        },
+        {
           "ruleKey": "JS3092.DeclarePropertiesBeforeUse",
           "level": "error",
           "formattedRuleMessage": {
@@ -1242,6 +1254,28 @@
               }
             }
           ]
+        },
+        {
+          "ruleKey": "JS2023.UseDoubleQuotesForStringLiterals",
+          "level": "warning",
+          "formattedRuleMessage": {
+            "formatId": "Warning"
+          },
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/Mod50.Test.Unit/ModernCopTestData/Mod50/CompiledPackages/SimpleJSApp.appxbundle#/SimpleJSApp_1.0.0.1_AnyCPU.appx/js/navigator.js",
+                "region": {
+                  "startLine": 26,
+                  "startColumn": 48,
+                  "endColumn": 59,
+                  "offset": 1070,
+                  "length": 11
+                }
+              }
+            }
+          ],
+          "snippet": "'navigated'"
         },
         {
           "ruleKey": "JS3092.DeclarePropertiesBeforeUse",
@@ -2019,13 +2053,13 @@
           "parentKey": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/Mod50.Test.Unit/ModernCopTestData/Mod50/CompiledPackages/SimpleJSApp.appxbundle#/SimpleJSApp_1.0.0.1_AnyCPU.appx",
           "mimeType": "text/html"
         },
-        "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/Mod50.Test.Unit/ModernCopTestData/Mod50/CompiledPackages/SimpleJSApp.appxbundle#/SimpleJSApp_1.0.0.1_AnyCPU.appx/pages/hub/hub.js": {
-          "uri": "/pages/hub/hub.js",
+        "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/Mod50.Test.Unit/ModernCopTestData/Mod50/CompiledPackages/SimpleJSApp.appxbundle#/SimpleJSApp_1.0.0.1_AnyCPU.appx/pages/section/section.js": {
+          "uri": "/pages/section/section.js",
           "parentKey": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/Mod50.Test.Unit/ModernCopTestData/Mod50/CompiledPackages/SimpleJSApp.appxbundle#/SimpleJSApp_1.0.0.1_AnyCPU.appx",
           "mimeType": "text/javascript"
         },
-        "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/Mod50.Test.Unit/ModernCopTestData/Mod50/CompiledPackages/SimpleJSApp.appxbundle#/SimpleJSApp_1.0.0.1_AnyCPU.appx/pages/section/section.js": {
-          "uri": "/pages/section/section.js",
+        "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/Mod50.Test.Unit/ModernCopTestData/Mod50/CompiledPackages/SimpleJSApp.appxbundle#/SimpleJSApp_1.0.0.1_AnyCPU.appx/pages/hub/hub.js": {
+          "uri": "/pages/hub/hub.js",
           "parentKey": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/Mod50.Test.Unit/ModernCopTestData/Mod50/CompiledPackages/SimpleJSApp.appxbundle#/SimpleJSApp_1.0.0.1_AnyCPU.appx",
           "mimeType": "text/javascript"
         },
@@ -2079,15 +2113,15 @@
             "tags": ["html","sdl"]
           }
         },
-        "JS3047.ProvideExplicitSemicolons": {
-          "id": "JS3047",
-          "name": "ProvideExplicitSemicolons",
-          "shortDescription": "Provide explicit semicolons.",
+        "JS3092.DeclarePropertiesBeforeUse": {
+          "id": "JS3092",
+          "name": "DeclarePropertiesBeforeUse",
+          "shortDescription": "Declare properties before accessing them.",
           "messageFormats": {
-            "Error": "Provide an explicit semicolon."
+            "Error": "'{0}' does not contain a definition for '{1}'. Declare this property explicitly before using it."
           },
           "properties": {
-            "tags": ["js"]
+            "tags": ["js","semantic"]
           }
         },
         "JS2074.IdentifierNameIsMisspelled": {
@@ -2101,12 +2135,12 @@
             "tags": ["spelling","js"]
           }
         },
-        "JS3092.DeclarePropertiesBeforeUse": {
-          "id": "JS3092",
-          "name": "DeclarePropertiesBeforeUse",
-          "shortDescription": "Declare properties before accessing them.",
+        "JS3057.AvoidImplicitTypeCoercion": {
+          "id": "JS3057",
+          "name": "AvoidImplicitTypeCoercion",
+          "shortDescription": "Avoid calls that result in implicit type coercion.",
           "messageFormats": {
-            "Error": "'{0}' does not contain a definition for '{1}'. Declare this property explicitly before using it."
+            "Error": "Call results in an implicit conversion of type '{0}' to '{1}'."
           },
           "properties": {
             "tags": ["js","semantic"]
@@ -2123,26 +2157,15 @@
             "tags": ["js","semantic"]
           }
         },
-        "JS3057.AvoidImplicitTypeCoercion": {
-          "id": "JS3057",
-          "name": "AvoidImplicitTypeCoercion",
-          "shortDescription": "Avoid calls that result in implicit type coercion.",
+        "JS3047.ProvideExplicitSemicolons": {
+          "id": "JS3047",
+          "name": "ProvideExplicitSemicolons",
+          "shortDescription": "Provide explicit semicolons.",
           "messageFormats": {
-            "Error": "Call results in an implicit conversion of type '{0}' to '{1}'."
+            "Error": "Provide an explicit semicolon."
           },
           "properties": {
-            "tags": ["js","semantic"]
-          }
-        },
-        "JS2001.DoNotUseEval": {
-          "id": "JS2001",
-          "name": "DoNotUseEval",
-          "shortDescription": "Do not use the 'eval' function or its functional equivalents.",
-          "messageFormats": {
-            "Error": "Do not use the 'eval' function or its functional equivalents, which obscure code function, complicate tooling, and are a source of non-performant and insecure code patterns. This violation occurred due to use of '{0}' detected in source. {1}"
-          },
-          "properties": {
-            "tags": ["js","sdl"]
+            "tags": ["js"]
           }
         },
         "JS2027.PunctuateCommentsCorrectly": {
@@ -2156,23 +2179,12 @@
             "tags": ["js"]
           }
         },
-        "JS2045.ReviewEmptyBlocks": {
-          "id": "JS2045",
-          "name": "ReviewEmptyBlocks",
-          "shortDescription": "Review empty blocks for correctness issues.",
-          "messageFormats": {
-            "Warning": "Review empty blocks for correctness issues."
-          },
-          "properties": {
-            "tags": ["js"]
-          }
-        },
         "JS2073.CommentIsMisspelled": {
           "id": "JS2073",
           "name": "CommentIsMisspelled",
           "shortDescription": "Review text for possible misspelling.",
           "messageFormats": {
-            "Error": "The term '{0}' found in comment text is not recognized. Correct the misspelling, if it is one, provide an alternate term, or add the term to the custom dictionary or as an in-source comment. If this is a reference to a DOM or other api which can’t be recased, wrap the term in apostrophes to resolve the warning, e.g., 'onmouseover'."
+            "Error": "The term '{0}' found in comment text '{1}' is not recognized. Correct the misspelling, if it is one, provide an alternate term, or add the term to the custom dictionary or as an in-source comment. If this is a reference to a DOM or other api which can’t be recased, wrap the term in apostrophes to resolve the warning, e.g., 'onmouseover'."
           },
           "properties": {
             "tags": ["spelling","js"]
@@ -2187,6 +2199,28 @@
           },
           "properties": {
             "tags": ["js","semantic"]
+          }
+        },
+        "JS2045.ReviewEmptyBlocks": {
+          "id": "JS2045",
+          "name": "ReviewEmptyBlocks",
+          "shortDescription": "Review empty blocks for correctness issues.",
+          "messageFormats": {
+            "Warning": "Review empty blocks for correctness issues."
+          },
+          "properties": {
+            "tags": ["js"]
+          }
+        },
+        "JS2001.DoNotUseEval": {
+          "id": "JS2001",
+          "name": "DoNotUseEval",
+          "shortDescription": "Do not use the 'eval' function or its functional equivalents.",
+          "messageFormats": {
+            "Error": "Do not use the 'eval' function or its functional equivalents, which obscure code function, complicate tooling, and are a source of non-performant and insecure code patterns. This violation occurred due to use of '{0}' detected in source. {1}"
+          },
+          "properties": {
+            "tags": ["js","sdl"]
           }
         },
         "JS2023.UseDoubleQuotesForStringLiterals": {
@@ -2214,9 +2248,9 @@
       },
       "invocation": {
         "commandLine": "D:\\src\\SecDevTools\\Main\\bin\\x64\\Debug\\ModernCop\\mod50.exe  analyze /appx d:\\src\\SecDevTools\\Main\\src\\ModernCop\\Source\\Mod50.Test.Unit\\ModernCopTestData\\Mod50\\CompiledPackages\\SimpleJSApp.appxbundle /out .\\SimpleBundleDoubleNesting.sarif",
-        "startTime": "2016-05-25T03:58:07.036Z",
-        "endTime": "2016-05-25T03:58:08.884Z",
-        "processId": 25024,
+        "startTime": "2016-05-25T07:03:35.339Z",
+        "endTime": "2016-05-25T07:03:37.234Z",
+        "processId": 17804,
         "fileName": "D:\\src\\SecDevTools\\Main\\bin\\x64\\Debug\\ModernCop\\mod50.exe",
         "workingDirectory": "d:\\src\\sarif-sdk\\src\\Sarif.FunctionalTests\\DirectProducerTestData\\WebSkim"
       }

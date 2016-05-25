@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "runs": [
     {
-      "id": "e439c923-2ffa-417e-9f53-237ac9a6559a",
+      "id": "463efa7c-3612-459c-910b-5e2f0b5a2857",
       "tool": {
         "name": "ModernCop",
         "fullName": "mod50 7.0.7000.0",
@@ -67,9 +67,9 @@
       },
       "invocation": {
         "commandLine": "D:\\src\\SecDevTools\\Main\\bin\\x64\\Debug\\ModernCop\\mod50.exe  analyze /appx d:\\src\\SecDevTools\\Main\\src\\ModernCop\\Source\\Mod50.Test.Unit\\ModernCopTestData\\Mod50\\CompiledPackages\\FoodAndDrink_4.0.35.0_x86.appxbundle /out .\\LocalizedBundleDoubleNesting.sarif",
-        "startTime": "2016-05-25T03:58:09.196Z",
-        "endTime": "2016-05-25T03:58:15.617Z",
-        "processId": 37304,
+        "startTime": "2016-05-25T07:03:37.539Z",
+        "endTime": "2016-05-25T07:03:44.154Z",
+        "processId": 1808,
         "fileName": "D:\\src\\SecDevTools\\Main\\bin\\x64\\Debug\\ModernCop\\mod50.exe",
         "workingDirectory": "d:\\src\\sarif-sdk\\src\\Sarif.FunctionalTests\\DirectProducerTestData\\WebSkim"
       }
