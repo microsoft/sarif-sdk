@@ -846,10 +846,15 @@
           "$ref": "#/definitions/invocation"
         },
 
-        "analysisTargetUri": {
+        "defaultAnalysisTargetUri": {
           "description": "The URI of the file that the analysis tool was instructed to scan. This member is only populated if the run is directed against a single analysis target.",
           "type": "string",
-          "format":  "uri"
+          "format": "uri"
+        },
+        
+        "defaultAnalysisTargetUriBaseId": {
+          "description": "A string that identifies the conceptual base for the 'defaultAnalysisTargetUri' property (if it is relative), e.g.,'$(SolutionDir)' or '%SRCROOT%'.",
+          "type": "string"
         },
 
         "files": {
