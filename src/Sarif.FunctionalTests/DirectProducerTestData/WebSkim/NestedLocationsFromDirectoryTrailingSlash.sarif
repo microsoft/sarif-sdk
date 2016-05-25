@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "runs": [
     {
-      "id": "b3112a2b-7465-4597-89bb-029de6f513f3",
+      "id": "5efb14b8-5fb7-40dd-8030-fe262e88866b",
       "tool": {
         "name": "ModernCop",
         "fullName": "mod50 7.0.7000.0",
@@ -45,7 +45,10 @@
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
                 "region": {
                   "startLine": 1,
-                  "startColumn": 8
+                  "startColumn": 10,
+                  "endColumn": 12,
+                  "offset": 9,
+                  "length": 2
                 }
               }
             }
@@ -68,7 +71,8 @@
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
                 "region": {
                   "startLine": 1,
-                  "startColumn": 16
+                  "startColumn": 18,
+                  "offset": 17
                 }
               }
             }
@@ -79,7 +83,8 @@
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
                 "region": {
                   "startLine": 1,
-                  "startColumn": 4
+                  "startColumn": 6,
+                  "offset": 5
                 }
               },
               "message": "The previous declaration was here."
@@ -98,7 +103,10 @@
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
                 "region": {
                   "startLine": 1,
-                  "startColumn": 20
+                  "startColumn": 22,
+                  "endColumn": 24,
+                  "offset": 21,
+                  "length": 2
                 }
               }
             }
@@ -121,7 +129,8 @@
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
                 "region": {
                   "startLine": 1,
-                  "startColumn": 28
+                  "startColumn": 30,
+                  "offset": 29
                 }
               }
             }
@@ -132,7 +141,8 @@
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
                 "region": {
                   "startLine": 1,
-                  "startColumn": 16
+                  "startColumn": 18,
+                  "offset": 17
                 }
               },
               "message": "The previous declaration was here."
@@ -151,7 +161,10 @@
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
                 "region": {
                   "startLine": 1,
-                  "startColumn": 32
+                  "startColumn": 34,
+                  "endColumn": 36,
+                  "offset": 33,
+                  "length": 2
                 }
               }
             }
@@ -174,7 +187,8 @@
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
                 "region": {
                   "startLine": 1,
-                  "startColumn": 40
+                  "startColumn": 42,
+                  "offset": 41
                 }
               }
             }
@@ -185,7 +199,8 @@
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
                 "region": {
                   "startLine": 1,
-                  "startColumn": 28
+                  "startColumn": 30,
+                  "offset": 29
                 }
               },
               "message": "The previous declaration was here."
@@ -204,7 +219,10 @@
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
                 "region": {
                   "startLine": 1,
-                  "startColumn": 44
+                  "startColumn": 46,
+                  "endColumn": 48,
+                  "offset": 45,
+                  "length": 2
                 }
               }
             }
@@ -227,7 +245,8 @@
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
                 "region": {
                   "startLine": 1,
-                  "startColumn": 52
+                  "startColumn": 54,
+                  "offset": 53
                 }
               }
             }
@@ -238,7 +257,8 @@
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
                 "region": {
                   "startLine": 1,
-                  "startColumn": 40
+                  "startColumn": 42,
+                  "offset": 41
                 }
               },
               "message": "The previous declaration was here."
@@ -257,7 +277,10 @@
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
                 "region": {
                   "startLine": 1,
-                  "startColumn": 56
+                  "startColumn": 58,
+                  "endColumn": 60,
+                  "offset": 57,
+                  "length": 2
                 }
               }
             }
@@ -280,7 +303,8 @@
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
                 "region": {
                   "startLine": 1,
-                  "startColumn": 64
+                  "startColumn": 66,
+                  "offset": 65
                 }
               }
             }
@@ -291,7 +315,8 @@
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
                 "region": {
                   "startLine": 1,
-                  "startColumn": 52
+                  "startColumn": 54,
+                  "offset": 53
                 }
               },
               "message": "The previous declaration was here."
@@ -310,7 +335,10 @@
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
                 "region": {
                   "startLine": 1,
-                  "startColumn": 68
+                  "startColumn": 70,
+                  "endColumn": 72,
+                  "offset": 69,
+                  "length": 2
                 }
               }
             }
@@ -333,7 +361,8 @@
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
                 "region": {
                   "startLine": 1,
-                  "startColumn": 76
+                  "startColumn": 78,
+                  "offset": 77
                 }
               }
             }
@@ -344,7 +373,8 @@
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
                 "region": {
                   "startLine": 1,
-                  "startColumn": 64
+                  "startColumn": 66,
+                  "offset": 65
                 }
               },
               "message": "The previous declaration was here."
@@ -363,7 +393,10 @@
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
                 "region": {
                   "startLine": 1,
-                  "startColumn": 80
+                  "startColumn": 82,
+                  "endColumn": 84,
+                  "offset": 81,
+                  "length": 2
                 }
               }
             }
@@ -386,7 +419,8 @@
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
                 "region": {
                   "startLine": 1,
-                  "startColumn": 88
+                  "startColumn": 90,
+                  "offset": 89
                 }
               }
             }
@@ -397,7 +431,8 @@
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
                 "region": {
                   "startLine": 1,
-                  "startColumn": 76
+                  "startColumn": 78,
+                  "offset": 77
                 }
               },
               "message": "The previous declaration was here."
@@ -416,7 +451,10 @@
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
                 "region": {
                   "startLine": 1,
-                  "startColumn": 92
+                  "startColumn": 94,
+                  "endColumn": 96,
+                  "offset": 93,
+                  "length": 2
                 }
               }
             }
@@ -439,7 +477,8 @@
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
                 "region": {
                   "startLine": 1,
-                  "startColumn": 100
+                  "startColumn": 102,
+                  "offset": 101
                 }
               }
             }
@@ -450,7 +489,8 @@
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
                 "region": {
                   "startLine": 1,
-                  "startColumn": 88
+                  "startColumn": 90,
+                  "offset": 89
                 }
               },
               "message": "The previous declaration was here."
@@ -469,7 +509,10 @@
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
                 "region": {
                   "startLine": 1,
-                  "startColumn": 104
+                  "startColumn": 106,
+                  "endColumn": 108,
+                  "offset": 105,
+                  "length": 2
                 }
               }
             }
@@ -492,7 +535,8 @@
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
                 "region": {
                   "startLine": 1,
-                  "startColumn": 112
+                  "startColumn": 114,
+                  "offset": 113
                 }
               }
             }
@@ -503,7 +547,8 @@
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
                 "region": {
                   "startLine": 1,
-                  "startColumn": 100
+                  "startColumn": 102,
+                  "offset": 101
                 }
               },
               "message": "The previous declaration was here."
@@ -522,7 +567,10 @@
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
                 "region": {
                   "startLine": 1,
-                  "startColumn": 116
+                  "startColumn": 118,
+                  "endColumn": 120,
+                  "offset": 117,
+                  "length": 2
                 }
               }
             }
@@ -545,7 +593,8 @@
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
                 "region": {
                   "startLine": 1,
-                  "startColumn": 124
+                  "startColumn": 126,
+                  "offset": 125
                 }
               }
             }
@@ -556,7 +605,8 @@
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
                 "region": {
                   "startLine": 1,
-                  "startColumn": 112
+                  "startColumn": 114,
+                  "offset": 113
                 }
               },
               "message": "The previous declaration was here."
@@ -575,7 +625,10 @@
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
                 "region": {
                   "startLine": 1,
-                  "startColumn": 128
+                  "startColumn": 130,
+                  "endColumn": 132,
+                  "offset": 129,
+                  "length": 2
                 }
               }
             }
@@ -598,7 +651,8 @@
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
                 "region": {
                   "startLine": 1,
-                  "startColumn": 136
+                  "startColumn": 138,
+                  "offset": 137
                 }
               }
             }
@@ -609,7 +663,8 @@
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
                 "region": {
                   "startLine": 1,
-                  "startColumn": 124
+                  "startColumn": 126,
+                  "offset": 125
                 }
               },
               "message": "The previous declaration was here."
@@ -628,7 +683,10 @@
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
                 "region": {
                   "startLine": 1,
-                  "startColumn": 140
+                  "startColumn": 142,
+                  "endColumn": 144,
+                  "offset": 141,
+                  "length": 2
                 }
               }
             }
@@ -651,7 +709,8 @@
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
                 "region": {
                   "startLine": 1,
-                  "startColumn": 148
+                  "startColumn": 150,
+                  "offset": 149
                 }
               }
             }
@@ -662,7 +721,8 @@
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
                 "region": {
                   "startLine": 1,
-                  "startColumn": 136
+                  "startColumn": 138,
+                  "offset": 137
                 }
               },
               "message": "The previous declaration was here."
@@ -681,7 +741,10 @@
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
                 "region": {
                   "startLine": 1,
-                  "startColumn": 152
+                  "startColumn": 154,
+                  "endColumn": 156,
+                  "offset": 153,
+                  "length": 2
                 }
               }
             }
@@ -704,7 +767,8 @@
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
                 "region": {
                   "startLine": 1,
-                  "startColumn": 160
+                  "startColumn": 162,
+                  "offset": 161
                 }
               }
             }
@@ -715,7 +779,8 @@
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
                 "region": {
                   "startLine": 1,
-                  "startColumn": 148
+                  "startColumn": 150,
+                  "offset": 149
                 }
               },
               "message": "The previous declaration was here."
@@ -734,7 +799,10 @@
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
                 "region": {
                   "startLine": 1,
-                  "startColumn": 164
+                  "startColumn": 166,
+                  "endColumn": 168,
+                  "offset": 165,
+                  "length": 2
                 }
               }
             }
@@ -757,7 +825,8 @@
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
                 "region": {
                   "startLine": 1,
-                  "startColumn": 172
+                  "startColumn": 174,
+                  "offset": 173
                 }
               }
             }
@@ -768,7 +837,8 @@
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
                 "region": {
                   "startLine": 1,
-                  "startColumn": 160
+                  "startColumn": 162,
+                  "offset": 161
                 }
               },
               "message": "The previous declaration was here."
@@ -787,7 +857,10 @@
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
                 "region": {
                   "startLine": 1,
-                  "startColumn": 176
+                  "startColumn": 178,
+                  "endColumn": 180,
+                  "offset": 177,
+                  "length": 2
                 }
               }
             }
@@ -810,7 +883,8 @@
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
                 "region": {
                   "startLine": 1,
-                  "startColumn": 184
+                  "startColumn": 186,
+                  "offset": 185
                 }
               }
             }
@@ -821,7 +895,8 @@
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
                 "region": {
                   "startLine": 1,
-                  "startColumn": 172
+                  "startColumn": 174,
+                  "offset": 173
                 }
               },
               "message": "The previous declaration was here."
@@ -840,7 +915,10 @@
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
                 "region": {
                   "startLine": 1,
-                  "startColumn": 188
+                  "startColumn": 190,
+                  "endColumn": 192,
+                  "offset": 189,
+                  "length": 2
                 }
               }
             }
@@ -863,7 +941,8 @@
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
                 "region": {
                   "startLine": 1,
-                  "startColumn": 196
+                  "startColumn": 198,
+                  "offset": 197
                 }
               }
             }
@@ -874,7 +953,8 @@
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
                 "region": {
                   "startLine": 1,
-                  "startColumn": 184
+                  "startColumn": 186,
+                  "offset": 185
                 }
               },
               "message": "The previous declaration was here."
@@ -893,7 +973,10 @@
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
                 "region": {
                   "startLine": 1,
-                  "startColumn": 200
+                  "startColumn": 202,
+                  "endColumn": 204,
+                  "offset": 201,
+                  "length": 2
                 }
               }
             }
@@ -916,7 +999,8 @@
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
                 "region": {
                   "startLine": 1,
-                  "startColumn": 208
+                  "startColumn": 210,
+                  "offset": 209
                 }
               }
             }
@@ -927,7 +1011,8 @@
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
                 "region": {
                   "startLine": 1,
-                  "startColumn": 196
+                  "startColumn": 198,
+                  "offset": 197
                 }
               },
               "message": "The previous declaration was here."
@@ -946,7 +1031,10 @@
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
                 "region": {
                   "startLine": 1,
-                  "startColumn": 212
+                  "startColumn": 214,
+                  "endColumn": 216,
+                  "offset": 213,
+                  "length": 2
                 }
               }
             }
@@ -969,7 +1057,8 @@
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
                 "region": {
                   "startLine": 1,
-                  "startColumn": 220
+                  "startColumn": 222,
+                  "offset": 221
                 }
               }
             }
@@ -980,7 +1069,8 @@
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
                 "region": {
                   "startLine": 1,
-                  "startColumn": 208
+                  "startColumn": 210,
+                  "offset": 209
                 }
               },
               "message": "The previous declaration was here."
@@ -999,7 +1089,10 @@
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
                 "region": {
                   "startLine": 1,
-                  "startColumn": 224
+                  "startColumn": 226,
+                  "endColumn": 228,
+                  "offset": 225,
+                  "length": 2
                 }
               }
             }
@@ -1022,7 +1115,8 @@
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
                 "region": {
                   "startLine": 1,
-                  "startColumn": 232
+                  "startColumn": 234,
+                  "offset": 233
                 }
               }
             }
@@ -1033,7 +1127,8 @@
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
                 "region": {
                   "startLine": 1,
-                  "startColumn": 220
+                  "startColumn": 222,
+                  "offset": 221
                 }
               },
               "message": "The previous declaration was here."
@@ -1052,7 +1147,10 @@
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
                 "region": {
                   "startLine": 1,
-                  "startColumn": 236
+                  "startColumn": 238,
+                  "endColumn": 240,
+                  "offset": 237,
+                  "length": 2
                 }
               }
             }
@@ -1075,7 +1173,8 @@
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
                 "region": {
                   "startLine": 1,
-                  "startColumn": 244
+                  "startColumn": 246,
+                  "offset": 245
                 }
               }
             }
@@ -1086,7 +1185,8 @@
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
                 "region": {
                   "startLine": 1,
-                  "startColumn": 232
+                  "startColumn": 234,
+                  "offset": 233
                 }
               },
               "message": "The previous declaration was here."
@@ -1105,7 +1205,10 @@
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
                 "region": {
                   "startLine": 1,
-                  "startColumn": 248
+                  "startColumn": 250,
+                  "endColumn": 252,
+                  "offset": 249,
+                  "length": 2
                 }
               }
             }
@@ -1128,7 +1231,8 @@
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
                 "region": {
                   "startLine": 1,
-                  "startColumn": 256
+                  "startColumn": 258,
+                  "offset": 257
                 }
               }
             }
@@ -1139,7 +1243,8 @@
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
                 "region": {
                   "startLine": 1,
-                  "startColumn": 244
+                  "startColumn": 246,
+                  "offset": 245
                 }
               },
               "message": "The previous declaration was here."
@@ -1158,7 +1263,10 @@
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
                 "region": {
                   "startLine": 1,
-                  "startColumn": 260
+                  "startColumn": 262,
+                  "endColumn": 264,
+                  "offset": 261,
+                  "length": 2
                 }
               }
             }
@@ -1181,7 +1289,8 @@
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
                 "region": {
                   "startLine": 1,
-                  "startColumn": 268
+                  "startColumn": 270,
+                  "offset": 269
                 }
               }
             }
@@ -1192,7 +1301,8 @@
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
                 "region": {
                   "startLine": 1,
-                  "startColumn": 256
+                  "startColumn": 258,
+                  "offset": 257
                 }
               },
               "message": "The previous declaration was here."
@@ -1211,7 +1321,10 @@
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
                 "region": {
                   "startLine": 1,
-                  "startColumn": 272
+                  "startColumn": 274,
+                  "endColumn": 276,
+                  "offset": 273,
+                  "length": 2
                 }
               }
             }
@@ -1234,7 +1347,8 @@
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
                 "region": {
                   "startLine": 1,
-                  "startColumn": 280
+                  "startColumn": 282,
+                  "offset": 281
                 }
               }
             }
@@ -1245,7 +1359,8 @@
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
                 "region": {
                   "startLine": 1,
-                  "startColumn": 268
+                  "startColumn": 270,
+                  "offset": 269
                 }
               },
               "message": "The previous declaration was here."
@@ -1264,7 +1379,10 @@
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
                 "region": {
                   "startLine": 1,
-                  "startColumn": 284
+                  "startColumn": 286,
+                  "endColumn": 288,
+                  "offset": 285,
+                  "length": 2
                 }
               }
             }
@@ -1287,7 +1405,8 @@
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
                 "region": {
                   "startLine": 1,
-                  "startColumn": 292
+                  "startColumn": 294,
+                  "offset": 293
                 }
               }
             }
@@ -1298,7 +1417,8 @@
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
                 "region": {
                   "startLine": 1,
-                  "startColumn": 280
+                  "startColumn": 282,
+                  "offset": 281
                 }
               },
               "message": "The previous declaration was here."
@@ -1317,7 +1437,10 @@
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
                 "region": {
                   "startLine": 1,
-                  "startColumn": 296
+                  "startColumn": 298,
+                  "endColumn": 300,
+                  "offset": 297,
+                  "length": 2
                 }
               }
             }
@@ -1340,7 +1463,8 @@
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
                 "region": {
                   "startLine": 1,
-                  "startColumn": 304
+                  "startColumn": 306,
+                  "offset": 305
                 }
               }
             }
@@ -1351,7 +1475,8 @@
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
                 "region": {
                   "startLine": 1,
-                  "startColumn": 292
+                  "startColumn": 294,
+                  "offset": 293
                 }
               },
               "message": "The previous declaration was here."
@@ -1370,7 +1495,10 @@
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
                 "region": {
                   "startLine": 1,
-                  "startColumn": 308
+                  "startColumn": 310,
+                  "endColumn": 312,
+                  "offset": 309,
+                  "length": 2
                 }
               }
             }
@@ -1393,7 +1521,8 @@
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
                 "region": {
                   "startLine": 1,
-                  "startColumn": 316
+                  "startColumn": 318,
+                  "offset": 317
                 }
               }
             }
@@ -1404,7 +1533,8 @@
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
                 "region": {
                   "startLine": 1,
-                  "startColumn": 304
+                  "startColumn": 306,
+                  "offset": 305
                 }
               },
               "message": "The previous declaration was here."
@@ -1423,7 +1553,10 @@
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
                 "region": {
                   "startLine": 1,
-                  "startColumn": 320
+                  "startColumn": 322,
+                  "endColumn": 324,
+                  "offset": 321,
+                  "length": 2
                 }
               }
             }
@@ -1446,7 +1579,8 @@
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
                 "region": {
                   "startLine": 1,
-                  "startColumn": 328
+                  "startColumn": 330,
+                  "offset": 329
                 }
               }
             }
@@ -1457,7 +1591,8 @@
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
                 "region": {
                   "startLine": 1,
-                  "startColumn": 316
+                  "startColumn": 318,
+                  "offset": 317
                 }
               },
               "message": "The previous declaration was here."
@@ -1476,7 +1611,10 @@
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
                 "region": {
                   "startLine": 1,
-                  "startColumn": 332
+                  "startColumn": 334,
+                  "endColumn": 336,
+                  "offset": 333,
+                  "length": 2
                 }
               }
             }
@@ -1499,7 +1637,8 @@
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
                 "region": {
                   "startLine": 1,
-                  "startColumn": 340
+                  "startColumn": 342,
+                  "offset": 341
                 }
               }
             }
@@ -1510,7 +1649,8 @@
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
                 "region": {
                   "startLine": 1,
-                  "startColumn": 328
+                  "startColumn": 330,
+                  "offset": 329
                 }
               },
               "message": "The previous declaration was here."
@@ -1529,7 +1669,10 @@
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
                 "region": {
                   "startLine": 1,
-                  "startColumn": 344
+                  "startColumn": 346,
+                  "endColumn": 348,
+                  "offset": 345,
+                  "length": 2
                 }
               }
             }
@@ -1552,7 +1695,8 @@
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
                 "region": {
                   "startLine": 1,
-                  "startColumn": 352
+                  "startColumn": 354,
+                  "offset": 353
                 }
               }
             }
@@ -1563,7 +1707,8 @@
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
                 "region": {
                   "startLine": 1,
-                  "startColumn": 340
+                  "startColumn": 342,
+                  "offset": 341
                 }
               },
               "message": "The previous declaration was here."
@@ -1582,7 +1727,10 @@
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
                 "region": {
                   "startLine": 1,
-                  "startColumn": 356
+                  "startColumn": 358,
+                  "endColumn": 360,
+                  "offset": 357,
+                  "length": 2
                 }
               }
             }
@@ -1605,7 +1753,8 @@
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
                 "region": {
                   "startLine": 1,
-                  "startColumn": 364
+                  "startColumn": 366,
+                  "offset": 365
                 }
               }
             }
@@ -1616,7 +1765,8 @@
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
                 "region": {
                   "startLine": 1,
-                  "startColumn": 352
+                  "startColumn": 354,
+                  "offset": 353
                 }
               },
               "message": "The previous declaration was here."
@@ -1635,7 +1785,10 @@
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
                 "region": {
                   "startLine": 1,
-                  "startColumn": 368
+                  "startColumn": 370,
+                  "endColumn": 372,
+                  "offset": 369,
+                  "length": 2
                 }
               }
             }
@@ -1658,7 +1811,8 @@
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
                 "region": {
                   "startLine": 1,
-                  "startColumn": 376
+                  "startColumn": 378,
+                  "offset": 377
                 }
               }
             }
@@ -1669,7 +1823,8 @@
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
                 "region": {
                   "startLine": 1,
-                  "startColumn": 364
+                  "startColumn": 366,
+                  "offset": 365
                 }
               },
               "message": "The previous declaration was here."
@@ -1688,7 +1843,10 @@
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
                 "region": {
                   "startLine": 1,
-                  "startColumn": 380
+                  "startColumn": 382,
+                  "endColumn": 384,
+                  "offset": 381,
+                  "length": 2
                 }
               }
             }
@@ -1711,7 +1869,8 @@
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
                 "region": {
                   "startLine": 1,
-                  "startColumn": 388
+                  "startColumn": 390,
+                  "offset": 389
                 }
               }
             }
@@ -1722,7 +1881,8 @@
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
                 "region": {
                   "startLine": 1,
-                  "startColumn": 376
+                  "startColumn": 378,
+                  "offset": 377
                 }
               },
               "message": "The previous declaration was here."
@@ -1741,7 +1901,10 @@
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
                 "region": {
                   "startLine": 1,
-                  "startColumn": 392
+                  "startColumn": 394,
+                  "endColumn": 396,
+                  "offset": 393,
+                  "length": 2
                 }
               }
             }
@@ -1764,7 +1927,8 @@
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
                 "region": {
                   "startLine": 1,
-                  "startColumn": 400
+                  "startColumn": 402,
+                  "offset": 401
                 }
               }
             }
@@ -1775,7 +1939,8 @@
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
                 "region": {
                   "startLine": 1,
-                  "startColumn": 388
+                  "startColumn": 390,
+                  "offset": 389
                 }
               },
               "message": "The previous declaration was here."
@@ -1794,7 +1959,10 @@
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
                 "region": {
                   "startLine": 1,
-                  "startColumn": 404
+                  "startColumn": 406,
+                  "endColumn": 408,
+                  "offset": 405,
+                  "length": 2
                 }
               }
             }
@@ -1817,7 +1985,8 @@
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
                 "region": {
                   "startLine": 1,
-                  "startColumn": 412
+                  "startColumn": 414,
+                  "offset": 413
                 }
               }
             }
@@ -1828,7 +1997,8 @@
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
                 "region": {
                   "startLine": 1,
-                  "startColumn": 400
+                  "startColumn": 402,
+                  "offset": 401
                 }
               },
               "message": "The previous declaration was here."
@@ -1847,7 +2017,10 @@
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
                 "region": {
                   "startLine": 1,
-                  "startColumn": 416
+                  "startColumn": 418,
+                  "endColumn": 420,
+                  "offset": 417,
+                  "length": 2
                 }
               }
             }
@@ -1870,7 +2043,8 @@
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
                 "region": {
                   "startLine": 1,
-                  "startColumn": 424
+                  "startColumn": 426,
+                  "offset": 425
                 }
               }
             }
@@ -1881,7 +2055,8 @@
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
                 "region": {
                   "startLine": 1,
-                  "startColumn": 412
+                  "startColumn": 414,
+                  "offset": 413
                 }
               },
               "message": "The previous declaration was here."
@@ -1900,7 +2075,10 @@
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
                 "region": {
                   "startLine": 1,
-                  "startColumn": 428
+                  "startColumn": 430,
+                  "endColumn": 432,
+                  "offset": 429,
+                  "length": 2
                 }
               }
             }
@@ -1923,7 +2101,8 @@
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
                 "region": {
                   "startLine": 1,
-                  "startColumn": 436
+                  "startColumn": 438,
+                  "offset": 437
                 }
               }
             }
@@ -1934,7 +2113,8 @@
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
                 "region": {
                   "startLine": 1,
-                  "startColumn": 424
+                  "startColumn": 426,
+                  "offset": 425
                 }
               },
               "message": "The previous declaration was here."
@@ -1953,7 +2133,10 @@
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
                 "region": {
                   "startLine": 1,
-                  "startColumn": 440
+                  "startColumn": 442,
+                  "endColumn": 444,
+                  "offset": 441,
+                  "length": 2
                 }
               }
             }
@@ -1976,7 +2159,8 @@
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
                 "region": {
                   "startLine": 1,
-                  "startColumn": 448
+                  "startColumn": 450,
+                  "offset": 449
                 }
               }
             }
@@ -1987,7 +2171,8 @@
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
                 "region": {
                   "startLine": 1,
-                  "startColumn": 436
+                  "startColumn": 438,
+                  "offset": 437
                 }
               },
               "message": "The previous declaration was here."
@@ -2006,7 +2191,10 @@
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
                 "region": {
                   "startLine": 1,
-                  "startColumn": 452
+                  "startColumn": 454,
+                  "endColumn": 456,
+                  "offset": 453,
+                  "length": 2
                 }
               }
             }
@@ -2029,7 +2217,8 @@
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
                 "region": {
                   "startLine": 1,
-                  "startColumn": 460
+                  "startColumn": 462,
+                  "offset": 461
                 }
               }
             }
@@ -2040,7 +2229,8 @@
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
                 "region": {
                   "startLine": 1,
-                  "startColumn": 448
+                  "startColumn": 450,
+                  "offset": 449
                 }
               },
               "message": "The previous declaration was here."
@@ -2059,7 +2249,10 @@
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
                 "region": {
                   "startLine": 1,
-                  "startColumn": 464
+                  "startColumn": 466,
+                  "endColumn": 468,
+                  "offset": 465,
+                  "length": 2
                 }
               }
             }
@@ -2082,7 +2275,8 @@
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
                 "region": {
                   "startLine": 1,
-                  "startColumn": 472
+                  "startColumn": 474,
+                  "offset": 473
                 }
               }
             }
@@ -2093,7 +2287,8 @@
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
                 "region": {
                   "startLine": 1,
-                  "startColumn": 460
+                  "startColumn": 462,
+                  "offset": 461
                 }
               },
               "message": "The previous declaration was here."
@@ -2112,7 +2307,10 @@
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
                 "region": {
                   "startLine": 1,
-                  "startColumn": 476
+                  "startColumn": 478,
+                  "endColumn": 480,
+                  "offset": 477,
+                  "length": 2
                 }
               }
             }
@@ -2135,7 +2333,8 @@
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
                 "region": {
                   "startLine": 1,
-                  "startColumn": 484
+                  "startColumn": 486,
+                  "offset": 485
                 }
               }
             }
@@ -2146,7 +2345,8 @@
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
                 "region": {
                   "startLine": 1,
-                  "startColumn": 472
+                  "startColumn": 474,
+                  "offset": 473
                 }
               },
               "message": "The previous declaration was here."
@@ -2165,7 +2365,10 @@
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
                 "region": {
                   "startLine": 1,
-                  "startColumn": 488
+                  "startColumn": 490,
+                  "endColumn": 492,
+                  "offset": 489,
+                  "length": 2
                 }
               }
             }
@@ -2188,7 +2391,8 @@
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
                 "region": {
                   "startLine": 1,
-                  "startColumn": 496
+                  "startColumn": 498,
+                  "offset": 497
                 }
               }
             }
@@ -2199,7 +2403,8 @@
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
                 "region": {
                   "startLine": 1,
-                  "startColumn": 484
+                  "startColumn": 486,
+                  "offset": 485
                 }
               },
               "message": "The previous declaration was here."
@@ -2218,7 +2423,10 @@
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
                 "region": {
                   "startLine": 1,
-                  "startColumn": 500
+                  "startColumn": 502,
+                  "endColumn": 504,
+                  "offset": 501,
+                  "length": 2
                 }
               }
             }
@@ -2241,7 +2449,8 @@
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
                 "region": {
                   "startLine": 1,
-                  "startColumn": 508
+                  "startColumn": 510,
+                  "offset": 509
                 }
               }
             }
@@ -2252,7 +2461,8 @@
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
                 "region": {
                   "startLine": 1,
-                  "startColumn": 496
+                  "startColumn": 498,
+                  "offset": 497
                 }
               },
               "message": "The previous declaration was here."
@@ -2271,7 +2481,10 @@
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
                 "region": {
                   "startLine": 1,
-                  "startColumn": 512
+                  "startColumn": 514,
+                  "endColumn": 516,
+                  "offset": 513,
+                  "length": 2
                 }
               }
             }
@@ -2294,7 +2507,8 @@
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
                 "region": {
                   "startLine": 1,
-                  "startColumn": 520
+                  "startColumn": 522,
+                  "offset": 521
                 }
               }
             }
@@ -2305,7 +2519,8 @@
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
                 "region": {
                   "startLine": 1,
-                  "startColumn": 508
+                  "startColumn": 510,
+                  "offset": 509
                 }
               },
               "message": "The previous declaration was here."
@@ -2324,7 +2539,10 @@
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
                 "region": {
                   "startLine": 1,
-                  "startColumn": 524
+                  "startColumn": 526,
+                  "endColumn": 528,
+                  "offset": 525,
+                  "length": 2
                 }
               }
             }
@@ -2347,7 +2565,8 @@
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
                 "region": {
                   "startLine": 1,
-                  "startColumn": 532
+                  "startColumn": 534,
+                  "offset": 533
                 }
               }
             }
@@ -2358,7 +2577,8 @@
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
                 "region": {
                   "startLine": 1,
-                  "startColumn": 520
+                  "startColumn": 522,
+                  "offset": 521
                 }
               },
               "message": "The previous declaration was here."
@@ -2377,7 +2597,10 @@
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
                 "region": {
                   "startLine": 1,
-                  "startColumn": 536
+                  "startColumn": 538,
+                  "endColumn": 540,
+                  "offset": 537,
+                  "length": 2
                 }
               }
             }
@@ -2400,7 +2623,8 @@
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
                 "region": {
                   "startLine": 1,
-                  "startColumn": 544
+                  "startColumn": 546,
+                  "offset": 545
                 }
               }
             }
@@ -2411,7 +2635,8 @@
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
                 "region": {
                   "startLine": 1,
-                  "startColumn": 532
+                  "startColumn": 534,
+                  "offset": 533
                 }
               },
               "message": "The previous declaration was here."
@@ -2430,7 +2655,10 @@
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
                 "region": {
                   "startLine": 1,
-                  "startColumn": 548
+                  "startColumn": 550,
+                  "endColumn": 552,
+                  "offset": 549,
+                  "length": 2
                 }
               }
             }
@@ -2453,7 +2681,8 @@
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
                 "region": {
                   "startLine": 1,
-                  "startColumn": 556
+                  "startColumn": 558,
+                  "offset": 557
                 }
               }
             }
@@ -2464,7 +2693,8 @@
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
                 "region": {
                   "startLine": 1,
-                  "startColumn": 544
+                  "startColumn": 546,
+                  "offset": 545
                 }
               },
               "message": "The previous declaration was here."
@@ -2483,7 +2713,10 @@
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
                 "region": {
                   "startLine": 1,
-                  "startColumn": 560
+                  "startColumn": 562,
+                  "endColumn": 564,
+                  "offset": 561,
+                  "length": 2
                 }
               }
             }
@@ -2506,7 +2739,8 @@
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
                 "region": {
                   "startLine": 1,
-                  "startColumn": 568
+                  "startColumn": 570,
+                  "offset": 569
                 }
               }
             }
@@ -2517,7 +2751,8 @@
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
                 "region": {
                   "startLine": 1,
-                  "startColumn": 556
+                  "startColumn": 558,
+                  "offset": 557
                 }
               },
               "message": "The previous declaration was here."
@@ -2536,7 +2771,10 @@
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
                 "region": {
                   "startLine": 1,
-                  "startColumn": 572
+                  "startColumn": 574,
+                  "endColumn": 576,
+                  "offset": 573,
+                  "length": 2
                 }
               }
             }
@@ -2559,7 +2797,8 @@
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
                 "region": {
                   "startLine": 1,
-                  "startColumn": 580
+                  "startColumn": 582,
+                  "offset": 581
                 }
               }
             }
@@ -2570,7 +2809,8 @@
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
                 "region": {
                   "startLine": 1,
-                  "startColumn": 568
+                  "startColumn": 570,
+                  "offset": 569
                 }
               },
               "message": "The previous declaration was here."
@@ -2589,7 +2829,10 @@
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
                 "region": {
                   "startLine": 1,
-                  "startColumn": 584
+                  "startColumn": 586,
+                  "endColumn": 588,
+                  "offset": 585,
+                  "length": 2
                 }
               }
             }
@@ -2612,7 +2855,8 @@
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
                 "region": {
                   "startLine": 1,
-                  "startColumn": 592
+                  "startColumn": 594,
+                  "offset": 593
                 }
               }
             }
@@ -2623,7 +2867,8 @@
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
                 "region": {
                   "startLine": 1,
-                  "startColumn": 580
+                  "startColumn": 582,
+                  "offset": 581
                 }
               },
               "message": "The previous declaration was here."
@@ -2642,7 +2887,10 @@
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
                 "region": {
                   "startLine": 1,
-                  "startColumn": 596
+                  "startColumn": 598,
+                  "endColumn": 600,
+                  "offset": 597,
+                  "length": 2
                 }
               }
             }
@@ -2665,7 +2913,8 @@
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
                 "region": {
                   "startLine": 1,
-                  "startColumn": 604
+                  "startColumn": 606,
+                  "offset": 605
                 }
               }
             }
@@ -2676,7 +2925,8 @@
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
                 "region": {
                   "startLine": 1,
-                  "startColumn": 592
+                  "startColumn": 594,
+                  "offset": 593
                 }
               },
               "message": "The previous declaration was here."
@@ -2695,7 +2945,10 @@
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
                 "region": {
                   "startLine": 1,
-                  "startColumn": 608
+                  "startColumn": 610,
+                  "endColumn": 612,
+                  "offset": 609,
+                  "length": 2
                 }
               }
             }
@@ -2718,7 +2971,8 @@
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
                 "region": {
                   "startLine": 1,
-                  "startColumn": 616
+                  "startColumn": 618,
+                  "offset": 617
                 }
               }
             }
@@ -2729,7 +2983,8 @@
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
                 "region": {
                   "startLine": 1,
-                  "startColumn": 604
+                  "startColumn": 606,
+                  "offset": 605
                 }
               },
               "message": "The previous declaration was here."
@@ -2748,7 +3003,10 @@
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
                 "region": {
                   "startLine": 1,
-                  "startColumn": 620
+                  "startColumn": 622,
+                  "endColumn": 624,
+                  "offset": 621,
+                  "length": 2
                 }
               }
             }
@@ -2771,7 +3029,8 @@
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
                 "region": {
                   "startLine": 1,
-                  "startColumn": 628
+                  "startColumn": 630,
+                  "offset": 629
                 }
               }
             }
@@ -2782,7 +3041,8 @@
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
                 "region": {
                   "startLine": 1,
-                  "startColumn": 616
+                  "startColumn": 618,
+                  "offset": 617
                 }
               },
               "message": "The previous declaration was here."
@@ -2801,7 +3061,10 @@
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
                 "region": {
                   "startLine": 1,
-                  "startColumn": 632
+                  "startColumn": 634,
+                  "endColumn": 636,
+                  "offset": 633,
+                  "length": 2
                 }
               }
             }
@@ -2824,7 +3087,8 @@
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
                 "region": {
                   "startLine": 1,
-                  "startColumn": 640
+                  "startColumn": 642,
+                  "offset": 641
                 }
               }
             }
@@ -2835,7 +3099,8 @@
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
                 "region": {
                   "startLine": 1,
-                  "startColumn": 628
+                  "startColumn": 630,
+                  "offset": 629
                 }
               },
               "message": "The previous declaration was here."
@@ -2854,7 +3119,10 @@
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
                 "region": {
                   "startLine": 1,
-                  "startColumn": 644
+                  "startColumn": 646,
+                  "endColumn": 648,
+                  "offset": 645,
+                  "length": 2
                 }
               }
             }
@@ -2877,7 +3145,8 @@
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
                 "region": {
                   "startLine": 1,
-                  "startColumn": 652
+                  "startColumn": 654,
+                  "offset": 653
                 }
               }
             }
@@ -2888,7 +3157,8 @@
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
                 "region": {
                   "startLine": 1,
-                  "startColumn": 640
+                  "startColumn": 642,
+                  "offset": 641
                 }
               },
               "message": "The previous declaration was here."
@@ -2907,7 +3177,10 @@
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
                 "region": {
                   "startLine": 1,
-                  "startColumn": 656
+                  "startColumn": 658,
+                  "endColumn": 660,
+                  "offset": 657,
+                  "length": 2
                 }
               }
             }
@@ -2930,7 +3203,8 @@
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
                 "region": {
                   "startLine": 1,
-                  "startColumn": 664
+                  "startColumn": 666,
+                  "offset": 665
                 }
               }
             }
@@ -2941,7 +3215,8 @@
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
                 "region": {
                   "startLine": 1,
-                  "startColumn": 652
+                  "startColumn": 654,
+                  "offset": 653
                 }
               },
               "message": "The previous declaration was here."
@@ -2960,7 +3235,10 @@
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
                 "region": {
                   "startLine": 1,
-                  "startColumn": 668
+                  "startColumn": 670,
+                  "endColumn": 672,
+                  "offset": 669,
+                  "length": 2
                 }
               }
             }
@@ -2983,7 +3261,8 @@
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
                 "region": {
                   "startLine": 1,
-                  "startColumn": 676
+                  "startColumn": 678,
+                  "offset": 677
                 }
               }
             }
@@ -2994,7 +3273,8 @@
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
                 "region": {
                   "startLine": 1,
-                  "startColumn": 664
+                  "startColumn": 666,
+                  "offset": 665
                 }
               },
               "message": "The previous declaration was here."
@@ -3013,7 +3293,10 @@
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
                 "region": {
                   "startLine": 1,
-                  "startColumn": 680
+                  "startColumn": 682,
+                  "endColumn": 684,
+                  "offset": 681,
+                  "length": 2
                 }
               }
             }
@@ -3036,7 +3319,8 @@
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
                 "region": {
                   "startLine": 1,
-                  "startColumn": 688
+                  "startColumn": 690,
+                  "offset": 689
                 }
               }
             }
@@ -3047,7 +3331,8 @@
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
                 "region": {
                   "startLine": 1,
-                  "startColumn": 676
+                  "startColumn": 678,
+                  "offset": 677
                 }
               },
               "message": "The previous declaration was here."
@@ -3066,7 +3351,10 @@
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
                 "region": {
                   "startLine": 1,
-                  "startColumn": 692
+                  "startColumn": 694,
+                  "endColumn": 696,
+                  "offset": 693,
+                  "length": 2
                 }
               }
             }
@@ -3089,7 +3377,8 @@
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
                 "region": {
                   "startLine": 1,
-                  "startColumn": 700
+                  "startColumn": 702,
+                  "offset": 701
                 }
               }
             }
@@ -3100,7 +3389,8 @@
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
                 "region": {
                   "startLine": 1,
-                  "startColumn": 688
+                  "startColumn": 690,
+                  "offset": 689
                 }
               },
               "message": "The previous declaration was here."
@@ -3119,7 +3409,10 @@
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
                 "region": {
                   "startLine": 1,
-                  "startColumn": 704
+                  "startColumn": 706,
+                  "endColumn": 708,
+                  "offset": 705,
+                  "length": 2
                 }
               }
             }
@@ -3142,7 +3435,8 @@
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
                 "region": {
                   "startLine": 1,
-                  "startColumn": 712
+                  "startColumn": 714,
+                  "offset": 713
                 }
               }
             }
@@ -3153,7 +3447,8 @@
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
                 "region": {
                   "startLine": 1,
-                  "startColumn": 700
+                  "startColumn": 702,
+                  "offset": 701
                 }
               },
               "message": "The previous declaration was here."
@@ -3172,7 +3467,10 @@
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
                 "region": {
                   "startLine": 1,
-                  "startColumn": 716
+                  "startColumn": 718,
+                  "endColumn": 720,
+                  "offset": 717,
+                  "length": 2
                 }
               }
             }
@@ -3215,6 +3513,24 @@
           "snippet": "// For an introduction to the Blank template, see the following documentation:\r\n// http://go.microsoft.com/fwlink/?LinkId=232509"
         },
         {
+          "ruleKey": "JS2045.ReviewEmptyBlocks",
+          "level": "warning",
+          "formattedRuleMessage": {
+            "formatId": "Warning"
+          },
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/default.js",
+                "region": {
+                  "startLine": 1
+                }
+              }
+            }
+          ],
+          "snippet": "if (args.detail.previousExecutionState !== activation.ApplicationExecutionState.terminated) {\r\n                // TODO: This application has been newly launched. Initialize\r\n                // your application here.\r\n            } else {\r\n                // TODO: This application has been reactivated from suspension.\r\n                // Restore application state here.\r\n            }"
+        },
+        {
           "ruleKey": "JS2073.CommentIsMisspelled",
           "level": "error",
           "formattedRuleMessage": {
@@ -3230,7 +3546,10 @@
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/default.js",
                 "region": {
                   "startLine": 6,
-                  "startColumn": 5
+                  "startColumn": 7,
+                  "endColumn": 16,
+                  "offset": 173,
+                  "length": 9
                 }
               }
             }
@@ -3253,7 +3572,10 @@
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/default.js",
                 "region": {
                   "startLine": 6,
-                  "startColumn": 19
+                  "startColumn": 21,
+                  "endColumn": 27,
+                  "offset": 187,
+                  "length": 6
                 }
               }
             }
@@ -3277,31 +3599,16 @@
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/default.js",
                 "region": {
                   "startLine": 11,
-                  "startColumn": 21
+                  "startColumn": 23,
+                  "endLine": 22,
+                  "endColumn": 6,
+                  "offset": 339,
+                  "length": 557
                 }
               }
             }
           ],
           "snippet": "function (args) {\r\n        if (args.detail.kind === activation.ActivationKind.launch) {\r\n            if (args.detail.previousExecutionState !== activation.ApplicationExecutionState.terminated) {\r\n                // TODO: This application has been newly launched. Initialize\r\n                // your application here.\r\n            } else {\r\n                // TODO: This application has been reactivated from suspension.\r\n                // Restore application state here.\r\n            }\r\n            args.setPromise(WinJS.UI.processAll());\r\n        }\r\n    }"
-        },
-        {
-          "ruleKey": "JS2045.ReviewEmptyBlocks",
-          "level": "warning",
-          "formattedRuleMessage": {
-            "formatId": "Warning"
-          },
-          "locations": [
-            {
-              "analysisTarget": {
-                "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/default.js",
-                "region": {
-                  "startLine": 13,
-                  "startColumn": 11
-                }
-              }
-            }
-          ],
-          "snippet": "if (args.detail.previousExecutionState !== activation.ApplicationExecutionState.terminated) {\r\n                // TODO: This application has been newly launched. Initialize\r\n                // your application here.\r\n            } else {\r\n                // TODO: This application has been reactivated from suspension.\r\n                // Restore application state here.\r\n            }"
         },
         {
           "ruleKey": "JS2074.IdentifierNameIsMisspelled",
@@ -3320,7 +3627,11 @@
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/default.js",
                 "region": {
                   "startLine": 24,
-                  "startColumn": 22
+                  "startColumn": 24,
+                  "endLine": 31,
+                  "endColumn": 6,
+                  "offset": 924,
+                  "length": 437
                 }
               }
             }
@@ -3343,7 +3654,10 @@
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/default.js",
                 "region": {
                   "startLine": 35,
-                  "startColumn": 326
+                  "startColumn": 328,
+                  "endColumn": 332,
+                  "offset": 1718,
+                  "length": 4
                 }
               }
             }
@@ -3422,6 +3736,17 @@
             "tags": ["js"]
           }
         },
+        "JS2045.ReviewEmptyBlocks": {
+          "id": "JS2045",
+          "name": "ReviewEmptyBlocks",
+          "shortDescription": "Review empty blocks for correctness issues.",
+          "messageFormats": {
+            "Warning": "Review empty blocks for correctness issues."
+          },
+          "properties": {
+            "tags": ["js"]
+          }
+        },
         "JS2073.CommentIsMisspelled": {
           "id": "JS2073",
           "name": "CommentIsMisspelled",
@@ -3443,24 +3768,13 @@
           "properties": {
             "tags": ["spelling","js"]
           }
-        },
-        "JS2045.ReviewEmptyBlocks": {
-          "id": "JS2045",
-          "name": "ReviewEmptyBlocks",
-          "shortDescription": "Review empty blocks for correctness issues.",
-          "messageFormats": {
-            "Warning": "Review empty blocks for correctness issues."
-          },
-          "properties": {
-            "tags": ["js"]
-          }
         }
       },
       "invocation": {
         "commandLine": "D:\\src\\SecDevTools\\Main\\bin\\x64\\Debug\\ModernCop\\mod50.exe  analyze /appx d:\\src\\SecDevTools\\Main\\src\\ModernCop\\Source\\WebRules.Test.Unit\\ModernCopTestData\\WebRules_PackageRules\\MinificationRuleApp /out .\\NestedLocationsFromDirectoryTrailingSlash.sarif",
-        "startTime": "2016-05-24T00:17:52.659Z",
-        "endTime": "2016-05-24T00:17:54.192Z",
-        "processId": 16828,
+        "startTime": "2016-05-25T03:58:05.061Z",
+        "endTime": "2016-05-25T03:58:06.702Z",
+        "processId": 8576,
         "fileName": "D:\\src\\SecDevTools\\Main\\bin\\x64\\Debug\\ModernCop\\mod50.exe",
         "workingDirectory": "d:\\src\\sarif-sdk\\src\\Sarif.FunctionalTests\\DirectProducerTestData\\WebSkim"
       }

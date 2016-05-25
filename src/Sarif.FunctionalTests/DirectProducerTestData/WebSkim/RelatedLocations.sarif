@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "runs": [
     {
-      "id": "eb39c264-99da-445e-8580-cc1badf06730",
+      "id": "bdff4e8b-d391-4dda-9067-476fd5d8d694",
       "tool": {
         "name": "ModernCop",
         "fullName": "mod50 7.0.7000.0",
@@ -30,8 +30,7 @@
               "analysisTarget": {
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_JavaScriptRules/Semantic/VariableDeclaredMultipleTimes.js",
                 "region": {
-                  "startLine": 1,
-                  "startColumn": 44
+                  "startLine": 1
                 }
               }
             }
@@ -54,7 +53,8 @@
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_JavaScriptRules/Semantic/VariableDeclaredMultipleTimes.js",
                 "region": {
                   "startLine": 5,
-                  "startColumn": 9
+                  "startColumn": 10,
+                  "offset": 138
                 }
               }
             }
@@ -65,7 +65,8 @@
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_JavaScriptRules/Semantic/VariableDeclaredMultipleTimes.js",
                 "region": {
                   "startLine": 4,
-                  "startColumn": 9
+                  "startColumn": 10,
+                  "offset": 115
                 }
               },
               "message": "The previous declaration was here."
@@ -132,9 +133,9 @@
       },
       "invocation": {
         "commandLine": "D:\\src\\SecDevTools\\Main\\bin\\x64\\Debug\\ModernCop\\mod50.exe  analyze /file d:\\src\\SecDevTools\\Main\\src\\ModernCop\\Source\\WebRules.Test.Unit\\ModernCopTestData\\WebRules_PackageRules\\..\\WebRules_JavaScriptRules\\Semantic\\VariableDeclaredMultipleTimes.js /out .\\RelatedLocations.sarif",
-        "startTime": "2016-05-24T00:17:47.029Z",
-        "endTime": "2016-05-24T00:17:48.550Z",
-        "processId": 39052,
+        "startTime": "2016-05-25T03:57:59.031Z",
+        "endTime": "2016-05-25T03:58:00.630Z",
+        "processId": 39412,
         "fileName": "D:\\src\\SecDevTools\\Main\\bin\\x64\\Debug\\ModernCop\\mod50.exe",
         "workingDirectory": "d:\\src\\sarif-sdk\\src\\Sarif.FunctionalTests\\DirectProducerTestData\\WebSkim"
       }

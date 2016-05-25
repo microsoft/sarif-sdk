@@ -13,6 +13,11 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         public static string FormatForVisualStudio(this Region region)
         {
+            if (region == null)
+            {
+                return String.Empty;
+            }
+
             if (region.StartLine < 0)
             {
                 throw new NotImplementedException();
@@ -119,11 +124,9 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="newLineIndex"></param>
         public static void Populate(this Region region, NewLineIndex newLineIndex)
         {
-            // TODO: we need charOffset and byteOffset to be expressed as
-            // nullable types in order to differentiate between text
-            // and binary file regions. For text files, we need to populate
-            // startLine, etc. based on document offset. For now, we'll 
-            // assume we're always looking at text files
+            // A call to Populate is an implicit indicator that we are working
+            // with a text region (otherwise the offset and length would be 
+            // sufficient data to constitute the region).
 
             if (region.StartLine == 0)
             {
@@ -132,13 +135,14 @@ namespace Microsoft.CodeAnalysis.Sarif
                 region.StartColumn = offsetInfo.ColumnNumber;
 
                 offsetInfo = newLineIndex.GetOffsetInfoForOffset(region.Offset + region.Length);
-                region.StartLine = offsetInfo.LineNumber;
+                region.EndLine = offsetInfo.LineNumber;
                 region.EndColumn = offsetInfo.ColumnNumber;
             }
             else
             {
                 // Make endColumn and endLine explicit, if not expressed
                 if (region.EndLine == 0) { region.EndLine = region.StartLine; }
+                if (region.StartColumn == 0) { region.StartColumn = 1; }
                 if (region.EndColumn == 0) { region.EndColumn = region.StartColumn; }
 
                 LineInfo lineInfo = newLineIndex.GetLineInfoForLine(region.StartLine);
