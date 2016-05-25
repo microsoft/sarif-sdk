@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "runs": [
     {
-      "id": "f9bbb3bc-05b4-4f47-abe1-3cb8cbaeda94",
+      "id": "78943481-fcda-4689-bc12-d979665cd183",
       "tool": {
         "name": "ModernCop",
         "fullName": "mod50 7.0.7000.0",
@@ -20,7 +20,7 @@
           "ruleKey": "M1001.AvoidDangerousCapabilities",
           "level": "error",
           "formattedRuleMessage": {
-            "formatId": "Error",
+            "formatId": "Default",
             "arguments": [
               "enterpriseAuthentication"
             ]
@@ -40,7 +40,7 @@
           "ruleKey": "M1001.AvoidDangerousCapabilities",
           "level": "error",
           "formattedRuleMessage": {
-            "formatId": "Error",
+            "formatId": "Default",
             "arguments": [
               "privateNetworkClientServer"
             ]
@@ -60,7 +60,7 @@
           "ruleKey": "M1001.AvoidDangerousCapabilities",
           "level": "error",
           "formattedRuleMessage": {
-            "formatId": "Error",
+            "formatId": "Default",
             "arguments": [
               "sharedUserCertificates"
             ]
@@ -80,7 +80,7 @@
           "ruleKey": "WEB1080.AttributesAreNotOrderedCorrectly",
           "level": "error",
           "formattedRuleMessage": {
-            "formatId": "Error",
+            "formatId": "Default",
             "arguments": [
               "img",
               "data-win-bind",
@@ -106,7 +106,7 @@
           "ruleKey": "WEB1080.AttributesAreNotOrderedCorrectly",
           "level": "error",
           "formattedRuleMessage": {
-            "formatId": "Error",
+            "formatId": "Default",
             "arguments": [
               "img",
               "data-win-bind",
@@ -132,7 +132,7 @@
           "ruleKey": "WEB1088.IframeHasInvalidSandboxAttribute",
           "level": "error",
           "formattedRuleMessage": {
-            "formatId": "Error"
+            "formatId": "Default"
           },
           "locations": [
             {
@@ -153,7 +153,7 @@
           "ruleKey": "WEB1080.AttributesAreNotOrderedCorrectly",
           "level": "error",
           "formattedRuleMessage": {
-            "formatId": "Error",
+            "formatId": "Default",
             "arguments": [
               "img",
               "height",
@@ -179,7 +179,7 @@
           "ruleKey": "WEB1080.AttributesAreNotOrderedCorrectly",
           "level": "error",
           "formattedRuleMessage": {
-            "formatId": "Error",
+            "formatId": "Default",
             "arguments": [
               "div",
               "data-win-options",
@@ -205,7 +205,7 @@
           "ruleKey": "WEB1080.AttributesAreNotOrderedCorrectly",
           "level": "error",
           "formattedRuleMessage": {
-            "formatId": "Error",
+            "formatId": "Default",
             "arguments": [
               "img",
               "data-win-bind",
@@ -231,7 +231,7 @@
           "ruleKey": "JS3092.DeclarePropertiesBeforeUse",
           "level": "error",
           "formattedRuleMessage": {
-            "formatId": "Error",
+            "formatId": "Default",
             "arguments": [
               "Object.prototype",
               "createGrouped"
@@ -254,7 +254,7 @@
           "ruleKey": "JS3092.DeclarePropertiesBeforeUse",
           "level": "error",
           "formattedRuleMessage": {
-            "formatId": "Error",
+            "formatId": "Default",
             "arguments": [
               "Object.prototype",
               "dispose"
@@ -277,7 +277,7 @@
           "ruleKey": "JS2074.IdentifierNameIsMisspelled",
           "level": "error",
           "formattedRuleMessage": {
-            "formatId": "Error",
+            "formatId": "Default",
             "arguments": [
               "args",
               "parameter",
@@ -305,7 +305,7 @@
           "ruleKey": "JS3092.DeclarePropertiesBeforeUse",
           "level": "error",
           "formattedRuleMessage": {
-            "formatId": "Error",
+            "formatId": "Default",
             "arguments": [
               "Object.prototype",
               "getAt"
@@ -328,7 +328,7 @@
           "ruleKey": "JS3057.AvoidImplicitTypeCoercion",
           "level": "error",
           "formattedRuleMessage": {
-            "formatId": "Error",
+            "formatId": "Default",
             "arguments": [
               "string",
               "Object"
@@ -351,7 +351,7 @@
           "ruleKey": "JS2074.IdentifierNameIsMisspelled",
           "level": "error",
           "formattedRuleMessage": {
-            "formatId": "Error",
+            "formatId": "Default",
             "arguments": [
               "nav",
               "variable",
@@ -378,7 +378,7 @@
           "ruleKey": "JS3092.DeclarePropertiesBeforeUse",
           "level": "error",
           "formattedRuleMessage": {
-            "formatId": "Error",
+            "formatId": "Default",
             "arguments": [
               "WinJS.Application",
               "sessionState"
@@ -401,7 +401,7 @@
           "ruleKey": "JS2074.IdentifierNameIsMisspelled",
           "level": "error",
           "formattedRuleMessage": {
-            "formatId": "Error",
+            "formatId": "Default",
             "arguments": [
               "util",
               "variable",
@@ -428,7 +428,7 @@
           "ruleKey": "JS3058.DeclareVariablesBeforeUse",
           "level": "error",
           "formattedRuleMessage": {
-            "formatId": "Error",
+            "formatId": "Default",
             "arguments": [
               "Data"
             ]
@@ -450,7 +450,7 @@
           "ruleKey": "JS2074.IdentifierNameIsMisspelled",
           "level": "error",
           "formattedRuleMessage": {
-            "formatId": "Error",
+            "formatId": "Default",
             "arguments": [
               "args",
               "parameter",
@@ -478,7 +478,7 @@
           "ruleKey": "JS3047.ProvideExplicitSemicolons",
           "level": "error",
           "formattedRuleMessage": {
-            "formatId": "Error"
+            "formatId": "Default"
           },
           "locations": [
             {
@@ -501,7 +501,7 @@
           "ruleKey": "JS2074.IdentifierNameIsMisspelled",
           "level": "error",
           "formattedRuleMessage": {
-            "formatId": "Error",
+            "formatId": "Default",
             "arguments": [
               "args",
               "parameter",
@@ -529,7 +529,7 @@
           "ruleKey": "JS2074.IdentifierNameIsMisspelled",
           "level": "error",
           "formattedRuleMessage": {
-            "formatId": "Error",
+            "formatId": "Default",
             "arguments": [
               "args",
               "parameter",
@@ -557,7 +557,7 @@
           "ruleKey": "JS3057.AvoidImplicitTypeCoercion",
           "level": "error",
           "formattedRuleMessage": {
-            "formatId": "Error",
+            "formatId": "Default",
             "arguments": [
               "string",
               "Object"
@@ -580,7 +580,7 @@
           "ruleKey": "JS2074.IdentifierNameIsMisspelled",
           "level": "error",
           "formattedRuleMessage": {
-            "formatId": "Error",
+            "formatId": "Default",
             "arguments": [
               "args",
               "parameter",
@@ -608,7 +608,7 @@
           "ruleKey": "JS3057.AvoidImplicitTypeCoercion",
           "level": "error",
           "formattedRuleMessage": {
-            "formatId": "Error",
+            "formatId": "Default",
             "arguments": [
               "string",
               "Object"
@@ -631,7 +631,7 @@
           "ruleKey": "JS2027.PunctuateCommentsCorrectly",
           "level": "warning",
           "formattedRuleMessage": {
-            "formatId": "Warning"
+            "formatId": "Default"
           },
           "locations": [
             {
@@ -653,7 +653,7 @@
           "ruleKey": "JS2073.CommentIsMisspelled",
           "level": "error",
           "formattedRuleMessage": {
-            "formatId": "Error",
+            "formatId": "Default",
             "arguments": [
               "microsoft",
               "http://go.microsoft.com/fwlink/?LinkID=286574"
@@ -679,7 +679,7 @@
           "ruleKey": "JS2073.CommentIsMisspelled",
           "level": "error",
           "formattedRuleMessage": {
-            "formatId": "Error",
+            "formatId": "Default",
             "arguments": [
               "fwlink",
               "http://go.microsoft.com/fwlink/?LinkID=286574"
@@ -705,7 +705,7 @@
           "ruleKey": "JS2074.IdentifierNameIsMisspelled",
           "level": "error",
           "formattedRuleMessage": {
-            "formatId": "Error",
+            "formatId": "Default",
             "arguments": [
               "nav",
               "variable",
@@ -732,7 +732,7 @@
           "ruleKey": "JS2074.IdentifierNameIsMisspelled",
           "level": "error",
           "formattedRuleMessage": {
-            "formatId": "Error",
+            "formatId": "Default",
             "arguments": [
               "sched",
               "variable",
@@ -759,7 +759,7 @@
           "ruleKey": "JS3092.DeclarePropertiesBeforeUse",
           "level": "error",
           "formattedRuleMessage": {
-            "formatId": "Error",
+            "formatId": "Default",
             "arguments": [
               "WinJS.Utilities",
               "Scheduler"
@@ -782,7 +782,7 @@
           "ruleKey": "JS3053.IncorrectNumberOfArguments",
           "level": "error",
           "formattedRuleMessage": {
-            "formatId": "Error",
+            "formatId": "Default",
             "arguments": [
               "WinJS.Application.addEventListener",
               "2"
@@ -805,7 +805,7 @@
           "ruleKey": "JS2074.IdentifierNameIsMisspelled",
           "level": "error",
           "formattedRuleMessage": {
-            "formatId": "Error",
+            "formatId": "Default",
             "arguments": [
               "args",
               "parameter",
@@ -833,7 +833,7 @@
           "ruleKey": "JS2045.ReviewEmptyBlocks",
           "level": "warning",
           "formattedRuleMessage": {
-            "formatId": "Warning"
+            "formatId": "Default"
           },
           "locations": [
             {
@@ -856,7 +856,7 @@
           "ruleKey": "JS3092.DeclarePropertiesBeforeUse",
           "level": "error",
           "formattedRuleMessage": {
-            "formatId": "Error",
+            "formatId": "Default",
             "arguments": [
               "WinJS.Application",
               "sessionState"
@@ -879,7 +879,7 @@
           "ruleKey": "JS3092.DeclarePropertiesBeforeUse",
           "level": "error",
           "formattedRuleMessage": {
-            "formatId": "Error",
+            "formatId": "Default",
             "arguments": [
               "Object.prototype",
               "current"
@@ -902,7 +902,7 @@
           "ruleKey": "JS3053.IncorrectNumberOfArguments",
           "level": "error",
           "formattedRuleMessage": {
-            "formatId": "Error",
+            "formatId": "Default",
             "arguments": [
               "WinJS.UI.processAll",
               "0"
@@ -925,7 +925,7 @@
           "ruleKey": "JS3092.DeclarePropertiesBeforeUse",
           "level": "error",
           "formattedRuleMessage": {
-            "formatId": "Error",
+            "formatId": "Default",
             "arguments": [
               "WinJS.Promise",
               "then"
@@ -948,7 +948,7 @@
           "ruleKey": "JS3047.ProvideExplicitSemicolons",
           "level": "error",
           "formattedRuleMessage": {
-            "formatId": "Error"
+            "formatId": "Default"
           },
           "locations": [
             {
@@ -970,7 +970,7 @@
           "ruleKey": "JS3092.DeclarePropertiesBeforeUse",
           "level": "error",
           "formattedRuleMessage": {
-            "formatId": "Error",
+            "formatId": "Default",
             "arguments": [
               "WinJS.Application",
               "insecureFunction"
@@ -993,7 +993,7 @@
           "ruleKey": "JS3058.DeclareVariablesBeforeUse",
           "level": "error",
           "formattedRuleMessage": {
-            "formatId": "Error",
+            "formatId": "Default",
             "arguments": [
               "input"
             ]
@@ -1015,7 +1015,7 @@
           "ruleKey": "JS2001.DoNotUseEval",
           "level": "error",
           "formattedRuleMessage": {
-            "formatId": "Error",
+            "formatId": "Default",
             "arguments": [
               "window.eval",
               ""
@@ -1041,7 +1041,7 @@
           "ruleKey": "JS2074.IdentifierNameIsMisspelled",
           "level": "error",
           "formattedRuleMessage": {
-            "formatId": "Error",
+            "formatId": "Default",
             "arguments": [
               "args",
               "parameter",
@@ -1069,7 +1069,7 @@
           "ruleKey": "JS3092.DeclarePropertiesBeforeUse",
           "level": "error",
           "formattedRuleMessage": {
-            "formatId": "Error",
+            "formatId": "Default",
             "arguments": [
               "WinJS.Application",
               "sessionState"
@@ -1092,7 +1092,7 @@
           "ruleKey": "JS2073.CommentIsMisspelled",
           "level": "error",
           "formattedRuleMessage": {
-            "formatId": "Error",
+            "formatId": "Default",
             "arguments": [
               "args",
               "suspended, call args.setPromise()."
@@ -1118,7 +1118,7 @@
           "ruleKey": "JS2074.IdentifierNameIsMisspelled",
           "level": "error",
           "formattedRuleMessage": {
-            "formatId": "Error",
+            "formatId": "Default",
             "arguments": [
               "nav",
               "variable",
@@ -1145,7 +1145,7 @@
           "ruleKey": "JS3053.IncorrectNumberOfArguments",
           "level": "error",
           "formattedRuleMessage": {
-            "formatId": "Error",
+            "formatId": "Default",
             "arguments": [
               "WinJS.Class.define",
               "2"
@@ -1168,7 +1168,7 @@
           "ruleKey": "JS3092.DeclarePropertiesBeforeUse",
           "level": "error",
           "formattedRuleMessage": {
-            "formatId": "Error",
+            "formatId": "Default",
             "arguments": [
               "<anonymous object>",
               "_createPageElement"
@@ -1191,7 +1191,7 @@
           "ruleKey": "JS3053.IncorrectNumberOfArguments",
           "level": "error",
           "formattedRuleMessage": {
-            "formatId": "Error",
+            "formatId": "Default",
             "arguments": [
               "WinJS.Navigation.removeEventListener",
               "2"
@@ -1214,7 +1214,7 @@
           "ruleKey": "JS2023.UseDoubleQuotesForStringLiterals",
           "level": "warning",
           "formattedRuleMessage": {
-            "formatId": "Warning"
+            "formatId": "Default"
           },
           "locations": [
             {
@@ -1236,7 +1236,7 @@
           "ruleKey": "JS3092.DeclarePropertiesBeforeUse",
           "level": "error",
           "formattedRuleMessage": {
-            "formatId": "Error",
+            "formatId": "Default",
             "arguments": [
               "that",
               "_navigating"
@@ -1259,7 +1259,7 @@
           "ruleKey": "JS2023.UseDoubleQuotesForStringLiterals",
           "level": "warning",
           "formattedRuleMessage": {
-            "formatId": "Warning"
+            "formatId": "Default"
           },
           "locations": [
             {
@@ -1281,7 +1281,7 @@
           "ruleKey": "JS3092.DeclarePropertiesBeforeUse",
           "level": "error",
           "formattedRuleMessage": {
-            "formatId": "Error",
+            "formatId": "Default",
             "arguments": [
               "that",
               "_navigated"
@@ -1304,7 +1304,7 @@
           "ruleKey": "JS3092.DeclarePropertiesBeforeUse",
           "level": "error",
           "formattedRuleMessage": {
-            "formatId": "Error",
+            "formatId": "Default",
             "arguments": [
               "that",
               "_resized"
@@ -1327,7 +1327,7 @@
           "ruleKey": "JS3058.DeclareVariablesBeforeUse",
           "level": "error",
           "formattedRuleMessage": {
-            "formatId": "Error",
+            "formatId": "Default",
             "arguments": [
               "Application"
             ]
@@ -1349,7 +1349,7 @@
           "ruleKey": "JS3092.DeclarePropertiesBeforeUse",
           "level": "error",
           "formattedRuleMessage": {
-            "formatId": "Error",
+            "formatId": "Default",
             "arguments": [
               "WinJS.Promise",
               "as"
@@ -1372,7 +1372,7 @@
           "ruleKey": "JS2074.IdentifierNameIsMisspelled",
           "level": "error",
           "formattedRuleMessage": {
-            "formatId": "Error",
+            "formatId": "Default",
             "arguments": [
               "Viewstate",
               "member",
@@ -1399,7 +1399,7 @@
           "ruleKey": "JS3092.DeclarePropertiesBeforeUse",
           "level": "error",
           "formattedRuleMessage": {
-            "formatId": "Error",
+            "formatId": "Default",
             "arguments": [
               "pageControl",
               "pageElement"
@@ -1422,7 +1422,7 @@
           "ruleKey": "JS3092.DeclarePropertiesBeforeUse",
           "level": "error",
           "formattedRuleMessage": {
-            "formatId": "Error",
+            "formatId": "Default",
             "arguments": [
               "pageControl",
               "pageElement"
@@ -1445,7 +1445,7 @@
           "ruleKey": "JS3092.DeclarePropertiesBeforeUse",
           "level": "error",
           "formattedRuleMessage": {
-            "formatId": "Error",
+            "formatId": "Default",
             "arguments": [
               "pageElement",
               "_element"
@@ -1468,7 +1468,7 @@
           "ruleKey": "JS3092.DeclarePropertiesBeforeUse",
           "level": "error",
           "formattedRuleMessage": {
-            "formatId": "Error",
+            "formatId": "Default",
             "arguments": [
               "<anonymous object>",
               "_disposed"
@@ -1491,7 +1491,7 @@
           "ruleKey": "JS3092.DeclarePropertiesBeforeUse",
           "level": "error",
           "formattedRuleMessage": {
-            "formatId": "Error",
+            "formatId": "Default",
             "arguments": [
               "WinJS.Utilities",
               "disposeSubTree"
@@ -1514,7 +1514,7 @@
           "ruleKey": "JS3092.DeclarePropertiesBeforeUse",
           "level": "error",
           "formattedRuleMessage": {
-            "formatId": "Error",
+            "formatId": "Default",
             "arguments": [
               "<anonymous object>",
               "_eventHandlerRemover"
@@ -1537,7 +1537,7 @@
           "ruleKey": "JS3092.DeclarePropertiesBeforeUse",
           "level": "error",
           "formattedRuleMessage": {
-            "formatId": "Error",
+            "formatId": "Default",
             "arguments": [
               "window",
               "getComputedStyle"
@@ -1560,7 +1560,7 @@
           "ruleKey": "JS3057.AvoidImplicitTypeCoercion",
           "level": "error",
           "formattedRuleMessage": {
-            "formatId": "Error",
+            "formatId": "Default",
             "arguments": [
               "pageControl",
               "boolean"
@@ -1583,7 +1583,7 @@
           "ruleKey": "JS3092.DeclarePropertiesBeforeUse",
           "level": "error",
           "formattedRuleMessage": {
-            "formatId": "Error",
+            "formatId": "Default",
             "arguments": [
               "pageControl",
               "getAnimationElements"
@@ -1606,7 +1606,7 @@
           "ruleKey": "JS3092.DeclarePropertiesBeforeUse",
           "level": "error",
           "formattedRuleMessage": {
-            "formatId": "Error",
+            "formatId": "Default",
             "arguments": [
               "pageControl",
               "getAnimationElements"
@@ -1629,7 +1629,7 @@
           "ruleKey": "JS3092.DeclarePropertiesBeforeUse",
           "level": "error",
           "formattedRuleMessage": {
-            "formatId": "Error",
+            "formatId": "Default",
             "arguments": [
               "pageElement",
               "style"
@@ -1652,7 +1652,7 @@
           "ruleKey": "JS3053.IncorrectNumberOfArguments",
           "level": "error",
           "formattedRuleMessage": {
-            "formatId": "Error",
+            "formatId": "Default",
             "arguments": [
               "WinJS.UI.Animation.enterPage",
               "1"
@@ -1675,7 +1675,7 @@
           "ruleKey": "JS3092.DeclarePropertiesBeforeUse",
           "level": "error",
           "formattedRuleMessage": {
-            "formatId": "Error",
+            "formatId": "Default",
             "arguments": [
               "WinJS.Promise",
               "done"
@@ -1698,7 +1698,7 @@
           "ruleKey": "JS2074.IdentifierNameIsMisspelled",
           "level": "error",
           "formattedRuleMessage": {
-            "formatId": "Error",
+            "formatId": "Default",
             "arguments": [
               "args",
               "parameter",
@@ -1726,7 +1726,7 @@
           "ruleKey": "JS3092.DeclarePropertiesBeforeUse",
           "level": "error",
           "formattedRuleMessage": {
-            "formatId": "Error",
+            "formatId": "Default",
             "arguments": [
               "Object.prototype",
               "appendChild"
@@ -1749,7 +1749,7 @@
           "ruleKey": "JS3092.DeclarePropertiesBeforeUse",
           "level": "error",
           "formattedRuleMessage": {
-            "formatId": "Error",
+            "formatId": "Default",
             "arguments": [
               "WinJS.Promise",
               "as"
@@ -1772,7 +1772,7 @@
           "ruleKey": "JS3053.IncorrectNumberOfArguments",
           "level": "error",
           "formattedRuleMessage": {
-            "formatId": "Error",
+            "formatId": "Default",
             "arguments": [
               "WinJS.UI.Pages.render",
               "3"
@@ -1795,7 +1795,7 @@
           "ruleKey": "JS3092.DeclarePropertiesBeforeUse",
           "level": "error",
           "formattedRuleMessage": {
-            "formatId": "Error",
+            "formatId": "Default",
             "arguments": [
               "that.pageElement",
               "winControl"
@@ -1818,7 +1818,7 @@
           "ruleKey": "JS3092.DeclarePropertiesBeforeUse",
           "level": "error",
           "formattedRuleMessage": {
-            "formatId": "Error",
+            "formatId": "Default",
             "arguments": [
               "that.pageElement",
               "winControl"
@@ -1841,7 +1841,7 @@
           "ruleKey": "JS3092.DeclarePropertiesBeforeUse",
           "level": "error",
           "formattedRuleMessage": {
-            "formatId": "Error",
+            "formatId": "Default",
             "arguments": [
               "that.pageElement",
               "winControl"
@@ -1864,7 +1864,7 @@
           "ruleKey": "JS3092.DeclarePropertiesBeforeUse",
           "level": "error",
           "formattedRuleMessage": {
-            "formatId": "Error",
+            "formatId": "Default",
             "arguments": [
               "that.pageElement",
               "winControl"
@@ -1887,7 +1887,7 @@
           "ruleKey": "JS3092.DeclarePropertiesBeforeUse",
           "level": "error",
           "formattedRuleMessage": {
-            "formatId": "Error",
+            "formatId": "Default",
             "arguments": [
               "that.pageElement",
               "parentNode"
@@ -1910,7 +1910,7 @@
           "ruleKey": "JS2074.IdentifierNameIsMisspelled",
           "level": "error",
           "formattedRuleMessage": {
-            "formatId": "Error",
+            "formatId": "Default",
             "arguments": [
               "args",
               "parameter",
@@ -1938,7 +1938,7 @@
           "ruleKey": "JS3057.AvoidImplicitTypeCoercion",
           "level": "error",
           "formattedRuleMessage": {
-            "formatId": "Error",
+            "formatId": "Default",
             "arguments": [
               "that.pageControl",
               "boolean"
@@ -1961,7 +1961,7 @@
           "ruleKey": "JS3092.DeclarePropertiesBeforeUse",
           "level": "error",
           "formattedRuleMessage": {
-            "formatId": "Error",
+            "formatId": "Default",
             "arguments": [
               "that.pageControl",
               "updateLayout"
@@ -1984,7 +1984,7 @@
           "ruleKey": "JS3092.DeclarePropertiesBeforeUse",
           "level": "error",
           "formattedRuleMessage": {
-            "formatId": "Error",
+            "formatId": "Default",
             "arguments": [
               "that.pageControl",
               "updateLayout"
@@ -2007,7 +2007,7 @@
           "ruleKey": "JS3054.NotAllCodePathsReturnValue",
           "level": "error",
           "formattedRuleMessage": {
-            "formatId": "Error",
+            "formatId": "Default",
             "arguments": []
           },
           "locations": [
@@ -2085,7 +2085,7 @@
           "name": "AvoidDangerousCapabilities",
           "shortDescription": "Avoid use of dangerous application capabilities.",
           "messageFormats": {
-            "Error": "Avoid use of dangerous application capabilities. Capability: {0}"
+            "Default": "Avoid use of dangerous application capabilities. Capability: {0}"
           },
           "properties": {
             "tags": ["appx","sdl"]
@@ -2096,7 +2096,7 @@
           "name": "AttributesAreNotOrderedCorrectly",
           "shortDescription": "The tag attribute values are not ordered correctly.",
           "messageFormats": {
-            "Error": "The <{0}> tag attributes are not ordered as specified on the analysis command-line. This violation was prompted by the '{1}' attribute. As currently configured, attributes should appear in the following order: {2}"
+            "Default": "The <{0}> tag attributes are not ordered as specified on the analysis command-line. This violation was prompted by the '{1}' attribute. As currently configured, attributes should appear in the following order: {2}"
           },
           "properties": {
             "tags": ["html"]
@@ -2107,7 +2107,7 @@
           "name": "IframeHasInvalidSandboxAttribute",
           "shortDescription": "The <Iframe> tag has a missing or invalid sandbox attribute value.",
           "messageFormats": {
-            "Error": "The <iframe>  tag should have a 'sandbox' attribute set with at least one valid option ('allow-forms', 'allow-same-origin', 'allow-scripts', or 'allow-top-navigation'). Setting both 'allow-scripts' and 'allow-same-origin' for a single <iframe> tag is not advised."
+            "Default": "The <iframe>  tag should have a 'sandbox' attribute set with at least one valid option ('allow-forms', 'allow-same-origin', 'allow-scripts', or 'allow-top-navigation'). Setting both 'allow-scripts' and 'allow-same-origin' for a single <iframe> tag is not advised."
           },
           "properties": {
             "tags": ["html","sdl"]
@@ -2118,7 +2118,7 @@
           "name": "DeclarePropertiesBeforeUse",
           "shortDescription": "Declare properties before accessing them.",
           "messageFormats": {
-            "Error": "'{0}' does not contain a definition for '{1}'. Declare this property explicitly before using it."
+            "Default": "'{0}' does not contain a definition for '{1}'. Declare this property explicitly before using it."
           },
           "properties": {
             "tags": ["js","semantic"]
@@ -2129,7 +2129,7 @@
           "name": "IdentifierNameIsMisspelled",
           "shortDescription": "Review identifier name for possible misspelling.",
           "messageFormats": {
-            "Error": "The term '{0}' in {1} name '{2}' is not recognized. Correct the misspelling, if it is one, provide an alternate term, or add the term to the custom dictionary or as an in-source comment."
+            "Default": "The term '{0}' in {1} name '{2}' is not recognized. Correct the misspelling, if it is one, provide an alternate term, or add the term to the custom dictionary or as an in-source comment."
           },
           "properties": {
             "tags": ["spelling","js"]
@@ -2140,7 +2140,7 @@
           "name": "AvoidImplicitTypeCoercion",
           "shortDescription": "Avoid calls that result in implicit type coercion.",
           "messageFormats": {
-            "Error": "Call results in an implicit conversion of type '{0}' to '{1}'."
+            "Default": "Call results in an implicit conversion of type '{0}' to '{1}'."
           },
           "properties": {
             "tags": ["js","semantic"]
@@ -2151,7 +2151,7 @@
           "name": "DeclareVariablesBeforeUse",
           "shortDescription": "Declare variables explicitly before use.",
           "messageFormats": {
-            "Error": "Variable '{0}' undeclared. This error must be resolved before further semantic analysis can be done."
+            "Default": "Variable '{0}' undeclared. This error must be resolved before further semantic analysis can be done."
           },
           "properties": {
             "tags": ["js","semantic"]
@@ -2162,7 +2162,7 @@
           "name": "ProvideExplicitSemicolons",
           "shortDescription": "Provide explicit semicolons.",
           "messageFormats": {
-            "Error": "Provide an explicit semicolon."
+            "Default": "Provide an explicit semicolon."
           },
           "properties": {
             "tags": ["js"]
@@ -2173,7 +2173,7 @@
           "name": "PunctuateCommentsCorrectly",
           "shortDescription": "Provide punctuation at the ends of sentences for multiline comments.",
           "messageFormats": {
-            "Warning": "Provide punctuation at the ends of sentences for multiline comments.  If this block is commented code, use '////' to open the comment line."
+            "Default": "Provide punctuation at the ends of sentences for multiline comments.  If this block is commented code, use '////' to open the comment line."
           },
           "properties": {
             "tags": ["js"]
@@ -2184,7 +2184,7 @@
           "name": "CommentIsMisspelled",
           "shortDescription": "Review text for possible misspelling.",
           "messageFormats": {
-            "Error": "The term '{0}' found in comment text '{1}' is not recognized. Correct the misspelling, if it is one, provide an alternate term, or add the term to the custom dictionary or as an in-source comment. If this is a reference to a DOM or other api which can’t be recased, wrap the term in apostrophes to resolve the warning, e.g., 'onmouseover'."
+            "Default": "The term '{0}' found in comment text '{1}' is not recognized. Correct the misspelling, if it is one, provide an alternate term, or add the term to the custom dictionary or as an in-source comment. If this is a reference to a DOM or other api which can’t be recased, wrap the term in apostrophes to resolve the warning, e.g., 'onmouseover'."
           },
           "properties": {
             "tags": ["spelling","js"]
@@ -2195,7 +2195,7 @@
           "name": "IncorrectNumberOfArguments",
           "shortDescription": "Incorrect number of arguments in function call.",
           "messageFormats": {
-            "Error": "Function '{0}' does not take {1} arguments."
+            "Default": "Function '{0}' does not take {1} arguments."
           },
           "properties": {
             "tags": ["js","semantic"]
@@ -2206,7 +2206,7 @@
           "name": "ReviewEmptyBlocks",
           "shortDescription": "Review empty blocks for correctness issues.",
           "messageFormats": {
-            "Warning": "Review empty blocks for correctness issues."
+            "Default": "Review empty blocks for correctness issues."
           },
           "properties": {
             "tags": ["js"]
@@ -2217,7 +2217,7 @@
           "name": "DoNotUseEval",
           "shortDescription": "Do not use the 'eval' function or its functional equivalents.",
           "messageFormats": {
-            "Error": "Do not use the 'eval' function or its functional equivalents, which obscure code function, complicate tooling, and are a source of non-performant and insecure code patterns. This violation occurred due to use of '{0}' detected in source. {1}"
+            "Default": "Do not use the 'eval' function or its functional equivalents, which obscure code function, complicate tooling, and are a source of non-performant and insecure code patterns. This violation occurred due to use of '{0}' detected in source. {1}"
           },
           "properties": {
             "tags": ["js","sdl"]
@@ -2228,7 +2228,7 @@
           "name": "UseDoubleQuotesForStringLiterals",
           "shortDescription": "Use double quotes where possible to declare string literals.",
           "messageFormats": {
-            "Warning": "Use double quotes where possible to declare string literals. For string literals that represent HTML snippets, encapsulate embedded attribute names using single quotes."
+            "Default": "Use double quotes where possible to declare string literals. For string literals that represent HTML snippets, encapsulate embedded attribute names using single quotes."
           },
           "properties": {
             "tags": ["js"]
@@ -2239,7 +2239,7 @@
           "name": "NotAllCodePathsReturnValue",
           "shortDescription": "Not all code paths return a value.",
           "messageFormats": {
-            "Error": "Not all code paths return a value."
+            "Default": "Not all code paths return a value."
           },
           "properties": {
             "tags": ["js","semantic"]
@@ -2248,9 +2248,9 @@
       },
       "invocation": {
         "commandLine": "D:\\src\\SecDevTools\\Main\\bin\\x64\\Debug\\ModernCop\\mod50.exe  analyze /appx d:\\src\\SecDevTools\\Main\\src\\ModernCop\\Source\\Mod50.Test.Unit\\ModernCopTestData\\Mod50\\CompiledPackages\\SimpleJSApp.appxbundle /out .\\SimpleBundleDoubleNesting.sarif",
-        "startTime": "2016-05-25T07:03:35.339Z",
-        "endTime": "2016-05-25T07:03:37.234Z",
-        "processId": 17804,
+        "startTime": "2016-05-25T07:24:42.673Z",
+        "endTime": "2016-05-25T07:24:44.550Z",
+        "processId": 15316,
         "fileName": "D:\\src\\SecDevTools\\Main\\bin\\x64\\Debug\\ModernCop\\mod50.exe",
         "workingDirectory": "d:\\src\\sarif-sdk\\src\\Sarif.FunctionalTests\\DirectProducerTestData\\WebSkim"
       }
