@@ -155,5 +155,5 @@
     -->
   </PropertyGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <Import Project="Microsoft.Json.Schema.ToDotNet.targets" />
+  <Import Project="ToDotNet\ToDotNet.targets" />
 </Project>
