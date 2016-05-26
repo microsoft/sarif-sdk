@@ -3,4 +3,4 @@
 
 using System.Reflection;
 
-[assembly: AssemblyTitle("Static Analysis Results Interchange Format Library Functional Tests")]
+[assembly: AssemblyTitle("Static Analysis Results Interchange Format Library Validation Tests")]

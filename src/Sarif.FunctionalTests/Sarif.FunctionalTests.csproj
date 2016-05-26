@@ -29,10 +29,6 @@
       <HintPath>..\packages\Newtonsoft.Json.6.0.8\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Microsoft.Json.Schema, Version=0.37.0.0, Culture=neutral, PublicKeyToken=7aebd41ac4801eb9, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.Json.Schema.0.37.0\lib\net45\Microsoft.Json.Schema.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Collections.Immutable, Version=1.1.37.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Collections.Immutable.1.1.37\lib\portable-net45+win8+wp8+wpa81\System.Collections.Immutable.dll</HintPath>
@@ -71,7 +67,6 @@
   <ItemGroup>
     <Compile Include="SarifConverterTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SarifValidatorTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="ConverterTestData\FxCop\FxCopProjectAllMessageStates.fxcop">

@@ -10,6 +10,7 @@ using System.Text;
 using FluentAssertions;
 
 using Microsoft.Json.Schema;
+using Microsoft.Json.Schema.Sarif;
 using Microsoft.Json.Schema.Validation;
 
 using Xunit;
@@ -29,7 +30,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             _jsonSchemaFilePath = Path.Combine(Environment.CurrentDirectory, JsonSchemaFile);
             string schemaText = File.ReadAllText(JsonSchemaFile);
-            _schema = SchemaReader.ReadSchema(schemaText);
+            _schema = SchemaReader.ReadSchema(schemaText, JsonSchemaFile);
         }
 
         [Theory]
@@ -39,7 +40,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             string instanceText = File.ReadAllText(inputFile);
             var validator = new Validator(_schema);
 
-            string[] errors = validator.Validate(instanceText);
+            Result[] errors = validator.Validate(instanceText, inputFile);
 
             // Test errors.Count(), rather than errors.Should().BeEmpty, because the latter
             // produces a less clear error message: it calls ToString on each member of
@@ -56,7 +57,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             string instanceText = File.ReadAllText(inputFile);
             var validator = new Validator(_schema);
 
-            string[] errors = validator.Validate(instanceText);
+            Result[] errors = validator.Validate(instanceText, inputFile);
 
             // Test errors.Count(), rather than errors.Should().BeEmpty, because the latter
             // produces a less clear error message: it calls ToString on each member of
@@ -110,13 +111,13 @@ namespace Microsoft.CodeAnalysis.Sarif
             }
         }
 
-        private string FailureReason(string[] errors)
+        private string FailureReason(Result[] errors)
         {
             var sb = new StringBuilder("file should be valid, but the following errors were found:\n");
 
             foreach (var error in errors)
             {
-                sb.AppendLine(error);
+                sb.AppendLine(error.FormatForVisualStudio(RuleFactory.GetRuleFromRuleId(error.RuleId)));
             }
 
             return sb.ToString();
