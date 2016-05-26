@@ -9,13 +9,15 @@ using System.Windows.Data;
 
 namespace Microsoft.Sarif.Viewer.Converters
 {
-    public class EnumerableToCountConverter : IValueConverter
+    public class CollectionToCountConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {
-            if (value is IList)
+            var collection = value as ICollection;
+
+            if (collection != null)
             {
-                return ((IList)value).Count;
+                return collection.Count;
             }
             else
             {
