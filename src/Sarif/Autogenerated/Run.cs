@@ -44,12 +44,6 @@ namespace Microsoft.CodeAnalysis.Sarif
         public Invocation Invocation { get; set; }
 
         /// <summary>
-        /// The URI of the file that the analysis tool was instructed to scan. This member is only populated if the run is directed against a single analysis target.
-        /// </summary>
-        [DataMember(Name = "analysisTargetUri", IsRequired = false, EmitDefaultValue = false)]
-        public Uri AnalysisTargetUri { get; set; }
-
-        /// <summary>
         /// A dictionary, each of whose keys is a URI and each of whose values is an array of file objects representing the location of a single file scanned during the run.
         /// </summary>
         [DataMember(Name = "files", IsRequired = false, EmitDefaultValue = false)]
@@ -125,9 +119,6 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="invocation">
         /// An initialization value for the <see cref="P: Invocation" /> property.
         /// </param>
-        /// <param name="analysisTargetUri">
-        /// An initialization value for the <see cref="P: AnalysisTargetUri" /> property.
-        /// </param>
         /// <param name="files">
         /// An initialization value for the <see cref="P: Files" /> property.
         /// </param>
@@ -158,9 +149,9 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="architecture">
         /// An initialization value for the <see cref="P: Architecture" /> property.
         /// </param>
-        public Run(Tool tool, Invocation invocation, Uri analysisTargetUri, IDictionary<string, FileData> files, IDictionary<string, LogicalLocation> logicalLocations, IEnumerable<Result> results, IEnumerable<Notification> toolNotifications, IEnumerable<Notification> configurationNotifications, IDictionary<string, Rule> rules, string id, string automationId, string baselineId, string architecture)
+        public Run(Tool tool, Invocation invocation, IDictionary<string, FileData> files, IDictionary<string, LogicalLocation> logicalLocations, IEnumerable<Result> results, IEnumerable<Notification> toolNotifications, IEnumerable<Notification> configurationNotifications, IDictionary<string, Rule> rules, string id, string automationId, string baselineId, string architecture)
         {
-            Init(tool, invocation, analysisTargetUri, files, logicalLocations, results, toolNotifications, configurationNotifications, rules, id, automationId, baselineId, architecture);
+            Init(tool, invocation, files, logicalLocations, results, toolNotifications, configurationNotifications, rules, id, automationId, baselineId, architecture);
         }
 
         /// <summary>
@@ -179,7 +170,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 throw new ArgumentNullException(nameof(other));
             }
 
-            Init(other.Tool, other.Invocation, other.AnalysisTargetUri, other.Files, other.LogicalLocations, other.Results, other.ToolNotifications, other.ConfigurationNotifications, other.Rules, other.Id, other.AutomationId, other.BaselineId, other.Architecture);
+            Init(other.Tool, other.Invocation, other.Files, other.LogicalLocations, other.Results, other.ToolNotifications, other.ConfigurationNotifications, other.Rules, other.Id, other.AutomationId, other.BaselineId, other.Architecture);
         }
 
         ISarifNode ISarifNode.DeepClone()
@@ -200,7 +191,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new Run(this);
         }
 
-        private void Init(Tool tool, Invocation invocation, Uri analysisTargetUri, IDictionary<string, FileData> files, IDictionary<string, LogicalLocation> logicalLocations, IEnumerable<Result> results, IEnumerable<Notification> toolNotifications, IEnumerable<Notification> configurationNotifications, IDictionary<string, Rule> rules, string id, string automationId, string baselineId, string architecture)
+        private void Init(Tool tool, Invocation invocation, IDictionary<string, FileData> files, IDictionary<string, LogicalLocation> logicalLocations, IEnumerable<Result> results, IEnumerable<Notification> toolNotifications, IEnumerable<Notification> configurationNotifications, IDictionary<string, Rule> rules, string id, string automationId, string baselineId, string architecture)
         {
             if (tool != null)
             {
@@ -210,11 +201,6 @@ namespace Microsoft.CodeAnalysis.Sarif
             if (invocation != null)
             {
                 Invocation = new Invocation(invocation);
-            }
-
-            if (analysisTargetUri != null)
-            {
-                AnalysisTargetUri = new Uri(analysisTargetUri.OriginalString, analysisTargetUri.IsAbsoluteUri ? UriKind.Absolute : UriKind.Relative);
             }
 
             if (files != null)
