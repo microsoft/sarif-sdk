@@ -174,6 +174,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 $"file(2-3): error {TestRuleId}: First: 42, Second: 54",
                 "file"
             },
+
+            // Test formatting of an absolute non-file URI
+            new object[]
+            {
+                ResultLevel.Error,
+                MultiLineNoColumnTestRegion,
+                $"http://www.example.com/test.html(2-3): error {TestRuleId}: First: 42, Second: 54",
+                "http://www.example.com/test.html"
+            },
         };
 
         [Theory]
@@ -189,8 +198,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
         private Result MakeResultFromTestCase(ResultLevel level, Region region, string path)
         {
-            UriKind uriKind = Path.IsPathRooted(path) ? UriKind.Absolute : UriKind.Relative;
-
             return new Result
             {
                 RuleId = TestRuleId,
@@ -201,7 +208,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                     {
                         AnalysisTarget = new PhysicalLocation
                         {
-                            Uri = new Uri(path, uriKind),
+                            Uri = new Uri(path, UriKind.RelativeOrAbsolute),
                             Region = region
                         }
                     }
