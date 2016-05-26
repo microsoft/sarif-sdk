@@ -86,7 +86,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             {
                 PhysicalLocation physicalLocation = location.ResultFile ?? location.AnalysisTarget;
                 Uri uri = physicalLocation.Uri;
-                string path = uri.IsFile ? uri.LocalPath : uri.ToString();
+                string path = uri.IsAbsoluteUri && uri.IsFile ? uri.LocalPath : uri.ToString();
                 messageLines.Add(
                     string.Format(
                         CultureInfo.InvariantCulture, "{0}{1}: {2} {3}: {4}",
