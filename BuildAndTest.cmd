@@ -96,6 +96,12 @@ if "%ERRORLEVEL%" NEQ "0" (
 goto ExitFailed
 )
 
+src\packages\xunit.runner.console.2.1.0\tools\xunit.console.x86.exe bld\bin\Sarif.ValidationTests\AnyCPU_Release\Sarif.ValidationTests.dll
+
+if "%ERRORLEVEL%" NEQ "0" (
+goto ExitFailed
+)
+
 goto Exit
 
 :ExitFailed
