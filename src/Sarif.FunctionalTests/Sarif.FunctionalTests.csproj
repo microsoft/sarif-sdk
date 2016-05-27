@@ -719,6 +719,9 @@
     <None Include="DirectProducerTestData\BinSkim\Native_x86_VS2015_Default.exe.sarif">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="DirectProducerTestData\WebSkim\HtmlAttributeAnalysisFixes.sarif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="DirectProducerTestData\WebSkim\LocalizedBundleDoubleNesting.sarif">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
