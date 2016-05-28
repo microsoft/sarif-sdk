@@ -11,7 +11,7 @@ set Configuration=Release
 :NextArg
 if "%1" == "" goto :EndArgs
 if "%1" == "/config" (
-	if not "%2" == "Debug" if not "%2" == "Release" echo error: /config must be either Debug or Release && goto :ExitFailed
+    if not "%2" == "Debug" if not "%2" == "Release" echo error: /config must be either Debug or Release && goto :ExitFailed
     set Configuration=%2&& shift && shift && goto :NextArg
 )
 echo Unrecognized option "%1" && goto :ExitFailed
