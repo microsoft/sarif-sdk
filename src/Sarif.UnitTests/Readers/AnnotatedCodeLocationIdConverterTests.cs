@@ -52,7 +52,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
                 actualValid = true;
             }
             catch (Exception)
-	        {
+            {
             }
 
             actualValid.Should().Be(valid);
