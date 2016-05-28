@@ -58,7 +58,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             if (lineNumber <= 0 || lineNumber > this.MaximumLineNumber)
             {
-                throw new ArgumentOutOfRangeException("lineNumber", lineNumber, SdkResources.LineNumberWasOutOfRange);
+                throw new ArgumentOutOfRangeException(nameof(lineNumber), lineNumber, SdkResources.LineNumberWasOutOfRange);
             }
 
             return new LineInfo(_lineOffsetStarts[lineNumber - 1], lineNumber);

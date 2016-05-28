@@ -13,7 +13,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// An annotation used to express code flows through a method or other locations that are related to a result.
     /// </summary>
     [DataContract]
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.36.0.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.41.0.0")]
     public partial class AnnotatedCodeLocation : PropertyBagHolder, ISarifNode
     {
         public static IEqualityComparer<AnnotatedCodeLocation> ValueComparer => AnnotatedCodeLocationEqualityComparer.Instance;
@@ -36,7 +36,9 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// An identifier for the location, unique within the scope of the code flow within which it occurs.
         /// </summary>
         [DataMember(Name = "id", IsRequired = false, EmitDefaultValue = false)]
-        public string Id { get; set; }
+        [Newtonsoft.Json.JsonConverter(typeof(Microsoft.CodeAnalysis.Sarif.Readers.AnnotatedCodeLocationIdConverter))]
+        [Newtonsoft.Json.JsonProperty("id", DefaultValueHandling = Newtonsoft.Json.DefaultValueHandling.IgnoreAndPopulate)]
+        public int Id { get; set; }
 
         /// <summary>
         /// A file location to which this annotation refers.
@@ -132,7 +134,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="properties">
         /// An initialization value for the <see cref="P: Properties" /> property.
         /// </param>
-        public AnnotatedCodeLocation(string id, PhysicalLocation physicalLocation, string fullyQualifiedLogicalName, string logicalLocationKey, string module, int threadId, string message, AnnotatedCodeLocationKind kind, bool essential, IDictionary<string, SerializedPropertyInfo> properties)
+        public AnnotatedCodeLocation(int id, PhysicalLocation physicalLocation, string fullyQualifiedLogicalName, string logicalLocationKey, string module, int threadId, string message, AnnotatedCodeLocationKind kind, bool essential, IDictionary<string, SerializedPropertyInfo> properties)
         {
             Init(id, physicalLocation, fullyQualifiedLogicalName, logicalLocationKey, module, threadId, message, kind, essential, properties);
         }
@@ -174,7 +176,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new AnnotatedCodeLocation(this);
         }
 
-        private void Init(string id, PhysicalLocation physicalLocation, string fullyQualifiedLogicalName, string logicalLocationKey, string module, int threadId, string message, AnnotatedCodeLocationKind kind, bool essential, IDictionary<string, SerializedPropertyInfo> properties)
+        private void Init(int id, PhysicalLocation physicalLocation, string fullyQualifiedLogicalName, string logicalLocationKey, string module, int threadId, string message, AnnotatedCodeLocationKind kind, bool essential, IDictionary<string, SerializedPropertyInfo> properties)
         {
             Id = id;
             if (physicalLocation != null)
