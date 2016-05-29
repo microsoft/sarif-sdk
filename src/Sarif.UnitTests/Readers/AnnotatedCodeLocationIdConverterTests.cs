@@ -11,37 +11,57 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
     [TestClass]
     public class AnnotatedCodeLocationIdConverterTests: JsonTests
     {
-        private const string InputFormat =
-@"{
-  ""version"": ""1.0.0"",
-  ""runs"": [
-    {
-      ""tool"": {
-        ""name"": ""TestTool""
-      },
-      ""results"": [
+        [TestMethod]
+        public void AnnotatedCodeLocationIdConverter_ConvertsPositiveInteger()
         {
-          ""codeFlows"": [
-            {
-              ""locations"": [
-                {
-                  ""id"": PLACEHOLDER,
-                  ""physicalLocation"": {
-                    ""uri"": ""file://C:/code/a.c""
-                  }
-                }
-              ]
-            }
-          ]
+            RunTestCase(idText: "1", expectedId: 1);
         }
-      ]
-    }
-  ]
-}";
+
+        [TestMethod]
+        public void AnnotatedCodeLocationIdConverter_RejectsZero()
+        {
+            RunTestCase(idText: "0", valid: false);
+        }
+
+        [TestMethod]
+        public void AnnotatedCodeLocationIdConverter_RejectsNegativeInteger()
+        {
+            RunTestCase(idText: "-1", valid: false);
+        }
+
+        [TestMethod]
+        public void AnnotatedCodeLocationIdConverter_ConvertsStringPositiveInteger()
+        {
+            RunTestCase(idText: "\"1\"", expectedId: 1);
+        }
+
+        [TestMethod]
+        public void AnnotatedCodeLocationIdConverter_RejectsStringZero()
+        {
+            RunTestCase(idText: "\"0\"", valid: false);
+        }
+
+        [TestMethod]
+        public void AnnotatedCodeLocationIdConverter_RejectsStringNegativeInteger()
+        {
+            RunTestCase(idText: "\"-1\"", valid: false);
+        }
+
+        [TestMethod]
+        public void AnnotatedCodeLocationIdConverter_RejectsStringPositiveIntegerWithLeadingNonDigits()
+        {
+            RunTestCase(idText: "\"x1\"", valid: false);
+        }
+
+        [TestMethod]
+        public void AnnotatedCodeLocationIdConverter_RejectsStringPositiveIntegerWithTrailingNonDigits()
+        {
+            RunTestCase(idText: "\"1x\"", valid: false);
+        }
 
         private void RunTestCase(string idText, int expectedId = 0, bool valid = true)
         {
-            string input = InputFormat.Replace("PLACEHOLDER", idText);
+            string input = MakeInputString(idText);
 
             SarifLog log = null;
             bool actualValid = false;
@@ -63,52 +83,35 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
             }
         }
 
-        [TestMethod]
-        public void AnnotatedCodeLocationIdConverter_ConvertsPositiveInteger()
+        private static string MakeInputString(string idText)
         {
-            RunTestCase("1", expectedId: 1);
+            return
+@"{
+  ""version"": """ + SarifFormatVersion + @""",
+  ""runs"": [
+    {
+      ""tool"": {
+        ""name"": ""TestTool""
+      },
+      ""results"": [
+        {
+          ""codeFlows"": [
+            {
+              ""locations"": [
+                {
+                  ""id"": " + idText + @",
+                  ""physicalLocation"": {
+                    ""uri"": ""file://C:/code/a.c""
+                  }
+                }
+              ]
+            }
+          ]
         }
-
-        [TestMethod]
-        public void AnnotatedCodeLocationIdConverter_RejectsZero()
-        {
-            RunTestCase("0", valid: false);
-        }
-
-        [TestMethod]
-        public void AnnotatedCodeLocationIdConverter_RejectsNegativeInteger()
-        {
-            RunTestCase("-1", valid: false);
-        }
-
-        [TestMethod]
-        public void AnnotatedCodeLocationIdConverter_ConvertsStringPositiveInteger()
-        {
-            RunTestCase("\"1\"", expectedId: 1);
-        }
-
-        [TestMethod]
-        public void AnnotatedCodeLocationIdConverter_RejectsStringZero()
-        {
-            RunTestCase("\"0\"", valid: false);
-        }
-
-        [TestMethod]
-        public void AnnotatedCodeLocationIdConverter_RejectsStringNegativeInteger()
-        {
-            RunTestCase("\"-1\"", valid: false);
-        }
-
-        [TestMethod]
-        public void AnnotatedCodeLocationIdConverter_RejectsStringPositiveIntegerWithLeadingNonDigits()
-        {
-            RunTestCase("\"x1\"", valid: false);
-        }
-
-        [TestMethod]
-        public void AnnotatedCodeLocationIdConverter_RejectsStringPositiveIntegerWithTrailingNonDigits()
-        {
-            RunTestCase("\"1x\"", valid: false);
+      ]
+    }
+  ]
+}";
         }
     }
 }
