@@ -1,11 +1,12 @@
 // Copyright (c) Microsoft.  All Rights Reserved.
 // Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
-using Microsoft.CodeAnalysis.Sarif.Readers;
 using System;
 using System.CodeDom.Compiler;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
+using Microsoft.CodeAnalysis.Sarif.Readers;
+using Newtonsoft.Json;
 
 namespace Microsoft.CodeAnalysis.Sarif
 {
@@ -13,7 +14,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// An annotation used to express code flows through a method or other locations that are related to a result.
     /// </summary>
     [DataContract]
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.41.0.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.42.0.0")]
     public partial class AnnotatedCodeLocation : PropertyBagHolder, ISarifNode
     {
         public static IEqualityComparer<AnnotatedCodeLocation> ValueComparer => AnnotatedCodeLocationEqualityComparer.Instance;
@@ -36,8 +37,8 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// An identifier for the location, unique within the scope of the code flow within which it occurs.
         /// </summary>
         [DataMember(Name = "id", IsRequired = false, EmitDefaultValue = false)]
-        [Newtonsoft.Json.JsonConverter(typeof(Microsoft.CodeAnalysis.Sarif.Readers.AnnotatedCodeLocationIdConverter))]
-        [Newtonsoft.Json.JsonProperty("id", DefaultValueHandling = Newtonsoft.Json.DefaultValueHandling.IgnoreAndPopulate)]
+        [JsonConverter(typeof(Microsoft.CodeAnalysis.Sarif.Readers.AnnotatedCodeLocationIdConverter))]
+        [JsonProperty("id", DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
         public int Id { get; set; }
 
         /// <summary>

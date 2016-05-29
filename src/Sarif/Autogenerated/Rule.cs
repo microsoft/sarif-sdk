@@ -1,11 +1,11 @@
 // Copyright (c) Microsoft.  All Rights Reserved.
 // Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
-using Microsoft.CodeAnalysis.Sarif.Readers;
 using System;
 using System.CodeDom.Compiler;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
+using Microsoft.CodeAnalysis.Sarif.Readers;
 
 namespace Microsoft.CodeAnalysis.Sarif
 {
@@ -13,7 +13,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// Describes an analysis rule.
     /// </summary>
     [DataContract]
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.41.0.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.42.0.0")]
     public partial class Rule : PropertyBagHolder, IRule, ISarifNode
     {
         public static IEqualityComparer<Rule> ValueComparer => RuleEqualityComparer.Instance;

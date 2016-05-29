@@ -12,8 +12,8 @@
   </PropertyGroup>
   <Import Project="$([MSBuild]::GetDirectoryNameOfFileAbove($(MSBuildThisFileDirectory).., build.props))\build.props" />
   <ItemGroup>
-    <Reference Include="Microsoft.Json.Schema, Version=0.41.0.0, Culture=neutral, PublicKeyToken=7aebd41ac4801eb9, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.Json.Schema.0.41.0\lib\net451\Microsoft.Json.Schema.dll</HintPath>
+    <Reference Include="Microsoft.Json.Schema, Version=0.42.0.0, Culture=neutral, PublicKeyToken=7aebd41ac4801eb9, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Json.Schema.0.42.0\lib\net451\Microsoft.Json.Schema.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">

@@ -13,7 +13,8 @@
     {
       "kind": "AttributeHint",
       "arguments": {
-        "typeName": "Newtonsoft.Json.JsonConverter",
+        "typeName": "JsonConverter",
+        "namespaceName": "Newtonsoft.Json",
         "arguments": [
           "typeof(Microsoft.CodeAnalysis.Sarif.Readers.AnnotatedCodeLocationIdConverter)"
         ]
@@ -22,12 +23,13 @@
     {
       "kind": "AttributeHint",
       "arguments": {
-        "typeName": "Newtonsoft.Json.JsonProperty",
+        "typeName": "JsonProperty",
+        "namespaceName": "Newtonsoft.Json",
         "arguments": [
           "\"id\""
         ],
         "properties": {
-          "DefaultValueHandling": "Newtonsoft.Json.DefaultValueHandling.IgnoreAndPopulate"
+          "DefaultValueHandling": "DefaultValueHandling.IgnoreAndPopulate"
         }
       }
     }
