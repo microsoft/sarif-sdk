@@ -34,7 +34,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         public virtual T GetProperty(PerLanguageOption<T> setting, bool cacheDefault = true)
         {
-            if (setting == null) { throw new ArgumentNullException("setting"); }
+            if (setting == null) { throw new ArgumentNullException(nameof(setting)); }
 
             T value;
             if (!base.TryGetValue(setting.Name, out value) && setting.DefaultValue != null)
@@ -48,7 +48,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         public virtual void SetProperty(IOption setting, T value, bool cacheDescription = false)
         {
-            if (setting == null) { throw new ArgumentNullException("setting"); }
+            if (setting == null) { throw new ArgumentNullException(nameof(setting)); }
 
             if (value == null && this.ContainsKey(setting.Name))
             {

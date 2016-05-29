@@ -29,7 +29,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         {
             if (String.IsNullOrWhiteSpace(localElementName))
             {
-                throw new ArgumentException(ExceptionStrings.XmlElementNameWasUnset, "localElementName");
+                throw new ArgumentException(ExceptionStrings.XmlElementNameWasUnset, nameof(localElementName));
             }
 
             writer.WriteStartElement(String.Empty, localElementName, String.Empty);
@@ -47,12 +47,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         {
             if (writer == null)
             {
-                throw new ArgumentNullException("writer");
+                throw new ArgumentNullException(nameof(writer));
             }
 
             if (String.IsNullOrWhiteSpace(localElementName))
             {
-                throw new ArgumentException(ExceptionStrings.XmlElementNameWasUnset, "localElementName");
+                throw new ArgumentException(ExceptionStrings.XmlElementNameWasUnset, nameof(localElementName));
             }
 
             if (String.IsNullOrWhiteSpace(elementValue))

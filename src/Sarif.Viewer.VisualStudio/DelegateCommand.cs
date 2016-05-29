@@ -53,7 +53,7 @@ namespace Microsoft.Sarif.Viewer
             : base((o) => executeMethod((T)o), (o) => canExecuteMethod((T)o))
         {
             if (executeMethod == null || canExecuteMethod == null)
-                throw new ArgumentNullException("executeMethod", "executeMethod cannot be null");
+                throw new ArgumentNullException(nameof(executeMethod), nameof(executeMethod) + " cannot be null");
 
             TypeInfo genericTypeInfo = typeof(T).GetTypeInfo();
 
@@ -121,7 +121,7 @@ namespace Microsoft.Sarif.Viewer
             : base((o) => executeMethod((T)o), (o) => canExecuteMethod((T)o))
         {
             if (executeMethod == null || canExecuteMethod == null)
-                throw new ArgumentNullException("executeMethod", "executeMethod cannot be null");
+                throw new ArgumentNullException(nameof(executeMethod), nameof(executeMethod) + " cannot be null");
         }
 
     }
@@ -152,7 +152,7 @@ namespace Microsoft.Sarif.Viewer
             : base((o) => executeMethod(), (o) => canExecuteMethod())
         {
             if (executeMethod == null || canExecuteMethod == null)
-                throw new ArgumentNullException("executeMethod", "executeMethod cannot be null");
+                throw new ArgumentNullException(nameof(executeMethod), nameof(executeMethod) + " cannot be null");
         }
 
         /// <summary>
@@ -202,7 +202,7 @@ namespace Microsoft.Sarif.Viewer
             : base((o) => executeMethod(), (o) => canExecuteMethod())
         {
             if (executeMethod == null || canExecuteMethod == null)
-                throw new ArgumentNullException("executeMethod", "executeMethod cannot be null");
+                throw new ArgumentNullException(nameof(executeMethod), nameof(executeMethod) + " cannot be null");
         }
     }
 }

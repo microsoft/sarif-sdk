@@ -982,7 +982,7 @@ namespace Microsoft.Sarif.Viewer
         {
             if (serviceProvider == null)
             {
-                throw new ArgumentNullException("serviceProvider");
+                throw new ArgumentNullException(nameof(serviceProvider));
             }
 
             IVsShell shell = serviceProvider.GetService(typeof(SVsShell)) as IVsShell;

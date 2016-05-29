@@ -82,7 +82,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             if (offset < 0)
             {
-                throw new ArgumentOutOfRangeException("offset", offset, SdkResources.ValueCannotBeNegative);
+                throw new ArgumentOutOfRangeException(nameof(offset), offset, SdkResources.ValueCannotBeNegative);
             }
 
             int startLine = _lineOffsetStarts.BinarySearch(offset);
@@ -107,7 +107,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             if (offset < 0)
             {
-                throw new ArgumentOutOfRangeException("offset", offset, SdkResources.ValueCannotBeNegative);
+                throw new ArgumentOutOfRangeException(nameof(offset), offset, SdkResources.ValueCannotBeNegative);
             }
 
             LineInfo lineInfo = this.GetLineInfoForOffset(offset);

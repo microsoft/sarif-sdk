@@ -40,12 +40,12 @@ namespace Microsoft.Sarif.Viewer
         {
             if (serviceProvider == null)
             {
-                throw new ArgumentNullException("serviceProvider");
+                throw new ArgumentNullException(nameof(serviceProvider));
             }
 
             if (region == null)
             {
-                throw new ArgumentNullException("location");
+                throw new ArgumentNullException(nameof(region));
             }
 
             m_serviceProvider = serviceProvider;

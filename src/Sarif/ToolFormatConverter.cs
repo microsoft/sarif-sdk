@@ -40,12 +40,12 @@ namespace Microsoft.CodeAnalysis.Sarif
                 File.WriteAllText(outputFileName, sarif);
             }
 
-            if (inputFileName == null) { throw new ArgumentNullException("inputFileName"); };
-            if (outputFileName == null) { throw new ArgumentNullException("outputFileName"); };
+            if (inputFileName == null) { throw new ArgumentNullException(nameof(inputFileName)); };
+            if (outputFileName == null) { throw new ArgumentNullException(nameof(outputFileName)); };
 
             if (Directory.Exists(outputFileName))
             {
-                throw new ArgumentException("Specified file output path exists but is a directory.", "outputFileName");
+                throw new ArgumentException("Specified file output path exists but is a directory.", nameof(outputFileName));
             }
 
             if (!conversionOptions.HasFlag(ToolFormatConversionOptions.OverwriteExistingOutputFile) && File.Exists(outputFileName))
@@ -109,8 +109,8 @@ namespace Microsoft.CodeAnalysis.Sarif
                 throw new ArgumentException("Cannot convert PREfast XML from stream. Call ConvertPREfastToStandardFormat helper instead.");
             };
 
-            if (inputStream == null) { throw new ArgumentNullException("inputStream"); };
-            if (outputStream == null) { throw new ArgumentNullException("outputStream"); };
+            if (inputStream == null) { throw new ArgumentNullException(nameof(inputStream)); };
+            if (outputStream == null) { throw new ArgumentNullException(nameof(outputStream)); };
 
             Lazy<IToolFileConverter> converter;
             if (_converters.TryGetValue(toolFormat, out converter))
@@ -119,7 +119,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             }
             else
             {
-                throw new ArgumentException("Unrecognized tool specified: " + toolFormat.ToString(), "toolFormat");
+                throw new ArgumentException("Unrecognized tool specified: " + toolFormat.ToString(), nameof(toolFormat));
             }
         }
 
@@ -152,7 +152,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <returns>The converted PREfast log file in SARIF format.</returns>
         public static string ConvertPREfastToStandardFormat(string inputFileName)
         {
-            if (inputFileName == null) { throw new ArgumentNullException("inputStream"); };
+            if (inputFileName == null) { throw new ArgumentNullException(nameof(inputFileName)); };
 
             return ConvertToSarif(inputFileName);
         }

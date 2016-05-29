@@ -36,12 +36,12 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             if (columnNumber < 0)
             {
-                throw new ArgumentOutOfRangeException("columnNumber", columnNumber, SdkResources.ValueCannotBeNegative);
+                throw new ArgumentOutOfRangeException(nameof(columnNumber), columnNumber, SdkResources.ValueCannotBeNegative);
             }
 
             if (lineNumber <= 0)
             {
-                throw new ArgumentOutOfRangeException("lineNumber", lineNumber, SdkResources.ValueMustBeAtLeastOne);
+                throw new ArgumentOutOfRangeException(nameof(lineNumber), lineNumber, SdkResources.ValueMustBeAtLeastOne);
             }
 
             _columnNumber = columnNumber;
@@ -98,7 +98,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             if (info == null)
             {
-                throw new ArgumentNullException("info");
+                throw new ArgumentNullException(nameof(info));
             }
 
             info.AddValue("ColumnNumber", this.ColumnNumber);

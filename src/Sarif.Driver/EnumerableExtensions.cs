@@ -48,7 +48,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         {
             if (comparer == null)
             {
-                throw new ArgumentNullException("comparer");
+                throw new ArgumentNullException(nameof(comparer));
             }
 
             using (IEnumerator<T> leftEnumerator = leftSequence.GetEnumerator())
@@ -100,7 +100,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
             if (predicate == null)
             {
-                throw new ArgumentNullException("predicate");
+                throw new ArgumentNullException(nameof(predicate));
             }
 
             int newLogicalEnd = 0;
@@ -146,12 +146,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         {
             if (sequence == null)
             {
-                throw new ArgumentNullException("sequence");
+                throw new ArgumentNullException(nameof(sequence));
             }
 
             if (randomNumberGenerator == null)
             {
-                throw new ArgumentNullException("randomNumberGenerator");
+                throw new ArgumentNullException(nameof(randomNumberGenerator));
             }
 
             // A naïve Knuth Fischer Yates shuffle.
