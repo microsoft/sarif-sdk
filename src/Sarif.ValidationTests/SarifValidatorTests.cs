@@ -8,8 +8,10 @@ using System.Linq;
 using System.Text;
 
 using FluentAssertions;
-using Microsoft.CodeAnalysis.Sarif.Driver;
-using Microsoft.CodeAnalysis.Sarif.Validation;
+
+using Microsoft.Json.Schema;
+using Microsoft.Json.Schema.Sarif;
+using Microsoft.Json.Schema.Validation;
 
 using Xunit;
 
@@ -22,38 +24,47 @@ namespace Microsoft.CodeAnalysis.Sarif
         public const string JsonSchemaFile = "Sarif.schema.json";
 
         private readonly string _jsonSchemaFilePath;
+        private readonly JsonSchema _schema;
 
         public SarifValidatorTests()
         {
             _jsonSchemaFilePath = Path.Combine(Environment.CurrentDirectory, JsonSchemaFile);
+            string schemaText = File.ReadAllText(JsonSchemaFile);
+            _schema = SchemaReader.ReadSchema(schemaText, JsonSchemaFile);
         }
 
         [Theory]
         [MemberData(nameof(DirectProducerTestCases))]
         public void Direct_Producer_validation(string inputFile)
         {
-            IEnumerable<JsonError> errors = Validator.ValidateFile(inputFile, JsonSchemaFile);
+            string instanceText = File.ReadAllText(inputFile);
+            var validator = new Validator(_schema);
+
+            Result[] errors = validator.Validate(instanceText, inputFile);
 
             // Test errors.Count(), rather than errors.Should().BeEmpty, because the latter
             // produces a less clear error message: it calls ToString on each member of
             // errors, and appends it to the string returned by FailureReason. Since
             // FailureReason already displayed the error messages in VisualStudio format,
             // there is no reason to append this additional, less well formatted information.
-            errors.Count().Should().Be(0, FailureReason(errors, inputFile));
+            errors.Count().Should().Be(0, FailureReason(errors));
         }
 
         [Theory]
         [MemberData(nameof(ConverterTestCases))]
         public void Converter_validation(string inputFile)
         {
-            IEnumerable<JsonError> errors = Validator.ValidateFile(inputFile, JsonSchemaFile);
+            string instanceText = File.ReadAllText(inputFile);
+            var validator = new Validator(_schema);
+
+            Result[] errors = validator.Validate(instanceText, inputFile);
 
             // Test errors.Count(), rather than errors.Should().BeEmpty, because the latter
             // produces a less clear error message: it calls ToString on each member of
             // errors, and appends it to the string returned by FailureReason. Since
             // FailureReason already displayed the error messages in VisualStudio format,
             // there is no reason to append this additional, less well formatted information.
-            errors.Count().Should().Be(0, FailureReason(errors, inputFile));
+            errors.Count().Should().Be(0, FailureReason(errors));
         }
 
         private static IEnumerable<object[]> s_converterTestCases;
@@ -100,42 +111,16 @@ namespace Microsoft.CodeAnalysis.Sarif
             }
         }
 
-        private string FailureReason(IEnumerable<JsonError> errors, string inputFile)
+        private string FailureReason(Result[] errors)
         {
             var sb = new StringBuilder("file should be valid, but the following errors were found:\n");
 
-            string inputPath = MakeFullPath(inputFile);
-            string outputPath = MakeOutputPath(inputPath);
-
-            using (var logBuilder = new ResultLogBuilder(
-                inputPath,
-                _jsonSchemaFilePath,
-                outputPath,
-                new FileSystem()))
+            foreach (var error in errors)
             {
-                IEnumerable<string> messages = logBuilder.BuildLog(errors);
-                foreach (var message in messages)
-                {
-                    sb.AppendLine(message);
-                }
+                sb.AppendLine(error.FormatForVisualStudio(RuleFactory.GetRuleFromRuleId(error.RuleId)));
             }
 
             return sb.ToString();
-        }
-
-        private static string MakeFullPath(string inputFile)
-        {
-            return Path.Combine(Environment.CurrentDirectory, inputFile);
-        }
-
-        private string MakeOutputPath(string inputPath)
-        {
-            // Give the output files an extension of .json rather than .sarif so that
-            // a subsequent test run (which again will validate all .sarif files in
-            // the test file directory) does not attempt to validate the output files.
-            return Path.Combine(
-                Path.GetDirectoryName(inputPath),
-                Path.GetFileNameWithoutExtension(inputPath)) + ".validation.sarif.json";
         }
     }
 }

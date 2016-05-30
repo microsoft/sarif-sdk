@@ -21,7 +21,8 @@
         <converters:DatabindingDebugConverter x:Key="databindingDebugConverter" />
         <converters:StringToVisibilityConverter x:Key="stringToVisibilityConverter" />
         <converters:Int32ToVisibilityConverter x:Key="int32ToVisibilityConverter" />
-        <converters:EnumerableToCountConverter x:Key="enumerableToCountConverter" />
+        <converters:CollectionToCountConverter x:Key="collectionToCountConverter" />
+        <converters:CollectionToVisiblityConverter x:Key="collectionToVisibilityConverter" />
 
         <!-- Default Styles-->
         <Style TargetType="{x:Type Control}"
@@ -441,33 +442,33 @@
         <!-- These are the tabs which display the result information. -->
         <TabControl Grid.Row="1"
                     SelectedValue="{Binding SelectedTab, Mode=TwoWay}">
-            <TabItem>
+            <TabItem Visibility="{Binding Locations, Converter={StaticResource collectionToVisibilityConverter}}">
                 <TabItem.Header>
                     <TextBlock>
                         <Run Text="Locations (" />
-                        <Run Text="{Binding Locations, Mode=OneWay, Converter={StaticResource enumerableToCountConverter}}" />
+                        <Run Text="{Binding Locations, Mode=OneWay, Converter={StaticResource collectionToCountConverter}}" />
                         <Run Text=")" />
                     </TextBlock>
                 </TabItem.Header>
                 <ContentControl ContentTemplate="{StaticResource CodeLocationCollectionTemplate}"
                                 Content="{Binding Locations}" />
             </TabItem>
-            <TabItem>
+            <TabItem Visibility="{Binding RelatedLocations, Converter={StaticResource collectionToVisibilityConverter}}">
                 <TabItem.Header>
                     <TextBlock>
                         <Run Text="Related Locations (" />
-                        <Run Text="{Binding RelatedLocations, Mode=OneWay, Converter={StaticResource enumerableToCountConverter}}" />
+                        <Run Text="{Binding RelatedLocations, Mode=OneWay, Converter={StaticResource collectionToCountConverter}}" />
                         <Run Text=")" />
                     </TextBlock>
                 </TabItem.Header>
                 <ContentControl ContentTemplate="{StaticResource CodeLocationCollectionTemplate}"
                                 Content="{Binding RelatedLocations}" />
             </TabItem>
-            <TabItem>
+            <TabItem Visibility="{Binding CodeFlows, Converter={StaticResource collectionToVisibilityConverter}}">
                 <TabItem.Header>
                     <TextBlock>
                         <Run Text="Code Flows (" />
-                        <Run Text="{Binding CodeFlows, Mode=OneWay, Converter={StaticResource enumerableToCountConverter}}" />
+                        <Run Text="{Binding CodeFlows, Mode=OneWay, Converter={StaticResource collectionToCountConverter}}" />
                         <Run Text=")" />
                     </TextBlock>
                 </TabItem.Header>
@@ -475,11 +476,11 @@
                 <ContentControl ContentTemplate="{StaticResource AnnotatedCodeLocationCollectionDataGridTemplate}"
                                 Content="{Binding CodeFlows}" />
             </TabItem>
-            <TabItem>
+            <TabItem Visibility="{Binding Stacks, Converter={StaticResource collectionToVisibilityConverter}}">
                 <TabItem.Header>
                     <TextBlock>
                         <Run Text="Stacks (" />
-                        <Run Text="{Binding Stacks, Mode=OneWay, Converter={StaticResource enumerableToCountConverter}}" />
+                        <Run Text="{Binding Stacks, Mode=OneWay, Converter={StaticResource collectionToCountConverter}}" />
                         <Run Text=")" />
                     </TextBlock>
                 </TabItem.Header>
@@ -487,11 +488,11 @@
                 <ListBox ItemsSource="{Binding Stacks}"
                          ItemTemplate="{StaticResource StackCollectionTemplate}" />
             </TabItem>
-            <TabItem>
+            <TabItem Visibility="{Binding Fixes, Converter={StaticResource collectionToVisibilityConverter}}">
                 <TabItem.Header>
                     <TextBlock>
                         <Run Text="Fixes (" />
-                        <Run Text="{Binding Fixes, Mode=OneWay, Converter={StaticResource enumerableToCountConverter}}" />
+                        <Run Text="{Binding Fixes, Mode=OneWay, Converter={StaticResource collectionToCountConverter}}" />
                         <Run Text=")" />
                     </TextBlock>
                 </TabItem.Header>

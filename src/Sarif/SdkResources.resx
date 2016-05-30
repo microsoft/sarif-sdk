@@ -294,4 +294,7 @@
   <data name="PropertyDoesNotExist" xml:space="preserve">
     <value>Property '{0}' does not exist. Consider calling TryGetProperty instead.</value>
   </data>
+  <data name="ResultRuleIdDoesNotMatchRule" xml:space="preserve">
+    <value>The rule id '{0}' specified by the result does not match the actual id of the rule '{1}'</value>
+  </data>
 </root>

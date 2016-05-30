@@ -12,13 +12,20 @@ namespace Microsoft.Sarif.Viewer.Sarif
 {
     static class RunExtensions
     {
-        public static bool TryGetRule(this Run run, string ruleId, out IRule rule)
+        public static bool TryGetRule(this Run run, string ruleId, string ruleKey, out IRule rule)
         {
             rule = null;
 
             if (run != null && run.Rules != null)
             {
-                rule = run.Rules.Values.FirstOrDefault(r => r.Id == ruleId);
+                if (ruleKey != null)
+                {
+                    rule = run.Rules[ruleKey];
+                }
+                else
+                {
+                    rule = run.Rules[ruleId];
+                }
             }
 
             return rule != null;

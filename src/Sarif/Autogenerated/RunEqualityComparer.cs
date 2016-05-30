@@ -10,7 +10,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// <summary>
     /// Defines methods to support the comparison of objects of type Run for equality.
     /// </summary>
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.34.0.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.36.0.0")]
     internal sealed class RunEqualityComparer : IEqualityComparer<Run>
     {
         internal static readonly RunEqualityComparer Instance = new RunEqualityComparer();
@@ -33,11 +33,6 @@ namespace Microsoft.CodeAnalysis.Sarif
             }
 
             if (!Invocation.ValueComparer.Equals(left.Invocation, right.Invocation))
-            {
-                return false;
-            }
-
-            if (left.AnalysisTargetUri != right.AnalysisTargetUri)
             {
                 return false;
             }
@@ -212,11 +207,6 @@ namespace Microsoft.CodeAnalysis.Sarif
                 if (obj.Invocation != null)
                 {
                     result = (result * 31) + obj.Invocation.ValueGetHashCode();
-                }
-
-                if (obj.AnalysisTargetUri != null)
-                {
-                    result = (result * 31) + obj.AnalysisTargetUri.GetHashCode();
                 }
 
                 if (obj.Files != null)

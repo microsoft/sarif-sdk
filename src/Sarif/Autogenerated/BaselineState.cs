@@ -8,7 +8,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// <summary>
     /// The state of a result relative to a baseline of a previous run.
     /// </summary>
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.34.0.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.36.0.0")]
     public enum BaselineState
     {
         None,

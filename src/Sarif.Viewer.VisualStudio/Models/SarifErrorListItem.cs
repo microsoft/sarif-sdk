@@ -36,7 +36,7 @@ namespace Microsoft.Sarif.Viewer
         public SarifErrorListItem(Run run, Result result) : this()
         {
             IRule rule;
-            run.TryGetRule(result.RuleId, out rule);
+            run.TryGetRule(result.RuleId, result.RuleKey, out rule);
             this.Message = result.GetMessageText(rule, concise: false);
             this.ShortMessage = result.GetMessageText(rule, concise: true);
             this.FileName = result.GetPrimaryTargetFile();

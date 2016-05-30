@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "runs": [
     {
-      "id": "4ce4fd0d-570e-453f-a079-e1a6e0cddf73",
+      "id": "1856aba2-3fa1-485f-9494-63c7e4c8e2a5",
       "tool": {
         "name": "ModernCop",
         "fullName": "mod50 7.0.7000.0",
@@ -17,10 +17,10 @@
       },
       "results": [
         {
-          "ruleId": "M1001",
+          "ruleKey": "M1001.AvoidDangerousCapabilities",
           "level": "error",
           "formattedRuleMessage": {
-            "formatId": "Error",
+            "formatId": "Default",
             "arguments": [
               "privateNetworkClientServer"
             ]
@@ -53,12 +53,12 @@
         }
       },
       "rules": {
-        "M1001": {
+        "M1001.AvoidDangerousCapabilities": {
           "id": "M1001",
           "name": "AvoidDangerousCapabilities",
           "shortDescription": "Avoid use of dangerous application capabilities.",
           "messageFormats": {
-            "Error": "Avoid use of dangerous application capabilities. Capability: {0}"
+            "Default": "Avoid use of dangerous application capabilities. Capability: {0}"
           },
           "properties": {
             "tags": ["appx","sdl"]
@@ -67,9 +67,9 @@
       },
       "invocation": {
         "commandLine": "D:\\src\\SecDevTools\\Main\\bin\\x64\\Debug\\ModernCop\\mod50.exe  analyze /appx d:\\src\\SecDevTools\\Main\\src\\ModernCop\\Source\\Mod50.Test.Unit\\ModernCopTestData\\Mod50\\CompiledPackages\\FoodAndDrink_4.0.35.0_x86.appxbundle /out .\\LocalizedBundleDoubleNesting.sarif",
-        "startTime": "2016-05-23T19:05:26.975Z",
-        "endTime": "2016-05-23T19:05:33.338Z",
-        "processId": 16000,
+        "startTime": "2016-05-25T07:24:44.868Z",
+        "endTime": "2016-05-25T07:24:51.215Z",
+        "processId": 21616,
         "fileName": "D:\\src\\SecDevTools\\Main\\bin\\x64\\Debug\\ModernCop\\mod50.exe",
         "workingDirectory": "d:\\src\\sarif-sdk\\src\\Sarif.FunctionalTests\\DirectProducerTestData\\WebSkim"
       }
