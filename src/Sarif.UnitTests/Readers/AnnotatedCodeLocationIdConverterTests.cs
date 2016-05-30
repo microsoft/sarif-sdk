@@ -61,25 +61,21 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
 
         private void RunTestCase(string idText, int expectedId = 0, bool valid = true)
         {
-            string input = MakeInputString(idText);
-
             SarifLog log = null;
-            bool actualValid = false;
-
-            try
+            Action action = () =>
             {
+                string input = MakeInputString(idText);
                 log = JsonConvert.DeserializeObject<SarifLog>(input);
-                actualValid = true;
-            }
-            catch (Exception)
-            {
-            }
+            };
 
-            actualValid.Should().Be(valid);
-
-            if (actualValid)
+            if (valid)
             {
+                action.ShouldNotThrow();
                 log.Runs[0].Results[0].CodeFlows[0].Locations[0].Id.Should().Be(expectedId);
+            }
+            else
+            {
+                action.ShouldThrow<ArgumentOutOfRangeException>();
             }
         }
 
