@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 using Microsoft.CodeAnalysis.Sarif;
+using Microsoft.Sarif.Viewer.Tags;
 using Microsoft.VisualStudio.ComponentModelHost;
 using Microsoft.VisualStudio.Shell.Interop;
 using Microsoft.VisualStudio.Text;
@@ -399,10 +400,10 @@ namespace Microsoft.Sarif.Viewer
             if (m_tagger == null)
             {
                 IComponentModel componentModel = (IComponentModel)m_serviceProvider.GetService(typeof(SComponentModel));
-                ITextMarkerProviderFactory textMarkerProviderFactory = componentModel.GetService<ITextMarkerProviderFactory>();
+                ISarifLocationProviderFactory sarifLocationProviderFactory = componentModel.GetService<ISarifLocationProviderFactory>();
 
                 // Get a SimpleTagger over the buffer to color
-                m_tagger = textMarkerProviderFactory.GetTextMarkerTagger(m_textView.TextBuffer);
+                m_tagger = sarifLocationProviderFactory.GetTextMarkerTagger(m_textView.TextBuffer);
             }
 
             // Add the marker

@@ -63,6 +63,8 @@
     <Compile Include="Sarif\Rule.extensions.cs" />
     <Compile Include="Sarif\Tool.extensions.cs" />
     <Compile Include="Sarif\Run.extensions.cs" />
+    <Compile Include="Tags\ISarifLocationProviderFactory.cs" />
+    <Compile Include="Tags\SarifLocationTaggerProvider.cs" />
     <Compile Include="Views\CodeLocations.xaml.cs">
       <DependentUpon>CodeLocations.xaml</DependentUpon>
     </Compile>
