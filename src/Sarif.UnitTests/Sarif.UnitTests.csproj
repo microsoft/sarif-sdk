@@ -73,6 +73,7 @@
     <Compile Include="ExtensionsTests.cs" />
     <Compile Include="JsonTests.cs" />
     <Compile Include="Readers\AlgorithmKindConverterTests.cs" />
+    <Compile Include="Readers\AnnotatedCodeLocationIdConverterTests.cs" />
     <Compile Include="Readers\EnumConverterTests.cs" />
     <Compile Include="Readers\IsSuppressedInSourceConverterTests.cs" />
     <Compile Include="Readers\PropertyBagConverterTests.cs" />

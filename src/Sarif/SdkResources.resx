@@ -297,4 +297,7 @@
   <data name="ResultRuleIdDoesNotMatchRule" xml:space="preserve">
     <value>The rule id '{0}' specified by the result does not match the actual id of the rule '{1}'</value>
   </data>
+  <data name="AnnotatedCodeLocationIdMustBePositive" xml:space="preserve">
+    <value>'{0}' is not a valid value for the id property of an annotatedCodeLocation object. The value must be a positive integer or the string representation of a positive integer.</value>
+  </data>
 </root>

@@ -28,12 +28,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         {
             if (filePath == null)
             {
-                throw new ArgumentNullException("filePath");
+                throw new ArgumentNullException(nameof(filePath));
             }
 
             if (lineStart <= 0)
             {
-                throw new ArgumentOutOfRangeException("lineStart", lineStart, SdkResources.FortifyBadLineNumber);
+                throw new ArgumentOutOfRangeException(nameof(lineStart), lineStart, SdkResources.FortifyBadLineNumber);
             }
 
             this.FilePath = filePath;

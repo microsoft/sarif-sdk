@@ -151,6 +151,15 @@ namespace Microsoft.CodeAnalysis.Sarif {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to &apos;{0}&apos; is not a valid value for the id property of an annotatedCodeLocation object. The value must be a positive integer or the string representation of a positive integer..
+        /// </summary>
+        internal static string AnnotatedCodeLocationIdMustBePositive {
+            get {
+                return ResourceManager.GetString("AnnotatedCodeLocationIdMustBePositive", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The non-generic GetProperty method only works for properties that are JSON strings. To retrieve a property with any other .NET type, call the generic method GetProperty&lt;T&gt;(string propertyName), where T is the .NET type of the object stored in the specified property..
         /// </summary>
         internal static string CallGenericGetProperty {

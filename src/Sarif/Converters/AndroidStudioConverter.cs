@@ -41,12 +41,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         {
             if (input == null)
             {
-                throw new ArgumentNullException("input");
+                throw new ArgumentNullException(nameof(input));
             }
 
             if (output == null)
             {
-                throw new ArgumentNullException("output");
+                throw new ArgumentNullException(nameof(output));
             }
 
             LogicalLocationsDictionary.Clear();

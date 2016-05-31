@@ -243,7 +243,7 @@ namespace Microsoft.Sarif.Viewer
             }
             else
             {
-                throw new ArgumentOutOfRangeException("inputUrl", $"The input URL does not use a known protocol. {inputUrl}");
+                throw new ArgumentOutOfRangeException(nameof(inputUrl), $"The input URL does not use a known protocol. {inputUrl}");
             }
 
             string newUrl = inputUrl.Substring(sarifProtocolLength);
@@ -267,7 +267,7 @@ namespace Microsoft.Sarif.Viewer
             }
             else
             {
-                throw new ArgumentOutOfRangeException("inputUrl", $"The input URL does not use a known protocol. {inputUrl}");
+                throw new ArgumentOutOfRangeException(nameof(inputUrl), $"The input URL does not use a known protocol. {inputUrl}");
             }
 
             if (downloadUrl != null)

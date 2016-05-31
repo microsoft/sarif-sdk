@@ -58,7 +58,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             if (lineNumber <= 0 || lineNumber > this.MaximumLineNumber)
             {
-                throw new ArgumentOutOfRangeException("lineNumber", lineNumber, SdkResources.LineNumberWasOutOfRange);
+                throw new ArgumentOutOfRangeException(nameof(lineNumber), lineNumber, SdkResources.LineNumberWasOutOfRange);
             }
 
             return new LineInfo(_lineOffsetStarts[lineNumber - 1], lineNumber);
@@ -82,7 +82,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             if (offset < 0)
             {
-                throw new ArgumentOutOfRangeException("offset", offset, SdkResources.ValueCannotBeNegative);
+                throw new ArgumentOutOfRangeException(nameof(offset), offset, SdkResources.ValueCannotBeNegative);
             }
 
             int startLine = _lineOffsetStarts.BinarySearch(offset);
@@ -107,7 +107,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             if (offset < 0)
             {
-                throw new ArgumentOutOfRangeException("offset", offset, SdkResources.ValueCannotBeNegative);
+                throw new ArgumentOutOfRangeException(nameof(offset), offset, SdkResources.ValueCannotBeNegative);
             }
 
             LineInfo lineInfo = this.GetLineInfoForOffset(offset);

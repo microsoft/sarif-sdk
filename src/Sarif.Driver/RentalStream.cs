@@ -32,7 +32,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         {
             if (sourceStream == null)
             {
-                throw new ArgumentNullException("sourceStream");
+                throw new ArgumentNullException(nameof(sourceStream));
             }
 
             _innerStream = sourceStream;

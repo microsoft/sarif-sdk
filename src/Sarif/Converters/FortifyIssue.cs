@@ -69,17 +69,17 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         {
             if (category == null)
             {
-                throw new ArgumentNullException("category");
+                throw new ArgumentNullException(nameof(category));
             }
 
             if (kingdom == null)
             {
-                throw new ArgumentNullException("kingdom");
+                throw new ArgumentNullException(nameof(kingdom));
             }
 
             if (primaryOrSink == null)
             {
-                throw new ArgumentNullException("primaryOrSink");
+                throw new ArgumentNullException(nameof(primaryOrSink));
             }
 
             this.RuleId = ruleId;

@@ -9,6 +9,31 @@
       }
     }
   ],
+  "AnnotatedCodeLocation.Id": [
+    {
+      "kind": "AttributeHint",
+      "arguments": {
+        "typeName": "JsonConverter",
+        "namespaceName": "Newtonsoft.Json",
+        "arguments": [
+          "typeof(Microsoft.CodeAnalysis.Sarif.Readers.AnnotatedCodeLocationIdConverter)"
+        ]
+      }
+    },
+    {
+      "kind": "AttributeHint",
+      "arguments": {
+        "typeName": "JsonProperty",
+        "namespaceName": "Newtonsoft.Json",
+        "arguments": [
+          "\"id\""
+        ],
+        "properties": {
+          "DefaultValueHandling": "DefaultValueHandling.IgnoreAndPopulate"
+        }
+      }
+    }
+  ],
   "AnnotatedCodeLocation.Kind": [
     {
       "kind": "EnumHint",
@@ -19,26 +44,26 @@
       }
     }
   ],
-  "*.Properties" :  [
-      {
-        "kind": "DictionaryHint",
-        "arguments": {
-          "valueTypeName": "SerializedPropertyInfo",
-          "namespaceName": "Microsoft.CodeAnalysis.Sarif.Readers",
-          "comparisonKind": "ObjectEquals",
-          "hashKind": "ScalarReferenceType",
-          "initializationKind": "SimpleAssign"
-        }
-      },
-      {
-        "kind": "PropertyModifiersHint",
-        "arguments": {
-          "modifiers": [
-            "internal",
-            "override"
-          ]
-        }
+  "*.Properties" : [
+    {
+      "kind": "DictionaryHint",
+      "arguments": {
+        "valueTypeName": "SerializedPropertyInfo",
+        "namespaceName": "Microsoft.CodeAnalysis.Sarif.Readers",
+        "comparisonKind": "ObjectEquals",
+        "hashKind": "ScalarReferenceType",
+        "initializationKind": "SimpleAssign"
       }
+    },
+    {
+      "kind": "PropertyModifiersHint",
+      "arguments": {
+        "modifiers": [
+          "internal",
+          "override"
+        ]
+      }
+    }
   ],
   "codeFlow": [
     {

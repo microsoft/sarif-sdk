@@ -25,12 +25,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             // http://twcsec-tfs01:8080/tfs/DefaultCollection/SecDevTools/_workitems#_a=edit&id=13409
             if (input == null)
             {
-                throw new ArgumentNullException("input");
+                throw new ArgumentNullException(nameof(input));
             }
 
             if (output == null)
             {
-                throw new ArgumentNullException("output");
+                throw new ArgumentNullException(nameof(output));
             }
 
             try

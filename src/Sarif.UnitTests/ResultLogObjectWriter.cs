@@ -97,7 +97,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         {
             if (result == null)
             {
-                throw new ArgumentNullException("result");
+                throw new ArgumentNullException(nameof(result));
             }
 
             if (_tool == null)

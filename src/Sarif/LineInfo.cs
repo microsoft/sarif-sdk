@@ -34,12 +34,12 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             if (startOffset < 0)
             {
-                throw new ArgumentOutOfRangeException("startOffset", startOffset, SdkResources.ValueCannotBeNegative);
+                throw new ArgumentOutOfRangeException(nameof(startOffset), startOffset, SdkResources.ValueCannotBeNegative);
             }
 
             if (lineNumber <= 0)
             {
-                throw new ArgumentOutOfRangeException("lineNumber", lineNumber, SdkResources.ValueMustBeAtLeastOne);
+                throw new ArgumentOutOfRangeException(nameof(lineNumber), lineNumber, SdkResources.ValueMustBeAtLeastOne);
             }
 
             _startOffset = startOffset;

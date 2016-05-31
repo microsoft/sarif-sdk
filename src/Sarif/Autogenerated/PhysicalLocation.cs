@@ -12,7 +12,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// The physical location where a result was detected. Specifies a reference to a programming artifact together with a range of bytes or characters within that artifact.
     /// </summary>
     [DataContract]
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.36.0.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.42.0.0")]
     public partial class PhysicalLocation : ISarifNode
     {
         public static IEqualityComparer<PhysicalLocation> ValueComparer => PhysicalLocationEqualityComparer.Instance;
