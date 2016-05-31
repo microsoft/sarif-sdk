@@ -24,11 +24,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
             // when the input is a string that parses as a valid integer, such as "1". In
             // that case, objectType is Int32, but the object returned by reader.Value is
             // a string!
-            Type valueType = value.GetType();
-
-            if (valueType == typeof(string))
+            var stringValue = value as string;
+            if (stringValue != null)
             {
-                var stringValue = (string)value;
                 if (!int.TryParse((string)value, out intValue))
                 {
                     throw new ArgumentOutOfRangeException(
