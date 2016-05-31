@@ -1,4 +1,7 @@
-﻿using System;
+﻿// Copyright (c) Microsoft. All rights reserved. 
+// Licensed under the MIT license. See LICENSE file in the project root for full license information. 
+
+using System;
 using System.Diagnostics;
 using Microsoft.CodeAnalysis.Sarif;
 using Microsoft.Sarif.Viewer.Tags;
@@ -41,12 +44,12 @@ namespace Microsoft.Sarif.Viewer
         {
             if (serviceProvider == null)
             {
-                throw new ArgumentNullException("serviceProvider");
+                throw new ArgumentNullException(nameof(serviceProvider));
             }
 
             if (region == null)
             {
-                throw new ArgumentNullException("location");
+                throw new ArgumentNullException(nameof(region));
             }
 
             m_serviceProvider = serviceProvider;

@@ -1,4 +1,7 @@
-﻿using System;
+﻿// Copyright (c) Microsoft. All rights reserved. 
+// Licensed under the MIT license. See LICENSE file in the project root for full license information. 
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -53,7 +56,7 @@ namespace Microsoft.Sarif.Viewer
             : base((o) => executeMethod((T)o), (o) => canExecuteMethod((T)o))
         {
             if (executeMethod == null || canExecuteMethod == null)
-                throw new ArgumentNullException("executeMethod", "executeMethod cannot be null");
+                throw new ArgumentNullException(nameof(executeMethod), nameof(executeMethod) + " cannot be null");
 
             TypeInfo genericTypeInfo = typeof(T).GetTypeInfo();
 
@@ -121,7 +124,7 @@ namespace Microsoft.Sarif.Viewer
             : base((o) => executeMethod((T)o), (o) => canExecuteMethod((T)o))
         {
             if (executeMethod == null || canExecuteMethod == null)
-                throw new ArgumentNullException("executeMethod", "executeMethod cannot be null");
+                throw new ArgumentNullException(nameof(executeMethod), nameof(executeMethod) + " cannot be null");
         }
 
     }
@@ -152,7 +155,7 @@ namespace Microsoft.Sarif.Viewer
             : base((o) => executeMethod(), (o) => canExecuteMethod())
         {
             if (executeMethod == null || canExecuteMethod == null)
-                throw new ArgumentNullException("executeMethod", "executeMethod cannot be null");
+                throw new ArgumentNullException(nameof(executeMethod), nameof(executeMethod) + " cannot be null");
         }
 
         /// <summary>
@@ -202,7 +205,7 @@ namespace Microsoft.Sarif.Viewer
             : base((o) => executeMethod(), (o) => canExecuteMethod())
         {
             if (executeMethod == null || canExecuteMethod == null)
-                throw new ArgumentNullException("executeMethod", "executeMethod cannot be null");
+                throw new ArgumentNullException(nameof(executeMethod), nameof(executeMethod) + " cannot be null");
         }
     }
 }

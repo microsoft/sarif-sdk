@@ -1,4 +1,5 @@
-﻿// Copyright (c) Microsoft Corporation. All rights reserved. See License.txt in the project root for license information.
+﻿// Copyright (c) Microsoft. All rights reserved. 
+// Licensed under the MIT license. See LICENSE file in the project root for full license information. 
 
 using System;
 using System.Collections.Generic;
@@ -26,7 +27,7 @@ namespace Microsoft.Sarif.Viewer
         protected DelegateCommandBase(Action<object> executeMethod, Func<object, bool> canExecuteMethod)
         {
             if (executeMethod == null || canExecuteMethod == null)
-                throw new ArgumentNullException("executeMethod", "executeMethod cannot be null.");
+                throw new ArgumentNullException(nameof(executeMethod), nameof(executeMethod) + " cannot be null");
 
             _executeMethod = (arg) => { executeMethod(arg); return Task.Delay(0); };
             _canExecuteMethod = canExecuteMethod;
@@ -40,7 +41,7 @@ namespace Microsoft.Sarif.Viewer
         protected DelegateCommandBase(Func<object, Task> executeMethod, Func<object, bool> canExecuteMethod)
         {
             if (executeMethod == null || canExecuteMethod == null)
-                throw new ArgumentNullException("executeMethod", "executeMethod cannot be null.");
+                throw new ArgumentNullException(nameof(executeMethod), nameof(executeMethod) + " cannot be null");
 
             _executeMethod = executeMethod;
             _canExecuteMethod = canExecuteMethod;

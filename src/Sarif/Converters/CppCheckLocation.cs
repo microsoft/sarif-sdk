@@ -30,7 +30,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
             if (line < 0)
             {
-                throw new ArgumentOutOfRangeException("line", SdkResources.CppCheckLocationNegativeLine);
+                throw new ArgumentOutOfRangeException(nameof(line), SdkResources.CppCheckLocationNegativeLine);
             }
 
             this.File = file;

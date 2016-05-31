@@ -1,5 +1,5 @@
-﻿// Copyright (c) Microsoft. All rights reserved.
-// Licensed under the MIT license. See LICENSE file in the project root for full license information.
+﻿// Copyright (c) Microsoft. All rights reserved. 
+// Licensed under the MIT license. See LICENSE file in the project root for full license information. 
 
 using System;
 using System.ComponentModel.Design;
@@ -243,7 +243,7 @@ namespace Microsoft.Sarif.Viewer
             }
             else
             {
-                throw new ArgumentOutOfRangeException("inputUrl", $"The input URL does not use a known protocol. {inputUrl}");
+                throw new ArgumentOutOfRangeException(nameof(inputUrl), $"The input URL does not use a known protocol. {inputUrl}");
             }
 
             string newUrl = inputUrl.Substring(sarifProtocolLength);
@@ -267,7 +267,7 @@ namespace Microsoft.Sarif.Viewer
             }
             else
             {
-                throw new ArgumentOutOfRangeException("inputUrl", $"The input URL does not use a known protocol. {inputUrl}");
+                throw new ArgumentOutOfRangeException(nameof(inputUrl), $"The input URL does not use a known protocol. {inputUrl}");
             }
 
             if (downloadUrl != null)

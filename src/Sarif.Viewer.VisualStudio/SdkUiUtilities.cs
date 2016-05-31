@@ -1,6 +1,6 @@
-//****************************************************************************
-// Copyright (c) Microsoft Corporation. All rights reserved.
-//****************************************************************************
+// Copyright (c) Microsoft. All rights reserved. 
+// Licensed under the MIT license. See LICENSE file in the project root for full license information. 
+
 using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
@@ -982,7 +982,7 @@ namespace Microsoft.Sarif.Viewer
         {
             if (serviceProvider == null)
             {
-                throw new ArgumentNullException("serviceProvider");
+                throw new ArgumentNullException(nameof(serviceProvider));
             }
 
             IVsShell shell = serviceProvider.GetService(typeof(SVsShell)) as IVsShell;

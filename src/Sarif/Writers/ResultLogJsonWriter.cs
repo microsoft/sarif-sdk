@@ -96,7 +96,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         {
             if (tool == null)
             {
-                throw new ArgumentNullException("tool");
+                throw new ArgumentNullException(nameof(tool));
             }
 
             EnsureInitialized();
