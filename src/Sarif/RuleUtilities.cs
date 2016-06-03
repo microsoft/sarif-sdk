@@ -74,6 +74,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             {
                 throw new ArgumentNullException(nameof(resourceNames));
             }
+
             if (resourceManager == null)
             {
                 throw new ArgumentNullException(nameof(resourceManager));
