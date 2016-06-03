@@ -13,7 +13,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     [Flags]
     public enum RuntimeConditions
     {
-        NoErrors = 0,
+        None = 0,
 
         // Not used today but perhaps soon...
         //CouldNotLoadCustomLoggerAssembly,
