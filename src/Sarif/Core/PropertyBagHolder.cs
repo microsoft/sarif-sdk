@@ -125,6 +125,11 @@ namespace Microsoft.CodeAnalysis.Sarif
             PropertyBagHolder otherHolder = other as PropertyBagHolder;
             Debug.Assert(otherHolder != null);
 
+            if (other == null)
+            {
+                throw new ArgumentNullException(nameof(other));
+            }
+
             Properties = other.PropertyNames.Count > 0 ? new Dictionary<string, SerializedPropertyInfo>() : null;
 
             foreach (string propertyName in other.PropertyNames)

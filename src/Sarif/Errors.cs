@@ -37,6 +37,11 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         public static void LogExceptionLoadingTarget(IAnalysisContext context)
         {
+            if (context == null)
+            {
+                throw new ArgumentNullException(nameof(context));
+            }
+
             // Could not load analysis target '{0}'.
             context.Logger.LogConfigurationNotification(
                 CreateNotification(
@@ -52,6 +57,11 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         public static void LogExceptionLoadingPdb(IAnalysisContext context, Exception exception)
         {
+            if (context == null)
+            {
+                throw new ArgumentNullException(nameof(context));
+            }
+
             string ruleName = context.Rule.Name;
 
             // '{0}' was not evaluated for check '{1}' because its PDB could not be loaded.
@@ -77,6 +87,11 @@ namespace Microsoft.CodeAnalysis.Sarif
             string plugins = string.Join(", ",
                 skimmerAssemblies.Select(sa => '"' +  Path.GetFileName(sa.Location) + '"'));
 
+            if (context == null)
+            {
+                throw new ArgumentNullException(nameof(context));
+            }
+
             // Could not instantiate skimmers from the following plugins: {0}
             context.Logger.LogConfigurationNotification(
                 CreateNotification(
@@ -92,6 +107,11 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         public static void LogNoRulesLoaded(IAnalysisContext context)
         {
+            if (context == null)
+            {
+                throw new ArgumentNullException(nameof(context));
+            }
+
             // No analysis rules could be instantiated.
             context.Logger.LogConfigurationNotification(
                 CreateNotification(
@@ -106,6 +126,11 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         public static void LogNoValidAnalysisTargets(IAnalysisContext context)
         {
+            if (context == null)
+            {
+                throw new ArgumentNullException(nameof(context));
+            }
+
             // No valid analysis targets were specified.
             context.Logger.LogConfigurationNotification(
                 CreateNotification(
@@ -120,6 +145,11 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         public static void LogExceptionCreatingLogFile(IAnalysisContext context, string fileName, Exception exception)
         {
+            if (context == null)
+            {
+                throw new ArgumentNullException(nameof(context));
+            }
+
             // Could not create output file: '{0}'
             context.Logger.LogConfigurationNotification(
                 CreateNotification(
@@ -135,6 +165,11 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         public static void LogMissingFile(IAnalysisContext context, string fileName)
         {
+            if (context == null)
+            {
+                throw new ArgumentNullException(nameof(context));
+            }
+
             // A required file specified on the command line could not be found: '{0}'. 
             context.Logger.LogConfigurationNotification(
                 CreateNotification(
@@ -150,6 +185,11 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         public static void LogExceptionAccessingFile(IAnalysisContext context, string fileName, Exception exception)
         {
+            if (context == null)
+            {
+                throw new ArgumentNullException(nameof(context));
+            }
+
             // Could not access a file specified on the command-line: '{0}'.
             context.Logger.LogConfigurationNotification(
                 CreateNotification(
@@ -168,6 +208,11 @@ namespace Microsoft.CodeAnalysis.Sarif
             Assembly assembly = Assembly.GetEntryAssembly();
             assembly = assembly ?? Assembly.GetExecutingAssembly();
             string exeName = Path.GetFileName(assembly.Location);
+
+            if (context == null)
+            {
+                throw new ArgumentNullException(nameof(context));
+            }
 
             // Check '{0}' was disabled while analyzing '{1}' because the analysis
             // was not configured with required policy ({2}). To resolve this,
@@ -197,6 +242,11 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         public static void LogExceptionLoadingPlugIn(string plugInFilePath, IAnalysisContext context, Exception exception)
         {
+            if (context == null)
+            {
+                throw new ArgumentNullException(nameof(context));
+            }
+
             // Could not load plug-in '{0}'.
             context.Logger.LogConfigurationNotification(
                 CreateNotification(
@@ -212,6 +262,11 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         public static void LogTargetParseError(IAnalysisContext context, Region region, string message)
         {
+            if (context == null)
+            {
+                throw new ArgumentNullException(nameof(context));
+            }
+
             // {0}({1}): error {2}: {3}
             context.Logger.LogConfigurationNotification(
                 CreateNotification(
@@ -233,6 +288,11 @@ namespace Microsoft.CodeAnalysis.Sarif
             IAnalysisContext context,
             Exception exception)
         {
+            if (context == null)
+            {
+                throw new ArgumentNullException(nameof(context));
+            }
+
             // An unhandled exception was raised attempting to determine whether '{0}'
             // is a valid analysis target for check '{1}' (which has been disabled 
             // for the remainder of the analysis). The exception may have resulted 
@@ -257,6 +317,11 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         public static void LogUnhandledExceptionInitializingRule(IAnalysisContext context, Exception exception)
         {
+            if (context == null)
+            {
+                throw new ArgumentNullException(nameof(context));
+            }
+
             string ruleId = context.Rule.Id;
             string ruleName = context.Rule.Name;
 
@@ -280,6 +345,11 @@ namespace Microsoft.CodeAnalysis.Sarif
             IAnalysisContext context,
             Exception exception)
         {
+            if (context == null)
+            {
+                throw new ArgumentNullException(nameof(context));
+            }
+
             // An unhandled exception was encountered analyzing '{0}' for check '{1}', 
             // which has been disabled for the remainder of the analysis.The 
             // exception may have resulted from a problem related to parsing 
@@ -302,6 +372,11 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         public static RuntimeConditions LogUnhandledEngineException(IAnalysisContext context, Exception exception)
         {
+            if (context == null)
+            {
+                throw new ArgumentNullException(nameof(context));
+            }
+
             // An unhandled exception was raised during analysis.
             context.Logger.LogToolNotification(
                 CreateNotification(

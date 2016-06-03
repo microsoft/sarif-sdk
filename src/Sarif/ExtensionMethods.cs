@@ -82,6 +82,12 @@ namespace Microsoft.CodeAnalysis.Sarif
         public static string FormatForVisualStudio(this Result result, IRule rule)
         {
             var messageLines = new List<string>();
+
+            if (result == null)
+            {
+                throw new ArgumentNullException(nameof(result));
+            }
+
             foreach (var location in result.Locations)
             {
                 PhysicalLocation physicalLocation = location.ResultFile ?? location.AnalysisTarget;
@@ -124,6 +130,16 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="newLineIndex"></param>
         public static void Populate(this Region region, NewLineIndex newLineIndex)
         {
+            if (region == null)
+            {
+                throw new ArgumentNullException(nameof(region));
+            }
+
+            if (newLineIndex == null)
+            {
+                throw new ArgumentNullException(nameof(newLineIndex));
+            }
+
             // A call to Populate is an implicit indicator that we are working
             // with a text region (otherwise the offset and length would be 
             // sufficient data to constitute the region).
@@ -154,7 +170,12 @@ namespace Microsoft.CodeAnalysis.Sarif
         }
 
         public static string GetMessageText(this Result result, IRule rule, bool concise = false)
-        {            
+        {
+            if (result == null)
+            {
+                throw new ArgumentNullException(nameof(result));
+            }
+
             string text = result.Message;
 
             if (string.IsNullOrEmpty(text))
@@ -175,6 +196,11 @@ namespace Microsoft.CodeAnalysis.Sarif
                 else
                 {
                     arguments = new string[0];
+                }
+
+                if (rule == null)
+                {
+                    throw new ArgumentNullException(nameof(rule));
                 }
 
                 Debug.Assert(rule.MessageFormats.ContainsKey(formatId));
@@ -213,6 +239,11 @@ namespace Microsoft.CodeAnalysis.Sarif
             int length = 0;
             bool withinQuotes = false;
             bool withinParentheses = false;
+
+            if (text == null)
+            {
+                throw new ArgumentNullException(nameof(text));
+            }
 
             foreach (char ch in text)
             {

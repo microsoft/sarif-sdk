@@ -24,6 +24,16 @@ namespace Microsoft.CodeAnalysis.Sarif
             Type propertyBagType;
             string propertyBagTypeName;
 
+            if (propertyBag == null)
+            {
+                throw new ArgumentNullException(nameof(propertyBag));
+            }
+
+            if (writer == null)
+            {
+                throw new ArgumentNullException(nameof(writer));
+            }
+
             propertyBagType = propertyBag.GetType();
             propertyBagTypeName = propertyBagType.Name;
 
@@ -134,6 +144,16 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         public static void LoadPropertiesFromXmlStream(this IDictionary propertyBag, XmlReader reader)
         {
+            if (reader == null)
+            {
+                throw new ArgumentNullException(nameof(reader));
+            }
+
+            if (propertyBag == null)
+            {
+                throw new ArgumentNullException(nameof(propertyBag));
+            }
+
             while (reader.IsStartElement(PROPERTIES_ID) || reader.IsStartElement(PROPERTY_ID))
             {
                 string key = null;

@@ -29,6 +29,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         protected internal string AddLogicalLocation(LogicalLocation logicalLocation, string delimiter = ".")
         {
             int disambiguator = 0;
+
+            if (logicalLocation == null)
+            {
+                throw new ArgumentNullException(nameof(logicalLocation));
+            }
+
             string logicalLocationKey = logicalLocation.ParentKey == null ? logicalLocation.Name : logicalLocation.ParentKey + delimiter + logicalLocation.Name;
             string generatedKey = logicalLocationKey;
 
