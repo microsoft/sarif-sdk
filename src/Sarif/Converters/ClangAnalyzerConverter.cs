@@ -43,7 +43,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
                 using (XmlReader xmlReader = XmlReader.Create(input, settings))
                 {
-                    XmlNodeType nodeType = xmlReader.MoveToContent();
+                    xmlReader.MoveToContent();
                     xmlReader.ReadStartElement(ClangSchemaStrings.PlistName);
                     if (xmlReader.NodeType == XmlNodeType.Element)
                     {
@@ -355,7 +355,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                                     throw new InvalidDataException("Expected key value before dictionary data.");
                                 }
 
-                                string value = xmlReader.ReadElementContentAsString();
+                                xmlReader.ReadElementContentAsString();
                                 readerMoved = true;
                                 keyName = string.Empty;
                                 break;

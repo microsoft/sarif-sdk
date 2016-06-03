@@ -174,7 +174,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             }
         }
 
-        public static string GetMessageText(this Result result, IRule rule, bool concise = false)
+        public static string GetMessageText(this Result result, IRule rule)
         {
             if (result == null)
             {
@@ -185,7 +185,19 @@ namespace Microsoft.CodeAnalysis.Sarif
             {
                 throw new ArgumentNullException(nameof(rule));
             }
+            return GetMessageText(result, rule, concise: false);
+        }
+        public static string GetMessageText(this Result result, IRule rule, bool concise)
+        {
+            if (result == null)
+            {
+                throw new ArgumentNullException(nameof(result));
+            }
 
+            if (rule == null)
+            {
+                throw new ArgumentNullException(nameof(rule));
+            }
             string text = result.Message;
 
             if (string.IsNullOrEmpty(text))
