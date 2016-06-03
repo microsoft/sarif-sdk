@@ -12,6 +12,17 @@ namespace Microsoft.CodeAnalysis.Sarif
     {
         public static Result BuildResult(ResultLevel level, IAnalysisContext context, Region region, string formatId, params string[] arguments)
         {
+            //validating parameters
+            if (context == null)
+            {
+                throw new ArgumentNullException(nameof(context));
+            }
+
+            if (arguments == null)
+            {
+                throw new ArgumentNullException(nameof(arguments));
+            }
+
             string[] messageArguments = arguments;
 
             formatId = RuleUtilities.NormalizeFormatId(context.Rule.Id, formatId);
@@ -58,6 +69,16 @@ namespace Microsoft.CodeAnalysis.Sarif
             IEnumerable<string> resourceNames, 
             string ruleId = null)
         {
+            //validation
+            if (resourceNames == null)
+            {
+                throw new ArgumentNullException(nameof(resourceNames));
+            }
+            if (resourceManager == null)
+            {
+                throw new ArgumentNullException(nameof(resourceManager));
+            }
+
             // Note this dictionary provides for case-insensitive keys
             var dictionary = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
 
@@ -76,6 +97,11 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         public static string NormalizeFormatId(string ruleId, string formatId)
         {
+            if (formatId == null)
+            {
+                throw new ArgumentNullException(nameof(formatId));
+            }
+
             if (!string.IsNullOrEmpty(ruleId) && formatId.StartsWith(ruleId + "_"))
             {
                 formatId = formatId.Substring(ruleId.Length + 1);
