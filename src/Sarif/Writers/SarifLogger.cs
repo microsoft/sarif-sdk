@@ -282,7 +282,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 new Notification
                 {
                     PhysicalLocation = new PhysicalLocation { Uri = context.TargetUri },
-                    Id = Notes.MSG001_AnalyzingTarget,
+                    Id = Notes.Msg001_AnalyzingTarget,
                     Message = message,
                     Level = NotificationLevel.Note,
                     Time = DateTime.UtcNow,

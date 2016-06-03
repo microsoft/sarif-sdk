@@ -6,7 +6,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 {
     public static class Notes
     {
-        public const string MSG001_AnalyzingTarget = "MSG001.AnalyzingTarget";
+        public const string Msg001_AnalyzingTarget = "MSG001.AnalyzingTarget";
 
         public static void LogNotApplicableToSpecifiedTarget(IAnalysisContext context, string reasonForNotAnalyzing)
         {

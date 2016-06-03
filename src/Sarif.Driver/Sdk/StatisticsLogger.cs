@@ -45,7 +45,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
         public void LogConfigurationNotification(Notification notification)
         {
-            if (notification.Id == Warnings.WRN997_InvalidTarget)
+            if (notification.Id == Warnings.Wrn997_InvalidTarget)
             {
                 _invalidTargetsCount++;
             }
