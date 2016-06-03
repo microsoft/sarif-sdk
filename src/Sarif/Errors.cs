@@ -84,13 +84,13 @@ namespace Microsoft.CodeAnalysis.Sarif
             IEnumerable<Assembly> skimmerAssemblies,
             Exception exception)
         {
-            string plugins = string.Join(", ",
-                skimmerAssemblies.Select(sa => '"' +  Path.GetFileName(sa.Location) + '"'));
-
             if (context == null)
             {
                 throw new ArgumentNullException(nameof(context));
             }
+
+            string plugins = string.Join(", ",
+                skimmerAssemblies.Select(sa => '"' +  Path.GetFileName(sa.Location) + '"'));
 
             // Could not instantiate skimmers from the following plugins: {0}
             context.Logger.LogConfigurationNotification(
@@ -204,15 +204,15 @@ namespace Microsoft.CodeAnalysis.Sarif
         }
 
         public static void LogMissingRuleConfiguration(IAnalysisContext context, string reasonForNotAnalyzing)
-        {            
-            Assembly assembly = Assembly.GetEntryAssembly();
-            assembly = assembly ?? Assembly.GetExecutingAssembly();
-            string exeName = Path.GetFileName(assembly.Location);
-
+        {
             if (context == null)
             {
                 throw new ArgumentNullException(nameof(context));
             }
+
+            Assembly assembly = Assembly.GetEntryAssembly();
+            assembly = assembly ?? Assembly.GetExecutingAssembly();
+            string exeName = Path.GetFileName(assembly.Location);
 
             // Check '{0}' was disabled while analyzing '{1}' because the analysis
             // was not configured with required policy ({2}). To resolve this,

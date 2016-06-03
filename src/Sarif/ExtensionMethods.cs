@@ -81,12 +81,17 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         public static string FormatForVisualStudio(this Result result, IRule rule)
         {
-            var messageLines = new List<string>();
-
             if (result == null)
             {
                 throw new ArgumentNullException(nameof(result));
             }
+
+            if (rule == null)
+            {
+                throw new ArgumentNullException(nameof(rule));
+            }
+
+            var messageLines = new List<string>();
 
             foreach (var location in result.Locations)
             {
