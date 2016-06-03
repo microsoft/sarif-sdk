@@ -70,6 +70,11 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         public void Log(IRule rule, Result result)
         {
+            if (result == null)
+            {
+                throw new ArgumentNullException(nameof(result));
+            }
+
             string message = result.GetMessageText(rule, concise: false);
 
             // TODO we need better retrieval for locations than these defaults
