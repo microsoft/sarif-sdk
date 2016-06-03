@@ -28,12 +28,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         // internal as well as protected it can be exercised by unit tests.
         protected internal string AddLogicalLocation(LogicalLocation logicalLocation, string delimiter = ".")
         {
-            int disambiguator = 0;
-
             if (logicalLocation == null)
             {
                 throw new ArgumentNullException(nameof(logicalLocation));
             }
+
+            int disambiguator = 0;
 
             string logicalLocationKey = logicalLocation.ParentKey == null ? logicalLocation.Name : logicalLocation.ParentKey + delimiter + logicalLocation.Name;
             string generatedKey = logicalLocationKey;

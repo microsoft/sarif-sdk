@@ -252,7 +252,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 case NotificationLevel.Warning:
                 case NotificationLevel.Note:
                     issueType = notification.Level.ToString();
-                    issueType = issueType.Substring(0, 1).ToUpperInvariant() + issueType.Substring(1);
+                    issueType = issueType.Substring(0, 1).ToLowerInvariant() + issueType.Substring(1);
                     break;
 
                 default:
