@@ -18,7 +18,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     {
         protected PropertyBagHolder()
         {
-            Tags = new Tags(this);
+            Tags = new TagsCollection(this);
         }
 
         [JsonIgnore]
@@ -143,6 +143,6 @@ namespace Microsoft.CodeAnalysis.Sarif
         }
 
         [JsonIgnore]
-        public Tags Tags { get; }
+        public TagsCollection Tags { get; }
     }
 }

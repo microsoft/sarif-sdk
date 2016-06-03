@@ -16,7 +16,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
             try
             {
-                PropertyBag allOptions = new PropertyBag();
+                PropertyBagDictionary allOptions = new PropertyBagDictionary();
 
                 // The export command could be updated in the future to accept an arbitrary set
                 // of analyzers for which to build an options XML file suitable for configuring them.

@@ -478,13 +478,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
         public virtual void ConfigureFromOptions(TContext context, TOptions analyzeOptions)
         {
-            PropertyBag configuration = null;
+            PropertyBagDictionary configuration = null;
 
             string configurationFilePath = analyzeOptions.ConfigurationFilePath;
 
             if (!string.IsNullOrEmpty(configurationFilePath))
             {
-                configuration = new PropertyBag();
+                configuration = new PropertyBagDictionary();
                 if (!configurationFilePath.Equals(DEFAULT_POLICY_NAME, StringComparison.OrdinalIgnoreCase))
                 {
                     configuration.LoadFrom(configurationFilePath);
