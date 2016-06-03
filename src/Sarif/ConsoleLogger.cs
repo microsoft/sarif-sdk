@@ -80,7 +80,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 throw new ArgumentNullException(nameof(result));
             }
 
-            string message = result.GetMessageText(rule);
+            string message = result.GetMessageText(rule, concise: false);
 
             // TODO we need better retrieval for locations than these defaults
             // Note that we can potentially emit many messages from a single result
