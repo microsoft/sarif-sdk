@@ -11,13 +11,15 @@ namespace Microsoft.CodeAnalysis.Sarif.ConvertToSarif
     {
         [Value(0,
                MetaName = "<inputLogFile>",
-               HelpText = "A file path to a tool log file that should be converted to the SARIF format.")]
+               HelpText = "A file path to a tool log file that should be converted to the SARIF format.",
+               Required = true)]
         public string InputFilePath { get; internal set; }
 
         [Option(
             't',
             "tool",
-            HelpText = "The tool format of the input file. Must be one of: AndroidStudio, ClangAnalyzer, CppCheck, Fortify, FxCop, or PREfast.")]
+            HelpText = "The tool format of the input file. Must be one of: AndroidStudio, ClangAnalyzer, CppCheck, Fortify, FxCop, or PREfast.",
+            Required = true)]
         public ToolFormat ToolFormat { get; internal set; }
 
         [Option(
