@@ -43,12 +43,10 @@ namespace Microsoft.CodeAnalysis.Sarif
         ExceptionAccessingFile = 0x4000,
         InvalidCommandLineOption = 0x8000,
 
-        Fatal = (Int32.MaxValue ^ NonFatal),
-
         // Non-fatal conditions
         RuleNotApplicableToTarget = 0x10000000,
         TargetNotValidToAnalyze   = 0x20000000,
 
-        NonFatal = 0x70000000
+        NonFatal = 0x30000000
     }       
 }
