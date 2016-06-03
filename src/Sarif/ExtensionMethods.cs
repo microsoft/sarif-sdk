@@ -181,6 +181,11 @@ namespace Microsoft.CodeAnalysis.Sarif
                 throw new ArgumentNullException(nameof(result));
             }
 
+            if (rule == null)
+            {
+                throw new ArgumentNullException(nameof(rule));
+            }
+
             string text = result.Message;
 
             if (string.IsNullOrEmpty(text))
@@ -201,11 +206,6 @@ namespace Microsoft.CodeAnalysis.Sarif
                 else
                 {
                     arguments = new string[0];
-                }
-
-                if (rule == null)
-                {
-                    throw new ArgumentNullException(nameof(rule));
                 }
 
                 Debug.Assert(rule.MessageFormats.ContainsKey(formatId));
@@ -241,14 +241,14 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         public static string GetFirstSentence(string text)
         {
-            int length = 0;
-            bool withinQuotes = false;
-            bool withinParentheses = false;
-
             if (text == null)
             {
                 throw new ArgumentNullException(nameof(text));
             }
+
+            int length = 0;
+            bool withinQuotes = false;
+            bool withinParentheses = false;
 
             foreach (char ch in text)
             {

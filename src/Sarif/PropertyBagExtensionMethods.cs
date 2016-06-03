@@ -21,9 +21,6 @@ namespace Microsoft.CodeAnalysis.Sarif
             string name,
             Dictionary<string, string> settingNameToDescriptionMap = null)
         {
-            Type propertyBagType;
-            string propertyBagTypeName;
-
             if (propertyBag == null)
             {
                 throw new ArgumentNullException(nameof(propertyBag));
@@ -33,6 +30,9 @@ namespace Microsoft.CodeAnalysis.Sarif
             {
                 throw new ArgumentNullException(nameof(writer));
             }
+
+            Type propertyBagType;
+            string propertyBagTypeName;
 
             propertyBagType = propertyBag.GetType();
             propertyBagTypeName = propertyBagType.Name;

@@ -120,15 +120,15 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         public void SetPropertiesFrom(IPropertyBagHolder other)
         {
-            // We need the concrete class because the IPropertyBagHolder interface
-            // doesn't expose the raw Properties array.
-            PropertyBagHolder otherHolder = other as PropertyBagHolder;
-            Debug.Assert(otherHolder != null);
-
             if (other == null)
             {
                 throw new ArgumentNullException(nameof(other));
             }
+            
+            // We need the concrete class because the IPropertyBagHolder interface
+            // doesn't expose the raw Properties array.
+            PropertyBagHolder otherHolder = other as PropertyBagHolder;
+            Debug.Assert(otherHolder != null);
 
             Properties = other.PropertyNames.Count > 0 ? new Dictionary<string, SerializedPropertyInfo>() : null;
 
