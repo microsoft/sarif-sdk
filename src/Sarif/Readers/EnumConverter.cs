@@ -17,12 +17,27 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
 
         public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
         {
+            if (reader == null)
+            {
+                throw new ArgumentNullException(nameof(reader));
+            }
+
             string value = (string)reader.Value;
             return Enum.Parse(objectType, ConvertToPascalCase(value));
         }
 
         public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
-        {            
+        {
+            if (writer == null)
+            {
+                throw new ArgumentNullException(nameof(writer));
+            }
+
+            if (value == null)
+            {
+                throw new ArgumentNullException(nameof(value));
+            }
+
             string resultLevelString = value.ToString();
 
             resultLevelString = ConvertToCamelCase(resultLevelString);
