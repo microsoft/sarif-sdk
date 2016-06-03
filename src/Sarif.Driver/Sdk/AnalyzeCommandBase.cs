@@ -52,7 +52,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 }
             }
 
-            return ((RuntimeErrors & ~RuntimeConditions.NonFatal) == RuntimeConditions.NoErrors) ? SUCCESS : FAILURE;
+            return ((RuntimeErrors & ~RuntimeConditions.NonFatal) == RuntimeConditions.None) ? SUCCESS : FAILURE;
         }
 
         private void Analyze(TOptions analyzeOptions, AggregatingLogger logger)

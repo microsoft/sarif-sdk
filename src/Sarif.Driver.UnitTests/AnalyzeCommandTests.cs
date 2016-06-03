@@ -50,7 +50,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             int result = command.Run(analyzeOptions);
 
             int expectedResult =
-                (runtimeConditions & ~RuntimeConditions.NonFatal) == RuntimeConditions.NoErrors ?
+                (runtimeConditions & ~RuntimeConditions.NonFatal) == RuntimeConditions.None ?
                     TestAnalyzeCommand.SUCCESS : TestAnalyzeCommand.FAILURE;
 
             Assert.Equal(runtimeConditions, command.RuntimeErrors);
@@ -235,7 +235,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
             ExceptionTestHelper(
                 ExceptionCondition.None,
-                RuntimeConditions.NoErrors,
+                RuntimeConditions.None,
                 analyzeOptions: options
             );
         }
@@ -418,7 +418,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 // A missing output file is a good condition. :)
                 ExceptionTestHelper(
                     ExceptionCondition.None,
-                    RuntimeConditions.NoErrors,
+                    RuntimeConditions.None,
                     expectedExitReason: ExitReason.None,
                     analyzeOptions: options);
             }

@@ -27,7 +27,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             Console.WriteLine();
 
-            if (runtimeConditions == RuntimeConditions.NoErrors)
+            if (runtimeConditions == RuntimeConditions.None)
             {
                 Console.WriteLine(SdkResources.MSG_AnalysisCompletedSuccessfully);
                 return;
