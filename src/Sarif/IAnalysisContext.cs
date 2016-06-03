@@ -20,7 +20,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         IRule Rule { get; set; }
 
-        PropertyBag Policy { get; set; }
+        PropertyBagDictionary Policy { get; set; }
         
         IAnalysisLogger Logger { get; set; }
 

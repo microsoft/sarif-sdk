@@ -49,7 +49,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             {
                 object property = propertyBag[key];
 
-                StringSet stringSet = property as StringSet;
+                StringSetCollection stringSet = property as StringSetCollection;
                 if (stringSet != null)
                 {
                     SaveStringSet(writer, stringSet, key);
@@ -100,7 +100,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             // requirement by changing this code to process all
             // namespaces and to select the shortest type name
             // that results.                        
-            foreach (string nsPrefix in PropertyBag.DefaultNamespaces)
+            foreach (string nsPrefix in PropertyBagDictionary.DefaultNamespaces)
             {
                 if (typeName.StartsWith(nsPrefix, StringComparison.Ordinal))
                 {
@@ -110,7 +110,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return typeName;
         }
 
-        private static void SaveStringSet(XmlWriter writer, StringSet items, string key)
+        private static void SaveStringSet(XmlWriter writer, StringSetCollection items, string key)
         {
             writer.WriteStartElement(PROPERTY_ID);
             writer.WriteAttributeString(KEY_ID, key);
@@ -150,7 +150,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
                     if (String.IsNullOrEmpty(typeName))
                     {
-                        nestedPropertyBag = new PropertyBag();
+                        nestedPropertyBag = new PropertyBagDictionary();
                     }
                     else
                     {
@@ -173,7 +173,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
                     if (typeName == STRING_SET_ID)
                     {
-                        StringSet set = new StringSet();
+                        StringSetCollection set = new StringSetCollection();
                         propertyBag[key] = set;
                         LoadStringSet(set, reader);
                         if (!isEmpty) { reader.ReadEndElement(); }
@@ -210,7 +210,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             if (type == null)
             {
-                foreach (string nsPrefix in PropertyBag.DefaultNamespaces)
+                foreach (string nsPrefix in PropertyBagDictionary.DefaultNamespaces)
                 {
                     type = GetType(nsPrefix + typeName);
                     if (type != null) { break; }
@@ -220,7 +220,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return type;
         }
 
-        private static void LoadStringSet(StringSet set, XmlReader reader)
+        private static void LoadStringSet(StringSetCollection set, XmlReader reader)
         {
             reader.ReadStartElement(PROPERTY_ID);
 
