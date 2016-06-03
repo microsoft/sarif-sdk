@@ -9,7 +9,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 {
     public static class Warnings
     {
-        public const string WRN997_InvalidTarget = "WRN997_InvalidTarget";
+        public const string Wrn997InvalidTarget = "WRN997_InvalidTarget";
 
         public static void LogExceptionInvalidTarget(IAnalysisContext context)
         {
@@ -23,7 +23,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 new Notification
                 {
                     PhysicalLocation = new PhysicalLocation { Uri = context.TargetUri },
-                    Id = WRN997_InvalidTarget,
+                    Id = Wrn997InvalidTarget,
                     Message = message,
                     Level = NotificationLevel.Note,
                 });

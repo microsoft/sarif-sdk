@@ -84,7 +84,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return sha1;
         }
 
-        public static string ComputeMd5Hash(string fileName)
+        public static string ComputeMD5Hash(string fileName)
         {
             string md5 = null;
 
