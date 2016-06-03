@@ -21,6 +21,16 @@ namespace Microsoft.CodeAnalysis.Sarif
             string name,
             Dictionary<string, string> settingNameToDescriptionMap = null)
         {
+            if (propertyBag == null)
+            {
+                throw new ArgumentNullException(nameof(propertyBag));
+            }
+
+            if (writer == null)
+            {
+                throw new ArgumentNullException(nameof(writer));
+            }
+
             Type propertyBagType;
             string propertyBagTypeName;
 
@@ -134,6 +144,16 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         public static void LoadPropertiesFromXmlStream(this IDictionary propertyBag, XmlReader reader)
         {
+            if (reader == null)
+            {
+                throw new ArgumentNullException(nameof(reader));
+            }
+
+            if (propertyBag == null)
+            {
+                throw new ArgumentNullException(nameof(propertyBag));
+            }
+
             while (reader.IsStartElement(PROPERTIES_ID) || reader.IsStartElement(PROPERTY_ID))
             {
                 string key = null;

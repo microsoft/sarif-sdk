@@ -120,6 +120,11 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         public void SetPropertiesFrom(IPropertyBagHolder other)
         {
+            if (other == null)
+            {
+                throw new ArgumentNullException(nameof(other));
+            }
+            
             // We need the concrete class because the IPropertyBagHolder interface
             // doesn't expose the raw Properties array.
             PropertyBagHolder otherHolder = other as PropertyBagHolder;

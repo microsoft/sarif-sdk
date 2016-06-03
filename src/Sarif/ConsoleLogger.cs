@@ -52,6 +52,11 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         public void AnalyzingTarget(IAnalysisContext context)
         {
+            if (context == null)
+            {
+                throw new ArgumentNullException(nameof(context));
+            }
+
             if (this.Verbose)
             {
                 Console.WriteLine(string.Format(
@@ -194,6 +199,11 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         public static string NormalizeMessage(string message, bool enquote)
         {
+            if (message == null)
+            {
+                throw new ArgumentNullException(nameof(message));
+            }
+
             return (enquote ? "\"" : "") +
                 message.Replace('"', '\'') +
                 (enquote ? "\"" : "");

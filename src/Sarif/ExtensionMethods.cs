@@ -81,7 +81,18 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         public static string FormatForVisualStudio(this Result result, IRule rule)
         {
+            if (result == null)
+            {
+                throw new ArgumentNullException(nameof(result));
+            }
+
+            if (rule == null)
+            {
+                throw new ArgumentNullException(nameof(rule));
+            }
+
             var messageLines = new List<string>();
+
             foreach (var location in result.Locations)
             {
                 PhysicalLocation physicalLocation = location.ResultFile ?? location.AnalysisTarget;
@@ -124,6 +135,16 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="newLineIndex"></param>
         public static void Populate(this Region region, NewLineIndex newLineIndex)
         {
+            if (region == null)
+            {
+                throw new ArgumentNullException(nameof(region));
+            }
+
+            if (newLineIndex == null)
+            {
+                throw new ArgumentNullException(nameof(newLineIndex));
+            }
+
             // A call to Populate is an implicit indicator that we are working
             // with a text region (otherwise the offset and length would be 
             // sufficient data to constitute the region).
@@ -154,14 +175,23 @@ namespace Microsoft.CodeAnalysis.Sarif
         }
 
         public static string GetMessageText(this Result result, IRule rule, bool concise = false)
-        {            
+        {
+            if (result == null)
+            {
+                throw new ArgumentNullException(nameof(result));
+            }
+
+            if (rule == null)
+            {
+                throw new ArgumentNullException(nameof(rule));
+            }
+
             string text = result.Message;
 
             if (string.IsNullOrEmpty(text))
             {
                 Debug.Assert(rule != null);
 
-                string ruleId = result.RuleId;
                 string formatId = result.FormattedRuleMessage.FormatId;
                 string messageFormat;
 
@@ -210,6 +240,11 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         public static string GetFirstSentence(string text)
         {
+            if (text == null)
+            {
+                throw new ArgumentNullException(nameof(text));
+            }
+
             int length = 0;
             bool withinQuotes = false;
             bool withinParentheses = false;

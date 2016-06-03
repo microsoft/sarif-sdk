@@ -706,8 +706,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
         private static void ReadTargets(SparseReader reader, object parent)
         {
-            Context context = (Context)parent;
-
             reader.ReadChildren(SchemaStrings.ElementTargets, parent);
         }
 
