@@ -50,7 +50,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             int result = command.Run(analyzeOptions);
 
             int expectedResult =
-                (runtimeConditions & RuntimeConditions.Fatal) == RuntimeConditions.NoErrors ?
+                (runtimeConditions & ~RuntimeConditions.NonFatal) == RuntimeConditions.NoErrors ?
                     TestAnalyzeCommand.SUCCESS : TestAnalyzeCommand.FAILURE;
 
             Assert.Equal(runtimeConditions, command.RuntimeErrors);
