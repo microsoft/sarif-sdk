@@ -43,7 +43,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
                 using (XmlReader xmlReader = XmlReader.Create(input, settings))
                 {
-                    XmlNodeType nodeType = xmlReader.MoveToContent();
+                    xmlReader.MoveToContent();
                     xmlReader.ReadStartElement(ClangSchemaStrings.PlistName);
                     if (xmlReader.NodeType == XmlNodeType.Element)
                     {
