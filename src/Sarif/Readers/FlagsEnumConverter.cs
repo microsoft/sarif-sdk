@@ -18,6 +18,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
 
         public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
         {
+            if (reader == null)
+            {
+                throw new ArgumentNullException(nameof(reader));
+            }
+
             int result = 0;
 
             // What's happening in this code? We express [Flags] enums in JSON as arrays of
@@ -42,6 +47,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
 
         public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
         {
+            if (writer == null)
+            {
+                throw new ArgumentNullException(nameof(writer));
+            }
+
             if (!(value is SuppressionStates))
             {
                 writer.WriteValue(value);

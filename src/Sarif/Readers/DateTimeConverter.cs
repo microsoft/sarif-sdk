@@ -27,6 +27,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
 
         public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
         {
+            if (reader == null)
+            {
+                throw new ArgumentNullException(nameof(reader));
+            }
+
             if (reader.Value is DateTime) { return reader.Value; }
 
             return DateTime.Parse((string)reader.Value, CultureInfo.InvariantCulture);
@@ -34,6 +39,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
 
         public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
         {
+            if (writer == null)
+            {
+                throw new ArgumentNullException(nameof(writer));
+            }
+
             string formattedDate = ((DateTime)value).ToString(DateTimeFormat, CultureInfo.InvariantCulture);
             writer.WriteRawValue(@"""" + formattedDate + @"""");
         }

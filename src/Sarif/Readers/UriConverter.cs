@@ -17,6 +17,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
 
         public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
         {
+            if (reader == null)
+            {
+                throw new ArgumentNullException(nameof(reader));
+            }
+
             if (reader.Value is Uri) { return reader.Value; }
 
             return new Uri((string)reader.Value, UriKind.RelativeOrAbsolute);
@@ -24,6 +29,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
 
         public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
         {
+            if (writer == null)
+            {
+                throw new ArgumentNullException(nameof(writer));
+            }
+
             Uri uri = ((Uri)value);
 
             if (uri.IsAbsoluteUri && uri.IsFile && (uri.LocalPath == uri.OriginalString))

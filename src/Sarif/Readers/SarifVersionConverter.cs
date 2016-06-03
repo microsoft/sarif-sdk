@@ -17,12 +17,22 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
 
         public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
         {
+            if (reader == null)
+            {
+                throw new ArgumentNullException(nameof(reader));
+            }
+
             string sarifVersionText = (string)reader.Value;
             return sarifVersionText.ConvertToSarifVersion();            
         }
 
         public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
         {
+            if (writer == null)
+            {
+                throw new ArgumentNullException(nameof(writer));
+            }
+
             string sarifVersionText = ((SarifVersion)value).ConvertToText();
             writer.WriteRawValue(@"""" + sarifVersionText + @""""); 
         }

@@ -26,6 +26,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
 
         public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
         {
+            if (serializer == null)
+            {
+                throw new ArgumentNullException(nameof(serializer));
+            }
+
             IDictionary<string, IRule> incoming = (IDictionary<string, IRule>)value;
             Dictionary<string, Rule> outgoing = new Dictionary<string, Rule>();
 
