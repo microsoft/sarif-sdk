@@ -14,6 +14,10 @@ namespace Microsoft.CodeAnalysis.Sarif
         public static void LogExceptionInvalidTarget(IAnalysisContext context)
         {
             // '{0}' was not analyzed as it does not appear to be a valid file type for analysis.
+            if (context == null)
+            {
+                throw new ArgumentNullException(nameof(context));
+            }
 
             string message = string.Format(
                 SdkResources.WRN997_InvalidTarget,

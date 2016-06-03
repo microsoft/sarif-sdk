@@ -243,6 +243,16 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
         public void Log(IRule rule, Result result)
         {
+            if (rule == null)
+            {
+                throw new ArgumentNullException(nameof(rule));
+            }
+
+            if (result == null)
+            {
+                throw new ArgumentNullException(nameof(result));
+            }
+
             if (rule.Id != result.RuleId)
             {
                 //The rule id '{0}' specified by the result does not match the actual id of the rule '{1}'
@@ -274,6 +284,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             // through all aggregated loggers.
 
             // Analyzing target '{0}'...
+
+            if (context == null)
+            {
+                throw new ArgumentNullException(nameof(context));
+            }
+
             string message = string.Format(
                 SdkResources.MSG001_AnalyzingTarget,
                 Path.GetFileName(context.TargetUri.LocalPath));
@@ -291,6 +307,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
         public void Log(ResultLevel messageKind, IAnalysisContext context, Region region, string formatId, params string[] arguments)
         {
+            if (context == null)
+            {
+                throw new ArgumentNullException(nameof(context));
+            }
+
             if (context.Rule != null)
             {
                 Rules[context.Rule.Id] = context.Rule;
