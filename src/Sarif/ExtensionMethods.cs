@@ -192,7 +192,6 @@ namespace Microsoft.CodeAnalysis.Sarif
             {
                 Debug.Assert(rule != null);
 
-                string ruleId = result.RuleId;
                 string formatId = result.FormattedRuleMessage.FormatId;
                 string messageFormat;
 

@@ -66,7 +66,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 throw xmlReader.CreateException(SdkResources.FortifyNotValidPathElement);
             }
 
-            int pathElementDepth = xmlReader.Depth;
             xmlReader.Read(); // Always true because !IsEmptyElement
             xmlReader.IgnoreElement(strings.FileName, IgnoreOptions.Required);
             string filePath = xmlReader.ReadElementContentAsString(strings.FilePath, String.Empty);

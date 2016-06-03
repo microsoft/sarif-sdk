@@ -62,8 +62,6 @@ namespace Microsoft.CodeAnalysis.Sarif
                 throw new ArgumentNullException(nameof(context));
             }
 
-            string ruleName = context.Rule.Name;
-
             // '{0}' was not evaluated for check '{1}' because its PDB could not be loaded.
             context.Logger.LogConfigurationNotification(
                 CreateNotification(
@@ -321,9 +319,6 @@ namespace Microsoft.CodeAnalysis.Sarif
             {
                 throw new ArgumentNullException(nameof(context));
             }
-
-            string ruleId = context.Rule.Id;
-            string ruleName = context.Rule.Name;
 
             // An unhandled exception was encountered initializing check '{0}', which 
             // has been disabled for the remainder of the analysis.
