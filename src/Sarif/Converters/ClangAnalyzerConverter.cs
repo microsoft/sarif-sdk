@@ -355,7 +355,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                                     throw new InvalidDataException("Expected key value before dictionary data.");
                                 }
 
-                                string value = xmlReader.ReadElementContentAsString();
+                                xmlReader.ReadElementContentAsString();
                                 readerMoved = true;
                                 keyName = string.Empty;
                                 break;
