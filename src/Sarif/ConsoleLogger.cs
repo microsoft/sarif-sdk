@@ -72,7 +72,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             if (result == null)
             {
-                throw new ArgumentNullException("result");
+                throw new ArgumentNullException(nameof(result));
             }
 
             string message = result.GetMessageText(rule, concise: false);
