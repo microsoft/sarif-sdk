@@ -248,6 +248,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         ///  </param>
         public void WriteResults(IEnumerable<Result> results)
         {
+            if (results == null)
+            {
+                throw new ArgumentNullException(nameof(results));
+            }
+
             foreach (Result result in results)
             {
                 WriteResult(result);

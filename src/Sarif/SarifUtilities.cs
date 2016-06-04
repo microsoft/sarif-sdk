@@ -61,6 +61,17 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         public static Dictionary<string, string> BuildMessageFormats(IEnumerable<string> resourceNames, ResourceManager resourceManager)
         {
+            if (resourceNames == null)
+            {
+                throw new ArgumentNullException(nameof(resourceNames));
+            }
+
+            if (resourceManager == null)
+            {
+                throw new ArgumentNullException(nameof(resourceManager));
+            }
+
+
             // Note this dictionary provides for case-insensitive keys
             var dictionary = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
 
@@ -75,6 +86,16 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         public static void InitializeFromAssembly(this Tool tool, Assembly assembly, string prereleaseInfo = null)
         {
+            if (assembly == null)
+            {
+                throw new ArgumentNullException(nameof(assembly));
+            }
+
+            if (tool == null)
+            {
+                throw new ArgumentNullException(nameof(tool));
+            }
+
             string name = Path.GetFileNameWithoutExtension(assembly.Location);
             Version version = assembly.GetName().Version;
 
@@ -85,6 +106,11 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         public static string FormatMessage(this Exception exception)
         {
+            if (exception == null)
+            {
+                throw new ArgumentNullException(nameof(exception));
+            }
+
             // Retrieves a formatted message that includes exception type details, e.g.
             // System.InvalidOperationException: Operation is not valid due to the current state of the object.
             return exception.ToString().Split(new string[] { Environment.NewLine }, StringSplitOptions.None)[0];
