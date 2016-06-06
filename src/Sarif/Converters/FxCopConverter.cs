@@ -580,23 +580,35 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         {
             XmlSchemaSet schemaSet = new XmlSchemaSet();
             Assembly assembly = typeof(FxCopLogReader).Assembly;
+            Stream stream = null;
 
-            using (var stream = assembly.GetManifestResourceStream(FxCopLogReader.FxCopReportSchema))
-            using (var reader = XmlReader.Create(stream))
+            try
             {
-                XmlSchema schema = XmlSchema.Read(reader, new ValidationEventHandler(ReportError));
-                schemaSet.Add(schema);
-            }
-
-            using (var sparseReader = SparseReader.CreateFromStream(_dispatchTable, input, schemaSet))
-            {
-                if (sparseReader.LocalName.Equals(SchemaStrings.ElementFxCopReport))
+                stream = assembly.GetManifestResourceStream(FxCopLogReader.FxCopReportSchema);
+                using (var reader = XmlReader.Create(stream))
                 {
-                    ReadFxCopReport(sparseReader, context);
+                    stream = null;
+                    XmlSchema schema = XmlSchema.Read(reader, new ValidationEventHandler(ReportError));
+                    schemaSet.Add(schema);
                 }
-                else
+
+                using (var sparseReader = SparseReader.CreateFromStream(_dispatchTable, input, schemaSet))
                 {
-                    throw new XmlException(String.Format(CultureInfo.InvariantCulture, "Invalid root element in FxCop log file: {0}", sparseReader.LocalName));
+                    if (sparseReader.LocalName.Equals(SchemaStrings.ElementFxCopReport))
+                    {
+                        ReadFxCopReport(sparseReader, context);
+                    }
+                    else
+                    {
+                        throw new XmlException(String.Format(CultureInfo.InvariantCulture, "Invalid root element in FxCop log file: {0}", sparseReader.LocalName));
+                    }
+                }
+            }
+            finally
+            {
+                if(stream != null)
+                {
+                    stream.Dispose();
                 }
             }
         }
