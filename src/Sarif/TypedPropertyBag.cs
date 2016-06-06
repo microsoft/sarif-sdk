@@ -32,7 +32,12 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         protected Dictionary<string, string> SettingNameToDescriptionsMap { get; set; }
 
-        public virtual T GetProperty(PerLanguageOption<T> setting, bool cacheDefault = true)
+        public virtual T GetProperty(PerLanguageOption<T> setting)
+        {
+            return GetProperty(setting, cacheDefault: true);
+        }
+
+        public virtual T GetProperty(PerLanguageOption<T> setting, bool cacheDefault)
         {
             if (setting == null) { throw new ArgumentNullException(nameof(setting)); }
 
@@ -46,7 +51,12 @@ namespace Microsoft.CodeAnalysis.Sarif
             return value;
         }
 
-        public virtual void SetProperty(IOption setting, T value, bool cacheDescription = false)
+        public virtual void SetProperty(IOption setting, T value)
+        {
+            SetProperty(setting, value, cacheDescription: false);
+        }
+
+        public virtual void SetProperty(IOption setting, T value, bool cacheDescription)
         {
             if (setting == null) { throw new ArgumentNullException(nameof(setting)); }
 

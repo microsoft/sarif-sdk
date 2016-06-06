@@ -17,7 +17,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         internal const string DEFAULT_POLICY_NAME = "default";
 
         public PropertyBagDictionary() : base() { }
-
+        //CA1026 Not sure how to fix
         public PropertyBagDictionary(
             PropertyBagDictionary initializer = null,
             IEqualityComparer<string> comparer = null)
@@ -32,7 +32,13 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         public string Name { get; set; }
 
-        public virtual T GetProperty<T>(PerLanguageOption<T> setting, bool cacheDefault = true)
+        public virtual T GetProperty<T>(PerLanguageOption<T> setting)
+        {
+            return GetProperty(setting, cacheDefault: true);
+        }
+
+        public virtual T GetProperty<T>(PerLanguageOption<T> setting, bool cacheDefault)
+
         {
             if (setting == null) { throw new ArgumentNullException(nameof(setting)); }
 
@@ -48,7 +54,13 @@ namespace Microsoft.CodeAnalysis.Sarif
             return value;
         }
 
-        public override void SetProperty(IOption setting, object value, bool cacheDescription = false)
+        public override void SetProperty(IOption setting, object value)
+        {
+            SetProperty(setting, value, cacheDescription: false);
+        }
+
+        public override void SetProperty(IOption setting, object value, bool cacheDescription)
+
         {
             if (setting == null) { throw new ArgumentNullException(nameof(setting)); }
 
