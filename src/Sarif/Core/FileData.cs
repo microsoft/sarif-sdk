@@ -33,17 +33,17 @@ namespace Microsoft.CodeAnalysis.Sarif
                         {
                             new Hash()
                             {
-                                Value = hashes.GetMD5,
+                                Value = hashes.MD5,
                                 Algorithm = AlgorithmKind.MD5,
                             },
                             new Hash()
                             {
-                                Value = hashes.GetSha1,
+                                Value = hashes.Sha1,
                                 Algorithm = AlgorithmKind.Sha1,
                             },
                             new Hash()
                             {
-                                Value = hashes.GetSha256,
+                                Value = hashes.Sha256,
                                 Algorithm = AlgorithmKind.Sha256,
                             },
                         };

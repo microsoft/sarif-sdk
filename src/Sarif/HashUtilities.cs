@@ -7,31 +7,6 @@ using System.Security.Cryptography;
 
 namespace Microsoft.CodeAnalysis.Sarif
 {
-    public class HashData
-    {
-        string md5;
-        string sha1;
-        string sha256;
-
-        public HashData()
-        {
-            this.md5 = String.Empty;
-            this.sha1 = String.Empty;
-            this.sha256 = String.Empty;
-        }
-
-        public HashData(string md5, string sha1, string sha256)
-        {
-            this.md5 = md5;
-            this.sha1 = sha1;
-            this.sha256 = sha256;
-        }
-
-        public string GetMD5 { get { return md5; } }
-        public string GetSha1 { get { return sha1; } }
-        public string GetSha256 { get { return sha256; } }
-
-    }
     public static class HashUtilities
     {
         public static HashData ComputeHashes(string fileName)
