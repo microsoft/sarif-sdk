@@ -18,30 +18,32 @@ namespace Microsoft.CodeAnalysis.Sarif
                 {
                     using (var bufferedStream = new BufferedStream(stream, 1024 * 32))
                     {
+                        byte[] checksum;
+
                         using (var md5Cng = new MD5Cng())
                         {
-                            byte[] checksum = md5Cng.ComputeHash(bufferedStream);
+                            checksum = md5Cng.ComputeHash(bufferedStream);
                             md5 = BitConverter.ToString(checksum).Replace("-", String.Empty);
+                        }
 
 
-                            stream.Seek(0, SeekOrigin.Begin);
-                            bufferedStream.Seek(0, SeekOrigin.Begin);
+                        stream.Seek(0, SeekOrigin.Begin);
+                        bufferedStream.Seek(0, SeekOrigin.Begin);
 
-                            using (var sha1Cng = new SHA1Cng())
-                            {
-                                checksum = sha1Cng.ComputeHash(bufferedStream);
-                                sha1 = BitConverter.ToString(checksum).Replace("-", String.Empty);
+                        using (var sha1Cng = new SHA1Cng())
+                        {
+                            checksum = sha1Cng.ComputeHash(bufferedStream);
+                            sha1 = BitConverter.ToString(checksum).Replace("-", String.Empty);
+                        }
 
 
-                                stream.Seek(0, SeekOrigin.Begin);
-                                bufferedStream.Seek(0, SeekOrigin.Begin);
+                        stream.Seek(0, SeekOrigin.Begin);
+                        bufferedStream.Seek(0, SeekOrigin.Begin);
 
-                                using (var sha256Cng = new SHA256Cng())
-                                {
+                        using (var sha256Cng = new SHA256Cng())
+                        {
                                     checksum = sha256Cng.ComputeHash(bufferedStream);
                                     sha256 = BitConverter.ToString(checksum).Replace("-", String.Empty);
-                                }
-                            }
                         }
                     }
                 }
