@@ -9,9 +9,8 @@ namespace Microsoft.CodeAnalysis.Sarif
 {
     public static class HashUtilities
     {
-        public static void ComputeHashes(string fileName, out string md5, out string sha1, out string sha256)
+        public static HashData ComputeHashes(string fileName)
         {
-            sha1 = sha256 = md5 = null;
             try
             {
                 using (FileStream stream = File.OpenRead(fileName))
@@ -20,26 +19,29 @@ namespace Microsoft.CodeAnalysis.Sarif
                     {
                         var md5Cng = new MD5Cng();
                         byte[] checksum = md5Cng.ComputeHash(bufferedStream);
-                        md5 = BitConverter.ToString(checksum).Replace("-", String.Empty);
+                        string md5 = BitConverter.ToString(checksum).Replace("-", String.Empty);
 
                         stream.Seek(0, SeekOrigin.Begin);
                         bufferedStream.Seek(0, SeekOrigin.Begin);
 
                         var sha1Cng = new SHA1Cng();
                         checksum = sha1Cng.ComputeHash(bufferedStream);
-                        sha1 = BitConverter.ToString(checksum).Replace("-", String.Empty);
+                        string sha1 = BitConverter.ToString(checksum).Replace("-", String.Empty);
 
                         stream.Seek(0, SeekOrigin.Begin);
                         bufferedStream.Seek(0, SeekOrigin.Begin);
 
                         var sha256Cng = new SHA256Cng();
                         checksum = sha256Cng.ComputeHash(bufferedStream);
-                        sha256 = BitConverter.ToString(checksum).Replace("-", String.Empty);                            
+                        string sha256 = BitConverter.ToString(checksum).Replace("-", String.Empty);
+
+                        return new HashData(md5, sha1, sha256);                         
                     }
                 }
             }
             catch (IOException) { }
             catch (UnauthorizedAccessException) { }
+            return null;
         }
 
         public static string ComputeSha256Hash(string fileName)
