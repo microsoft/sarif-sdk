@@ -224,7 +224,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             }
             if (_textWriter != null) { _textWriter.Dispose(); }
 
-            if (_jsonTextWriter != null) { _jsonTextWriter.Close(); }
+            if (_jsonTextWriter == null) { _jsonTextWriter.Close(); }
             
         }
 
