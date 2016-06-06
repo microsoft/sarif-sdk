@@ -64,6 +64,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         public static readonly string Default = Binary;
 
         /// <summary>The MIME type for C and C++ files.</summary>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "Cpp")]
         public static readonly string Cpp = "text/x-cpp";
         /// /// <summary>The MIME type for Java source code files.</summary>
         public static readonly string Java = "text/x-java-source";

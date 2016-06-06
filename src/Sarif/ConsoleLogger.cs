@@ -197,6 +197,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return result;
         }
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "enquote")]
         public static string NormalizeMessage(string message, bool enquote)
         {
             if (message == null)

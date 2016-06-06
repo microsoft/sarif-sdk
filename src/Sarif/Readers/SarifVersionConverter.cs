@@ -6,6 +6,7 @@ using Newtonsoft.Json;
 
 namespace Microsoft.CodeAnalysis.Sarif.Readers
 {
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "Sarif")]
     public class SarifVersionConverter : JsonConverter
     {
         public static readonly SarifVersionConverter Instance = new SarifVersionConverter();

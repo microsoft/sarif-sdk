@@ -7,6 +7,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 {
     public static class Notes
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "Msg")]
         public const string Msg001AnalyzingTarget = "MSG001.AnalyzingTarget";
 
         public static void LogNotApplicableToSpecifiedTarget(IAnalysisContext context, string reasonForNotAnalyzing)

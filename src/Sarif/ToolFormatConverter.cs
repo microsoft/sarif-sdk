@@ -150,6 +150,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="toolFormat">The tool format of the input file.</param>
         /// <param name="inputFileName">The input log file name.</param>
         /// <returns>The converted PREfast log file in SARIF format.</returns>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "Efast")]
         public static string ConvertPREfastToStandardFormat(string inputFileName)
         {
             if (inputFileName == null) { throw new ArgumentNullException(nameof(inputFileName)); };

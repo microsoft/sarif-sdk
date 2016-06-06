@@ -7,6 +7,7 @@ using System.Collections.Generic;
 
 namespace Microsoft.CodeAnalysis.Sarif.Readers
 {
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "Sarif")]
     public class SarifContractResolver : DefaultContractResolver
     {
         public static readonly SarifContractResolver Instance = new SarifContractResolver();

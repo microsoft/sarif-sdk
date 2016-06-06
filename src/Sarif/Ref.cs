@@ -15,6 +15,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         /// <param name="lhs">The first string to compare.</param>
         /// <param name="rhs">The second string to compare.</param>
         /// <returns>true if <c>Object.ReferenceEquals(lhs, rhs)</c>; otherwise, false.</returns>
+        [SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "rhs")]
         public static bool Equal(string lhs, string rhs)
         {
             Debug.Assert(((object)lhs) == ((object)rhs) || !String.Equals(lhs, rhs, StringComparison.Ordinal),

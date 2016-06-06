@@ -13,6 +13,7 @@ using Newtonsoft.Json;
 
 namespace Microsoft.CodeAnalysis.Sarif.Writers
 {
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "Sarif")]
     public class SarifLogger : IDisposable, IAnalysisLogger
     {
         private Run _run;

@@ -10,6 +10,7 @@ using System.Text.RegularExpressions;
 
 namespace Microsoft.CodeAnalysis.Sarif
 {
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "Sarif")]
     public static class SarifUtilities
     {
         private static Regex s_semVer200 = new Regex(@"^(?<major>\d+)\.(?<minor>\d+)\.(?<patch>\d+)(-(?<prerelease>[A-Za-z0-9\-\.]+))?(\+(?<build>[A-Za-z0-9\-\.]+))?$", RegexOptions.Compiled);
@@ -25,14 +26,18 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// Returns an ISO 8601 compatible universal date time format string with
         /// seconds precision, used to produce times such as "2016-03-02T01:44:50Z"
         /// </summary>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "Sarif")]
         public static readonly string SarifDateTimeFormatSecondsPrecision = "yyyy'-'MM'-'dd'T'HH':'mm':'ss'Z'";
 
         /// <summary>
         /// Returns an ISO 8601 compatible universal date time format string with
         /// milliseconds precision, used to produce times such as "2016-03-02T01:44:50.123Z"
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "Sarif")]
         public static readonly string SarifDateTimeFormatMillisecondsPrecision = "yyyy'-'MM'-'dd'T'HH':'mm':'ss.fff'Z'";
 
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "sarif")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "Sarif")]
         public static SarifVersion ConvertToSarifVersion(this string sarifVersionText)
         {
             switch (sarifVersionText)
@@ -44,6 +49,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return SarifVersion.Unknown;
         }
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "sarif")]
         public static string ConvertToText(this SarifVersion sarifVersion)
         {
             switch (sarifVersion)
@@ -54,6 +60,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return "unknown";
         }
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "sarif")]
         public static Uri ConvertToSchemaUri(this SarifVersion sarifVersion)
         {
             return new Uri("http://json.schemastore.org/sarif-" + V1_0_0, UriKind.Absolute);

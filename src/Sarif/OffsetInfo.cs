@@ -109,6 +109,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="lhs">The left hand side.</param>
         /// <param name="rhs">The right hand side.</param>
         /// <returns>The result of the operation.</returns>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "rhs")]
         public static bool operator ==(OffsetInfo lhs, OffsetInfo rhs)
         {
             return lhs.Equals(rhs);
@@ -118,6 +119,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="lhs">The left hand side.</param>
         /// <param name="rhs">The right hand side.</param>
         /// <returns>The result of the operation.</returns>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "rhs")]
         public static bool operator !=(OffsetInfo lhs, OffsetInfo rhs)
         {
             return !lhs.Equals(rhs);
