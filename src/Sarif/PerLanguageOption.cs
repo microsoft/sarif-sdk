@@ -39,7 +39,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// </summary>
         public Func<T> DefaultValue { get; }
 
-        public PerLanguageOption(string feature, string name, Func<T> defaultValue, string description = null)
+        public PerLanguageOption(string feature, string name, Func<T> defaultValue)
         {
             if (string.IsNullOrWhiteSpace(feature))
             {
@@ -51,10 +51,28 @@ namespace Microsoft.CodeAnalysis.Sarif
                 throw new ArgumentException(nameof(name));
             }
 
-            this.Feature = feature;
-            this.Name = name;
-            this.DefaultValue = defaultValue;
-            this.Description = description;
+            Feature = feature;
+            Name = name;
+            DefaultValue = defaultValue;
+            Description = null;
+        }
+
+        public PerLanguageOption(string feature, string name, Func<T> defaultValue, string description)
+        {
+            if (string.IsNullOrWhiteSpace(feature))
+            {
+                throw new ArgumentNullException(nameof(feature));
+            }
+
+            if (string.IsNullOrWhiteSpace(name))
+            {
+                throw new ArgumentException(nameof(name));
+            }
+
+            Feature = feature;
+            Name = name;
+            DefaultValue = defaultValue;
+            Description = description;
         }
 
         Type IOption.Type

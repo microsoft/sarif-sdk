@@ -16,10 +16,19 @@ namespace Microsoft.CodeAnalysis.Sarif
     {
         public static void SavePropertyBagToStream(
             this IDictionary propertyBag,
+            XmlWriter writer,
+            XmlWriterSettings settings,
+            string name)
+        {
+            SavePropertyBagToStream(propertyBag, writer, settings, name, settingNameToDescriptionMap: null);
+        }
+
+        public static void SavePropertyBagToStream(
+            this IDictionary propertyBag,
             XmlWriter writer, 
             XmlWriterSettings settings, 
             string name,
-            Dictionary<string, string> settingNameToDescriptionMap = null)
+            Dictionary<string, string> settingNameToDescriptionMap)
         {
             if (propertyBag == null)
             {

@@ -65,9 +65,16 @@ namespace Microsoft.CodeAnalysis.Sarif
         }
 
         public static Dictionary<string, string> BuildDictionary(
-            ResourceManager resourceManager, 
-            IEnumerable<string> resourceNames, 
-            string ruleId = null)
+            ResourceManager resourceManager,
+            IEnumerable<string> resourceNames)
+        {
+            return BuildDictionary(resourceManager, resourceNames, ruleId: null);
+        }
+
+        public static Dictionary<string, string> BuildDictionary(
+            ResourceManager resourceManager,
+            IEnumerable<string> resourceNames,
+            string ruleId)
         {
             //validation
             if (resourceNames == null)

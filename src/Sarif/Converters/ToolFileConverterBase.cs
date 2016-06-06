@@ -24,9 +24,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
         // internal as well as protected it can be exercised by unit tests.
         protected internal IDictionary<string, LogicalLocation> LogicalLocationsDictionary { get; private set;  }
+        
+        protected internal string AddLogicalLocation(LogicalLocation logicalLocation)
+        {
+            return AddLogicalLocation(logicalLocation, delimiter: ".");
+        }
 
         // internal as well as protected it can be exercised by unit tests.
-        protected internal string AddLogicalLocation(LogicalLocation logicalLocation, string delimiter = ".")
+        protected internal string AddLogicalLocation(LogicalLocation logicalLocation, string delimiter)
         {
             if (logicalLocation == null)
             {
