@@ -18,28 +18,31 @@ namespace Microsoft.CodeAnalysis.Sarif
                 {
                     using (var bufferedStream = new BufferedStream(stream, 1024 * 32))
                     {
-                        var md5Cng = new MD5Cng();
-                        byte[] checksum = md5Cng.ComputeHash(bufferedStream);
-                        md5 = BitConverter.ToString(checksum).Replace("-", String.Empty);
+                        using (var md5Cng = new MD5Cng())
+                        {
+                            byte[] checksum = md5Cng.ComputeHash(bufferedStream);
+                            md5 = BitConverter.ToString(checksum).Replace("-", String.Empty);
 
-                        stream.Seek(0, SeekOrigin.Begin);
-                        bufferedStream.Seek(0, SeekOrigin.Begin);
 
-                        var sha1Cng = new SHA1Cng();
-                        checksum = sha1Cng.ComputeHash(bufferedStream);
-                        sha1 = BitConverter.ToString(checksum).Replace("-", String.Empty);
+                            stream.Seek(0, SeekOrigin.Begin);
+                            bufferedStream.Seek(0, SeekOrigin.Begin);
 
-                        stream.Seek(0, SeekOrigin.Begin);
-                        bufferedStream.Seek(0, SeekOrigin.Begin);
+                            using (var sha1Cng = new SHA1Cng())
+                            {
+                                checksum = sha1Cng.ComputeHash(bufferedStream);
+                                sha1 = BitConverter.ToString(checksum).Replace("-", String.Empty);
 
-                        var sha256Cng = new SHA256Cng();
-                        checksum = sha256Cng.ComputeHash(bufferedStream);
-                        sha256 = BitConverter.ToString(checksum).Replace("-", String.Empty);
 
-                        // disposals
-                        md5Cng.Dispose();
-                        sha1Cng.Dispose();
-                        sha256Cng.Dispose();                        
+                                stream.Seek(0, SeekOrigin.Begin);
+                                bufferedStream.Seek(0, SeekOrigin.Begin);
+
+                                using (var sha256Cng = new SHA256Cng())
+                                {
+                                    checksum = sha256Cng.ComputeHash(bufferedStream);
+                                    sha256 = BitConverter.ToString(checksum).Replace("-", String.Empty);
+                                }
+                            }
+                        }
                     }
                 }
             }
@@ -57,11 +60,11 @@ namespace Microsoft.CodeAnalysis.Sarif
                 {
                     using (var bufferedStream = new BufferedStream(stream, 1024 * 32))
                     {
-                        var sha = new SHA256Cng();
-                        byte[] checksum = sha.ComputeHash(bufferedStream);
-                        sha256Hash = BitConverter.ToString(checksum).Replace("-", String.Empty);
-
-                        sha.Dispose();
+                        using (var sha = new SHA256Cng())
+                        {
+                            byte[] checksum = sha.ComputeHash(bufferedStream);
+                            sha256Hash = BitConverter.ToString(checksum).Replace("-", String.Empty);
+                        }
                     }
                 }
             }
@@ -80,11 +83,11 @@ namespace Microsoft.CodeAnalysis.Sarif
                 {
                     using (var bufferedStream = new BufferedStream(stream, 1024 * 32))
                     {
-                        var sha = new SHA1Cng();
-                        byte[] checksum = sha.ComputeHash(bufferedStream);
-                        sha1 = BitConverter.ToString(checksum).Replace("-", String.Empty);
-
-                        sha.Dispose();
+                        using (var sha = new SHA1Cng())
+                        {
+                            byte[] checksum = sha.ComputeHash(bufferedStream);
+                            sha1 = BitConverter.ToString(checksum).Replace("-", String.Empty);
+                        }
                     }
                 }
             }
@@ -103,11 +106,11 @@ namespace Microsoft.CodeAnalysis.Sarif
                 {
                     using (var bufferedStream = new BufferedStream(stream, 1024 * 32))
                     {
-                        var sha = new MD5Cng();
-                        byte[] checksum = sha.ComputeHash(bufferedStream);
-                        md5 = BitConverter.ToString(checksum).Replace("-", String.Empty);
-
-                        sha.Dispose();
+                        using (var sha = new MD5Cng())
+                        {
+                            byte[] checksum = sha.ComputeHash(bufferedStream);
+                            md5 = BitConverter.ToString(checksum).Replace("-", String.Empty);
+                        }
                     }
                 }
             }
