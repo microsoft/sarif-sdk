@@ -34,7 +34,12 @@ namespace Microsoft.CodeAnalysis.Sarif
 
                         var sha256Cng = new SHA256Cng();
                         checksum = sha256Cng.ComputeHash(bufferedStream);
-                        sha256 = BitConverter.ToString(checksum).Replace("-", String.Empty);                            
+                        sha256 = BitConverter.ToString(checksum).Replace("-", String.Empty);
+
+                        // disposals
+                        md5Cng.Dispose();
+                        sha1Cng.Dispose();
+                        sha256Cng.Dispose();                        
                     }
                 }
             }
@@ -55,6 +60,8 @@ namespace Microsoft.CodeAnalysis.Sarif
                         var sha = new SHA256Cng();
                         byte[] checksum = sha.ComputeHash(bufferedStream);
                         sha256Hash = BitConverter.ToString(checksum).Replace("-", String.Empty);
+
+                        sha.Dispose();
                     }
                 }
             }
@@ -76,6 +83,8 @@ namespace Microsoft.CodeAnalysis.Sarif
                         var sha = new SHA1Cng();
                         byte[] checksum = sha.ComputeHash(bufferedStream);
                         sha1 = BitConverter.ToString(checksum).Replace("-", String.Empty);
+
+                        sha.Dispose();
                     }
                 }
             }
@@ -97,6 +106,8 @@ namespace Microsoft.CodeAnalysis.Sarif
                         var sha = new MD5Cng();
                         byte[] checksum = sha.ComputeHash(bufferedStream);
                         md5 = BitConverter.ToString(checksum).Replace("-", String.Empty);
+
+                        sha.Dispose();
                     }
                 }
             }
