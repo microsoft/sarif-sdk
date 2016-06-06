@@ -198,7 +198,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                     _issueLogJsonWriter.WriteToolNotifications(_run.ToolNotifications);
                 }
 
-                if (_run != null && 
+                if (_run != null &&
                     _run.Invocation != null &&
                     _run.Invocation.StartTime != new DateTime())
                 {
@@ -223,6 +223,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 _issueLogJsonWriter.Dispose();
             }
             if (_textWriter != null) { _textWriter.Dispose(); }
+
+            if (_jsonTextWriter == null) { _jsonTextWriter.Close(); }
 
             GC.SuppressFinalize(this);
         }
