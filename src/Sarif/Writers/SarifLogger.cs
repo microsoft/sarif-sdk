@@ -224,8 +224,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             }
             if (_textWriter != null) { _textWriter.Dispose(); }
 
-            GC.SuppressFinalize(_issueLogJsonWriter);
-            GC.SuppressFinalize(_textWriter);
+            GC.SuppressFinalize(this);
         }
 
         public void LogMessage(bool verbose, string message)
