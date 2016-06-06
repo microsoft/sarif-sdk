@@ -39,22 +39,9 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// </summary>
         public Func<T> DefaultValue { get; }
 
-        public PerLanguageOption(string feature, string name, Func<T> defaultValue)
+        public PerLanguageOption(string feature, string name, Func<T> defaultValue) :
+            this(feature, name, defaultValue, description: null)
         {
-            if (string.IsNullOrWhiteSpace(feature))
-            {
-                throw new ArgumentNullException(nameof(feature));
-            }
-
-            if (string.IsNullOrWhiteSpace(name))
-            {
-                throw new ArgumentException(nameof(name));
-            }
-
-            Feature = feature;
-            Name = name;
-            DefaultValue = defaultValue;
-            Description = null;
         }
 
         public PerLanguageOption(string feature, string name, Func<T> defaultValue, string description)

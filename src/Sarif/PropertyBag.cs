@@ -16,8 +16,13 @@ namespace Microsoft.CodeAnalysis.Sarif
     {
         internal const string DEFAULT_POLICY_NAME = "default";
 
-        public PropertyBagDictionary() : base() { }
-        //CA1026 Not sure how to fix
+        public PropertyBagDictionary() : this(null) { }
+
+        public PropertyBagDictionary(PropertyBagDictionary initializer) :
+            this(initializer, null)
+        {
+        }
+
         public PropertyBagDictionary(
             PropertyBagDictionary initializer = null,
             IEqualityComparer<string> comparer = null)
