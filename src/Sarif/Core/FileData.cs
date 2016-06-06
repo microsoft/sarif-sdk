@@ -28,8 +28,6 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             if (computeHashes && uri.IsAbsoluteUri && uri.IsFile)
             {
-                //string md5, sha1, sha256;
-
                 HashData hashes = HashUtilities.ComputeHashes(uri.LocalPath);
                 fileData.Hashes = new List<Hash>
                         {
