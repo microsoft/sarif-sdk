@@ -154,11 +154,14 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             if (inputFileName == null) { throw new ArgumentNullException(nameof(inputFileName)); };
 
-            return ConvertToSarif(inputFileName);
-        }
+            return SafeNativeMethods.ConvertToSarif(inputFileName);
+        }        
+    }
 
+    internal class SafeNativeMethods
+    {
         [return: MarshalAs(UnmanagedType.BStr)]
         [DllImport("PREfastXmlSarifConverter", CallingConvention = CallingConvention.StdCall, CharSet = CharSet.Unicode)]
-        private static extern string ConvertToSarif([MarshalAs(UnmanagedType.BStr)][In]string prefastFilePath);
+        internal static extern string ConvertToSarif([MarshalAs(UnmanagedType.BStr)][In]string prefastFilePath);
     }
 }
