@@ -148,7 +148,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 invocationTokensToRedact);
         }
 
-        private void SetSarifLoggerVersion(Tool tool)
+        private static void SetSarifLoggerVersion(Tool tool)
         {
             string sarifLoggerLocation = typeof(SarifLogger).Assembly.Location;
             tool.SarifLoggerVersion = FileVersionInfo.GetVersionInfo(sarifLoggerLocation).FileVersion;
