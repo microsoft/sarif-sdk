@@ -4,9 +4,9 @@
     <Recognized>
       <Word>Cpp</Word>
     </Recognized>
-    <Recognized>
-      <Word>CppCheck</Word>
-    </Recognized>
+    <Compound>
+      <Term CompoundAlternate="CppCheck">cppcheck</Term>
+    </Compound>
     <Recognized>
       <Word>Efast</Word>
     </Recognized>
