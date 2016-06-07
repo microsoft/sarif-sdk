@@ -84,7 +84,12 @@ namespace Microsoft.CodeAnalysis.Sarif
             return dictionary;
         }
 
-        public static void InitializeFromAssembly(this Tool tool, Assembly assembly, string prereleaseInfo = null)
+        public static void InitializeFromAssembly(this Tool tool, Assembly assembly)
+        {
+            InitializeFromAssembly(tool, assembly, prereleaseInfo: null);
+        }
+
+        public static void InitializeFromAssembly(this Tool tool, Assembly assembly, string prereleaseInfo)
         {
             if (assembly == null)
             {

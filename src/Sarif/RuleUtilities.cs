@@ -67,7 +67,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         public static Dictionary<string, string> BuildDictionary(
             ResourceManager resourceManager, 
             IEnumerable<string> resourceNames, 
-            string ruleId = null)
+            string ruleId)
         {
             //validation
             if (resourceNames == null)
