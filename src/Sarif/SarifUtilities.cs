@@ -3,6 +3,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Reflection;
 using System.Resources;
@@ -100,7 +101,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             Version version = assembly.GetName().Version;
 
             tool.Name = name;
-            tool.Version = version.Major.ToString() + "." + version.Minor.ToString() + "." + version.Build.ToString();
+            tool.Version = version.Major.ToString(CultureInfo.InvariantCulture) + "." + version.Minor.ToString(CultureInfo.InvariantCulture) + "." + version.Build.ToString(CultureInfo.InvariantCulture);
             tool.FullName = name + " " + tool.Version + (prereleaseInfo ?? "");
         }
 

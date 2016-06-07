@@ -2,6 +2,7 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using System;
+using System.Globalization;
 
 namespace Microsoft.CodeAnalysis.Sarif
 {
@@ -74,7 +75,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         public override string ToString()
         {
-            return string.Format("{0} - {1}", this.Feature, this.Name);
+            return string.Format(CultureInfo.InvariantCulture, "{0} - {1}", this.Feature, this.Name);
         }
     }
 }

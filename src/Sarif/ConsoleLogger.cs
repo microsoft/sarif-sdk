@@ -2,6 +2,7 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using System;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -59,7 +60,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             if (this.Verbose)
             {
-                Console.WriteLine(string.Format(
+                Console.WriteLine(string.Format(CultureInfo.CurrentCulture,
                     SdkResources.MSG001_AnalyzingTarget,
                         Path.GetFileName(context.TargetUri.LocalPath)));
             }
@@ -263,12 +264,12 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             if (!string.IsNullOrEmpty(notification.Id))
             {
-                sb.Append($" {notification.Id}: ");
+                sb.Append(string.Format(CultureInfo.CurrentCulture, $" {notification.Id}: "));
             }
 
             if (!string.IsNullOrEmpty(notification.RuleId))
             {
-                sb.Append($"{notification.RuleId}: ");
+                sb.Append(string.Format(CultureInfo.CurrentCulture, $"{notification.RuleId}: "));
             }
 
             sb.Append(notification.Message);
