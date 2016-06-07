@@ -33,7 +33,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 return;
             }
 
-            if ((runtimeConditions & ~RuntimeConditions.NonFatal) != 0)
+            if ((runtimeConditions & ~RuntimeConditions.Nonfatal) != 0)
             {
                 // One or more fatal conditions observed at runtime, so
                 // we'll report a catastrophic exit (withuot paying

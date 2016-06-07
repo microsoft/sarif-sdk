@@ -13,7 +13,7 @@ using Newtonsoft.Json;
 
 namespace Microsoft.CodeAnalysis.Sarif.Writers
 {
-    public class SarifLogger : IDisposable, IAnalysisLogger
+    sealed public class SarifLogger : IDisposable, IAnalysisLogger
     {
         private Run _run;
         private TextWriter _textWriter;

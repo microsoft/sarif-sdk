@@ -238,7 +238,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             context.RuntimeErrors |= RuntimeConditions.RuleMissingRequiredConfiguration;
         }
 
-        public static void LogExceptionLoadingPlugIn(string plugInFilePath, IAnalysisContext context, Exception exception)
+        public static void LogExceptionLoadingPlugin(string pluginFilePath, IAnalysisContext context, Exception exception)
         {
             if (context == null)
             {
@@ -253,9 +253,9 @@ namespace Microsoft.CodeAnalysis.Sarif
                     NotificationLevel.Error,
                     exception,
                     false,  
-                    plugInFilePath));
+                    pluginFilePath));
 
-            context.RuntimeErrors |= RuntimeConditions.ExceptionLoadingAnalysisPlugIn;
+            context.RuntimeErrors |= RuntimeConditions.ExceptionLoadingAnalysisPlugin;
         }
 
         public static void LogTargetParseError(IAnalysisContext context, Region region, string message)

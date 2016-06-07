@@ -34,7 +34,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         ExceptionLoadingPdb = 0x20,
         ExceptionInEngine = 0x40,
         ExceptionLoadingTargetFile = 0x80,
-        ExceptionLoadingAnalysisPlugIn = 0x100,
+        ExceptionLoadingAnalysisPlugin = 0x100,
         NoRulesLoaded = 0x200,
         NoValidAnalysisTargets = 0x400,
         RuleMissingRequiredConfiguration = 0x800,
@@ -47,6 +47,6 @@ namespace Microsoft.CodeAnalysis.Sarif
         RuleNotApplicableToTarget = 0x10000000,
         TargetNotValidToAnalyze   = 0x20000000,
 
-        NonFatal = 0x30000000
+        Nonfatal = 0x30000000
     }       
 }

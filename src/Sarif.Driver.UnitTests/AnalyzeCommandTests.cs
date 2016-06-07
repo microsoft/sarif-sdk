@@ -50,7 +50,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             int result = command.Run(analyzeOptions);
 
             int expectedResult =
-                (runtimeConditions & ~RuntimeConditions.NonFatal) == RuntimeConditions.None ?
+                (runtimeConditions & ~RuntimeConditions.Nonfatal) == RuntimeConditions.None ?
                     TestAnalyzeCommand.SUCCESS : TestAnalyzeCommand.FAILURE;
 
             Assert.Equal(runtimeConditions, command.RuntimeErrors);
@@ -390,7 +390,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             var options = new TestAnalyzeOptions()
             {
                 TargetFileSpecifiers = new string[] { this.GetType().Assembly.Location },
-                PlugInFilePaths = new string[] { path },
+                PluginFilePaths = new string[] { path },
                 Verbose = true,
             };
 
