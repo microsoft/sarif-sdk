@@ -9,6 +9,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 {
     public static class HashUtilities
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "sha")]
         public static void ComputeHashes(string fileName, out string md5, out string sha1, out string sha256)
         {
             sha1 = sha256 = md5 = null;
@@ -52,6 +53,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             catch (UnauthorizedAccessException) { }
         }
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "Sha")]
         public static string ComputeSha256Hash(string fileName)
         {
             string sha256Hash = null;
@@ -75,6 +77,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return sha256Hash;
         }
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "Sha")]
         public static string ComputeSha1Hash(string fileName)
         {
             string sha1 = null;

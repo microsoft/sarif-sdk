@@ -13,12 +13,14 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <summary>Clang analyzer's file format.</summary>
         ClangAnalyzer,
         /// <summary>CppCheck's file format.</summary>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "Cpp")]
         CppCheck,
         /// <summary>Fortify's file format.</summary>
         Fortify,
         /// <summary>FxCop's file format.</summary>
         FxCop,
         /// <summary>PREfast's file format.</summary>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "Efast")]
         PREfast,
     }
 }

@@ -9,6 +9,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 {
     public static class Warnings
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "Wrn")]
         public const string Wrn997InvalidTarget = "WRN997_InvalidTarget";
 
         public static void LogExceptionInvalidTarget(IAnalysisContext context)

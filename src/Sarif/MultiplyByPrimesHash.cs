@@ -32,6 +32,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="lhs">The left hand side.</param>
         /// <param name="rhs">The right hand side.</param>
         /// <returns>true of <paramref name="lhs"/> is equal to <paramref name="rhs"/>; otherwise, false.</returns>
+        [SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "rhs")]
         public static bool operator ==(MultiplyByPrimesHash lhs, MultiplyByPrimesHash rhs)
         {
             if (object.ReferenceEquals(lhs, null))
@@ -50,6 +51,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="lhs">The left hand side.</param>
         /// <param name="rhs">The right hand side.</param>
         /// <returns>true of <paramref name="lhs"/> is not equal to <paramref name="rhs"/>; otherwise, false.</returns>
+        [SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "rhs")]
         public static bool operator !=(MultiplyByPrimesHash lhs, MultiplyByPrimesHash rhs)
         {
             return !(lhs == rhs);

@@ -7,6 +7,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
 {
     public class ResultDiffingVisitor : SarifRewritingVisitor
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "sarif")]
         public ResultDiffingVisitor(SarifLog sarifLog)
         {
             this.AbsentResults = new HashSet<Result>(Result.ValueComparer);

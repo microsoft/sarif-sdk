@@ -30,6 +30,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         ExceptionInSkimmerInitialize = 0x02,
         ExceptionRaisedInSkimmerCanAnalyze = 0x04,
         ExceptionInSkimmerAnalyze = 0x08,
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "Logfile")]
         ExceptionCreatingLogfile = 0x10,
         ExceptionLoadingPdb = 0x20,
         ExceptionInEngine = 0x40,
