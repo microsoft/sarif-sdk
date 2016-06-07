@@ -7,6 +7,7 @@ using Newtonsoft.Json;
 
 namespace Microsoft.CodeAnalysis.Sarif.Readers
 {
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1726:UsePreferredTerms", MessageId = "Flags")]
     public class FlagsEnumConverter : JsonConverter
     {
         public static readonly FlagsEnumConverter Instance = new FlagsEnumConverter();
