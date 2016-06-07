@@ -285,12 +285,12 @@ namespace json
 
 			Object& operator =(const Object& obj);
 
-			friend bool operator ==(const Object& lhs, const Object& rhs);
-			inline friend bool operator !=(const Object& lhs, const Object& rhs) 	{return !(lhs == rhs);}
-			friend bool operator <(const Object& lhs, const Object& rhs);
-			inline friend bool operator >(const Object& lhs, const Object& rhs) 	{return operator<(rhs, lhs);}
-			inline friend bool operator <=(const Object& lhs, const Object& rhs)	{return !operator>(lhs, rhs);}
-			inline friend bool operator >=(const Object& lhs, const Object& rhs)	{return !operator<(lhs, rhs);}
+			friend bool operator ==(const Object& left, const Object& right);
+			inline friend bool operator !=(const Object& left, const Object& right) 	{return !(left == right);}
+			friend bool operator <(const Object& left, const Object& right);
+			inline friend bool operator >(const Object& left, const Object& right) 	{return operator<(right, left);}
+			inline friend bool operator <=(const Object& left, const Object& right)	{return !operator>(left, right);}
+			inline friend bool operator >=(const Object& left, const Object& right)	{return !operator<(left, right);}
 
 			// Just like a std::map, you can get the value for a key by using the index operator. You could also
 			// use this to insert a value if it doesn't exist, or overwrite it if it does. Example:
@@ -351,12 +351,12 @@ namespace json
 
 			Array& operator =(const Array& a);
 
-			friend bool operator ==(const Array& lhs, const Array& rhs);
-			inline friend bool operator !=(const Array& lhs, const Array& rhs) {return !(lhs == rhs);}
-			friend bool operator <(const Array& lhs, const Array& rhs);
-			inline friend bool operator >(const Array& lhs, const Array& rhs) 	{return operator<(rhs, lhs);}
-			inline friend bool operator <=(const Array& lhs, const Array& rhs)	{return !operator>(lhs, rhs);}
-			inline friend bool operator >=(const Array& lhs, const Array& rhs)	{return !operator<(lhs, rhs);}
+			friend bool operator ==(const Array& left, const Array& right);
+			inline friend bool operator !=(const Array& left, const Array& right) {return !(left == right);}
+			friend bool operator <(const Array& left, const Array& right);
+			inline friend bool operator >(const Array& left, const Array& right) 	{return operator<(right, left);}
+			inline friend bool operator <=(const Array& left, const Array& right)	{return !operator>(left, right);}
+			inline friend bool operator >=(const Array& left, const Array& right)	{return !operator<(left, right);}
 
 			Value& operator[] (size_t i);
 			const Value& operator[] (size_t i) const;
@@ -417,12 +417,12 @@ namespace json
 
 			Value& operator =(const Value& v);
 
-			friend bool operator ==(const Value& lhs, const Value& rhs);
-			inline friend bool operator !=(const Value& lhs, const Value& rhs) 	{return !(lhs == rhs);}
-			friend bool operator <(const Value& lhs, const Value& rhs);
-			inline friend bool operator >(const Value& lhs, const Value& rhs) 	{return operator<(rhs, lhs);}
-			inline friend bool operator <=(const Value& lhs, const Value& rhs)	{return !operator>(lhs, rhs);}
-			inline friend bool operator >=(const Value& lhs, const Value& rhs)	{return !operator<(lhs, rhs);}
+			friend bool operator ==(const Value& left, const Value& right);
+			inline friend bool operator !=(const Value& left, const Value& right) 	{return !(left == right);}
+			friend bool operator <(const Value& left, const Value& right);
+			inline friend bool operator >(const Value& left, const Value& right) 	{return operator<(right, left);}
+			inline friend bool operator <=(const Value& left, const Value& right)	{return !operator>(left, right);}
+			inline friend bool operator >=(const Value& left, const Value& right)	{return !operator<(left, right);}
 
 
 			// If this value represents an object or array, you can use the [] indexing operator
@@ -500,22 +500,22 @@ namespace json
 
 	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-	inline bool operator ==(const Object& lhs, const Object& rhs)
+	inline bool operator ==(const Object& left, const Object& right)
 	{
-		return lhs.mValues == rhs.mValues;
+		return left.mValues == right.mValues;
 	}
 
-	inline bool operator <(const Object& lhs, const Object& rhs)
+	inline bool operator <(const Object& left, const Object& right)
 	{
 		return true; 
 	}
 
-	inline bool operator ==(const Array& lhs, const Array& rhs)
+	inline bool operator ==(const Array& left, const Array& right)
 	{
-		return lhs.mValues == rhs.mValues;
+		return left.mValues == right.mValues;
 	}
 
-	inline bool operator <(const Array& lhs, const Array& rhs)
+	inline bool operator <(const Array& left, const Array& right)
 	{
 		return true; 
 	}
@@ -529,95 +529,95 @@ namespace json
 
 		The same logic applies to the other comparison operators.
 	 */
-	inline bool operator ==(const Value& lhs, const Value& rhs)
+	inline bool operator ==(const Value& left, const Value& right)
 	{
-		if ((lhs.mValueType != rhs.mValueType) && !lhs.IsNumeric() && !rhs.IsNumeric())
+		if ((left.mValueType != right.mValueType) && !left.IsNumeric() && !right.IsNumeric())
 			return false;
 
-		switch (lhs.mValueType)
+		switch (left.mValueType)
 		{
-			case StringVal		: 	return lhs.mStringVal == rhs.mStringVal;
+			case StringVal		: 	return left.mStringVal == right.mStringVal;
 
-			case IntVal			: 	if (rhs.GetType() == FloatVal)
-										return lhs.mIntVal == rhs.mFloatVal;
-									else if (rhs.GetType() == DoubleVal)
-										return lhs.mIntVal == rhs.mDoubleVal;
-									else if (rhs.GetType() == IntVal)
-										return lhs.mIntVal == rhs.mIntVal;
+			case IntVal			: 	if (right.GetType() == FloatVal)
+										return left.mIntVal == right.mFloatVal;
+									else if (right.GetType() == DoubleVal)
+										return left.mIntVal == right.mDoubleVal;
+									else if (right.GetType() == IntVal)
+										return left.mIntVal == right.mIntVal;
 									else
 										return false;
 
-			case FloatVal		: 	if (rhs.GetType() == FloatVal)
-										return lhs.mFloatVal == rhs.mFloatVal;
-									else if (rhs.GetType() == DoubleVal)
-										return lhs.mFloatVal == rhs.mDoubleVal;
-									else if (rhs.GetType() == IntVal)
-										return lhs.mFloatVal == rhs.mIntVal;
+			case FloatVal		: 	if (right.GetType() == FloatVal)
+										return left.mFloatVal == right.mFloatVal;
+									else if (right.GetType() == DoubleVal)
+										return left.mFloatVal == right.mDoubleVal;
+									else if (right.GetType() == IntVal)
+										return left.mFloatVal == right.mIntVal;
 									else
 										return false;
 
 
-			case DoubleVal		: 	if (rhs.GetType() == FloatVal)
-										return lhs.mDoubleVal == rhs.mFloatVal;
-									else if (rhs.GetType() == DoubleVal)
-										return lhs.mDoubleVal == rhs.mDoubleVal;
-									else if (rhs.GetType() == IntVal)
-										return lhs.mDoubleVal == rhs.mIntVal;
+			case DoubleVal		: 	if (right.GetType() == FloatVal)
+										return left.mDoubleVal == right.mFloatVal;
+									else if (right.GetType() == DoubleVal)
+										return left.mDoubleVal == right.mDoubleVal;
+									else if (right.GetType() == IntVal)
+										return left.mDoubleVal == right.mIntVal;
 									else
 										return false;
 
-			case BoolVal		: 	return lhs.mBoolVal == rhs.mBoolVal;
+			case BoolVal		: 	return left.mBoolVal == right.mBoolVal;
 
-			case ObjectVal		: 	return lhs.mObjectVal == rhs.mObjectVal;
+			case ObjectVal		: 	return left.mObjectVal == right.mObjectVal;
 
-			case ArrayVal		: 	return lhs.mArrayVal == rhs.mArrayVal;
+			case ArrayVal		: 	return left.mArrayVal == right.mArrayVal;
 
 			default:
 				return true;
 		}
 	}
 
-	inline bool operator <(const Value& lhs, const Value& rhs)
+	inline bool operator <(const Value& left, const Value& right)
 	{
-		if ((lhs.mValueType != rhs.mValueType) && !lhs.IsNumeric() && !rhs.IsNumeric())
+		if ((left.mValueType != right.mValueType) && !left.IsNumeric() && !right.IsNumeric())
 			return false;
 
-		switch (lhs.mValueType)
+		switch (left.mValueType)
 		{
-			case StringVal		: 	return lhs.mStringVal < rhs.mStringVal;
+			case StringVal		: 	return left.mStringVal < right.mStringVal;
 
-			case IntVal			: 	if (rhs.GetType() == FloatVal)
-										return lhs.mIntVal < rhs.mFloatVal;
-									else if (rhs.GetType() == DoubleVal)
-										return lhs.mIntVal < rhs.mDoubleVal;
-									else if (rhs.GetType() == IntVal)
-										return lhs.mIntVal < rhs.mIntVal;
+			case IntVal			: 	if (right.GetType() == FloatVal)
+										return left.mIntVal < right.mFloatVal;
+									else if (right.GetType() == DoubleVal)
+										return left.mIntVal < right.mDoubleVal;
+									else if (right.GetType() == IntVal)
+										return left.mIntVal < right.mIntVal;
 									else
 										return false;
 
-			case FloatVal		: 	if (rhs.GetType() == FloatVal)
-										return lhs.mFloatVal < rhs.mFloatVal;
-									else if (rhs.GetType() == DoubleVal)
-										return lhs.mFloatVal < rhs.mDoubleVal;
-									else if (rhs.GetType() == IntVal)
-										return lhs.mFloatVal < rhs.mIntVal;
+			case FloatVal		: 	if (right.GetType() == FloatVal)
+										return left.mFloatVal < right.mFloatVal;
+									else if (right.GetType() == DoubleVal)
+										return left.mFloatVal < right.mDoubleVal;
+									else if (right.GetType() == IntVal)
+										return left.mFloatVal < right.mIntVal;
 									else
 										return false;
 
-			case DoubleVal		: 	if (rhs.GetType() == FloatVal)
-										return lhs.mDoubleVal < rhs.mFloatVal;
-									else if (rhs.GetType() == DoubleVal)
-										return lhs.mDoubleVal < rhs.mDoubleVal;
-									else if (rhs.GetType() == IntVal)
-										return lhs.mDoubleVal < rhs.mIntVal;
+			case DoubleVal		: 	if (right.GetType() == FloatVal)
+										return left.mDoubleVal < right.mFloatVal;
+									else if (right.GetType() == DoubleVal)
+										return left.mDoubleVal < right.mDoubleVal;
+									else if (right.GetType() == IntVal)
+										return left.mDoubleVal < right.mIntVal;
 									else
 										return false;
 
-			case BoolVal		: 	return lhs.mBoolVal < rhs.mBoolVal;
+			case BoolVal		: 	return left.mBoolVal < right.mBoolVal;
 
-			case ObjectVal		: 	return lhs.mObjectVal < rhs.mObjectVal;
+			case ObjectVal		: 	return left.mObjectVal < right.mObjectVal;
 
-			case ArrayVal		: 	return lhs.mArrayVal < rhs.mArrayVal;
+			case ArrayVal		: 	return left.mArrayVal < right.mArrayVal;
 
 			default:
 				return true;
