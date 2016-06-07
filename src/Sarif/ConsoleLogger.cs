@@ -47,8 +47,6 @@ namespace Microsoft.CodeAnalysis.Sarif
                 // to non-fatal runtime errors.
                 Console.WriteLine(SdkResources.MSG_AnalysisIncomplete);
             }
-
-            Console.WriteLine("Unexpected runtime condition(s) observed: " + runtimeConditions.ToString());
         }
 
         public void AnalyzingTarget(IAnalysisContext context)
@@ -264,12 +262,12 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             if (!string.IsNullOrEmpty(notification.Id))
             {
-                sb.AppendFormat(CultureInfo.CurrentCulture, notification.Id + ": ");
+                sb.Append(notification.Id + ": ");
             }
 
             if (!string.IsNullOrEmpty(notification.RuleId))
             {
-                sb.AppendFormat(CultureInfo.CurrentCulture, notification.RuleId + ": ");
+                sb.Append(notification.RuleId + ": ");
             }
 
             sb.Append(notification.Message);
