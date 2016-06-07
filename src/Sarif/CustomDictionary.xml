@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Dictionary>
+  <Words>
+    <Recognized>
+      <Word>Cpp</Word>
+    </Recognized>
+    <Compound>
+      <Term CompoundAlternate="CppCheck">cppcheck</Term>
+    </Compound>
+    <Recognized>
+      <Word>Efast</Word>
+    </Recognized>
+    <Recognized>
+      <Word>Enquote</Word>
+    </Recognized>
+    <Recognized>
+      <Word>Msg</Word>
+    </Recognized>
+    <Recognized>
+      <Word>Sarif</Word>
+    </Recognized>
+    <Recognized>
+      <Word>Sha</Word>
+    </Recognized>
+    <Recognized>
+      <Word>Wrn</Word>
+    </Recognized>
+  </Words>
+</Dictionary>

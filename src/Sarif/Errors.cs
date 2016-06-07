@@ -158,7 +158,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                     false,
                     fileName));
 
-            context.RuntimeErrors |= RuntimeConditions.ExceptionCreatingLogfile;
+            context.RuntimeErrors |= RuntimeConditions.ExceptionCreatingLogFile;
         }
 
         public static void LogMissingFile(IAnalysisContext context, string fileName)

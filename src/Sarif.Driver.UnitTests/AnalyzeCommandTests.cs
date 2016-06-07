@@ -326,7 +326,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
                     ExceptionTestHelper(
                         ExceptionCondition.None,
-                        RuntimeConditions.ExceptionCreatingLogfile,
+                        RuntimeConditions.ExceptionCreatingLogFile,
                         expectedExitReason: ExitReason.ExceptionCreatingLogFile,
                         analyzeOptions: options);
                 }
@@ -355,7 +355,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
                 ExceptionTestHelper(
                     ExceptionCondition.None,
-                    RuntimeConditions.ExceptionCreatingLogfile,
+                    RuntimeConditions.ExceptionCreatingLogFile,
                     expectedExitReason: ExitReason.ExceptionCreatingLogFile,
                     analyzeOptions: options);
             }
