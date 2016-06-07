@@ -264,12 +264,12 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             if (!string.IsNullOrEmpty(notification.Id))
             {
-                sb.AppendFormat(CultureInfo.CurrentCulture, "$" +notification.Id+": ");
+                sb.AppendFormat(CultureInfo.CurrentCulture, notification.Id + ": ");
             }
 
             if (!string.IsNullOrEmpty(notification.RuleId))
             {
-                sb.AppendFormat(CultureInfo.CurrentCulture, "$" + notification.RuleId + ": ");
+                sb.AppendFormat(CultureInfo.CurrentCulture, notification.RuleId + ": ");
             }
 
             sb.Append(notification.Message);
