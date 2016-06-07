@@ -23,6 +23,6 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         bool LogEnvironment { get; }
 
-        IEnumerable<string> PlugInFilePaths { get; }
+        IEnumerable<string> PluginFilePaths { get; }
     }
 }

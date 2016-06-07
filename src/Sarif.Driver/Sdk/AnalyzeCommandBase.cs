@@ -52,7 +52,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 }
             }
 
-            return ((RuntimeErrors & ~RuntimeConditions.NonFatal) == RuntimeConditions.None) ? SUCCESS : FAILURE;
+            return ((RuntimeErrors & ~RuntimeConditions.Nonfatal) == RuntimeConditions.None) ? SUCCESS : FAILURE;
         }
 
         private void Analyze(TOptions analyzeOptions, AggregatingLogger logger)
@@ -107,7 +107,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
             succeeded &= ValidateFile(context, analyzeOptions.OutputFilePath, shouldExist: null);
             succeeded &= ValidateFile(context, analyzeOptions.ConfigurationFilePath, shouldExist: true);
-            succeeded &= ValidateFiles(context, analyzeOptions.PlugInFilePaths, shouldExist: true);
+            succeeded &= ValidateFiles(context, analyzeOptions.PluginFilePaths, shouldExist: true);
 
             if (!succeeded)
             {
