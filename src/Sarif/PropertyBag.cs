@@ -24,8 +24,8 @@ namespace Microsoft.CodeAnalysis.Sarif
         }
 
         public PropertyBagDictionary(
-            PropertyBagDictionary initializer = null,
-            IEqualityComparer<string> comparer = null)
+            PropertyBagDictionary initializer,
+            IEqualityComparer<string> comparer)
             : base(initializer, comparer)
         {
         }
