@@ -131,11 +131,73 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
             result.Locations = new List<Location> { location };
 
-            TryAddProperty(result, context.Level, "Level");
+            bool mapsDirectlyToSarifName;
+
+            result.Level = ConvertFxCopLevelToResultLevel(context.Level, out mapsDirectlyToSarifName);
+
+            if (!mapsDirectlyToSarifName)
+            {
+                // We will not recapitulate FxCop MessageLevel names (such as 
+                // "Error" and "Warning") as a property. For names that differ
+                // (such as "CriticalWarning" and "Information"), we will also 
+                // include the FxCop-specific values in the property bag.
+                TryAddProperty(result, context.Level, "Level");
+            }
+
             TryAddProperty(result, context.Category, "Category");
             TryAddProperty(result, context.FixCategory, "FixCategory");
 
             return result;
+        }
+
+        private static ResultLevel ConvertFxCopLevelToResultLevel(string fxcopLevel, out bool mapsDirectlyToSarifName)
+        {
+            mapsDirectlyToSarifName = true;
+
+            // Values below derived from definition of FxCop MessageLevel enum
+            // Microsoft.VisualStudio.CodeAnalysis.Extensibility.MessageLevel
+
+            switch (fxcopLevel)
+            {
+                case "Error":
+                {
+                    return ResultLevel.Error;
+                }
+
+                case "CriticalError":
+                {
+                    mapsDirectlyToSarifName = false;
+                    return ResultLevel.Error;
+                }
+
+                case "Warning":
+                {
+                    return ResultLevel.Warning;
+                }
+
+                case "CriticalWarning":
+                {
+                    mapsDirectlyToSarifName = false;
+                    return ResultLevel.Warning;
+                }
+
+                case "Information":
+                {
+                    mapsDirectlyToSarifName = false;
+                    return ResultLevel.Note;
+                }
+
+                default:
+                {
+                    break;
+                }
+            }
+
+            // In some circumstances, such as reporting an 'excluded' message,
+            // FxCop provides no MessageLevel. For these issues, we shouldn't
+            // emit any value at all
+            mapsDirectlyToSarifName = false;
+            return ResultLevel.Unknown;
         }
 
         private static string CreateSignature(FxCopLogReader.Context context)
