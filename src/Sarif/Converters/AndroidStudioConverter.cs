@@ -62,7 +62,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             };
 
             ISet<Result> results;
-            using (XmlReader xmlReader = XmlReader.Create(input, settings)) 
+            using (XmlReader xmlReader = XmlReader.Create(input, settings))
             {
                 results = ProcessAndroidStudioLog(xmlReader);
             }

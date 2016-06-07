@@ -7,8 +7,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 {
     public interface IOptionsProvider
     {
-        //GetOptions as a method may have significant processing and should not be an attribute
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1024:UsePropertiesWhereAppropriate")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1024:UsePropertiesWhereAppropriate", Justification = "This method is expensive and so should not be a property")];
         IEnumerable<IOption> GetOptions();
     }
 }
