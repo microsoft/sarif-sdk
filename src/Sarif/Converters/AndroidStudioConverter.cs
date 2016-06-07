@@ -57,11 +57,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 IgnoreComments = true,
                 IgnoreProcessingInstructions = true,
                 NameTable = _nameTable,
-                DtdProcessing = DtdProcessing.Ignore
+                DtdProcessing = DtdProcessing.Ignore,
+                XmlResolver = null
             };
 
             ISet<Result> results;
-            using (XmlReader xmlReader = XmlReader.Create(input, settings))
+            using (XmlReader xmlReader = XmlReader.Create(input, settings)) 
             {
                 results = ProcessAndroidStudioLog(xmlReader);
             }
