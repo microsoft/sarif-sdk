@@ -242,7 +242,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             }
         }
 
-        private string FormatNotificationMessage(Notification notification)
+        private static string FormatNotificationMessage(Notification notification)
         {
             string issueType = null;
 

@@ -148,7 +148,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 invocationTokensToRedact);
         }
 
-        private void SetSarifLoggerVersion(Tool tool)
+        private static void SetSarifLoggerVersion(Tool tool)
         {
             string sarifLoggerLocation = typeof(SarifLogger).Assembly.Location;
             tool.SarifLoggerVersion = FileVersionInfo.GetVersionInfo(sarifLoggerLocation).FileVersion;
@@ -222,10 +222,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
                 _issueLogJsonWriter.Dispose();
             }
+
             if (_textWriter != null) { _textWriter.Dispose(); }
 
             if (_jsonTextWriter == null) { _jsonTextWriter.Close(); }
-            
+
+            GC.SuppressFinalize(this);
         }
 
         public void LogMessage(bool verbose, string message)
