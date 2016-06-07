@@ -13,9 +13,9 @@ namespace Microsoft.CodeAnalysis.Sarif
     public static class SarifUtilities
     {
         private static Regex s_semVer200 = new Regex(@"^(?<major>\d+)\.(?<minor>\d+)\.(?<patch>\d+)(-(?<prerelease>[A-Za-z0-9\-\.]+))?(\+(?<build>[A-Za-z0-9\-\.]+))?$", RegexOptions.Compiled);
-        public static bool IsSemanticVersioningCompatible(this string versionString)
+        public static bool IsSemanticVersioningCompatible(this string versionText)
         {
-            return s_semVer200.IsMatch(versionString);
+            return s_semVer200.IsMatch(versionText);
         }
 
         private const string V1_0_0 = "1.0.0";

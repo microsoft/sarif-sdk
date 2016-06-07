@@ -32,7 +32,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
             var stringValue = value as string;
             if (stringValue != null)
             {
-                if (!int.TryParse((string)value, out intValue))
+                if (!int.TryParse(stringValue, out intValue))
                 {
                     throw new ArgumentOutOfRangeException(
                         string.Format(

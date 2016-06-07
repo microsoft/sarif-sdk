@@ -29,7 +29,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <summary>
         /// The type of the option value.
         /// </summary>
-        public Type Type
+        public Type OptionType
         {
             get { return typeof(T); }
         }
