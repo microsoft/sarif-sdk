@@ -3,18 +3,18 @@ using System;
 
 namespace Microsoft.CodeAnalysis.Sarif.Tests
 {
-    [TestClass()]
+    [TestClass]
     public class SarifUtilitiesTests
     {
 
-        [TestMethod()]
+        [TestMethod]
         public void ConvertToSchemaUriTestV100()
         {
             Uri uri = SarifVersion.OneZeroZero.ConvertToSchemaUri();
             Assert.AreEqual(uri.ToString(), "http://json.schemastore.org/sarif-1.0.0");
         }
 
-        [TestMethod()]
+        [TestMethod]
         public void ConvertToSchemaUriTestV100Beta5()
         {
             Uri uri = SarifVersion.OneZeroZeroBetaFive.ConvertToSchemaUri();
