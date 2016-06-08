@@ -4,7 +4,7 @@ branches:
     - appveyor
 
 build:
-  project: Sarif.Sdk.sln
+  project: src/Sarif.Sdk.sln
 
 build_script:
 - ps: >-
