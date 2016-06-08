@@ -104,7 +104,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 throw new ArgumentNullException(nameof(formatId));
             }
 
-            if (!string.IsNullOrEmpty(ruleId) && string.Compare(formatId.Substring(0, ruleId.Length+1), ruleId+"_", StringComparison.Ordinal)==0)
+            if (!string.IsNullOrEmpty(ruleId) && formatId.StartsWith(ruleId + "_", StringComparison.Ordinal))
             {
                 formatId = formatId.Substring(ruleId.Length + 1);
             }
