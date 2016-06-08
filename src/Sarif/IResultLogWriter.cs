@@ -17,7 +17,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         /// <summary>Writes tool information to the log.</summary>
         /// <exception cref="IOException">A file IO error occured. Clients implementing
-        /// <see cref="IToolFileConverter"/> should allow these exceptions to propagate.</exception>
+        /// <see cref="ToolFileConverterBase"/> should allow these exceptions to propagate.</exception>
         /// <exception cref="InvalidOperationException">Thrown if the tool info block has already been
         /// written.</exception>
         /// <exception cref="ArgumentNullException">Thrown if <paramref name="info"/> is null.</exception>
@@ -28,7 +28,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// the results, as it can contain data that can't be computed (such as the run
         /// end time) until all results have been generated.</summary>
         /// <exception cref="IOException">A file IO error occured. Clients implementing
-        /// <see cref="IToolFileConverter"/> should allow these exceptions to propagate.</exception>
+        /// <see cref="ToolFileConverterBase"/> should allow these exceptions to propagate.</exception>
         /// <exception cref="InvalidOperationException">Thrown if the object has already been
         /// written.</exception>
         void WriteInvocation(Invocation invocation);
@@ -85,7 +85,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// </remarks>
         /// <exception cref="IOException">
         /// A file IO error occured. Clients implementing
-        /// <see cref="IToolFileConverter"/> should allow these exceptions to propagate.
+        /// <see cref="ToolFileConverterBase"/> should allow these exceptions to propagate.
         /// </exception>
         /// <exception cref="InvalidOperationException">
         /// Thrown if the tool info is not yet written.
@@ -113,7 +113,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// </remarks>
         /// <exception cref="IOException">
         /// A file IO error occured. Clients implementing
-        /// <see cref="IToolFileConverter"/> should allow these exceptions to propagate.
+        /// <see cref="ToolFileConverterBase"/> should allow these exceptions to propagate.
         /// </exception>
         /// <exception cref="InvalidOperationException">
         /// Thrown if the tool info is not yet written.

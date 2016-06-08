@@ -13,7 +13,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
     /// Base class for tool file converters. Encapsulates the common logic
     /// for populating the logicalLocations dictionary.
     /// </summary>
-    public abstract class ToolFileConverterBase : IToolFileConverter
+    public abstract class ToolFileConverterBase
     {
         protected ToolFileConverterBase()
         {

@@ -9,7 +9,7 @@ using Microsoft.CodeAnalysis.Sarif.Writers;
 
 namespace Microsoft.CodeAnalysis.Sarif.Converters
 {
-    internal class ClangAnalyzerConverter : IToolFileConverter
+    internal class ClangAnalyzerConverter : ToolFileConverterBase
     {
         private IList<object> _files = null;
 
@@ -17,7 +17,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         /// <exception cref="ArgumentNullException">Thrown when one or more required arguments are null.</exception>
         /// <param name="input">CLang log file stream.</param>
         /// <param name="output">Result log writer.</param>
-        public void Convert(Stream input, IResultLogWriter output)
+        public override void Convert(Stream input, IResultLogWriter output)
         {
             // ToDo remove this comment after all issues are resolved.
             // Rodney is tasked with bringing Clang analyzer results into the SARIF fold.

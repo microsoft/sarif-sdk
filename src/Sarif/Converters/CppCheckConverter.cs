@@ -10,7 +10,7 @@ using Microsoft.CodeAnalysis.Sarif.Writers;
 
 namespace Microsoft.CodeAnalysis.Sarif.Converters
 {
-    internal class CppCheckConverter : IToolFileConverter
+    internal class CppCheckConverter : ToolFileConverterBase
     {
         private readonly NameTable _nameTable;
         private readonly CppCheckStrings _strings;
@@ -28,7 +28,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         /// </summary>
         /// <param name="input">Stream of a CppChecker log</param>
         /// <param name="output">SARIF json stream of the converted CppChecker log</param>
-        public void Convert(Stream input, IResultLogWriter output)
+        public override void Convert(Stream input, IResultLogWriter output)
         {
             if (input == null)
             {
