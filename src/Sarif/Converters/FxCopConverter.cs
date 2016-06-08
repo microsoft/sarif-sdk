@@ -580,9 +580,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         {
             XmlSchemaSet schemaSet = new XmlSchemaSet();
             Assembly assembly = typeof(FxCopLogReader).Assembly;
+            var settings = new XmlReaderSettings
+            {
+                XmlResolver = null
+            };
 
             using (var stream = assembly.GetManifestResourceStream(FxCopLogReader.FxCopReportSchema))
-            using (var reader = XmlReader.Create(stream))
+            using (var reader = XmlReader.Create(stream, settings))
             {
                 XmlSchema schema = XmlSchema.Read(reader, new ValidationEventHandler(ReportError));
                 schemaSet.Add(schema);
