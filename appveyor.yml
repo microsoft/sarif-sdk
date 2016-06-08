@@ -7,5 +7,5 @@ build:
   project: src/Sarif.Sdk.sln
 
 build_script:
-  - '"%VS120COMNTOOLS%VsDevCmd.bat"'
+  - '"%VS140COMNTOOLS%VsDevCmd.bat"'
   - BuildAndTest.cmd
