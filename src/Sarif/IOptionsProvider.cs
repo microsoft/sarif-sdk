@@ -7,7 +7,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 {
     public interface IOptionsProvider
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1024:UsePropertiesWhereAppropriate", Justification = "This method is expensive and so should not be a property")];
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1024:UsePropertiesWhereAppropriate", Justification = "This method is expensive and so should not be a property")]
         IEnumerable<IOption> GetOptions();
     }
 }
