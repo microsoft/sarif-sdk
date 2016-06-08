@@ -3,6 +3,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Resources;
 
@@ -103,7 +104,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 throw new ArgumentNullException(nameof(formatId));
             }
 
-            if (!string.IsNullOrEmpty(ruleId) && formatId.StartsWith(ruleId + "_"))
+            if (!string.IsNullOrEmpty(ruleId) && formatId.StartsWith(ruleId + "_", StringComparison.Ordinal))
             {
                 formatId = formatId.Substring(ruleId.Length + 1);
             }

@@ -51,7 +51,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="HashData.cs" />
     <Compile Include="ConsoleLogger.cs" />
     <Compile Include="Converters\AndroidStudioProblem.cs" />

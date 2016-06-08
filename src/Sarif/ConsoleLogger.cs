@@ -47,6 +47,8 @@ namespace Microsoft.CodeAnalysis.Sarif
                 // to non-fatal runtime errors.
                 Console.WriteLine(SdkResources.MSG_AnalysisIncomplete);
             }
+
+            Console.WriteLine(SdkResources.UnexpectedRuntime + runtimeConditions.ToString());
         }
 
         public void AnalyzingTarget(IAnalysisContext context)
