@@ -178,7 +178,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         // Current consumers of this data expect that child namespaces
         // will always precede parent namespaces, if also included.
-        public static ImmutableArray<string> DefaultNamespaces = new List<string>(
+        public static readonly ImmutableArray<string> DefaultNamespaces = new List<string>(
             new string[] {
                 "Microsoft.CodeAnalysis.Options.",
                 "Microsoft.CodeAnalysis."
