@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using Microsoft.CodeAnalysis.Sarif.Readers;
 
 using Newtonsoft.Json;
+using System.Globalization;
 
 namespace Microsoft.CodeAnalysis.Sarif.Writers
 {
@@ -373,7 +374,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             if (observedInvalidConditions != Conditions.None)
             {
                 // 	InvalidState	One or more invalid states were detected during serialization: {0}	
-                throw new InvalidOperationException(string.Format(SdkResources.InvalidState, observedInvalidConditions));
+                throw new InvalidOperationException(string.Format(CultureInfo.InvariantCulture, SdkResources.InvalidState, observedInvalidConditions));
             }
         }
 

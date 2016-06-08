@@ -219,7 +219,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             // to invoke built-in settings. Invoke the {3} 'exportConfig' command
             // to produce an initial configuration file that can be edited, if
             // necessary, and passed back into the tool.
-            string message = string.Format(SdkResources.ERR997_MissingRuleConfiguration,
+            string message = string.Format(CultureInfo.InvariantCulture, SdkResources.ERR997_MissingRuleConfiguration,
                 context.Rule.Name,
                 Path.GetFileName(context.TargetUri.LocalPath),
                 reasonForNotAnalyzing,

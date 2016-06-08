@@ -10,6 +10,7 @@ using System.Linq;
 using Microsoft.CodeAnalysis.Sarif.Readers;
 
 using Newtonsoft.Json;
+using System.Globalization;
 
 namespace Microsoft.CodeAnalysis.Sarif.Writers
 {
@@ -261,7 +262,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             if (rule.Id != result.RuleId)
             {
                 //The rule id '{0}' specified by the result does not match the actual id of the rule '{1}'
-                string message = string.Format(SdkResources.ResultRuleIdDoesNotMatchRule,
+                string message = string.Format(CultureInfo.InvariantCulture, SdkResources.ResultRuleIdDoesNotMatchRule,
                     result.RuleId.ToString(),
                     rule.Id.ToString());
 
@@ -295,7 +296,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 throw new ArgumentNullException(nameof(context));
             }
 
-            string message = string.Format(
+            string message = string.Format(CultureInfo.InvariantCulture, 
                 SdkResources.MSG001_AnalyzingTarget,
                 Path.GetFileName(context.TargetUri.LocalPath));
 

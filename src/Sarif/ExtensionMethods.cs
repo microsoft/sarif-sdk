@@ -40,16 +40,16 @@ namespace Microsoft.CodeAnalysis.Sarif
                     //  (startLine,startColumn,endLine,endColumn)
                     return
                         "(" +
-                        region.StartLine.ToString() + "," +
-                        (region.StartColumn > 0 ? region.StartColumn.ToString() : "1") + "," +
-                        region.EndLine.ToString() + "," +
-                        (region.EndColumn > 0 ? region.EndColumn.ToString() : "1") +
+                        region.StartLine.ToString(CultureInfo.InvariantCulture) + "," +
+                        (region.StartColumn > 0 ? region.StartColumn.ToString(CultureInfo.InvariantCulture) : "1") + "," +
+                        region.EndLine.ToString(CultureInfo.InvariantCulture) + "," +
+                        (region.EndColumn > 0 ? region.EndColumn.ToString(CultureInfo.InvariantCulture) : "1") +
                         ")";
                 }
                 //  (startLine-endLine)
                 return
                     "(" +
-                    region.StartLine.ToString() + "-" + region.EndLine.ToString() +
+                    region.StartLine.ToString(CultureInfo.InvariantCulture) + "-" + region.EndLine.ToString(CultureInfo.InvariantCulture) +
                     ")";
             }
 
@@ -58,9 +58,9 @@ namespace Microsoft.CodeAnalysis.Sarif
                 // (startLine,startColumn-endColumn)
                 return
                     "(" +
-                    region.StartLine.ToString() + "," +
-                    region.StartColumn.ToString() + "-" +
-                    region.EndColumn.ToString() +
+                    region.StartLine.ToString(CultureInfo.InvariantCulture) + "," +
+                    region.StartColumn.ToString(CultureInfo.InvariantCulture) + "-" +
+                    region.EndColumn.ToString(CultureInfo.InvariantCulture) +
                     ")";
             }
 
@@ -69,13 +69,13 @@ namespace Microsoft.CodeAnalysis.Sarif
                 // (startLine,startColumn)
                 return
                      "(" +
-                     region.StartLine.ToString() + "," + region.StartColumn.ToString() +
+                     region.StartLine.ToString(CultureInfo.InvariantCulture) + "," + region.StartColumn.ToString(CultureInfo.InvariantCulture) +
                      ")";
             }
             // (startLine)
             return
                  "(" +
-                 region.StartLine.ToString() +
+                 region.StartLine.ToString(CultureInfo.InvariantCulture) +
                  ")";
         }
 
@@ -221,11 +221,11 @@ namespace Microsoft.CodeAnalysis.Sarif
                 {
                     // If this assert fires, there are too many arguments for the specifier
                     // or there is an argument is skipped or not consumed in the specifier
-                    Debug.Assert(messageFormat.Contains("{" + i.ToString() + "}"));
+                    Debug.Assert(messageFormat.Contains("{" + i.ToString(CultureInfo.InvariantCulture) + "}"));
                 }
 #endif
 
-                text = string.Format(messageFormat, arguments);
+                text = string.Format(CultureInfo.InvariantCulture, messageFormat, arguments);
 
 #if DEBUG
                 // If this assert fires, an insufficient # of arguments might

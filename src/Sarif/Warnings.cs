@@ -3,6 +3,7 @@
 
 
 using System;
+using System.Globalization;
 using System.IO;
 
 namespace Microsoft.CodeAnalysis.Sarif
@@ -19,7 +20,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 throw new ArgumentNullException(nameof(context));
             }
 
-            string message = string.Format(
+            string message = string.Format(CultureInfo.InvariantCulture,
                 SdkResources.WRN997_InvalidTarget,
                 Path.GetFileName(context.TargetUri.LocalPath));
 
