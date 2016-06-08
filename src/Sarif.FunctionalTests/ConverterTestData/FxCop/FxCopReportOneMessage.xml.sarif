@@ -15,6 +15,7 @@
       "results": [
         {
           "ruleId": "CA904",
+          "level": "error",
           "message": "Redefine the types in namespace 'SecurityCryptographyRuleTests' in the Microsoft or System namespace. Public types that will never ship externally can be defined in the MS namespace. Consider disabling this rule when analyzing code that does not ship externally.",
           "locations": [
             {
@@ -22,7 +23,6 @@
             }
           ],
           "properties": {
-            "Level": "Error",
             "Category": "Microsoft.MSInternal",
             "FixCategory": "Breaking"
           }
