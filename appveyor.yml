@@ -7,7 +7,5 @@ build:
   project: src/Sarif.Sdk.sln
 
 build_script:
-- ps: >-
-    nuget install secure-file -ExcludeVersion
-    
-    C:\projects\sarif-sdk-931m5\secure-file.1.0.31\tools\secure-file -decrypt GeneratedKey.snk.enc -secret $Env:snk_passphrase
+  - '"%VS120COMNTOOLS%VsDevCmd.bat"'
+  - BuildAndTest.cmd
