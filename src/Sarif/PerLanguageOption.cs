@@ -48,7 +48,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             if (string.IsNullOrWhiteSpace(name))
             {
-                throw new ArgumentNullException(nameof(name));
+                throw new ArgumentException(nameof(name));
             }
 
             this.Feature = feature;
