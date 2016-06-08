@@ -30,6 +30,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
         }
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         protected Dictionary<string, string> SettingNameToDescriptionsMap { get; set; }
 
         public virtual T GetProperty(PerLanguageOption<T> setting)

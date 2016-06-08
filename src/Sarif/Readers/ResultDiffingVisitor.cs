@@ -16,8 +16,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
             VisitSarifLog(sarifLog);
         }
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public HashSet<Result> NewResults { get; set; }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public HashSet<Result> AbsentResults { get; set; }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public HashSet<Result> SharedResults { get; set; }
 
         public override Result VisitResult(Result node)
