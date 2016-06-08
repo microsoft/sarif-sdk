@@ -158,7 +158,12 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         public void LoadFrom(Stream stream)
         {
-            using (XmlReader reader = XmlReader.Create(stream))
+            var settings = new XmlReaderSettings
+            {
+                XmlResolver = null
+            };
+
+            using (XmlReader reader = XmlReader.Create(stream, settings))
             {
                 if (reader.IsStartElement(PropertyBagExtensionMethods.PROPERTIES_ID))
                 {

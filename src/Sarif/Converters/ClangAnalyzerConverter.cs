@@ -35,9 +35,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
             try
             {
-                XmlReaderSettings settings = new XmlReaderSettings();
-                settings.IgnoreWhitespace = true;
-                settings.DtdProcessing = DtdProcessing.Ignore;
+                XmlReaderSettings settings = new XmlReaderSettings
+                {
+                    IgnoreWhitespace = true,
+                    DtdProcessing = DtdProcessing.Ignore,
+                    XmlResolver = null
+                };
 
                 var results = new List<Result>();
 

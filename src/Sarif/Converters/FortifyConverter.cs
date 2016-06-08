@@ -47,7 +47,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             {
                 DtdProcessing = DtdProcessing.Ignore,
                 IgnoreWhitespace = true,
-                NameTable = _nameTable
+                NameTable = _nameTable,
+                XmlResolver = null
             };
 
             var results = new List<Result>();
