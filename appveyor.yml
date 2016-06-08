@@ -5,3 +5,8 @@ branches:
 
 build:
   project: Sarif.Sdk.sln
+
+build_script:
+- ps: >-
+    nuget install secure-file -ExcludeVersion
+    secure-file.1.0.31\tools\secure-file -decrypt GeneratedKey.snk.enc -secret $Env: snk_passphrase
