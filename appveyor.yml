@@ -1,7 +1,7 @@
 branches:
 
   only:
-    - master
+    - appveyor
 
 build:
   project: Sarif.Sdk.sln
