@@ -580,35 +580,23 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         {
             XmlSchemaSet schemaSet = new XmlSchemaSet();
             Assembly assembly = typeof(FxCopLogReader).Assembly;
-            Stream stream = null;
 
-            try
+            using (var stream = assembly.GetManifestResourceStream(FxCopLogReader.FxCopReportSchema))
+            using (var reader = XmlReader.Create(stream))
             {
-                stream = assembly.GetManifestResourceStream(FxCopLogReader.FxCopReportSchema);
-                using (var reader = XmlReader.Create(stream))
-                {
-                    stream = null;
-                    XmlSchema schema = XmlSchema.Read(reader, new ValidationEventHandler(ReportError));
-                    schemaSet.Add(schema);
-                }
-
-                using (var sparseReader = SparseReader.CreateFromStream(_dispatchTable, input, schemaSet))
-                {
-                    if (sparseReader.LocalName.Equals(SchemaStrings.ElementFxCopReport))
-                    {
-                        ReadFxCopReport(sparseReader, context);
-                    }
-                    else
-                    {
-                        throw new XmlException(String.Format(CultureInfo.InvariantCulture, "Invalid root element in FxCop log file: {0}", sparseReader.LocalName));
-                    }
-                }
+                XmlSchema schema = XmlSchema.Read(reader, new ValidationEventHandler(ReportError));
+                schemaSet.Add(schema);
             }
-            finally
+
+            using (var sparseReader = SparseReader.CreateFromStream(_dispatchTable, input, schemaSet))
             {
-                if(stream != null)
+                if (sparseReader.LocalName.Equals(SchemaStrings.ElementFxCopReport))
                 {
-                    stream.Dispose();
+                    ReadFxCopReport(sparseReader, context);
+                }
+                else
+                {
+                    throw new XmlException(String.Format(CultureInfo.InvariantCulture, "Invalid root element in FxCop log file: {0}", sparseReader.LocalName));
                 }
             }
         }
