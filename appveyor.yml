@@ -9,3 +9,4 @@ build:
 build_script:
   - '"%VS140COMNTOOLS%VsDevCmd.bat"'
   - BuildAndTest.cmd
+test: off
