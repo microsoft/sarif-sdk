@@ -51,7 +51,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="HashData.cs" />
     <Compile Include="ConsoleLogger.cs" />
     <Compile Include="Converters\AndroidStudioProblem.cs" />
@@ -93,11 +92,6 @@
     <Compile Include="Notes.cs" />
     <Compile Include="OffsetInfo.cs" />
     <Compile Include="PerLanguageOption.cs" />
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Resources.resx</DependentUpon>
-    </Compile>
     <Compile Include="PropertyBag.cs" />
     <Compile Include="PropertyBagExtensionMethods.cs" />
     <Compile Include="Readers\AnnotatedCodeLocationIdConverter.cs" />
@@ -154,10 +148,6 @@
     <None Include="CopyrightNotice.txt" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Properties\Resources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
     <EmbeddedResource Include="Schemata\FxCopReport.xsd">
       <SubType>Designer</SubType>
     </EmbeddedResource>
