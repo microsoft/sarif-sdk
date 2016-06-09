@@ -117,6 +117,7 @@ goto Exit
 :ExitFailed
 @echo.
 @echo SCRIPT FAILED
+exit /b 1
 
 :Exit
 
