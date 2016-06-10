@@ -34,12 +34,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         }
 
         /// <summary>Calculates the hash code for a given T.</summary>
-        /// <param name="obj">The object to get a hash code for.</param>
-        /// <returns>The hash code for <paramref name="obj"/>.</returns>
+        /// <param name="value">The object to get a hash code for.</param>
+        /// <returns>The hash code for <paramref name="value"/>.</returns>
         /// <seealso cref="System.Collections.Generic.IEqualityComparer&lt;T&gt;.GetHashCode(T)"/>
-        public int GetHashCode(T obj)
+        public int GetHashCode(T value)
         {
-            return RuntimeHelpers.GetHashCode(obj);
+            return RuntimeHelpers.GetHashCode(value);
         }
     }
 }
