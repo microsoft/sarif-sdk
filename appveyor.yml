@@ -41,7 +41,7 @@ clone_folder: c:\projects\sarif-sdk
 #       build configuration       #
 #---------------------------------#
 
-before_build: \"C:\\Program Files (x86)\\Microsoft Visual Studio 14.0\\Common7\\Tools\\VsDevCmd.bat\"
+before_build: C:\PROGRA~2\MICROS~1.0\Common7\Tools\VsDevCmd.bat
 
 # to run your custom scripts instead of automatic MSBuild
 build_script: BuildAndTest.cmd
