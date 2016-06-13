@@ -10,3 +10,11 @@ build_script:
   - '"%VS140COMNTOOLS%VsDevCmd.bat"'
   - BuildAndTest.cmd
 test: off
+
+artifacts:
+  - path: logs.txt
+    name: test
+
+cache:
+  - packages -> **\packages.config
+  - '%LocalAppData%\NuGet\Cache'
