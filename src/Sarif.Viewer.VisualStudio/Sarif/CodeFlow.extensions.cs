@@ -27,6 +27,11 @@ namespace Microsoft.Sarif.Viewer.Sarif
             {
                 foreach (AnnotatedCodeLocation location in codeFlow.Locations)
                 {
+                    // TODO we are not yet properly hardened against locationless
+                    // code locations (and what this means is also in flux as
+                    // far as SARIF producers). For now we skip these.
+                    if (location.PhysicalLocation == null) { continue; }
+
                     model.Add(location.ToAnnotatedCodeLocationModel());
                 }
             }

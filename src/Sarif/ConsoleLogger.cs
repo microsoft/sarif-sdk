@@ -2,6 +2,7 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using System;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -249,11 +250,20 @@ namespace Microsoft.CodeAnalysis.Sarif
             switch (notification.Level)
             {
                 case NotificationLevel.Error:
-                case NotificationLevel.Warning:
-                case NotificationLevel.Note:
-                    issueType = notification.Level.ToString();
-                    issueType = issueType.Substring(0, 1).ToLowerInvariant() + issueType.Substring(1);
+                {
+                    issueType = "error";
                     break;
+                }
+                case NotificationLevel.Warning:
+                {
+                    issueType = "warning";
+                    break;
+                }
+                case NotificationLevel.Note:
+                {
+                    issueType = "note";
+                    break;
+                }
 
                 default:
                     throw new InvalidOperationException("Unknown notification level: " + notification.Level);
@@ -263,12 +273,12 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             if (!string.IsNullOrEmpty(notification.Id))
             {
-                sb.Append($" {notification.Id}: ");
+                sb.Append(notification.Id + " : ");
             }
 
             if (!string.IsNullOrEmpty(notification.RuleId))
             {
-                sb.Append($"{notification.RuleId}: ");
+                sb.Append(notification.RuleId + " : ");
             }
 
             sb.Append(notification.Message);

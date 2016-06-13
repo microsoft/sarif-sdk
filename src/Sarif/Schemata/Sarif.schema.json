@@ -74,7 +74,7 @@
 
         "kind": {
           "description": "A descriptive identifier that categorizes the annotation.",
-          "enum": [ "alias", "branch", "call", "callReturn", "declaration", "functionEnter", "functionExit", "sanitizer", "sink", "source", "usage" ]
+          "enum": [ "alias", "assignment", "branch", "call", "callReturn", "continuation", "declaration", "functionEnter", "functionExit", "sanitizer", "sink", "source", "usage" ]
         },
 
         "essential": {
@@ -100,7 +100,6 @@
           }
         }
       },
-      "required": [ "physicalLocation" ]
     },
     "codeFlow": {
       "type": "object",

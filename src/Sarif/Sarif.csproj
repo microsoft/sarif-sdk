@@ -42,6 +42,7 @@
     <Compile Include="ConsoleLogger.cs" />
     <Compile Include="Converters\AndroidStudioProblem.cs" />
     <Compile Include="Converters\AndroidStudioStrings.cs" />
+    <Compile Include="Converters\StaticDriverVerifierConverter.cs" />
     <Compile Include="Converters\ToolFileConverterBase.cs" />
     <Compile Include="Converters\CppCheckError.cs" />
     <Compile Include="Converters\CppCheckLocation.cs" />

@@ -1069,7 +1069,8 @@
                     "region": {
                       "startLine": 309
                     }
-                  }
+                  },
+                  "essential": true
                 },
                 {
                   "physicalLocation": {
@@ -1077,7 +1078,8 @@
                     "region": {
                       "startLine": 309
                     }
-                  }
+                  },
+                  "essential": true
                 }
               ]
             }
@@ -1635,7 +1637,8 @@
                     "region": {
                       "startLine": 632
                     }
-                  }
+                  },
+                  "essential": true
                 },
                 {
                   "physicalLocation": {
@@ -1643,7 +1646,8 @@
                     "region": {
                       "startLine": 602
                     }
-                  }
+                  },
+                  "essential": true
                 }
               ]
             }
@@ -1776,7 +1780,8 @@
                     "region": {
                       "startLine": 204
                     }
-                  }
+                  },
+                  "essential": true
                 },
                 {
                   "physicalLocation": {
@@ -1784,7 +1789,8 @@
                     "region": {
                       "startLine": 193
                     }
-                  }
+                  },
+                  "essential": true
                 }
               ]
             }
@@ -2002,7 +2008,8 @@
                     "region": {
                       "startLine": 1665
                     }
-                  }
+                  },
+                  "essential": true
                 },
                 {
                   "physicalLocation": {
@@ -2010,7 +2017,8 @@
                     "region": {
                       "startLine": 1663
                     }
-                  }
+                  },
+                  "essential": true
                 }
               ]
             }
@@ -2058,7 +2066,8 @@
                     "region": {
                       "startLine": 1037
                     }
-                  }
+                  },
+                  "essential": true
                 },
                 {
                   "physicalLocation": {
@@ -2066,7 +2075,8 @@
                     "region": {
                       "startLine": 1038
                     }
-                  }
+                  },
+                  "essential": true
                 }
               ]
             }
@@ -2097,7 +2107,8 @@
                     "region": {
                       "startLine": 1038
                     }
-                  }
+                  },
+                  "essential": true
                 },
                 {
                   "physicalLocation": {
@@ -2105,7 +2116,8 @@
                     "region": {
                       "startLine": 1040
                     }
-                  }
+                  },
+                  "essential": true
                 }
               ]
             }
@@ -2136,7 +2148,8 @@
                     "region": {
                       "startLine": 1040
                     }
-                  }
+                  },
+                  "essential": true
                 },
                 {
                   "physicalLocation": {
@@ -2144,7 +2157,8 @@
                     "region": {
                       "startLine": 1041
                     }
-                  }
+                  },
+                  "essential": true
                 }
               ]
             }
@@ -2923,7 +2937,8 @@
                     "region": {
                       "startLine": 415
                     }
-                  }
+                  },
+                  "essential": true
                 },
                 {
                   "physicalLocation": {
@@ -2931,7 +2946,8 @@
                     "region": {
                       "startLine": 396
                     }
-                  }
+                  },
+                  "essential": true
                 }
               ]
             }

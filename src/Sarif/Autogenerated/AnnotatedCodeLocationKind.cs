@@ -15,9 +15,11 @@ namespace Microsoft.CodeAnalysis.Sarif
     {
         None,
         Alias,
+        Assignment,
         Branch,
         Call,
         CallReturn,
+        Continuation,
         Declaration,
         FunctionEnter,
         FunctionExit,

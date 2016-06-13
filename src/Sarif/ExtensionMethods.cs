@@ -186,11 +186,6 @@ namespace Microsoft.CodeAnalysis.Sarif
                 throw new ArgumentNullException(nameof(result));
             }
 
-            if (rule == null)
-            {
-                throw new ArgumentNullException(nameof(rule));
-            }
-
             string text = result.Message;
             if (string.IsNullOrEmpty(text))
             {
