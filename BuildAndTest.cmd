@@ -86,6 +86,7 @@ goto ExitFailed
 SET PASSED=true
 
 mstest /testContainer:bld\bin\Sarif.UnitTests\AnyCPU_%Configuration%\Sarif.UnitTests.dll > logs.txt
+appveyor PushArtifact logs.txt
 if "%ERRORLEVEL%" NEQ "0" (
 set PASSED=false
 )
