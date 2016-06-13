@@ -83,21 +83,21 @@ namespace Microsoft.CodeAnalysis.Sarif
         }
 
         /// <summary>Equality operator.</summary>
-        /// <param name="lhs">The left hand side.</param>
-        /// <param name="rhs">The right hand side.</param>
+        /// <param name="left">The left hand side.</param>
+        /// <param name="right">The right hand side.</param>
         /// <returns>The result of the operation.</returns>
-        public static bool operator ==(LineInfo lhs, LineInfo rhs)
+        public static bool operator ==(LineInfo left, LineInfo right)
         {
-            return lhs.Equals(rhs);
+            return left.Equals(right);
         }
 
         /// <summary>Inequality operator.</summary>
-        /// <param name="lhs">The left hand side.</param>
-        /// <param name="rhs">The right hand side.</param>
+        /// <param name="left">The left hand side.</param>
+        /// <param name="right">The right hand side.</param>
         /// <returns>The result of the operation.</returns>
-        public static bool operator !=(LineInfo lhs, LineInfo rhs)
+        public static bool operator !=(LineInfo left, LineInfo right)
         {
-            return !lhs.Equals(rhs);
+            return !left.Equals(right);
         }
     }
 }

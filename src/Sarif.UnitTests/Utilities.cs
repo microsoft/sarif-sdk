@@ -7,6 +7,7 @@ using System.Xml;
 using System.Xml.Linq;
 using Newtonsoft.Json;
 using Microsoft.CodeAnalysis.Sarif.Writers;
+using Microsoft.CodeAnalysis.Sarif.Converters;
 
 namespace Microsoft.CodeAnalysis.Sarif
 {
@@ -47,7 +48,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return XmlReader.Create(new StringReader(data), xmlSettings);
         }
 
-        public static string GetConverterJson(IToolFileConverter converter, byte[] inputData)
+        public static string GetConverterJson(ToolFileConverterBase converter, byte[] inputData)
         {
             using (var input = new MemoryStream(inputData))
             {
@@ -66,12 +67,12 @@ namespace Microsoft.CodeAnalysis.Sarif
             }
         }
 
-        public static string GetConverterJson(IToolFileConverter converter, string inputData)
+        public static string GetConverterJson(ToolFileConverterBase converter, string inputData)
         {
             return GetConverterJson(converter, Encoding.UTF8.GetBytes(inputData));
         }
 
-        public static ResultLogObjectWriter GetConverterObjects(IToolFileConverter converter, byte[] inputData)
+        public static ResultLogObjectWriter GetConverterObjects(ToolFileConverterBase converter, byte[] inputData)
         {
             var result = new ResultLogObjectWriter();
             using (var input = new MemoryStream(inputData))
@@ -82,7 +83,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return result;
         }
 
-        public static ResultLogObjectWriter GetConverterObjects(IToolFileConverter converter, string inputData)
+        public static ResultLogObjectWriter GetConverterObjects(ToolFileConverterBase converter, string inputData)
         {
             return GetConverterObjects(converter, Encoding.UTF8.GetBytes(inputData));
         }

@@ -300,4 +300,10 @@
   <data name="AnnotatedCodeLocationIdMustBePositive" xml:space="preserve">
     <value>'{0}' is not a valid value for the id property of an annotatedCodeLocation object. The value must be a positive integer or the string representation of a positive integer.</value>
   </data>
+  <data name="NotificationWithExceptionMessage" xml:space="preserve">
+    <value>'{0}' ({1})</value>
+  </data>
+  <data name="UnexpectedRuntime" xml:space="preserve">
+    <value>Unexpected runtime condition(s) observed: </value>
+  </data>
 </root>

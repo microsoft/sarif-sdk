@@ -12,14 +12,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
     public static class Ref
     {
         /// <summary>Compares strings for reference equality and asserts if they are equal but not reference equal in debug mode.</summary>
-        /// <param name="lhs">The first string to compare.</param>
-        /// <param name="rhs">The second string to compare.</param>
-        /// <returns>true if <c>Object.ReferenceEquals(lhs, rhs)</c>; otherwise, false.</returns>
-        public static bool Equal(string lhs, string rhs)
+        /// <param name="left">The first string to compare.</param>
+        /// <param name="right">The second string to compare.</param>
+        /// <returns>true if <c>Object.ReferenceEquals(left, right)</c>; otherwise, false.</returns>
+        public static bool Equal(string left, string right)
         {
-            Debug.Assert(((object)lhs) == ((object)rhs) || !String.Equals(lhs, rhs, StringComparison.Ordinal),
-                "Object comparison used for non-atomized string \"" + lhs + "\".");
-            return ((object)lhs) == ((object)rhs);
+            Debug.Assert(((object)left) == ((object)right) || !String.Equals(left, right, StringComparison.Ordinal),
+                "Object comparison used for non-atomized string \"" + left + "\".");
+            return ((object)left) == ((object)right);
         }
 
         /// <summary>Do not call this function. Prevents typo Ref.Equals from compiling.</summary>

@@ -2,6 +2,7 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using System;
+using System.Globalization;
 
 namespace Microsoft.CodeAnalysis.Sarif
 {
@@ -29,7 +30,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <summary>
         /// The type of the option value.
         /// </summary>
-        public Type Type
+        public Type OptionType
         {
             get { return typeof(T); }
         }
@@ -39,7 +40,12 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// </summary>
         public Func<T> DefaultValue { get; }
 
-        public PerLanguageOption(string feature, string name, Func<T> defaultValue, string description = null)
+        public PerLanguageOption(string feature, string name, Func<T> defaultValue) :
+            this(feature, name, defaultValue, description: null)
+        {
+        }
+
+        public PerLanguageOption(string feature, string name, Func<T> defaultValue, string description)
         {
             if (string.IsNullOrWhiteSpace(feature))
             {
@@ -48,13 +54,13 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             if (string.IsNullOrWhiteSpace(name))
             {
-                throw new ArgumentException(nameof(name));
+                throw new ArgumentNullException(nameof(name));
             }
 
-            this.Feature = feature;
-            this.Name = name;
-            this.DefaultValue = defaultValue;
-            this.Description = description;
+            Feature = feature;
+            Name = name;
+            DefaultValue = defaultValue;
+            Description = description;
         }
 
         Type IOption.Type
@@ -74,7 +80,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         public override string ToString()
         {
-            return string.Format("{0} - {1}", this.Feature, this.Name);
+            return string.Format(CultureInfo.InvariantCulture, "{0} - {1}", this.Feature, this.Name);
         }
     }
 }

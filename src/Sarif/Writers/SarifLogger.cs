@@ -10,10 +10,11 @@ using System.Linq;
 using Microsoft.CodeAnalysis.Sarif.Readers;
 
 using Newtonsoft.Json;
+using System.Globalization;
 
 namespace Microsoft.CodeAnalysis.Sarif.Writers
 {
-    public class SarifLogger : IDisposable, IAnalysisLogger
+    sealed public class SarifLogger : IDisposable, IAnalysisLogger
     {
         private Run _run;
         private TextWriter _textWriter;
@@ -148,7 +149,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 invocationTokensToRedact);
         }
 
-        private void SetSarifLoggerVersion(Tool tool)
+        private static void SetSarifLoggerVersion(Tool tool)
         {
             string sarifLoggerLocation = typeof(SarifLogger).Assembly.Location;
             tool.SarifLoggerVersion = FileVersionInfo.GetVersionInfo(sarifLoggerLocation).FileVersion;
@@ -222,10 +223,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
                 _issueLogJsonWriter.Dispose();
             }
+
             if (_textWriter != null) { _textWriter.Dispose(); }
 
             if (_jsonTextWriter == null) { _jsonTextWriter.Close(); }
-            
+
+            GC.SuppressFinalize(this);
         }
 
         public void LogMessage(bool verbose, string message)
@@ -259,7 +262,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             if (rule.Id != result.RuleId)
             {
                 //The rule id '{0}' specified by the result does not match the actual id of the rule '{1}'
-                string message = string.Format(SdkResources.ResultRuleIdDoesNotMatchRule,
+                string message = string.Format(CultureInfo.InvariantCulture, SdkResources.ResultRuleIdDoesNotMatchRule,
                     result.RuleId.ToString(),
                     rule.Id.ToString());
 
@@ -293,7 +296,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 throw new ArgumentNullException(nameof(context));
             }
 
-            string message = string.Format(
+            string message = string.Format(CultureInfo.InvariantCulture, 
                 SdkResources.MSG001_AnalyzingTarget,
                 Path.GetFileName(context.TargetUri.LocalPath));
 

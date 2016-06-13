@@ -25,6 +25,7 @@
     </Reference>
     <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
+      <Private>False</Private>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.6.0.8\lib\net45\Newtonsoft.Json.dll</HintPath>
@@ -84,6 +85,7 @@
     <Compile Include="SarifExtensionsTests.cs" />
     <Compile Include="SparseReaderDispatchTableTests.cs" />
     <Compile Include="SparseReaderTests.cs" />
+    <Compile Include="ConvertToSchemaUriTests.cs" />
     <Compile Include="Writers\ResultLogJsonWriterTests.cs" />
     <Compile Include="ToolFormatConverterTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

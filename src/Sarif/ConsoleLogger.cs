@@ -34,7 +34,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 return;
             }
 
-            if ((runtimeConditions & ~RuntimeConditions.NonFatal) != 0)
+            if ((runtimeConditions & ~RuntimeConditions.Nonfatal) != 0)
             {
                 // One or more fatal conditions observed at runtime, so
                 // we'll report a catastrophic exit (withuot paying
@@ -48,7 +48,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 Console.WriteLine(SdkResources.MSG_AnalysisIncomplete);
             }
 
-            Console.WriteLine("Unexpected runtime condition(s) observed: " + runtimeConditions.ToString());
+            Console.WriteLine(SdkResources.UnexpectedRuntime + runtimeConditions.ToString());
         }
 
         public void AnalyzingTarget(IAnalysisContext context)
@@ -60,7 +60,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             if (this.Verbose)
             {
-                Console.WriteLine(string.Format(
+                Console.WriteLine(string.Format(CultureInfo.CurrentCulture,
                     SdkResources.MSG001_AnalyzingTarget,
                         Path.GetFileName(context.TargetUri.LocalPath)));
             }
@@ -266,7 +266,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 }
 
                 default:
-                    throw new InvalidOperationException("Unknown notification level: " + notification.Level);
+                throw new InvalidOperationException("Unknown notification level: " + notification.Level);
             }
 
             var sb = new StringBuilder(issueType);

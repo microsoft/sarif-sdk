@@ -12,7 +12,7 @@ using Microsoft.CodeAnalysis.Sarif.Writers;
 
 namespace Microsoft.CodeAnalysis.Sarif.Converters
 {
-    internal class FortifyConverter : IToolFileConverter
+    internal class FortifyConverter : ToolFileConverterBase
     {
         private readonly NameTable _nameTable;
         private readonly FortifyStrings _strings;
@@ -31,7 +31,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         /// <exception cref="ArgumentNullException">Thrown when one or more required arguments are null.</exception>
         /// <param name="input">Stream of the Fortify report.</param>
         /// <param name="output">Stream of SARIF json.</param>
-        public void Convert(Stream input, IResultLogWriter output)
+        public override void Convert(Stream input, IResultLogWriter output)
         {
             if (input == null)
             {
@@ -47,7 +47,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             {
                 DtdProcessing = DtdProcessing.Ignore,
                 IgnoreWhitespace = true,
-                NameTable = _nameTable
+                NameTable = _nameTable,
+                XmlResolver = null
             };
 
             var results = new List<Result>();

@@ -10,7 +10,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 {
     public static class MessageUtilities
     {
-        public static string BuildMessage(IAnalysisContext context, string messageFormatString, params string[] arguments)
+        public static string BuildMessage(IAnalysisContext context, string messageFormat, params string[] arguments)
         {
             if (context == null)
             {
@@ -36,7 +36,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             }
 
             return String.Format(CultureInfo.InvariantCulture,
-                messageFormatString, fullArguments);
+                messageFormat, fullArguments);
         }
 
         public static string BuildRuleDisabledDueToMissingPolicyMessage(string ruleName, string reason)

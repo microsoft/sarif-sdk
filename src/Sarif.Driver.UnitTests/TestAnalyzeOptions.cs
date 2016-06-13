@@ -18,7 +18,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
         public string OutputFilePath { get; set; }
 
-        public IEnumerable<string> PlugInFilePaths { get; set;  }
+        public IEnumerable<string> PluginFilePaths { get; set;  }
 
         public string ConfigurationFilePath { get; set; }
 

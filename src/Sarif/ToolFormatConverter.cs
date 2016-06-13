@@ -112,7 +112,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             if (inputStream == null) { throw new ArgumentNullException(nameof(inputStream)); };
             if (outputStream == null) { throw new ArgumentNullException(nameof(outputStream)); };
 
-            Lazy<IToolFileConverter> converter;
+            Lazy<ToolFileConverterBase> converter;
             if (_converters.TryGetValue(toolFormat, out converter))
             {
                 converter.Value.Convert(inputStream, outputStream);
@@ -123,11 +123,11 @@ namespace Microsoft.CodeAnalysis.Sarif
             }
         }
 
-        private readonly IDictionary<ToolFormat, Lazy<IToolFileConverter>> _converters = CreateConverterRecords();
+        private readonly IDictionary<ToolFormat, Lazy<ToolFileConverterBase>> _converters = CreateConverterRecords();
 
-        private static Dictionary<ToolFormat, Lazy<IToolFileConverter>> CreateConverterRecords()
+        private static Dictionary<ToolFormat, Lazy<ToolFileConverterBase>> CreateConverterRecords()
         {
-            var result = new Dictionary<ToolFormat, Lazy<IToolFileConverter>>();
+            var result = new Dictionary<ToolFormat, Lazy<ToolFileConverterBase>>();
             CreateConverterRecord<AndroidStudioConverter>(result, ToolFormat.AndroidStudio);
             CreateConverterRecord<CppCheckConverter>(result, ToolFormat.CppCheck);
             CreateConverterRecord<ClangAnalyzerConverter>(result, ToolFormat.ClangAnalyzer);
@@ -137,10 +137,10 @@ namespace Microsoft.CodeAnalysis.Sarif
             return result;
         }
 
-        private static void CreateConverterRecord<T>(IDictionary<ToolFormat, Lazy<IToolFileConverter>> dict, ToolFormat format)
-            where T : IToolFileConverter, new()
+        private static void CreateConverterRecord<T>(IDictionary<ToolFormat, Lazy<ToolFileConverterBase>> dict, ToolFormat format)
+            where T : ToolFileConverterBase, new()
         {
-            dict.Add(format, new Lazy<IToolFileConverter>(() => new T(), LazyThreadSafetyMode.ExecutionAndPublication));
+            dict.Add(format, new Lazy<ToolFileConverterBase>(() => new T(), LazyThreadSafetyMode.ExecutionAndPublication));
         }
 
         /// <summary>Converts a legacy PREfast XML log file into the SARIF format.</summary>

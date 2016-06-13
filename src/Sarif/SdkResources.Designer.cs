@@ -538,6 +538,15 @@ namespace Microsoft.CodeAnalysis.Sarif {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to &apos;{0}&apos; ({1}).
+        /// </summary>
+        internal static string NotificationWithExceptionMessage {
+            get {
+                return ResourceManager.GetString("NotificationWithExceptionMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Property &apos;{0}&apos; does not exist. Consider calling TryGetProperty instead..
         /// </summary>
         internal static string PropertyDoesNotExist {
@@ -579,6 +588,15 @@ namespace Microsoft.CodeAnalysis.Sarif {
         internal static string ToolAlreadyWritten {
             get {
                 return ResourceManager.GetString("ToolAlreadyWritten", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unexpected runtime condition(s) observed: .
+        /// </summary>
+        internal static string UnexpectedRuntime {
+            get {
+                return ResourceManager.GetString("UnexpectedRuntime", resourceCulture);
             }
         }
         

@@ -63,7 +63,8 @@ namespace Microsoft.CodeAnalysis.Sarif
             {
                 DtdProcessing = DtdProcessing.Ignore,
                 CloseInput = true,
-                Schemas = schemaSet
+                Schemas = schemaSet,
+                XmlResolver = null
             };
 
             XmlReader xReader = null;

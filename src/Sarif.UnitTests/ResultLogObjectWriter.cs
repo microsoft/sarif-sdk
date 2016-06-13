@@ -116,7 +116,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         /// </remarks>
         /// <exception cref="IOException">
         /// A file IO error occured. Clients implementing
-        /// <see cref="IToolFileConverter"/> should allow these exceptions to propagate.
+        /// <see cref="ToolFileConverterBase"/> should allow these exceptions to propagate.
         /// </exception>
         /// <exception cref="InvalidOperationException">
         /// Thrown if the tool info is not yet written.

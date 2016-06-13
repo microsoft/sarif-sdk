@@ -3,6 +3,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Resources;
 
@@ -67,7 +68,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         public static Dictionary<string, string> BuildDictionary(
             ResourceManager resourceManager, 
             IEnumerable<string> resourceNames, 
-            string ruleId = null)
+            string ruleId)
         {
             //validation
             if (resourceNames == null)
@@ -103,7 +104,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 throw new ArgumentNullException(nameof(formatId));
             }
 
-            if (!string.IsNullOrEmpty(ruleId) && formatId.StartsWith(ruleId + "_"))
+            if (!string.IsNullOrEmpty(ruleId) && formatId.StartsWith(ruleId + "_", StringComparison.Ordinal))
             {
                 formatId = formatId.Substring(ruleId.Length + 1);
             }

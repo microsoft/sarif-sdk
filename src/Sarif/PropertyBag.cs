@@ -16,11 +16,16 @@ namespace Microsoft.CodeAnalysis.Sarif
     {
         internal const string DEFAULT_POLICY_NAME = "default";
 
-        public PropertyBagDictionary() : base() { }
+        public PropertyBagDictionary() : this(null) { }
+
+        public PropertyBagDictionary(PropertyBagDictionary initializer) :
+            this(initializer, null)
+        {
+        }
 
         public PropertyBagDictionary(
-            PropertyBagDictionary initializer = null,
-            IEqualityComparer<string> comparer = null)
+            PropertyBagDictionary initializer,
+            IEqualityComparer<string> comparer)
             : base(initializer, comparer)
         {
         }
@@ -32,7 +37,13 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         public string Name { get; set; }
 
-        public virtual T GetProperty<T>(PerLanguageOption<T> setting, bool cacheDefault = true)
+        public virtual T GetProperty<T>(PerLanguageOption<T> setting)
+        {
+            return GetProperty(setting, cacheDefault: true);
+        }
+
+        public virtual T GetProperty<T>(PerLanguageOption<T> setting, bool cacheDefault)
+
         {
             if (setting == null) { throw new ArgumentNullException(nameof(setting)); }
 
@@ -48,7 +59,13 @@ namespace Microsoft.CodeAnalysis.Sarif
             return value;
         }
 
-        public override void SetProperty(IOption setting, object value, bool cacheDescription = false)
+        public override void SetProperty(IOption setting, object value)
+        {
+            SetProperty(setting, value, cacheDescription: false);
+        }
+
+        public override void SetProperty(IOption setting, object value, bool cacheDescription)
+
         {
             if (setting == null) { throw new ArgumentNullException(nameof(setting)); }
 
@@ -141,7 +158,12 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         public void LoadFrom(Stream stream)
         {
-            using (XmlReader reader = XmlReader.Create(stream))
+            var settings = new XmlReaderSettings
+            {
+                XmlResolver = null
+            };
+
+            using (XmlReader reader = XmlReader.Create(stream, settings))
             {
                 if (reader.IsStartElement(PropertyBagExtensionMethods.PROPERTIES_ID))
                 {
@@ -161,7 +183,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         // Current consumers of this data expect that child namespaces
         // will always precede parent namespaces, if also included.
-        public static ImmutableArray<string> DefaultNamespaces = new List<string>(
+        public static readonly ImmutableArray<string> DefaultNamespaces = new List<string>(
             new string[] {
                 "Microsoft.CodeAnalysis.Options.",
                 "Microsoft.CodeAnalysis."

@@ -158,7 +158,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                     false,
                     fileName));
 
-            context.RuntimeErrors |= RuntimeConditions.ExceptionCreatingLogfile;
+            context.RuntimeErrors |= RuntimeConditions.ExceptionCreatingLogFile;
         }
 
         public static void LogMissingFile(IAnalysisContext context, string fileName)
@@ -219,7 +219,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             // to invoke built-in settings. Invoke the {3} 'exportConfig' command
             // to produce an initial configuration file that can be edited, if
             // necessary, and passed back into the tool.
-            string message = string.Format(SdkResources.ERR997_MissingRuleConfiguration,
+            string message = string.Format(CultureInfo.InvariantCulture, SdkResources.ERR997_MissingRuleConfiguration,
                 context.Rule.Name,
                 Path.GetFileName(context.TargetUri.LocalPath),
                 reasonForNotAnalyzing,
@@ -238,7 +238,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             context.RuntimeErrors |= RuntimeConditions.RuleMissingRequiredConfiguration;
         }
 
-        public static void LogExceptionLoadingPlugIn(string plugInFilePath, IAnalysisContext context, Exception exception)
+        public static void LogExceptionLoadingPlugin(string pluginFilePath, IAnalysisContext context, Exception exception)
         {
             if (context == null)
             {
@@ -253,9 +253,9 @@ namespace Microsoft.CodeAnalysis.Sarif
                     NotificationLevel.Error,
                     exception,
                     false,  
-                    plugInFilePath));
+                    pluginFilePath));
 
-            context.RuntimeErrors |= RuntimeConditions.ExceptionLoadingAnalysisPlugIn;
+            context.RuntimeErrors |= RuntimeConditions.ExceptionLoadingAnalysisPlugin;
         }
 
         public static void LogTargetParseError(IAnalysisContext context, Region region, string message)
@@ -411,7 +411,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             string exceptionMessage = exception?.Message;
             if (!string.IsNullOrEmpty(exceptionMessage))
             {
-                message += " ('" + exceptionMessage + "')";
+                message += string.Format(CultureInfo.InvariantCulture, SdkResources.NotificationWithExceptionMessage, message, exceptionMessage);
             }
 
             var exceptionData = exception != null && persistExceptionStack

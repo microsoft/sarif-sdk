@@ -30,31 +30,31 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         private uint _itemCount;
 
         /// <summary>Equality operator.</summary>
-        /// <param name="lhs">The left hand side.</param>
-        /// <param name="rhs">The right hand side.</param>
-        /// <returns>true of <paramref name="lhs"/> is equal to <paramref name="rhs"/>; otherwise, false.</returns>
-        public static bool operator ==(MurmurHash lhs, MurmurHash rhs)
+        /// <param name="left">The left hand side.</param>
+        /// <param name="right">The right hand side.</param>
+        /// <returns>true of <paramref name="left"/> is equal to <paramref name="right"/>; otherwise, false.</returns>
+        public static bool operator ==(MurmurHash left, MurmurHash right)
         {
-            if (object.ReferenceEquals(lhs, null))
+            if (object.ReferenceEquals(left, null))
             {
-                return object.ReferenceEquals(rhs, null);
+                return object.ReferenceEquals(right, null);
             }
-            else if (object.ReferenceEquals(rhs, null))
+            else if (object.ReferenceEquals(right, null))
             {
                 return false;
             }
 
-            return lhs._internalState == rhs._internalState
-                && lhs._itemCount == rhs._itemCount;
+            return left._internalState == right._internalState
+                && left._itemCount == right._itemCount;
         }
 
         /// <summary>Inequality operator.</summary>
-        /// <param name="lhs">The left hand side.</param>
-        /// <param name="rhs">The right hand side.</param>
-        /// <returns>true of <paramref name="lhs"/> is not equal to <paramref name="rhs"/>; otherwise, false.</returns>
-        public static bool operator !=(MurmurHash lhs, MurmurHash rhs)
+        /// <param name="left">The left hand side.</param>
+        /// <param name="right">The right hand side.</param>
+        /// <returns>true of <paramref name="left"/> is not equal to <paramref name="right"/>; otherwise, false.</returns>
+        public static bool operator !=(MurmurHash left, MurmurHash right)
         {
-            return !(lhs == rhs);
+            return !(left == right);
         }
 
         /// <summary>Adds item to the calculated hash.</summary>
