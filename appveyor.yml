@@ -13,10 +13,10 @@ build:
   
 test:
   assemblies:
-    - **\Sarif.UnitTests.dll
-    - **\Sarif.Driver.UnitTests.dll
-    - **\Sarif.FunctionalTests.dll
-    - **\Sarif.ValidationTests.dll
+    - '**\Sarif.UnitTests.dll'
+    - '**\Sarif.Driver.UnitTests.dll'
+    - '**\Sarif.FunctionalTests.dll'
+    - '**\Sarif.ValidationTests.dll'
 
 artifacts:
   - path: logs.txt
