@@ -45,7 +45,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
             var tool = new Tool
             {
-                Name = "StaticDriverVersion",
+                Name = "StaticDriverVerifier",
             };
 
             var fileInfoFactory = new FileInfoFactory(null);
