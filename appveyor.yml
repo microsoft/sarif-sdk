@@ -14,6 +14,8 @@ version: 1.0.{build}
 # you can use {branch} name in version format too
 # version: 1.0.{build}-{branch}
 
+init: git config --global core.autocrlf true  
+
 # branches to build
 branches:
   # whitelist
