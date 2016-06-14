@@ -5,6 +5,12 @@ SETLOCAL
 @REM create a nuget package for the SARIF SDK) so must opt-in
 @REM %~dp0.nuget\NuGet.exe update -self
 
+call BeforeBuild.cmd
+
+if "%ERRORLEVEL%" NEQ "0"(
+goto ExitFailed
+)
+
 set Platform=Any CPU
 set Configuration=Release
 
@@ -57,16 +63,8 @@ echo         public const string Version = AssemblyVersion + Prerelease;        
 echo     }                                                                          >> %DRV_VERSION_CONSTANTS%
 echo  }                                                                             >> %DRV_VERSION_CONSTANTS%
 
-if NOT exist "GeneratedKey.snk" (
-sn -k GeneratedKey.snk
-)
-
 @REM Build all code
 %~dp0.nuget\NuGet.exe restore src\Everything.sln -ConfigFile .nuget\NuGet.Config
-
-if "%ERRORLEVEL%" NEQ "0" (
-goto ExitFailed
-)
 
 msbuild /verbosity:minimal /target:rebuild src\Everything.sln /p:"Configuration=%Configuration%" /p:"Platform=Any CPU" /filelogger /fileloggerparameters:Verbosity=detailed
 
@@ -85,7 +83,7 @@ goto ExitFailed
 @REM Run all tests
 SET PASSED=true
 
-mstest /testContainer:bld\bin\Sarif.UnitTests\AnyCPU_%Configuration%\Sarif.UnitTests.dll
+mstest /detail:errormessage /detail:stdout /detail:errorstacktrace /detail:displaytext /detail:traceinfo /detail:outcometext /detail:spoolmessage /testContainer:bld\bin\Sarif.UnitTests\AnyCPU_%Configuration%\Sarif.UnitTests.dll | tee logs.txt
 if "%ERRORLEVEL%" NEQ "0" (
 set PASSED=false
 )
@@ -117,6 +115,7 @@ goto Exit
 :ExitFailed
 @echo.
 @echo SCRIPT FAILED
+exit /b 1
 
 :Exit
 
