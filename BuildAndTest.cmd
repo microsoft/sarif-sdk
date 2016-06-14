@@ -19,8 +19,8 @@ echo Unrecognized option "%1" && goto :ExitFailed
 :EndArgs
 
 @REM Remove existing build data
-rd /s /q bld
-md bld\bin\nuget
+@rd /s /q bld
+@md bld\bin\nuget
 
 call SetCurrentVersion.cmd 
 
@@ -57,9 +57,9 @@ echo         public const string Version = AssemblyVersion + Prerelease;        
 echo     }                                                                          >> %DRV_VERSION_CONSTANTS%
 echo  }                                                                             >> %DRV_VERSION_CONSTANTS%
 
-if NOT exist "GeneratedKey.snk" (
-sn -k GeneratedKey.snk
-)
+@if NOT exist "GeneratedKey.snk" (
+@sn -k GeneratedKey.snk
+@)
 
 @REM Build all code
 %~dp0.nuget\NuGet.exe restore src\Everything.sln -ConfigFile .nuget\NuGet.Config
