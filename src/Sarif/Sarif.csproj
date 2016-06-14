@@ -15,10 +15,22 @@
     <AssemblyOriginatorKeyFile>..\..\GeneratedKey.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'">
-    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRuleSet>Sarif.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
-    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRuleSet>Sarif.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+    <CodeAnalysisRuleSet>Sarif.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
+    <CodeAnalysisRuleSet>Sarif.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+    <CodeAnalysisRuleSet>Sarif.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
+    <CodeAnalysisRuleSet>Sarif.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <Import Project="$([MSBuild]::GetDirectoryNameOfFileAbove($(MSBuildThisFileDirectory).., build.props))\build.props" />
   <ItemGroup>
@@ -39,11 +51,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="HashData.cs" />
     <Compile Include="ConsoleLogger.cs" />
     <Compile Include="Converters\AndroidStudioProblem.cs" />
     <Compile Include="Converters\AndroidStudioStrings.cs" />
+    <Compile Include="Converters\StaticDriverVerifierConverter.cs" />
     <Compile Include="Converters\ToolFileConverterBase.cs" />
     <Compile Include="Converters\CppCheckError.cs" />
     <Compile Include="Converters\CppCheckLocation.cs" />
@@ -153,6 +165,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <None Include="Sarif.ruleset" />
     <None Include="ToDotNet\packages.config">
       <SubType>Designer</SubType>
     </None>
