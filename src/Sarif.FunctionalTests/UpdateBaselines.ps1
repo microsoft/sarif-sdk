@@ -17,6 +17,11 @@ function Build-Baselines($toolName)
 {
     $sourceExtension = "xml"
 
+    if ($ToolName -eq "StaticDriverVerifier")
+    {
+      $sourceExtension = "tt"
+    }
+
     Write-Host "Building baselines for $toolName..."
     $toolDirectory = Join-Path "$PSScriptRoot\ConverterTestData" $toolName
     $sourceExtension = "*.$sourceExtension"

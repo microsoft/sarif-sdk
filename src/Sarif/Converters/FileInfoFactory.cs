@@ -3,6 +3,7 @@
 
 using System;
 using System.Collections.Generic;
+using Microsoft.CodeAnalysis.Sarif.Writers;
 
 namespace Microsoft.CodeAnalysis.Sarif.Converters
 {
@@ -13,7 +14,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
         internal FileInfoFactory(Func<string, string> mimeTypeClassifier)
         {
-            _mimeTypeClassifier = mimeTypeClassifier;
+            _mimeTypeClassifier = mimeTypeClassifier ?? MimeType.DetermineFromFileExtension;
             _fileInfoDictionary = new Dictionary<string, FileData>();
         }
 
@@ -74,6 +75,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
         private void AddFile(PhysicalLocation physicalLocation)
         {
+            if (physicalLocation == null)
+            {
+                return;
+            }
+
             Uri uri = physicalLocation.Uri;
             string key = uri.ToString();
             string filePath = key;
@@ -91,7 +97,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                     new FileData
                     {
                         MimeType = _mimeTypeClassifier(filePath)
-
                     });
             }
         }

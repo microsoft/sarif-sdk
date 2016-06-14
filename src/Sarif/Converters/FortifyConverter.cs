@@ -148,8 +148,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                     {
                         Locations = new List<AnnotatedCodeLocation>
                         {
-                            new AnnotatedCodeLocation { PhysicalLocation = source },
-                            new AnnotatedCodeLocation { PhysicalLocation = primaryOrSink }
+                            new AnnotatedCodeLocation { PhysicalLocation = source, Essential = true },
+                            new AnnotatedCodeLocation { PhysicalLocation = primaryOrSink, Essential = true }
                         }
                     }
                 };

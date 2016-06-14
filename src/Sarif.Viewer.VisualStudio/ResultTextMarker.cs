@@ -3,6 +3,7 @@
 
 using System;
 using System.Diagnostics;
+using System.IO;
 using Microsoft.CodeAnalysis.Sarif;
 using Microsoft.Sarif.Viewer.Tags;
 using Microsoft.VisualStudio.ComponentModelHost;
@@ -61,6 +62,12 @@ namespace Microsoft.Sarif.Viewer
         internal IVsWindowFrame NavigateTo(bool highlightLine, string highlightColor, bool usePreviewPane)
         {
             // Fall back to the file and line number
+
+            if (!File.Exists(this.FullFilePath))
+            {
+                this.FullFilePath = CodeAnalysisResultManager.Instance.RebaselineFileName(this.FullFilePath);
+            }
+
             IVsWindowFrame windowFrame = SdkUiUtilities.OpenDocument(SarifViewerPackage.ServiceProvider, this.FullFilePath, usePreviewPane);
             if (windowFrame != null)
             {

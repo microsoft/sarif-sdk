@@ -250,11 +250,20 @@ namespace Microsoft.CodeAnalysis.Sarif
             switch (notification.Level)
             {
                 case NotificationLevel.Error:
-                case NotificationLevel.Warning:
-                case NotificationLevel.Note:
-                    issueType = notification.Level.ToString();
-                    issueType = issueType.Substring(0, 1).ToLowerInvariant() + issueType.Substring(1);
+                {
+                    issueType = "error";
                     break;
+                }
+                case NotificationLevel.Warning:
+                {
+                    issueType = "warning";
+                    break;
+                }
+                case NotificationLevel.Note:
+                {
+                    issueType = "note";
+                    break;
+                }
 
                 default:
                     throw new InvalidOperationException("Unknown notification level: " + notification.Level);

@@ -40,4 +40,9 @@
 * Remove requirement to specify 'description' on code fixes
 * Add 'architecture' back to 'run' object
 
+## **v1.5.24-beta** [Driver](https://www.nuget.org/packages/Sarif.Driver/1.5.24-beta) | [SDK](https://www.nuget.org/packages/Sarif.Sdk/1.5.24-beta)
+* Permit annotatedCodeLocation.id to be a numeric value (in addition to a string)
+
+## **v1.5.25-beta** [Driver](https://www.nuget.org/packages/Sarif.Driver/1.5.25-beta) | [SDK](https://www.nuget.org/packages/Sarif.Sdk/1.5.25-beta)
+* Add a converter for Static Driver Verifier trace files
 
