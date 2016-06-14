@@ -55,7 +55,7 @@ echo         public const string AssemblyVersion = "%MAJOR%.%MINOR%.%PATCH%";   
 echo         public const string FileVersion = AssemblyVersion + ".0";              >> %DRV_VERSION_CONSTANTS%
 echo         public const string Version = AssemblyVersion + Prerelease;            >> %DRV_VERSION_CONSTANTS%
 echo     }                                                                          >> %DRV_VERSION_CONSTANTS%
-echo  }  
+echo  }                                                                             >> %DRV_VERSION_CONSTANTS%
 
 if NOT exist "GeneratedLey.snk" (
 sn -k GeneratedKey.snk
