@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using Microsoft.CodeAnalysis.Sarif.Readers;
 
 using Newtonsoft.Json;
+using System.Globalization;
 
 namespace Microsoft.CodeAnalysis.Sarif.Writers
 {
@@ -87,7 +88,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         /// <summary>Writes a tool information entry to the log. This must be the first entry written into
         /// a log, and it may be written at most once.</summary>
         /// <exception cref="IOException">A file IO error occured. Clients implementing
-        /// <see cref="IToolFileConverter"/> should allow these exceptions to propagate.</exception>
+        /// <see cref="ToolFileConverterBase"/> should allow these exceptions to propagate.</exception>
         /// <exception cref="InvalidOperationException">Thrown if the tool info block has already been
         /// written.</exception>
         /// <param name="info">The tool information to write.</param>
@@ -199,7 +200,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         /// </remarks>
         /// <exception cref="IOException">
         /// A file IO error occured. Clients implementing
-        /// <see cref="IToolFileConverter"/> should allow these exceptions to propagate.
+        /// <see cref="ToolFileConverterBase"/> should allow these exceptions to propagate.
         /// </exception>
         /// <exception cref="InvalidOperationException">
         /// Thrown if the tool info is not yet written.
@@ -235,7 +236,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         /// </remarks>
         /// <exception cref="IOException">
         /// A file IO error occured. Clients implementing
-        /// <see cref="IToolFileConverter"/> should allow these exceptions to propagate.
+        /// <see cref="ToolFileConverterBase"/> should allow these exceptions to propagate.
         /// </exception>
         /// <exception cref="InvalidOperationException">
         /// Thrown if the tool info is not yet written.
@@ -248,6 +249,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         ///  </param>
         public void WriteResults(IEnumerable<Result> results)
         {
+            if (results == null)
+            {
+                throw new ArgumentNullException(nameof(results));
+            }
+
             foreach (Result result in results)
             {
                 WriteResult(result);
@@ -368,7 +374,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             if (observedInvalidConditions != Conditions.None)
             {
                 // 	InvalidState	One or more invalid states were detected during serialization: {0}	
-                throw new InvalidOperationException(string.Format(SdkResources.InvalidState, observedInvalidConditions));
+                throw new InvalidOperationException(string.Format(CultureInfo.InvariantCulture, SdkResources.InvalidState, observedInvalidConditions));
             }
         }
 

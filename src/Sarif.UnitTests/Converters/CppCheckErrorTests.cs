@@ -88,14 +88,16 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                     new AnnotatedCodeLocation {
                         PhysicalLocation = new PhysicalLocation {
                             Uri = new Uri("foo.cpp", UriKind.RelativeOrAbsolute),
-                            Region = new Region { StartLine = 1234 }
-                        }
+                            Region = new Region { StartLine = 1234 },
+                        },
+                        Essential = true
                     },
                     new AnnotatedCodeLocation {
                         PhysicalLocation = new PhysicalLocation {
                             Uri = new Uri("bar.cpp", UriKind.RelativeOrAbsolute),
                             Region = new Region { StartLine = 5678 }
-                        }
+                        },
+                        Essential = true
                     }
                 }, AnnotatedCodeLocation.ValueComparer).Should().BeTrue();
         }

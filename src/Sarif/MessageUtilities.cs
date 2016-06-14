@@ -10,8 +10,18 @@ namespace Microsoft.CodeAnalysis.Sarif
 {
     public static class MessageUtilities
     {
-        public static string BuildMessage(IAnalysisContext context, string messageFormatString, params string[] arguments)
+        public static string BuildMessage(IAnalysisContext context, string messageFormat, params string[] arguments)
         {
+            if (context == null)
+            {
+                throw new ArgumentNullException(nameof(context));
+            }
+
+            if (arguments == null)
+            {
+                throw new ArgumentNullException(nameof(arguments));
+            }
+
             // By convention, the first argument is always the target name, 
             // which we retrieve from the context
             Debug.Assert(File.Exists(context.TargetUri.LocalPath));
@@ -26,7 +36,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             }
 
             return String.Format(CultureInfo.InvariantCulture,
-                messageFormatString, fullArguments);
+                messageFormat, fullArguments);
         }
 
         public static string BuildRuleDisabledDueToMissingPolicyMessage(string ruleName, string reason)

@@ -40,16 +40,16 @@ namespace Microsoft.CodeAnalysis.Sarif
                     //  (startLine,startColumn,endLine,endColumn)
                     return
                         "(" +
-                        region.StartLine.ToString() + "," +
-                        (region.StartColumn > 0 ? region.StartColumn.ToString() : "1") + "," +
-                        region.EndLine.ToString() + "," +
-                        (region.EndColumn > 0 ? region.EndColumn.ToString() : "1") +
+                        region.StartLine.ToString(CultureInfo.InvariantCulture) + "," +
+                        (region.StartColumn > 0 ? region.StartColumn.ToString(CultureInfo.InvariantCulture) : "1") + "," +
+                        region.EndLine.ToString(CultureInfo.InvariantCulture) + "," +
+                        (region.EndColumn > 0 ? region.EndColumn.ToString(CultureInfo.InvariantCulture) : "1") +
                         ")";
                 }
                 //  (startLine-endLine)
                 return
                     "(" +
-                    region.StartLine.ToString() + "-" + region.EndLine.ToString() +
+                    region.StartLine.ToString(CultureInfo.InvariantCulture) + "-" + region.EndLine.ToString(CultureInfo.InvariantCulture) +
                     ")";
             }
 
@@ -58,9 +58,9 @@ namespace Microsoft.CodeAnalysis.Sarif
                 // (startLine,startColumn-endColumn)
                 return
                     "(" +
-                    region.StartLine.ToString() + "," +
-                    region.StartColumn.ToString() + "-" +
-                    region.EndColumn.ToString() +
+                    region.StartLine.ToString(CultureInfo.InvariantCulture) + "," +
+                    region.StartColumn.ToString(CultureInfo.InvariantCulture) + "-" +
+                    region.EndColumn.ToString(CultureInfo.InvariantCulture) +
                     ")";
             }
 
@@ -69,19 +69,30 @@ namespace Microsoft.CodeAnalysis.Sarif
                 // (startLine,startColumn)
                 return
                      "(" +
-                     region.StartLine.ToString() + "," + region.StartColumn.ToString() +
+                     region.StartLine.ToString(CultureInfo.InvariantCulture) + "," + region.StartColumn.ToString(CultureInfo.InvariantCulture) +
                      ")";
             }
             // (startLine)
             return
                  "(" +
-                 region.StartLine.ToString() +
+                 region.StartLine.ToString(CultureInfo.InvariantCulture) +
                  ")";
         }
 
         public static string FormatForVisualStudio(this Result result, IRule rule)
         {
+            if (result == null)
+            {
+                throw new ArgumentNullException(nameof(result));
+            }
+
+            if (rule == null)
+            {
+                throw new ArgumentNullException(nameof(rule));
+            }
+
             var messageLines = new List<string>();
+
             foreach (var location in result.Locations)
             {
                 PhysicalLocation physicalLocation = location.ResultFile ?? location.AnalysisTarget;
@@ -124,6 +135,16 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="newLineIndex"></param>
         public static void Populate(this Region region, NewLineIndex newLineIndex)
         {
+            if (region == null)
+            {
+                throw new ArgumentNullException(nameof(region));
+            }
+
+            if (newLineIndex == null)
+            {
+                throw new ArgumentNullException(nameof(newLineIndex));
+            }
+
             // A call to Populate is an implicit indicator that we are working
             // with a text region (otherwise the offset and length would be 
             // sufficient data to constitute the region).
@@ -153,15 +174,23 @@ namespace Microsoft.CodeAnalysis.Sarif
             }
         }
 
-        public static string GetMessageText(this Result result, IRule rule, bool concise = false)
-        {            
-            string text = result.Message;
+        public static string GetMessageText(this Result result, IRule rule)
+        {
+            return GetMessageText(result, rule, concise: false);
+        }
 
+        public static string GetMessageText(this Result result, IRule rule, bool concise)
+        {
+            if (result == null)
+            {
+                throw new ArgumentNullException(nameof(result));
+            }
+
+            string text = result.Message;
             if (string.IsNullOrEmpty(text))
             {
                 Debug.Assert(rule != null);
 
-                string ruleId = result.RuleId;
                 string formatId = result.FormattedRuleMessage.FormatId;
                 string messageFormat;
 
@@ -187,11 +216,11 @@ namespace Microsoft.CodeAnalysis.Sarif
                 {
                     // If this assert fires, there are too many arguments for the specifier
                     // or there is an argument is skipped or not consumed in the specifier
-                    Debug.Assert(messageFormat.Contains("{" + i.ToString() + "}"));
+                    Debug.Assert(messageFormat.Contains("{" + i.ToString(CultureInfo.InvariantCulture) + "}"));
                 }
 #endif
 
-                text = string.Format(messageFormat, arguments);
+                text = string.Format(CultureInfo.InvariantCulture, messageFormat, arguments);
 
 #if DEBUG
                 // If this assert fires, an insufficient # of arguments might
@@ -210,6 +239,11 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         public static string GetFirstSentence(string text)
         {
+            if (text == null)
+            {
+                throw new ArgumentNullException(nameof(text));
+            }
+
             int length = 0;
             bool withinQuotes = false;
             bool withinParentheses = false;

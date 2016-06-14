@@ -74,7 +74,7 @@
 
         "kind": {
           "description": "A descriptive identifier that categorizes the annotation.",
-          "enum": [ "alias", "branch", "call", "callReturn", "declaration", "functionEnter", "functionExit", "sanitizer", "sink", "source", "usage" ]
+          "enum": [ "alias", "assignment", "branch", "call", "callReturn", "continuation", "declaration", "functionEnter", "functionExit", "sanitizer", "sink", "source", "usage" ]
         },
 
         "essential": {
@@ -100,7 +100,6 @@
           }
         }
       },
-      "required": [ "physicalLocation" ]
     },
     "codeFlow": {
       "type": "object",
@@ -194,7 +193,11 @@
           }
         }
       },
-      "required": [ "uri", "replacements" ]
+
+      "required": [ "uri", "replacements" ],
+      "dependencies": {
+        "uriBaseId": [ "uri" ]
+      }
     },
     "file": {
       "description": "A single file. In some cases, this file might be nested within another file.",
@@ -261,6 +264,10 @@
             }
           }
         }
+      },
+
+      "dependencies": {
+        "uriBaseId": [ "uri" ]
       }
     },
     "fix": {
@@ -553,7 +560,7 @@
           "type": "string",
           "format": "uri"
         },
-        
+
         "uriBaseId": {
           "description": "A string that identifies the conceptual base for the 'uri' property (if it is relative), e.g.,'$(SolutionDir)' or '%SRCROOT%'.",
           "type": "string"
@@ -564,7 +571,11 @@
           "$ref": "#/definitions/region"
         }
       },
-      "required": [ "uri" ]
+
+      "required": [ "uri" ],
+      "dependencies": {
+        "uriBaseId": [ "uri" ]
+      }
     },
     "region": {
       "description": "A region within a file where a result was detected.",
@@ -1050,7 +1061,12 @@
         }
       },
 
-      "required": ["fullyQualifiedLogicalName"]
+      "required": [ "fullyQualifiedLogicalName" ],
+      "dependencies": {
+        "uriBaseId": [ "uri" ],
+        "line": [ "uri" ],
+        "column": [ "line" ]
+      }
     },
     "tool": {
       "description": "The analysis tool that was run.",

@@ -666,6 +666,27 @@
     <None Include="ConverterTestData\PREfast\TFS378661.cpp.xml.sarif">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="ConverterTestData\StaticDriverVerifier\cancelspinlock_bug1.tt.sarif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ConverterTestData\StaticDriverVerifier\checkdriverunload_bug1.tt.sarif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ConverterTestData\StaticDriverVerifier\checkirpmjpnp_bug1.tt.sarif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ConverterTestData\StaticDriverVerifier\dispatchroutine_bug1.tt.sarif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ConverterTestData\StaticDriverVerifier\iocompletion_bug1.tt.sarif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ConverterTestData\StaticDriverVerifier\iodpcroutine_bug1.tt.sarif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ConverterTestData\StaticDriverVerifier\isrroutine_bug1.tt.sarif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="DirectProducerTestData\BinSkim\BinSkim.AllRules.sarif">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -997,7 +1018,9 @@
   <ItemGroup>
     <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="ConverterTestData\StaticDriverVerifier\check\checkirpmjpnp\" />
+  </ItemGroup>
   <ItemGroup>
     <Content Include="ConverterTestData\FxCop\FxCopReportAllMessageStates.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -1048,6 +1071,38 @@
     <Content Include="ConverterTestData\PREfast\TFS373273.cpp.xml" />
     <Content Include="ConverterTestData\PREfast\TFS375867.cpp.xml" />
     <Content Include="ConverterTestData\PREfast\TFS378661.cpp.xml" />
+    <Content Include="ConverterTestData\StaticDriverVerifier\cancelspinlock_bug1.tt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ConverterTestData\StaticDriverVerifier\checkadddevice_bug1.tt">
+      <LastGenOutput>checkadddevice_bug1.cs</LastGenOutput>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ConverterTestData\StaticDriverVerifier\checkdriverunload_bug1.tt">
+      <LastGenOutput>checkdriverunload_bug1.cs</LastGenOutput>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ConverterTestData\StaticDriverVerifier\checkirpmjpnp_bug1.tt">
+      <LastGenOutput>checkirpmjpnp_bug1.cs</LastGenOutput>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ConverterTestData\StaticDriverVerifier\dispatchroutine_bug1.tt">
+      <LastGenOutput>dispatchroutine_bug1.cs</LastGenOutput>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ConverterTestData\StaticDriverVerifier\iocompletion_bug1.tt">
+      <LastGenOutput>iocompletion_bug1.cs</LastGenOutput>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ConverterTestData\StaticDriverVerifier\iodpcroutine_bug1.tt">
+      <LastGenOutput>iodpcroutine_bug1.cs</LastGenOutput>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ConverterTestData\StaticDriverVerifier\isrroutine_bug1.tt">
+      <LastGenOutput>isrroutine_bug1.cs</LastGenOutput>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ConverterTestData\StaticDriverVerifier\sdv-harness.c" />
     <None Include="ConverterTestData\PREfast\Expected-001.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

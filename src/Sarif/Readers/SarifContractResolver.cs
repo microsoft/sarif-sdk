@@ -28,6 +28,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
             else if (objectType == typeof(SarifVersion))
                 contract.Converter = SarifVersionConverter.Instance;
 
+            else if (objectType == typeof(AnnotatedCodeLocationKind))
+                contract.Converter = EnumConverter.Instance;
+
             else if (objectType == typeof(ResultLevel))
                 contract.Converter = EnumConverter.Instance;
 

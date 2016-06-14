@@ -2,6 +2,7 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using System;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -27,13 +28,13 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             Console.WriteLine();
 
-            if (runtimeConditions == RuntimeConditions.NoErrors)
+            if (runtimeConditions == RuntimeConditions.None)
             {
                 Console.WriteLine(SdkResources.MSG_AnalysisCompletedSuccessfully);
                 return;
             }
 
-            if ((runtimeConditions & RuntimeConditions.Fatal) != 0)
+            if ((runtimeConditions & ~RuntimeConditions.Nonfatal) != 0)
             {
                 // One or more fatal conditions observed at runtime, so
                 // we'll report a catastrophic exit (withuot paying
@@ -47,14 +48,19 @@ namespace Microsoft.CodeAnalysis.Sarif
                 Console.WriteLine(SdkResources.MSG_AnalysisIncomplete);
             }
 
-            Console.WriteLine("Unexpected runtime condition(s) observed: " + runtimeConditions.ToString());
+            Console.WriteLine(SdkResources.UnexpectedRuntime + runtimeConditions.ToString());
         }
 
         public void AnalyzingTarget(IAnalysisContext context)
         {
+            if (context == null)
+            {
+                throw new ArgumentNullException(nameof(context));
+            }
+
             if (this.Verbose)
             {
-                Console.WriteLine(string.Format(
+                Console.WriteLine(string.Format(CultureInfo.CurrentCulture,
                     SdkResources.MSG001_AnalyzingTarget,
                         Path.GetFileName(context.TargetUri.LocalPath)));
             }
@@ -70,6 +76,11 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         public void Log(IRule rule, Result result)
         {
+            if (result == null)
+            {
+                throw new ArgumentNullException(nameof(result));
+            }
+
             string message = result.GetMessageText(rule, concise: false);
 
             // TODO we need better retrieval for locations than these defaults
@@ -189,6 +200,11 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         public static string NormalizeMessage(string message, bool enquote)
         {
+            if (message == null)
+            {
+                throw new ArgumentNullException(nameof(message));
+            }
+
             return (enquote ? "\"" : "") +
                 message.Replace('"', '\'') +
                 (enquote ? "\"" : "");
@@ -234,26 +250,35 @@ namespace Microsoft.CodeAnalysis.Sarif
             switch (notification.Level)
             {
                 case NotificationLevel.Error:
-                case NotificationLevel.Warning:
-                case NotificationLevel.Note:
-                    issueType = notification.Level.ToString();
-                    issueType = issueType.Substring(0, 1).ToLowerInvariant() + issueType.Substring(1);
+                {
+                    issueType = "error";
                     break;
+                }
+                case NotificationLevel.Warning:
+                {
+                    issueType = "warning";
+                    break;
+                }
+                case NotificationLevel.Note:
+                {
+                    issueType = "note";
+                    break;
+                }
 
                 default:
-                    throw new InvalidOperationException("Unknown notification level: " + notification.Level);
+                throw new InvalidOperationException("Unknown notification level: " + notification.Level);
             }
 
             var sb = new StringBuilder(issueType);
 
             if (!string.IsNullOrEmpty(notification.Id))
             {
-                sb.Append($" {notification.Id}: ");
+                sb.Append(notification.Id + " : ");
             }
 
             if (!string.IsNullOrEmpty(notification.RuleId))
             {
-                sb.Append($"{notification.RuleId}: ");
+                sb.Append(notification.RuleId + " : ");
             }
 
             sb.Append(notification.Message);

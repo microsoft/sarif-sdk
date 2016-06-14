@@ -10,10 +10,11 @@ using System.Linq;
 using Microsoft.CodeAnalysis.Sarif.Readers;
 
 using Newtonsoft.Json;
+using System.Globalization;
 
 namespace Microsoft.CodeAnalysis.Sarif.Writers
 {
-    public class SarifLogger : IDisposable, IAnalysisLogger
+    sealed public class SarifLogger : IDisposable, IAnalysisLogger
     {
         private Run _run;
         private TextWriter _textWriter;
@@ -148,7 +149,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 invocationTokensToRedact);
         }
 
-        private void SetSarifLoggerVersion(Tool tool)
+        private static void SetSarifLoggerVersion(Tool tool)
         {
             string sarifLoggerLocation = typeof(SarifLogger).Assembly.Location;
             tool.SarifLoggerVersion = FileVersionInfo.GetVersionInfo(sarifLoggerLocation).FileVersion;
@@ -198,7 +199,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                     _issueLogJsonWriter.WriteToolNotifications(_run.ToolNotifications);
                 }
 
-                if (_run != null && 
+                if (_run != null &&
                     _run.Invocation != null &&
                     _run.Invocation.StartTime != new DateTime())
                 {
@@ -222,7 +223,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
                 _issueLogJsonWriter.Dispose();
             }
+
             if (_textWriter != null) { _textWriter.Dispose(); }
+
+            if (_jsonTextWriter == null) { _jsonTextWriter.Close(); }
+
+            GC.SuppressFinalize(this);
         }
 
         public void LogMessage(bool verbose, string message)
@@ -243,10 +249,20 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
         public void Log(IRule rule, Result result)
         {
+            if (rule == null)
+            {
+                throw new ArgumentNullException(nameof(rule));
+            }
+
+            if (result == null)
+            {
+                throw new ArgumentNullException(nameof(result));
+            }
+
             if (rule.Id != result.RuleId)
             {
                 //The rule id '{0}' specified by the result does not match the actual id of the rule '{1}'
-                string message = string.Format(SdkResources.ResultRuleIdDoesNotMatchRule,
+                string message = string.Format(CultureInfo.InvariantCulture, SdkResources.ResultRuleIdDoesNotMatchRule,
                     result.RuleId.ToString(),
                     rule.Id.ToString());
 
@@ -274,7 +290,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             // through all aggregated loggers.
 
             // Analyzing target '{0}'...
-            string message = string.Format(
+
+            if (context == null)
+            {
+                throw new ArgumentNullException(nameof(context));
+            }
+
+            string message = string.Format(CultureInfo.InvariantCulture, 
                 SdkResources.MSG001_AnalyzingTarget,
                 Path.GetFileName(context.TargetUri.LocalPath));
 
@@ -282,7 +304,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 new Notification
                 {
                     PhysicalLocation = new PhysicalLocation { Uri = context.TargetUri },
-                    Id = Notes.MSG001_AnalyzingTarget,
+                    Id = Notes.Msg001AnalyzingTarget,
                     Message = message,
                     Level = NotificationLevel.Note,
                     Time = DateTime.UtcNow,
@@ -291,6 +313,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
         public void Log(ResultLevel messageKind, IAnalysisContext context, Region region, string formatId, params string[] arguments)
         {
+            if (context == null)
+            {
+                throw new ArgumentNullException(nameof(context));
+            }
+
             if (context.Rule != null)
             {
                 Rules[context.Rule.Id] = context.Rule;

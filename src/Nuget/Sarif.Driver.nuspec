@@ -4,7 +4,7 @@
     <id>$id$</id>
     <version>$major$.$minor$.$patch$$prerelease$</version>
     <title>Microsoft SARIF Driver Framework (includes SARIF SDK)</title>
-    <authors>Microsoft</authors>
+    <authors>Microsoft Corporation</authors>
     <owners>Michael C. Fanning, Billy O'Neal</owners>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>SARIF-based classes and utilities for building static analysis drivers. Includes the SARIF SDK.</description>

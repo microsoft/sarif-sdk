@@ -25,6 +25,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
 
         public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
         {
+            if (serializer == null)
+            {
+                throw new ArgumentNullException(nameof(serializer));
+            }
+
             var objectDictionary = new Dictionary<string, object>();
             serializer.Populate(reader, objectDictionary);
 
@@ -56,6 +61,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
 
         public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
         {
+            if (writer == null)
+            {
+                throw new ArgumentNullException(nameof(writer));
+            }
+
             writer.WriteStartObject();
             var propertyDictionary = (Dictionary<string, SerializedPropertyInfo>)value;
             foreach (string key in propertyDictionary.Keys)

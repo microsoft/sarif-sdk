@@ -4,11 +4,11 @@
     <id>$id$</id>
     <version>$major$.$minor$.$patch$$prerelease$</version>
     <title>.NET Static Analysis Results Interchange Format (SARIF) Sdk</title>
-    <authors>Billy O'Neal,Larry Golding,Michael C. Fanning,Nick Guerrera</authors>
-    <owners>Larry Golding, Michael C. Fanning</owners>
+    <authors>Microsoft Corporation</authors>
+    <owners>Michael C. Fanning, Larry Golding</owners>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <description>.NET tools and libraries for working with pre-release v.4 Static Analysis Results Interchange Format.</description>
-    <releaseNotes>Version $major$.$minor$.$patch$$prerelease$ of the .NET SARIF Sdk (for pre-release v.4 of SARIF)</releaseNotes>
+    <description>.NET tools and libraries for working with the Static Analysis Results Interchange Format v1.0.0.</description>
+    <releaseNotes>Version $major$.$minor$.$patch$$prerelease$ of the .NET SARIF SDK (for SARIF v1.0.0)</releaseNotes>
     <copyright>Copyright Microsoft 2015</copyright>
     <licenseUrl>https://github.com/Microsoft/sarif-sdk/blob/master/LICENSE</licenseUrl>
     <projectUrl>https://github.com/microsoft/sarif-sdk</projectUrl>
@@ -30,6 +30,16 @@
     <file src='Sarif.dll' target='lib\net45\Sarif.dll'/>
     <file src='Sarif.pdb' target='lib\net45\Sarif.pdb'/>
     
-    <file src="..\..\..\..\src\Sarif\**\*.cs" target="src" />    
+    <file src="..\..\..\..\src\Sarif\**\*.cs" target="src" />
+
+    <file src="..\..\ConvertToSarif\AnyCPU_$configuration$\CommandLine.dll" target="tools\ConvertToSarif" />
+    <file src="..\..\ConvertToSarif\AnyCPU_$configuration$\ConvertToSarif.exe" target="tools\ConvertToSarif" />
+    <file src="..\..\ConvertToSarif\AnyCPU_$configuration$\ConvertToSarif.exe.config" target="tools\ConvertToSarif" />
+    <file src="..\..\ConvertToSarif\AnyCPU_$configuration$\ConvertToSarif.pdb" target="tools\ConvertToSarif" />
+    <file src="..\..\ConvertToSarif\AnyCPU_$configuration$\Newtonsoft.Json.dll" target="tools\ConvertToSarif" />
+    <file src="..\..\ConvertToSarif\AnyCPU_$configuration$\PREfastXmlSarifConverter.dll" target="tools\ConvertToSarif" />
+    <file src="..\..\ConvertToSarif\AnyCPU_$configuration$\Sarif.dll" target="tools\ConvertToSarif" />
+    <file src="..\..\ConvertToSarif\AnyCPU_$configuration$\Sarif.pdb" target="tools\ConvertToSarif" />
+    <file src="..\..\ConvertToSarif\AnyCPU_$configuration$\System.Collections.Immutable.dll" target="tools\ConvertToSarif" />
   </files>
 </package>

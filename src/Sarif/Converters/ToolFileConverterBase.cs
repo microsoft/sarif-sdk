@@ -13,7 +13,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
     /// Base class for tool file converters. Encapsulates the common logic
     /// for populating the logicalLocations dictionary.
     /// </summary>
-    public abstract class ToolFileConverterBase : IToolFileConverter
+    public abstract class ToolFileConverterBase
     {
         protected ToolFileConverterBase()
         {
@@ -25,10 +25,21 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         // internal as well as protected it can be exercised by unit tests.
         protected internal IDictionary<string, LogicalLocation> LogicalLocationsDictionary { get; private set;  }
 
-        // internal as well as protected it can be exercised by unit tests.
-        protected internal string AddLogicalLocation(LogicalLocation logicalLocation, string delimiter = ".")
+        protected internal string AddLogicalLocation(LogicalLocation logicalLocation)
         {
+            return AddLogicalLocation(logicalLocation, delimiter: ".");
+        }
+
+        // internal as well as protected it can be exercised by unit tests.
+        protected internal string AddLogicalLocation(LogicalLocation logicalLocation, string delimiter)
+        {
+            if (logicalLocation == null)
+            {
+                throw new ArgumentNullException(nameof(logicalLocation));
+            }
+
             int disambiguator = 0;
+
             string logicalLocationKey = logicalLocation.ParentKey == null ? logicalLocation.Name : logicalLocation.ParentKey + delimiter + logicalLocation.Name;
             string generatedKey = logicalLocationKey;
 

@@ -12,31 +12,42 @@ using System.Xml;
 namespace Microsoft.CodeAnalysis.Sarif
 {
     [Serializable]
-    public class PropertyBag : TypedPropertyBag<object>
+    public class PropertyBagDictionary : TypedPropertyBagDictionary<object>
     {
         internal const string DEFAULT_POLICY_NAME = "default";
 
-        public PropertyBag() : base() { }
+        public PropertyBagDictionary() : this(null) { }
 
-        public PropertyBag(
-            PropertyBag initializer = null,
-            IEqualityComparer<string> comparer = null)
+        public PropertyBagDictionary(PropertyBagDictionary initializer) :
+            this(initializer, null)
+        {
+        }
+
+        public PropertyBagDictionary(
+            PropertyBagDictionary initializer,
+            IEqualityComparer<string> comparer)
             : base(initializer, comparer)
         {
         }
 
-        protected PropertyBag(SerializationInfo info, StreamingContext context)
+        protected PropertyBagDictionary(SerializationInfo info, StreamingContext context)
             : base(info, context)
         {
         }
 
         public string Name { get; set; }
 
-        public virtual T GetProperty<T>(PerLanguageOption<T> setting, bool cacheDefault = true)
+        public virtual T GetProperty<T>(PerLanguageOption<T> setting)
+        {
+            return GetProperty(setting, cacheDefault: true);
+        }
+
+        public virtual T GetProperty<T>(PerLanguageOption<T> setting, bool cacheDefault)
+
         {
             if (setting == null) { throw new ArgumentNullException(nameof(setting)); }
 
-            PropertyBag properties = GetSettingsContainer(setting, cacheDefault);
+            PropertyBagDictionary properties = GetSettingsContainer(setting, cacheDefault);
 
             T value;
             if (!properties.TryGetProperty(setting.Name, out value) && setting.DefaultValue != null)
@@ -48,11 +59,17 @@ namespace Microsoft.CodeAnalysis.Sarif
             return value;
         }
 
-        public override void SetProperty(IOption setting, object value, bool cacheDescription = false)
+        public override void SetProperty(IOption setting, object value)
+        {
+            SetProperty(setting, value, cacheDescription: false);
+        }
+
+        public override void SetProperty(IOption setting, object value, bool cacheDescription)
+
         {
             if (setting == null) { throw new ArgumentNullException(nameof(setting)); }
 
-            PropertyBag properties = GetSettingsContainer(setting, true);
+            PropertyBagDictionary properties = GetSettingsContainer(setting, true);
 
             if (value == null && properties.ContainsKey(setting.Name))
             {
@@ -87,9 +104,9 @@ namespace Microsoft.CodeAnalysis.Sarif
             return false;
         }
 
-        private PropertyBag GetSettingsContainer(IOption setting, bool cacheDefault)
+        private PropertyBagDictionary GetSettingsContainer(IOption setting, bool cacheDefault)
         {
-            PropertyBag properties = this;
+            PropertyBagDictionary properties = this;
 
             if (String.IsNullOrEmpty(Name))
             {
@@ -97,13 +114,13 @@ namespace Microsoft.CodeAnalysis.Sarif
                 string featureOptionsName = setting.Feature + ".Options";
                 if (!TryGetValue(featureOptionsName, out propertiesObject))
                 {
-                    properties = new PropertyBag();
+                    properties = new PropertyBagDictionary();
                     if (cacheDefault) { this[featureOptionsName] = properties; }
                     properties.Name = featureOptionsName;
                 }
                 else
                 {
-                    properties = (PropertyBag)propertiesObject;
+                    properties = (PropertyBagDictionary)propertiesObject;
                 }
             }
             return properties;
@@ -141,7 +158,12 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         public void LoadFrom(Stream stream)
         {
-            using (XmlReader reader = XmlReader.Create(stream))
+            var settings = new XmlReaderSettings
+            {
+                XmlResolver = null
+            };
+
+            using (XmlReader reader = XmlReader.Create(stream, settings))
             {
                 if (reader.IsStartElement(PropertyBagExtensionMethods.PROPERTIES_ID))
                 {
@@ -161,7 +183,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         // Current consumers of this data expect that child namespaces
         // will always precede parent namespaces, if also included.
-        public static ImmutableArray<string> DefaultNamespaces = new List<string>(
+        public static readonly ImmutableArray<string> DefaultNamespaces = new List<string>(
             new string[] {
                 "Microsoft.CodeAnalysis.Options.",
                 "Microsoft.CodeAnalysis."

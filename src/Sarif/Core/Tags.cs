@@ -9,14 +9,14 @@ using System.Linq;
 
 namespace Microsoft.CodeAnalysis.Sarif
 {
-    public class Tags : ISet<string>
+    public class TagsCollection : ISet<string>
     {
         internal const string TagsPropertyName = "tags";
         private static readonly ISet<string> Empty = ImmutableHashSet<string>.Empty;
 
         private readonly IPropertyBagHolder _propertyBagHolder;
 
-        public Tags(IPropertyBagHolder propertyBagHolder)
+        public TagsCollection(IPropertyBagHolder propertyBagHolder)
         {
             if (propertyBagHolder == null)
             {

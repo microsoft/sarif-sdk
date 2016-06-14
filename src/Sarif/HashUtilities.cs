@@ -9,37 +9,48 @@ namespace Microsoft.CodeAnalysis.Sarif
 {
     public static class HashUtilities
     {
-        public static void ComputeHashes(string fileName, out string md5, out string sha1, out string sha256)
+        public static HashData ComputeHashes(string fileName)
         {
-            sha1 = sha256 = md5 = null;
             try
             {
                 using (FileStream stream = File.OpenRead(fileName))
                 {
                     using (var bufferedStream = new BufferedStream(stream, 1024 * 32))
                     {
-                        var md5Cng = new MD5Cng();
-                        byte[] checksum = md5Cng.ComputeHash(bufferedStream);
-                        md5 = BitConverter.ToString(checksum).Replace("-", String.Empty);
+                        string md5, sha1, sha256;
+                        byte[] checksum;
+
+                        using (var md5Cng = new MD5Cng())
+                        {
+                            checksum = md5Cng.ComputeHash(bufferedStream);
+                            md5 = BitConverter.ToString(checksum).Replace("-", string.Empty);
+                        }
 
                         stream.Seek(0, SeekOrigin.Begin);
                         bufferedStream.Seek(0, SeekOrigin.Begin);
 
-                        var sha1Cng = new SHA1Cng();
-                        checksum = sha1Cng.ComputeHash(bufferedStream);
-                        sha1 = BitConverter.ToString(checksum).Replace("-", String.Empty);
+                        using (var sha1Cng = new SHA1Cng())
+                        {
+                            checksum = sha1Cng.ComputeHash(bufferedStream);
+                            sha1 = BitConverter.ToString(checksum).Replace("-", string.Empty);
+                        }
 
                         stream.Seek(0, SeekOrigin.Begin);
                         bufferedStream.Seek(0, SeekOrigin.Begin);
 
-                        var sha256Cng = new SHA256Cng();
-                        checksum = sha256Cng.ComputeHash(bufferedStream);
-                        sha256 = BitConverter.ToString(checksum).Replace("-", String.Empty);                            
+                        using (var sha256Cng = new SHA256Cng())
+                        {
+                            checksum = sha256Cng.ComputeHash(bufferedStream);
+                            sha256 = BitConverter.ToString(checksum).Replace("-", string.Empty);
+                        }
+
+                        return new HashData(md5, sha1, sha256);
                     }
                 }
             }
             catch (IOException) { }
             catch (UnauthorizedAccessException) { }
+            return null;
         }
 
         public static string ComputeSha256Hash(string fileName)
@@ -52,9 +63,11 @@ namespace Microsoft.CodeAnalysis.Sarif
                 {
                     using (var bufferedStream = new BufferedStream(stream, 1024 * 32))
                     {
-                        var sha = new SHA256Cng();
-                        byte[] checksum = sha.ComputeHash(bufferedStream);
-                        sha256Hash = BitConverter.ToString(checksum).Replace("-", String.Empty);
+                        using (var sha = new SHA256Cng())
+                        {
+                            byte[] checksum = sha.ComputeHash(bufferedStream);
+                            sha256Hash = BitConverter.ToString(checksum).Replace("-", string.Empty);
+                        }
                     }
                 }
             }
@@ -73,9 +86,11 @@ namespace Microsoft.CodeAnalysis.Sarif
                 {
                     using (var bufferedStream = new BufferedStream(stream, 1024 * 32))
                     {
-                        var sha = new SHA1Cng();
-                        byte[] checksum = sha.ComputeHash(bufferedStream);
-                        sha1 = BitConverter.ToString(checksum).Replace("-", String.Empty);
+                        using (var sha = new SHA1Cng())
+                        {
+                            byte[] checksum = sha.ComputeHash(bufferedStream);
+                            sha1 = BitConverter.ToString(checksum).Replace("-", string.Empty);
+                        }
                     }
                 }
             }
@@ -84,7 +99,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return sha1;
         }
 
-        public static string ComputeMd5Hash(string fileName)
+        public static string ComputeMD5Hash(string fileName)
         {
             string md5 = null;
 
@@ -94,9 +109,11 @@ namespace Microsoft.CodeAnalysis.Sarif
                 {
                     using (var bufferedStream = new BufferedStream(stream, 1024 * 32))
                     {
-                        var sha = new MD5Cng();
-                        byte[] checksum = sha.ComputeHash(bufferedStream);
-                        md5 = BitConverter.ToString(checksum).Replace("-", String.Empty);
+                        using (var sha = new MD5Cng())
+                        {
+                            byte[] checksum = sha.ComputeHash(bufferedStream);
+                            md5 = BitConverter.ToString(checksum).Replace("-", string.Empty);
+                        }
                     }
                 }
             }

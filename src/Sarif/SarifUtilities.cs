@@ -3,6 +3,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Reflection;
 using System.Resources;
@@ -13,9 +14,9 @@ namespace Microsoft.CodeAnalysis.Sarif
     public static class SarifUtilities
     {
         private static Regex s_semVer200 = new Regex(@"^(?<major>\d+)\.(?<minor>\d+)\.(?<patch>\d+)(-(?<prerelease>[A-Za-z0-9\-\.]+))?(\+(?<build>[A-Za-z0-9\-\.]+))?$", RegexOptions.Compiled);
-        public static bool IsSemanticVersioningCompatible(this string versionString)
+        public static bool IsSemanticVersioningCompatible(this string versionText)
         {
-            return s_semVer200.IsMatch(versionString);
+            return s_semVer200.IsMatch(versionText);
         }
 
         private const string V1_0_0 = "1.0.0";
@@ -56,11 +57,22 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         public static Uri ConvertToSchemaUri(this SarifVersion sarifVersion)
         {
-            return new Uri("http://json.schemastore.org/sarif-" + V1_0_0, UriKind.Absolute);
+            return new Uri("http://json.schemastore.org/sarif-" + sarifVersion.ConvertToText(), UriKind.Absolute);
         }
 
         public static Dictionary<string, string> BuildMessageFormats(IEnumerable<string> resourceNames, ResourceManager resourceManager)
         {
+            if (resourceNames == null)
+            {
+                throw new ArgumentNullException(nameof(resourceNames));
+            }
+
+            if (resourceManager == null)
+            {
+                throw new ArgumentNullException(nameof(resourceManager));
+            }
+
+
             // Note this dictionary provides for case-insensitive keys
             var dictionary = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
 
@@ -73,18 +85,38 @@ namespace Microsoft.CodeAnalysis.Sarif
             return dictionary;
         }
 
-        public static void InitializeFromAssembly(this Tool tool, Assembly assembly, string prereleaseInfo = null)
+        public static void InitializeFromAssembly(this Tool tool, Assembly assembly)
         {
+            InitializeFromAssembly(tool, assembly, prereleaseInfo: null);
+        }
+
+        public static void InitializeFromAssembly(this Tool tool, Assembly assembly, string prereleaseInfo)
+        {
+            if (assembly == null)
+            {
+                throw new ArgumentNullException(nameof(assembly));
+            }
+
+            if (tool == null)
+            {
+                throw new ArgumentNullException(nameof(tool));
+            }
+
             string name = Path.GetFileNameWithoutExtension(assembly.Location);
             Version version = assembly.GetName().Version;
 
             tool.Name = name;
-            tool.Version = version.Major.ToString() + "." + version.Minor.ToString() + "." + version.Build.ToString();
+            tool.Version = version.Major.ToString(CultureInfo.InvariantCulture) + "." + version.Minor.ToString(CultureInfo.InvariantCulture) + "." + version.Build.ToString(CultureInfo.InvariantCulture);
             tool.FullName = name + " " + tool.Version + (prereleaseInfo ?? "");
         }
 
         public static string FormatMessage(this Exception exception)
         {
+            if (exception == null)
+            {
+                throw new ArgumentNullException(nameof(exception));
+            }
+
             // Retrieves a formatted message that includes exception type details, e.g.
             // System.InvalidOperationException: Operation is not valid due to the current state of the object.
             return exception.ToString().Split(new string[] { Environment.NewLine }, StringSplitOptions.None)[0];

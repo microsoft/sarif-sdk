@@ -18,7 +18,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     {
         protected PropertyBagHolder()
         {
-            Tags = new Tags(this);
+            Tags = new TagsCollection(this);
         }
 
         [JsonIgnore]
@@ -120,6 +120,11 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         public void SetPropertiesFrom(IPropertyBagHolder other)
         {
+            if (other == null)
+            {
+                throw new ArgumentNullException(nameof(other));
+            }
+            
             // We need the concrete class because the IPropertyBagHolder interface
             // doesn't expose the raw Properties array.
             PropertyBagHolder otherHolder = other as PropertyBagHolder;
@@ -143,6 +148,6 @@ namespace Microsoft.CodeAnalysis.Sarif
         }
 
         [JsonIgnore]
-        public Tags Tags { get; }
+        public TagsCollection Tags { get; }
     }
 }

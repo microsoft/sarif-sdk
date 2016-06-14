@@ -22,12 +22,14 @@ namespace Microsoft.Sarif.Viewer.Sarif
             {
                 model.Region = location.PhysicalLocation.Region;
 
-                if (location.PhysicalLocation.Uri != null)
+                Uri uri = location.PhysicalLocation.Uri;
+
+                if (uri != null)
                 {
-                    string path = location.PhysicalLocation.Uri.LocalPath;
-                    if (!Path.IsPathRooted(path))
+                    string path = uri.IsAbsoluteUri ? uri.LocalPath : uri.ToString();
+                    if (uri.IsAbsoluteUri && !Path.IsPathRooted(path))
                     {
-                        path = location.PhysicalLocation.Uri.AbsoluteUri;
+                        path = uri.AbsoluteUri;
                     }
 
                     model.FilePath = path;

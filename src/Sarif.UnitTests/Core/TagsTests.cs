@@ -20,7 +20,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Core
 
         private void InitializeTags(params string[] tags)
         {
-            _testObject.SetProperty(Tags.TagsPropertyName, tags);
+            _testObject.SetProperty(TagsCollection.TagsPropertyName, tags);
         }
 
         [TestMethod]

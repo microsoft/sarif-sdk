@@ -2,7 +2,7 @@
 SETLOCAL
 @REM Uncomment this line to update nuget.exe
 @REM Doing so can break SLN build (which uses nuget.exe to
-@REM create a nuget package for binskim) so must opt-in
+@REM create a nuget package for the SARIF SDK) so must opt-in
 @REM %~dp0.nuget\NuGet.exe update -self
 
 set Platform=Any CPU
@@ -75,8 +75,8 @@ goto ExitFailed
 )
 
 @REM Build Nuget packages
-.nuget\NuGet.exe pack .\src\Nuget\Sarif.Sdk.nuspec -Symbols -Properties id=Sarif.Sdk;major=%MAJOR%;minor=%MINOR%;patch=%PATCH%;prerelease=%PRERELEASE% -Verbosity Quiet -BasePath .\bld\bin\Sarif\AnyCPU_%Configuration% -OutputDirectory .\bld\bin\Nuget
-.nuget\NuGet.exe pack .\src\Nuget\Sarif.Driver.nuspec -Symbols -Properties id=Sarif.Driver;major=%MAJOR%;minor=%MINOR%;patch=%PATCH%;prerelease=%PRERELEASE% -Verbosity Quiet -BasePath .\bld\bin\Sarif.Driver\AnyCPU_%Configuration%\ -OutputDirectory .\bld\bin\Nuget
+.nuget\NuGet.exe pack .\src\Nuget\Sarif.Sdk.nuspec -Symbols -Properties id=Sarif.Sdk;major=%MAJOR%;minor=%MINOR%;patch=%PATCH%;prerelease=%PRERELEASE%;configuration=%Configuration% -Verbosity Quiet -BasePath .\bld\bin\Sarif\AnyCPU_%Configuration% -OutputDirectory .\bld\bin\Nuget
+.nuget\NuGet.exe pack .\src\Nuget\Sarif.Driver.nuspec -Symbols -Properties id=Sarif.Driver;major=%MAJOR%;minor=%MINOR%;patch=%PATCH%;prerelease=%PRERELEASE%;configuration=%Configuration% -Verbosity Quiet -BasePath .\bld\bin\Sarif.Driver\AnyCPU_%Configuration%\ -OutputDirectory .\bld\bin\Nuget
 
 if "%ERRORLEVEL%" NEQ "0" (
 goto ExitFailed

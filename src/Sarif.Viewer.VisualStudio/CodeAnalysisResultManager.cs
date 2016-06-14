@@ -255,7 +255,7 @@ namespace Microsoft.Sarif.Viewer
             return result != null;
         }
 
-        private string RebaselineFileName(string fileName)
+        public string RebaselineFileName(string fileName)
         {
             // First, we'll traverse our remappings and see if we can
             // make rebaseline from existing data

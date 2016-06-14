@@ -9,6 +9,31 @@
       }
     }
   ],
+  "AnnotatedCodeLocation.Kind": [
+    {
+      "kind": "EnumHint",
+      "arguments": {
+        "typeName": "AnnotatedCodeLocationKind",
+        "description": "Values specifying the kind of an annotated code location.",
+        "zeroValueName": "Unknown",
+        "memberNames": [
+          "Alias",
+          "Assignment",
+          "Branch",
+          "Call",
+          "CadsdalReturn",
+          "Continuation",
+          "Declaration",
+          "FunctionEnter",
+          "FunctionExit",
+          "Sanitizer",
+          "Sink",
+          "Source",
+          "Usage"
+        ]
+      }
+    }
+  ],
   "AnnotatedCodeLocation.Id": [
     {
       "kind": "AttributeHint",

@@ -52,7 +52,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 }
             }
 
-            return ((RuntimeErrors & RuntimeConditions.Fatal) == RuntimeConditions.NoErrors) ? SUCCESS : FAILURE;
+            return ((RuntimeErrors & ~RuntimeConditions.Nonfatal) == RuntimeConditions.None) ? SUCCESS : FAILURE;
         }
 
         private void Analyze(TOptions analyzeOptions, AggregatingLogger logger)
@@ -107,7 +107,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
             succeeded &= ValidateFile(context, analyzeOptions.OutputFilePath, shouldExist: null);
             succeeded &= ValidateFile(context, analyzeOptions.ConfigurationFilePath, shouldExist: true);
-            succeeded &= ValidateFiles(context, analyzeOptions.PlugInFilePaths, shouldExist: true);
+            succeeded &= ValidateFiles(context, analyzeOptions.PluginFilePaths, shouldExist: true);
 
             if (!succeeded)
             {
@@ -478,13 +478,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
         public virtual void ConfigureFromOptions(TContext context, TOptions analyzeOptions)
         {
-            PropertyBag configuration = null;
+            PropertyBagDictionary configuration = null;
 
             string configurationFilePath = analyzeOptions.ConfigurationFilePath;
 
             if (!string.IsNullOrEmpty(configurationFilePath))
             {
-                configuration = new PropertyBag();
+                configuration = new PropertyBagDictionary();
                 if (!configurationFilePath.Equals(DEFAULT_POLICY_NAME, StringComparison.OrdinalIgnoreCase))
                 {
                     configuration.LoadFrom(configurationFilePath);

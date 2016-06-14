@@ -1,0 +1,37 @@
+/*++
+
+    Copyright (c) Microsoft Corporation.  All rights reserved.
+
+Rule Name:
+
+    CheckAddDevice
+
+Domain:
+
+    wdm
+
+Rule ID:
+
+    Not Applicable
+
+Description:
+
+    The property is satisfied if the driver defines a AddDevice routine.
+
+Help Link:
+
+    http://go.microsoft.com/fwlink/?LinkId=507476
+
+--*/
+
+
+
+#include "slic_base.h"
+		 
+[sdv_CheckAddDevice].exit
+{
+  if($return)
+  {
+    abort "The property is satisfied as the driver defines a AddDevice routine.";
+  }
+}

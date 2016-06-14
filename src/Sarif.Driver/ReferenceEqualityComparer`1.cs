@@ -33,11 +33,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             return object.ReferenceEquals(x, y);
         }
 
+        #pragma warning disable CA1720 // Identifier contains type name
         /// <summary>Calculates the hash code for a given T.</summary>
         /// <param name="obj">The object to get a hash code for.</param>
         /// <returns>The hash code for <paramref name="obj"/>.</returns>
         /// <seealso cref="System.Collections.Generic.IEqualityComparer&lt;T&gt;.GetHashCode(T)"/>
         public int GetHashCode(T obj)
+        #pragma warning restore CA1720 // Identifier contains type name
         {
             return RuntimeHelpers.GetHashCode(obj);
         }

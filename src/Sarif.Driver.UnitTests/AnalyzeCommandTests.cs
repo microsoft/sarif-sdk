@@ -50,7 +50,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             int result = command.Run(analyzeOptions);
 
             int expectedResult =
-                (runtimeConditions & RuntimeConditions.Fatal) == RuntimeConditions.NoErrors ?
+                (runtimeConditions & ~RuntimeConditions.Nonfatal) == RuntimeConditions.None ?
                     TestAnalyzeCommand.SUCCESS : TestAnalyzeCommand.FAILURE;
 
             Assert.Equal(runtimeConditions, command.RuntimeErrors);
@@ -235,7 +235,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
             ExceptionTestHelper(
                 ExceptionCondition.None,
-                RuntimeConditions.NoErrors,
+                RuntimeConditions.None,
                 analyzeOptions: options
             );
         }
@@ -326,7 +326,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
                     ExceptionTestHelper(
                         ExceptionCondition.None,
-                        RuntimeConditions.ExceptionCreatingLogfile,
+                        RuntimeConditions.ExceptionCreatingLogFile,
                         expectedExitReason: ExitReason.ExceptionCreatingLogFile,
                         analyzeOptions: options);
                 }
@@ -355,7 +355,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
                 ExceptionTestHelper(
                     ExceptionCondition.None,
-                    RuntimeConditions.ExceptionCreatingLogfile,
+                    RuntimeConditions.ExceptionCreatingLogFile,
                     expectedExitReason: ExitReason.ExceptionCreatingLogFile,
                     analyzeOptions: options);
             }
@@ -390,7 +390,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             var options = new TestAnalyzeOptions()
             {
                 TargetFileSpecifiers = new string[] { this.GetType().Assembly.Location },
-                PlugInFilePaths = new string[] { path },
+                PluginFilePaths = new string[] { path },
                 Verbose = true,
             };
 
@@ -418,7 +418,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 // A missing output file is a good condition. :)
                 ExceptionTestHelper(
                     ExceptionCondition.None,
-                    RuntimeConditions.NoErrors,
+                    RuntimeConditions.None,
                     expectedExitReason: ExitReason.None,
                     analyzeOptions: options);
             }

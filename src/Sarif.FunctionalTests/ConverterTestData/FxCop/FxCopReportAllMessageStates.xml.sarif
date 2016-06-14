@@ -80,6 +80,7 @@
         },
         {
           "ruleId": "CA904",
+          "level": "error",
           "message": "Redefine the types in namespace 'WpfApplication5' in the Microsoft or System namespace. Public types that will never ship externally can be defined in the MS namespace. Consider disabling this rule when analyzing code that does not ship externally.",
           "locations": [
             {
@@ -88,7 +89,6 @@
           ],
           "suppressionStates": ["suppressedInSource"],
           "properties": {
-            "Level": "Error",
             "Category": "Microsoft.MSInternal",
             "FixCategory": "Breaking"
           }
@@ -143,6 +143,7 @@
         },
         {
           "ruleId": "CA1053",
+          "level": "error",
           "message": "Because type 'Frz' contains only 'static' members, mark it as 'static' to prevent the compiler from adding a default public constructor.",
           "locations": [
             {
@@ -154,13 +155,13 @@
           ],
           "toolFingerprintContribution": "CSharp2_0",
           "properties": {
-            "Level": "Error",
             "Category": "Microsoft.Design",
             "FixCategory": "Breaking"
           }
         },
         {
           "ruleId": "CA1704",
+          "level": "warning",
           "message": "Correct the spelling of 'Baz' in member name 'Frz.Baz()' or remove it entirely if it represents any sort of Hungarian notation.",
           "locations": [
             {
@@ -185,6 +186,7 @@
         },
         {
           "ruleId": "CA1822",
+          "level": "warning",
           "message": "The 'this' parameter (or 'Me' in Visual Basic) of 'Frz.Baz()' is never used. Mark the member as static (or Shared in Visual Basic) or use 'this'/'Me' in the method body or at least one property accessor, if appropriate.",
           "locations": [
             {
@@ -201,7 +203,6 @@
             }
           ],
           "properties": {
-            "Level": "Warning",
             "Category": "Microsoft.Performance",
             "FixCategory": "DependsOnFix"
           }
@@ -271,6 +272,7 @@
         },
         {
           "ruleId": "CA1812",
+          "level": "warning",
           "message": "'Resources' is an internal class that is apparently never instantiated. If so, remove the code from the assembly. If this class is intended to contain only static methods, consider adding a private constructor to prevent the compiler from generating a default constructor.",
           "locations": [
             {
@@ -281,7 +283,6 @@
             }
           ],
           "properties": {
-            "Level": "Warning",
             "Category": "Microsoft.Performance",
             "FixCategory": "NonBreaking"
           }

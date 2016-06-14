@@ -9,7 +9,7 @@ using Microsoft.CodeAnalysis.Sarif.Writers;
 
 namespace Microsoft.CodeAnalysis.Sarif.Converters
 {
-    internal class ClangAnalyzerConverter : IToolFileConverter
+    internal class ClangAnalyzerConverter : ToolFileConverterBase
     {
         private IList<object> _files = null;
 
@@ -17,7 +17,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         /// <exception cref="ArgumentNullException">Thrown when one or more required arguments are null.</exception>
         /// <param name="input">CLang log file stream.</param>
         /// <param name="output">Result log writer.</param>
-        public void Convert(Stream input, IResultLogWriter output)
+        public override void Convert(Stream input, IResultLogWriter output)
         {
             // ToDo remove this comment after all issues are resolved.
             // Rodney is tasked with bringing Clang analyzer results into the SARIF fold.
@@ -35,15 +35,18 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
             try
             {
-                XmlReaderSettings settings = new XmlReaderSettings();
-                settings.IgnoreWhitespace = true;
-                settings.DtdProcessing = DtdProcessing.Ignore;
+                XmlReaderSettings settings = new XmlReaderSettings
+                {
+                    IgnoreWhitespace = true,
+                    DtdProcessing = DtdProcessing.Ignore,
+                    XmlResolver = null
+                };
 
                 var results = new List<Result>();
 
                 using (XmlReader xmlReader = XmlReader.Create(input, settings))
                 {
-                    XmlNodeType nodeType = xmlReader.MoveToContent();
+                    xmlReader.MoveToContent();
                     xmlReader.ReadStartElement(ClangSchemaStrings.PlistName);
                     if (xmlReader.NodeType == XmlNodeType.Element)
                     {
@@ -355,7 +358,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                                     throw new InvalidDataException("Expected key value before dictionary data.");
                                 }
 
-                                string value = xmlReader.ReadElementContentAsString();
+                                xmlReader.ReadElementContentAsString();
                                 readerMoved = true;
                                 keyName = string.Empty;
                                 break;
