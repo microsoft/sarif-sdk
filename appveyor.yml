@@ -8,7 +8,7 @@ before_build:
   - BeforeBuild.cmd
 
 build:
-  project: src/Sarif.Sdk.sln
+  project: src/Everything.sln
   
 test: off
 
