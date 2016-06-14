@@ -19,6 +19,9 @@ test:
     - '**\Sarif.Driver.UnitTests.dll'
     - '**\Sarif.FunctionalTests.dll'
     - '**\Sarif.ValidationTests.dll'
+    
+on_success:
+  - 'nuget spec'
 
 artifacts:
   - path: logs.txt
