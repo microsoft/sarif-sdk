@@ -19,15 +19,6 @@ test:
     - '**\Sarif.Driver.UnitTests.dll'
     - '**\Sarif.FunctionalTests.dll'
     - '**\Sarif.ValidationTests.dll'
-    
-on_success:
-  - 'nuget spec'
-
-artifacts:
-  - path: logs.txt
-    name: test
-
-  - path: '**\*.nupkg'
 
 cache:
   - packages -> **\packages.config
