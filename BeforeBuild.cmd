@@ -13,6 +13,9 @@ if NOT exist "GeneratedKey.snk" (
 goto ExitFailed
 )
 
+@REM Build all code
+%~dp0.nuget\NuGet.exe restore src\Everything.sln -ConfigFile .nuget\NuGet.Config
+
 goto Exit
 
 :ExitFailed
