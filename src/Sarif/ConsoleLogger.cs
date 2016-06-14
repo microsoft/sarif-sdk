@@ -243,7 +243,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             }
         }
 
-        private static string FormatNotificationMessage(Notification notification)
+        private string FormatNotificationMessage(Notification notification)
         {
             string issueType = null;
 
@@ -266,19 +266,19 @@ namespace Microsoft.CodeAnalysis.Sarif
                 }
 
                 default:
-                    throw new InvalidOperationException("Unknown notification level: " + notification.Level);
+                throw new InvalidOperationException("Unknown notification level: " + notification.Level);
             }
 
             var sb = new StringBuilder(issueType);
 
             if (!string.IsNullOrEmpty(notification.Id))
             {
-                sb.Append(notification.Id + ": ");
+                sb.Append(notification.Id + " : ");
             }
 
             if (!string.IsNullOrEmpty(notification.RuleId))
             {
-                sb.Append(notification.RuleId + ": ");
+                sb.Append(notification.RuleId + " : ");
             }
 
             sb.Append(notification.Message);
