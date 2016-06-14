@@ -3,12 +3,13 @@ branches:
   only:
     - appveyor
 
+before_build:
+  - '"%VS140COMNTOOLS%VsDevCmd.bat"'
+  - BeforeBuild.cmd
+
 build:
   project: src/Sarif.Sdk.sln
-
-build_script:
-  - '"%VS140COMNTOOLS%VsDevCmd.bat"'
-  - BuildAndTest.cmd
+  
 test: off
 
 artifacts:
