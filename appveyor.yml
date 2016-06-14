@@ -1,5 +1,7 @@
-branches:
+init:
+  - git config --global core.autocrlf true
 
+branches:
   only:
     - appveyor
 
@@ -21,6 +23,8 @@ test:
 artifacts:
   - path: logs.txt
     name: test
+
+  - path: '**\*.nupkg'
 
 cache:
   - packages -> **\packages.config

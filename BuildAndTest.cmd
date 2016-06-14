@@ -17,8 +17,7 @@ goto ExitFailed
 @REM Run all tests
 SET PASSED=true
 
-mstest /detail:debugtrace /detail:stdout /detail:errorstacktrace /detail:displaytext /detail:traceinfo /detail:outcometext /detail:spoolmessage /testContainer:bld\bin\Sarif.UnitTests\AnyCPU_%Configuration%\Sarif.UnitTests.dll | tee logs.txt
-appveyor PushArtifact logs.txt
+mstest /detail:errormessage /detail:stdout /detail:errorstacktrace /detail:displaytext /detail:traceinfo /detail:outcometext /detail:spoolmessage /testContainer:bld\bin\Sarif.UnitTests\AnyCPU_%Configuration%\Sarif.UnitTests.dll | tee logs.txt
 if "%ERRORLEVEL%" NEQ "0" (
 set PASSED=false
 )
