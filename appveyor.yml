@@ -9,8 +9,14 @@ before_build:
 
 build:
   project: src/Everything.sln
+  publish_nuget: true
   
-test: off
+test:
+  assemblies:
+    - **\Sarif.UnitTests.dll
+    - **\Sarif.Driver.UnitTests.dll
+    - **\Sarif.FunctionalTests.dll
+    - **\Sarif.ValidationTests.dll
 
 artifacts:
   - path: logs.txt
