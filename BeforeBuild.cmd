@@ -68,7 +68,7 @@ if "%ERRORLEVEL%" NEQ "0" (
 goto ExitFailed
 )
 
-:exitFailed
+:ExitFailed
 @echo.
 @echo SCRIPT FAILED
 exit /b 1
