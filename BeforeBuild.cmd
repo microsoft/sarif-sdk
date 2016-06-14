@@ -6,6 +6,7 @@ sn -k GeneratedKey.snk
 )
 
 if "%ERRORLEVEL%" NEQ "0" (
+echo COMMAND sn -k FAILED
 goto ExitFailed
 )
 
@@ -15,6 +16,11 @@ goto ExitFailed
 
 @REM Build all code
 %~dp0.nuget\NuGet.exe restore src\Everything.sln -ConfigFile .nuget\NuGet.Config
+
+if "%ERRORLEVEL%" NEQ "0" (
+echo NUGET RESTORE FAILED
+goto ExitFailed
+)
 
 goto Exit
 
