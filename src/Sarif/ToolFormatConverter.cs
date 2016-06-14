@@ -133,6 +133,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             CreateConverterRecord<ClangAnalyzerConverter>(result, ToolFormat.ClangAnalyzer);
             CreateConverterRecord<FortifyConverter>(result, ToolFormat.Fortify);
             CreateConverterRecord<FxCopConverter>(result, ToolFormat.FxCop);
+            CreateConverterRecord<StaticDriverVerifierConverter>(result, ToolFormat.StaticDriverVerifier);
             return result;
         }
 

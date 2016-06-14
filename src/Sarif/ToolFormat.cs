@@ -20,5 +20,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         FxCop,
         /// <summary>PREfast's file format.</summary>
         PREfast,
+        /// <summary>Static Driver Verifier's file format.</summary>
+        StaticDriverVerifier,
     }
 }

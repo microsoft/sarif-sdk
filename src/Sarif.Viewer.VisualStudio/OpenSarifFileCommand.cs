@@ -24,16 +24,17 @@ namespace Microsoft.Sarif.Viewer
         /// </summary>
         public const int OpenSarifFileCommandId = 0x0100;
         public const int OpenPREfastFileCommandId = 0x0101;
-        public const int OpenFxCopFileCommandId = 0x0102;
-        public const int OpenFortifyFileCommandId = 0x0103;
-        public const int OpenCppCheckFileCommandId = 0x0104;
-        public const int OpenClangFileCommandId = 0x0105;
-        public const int OpenAndroidStudioFileCommandId = 0x0106;
+        public const int OpenStaticDriverVerifierFileCommandId = 0x0102;
+        public const int OpenFxCopFileCommandId = 0x0103;
+        public const int OpenFortifyFileCommandId = 0x0104;
+        public const int OpenCppCheckFileCommandId = 0x0105;
+        public const int OpenClangFileCommandId = 0x0106;
+        public const int OpenAndroidStudioFileCommandId = 0x0107;
 
         private static int[] s_commands = new int[]
         {
-            OpenSarifFileCommandId, OpenPREfastFileCommandId, OpenFxCopFileCommandId, OpenFortifyFileCommandId,
-            OpenCppCheckFileCommandId, OpenClangFileCommandId, OpenAndroidStudioFileCommandId
+            OpenSarifFileCommandId, OpenPREfastFileCommandId, OpenStaticDriverVerifierFileCommandId, OpenFxCopFileCommandId,
+            OpenFortifyFileCommandId, OpenCppCheckFileCommandId, OpenClangFileCommandId, OpenAndroidStudioFileCommandId
         };
 
         /// <summary>
@@ -156,14 +157,21 @@ namespace Microsoft.Sarif.Viewer
                         {
                             // Native SARIF. All our defaults above are fine
                             break;
-                        }
+                    }
                     case OpenPREfastFileCommandId:
-                        {
-                            toolFormat = ToolFormat.PREfast;
-                            title = "Open PREfast XML log file";
-                            filter = "PREfast log files (*.xml)|*.xml";
-                            break;
-                        }
+                    {
+                        toolFormat = ToolFormat.PREfast;
+                        title = "Open PREfast XML log file";
+                        filter = "PREfast log files (*.xml)|*.xml";
+                        break;
+                    }
+                    case OpenStaticDriverVerifierFileCommandId:
+                    {
+                        toolFormat = ToolFormat.StaticDriverVerifier;
+                        title = "Open Static Driver Verifier trace log file";
+                        filter = "Static Driver Verifier log files (*.tt)|*.tt";
+                        break;
+                    }
                     case OpenFxCopFileCommandId:
                         {
                             // FxCop. TODO. We need project file support. FxCop

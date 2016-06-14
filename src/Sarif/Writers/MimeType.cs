@@ -96,7 +96,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
         private static readonly ImmutableArray<ImmutableArray<string>> s_extensionTable = ImmutableArray.Create(
             ImmutableArray.Create("text/x-bat", "bat", "cmd"),
-            ImmutableArray.Create(MimeType.Cpp, "c", "cpp", "h", "hpp", "cxx"),
+            ImmutableArray.Create(MimeType.Cpp, "c", "cpp", "h", "hpp", "cxx", /*SDV rule file*/ "slic"),
             ImmutableArray.Create(MimeType.CSharp, "cs"),
             ImmutableArray.Create("text/coffeescript", "coffee"),
             ImmutableArray.Create("text/css", "css"),

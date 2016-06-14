@@ -42,6 +42,7 @@ namespace Microsoft.Sarif.Viewer
             this.FileName = result.GetPrimaryTargetFile();
             this.Category = result.GetCategory();
             this.Region = result.GetPrimaryTargetRegion();
+            this.Level = result.Level;
 
             if (this.Region != null)
             {
@@ -306,7 +307,8 @@ namespace Microsoft.Sarif.Viewer
             {
                 foreach (AnnotatedCodeLocationModel location in locationCollection)
                 {
-                    if (location.FilePath.Equals(originalPath, StringComparison.OrdinalIgnoreCase))
+                    if (location.FilePath != null &&
+                        location.FilePath.Equals(originalPath, StringComparison.OrdinalIgnoreCase))
                     {
                         location.FilePath = remappedPath;
                     }

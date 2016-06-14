@@ -32,10 +32,12 @@ namespace Microsoft.Sarif.Viewer.Sarif
             {
                 model.Region = physicalLocation.Region;
 
-                if (physicalLocation.Uri != null)
+                Uri uri = physicalLocation.Uri;
+
+                if (uri != null)
                 {
-                    string path = physicalLocation.Uri.LocalPath;
-                    if (!Path.IsPathRooted(path))
+                    string path = uri.IsAbsoluteUri ? uri.LocalPath : uri.ToString();
+                    if (uri.IsAbsoluteUri && !Path.IsPathRooted(path))
                     {
                         path = physicalLocation.Uri.AbsoluteUri;
                     }
