@@ -1,5 +1,7 @@
-branches:
+init:
+  - git config --global core.autocrlf true
 
+branches:
   only:
     - appveyor
     - master
@@ -11,7 +13,7 @@ before_build:
 platform: Any CPU
 
 configuration:
-  - Debug
+#  - Debug
   - Release
 
 build:
@@ -23,10 +25,6 @@ test:
     - '**\Sarif.Driver.UnitTests.dll'
     - '**\Sarif.FunctionalTests.dll'
     - '**\Sarif.ValidationTests.dll'
-
-artifacts:
-  - path: logs.txt
-    name: test
 
 cache:
   - packages -> **\packages.config
