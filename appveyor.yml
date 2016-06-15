@@ -29,6 +29,7 @@ test:
 notifications:
   - provider: Email
     to:
+      - rolsthoorn12@gmail.com
       - $env:EMAIL
       - $env:PERSONAL
     subject: 'Sarif-SDK Build {{status}}'
