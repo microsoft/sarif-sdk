@@ -30,6 +30,7 @@ notifications:
   - provider: Email
     to:
       - $env:EMAIL
+      - $env:PERSONAL
     subject: 'Sarif-SDK Build {{status}}'
     message: "{{message}}, {{commitID}}"
     on_build_status_changed: true
