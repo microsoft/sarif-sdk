@@ -26,6 +26,14 @@ test:
     - '**\Sarif.FunctionalTests.dll'
     - '**\Sarif.ValidationTests.dll'
 
+notifications:
+  - provider: Email
+    to:
+      - $env:EMAIL
+    subject: 'Sarif-SDK Build {{status}}'
+    message: "{{message}}, {{commitID}}"
+    on_build_status_changed: true
+
 cache:
   - packages -> **\packages.config
   - '%LocalAppData%\NuGet\Cache'
