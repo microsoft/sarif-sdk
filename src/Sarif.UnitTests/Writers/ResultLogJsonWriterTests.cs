@@ -7,7 +7,6 @@ using System.IO;
 
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Newtonsoft.Json;
-using System.Diagnostics;
 
 namespace Microsoft.CodeAnalysis.Sarif.Writers
 {
@@ -204,19 +203,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
     }
   ]
 }";
-
-
-            string actual = GetJson(uut =>
+           string actual = GetJson(uut =>
             {
                 uut.Initialize(id: id, correlationId: correlationId);
                 uut.WriteTool(DefaultTool);
                 uut.WriteInvocation(s_invocation);
             });
-
-            Trace.Listeners.Add(new TextWriterTraceListener(Console.Out));
-            Trace.WriteLine("trace\n: expected: " + expected + "\n actual: " + actual + "\n");
-            Debug.WriteLine("debug\n: expected: " + expected + "\n actual: " + actual + "\n");
-
             Assert.AreEqual(expected, actual);
         }
 
