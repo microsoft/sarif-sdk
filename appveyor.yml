@@ -25,15 +25,23 @@ test:
     - '**\Sarif.Driver.UnitTests.dll'
     - '**\Sarif.FunctionalTests.dll'
     - '**\Sarif.ValidationTests.dll'
+    
+artifacts:
+  - path: '\bld\bin\*.nupkg'
+    name: Nuget Packages
+    
+  - path: 'https://ci.appveyor.com/api/buildjobs/%APPVEYOR_JOB_ID%/log'
+    name: Logged file
 
 notifications:
   - provider: Email
     to:
       - rolsthoorn12@gmail.com
-      - $env:EMAIL
-      - $env:PERSONAL
+      - vsarcplat@microsoft.com
+      - %EMAIL%
+      - %PERSONAL%
     subject: 'Sarif-SDK Build {{status}}'
-    message: "{{message}}, {{commitID}}"
+    message: "In reference to {{commitID}}"
     on_build_status_changed: true
 
 cache:
