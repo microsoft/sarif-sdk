@@ -38,8 +38,6 @@ notifications:
     to:
       - rolsthoorn12@gmail.com
       - vsarcplat@microsoft.com
-      - %EMAIL%
-      - %PERSONAL%
     subject: 'Sarif-SDK Build {{status}}'
     message: "In reference to {{commitID}}"
     on_build_status_changed: true
