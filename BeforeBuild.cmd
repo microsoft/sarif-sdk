@@ -1,3 +1,5 @@
+REM Configuration for AppVeyor build platform
+
 @ECHO off
 SETLOCAL
 
@@ -11,10 +13,11 @@ goto ExitFailed
 )
 
 if NOT exist "GeneratedKey.snk" (
+echo GeneratedKey.snk NOT FOUND
 goto ExitFailed
 )
 
-@REM Build all code
+@REM Restore nuget packages
 %~dp0.nuget\NuGet.exe restore src\Everything.sln -ConfigFile .nuget\NuGet.Config
 
 if "%ERRORLEVEL%" NEQ "0" (

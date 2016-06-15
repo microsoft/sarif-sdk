@@ -1,17 +1,21 @@
-init:
-  - git config --global core.autocrlf true
-
 branches:
+
   only:
     - appveyor
+    - master
 
 before_build:
   - '"%VS140COMNTOOLS%VsDevCmd.bat"'
   - BeforeBuild.cmd
 
+platform: Any CPU
+
+configuration:
+  - Debug
+  - Release
+
 build:
   project: src/Everything.sln
-  publish_nuget: true
   
 test:
   assemblies:
@@ -19,6 +23,10 @@ test:
     - '**\Sarif.Driver.UnitTests.dll'
     - '**\Sarif.FunctionalTests.dll'
     - '**\Sarif.ValidationTests.dll'
+
+artifacts:
+  - path: logs.txt
+    name: test
 
 cache:
   - packages -> **\packages.config

@@ -63,9 +63,6 @@ echo         public const string Version = AssemblyVersion + Prerelease;        
 echo     }                                                                          >> %DRV_VERSION_CONSTANTS%
 echo  }                                                                             >> %DRV_VERSION_CONSTANTS%
 
-@REM Build all code
-%~dp0.nuget\NuGet.exe restore src\Everything.sln -ConfigFile .nuget\NuGet.Config
-
 msbuild /verbosity:minimal /target:rebuild src\Everything.sln /p:"Configuration=%Configuration%" /p:"Platform=Any CPU" /filelogger /fileloggerparameters:Verbosity=detailed
 
 if "%ERRORLEVEL%" NEQ "0" (
@@ -83,7 +80,7 @@ goto ExitFailed
 @REM Run all tests
 SET PASSED=true
 
-mstest /detail:errormessage /detail:stdout /detail:errorstacktrace /detail:displaytext /detail:traceinfo /detail:outcometext /detail:spoolmessage /testContainer:bld\bin\Sarif.UnitTests\AnyCPU_%Configuration%\Sarif.UnitTests.dll | tee logs.txt
+mstest /testContainer:bld\bin\Sarif.UnitTests\AnyCPU_%Configuration%\Sarif.UnitTests.dll
 if "%ERRORLEVEL%" NEQ "0" (
 set PASSED=false
 )
