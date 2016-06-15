@@ -49,7 +49,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
                   ""physicalLocation"": {
                     ""uri"": ""file:///c:/test.c""
                   },
-                  ""kind"": """ +  testTuple.Item2 + @"""
+                  ""kind"": """ +  testTuple.Item2 + @""",
+                  ""essential"": false
                 }
               ]
             }
