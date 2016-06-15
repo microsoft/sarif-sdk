@@ -29,9 +29,6 @@ test:
 artifacts:
   - path: '\bld\bin\*.nupkg'
     name: Nuget Packages
-    
-  - path: 'https://ci.appveyor.com/api/buildjobs/%APPVEYOR_JOB_ID%/log'
-    name: Logged file
 
 notifications:
   - provider: Email
