@@ -203,7 +203,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
     }
   ]
 }";
-           string actual = GetJson(uut =>
+            string actual = GetJson(uut =>
             {
                 uut.Initialize(id: id, correlationId: correlationId);
                 uut.WriteTool(DefaultTool);

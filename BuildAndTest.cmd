@@ -7,7 +7,7 @@ SETLOCAL
 
 call BeforeBuild.cmd
 
-if "%ERRORLEVEL%" NEQ "0"(
+if "%ERRORLEVEL%" NEQ "0" (
 goto ExitFailed
 )
 
