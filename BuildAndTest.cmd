@@ -57,12 +57,8 @@ echo         public const string Version = AssemblyVersion + Prerelease;        
 echo     }                                                                          >> %DRV_VERSION_CONSTANTS%
 echo  }                                                                             >> %DRV_VERSION_CONSTANTS%
 
-if NOT exist "GeneratedKey.snk" (
-sn -k GeneratedKey.snk
-)
 
-@REM Build all code
-%~dp0.nuget\NuGet.exe restore src\Everything.sln -ConfigFile .nuget\NuGet.Config
+call BeforeBuild.cmd
 
 if "%ERRORLEVEL%" NEQ "0" (
 goto ExitFailed
@@ -116,7 +112,8 @@ goto Exit
 
 :ExitFailed
 @echo.
-@echo SCRIPT FAILED
+@echo script failed
+exit /b 1
 
 :Exit
 
