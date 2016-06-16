@@ -1,7 +1,10 @@
 init:
   - git config --global core.autocrlf true
 
-branches:
+pull_requests:
+  do_not_increment_build_number: true
+  
+ branches:
   only:
     - appveyor
     - master
@@ -29,3 +32,11 @@ test:
 cache:
   - packages -> **\packages.config
   - '%LocalAppData%\NuGet\Cache'
+
+notifications:
+- provider: Email
+  to:
+  - evefauxcon@outlook.com
+  on_build_success: true
+  on_build_failure: true
+  on_build_status_changed: false
