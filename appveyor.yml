@@ -28,8 +28,7 @@ test:
 notifications:
   - provider: Email
     to:
-#      - vsarcplat@microsoft.com
-      - rolsthoorn12@gmail.com
+     - vsarcplat@microsoft.com
     subject: '{{projectName}} Build {{status}}: Version: {{buildVersion}}'
     on_build_status_changed: true
 
