@@ -29,7 +29,7 @@ string sarifText = File.ReadAllText(sarifLogPath);
 SarifLog log = JsonConvert.DeserializeObject<SarifLog>(sarifText, settings);
 ```
 
-Example: Write a SARIF log to disk
+Example: Write a SARIF log to disk 
 
 ```C#
 JsonSerializerSettings settings = new JsonSerializerSettings()
