@@ -28,16 +28,13 @@ test:
     
 artifacts:
   - path: 'bld\bin'
-  
-  - path: 'TestResults\*.trx'
 
 notifications:
   - provider: Email
     to:
-#      - vsarcplat@microsoft.com
-       - rolsthoorn12@gmail.com
+      - vsarcplat@microsoft.com
     subject: 'Sarif-SDK Build {{status}}'
-    message: 'In reference to {{commitID}}. View log output <a href="{{buildURL}}">here</a> '
+    message: 'In reference to {{commitID}}. View output <a href="{{buildURL}}">here</a> '
     on_build_status_changed: true
 
 cache:
