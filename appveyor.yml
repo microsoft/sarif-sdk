@@ -27,7 +27,7 @@ test:
     - '**\Sarif.ValidationTests.dll'
     
 artifacts:
-  - path: 'bld\bin\**\**\*'
+  - path: 'bld\bin'
   
   - path: 'TestResults\*.trx'
 
