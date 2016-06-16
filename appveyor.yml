@@ -27,17 +27,12 @@ test:
     - '**\Sarif.ValidationTests.dll'
     
 artifacts:
-  - path: '**\bld\bin\*.nupkg'
-    name: Nuget Packages
-    
   - path: '**\bld\bin\*'
-    name: Bin path
 
 notifications:
   - provider: Email
     to:
-      - rolsthoorn12@gmail.com
-      - vsarcplat@microsoft.com
+#      - vsarcplat@microsoft.com
     subject: 'Sarif-SDK Build {{status}}'
     message: 'In reference to {{commitID}}. View log output <a href="{{buildURL}}">here</a> '
     on_build_status_changed: true
