@@ -3,7 +3,6 @@ init:
 
 branches:
   only:
-    - appveyor
     - master
 
 before_build:
