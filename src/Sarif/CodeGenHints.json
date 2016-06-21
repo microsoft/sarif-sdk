@@ -21,7 +21,7 @@
           "Assignment",
           "Branch",
           "Call",
-          "CadsdalReturn",
+          "CallReturn",
           "Continuation",
           "Declaration",
           "FunctionEnter",
@@ -56,16 +56,6 @@
         "properties": {
           "DefaultValueHandling": "DefaultValueHandling.IgnoreAndPopulate"
         }
-      }
-    }
-  ],
-  "AnnotatedCodeLocation.Kind": [
-    {
-      "kind": "EnumHint",
-      "arguments": {
-        "typeName": "AnnotatedCodeLocationKind",
-        "flags": true,
-        "zeroValueName": "None"
       }
     }
   ],
@@ -273,9 +263,9 @@
         "flags": true,
         "zeroValueName": "None",
         "memberNames": [
-          "SuppressedInSource"
-        ],
-        "memberValues": [ 1 ]
+          "SuppressedInSource",
+          "SuppressedExternally"
+        ]
       }
     }
   ],
