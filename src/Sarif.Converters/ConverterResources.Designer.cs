@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Microsoft.CodeAnalysis.Sarif {
+namespace Microsoft.CodeAnalysis.Sarif.Converters {
     using System;
     
     

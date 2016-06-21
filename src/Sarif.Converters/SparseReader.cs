@@ -7,7 +7,7 @@ using System.IO;
 using System.Xml;
 using System.Xml.Schema;
 
-namespace Microsoft.CodeAnalysis.Sarif
+namespace Microsoft.CodeAnalysis.Sarif.Converters
 {
     /// <summary>
     /// A Fast XML Reader that reads only the requested entities

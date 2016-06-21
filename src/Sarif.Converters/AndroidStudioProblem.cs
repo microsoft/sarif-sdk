@@ -5,7 +5,6 @@ using System;
 using System.Collections.Immutable;
 using System.Diagnostics;
 using System.Xml;
-using Microsoft.CodeAnalysis.Sarif.Driver;
 
 namespace Microsoft.CodeAnalysis.Sarif.Converters
 {

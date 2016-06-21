@@ -5,7 +5,7 @@ using System;
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 
-namespace Microsoft.CodeAnalysis.Sarif.Driver
+namespace Microsoft.CodeAnalysis.Sarif.Converters
 {
     /// <summary>A class that makes atomized string reference comparison easier. Stolen (slightly
     /// modified) from http://referencesource.microsoft.com/#System.Xml/System/Xml/Ref.cs.</summary>

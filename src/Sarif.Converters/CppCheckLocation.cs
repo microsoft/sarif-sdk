@@ -4,7 +4,6 @@
 using System;
 using System.Globalization;
 using System.Xml;
-using Microsoft.CodeAnalysis.Sarif.Driver;
 
 namespace Microsoft.CodeAnalysis.Sarif.Converters
 {

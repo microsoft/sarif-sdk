@@ -80,7 +80,6 @@
     <EmbeddedResource Include="ConverterResources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>ConverterResources.Designer.cs</LastGenOutput>
-      <CustomToolNamespace>Microsoft.CodeAnalysis.Sarif</CustomToolNamespace>
       <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>

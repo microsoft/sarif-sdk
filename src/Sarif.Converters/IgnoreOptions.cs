@@ -3,7 +3,7 @@
 
 using System;
 
-namespace Microsoft.CodeAnalysis.Sarif
+namespace Microsoft.CodeAnalysis.Sarif.Converters
 {
     /// <summary>A bitfield of flags for specifying the method by which XML elements shall be ignored.</summary>
     [Flags]

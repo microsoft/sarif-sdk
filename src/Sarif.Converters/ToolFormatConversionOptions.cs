@@ -3,7 +3,7 @@
 
 using System;
 
-namespace Microsoft.CodeAnalysis.Sarif
+namespace Microsoft.CodeAnalysis.Sarif.Converters
 {
     /// <summary>A bitfield of flags for specifying tool format conversion options.</summary>
     [Flags]
