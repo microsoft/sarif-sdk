@@ -11,6 +11,7 @@ using System.Windows.Forms;
 using Microsoft.CodeAnalysis.Sarif;
 using Microsoft.VisualStudio.Shell;
 using Microsoft.Sarif.Viewer.ErrorList;
+using Microsoft.CodeAnalysis.Sarif.Converters;
 
 namespace Microsoft.Sarif.Viewer
 {
