@@ -6,6 +6,7 @@ using System.Xml;
 using System.Xml.Linq;
 
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Microsoft.CodeAnalysis.Sarif.Converters;
 
 namespace Microsoft.CodeAnalysis.Sarif
 {

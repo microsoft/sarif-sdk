@@ -43,6 +43,10 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Sarif.Converters\Sarif.Converters.csproj">
+      <Project>{237defdf-1dfb-40a0-997f-12c8165daa87}</Project>
+      <Name>Sarif.Converters</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Sarif.Driver\Sarif.Driver.csproj">
       <Project>{8ceaea61-b1a2-4777-bcbe-c9a129a5f6c5}</Project>
       <Name>Sarif.Driver</Name>
