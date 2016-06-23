@@ -253,7 +253,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             }
 
             Debug.Assert(false);
-            return AnnotatedCodeLocationKind.None;
+            return AnnotatedCodeLocationKind.Unknown;
         }
 
         private static ResultLevel ConvertToResultLevel(string sdvLevel)
