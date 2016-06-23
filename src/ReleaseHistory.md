@@ -43,6 +43,8 @@
 ## **v1.5.24-beta** [Driver](https://www.nuget.org/packages/Sarif.Driver/1.5.24-beta) | [SDK](https://www.nuget.org/packages/Sarif.Sdk/1.5.24-beta)
 * Permit annotatedCodeLocation.id to be a numeric value (in addition to a string)
 
-## **v1.5.25-beta** [Driver](https://www.nuget.org/packages/Sarif.Driver/1.5.25-beta) | [SDK](https://www.nuget.org/packages/Sarif.Sdk/1.5.25-beta)
+## **v1.5.25** [Driver](https://www.nuget.org/packages/Sarif.Driver/1.5.25) | [SDK](https://www.nuget.org/packages/Sarif.Sdk/1.5.25)
+* NOTE: NON-BETA RELEASE
 * Add a converter for Static Driver Verifier trace files
+* Add SuppressedExternally to SuppressionStates enum
 
