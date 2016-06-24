@@ -49,7 +49,7 @@ namespace Microsoft.Sarif.Viewer.ViewModels
             {
                 Id = "CA1823",
                 Name = "Avoid unused private fields",
-
+                HelpUri = "http://aka.ms/analysis/ca1823"
              };
 
             viewModel.Locations.Add(new Models.AnnotatedCodeLocationModel()

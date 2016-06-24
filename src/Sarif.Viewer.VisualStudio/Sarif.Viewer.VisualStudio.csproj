@@ -38,6 +38,9 @@
   <ItemGroup>
     <Compile Include="CodeAnalysisResultManager.cs" />
     <Compile Include="CodeLocationObject.cs" />
+    <Compile Include="Controls\InternetHyperlink.xaml.cs">
+      <DependentUpon>InternetHyperlink.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Converters\CollectionToVisiblityConverter.cs" />
     <Compile Include="Converters\CollectionToCountConverter.cs" />
     <Compile Include="Converters\Int32ToVisibilityConverter.cs" />
@@ -273,6 +276,10 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Page Include="Controls\InternetHyperlink.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\CodeLocations.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

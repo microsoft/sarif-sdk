@@ -9,10 +9,12 @@
              xmlns:models="clr-namespace:Microsoft.Sarif.Viewer.Models"
              xmlns:viewModels="clr-namespace:Microsoft.Sarif.Viewer.ViewModels"
              xmlns:converters="clr-namespace:Microsoft.Sarif.Viewer.Converters"
+             xmlns:controls="clr-namespace:Microsoft.Sarif.Viewer.Controls"
              mc:Ignorable="d"
              d:DesignHeight="300"
              d:DesignWidth="300"
-             d:DataContext="{x:Static viewModels:ViewModelLocator.DesignTime}">
+             d:DataContext="{x:Static viewModels:ViewModelLocator.DesignTime}"
+             Background="{DynamicResource {x:Static SystemColors.ControlLightLightBrushKey}}">
     <UserControl.Resources>
 
         <!-- BUGBUG: Could not get the resources to load from a ResourceDictionary without using the pack format. -->
@@ -62,28 +64,6 @@
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
-        </Style>
-
-        <Style TargetType="Hyperlink"
-               x:Key="HyperlinkStyle">
-            <Setter Property="TextDecorations"
-                    Value="None" />
-            <Setter Property="Foreground"
-                    Value="{DynamicResource {x:Static shell:VsBrushes.FileTabSelectedBackgroundKey}}" />
-            <Style.Triggers>
-                <Trigger Property="IsMouseOver"
-                         Value="True">
-                    <Setter Property="TextDecorations"
-                            Value="underline" />
-                </Trigger>
-            </Style.Triggers>
-        </Style>
-
-        <Style TargetType="Hyperlink"
-               x:Key="HyperlinkStyleSelected"
-               BasedOn="{StaticResource HyperlinkStyle}">
-            <Setter Property="Foreground"
-                    Value="{DynamicResource {x:Static shell:VsBrushes.AccentDarkKey}}" />
         </Style>
 
         <!-- Control Templates-->
@@ -278,12 +258,10 @@
                            FontWeight="Bold" />
                 <TextBlock Grid.Row="1"
                            Grid.Column="0">Id :</TextBlock>
-                <TextBlock Grid.Row="1"
-                           Grid.Column="1">
-                        <Hyperlink Style="{StaticResource HyperlinkStyleSelected}">
-                            <Run Text="{Binding Path=Rule.Id, Mode=OneTime}" />
-                        </Hyperlink>
-                </TextBlock>
+                <controls:InternetHyperlink Grid.Row="1"
+                           Grid.Column="1"
+                           Text="{Binding Rule.Id}"
+                           NavigateUri="{Binding Rule.HelpUri}" />
                 <TextBlock Grid.Row="2"
                            Grid.Column="0"
                            Visibility="{Binding Rule.Version, Converter={StaticResource stringToVisibilityConverter}}"
@@ -320,10 +298,10 @@
                            Grid.Column="0"
                            Visibility="{Binding Rule.HelpUri, Converter={StaticResource stringToVisibilityConverter}}"
                            Text="Help : " />
-                <TextBlock Grid.Row="6"
+                <controls:InternetHyperlink Grid.Row="6"
                            Grid.Column="1"
-                           Visibility="{Binding Rule.HelpUri, Converter={StaticResource stringToVisibilityConverter}}"
-                           Text="{Binding Rule.HelpUri}" />
+                           Text="{Binding Rule.HelpUri}"
+                           NavigateUri="{Binding Rule.HelpUri}" />
                 <TextBlock Grid.Row="7"
                            Grid.Column="0"
                            Visibility="{Binding Rule.FeedbackUri, Converter={StaticResource stringToVisibilityConverter}}"
@@ -423,14 +401,18 @@
                 <ColumnDefinition />
             </Grid.ColumnDefinitions>
             <Border Grid.Row="0">
-                <TextBlock>
-                        Code:
-                        <Hyperlink Style="{StaticResource HyperlinkStyleSelected}">
-                            <Run Text="{Binding Path=Rule.Id, Mode=OneTime}" />
-                        </Hyperlink>
-                <Run Text="{Binding Rule.Name, Mode=OneTime}"
-                     FontWeight="Bold" />
-                </TextBlock>
+                <DockPanel>
+                    <TextBlock DockPanel.Dock="Left"
+                               Text="Code:"
+                               Margin="0 0 5 0" />
+                    <controls:InternetHyperlink DockPanel.Dock="Left"
+                                                Text="{Binding Rule.Id}"
+                                                NavigateUri="{Binding Rule.HelpUri}"
+                                                Margin="0 0 5 0" />
+                    <TextBlock DockPanel.Dock="Left"
+                               Text="{Binding Rule.Name, Mode=OneTime}"
+                                FontWeight="Bold" />
+                </DockPanel>
             </Border>
             <TextBlock Grid.Row="1"
                        TextWrapping="Wrap"
