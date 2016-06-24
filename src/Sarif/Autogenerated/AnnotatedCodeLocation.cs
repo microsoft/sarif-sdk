@@ -34,12 +34,18 @@ namespace Microsoft.CodeAnalysis.Sarif
         }
 
         /// <summary>
-        /// An identifier for the location, unique within the scope of the code flow within which it occurs.
+        /// OBSOLETE (use "step" instead): An identifier for the location, unique within the scope of the code flow within which it occurs.
         /// </summary>
         [DataMember(Name = "id", IsRequired = false, EmitDefaultValue = false)]
         [JsonConverter(typeof(Microsoft.CodeAnalysis.Sarif.Readers.AnnotatedCodeLocationIdConverter))]
         [JsonProperty("id", DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
         public int Id { get; set; }
+
+        /// <summary>
+        /// The 0-based sequence number of the location in the code flow within which it occurs.
+        /// </summary>
+        [DataMember(Name = "step", IsRequired = false, EmitDefaultValue = false)]
+        public int Step { get; set; }
 
         /// <summary>
         /// A file location to which this annotation refers.
@@ -78,16 +84,23 @@ namespace Microsoft.CodeAnalysis.Sarif
         public string Message { get; set; }
 
         /// <summary>
-        /// A descriptive identifier that categorizes the annotation.
+        /// Describes the location.
         /// </summary>
         [DataMember(Name = "kind", IsRequired = false, EmitDefaultValue = false)]
         public AnnotatedCodeLocationKind Kind { get; set; }
 
         /// <summary>
-        /// True if this location is essential to understanding the code flow in which it occurs.
+        /// OBSOLETE (use "importance" instead): True if this location is essential to understanding the code flow in which it occurs.
         /// </summary>
-        [DataMember(Name = "essential", IsRequired = false, EmitDefaultValue = true)]
+        [DataMember(Name = "essential", IsRequired = false, EmitDefaultValue = false)]
+        [JsonProperty("essential", DefaultValueHandling = DefaultValueHandling.Ignore)]
         public bool Essential { get; set; }
+
+        /// <summary>
+        /// Specifies the importance of this location in understanding the code flow in which it occurs.
+        /// </summary>
+        [DataMember(Name = "importance", IsRequired = false, EmitDefaultValue = false)]
+        public AnnotatedCodeLocationImportance Importance { get; set; }
 
         /// <summary>
         /// Key/value pairs that provide additional information about the code location.
@@ -107,6 +120,9 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// </summary>
         /// <param name="id">
         /// An initialization value for the <see cref="P: Id" /> property.
+        /// </param>
+        /// <param name="step">
+        /// An initialization value for the <see cref="P: Step" /> property.
         /// </param>
         /// <param name="physicalLocation">
         /// An initialization value for the <see cref="P: PhysicalLocation" /> property.
@@ -132,12 +148,15 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="essential">
         /// An initialization value for the <see cref="P: Essential" /> property.
         /// </param>
+        /// <param name="importance">
+        /// An initialization value for the <see cref="P: Importance" /> property.
+        /// </param>
         /// <param name="properties">
         /// An initialization value for the <see cref="P: Properties" /> property.
         /// </param>
-        public AnnotatedCodeLocation(int id, PhysicalLocation physicalLocation, string fullyQualifiedLogicalName, string logicalLocationKey, string module, int threadId, string message, AnnotatedCodeLocationKind kind, bool essential, IDictionary<string, SerializedPropertyInfo> properties)
+        public AnnotatedCodeLocation(int id, int step, PhysicalLocation physicalLocation, string fullyQualifiedLogicalName, string logicalLocationKey, string module, int threadId, string message, AnnotatedCodeLocationKind kind, bool essential, AnnotatedCodeLocationImportance importance, IDictionary<string, SerializedPropertyInfo> properties)
         {
-            Init(id, physicalLocation, fullyQualifiedLogicalName, logicalLocationKey, module, threadId, message, kind, essential, properties);
+            Init(id, step, physicalLocation, fullyQualifiedLogicalName, logicalLocationKey, module, threadId, message, kind, essential, importance, properties);
         }
 
         /// <summary>
@@ -156,7 +175,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 throw new ArgumentNullException(nameof(other));
             }
 
-            Init(other.Id, other.PhysicalLocation, other.FullyQualifiedLogicalName, other.LogicalLocationKey, other.Module, other.ThreadId, other.Message, other.Kind, other.Essential, other.Properties);
+            Init(other.Id, other.Step, other.PhysicalLocation, other.FullyQualifiedLogicalName, other.LogicalLocationKey, other.Module, other.ThreadId, other.Message, other.Kind, other.Essential, other.Importance, other.Properties);
         }
 
         ISarifNode ISarifNode.DeepClone()
@@ -177,9 +196,10 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new AnnotatedCodeLocation(this);
         }
 
-        private void Init(int id, PhysicalLocation physicalLocation, string fullyQualifiedLogicalName, string logicalLocationKey, string module, int threadId, string message, AnnotatedCodeLocationKind kind, bool essential, IDictionary<string, SerializedPropertyInfo> properties)
+        private void Init(int id, int step, PhysicalLocation physicalLocation, string fullyQualifiedLogicalName, string logicalLocationKey, string module, int threadId, string message, AnnotatedCodeLocationKind kind, bool essential, AnnotatedCodeLocationImportance importance, IDictionary<string, SerializedPropertyInfo> properties)
         {
             Id = id;
+            Step = step;
             if (physicalLocation != null)
             {
                 PhysicalLocation = new PhysicalLocation(physicalLocation);
@@ -192,6 +212,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             Message = message;
             Kind = kind;
             Essential = essential;
+            Importance = importance;
             if (properties != null)
             {
                 Properties = new Dictionary<string, SerializedPropertyInfo>(properties);
