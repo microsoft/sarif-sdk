@@ -118,9 +118,9 @@ public:
         m_values[L"kind"] = kind;
     }
 
-    void SetEssential(bool essential)
+    void SetImportance(const std::wstring &importance)
     {
-        m_values[L"essential"] = json::Value(essential);
+		m_values[L"importance"] = json::Value(importance.c_str());
     }
 
     void SetThreadId(int threadId)
@@ -129,7 +129,6 @@ public:
     }
 
     void SetThreadId(const std::wstring &time);
-    void SetEssential(const std::wstring &essential);
 
     void AddTag(const std::wstring &tag);
     void AddProperty(const std::wstring &key, const std::wstring &value);

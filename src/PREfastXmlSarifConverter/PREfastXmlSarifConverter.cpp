@@ -522,7 +522,7 @@ HRESULT __stdcall Convert(const std::deque<XmlDefect> defectList, BSTR bstrOutpu
 
 					if (wcscmp(keyEvent.GetImportance(), L"Essential") == 0)
 					{
-						annotation.SetEssential(L"true");
+						annotation.SetImportance(L"essential");
 					}
                 }
                 codeFlow.AddAnnotatedCodeLocation(annotation);

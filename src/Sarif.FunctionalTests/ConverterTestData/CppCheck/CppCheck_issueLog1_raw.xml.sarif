@@ -1070,7 +1070,7 @@
                       "startLine": 309
                     }
                   },
-                  "essential": true
+                  "importance": "essential"
                 },
                 {
                   "physicalLocation": {
@@ -1079,7 +1079,7 @@
                       "startLine": 309
                     }
                   },
-                  "essential": true
+                  "importance": "essential"
                 }
               ]
             }
@@ -1638,7 +1638,7 @@
                       "startLine": 632
                     }
                   },
-                  "essential": true
+                  "importance": "essential"
                 },
                 {
                   "physicalLocation": {
@@ -1647,7 +1647,7 @@
                       "startLine": 602
                     }
                   },
-                  "essential": true
+                  "importance": "essential"
                 }
               ]
             }
@@ -1781,7 +1781,7 @@
                       "startLine": 204
                     }
                   },
-                  "essential": true
+                  "importance": "essential"
                 },
                 {
                   "physicalLocation": {
@@ -1790,7 +1790,7 @@
                       "startLine": 193
                     }
                   },
-                  "essential": true
+                  "importance": "essential"
                 }
               ]
             }
@@ -2009,7 +2009,7 @@
                       "startLine": 1665
                     }
                   },
-                  "essential": true
+                  "importance": "essential"
                 },
                 {
                   "physicalLocation": {
@@ -2018,7 +2018,7 @@
                       "startLine": 1663
                     }
                   },
-                  "essential": true
+                  "importance": "essential"
                 }
               ]
             }
@@ -2067,7 +2067,7 @@
                       "startLine": 1037
                     }
                   },
-                  "essential": true
+                  "importance": "essential"
                 },
                 {
                   "physicalLocation": {
@@ -2076,7 +2076,7 @@
                       "startLine": 1038
                     }
                   },
-                  "essential": true
+                  "importance": "essential"
                 }
               ]
             }
@@ -2108,7 +2108,7 @@
                       "startLine": 1038
                     }
                   },
-                  "essential": true
+                  "importance": "essential"
                 },
                 {
                   "physicalLocation": {
@@ -2117,7 +2117,7 @@
                       "startLine": 1040
                     }
                   },
-                  "essential": true
+                  "importance": "essential"
                 }
               ]
             }
@@ -2149,7 +2149,7 @@
                       "startLine": 1040
                     }
                   },
-                  "essential": true
+                  "importance": "essential"
                 },
                 {
                   "physicalLocation": {
@@ -2158,7 +2158,7 @@
                       "startLine": 1041
                     }
                   },
-                  "essential": true
+                  "importance": "essential"
                 }
               ]
             }
@@ -2938,7 +2938,7 @@
                       "startLine": 415
                     }
                   },
-                  "essential": true
+                  "importance": "essential"
                 },
                 {
                   "physicalLocation": {
@@ -2947,7 +2947,7 @@
                       "startLine": 396
                     }
                   },
-                  "essential": true
+                  "importance": "essential"
                 }
               ]
             }

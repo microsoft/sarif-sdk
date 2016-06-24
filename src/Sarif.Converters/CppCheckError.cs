@@ -146,7 +146,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
                 foreach (CppCheckLocation loc in this.Locations)
                 {
-                    locations.Add(new AnnotatedCodeLocation { PhysicalLocation = loc.ToSarifPhysicalLocation(), Essential = true });
+                    locations.Add(new AnnotatedCodeLocation { PhysicalLocation = loc.ToSarifPhysicalLocation(), Importance = AnnotatedCodeLocationImportance.Essential });
                 }
 
                 var flow = new CodeFlow

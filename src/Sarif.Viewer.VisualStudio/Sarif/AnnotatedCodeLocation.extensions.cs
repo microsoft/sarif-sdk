@@ -39,7 +39,7 @@ namespace Microsoft.Sarif.Viewer.Sarif
             model.Message = location.Message;
             model.Kind = location.Kind.ToString();
             model.LogicalLocation = location.FullyQualifiedLogicalName;
-            model.IsEssential = location.Essential;
+            model.IsEssential = location.Importance == AnnotatedCodeLocationImportance.Essential;
 
             return model;
         }
