@@ -5,7 +5,6 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Xml;
-using Microsoft.CodeAnalysis.Sarif.Driver;
 
 namespace Microsoft.CodeAnalysis.Sarif
 {
@@ -81,41 +80,6 @@ namespace Microsoft.CodeAnalysis.Sarif
         }
 
         /// <summary>
-        /// Creates an exception with line number and position data from an <see cref="XmlReader"/>.
-        /// </summary>
-        /// <param name="xmlReader">The xmlReader from which line data shall be retrieved.</param>
-        /// <param name="message">The message to attach to the exception.</param>
-        /// <returns>
-        /// The new exception with <paramref name="message"/>, and file and line information from
-        /// <paramref name="xmlReader"/>.
-        /// </returns>
-        internal static XmlException CreateException(this XmlReader xmlReader, string message)
-        {
-            var positionInfo = xmlReader as IXmlLineInfo;
-            if (positionInfo == null || !positionInfo.HasLineInfo())
-            {
-                return new XmlException(message);
-            }
-            else
-            {
-                return new XmlException(message, null, positionInfo.LineNumber, positionInfo.LinePosition);
-            }
-        }
-
-        /// <summary>Creates an exception with line number and position data from an
-        /// <see cref="XmlReader"/>.</summary>
-        /// <param name="xmlReader">The xmlReader from which line data shall be retrieved.</param>
-        /// <param name="message">The message to attach to the exception.</param>
-        /// <param name="args">A variable-length parameters list containing arguments formatted into
-        /// <paramref name="message"/>.</param>
-        /// <returns>The new exception with <paramref name="message"/>, and file and line information from
-        /// <paramref name="xmlReader"/>.</returns>
-        internal static XmlException CreateException(this XmlReader xmlReader, string message, params object[] args)
-        {
-            return xmlReader.CreateException(String.Format(CultureInfo.CurrentCulture, message, args));
-        }
-
-        /// <summary>
         /// Consumes content from an XML reader until the end element of the element at endElementDepth
         /// <paramref name="endElementDepth"/>, including the end element.
         /// </summary>
@@ -143,71 +107,6 @@ namespace Microsoft.CodeAnalysis.Sarif
                 // Consume the end element
                 xmlReader.Read();
             }
-        }
-
-        /// <summary>Asserts that the local name of a given element is the name indicated, and ignores the
-        /// element's contents.</summary>
-        /// <exception cref="XmlException">Thrown when the XML content pointed to by
-        /// <paramref name="xmlReader"/> does not match the indicated <paramref name="elementName"/> and
-        /// <paramref name="options"/>.</exception>
-        /// <param name="xmlReader">The XML reader from which the element shall be read.</param>
-        /// <param name="elementName">Name of the element.</param>
-        /// <param name="options">Options deciding what content to skip.</param>
-        internal static void IgnoreElement(this XmlReader xmlReader, string elementName, IgnoreOptions options)
-        {
-            if (!IsOnElement(xmlReader, elementName))
-            {
-                if (options.HasFlag(IgnoreOptions.Optional))
-                {
-                    return;
-                }
-                else
-                {
-                    throw xmlReader.CreateException(SdkResources.ExpectedElementNamed, elementName);
-                }
-            }
-
-            xmlReader.Skip();
-            if (options.HasFlag(IgnoreOptions.Multiple))
-            {
-                while (IsOnElement(xmlReader, elementName))
-                {
-                    xmlReader.Skip();
-                }
-            }
-        }
-
-        // Same as XmlReader.IsStartElement except does not call MoveToContent first.
-        private static bool IsOnElement(XmlReader xmlReader, string elementName)
-        {
-            return xmlReader.NodeType == XmlNodeType.Element && Ref.Equal(xmlReader.LocalName, elementName);
-        }
-
-        /// <summary>An XmlReader extension method that reads optional element's content as string.</summary>
-        /// <param name="xmlReader">The xmlReader from which line data shall be retrieved.</param>
-        /// <param name="elementName">Name of the element expected.</param>
-        /// <returns>The optional element content as string if the element is present; otherwise, null.</returns>
-        internal static string ReadOptionalElementContentAsString(this XmlReader xmlReader, string elementName)
-        {
-            if (xmlReader.NodeType == XmlNodeType.Element && Ref.Equal(xmlReader.LocalName, elementName))
-            {
-                return xmlReader.ReadElementContentAsString();
-            }
-
-            return null;
-        }
-
-        /// <summary>
-        /// Creates a new region with the start line filled out.
-        /// </summary>
-        /// <param name="startLine">The line to set in the region.</param>
-        /// <returns>A <see cref="Region"/> with <see cref="Region.StartLine"/> filled out.</returns>
-        internal static Region CreateRegion(int startLine)
-        {
-            return new Region
-            {
-                StartLine = startLine
-            };
         }
     }
 }
