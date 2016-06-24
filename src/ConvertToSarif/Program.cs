@@ -4,6 +4,7 @@
 using System;
 using System.IO;
 using CommandLine;
+using Microsoft.CodeAnalysis.Sarif.Converters;
 
 namespace Microsoft.CodeAnalysis.Sarif.ConvertToSarif
 {
