@@ -29,3 +29,14 @@ public SarifLog ReadLogFile(string logFilePath)
 }
 
 ```
+
+## Format a result message
+
+```C#
+Result result = ...
+IRule rule = ...
+
+// GetMessageText is an extension method on the Result class
+string resultMessage = result.GetMessageText(result, rule);
+
+```
