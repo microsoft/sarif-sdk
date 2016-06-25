@@ -43,10 +43,10 @@
                     "startLine":4
                   }
                 },
-                "id":"1",
+                "step":0,
                 "kind":"declaration",
                 "message":"'a' is an array of 20 elements (80 bytes)",
-                "essential":true
+                "importance":"essential"
               },{
                 "physicalLocation":{
                   "uri":"file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/complex/c6385/c6385example2.cpp",
@@ -63,7 +63,7 @@
                     "startLine":6
                   }
                 },
-                "id":"2",
+                "step":1,
                 "kind":"branch",
                 "message":"Enter this loop, (assume 'i<=20')"
               },{
@@ -74,10 +74,10 @@
                     "startLine":7
                   }
                 },
-                "id":"3",
+                "step":2,
                 "kind":"usage",
                 "message":"Invalid read from 'a[20]', (readable range is 0 to 19)",
-                "essential":true
+                "importance":"essential"
               }
             ]
           }
