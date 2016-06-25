@@ -53,6 +53,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             BatchRunConverter(ToolFormat.FxCop);
         }
 
+        [Fact]
+        public void StaticDriverVerifierConverter_EndToEnd()
+        {
+            BatchRunConverter(ToolFormat.StaticDriverVerifier);
+        }
+
         private readonly ToolFormatConverter converter = new ToolFormatConverter();
 
         private void BatchRunConverter(ToolFormat tool)
