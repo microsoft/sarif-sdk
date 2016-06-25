@@ -1,0 +1,36 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:Microsoft.Sarif.Viewer.Themes"
+                    xmlns:converters="clr-namespace:Microsoft.Sarif.Viewer.Converters">
+
+    <!-- Converters -->
+    <converters:Int32ToVisibilityConverter x:Key="int32ToVisibilityConverter" />
+    
+    <!-- Location and Related Location Template -->
+    <DataTemplate x:Key="CodeLocationCollectionTemplate">
+        <ListBox ItemsSource="{Binding}"
+                     SelectedItem="{Binding SelectedItem, Mode=TwoWay}">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <WrapPanel Orientation="Horizontal">
+                        <WrapPanel.InputBindings>
+                            <MouseBinding Gesture="LeftClick"
+                                              Command="{Binding DataContext.SelectedCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ListBox}}}"
+                                              CommandParameter="{Binding}" />
+                        </WrapPanel.InputBindings>
+                        <TextBlock>
+                                <Run Text="{Binding FilePath, Mode=OneWay}" /> 
+                                <Run Text="Line " />
+                                <Run Text="{Binding Region.StartLine, Mode=OneWay}" />
+                        </TextBlock>
+                        <TextBlock Visibility="{Binding Region.StartColumn, Converter={StaticResource int32ToVisibilityConverter}}">
+                                <Run Text=" Col " />
+                                <Run Text="{Binding Region.StartColumn, Mode=OneWay}" />
+                        </TextBlock>
+                    </WrapPanel>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+    </DataTemplate>
+
+</ResourceDictionary>
