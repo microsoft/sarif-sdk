@@ -507,7 +507,10 @@ HRESULT __stdcall Convert(const std::deque<XmlDefect> defectList, BSTR bstrOutpu
                 {
                     if (wcscmp(keyEvent.GetId(), L"") != 0)
                     {
-                        annotation.SetId(keyEvent.GetId());
+						const wchar_t *id = keyEvent.GetId();
+						wchar_t *endPtr;
+						int step = static_cast<int>(wcstol(id, &endPtr, 10));
+                        annotation.SetStep(step - 1); // SARIF uses 0-based step indices.
                     }
 
                     if (wcscmp(keyEvent.GetKind(), L"") != 0)

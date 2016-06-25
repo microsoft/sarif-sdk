@@ -93,9 +93,9 @@ public:
         return m_values;
     }
 
-    void SetId(const std::wstring &id)
+    void SetStep(int step)
     {
-        m_values[L"id"] = id;
+        m_values[L"step"] = json::Value(step);
     }
 
     void SetPhysicalLocation(const SarifPhysicalLocation &physicalLocation)

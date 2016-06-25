@@ -151,7 +151,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 var annotatedCodeLocation = new AnnotatedCodeLocation
                 {
                     Kind = kind,
-                    Id = codeFlow.Locations.Count + 1,
+                    Step = step,
                     Importance = displayed ? AnnotatedCodeLocationImportance.Normal : AnnotatedCodeLocationImportance.Nonessential,
                     Message = message,
                     PhysicalLocation = displayed ? new PhysicalLocation
@@ -164,7 +164,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                     } : null,    
                 };
 
-                annotatedCodeLocation.SetProperty("Step", step);
                 annotatedCodeLocation.SetProperty("State", tokens[STATE]);
 
                 // Tokens[BOOL] retrieves an SDV property intended to indicate
