@@ -35,13 +35,13 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
         <!-- This is the header of the dialog. It displays general info about the result. -->
         <Grid Grid.Row="0"
               Margin="6 0 6 0">
             <Grid.RowDefinitions>
+                <RowDefinition />
                 <RowDefinition />
                 <RowDefinition />
             </Grid.RowDefinitions>
@@ -62,7 +62,37 @@
                                 FontWeight="Bold" />
                 </DockPanel>
             </Border>
-            <TextBlock Grid.Row="1"
+            <WrapPanel Grid.Row="1" 
+                       Orientation="Horizontal"
+                       DataContext="{Binding Locations[0]}">
+                <WrapPanel.ToolTip>
+                    <WrapPanel Orientation="Horizontal">
+                        <TextBlock>
+                            <Run Text="{Binding FilePath, Mode=OneWay}" /> 
+                        </TextBlock>
+                        <TextBlock Visibility="{Binding Region.StartLine, Converter={StaticResource int32ToVisibilityConverter}}">
+                            <Run Text=" Line" />
+                            <Run Text="{Binding Region.StartLine, Mode=OneWay}" />
+                        </TextBlock>
+                        <TextBlock Visibility="{Binding Region.StartColumn, Converter={StaticResource int32ToVisibilityConverter}}">
+                            <Run Text=" Col" />
+                            <Run Text="{Binding Region.StartColumn, Mode=OneWay}" />
+                        </TextBlock>
+                    </WrapPanel>
+                </WrapPanel.ToolTip>
+                <TextBlock>
+                    <Run Text="{Binding FileName, Mode=OneWay}" /> 
+                </TextBlock>
+                <TextBlock Visibility="{Binding Region.StartLine, Converter={StaticResource int32ToVisibilityConverter}}">
+                    <Run Text=" Line" />
+                    <Run Text="{Binding Region.StartLine, Mode=OneWay}" />
+                </TextBlock>
+                <TextBlock Visibility="{Binding Region.StartColumn, Converter={StaticResource int32ToVisibilityConverter}}">
+                    <Run Text=" Col" />
+                    <Run Text="{Binding Region.StartColumn, Mode=OneWay}" />
+                </TextBlock>
+            </WrapPanel>
+            <TextBlock Grid.Row="2"
                        TextWrapping="Wrap"
                        Text="{Binding Message}"
                        FontFamily="Segoe UI"
@@ -72,28 +102,6 @@
         <!-- These are the tabs which display the result information. -->
         <TabControl Grid.Row="1"
                     SelectedValue="{Binding SelectedTab, Mode=TwoWay}">
-            <TabItem Visibility="{Binding Locations, Converter={StaticResource collectionToVisibilityConverter}}">
-                <TabItem.Header>
-                    <TextBlock>
-                        <Run Text="Locations (" />
-                        <Run Text="{Binding Locations, Mode=OneWay, Converter={StaticResource collectionToCountConverter}}" />
-                        <Run Text=")" />
-                    </TextBlock>
-                </TabItem.Header>
-                <ContentControl ContentTemplate="{StaticResource CodeLocationCollectionTemplate}"
-                                Content="{Binding Locations}" />
-            </TabItem>
-            <TabItem Visibility="{Binding RelatedLocations, Converter={StaticResource collectionToVisibilityConverter}}">
-                <TabItem.Header>
-                    <TextBlock>
-                        <Run Text="Related Locations (" />
-                        <Run Text="{Binding RelatedLocations, Mode=OneWay, Converter={StaticResource collectionToCountConverter}}" />
-                        <Run Text=")" />
-                    </TextBlock>
-                </TabItem.Header>
-                <ContentControl ContentTemplate="{StaticResource CodeLocationCollectionTemplate}"
-                                Content="{Binding RelatedLocations}" />
-            </TabItem>
             <TabItem Visibility="{Binding CodeFlows, Converter={StaticResource collectionToVisibilityConverter}}">
                 <TabItem.Header>
                     <TextBlock>
@@ -129,6 +137,17 @@
 
                 <ContentControl ContentTemplate="{StaticResource FixCollectionTemplate}"
                                 Content="{Binding Fixes}" />
+            </TabItem>
+            <TabItem Visibility="{Binding HasMultipleLocations, Converter={StaticResource booleanToVisiblityConverter}}">
+                <TabItem.Header>
+                    <TextBlock>
+                        <Run Text="Locations (" />
+                        <Run Text="{Binding LocationsCount, Mode=OneWay}" />
+                        <Run Text=")" />
+                    </TextBlock>
+                </TabItem.Header>
+                <ContentControl ContentTemplate="{StaticResource CodeLocationCollectionTemplate}"
+                                Content="{Binding}" />
             </TabItem>
             <TabItem>
                 <TabItem.Header>

@@ -5,6 +5,7 @@
 
     <!-- Converters -->
     <converters:DatabindingDebugConverter x:Key="databindingDebugConverter" />
+    <converters:BooleanToVisibilityConverter x:Key="booleanToVisiblityConverter" />
     <converters:StringToVisibilityConverter x:Key="stringToVisibilityConverter" />
     <converters:Int32ToVisibilityConverter x:Key="int32ToVisibilityConverter" />
     <converters:CollectionToCountConverter x:Key="collectionToCountConverter" />
@@ -30,6 +31,14 @@
     <Style TargetType="TextBlock">
         <Setter Property="FontSize"
                     Value="11.5" />
+    </Style>
+
+    <Style TargetType="TextBlock"
+           x:Key="PanelHeader">
+        <Setter Property="FontSize"
+                    Value="12.5" />
+        <Setter Property="FontWeight"
+                Value="DemiBold" />
     </Style>
 
 

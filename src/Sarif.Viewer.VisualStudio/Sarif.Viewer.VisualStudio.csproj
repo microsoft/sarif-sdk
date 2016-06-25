@@ -43,6 +43,7 @@
     </Compile>
     <Compile Include="Converters\CollectionToVisiblityConverter.cs" />
     <Compile Include="Converters\CollectionToCountConverter.cs" />
+    <Compile Include="Converters\BooleanToVisibilityConverter.cs" />
     <Compile Include="Converters\Int32ToVisibilityConverter.cs" />
     <Compile Include="DelegateCommand.cs" />
     <Compile Include="DelegateCommandBase.cs" />
