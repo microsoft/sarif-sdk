@@ -5,6 +5,18 @@
     <DataTemplate x:Key="AnnotatedCodeLocationCollectionDataGridTemplate">
         <ListBox ItemsSource="{Binding}"
                      SelectedItem="{Binding SelectedItem, Mode=TwoWay}">
+            <ListBox.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <DockPanel IsItemsHost="True" LastChildFill="False"/>
+                </ItemsPanelTemplate>
+            </ListBox.ItemsPanel>
+            <ListBox.ItemContainerStyle>
+                <Style TargetType="{x:Type ListBoxItem}">
+                    <Setter Property="DockPanel.Dock" Value="Bottom"/>
+                    <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                    <Setter Property="VerticalContentAlignment" Value="Stretch"/>
+                </Style>
+            </ListBox.ItemContainerStyle>
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <Expander Header="{Binding Message}"
