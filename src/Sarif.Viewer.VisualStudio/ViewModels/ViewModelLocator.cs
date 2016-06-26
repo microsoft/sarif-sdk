@@ -54,31 +54,31 @@ namespace Microsoft.Sarif.Viewer.ViewModels
 
             viewModel.Locations.Add(new Models.AnnotatedCodeLocationModel()
             {
-                FilePath = @"D:\GitHub\Jinu-NuGet.Services.Metadata\src\Ng\Catalog2Dnx.cs",
+                FilePath = @"D:\GitHub\NuGet.Services.Metadata\src\Ng\Catalog2Dnx.cs",
                 Region = new CodeAnalysis.Sarif.Region(11, 1, 11, 2, 0, 0),
             });
 
             viewModel.Locations.Add(new Models.AnnotatedCodeLocationModel()
             {
-                FilePath = @"D:\GitHub\Jinu-NuGet.Services.Metadata\src\Ng\Catalog2Dnx.cs",
+                FilePath = @"D:\GitHub\NuGet.Services.Metadata\src\Ng\Catalog2Dnx.cs",
                 Region = new CodeAnalysis.Sarif.Region(12, 1, 12, 2, 0, 0),
             });
 
             viewModel.RelatedLocations.Add(new Models.AnnotatedCodeLocationModel()
             {
-                FilePath = @"D:\GitHub\Jinu-NuGet.Services.Metadata\src\Ng\Catalog2Dnx.cs",
+                FilePath = @"D:\GitHub\NuGet.Services.Metadata\src\Ng\Catalog2Dnx.cs",
                 Region = new CodeAnalysis.Sarif.Region(21, 1, 21, 2, 0, 0),
             });
 
             viewModel.RelatedLocations.Add(new Models.AnnotatedCodeLocationModel()
             {
-                FilePath = @"D:\GitHub\Jinu-NuGet.Services.Metadata\src\Ng\Catalog2Dnx.cs",
+                FilePath = @"D:\GitHub\NuGet.Services.Metadata\src\Ng\Catalog2Dnx.cs",
                 Region = new CodeAnalysis.Sarif.Region(22, 1, 22, 2, 0, 0),
             });
 
             viewModel.RelatedLocations.Add(new Models.AnnotatedCodeLocationModel()
             {
-                FilePath = @"D:\GitHub\Jinu-NuGet.Services.Metadata\src\Ng\Catalog2Dnx.cs",
+                FilePath = @"D:\GitHub\NuGet.Services.Metadata\src\Ng\Catalog2Dnx.cs",
                 Region = new CodeAnalysis.Sarif.Region(23, 1, 23, 2, 0, 0),
             });
 
@@ -86,19 +86,19 @@ namespace Microsoft.Sarif.Viewer.ViewModels
             codeFlows1.Add(new Models.AnnotatedCodeLocationModel()
             {
                 Message = "Message A1",
-                FilePath = @"D:\GitHub\Jinu-NuGet.Services.Metadata\src\Ng\Catalog2Dnx.cs",
+                FilePath = @"D:\GitHub\NuGet.Services.Metadata\src\Ng\Catalog2Dnx.cs",
                 Region = new CodeAnalysis.Sarif.Region(11, 1, 11, 2, 0, 0),
             });
             codeFlows1.Add(new Models.AnnotatedCodeLocationModel()
             {
                 Message = "Message A2",
-                FilePath = @"D:\GitHub\Jinu-NuGet.Services.Metadata\src\Ng\Catalog2Dnx.cs",
+                FilePath = @"D:\GitHub\NuGet.Services.Metadata\src\Ng\Catalog2Dnx.cs",
                 Region = new CodeAnalysis.Sarif.Region(12, 1, 12, 2, 0, 0),
             });
             codeFlows1.Add(new Models.AnnotatedCodeLocationModel()
             {
                 Message = "Message A3",
-                FilePath = @"D:\GitHub\Jinu-NuGet.Services.Metadata\src\Ng\Catalog2Dnx.cs",
+                FilePath = @"D:\GitHub\NuGet.Services.Metadata\src\Ng\Catalog2Dnx.cs",
                 Region = new CodeAnalysis.Sarif.Region(13, 1, 13, 2, 0, 0),
             });
             viewModel.CodeFlows.Add(codeFlows1);
@@ -107,25 +107,25 @@ namespace Microsoft.Sarif.Viewer.ViewModels
             codeFlows2.Add(new Models.AnnotatedCodeLocationModel()
             {
                 Message = "Message B1",
-                FilePath = @"D:\GitHub\Jinu-NuGet.Services.Metadata\src\Ng\Catalog2Dnx.cs",
+                FilePath = @"D:\GitHub\NuGet.Services.Metadata\src\Ng\Catalog2Dnx.cs",
                 Region = new CodeAnalysis.Sarif.Region(11, 1, 11, 2, 0, 0),
             });
             codeFlows2.Add(new Models.AnnotatedCodeLocationModel()
             {
                 Message = "Message B2",
-                FilePath = @"D:\GitHub\Jinu-NuGet.Services.Metadata\src\Ng\Catalog2Dnx.cs",
+                FilePath = @"D:\GitHub\NuGet.Services.Metadata\src\Ng\Catalog2Dnx.cs",
                 Region = new CodeAnalysis.Sarif.Region(12, 1, 12, 2, 0, 0),
             });
             codeFlows2.Add(new Models.AnnotatedCodeLocationModel()
             {
                 Message = "Message B3",
-                FilePath = @"D:\GitHub\Jinu-NuGet.Services.Metadata\src\Ng\Catalog2Dnx.cs",
+                FilePath = @"D:\GitHub\NuGet.Services.Metadata\src\Ng\Catalog2Dnx.cs",
                 Region = new CodeAnalysis.Sarif.Region(13, 1, 13, 2, 0, 0),
             });
             codeFlows2.Add(new Models.AnnotatedCodeLocationModel()
             {
                 Message = "Message B4",
-                FilePath = @"D:\GitHub\Jinu-NuGet.Services.Metadata\src\Ng\Catalog2Dnx.cs",
+                FilePath = @"D:\GitHub\NuGet.Services.Metadata\src\Ng\Catalog2Dnx.cs",
                 Region = new CodeAnalysis.Sarif.Region(13, 1, 13, 2, 0, 0),
             });
             viewModel.CodeFlows.Add(codeFlows2);
@@ -134,7 +134,7 @@ namespace Microsoft.Sarif.Viewer.ViewModels
             stack1.Add(new StackFrameModel()
             {
                 Message = "Message A1.1",
-                FilePath = @"D:\GitHub\Jinu-NuGet.Services.Metadata\src\Ng\Catalog2Dnx.cs",
+                FilePath = @"D:\GitHub\NuGet.Services.Metadata\src\Ng\Catalog2Dnx.cs",
                 Line = 11,
                 Column = 1,
                 FullyQualifiedLogicalName ="My.Assembly.Main(string[] args)",
@@ -143,7 +143,7 @@ namespace Microsoft.Sarif.Viewer.ViewModels
             stack1.Add(new StackFrameModel()
             {
                 Message = "Message A1.2",
-                FilePath = @"D:\GitHub\Jinu-NuGet.Services.Metadata\src\Ng\Catalog2Dnx.cs",
+                FilePath = @"D:\GitHub\NuGet.Services.Metadata\src\Ng\Catalog2Dnx.cs",
                 Line = 12,
                 Column = 1,
                 FullyQualifiedLogicalName = "Our.Shared.Library.Method(int param)",
@@ -152,7 +152,7 @@ namespace Microsoft.Sarif.Viewer.ViewModels
             stack1.Add(new StackFrameModel()
             {
                 Message = "Message A1.3",
-                FilePath = @"D:\GitHub\Jinu-NuGet.Services.Metadata\src\Ng\Catalog2Dnx.cs",
+                FilePath = @"D:\GitHub\NuGet.Services.Metadata\src\Ng\Catalog2Dnx.cs",
                 Line = 1,
                 Column = 1,
                 FullyQualifiedLogicalName = "Your.PIA.External()",
@@ -161,7 +161,7 @@ namespace Microsoft.Sarif.Viewer.ViewModels
 
             FixModel fix1 = new FixModel("Replace *.Close() with *.Dispose().");
             FileChangeModel fileChange11 = new FileChangeModel();
-            fileChange11.FilePath = @"D:\GitHub\Jinu-NuGet.Services.Metadata\src\Ng\Catalog2Dnx.cs";
+            fileChange11.FilePath = @"D:\GitHub\NuGet.Services.Metadata\src\Ng\Catalog2Dnx.cs";
             fileChange11.Replacements.Add(new ReplacementModel()
             {
                 Offset = 1234,
