@@ -17,3 +17,9 @@ In addition to the object model, the SARIF SDK provides a set of helper classes 
 
 To learn how to accomplish common tasks with the SARIF SDK, such as reading and writing files from disk,
 see the [How To](https://github.com/Microsoft/sarif-sdk/blob/master/docs/how-to.md) page.
+
+## Code of conduct
+
+This project has adopted the [Microsoft Open Source Code of Conduct](https://opensource.microsoft.com/codeofconduct/).
+For more information, see the [Code of Conduct FAQ](https://opensource.microsoft.com/codeofconduct/faq/),
+or contact [opencode@microsoft.com](mailto:opencode@microsoft.com) with any additional questions or comments.
