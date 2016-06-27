@@ -51,7 +51,7 @@
             <Border Grid.Row="0">
                 <DockPanel>
                     <TextBlock DockPanel.Dock="Left"
-                               Text="Code:"
+                               Text="Defect Code :"
                                Margin="0 0 5 0" />
                     <controls:InternetHyperlink DockPanel.Dock="Left"
                                                 Text="{Binding Rule.Id}"
@@ -164,18 +164,10 @@
             </TabItem>
             <TabItem>
                 <TabItem.Header>
-                    <TextBlock Text="Rule" />
+                    <TextBlock Text="Info" />
                 </TabItem.Header>
 
-                <ContentControl ContentTemplate="{StaticResource RuleTemplate}"
-                                Content="{Binding}" />
-            </TabItem>
-            <TabItem>
-                <TabItem.Header>
-                    <TextBlock Text="Tool" />
-                </TabItem.Header>
-
-                <ContentControl ContentTemplate="{StaticResource ToolTemplate}"
+                <ContentControl ContentTemplate="{StaticResource InfoTemplate}"
                                 Content="{Binding}" />
             </TabItem>
         </TabControl>
