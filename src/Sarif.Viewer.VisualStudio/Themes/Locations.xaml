@@ -54,35 +54,30 @@
                                 <WrapPanel.ToolTip>
                                     <WrapPanel Orientation="Horizontal">
                                         <TextBlock>
-                                        <Run Text="{Binding FilePath, Mode=OneWay}" />
+                                            <Run Text="{Binding FilePath, Mode=OneWay}" />
                                         </TextBlock>
                                         <TextBlock Visibility="{Binding Region.StartLine, Converter={StaticResource int32ToVisibilityConverter}}">
-                                        <Run Text=" Line" />
-                                        <Run Text="{Binding Region.StartLine, Mode=OneWay}" />
+                                            <Run Text=" Line" />
+                                            <Run Text="{Binding Region.StartLine, Mode=OneWay}" />
                                         </TextBlock>
                                         <TextBlock Visibility="{Binding Region.StartColumn, Converter={StaticResource int32ToVisibilityConverter}}">
-                                        <Run Text=" Col" />
-                                        <Run Text="{Binding Region.StartColumn, Mode=OneWay}" />
+                                            <Run Text=" Col" />
+                                            <Run Text="{Binding Region.StartColumn, Mode=OneWay}" />
                                         </TextBlock>
                                     </WrapPanel>
                                 </WrapPanel.ToolTip>
                                 <TextBlock>
-                                <Run Text="{Binding FileName, Mode=OneWay}" />
+                                    <Run Text="{Binding FileName, Mode=OneWay}" />
                                 </TextBlock>
-                                <TextBlock Visibility="{Binding Region.StartLine, Converter={StaticResource int32ToVisibilityConverter}}">
-                                        <Run Text=" Line" />
-                                        <Run Text="{Binding Region.StartLine, Mode=OneWay}" />
-                                </TextBlock>
-                                <TextBlock Visibility="{Binding Region.StartColumn, Converter={StaticResource int32ToVisibilityConverter}}">
-                                        <Run Text=" Col" />
-                                        <Run Text="{Binding Region.StartColumn, Mode=OneWay}" />
+                                <TextBlock Visibility="{Binding Location, Converter={StaticResource stringToVisibilityConverter}}">
+                                    <Run Text=" " /><Run Text="{Binding Location, Mode=OneWay}" />
                                 </TextBlock>
                             </WrapPanel>
                         </DataTemplate>
                     </ListBox.ItemTemplate>
                 </ListBox>
             </DockPanel>
-            
+
             <DockPanel Grid.Row="1"
                        Visibility="{Binding RelatedLocations, Converter={StaticResource collectionToVisibilityConverter}}">
                 <DockPanel DockPanel.Dock="Top">
@@ -116,28 +111,23 @@
                                 <WrapPanel.ToolTip>
                                     <WrapPanel Orientation="Horizontal">
                                         <TextBlock>
-                                        <Run Text="{Binding FilePath, Mode=OneWay}" />
+                                            <Run Text="{Binding FilePath, Mode=OneWay}" />
                                         </TextBlock>
                                         <TextBlock Visibility="{Binding Region.StartLine, Converter={StaticResource int32ToVisibilityConverter}}">
-                                        <Run Text=" Line" />
-                                        <Run Text="{Binding Region.StartLine, Mode=OneWay}" />
+                                            <Run Text=" Line" />
+                                            <Run Text="{Binding Region.StartLine, Mode=OneWay}" />
                                         </TextBlock>
                                         <TextBlock Visibility="{Binding Region.StartColumn, Converter={StaticResource int32ToVisibilityConverter}}">
-                                        <Run Text=" Col" />
-                                        <Run Text="{Binding Region.StartColumn, Mode=OneWay}" />
+                                            <Run Text=" Col" />
+                                            <Run Text="{Binding Region.StartColumn, Mode=OneWay}" />
                                         </TextBlock>
                                     </WrapPanel>
                                 </WrapPanel.ToolTip>
                                 <TextBlock>
-                                <Run Text="{Binding FileName, Mode=OneWay}" />
+                                    <Run Text="{Binding FileName, Mode=OneWay}" />
                                 </TextBlock>
-                                <TextBlock Visibility="{Binding Region.StartLine, Converter={StaticResource int32ToVisibilityConverter}}">
-                                        <Run Text=" Line" />
-                                        <Run Text="{Binding Region.StartLine, Mode=OneWay}" />
-                                </TextBlock>
-                                <TextBlock Visibility="{Binding Region.StartColumn, Converter={StaticResource int32ToVisibilityConverter}}">
-                                        <Run Text=" Col" />
-                                        <Run Text="{Binding Region.StartColumn, Mode=OneWay}" />
+                                <TextBlock Visibility="{Binding Location, Converter={StaticResource stringToVisibilityConverter}}">
+                                    <Run Text=" " /><Run Text="{Binding Location, Mode=OneWay}" />
                                 </TextBlock>
                             </WrapPanel>
                         </DataTemplate>

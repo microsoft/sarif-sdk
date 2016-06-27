@@ -2,6 +2,10 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:local="clr-namespace:Microsoft.Sarif.Viewer.Themes">
 
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="pack://application:,,,/Microsoft.Sarif.Viewer;component/Themes/DefaultStyles.xaml" />
+    </ResourceDictionary.MergedDictionaries>
+
     <DataTemplate x:Key="AnnotatedCodeLocationCollectionDataGridTemplate">
         <ListBox ItemsSource="{Binding}"
                      SelectedItem="{Binding SelectedItem, Mode=TwoWay}">
@@ -19,30 +23,54 @@
             </ListBox.ItemContainerStyle>
             <ListBox.ItemTemplate>
                 <DataTemplate>
-                    <Expander Header="{Binding Message}"
-                                  IsExpanded="True">
-                        <Border BorderThickness="1"
+                    <Border BorderThickness="1"
                                     BorderBrush="LightGray">
-                            <DataGrid Margin="2"
-                                          ItemsSource="{Binding}"
-                                          AutoGenerateColumns="False"
-                                          SelectedItem="{Binding SelectedItem, Mode=TwoWay}"
-                                          IsReadOnly="True">
+                        <DockPanel>
+                            <TextBlock DockPanel.Dock="Top" 
+                                           Style="{StaticResource PanelHeader}"
+                                           Text="{Binding Message}" />
+                            <DataGrid DockPanel.Dock="Top"
+                                      Margin="2"
+                                      ItemsSource="{Binding}"
+                                      AutoGenerateColumns="False"
+                                      SelectedItem="{Binding SelectedItem, Mode=TwoWay}"
+                                      IsReadOnly="True"
+                                      CanUserSortColumns="False">
                                 <DataGrid.Columns>
                                     <DataGridTextColumn Header="Message"
                                                             Binding="{Binding Message}" />
-                                    <DataGridTemplateColumn Header="Name"
+                                    <DataGridTemplateColumn Header="Location"
                                                                 Width="Auto">
                                         <DataGridTemplateColumn.CellTemplate>
                                             <DataTemplate>
-                                                <TextBlock>
-                                                    <TextBlock.InputBindings>
+                                                <WrapPanel>
+                                                    <WrapPanel.InputBindings>
                                                         <MouseBinding Gesture="LeftClick"
-                                                                          Command="{Binding DataContext.SelectedCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ListView}}}"
-                                                                          CommandParameter="{Binding}" />
-                                                    </TextBlock.InputBindings>
-                                                        <Run Text="{Binding FilePath, Mode=OneWay}" /> Line <Run Text="{Binding Region.StartLine, Mode=OneWay}" />
-                                                </TextBlock>
+                                                                      Command="{Binding DataContext.SelectedCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ListView}}}"
+                                                                      CommandParameter="{Binding}" />
+                                                    </WrapPanel.InputBindings>
+                                                    <WrapPanel.ToolTip>
+                                                        <WrapPanel Orientation="Horizontal">
+                                                            <TextBlock>
+                                                                <Run Text="{Binding FilePath, Mode=OneWay}" />
+                                                            </TextBlock>
+                                                            <TextBlock Visibility="{Binding Region.StartLine, Converter={StaticResource int32ToVisibilityConverter}}">
+                                                                <Run Text=" Line" />
+                                                                <Run Text="{Binding Region.StartLine, Mode=OneWay}" />
+                                                            </TextBlock>
+                                                            <TextBlock Visibility="{Binding Region.StartColumn, Converter={StaticResource int32ToVisibilityConverter}}">
+                                                                <Run Text=" Col" />
+                                                                <Run Text="{Binding Region.StartColumn, Mode=OneWay}" />
+                                                            </TextBlock>
+                                                        </WrapPanel>
+                                                    </WrapPanel.ToolTip>
+                                                    <TextBlock>
+                                                        <Run Text="{Binding FileName, Mode=OneWay}" />
+                                                    </TextBlock>
+                                                    <TextBlock Visibility="{Binding Location, Converter={StaticResource stringToVisibilityConverter}}">
+                                                        <Run Text=" " /><Run Text="{Binding Location, Mode=OneWay}" />
+                                                    </TextBlock>
+                                                </WrapPanel>
                                             </DataTemplate>
                                         </DataGridTemplateColumn.CellTemplate>
                                     </DataGridTemplateColumn>
@@ -59,8 +87,8 @@
                                     </Style>
                                 </DataGrid.RowStyle>
                             </DataGrid>
-                        </Border>
-                    </Expander>
+                        </DockPanel>
+                    </Border>
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
