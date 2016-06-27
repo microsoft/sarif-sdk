@@ -29,7 +29,7 @@
                 </DockPanel>
                 <ListBox DockPanel.Dock="Top" 
                      ItemsSource="{Binding Locations}"
-                     SelectedItem="{Binding SelectedItem, Mode=TwoWay}">
+                     SelectedItem="{Binding Locations.SelectedItem, Mode=TwoWay}">
                     <ListBox.ItemsPanel>
                         <ItemsPanelTemplate>
                             <DockPanel IsItemsHost="True" LastChildFill="False"/>
@@ -86,7 +86,7 @@
                 </DockPanel>
                 <ListBox DockPanel.Dock="Top"
                      ItemsSource="{Binding RelatedLocations}"
-                     SelectedItem="{Binding SelectedItem, Mode=TwoWay}">
+                     SelectedItem="{Binding RelatedLocations.SelectedItem, Mode=TwoWay}">
                     <ListBox.ItemsPanel>
                         <ItemsPanelTemplate>
                             <DockPanel IsItemsHost="True" LastChildFill="False"/>
