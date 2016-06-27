@@ -102,6 +102,17 @@
         <!-- These are the tabs which display the result information. -->
         <TabControl Grid.Row="1"
                     SelectedValue="{Binding SelectedTab, Mode=TwoWay}">
+            <TabItem>
+                <TabItem.Header>
+                    <TextBlock>
+                        <Run Text="Locations (" />
+                        <Run Text="{Binding LocationsCount, Mode=OneWay}" />
+                        <Run Text=")" />
+                    </TextBlock>
+                </TabItem.Header>
+                <ContentControl ContentTemplate="{StaticResource CodeLocationCollectionTemplate}"
+                                Content="{Binding}" />
+            </TabItem>
             <TabItem Visibility="{Binding CodeFlows, Converter={StaticResource collectionToVisibilityConverter}}">
                 <TabItem.Header>
                     <TextBlock>
@@ -150,17 +161,6 @@
 
                 <ContentControl ContentTemplate="{StaticResource FixCollectionTemplate}"
                                 Content="{Binding Fixes}" />
-            </TabItem>
-            <TabItem Visibility="{Binding HasMultipleLocations, Converter={StaticResource booleanToVisiblityConverter}}">
-                <TabItem.Header>
-                    <TextBlock>
-                        <Run Text="Locations (" />
-                        <Run Text="{Binding LocationsCount, Mode=OneWay}" />
-                        <Run Text=")" />
-                    </TextBlock>
-                </TabItem.Header>
-                <ContentControl ContentTemplate="{StaticResource CodeLocationCollectionTemplate}"
-                                Content="{Binding}" />
             </TabItem>
             <TabItem>
                 <TabItem.Header>
