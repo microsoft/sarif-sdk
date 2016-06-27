@@ -13,33 +13,7 @@ Note: The SARIF SDK's build process automatically generates the SARIF object mod
 
 In addition to the object model, the SARIF SDK provides a set of helper classes to facilitate using Newtonsoft.Json to read and write SARIF log files.
 
-## Reading and writing SARIF log files
+## Accomplishing common tasks
 
-Whenever you read or write a SARIF log file, use the `SarifContractResolver` class to format elements such as URIs and dates according to the SARIF standard.
-
-Example: Read a SARIF log file
-
-```C#
-JsonSerializerSettings settings = new JsonSerializerSettings()
-{
-    ContractResolver = SarifContractResolver.Instance
-};
-
-string sarifText = File.ReadAllText(sarifLogPath);
-SarifLog log = JsonConvert.DeserializeObject<SarifLog>(sarifText, settings);
-```
-
-Example: Write a SARIF log to disk 
-
-```C#
-JsonSerializerSettings settings = new JsonSerializerSettings()
-{
-    ContractResolver = SarifContractResolver.Instance,
-    Formatting = Formatting.Indented
-};
-
-SarifLog log;
-...
-sarifText = JsonConvert.SerializeObject(log, settings);
-File.WriteAllText(outputFilePath, sarifText);
-```
+To learn how to accomplish common tasks with the SARIF SDK, such as reading and writing files from disk,
+see the [How To](https://github.com/Microsoft/sarif-sdk/blob/master/docs/how-to.md) page.
