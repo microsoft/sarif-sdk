@@ -3,6 +3,7 @@
                     xmlns:local="clr-namespace:Microsoft.Sarif.Viewer.Themes"
                     xmlns:converters="clr-namespace:Microsoft.Sarif.Viewer.Converters"
                     xmlns:controls="clr-namespace:Microsoft.Sarif.Viewer.Controls">
+    
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="pack://application:,,,/Microsoft.Sarif.Viewer;component/Themes/DefaultStyles.xaml" />
     </ResourceDictionary.MergedDictionaries>
@@ -14,18 +15,6 @@
     <DataTemplate x:Key="InfoTemplate">
         <Grid>
             <Grid.RowDefinitions>
-                <RowDefinition />
-                <RowDefinition />
-                <RowDefinition />
-                <RowDefinition />
-                <RowDefinition />
-                <RowDefinition />
-                <RowDefinition />
-                <RowDefinition />
-                <RowDefinition />
-                <RowDefinition />
-                <RowDefinition />
-                <RowDefinition />
                 <RowDefinition />
                 <RowDefinition />
                 <RowDefinition />
@@ -52,7 +41,8 @@
                            FontWeight="Bold" 
                            Style="{StaticResource PropertyKey}" />
             <TextBlock Grid.Row="1"
-                           Grid.Column="0" Style="{StaticResource PropertyKey}">Defect Code :</TextBlock>
+                           Grid.Column="0" 
+                           Style="{StaticResource PropertyKey}">Defect Code :</TextBlock>
             <controls:InternetHyperlink Grid.Row="1"
                            Grid.Column="1"
                            Text="{Binding Rule.Id}"
