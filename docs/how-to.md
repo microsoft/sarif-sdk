@@ -1,6 +1,10 @@
 # How to accomplish common tasks with the SARIF SDK
 
 [Write a SARIF log file to disk](#write-a-SARIF-log-file-to-disk)
+[Read a SARIF log file from disk](#read-a-SARIF-log-file-from-disk)
+[Format a result message](#format-a-result-message)
+[Add a property to an object's property bag](#add a-property-to-an-objects-property-bag)
+[Retrieve a property to an object's property bag](#retrieve-a-property-from-an-objects-property-bag)
 
 ## Write a SARIF log file to disk
 
@@ -41,7 +45,7 @@ string resultMessage = result.GetMessageText(result, rule);
 
 ```
 
-## Add a property to an object's "property bag".
+## Add a property to an object's "property bag"
 
 ```C#
 // You can do this for any object that has a property bag (that is,
