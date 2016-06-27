@@ -16,6 +16,8 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// </summary>
     public abstract class PropertyBagHolder : IPropertyBagHolder
     {
+        private const string NullValue = "null";
+
         protected PropertyBagHolder()
         {
             Tags = new TagsCollection(this);
@@ -67,8 +69,10 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             string value = Properties[propertyName].SerializedValue;
 
-            // Remove the quotes around the serialized value ("x" => x).
-            return value.Substring(1, value.Length - 2);
+            // Remove the quotes around the serialized value ("x" => x) -- unless it's null.
+            return value.Equals(NullValue, StringComparison.Ordinal)
+                ? null
+                : value.Substring(1, value.Length - 2);
         }
 
         public bool TryGetProperty<T>(string propertyName, out T value)
@@ -111,9 +115,17 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             bool isString = typeof(T) == typeof(string);
 
-            string serializedValue = isString
-                ? '"' + value.ToString() + '"'
-                : JsonConvert.SerializeObject(value);
+            string serializedValue;
+            if (value == null)
+            {
+                serializedValue = NullValue;
+            }
+            else
+            {
+                serializedValue = isString
+                    ? '"' + value.ToString() + '"'
+                    : JsonConvert.SerializeObject(value);
+            }
              
             Properties[propertyName] = new SerializedPropertyInfo(serializedValue, isString);
         }
