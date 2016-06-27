@@ -8,6 +8,8 @@
 
 ## Write a SARIF log file to disk
 
+Whenever you read or write a SARIF log file, use the `SarifContractResolver` class to format elements such as URIs and dates according to the SARIF standard.
+
 ```C#
 JsonSerializerSettings settings = new JsonSerializerSettings()
 {
@@ -22,6 +24,8 @@ File.WriteAllText(outputFilePath, sarifText);
 ```
 
 ## Read a SARIF log file from disk
+
+Whenever you read or write a SARIF log file, use the `SarifContractResolver` class to format elements such as URIs and dates according to the SARIF standard.
 
 ```C#
 string logContents = File.ReadAllText(logFilePath);
