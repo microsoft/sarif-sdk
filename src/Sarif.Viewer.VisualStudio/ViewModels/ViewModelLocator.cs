@@ -45,6 +45,14 @@ namespace Microsoft.Sarif.Viewer.ViewModels
             SarifErrorListItem viewModel = new SarifErrorListItem();
             viewModel.Message = "Potential mismatch between sizeof and countof quantities. Use sizeof() to scale byte sizes.";
 
+            viewModel.Tool = new ToolModel()
+            {
+                Name = "FxCop",
+                Version = "1.0.0.0",
+                Description = "FxCop Tool",
+                HelpUri = "http://aka.ms/analysis/ca1824"
+            };
+
             viewModel.Rule = new RuleModel()
             {
                 Id = "CA1823",
