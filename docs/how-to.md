@@ -1,5 +1,7 @@
 # How to accomplish common tasks with the SARIF SDK
 
+[Write a SARIF log file to disk](#write-a-SARIF-log-file-to-disk)
+
 ## Write a SARIF log file to disk
 
 ```C#
