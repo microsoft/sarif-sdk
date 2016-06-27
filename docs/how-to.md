@@ -51,8 +51,8 @@ string resultMessage = result.GetMessageText(result, rule);
 
 ## Add a property to an object's "property bag"
 
-You can do this for any object that has a property bag (that is, for any instance of a class derived from PropertyBagHolder),
-such as Run, Result, Location, Rule, etc.
+You can do this for any object that has a property bag (that is, for any instance of a class derived from `PropertyBagHolder`),
+such as `Run`, `Result`, `Location`, `Rule`, _etc._
 
 ```C#
 Result result = ... ;
@@ -74,8 +74,8 @@ result.SetProperty<string>("category", null);
 
 ## Retrieve a property from an object's "property bag"
 
-You can do this for any object that has a property bag (that is, for any instance of a class derived from PropertyBagHolder),
-such as Run, Result, Location, Rule, etc.
+You can do this for any object that has a property bag (that is, for any instance of a class derived from `PropertyBagHolder`),
+such as `Run`, `Result`, `Location`, `Rule`, _etc._
 
 ```C#
 Result result = ... ;
