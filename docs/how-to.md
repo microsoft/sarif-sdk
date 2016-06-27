@@ -1,33 +1,31 @@
 # How to accomplish common tasks with the SARIF SDK
 
-## Read a SARIF log file
+## Write a SARIF log file to disk
 
 ```C#
-using System.IO;
-using Microsoft.CodeAnalysis.Sarif;
-using Microsoft.CodeAnalysis.Sarif.Readers;
-using Newtonsoft.Json
-
-// ...
-
-public SarifLog ReadLogFile(string logFilePath)
+JsonSerializerSettings settings = new JsonSerializerSettings()
 {
-    if (logFilePath == null)
-    {
-        throw new ArgumentNullException(nameof(logFilePath));
-    }
-    
-    string logContents = File.ReadAllText(logFilePath);
+    ContractResolver = SarifContractResolver.Instance,
+    Formatting = Formatting.Indented
+};
 
-    var settings = new JsonSerializerSettings()
-    {
-        ContractResolver = SarifContractResolver.Instance
-    };
+SarifLog log = ... ;
 
-    SarifLog log = JsonConvert.DeserializeObject<SarifLog>(logContents, settings);
-    return log;
-}
+sarifText = JsonConvert.SerializeObject(log, settings);
+File.WriteAllText(outputFilePath, sarifText);
+```
 
+## Read a SARIF log file from disk
+
+```C#
+string logContents = File.ReadAllText(logFilePath);
+
+var settings = new JsonSerializerSettings()
+{
+    ContractResolver = SarifContractResolver.Instance
+};
+
+SarifLog log = JsonConvert.DeserializeObject<SarifLog>(logContents, settings);
 ```
 
 ## Format a result message
