@@ -40,3 +40,26 @@ IRule rule = ...
 string resultMessage = result.GetMessageText(result, rule);
 
 ```
+
+## Add a property to an object's "property bag".
+
+```C#
+// You can do this for any object that has a property bag (that is,
+// for any instance of a class derived from PropertyBagHolder), such
+// as Run, Result, Location, Rule, etc.
+Result result = ... ;
+
+// Add a string-valued property:
+result.SetProperty("category", "security");
+
+// Add an integer-valued property:
+result.SetProperty("occurrences", 42);
+
+// Add a property of arbitrary type:
+MyClass myObject = new MyClass(54, "stuff", "otherStuff");
+result.SetProperty("myclass", myObject);
+
+// Add a property with a null value (but then you have to specify
+// the type:
+result.SetProperty<string>("category", null);
+```
