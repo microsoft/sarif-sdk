@@ -50,7 +50,7 @@
             </Grid.ColumnDefinitions>
             <Border Grid.Row="0">
                 <WrapPanel Orientation="Horizontal">
-                    <TextBlock Text="Code:"
+                    <TextBlock Text="Defect Code:"
                                Margin="0 0 5 0" />
                     <controls:InternetHyperlink Text="{Binding Rule.Id}"
                                                 NavigateUri="{Binding Rule.HelpUri}"
@@ -156,18 +156,10 @@
             </TabItem>
             <TabItem>
                 <TabItem.Header>
-                    <TextBlock Text="Rule" />
+                    <TextBlock Text="Info" />
                 </TabItem.Header>
 
-                <ContentControl ContentTemplate="{StaticResource RuleTemplate}"
-                                Content="{Binding}" />
-            </TabItem>
-            <TabItem>
-                <TabItem.Header>
-                    <TextBlock Text="Tool" />
-                </TabItem.Header>
-
-                <ContentControl ContentTemplate="{StaticResource ToolTemplate}"
+                <ContentControl ContentTemplate="{StaticResource InfoTemplate}"
                                 Content="{Binding}" />
             </TabItem>
         </TabControl>
