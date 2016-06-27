@@ -131,7 +131,7 @@ namespace Microsoft.Sarif.Viewer.ErrorList
                 else if (columnName == StandardTableKeyNames.DetailsExpander)
                 {
                     var error = _errors[index];
-                    content = !string.IsNullOrEmpty(error.Message);
+                    content = (error.Message == error.ShortMessage) ? null : String.Empty;
                 }
             }
 
@@ -195,7 +195,7 @@ namespace Microsoft.Sarif.Viewer.ErrorList
         {
             var error = _errors[index];
 
-            return (!string.IsNullOrEmpty(error.Message));
+            return error.Message != error.ShortMessage;
         }
 
         public bool TryCreateDetailsContent(int index, out FrameworkElement expandedContent)
@@ -205,6 +205,11 @@ namespace Microsoft.Sarif.Viewer.ErrorList
             expandedContent = null;
 
             if (string.IsNullOrWhiteSpace(error.Message))
+            {
+                return false;
+            }
+
+            if (error.Message == error.ShortMessage)
             {
                 return false;
             }
