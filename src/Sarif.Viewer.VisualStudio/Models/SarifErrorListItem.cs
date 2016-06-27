@@ -221,6 +221,22 @@ namespace Microsoft.Sarif.Viewer
             }
         }
 
+        public int LocationsCount
+        {
+            get
+            {
+                return this.Locations.Count + this.RelatedLocations.Count;
+            }
+        }
+
+        public bool HasMultipleLocations
+        {
+            get
+            {
+                return this.LocationsCount > 1;
+            }
+        }
+
         internal void RemoveMarkers()
         {
             LineMarker.RemoveMarker();

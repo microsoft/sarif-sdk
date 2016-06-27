@@ -1,0 +1,157 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:Microsoft.Sarif.Viewer.Themes"
+                    xmlns:converters="clr-namespace:Microsoft.Sarif.Viewer.Converters"
+                    xmlns:controls="clr-namespace:Microsoft.Sarif.Viewer.Controls">
+
+    <!-- Converters -->
+    <converters:StringToVisibilityConverter x:Key="stringToVisibilityConverter" />
+
+    <!-- Rule Template - Displays info about the rule for the result. -->
+    <DataTemplate x:Key="RuleTemplate">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <TextBlock Grid.Row="0"
+                           Grid.Column="0"
+                           Grid.ColumnSpan="2"
+                           Text="{Binding Rule.Name, Mode=OneTime}"
+                           FontWeight="Bold" />
+            <TextBlock Grid.Row="1"
+                           Grid.Column="0">Id :</TextBlock>
+            <controls:InternetHyperlink Grid.Row="1"
+                           Grid.Column="1"
+                           Text="{Binding Rule.Id}"
+                           NavigateUri="{Binding Rule.HelpUri}" />
+            <TextBlock Grid.Row="2"
+                           Grid.Column="0"
+                           Visibility="{Binding Rule.Version, Converter={StaticResource stringToVisibilityConverter}}"
+                           Text="Version : " />
+            <TextBlock Grid.Row="2"
+                           Grid.Column="1"
+                           Visibility="{Binding Rule.Version, Converter={StaticResource stringToVisibilityConverter}}"
+                           Text="{Binding Rule.Version}" />
+            <TextBlock Grid.Row="3"
+                           Grid.Column="0"
+                           Visibility="{Binding Rule.Category, Converter={StaticResource stringToVisibilityConverter}}"
+                           Text="Category : " />
+            <TextBlock Grid.Row="3"
+                           Grid.Column="1"
+                           Visibility="{Binding Rule.Category, Converter={StaticResource stringToVisibilityConverter}}"
+                           Text="{Binding Rule.Category}" />
+            <TextBlock Grid.Row="4"
+                           Grid.Column="0"
+                           Visibility="{Binding Rule.Severity, Converter={StaticResource stringToVisibilityConverter}}"
+                           Text="Severity : " />
+            <TextBlock Grid.Row="4"
+                           Grid.Column="1"
+                           Visibility="{Binding Rule.Severity, Converter={StaticResource stringToVisibilityConverter}}"
+                           Text="{Binding Rule.Severity}" />
+            <TextBlock Grid.Row="5"
+                           Grid.Column="0"
+                           Visibility="{Binding Rule.OwnerName, Converter={StaticResource stringToVisibilityConverter}}"
+                           Text="Owner : " />
+            <TextBlock Grid.Row="5"
+                           Grid.Column="1"
+                           Visibility="{Binding Rule.OwnerName, Converter={StaticResource stringToVisibilityConverter}}"
+                           Text="{Binding Rule.OwnerName}" />
+            <TextBlock Grid.Row="6"
+                           Grid.Column="0"
+                           Visibility="{Binding Rule.HelpUri, Converter={StaticResource stringToVisibilityConverter}}"
+                           Text="Help : " />
+            <controls:InternetHyperlink Grid.Row="6"
+                           Grid.Column="1"
+                           Text="{Binding Rule.HelpUri}"
+                           NavigateUri="{Binding Rule.HelpUri}" />
+            <TextBlock Grid.Row="7"
+                           Grid.Column="0"
+                           Visibility="{Binding Rule.FeedbackUri, Converter={StaticResource stringToVisibilityConverter}}"
+                           Text="Feedback : " />
+            <TextBlock Grid.Row="8"
+                           Grid.Column="1"
+                           Visibility="{Binding Rule.FeedbackUri, Converter={StaticResource stringToVisibilityConverter}}"
+                           Text="{Binding Rule.FeedbackUri}" />
+            <TextBlock Grid.Row="8"
+                           Grid.Column="0"
+                           Grid.ColumnSpan="2"
+                           Visibility="{Binding Rule.Description, Converter={StaticResource stringToVisibilityConverter}}"
+                           Text="{Binding Rule.Description}"
+                           TextWrapping="Wrap"
+                           Margin="0 20 0 0" />
+        </Grid>
+    </DataTemplate>
+
+    <!-- Tool Template - Displays info about the tool which raised the result. -->
+    <DataTemplate x:Key="ToolTemplate">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <TextBlock Grid.Row="0"
+                           Grid.Column="0"
+                           Grid.ColumnSpan="2"
+                           Text="{Binding Tool.Name, Mode=OneTime}"
+                           FontWeight="Bold" />
+            <TextBlock Grid.Row="1"
+                           Grid.Column="0"
+                           Text="Version : " />
+            <TextBlock Grid.Row="1"
+                           Grid.Column="1"
+                           Text="{Binding Tool.Version}" />
+            <TextBlock Grid.Row="2"
+                           Grid.Column="0"
+                           Visibility="{Binding Tool.OwnerName, Converter={StaticResource stringToVisibilityConverter}}"
+                           Text="Owner : " />
+            <TextBlock Grid.Row="2"
+                           Grid.Column="1"
+                           Visibility="{Binding Tool.OwnerName, Converter={StaticResource stringToVisibilityConverter}}"
+                           Text="{Binding Tool.OwnerName}" />
+            <TextBlock Grid.Row="3"
+                           Grid.Column="0"
+                           Visibility="{Binding Tool.HelpUri, Converter={StaticResource stringToVisibilityConverter}}"
+                           Text="Help : " />
+            <TextBlock Grid.Row="3"
+                           Grid.Column="1"
+                           Visibility="{Binding Tool.HelpUri, Converter={StaticResource stringToVisibilityConverter}}"
+                           Text="{Binding Tool.HelpUri}" />
+            <TextBlock Grid.Row="4"
+                           Grid.Column="0"
+                           Visibility="{Binding Tool.FeedbackUri, Converter={StaticResource stringToVisibilityConverter}}"
+                           Text="Feedback : " />
+            <TextBlock Grid.Row="4"
+                           Grid.Column="1"
+                           Visibility="{Binding Tool.FeedbackUri, Converter={StaticResource stringToVisibilityConverter}}"
+                           Text="{Binding Tool.FeedbackUri}" />
+            <TextBlock Grid.Row="5"
+                           Grid.Column="0"
+                           Grid.ColumnSpan="2"
+                           Visibility="{Binding Tool.Description, Converter={StaticResource stringToVisibilityConverter}}"
+                           Text="{Binding Tool.Description}"
+                           TextWrapping="Wrap"
+                           Margin="0 20 0 0" />
+        </Grid>
+    </DataTemplate>
+
+</ResourceDictionary>

@@ -1,0 +1,43 @@
+﻿<UserControl x:Class="Microsoft.Sarif.Viewer.Controls.InternetHyperlink"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Microsoft.Sarif.Viewer.Controls"
+             xmlns:shell="clr-namespace:Microsoft.VisualStudio.Shell;assembly=Microsoft.VisualStudio.Shell.14.0"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300">
+    <UserControl.Resources>
+        <Style TargetType="Hyperlink"
+               x:Key="RuleHyperlinkStyle">
+            <!-- Style when hyperlink is enabled. -->
+            <Setter Property="TextDecorations"
+                    Value="None" />
+            <Setter Property="Foreground"
+                    Value="{DynamicResource {x:Static shell:VsBrushes.AccentDarkKey}}" />
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver"
+                         Value="True">
+                    <Setter Property="TextDecorations"
+                            Value="underline" />
+                </Trigger>
+                <DataTrigger Binding="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}, Path=NavigateUri}" Value="{x:Null}">
+                    <!-- Style when hyperlink is disabled. -->
+                    <Setter Property="Foreground"
+                        Value="{DynamicResource {x:Static shell:VsBrushes.WindowTextKey}}" />
+                    <Setter Property="TextBlock.TextDecorations" Value="{x:Null}" />
+                    <Setter Property="IsEnabled" Value="False" />
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+    </UserControl.Resources>
+    <Grid>
+        <TextBlock>
+            <Hyperlink NavigateUri="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}, Path=NavigateUri}" 
+                       Style="{StaticResource RuleHyperlinkStyle}" 
+                       RequestNavigate="Hyperlink_RequestNavigate">
+                <Run Text="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}, Path=Text}" />
+            </Hyperlink>
+        </TextBlock>
+    </Grid>
+</UserControl>

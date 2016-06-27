@@ -9,405 +9,30 @@
              xmlns:models="clr-namespace:Microsoft.Sarif.Viewer.Models"
              xmlns:viewModels="clr-namespace:Microsoft.Sarif.Viewer.ViewModels"
              xmlns:converters="clr-namespace:Microsoft.Sarif.Viewer.Converters"
+             xmlns:controls="clr-namespace:Microsoft.Sarif.Viewer.Controls"
              mc:Ignorable="d"
              d:DesignHeight="300"
              d:DesignWidth="300"
-             d:DataContext="{x:Static viewModels:ViewModelLocator.DesignTime}">
+             d:DataContext="{x:Static viewModels:ViewModelLocator.DesignTime}"
+             Background="{DynamicResource {x:Static SystemColors.ControlLightLightBrushKey}}">
     <UserControl.Resources>
 
-        <!-- BUGBUG: Could not get the resources to load from a ResourceDictionary without using the pack format. -->
-
-        <!-- Converters -->
-        <converters:DatabindingDebugConverter x:Key="databindingDebugConverter" />
-        <converters:StringToVisibilityConverter x:Key="stringToVisibilityConverter" />
-        <converters:Int32ToVisibilityConverter x:Key="int32ToVisibilityConverter" />
-        <converters:CollectionToCountConverter x:Key="collectionToCountConverter" />
-        <converters:CollectionToVisiblityConverter x:Key="collectionToVisibilityConverter" />
-
-        <!-- Default Styles-->
-        <Style TargetType="{x:Type Control}"
-               x:Key="baseStyle">
-            <Setter Property="FontFamily"
-                    Value="Segoe UI" />
-            <Setter Property="FontSize"
-                    Value="11.5" />
-        </Style>
-        <Style TargetType="{x:Type Button}"
-               BasedOn="{StaticResource baseStyle}"></Style>
-        <Style TargetType="{x:Type Label}"
-               BasedOn="{StaticResource baseStyle}"></Style>
-        <Style TargetType="{x:Type TextBox}"
-               BasedOn="{StaticResource baseStyle}"></Style>
-        <Style TargetType="{x:Type ListView}"
-               BasedOn="{StaticResource baseStyle}"></Style>
-
-        <Style TargetType="TextBlock">
-            <Setter Property="FontSize"
-                    Value="11.5" />
-        </Style>
-
-        <!-- Custom Styles -->
-        <Style x:Key="CodeLocationsStyle"
-               TargetType="{x:Type GroupItem}">
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="{x:Type GroupItem}">
-                        <Expander Margin="15,0,0,0">
-                            <Expander.Header>
-                                <TextBlock Text="{Binding Name}"
-                                           TextBlock.FontFamily="Courier" />
-                            </Expander.Header>
-                            <ItemsPresenter />
-                        </Expander>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
-
-        <Style TargetType="Hyperlink"
-               x:Key="HyperlinkStyle">
-            <Setter Property="TextDecorations"
-                    Value="None" />
-            <Setter Property="Foreground"
-                    Value="{DynamicResource {x:Static shell:VsBrushes.FileTabSelectedBackgroundKey}}" />
-            <Style.Triggers>
-                <Trigger Property="IsMouseOver"
-                         Value="True">
-                    <Setter Property="TextDecorations"
-                            Value="underline" />
-                </Trigger>
-            </Style.Triggers>
-        </Style>
-
-        <Style TargetType="Hyperlink"
-               x:Key="HyperlinkStyleSelected"
-               BasedOn="{StaticResource HyperlinkStyle}">
-            <Setter Property="Foreground"
-                    Value="{DynamicResource {x:Static shell:VsBrushes.AccentDarkKey}}" />
-        </Style>
-
-        <!-- Control Templates-->
-
-        <!-- Code Flows Template -->
-        <DataTemplate x:Key="AnnotatedCodeLocationCollectionDataGridTemplate">
-            <ListBox ItemsSource="{Binding}"
-                     SelectedItem="{Binding SelectedItem, Mode=TwoWay}">
-                <ListBox.ItemTemplate>
-                    <DataTemplate>
-                        <Expander Header="{Binding Message}"
-                                  IsExpanded="True">
-                            <Border BorderThickness="1"
-                                    BorderBrush="LightGray">
-                                <DataGrid Margin="2"
-                                          ItemsSource="{Binding}"
-                                          AutoGenerateColumns="False"
-                                          SelectedItem="{Binding SelectedItem, Mode=TwoWay}"
-                                          IsReadOnly="True">
-                                    <DataGrid.Columns>
-                                        <DataGridTextColumn Header="Message"
-                                                            Binding="{Binding Message}" />
-                                        <DataGridTemplateColumn Header="Name"
-                                                                Width="Auto">
-                                            <DataGridTemplateColumn.CellTemplate>
-                                                <DataTemplate>
-                                                    <TextBlock>
-                                                        <TextBlock.InputBindings>
-                                                            <MouseBinding Gesture="LeftClick"
-                                                                          Command="{Binding DataContext.SelectedCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ListView}}}"
-                                                                          CommandParameter="{Binding}" />
-                                                        </TextBlock.InputBindings>
-                                                        <Run Text="{Binding FilePath, Mode=OneWay}" /> Line <Run Text="{Binding Region.StartLine, Mode=OneWay}" />
-                                                    </TextBlock>
-                                                </DataTemplate>
-                                            </DataGridTemplateColumn.CellTemplate>
-                                        </DataGridTemplateColumn>
-                                    </DataGrid.Columns>
-                                    <DataGrid.RowStyle>
-                                        <Style TargetType="DataGridRow">
-                                            <Style.Triggers>
-                                                <DataTrigger Binding="{Binding IsEssential}"
-                                                             Value="true">
-                                                    <Setter Property="Background"
-                                                            Value="LightPink" />
-                                                </DataTrigger>
-                                            </Style.Triggers>
-                                        </Style>
-                                    </DataGrid.RowStyle>
-                                </DataGrid>
-                            </Border>
-                        </Expander>
-                    </DataTemplate>
-                </ListBox.ItemTemplate>
-            </ListBox>
-        </DataTemplate>
-
-
-        <!-- Location and Related Location Template -->
-        <DataTemplate x:Key="CodeLocationCollectionTemplate">
-            <ListBox ItemsSource="{Binding}"
-                     SelectedItem="{Binding SelectedItem, Mode=TwoWay}">
-                <ListBox.ItemTemplate>
-                    <DataTemplate>
-                        <WrapPanel Orientation="Horizontal">
-                            <WrapPanel.InputBindings>
-                                <MouseBinding Gesture="LeftClick"
-                                              Command="{Binding DataContext.SelectedCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ListBox}}}"
-                                              CommandParameter="{Binding}" />
-                            </WrapPanel.InputBindings>
-                            <TextBlock>
-                                <Run Text="{Binding FilePath, Mode=OneWay}" /> 
-                                <Run Text="Line " />
-                                <Run Text="{Binding Region.StartLine, Mode=OneWay}" />
-                            </TextBlock>
-                            <TextBlock Visibility="{Binding Region.StartColumn, Converter={StaticResource int32ToVisibilityConverter}}">
-                                <Run Text=" Col " />
-                                <Run Text="{Binding Region.StartColumn, Mode=OneWay}" />
-                            </TextBlock>
-                        </WrapPanel>
-                    </DataTemplate>
-                </ListBox.ItemTemplate>
-            </ListBox>
-        </DataTemplate>
-
-        <!-- Stacks Template -->
-        <DataTemplate x:Key="StackCollectionTemplate">
-            <Expander Header="{Binding Message}"
-                      IsExpanded="True"
-                      Width="Auto">
-                <Border BorderThickness="1"
-                        BorderBrush="LightGray">
-                    <ListView Margin="2"
-                              ItemsSource="{Binding}"
-                              BorderThickness="0"
-                              Height="Auto"
-                              HorizontalAlignment="Stretch"
-                              ScrollViewer.CanContentScroll="False"
-                              ScrollViewer.HorizontalScrollBarVisibility="Disabled"
-                              ScrollViewer.VerticalScrollBarVisibility="Disabled"
-                              SelectedItem="{Binding SelectedItem, Mode=TwoWay}">
-                        <ListView.View>
-                            <GridView>
-                                <GridViewColumn DisplayMemberBinding="{Binding Message}"
-                                                Header="Message"
-                                                Width="Auto" />
-                                <GridViewColumn Header="Name">
-                                    <GridViewColumn.CellTemplate>
-                                        <DataTemplate>
-                                            <TextBlock>
-                                                <InlineUIContainer>
-                                                    <TextBlock Visibility="{Binding Module, Converter={StaticResource stringToVisibilityConverter}}">
-                                                        <Run Text="{Binding Module}" /><Run Text="!" />
-                                                    </TextBlock>
-                                                </InlineUIContainer><InlineUIContainer>
-                                                    <TextBlock Visibility="{Binding FullyQualifiedLogicalName, Converter={StaticResource stringToVisibilityConverter}}">
-                                                        <Run Text="{Binding FullyQualifiedLogicalName}" /><Run Text="!" />
-                                                    </TextBlock>
-                                                </InlineUIContainer>
-                                                <Run Text="{Binding FileName, Mode=OneWay}" /> Line <Run Text="{Binding Region.StartLine, Mode=OneWay}" /><InlineUIContainer>
-                                                    <TextBlock Visibility="{Binding Column, Converter={StaticResource stringToVisibilityConverter}}">
-                                                        <Run Text="Col " /><Run Text="{Binding Column}" />
-                                                    </TextBlock>
-                                                </InlineUIContainer>
-                                            </TextBlock>
-                                        </DataTemplate>
-                                    </GridViewColumn.CellTemplate>
-                                </GridViewColumn>
-                            </GridView>
-                        </ListView.View>
-                    </ListView>
-                </Border>
-            </Expander>
-        </DataTemplate>
-
-        <!-- Fixes Template -->
-        <DataTemplate x:Key="FixCollectionTemplate">
-            <TreeView ItemsSource="{Binding}">
-                <TreeView.Resources>
-                    <HierarchicalDataTemplate DataType="{x:Type models:FixModel}"
-                                              ItemsSource="{Binding FileChanges}">
-                        <TextBlock Text="{Binding Description}" />
-                    </HierarchicalDataTemplate>
-                    <HierarchicalDataTemplate DataType="{x:Type models:FileChangeModel}"
-                                              ItemsSource="{Binding Replacements}">
-                        <TextBlock Text="{Binding FileName}" />
-                    </HierarchicalDataTemplate>
-                    <HierarchicalDataTemplate DataType="{x:Type models:ReplacementModel}">
-                        <DockPanel>
-                            <TextBlock DockPanel.Dock="Top">
-                                    Start as offset <Run Text="{Binding Offset}" />.
-                            </TextBlock>
-                            <TextBlock DockPanel.Dock="Top"
-                                       Visibility="{Binding DeletedLength, Converter={StaticResource int32ToVisibilityConverter}}">
-                                    Delete <Run Text="{Binding DeletedLength}" /> bytes.
-                            </TextBlock>
-                            <TextBlock DockPanel.Dock="Top"
-                                       Visibility="{Binding InsertedBytes, Converter={StaticResource stringToVisibilityConverter}}">
-                                    Insert the string "<Run Text="{Binding InsertedBytes}" />".
-                            </TextBlock>
-                            <TextBlock>
-                                    <LineBreak />
-                            </TextBlock>
-                        </DockPanel>
-                    </HierarchicalDataTemplate>
-                </TreeView.Resources>
-            </TreeView>
-        </DataTemplate>
-
-        <!-- Rule Template - Displays info about the rule for the result. -->
-        <DataTemplate x:Key="RuleTemplate">
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition />
-                    <RowDefinition />
-                    <RowDefinition />
-                    <RowDefinition />
-                    <RowDefinition />
-                    <RowDefinition />
-                    <RowDefinition />
-                    <RowDefinition />
-                    <RowDefinition />
-                </Grid.RowDefinitions>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto" />
-                    <ColumnDefinition Width="*" />
-                </Grid.ColumnDefinitions>
-                <TextBlock Grid.Row="0"
-                           Grid.Column="0"
-                           Grid.ColumnSpan="2"
-                           Text="{Binding Rule.Name, Mode=OneTime}"
-                           FontWeight="Bold" />
-                <TextBlock Grid.Row="1"
-                           Grid.Column="0">Id :</TextBlock>
-                <TextBlock Grid.Row="1"
-                           Grid.Column="1">
-                        <Hyperlink Style="{StaticResource HyperlinkStyleSelected}">
-                            <Run Text="{Binding Path=Rule.Id, Mode=OneTime}" />
-                        </Hyperlink>
-                </TextBlock>
-                <TextBlock Grid.Row="2"
-                           Grid.Column="0"
-                           Visibility="{Binding Rule.Version, Converter={StaticResource stringToVisibilityConverter}}"
-                           Text="Version : " />
-                <TextBlock Grid.Row="2"
-                           Grid.Column="1"
-                           Visibility="{Binding Rule.Version, Converter={StaticResource stringToVisibilityConverter}}"
-                           Text="{Binding Rule.Version}" />
-                <TextBlock Grid.Row="3"
-                           Grid.Column="0"
-                           Visibility="{Binding Rule.Category, Converter={StaticResource stringToVisibilityConverter}}"
-                           Text="Category : " />
-                <TextBlock Grid.Row="3"
-                           Grid.Column="1"
-                           Visibility="{Binding Rule.Category, Converter={StaticResource stringToVisibilityConverter}}"
-                           Text="{Binding Rule.Category}" />
-                <TextBlock Grid.Row="4"
-                           Grid.Column="0"
-                           Visibility="{Binding Rule.Severity, Converter={StaticResource stringToVisibilityConverter}}"
-                           Text="Severity : " />
-                <TextBlock Grid.Row="4"
-                           Grid.Column="1"
-                           Visibility="{Binding Rule.Severity, Converter={StaticResource stringToVisibilityConverter}}"
-                           Text="{Binding Rule.Severity}" />
-                <TextBlock Grid.Row="5"
-                           Grid.Column="0"
-                           Visibility="{Binding Rule.OwnerName, Converter={StaticResource stringToVisibilityConverter}}"
-                           Text="Owner : " />
-                <TextBlock Grid.Row="5"
-                           Grid.Column="1"
-                           Visibility="{Binding Rule.OwnerName, Converter={StaticResource stringToVisibilityConverter}}"
-                           Text="{Binding Rule.OwnerName}" />
-                <TextBlock Grid.Row="6"
-                           Grid.Column="0"
-                           Visibility="{Binding Rule.HelpUri, Converter={StaticResource stringToVisibilityConverter}}"
-                           Text="Help : " />
-                <TextBlock Grid.Row="6"
-                           Grid.Column="1"
-                           Visibility="{Binding Rule.HelpUri, Converter={StaticResource stringToVisibilityConverter}}"
-                           Text="{Binding Rule.HelpUri}" />
-                <TextBlock Grid.Row="7"
-                           Grid.Column="0"
-                           Visibility="{Binding Rule.FeedbackUri, Converter={StaticResource stringToVisibilityConverter}}"
-                           Text="Feedback : " />
-                <TextBlock Grid.Row="8"
-                           Grid.Column="1"
-                           Visibility="{Binding Rule.FeedbackUri, Converter={StaticResource stringToVisibilityConverter}}"
-                           Text="{Binding Rule.FeedbackUri}" />
-                <TextBlock Grid.Row="8"
-                           Grid.Column="0"
-                           Grid.ColumnSpan="2"
-                           Visibility="{Binding Rule.Description, Converter={StaticResource stringToVisibilityConverter}}"
-                           Text="{Binding Rule.Description}"
-                           TextWrapping="Wrap"
-                           Margin="0 20 0 0" />
-            </Grid>
-        </DataTemplate>
-
-        <!-- Tool Template - Displays info about the tool which raised the result. -->
-        <DataTemplate x:Key="ToolTemplate">
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition />
-                    <RowDefinition />
-                    <RowDefinition />
-                    <RowDefinition />
-                    <RowDefinition />
-                    <RowDefinition />
-                </Grid.RowDefinitions>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto" />
-                    <ColumnDefinition Width="*" />
-                </Grid.ColumnDefinitions>
-                <TextBlock Grid.Row="0"
-                           Grid.Column="0"
-                           Grid.ColumnSpan="2"
-                           Text="{Binding Tool.Name, Mode=OneTime}"
-                           FontWeight="Bold" />
-                <TextBlock Grid.Row="1"
-                           Grid.Column="0"
-                           Text="Version : " />
-                <TextBlock Grid.Row="1"
-                           Grid.Column="1"
-                           Text="{Binding Tool.Version}" />
-                <TextBlock Grid.Row="2"
-                           Grid.Column="0"
-                           Visibility="{Binding Tool.OwnerName, Converter={StaticResource stringToVisibilityConverter}}"
-                           Text="Owner : " />
-                <TextBlock Grid.Row="2"
-                           Grid.Column="1"
-                           Visibility="{Binding Tool.OwnerName, Converter={StaticResource stringToVisibilityConverter}}"
-                           Text="{Binding Tool.OwnerName}" />
-                <TextBlock Grid.Row="3"
-                           Grid.Column="0"
-                           Visibility="{Binding Tool.HelpUri, Converter={StaticResource stringToVisibilityConverter}}"
-                           Text="Help : " />
-                <TextBlock Grid.Row="3"
-                           Grid.Column="1"
-                           Visibility="{Binding Tool.HelpUri, Converter={StaticResource stringToVisibilityConverter}}"
-                           Text="{Binding Tool.HelpUri}" />
-                <TextBlock Grid.Row="4"
-                           Grid.Column="0"
-                           Visibility="{Binding Tool.FeedbackUri, Converter={StaticResource stringToVisibilityConverter}}"
-                           Text="Feedback : " />
-                <TextBlock Grid.Row="4"
-                           Grid.Column="1"
-                           Visibility="{Binding Tool.FeedbackUri, Converter={StaticResource stringToVisibilityConverter}}"
-                           Text="{Binding Tool.FeedbackUri}" />
-                <TextBlock Grid.Row="5"
-                           Grid.Column="0"
-                           Grid.ColumnSpan="2"
-                           Visibility="{Binding Tool.Description, Converter={StaticResource stringToVisibilityConverter}}"
-                           Text="{Binding Tool.Description}"
-                           TextWrapping="Wrap"
-                           Margin="0 20 0 0" />
-            </Grid>
-        </DataTemplate>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/Microsoft.Sarif.Viewer;component/Themes/DefaultStyles.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/Microsoft.Sarif.Viewer;component/Themes/Locations.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/Microsoft.Sarif.Viewer;component/Themes/Stacks.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/Microsoft.Sarif.Viewer;component/Themes/CodeFlows.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/Microsoft.Sarif.Viewer;component/Themes/Fixes.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/Microsoft.Sarif.Viewer;component/Themes/Information.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
 
     </UserControl.Resources>
 
     <!-- The user control starts here. -->
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
@@ -418,21 +43,56 @@
             <Grid.RowDefinitions>
                 <RowDefinition />
                 <RowDefinition />
+                <RowDefinition />
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition />
             </Grid.ColumnDefinitions>
             <Border Grid.Row="0">
-                <TextBlock>
-                        Code:
-                        <Hyperlink Style="{StaticResource HyperlinkStyleSelected}">
-                            <Run Text="{Binding Path=Rule.Id, Mode=OneTime}" />
-                        </Hyperlink>
-                <Run Text="{Binding Rule.Name, Mode=OneTime}"
-                     FontWeight="Bold" />
-                </TextBlock>
+                <DockPanel>
+                    <TextBlock DockPanel.Dock="Left"
+                               Text="Code:"
+                               Margin="0 0 5 0" />
+                    <controls:InternetHyperlink DockPanel.Dock="Left"
+                                                Text="{Binding Rule.Id}"
+                                                NavigateUri="{Binding Rule.HelpUri}"
+                                                Margin="0 0 5 0" />
+                    <TextBlock DockPanel.Dock="Left"
+                               Text="{Binding Rule.Name, Mode=OneTime}"
+                                FontWeight="Bold" />
+                </DockPanel>
             </Border>
-            <TextBlock Grid.Row="1"
+            <WrapPanel Grid.Row="1" 
+                       Orientation="Horizontal"
+                       DataContext="{Binding Locations[0]}">
+                <WrapPanel.ToolTip>
+                    <WrapPanel Orientation="Horizontal">
+                        <TextBlock>
+                            <Run Text="{Binding FilePath, Mode=OneWay}" /> 
+                        </TextBlock>
+                        <TextBlock Visibility="{Binding Region.StartLine, Converter={StaticResource int32ToVisibilityConverter}}">
+                            <Run Text=" Line" />
+                            <Run Text="{Binding Region.StartLine, Mode=OneWay}" />
+                        </TextBlock>
+                        <TextBlock Visibility="{Binding Region.StartColumn, Converter={StaticResource int32ToVisibilityConverter}}">
+                            <Run Text=" Col" />
+                            <Run Text="{Binding Region.StartColumn, Mode=OneWay}" />
+                        </TextBlock>
+                    </WrapPanel>
+                </WrapPanel.ToolTip>
+                <TextBlock>
+                    <Run Text="{Binding FileName, Mode=OneWay}" /> 
+                </TextBlock>
+                <TextBlock Visibility="{Binding Region.StartLine, Converter={StaticResource int32ToVisibilityConverter}}">
+                    <Run Text=" Line" />
+                    <Run Text="{Binding Region.StartLine, Mode=OneWay}" />
+                </TextBlock>
+                <TextBlock Visibility="{Binding Region.StartColumn, Converter={StaticResource int32ToVisibilityConverter}}">
+                    <Run Text=" Col" />
+                    <Run Text="{Binding Region.StartColumn, Mode=OneWay}" />
+                </TextBlock>
+            </WrapPanel>
+            <TextBlock Grid.Row="2"
                        TextWrapping="Wrap"
                        Text="{Binding Message}"
                        FontFamily="Segoe UI"
@@ -442,27 +102,16 @@
         <!-- These are the tabs which display the result information. -->
         <TabControl Grid.Row="1"
                     SelectedValue="{Binding SelectedTab, Mode=TwoWay}">
-            <TabItem Visibility="{Binding Locations, Converter={StaticResource collectionToVisibilityConverter}}">
+            <TabItem>
                 <TabItem.Header>
                     <TextBlock>
                         <Run Text="Locations (" />
-                        <Run Text="{Binding Locations, Mode=OneWay, Converter={StaticResource collectionToCountConverter}}" />
+                        <Run Text="{Binding LocationsCount, Mode=OneWay}" />
                         <Run Text=")" />
                     </TextBlock>
                 </TabItem.Header>
                 <ContentControl ContentTemplate="{StaticResource CodeLocationCollectionTemplate}"
-                                Content="{Binding Locations}" />
-            </TabItem>
-            <TabItem Visibility="{Binding RelatedLocations, Converter={StaticResource collectionToVisibilityConverter}}">
-                <TabItem.Header>
-                    <TextBlock>
-                        <Run Text="Related Locations (" />
-                        <Run Text="{Binding RelatedLocations, Mode=OneWay, Converter={StaticResource collectionToCountConverter}}" />
-                        <Run Text=")" />
-                    </TextBlock>
-                </TabItem.Header>
-                <ContentControl ContentTemplate="{StaticResource CodeLocationCollectionTemplate}"
-                                Content="{Binding RelatedLocations}" />
+                                Content="{Binding}" />
             </TabItem>
             <TabItem Visibility="{Binding CodeFlows, Converter={StaticResource collectionToVisibilityConverter}}">
                 <TabItem.Header>
@@ -486,7 +135,20 @@
                 </TabItem.Header>
 
                 <ListBox ItemsSource="{Binding Stacks}"
-                         ItemTemplate="{StaticResource StackCollectionTemplate}" />
+                         ItemTemplate="{StaticResource StackCollectionTemplate}">
+                    <ListBox.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <DockPanel IsItemsHost="True" LastChildFill="False"/>
+                        </ItemsPanelTemplate>
+                    </ListBox.ItemsPanel>
+                    <ListBox.ItemContainerStyle>
+                        <Style TargetType="{x:Type ListBoxItem}">
+                            <Setter Property="DockPanel.Dock" Value="Bottom"/>
+                            <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                            <Setter Property="VerticalContentAlignment" Value="Stretch"/>
+                        </Style>
+                    </ListBox.ItemContainerStyle>
+                </ListBox>
             </TabItem>
             <TabItem Visibility="{Binding Fixes, Converter={StaticResource collectionToVisibilityConverter}}">
                 <TabItem.Header>
