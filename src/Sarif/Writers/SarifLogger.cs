@@ -56,7 +56,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 run.Invocation.CommandLine = Redact(run.Invocation.CommandLine, invocationTokensToRedact);
                 run.Invocation.Machine = Redact(run.Invocation.Machine, invocationTokensToRedact);
                 run.Invocation.Account = Redact(run.Invocation.Account, invocationTokensToRedact);
-                run.Invocation.CommandLine = Redact(run.Invocation.CommandLine, invocationTokensToRedact);
                 run.Invocation.WorkingDirectory = Redact(run.Invocation.WorkingDirectory, invocationTokensToRedact);
 
                 if (run.Invocation.EnvironmentVariables != null)
