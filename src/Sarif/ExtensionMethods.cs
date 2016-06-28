@@ -285,8 +285,6 @@ namespace Microsoft.CodeAnalysis.Sarif
                         break;
                     }
 
-                    case '\n':
-                    case '\r':
                     case '.':
                     {
                         if (withinQuotes || withinParentheses) { continue; }
@@ -294,11 +292,21 @@ namespace Microsoft.CodeAnalysis.Sarif
                         break;
                     }
 
+                    // If we encounter a line-break, we return all leading text.
+                    case '\n':
+                    case '\r':
+                    {
+                        if (withinQuotes || withinParentheses) { continue; }
+                        return text.Substring(0, length).TrimEnd('\r', '\n', ' ', '.') + ".";
+                    }
+
+                    // If we encounter a space following a period, return 
+                    // all text terminating in the period (inclusive).
                     case ' ':
                     {
                         if (!lastEncounteredWasDot) continue;
                         if (withinQuotes || withinParentheses) { continue; }
-                        return text.Substring(0, length).TrimEnd('\r', '\n');
+                        return text.Substring(0, length).TrimEnd('\r', '\n', ' ', '.') + ".";
                     }
 
                     default:
@@ -308,7 +316,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                     }
                 }
             }
-            return text;
+            return text.TrimEnd('.') + ".";
         }
     }
 }
