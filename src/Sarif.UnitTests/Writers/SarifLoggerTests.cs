@@ -64,8 +64,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 }
                 else
                 {
-                    string argumentToRedact = Environment.CommandLine;
-                    argumentToRedact = argumentToRedact.Split(new string[] { @"/agentKey" }, StringSplitOptions.None)[1].Trim();
+                    string argumentToRedact = commandLine.Split(new string[] { @"/agentKey" }, StringSplitOptions.None)[1].Trim();
                     argumentToRedact = argumentToRedact.Split(' ')[0];
                     tokensToRedact = new string[] { argumentToRedact };
                 }
