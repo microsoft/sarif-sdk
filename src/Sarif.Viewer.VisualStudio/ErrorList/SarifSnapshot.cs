@@ -142,6 +142,11 @@ namespace Microsoft.Sarif.Viewer.ErrorList
                     }
 
                 }
+                else
+                {
+                    var error = _errors[index];
+                    content = error.SuppressionStates != SuppressionStates.None ? "Suppressed" : "Active";
+                }
             }
 
             return content != null;
