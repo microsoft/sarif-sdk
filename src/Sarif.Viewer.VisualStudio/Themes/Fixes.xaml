@@ -7,7 +7,7 @@
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="pack://application:,,,/Microsoft.Sarif.Viewer;component/Themes/DefaultStyles.xaml" />
     </ResourceDictionary.MergedDictionaries>
-
+ 
     <!-- Converters -->
     <converters:StringToVisibilityConverter x:Key="stringToVisibilityConverter" />
     <converters:Int32ToVisibilityConverter x:Key="int32ToVisibilityConverter" />
