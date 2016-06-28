@@ -4,41 +4,71 @@
                     xmlns:converters="clr-namespace:Microsoft.Sarif.Viewer.Converters"
                     xmlns:models="clr-namespace:Microsoft.Sarif.Viewer.Models">
 
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="pack://application:,,,/Microsoft.Sarif.Viewer;component/Themes/DefaultStyles.xaml" />
+    </ResourceDictionary.MergedDictionaries>
+
     <!-- Converters -->
     <converters:StringToVisibilityConverter x:Key="stringToVisibilityConverter" />
     <converters:Int32ToVisibilityConverter x:Key="int32ToVisibilityConverter" />
-    
+
     <DataTemplate x:Key="FixCollectionTemplate">
-        <TreeView ItemsSource="{Binding}">
-            <TreeView.Resources>
-                <HierarchicalDataTemplate DataType="{x:Type models:FixModel}"
-                                              ItemsSource="{Binding FileChanges}">
-                    <TextBlock Text="{Binding Description}" />
-                </HierarchicalDataTemplate>
-                <HierarchicalDataTemplate DataType="{x:Type models:FileChangeModel}"
-                                              ItemsSource="{Binding Replacements}">
-                    <TextBlock Text="{Binding FileName}" />
-                </HierarchicalDataTemplate>
-                <HierarchicalDataTemplate DataType="{x:Type models:ReplacementModel}">
+        <ItemsControl ItemsSource="{Binding}">
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <DockPanel IsItemsHost="True"
+                               LastChildFill="False" />
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+            <ItemsControl.ItemContainerStyle>
+                <Style TargetType="{x:Type ContentPresenter}">
+                    <Setter Property="DockPanel.Dock"
+                            Value="Bottom" />
+                </Style>
+            </ItemsControl.ItemContainerStyle>
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
                     <DockPanel>
-                        <TextBlock DockPanel.Dock="Top">
+                        <Separator DockPanel.Dock="Top"
+                                   Margin="0 15 0 3"
+                                   Background="LightGray" />
+                        <TreeView DockPanel.Dock="Top"
+                                  BorderThickness="0">
+                            <TreeViewItem ItemsSource="{Binding FileChanges}">
+                                <TreeViewItem.Header>
+                                    <TextBlock Text="{Binding Description}"
+                                               Style="{StaticResource PanelHeader}" />
+                                </TreeViewItem.Header>
+                            </TreeViewItem>
+                            <TreeView.Resources>
+                                <HierarchicalDataTemplate DataType="{x:Type models:FileChangeModel}"
+                                                          ItemsSource="{Binding Replacements}">
+                                    <TextBlock Text="{Binding FileName}" />
+                                </HierarchicalDataTemplate>
+                                <HierarchicalDataTemplate DataType="{x:Type models:ReplacementModel}">
+                                    <DockPanel>
+                                        <TextBlock DockPanel.Dock="Top">
                                     Start as offset <Run Text="{Binding Offset}" />.
-                        </TextBlock>
-                        <TextBlock DockPanel.Dock="Top"
-                                       Visibility="{Binding DeletedLength, Converter={StaticResource int32ToVisibilityConverter}}">
+                                        </TextBlock>
+                                        <TextBlock DockPanel.Dock="Top"
+                                                   Visibility="{Binding DeletedLength, Converter={StaticResource int32ToVisibilityConverter}}">
                                     Delete <Run Text="{Binding DeletedLength}" /> bytes.
-                        </TextBlock>
-                        <TextBlock DockPanel.Dock="Top"
-                                       Visibility="{Binding InsertedBytes, Converter={StaticResource stringToVisibilityConverter}}">
+                                        </TextBlock>
+                                        <TextBlock DockPanel.Dock="Top"
+                                                   Visibility="{Binding InsertedBytes, Converter={StaticResource stringToVisibilityConverter}}">
                                     Insert the string "<Run Text="{Binding InsertedBytes}" />".
-                        </TextBlock>
-                        <TextBlock>
+                                        </TextBlock>
+                                        <TextBlock>
                                     <LineBreak />
-                        </TextBlock>
+                                        </TextBlock>
+                                    </DockPanel>
+                                </HierarchicalDataTemplate>
+                            </TreeView.Resources>
+                        </TreeView>
                     </DockPanel>
-                </HierarchicalDataTemplate>
-            </TreeView.Resources>
-        </TreeView>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
     </DataTemplate>
 
 </ResourceDictionary>

@@ -93,7 +93,8 @@
         
         <!-- These are the tabs which display the result information. -->
         <TabControl Grid.Row="1"
-                    SelectedValue="{Binding SelectedTab, Mode=TwoWay}">
+                    SelectedValue="{Binding SelectedTab, Mode=TwoWay}"
+                    BorderThickness="0 1 0 0">
             <TabItem>
                 <TabItem.Header>
                     <TextBlock>
@@ -126,21 +127,9 @@
                     </TextBlock>
                 </TabItem.Header>
 
-                <ListBox ItemsSource="{Binding Stacks}"
-                         ItemTemplate="{StaticResource StackCollectionTemplate}">
-                    <ListBox.ItemsPanel>
-                        <ItemsPanelTemplate>
-                            <DockPanel IsItemsHost="True" LastChildFill="False"/>
-                        </ItemsPanelTemplate>
-                    </ListBox.ItemsPanel>
-                    <ListBox.ItemContainerStyle>
-                        <Style TargetType="{x:Type ListBoxItem}">
-                            <Setter Property="DockPanel.Dock" Value="Bottom"/>
-                            <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
-                            <Setter Property="VerticalContentAlignment" Value="Stretch"/>
-                        </Style>
-                    </ListBox.ItemContainerStyle>
-                </ListBox>
+                <ContentControl ContentTemplate="{StaticResource StackCollectionTemplate}"
+                                Content="{Binding Stacks}"
+                                Margin="0,-1,0,1" />
             </TabItem>
             <TabItem Visibility="{Binding Fixes, Converter={StaticResource collectionToVisibilityConverter}}">
                 <TabItem.Header>

@@ -3,56 +3,90 @@
                     xmlns:local="clr-namespace:Microsoft.Sarif.Viewer.Themes"
                     xmlns:converters="clr-namespace:Microsoft.Sarif.Viewer.Converters">
 
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="pack://application:,,,/Microsoft.Sarif.Viewer;component/Themes/DefaultStyles.xaml" />
+    </ResourceDictionary.MergedDictionaries>
+    
     <!-- Converters -->
     <converters:StringToVisibilityConverter x:Key="stringToVisibilityConverter" />
 
     <DataTemplate x:Key="StackCollectionTemplate">
-        <Expander Header="{Binding Message}"
-                      IsExpanded="True"
-                      Width="Auto">
-            <Border BorderThickness="1"
-                        BorderBrush="LightGray">
-                <ListView Margin="2"
-                              ItemsSource="{Binding}"
-                              BorderThickness="0"
-                              Height="Auto"
-                              HorizontalAlignment="Stretch"
-                              ScrollViewer.CanContentScroll="False"
-                              ScrollViewer.HorizontalScrollBarVisibility="Disabled"
-                              ScrollViewer.VerticalScrollBarVisibility="Disabled"
-                              SelectedItem="{Binding SelectedItem, Mode=TwoWay}">
-                    <ListView.View>
-                        <GridView>
-                            <GridViewColumn DisplayMemberBinding="{Binding Message}"
-                                                Header="Message"
-                                                Width="Auto" />
-                            <GridViewColumn Header="Name">
-                                <GridViewColumn.CellTemplate>
-                                    <DataTemplate>
-                                        <TextBlock>
-                                                <InlineUIContainer>
-                                                    <TextBlock Visibility="{Binding Module, Converter={StaticResource stringToVisibilityConverter}}">
-                                                        <Run Text="{Binding Module}" /><Run Text="!" />
-                                                    </TextBlock>
-                                                </InlineUIContainer><InlineUIContainer>
-                                                    <TextBlock Visibility="{Binding FullyQualifiedLogicalName, Converter={StaticResource stringToVisibilityConverter}}">
-                                                        <Run Text="{Binding FullyQualifiedLogicalName}" /><Run Text="!" />
-                                                    </TextBlock>
-                                                </InlineUIContainer>
-                                                <Run Text="{Binding FileName, Mode=OneWay}" /> Line <Run Text="{Binding Region.StartLine, Mode=OneWay}" /><InlineUIContainer>
-                                                    <TextBlock Visibility="{Binding Column, Converter={StaticResource stringToVisibilityConverter}}">
-                                                        <Run Text="Col " /><Run Text="{Binding Column}" />
-                                                    </TextBlock>
-                                                </InlineUIContainer>
-                                            </TextBlock>
-                                    </DataTemplate>
-                                </GridViewColumn.CellTemplate>
-                            </GridViewColumn>
-                        </GridView>
-                    </ListView.View>
-                </ListView>
-            </Border>
-        </Expander>
+        <ItemsControl ItemsSource="{Binding}">
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <DockPanel IsItemsHost="True"
+                               LastChildFill="False" />
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+            <ItemsControl.ItemContainerStyle>
+                <Style TargetType="{x:Type ContentPresenter}">
+                    <Setter Property="DockPanel.Dock"
+                            Value="Bottom" />
+                </Style>
+            </ItemsControl.ItemContainerStyle>
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+
+                    <DockPanel>
+                        <Separator DockPanel.Dock="Top"
+                                   Margin="0 15 0 3"
+                                   Background="LightGray" />
+                        <TreeView DockPanel.Dock="Top"
+                                  BorderThickness="0">
+                            <TreeViewItem IsExpanded="True">
+                                <TreeViewItem.Header>
+                                    <TextBlock Style="{StaticResource PanelHeader}"
+                                               Text="{Binding Message}" />
+                                </TreeViewItem.Header>
+                                <TreeViewItem>
+                                    <TreeViewItem.Header>
+                                        <ListView Margin="2"
+                                                  ItemsSource="{Binding}"
+                                                  BorderBrush="LightGray"
+                                                  Height="Auto"
+                                                  HorizontalAlignment="Stretch"
+                                                  ScrollViewer.CanContentScroll="False"
+                                                  ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                                                  ScrollViewer.VerticalScrollBarVisibility="Disabled"
+                                                  SelectedItem="{Binding SelectedItem, Mode=TwoWay}">
+                                            <ListView.View>
+                                                <GridView>
+                                                    <GridViewColumn DisplayMemberBinding="{Binding Message}"
+                                                                    Header="Message"
+                                                                    Width="Auto" />
+                                                    <GridViewColumn Header="Location">
+                                                        <GridViewColumn.CellTemplate>
+                                                            <DataTemplate>
+                                                                <TextBlock>
+                                                                    <InlineUIContainer>
+                                                                        <TextBlock Visibility="{Binding Module, Converter={StaticResource stringToVisibilityConverter}}">
+                                                                            <Run Text="{Binding Module}" /><Run Text="!" />
+                                                                        </TextBlock>
+                                                                    </InlineUIContainer><InlineUIContainer>
+                                                                        <TextBlock Visibility="{Binding FullyQualifiedLogicalName, Converter={StaticResource stringToVisibilityConverter}}">
+                                                                            <Run Text="{Binding FullyQualifiedLogicalName}" /><Run Text="!" />
+                                                                        </TextBlock>
+                                                                    </InlineUIContainer>
+                                                                    <Run Text="{Binding FileName, Mode=OneWay}" /> Line <Run Text="{Binding Region.StartLine, Mode=OneWay}" /><InlineUIContainer>
+                                                                        <TextBlock Visibility="{Binding Column, Converter={StaticResource stringToVisibilityConverter}}">
+                                                                            <Run Text="Col " /><Run Text="{Binding Column}" />
+                                                                        </TextBlock>
+                                                                    </InlineUIContainer>
+                                                                </TextBlock>    
+                                                            </DataTemplate>
+                                                        </GridViewColumn.CellTemplate>
+                                                    </GridViewColumn>
+                                                </GridView>
+                                            </ListView.View>
+                                        </ListView>
+                                    </TreeViewItem.Header>
+                                </TreeViewItem>
+                            </TreeViewItem>
+                        </TreeView>
+                    </DockPanel>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
     </DataTemplate>
 
 </ResourceDictionary>
