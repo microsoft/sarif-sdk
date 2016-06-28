@@ -43,10 +43,10 @@
                     "startLine":4
                   }
                 },
-                "id":"1",
+                "step":0,
                 "kind":"declaration",
                 "message":"'data' is not initialized",
-                "essential":true
+                "importance":"essential"
               },{
                 "physicalLocation":{
                   "uri":"file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedmerging/am_branchandsetvalue.cpp",
@@ -63,10 +63,10 @@
                     "startLine":8
                   }
                 },
-                "id":"2",
+                "step":1,
                 "kind":"usage",
                 "message":"'data' is used, but may not have been initialized",
-                "essential":true
+                "importance":"essential"
               }
             ]
           }
@@ -106,10 +106,10 @@
                     "startLine":4
                   }
                 },
-                "id":"1",
+                "step":0,
                 "kind":"declaration",
                 "message":"'data' is an array of 10 elements (40 bytes)",
-                "essential":true
+                "importance":"essential"
               },{
                 "physicalLocation":{
                   "uri":"file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedmerging/am_branchandsetvalue.cpp",
@@ -118,7 +118,7 @@
                     "startLine":6
                   }
                 },
-                "id":"2",
+                "step":1,
                 "kind":"branch",
                 "message":"'b' may equal 10 (Enter this branch)"
               },{
@@ -129,10 +129,10 @@
                     "startLine":8
                   }
                 },
-                "id":"3",
+                "step":2,
                 "kind":"usage",
                 "message":"Invalid read from 'data[10]', (readable range is 0 to 9)",
-                "essential":true
+                "importance":"essential"
               }
             ]
           }

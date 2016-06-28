@@ -546,7 +546,7 @@ std::wstring SerializeArray(const Array& a)
 		first = false;
 	}
 
-	str += L"]\n";
+	str += L"]\r\n";
 	return str;
 }
 
@@ -554,7 +554,7 @@ std::wstring GetFmtSpecs(int count)
 {
 	std::wstring buf = L"";
 
-	buf += L"\n";
+	buf += L"\r\n";
 
 	if (count >= 1)
 	{

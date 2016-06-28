@@ -43,10 +43,10 @@
                     "startLine":4
                   }
                 },
-                "id":"1",
+                "step":0,
                 "kind":"declaration",
                 "message":"'i' is not initialized",
-                "essential":true
+                "importance":"essential"
               },{
                 "physicalLocation":{
                   "uri":"file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/combinedwarnings/c6001example.cpp",
@@ -55,7 +55,7 @@
                     "startLine":5
                   }
                 },
-                "id":"2",
+                "step":1,
                 "kind":"branch",
                 "message":"Skip this branch, (assume 'b&&c' is false)"
               },{
@@ -66,10 +66,10 @@
                     "startLine":9
                   }
                 },
-                "id":"3",
+                "step":2,
                 "kind":"usage",
                 "message":"'i' is used, but may not have been initialized",
-                "essential":true
+                "importance":"essential"
               }
             ]
           }

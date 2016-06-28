@@ -6,8 +6,6 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Text;
-using System.Xml;
-using Microsoft.CodeAnalysis.Sarif.Writers;
 
 namespace Microsoft.CodeAnalysis.Sarif.Converters
 {
@@ -113,7 +111,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
             if (int.TryParse(tokens[STEP], out step))
             {
-                bool essential = true;
+                bool displayed = true;
 
                 // If we find a numeric value as the first token,
                 // this is a general step. We don't actually consume
@@ -126,7 +124,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 {
                     // If we have not literal location, then we are processing
                     // an informational step, which we will not persist
-                    essential = false;
+                    displayed = false;
                 }
 
                 var uri = new Uri(tokens[URI].Trim('"'), UriKind.RelativeOrAbsolute);
@@ -151,10 +149,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 var annotatedCodeLocation = new AnnotatedCodeLocation
                 {
                     Kind = kind,
-                    Id = codeFlow.Locations.Count + 1,
-                    Essential = essential,
+                    Step = step,
+                    Importance = displayed ? AnnotatedCodeLocationImportance.Normal : AnnotatedCodeLocationImportance.Nonessential,
                     Message = message,
-                    PhysicalLocation = essential ? new PhysicalLocation
+                    PhysicalLocation = displayed ? new PhysicalLocation
                     {
                         Uri = uri,
                         Region = new Region
@@ -164,7 +162,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                     } : null,    
                 };
 
-                annotatedCodeLocation.SetProperty("Step", step);
                 annotatedCodeLocation.SetProperty("State", tokens[STATE]);
 
                 // Tokens[BOOL] retrieves an SDV property intended to indicate

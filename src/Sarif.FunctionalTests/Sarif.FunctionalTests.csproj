@@ -1568,8 +1568,12 @@
     </PropertyGroup>
     <Error Condition="!Exists('..\packages\xunit.runner.visualstudio.2.1.0\build\net20\xunit.runner.visualstudio.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\xunit.runner.visualstudio.2.1.0\build\net20\xunit.runner.visualstudio.props'))" />
   </Target>
-  <Target Name="CopySchema" AfterTargets="Build">
-    <Copy SourceFiles="$(SolutionDir)\Sarif\Schemata\Sarif.schema.json" DestinationFolder="$(OutDir)" />
+  <Target Name="CopyFilesToOutput" AfterTargets="Build">
+    <ItemGroup>
+      <FilesToCopy Include="$(SolutionDir)\Sarif\Schemata\Sarif.schema.json" />
+      <FilesToCopy Include="..\..\bld\bin\PREfastXmlSarifConverter\$(Platform)_$(Configuration)\PREfastXmlSarifConverter.dll" />
+      <FilesToCopy Include="..\..\bld\bin\PREfastXmlSarifConverter\$(Platform)_$(Configuration)\PREfastXmlSarifConverter.pdb" />
+    </ItemGroup>
+    <Copy SourceFiles="@(FilesToCopy)" DestinationFolder="$(OutDir)" />
   </Target>
-  <ProjectExtensions />
 </Project>

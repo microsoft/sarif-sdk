@@ -19,6 +19,26 @@ using Xunit;
 
 namespace Microsoft.CodeAnalysis.Sarif.Converters
 {
+    // The functional tests for the PREfast converter must be handled differently from
+    // the functional tests for all the other tools. The reason is that the
+    // PREfastXmlSarifConverter (which produces the PREfast test files) is written in
+    // C++, so it does not use Newtonsoft.Json for serialization. As a result, it
+    // serializes properties in a different order, and with slightly different
+    // formatting, than the other converters (which do use Newtonsoft.Json).
+    //
+    // Now, the functional tests work by deserializing a SARIF file into an object model,
+    // re-serializing it using Newtonsoft.Json, and comparing the two files. Obviously if
+    // the serialization and deserialization code doesn't match, the test will fail.
+    //
+    // So we introduce a "test mode" flag into the functional tests.For all tools except
+    // PREfast, we compare the serialized files.For PREfast, we compare the object models
+    // obtained by deserializing those files.
+    internal enum TestMode
+    {
+        CompareFileContents,
+        CompareObjectModels
+    }
+
     public class SarifConverterTests
     {
         public const string TestDirectory = "ConverterTestData";
@@ -26,41 +46,53 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         [Fact]
         public void AndroidStudioConverter_EndToEnd()
         {
-            BatchRunConverter(ToolFormat.AndroidStudio);
+            BatchRunConverter(ToolFormat.AndroidStudio, TestMode.CompareFileContents);
         }
 
         [Fact]
         public void ClangAnalyzerConverter_EndToEnd()
         {
-            BatchRunConverter(ToolFormat.ClangAnalyzer);
+            BatchRunConverter(ToolFormat.ClangAnalyzer, TestMode.CompareFileContents);
         }
 
         [Fact]
         public void CppCheckConverter_EndToEnd()
         {
-            BatchRunConverter(ToolFormat.CppCheck);
+            BatchRunConverter(ToolFormat.CppCheck, TestMode.CompareFileContents);
         }
 
         [Fact]
         public void FortifyConverter_EndToEnd()
         {
-            BatchRunConverter(ToolFormat.Fortify);
+            BatchRunConverter(ToolFormat.Fortify, TestMode.CompareFileContents);
         }
 
         [Fact]
         public void FxCopConverter_EndToEnd()
         {
-            BatchRunConverter(ToolFormat.FxCop);
+            BatchRunConverter(ToolFormat.FxCop, TestMode.CompareFileContents);
+        }
+
+        [Fact]
+        public void StaticDriverVerifierConverter_EndToEnd()
+        {
+            BatchRunConverter(ToolFormat.StaticDriverVerifier, TestMode.CompareFileContents);
+        }
+
+        [Fact]
+        public void PREfastConverter_EndToEnd()
+        {
+            BatchRunConverter(ToolFormat.PREfast, TestMode.CompareObjectModels);
         }
 
         private readonly ToolFormatConverter converter = new ToolFormatConverter();
 
-        private void BatchRunConverter(ToolFormat tool)
+        private void BatchRunConverter(ToolFormat tool, TestMode testMode)
         {
-            BatchRunConverter(tool, "*.xml");
+            BatchRunConverter(tool, "*.xml", testMode);
         }
 
-        private void BatchRunConverter(ToolFormat tool, string inputFilter)
+        private void BatchRunConverter(ToolFormat tool, string inputFilter, TestMode testMode)
         {
             var sb = new StringBuilder();
 
@@ -70,7 +102,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
             foreach (string file in testFiles)
             {
-                RunConverter(sb, tool, file);
+                RunConverter(sb, tool, file, testMode);
             }
 
             sb.Length.Should().Be(0, FormatFailureReason(sb, toolName));
@@ -85,18 +117,18 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             return sb.ToString();
         }
 
-        private void RunConverter(StringBuilder sb, ToolFormat tool, string inputFileName)
+        private void RunConverter(StringBuilder sb, ToolFormat toolFormat, string inputFileName, TestMode testMode)
         {
             string expectedFileName = inputFileName + ".sarif";
             string generatedFileName = inputFileName + ".actual.sarif";
 
             try
             {
-                this.converter.ConvertToStandardFormat(tool, inputFileName, generatedFileName, ToolFormatConversionOptions.OverwriteExistingOutputFile | ToolFormatConversionOptions.PrettyPrint);
+                this.converter.ConvertToStandardFormat(toolFormat, inputFileName, generatedFileName, ToolFormatConversionOptions.OverwriteExistingOutputFile | ToolFormatConversionOptions.PrettyPrint);
             }
             catch (Exception ex)
             {
-                sb.AppendLine(String.Format(CultureInfo.InvariantCulture, "The converter {0} threw an exception for input \"{1}\".", tool, inputFileName));
+                sb.AppendLine(string.Format(CultureInfo.InvariantCulture, "The converter {0} threw an exception for input \"{1}\".", toolFormat, inputFileName));
                 sb.AppendLine(ex.ToString());
                 return;
             }
@@ -113,10 +145,27 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 };
 
                 // Make sure we can successfully deserialize what was just generated
-                SarifLog log = JsonConvert.DeserializeObject<SarifLog>(actualSarif, settings);
+                SarifLog actualLog = JsonConvert.DeserializeObject<SarifLog>(actualSarif, settings);
 
-                actualSarif = JsonConvert.SerializeObject(log, settings);
-                if (expectedSarif == actualSarif)
+                actualSarif = JsonConvert.SerializeObject(actualLog, settings);
+
+                bool success;
+                switch (testMode)
+                {
+                    case TestMode.CompareFileContents:
+                        success = expectedSarif == actualSarif;
+                        break;
+
+                    case TestMode.CompareObjectModels:
+                        SarifLog expectedLog = JsonConvert.DeserializeObject<SarifLog>(expectedSarif, settings);
+                        success = SarifLogEqualityComparer.Instance.Equals(expectedLog, actualLog);
+                        break;
+
+                    default:
+                        throw new ArgumentException($"Invalid test mode: {testMode}", nameof(testMode));
+                }
+
+                if (success)
                 {
                     return;
                 }
@@ -127,7 +176,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             }
 
             string errorMessage = "The output of the {0} converter did not match for input {1}.";
-            sb.AppendLine(String.Format(CultureInfo.CurrentCulture, errorMessage, tool, inputFileName));
+            sb.AppendLine(string.Format(CultureInfo.CurrentCulture, errorMessage, toolFormat, inputFileName));
             sb.AppendLine("Check differences with:");
             sb.AppendLine(GenerateDiffCommand(expectedFileName, generatedFileName));
         }

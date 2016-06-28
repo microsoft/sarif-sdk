@@ -34,6 +34,30 @@
       }
     }
   ],
+  "AnnotatedCodeLocation.Essential": [
+    {
+      "kind": "AttributeHint",
+      "arguments": {
+        "typeName": "JsonProperty",
+        "namespaceName": "Newtonsoft.Json",
+        "arguments": [
+          "\"essential\""
+        ],
+        "properties": {
+          "DefaultValueHandling": "DefaultValueHandling.Ignore"
+        }
+      }
+    }
+  ],
+  "AnnotatedCodeLocation.Importance": [
+    {
+      "kind": "EnumHint",
+      "arguments": {
+        "typeName": "AnnotatedCodeLocationImportance",
+        "description":  "Values specifying the importance of an \"annotatedCodeLocation\" within the \"codeFlow\" in which it occurs"
+      }
+    }
+  ],
   "AnnotatedCodeLocation.Id": [
     {
       "kind": "AttributeHint",
