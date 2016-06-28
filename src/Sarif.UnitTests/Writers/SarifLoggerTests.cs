@@ -18,7 +18,6 @@ namespace Microsoft.CodeAnalysis.Sarif
     public class SarifLoggerTests : JsonTests
     {
         [TestMethod]
-        [Ignore] // https://github.com/Microsoft/sarif-sdk/issues/389
         public void SarifLogger_RedactedCommandLine()
         {
             var sb = new StringBuilder();
@@ -34,19 +33,34 @@ namespace Microsoft.CodeAnalysis.Sarif
             // "C:\Program Files (x86\\Microsoft Visual Studio 14.0\Common7\IDE\QTAgent32_40.exe\" 
             // /agentKey a144e450-ac06-46d0-8365-c21ea7872d23 /hostProcessId 8024 /hostIpcPortName 
             // eqt -60284c64-6bc1-3ecc-fb5f-a484bb1a2475"
+            // 
+            // Sample test execution from Appveyor will redact 'Appveyor'
+            //
+            // pathToExe   = C:\Program Files (x86)\Microsoft Visual Studio 14.0\Common7\IDE\CommonExtensions\Microsoft\TestWindow\Extensions
+            // commandLine = vstest.console  /logger:Appveyor "C:\projects\sarif-sdk\bld\bin\Sarif.UnitTests\AnyCPU_Release\Sarif.UnitTests.dll"
 
             using (var textWriter = new StringWriter(sb))
             {
                 string[] tokensToRedact = new string[] { };
                 string pathToExe = Path.GetDirectoryName(Assembly.GetCallingAssembly().Location);
+                string commandLine = Environment.CommandLine;
 
                 if (pathToExe.IndexOf(@"\Extensions", StringComparison.OrdinalIgnoreCase) != -1)
                 {
-                    // The calling assembly lives in an \Extensions directory that hangs off
-                    // the directory of the test driver (the location of which we can't retrieve
-                    // from Assembly.GetEntryAssembly() as we are running in an AppDomain).
-                    pathToExe = pathToExe.Substring(0, pathToExe.Length - @"\Extensions".Length);
-                    tokensToRedact = new string[] { "TestExecution", pathToExe };
+                    string appVeyor = "Appveyor";
+                    if (commandLine.IndexOf(appVeyor, StringComparison.OrdinalIgnoreCase) != -1)
+                    {
+                        // For Appveyor builds, redact the string Appveyor.
+                        tokensToRedact = new string[] { appVeyor };
+                    }
+                    else
+                    {
+                        // The calling assembly lives in an \Extensions directory that hangs off
+                        // the directory of the test driver (the location of which we can't retrieve
+                        // from Assembly.GetEntryAssembly() as we are running in an AppDomain).
+                        pathToExe = pathToExe.Substring(0, pathToExe.Length - @"\Extensions".Length);
+                        tokensToRedact = new string[] { "TestExecution", pathToExe };
+                    }
                 }
                 else
                 {
