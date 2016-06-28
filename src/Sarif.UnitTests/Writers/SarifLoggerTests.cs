@@ -22,6 +22,12 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             var sb = new StringBuilder();
 
+            // On a developer's machine, the script BuildAndTest.cmd runs the tests with a particular command line. 
+            // Under AppVeyor, the appveyor.yml file simply specifies the names of the test assemblies, and AppVeyor 
+            // constructs and executes its own, different command line. So, based on our knowledge of each of those 
+            // command lines, we select a different token to redact in each of those cases.
+            //
+            //
             // Sample test execution command-line from within VS. We will redact the 'TestExecution' role data
             //
             // "C:\PROGRAM FILES (X86)\MICROSOFT VISUAL STUDIO 14.0\COMMON7\IDE\COMMONEXTENSIONS\MICROSOFT\TESTWINDOW\te.processhost.managed.exe"
