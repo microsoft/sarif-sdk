@@ -43,6 +43,7 @@ namespace Microsoft.Sarif.Viewer
             this.Category = result.GetCategory();
             this.Region = result.GetPrimaryTargetRegion();
             this.Level = result.Level;
+            this.SuppressionStates = result.SuppressionStates;
 
             if (this.Region != null)
             {
@@ -130,6 +131,8 @@ namespace Microsoft.Sarif.Viewer
         public ResultLevel Level { get; set; }
 
         public string HelpLink { get; set; }
+
+        public SuppressionStates SuppressionStates { get; set; }
 
         public ToolModel Tool
         {
