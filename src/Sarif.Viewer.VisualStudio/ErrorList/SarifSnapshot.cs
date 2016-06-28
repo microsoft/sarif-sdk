@@ -133,6 +133,11 @@ namespace Microsoft.Sarif.Viewer.ErrorList
                     var error = _errors[index];
                     content = !string.IsNullOrEmpty(error.Message);
                 }
+                else
+                {
+                    var error = _errors[index];
+                    content = error.SuppressionStates != SuppressionStates.None ? "Suppressed" : "Active";
+                }
             }
 
             return content != null;

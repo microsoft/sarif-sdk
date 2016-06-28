@@ -247,6 +247,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             int length = 0;
             bool withinQuotes = false;
             bool withinParentheses = false;
+            bool lastEncounteredWasDot = false;
 
             foreach (char ch in text)
             {
@@ -260,6 +261,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                         {
                             withinQuotes = !withinQuotes;
                         }
+                        lastEncounteredWasDot = false;
                         break;
                     }
 
@@ -269,6 +271,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                         {
                             withinParentheses = true;
                         }
+                        lastEncounteredWasDot = false;
                         break;
                     }
 
@@ -278,14 +281,30 @@ namespace Microsoft.CodeAnalysis.Sarif
                         {
                             withinParentheses = false;
                         }
+                        lastEncounteredWasDot = false;
                         break;
                     }
+
                     case '\n':
                     case '\r':
                     case '.':
                     {
                         if (withinQuotes || withinParentheses) { continue; }
+                        lastEncounteredWasDot = true;
+                        break;
+                    }
+
+                    case ' ':
+                    {
+                        if (!lastEncounteredWasDot) continue;
+                        if (withinQuotes || withinParentheses) { continue; }
                         return text.Substring(0, length).TrimEnd('\r', '\n');
+                    }
+
+                    default:
+                    {
+                        lastEncounteredWasDot = false;
+                        break;
                     }
                 }
             }
