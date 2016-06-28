@@ -18,6 +18,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     public class SarifLoggerTests : JsonTests
     {
         [TestMethod]
+        [Ignore] // https://github.com/Microsoft/sarif-sdk/issues/389
         public void SarifLogger_RedactedCommandLine()
         {
             var sb = new StringBuilder();
