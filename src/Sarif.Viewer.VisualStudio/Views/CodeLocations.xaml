@@ -11,8 +11,8 @@
              xmlns:converters="clr-namespace:Microsoft.Sarif.Viewer.Converters"
              xmlns:controls="clr-namespace:Microsoft.Sarif.Viewer.Controls"
              mc:Ignorable="d"
-             d:DesignHeight="300"
-             d:DesignWidth="300"
+             d:DesignHeight="500"
+             d:DesignWidth="500"
              d:DataContext="{x:Static viewModels:ViewModelLocator.DesignTime}"
              Background="{DynamicResource {x:Static SystemColors.ControlLightLightBrushKey}}">
     <UserControl.Resources>
@@ -49,49 +49,41 @@
                 <ColumnDefinition />
             </Grid.ColumnDefinitions>
             <Border Grid.Row="0">
-                <DockPanel>
-                    <TextBlock DockPanel.Dock="Left"
-                               Text="Defect Code :"
+                <WrapPanel Orientation="Horizontal">
+                    <TextBlock Text="Defect Code:"
                                Margin="0 0 5 0" />
-                    <controls:InternetHyperlink DockPanel.Dock="Left"
-                                                Text="{Binding Rule.Id}"
+                    <controls:InternetHyperlink Text="{Binding Rule.Id}"
                                                 NavigateUri="{Binding Rule.HelpUri}"
                                                 Margin="0 0 5 0" />
-                    <TextBlock DockPanel.Dock="Left"
-                               Text="{Binding Rule.Name, Mode=OneTime}"
+                    <TextBlock Text="{Binding Rule.Name, Mode=OneTime}"
                                 FontWeight="Bold" />
-                </DockPanel>
-            </Border>
-            <WrapPanel Grid.Row="1" 
-                       Orientation="Horizontal"
-                       DataContext="{Binding Locations[0]}">
-                <WrapPanel.ToolTip>
-                    <WrapPanel Orientation="Horizontal">
+                    <DockPanel DataContext="{Binding Locations[0]}"
+                               Margin="5 0 0 0">
+                        <DockPanel.ToolTip>
+                            <WrapPanel Orientation="Horizontal">
+                                <TextBlock>
+                                    <Run Text="{Binding FilePath, Mode=OneWay}" />
+                                </TextBlock>
+                                <TextBlock Visibility="{Binding Region.StartLine, Converter={StaticResource int32ToVisibilityConverter}}">
+                                    <Run Text=" Line" />
+                                    <Run Text="{Binding Region.StartLine, Mode=OneWay}" />
+                                </TextBlock>
+                                <TextBlock Visibility="{Binding Region.StartColumn, Converter={StaticResource int32ToVisibilityConverter}}">
+                                    <Run Text=" Col" />
+                                    <Run Text="{Binding Region.StartColumn, Mode=OneWay}" />
+                                </TextBlock>
+                            </WrapPanel>
+                        </DockPanel.ToolTip>
                         <TextBlock>
-                            <Run Text="{Binding FilePath, Mode=OneWay}" /> 
+                            <Run Text="{Binding FileName, Mode=OneWay}" />
                         </TextBlock>
-                        <TextBlock Visibility="{Binding Region.StartLine, Converter={StaticResource int32ToVisibilityConverter}}">
-                            <Run Text=" Line" />
-                            <Run Text="{Binding Region.StartLine, Mode=OneWay}" />
+                        <TextBlock Visibility="{Binding Location, Converter={StaticResource stringToVisibilityConverter}}"
+                                   Margin="5 0 0 0">
+                            <Run Text="{Binding Location, Mode=OneWay}" />
                         </TextBlock>
-                        <TextBlock Visibility="{Binding Region.StartColumn, Converter={StaticResource int32ToVisibilityConverter}}">
-                            <Run Text=" Col" />
-                            <Run Text="{Binding Region.StartColumn, Mode=OneWay}" />
-                        </TextBlock>
-                    </WrapPanel>
-                </WrapPanel.ToolTip>
-                <TextBlock>
-                    <Run Text="{Binding FileName, Mode=OneWay}" /> 
-                </TextBlock>
-                <TextBlock Visibility="{Binding Region.StartLine, Converter={StaticResource int32ToVisibilityConverter}}">
-                    <Run Text=" Line" />
-                    <Run Text="{Binding Region.StartLine, Mode=OneWay}" />
-                </TextBlock>
-                <TextBlock Visibility="{Binding Region.StartColumn, Converter={StaticResource int32ToVisibilityConverter}}">
-                    <Run Text=" Col" />
-                    <Run Text="{Binding Region.StartColumn, Mode=OneWay}" />
-                </TextBlock>
-            </WrapPanel>
+                    </DockPanel>
+                </WrapPanel>
+            </Border>
             <TextBlock Grid.Row="2"
                        TextWrapping="Wrap"
                        Text="{Binding Message}"
@@ -101,7 +93,8 @@
         
         <!-- These are the tabs which display the result information. -->
         <TabControl Grid.Row="1"
-                    SelectedValue="{Binding SelectedTab, Mode=TwoWay}">
+                    SelectedValue="{Binding SelectedTab, Mode=TwoWay}"
+                    BorderThickness="0 1 0 0">
             <TabItem>
                 <TabItem.Header>
                     <TextBlock>
@@ -134,21 +127,9 @@
                     </TextBlock>
                 </TabItem.Header>
 
-                <ListBox ItemsSource="{Binding Stacks}"
-                         ItemTemplate="{StaticResource StackCollectionTemplate}">
-                    <ListBox.ItemsPanel>
-                        <ItemsPanelTemplate>
-                            <DockPanel IsItemsHost="True" LastChildFill="False"/>
-                        </ItemsPanelTemplate>
-                    </ListBox.ItemsPanel>
-                    <ListBox.ItemContainerStyle>
-                        <Style TargetType="{x:Type ListBoxItem}">
-                            <Setter Property="DockPanel.Dock" Value="Bottom"/>
-                            <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
-                            <Setter Property="VerticalContentAlignment" Value="Stretch"/>
-                        </Style>
-                    </ListBox.ItemContainerStyle>
-                </ListBox>
+                <ContentControl ContentTemplate="{StaticResource StackCollectionTemplate}"
+                                Content="{Binding Stacks}"
+                                Margin="0,-1,0,1" />
             </TabItem>
             <TabItem Visibility="{Binding Fixes, Converter={StaticResource collectionToVisibilityConverter}}">
                 <TabItem.Header>

@@ -2,68 +2,106 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:local="clr-namespace:Microsoft.Sarif.Viewer.Themes">
 
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="pack://application:,,,/Microsoft.Sarif.Viewer;component/Themes/DefaultStyles.xaml" />
+    </ResourceDictionary.MergedDictionaries>
+
     <DataTemplate x:Key="AnnotatedCodeLocationCollectionDataGridTemplate">
-        <ListBox ItemsSource="{Binding}"
-                     SelectedItem="{Binding SelectedItem, Mode=TwoWay}">
-            <ListBox.ItemsPanel>
+        <ItemsControl ItemsSource="{Binding}">
+            <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
-                    <DockPanel IsItemsHost="True" LastChildFill="False"/>
+                    <DockPanel IsItemsHost="True"
+                               LastChildFill="False" />
                 </ItemsPanelTemplate>
-            </ListBox.ItemsPanel>
-            <ListBox.ItemContainerStyle>
-                <Style TargetType="{x:Type ListBoxItem}">
-                    <Setter Property="DockPanel.Dock" Value="Bottom"/>
-                    <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
-                    <Setter Property="VerticalContentAlignment" Value="Stretch"/>
+            </ItemsControl.ItemsPanel>
+            <ItemsControl.ItemContainerStyle>
+                <Style TargetType="{x:Type ContentPresenter}">
+                    <Setter Property="DockPanel.Dock"
+                            Value="Bottom" />
                 </Style>
-            </ListBox.ItemContainerStyle>
-            <ListBox.ItemTemplate>
+            </ItemsControl.ItemContainerStyle>
+            <ItemsControl.ItemTemplate>
                 <DataTemplate>
-                    <Expander Header="{Binding Message}"
-                                  IsExpanded="True">
-                        <Border BorderThickness="1"
-                                    BorderBrush="LightGray">
-                            <DataGrid Margin="2"
-                                          ItemsSource="{Binding}"
-                                          AutoGenerateColumns="False"
-                                          SelectedItem="{Binding SelectedItem, Mode=TwoWay}"
-                                          IsReadOnly="True">
-                                <DataGrid.Columns>
-                                    <DataGridTextColumn Header="Message"
-                                                            Binding="{Binding Message}" />
-                                    <DataGridTemplateColumn Header="Name"
-                                                                Width="Auto">
-                                        <DataGridTemplateColumn.CellTemplate>
-                                            <DataTemplate>
-                                                <TextBlock>
-                                                    <TextBlock.InputBindings>
-                                                        <MouseBinding Gesture="LeftClick"
-                                                                          Command="{Binding DataContext.SelectedCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ListView}}}"
-                                                                          CommandParameter="{Binding}" />
-                                                    </TextBlock.InputBindings>
-                                                        <Run Text="{Binding FilePath, Mode=OneWay}" /> Line <Run Text="{Binding Region.StartLine, Mode=OneWay}" />
-                                                </TextBlock>
-                                            </DataTemplate>
-                                        </DataGridTemplateColumn.CellTemplate>
-                                    </DataGridTemplateColumn>
-                                </DataGrid.Columns>
-                                <DataGrid.RowStyle>
-                                    <Style TargetType="DataGridRow">
-                                        <Style.Triggers>
-                                            <DataTrigger Binding="{Binding IsEssential}"
-                                                             Value="true">
-                                                <Setter Property="Background"
-                                                            Value="LightPink" />
-                                            </DataTrigger>
-                                        </Style.Triggers>
-                                    </Style>
-                                </DataGrid.RowStyle>
-                            </DataGrid>
-                        </Border>
-                    </Expander>
+                    <DockPanel>
+                        <Separator DockPanel.Dock="Top"
+                                   Margin="0 15 0 3"
+                                   Background="LightGray" />
+                        <TreeView DockPanel.Dock="Top"
+                                  BorderThickness="0">
+                            <TreeViewItem IsExpanded="True">
+                                <TreeViewItem.Header>
+                                    <TextBlock Style="{StaticResource PanelHeader}"
+                                               Text="{Binding Message}" />
+                                </TreeViewItem.Header>
+                                <TreeViewItem>
+                                    <TreeViewItem.Header>
+                                        <DataGrid DockPanel.Dock="Top"
+                                                  Margin="2"
+                                                  ItemsSource="{Binding}"
+                                                  AutoGenerateColumns="False"
+                                                  SelectedItem="{Binding SelectedItem, Mode=TwoWay}"
+                                                  IsReadOnly="True"
+                                                  CanUserSortColumns="False">
+                                            <DataGrid.Columns>
+                                                <DataGridTextColumn Header="Message"
+                                                                    Binding="{Binding Message}" />
+                                                <DataGridTemplateColumn Header="Location"
+                                                                        Width="Auto">
+                                                    <DataGridTemplateColumn.CellTemplate>
+                                                        <DataTemplate>
+                                                            <WrapPanel>
+                                                                <WrapPanel.InputBindings>
+                                                                    <MouseBinding Gesture="LeftClick"
+                                                                                  Command="{Binding DataContext.SelectedCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ListView}}}"
+                                                                                  CommandParameter="{Binding}" />
+                                                                </WrapPanel.InputBindings>
+                                                                <WrapPanel.ToolTip>
+                                                                    <WrapPanel Orientation="Horizontal">
+                                                                        <TextBlock>
+                                                                <Run Text="{Binding FilePath, Mode=OneWay}" />
+                                                                        </TextBlock>
+                                                                        <TextBlock Visibility="{Binding Region.StartLine, Converter={StaticResource int32ToVisibilityConverter}}">
+                                                                <Run Text=" Line" />
+                                                                <Run Text="{Binding Region.StartLine, Mode=OneWay}" />
+                                                                        </TextBlock>
+                                                                        <TextBlock Visibility="{Binding Region.StartColumn, Converter={StaticResource int32ToVisibilityConverter}}">
+                                                                <Run Text=" Col" />
+                                                                <Run Text="{Binding Region.StartColumn, Mode=OneWay}" />
+                                                                        </TextBlock>
+                                                                    </WrapPanel>
+                                                                </WrapPanel.ToolTip>
+                                                                <TextBlock>
+                                                        <Run Text="{Binding FileName, Mode=OneWay}" />
+                                                                </TextBlock>
+                                                                <TextBlock Visibility="{Binding Location, Converter={StaticResource stringToVisibilityConverter}}"
+                                                                           Margin="5 0 0 0">
+                                                        <Run Text="{Binding Location, Mode=OneWay}" />
+                                                                </TextBlock>
+                                                            </WrapPanel>
+                                                        </DataTemplate>
+                                                    </DataGridTemplateColumn.CellTemplate>
+                                                </DataGridTemplateColumn>
+                                            </DataGrid.Columns>
+                                            <DataGrid.RowStyle>
+                                                <Style TargetType="DataGridRow">
+                                                    <Style.Triggers>
+                                                        <DataTrigger Binding="{Binding IsEssential}"
+                                                                     Value="true">
+                                                            <Setter Property="Background"
+                                                                    Value="LightPink" />
+                                                        </DataTrigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </DataGrid.RowStyle>
+                                        </DataGrid>
+                                    </TreeViewItem.Header>
+                                </TreeViewItem>
+                            </TreeViewItem>
+                        </TreeView>
+                    </DockPanel>
                 </DataTemplate>
-            </ListBox.ItemTemplate>
-        </ListBox>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
     </DataTemplate>
 
 </ResourceDictionary>
