@@ -53,17 +53,6 @@
   <ItemGroup>
     <Compile Include="HashData.cs" />
     <Compile Include="ConsoleLogger.cs" />
-    <Compile Include="Converters\AndroidStudioProblem.cs" />
-    <Compile Include="Converters\AndroidStudioStrings.cs" />
-    <Compile Include="Converters\StaticDriverVerifierConverter.cs" />
-    <Compile Include="Converters\ToolFileConverterBase.cs" />
-    <Compile Include="Converters\CppCheckError.cs" />
-    <Compile Include="Converters\CppCheckLocation.cs" />
-    <Compile Include="Converters\CppCheckStrings.cs" />
-    <Compile Include="Converters\FileInfoFactory.cs" />
-    <Compile Include="Converters\FortifyIssue.cs" />
-    <Compile Include="Converters\FortifyPathElement.cs" />
-    <Compile Include="Converters\FortifyStrings.cs" />
     <Compile Include="Core\FileData.cs" />
     <Compile Include="Core\Invocation.cs" />
     <Compile Include="Core\ExceptionData.cs" />
@@ -81,7 +70,6 @@
     <Compile Include="IAnalysisContext.cs" />
     <Compile Include="IAnalysisLogger.cs" />
     <Compile Include="IAnalyzeOptions.cs" />
-    <Compile Include="IgnoreOptions.cs" />
     <Compile Include="IOption.cs" />
     <Compile Include="IOptionsProvider.cs" />
     <Compile Include="IResultLogWriter.cs" />
@@ -107,7 +95,6 @@
     <Compile Include="Readers\SerializedPropertyInfo.cs" />
     <Compile Include="Readers\UriConverter.cs" />
     <Compile Include="Readers\VersionConverter.cs" />
-    <Compile Include="Ref.cs" />
     <Compile Include="RuleUtilities.cs" />
     <Compile Include="RuntimeConditions.cs" />
     <Compile Include="SarifConstants.cs" />
@@ -117,20 +104,10 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>SdkResources.resx</DependentUpon>
     </Compile>
-    <Compile Include="SparseReader.cs" />
-    <Compile Include="SparseReaderDispatchTable.cs" />
     <Compile Include="IntegerSet.cs" />
     <Compile Include="StringSet.cs" />
-    <Compile Include="ToolFormatConversionOptions.cs" />
-    <Compile Include="ToolFormatConverter.cs" />
-    <Compile Include="Converters\AndroidStudioConverter.cs" />
-    <Compile Include="Converters\ClangAnalyzerConverter.cs" />
     <Compile Include="IToolFileConverter.cs" />
-    <Compile Include="Converters\CppCheckConverter.cs" />
-    <Compile Include="Converters\FortifyConverter.cs" />
-    <Compile Include="Converters\FxCopConverter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ToolFormat.cs" />
     <Compile Include="TypedPropertyBag.cs" />
     <Compile Include="VersionConstants.cs" />
     <Compile Include="Warnings.cs" />
@@ -149,9 +126,6 @@
     <None Include="CopyrightNotice.txt" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Schemata\FxCopReport.xsd">
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
     <EmbeddedResource Include="SdkResources.resx">
       <SubType>Designer</SubType>
       <Generator>ResXFileCodeGenerator</Generator>

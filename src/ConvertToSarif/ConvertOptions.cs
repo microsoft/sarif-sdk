@@ -3,6 +3,7 @@
 
 
 using CommandLine;
+using Microsoft.CodeAnalysis.Sarif.Converters;
 
 namespace Microsoft.CodeAnalysis.Sarif.ConvertToSarif
 {

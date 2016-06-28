@@ -11,7 +11,7 @@ using Microsoft.CodeAnalysis.Sarif.Readers;
 using Microsoft.CodeAnalysis.Sarif.Writers;
 
 using Newtonsoft.Json;
-using Microsoft.Sarif.Viewer.Sarif;
+using Microsoft.CodeAnalysis.Sarif.Converters;
 
 namespace Microsoft.Sarif.Viewer.ErrorList
 {

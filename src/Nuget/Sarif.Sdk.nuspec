@@ -40,6 +40,8 @@
     <file src="..\..\ConvertToSarif\AnyCPU_$configuration$\PREfastXmlSarifConverter.dll" target="tools\ConvertToSarif" />
     <file src="..\..\ConvertToSarif\AnyCPU_$configuration$\Sarif.dll" target="tools\ConvertToSarif" />
     <file src="..\..\ConvertToSarif\AnyCPU_$configuration$\Sarif.pdb" target="tools\ConvertToSarif" />
+    <file src="..\..\ConvertToSarif\AnyCPU_$configuration$\Sarif.Converters.dll" target="tools\ConvertToSarif" />
+    <file src="..\..\ConvertToSarif\AnyCPU_$configuration$\Sarif.Converters.pdb" target="tools\ConvertToSarif" />
     <file src="..\..\ConvertToSarif\AnyCPU_$configuration$\System.Collections.Immutable.dll" target="tools\ConvertToSarif" />
   </files>
 </package>

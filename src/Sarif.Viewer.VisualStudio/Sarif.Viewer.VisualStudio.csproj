@@ -38,8 +38,12 @@
   <ItemGroup>
     <Compile Include="CodeAnalysisResultManager.cs" />
     <Compile Include="CodeLocationObject.cs" />
+    <Compile Include="Controls\InternetHyperlink.xaml.cs">
+      <DependentUpon>InternetHyperlink.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Converters\CollectionToVisiblityConverter.cs" />
     <Compile Include="Converters\CollectionToCountConverter.cs" />
+    <Compile Include="Converters\BooleanToVisibilityConverter.cs" />
     <Compile Include="Converters\Int32ToVisibilityConverter.cs" />
     <Compile Include="DelegateCommand.cs" />
     <Compile Include="DelegateCommandBase.cs" />
@@ -263,6 +267,10 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Sarif.Converters\Sarif.Converters.csproj">
+      <Project>{237defdf-1dfb-40a0-997f-12c8165daa87}</Project>
+      <Name>Sarif.Converters</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Sarif.Driver\Sarif.Driver.csproj">
       <Project>{8ceaea61-b1a2-4777-bcbe-c9a129a5f6c5}</Project>
       <Name>Sarif.Driver</Name>
@@ -273,6 +281,34 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Page Include="Controls\InternetHyperlink.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\CodeFlows.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\DefaultStyles.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\Fixes.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\Information.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\Locations.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\Stacks.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\CodeLocations.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
