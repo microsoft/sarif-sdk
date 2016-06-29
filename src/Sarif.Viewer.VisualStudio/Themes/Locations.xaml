@@ -30,11 +30,18 @@
                       BorderThickness="0">
                 <TreeViewItem IsExpanded="True">
                     <TreeViewItem.Header>
-                        <TextBlock Style="{StaticResource PanelHeader}">
-                        <Run Text="Defect Locations (" />
-                        <Run Text="{Binding Locations.Count, Mode=OneWay}" />
-                        <Run Text=")" />
-                        </TextBlock>
+                        <DockPanel>
+                            <TextBlock DockPanel.Dock="Left"
+                                       Style="{StaticResource PanelHeader}"
+                                       Text="Defect Locations" />
+                            <TextBlock DockPanel.Dock="Left"
+                                       Style="{StaticResource PanelHeader}"
+                                       Visibility="{Binding Locations, Converter={StaticResource collectionToVisibility1Converter}}">
+                                <Run Text=" (" />
+                                <Run Text="{Binding Locations.Count, Mode=OneWay}" />
+                                <Run Text=")" />
+                            </TextBlock>
+                        </DockPanel>
                     </TreeViewItem.Header>
                     <TreeViewItem>
                         <TreeViewItem.Header>
@@ -110,11 +117,18 @@
                       BorderThickness="0">
                 <TreeViewItem IsExpanded="True">
                     <TreeViewItem.Header>
-                        <TextBlock Style="{StaticResource PanelHeader}">
-                        <Run Text="Related Locations (" />
-                        <Run Text="{Binding RelatedLocations.Count, Mode=OneWay}" />
-                        <Run Text=")" />
-                        </TextBlock>
+                        <DockPanel>
+                            <TextBlock DockPanel.Dock="Left"
+                                       Style="{StaticResource PanelHeader}"
+                                       Text="Related Locations" />
+                            <TextBlock DockPanel.Dock="Left"
+                                       Style="{StaticResource PanelHeader}"
+                                       Visibility="{Binding RelatedLocations, Converter={StaticResource collectionToVisibility1Converter}}">
+                                <Run Text=" (" />
+                                <Run Text="{Binding RelatedLocations.Count, Mode=OneWay}" />
+                                <Run Text=")" />
+                            </TextBlock>
+                        </DockPanel>
                     </TreeViewItem.Header>
                     <TreeViewItem>
                         <TreeViewItem.Header>
