@@ -10,7 +10,8 @@
     <converters:Int32ToVisibilityConverter x:Key="int32ToVisibilityConverter" />
     <converters:CollectionToCountConverter x:Key="collectionToCountConverter" />
     <converters:CollectionToVisiblityConverter x:Key="collectionToVisibilityConverter" />
-    
+    <converters:MultipleStringsToVisibilityConverter x:Key="multipleStringsToVisibilityConverter" />
+
     <!-- Default Styles-->
     <Style TargetType="{x:Type Control}"
                x:Key="baseStyle">

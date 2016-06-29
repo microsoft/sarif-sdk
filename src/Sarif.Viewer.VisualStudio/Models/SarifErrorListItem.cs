@@ -17,6 +17,7 @@ namespace Microsoft.Sarif.Viewer
         private string _fileName;
         private ToolModel _tool;
         private RuleModel _rule;
+        private InvocationModel _invocation;
         private string _selectedTab;
         private AnnotatedCodeLocationCollection _locations;
         private AnnotatedCodeLocationCollection _relatedLocations;
@@ -52,6 +53,7 @@ namespace Microsoft.Sarif.Viewer
 
             this.Tool = run.Tool.ToToolModel();
             this.Rule = rule.ToRuleModel(result.RuleId);
+            this.Invocation = run.Invocation.ToInvocationModel();
 
             if (result.Locations != null)
             {
@@ -154,6 +156,19 @@ namespace Microsoft.Sarif.Viewer
             {
                 this._rule = value;
                 NotifyPropertyChanged("Rule");
+            }
+        }
+
+        public InvocationModel Invocation
+        {
+            get
+            {
+                return this._invocation;
+            }
+            set
+            {
+                this._invocation = value;
+                NotifyPropertyChanged("Invocation");
             }
         }
 

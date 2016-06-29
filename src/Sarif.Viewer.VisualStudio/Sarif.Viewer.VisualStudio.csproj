@@ -45,8 +45,10 @@
     <Compile Include="Converters\CollectionToCountConverter.cs" />
     <Compile Include="Converters\BooleanToVisibilityConverter.cs" />
     <Compile Include="Converters\Int32ToVisibilityConverter.cs" />
+    <Compile Include="Converters\MultipleStringsToVisibilityConverter.cs" />
     <Compile Include="DelegateCommand.cs" />
     <Compile Include="DelegateCommandBase.cs" />
+    <Compile Include="Models\InvocationModel.cs" />
     <Compile Include="Models\ReplacementModel.cs" />
     <Compile Include="Models\FileChangeModel.cs" />
     <Compile Include="Models\FixModel.cs" />
@@ -65,6 +67,7 @@
     <Compile Include="Sarif\Result.extensions.cs" />
     <Compile Include="Sarif\Location.extensions.cs" />
     <Compile Include="Sarif\Rule.extensions.cs" />
+    <Compile Include="Sarif\Invocation.extensions.cs" />
     <Compile Include="Sarif\Tool.extensions.cs" />
     <Compile Include="Sarif\Run.extensions.cs" />
     <Compile Include="Tags\ISarifLocationProviderFactory.cs" />
