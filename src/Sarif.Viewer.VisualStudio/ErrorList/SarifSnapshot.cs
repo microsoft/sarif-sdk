@@ -71,6 +71,13 @@ namespace Microsoft.Sarif.Viewer.ErrorList
                 {
                     content = _errors[index].ShortMessage;
                 }
+                else if (columnName == StandardTableKeyNames.FullText)
+                {
+                    if (!string.IsNullOrEmpty(_errors[index].Message) && _errors[index].Message.Trim() != _errors[index].ShortMessage.Trim())
+                    {
+                        content = _errors[index].Message;
+                    }
+                }
                 else if (columnName == StandardTableKeyNames.ErrorSeverity)
                 {
                     content = GetSeverity(_errors[index].Level);
@@ -128,21 +135,20 @@ namespace Microsoft.Sarif.Viewer.ErrorList
                     var error = _errors[index];
                     content = error.Rule.Id + ":" + error.Rule.Name;
                 }
-                else if (columnName == StandardTableKeyNames.DetailsExpander)
-                {
-                    var error = _errors[index];
+                //else if (columnName == StandardTableKeyNames.DetailsExpander)
+                //{
+                //    var error = _errors[index];
 
-                    if (!string.IsNullOrEmpty(error.Message) && error.Message.Trim() != error.ShortMessage.Trim())
-                    {
-                        content = String.Empty;
-                    }
-                    else
-                    {
-                        content = null;
-                    }
-
-                }
-                else
+                //    if (!string.IsNullOrEmpty(error.Message) && error.Message.Trim() != error.ShortMessage.Trim())
+                //    {
+                //        content = String.Empty;
+                //    }
+                //    else
+                //    {
+                //        content = null;
+                //    }
+                //}
+                else if (columnName == "suppressionstate")
                 {
                     var error = _errors[index];
                     content = error.SuppressionStates != SuppressionStates.None ? "Suppressed" : "Active";

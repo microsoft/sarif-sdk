@@ -157,6 +157,12 @@
                            TextWrapping="Wrap"
                            Margin="0 20 0 0" 
                            Style="{StaticResource PropertyKey}" />
+            <TextBlock Grid.Row="15"
+                       Grid.Column="0"
+                       Grid.ColumnSpan="2">
+                <Hyperlink Command="{Binding OpenLogFileCommand}">Open Log File</Hyperlink>
+            </TextBlock>
+                       
         </Grid>
     </DataTemplate>
 

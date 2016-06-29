@@ -20,11 +20,16 @@
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="pack://application:,,,/Microsoft.Sarif.Viewer;component/Themes/DefaultStyles.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/Microsoft.Sarif.Viewer;component/Themes/TreeView.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/Microsoft.Sarif.Viewer;component/Themes/TabControl.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/Microsoft.Sarif.Viewer;component/Themes/Locations.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/Microsoft.Sarif.Viewer;component/Themes/Stacks.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/Microsoft.Sarif.Viewer;component/Themes/CodeFlows.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/Microsoft.Sarif.Viewer;component/Themes/Fixes.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/Microsoft.Sarif.Viewer;component/Themes/Information.xaml" />
+                <ResourceDictionary>
+
+                </ResourceDictionary>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
 
@@ -48,17 +53,24 @@
             <Grid.ColumnDefinitions>
                 <ColumnDefinition />
             </Grid.ColumnDefinitions>
-            <Border Grid.Row="0">
-                <WrapPanel Orientation="Horizontal">
-                    <TextBlock Text="Defect Code:"
-                               Margin="0 0 5 0" />
-                    <controls:InternetHyperlink Text="{Binding Rule.Id}"
+            <Border Grid.Row="0"
+                    Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}"
+                    Padding="5 5 5 5"
+                    Margin="-5 0 -5 0">
+                <DockPanel HorizontalAlignment="Stretch">
+                    <controls:InternetHyperlink DockPanel.Dock="Left"
+                                                Text="{Binding Rule.Id}"
                                                 NavigateUri="{Binding Rule.HelpUri}"
-                                                Margin="0 0 5 0" />
-                    <TextBlock Text="{Binding Rule.Name, Mode=OneTime}"
-                                FontWeight="Bold" />
-                    <DockPanel DataContext="{Binding Locations[0]}"
-                               Margin="5 0 0 0">
+                                                Margin="0 0 5 0"
+                                                FontWeight="SemiBold"
+                                                FontSize="13.5"/>
+                    <TextBlock DockPanel.Dock="Left"
+                               Text="{Binding Rule.Name, Mode=OneTime}"
+                               Style="{StaticResource DialogHeader}" />
+                    <DockPanel DockPanel.Dock="Right" 
+                               DataContext="{Binding Locations[0]}"
+                               Margin="5 0 0 0"
+                               HorizontalAlignment="Stretch">
                         <DockPanel.ToolTip>
                             <WrapPanel Orientation="Horizontal">
                                 <TextBlock>
@@ -74,21 +86,26 @@
                                 </TextBlock>
                             </WrapPanel>
                         </DockPanel.ToolTip>
-                        <TextBlock>
-                            <Run Text="{Binding FileName, Mode=OneWay}" />
-                        </TextBlock>
-                        <TextBlock Visibility="{Binding Location, Converter={StaticResource stringToVisibilityConverter}}"
-                                   Margin="5 0 0 0">
+                        <TextBlock DockPanel.Dock="Right"
+                                   Visibility="{Binding Location, Converter={StaticResource stringToVisibilityConverter}}"
+                                   Margin="5 0 5 0"
+                                   HorizontalAlignment="Right"
+                                   Style="{StaticResource DialogHeader}">
                             <Run Text="{Binding Location, Mode=OneWay}" />
                         </TextBlock>
+                        <TextBlock DockPanel.Dock="Right"
+                                   HorizontalAlignment="Right"
+                                   Style="{StaticResource DialogHeader}">
+                            <Run Text="{Binding FileName, Mode=OneWay}" />
+                        </TextBlock>
                     </DockPanel>
-                </WrapPanel>
+                </DockPanel>
             </Border>
             <TextBlock Grid.Row="2"
                        TextWrapping="Wrap"
                        Text="{Binding Message}"
                        FontFamily="Segoe UI"
-                       Margin="5" />
+                       Margin="0 10 0 10" />
         </Grid>
         
         <!-- These are the tabs which display the result information. -->
@@ -97,47 +114,66 @@
                     BorderThickness="0 1 0 0">
             <TabItem>
                 <TabItem.Header>
-                    <TextBlock>
-                        <Run Text="Locations (" />
-                        <Run Text="{Binding LocationsCount, Mode=OneWay}" />
-                        <Run Text=")" />
-                    </TextBlock>
+                    <DockPanel>
+                        <TextBlock DockPanel.Dock="Left" Text="Locations" />
+                        <TextBlock DockPanel.Dock="Left"
+                                   Visibility="{Binding HasMultipleLocations, Converter={StaticResource booleanToVisiblityConverter}}">
+                            <Run Text=" (" />
+                            <Run Text="{Binding LocationsCount, Mode=OneWay}" />
+                            <Run Text=")" />
+                        </TextBlock>
+                    </DockPanel>
                 </TabItem.Header>
                 <ContentControl ContentTemplate="{StaticResource CodeLocationCollectionTemplate}"
                                 Content="{Binding}" />
             </TabItem>
-            <TabItem Visibility="{Binding CodeFlows, Converter={StaticResource collectionToVisibilityConverter}}">
+            <TabItem Visibility="{Binding CodeFlows, Converter={StaticResource collectionToVisibility0Converter}}">
                 <TabItem.Header>
-                    <TextBlock>
-                        <Run Text="Code Flows (" />
-                        <Run Text="{Binding CodeFlows, Mode=OneWay, Converter={StaticResource collectionToCountConverter}}" />
-                        <Run Text=")" />
-                    </TextBlock>
+                    <DockPanel>
+                        <TextBlock DockPanel.Dock="Left"
+                                   Text="Code Flows" />
+                        <TextBlock DockPanel.Dock="Left"
+                                   Visibility="{Binding CodeFlows, Converter={StaticResource collectionToVisibility1Converter}}">
+                            <Run Text=" (" />
+                            <Run Text="{Binding CodeFlows, Mode=OneWay, Converter={StaticResource collectionToCountConverter}}" />
+                            <Run Text=")" />
+                        </TextBlock>
+                    </DockPanel>
                 </TabItem.Header>
 
                 <ContentControl ContentTemplate="{StaticResource AnnotatedCodeLocationCollectionDataGridTemplate}"
                                 Content="{Binding CodeFlows}" />
             </TabItem>
-            <TabItem Visibility="{Binding Stacks, Converter={StaticResource collectionToVisibilityConverter}}">
+            <TabItem Visibility="{Binding Stacks, Converter={StaticResource collectionToVisibility0Converter}}">
                 <TabItem.Header>
-                    <TextBlock>
-                        <Run Text="Stacks (" />
-                        <Run Text="{Binding Stacks, Mode=OneWay, Converter={StaticResource collectionToCountConverter}}" />
-                        <Run Text=")" />
-                    </TextBlock>
+                    <DockPanel>
+                        <TextBlock DockPanel.Dock="Left"
+                                   Text="Stacks" />
+                        <TextBlock DockPanel.Dock="Left"
+                                   Visibility="{Binding Stacks, Converter={StaticResource collectionToVisibility1Converter}}">
+                            <Run Text=" (" />
+                            <Run Text="{Binding Stacks, Mode=OneWay, Converter={StaticResource collectionToCountConverter}}" />
+                            <Run Text=")" />
+                        </TextBlock>
+                    </DockPanel>
                 </TabItem.Header>
 
                 <ContentControl ContentTemplate="{StaticResource StackCollectionTemplate}"
                                 Content="{Binding Stacks}"
                                 Margin="0,-1,0,1" />
             </TabItem>
-            <TabItem Visibility="{Binding Fixes, Converter={StaticResource collectionToVisibilityConverter}}">
+            <TabItem Visibility="{Binding Fixes, Converter={StaticResource collectionToVisibility0Converter}}">
                 <TabItem.Header>
-                    <TextBlock>
-                        <Run Text="Fixes (" />
-                        <Run Text="{Binding Fixes, Mode=OneWay, Converter={StaticResource collectionToCountConverter}}" />
-                        <Run Text=")" />
-                    </TextBlock>
+                    <DockPanel>
+                        <TextBlock DockPanel.Dock="Left"
+                                   Text="Fixes" />
+                        <TextBlock DockPanel.Dock="Left"
+                                   Visibility="{Binding Fixes, Converter={StaticResource collectionToVisibility1Converter}}">
+                            <Run Text=" (" />
+                            <Run Text="{Binding Fixes, Mode=OneWay, Converter={StaticResource collectionToCountConverter}}" />
+                            <Run Text=")" />
+                        </TextBlock>
+                    </DockPanel>
                 </TabItem.Header>
 
                 <ContentControl ContentTemplate="{StaticResource FixCollectionTemplate}"

@@ -27,7 +27,8 @@ namespace Microsoft.Sarif.Viewer.Sarif
 
             if (!String.IsNullOrEmpty(replacement.InsertedBytes))
             {
-                model.InsertedBytes = Encoding.UTF8.GetString(Convert.FromBase64String(replacement.InsertedBytes));
+                model.InsertedString = Encoding.UTF8.GetString(Convert.FromBase64String(replacement.InsertedBytes));
+                model.InsertedBytes = Encoding.UTF8.GetBytes(model.InsertedString);
             }
 
             model.Offset = replacement.Offset;

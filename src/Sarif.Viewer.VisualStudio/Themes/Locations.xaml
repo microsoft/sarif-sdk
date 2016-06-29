@@ -23,24 +23,32 @@
 
             <Separator Grid.Row="0"
                        Margin="0 15 0 3"
-                       Visibility="{Binding Locations, Converter={StaticResource collectionToVisibilityConverter}}"
+                       Visibility="{Binding Locations, Converter={StaticResource collectionToVisibility0Converter}}"
                        Background="LightGray" />
             <TreeView Grid.Row="1"
-                      Visibility="{Binding Locations, Converter={StaticResource collectionToVisibilityConverter}}"
+                      Visibility="{Binding Locations, Converter={StaticResource collectionToVisibility0Converter}}"
                       BorderThickness="0">
                 <TreeViewItem IsExpanded="True">
                     <TreeViewItem.Header>
-                        <TextBlock Style="{StaticResource PanelHeader}">
-                        <Run Text="Primary Locations (" />
-                        <Run Text="{Binding Locations.Count, Mode=OneWay}" />
-                        <Run Text=")" />
-                        </TextBlock>
+                        <DockPanel>
+                            <TextBlock DockPanel.Dock="Left"
+                                       Style="{StaticResource PanelHeader}"
+                                       Text="Defect Locations" />
+                            <TextBlock DockPanel.Dock="Left"
+                                       Style="{StaticResource PanelHeader}"
+                                       Visibility="{Binding Locations, Converter={StaticResource collectionToVisibility1Converter}}">
+                                <Run Text=" (" />
+                                <Run Text="{Binding Locations.Count, Mode=OneWay}" />
+                                <Run Text=")" />
+                            </TextBlock>
+                        </DockPanel>
                     </TreeViewItem.Header>
                     <TreeViewItem>
                         <TreeViewItem.Header>
                             <DockPanel>
                                 <ListBox DockPanel.Dock="Top"
                                          ItemsSource="{Binding Locations}"
+                                         SelectedIndex="0"
                                          SelectedItem="{Binding Locations.SelectedItem, Mode=TwoWay}"
                                          BorderThickness="0">
                                     <ListBox.ItemsPanel>
@@ -102,22 +110,29 @@
 
             <Separator Grid.Row="2"
                        Margin="0 15 0 3"
-                       Visibility="{Binding RelatedLocations, Converter={StaticResource collectionToVisibilityConverter}}"
+                       Visibility="{Binding RelatedLocations, Converter={StaticResource collectionToVisibility0Converter}}"
                        Background="LightGray" />
             <TreeView Grid.Row="3"
-                      Visibility="{Binding RelatedLocations, Converter={StaticResource collectionToVisibilityConverter}}"
+                      Visibility="{Binding RelatedLocations, Converter={StaticResource collectionToVisibility0Converter}}"
                       BorderThickness="0">
                 <TreeViewItem IsExpanded="True">
                     <TreeViewItem.Header>
-                        <TextBlock Style="{StaticResource PanelHeader}">
-                        <Run Text="Related Locations (" />
-                        <Run Text="{Binding RelatedLocations.Count, Mode=OneWay}" />
-                        <Run Text=")" />
-                        </TextBlock>
+                        <DockPanel>
+                            <TextBlock DockPanel.Dock="Left"
+                                       Style="{StaticResource PanelHeader}"
+                                       Text="Related Locations" />
+                            <TextBlock DockPanel.Dock="Left"
+                                       Style="{StaticResource PanelHeader}"
+                                       Visibility="{Binding RelatedLocations, Converter={StaticResource collectionToVisibility1Converter}}">
+                                <Run Text=" (" />
+                                <Run Text="{Binding RelatedLocations.Count, Mode=OneWay}" />
+                                <Run Text=")" />
+                            </TextBlock>
+                        </DockPanel>
                     </TreeViewItem.Header>
                     <TreeViewItem>
                         <TreeViewItem.Header>
-                            <DockPanel Visibility="{Binding RelatedLocations, Converter={StaticResource collectionToVisibilityConverter}}">
+                            <DockPanel Visibility="{Binding RelatedLocations, Converter={StaticResource collectionToVisibility0Converter}}">
                                 <ListBox DockPanel.Dock="Top"
                                          ItemsSource="{Binding RelatedLocations}"
                                          SelectedItem="{Binding RelatedLocations.SelectedItem, Mode=TwoWay}"
