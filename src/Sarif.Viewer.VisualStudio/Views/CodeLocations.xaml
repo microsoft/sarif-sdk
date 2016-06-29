@@ -63,13 +63,20 @@
                                                 NavigateUri="{Binding Rule.HelpUri}"
                                                 Margin="0 0 5 0"
                                                 FontWeight="SemiBold"
-                                                FontSize="13.5"/>
+                                                FontSize="15.5"/>
                     <TextBlock DockPanel.Dock="Left"
                                Text="{Binding Rule.Name, Mode=OneTime}"
-                               Style="{StaticResource DialogHeader}" />
-                    <DockPanel DockPanel.Dock="Right" 
+                               Style="{StaticResource DialogHeader}"
+                               FontSize="15.5"
+                               VerticalAlignment="Center"/>
+                    <TextBlock DockPanel.Dock="Left"
+                               Text="|"
+                               Foreground="Gray"
+                               FontSize="16"
+                               VerticalAlignment="Center"
+                               Margin="7 0 7 2"/>
+                    <DockPanel DockPanel.Dock="Left" 
                                DataContext="{Binding Locations[0]}"
-                               Margin="5 0 0 0"
                                HorizontalAlignment="Stretch">
                         <DockPanel.ToolTip>
                             <WrapPanel Orientation="Horizontal">
@@ -86,17 +93,18 @@
                                 </TextBlock>
                             </WrapPanel>
                         </DockPanel.ToolTip>
-                        <TextBlock DockPanel.Dock="Right"
-                                   Visibility="{Binding Location, Converter={StaticResource stringToVisibilityConverter}}"
-                                   Margin="5 0 5 0"
-                                   HorizontalAlignment="Right"
-                                   Style="{StaticResource DialogHeader}">
-                            <Run Text="{Binding Location, Mode=OneWay}" />
-                        </TextBlock>
-                        <TextBlock DockPanel.Dock="Right"
-                                   HorizontalAlignment="Right"
-                                   Style="{StaticResource DialogHeader}">
+                        <TextBlock DockPanel.Dock="Left"
+                                   Foreground="Gray"
+                                   VerticalAlignment="Bottom"
+                                   Margin="0 0 0 3">
                             <Run Text="{Binding FileName, Mode=OneWay}" />
+                        </TextBlock>
+                        <TextBlock DockPanel.Dock="Left"
+                                   Visibility="{Binding Location, Converter={StaticResource stringToVisibilityConverter}}"
+                                   Foreground="Gray"
+                                   VerticalAlignment="Bottom"
+                                   Margin="5 0 5 3">
+                            <Run Text="{Binding Location, Mode=OneWay}" />
                         </TextBlock>
                     </DockPanel>
                 </DockPanel>
