@@ -193,6 +193,14 @@
             <TextBlock Grid.Row="16" />
 
             <!-- Invocation will go here. -->
+
+            <TextBlock Grid.Row="17"
+                       Grid.Column="0"
+                       Grid.ColumnSpan="2"
+                       Margin="0 25 0 0">  
+                  <Hyperlink Command="{Binding OpenLogFileCommand}">Open Log File</Hyperlink>
+            </TextBlock>
+
         </Grid>
     </DataTemplate>
 
