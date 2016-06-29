@@ -302,7 +302,8 @@
 
             <TextBlock Grid.Row="27"
                        Grid.Column="0"
-                       Grid.ColumnSpan="2">
+                       Grid.ColumnSpan="2"
+                       Margin="0 25 0 0">
                 <Hyperlink Command="{Binding OpenLogFileCommand}">Open Log File</Hyperlink>
             </TextBlock>
         </Grid>
