@@ -31,7 +31,7 @@
                 <TreeViewItem IsExpanded="True">
                     <TreeViewItem.Header>
                         <TextBlock Style="{StaticResource PanelHeader}">
-                        <Run Text="Primary Locations (" />
+                        <Run Text="Defect Locations (" />
                         <Run Text="{Binding Locations.Count, Mode=OneWay}" />
                         <Run Text=")" />
                         </TextBlock>
