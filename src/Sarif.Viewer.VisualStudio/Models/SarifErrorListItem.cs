@@ -24,6 +24,7 @@ namespace Microsoft.Sarif.Viewer
         private ObservableCollection<AnnotatedCodeLocationCollection> _codeFlows;
         private ObservableCollection<StackCollection> _stacks;
         private ObservableCollection<FixModel> _fixes;
+        private DelegateCommand _openLogFileCommand;
 
         internal SarifErrorListItem()
         {
@@ -34,7 +35,7 @@ namespace Microsoft.Sarif.Viewer
             this._fixes = new ObservableCollection<FixModel>();
         }
 
-        public SarifErrorListItem(Run run, Result result) : this()
+        public SarifErrorListItem(Run run, Result result, string logFilePath) : this()
         {
             IRule rule;
             run.TryGetRule(result.RuleId, result.RuleKey, out rule);
@@ -44,6 +45,8 @@ namespace Microsoft.Sarif.Viewer
             this.Category = result.GetCategory();
             this.Region = result.GetPrimaryTargetRegion();
             this.Level = result.Level;
+            this.SuppressionStates = result.SuppressionStates;
+            this.LogFilePath = logFilePath;
 
             if (this.Region != null)
             {
@@ -132,6 +135,10 @@ namespace Microsoft.Sarif.Viewer
         public ResultLevel Level { get; set; }
 
         public string HelpLink { get; set; }
+
+        public SuppressionStates SuppressionStates { get; set; }
+
+        public string LogFilePath { get; set; }
 
         public ToolModel Tool
         {
@@ -252,6 +259,19 @@ namespace Microsoft.Sarif.Viewer
             }
         }
 
+        public DelegateCommand OpenLogFileCommand
+        {
+            get
+            {
+                if (this._openLogFileCommand == null)
+                {
+                    this._openLogFileCommand = new DelegateCommand(() => this.OpenLogFile());
+                }
+
+                return this._openLogFileCommand;
+            }
+        }
+
         internal void RemoveMarkers()
         {
             LineMarker.RemoveMarker();
@@ -280,6 +300,14 @@ namespace Microsoft.Sarif.Viewer
                 {
                     stackFrame.LineMarker.RemoveMarker();
                 }
+            }
+        }
+
+        internal void OpenLogFile()
+        {
+            if (this.LogFilePath != null && System.IO.File.Exists(this.LogFilePath))
+            {
+                SarifViewerPackage.Dte.ExecuteCommand("File.OpenFile", $@"""{this.LogFilePath}"" /e:""JSON Editor""");
             }
         }
 

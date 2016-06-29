@@ -247,6 +247,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             int length = 0;
             bool withinQuotes = false;
             bool withinParentheses = false;
+            bool lastEncounteredWasDot = false;
 
             foreach (char ch in text)
             {
@@ -260,6 +261,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                         {
                             withinQuotes = !withinQuotes;
                         }
+                        lastEncounteredWasDot = false;
                         break;
                     }
 
@@ -269,6 +271,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                         {
                             withinParentheses = true;
                         }
+                        lastEncounteredWasDot = false;
                         break;
                     }
 
@@ -278,18 +281,42 @@ namespace Microsoft.CodeAnalysis.Sarif
                         {
                             withinParentheses = false;
                         }
+                        lastEncounteredWasDot = false;
                         break;
                     }
-                    case '\n':
-                    case '\r':
+
                     case '.':
                     {
                         if (withinQuotes || withinParentheses) { continue; }
-                        return text.Substring(0, length).TrimEnd('\r', '\n');
+                        lastEncounteredWasDot = true;
+                        break;
+                    }
+
+                    // If we encounter a line-break, we return all leading text.
+                    case '\n':
+                    case '\r':
+                    {
+                        if (withinQuotes || withinParentheses) { continue; }
+                        return text.Substring(0, length).TrimEnd('\r', '\n', ' ', '.') + ".";
+                    }
+
+                    // If we encounter a space following a period, return 
+                    // all text terminating in the period (inclusive).
+                    case ' ':
+                    {
+                        if (!lastEncounteredWasDot) continue;
+                        if (withinQuotes || withinParentheses) { continue; }
+                        return text.Substring(0, length).TrimEnd('\r', '\n', ' ', '.') + ".";
+                    }
+
+                    default:
+                    {
+                        lastEncounteredWasDot = false;
+                        break;
                     }
                 }
             }
-            return text;
+            return text.TrimEnd('.') + ".";
         }
     }
 }

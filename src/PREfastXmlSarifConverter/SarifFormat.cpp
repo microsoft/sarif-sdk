@@ -299,29 +299,6 @@ SarifAnnotatedCodeLocation::SetThreadId(const std::wstring &value)
 }
 
 void
-SarifAnnotatedCodeLocation::SetEssential(const std::wstring &value)
-{
-    const wchar_t* essential = value.c_str();
-
-    if (wcscmp(essential, L"TRUE") == 0 ||
-        wcscmp(essential, L"True") == 0 ||
-        wcscmp(essential, L"true") == 0)
-    {
-        SetEssential(true);
-        return;
-    }
-
-    if (wcscmp(essential, L"FALSE") == 0 ||
-        wcscmp(essential, L"False") == 0 ||
-        wcscmp(essential, L"false") == 0)
-    {
-        SetEssential(false);
-    }
-
-    throw std::exception("Value could not be converted to bool.");
-}
-
-void
 SarifAnnotatedCodeLocation::AddTag(const std::wstring &tag)
 {
     if (m_values.find(L"properties") == m_values.end())

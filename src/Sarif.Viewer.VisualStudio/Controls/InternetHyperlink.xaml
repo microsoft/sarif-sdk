@@ -32,10 +32,12 @@
         </Style>
     </UserControl.Resources>
     <Grid>
-        <TextBlock>
+        <TextBlock VerticalAlignment="Bottom">
             <Hyperlink NavigateUri="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}, Path=NavigateUri}" 
                        Style="{StaticResource RuleHyperlinkStyle}" 
-                       RequestNavigate="Hyperlink_RequestNavigate">
+                       RequestNavigate="Hyperlink_RequestNavigate"
+                       FontSize="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}, Path=FontSize}"
+                       FontWeight="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}, Path=FontWeight}">
                 <Run Text="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}, Path=Text}" />
             </Hyperlink>
         </TextBlock>

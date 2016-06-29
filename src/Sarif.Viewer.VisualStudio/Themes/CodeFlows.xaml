@@ -2,68 +2,113 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:local="clr-namespace:Microsoft.Sarif.Viewer.Themes">
 
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="pack://application:,,,/Microsoft.Sarif.Viewer;component/Themes/DefaultStyles.xaml" />
+    </ResourceDictionary.MergedDictionaries>
+
     <DataTemplate x:Key="AnnotatedCodeLocationCollectionDataGridTemplate">
-        <ListBox ItemsSource="{Binding}"
-                     SelectedItem="{Binding SelectedItem, Mode=TwoWay}">
-            <ListBox.ItemsPanel>
+        <ItemsControl ItemsSource="{Binding}">
+            <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
-                    <DockPanel IsItemsHost="True" LastChildFill="False"/>
+                    <DockPanel IsItemsHost="True"
+                               LastChildFill="False" />
                 </ItemsPanelTemplate>
-            </ListBox.ItemsPanel>
-            <ListBox.ItemContainerStyle>
-                <Style TargetType="{x:Type ListBoxItem}">
-                    <Setter Property="DockPanel.Dock" Value="Bottom"/>
-                    <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
-                    <Setter Property="VerticalContentAlignment" Value="Stretch"/>
+            </ItemsControl.ItemsPanel>
+            <ItemsControl.ItemContainerStyle>
+                <Style TargetType="{x:Type ContentPresenter}">
+                    <Setter Property="DockPanel.Dock"
+                            Value="Bottom" />
                 </Style>
-            </ListBox.ItemContainerStyle>
-            <ListBox.ItemTemplate>
+            </ItemsControl.ItemContainerStyle>
+            <ItemsControl.ItemTemplate>
                 <DataTemplate>
-                    <Expander Header="{Binding Message}"
-                                  IsExpanded="True">
-                        <Border BorderThickness="1"
-                                    BorderBrush="LightGray">
-                            <DataGrid Margin="2"
-                                          ItemsSource="{Binding}"
-                                          AutoGenerateColumns="False"
-                                          SelectedItem="{Binding SelectedItem, Mode=TwoWay}"
-                                          IsReadOnly="True">
-                                <DataGrid.Columns>
-                                    <DataGridTextColumn Header="Message"
-                                                            Binding="{Binding Message}" />
-                                    <DataGridTemplateColumn Header="Name"
-                                                                Width="Auto">
-                                        <DataGridTemplateColumn.CellTemplate>
-                                            <DataTemplate>
-                                                <TextBlock>
-                                                    <TextBlock.InputBindings>
-                                                        <MouseBinding Gesture="LeftClick"
+                    <DockPanel>
+                        <Separator DockPanel.Dock="Top"
+                                   Margin="0 15 0 10"
+                                   Background="LightGray" />
+                        <Grid DockPanel.Dock="Top">
+                            <ListView ItemsSource="{Binding}"
+                                      SelectedItem="{Binding SelectedItem, Mode=TwoWay}">
+                                <ListView.Resources>
+                                    <Style x:Key="gridViewHeaderStyle"
+                                           TargetType="{x:Type GridViewColumnHeader}">
+                                        <Setter Property="Visibility"
+                                                Value="Collapsed" />
+                                    </Style>
+                                </ListView.Resources>
+                                <ListView.View>
+                                    <GridView ColumnHeaderContainerStyle="{StaticResource gridViewHeaderStyle}">
+                                        <GridViewColumn x:Name="Col0">
+                                            <GridViewColumn.CellTemplate>
+                                                <DataTemplate>
+                                                    <TextBlock Text="!"
+                                                               FontWeight="Black"
+                                                               Foreground="Red"
+                                                               Visibility="{Binding IsEssential, Converter={StaticResource booleanToVisiblityConverter}}"
+                                                               HorizontalAlignment="Center" />
+                                                </DataTemplate>
+                                            </GridViewColumn.CellTemplate>
+                                        </GridViewColumn>
+                                        <GridViewColumn x:Name="Col1"
+                                                        Header="Message"
+                                                        DisplayMemberBinding="{Binding Message}" />
+                                        <GridViewColumn Header="Location"
+                                                        Width="{Binding ElementName=helperField, Path=ActualWidth}">
+                                            <GridViewColumn.CellTemplate>
+                                                <DataTemplate>
+                                                    <DockPanel HorizontalAlignment="Stretch">
+                                                        <DockPanel.InputBindings>
+                                                            <MouseBinding Gesture="LeftClick"
                                                                           Command="{Binding DataContext.SelectedCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ListView}}}"
                                                                           CommandParameter="{Binding}" />
-                                                    </TextBlock.InputBindings>
-                                                        <Run Text="{Binding FilePath, Mode=OneWay}" /> Line <Run Text="{Binding Region.StartLine, Mode=OneWay}" />
-                                                </TextBlock>
-                                            </DataTemplate>
-                                        </DataGridTemplateColumn.CellTemplate>
-                                    </DataGridTemplateColumn>
-                                </DataGrid.Columns>
-                                <DataGrid.RowStyle>
-                                    <Style TargetType="DataGridRow">
-                                        <Style.Triggers>
-                                            <DataTrigger Binding="{Binding IsEssential}"
-                                                             Value="true">
-                                                <Setter Property="Background"
-                                                            Value="LightPink" />
-                                            </DataTrigger>
-                                        </Style.Triggers>
-                                    </Style>
-                                </DataGrid.RowStyle>
-                            </DataGrid>
-                        </Border>
-                    </Expander>
+                                                        </DockPanel.InputBindings>
+                                                        <DockPanel.ToolTip>
+                                                            <WrapPanel Orientation="Horizontal">
+                                                                <TextBlock>
+                                                                <Run Text="{Binding FilePath, Mode=OneWay}" />
+                                                                </TextBlock>
+                                                                <TextBlock Visibility="{Binding Region.StartLine, Converter={StaticResource int32ToVisibilityConverter}}">
+                                                                <Run Text=" Line" />
+                                                                <Run Text="{Binding Region.StartLine, Mode=OneWay}" />
+                                                                </TextBlock>
+                                                                <TextBlock Visibility="{Binding Region.StartColumn, Converter={StaticResource int32ToVisibilityConverter}}">
+                                                                <Run Text=" Col" />
+                                                                <Run Text="{Binding Region.StartColumn, Mode=OneWay}" />
+                                                                </TextBlock>
+                                                            </WrapPanel>
+                                                        </DockPanel.ToolTip>
+                                                        <TextBlock>
+                                                        <Run Text="{Binding FileName, Mode=OneWay}" />
+                                                        </TextBlock>
+                                                        <TextBlock Visibility="{Binding Location, Converter={StaticResource stringToVisibilityConverter}}"
+                                                                   Margin="5 0 0 0">
+                                                        <Run Text="{Binding Location, Mode=OneWay}" />
+                                                        </TextBlock>
+                                                    </DockPanel>
+                                                </DataTemplate>
+                                            </GridViewColumn.CellTemplate>
+                                        </GridViewColumn>
+                                    </GridView>
+                                </ListView.View>
+                            </ListView>
+
+                            <Grid Visibility="Hidden">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="{Binding ElementName=Col0, Path=ActualWidth}" />
+                                    <ColumnDefinition Width="{Binding ElementName=Col1, Path=ActualWidth}" />
+                                    <ColumnDefinition Width="*" />
+                                    <!--Correction Width-->
+                                    <ColumnDefinition Width="10" />
+                                </Grid.ColumnDefinitions>
+                                <!--This is the hidden helper Field which is used to bind to, using the "Fill" column of the helper grid-->
+                                <Grid Grid.Column="2"
+                                      x:Name="helperField" />
+                            </Grid>
+                        </Grid>
+                    </DockPanel>
                 </DataTemplate>
-            </ListBox.ItemTemplate>
-        </ListBox>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
     </DataTemplate>
 
 </ResourceDictionary>

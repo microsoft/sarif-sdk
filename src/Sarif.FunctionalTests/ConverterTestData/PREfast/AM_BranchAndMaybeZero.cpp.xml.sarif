@@ -51,7 +51,7 @@
                     "startLine":6
                   }
                 },
-                "id":"1",
+                "step":0,
                 "kind":"branch",
                 "message":"'p' may be NULL (Enter this branch)"
               },{
@@ -70,10 +70,10 @@
                     "startLine":8
                   }
                 },
-                "id":"2",
+                "step":1,
                 "kind":"usage",
                 "message":"'p' is dereferenced, but may still be NULL",
-                "essential":true
+                "importance":"essential"
               }
             ]
           }
@@ -113,7 +113,7 @@
                     "startLine":13
                   }
                 },
-                "id":"1",
+                "step":0,
                 "kind":"branch",
                 "message":"'input' may be NULL (Skip this branch)"
               },{
@@ -124,10 +124,10 @@
                     "startLine":15
                   }
                 },
-                "id":"2",
+                "step":1,
                 "kind":"usage",
                 "message":"'input' is dereferenced, but may still be NULL",
-                "essential":true
+                "importance":"essential"
               }
             ]
           }
@@ -175,7 +175,7 @@
                     "startLine":22
                   }
                 },
-                "id":"1",
+                "step":0,
                 "kind":"branch",
                 "message":"'p' may be NULL (Skip this branch)"
               },{
@@ -186,10 +186,10 @@
                     "startLine":24
                   }
                 },
-                "id":"2",
+                "step":1,
                 "kind":"usage",
                 "message":"'p' is dereferenced, but may still be NULL",
-                "essential":true
+                "importance":"essential"
               }
             ]
           }

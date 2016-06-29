@@ -59,10 +59,10 @@
                     "startLine":9
                   }
                 },
-                "id":"1",
+                "step":0,
                 "kind":"declaration",
                 "message":"'offset' is a byte quantity",
-                "essential":true
+                "importance":"essential"
               },{
                 "physicalLocation":{
                   "uri":"file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs260613.cpp",
@@ -71,10 +71,10 @@
                     "startLine":10
                   }
                 },
-                "id":"2",
+                "step":1,
                 "kind":"usage",
                 "message":"Expression mixes element counts and byte quantities",
-                "essential":true
+                "importance":"essential"
               }
             ]
           }
@@ -130,10 +130,10 @@
                     "startLine":20
                   }
                 },
-                "id":"1",
+                "step":0,
                 "kind":"usage",
                 "message":"Expression mixes element counts and byte quantities",
-                "essential":true
+                "importance":"essential"
               }
             ]
           }

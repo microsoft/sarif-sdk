@@ -43,10 +43,10 @@
                     "startLine":6
                   }
                 },
-                "id":"1",
+                "step":0,
                 "kind":"declaration",
                 "message":"'seq' is an array of 5 elements (20 bytes)",
-                "essential":true
+                "importance":"essential"
               },{
                 "physicalLocation":{
                   "uri":"file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs378661.cpp",
@@ -55,10 +55,10 @@
                     "startLine":10
                   }
                 },
-                "id":"2",
+                "step":1,
                 "kind":"usage",
                 "message":"Invalid write to 'seq[5]', (writable range is 0 to 4)",
-                "essential":true
+                "importance":"essential"
               }
             ]
           }
@@ -98,10 +98,10 @@
                     "startLine":13
                   }
                 },
-                "id":"1",
+                "step":0,
                 "kind":"declaration",
                 "message":"'seq' is an array of 4 elements (16 bytes)",
-                "essential":true
+                "importance":"essential"
               },{
                 "physicalLocation":{
                   "uri":"file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs378661.cpp",
@@ -110,10 +110,10 @@
                     "startLine":17
                   }
                 },
-                "id":"2",
+                "step":1,
                 "kind":"usage",
                 "message":"Invalid write to 'seq[4]', (writable range is 0 to 3)",
-                "essential":true
+                "importance":"essential"
               }
             ]
           }
@@ -153,10 +153,10 @@
                     "startLine":20
                   }
                 },
-                "id":"1",
+                "step":0,
                 "kind":"declaration",
                 "message":"'seq' is an array of 1 elements (4 bytes)",
-                "essential":true
+                "importance":"essential"
               },{
                 "physicalLocation":{
                   "uri":"file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs378661.cpp",
@@ -181,7 +181,7 @@
                     "startLine":25
                   }
                 },
-                "id":"2",
+                "step":1,
                 "kind":"branch",
                 "message":"Enter this loop, (assume 'i<size')"
               },{
@@ -200,10 +200,10 @@
                     "startLine":25
                   }
                 },
-                "id":"3",
+                "step":2,
                 "kind":"declaration",
                 "message":"'i' may equal 1",
-                "essential":true
+                "importance":"essential"
               },{
                 "physicalLocation":{
                   "uri":"file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs378661.cpp",
@@ -212,7 +212,7 @@
                     "startLine":25
                   }
                 },
-                "id":"4",
+                "step":3,
                 "kind":"branch",
                 "message":"Exit this loop, ('i<size' is false)"
               },{
@@ -223,10 +223,10 @@
                     "startLine":29
                   }
                 },
-                "id":"5",
+                "step":4,
                 "kind":"usage",
                 "message":"Invalid write to 'seq[1]', (writable range is 0 to 0)",
-                "essential":true
+                "importance":"essential"
               }
             ]
           }
@@ -266,10 +266,10 @@
                     "startLine":32
                   }
                 },
-                "id":"1",
+                "step":0,
                 "kind":"declaration",
                 "message":"'seq' is an array of 4 elements (16 bytes)",
-                "essential":true
+                "importance":"essential"
               },{
                 "physicalLocation":{
                   "uri":"file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs378661.cpp",
@@ -278,7 +278,7 @@
                     "startLine":36
                   }
                 },
-                "id":"2",
+                "step":1,
                 "kind":"branch",
                 "message":"'size' may equal 4 (Enter this branch)"
               },{
@@ -297,10 +297,10 @@
                     "startLine":40
                   }
                 },
-                "id":"3",
+                "step":2,
                 "kind":"usage",
                 "message":"Invalid write to 'seq[4]', (writable range is 0 to 3)",
-                "essential":true
+                "importance":"essential"
               }
             ]
           }

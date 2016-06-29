@@ -61,14 +61,14 @@ namespace Microsoft.Sarif.Viewer.ErrorList
             }
 
             log = JsonConvert.DeserializeObject<SarifLog>(logText, settings);
-            ProcessSarifLog(log);
+            ProcessSarifLog(log, filePath);
         }
 
-        private static void ProcessSarifLog(SarifLog sarifLog)
+        private static void ProcessSarifLog(SarifLog sarifLog, string logFilePath)
         {
             foreach (Run run in sarifLog.Runs)
             {
-                Instance.WriteRunToErrorList(run);
+                Instance.WriteRunToErrorList(run, logFilePath);
             }
 
             SarifTableDataSource.Instance.BringToFront();
@@ -81,13 +81,13 @@ namespace Microsoft.Sarif.Viewer.ErrorList
 
         private Dictionary<string, NewLineIndex> documentToLineIndexMap;
 
-        private void WriteRunToErrorList(Run run)
+        private void WriteRunToErrorList(Run run, string logFilePath)
         {
             List<SarifErrorListItem> sarifErrors = new List<SarifErrorListItem>();
 
             foreach (Result result in run.Results)
             {
-                SarifErrorListItem sarifError = GetResult(run, result);
+                SarifErrorListItem sarifError = GetResult(run, result, logFilePath);
                 sarifErrors.Add(sarifError);
             }
 
@@ -95,9 +95,9 @@ namespace Microsoft.Sarif.Viewer.ErrorList
             SarifTableDataSource.Instance.AddErrors(sarifErrors);
         }
 
-        private SarifErrorListItem GetResult(Run run, Result result)
+        private SarifErrorListItem GetResult(Run run, Result result, string logFilePath)
         {
-            SarifErrorListItem sarifError = new SarifErrorListItem(run, result);
+            SarifErrorListItem sarifError = new SarifErrorListItem(run, result, logFilePath);
 
             return sarifError;
         }
