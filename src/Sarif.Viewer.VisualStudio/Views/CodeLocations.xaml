@@ -61,20 +61,21 @@
                     <controls:InternetHyperlink DockPanel.Dock="Left"
                                                 Text="{Binding Rule.Id}"
                                                 NavigateUri="{Binding Rule.HelpUri}"
-                                                Margin="0 0 5 0"
+                                                Margin="0 0 5 1"
                                                 FontWeight="SemiBold"
-                                                FontSize="15.5"/>
+                                                FontSize="14.5"/>
                     <TextBlock DockPanel.Dock="Left"
                                Text="{Binding Rule.Name, Mode=OneTime}"
                                Style="{StaticResource DialogHeader}"
-                               FontSize="15.5"
+                               FontSize="14.5"
+                               FontWeight="SemiBold"
                                VerticalAlignment="Center"/>
                     <TextBlock DockPanel.Dock="Left"
                                Text="|"
                                Foreground="Gray"
-                               FontSize="16"
+                               FontSize="14.5"
                                VerticalAlignment="Center"
-                               Margin="7 0 7 2"/>
+                               Margin="7 0 7 1"/>
                     <DockPanel DockPanel.Dock="Left" 
                                DataContext="{Binding Locations[0]}"
                                HorizontalAlignment="Stretch">
@@ -96,14 +97,14 @@
                         <TextBlock DockPanel.Dock="Left"
                                    Foreground="Gray"
                                    VerticalAlignment="Bottom"
-                                   Margin="0 0 0 3">
+                                   Margin="0 0 0 1">
                             <Run Text="{Binding FileName, Mode=OneWay}" />
                         </TextBlock>
                         <TextBlock DockPanel.Dock="Left"
                                    Visibility="{Binding Location, Converter={StaticResource stringToVisibilityConverter}}"
                                    Foreground="Gray"
                                    VerticalAlignment="Bottom"
-                                   Margin="5 0 5 3">
+                                   Margin="5 0 5 1">
                             <Run Text="{Binding Location, Mode=OneWay}" />
                         </TextBlock>
                     </DockPanel>
