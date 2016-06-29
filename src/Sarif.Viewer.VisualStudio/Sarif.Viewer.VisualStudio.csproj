@@ -41,12 +41,15 @@
     <Compile Include="Controls\InternetHyperlink.xaml.cs">
       <DependentUpon>InternetHyperlink.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Converters\CollectionToVisiblityConverter.cs" />
+    <Compile Include="Converters\CollectionToVisiblity1Converter.cs" />
+    <Compile Include="Converters\CollectionToVisiblity0Converter.cs" />
     <Compile Include="Converters\CollectionToCountConverter.cs" />
     <Compile Include="Converters\BooleanToVisibilityConverter.cs" />
     <Compile Include="Converters\Int32ToVisibilityConverter.cs" />
+    <Compile Include="Converters\MultipleStringsToVisibilityConverter.cs" />
     <Compile Include="DelegateCommand.cs" />
     <Compile Include="DelegateCommandBase.cs" />
+    <Compile Include="Models\InvocationModel.cs" />
     <Compile Include="Models\ReplacementModel.cs" />
     <Compile Include="Models\FileChangeModel.cs" />
     <Compile Include="Models\FixModel.cs" />
@@ -65,6 +68,7 @@
     <Compile Include="Sarif\Result.extensions.cs" />
     <Compile Include="Sarif\Location.extensions.cs" />
     <Compile Include="Sarif\Rule.extensions.cs" />
+    <Compile Include="Sarif\Invocation.extensions.cs" />
     <Compile Include="Sarif\Tool.extensions.cs" />
     <Compile Include="Sarif\Run.extensions.cs" />
     <Compile Include="Tags\ISarifLocationProviderFactory.cs" />
@@ -288,6 +292,14 @@
     <Page Include="Themes\CodeFlows.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\TabControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\TreeView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Themes\DefaultStyles.xaml">
       <SubType>Designer</SubType>

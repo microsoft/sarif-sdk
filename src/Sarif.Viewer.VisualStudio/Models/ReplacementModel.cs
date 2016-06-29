@@ -17,7 +17,8 @@ namespace Microsoft.Sarif.Viewer.Models
     {
         private int _offset;
         private int _deletedLength;
-        private string _insertedBytes;
+        private byte[] _insertedBytes;
+        private string _insertedString;
 
         public int Offset
         {
@@ -53,7 +54,7 @@ namespace Microsoft.Sarif.Viewer.Models
             }
         }
 
-        public string InsertedBytes
+        public byte[] InsertedBytes
         {
             get
             {
@@ -66,6 +67,23 @@ namespace Microsoft.Sarif.Viewer.Models
                     _insertedBytes = value;
 
                     NotifyPropertyChanged("InsertedBytes");
+                }
+            }
+        }
+
+        public string InsertedString
+        {
+            get
+            {
+                return _insertedString;
+            }
+            set
+            {
+                if (value != this._insertedString)
+                {
+                    _insertedString = value;
+
+                    NotifyPropertyChanged("InsertedString");
                 }
             }
         }

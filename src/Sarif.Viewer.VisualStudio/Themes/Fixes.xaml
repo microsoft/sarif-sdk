@@ -7,7 +7,7 @@
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="pack://application:,,,/Microsoft.Sarif.Viewer;component/Themes/DefaultStyles.xaml" />
     </ResourceDictionary.MergedDictionaries>
- 
+
     <!-- Converters -->
     <converters:StringToVisibilityConverter x:Key="stringToVisibilityConverter" />
     <converters:Int32ToVisibilityConverter x:Key="int32ToVisibilityConverter" />
@@ -36,8 +36,25 @@
                                   BorderThickness="0">
                             <TreeViewItem ItemsSource="{Binding FileChanges}">
                                 <TreeViewItem.Header>
-                                    <TextBlock Text="{Binding Description}"
-                                               Style="{StaticResource PanelHeader}" />
+                                    <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition />
+                                        </Grid.RowDefinitions>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*" />
+                                            <ColumnDefinition Width="Auto" />
+                                        </Grid.ColumnDefinitions>
+                                        <TextBlock Grid.Row="0"
+                                                   Grid.Column="0"
+                                                   Text="{Binding Description}" />
+                                        <TextBlock Grid.Row="0"
+                                                   Grid.Column="1"
+                                                   Margin="5 0 5 0">  
+                                            <Hyperlink Command="{Binding PreviewFixCommand}"
+                                                       CommandParameter="{Binding}">Preview</Hyperlink>
+                                        </TextBlock>
+                                    </Grid>
+
                                 </TreeViewItem.Header>
                             </TreeViewItem>
                             <TreeView.Resources>
@@ -55,8 +72,8 @@
                                     Delete <Run Text="{Binding DeletedLength}" /> bytes.
                                         </TextBlock>
                                         <TextBlock DockPanel.Dock="Top"
-                                                   Visibility="{Binding InsertedBytes, Converter={StaticResource stringToVisibilityConverter}}">
-                                    Insert the string "<Run Text="{Binding InsertedBytes}" />".
+                                                   Visibility="{Binding InsertedString, Converter={StaticResource stringToVisibilityConverter}}">
+                                    Insert the string "<Run Text="{Binding InsertedString}" />".
                                         </TextBlock>
                                         <TextBlock>
                                     <LineBreak />

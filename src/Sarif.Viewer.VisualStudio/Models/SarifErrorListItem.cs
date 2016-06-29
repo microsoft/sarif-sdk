@@ -17,12 +17,14 @@ namespace Microsoft.Sarif.Viewer
         private string _fileName;
         private ToolModel _tool;
         private RuleModel _rule;
+        private InvocationModel _invocation;
         private string _selectedTab;
         private AnnotatedCodeLocationCollection _locations;
         private AnnotatedCodeLocationCollection _relatedLocations;
         private ObservableCollection<AnnotatedCodeLocationCollection> _codeFlows;
         private ObservableCollection<StackCollection> _stacks;
         private ObservableCollection<FixModel> _fixes;
+        private DelegateCommand _openLogFileCommand;
 
         internal SarifErrorListItem()
         {
@@ -33,7 +35,7 @@ namespace Microsoft.Sarif.Viewer
             this._fixes = new ObservableCollection<FixModel>();
         }
 
-        public SarifErrorListItem(Run run, Result result) : this()
+        public SarifErrorListItem(Run run, Result result, string logFilePath) : this()
         {
             IRule rule;
             run.TryGetRule(result.RuleId, result.RuleKey, out rule);
@@ -44,6 +46,7 @@ namespace Microsoft.Sarif.Viewer
             this.Region = result.GetPrimaryTargetRegion();
             this.Level = result.Level;
             this.SuppressionStates = result.SuppressionStates;
+            this.LogFilePath = logFilePath;
 
             if (this.Region != null)
             {
@@ -53,6 +56,7 @@ namespace Microsoft.Sarif.Viewer
 
             this.Tool = run.Tool.ToToolModel();
             this.Rule = rule.ToRuleModel(result.RuleId);
+            this.Invocation = run.Invocation.ToInvocationModel();
 
             if (result.Locations != null)
             {
@@ -134,6 +138,8 @@ namespace Microsoft.Sarif.Viewer
 
         public SuppressionStates SuppressionStates { get; set; }
 
+        public string LogFilePath { get; set; }
+
         public ToolModel Tool
         {
             get
@@ -157,6 +163,19 @@ namespace Microsoft.Sarif.Viewer
             {
                 this._rule = value;
                 NotifyPropertyChanged("Rule");
+            }
+        }
+
+        public InvocationModel Invocation
+        {
+            get
+            {
+                return this._invocation;
+            }
+            set
+            {
+                this._invocation = value;
+                NotifyPropertyChanged("Invocation");
             }
         }
 
@@ -240,6 +259,19 @@ namespace Microsoft.Sarif.Viewer
             }
         }
 
+        public DelegateCommand OpenLogFileCommand
+        {
+            get
+            {
+                if (this._openLogFileCommand == null)
+                {
+                    this._openLogFileCommand = new DelegateCommand(() => this.OpenLogFile());
+                }
+
+                return this._openLogFileCommand;
+            }
+        }
+
         internal void RemoveMarkers()
         {
             LineMarker.RemoveMarker();
@@ -268,6 +300,14 @@ namespace Microsoft.Sarif.Viewer
                 {
                     stackFrame.LineMarker.RemoveMarker();
                 }
+            }
+        }
+
+        internal void OpenLogFile()
+        {
+            if (this.LogFilePath != null && System.IO.File.Exists(this.LogFilePath))
+            {
+                SarifViewerPackage.Dte.ExecuteCommand("File.OpenFile", $@"""{this.LogFilePath}"" /e:""JSON Editor""");
             }
         }
 
