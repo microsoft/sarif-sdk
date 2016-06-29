@@ -89,8 +89,13 @@
         },
 
         "importance": {
-          "description": "Specifies the importance of this location in understanding the code flow in which it occurs.",
-          "enum": [ "normal", "essential", "nonessential" ]
+          "description": "Specifies the importance of this location in understanding the code flow in which it occurs. The order from most to least important is \"essential\", \"important\", \"unimportant\". Default: \"important\".",
+          "enum": [ "important", "essential", "unimportant" ]
+        },
+
+        "snippet": {
+          "description": "The source code at the specified location.",
+          "type": "string"
         },
 
         "properties": {
@@ -922,6 +927,11 @@
 
         "id": {
           "description": "An identifier for the run.",
+          "type": "string"
+        },
+
+        "stableId": {
+          "description": "A stable identifier for a run, for example, 'nightly Clang analyzer run'. Multiple runs of the same type can have the same stableId.",
           "type": "string"
         },
         
