@@ -33,6 +33,11 @@ namespace Microsoft.CodeAnalysis.Sarif
                 return false;
             }
 
+            if (left.Step != right.Step)
+            {
+                return false;
+            }
+
             if (!PhysicalLocation.ValueComparer.Equals(left.PhysicalLocation, right.PhysicalLocation))
             {
                 return false;
@@ -73,6 +78,11 @@ namespace Microsoft.CodeAnalysis.Sarif
                 return false;
             }
 
+            if (left.Importance != right.Importance)
+            {
+                return false;
+            }
+
             if (!object.ReferenceEquals(left.Properties, right.Properties))
             {
                 if (left.Properties == null || right.Properties == null || left.Properties.Count != right.Properties.Count)
@@ -109,6 +119,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             unchecked
             {
                 result = (result * 31) + obj.Id.GetHashCode();
+                result = (result * 31) + obj.Step.GetHashCode();
                 if (obj.PhysicalLocation != null)
                 {
                     result = (result * 31) + obj.PhysicalLocation.ValueGetHashCode();
@@ -137,6 +148,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
                 result = (result * 31) + obj.Kind.GetHashCode();
                 result = (result * 31) + obj.Essential.GetHashCode();
+                result = (result * 31) + obj.Importance.GetHashCode();
                 if (obj.Properties != null)
                 {
                     // Use xor for dictionaries to be order-independent.

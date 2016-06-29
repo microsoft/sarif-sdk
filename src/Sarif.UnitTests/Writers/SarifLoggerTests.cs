@@ -22,6 +22,12 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             var sb = new StringBuilder();
 
+            // On a developer's machine, the script BuildAndTest.cmd runs the tests with a particular command line. 
+            // Under AppVeyor, the appveyor.yml file simply specifies the names of the test assemblies, and AppVeyor 
+            // constructs and executes its own, different command line. So, based on our knowledge of each of those 
+            // command lines, we select a different token to redact in each of those cases.
+            //
+            //
             // Sample test execution command-line from within VS. We will redact the 'TestExecution' role data
             //
             // "C:\PROGRAM FILES (X86)\MICROSOFT VISUAL STUDIO 14.0\COMMON7\IDE\COMMONEXTENSIONS\MICROSOFT\TESTWINDOW\te.processhost.managed.exe"
@@ -33,24 +39,38 @@ namespace Microsoft.CodeAnalysis.Sarif
             // "C:\Program Files (x86\\Microsoft Visual Studio 14.0\Common7\IDE\QTAgent32_40.exe\" 
             // /agentKey a144e450-ac06-46d0-8365-c21ea7872d23 /hostProcessId 8024 /hostIpcPortName 
             // eqt -60284c64-6bc1-3ecc-fb5f-a484bb1a2475"
+            // 
+            // Sample test execution from Appveyor will redact 'Appveyor'
+            //
+            // pathToExe   = C:\Program Files (x86)\Microsoft Visual Studio 14.0\Common7\IDE\CommonExtensions\Microsoft\TestWindow\Extensions
+            // commandLine = vstest.console  /logger:Appveyor "C:\projects\sarif-sdk\bld\bin\Sarif.UnitTests\AnyCPU_Release\Sarif.UnitTests.dll"
 
             using (var textWriter = new StringWriter(sb))
             {
                 string[] tokensToRedact = new string[] { };
                 string pathToExe = Path.GetDirectoryName(Assembly.GetCallingAssembly().Location);
+                string commandLine = Environment.CommandLine;
 
                 if (pathToExe.IndexOf(@"\Extensions", StringComparison.OrdinalIgnoreCase) != -1)
                 {
-                    // The calling assembly lives in an \Extensions directory that hangs off
-                    // the directory of the test driver (the location of which we can't retrieve
-                    // from Assembly.GetEntryAssembly() as we are running in an AppDomain).
-                    pathToExe = pathToExe.Substring(0, pathToExe.Length - @"\Extensions".Length);
-                    tokensToRedact = new string[] { "TestExecution", pathToExe };
+                    string appVeyor = "Appveyor";
+                    if (commandLine.IndexOf(appVeyor, StringComparison.OrdinalIgnoreCase) != -1)
+                    {
+                        // For Appveyor builds, redact the string Appveyor.
+                        tokensToRedact = new string[] { appVeyor };
+                    }
+                    else
+                    {
+                        // The calling assembly lives in an \Extensions directory that hangs off
+                        // the directory of the test driver (the location of which we can't retrieve
+                        // from Assembly.GetEntryAssembly() as we are running in an AppDomain).
+                        pathToExe = pathToExe.Substring(0, pathToExe.Length - @"\Extensions".Length);
+                        tokensToRedact = new string[] { "TestExecution", pathToExe };
+                    }
                 }
                 else
                 {
-                    string argumentToRedact = Environment.CommandLine;
-                    argumentToRedact = argumentToRedact.Split(new string[] { @"/agentKey" }, StringSplitOptions.None)[1].Trim();
+                    string argumentToRedact = commandLine.Split(new string[] { @"/agentKey" }, StringSplitOptions.None)[1].Trim();
                     argumentToRedact = argumentToRedact.Split(' ')[0];
                     tokensToRedact = new string[] { argumentToRedact };
                 }

@@ -4,7 +4,7 @@
   "runs": [
     {
       "tool": {
-        "name": "StaticDriverVersion"
+        "name": "StaticDriverVerifier"
       },
       "files": {
         "..\\..\\..\\rules\\WDM\\CheckDriverUnload.slic": {
@@ -32,174 +32,157 @@
             {
               "locations": [
                 {
-                  "id": 1,
                   "kind": "call",
-                  "essential": false,
+                  "importance": "nonessential",
                   "properties": {
-                    "Step": 0,
                     "State": "^",
                     "Caller": "OS",
                     "Callee": "main"
                   }
                 },
                 {
-                  "id": 2,
+                  "step": 1,
                   "message": "====Auto=====",
                   "kind": "continuation",
-                  "essential": false,
+                  "importance": "nonessential",
                   "properties": {
-                    "Step": 1,
                     "State": "^====Auto====="
                   }
                 },
                 {
-                  "id": 3,
+                  "step": 2,
                   "message": "====Auto=====,====Pre=====,____true",
                   "kind": "call",
-                  "essential": false,
+                  "importance": "nonessential",
                   "properties": {
-                    "Step": 2,
                     "State": "^====Auto=====^====Pre=====^____true",
                     "Caller": "main",
                     "Callee": "_sdv_init4"
                   }
                 },
                 {
-                  "id": 4,
+                  "step": 3,
                   "message": "====Auto=====",
                   "kind": "continuation",
-                  "essential": false,
+                  "importance": "nonessential",
                   "properties": {
-                    "Step": 3,
                     "State": "^====Auto====="
                   }
                 },
                 {
-                  "id": 5,
+                  "step": 4,
                   "message": "====Auto=====",
                   "kind": "assignment",
-                  "essential": false,
+                  "importance": "nonessential",
                   "properties": {
-                    "Step": 4,
                     "State": "^====Auto====="
                   }
                 },
                 {
-                  "id": 6,
+                  "step": 5,
                   "message": "====Auto=====",
                   "kind": "assignment",
-                  "essential": false,
+                  "importance": "nonessential",
                   "properties": {
-                    "Step": 5,
                     "State": "^====Auto====="
                   }
                 },
                 {
-                  "id": 7,
+                  "step": 6,
                   "message": "====Auto=====",
                   "kind": "callReturn",
-                  "essential": false,
+                  "importance": "nonessential",
                   "properties": {
-                    "Step": 6,
                     "State": "^====Auto====="
                   }
                 },
                 {
-                  "id": 8,
+                  "step": 7,
                   "message": "====Auto=====",
                   "kind": "continuation",
-                  "essential": false,
+                  "importance": "nonessential",
                   "properties": {
-                    "Step": 7,
                     "State": "^====Auto====="
                   }
                 },
                 {
-                  "id": 9,
+                  "step": 8,
                   "message": "====Auto=====,====Pre=====,____true",
                   "kind": "call",
-                  "essential": false,
+                  "importance": "nonessential",
                   "properties": {
-                    "Step": 8,
                     "State": "^====Auto=====^====Pre=====^____true",
                     "Caller": "main",
                     "Callee": "_sdv_init1"
                   }
                 },
                 {
-                  "id": 10,
+                  "step": 9,
                   "message": "====Auto=====",
                   "kind": "continuation",
-                  "essential": false,
+                  "importance": "nonessential",
                   "properties": {
-                    "Step": 9,
                     "State": "^====Auto====="
                   }
                 },
                 {
-                  "id": 11,
+                  "step": 10,
                   "message": "====Auto=====",
                   "kind": "continuation",
-                  "essential": false,
+                  "importance": "nonessential",
                   "properties": {
-                    "Step": 10,
                     "State": "^====Auto====="
                   }
                 },
                 {
-                  "id": 12,
+                  "step": 11,
                   "message": "====Auto=====",
                   "kind": "callReturn",
-                  "essential": false,
+                  "importance": "nonessential",
                   "properties": {
-                    "Step": 11,
                     "State": "^====Auto====="
                   }
                 },
                 {
-                  "id": 13,
+                  "step": 12,
                   "message": "====Auto=====",
                   "kind": "continuation",
-                  "essential": false,
+                  "importance": "nonessential",
                   "properties": {
-                    "Step": 12,
                     "State": "^====Auto====="
                   }
                 },
                 {
-                  "id": 14,
+                  "step": 13,
                   "message": "====Auto=====,====Pre=====,____true",
                   "kind": "call",
-                  "essential": false,
+                  "importance": "nonessential",
                   "properties": {
-                    "Step": 13,
                     "State": "^====Auto=====^====Pre=====^____true",
                     "Caller": "main",
                     "Callee": "_sdv_init2"
                   }
                 },
                 {
-                  "id": 15,
+                  "step": 14,
                   "message": "====Auto=====",
                   "kind": "continuation",
-                  "essential": false,
+                  "importance": "nonessential",
                   "properties": {
-                    "Step": 14,
                     "State": "^====Auto====="
                   }
                 },
                 {
-                  "id": 16,
+                  "step": 15,
                   "message": "====Auto=====",
                   "kind": "continuation",
-                  "essential": false,
+                  "importance": "nonessential",
                   "properties": {
-                    "Step": 15,
                     "State": "^====Auto====="
                   }
                 },
                 {
-                  "id": 17,
+                  "step": 16,
                   "physicalLocation": {
                     "uri": "file:///d:/slam1/wdk/src_5043/fail_drivers/wdm/fail_driver1/sdv/sdv-harness.c",
                     "region": {
@@ -208,14 +191,12 @@
                   },
                   "message": "====Auto=====",
                   "kind": "assignment",
-                  "essential": true,
                   "properties": {
-                    "Step": 16,
                     "State": "^====Auto====="
                   }
                 },
                 {
-                  "id": 18,
+                  "step": 17,
                   "physicalLocation": {
                     "uri": "file:///d:/slam1/wdk/src_5043/fail_drivers/wdm/fail_driver1/sdv/sdv-harness.c",
                     "region": {
@@ -224,14 +205,12 @@
                   },
                   "message": "====Auto=====",
                   "kind": "assignment",
-                  "essential": true,
                   "properties": {
-                    "Step": 17,
                     "State": "^====Auto====="
                   }
                 },
                 {
-                  "id": 19,
+                  "step": 18,
                   "physicalLocation": {
                     "uri": "file:///d:/slam1/wdk/src_5043/fail_drivers/wdm/fail_driver1/sdv/sdv-harness.c",
                     "region": {
@@ -240,14 +219,12 @@
                   },
                   "message": "====Auto=====",
                   "kind": "assignment",
-                  "essential": true,
                   "properties": {
-                    "Step": 18,
                     "State": "^====Auto====="
                   }
                 },
                 {
-                  "id": 20,
+                  "step": 19,
                   "physicalLocation": {
                     "uri": "file:///d:/slam1/wdk/src_5043/fail_drivers/wdm/fail_driver1/sdv/sdv-harness.c",
                     "region": {
@@ -256,14 +233,12 @@
                   },
                   "message": "&sdv_ControllerIrp=2919,====Auto=====",
                   "kind": "assignment",
-                  "essential": true,
                   "properties": {
-                    "Step": 19,
                     "State": "^&sdv_ControllerIrp=2919^====Auto====="
                   }
                 },
                 {
-                  "id": 21,
+                  "step": 20,
                   "physicalLocation": {
                     "uri": "file:///d:/slam1/wdk/src_5043/fail_drivers/wdm/fail_driver1/sdv/sdv-harness.c",
                     "region": {
@@ -272,14 +247,12 @@
                   },
                   "message": "&sdv_StartIoIrp=9375,====Auto=====",
                   "kind": "assignment",
-                  "essential": true,
                   "properties": {
-                    "Step": 20,
                     "State": "^&sdv_StartIoIrp=9375^====Auto====="
                   }
                 },
                 {
-                  "id": 22,
+                  "step": 21,
                   "physicalLocation": {
                     "uri": "file:///d:/slam1/wdk/src_5043/fail_drivers/wdm/fail_driver1/sdv/sdv-harness.c",
                     "region": {
@@ -288,14 +261,12 @@
                   },
                   "message": "&sdv_PowerIrp=9627,====Auto=====",
                   "kind": "assignment",
-                  "essential": true,
                   "properties": {
-                    "Step": 21,
                     "State": "^&sdv_PowerIrp=9627^====Auto====="
                   }
                 },
                 {
-                  "id": 23,
+                  "step": 22,
                   "physicalLocation": {
                     "uri": "file:///d:/slam1/wdk/src_5043/fail_drivers/wdm/fail_driver1/sdv/sdv-harness.c",
                     "region": {
@@ -304,14 +275,12 @@
                   },
                   "message": "&sdv_harnessIrp=8107,====Auto=====",
                   "kind": "assignment",
-                  "essential": true,
                   "properties": {
-                    "Step": 22,
                     "State": "^&sdv_harnessIrp=8107^====Auto====="
                   }
                 },
                 {
-                  "id": 24,
+                  "step": 23,
                   "physicalLocation": {
                     "uri": "file:///d:/slam1/wdk/src_5043/fail_drivers/wdm/fail_driver1/sdv/sdv-harness.c",
                     "region": {
@@ -320,14 +289,12 @@
                   },
                   "message": "&sdv_other_harnessIrp=10107,====Auto=====",
                   "kind": "assignment",
-                  "essential": true,
                   "properties": {
-                    "Step": 23,
                     "State": "^&sdv_other_harnessIrp=10107^====Auto====="
                   }
                 },
                 {
-                  "id": 25,
+                  "step": 24,
                   "physicalLocation": {
                     "uri": "file:///d:/slam1/wdk/src_5043/fail_drivers/wdm/fail_driver1/sdv/sdv-harness.c",
                     "region": {
@@ -336,14 +303,12 @@
                   },
                   "message": "&sdv_IoMakeAssociatedIrp_harnessIrp=7427,====Auto=====",
                   "kind": "assignment",
-                  "essential": true,
                   "properties": {
-                    "Step": 24,
                     "State": "^&sdv_IoMakeAssociatedIrp_harnessIrp=7427^====Auto====="
                   }
                 },
                 {
-                  "id": 26,
+                  "step": 25,
                   "physicalLocation": {
                     "uri": "file:///d:/slam1/wdk/src_5043/fail_drivers/wdm/fail_driver1/sdv/sdv-harness.c",
                     "region": {
@@ -352,14 +317,12 @@
                   },
                   "message": "&sdv_IoBuildDeviceIoControlRequest_harnessIrp=9867,====Auto=====",
                   "kind": "assignment",
-                  "essential": true,
                   "properties": {
-                    "Step": 25,
                     "State": "^&sdv_IoBuildDeviceIoControlRequest_harnessIrp=9867^====Auto====="
                   }
                 },
                 {
-                  "id": 27,
+                  "step": 26,
                   "physicalLocation": {
                     "uri": "file:///d:/slam1/wdk/src_5043/fail_drivers/wdm/fail_driver1/sdv/sdv-harness.c",
                     "region": {
@@ -368,14 +331,12 @@
                   },
                   "message": "&sdv_harness_IoBuildDeviceIoControlRequest_IoStatusBlock=8883,====Auto=====",
                   "kind": "assignment",
-                  "essential": true,
                   "properties": {
-                    "Step": 26,
                     "State": "^&sdv_harness_IoBuildDeviceIoControlRequest_IoStatusBlock=8883^====Auto====="
                   }
                 },
                 {
-                  "id": 28,
+                  "step": 27,
                   "physicalLocation": {
                     "uri": "file:///d:/slam1/wdk/src_5043/fail_drivers/wdm/fail_driver1/sdv/sdv-harness.c",
                     "region": {
@@ -384,14 +345,12 @@
                   },
                   "message": "&sdv_IoBuildSynchronousFsdRequest_harnessIrp=6659,====Auto=====",
                   "kind": "assignment",
-                  "essential": true,
                   "properties": {
-                    "Step": 27,
                     "State": "^&sdv_IoBuildSynchronousFsdRequest_harnessIrp=6659^====Auto====="
                   }
                 },
                 {
-                  "id": 29,
+                  "step": 28,
                   "physicalLocation": {
                     "uri": "file:///d:/slam1/wdk/src_5043/fail_drivers/wdm/fail_driver1/sdv/sdv-harness.c",
                     "region": {
@@ -400,14 +359,12 @@
                   },
                   "message": "&sdv_harness_IoBuildSynchronousFsdRequest_IoStatusBlock=2907,====Auto=====",
                   "kind": "assignment",
-                  "essential": true,
                   "properties": {
-                    "Step": 28,
                     "State": "^&sdv_harness_IoBuildSynchronousFsdRequest_IoStatusBlock=2907^====Auto====="
                   }
                 },
                 {
-                  "id": 30,
+                  "step": 29,
                   "physicalLocation": {
                     "uri": "file:///d:/slam1/wdk/src_5043/fail_drivers/wdm/fail_driver1/sdv/sdv-harness.c",
                     "region": {
@@ -416,14 +373,12 @@
                   },
                   "message": "&sdv_IoBuildAsynchronousFsdRequest_harnessIrp=1691,====Auto=====",
                   "kind": "assignment",
-                  "essential": true,
                   "properties": {
-                    "Step": 29,
                     "State": "^&sdv_IoBuildAsynchronousFsdRequest_harnessIrp=1691^====Auto====="
                   }
                 },
                 {
-                  "id": 31,
+                  "step": 30,
                   "physicalLocation": {
                     "uri": "file:///d:/slam1/wdk/src_5043/fail_drivers/wdm/fail_driver1/sdv/sdv-harness.c",
                     "region": {
@@ -432,14 +387,12 @@
                   },
                   "message": "&sdv_harness_IoBuildAsynchronousFsdRequest_IoStatusBlock=9615,====Auto=====",
                   "kind": "assignment",
-                  "essential": true,
                   "properties": {
-                    "Step": 30,
                     "State": "^&sdv_harness_IoBuildAsynchronousFsdRequest_IoStatusBlock=9615^====Auto====="
                   }
                 },
                 {
-                  "id": 32,
+                  "step": 31,
                   "physicalLocation": {
                     "uri": "file:///d:/slam1/wdk/src_5043/fail_drivers/wdm/fail_driver1/sdv/sdv-harness.c",
                     "region": {
@@ -448,14 +401,12 @@
                   },
                   "message": "&sdv_IoInitializeIrp_harnessIrp=3611,====Auto=====",
                   "kind": "assignment",
-                  "essential": true,
                   "properties": {
-                    "Step": 31,
                     "State": "^&sdv_IoInitializeIrp_harnessIrp=3611^====Auto====="
                   }
                 },
                 {
-                  "id": 33,
+                  "step": 32,
                   "physicalLocation": {
                     "uri": "file:///d:/slam1/wdk/src_5043/fail_drivers/wdm/fail_driver1/sdv/sdv-harness.c",
                     "region": {
@@ -464,14 +415,12 @@
                   },
                   "message": "====Auto=====",
                   "kind": "assignment",
-                  "essential": true,
                   "properties": {
-                    "Step": 32,
                     "State": "^====Auto====="
                   }
                 },
                 {
-                  "id": 34,
+                  "step": 33,
                   "physicalLocation": {
                     "uri": "file:///d:/slam1/wdk/src_5043/fail_drivers/wdm/fail_driver1/sdv/sdv-harness.c",
                     "region": {
@@ -480,14 +429,12 @@
                   },
                   "message": "====Auto=====",
                   "kind": "assignment",
-                  "essential": true,
                   "properties": {
-                    "Step": 33,
                     "State": "^====Auto====="
                   }
                 },
                 {
-                  "id": 35,
+                  "step": 34,
                   "physicalLocation": {
                     "uri": "file:///d:/slam1/wdk/src_5043/fail_drivers/wdm/fail_driver1/sdv/sdv-harness.c",
                     "region": {
@@ -496,14 +443,12 @@
                   },
                   "message": "====Auto=====",
                   "kind": "assignment",
-                  "essential": true,
                   "properties": {
-                    "Step": 34,
                     "State": "^====Auto====="
                   }
                 },
                 {
-                  "id": 36,
+                  "step": 35,
                   "physicalLocation": {
                     "uri": "file:///d:/slam1/wdk/src_5043/fail_drivers/wdm/fail_driver1/sdv/sdv-harness.c",
                     "region": {
@@ -512,14 +457,12 @@
                   },
                   "message": "====Auto=====",
                   "kind": "assignment",
-                  "essential": true,
                   "properties": {
-                    "Step": 35,
                     "State": "^====Auto====="
                   }
                 },
                 {
-                  "id": 37,
+                  "step": 36,
                   "physicalLocation": {
                     "uri": "file:///d:/slam1/wdk/src_5043/fail_drivers/wdm/fail_driver1/sdv/sdv-harness.c",
                     "region": {
@@ -528,14 +471,12 @@
                   },
                   "message": "====Auto=====",
                   "kind": "assignment",
-                  "essential": true,
                   "properties": {
-                    "Step": 36,
                     "State": "^====Auto====="
                   }
                 },
                 {
-                  "id": 38,
+                  "step": 37,
                   "physicalLocation": {
                     "uri": "file:///d:/slam1/wdk/src_5043/fail_drivers/wdm/fail_driver1/sdv/sdv-harness.c",
                     "region": {
@@ -544,14 +485,12 @@
                   },
                   "message": "====Auto=====",
                   "kind": "assignment",
-                  "essential": true,
                   "properties": {
-                    "Step": 37,
                     "State": "^====Auto====="
                   }
                 },
                 {
-                  "id": 39,
+                  "step": 38,
                   "physicalLocation": {
                     "uri": "file:///d:/slam1/wdk/src_5043/fail_drivers/wdm/fail_driver1/sdv/sdv-harness.c",
                     "region": {
@@ -560,14 +499,12 @@
                   },
                   "message": "====Auto=====",
                   "kind": "assignment",
-                  "essential": true,
                   "properties": {
-                    "Step": 38,
                     "State": "^====Auto====="
                   }
                 },
                 {
-                  "id": 40,
+                  "step": 39,
                   "physicalLocation": {
                     "uri": "file:///d:/slam1/wdk/src_5043/fail_drivers/wdm/fail_driver1/sdv/sdv-harness.c",
                     "region": {
@@ -576,14 +513,12 @@
                   },
                   "message": "====Auto=====",
                   "kind": "assignment",
-                  "essential": true,
                   "properties": {
-                    "Step": 39,
                     "State": "^====Auto====="
                   }
                 },
                 {
-                  "id": 41,
+                  "step": 40,
                   "physicalLocation": {
                     "uri": "file:///d:/slam1/wdk/src_5043/fail_drivers/wdm/fail_driver1/sdv/sdv-harness.c",
                     "region": {
@@ -592,14 +527,12 @@
                   },
                   "message": "&sdv_kdpc_val3=6615,====Auto=====",
                   "kind": "assignment",
-                  "essential": true,
                   "properties": {
-                    "Step": 40,
                     "State": "^&sdv_kdpc_val3=6615^====Auto====="
                   }
                 },
                 {
-                  "id": 42,
+                  "step": 41,
                   "physicalLocation": {
                     "uri": "file:///d:/slam1/wdk/src_5043/fail_drivers/wdm/fail_driver1/sdv/sdv-harness.c",
                     "region": {
@@ -608,14 +541,12 @@
                   },
                   "message": "&sdv_devobj_fdo=8935,====Auto=====",
                   "kind": "assignment",
-                  "essential": true,
                   "properties": {
-                    "Step": 41,
                     "State": "^&sdv_devobj_fdo=8935^====Auto====="
                   }
                 },
                 {
-                  "id": 43,
+                  "step": 42,
                   "physicalLocation": {
                     "uri": "file:///d:/slam1/wdk/src_5043/fail_drivers/wdm/fail_driver1/sdv/sdv-harness.c",
                     "region": {
@@ -624,14 +555,12 @@
                   },
                   "message": "====Auto=====",
                   "kind": "assignment",
-                  "essential": true,
                   "properties": {
-                    "Step": 42,
                     "State": "^====Auto====="
                   }
                 },
                 {
-                  "id": 44,
+                  "step": 43,
                   "physicalLocation": {
                     "uri": "file:///d:/slam1/wdk/src_5043/fail_drivers/wdm/fail_driver1/sdv/sdv-harness.c",
                     "region": {
@@ -640,14 +569,12 @@
                   },
                   "message": "&sdv_devobj_pdo=3159,====Auto=====",
                   "kind": "assignment",
-                  "essential": true,
                   "properties": {
-                    "Step": 43,
                     "State": "^&sdv_devobj_pdo=3159^====Auto====="
                   }
                 },
                 {
-                  "id": 45,
+                  "step": 44,
                   "physicalLocation": {
                     "uri": "file:///d:/slam1/wdk/src_5043/fail_drivers/wdm/fail_driver1/sdv/sdv-harness.c",
                     "region": {
@@ -656,14 +583,12 @@
                   },
                   "message": "&sdv_devobj_child_pdo=7667,====Auto=====",
                   "kind": "assignment",
-                  "essential": true,
                   "properties": {
-                    "Step": 44,
                     "State": "^&sdv_devobj_child_pdo=7667^====Auto====="
                   }
                 },
                 {
-                  "id": 46,
+                  "step": 45,
                   "physicalLocation": {
                     "uri": "file:///d:/slam1/wdk/src_5043/fail_drivers/wdm/fail_driver1/sdv/sdv-harness.c",
                     "region": {
@@ -672,14 +597,12 @@
                   },
                   "message": "&sdv_kinterrupt_val=8895,====Auto=====",
                   "kind": "assignment",
-                  "essential": true,
                   "properties": {
-                    "Step": 45,
                     "State": "^&sdv_kinterrupt_val=8895^====Auto====="
                   }
                 },
                 {
-                  "id": 47,
+                  "step": 46,
                   "physicalLocation": {
                     "uri": "file:///d:/slam1/wdk/src_5043/fail_drivers/wdm/fail_driver1/sdv/sdv-harness.c",
                     "region": {
@@ -688,14 +611,12 @@
                   },
                   "message": "&sdv_MapRegisterBase_val=7407,====Auto=====",
                   "kind": "assignment",
-                  "essential": true,
                   "properties": {
-                    "Step": 46,
                     "State": "^&sdv_MapRegisterBase_val=7407^====Auto====="
                   }
                 },
                 {
-                  "id": 48,
+                  "step": 47,
                   "physicalLocation": {
                     "uri": "file:///d:/slam1/wdk/src_5043/fail_drivers/wdm/fail_driver1/sdv/sdv-harness.c",
                     "region": {
@@ -704,14 +625,12 @@
                   },
                   "message": "====Auto=====",
                   "kind": "assignment",
-                  "essential": true,
                   "properties": {
-                    "Step": 47,
                     "State": "^====Auto====="
                   }
                 },
                 {
-                  "id": 49,
+                  "step": 48,
                   "physicalLocation": {
                     "uri": "file:///d:/slam1/wdk/src_5043/fail_drivers/wdm/fail_driver1/sdv/sdv-harness.c",
                     "region": {
@@ -720,14 +639,12 @@
                   },
                   "message": "====Auto=====",
                   "kind": "assignment",
-                  "essential": true,
                   "properties": {
-                    "Step": 48,
                     "State": "^====Auto====="
                   }
                 },
                 {
-                  "id": 50,
+                  "step": 49,
                   "physicalLocation": {
                     "uri": "file:///d:/slam1/wdk/src_5043/fail_drivers/wdm/fail_driver1/sdv/sdv-harness.c",
                     "region": {
@@ -736,14 +653,12 @@
                   },
                   "message": "====Auto=====",
                   "kind": "assignment",
-                  "essential": true,
                   "properties": {
-                    "Step": 49,
                     "State": "^====Auto====="
                   }
                 },
                 {
-                  "id": 51,
+                  "step": 50,
                   "physicalLocation": {
                     "uri": "file:///d:/slam1/wdk/src_5043/fail_drivers/wdm/fail_driver1/sdv/sdv-harness.c",
                     "region": {
@@ -752,14 +667,12 @@
                   },
                   "message": "&sdv_fx_dev_object=8895,====Auto=====",
                   "kind": "assignment",
-                  "essential": true,
                   "properties": {
-                    "Step": 50,
                     "State": "^&sdv_fx_dev_object=8895^====Auto====="
                   }
                 },
                 {
-                  "id": 52,
+                  "step": 51,
                   "physicalLocation": {
                     "uri": "file:///d:/slam1/wdk/src_5043/fail_drivers/wdm/fail_driver1/sdv/sdv-harness.c",
                     "region": {
@@ -768,14 +681,12 @@
                   },
                   "message": "====Auto=====",
                   "kind": "assignment",
-                  "essential": true,
                   "properties": {
-                    "Step": 51,
                     "State": "^====Auto====="
                   }
                 },
                 {
-                  "id": 53,
+                  "step": 52,
                   "physicalLocation": {
                     "uri": "file:///d:/slam1/wdk/src_5043/fail_drivers/wdm/fail_driver1/sdv/sdv-harness.c",
                     "region": {
@@ -784,14 +695,12 @@
                   },
                   "message": "====Auto=====",
                   "kind": "assignment",
-                  "essential": true,
                   "properties": {
-                    "Step": 52,
                     "State": "^====Auto====="
                   }
                 },
                 {
-                  "id": 54,
+                  "step": 53,
                   "physicalLocation": {
                     "uri": "file:///d:/slam1/wdk/src_5043/fail_drivers/wdm/fail_driver1/sdv/sdv-harness.c",
                     "region": {
@@ -800,14 +709,12 @@
                   },
                   "message": "====Auto=====",
                   "kind": "assignment",
-                  "essential": true,
                   "properties": {
-                    "Step": 53,
                     "State": "^====Auto====="
                   }
                 },
                 {
-                  "id": 55,
+                  "step": 54,
                   "physicalLocation": {
                     "uri": "file:///d:/slam1/wdk/src_5043/fail_drivers/wdm/fail_driver1/sdv/sdv-harness.c",
                     "region": {
@@ -816,14 +723,12 @@
                   },
                   "message": "====Auto=====",
                   "kind": "assignment",
-                  "essential": true,
                   "properties": {
-                    "Step": 54,
                     "State": "^====Auto====="
                   }
                 },
                 {
-                  "id": 56,
+                  "step": 55,
                   "physicalLocation": {
                     "uri": "file:///d:/slam1/wdk/src_5043/fail_drivers/wdm/fail_driver1/sdv/sdv-harness.c",
                     "region": {
@@ -832,14 +737,12 @@
                   },
                   "message": "====Auto=====",
                   "kind": "assignment",
-                  "essential": true,
                   "properties": {
-                    "Step": 55,
                     "State": "^====Auto====="
                   }
                 },
                 {
-                  "id": 57,
+                  "step": 56,
                   "physicalLocation": {
                     "uri": "file:///d:/slam1/wdk/src_5043/fail_drivers/wdm/fail_driver1/sdv/sdv-harness.c",
                     "region": {
@@ -848,14 +751,12 @@
                   },
                   "message": "====Auto=====",
                   "kind": "assignment",
-                  "essential": true,
                   "properties": {
-                    "Step": 56,
                     "State": "^====Auto====="
                   }
                 },
                 {
-                  "id": 58,
+                  "step": 57,
                   "physicalLocation": {
                     "uri": "file:///d:/slam1/wdk/src_5043/fail_drivers/wdm/fail_driver1/sdv/sdv-harness.c",
                     "region": {
@@ -864,14 +765,12 @@
                   },
                   "message": "====Auto=====",
                   "kind": "assignment",
-                  "essential": true,
                   "properties": {
-                    "Step": 57,
                     "State": "^====Auto====="
                   }
                 },
                 {
-                  "id": 59,
+                  "step": 58,
                   "physicalLocation": {
                     "uri": "file:///d:/slam1/wdk/src_5043/fail_drivers/wdm/fail_driver1/sdv/sdv-harness.c",
                     "region": {
@@ -880,14 +779,12 @@
                   },
                   "message": "====Auto=====",
                   "kind": "assignment",
-                  "essential": true,
                   "properties": {
-                    "Step": 58,
                     "State": "^====Auto====="
                   }
                 },
                 {
-                  "id": 60,
+                  "step": 59,
                   "physicalLocation": {
                     "uri": "file:///d:/slam1/wdk/src_5043/fail_drivers/wdm/fail_driver1/sdv/sdv-harness.c",
                     "region": {
@@ -896,14 +793,12 @@
                   },
                   "message": "&sdv_devobj_top=6175,====Auto=====",
                   "kind": "assignment",
-                  "essential": true,
                   "properties": {
-                    "Step": 59,
                     "State": "^&sdv_devobj_top=6175^====Auto====="
                   }
                 },
                 {
-                  "id": 61,
+                  "step": 60,
                   "physicalLocation": {
                     "uri": "file:///d:/slam1/wdk/src_5043/fail_drivers/wdm/fail_driver1/sdv/sdv-harness.c",
                     "region": {
@@ -912,34 +807,30 @@
                   },
                   "message": "====Auto=====",
                   "kind": "assignment",
-                  "essential": true,
                   "properties": {
-                    "Step": 60,
                     "State": "^====Auto====="
                   }
                 },
                 {
-                  "id": 62,
+                  "step": 61,
                   "message": "====Auto=====",
                   "kind": "callReturn",
-                  "essential": false,
+                  "importance": "nonessential",
                   "properties": {
-                    "Step": 61,
                     "State": "^====Auto====="
                   }
                 },
                 {
-                  "id": 63,
+                  "step": 62,
                   "message": "====Auto=====",
                   "kind": "continuation",
-                  "essential": false,
+                  "importance": "nonessential",
                   "properties": {
-                    "Step": 62,
                     "State": "^====Auto====="
                   }
                 },
                 {
-                  "id": 64,
+                  "step": 63,
                   "physicalLocation": {
                     "uri": "file:///d:/slam1/wdk/src_5043/fail_drivers/wdm/fail_driver1/sdv/sdv-harness.c",
                     "region": {
@@ -948,34 +839,30 @@
                   },
                   "message": "sdv_harnessDeviceExtension=11167,====Auto=====",
                   "kind": "branch",
-                  "essential": true,
                   "properties": {
-                    "Step": 63,
                     "State": "^sdv_harnessDeviceExtension=11167^====Auto====="
                   }
                 },
                 {
-                  "id": 65,
+                  "step": 64,
                   "message": "====Auto=====",
                   "kind": "assignment",
-                  "essential": false,
+                  "importance": "nonessential",
                   "properties": {
-                    "Step": 64,
                     "State": "^====Auto====="
                   }
                 },
                 {
-                  "id": 66,
+                  "step": 65,
                   "message": "====Auto=====",
                   "kind": "continuation",
-                  "essential": false,
+                  "importance": "nonessential",
                   "properties": {
-                    "Step": 65,
                     "State": "^====Auto====="
                   }
                 },
                 {
-                  "id": 67,
+                  "step": 66,
                   "physicalLocation": {
                     "uri": "file:///d:/slam1/wdk/src_5043/fail_drivers/wdm/fail_driver1/sdv/sdv-harness.c",
                     "region": {
@@ -984,24 +871,21 @@
                   },
                   "message": "Tmp=1,====Auto=====",
                   "kind": "continuation",
-                  "essential": true,
                   "properties": {
-                    "Step": 66,
                     "State": "^Tmp=1^====Auto====="
                   }
                 },
                 {
-                  "id": 68,
+                  "step": 67,
                   "message": "====Auto=====",
                   "kind": "continuation",
-                  "essential": false,
+                  "importance": "nonessential",
                   "properties": {
-                    "Step": 67,
                     "State": "^====Auto====="
                   }
                 },
                 {
-                  "id": 69,
+                  "step": 68,
                   "physicalLocation": {
                     "uri": "file:///d:/slam1/wdk/src_5043/fail_drivers/wdm/fail_driver1/sdv/sdv-harness.c",
                     "region": {
@@ -1010,34 +894,30 @@
                   },
                   "message": "sdv_harnessDeviceExtension_two=11099,====Auto=====",
                   "kind": "branch",
-                  "essential": true,
                   "properties": {
-                    "Step": 68,
                     "State": "^sdv_harnessDeviceExtension_two=11099^====Auto====="
                   }
                 },
                 {
-                  "id": 70,
+                  "step": 69,
                   "message": "====Auto=====",
                   "kind": "assignment",
-                  "essential": false,
+                  "importance": "nonessential",
                   "properties": {
-                    "Step": 69,
                     "State": "^====Auto====="
                   }
                 },
                 {
-                  "id": 71,
+                  "step": 70,
                   "message": "====Auto=====",
                   "kind": "continuation",
-                  "essential": false,
+                  "importance": "nonessential",
                   "properties": {
-                    "Step": 70,
                     "State": "^====Auto====="
                   }
                 },
                 {
-                  "id": 72,
+                  "step": 71,
                   "physicalLocation": {
                     "uri": "file:///d:/slam1/wdk/src_5043/fail_drivers/wdm/fail_driver1/sdv/sdv-harness.c",
                     "region": {
@@ -1046,24 +926,21 @@
                   },
                   "message": "Tmp=1,====Auto=====",
                   "kind": "continuation",
-                  "essential": true,
                   "properties": {
-                    "Step": 71,
                     "State": "^Tmp=1^====Auto====="
                   }
                 },
                 {
-                  "id": 73,
+                  "step": 72,
                   "message": "====Auto=====",
                   "kind": "continuation",
-                  "essential": false,
+                  "importance": "nonessential",
                   "properties": {
-                    "Step": 72,
                     "State": "^====Auto====="
                   }
                 },
                 {
-                  "id": 74,
+                  "step": 73,
                   "physicalLocation": {
                     "uri": "file:///d:/slam1/wdk/src_5043/fail_drivers/wdm/fail_driver1/sdv/sdv-harness.c",
                     "region": {
@@ -1072,14 +949,12 @@
                   },
                   "message": "sdv_harnessDeviceExtension=11167,====Auto=====",
                   "kind": "assignment",
-                  "essential": true,
                   "properties": {
-                    "Step": 73,
                     "State": "^sdv_harnessDeviceExtension=11167^====Auto====="
                   }
                 },
                 {
-                  "id": 75,
+                  "step": 74,
                   "physicalLocation": {
                     "uri": "file:///d:/slam1/wdk/src_5043/fail_drivers/wdm/fail_driver1/sdv/sdv-harness.c",
                     "region": {
@@ -1088,14 +963,12 @@
                   },
                   "message": "sdv_harnessDeviceExtension_two=11099,====Auto=====",
                   "kind": "assignment",
-                  "essential": true,
                   "properties": {
-                    "Step": 74,
                     "State": "^sdv_harnessDeviceExtension_two=11099^====Auto====="
                   }
                 },
                 {
-                  "id": 76,
+                  "step": 75,
                   "physicalLocation": {
                     "uri": "file:///d:/slam1/wdk/src_5043/fail_drivers/wdm/fail_driver1/sdv/sdv-harness.c",
                     "region": {
@@ -1104,14 +977,12 @@
                   },
                   "message": "&sdv_harnessStackLocation=5043,====Auto=====",
                   "kind": "assignment",
-                  "essential": true,
                   "properties": {
-                    "Step": 75,
                     "State": "^&sdv_harnessStackLocation=5043^====Auto====="
                   }
                 },
                 {
-                  "id": 77,
+                  "step": 76,
                   "physicalLocation": {
                     "uri": "file:///d:/slam1/wdk/src_5043/fail_drivers/wdm/fail_driver1/sdv/sdv-harness.c",
                     "region": {
@@ -1120,14 +991,12 @@
                   },
                   "message": "&sdv_other_harnessStackLocation=10563,====Auto=====",
                   "kind": "assignment",
-                  "essential": true,
                   "properties": {
-                    "Step": 76,
                     "State": "^&sdv_other_harnessStackLocation=10563^====Auto====="
                   }
                 },
                 {
-                  "id": 78,
+                  "step": 77,
                   "physicalLocation": {
                     "uri": "file:///d:/slam1/wdk/src_5043/fail_drivers/wdm/fail_driver1/sdv/sdv-harness.c",
                     "region": {
@@ -1136,36 +1005,32 @@
                   },
                   "message": "====Auto=====,====Pre=====,____true",
                   "kind": "call",
-                  "essential": true,
                   "properties": {
-                    "Step": 77,
                     "State": "^====Auto=====^====Pre=====^____true",
                     "Caller": "main",
                     "Callee": "sdv_main"
                   }
                 },
                 {
-                  "id": 79,
+                  "step": 78,
                   "message": "====Auto=====",
                   "kind": "continuation",
-                  "essential": false,
+                  "importance": "nonessential",
                   "properties": {
-                    "Step": 78,
                     "State": "^====Auto====="
                   }
                 },
                 {
-                  "id": 80,
+                  "step": 79,
                   "message": "====Auto=====",
                   "kind": "continuation",
-                  "essential": false,
+                  "importance": "nonessential",
                   "properties": {
-                    "Step": 79,
                     "State": "^====Auto====="
                   }
                 },
                 {
-                  "id": 81,
+                  "step": 80,
                   "physicalLocation": {
                     "uri": "file:///d:/slam1/wdk/src_5043/fail_drivers/wdm/fail_driver1/sdv/sdv-harness.c",
                     "region": {
@@ -1174,36 +1039,32 @@
                   },
                   "message": "====Auto=====",
                   "kind": "call",
-                  "essential": true,
                   "properties": {
-                    "Step": 80,
                     "State": "^====Auto=====",
                     "Caller": "sdv_main",
                     "Callee": "sdv_CheckDispatchRoutines"
                   }
                 },
                 {
-                  "id": 82,
+                  "step": 81,
                   "message": "====Auto=====",
                   "kind": "continuation",
-                  "essential": false,
+                  "importance": "nonessential",
                   "properties": {
-                    "Step": 81,
                     "State": "^====Auto====="
                   }
                 },
                 {
-                  "id": 83,
+                  "step": 82,
                   "message": "====Auto=====",
                   "kind": "continuation",
-                  "essential": false,
+                  "importance": "nonessential",
                   "properties": {
-                    "Step": 82,
                     "State": "^====Auto====="
                   }
                 },
                 {
-                  "id": 84,
+                  "step": 83,
                   "physicalLocation": {
                     "uri": "file:///d:/slam1/wdk/src_5043/fail_drivers/wdm/fail_driver1/sdv/sdv-harness.c",
                     "region": {
@@ -1212,14 +1073,12 @@
                   },
                   "message": "====Auto=====",
                   "kind": "assignment",
-                  "essential": true,
                   "properties": {
-                    "Step": 83,
                     "State": "^====Auto====="
                   }
                 },
                 {
-                  "id": 85,
+                  "step": 84,
                   "physicalLocation": {
                     "uri": "file:///d:/slam1/wdk/src_5043/fail_drivers/wdm/fail_driver1/sdv/sdv-harness.c",
                     "region": {
@@ -1228,24 +1087,21 @@
                   },
                   "message": "====Auto=====",
                   "kind": "callReturn",
-                  "essential": true,
                   "properties": {
-                    "Step": 84,
                     "State": "^====Auto====="
                   }
                 },
                 {
-                  "id": 86,
+                  "step": 85,
                   "message": "====Auto=====",
                   "kind": "continuation",
-                  "essential": false,
+                  "importance": "nonessential",
                   "properties": {
-                    "Step": 85,
                     "State": "^====Auto====="
                   }
                 },
                 {
-                  "id": 87,
+                  "step": 86,
                   "physicalLocation": {
                     "uri": "file:///d:/slam1/wdk/src_5043/fail_drivers/wdm/fail_driver1/sdv/sdv-harness.c",
                     "region": {
@@ -1254,36 +1110,32 @@
                   },
                   "message": "====Auto=====",
                   "kind": "call",
-                  "essential": true,
                   "properties": {
-                    "Step": 86,
                     "State": "^====Auto=====",
                     "Caller": "sdv_main",
                     "Callee": "sdv_CheckStartIoRoutines"
                   }
                 },
                 {
-                  "id": 88,
+                  "step": 87,
                   "message": "====Auto=====",
                   "kind": "continuation",
-                  "essential": false,
+                  "importance": "nonessential",
                   "properties": {
-                    "Step": 87,
                     "State": "^====Auto====="
                   }
                 },
                 {
-                  "id": 89,
+                  "step": 88,
                   "message": "====Auto=====",
                   "kind": "continuation",
-                  "essential": false,
+                  "importance": "nonessential",
                   "properties": {
-                    "Step": 88,
                     "State": "^====Auto====="
                   }
                 },
                 {
-                  "id": 90,
+                  "step": 89,
                   "physicalLocation": {
                     "uri": "file:///d:/slam1/wdk/src_5043/fail_drivers/wdm/fail_driver1/sdv/sdv-harness.c",
                     "region": {
@@ -1292,14 +1144,12 @@
                   },
                   "message": "====Auto=====",
                   "kind": "assignment",
-                  "essential": true,
                   "properties": {
-                    "Step": 89,
                     "State": "^====Auto====="
                   }
                 },
                 {
-                  "id": 91,
+                  "step": 90,
                   "physicalLocation": {
                     "uri": "file:///d:/slam1/wdk/src_5043/fail_drivers/wdm/fail_driver1/sdv/sdv-harness.c",
                     "region": {
@@ -1308,24 +1158,21 @@
                   },
                   "message": "====Auto=====",
                   "kind": "callReturn",
-                  "essential": true,
                   "properties": {
-                    "Step": 90,
                     "State": "^====Auto====="
                   }
                 },
                 {
-                  "id": 92,
+                  "step": 91,
                   "message": "====Auto=====",
                   "kind": "continuation",
-                  "essential": false,
+                  "importance": "nonessential",
                   "properties": {
-                    "Step": 91,
                     "State": "^====Auto====="
                   }
                 },
                 {
-                  "id": 93,
+                  "step": 92,
                   "physicalLocation": {
                     "uri": "file:///d:/slam1/wdk/src_5043/fail_drivers/wdm/fail_driver1/sdv/sdv-harness.c",
                     "region": {
@@ -1334,36 +1181,32 @@
                   },
                   "message": "====Auto=====",
                   "kind": "call",
-                  "essential": true,
                   "properties": {
-                    "Step": 92,
                     "State": "^====Auto=====",
                     "Caller": "sdv_main",
                     "Callee": "sdv_CheckDpcRoutines"
                   }
                 },
                 {
-                  "id": 94,
+                  "step": 93,
                   "message": "====Auto=====",
                   "kind": "continuation",
-                  "essential": false,
+                  "importance": "nonessential",
                   "properties": {
-                    "Step": 93,
                     "State": "^====Auto====="
                   }
                 },
                 {
-                  "id": 95,
+                  "step": 94,
                   "message": "====Auto=====",
                   "kind": "continuation",
-                  "essential": false,
+                  "importance": "nonessential",
                   "properties": {
-                    "Step": 94,
                     "State": "^====Auto====="
                   }
                 },
                 {
-                  "id": 96,
+                  "step": 95,
                   "physicalLocation": {
                     "uri": "file:///d:/slam1/wdk/src_5043/fail_drivers/wdm/fail_driver1/sdv/sdv-harness.c",
                     "region": {
@@ -1372,14 +1215,12 @@
                   },
                   "message": "====Auto=====",
                   "kind": "assignment",
-                  "essential": true,
                   "properties": {
-                    "Step": 95,
                     "State": "^====Auto====="
                   }
                 },
                 {
-                  "id": 97,
+                  "step": 96,
                   "physicalLocation": {
                     "uri": "file:///d:/slam1/wdk/src_5043/fail_drivers/wdm/fail_driver1/sdv/sdv-harness.c",
                     "region": {
@@ -1388,24 +1229,21 @@
                   },
                   "message": "====Auto=====",
                   "kind": "callReturn",
-                  "essential": true,
                   "properties": {
-                    "Step": 96,
                     "State": "^====Auto====="
                   }
                 },
                 {
-                  "id": 98,
+                  "step": 97,
                   "message": "====Auto=====",
                   "kind": "continuation",
-                  "essential": false,
+                  "importance": "nonessential",
                   "properties": {
-                    "Step": 97,
                     "State": "^====Auto====="
                   }
                 },
                 {
-                  "id": 99,
+                  "step": 98,
                   "physicalLocation": {
                     "uri": "file:///d:/slam1/wdk/src_5043/fail_drivers/wdm/fail_driver1/sdv/sdv-harness.c",
                     "region": {
@@ -1414,36 +1252,32 @@
                   },
                   "message": "====Auto=====",
                   "kind": "call",
-                  "essential": true,
                   "properties": {
-                    "Step": 98,
                     "State": "^====Auto=====",
                     "Caller": "sdv_main",
                     "Callee": "sdv_CheckIsrRoutines"
                   }
                 },
                 {
-                  "id": 100,
+                  "step": 99,
                   "message": "====Auto=====",
                   "kind": "continuation",
-                  "essential": false,
+                  "importance": "nonessential",
                   "properties": {
-                    "Step": 99,
                     "State": "^====Auto====="
                   }
                 },
                 {
-                  "id": 101,
+                  "step": 100,
                   "message": "====Auto=====",
                   "kind": "continuation",
-                  "essential": false,
+                  "importance": "nonessential",
                   "properties": {
-                    "Step": 100,
                     "State": "^====Auto====="
                   }
                 },
                 {
-                  "id": 102,
+                  "step": 101,
                   "physicalLocation": {
                     "uri": "file:///d:/slam1/wdk/src_5043/fail_drivers/wdm/fail_driver1/sdv/sdv-harness.c",
                     "region": {
@@ -1452,14 +1286,12 @@
                   },
                   "message": "====Auto=====",
                   "kind": "assignment",
-                  "essential": true,
                   "properties": {
-                    "Step": 101,
                     "State": "^====Auto====="
                   }
                 },
                 {
-                  "id": 103,
+                  "step": 102,
                   "physicalLocation": {
                     "uri": "file:///d:/slam1/wdk/src_5043/fail_drivers/wdm/fail_driver1/sdv/sdv-harness.c",
                     "region": {
@@ -1468,24 +1300,21 @@
                   },
                   "message": "====Auto=====",
                   "kind": "callReturn",
-                  "essential": true,
                   "properties": {
-                    "Step": 102,
                     "State": "^====Auto====="
                   }
                 },
                 {
-                  "id": 104,
+                  "step": 103,
                   "message": "====Auto=====",
                   "kind": "continuation",
-                  "essential": false,
+                  "importance": "nonessential",
                   "properties": {
-                    "Step": 103,
                     "State": "^====Auto====="
                   }
                 },
                 {
-                  "id": 105,
+                  "step": 104,
                   "physicalLocation": {
                     "uri": "file:///d:/slam1/wdk/src_5043/fail_drivers/wdm/fail_driver1/sdv/sdv-harness.c",
                     "region": {
@@ -1494,36 +1323,32 @@
                   },
                   "message": "====Auto=====",
                   "kind": "call",
-                  "essential": true,
                   "properties": {
-                    "Step": 104,
                     "State": "^====Auto=====",
                     "Caller": "sdv_main",
                     "Callee": "sdv_CheckCancelRoutines"
                   }
                 },
                 {
-                  "id": 106,
+                  "step": 105,
                   "message": "====Auto=====",
                   "kind": "continuation",
-                  "essential": false,
+                  "importance": "nonessential",
                   "properties": {
-                    "Step": 105,
                     "State": "^====Auto====="
                   }
                 },
                 {
-                  "id": 107,
+                  "step": 106,
                   "message": "====Auto=====",
                   "kind": "continuation",
-                  "essential": false,
+                  "importance": "nonessential",
                   "properties": {
-                    "Step": 106,
                     "State": "^====Auto====="
                   }
                 },
                 {
-                  "id": 108,
+                  "step": 107,
                   "physicalLocation": {
                     "uri": "file:///d:/slam1/wdk/src_5043/fail_drivers/wdm/fail_driver1/sdv/sdv-harness.c",
                     "region": {
@@ -1532,14 +1357,12 @@
                   },
                   "message": "====Auto=====",
                   "kind": "assignment",
-                  "essential": true,
                   "properties": {
-                    "Step": 107,
                     "State": "^====Auto====="
                   }
                 },
                 {
-                  "id": 109,
+                  "step": 108,
                   "physicalLocation": {
                     "uri": "file:///d:/slam1/wdk/src_5043/fail_drivers/wdm/fail_driver1/sdv/sdv-harness.c",
                     "region": {
@@ -1548,24 +1371,21 @@
                   },
                   "message": "====Auto=====",
                   "kind": "callReturn",
-                  "essential": true,
                   "properties": {
-                    "Step": 108,
                     "State": "^====Auto====="
                   }
                 },
                 {
-                  "id": 110,
+                  "step": 109,
                   "message": "====Auto=====",
                   "kind": "continuation",
-                  "essential": false,
+                  "importance": "nonessential",
                   "properties": {
-                    "Step": 109,
                     "State": "^====Auto====="
                   }
                 },
                 {
-                  "id": 111,
+                  "step": 110,
                   "physicalLocation": {
                     "uri": "file:///d:/slam1/wdk/src_5043/fail_drivers/wdm/fail_driver1/sdv/sdv-harness.c",
                     "region": {
@@ -1574,36 +1394,32 @@
                   },
                   "message": "====Auto=====",
                   "kind": "call",
-                  "essential": true,
                   "properties": {
-                    "Step": 110,
                     "State": "^====Auto=====",
                     "Caller": "sdv_main",
                     "Callee": "sdv_CheckIoDpcRoutines"
                   }
                 },
                 {
-                  "id": 112,
+                  "step": 111,
                   "message": "====Auto=====",
                   "kind": "continuation",
-                  "essential": false,
+                  "importance": "nonessential",
                   "properties": {
-                    "Step": 111,
                     "State": "^====Auto====="
                   }
                 },
                 {
-                  "id": 113,
+                  "step": 112,
                   "message": "====Auto=====",
                   "kind": "continuation",
-                  "essential": false,
+                  "importance": "nonessential",
                   "properties": {
-                    "Step": 112,
                     "State": "^====Auto====="
                   }
                 },
                 {
-                  "id": 114,
+                  "step": 113,
                   "physicalLocation": {
                     "uri": "file:///d:/slam1/wdk/src_5043/fail_drivers/wdm/fail_driver1/sdv/sdv-harness.c",
                     "region": {
@@ -1612,14 +1428,12 @@
                   },
                   "message": "====Auto=====",
                   "kind": "assignment",
-                  "essential": true,
                   "properties": {
-                    "Step": 113,
                     "State": "^====Auto====="
                   }
                 },
                 {
-                  "id": 115,
+                  "step": 114,
                   "physicalLocation": {
                     "uri": "file:///d:/slam1/wdk/src_5043/fail_drivers/wdm/fail_driver1/sdv/sdv-harness.c",
                     "region": {
@@ -1628,24 +1442,21 @@
                   },
                   "message": "====Auto=====",
                   "kind": "callReturn",
-                  "essential": true,
                   "properties": {
-                    "Step": 114,
                     "State": "^====Auto====="
                   }
                 },
                 {
-                  "id": 116,
+                  "step": 115,
                   "message": "====Auto=====",
                   "kind": "continuation",
-                  "essential": false,
+                  "importance": "nonessential",
                   "properties": {
-                    "Step": 115,
                     "State": "^====Auto====="
                   }
                 },
                 {
-                  "id": 117,
+                  "step": 116,
                   "physicalLocation": {
                     "uri": "file:///d:/slam1/wdk/src_5043/fail_drivers/wdm/fail_driver1/sdv/sdv-harness.c",
                     "region": {
@@ -1654,36 +1465,32 @@
                   },
                   "message": "====Auto=====",
                   "kind": "call",
-                  "essential": true,
                   "properties": {
-                    "Step": 116,
                     "State": "^====Auto=====",
                     "Caller": "sdv_main",
                     "Callee": "sdv_IoCompletionRoutines"
                   }
                 },
                 {
-                  "id": 118,
+                  "step": 117,
                   "message": "====Auto=====",
                   "kind": "continuation",
-                  "essential": false,
+                  "importance": "nonessential",
                   "properties": {
-                    "Step": 117,
                     "State": "^====Auto====="
                   }
                 },
                 {
-                  "id": 119,
+                  "step": 118,
                   "message": "====Auto=====",
                   "kind": "continuation",
-                  "essential": false,
+                  "importance": "nonessential",
                   "properties": {
-                    "Step": 118,
                     "State": "^====Auto====="
                   }
                 },
                 {
-                  "id": 120,
+                  "step": 119,
                   "physicalLocation": {
                     "uri": "file:///d:/slam1/wdk/src_5043/fail_drivers/wdm/fail_driver1/sdv/sdv-harness.c",
                     "region": {
@@ -1692,14 +1499,12 @@
                   },
                   "message": "====Auto=====",
                   "kind": "assignment",
-                  "essential": true,
                   "properties": {
-                    "Step": 119,
                     "State": "^====Auto====="
                   }
                 },
                 {
-                  "id": 121,
+                  "step": 120,
                   "physicalLocation": {
                     "uri": "file:///d:/slam1/wdk/src_5043/fail_drivers/wdm/fail_driver1/sdv/sdv-harness.c",
                     "region": {
@@ -1708,24 +1513,21 @@
                   },
                   "message": "====Auto=====",
                   "kind": "callReturn",
-                  "essential": true,
                   "properties": {
-                    "Step": 120,
                     "State": "^====Auto====="
                   }
                 },
                 {
-                  "id": 122,
+                  "step": 121,
                   "message": "====Auto=====",
                   "kind": "continuation",
-                  "essential": false,
+                  "importance": "nonessential",
                   "properties": {
-                    "Step": 121,
                     "State": "^====Auto====="
                   }
                 },
                 {
-                  "id": 123,
+                  "step": 122,
                   "physicalLocation": {
                     "uri": "file:///d:/slam1/wdk/src_5043/fail_drivers/wdm/fail_driver1/sdv/sdv-harness.c",
                     "region": {
@@ -1734,36 +1536,32 @@
                   },
                   "message": "====Auto=====",
                   "kind": "call",
-                  "essential": true,
                   "properties": {
-                    "Step": 122,
                     "State": "^====Auto=====",
                     "Caller": "sdv_main",
                     "Callee": "sdv_CheckWorkerRoutines"
                   }
                 },
                 {
-                  "id": 124,
+                  "step": 123,
                   "message": "====Auto=====",
                   "kind": "continuation",
-                  "essential": false,
+                  "importance": "nonessential",
                   "properties": {
-                    "Step": 123,
                     "State": "^====Auto====="
                   }
                 },
                 {
-                  "id": 125,
+                  "step": 124,
                   "message": "====Auto=====",
                   "kind": "continuation",
-                  "essential": false,
+                  "importance": "nonessential",
                   "properties": {
-                    "Step": 124,
                     "State": "^====Auto====="
                   }
                 },
                 {
-                  "id": 126,
+                  "step": 125,
                   "physicalLocation": {
                     "uri": "file:///d:/slam1/wdk/src_5043/fail_drivers/wdm/fail_driver1/sdv/sdv-harness.c",
                     "region": {
@@ -1772,14 +1570,12 @@
                   },
                   "message": "====Auto=====",
                   "kind": "assignment",
-                  "essential": true,
                   "properties": {
-                    "Step": 125,
                     "State": "^====Auto====="
                   }
                 },
                 {
-                  "id": 127,
+                  "step": 126,
                   "physicalLocation": {
                     "uri": "file:///d:/slam1/wdk/src_5043/fail_drivers/wdm/fail_driver1/sdv/sdv-harness.c",
                     "region": {
@@ -1788,24 +1584,21 @@
                   },
                   "message": "====Auto=====",
                   "kind": "callReturn",
-                  "essential": true,
                   "properties": {
-                    "Step": 126,
                     "State": "^====Auto====="
                   }
                 },
                 {
-                  "id": 128,
+                  "step": 127,
                   "message": "====Auto=====",
                   "kind": "continuation",
-                  "essential": false,
+                  "importance": "nonessential",
                   "properties": {
-                    "Step": 127,
                     "State": "^====Auto====="
                   }
                 },
                 {
-                  "id": 129,
+                  "step": 128,
                   "physicalLocation": {
                     "uri": "file:///d:/slam1/wdk/src_5043/fail_drivers/wdm/fail_driver1/sdv/sdv-harness.c",
                     "region": {
@@ -1814,36 +1607,32 @@
                   },
                   "message": "====Auto=====",
                   "kind": "call",
-                  "essential": true,
                   "properties": {
-                    "Step": 128,
                     "State": "^====Auto=====",
                     "Caller": "sdv_main",
                     "Callee": "sdv_CheckAddDevice"
                   }
                 },
                 {
-                  "id": 130,
+                  "step": 129,
                   "message": "====Auto=====",
                   "kind": "continuation",
-                  "essential": false,
+                  "importance": "nonessential",
                   "properties": {
-                    "Step": 129,
                     "State": "^====Auto====="
                   }
                 },
                 {
-                  "id": 131,
+                  "step": 130,
                   "message": "====Auto=====",
                   "kind": "continuation",
-                  "essential": false,
+                  "importance": "nonessential",
                   "properties": {
-                    "Step": 130,
                     "State": "^====Auto====="
                   }
                 },
                 {
-                  "id": 132,
+                  "step": 131,
                   "physicalLocation": {
                     "uri": "file:///d:/slam1/wdk/src_5043/fail_drivers/wdm/fail_driver1/sdv/sdv-harness.c",
                     "region": {
@@ -1852,14 +1641,12 @@
                   },
                   "message": "====Auto=====",
                   "kind": "assignment",
-                  "essential": true,
                   "properties": {
-                    "Step": 131,
                     "State": "^====Auto====="
                   }
                 },
                 {
-                  "id": 133,
+                  "step": 132,
                   "physicalLocation": {
                     "uri": "file:///d:/slam1/wdk/src_5043/fail_drivers/wdm/fail_driver1/sdv/sdv-harness.c",
                     "region": {
@@ -1868,24 +1655,21 @@
                   },
                   "message": "====Auto=====",
                   "kind": "callReturn",
-                  "essential": true,
                   "properties": {
-                    "Step": 132,
                     "State": "^====Auto====="
                   }
                 },
                 {
-                  "id": 134,
+                  "step": 133,
                   "message": "====Auto=====",
                   "kind": "continuation",
-                  "essential": false,
+                  "importance": "nonessential",
                   "properties": {
-                    "Step": 133,
                     "State": "^====Auto====="
                   }
                 },
                 {
-                  "id": 135,
+                  "step": 134,
                   "physicalLocation": {
                     "uri": "file:///d:/slam1/wdk/src_5043/fail_drivers/wdm/fail_driver1/sdv/sdv-harness.c",
                     "region": {
@@ -1894,36 +1678,32 @@
                   },
                   "message": "====Auto=====",
                   "kind": "call",
-                  "essential": true,
                   "properties": {
-                    "Step": 134,
                     "State": "^====Auto=====",
                     "Caller": "sdv_main",
                     "Callee": "sdv_CheckIrpMjPnp"
                   }
                 },
                 {
-                  "id": 136,
+                  "step": 135,
                   "message": "====Auto=====",
                   "kind": "continuation",
-                  "essential": false,
+                  "importance": "nonessential",
                   "properties": {
-                    "Step": 135,
                     "State": "^====Auto====="
                   }
                 },
                 {
-                  "id": 137,
+                  "step": 136,
                   "message": "====Auto=====",
                   "kind": "continuation",
-                  "essential": false,
+                  "importance": "nonessential",
                   "properties": {
-                    "Step": 136,
                     "State": "^====Auto====="
                   }
                 },
                 {
-                  "id": 138,
+                  "step": 137,
                   "physicalLocation": {
                     "uri": "file:///d:/slam1/wdk/src_5043/fail_drivers/wdm/fail_driver1/sdv/sdv-harness.c",
                     "region": {
@@ -1932,14 +1712,12 @@
                   },
                   "message": "====Auto=====",
                   "kind": "assignment",
-                  "essential": true,
                   "properties": {
-                    "Step": 137,
                     "State": "^====Auto====="
                   }
                 },
                 {
-                  "id": 139,
+                  "step": 138,
                   "physicalLocation": {
                     "uri": "file:///d:/slam1/wdk/src_5043/fail_drivers/wdm/fail_driver1/sdv/sdv-harness.c",
                     "region": {
@@ -1948,24 +1726,21 @@
                   },
                   "message": "====Auto=====",
                   "kind": "callReturn",
-                  "essential": true,
                   "properties": {
-                    "Step": 138,
                     "State": "^====Auto====="
                   }
                 },
                 {
-                  "id": 140,
+                  "step": 139,
                   "message": "====Auto=====",
                   "kind": "continuation",
-                  "essential": false,
+                  "importance": "nonessential",
                   "properties": {
-                    "Step": 139,
                     "State": "^====Auto====="
                   }
                 },
                 {
-                  "id": 141,
+                  "step": 140,
                   "physicalLocation": {
                     "uri": "file:///d:/slam1/wdk/src_5043/fail_drivers/wdm/fail_driver1/sdv/sdv-harness.c",
                     "region": {
@@ -1974,36 +1749,32 @@
                   },
                   "message": "====Auto=====",
                   "kind": "call",
-                  "essential": true,
                   "properties": {
-                    "Step": 140,
                     "State": "^====Auto=====",
                     "Caller": "sdv_main",
                     "Callee": "sdv_CheckIrpMjPower"
                   }
                 },
                 {
-                  "id": 142,
+                  "step": 141,
                   "message": "====Auto=====",
                   "kind": "continuation",
-                  "essential": false,
+                  "importance": "nonessential",
                   "properties": {
-                    "Step": 141,
                     "State": "^====Auto====="
                   }
                 },
                 {
-                  "id": 143,
+                  "step": 142,
                   "message": "====Auto=====",
                   "kind": "continuation",
-                  "essential": false,
+                  "importance": "nonessential",
                   "properties": {
-                    "Step": 142,
                     "State": "^====Auto====="
                   }
                 },
                 {
-                  "id": 144,
+                  "step": 143,
                   "physicalLocation": {
                     "uri": "file:///d:/slam1/wdk/src_5043/fail_drivers/wdm/fail_driver1/sdv/sdv-harness.c",
                     "region": {
@@ -2012,14 +1783,12 @@
                   },
                   "message": "====Auto=====",
                   "kind": "assignment",
-                  "essential": true,
                   "properties": {
-                    "Step": 143,
                     "State": "^====Auto====="
                   }
                 },
                 {
-                  "id": 145,
+                  "step": 144,
                   "physicalLocation": {
                     "uri": "file:///d:/slam1/wdk/src_5043/fail_drivers/wdm/fail_driver1/sdv/sdv-harness.c",
                     "region": {
@@ -2028,24 +1797,21 @@
                   },
                   "message": "====Auto=====",
                   "kind": "callReturn",
-                  "essential": true,
                   "properties": {
-                    "Step": 144,
                     "State": "^====Auto====="
                   }
                 },
                 {
-                  "id": 146,
+                  "step": 145,
                   "message": "====Auto=====",
                   "kind": "continuation",
-                  "essential": false,
+                  "importance": "nonessential",
                   "properties": {
-                    "Step": 145,
                     "State": "^====Auto====="
                   }
                 },
                 {
-                  "id": 147,
+                  "step": 146,
                   "physicalLocation": {
                     "uri": "file:///d:/slam1/wdk/src_5043/fail_drivers/wdm/fail_driver1/sdv/sdv-harness.c",
                     "region": {
@@ -2054,36 +1820,32 @@
                   },
                   "message": "====Auto=====",
                   "kind": "call",
-                  "essential": true,
                   "properties": {
-                    "Step": 146,
                     "State": "^====Auto=====",
                     "Caller": "sdv_main",
                     "Callee": "sdv_CheckDriverUnload"
                   }
                 },
                 {
-                  "id": 148,
+                  "step": 147,
                   "message": "====Auto=====",
                   "kind": "continuation",
-                  "essential": false,
+                  "importance": "nonessential",
                   "properties": {
-                    "Step": 147,
                     "State": "^====Auto====="
                   }
                 },
                 {
-                  "id": 149,
+                  "step": 148,
                   "message": "====Auto=====",
                   "kind": "continuation",
-                  "essential": false,
+                  "importance": "nonessential",
                   "properties": {
-                    "Step": 148,
                     "State": "^====Auto====="
                   }
                 },
                 {
-                  "id": 150,
+                  "step": 149,
                   "physicalLocation": {
                     "uri": "file:///d:/slam1/wdk/src_5043/fail_drivers/wdm/fail_driver1/sdv/sdv-harness.c",
                     "region": {
@@ -2092,14 +1854,12 @@
                   },
                   "message": "====Auto=====",
                   "kind": "assignment",
-                  "essential": true,
                   "properties": {
-                    "Step": 149,
                     "State": "^====Auto====="
                   }
                 },
                 {
-                  "id": 151,
+                  "step": 150,
                   "physicalLocation": {
                     "uri": "file:///d:/slam1/wdk/src_5043/fail_drivers/wdm/fail_driver1/sdv/sdv-harness.c",
                     "region": {
@@ -2108,26 +1868,23 @@
                   },
                   "message": "arg1=5,arg2=1,====Auto=====",
                   "kind": "call",
-                  "essential": true,
                   "properties": {
-                    "Step": 150,
                     "State": "^arg1=5^arg2=1^====Auto=====",
                     "Caller": "sdv_CheckDriverUnload",
                     "Callee": "SLIC_sdv_CheckDriverUnload_exit"
                   }
                 },
                 {
-                  "id": 152,
+                  "step": 151,
                   "message": "====Auto=====",
                   "kind": "continuation",
-                  "essential": false,
+                  "importance": "nonessential",
                   "properties": {
-                    "Step": 151,
                     "State": "^====Auto====="
                   }
                 },
                 {
-                  "id": 153,
+                  "step": 152,
                   "physicalLocation": {
                     "uri": "..\\..\\..\\rules\\WDM\\CheckDriverUnload.slic",
                     "region": {
@@ -2136,14 +1893,12 @@
                   },
                   "message": "sdv=1,====Auto=====",
                   "kind": "branch",
-                  "essential": true,
                   "properties": {
-                    "Step": 152,
                     "State": "^sdv=1^====Auto====="
                   }
                 },
                 {
-                  "id": 154,
+                  "step": 153,
                   "physicalLocation": {
                     "uri": "..\\..\\..\\rules\\WDM\\CheckDriverUnload.slic",
                     "region": {
@@ -2152,203 +1907,182 @@
                   },
                   "message": "arg1=5,arg2=1,====Auto=====",
                   "kind": "call",
-                  "essential": true,
                   "properties": {
-                    "Step": 153,
                     "State": "^arg1=5^arg2=1^====Auto=====",
                     "Caller": "SLIC_sdv_CheckDriverUnload_exit",
                     "Callee": "SLIC_ABORT_1_0"
                   }
                 },
                 {
-                  "id": 155,
+                  "step": 154,
                   "message": "====Auto=====",
                   "kind": "continuation",
-                  "essential": false,
+                  "importance": "nonessential",
                   "properties": {
-                    "Step": 154,
                     "State": "^====Auto====="
                   }
                 },
                 {
-                  "id": 156,
+                  "step": 155,
                   "message": "caller=5,====Auto=====",
                   "kind": "assignment",
-                  "essential": false,
+                  "importance": "nonessential",
                   "properties": {
-                    "Step": 155,
                     "State": "^caller=5^====Auto====="
                   }
                 },
                 {
-                  "id": 157,
+                  "step": 156,
                   "message": "sdv=1,====Auto=====",
                   "kind": "assignment",
-                  "essential": false,
+                  "importance": "nonessential",
                   "properties": {
-                    "Step": 156,
                     "State": "^sdv=1^====Auto====="
                   }
                 },
                 {
-                  "id": 158,
+                  "step": 157,
                   "message": "arg1=3,====Auto=====",
                   "kind": "call",
-                  "essential": false,
+                  "importance": "nonessential",
                   "properties": {
-                    "Step": 157,
                     "State": "^arg1=3^====Auto=====",
                     "Caller": "SLIC_ABORT_1_0",
                     "Callee": "SLIC_ERROR_ROUTINE"
                   }
                 },
                 {
-                  "id": 159,
+                  "step": 158,
                   "message": "====Auto=====",
                   "kind": "continuation",
-                  "essential": false,
+                  "importance": "nonessential",
                   "properties": {
-                    "Step": 158,
                     "State": "^====Auto====="
                   }
                 },
                 {
-                  "id": 160,
+                  "step": 159,
                   "message": "====Auto=====",
                   "kind": "assignment",
-                  "essential": false,
+                  "importance": "nonessential",
                   "properties": {
-                    "Step": 159,
                     "State": "^====Auto====="
                   }
                 },
                 {
-                  "id": 161,
+                  "step": 160,
                   "message": "====Auto=====",
                   "kind": "callReturn",
-                  "essential": false,
+                  "importance": "nonessential",
                   "properties": {
-                    "Step": 160,
                     "State": "^====Auto====="
                   }
                 },
                 {
-                  "id": 162,
+                  "step": 161,
                   "message": "====Auto=====",
                   "kind": "continuation",
-                  "essential": false,
+                  "importance": "nonessential",
                   "properties": {
-                    "Step": 161,
                     "State": "^====Auto====="
                   }
                 },
                 {
-                  "id": 163,
+                  "step": 162,
                   "message": "====Auto=====",
                   "kind": "callReturn",
-                  "essential": false,
+                  "importance": "nonessential",
                   "properties": {
-                    "Step": 162,
                     "State": "^====Auto====="
                   }
                 },
                 {
-                  "id": 164,
+                  "step": 163,
                   "message": "====Auto=====",
                   "kind": "continuation",
-                  "essential": false,
+                  "importance": "nonessential",
                   "properties": {
-                    "Step": 163,
                     "State": "^====Auto====="
                   }
                 },
                 {
-                  "id": 165,
+                  "step": 164,
                   "message": "yogi_error=1,====Auto=====",
                   "kind": "branch",
-                  "essential": false,
+                  "importance": "nonessential",
                   "properties": {
-                    "Step": 164,
                     "State": "^yogi_error=1^====Auto====="
                   }
                 },
                 {
-                  "id": 166,
+                  "step": 165,
                   "message": "====Auto=====",
                   "kind": "continuation",
-                  "essential": false,
+                  "importance": "nonessential",
                   "properties": {
-                    "Step": 165,
                     "State": "^====Auto====="
                   }
                 },
                 {
-                  "id": 167,
+                  "step": 166,
                   "message": "yogi_error=1,====Auto=====",
                   "kind": "branch",
-                  "essential": false,
+                  "importance": "nonessential",
                   "properties": {
-                    "Step": 166,
                     "State": "^yogi_error=1^====Auto====="
                   }
                 },
                 {
-                  "id": 168,
+                  "step": 167,
                   "message": "====Auto=====",
                   "kind": "continuation",
-                  "essential": false,
+                  "importance": "nonessential",
                   "properties": {
-                    "Step": 167,
                     "State": "^====Auto====="
                   }
                 },
                 {
-                  "id": 169,
+                  "step": 168,
                   "message": "yogi_error=1,====Auto=====",
                   "kind": "branch",
-                  "essential": false,
+                  "importance": "nonessential",
                   "properties": {
-                    "Step": 168,
                     "State": "^yogi_error=1^====Auto====="
                   }
                 },
                 {
-                  "id": 170,
+                  "step": 169,
                   "message": "====Auto=====",
                   "kind": "continuation",
-                  "essential": false,
+                  "importance": "nonessential",
                   "properties": {
-                    "Step": 169,
                     "State": "^====Auto====="
                   }
                 },
                 {
-                  "id": 171,
+                  "step": 170,
                   "message": "yogi_error=1,====Auto=====",
                   "kind": "branch",
-                  "essential": false,
+                  "importance": "nonessential",
                   "properties": {
-                    "Step": 170,
                     "State": "^yogi_error=1^====Auto====="
                   }
                 },
                 {
-                  "id": 172,
+                  "step": 171,
                   "message": "yogi_error=1,====Auto=====",
                   "kind": "branch",
-                  "essential": false,
+                  "importance": "nonessential",
                   "properties": {
-                    "Step": 171,
                     "State": "^yogi_error=1^====Auto====="
                   }
                 },
                 {
-                  "id": 173,
+                  "step": 172,
                   "message": "====Auto=====",
                   "kind": "callReturn",
-                  "essential": false,
+                  "importance": "nonessential",
                   "properties": {
-                    "Step": 172,
                     "State": "^====Auto====="
                   }
                 }

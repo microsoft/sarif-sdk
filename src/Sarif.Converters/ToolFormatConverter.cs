@@ -33,12 +33,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             string outputFileName,
             ToolFormatConversionOptions conversionOptions)
         {
-            if (toolFormat == ToolFormat.PREfast)
-            {
-                string sarif = ConvertPREfastToStandardFormat(inputFileName);
-                File.WriteAllText(outputFileName, sarif);
-            }
-
             if (inputFileName == null) { throw new ArgumentNullException(nameof(inputFileName)); };
             if (outputFileName == null) { throw new ArgumentNullException(nameof(outputFileName)); };
 
@@ -52,21 +46,29 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 throw new InvalidOperationException("Output file already exists and option to overwrite was not specified.");
             }
 
-            // FileMode settings here will results in an exception being raised if the input 
-            // file does not exist, and that an existing output file will be overwritten
-            using (var input = File.OpenRead(inputFileName))
-            using (var outputTextStream = File.Create(outputFileName))
-            using (var outputTextWriter = new StreamWriter(outputTextStream))
-            using (var outputJson = new JsonTextWriter(outputTextWriter))
+            if (toolFormat == ToolFormat.PREfast)
             {
-                if (conversionOptions.HasFlag(ToolFormatConversionOptions.PrettyPrint))
+                string sarif = ConvertPREfastToStandardFormat(inputFileName);
+                File.WriteAllText(outputFileName, sarif);
+            }
+            else
+            {
+                // FileMode settings here will results in an exception being raised if the input 
+                // file does not exist, and that an existing output file will be overwritten
+                using (var input = File.OpenRead(inputFileName))
+                using (var outputTextStream = File.Create(outputFileName))
+                using (var outputTextWriter = new StreamWriter(outputTextStream))
+                using (var outputJson = new JsonTextWriter(outputTextWriter))
                 {
-                    outputJson.Formatting = Formatting.Indented;
-                }
+                    if (conversionOptions.HasFlag(ToolFormatConversionOptions.PrettyPrint))
+                    {
+                        outputJson.Formatting = Formatting.Indented;
+                    }
 
-                using (var output = new ResultLogJsonWriter(outputJson))
-                {
-                    ConvertToStandardFormat(toolFormat, input, output);
+                    using (var output = new ResultLogJsonWriter(outputJson))
+                    {
+                        ConvertToStandardFormat(toolFormat, input, output);
+                    }
                 }
             }
         }
