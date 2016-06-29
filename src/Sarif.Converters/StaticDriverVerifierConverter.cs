@@ -150,7 +150,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 {
                     Kind = kind,
                     Step = step,
-                    Importance = displayed ? AnnotatedCodeLocationImportance.Normal : AnnotatedCodeLocationImportance.Nonessential,
+                    Importance = displayed ? AnnotatedCodeLocationImportance.Important : AnnotatedCodeLocationImportance.Unimportant,
                     Message = message,
                     PhysicalLocation = displayed ? new PhysicalLocation
                     {

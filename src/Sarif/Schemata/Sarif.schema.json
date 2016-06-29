@@ -90,7 +90,12 @@
 
         "importance": {
           "description": "Specifies the importance of this location in understanding the code flow in which it occurs.",
-          "enum": [ "normal", "essential", "nonessential" ]
+          "enum": [ "important", "essential", "unimportant" ]
+        },
+
+        "snippet": {
+          "description": "The source code at the specified location.",
+          "type": "string"
         },
 
         "properties": {

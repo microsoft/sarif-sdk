@@ -103,6 +103,12 @@ namespace Microsoft.CodeAnalysis.Sarif
         public AnnotatedCodeLocationImportance Importance { get; set; }
 
         /// <summary>
+        /// The source code at the specified location.
+        /// </summary>
+        [DataMember(Name = "snippet", IsRequired = false, EmitDefaultValue = false)]
+        public string Snippet { get; set; }
+
+        /// <summary>
         /// Key/value pairs that provide additional information about the code location.
         /// </summary>
         [DataMember(Name = "properties", IsRequired = false, EmitDefaultValue = false)]
@@ -151,12 +157,15 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="importance">
         /// An initialization value for the <see cref="P: Importance" /> property.
         /// </param>
+        /// <param name="snippet">
+        /// An initialization value for the <see cref="P: Snippet" /> property.
+        /// </param>
         /// <param name="properties">
         /// An initialization value for the <see cref="P: Properties" /> property.
         /// </param>
-        public AnnotatedCodeLocation(int id, int step, PhysicalLocation physicalLocation, string fullyQualifiedLogicalName, string logicalLocationKey, string module, int threadId, string message, AnnotatedCodeLocationKind kind, bool essential, AnnotatedCodeLocationImportance importance, IDictionary<string, SerializedPropertyInfo> properties)
+        public AnnotatedCodeLocation(int id, int step, PhysicalLocation physicalLocation, string fullyQualifiedLogicalName, string logicalLocationKey, string module, int threadId, string message, AnnotatedCodeLocationKind kind, bool essential, AnnotatedCodeLocationImportance importance, string snippet, IDictionary<string, SerializedPropertyInfo> properties)
         {
-            Init(id, step, physicalLocation, fullyQualifiedLogicalName, logicalLocationKey, module, threadId, message, kind, essential, importance, properties);
+            Init(id, step, physicalLocation, fullyQualifiedLogicalName, logicalLocationKey, module, threadId, message, kind, essential, importance, snippet, properties);
         }
 
         /// <summary>
@@ -175,7 +184,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 throw new ArgumentNullException(nameof(other));
             }
 
-            Init(other.Id, other.Step, other.PhysicalLocation, other.FullyQualifiedLogicalName, other.LogicalLocationKey, other.Module, other.ThreadId, other.Message, other.Kind, other.Essential, other.Importance, other.Properties);
+            Init(other.Id, other.Step, other.PhysicalLocation, other.FullyQualifiedLogicalName, other.LogicalLocationKey, other.Module, other.ThreadId, other.Message, other.Kind, other.Essential, other.Importance, other.Snippet, other.Properties);
         }
 
         ISarifNode ISarifNode.DeepClone()
@@ -196,7 +205,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new AnnotatedCodeLocation(this);
         }
 
-        private void Init(int id, int step, PhysicalLocation physicalLocation, string fullyQualifiedLogicalName, string logicalLocationKey, string module, int threadId, string message, AnnotatedCodeLocationKind kind, bool essential, AnnotatedCodeLocationImportance importance, IDictionary<string, SerializedPropertyInfo> properties)
+        private void Init(int id, int step, PhysicalLocation physicalLocation, string fullyQualifiedLogicalName, string logicalLocationKey, string module, int threadId, string message, AnnotatedCodeLocationKind kind, bool essential, AnnotatedCodeLocationImportance importance, string snippet, IDictionary<string, SerializedPropertyInfo> properties)
         {
             Id = id;
             Step = step;
@@ -213,6 +222,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             Kind = kind;
             Essential = essential;
             Importance = importance;
+            Snippet = snippet;
             if (properties != null)
             {
                 Properties = new Dictionary<string, SerializedPropertyInfo>(properties);
