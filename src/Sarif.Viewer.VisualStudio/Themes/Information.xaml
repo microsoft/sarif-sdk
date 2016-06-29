@@ -166,20 +166,6 @@
                     </MultiBinding>
                 </TextBlock.Visibility>
             </TextBlock>
-            <!--<TextBlock Grid.Row="10"
-                           Grid.Column="0"
-                           FontWeight="Bold" 
-                           Style="{StaticResource PropertyKey}" >
-                <Run Text="{Binding Tool.Name}" />
-            </TextBlock>
-            <TextBlock Grid.Row="10"
-                           Grid.Column="1"
-                           FontWeight="Bold"
-                           Visibility="{Binding Tool.Version, Converter={StaticResource stringToVisibilityConverter}}" >
-                <Run Text="(" />
-                <Run Text="{Binding Tool.Version}" />
-                <Run Text=")" />
-            </TextBlock>-->
             <controls:InternetHyperlink Grid.Row="11"
                            Grid.Column="0"
                            Text="Help"
