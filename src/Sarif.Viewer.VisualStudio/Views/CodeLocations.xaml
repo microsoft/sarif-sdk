@@ -25,6 +25,9 @@
                 <ResourceDictionary Source="pack://application:,,,/Microsoft.Sarif.Viewer;component/Themes/CodeFlows.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/Microsoft.Sarif.Viewer;component/Themes/Fixes.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/Microsoft.Sarif.Viewer;component/Themes/Information.xaml" />
+                <ResourceDictionary>
+
+                </ResourceDictionary>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
 
@@ -48,17 +51,23 @@
             <Grid.ColumnDefinitions>
                 <ColumnDefinition />
             </Grid.ColumnDefinitions>
-            <Border Grid.Row="0">
-                <WrapPanel Orientation="Horizontal">
-                    <TextBlock Text="Defect Code:"
-                               Margin="0 0 5 0" />
-                    <controls:InternetHyperlink Text="{Binding Rule.Id}"
+            <Border Grid.Row="0"
+                    Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}"
+                    Padding="5 5 5 5"
+                    Margin="-5 0 -5 0">
+                <DockPanel HorizontalAlignment="Stretch">
+                    <controls:InternetHyperlink DockPanel.Dock="Left"
+                                                Text="{Binding Rule.Id}"
                                                 NavigateUri="{Binding Rule.HelpUri}"
-                                                Margin="0 0 5 0" />
-                    <TextBlock Text="{Binding Rule.Name, Mode=OneTime}"
-                                FontWeight="Bold" />
-                    <DockPanel DataContext="{Binding Locations[0]}"
-                               Margin="5 0 0 0">
+                                                Margin="0 0 5 0"
+                                                FontWeight="Bold" />
+                    <TextBlock DockPanel.Dock="Left"
+                               Text="{Binding Rule.Name, Mode=OneTime}"
+                               FontWeight="Bold" />
+                    <DockPanel DockPanel.Dock="Right" 
+                               DataContext="{Binding Locations[0]}"
+                               Margin="5 0 0 0"
+                               HorizontalAlignment="Stretch">
                         <DockPanel.ToolTip>
                             <WrapPanel Orientation="Horizontal">
                                 <TextBlock>
@@ -74,15 +83,18 @@
                                 </TextBlock>
                             </WrapPanel>
                         </DockPanel.ToolTip>
-                        <TextBlock>
-                            <Run Text="{Binding FileName, Mode=OneWay}" />
-                        </TextBlock>
-                        <TextBlock Visibility="{Binding Location, Converter={StaticResource stringToVisibilityConverter}}"
-                                   Margin="5 0 0 0">
+                        <TextBlock DockPanel.Dock="Right"
+                                   Visibility="{Binding Location, Converter={StaticResource stringToVisibilityConverter}}"
+                                   Margin="5 0 0 0"
+                                   HorizontalAlignment="Right">
                             <Run Text="{Binding Location, Mode=OneWay}" />
                         </TextBlock>
+                        <TextBlock DockPanel.Dock="Right"
+                                   HorizontalAlignment="Right">
+                            <Run Text="{Binding FileName, Mode=OneWay}" />
+                        </TextBlock>
                     </DockPanel>
-                </WrapPanel>
+                </DockPanel>
             </Border>
             <TextBlock Grid.Row="2"
                        TextWrapping="Wrap"
