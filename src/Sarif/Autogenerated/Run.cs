@@ -86,6 +86,12 @@ namespace Microsoft.CodeAnalysis.Sarif
         public string Id { get; set; }
 
         /// <summary>
+        /// A stable identifier for a run, for example, 'nightly Clang analyzer run'. Multiple runs of the same type can have the same stableId.
+        /// </summary>
+        [DataMember(Name = "stableId", IsRequired = false, EmitDefaultValue = false)]
+        public string StableId { get; set; }
+
+        /// <summary>
         /// A global identifier that allows the run to be correlated with other artifacts produced by a larger automation process.
         /// </summary>
         [DataMember(Name = "automationId", IsRequired = false, EmitDefaultValue = false)]
@@ -140,6 +146,9 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="id">
         /// An initialization value for the <see cref="P: Id" /> property.
         /// </param>
+        /// <param name="stableId">
+        /// An initialization value for the <see cref="P: StableId" /> property.
+        /// </param>
         /// <param name="automationId">
         /// An initialization value for the <see cref="P: AutomationId" /> property.
         /// </param>
@@ -149,9 +158,9 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="architecture">
         /// An initialization value for the <see cref="P: Architecture" /> property.
         /// </param>
-        public Run(Tool tool, Invocation invocation, IDictionary<string, FileData> files, IDictionary<string, LogicalLocation> logicalLocations, IEnumerable<Result> results, IEnumerable<Notification> toolNotifications, IEnumerable<Notification> configurationNotifications, IDictionary<string, Rule> rules, string id, string automationId, string baselineId, string architecture)
+        public Run(Tool tool, Invocation invocation, IDictionary<string, FileData> files, IDictionary<string, LogicalLocation> logicalLocations, IEnumerable<Result> results, IEnumerable<Notification> toolNotifications, IEnumerable<Notification> configurationNotifications, IDictionary<string, Rule> rules, string id, string stableId, string automationId, string baselineId, string architecture)
         {
-            Init(tool, invocation, files, logicalLocations, results, toolNotifications, configurationNotifications, rules, id, automationId, baselineId, architecture);
+            Init(tool, invocation, files, logicalLocations, results, toolNotifications, configurationNotifications, rules, id, stableId, automationId, baselineId, architecture);
         }
 
         /// <summary>
@@ -170,7 +179,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 throw new ArgumentNullException(nameof(other));
             }
 
-            Init(other.Tool, other.Invocation, other.Files, other.LogicalLocations, other.Results, other.ToolNotifications, other.ConfigurationNotifications, other.Rules, other.Id, other.AutomationId, other.BaselineId, other.Architecture);
+            Init(other.Tool, other.Invocation, other.Files, other.LogicalLocations, other.Results, other.ToolNotifications, other.ConfigurationNotifications, other.Rules, other.Id, other.StableId, other.AutomationId, other.BaselineId, other.Architecture);
         }
 
         ISarifNode ISarifNode.DeepClone()
@@ -191,7 +200,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new Run(this);
         }
 
-        private void Init(Tool tool, Invocation invocation, IDictionary<string, FileData> files, IDictionary<string, LogicalLocation> logicalLocations, IEnumerable<Result> results, IEnumerable<Notification> toolNotifications, IEnumerable<Notification> configurationNotifications, IDictionary<string, Rule> rules, string id, string automationId, string baselineId, string architecture)
+        private void Init(Tool tool, Invocation invocation, IDictionary<string, FileData> files, IDictionary<string, LogicalLocation> logicalLocations, IEnumerable<Result> results, IEnumerable<Notification> toolNotifications, IEnumerable<Notification> configurationNotifications, IDictionary<string, Rule> rules, string id, string stableId, string automationId, string baselineId, string architecture)
         {
             if (tool != null)
             {
@@ -285,6 +294,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             }
 
             Id = id;
+            StableId = stableId;
             AutomationId = automationId;
             BaselineId = baselineId;
             Architecture = architecture;
