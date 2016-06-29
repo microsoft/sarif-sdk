@@ -20,6 +20,8 @@
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="pack://application:,,,/Microsoft.Sarif.Viewer;component/Themes/DefaultStyles.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/Microsoft.Sarif.Viewer;component/Themes/TreeView.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/Microsoft.Sarif.Viewer;component/Themes/TabControl.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/Microsoft.Sarif.Viewer;component/Themes/Locations.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/Microsoft.Sarif.Viewer;component/Themes/Stacks.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/Microsoft.Sarif.Viewer;component/Themes/CodeFlows.xaml" />
