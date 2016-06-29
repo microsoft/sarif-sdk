@@ -36,16 +36,21 @@
             </Grid.ColumnDefinitions>
             <TextBlock Grid.Row="0"
                            Grid.Column="0"
-                           Grid.ColumnSpan="2"
-                           Text="{Binding Rule.Name, Mode=OneTime}"
-                           FontWeight="Bold" 
-                           Style="{StaticResource PropertyKey}" />
-            <TextBlock Grid.Row="1"
-                           Grid.Column="0" 
-                           Style="{StaticResource PropertyKey}">Defect Code :</TextBlock>
-            <controls:InternetHyperlink Grid.Row="1"
+                           FontWeight="Bold"
+                           Style="{StaticResource PropertyKey}" >
+                <Run Text="{Binding Rule.Id}" />
+            </TextBlock>
+            <TextBlock Grid.Row="0"
                            Grid.Column="1"
-                           Text="{Binding Rule.Id}"
+                           Visibility="{Binding Rule.Name, Converter={StaticResource stringToVisibilityConverter}}"
+                           FontWeight="Bold">
+                <Run Text=":" />
+                <Run Text="{Binding Rule.Name, Mode=OneTime}" />
+            </TextBlock>
+            <controls:InternetHyperlink Grid.Row="1"
+                           Text="Help"
+                           Margin="0 0 0 5"
+                           Visibility="{Binding Rule.HelpUri, Converter={StaticResource stringToVisibilityConverter}}"
                            NavigateUri="{Binding Rule.HelpUri}" />
             <TextBlock Grid.Row="2"
                            Grid.Column="0"
@@ -85,61 +90,72 @@
                            Text="{Binding Rule.OwnerName}" />
             <TextBlock Grid.Row="6"
                            Grid.Column="0"
-                           Visibility="{Binding Rule.HelpUri, Converter={StaticResource stringToVisibilityConverter}}"
-                           Text="Help : " 
-                           Style="{StaticResource PropertyKey}" />
-            <controls:InternetHyperlink Grid.Row="6"
-                           Grid.Column="1"
-                           Text="{Binding Rule.HelpUri}"
-                           NavigateUri="{Binding Rule.HelpUri}" />
-            <TextBlock Grid.Row="7"
-                           Grid.Column="0"
                            Visibility="{Binding Rule.FeedbackUri, Converter={StaticResource stringToVisibilityConverter}}"
                            Text="Feedback : " 
                            Style="{StaticResource PropertyKey}" />
-            <TextBlock Grid.Row="8"
+            <TextBlock Grid.Row="6"
                            Grid.Column="1"
                            Visibility="{Binding Rule.FeedbackUri, Converter={StaticResource stringToVisibilityConverter}}"
                            Text="{Binding Rule.FeedbackUri}" />
-            <TextBlock Grid.Row="8"
+            <TextBlock Grid.Row="7"
                            Grid.Column="0"
                            Grid.ColumnSpan="2"
                            Visibility="{Binding Rule.Description, Converter={StaticResource stringToVisibilityConverter}}"
                            Text="{Binding Rule.Description}"
                            TextWrapping="Wrap"
-                           Margin="0 20 0 0" 
                            Style="{StaticResource PropertyKey}" />
-            <TextBlock Grid.Row="9"
+            <TextBlock Grid.Row="8"
                            Grid.Column="0"
                            Grid.ColumnSpan="2"
-                           Text="{Binding Tool.Name, Mode=OneTime}"
-                           FontWeight="Bold" 
-                           Style="{StaticResource PropertyKey}" />
+                           HorizontalAlignment="Center"
+                           Margin="0 0 0 7"
+                           Text="No additional content."
+                           Foreground="Gray"
+                           Style="{StaticResource PropertyKey}">
+                <TextBlock.Visibility>
+                    <MultiBinding Converter="{StaticResource multipleStringsToVisibilityConverter}">
+                        <Binding Path="Rule.Version" />
+                        <Binding Path="Rule.Category" />
+                        <Binding Path="Rule.Severity" />
+                        <Binding Path="Rule.OwnerName" />
+                        <Binding Path="Rule.FeedbackUri" />
+                        <Binding Path="Rule.Description" />
+                    </MultiBinding>
+                </TextBlock.Visibility>
+            </TextBlock>
+
+            <!-- Division between Tool and Rule. -->
+            <Separator Grid.Row="9" Grid.Column="0" Grid.ColumnSpan="2" />
+
             <TextBlock Grid.Row="10"
                            Grid.Column="0"
-                           Text="Version : " 
-                           Style="{StaticResource PropertyKey}" />
+                           FontWeight="Bold" 
+                           Style="{StaticResource PropertyKey}" >
+                <Run Text="{Binding Tool.Name}" />
+            </TextBlock>
             <TextBlock Grid.Row="10"
                            Grid.Column="1"
-                           Text="{Binding Tool.Version}" />
-            <TextBlock Grid.Row="11"
+                           FontWeight="Bold"
+                           Visibility="{Binding Tool.Version, Converter={StaticResource stringToVisibilityConverter}}" >
+                <Run Text="(" />
+                <Run Text="{Binding Tool.Version}" />
+                <Run Text=")" />
+            </TextBlock>
+            <controls:InternetHyperlink Grid.Row="11"
+                           Grid.Column="0"
+                           Text="Help"
+                           Margin="0 0 0 5"
+                           Visibility="{Binding Tool.HelpUri, Converter={StaticResource stringToVisibilityConverter}}"
+                           NavigateUri="{Binding Tool.HelpUri}" />
+            <TextBlock Grid.Row="12"
                            Grid.Column="0"
                            Visibility="{Binding Tool.OwnerName, Converter={StaticResource stringToVisibilityConverter}}"
                            Text="Owner : " 
                            Style="{StaticResource PropertyKey}" />
-            <TextBlock Grid.Row="11"
+            <TextBlock Grid.Row="12"
                            Grid.Column="1"
                            Visibility="{Binding Tool.OwnerName, Converter={StaticResource stringToVisibilityConverter}}"
                            Text="{Binding Tool.OwnerName}" />
-            <TextBlock Grid.Row="12"
-                           Grid.Column="0"
-                           Visibility="{Binding Tool.HelpUri, Converter={StaticResource stringToVisibilityConverter}}"
-                           Text="Help : " 
-                           Style="{StaticResource PropertyKey}" />
-            <TextBlock Grid.Row="12"
-                           Grid.Column="1"
-                           Visibility="{Binding Tool.HelpUri, Converter={StaticResource stringToVisibilityConverter}}"
-                           Text="{Binding Tool.HelpUri}" />
             <TextBlock Grid.Row="13"
                            Grid.Column="0"
                            Visibility="{Binding Tool.FeedbackUri, Converter={StaticResource stringToVisibilityConverter}}"
@@ -155,14 +171,28 @@
                            Visibility="{Binding Tool.Description, Converter={StaticResource stringToVisibilityConverter}}"
                            Text="{Binding Tool.Description}"
                            TextWrapping="Wrap"
-                           Margin="0 20 0 0" 
                            Style="{StaticResource PropertyKey}" />
             <TextBlock Grid.Row="15"
-                       Grid.Column="0"
-                       Grid.ColumnSpan="2">
-                <Hyperlink Command="{Binding OpenLogFileCommand}">Open Log File</Hyperlink>
+                           Grid.Column="0"
+                           Grid.ColumnSpan="2"
+                           Text="No additional content."
+                           Margin="0 0 0 7"
+                           HorizontalAlignment="Center"
+                           Foreground="Gray"
+                           Style="{StaticResource PropertyKey}">
+                <TextBlock.Visibility>
+                    <MultiBinding Converter="{StaticResource multipleStringsToVisibilityConverter}">
+                        <Binding Path="Tool.OwnerName" />
+                        <Binding Path="Tool.FeedbackUri" />
+                        <Binding Path="Tool.Description" />
+                    </MultiBinding>
+                </TextBlock.Visibility>
             </TextBlock>
-                       
+            
+            <!-- Separating Tool from Invocation. -->
+            <TextBlock Grid.Row="16" />
+
+            <!-- Invocation will go here. -->
         </Grid>
     </DataTemplate>
 
