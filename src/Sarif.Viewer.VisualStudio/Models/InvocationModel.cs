@@ -16,9 +16,12 @@ namespace Microsoft.Sarif.Viewer.Models
         private string _commandLine;
         private DateTime _startTime;
         private DateTime _endTime;
+        private string _machine;
+        private string _account;
         private int _processId;
         private string _fileName;
         private string _workingDirectory;
+        private object _environmentVariables;
 
         public string CommandLine
         {
@@ -68,6 +71,38 @@ namespace Microsoft.Sarif.Viewer.Models
             }
         }
 
+        public string Machine
+        {
+            get
+            {
+                return this._machine;
+            }
+            set
+            {
+                if (value != this._machine)
+                {
+                    this._machine = value;
+                    NotifyPropertyChanged("Machine");
+                }
+            }
+        }
+
+        public string Account
+        {
+            get
+            {
+                return this._account;
+            }
+            set
+            {
+                if (value != this._account)
+                {
+                    this._account = value;
+                    NotifyPropertyChanged("Account");
+                }
+            }
+        }
+
         public int ProcessId
         {
             get
@@ -112,6 +147,22 @@ namespace Microsoft.Sarif.Viewer.Models
                 {
                     this._workingDirectory = value;
                     NotifyPropertyChanged("WorkingDirectory");
+                }
+            }
+        }
+
+        public object EnvironmentVariables
+        {
+            get
+            {
+                return this._environmentVariables;
+            }
+            set
+            {
+                if (value != this._environmentVariables)
+                {
+                    this._environmentVariables = value;
+                    NotifyPropertyChanged("EnvironmentVariables");
                 }
             }
         }

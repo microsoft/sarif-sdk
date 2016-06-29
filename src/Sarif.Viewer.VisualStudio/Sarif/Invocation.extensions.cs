@@ -15,19 +15,23 @@ namespace Microsoft.Sarif.Viewer.Sarif
     {
         public static InvocationModel ToInvocationModel(this Invocation invocation)
         {
+            InvocationModel model;
+
             if (invocation == null)
             {
-                return null;
+                return new InvocationModel();
             }
 
-            InvocationModel model = new InvocationModel()
-            {
+            model = new InvocationModel() {
                 CommandLine = invocation.CommandLine,
                 StartTime = invocation.StartTime,
                 EndTime = invocation.EndTime,
+                Machine = invocation.Machine,
+                Account = invocation.Account,
                 ProcessId = invocation.ProcessId,
                 FileName = invocation.FileName,
                 WorkingDirectory = invocation.WorkingDirectory,
+                EnvironmentVariables = invocation.EnvironmentVariables,
             };
 
             return model;
