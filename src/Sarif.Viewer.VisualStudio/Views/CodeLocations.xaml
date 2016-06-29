@@ -60,10 +60,11 @@
                                                 Text="{Binding Rule.Id}"
                                                 NavigateUri="{Binding Rule.HelpUri}"
                                                 Margin="0 0 5 0"
-                                                FontWeight="Bold" />
+                                                FontWeight="SemiBold"
+                                                FontSize="13.5"/>
                     <TextBlock DockPanel.Dock="Left"
                                Text="{Binding Rule.Name, Mode=OneTime}"
-                               FontWeight="Bold" />
+                               Style="{StaticResource DialogHeader}" />
                     <DockPanel DockPanel.Dock="Right" 
                                DataContext="{Binding Locations[0]}"
                                Margin="5 0 0 0"
@@ -85,12 +86,14 @@
                         </DockPanel.ToolTip>
                         <TextBlock DockPanel.Dock="Right"
                                    Visibility="{Binding Location, Converter={StaticResource stringToVisibilityConverter}}"
-                                   Margin="5 0 0 0"
-                                   HorizontalAlignment="Right">
+                                   Margin="5 0 5 0"
+                                   HorizontalAlignment="Right"
+                                   Style="{StaticResource DialogHeader}">
                             <Run Text="{Binding Location, Mode=OneWay}" />
                         </TextBlock>
                         <TextBlock DockPanel.Dock="Right"
-                                   HorizontalAlignment="Right">
+                                   HorizontalAlignment="Right"
+                                   Style="{StaticResource DialogHeader}">
                             <Run Text="{Binding FileName, Mode=OneWay}" />
                         </TextBlock>
                     </DockPanel>
@@ -100,7 +103,7 @@
                        TextWrapping="Wrap"
                        Text="{Binding Message}"
                        FontFamily="Segoe UI"
-                       Margin="5" />
+                       Margin="0 10 0 10" />
         </Grid>
         
         <!-- These are the tabs which display the result information. -->
@@ -109,47 +112,66 @@
                     BorderThickness="0 1 0 0">
             <TabItem>
                 <TabItem.Header>
-                    <TextBlock>
-                        <Run Text="Locations (" />
-                        <Run Text="{Binding LocationsCount, Mode=OneWay}" />
-                        <Run Text=")" />
-                    </TextBlock>
+                    <DockPanel>
+                        <TextBlock DockPanel.Dock="Left" Text="Locations" />
+                        <TextBlock DockPanel.Dock="Left"
+                                   Visibility="{Binding HasMultipleLocations, Converter={StaticResource booleanToVisiblityConverter}}">
+                            <Run Text=" (" />
+                            <Run Text="{Binding LocationsCount, Mode=OneWay}" />
+                            <Run Text=")" />
+                        </TextBlock>
+                    </DockPanel>
                 </TabItem.Header>
                 <ContentControl ContentTemplate="{StaticResource CodeLocationCollectionTemplate}"
                                 Content="{Binding}" />
             </TabItem>
-            <TabItem Visibility="{Binding CodeFlows, Converter={StaticResource collectionToVisibilityConverter}}">
+            <TabItem Visibility="{Binding CodeFlows, Converter={StaticResource collectionToVisibility0Converter}}">
                 <TabItem.Header>
-                    <TextBlock>
-                        <Run Text="Code Flows (" />
-                        <Run Text="{Binding CodeFlows, Mode=OneWay, Converter={StaticResource collectionToCountConverter}}" />
-                        <Run Text=")" />
-                    </TextBlock>
+                    <DockPanel>
+                        <TextBlock DockPanel.Dock="Left"
+                                   Text="Code Flows" />
+                        <TextBlock DockPanel.Dock="Left"
+                                   Visibility="{Binding CodeFlows, Converter={StaticResource collectionToVisibility1Converter}}">
+                            <Run Text=" (" />
+                            <Run Text="{Binding CodeFlows, Mode=OneWay, Converter={StaticResource collectionToCountConverter}}" />
+                            <Run Text=")" />
+                        </TextBlock>
+                    </DockPanel>
                 </TabItem.Header>
 
                 <ContentControl ContentTemplate="{StaticResource AnnotatedCodeLocationCollectionDataGridTemplate}"
                                 Content="{Binding CodeFlows}" />
             </TabItem>
-            <TabItem Visibility="{Binding Stacks, Converter={StaticResource collectionToVisibilityConverter}}">
+            <TabItem Visibility="{Binding Stacks, Converter={StaticResource collectionToVisibility0Converter}}">
                 <TabItem.Header>
-                    <TextBlock>
-                        <Run Text="Stacks (" />
-                        <Run Text="{Binding Stacks, Mode=OneWay, Converter={StaticResource collectionToCountConverter}}" />
-                        <Run Text=")" />
-                    </TextBlock>
+                    <DockPanel>
+                        <TextBlock DockPanel.Dock="Left"
+                                   Text="Stacks" />
+                        <TextBlock DockPanel.Dock="Left"
+                                   Visibility="{Binding Stacks, Converter={StaticResource collectionToVisibility1Converter}}">
+                            <Run Text=" (" />
+                            <Run Text="{Binding Stacks, Mode=OneWay, Converter={StaticResource collectionToCountConverter}}" />
+                            <Run Text=")" />
+                        </TextBlock>
+                    </DockPanel>
                 </TabItem.Header>
 
                 <ContentControl ContentTemplate="{StaticResource StackCollectionTemplate}"
                                 Content="{Binding Stacks}"
                                 Margin="0,-1,0,1" />
             </TabItem>
-            <TabItem Visibility="{Binding Fixes, Converter={StaticResource collectionToVisibilityConverter}}">
+            <TabItem Visibility="{Binding Fixes, Converter={StaticResource collectionToVisibility0Converter}}">
                 <TabItem.Header>
-                    <TextBlock>
-                        <Run Text="Fixes (" />
-                        <Run Text="{Binding Fixes, Mode=OneWay, Converter={StaticResource collectionToCountConverter}}" />
-                        <Run Text=")" />
-                    </TextBlock>
+                    <DockPanel>
+                        <TextBlock DockPanel.Dock="Left"
+                                   Text="Fixes" />
+                        <TextBlock DockPanel.Dock="Left"
+                                   Visibility="{Binding Fixes, Converter={StaticResource collectionToVisibility1Converter}}">
+                            <Run Text=" (" />
+                            <Run Text="{Binding Fixes, Mode=OneWay, Converter={StaticResource collectionToCountConverter}}" />
+                            <Run Text=")" />
+                        </TextBlock>
+                    </DockPanel>
                 </TabItem.Header>
 
                 <ContentControl ContentTemplate="{StaticResource FixCollectionTemplate}"

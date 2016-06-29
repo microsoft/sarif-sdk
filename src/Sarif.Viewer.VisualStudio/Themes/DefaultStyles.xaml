@@ -10,7 +10,8 @@
     <converters:StringToVisibilityConverter x:Key="stringToVisibilityConverter" />
     <converters:Int32ToVisibilityConverter x:Key="int32ToVisibilityConverter" />
     <converters:CollectionToCountConverter x:Key="collectionToCountConverter" />
-    <converters:CollectionToVisiblityConverter x:Key="collectionToVisibilityConverter" />
+    <converters:CollectionToVisiblity0Converter x:Key="collectionToVisibility0Converter" />
+    <converters:CollectionToVisiblity1Converter x:Key="collectionToVisibility1Converter" />
 
     <!-- Default Styles-->
     <Style TargetType="{x:Type Control}"
@@ -32,6 +33,14 @@
     <Style TargetType="TextBlock">
         <Setter Property="FontSize"
                 Value="11.5" />
+    </Style>
+
+    <Style TargetType="TextBlock"
+           x:Key="DialogHeader">
+        <Setter Property="FontSize"
+                Value="13.5" />
+        <Setter Property="FontWeight"
+                Value="SemiBold" />
     </Style>
 
     <Style TargetType="TextBlock"

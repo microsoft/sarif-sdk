@@ -12,7 +12,7 @@ using System.Windows.Data;
 
 namespace Microsoft.Sarif.Viewer.Converters
 {
-    public class CollectionToVisiblityConverter : IValueConverter
+    public class CollectionToVisiblity0Converter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {
