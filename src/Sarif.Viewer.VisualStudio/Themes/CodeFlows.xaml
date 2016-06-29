@@ -24,80 +24,87 @@
                 <DataTemplate>
                     <DockPanel>
                         <Separator DockPanel.Dock="Top"
-                                   Margin="0 15 0 3"
+                                   Margin="0 15 0 10"
                                    Background="LightGray" />
-                        <TreeView DockPanel.Dock="Top"
-                                  BorderThickness="0">
-                            <TreeViewItem IsExpanded="True">
-                                <TreeViewItem.Header>
-                                    <TextBlock Style="{StaticResource PanelHeader}"
-                                               Text="{Binding Message}" />
-                                </TreeViewItem.Header>
-                                <TreeViewItem>
-                                    <TreeViewItem.Header>
-                                        <DataGrid DockPanel.Dock="Top"
-                                                  Margin="2"
-                                                  ItemsSource="{Binding}"
-                                                  AutoGenerateColumns="False"
-                                                  SelectedItem="{Binding SelectedItem, Mode=TwoWay}"
-                                                  IsReadOnly="True"
-                                                  CanUserSortColumns="False">
-                                            <DataGrid.Columns>
-                                                <DataGridTextColumn Header="Message"
-                                                                    Binding="{Binding Message}" />
-                                                <DataGridTemplateColumn Header="Location"
-                                                                        Width="Auto">
-                                                    <DataGridTemplateColumn.CellTemplate>
-                                                        <DataTemplate>
-                                                            <WrapPanel>
-                                                                <WrapPanel.InputBindings>
-                                                                    <MouseBinding Gesture="LeftClick"
-                                                                                  Command="{Binding DataContext.SelectedCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ListView}}}"
-                                                                                  CommandParameter="{Binding}" />
-                                                                </WrapPanel.InputBindings>
-                                                                <WrapPanel.ToolTip>
-                                                                    <WrapPanel Orientation="Horizontal">
-                                                                        <TextBlock>
+                        <Grid DockPanel.Dock="Top">
+                            <ListView ItemsSource="{Binding}"
+                                      SelectedItem="{Binding SelectedItem, Mode=TwoWay}">
+                                <ListView.Resources>
+                                    <Style x:Key="gridViewHeaderStyle"
+                                           TargetType="{x:Type GridViewColumnHeader}">
+                                        <Setter Property="Visibility"
+                                                Value="Collapsed" />
+                                    </Style>
+                                </ListView.Resources>
+                                <ListView.View>
+                                    <GridView ColumnHeaderContainerStyle="{StaticResource gridViewHeaderStyle}">
+                                        <GridViewColumn x:Name="Col0">
+                                            <GridViewColumn.CellTemplate>
+                                                <DataTemplate>
+                                                    <TextBlock Text="!"
+                                                               FontWeight="Black"
+                                                               Foreground="Red"
+                                                               Visibility="{Binding IsEssential, Converter={StaticResource booleanToVisiblityConverter}}"
+                                                               HorizontalAlignment="Center" />
+                                                </DataTemplate>
+                                            </GridViewColumn.CellTemplate>
+                                        </GridViewColumn>
+                                        <GridViewColumn x:Name="Col1"
+                                                        Header="Message"
+                                                        DisplayMemberBinding="{Binding Message}" />
+                                        <GridViewColumn Header="Location"
+                                                        Width="{Binding ElementName=helperField, Path=ActualWidth}">
+                                            <GridViewColumn.CellTemplate>
+                                                <DataTemplate>
+                                                    <DockPanel HorizontalAlignment="Stretch">
+                                                        <DockPanel.InputBindings>
+                                                            <MouseBinding Gesture="LeftClick"
+                                                                          Command="{Binding DataContext.SelectedCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ListView}}}"
+                                                                          CommandParameter="{Binding}" />
+                                                        </DockPanel.InputBindings>
+                                                        <DockPanel.ToolTip>
+                                                            <WrapPanel Orientation="Horizontal">
+                                                                <TextBlock>
                                                                 <Run Text="{Binding FilePath, Mode=OneWay}" />
-                                                                        </TextBlock>
-                                                                        <TextBlock Visibility="{Binding Region.StartLine, Converter={StaticResource int32ToVisibilityConverter}}">
+                                                                </TextBlock>
+                                                                <TextBlock Visibility="{Binding Region.StartLine, Converter={StaticResource int32ToVisibilityConverter}}">
                                                                 <Run Text=" Line" />
                                                                 <Run Text="{Binding Region.StartLine, Mode=OneWay}" />
-                                                                        </TextBlock>
-                                                                        <TextBlock Visibility="{Binding Region.StartColumn, Converter={StaticResource int32ToVisibilityConverter}}">
+                                                                </TextBlock>
+                                                                <TextBlock Visibility="{Binding Region.StartColumn, Converter={StaticResource int32ToVisibilityConverter}}">
                                                                 <Run Text=" Col" />
                                                                 <Run Text="{Binding Region.StartColumn, Mode=OneWay}" />
-                                                                        </TextBlock>
-                                                                    </WrapPanel>
-                                                                </WrapPanel.ToolTip>
-                                                                <TextBlock>
-                                                        <Run Text="{Binding FileName, Mode=OneWay}" />
-                                                                </TextBlock>
-                                                                <TextBlock Visibility="{Binding Location, Converter={StaticResource stringToVisibilityConverter}}"
-                                                                           Margin="5 0 0 0">
-                                                        <Run Text="{Binding Location, Mode=OneWay}" />
                                                                 </TextBlock>
                                                             </WrapPanel>
-                                                        </DataTemplate>
-                                                    </DataGridTemplateColumn.CellTemplate>
-                                                </DataGridTemplateColumn>
-                                            </DataGrid.Columns>
-                                            <DataGrid.RowStyle>
-                                                <Style TargetType="DataGridRow">
-                                                    <Style.Triggers>
-                                                        <DataTrigger Binding="{Binding IsEssential}"
-                                                                     Value="true">
-                                                            <Setter Property="Background"
-                                                                    Value="LightPink" />
-                                                        </DataTrigger>
-                                                    </Style.Triggers>
-                                                </Style>
-                                            </DataGrid.RowStyle>
-                                        </DataGrid>
-                                    </TreeViewItem.Header>
-                                </TreeViewItem>
-                            </TreeViewItem>
-                        </TreeView>
+                                                        </DockPanel.ToolTip>
+                                                        <TextBlock>
+                                                        <Run Text="{Binding FileName, Mode=OneWay}" />
+                                                        </TextBlock>
+                                                        <TextBlock Visibility="{Binding Location, Converter={StaticResource stringToVisibilityConverter}}"
+                                                                   Margin="5 0 0 0">
+                                                        <Run Text="{Binding Location, Mode=OneWay}" />
+                                                        </TextBlock>
+                                                    </DockPanel>
+                                                </DataTemplate>
+                                            </GridViewColumn.CellTemplate>
+                                        </GridViewColumn>
+                                    </GridView>
+                                </ListView.View>
+                            </ListView>
+
+                            <Grid Visibility="Hidden">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="{Binding ElementName=Col0, Path=ActualWidth}" />
+                                    <ColumnDefinition Width="{Binding ElementName=Col1, Path=ActualWidth}" />
+                                    <ColumnDefinition Width="*" />
+                                    <!--Correction Width-->
+                                    <ColumnDefinition Width="10" />
+                                </Grid.ColumnDefinitions>
+                                <!--This is the hidden helper Field which is used to bind to, using the "Fill" column of the helper grid-->
+                                <Grid Grid.Column="2"
+                                      x:Name="helperField" />
+                            </Grid>
+                        </Grid>
                     </DockPanel>
                 </DataTemplate>
             </ItemsControl.ItemTemplate>

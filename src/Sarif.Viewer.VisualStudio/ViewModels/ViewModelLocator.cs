@@ -96,6 +96,7 @@ namespace Microsoft.Sarif.Viewer.ViewModels
                 Message = "Message A1",
                 FilePath = @"D:\GitHub\NuGet.Services.Metadata\src\Ng\Catalog2Dnx.cs",
                 Region = new CodeAnalysis.Sarif.Region(11, 1, 11, 2, 0, 0),
+                IsEssential = true,
             });
             codeFlows1.Add(new Models.AnnotatedCodeLocationModel()
             {
