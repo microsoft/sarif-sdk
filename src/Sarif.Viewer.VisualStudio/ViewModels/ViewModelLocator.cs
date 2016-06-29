@@ -175,7 +175,7 @@ namespace Microsoft.Sarif.Viewer.ViewModels
             {
                 Offset = 1234,
                 DeletedLength = ".Close()".Length,
-                InsertedBytes = ".Dispose()",
+                InsertedString = ".Dispose()",
             });
             fix1.FileChanges.Add(fileChange11);
             viewModel.Fixes.Add(fix1);
