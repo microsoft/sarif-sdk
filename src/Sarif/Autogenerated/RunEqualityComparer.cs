@@ -171,6 +171,11 @@ namespace Microsoft.CodeAnalysis.Sarif
                 return false;
             }
 
+            if (left.StableId != right.StableId)
+            {
+                return false;
+            }
+
             if (left.AutomationId != right.AutomationId)
             {
                 return false;
@@ -296,6 +301,11 @@ namespace Microsoft.CodeAnalysis.Sarif
                 if (obj.Id != null)
                 {
                     result = (result * 31) + obj.Id.GetHashCode();
+                }
+
+                if (obj.StableId != null)
+                {
+                    result = (result * 31) + obj.StableId.GetHashCode();
                 }
 
                 if (obj.AutomationId != null)

@@ -97,7 +97,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         public bool Essential { get; set; }
 
         /// <summary>
-        /// Specifies the importance of this location in understanding the code flow in which it occurs.
+        /// Specifies the importance of this location in understanding the code flow in which it occurs. The order from most to least important is "essential", "important", "unimportant". Default: "important".
         /// </summary>
         [DataMember(Name = "importance", IsRequired = false, EmitDefaultValue = false)]
         public AnnotatedCodeLocationImportance Importance { get; set; }
