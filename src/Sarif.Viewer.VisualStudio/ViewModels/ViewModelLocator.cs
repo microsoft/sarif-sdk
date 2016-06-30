@@ -55,8 +55,8 @@ namespace Microsoft.Sarif.Viewer.ViewModels
 
             viewModel.Rule = new RuleModel()
             {
-                Id = "CA1823",
-                Name = "Avoid unused private fields",
+                Id = "6001", //"CA1823",
+                //Name = "Avoid unused private fields",
                 HelpUri = "http://aka.ms/analysis/ca1823"
              };
 

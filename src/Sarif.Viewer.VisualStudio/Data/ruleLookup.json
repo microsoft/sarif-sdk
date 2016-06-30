@@ -1,0 +1,1757 @@
+{
+  "6001": {
+    "heading": "Using uninitialized memory",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=231913",
+    "categories": "Memory Safety, Memory Usage, Uninitialized Memory"
+  },
+  "6011": {
+    "heading": "Dereferencing null pointer",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=231914",
+    "categories": "Memory Safety, Memory Usage, Pointer Usage"
+  },
+  "6014": {
+    "heading": "Leaking memory",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=231915",
+    "categories": "Memory Usage, Resource Usage, Contract violation"
+  },
+  "6029": {
+    "heading": "Use of unchecked value",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=244703",
+    "categories": "Security, Memory Usage, Buffer Access"
+  },
+  "6031": {
+    "heading": "Return value ignored",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=244704",
+    "categories": "Incorrect API Usage, Post condition contract violation"
+  },
+  "6053": {
+    "heading": "Zero termination from call",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=231918",
+    "categories": "Security, Memory Usage, Buffer Access"
+  },
+  "6054": {
+    "heading": "Zero termination missing",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=231919",
+    "categories": "Security, Memory Usage, Buffer Access"
+  },
+  "6059": {
+    "heading": "Bad concatenation",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=231920",
+    "categories": "Incorrect API Usage, Buffer Handling"
+  },
+  "6063": {
+    "heading": "Missing string argument to format function",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=244705",
+    "categories": "Incorrect API Usage, Buffer Handling"
+  },
+  "6064": {
+    "heading": "Missing integer argument to format function",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=244706",
+    "categories": "Incorrect API Usage"
+  },
+  "6066": {
+    "heading": "Missing pointer argument to format function",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=244707",
+    "categories": "Incorrect API Usage"
+  },
+  "6067": {
+    "heading": "Missing string pointer argument to format function",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=244708",
+    "categories": "Incorrect API Usage, Buffer Handling"
+  },
+  "6101": {
+    "heading": "Returning uninitialized memory",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=234550",
+    "categories": "Memory Safety, Memory Usage, Uninitialized Memory"
+  },
+  "6200": {
+    "heading": "Index exceeds buffer maximum",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=244709",
+    "categories": "Security, Memory Usage, Buffer Access"
+  },
+  "6201": {
+    "heading": "Index exceeds stack buffer maximum",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=244710",
+    "categories": "Security, Memory Usage, Buffer Access"
+  },
+  "6211": {
+    "heading": "Memory leak due to exception",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=231927",
+    "categories": "Exception Handling, Contract violation"
+  },
+  "6214": {
+    "heading": "Invalid cast HRESULT to BOOL",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=244711",
+    "categories": "Type Mismatch"
+  },
+  "6215": {
+    "heading": "Invalid cast BOOL to HRESULT",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=244712",
+    "categories": "Type Mismatch"
+  },
+  "6216": {
+    "heading": "Invalid compiler-inserted cast BOOL to HRESULT",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=244713",
+    "categories": "Type Mismatch"
+  },
+  "6217": {
+    "heading": "Invalid HRESULT test with NOT",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=244714",
+    "categories": "Type Mismatch"
+  },
+  "6219": {
+    "heading": "Invalid HRESULT compare to 2",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=244715",
+    "categories": "Type Mismatch"
+  },
+  "6220": {
+    "heading": "Invalid HRESULT compare to -2",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=244716",
+    "categories": "Type Mismatch"
+  },
+  "6221": {
+    "heading": "Invalid HRESULT compare to integer",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=244717",
+    "categories": "Type Mismatch"
+  },
+  "6225": {
+    "heading": "Invalid HRESULT assignment to 2",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=244718",
+    "categories": "Type Mismatch"
+  },
+  "6226": {
+    "heading": "Invalid HRESULT assignment to -2",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=244719",
+    "categories": "Type Mismatch"
+  },
+  "6230": {
+    "heading": "Invalid HRESULT use as boolean",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=244720",
+    "categories": "Type Mismatch"
+  },
+  "6235": {
+    "heading": "Non-zero constant with logical-OR",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=244721",
+    "categories": "Ambiguous Intent, Logic Error"
+  },
+  "6236": {
+    "heading": "Logical-OR with non-zero constant",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=244722",
+    "categories": "Ambiguous Intent, Logic Error"
+  },
+  "6237": {
+    "heading": "Zero with logical-AND loses side effects",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=244723",
+    "categories": "Ambiguous Intent, Logic Error"
+  },
+  "6239": {
+    "heading": "Non-zero logical-AND should be bitwise-AND",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=244724",
+    "categories": "Ambiguous Intent, Logic Error"
+  },
+  "6240": {
+    "heading": "Logical-AND with non-zero constant should be bitwise-AND",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=244725",
+    "categories": "Ambiguous Intent, Logic Error"
+  },
+  "6242": {
+    "heading": "Local unwind forced",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=244726",
+    "categories": "Exception Handling, Performance"
+  },
+  "6244": {
+    "heading": "Local declaration hides global",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=244727",
+    "categories": "Ambiguous Intent, Logic Error"
+  },
+  "6246": {
+    "heading": "Local declaration hides local",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=244728",
+    "categories": "Ambiguous Intent, Logic Error"
+  },
+  "6248": {
+    "heading": "Creating null DACL",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=244729",
+    "categories": "Security, Incorrect API"
+  },
+  "6250": {
+    "heading": "Unreleased address descriptors",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=244730",
+    "categories": "Memory Usage, Performance, Incorrect API"
+  },
+  "6255": {
+    "heading": "Unprotected use of alloca",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=244731",
+    "categories": "Exception Handling"
+  },
+  "6258": {
+    "heading": "Using TerminateThread",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=244732",
+    "categories": "Concurrency, Deprecated API"
+  },
+  "6259": {
+    "heading": "Dead code in bitwise-OR limited switch",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=244733",
+    "categories": "Ambiguous Intent, Logic Error"
+  },
+  "6260": {
+    "heading": "Use of byte arithmetic",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=244734",
+    "categories": "Ambiguous Intent, Logic Error"
+  },
+  "6262": {
+    "heading": "Excessive stack usage",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=244735",
+    "categories": "Memory Usage, Resource usage"
+  },
+  "6263": {
+    "heading": "Using alloca in loop",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=244736",
+    "categories": "Memory Usage, Resource usage"
+  },
+  "6268": {
+    "heading": "Missing parentheses in cast",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=244737",
+    "categories": "Ambiguous Intent, Logic Error, Missing Parens"
+  },
+  "6269": {
+    "heading": "Pointer dereference ignored",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=244738",
+    "categories": "Ambiguous Intent, Logic Error"
+  },
+  "6270": {
+    "heading": "Missing float argument to format function",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=244739",
+    "categories": "Incorrect API Usage"
+  },
+  "6271": {
+    "heading": "Extra argument to format function",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=244740",
+    "categories": "Ambiguous Intent, Logic Error"
+  },
+  "6272": {
+    "heading": "Non-float argument to format function",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=244741",
+    "categories": "Incorrect API Usage"
+  },
+  "6273": {
+    "heading": "Non-integer argument to format function",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=244742",
+    "categories": "Incorrect API Usage"
+  },
+  "6274": {
+    "heading": "Non-character argument to format function",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=244743",
+    "categories": "Incorrect API Usage"
+  },
+  "6276": {
+    "heading": "Invalid string cast",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=244744",
+    "categories": "Type Mismatch, Casting Error"
+  },
+  "6277": {
+    "heading": "Invalid CreateProcess call",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=244745",
+    "categories": "Security, Incorrect API"
+  },
+  "6278": {
+    "heading": "Array-new scalar-delete mismatch",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=244746",
+    "categories": "Memory Safety, Logic Error"
+  },
+  "6279": {
+    "heading": "Scalar-new array-delete mismatch",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=244747",
+    "categories": "Memory Safety, Logic Error"
+  },
+  "6280": {
+    "heading": "Memory allocation-deallocation mismatch",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=244748",
+    "categories": "Memory Safety, Logic Error"
+  },
+  "6281": {
+    "heading": "Bitwise relation precedence",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=244749",
+    "categories": "Ambiguous Intent, Logic Error, Missing Parens"
+  },
+  "6282": {
+    "heading": "Assignment replaces test",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=244750",
+    "categories": "Ambiguous Intent, Logic Error"
+  },
+  "6283": {
+    "heading": "Primitive array-new scalar-delete mismatch",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=244751",
+    "categories": "Memory Safety, Logic Error"
+  },
+  "6284": {
+    "heading": "Invalid object argument to format function",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=244752",
+    "categories": "Incorrect API Usage"
+  },
+  "6285": {
+    "heading": "Logical-OR of constants",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=244753",
+    "categories": "Ambiguous Intent, Logic Error"
+  },
+  "6286": {
+    "heading": "Non-zero logical-OR losing side effects",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=244754",
+    "categories": "Ambiguous Intent, Logic Error"
+  },
+  "6287": {
+    "heading": "Redundant test",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=244755",
+    "categories": "Ambiguous Intent, Logic Error"
+  },
+  "6288": {
+    "heading": "Mutual inclusion over logical-AND is false",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=244756",
+    "categories": "Ambiguous Intent, Logic Error"
+  },
+  "6289": {
+    "heading": "Mutual exclusion over logical-OR is true",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=244757",
+    "categories": "Ambiguous Intent, Logic Error"
+  },
+  "6290": {
+    "heading": "Logical-NOT bitwise-AND precedence",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=244758",
+    "categories": "Ambiguous Intent, Logic Error"
+  },
+  "6291": {
+    "heading": "Logical-NOT bitwise-OR precedence",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=244759",
+    "categories": "Ambiguous Intent, Logic Error"
+  },
+  "6292": {
+    "heading": "Loop counts up from maximum",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=244760",
+    "categories": "Ambiguous Intent, Logic Error"
+  },
+  "6293": {
+    "heading": "Loop counts down from minimum",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=244761",
+    "categories": "Ambiguous Intent, Logic Error"
+  },
+  "6294": {
+    "heading": "Loop body never executed",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=244762",
+    "categories": "Ambiguous Intent, Logic Error"
+  },
+  "6295": {
+    "heading": "Infinite loop",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=244763",
+    "categories": "Ambiguous Intent, Logic Error"
+  },
+  "6296": {
+    "heading": "Loop only executed once",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=244764",
+    "categories": "Ambiguous Intent, Logic Error"
+  },
+  "6297": {
+    "heading": "Result of shift cast to larger size",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=244765",
+    "categories": "Type Mismatch, Casting Error"
+  },
+  "6298": {
+    "heading": "Constant string to writable string",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=244766",
+    "categories": "Memory Safety, Logic Error"
+  },
+  "6299": {
+    "heading": "Bitfield to boolean comparison",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=244767",
+    "categories": "Type Mismatch"
+  },
+  "6302": {
+    "heading": "Invalid character string argument to format function",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=244768",
+    "categories": "Incorrect API Usage"
+  },
+  "6303": {
+    "heading": "Invalid wide character string argument to format function",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=244769",
+    "categories": "Incorrect API Usage"
+  },
+  "6305": {
+    "heading": "Mismatched size and count use",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=231987",
+    "categories": "Security, Memory Usage, Buffer Access"
+  },
+  "6306": {
+    "heading": "Incorrect variable argument function call",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=244770",
+    "categories": "Incorrect API Usage, Buffer Handling"
+  },
+  "6308": {
+    "heading": "Realloc leak",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=244771",
+    "categories": "Memory Usage, Resource Usage, Incorrect API"
+  },
+  "6310": {
+    "heading": "Illegal exception filter constant",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=244772",
+    "categories": "Exception Handling"
+  },
+  "6312": {
+    "heading": "Exception continue execution loop",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=244773",
+    "categories": "Exception Handling"
+  },
+  "6313": {
+    "heading": "Bitwise-AND test with zero-valued flag",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=244774",
+    "categories": "Ambiguous Intent, Logic Error"
+  },
+  "6314": {
+    "heading": "Bitwise-OR precedence",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=244775",
+    "categories": "Ambiguous Intent, Logic Error"
+  },
+  "6315": {
+    "heading": "Bitwise-OR with bitwise-AND precedence",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=244776",
+    "categories": "Ambiguous Intent, Logic Error"
+  },
+  "6316": {
+    "heading": "Inappropriate use of bitwise-OR",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=244777",
+    "categories": "Ambiguous Intent, Logic Error"
+  },
+  "6317": {
+    "heading": "NOT NOT complement",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=244778",
+    "categories": "Ambiguous Intent, Logic Error"
+  },
+  "6318": {
+    "heading": "Exception continue search",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=244779",
+    "categories": "Exception Handling"
+  },
+  "6319": {
+    "heading": "Ignored by comma",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=244780",
+    "categories": "Ambiguous Intent, Logic Error"
+  },
+  "6320": {
+    "heading": "Exception execute handler",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=244781",
+    "categories": "Exception Handling"
+  },
+  "6322": {
+    "heading": "Except block empty",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=244782",
+    "categories": "Exception Handling"
+  },
+  "6323": {
+    "heading": "Arithmetic operation on boolean",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=244783",
+    "categories": "Type Mismatch"
+  },
+  "6324": {
+    "heading": "String copy instead of string compare",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=244784",
+    "categories": "Ambiguous Intent, Logic Error"
+  },
+  "6326": {
+    "heading": "Constant constant comparison",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=244785",
+    "categories": "Ambiguous Intent, Logic Error"
+  },
+  "6328": {
+    "heading": "Potential argument type mismatch",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=244786",
+    "categories": "Incorrect API Usage"
+  },
+  "6329": {
+    "heading": "Return value for a call to the function should not be checked against",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=244787",
+    "categories": "Incorrect API Usage, Contract violation"
+  },
+  "6330": {
+    "heading": "Incorrect type passed as parameter in call to function",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=244788",
+    "categories": "Incorrect API Usage"
+  },
+  "6331": {
+    "heading": "VirtualFree invalid flags",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=244789",
+    "categories": "Incorrect API Usage"
+  },
+  "6332": {
+    "heading": "VirtualFree invalid parameter",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=244790",
+    "categories": "Incorrect API Usage"
+  },
+  "6333": {
+    "heading": "VirtualFree invalid size",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=244791",
+    "categories": "Incorrect API Usage"
+  },
+  "6334": {
+    "heading": "Sizeof operation on expression",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=244792",
+    "categories": "Ambiguous Intent, Logic Error"
+  },
+  "6335": {
+    "heading": "Leaking process handle",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=244793",
+    "categories": "Memory Usage, Resource Usage"
+  },
+  "6336": {
+    "heading": "Question precedence",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=244794",
+    "categories": "Ambiguous Intent, Logic Error, Missing Parens"
+  },
+  "6340": {
+    "heading": "Incorrect type passed as parameter in call to function",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=244795",
+    "categories": "Type Mismatch"
+  },
+  "6381": {
+    "heading": "Shutdown information missing",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=244796",
+    "categories": "Deprecated API"
+  },
+  "6383": {
+    "heading": "Element-count byte-count buffer overrun",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=244797",
+    "categories": "Security, Memory Usage, Buffer Access"
+  },
+  "6384": {
+    "heading": "Pointer size division",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=244798",
+    "categories": "Ambiguous Intent, Logic Error"
+  },
+  "6385": {
+    "heading": "Read overrun",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=232015",
+    "categories": "Security, Memory Usage, Buffer Access"
+  },
+  "6386": {
+    "heading": "Write overrun",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=232016",
+    "categories": "Security, Memory Usage, Buffer Access"
+  },
+  "6387": {
+    "heading": "Invalid parameter value",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=232017",
+    "categories": "Incorrect API Usage"
+  },
+  "6388": {
+    "heading": "Invalid parameter value",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=232018",
+    "categories": "Incorrect API Usage"
+  },
+  "6400": {
+    "heading": "Locale dependent constant string comparison",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=190163",
+    "categories": "Globalization"
+  },
+  "6401": {
+    "heading": "Default locale constant string comparison",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=190164",
+    "categories": "Globalization"
+  },
+  "6411": {
+    "heading": "Potentially reading invalid data from the buffer",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=232021",
+    "categories": "Security, Memory Usage, Buffer Access"
+  },
+  "6412": {
+    "heading": "Potential buffer overrun while writing to buffer",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=232022",
+    "categories": "Security, Memory Usage, Buffer Access"
+  },
+  "6500": {
+    "heading": "Invalid attribute property",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=190145",
+    "categories": "Annotation Syntax"
+  },
+  "6501": {
+    "heading": "Conflicting attribute property values",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=190146",
+    "categories": "Annotation Syntax"
+  },
+  "6503": {
+    "heading": "References cannot be null",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=190147",
+    "categories": "Annotation Syntax"
+  },
+  "6504": {
+    "heading": "Null on non-pointer",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=190148",
+    "categories": "Annotation Syntax"
+  },
+  "6505": {
+    "heading": "MustCheck on void",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=190149",
+    "categories": "Annotation Syntax"
+  },
+  "6506": {
+    "heading": "Buffer size on non-pointer or array",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=190150",
+    "categories": "Annotation Syntax"
+  },
+  "6508": {
+    "heading": "Write access on constant",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=190152",
+    "categories": "Annotation Syntax"
+  },
+  "6509": {
+    "heading": "Return used on precondition",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=190153",
+    "categories": "Annotation Syntax"
+  },
+  "6510": {
+    "heading": "Null terminated on non-pointer",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=190154",
+    "categories": "Annotation Syntax"
+  },
+  "6511": {
+    "heading": "MustCheck must be Yes or No",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=190155",
+    "categories": "Annotation Syntax"
+  },
+  "6513": {
+    "heading": "Element size without buffer size",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=190157",
+    "categories": "Annotation Syntax"
+  },
+  "6514": {
+    "heading": "Buffer size exceeds array size",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=190158",
+    "categories": "Annotation Syntax"
+  },
+  "6515": {
+    "heading": "Buffer size on non-pointer",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=190159",
+    "categories": "Annotation Syntax"
+  },
+  "6516": {
+    "heading": "No properties on attribute",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=190160",
+    "categories": "Annotation Syntax"
+  },
+  "6517": {
+    "heading": "Valid size on non-readable buffer",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=190161",
+    "categories": "Annotation Syntax"
+  },
+  "6518": {
+    "heading": "Writable size on non-writable buffer",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=190162",
+    "categories": "Annotation Syntax"
+  },
+  "6522": {
+    "heading": "Invalid size string type",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=190165",
+    "categories": "Annotation Syntax"
+  },
+  "6525": {
+    "heading": "Invalid size string unreachable location",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=190167",
+    "categories": "Annotation Syntax"
+  },
+  "6527": {
+    "heading": "'NeedsRelease' property may not be used on values of void type",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=232046",
+    "categories": "Annotation Syntax"
+  },
+  "6530": {
+    "heading": "Unrecognized format string style",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=190170",
+    "categories": "Annotation Syntax"
+  },
+  "6540": {
+    "heading": "Attribute annotations invalidate existing __declspec annotations",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=190172",
+    "categories": "Annotation Syntax"
+  },
+  "6551": {
+    "heading": "Invalid size specification: expression not parsable",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=190173",
+    "categories": "Annotation Syntax"
+  },
+  "6552": {
+    "heading": "Invalid Deref= or Notref=: expression not parsable",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=190174",
+    "categories": "Annotation Syntax"
+  },
+  "6701": {
+    "heading": "Value specified is not a valid Yes/No/Maybe value",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=192065",
+    "categories": "Annotation Syntax"
+  },
+  "6702": {
+    "heading": "Value specified is not a string value",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=192066",
+    "categories": "Annotation Syntax"
+  },
+  "6703": {
+    "heading": "Value specified is not a number",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=192067",
+    "categories": "Annotation Syntax"
+  },
+  "6704": {
+    "heading": "Unexpected annotation expression",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=192068",
+    "categories": "Annotation Syntax"
+  },
+  "6705": {
+    "heading": "Incorrect number of annotation arguments",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=192069",
+    "categories": "Annotation Syntax"
+  },
+  "6706": {
+    "heading": "Annotation syntax error",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=192070",
+    "categories": "Annotation Syntax"
+  },
+  "6707": {
+    "heading": "Unexpected model error",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=192071",
+    "categories": "Annotation Syntax"
+  },
+  "6993": {
+    "heading": "OpenMP not supported",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=317391",
+    "categories": "Native"
+  },
+  "6995": {
+    "heading": "Failed to save XML Log file",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=232058",
+    "categories": "Internal Tool Error"
+  },
+  "6997": {
+    "heading": "Ignored annotations",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=317393",
+    "categories": "Native"
+  },
+  "26100": {
+    "heading": "Race condition",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=189833&clcid=0x409",
+    "categories": "Concurrency"
+  },
+  "26101": {
+    "heading": "Failing to use interlocked operation properly",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=189834&clcid=0x409",
+    "categories": "Concurrency"
+  },
+  "26105": {
+    "heading": "Order violation with lock acquire",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=189836&clcid=0x409",
+    "categories": "Concurrency, Contract Violation"
+  },
+  "26110": {
+    "heading": "Caller failing to hold lock",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=189838&clcid=0x409",
+    "categories": "Concurrency"
+  },
+  "26111": {
+    "heading": "Caller failing to release lock",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=189839&clcid=0x409",
+    "categories": "Concurrency, Contract Violation"
+  },
+  "26112": {
+    "heading": "Caller cannot hold any lock",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=189840&clcid=0x409",
+    "categories": "Concurrency, Contract Violation"
+  },
+  "26115": {
+    "heading": "Failing to release lock",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=189841&clcid=0x409",
+    "categories": "Concurrency, Resource Usage"
+  },
+  "26116": {
+    "heading": "Failing to acquire or to hold lock",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=189842&clcid=0x409",
+    "categories": "Concurrency, Contract Violation"
+  },
+  "26117": {
+    "heading": "Releasing unheld lock",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=189843&clcid=0x409",
+    "categories": "Concurrency"
+  },
+  "26130": {
+    "heading": "Missing _Requires_lock_held_ annotation",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=189845&clcid=0x409",
+    "categories": "Concurrency, Missing Annotation"
+  },
+  "26135": {
+    "heading": "Missing locking annotation",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=189847&clcid=0x409",
+    "categories": "Concurrency, Missing Annotation"
+  },
+  "26140": {
+    "heading": "Annotation syntax error",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=189852&clcid=0x409",
+    "categories": "Annotation Syntax"
+  },
+  "26160": {
+    "heading": "Caller possibly failing to hold lock",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=189859&clcid=0x409",
+    "categories": "Concurrency"
+  },
+  "26165": {
+    "heading": "Possibly failing to release lock",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=189862&clcid=0x409",
+    "categories": "Concurrency, Contract Violation"
+  },
+  "26166": {
+    "heading": "Possibly failing to acquire or to hold lock",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=189863&clcid=0x409",
+    "categories": "Concurrency, Contract Violation"
+  },
+  "26167": {
+    "heading": "Possibly releasing unheld lock",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=189864&clcid=0x409",
+    "categories": "Concurrency"
+  },
+  "28020": {
+    "heading": "The expression is not true at this call",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=205715",
+    "categories": "Annotation Syntax"
+  },
+  "28021": {
+    "heading": "The parameter being annotated must be a pointer",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=205716",
+    "categories": "Annotation Syntax"
+  },
+  "28022": {
+    "heading": "Function class annotation mismatch with typedef",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=190047",
+    "categories": "Kernel Mode"
+  },
+  "28023": {
+    "heading": "Missing _Function_class_ annotation",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=189955",
+    "categories": "Annotation Syntax"
+  },
+  "28024": {
+    "heading": "Function class annotation mismatch",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=189965",
+    "categories": "Annotation Syntax"
+  },
+  "28039": {
+    "heading": "The type of actual parameter should exactly match the type",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=216770",
+    "categories": "Kernel Mode, Type Mismatch"
+  },
+  "28101": {
+    "heading": "The drivers module has inferred that the current function is not the correct type of function",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=189912&clcid=0x409",
+    "categories": "Kernel Mode"
+  },
+  "28103": {
+    "heading": "Leaking resource",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=189913",
+    "categories": "Concurrency, Contract Violation"
+  },
+  "28104": {
+    "heading": "Resource that should have been acquired before function exit was not acquired",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=189914",
+    "categories": "Concurrency, Contract Violation"
+  },
+  "28105": {
+    "heading": "Leaking resource due to an exception",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=189915",
+    "categories": "Concurrency, Contract Violation"
+  },
+  "28106": {
+    "heading": "Variable already holds resource possibly causing leak",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=189916",
+    "categories": "Concurrency"
+  },
+  "28107": {
+    "heading": "Resource must be held when calling function",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=189917",
+    "categories": "Concurrency, Contract Violation"
+  },
+  "28108": {
+    "heading": "Variable holds an unexpected resource",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=189918",
+    "categories": "Concurrency, Contract Violation"
+  },
+  "28109": {
+    "heading": "Variable cannot be held at the time function is called",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=189919",
+    "categories": "Concurrency, Contract Violation"
+  },
+  "28110": {
+    "heading": "Drivers must protect floating point hardware state",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=189920&clcid=0x409",
+    "categories": "Kernel Mode, Floating Point Usage"
+  },
+  "28111": {
+    "heading": "The IRQL where the floating point state was saved does not match the current IRQL (for this restore operation)",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=189921&clcid=0x409",
+    "categories": "Kernel Mode, IRQ Usage"
+  },
+  "28112": {
+    "heading": "Directly accessing shared variable",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=189922",
+    "categories": "Concurrency"
+  },
+  "28113": {
+    "heading": "Accessing a local variable via an interlocked function",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=189923",
+    "categories": "Concurrency, Logic Error"
+  },
+  "28114": {
+    "heading": "Copying a whole IRP stack entry leaves certain fields initialized that should be cleared or updated",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=189924&clcid=0x409",
+    "categories": "Kernel Mode, IRQ Usage"
+  },
+  "28120": {
+    "heading": "The function is not permitted to be called at the current IRQ level. The current level is too low",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=189925&clcid=0x409",
+    "categories": "Kernel Mode, IRQ Usage"
+  },
+  "28121": {
+    "heading": "The function is not permitted to be called at the current IRQ level. The current level is too high",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=189926&clcid=0x409",
+    "categories": "Kernel Mode, IRQ Usage"
+  },
+  "28122": {
+    "heading": "The function is not permitted to be called at a low IRQ level. Prior function calls are inconsistent with this constraint",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=189927&clcid=0x409",
+    "categories": "Kernel Mode, IRQ Usage"
+  },
+  "28123": {
+    "heading": "The function is not permitted to be called at a high IRQ level. Prior function calls are inconsistent with this constraint",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=189928&clcid=0x409",
+    "categories": "Kernel Mode, IRQ Usage"
+  },
+  "28124": {
+    "heading": "The call to causes the IRQ Level to be set below the minimum acceptable for the function being analyzed",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=189929&clcid=0x409",
+    "categories": "Kernel Mode, IRQ Usage"
+  },
+  "28125": {
+    "heading": "The function must be called from within a try/except block",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=189930",
+    "categories": "Kernel Mode, Exception Handling"
+  },
+  "28126": {
+    "heading": "The AccessMode parameter to ObReferenceObject* should be IRP->RequestorMode",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=189931&clcid=0x409",
+    "categories": "Kernel Mode, Contract Violation"
+  },
+  "28127": {
+    "heading": "The function being used as a routine does not exactly match the type expected",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=189932&clcid=0x409",
+    "categories": "Kernel Mode, Contract Violation"
+  },
+  "28128": {
+    "heading": "An access to a field has been made directly instead of by a routine",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=189933&clcid=0x409",
+    "categories": "Kernel Mode, Unprotected Access"
+  },
+  "28129": {
+    "heading": "An assignment has been made to  an operand intead of using bit sets and clears",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=189934&clcid=0x409",
+    "categories": "Kernel Mode, Unprotected Access"
+  },
+  "28131": {
+    "heading": "DriverEntry routine should save a copy of the argument, not the pointer",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=189935&clcid=0x409",
+    "categories": "Kernel Mode, Unprotected Access"
+  },
+  "28132": {
+    "heading": "Taking the size of pointer",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=189936&clcid=0x409",
+    "categories": "Ambiguous Intent, Logic Error"
+  },
+  "28133": {
+    "heading": "IoInitializeTimer is best called from AddDevice",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=189937&clcid=0x409",
+    "categories": "Kernel Mode, Incorrect API"
+  },
+  "28134": {
+    "heading": "The type of a pool tag should be integral instead of a string or string pointer",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=189938&clcid=0x409",
+    "categories": "Kernel Mode, Logic Error"
+  },
+  "28135": {
+    "heading": "If the first argument to KeWaitForSingleObject is a local variable then the Mode parameter must be KernelMode",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=189939&clcid=0x409",
+    "categories": "Kernel Mode, Incorrect API"
+  },
+  "28137": {
+    "heading": "Variable argument specified should instead be a (literal) constant",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=189940",
+    "categories": "Incorrect API Usage, Logic Error"
+  },
+  "28138": {
+    "heading": "The constant argument should instead be variable",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=189941",
+    "categories": "Incorrect API Usage, Logic Error"
+  },
+  "28141": {
+    "heading": "The argument causes the IRQ Level to be set below the current IRQL, and this function cannot be used for that purpose",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=189944&clcid=0x409",
+    "categories": "Kernel Mode, IRQ Usage"
+  },
+  "28143": {
+    "heading": "Adispatch routine that calls IoMarkIrpPending must also return STATUS_PENDING",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=189946&clcid=0x409",
+    "categories": "Kernel Mode, Contract Violation"
+  },
+  "28144": {
+    "heading": "At the point of exit within a cancel routine the IRQL in Irp->CancelIrql should be the current IRQL",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=189947&clcid=0x409",
+    "categories": "Kernel Mode, IRQ Usage"
+  },
+  "28145": {
+    "heading": "The opaque MDL structure should not be modified by a driver",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=189948&clcid=0x409",
+    "categories": "Kernel Mode, Unprotected Access"
+  },
+  "28146": {
+    "heading": "Kernel mode drivers should use ntstrsafe.h instead ofstrsafe.h",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=189949&clcid=0x409",
+    "categories": "Kernel Mode, Deprecated API"
+  },
+  "28147": {
+    "heading": "The use of a default pool tag (' kdD' or ' mdW') for calls to this function defeats the purpose of pool tagging",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=189950&clcid=0x409",
+    "categories": "Kernel Mode, Incorrect API"
+  },
+  "28150": {
+    "heading": "The function causes the IRQ Level to be set above the maximum acceptable for the function being analyzed",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=189951&clcid=0x409",
+    "categories": "Kernel Mode, IRQ Usage"
+  },
+  "28151": {
+    "heading": "Illegal value for IRQL",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=189952&clcid=0x409",
+    "categories": "Kernel Mode, IRQ Usage"
+  },
+  "28152": {
+    "heading": "The return from an AddDevice-like function is unexpectedly DO_DEVICE_INITIALIZING",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=189953&clcid=0x409",
+    "categories": "Kernel Mode, Contract Violation"
+  },
+  "28153": {
+    "heading": "The IRQL value could not be evaluated in this context",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=189954&clcid=0x409",
+    "categories": "Kernel Mode, IRQ Usage"
+  },
+  "28156": {
+    "heading": "The actual IRQL is inconsistent with the required IRQL",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=189956&clcid=0x409",
+    "categories": "Kernel Mode, IRQ Usage"
+  },
+  "28157": {
+    "heading": "The IRQL was never restored",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=189957&clcid=0x409",
+    "categories": "Kernel Mode, IRQ Usage"
+  },
+  "28158": {
+    "heading": "No IRQL was saved",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=189958&clcid=0x409",
+    "categories": "Kernel Mode, IRQ Usage"
+  },
+  "28159": {
+    "heading": "Consider using another function instead",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=189959",
+    "categories": "Deprecated API"
+  },
+  "28160": {
+    "heading": "User defined error annotation",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=189960",
+    "categories": "Annotation Syntax"
+  },
+  "28161": {
+    "heading": "Exiting without acquiring the right to use floating hardware",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=189961&clcid=0x409",
+    "categories": "Kernel Mode, Floating Point Usage"
+  },
+  "28162": {
+    "heading": "Exiting while holding the right to use floating point hardware",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=189962&clcid=0x409",
+    "categories": "Kernel Mode, Floating Point Usage"
+  },
+  "28163": {
+    "heading": "The function should never be called from within a try/except block",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=189963",
+    "categories": "Kernel Mode, Exception Handling"
+  },
+  "28164": {
+    "heading": "Pointer to pointer passed where pointer to object expected",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=189964",
+    "categories": "Incorrect API Usage, Logic Error"
+  },
+  "28165": {
+    "heading": "The function pointer of class does not match the function class",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=232127",
+    "categories": "Kernel Mode"
+  },
+  "28166": {
+    "heading": "The function does not restore the IRQL to the value that was current at function entry and is required to do so",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=189966&clcid=0x409",
+    "categories": "Kernel Mode, IRQ Usage"
+  },
+  "28167": {
+    "heading": "Changed IRQL is not restored before function exit",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=189967&clcid=0x409",
+    "categories": "Kernel Mode, IRQ Usage"
+  },
+  "28168": {
+    "heading": "The dispatch function does not have a __drv_dispatchType annotation matching this dispatch table entry",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=189968&clcid=0x409",
+    "categories": "Kernel Mode, Contract Violation"
+  },
+  "28169": {
+    "heading": "The dispatch function does not have any __drv_dispatchType annotations",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=189969&clcid=0x409",
+    "categories": "Kernel Mode, Contract Violation"
+  },
+  "28170": {
+    "heading": "The function has been declared to be in a paged segment, but neither PAGED_CODE nor PAGED_CODE_LOCKED was found",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=189970&clcid=0x409",
+    "categories": "Kernel Mode, Paging Usage"
+  },
+  "28171": {
+    "heading": "The function has more than one instance of PAGED_CODE or PAGED_CODE_LOCKED",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=189971&clcid=0x409",
+    "categories": "Kernel Mode, Paging Usage"
+  },
+  "28172": {
+    "heading": "The function has PAGED_CODE or PAGED_CODE_LOCKED but is not declared to be in a paged segment",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=189972&clcid=0x409",
+    "categories": "Kernel Mode, Paging Usage"
+  },
+  "28173": {
+    "heading": "The current function appears to incorrectly adapt to physical memory above 4GB",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=189973&clcid=0x409",
+    "categories": "Incorrect API Usage"
+  },
+  "28175": {
+    "heading": "Specified member of struct should not be accessed by a driver",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=189974&clcid=0x409",
+    "categories": "Kernel Mode, Unprotected Access"
+  },
+  "28176": {
+    "heading": "Specified member of struct should not be accessed by a driver",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=189975&clcid=0x409",
+    "categories": "Kernel Mode, Unprotected Access"
+  },
+  "28182": {
+    "heading": "Dereferencing a copy of a null pointer",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=189978",
+    "categories": "Memory Safety, Memory Usage, Pointer Usage"
+  },
+  "28183": {
+    "heading": "The argument could be one value, and is a copy of the value found in the pointer",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=189979",
+    "categories": "Memory Safety, Memory Usage, Pointer Usage"
+  },
+  "28193": {
+    "heading": "Variable specified holds a value that must be examined",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=189984",
+    "categories": "Incorrect API Usage, Contract violation"
+  },
+  "28194": {
+    "heading": "The function was declared as aliasing the value in variable and exited without doing so",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=189985",
+    "categories": "Memory Usage, Resource Usage, Contract violation"
+  },
+  "28195": {
+    "heading": "The function was declared as acquiring memory in  a variable and exited without doing so",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=189986",
+    "categories": "Memory Usage, Resource Usage, Contract violation"
+  },
+  "28196": {
+    "heading": "The requirement is not satisfied because the expression does not evaluate to true",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=189987",
+    "categories": "Incorrect API Usage, Contract violation"
+  },
+  "28197": {
+    "heading": "Possibly leaking memory",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=189988",
+    "categories": "Memory Usage, Resource Usage"
+  },
+  "28198": {
+    "heading": "Possibly leaking memory due to an exception",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=189989",
+    "categories": "Memory Usage, Resource Usage, Contract Violation"
+  },
+  "28199": {
+    "heading": "Using possibly uninitialized memory",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=189990",
+    "categories": "Memory Safety, Memory Usage, Uninitialized Memory"
+  },
+  "28202": {
+    "heading": "Illegal reference to non-static member",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=192059",
+    "categories": "Annotation Syntax"
+  },
+  "28203": {
+    "heading": "Ambiguous reference to class member",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=192060",
+    "categories": "Annotation Syntax"
+  },
+  "28204": {
+    "heading": "Inconsistently annotated overridden function",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=192061",
+    "categories": "Annotation Syntax"
+  },
+  "28205": {
+    "heading": "_Success_ or _On_failure_ used in an illegal context",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=192062",
+    "categories": "Annotation Syntax"
+  },
+  "28206": {
+    "heading": "Use '->' when left operand points to a struct",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=189993",
+    "categories": "Annotation Syntax"
+  },
+  "28207": {
+    "heading": "Use '.' when left operand is a struct",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=189994",
+    "categories": "Annotation Syntax"
+  },
+  "28208": {
+    "heading": "Function was previously defined with a different parameter list which may yield incorrect results",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=189995",
+    "categories": "Annotation Syntax"
+  },
+  "28209": {
+    "heading": "The declaration for symbol has a conflicting declaration",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=189996",
+    "categories": "Annotation Syntax"
+  },
+  "28210": {
+    "heading": "Annotations for the _On_failure_ context must not be in explicit pre context",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=232156",
+    "categories": "Annotation Syntax"
+  },
+  "28211": {
+    "heading": "Static context name expected for SAL_context",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=189998",
+    "categories": "Annotation Syntax"
+  },
+  "28212": {
+    "heading": "Pointer expression expected for annotation",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=189999",
+    "categories": "Annotation Syntax"
+  },
+  "28213": {
+    "heading": "Incorrect use of _Use_decl_annotations_ annotation",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=190000",
+    "categories": "Annotation Syntax"
+  },
+  "28214": {
+    "heading": "Attribute parameter names must be p1...p9",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=190001",
+    "categories": "Annotation Syntax"
+  },
+  "28215": {
+    "heading": "The typefix cannot be applied to a parameter that already has a typefix",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=190002",
+    "categories": "Annotation Syntax"
+  },
+  "28216": {
+    "heading": "Incorrect use of  _Must_check_result_ annotation",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=190003",
+    "categories": "Annotation Syntax"
+  },
+  "28217": {
+    "heading": "Mismatch in the number of pamaters for annotation",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=190004",
+    "categories": "Annotation Syntax"
+  },
+  "28218": {
+    "heading": "Annotation parameter mismatch",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=190005",
+    "categories": "Annotation Syntax"
+  },
+  "28219": {
+    "heading": "Member of enumeration expected for annotation the parameter in the annotation",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=190006",
+    "categories": "Annotation Syntax"
+  },
+  "28220": {
+    "heading": "Integer expression expected in the annotation",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=190007",
+    "categories": "Annotation Syntax"
+  },
+  "28221": {
+    "heading": "String expression expected for the parameter in the annotation",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=190008",
+    "categories": "Annotation Syntax"
+  },
+  "28222": {
+    "heading": "__yes, __no, or __maybe expected for annotation",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=190009",
+    "categories": "Annotation Syntax"
+  },
+  "28223": {
+    "heading": "Expected token/identifier missing on annotation",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=190010",
+    "categories": "Annotation Syntax"
+  },
+  "28224": {
+    "heading": "Annotation requires parameters",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=190011",
+    "categories": "Annotation Syntax"
+  },
+  "28225": {
+    "heading": "Incorrect number of required parameters in annotation",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=190012",
+    "categories": "Annotation Syntax"
+  },
+  "28226": {
+    "heading": "Annotation cannot also be a PrimOp (in current declaration)",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=190013",
+    "categories": "Annotation Syntax"
+  },
+  "28227": {
+    "heading": "Annotation cannot also be a PrimOp (see prior declaration)",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=190014",
+    "categories": "Annotation Syntax"
+  },
+  "28228": {
+    "heading": "Cannot use type in annotations",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=190015",
+    "categories": "Annotation Syntax"
+  },
+  "28229": {
+    "heading": "Annotation does not support parameters",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=190016",
+    "categories": "Annotation Syntax"
+  },
+  "28230": {
+    "heading": "The type of parameter has no member",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=190017",
+    "categories": "Annotation Syntax"
+  },
+  "28231": {
+    "heading": "Annotation is only valid on array",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=190018",
+    "categories": "Annotation Syntax"
+  },
+  "28232": {
+    "heading": "_Pre_, _Post_, or _Deref_ not applied to any annotation",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=190019",
+    "categories": "Annotation Syntax"
+  },
+  "28233": {
+    "heading": "_Pre_, _Post_, or _Deref_ applied to a block",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=190020",
+    "categories": "Annotation Syntax"
+  },
+  "28234": {
+    "heading": "_At_ expression does not apply to current function",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=190021",
+    "categories": "Annotation Syntax"
+  },
+  "28235": {
+    "heading": "Function cannot stand alone as an annotation",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=190022",
+    "categories": "Annotation Syntax"
+  },
+  "28236": {
+    "heading": "Annotation cannot be used in an expression",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=190023",
+    "categories": "Annotation Syntax"
+  },
+  "28237": {
+    "heading": "Annotation is no longer supported",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=190024",
+    "categories": "Annotation Syntax"
+  },
+  "28238": {
+    "heading": "Annotation has more than one value, stringValue, and longValue defined",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=190025",
+    "categories": "Annotation Syntax"
+  },
+  "28239": {
+    "heading": "Annotation has both value, stringValue, or longValue; and paramn=xxx defined",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=190026",
+    "categories": "Annotation Syntax"
+  },
+  "28240": {
+    "heading": "Annotation has param2 but no param1",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=190027",
+    "categories": "Annotation Syntax"
+  },
+  "28241": {
+    "heading": "Annotation is not recognized",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=190028",
+    "categories": "Annotation Syntax"
+  },
+  "28243": {
+    "heading": "Annotation requires more dereferences than the actual type annotated allows",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=190030",
+    "categories": "Annotation Syntax"
+  },
+  "28244": {
+    "heading": "Unparseable parameter/external annotation",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=190031",
+    "categories": "Annotation Syntax"
+  },
+  "28245": {
+    "heading": "Annotating 'this' on a non-member-function",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=190032",
+    "categories": "Annotation Syntax"
+  },
+  "28246": {
+    "heading": "Annotation does not match the type of the parameter",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=190033",
+    "categories": "Annotation Syntax"
+  },
+  "28250": {
+    "heading": "Inconsistent annotation for function: the prior instance has an error",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=190036",
+    "categories": "Annotation Syntax"
+  },
+  "28251": {
+    "heading": "Inconsistent annotation for function: this instance has an error",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=190037",
+    "categories": "Annotation Syntax"
+  },
+  "28252": {
+    "heading": "Inconsistent annotation with prior instance",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=190038",
+    "categories": "Annotation Syntax"
+  },
+  "28253": {
+    "heading": "Inconsistent annotation with prior instance",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=190039",
+    "categories": "Annotation Syntax"
+  },
+  "28254": {
+    "heading": "Dynamic_cast<>() is not supported in annotations",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=190040",
+    "categories": "Annotation Syntax"
+  },
+  "28260": {
+    "heading": "Annotation property syntax error",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=190041&clcid=0x409",
+    "categories": "Annotation Syntax"
+  },
+  "28262": {
+    "heading": "Annotation syntax error",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=190043",
+    "categories": "Annotation Syntax"
+  },
+  "28263": {
+    "heading": "Conditional annotation syntax error",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=216778",
+    "categories": "Annotation Syntax"
+  },
+  "28266": {
+    "heading": "Annotation syntax error",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=190045&clcid=0x409",
+    "categories": "Annotation Syntax"
+  },
+  "28267": {
+    "heading": "Annotation syntax error",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=190046",
+    "categories": "Annotation Syntax"
+  },
+  "28272": {
+    "heading": "Annotation is inconsistent with the function declaration",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=190048",
+    "categories": "Annotation Syntax"
+  },
+  "28273": {
+    "heading": "Annotation mismatch error",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=190049",
+    "categories": "Annotation Syntax"
+  },
+  "28275": {
+    "heading": "The parameter to _Macro_value_ is null",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=190051",
+    "categories": "Annotation Syntax"
+  },
+  "28278": {
+    "heading": "Function name appears with no prototype in scope",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=190053",
+    "categories": "Ambiguous Intent, Logic Error"
+  },
+  "28279": {
+    "heading": "A'begin' was found without a matching 'end'",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=190054",
+    "categories": "Annotation Syntax"
+  },
+  "28280": {
+    "heading": "An 'end' was found without a matching 'begin'",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=190055",
+    "categories": "Annotation Syntax"
+  },
+  "28282": {
+    "heading": "Format strings must be in preconditions",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=190057",
+    "categories": "Annotation Syntax"
+  },
+  "28283": {
+    "heading": "The specified size specification is not yet supported",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=190058",
+    "categories": "Annotation Syntax"
+  },
+  "28284": {
+    "heading": "Predicates are currently not supported for non-function symbols",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=190059",
+    "categories": "Annotation Syntax"
+  },
+  "28285": {
+    "heading": "Annotation syntax error in parameter",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=190060",
+    "categories": "Annotation Syntax"
+  },
+  "28286": {
+    "heading": "Annotation syntax error",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=190061",
+    "categories": "Annotation Syntax"
+  },
+  "28287": {
+    "heading": "Syntax error in _At_() annotation (unrecognized parameter name)",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=190062",
+    "categories": "Annotation Syntax"
+  },
+  "28288": {
+    "heading": "Syntax error in _At_() annotation (invalid parameter name)",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=190063",
+    "categories": "Annotation Syntax"
+  },
+  "28289": {
+    "heading": "No limit specified for ReadableTo or WritableTo",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=190064",
+    "categories": "Annotation Syntax"
+  },
+  "28290": {
+    "heading": "The specified annotation contains more Externals than parameters",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=190065",
+    "categories": "Annotation Syntax"
+  },
+  "28291": {
+    "heading": "Reference parameter annotation  on pass-by-value parameter",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=190066",
+    "categories": "Annotation Syntax"
+  },
+  "28300": {
+    "heading": "Expression operands of incompatible types for operator",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=205714",
+    "categories": "Annotation Syntax"
+  },
+  "28301": {
+    "heading": "No annotations for first declaration of function",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=192064",
+    "categories": "Annotation Syntax"
+  },
+  "28302": {
+    "heading": "An extra _Deref_ operator was found on annotation",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=205711",
+    "categories": "Annotation Syntax"
+  },
+  "28303": {
+    "heading": "An ambiguous _Deref_ operator was found on annotation",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=205712",
+    "categories": "Annotation Syntax"
+  },
+  "28304": {
+    "heading": "An improperly placed _Notref_ operator was found applied to token",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=206085",
+    "categories": "Annotation Syntax"
+  },
+  "28305": {
+    "heading": "Error parsing tokens",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=216894",
+    "categories": "Annotation Syntax"
+  },
+  "28306": {
+    "heading": "Annotation is obsolescent",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=190166",
+    "categories": "Annotation Syntax"
+  },
+  "28307": {
+    "heading": "Annotation is obsolescent",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=190168",
+    "categories": "Annotation Syntax"
+  },
+  "28308": {
+    "heading": "The format list argument position specified by the annotation is incorrect",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=244800",
+    "categories": "Annotation Syntax"
+  },
+  "28309": {
+    "heading": "Annotation operands must be of the correct types",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=242540",
+    "categories": "Annotation Syntax"
+  },
+  "28350": {
+    "heading": "The annotation describes a situation that is not conditionally applicable",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=216780",
+    "categories": "Annotation Syntax"
+  },
+  "28351": {
+    "heading": "_When_ expression should evaluate to a constant",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=216781",
+    "categories": "Annotation Syntax"
+  },
+  "28601": {
+    "heading": "Avoid blocking on HWND_BROADCAST",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=190074&clcid=0x409",
+    "categories": "Concurrency, Performance, Incorrect API"
+  },
+  "28602": {
+    "heading": "Avoid calling SendMessageTimeout with HWND_BROADCAST",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=190075&clcid=0x409",
+    "categories": "Concurrency, Performance, Incorrect API"
+  },
+  "28604": {
+    "heading": "Avoid calling SendMessageTimeout with SMTO_ABORTIFHUNG with a timeout of 0",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=190076&clcid=0x409",
+    "categories": "Concurrency, Performance, Incorrect API"
+  },
+  "28615": {
+    "heading": "Must call _resetstkoflw in the __except() block when calling _alloca in the __try block instead of from inside a catch() block",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=190077&clcid=0x409",
+    "categories": "Exception Handling, Incorrect API"
+  },
+  "28616": {
+    "heading": "Multithreaded AV condition",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=190078&clcid=0x409",
+    "categories": "Concurrency, Race Condition"
+  },
+  "28617": {
+    "heading": "Use _beginthreadex() instead of the return value of _beginthread()",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=190079&clcid=0x409",
+    "categories": "Concurrency, Deprecated API"
+  },
+  "28623": {
+    "heading": "Unsigned cast of GetMessagePos() coordinates. Use GET_X_LPARAM/GET_Y_LPARAM instead of LOWORD/HIWORD",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=190080&clcid=0x409",
+    "categories": "Incorrect API Usage"
+  },
+  "28624": {
+    "heading": "No call to Release() to match incremented refcount from LResultFromObject",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=190081&clcid=0x409",
+    "categories": "Memory Usage, Resource Usage, Incorrect API"
+  },
+  "28625": {
+    "heading": "Function call used to clear sensitive data will be optimized away",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=190082&clcid=0x409",
+    "categories": "Security"
+  },
+  "28636": {
+    "heading": "Calling LocalFree on non-allocated pointer obtained from calls to GetSecurityDescriptorOwner/Group/Dacl/Sacl",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=190083&clcid=0x409",
+    "categories": "Memory Safety, Logic Error"
+  },
+  "28637": {
+    "heading": "Calling the function in a global initializer is unsafe",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=190084&clcid=0x409",
+    "categories": "Incorrect API Usage"
+  },
+  "28638": {
+    "heading": "Function delayload stub is missing a matching declaration",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=190085&clcid=0x409",
+    "categories": "Incorrect API Usage"
+  },
+  "28639": {
+    "heading": "Calling close handle with string",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=190086&clcid=0x409",
+    "categories": "Incorrect API Usage, Type Mismatch"
+  },
+  "28640": {
+    "heading": "Function delayload stub is missing a matching declaration",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=190087&clcid=0x409",
+    "categories": "Incorrect API Usage"
+  },
+  "28645": {
+    "heading": "MessageBox was called using the question mark message symbol which is no longer recommended",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=190090&clcid=0x409",
+    "categories": "Incorrect API Usage, Deprecated API"
+  },
+  "28648": {
+    "heading": "PulseEvent is an unreliable function",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=190091&clcid=0x409",
+    "categories": "Incorrect API Usage, Deprecated API"
+  },
+  "28649": {
+    "heading": "Automatic or global stack arrays are never null",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=190092&clcid=0x409",
+    "categories": "Ambiguous Intent, Logic Error"
+  },
+  "28650": {
+    "heading": "The type for which !0 is being used does not treat it as failure case",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=190093&clcid=0x409",
+    "categories": "Type Mismatch"
+  },
+  "28714": {
+    "heading": "Cast between semantically different integer types",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=190096&clcid=0x409",
+    "categories": "Type Mismatch, Casting Error"
+  },
+  "28715": {
+    "heading": "Cast between semantically different integer types",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=190097&clcid=0x409",
+    "categories": "Type Mismatch, Casting Error"
+  },
+  "28716": {
+    "heading": "Compiler-inserted cast between semantically different integral types",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=190098&clcid=0x409",
+    "categories": "Type Mismatch, Casting Error"
+  },
+  "28717": {
+    "heading": "Invalid VARIANT type",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=190099&clcid=0x409",
+    "categories": "Type Mismatch"
+  },
+  "28719": {
+    "heading": "Banned api usage",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=190101&clcid=0x409",
+    "categories": "Security, Deprecated API"
+  },
+  "28720": {
+    "heading": "Banned api usage",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=190102&clcid=0x409",
+    "categories": "Security, Deprecated API"
+  },
+  "28721": {
+    "heading": "Deprecated performance counter architecture",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=190103&clcid=0x409",
+    "categories": "Incorrect API Usage, Deprecated API"
+  },
+  "28726": {
+    "heading": "Banned API usage",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=190107&clcid=0x409",
+    "categories": "Security, Deprecated API"
+  },
+  "28727": {
+    "heading": "Banned API usage",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=190108&clcid=0x409",
+    "categories": "Security, Deprecated API"
+  },
+  "28730": {
+    "heading": "Possible assignment of '\\0' directly to a pointer",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=190110&clcid=0x409",
+    "categories": "Ambiguous Intent, Logic Error"
+  },
+  "28735": {
+    "heading": "Banned Crimson API usage",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=190115&clcid=0x409",
+    "categories": "Deprecated API"
+  },
+  "28736": {
+    "heading": "Banned API argument usage",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=190116&clcid=0x409",
+    "categories": "Deprecated API"
+  },
+  "28750": {
+    "heading": "Banned usage of lstrlen and its variants",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=190120&clcid=0x409",
+    "categories": "Deprecated API"
+  },
+  "28751": {
+    "heading": "Banned usage of ExAllocatePool and its variants",
+    "url": "http://go.microsoft.com/fwlink/?LinkID=190121&clcid=0x409",
+    "categories": "Deprecated API"
+  }
+}
