@@ -48,25 +48,25 @@
                 <ColumnDefinition Width="Auto" />
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
-            <TextBlock Grid.Row="0"
-                           Grid.Column="0"
-                           FontWeight="Bold"
-                           Visibility="{Binding Rule.Name, Converter={StaticResource stringToVisibilityConverter}}"
-                           Style="{StaticResource PropertyKey}" >
-                <Run Text="{Binding Rule.Id}" />
-                <Run Text="{Binding Rule.Name, Mode=OneTime}" />
-            </TextBlock>
-            <TextBlock Grid.Row="0"
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <TextBlock Grid.Row="0"
                            Grid.Column="0"
                            Text="{Binding Rule.Id}"
-                           FontWeight="Bold"
-                           Style="{StaticResource PropertyKey}" >
-                <TextBlock.Visibility>
-                    <MultiBinding Converter="{StaticResource multipleStringsToVisibilityConverter}">
-                        <Binding Path="Rule.Name" />
-                    </MultiBinding>
-                </TextBlock.Visibility>
-            </TextBlock>
+                           FontWeight="Bold" 
+                           Style="{StaticResource PropertyKey}" />
+                <TextBlock Grid.Row="0" 
+                           Grid.Column="1"
+                           Text="{Binding Rule.Name, Mode=OneTime}"
+                           Visibility="{Binding Rule.Name, Converter={StaticResource stringToVisibilityConverter}}"
+                           FontWeight="Bold" />
+            </Grid>
             <controls:InternetHyperlink Grid.Row="1"
                            Text="Help"
                            Margin="0 0 0 5"
@@ -147,25 +147,23 @@
             <!-- Division between Tool and Rule. -->
             <Separator Grid.Row="9" Grid.Column="0" Grid.ColumnSpan="2" />
 
-            <TextBlock Grid.Row="10"
-                           Grid.Column="0"
+            <Grid Grid.Row="10">
+                <Grid.RowDefinitions>
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <TextBlock Grid.Column="0"
+                           Text="{Binding Tool.Name}" 
+                           FontWeight="Bold" 
+                           Style="{StaticResource PropertyKey}" />
+                <TextBlock Grid.Column="1"
+                           Text="{Binding Tool.Version, Mode=OneTime}"
                            FontWeight="Bold"
-                           Visibility="{Binding Tool.Version, Converter={StaticResource stringToVisibilityConverter}}"
-                           Style="{StaticResource PropertyKey}" >
-                <Run Text="{Binding Tool.Name}" />
-                <Run Text="{Binding Tool.Version}" />
-            </TextBlock>
-            <TextBlock Grid.Row="10"
-                           Grid.Column="0"
-                           Text="{Binding Tool.Name}"
-                           FontWeight="Bold"
-                           Style="{StaticResource PropertyKey}" >
-                <TextBlock.Visibility>
-                    <MultiBinding Converter="{StaticResource multipleStringsToVisibilityConverter}">
-                        <Binding Path="Tool.Version" />
-                    </MultiBinding>
-                </TextBlock.Visibility>
-            </TextBlock>
+                           Visibility="{Binding Tool.Version, Converter={StaticResource stringToVisibilityConverter}}" />
+            </Grid>
             <controls:InternetHyperlink Grid.Row="11"
                            Grid.Column="0"
                            Text="Help"
