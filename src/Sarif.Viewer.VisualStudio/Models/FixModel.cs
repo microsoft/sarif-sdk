@@ -18,6 +18,7 @@ namespace Microsoft.Sarif.Viewer.Models
         private string _description;
         private ObservableCollection<FileChangeModel> _fileChanges;
         private DelegateCommand<FixModel> _previewFixCommand;
+        private DelegateCommand<FixModel> _applyFixCommand;
 
         public FixModel(string description)
         {
@@ -67,6 +68,23 @@ namespace Microsoft.Sarif.Viewer.Models
             }
         }
 
+        public DelegateCommand<FixModel> ApplyFixCommand
+        {
+            get
+            {
+                if (_applyFixCommand == null)
+                {
+                    _applyFixCommand = new DelegateCommand<FixModel>(l => ApplyFix(l));
+                }
+
+                return _applyFixCommand;
+            }
+            set
+            {
+                _applyFixCommand = value;
+            }
+        }
+
         private void PreviewFix(FixModel selectedFix)
         {
             HashSet<string> files = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
@@ -89,39 +107,86 @@ namespace Microsoft.Sarif.Viewer.Models
                         replacements.AddRange(fileChange.Replacements);
                     }
 
-                    // Sort the replacements from top to bottom.
-                    var sortedReplacements = replacements.OrderBy(r => r.Offset);
-
-                    string extension = Path.GetExtension(file);
-                    string baseFileName = Path.GetFileNameWithoutExtension(file);
-                    string previewFileName = baseFileName + ".preview" + extension;
-                    string previewFilePath = Path.Combine(Path.GetTempPath(), previewFileName);
-
-                    // Delete/Insert the bytes for each replacement.
-                    List<byte> bytes = File.ReadAllBytes(file).ToList();
-                    int offsetDelta = 0;
-                    foreach (ReplacementModel replacment in sortedReplacements)
+                    byte[] fixedFile;
+                    if (TryFixFile(file, replacements, out fixedFile))
                     {
-                        int offset = replacment.Offset + offsetDelta;
+                        string extension = Path.GetExtension(file);
+                        string baseFileName = Path.GetFileNameWithoutExtension(file);
+                        string previewFileName = baseFileName + ".preview" + extension;
+                        string previewFilePath = Path.Combine(Path.GetTempPath(), previewFileName);
 
-                        if (replacment.DeletedLength > 0)
-                        {
-                            bytes.RemoveRange(offset, replacment.DeletedLength);
-                            offsetDelta -= replacment.DeletedLength;
-                        }
+                        File.WriteAllBytes(previewFilePath, fixedFile.ToArray());
 
-                        if (replacment.InsertedBytes.Length > 0)
-                        {
-                            bytes.InsertRange(offset, replacment.InsertedBytes);
-                            offsetDelta += replacment.InsertedBytes.Length;
-                        }
+                        SarifViewerPackage.Dte.ExecuteCommand("Tools.DiffFiles", file + " " + previewFilePath);
                     }
-
-                    File.WriteAllBytes(previewFilePath, bytes.ToArray());
-
-                    SarifViewerPackage.Dte.ExecuteCommand("Tools.DiffFiles", file + " " + previewFilePath);
                 }
             }
+        }
+
+        private void ApplyFix(FixModel selectedFix)
+        {
+            HashSet<string> files = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+
+            // Gather the list of files for the fix.
+            foreach (var fileChanges in selectedFix.FileChanges)
+            {
+                files.Add(fileChanges.FilePath);
+            }
+
+            foreach (string file in files)
+            {
+                if (File.Exists(file))
+                {
+                    List<ReplacementModel> replacements = new List<ReplacementModel>();
+
+                    var fileChanges = selectedFix.FileChanges.Where(fc => fc.FilePath.Equals(file, StringComparison.OrdinalIgnoreCase));
+                    foreach (FileChangeModel fileChange in fileChanges)
+                    {
+                        replacements.AddRange(fileChange.Replacements);
+                    }
+
+                    byte[] fixedFile;
+                    if (TryFixFile(file, replacements, out fixedFile))
+                    {
+                        File.WriteAllBytes(file, fixedFile.ToArray());
+                    }
+                }
+            }
+        }
+
+        private bool TryFixFile(string filePath, IEnumerable<ReplacementModel> replacements, out byte[] fixedFile)
+        {
+            fixedFile = null;
+
+            if (File.Exists(filePath))
+            {
+                // Sort the replacements from top to bottom.
+                var sortedReplacements = replacements.OrderBy(r => r.Offset);
+
+                // Delete/Insert the bytes for each replacement.
+                List<byte> bytes = File.ReadAllBytes(filePath).ToList();
+                int offsetDelta = 0;
+                foreach (ReplacementModel replacment in sortedReplacements)
+                {
+                    int offset = replacment.Offset + offsetDelta;
+
+                    if (replacment.DeletedLength > 0)
+                    {
+                        bytes.RemoveRange(offset, replacment.DeletedLength);
+                        offsetDelta -= replacment.DeletedLength;
+                    }
+
+                    if (replacment.InsertedBytes.Length > 0)
+                    {
+                        bytes.InsertRange(offset, replacment.InsertedBytes);
+                        offsetDelta += replacment.InsertedBytes.Length;
+                    }
+                }
+
+                fixedFile = bytes.ToArray();
+            }
+
+            return fixedFile != null;
         }
     }
 }
