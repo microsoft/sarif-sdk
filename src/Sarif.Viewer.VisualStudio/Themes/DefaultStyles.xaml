@@ -13,6 +13,7 @@
     <converters:CollectionToVisiblity0Converter x:Key="collectionToVisibility0Converter" />
     <converters:CollectionToVisiblity1Converter x:Key="collectionToVisibility1Converter" />
     <converters:MultipleStringsToVisibilityConverter x:Key="multipleStringsToVisibilityConverter" />
+    <converters:FileExistsToBooleanConverter x:Key="fileExistsToBooleanConverter" />
 
     <!-- Default Styles-->
     <Style TargetType="{x:Type Control}"

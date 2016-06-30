@@ -123,7 +123,7 @@
                     BorderThickness="0 1 0 0">
             <TabItem>
                 <TabItem.Header>
-                    <DockPanel>
+                    <DockPanel Margin="5 0 5 0">
                         <TextBlock DockPanel.Dock="Left" Text="Locations" />
                         <TextBlock DockPanel.Dock="Left"
                                    Visibility="{Binding HasMultipleLocations, Converter={StaticResource booleanToVisiblityConverter}}">
@@ -138,7 +138,7 @@
             </TabItem>
             <TabItem Visibility="{Binding CodeFlows, Converter={StaticResource collectionToVisibility0Converter}}">
                 <TabItem.Header>
-                    <DockPanel>
+                    <DockPanel Margin="5 0 5 0">
                         <TextBlock DockPanel.Dock="Left"
                                    Text="Code Flows" />
                         <TextBlock DockPanel.Dock="Left"
@@ -155,7 +155,7 @@
             </TabItem>
             <TabItem Visibility="{Binding Stacks, Converter={StaticResource collectionToVisibility0Converter}}">
                 <TabItem.Header>
-                    <DockPanel>
+                    <DockPanel Margin="5 0 5 0">
                         <TextBlock DockPanel.Dock="Left"
                                    Text="Stacks" />
                         <TextBlock DockPanel.Dock="Left"
@@ -173,7 +173,7 @@
             </TabItem>
             <TabItem Visibility="{Binding Fixes, Converter={StaticResource collectionToVisibility0Converter}}">
                 <TabItem.Header>
-                    <DockPanel>
+                    <DockPanel Margin="5 0 5 0">
                         <TextBlock DockPanel.Dock="Left"
                                    Text="Fixes" />
                         <TextBlock DockPanel.Dock="Left"
@@ -190,7 +190,8 @@
             </TabItem>
             <TabItem>
                 <TabItem.Header>
-                    <TextBlock Text="Info" />
+                    <TextBlock Text="Info"
+                               Margin="5 0 5 0" />
                 </TabItem.Header>
 
                 <ContentControl ContentTemplate="{StaticResource InfoTemplate}"
