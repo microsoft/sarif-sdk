@@ -38,9 +38,32 @@ namespace Microsoft.Sarif.Viewer.Sarif
 
                 if (metadata[ruleId] != null)
                 {
-                    string ruleName = metadata[ruleId]["heading"].Value<string>();
-                    Uri helpUri = new Uri(metadata[ruleId]["url"].Value<string>());
-                    rule = new Rule(ruleId, ruleName, null, null, null, ResultLevel.Unknown, helpUri, null);
+                    if (metadata[ruleId]["heading"] != null)
+                    {
+                        if (metadata[ruleId]["url"] != null)
+                        {
+                            string ruleName = metadata[ruleId]["heading"].Value<string>();
+                            Uri helpUri = new Uri(metadata[ruleId]["url"].Value<string>());
+                            rule = new Rule(ruleId, ruleName, null, null, null, ResultLevel.Unknown, helpUri, null);
+                        }
+                        else
+                        {
+                            string ruleName = metadata[ruleId]["heading"].Value<string>();
+                            rule = new Rule(ruleId, ruleName, null, null, null, ResultLevel.Unknown, null, null);
+                        }
+                    }
+                    else
+                    {
+                        if (metadata[ruleId]["url"] != null)
+                        {
+                            Uri helpUri = new Uri(metadata[ruleId]["url"].Value<string>());
+                            rule = new Rule(ruleId, null, null, null, null, ResultLevel.Unknown, helpUri, null);
+                        }
+                        else
+                        {
+                            rule = new Rule(ruleId, null, null, null, null, ResultLevel.Unknown, null, null);
+                        }
+                    }
                 }
             }
 
