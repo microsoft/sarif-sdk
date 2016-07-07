@@ -683,7 +683,7 @@
         },
 
         "level": {
-          "description": "The kind of observation this result represents. If this property is not present, its implied value is 'warning'.",
+          "description": "A value specifying the severity level of the result. If this property is not present, its implied value is 'warning'.",
           "default": "warning",
           "enum": [ "notApplicable", "pass", "note", "warning", "error" ]
         },
