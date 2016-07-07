@@ -39,6 +39,12 @@ namespace Microsoft.CodeAnalysis.Sarif
         public string CommandLine { get; set; }
 
         /// <summary>
+        /// The contents of any response files specified on the tool's command line.
+        /// </summary>
+        [DataMember(Name = "responseFiles", IsRequired = false, EmitDefaultValue = false)]
+        public IDictionary<string, string> ResponseFiles { get; set; }
+
+        /// <summary>
         /// The date and time at which the run started. See "Date/time properties" in the SARIF spec for the required format.
         /// </summary>
         [DataMember(Name = "startTime", IsRequired = false, EmitDefaultValue = false)]
@@ -105,6 +111,9 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="commandLine">
         /// An initialization value for the <see cref="P: CommandLine" /> property.
         /// </param>
+        /// <param name="responseFiles">
+        /// An initialization value for the <see cref="P: ResponseFiles" /> property.
+        /// </param>
         /// <param name="startTime">
         /// An initialization value for the <see cref="P: StartTime" /> property.
         /// </param>
@@ -132,9 +141,9 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="properties">
         /// An initialization value for the <see cref="P: Properties" /> property.
         /// </param>
-        public Invocation(string commandLine, DateTime startTime, DateTime endTime, string machine, string account, int processId, string fileName, string workingDirectory, IDictionary<string, string> environmentVariables, IDictionary<string, SerializedPropertyInfo> properties)
+        public Invocation(string commandLine, IDictionary<string, string> responseFiles, DateTime startTime, DateTime endTime, string machine, string account, int processId, string fileName, string workingDirectory, IDictionary<string, string> environmentVariables, IDictionary<string, SerializedPropertyInfo> properties)
         {
-            Init(commandLine, startTime, endTime, machine, account, processId, fileName, workingDirectory, environmentVariables, properties);
+            Init(commandLine, responseFiles, startTime, endTime, machine, account, processId, fileName, workingDirectory, environmentVariables, properties);
         }
 
         /// <summary>
@@ -153,7 +162,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 throw new ArgumentNullException(nameof(other));
             }
 
-            Init(other.CommandLine, other.StartTime, other.EndTime, other.Machine, other.Account, other.ProcessId, other.FileName, other.WorkingDirectory, other.EnvironmentVariables, other.Properties);
+            Init(other.CommandLine, other.ResponseFiles, other.StartTime, other.EndTime, other.Machine, other.Account, other.ProcessId, other.FileName, other.WorkingDirectory, other.EnvironmentVariables, other.Properties);
         }
 
         ISarifNode ISarifNode.DeepClone()
@@ -174,9 +183,14 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new Invocation(this);
         }
 
-        private void Init(string commandLine, DateTime startTime, DateTime endTime, string machine, string account, int processId, string fileName, string workingDirectory, IDictionary<string, string> environmentVariables, IDictionary<string, SerializedPropertyInfo> properties)
+        private void Init(string commandLine, IDictionary<string, string> responseFiles, DateTime startTime, DateTime endTime, string machine, string account, int processId, string fileName, string workingDirectory, IDictionary<string, string> environmentVariables, IDictionary<string, SerializedPropertyInfo> properties)
         {
             CommandLine = commandLine;
+            if (responseFiles != null)
+            {
+                ResponseFiles = new Dictionary<string, string>(responseFiles);
+            }
+
             StartTime = startTime;
             EndTime = endTime;
             Machine = machine;
