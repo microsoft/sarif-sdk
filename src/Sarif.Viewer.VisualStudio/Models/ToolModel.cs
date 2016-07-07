@@ -132,5 +132,21 @@ namespace Microsoft.Sarif.Viewer.Models
                 }
             }
         }
+
+        public bool HasValues
+        {
+            get
+            {
+                if (string.IsNullOrEmpty(Description) && string.IsNullOrEmpty(OwnerName) &&
+                    string.IsNullOrEmpty(OwnerUri) && string.IsNullOrEmpty(FeedbackUri))
+                {
+                    return false;
+                }
+                else
+                {
+                    return true;
+                }
+            }
+        }
     }
 }

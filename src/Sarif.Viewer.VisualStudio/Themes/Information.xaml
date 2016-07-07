@@ -10,6 +10,8 @@
 
     <!-- Converters -->
     <converters:StringToVisibilityConverter x:Key="stringToVisibilityConverter" />
+    <converters:StringWithUnknownToVisibilityConverter x:Key="stringWithUnknownToVisibilityConverter" />
+    <converters:BooleanToCollapsedVisibilityConverter x:Key="booleanToCollapsedVisibilityConverter" />
 
     <!-- Info Template - Displays info about the rule for the result and the tool which raised the result. -->
     <DataTemplate x:Key="InfoTemplate">
@@ -48,7 +50,7 @@
                 <ColumnDefinition Width="Auto" />
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
-            <Grid>
+            <Grid Grid.Row="0">
                 <Grid.RowDefinitions>
                     <RowDefinition />
                 </Grid.RowDefinitions>
@@ -56,13 +58,12 @@
                     <ColumnDefinition Width="Auto" />
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
-                <TextBlock Grid.Row="0"
-                           Grid.Column="0"
+                <TextBlock Grid.Column="0"
                            Text="{Binding Rule.Id}"
                            FontWeight="Bold" 
+                           Margin="0 5 0 0"
                            Style="{StaticResource PropertyKey}" />
-                <TextBlock Grid.Row="0" 
-                           Grid.Column="1"
+                <TextBlock Grid.Column="1"
                            Text="{Binding Rule.Name, Mode=OneTime}"
                            Visibility="{Binding Rule.Name, Converter={StaticResource stringToVisibilityConverter}}"
                            FontWeight="Bold" />
@@ -92,12 +93,12 @@
                            Text="{Binding Rule.Category}" />
             <TextBlock Grid.Row="4"
                            Grid.Column="0"
-                           Visibility="{Binding Rule.Severity, Converter={StaticResource stringToVisibilityConverter}}"
+                           Visibility="{Binding Rule.Severity, Converter={StaticResource stringWithUnknownToVisibilityConverter}}"
                            Text="Severity : " 
                            Style="{StaticResource PropertyKey}" />
             <TextBlock Grid.Row="4"
                            Grid.Column="1"
-                           Visibility="{Binding Rule.Severity, Converter={StaticResource stringToVisibilityConverter}}"
+                           Visibility="{Binding Rule.Severity, Converter={StaticResource stringWithUnknownToVisibilityConverter}}"
                            Text="{Binding Rule.Severity}" />
             <TextBlock Grid.Row="5"
                            Grid.Column="0"
@@ -127,25 +128,15 @@
             <TextBlock Grid.Row="8"
                            Grid.Column="0"
                            Grid.ColumnSpan="2"
+                           Visibility="{Binding Rule.HasValues, Converter={StaticResource booleanToCollapsedVisibilityConverter}}"
                            HorizontalAlignment="Center"
-                           Margin="0 0 0 7"
-                           Text="No additional content."
+                           Margin="0 0 0 2"
+                           Text="No additional content"
                            Foreground="Gray"
-                           Style="{StaticResource PropertyKey}">
-                <TextBlock.Visibility>
-                    <MultiBinding Converter="{StaticResource multipleStringsToVisibilityConverter}">
-                        <Binding Path="Rule.Version" />
-                        <Binding Path="Rule.Category" />
-                        <Binding Path="Rule.Severity" />
-                        <Binding Path="Rule.OwnerName" />
-                        <Binding Path="Rule.FeedbackUri" />
-                        <Binding Path="Rule.Description" />
-                    </MultiBinding>
-                </TextBlock.Visibility>
-            </TextBlock>
+                           Style="{StaticResource PropertyKey}" />
 
             <!-- Division between Tool and Rule. -->
-            <Separator Grid.Row="9" Grid.Column="0" Grid.ColumnSpan="2" />
+            <Separator Grid.Row="9" Grid.Column="0" Grid.ColumnSpan="2" Margin="0 5 0 5" />
 
             <Grid Grid.Row="10">
                 <Grid.RowDefinitions>
@@ -198,20 +189,13 @@
             <TextBlock Grid.Row="15"
                            Grid.Column="0"
                            Grid.ColumnSpan="2"
-                           Text="No additional content."
+                           Visibility="{Binding Tool.HasValues, Converter={StaticResource booleanToCollapsedVisibilityConverter}}"
+                           Text="No additional content"
                            Margin="0 0 0 7"
                            HorizontalAlignment="Center"
                            Foreground="Gray"
-                           Style="{StaticResource PropertyKey}">
-                <TextBlock.Visibility>
-                    <MultiBinding Converter="{StaticResource multipleStringsToVisibilityConverter}">
-                        <Binding Path="Tool.OwnerName" />
-                        <Binding Path="Tool.FeedbackUri" />
-                        <Binding Path="Tool.Description" />
-                    </MultiBinding>
-                </TextBlock.Visibility>
-            </TextBlock>
-            
+                           Style="{StaticResource PropertyKey}" />
+
             <!-- Separating Tool from Invocation. -->
             <TextBlock Grid.Row="16" />
 
