@@ -54,7 +54,7 @@
       "kind": "EnumHint",
       "arguments": {
         "typeName": "AnnotatedCodeLocationImportance",
-        "description":  "Values specifying the importance of an \"annotatedCodeLocation\" within the \"codeFlow\" in which it occurs"
+        "description": "Values specifying the importance of an \"annotatedCodeLocation\" within the \"codeFlow\" in which it occurs"
       }
     }
   ],
@@ -83,7 +83,7 @@
       }
     }
   ],
-  "*.Properties" : [
+  "*.Properties": [
     {
       "kind": "DictionaryHint",
       "arguments": {
@@ -197,6 +197,11 @@
     }
   ],
   "Invocation.EnvironmentVariables": [
+    {
+      "kind": "DictionaryHint"
+    }
+  ],
+  "Invocation.ResponseFiles": [
     {
       "kind": "DictionaryHint"
     }
