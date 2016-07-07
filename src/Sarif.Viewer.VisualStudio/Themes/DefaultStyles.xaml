@@ -15,6 +15,7 @@
     <converters:MultipleStringsToVisibilityConverter x:Key="multipleStringsToVisibilityConverter" />
     <converters:StringWithUnknownToVisibilityConverter x:Key="stringWithUnknownToVisibilityConverter" />
     <converters:BooleanToCollapsedVisibilityConverter x:Key="booleanToCollapsedVisibilityConverter" />
+    <converters:FileExistsToBooleanConverter x:Key="fileExistsToBooleanConverter" />
 
     <!-- Default Styles-->
     <Style TargetType="{x:Type Control}"
