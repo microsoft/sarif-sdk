@@ -45,7 +45,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         public string RuleKey { get; set; }
 
         /// <summary>
-        /// The kind of observation this result represents. If this property is not present, its implied value is 'warning'.
+        /// A value specifying the severity level of the result. If this property is not present, its implied value is 'warning'.
         /// </summary>
         [DataMember(Name = "level", IsRequired = false, EmitDefaultValue = false)]
         public ResultLevel Level { get; set; }
