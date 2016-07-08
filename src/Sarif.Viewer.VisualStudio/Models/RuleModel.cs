@@ -183,23 +183,5 @@ namespace Microsoft.Sarif.Viewer.Models
                 }
             }
         }
-
-        public bool HasValues
-        {
-            get
-            {
-                if (string.IsNullOrEmpty(OwnerName) && string.IsNullOrEmpty(OwnerUri) && 
-                    string.IsNullOrEmpty(FeedbackUri) && string.IsNullOrEmpty(Description) && 
-                    string.IsNullOrEmpty(Category) && string.IsNullOrEmpty(Version) && 
-                    (string.IsNullOrEmpty(Severity) || Severity == "Unknown"))
-                {
-                    return false;
-                }
-                else
-                {
-                    return true;
-                }
-            }
-        }
     }
 }

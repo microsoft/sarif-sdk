@@ -61,7 +61,7 @@
                     <controls:InternetHyperlink DockPanel.Dock="Left"
                                                 Text="{Binding Rule.Id}"
                                                 NavigateUri="{Binding Rule.HelpUri}"
-                                                Margin="0 0 5 1"
+                                                Margin="0 0 5 0"
                                                 FontWeight="SemiBold"
                                                 FontSize="14.5"/>
                     <TextBlock DockPanel.Dock="Left"

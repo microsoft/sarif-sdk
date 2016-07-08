@@ -14,7 +14,9 @@ namespace Microsoft.Sarif.Viewer.Models
     public class ToolModel : NotifyPropertyChangedObject
     {
         private string _name;
+        private string _fullName;
         private string _version;
+        private string _semanticVersion;
         private string _description;
         private string _ownerName;
         private string _ownerUri;
@@ -33,6 +35,22 @@ namespace Microsoft.Sarif.Viewer.Models
                 {
                     this._name = value;
                     NotifyPropertyChanged("Name");
+                }
+            }
+        }
+
+        public string FullName
+        {
+            get
+            {
+                return this._fullName;
+            }
+            set
+            {
+                if (value != this._fullName)
+                {
+                    this._fullName = value;
+                    NotifyPropertyChanged(nameof(FullName));
                 }
             }
         }
@@ -133,18 +151,18 @@ namespace Microsoft.Sarif.Viewer.Models
             }
         }
 
-        public bool HasValues
+        public string SemanticVersion
         {
             get
             {
-                if (string.IsNullOrEmpty(Description) && string.IsNullOrEmpty(OwnerName) &&
-                    string.IsNullOrEmpty(OwnerUri) && string.IsNullOrEmpty(FeedbackUri))
+                return this._semanticVersion;
+            }
+            set
+            {
+                if (value != this._semanticVersion)
                 {
-                    return false;
-                }
-                else
-                {
-                    return true;
+                    this._semanticVersion = value;
+                    NotifyPropertyChanged(nameof(SemanticVersion));
                 }
             }
         }

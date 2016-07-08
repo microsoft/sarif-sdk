@@ -48,8 +48,8 @@
     <Compile Include="Converters\BooleanToVisibilityConverter.cs" />
     <Compile Include="Converters\Int32ToVisibilityConverter.cs" />
     <Compile Include="Converters\MultipleStringsToVisibilityConverter.cs" />
-    <Compile Include="Converters\StringWithUnknownToVisibilityConverter.cs" />
     <Compile Include="Converters\FileExistsToBooleanConverter.cs" />
+    <Compile Include="Converters\ObjectToVisibilityConverter.cs" />
     <Compile Include="DelegateCommand.cs" />
     <Compile Include="DelegateCommandBase.cs" />
     <Compile Include="Models\InvocationModel.cs" />
