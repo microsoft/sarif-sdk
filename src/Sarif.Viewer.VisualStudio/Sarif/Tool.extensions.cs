@@ -22,15 +22,10 @@ namespace Microsoft.Sarif.Viewer.Sarif
 
             ToolModel model = new ToolModel()
             {
-                Name = !String.IsNullOrWhiteSpace(tool.FullName) ? tool.FullName : tool.Name,
-                Version = !String.IsNullOrWhiteSpace(tool.SemanticVersion) ? tool.SemanticVersion : tool.Version,
-
-                // TODO: Replace with real values
-                //OwnerName = "John Doe",
-                //OwnerUri = "mailto:johndoe@sarif.microsoft.com",
-                //FeedbackUri = "mailto:toolfeedback@sarif.microsoft.com",
-                //HelpUri = "https://microsoft.com/staticanalysis/tool",
-                //Description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+                Name = tool.Name,
+                FullName = tool.FullName,
+                Version = tool.Version,
+                SemanticVersion = tool.SemanticVersion,
             };
 
             return model;

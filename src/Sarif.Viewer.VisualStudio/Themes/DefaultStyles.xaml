@@ -7,13 +7,13 @@
     <!-- Converters -->
     <converters:DatabindingDebugConverter x:Key="databindingDebugConverter" />
     <converters:BooleanToVisibilityConverter x:Key="booleanToVisiblityConverter" />
+    <converters:ObjectToVisibilityConverter x:Key="objectToVisibilityConverter" />
     <converters:StringToVisibilityConverter x:Key="stringToVisibilityConverter" />
     <converters:Int32ToVisibilityConverter x:Key="int32ToVisibilityConverter" />
     <converters:CollectionToCountConverter x:Key="collectionToCountConverter" />
     <converters:CollectionToVisiblity0Converter x:Key="collectionToVisibility0Converter" />
     <converters:CollectionToVisiblity1Converter x:Key="collectionToVisibility1Converter" />
     <converters:MultipleStringsToVisibilityConverter x:Key="multipleStringsToVisibilityConverter" />
-    <converters:StringWithUnknownToVisibilityConverter x:Key="stringWithUnknownToVisibilityConverter" />
     <converters:BooleanToCollapsedVisibilityConverter x:Key="booleanToCollapsedVisibilityConverter" />
     <converters:FileExistsToBooleanConverter x:Key="fileExistsToBooleanConverter" />
 
@@ -35,6 +35,8 @@
            BasedOn="{StaticResource baseStyle}"></Style>
 
     <Style TargetType="TextBlock">
+        <Setter Property="FontFamily"
+                Value="Segoe UI" />
         <Setter Property="FontSize"
                 Value="11.5" />
     </Style>
