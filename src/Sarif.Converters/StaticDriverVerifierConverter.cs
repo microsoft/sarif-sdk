@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Text;
+using System.Text.RegularExpressions;
 
 namespace Microsoft.CodeAnalysis.Sarif.Converters
 {
@@ -70,6 +71,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 Locations = new List<AnnotatedCodeLocation>()
             });
 
+            var codeLocationStack = new Stack<AnnotatedCodeLocation>();
             var sb = new StringBuilder();
             char current;
             while ((current = (char)input.ReadByte()) != '\uffff')
@@ -78,7 +80,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
                 if (current == '\n')
                 {
-                    ProcessLine(sb.ToString(), result);
+                    ProcessLine(sb.ToString(), result, codeLocationStack);
                     sb.Clear();
                 }
             }
@@ -86,7 +88,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             return result;
         }
 
-        private void ProcessLine(string logFileLine, Result result)
+        private void ProcessLine(string logFileLine, Result result, Stack<AnnotatedCodeLocation> codeLocationStack)
         {
             var codeFlow = result.CodeFlows[0];
 
@@ -101,10 +103,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             // the remainder of the kind id, e.g., Atomic Assigment
             const int KIND2 = 6;
 
-            // When KIND1 == "Call" the 6th and 7th slots are:
-            const int CALLER = 6;
-            const int CALLEE = 7;
-
             int step;
 
             string[] tokens = logFileLine.Split(' ');
@@ -112,6 +110,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             if (int.TryParse(tokens[STEP], out step))
             {
                 bool displayed = true;
+                var importance = AnnotatedCodeLocationImportance.Important;
 
                 // If we find a numeric value as the first token,
                 // this is a general step. We don't actually consume
@@ -120,14 +119,27 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
                 string uriText = tokens[URI].Trim('"');
 
-                if (uriText.Equals("?", StringComparison.Ordinal))
+                if (IsNonessentialFile(uriText))
                 {
-                    // If we have not literal location, then we are processing
-                    // an informational step, which we will not persist
-                    displayed = false;
+                    importance = AnnotatedCodeLocationImportance.Unimportant;
                 }
 
-                var uri = new Uri(tokens[URI].Trim('"'), UriKind.RelativeOrAbsolute);
+
+                string uriValue = tokens[URI].Trim('"');
+
+                if (uriText.Equals("?"))
+                {
+                    displayed = false;
+                }
+                else
+                {
+                    if (File.Exists(uriValue))
+                    {
+                        uriValue = Path.GetFullPath(uriValue);
+                    }
+                }
+
+                var uri = new Uri(uriValue, UriKind.RelativeOrAbsolute);
 
                 // We assume a valid line here. This code will throw if not.
                 int line = int.Parse(tokens[LINE]);
@@ -144,14 +156,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
                 AnnotatedCodeLocationKind kind = ConvertToAnnotatedCodeLocationKind(sdvKind.Trim());
 
-                string message = BuildMessageFromState(tokens[STATE]);
-
                 var annotatedCodeLocation = new AnnotatedCodeLocation
                 {
                     Kind = kind,
                     Step = step,
-                    Importance = displayed ? AnnotatedCodeLocationImportance.Important : AnnotatedCodeLocationImportance.Unimportant,
-                    Message = message,
+                    Importance = importance,
                     PhysicalLocation = displayed ? new PhysicalLocation
                     {
                         Uri = uri,
@@ -162,29 +171,57 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                     } : null,    
                 };
 
-                annotatedCodeLocation.SetProperty("State", tokens[STATE]);
+                var state = tokens[STATE];
+                string[] stateTokens = state.Split(new string[] { "^====Auto=====" }, StringSplitOptions.RemoveEmptyEntries);
 
-                // Tokens[BOOL] retrieves an SDV property intended to indicate
-                // whether a step is 'important' or not. We don't currenlty use this
-                // value to set the 'essential' property, due to the prevalence of
-                // a 'true' value even in steps that entirely repeat the previous
-                // step and which have no location. As above, in the handling for 
-                // locations of "?", what we do instead is filter everything with
-                // no location. This actually code cause problems, as a some
-                // steps with locations are embedded in call/returns that 
-                // are discarded. This converter (and the viewer experience)
-                // should be compared soon with the actual SDV viewer, with
-                // a revisit of the converter's behavior.           
-
-
-                if (sdvKind.Equals("Call", StringComparison.Ordinal))
+                if (stateTokens.Length == 1)
                 {
-                    // Caller is encapsulated in double quotes, which we trim
-                    annotatedCodeLocation.SetProperty("Caller", tokens[CALLER].Trim('"'));
+                    // We have a single token only because no data values were specified
+                    if (state.StartsWith("^====Auto====="))
+                    {
+                        annotatedCodeLocation.SetProperty("permVars", stateTokens[0]);
+                    }
+                    else
+                    {
+                        // Only data values were specified, no permanent vars
+                        annotatedCodeLocation.SetProperty("dataValuesCurrent", stateTokens[0]);
+                    }
+                }
+                else if (stateTokens.Length > 1)
+                {
+                    annotatedCodeLocation.SetProperty("dataValuesCurrent", stateTokens[0]);
+                    annotatedCodeLocation.SetProperty("permVars", stateTokens[1]);
+                }
 
-                    // Callee is at the end of the line. First we trim the \r\b.
-                    // Next remove the encapsulating double-quotes.
-                    annotatedCodeLocation.SetProperty("Callee", tokens[CALLEE].Trim().Trim('"'));
+                if (kind == AnnotatedCodeLocationKind.Call)
+                {
+                    codeLocationStack.Push(annotatedCodeLocation);
+
+                    string[] callTokens = logFileLine.Split(new string[] { " Call " }, StringSplitOptions.RemoveEmptyEntries);
+                    Debug.Assert(callTokens.Length == 2);
+
+                    string extraMsg = "Call " + callTokens[1].Replace('"', '\'').Trim();
+                    annotatedCodeLocation.SetProperty("extraMsg", extraMsg);
+
+                    if (IsImportantCall(uriValue, extraMsg))
+                    {
+                        foreach(AnnotatedCodeLocation acl in codeLocationStack)
+                        {
+                            if (acl.Importance == AnnotatedCodeLocationImportance.Unimportant)
+                            {
+                                acl.Importance = AnnotatedCodeLocationImportance.Essential;
+                            }
+                        }
+                    }
+                }
+                else if (kind == AnnotatedCodeLocationKind.CallReturn)
+                {
+                    annotatedCodeLocation.Importance = AnnotatedCodeLocationImportance.Important;
+                    codeLocationStack.Pop();
+                }
+                else if (uriValue == "?")
+                {
+                    annotatedCodeLocation.Importance = AnnotatedCodeLocationImportance.Unimportant;
                 }
 
                 codeFlow.Locations.Add(annotatedCodeLocation);
@@ -228,14 +265,26 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             }
         }
 
-        private string BuildMessageFromState(string state)
+        private static Regex s_callRegEx = new Regex(@"Call '(.*)' '(.*)'", RegexOptions.Compiled);
+        private bool IsImportantCall(string fileName, string extraMsg)
         {
-            if (string.IsNullOrEmpty(state) || state == "^")
+            Match match = s_callRegEx.Match(extraMsg);
+            if (match.Success && match.Groups.Count == 3)
             {
-                return null;
+                return (!IsHarnessOrRuleFile(fileName) && !match.Groups[1].Value.StartsWith("SLIC_"));
             }
+            Debug.Assert(false);
+            return false;
+        }
 
-            return state.Replace("^", ",").Trim(',');
+        private bool IsNonessentialFile(string fileName)
+        {
+            return IsHarnessOrRuleFile(fileName) || fileName == "?";
+        }
+
+        private bool IsHarnessOrRuleFile(string fileName)
+        {
+            return fileName.EndsWith(".slic") || fileName.EndsWith("sdv-harness.c");
         }
 
         private static AnnotatedCodeLocationKind ConvertToAnnotatedCodeLocationKind(string sdvKind)

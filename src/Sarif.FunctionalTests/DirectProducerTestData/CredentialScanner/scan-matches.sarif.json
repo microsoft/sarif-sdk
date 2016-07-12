@@ -1,0 +1,3479 @@
+﻿{
+  "$schema": "http://json.schemastore.org/sarif-1.0.0",
+  "version": "1.0.0",
+  "runs": [
+    {
+      "id": "7474e88d-78b3-4f8a-90a5-7e9d5c29e863",
+      "tool": {
+        "name": "CredentialScanner",
+        "fullName": "CredentialScanner 1.0.12.0",
+        "version": "1.0.12.0",
+        "semanticVersion": "1.0.12",
+        "sarifLoggerVersion": "1.5.25.0",
+        "language": "en-US",
+        "properties": {
+          "CompanyName": "Microsoft",
+          "ProductName": "CredentialScanner"
+        }
+      },
+      "results": [
+        {
+          "ruleId": "SCAN02",
+          "level": "note",
+          "formattedRuleMessage": {
+            "formatId": "Default",
+            "arguments": [
+              "checkfor-pfx.pfx",
+              "PFX files",
+              "Found PFX certificate.",
+              "Remove certificate from repo or share, roll credential, and use approved store. For additional information on secret remediation see https://aka.ms/credscan."
+            ]
+          },
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/src/CredentialScanner/CredentialScannerTests/files/checkfor-pfx.pfx",
+                "region": {
+                  "startLine": 1
+                }
+              }
+            }
+          ],
+          "toolFingerprintContribution": "wEJqlTZ+3hJmTQ3aNU8t1m4vTkBk1O1CtjQf+IYMJDE="
+        },
+        {
+          "ruleId": "SCAN02",
+          "level": "note",
+          "formattedRuleMessage": {
+            "formatId": "Default",
+            "arguments": [
+              "androidsign.keystore",
+              "KeyStore files",
+              "Found KeyStore certificate.",
+              "Remove certificate from repo or share, roll credential, and use approved store. For additional information on secret remediation see https://aka.ms/credscan."
+            ]
+          },
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/src/CredentialScanner/CredentialScannerTests/files/androidsign.keystore",
+                "region": {
+                  "startLine": 1
+                }
+              }
+            }
+          ],
+          "toolFingerprintContribution": "WnLzX1v8dHIRPlS0m/ZEvblDCTHCtR04/N/Yzb7PgJ0="
+        },
+        {
+          "ruleId": "SCAN01",
+          "level": "note",
+          "formattedRuleMessage": {
+            "formatId": "Default",
+            "arguments": [
+              "defaultpassword.ts",
+              "Default Passwords",
+              "Found file matching known default credentials.",
+              "Validate file contains secrets, remove, roll credential, and use approved store. For additional information on secret remediation see https://aka.ms/credscan."
+            ]
+          },
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/src/CredentialScanner/CredentialScannerTests/files/defaultpassword.ts",
+                "region": {
+                  "startLine": 3
+                }
+              }
+            }
+          ],
+          "toolFingerprintContribution": "5CRryA9oI7Mck+Pr0i5KeFqC5/cCu+/mWD1Nj2pBXL4="
+        },
+        {
+          "ruleId": "SCAN01",
+          "level": "note",
+          "formattedRuleMessage": {
+            "formatId": "Default",
+            "arguments": [
+              "defaultpassword.json",
+              "Default Passwords",
+              "Found file matching known default credentials.",
+              "Validate file contains secrets, remove, roll credential, and use approved store. For additional information on secret remediation see https://aka.ms/credscan."
+            ]
+          },
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/src/CredentialScanner/CredentialScannerTests/files/defaultpassword.json",
+                "region": {
+                  "startLine": 3
+                }
+              }
+            }
+          ],
+          "toolFingerprintContribution": "5CRryA9oI7Mck+Pr0i5KeFqC5/cCu+/mWD1Nj2pBXL4="
+        },
+        {
+          "ruleId": "SCAN01",
+          "level": "note",
+          "formattedRuleMessage": {
+            "formatId": "Default",
+            "arguments": [
+              "defaultpassword.UT.js",
+              "Default Passwords",
+              "Found file matching known default credentials.",
+              "Validate file contains secrets, remove, roll credential, and use approved store. For additional information on secret remediation see https://aka.ms/credscan."
+            ]
+          },
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/src/CredentialScanner/CredentialScannerTests/files/defaultpassword.UT.js",
+                "region": {
+                  "startLine": 3
+                }
+              }
+            }
+          ],
+          "toolFingerprintContribution": "5CRryA9oI7Mck+Pr0i5KeFqC5/cCu+/mWD1Nj2pBXL4="
+        },
+        {
+          "ruleId": "SCAN01",
+          "level": "note",
+          "formattedRuleMessage": {
+            "formatId": "Default",
+            "arguments": [
+              "Azsrt.pubxml",
+              "Default Passwords",
+              "Found file matching known default credentials.",
+              "Validate file contains secrets, remove, roll credential, and use approved store. For additional information on secret remediation see https://aka.ms/credscan."
+            ]
+          },
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/src/CredentialScanner/CredentialScannerTests/files/Azsrt.pubxml",
+                "region": {
+                  "startLine": 29
+                }
+              }
+            }
+          ],
+          "toolFingerprintContribution": "CLgYxl2FcQE8XZgha9/UbKLTkJkUh3Vakkxh2CAdhtY="
+        },
+        {
+          "ruleId": "SCAN01",
+          "level": "note",
+          "formattedRuleMessage": {
+            "formatId": "Default",
+            "arguments": [
+              "AgentConfig.xml",
+              "MonitoringAgent",
+              "Found MonitoringAgent config file matching known credential pattern.",
+              "Validate file contains secrets, remove, roll credential, and use approved store. For additional information on secret remediation see https://aka.ms/credscan."
+            ]
+          },
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/src/CredentialScanner/CredentialScannerTests/files/AgentConfig.xml",
+                "region": {
+                  "startLine": 9
+                }
+              }
+            }
+          ],
+          "toolFingerprintContribution": "fJlNrYqzadgsu0oli5+oRi5SUxGitDZO3s1Wuxq3aBI="
+        },
+        {
+          "ruleId": "SCAN01",
+          "level": "note",
+          "formattedRuleMessage": {
+            "formatId": "Default",
+            "arguments": [
+              "domain.bat",
+              "Domain Passwords",
+              "Found file matching possible domain credentials.",
+              "Validate file contains secrets, remove, roll credential, and use approved store. For additional information on secret remediation see https://aka.ms/credscan."
+            ]
+          },
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/src/CredentialScanner/CredentialScannerTests/files/domain.bat",
+                "region": {
+                  "startLine": 2
+                }
+              }
+            }
+          ],
+          "toolFingerprintContribution": "AjUVvekNViQT+8TBRu1YMi9JO0CGrF/MT9/BGrBNukE="
+        },
+        {
+          "ruleId": "SCAN01",
+          "level": "note",
+          "formattedRuleMessage": {
+            "formatId": "Default",
+            "arguments": [
+              "diagnostics.wadcfgx",
+              "AzureSecrets",
+              "Found secret key, SAS or SQL connection string with password.",
+              "Validate file contains secrets, remove, roll credential, use an approved secret store."
+            ]
+          },
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/src/CredentialScanner/CredentialScannerTests/files/diagnostics.wadcfgx",
+                "region": {
+                  "startLine": 29
+                }
+              }
+            }
+          ],
+          "toolFingerprintContribution": "hxigUfOH43Sg/ELKVbunRTCth2lmpnNzmtNiUHp1Z6w="
+        },
+        {
+          "ruleId": "SCAN01",
+          "level": "note",
+          "formattedRuleMessage": {
+            "formatId": "Default",
+            "arguments": [
+              "facebook1.cs",
+              "External APIs Specific",
+              "Found source file with potential external API secrets.",
+              "Validate file contains secrets, remove, roll credential, and use approved store. For additional information on secret remediation see https://aka.ms/credscan."
+            ]
+          },
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/src/CredentialScanner/CredentialScannerTests/files/facebook1.cs",
+                "region": {
+                  "startLine": 22
+                }
+              }
+            }
+          ],
+          "toolFingerprintContribution": "x/y31dWSY0bbLveI18Ug5q6Q0MpFhdOrH55yuz/0lv8="
+        },
+        {
+          "ruleId": "SCAN01",
+          "level": "note",
+          "formattedRuleMessage": {
+            "formatId": "Default",
+            "arguments": [
+              "CodeConnectionStringSearcherTest.cs",
+              "CodeConnStrings",
+              "Found storage credential in source file.",
+              "Validate file contains secrets, remove, and roll. For additional information on secret remediation see https://aka.ms/credscan."
+            ]
+          },
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/src/CredentialScanner/CredentialScannerTests/files/CodeConnectionStringSearcherTest.cs",
+                "region": {
+                  "startLine": 14
+                }
+              }
+            }
+          ],
+          "toolFingerprintContribution": "XRGYKjN11VJB045kyuwlazQv/waFN/73r4/D8HrRaMA="
+        },
+        {
+          "ruleId": "SCAN01",
+          "level": "note",
+          "formattedRuleMessage": {
+            "formatId": "Default",
+            "arguments": [
+              "default.publishsettings",
+              "Publishsettings",
+              "Found a publish settings file with potentially sensitive information.",
+              "Validate file contains secrets, remove, and roll. Remove publish settings file from code repo or share. For additional information on secret remediation see https://aka.ms/credscan."
+            ]
+          },
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/src/CredentialScanner/CredentialScannerTests/files/default.publishsettings",
+                "region": {
+                  "startLine": 1
+                }
+              }
+            }
+          ],
+          "toolFingerprintContribution": "t0qR9JRDghJ4GbF+ZKiNEDFaojnuiuCErLETeEabHRg="
+        },
+        {
+          "ruleId": "SCAN01",
+          "level": "note",
+          "formattedRuleMessage": {
+            "formatId": "Default",
+            "arguments": [
+              "Constants.cs",
+              "CodeConnStrings",
+              "Found storage credential in source file.",
+              "Validate file contains secrets, remove, and roll. For additional information on secret remediation see https://aka.ms/credscan."
+            ]
+          },
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/src/CredentialScanner/CredentialScannerTests/files/Constants.cs",
+                "region": {
+                  "startLine": 17
+                }
+              }
+            }
+          ],
+          "toolFingerprintContribution": "CozDH9aOwZdGmFNabhc4gtEwQst/bZIYjeMZQ1mlsLw="
+        },
+        {
+          "ruleId": "SCAN01",
+          "level": "note",
+          "formattedRuleMessage": {
+            "formatId": "Default",
+            "arguments": [
+              "defaultpassword.ts",
+              "Default Passwords",
+              "Found file matching known default credentials.",
+              "Validate file contains secrets, remove, roll credential, and use approved store. For additional information on secret remediation see https://aka.ms/credscan."
+            ]
+          },
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/src/CredentialScanner/CredentialScannerTests/files/defaultpassword.ts",
+                "region": {
+                  "startLine": 5
+                }
+              }
+            }
+          ],
+          "toolFingerprintContribution": "GY8UVXg7y3L5YSeZi/ocnK99l3JrPrIK7Oc82gMCY7c="
+        },
+        {
+          "ruleId": "SCAN01",
+          "level": "note",
+          "formattedRuleMessage": {
+            "formatId": "Default",
+            "arguments": [
+              "JobSettings.xml",
+              "Default Passwords",
+              "Found file matching known default credentials.",
+              "Validate file contains secrets, remove, roll credential, and use approved store. For additional information on secret remediation see https://aka.ms/credscan."
+            ]
+          },
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/src/CredentialScanner/CredentialScannerTests/files/JobSettings.xml",
+                "region": {
+                  "startLine": 9
+                }
+              }
+            }
+          ],
+          "toolFingerprintContribution": "CLgYxl2FcQE8XZgha9/UbKLTkJkUh3Vakkxh2CAdhtY="
+        },
+        {
+          "ruleId": "SCAN01",
+          "level": "note",
+          "formattedRuleMessage": {
+            "formatId": "Default",
+            "arguments": [
+              "defaultpassword.json",
+              "Default Passwords",
+              "Found file matching known default credentials.",
+              "Validate file contains secrets, remove, roll credential, and use approved store. For additional information on secret remediation see https://aka.ms/credscan."
+            ]
+          },
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/src/CredentialScanner/CredentialScannerTests/files/defaultpassword.json",
+                "region": {
+                  "startLine": 5
+                }
+              }
+            }
+          ],
+          "toolFingerprintContribution": "GY8UVXg7y3L5YSeZi/ocnK99l3JrPrIK7Oc82gMCY7c="
+        },
+        {
+          "ruleId": "SCAN01",
+          "level": "note",
+          "formattedRuleMessage": {
+            "formatId": "Default",
+            "arguments": [
+              "domain.bat",
+              "Domain Passwords",
+              "Found file matching possible domain credentials.",
+              "Validate file contains secrets, remove, roll credential, and use approved store. For additional information on secret remediation see https://aka.ms/credscan."
+            ]
+          },
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/src/CredentialScanner/CredentialScannerTests/files/domain.bat",
+                "region": {
+                  "startLine": 3
+                }
+              }
+            }
+          ],
+          "toolFingerprintContribution": "fv659aLCJiYH6MINfhsLvI/vBdnrDCAiOyhobdpKLHU="
+        },
+        {
+          "ruleId": "SCAN01",
+          "level": "note",
+          "formattedRuleMessage": {
+            "formatId": "Default",
+            "arguments": [
+              "defaultpassword.UT.js",
+              "Default Passwords",
+              "Found file matching known default credentials.",
+              "Validate file contains secrets, remove, roll credential, and use approved store. For additional information on secret remediation see https://aka.ms/credscan."
+            ]
+          },
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/src/CredentialScanner/CredentialScannerTests/files/defaultpassword.UT.js",
+                "region": {
+                  "startLine": 5
+                }
+              }
+            }
+          ],
+          "toolFingerprintContribution": "GY8UVXg7y3L5YSeZi/ocnK99l3JrPrIK7Oc82gMCY7c="
+        },
+        {
+          "ruleId": "SCAN01",
+          "level": "note",
+          "formattedRuleMessage": {
+            "formatId": "Default",
+            "arguments": [
+              "Constants.cs",
+              "CodeConnStrings",
+              "Found storage credential in source file.",
+              "Validate file contains secrets, remove, and roll. For additional information on secret remediation see https://aka.ms/credscan."
+            ]
+          },
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/src/CredentialScanner/CredentialScannerTests/files/Constants.cs",
+                "region": {
+                  "startLine": 18
+                }
+              }
+            }
+          ],
+          "toolFingerprintContribution": "UI7RxNpEHxP8YYehJZaG7yOdW6WbOtUwCRNl2nAusPA="
+        },
+        {
+          "ruleId": "SCAN01",
+          "level": "note",
+          "formattedRuleMessage": {
+            "formatId": "Default",
+            "arguments": [
+              "defaultpassword.UT.js",
+              "Default Passwords",
+              "Found file matching known default credentials.",
+              "Validate file contains secrets, remove, roll credential, and use approved store. For additional information on secret remediation see https://aka.ms/credscan."
+            ]
+          },
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/src/CredentialScanner/CredentialScannerTests/files/defaultpassword.UT.js",
+                "region": {
+                  "startLine": 7
+                }
+              }
+            }
+          ],
+          "toolFingerprintContribution": "ZHS/xPPVNMzljPybuURbCSfPQjzi661ALCEjrjK89JY="
+        },
+        {
+          "ruleId": "SCAN01",
+          "level": "note",
+          "formattedRuleMessage": {
+            "formatId": "Default",
+            "arguments": [
+              "Azsrt.pubxml",
+              "AzureSecrets",
+              "Found secret key, SAS or SQL connection string with password.",
+              "Validate file contains secrets, remove, roll credential, use an approved secret store."
+            ]
+          },
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/src/CredentialScanner/CredentialScannerTests/files/Azsrt.pubxml",
+                "region": {
+                  "startLine": 21
+                }
+              }
+            }
+          ],
+          "toolFingerprintContribution": "0Og4j38S/6jtAOL5wF5jqKXAq0lkQ4mgb/z1cRRESdo="
+        },
+        {
+          "ruleId": "SCAN01",
+          "level": "note",
+          "formattedRuleMessage": {
+            "formatId": "Default",
+            "arguments": [
+              "defaultpassword.json",
+              "Default Passwords",
+              "Found file matching known default credentials.",
+              "Validate file contains secrets, remove, roll credential, and use approved store. For additional information on secret remediation see https://aka.ms/credscan."
+            ]
+          },
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/src/CredentialScanner/CredentialScannerTests/files/defaultpassword.json",
+                "region": {
+                  "startLine": 7
+                }
+              }
+            }
+          ],
+          "toolFingerprintContribution": "ZHS/xPPVNMzljPybuURbCSfPQjzi661ALCEjrjK89JY="
+        },
+        {
+          "ruleId": "SCAN01",
+          "level": "note",
+          "formattedRuleMessage": {
+            "formatId": "Default",
+            "arguments": [
+              "defaultpassword.ts",
+              "Default Passwords",
+              "Found file matching known default credentials.",
+              "Validate file contains secrets, remove, roll credential, and use approved store. For additional information on secret remediation see https://aka.ms/credscan."
+            ]
+          },
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/src/CredentialScanner/CredentialScannerTests/files/defaultpassword.ts",
+                "region": {
+                  "startLine": 7
+                }
+              }
+            }
+          ],
+          "toolFingerprintContribution": "ZHS/xPPVNMzljPybuURbCSfPQjzi661ALCEjrjK89JY="
+        },
+        {
+          "ruleId": "SCAN01",
+          "level": "note",
+          "formattedRuleMessage": {
+            "formatId": "Default",
+            "arguments": [
+              "defaultpassword.UT.js",
+              "Default Passwords",
+              "Found file matching known default credentials.",
+              "Validate file contains secrets, remove, roll credential, and use approved store. For additional information on secret remediation see https://aka.ms/credscan."
+            ]
+          },
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/src/CredentialScanner/CredentialScannerTests/files/defaultpassword.UT.js",
+                "region": {
+                  "startLine": 9
+                }
+              }
+            }
+          ],
+          "toolFingerprintContribution": "fkmV8WhLPQQla6MgyYqVVyOaEwmtRKXK27y9HSsTQHA="
+        },
+        {
+          "ruleId": "SCAN01",
+          "level": "note",
+          "formattedRuleMessage": {
+            "formatId": "Default",
+            "arguments": [
+              "CodeConnectionStringSearcherTest.cs",
+              "CodeConnStrings",
+              "Found storage credential in source file.",
+              "Validate file contains secrets, remove, and roll. For additional information on secret remediation see https://aka.ms/credscan."
+            ]
+          },
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/src/CredentialScanner/CredentialScannerTests/files/CodeConnectionStringSearcherTest.cs",
+                "region": {
+                  "startLine": 15
+                }
+              }
+            }
+          ],
+          "toolFingerprintContribution": "zFVjy6S0b2QuuehBRHT+pmv2GQWVYfthvoOr8gGQZjM="
+        },
+        {
+          "ruleId": "SCAN01",
+          "level": "note",
+          "formattedRuleMessage": {
+            "formatId": "Default",
+            "arguments": [
+              "defaultpassword.json",
+              "Default Passwords",
+              "Found file matching known default credentials.",
+              "Validate file contains secrets, remove, roll credential, and use approved store. For additional information on secret remediation see https://aka.ms/credscan."
+            ]
+          },
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/src/CredentialScanner/CredentialScannerTests/files/defaultpassword.json",
+                "region": {
+                  "startLine": 9
+                }
+              }
+            }
+          ],
+          "toolFingerprintContribution": "fkmV8WhLPQQla6MgyYqVVyOaEwmtRKXK27y9HSsTQHA="
+        },
+        {
+          "ruleId": "SCAN01",
+          "level": "note",
+          "formattedRuleMessage": {
+            "formatId": "Default",
+            "arguments": [
+              "defaultpassword.ts",
+              "Default Passwords",
+              "Found file matching known default credentials.",
+              "Validate file contains secrets, remove, roll credential, and use approved store. For additional information on secret remediation see https://aka.ms/credscan."
+            ]
+          },
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/src/CredentialScanner/CredentialScannerTests/files/defaultpassword.ts",
+                "region": {
+                  "startLine": 9
+                }
+              }
+            }
+          ],
+          "toolFingerprintContribution": "fkmV8WhLPQQla6MgyYqVVyOaEwmtRKXK27y9HSsTQHA="
+        },
+        {
+          "ruleId": "SCAN01",
+          "level": "note",
+          "formattedRuleMessage": {
+            "formatId": "Default",
+            "arguments": [
+              "defaultpassword.ts",
+              "Default Passwords",
+              "Found file matching known default credentials.",
+              "Validate file contains secrets, remove, roll credential, and use approved store. For additional information on secret remediation see https://aka.ms/credscan."
+            ]
+          },
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/src/CredentialScanner/CredentialScannerTests/files/defaultpassword.ts",
+                "region": {
+                  "startLine": 11
+                }
+              }
+            }
+          ],
+          "toolFingerprintContribution": "im/Hm4YeF7iKrjHzTDWOMDJ1isQAI2Ge7TYAQDciPpk="
+        },
+        {
+          "ruleId": "SCAN01",
+          "level": "note",
+          "formattedRuleMessage": {
+            "formatId": "Default",
+            "arguments": [
+              "JobSettings.xml",
+              "AzureSecrets",
+              "Found secret key, SAS or SQL connection string with password.",
+              "Validate file contains secrets, remove, roll credential, use an approved secret store."
+            ]
+          },
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/src/CredentialScanner/CredentialScannerTests/files/JobSettings.xml",
+                "region": {
+                  "startLine": 5
+                }
+              }
+            }
+          ],
+          "toolFingerprintContribution": "WgEOdrj0+eB2iOjbd9L11CUKoF593kxqFBBHOGV01cg="
+        },
+        {
+          "ruleId": "SCAN01",
+          "level": "note",
+          "formattedRuleMessage": {
+            "formatId": "Default",
+            "arguments": [
+              "defaultpassword.ts",
+              "Default Passwords",
+              "Found file matching known default credentials.",
+              "Validate file contains secrets, remove, roll credential, and use approved store. For additional information on secret remediation see https://aka.ms/credscan."
+            ]
+          },
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/src/CredentialScanner/CredentialScannerTests/files/defaultpassword.ts",
+                "region": {
+                  "startLine": 13
+                }
+              }
+            }
+          ],
+          "toolFingerprintContribution": "im/Hm4YeF7iKrjHzTDWOMDJ1isQAI2Ge7TYAQDciPpk="
+        },
+        {
+          "ruleId": "SCAN01",
+          "level": "note",
+          "formattedRuleMessage": {
+            "formatId": "Default",
+            "arguments": [
+              "Azsrt.pubxml",
+              "AzureSecrets",
+              "Found secret key, SAS or SQL connection string with password.",
+              "Validate file contains secrets, remove, roll credential, use an approved secret store."
+            ]
+          },
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/src/CredentialScanner/CredentialScannerTests/files/Azsrt.pubxml",
+                "region": {
+                  "startLine": 25
+                }
+              }
+            }
+          ],
+          "toolFingerprintContribution": "s8mURoHiFb2sX5/C2Otlr0vlKuI8LigVfLEyWCLM1FY="
+        },
+        {
+          "ruleId": "SCAN01",
+          "level": "note",
+          "formattedRuleMessage": {
+            "formatId": "Default",
+            "arguments": [
+              "Constants.cs",
+              "CodeConnStrings",
+              "Found storage credential in source file.",
+              "Validate file contains secrets, remove, and roll. For additional information on secret remediation see https://aka.ms/credscan."
+            ]
+          },
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/src/CredentialScanner/CredentialScannerTests/files/Constants.cs",
+                "region": {
+                  "startLine": 19
+                }
+              }
+            }
+          ],
+          "toolFingerprintContribution": "CEgN31umTEgKHFVruvxMYMBliIc3XeGPCrz1Oc/UTHM="
+        },
+        {
+          "ruleId": "SCAN01",
+          "level": "note",
+          "formattedRuleMessage": {
+            "formatId": "Default",
+            "arguments": [
+              "defaultpassword.json",
+              "Default Passwords",
+              "Found file matching known default credentials.",
+              "Validate file contains secrets, remove, roll credential, and use approved store. For additional information on secret remediation see https://aka.ms/credscan."
+            ]
+          },
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/src/CredentialScanner/CredentialScannerTests/files/defaultpassword.json",
+                "region": {
+                  "startLine": 11
+                }
+              }
+            }
+          ],
+          "toolFingerprintContribution": "im/Hm4YeF7iKrjHzTDWOMDJ1isQAI2Ge7TYAQDciPpk="
+        },
+        {
+          "ruleId": "SCAN01",
+          "level": "note",
+          "formattedRuleMessage": {
+            "formatId": "Default",
+            "arguments": [
+              "CodeConnectionStringSearcherTest.cs",
+              "CodeConnStrings",
+              "Found storage credential in source file.",
+              "Validate file contains secrets, remove, and roll. For additional information on secret remediation see https://aka.ms/credscan."
+            ]
+          },
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/src/CredentialScanner/CredentialScannerTests/files/CodeConnectionStringSearcherTest.cs",
+                "region": {
+                  "startLine": 16
+                }
+              }
+            }
+          ],
+          "toolFingerprintContribution": "jzRkL2t/oFTCr98t0t6QtCHbrvQUOMyf0nj0iQS82Jg="
+        },
+        {
+          "ruleId": "SCAN01",
+          "level": "note",
+          "formattedRuleMessage": {
+            "formatId": "Default",
+            "arguments": [
+              "defaultpassword.UT.js",
+              "Default Passwords",
+              "Found file matching known default credentials.",
+              "Validate file contains secrets, remove, roll credential, and use approved store. For additional information on secret remediation see https://aka.ms/credscan."
+            ]
+          },
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/src/CredentialScanner/CredentialScannerTests/files/defaultpassword.UT.js",
+                "region": {
+                  "startLine": 11
+                }
+              }
+            }
+          ],
+          "toolFingerprintContribution": "im/Hm4YeF7iKrjHzTDWOMDJ1isQAI2Ge7TYAQDciPpk="
+        },
+        {
+          "ruleId": "SCAN01",
+          "level": "note",
+          "formattedRuleMessage": {
+            "formatId": "Default",
+            "arguments": [
+              "defaultpassword.json",
+              "Default Passwords",
+              "Found file matching known default credentials.",
+              "Validate file contains secrets, remove, roll credential, and use approved store. For additional information on secret remediation see https://aka.ms/credscan."
+            ]
+          },
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/src/CredentialScanner/CredentialScannerTests/files/defaultpassword.json",
+                "region": {
+                  "startLine": 13
+                }
+              }
+            }
+          ],
+          "toolFingerprintContribution": "im/Hm4YeF7iKrjHzTDWOMDJ1isQAI2Ge7TYAQDciPpk="
+        },
+        {
+          "ruleId": "SCAN01",
+          "level": "note",
+          "formattedRuleMessage": {
+            "formatId": "Default",
+            "arguments": [
+              "defaultpassword.UT.js",
+              "Default Passwords",
+              "Found file matching known default credentials.",
+              "Validate file contains secrets, remove, roll credential, and use approved store. For additional information on secret remediation see https://aka.ms/credscan."
+            ]
+          },
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/src/CredentialScanner/CredentialScannerTests/files/defaultpassword.UT.js",
+                "region": {
+                  "startLine": 13
+                }
+              }
+            }
+          ],
+          "toolFingerprintContribution": "im/Hm4YeF7iKrjHzTDWOMDJ1isQAI2Ge7TYAQDciPpk="
+        },
+        {
+          "ruleId": "SCAN01",
+          "level": "note",
+          "formattedRuleMessage": {
+            "formatId": "Default",
+            "arguments": [
+              "defaultpassword.ts",
+              "Default Passwords",
+              "Found file matching known default credentials.",
+              "Validate file contains secrets, remove, roll credential, and use approved store. For additional information on secret remediation see https://aka.ms/credscan."
+            ]
+          },
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/src/CredentialScanner/CredentialScannerTests/files/defaultpassword.ts",
+                "region": {
+                  "startLine": 15
+                }
+              }
+            }
+          ],
+          "toolFingerprintContribution": "/W7rJNNurmTOqta6CsOI/92uggfrXsK97bifeojP5KM="
+        },
+        {
+          "ruleId": "SCAN01",
+          "level": "note",
+          "formattedRuleMessage": {
+            "formatId": "Default",
+            "arguments": [
+              "defaultpassword.UT.js",
+              "Default Passwords",
+              "Found file matching known default credentials.",
+              "Validate file contains secrets, remove, roll credential, and use approved store. For additional information on secret remediation see https://aka.ms/credscan."
+            ]
+          },
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/src/CredentialScanner/CredentialScannerTests/files/defaultpassword.UT.js",
+                "region": {
+                  "startLine": 15
+                }
+              }
+            }
+          ],
+          "toolFingerprintContribution": "/W7rJNNurmTOqta6CsOI/92uggfrXsK97bifeojP5KM="
+        },
+        {
+          "ruleId": "SCAN01",
+          "level": "note",
+          "formattedRuleMessage": {
+            "formatId": "Default",
+            "arguments": [
+              "powershell.ps1",
+              "Default Passwords",
+              "Found file matching known default credentials.",
+              "Validate file contains secrets, remove, roll credential, and use approved store. For additional information on secret remediation see https://aka.ms/credscan."
+            ]
+          },
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/src/CredentialScanner/CredentialScannerTests/files/powershell.ps1",
+                "region": {
+                  "startLine": 6
+                }
+              }
+            }
+          ],
+          "toolFingerprintContribution": "CLgYxl2FcQE8XZgha9/UbKLTkJkUh3Vakkxh2CAdhtY="
+        },
+        {
+          "ruleId": "SCAN01",
+          "level": "note",
+          "formattedRuleMessage": {
+            "formatId": "Default",
+            "arguments": [
+              "Azsrt.pubxml",
+              "AzureSecrets",
+              "Found secret key, SAS or SQL connection string with password.",
+              "Validate file contains secrets, remove, roll credential, use an approved secret store."
+            ]
+          },
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/src/CredentialScanner/CredentialScannerTests/files/Azsrt.pubxml",
+                "region": {
+                  "startLine": 29
+                }
+              }
+            }
+          ],
+          "toolFingerprintContribution": "HRfNM/rRnyaGuh9vRvSseHkGDzep55VI0D6GzFAArnA="
+        },
+        {
+          "ruleId": "SCAN01",
+          "level": "note",
+          "formattedRuleMessage": {
+            "formatId": "Default",
+            "arguments": [
+              "JobSettings.xml",
+              "AzureSecrets",
+              "Found secret key, SAS or SQL connection string with password.",
+              "Validate file contains secrets, remove, roll credential, use an approved secret store."
+            ]
+          },
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/src/CredentialScanner/CredentialScannerTests/files/JobSettings.xml",
+                "region": {
+                  "startLine": 6
+                }
+              }
+            }
+          ],
+          "toolFingerprintContribution": "JpfI6YHwWk4+tEn6mOA7ga20BICyqN058PfhpO+dvr4="
+        },
+        {
+          "ruleId": "SCAN01",
+          "level": "note",
+          "formattedRuleMessage": {
+            "formatId": "Default",
+            "arguments": [
+              "defaultpassword.ts",
+              "Default Passwords",
+              "Found file matching known default credentials.",
+              "Validate file contains secrets, remove, roll credential, and use approved store. For additional information on secret remediation see https://aka.ms/credscan."
+            ]
+          },
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/src/CredentialScanner/CredentialScannerTests/files/defaultpassword.ts",
+                "region": {
+                  "startLine": 16
+                }
+              }
+            }
+          ],
+          "toolFingerprintContribution": "GJsxwimqdiBhjml2bPhZchT2jLeUM52zkPMQdhKd8Bs="
+        },
+        {
+          "ruleId": "SCAN01",
+          "level": "note",
+          "formattedRuleMessage": {
+            "formatId": "Default",
+            "arguments": [
+              "Constants.cs",
+              "CodeConnStrings",
+              "Found storage credential in source file.",
+              "Validate file contains secrets, remove, and roll. For additional information on secret remediation see https://aka.ms/credscan."
+            ]
+          },
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/src/CredentialScanner/CredentialScannerTests/files/Constants.cs",
+                "region": {
+                  "startLine": 20
+                }
+              }
+            }
+          ],
+          "toolFingerprintContribution": "Jyji6yFCh4Sro5P9Gv+O96NCPbZ/6e8Hrs1iuQ91qrU="
+        },
+        {
+          "ruleId": "SCAN01",
+          "level": "note",
+          "formattedRuleMessage": {
+            "formatId": "Default",
+            "arguments": [
+              "Service.definitions",
+              "AzureSecrets",
+              "Found secret key, SAS or SQL connection string with password.",
+              "Validate file contains secrets, remove, roll credential, use an approved secret store."
+            ]
+          },
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/src/CredentialScanner/CredentialScannerTests/files/Service.definitions",
+                "region": {
+                  "startLine": 7
+                }
+              }
+            }
+          ],
+          "toolFingerprintContribution": "wNYCZcWPOKq02lKJjQZuQrLaviR90/ELOzQbtjlh/po="
+        },
+        {
+          "ruleId": "SCAN01",
+          "level": "note",
+          "formattedRuleMessage": {
+            "formatId": "Default",
+            "arguments": [
+              "defaultpassword.ts",
+              "Default Passwords",
+              "Found file matching known default credentials.",
+              "Validate file contains secrets, remove, roll credential, and use approved store. For additional information on secret remediation see https://aka.ms/credscan."
+            ]
+          },
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/src/CredentialScanner/CredentialScannerTests/files/defaultpassword.ts",
+                "region": {
+                  "startLine": 17
+                }
+              }
+            }
+          ],
+          "toolFingerprintContribution": "e3grRjtVF88dLNWUA0M9IEWp3t/Z+aiYb4gDw9BTl/w="
+        },
+        {
+          "ruleId": "SCAN01",
+          "level": "note",
+          "formattedRuleMessage": {
+            "formatId": "Default",
+            "arguments": [
+              "CodeConnectionStringSearcherTest.cs",
+              "CodeConnStrings",
+              "Found storage credential in source file.",
+              "Validate file contains secrets, remove, and roll. For additional information on secret remediation see https://aka.ms/credscan."
+            ]
+          },
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/src/CredentialScanner/CredentialScannerTests/files/CodeConnectionStringSearcherTest.cs",
+                "region": {
+                  "startLine": 17
+                }
+              }
+            }
+          ],
+          "toolFingerprintContribution": "HGt2LEdiUbFXmwXf4fOpYVBWBCbrHjeuLO+35nL9bbA="
+        },
+        {
+          "ruleId": "SCAN01",
+          "level": "note",
+          "formattedRuleMessage": {
+            "formatId": "Default",
+            "arguments": [
+              "twiliosample1.cs",
+              "External APIs Specific",
+              "Found source file with potential external API secrets.",
+              "Validate file contains secrets, remove, roll credential, and use approved store. For additional information on secret remediation see https://aka.ms/credscan."
+            ]
+          },
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/src/CredentialScanner/CredentialScannerTests/files/twiliosample1.cs",
+                "region": {
+                  "startLine": 22
+                }
+              }
+            }
+          ],
+          "toolFingerprintContribution": "2tuG0WsNK4L1GMdVO7EsvbfnZCGQx5ZxjFecV30vnKI="
+        },
+        {
+          "ruleId": "SCAN01",
+          "level": "note",
+          "formattedRuleMessage": {
+            "formatId": "Default",
+            "arguments": [
+              "defaultpassword.ts",
+              "Default Passwords",
+              "Found file matching known default credentials.",
+              "Validate file contains secrets, remove, roll credential, and use approved store. For additional information on secret remediation see https://aka.ms/credscan."
+            ]
+          },
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/src/CredentialScanner/CredentialScannerTests/files/defaultpassword.ts",
+                "region": {
+                  "startLine": 19
+                }
+              }
+            }
+          ],
+          "toolFingerprintContribution": "8CEhHzmozEdK1nGCgNFNog6OOrLa1G1eU0ppuj7eGGQ="
+        },
+        {
+          "ruleId": "SCAN01",
+          "level": "note",
+          "formattedRuleMessage": {
+            "formatId": "Default",
+            "arguments": [
+              "defaultpassword.ts",
+              "Default Passwords",
+              "Found file matching known default credentials.",
+              "Validate file contains secrets, remove, roll credential, and use approved store. For additional information on secret remediation see https://aka.ms/credscan."
+            ]
+          },
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/src/CredentialScanner/CredentialScannerTests/files/defaultpassword.ts",
+                "region": {
+                  "startLine": 21
+                }
+              }
+            }
+          ],
+          "toolFingerprintContribution": "F8v5roRvttISZu2WFLxSNW3B5i97kZB/CeMQ9tuT+l4="
+        },
+        {
+          "ruleId": "SCAN01",
+          "level": "note",
+          "formattedRuleMessage": {
+            "formatId": "Default",
+            "arguments": [
+              "JobSettings.xml",
+              "AzureSecrets",
+              "Found secret key, SAS or SQL connection string with password.",
+              "Validate file contains secrets, remove, roll credential, use an approved secret store."
+            ]
+          },
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/src/CredentialScanner/CredentialScannerTests/files/JobSettings.xml",
+                "region": {
+                  "startLine": 8
+                }
+              }
+            }
+          ],
+          "toolFingerprintContribution": "fclUos2hSUvV+YCAYbhn07gJBDiPf+Wr0U4rorAmsLY="
+        },
+        {
+          "ruleId": "SCAN01",
+          "level": "note",
+          "formattedRuleMessage": {
+            "formatId": "Default",
+            "arguments": [
+              "defaultpassword.ts",
+              "Default Passwords",
+              "Found file matching known default credentials.",
+              "Validate file contains secrets, remove, roll credential, and use approved store. For additional information on secret remediation see https://aka.ms/credscan."
+            ]
+          },
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/src/CredentialScanner/CredentialScannerTests/files/defaultpassword.ts",
+                "region": {
+                  "startLine": 23
+                }
+              }
+            }
+          ],
+          "toolFingerprintContribution": "zrKDgNM96LdYf09cT7sBKjZs0kuyvyP7F0QVyCQ5+CI="
+        },
+        {
+          "ruleId": "SCAN01",
+          "level": "note",
+          "formattedRuleMessage": {
+            "formatId": "Default",
+            "arguments": [
+              "defaultpassword.json",
+              "Default Passwords",
+              "Found file matching known default credentials.",
+              "Validate file contains secrets, remove, roll credential, and use approved store. For additional information on secret remediation see https://aka.ms/credscan."
+            ]
+          },
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/src/CredentialScanner/CredentialScannerTests/files/defaultpassword.json",
+                "region": {
+                  "startLine": 15
+                }
+              }
+            }
+          ],
+          "toolFingerprintContribution": "/W7rJNNurmTOqta6CsOI/92uggfrXsK97bifeojP5KM="
+        },
+        {
+          "ruleId": "SCAN01",
+          "level": "note",
+          "formattedRuleMessage": {
+            "formatId": "Default",
+            "arguments": [
+              "defaultpassword.json",
+              "Default Passwords",
+              "Found file matching known default credentials.",
+              "Validate file contains secrets, remove, roll credential, and use approved store. For additional information on secret remediation see https://aka.ms/credscan."
+            ]
+          },
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/src/CredentialScanner/CredentialScannerTests/files/defaultpassword.json",
+                "region": {
+                  "startLine": 16
+                }
+              }
+            }
+          ],
+          "toolFingerprintContribution": "GJsxwimqdiBhjml2bPhZchT2jLeUM52zkPMQdhKd8Bs="
+        },
+        {
+          "ruleId": "SCAN01",
+          "level": "note",
+          "formattedRuleMessage": {
+            "formatId": "Default",
+            "arguments": [
+              "defaultpassword.UT.js",
+              "Default Passwords",
+              "Found file matching known default credentials.",
+              "Validate file contains secrets, remove, roll credential, and use approved store. For additional information on secret remediation see https://aka.ms/credscan."
+            ]
+          },
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/src/CredentialScanner/CredentialScannerTests/files/defaultpassword.UT.js",
+                "region": {
+                  "startLine": 16
+                }
+              }
+            }
+          ],
+          "toolFingerprintContribution": "GJsxwimqdiBhjml2bPhZchT2jLeUM52zkPMQdhKd8Bs="
+        },
+        {
+          "ruleId": "SCAN01",
+          "level": "note",
+          "formattedRuleMessage": {
+            "formatId": "Default",
+            "arguments": [
+              "RunAgent.cmd",
+              "AzureSecrets",
+              "Found secret key, SAS or SQL connection string with password.",
+              "Validate file contains secrets, remove, roll credential, use an approved secret store."
+            ]
+          },
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/src/CredentialScanner/CredentialScannerTests/files/RunAgent.cmd",
+                "region": {
+                  "startLine": 5
+                }
+              }
+            }
+          ],
+          "toolFingerprintContribution": "xtcvBf0d7tih72mjEmMDr4AajnXXIDLzrqlF+D+l0Oc="
+        },
+        {
+          "ruleId": "SCAN01",
+          "level": "note",
+          "formattedRuleMessage": {
+            "formatId": "Default",
+            "arguments": [
+              "JobSettings.xml",
+              "AzureSecrets",
+              "Found secret key, SAS or SQL connection string with password.",
+              "Validate file contains secrets, remove, roll credential, use an approved secret store."
+            ]
+          },
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/src/CredentialScanner/CredentialScannerTests/files/JobSettings.xml",
+                "region": {
+                  "startLine": 9
+                }
+              }
+            }
+          ],
+          "toolFingerprintContribution": "+EYsKq7OmurmASdu/CYwTY1BJr8A10jXUnA8aSmoWUU="
+        },
+        {
+          "ruleId": "SCAN01",
+          "level": "note",
+          "formattedRuleMessage": {
+            "formatId": "Default",
+            "arguments": [
+              "defaultpassword.json",
+              "Default Passwords",
+              "Found file matching known default credentials.",
+              "Validate file contains secrets, remove, roll credential, and use approved store. For additional information on secret remediation see https://aka.ms/credscan."
+            ]
+          },
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/src/CredentialScanner/CredentialScannerTests/files/defaultpassword.json",
+                "region": {
+                  "startLine": 17
+                }
+              }
+            }
+          ],
+          "toolFingerprintContribution": "e3grRjtVF88dLNWUA0M9IEWp3t/Z+aiYb4gDw9BTl/w="
+        },
+        {
+          "ruleId": "SCAN01",
+          "level": "note",
+          "formattedRuleMessage": {
+            "formatId": "Default",
+            "arguments": [
+              "defaultpassword.ts",
+              "Default Passwords",
+              "Found file matching known default credentials.",
+              "Validate file contains secrets, remove, roll credential, and use approved store. For additional information on secret remediation see https://aka.ms/credscan."
+            ]
+          },
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/src/CredentialScanner/CredentialScannerTests/files/defaultpassword.ts",
+                "region": {
+                  "startLine": 25
+                }
+              }
+            }
+          ],
+          "toolFingerprintContribution": "NZ6g2z97qsI40vQM4uhxdth6keIaAHnZb4uTHaU9Cfk="
+        },
+        {
+          "ruleId": "SCAN01",
+          "level": "note",
+          "formattedRuleMessage": {
+            "formatId": "Default",
+            "arguments": [
+              "defaultpassword.json",
+              "Default Passwords",
+              "Found file matching known default credentials.",
+              "Validate file contains secrets, remove, roll credential, and use approved store. For additional information on secret remediation see https://aka.ms/credscan."
+            ]
+          },
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/src/CredentialScanner/CredentialScannerTests/files/defaultpassword.json",
+                "region": {
+                  "startLine": 19
+                }
+              }
+            }
+          ],
+          "toolFingerprintContribution": "8CEhHzmozEdK1nGCgNFNog6OOrLa1G1eU0ppuj7eGGQ="
+        },
+        {
+          "ruleId": "SCAN01",
+          "level": "note",
+          "formattedRuleMessage": {
+            "formatId": "Default",
+            "arguments": [
+              "defaultpassword.json",
+              "Default Passwords",
+              "Found file matching known default credentials.",
+              "Validate file contains secrets, remove, roll credential, and use approved store. For additional information on secret remediation see https://aka.ms/credscan."
+            ]
+          },
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/src/CredentialScanner/CredentialScannerTests/files/defaultpassword.json",
+                "region": {
+                  "startLine": 21
+                }
+              }
+            }
+          ],
+          "toolFingerprintContribution": "F8v5roRvttISZu2WFLxSNW3B5i97kZB/CeMQ9tuT+l4="
+        },
+        {
+          "ruleId": "SCAN01",
+          "level": "note",
+          "formattedRuleMessage": {
+            "formatId": "Default",
+            "arguments": [
+              "defaultpassword.json",
+              "Default Passwords",
+              "Found file matching known default credentials.",
+              "Validate file contains secrets, remove, roll credential, and use approved store. For additional information on secret remediation see https://aka.ms/credscan."
+            ]
+          },
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/src/CredentialScanner/CredentialScannerTests/files/defaultpassword.json",
+                "region": {
+                  "startLine": 23
+                }
+              }
+            }
+          ],
+          "toolFingerprintContribution": "zrKDgNM96LdYf09cT7sBKjZs0kuyvyP7F0QVyCQ5+CI="
+        },
+        {
+          "ruleId": "SCAN01",
+          "level": "note",
+          "formattedRuleMessage": {
+            "formatId": "Default",
+            "arguments": [
+              "Service.definitions",
+              "AzureSecrets",
+              "Found secret key, SAS or SQL connection string with password.",
+              "Validate file contains secrets, remove, roll credential, use an approved secret store."
+            ]
+          },
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/src/CredentialScanner/CredentialScannerTests/files/Service.definitions",
+                "region": {
+                  "startLine": 11
+                }
+              }
+            }
+          ],
+          "toolFingerprintContribution": "gEo+YaKBiIXM1sWWrO1/i7SrPIubtIymcHs4cOYMhJk="
+        },
+        {
+          "ruleId": "SCAN01",
+          "level": "error",
+          "formattedRuleMessage": {
+            "formatId": "Default",
+            "arguments": [
+              "certificate.json",
+              "Base64 Encoded Certificate",
+              "Found source file with base64 encoded certificate.",
+              "Validate file contains secrets, remove, and roll. For additional information on secret remediation see https://aka.ms/credscan."
+            ]
+          },
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/src/CredentialScanner/CredentialScannerTests/files/certificate.json",
+                "region": {
+                  "startLine": 9
+                }
+              }
+            }
+          ],
+          "toolFingerprintContribution": "G2o/4M5m15256qAlQN5+3irQAeIGcU2giEsHX39qbJY="
+        },
+        {
+          "ruleId": "SCAN01",
+          "level": "note",
+          "formattedRuleMessage": {
+            "formatId": "Default",
+            "arguments": [
+              "twiliosample1.cs",
+              "External APIs Specific",
+              "Found source file with potential external API secrets.",
+              "Validate file contains secrets, remove, roll credential, and use approved store. For additional information on secret remediation see https://aka.ms/credscan."
+            ]
+          },
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/src/CredentialScanner/CredentialScannerTests/files/twiliosample1.cs",
+                "region": {
+                  "startLine": 23
+                }
+              }
+            }
+          ],
+          "toolFingerprintContribution": "4smrrCwgUjBpbt8PQKfVdivD7FiD/VDCNqxCzIJlJR8="
+        },
+        {
+          "ruleId": "SCAN01",
+          "level": "note",
+          "formattedRuleMessage": {
+            "formatId": "Default",
+            "arguments": [
+              "defaultpassword.UT.js",
+              "Default Passwords",
+              "Found file matching known default credentials.",
+              "Validate file contains secrets, remove, roll credential, and use approved store. For additional information on secret remediation see https://aka.ms/credscan."
+            ]
+          },
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/src/CredentialScanner/CredentialScannerTests/files/defaultpassword.UT.js",
+                "region": {
+                  "startLine": 17
+                }
+              }
+            }
+          ],
+          "toolFingerprintContribution": "e3grRjtVF88dLNWUA0M9IEWp3t/Z+aiYb4gDw9BTl/w="
+        },
+        {
+          "ruleId": "SCAN01",
+          "level": "note",
+          "formattedRuleMessage": {
+            "formatId": "Default",
+            "arguments": [
+              "defaultpassword.ts",
+              "Default Passwords",
+              "Found file matching known default credentials.",
+              "Validate file contains secrets, remove, roll credential, and use approved store. For additional information on secret remediation see https://aka.ms/credscan."
+            ]
+          },
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/src/CredentialScanner/CredentialScannerTests/files/defaultpassword.ts",
+                "region": {
+                  "startLine": 27
+                }
+              }
+            }
+          ],
+          "toolFingerprintContribution": "X+21nmGebvucjmVElkNVggaFOR4pyu45tag7XtgYI7A="
+        },
+        {
+          "ruleId": "SCAN01",
+          "level": "note",
+          "formattedRuleMessage": {
+            "formatId": "Default",
+            "arguments": [
+              "defaultpassword.ts",
+              "Default Passwords",
+              "Found file matching known default credentials.",
+              "Validate file contains secrets, remove, roll credential, and use approved store. For additional information on secret remediation see https://aka.ms/credscan."
+            ]
+          },
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/src/CredentialScanner/CredentialScannerTests/files/defaultpassword.ts",
+                "region": {
+                  "startLine": 29
+                }
+              }
+            }
+          ],
+          "toolFingerprintContribution": "U6ZiQit23palSmRS52R6NXaB3Y3mI+oZdr+ggxRquZM="
+        },
+        {
+          "ruleId": "SCAN01",
+          "level": "note",
+          "formattedRuleMessage": {
+            "formatId": "Default",
+            "arguments": [
+              "powershell.ps1",
+              "AzureSecrets",
+              "Found secret key, SAS or SQL connection string with password.",
+              "Validate file contains secrets, remove, roll credential, use an approved secret store."
+            ]
+          },
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/src/CredentialScanner/CredentialScannerTests/files/powershell.ps1",
+                "region": {
+                  "startLine": 3
+                }
+              }
+            }
+          ],
+          "toolFingerprintContribution": "Tgc7mcU0JNqS9hPmV0VrzAZGVq8DsvmfDE1+uV8k0KM="
+        },
+        {
+          "ruleId": "SCAN01",
+          "level": "note",
+          "formattedRuleMessage": {
+            "formatId": "Default",
+            "arguments": [
+              "defaultpassword.ts",
+              "Default Passwords",
+              "Found file matching known default credentials.",
+              "Validate file contains secrets, remove, roll credential, and use approved store. For additional information on secret remediation see https://aka.ms/credscan."
+            ]
+          },
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/src/CredentialScanner/CredentialScannerTests/files/defaultpassword.ts",
+                "region": {
+                  "startLine": 31
+                }
+              }
+            }
+          ],
+          "toolFingerprintContribution": "zrKDgNM96LdYf09cT7sBKjZs0kuyvyP7F0QVyCQ5+CI="
+        },
+        {
+          "ruleId": "SCAN01",
+          "level": "note",
+          "formattedRuleMessage": {
+            "formatId": "Default",
+            "arguments": [
+              "defaultpassword.json",
+              "Default Passwords",
+              "Found file matching known default credentials.",
+              "Validate file contains secrets, remove, roll credential, and use approved store. For additional information on secret remediation see https://aka.ms/credscan."
+            ]
+          },
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/src/CredentialScanner/CredentialScannerTests/files/defaultpassword.json",
+                "region": {
+                  "startLine": 25
+                }
+              }
+            }
+          ],
+          "toolFingerprintContribution": "NZ6g2z97qsI40vQM4uhxdth6keIaAHnZb4uTHaU9Cfk="
+        },
+        {
+          "ruleId": "SCAN01",
+          "level": "note",
+          "formattedRuleMessage": {
+            "formatId": "Default",
+            "arguments": [
+              "twittersample1.cs",
+              "External APIs Specific",
+              "Found source file with potential external API secrets.",
+              "Validate file contains secrets, remove, roll credential, and use approved store. For additional information on secret remediation see https://aka.ms/credscan."
+            ]
+          },
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/src/CredentialScanner/CredentialScannerTests/files/twittersample1.cs",
+                "region": {
+                  "startLine": 23
+                }
+              }
+            }
+          ],
+          "toolFingerprintContribution": "RCyOFNuaRU2Sm7YEUojaF9WPEhyGkMdDTbL4i8tJUBs="
+        },
+        {
+          "ruleId": "SCAN01",
+          "level": "note",
+          "formattedRuleMessage": {
+            "formatId": "Default",
+            "arguments": [
+              "powershell.ps1",
+              "AzureSecrets",
+              "Found secret key, SAS or SQL connection string with password.",
+              "Validate file contains secrets, remove, roll credential, use an approved secret store."
+            ]
+          },
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/src/CredentialScanner/CredentialScannerTests/files/powershell.ps1",
+                "region": {
+                  "startLine": 4
+                }
+              }
+            }
+          ],
+          "toolFingerprintContribution": "SUh0pV7oeAGi/qwTcG+fBBdpeJkiHCaYFaewqR5PXg0="
+        },
+        {
+          "ruleId": "SCAN01",
+          "level": "note",
+          "formattedRuleMessage": {
+            "formatId": "Default",
+            "arguments": [
+              "defaultpassword.UT.js",
+              "Default Passwords",
+              "Found file matching known default credentials.",
+              "Validate file contains secrets, remove, roll credential, and use approved store. For additional information on secret remediation see https://aka.ms/credscan."
+            ]
+          },
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/src/CredentialScanner/CredentialScannerTests/files/defaultpassword.UT.js",
+                "region": {
+                  "startLine": 19
+                }
+              }
+            }
+          ],
+          "toolFingerprintContribution": "8CEhHzmozEdK1nGCgNFNog6OOrLa1G1eU0ppuj7eGGQ="
+        },
+        {
+          "ruleId": "SCAN01",
+          "level": "note",
+          "formattedRuleMessage": {
+            "formatId": "Default",
+            "arguments": [
+              "Service.definitions",
+              "AzureSecrets",
+              "Found secret key, SAS or SQL connection string with password.",
+              "Validate file contains secrets, remove, roll credential, use an approved secret store."
+            ]
+          },
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/src/CredentialScanner/CredentialScannerTests/files/Service.definitions",
+                "region": {
+                  "startLine": 15
+                }
+              }
+            }
+          ],
+          "toolFingerprintContribution": "zC7evAdbKIRzCmSoZZrog43WUa9UBOgnq3KaPxcZW58="
+        },
+        {
+          "ruleId": "SCAN01",
+          "level": "note",
+          "formattedRuleMessage": {
+            "formatId": "Default",
+            "arguments": [
+              "defaultpassword.json",
+              "Default Passwords",
+              "Found file matching known default credentials.",
+              "Validate file contains secrets, remove, roll credential, and use approved store. For additional information on secret remediation see https://aka.ms/credscan."
+            ]
+          },
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/src/CredentialScanner/CredentialScannerTests/files/defaultpassword.json",
+                "region": {
+                  "startLine": 27
+                }
+              }
+            }
+          ],
+          "toolFingerprintContribution": "X+21nmGebvucjmVElkNVggaFOR4pyu45tag7XtgYI7A="
+        },
+        {
+          "ruleId": "SCAN01",
+          "level": "note",
+          "formattedRuleMessage": {
+            "formatId": "Default",
+            "arguments": [
+              "defaultpassword.UT.js",
+              "Default Passwords",
+              "Found file matching known default credentials.",
+              "Validate file contains secrets, remove, roll credential, and use approved store. For additional information on secret remediation see https://aka.ms/credscan."
+            ]
+          },
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/src/CredentialScanner/CredentialScannerTests/files/defaultpassword.UT.js",
+                "region": {
+                  "startLine": 21
+                }
+              }
+            }
+          ],
+          "toolFingerprintContribution": "F8v5roRvttISZu2WFLxSNW3B5i97kZB/CeMQ9tuT+l4="
+        },
+        {
+          "ruleId": "SCAN01",
+          "level": "note",
+          "formattedRuleMessage": {
+            "formatId": "Default",
+            "arguments": [
+              "defaultpassword.ts",
+              "Default Passwords",
+              "Found file matching known default credentials.",
+              "Validate file contains secrets, remove, roll credential, and use approved store. For additional information on secret remediation see https://aka.ms/credscan."
+            ]
+          },
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/src/CredentialScanner/CredentialScannerTests/files/defaultpassword.ts",
+                "region": {
+                  "startLine": 33
+                }
+              }
+            }
+          ],
+          "toolFingerprintContribution": "zrKDgNM96LdYf09cT7sBKjZs0kuyvyP7F0QVyCQ5+CI="
+        },
+        {
+          "ruleId": "SCAN01",
+          "level": "note",
+          "formattedRuleMessage": {
+            "formatId": "Default",
+            "arguments": [
+              "defaultpassword.json",
+              "Default Passwords",
+              "Found file matching known default credentials.",
+              "Validate file contains secrets, remove, roll credential, and use approved store. For additional information on secret remediation see https://aka.ms/credscan."
+            ]
+          },
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/src/CredentialScanner/CredentialScannerTests/files/defaultpassword.json",
+                "region": {
+                  "startLine": 29
+                }
+              }
+            }
+          ],
+          "toolFingerprintContribution": "U6ZiQit23palSmRS52R6NXaB3Y3mI+oZdr+ggxRquZM="
+        },
+        {
+          "ruleId": "SCAN01",
+          "level": "note",
+          "formattedRuleMessage": {
+            "formatId": "Default",
+            "arguments": [
+              "powershell.ps1",
+              "AzureSecrets",
+              "Found secret key, SAS or SQL connection string with password.",
+              "Validate file contains secrets, remove, roll credential, use an approved secret store."
+            ]
+          },
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/src/CredentialScanner/CredentialScannerTests/files/powershell.ps1",
+                "region": {
+                  "startLine": 5
+                }
+              }
+            }
+          ],
+          "toolFingerprintContribution": "4ch9Jl7ON4u6K4fwX5QD+V4C8gkc6/PMesiSy9n0hiE="
+        },
+        {
+          "ruleId": "SCAN01",
+          "level": "note",
+          "formattedRuleMessage": {
+            "formatId": "Default",
+            "arguments": [
+              "defaultpassword.json",
+              "Default Passwords",
+              "Found file matching known default credentials.",
+              "Validate file contains secrets, remove, roll credential, and use approved store. For additional information on secret remediation see https://aka.ms/credscan."
+            ]
+          },
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/src/CredentialScanner/CredentialScannerTests/files/defaultpassword.json",
+                "region": {
+                  "startLine": 31
+                }
+              }
+            }
+          ],
+          "toolFingerprintContribution": "zrKDgNM96LdYf09cT7sBKjZs0kuyvyP7F0QVyCQ5+CI="
+        },
+        {
+          "ruleId": "SCAN01",
+          "level": "note",
+          "formattedRuleMessage": {
+            "formatId": "Default",
+            "arguments": [
+              "twittersample1.cs",
+              "External APIs Specific",
+              "Found source file with potential external API secrets.",
+              "Validate file contains secrets, remove, roll credential, and use approved store. For additional information on secret remediation see https://aka.ms/credscan."
+            ]
+          },
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/src/CredentialScanner/CredentialScannerTests/files/twittersample1.cs",
+                "region": {
+                  "startLine": 24
+                }
+              }
+            }
+          ],
+          "toolFingerprintContribution": "AW+JVqasuswcGCG1xitMdOcbAN/m9pivsKLMAKq33aU="
+        },
+        {
+          "ruleId": "SCAN01",
+          "level": "note",
+          "formattedRuleMessage": {
+            "formatId": "Default",
+            "arguments": [
+              "defaultpassword.UT.js",
+              "Default Passwords",
+              "Found file matching known default credentials.",
+              "Validate file contains secrets, remove, roll credential, and use approved store. For additional information on secret remediation see https://aka.ms/credscan."
+            ]
+          },
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/src/CredentialScanner/CredentialScannerTests/files/defaultpassword.UT.js",
+                "region": {
+                  "startLine": 23
+                }
+              }
+            }
+          ],
+          "toolFingerprintContribution": "zrKDgNM96LdYf09cT7sBKjZs0kuyvyP7F0QVyCQ5+CI="
+        },
+        {
+          "ruleId": "SCAN01",
+          "level": "note",
+          "formattedRuleMessage": {
+            "formatId": "Default",
+            "arguments": [
+              "defaultpassword.json",
+              "Default Passwords",
+              "Found file matching known default credentials.",
+              "Validate file contains secrets, remove, roll credential, and use approved store. For additional information on secret remediation see https://aka.ms/credscan."
+            ]
+          },
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/src/CredentialScanner/CredentialScannerTests/files/defaultpassword.json",
+                "region": {
+                  "startLine": 33
+                }
+              }
+            }
+          ],
+          "toolFingerprintContribution": "zrKDgNM96LdYf09cT7sBKjZs0kuyvyP7F0QVyCQ5+CI="
+        },
+        {
+          "ruleId": "SCAN01",
+          "level": "note",
+          "formattedRuleMessage": {
+            "formatId": "Default",
+            "arguments": [
+              "defaultpassword.ts",
+              "Default Passwords",
+              "Found file matching known default credentials.",
+              "Validate file contains secrets, remove, roll credential, and use approved store. For additional information on secret remediation see https://aka.ms/credscan."
+            ]
+          },
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/src/CredentialScanner/CredentialScannerTests/files/defaultpassword.ts",
+                "region": {
+                  "startLine": 35
+                }
+              }
+            }
+          ],
+          "toolFingerprintContribution": "zrKDgNM96LdYf09cT7sBKjZs0kuyvyP7F0QVyCQ5+CI="
+        },
+        {
+          "ruleId": "SCAN01",
+          "level": "note",
+          "formattedRuleMessage": {
+            "formatId": "Default",
+            "arguments": [
+              "defaultpassword.json",
+              "Default Passwords",
+              "Found file matching known default credentials.",
+              "Validate file contains secrets, remove, roll credential, and use approved store. For additional information on secret remediation see https://aka.ms/credscan."
+            ]
+          },
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/src/CredentialScanner/CredentialScannerTests/files/defaultpassword.json",
+                "region": {
+                  "startLine": 35
+                }
+              }
+            }
+          ],
+          "toolFingerprintContribution": "zrKDgNM96LdYf09cT7sBKjZs0kuyvyP7F0QVyCQ5+CI="
+        },
+        {
+          "ruleId": "SCAN01",
+          "level": "note",
+          "formattedRuleMessage": {
+            "formatId": "Default",
+            "arguments": [
+              "twittersample1.cs",
+              "External APIs Specific",
+              "Found source file with potential external API secrets.",
+              "Validate file contains secrets, remove, roll credential, and use approved store. For additional information on secret remediation see https://aka.ms/credscan."
+            ]
+          },
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/src/CredentialScanner/CredentialScannerTests/files/twittersample1.cs",
+                "region": {
+                  "startLine": 25
+                }
+              }
+            }
+          ],
+          "toolFingerprintContribution": "UiiUtu2dQxD8ntE1oN88wnvKHQ7NgDtnve0+cOeElJs="
+        },
+        {
+          "ruleId": "SCAN01",
+          "level": "note",
+          "formattedRuleMessage": {
+            "formatId": "Default",
+            "arguments": [
+              "powershell.ps1",
+              "AzureSecrets",
+              "Found secret key, SAS or SQL connection string with password.",
+              "Validate file contains secrets, remove, roll credential, use an approved secret store."
+            ]
+          },
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/src/CredentialScanner/CredentialScannerTests/files/powershell.ps1",
+                "region": {
+                  "startLine": 6
+                }
+              }
+            }
+          ],
+          "toolFingerprintContribution": "jwmglgKxkf4MmeSUTzzzyjM9V4rTB57TBSBxr39fXZg="
+        },
+        {
+          "ruleId": "SCAN01",
+          "level": "note",
+          "formattedRuleMessage": {
+            "formatId": "Default",
+            "arguments": [
+              "defaultpassword.UT.js",
+              "Default Passwords",
+              "Found file matching known default credentials.",
+              "Validate file contains secrets, remove, roll credential, and use approved store. For additional information on secret remediation see https://aka.ms/credscan."
+            ]
+          },
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/src/CredentialScanner/CredentialScannerTests/files/defaultpassword.UT.js",
+                "region": {
+                  "startLine": 25
+                }
+              }
+            }
+          ],
+          "toolFingerprintContribution": "NZ6g2z97qsI40vQM4uhxdth6keIaAHnZb4uTHaU9Cfk="
+        },
+        {
+          "ruleId": "SCAN01",
+          "level": "note",
+          "formattedRuleMessage": {
+            "formatId": "Default",
+            "arguments": [
+              "Constants.cs",
+              "Default Passwords",
+              "Found file matching known default credentials.",
+              "Validate file contains secrets, remove, roll credential, and use approved store. For additional information on secret remediation see https://aka.ms/credscan."
+            ]
+          },
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/src/CredentialScanner/CredentialScannerTests/files/Constants.cs",
+                "region": {
+                  "startLine": 20
+                }
+              }
+            }
+          ],
+          "toolFingerprintContribution": "CLgYxl2FcQE8XZgha9/UbKLTkJkUh3Vakkxh2CAdhtY="
+        },
+        {
+          "ruleId": "SCAN01",
+          "level": "note",
+          "formattedRuleMessage": {
+            "formatId": "Default",
+            "arguments": [
+              "defaultpassword.json",
+              "Default Passwords",
+              "Found file matching known default credentials.",
+              "Validate file contains secrets, remove, roll credential, and use approved store. For additional information on secret remediation see https://aka.ms/credscan."
+            ]
+          },
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/src/CredentialScanner/CredentialScannerTests/files/defaultpassword.json",
+                "region": {
+                  "startLine": 37
+                }
+              }
+            }
+          ],
+          "toolFingerprintContribution": "3qDR7qQR7gUQ/K4JwIyzXJM2Vm1slpxmnwrMNzQl5so="
+        },
+        {
+          "ruleId": "SCAN01",
+          "level": "note",
+          "formattedRuleMessage": {
+            "formatId": "Default",
+            "arguments": [
+              "defaultpassword.UT.js",
+              "Default Passwords",
+              "Found file matching known default credentials.",
+              "Validate file contains secrets, remove, roll credential, and use approved store. For additional information on secret remediation see https://aka.ms/credscan."
+            ]
+          },
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/src/CredentialScanner/CredentialScannerTests/files/defaultpassword.UT.js",
+                "region": {
+                  "startLine": 27
+                }
+              }
+            }
+          ],
+          "toolFingerprintContribution": "X+21nmGebvucjmVElkNVggaFOR4pyu45tag7XtgYI7A="
+        },
+        {
+          "ruleId": "SCAN01",
+          "level": "note",
+          "formattedRuleMessage": {
+            "formatId": "Default",
+            "arguments": [
+              "defaultpassword.UT.js",
+              "Default Passwords",
+              "Found file matching known default credentials.",
+              "Validate file contains secrets, remove, roll credential, and use approved store. For additional information on secret remediation see https://aka.ms/credscan."
+            ]
+          },
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/src/CredentialScanner/CredentialScannerTests/files/defaultpassword.UT.js",
+                "region": {
+                  "startLine": 29
+                }
+              }
+            }
+          ],
+          "toolFingerprintContribution": "U6ZiQit23palSmRS52R6NXaB3Y3mI+oZdr+ggxRquZM="
+        },
+        {
+          "ruleId": "SCAN01",
+          "level": "note",
+          "formattedRuleMessage": {
+            "formatId": "Default",
+            "arguments": [
+              "defaultpassword.ts",
+              "Default Passwords",
+              "Found file matching known default credentials.",
+              "Validate file contains secrets, remove, roll credential, and use approved store. For additional information on secret remediation see https://aka.ms/credscan."
+            ]
+          },
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/src/CredentialScanner/CredentialScannerTests/files/defaultpassword.ts",
+                "region": {
+                  "startLine": 37
+                }
+              }
+            }
+          ],
+          "toolFingerprintContribution": "3qDR7qQR7gUQ/K4JwIyzXJM2Vm1slpxmnwrMNzQl5so="
+        },
+        {
+          "ruleId": "SCAN01",
+          "level": "note",
+          "formattedRuleMessage": {
+            "formatId": "Default",
+            "arguments": [
+              "defaultpassword.ts",
+              "Default Passwords",
+              "Found file matching known default credentials.",
+              "Validate file contains secrets, remove, roll credential, and use approved store. For additional information on secret remediation see https://aka.ms/credscan."
+            ]
+          },
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/src/CredentialScanner/CredentialScannerTests/files/defaultpassword.ts",
+                "region": {
+                  "startLine": 39
+                }
+              }
+            }
+          ],
+          "toolFingerprintContribution": "2yKie05KsG/LdW6Ysi8mtfPihyCjfg7UCjz83j3e6mk="
+        },
+        {
+          "ruleId": "SCAN01",
+          "level": "note",
+          "formattedRuleMessage": {
+            "formatId": "Default",
+            "arguments": [
+              "defaultpassword.UT.js",
+              "Default Passwords",
+              "Found file matching known default credentials.",
+              "Validate file contains secrets, remove, roll credential, and use approved store. For additional information on secret remediation see https://aka.ms/credscan."
+            ]
+          },
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/src/CredentialScanner/CredentialScannerTests/files/defaultpassword.UT.js",
+                "region": {
+                  "startLine": 31
+                }
+              }
+            }
+          ],
+          "toolFingerprintContribution": "zrKDgNM96LdYf09cT7sBKjZs0kuyvyP7F0QVyCQ5+CI="
+        },
+        {
+          "ruleId": "SCAN01",
+          "level": "note",
+          "formattedRuleMessage": {
+            "formatId": "Default",
+            "arguments": [
+              "defaultpassword.ts",
+              "Default Passwords",
+              "Found file matching known default credentials.",
+              "Validate file contains secrets, remove, roll credential, and use approved store. For additional information on secret remediation see https://aka.ms/credscan."
+            ]
+          },
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/src/CredentialScanner/CredentialScannerTests/files/defaultpassword.ts",
+                "region": {
+                  "startLine": 41
+                }
+              }
+            }
+          ],
+          "toolFingerprintContribution": "2yKie05KsG/LdW6Ysi8mtfPihyCjfg7UCjz83j3e6mk="
+        },
+        {
+          "ruleId": "SCAN01",
+          "level": "note",
+          "formattedRuleMessage": {
+            "formatId": "Default",
+            "arguments": [
+              "defaultpassword.json",
+              "Default Passwords",
+              "Found file matching known default credentials.",
+              "Validate file contains secrets, remove, roll credential, and use approved store. For additional information on secret remediation see https://aka.ms/credscan."
+            ]
+          },
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/src/CredentialScanner/CredentialScannerTests/files/defaultpassword.json",
+                "region": {
+                  "startLine": 39
+                }
+              }
+            }
+          ],
+          "toolFingerprintContribution": "2yKie05KsG/LdW6Ysi8mtfPihyCjfg7UCjz83j3e6mk="
+        },
+        {
+          "ruleId": "SCAN01",
+          "level": "note",
+          "formattedRuleMessage": {
+            "formatId": "Default",
+            "arguments": [
+              "defaultpassword.UT.js",
+              "Default Passwords",
+              "Found file matching known default credentials.",
+              "Validate file contains secrets, remove, roll credential, and use approved store. For additional information on secret remediation see https://aka.ms/credscan."
+            ]
+          },
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/src/CredentialScanner/CredentialScannerTests/files/defaultpassword.UT.js",
+                "region": {
+                  "startLine": 33
+                }
+              }
+            }
+          ],
+          "toolFingerprintContribution": "zrKDgNM96LdYf09cT7sBKjZs0kuyvyP7F0QVyCQ5+CI="
+        },
+        {
+          "ruleId": "SCAN01",
+          "level": "note",
+          "formattedRuleMessage": {
+            "formatId": "Default",
+            "arguments": [
+              "defaultpassword.ts",
+              "Default Passwords",
+              "Found file matching known default credentials.",
+              "Validate file contains secrets, remove, roll credential, and use approved store. For additional information on secret remediation see https://aka.ms/credscan."
+            ]
+          },
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/src/CredentialScanner/CredentialScannerTests/files/defaultpassword.ts",
+                "region": {
+                  "startLine": 43
+                }
+              }
+            }
+          ],
+          "toolFingerprintContribution": "R6W2AkO2q09LyXSRM21LU74rv9lPMPvqeK27eLprO/M="
+        },
+        {
+          "ruleId": "SCAN01",
+          "level": "note",
+          "formattedRuleMessage": {
+            "formatId": "Default",
+            "arguments": [
+              "defaultpassword.UT.js",
+              "Default Passwords",
+              "Found file matching known default credentials.",
+              "Validate file contains secrets, remove, roll credential, and use approved store. For additional information on secret remediation see https://aka.ms/credscan."
+            ]
+          },
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/src/CredentialScanner/CredentialScannerTests/files/defaultpassword.UT.js",
+                "region": {
+                  "startLine": 35
+                }
+              }
+            }
+          ],
+          "toolFingerprintContribution": "zrKDgNM96LdYf09cT7sBKjZs0kuyvyP7F0QVyCQ5+CI="
+        },
+        {
+          "ruleId": "SCAN01",
+          "level": "note",
+          "formattedRuleMessage": {
+            "formatId": "Default",
+            "arguments": [
+              "defaultpassword.json",
+              "Default Passwords",
+              "Found file matching known default credentials.",
+              "Validate file contains secrets, remove, roll credential, and use approved store. For additional information on secret remediation see https://aka.ms/credscan."
+            ]
+          },
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/src/CredentialScanner/CredentialScannerTests/files/defaultpassword.json",
+                "region": {
+                  "startLine": 41
+                }
+              }
+            }
+          ],
+          "toolFingerprintContribution": "2yKie05KsG/LdW6Ysi8mtfPihyCjfg7UCjz83j3e6mk="
+        },
+        {
+          "ruleId": "SCAN01",
+          "level": "note",
+          "formattedRuleMessage": {
+            "formatId": "Default",
+            "arguments": [
+              "defaultpassword.ts",
+              "Default Passwords",
+              "Found file matching known default credentials.",
+              "Validate file contains secrets, remove, roll credential, and use approved store. For additional information on secret remediation see https://aka.ms/credscan."
+            ]
+          },
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/src/CredentialScanner/CredentialScannerTests/files/defaultpassword.ts",
+                "region": {
+                  "startLine": 45
+                }
+              }
+            }
+          ],
+          "toolFingerprintContribution": "NZ6g2z97qsI40vQM4uhxdth6keIaAHnZb4uTHaU9Cfk="
+        },
+        {
+          "ruleId": "SCAN01",
+          "level": "note",
+          "formattedRuleMessage": {
+            "formatId": "Default",
+            "arguments": [
+              "defaultpassword.UT.js",
+              "Default Passwords",
+              "Found file matching known default credentials.",
+              "Validate file contains secrets, remove, roll credential, and use approved store. For additional information on secret remediation see https://aka.ms/credscan."
+            ]
+          },
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/src/CredentialScanner/CredentialScannerTests/files/defaultpassword.UT.js",
+                "region": {
+                  "startLine": 37
+                }
+              }
+            }
+          ],
+          "toolFingerprintContribution": "3qDR7qQR7gUQ/K4JwIyzXJM2Vm1slpxmnwrMNzQl5so="
+        },
+        {
+          "ruleId": "SCAN01",
+          "level": "note",
+          "formattedRuleMessage": {
+            "formatId": "Default",
+            "arguments": [
+              "defaultpassword.UT.js",
+              "Default Passwords",
+              "Found file matching known default credentials.",
+              "Validate file contains secrets, remove, roll credential, and use approved store. For additional information on secret remediation see https://aka.ms/credscan."
+            ]
+          },
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/src/CredentialScanner/CredentialScannerTests/files/defaultpassword.UT.js",
+                "region": {
+                  "startLine": 39
+                }
+              }
+            }
+          ],
+          "toolFingerprintContribution": "2yKie05KsG/LdW6Ysi8mtfPihyCjfg7UCjz83j3e6mk="
+        },
+        {
+          "ruleId": "SCAN01",
+          "level": "note",
+          "formattedRuleMessage": {
+            "formatId": "Default",
+            "arguments": [
+              "defaultpassword.json",
+              "Default Passwords",
+              "Found file matching known default credentials.",
+              "Validate file contains secrets, remove, roll credential, and use approved store. For additional information on secret remediation see https://aka.ms/credscan."
+            ]
+          },
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/src/CredentialScanner/CredentialScannerTests/files/defaultpassword.json",
+                "region": {
+                  "startLine": 43
+                }
+              }
+            }
+          ],
+          "toolFingerprintContribution": "R6W2AkO2q09LyXSRM21LU74rv9lPMPvqeK27eLprO/M="
+        },
+        {
+          "ruleId": "SCAN01",
+          "level": "note",
+          "formattedRuleMessage": {
+            "formatId": "Default",
+            "arguments": [
+              "defaultpassword.ts",
+              "Default Passwords",
+              "Found file matching known default credentials.",
+              "Validate file contains secrets, remove, roll credential, and use approved store. For additional information on secret remediation see https://aka.ms/credscan."
+            ]
+          },
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/src/CredentialScanner/CredentialScannerTests/files/defaultpassword.ts",
+                "region": {
+                  "startLine": 47
+                }
+              }
+            }
+          ],
+          "toolFingerprintContribution": "CLgYxl2FcQE8XZgha9/UbKLTkJkUh3Vakkxh2CAdhtY="
+        },
+        {
+          "ruleId": "SCAN01",
+          "level": "note",
+          "formattedRuleMessage": {
+            "formatId": "Default",
+            "arguments": [
+              "defaultpassword.json",
+              "Default Passwords",
+              "Found file matching known default credentials.",
+              "Validate file contains secrets, remove, roll credential, and use approved store. For additional information on secret remediation see https://aka.ms/credscan."
+            ]
+          },
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/src/CredentialScanner/CredentialScannerTests/files/defaultpassword.json",
+                "region": {
+                  "startLine": 45
+                }
+              }
+            }
+          ],
+          "toolFingerprintContribution": "NZ6g2z97qsI40vQM4uhxdth6keIaAHnZb4uTHaU9Cfk="
+        },
+        {
+          "ruleId": "SCAN01",
+          "level": "note",
+          "formattedRuleMessage": {
+            "formatId": "Default",
+            "arguments": [
+              "defaultpassword.ts",
+              "Default Passwords",
+              "Found file matching known default credentials.",
+              "Validate file contains secrets, remove, roll credential, and use approved store. For additional information on secret remediation see https://aka.ms/credscan."
+            ]
+          },
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/src/CredentialScanner/CredentialScannerTests/files/defaultpassword.ts",
+                "region": {
+                  "startLine": 49
+                }
+              }
+            }
+          ],
+          "toolFingerprintContribution": "SqV9x6pfvmSAQD8hBozSH1r1290kvldfYw/zlVnyXjc="
+        },
+        {
+          "ruleId": "SCAN01",
+          "level": "note",
+          "formattedRuleMessage": {
+            "formatId": "Default",
+            "arguments": [
+              "defaultpassword.UT.js",
+              "Default Passwords",
+              "Found file matching known default credentials.",
+              "Validate file contains secrets, remove, roll credential, and use approved store. For additional information on secret remediation see https://aka.ms/credscan."
+            ]
+          },
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/src/CredentialScanner/CredentialScannerTests/files/defaultpassword.UT.js",
+                "region": {
+                  "startLine": 41
+                }
+              }
+            }
+          ],
+          "toolFingerprintContribution": "2yKie05KsG/LdW6Ysi8mtfPihyCjfg7UCjz83j3e6mk="
+        },
+        {
+          "ruleId": "SCAN01",
+          "level": "note",
+          "formattedRuleMessage": {
+            "formatId": "Default",
+            "arguments": [
+              "defaultpassword.json",
+              "Default Passwords",
+              "Found file matching known default credentials.",
+              "Validate file contains secrets, remove, roll credential, and use approved store. For additional information on secret remediation see https://aka.ms/credscan."
+            ]
+          },
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/src/CredentialScanner/CredentialScannerTests/files/defaultpassword.json",
+                "region": {
+                  "startLine": 47
+                }
+              }
+            }
+          ],
+          "toolFingerprintContribution": "CLgYxl2FcQE8XZgha9/UbKLTkJkUh3Vakkxh2CAdhtY="
+        },
+        {
+          "ruleId": "SCAN01",
+          "level": "note",
+          "formattedRuleMessage": {
+            "formatId": "Default",
+            "arguments": [
+              "defaultpassword.ts",
+              "Default Passwords",
+              "Found file matching known default credentials.",
+              "Validate file contains secrets, remove, roll credential, and use approved store. For additional information on secret remediation see https://aka.ms/credscan."
+            ]
+          },
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/src/CredentialScanner/CredentialScannerTests/files/defaultpassword.ts",
+                "region": {
+                  "startLine": 51
+                }
+              }
+            }
+          ],
+          "toolFingerprintContribution": "SqV9x6pfvmSAQD8hBozSH1r1290kvldfYw/zlVnyXjc="
+        },
+        {
+          "ruleId": "SCAN01",
+          "level": "note",
+          "formattedRuleMessage": {
+            "formatId": "Default",
+            "arguments": [
+              "defaultpassword.UT.js",
+              "Default Passwords",
+              "Found file matching known default credentials.",
+              "Validate file contains secrets, remove, roll credential, and use approved store. For additional information on secret remediation see https://aka.ms/credscan."
+            ]
+          },
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/src/CredentialScanner/CredentialScannerTests/files/defaultpassword.UT.js",
+                "region": {
+                  "startLine": 43
+                }
+              }
+            }
+          ],
+          "toolFingerprintContribution": "R6W2AkO2q09LyXSRM21LU74rv9lPMPvqeK27eLprO/M="
+        },
+        {
+          "ruleId": "SCAN01",
+          "level": "note",
+          "formattedRuleMessage": {
+            "formatId": "Default",
+            "arguments": [
+              "defaultpassword.json",
+              "Default Passwords",
+              "Found file matching known default credentials.",
+              "Validate file contains secrets, remove, roll credential, and use approved store. For additional information on secret remediation see https://aka.ms/credscan."
+            ]
+          },
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/src/CredentialScanner/CredentialScannerTests/files/defaultpassword.json",
+                "region": {
+                  "startLine": 49
+                }
+              }
+            }
+          ],
+          "toolFingerprintContribution": "SqV9x6pfvmSAQD8hBozSH1r1290kvldfYw/zlVnyXjc="
+        },
+        {
+          "ruleId": "SCAN01",
+          "level": "note",
+          "formattedRuleMessage": {
+            "formatId": "Default",
+            "arguments": [
+              "defaultpassword.UT.js",
+              "Default Passwords",
+              "Found file matching known default credentials.",
+              "Validate file contains secrets, remove, roll credential, and use approved store. For additional information on secret remediation see https://aka.ms/credscan."
+            ]
+          },
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/src/CredentialScanner/CredentialScannerTests/files/defaultpassword.UT.js",
+                "region": {
+                  "startLine": 45
+                }
+              }
+            }
+          ],
+          "toolFingerprintContribution": "NZ6g2z97qsI40vQM4uhxdth6keIaAHnZb4uTHaU9Cfk="
+        },
+        {
+          "ruleId": "SCAN01",
+          "level": "note",
+          "formattedRuleMessage": {
+            "formatId": "Default",
+            "arguments": [
+              "defaultpassword.ts",
+              "Default Passwords",
+              "Found file matching known default credentials.",
+              "Validate file contains secrets, remove, roll credential, and use approved store. For additional information on secret remediation see https://aka.ms/credscan."
+            ]
+          },
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/src/CredentialScanner/CredentialScannerTests/files/defaultpassword.ts",
+                "region": {
+                  "startLine": 53
+                }
+              }
+            }
+          ],
+          "toolFingerprintContribution": "SqV9x6pfvmSAQD8hBozSH1r1290kvldfYw/zlVnyXjc="
+        },
+        {
+          "ruleId": "SCAN01",
+          "level": "note",
+          "formattedRuleMessage": {
+            "formatId": "Default",
+            "arguments": [
+              "defaultpassword.UT.js",
+              "Default Passwords",
+              "Found file matching known default credentials.",
+              "Validate file contains secrets, remove, roll credential, and use approved store. For additional information on secret remediation see https://aka.ms/credscan."
+            ]
+          },
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/src/CredentialScanner/CredentialScannerTests/files/defaultpassword.UT.js",
+                "region": {
+                  "startLine": 47
+                }
+              }
+            }
+          ],
+          "toolFingerprintContribution": "CLgYxl2FcQE8XZgha9/UbKLTkJkUh3Vakkxh2CAdhtY="
+        },
+        {
+          "ruleId": "SCAN01",
+          "level": "note",
+          "formattedRuleMessage": {
+            "formatId": "Default",
+            "arguments": [
+              "defaultpassword.json",
+              "Default Passwords",
+              "Found file matching known default credentials.",
+              "Validate file contains secrets, remove, roll credential, and use approved store. For additional information on secret remediation see https://aka.ms/credscan."
+            ]
+          },
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/src/CredentialScanner/CredentialScannerTests/files/defaultpassword.json",
+                "region": {
+                  "startLine": 51
+                }
+              }
+            }
+          ],
+          "toolFingerprintContribution": "SqV9x6pfvmSAQD8hBozSH1r1290kvldfYw/zlVnyXjc="
+        },
+        {
+          "ruleId": "SCAN01",
+          "level": "note",
+          "formattedRuleMessage": {
+            "formatId": "Default",
+            "arguments": [
+              "defaultpassword.json",
+              "Default Passwords",
+              "Found file matching known default credentials.",
+              "Validate file contains secrets, remove, roll credential, and use approved store. For additional information on secret remediation see https://aka.ms/credscan."
+            ]
+          },
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/src/CredentialScanner/CredentialScannerTests/files/defaultpassword.json",
+                "region": {
+                  "startLine": 53
+                }
+              }
+            }
+          ],
+          "toolFingerprintContribution": "SqV9x6pfvmSAQD8hBozSH1r1290kvldfYw/zlVnyXjc="
+        },
+        {
+          "ruleId": "SCAN01",
+          "level": "note",
+          "formattedRuleMessage": {
+            "formatId": "Default",
+            "arguments": [
+              "defaultpassword.ts",
+              "Default Passwords",
+              "Found file matching known default credentials.",
+              "Validate file contains secrets, remove, roll credential, and use approved store. For additional information on secret remediation see https://aka.ms/credscan."
+            ]
+          },
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/src/CredentialScanner/CredentialScannerTests/files/defaultpassword.ts",
+                "region": {
+                  "startLine": 55
+                }
+              }
+            }
+          ],
+          "toolFingerprintContribution": "SqV9x6pfvmSAQD8hBozSH1r1290kvldfYw/zlVnyXjc="
+        },
+        {
+          "ruleId": "SCAN01",
+          "level": "note",
+          "formattedRuleMessage": {
+            "formatId": "Default",
+            "arguments": [
+              "defaultpassword.ts",
+              "Default Passwords",
+              "Found file matching known default credentials.",
+              "Validate file contains secrets, remove, roll credential, and use approved store. For additional information on secret remediation see https://aka.ms/credscan."
+            ]
+          },
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/src/CredentialScanner/CredentialScannerTests/files/defaultpassword.ts",
+                "region": {
+                  "startLine": 57
+                }
+              }
+            }
+          ],
+          "toolFingerprintContribution": "9hLxL58EScX3qTaqlowmQTpDTBKPcU36V7+IjV/KYJU="
+        },
+        {
+          "ruleId": "SCAN01",
+          "level": "note",
+          "formattedRuleMessage": {
+            "formatId": "Default",
+            "arguments": [
+              "defaultpassword.UT.js",
+              "Default Passwords",
+              "Found file matching known default credentials.",
+              "Validate file contains secrets, remove, roll credential, and use approved store. For additional information on secret remediation see https://aka.ms/credscan."
+            ]
+          },
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/src/CredentialScanner/CredentialScannerTests/files/defaultpassword.UT.js",
+                "region": {
+                  "startLine": 49
+                }
+              }
+            }
+          ],
+          "toolFingerprintContribution": "SqV9x6pfvmSAQD8hBozSH1r1290kvldfYw/zlVnyXjc="
+        },
+        {
+          "ruleId": "SCAN01",
+          "level": "note",
+          "formattedRuleMessage": {
+            "formatId": "Default",
+            "arguments": [
+              "defaultpassword.json",
+              "Default Passwords",
+              "Found file matching known default credentials.",
+              "Validate file contains secrets, remove, roll credential, and use approved store. For additional information on secret remediation see https://aka.ms/credscan."
+            ]
+          },
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/src/CredentialScanner/CredentialScannerTests/files/defaultpassword.json",
+                "region": {
+                  "startLine": 55
+                }
+              }
+            }
+          ],
+          "toolFingerprintContribution": "SqV9x6pfvmSAQD8hBozSH1r1290kvldfYw/zlVnyXjc="
+        },
+        {
+          "ruleId": "SCAN01",
+          "level": "note",
+          "formattedRuleMessage": {
+            "formatId": "Default",
+            "arguments": [
+              "defaultpassword.ts",
+              "Default Passwords",
+              "Found file matching known default credentials.",
+              "Validate file contains secrets, remove, roll credential, and use approved store. For additional information on secret remediation see https://aka.ms/credscan."
+            ]
+          },
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/src/CredentialScanner/CredentialScannerTests/files/defaultpassword.ts",
+                "region": {
+                  "startLine": 59
+                }
+              }
+            }
+          ],
+          "toolFingerprintContribution": "P9V8Gi/gzlK+QtvNgGGyE9mmcZ/nn0VzQdkWiy/tRhY="
+        },
+        {
+          "ruleId": "SCAN01",
+          "level": "note",
+          "formattedRuleMessage": {
+            "formatId": "Default",
+            "arguments": [
+              "defaultpassword.json",
+              "Default Passwords",
+              "Found file matching known default credentials.",
+              "Validate file contains secrets, remove, roll credential, and use approved store. For additional information on secret remediation see https://aka.ms/credscan."
+            ]
+          },
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/src/CredentialScanner/CredentialScannerTests/files/defaultpassword.json",
+                "region": {
+                  "startLine": 57
+                }
+              }
+            }
+          ],
+          "toolFingerprintContribution": "9hLxL58EScX3qTaqlowmQTpDTBKPcU36V7+IjV/KYJU="
+        },
+        {
+          "ruleId": "SCAN01",
+          "level": "note",
+          "formattedRuleMessage": {
+            "formatId": "Default",
+            "arguments": [
+              "defaultpassword.UT.js",
+              "Default Passwords",
+              "Found file matching known default credentials.",
+              "Validate file contains secrets, remove, roll credential, and use approved store. For additional information on secret remediation see https://aka.ms/credscan."
+            ]
+          },
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/src/CredentialScanner/CredentialScannerTests/files/defaultpassword.UT.js",
+                "region": {
+                  "startLine": 51
+                }
+              }
+            }
+          ],
+          "toolFingerprintContribution": "SqV9x6pfvmSAQD8hBozSH1r1290kvldfYw/zlVnyXjc="
+        },
+        {
+          "ruleId": "SCAN01",
+          "level": "note",
+          "formattedRuleMessage": {
+            "formatId": "Default",
+            "arguments": [
+              "defaultpassword.json",
+              "Default Passwords",
+              "Found file matching known default credentials.",
+              "Validate file contains secrets, remove, roll credential, and use approved store. For additional information on secret remediation see https://aka.ms/credscan."
+            ]
+          },
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/src/CredentialScanner/CredentialScannerTests/files/defaultpassword.json",
+                "region": {
+                  "startLine": 59
+                }
+              }
+            }
+          ],
+          "toolFingerprintContribution": "P9V8Gi/gzlK+QtvNgGGyE9mmcZ/nn0VzQdkWiy/tRhY="
+        },
+        {
+          "ruleId": "SCAN01",
+          "level": "note",
+          "formattedRuleMessage": {
+            "formatId": "Default",
+            "arguments": [
+              "defaultpassword.UT.js",
+              "Default Passwords",
+              "Found file matching known default credentials.",
+              "Validate file contains secrets, remove, roll credential, and use approved store. For additional information on secret remediation see https://aka.ms/credscan."
+            ]
+          },
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/src/CredentialScanner/CredentialScannerTests/files/defaultpassword.UT.js",
+                "region": {
+                  "startLine": 53
+                }
+              }
+            }
+          ],
+          "toolFingerprintContribution": "SqV9x6pfvmSAQD8hBozSH1r1290kvldfYw/zlVnyXjc="
+        },
+        {
+          "ruleId": "SCAN01",
+          "level": "note",
+          "formattedRuleMessage": {
+            "formatId": "Default",
+            "arguments": [
+              "defaultpassword.UT.js",
+              "Default Passwords",
+              "Found file matching known default credentials.",
+              "Validate file contains secrets, remove, roll credential, and use approved store. For additional information on secret remediation see https://aka.ms/credscan."
+            ]
+          },
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/src/CredentialScanner/CredentialScannerTests/files/defaultpassword.UT.js",
+                "region": {
+                  "startLine": 55
+                }
+              }
+            }
+          ],
+          "toolFingerprintContribution": "SqV9x6pfvmSAQD8hBozSH1r1290kvldfYw/zlVnyXjc="
+        },
+        {
+          "ruleId": "SCAN01",
+          "level": "note",
+          "formattedRuleMessage": {
+            "formatId": "Default",
+            "arguments": [
+              "defaultpassword.UT.js",
+              "Default Passwords",
+              "Found file matching known default credentials.",
+              "Validate file contains secrets, remove, roll credential, and use approved store. For additional information on secret remediation see https://aka.ms/credscan."
+            ]
+          },
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/src/CredentialScanner/CredentialScannerTests/files/defaultpassword.UT.js",
+                "region": {
+                  "startLine": 57
+                }
+              }
+            }
+          ],
+          "toolFingerprintContribution": "9hLxL58EScX3qTaqlowmQTpDTBKPcU36V7+IjV/KYJU="
+        },
+        {
+          "ruleId": "SCAN01",
+          "level": "note",
+          "formattedRuleMessage": {
+            "formatId": "Default",
+            "arguments": [
+              "defaultpassword.UT.js",
+              "Default Passwords",
+              "Found file matching known default credentials.",
+              "Validate file contains secrets, remove, roll credential, and use approved store. For additional information on secret remediation see https://aka.ms/credscan."
+            ]
+          },
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/src/CredentialScanner/CredentialScannerTests/files/defaultpassword.UT.js",
+                "region": {
+                  "startLine": 59
+                }
+              }
+            }
+          ],
+          "toolFingerprintContribution": "P9V8Gi/gzlK+QtvNgGGyE9mmcZ/nn0VzQdkWiy/tRhY="
+        },
+        {
+          "ruleId": "SCAN01",
+          "level": "note",
+          "formattedRuleMessage": {
+            "formatId": "Default",
+            "arguments": [
+              "ServiceConfiguration.Cloud.cscfg",
+              "Config-Files",
+              "Found .config file matching known credential pattern.",
+              "Validate file contains secrets, remove, roll credential, and use approved store. For additional information on secret remediation see https://aka.ms/credscan."
+            ]
+          },
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/src/CredentialScanner/CredentialScannerTests/files/ServiceConfiguration.Cloud.cscfg",
+                "region": {
+                  "startLine": 7
+                }
+              }
+            }
+          ],
+          "toolFingerprintContribution": "54eMFON/XnwD9ydc94r8S7D8JlzYNJbnMQWp7hxq+9A="
+        },
+        {
+          "ruleId": "SCAN01",
+          "level": "note",
+          "formattedRuleMessage": {
+            "formatId": "Default",
+            "arguments": [
+              "ServiceConfiguration.Cloud.cscfg",
+              "Config-Files",
+              "Found .config file matching known credential pattern.",
+              "Validate file contains secrets, remove, roll credential, and use approved store. For additional information on secret remediation see https://aka.ms/credscan."
+            ]
+          },
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/src/CredentialScanner/CredentialScannerTests/files/ServiceConfiguration.Cloud.cscfg",
+                "region": {
+                  "startLine": 8
+                }
+              }
+            }
+          ],
+          "toolFingerprintContribution": "udt/QouwZxoGjCt9P/EbsN5rat4XGZpKtbwjVT5Ieq4="
+        },
+        {
+          "ruleId": "SCAN01",
+          "level": "note",
+          "formattedRuleMessage": {
+            "formatId": "Default",
+            "arguments": [
+              "storagecreds.config",
+              "Config-Files",
+              "Found .config file matching known credential pattern.",
+              "Validate file contains secrets, remove, roll credential, and use approved store. For additional information on secret remediation see https://aka.ms/credscan."
+            ]
+          },
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/src/CredentialScanner/CredentialScannerTests/files/storagecreds.config",
+                "region": {
+                  "startLine": 21
+                }
+              }
+            }
+          ],
+          "toolFingerprintContribution": "agb3hiFa8DJHMtEGrQ9tchVsqDaE8XQDuBFwOdQl28k="
+        },
+        {
+          "ruleId": "SCAN01",
+          "level": "note",
+          "formattedRuleMessage": {
+            "formatId": "Default",
+            "arguments": [
+              "storagecreds.config",
+              "Config-Files",
+              "Found .config file matching known credential pattern.",
+              "Validate file contains secrets, remove, roll credential, and use approved store. For additional information on secret remediation see https://aka.ms/credscan."
+            ]
+          },
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/src/CredentialScanner/CredentialScannerTests/files/storagecreds.config",
+                "region": {
+                  "startLine": 22
+                }
+              }
+            }
+          ],
+          "toolFingerprintContribution": "TKShRJ028R8l8yM6XaXEKsag0bCLarP6XTbJCZM4Wg4="
+        },
+        {
+          "ruleId": "SCAN01",
+          "level": "note",
+          "formattedRuleMessage": {
+            "formatId": "Default",
+            "arguments": [
+              "ServiceConfiguration.Cloud.cscfg",
+              "Config-Files",
+              "Found .config file matching known credential pattern.",
+              "Validate file contains secrets, remove, roll credential, and use approved store. For additional information on secret remediation see https://aka.ms/credscan."
+            ]
+          },
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/src/CredentialScanner/CredentialScannerTests/files/ServiceConfiguration.Cloud.cscfg",
+                "region": {
+                  "startLine": 9
+                }
+              }
+            }
+          ],
+          "toolFingerprintContribution": "K0OfUuu3Iuf3ER7Amy4jK2QPJTHlqPzAiUqczHiX35E="
+        },
+        {
+          "ruleId": "SCAN01",
+          "level": "note",
+          "formattedRuleMessage": {
+            "formatId": "Default",
+            "arguments": [
+              "ServiceConfiguration.Cloud.cscfg",
+              "Config-Files",
+              "Found .config file matching known credential pattern.",
+              "Validate file contains secrets, remove, roll credential, and use approved store. For additional information on secret remediation see https://aka.ms/credscan."
+            ]
+          },
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/src/CredentialScanner/CredentialScannerTests/files/ServiceConfiguration.Cloud.cscfg",
+                "region": {
+                  "startLine": 10
+                }
+              }
+            }
+          ],
+          "toolFingerprintContribution": "AgnLOtVaAFMonqM7nljlHi7Ut1Gzh7DT7rOVaw7t3zQ="
+        },
+        {
+          "ruleId": "SCAN01",
+          "level": "note",
+          "formattedRuleMessage": {
+            "formatId": "Default",
+            "arguments": [
+              "storagecreds.config",
+              "Config-Files",
+              "Found .config file matching known credential pattern.",
+              "Validate file contains secrets, remove, roll credential, and use approved store. For additional information on secret remediation see https://aka.ms/credscan."
+            ]
+          },
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/src/CredentialScanner/CredentialScannerTests/files/storagecreds.config",
+                "region": {
+                  "startLine": 23
+                }
+              }
+            }
+          ],
+          "toolFingerprintContribution": "PVbFB6sW9Of1sZS9hQoX/SIW450KkK2PXMcIntd3NsU="
+        },
+        {
+          "ruleId": "SCAN01",
+          "level": "note",
+          "formattedRuleMessage": {
+            "formatId": "Default",
+            "arguments": [
+              "ServiceConfiguration.Cloud.cscfg",
+              "Default Passwords",
+              "Found file matching known default credentials.",
+              "Validate file contains secrets, remove, roll credential, and use approved store. For additional information on secret remediation see https://aka.ms/credscan."
+            ]
+          },
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/src/CredentialScanner/CredentialScannerTests/files/ServiceConfiguration.Cloud.cscfg",
+                "region": {
+                  "startLine": 10
+                }
+              }
+            }
+          ],
+          "toolFingerprintContribution": "CLgYxl2FcQE8XZgha9/UbKLTkJkUh3Vakkxh2CAdhtY="
+        },
+        {
+          "ruleId": "SCAN01",
+          "level": "note",
+          "formattedRuleMessage": {
+            "formatId": "Default",
+            "arguments": [
+              "storagecreds.config",
+              "Config-Files",
+              "Found .config file matching known credential pattern.",
+              "Validate file contains secrets, remove, roll credential, and use approved store. For additional information on secret remediation see https://aka.ms/credscan."
+            ]
+          },
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/src/CredentialScanner/CredentialScannerTests/files/storagecreds.config",
+                "region": {
+                  "startLine": 24
+                }
+              }
+            }
+          ],
+          "toolFingerprintContribution": "TFCOAGbQUteDAfUX6CYyGlWFjtOFDRM8EMdKQK8/xZ0="
+        },
+        {
+          "ruleId": "SCAN01",
+          "level": "note",
+          "formattedRuleMessage": {
+            "formatId": "Default",
+            "arguments": [
+              "storagecreds.config",
+              "Config-Files",
+              "Found .config file matching known credential pattern.",
+              "Validate file contains secrets, remove, roll credential, and use approved store. For additional information on secret remediation see https://aka.ms/credscan."
+            ]
+          },
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/src/CredentialScanner/CredentialScannerTests/files/storagecreds.config",
+                "region": {
+                  "startLine": 32
+                }
+              }
+            }
+          ],
+          "toolFingerprintContribution": "9GfW4+Cedl+LxhN8ZSuyROkvxQzL/zN1OiWC2Hq1G2Y="
+        },
+        {
+          "ruleId": "SCAN01",
+          "level": "note",
+          "formattedRuleMessage": {
+            "formatId": "Default",
+            "arguments": [
+              "storagecreds.config",
+              "Config-Files",
+              "Found .config file matching known credential pattern.",
+              "Validate file contains secrets, remove, roll credential, and use approved store. For additional information on secret remediation see https://aka.ms/credscan."
+            ]
+          },
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/src/CredentialScanner/CredentialScannerTests/files/storagecreds.config",
+                "region": {
+                  "startLine": 50
+                }
+              }
+            }
+          ],
+          "toolFingerprintContribution": "Fzww7ntK2dWVmyID/7X079DsM4fHhEZElCkSwXzyelo="
+        },
+        {
+          "ruleId": "SCAN01",
+          "level": "note",
+          "formattedRuleMessage": {
+            "formatId": "Default",
+            "arguments": [
+              "storagecreds.config",
+              "Default Passwords",
+              "Found file matching known default credentials.",
+              "Validate file contains secrets, remove, roll credential, and use approved store. For additional information on secret remediation see https://aka.ms/credscan."
+            ]
+          },
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/src/CredentialScanner/CredentialScannerTests/files/storagecreds.config",
+                "region": {
+                  "startLine": 24
+                }
+              }
+            }
+          ],
+          "toolFingerprintContribution": "CLgYxl2FcQE8XZgha9/UbKLTkJkUh3Vakkxh2CAdhtY="
+        }
+      ],
+      "rules": {
+        "SCAN02": {
+          "id": "SCAN02",
+          "name": "SecretFileTypeDetected",
+          "shortDescription": "A file that is itself potentially a secret was detected.",
+          "fullDescription": "A file that is itself potentially a secret was detected.",
+          "messageFormats": {
+            "Default": "'{0}' appears to be a secret file type: ({1}) {2} {3}"
+          },
+          "defaultLevel": "error",
+          "helpUri": "https://aka.ms/credscan"
+        },
+        "SCAN01": {
+          "id": "SCAN01",
+          "name": "SecretDetectedInFile",
+          "shortDescription": "A potential secret was detected within a file.",
+          "fullDescription": "A potential secret was detected within a file.",
+          "messageFormats": {
+            "Default": "A potential secret was detected in '{0}':({1}) {2} {3}"
+          },
+          "defaultLevel": "error",
+          "helpUri": "https://aka.ms/credscan"
+        }
+      }
+    }
+  ]
+}
