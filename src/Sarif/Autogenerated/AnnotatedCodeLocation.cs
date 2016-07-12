@@ -90,7 +90,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         public AnnotatedCodeLocationKind Kind { get; set; }
 
         /// <summary>
-        /// Fully qualified logical name of the function, if any, called from this location.
+        /// For an annotation of kind 'call', the fully qualified logical name of the function called from this location.
         /// </summary>
         [DataMember(Name = "callee", IsRequired = false, EmitDefaultValue = false)]
         public string Callee { get; set; }
