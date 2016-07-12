@@ -63,6 +63,16 @@
           "type": "string"
         },
 
+        "callee": {
+          "description": "For annotated code locations of kind 'call', the fully qualified logical name of the function being called.",
+          "type": "string"
+        },
+
+        "calleeKey": {
+          "description": "A key used to retrieve the callee logicalLocation from the logicalLocations dictionary.",
+          "type": "string"
+        },
+
         "module": {
           "description": "The name of the module that contains the code that is executing.",
           "type": "string"
