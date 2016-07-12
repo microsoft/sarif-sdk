@@ -123,7 +123,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             else
             {
                 serializedValue = isString
-                    ? '"' + value.ToString() + '"'
+                    ? JsonConvert.ToString(value)
                     : JsonConvert.SerializeObject(value);
             }
              

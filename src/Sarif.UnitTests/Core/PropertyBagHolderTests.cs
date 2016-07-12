@@ -43,6 +43,18 @@ namespace Microsoft.CodeAnalysis.Sarif.Core
         }
 
         [TestMethod]
+        public void PropertyBagHolder_SetProperty_EscapesCharacters()
+        {
+            var inputObject = new TestClass();
+
+            inputObject.SetProperty(PropertyName, @"\r""\t");
+
+            inputObject.PropertyNames.Count.Should().Be(1);
+            inputObject.ShouldContainProperty(PropertyName);
+            inputObject.GetProperty(PropertyName).Should().Be(@"\\r\""\\t");
+        }
+
+        [TestMethod]
         public void PropertyBagHolder_SetProperty_WorksWithNull()
         {
             var inputObject = new TestClass();
