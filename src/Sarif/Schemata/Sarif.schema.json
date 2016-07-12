@@ -84,7 +84,7 @@
         },
 
         "callee": {
-          "description": "Fully qualified logical name of the function, if any, called from this location.",
+          "description": "For an annotation of kind 'call', the fully qualified logical name of the function called from this location.",
           "type": "string"
         },
 
