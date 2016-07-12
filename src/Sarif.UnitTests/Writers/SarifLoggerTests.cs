@@ -65,7 +65,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                         // the directory of the test driver (the location of which we can't retrieve
                         // from Assembly.GetEntryAssembly() as we are running in an AppDomain).
                         pathToExe = pathToExe.Substring(0, pathToExe.Length - @"\Extensions".Length);
-                        tokensToRedact = new string[] { "TestExecution", pathToExe };
+                        tokensToRedact = new string[] {  pathToExe };
                     }
                 }
                 else

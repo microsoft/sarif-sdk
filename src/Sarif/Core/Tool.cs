@@ -15,7 +15,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// </summary>
     public partial class Tool 
     {
-        public static Tool CreateFromAssemblyData(string prereleaseInfo = null)
+        public static Tool CreateFromAssemblyData(string prereleaseInfo = null, string friendlyName = null)
         {
             Assembly assembly = Assembly.GetEntryAssembly() ?? Assembly.GetExecutingAssembly();
             string name = Path.GetFileNameWithoutExtension(assembly.Location);
@@ -23,7 +23,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             Tool tool = new Tool();
 
             // 'name'
-            tool.Name = name;
+            tool.Name = friendlyName ?? name;
 
             // 'version' : primary tool version.
             Version version = assembly.GetName().Version;
