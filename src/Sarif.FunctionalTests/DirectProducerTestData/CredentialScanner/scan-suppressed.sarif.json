@@ -1,0 +1,236 @@
+﻿{
+  "$schema": "http://json.schemastore.org/sarif-1.0.0",
+  "version": "1.0.0",
+  "runs": [
+    {
+      "id": "edd0525d-898d-428d-b61d-dfd0d5613d47",
+      "tool": {
+        "name": "CredentialScanner",
+        "fullName": "CredentialScanner 1.0.12.0",
+        "version": "1.0.12.0",
+        "semanticVersion": "1.0.12",
+        "sarifLoggerVersion": "1.5.25.0",
+        "language": "en-US",
+        "properties": {
+          "CompanyName": "Microsoft",
+          "ProductName": "CredentialScanner"
+        }
+      },
+      "results": [
+        {
+          "ruleId": "SCAN01",
+          "level": "note",
+          "formattedRuleMessage": {
+            "formatId": "Default",
+            "arguments": [
+              "powershell.ps1",
+              "Default Passwords",
+              "Found file matching known default credentials.",
+              "Validate file contains secrets, remove, roll credential, and use approved store. For additional information on secret remediation see https://aka.ms/credscan."
+            ]
+          },
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/src/CredentialScanner/CredentialScannerTests/files/powershell.ps1",
+                "region": {
+                  "startLine": 7
+                }
+              }
+            }
+          ],
+          "toolFingerprintContribution": "CLgYxl2FcQE8XZgha9/UbKLTkJkUh3Vakkxh2CAdhtY=",
+          "suppressionStates": ["suppressedInSource"]
+        },
+        {
+          "ruleId": "SCAN01",
+          "level": "note",
+          "formattedRuleMessage": {
+            "formatId": "Default",
+            "arguments": [
+              "powershell.ps1",
+              "Default Passwords",
+              "Found file matching known default credentials.",
+              "Validate file contains secrets, remove, roll credential, and use approved store. For additional information on secret remediation see https://aka.ms/credscan."
+            ]
+          },
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/src/CredentialScanner/CredentialScannerTests/files/powershell.ps1",
+                "region": {
+                  "startLine": 9
+                }
+              }
+            }
+          ],
+          "toolFingerprintContribution": "CLgYxl2FcQE8XZgha9/UbKLTkJkUh3Vakkxh2CAdhtY=",
+          "suppressionStates": ["suppressedInSource"]
+        },
+        {
+          "ruleId": "SCAN01",
+          "level": "note",
+          "formattedRuleMessage": {
+            "formatId": "Default",
+            "arguments": [
+              "Constants.cs",
+              "CodeConnStrings",
+              "Found storage credential in source file.",
+              "Validate file contains secrets, remove, and roll. For additional information on secret remediation see https://aka.ms/credscan."
+            ]
+          },
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/src/CredentialScanner/CredentialScannerTests/files/Constants.cs",
+                "region": {
+                  "startLine": 35
+                }
+              }
+            }
+          ],
+          "toolFingerprintContribution": "c8qNK4zofuJGHKYax/DdCEmB0CqQ5aluUEI0DT8x1zc=",
+          "suppressionStates": ["suppressedInSource"]
+        },
+        {
+          "ruleId": "SCAN01",
+          "level": "note",
+          "formattedRuleMessage": {
+            "formatId": "Default",
+            "arguments": [
+              "Constants.cs",
+              "CodeConnStrings",
+              "Found storage credential in source file.",
+              "Validate file contains secrets, remove, and roll. For additional information on secret remediation see https://aka.ms/credscan."
+            ]
+          },
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/src/CredentialScanner/CredentialScannerTests/files/Constants.cs",
+                "region": {
+                  "startLine": 38
+                }
+              }
+            }
+          ],
+          "toolFingerprintContribution": "BiNnlL6+ljLrVj/6Z5T7R6kKSdXeAabjW+vdYGQsXG4=",
+          "suppressionStates": ["suppressedInSource"]
+        },
+        {
+          "ruleId": "SCAN01",
+          "level": "note",
+          "formattedRuleMessage": {
+            "formatId": "Default",
+            "arguments": [
+              "powershell.ps1",
+              "AzureSecrets",
+              "Found secret key, SAS or SQL connection string with password.",
+              "Validate file contains secrets, remove, roll credential, use an approved secret store."
+            ]
+          },
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/src/CredentialScanner/CredentialScannerTests/files/powershell.ps1",
+                "region": {
+                  "startLine": 7
+                }
+              }
+            }
+          ],
+          "toolFingerprintContribution": "BjAIIaZQhToRej8eP3At3QN3ehgdsjSBFvmMus6Orfw=",
+          "suppressionStates": ["suppressedInSource"]
+        },
+        {
+          "ruleId": "SCAN01",
+          "level": "note",
+          "formattedRuleMessage": {
+            "formatId": "Default",
+            "arguments": [
+              "powershell.ps1",
+              "AzureSecrets",
+              "Found secret key, SAS or SQL connection string with password.",
+              "Validate file contains secrets, remove, roll credential, use an approved secret store."
+            ]
+          },
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/src/CredentialScanner/CredentialScannerTests/files/powershell.ps1",
+                "region": {
+                  "startLine": 9
+                }
+              }
+            }
+          ],
+          "toolFingerprintContribution": "NgSTwJtXGCiqdoY1o5FNT/9IiPhjX1MVXIMGkRIg9AI=",
+          "suppressionStates": ["suppressedInSource"]
+        },
+        {
+          "ruleId": "SCAN01",
+          "level": "note",
+          "formattedRuleMessage": {
+            "formatId": "Default",
+            "arguments": [
+              "storagecreds.config",
+              "Config-Files",
+              "Found .config file matching known credential pattern.",
+              "Validate file contains secrets, remove, roll credential, and use approved store. For additional information on secret remediation see https://aka.ms/credscan."
+            ]
+          },
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/src/CredentialScanner/CredentialScannerTests/files/storagecreds.config",
+                "region": {
+                  "startLine": 18
+                }
+              }
+            }
+          ],
+          "toolFingerprintContribution": "uf/5ni/gNQZM2xLIff7J0/yJxmvpvsL2fQ7VW9XvxLM=",
+          "suppressionStates": ["suppressedInSource"]
+        },
+        {
+          "ruleId": "SCAN01",
+          "level": "note",
+          "formattedRuleMessage": {
+            "formatId": "Default",
+            "arguments": [
+              "storagecreds.config",
+              "Config-Files",
+              "Found .config file matching known credential pattern.",
+              "Validate file contains secrets, remove, roll credential, and use approved store. For additional information on secret remediation see https://aka.ms/credscan."
+            ]
+          },
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/src/CredentialScanner/CredentialScannerTests/files/storagecreds.config",
+                "region": {
+                  "startLine": 20
+                }
+              }
+            }
+          ],
+          "toolFingerprintContribution": "DDF46ymA/XcWHjXcD9RwpnR4vuNFZs10WoHYQoRsDLs=",
+          "suppressionStates": ["suppressedInSource"]
+        }
+      ],
+      "rules": {
+        "SCAN01": {
+          "id": "SCAN01",
+          "name": "SecretDetectedInFile",
+          "shortDescription": "A potential secret was detected within a file.",
+          "fullDescription": "A potential secret was detected within a file.",
+          "messageFormats": {
+            "Default": "A potential secret was detected in '{0}':({1}) {2} {3}"
+          },
+          "defaultLevel": "error",
+          "helpUri": "https://aka.ms/credscan"
+        }
+      }
+    }
+  ]
+}
