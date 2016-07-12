@@ -60,7 +60,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         public string FullyQualifiedLogicalName { get; set; }
 
         /// <summary>
-        /// A key used to retrieve the annotation logicalLocation from the logicalLocations dictionary.
+        /// A key used to retrieve the annotation's logicalLocation from the logicalLocations dictionary.
         /// </summary>
         [DataMember(Name = "logicalLocationKey", IsRequired = false, EmitDefaultValue = false)]
         public string LogicalLocationKey { get; set; }
@@ -88,6 +88,18 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// </summary>
         [DataMember(Name = "kind", IsRequired = false, EmitDefaultValue = false)]
         public AnnotatedCodeLocationKind Kind { get; set; }
+
+        /// <summary>
+        /// Fully qualified logical name of the function, if any, called from this location.
+        /// </summary>
+        [DataMember(Name = "callee", IsRequired = false, EmitDefaultValue = false)]
+        public string Callee { get; set; }
+
+        /// <summary>
+        /// A key used to retrieve the callee's logicalLocation from the logicalLocations dictionary.
+        /// </summary>
+        [DataMember(Name = "calleeKey", IsRequired = false, EmitDefaultValue = false)]
+        public string CalleeKey { get; set; }
 
         /// <summary>
         /// OBSOLETE (use "importance" instead): True if this location is essential to understanding the code flow in which it occurs.
@@ -151,6 +163,12 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="kind">
         /// An initialization value for the <see cref="P: Kind" /> property.
         /// </param>
+        /// <param name="callee">
+        /// An initialization value for the <see cref="P: Callee" /> property.
+        /// </param>
+        /// <param name="calleeKey">
+        /// An initialization value for the <see cref="P: CalleeKey" /> property.
+        /// </param>
         /// <param name="essential">
         /// An initialization value for the <see cref="P: Essential" /> property.
         /// </param>
@@ -163,9 +181,9 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="properties">
         /// An initialization value for the <see cref="P: Properties" /> property.
         /// </param>
-        public AnnotatedCodeLocation(int id, int step, PhysicalLocation physicalLocation, string fullyQualifiedLogicalName, string logicalLocationKey, string module, int threadId, string message, AnnotatedCodeLocationKind kind, bool essential, AnnotatedCodeLocationImportance importance, string snippet, IDictionary<string, SerializedPropertyInfo> properties)
+        public AnnotatedCodeLocation(int id, int step, PhysicalLocation physicalLocation, string fullyQualifiedLogicalName, string logicalLocationKey, string module, int threadId, string message, AnnotatedCodeLocationKind kind, string callee, string calleeKey, bool essential, AnnotatedCodeLocationImportance importance, string snippet, IDictionary<string, SerializedPropertyInfo> properties)
         {
-            Init(id, step, physicalLocation, fullyQualifiedLogicalName, logicalLocationKey, module, threadId, message, kind, essential, importance, snippet, properties);
+            Init(id, step, physicalLocation, fullyQualifiedLogicalName, logicalLocationKey, module, threadId, message, kind, callee, calleeKey, essential, importance, snippet, properties);
         }
 
         /// <summary>
@@ -184,7 +202,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 throw new ArgumentNullException(nameof(other));
             }
 
-            Init(other.Id, other.Step, other.PhysicalLocation, other.FullyQualifiedLogicalName, other.LogicalLocationKey, other.Module, other.ThreadId, other.Message, other.Kind, other.Essential, other.Importance, other.Snippet, other.Properties);
+            Init(other.Id, other.Step, other.PhysicalLocation, other.FullyQualifiedLogicalName, other.LogicalLocationKey, other.Module, other.ThreadId, other.Message, other.Kind, other.Callee, other.CalleeKey, other.Essential, other.Importance, other.Snippet, other.Properties);
         }
 
         ISarifNode ISarifNode.DeepClone()
@@ -205,7 +223,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new AnnotatedCodeLocation(this);
         }
 
-        private void Init(int id, int step, PhysicalLocation physicalLocation, string fullyQualifiedLogicalName, string logicalLocationKey, string module, int threadId, string message, AnnotatedCodeLocationKind kind, bool essential, AnnotatedCodeLocationImportance importance, string snippet, IDictionary<string, SerializedPropertyInfo> properties)
+        private void Init(int id, int step, PhysicalLocation physicalLocation, string fullyQualifiedLogicalName, string logicalLocationKey, string module, int threadId, string message, AnnotatedCodeLocationKind kind, string callee, string calleeKey, bool essential, AnnotatedCodeLocationImportance importance, string snippet, IDictionary<string, SerializedPropertyInfo> properties)
         {
             Id = id;
             Step = step;
@@ -220,6 +238,8 @@ namespace Microsoft.CodeAnalysis.Sarif
             ThreadId = threadId;
             Message = message;
             Kind = kind;
+            Callee = callee;
+            CalleeKey = calleeKey;
             Essential = essential;
             Importance = importance;
             Snippet = snippet;

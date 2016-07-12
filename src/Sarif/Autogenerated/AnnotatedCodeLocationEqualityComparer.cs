@@ -73,6 +73,16 @@ namespace Microsoft.CodeAnalysis.Sarif
                 return false;
             }
 
+            if (left.Callee != right.Callee)
+            {
+                return false;
+            }
+
+            if (left.CalleeKey != right.CalleeKey)
+            {
+                return false;
+            }
+
             if (left.Essential != right.Essential)
             {
                 return false;
@@ -152,6 +162,16 @@ namespace Microsoft.CodeAnalysis.Sarif
                 }
 
                 result = (result * 31) + obj.Kind.GetHashCode();
+                if (obj.Callee != null)
+                {
+                    result = (result * 31) + obj.Callee.GetHashCode();
+                }
+
+                if (obj.CalleeKey != null)
+                {
+                    result = (result * 31) + obj.CalleeKey.GetHashCode();
+                }
+
                 result = (result * 31) + obj.Essential.GetHashCode();
                 result = (result * 31) + obj.Importance.GetHashCode();
                 if (obj.Snippet != null)
