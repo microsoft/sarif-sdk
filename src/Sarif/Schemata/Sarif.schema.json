@@ -59,7 +59,7 @@
         },
 
         "logicalLocationKey": {
-          "description": "A key used to retrieve the annotation logicalLocation from the logicalLocations dictionary.",
+          "description": "A key used to retrieve the annotation's logicalLocation from the logicalLocations dictionary.",
           "type": "string"
         },
 
@@ -81,6 +81,16 @@
         "kind": {
           "description": "Describes the location.",
           "enum": [ "alias", "assignment", "branch", "call", "callReturn", "continuation", "declaration", "functionEnter", "functionExit", "sanitizer", "sink", "source", "usage" ]
+        },
+
+        "callee": {
+          "description": "For an annotation of kind 'call', the fully qualified logical name of the function called from this location.",
+          "type": "string"
+        },
+
+        "calleeKey": {
+          "description": "A key used to retrieve the callee's logicalLocation from the logicalLocations dictionary.",
+          "type": "string"
         },
 
         "essential": {
