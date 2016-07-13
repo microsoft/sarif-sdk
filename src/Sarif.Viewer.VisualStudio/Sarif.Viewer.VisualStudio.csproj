@@ -37,6 +37,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="CodeAnalysisResultManager.cs" />
+    <Compile Include="CodeFlowToTreeConverter.cs" />
     <Compile Include="CodeLocationObject.cs" />
     <Compile Include="Controls\InternetHyperlink.xaml.cs">
       <DependentUpon>InternetHyperlink.xaml</DependentUpon>
@@ -52,6 +53,7 @@
     <Compile Include="Converters\ObjectToVisibilityConverter.cs" />
     <Compile Include="DelegateCommand.cs" />
     <Compile Include="DelegateCommandBase.cs" />
+    <Compile Include="Models\CallTreeNode.cs" />
     <Compile Include="Models\InvocationModel.cs" />
     <Compile Include="Models\ReplacementModel.cs" />
     <Compile Include="Models\FileChangeModel.cs" />
