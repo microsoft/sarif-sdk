@@ -1,5 +1,5 @@
 # sarif-sdk
-<image src="https://ci.appveyor.com/api/projects/status/github/Microsoft/sarif-sdk?svg=true" width="100">
+<image src="https://ci.appveyor.com/api/projects/status/fc8w20qv08p003uv?svg=true" width="100">
 
 The SARIF SDK contains .NET code and supporting files for working with the Static Analysis Results Interchange Format (SARIF). For more information about SARIF, see the [SARIF Home Page](http://sarifweb.azurewebsites.net). You can read the [SARIF specification](https://rawgit.com/sarif-standard/sarif-spec/master/Static%20Analysis%20Results%20Interchange%20Format%20(SARIF).html), or file [issues](https://github.com/sarif-standard/sarif-spec/issues) in the [SARIF GitHub repo](https://github.com/sarif-standard/sarif-spec).
 
