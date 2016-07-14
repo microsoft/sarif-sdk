@@ -11,27 +11,19 @@ before_build:
 
 platform: Any CPU
 
+environment:
+  _CL_: /c /analyze /analyze:quiet- /W4 /analyze:autolog:ext prefast.sarif
+
 configuration:
 #  - Debug
   - Release
-
-environment:
-  _CL_: /analyze:autolog:extsarif
-  _CSC_: /analyzer:'Microsoft.CodeAnalysis.Analyzers\*'
 
 build:
   project: src/Everything.sln
 
 after_build:
-  - '"%VS140COMNTOOLS%VsDevCmd.bat"'
-  - ConvertToSarif.cmd
+  - ps: .\appveyor\Push-PrefastResultsToAppveyor.ps1
 
-before_test:
-  - ps: Push-AppveyorArtifact prefastresult.sarif
-  - ps: Push-AppveyorArtifact 'src\PREfastXmlSarifConverter\prefastresult.pftlog'
-  - ps: .\jsonparse.ps1 "prefastresult.sarif" %APPVEYOR_REPO_PROVIDER% %APPVEYOR_REPO_NAME%; ls
-  - ps: Push-AppveyorArtifact githubprefastresult.sarif
-  
 test:
   assemblies:
     - '**\Sarif.UnitTests.dll'
@@ -42,7 +34,7 @@ test:
 notifications:
   - provider: Email
     to:
-     - t-rools@microsoft.com
+     - vsarcplat@microsoft.com
     subject: '{{projectName}} Build {{status}}: Version: {{buildVersion}}'
     on_build_status_changed: true
 

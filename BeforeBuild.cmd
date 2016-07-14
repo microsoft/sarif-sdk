@@ -25,22 +25,6 @@ echo nuget restore failed
 goto ExitFailed
 )
 
-@REM Install SarifSdk Nuget package
-%~dp0.nuget\NuGet.exe install Sarif.Sdk
-
-if "%ERRORLEVEL%" NEQ "0" (
-echo Sarif.sdk nuget installation failed
-goto ExitFailed
-)
-
-@REM Install Roslyn Analyzers Nuget package
-%~dp0.nuget\NuGet.exe install Microsoft.CodeAnalysis.Analyzers
-
-if "%ERRORLEVEL%" NEQ "0" (
-echo Roslyn Analyzers nuget installation failed
-goto ExitFailed
-)
-
 goto Exit
 
 :ExitFailed
