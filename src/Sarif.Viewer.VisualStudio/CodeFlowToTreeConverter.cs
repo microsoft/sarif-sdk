@@ -23,20 +23,20 @@ namespace Microsoft.Sarif.Viewer.VisualStudio
             return root;
         }
 
-        private static List<CallTreeNode> GetChildren(CodeFlow codeFlow, ref int i)
+        private static List<CallTreeNode> GetChildren(CodeFlow codeFlow, ref int currentCodeFlowIndex)
         {
-            i++;
+            currentCodeFlowIndex++;
             List<CallTreeNode> children = new List<CallTreeNode>();
             bool foundCallReturn = false;
 
-            while (i < codeFlow.Locations.Count && !foundCallReturn)
+            while (currentCodeFlowIndex < codeFlow.Locations.Count && !foundCallReturn)
             {
-                switch (codeFlow.Locations[i].Kind)
+                switch (codeFlow.Locations[currentCodeFlowIndex].Kind)
                 {
                     case AnnotatedCodeLocationKind.Call:
                         children.Add(new CallTreeNode
                         {
-                            Children = GetChildren(codeFlow, ref i)
+                            Children = GetChildren(codeFlow, ref currentCodeFlowIndex)
                         });
                         break;
 
@@ -53,11 +53,11 @@ namespace Microsoft.Sarif.Viewer.VisualStudio
                         {
                             Children = new List<CallTreeNode>()
                         });
-                        i++;
+                        currentCodeFlowIndex++;
                         break;
                 }
             }
-            i++;
+            currentCodeFlowIndex++;
             return children;
         }
     }
