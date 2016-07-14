@@ -203,7 +203,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                     string extraMsg = "Call " + callTokens[1].Replace('"', '\'').Trim();
                     annotatedCodeLocation.SetProperty("extraMsg", extraMsg);
 
-                    if (IsImportantCall(uriValue, extraMsg))
+                    string caller, callee; 
+
+                    if (IsImportantCall(uriValue, extraMsg, out caller, out callee))
                     {
                         foreach(AnnotatedCodeLocation acl in codeLocationStack)
                         {
@@ -213,11 +215,22 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                             }
                         }
                     }
+
+                    if (caller != null)
+                    {
+                        annotatedCodeLocation.FullyQualifiedLogicalName = caller;
+                    }
+
+                    if (callee != null)
+                    {
+                        annotatedCodeLocation.FullyQualifiedLogicalName = callee;
+                    }
                 }
                 else if (kind == AnnotatedCodeLocationKind.CallReturn)
                 {
-                    annotatedCodeLocation.Importance = AnnotatedCodeLocationImportance.Important;
-                    codeLocationStack.Pop();
+                    AnnotatedCodeLocation caller = codeLocationStack.Pop();
+                    annotatedCodeLocation.Importance = caller.Importance;
+                    annotatedCodeLocation.FullyQualifiedLogicalName = caller.FullyQualifiedLogicalName;
                 }
                 else if (uriValue == "?")
                 {
@@ -266,12 +279,17 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         }
 
         private static Regex s_callRegEx = new Regex(@"Call '(.*)' '(.*)'", RegexOptions.Compiled);
-        private bool IsImportantCall(string fileName, string extraMsg)
+        private bool IsImportantCall(string fileName, string extraMsg, out string caller, out string callee)
         {
+            caller = callee = null;
+
             Match match = s_callRegEx.Match(extraMsg);
             if (match.Success && match.Groups.Count == 3)
             {
-                return (!IsHarnessOrRuleFile(fileName) && !match.Groups[1].Value.StartsWith("SLIC_"));
+                caller = match.Groups[0].Value;
+                callee = match.Groups[1].Value;
+
+                return (!IsHarnessOrRuleFile(fileName) && !callee.StartsWith("SLIC_"));
             }
             Debug.Assert(false);
             return false;
