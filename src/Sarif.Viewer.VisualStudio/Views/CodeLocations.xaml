@@ -25,6 +25,7 @@
                 <ResourceDictionary Source="pack://application:,,,/Microsoft.Sarif.Viewer;component/Themes/Locations.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/Microsoft.Sarif.Viewer;component/Themes/Stacks.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/Microsoft.Sarif.Viewer;component/Themes/CodeFlows.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/Microsoft.Sarif.Viewer;component/Themes/CallTrees.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/Microsoft.Sarif.Viewer;component/Themes/Fixes.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/Microsoft.Sarif.Viewer;component/Themes/Information.xaml" />
                 <ResourceDictionary>
@@ -152,6 +153,23 @@
 
                 <ContentControl ContentTemplate="{StaticResource AnnotatedCodeLocationCollectionDataGridTemplate}"
                                 Content="{Binding CodeFlows}" />
+            </TabItem>
+            <TabItem Visibility="{Binding CallTrees, Converter={StaticResource collectionToVisibility0Converter}}">
+                <TabItem.Header>
+                    <DockPanel Margin="5 0 5 0">
+                        <TextBlock DockPanel.Dock="Left"
+                                   Text="Call Trees" />
+                        <TextBlock DockPanel.Dock="Left"
+                                   Visibility="{Binding CallTrees, Converter={StaticResource collectionToVisibility1Converter}}">
+                            <Run Text=" (" />
+                            <Run Text="{Binding CallTrees, Mode=OneWay, Converter={StaticResource collectionToCountConverter}}" />
+                            <Run Text=")" />
+                        </TextBlock>
+                    </DockPanel>
+                </TabItem.Header>
+
+                <ContentControl ContentTemplate="{StaticResource CallTreeTemplate}"
+                                Content="{Binding CallTrees}" />
             </TabItem>
             <TabItem Visibility="{Binding Stacks, Converter={StaticResource collectionToVisibility0Converter}}">
                 <TabItem.Header>

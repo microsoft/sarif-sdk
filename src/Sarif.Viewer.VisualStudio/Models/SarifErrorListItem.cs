@@ -22,6 +22,7 @@ namespace Microsoft.Sarif.Viewer
         private AnnotatedCodeLocationCollection _locations;
         private AnnotatedCodeLocationCollection _relatedLocations;
         private ObservableCollection<AnnotatedCodeLocationCollection> _codeFlows;
+        private ObservableCollection<CallTree> _callTrees;
         private ObservableCollection<StackCollection> _stacks;
         private ObservableCollection<FixModel> _fixes;
         private DelegateCommand _openLogFileCommand;
@@ -31,6 +32,7 @@ namespace Microsoft.Sarif.Viewer
             this._locations = new AnnotatedCodeLocationCollection(String.Empty);
             this._relatedLocations = new AnnotatedCodeLocationCollection(String.Empty);
             this._codeFlows = new ObservableCollection<AnnotatedCodeLocationCollection>();
+            this._callTrees = new ObservableCollection<CallTree>();
             this._stacks = new ObservableCollection<StackCollection>();
             this._fixes = new ObservableCollection<FixModel>();
         }
@@ -79,6 +81,7 @@ namespace Microsoft.Sarif.Viewer
                 foreach (CodeFlow codeFlow in result.CodeFlows)
                 {
                     this.CodeFlows.Add(codeFlow.ToAnnotatedCodeLocationCollection());
+                    this.CallTrees.Add(codeFlow.ToCallTree());
                 }
             }
 
@@ -216,6 +219,14 @@ namespace Microsoft.Sarif.Viewer
             get
             {
                 return this._codeFlows;
+            }
+        }
+
+        public ObservableCollection<CallTree> CallTrees
+        {
+            get
+            {
+                return this._callTrees;
             }
         }
 

@@ -61,11 +61,11 @@ namespace Microsoft.Sarif.Viewer.VisualStudio.UnitTests
                 }
             };
 
-            CallTreeNode root = CodeFlowToTreeConverter.Convert(codeFlow);
+            List<CallTreeNode> topLevelNodes = CodeFlowToTreeConverter.Convert(codeFlow);
 
-            root.Children.Count.Should().Be(2);
-            root.Children[0].Children.Count.Should().Be(4);
-            root.Children[0].Children[2].Children.Count.Should().Be(1);
+            topLevelNodes.Count.Should().Be(2);
+            topLevelNodes[0].Children.Count.Should().Be(4);
+            topLevelNodes[0].Children[2].Children.Count.Should().Be(1);
         }
 
         public void CanConvertCodeFlowToTreeNonCallOrReturn()
@@ -113,11 +113,11 @@ namespace Microsoft.Sarif.Viewer.VisualStudio.UnitTests
                 }
             };
 
-            CallTreeNode root = CodeFlowToTreeConverter.Convert(codeFlow);
+            List<CallTreeNode> topLevelNodes = CodeFlowToTreeConverter.Convert(codeFlow);
 
-            root.Children.Count.Should().Be(2);
-            root.Children[0].Children.Count.Should().Be(4);
-            root.Children[1].Children.Count.Should().Be(3);
+            topLevelNodes.Count.Should().Be(2);
+            topLevelNodes[0].Children.Count.Should().Be(4);
+            topLevelNodes[1].Children.Count.Should().Be(3);
         }
 
         public void CanConvertCodeFlowToTreeOnlyDeclarations()
@@ -141,10 +141,12 @@ namespace Microsoft.Sarif.Viewer.VisualStudio.UnitTests
                 }
             };
 
-            CallTreeNode root = CodeFlowToTreeConverter.Convert(codeFlow);
+            List<CallTreeNode> topLevelNodes = CodeFlowToTreeConverter.Convert(codeFlow);
 
-            root.Children.Count.Should().Be(3);
-            root.Children[0].Children.Count.Should().Be(0);
+            topLevelNodes.Count.Should().Be(3);
+            topLevelNodes[0].Children.Should().BeEmpty();
+            topLevelNodes[1].Children.Should().BeEmpty();
+            topLevelNodes[2].Children.Should().BeEmpty();
         }
     }
 }
