@@ -9,6 +9,6 @@ namespace Microsoft.Sarif.Viewer.Models
 {
     public class CallTreeNode
     {
-        public List<CallTreeNode> Children { get; }
+        public List<CallTreeNode> Children { get; set; }
     }
 }
