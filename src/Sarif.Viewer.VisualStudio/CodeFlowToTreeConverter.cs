@@ -27,30 +27,34 @@ namespace Microsoft.Sarif.Viewer.VisualStudio
         {
             i++;
             List<CallTreeNode> children = new List<CallTreeNode>();
-            while (i < codeFlow.Locations.Count )
+            bool foundCallReturn = false;
+
+            while (i < codeFlow.Locations.Count && !foundCallReturn)
             {
-                if (codeFlow.Locations[i].Kind == AnnotatedCodeLocationKind.CallReturn)
+                switch (codeFlow.Locations[i].Kind)
                 {
-                    children.Add(new CallTreeNode
-                    {
-                        Children = new List<CallTreeNode>()
-                    });
-                    break;
-                }
-                else if (codeFlow.Locations[i].Kind == AnnotatedCodeLocationKind.Call)
-                {
-                    children.Add(new CallTreeNode
-                    {
-                        Children = GetChildren(codeFlow, ref i)
-                    });
-                }
-                else
-                {
-                    children.Add(new CallTreeNode
-                    {
-                        Children = new List<CallTreeNode>()
-                    });
-                    i++;
+                    case AnnotatedCodeLocationKind.Call:
+                        children.Add(new CallTreeNode
+                        {
+                            Children = GetChildren(codeFlow, ref i)
+                        });
+                        break;
+
+                    case AnnotatedCodeLocationKind.CallReturn:
+                        children.Add(new CallTreeNode
+                        {
+                            Children = new List<CallTreeNode>()
+                        });
+                        foundCallReturn = true;
+                        break;
+
+                    default:
+                        children.Add(new CallTreeNode
+                        {
+                            Children = new List<CallTreeNode>()
+                        });
+                        i++;
+                        break;
                 }
             }
             i++;
