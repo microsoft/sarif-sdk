@@ -4,6 +4,8 @@
 using System;
 using Microsoft.CodeAnalysis.Sarif;
 using Microsoft.Sarif.Viewer.Models;
+using System.Collections;
+using System.Collections.Generic;
 
 namespace Microsoft.Sarif.Viewer.VisualStudio
 {
@@ -11,7 +13,48 @@ namespace Microsoft.Sarif.Viewer.VisualStudio
     {
         internal static CallTreeNode Convert(CodeFlow codeFlow)
         {
-            throw new NotImplementedException();
+           int i = -1;
+
+            CallTreeNode root = new CallTreeNode
+            {
+                Children = GetChildren(codeFlow, ref i)
+            };
+
+            return root;
+        }
+
+        private static List<CallTreeNode> GetChildren(CodeFlow codeFlow, ref int i)
+        {
+            i++;
+            List<CallTreeNode> children = new List<CallTreeNode>();
+            while (i < codeFlow.Locations.Count )
+            {
+                if (codeFlow.Locations[i].Kind == AnnotatedCodeLocationKind.CallReturn)
+                {
+                    children.Add(new CallTreeNode
+                    {
+                        Children = new List<CallTreeNode>()
+                    });
+                    break;
+                }
+                else if (codeFlow.Locations[i].Kind == AnnotatedCodeLocationKind.Call)
+                {
+                    children.Add(new CallTreeNode
+                    {
+                        Children = GetChildren(codeFlow, ref i)
+                    });
+                }
+                else
+                {
+                    children.Add(new CallTreeNode
+                    {
+                        Children = new List<CallTreeNode>()
+                    });
+                    i++;
+                }
+            }
+            i++;
+            return children;
         }
     }
 }
