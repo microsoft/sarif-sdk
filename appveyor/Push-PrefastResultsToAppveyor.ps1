@@ -1,3 +1,5 @@
+#Find all Prefast results, push the original to appveyor, and then run the URI conversion
+
 $Dir = get-childitem .\ -Recurse -Filter "*.prefast.sarif"
 
 for ($i=0; $i -lt $Dir.Count; $i++)

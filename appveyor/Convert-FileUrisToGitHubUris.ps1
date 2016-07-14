@@ -1,3 +1,5 @@
+#Reads in SARIF files and rewrite absolute URIs to reference the source control version
+
 $logFilePath=$args[0]
 $repoProvider=$env:APPVEYOR_REPO_PROVIDER
 $projectSlug=$env:APPVEYOR_PROJECT_SLUG
