@@ -13,11 +13,11 @@ namespace Microsoft.Sarif.Viewer.VisualStudio
     {
         internal static CallTreeNode Convert(CodeFlow codeFlow)
         {
-           int i = -1;
+           int currentCodeFlowIndex = -1;
 
             CallTreeNode root = new CallTreeNode
             {
-                Children = GetChildren(codeFlow, ref i)
+                Children = GetChildren(codeFlow, ref currentCodeFlowIndex)
             };
 
             return root;
