@@ -21,9 +21,6 @@
                     <RowDefinition />
                     <RowDefinition />
                     <RowDefinition />
-                    <RowDefinition />
-                    <RowDefinition />
-                    <RowDefinition />
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto" />
@@ -31,7 +28,8 @@
                 </Grid.ColumnDefinitions>
                 <DockPanel Grid.Row="0"
                       Grid.Column="0"
-                      Grid.ColumnSpan="2">
+                      Grid.ColumnSpan="2"
+                      Margin="0,0,0,10">
                     <TextBlock DockPanel.Dock="Left"
                                Text="{Binding Rule.Id}"
                                FontWeight="Bold"
@@ -41,62 +39,42 @@
                                Visibility="{Binding Rule.Name, Converter={StaticResource stringToVisibilityConverter}}"
                                FontWeight="Bold" />
                 </DockPanel>
-                <controls:InternetHyperlink Grid.Row="1"
-                                            Text="Help"
-                                            Margin="0 0 0 5"
-                                            Visibility="{Binding Rule.HelpUri, Converter={StaticResource stringToVisibilityConverter}}"
-                                            NavigateUri="{Binding Rule.HelpUri}" />
-                <TextBlock Grid.Row="2"
+
+                <TextBlock Grid.Row="1"
                            Grid.Column="0"
-                           Visibility="{Binding Rule.Version, Converter={StaticResource stringToVisibilityConverter}}"
-                           Text="Version: "
+                           Text="Default level: "
                            Style="{StaticResource PropertyKey}" />
-                <TextBlock Grid.Row="2"
+                <TextBlock Grid.Row="1"
                            Grid.Column="1"
-                           Visibility="{Binding Rule.Version, Converter={StaticResource stringToVisibilityConverter}}"
-                           Text="{Binding Rule.Version}" />
-                <TextBlock Grid.Row="3"
+                           Text="{Binding Rule.DefaultLevel}" />
+                <TextBlock Grid.Row="2"
                            Grid.Column="0"
                            Visibility="{Binding Rule.Category, Converter={StaticResource stringToVisibilityConverter}}"
                            Text="Category: "
                            Style="{StaticResource PropertyKey}" />
-                <TextBlock Grid.Row="3"
+                <TextBlock Grid.Row="2"
                            Grid.Column="1"
                            Visibility="{Binding Rule.Category, Converter={StaticResource stringToVisibilityConverter}}"
                            Text="{Binding Rule.Category}" />
+                <TextBlock Grid.Row="3"
+                           Grid.Column="0"
+                           Visibility="{Binding Rule.HelpUri, Converter={StaticResource stringToVisibilityConverter}}"
+                           Text="Help: "
+                           Style="{StaticResource PropertyKey}" />
+                <controls:InternetHyperlink Grid.Row="3"
+                                            Grid.Column="1"
+                                            Text="{Binding Rule.HelpUri}"
+                                            Margin="0 0 0 5"
+                                            Visibility="{Binding Rule.HelpUri, Converter={StaticResource stringToVisibilityConverter}}"
+                                            NavigateUri="{Binding Rule.HelpUri}" />
                 <TextBlock Grid.Row="4"
-                           Grid.Column="0"
-                           Text="Default level: "
-                           Style="{StaticResource PropertyKey}" />
-                <TextBlock Grid.Row="4"
-                           Grid.Column="1"
-                           Text="{Binding Rule.Severity}" />
-                <TextBlock Grid.Row="5"
-                           Grid.Column="0"
-                           Visibility="{Binding Rule.OwnerName, Converter={StaticResource stringToVisibilityConverter}}"
-                           Text="Owner: "
-                           Style="{StaticResource PropertyKey}" />
-                <TextBlock Grid.Row="5"
-                           Grid.Column="1"
-                           Visibility="{Binding Rule.OwnerName, Converter={StaticResource stringToVisibilityConverter}}"
-                           Text="{Binding Rule.OwnerName}" />
-                <TextBlock Grid.Row="6"
-                           Grid.Column="0"
-                           Visibility="{Binding Rule.FeedbackUri, Converter={StaticResource stringToVisibilityConverter}}"
-                           Text="Feedback: "
-                           Style="{StaticResource PropertyKey}" />
-                <TextBlock Grid.Row="6"
-                           Grid.Column="1"
-                           Visibility="{Binding Rule.FeedbackUri, Converter={StaticResource stringToVisibilityConverter}}"
-                           Text="{Binding Rule.FeedbackUri}" />
-                <TextBlock Grid.Row="7"
                            Grid.Column="0"
                            Grid.ColumnSpan="2"
                            Visibility="{Binding Rule.Description, Converter={StaticResource stringToVisibilityConverter}}"
                            Text="{Binding Rule.Description}"
                            TextWrapping="Wrap"
                            Style="{StaticResource PropertyKey}" />
-                <Separator Grid.Row="8"
+                <Separator Grid.Row="5"
                            Grid.Column="0"
                            Grid.ColumnSpan="2"
                            Margin="0 15 0 3" />
@@ -116,12 +94,7 @@
                     <RowDefinition />
                     <RowDefinition />
                     <RowDefinition />
-                    <RowDefinition />
-                    <RowDefinition />
-                    <RowDefinition />
-                    <RowDefinition />
-                    <RowDefinition />
-                    <RowDefinition />
+
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto" />
@@ -130,7 +103,8 @@
 
                 <DockPanel Grid.Row="0"
                       Grid.Column="0"
-                      Grid.ColumnSpan="2">
+                      Grid.ColumnSpan="2"
+                      Margin="0, 0, 0, 10">
                     <TextBlock DockPanel.Dock="Left"
                                Text="{Binding Tool.Name}"
                                FontWeight="Bold"
@@ -140,45 +114,14 @@
                                FontWeight="Bold"
                                Visibility="{Binding Tool.Version, Converter={StaticResource stringToVisibilityConverter}}" />
                 </DockPanel>
-                <controls:InternetHyperlink Grid.Row="1"
-                                            Grid.Column="0"
-                                            Text="Help"
-                                            Margin="0 0 0 5"
-                                            Visibility="{Binding Tool.HelpUri, Converter={StaticResource stringToVisibilityConverter}}"
-                                            NavigateUri="{Binding Tool.HelpUri}" />
-                <TextBlock Grid.Row="2"
-                           Grid.Column="0"
-                           Visibility="{Binding Tool.OwnerName, Converter={StaticResource stringToVisibilityConverter}}"
-                           Text="Owner: "
-                           Style="{StaticResource PropertyKey}" />
-                <TextBlock Grid.Row="2"
-                           Grid.Column="1"
-                           Visibility="{Binding Tool.OwnerName, Converter={StaticResource stringToVisibilityConverter}}"
-                           Text="{Binding Tool.OwnerName}" />
-                <TextBlock Grid.Row="3"
-                           Grid.Column="0"
-                           Visibility="{Binding Tool.FeedbackUri, Converter={StaticResource stringToVisibilityConverter}}"
-                           Text="Feedback: "
-                           Style="{StaticResource PropertyKey}" />
-                <TextBlock Grid.Row="3"
-                           Grid.Column="1"
-                           Visibility="{Binding Tool.FeedbackUri, Converter={StaticResource stringToVisibilityConverter}}"
-                           Text="{Binding Tool.FeedbackUri}" />
-                <TextBlock Grid.Row="4"
-                           Grid.Column="0"
-                           Grid.ColumnSpan="2"
-                           Visibility="{Binding Tool.Description, Converter={StaticResource stringToVisibilityConverter}}"
-                           Text="{Binding Tool.Description}"
-                           TextWrapping="Wrap"
-                           Style="{StaticResource PropertyKey}" />
 
                 <!-- Invocation metadata -->
-                <TextBlock Grid.Row="7"
+                <TextBlock Grid.Row="1"
                            Grid.Column="0"
                            Visibility="{Binding Invocation.CommandLine, Converter={StaticResource stringToVisibilityConverter}}"
                            Text="Command line: "
                            Style="{StaticResource PropertyKey}" />
-                <TextBox Grid.Row="7"
+                <TextBox Grid.Row="1"
                          Grid.Column="1"
                          Visibility="{Binding Invocation.CommandLine, Converter={StaticResource stringToVisibilityConverter}}"
                          Background="Transparent"
@@ -187,76 +130,76 @@
                          IsReadOnly="True"
                          TextWrapping="Wrap"
                          IsTabStop="False" />
-                <TextBlock Grid.Row="8"
+                <TextBlock Grid.Row="2"
                            Grid.Column="0"
                            Visibility="{Binding Invocation.StartTime, Converter={StaticResource stringToVisibilityConverter}}"
                            Text="Start time: "
                            Style="{StaticResource PropertyKey}" />
-                <TextBlock Grid.Row="8"
+                <TextBlock Grid.Row="2"
                            Grid.Column="1"
                            Visibility="{Binding Invocation.StartTime, Converter={StaticResource stringToVisibilityConverter}}"
                            Text="{Binding Invocation.StartTime}" />
-                <TextBlock Grid.Row="9"
+                <TextBlock Grid.Row="3"
                            Grid.Column="0"
                            Visibility="{Binding Invocation.EndTime, Converter={StaticResource stringToVisibilityConverter}}"
                            Text="End time: "
                            Style="{StaticResource PropertyKey}" />
-                <TextBlock Grid.Row="9"
+                <TextBlock Grid.Row="3"
                            Grid.Column="1"
                            Visibility="{Binding Invocation.EndTime, Converter={StaticResource stringToVisibilityConverter}}"
                            Text="{Binding Invocation.EndTime}" />
-                <TextBlock Grid.Row="10"
+                <TextBlock Grid.Row="4"
                            Grid.Column="0"
                            Visibility="{Binding Invocation.Machine, Converter={StaticResource stringToVisibilityConverter}}"
                            Text="Machine: "
                            Style="{StaticResource PropertyKey}" />
-                <TextBlock Grid.Row="10"
+                <TextBlock Grid.Row="4"
                            Grid.Column="1"
                            Visibility="{Binding Invocation.Machine, Converter={StaticResource stringToVisibilityConverter}}"
                            Text="{Binding Invocation.Machine}" />
-                <TextBlock Grid.Row="11"
+                <TextBlock Grid.Row="5"
                            Grid.Column="0"
                            Visibility="{Binding Invocation.Account, Converter={StaticResource stringToVisibilityConverter}}"
                            Text="Account: "
                            Style="{StaticResource PropertyKey}" />
-                <TextBlock Grid.Row="11"
+                <TextBlock Grid.Row="5"
                            Grid.Column="1"
                            Visibility="{Binding Invocation.Account, Converter={StaticResource stringToVisibilityConverter}}"
                            Text="{Binding Invocation.Account}" />
-                <TextBlock Grid.Row="12"
+                <TextBlock Grid.Row="6"
                            Grid.Column="0"
                            Visibility="{Binding Invocation.ProcessId, Converter={StaticResource stringToVisibilityConverter}}"
                            Text="Process id: "
                            Style="{StaticResource PropertyKey}" />
-                <TextBlock Grid.Row="12"
+                <TextBlock Grid.Row="6"
                            Grid.Column="1"
                            Visibility="{Binding Invocation.ProcessId, Converter={StaticResource stringToVisibilityConverter}}"
                            Text="{Binding Invocation.ProcessId}" />
-                <TextBlock Grid.Row="13"
+                <TextBlock Grid.Row="7"
                            Grid.Column="0"
                            Visibility="{Binding Invocation.FileName, Converter={StaticResource stringToVisibilityConverter}}"
                            Text="File name: "
                            Style="{StaticResource PropertyKey}" />
-                <TextBlock Grid.Row="13"
+                <TextBlock Grid.Row="7"
                            Grid.Column="1"
                            Visibility="{Binding Invocation.FileName, Converter={StaticResource stringToVisibilityConverter}}"
                            Text="{Binding Invocation.FileName}"
                            TextWrapping="Wrap" />
-                <TextBlock Grid.Row="14"
+                <TextBlock Grid.Row="8"
                            Grid.Column="0"
                            Visibility="{Binding Invocation.WorkingDirectory, Converter={StaticResource stringToVisibilityConverter}}"
                            Text="Working directory: "
                            Style="{StaticResource PropertyKey}" />
-                <TextBlock Grid.Row="14"
+                <TextBlock Grid.Row="8"
                            Grid.Column="1"
                            Visibility="{Binding Invocation.WorkingDirectory, Converter={StaticResource stringToVisibilityConverter}}"
                            Text="{Binding Invocation.WorkingDirectory}" />
-                <TextBlock Grid.Row="15"
+                <TextBlock Grid.Row="9"
                            Grid.Column="0"
                            Visibility="{Binding Invocation.EnvironmentVariables, Converter={StaticResource stringToVisibilityConverter}}"
                            Text="Environment variables: "
                            Style="{StaticResource PropertyKey}" />
-                <TextBlock Grid.Row="15"
+                <TextBlock Grid.Row="9"
                            Grid.Column="1"
                            Visibility="{Binding Invocation.EnvironmentVariables, Converter={StaticResource stringToVisibilityConverter}}"
                            Text="{Binding Invocation.EnvironmentVariables}" />

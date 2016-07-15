@@ -1,41 +1,29 @@
 ﻿// Copyright (c) Microsoft. All rights reserved. 
 // Licensed under the MIT license. See LICENSE file in the project root for full license information. 
 
-using Microsoft.CodeAnalysis.Sarif;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 namespace Microsoft.Sarif.Viewer.Models
 {
     public class RuleModel : NotifyPropertyChangedObject
     {
         private string _id;
         private string _name;
-        private string _version;
         private string _category;
-        private string _severity;
+        private string _defaultLevel;
         private string _description;
-        private string _ownerName;
-        private string _ownerUri;
-        private string _feedbackUri;
         private string _helpUri;
 
         public string Id
         {
             get
             {
-                return this._id;
+                return _id;
             }
             set
             {
-                if (value != this._id)
+                if (value != _id)
                 {
-                    this._id = value;
-                    NotifyPropertyChanged("Id");
+                    _id = value;
+                    NotifyPropertyChanged(nameof(Id));
                 }
             }
         }
@@ -44,62 +32,14 @@ namespace Microsoft.Sarif.Viewer.Models
         {
             get
             {
-                return this._name;
+                return _name;
             }
             set
             {
-                if (value != this._name)
+                if (value != _name)
                 {
-                    this._name = value;
-                    NotifyPropertyChanged("Name");
-                }
-            }
-        }
-
-        public string OwnerName
-        {
-            get
-            {
-                return this._ownerName;
-            }
-            set
-            {
-                if (value != this._ownerName)
-                {
-                    this._ownerName = value;
-                    NotifyPropertyChanged("OwnerName");
-                }
-            }
-        }
-
-        public string OwnerUri
-        {
-            get
-            {
-                return this._ownerUri;
-            }
-            set
-            {
-                if (value != this._ownerUri)
-                {
-                    this._ownerUri = value;
-                    NotifyPropertyChanged("OwnerUri");
-                }
-            }
-        }
-
-        public string FeedbackUri
-        {
-            get
-            {
-                return this._feedbackUri;
-            }
-            set
-            {
-                if (value != this._feedbackUri)
-                {
-                    this._feedbackUri = value;
-                    NotifyPropertyChanged("FeedbackUri");
+                    _name = value;
+                    NotifyPropertyChanged(nameof(Name));
                 }
             }
         }
@@ -108,14 +48,14 @@ namespace Microsoft.Sarif.Viewer.Models
         {
             get
             {
-                return this._description;
+                return _description;
             }
             set
             {
-                if (value != this._description)
+                if (value != _description)
                 {
-                    this._description = value;
-                    NotifyPropertyChanged("Description");
+                    _description = value;
+                    NotifyPropertyChanged(nameof(Description));
                 }
             }
         }
@@ -124,30 +64,30 @@ namespace Microsoft.Sarif.Viewer.Models
         {
             get
             {
-                return this._category;
+                return _category;
             }
             set
             {
-                if (value != this._category)
+                if (value != _category)
                 {
-                    this._category = value;
-                    NotifyPropertyChanged("Category");
+                    _category = value;
+                    NotifyPropertyChanged(nameof(Category));
                 }
             }
         }
 
-        public string Severity
+        public string DefaultLevel
         {
             get
             {
-                return this._severity;
+                return _defaultLevel;
             }
             set
             {
-                if (value != this._severity)
+                if (value != _defaultLevel)
                 {
-                    this._severity = value;
-                    NotifyPropertyChanged("Severity");
+                    _defaultLevel = value;
+                    NotifyPropertyChanged(nameof(DefaultLevel));
                 }
             }
         }
@@ -156,30 +96,14 @@ namespace Microsoft.Sarif.Viewer.Models
         {
             get
             {
-                return this._helpUri;
+                return _helpUri;
             }
             set
             {
-                if (value != this._helpUri)
+                if (value != _helpUri)
                 {
-                    this._helpUri = value;
-                    NotifyPropertyChanged("HelpUri");
-                }
-            }
-        }
-
-        public string Version
-        {
-            get
-            {
-                return this._version;
-            }
-            set
-            {
-                if (value != this._version)
-                {
-                    this._version = value;
-                    NotifyPropertyChanged("Version");
+                    _helpUri = value;
+                    NotifyPropertyChanged(nameof(HelpUri));
                 }
             }
         }
