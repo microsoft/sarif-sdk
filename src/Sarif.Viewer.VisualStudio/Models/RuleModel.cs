@@ -16,14 +16,14 @@ namespace Microsoft.Sarif.Viewer.Models
         {
             get
             {
-                return this._id;
+                return _id;
             }
             set
             {
-                if (value != this._id)
+                if (value != _id)
                 {
-                    this._id = value;
-                    NotifyPropertyChanged("Id");
+                    _id = value;
+                    NotifyPropertyChanged(nameof(Id));
                 }
             }
         }
@@ -32,14 +32,14 @@ namespace Microsoft.Sarif.Viewer.Models
         {
             get
             {
-                return this._name;
+                return _name;
             }
             set
             {
-                if (value != this._name)
+                if (value != _name)
                 {
-                    this._name = value;
-                    NotifyPropertyChanged("Name");
+                    _name = value;
+                    NotifyPropertyChanged(nameof(Name));
                 }
             }
         }
@@ -48,14 +48,14 @@ namespace Microsoft.Sarif.Viewer.Models
         {
             get
             {
-                return this._description;
+                return _description;
             }
             set
             {
-                if (value != this._description)
+                if (value != _description)
                 {
-                    this._description = value;
-                    NotifyPropertyChanged("Description");
+                    _description = value;
+                    NotifyPropertyChanged(nameof(Description));
                 }
             }
         }
@@ -64,14 +64,14 @@ namespace Microsoft.Sarif.Viewer.Models
         {
             get
             {
-                return this._category;
+                return _category;
             }
             set
             {
-                if (value != this._category)
+                if (value != _category)
                 {
-                    this._category = value;
-                    NotifyPropertyChanged("Category");
+                    _category = value;
+                    NotifyPropertyChanged(nameof(Category));
                 }
             }
         }
@@ -80,14 +80,14 @@ namespace Microsoft.Sarif.Viewer.Models
         {
             get
             {
-                return this._defaultLevel;
+                return _defaultLevel;
             }
             set
             {
-                if (value != this._defaultLevel)
+                if (value != _defaultLevel)
                 {
-                    this._defaultLevel = value;
-                    NotifyPropertyChanged("Severity");
+                    _defaultLevel = value;
+                    NotifyPropertyChanged(nameof(DefaultLevel));
                 }
             }
         }
@@ -96,14 +96,14 @@ namespace Microsoft.Sarif.Viewer.Models
         {
             get
             {
-                return this._helpUri;
+                return _helpUri;
             }
             set
             {
-                if (value != this._helpUri)
+                if (value != _helpUri)
                 {
-                    this._helpUri = value;
-                    NotifyPropertyChanged("HelpUri");
+                    _helpUri = value;
+                    NotifyPropertyChanged(nameof(HelpUri));
                 }
             }
         }
