@@ -17,11 +17,5 @@ namespace Microsoft.Sarif.Viewer
         [FileExtension(".sarif")]
         [BaseDefinition("sarif")]
         internal static FileExtensionToContentTypeDefinition sarifFileExtensionToContentTypeDefinition = new FileExtensionToContentTypeDefinition();
-
-        [Export]
-        [FileExtension(".sarif.json")]
-        [BaseDefinition("sarif")]
-        internal static FileExtensionToContentTypeDefinition sarifJsonFileExtensionToContentTypeDefinition = new FileExtensionToContentTypeDefinition();
-
     }
 }
