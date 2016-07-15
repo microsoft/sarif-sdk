@@ -11,14 +11,12 @@ namespace Microsoft.Sarif.Viewer.VisualStudio
     {
         internal static List<CallTreeNode> Convert(CodeFlow codeFlow)
         {
-            int currentCodeFlowIndex = -1;
+           int currentCodeFlowIndex = -1;
 
-            Stack<AnnotatedCodeLocation> unReturnedCalls = new Stack<AnnotatedCodeLocation>();
-
-            return GetChildren(codeFlow, ref currentCodeFlowIndex, ref unReturnedCalls);
+            return GetChildren(codeFlow, ref currentCodeFlowIndex);
         }
 
-        private static List<CallTreeNode> GetChildren(CodeFlow codeFlow, ref int currentCodeFlowIndex, ref Stack<AnnotatedCodeLocation> unReturnedCalls)
+        private static List<CallTreeNode> GetChildren(CodeFlow codeFlow, ref int currentCodeFlowIndex)
         {
             currentCodeFlowIndex++;
             List<CallTreeNode> children = new List<CallTreeNode>();
@@ -29,24 +27,14 @@ namespace Microsoft.Sarif.Viewer.VisualStudio
                 switch (codeFlow.Locations[currentCodeFlowIndex].Kind)
                 {
                     case AnnotatedCodeLocationKind.Call:
-                        unReturnedCalls.Push(codeFlow.Locations[currentCodeFlowIndex]);
                         children.Add(new CallTreeNode
                         {
                             Location = codeFlow.Locations[currentCodeFlowIndex],
-                            Children = GetChildren(codeFlow, ref currentCodeFlowIndex, ref unReturnedCalls)
+                            Children = GetChildren(codeFlow, ref currentCodeFlowIndex)
                         });
                         break;
 
                     case AnnotatedCodeLocationKind.CallReturn:
-                        if (unReturnedCalls.Count == 0)
-                        {
-                            throw new System.ArgumentException("At least one AnnotatedCodeLocation Call in this CodeFlow is not paired with a CallReturn, causing an imbalanced tree.");
-                        }
-                        else
-                        {
-                            unReturnedCalls.Pop();
-                        }
-                        
                         children.Add(new CallTreeNode
                         {
                             Location = codeFlow.Locations[currentCodeFlowIndex],
@@ -66,12 +54,6 @@ namespace Microsoft.Sarif.Viewer.VisualStudio
                 }
             }
             currentCodeFlowIndex++;
-
-            if (currentCodeFlowIndex >= codeFlow.Locations.Count && unReturnedCalls.Count > 0)
-            {
-                throw new System.ArgumentException("At least one AnnotatedCodeLocation Call in this CodeFlow is not paired with a CallReturn, causing an imbalanced tree.");
-            }
-
             return children;
         }
     }
