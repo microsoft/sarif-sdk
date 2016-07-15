@@ -1121,12 +1121,12 @@
         },
 
         "version": {
-          "description": "The tool version.",
+          "description": "The tool version, in whatever format the tool natively provides.",
           "type": "string"
         },
 
         "semanticVersion": {
-          "description": "The tool version rendered as Semantic Versioning 2.0.",
+          "description": "The tool version in the format specified by Semantic Versioning 2.0.",
           "type": "string"
         },
 
@@ -1137,7 +1137,7 @@
         },
 
         "sarifLoggerVersion": {
-          "description": "A version that uniuquely identifies the logging component that generated this file, if it is versioned separately from the tool.",
+          "description": "A version that uniquely identifies the SARIF logging component that generated this file, if it is versioned separately from the tool.",
           "type": "string"
         },
 
