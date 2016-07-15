@@ -1,27 +1,15 @@
 ﻿// Copyright (c) Microsoft. All rights reserved. 
 // Licensed under the MIT license. See LICENSE file in the project root for full license information. 
 
-using Microsoft.CodeAnalysis.Sarif;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 namespace Microsoft.Sarif.Viewer.Models
 {
     public class RuleModel : NotifyPropertyChangedObject
     {
         private string _id;
         private string _name;
-        private string _version;
         private string _category;
         private string _severity;
         private string _description;
-        private string _ownerName;
-        private string _ownerUri;
-        private string _feedbackUri;
         private string _helpUri;
 
         public string Id
@@ -52,54 +40,6 @@ namespace Microsoft.Sarif.Viewer.Models
                 {
                     this._name = value;
                     NotifyPropertyChanged("Name");
-                }
-            }
-        }
-
-        public string OwnerName
-        {
-            get
-            {
-                return this._ownerName;
-            }
-            set
-            {
-                if (value != this._ownerName)
-                {
-                    this._ownerName = value;
-                    NotifyPropertyChanged("OwnerName");
-                }
-            }
-        }
-
-        public string OwnerUri
-        {
-            get
-            {
-                return this._ownerUri;
-            }
-            set
-            {
-                if (value != this._ownerUri)
-                {
-                    this._ownerUri = value;
-                    NotifyPropertyChanged("OwnerUri");
-                }
-            }
-        }
-
-        public string FeedbackUri
-        {
-            get
-            {
-                return this._feedbackUri;
-            }
-            set
-            {
-                if (value != this._feedbackUri)
-                {
-                    this._feedbackUri = value;
-                    NotifyPropertyChanged("FeedbackUri");
                 }
             }
         }
@@ -136,7 +76,7 @@ namespace Microsoft.Sarif.Viewer.Models
             }
         }
 
-        public string Severity
+        public string DefaultLevel
         {
             get
             {
@@ -164,22 +104,6 @@ namespace Microsoft.Sarif.Viewer.Models
                 {
                     this._helpUri = value;
                     NotifyPropertyChanged("HelpUri");
-                }
-            }
-        }
-
-        public string Version
-        {
-            get
-            {
-                return this._version;
-            }
-            set
-            {
-                if (value != this._version)
-                {
-                    this._version = value;
-                    NotifyPropertyChanged("Version");
                 }
             }
         }

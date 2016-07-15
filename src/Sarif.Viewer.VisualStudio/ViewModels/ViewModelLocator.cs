@@ -50,8 +50,6 @@ namespace Microsoft.Sarif.Viewer.ViewModels
             {
                 Name = "FxCop",
                 Version = "1.0.0.0",
-                Description = "FxCop Tool",
-                HelpUri = "http://aka.ms/analysis/ca1824"
             };
 
             viewModel.Rule = new RuleModel()
@@ -59,7 +57,7 @@ namespace Microsoft.Sarif.Viewer.ViewModels
                 Id = "CA1823",
                 Name = "Avoid unused private fields",
                 HelpUri = "http://aka.ms/analysis/ca1823",
-                Severity = "Unknown"
+                DefaultLevel = "Unknown"
             };
 
             viewModel.Invocation = new InvocationModel()
