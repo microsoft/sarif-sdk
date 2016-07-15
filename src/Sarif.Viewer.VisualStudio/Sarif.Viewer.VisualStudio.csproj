@@ -53,6 +53,7 @@
     <Compile Include="Converters\ObjectToVisibilityConverter.cs" />
     <Compile Include="DelegateCommand.cs" />
     <Compile Include="DelegateCommandBase.cs" />
+    <Compile Include="Models\CallTree.cs" />
     <Compile Include="Models\CallTreeNode.cs" />
     <Compile Include="Models\InvocationModel.cs" />
     <Compile Include="Models\ReplacementModel.cs" />
@@ -303,6 +304,10 @@
     <Page Include="Controls\InternetHyperlink.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\CallTrees.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Themes\CodeFlows.xaml">
       <SubType>Designer</SubType>

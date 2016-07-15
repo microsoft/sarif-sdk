@@ -1,26 +1,19 @@
 ﻿// Copyright (c) Microsoft. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-using System;
 using Microsoft.CodeAnalysis.Sarif;
 using Microsoft.Sarif.Viewer.Models;
-using System.Collections;
 using System.Collections.Generic;
 
 namespace Microsoft.Sarif.Viewer.VisualStudio
 {
     internal static class CodeFlowToTreeConverter
     {
-        internal static CallTreeNode Convert(CodeFlow codeFlow)
+        internal static List<CallTreeNode> Convert(CodeFlow codeFlow)
         {
            int currentCodeFlowIndex = -1;
 
-            CallTreeNode root = new CallTreeNode
-            {
-                Children = GetChildren(codeFlow, ref currentCodeFlowIndex)
-            };
-
-            return root;
+            return GetChildren(codeFlow, ref currentCodeFlowIndex);
         }
 
         private static List<CallTreeNode> GetChildren(CodeFlow codeFlow, ref int currentCodeFlowIndex)
@@ -36,6 +29,7 @@ namespace Microsoft.Sarif.Viewer.VisualStudio
                     case AnnotatedCodeLocationKind.Call:
                         children.Add(new CallTreeNode
                         {
+                            Location = codeFlow.Locations[currentCodeFlowIndex],
                             Children = GetChildren(codeFlow, ref currentCodeFlowIndex)
                         });
                         break;
@@ -43,6 +37,7 @@ namespace Microsoft.Sarif.Viewer.VisualStudio
                     case AnnotatedCodeLocationKind.CallReturn:
                         children.Add(new CallTreeNode
                         {
+                            Location = codeFlow.Locations[currentCodeFlowIndex],
                             Children = new List<CallTreeNode>()
                         });
                         foundCallReturn = true;
@@ -51,6 +46,7 @@ namespace Microsoft.Sarif.Viewer.VisualStudio
                     default:
                         children.Add(new CallTreeNode
                         {
+                            Location = codeFlow.Locations[currentCodeFlowIndex],
                             Children = new List<CallTreeNode>()
                         });
                         currentCodeFlowIndex++;
