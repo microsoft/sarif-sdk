@@ -13,7 +13,7 @@ if($repoProvider -eq "gitHub"){
   $builder.Host = 'raw.githubusercontent.com'
 }
 else{
-  throw "Repository provider i.e. gitHub, bitbucket ... is not recognized"
+  throw "Unrecognized repository provider: $repoProvider. Set the APPVEYOR_REPO_PROVIDER environment variable to a supported provider. Supported providers are: gitHub."
 }
 
 function Rebase-Uri($originalURI){
