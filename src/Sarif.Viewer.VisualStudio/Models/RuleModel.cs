@@ -8,7 +8,7 @@ namespace Microsoft.Sarif.Viewer.Models
         private string _id;
         private string _name;
         private string _category;
-        private string _severity;
+        private string _defaultLevel;
         private string _description;
         private string _helpUri;
 
@@ -80,13 +80,13 @@ namespace Microsoft.Sarif.Viewer.Models
         {
             get
             {
-                return this._severity;
+                return this._defaultLevel;
             }
             set
             {
-                if (value != this._severity)
+                if (value != this._defaultLevel)
                 {
-                    this._severity = value;
+                    this._defaultLevel = value;
                     NotifyPropertyChanged("Severity");
                 }
             }
