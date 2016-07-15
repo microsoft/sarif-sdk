@@ -38,7 +38,15 @@ namespace Microsoft.Sarif.Viewer.VisualStudio
                         break;
 
                     case AnnotatedCodeLocationKind.CallReturn:
-                        unReturnedCalls.Pop();
+                        if (unReturnedCalls.Count == 0)
+                        {
+                            throw new System.ArgumentException("At least one AnnotatedCodeLocation Call in this CodeFlow is not paired with a CallReturn, causing an imbalanced tree.");
+                        }
+                        else
+                        {
+                            unReturnedCalls.Pop();
+                        }
+                        
                         children.Add(new CallTreeNode
                         {
                             Location = codeFlow.Locations[currentCodeFlowIndex],
@@ -59,9 +67,9 @@ namespace Microsoft.Sarif.Viewer.VisualStudio
             }
             currentCodeFlowIndex++;
 
-            if (currentCodeFlowIndex == codeFlow.Locations.Count && unReturnedCalls.Count > 0)
+            if (currentCodeFlowIndex >= codeFlow.Locations.Count && unReturnedCalls.Count > 0)
             {
-                throw new System.ArgumentException("At least one AnnotatedCodeLocation Call in this CodeFlow is not returned, causing an imbalanced tree.");
+                throw new System.ArgumentException("At least one AnnotatedCodeLocation Call in this CodeFlow is not paired with a CallReturn, causing an imbalanced tree.");
             }
 
             return children;
