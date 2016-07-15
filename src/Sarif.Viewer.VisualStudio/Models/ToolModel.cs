@@ -30,13 +30,13 @@ namespace Microsoft.Sarif.Viewer.Models
         {
             get
             {
-                return this._fullName;
+                return _fullName;
             }
             set
             {
-                if (value != this._fullName)
+                if (value != _fullName)
                 {
-                    this._fullName = value;
+                    _fullName = value;
                     NotifyPropertyChanged(nameof(FullName));
                 }
             }
