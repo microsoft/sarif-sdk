@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using Microsoft.CodeAnalysis.Sarif;
 
 namespace Microsoft.Sarif.Viewer.ViewModels
 {
@@ -145,6 +146,37 @@ namespace Microsoft.Sarif.Viewer.ViewModels
                 Region = new CodeAnalysis.Sarif.Region(13, 1, 13, 2, 0, 0),
             });
             viewModel.CodeFlows.Add(codeFlows2);
+
+            viewModel.CallTrees.Add(new CallTree(
+                new List<CallTreeNode>
+                {
+                    new CallTreeNode
+                    {
+                        Location = new AnnotatedCodeLocation
+                        {
+                            Kind = AnnotatedCodeLocationKind.Assignment
+                        }
+                    },
+
+                    new CallTreeNode
+                    {
+                        Location = new AnnotatedCodeLocation
+                        {
+                            Kind = AnnotatedCodeLocationKind.Call,
+                            Callee = "my_func"
+                        },
+                        Children = new List<CallTreeNode>
+                        {
+                            new CallTreeNode
+                            {
+                                Location = new AnnotatedCodeLocation
+                                {
+                                    Kind = AnnotatedCodeLocationKind.CallReturn
+                                }
+                            }
+                        }
+                    }
+                }));
 
             StackCollection stack1 = new StackCollection("Stack A1");
             stack1.Add(new StackFrameModel()
