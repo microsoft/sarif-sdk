@@ -4,7 +4,9 @@ $Dir = get-childitem .\ -Recurse -Filter "*.prefast.sarif"
 
 for ($i=0; $i -lt $Dir.Count; $i++)
 {
-  $fileLocation = $Dir[$i].FullName
-  Push-AppVeyorArtifact $fileLocation
-  .\appveyor\Convert-FileUrisToGitHubUris.ps1 $fileLocation
+  $logFilePath = $Dir[$i].FullName
+  .\appveyor\Convert-FileUrisToGitHubUris.ps1 $logFilePath
+  $newExtension = ".github.sarif"
+  $writeLocation = [System.IO.Path]::ChangeExtension($logFilePath, $newExtension)
+  Push-AppVeyorArtifact $writeLocation
 }
