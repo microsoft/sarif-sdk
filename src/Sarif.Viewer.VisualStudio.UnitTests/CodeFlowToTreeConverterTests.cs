@@ -80,6 +80,7 @@ namespace Microsoft.Sarif.Viewer.VisualStudio.UnitTests
             topLevelNodes[1].Children[0].Location.Kind.Should().Be(AnnotatedCodeLocationKind.CallReturn);
         }
 
+        [Fact]
         public void CanConvertCodeFlowToTreeNonCallOrReturn()
         {
             var codeFlow = new CodeFlow
@@ -136,9 +137,10 @@ namespace Microsoft.Sarif.Viewer.VisualStudio.UnitTests
             topLevelNodes[0].Children[0].Location.Kind.Should().Be(AnnotatedCodeLocationKind.Declaration);
             topLevelNodes[0].Children[3].Location.Kind.Should().Be(AnnotatedCodeLocationKind.CallReturn);
             topLevelNodes[1].Location.Kind.Should().Be(AnnotatedCodeLocationKind.Call);
-            topLevelNodes[1].Children[0].Location.Kind.Should().Be(AnnotatedCodeLocationKind.CallReturn);
+            topLevelNodes[1].Children[2].Location.Kind.Should().Be(AnnotatedCodeLocationKind.CallReturn);
         }
 
+        [Fact]
         public void CanConvertCodeFlowToTreeOnlyDeclarations()
         {
             var codeFlow = new CodeFlow
