@@ -11,13 +11,19 @@ before_build:
 
 platform: Any CPU
 
+environment:
+  _CL_: /c /analyze /analyze:quiet- /W4 /analyze:autolog:ext prefast.sarif
+
 configuration:
 #  - Debug
   - Release
 
 build:
   project: src/Everything.sln
-  
+
+after_build:
+  - ps: .\appveyor\Push-PrefastResultsToAppveyor.ps1
+
 test:
   assemblies:
     - '**\Sarif.UnitTests.dll'
