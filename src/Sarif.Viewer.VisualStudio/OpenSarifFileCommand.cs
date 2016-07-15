@@ -149,7 +149,7 @@ namespace Microsoft.Sarif.Viewer
             if (logFile == null)
             {
                 string title = "Open Static Analysis Results Interchange Format (SARIF) file";
-                string filter = "SARIF files (*.sarif;*.sarif.json)|*.sarif;*.sarif.json";
+                string filter = "SARIF files (*.sarif)|*.sarif";
 
                 switch (menuCommand.CommandID.ID)
                 {
