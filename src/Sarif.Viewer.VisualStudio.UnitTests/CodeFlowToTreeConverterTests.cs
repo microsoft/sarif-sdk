@@ -201,7 +201,7 @@ namespace Microsoft.Sarif.Viewer.VisualStudio.UnitTests
 
             if (!exceptionThrown)
             {
-                throw new AssertFailedException();
+                throw new System.Exception();
             }
 
         }
@@ -234,7 +234,7 @@ namespace Microsoft.Sarif.Viewer.VisualStudio.UnitTests
 
             if (!exceptionThrown)
             {
-                throw new AssertFailedException();
+                throw new System.Exception();
             }
 
         }
@@ -286,7 +286,7 @@ namespace Microsoft.Sarif.Viewer.VisualStudio.UnitTests
 
             if (!exceptionThrown)
             {
-                throw new AssertFailedException();
+                throw new System.Exception();
             }
 
         }
@@ -357,7 +357,7 @@ namespace Microsoft.Sarif.Viewer.VisualStudio.UnitTests
 
             if (!exceptionThrown)
             {
-                throw new AssertFailedException();
+                throw new System.Exception();
             }
 
         }
