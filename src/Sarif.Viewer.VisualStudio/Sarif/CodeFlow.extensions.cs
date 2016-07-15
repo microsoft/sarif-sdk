@@ -37,7 +37,7 @@ namespace Microsoft.Sarif.Viewer.Sarif
 
         public static CallTree ToCallTree(this CodeFlow codeFlow)
         {
-            if (codeFlow == null || codeFlow.Locations.Count == 0)
+            if (codeFlow.Locations?.Count == 0)
             {
                 return null;
             }
