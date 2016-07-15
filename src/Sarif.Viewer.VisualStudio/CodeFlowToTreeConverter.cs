@@ -11,12 +11,14 @@ namespace Microsoft.Sarif.Viewer.VisualStudio
     {
         internal static List<CallTreeNode> Convert(CodeFlow codeFlow)
         {
-           int currentCodeFlowIndex = -1;
+            int currentCodeFlowIndex = -1;
 
-            return GetChildren(codeFlow, ref currentCodeFlowIndex);
+            Stack<AnnotatedCodeLocation> unReturnedCalls = new Stack<AnnotatedCodeLocation>();
+
+            return GetChildren(codeFlow, ref currentCodeFlowIndex, ref unReturnedCalls);
         }
 
-        private static List<CallTreeNode> GetChildren(CodeFlow codeFlow, ref int currentCodeFlowIndex)
+        private static List<CallTreeNode> GetChildren(CodeFlow codeFlow, ref int currentCodeFlowIndex, ref Stack<AnnotatedCodeLocation> unReturnedCalls)
         {
             currentCodeFlowIndex++;
             List<CallTreeNode> children = new List<CallTreeNode>();
@@ -27,14 +29,16 @@ namespace Microsoft.Sarif.Viewer.VisualStudio
                 switch (codeFlow.Locations[currentCodeFlowIndex].Kind)
                 {
                     case AnnotatedCodeLocationKind.Call:
+                        unReturnedCalls.Push(codeFlow.Locations[currentCodeFlowIndex]);
                         children.Add(new CallTreeNode
                         {
                             Location = codeFlow.Locations[currentCodeFlowIndex],
-                            Children = GetChildren(codeFlow, ref currentCodeFlowIndex)
+                            Children = GetChildren(codeFlow, ref currentCodeFlowIndex, ref unReturnedCalls)
                         });
                         break;
 
                     case AnnotatedCodeLocationKind.CallReturn:
+                        unReturnedCalls.Pop();
                         children.Add(new CallTreeNode
                         {
                             Location = codeFlow.Locations[currentCodeFlowIndex],
@@ -54,6 +58,12 @@ namespace Microsoft.Sarif.Viewer.VisualStudio
                 }
             }
             currentCodeFlowIndex++;
+
+            if (currentCodeFlowIndex == codeFlow.Locations.Count && unReturnedCalls.Count > 0)
+            {
+                throw new System.ArgumentException("At least one AnnotatedCodeLocation Call in this CodeFlow is not returned, causing an imbalanced tree.");
+            }
+
             return children;
         }
     }
