@@ -45,13 +45,13 @@ namespace Microsoft.CodeAnalysis.Sarif
         public string FullName { get; set; }
 
         /// <summary>
-        /// The tool version.
+        /// The tool version, in whatever format the tool natively provides.
         /// </summary>
         [DataMember(Name = "version", IsRequired = false, EmitDefaultValue = false)]
         public string Version { get; set; }
 
         /// <summary>
-        /// The tool version rendered as Semantic Versioning 2.0.
+        /// The tool version in the format specified by Semantic Versioning 2.0.
         /// </summary>
         [DataMember(Name = "semanticVersion", IsRequired = false, EmitDefaultValue = false)]
         public string SemanticVersion { get; set; }
@@ -63,7 +63,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         public string FileVersion { get; set; }
 
         /// <summary>
-        /// A version that uniuquely identifies the logging component that generated this file, if it is versioned separately from the tool.
+        /// A version that uniquely identifies the SARIF logging component that generated this file, if it is versioned separately from the tool.
         /// </summary>
         [DataMember(Name = "sarifLoggerVersion", IsRequired = false, EmitDefaultValue = false)]
         public string SarifLoggerVersion { get; set; }
