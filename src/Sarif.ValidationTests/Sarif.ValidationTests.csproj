@@ -74,9 +74,11 @@
     <ItemGroup>
       <ConverterTestData Include="$(SolutionDir)\Sarif.FunctionalTests\ConverterTestData\**\*.sarif" />
       <DirectProducerTestData Include="$(SolutionDir)\Sarif.FunctionalTests\DirectProducerTestData\**\*.sarif" />
+      <SpecExamples Include="$(SolutionDir)\Sarif.FunctionalTests\SpecExamples\**\*.sarif" />
     </ItemGroup>
     <Copy SourceFiles="@(ConverterTestData)" DestinationFolder="$(OutDir)ConverterTestData\%(RecursiveDir)" />
     <Copy SourceFiles="@(DirectProducerTestData)" DestinationFolder="$(OutDir)DirectProducerTestData\%(RecursiveDir)" />
+    <Copy SourceFiles="@(SpecExamples)" DestinationFolder="$(OutDir)SpecExamples\%(RecursiveDir)" />
     <Copy SourceFiles="$(SolutionDir)\Sarif\Schemata\Sarif.schema.json" DestinationFolder="$(OutDir)" />
   </Target>
 </Project>

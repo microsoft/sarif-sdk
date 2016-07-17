@@ -21,6 +21,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     {
         public const string DirectProducerTestDataDirectory = "DirectProducerTestData";
         public const string ConverterTestDataDirectory = "ConverterTestData";
+        public const string SpectExamplesDirectory = "SpecExamples";
         public const string JsonSchemaFile = "Sarif.schema.json";
 
         private readonly string _jsonSchemaFilePath;
@@ -35,7 +36,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         [Theory]
         [MemberData(nameof(DirectProducerTestCases))]
-        public void Direct_Producer_validation(string inputFile)
+        public void DirectProducerValidation(string inputFile)
         {
             string instanceText = File.ReadAllText(inputFile);
             var validator = new Validator(_schema);
@@ -52,7 +53,24 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         [Theory]
         [MemberData(nameof(ConverterTestCases))]
-        public void Converter_validation(string inputFile)
+        public void ConverterValidation(string inputFile)
+        {
+            string instanceText = File.ReadAllText(inputFile);
+            var validator = new Validator(_schema);
+
+            Result[] errors = validator.Validate(instanceText, inputFile);
+
+            // Test errors.Count(), rather than errors.Should().BeEmpty, because the latter
+            // produces a less clear error message: it calls ToString on each member of
+            // errors, and appends it to the string returned by FailureReason. Since
+            // FailureReason already displayed the error messages in VisualStudio format,
+            // there is no reason to append this additional, less well formatted information.
+            errors.Count().Should().Be(0, FailureReason(errors));
+        }
+
+        [Theory]
+        [MemberData(nameof(SpecExampleTestCases))]
+        public void SpecExampleValidation(string inputFile)
         {
             string instanceText = File.ReadAllText(inputFile);
             var validator = new Validator(_schema);
@@ -69,6 +87,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         private static IEnumerable<object[]> s_converterTestCases;
         private static IEnumerable<object[]> s_directProducerTestCases;
+        private static IEnumerable<object[]> s_exampleTestCases;
 
         private static string[] InvalidFiles = new string[]
         {
@@ -90,6 +109,24 @@ namespace Microsoft.CodeAnalysis.Sarif
                 return s_directProducerTestCases;
             }
         }
+
+        public static IEnumerable<object[]> SpecExampleTestCases
+        {
+            get
+            {
+                if (s_exampleTestCases == null)
+                {
+                    var sarifFiles = Directory.GetFiles(SpectExamplesDirectory, "*.sarif", SearchOption.AllDirectories);
+
+                    s_exampleTestCases = sarifFiles
+                        .Except(InvalidFiles.Select(f => Path.Combine(SpectExamplesDirectory, f)))
+                        .Select(file => new object[] { file.ToLowerInvariant() });
+                }
+
+                return s_exampleTestCases;
+            }
+        }
+
         public static IEnumerable<object[]> ConverterTestCases
         {
             get

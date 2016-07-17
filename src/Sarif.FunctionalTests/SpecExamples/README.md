@@ -1,0 +1,1 @@
+This directory contains the sample files from Annex G of the specification.
