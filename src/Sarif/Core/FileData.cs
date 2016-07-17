@@ -30,37 +30,24 @@ namespace Microsoft.CodeAnalysis.Sarif
             {
                 HashData hashes = HashUtilities.ComputeHashes(uri.LocalPath);
                 fileData.Hashes = new List<Hash>
+                    {
+                        new Hash()
                         {
-                            new Hash()
-                            {
-                                Value = hashes.MD5,
-                                Algorithm = AlgorithmKind.MD5,
-                            },
-                            new Hash()
-                            {
-                                Value = hashes.Sha1,
-                                Algorithm = AlgorithmKind.Sha1,
-                            },
-                            new Hash()
-                            {
-                                Value = hashes.Sha256,
-                                Algorithm = AlgorithmKind.Sha256,
-                            },
-                        };
+                            Value = hashes.MD5,
+                            Algorithm = AlgorithmKind.MD5,
+                        },
+                        new Hash()
+                        {
+                            Value = hashes.Sha1,
+                            Algorithm = AlgorithmKind.Sha1,
+                        },
+                        new Hash()
+                        {
+                            Value = hashes.Sha256,
+                            Algorithm = AlgorithmKind.Sha256,
+                        },
+                    };
             }
-            //else if (files.Count == 1)
-            //{
-            //    fileData.Uri = uri;
-            //    fileDataKey = fileDataKey + "#" + fileData.Uri.ToString();
-            //}
-            //else
-            //{
-            //    Debug.Assert(!uri.IsAbsoluteUri);                    
-            //    fileData.Uri = uri;
-            //    fileDataKey = fileDataKey + fileData.Uri.ToString();
-            //}
-
-            //files.Add(fileData);
 
             return fileData;
         }
