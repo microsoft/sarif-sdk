@@ -7,6 +7,11 @@ $projectSlug=$env:APPVEYOR_PROJECT_SLUG
 $repoName=$env:APPVEYOR_REPO_NAME
 $repoCommit=$env:APPVEYOR_REPO_COMMIT
 
+$repoProvider="gitHub"
+$projectSlug="SecDevTools"
+$repoName="sarif"
+$repoCommit="ABASDFASDFASDF"
+
 $builder = New-Object System.UriBuilder
 
 if($repoProvider -eq "gitHub"){
@@ -24,12 +29,12 @@ function Rebase-Uri($originalUri){
         $caseSensitiveUri = Get-CaseSensitivePath $originalUri.SubString($fileUriPrefix.Length)
         $projectSlugIndex = $caseSensitiveUri.IndexOf($projectSlug)
         if($projectSlugIndex -ne -1){
-            $builder.Path = ($repoName, $repoCommit, $caseSensitiveUri.SubString($projectSlugIndex+$projectSlug.Length+1) -join '/')
+            $builder.Path = $repoName, $repoCommit, $caseSensitiveUri.SubString($projectSlugIndex+$projectSlug.Length+1) -join '/'
             return $builder.ToString()
         }
     }
   }
-  Write-Host "Unable to rewrite Uri: " $originalUri
+  Write-Host "Unable to rewrite URI: " $originalUri
   return $originalUri
 }
 
