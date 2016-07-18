@@ -15,10 +15,15 @@
                     <TreeView ItemsSource="{Binding TopLevelNodes}">
                         <TreeView.Resources>
                             <cvt:CallTreeNodeToTextConverter x:Key="callTreeToTextConverter" />
+                            <cvt:ImportanceToForegroundConverter x:Key="importanceToForegroundConverter" />
+                            <cvt:ImportanceToBackgroundConverter x:Key="importanceToBackgroundConverter" />
                         </TreeView.Resources>
                         <TreeView.ItemTemplate>
                             <HierarchicalDataTemplate DataType="x:Type local:CallTreeNode" ItemsSource="{Binding Children}">
-                                <TextBlock Text="{Binding Converter={StaticResource callTreeToTextConverter}}" />
+                                <TextBlock Text="{Binding Converter={StaticResource callTreeToTextConverter}}" 
+                                           Background="{Binding Location.Importance, Converter={StaticResource importanceToForegroundConverter}}"                 
+                                           Foreground="{Binding Location.Importance, 
+                                    Converter={StaticResource importanceToForegroundConverter}}" />
                             </HierarchicalDataTemplate>
                         </TreeView.ItemTemplate>
                     </TreeView>
