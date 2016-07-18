@@ -11,10 +11,10 @@ using Xunit;
 
 namespace Microsoft.Sarif.Viewer.VisualStudio.UnitTests
 {
-    public class ImportanceToForegroundConverterTests
+    public class ImportanceToBackgroundConverterTests
     {
         [Fact]
-        public void ImportanceToForegroundConverter_HandlesUnimportant()
+        public void ImportanceToBackgroundConverter_HandlesUnimportant()
         {
             var callTreeNode = new CallTreeNode
             {
@@ -33,11 +33,11 @@ namespace Microsoft.Sarif.Viewer.VisualStudio.UnitTests
                 }
             };
 
-            VerifyConversion(callTreeNode, Color.Gray);
+            VerifyConversion(callTreeNode, Color.Transparent);
         }
 
         [Fact]
-        public void ImportanceToForegroundConverter_HandlesImportant()
+        public void ImportanceToBackgroundConverter_HandlesImportant()
         {
             var callTreeNode = new CallTreeNode
             {
@@ -56,11 +56,11 @@ namespace Microsoft.Sarif.Viewer.VisualStudio.UnitTests
                 }
             };
 
-            VerifyConversion(callTreeNode, Color.Black);
+            VerifyConversion(callTreeNode, Color.Yellow);
         }
 
         [Fact]
-        public void ImportanceToForegroundConverter_HandlesEssential()
+        public void ImportanceToBackgroundConverter_HandlesEssential()
         {
             var callTreeNode = new CallTreeNode
             {
@@ -79,11 +79,11 @@ namespace Microsoft.Sarif.Viewer.VisualStudio.UnitTests
                 }
             };
 
-            VerifyConversion(callTreeNode, Color.Black);
+            VerifyConversion(callTreeNode, Color.Transparent);
         }
 
         [Fact]
-        public void ImportanceToForegroundConverter_HandlesDefault()
+        public void ImportanceToBackgroundConverter_HandlesDefault()
         {
             var callTreeNode = new CallTreeNode
             {
@@ -101,7 +101,7 @@ namespace Microsoft.Sarif.Viewer.VisualStudio.UnitTests
                 }
             };
 
-            VerifyConversion(callTreeNode, Color.Black);
+            VerifyConversion(callTreeNode, Color.Transparent);
         }
 
         private static void VerifyConversion(CallTreeNode callTreeNode, Color expectedColor)
