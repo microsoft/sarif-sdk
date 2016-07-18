@@ -21,7 +21,7 @@ function Rebase-Uri($originalUri){
   if($originalURI){
     $fileUriPrefix = "file:///"
     if($originalUri.StartsWith($fileUriPrefix)){
-        $caseSensitiveUri = Get-CaseSensitivePath $originalUri.SubString($fileUriPrefix.Length 
+        $caseSensitiveUri = Get-CaseSensitivePath $originalUri.SubString($fileUriPrefix.Length
         $projectSlugIndex = $caseSensitiveUri.IndexOf($projectSlug)
         if($projectSlugIndex -ne -1){
             $builder.Path = ($repoName, $repoCommit, $caseSensitiveUri.SubString($projectSlugIndex+$projectSlug.Length+1) -join '/')
@@ -57,18 +57,18 @@ for ($i = 0; $i -lt $sarifLog.runs.Count; $i++){
     $sarifLog.runs[$i].files.PSObject.Properties | foreach-object{
       $key = $_.Name
       $value = $_.Value
-      if($key -and $content){
-        if($content.uri){
-            $content.uri = Rebase-Uri $content.uri
+      if($key -and $value){
+        if($value.uri){
+            $value.uri = Rebase-Uri $value.uri
         }
 
-        if($content.parentKey){
-          $content.parentKey = Rebase-Uri $content.parentKey
+        if($value.parentKey){
+          $value.parentKey = Rebase-Uri $value.parentKey
         }
 
         $sarifLog.runs[$i].files.PSObject.Properties.Remove($key)
-        $rewrite = Rebase-Uri $key
-        $sarifLog.runs[$i].files | add-member -Name $rewrite -Value $content -MemberType NoteProperty
+        $rebasedUri = Rebase-Uri $key
+        $sarifLog.runs[$i].files | add-member -Name $rebasedUri -Value $value -MemberType NoteProperty
       }
     }
   }
@@ -112,7 +112,7 @@ for ($i = 0; $i -lt $sarifLog.runs.Count; $i++){
     for($k = 0; $k -lt $sarifLog.runs[$i].results[$j].fixes.Count; $k++){
       $uri = $sarifLog.runs[$i].results[$j].fixes[$k].fileChanges.uri
       if($uri){
-      $sarifLog.runs[$i].results[$j].fixes[$k].fileChanges.uri = Rebase-Uri $uri
+        $sarifLog.runs[$i].results[$j].fixes[$k].fileChanges.uri = Rebase-Uri $uri
       }
     }
   }
@@ -134,4 +134,4 @@ for ($i = 0; $i -lt $sarifLog.runs.Count; $i++){
 
 $newExtension = ".github.sarif"
 $writeLocation = [System.IO.Path]::ChangeExtension($logFilePath, $newExtension)
-$sarifLog | ConvertTo-Json -Compress -depth 999 | Out-File $writeLocation
+$sarifLog | ConvertTo-Json -depth 999 | Out-File $writeLocation
