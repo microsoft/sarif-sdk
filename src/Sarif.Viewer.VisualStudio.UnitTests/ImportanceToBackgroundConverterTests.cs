@@ -33,7 +33,7 @@ namespace Microsoft.Sarif.Viewer.VisualStudio.UnitTests
                 }
             };
 
-            VerifyConversion(callTreeNode, Color.White);
+            VerifyConversion(callTreeNode, Color.Transparent);
         }
 
         [Fact]
@@ -79,7 +79,7 @@ namespace Microsoft.Sarif.Viewer.VisualStudio.UnitTests
                 }
             };
 
-            VerifyConversion(callTreeNode, Color.White);
+            VerifyConversion(callTreeNode, Color.Transparent);
         }
 
         [Fact]
@@ -101,7 +101,7 @@ namespace Microsoft.Sarif.Viewer.VisualStudio.UnitTests
                 }
             };
 
-            VerifyConversion(callTreeNode, Color.White);
+            VerifyConversion(callTreeNode, Color.Transparent);
         }
 
         private static void VerifyConversion(CallTreeNode callTreeNode, Color expectedColor)

@@ -1,4 +1,7 @@
-﻿using Microsoft.CodeAnalysis.Sarif;
+﻿// Copyright (c) Microsoft. All rights reserved.
+// Licensed under the MIT license. See LICENSE file in the project root for full license information.
+
+using Microsoft.CodeAnalysis.Sarif;
 using Microsoft.Sarif.Viewer.Models;
 using System;
 using System.Collections.Generic;
@@ -16,7 +19,14 @@ namespace Microsoft.Sarif.Viewer.Converters
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             var node = value as CallTreeNode;
-            return node.Location.Importance == AnnotatedCodeLocationImportance.Important ? Color.Yellow : Color.White;
+            if (node != null)
+            {
+                return node.Location.Importance == AnnotatedCodeLocationImportance.Important ? Color.Yellow : Color.Transparent;
+            }
+            else
+            {
+                return Color.Transparent;
+            }
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
