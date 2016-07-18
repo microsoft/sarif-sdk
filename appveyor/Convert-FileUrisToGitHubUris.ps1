@@ -17,14 +17,14 @@ else{
   throw "Unrecognized repository provider: $repoProvider. Set the APPVEYOR_REPO_PROVIDER environment variable to a supported provider. Supported providers are: gitHub."
 }
 
-function Rebase-Uri($originalURI){
+function Rebase-Uri($originalUri){
   if($originalURI){
-    $replace = $originalURI.IndexOf("file:///")
-    if($replace -ne  -1){
-        $caseSensitiveUri = Get-CaseSensitivePath($originalURI.SubString("file:///".Length))
-        $replaceLength = $caseSensitiveUri.IndexOf($projectSlug)
-        if($replaceLength -ne -1){
-            $builder.Path = ($repoName, $repoCommit, $caseSensitiveUri.SubString($replaceLength+$projectSlug.Length+1) -join '/')
+    $fileUriPrefix = "file:///"
+    if($originalUri.StartsWith($fileUriPrefix)){
+        $caseSensitiveUri = Get-CaseSensitivePath $originalUri.SubString($fileUriPrefix.Length 
+        $projectSlugIndex = $caseSensitiveUri.IndexOf($projectSlug)
+        if($projectSlugIndex -ne -1){
+            $builder.Path = ($repoName, $repoCommit, $caseSensitiveUri.SubString($projectSlugIndex+$projectSlug.Length+1) -join '/')
             return $builder.ToString()
         }
     }
@@ -56,7 +56,7 @@ for ($i = 0; $i -lt $sarifLog.runs.Count; $i++){
   if($sarifLog.runs[$i].files){
     $sarifLog.runs[$i].files.PSObject.Properties | foreach-object{
       $key = $_.Name
-      $content = $_.Value
+      $value = $_.Value
       if($key -and $content){
         if($content.uri){
             $content.uri = Rebase-Uri $content.uri
@@ -66,9 +66,9 @@ for ($i = 0; $i -lt $sarifLog.runs.Count; $i++){
           $content.parentKey = Rebase-Uri $content.parentKey
         }
 
-        $sarifLog.runs.files.PSObject.Properties.Remove($_.Name)
+        $sarifLog.runs[$i].files.PSObject.Properties.Remove($key)
         $rewrite = Rebase-Uri $key
-        $sarifLog.runs.files | add-member -Name $rewrite -Value $content -MemberType NoteProperty
+        $sarifLog.runs[$i].files | add-member -Name $rewrite -Value $content -MemberType NoteProperty
       }
     }
   }
