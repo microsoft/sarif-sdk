@@ -19,7 +19,7 @@
                         </TreeView.Resources>
                         <TreeView.ItemTemplate>
                             <HierarchicalDataTemplate DataType="x:Type local:CallTreeNode" ItemsSource="{Binding Children}">
-                                <TextBlock Text="{Binding Converter={StaticResource callTreeToTextConverter}}" Background="{Binding Location.Importance, Converter={StaticResource importanceToForegroundConverter}}" />
+                                <TextBlock Text="{Binding Converter={StaticResource callTreeToTextConverter}}" Background="{Binding Location.Importance, Converter={StaticResource importanceToBackgroundConverter}}" />
                             </HierarchicalDataTemplate>
                         </TreeView.ItemTemplate>
                     </TreeView>
