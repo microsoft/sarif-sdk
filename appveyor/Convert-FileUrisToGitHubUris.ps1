@@ -1,4 +1,5 @@
-#Reads in SARIF files and rewrite absolute URIs to reference the source control version
+#Reads in SARIF files and rewrite absolute Uris to reference the source control version
+$ErrorActionPreference = "Stop"
 
 $logFilePath=$args[0]
 $repoProvider=$env:APPVEYOR_REPO_PROVIDER
@@ -16,18 +17,20 @@ else{
   throw "Unrecognized repository provider: $repoProvider. Set the APPVEYOR_REPO_PROVIDER environment variable to a supported provider. Supported providers are: gitHub."
 }
 
-function Rebase-Uri($originalURI){
-  $replace = $originalURI.IndexOf("file:///")
-  if($replace -ne  -1){
-      $caseSensitiveUri = Get-CaseSensitivePath($originalURI.SubString("file:///".Length))
-      $replaceLength = $caseSensitiveUri.IndexOf($projectSlug)
-      if($replaceLength -ne -1){
-          $builder.Path = ($repoName, $repoCommit, $caseSensitiveUri.SubString($replaceLength+$projectSlug.Length+1) -join '/')
-          return $builder.ToString()
-      }
+function Rebase-Uri($originalUri){
+  if($originalUri){
+    $fileUriPrefix = "file:///"
+    if($originalUri.StartsWith($fileUriPrefix)){
+        $caseSensitiveUri = Get-CaseSensitivePath $originalUri.SubString($fileUriPrefix.Length)
+        $projectSlugIndex = $caseSensitiveUri.IndexOf($projectSlug)
+        if($projectSlugIndex -ne -1){
+            $builder.Path = $repoName, $repoCommit, $caseSensitiveUri.SubString($projectSlugIndex+$projectSlug.Length+1) -join '/'
+            return $builder.ToString()
+        }
+    }
   }
-  Write-Error "Unable to rewrite URI"
-  return $originalURI
+  Write-Host "Unable to rewrite URI: " $originalUri
+  return $originalUri
 }
 
 function Get-CaseSensitivePath($pathName){
@@ -50,20 +53,24 @@ function Get-CaseSensitivePath($pathName){
 $sarifLog = (Get-Content $logFilePath) -join "`n" | ConvertFrom-Json
 
 for ($i = 0; $i -lt $sarifLog.runs.Count; $i++){
-  $sarifLog.runs[$i].files.PSObject.Properties | foreach-object{
-    $key = $_.Name
-    $content = $_.Value
-    if($content.uri){
-        $content.uri = Rebase-Uri $content.uri
-    }
+  if($sarifLog.runs[$i].files){
+    $sarifLog.runs[$i].files.PSObject.Properties | foreach-object{
+      $key = $_.Name
+      $value = $_.Value
+      if($key -and $value){
+        if($value.uri){
+            $value.uri = Rebase-Uri $value.uri
+        }
 
-    if($content.parentKey){
-      $content.parentKey = Rebase-Uri $content.parentKey
-    }
+        if($value.parentKey){
+          $value.parentKey = Rebase-Uri $value.parentKey
+        }
 
-    $sarifLog.runs.files.PSObject.Properties.Remove($_.Name)
-    $rewrite = Rebase-Uri $key
-    $sarifLog.runs.files | add-member -Name $rewrite -Value $content -MemberType NoteProperty
+        $sarifLog.runs[$i].files.PSObject.Properties.Remove($key)
+        $rebasedUri = Rebase-Uri $key
+        $sarifLog.runs[$i].files | add-member -Name $rebasedUri -Value $value -MemberType NoteProperty
+      }
+    }
   }
   #results
   for($j = 0; $j -lt $sarifLog.runs[$i].results.Count; $j++){
@@ -81,29 +88,47 @@ for ($i = 0; $i -lt $sarifLog.runs.Count; $i++){
     #Codeflow
     for($k = 0; $k -lt $sarifLog.runs[$i].results[$j].codeFlows.Count; $k++){
       for($l = 0; $l -lt $sarifLog.runs[$i].results[$j].codeFlows[$k].locations.Count; $l++){
-        $sarifLog.runs[$i].results[$j].codeFlows[$k].locations[$l].physicalLocation.uri = Rebase-Uri $sarifLog.runs[$i].results[$j].codeFlows[$k].locations[$l].physicalLocation.uri
+        $uri = $sarifLog.runs[$i].results[$j].codeFlows[$k].locations[$l].physicalLocation.uri
+        if($uri){
+          $sarifLog.runs[$i].results[$j].codeFlows[$k].locations[$l].physicalLocation.uri = Rebase-Uri $uri
+        }
       }
     }
 
     for($k = 0; $k -lt $sarifLog.runs[$i].results[$j].relatedLocations.Count; $k++){
-      $sarifLog.runs[$i].results[$j].relatedLocations[$k].physicalLocation.uri = Rebase-Uri $sarifLog.runs[$i].results[$j].relatedLocations[$k].physicalLocation.uri
+      $uri = $sarifLog.runs[$i].results[$j].relatedLocations[$k].physicalLocation.uri
+      if($uri){
+        $sarifLog.runs[$i].results[$j].relatedLocations[$k].physicalLocation.uri = Rebase-Uri $uri
+      }
     }
 
     for($k = 0; $k -lt $sarifLog.runs[$i].results[$j].stacks.Count; $k++){
-      $sarifLog.runs[$i].results[$j].stacks[$k].frames.uri = Rebase-Uri $sarifLog.runs[$i].results[$j].stacks[$k].frames.uri
+      $uri = $sarifLog.runs[$i].results[$j].stacks[$k].frames.uri
+      if($uri){
+        $sarifLog.runs[$i].results[$j].stacks[$k].frames.uri = Rebase-Uri $uri
+      }
     }
 
     for($k = 0; $k -lt $sarifLog.runs[$i].results[$j].fixes.Count; $k++){
-      $sarifLog.runs[$i].results[$j].fixes[$k].fileChanges.uri = Rebase-Uri $sarifLog.runs[$i].results[$j].fixes[$k].fileChanges.uri
+      $uri = $sarifLog.runs[$i].results[$j].fixes[$k].fileChanges.uri
+      if($uri){
+        $sarifLog.runs[$i].results[$j].fixes[$k].fileChanges.uri = Rebase-Uri $uri
+      }
     }
   }
 
   for($j=0; $j -lt $sarifLog.runs[$i].configurationNotifications.Count; $j++){
-    $sarifLog.runs[$i].configurationNotifications[$j].physicalLocation.uri = Rebase-Uri $sarifLog.runs[$i].configurationNotifications[$j].physicalLocation.uri
+    $uri = $sarifLog.runs[$i].configurationNotifications[$j].physicalLocation.uri
+    if($uri){
+      $sarifLog.runs[$i].configurationNotifications[$j].physicalLocation.uri = Rebase-Uri $uri
+    }
   }
 
   for($j=0; $j -lt $sarifLog.runs[$i].toolNotifications.Count; $j++){
-    $sarifLog.runs[$i].toolNotifications[$j].physicalLocation.uri = Rebase-Uri $sarifLog.runs[$i].toolNotifications[$j].physicalLocation.uri
+    $uri = $sarifLog.runs[$i].toolNotifications[$j].physicalLocation.uri
+    if($uri){
+      $sarifLog.runs[$i].toolNotifications[$j].physicalLocation.uri = Rebase-Uri $uri
+    }
   }
 }
 
