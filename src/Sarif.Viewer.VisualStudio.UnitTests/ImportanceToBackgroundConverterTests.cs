@@ -101,12 +101,12 @@ namespace Microsoft.Sarif.Viewer.VisualStudio.UnitTests
                 }
             };
 
-            VerifyConversion(callTreeNode, Color.Transparent);
+            VerifyConversion(callTreeNode, Color.Yellow);
         }
 
         private static void VerifyConversion(CallTreeNode callTreeNode, Color expectedColor)
         {
-            var converter = new ImportanceToForegroundConverter();
+            var converter = new ImportanceToBackgroundConverter();
 
             Color color = (Color)converter.Convert(callTreeNode, typeof(Color), null, CultureInfo.CurrentCulture);
 
