@@ -7,11 +7,6 @@ $projectSlug=$env:APPVEYOR_PROJECT_SLUG
 $repoName=$env:APPVEYOR_REPO_NAME
 $repoCommit=$env:APPVEYOR_REPO_COMMIT
 
-$repoProvider="gitHub"
-$projectSlug="SecDevTools"
-$repoName="sarif"
-$repoCommit="ABASDFASDFASDF"
-
 $builder = New-Object System.UriBuilder
 
 if($repoProvider -eq "gitHub"){
