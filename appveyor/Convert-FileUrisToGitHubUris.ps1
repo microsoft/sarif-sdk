@@ -1,4 +1,4 @@
-#Reads in SARIF files and rewrite absolute URIs to reference the source control version
+#Reads in SARIF files and rewrite absolute Uris to reference the source control version
 $ErrorActionPreference = "Stop"
 
 $logFilePath=$args[0]
@@ -18,10 +18,10 @@ else{
 }
 
 function Rebase-Uri($originalUri){
-  if($originalURI){
+  if($originalUri){
     $fileUriPrefix = "file:///"
     if($originalUri.StartsWith($fileUriPrefix)){
-        $caseSensitiveUri = Get-CaseSensitivePath $originalUri.SubString($fileUriPrefix.Length
+        $caseSensitiveUri = Get-CaseSensitivePath $originalUri.SubString($fileUriPrefix.Length)
         $projectSlugIndex = $caseSensitiveUri.IndexOf($projectSlug)
         if($projectSlugIndex -ne -1){
             $builder.Path = ($repoName, $repoCommit, $caseSensitiveUri.SubString($projectSlugIndex+$projectSlug.Length+1) -join '/')
@@ -29,8 +29,8 @@ function Rebase-Uri($originalUri){
         }
     }
   }
-  Write-Host "Unable to rewrite URI: " $originalURI
-  return $originalURI
+  Write-Host "Unable to rewrite Uri: " $originalUri
+  return $originalUri
 }
 
 function Get-CaseSensitivePath($pathName){
