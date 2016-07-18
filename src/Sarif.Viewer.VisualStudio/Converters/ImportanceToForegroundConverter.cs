@@ -18,14 +18,9 @@ namespace Microsoft.Sarif.Viewer.Converters
             var node = value as CallTreeNode;
             if (node != null)
             {
-                if (node.Location.Importance == AnnotatedCodeLocationImportance.Unimportant)
-                {
-                    return Color.Gray;
-                }
-                else
-                {
-                    return Color.Black;
-                }
+                return node.Location.Importance == AnnotatedCodeLocationImportance.Unimportant
+                    ? Color.Gray
+                    : Color.Black;
             }
             else
             {
