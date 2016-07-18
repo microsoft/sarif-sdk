@@ -53,6 +53,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ImportanceToExclamationPointConverterTests.cs" />
+    <Compile Include="ImportanceToBackgroundConverterTests.cs" />
     <Compile Include="ImportanceToForegroundConverterTests .cs" />
     <Compile Include="CallTreeNodeToTextConverterTests.cs" />
     <Compile Include="CodeFlowToTreeConverterTests.cs" />
