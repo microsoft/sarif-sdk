@@ -2,6 +2,7 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using System.Globalization;
+using System.Windows.Media;
 using FluentAssertions;
 using Microsoft.CodeAnalysis.Sarif;
 using Microsoft.Sarif.Viewer.Converters;
@@ -14,28 +15,28 @@ namespace Microsoft.Sarif.Viewer.VisualStudio.Converters.UnitTests
         [Fact]
         public void ImportanceToForegroundConverterHandlesUnimportant()
         {
-            VerifyConversion(AnnotatedCodeLocationImportance.Unimportant, "Gray");
+            VerifyConversion(AnnotatedCodeLocationImportance.Unimportant, Colors.Gray);
         }
 
         [Fact]
         public void ImportanceToForegroundConverterHandlesImportant()
         {
-            VerifyConversion(AnnotatedCodeLocationImportance.Important, "Black");
+            VerifyConversion(AnnotatedCodeLocationImportance.Important, Colors.Black);
         }
 
         [Fact]
         public void ImportanceToForegroundConverterHandlesEssential()
         {
-            VerifyConversion(AnnotatedCodeLocationImportance.Essential, "Black");
+            VerifyConversion(AnnotatedCodeLocationImportance.Essential, Colors.Black);
         }
 
-        private static void VerifyConversion(AnnotatedCodeLocationImportance importance, string expectedColor)
+        private static void VerifyConversion(AnnotatedCodeLocationImportance importance, Color expectedBrushColor)
         {
             var converter = new ImportanceToForegroundConverter();
 
-            string color = (string)converter.Convert(importance, typeof(string), null, CultureInfo.CurrentCulture);
+            var brush = (SolidColorBrush)converter.Convert(importance, typeof(string), null, CultureInfo.CurrentCulture);
 
-            color.Should().Be(expectedColor);
+            brush.Color.Should().Be(expectedBrushColor);
         }
     }
 }
