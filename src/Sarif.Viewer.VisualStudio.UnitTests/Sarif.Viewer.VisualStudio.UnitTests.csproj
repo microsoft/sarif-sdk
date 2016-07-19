@@ -24,6 +24,7 @@
       <HintPath>..\packages\FluentAssertions.4.2.1\lib\net45\FluentAssertions.Core.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="PresentationCore" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
@@ -51,6 +52,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ImportanceToExclamationPointConverterTests.cs" />
     <Compile Include="ImportanceToBackgroundConverterTests.cs" />
     <Compile Include="ImportanceToForegroundConverterTests .cs" />
     <Compile Include="CallTreeNodeToTextConverterTests.cs" />
