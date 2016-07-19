@@ -30,7 +30,7 @@
       "results": [
         {
           "ruleId": "C2001",
-          "message": "Variable \"n\" was used without being initialized.",
+          "message": "Variable \"count\" was used without being initialized.",
           "locations": [
             {
               "analysisTarget": {
