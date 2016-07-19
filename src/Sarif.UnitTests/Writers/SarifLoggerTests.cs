@@ -216,6 +216,19 @@ namespace Microsoft.CodeAnalysis.Sarif
                                     }
                                 }
                             }
+                        },
+                        CodeFlows = new[]
+                        {
+                            new CodeFlow
+                            {
+                                Locations = new[]
+                                {
+                                    new AnnotatedCodeLocation
+                                    {
+                                        PhysicalLocation = new PhysicalLocation {  Uri = new Uri(@"file:///file5.cpp")}
+                                    }
+                                }
+                            }
                         }
                     };
 
@@ -227,7 +240,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             string logText = sb.ToString();
             var sarifLog = JsonConvert.DeserializeObject<SarifLog>(logText);
 
-            int fileCount = 5;
+            int fileCount = 6;
 
             for (int i = 0; i < fileCount; ++i)
             {
