@@ -13,10 +13,10 @@ namespace Microsoft.Sarif.Viewer.Converters
     {
         public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {
-            var node = value as CallTreeNode;
-            if (node != null)
+            if (value is AnnotatedCodeLocationImportance)
             {
-                return node.Location.Importance == AnnotatedCodeLocationImportance.Essential
+                var importance = (AnnotatedCodeLocationImportance)value;
+                return importance == AnnotatedCodeLocationImportance.Essential
                     ? Visibility.Visible
                     : Visibility.Collapsed;
             }
