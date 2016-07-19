@@ -1,0 +1,13 @@
+{
+  "version": "1.0.0",
+  "runs": [
+    {
+      "tool": {
+        "name": "CodeScanner",
+        "semanticVersion": "2.1.0"
+      },
+      "results": [
+      ]
+    }
+  ]
+}

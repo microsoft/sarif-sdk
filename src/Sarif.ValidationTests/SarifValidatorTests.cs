@@ -19,8 +19,6 @@ namespace Microsoft.CodeAnalysis.Sarif
 {
     public class SarifValidatorTests
     {
-        public const string DirectProducerTestDataDirectory = "DirectProducerTestData";
-        public const string ConverterTestDataDirectory = "ConverterTestData";
         public const string JsonSchemaFile = "Sarif.schema.json";
 
         private readonly string _jsonSchemaFilePath;
@@ -34,8 +32,8 @@ namespace Microsoft.CodeAnalysis.Sarif
         }
 
         [Theory]
-        [MemberData(nameof(DirectProducerTestCases))]
-        public void Direct_Producer_validation(string inputFile)
+        [MemberData(nameof(TestCases))]
+        public void ValidatesAllTestFiles(string inputFile)
         {
             string instanceText = File.ReadAllText(inputFile);
             var validator = new Validator(_schema);
@@ -50,64 +48,46 @@ namespace Microsoft.CodeAnalysis.Sarif
             errors.Count().Should().Be(0, FailureReason(errors));
         }
 
-        [Theory]
-        [MemberData(nameof(ConverterTestCases))]
-        public void Converter_validation(string inputFile)
+        private static readonly string[] s_testFileDirectories = new string[]
         {
-            string instanceText = File.ReadAllText(inputFile);
-            var validator = new Validator(_schema);
+            "DirectProducerTestData",
+            "ConverterTestData",
+            "SpecExamples"
+        };
 
-            Result[] errors = validator.Validate(instanceText, inputFile);
-
-            // Test errors.Count(), rather than errors.Should().BeEmpty, because the latter
-            // produces a less clear error message: it calls ToString on each member of
-            // errors, and appends it to the string returned by FailureReason. Since
-            // FailureReason already displayed the error messages in VisualStudio format,
-            // there is no reason to append this additional, less well formatted information.
-            errors.Count().Should().Be(0, FailureReason(errors));
-        }
-
-        private static IEnumerable<object[]> s_converterTestCases;
-        private static IEnumerable<object[]> s_directProducerTestCases;
+        private static IEnumerable<object[]> s_testCases;
 
         private static string[] InvalidFiles = new string[]
         {
         };
 
-        public static IEnumerable<object[]> DirectProducerTestCases
+        public static IEnumerable<object[]> TestCases
         {
             get
             {
-                if (s_directProducerTestCases == null)
+                if (s_testCases == null)
                 {
-                    var sarifFiles = Directory.GetFiles(DirectProducerTestDataDirectory, "*.sarif", SearchOption.AllDirectories);
+                    List<string> sarifFiles = s_testFileDirectories.Aggregate(
+                        new List<string>(),
+                        (allFiles, dir) =>
+                        {
+                            allFiles.AddRange(Directory.GetFiles(dir, "*.sarif", SearchOption.AllDirectories)
 
-                    s_directProducerTestCases = sarifFiles
-                        .Except(InvalidFiles.Select(f => Path.Combine(DirectProducerTestDataDirectory, f)))
-                        .Select(file => new object[] { file.ToLowerInvariant() });
+                                // The converter functional tests produce output files in the test directory
+                                // with the filename extension ".actual.sarif". Don't include those in this test.
+                                .Where(file => !file.EndsWith(".actual.sarif", StringComparison.OrdinalIgnoreCase))
+
+                                // Leave a loophole in case we have to temporarily include a file that doesn't
+                                // conform to the current spec.
+                                .Except(InvalidFiles));
+
+                            return allFiles;
+                        });
+
+                    s_testCases = sarifFiles.Select(file => new object[] { file });
                 }
 
-                return s_directProducerTestCases;
-            }
-        }
-        public static IEnumerable<object[]> ConverterTestCases
-        {
-            get
-            {
-                if (s_converterTestCases == null)
-                {
-                    var sarifFiles = Directory.GetFiles(ConverterTestDataDirectory, "*.sarif", SearchOption.AllDirectories);
-
-                    // The converter functional tests produce output files in the test directory
-                    // with the filename extension ".actual.sarif". Don't include those in this test.
-                    var actualSarifFiles = Directory.GetFiles(ConverterTestDataDirectory, "*.actual.sarif", SearchOption.AllDirectories);
-
-                    s_converterTestCases = sarifFiles.Except(actualSarifFiles)
-                        .Except(InvalidFiles.Select(f => Path.Combine(ConverterTestDataDirectory, f)))
-                        .Select(file => new object[] { file.ToLowerInvariant() });
-                }
-
-                return s_converterTestCases;
+                return s_testCases;
             }
         }
 
