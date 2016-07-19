@@ -6,7 +6,6 @@ using System.Globalization;
 using FluentAssertions;
 using Microsoft.CodeAnalysis.Sarif;
 using Microsoft.Sarif.Viewer.Converters;
-using Microsoft.Sarif.Viewer.Models;
 using Xunit;
 
 namespace Microsoft.Sarif.Viewer.VisualStudio.UnitTests
@@ -14,104 +13,30 @@ namespace Microsoft.Sarif.Viewer.VisualStudio.UnitTests
     public class ImportanceToForegroundConverterTests
     {
         [Fact]
-        public void ImportanceToForegroundConverter_HandlesUnimportant()
+        public void ImportanceToForegroundConverterHandlesUnimportant()
         {
-            var callTreeNode = new CallTreeNode
-            {
-                Location = new AnnotatedCodeLocation
-                {
-                    Kind = AnnotatedCodeLocationKind.Call,
-                    Callee = "my_function",
-                    Importance = AnnotatedCodeLocationImportance.Unimportant,
-                    PhysicalLocation = new PhysicalLocation
-                    {
-                        Region = new CodeAnalysis.Sarif.Region
-                        {
-                            StartLine = 42
-                        }
-                    }
-                }
-            };
-
-            VerifyConversion(callTreeNode, Color.Gray);
+            VerifyConversion(AnnotatedCodeLocationImportance.Unimportant, "Gray");
         }
 
         [Fact]
-        public void ImportanceToForegroundConverter_HandlesImportant()
+        public void ImportanceToForegroundConverterHandlesImportant()
         {
-            var callTreeNode = new CallTreeNode
-            {
-                Location = new AnnotatedCodeLocation
-                {
-                    Kind = AnnotatedCodeLocationKind.Call,
-                    Callee = "my_function",
-                    Importance = AnnotatedCodeLocationImportance.Important,
-                    PhysicalLocation = new PhysicalLocation
-                    {
-                        Region = new CodeAnalysis.Sarif.Region
-                        {
-                            StartLine = 42
-                        }
-                    }
-                }
-            };
-
-            VerifyConversion(callTreeNode, Color.Black);
+            VerifyConversion(AnnotatedCodeLocationImportance.Important, "Black");
         }
 
         [Fact]
-        public void ImportanceToForegroundConverter_HandlesEssential()
+        public void ImportanceToForegroundConverterHandlesEssential()
         {
-            var callTreeNode = new CallTreeNode
-            {
-                Location = new AnnotatedCodeLocation
-                {
-                    Kind = AnnotatedCodeLocationKind.Call,
-                    Callee = "my_function",
-                    Importance = AnnotatedCodeLocationImportance.Essential,
-                    PhysicalLocation = new PhysicalLocation
-                    {
-                        Region = new CodeAnalysis.Sarif.Region
-                        {
-                            StartLine = 42
-                        }
-                    }
-                }
-            };
-
-            VerifyConversion(callTreeNode, Color.Black);
+            VerifyConversion(AnnotatedCodeLocationImportance.Essential, "Black");
         }
 
-        [Fact]
-        public void ImportanceToForegroundConverter_HandlesDefault()
-        {
-            var callTreeNode = new CallTreeNode
-            {
-                Location = new AnnotatedCodeLocation
-                {
-                    Kind = AnnotatedCodeLocationKind.Call,
-                    Callee = "my_function",
-                    PhysicalLocation = new PhysicalLocation
-                    {
-                        Region = new CodeAnalysis.Sarif.Region
-                        {
-                            StartLine = 42
-                        }
-                    }
-                }
-            };
-
-            VerifyConversion(callTreeNode, Color.Black);
-        }
-
-        private static void VerifyConversion(CallTreeNode callTreeNode, Color expectedColor)
+        private static void VerifyConversion(AnnotatedCodeLocationImportance importance, string expectedColor)
         {
             var converter = new ImportanceToForegroundConverter();
 
-            Color color = (Color)converter.Convert(callTreeNode, typeof(Color), null, CultureInfo.CurrentCulture);
+            string color = (string)converter.Convert(importance, typeof(string), null, CultureInfo.CurrentCulture);
 
             color.Should().Be(expectedColor);
         }
-
     }
 }
