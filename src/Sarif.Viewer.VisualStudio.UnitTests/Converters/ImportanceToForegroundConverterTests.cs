@@ -7,36 +7,35 @@ using Microsoft.CodeAnalysis.Sarif;
 using Microsoft.Sarif.Viewer.Converters;
 using Xunit;
 
-namespace Microsoft.Sarif.Viewer.VisualStudio.UnitTests
+namespace Microsoft.Sarif.Viewer.VisualStudio.Converters.UnitTests
 {
-    public class ImportanceToBackgroundConverterTests
+    public class ImportanceToForegroundConverterTests
     {
         [Fact]
-        public void ImportanceToBackgroundConverterHandlesUnimportant()
+        public void ImportanceToForegroundConverterHandlesUnimportant()
         {
-            VerifyConversion(AnnotatedCodeLocationImportance.Unimportant, "Transparent");
+            VerifyConversion(AnnotatedCodeLocationImportance.Unimportant, "Gray");
         }
 
         [Fact]
-        public void ImportanceToBackgroundConverterHandlesImportant()
+        public void ImportanceToForegroundConverterHandlesImportant()
         {
-            VerifyConversion(AnnotatedCodeLocationImportance.Important, "Yellow");
+            VerifyConversion(AnnotatedCodeLocationImportance.Important, "Black");
         }
 
         [Fact]
-        public void ImportanceToBackgroundConverterHandlesEssential()
+        public void ImportanceToForegroundConverterHandlesEssential()
         {
-            VerifyConversion(AnnotatedCodeLocationImportance.Essential, "Yellow");
+            VerifyConversion(AnnotatedCodeLocationImportance.Essential, "Black");
         }
 
         private static void VerifyConversion(AnnotatedCodeLocationImportance importance, string expectedColor)
         {
-            var converter = new ImportanceToBackgroundConverter();
+            var converter = new ImportanceToForegroundConverter();
 
             string color = (string)converter.Convert(importance, typeof(string), null, CultureInfo.CurrentCulture);
 
             color.Should().Be(expectedColor);
         }
-
     }
 }

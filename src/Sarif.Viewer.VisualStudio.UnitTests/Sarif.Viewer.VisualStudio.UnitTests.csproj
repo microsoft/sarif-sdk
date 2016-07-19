@@ -52,10 +52,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ImportanceToEssentialMarkerVisibilityConverterTests.cs" />
-    <Compile Include="ImportanceToBackgroundConverterTests.cs" />
-    <Compile Include="ImportanceToForegroundConverterTests .cs" />
-    <Compile Include="CallTreeNodeToTextConverterTests.cs" />
+    <Compile Include="Converters\ImportanceToEssentialMarkerVisibilityConverterTests.cs" />
+    <Compile Include="Converters\ImportanceToBackgroundConverterTests.cs" />
+    <Compile Include="Converters\ImportanceToForegroundConverterTests.cs" />
+    <Compile Include="Converters\CallTreeNodeToTextConverterTests.cs" />
     <Compile Include="CodeFlowToTreeConverterTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

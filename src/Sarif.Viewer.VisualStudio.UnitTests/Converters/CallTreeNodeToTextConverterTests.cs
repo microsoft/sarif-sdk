@@ -8,7 +8,7 @@ using Microsoft.Sarif.Viewer.Converters;
 using Microsoft.Sarif.Viewer.Models;
 using Xunit;
 
-namespace Microsoft.Sarif.Viewer.VisualStudio.UnitTests
+namespace Microsoft.Sarif.Viewer.VisualStudio.Converters.UnitTests
 {
     public class CallTreeNodeToTextConverterTests
     {
