@@ -11,7 +11,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.42.0.0")]
     public enum ResultLevel
     {
-        Unknown,
+        Default,
         NotApplicable,
         Pass,
         Note,

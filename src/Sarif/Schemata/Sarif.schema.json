@@ -581,7 +581,7 @@
       "required": [ "message" ]
     },
     "physicalLocation": {
-      "description": "The physical location where a result was detected. Specifies a reference to a programming artifact together with a range of bytes or characters within that artifact.",
+      "description": "A physical location relevant to a result. Specifies a reference to a programming artifact together with a range of bytes or characters within that artifact.",
       "additionalProperties": false,
       "type": "object",
       "properties": {
@@ -843,7 +843,7 @@
         },
 
         "defaultLevel": {
-          "description": "A value specifying the default severity level of the notification.",
+          "description": "A value specifying the default severity level of the result.",
           "default": "warning",
           "enum": [ "note", "warning", "error" ]
         },

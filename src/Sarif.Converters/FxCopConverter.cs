@@ -197,7 +197,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             // FxCop provides no MessageLevel. For these issues, we shouldn't
             // emit any value at all
             mapsDirectlyToSarifName = false;
-            return ResultLevel.Unknown;
+            return ResultLevel.Default;
         }
 
         private static string CreateSignature(FxCopLogReader.Context context)

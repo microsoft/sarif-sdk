@@ -261,7 +261,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             }
 
             Debug.Assert(false);
-            return ResultLevel.Unknown;
+            return ResultLevel.Default;
         }
     }
 }
