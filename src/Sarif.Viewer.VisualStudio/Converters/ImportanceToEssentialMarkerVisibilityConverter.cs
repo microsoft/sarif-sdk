@@ -5,11 +5,10 @@ using System;
 using System.Windows;
 using System.Windows.Data;
 using Microsoft.CodeAnalysis.Sarif;
-using Microsoft.Sarif.Viewer.Models;
 
 namespace Microsoft.Sarif.Viewer.Converters
 {
-    public class ImportanceToExclamationPointConverter : IValueConverter
+    public class ImportanceToEssentialMarkerVisibilityConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {
