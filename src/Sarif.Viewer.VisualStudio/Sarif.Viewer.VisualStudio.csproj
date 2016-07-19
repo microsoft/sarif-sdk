@@ -43,7 +43,7 @@
       <DependentUpon>InternetHyperlink.xaml</DependentUpon>
     </Compile>
     <Compile Include="Converters\BooleanToCollapsedVisibilityConverter.cs" />
-    <Compile Include="Converters\ImportanceToExclamationPointConverter.cs" />
+    <Compile Include="Converters\ImportanceToEssentialMarkerVisibilityConverter.cs" />
     <Compile Include="Converters\CallTreeNodeToTextConverter.cs" />
     <Compile Include="Converters\ImportanceToBackgroundConverter.cs" />
     <Compile Include="Converters\CollectionToVisiblity1Converter.cs" />

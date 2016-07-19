@@ -52,7 +52,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ImportanceToExclamationPointConverterTests.cs" />
+    <Compile Include="ImportanceToEssentialMarkerVisibilityConverterTests.cs" />
     <Compile Include="ImportanceToBackgroundConverterTests.cs" />
     <Compile Include="ImportanceToForegroundConverterTests .cs" />
     <Compile Include="CallTreeNodeToTextConverterTests.cs" />

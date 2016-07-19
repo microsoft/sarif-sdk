@@ -17,14 +17,14 @@
                             <cvt:CallTreeNodeToTextConverter x:Key="callTreeToTextConverter" />
                             <cvt:ImportanceToForegroundConverter x:Key="importanceToForegroundConverter" />
                             <cvt:ImportanceToBackgroundConverter x:Key="importanceToBackgroundConverter" />
-                            <cvt:ImportanceToExclamationPointConverter x:Key="importanceToExclamationPointVisibilityConverter" />
+                            <cvt:ImportanceToEssentialMarkerVisibilityConverter x:Key="importanceToEssentialMarkerVisibilityConverter" />
                         </TreeView.Resources>
                         <TreeView.ItemTemplate>
                             <HierarchicalDataTemplate DataType="x:Type local:CallTreeNode" ItemsSource="{Binding Children}">
                                 <StackPanel Orientation="Horizontal">
                                     <TextBlock Text="!  " FontWeight="Bold" Foreground="Red" 
                                                Visibility="{Binding Location.Importance, 
-                                                            Converter={StaticResource importanceToExclamationPointVisibilityConverter}}" />
+                                                            Converter={StaticResource importanceToEssentialMarkerVisibilityConverter}}" />
                                     <TextBlock Text="{Binding Converter={StaticResource callTreeToTextConverter}}"
                                                Foreground="{Binding Location.Importance, 
                                                             Converter={StaticResource importanceToForegroundConverter}}"
