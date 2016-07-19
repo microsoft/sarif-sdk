@@ -8,7 +8,7 @@ using Microsoft.CodeAnalysis.Sarif;
 using Microsoft.Sarif.Viewer.Converters;
 using Xunit;
 
-namespace Microsoft.Sarif.Viewer.VisualStudio.UnitTests
+namespace Microsoft.Sarif.Viewer.VisualStudio.Converters.UnitTests
 {
     public class ImportanceToEssentialMarkerVisibilityConverterTests
     {
