@@ -124,7 +124,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
             new object[]
             {
-                ResultLevel.Unknown,
+                ResultLevel.Default,
                 MultiLineTestRegion,
                 $"{TestAnalysisTarget}(2,4,3,5): info {TestRuleId}: First: 42, Second: 54",
                 TestAnalysisTarget

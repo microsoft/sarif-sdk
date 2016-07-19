@@ -11,9 +11,8 @@ namespace Microsoft.CodeAnalysis.Sarif
     [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.42.0.0")]
     public enum NotificationLevel
     {
-        Unknown,
-        Note,
         Warning,
+        Note,
         Error
     }
 }

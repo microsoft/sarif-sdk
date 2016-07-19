@@ -63,7 +63,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         public IDictionary<string, string> MessageFormats { get; set; }
 
         /// <summary>
-        /// A value specifying the default severity level of the notification.
+        /// A value specifying the default severity level of the result.
         /// </summary>
         [DataMember(Name = "defaultLevel", IsRequired = false, EmitDefaultValue = false)]
         public ResultLevel DefaultLevel { get; set; }
