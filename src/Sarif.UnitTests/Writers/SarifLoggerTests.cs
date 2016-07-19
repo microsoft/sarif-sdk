@@ -273,7 +273,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             string logText = sb.ToString();
             var sarifLog = JsonConvert.DeserializeObject<SarifLog>(logText);
 
-            sarifLog.Runs[0].Files.Count.Should().Be(0);
+            sarifLog.Runs[0].Files.Should().BeNull();
         }
 
         [TestMethod]
