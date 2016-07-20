@@ -245,8 +245,8 @@ namespace Microsoft.CodeAnalysis.Sarif
             for (int i = 0; i < fileCount; ++i)
             {
                 string fileName = @"file" + i + ".cpp";
-                string fileDataKey = new Uri("file:///" + fileName).ToString();
-                sarifLog.Runs[0].Files.ContainsKey(fileDataKey).Should().BeTrue("file data for " + fileName + " should exist in files collection");
+                string fileDataKey = "file:///" + fileName;
+                sarifLog.Runs[0].Files.Should().ContainKey(fileDataKey, "file data for " + fileName + " should exist in files collection");
             }
 
             sarifLog.Runs[0].Files.Count.Should().Be(fileCount);

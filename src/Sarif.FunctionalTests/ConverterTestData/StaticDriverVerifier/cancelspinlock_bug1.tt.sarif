@@ -7,7 +7,7 @@
         "name": "StaticDriverVerifier"
       },
       "files": {
-        "..\\..\\..\\rules\\WDM\\CancelSpinLock.slic": {
+        "rules/WDM/CancelSpinLock.slic": {
           "mimeType": "text/x-cpp"
         },
         "file:///d:/slam1/wdk/src_5043/fail_drivers/wdm/fail_driver1/sdv/sdv-harness.c": {
@@ -24,7 +24,7 @@
           "locations": [
             {
               "resultFile": {
-                "uri": "..\\..\\..\\rules\\WDM\\CancelSpinLock.slic",
+                "uri": "rules/WDM/CancelSpinLock.slic",
                 "region": {
                   "startLine": 60
                 }
@@ -75,7 +75,7 @@
                 {
                   "step": 4,
                   "physicalLocation": {
-                    "uri": "..\\..\\..\\rules\\WDM\\CancelSpinLock.slic",
+                    "uri": "rules/WDM/CancelSpinLock.slic",
                     "region": {
                       "startLine": 32
                     }
@@ -2879,7 +2879,7 @@
                 {
                   "step": 234,
                   "physicalLocation": {
-                    "uri": "..\\..\\..\\rules\\WDM\\CancelSpinLock.slic",
+                    "uri": "rules/WDM/CancelSpinLock.slic",
                     "region": {
                       "startLine": 38
                     }
@@ -2893,7 +2893,7 @@
                 {
                   "step": 235,
                   "physicalLocation": {
-                    "uri": "..\\..\\..\\rules\\WDM\\CancelSpinLock.slic",
+                    "uri": "rules/WDM/CancelSpinLock.slic",
                     "region": {
                       "startLine": 41
                     }
@@ -3032,7 +3032,7 @@
                 {
                   "step": 248,
                   "physicalLocation": {
-                    "uri": "..\\..\\..\\rules\\WDM\\CancelSpinLock.slic",
+                    "uri": "rules/WDM/CancelSpinLock.slic",
                     "region": {
                       "startLine": 58
                     }
@@ -3046,7 +3046,7 @@
                 {
                   "step": 249,
                   "physicalLocation": {
-                    "uri": "..\\..\\..\\rules\\WDM\\CancelSpinLock.slic",
+                    "uri": "rules/WDM/CancelSpinLock.slic",
                     "region": {
                       "startLine": 60
                     }

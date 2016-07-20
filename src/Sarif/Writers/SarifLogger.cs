@@ -37,12 +37,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
                 foreach (string target in analysisTargets)
                 {
-                    string fileDataKey;
+                    string fileDataKey = UriHelper.MakeValidUri(target);
 
                     var fileData = FileData.Create(
                         new Uri(target, UriKind.RelativeOrAbsolute), 
-                        computeTargetsHash, 
-                        out fileDataKey);
+                        computeTargetsHash);
 
                     run.Files.Add(fileDataKey, fileData);
                 }
@@ -364,18 +363,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
             _run.Files = _run.Files ?? new Dictionary<string, FileData>();
 
-            FileData fileData;
-
-            if (_run.Files.TryGetValue(uri.ToString(), out fileData))
+            string fileDataKey = UriHelper.MakeValidUri(uri.OriginalString);
+            if (_run.Files.ContainsKey(fileDataKey))
             {
                 // Already populated
                 return;
             }
 
-            string fileDataKey;
-            fileData = FileData.Create(uri, false, out fileDataKey);
-
-            _run.Files[fileDataKey] = fileData;
+            _run.Files[fileDataKey] = FileData.Create(uri, false);
         }
 
         public void AnalyzingTarget(IAnalysisContext context)
