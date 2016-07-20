@@ -9,21 +9,21 @@ using Microsoft.CodeAnalysis.Sarif;
 
 namespace Microsoft.Sarif.Viewer.Converters
 {
-    class ImportanceToForegroundConverter : IValueConverter
+    internal class ImportanceToForegroundConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            Color brushColor = Colors.Black;
+            Brush brush = Brushes.Black;
             if (value is AnnotatedCodeLocationImportance)
             {
                 var importance = (AnnotatedCodeLocationImportance)value;
                 if (importance == AnnotatedCodeLocationImportance.Unimportant)
                 {
-                    brushColor = Colors.Gray;
+                    brush = Brushes.Gray;
                 }
             }
 
-            return new SolidColorBrush(brushColor);
+            return brush;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
