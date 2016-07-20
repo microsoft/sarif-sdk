@@ -48,3 +48,10 @@
 * Add a converter for Static Driver Verifier trace files
 * Add SuppressedExternally to SuppressionStates enum
 
+## **v1.5.26** [Driver](https://www.nuget.org/packages/Sarif.Driver/1.5.26) | [SDK](https://www.nuget.org/packages/Sarif.Sdk/1.5.26)  
+* Breaking change on SarifLogger to explicitly specify hash computation for all files  
+* SarifLogger now automatically persists file data for all URIs through format  
+* Add run.stableId, a consistent run-over-run log identifier  
+* Add annotatedCodeLocation.callee and annotatedCodeLocation.calleeKey for annotation call sites  
+* Add invocation.responseFiles to capture response file contents
+* Drop .NET framework dependency to 4.5 (from 4.5.1)
