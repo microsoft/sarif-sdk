@@ -21,7 +21,7 @@
             <ItemsControl.ItemContainerStyle>
                 <Style TargetType="{x:Type ContentPresenter}">
                     <Setter Property="DockPanel.Dock"
-                            Value="Bottom" />
+                            Value="Top" />
                 </Style>
             </ItemsControl.ItemContainerStyle>
             <ItemsControl.ItemTemplate>

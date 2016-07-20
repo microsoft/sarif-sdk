@@ -9,8 +9,20 @@
     </ResourceDictionary.MergedDictionaries>
 
     <DataTemplate x:Key="CallTreeTemplate">
-        <ListView ItemsSource="{Binding}">
-            <ListView.ItemTemplate>
+        <ItemsControl ItemsSource="{Binding}">
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <DockPanel IsItemsHost="True"
+                               LastChildFill="False" />
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+            <ItemsControl.ItemContainerStyle>
+                <Style TargetType="{x:Type ContentPresenter}">
+                    <Setter Property="DockPanel.Dock"
+                            Value="Top" />
+                </Style>
+            </ItemsControl.ItemContainerStyle>
+            <ItemsControl.ItemTemplate>
                 <DataTemplate>
                     <TreeView ItemsSource="{Binding TopLevelNodes}">
                         <TreeView.Resources>
@@ -35,8 +47,8 @@
                         </TreeView.ItemTemplate>
                     </TreeView>
                 </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
     </DataTemplate>
 
 </ResourceDictionary>
