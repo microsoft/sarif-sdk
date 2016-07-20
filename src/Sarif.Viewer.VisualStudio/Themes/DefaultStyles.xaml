@@ -34,7 +34,8 @@
     <Style TargetType="{x:Type ListView}"
            BasedOn="{StaticResource baseStyle}"></Style>
 
-    <Style TargetType="TextBlock">
+    <Style TargetType="TextBlock"
+           x:Key="baseTextBlockStyle">
         <Setter Property="FontFamily"
                 Value="Segoe UI" />
         <Setter Property="FontSize"
@@ -42,7 +43,8 @@
     </Style>
 
     <Style TargetType="TextBlock"
-           x:Key="callTreeTextStyle">
+           x:Key="callTreeTextStyle"
+           BasedOn="{StaticResource baseTextBlockStyle}">
         <Setter Property="FontFamily"
                 Value="Courier New" />
         <Setter Property="FontSize"
