@@ -7,7 +7,7 @@
         "name": "StaticDriverVerifier"
       },
       "files": {
-        "..\\..\\..\\rules\\WDM\\CheckAddDevice.slic": {
+        "rules/WDM/CheckAddDevice.slic": {
           "mimeType": "text/x-cpp"
         },
         "file:///d:/slam1/wdk/src_5043/fail_drivers/wdm/fail_driver1/sdv/sdv-harness.c": {
@@ -21,7 +21,7 @@
           "locations": [
             {
               "resultFile": {
-                "uri": "..\\..\\..\\rules\\WDM\\CheckAddDevice.slic",
+                "uri": "rules/WDM/CheckAddDevice.slic",
                 "region": {
                   "startLine": 35
                 }
@@ -1673,7 +1673,7 @@
                 {
                   "step": 134,
                   "physicalLocation": {
-                    "uri": "..\\..\\..\\rules\\WDM\\CheckAddDevice.slic",
+                    "uri": "rules/WDM/CheckAddDevice.slic",
                     "region": {
                       "startLine": 33
                     }
@@ -1687,7 +1687,7 @@
                 {
                   "step": 135,
                   "physicalLocation": {
-                    "uri": "..\\..\\..\\rules\\WDM\\CheckAddDevice.slic",
+                    "uri": "rules/WDM/CheckAddDevice.slic",
                     "region": {
                       "startLine": 35
                     }

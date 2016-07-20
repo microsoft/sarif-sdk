@@ -81,7 +81,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             }
 
             Uri uri = physicalLocation.Uri;
-            string key = uri.ToString();
+            string key = UriHelper.MakeValidUri(uri.OriginalString);
             string filePath = key;
 
             if (uri.IsAbsoluteUri && uri.IsFile)

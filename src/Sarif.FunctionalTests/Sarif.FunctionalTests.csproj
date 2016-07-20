@@ -673,6 +673,9 @@
     <None Include="ConverterTestData\StaticDriverVerifier\cancelspinlock_bug1.tt.sarif">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="ConverterTestData\StaticDriverVerifier\checkadddevice_bug1.tt.sarif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="ConverterTestData\StaticDriverVerifier\checkdriverunload_bug1.tt.sarif">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
