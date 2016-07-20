@@ -21,6 +21,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         private JsonTextWriter _jsonTextWriter;
         private ResultLogJsonWriter _issueLogJsonWriter;
         private Dictionary<string, IRule> _rules;
+        private bool _computeTargetsHash;
 
         private static Run CreateRun(
             IEnumerable<string> analysisTargets,
@@ -86,10 +87,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         public SarifLogger(
             string outputFilePath, 
             bool verbose,
+            bool computeTargetsHash,
             Tool tool, 
             Run run)
             : this(new StreamWriter(new FileStream(outputFilePath, FileMode.Create, FileAccess.Write, FileShare.None)),
                   verbose,
+                  computeTargetsHash,
                   tool,
                   run)
         {
@@ -99,10 +102,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         public SarifLogger(
             TextWriter textWriter, 
             bool verbose, 
+            bool computeTargetsHash,
             Tool tool, 
             Run run) : this(textWriter, verbose)
         {
-            _run = run;
+            _run = run ?? CreateRun(null, computeTargetsHash, false, null);
             SetSarifLoggerVersion(tool);
             _issueLogJsonWriter.WriteTool(tool);
         }
@@ -123,7 +127,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                     prereleaseInfo,
                     invocationTokensToRedact)
         {
-
+            _computeTargetsHash = computeTargetsHash;
         }
 
         public SarifLogger(
@@ -146,6 +150,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 computeTargetsHash,
                 logEnvironment,
                 invocationTokensToRedact);
+
+            _computeTargetsHash = computeTargetsHash;
         }
 
         private static void SetSarifLoggerVersion(Tool tool)
@@ -213,7 +219,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                     _issueLogJsonWriter.WriteRules(_rules);
                 }
 
-                if (_run != null && _run.Files != null) { _issueLogJsonWriter.WriteFiles(_run.Files); }
+                if (_run != null && _run.Files != null)
+                {
+                    _issueLogJsonWriter.WriteFiles(_run.Files);
+                }
 
                 if (_run != null && _run.Invocation != null)
                 {
@@ -278,7 +287,95 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 Rules[result.RuleKey ?? result.RuleId] = rule;
             }
 
+            CaptureFilesInResult(result);
             _issueLogJsonWriter.WriteResult(result);
+        }
+
+        private void CaptureFilesInResult(Result result)
+        {
+            if (result.Locations != null)
+            {
+                foreach (Location location in result.Locations)
+                {
+                    if (location.AnalysisTarget != null)
+                    {
+                        CaptureFile(location.AnalysisTarget.Uri);
+                    }
+
+                    if (location.ResultFile != null)
+                    {
+                        CaptureFile(location.ResultFile.Uri);
+                    }
+                }
+            }
+
+            CaptureAnnotatedCodeLocations(result.RelatedLocations);
+
+            if (result.Stacks != null)
+            {
+                foreach (Stack stack in result.Stacks)
+                {
+                    foreach (StackFrame frame in stack.Frames)
+                    {
+                        CaptureFile(frame.Uri);
+                    }
+                }
+            }
+
+            if (result.CodeFlows != null)
+            {
+                foreach (CodeFlow codeFlow in result.CodeFlows)
+                {
+                    CaptureAnnotatedCodeLocations(codeFlow.Locations);
+                }
+            }
+
+            if (result.Fixes != null)
+            {
+                foreach (Fix fix in result.Fixes)
+                {
+                    if (fix.FileChanges != null)
+                    {
+                        foreach (FileChange fileChange in fix.FileChanges)
+                        {
+                            CaptureFile(fileChange.Uri);
+                        }
+                    }
+                }
+            }
+        }
+
+        private void CaptureAnnotatedCodeLocations(IList<AnnotatedCodeLocation> locations)
+        {
+            if (locations == null) { return; }
+
+            foreach (AnnotatedCodeLocation acl in locations)
+            {
+                if (acl.PhysicalLocation != null)
+                {
+                    CaptureFile(acl.PhysicalLocation.Uri);
+                }
+            }
+        }
+
+        private void CaptureFile(Uri uri)
+        { 
+            if (uri == null) { return; }
+
+            _run.Files = _run.Files ?? new Dictionary<string, FileData>();
+
+            FileData fileData;
+
+            if (_run.Files.TryGetValue(uri.ToString(), out fileData))
+            {
+                // Already populated
+                return;
+            }
+
+            string fileDataKey;
+            fileData = FileData.Create(uri, false, out fileDataKey);
+
+            _run.Files[fileDataKey] = fileData;
         }
 
         public void AnalyzingTarget(IAnalysisContext context)
@@ -376,6 +473,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 }
 
                 case ResultLevel.Error:
+                case ResultLevel.Default:
                 case ResultLevel.Warning:
                 {
                     break;

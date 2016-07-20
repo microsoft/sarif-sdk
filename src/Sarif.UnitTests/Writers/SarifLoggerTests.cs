@@ -65,7 +65,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                         // the directory of the test driver (the location of which we can't retrieve
                         // from Assembly.GetEntryAssembly() as we are running in an AppDomain).
                         pathToExe = pathToExe.Substring(0, pathToExe.Length - @"\Extensions".Length);
-                        tokensToRedact = new string[] { "TestExecution", pathToExe };
+                        tokensToRedact = new string[] {  pathToExe };
                     }
                 }
                 else
@@ -135,14 +135,16 @@ namespace Microsoft.CodeAnalysis.Sarif
                     computeTargetsHash: true,
                     logEnvironment: false,
                     prereleaseInfo: null,
-                    invocationTokensToRedact: null)) { }
+                    invocationTokensToRedact: null))
+                {
+                }
             }
 
-            string result = sb.ToString();
+            string logText = sb.ToString();
 
             string fileDataKey = new Uri(file).ToString();
 
-            var sarifLog = JsonConvert.DeserializeObject<SarifLog>(result);
+            var sarifLog = JsonConvert.DeserializeObject<SarifLog>(logText);
             sarifLog.Runs[0].Files[fileDataKey].MimeType.Should().Be(MimeType.Cpp);
             sarifLog.Runs[0].Files[fileDataKey].Hashes[0].Algorithm.Should().Be(AlgorithmKind.MD5);
             sarifLog.Runs[0].Files[fileDataKey].Hashes[0].Value.Should().Be("4B9DC12934390387862CC4AB5E4A2159");
@@ -150,6 +152,141 @@ namespace Microsoft.CodeAnalysis.Sarif
             sarifLog.Runs[0].Files[fileDataKey].Hashes[1].Value.Should().Be("9B59B1C1E3F5F7013B10F6C6B7436293685BAACE");
             sarifLog.Runs[0].Files[fileDataKey].Hashes[2].Algorithm.Should().Be(AlgorithmKind.Sha256);
             sarifLog.Runs[0].Files[fileDataKey].Hashes[2].Value.Should().Be("0953D7B3ADA7FED683680D2107EE517A9DBEC2D0AF7594A91F058D104B7A2AEB");
+        }
+
+        [TestMethod]
+        public void SarifLogger_ScrapesFilesFromResult()
+        {
+            var sb = new StringBuilder();
+
+            using (var textWriter = new StringWriter(sb))
+            {
+                using (var sarifLogger = new SarifLogger(
+                    textWriter,
+                    analysisTargets: null,
+                    verbose: false,
+                    computeTargetsHash: true,
+                    logEnvironment: false,
+                    prereleaseInfo: null,
+                    invocationTokensToRedact: null))
+                {
+                    string ruleId = "RuleId";
+                    var rule = new Rule() { Id = ruleId };
+
+                    var result = new Result()
+                    {
+                        RuleId = ruleId,
+                        Locations = new[]
+                        {
+                            new Location
+                            {
+                                AnalysisTarget = new PhysicalLocation {  Uri = new Uri(@"file:///file0.cpp")},
+                                ResultFile = new PhysicalLocation {  Uri = new Uri(@"file:///file1.cpp")}
+                            },
+                        },
+                        Fixes = new[]
+                        {
+                            new Fix
+                            {
+                                FileChanges = new[]
+                                {
+                                   new FileChange
+                                   {
+                                        Uri = new Uri(@"file:///file2.cpp")
+                                   }
+                                }
+                            }
+                        },
+                        RelatedLocations = new[]
+                        {
+                            new AnnotatedCodeLocation
+                            {
+                                PhysicalLocation = new PhysicalLocation {  Uri = new Uri(@"file:///file3.cpp")}
+                            }
+                        },
+                        Stacks = new[]
+                        {
+                            new Stack
+                            {
+                                Frames = new[]
+                                {
+                                    new StackFrame
+                                    {
+                                        Uri = new Uri(@"file:///file4.cpp")
+                                    }
+                                }
+                            }
+                        },
+                        CodeFlows = new[]
+                        {
+                            new CodeFlow
+                            {
+                                Locations = new[]
+                                {
+                                    new AnnotatedCodeLocation
+                                    {
+                                        PhysicalLocation = new PhysicalLocation {  Uri = new Uri(@"file:///file5.cpp")}
+                                    }
+                                }
+                            }
+                        }
+                    };
+
+                    sarifLogger.Log(rule, result);
+
+                }
+            }
+
+            string logText = sb.ToString();
+            var sarifLog = JsonConvert.DeserializeObject<SarifLog>(logText);
+
+            int fileCount = 6;
+
+            for (int i = 0; i < fileCount; ++i)
+            {
+                string fileName = @"file" + i + ".cpp";
+                string fileDataKey = new Uri("file:///" + fileName).ToString();
+                sarifLog.Runs[0].Files.ContainsKey(fileDataKey).Should().BeTrue("file data for " + fileName + " should exist in files collection");
+            }
+
+            sarifLog.Runs[0].Files.Count.Should().Be(fileCount);
+        }
+
+        [TestMethod]
+        public void SarifLogger_DoNotScrapeFilesFromNotifications()
+        {
+            var sb = new StringBuilder();
+
+            using (var textWriter = new StringWriter(sb))
+            {
+                using (var sarifLogger = new SarifLogger(
+                    textWriter,
+                    analysisTargets: null,
+                    verbose: false,
+                    computeTargetsHash: true,
+                    logEnvironment: false,
+                    prereleaseInfo: null,
+                    invocationTokensToRedact: null))
+                {                    
+                    var toolNotification = new Notification
+                    {
+                        PhysicalLocation = new PhysicalLocation { Uri = new Uri(@"file:///file0.cpp") }
+                    };
+                    sarifLogger.LogToolNotification(toolNotification);
+
+                    var configurationNotification = new Notification
+                    {
+                        PhysicalLocation = new PhysicalLocation { Uri = new Uri(@"file:///file0.cpp") }
+                    };
+                    sarifLogger.LogConfigurationNotification(configurationNotification);
+
+                }
+            }
+
+            string logText = sb.ToString();
+            var sarifLog = JsonConvert.DeserializeObject<SarifLog>(logText);
+
+            sarifLog.Runs[0].Files.Should().BeNull();
         }
 
         [TestMethod]

@@ -232,10 +232,9 @@
       "arguments": {
         "typeName": "NotificationLevel",
         "description": "Values specifying the level of a notification.",
-        "zeroValueName": "Unknown",
         "memberNames": [
-          "Note",
           "Warning",
+          "Note",
           "Error"
         ]
       }
@@ -272,7 +271,7 @@
       "arguments": {
         "typeName": "ResultLevel",
         "description": "Values specifying the level of a result.",
-        "zeroValueName": "Unknown",
+        "zeroValueName": "Default",
         "memberNames": [
           "NotApplicable",
           "Pass",
@@ -320,7 +319,7 @@
       "arguments": {
         "typeName": "ResultLevel",
         "description": "Values specifying the level of a result.",
-        "zeroValueName": "Unknown",
+        "zeroValueName": "Default",
         "memberNames": [
           "NotApplicable",
           "Pass",

@@ -9,7 +9,7 @@ using System.Runtime.Serialization;
 namespace Microsoft.CodeAnalysis.Sarif
 {
     /// <summary>
-    /// The physical location where a result was detected. Specifies a reference to a programming artifact together with a range of bytes or characters within that artifact.
+    /// A physical location relevant to a result. Specifies a reference to a programming artifact together with a range of bytes or characters within that artifact.
     /// </summary>
     [DataContract]
     [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.42.0.0")]
