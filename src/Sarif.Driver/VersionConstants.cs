@@ -4,8 +4,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 {                                                                              
     public static class VersionConstants                                       
     {                                                                          
-        public const string Prerelease = "";                       
-        public const string AssemblyVersion = "1.5.25";       
+        public const string Prerelease = "-developer";                       
+        public const string AssemblyVersion = "1.5.26";       
         public const string FileVersion = AssemblyVersion + ".0";              
         public const string Version = AssemblyVersion + Prerelease;            
     }                                                                          

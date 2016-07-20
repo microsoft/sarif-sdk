@@ -34,10 +34,14 @@
                         <TreeView.ItemTemplate>
                             <HierarchicalDataTemplate DataType="x:Type local:CallTreeNode" ItemsSource="{Binding Children}">
                                 <StackPanel Orientation="Horizontal">
-                                    <TextBlock Text="!  " FontWeight="Bold" Foreground="Red" 
+                                    <TextBlock Text="! " FontWeight="Bold" Foreground="Red"
+                                               Style="{StaticResource callTreeTextStyle}"
+                                               Background="{Binding Location.Importance, 
+                                                            Converter={StaticResource importanceToBackgroundConverter}}"
                                                Visibility="{Binding Location.Importance, 
                                                             Converter={StaticResource importanceToEssentialMarkerVisibilityConverter}}" />
                                     <TextBlock Text="{Binding Converter={StaticResource callTreeToTextConverter}}"
+                                               Style="{StaticResource callTreeTextStyle}"
                                                Foreground="{Binding Location.Importance, 
                                                             Converter={StaticResource importanceToForegroundConverter}}"
                                                Background="{Binding Location.Importance, 
