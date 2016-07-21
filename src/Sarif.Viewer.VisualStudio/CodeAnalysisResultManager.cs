@@ -251,7 +251,7 @@ namespace Microsoft.Sarif.Viewer
                 sarifError.RegionPopulated = true;
             }
             marker.FullFilePath = remappedName;
-            result = marker.NavigateTo(false, null, false);
+            result = marker.NavigateTo(true, null, false);
             return result != null;
         }
 
