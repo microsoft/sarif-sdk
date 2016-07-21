@@ -11,6 +11,12 @@ using System.Windows.Controls;
 
 namespace Microsoft.Sarif.Viewer
 {
+    /// <summary>
+    ///  The TreeViewHelper class enables binding to the SelectedItem of a TreeView.
+    /// </summary>
+    /// <remarks>
+    /// Original source code taken from http://stackoverflow.com/questions/7153813/wpf-mvvm-treeview-selecteditem.
+    /// </remarks>
     public class TreeViewHelper
     {
         private static Dictionary<DependencyObject, TreeViewSelectedItemBehavior> behaviors = new Dictionary<DependencyObject, TreeViewSelectedItemBehavior>();
