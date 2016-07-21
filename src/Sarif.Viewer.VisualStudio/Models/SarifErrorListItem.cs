@@ -386,6 +386,40 @@ namespace Microsoft.Sarif.Viewer
                 }
             }
 
+            foreach (CallTree callTree in this.CallTrees)
+            {
+                Stack<CallTreeNode> nodesToProcess = new Stack<CallTreeNode>();
+
+                foreach (CallTreeNode topLevelNode in callTree.TopLevelNodes)
+                {
+                    nodesToProcess.Push(topLevelNode);
+                }
+
+                while (nodesToProcess.Count > 0)
+                {
+                    CallTreeNode current = nodesToProcess.Pop();
+                    try
+                    {
+                        if (current.FilePath != null &&
+                            current.FilePath.Equals(originalPath, StringComparison.OrdinalIgnoreCase))
+                        {
+                            current.FilePath = remappedPath;
+                        }
+                    }
+                    catch (ArgumentException)
+                    {
+                        // An argument exception is thrown if the node does not have a region.
+                        // Since there's no region, there's no document to attach to.
+                        // Just move on with processing the child nodes.
+                    }
+
+                    foreach (CallTreeNode childNode in current.Children)
+                    {
+                        nodesToProcess.Push(childNode);
+                    }
+                }
+            }
+
             foreach (StackCollection stackCollection in this.Stacks)
             {
                 foreach (StackFrameModel stackFrame in stackCollection)
