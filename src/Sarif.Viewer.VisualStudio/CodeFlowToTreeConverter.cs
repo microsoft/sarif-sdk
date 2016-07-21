@@ -27,12 +27,13 @@ namespace Microsoft.Sarif.Viewer.VisualStudio
                 switch (codeFlow.Locations[currentCodeFlowIndex].Kind)
                 {
                     case AnnotatedCodeLocationKind.Call:
-                        children.Add(new CallTreeNode
+                        var newNode = new CallTreeNode
                         {
                             Location = codeFlow.Locations[currentCodeFlowIndex],
                             Parent = parent
-                        });
-                        children[children.Count - 1].Children = GetChildren(codeFlow, ref currentCodeFlowIndex, children[children.Count - 1]);
+                        };
+                        newNode.Children = GetChildren(codeFlow, ref currentCodeFlowIndex, newNode);
+                        children.Add(newNode);
                         break;
 
                     case AnnotatedCodeLocationKind.CallReturn:
