@@ -10,5 +10,6 @@ namespace Microsoft.Sarif.Viewer.Models
     {
         public AnnotatedCodeLocation Location { get; set; }
         public List<CallTreeNode> Children { get; set; }
+        public CallTreeNode Parent { get; set; }
     }
 }

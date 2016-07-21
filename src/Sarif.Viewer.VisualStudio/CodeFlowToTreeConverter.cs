@@ -13,10 +13,10 @@ namespace Microsoft.Sarif.Viewer.VisualStudio
         {
            int currentCodeFlowIndex = -1;
 
-            return GetChildren(codeFlow, ref currentCodeFlowIndex);
+            return GetChildren(codeFlow, ref currentCodeFlowIndex, null);
         }
 
-        private static List<CallTreeNode> GetChildren(CodeFlow codeFlow, ref int currentCodeFlowIndex)
+        private static List<CallTreeNode> GetChildren(CodeFlow codeFlow, ref int currentCodeFlowIndex, CallTreeNode parent)
         {
             currentCodeFlowIndex++;
             List<CallTreeNode> children = new List<CallTreeNode>();
@@ -30,15 +30,17 @@ namespace Microsoft.Sarif.Viewer.VisualStudio
                         children.Add(new CallTreeNode
                         {
                             Location = codeFlow.Locations[currentCodeFlowIndex],
-                            Children = GetChildren(codeFlow, ref currentCodeFlowIndex)
+                            Parent = parent
                         });
+                        children[children.Count - 1].Children = GetChildren(codeFlow, ref currentCodeFlowIndex, children[children.Count - 1]);
                         break;
 
                     case AnnotatedCodeLocationKind.CallReturn:
                         children.Add(new CallTreeNode
                         {
                             Location = codeFlow.Locations[currentCodeFlowIndex],
-                            Children = new List<CallTreeNode>()
+                            Children = new List<CallTreeNode>(),
+                            Parent = parent
                         });
                         foundCallReturn = true;
                         break;
@@ -47,7 +49,8 @@ namespace Microsoft.Sarif.Viewer.VisualStudio
                         children.Add(new CallTreeNode
                         {
                             Location = codeFlow.Locations[currentCodeFlowIndex],
-                            Children = new List<CallTreeNode>()
+                            Children = new List<CallTreeNode>(),
+                            Parent = parent
                         });
                         currentCodeFlowIndex++;
                         break;
