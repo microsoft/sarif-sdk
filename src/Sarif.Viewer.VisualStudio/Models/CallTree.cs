@@ -28,7 +28,11 @@ namespace Microsoft.Sarif.Viewer.Models
                 _selectedItem = value;
                 this.NotifyPropertyChanged(nameof(SelectedItem));
 
-                _selectedItem.OnSelectKeyEvent();
+                // Navigate to the source of the selected node and highlight the region.
+                if (_selectedItem != null)
+                {
+                    _selectedItem.OnSelectKeyEvent();
+                }
             }
         }
     }
