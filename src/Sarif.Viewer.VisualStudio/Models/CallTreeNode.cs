@@ -24,6 +24,9 @@ namespace Microsoft.Sarif.Viewer.Models
 
                 if (value != null && value.PhysicalLocation != null)
                 {
+                    // If the backing AnnotatedCodeLocation has a PhysicalLocation, set the 
+                    // FilePath and Region properties. The FilePath and Region properties
+                    // are used to navigate to the source location and highlight the line.
                     Uri uri = value.PhysicalLocation.Uri;
                     if (uri != null)
                     {
