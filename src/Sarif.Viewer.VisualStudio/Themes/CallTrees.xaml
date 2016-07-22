@@ -27,7 +27,6 @@
                     <TreeView ItemsSource="{Binding TopLevelNodes}">
                         <TreeView.Resources>
                             <cvt:CallTreeNodeToTextConverter x:Key="callTreeToTextConverter" />
-                            <cvt:ImportanceToEssentialMarkerVisibilityConverter x:Key="importanceToEssentialMarkerVisibilityConverter" />
                         </TreeView.Resources>
                         <TreeView.ItemContainerStyle>
                             <Style>
