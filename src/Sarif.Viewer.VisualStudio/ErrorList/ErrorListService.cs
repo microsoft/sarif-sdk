@@ -85,10 +85,13 @@ namespace Microsoft.Sarif.Viewer.ErrorList
         {
             List<SarifErrorListItem> sarifErrors = new List<SarifErrorListItem>();
 
-            foreach (Result result in run.Results)
+            if (run.Results != null)
             {
-                SarifErrorListItem sarifError = GetResult(run, result, logFilePath);
-                sarifErrors.Add(sarifError);
+                foreach (Result result in run.Results)
+                {
+                    SarifErrorListItem sarifError = GetResult(run, result, logFilePath);
+                    sarifErrors.Add(sarifError);
+                }
             }
 
             CodeAnalysisResultManager.Instance.SarifErrors = sarifErrors;
