@@ -64,6 +64,8 @@
                          Value="Unimportant">
                 <Setter Property="FontWeight"
                         Value="Normal" />
+                <Setter Property="Foreground"
+                        Value="Gray" />
             </DataTrigger>
         </Style.Triggers>
     </Style>
