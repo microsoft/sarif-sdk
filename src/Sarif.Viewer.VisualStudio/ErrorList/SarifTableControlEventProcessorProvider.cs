@@ -66,19 +66,24 @@ namespace Microsoft.Sarif.Viewer.ErrorList
 
                 SarifErrorListItem sarifError = sarifSnapshot.GetItem(index);
 
-                IVsWindowFrame frame;
-                if (!CodeAnalysisResultManager.Instance.TryNavigateTo(sarifError, out frame))
+                if (sarifError.Locations != null && sarifError.Locations.Count > 0)
                 {
-                    //return;
+                    sarifError.Locations[0].OnSelectKeyEvent();
                 }
 
                 if (sarifError.HasDetails)
                 {
-                    OpenOrReplaceVerticalContent(frame, sarifError);
+                    SarifViewerPackage package = SarifViewerPackage.ServiceProvider as SarifViewerPackage;
+                    SarifToolWindow toolWindow = package.FindToolWindow(typeof(SarifToolWindow), 0, true) as SarifToolWindow;
+                    ((IVsWindowFrame)toolWindow.Frame).Show();
+                    toolWindow.control.DataContext = sarifError;
                 }
                 else
                 {
-                    CloseVerticalContent(frame, sarifError);
+                    SarifViewerPackage package = SarifViewerPackage.ServiceProvider as SarifViewerPackage;
+                    SarifToolWindow toolWindow = package.FindToolWindow(typeof(SarifToolWindow), 0, true) as SarifToolWindow;
+                    ((IVsWindowFrame)toolWindow.Frame).Show();
+                    toolWindow.control.DataContext = null;
                 }
             }
 

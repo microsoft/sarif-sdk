@@ -15,10 +15,10 @@
         defining some of the constants that we will use inside the file. -->
 
   <!--This is the file that defines the IDs for all the commands exposed by VisualStudio. -->
-  <Extern href="stdidcmd.h"/>
+  <Extern href="stdidcmd.h" />
 
   <!--This header contains the command ids for the menus provided by the shell. -->
-  <Extern href="vsshlids.h"/>
+  <Extern href="vsshlids.h" />
 
   <!--The Commands section is where commands, menus, and menu groups are defined.
       This section uses a Guid to identify the package that provides the command defined inside it. -->
@@ -37,19 +37,29 @@
          must be a menu. -->
     <Groups>
       <Group guid="guidOpenSarifFileCommandPackageCmdSet" id="OpenFileMenuGroup" priority="0x0600">
-        <Parent guid="guidSHLMainMenu" id="IDM_VS_MENU_TOOLS"/>
+        <Parent guid="guidSHLMainMenu" id="IDM_VS_MENU_TOOLS" />
       </Group>
       <Group guid="guidOpenSarifFileCommandPackageCmdSet" id="OpenFileSubMenuGroup" priority="0x0600">
-        <Parent guid="guidOpenSarifFileCommandPackageCmdSet" id="OpenFileSubMenu"/>
+        <Parent guid="guidOpenSarifFileCommandPackageCmdSet" id="OpenFileSubMenu" />
+      </Group>
+      <Group guid="guidSarifViewerPackageCmdSet" id="ToolbarGroupID" priority="0x0000">
+        <Parent guid="guidSarifViewerPackageCmdSet" id="ToolbarID" />
       </Group>
     </Groups>
 
     <Menus>
       <Menu guid="guidOpenSarifFileCommandPackageCmdSet" id="OpenFileSubMenu" priority="0x0100" type="Menu">
-        <Parent guid="guidOpenSarifFileCommandPackageCmdSet" id="OpenFileMenuGroup"/>
+        <Parent guid="guidOpenSarifFileCommandPackageCmdSet" id="OpenFileMenuGroup" />
         <Strings>
           <ButtonText>Open Static Analysis Log File</ButtonText>
           <CommandName>Open Static Analysis Log File</CommandName>
+        </Strings>
+      </Menu>
+      <Menu guid="guidSarifViewerPackageCmdSet" id="ToolbarID" priority="0x0000" type="ToolWindowToolbar">
+        <Parent guid="guidSarifViewerPackageCmdSet" id="ToolbarID" />
+        <Strings>
+          <ButtonText>Tool Window Toolbar</ButtonText>
+          <CommandName>Tool Window Toolbar</CommandName>
         </Strings>
       </Menu>
     </Menus>
@@ -122,6 +132,21 @@
           <ButtonText>Open Android Studio XML log file...</ButtonText>
         </Strings>
       </Button>
+      <Button guid="guidSarifViewerPackageCmdSet" id="cmdidSarifToolWindowCommand" priority="0x0100" type="Button">
+        <Parent guid="guidSHLMainMenu" id="IDG_VS_WNDO_OTRWNDWS1" />
+        <!--<Icon guid="guidImages1" id="bmpPic1" />-->
+        <Strings>
+          <ButtonText>SARIF Explorer</ButtonText>
+        </Strings>
+      </Button>
+      <Button guid="guidSarifViewerPackageCmdSet" id="cmdidWindowsMediaOpen" priority="0x0101" type="Button">
+        <Parent guid="guidSarifViewerPackageCmdSet" id="ToolbarGroupID"/>
+        <Icon guid="guidImages" id="bmpPicSearch" />
+        <Strings>
+          <CommandName>cmdidWindowsMediaOpen</CommandName>
+          <ButtonText>Load File</ButtonText>
+        </Strings>
+      </Button>
     </Buttons>
 
     <!--The bitmaps section is used to define the bitmaps that are used for the commands.-->
@@ -131,7 +156,8 @@
             bitmap strip containing the bitmaps and then there are the numeric ids of the elements used
             inside a button definition. An important aspect of this declaration is that the element id
             must be the actual index (1-based) of the bitmap inside the bitmap strip. -->
-      <Bitmap guid="guidImages" href="Resources\OpenSarifFileCommand.png" usedList="bmpPic1, bmpPic2, bmpPicSearch, bmpPicX, bmpPicArrows, bmpPicStrikethrough"/>
+      <Bitmap guid="guidImages" href="Resources\OpenSarifFileCommand.png" usedList="bmpPic1, bmpPic2, bmpPicSearch, bmpPicX, bmpPicArrows, bmpPicStrikethrough" />
+      <Bitmap guid="guidImages1" href="Resources\SarifToolWindowCommand.png" usedList="bmpPic1, bmpPic2, bmpPicSearch, bmpPicX, bmpPicArrows, bmpPicStrikethrough" />
     </Bitmaps>
   </Commands>
 
@@ -150,12 +176,29 @@
       <IDSymbol name="OpenCppCheckFileCommandId" value="0x0105" />
       <IDSymbol name="OpenClangFileCommandId" value="0x0106" />
       <IDSymbol name="OpenAndroidStudioFileCommandId" value="0x0107" />
-      <IDSymbol name="OpenFileSubMenuGroup" value="0x1100"/>
-      <IDSymbol name="OpenFileMenuGroup" value="0x1150"/>
-      <IDSymbol name="cmdidTestSubCommand" value="0x0200"/>
-    </GuidSymbol>    
+      <IDSymbol name="OpenFileSubMenuGroup" value="0x1100" />
+      <IDSymbol name="OpenFileMenuGroup" value="0x1150" />
+      <IDSymbol name="cmdidTestSubCommand" value="0x0200" />
+    </GuidSymbol>
 
-    <GuidSymbol name="guidImages" value="{84d1f697-2dc5-4c8b-a268-31316cdabe1d}" >
+    <GuidSymbol name="guidImages" value="{84d1f697-2dc5-4c8b-a268-31316cdabe1d}">
+      <IDSymbol name="bmpPic1" value="1" />
+      <IDSymbol name="bmpPic2" value="2" />
+      <IDSymbol name="bmpPicSearch" value="3" />
+      <IDSymbol name="bmpPicX" value="4" />
+      <IDSymbol name="bmpPicArrows" value="5" />
+      <IDSymbol name="bmpPicStrikethrough" value="6" />
+    </GuidSymbol>
+
+    <GuidSymbol value="{e6de64e8-7731-4ffd-8633-e1cbf03609ad}" name="guidSarifViewerPackageCmdSet">
+      <IDSymbol value="256" name="cmdidSarifToolWindowCommand" />
+      <IDSymbol name="ToolbarID" value="0x1000" />
+      <IDSymbol name="ToolbarGroupID" value="0x1001" />
+      <IDSymbol name="cmdidWindowsMedia" value="0x0100" />
+      <IDSymbol name="cmdidWindowsMediaOpen" value="0x132" />
+    </GuidSymbol>
+
+    <GuidSymbol value="{29b155fa-e93f-4814-aa10-ff0416dff3cd}" name="guidImages1">
       <IDSymbol name="bmpPic1" value="1" />
       <IDSymbol name="bmpPic2" value="2" />
       <IDSymbol name="bmpPicSearch" value="3" />

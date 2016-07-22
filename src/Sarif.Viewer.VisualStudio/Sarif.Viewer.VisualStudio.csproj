@@ -73,6 +73,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="SarifToolWindow.cs" />
+    <Compile Include="SarifToolWindowCommand.cs" />
+    <Compile Include="SarifToolWindowControl.xaml.cs">
+      <DependentUpon>SarifToolWindowControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Sarif\Replacement.extensions.cs" />
     <Compile Include="Sarif\FileChange.extensions.cs" />
     <Compile Include="Sarif\Fix.extensions.cs" />
@@ -136,6 +141,7 @@
       <IncludeInVSIX>true</IncludeInVSIX>
     </Content>
     <None Include="readme.md" />
+    <Resource Include="Resources\SarifToolWindowCommand.png" />
     <Content Include="Triskele.ico">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <IncludeInVSIX>true</IncludeInVSIX>
@@ -315,6 +321,10 @@
   </ItemGroup>
   <ItemGroup>
     <Page Include="Controls\InternetHyperlink.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="SarifToolWindowControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -24,6 +24,7 @@ namespace Microsoft.Sarif.Viewer
     [ProvideMenuResource("Menus.ctmenu", 1)]
     [Guid(SarifViewerPackage.PackageGuidString)]
     [ProvideEditorExtension(typeof(SarifEditorFactory), ".sarif", 128)]
+    [ProvideToolWindow(typeof(Microsoft.Sarif.Viewer.SarifToolWindow), Style=Microsoft.VisualStudio.Shell.VsDockStyle.Tabbed, Window="3ae79031-e1bc-11d0-8f78-00a0c9110057")]
     public sealed class SarifViewerPackage : Package
     {
         public static DTE2 Dte;
@@ -80,6 +81,7 @@ namespace Microsoft.Sarif.Viewer
             RegisterEditorFactory(_sarifEditorFactory);
 
             CodeAnalysisResultManager.Instance.Register();
+            Microsoft.Sarif.Viewer.SarifToolWindowCommand.Initialize(this);
         }
 
         #endregion
