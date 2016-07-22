@@ -27,26 +27,23 @@
                     <TreeView ItemsSource="{Binding TopLevelNodes}">
                         <TreeView.Resources>
                             <cvt:CallTreeNodeToTextConverter x:Key="callTreeToTextConverter" />
-                            <cvt:ImportanceToForegroundConverter x:Key="importanceToForegroundConverter" />
-                            <cvt:ImportanceToBackgroundConverter x:Key="importanceToBackgroundConverter" />
-                            <cvt:ImportanceToEssentialMarkerVisibilityConverter x:Key="importanceToEssentialMarkerVisibilityConverter" />
                         </TreeView.Resources>
+                        <TreeView.ItemContainerStyle>
+                            <Style>
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding Location.Importance}"
+                                                 Value="Essential">
+                                        <Setter Property="TreeViewItem.IsExpanded"
+                                                Value="True" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </TreeView.ItemContainerStyle>
+
                         <TreeView.ItemTemplate>
                             <HierarchicalDataTemplate DataType="x:Type local:CallTreeNode" ItemsSource="{Binding Children}">
-                                <StackPanel Orientation="Horizontal">
-                                    <TextBlock Text="! " FontWeight="Bold" Foreground="Red"
-                                               Style="{StaticResource callTreeTextStyle}"
-                                               Background="{Binding Location.Importance, 
-                                                            Converter={StaticResource importanceToBackgroundConverter}}"
-                                               Visibility="{Binding Location.Importance, 
-                                                            Converter={StaticResource importanceToEssentialMarkerVisibilityConverter}}" />
-                                    <TextBlock Text="{Binding Converter={StaticResource callTreeToTextConverter}}"
-                                               Style="{StaticResource callTreeTextStyle}"
-                                               Foreground="{Binding Location.Importance, 
-                                                            Converter={StaticResource importanceToForegroundConverter}}"
-                                               Background="{Binding Location.Importance, 
-                                                            Converter={StaticResource importanceToBackgroundConverter}}" />
-                                </StackPanel>
+                                <TextBlock Text="{Binding Converter={StaticResource callTreeToTextConverter}}"
+                                           Style="{StaticResource callTreeTextStyle}" />
                             </HierarchicalDataTemplate>
                         </TreeView.ItemTemplate>
                     </TreeView>
