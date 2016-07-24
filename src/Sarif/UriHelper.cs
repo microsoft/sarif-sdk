@@ -2,6 +2,8 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using System;
+using System.Text;
+using System.Text.RegularExpressions;
 
 namespace Microsoft.CodeAnalysis.Sarif
 {
@@ -69,6 +71,16 @@ namespace Microsoft.CodeAnalysis.Sarif
                     !path.StartsWith(@"\", StringComparison.Ordinal))
                 {
                     validUri = validUri.Substring(1);
+
+                    // When the UriBuilder constructs an absolute URI, it strips any
+                    // leading "." and ".." segments ("dot-segments", as RFC 3986 calls
+                    // them). Glue them back on so we don't lose the relative path
+                    // information.
+                    string leadingDotSegments = GetLeadingDotSegments(path);
+                    if (!string.IsNullOrEmpty(leadingDotSegments))
+                    {
+                        validUri = leadingDotSegments + validUri;
+                    }
                 }
             }
             else
@@ -77,6 +89,37 @@ namespace Microsoft.CodeAnalysis.Sarif
             }
 
             return validUri;
+        }
+
+        private static readonly Regex s_oneDotPattern =
+            new Regex(@"^\.[\\/]", RegexOptions.Compiled | RegexOptions.CultureInvariant);
+
+        private static readonly Regex s_twoDotPattern =
+            new Regex(@"^\.\.[\\/]", RegexOptions.Compiled | RegexOptions.CultureInvariant);
+
+        private static string GetLeadingDotSegments(string path)
+        {
+            var sb = new StringBuilder();
+
+            bool moreDotSegments = true;
+            while (moreDotSegments)
+            {
+                if (s_oneDotPattern.IsMatch(path))
+                {
+                    path = path.Substring(2);
+                }
+                else if (s_twoDotPattern.IsMatch(path))
+                {
+                    path = path.Substring(3);
+                    sb.Append("../");
+                }
+                else
+                {
+                    moreDotSegments = false;
+                }
+            }
+
+            return sb.ToString();
         }
     }
 }

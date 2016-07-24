@@ -7,7 +7,7 @@
         "name": "StaticDriverVerifier"
       },
       "files": {
-        "rules/WDM/DispatchRoutine.slic": {
+        "../../../rules/WDM/DispatchRoutine.slic": {
           "mimeType": "text/x-cpp"
         },
         "file:///d:/slam1/wdk/src_5043/fail_drivers/wdm/fail_driver1/sdv/sdv-harness.c": {
@@ -21,7 +21,7 @@
           "locations": [
             {
               "resultFile": {
-                "uri": "rules/WDM/DispatchRoutine.slic",
+                "uri": "../../../rules/WDM/DispatchRoutine.slic",
                 "region": {
                   "startLine": 34
                 }
@@ -1105,7 +1105,7 @@
                 {
                   "step": 86,
                   "physicalLocation": {
-                    "uri": "rules/WDM/DispatchRoutine.slic",
+                    "uri": "../../../rules/WDM/DispatchRoutine.slic",
                     "region": {
                       "startLine": 32
                     }
@@ -1119,7 +1119,7 @@
                 {
                   "step": 87,
                   "physicalLocation": {
-                    "uri": "rules/WDM/DispatchRoutine.slic",
+                    "uri": "../../../rules/WDM/DispatchRoutine.slic",
                     "region": {
                       "startLine": 34
                     }
