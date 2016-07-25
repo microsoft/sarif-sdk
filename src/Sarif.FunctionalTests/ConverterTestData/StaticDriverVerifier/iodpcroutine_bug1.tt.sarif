@@ -7,7 +7,7 @@
         "name": "StaticDriverVerifier"
       },
       "files": {
-        "rules/WDM/IoDpcRoutine.slic": {
+        "../../../rules/WDM/IoDpcRoutine.slic": {
           "mimeType": "text/x-cpp"
         },
         "file:///d:/slam1/wdk/src_5043/fail_drivers/wdm/fail_driver1/sdv/sdv-harness.c": {
@@ -21,7 +21,7 @@
           "locations": [
             {
               "resultFile": {
-                "uri": "rules/WDM/IoDpcRoutine.slic",
+                "uri": "../../../rules/WDM/IoDpcRoutine.slic",
                 "region": {
                   "startLine": 34
                 }
@@ -1460,7 +1460,7 @@
                 {
                   "step": 116,
                   "physicalLocation": {
-                    "uri": "rules/WDM/IoDpcRoutine.slic",
+                    "uri": "../../../rules/WDM/IoDpcRoutine.slic",
                     "region": {
                       "startLine": 32
                     }
@@ -1474,7 +1474,7 @@
                 {
                   "step": 117,
                   "physicalLocation": {
-                    "uri": "rules/WDM/IoDpcRoutine.slic",
+                    "uri": "../../../rules/WDM/IoDpcRoutine.slic",
                     "region": {
                       "startLine": 34
                     }
