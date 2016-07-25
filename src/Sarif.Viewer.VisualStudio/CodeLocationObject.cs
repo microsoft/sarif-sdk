@@ -1,17 +1,13 @@
 ﻿// Copyright (c) Microsoft. All rights reserved. 
 // Licensed under the MIT license. See LICENSE file in the project root for full license information. 
 
+using System;
+using System.Diagnostics;
 using Microsoft.CodeAnalysis.Sarif;
 using Microsoft.VisualStudio.Shell.Interop;
 using Microsoft.VisualStudio.Text;
 using Microsoft.VisualStudio.Text.Editor;
 using Microsoft.VisualStudio.TextManager.Interop;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Microsoft.Sarif.Viewer
 {
@@ -25,9 +21,9 @@ namespace Microsoft.Sarif.Viewer
         {
             get
             {
-                if (_lineMarker == null)
+                // Not all locations have regions. Don't try to mark the locations that don't.
+                if (_lineMarker == null && Region != null)
                 {
-                    Debug.Assert(Region != null);
                     _lineMarker = new ResultTextMarker(SarifViewerPackage.ServiceProvider, Region, FilePath);
                 }
 

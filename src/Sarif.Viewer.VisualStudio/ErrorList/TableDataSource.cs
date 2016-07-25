@@ -120,7 +120,7 @@ namespace Microsoft.Sarif.Viewer.ErrorList
 
         public void AddErrors(IEnumerable<SarifErrorListItem> errors)
         {
-            if (errors == null || !errors.Any())
+            if (errors == null)
                 return;
 
             CleanAllErrors();
