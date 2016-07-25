@@ -1,18 +1,13 @@
-﻿//------------------------------------------------------------------------------
-// <copyright file="SarifToolWindow.cs" company="Company">
-//     Copyright (c) Company.  All rights reserved.
-// </copyright>
-//------------------------------------------------------------------------------
+﻿// Copyright (c) Microsoft. All rights reserved. 
+// Licensed under the MIT license. See LICENSE file in the project root for full license information. 
+
+using System;
+using System.Runtime.InteropServices;
+using Microsoft.VisualStudio.Shell;
+using Microsoft.VisualStudio.Shell.Interop;
 
 namespace Microsoft.Sarif.Viewer
 {
-    using System;
-    using System.ComponentModel.Design;
-    using System.Runtime.InteropServices;
-    using System.Windows.Forms;
-    using Microsoft.VisualStudio.Shell;
-    using Microsoft.VisualStudio.Shell.Interop;
-
     /// <summary>
     /// This class implements the tool window exposed by this package and hosts a user control.
     /// </summary>
