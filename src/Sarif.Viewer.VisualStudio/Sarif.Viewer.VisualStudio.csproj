@@ -44,6 +44,7 @@
     </Compile>
     <Compile Include="Converters\BooleanToCollapsedVisibilityConverter.cs" />
     <Compile Include="Converters\CallTreeNodeToTextConverter.cs" />
+    <Compile Include="Converters\CollectionToBooleanConverter.cs" />
     <Compile Include="Converters\CollectionToVisiblity1Converter.cs" />
     <Compile Include="Converters\CollectionToVisiblity0Converter.cs" />
     <Compile Include="Converters\CollectionToCountConverter.cs" />
@@ -69,6 +70,11 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="SarifToolWindow.cs" />
+    <Compile Include="SarifToolWindowCommand.cs" />
+    <Compile Include="Views\SarifToolWindowControl.xaml.cs">
+      <DependentUpon>SarifToolWindowControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Sarif\Replacement.extensions.cs" />
     <Compile Include="Sarif\FileChange.extensions.cs" />
@@ -134,6 +140,7 @@
       <IncludeInVSIX>true</IncludeInVSIX>
     </Content>
     <None Include="readme.md" />
+    <Resource Include="Resources\SarifToolWindowCommand.png" />
     <Content Include="Triskele.ico">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <IncludeInVSIX>true</IncludeInVSIX>
@@ -313,6 +320,10 @@
   </ItemGroup>
   <ItemGroup>
     <Page Include="Controls\InternetHyperlink.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\SarifToolWindowControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

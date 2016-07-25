@@ -26,6 +26,7 @@ namespace Microsoft.Sarif.Viewer.ErrorList
         internal void Clear()
         {
             _sink.RemoveAllSnapshots();
+            SarifViewerPackage.SarifToolWindow.Control.DataContext = null;
         }
 
         internal void UpdateSink(IEnumerable<SarifSnapshot> snapshots)

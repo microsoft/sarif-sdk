@@ -122,6 +122,30 @@
         <TabControl Grid.Row="1"
                     SelectedValue="{Binding SelectedTab, Mode=TwoWay}"
                     BorderThickness="0 1 0 0">
+            <TabControl.Resources>
+                <converters:CollectionToBooleanConverter x:Key="collectionToBooleanConverter" />
+            </TabControl.Resources>
+            <TabControl.Style>
+                <Style TargetType="{x:Type TabControl}">
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding Fixes, Converter={StaticResource collectionToBooleanConverter}}"
+                                     Value="True">
+                            <Setter Property="SelectedIndex"
+                                    Value="4" />
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding Stacks, Converter={StaticResource collectionToBooleanConverter}}"
+                                     Value="True">
+                            <Setter Property="SelectedIndex"
+                                    Value="3" />
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding CallTrees, Converter={StaticResource collectionToBooleanConverter}}"
+                                     Value="True">
+                            <Setter Property="SelectedIndex"
+                                    Value="2" />
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </TabControl.Style>
             <TabItem>
                 <TabItem.Header>
                     <DockPanel Margin="5 0 5 0">
