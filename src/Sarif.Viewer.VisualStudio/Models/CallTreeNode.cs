@@ -16,13 +16,13 @@ namespace Microsoft.Sarif.Viewer.Models
         {
             get
             {
-                return this._location;
+                return _location;
             }
             set
             {
-                this._location = value;
+                _location = value;
 
-                if (value != null && value.PhysicalLocation != null)
+                if (value?.PhysicalLocation != null)
                 {
                     // If the backing AnnotatedCodeLocation has a PhysicalLocation, set the 
                     // FilePath and Region properties. The FilePath and Region properties
@@ -36,15 +36,15 @@ namespace Microsoft.Sarif.Viewer.Models
                             path = uri.AbsoluteUri;
                         }
 
-                        this.FilePath = path;
+                        FilePath = path;
                     }
 
-                    this.Region = value.PhysicalLocation.Region;
+                    Region = value.PhysicalLocation.Region;
                 }
                 else
                 {
-                    this.FilePath = null;
-                    this.Region = null;
+                    FilePath = null;
+                    Region = null;
                 }
             }
         }
