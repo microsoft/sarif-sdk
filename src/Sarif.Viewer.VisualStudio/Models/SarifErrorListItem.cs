@@ -285,23 +285,23 @@ namespace Microsoft.Sarif.Viewer
 
         internal void RemoveMarkers()
         {
-            LineMarker.RemoveMarker();
+            LineMarker?.RemoveMarker();
 
             foreach (AnnotatedCodeLocationModel location in this.Locations)
             {
-                location.LineMarker.RemoveMarker();
+                location.LineMarker?.RemoveMarker();
             }
 
             foreach (AnnotatedCodeLocationModel location in this.RelatedLocations)
             {
-                location.LineMarker.RemoveMarker();
+                location.LineMarker?.RemoveMarker();
             }
 
             foreach (AnnotatedCodeLocationCollection locationCollection in this.CodeFlows)
             {
                 foreach (AnnotatedCodeLocationModel location in locationCollection)
                 {
-                    location.LineMarker.RemoveMarker();
+                    location.LineMarker?.RemoveMarker();
                 }
             }
 
@@ -309,7 +309,7 @@ namespace Microsoft.Sarif.Viewer
             {
                 foreach (StackFrameModel stackFrame in stackCollection)
                 {
-                    stackFrame.LineMarker.RemoveMarker();
+                    stackFrame.LineMarker?.RemoveMarker();
                 }
             }
         }
@@ -399,7 +399,7 @@ namespace Microsoft.Sarif.Viewer
 
         internal void AttachToDocument(string documentName, long docCookie, IVsWindowFrame pFrame)
         {
-            LineMarker.AttachToDocument(documentName, docCookie, pFrame);
+            LineMarker?.AttachToDocument(documentName, docCookie, pFrame);
 
             foreach (AnnotatedCodeLocationModel location in this.Locations)
             {
@@ -430,7 +430,7 @@ namespace Microsoft.Sarif.Viewer
 
         internal void DetachFromDocument(long docCookie)
         {
-            LineMarker.DetachFromDocument(docCookie);
+            LineMarker?.DetachFromDocument(docCookie);
 
             foreach (AnnotatedCodeLocationModel location in this.Locations)
             {
