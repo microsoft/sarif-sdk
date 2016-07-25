@@ -1,14 +1,14 @@
 ﻿// Copyright (c) Microsoft. All rights reserved. 
 // Licensed under the MIT license. See LICENSE file in the project root for full license information. 
 
+using System;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using Microsoft.CodeAnalysis.Sarif;
+using Microsoft.Sarif.Viewer.Models;
+using Microsoft.Sarif.Viewer.Sarif;
 using Microsoft.VisualStudio.Shell.Interop;
 using Microsoft.VisualStudio.Text;
-using Microsoft.Sarif.Viewer.Models;
-using System;
-using Microsoft.Sarif.Viewer.Sarif;
 
 namespace Microsoft.Sarif.Viewer
 {
@@ -285,23 +285,23 @@ namespace Microsoft.Sarif.Viewer
 
         internal void RemoveMarkers()
         {
-            LineMarker.RemoveMarker();
+            LineMarker?.RemoveMarker();
 
             foreach (AnnotatedCodeLocationModel location in this.Locations)
             {
-                location.LineMarker.RemoveMarker();
+                location.LineMarker?.RemoveMarker();
             }
 
             foreach (AnnotatedCodeLocationModel location in this.RelatedLocations)
             {
-                location.LineMarker.RemoveMarker();
+                location.LineMarker?.RemoveMarker();
             }
 
             foreach (AnnotatedCodeLocationCollection locationCollection in this.CodeFlows)
             {
                 foreach (AnnotatedCodeLocationModel location in locationCollection)
                 {
-                    location.LineMarker.RemoveMarker();
+                    location.LineMarker?.RemoveMarker();
                 }
             }
 
@@ -309,7 +309,7 @@ namespace Microsoft.Sarif.Viewer
             {
                 foreach (StackFrameModel stackFrame in stackCollection)
                 {
-                    stackFrame.LineMarker.RemoveMarker();
+                    stackFrame.LineMarker?.RemoveMarker();
                 }
             }
         }
@@ -399,23 +399,23 @@ namespace Microsoft.Sarif.Viewer
 
         internal void AttachToDocument(string documentName, long docCookie, IVsWindowFrame pFrame)
         {
-            LineMarker.AttachToDocument(documentName, (long)docCookie, pFrame);
+            LineMarker?.AttachToDocument(documentName, docCookie, pFrame);
 
             foreach (AnnotatedCodeLocationModel location in this.Locations)
             {
-                location.LineMarker.AttachToDocument(documentName, (long)docCookie, pFrame);
+                location.LineMarker?.AttachToDocument(documentName, docCookie, pFrame);
             }
 
             foreach (AnnotatedCodeLocationModel location in this.RelatedLocations)
             {
-                location.LineMarker.AttachToDocument(documentName, (long)docCookie, pFrame);
+                location.LineMarker?.AttachToDocument(documentName, docCookie, pFrame);
             }
 
             foreach (AnnotatedCodeLocationCollection locationCollection in this.CodeFlows)
             {
                 foreach (AnnotatedCodeLocationModel location in locationCollection)
                 {
-                    location.LineMarker.AttachToDocument(documentName, (long)docCookie, pFrame);
+                    location.LineMarker?.AttachToDocument(documentName, docCookie, pFrame);
                 }
             }
 
@@ -423,30 +423,30 @@ namespace Microsoft.Sarif.Viewer
             {
                 foreach (StackFrameModel stackFrame in stackCollection)
                 {
-                    stackFrame.LineMarker.AttachToDocument(documentName, (long)docCookie, pFrame);
+                    stackFrame.LineMarker?.AttachToDocument(documentName, docCookie, pFrame);
                 }
             }
         }
 
         internal void DetachFromDocument(long docCookie)
         {
-            LineMarker.DetachFromDocument((long)docCookie);
+            LineMarker?.DetachFromDocument(docCookie);
 
             foreach (AnnotatedCodeLocationModel location in this.Locations)
             {
-                location.LineMarker.DetachFromDocument((long)docCookie);
+                location.LineMarker?.DetachFromDocument(docCookie);
             }
 
             foreach (AnnotatedCodeLocationModel location in this.RelatedLocations)
             {
-                location.LineMarker.DetachFromDocument((long)docCookie);
+                location.LineMarker?.DetachFromDocument(docCookie);
             }
 
             foreach (AnnotatedCodeLocationCollection locationCollection in this.CodeFlows)
             {
                 foreach (AnnotatedCodeLocationModel location in locationCollection)
                 {
-                    location.LineMarker.DetachFromDocument((long)docCookie);
+                    location.LineMarker?.DetachFromDocument(docCookie);
                 }
             }
 
@@ -454,7 +454,7 @@ namespace Microsoft.Sarif.Viewer
             {
                 foreach (StackFrameModel stackFrame in stackCollection)
                 {
-                    stackFrame.LineMarker.DetachFromDocument((long)docCookie);
+                    stackFrame.LineMarker?.DetachFromDocument(docCookie);
                 }
             }
         }
