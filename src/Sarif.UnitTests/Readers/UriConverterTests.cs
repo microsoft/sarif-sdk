@@ -88,6 +88,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers.UnitTests
             TestConverter(@"..\..\.\.\..\dir1\dir2\file.c", "../../../dir1/dir2/file.c");
         }
 
+        [TestMethod]
+        public void ConvertPathWithOnlyDotSegments()
+        {
+            TestConverter(@"..\..", "../..");
+        }
+
         private void TestConverter(string inputUri, string expectedUri)
         {
             string expectedOutput =

@@ -119,6 +119,13 @@ namespace Microsoft.CodeAnalysis.Sarif
                 }
             }
 
+            // Corner case: the path is entirely composed of a single two-dot segment,
+            // or ends with a two-dot segment.
+            if (path.Equals("..", StringComparison.Ordinal))
+            {
+                sb.Append("..");
+            }
+
             return sb.ToString();
         }
     }
