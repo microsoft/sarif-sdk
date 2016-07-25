@@ -4,7 +4,7 @@
 // </copyright>
 //------------------------------------------------------------------------------
 
-namespace Microsoft.Sarif.Viewer
+namespace Microsoft.Sarif.Viewer.Views
 {
     using System.Diagnostics.CodeAnalysis;
     using System.Windows;
