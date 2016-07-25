@@ -7,7 +7,7 @@
         "name": "StaticDriverVerifier"
       },
       "files": {
-        "rules/WDM/CheckIrpMjPnp.slic": {
+        "../../../rules/WDM/CheckIrpMjPnp.slic": {
           "mimeType": "text/x-cpp"
         },
         "file:///d:/slam1/wdk/src_5043/fail_drivers/wdm/fail_driver1/sdv/sdv-harness.c": {
@@ -21,7 +21,7 @@
           "locations": [
             {
               "resultFile": {
-                "uri": "rules/WDM/CheckIrpMjPnp.slic",
+                "uri": "../../../rules/WDM/CheckIrpMjPnp.slic",
                 "region": {
                   "startLine": 34
                 }
@@ -1744,7 +1744,7 @@
                 {
                   "step": 140,
                   "physicalLocation": {
-                    "uri": "rules/WDM/CheckIrpMjPnp.slic",
+                    "uri": "../../../rules/WDM/CheckIrpMjPnp.slic",
                     "region": {
                       "startLine": 32
                     }
@@ -1758,7 +1758,7 @@
                 {
                   "step": 141,
                   "physicalLocation": {
-                    "uri": "rules/WDM/CheckIrpMjPnp.slic",
+                    "uri": "../../../rules/WDM/CheckIrpMjPnp.slic",
                     "region": {
                       "startLine": 34
                     }
