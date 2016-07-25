@@ -1,22 +1,12 @@
 ﻿// Copyright (c) Microsoft. All rights reserved. 
 // Licensed under the MIT license. See LICENSE file in the project root for full license information. 
 
-using System;
 using System.ComponentModel.Composition;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Windows;
-using System.Windows.Input;
+using System.Windows.Controls;
 using Microsoft.VisualStudio.Editor;
-using Microsoft.VisualStudio.Shell.Interop;
 using Microsoft.VisualStudio.Shell.TableControl;
 using Microsoft.VisualStudio.Shell.TableManager;
-using Microsoft.VisualStudio.TextManager.Interop;
 using Microsoft.VisualStudio.Utilities;
-using Microsoft.Sarif.Viewer.Views;
-using Microsoft.Sarif.Viewer.ViewModels;
-using Microsoft.CodeAnalysis.Sarif;
-using System.Windows.Controls;
 
 namespace Microsoft.Sarif.Viewer.ErrorList
 {
@@ -46,6 +36,11 @@ namespace Microsoft.Sarif.Viewer.ErrorList
         {
             public IVsEditorAdaptersFactoryService EditorAdaptersFactoryService { get; set; }
 
+            /// <summary>
+            /// Handles the single-click Error List event.
+            /// Binds the selected item to the Tool Window. 
+            /// Does not show the tool window if it is not already open. Displaying of the tool window is handed by PreprocessNavigate.
+            /// </summary>
             public override void PreprocessSelectionChanged(TableSelectionChangedEventArgs e)
             {
                 SarifErrorListItem sarifResult;
