@@ -27,7 +27,13 @@ namespace Microsoft.Sarif.Viewer
     [Guid("ab561bcc-e01d-4781-8c2e-95a9170bfdd5")]
     public class SarifToolWindow : ToolWindowPane
     {
-        internal SarifToolWindowControl control; 
+        internal SarifToolWindowControl Control
+        {
+            get
+            {
+                return Content as SarifToolWindowControl;
+            }
+        }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="SarifToolWindow"/> class.
@@ -39,10 +45,10 @@ namespace Microsoft.Sarif.Viewer
             // This is the user control hosted by the tool window; Note that, even if this class implements IDisposable,
             // we are not calling Dispose on this object. This is because ToolWindowPane calls Dispose on
             // the object returned by the Content property.
-            control = new SarifToolWindowControl();
-            this.Content = control;
+            Content = new SarifToolWindowControl();
+            Control.DataContext = null;
 
-            this.ToolBar = new CommandID(new Guid(SarifToolWindowCommand.guidSarifViewerPackageCmdSet), SarifToolWindowCommand.ToolbarID); this.ToolBarLocation = (int)VSTWT_LOCATION.VSTWT_TOP;
+            ToolBar = new CommandID(new Guid(SarifToolWindowCommand.guidSarifViewerPackageCmdSet), SarifToolWindowCommand.ToolbarID); this.ToolBarLocation = (int)VSTWT_LOCATION.VSTWT_TOP;
         }
     }
 }

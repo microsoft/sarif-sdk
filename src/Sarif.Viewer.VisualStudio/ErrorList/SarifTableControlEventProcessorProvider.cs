@@ -27,8 +27,6 @@ namespace Microsoft.Sarif.Viewer.ErrorList
     public class SarifTableControlEventProcessorProvider : ITableControlEventProcessorProvider
     {
         internal const string Name = "Sarif Table Event Processor";
-        private static readonly ConditionalWeakTable<IVsTextView, StrongBox<int>> cookieMap =
-            new ConditionalWeakTable<IVsTextView, StrongBox<int>>();
 
         public SarifTableControlEventProcessorProvider()
         {
@@ -62,10 +60,10 @@ namespace Microsoft.Sarif.Viewer.ErrorList
                 }
 
                 e.Handled = true;
-                DeselectItems(snapshot);
 
                 SarifErrorListItem sarifError = sarifSnapshot.GetItem(index);
 
+                // Navigate to the source file of the first location for the defect.
                 if (sarifError.Locations != null && sarifError.Locations.Count > 0)
                 {
                     sarifError.Locations[0].OnSelectKeyEvent();
@@ -73,100 +71,12 @@ namespace Microsoft.Sarif.Viewer.ErrorList
 
                 if (sarifError.HasDetails)
                 {
-                    SarifViewerPackage package = SarifViewerPackage.ServiceProvider as SarifViewerPackage;
-                    SarifToolWindow toolWindow = package.FindToolWindow(typeof(SarifToolWindow), 0, true) as SarifToolWindow;
-                    ((IVsWindowFrame)toolWindow.Frame).Show();
-                    toolWindow.control.DataContext = sarifError;
+                    SarifViewerPackage.SarifToolWindow.Control.DataContext = sarifError;
                 }
                 else
                 {
-                    SarifViewerPackage package = SarifViewerPackage.ServiceProvider as SarifViewerPackage;
-                    SarifToolWindow toolWindow = package.FindToolWindow(typeof(SarifToolWindow), 0, true) as SarifToolWindow;
-                    ((IVsWindowFrame)toolWindow.Frame).Show();
-                    toolWindow.control.DataContext = null;
+                    SarifViewerPackage.SarifToolWindow.Control.DataContext = null;
                 }
-            }
-
-            private void OpenOrReplaceVerticalContent(IVsWindowFrame frame, SarifErrorListItem error)
-            {
-                IVsTextView textView = GetTextViewFromFrame(frame);
-                if (textView == null)
-                {
-                    return;
-                }
-
-                CodeLocations codeLocations = new CodeLocations();
-                codeLocations.DataContext = error;
-
-                // TODO: this needs to be a public API
-                var type = textView.GetType();
-                var mi = type.GetMethod(
-                    "ShowAdditionalContent",
-                    new Type[] { typeof(FrameworkElement), typeof(String)});
-                 
-                int cookie = (int)mi.Invoke(textView, new object[] { codeLocations, "Code Analysis Details" });
-
-                cookieMap.Remove(textView);
-                cookieMap.Add(textView, new StrongBox<int>(cookie));
-            }
-
-            private void CloseVerticalContent(IVsWindowFrame frame, SarifErrorListItem item)
-            {
-                IVsTextView textView = GetTextViewFromFrame(frame);
-                if (textView == null)
-                {
-                    return;
-                }
-
-                StrongBox<int> cookie;
-                if (cookieMap.TryGetValue(textView, out cookie))
-                {
-                    // TODO: this needs to be a public API
-                    var type = textView.GetType();
-                    var mi = type.GetMethod(
-                        "HideVerticalContent",
-                        new Type[] { typeof(int) });
-
-                    mi.Invoke(textView, new object[] { cookie.Value });
-
-                    cookieMap.Remove(textView);
-                }
-            }
-
-            private IVsTextView GetTextViewFromFrame(IVsWindowFrame frame)
-            {
-                // Get the document view from the window frame, then get the text view
-                object docView;
-                int hr = frame.GetProperty((int)__VSFPROPID.VSFPROPID_DocView, out docView);
-                if (hr != 0 || docView == null)
-                {
-                    return null;
-                }
-
-                IVsCodeWindow codeWindow = docView as IVsCodeWindow;
-                IVsTextView textView;
-                codeWindow.GetLastActiveView(out textView);
-                if (textView == null)
-                {
-                    codeWindow.GetPrimaryView(out textView);
-                }
-
-                return textView;
-            }
-
-            private void SelectItem(SarifErrorListItem item)
-            {
-                // TODO
-            }
-
-            private void DeselectItems(ITableEntriesSnapshot snapshot)
-            {
-                // TODO
-            }
-
-            public override void PreprocessMouseRightButtonUp(ITableEntryHandle entry, MouseButtonEventArgs e)
-            {
-                base.PreprocessMouseRightButtonUp(entry, e);
             }
         }
     }
