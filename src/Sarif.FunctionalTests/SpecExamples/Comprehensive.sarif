@@ -184,7 +184,7 @@
                 {
                   "message": "Exception thrown",
                   "uri": "file:///home/build/src/collections/list.h",
-                  "line": 43,
+                  "line": 110,
                   "column": 15,
                   "module": "collections",
                   "threadId": 52,
