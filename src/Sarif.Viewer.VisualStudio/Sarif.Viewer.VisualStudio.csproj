@@ -44,6 +44,7 @@
     </Compile>
     <Compile Include="Converters\BooleanToCollapsedVisibilityConverter.cs" />
     <Compile Include="Converters\CallTreeNodeToTextConverter.cs" />
+    <Compile Include="Converters\CollectionToBooleanConverter.cs" />
     <Compile Include="Converters\CollectionToVisiblity1Converter.cs" />
     <Compile Include="Converters\CollectionToVisiblity0Converter.cs" />
     <Compile Include="Converters\CollectionToCountConverter.cs" />

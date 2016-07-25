@@ -47,8 +47,11 @@ namespace Microsoft.Sarif.Viewer
             // the object returned by the Content property.
             Content = new SarifToolWindowControl();
             Control.DataContext = null;
+        }
 
-            ToolBar = new CommandID(new Guid(SarifToolWindowCommand.guidSarifViewerPackageCmdSet), SarifToolWindowCommand.ToolbarID); this.ToolBarLocation = (int)VSTWT_LOCATION.VSTWT_TOP;
+        public void Show()
+        {
+            ((IVsWindowFrame)Frame).Show();
         }
     }
 }

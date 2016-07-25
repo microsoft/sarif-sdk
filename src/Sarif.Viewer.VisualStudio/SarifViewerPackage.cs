@@ -53,7 +53,7 @@ namespace Microsoft.Sarif.Viewer
         }
 
         /// <summary>
-        /// Returns the instance of the SARIF tool window and makes the window visible.
+        /// Returns the instance of the SARIF tool window.
         /// </summary>
         public static SarifToolWindow SarifToolWindow
         {
@@ -61,7 +61,6 @@ namespace Microsoft.Sarif.Viewer
             {
                 SarifViewerPackage package = SarifViewerPackage.ServiceProvider as SarifViewerPackage;
                 SarifToolWindow toolWindow = package.FindToolWindow(typeof(SarifToolWindow), 0, true) as SarifToolWindow;
-                ((IVsWindowFrame)toolWindow.Frame).Show();
 
                 return toolWindow;
             }

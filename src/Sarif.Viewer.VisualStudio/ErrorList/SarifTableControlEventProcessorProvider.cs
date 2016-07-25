@@ -3,6 +3,7 @@
 
 using System;
 using System.ComponentModel.Composition;
+using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Input;
@@ -15,6 +16,7 @@ using Microsoft.VisualStudio.Utilities;
 using Microsoft.Sarif.Viewer.Views;
 using Microsoft.Sarif.Viewer.ViewModels;
 using Microsoft.CodeAnalysis.Sarif;
+using System.Windows.Controls;
 
 namespace Microsoft.Sarif.Viewer.ErrorList
 {
@@ -44,39 +46,85 @@ namespace Microsoft.Sarif.Viewer.ErrorList
         {
             public IVsEditorAdaptersFactoryService EditorAdaptersFactoryService { get; set; }
 
-            public override void PreprocessNavigate(ITableEntryHandle entryHandle, TableEntryNavigateEventArgs e)
+            public override void PreprocessSelectionChanged(TableSelectionChangedEventArgs e)
             {
-                int index;
-                ITableEntriesSnapshot snapshot;
-                if (!entryHandle.TryGetSnapshot(out snapshot, out index))
+                SarifErrorListItem sarifResult;
+                ListView errorList = (ListView)e.SelectionChangedEventArgs.Source;
+
+                if (errorList.SelectedItems.Count != 1)
                 {
+                    // There's more, or less, than one selected item. Clear the SARIF Explorer.
+                    SarifViewerPackage.SarifToolWindow.Control.DataContext = null;
                     return;
                 }
 
-                var sarifSnapshot = snapshot as SarifSnapshot;
-                if (sarifSnapshot == null)
+                ITableEntryHandle entryHandle = errorList.SelectedItems[0] as ITableEntryHandle;
+
+                if (!TryGetSarifResult(entryHandle, out sarifResult))
                 {
+                    // The selected item is not a SARIF result. Clear the SARIF Explorer.
+                    SarifViewerPackage.SarifToolWindow.Control.DataContext = null;
                     return;
                 }
-
-                e.Handled = true;
-
-                SarifErrorListItem sarifError = sarifSnapshot.GetItem(index);
 
                 // Navigate to the source file of the first location for the defect.
-                if (sarifError.Locations != null && sarifError.Locations.Count > 0)
+                if (sarifResult.Locations?.Count > 0)
                 {
-                    sarifError.Locations[0].OnSelectKeyEvent();
+                    sarifResult.Locations[0].OnSelectKeyEvent();
                 }
 
-                if (sarifError.HasDetails)
+                if (sarifResult.HasDetails)
                 {
-                    SarifViewerPackage.SarifToolWindow.Control.DataContext = sarifError;
+                    SarifViewerPackage.SarifToolWindow.Control.DataContext = sarifResult;
                 }
                 else
                 {
                     SarifViewerPackage.SarifToolWindow.Control.DataContext = null;
                 }
+
+                base.PreprocessSelectionChanged(e);
+            }
+
+            /// <summary>
+            /// Handles the double-click Error List event.
+            /// Displays the SARIF Explorer tool window. 
+            /// Does not bind the selected item to the Tool Window. The binding is done by PreprocessSelectionChanged.
+            /// </summary>
+            public override void PreprocessNavigate(ITableEntryHandle entryHandle, TableEntryNavigateEventArgs e)
+            {
+                SarifErrorListItem sarifResult;
+
+                if (!TryGetSarifResult(entryHandle, out sarifResult))
+                {
+                    SarifViewerPackage.SarifToolWindow.Control.DataContext = null;
+                    return;
+                }
+
+                e.Handled = true;
+
+                if (sarifResult.HasDetails)
+                {
+                    SarifViewerPackage.SarifToolWindow.Show();
+                }
+            }
+
+            bool TryGetSarifResult(ITableEntryHandle entryHandle, out SarifErrorListItem sarifResult)
+            {
+                ITableEntriesSnapshot entrySnapshot;
+                int entryIndex;
+                sarifResult = default(SarifErrorListItem);
+
+                if (entryHandle.TryGetSnapshot(out entrySnapshot, out entryIndex))
+                {
+                    var snapshot = entrySnapshot as SarifSnapshot;
+
+                    if (snapshot != null)
+                    {
+                        sarifResult = snapshot.GetItem(entryIndex);
+                    }
+                }
+
+                return sarifResult != null;
             }
         }
     }

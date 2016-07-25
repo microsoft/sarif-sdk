@@ -34,9 +34,6 @@ namespace Microsoft.Sarif.Viewer
         private readonly Package package;
 
         public const string guidSarifViewerPackageCmdSet = "e6de64e8-7731-4ffd-8633-e1cbf03609ad";
-        public const uint cmdidWindowsMedia = 0x100;
-        public const int cmdidWindowsMediaOpen = 0x132;
-        public const int ToolbarID = 0x1000;
         private SarifToolWindow window;
 
         /// <summary>
@@ -109,24 +106,6 @@ namespace Microsoft.Sarif.Viewer
 
             IVsWindowFrame windowFrame = (IVsWindowFrame)window.Frame;
             Microsoft.VisualStudio.ErrorHandler.ThrowOnFailure(windowFrame.Show());
-
-            // Create the handles for the toolbar command. 
-            var mcs = this.ServiceProvider.GetService(typeof(IMenuCommandService)) as OleMenuCommandService;
-            var toolbarbtnCmdID = new CommandID(new Guid(SarifToolWindowCommand.guidSarifViewerPackageCmdSet),
-                SarifToolWindowCommand.cmdidWindowsMediaOpen);
-            var menuItem = new MenuCommand(new EventHandler(
-                ButtonHandler), toolbarbtnCmdID);
-            mcs.AddCommand(menuItem);
-        }
-
-        private void ButtonHandler(object sender, EventArgs arguments)
-        {
-            OpenFileDialog openFileDialog = new OpenFileDialog();
-            DialogResult result = openFileDialog.ShowDialog();
-            if (result == DialogResult.OK)
-            {
-                // Do something with the dialog result.
-            }
         }
     }
 }

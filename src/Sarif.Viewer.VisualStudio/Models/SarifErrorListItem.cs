@@ -251,7 +251,7 @@ namespace Microsoft.Sarif.Viewer
         {
             get
             {
-                return this.Locations.Count > 0 || this.RelatedLocations.Count > 0 || this.CodeFlows.Count > 0 || this.Stacks.Count > 0;
+                return (this.Locations.Count + this.RelatedLocations.Count) > 0 || this.CallTrees.Count > 0 || this.Stacks.Count > 0 || this.Fixes.Count > 0;
             }
         }
 
