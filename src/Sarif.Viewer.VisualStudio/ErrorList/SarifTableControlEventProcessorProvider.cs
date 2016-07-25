@@ -62,14 +62,10 @@ namespace Microsoft.Sarif.Viewer.ErrorList
                     return;
                 }
 
-                // Navigate to the source file of the first location for the defect.
-                if (sarifResult.Locations?.Count > 0)
-                {
-                    sarifResult.Locations[0].OnSelectKeyEvent();
-                }
-
                 if (sarifResult.HasDetails)
                 {
+                    // Setting the DataContext to be null first forces the TabControl to select the appropriate tab.
+                    SarifViewerPackage.SarifToolWindow.Control.DataContext = null;
                     SarifViewerPackage.SarifToolWindow.Control.DataContext = sarifResult;
                 }
                 else
@@ -100,6 +96,12 @@ namespace Microsoft.Sarif.Viewer.ErrorList
                 if (sarifResult.HasDetails)
                 {
                     SarifViewerPackage.SarifToolWindow.Show();
+                }
+
+                // Navigate to the source file of the first location for the defect.
+                if (sarifResult.Locations?.Count > 0)
+                {
+                    sarifResult.Locations[0].OnSelectKeyEvent();
                 }
             }
 
