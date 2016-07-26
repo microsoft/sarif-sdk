@@ -503,7 +503,12 @@ namespace Microsoft.Sarif.Viewer
                 while (nodesToProcess.Count > 0)
                 {
                     CallTreeNode current = nodesToProcess.Pop();
-                    current.LineMarker?.AttachToDocument(documentName, (long)docCookie, pFrame);
+
+                    if (current.LineMarker?.CanAttachToDocument(documentName, docCookie, pFrame) == true)
+                    {
+                        current.LineMarker?.AttachToDocument(documentName, (long)docCookie, pFrame);
+                        current.OnSelectKeyEvent();
+                    }
 
                     foreach (CallTreeNode childNode in current.Children)
                     {

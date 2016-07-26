@@ -327,6 +327,8 @@ namespace Microsoft.Sarif.Viewer
 
             _remappedPathPrefixes.Add(new Tuple<string, string>(originalPrefix, resolvedPrefix));
 
+            CurrentSarifError?.RemapFilePath(fileName, resolvedPath);
+
             return resolvedPath;
         }
 

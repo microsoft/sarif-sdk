@@ -62,8 +62,22 @@ namespace Microsoft.Sarif.Viewer
                 if (value != _filePath)
                 {
                     _filePath = value;
+
+                    if (this.LineMarker != null)
+                    {
+                        this.LineMarker.FullFilePath = _filePath;
+                    }
+
                     NotifyPropertyChanged("FilePath");
                 }
+            }
+        }
+
+        public virtual string SourceHighlightColor
+        {
+            get
+            {
+                return ResultTextMarker.DEFAULT_SELECTION_COLOR;
             }
         }
 
@@ -83,7 +97,7 @@ namespace Microsoft.Sarif.Viewer
         {
             // Remove previous highlighting and replace with hover color
             LineMarker?.RemoveMarker();
-            LineMarker?.NavigateTo(true, ResultTextMarker.HOVER_SELECTION_COLOR, true);
+            LineMarker?.NavigateTo(true, SourceHighlightColor, true);
         }
 
         private IVsTextView GetTextViewFromFrame(IVsWindowFrame frame)

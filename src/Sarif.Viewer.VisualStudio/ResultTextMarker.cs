@@ -22,10 +22,10 @@ namespace Microsoft.Sarif.Viewer
     /// </summary>
     public class ResultTextMarker
     {
-        public const string DEFAULT_SELECTION_COLOR = "CodeAnalysisWarningSelection";
-        public const string KEYEVENT_SELECTION_COLOR = "CodeAnalysisKeyEventSelection";
-        public const string LINE_TRACE_SELECTION_COLOR = "CodeAnalysisLineTraceSelection";
-        public const string HOVER_SELECTION_COLOR = "CodeAnalysisCurrentStatementSelection";
+        public const string DEFAULT_SELECTION_COLOR = "CodeAnalysisWarningSelection"; // Yellow
+        public const string KEYEVENT_SELECTION_COLOR = "CodeAnalysisKeyEventSelection"; // Light yellow
+        public const string LINE_TRACE_SELECTION_COLOR = "CodeAnalysisLineTraceSelection"; //Gray
+        public const string HOVER_SELECTION_COLOR = "CodeAnalysisCurrentStatementSelection"; // Yellow with red border
 
         private Region m_region; 
         private IServiceProvider m_serviceProvider;
@@ -65,7 +65,7 @@ namespace Microsoft.Sarif.Viewer
 
             if (!File.Exists(this.FullFilePath))
             {
-                this.FullFilePath = CodeAnalysisResultManager.Instance.RebaselineFileName(this.FullFilePath);
+                CodeAnalysisResultManager.Instance.RebaselineFileName(this.FullFilePath);
             }
 
             IVsWindowFrame windowFrame = SdkUiUtilities.OpenDocument(SarifViewerPackage.ServiceProvider, this.FullFilePath, usePreviewPane);
@@ -204,20 +204,31 @@ namespace Microsoft.Sarif.Viewer
         }
 
         /// <summary>
+        /// Determines if a document can be associated with this ResultTextMarker.
+        /// </summary>
+        public bool CanAttachToDocument(string documentName, long docCookie, IVsWindowFrame frame)
+        {
+            // For these cases, this event has nothing to do with this item
+            if (frame == null || this.IsTracking(docCookie) || string.Compare(documentName, this.FullFilePath, StringComparison.OrdinalIgnoreCase) != 0)
+            {
+                return false;
+            }
+
+            return true;
+        }
+
+        /// <summary>
         /// An overridden method for reacting to the event of a document window
         /// being opened
         /// </summary>
         public void AttachToDocument(string documentName, long docCookie, IVsWindowFrame frame)
         {
             // For these cases, this event has nothing to do with this item
-            if (frame == null || this.IsTracking(docCookie) || string.Compare(documentName, this.FullFilePath, StringComparison.OrdinalIgnoreCase) != 0)
+            if (CanAttachToDocument(documentName, docCookie, frame))
             {
-                return;
+                AttachToDocumentWorker(frame, docCookie);
             }
-
-            AttachToDocumentWorker(frame, docCookie);
         }
-
 
         private IVsTextView GetTextViewFromFrame(IVsWindowFrame frame)
         {
