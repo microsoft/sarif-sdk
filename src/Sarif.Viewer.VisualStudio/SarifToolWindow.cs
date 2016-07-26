@@ -6,6 +6,7 @@ using System.Runtime.InteropServices;
 using Microsoft.Sarif.Viewer.Views;
 using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
+using System.Collections.Generic;
 
 namespace Microsoft.Sarif.Viewer
 {
@@ -23,6 +24,9 @@ namespace Microsoft.Sarif.Viewer
     [Guid("ab561bcc-e01d-4781-8c2e-95a9170bfdd5")]
     public class SarifToolWindow : ToolWindowPane
     {
+        private ITrackSelection _trackSelection;
+        private SelectionContainer _selectionContainer;
+
         internal SarifToolWindowControl Control
         {
             get
@@ -48,6 +52,36 @@ namespace Microsoft.Sarif.Viewer
         public void Show()
         {
             ((IVsWindowFrame)Frame).Show();
+        }
+
+        private ITrackSelection TrackSelection
+        {
+            get
+            {
+                if (_trackSelection == null)
+                {
+                    _trackSelection = GetService(typeof(STrackSelection)) as ITrackSelection;
+                }
+
+                return _trackSelection;
+            }
+        }
+
+        public void UpdateSelection()
+        {
+            ITrackSelection track = TrackSelection;
+            if (track != null)
+            {
+                track.OnSelectChange((ISelectionContainer)_selectionContainer);
+            }
+        }
+
+        public void SelectionList(params Object[] items)
+        {
+            _selectionContainer = new SelectionContainer(true, false);
+            _selectionContainer.SelectableObjects = items;
+            _selectionContainer.SelectedObjects = items;
+            UpdateSelection();
         }
     }
 }

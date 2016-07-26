@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using Microsoft.CodeAnalysis.Sarif;
+using System.ComponentModel;
 
 namespace Microsoft.Sarif.Viewer.Models
 {
@@ -12,6 +13,7 @@ namespace Microsoft.Sarif.Viewer.Models
     {
         private AnnotatedCodeLocation _location;
 
+        [Browsable(false)]
         public AnnotatedCodeLocation Location
         {
             get
@@ -49,6 +51,15 @@ namespace Microsoft.Sarif.Viewer.Models
             }
         }
 
+        [Browsable(false)]
         public List<CallTreeNode> Children { get; set; }
+
+        public int? Step
+        {
+            get
+            {
+                return Location?.Step;
+            }
+        }
     }
 }

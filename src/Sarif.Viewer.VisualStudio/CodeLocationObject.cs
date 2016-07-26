@@ -17,7 +17,7 @@ namespace Microsoft.Sarif.Viewer
         private Region _region;
         protected string _filePath;
 
-        public ResultTextMarker LineMarker
+        internal ResultTextMarker LineMarker
         {
             get
             {
@@ -35,7 +35,7 @@ namespace Microsoft.Sarif.Viewer
             }
         }
 
-        public Region Region
+        internal Region Region
         {
             get
             {
@@ -51,7 +51,7 @@ namespace Microsoft.Sarif.Viewer
             }
         }
 
-        public virtual string FilePath
+        internal virtual string FilePath
         {
             get
             {
