@@ -73,7 +73,15 @@ namespace Microsoft.Sarif.Viewer
             }
         }
 
-        public virtual string SourceHighlightColor
+        public virtual string DefaultSourceHighlightColor
+        {
+            get
+            {
+                return ResultTextMarker.DEFAULT_SELECTION_COLOR;
+            }
+        }
+
+        public virtual string SelectedSourceHighlightColor
         {
             get
             {
@@ -87,7 +95,7 @@ namespace Microsoft.Sarif.Viewer
             LineMarker?.RemoveMarker();
 
             // Add default marker instead
-            LineMarker?.NavigateTo(true, null, false);
+            LineMarker?.NavigateTo(true, DefaultSourceHighlightColor, true);
         }
 
         /// <summary>
@@ -97,7 +105,7 @@ namespace Microsoft.Sarif.Viewer
         {
             // Remove previous highlighting and replace with hover color
             LineMarker?.RemoveMarker();
-            LineMarker?.NavigateTo(true, SourceHighlightColor, true);
+            LineMarker?.NavigateTo(true, SelectedSourceHighlightColor, true);
         }
 
         private IVsTextView GetTextViewFromFrame(IVsWindowFrame frame)

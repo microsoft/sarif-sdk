@@ -52,7 +52,7 @@ namespace Microsoft.Sarif.Viewer.Models
         }
 
         [Browsable(false)]
-        public override string SourceHighlightColor
+        public override string DefaultSourceHighlightColor
         {
             get
             {
@@ -67,6 +67,14 @@ namespace Microsoft.Sarif.Viewer.Models
             }
         }
 
+        [Browsable(false)]
+        public override string SelectedSourceHighlightColor
+        {
+            get
+            {
+                return ResultTextMarker.HOVER_SELECTION_COLOR;
+            }
+        }
 
         [Browsable(false)]
         public List<CallTreeNode> Children { get; set; }

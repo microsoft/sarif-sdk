@@ -25,6 +25,12 @@ namespace Microsoft.Sarif.Viewer.Models
             }
             set
             {
+                // Remove the existing highlighting.
+                if (_selectedItem != null)
+                {
+                    _selectedItem.OnDeselectKeyEvent();
+                }
+
                 _selectedItem = value;
                 this.NotifyPropertyChanged(nameof(SelectedItem));
 
