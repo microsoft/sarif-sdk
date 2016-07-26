@@ -437,27 +437,30 @@ namespace Microsoft.Sarif.Viewer
         // Detaches the SARIF results from all documents.
         public void DetachFromAllDocuments()
         {
-            IEnumRunningDocuments documentsEnum;
+            IEnumRunningDocuments documentsEnumerator;
 
             if (_runningDocTable != null)
             {
-                _runningDocTable.GetRunningDocumentsEnum(out documentsEnum);
+                _runningDocTable.GetRunningDocumentsEnum(out documentsEnumerator);
 
-                uint requestedCount = 1;
-                uint actualCount;
-                uint[] cookies = new uint[requestedCount];
-
-                while (true)
+                if (documentsEnumerator != null)
                 {
-                    documentsEnum.Next(requestedCount, cookies, out actualCount);
-                    if (actualCount == 0)
-                    {
-                        // There are no more documents to process.
-                        break;
-                    }
+                    uint requestedCount = 1;
+                    uint actualCount;
+                    uint[] cookies = new uint[requestedCount];
 
-                    // Detach from document.
-                    DetachFromDocumentChanges(cookies[0]);
+                    while (true)
+                    {
+                        documentsEnumerator.Next(requestedCount, cookies, out actualCount);
+                        if (actualCount == 0)
+                        {
+                            // There are no more documents to process.
+                            break;
+                        }
+
+                        // Detach from document.
+                        DetachFromDocumentChanges(cookies[0]);
+                    }
                 }
             }
         }
