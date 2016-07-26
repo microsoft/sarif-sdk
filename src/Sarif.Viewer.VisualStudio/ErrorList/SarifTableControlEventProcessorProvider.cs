@@ -46,6 +46,9 @@ namespace Microsoft.Sarif.Viewer.ErrorList
                 SarifErrorListItem sarifResult;
                 ListView errorList = (ListView)e.SelectionChangedEventArgs.Source;
 
+                // Remove all source code highlighting
+                CodeAnalysisResultManager.Instance.DetachFromAllDocuments();
+
                 if (errorList.SelectedItems.Count != 1)
                 {
                     // There's more, or less, than one selected item. Clear the SARIF Explorer.
