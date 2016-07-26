@@ -78,7 +78,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
             using (var reader = new StreamReader(input))
             {
-                ProcessLine(reader.ReadLine(), result);
+                string line;
+
+                while (!string.IsNullOrEmpty(line = reader.ReadLine()))
+                {
+                    ProcessLine(line, result);
+                }
             }
 
             return result;
