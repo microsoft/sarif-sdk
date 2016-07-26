@@ -28,18 +28,18 @@
         "startTime": "2016-07-16T14:18:25Z",
         "endTime": "2016-07-16T14:19:01Z",
         "machine": "BLD01",
-        "account": "build",
+        "account": "buildAgent",
         "processId": 1218,
         "fileName": "/bin/tools/CodeScanner",
-        "workingDirectory": "/home/build/src",
+        "workingDirectory": "/home/buildAgent/src",
         "environmentVariables": {
-          "PATH": "/usr/local/bin:/bin:/bin/tools:/home/build/bin",
-          "HOME": "/home/build",
+          "PATH": "/usr/local/bin:/bin:/bin/tools:/home/buildAgent/bin",
+          "HOME": "/home/buildAgent",
           "TZ": "EST"
         }
       },
       "files": {
-        "file:///home/build/src/collections/list.cpp": {
+        "file:///home/buildAgent/src/collections/list.cpp": {
           "mimeType": "text/x-c",
           "length": 980,
           "hashes": [
@@ -49,13 +49,13 @@
             }
           ]
         },
-        "file:///home/build/bin/app.zip": {
+        "file:///home/buildAgent/bin/app.zip": {
            "mimeType": "application/zip"
          },
-         "file:///home/build/bin/app.zip#/docs/intro.docx": {
+         "file:///home/buildAgent/bin/app.zip#/docs/intro.docx": {
            "uri": "/docs/intro.docx",
            "mimeType": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
-           "parentKey": "file:///home/build/bin/app.zip",
+           "parentKey": "file:///home/buildAgent/bin/app.zip",
            "offset": 17522,
            "length": 4050
         }
@@ -82,20 +82,20 @@
           "formattedRuleMessage": {
             "formatId": "default",
             "arguments": [
-              "p"
+              "ptr"
             ]
           },
           "suppressionStates": [ "suppressedExternally" ],
           "baselineState": "existing",
           "level": "error",
-          "snippet": "add_core(p, offset, val);\n    return;",
+          "snippet": "add_core(ptr, offset, val);\n    return;",
           "locations": [
             {
               "analysisTarget": {
-                "uri": "file:///home/build/src/collections/list.cpp"
+                "uri": "file:///home/buildAgent/src/collections/list.cpp"
               },
               "resultFile": {
-                "uri": "file:///home/build/src/collections/list.h",
+                "uri": "file:///home/buildAgent/src/collections/list.h",
                 "region": {
                   "startLine": 15,
                   "startColumn": 9,
@@ -113,7 +113,7 @@
             {
               "message": "\"count\" was declared here.",
               "physicalLocation": {
-                "uri": "file:///home/build/src/collections/list.h",
+                "uri": "file:///home/buildAgent/src/collections/list.h",
                 "region": {
                   "startLine": 8,
                   "startColumn": 5
@@ -130,48 +130,48 @@
                   "step": 0,
                   "kind": "declaration",
                   "importance": "essential",
-                  "message": "Variable \"p\" declared.",
-                  "snippet": "int *p;",
+                  "message": "Variable \"ptr\" declared.",
+                  "snippet": "int *ptr;",
                   "physicalLocation": {
-                    "uri": "file:///home/build/src/collections/list.h",
+                    "uri": "file:///home/buildAgent/src/collections/list.h",
                     "region": {
                       "startLine": 15
                     }
                   },
                   "fullyQualifiedLogicalName": "collections::list:add",
-                  "module": "collections",
+                  "module": "utilities",
                   "threadId": 52
                 },
                 {
                   "step": 1,
                   "kind": "assignment",
                   "importance": "unimportant",
-                  "snippet": "offset = 0",
+                  "snippet": "offset = 0;",
                   "physicalLocation": {
-                    "uri": "file:///home/build/src/collections/list.h",
+                    "uri": "file:///home/buildAgent/src/collections/list.h",
                     "region": {
                       "startLine": 15
                     }
                   },
                   "fullyQualifiedLogicalName": "collections::list:add",
-                  "module": "collections",
+                  "module": "utilities",
                   "threadId": 52
                 },
                 {
                   "step": 2,
                   "kind": "call",
                   "importance": "essential",
-                  "message": "Uninitialized variable \"p\" passed to method \"add_core\".",
-                  "snippet": "add_core(p, offset, val)",
+                  "message": "Uninitialized variable \"ptr\" passed to method \"add_core\".",
+                  "snippet": "add_core(ptr, offset, val)",
                   "callee": "collections::list:add_core",
                   "physicalLocation": {
-                    "uri": "file:///home/build/src/collections/list.h",
+                    "uri": "file:///home/buildAgent/src/collections/list.h",
                     "region": {
                       "startLine": 25
                     }
                   },
                   "fullyQualifiedLogicalName": "collections::list:add",
-                  "module": "collections",
+                  "module": "utilities",
                   "threadId": 52
                 }
               ]
@@ -182,11 +182,11 @@
               "message": "Call stack resulting from usage of uninitialized variable.",
               "frames": [
                 {
-                  "message": "Exception thrown",
-                  "uri": "file:///home/build/src/collections/list.h",
+                  "message": "Exception thrown.",
+                  "uri": "file:///home/buildAgent/src/collections/list.h",
                   "line": 110,
                   "column": 15,
-                  "module": "collections",
+                  "module": "utilities",
                   "threadId": 52,
                   "fullyQualifiedLogicalName": "collections::list:add_core",
                   "address": 10092852,
@@ -194,10 +194,10 @@
                   "parameters": [ "null", "0", "14" ]
                 },
                 {
-                  "uri": "file:///home/build/src/collections/list.h",
+                  "uri": "file:///home/buildAgent/src/collections/list.h",
                   "line": 43,
                   "column": 15,
-                  "module": "collections",
+                  "module": "utilities",
                   "threadId": 52,
                   "fullyQualifiedLogicalName": "collections::list:add",
                   "address": 10092176,
@@ -205,7 +205,7 @@
                   "parameters": [ "14" ]
                 },
                 {
-                  "uri": "file:///home/build/src/application/main.cpp",
+                  "uri": "file:///home/buildAgent/src/application/main.cpp",
                   "line": 28,
                   "column": 9,
                   "module": "application",
@@ -222,7 +222,7 @@
               "description": "Initialize the variable to null",
               "fileChanges": [
                 {
-                  "uri": "file:///home/build/src/collections/list.h",
+                  "uri": "file:///home/buildAgent/src/collections/list.h",
                   "replacements": [
                     {
                       "offset": 109,
@@ -255,7 +255,7 @@
           "level": "error",
           "message": "Exception evaluating rule \"C2152\". Rule disabled; run continues.",
           "analysisTarget": {
-            "uri": "file:///home/build/src/crypto/hash.cpp"
+            "uri": "file:///home/buildAgent/src/crypto/hash.cpp"
           },
           "threadId": 52,
           "time": "2016-07-16T14:18:43.119Z",
