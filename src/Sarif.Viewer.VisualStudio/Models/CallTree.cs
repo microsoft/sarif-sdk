@@ -8,7 +8,7 @@ namespace Microsoft.Sarif.Viewer.Models
 {
     public class CallTree : NotifyPropertyChangedObject
     {
-        private CallTreeNode _selectedItem;
+        private CodeLocationObject _selectedItem;
 
         public CallTree(IList<CallTreeNode> topLevelNodes)
         {
@@ -17,7 +17,7 @@ namespace Microsoft.Sarif.Viewer.Models
 
         public ObservableCollection<CallTreeNode> TopLevelNodes { get; }
 
-        public CallTreeNode SelectedItem
+        public CodeLocationObject SelectedItem
         {
             get
             {
@@ -32,18 +32,7 @@ namespace Microsoft.Sarif.Viewer.Models
                 if (_selectedItem != null)
                 {
                     SarifViewerPackage.SarifToolWindow.ApplySelectionList(_selectedItem);
-
-                    try
-                    {
-                        if (_selectedItem.LineMarker != null)
-                        {
-                            _selectedItem.OnSelectKeyEvent();
-                        }
-                    }
-                    catch (System.Exception e)
-                    {
-                        e.ToString();
-                    }
+                    _selectedItem.OnSelectKeyEvent();
                 }
             }
         }
