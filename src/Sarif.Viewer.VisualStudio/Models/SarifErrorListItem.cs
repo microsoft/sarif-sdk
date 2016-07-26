@@ -507,7 +507,7 @@ namespace Microsoft.Sarif.Viewer
                     if (current.LineMarker?.CanAttachToDocument(documentName, docCookie, pFrame) == true)
                     {
                         current.LineMarker?.AttachToDocument(documentName, (long)docCookie, pFrame);
-                        current.OnDeselectKeyEvent();
+                        current.ApplyDefaultSourceFileHighlighting();
                     }
 
                     foreach (CallTreeNode childNode in current.Children)

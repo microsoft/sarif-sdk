@@ -107,7 +107,7 @@ namespace Microsoft.Sarif.Viewer.ErrorList
                 // Navigate to the source file of the first location for the defect.
                 if (sarifResult.Locations?.Count > 0)
                 {
-                    sarifResult.Locations[0].OnDeselectKeyEvent();
+                    sarifResult.Locations[0].ApplyDefaultSourceFileHighlighting();
                 }
             }
 

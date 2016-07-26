@@ -28,7 +28,7 @@ namespace Microsoft.Sarif.Viewer.Models
                 // Remove the existing highlighting.
                 if (_selectedItem != null)
                 {
-                    _selectedItem.OnDeselectKeyEvent();
+                    _selectedItem.ApplyDefaultSourceFileHighlighting();
                 }
 
                 _selectedItem = value;
@@ -41,7 +41,7 @@ namespace Microsoft.Sarif.Viewer.Models
                     SarifViewerPackage.SarifToolWindow.UpdateSelectionList(_selectedItem);
 
                     // Navigate to the source file of the selected CallTreeNode.
-                    _selectedItem.OnSelectKeyEvent();
+                    _selectedItem.ApplySelectionSourceFileHighlighting();
                 }
             }
         }

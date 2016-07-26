@@ -89,7 +89,7 @@ namespace Microsoft.Sarif.Viewer
             }
         }
 
-        public void OnDeselectKeyEvent()
+        public void ApplyDefaultSourceFileHighlighting()
         {
             // Remove hover marker
             LineMarker?.RemoveMarker();
@@ -99,9 +99,9 @@ namespace Microsoft.Sarif.Viewer
         }
 
         /// <summary>
-        /// A method for handling the key event when it is selected
+        /// A method for handling the event when this object is selected
         /// </summary>
-        public void OnSelectKeyEvent()
+        public void ApplySelectionSourceFileHighlighting()
         {
             // Remove previous highlighting and replace with hover color
             LineMarker?.RemoveMarker();
