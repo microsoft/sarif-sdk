@@ -139,7 +139,7 @@
                     }
                   },
                   "fullyQualifiedLogicalName": "collections::list:add",
-                  "module": "utilities",
+                  "module": "platform",
                   "threadId": 52
                 },
                 {
@@ -154,7 +154,7 @@
                     }
                   },
                   "fullyQualifiedLogicalName": "collections::list:add",
-                  "module": "utilities",
+                  "module": "platform",
                   "threadId": 52
                 },
                 {
@@ -171,7 +171,7 @@
                     }
                   },
                   "fullyQualifiedLogicalName": "collections::list:add",
-                  "module": "utilities",
+                  "module": "platform",
                   "threadId": 52
                 }
               ]
@@ -186,7 +186,7 @@
                   "uri": "file:///home/buildAgent/src/collections/list.h",
                   "line": 110,
                   "column": 15,
-                  "module": "utilities",
+                  "module": "platform",
                   "threadId": 52,
                   "fullyQualifiedLogicalName": "collections::list:add_core",
                   "address": 10092852,
@@ -197,7 +197,7 @@
                   "uri": "file:///home/buildAgent/src/collections/list.h",
                   "line": 43,
                   "column": 15,
-                  "module": "utilities",
+                  "module": "platform",
                   "threadId": 52,
                   "fullyQualifiedLogicalName": "collections::list:add",
                   "address": 10092176,
