@@ -69,7 +69,10 @@ namespace Microsoft.Sarif.Viewer
             }
         }
 
-        public void UpdateSelection()
+        /// <summary>
+        /// Updates the Properties window with the public properties of the selection objects.
+        /// </summary>
+        public void ApplySelection()
         {
             ITrackSelection track = TrackSelection;
             if (track != null)
@@ -78,17 +81,24 @@ namespace Microsoft.Sarif.Viewer
             }
         }
 
-        public void ApplySelectionList(params Object[] items)
+        /// <summary>
+        /// Replaces the collection of objects who's values are displayed in the Properties window.
+        /// </summary>
+        /// <param name="items"></param>
+        public void UpdateSelectionList(params Object[] items)
         {
             _selectionContainer = new SelectionContainer(true, false);
             _selectionContainer.SelectableObjects = items;
             _selectionContainer.SelectedObjects = items;
-            UpdateSelection();
+            ApplySelection();
         }
 
+        /// <summary>
+        /// Reset the Properties window to display the properties of the selected Error List item.
+        /// </summary>
         public void ResetSelection()
         {
-            ApplySelectionList(Control?.DataContext);
+            UpdateSelectionList(Control?.DataContext);
         }
     }
 }
