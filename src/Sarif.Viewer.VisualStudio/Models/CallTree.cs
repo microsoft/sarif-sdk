@@ -31,7 +31,7 @@ namespace Microsoft.Sarif.Viewer.Models
                 // Navigate to the source of the selected node and highlight the region.
                 if (_selectedItem != null)
                 {
-                    SarifViewerPackage.SarifToolWindow.SelectionList(_selectedItem);
+                    SarifViewerPackage.SarifToolWindow.ApplySelectionList(_selectedItem);
 
                     try
                     {

@@ -47,6 +47,8 @@ namespace Microsoft.Sarif.Viewer
             // the object returned by the Content property.
             Content = new SarifToolWindowControl();
             Control.DataContext = null;
+
+            ResetSelection();
         }
 
         public void Show()
@@ -76,12 +78,17 @@ namespace Microsoft.Sarif.Viewer
             }
         }
 
-        public void SelectionList(params Object[] items)
+        public void ApplySelectionList(params Object[] items)
         {
             _selectionContainer = new SelectionContainer(true, false);
             _selectionContainer.SelectableObjects = items;
             _selectionContainer.SelectedObjects = items;
             UpdateSelection();
+        }
+
+        public void ResetSelection()
+        {
+            ApplySelectionList(Control?.DataContext);
         }
     }
 }
