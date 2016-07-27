@@ -10,6 +10,7 @@ using Microsoft.Sarif.Viewer.Models;
 using Microsoft.Sarif.Viewer.Sarif;
 using Microsoft.VisualStudio.Shell.Interop;
 using Microsoft.VisualStudio.Text;
+using System.ComponentModel;
 
 namespace Microsoft.Sarif.Viewer
 {
@@ -27,45 +28,46 @@ namespace Microsoft.Sarif.Viewer
         private ObservableCollection<StackCollection> _stacks;
         private ObservableCollection<FixModel> _fixes;
         private DelegateCommand _openLogFileCommand;
+        ResultTextMarker _lineMarker;
 
         internal SarifErrorListItem()
         {
-            this._locations = new AnnotatedCodeLocationCollection(String.Empty);
-            this._relatedLocations = new AnnotatedCodeLocationCollection(String.Empty);
-            this._codeFlows = new ObservableCollection<AnnotatedCodeLocationCollection>();
-            this._callTrees = new ObservableCollection<CallTree>();
-            this._stacks = new ObservableCollection<StackCollection>();
-            this._fixes = new ObservableCollection<FixModel>();
+            _locations = new AnnotatedCodeLocationCollection(String.Empty);
+            _relatedLocations = new AnnotatedCodeLocationCollection(String.Empty);
+            _codeFlows = new ObservableCollection<AnnotatedCodeLocationCollection>();
+            _callTrees = new ObservableCollection<CallTree>();
+            _stacks = new ObservableCollection<StackCollection>();
+            _fixes = new ObservableCollection<FixModel>();
         }
 
         public SarifErrorListItem(Run run, Result result, string logFilePath) : this()
         {
             IRule rule;
             run.TryGetRule(result.RuleId, result.RuleKey, out rule);
-            this.Message = result.GetMessageText(rule, concise: false);
-            this.ShortMessage = result.GetMessageText(rule, concise: true);
-            this.FileName = result.GetPrimaryTargetFile();
-            this.Category = result.GetCategory();
-            this.Region = result.GetPrimaryTargetRegion();
-            this.Level = result.Level;
-            this.SuppressionStates = result.SuppressionStates;
-            this.LogFilePath = logFilePath;
+            Message = result.GetMessageText(rule, concise: false);
+            ShortMessage = result.GetMessageText(rule, concise: true);
+            FileName = result.GetPrimaryTargetFile();
+            Category = result.GetCategory();
+            Region = result.GetPrimaryTargetRegion();
+            Level = result.Level;
+            SuppressionStates = result.SuppressionStates;
+            LogFilePath = logFilePath;
 
-            if (this.Region != null)
+            if (Region != null)
             {
-                this.LineNumber = this.Region.StartLine;
-                this.ColumnNumber = this.Region.StartColumn;
+                LineNumber = Region.StartLine;
+                ColumnNumber = Region.StartColumn;
             }
 
-            this.Tool = run.Tool.ToToolModel();
-            this.Rule = rule?.ToRuleModel(result.RuleId);
-            this.Invocation = run.Invocation.ToInvocationModel();
+            Tool = run.Tool.ToToolModel();
+            Rule = rule?.ToRuleModel(result.RuleId);
+            Invocation = run.Invocation.ToInvocationModel();
 
             if (result.Locations != null)
             {
                 foreach (Location location in result.Locations)
                 {
-                    this.Locations.Add(location.ToAnnotatedCodeLocationModel());
+                    Locations.Add(location.ToAnnotatedCodeLocationModel());
                 }
             }
 
@@ -73,7 +75,7 @@ namespace Microsoft.Sarif.Viewer
             {
                 foreach (AnnotatedCodeLocation annotatedCodeLocation in result.RelatedLocations)
                 {
-                    this.RelatedLocations.Add(annotatedCodeLocation.ToAnnotatedCodeLocationModel());
+                    RelatedLocations.Add(annotatedCodeLocation.ToAnnotatedCodeLocationModel());
                 }
             }
 
@@ -81,8 +83,8 @@ namespace Microsoft.Sarif.Viewer
             {
                 foreach (CodeFlow codeFlow in result.CodeFlows)
                 {
-                    this.CodeFlows.Add(codeFlow.ToAnnotatedCodeLocationCollection());
-                    this.CallTrees.Add(codeFlow.ToCallTree());
+                    CodeFlows.Add(codeFlow.ToAnnotatedCodeLocationCollection());
+                    CallTrees.Add(codeFlow.ToCallTree());
                 }
             }
 
@@ -90,7 +92,7 @@ namespace Microsoft.Sarif.Viewer
             {
                 foreach (Stack stack in result.Stacks)
                 {
-                    this.Stacks.Add(stack.ToStackCollection());
+                    Stacks.Add(stack.ToStackCollection());
                 }
             }
 
@@ -98,15 +100,19 @@ namespace Microsoft.Sarif.Viewer
             {
                 foreach (Fix fix in result.Fixes)
                 {
-                    this.Fixes.Add(fix.ToFixModel());
+                    Fixes.Add(fix.ToFixModel());
                 }
             }
         }
 
+        [Browsable(false)]
         public string MimeType { get; set; }
 
+
+        [Browsable(false)]
         public Region Region { get; set; }
 
+        [Browsable(false)]
         public string FileName
         {
             get
@@ -122,165 +128,195 @@ namespace Microsoft.Sarif.Viewer
             }
         }
 
+        [Browsable(false)]
         public bool RegionPopulated { get; set; }
 
+        [Browsable(false)]
         public string ShortMessage { get; set; }
 
+        [Browsable(false)]
         public string Message { get; set; }
 
+        [Browsable(false)]
         public SnapshotSpan Span { get; set; }
 
+        [Browsable(false)]
         public int LineNumber { get; set; }
 
+        [Browsable(false)]
         public int ColumnNumber { get; set; }
 
+        [Browsable(false)]
         public string Category { get; set; }
 
+        [ReadOnly(true)]
         public ResultLevel Level { get; set; }
 
+        [Browsable(false)]
         public string HelpLink { get; set; }
 
+        [DisplayName("Suppression states")]
+        [ReadOnly(true)]
         public SuppressionStates SuppressionStates { get; set; }
 
+        [DisplayName("Log file")]
+        [ReadOnly(true)]
         public string LogFilePath { get; set; }
 
+        [Browsable(false)]
         public ToolModel Tool
         {
             get
             {
-                return this._tool;
+                return _tool;
             }
             set
             {
-                this._tool = value;
+                _tool = value;
                 NotifyPropertyChanged("Tool");
             }
         }
 
+        [Browsable(false)]
         public RuleModel Rule
         {
             get
             {
-                return this._rule;
+                return _rule;
             }
             set
             {
-                this._rule = value;
+                _rule = value;
                 NotifyPropertyChanged("Rule");
             }
         }
 
+        [Browsable(false)]
         public InvocationModel Invocation
         {
             get
             {
-                return this._invocation;
+                return _invocation;
             }
             set
             {
-                this._invocation = value;
+                _invocation = value;
                 NotifyPropertyChanged("Invocation");
             }
         }
 
+        [Browsable(false)]
         public string SelectedTab
         {
             get
             {
-                return this._selectedTab;
+                return _selectedTab;
             }
             set
             {
-                this._selectedTab = value;
+                _selectedTab = value;
 
                 // If a new tab is selected, remove all the the markers for the
                 // previous tab.
-                this.RemoveMarkers();
+                RemoveMarkers();
+
+                // If a new tab is selected, reset the Properties window.
+                SarifViewerPackage.SarifToolWindow.ResetSelection();
             }
         }
 
+        [Browsable(false)]
         public AnnotatedCodeLocationCollection Locations
         {
             get
             {
-                return this._locations;
+                return _locations;
             }
         }
 
+        [Browsable(false)]
         public AnnotatedCodeLocationCollection RelatedLocations
         {
             get
             {
-                return this._relatedLocations;
+                return _relatedLocations;
             }
         }
 
+        [Browsable(false)]
         public ObservableCollection<AnnotatedCodeLocationCollection> CodeFlows
         {
             get
             {
-                return this._codeFlows;
+                return _codeFlows;
             }
         }
 
+        [Browsable(false)]
         public ObservableCollection<CallTree> CallTrees
         {
             get
             {
-                return this._callTrees;
+                return _callTrees;
             }
         }
 
+        [Browsable(false)]
         public ObservableCollection<StackCollection> Stacks
         {
             get
             {
-                return this._stacks;
+                return _stacks;
             }
         }
 
+        [Browsable(false)]
         public ObservableCollection<FixModel> Fixes
         {
             get
             {
-                return this._fixes;
+                return _fixes;
             }
         }
 
+        [Browsable(false)]
         public bool HasDetails
         {
             get
             {
-                return (this.Locations.Count + this.RelatedLocations.Count) > 0 || this.CallTrees.Count > 0 || this.Stacks.Count > 0 || this.Fixes.Count > 0;
+                return (Locations.Count + RelatedLocations.Count) > 0 || CallTrees.Count > 0 || Stacks.Count > 0 || Fixes.Count > 0;
             }
         }
 
+        [Browsable(false)]
         public int LocationsCount
         {
             get
             {
-                return this.Locations.Count + this.RelatedLocations.Count;
+                return Locations.Count + RelatedLocations.Count;
             }
         }
 
+        [Browsable(false)]
         public bool HasMultipleLocations
         {
             get
             {
-                return this.LocationsCount > 1;
+                return LocationsCount > 1;
             }
         }
 
+        [Browsable(false)]
         public DelegateCommand OpenLogFileCommand
         {
             get
             {
-                if (this._openLogFileCommand == null)
+                if (_openLogFileCommand == null)
                 {
-                    this._openLogFileCommand = new DelegateCommand(() => this.OpenLogFile());
+                    _openLogFileCommand = new DelegateCommand(() => OpenLogFile());
                 }
 
-                return this._openLogFileCommand;
+                return _openLogFileCommand;
             }
         }
 
@@ -288,17 +324,17 @@ namespace Microsoft.Sarif.Viewer
         {
             LineMarker?.RemoveMarker();
 
-            foreach (AnnotatedCodeLocationModel location in this.Locations)
+            foreach (AnnotatedCodeLocationModel location in Locations)
             {
                 location.LineMarker?.RemoveMarker();
             }
 
-            foreach (AnnotatedCodeLocationModel location in this.RelatedLocations)
+            foreach (AnnotatedCodeLocationModel location in RelatedLocations)
             {
                 location.LineMarker?.RemoveMarker();
             }
 
-            foreach (AnnotatedCodeLocationCollection locationCollection in this.CodeFlows)
+            foreach (AnnotatedCodeLocationCollection locationCollection in CodeFlows)
             {
                 foreach (AnnotatedCodeLocationModel location in locationCollection)
                 {
@@ -306,7 +342,7 @@ namespace Microsoft.Sarif.Viewer
                 }
             }
 
-            foreach (StackCollection stackCollection in this.Stacks)
+            foreach (StackCollection stackCollection in Stacks)
             {
                 foreach (StackFrameModel stackFrame in stackCollection)
                 {
@@ -317,9 +353,9 @@ namespace Microsoft.Sarif.Viewer
 
         internal void OpenLogFile()
         {
-            if (this.LogFilePath != null && System.IO.File.Exists(this.LogFilePath))
+            if (LogFilePath != null && System.IO.File.Exists(LogFilePath))
             {
-                SarifViewerPackage.Dte.ExecuteCommand("File.OpenFile", $@"""{this.LogFilePath}"" /e:""JSON Editor""");
+                SarifViewerPackage.Dte.ExecuteCommand("File.OpenFile", $@"""{LogFilePath}"" /e:""JSON Editor""");
             }
         }
 
@@ -328,45 +364,38 @@ namespace Microsoft.Sarif.Viewer
             return Message;
         }
 
-        ResultTextMarker m_lineMarker;
+
+        [Browsable(false)]
         public ResultTextMarker LineMarker
         {
             get
             {
-                if (m_lineMarker == null)
+                if (_lineMarker == null)
                 {
                     if (System.ComponentModel.LicenseManager.UsageMode != System.ComponentModel.LicenseUsageMode.Designtime)
                     {
                         Debug.Assert(Region != null);
                     }
 
-                    m_lineMarker = new ResultTextMarker(SarifViewerPackage.ServiceProvider, Region, FileName);
+                    _lineMarker = new ResultTextMarker(SarifViewerPackage.ServiceProvider, Region, FileName);
                 }
 
-                return m_lineMarker;
+                return _lineMarker;
             }
             set
             {
-                m_lineMarker = value;
+                _lineMarker = value;
             }
         }
 
         internal void RemapFilePath(string originalPath, string remappedPath)
         {
-            if (this.FileName != null && this.FileName.Equals(originalPath, StringComparison.OrdinalIgnoreCase))
+            if (FileName != null && FileName.Equals(originalPath, StringComparison.OrdinalIgnoreCase))
             {
-                this.FileName = remappedPath;
+                FileName = remappedPath;
             }
 
-            foreach (AnnotatedCodeLocationModel location in this.Locations)
-            {
-                if (location.FilePath.Equals(originalPath, StringComparison.OrdinalIgnoreCase))
-                {
-                    location.FilePath = remappedPath;
-                }
-            }
-
-            foreach (AnnotatedCodeLocationModel location in this.RelatedLocations)
+            foreach (AnnotatedCodeLocationModel location in Locations)
             {
                 if (location.FilePath.Equals(originalPath, StringComparison.OrdinalIgnoreCase))
                 {
@@ -374,7 +403,15 @@ namespace Microsoft.Sarif.Viewer
                 }
             }
 
-            foreach (AnnotatedCodeLocationCollection locationCollection in this.CodeFlows)
+            foreach (AnnotatedCodeLocationModel location in RelatedLocations)
+            {
+                if (location.FilePath.Equals(originalPath, StringComparison.OrdinalIgnoreCase))
+                {
+                    location.FilePath = remappedPath;
+                }
+            }
+
+            foreach (AnnotatedCodeLocationCollection locationCollection in CodeFlows)
             {
                 foreach (AnnotatedCodeLocationModel location in locationCollection)
                 {
@@ -386,7 +423,7 @@ namespace Microsoft.Sarif.Viewer
                 }
             }
 
-            foreach (CallTree callTree in this.CallTrees)
+            foreach (CallTree callTree in CallTrees)
             {
                 Stack<CallTreeNode> nodesToProcess = new Stack<CallTreeNode>();
 
@@ -420,7 +457,7 @@ namespace Microsoft.Sarif.Viewer
                 }
             }
 
-            foreach (StackCollection stackCollection in this.Stacks)
+            foreach (StackCollection stackCollection in Stacks)
             {
                 foreach (StackFrameModel stackFrame in stackCollection)
                 {
@@ -436,17 +473,17 @@ namespace Microsoft.Sarif.Viewer
         {
             LineMarker?.AttachToDocument(documentName, docCookie, pFrame);
 
-            foreach (AnnotatedCodeLocationModel location in this.Locations)
+            foreach (AnnotatedCodeLocationModel location in Locations)
             {
                 location.LineMarker?.AttachToDocument(documentName, docCookie, pFrame);
             }
 
-            foreach (AnnotatedCodeLocationModel location in this.RelatedLocations)
+            foreach (AnnotatedCodeLocationModel location in RelatedLocations)
             {
                 location.LineMarker?.AttachToDocument(documentName, docCookie, pFrame);
             }
 
-            foreach (AnnotatedCodeLocationCollection locationCollection in this.CodeFlows)
+            foreach (AnnotatedCodeLocationCollection locationCollection in CodeFlows)
             {
                 foreach (AnnotatedCodeLocationModel location in locationCollection)
                 {
@@ -454,7 +491,7 @@ namespace Microsoft.Sarif.Viewer
                 }
             }
 
-            foreach (CallTree callTree in this.CallTrees)
+            foreach (CallTree callTree in CallTrees)
             {
                 Stack<CallTreeNode> nodesToProcess = new Stack<CallTreeNode>();
 
@@ -475,7 +512,7 @@ namespace Microsoft.Sarif.Viewer
                 }
             }
 
-            foreach (StackCollection stackCollection in this.Stacks)
+            foreach (StackCollection stackCollection in Stacks)
             {
                 foreach (StackFrameModel stackFrame in stackCollection)
                 {
@@ -488,17 +525,17 @@ namespace Microsoft.Sarif.Viewer
         {
             LineMarker?.DetachFromDocument(docCookie);
 
-            foreach (AnnotatedCodeLocationModel location in this.Locations)
+            foreach (AnnotatedCodeLocationModel location in Locations)
             {
                 location.LineMarker?.DetachFromDocument(docCookie);
             }
 
-            foreach (AnnotatedCodeLocationModel location in this.RelatedLocations)
+            foreach (AnnotatedCodeLocationModel location in RelatedLocations)
             {
                 location.LineMarker?.DetachFromDocument(docCookie);
             }
 
-            foreach (AnnotatedCodeLocationCollection locationCollection in this.CodeFlows)
+            foreach (AnnotatedCodeLocationCollection locationCollection in CodeFlows)
             {
                 foreach (AnnotatedCodeLocationModel location in locationCollection)
                 {
@@ -506,7 +543,7 @@ namespace Microsoft.Sarif.Viewer
                 }
             }
 
-            foreach (CallTree callTree in this.CallTrees)
+            foreach (CallTree callTree in CallTrees)
             {
                 Stack<CallTreeNode> nodesToProcess = new Stack<CallTreeNode>();
 
@@ -527,7 +564,7 @@ namespace Microsoft.Sarif.Viewer
                 }
             }
 
-            foreach (StackCollection stackCollection in this.Stacks)
+            foreach (StackCollection stackCollection in Stacks)
             {
                 foreach (StackFrameModel stackFrame in stackCollection)
                 {

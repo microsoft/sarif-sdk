@@ -17,7 +17,7 @@ namespace Microsoft.Sarif.Viewer
         private Region _region;
         protected string _filePath;
 
-        public ResultTextMarker LineMarker
+        internal ResultTextMarker LineMarker
         {
             get
             {
@@ -35,7 +35,7 @@ namespace Microsoft.Sarif.Viewer
             }
         }
 
-        public Region Region
+        internal Region Region
         {
             get
             {
@@ -51,7 +51,7 @@ namespace Microsoft.Sarif.Viewer
             }
         }
 
-        public virtual string FilePath
+        internal virtual string FilePath
         {
             get
             {
@@ -70,10 +70,10 @@ namespace Microsoft.Sarif.Viewer
         public void OnDeselectKeyEvent()
         {
             // Remove hover marker
-            LineMarker.RemoveMarker();
+            LineMarker?.RemoveMarker();
 
             // Add default marker instead
-            LineMarker.NavigateTo(true, null, false);
+            LineMarker?.NavigateTo(true, null, false);
         }
 
         /// <summary>
@@ -82,8 +82,8 @@ namespace Microsoft.Sarif.Viewer
         public void OnSelectKeyEvent()
         {
             // Remove previous highlighting and replace with hover color
-            LineMarker.RemoveMarker();
-            LineMarker.NavigateTo(true, ResultTextMarker.HOVER_SELECTION_COLOR, true);
+            LineMarker?.RemoveMarker();
+            LineMarker?.NavigateTo(true, ResultTextMarker.HOVER_SELECTION_COLOR, true);
         }
 
         private IVsTextView GetTextViewFromFrame(IVsWindowFrame frame)

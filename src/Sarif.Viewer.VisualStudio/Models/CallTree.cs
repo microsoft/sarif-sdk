@@ -31,6 +31,10 @@ namespace Microsoft.Sarif.Viewer.Models
                 // Navigate to the source of the selected node and highlight the region.
                 if (_selectedItem != null)
                 {
+                    // Update the VS Properties window with the properties of the selected CallTreeNode.
+                    SarifViewerPackage.SarifToolWindow.UpdateSelectionList(_selectedItem);
+
+                    // Navigate to the source file of the selected CallTreeNode.
                     _selectedItem.OnSelectKeyEvent();
                 }
             }

@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using Microsoft.CodeAnalysis.Sarif;
+using System.ComponentModel;
 
 namespace Microsoft.Sarif.Viewer.Models
 {
@@ -12,6 +13,7 @@ namespace Microsoft.Sarif.Viewer.Models
     {
         private AnnotatedCodeLocation _location;
 
+        [Browsable(false)]
         public AnnotatedCodeLocation Location
         {
             get
@@ -49,6 +51,96 @@ namespace Microsoft.Sarif.Viewer.Models
             }
         }
 
+        [Browsable(false)]
         public List<CallTreeNode> Children { get; set; }
+
+        public int? Step
+        {
+            get
+            {
+                return Location?.Step;
+            }
+        }
+
+        [Category("Location")]
+        [DisplayName("Source file")]
+        public string SourceFile
+        {
+            get
+            {
+                Uri sourceUrl = Location?.PhysicalLocation?.Uri;
+                
+                if (sourceUrl != null)
+                {
+                    return Path.GetFileName(sourceUrl.LocalPath);
+                }
+
+                return null;
+            }
+        }
+
+        [Category("Location")]
+        [DisplayName("Start line")]
+        public int? StartLine
+        {
+            get
+            {
+                return Location?.PhysicalLocation?.Region?.StartLine;
+            }
+        }
+
+        [Category("Location")]
+        [DisplayName("End line")]
+        public int? EndLine
+        {
+            get
+            {
+                return Location?.PhysicalLocation?.Region?.EndLine;
+            }
+        }
+
+        [Category("Location")]
+        [DisplayName("Start column")]
+        public int? StartColumn
+        {
+            get
+            {
+                return Location?.PhysicalLocation?.Region?.StartColumn;
+            }
+        }
+
+        [Category("Location")]
+        [DisplayName("End column")]
+        public int? EndColumn
+        {
+            get
+            {
+                return Location?.PhysicalLocation?.Region?.EndColumn;
+            }
+        }
+
+        public AnnotatedCodeLocationImportance? Importance
+        {
+            get
+            {
+                return Location?.Importance;
+            }
+        }
+
+        public string Message
+        {
+            get
+            {
+                return Location?.Message;
+            }
+        }
+
+        public string Snippet
+        {
+            get
+            {
+                return Location?.Snippet;
+            }
+        }
     }
 }
