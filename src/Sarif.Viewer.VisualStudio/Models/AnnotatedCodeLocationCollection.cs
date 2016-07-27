@@ -73,7 +73,7 @@ namespace Microsoft.Sarif.Viewer.Models
 
         private void SelectionChanged(AnnotatedCodeLocationModel selectedItem)
         {
-            selectedItem.OnSelectKeyEvent();
+            selectedItem.ApplySelectionSourceFileHighlighting();
         }
     }
 }

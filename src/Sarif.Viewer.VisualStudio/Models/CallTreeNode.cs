@@ -52,6 +52,31 @@ namespace Microsoft.Sarif.Viewer.Models
         }
 
         [Browsable(false)]
+        public override string DefaultSourceHighlightColor
+        {
+            get
+            {
+                if (this.Location.Importance == AnnotatedCodeLocationImportance.Essential)
+                {
+                    return ResultTextMarker.KEYEVENT_SELECTION_COLOR;
+                }
+                else
+                {
+                    return ResultTextMarker.LINE_TRACE_SELECTION_COLOR;
+                }
+            }
+        }
+
+        [Browsable(false)]
+        public override string SelectedSourceHighlightColor
+        {
+            get
+            {
+                return ResultTextMarker.HOVER_SELECTION_COLOR;
+            }
+        }
+
+        [Browsable(false)]
         public List<CallTreeNode> Children { get; set; }
 
         public int? Step
@@ -69,7 +94,7 @@ namespace Microsoft.Sarif.Viewer.Models
             get
             {
                 Uri sourceUrl = Location?.PhysicalLocation?.Uri;
-                
+
                 if (sourceUrl != null)
                 {
                     return Path.GetFileName(sourceUrl.LocalPath);

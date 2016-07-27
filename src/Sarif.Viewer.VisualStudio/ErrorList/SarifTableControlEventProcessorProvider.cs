@@ -46,6 +46,9 @@ namespace Microsoft.Sarif.Viewer.ErrorList
                 SarifErrorListItem sarifResult;
                 ListView errorList = (ListView)e.SelectionChangedEventArgs.Source;
 
+                // Remove all source code highlighting
+                CodeAnalysisResultManager.Instance.DetachFromAllDocuments();
+
                 if (errorList.SelectedItems.Count != 1)
                 {
                     // There's more, or less, than one selected item. Clear the SARIF Explorer.
@@ -72,6 +75,9 @@ namespace Microsoft.Sarif.Viewer.ErrorList
                 {
                     SarifViewerPackage.SarifToolWindow.Control.DataContext = null;
                 }
+
+                // Set the current sarif error in the manager so we track code locations.
+                CodeAnalysisResultManager.Instance.CurrentSarifError = sarifResult;
 
                 base.PreprocessSelectionChanged(e);
             }
@@ -101,7 +107,8 @@ namespace Microsoft.Sarif.Viewer.ErrorList
                 // Navigate to the source file of the first location for the defect.
                 if (sarifResult.Locations?.Count > 0)
                 {
-                    sarifResult.Locations[0].OnSelectKeyEvent();
+                    sarifResult.Locations[0].NavigateTo(false);
+                    sarifResult.Locations[0].ApplyDefaultSourceFileHighlighting();
                 }
             }
 

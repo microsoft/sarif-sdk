@@ -33,6 +33,8 @@ namespace Microsoft.Sarif.Viewer
         private Dictionary<string, string> _remappedFilePaths;
         private List<Tuple<string, string>> _remappedPathPrefixes;
         private Dictionary<string, NewLineIndex> _fileToNewLineIndexMap;
+        private IList<SarifErrorListItem> _sarifErrors = new List<SarifErrorListItem>();
+        private IVsRunningDocumentTable _runningDocTable;
 
         private CodeAnalysisResultManager()
         {
@@ -60,7 +62,19 @@ namespace Microsoft.Sarif.Viewer
 
         public static CodeAnalysisResultManager Instance = new CodeAnalysisResultManager();
 
-        public IList<SarifErrorListItem> SarifErrors { get; set; }
+        public IList<SarifErrorListItem> SarifErrors
+        {
+            get
+            {
+                return _sarifErrors;
+            }
+            set
+            {
+                // Since we have a new set of Results in the Error List, clear all source code highlighting.
+                DetachFromAllDocuments();
+                _sarifErrors = value;
+            }
+        }
 
         SarifErrorListItem m_currentSarifError;
         public SarifErrorListItem CurrentSarifError
@@ -103,12 +117,12 @@ namespace Microsoft.Sarif.Viewer
             solution.AdviseSolutionEvents(this, out m_solutionEventsCookie);
 
             // Register this object to listen for IVsRunningDocTableEvents
-            IVsRunningDocumentTable runningDocTable = Package.GetService<SVsRunningDocumentTable, IVsRunningDocumentTable>();
-            if (runningDocTable == null)
+            _runningDocTable = Package.GetService<SVsRunningDocumentTable, IVsRunningDocumentTable>();
+            if (_runningDocTable == null)
             {
                 throw Marshal.GetExceptionForHR(E_FAIL);
             }
-            runningDocTable.AdviseRunningDocTableEvents(this, out m_runningDocTableEventsCookie);
+            _runningDocTable.AdviseRunningDocTableEvents(this, out m_runningDocTableEventsCookie);
         }
 
         /// <summary>
@@ -230,7 +244,7 @@ namespace Microsoft.Sarif.Viewer
             string remappedName = fileName;
             if (!File.Exists(fileName))
             {
-                remappedName = RebaselineFileName(fileName);
+                remappedName = GetRebaselinedFileName(fileName);
 
                 if (!File.Exists(remappedName))
                 {
@@ -251,11 +265,29 @@ namespace Microsoft.Sarif.Viewer
                 sarifError.RegionPopulated = true;
             }
             marker.FullFilePath = remappedName;
-            result = marker.NavigateTo(false, null, false);
+            result = marker.NavigateTo(false);
             return result != null;
         }
 
-        public string RebaselineFileName(string fileName)
+        public bool TryRebaselineCurrentSarifError(string originalFilename)
+        {
+            if (CurrentSarifError == null)
+            {
+                return false;
+            }
+
+            string rebaselinedFile = GetRebaselinedFileName(originalFilename);
+
+            if (String.IsNullOrEmpty(rebaselinedFile) || originalFilename.Equals(rebaselinedFile, StringComparison.OrdinalIgnoreCase))
+            {
+                return false;
+            }
+
+            CurrentSarifError.RemapFilePath(originalFilename, rebaselinedFile);
+            return true;
+        }
+
+        public string GetRebaselinedFileName(string fileName)
         {
             // First, we'll traverse our remappings and see if we can
             // make rebaseline from existing data
@@ -343,7 +375,7 @@ namespace Microsoft.Sarif.Viewer
 
         internal void RemapFileNames(string originalPath, string remappedPath)
         {
-            foreach(SarifErrorListItem sarifError in SarifErrors)
+            foreach (SarifErrorListItem sarifError in SarifErrors)
             {
                 sarifError.RemapFilePath(originalPath, remappedPath);
             }
@@ -416,6 +448,37 @@ namespace Microsoft.Sarif.Viewer
                 foreach (SarifErrorListItem sarifError in SarifErrors)
                 {
                     sarifError.DetachFromDocument((long)docCookie);
+                }
+            }
+        }
+
+        // Detaches the SARIF results from all documents.
+        public void DetachFromAllDocuments()
+        {
+            IEnumRunningDocuments documentsEnumerator;
+
+            if (_runningDocTable != null)
+            {
+                _runningDocTable.GetRunningDocumentsEnum(out documentsEnumerator);
+
+                if (documentsEnumerator != null)
+                {
+                    uint requestedCount = 1;
+                    uint actualCount;
+                    uint[] cookies = new uint[requestedCount];
+
+                    while (true)
+                    {
+                        documentsEnumerator.Next(requestedCount, cookies, out actualCount);
+                        if (actualCount == 0)
+                        {
+                            // There are no more documents to process.
+                            break;
+                        }
+
+                        // Detach from document.
+                        DetachFromDocumentChanges(cookies[0]);
+                    }
                 }
             }
         }

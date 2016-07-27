@@ -62,28 +62,55 @@ namespace Microsoft.Sarif.Viewer
                 if (value != _filePath)
                 {
                     _filePath = value;
+
+                    if (this.LineMarker != null)
+                    {
+                        this.LineMarker.FullFilePath = _filePath;
+                    }
+
                     NotifyPropertyChanged("FilePath");
                 }
             }
         }
 
-        public void OnDeselectKeyEvent()
+        public virtual string DefaultSourceHighlightColor
+        {
+            get
+            {
+                return ResultTextMarker.DEFAULT_SELECTION_COLOR;
+            }
+        }
+
+        public virtual string SelectedSourceHighlightColor
+        {
+            get
+            {
+                return ResultTextMarker.DEFAULT_SELECTION_COLOR;
+            }
+        }
+
+        public void NavigateTo(bool usePreviewPane = true)
+        {
+            LineMarker?.NavigateTo(usePreviewPane);
+        }
+
+        public void ApplyDefaultSourceFileHighlighting()
         {
             // Remove hover marker
-            LineMarker?.RemoveMarker();
+            LineMarker?.RemoveHighlightMarker();
 
             // Add default marker instead
-            LineMarker?.NavigateTo(true, null, false);
+            LineMarker?.AddHighlightMarker(DefaultSourceHighlightColor);
         }
 
         /// <summary>
-        /// A method for handling the key event when it is selected
+        /// A method for handling the event when this object is selected
         /// </summary>
-        public void OnSelectKeyEvent()
+        public void ApplySelectionSourceFileHighlighting()
         {
             // Remove previous highlighting and replace with hover color
-            LineMarker?.RemoveMarker();
-            LineMarker?.NavigateTo(true, ResultTextMarker.HOVER_SELECTION_COLOR, true);
+            LineMarker?.RemoveHighlightMarker();
+            LineMarker?.AddHighlightMarker(SelectedSourceHighlightColor);
         }
 
         private IVsTextView GetTextViewFromFrame(IVsWindowFrame frame)
