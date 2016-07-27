@@ -926,7 +926,10 @@
     <None Include="SpecExamples\Minimal.sarif">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="SpecExamples\Recommended.sarif">
+    <None Include="SpecExamples\RecommendedWithSource.sarif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="SpecExamples\RecommendedWithoutSource.sarif">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="SpecExamples\RuleMetadata.sarif">
