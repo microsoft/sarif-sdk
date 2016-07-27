@@ -89,13 +89,18 @@ namespace Microsoft.Sarif.Viewer
             }
         }
 
+        public void NavigateTo(bool usePreviewPane = true)
+        {
+            LineMarker?.NavigateTo(usePreviewPane);
+        }
+
         public void ApplyDefaultSourceFileHighlighting()
         {
             // Remove hover marker
-            LineMarker?.RemoveMarker();
+            LineMarker?.RemoveHighlightMarker();
 
             // Add default marker instead
-            LineMarker?.NavigateTo(true, DefaultSourceHighlightColor, true);
+            LineMarker?.AddHighlightMarker(DefaultSourceHighlightColor);
         }
 
         /// <summary>
@@ -104,8 +109,8 @@ namespace Microsoft.Sarif.Viewer
         public void ApplySelectionSourceFileHighlighting()
         {
             // Remove previous highlighting and replace with hover color
-            LineMarker?.RemoveMarker();
-            LineMarker?.NavigateTo(true, SelectedSourceHighlightColor, true);
+            LineMarker?.RemoveHighlightMarker();
+            LineMarker?.AddHighlightMarker(SelectedSourceHighlightColor);
         }
 
         private IVsTextView GetTextViewFromFrame(IVsWindowFrame frame)

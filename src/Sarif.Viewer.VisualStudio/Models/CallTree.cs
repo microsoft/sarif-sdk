@@ -41,6 +41,7 @@ namespace Microsoft.Sarif.Viewer.Models
                     SarifViewerPackage.SarifToolWindow.UpdateSelectionList(_selectedItem);
 
                     // Navigate to the source file of the selected CallTreeNode.
+                    _selectedItem.NavigateTo();
                     _selectedItem.ApplySelectionSourceFileHighlighting();
                 }
             }

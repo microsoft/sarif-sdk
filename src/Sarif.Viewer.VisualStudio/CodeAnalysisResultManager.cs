@@ -244,7 +244,7 @@ namespace Microsoft.Sarif.Viewer
             string remappedName = fileName;
             if (!File.Exists(fileName))
             {
-                remappedName = RebaselineFileName(fileName);
+                remappedName = GetRebaselinedFileName(fileName);
 
                 if (!File.Exists(remappedName))
                 {
@@ -265,11 +265,29 @@ namespace Microsoft.Sarif.Viewer
                 sarifError.RegionPopulated = true;
             }
             marker.FullFilePath = remappedName;
-            result = marker.NavigateTo(false, null, false);
+            result = marker.NavigateTo(false);
             return result != null;
         }
 
-        public string RebaselineFileName(string fileName)
+        public bool TryRebaselineCurrentSarifError(string originalFilename)
+        {
+            if (CurrentSarifError == null)
+            {
+                return false;
+            }
+
+            string rebaselinedFile = GetRebaselinedFileName(originalFilename);
+
+            if (String.IsNullOrEmpty(rebaselinedFile) || originalFilename.Equals(rebaselinedFile, StringComparison.OrdinalIgnoreCase))
+            {
+                return false;
+            }
+
+            CurrentSarifError.RemapFilePath(originalFilename, rebaselinedFile);
+            return true;
+        }
+
+        public string GetRebaselinedFileName(string fileName)
         {
             // First, we'll traverse our remappings and see if we can
             // make rebaseline from existing data
@@ -327,8 +345,6 @@ namespace Microsoft.Sarif.Viewer
 
             _remappedPathPrefixes.Add(new Tuple<string, string>(originalPrefix, resolvedPrefix));
 
-            CurrentSarifError?.RemapFilePath(fileName, resolvedPath);
-
             return resolvedPath;
         }
 
@@ -359,7 +375,7 @@ namespace Microsoft.Sarif.Viewer
 
         internal void RemapFileNames(string originalPath, string remappedPath)
         {
-            foreach(SarifErrorListItem sarifError in SarifErrors)
+            foreach (SarifErrorListItem sarifError in SarifErrors)
             {
                 sarifError.RemapFilePath(originalPath, remappedPath);
             }

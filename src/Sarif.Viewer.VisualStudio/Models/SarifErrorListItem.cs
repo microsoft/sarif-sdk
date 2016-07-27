@@ -322,23 +322,23 @@ namespace Microsoft.Sarif.Viewer
 
         internal void RemoveMarkers()
         {
-            LineMarker?.RemoveMarker();
+            LineMarker?.RemoveHighlightMarker();
 
             foreach (AnnotatedCodeLocationModel location in Locations)
             {
-                location.LineMarker?.RemoveMarker();
+                location.LineMarker?.RemoveHighlightMarker();
             }
 
             foreach (AnnotatedCodeLocationModel location in RelatedLocations)
             {
-                location.LineMarker?.RemoveMarker();
+                location.LineMarker?.RemoveHighlightMarker();
             }
 
             foreach (AnnotatedCodeLocationCollection locationCollection in CodeFlows)
             {
                 foreach (AnnotatedCodeLocationModel location in locationCollection)
                 {
-                    location.LineMarker?.RemoveMarker();
+                    location.LineMarker?.RemoveHighlightMarker();
                 }
             }
 
@@ -346,7 +346,7 @@ namespace Microsoft.Sarif.Viewer
             {
                 foreach (StackFrameModel stackFrame in stackCollection)
                 {
-                    stackFrame.LineMarker?.RemoveMarker();
+                    stackFrame.LineMarker?.RemoveHighlightMarker();
                 }
             }
         }

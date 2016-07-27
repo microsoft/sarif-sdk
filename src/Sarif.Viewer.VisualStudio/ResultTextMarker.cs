@@ -59,13 +59,16 @@ namespace Microsoft.Sarif.Viewer
             Color = DEFAULT_SELECTION_COLOR;
         }
 
-        internal IVsWindowFrame NavigateTo(bool highlightLine, string highlightColor, bool usePreviewPane)
+        internal IVsWindowFrame NavigateTo(bool usePreviewPane)
         {
             // Fall back to the file and line number
 
             if (!File.Exists(this.FullFilePath))
             {
-                CodeAnalysisResultManager.Instance.RebaselineFileName(this.FullFilePath);
+                if (!CodeAnalysisResultManager.Instance.TryRebaselineCurrentSarifError(this.FullFilePath))
+                {
+                    return null;
+                }
             }
 
             IVsWindowFrame windowFrame = SdkUiUtilities.OpenDocument(SarifViewerPackage.ServiceProvider, this.FullFilePath, usePreviewPane);
@@ -86,11 +89,6 @@ namespace Microsoft.Sarif.Viewer
 
                 textView.EnsureSpanVisible(ts);
                 textView.SetSelection(ts.iStartLine, ts.iStartIndex, ts.iEndLine, ts.iEndIndex);
-
-                if (highlightLine)
-                {
-                    this.AddSelectionMarker(highlightColor);
-                }
             }
             return windowFrame;
         }
@@ -133,7 +131,7 @@ namespace Microsoft.Sarif.Viewer
         {
             if (m_marker != null)
             {
-                RemoveMarker();
+                RemoveHighlightMarker();
             }
 
             if (IsTracking())
@@ -154,7 +152,7 @@ namespace Microsoft.Sarif.Viewer
         /// simply return here (before the fix this code threw an exception which terminated VS).
         /// </summary>
         /// <param name="highlightColor">Color</param>
-        public void AddSelectionMarker(string highlightColor)
+        public void AddHighlightMarker(string highlightColor)
         {
             if (!IsTracking())
             {
@@ -178,7 +176,7 @@ namespace Microsoft.Sarif.Viewer
         /// <summary>
         /// Remove selection for tracking text
         /// </summary>
-        public void RemoveMarker()
+        public void RemoveHighlightMarker()
         {
             if (m_tagger != null && m_marker != null)
             {
@@ -404,7 +402,7 @@ namespace Microsoft.Sarif.Viewer
             {
                 // TODO: Find a way to delete TrackingSpan
                 m_marker = m_tagger.CreateTagSpan(m_trackingSpan, new TextMarkerTag(Color));
-                RemoveMarker();
+                RemoveHighlightMarker();
                 m_trackingSpan = null;
                 m_tagger = null;
                 m_docCookie = null;
