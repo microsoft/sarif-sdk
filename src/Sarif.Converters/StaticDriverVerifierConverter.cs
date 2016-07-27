@@ -23,11 +23,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         }
 
         /// <summary>
-        /// Interface implementation that takes a CppChecker log stream and converts its data to a SARIF json stream.
-        /// Read in CppChecker data from an input stream and write Result objects.
+        /// Interface implementation that takes a Static Driver Verifier log stream and converts
+        ///  its data to a SARIF json stream. Read in Static Driver Verifier data from an input
+        ///  stream and write Result objects.
         /// </summary>
-        /// <param name="input">Stream of a CppChecker log</param>
-        /// <param name="output">SARIF json stream of the converted CppChecker log</param>
+        /// <param name="input">Stream of a Static Driver Verifier log</param>
+        /// <param name="output">SARIF json stream of the converted Static Driver Verifier log</param>
         public override void Convert(Stream input, IResultLogWriter output)
         {
             if (input == null)
@@ -66,23 +67,22 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             var result = new Result();
 
             result.Locations = new List<Location>();
-
-            result.CodeFlows = new List<CodeFlow>();        
-            result.CodeFlows.Add(new CodeFlow
+       
+            result.CodeFlows = new[]
             {
-                Locations = new List<AnnotatedCodeLocation>()
-            });
-
-            var sb = new StringBuilder();
-            char current;
-            while ((current = (char)input.ReadByte()) != '\uffff')
-            {
-                sb.Append(current);
-
-                if (current == '\n')
+                new CodeFlow
                 {
-                    ProcessLine(sb.ToString(), result);
-                    sb.Clear();
+                    Locations = new List<AnnotatedCodeLocation>()
+                }
+            };
+
+            using (var reader = new StreamReader(input))
+            {
+                string line;
+
+                while (!string.IsNullOrEmpty(line = reader.ReadLine()))
+                {
+                    ProcessLine(line, result);
                 }
             }
 
@@ -115,9 +115,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             if (int.TryParse(tokens[STEP], out step))
             {
                 // If we find a numeric value as the first token,
-                // this is a general step. We don't actually consume
-                // the step, as it is a 0-indexed value and SARIF
-                // specifies 1-indexed.
+                // this is a general step.
 
                 Uri uri = null;
                 string uriText = tokens[URI].Trim('"');
@@ -267,7 +265,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
         private bool IsHarnessOrRulesFiles(string fileName)
         {
-            return fileName.EndsWith(".slic") || fileName.EndsWith("sdv-harness.c");
+            return fileName.EndsWith(".slic", StringComparison.OrdinalIgnoreCase)
+                || fileName.EndsWith("sdv-harness.c", StringComparison.OrdinalIgnoreCase);
         }
 
         private static Regex s_callRegex = new Regex(@"Call ""(.*)"" ""(.*)""", RegexOptions.Compiled);
