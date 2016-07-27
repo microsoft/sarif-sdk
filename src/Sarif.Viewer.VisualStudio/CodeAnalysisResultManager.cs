@@ -302,10 +302,11 @@ namespace Microsoft.Sarif.Viewer
                 }
             }
 
-            // Save the element which currently has focus. Opening the OpenFileDialog
-            // causes the TreeView to lose focus, which in turn causes the TreeViewItem
-            // selection to be unpredictable (because the selection event relies on the
-            // TreeViewItem focus.
+            // Opening the OpenFileDialog causes the TreeView to lose focus, 
+            // which in turn causes the TreeViewItem selection to be unpredictable 
+            // (because the selection event relies on the TreeViewItem focus.)
+            // We'll save the element which currently has focus and then restore
+            // focus after the OpenFileDialog is closed.
             UIElement elementWithFocus = Keyboard.FocusedElement as UIElement;
             
             OpenFileDialog openFileDialog = new OpenFileDialog();
