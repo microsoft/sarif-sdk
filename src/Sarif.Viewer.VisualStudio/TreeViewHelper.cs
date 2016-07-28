@@ -1,6 +1,7 @@
 ﻿// Copyright (c) Microsoft. All rights reserved. 
 // Licensed under the MIT license. See LICENSE file in the project root for full license information. 
 
+using Microsoft.Sarif.Viewer.Models;
 using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
@@ -51,16 +52,51 @@ namespace Microsoft.Sarif.Viewer
                 view.SelectedItemChanged += (sender, e) => SetSelectedItem(view, e.NewValue);
             }
 
-            internal void ChangeSelectedItem(object p)
+            internal void ChangeSelectedItem(object newSelectedItem)
             {
-                // BUGBUG: This will only work for root nodes in the tree.
-                //         To make this work for nodes deeper in the tree, you need to walk the tree and call TreeViewItem.ItemContainerGenerator
-                //         at each level of the tree.
-                TreeViewItem item = (TreeViewItem)_view.ItemContainerGenerator.ContainerFromItem(p);
+                Stack<CallTreeNode> pathToItem = new Stack<CallTreeNode>();
+                CallTreeNode currentNode = newSelectedItem as CallTreeNode;
+
+                while (currentNode != null)
+                {
+                    pathToItem.Push(currentNode);
+                    currentNode = currentNode.Parent;
+                }
+
+                int depth = pathToItem.Count;
+                TreeViewItem item = null;
+
+                while (pathToItem.Count > 0)
+                {
+                    currentNode = pathToItem.Pop();
+                    if (pathToItem.Count == depth - 1)
+                    {
+                        item = (TreeViewItem)_view.ItemContainerGenerator.ContainerFromItem(currentNode);
+                    }
+                    else
+                    {
+                        item = (TreeViewItem)item.ItemContainerGenerator.ContainerFromItem(currentNode);
+                    }
+
+                    // Make sure to expand all the nodes in the hierarchy.
+                    if (item != null)
+                    {
+                        item.IsExpanded = true;
+                        item.BringIntoView();
+                    }
+                }
 
                 if (item != null)
                 {
-                    item.IsSelected = true;
+                    if (!item.IsSelected)
+                    {
+                        item.IsSelected = true;
+                    }
+
+                    if (!item.IsFocused)
+                    {
+                        item.Focus();
+                    }
                 }
             }
         }

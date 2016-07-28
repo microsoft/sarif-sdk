@@ -9,13 +9,32 @@ namespace Microsoft.Sarif.Viewer.Models
     public class CallTree : NotifyPropertyChangedObject
     {
         private CodeLocationObject _selectedItem;
+        private ObservableCollection<CallTreeNode> _topLevelNodes;
 
         public CallTree(IList<CallTreeNode> topLevelNodes)
         {
             TopLevelNodes = new ObservableCollection<CallTreeNode>(topLevelNodes);
         }
 
-        public ObservableCollection<CallTreeNode> TopLevelNodes { get; }
+        public ObservableCollection<CallTreeNode> TopLevelNodes
+        {
+            get
+            {
+                return _topLevelNodes;
+            }
+            set
+            {
+                _topLevelNodes = value;
+
+                if (_topLevelNodes != null)
+                {
+                    for (int i = 0; i < _topLevelNodes.Count; i++)
+                    {
+                        _topLevelNodes[i].CallTree = this;
+                    }
+                }
+            }
+        }
 
         public CodeLocationObject SelectedItem
         {

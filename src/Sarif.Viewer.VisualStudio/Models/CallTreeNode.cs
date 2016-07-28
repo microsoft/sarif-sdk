@@ -12,6 +12,8 @@ namespace Microsoft.Sarif.Viewer.Models
     public class CallTreeNode : CodeLocationObject
     {
         private AnnotatedCodeLocation _location;
+        private CallTree _callTree;
+        private CallTreeNode _parent;
 
         [Browsable(false)]
         public AnnotatedCodeLocation Location
@@ -42,12 +44,21 @@ namespace Microsoft.Sarif.Viewer.Models
                     }
 
                     Region = value.PhysicalLocation.Region;
+                    this.LineMarker.RaiseRegionSelected += RegionSelected;
                 }
                 else
                 {
                     FilePath = null;
                     Region = null;
                 }
+            }
+        }
+
+        private void RegionSelected(object sender, EventArgs e)
+        {
+            if (CallTree != null)
+            {
+                CallTree.SelectedItem = this;
             }
         }
 
@@ -78,6 +89,45 @@ namespace Microsoft.Sarif.Viewer.Models
 
         [Browsable(false)]
         public List<CallTreeNode> Children { get; set; }
+
+        [Browsable(false)]
+        public CallTree CallTree
+        {
+            get
+            {
+                return _callTree;
+            }
+            set
+            {
+                _callTree = value;
+
+                if (Children != null)
+                {
+                    for (int i = 0; i < Children.Count; i++)
+                    {
+                        Children[i].CallTree = _callTree;
+                    }
+                }
+            }
+        }
+
+        [Browsable(false)]
+        public CallTreeNode Parent
+        {
+            get
+            {
+                return _parent;
+            }
+            set
+            {
+                _parent = value;
+
+                if (_parent != null)
+                {
+                    CallTree = _parent.CallTree;
+                }
+            }
+        }
 
         public int? Step
         {
