@@ -69,6 +69,7 @@ namespace Microsoft.Sarif.Viewer
 
                 int depth = pathToItem.Count;
                 TreeViewItem item = null;
+                ItemsControl parent = null;
 
                 // Walk the tree from the root to the new item.
                 while (pathToItem.Count > 0)
@@ -76,12 +77,14 @@ namespace Microsoft.Sarif.Viewer
                     currentNode = pathToItem.Pop();
                     if (pathToItem.Count == depth - 1)
                     {
-                        item = (TreeViewItem)_view.ItemContainerGenerator.ContainerFromItem(currentNode);
+                        parent = _view;
                     }
                     else
                     {
-                        item = (TreeViewItem)item.ItemContainerGenerator.ContainerFromItem(currentNode);
+                        parent = item;
                     }
+
+                    item = (TreeViewItem)parent.ItemContainerGenerator.ContainerFromItem(currentNode);
 
                     // Make sure to expand all the nodes in the hierarchy as we walk down.
                     if (item != null)
@@ -90,6 +93,10 @@ namespace Microsoft.Sarif.Viewer
                         {
                             item.ExpandSubtree();
                         }
+                    }
+                    else
+                    {
+                        item.ToString();
                     }
                 }
 

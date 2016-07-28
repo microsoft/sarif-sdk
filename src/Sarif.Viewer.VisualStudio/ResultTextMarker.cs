@@ -202,8 +202,6 @@ namespace Microsoft.Sarif.Viewer
             {
                 this.Clear();
             }
-
-            UnsubscribeToCaretEvents(m_textView);
         }
 
         /// <summary>
@@ -489,15 +487,6 @@ namespace Microsoft.Sarif.Viewer
             {
                 textView.Caret.PositionChanged += CaretPositionChanged;
                 textView.LayoutChanged += ViewLayoutChanged;
-            }
-        }
-
-        private void UnsubscribeToCaretEvents(IWpfTextView textView)
-        {
-            if (textView != null)
-            {
-                textView.Caret.PositionChanged -= CaretPositionChanged;
-                textView.LayoutChanged -= ViewLayoutChanged;
             }
         }
 
