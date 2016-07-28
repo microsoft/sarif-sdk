@@ -520,6 +520,7 @@ namespace Microsoft.Sarif.Viewer
 
         private void UpdateAtCaretPosition(CaretPosition caretPoisition)
         {
+            // Check if the current caret position is within our region. If it is, raise the RegionSelected event.
             if (m_trackingSpan.GetSpan(m_trackingSpan.TextBuffer.CurrentSnapshot).Contains(caretPoisition.Point.GetPoint(m_trackingSpan.TextBuffer, PositionAffinity.Predecessor).Value))
             {
                 OnRaiseRegionSelected(new EventArgs());

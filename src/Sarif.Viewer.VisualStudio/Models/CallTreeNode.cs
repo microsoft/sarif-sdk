@@ -54,8 +54,15 @@ namespace Microsoft.Sarif.Viewer.Models
             }
         }
 
+        /// <summary>
+        /// Called when the source code region of this node is
+        /// selected in the editor.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void RegionSelected(object sender, EventArgs e)
         {
+            // Select this item in the CallTree to bring the source and call tree in sync.
             if (CallTree != null)
             {
                 CallTree.SelectedItem = this;
@@ -101,6 +108,7 @@ namespace Microsoft.Sarif.Viewer.Models
             {
                 _callTree = value;
 
+                // If there are any children, set their call tree too.
                 if (Children != null)
                 {
                     for (int i = 0; i < Children.Count; i++)
@@ -122,6 +130,7 @@ namespace Microsoft.Sarif.Viewer.Models
             {
                 _parent = value;
 
+                // Set our call tree to our new parent's call tree.
                 if (_parent != null)
                 {
                     CallTree = _parent.CallTree;

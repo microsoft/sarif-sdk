@@ -1,10 +1,10 @@
 ﻿// Copyright (c) Microsoft. All rights reserved. 
 // Licensed under the MIT license. See LICENSE file in the project root for full license information. 
 
-using Microsoft.Sarif.Viewer.Models;
 using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
+using Microsoft.Sarif.Viewer.Models;
 
 namespace Microsoft.Sarif.Viewer
 {
@@ -54,9 +54,13 @@ namespace Microsoft.Sarif.Viewer
 
             internal void ChangeSelectedItem(object newSelectedItem)
             {
+                // In order to set the current item, we need to find it in the tree by navigating
+                // the hierarchy from the root down.
+
                 Stack<CallTreeNode> pathToItem = new Stack<CallTreeNode>();
                 CallTreeNode currentNode = newSelectedItem as CallTreeNode;
 
+                // Collect the path to the new item.
                 while (currentNode != null)
                 {
                     pathToItem.Push(currentNode);
@@ -66,6 +70,7 @@ namespace Microsoft.Sarif.Viewer
                 int depth = pathToItem.Count;
                 TreeViewItem item = null;
 
+                // Walk the tree from the root to the new item.
                 while (pathToItem.Count > 0)
                 {
                     currentNode = pathToItem.Pop();
@@ -78,7 +83,7 @@ namespace Microsoft.Sarif.Viewer
                         item = (TreeViewItem)item.ItemContainerGenerator.ContainerFromItem(currentNode);
                     }
 
-                    // Make sure to expand all the nodes in the hierarchy.
+                    // Make sure to expand all the nodes in the hierarchy as we walk down.
                     if (item != null)
                     {
                         if (!item.IsExpanded)
@@ -88,6 +93,7 @@ namespace Microsoft.Sarif.Viewer
                     }
                 }
 
+                // If we found the item in the tree, select it.
                 if (item != null)
                 {
                     item.BringIntoView();

@@ -26,6 +26,7 @@ namespace Microsoft.Sarif.Viewer.Models
             {
                 _topLevelNodes = value;
 
+                // Set this object as the CallTree for the child nodes.
                 if (_topLevelNodes != null)
                 {
                     for (int i = 0; i < _topLevelNodes.Count; i++)
