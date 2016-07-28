@@ -55,3 +55,7 @@
 * Add annotatedCodeLocation.callee and annotatedCodeLocation.calleeKey for annotation call sites  
 * Add invocation.responseFiles to capture response file contents
 * Drop .NET framework dependency to 4.5 (from 4.5.1)
+
+## **v1.5.27** [Driver](https://www.nuget.org/packages/Sarif.Driver/1.5.27) | [SDK](https://www.nuget.org/packages/Sarif.Sdk/1.5.27)
+* Ship checked in CommandLine.dll in order to allow this 'beta' NuGet component to ship in Driver non-beta release
+

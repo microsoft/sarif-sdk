@@ -26,7 +26,7 @@
     <file src="..\..\..\..\src\ReleaseHistory.md" target="lib\ReleaseHistory.md" />
     <file src="..\..\..\..\src\Sarif\Schemata\Sarif.schema.json" target="lib\Sarif.schema.json" />
 
-    <file src='Sarif.Driver.dll' target='lib\net45\CommandLine.dll'/>
+    <file src='CommandLine.dll' target='lib\net45\CommandLine.dll'/>
     <file src='Sarif.Driver.dll' target='lib\net45\Sarif.Driver.dll'/>
     <file src='Sarif.Driver.pdb' target='lib\net45\Sarif.Driver.pdb'/>
     
