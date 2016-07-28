@@ -24,9 +24,6 @@
     <file src="..\..\..\..\src\ReleaseHistory.md" target="lib\ReleaseHistory.md" />
     <file src="..\..\..\..\src\Sarif\Schemata\Sarif.schema.json" target="lib\Sarif.schema.json" />
 
-    <file src='Sarif.dll' target='lib\net40\Sarif.dll'/>
-    <file src='Sarif.pdb' target='lib\net40\Sarif.pdb'/>
-
     <file src='Sarif.dll' target='lib\net45\Sarif.dll'/>
     <file src='Sarif.pdb' target='lib\net45\Sarif.pdb'/>
     
