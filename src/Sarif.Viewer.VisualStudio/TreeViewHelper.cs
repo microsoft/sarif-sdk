@@ -89,9 +89,13 @@ namespace Microsoft.Sarif.Viewer
                     // Make sure to expand all the nodes in the hierarchy as we walk down.
                     if (item != null)
                     {
-                        if (!item.IsExpanded)
+                        // Do not expand the new selected node.
+                        if (pathToItem.Count != 0)
                         {
-                            item.ExpandSubtree();
+                            if (!item.IsExpanded)
+                            {
+                                item.ExpandSubtree();
+                            }
                         }
                     }
                     else
