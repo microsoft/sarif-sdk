@@ -81,13 +81,18 @@ namespace Microsoft.Sarif.Viewer
                     // Make sure to expand all the nodes in the hierarchy.
                     if (item != null)
                     {
-                        item.IsExpanded = true;
-                        item.BringIntoView();
+                        if (!item.IsExpanded)
+                        {
+                            item.ExpandSubtree();
+                        }
                     }
                 }
 
                 if (item != null)
                 {
+                    item.BringIntoView();
+                    item.UpdateLayout();
+
                     if (!item.IsSelected)
                     {
                         item.IsSelected = true;
