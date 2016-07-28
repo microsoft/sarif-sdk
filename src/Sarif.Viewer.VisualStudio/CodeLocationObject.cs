@@ -13,11 +13,11 @@ namespace Microsoft.Sarif.Viewer
 {
     public abstract class CodeLocationObject : NotifyPropertyChangedObject
     {
-        private ResultTextMarker _lineMarker;
         private Region _region;
+        protected ResultTextMarker _lineMarker;
         protected string _filePath;
 
-        internal ResultTextMarker LineMarker
+        internal virtual ResultTextMarker LineMarker
         {
             get
             {

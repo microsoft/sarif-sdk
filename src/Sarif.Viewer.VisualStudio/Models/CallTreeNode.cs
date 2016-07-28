@@ -44,13 +44,31 @@ namespace Microsoft.Sarif.Viewer.Models
                     }
 
                     Region = value.PhysicalLocation.Region;
-                    this.LineMarker.RaiseRegionSelected += RegionSelected;
                 }
                 else
                 {
                     FilePath = null;
                     Region = null;
                 }
+            }
+        }
+
+        internal override ResultTextMarker LineMarker
+        {
+            get
+            {
+                // Not all locations have regions. Don't try to mark the locations that don't.
+                if (_lineMarker == null && Region != null)
+                {
+                    _lineMarker = new ResultTextMarker(SarifViewerPackage.ServiceProvider, Region, FilePath);
+                    _lineMarker.RaiseRegionSelected += RegionSelected;
+                }
+
+                return _lineMarker;
+            }
+            set
+            {
+                _lineMarker = value;
             }
         }
 
