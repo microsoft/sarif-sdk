@@ -4,6 +4,7 @@
 using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
+using Microsoft.Sarif.Viewer.Models;
 
 namespace Microsoft.Sarif.Viewer
 {
@@ -51,16 +52,73 @@ namespace Microsoft.Sarif.Viewer
                 view.SelectedItemChanged += (sender, e) => SetSelectedItem(view, e.NewValue);
             }
 
-            internal void ChangeSelectedItem(object p)
+            internal void ChangeSelectedItem(object newSelectedItem)
             {
-                // BUGBUG: This will only work for root nodes in the tree.
-                //         To make this work for nodes deeper in the tree, you need to walk the tree and call TreeViewItem.ItemContainerGenerator
-                //         at each level of the tree.
-                TreeViewItem item = (TreeViewItem)_view.ItemContainerGenerator.ContainerFromItem(p);
+                // In order to set the current item, we need to find it in the tree by navigating
+                // the hierarchy from the root down.
 
+                Stack<CallTreeNode> pathToItem = new Stack<CallTreeNode>();
+                CallTreeNode currentNode = newSelectedItem as CallTreeNode;
+
+                // Collect the path to the new item.
+                while (currentNode != null)
+                {
+                    pathToItem.Push(currentNode);
+                    currentNode = currentNode.Parent;
+                }
+
+                int depth = pathToItem.Count;
+                TreeViewItem item = null;
+                ItemsControl parent = null;
+
+                // Walk the tree from the root to the new item.
+                while (pathToItem.Count > 0)
+                {
+                    currentNode = pathToItem.Pop();
+                    if (pathToItem.Count == depth - 1)
+                    {
+                        parent = _view;
+                    }
+                    else
+                    {
+                        parent = item;
+                    }
+
+                    item = (TreeViewItem)parent.ItemContainerGenerator.ContainerFromItem(currentNode);
+
+                    // Make sure to expand all the nodes in the hierarchy as we walk down.
+                    if (item != null)
+                    {
+                        // Do not expand the new selected node.
+                        if (pathToItem.Count != 0)
+                        {
+                            if (!item.IsExpanded)
+                            {
+                                item.ExpandSubtree();
+                            }
+                        }
+                    }
+                    else
+                    {
+                        item.ToString();
+                    }
+                }
+
+                // If we found the item in the tree, select it.
                 if (item != null)
                 {
-                    item.IsSelected = true;
+                    item.BringIntoView();
+                    item.UpdateLayout();
+
+                    if (!item.IsSelected)
+                    {
+                        item.IsSelected = true;
+                    }
+
+                    if (!item.IsFocused)
+                    {
+                        item.Focus();
+                    }
                 }
             }
         }

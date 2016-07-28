@@ -12,6 +12,8 @@ namespace Microsoft.Sarif.Viewer.Models
     public class CallTreeNode : CodeLocationObject
     {
         private AnnotatedCodeLocation _location;
+        private CallTree _callTree;
+        private CallTreeNode _parent;
 
         [Browsable(false)]
         public AnnotatedCodeLocation Location
@@ -51,6 +53,40 @@ namespace Microsoft.Sarif.Viewer.Models
             }
         }
 
+        internal override ResultTextMarker LineMarker
+        {
+            get
+            {
+                // Not all locations have regions. Don't try to mark the locations that don't.
+                if (_lineMarker == null && Region != null)
+                {
+                    _lineMarker = new ResultTextMarker(SarifViewerPackage.ServiceProvider, Region, FilePath);
+                    _lineMarker.RaiseRegionSelected += RegionSelected;
+                }
+
+                return _lineMarker;
+            }
+            set
+            {
+                _lineMarker = value;
+            }
+        }
+
+        /// <summary>
+        /// Called when the source code region of this node is
+        /// selected in the editor.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void RegionSelected(object sender, EventArgs e)
+        {
+            // Select this item in the CallTree to bring the source and call tree in sync.
+            if (CallTree != null)
+            {
+                CallTree.SelectedItem = this;
+            }
+        }
+
         [Browsable(false)]
         public override string DefaultSourceHighlightColor
         {
@@ -78,6 +114,47 @@ namespace Microsoft.Sarif.Viewer.Models
 
         [Browsable(false)]
         public List<CallTreeNode> Children { get; set; }
+
+        [Browsable(false)]
+        public CallTree CallTree
+        {
+            get
+            {
+                return _callTree;
+            }
+            set
+            {
+                _callTree = value;
+
+                // If there are any children, set their call tree too.
+                if (Children != null)
+                {
+                    for (int i = 0; i < Children.Count; i++)
+                    {
+                        Children[i].CallTree = _callTree;
+                    }
+                }
+            }
+        }
+
+        [Browsable(false)]
+        public CallTreeNode Parent
+        {
+            get
+            {
+                return _parent;
+            }
+            set
+            {
+                _parent = value;
+
+                // Set our call tree to our new parent's call tree.
+                if (_parent != null)
+                {
+                    CallTree = _parent.CallTree;
+                }
+            }
+        }
 
         public int? Step
         {

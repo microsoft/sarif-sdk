@@ -38,6 +38,8 @@ namespace Microsoft.Sarif.Viewer
         public string FullFilePath { get; set; }
         public string Color { get; set; }
 
+        public event EventHandler RaiseRegionSelected;
+
         /// <summary>
         /// fullFilePath may be null for global issues.
         /// </summary>
@@ -171,6 +173,7 @@ namespace Microsoft.Sarif.Viewer
             Debug.Assert(!IsTracking(), "This marker already tracking changes.");
             m_docCookie = docCookie;
             CreateTracking(wpfTextView, textSnapshot, span);
+            SubscribeToCaretEvents(wpfTextView);
         }
 
         /// <summary>
@@ -476,6 +479,51 @@ namespace Microsoft.Sarif.Viewer
         private bool IsTracking()
         {
             return m_docCookie.HasValue && IsTracking(m_docCookie.Value);
+        }
+
+        private void SubscribeToCaretEvents(IWpfTextView textView)
+        {
+            if (textView != null)
+            {
+                textView.Caret.PositionChanged += CaretPositionChanged;
+                textView.LayoutChanged += ViewLayoutChanged;
+            }
+        }
+
+        private void ViewLayoutChanged(object sender, TextViewLayoutChangedEventArgs e)
+        {
+            if (m_textView != null)
+            {
+                // If a new snapshot wasn't generated, then skip this layout
+                if (e.NewViewState.EditSnapshot != e.OldViewState.EditSnapshot)
+                {
+                    UpdateAtCaretPosition(m_textView.Caret.Position);
+                }
+            }
+        }
+
+        private void CaretPositionChanged(object sender, CaretPositionChangedEventArgs e)
+        {
+            UpdateAtCaretPosition(e.NewPosition);
+        }
+
+        private void UpdateAtCaretPosition(CaretPosition caretPoisition)
+        {
+            // Check if the current caret position is within our region. If it is, raise the RegionSelected event.
+            if (m_trackingSpan.GetSpan(m_trackingSpan.TextBuffer.CurrentSnapshot).Contains(caretPoisition.Point.GetPoint(m_trackingSpan.TextBuffer, PositionAffinity.Predecessor).Value))
+            {
+                OnRaiseRegionSelected(new EventArgs());
+            }
+        }
+
+        protected virtual void OnRaiseRegionSelected(EventArgs e)
+        {
+            EventHandler handler = RaiseRegionSelected;
+
+            if (handler != null)
+            {
+                handler(this, e);
+            }
         }
     }
 }
