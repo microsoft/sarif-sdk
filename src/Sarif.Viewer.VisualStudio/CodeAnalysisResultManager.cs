@@ -6,6 +6,8 @@ using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Runtime.InteropServices;
+using System.Windows;
+using System.Windows.Input;
 
 using Microsoft.CodeAnalysis.Sarif;
 using Microsoft.CodeAnalysis.Sarif.Writers;
@@ -300,6 +302,13 @@ namespace Microsoft.Sarif.Viewer
                 }
             }
 
+            // Opening the OpenFileDialog causes the TreeView to lose focus, 
+            // which in turn causes the TreeViewItem selection to be unpredictable 
+            // (because the selection event relies on the TreeViewItem focus.)
+            // We'll save the element which currently has focus and then restore
+            // focus after the OpenFileDialog is closed.
+            UIElement elementWithFocus = Keyboard.FocusedElement as UIElement;
+            
             OpenFileDialog openFileDialog = new OpenFileDialog();
 
             string fullPath = Path.GetFullPath(fileName);
@@ -309,12 +318,25 @@ namespace Microsoft.Sarif.Viewer
             openFileDialog.Filter = shortName + "|" + shortName;
             openFileDialog.RestoreDirectory = true;
 
-            if (!openFileDialog.ShowDialog().HasValue)
+            try
             {
-                return fileName;
+                bool? dialogResult = openFileDialog.ShowDialog();
+
+                if (!dialogResult.HasValue || !dialogResult.Value)
+                {
+                    return fileName;
+                }
+            }
+            finally
+            {
+                if (elementWithFocus != null)
+                {
+                    elementWithFocus.Focus();
+                }
             }
 
             string resolvedPath = openFileDialog.FileName;
+
             string resolvedFileName = Path.GetFileName(resolvedPath);
 
             // If remapping has somehow altered the file name itself,
