@@ -8,6 +8,7 @@ using Microsoft.VisualStudio.Shell.Interop;
 using Microsoft.VisualStudio.Text;
 using Microsoft.VisualStudio.Text.Editor;
 using Microsoft.VisualStudio.TextManager.Interop;
+using System.ComponentModel;
 
 namespace Microsoft.Sarif.Viewer
 {
@@ -86,6 +87,16 @@ namespace Microsoft.Sarif.Viewer
             get
             {
                 return ResultTextMarker.DEFAULT_SELECTION_COLOR;
+            }
+        }
+
+        // This is a custom type descriptor which enables the SARIF properties
+        // to be displayed in the Properties window.
+        internal ICustomTypeDescriptor TypeDescriptor
+        {
+            get
+            {
+                return new CodeLocationObjectTypeDescriptor(this);
             }
         }
 

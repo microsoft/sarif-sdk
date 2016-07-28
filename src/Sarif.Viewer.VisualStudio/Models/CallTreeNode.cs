@@ -244,5 +244,23 @@ namespace Microsoft.Sarif.Viewer.Models
                 return Location?.Snippet;
             }
         }
+
+        public Dictionary<string, string> Properties
+        {
+            get
+            {
+                Dictionary<string, string> properties = new Dictionary<string, string>();
+
+                if (Location?.PropertyNames != null)
+                {
+                    foreach (string key in Location.PropertyNames)
+                    {
+                        properties.Add(key, Location.GetProperty<object>(key).ToString());
+                    }
+                }
+
+                return properties;
+            }
+        }
     }
 }
