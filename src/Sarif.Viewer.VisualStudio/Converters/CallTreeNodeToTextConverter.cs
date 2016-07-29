@@ -63,7 +63,10 @@ namespace Microsoft.Sarif.Viewer.Converters
                             break;
 
                         default:
-                            text = annotatedLocation.Kind.ToString();
+                            if (annotatedLocation.Kind != default(AnnotatedCodeLocationKind))
+                            {
+                                text = annotatedLocation.Kind.ToString();
+                            }
                             break;
                     }
                 }

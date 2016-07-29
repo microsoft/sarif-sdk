@@ -166,7 +166,7 @@
                 <TabItem.Header>
                     <DockPanel Margin="5 0 5 0">
                         <TextBlock DockPanel.Dock="Left"
-                                   Text="Call Trees" />
+                                   Text="Code Flows" />
                         <TextBlock DockPanel.Dock="Left"
                                    Visibility="{Binding CallTrees, Converter={StaticResource collectionToVisibility1Converter}}">
                             <Run Text=" (" />
