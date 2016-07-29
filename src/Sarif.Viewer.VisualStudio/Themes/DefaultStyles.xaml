@@ -43,34 +43,6 @@
     </Style>
 
     <Style TargetType="TextBlock"
-           x:Key="callTreeTextStyle"
-           BasedOn="{StaticResource baseTextBlockStyle}">
-        <Setter Property="FontFamily"
-                Value="Courier New" />
-        <Setter Property="FontSize"
-                Value="12" />
-        <Style.Triggers>
-            <DataTrigger Binding="{Binding Location.Importance}"
-                         Value="Essential">
-                <Setter Property="FontWeight"
-                        Value="Bold" />
-            </DataTrigger>
-            <DataTrigger Binding="{Binding Location.Importance}"
-                         Value="Important">
-                <Setter Property="FontWeight"
-                        Value="Normal" />
-            </DataTrigger>
-            <DataTrigger Binding="{Binding Location.Importance}"
-                         Value="Unimportant">
-                <Setter Property="FontWeight"
-                        Value="Normal" />
-                <Setter Property="Foreground"
-                        Value="Gray" />
-            </DataTrigger>
-        </Style.Triggers>
-    </Style>
-
-    <Style TargetType="TextBlock"
            x:Key="DialogHeader">
         <Setter Property="FontSize"
                 Value="13.5" />

@@ -96,55 +96,6 @@ namespace Microsoft.Sarif.Viewer.ViewModels
                 Region = new CodeAnalysis.Sarif.Region(23, 1, 23, 2, 0, 0),
             });
 
-            AnnotatedCodeLocationCollection codeFlows1 = new AnnotatedCodeLocationCollection("Code Flows A");
-            codeFlows1.Add(new Models.AnnotatedCodeLocationModel()
-            {
-                Message = "Message A1",
-                FilePath = @"D:\GitHub\NuGet.Services.Metadata\src\Ng\Catalog2Dnx.cs",
-                Region = new CodeAnalysis.Sarif.Region(11, 1, 11, 2, 0, 0),
-                IsEssential = true,
-            });
-            codeFlows1.Add(new Models.AnnotatedCodeLocationModel()
-            {
-                Message = "Message A2",
-                FilePath = @"D:\GitHub\NuGet.Services.Metadata\src\Ng\Catalog2Dnx.cs",
-                Region = new CodeAnalysis.Sarif.Region(12, 1, 12, 2, 0, 0),
-            });
-            codeFlows1.Add(new Models.AnnotatedCodeLocationModel()
-            {
-                Message = "Message A3",
-                FilePath = @"D:\GitHub\NuGet.Services.Metadata\src\Ng\Catalog2Dnx.cs",
-                Region = new CodeAnalysis.Sarif.Region(13, 1, 13, 2, 0, 0),
-            });
-            viewModel.CodeFlows.Add(codeFlows1);
-
-            AnnotatedCodeLocationCollection codeFlows2 = new AnnotatedCodeLocationCollection("Code Flows B");
-            codeFlows2.Add(new Models.AnnotatedCodeLocationModel()
-            {
-                Message = "Message B1",
-                FilePath = @"D:\GitHub\NuGet.Services.Metadata\src\Ng\Catalog2Dnx.cs",
-                Region = new CodeAnalysis.Sarif.Region(11, 1, 11, 2, 0, 0),
-            });
-            codeFlows2.Add(new Models.AnnotatedCodeLocationModel()
-            {
-                Message = "Message B2",
-                FilePath = @"D:\GitHub\NuGet.Services.Metadata\src\Ng\Catalog2Dnx.cs",
-                Region = new CodeAnalysis.Sarif.Region(12, 1, 12, 2, 0, 0),
-            });
-            codeFlows2.Add(new Models.AnnotatedCodeLocationModel()
-            {
-                Message = "Message B3",
-                FilePath = @"D:\GitHub\NuGet.Services.Metadata\src\Ng\Catalog2Dnx.cs",
-                Region = new CodeAnalysis.Sarif.Region(13, 1, 13, 2, 0, 0),
-            });
-            codeFlows2.Add(new Models.AnnotatedCodeLocationModel()
-            {
-                Message = "Message B4",
-                FilePath = @"D:\GitHub\NuGet.Services.Metadata\src\Ng\Catalog2Dnx.cs",
-                Region = new CodeAnalysis.Sarif.Region(13, 1, 13, 2, 0, 0),
-            });
-            viewModel.CodeFlows.Add(codeFlows2);
-
             viewModel.CallTrees.Add(new CallTree(
                 new List<CallTreeNode>
                 {
