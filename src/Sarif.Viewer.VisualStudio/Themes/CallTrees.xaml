@@ -32,28 +32,6 @@
                             <Setter Property="Margin"
                                     Value="0 0 10 0" />
                         </Style>
-                        <Style x:Key="callTreeImportanceTextStyle"
-                               TargetType="TextBlock"
-                               BasedOn="{StaticResource callTreeBaseTextStyle}">
-                            <Setter Property="FontWeight"
-                                    Value="Bold" />
-                            <Setter Property="Foreground"
-                                    Value="Red" />
-                            <Setter Property="HorizontalAlignment"
-                                    Value="Center" />
-                            <Style.Triggers>
-                                <DataTrigger Binding="{Binding Location.Importance}"
-                                             Value="Important">
-                                    <Setter Property="TextBlock.Visibility"
-                                            Value="Collapsed" />
-                                </DataTrigger>
-                                <DataTrigger Binding="{Binding Location.Importance}"
-                                             Value="Unimportant">
-                                    <Setter Property="TextBlock.Visibility"
-                                            Value="Collapsed" />
-                                </DataTrigger>
-                            </Style.Triggers>
-                        </Style>
                         <Style x:Key="callTreeMessageTextStyle"
                                TargetType="TextBlock"
                                BasedOn="{StaticResource callTreeBaseTextStyle}">
@@ -120,17 +98,13 @@
                                                       ItemsSource="{Binding Children}">
                                 <Grid>
                                     <Grid.ColumnDefinitions>
-                                        <ColumnDefinition SharedSizeGroup="ImportanceGroup" />
                                         <ColumnDefinition SharedSizeGroup="MessageGroup" />
                                         <ColumnDefinition />
                                     </Grid.ColumnDefinitions>
                                     <TextBlock Grid.Column="0"
-                                               Text="!"
-                                               Style="{StaticResource callTreeImportanceTextStyle}" />
-                                    <TextBlock Grid.Column="1"
                                                Text="{Binding Converter={StaticResource callTreeToTextConverter}}"
                                                Style="{StaticResource callTreeMessageTextStyle}" />
-                                    <TextBlock Grid.Column="2"
+                                    <TextBlock Grid.Column="1"
                                                Text="{Binding LocationDisplayString, Mode=OneWay}"
                                                Style="{StaticResource callTreeLocationTextStyle}" />
                                 </Grid>
