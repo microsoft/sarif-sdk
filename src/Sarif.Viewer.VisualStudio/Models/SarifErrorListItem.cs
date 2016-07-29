@@ -23,7 +23,6 @@ namespace Microsoft.Sarif.Viewer
         private string _selectedTab;
         private AnnotatedCodeLocationCollection _locations;
         private AnnotatedCodeLocationCollection _relatedLocations;
-        private ObservableCollection<AnnotatedCodeLocationCollection> _codeFlows;
         private ObservableCollection<CallTree> _callTrees;
         private ObservableCollection<StackCollection> _stacks;
         private ObservableCollection<FixModel> _fixes;
@@ -34,7 +33,6 @@ namespace Microsoft.Sarif.Viewer
         {
             _locations = new AnnotatedCodeLocationCollection(String.Empty);
             _relatedLocations = new AnnotatedCodeLocationCollection(String.Empty);
-            _codeFlows = new ObservableCollection<AnnotatedCodeLocationCollection>();
             _callTrees = new ObservableCollection<CallTree>();
             _stacks = new ObservableCollection<StackCollection>();
             _fixes = new ObservableCollection<FixModel>();
@@ -83,7 +81,6 @@ namespace Microsoft.Sarif.Viewer
             {
                 foreach (CodeFlow codeFlow in result.CodeFlows)
                 {
-                    CodeFlows.Add(codeFlow.ToAnnotatedCodeLocationCollection());
                     CallTrees.Add(codeFlow.ToCallTree());
                 }
             }
@@ -244,15 +241,6 @@ namespace Microsoft.Sarif.Viewer
         }
 
         [Browsable(false)]
-        public ObservableCollection<AnnotatedCodeLocationCollection> CodeFlows
-        {
-            get
-            {
-                return _codeFlows;
-            }
-        }
-
-        [Browsable(false)]
         public ObservableCollection<CallTree> CallTrees
         {
             get
@@ -334,11 +322,33 @@ namespace Microsoft.Sarif.Viewer
                 location.LineMarker?.RemoveHighlightMarker();
             }
 
-            foreach (AnnotatedCodeLocationCollection locationCollection in CodeFlows)
+            foreach (CallTree callTree in CallTrees)
             {
-                foreach (AnnotatedCodeLocationModel location in locationCollection)
+                Stack<CallTreeNode> nodesToProcess = new Stack<CallTreeNode>();
+
+                foreach (CallTreeNode topLevelNode in callTree.TopLevelNodes)
                 {
-                    location.LineMarker?.RemoveHighlightMarker();
+                    nodesToProcess.Push(topLevelNode);
+                }
+
+                while (nodesToProcess.Count > 0)
+                {
+                    CallTreeNode current = nodesToProcess.Pop();
+                    try
+                    {
+                        current.LineMarker?.RemoveHighlightMarker();
+                    }
+                    catch (ArgumentException)
+                    {
+                        // An argument exception is thrown if the node does not have a region.
+                        // Since there's no region, there's no document to attach to.
+                        // Just move on with processing the child nodes.
+                    }
+
+                    foreach (CallTreeNode childNode in current.Children)
+                    {
+                        nodesToProcess.Push(childNode);
+                    }
                 }
             }
 
@@ -411,18 +421,6 @@ namespace Microsoft.Sarif.Viewer
                 }
             }
 
-            foreach (AnnotatedCodeLocationCollection locationCollection in CodeFlows)
-            {
-                foreach (AnnotatedCodeLocationModel location in locationCollection)
-                {
-                    if (location.FilePath != null &&
-                        location.FilePath.Equals(originalPath, StringComparison.OrdinalIgnoreCase))
-                    {
-                        location.FilePath = remappedPath;
-                    }
-                }
-            }
-
             foreach (CallTree callTree in CallTrees)
             {
                 Stack<CallTreeNode> nodesToProcess = new Stack<CallTreeNode>();
@@ -483,14 +481,6 @@ namespace Microsoft.Sarif.Viewer
                 location.LineMarker?.AttachToDocument(documentName, docCookie, pFrame);
             }
 
-            foreach (AnnotatedCodeLocationCollection locationCollection in CodeFlows)
-            {
-                foreach (AnnotatedCodeLocationModel location in locationCollection)
-                {
-                    location.LineMarker?.AttachToDocument(documentName, docCookie, pFrame);
-                }
-            }
-
             foreach (CallTree callTree in CallTrees)
             {
                 Stack<CallTreeNode> nodesToProcess = new Stack<CallTreeNode>();
@@ -538,14 +528,6 @@ namespace Microsoft.Sarif.Viewer
             foreach (AnnotatedCodeLocationModel location in RelatedLocations)
             {
                 location.LineMarker?.DetachFromDocument(docCookie);
-            }
-
-            foreach (AnnotatedCodeLocationCollection locationCollection in CodeFlows)
-            {
-                foreach (AnnotatedCodeLocationModel location in locationCollection)
-                {
-                    location.LineMarker?.DetachFromDocument(docCookie);
-                }
             }
 
             foreach (CallTree callTree in CallTrees)
