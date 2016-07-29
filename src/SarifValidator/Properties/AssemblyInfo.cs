@@ -3,4 +3,8 @@
 
 using System.Reflection;
 
-[assembly: AssemblyTitle("Static Analysis Results Interchange Format Validation Tool")]
+[assembly: AssemblyTitle("SARIF Validation Tool")]
+[assembly: AssemblyDescription("Command line tool for validating SARIF log files.")]
+
+[assembly: AssemblyVersion("1.0.0.0")]
+[assembly: AssemblyFileVersion("1.0.0.0")]
