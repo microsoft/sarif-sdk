@@ -25,10 +25,83 @@
             </ItemsControl.ItemContainerStyle>
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
+                    <DataTemplate.Resources>
+                        <Style x:Key="callTreeBaseTextStyle"
+                               TargetType="TextBlock"
+                               BasedOn="{StaticResource baseTextBlockStyle}">
+                            <Setter Property="Margin"
+                                    Value="0 0 10 0" />
+                        </Style>
+                        <Style x:Key="callTreeImportanceTextStyle"
+                               TargetType="TextBlock"
+                               BasedOn="{StaticResource callTreeBaseTextStyle}">
+                            <Setter Property="FontWeight"
+                                    Value="Bold" />
+                            <Setter Property="Foreground"
+                                    Value="Red" />
+                            <Setter Property="HorizontalAlignment"
+                                    Value="Center" />
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding Location.Importance}"
+                                             Value="Important">
+                                    <Setter Property="TextBlock.Visibility"
+                                            Value="Collapsed" />
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding Location.Importance}"
+                                             Value="Unimportant">
+                                    <Setter Property="TextBlock.Visibility"
+                                            Value="Collapsed" />
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                        <Style x:Key="callTreeMessageTextStyle"
+                               TargetType="TextBlock"
+                               BasedOn="{StaticResource callTreeBaseTextStyle}">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding Location.Importance}"
+                                             Value="Essential">
+                                    <Setter Property="FontWeight"
+                                            Value="Bold" />
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding Location.Importance}"
+                                             Value="Important">
+                                    <Setter Property="FontWeight"
+                                            Value="Normal" />
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding Location.Importance}"
+                                             Value="Unimportant">
+                                    <Setter Property="FontWeight"
+                                            Value="Normal" />
+                                    <Setter Property="Foreground"
+                                            Value="Gray" />
+                                </DataTrigger>
+                                <MultiDataTrigger>
+                                    <MultiDataTrigger.Conditions>
+                                        <Condition Binding="{Binding Location.Message, Converter={StaticResource stringToVisibilityConverter}}"
+                                                   Value="Collapsed" />
+                                        <Condition Binding="{Binding Location.Snippet, Converter={StaticResource stringToVisibilityConverter}}"
+                                                   Value="Visible" />
+                                    </MultiDataTrigger.Conditions>
+                                    <Setter Property="TextBlock.FontFamily"
+                                            Value="Consolas" />
+                                    <Setter Property="FontSize"
+                                            Value="10pt" />
+                                </MultiDataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                        <Style x:Key="callTreeLocationTextStyle"
+                               TargetType="TextBlock"
+                               BasedOn="{StaticResource callTreeBaseTextStyle}">
+                            <Setter Property="Visibility"
+                                    Value="{Binding LocationDisplayString, Converter={StaticResource stringToVisibilityConverter}}" />
+                        </Style>
+                    </DataTemplate.Resources>
                     <TreeView ItemsSource="{Binding TopLevelNodes}"
-                              viewer:TreeViewHelper.SelectedItem="{Binding SelectedItem, Mode=TwoWay}">
+                              viewer:TreeViewHelper.SelectedItem="{Binding SelectedItem, Mode=TwoWay}"
+                              Grid.IsSharedSizeScope="True">
                         <TreeView.Resources>
                             <cvt:CallTreeNodeToTextConverter x:Key="callTreeToTextConverter" />
+                            <cvt:StringToVisibilityConverter x:Key="stringToVisibilityConverter" />
                         </TreeView.Resources>
                         <TreeView.ItemContainerStyle>
                             <Style>
@@ -43,9 +116,25 @@
                         </TreeView.ItemContainerStyle>
 
                         <TreeView.ItemTemplate>
-                            <HierarchicalDataTemplate DataType="x:Type local:CallTreeNode" ItemsSource="{Binding Children}">
-                                <TextBlock Text="{Binding Converter={StaticResource callTreeToTextConverter}}"
-                                           Style="{StaticResource callTreeTextStyle}" />
+                            <HierarchicalDataTemplate DataType="x:Type local:CallTreeNode"
+                                                      ItemsSource="{Binding Children}">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition SharedSizeGroup="ImportanceGroup" />
+                                        <ColumnDefinition SharedSizeGroup="MessageGroup" />
+                                        <ColumnDefinition />
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock Grid.Column="0"
+                                               Text="!"
+                                               Style="{StaticResource callTreeImportanceTextStyle}" />
+                                    <TextBlock Grid.Column="1"
+                                               Text="{Binding Converter={StaticResource callTreeToTextConverter}}"
+                                               Style="{StaticResource callTreeMessageTextStyle}" />
+                                    <TextBlock Grid.Column="2"
+                                               Text="{Binding LocationDisplayString, Mode=OneWay}"
+                                               Style="{StaticResource callTreeLocationTextStyle}" />
+                                </Grid>
+
                             </HierarchicalDataTemplate>
                         </TreeView.ItemTemplate>
                     </TreeView>

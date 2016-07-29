@@ -53,6 +53,31 @@ namespace Microsoft.Sarif.Viewer.Models
             }
         }
 
+        /// <summary>
+        /// Returns the location string formatted for Visual Studio.
+        /// e.g. myfile.c (24,10)
+        /// </summary>
+        [Browsable(false)]
+        public string LocationDisplayString
+        {
+            get
+            {
+                string text = String.Empty;
+
+                if (!String.IsNullOrEmpty(FilePath))
+                {
+                    text = Path.GetFileName(FilePath) + " ";
+                }
+
+                if (Location?.PhysicalLocation?.Region != null)
+                {
+                    text += Location.PhysicalLocation.Region.FormatForVisualStudio();
+                }
+
+                return text;
+            }
+        }
+
         internal override ResultTextMarker LineMarker
         {
             get
