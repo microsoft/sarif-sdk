@@ -70,6 +70,16 @@
                                     <Setter Property="Foreground"
                                             Value="White" />
                                 </DataTrigger>
+                                <MultiDataTrigger>
+                                    <MultiDataTrigger.Conditions>
+                                        <Condition Binding="{Binding IsSelected, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type TreeViewItem}}}"
+                                                   Value="True" />
+                                        <Condition Binding="{Binding IsFocused, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type TreeViewItem}}}"
+                                                   Value="False" />
+                                    </MultiDataTrigger.Conditions>
+                                    <Setter Property="Foreground"
+                                            Value="Black" />
+                                </MultiDataTrigger>
                             </Style.Triggers>
                         </Style>
                         <Style x:Key="callTreeLocationTextStyle"
