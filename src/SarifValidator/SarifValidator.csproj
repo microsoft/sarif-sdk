@@ -1,11 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
-    <ProjectGuid>{01571290-A3F3-4AD6-8F8B-B045BFB6E55E}</ProjectGuid>
+    <ProjectGuid>{0EBA700D-29E7-4FFF-8EBF-20B8C0EF9A98}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>Microsoft.CodeAnalysis.Sarif</RootNamespace>
-    <AssemblyName>ConvertToSarif</AssemblyName>
-    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <RootNamespace>Microsoft.CodeAnalysis.Sarif.SarifValidator</RootNamespace>
+    <AssemblyName>SarifValidator</AssemblyName>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
   </PropertyGroup>
   <Import Project="$([MSBuild]::GetDirectoryNameOfFileAbove($(MSBuildThisFileDirectory).., build.props))\build.props" />
@@ -24,26 +23,24 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ConvertOptions.cs" />
+    <Compile Include="CommandLineOptions.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Sarif.Converters\Sarif.Converters.csproj">
-      <Project>{237defdf-1dfb-40a0-997f-12c8165daa87}</Project>
-      <Name>Sarif.Converters</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Sarif\Sarif.csproj">
-      <Project>{cc9b247e-7103-4bf7-bdab-6e625b3680a8}</Project>
-      <Name>Sarif</Name>
-    </ProjectReference>
+    <EmbeddedResource Include="Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
-  <PropertyGroup>
-    <PostBuildEvent>xcopy /Y ..\..\PREfastXmlSarifConverter\$(Platform)_$(Configuration)\PREfastXmlSarifConverter.dll</PostBuildEvent>
-  </PropertyGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
