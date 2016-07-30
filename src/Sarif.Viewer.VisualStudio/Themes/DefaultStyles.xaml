@@ -43,15 +43,6 @@
     </Style>
 
     <Style TargetType="TextBlock"
-           x:Key="callTreeTextStyle"
-           BasedOn="{StaticResource baseTextBlockStyle}">
-        <Setter Property="FontFamily"
-                Value="Courier New" />
-        <Setter Property="FontSize"
-                Value="12" />
-    </Style>
-
-    <Style TargetType="TextBlock"
            x:Key="DialogHeader">
         <Setter Property="FontSize"
                 Value="13.5" />

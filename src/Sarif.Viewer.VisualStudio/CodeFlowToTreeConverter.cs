@@ -11,7 +11,7 @@ namespace Microsoft.Sarif.Viewer.VisualStudio
     {
         internal static List<CallTreeNode> Convert(CodeFlow codeFlow)
         {
-           int currentCodeFlowIndex = -1;
+            int currentCodeFlowIndex = -1;
 
             return GetChildren(codeFlow, ref currentCodeFlowIndex, null);
         }

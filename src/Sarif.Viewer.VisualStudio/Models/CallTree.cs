@@ -14,12 +14,34 @@ namespace Microsoft.Sarif.Viewer.Models
         DelegateCommand<TreeView> _selectPreviousCommand;
         DelegateCommand<TreeView> _selectNextCommand;
 
+        private ObservableCollection<CallTreeNode> _topLevelNodes;
+
         public CallTree(IList<CallTreeNode> topLevelNodes)
         {
             TopLevelNodes = new ObservableCollection<CallTreeNode>(topLevelNodes);
         }
 
-        public ObservableCollection<CallTreeNode> TopLevelNodes { get; }
+        public ObservableCollection<CallTreeNode> TopLevelNodes
+        {
+            get
+            {
+                return _topLevelNodes;
+            }
+            set
+            {
+                _topLevelNodes = value;
+
+                // Set this object as the CallTree for the child nodes.
+                if (_topLevelNodes != null)
+                {
+                    for (int i = 0; i < _topLevelNodes.Count; i++)
+                    {
+                        _topLevelNodes[i].CallTree = this;
+                    }
+                }
+            }
+        }
+
 
         public CallTreeNode SelectedItem
         {
@@ -31,6 +53,12 @@ namespace Microsoft.Sarif.Viewer.Models
             {
                 this._selectedItem = value;
                 this.NotifyPropertyChanged(nameof(SelectedItem));
+                
+                // Remove the existing highlighting.
+                if (_selectedItem != null)
+                {
+                    _selectedItem.ApplyDefaultSourceFileHighlighting();
+                }
             }
         }
 

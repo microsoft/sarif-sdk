@@ -1,20 +1,12 @@
 ﻿// Copyright (c) Microsoft. All rights reserved. 
 // Licensed under the MIT license. See LICENSE file in the project root for full license information. 
 
-using System;
 using System.ComponentModel.Composition;
-using System.Runtime.CompilerServices;
-using System.Windows;
-using System.Windows.Input;
+using System.Windows.Controls;
 using Microsoft.VisualStudio.Editor;
-using Microsoft.VisualStudio.Shell.Interop;
 using Microsoft.VisualStudio.Shell.TableControl;
 using Microsoft.VisualStudio.Shell.TableManager;
-using Microsoft.VisualStudio.TextManager.Interop;
 using Microsoft.VisualStudio.Utilities;
-using Microsoft.Sarif.Viewer.Views;
-using Microsoft.Sarif.Viewer.ViewModels;
-using Microsoft.CodeAnalysis.Sarif;
 
 namespace Microsoft.Sarif.Viewer.ErrorList
 {
@@ -27,8 +19,6 @@ namespace Microsoft.Sarif.Viewer.ErrorList
     public class SarifTableControlEventProcessorProvider : ITableControlEventProcessorProvider
     {
         internal const string Name = "Sarif Table Event Processor";
-        private static readonly ConditionalWeakTable<IVsTextView, StrongBox<int>> cookieMap =
-            new ConditionalWeakTable<IVsTextView, StrongBox<int>>();
 
         public SarifTableControlEventProcessorProvider()
         {
@@ -46,122 +36,99 @@ namespace Microsoft.Sarif.Viewer.ErrorList
         {
             public IVsEditorAdaptersFactoryService EditorAdaptersFactoryService { get; set; }
 
-            public override void PreprocessNavigate(ITableEntryHandle entryHandle, TableEntryNavigateEventArgs e)
+            /// <summary>
+            /// Handles the single-click Error List event.
+            /// Binds the selected item to the Tool Window. 
+            /// Does not show the tool window if it is not already open. Displaying of the tool window is handed by PreprocessNavigate.
+            /// </summary>
+            public override void PreprocessSelectionChanged(TableSelectionChangedEventArgs e)
             {
-                int index;
-                ITableEntriesSnapshot snapshot;
-                if (!entryHandle.TryGetSnapshot(out snapshot, out index))
+                SarifErrorListItem sarifResult;
+                ListView errorList = (ListView)e.SelectionChangedEventArgs.Source;
+
+                // Remove all source code highlighting
+                CodeAnalysisResultManager.Instance.DetachFromAllDocuments();
+
+                if (errorList.SelectedItems.Count != 1)
                 {
+                    // There's more, or less, than one selected item. Clear the SARIF Explorer.
+                    SarifViewerPackage.SarifToolWindow.Control.DataContext = null;
                     return;
                 }
 
-                var sarifSnapshot = snapshot as SarifSnapshot;
-                if (sarifSnapshot == null)
+                ITableEntryHandle entryHandle = errorList.SelectedItems[0] as ITableEntryHandle;
+
+                if (!TryGetSarifResult(entryHandle, out sarifResult))
                 {
+                    // The selected item is not a SARIF result. Clear the SARIF Explorer.
+                    SarifViewerPackage.SarifToolWindow.Control.DataContext = null;
+                    return;
+                }
+
+                if (sarifResult.HasDetails)
+                {
+                    // Setting the DataContext to be null first forces the TabControl to select the appropriate tab.
+                    SarifViewerPackage.SarifToolWindow.Control.DataContext = null;
+                    SarifViewerPackage.SarifToolWindow.Control.DataContext = sarifResult;
+                }
+                else
+                {
+                    SarifViewerPackage.SarifToolWindow.Control.DataContext = null;
+                }
+
+                // Set the current sarif error in the manager so we track code locations.
+                CodeAnalysisResultManager.Instance.CurrentSarifError = sarifResult;
+
+                base.PreprocessSelectionChanged(e);
+            }
+
+            /// <summary>
+            /// Handles the double-click Error List event.
+            /// Displays the SARIF Explorer tool window. 
+            /// Does not bind the selected item to the Tool Window. The binding is done by PreprocessSelectionChanged.
+            /// </summary>
+            public override void PreprocessNavigate(ITableEntryHandle entryHandle, TableEntryNavigateEventArgs e)
+            {
+                SarifErrorListItem sarifResult;
+
+                if (!TryGetSarifResult(entryHandle, out sarifResult))
+                {
+                    SarifViewerPackage.SarifToolWindow.Control.DataContext = null;
                     return;
                 }
 
                 e.Handled = true;
-                DeselectItems(snapshot);
 
-                SarifErrorListItem sarifError = sarifSnapshot.GetItem(index);
-
-                IVsWindowFrame frame;
-                if (!CodeAnalysisResultManager.Instance.TryNavigateTo(sarifError, out frame))
+                if (sarifResult.HasDetails)
                 {
-                    //return;
+                    SarifViewerPackage.SarifToolWindow.Show();
                 }
 
-                if (sarifError.HasDetails)
+                // Navigate to the source file of the first location for the defect.
+                if (sarifResult.Locations?.Count > 0)
                 {
-                    OpenOrReplaceVerticalContent(frame, sarifError);
-                }
-                else
-                {
-                    CloseVerticalContent(frame, sarifError);
+                    sarifResult.Locations[0].NavigateTo(false);
+                    sarifResult.Locations[0].ApplyDefaultSourceFileHighlighting();
                 }
             }
 
-            private void OpenOrReplaceVerticalContent(IVsWindowFrame frame, SarifErrorListItem error)
+            bool TryGetSarifResult(ITableEntryHandle entryHandle, out SarifErrorListItem sarifResult)
             {
-                IVsTextView textView = GetTextViewFromFrame(frame);
-                if (textView == null)
+                ITableEntriesSnapshot entrySnapshot;
+                int entryIndex;
+                sarifResult = default(SarifErrorListItem);
+
+                if (entryHandle.TryGetSnapshot(out entrySnapshot, out entryIndex))
                 {
-                    return;
+                    var snapshot = entrySnapshot as SarifSnapshot;
+
+                    if (snapshot != null)
+                    {
+                        sarifResult = snapshot.GetItem(entryIndex);
+                    }
                 }
 
-                CodeLocations codeLocations = new CodeLocations();
-                codeLocations.DataContext = error;
-
-                // TODO: this needs to be a public API
-                var type = textView.GetType();
-                var mi = type.GetMethod(
-                    "ShowAdditionalContent",
-                    new Type[] { typeof(FrameworkElement), typeof(String)});
-                 
-                int cookie = (int)mi.Invoke(textView, new object[] { codeLocations, "Code Analysis Details" });
-
-                cookieMap.Remove(textView);
-                cookieMap.Add(textView, new StrongBox<int>(cookie));
-            }
-
-            private void CloseVerticalContent(IVsWindowFrame frame, SarifErrorListItem item)
-            {
-                IVsTextView textView = GetTextViewFromFrame(frame);
-                if (textView == null)
-                {
-                    return;
-                }
-
-                StrongBox<int> cookie;
-                if (cookieMap.TryGetValue(textView, out cookie))
-                {
-                    // TODO: this needs to be a public API
-                    var type = textView.GetType();
-                    var mi = type.GetMethod(
-                        "HideVerticalContent",
-                        new Type[] { typeof(int) });
-
-                    mi.Invoke(textView, new object[] { cookie.Value });
-
-                    cookieMap.Remove(textView);
-                }
-            }
-
-            private IVsTextView GetTextViewFromFrame(IVsWindowFrame frame)
-            {
-                // Get the document view from the window frame, then get the text view
-                object docView;
-                int hr = frame.GetProperty((int)__VSFPROPID.VSFPROPID_DocView, out docView);
-                if (hr != 0 || docView == null)
-                {
-                    return null;
-                }
-
-                IVsCodeWindow codeWindow = docView as IVsCodeWindow;
-                IVsTextView textView;
-                codeWindow.GetLastActiveView(out textView);
-                if (textView == null)
-                {
-                    codeWindow.GetPrimaryView(out textView);
-                }
-
-                return textView;
-            }
-
-            private void SelectItem(SarifErrorListItem item)
-            {
-                // TODO
-            }
-
-            private void DeselectItems(ITableEntriesSnapshot snapshot)
-            {
-                // TODO
-            }
-
-            public override void PreprocessMouseRightButtonUp(ITableEntryHandle entry, MouseButtonEventArgs e)
-            {
-                base.PreprocessMouseRightButtonUp(entry, e);
+                return sarifResult != null;
             }
         }
     }

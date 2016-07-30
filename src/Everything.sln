@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.25123.0
+VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sarif", "Sarif\Sarif.csproj", "{CC9B247E-7103-4BF7-BDAB-6E625B3680A8}"
 	ProjectSection(ProjectDependencies) = postProject
@@ -32,6 +32,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sarif.Converters", "Sarif.Converters\Sarif.Converters.csproj", "{237DEFDF-1DFB-40A0-997F-12C8165DAA87}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sarif.Viewer.VisualStudio.UnitTests", "Sarif.Viewer.VisualStudio.UnitTests\Sarif.Viewer.VisualStudio.UnitTests.csproj", "{D0210D4B-32A8-46CA-8BA4-0703517481B4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SarifValidator", "SarifValidator\SarifValidator.csproj", "{0EBA700D-29E7-4FFF-8EBF-20B8C0EF9A98}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -187,6 +189,18 @@ Global
 		{D0210D4B-32A8-46CA-8BA4-0703517481B4}.Release|x64.Build.0 = Release|x64
 		{D0210D4B-32A8-46CA-8BA4-0703517481B4}.Release|x86.ActiveCfg = Release|x86
 		{D0210D4B-32A8-46CA-8BA4-0703517481B4}.Release|x86.Build.0 = Release|x86
+		{0EBA700D-29E7-4FFF-8EBF-20B8C0EF9A98}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0EBA700D-29E7-4FFF-8EBF-20B8C0EF9A98}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0EBA700D-29E7-4FFF-8EBF-20B8C0EF9A98}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{0EBA700D-29E7-4FFF-8EBF-20B8C0EF9A98}.Debug|x64.Build.0 = Debug|Any CPU
+		{0EBA700D-29E7-4FFF-8EBF-20B8C0EF9A98}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{0EBA700D-29E7-4FFF-8EBF-20B8C0EF9A98}.Debug|x86.Build.0 = Debug|Any CPU
+		{0EBA700D-29E7-4FFF-8EBF-20B8C0EF9A98}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0EBA700D-29E7-4FFF-8EBF-20B8C0EF9A98}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0EBA700D-29E7-4FFF-8EBF-20B8C0EF9A98}.Release|x64.ActiveCfg = Release|Any CPU
+		{0EBA700D-29E7-4FFF-8EBF-20B8C0EF9A98}.Release|x64.Build.0 = Release|Any CPU
+		{0EBA700D-29E7-4FFF-8EBF-20B8C0EF9A98}.Release|x86.ActiveCfg = Release|Any CPU
+		{0EBA700D-29E7-4FFF-8EBF-20B8C0EF9A98}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

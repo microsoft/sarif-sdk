@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>$id$</id>
-    <version>$major$.$minor$.$patch$-beta</version>
+    <version>$major$.$minor$.$patch$$prerelease$</version>
     <title>Microsoft SARIF Driver Framework (includes SARIF SDK)</title>
     <authors>Microsoft Corporation</authors>
     <owners>Michael C. Fanning, Billy O'Neal</owners>
@@ -15,21 +15,18 @@
     <tags>command line driver utilities static analysis sarif framework utils driver.utilities</tags>
     <dependencies>
       <group>
-        <dependency id="Sarif.Sdk" version="$major$.$minor$.$patch$" />
+        <dependency id="Sarif.Sdk" version="$major$.$minor$.$patch$$prerelease$" />
         <dependency id="Newtonsoft.Json" version="6.0.0" />
         <dependency id="Microsoft.Composition" version="1.0.30" />
         <dependency id="System.Collections.Immutable" version="1.1.37" />
-        <dependency id="CommandLineParser" version="2.0.275-beta" />
       </group>
     </dependencies>
   </metadata>
   <files>
     <file src="..\..\..\..\src\ReleaseHistory.md" target="lib\ReleaseHistory.md" />
     <file src="..\..\..\..\src\Sarif\Schemata\Sarif.schema.json" target="lib\Sarif.schema.json" />
-    
-    <file src='Sarif.Driver.dll' target='lib\net40\Sarif.Driver.dll'/>
-    <file src='Sarif.Driver.pdb' target='lib\net40\Sarif.Driver.pdb'/>
 
+    <file src='CommandLine.dll' target='lib\net45\CommandLine.dll'/>
     <file src='Sarif.Driver.dll' target='lib\net45\Sarif.Driver.dll'/>
     <file src='Sarif.Driver.pdb' target='lib\net45\Sarif.Driver.pdb'/>
     

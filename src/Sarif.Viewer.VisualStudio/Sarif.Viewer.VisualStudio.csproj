@@ -38,25 +38,25 @@
   <ItemGroup>
     <Compile Include="CodeAnalysisResultManager.cs" />
     <Compile Include="CodeFlowToTreeConverter.cs" />
+    <Compile Include="CodeLocationObjectTypeDescriptor.cs" />
     <Compile Include="CodeLocationObject.cs" />
     <Compile Include="Controls\InternetHyperlink.xaml.cs">
       <DependentUpon>InternetHyperlink.xaml</DependentUpon>
     </Compile>
     <Compile Include="Converters\BooleanToCollapsedVisibilityConverter.cs" />
-    <Compile Include="Converters\ImportanceToEssentialMarkerVisibilityConverter.cs" />
     <Compile Include="Converters\CallTreeNodeToTextConverter.cs" />
-    <Compile Include="Converters\ImportanceToBackgroundConverter.cs" />
+    <Compile Include="Converters\CollectionToBooleanConverter.cs" />
     <Compile Include="Converters\CollectionToVisiblity1Converter.cs" />
     <Compile Include="Converters\CollectionToVisiblity0Converter.cs" />
     <Compile Include="Converters\CollectionToCountConverter.cs" />
     <Compile Include="Converters\BooleanToVisibilityConverter.cs" />
-    <Compile Include="Converters\ImportanceToForegroundConverter.cs" />
     <Compile Include="Converters\Int32ToVisibilityConverter.cs" />
     <Compile Include="Converters\MultipleStringsToVisibilityConverter.cs" />
     <Compile Include="Converters\FileExistsToBooleanConverter.cs" />
     <Compile Include="Converters\ObjectToVisibilityConverter.cs" />
     <Compile Include="DelegateCommand.cs" />
     <Compile Include="DelegateCommandBase.cs" />
+    <Compile Include="KeyValuePairPropertyDescriptor.cs" />
     <Compile Include="Models\CallTree.cs" />
     <Compile Include="Models\CallTreeNode.cs" />
     <Compile Include="Models\InvocationModel.cs" />
@@ -72,6 +72,11 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="SarifToolWindow.cs" />
+    <Compile Include="SarifToolWindowCommand.cs" />
+    <Compile Include="Views\SarifToolWindowControl.xaml.cs">
+      <DependentUpon>SarifToolWindowControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Sarif\Replacement.extensions.cs" />
     <Compile Include="Sarif\FileChange.extensions.cs" />
@@ -137,6 +142,7 @@
       <IncludeInVSIX>true</IncludeInVSIX>
     </Content>
     <None Include="readme.md" />
+    <Resource Include="Resources\SarifToolWindowCommand.png" />
     <Content Include="Triskele.ico">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <IncludeInVSIX>true</IncludeInVSIX>
@@ -319,13 +325,13 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\SarifToolWindowControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Themes\CallTrees.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Themes\CodeFlows.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Themes\TabControl.xaml">
       <Generator>MSBuild:Compile</Generator>

@@ -6,25 +6,29 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Text;
+using System.Text.RegularExpressions;
 
 namespace Microsoft.CodeAnalysis.Sarif.Converters
 {
     internal class StaticDriverVerifierConverter : ToolFileConverterBase
     {
         private StringBuilder _sb;
+        private Stack<string> _callers;
 
         /// <summary>Initializes a new instance of the <see cref="StaticDriverVerifierConverter"/> class.</summary>
         public StaticDriverVerifierConverter()
         {
             _sb = new StringBuilder();
+            _callers = new Stack<string>();
         }
 
         /// <summary>
-        /// Interface implementation that takes a CppChecker log stream and converts its data to a SARIF json stream.
-        /// Read in CppChecker data from an input stream and write Result objects.
+        /// Interface implementation that takes a Static Driver Verifier log stream and converts
+        ///  its data to a SARIF json stream. Read in Static Driver Verifier data from an input
+        ///  stream and write Result objects.
         /// </summary>
-        /// <param name="input">Stream of a CppChecker log</param>
-        /// <param name="output">SARIF json stream of the converted CppChecker log</param>
+        /// <param name="input">Stream of a Static Driver Verifier log</param>
+        /// <param name="output">SARIF json stream of the converted Static Driver Verifier log</param>
         public override void Convert(Stream input, IResultLogWriter output)
         {
             if (input == null)
@@ -63,23 +67,22 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             var result = new Result();
 
             result.Locations = new List<Location>();
-
-            result.CodeFlows = new List<CodeFlow>();        
-            result.CodeFlows.Add(new CodeFlow
+       
+            result.CodeFlows = new[]
             {
-                Locations = new List<AnnotatedCodeLocation>()
-            });
-
-            var sb = new StringBuilder();
-            char current;
-            while ((current = (char)input.ReadByte()) != '\uffff')
-            {
-                sb.Append(current);
-
-                if (current == '\n')
+                new CodeFlow
                 {
-                    ProcessLine(sb.ToString(), result);
-                    sb.Clear();
+                    Locations = new List<AnnotatedCodeLocation>()
+                }
+            };
+
+            using (var reader = new StreamReader(input))
+            {
+                string line;
+
+                while (!string.IsNullOrEmpty(line = reader.ReadLine()))
+                {
+                    ProcessLine(line, result);
                 }
             }
 
@@ -111,23 +114,20 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
             if (int.TryParse(tokens[STEP], out step))
             {
-                bool displayed = true;
-
                 // If we find a numeric value as the first token,
-                // this is a general step. We don't actually consume
-                // the step, as it is a 0-indexed value and SARIF
-                // specifies 1-indexed.
+                // this is a general step.
 
+                Uri uri = null;
                 string uriText = tokens[URI].Trim('"');
 
-                if (uriText.Equals("?", StringComparison.Ordinal))
+                if (!uriText.Equals("?", StringComparison.Ordinal))
                 {
-                    // If we have not literal location, then we are processing
-                    // an informational step, which we will not persist
-                    displayed = false;
+                    if (File.Exists(uriText))
+                    {
+                        uriText = Path.GetFullPath(uriText);
+                    }
+                    uri = new Uri(uriText, UriKind.RelativeOrAbsolute);
                 }
-
-                var uri = new Uri(tokens[URI].Trim('"'), UriKind.RelativeOrAbsolute);
 
                 // We assume a valid line here. This code will throw if not.
                 int line = int.Parse(tokens[LINE]);
@@ -144,15 +144,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
                 AnnotatedCodeLocationKind kind = ConvertToAnnotatedCodeLocationKind(sdvKind.Trim());
 
-                string message = BuildMessageFromState(tokens[STATE]);
-
                 var annotatedCodeLocation = new AnnotatedCodeLocation
                 {
                     Kind = kind,
                     Step = step,
-                    Importance = displayed ? AnnotatedCodeLocationImportance.Important : AnnotatedCodeLocationImportance.Unimportant,
-                    Message = message,
-                    PhysicalLocation = displayed ? new PhysicalLocation
+                    Importance = AnnotatedCodeLocationImportance.Unimportant,
+                    PhysicalLocation = (uri != null) ? new PhysicalLocation
                     {
                         Uri = uri,
                         Region = new Region
@@ -162,29 +159,67 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                     } : null,    
                 };
 
-                annotatedCodeLocation.SetProperty("State", tokens[STATE]);
-
-                // Tokens[BOOL] retrieves an SDV property intended to indicate
-                // whether a step is 'important' or not. We don't currenlty use this
-                // value to set the 'essential' property, due to the prevalence of
-                // a 'true' value even in steps that entirely repeat the previous
-                // step and which have no location. As above, in the handling for 
-                // locations of "?", what we do instead is filter everything with
-                // no location. This actually code cause problems, as a some
-                // steps with locations are embedded in call/returns that 
-                // are discarded. This converter (and the viewer experience)
-                // should be compared soon with the actual SDV viewer, with
-                // a revisit of the converter's behavior.           
-
-
-                if (sdvKind.Equals("Call", StringComparison.Ordinal))
+                if (kind == AnnotatedCodeLocationKind.Call)
                 {
-                    // Caller is encapsulated in double quotes, which we trim
-                    annotatedCodeLocation.SetProperty("Caller", tokens[CALLER].Trim('"'));
+                    string extraMsg = tokens[KIND1] + " " + tokens[CALLER] + " " + tokens[CALLEE];
 
-                    // Callee is at the end of the line. First we trim the \r\b.
-                    // Next remove the encapsulating double-quotes.
-                    annotatedCodeLocation.SetProperty("Callee", tokens[CALLEE].Trim().Trim('"'));
+                    string caller, callee;
+
+                    if (ExtractCallerAndCallee(extraMsg.Trim(), out caller, out callee))
+                    {
+                        annotatedCodeLocation.FullyQualifiedLogicalName = caller;
+                        annotatedCodeLocation.Callee = callee;
+                        _callers.Push(caller);
+                    }
+                    else
+                    {
+                        Debug.Assert(false);
+                    }
+
+                    if (uri == null)
+                    {
+                        annotatedCodeLocation.Importance = AnnotatedCodeLocationImportance.Unimportant;
+                    }
+                    else if (IsHarnessOrRulesFiles(uriText))
+                    {
+                        annotatedCodeLocation.Importance = AnnotatedCodeLocationImportance.Important;
+                    }
+                    else
+                    {
+                        annotatedCodeLocation.Importance = AnnotatedCodeLocationImportance.Essential;
+                    }
+
+                }
+
+                if (kind == AnnotatedCodeLocationKind.CallReturn)
+                {
+                    Debug.Assert(_callers.Count > 0);
+                    annotatedCodeLocation.FullyQualifiedLogicalName = _callers.Pop();
+                }
+
+                string separatorText = "^====Auto=====";
+                string state = tokens[STATE];
+                string[] stateTokens = state.Split(new string[] { separatorText }, StringSplitOptions.RemoveEmptyEntries);
+
+                if (stateTokens.Length > 0)
+                {
+                    if (stateTokens.Length == 2)
+                    {
+                        annotatedCodeLocation.SetProperty("currentDataValues", stateTokens[0]);
+                        annotatedCodeLocation.SetProperty("permanentDataValues", stateTokens[1]);
+                    }
+                    else
+                    {
+                        Debug.Assert(stateTokens.Length == 1);
+                        if (stateTokens[0].StartsWith(separatorText))
+                        {
+                            annotatedCodeLocation.SetProperty("permanentDataValues", stateTokens[0]);
+                        }
+                        else
+                        {
+                            annotatedCodeLocation.SetProperty("currentDataValues", stateTokens[0]);
+                        }
+                    }
                 }
 
                 codeFlow.Locations.Add(annotatedCodeLocation);
@@ -228,14 +263,26 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             }
         }
 
-        private string BuildMessageFromState(string state)
+        private bool IsHarnessOrRulesFiles(string fileName)
         {
-            if (string.IsNullOrEmpty(state) || state == "^")
-            {
-                return null;
-            }
+            return fileName.EndsWith(".slic", StringComparison.OrdinalIgnoreCase)
+                || fileName.EndsWith("sdv-harness.c", StringComparison.OrdinalIgnoreCase);
+        }
 
-            return state.Replace("^", ",").Trim(',');
+        private static Regex s_callRegex = new Regex(@"Call ""(.*)"" ""(.*)""", RegexOptions.Compiled);
+
+        private static bool ExtractCallerAndCallee(string text, out string caller, out string callee)
+        {
+            caller = callee = null;
+
+            var match = s_callRegex.Match(text);
+            if (match.Success && match.Groups.Count == 3)
+            {
+                caller = match.Groups[1].Value;
+                callee = match.Groups[2].Value;
+                return true;
+            }
+            return false;
         }
 
         private static AnnotatedCodeLocationKind ConvertToAnnotatedCodeLocationKind(string sdvKind)

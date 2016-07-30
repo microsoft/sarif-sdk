@@ -34,14 +34,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
                 throw new ArgumentNullException(nameof(writer));
             }
 
-            Uri uri = ((Uri)value);
-
-            if (uri.IsAbsoluteUri && uri.IsFile && (uri.LocalPath == uri.OriginalString))
-            {
-                uri = new Uri(uri.ToString());
-            }
-
-            writer.WriteValue(uri.ToString());
+            string path = ((Uri)value).OriginalString;
+            string validUri = UriHelper.MakeValidUri(path);
+            writer.WriteValue(validUri);
         }
     }
 }

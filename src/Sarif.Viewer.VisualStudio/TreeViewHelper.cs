@@ -1,15 +1,20 @@
-﻿using System;
+﻿// Copyright (c) Microsoft. All rights reserved. 
+// Licensed under the MIT license. See LICENSE file in the project root for full license information. 
+
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using Microsoft.Sarif.Viewer.Models;
 
 namespace Microsoft.Sarif.Viewer
 {
-    public class TreeViewHelper
+    /// <summary>
+    ///  The TreeViewHelper class enables binding to the SelectedItem of a TreeView.
+    /// </summary>
+    /// <remarks>
+    /// Original source code taken from http://stackoverflow.com/questions/7153813/wpf-mvvm-treeview-selecteditem.
+    /// </remarks>
+    public static class TreeViewHelper
     {
         private static Dictionary<DependencyObject, TreeViewSelectedItemBehavior> behaviors = new Dictionary<DependencyObject, TreeViewSelectedItemBehavior>();
 
@@ -23,7 +28,6 @@ namespace Microsoft.Sarif.Viewer
             obj.SetValue(SelectedItemProperty, value);
         }
 
-        // Using a DependencyProperty as the backing store for SelectedItem.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty SelectedItemProperty =
             DependencyProperty.RegisterAttached("SelectedItem", typeof(object), typeof(TreeViewHelper), new UIPropertyMetadata(new object(), SelectedItemChanged));
 
@@ -41,45 +45,83 @@ namespace Microsoft.Sarif.Viewer
 
         private class TreeViewSelectedItemBehavior
         {
-            System.Windows.Controls.TreeView view;
+            System.Windows.Controls.TreeView _view;
             public TreeViewSelectedItemBehavior(System.Windows.Controls.TreeView view)
             {
-                this.view = view;
+                _view = view;
                 view.SelectedItemChanged += (sender, e) => SetSelectedItem(view, e.NewValue);
             }
 
-            internal void ChangeSelectedItem(object p)
+            internal void ChangeSelectedItem(object newSelectedItem)
             {
+                // In order to set the current item, we need to find it in the tree by navigating
+                // the hierarchy from the root down.
+
                 Stack<CallTreeNode> pathToItem = new Stack<CallTreeNode>();
-                CallTreeNode current = p as CallTreeNode;
-                while (current != null)
+                CallTreeNode currentNode = newSelectedItem as CallTreeNode;
+
+                // Collect the path to the new item.
+                while (currentNode != null)
                 {
-                    pathToItem.Push(current);
-                    current = current.Parent;
+                    pathToItem.Push(currentNode);
+                    currentNode = currentNode.Parent;
                 }
 
                 int depth = pathToItem.Count;
                 TreeViewItem item = null;
+                ItemsControl parent = null;
 
-                // gets the path
+                // Walk the tree from the root to the new item.
                 while (pathToItem.Count > 0)
                 {
-                    current = pathToItem.Pop();
+                    currentNode = pathToItem.Pop();
                     if (pathToItem.Count == depth - 1)
                     {
-                        item = (TreeViewItem)view.ItemContainerGenerator.ContainerFromItem(current);
+                        parent = _view;
                     }
                     else
                     {
-                        item = (TreeViewItem)item.ItemContainerGenerator.ContainerFromItem(current);
+                        parent = item;
+                    }
+
+                    item = (TreeViewItem)parent.ItemContainerGenerator.ContainerFromItem(currentNode);
+
+                    // Make sure to expand all the nodes in the hierarchy as we walk down.
+                    if (item != null)
+                    {
+                        // Do not expand the new selected node.
+                        if (pathToItem.Count != 0)
+                        {
+                            if (!item.IsExpanded)
+                            {
+                                item.ExpandSubtree();
+                            }
+                        }
+                    }
+                    else
+                    {
+                        item.ToString();
                     }
                 }
 
+                // If we found the item in the tree, select it.
                 if (item != null)
                 {
-                    item.IsSelected = true;
+                    item.BringIntoView();
+                    item.UpdateLayout();
+
+                    if (!item.IsSelected)
+                    {
+                        item.IsSelected = true;
+                    }
+
+                    if (!item.IsFocused)
+                    {
+                        item.Focus();
+                    }
                 }
             }
         }
     }
 }
+

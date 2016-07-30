@@ -85,6 +85,7 @@
     <Compile Include="Readers\PropertyBagConverterTests.cs" />
     <Compile Include="Readers\ResultDiffingVisitorTests.cs" />
     <Compile Include="Readers\RuleDictionaryConverterTests.cs" />
+    <Compile Include="Readers\UriConverterTests.cs" />
     <Compile Include="ResultLogObjectWriter.cs" />
     <Compile Include="SarifExtensionsTests.cs" />
     <Compile Include="SparseReaderDispatchTableTests.cs" />

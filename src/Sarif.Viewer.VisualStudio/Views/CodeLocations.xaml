@@ -24,13 +24,9 @@
                 <ResourceDictionary Source="pack://application:,,,/Microsoft.Sarif.Viewer;component/Themes/TabControl.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/Microsoft.Sarif.Viewer;component/Themes/Locations.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/Microsoft.Sarif.Viewer;component/Themes/Stacks.xaml" />
-                <ResourceDictionary Source="pack://application:,,,/Microsoft.Sarif.Viewer;component/Themes/CodeFlows.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/Microsoft.Sarif.Viewer;component/Themes/CallTrees.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/Microsoft.Sarif.Viewer;component/Themes/Fixes.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/Microsoft.Sarif.Viewer;component/Themes/Information.xaml" />
-                <ResourceDictionary>
-
-                </ResourceDictionary>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
 
@@ -40,7 +36,7 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
         <!-- This is the header of the dialog. It displays general info about the result. -->
@@ -122,6 +118,35 @@
         <TabControl Grid.Row="1"
                     SelectedValue="{Binding SelectedTab, Mode=TwoWay}"
                     BorderThickness="0 1 0 0">
+            <TabControl.Resources>
+                <converters:CollectionToBooleanConverter x:Key="collectionToBooleanConverter" />
+            </TabControl.Resources>
+            <TabControl.Style>
+                <Style TargetType="{x:Type TabControl}">
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding Locations, Converter={StaticResource collectionToBooleanConverter}}"
+                                     Value="True">
+                            <Setter Property="SelectedIndex"
+                                    Value="0" />
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding Fixes, Converter={StaticResource collectionToBooleanConverter}}"
+                                     Value="True">
+                            <Setter Property="SelectedIndex"
+                                    Value="3" />
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding Stacks, Converter={StaticResource collectionToBooleanConverter}}"
+                                     Value="True">
+                            <Setter Property="SelectedIndex"
+                                    Value="2" />
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding CallTrees, Converter={StaticResource collectionToBooleanConverter}}"
+                                     Value="True">
+                            <Setter Property="SelectedIndex"
+                                    Value="1" />
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </TabControl.Style>
             <TabItem>
                 <TabItem.Header>
                     <DockPanel Margin="5 0 5 0">
@@ -137,28 +162,11 @@
                 <ContentControl ContentTemplate="{StaticResource CodeLocationCollectionTemplate}"
                                 Content="{Binding}" />
             </TabItem>
-            <TabItem Visibility="{Binding CodeFlows, Converter={StaticResource collectionToVisibility0Converter}}">
-                <TabItem.Header>
-                    <DockPanel Margin="5 0 5 0">
-                        <TextBlock DockPanel.Dock="Left"
-                                   Text="Code Flows" />
-                        <TextBlock DockPanel.Dock="Left"
-                                   Visibility="{Binding CodeFlows, Converter={StaticResource collectionToVisibility1Converter}}">
-                            <Run Text=" (" />
-                            <Run Text="{Binding CodeFlows, Mode=OneWay, Converter={StaticResource collectionToCountConverter}}" />
-                            <Run Text=")" />
-                        </TextBlock>
-                    </DockPanel>
-                </TabItem.Header>
-
-                <ContentControl ContentTemplate="{StaticResource AnnotatedCodeLocationCollectionDataGridTemplate}"
-                                Content="{Binding CodeFlows}" />
-            </TabItem>
             <TabItem Visibility="{Binding CallTrees, Converter={StaticResource collectionToVisibility0Converter}}">
                 <TabItem.Header>
                     <DockPanel Margin="5 0 5 0">
                         <TextBlock DockPanel.Dock="Left"
-                                   Text="Call Trees" />
+                                   Text="Code Flows" />
                         <TextBlock DockPanel.Dock="Left"
                                    Visibility="{Binding CallTrees, Converter={StaticResource collectionToVisibility1Converter}}">
                             <Run Text=" (" />

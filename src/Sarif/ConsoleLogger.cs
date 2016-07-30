@@ -58,7 +58,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 throw new ArgumentNullException(nameof(context));
             }
 
-            if (this.Verbose)
+            if (Verbose)
             {
                 Console.WriteLine(string.Format(CultureInfo.CurrentCulture,
                     SdkResources.MSG001_AnalyzingTarget,
@@ -68,7 +68,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         public void LogMessage(bool verbose, string message)
         {
-            if (this.Verbose)
+            if (Verbose)
             {
                 Console.WriteLine(message);
             }

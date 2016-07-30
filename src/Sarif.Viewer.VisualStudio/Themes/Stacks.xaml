@@ -9,6 +9,7 @@
     
     <!-- Converters -->
     <converters:StringToVisibilityConverter x:Key="stringToVisibilityConverter" />
+    <converters:Int32ToVisibilityConverter x:Key="int32ToVisibilityConverter" />
 
     <DataTemplate x:Key="StackCollectionTemplate">
         <ItemsControl ItemsSource="{Binding}">
@@ -21,7 +22,7 @@
             <ItemsControl.ItemContainerStyle>
                 <Style TargetType="{x:Type ContentPresenter}">
                     <Setter Property="DockPanel.Dock"
-                            Value="Bottom" />
+                            Value="Top" />
                 </Style>
             </ItemsControl.ItemContainerStyle>
             <ItemsControl.ItemTemplate>
@@ -62,14 +63,21 @@
                                                                         <TextBlock Visibility="{Binding Module, Converter={StaticResource stringToVisibilityConverter}}">
                                                                             <Run Text="{Binding Module}" /><Run Text="!" />
                                                                         </TextBlock>
-                                                                    </InlineUIContainer><InlineUIContainer>
+                                                                    </InlineUIContainer>
+                                                                    <InlineUIContainer>
                                                                         <TextBlock Visibility="{Binding FullyQualifiedLogicalName, Converter={StaticResource stringToVisibilityConverter}}">
                                                                             <Run Text="{Binding FullyQualifiedLogicalName}" /><Run Text="!" />
                                                                         </TextBlock>
                                                                     </InlineUIContainer>
-                                                                    <Run Text="{Binding FileName, Mode=OneWay}" /> Line <Run Text="{Binding Region.StartLine, Mode=OneWay}" /><InlineUIContainer>
-                                                                        <TextBlock Visibility="{Binding Column, Converter={StaticResource stringToVisibilityConverter}}">
-                                                                            <Run Text="Col " /><Run Text="{Binding Column}" />
+                                                                    <Run Text="{Binding FileName, Mode=OneWay}" />
+                                                                    <InlineUIContainer>
+                                                                        <TextBlock Visibility="{Binding Line,Converter={StaticResource int32ToVisibilityConverter}}">
+                                                                            <Run Text="Line "/><Run Text="{Binding Line, Mode=OneWay}" />
+                                                                        </TextBlock>
+                                                                    </InlineUIContainer>
+                                                                    <InlineUIContainer>
+                                                                        <TextBlock Visibility="{Binding Column, Converter={StaticResource int32ToVisibilityConverter}}">
+                                                                            <Run Text=", Col " /><Run Text="{Binding Column, Mode=OneWay}" />
                                                                         </TextBlock>
                                                                     </InlineUIContainer>
                                                                 </TextBlock>    

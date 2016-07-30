@@ -3,28 +3,23 @@
 
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using SarifWriters = Microsoft.CodeAnalysis.Sarif.Writers;
 
 namespace Microsoft.CodeAnalysis.Sarif
 {
     /// <summary>
-    /// A single file. In some cases, this file might be nested within another file.
+    /// Represents a single file. In some cases, this file might be nested within another file.
     /// </summary>
     public partial class FileData : ISarifNode
     {
-        public static FileData Create(Uri uri, bool computeHashes, out string fileDataKey)
+        public static FileData Create(Uri uri, bool computeHashes)
         {
             if (uri == null) { throw new ArgumentNullException(nameof(uri)); }
-
-            fileDataKey = null;
 
             var fileData = new FileData()
             {
                 MimeType = SarifWriters.MimeType.DetermineFromFileExtension(uri)
             };
-
-            fileDataKey = uri.ToString();
 
             if (computeHashes && uri.IsAbsoluteUri && uri.IsFile)
             {
@@ -48,19 +43,6 @@ namespace Microsoft.CodeAnalysis.Sarif
                             },
                         };
             }
-            //else if (files.Count == 1)
-            //{
-            //    fileData.Uri = uri;
-            //    fileDataKey = fileDataKey + "#" + fileData.Uri.ToString();
-            //}
-            //else
-            //{
-            //    Debug.Assert(!uri.IsAbsoluteUri);                    
-            //    fileData.Uri = uri;
-            //    fileDataKey = fileDataKey + fileData.Uri.ToString();
-            //}
-
-            //files.Add(fileData);
 
             return fileData;
         }

@@ -7,7 +7,7 @@
         "name": "StaticDriverVerifier"
       },
       "files": {
-        "..\\..\\..\\rules\\WDM\\CheckAddDevice.slic": {
+        "../../../rules/WDM/CheckAddDevice.slic": {
           "mimeType": "text/x-cpp"
         },
         "file:///d:/slam1/wdk/src_5043/fail_drivers/wdm/fail_driver1/sdv/sdv-harness.c": {
@@ -21,7 +21,7 @@
           "locations": [
             {
               "resultFile": {
-                "uri": "..\\..\\..\\rules\\WDM\\CheckAddDevice.slic",
+                "uri": "../../../rules/WDM/CheckAddDevice.slic",
                 "region": {
                   "startLine": 35
                 }
@@ -32,154 +32,105 @@
             {
               "locations": [
                 {
+                  "fullyQualifiedLogicalName": "OS",
                   "kind": "call",
+                  "callee": "main",
                   "importance": "unimportant",
                   "properties": {
-                    "State": "^",
-                    "Caller": "OS",
-                    "Callee": "main"
+                    "currentDataValues": "^"
                   }
                 },
                 {
                   "step": 1,
-                  "message": "====Auto=====",
                   "kind": "continuation",
-                  "importance": "unimportant",
-                  "properties": {
-                    "State": "^====Auto====="
-                  }
+                  "importance": "unimportant"
                 },
                 {
                   "step": 2,
-                  "message": "====Auto=====,====Pre=====,____true",
+                  "fullyQualifiedLogicalName": "main",
                   "kind": "call",
+                  "callee": "_sdv_init4",
                   "importance": "unimportant",
                   "properties": {
-                    "State": "^====Auto=====^====Pre=====^____true",
-                    "Caller": "main",
-                    "Callee": "_sdv_init4"
+                    "currentDataValues": "^====Pre=====^____true"
                   }
                 },
                 {
                   "step": 3,
-                  "message": "====Auto=====",
                   "kind": "continuation",
-                  "importance": "unimportant",
-                  "properties": {
-                    "State": "^====Auto====="
-                  }
+                  "importance": "unimportant"
                 },
                 {
                   "step": 4,
-                  "message": "====Auto=====",
                   "kind": "assignment",
-                  "importance": "unimportant",
-                  "properties": {
-                    "State": "^====Auto====="
-                  }
+                  "importance": "unimportant"
                 },
                 {
                   "step": 5,
-                  "message": "====Auto=====",
                   "kind": "assignment",
-                  "importance": "unimportant",
-                  "properties": {
-                    "State": "^====Auto====="
-                  }
+                  "importance": "unimportant"
                 },
                 {
                   "step": 6,
-                  "message": "====Auto=====",
+                  "fullyQualifiedLogicalName": "main",
                   "kind": "callReturn",
-                  "importance": "unimportant",
-                  "properties": {
-                    "State": "^====Auto====="
-                  }
+                  "importance": "unimportant"
                 },
                 {
                   "step": 7,
-                  "message": "====Auto=====",
                   "kind": "continuation",
-                  "importance": "unimportant",
-                  "properties": {
-                    "State": "^====Auto====="
-                  }
+                  "importance": "unimportant"
                 },
                 {
                   "step": 8,
-                  "message": "====Auto=====,====Pre=====,____true",
+                  "fullyQualifiedLogicalName": "main",
                   "kind": "call",
+                  "callee": "_sdv_init1",
                   "importance": "unimportant",
                   "properties": {
-                    "State": "^====Auto=====^====Pre=====^____true",
-                    "Caller": "main",
-                    "Callee": "_sdv_init1"
+                    "currentDataValues": "^====Pre=====^____true"
                   }
                 },
                 {
                   "step": 9,
-                  "message": "====Auto=====",
                   "kind": "continuation",
-                  "importance": "unimportant",
-                  "properties": {
-                    "State": "^====Auto====="
-                  }
+                  "importance": "unimportant"
                 },
                 {
                   "step": 10,
-                  "message": "====Auto=====",
                   "kind": "continuation",
-                  "importance": "unimportant",
-                  "properties": {
-                    "State": "^====Auto====="
-                  }
+                  "importance": "unimportant"
                 },
                 {
                   "step": 11,
-                  "message": "====Auto=====",
+                  "fullyQualifiedLogicalName": "main",
                   "kind": "callReturn",
-                  "importance": "unimportant",
-                  "properties": {
-                    "State": "^====Auto====="
-                  }
+                  "importance": "unimportant"
                 },
                 {
                   "step": 12,
-                  "message": "====Auto=====",
                   "kind": "continuation",
-                  "importance": "unimportant",
-                  "properties": {
-                    "State": "^====Auto====="
-                  }
+                  "importance": "unimportant"
                 },
                 {
                   "step": 13,
-                  "message": "====Auto=====,====Pre=====,____true",
+                  "fullyQualifiedLogicalName": "main",
                   "kind": "call",
+                  "callee": "_sdv_init2",
                   "importance": "unimportant",
                   "properties": {
-                    "State": "^====Auto=====^====Pre=====^____true",
-                    "Caller": "main",
-                    "Callee": "_sdv_init2"
+                    "currentDataValues": "^====Pre=====^____true"
                   }
                 },
                 {
                   "step": 14,
-                  "message": "====Auto=====",
                   "kind": "continuation",
-                  "importance": "unimportant",
-                  "properties": {
-                    "State": "^====Auto====="
-                  }
+                  "importance": "unimportant"
                 },
                 {
                   "step": 15,
-                  "message": "====Auto=====",
                   "kind": "continuation",
-                  "importance": "unimportant",
-                  "properties": {
-                    "State": "^====Auto====="
-                  }
+                  "importance": "unimportant"
                 },
                 {
                   "step": 16,
@@ -189,11 +140,8 @@
                       "startLine": 77
                     }
                   },
-                  "message": "====Auto=====",
                   "kind": "assignment",
-                  "properties": {
-                    "State": "^====Auto====="
-                  }
+                  "importance": "unimportant"
                 },
                 {
                   "step": 17,
@@ -203,11 +151,8 @@
                       "startLine": 81
                     }
                   },
-                  "message": "====Auto=====",
                   "kind": "assignment",
-                  "properties": {
-                    "State": "^====Auto====="
-                  }
+                  "importance": "unimportant"
                 },
                 {
                   "step": 18,
@@ -217,11 +162,8 @@
                       "startLine": 83
                     }
                   },
-                  "message": "====Auto=====",
                   "kind": "assignment",
-                  "properties": {
-                    "State": "^====Auto====="
-                  }
+                  "importance": "unimportant"
                 },
                 {
                   "step": 19,
@@ -231,10 +173,10 @@
                       "startLine": 88
                     }
                   },
-                  "message": "&sdv_ControllerIrp=2919,====Auto=====",
                   "kind": "assignment",
+                  "importance": "unimportant",
                   "properties": {
-                    "State": "^&sdv_ControllerIrp=2919^====Auto====="
+                    "currentDataValues": "^&sdv_ControllerIrp=2919"
                   }
                 },
                 {
@@ -245,10 +187,10 @@
                       "startLine": 91
                     }
                   },
-                  "message": "&sdv_StartIoIrp=9375,====Auto=====",
                   "kind": "assignment",
+                  "importance": "unimportant",
                   "properties": {
-                    "State": "^&sdv_StartIoIrp=9375^====Auto====="
+                    "currentDataValues": "^&sdv_StartIoIrp=9375"
                   }
                 },
                 {
@@ -259,10 +201,10 @@
                       "startLine": 95
                     }
                   },
-                  "message": "&sdv_PowerIrp=9627,====Auto=====",
                   "kind": "assignment",
+                  "importance": "unimportant",
                   "properties": {
-                    "State": "^&sdv_PowerIrp=9627^====Auto====="
+                    "currentDataValues": "^&sdv_PowerIrp=9627"
                   }
                 },
                 {
@@ -273,10 +215,10 @@
                       "startLine": 99
                     }
                   },
-                  "message": "&sdv_harnessIrp=8107,====Auto=====",
                   "kind": "assignment",
+                  "importance": "unimportant",
                   "properties": {
-                    "State": "^&sdv_harnessIrp=8107^====Auto====="
+                    "currentDataValues": "^&sdv_harnessIrp=8107"
                   }
                 },
                 {
@@ -287,10 +229,10 @@
                       "startLine": 106
                     }
                   },
-                  "message": "&sdv_other_harnessIrp=10107,====Auto=====",
                   "kind": "assignment",
+                  "importance": "unimportant",
                   "properties": {
-                    "State": "^&sdv_other_harnessIrp=10107^====Auto====="
+                    "currentDataValues": "^&sdv_other_harnessIrp=10107"
                   }
                 },
                 {
@@ -301,10 +243,10 @@
                       "startLine": 111
                     }
                   },
-                  "message": "&sdv_IoMakeAssociatedIrp_harnessIrp=7427,====Auto=====",
                   "kind": "assignment",
+                  "importance": "unimportant",
                   "properties": {
-                    "State": "^&sdv_IoMakeAssociatedIrp_harnessIrp=7427^====Auto====="
+                    "currentDataValues": "^&sdv_IoMakeAssociatedIrp_harnessIrp=7427"
                   }
                 },
                 {
@@ -315,10 +257,10 @@
                       "startLine": 116
                     }
                   },
-                  "message": "&sdv_IoBuildDeviceIoControlRequest_harnessIrp=9867,====Auto=====",
                   "kind": "assignment",
+                  "importance": "unimportant",
                   "properties": {
-                    "State": "^&sdv_IoBuildDeviceIoControlRequest_harnessIrp=9867^====Auto====="
+                    "currentDataValues": "^&sdv_IoBuildDeviceIoControlRequest_harnessIrp=9867"
                   }
                 },
                 {
@@ -329,10 +271,10 @@
                       "startLine": 120
                     }
                   },
-                  "message": "&sdv_harness_IoBuildDeviceIoControlRequest_IoStatusBlock=8883,====Auto=====",
                   "kind": "assignment",
+                  "importance": "unimportant",
                   "properties": {
-                    "State": "^&sdv_harness_IoBuildDeviceIoControlRequest_IoStatusBlock=8883^====Auto====="
+                    "currentDataValues": "^&sdv_harness_IoBuildDeviceIoControlRequest_IoStatusBlock=8883"
                   }
                 },
                 {
@@ -343,10 +285,10 @@
                       "startLine": 127
                     }
                   },
-                  "message": "&sdv_IoBuildSynchronousFsdRequest_harnessIrp=6659,====Auto=====",
                   "kind": "assignment",
+                  "importance": "unimportant",
                   "properties": {
-                    "State": "^&sdv_IoBuildSynchronousFsdRequest_harnessIrp=6659^====Auto====="
+                    "currentDataValues": "^&sdv_IoBuildSynchronousFsdRequest_harnessIrp=6659"
                   }
                 },
                 {
@@ -357,10 +299,10 @@
                       "startLine": 131
                     }
                   },
-                  "message": "&sdv_harness_IoBuildSynchronousFsdRequest_IoStatusBlock=2907,====Auto=====",
                   "kind": "assignment",
+                  "importance": "unimportant",
                   "properties": {
-                    "State": "^&sdv_harness_IoBuildSynchronousFsdRequest_IoStatusBlock=2907^====Auto====="
+                    "currentDataValues": "^&sdv_harness_IoBuildSynchronousFsdRequest_IoStatusBlock=2907"
                   }
                 },
                 {
@@ -371,10 +313,10 @@
                       "startLine": 135
                     }
                   },
-                  "message": "&sdv_IoBuildAsynchronousFsdRequest_harnessIrp=1691,====Auto=====",
                   "kind": "assignment",
+                  "importance": "unimportant",
                   "properties": {
-                    "State": "^&sdv_IoBuildAsynchronousFsdRequest_harnessIrp=1691^====Auto====="
+                    "currentDataValues": "^&sdv_IoBuildAsynchronousFsdRequest_harnessIrp=1691"
                   }
                 },
                 {
@@ -385,10 +327,10 @@
                       "startLine": 139
                     }
                   },
-                  "message": "&sdv_harness_IoBuildAsynchronousFsdRequest_IoStatusBlock=9615,====Auto=====",
                   "kind": "assignment",
+                  "importance": "unimportant",
                   "properties": {
-                    "State": "^&sdv_harness_IoBuildAsynchronousFsdRequest_IoStatusBlock=9615^====Auto====="
+                    "currentDataValues": "^&sdv_harness_IoBuildAsynchronousFsdRequest_IoStatusBlock=9615"
                   }
                 },
                 {
@@ -399,10 +341,10 @@
                       "startLine": 144
                     }
                   },
-                  "message": "&sdv_IoInitializeIrp_harnessIrp=3611,====Auto=====",
                   "kind": "assignment",
+                  "importance": "unimportant",
                   "properties": {
-                    "State": "^&sdv_IoInitializeIrp_harnessIrp=3611^====Auto====="
+                    "currentDataValues": "^&sdv_IoInitializeIrp_harnessIrp=3611"
                   }
                 },
                 {
@@ -413,11 +355,8 @@
                       "startLine": 159
                     }
                   },
-                  "message": "====Auto=====",
                   "kind": "assignment",
-                  "properties": {
-                    "State": "^====Auto====="
-                  }
+                  "importance": "unimportant"
                 },
                 {
                   "step": 33,
@@ -427,11 +366,8 @@
                       "startLine": 202
                     }
                   },
-                  "message": "====Auto=====",
                   "kind": "assignment",
-                  "properties": {
-                    "State": "^====Auto====="
-                  }
+                  "importance": "unimportant"
                 },
                 {
                   "step": 34,
@@ -441,11 +377,8 @@
                       "startLine": 203
                     }
                   },
-                  "message": "====Auto=====",
                   "kind": "assignment",
-                  "properties": {
-                    "State": "^====Auto====="
-                  }
+                  "importance": "unimportant"
                 },
                 {
                   "step": 35,
@@ -455,11 +388,8 @@
                       "startLine": 204
                     }
                   },
-                  "message": "====Auto=====",
                   "kind": "assignment",
-                  "properties": {
-                    "State": "^====Auto====="
-                  }
+                  "importance": "unimportant"
                 },
                 {
                   "step": 36,
@@ -469,11 +399,8 @@
                       "startLine": 205
                     }
                   },
-                  "message": "====Auto=====",
                   "kind": "assignment",
-                  "properties": {
-                    "State": "^====Auto====="
-                  }
+                  "importance": "unimportant"
                 },
                 {
                   "step": 37,
@@ -483,11 +410,8 @@
                       "startLine": 206
                     }
                   },
-                  "message": "====Auto=====",
                   "kind": "assignment",
-                  "properties": {
-                    "State": "^====Auto====="
-                  }
+                  "importance": "unimportant"
                 },
                 {
                   "step": 38,
@@ -497,11 +421,8 @@
                       "startLine": 207
                     }
                   },
-                  "message": "====Auto=====",
                   "kind": "assignment",
-                  "properties": {
-                    "State": "^====Auto====="
-                  }
+                  "importance": "unimportant"
                 },
                 {
                   "step": 39,
@@ -511,11 +432,8 @@
                       "startLine": 209
                     }
                   },
-                  "message": "====Auto=====",
                   "kind": "assignment",
-                  "properties": {
-                    "State": "^====Auto====="
-                  }
+                  "importance": "unimportant"
                 },
                 {
                   "step": 40,
@@ -525,10 +443,10 @@
                       "startLine": 217
                     }
                   },
-                  "message": "&sdv_kdpc_val3=6615,====Auto=====",
                   "kind": "assignment",
+                  "importance": "unimportant",
                   "properties": {
-                    "State": "^&sdv_kdpc_val3=6615^====Auto====="
+                    "currentDataValues": "^&sdv_kdpc_val3=6615"
                   }
                 },
                 {
@@ -539,10 +457,10 @@
                       "startLine": 237
                     }
                   },
-                  "message": "&sdv_devobj_fdo=8935,====Auto=====",
                   "kind": "assignment",
+                  "importance": "unimportant",
                   "properties": {
-                    "State": "^&sdv_devobj_fdo=8935^====Auto====="
+                    "currentDataValues": "^&sdv_devobj_fdo=8935"
                   }
                 },
                 {
@@ -553,11 +471,8 @@
                       "startLine": 240
                     }
                   },
-                  "message": "====Auto=====",
                   "kind": "assignment",
-                  "properties": {
-                    "State": "^====Auto====="
-                  }
+                  "importance": "unimportant"
                 },
                 {
                   "step": 43,
@@ -567,10 +482,10 @@
                       "startLine": 245
                     }
                   },
-                  "message": "&sdv_devobj_pdo=3159,====Auto=====",
                   "kind": "assignment",
+                  "importance": "unimportant",
                   "properties": {
-                    "State": "^&sdv_devobj_pdo=3159^====Auto====="
+                    "currentDataValues": "^&sdv_devobj_pdo=3159"
                   }
                 },
                 {
@@ -581,10 +496,10 @@
                       "startLine": 249
                     }
                   },
-                  "message": "&sdv_devobj_child_pdo=7667,====Auto=====",
                   "kind": "assignment",
+                  "importance": "unimportant",
                   "properties": {
-                    "State": "^&sdv_devobj_child_pdo=7667^====Auto====="
+                    "currentDataValues": "^&sdv_devobj_child_pdo=7667"
                   }
                 },
                 {
@@ -595,10 +510,10 @@
                       "startLine": 253
                     }
                   },
-                  "message": "&sdv_kinterrupt_val=8895,====Auto=====",
                   "kind": "assignment",
+                  "importance": "unimportant",
                   "properties": {
-                    "State": "^&sdv_kinterrupt_val=8895^====Auto====="
+                    "currentDataValues": "^&sdv_kinterrupt_val=8895"
                   }
                 },
                 {
@@ -609,10 +524,10 @@
                       "startLine": 256
                     }
                   },
-                  "message": "&sdv_MapRegisterBase_val=7407,====Auto=====",
                   "kind": "assignment",
+                  "importance": "unimportant",
                   "properties": {
-                    "State": "^&sdv_MapRegisterBase_val=7407^====Auto====="
+                    "currentDataValues": "^&sdv_MapRegisterBase_val=7407"
                   }
                 },
                 {
@@ -623,11 +538,8 @@
                       "startLine": 260
                     }
                   },
-                  "message": "====Auto=====",
                   "kind": "assignment",
-                  "properties": {
-                    "State": "^====Auto====="
-                  }
+                  "importance": "unimportant"
                 },
                 {
                   "step": 48,
@@ -637,11 +549,8 @@
                       "startLine": 263
                     }
                   },
-                  "message": "====Auto=====",
                   "kind": "assignment",
-                  "properties": {
-                    "State": "^====Auto====="
-                  }
+                  "importance": "unimportant"
                 },
                 {
                   "step": 49,
@@ -651,11 +560,8 @@
                       "startLine": 266
                     }
                   },
-                  "message": "====Auto=====",
                   "kind": "assignment",
-                  "properties": {
-                    "State": "^====Auto====="
-                  }
+                  "importance": "unimportant"
                 },
                 {
                   "step": 50,
@@ -665,10 +571,10 @@
                       "startLine": 272
                     }
                   },
-                  "message": "&sdv_fx_dev_object=8895,====Auto=====",
                   "kind": "assignment",
+                  "importance": "unimportant",
                   "properties": {
-                    "State": "^&sdv_fx_dev_object=8895^====Auto====="
+                    "currentDataValues": "^&sdv_fx_dev_object=8895"
                   }
                 },
                 {
@@ -679,11 +585,8 @@
                       "startLine": 1219
                     }
                   },
-                  "message": "====Auto=====",
                   "kind": "assignment",
-                  "properties": {
-                    "State": "^====Auto====="
-                  }
+                  "importance": "unimportant"
                 },
                 {
                   "step": 52,
@@ -693,11 +596,8 @@
                       "startLine": 1220
                     }
                   },
-                  "message": "====Auto=====",
                   "kind": "assignment",
-                  "properties": {
-                    "State": "^====Auto====="
-                  }
+                  "importance": "unimportant"
                 },
                 {
                   "step": 53,
@@ -707,11 +607,8 @@
                       "startLine": 1221
                     }
                   },
-                  "message": "====Auto=====",
                   "kind": "assignment",
-                  "properties": {
-                    "State": "^====Auto====="
-                  }
+                  "importance": "unimportant"
                 },
                 {
                   "step": 54,
@@ -721,11 +618,8 @@
                       "startLine": 1224
                     }
                   },
-                  "message": "====Auto=====",
                   "kind": "assignment",
-                  "properties": {
-                    "State": "^====Auto====="
-                  }
+                  "importance": "unimportant"
                 },
                 {
                   "step": 55,
@@ -735,11 +629,8 @@
                       "startLine": 1235
                     }
                   },
-                  "message": "====Auto=====",
                   "kind": "assignment",
-                  "properties": {
-                    "State": "^====Auto====="
-                  }
+                  "importance": "unimportant"
                 },
                 {
                   "step": 56,
@@ -749,11 +640,8 @@
                       "startLine": 1250
                     }
                   },
-                  "message": "====Auto=====",
                   "kind": "assignment",
-                  "properties": {
-                    "State": "^====Auto====="
-                  }
+                  "importance": "unimportant"
                 },
                 {
                   "step": 57,
@@ -763,11 +651,8 @@
                       "startLine": 1252
                     }
                   },
-                  "message": "====Auto=====",
                   "kind": "assignment",
-                  "properties": {
-                    "State": "^====Auto====="
-                  }
+                  "importance": "unimportant"
                 },
                 {
                   "step": 58,
@@ -777,11 +662,8 @@
                       "startLine": 1266
                     }
                   },
-                  "message": "====Auto=====",
                   "kind": "assignment",
-                  "properties": {
-                    "State": "^====Auto====="
-                  }
+                  "importance": "unimportant"
                 },
                 {
                   "step": 59,
@@ -791,10 +673,10 @@
                       "startLine": 9532
                     }
                   },
-                  "message": "&sdv_devobj_top=6175,====Auto=====",
                   "kind": "assignment",
+                  "importance": "unimportant",
                   "properties": {
-                    "State": "^&sdv_devobj_top=6175^====Auto====="
+                    "currentDataValues": "^&sdv_devobj_top=6175"
                   }
                 },
                 {
@@ -805,29 +687,19 @@
                       "startLine": 13920
                     }
                   },
-                  "message": "====Auto=====",
                   "kind": "assignment",
-                  "properties": {
-                    "State": "^====Auto====="
-                  }
+                  "importance": "unimportant"
                 },
                 {
                   "step": 61,
-                  "message": "====Auto=====",
+                  "fullyQualifiedLogicalName": "main",
                   "kind": "callReturn",
-                  "importance": "unimportant",
-                  "properties": {
-                    "State": "^====Auto====="
-                  }
+                  "importance": "unimportant"
                 },
                 {
                   "step": 62,
-                  "message": "====Auto=====",
                   "kind": "continuation",
-                  "importance": "unimportant",
-                  "properties": {
-                    "State": "^====Auto====="
-                  }
+                  "importance": "unimportant"
                 },
                 {
                   "step": 63,
@@ -837,29 +709,21 @@
                       "startLine": 6710
                     }
                   },
-                  "message": "sdv_harnessDeviceExtension=11167,====Auto=====",
                   "kind": "branch",
+                  "importance": "unimportant",
                   "properties": {
-                    "State": "^sdv_harnessDeviceExtension=11167^====Auto====="
+                    "currentDataValues": "^sdv_harnessDeviceExtension=11167"
                   }
                 },
                 {
                   "step": 64,
-                  "message": "====Auto=====",
                   "kind": "assignment",
-                  "importance": "unimportant",
-                  "properties": {
-                    "State": "^====Auto====="
-                  }
+                  "importance": "unimportant"
                 },
                 {
                   "step": 65,
-                  "message": "====Auto=====",
                   "kind": "continuation",
-                  "importance": "unimportant",
-                  "properties": {
-                    "State": "^====Auto====="
-                  }
+                  "importance": "unimportant"
                 },
                 {
                   "step": 66,
@@ -869,20 +733,16 @@
                       "startLine": 6710
                     }
                   },
-                  "message": "Tmp=1,====Auto=====",
                   "kind": "continuation",
+                  "importance": "unimportant",
                   "properties": {
-                    "State": "^Tmp=1^====Auto====="
+                    "currentDataValues": "^Tmp=1"
                   }
                 },
                 {
                   "step": 67,
-                  "message": "====Auto=====",
                   "kind": "continuation",
-                  "importance": "unimportant",
-                  "properties": {
-                    "State": "^====Auto====="
-                  }
+                  "importance": "unimportant"
                 },
                 {
                   "step": 68,
@@ -892,29 +752,21 @@
                       "startLine": 6710
                     }
                   },
-                  "message": "sdv_harnessDeviceExtension_two=11099,====Auto=====",
                   "kind": "branch",
+                  "importance": "unimportant",
                   "properties": {
-                    "State": "^sdv_harnessDeviceExtension_two=11099^====Auto====="
+                    "currentDataValues": "^sdv_harnessDeviceExtension_two=11099"
                   }
                 },
                 {
                   "step": 69,
-                  "message": "====Auto=====",
                   "kind": "assignment",
-                  "importance": "unimportant",
-                  "properties": {
-                    "State": "^====Auto====="
-                  }
+                  "importance": "unimportant"
                 },
                 {
                   "step": 70,
-                  "message": "====Auto=====",
                   "kind": "continuation",
-                  "importance": "unimportant",
-                  "properties": {
-                    "State": "^====Auto====="
-                  }
+                  "importance": "unimportant"
                 },
                 {
                   "step": 71,
@@ -924,20 +776,16 @@
                       "startLine": 6710
                     }
                   },
-                  "message": "Tmp=1,====Auto=====",
                   "kind": "continuation",
+                  "importance": "unimportant",
                   "properties": {
-                    "State": "^Tmp=1^====Auto====="
+                    "currentDataValues": "^Tmp=1"
                   }
                 },
                 {
                   "step": 72,
-                  "message": "====Auto=====",
                   "kind": "continuation",
-                  "importance": "unimportant",
-                  "properties": {
-                    "State": "^====Auto====="
-                  }
+                  "importance": "unimportant"
                 },
                 {
                   "step": 73,
@@ -947,10 +795,10 @@
                       "startLine": 6710
                     }
                   },
-                  "message": "sdv_harnessDeviceExtension=11167,====Auto=====",
                   "kind": "assignment",
+                  "importance": "unimportant",
                   "properties": {
-                    "State": "^sdv_harnessDeviceExtension=11167^====Auto====="
+                    "currentDataValues": "^sdv_harnessDeviceExtension=11167"
                   }
                 },
                 {
@@ -961,10 +809,10 @@
                       "startLine": 6710
                     }
                   },
-                  "message": "sdv_harnessDeviceExtension_two=11099,====Auto=====",
                   "kind": "assignment",
+                  "importance": "unimportant",
                   "properties": {
-                    "State": "^sdv_harnessDeviceExtension_two=11099^====Auto====="
+                    "currentDataValues": "^sdv_harnessDeviceExtension_two=11099"
                   }
                 },
                 {
@@ -975,10 +823,10 @@
                       "startLine": 6710
                     }
                   },
-                  "message": "&sdv_harnessStackLocation=5579,====Auto=====",
                   "kind": "assignment",
+                  "importance": "unimportant",
                   "properties": {
-                    "State": "^&sdv_harnessStackLocation=5579^====Auto====="
+                    "currentDataValues": "^&sdv_harnessStackLocation=5579"
                   }
                 },
                 {
@@ -989,10 +837,10 @@
                       "startLine": 6710
                     }
                   },
-                  "message": "&sdv_other_harnessStackLocation=10563,====Auto=====",
                   "kind": "assignment",
+                  "importance": "unimportant",
                   "properties": {
-                    "State": "^&sdv_other_harnessStackLocation=10563^====Auto====="
+                    "currentDataValues": "^&sdv_other_harnessStackLocation=10563"
                   }
                 },
                 {
@@ -1003,31 +851,22 @@
                       "startLine": 6711
                     }
                   },
-                  "message": "====Auto=====,====Pre=====,____true",
+                  "fullyQualifiedLogicalName": "main",
                   "kind": "call",
+                  "callee": "sdv_main",
                   "properties": {
-                    "State": "^====Auto=====^====Pre=====^____true",
-                    "Caller": "main",
-                    "Callee": "sdv_main"
+                    "currentDataValues": "^====Pre=====^____true"
                   }
                 },
                 {
                   "step": 78,
-                  "message": "====Auto=====",
                   "kind": "continuation",
-                  "importance": "unimportant",
-                  "properties": {
-                    "State": "^====Auto====="
-                  }
+                  "importance": "unimportant"
                 },
                 {
                   "step": 79,
-                  "message": "====Auto=====",
                   "kind": "continuation",
-                  "importance": "unimportant",
-                  "properties": {
-                    "State": "^====Auto====="
-                  }
+                  "importance": "unimportant"
                 },
                 {
                   "step": 80,
@@ -1037,31 +876,19 @@
                       "startLine": 5350
                     }
                   },
-                  "message": "====Auto=====",
+                  "fullyQualifiedLogicalName": "sdv_main",
                   "kind": "call",
-                  "properties": {
-                    "State": "^====Auto=====",
-                    "Caller": "sdv_main",
-                    "Callee": "sdv_CheckDispatchRoutines"
-                  }
+                  "callee": "sdv_CheckDispatchRoutines"
                 },
                 {
                   "step": 81,
-                  "message": "====Auto=====",
                   "kind": "continuation",
-                  "importance": "unimportant",
-                  "properties": {
-                    "State": "^====Auto====="
-                  }
+                  "importance": "unimportant"
                 },
                 {
                   "step": 82,
-                  "message": "====Auto=====",
                   "kind": "continuation",
-                  "importance": "unimportant",
-                  "properties": {
-                    "State": "^====Auto====="
-                  }
+                  "importance": "unimportant"
                 },
                 {
                   "step": 83,
@@ -1071,11 +898,8 @@
                       "startLine": 4810
                     }
                   },
-                  "message": "====Auto=====",
                   "kind": "assignment",
-                  "properties": {
-                    "State": "^====Auto====="
-                  }
+                  "importance": "unimportant"
                 },
                 {
                   "step": 84,
@@ -1085,20 +909,14 @@
                       "startLine": 4810
                     }
                   },
-                  "message": "====Auto=====",
+                  "fullyQualifiedLogicalName": "sdv_main",
                   "kind": "callReturn",
-                  "properties": {
-                    "State": "^====Auto====="
-                  }
+                  "importance": "unimportant"
                 },
                 {
                   "step": 85,
-                  "message": "====Auto=====",
                   "kind": "continuation",
-                  "importance": "unimportant",
-                  "properties": {
-                    "State": "^====Auto====="
-                  }
+                  "importance": "unimportant"
                 },
                 {
                   "step": 86,
@@ -1108,31 +926,19 @@
                       "startLine": 5351
                     }
                   },
-                  "message": "====Auto=====",
+                  "fullyQualifiedLogicalName": "sdv_main",
                   "kind": "call",
-                  "properties": {
-                    "State": "^====Auto=====",
-                    "Caller": "sdv_main",
-                    "Callee": "sdv_CheckStartIoRoutines"
-                  }
+                  "callee": "sdv_CheckStartIoRoutines"
                 },
                 {
                   "step": 87,
-                  "message": "====Auto=====",
                   "kind": "continuation",
-                  "importance": "unimportant",
-                  "properties": {
-                    "State": "^====Auto====="
-                  }
+                  "importance": "unimportant"
                 },
                 {
                   "step": 88,
-                  "message": "====Auto=====",
                   "kind": "continuation",
-                  "importance": "unimportant",
-                  "properties": {
-                    "State": "^====Auto====="
-                  }
+                  "importance": "unimportant"
                 },
                 {
                   "step": 89,
@@ -1142,11 +948,8 @@
                       "startLine": 4822
                     }
                   },
-                  "message": "====Auto=====",
                   "kind": "assignment",
-                  "properties": {
-                    "State": "^====Auto====="
-                  }
+                  "importance": "unimportant"
                 },
                 {
                   "step": 90,
@@ -1156,20 +959,14 @@
                       "startLine": 4822
                     }
                   },
-                  "message": "====Auto=====",
+                  "fullyQualifiedLogicalName": "sdv_main",
                   "kind": "callReturn",
-                  "properties": {
-                    "State": "^====Auto====="
-                  }
+                  "importance": "unimportant"
                 },
                 {
                   "step": 91,
-                  "message": "====Auto=====",
                   "kind": "continuation",
-                  "importance": "unimportant",
-                  "properties": {
-                    "State": "^====Auto====="
-                  }
+                  "importance": "unimportant"
                 },
                 {
                   "step": 92,
@@ -1179,31 +976,19 @@
                       "startLine": 5352
                     }
                   },
-                  "message": "====Auto=====",
+                  "fullyQualifiedLogicalName": "sdv_main",
                   "kind": "call",
-                  "properties": {
-                    "State": "^====Auto=====",
-                    "Caller": "sdv_main",
-                    "Callee": "sdv_CheckDpcRoutines"
-                  }
+                  "callee": "sdv_CheckDpcRoutines"
                 },
                 {
                   "step": 93,
-                  "message": "====Auto=====",
                   "kind": "continuation",
-                  "importance": "unimportant",
-                  "properties": {
-                    "State": "^====Auto====="
-                  }
+                  "importance": "unimportant"
                 },
                 {
                   "step": 94,
-                  "message": "====Auto=====",
                   "kind": "continuation",
-                  "importance": "unimportant",
-                  "properties": {
-                    "State": "^====Auto====="
-                  }
+                  "importance": "unimportant"
                 },
                 {
                   "step": 95,
@@ -1213,11 +998,8 @@
                       "startLine": 4842
                     }
                   },
-                  "message": "====Auto=====",
                   "kind": "assignment",
-                  "properties": {
-                    "State": "^====Auto====="
-                  }
+                  "importance": "unimportant"
                 },
                 {
                   "step": 96,
@@ -1227,20 +1009,14 @@
                       "startLine": 4842
                     }
                   },
-                  "message": "====Auto=====",
+                  "fullyQualifiedLogicalName": "sdv_main",
                   "kind": "callReturn",
-                  "properties": {
-                    "State": "^====Auto====="
-                  }
+                  "importance": "unimportant"
                 },
                 {
                   "step": 97,
-                  "message": "====Auto=====",
                   "kind": "continuation",
-                  "importance": "unimportant",
-                  "properties": {
-                    "State": "^====Auto====="
-                  }
+                  "importance": "unimportant"
                 },
                 {
                   "step": 98,
@@ -1250,31 +1026,19 @@
                       "startLine": 5353
                     }
                   },
-                  "message": "====Auto=====",
+                  "fullyQualifiedLogicalName": "sdv_main",
                   "kind": "call",
-                  "properties": {
-                    "State": "^====Auto=====",
-                    "Caller": "sdv_main",
-                    "Callee": "sdv_CheckIsrRoutines"
-                  }
+                  "callee": "sdv_CheckIsrRoutines"
                 },
                 {
                   "step": 99,
-                  "message": "====Auto=====",
                   "kind": "continuation",
-                  "importance": "unimportant",
-                  "properties": {
-                    "State": "^====Auto====="
-                  }
+                  "importance": "unimportant"
                 },
                 {
                   "step": 100,
-                  "message": "====Auto=====",
                   "kind": "continuation",
-                  "importance": "unimportant",
-                  "properties": {
-                    "State": "^====Auto====="
-                  }
+                  "importance": "unimportant"
                 },
                 {
                   "step": 101,
@@ -1284,11 +1048,8 @@
                       "startLine": 4857
                     }
                   },
-                  "message": "====Auto=====",
                   "kind": "assignment",
-                  "properties": {
-                    "State": "^====Auto====="
-                  }
+                  "importance": "unimportant"
                 },
                 {
                   "step": 102,
@@ -1298,20 +1059,14 @@
                       "startLine": 4857
                     }
                   },
-                  "message": "====Auto=====",
+                  "fullyQualifiedLogicalName": "sdv_main",
                   "kind": "callReturn",
-                  "properties": {
-                    "State": "^====Auto====="
-                  }
+                  "importance": "unimportant"
                 },
                 {
                   "step": 103,
-                  "message": "====Auto=====",
                   "kind": "continuation",
-                  "importance": "unimportant",
-                  "properties": {
-                    "State": "^====Auto====="
-                  }
+                  "importance": "unimportant"
                 },
                 {
                   "step": 104,
@@ -1321,31 +1076,19 @@
                       "startLine": 5354
                     }
                   },
-                  "message": "====Auto=====",
+                  "fullyQualifiedLogicalName": "sdv_main",
                   "kind": "call",
-                  "properties": {
-                    "State": "^====Auto=====",
-                    "Caller": "sdv_main",
-                    "Callee": "sdv_CheckCancelRoutines"
-                  }
+                  "callee": "sdv_CheckCancelRoutines"
                 },
                 {
                   "step": 105,
-                  "message": "====Auto=====",
                   "kind": "continuation",
-                  "importance": "unimportant",
-                  "properties": {
-                    "State": "^====Auto====="
-                  }
+                  "importance": "unimportant"
                 },
                 {
                   "step": 106,
-                  "message": "====Auto=====",
                   "kind": "continuation",
-                  "importance": "unimportant",
-                  "properties": {
-                    "State": "^====Auto====="
-                  }
+                  "importance": "unimportant"
                 },
                 {
                   "step": 107,
@@ -1355,11 +1098,8 @@
                       "startLine": 4877
                     }
                   },
-                  "message": "====Auto=====",
                   "kind": "assignment",
-                  "properties": {
-                    "State": "^====Auto====="
-                  }
+                  "importance": "unimportant"
                 },
                 {
                   "step": 108,
@@ -1369,20 +1109,14 @@
                       "startLine": 4877
                     }
                   },
-                  "message": "====Auto=====",
+                  "fullyQualifiedLogicalName": "sdv_main",
                   "kind": "callReturn",
-                  "properties": {
-                    "State": "^====Auto====="
-                  }
+                  "importance": "unimportant"
                 },
                 {
                   "step": 109,
-                  "message": "====Auto=====",
                   "kind": "continuation",
-                  "importance": "unimportant",
-                  "properties": {
-                    "State": "^====Auto====="
-                  }
+                  "importance": "unimportant"
                 },
                 {
                   "step": 110,
@@ -1392,31 +1126,19 @@
                       "startLine": 5356
                     }
                   },
-                  "message": "====Auto=====",
+                  "fullyQualifiedLogicalName": "sdv_main",
                   "kind": "call",
-                  "properties": {
-                    "State": "^====Auto=====",
-                    "Caller": "sdv_main",
-                    "Callee": "sdv_CheckIoDpcRoutines"
-                  }
+                  "callee": "sdv_CheckIoDpcRoutines"
                 },
                 {
                   "step": 111,
-                  "message": "====Auto=====",
                   "kind": "continuation",
-                  "importance": "unimportant",
-                  "properties": {
-                    "State": "^====Auto====="
-                  }
+                  "importance": "unimportant"
                 },
                 {
                   "step": 112,
-                  "message": "====Auto=====",
                   "kind": "continuation",
-                  "importance": "unimportant",
-                  "properties": {
-                    "State": "^====Auto====="
-                  }
+                  "importance": "unimportant"
                 },
                 {
                   "step": 113,
@@ -1426,11 +1148,8 @@
                       "startLine": 4912
                     }
                   },
-                  "message": "====Auto=====",
                   "kind": "assignment",
-                  "properties": {
-                    "State": "^====Auto====="
-                  }
+                  "importance": "unimportant"
                 },
                 {
                   "step": 114,
@@ -1440,20 +1159,14 @@
                       "startLine": 4912
                     }
                   },
-                  "message": "====Auto=====",
+                  "fullyQualifiedLogicalName": "sdv_main",
                   "kind": "callReturn",
-                  "properties": {
-                    "State": "^====Auto====="
-                  }
+                  "importance": "unimportant"
                 },
                 {
                   "step": 115,
-                  "message": "====Auto=====",
                   "kind": "continuation",
-                  "importance": "unimportant",
-                  "properties": {
-                    "State": "^====Auto====="
-                  }
+                  "importance": "unimportant"
                 },
                 {
                   "step": 116,
@@ -1463,31 +1176,19 @@
                       "startLine": 5357
                     }
                   },
-                  "message": "====Auto=====",
+                  "fullyQualifiedLogicalName": "sdv_main",
                   "kind": "call",
-                  "properties": {
-                    "State": "^====Auto=====",
-                    "Caller": "sdv_main",
-                    "Callee": "sdv_IoCompletionRoutines"
-                  }
+                  "callee": "sdv_IoCompletionRoutines"
                 },
                 {
                   "step": 117,
-                  "message": "====Auto=====",
                   "kind": "continuation",
-                  "importance": "unimportant",
-                  "properties": {
-                    "State": "^====Auto====="
-                  }
+                  "importance": "unimportant"
                 },
                 {
                   "step": 118,
-                  "message": "====Auto=====",
                   "kind": "continuation",
-                  "importance": "unimportant",
-                  "properties": {
-                    "State": "^====Auto====="
-                  }
+                  "importance": "unimportant"
                 },
                 {
                   "step": 119,
@@ -1497,11 +1198,8 @@
                       "startLine": 4928
                     }
                   },
-                  "message": "====Auto=====",
                   "kind": "assignment",
-                  "properties": {
-                    "State": "^====Auto====="
-                  }
+                  "importance": "unimportant"
                 },
                 {
                   "step": 120,
@@ -1511,20 +1209,14 @@
                       "startLine": 4928
                     }
                   },
-                  "message": "====Auto=====",
+                  "fullyQualifiedLogicalName": "sdv_main",
                   "kind": "callReturn",
-                  "properties": {
-                    "State": "^====Auto====="
-                  }
+                  "importance": "unimportant"
                 },
                 {
                   "step": 121,
-                  "message": "====Auto=====",
                   "kind": "continuation",
-                  "importance": "unimportant",
-                  "properties": {
-                    "State": "^====Auto====="
-                  }
+                  "importance": "unimportant"
                 },
                 {
                   "step": 122,
@@ -1534,31 +1226,19 @@
                       "startLine": 5358
                     }
                   },
-                  "message": "====Auto=====",
+                  "fullyQualifiedLogicalName": "sdv_main",
                   "kind": "call",
-                  "properties": {
-                    "State": "^====Auto=====",
-                    "Caller": "sdv_main",
-                    "Callee": "sdv_CheckWorkerRoutines"
-                  }
+                  "callee": "sdv_CheckWorkerRoutines"
                 },
                 {
                   "step": 123,
-                  "message": "====Auto=====",
                   "kind": "continuation",
-                  "importance": "unimportant",
-                  "properties": {
-                    "State": "^====Auto====="
-                  }
+                  "importance": "unimportant"
                 },
                 {
                   "step": 124,
-                  "message": "====Auto=====",
                   "kind": "continuation",
-                  "importance": "unimportant",
-                  "properties": {
-                    "State": "^====Auto====="
-                  }
+                  "importance": "unimportant"
                 },
                 {
                   "step": 125,
@@ -1568,11 +1248,8 @@
                       "startLine": 4946
                     }
                   },
-                  "message": "====Auto=====",
                   "kind": "assignment",
-                  "properties": {
-                    "State": "^====Auto====="
-                  }
+                  "importance": "unimportant"
                 },
                 {
                   "step": 126,
@@ -1582,20 +1259,14 @@
                       "startLine": 4946
                     }
                   },
-                  "message": "====Auto=====",
+                  "fullyQualifiedLogicalName": "sdv_main",
                   "kind": "callReturn",
-                  "properties": {
-                    "State": "^====Auto====="
-                  }
+                  "importance": "unimportant"
                 },
                 {
                   "step": 127,
-                  "message": "====Auto=====",
                   "kind": "continuation",
-                  "importance": "unimportant",
-                  "properties": {
-                    "State": "^====Auto====="
-                  }
+                  "importance": "unimportant"
                 },
                 {
                   "step": 128,
@@ -1605,31 +1276,19 @@
                       "startLine": 5359
                     }
                   },
-                  "message": "====Auto=====",
+                  "fullyQualifiedLogicalName": "sdv_main",
                   "kind": "call",
-                  "properties": {
-                    "State": "^====Auto=====",
-                    "Caller": "sdv_main",
-                    "Callee": "sdv_CheckAddDevice"
-                  }
+                  "callee": "sdv_CheckAddDevice"
                 },
                 {
                   "step": 129,
-                  "message": "====Auto=====",
                   "kind": "continuation",
-                  "importance": "unimportant",
-                  "properties": {
-                    "State": "^====Auto====="
-                  }
+                  "importance": "unimportant"
                 },
                 {
                   "step": 130,
-                  "message": "====Auto=====",
                   "kind": "continuation",
-                  "importance": "unimportant",
-                  "properties": {
-                    "State": "^====Auto====="
-                  }
+                  "importance": "unimportant"
                 },
                 {
                   "step": 131,
@@ -1639,11 +1298,8 @@
                       "startLine": 4955
                     }
                   },
-                  "message": "====Auto=====",
                   "kind": "assignment",
-                  "properties": {
-                    "State": "^====Auto====="
-                  }
+                  "importance": "unimportant"
                 },
                 {
                   "step": 132,
@@ -1653,225 +1309,170 @@
                       "startLine": 4955
                     }
                   },
-                  "message": "arg1=5,arg2=1,====Auto=====",
+                  "fullyQualifiedLogicalName": "sdv_CheckAddDevice",
                   "kind": "call",
+                  "callee": "SLIC_sdv_CheckAddDevice_exit",
                   "properties": {
-                    "State": "^arg1=5^arg2=1^====Auto=====",
-                    "Caller": "sdv_CheckAddDevice",
-                    "Callee": "SLIC_sdv_CheckAddDevice_exit"
+                    "currentDataValues": "^arg1=5^arg2=1"
                   }
                 },
                 {
                   "step": 133,
-                  "message": "====Auto=====",
                   "kind": "continuation",
-                  "importance": "unimportant",
-                  "properties": {
-                    "State": "^====Auto====="
-                  }
+                  "importance": "unimportant"
                 },
                 {
                   "step": 134,
                   "physicalLocation": {
-                    "uri": "..\\..\\..\\rules\\WDM\\CheckAddDevice.slic",
+                    "uri": "../../../rules/WDM/CheckAddDevice.slic",
                     "region": {
                       "startLine": 33
                     }
                   },
-                  "message": "sdv=1,====Auto=====",
                   "kind": "branch",
+                  "importance": "unimportant",
                   "properties": {
-                    "State": "^sdv=1^====Auto====="
+                    "currentDataValues": "^sdv=1"
                   }
                 },
                 {
                   "step": 135,
                   "physicalLocation": {
-                    "uri": "..\\..\\..\\rules\\WDM\\CheckAddDevice.slic",
+                    "uri": "../../../rules/WDM/CheckAddDevice.slic",
                     "region": {
                       "startLine": 35
                     }
                   },
-                  "message": "arg1=5,arg2=1,====Auto=====",
+                  "fullyQualifiedLogicalName": "SLIC_sdv_CheckAddDevice_exit",
                   "kind": "call",
+                  "callee": "SLIC_ABORT_1_0",
                   "properties": {
-                    "State": "^arg1=5^arg2=1^====Auto=====",
-                    "Caller": "SLIC_sdv_CheckAddDevice_exit",
-                    "Callee": "SLIC_ABORT_1_0"
+                    "currentDataValues": "^arg1=5^arg2=1"
                   }
                 },
                 {
                   "step": 136,
-                  "message": "====Auto=====",
                   "kind": "continuation",
-                  "importance": "unimportant",
-                  "properties": {
-                    "State": "^====Auto====="
-                  }
+                  "importance": "unimportant"
                 },
                 {
                   "step": 137,
-                  "message": "caller=5,====Auto=====",
                   "kind": "assignment",
                   "importance": "unimportant",
                   "properties": {
-                    "State": "^caller=5^====Auto====="
+                    "currentDataValues": "^caller=5"
                   }
                 },
                 {
                   "step": 138,
-                  "message": "sdv=1,====Auto=====",
                   "kind": "assignment",
                   "importance": "unimportant",
                   "properties": {
-                    "State": "^sdv=1^====Auto====="
+                    "currentDataValues": "^sdv=1"
                   }
                 },
                 {
                   "step": 139,
-                  "message": "arg1=3,====Auto=====",
+                  "fullyQualifiedLogicalName": "SLIC_ABORT_1_0",
                   "kind": "call",
+                  "callee": "SLIC_ERROR_ROUTINE",
                   "importance": "unimportant",
                   "properties": {
-                    "State": "^arg1=3^====Auto=====",
-                    "Caller": "SLIC_ABORT_1_0",
-                    "Callee": "SLIC_ERROR_ROUTINE"
+                    "currentDataValues": "^arg1=3"
                   }
                 },
                 {
                   "step": 140,
-                  "message": "====Auto=====",
                   "kind": "continuation",
-                  "importance": "unimportant",
-                  "properties": {
-                    "State": "^====Auto====="
-                  }
+                  "importance": "unimportant"
                 },
                 {
                   "step": 141,
-                  "message": "====Auto=====",
                   "kind": "assignment",
-                  "importance": "unimportant",
-                  "properties": {
-                    "State": "^====Auto====="
-                  }
+                  "importance": "unimportant"
                 },
                 {
                   "step": 142,
-                  "message": "====Auto=====",
+                  "fullyQualifiedLogicalName": "SLIC_ABORT_1_0",
                   "kind": "callReturn",
-                  "importance": "unimportant",
-                  "properties": {
-                    "State": "^====Auto====="
-                  }
+                  "importance": "unimportant"
                 },
                 {
                   "step": 143,
-                  "message": "====Auto=====",
                   "kind": "continuation",
-                  "importance": "unimportant",
-                  "properties": {
-                    "State": "^====Auto====="
-                  }
+                  "importance": "unimportant"
                 },
                 {
                   "step": 144,
-                  "message": "====Auto=====",
+                  "fullyQualifiedLogicalName": "SLIC_sdv_CheckAddDevice_exit",
                   "kind": "callReturn",
-                  "importance": "unimportant",
-                  "properties": {
-                    "State": "^====Auto====="
-                  }
+                  "importance": "unimportant"
                 },
                 {
                   "step": 145,
-                  "message": "====Auto=====",
                   "kind": "continuation",
-                  "importance": "unimportant",
-                  "properties": {
-                    "State": "^====Auto====="
-                  }
+                  "importance": "unimportant"
                 },
                 {
                   "step": 146,
-                  "message": "yogi_error=1,====Auto=====",
                   "kind": "branch",
                   "importance": "unimportant",
                   "properties": {
-                    "State": "^yogi_error=1^====Auto====="
+                    "currentDataValues": "^yogi_error=1"
                   }
                 },
                 {
                   "step": 147,
-                  "message": "====Auto=====",
                   "kind": "continuation",
-                  "importance": "unimportant",
-                  "properties": {
-                    "State": "^====Auto====="
-                  }
+                  "importance": "unimportant"
                 },
                 {
                   "step": 148,
-                  "message": "yogi_error=1,====Auto=====",
                   "kind": "branch",
                   "importance": "unimportant",
                   "properties": {
-                    "State": "^yogi_error=1^====Auto====="
+                    "currentDataValues": "^yogi_error=1"
                   }
                 },
                 {
                   "step": 149,
-                  "message": "====Auto=====",
                   "kind": "continuation",
-                  "importance": "unimportant",
-                  "properties": {
-                    "State": "^====Auto====="
-                  }
+                  "importance": "unimportant"
                 },
                 {
                   "step": 150,
-                  "message": "yogi_error=1,====Auto=====",
                   "kind": "branch",
                   "importance": "unimportant",
                   "properties": {
-                    "State": "^yogi_error=1^====Auto====="
+                    "currentDataValues": "^yogi_error=1"
                   }
                 },
                 {
                   "step": 151,
-                  "message": "====Auto=====",
                   "kind": "continuation",
-                  "importance": "unimportant",
-                  "properties": {
-                    "State": "^====Auto====="
-                  }
+                  "importance": "unimportant"
                 },
                 {
                   "step": 152,
-                  "message": "yogi_error=1,====Auto=====",
                   "kind": "branch",
                   "importance": "unimportant",
                   "properties": {
-                    "State": "^yogi_error=1^====Auto====="
+                    "currentDataValues": "^yogi_error=1"
                   }
                 },
                 {
                   "step": 153,
-                  "message": "yogi_error=1,====Auto=====",
                   "kind": "branch",
                   "importance": "unimportant",
                   "properties": {
-                    "State": "^yogi_error=1^====Auto====="
+                    "currentDataValues": "^yogi_error=1"
                   }
                 },
                 {
                   "step": 154,
-                  "message": "====Auto=====",
+                  "fullyQualifiedLogicalName": "sdv_CheckAddDevice",
                   "kind": "callReturn",
-                  "importance": "unimportant",
-                  "properties": {
-                    "State": "^====Auto====="
-                  }
+                  "importance": "unimportant"
                 }
               ]
             }

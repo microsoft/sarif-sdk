@@ -11,22 +11,6 @@
           "mimeType": "text/x-c"
         }
       },
-      "logicalLocations": {
-        "collections::list::add": {
-          "name": "add",
-          "kind": "function",
-          "parentKey": "collections::list"
-        },
-        "collections::list": {
-          "name": "list",
-          "kind": "type",
-          "parentKey": "collections"
-        },
-        "collections": {
-          "name": "collections",
-          "kind": "namespace"
-        }
-      },
       "results": [
         {
           "ruleId": "C2001",

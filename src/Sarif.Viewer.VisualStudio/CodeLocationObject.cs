@@ -1,33 +1,30 @@
 ﻿// Copyright (c) Microsoft. All rights reserved. 
 // Licensed under the MIT license. See LICENSE file in the project root for full license information. 
 
+using System;
+using System.Diagnostics;
 using Microsoft.CodeAnalysis.Sarif;
 using Microsoft.VisualStudio.Shell.Interop;
 using Microsoft.VisualStudio.Text;
 using Microsoft.VisualStudio.Text.Editor;
 using Microsoft.VisualStudio.TextManager.Interop;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.ComponentModel;
 
 namespace Microsoft.Sarif.Viewer
 {
     public abstract class CodeLocationObject : NotifyPropertyChangedObject
     {
-        private ResultTextMarker _lineMarker;
         private Region _region;
+        protected ResultTextMarker _lineMarker;
         protected string _filePath;
 
-        public ResultTextMarker LineMarker
+        internal virtual ResultTextMarker LineMarker
         {
             get
             {
-                if (_lineMarker == null)
+                // Not all locations have regions. Don't try to mark the locations that don't.
+                if (_lineMarker == null && Region != null)
                 {
-                    Debug.Assert(Region != null);
                     _lineMarker = new ResultTextMarker(SarifViewerPackage.ServiceProvider, Region, FilePath);
                 }
 
@@ -39,7 +36,7 @@ namespace Microsoft.Sarif.Viewer
             }
         }
 
-        public Region Region
+        internal Region Region
         {
             get
             {
@@ -55,7 +52,7 @@ namespace Microsoft.Sarif.Viewer
             }
         }
 
-        public virtual string FilePath
+        internal virtual string FilePath
         {
             get
             {
@@ -66,28 +63,65 @@ namespace Microsoft.Sarif.Viewer
                 if (value != _filePath)
                 {
                     _filePath = value;
+
+                    if (this.LineMarker != null)
+                    {
+                        this.LineMarker.FullFilePath = _filePath;
+                    }
+
                     NotifyPropertyChanged("FilePath");
                 }
             }
         }
 
-        public void OnDeselectKeyEvent()
+        public virtual string DefaultSourceHighlightColor
+        {
+            get
+            {
+                return ResultTextMarker.DEFAULT_SELECTION_COLOR;
+            }
+        }
+
+        public virtual string SelectedSourceHighlightColor
+        {
+            get
+            {
+                return ResultTextMarker.DEFAULT_SELECTION_COLOR;
+            }
+        }
+
+        // This is a custom type descriptor which enables the SARIF properties
+        // to be displayed in the Properties window.
+        internal ICustomTypeDescriptor TypeDescriptor
+        {
+            get
+            {
+                return new CodeLocationObjectTypeDescriptor(this);
+            }
+        }
+
+        public void NavigateTo(bool usePreviewPane = true)
+        {
+            LineMarker?.NavigateTo(usePreviewPane);
+        }
+
+        public void ApplyDefaultSourceFileHighlighting()
         {
             // Remove hover marker
-            LineMarker.RemoveMarker();
+            LineMarker?.RemoveHighlightMarker();
 
             // Add default marker instead
-            LineMarker.NavigateTo(true, null, false);
+            LineMarker?.AddHighlightMarker(DefaultSourceHighlightColor);
         }
 
         /// <summary>
-        /// A method for handling the key event when it is selected
+        /// A method for handling the event when this object is selected
         /// </summary>
-        public void OnSelectKeyEvent()
+        public void ApplySelectionSourceFileHighlighting()
         {
             // Remove previous highlighting and replace with hover color
-            LineMarker.RemoveMarker();
-            LineMarker.NavigateTo(true, ResultTextMarker.HOVER_SELECTION_COLOR, true);
+            LineMarker?.RemoveHighlightMarker();
+            LineMarker?.AddHighlightMarker(SelectedSourceHighlightColor);
         }
 
         private IVsTextView GetTextViewFromFrame(IVsWindowFrame frame)

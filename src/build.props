@@ -35,5 +35,8 @@
   </PropertyGroup>
   <!-- Default configurations to help VS understand -->
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|Any CPU' " />
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|Any CPU' " />  
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|Any CPU' " />
+  <ItemGroup>
+    <Compile Include="$(MsBuildThisFileDirectory)build\CommonAssemblyInfo.cs" />
+  </ItemGroup>
 </Project>

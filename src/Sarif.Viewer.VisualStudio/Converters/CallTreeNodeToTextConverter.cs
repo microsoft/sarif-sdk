@@ -30,35 +30,46 @@ namespace Microsoft.Sarif.Viewer.Converters
 
         private static string MakeDisplayString(CallTreeNode node)
         {
+            // Use the following preferences for the CallTreeNode text.
+            // 1. AnnotatedCodeLocation.Message
+            // 2. AnnotatedCodeLocation.Snippet
+            // 3. Callee for calls
+            // 4. "Return" for returns
+            // 5. AnnotatedCodeLocation.Kind
             string text = string.Empty;
 
             AnnotatedCodeLocation annotatedLocation = node.Location;
             if (annotatedLocation != null)
             {
-                Region region = annotatedLocation.PhysicalLocation?.Region;
-                if (region != null)
+                if (!String.IsNullOrEmpty(annotatedLocation.Message))
                 {
-                    text = $"{region.StartLine}: ";
+                    text = annotatedLocation.Message;
                 }
-
-                string message;
-                switch (annotatedLocation.Kind)
+                else if (!String.IsNullOrEmpty(annotatedLocation.Snippet))
                 {
-                    case AnnotatedCodeLocationKind.Call:
-                        string callee = annotatedLocation.Callee;
-                        message = !string.IsNullOrEmpty(callee) ? callee : Resources.UnknownCalleMessage;
-                        break;
-
-                    case AnnotatedCodeLocationKind.CallReturn:
-                        message = Resources.ReturnMessage;
-                        break;
-
-                    default:
-                        message = annotatedLocation.Kind.ToString();
-                        break;
+                    text = annotatedLocation.Snippet.Trim();
                 }
+                else
+                {
+                    switch (annotatedLocation.Kind)
+                    {
+                        case AnnotatedCodeLocationKind.Call:
+                            string callee = annotatedLocation.Callee;
+                            text = !string.IsNullOrEmpty(callee) ? callee : Resources.UnknownCalleMessage;
+                            break;
 
-                text += message;
+                        case AnnotatedCodeLocationKind.CallReturn:
+                            text = Resources.ReturnMessage;
+                            break;
+
+                        default:
+                            if (annotatedLocation.Kind != default(AnnotatedCodeLocationKind))
+                            {
+                                text = annotatedLocation.Kind.ToString();
+                            }
+                            break;
+                    }
+                }
             }
 
             return text;

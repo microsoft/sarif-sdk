@@ -38,76 +38,76 @@
         "zutil.c": {
           "mimeType": "text/x-cpp"
         },
-        "contrib\\infback9\\inftree9.c": {
+        "contrib/infback9/inftree9.c": {
           "mimeType": "text/x-cpp"
         },
-        "contrib\\inflate86\\inffas86.c": {
+        "contrib/inflate86/inffas86.c": {
           "mimeType": "text/x-cpp"
         },
-        "contrib\\iostream2\\zstream_test.cpp": {
+        "contrib/iostream2/zstream_test.cpp": {
           "mimeType": "text/x-cpp"
         },
-        "contrib\\masmx64\\inffas8664.c": {
+        "contrib/masmx64/inffas8664.c": {
           "mimeType": "text/x-cpp"
         },
-        "contrib\\minizip\\iowin32.c": {
+        "contrib/minizip/iowin32.c": {
           "mimeType": "text/x-cpp"
         },
-        "contrib\\minizip\\miniunz.c": {
+        "contrib/minizip/miniunz.c": {
           "mimeType": "text/x-cpp"
         },
-        "contrib\\minizip\\minizip.c": {
+        "contrib/minizip/minizip.c": {
           "mimeType": "text/x-cpp"
         },
-        "contrib\\minizip\\mztools.c": {
+        "contrib/minizip/mztools.c": {
           "mimeType": "text/x-cpp"
         },
-        "contrib\\minizip\\unzip.c": {
+        "contrib/minizip/unzip.c": {
           "mimeType": "text/x-cpp"
         },
-        "contrib\\minizip\\zip.c": {
+        "contrib/minizip/zip.c": {
           "mimeType": "text/x-cpp"
         },
-        "contrib\\minizip\\crypt.h": {
+        "contrib/minizip/crypt.h": {
           "mimeType": "text/x-cpp"
         },
-        "contrib\\puff\\puff.c": {
+        "contrib/puff/puff.c": {
           "mimeType": "text/x-cpp"
         },
-        "contrib\\puff\\pufftest.c": {
+        "contrib/puff/pufftest.c": {
           "mimeType": "text/x-cpp"
         },
-        "contrib\\testzlib\\testzlib.c": {
+        "contrib/testzlib/testzlib.c": {
           "mimeType": "text/x-cpp"
         },
-        "contrib\\untgz\\untgz.c": {
+        "contrib/untgz/untgz.c": {
           "mimeType": "text/x-cpp"
         },
-        "examples\\enough.c": {
+        "examples/enough.c": {
           "mimeType": "text/x-cpp"
         },
-        "examples\\gun.c": {
+        "examples/gun.c": {
           "mimeType": "text/x-cpp"
         },
-        "examples\\gzappend.c": {
+        "examples/gzappend.c": {
           "mimeType": "text/x-cpp"
         },
-        "examples\\gzjoin.c": {
+        "examples/gzjoin.c": {
           "mimeType": "text/x-cpp"
         },
-        "examples\\gzlog.c": {
+        "examples/gzlog.c": {
           "mimeType": "text/x-cpp"
         },
-        "examples\\zran.c": {
+        "examples/zran.c": {
           "mimeType": "text/x-cpp"
         },
-        "test\\example.c": {
+        "test/example.c": {
           "mimeType": "text/x-cpp"
         },
-        "test\\infcover.c": {
+        "test/infcover.c": {
           "mimeType": "text/x-cpp"
         },
-        "test\\minigzip.c": {
+        "test/minigzip.c": {
           "mimeType": "text/x-cpp"
         }
       },
@@ -1128,7 +1128,7 @@
           "locations": [
             {
               "resultFile": {
-                "uri": "contrib\\infback9\\inftree9.c",
+                "uri": "contrib/infback9/inftree9.c",
                 "region": {
                   "startLine": 50
                 }
@@ -1145,7 +1145,7 @@
           "locations": [
             {
               "resultFile": {
-                "uri": "contrib\\inflate86\\inffas86.c",
+                "uri": "contrib/inflate86/inffas86.c",
                 "region": {
                   "startLine": 79
                 }
@@ -1162,7 +1162,7 @@
           "locations": [
             {
               "resultFile": {
-                "uri": "contrib\\inflate86\\inffas86.c",
+                "uri": "contrib/inflate86/inffas86.c",
                 "region": {
                   "startLine": 80
                 }
@@ -1179,7 +1179,7 @@
           "locations": [
             {
               "resultFile": {
-                "uri": "contrib\\inflate86\\inffas86.c",
+                "uri": "contrib/inflate86/inffas86.c",
                 "region": {
                   "startLine": 96
                 }
@@ -1196,7 +1196,7 @@
           "locations": [
             {
               "resultFile": {
-                "uri": "contrib\\iostream2\\zstream_test.cpp",
+                "uri": "contrib/iostream2/zstream_test.cpp",
                 "region": {
                   "startLine": 10
                 }
@@ -1213,7 +1213,7 @@
           "locations": [
             {
               "resultFile": {
-                "uri": "contrib\\iostream2\\zstream_test.cpp",
+                "uri": "contrib/iostream2/zstream_test.cpp",
                 "region": {
                   "startLine": 15
                 }
@@ -1230,7 +1230,7 @@
           "locations": [
             {
               "resultFile": {
-                "uri": "contrib\\iostream2\\zstream_test.cpp",
+                "uri": "contrib/iostream2/zstream_test.cpp",
                 "region": {
                   "startLine": 14
                 }
@@ -1247,7 +1247,7 @@
           "locations": [
             {
               "resultFile": {
-                "uri": "contrib\\masmx64\\inffas8664.c",
+                "uri": "contrib/masmx64/inffas8664.c",
                 "region": {
                   "startLine": 84
                 }
@@ -1264,7 +1264,7 @@
           "locations": [
             {
               "resultFile": {
-                "uri": "contrib\\masmx64\\inffas8664.c",
+                "uri": "contrib/masmx64/inffas8664.c",
                 "region": {
                   "startLine": 85
                 }
@@ -1281,7 +1281,7 @@
           "locations": [
             {
               "resultFile": {
-                "uri": "contrib\\masmx64\\inffas8664.c",
+                "uri": "contrib/masmx64/inffas8664.c",
                 "region": {
                   "startLine": 86
                 }
@@ -1298,7 +1298,7 @@
           "locations": [
             {
               "resultFile": {
-                "uri": "contrib\\masmx64\\inffas8664.c",
+                "uri": "contrib/masmx64/inffas8664.c",
                 "region": {
                   "startLine": 87
                 }
@@ -1315,7 +1315,7 @@
           "locations": [
             {
               "resultFile": {
-                "uri": "contrib\\masmx64\\inffas8664.c",
+                "uri": "contrib/masmx64/inffas8664.c",
                 "region": {
                   "startLine": 88
                 }
@@ -1332,7 +1332,7 @@
           "locations": [
             {
               "resultFile": {
-                "uri": "contrib\\masmx64\\inffas8664.c",
+                "uri": "contrib/masmx64/inffas8664.c",
                 "region": {
                   "startLine": 89
                 }
@@ -1349,7 +1349,7 @@
           "locations": [
             {
               "resultFile": {
-                "uri": "contrib\\masmx64\\inffas8664.c",
+                "uri": "contrib/masmx64/inffas8664.c",
                 "region": {
                   "startLine": 90
                 }
@@ -1366,7 +1366,7 @@
           "locations": [
             {
               "resultFile": {
-                "uri": "contrib\\masmx64\\inffas8664.c",
+                "uri": "contrib/masmx64/inffas8664.c",
                 "region": {
                   "startLine": 91
                 }
@@ -1383,7 +1383,7 @@
           "locations": [
             {
               "resultFile": {
-                "uri": "contrib\\masmx64\\inffas8664.c",
+                "uri": "contrib/masmx64/inffas8664.c",
                 "region": {
                   "startLine": 94
                 }
@@ -1400,7 +1400,7 @@
           "locations": [
             {
               "resultFile": {
-                "uri": "contrib\\masmx64\\inffas8664.c",
+                "uri": "contrib/masmx64/inffas8664.c",
                 "region": {
                   "startLine": 95
                 }
@@ -1417,7 +1417,7 @@
           "locations": [
             {
               "resultFile": {
-                "uri": "contrib\\masmx64\\inffas8664.c",
+                "uri": "contrib/masmx64/inffas8664.c",
                 "region": {
                   "startLine": 96
                 }
@@ -1434,7 +1434,7 @@
           "locations": [
             {
               "resultFile": {
-                "uri": "contrib\\masmx64\\inffas8664.c",
+                "uri": "contrib/masmx64/inffas8664.c",
                 "region": {
                   "startLine": 97
                 }
@@ -1451,7 +1451,7 @@
           "locations": [
             {
               "resultFile": {
-                "uri": "contrib\\masmx64\\inffas8664.c",
+                "uri": "contrib/masmx64/inffas8664.c",
                 "region": {
                   "startLine": 98
                 }
@@ -1468,7 +1468,7 @@
           "locations": [
             {
               "resultFile": {
-                "uri": "contrib\\masmx64\\inffas8664.c",
+                "uri": "contrib/masmx64/inffas8664.c",
                 "region": {
                   "startLine": 99
                 }
@@ -1485,7 +1485,7 @@
           "locations": [
             {
               "resultFile": {
-                "uri": "contrib\\masmx64\\inffas8664.c",
+                "uri": "contrib/masmx64/inffas8664.c",
                 "region": {
                   "startLine": 100
                 }
@@ -1502,7 +1502,7 @@
           "locations": [
             {
               "resultFile": {
-                "uri": "contrib\\masmx64\\inffas8664.c",
+                "uri": "contrib/masmx64/inffas8664.c",
                 "region": {
                   "startLine": 101
                 }
@@ -1519,7 +1519,7 @@
           "locations": [
             {
               "resultFile": {
-                "uri": "contrib\\masmx64\\inffas8664.c",
+                "uri": "contrib/masmx64/inffas8664.c",
                 "region": {
                   "startLine": 102
                 }
@@ -1536,7 +1536,7 @@
           "locations": [
             {
               "resultFile": {
-                "uri": "contrib\\minizip\\iowin32.c",
+                "uri": "contrib/minizip/iowin32.c",
                 "region": {
                   "startLine": 97
                 }
@@ -1553,7 +1553,7 @@
           "locations": [
             {
               "resultFile": {
-                "uri": "contrib\\minizip\\iowin32.c",
+                "uri": "contrib/minizip/iowin32.c",
                 "region": {
                   "startLine": 126
                 }
@@ -1570,7 +1570,7 @@
           "locations": [
             {
               "resultFile": {
-                "uri": "contrib\\minizip\\iowin32.c",
+                "uri": "contrib/minizip/iowin32.c",
                 "region": {
                   "startLine": 150
                 }
@@ -1587,7 +1587,7 @@
           "locations": [
             {
               "resultFile": {
-                "uri": "contrib\\minizip\\iowin32.c",
+                "uri": "contrib/minizip/iowin32.c",
                 "region": {
                   "startLine": 170
                 }
@@ -1604,7 +1604,7 @@
           "locations": [
             {
               "resultFile": {
-                "uri": "contrib\\minizip\\iowin32.c",
+                "uri": "contrib/minizip/iowin32.c",
                 "region": {
                   "startLine": 364
                 }
@@ -1621,7 +1621,7 @@
           "locations": [
             {
               "resultFile": {
-                "uri": "contrib\\minizip\\miniunz.c",
+                "uri": "contrib/minizip/miniunz.c",
                 "region": {
                   "startLine": 602
                 }
@@ -1633,7 +1633,7 @@
               "locations": [
                 {
                   "physicalLocation": {
-                    "uri": "contrib\\minizip\\miniunz.c",
+                    "uri": "contrib/minizip/miniunz.c",
                     "region": {
                       "startLine": 632
                     }
@@ -1642,7 +1642,7 @@
                 },
                 {
                   "physicalLocation": {
-                    "uri": "contrib\\minizip\\miniunz.c",
+                    "uri": "contrib/minizip/miniunz.c",
                     "region": {
                       "startLine": 602
                     }
@@ -1662,7 +1662,7 @@
           "locations": [
             {
               "resultFile": {
-                "uri": "contrib\\minizip\\miniunz.c",
+                "uri": "contrib/minizip/miniunz.c",
                 "region": {
                   "startLine": 322
                 }
@@ -1679,7 +1679,7 @@
           "locations": [
             {
               "resultFile": {
-                "uri": "contrib\\minizip\\miniunz.c",
+                "uri": "contrib/minizip/miniunz.c",
                 "region": {
                   "startLine": 542
                 }
@@ -1696,7 +1696,7 @@
           "locations": [
             {
               "resultFile": {
-                "uri": "contrib\\minizip\\miniunz.c",
+                "uri": "contrib/minizip/miniunz.c",
                 "region": {
                   "startLine": 327
                 }
@@ -1713,7 +1713,7 @@
           "locations": [
             {
               "resultFile": {
-                "uri": "contrib\\minizip\\miniunz.c",
+                "uri": "contrib/minizip/miniunz.c",
                 "region": {
                   "startLine": 484
                 }
@@ -1730,7 +1730,7 @@
           "locations": [
             {
               "resultFile": {
-                "uri": "contrib\\minizip\\miniunz.c",
+                "uri": "contrib/minizip/miniunz.c",
                 "region": {
                   "startLine": 518
                 }
@@ -1747,7 +1747,7 @@
           "locations": [
             {
               "resultFile": {
-                "uri": "contrib\\minizip\\minizip.c",
+                "uri": "contrib/minizip/minizip.c",
                 "region": {
                   "startLine": 235
                 }
@@ -1764,7 +1764,7 @@
           "locations": [
             {
               "resultFile": {
-                "uri": "contrib\\minizip\\minizip.c",
+                "uri": "contrib/minizip/minizip.c",
                 "region": {
                   "startLine": 193
                 }
@@ -1776,7 +1776,7 @@
               "locations": [
                 {
                   "physicalLocation": {
-                    "uri": "contrib\\minizip\\minizip.c",
+                    "uri": "contrib/minizip/minizip.c",
                     "region": {
                       "startLine": 204
                     }
@@ -1785,7 +1785,7 @@
                 },
                 {
                   "physicalLocation": {
-                    "uri": "contrib\\minizip\\minizip.c",
+                    "uri": "contrib/minizip/minizip.c",
                     "region": {
                       "startLine": 193
                     }
@@ -1805,7 +1805,7 @@
           "locations": [
             {
               "resultFile": {
-                "uri": "contrib\\minizip\\minizip.c",
+                "uri": "contrib/minizip/minizip.c",
                 "region": {
                   "startLine": 191
                 }
@@ -1822,7 +1822,7 @@
           "locations": [
             {
               "resultFile": {
-                "uri": "contrib\\minizip\\minizip.c",
+                "uri": "contrib/minizip/minizip.c",
                 "region": {
                   "startLine": 192
                 }
@@ -1839,7 +1839,7 @@
           "locations": [
             {
               "resultFile": {
-                "uri": "contrib\\minizip\\minizip.c",
+                "uri": "contrib/minizip/minizip.c",
                 "region": {
                   "startLine": 227
                 }
@@ -1856,7 +1856,7 @@
           "locations": [
             {
               "resultFile": {
-                "uri": "contrib\\minizip\\minizip.c",
+                "uri": "contrib/minizip/minizip.c",
                 "region": {
                   "startLine": 257
                 }
@@ -1873,7 +1873,7 @@
           "locations": [
             {
               "resultFile": {
-                "uri": "contrib\\minizip\\minizip.c",
+                "uri": "contrib/minizip/minizip.c",
                 "region": {
                   "startLine": 399
                 }
@@ -1890,7 +1890,7 @@
           "locations": [
             {
               "resultFile": {
-                "uri": "contrib\\minizip\\minizip.c",
+                "uri": "contrib/minizip/minizip.c",
                 "region": {
                   "startLine": 212
                 }
@@ -1907,7 +1907,7 @@
           "locations": [
             {
               "resultFile": {
-                "uri": "contrib\\minizip\\minizip.c",
+                "uri": "contrib/minizip/minizip.c",
                 "region": {
                   "startLine": 232
                 }
@@ -1924,7 +1924,7 @@
           "locations": [
             {
               "resultFile": {
-                "uri": "contrib\\minizip\\minizip.c",
+                "uri": "contrib/minizip/minizip.c",
                 "region": {
                   "startLine": 235
                 }
@@ -1941,7 +1941,7 @@
           "locations": [
             {
               "resultFile": {
-                "uri": "contrib\\minizip\\mztools.c",
+                "uri": "contrib/minizip/mztools.c",
                 "region": {
                   "startLine": 290
                 }
@@ -1958,7 +1958,7 @@
           "locations": [
             {
               "resultFile": {
-                "uri": "contrib\\minizip\\mztools.c",
+                "uri": "contrib/minizip/mztools.c",
                 "region": {
                   "startLine": 290
                 }
@@ -1975,7 +1975,7 @@
           "locations": [
             {
               "resultFile": {
-                "uri": "contrib\\minizip\\mztools.c",
+                "uri": "contrib/minizip/mztools.c",
                 "region": {
                   "startLine": 290
                 }
@@ -1992,7 +1992,7 @@
           "locations": [
             {
               "resultFile": {
-                "uri": "contrib\\minizip\\unzip.c",
+                "uri": "contrib/minizip/unzip.c",
                 "region": {
                   "startLine": 1663
                 }
@@ -2004,7 +2004,7 @@
               "locations": [
                 {
                   "physicalLocation": {
-                    "uri": "contrib\\minizip\\unzip.c",
+                    "uri": "contrib/minizip/unzip.c",
                     "region": {
                       "startLine": 1665
                     }
@@ -2013,7 +2013,7 @@
                 },
                 {
                   "physicalLocation": {
-                    "uri": "contrib\\minizip\\unzip.c",
+                    "uri": "contrib/minizip/unzip.c",
                     "region": {
                       "startLine": 1663
                     }
@@ -2033,7 +2033,7 @@
           "locations": [
             {
               "resultFile": {
-                "uri": "contrib\\minizip\\unzip.c",
+                "uri": "contrib/minizip/unzip.c",
                 "region": {
                   "startLine": 1105
                 }
@@ -2050,7 +2050,7 @@
           "locations": [
             {
               "resultFile": {
-                "uri": "contrib\\minizip\\zip.c",
+                "uri": "contrib/minizip/zip.c",
                 "region": {
                   "startLine": 1038
                 }
@@ -2062,7 +2062,7 @@
               "locations": [
                 {
                   "physicalLocation": {
-                    "uri": "contrib\\minizip\\zip.c",
+                    "uri": "contrib/minizip/zip.c",
                     "region": {
                       "startLine": 1037
                     }
@@ -2071,7 +2071,7 @@
                 },
                 {
                   "physicalLocation": {
-                    "uri": "contrib\\minizip\\zip.c",
+                    "uri": "contrib/minizip/zip.c",
                     "region": {
                       "startLine": 1038
                     }
@@ -2091,7 +2091,7 @@
           "locations": [
             {
               "resultFile": {
-                "uri": "contrib\\minizip\\zip.c",
+                "uri": "contrib/minizip/zip.c",
                 "region": {
                   "startLine": 1040
                 }
@@ -2103,7 +2103,7 @@
               "locations": [
                 {
                   "physicalLocation": {
-                    "uri": "contrib\\minizip\\zip.c",
+                    "uri": "contrib/minizip/zip.c",
                     "region": {
                       "startLine": 1038
                     }
@@ -2112,7 +2112,7 @@
                 },
                 {
                   "physicalLocation": {
-                    "uri": "contrib\\minizip\\zip.c",
+                    "uri": "contrib/minizip/zip.c",
                     "region": {
                       "startLine": 1040
                     }
@@ -2132,7 +2132,7 @@
           "locations": [
             {
               "resultFile": {
-                "uri": "contrib\\minizip\\zip.c",
+                "uri": "contrib/minizip/zip.c",
                 "region": {
                   "startLine": 1041
                 }
@@ -2144,7 +2144,7 @@
               "locations": [
                 {
                   "physicalLocation": {
-                    "uri": "contrib\\minizip\\zip.c",
+                    "uri": "contrib/minizip/zip.c",
                     "region": {
                       "startLine": 1040
                     }
@@ -2153,7 +2153,7 @@
                 },
                 {
                   "physicalLocation": {
-                    "uri": "contrib\\minizip\\zip.c",
+                    "uri": "contrib/minizip/zip.c",
                     "region": {
                       "startLine": 1041
                     }
@@ -2173,7 +2173,7 @@
           "locations": [
             {
               "resultFile": {
-                "uri": "contrib\\minizip\\zip.c",
+                "uri": "contrib/minizip/zip.c",
                 "region": {
                   "startLine": 1957
                 }
@@ -2190,7 +2190,7 @@
           "locations": [
             {
               "resultFile": {
-                "uri": "contrib\\minizip\\zip.c",
+                "uri": "contrib/minizip/zip.c",
                 "region": {
                   "startLine": 1958
                 }
@@ -2207,7 +2207,7 @@
           "locations": [
             {
               "resultFile": {
-                "uri": "contrib\\minizip\\zip.c",
+                "uri": "contrib/minizip/zip.c",
                 "region": {
                   "startLine": 1683
                 }
@@ -2224,7 +2224,7 @@
           "locations": [
             {
               "resultFile": {
-                "uri": "contrib\\minizip\\crypt.h",
+                "uri": "contrib/minizip/crypt.h",
                 "region": {
                   "startLine": 99
                 }
@@ -2241,7 +2241,7 @@
           "locations": [
             {
               "resultFile": {
-                "uri": "contrib\\puff\\puff.c",
+                "uri": "contrib/puff/puff.c",
                 "region": {
                   "startLine": 705
                 }
@@ -2258,7 +2258,7 @@
           "locations": [
             {
               "resultFile": {
-                "uri": "contrib\\puff\\puff.c",
+                "uri": "contrib/puff/puff.c",
                 "region": {
                   "startLine": 799
                 }
@@ -2275,7 +2275,7 @@
           "locations": [
             {
               "resultFile": {
-                "uri": "contrib\\puff\\puff.c",
+                "uri": "contrib/puff/puff.c",
                 "region": {
                   "startLine": 799
                 }
@@ -2292,7 +2292,7 @@
           "locations": [
             {
               "resultFile": {
-                "uri": "contrib\\puff\\puff.c",
+                "uri": "contrib/puff/puff.c",
                 "region": {
                   "startLine": 240
                 }
@@ -2309,7 +2309,7 @@
           "locations": [
             {
               "resultFile": {
-                "uri": "contrib\\puff\\pufftest.c",
+                "uri": "contrib/puff/pufftest.c",
                 "region": {
                   "startLine": 129
                 }
@@ -2326,7 +2326,7 @@
           "locations": [
             {
               "resultFile": {
-                "uri": "contrib\\puff\\pufftest.c",
+                "uri": "contrib/puff/pufftest.c",
                 "region": {
                   "startLine": 93
                 }
@@ -2343,7 +2343,7 @@
           "locations": [
             {
               "resultFile": {
-                "uri": "contrib\\testzlib\\testzlib.c",
+                "uri": "contrib/testzlib/testzlib.c",
                 "region": {
                   "startLine": 172
                 }
@@ -2360,7 +2360,7 @@
           "locations": [
             {
               "resultFile": {
-                "uri": "contrib\\testzlib\\testzlib.c",
+                "uri": "contrib/testzlib/testzlib.c",
                 "region": {
                   "startLine": 220
                 }
@@ -2377,7 +2377,7 @@
           "locations": [
             {
               "resultFile": {
-                "uri": "contrib\\testzlib\\testzlib.c",
+                "uri": "contrib/testzlib/testzlib.c",
                 "region": {
                   "startLine": 220
                 }
@@ -2394,7 +2394,7 @@
           "locations": [
             {
               "resultFile": {
-                "uri": "contrib\\testzlib\\testzlib.c",
+                "uri": "contrib/testzlib/testzlib.c",
                 "region": {
                   "startLine": 261
                 }
@@ -2411,7 +2411,7 @@
           "locations": [
             {
               "resultFile": {
-                "uri": "contrib\\testzlib\\testzlib.c",
+                "uri": "contrib/testzlib/testzlib.c",
                 "region": {
                   "startLine": 261
                 }
@@ -2428,7 +2428,7 @@
           "locations": [
             {
               "resultFile": {
-                "uri": "contrib\\testzlib\\testzlib.c",
+                "uri": "contrib/testzlib/testzlib.c",
                 "region": {
                   "startLine": 154
                 }
@@ -2445,7 +2445,7 @@
           "locations": [
             {
               "resultFile": {
-                "uri": "contrib\\testzlib\\testzlib.c",
+                "uri": "contrib/testzlib/testzlib.c",
                 "region": {
                   "startLine": 210
                 }
@@ -2462,7 +2462,7 @@
           "locations": [
             {
               "resultFile": {
-                "uri": "contrib\\testzlib\\testzlib.c",
+                "uri": "contrib/testzlib/testzlib.c",
                 "region": {
                   "startLine": 251
                 }
@@ -2479,7 +2479,7 @@
           "locations": [
             {
               "resultFile": {
-                "uri": "contrib\\untgz\\untgz.c",
+                "uri": "contrib/untgz/untgz.c",
                 "region": {
                   "startLine": 171
                 }
@@ -2496,7 +2496,7 @@
           "locations": [
             {
               "resultFile": {
-                "uri": "contrib\\untgz\\untgz.c",
+                "uri": "contrib/untgz/untgz.c",
                 "region": {
                   "startLine": 272
                 }
@@ -2513,7 +2513,7 @@
           "locations": [
             {
               "resultFile": {
-                "uri": "contrib\\untgz\\untgz.c",
+                "uri": "contrib/untgz/untgz.c",
                 "region": {
                   "startLine": 389
                 }
@@ -2530,7 +2530,7 @@
           "locations": [
             {
               "resultFile": {
-                "uri": "contrib\\untgz\\untgz.c",
+                "uri": "contrib/untgz/untgz.c",
                 "region": {
                   "startLine": 72
                 }
@@ -2547,7 +2547,7 @@
           "locations": [
             {
               "resultFile": {
-                "uri": "contrib\\untgz\\untgz.c",
+                "uri": "contrib/untgz/untgz.c",
                 "region": {
                   "startLine": 73
                 }
@@ -2564,7 +2564,7 @@
           "locations": [
             {
               "resultFile": {
-                "uri": "contrib\\untgz\\untgz.c",
+                "uri": "contrib/untgz/untgz.c",
                 "region": {
                   "startLine": 76
                 }
@@ -2581,7 +2581,7 @@
           "locations": [
             {
               "resultFile": {
-                "uri": "contrib\\untgz\\untgz.c",
+                "uri": "contrib/untgz/untgz.c",
                 "region": {
                   "startLine": 78
                 }
@@ -2598,7 +2598,7 @@
           "locations": [
             {
               "resultFile": {
-                "uri": "contrib\\untgz\\untgz.c",
+                "uri": "contrib/untgz/untgz.c",
                 "region": {
                   "startLine": 79
                 }
@@ -2615,7 +2615,7 @@
           "locations": [
             {
               "resultFile": {
-                "uri": "contrib\\untgz\\untgz.c",
+                "uri": "contrib/untgz/untgz.c",
                 "region": {
                   "startLine": 80
                 }
@@ -2632,7 +2632,7 @@
           "locations": [
             {
               "resultFile": {
-                "uri": "contrib\\untgz\\untgz.c",
+                "uri": "contrib/untgz/untgz.c",
                 "region": {
                   "startLine": 81
                 }
@@ -2649,7 +2649,7 @@
           "locations": [
             {
               "resultFile": {
-                "uri": "contrib\\untgz\\untgz.c",
+                "uri": "contrib/untgz/untgz.c",
                 "region": {
                   "startLine": 82
                 }
@@ -2666,7 +2666,7 @@
           "locations": [
             {
               "resultFile": {
-                "uri": "contrib\\untgz\\untgz.c",
+                "uri": "contrib/untgz/untgz.c",
                 "region": {
                   "startLine": 83
                 }
@@ -2683,7 +2683,7 @@
           "locations": [
             {
               "resultFile": {
-                "uri": "contrib\\untgz\\untgz.c",
+                "uri": "contrib/untgz/untgz.c",
                 "region": {
                   "startLine": 84
                 }
@@ -2700,7 +2700,7 @@
           "locations": [
             {
               "resultFile": {
-                "uri": "contrib\\untgz\\untgz.c",
+                "uri": "contrib/untgz/untgz.c",
                 "region": {
                   "startLine": 85
                 }
@@ -2717,7 +2717,7 @@
           "locations": [
             {
               "resultFile": {
-                "uri": "contrib\\untgz\\untgz.c",
+                "uri": "contrib/untgz/untgz.c",
                 "region": {
                   "startLine": 91
                 }
@@ -2734,7 +2734,7 @@
           "locations": [
             {
               "resultFile": {
-                "uri": "examples\\enough.c",
+                "uri": "examples/enough.c",
                 "region": {
                   "startLine": 184
                 }
@@ -2751,7 +2751,7 @@
           "locations": [
             {
               "resultFile": {
-                "uri": "examples\\enough.c",
+                "uri": "examples/enough.c",
                 "region": {
                   "startLine": 406
                 }
@@ -2768,7 +2768,7 @@
           "locations": [
             {
               "resultFile": {
-                "uri": "examples\\enough.c",
+                "uri": "examples/enough.c",
                 "region": {
                   "startLine": 407
                 }
@@ -2785,7 +2785,7 @@
           "locations": [
             {
               "resultFile": {
-                "uri": "examples\\enough.c",
+                "uri": "examples/enough.c",
                 "region": {
                   "startLine": 462
                 }
@@ -2802,7 +2802,7 @@
           "locations": [
             {
               "resultFile": {
-                "uri": "examples\\gun.c",
+                "uri": "examples/gun.c",
                 "region": {
                   "startLine": 133
                 }
@@ -2819,7 +2819,7 @@
           "locations": [
             {
               "resultFile": {
-                "uri": "examples\\gun.c",
+                "uri": "examples/gun.c",
                 "region": {
                   "startLine": 208
                 }
@@ -2836,7 +2836,7 @@
           "locations": [
             {
               "resultFile": {
-                "uri": "examples\\gun.c",
+                "uri": "examples/gun.c",
                 "region": {
                   "startLine": 385
                 }
@@ -2853,7 +2853,7 @@
           "locations": [
             {
               "resultFile": {
-                "uri": "examples\\gun.c",
+                "uri": "examples/gun.c",
                 "region": {
                   "startLine": 386
                 }
@@ -2870,7 +2870,7 @@
           "locations": [
             {
               "resultFile": {
-                "uri": "examples\\gun.c",
+                "uri": "examples/gun.c",
                 "region": {
                   "startLine": 633
                 }
@@ -2887,7 +2887,7 @@
           "locations": [
             {
               "resultFile": {
-                "uri": "examples\\gun.c",
+                "uri": "examples/gun.c",
                 "region": {
                   "startLine": 634
                 }
@@ -2904,7 +2904,7 @@
           "locations": [
             {
               "resultFile": {
-                "uri": "examples\\gun.c",
+                "uri": "examples/gun.c",
                 "region": {
                   "startLine": 337
                 }
@@ -2921,7 +2921,7 @@
           "locations": [
             {
               "resultFile": {
-                "uri": "examples\\gzappend.c",
+                "uri": "examples/gzappend.c",
                 "region": {
                   "startLine": 396
                 }
@@ -2933,7 +2933,7 @@
               "locations": [
                 {
                   "physicalLocation": {
-                    "uri": "examples\\gzappend.c",
+                    "uri": "examples/gzappend.c",
                     "region": {
                       "startLine": 415
                     }
@@ -2942,7 +2942,7 @@
                 },
                 {
                   "physicalLocation": {
-                    "uri": "examples\\gzappend.c",
+                    "uri": "examples/gzappend.c",
                     "region": {
                       "startLine": 396
                     }
@@ -2962,7 +2962,7 @@
           "locations": [
             {
               "resultFile": {
-                "uri": "examples\\gzappend.c",
+                "uri": "examples/gzappend.c",
                 "region": {
                   "startLine": 127
                 }
@@ -2979,7 +2979,7 @@
           "locations": [
             {
               "resultFile": {
-                "uri": "examples\\gzappend.c",
+                "uri": "examples/gzappend.c",
                 "region": {
                   "startLine": 127
                 }
@@ -2996,7 +2996,7 @@
           "locations": [
             {
               "resultFile": {
-                "uri": "examples\\gzappend.c",
+                "uri": "examples/gzappend.c",
                 "region": {
                   "startLine": 204
                 }
@@ -3013,7 +3013,7 @@
           "locations": [
             {
               "resultFile": {
-                "uri": "examples\\gzappend.c",
+                "uri": "examples/gzappend.c",
                 "region": {
                   "startLine": 238
                 }
@@ -3030,7 +3030,7 @@
           "locations": [
             {
               "resultFile": {
-                "uri": "examples\\gzjoin.c",
+                "uri": "examples/gzjoin.c",
                 "region": {
                   "startLine": 391
                 }
@@ -3047,7 +3047,7 @@
           "locations": [
             {
               "resultFile": {
-                "uri": "examples\\gzjoin.c",
+                "uri": "examples/gzjoin.c",
                 "region": {
                   "startLine": 405
                 }
@@ -3064,7 +3064,7 @@
           "locations": [
             {
               "resultFile": {
-                "uri": "examples\\gzlog.c",
+                "uri": "examples/gzlog.c",
                 "region": {
                   "startLine": 503
                 }
@@ -3081,7 +3081,7 @@
           "locations": [
             {
               "resultFile": {
-                "uri": "examples\\gzlog.c",
+                "uri": "examples/gzlog.c",
                 "region": {
                   "startLine": 610
                 }
@@ -3098,7 +3098,7 @@
           "locations": [
             {
               "resultFile": {
-                "uri": "examples\\gzlog.c",
+                "uri": "examples/gzlog.c",
                 "region": {
                   "startLine": 611
                 }
@@ -3115,7 +3115,7 @@
           "locations": [
             {
               "resultFile": {
-                "uri": "examples\\gzlog.c",
+                "uri": "examples/gzlog.c",
                 "region": {
                   "startLine": 611
                 }
@@ -3132,7 +3132,7 @@
           "locations": [
             {
               "resultFile": {
-                "uri": "examples\\gzlog.c",
+                "uri": "examples/gzlog.c",
                 "region": {
                   "startLine": 612
                 }
@@ -3149,7 +3149,7 @@
           "locations": [
             {
               "resultFile": {
-                "uri": "examples\\gzlog.c",
+                "uri": "examples/gzlog.c",
                 "region": {
                   "startLine": 740
                 }
@@ -3166,7 +3166,7 @@
           "locations": [
             {
               "resultFile": {
-                "uri": "examples\\gzlog.c",
+                "uri": "examples/gzlog.c",
                 "region": {
                   "startLine": 910
                 }
@@ -3183,7 +3183,7 @@
           "locations": [
             {
               "resultFile": {
-                "uri": "examples\\gzlog.c",
+                "uri": "examples/gzlog.c",
                 "region": {
                   "startLine": 910
                 }
@@ -3200,7 +3200,7 @@
           "locations": [
             {
               "resultFile": {
-                "uri": "examples\\gzlog.c",
+                "uri": "examples/gzlog.c",
                 "region": {
                   "startLine": 912
                 }
@@ -3217,7 +3217,7 @@
           "locations": [
             {
               "resultFile": {
-                "uri": "examples\\gzlog.c",
+                "uri": "examples/gzlog.c",
                 "region": {
                   "startLine": 1003
                 }
@@ -3234,7 +3234,7 @@
           "locations": [
             {
               "resultFile": {
-                "uri": "examples\\zran.c",
+                "uri": "examples/zran.c",
                 "region": {
                   "startLine": 229
                 }
@@ -3251,7 +3251,7 @@
           "locations": [
             {
               "resultFile": {
-                "uri": "examples\\zran.c",
+                "uri": "examples/zran.c",
                 "region": {
                   "startLine": 230
                 }
@@ -3268,7 +3268,7 @@
           "locations": [
             {
               "resultFile": {
-                "uri": "examples\\zran.c",
+                "uri": "examples/zran.c",
                 "region": {
                   "startLine": 232
                 }
@@ -3285,7 +3285,7 @@
           "locations": [
             {
               "resultFile": {
-                "uri": "test\\example.c",
+                "uri": "test/example.c",
                 "region": {
                   "startLine": 62
                 }
@@ -3302,7 +3302,7 @@
           "locations": [
             {
               "resultFile": {
-                "uri": "test\\example.c",
+                "uri": "test/example.c",
                 "region": {
                   "startLine": 68
                 }
@@ -3319,7 +3319,7 @@
           "locations": [
             {
               "resultFile": {
-                "uri": "test\\example.c",
+                "uri": "test/example.c",
                 "region": {
                   "startLine": 576
                 }
@@ -3336,7 +3336,7 @@
           "locations": [
             {
               "resultFile": {
-                "uri": "test\\infcover.c",
+                "uri": "test/infcover.c",
                 "region": {
                   "startLine": 465
                 }
@@ -3353,7 +3353,7 @@
           "locations": [
             {
               "resultFile": {
-                "uri": "test\\infcover.c",
+                "uri": "test/infcover.c",
                 "region": {
                   "startLine": 188
                 }
@@ -3370,7 +3370,7 @@
           "locations": [
             {
               "resultFile": {
-                "uri": "test\\infcover.c",
+                "uri": "test/infcover.c",
                 "region": {
                   "startLine": 196
                 }
@@ -3387,7 +3387,7 @@
           "locations": [
             {
               "resultFile": {
-                "uri": "test\\infcover.c",
+                "uri": "test/infcover.c",
                 "region": {
                   "startLine": 221
                 }
@@ -3404,7 +3404,7 @@
           "locations": [
             {
               "resultFile": {
-                "uri": "test\\minigzip.c",
+                "uri": "test/minigzip.c",
                 "region": {
                   "startLine": 367
                 }
@@ -3421,7 +3421,7 @@
           "locations": [
             {
               "resultFile": {
-                "uri": "test\\minigzip.c",
+                "uri": "test/minigzip.c",
                 "region": {
                   "startLine": 435
                 }
@@ -3438,7 +3438,7 @@
           "locations": [
             {
               "resultFile": {
-                "uri": "test\\minigzip.c",
+                "uri": "test/minigzip.c",
                 "region": {
                   "startLine": 159
                 }
@@ -3455,7 +3455,7 @@
           "locations": [
             {
               "resultFile": {
-                "uri": "test\\minigzip.c",
+                "uri": "test/minigzip.c",
                 "region": {
                   "startLine": 166
                 }
@@ -3472,7 +3472,7 @@
           "locations": [
             {
               "resultFile": {
-                "uri": "test\\minigzip.c",
+                "uri": "test/minigzip.c",
                 "region": {
                   "startLine": 265
                 }
@@ -3489,7 +3489,7 @@
           "locations": [
             {
               "resultFile": {
-                "uri": "test\\minigzip.c",
+                "uri": "test/minigzip.c",
                 "region": {
                   "startLine": 266
                 }

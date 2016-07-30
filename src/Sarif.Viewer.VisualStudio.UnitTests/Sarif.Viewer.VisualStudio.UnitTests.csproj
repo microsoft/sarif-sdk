@@ -52,9 +52,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Converters\ImportanceToEssentialMarkerVisibilityConverterTests.cs" />
-    <Compile Include="Converters\ImportanceToBackgroundConverterTests.cs" />
-    <Compile Include="Converters\ImportanceToForegroundConverterTests.cs" />
     <Compile Include="Converters\CallTreeNodeToTextConverterTests.cs" />
     <Compile Include="CodeFlowToTreeConverterTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -2,26 +2,29 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information. 
 
 using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Data;
-using Microsoft.CodeAnalysis.Sarif;
 
 namespace Microsoft.Sarif.Viewer.Converters
 {
-    public class ImportanceToEssentialMarkerVisibilityConverter : IValueConverter
+    public class CollectionToBooleanConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {
-            if (value is AnnotatedCodeLocationImportance)
+            var collection = value as ICollection;
+
+            if (collection == null || collection.Count == 0)
             {
-                var importance = (AnnotatedCodeLocationImportance)value;
-                return importance == AnnotatedCodeLocationImportance.Essential
-                    ? Visibility.Visible
-                    : Visibility.Collapsed;
+                return false;
             }
             else
             {
-                return Visibility.Collapsed;
+                return true;
             }
         }
 
