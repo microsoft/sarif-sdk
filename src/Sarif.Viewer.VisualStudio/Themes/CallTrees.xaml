@@ -2,7 +2,8 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:local="clr-namespace:Microsoft.Sarif.Viewer.Themes"
                     xmlns:cvt="clr-namespace:Microsoft.Sarif.Viewer.Converters"
-                    xmlns:shell="clr-namespace:Microsoft.VisualStudio.Shell;assembly=Microsoft.VisualStudio.Shell.14.0">
+                    xmlns:shell="clr-namespace:Microsoft.VisualStudio.Shell;assembly=Microsoft.VisualStudio.Shell.14.0"
+                    xmlns:msv="clr-namespace:Microsoft.Sarif.Viewer">
 
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="pack://application:,,,/Microsoft.Sarif.Viewer;component/Themes/DefaultStyles.xaml" />
@@ -12,7 +13,8 @@
         <ListView ItemsSource="{Binding}">
             <ListView.ItemTemplate>
                 <DataTemplate>
-                    <TreeView ItemsSource="{Binding TopLevelNodes}">
+                    <TreeView ItemsSource="{Binding TopLevelNodes}"
+                              msv:TreeViewHelper.SelectedItem="{Binding SelectedItem, Mode=TwoWay}">
                         <TreeView.Resources>
                             <cvt:CallTreeNodeToTextConverter x:Key="callTreeToTextConverter" />
                             <cvt:ImportanceToForegroundConverter x:Key="importanceToForegroundConverter" />
@@ -37,6 +39,12 @@
                                 </StackPanel>
                             </HierarchicalDataTemplate>
                         </TreeView.ItemTemplate>
+                        <TreeView.InputBindings>
+                            <KeyBinding Command="{Binding SelectPreviousCommand}" Gesture="CTRL+ALT+SHIFT+F7"
+                                        CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=TreeView}}" />
+                            <KeyBinding Command="{Binding SelectNextCommand}" Gesture="CTRL+ALT+SHIFT+F8"
+                                        CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=TreeView}}" />
+                        </TreeView.InputBindings>
                     </TreeView>
                 </DataTemplate>
             </ListView.ItemTemplate>
