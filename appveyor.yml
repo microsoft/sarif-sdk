@@ -30,6 +30,7 @@ test:
     - '**\Sarif.Driver.UnitTests.dll'
     - '**\Sarif.FunctionalTests.dll'
     - '**\Sarif.ValidationTests.dll'
+    - '**\Sarif.Viewer.VisualStudio.UnitTests.dll'
 
 notifications:
   - provider: Email
