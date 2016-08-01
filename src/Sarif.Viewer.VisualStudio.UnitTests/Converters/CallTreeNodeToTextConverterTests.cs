@@ -31,7 +31,7 @@ namespace Microsoft.Sarif.Viewer.VisualStudio.Converters.UnitTests
                 }
             };
 
-            VerifyConversion(callTreeNode, "42: my_function");
+            VerifyConversion(callTreeNode, "my_function");
         }
 
         [Fact]
@@ -52,7 +52,7 @@ namespace Microsoft.Sarif.Viewer.VisualStudio.Converters.UnitTests
                 }
             };
 
-            VerifyConversion(callTreeNode, "42: <unknown callee>");
+            VerifyConversion(callTreeNode, "<unknown callee>");
         }
 
         [Fact]
@@ -73,7 +73,7 @@ namespace Microsoft.Sarif.Viewer.VisualStudio.Converters.UnitTests
                 }
             };
 
-            VerifyConversion(callTreeNode, "42: Return");
+            VerifyConversion(callTreeNode, "Return");
         }
 
         [Fact]
@@ -94,7 +94,7 @@ namespace Microsoft.Sarif.Viewer.VisualStudio.Converters.UnitTests
                 }
             };
 
-            VerifyConversion(callTreeNode, "42: Continuation");
+            VerifyConversion(callTreeNode, "Continuation");
         }
 
         [Fact]
@@ -110,6 +110,118 @@ namespace Microsoft.Sarif.Viewer.VisualStudio.Converters.UnitTests
             };
 
             VerifyConversion(callTreeNode, "Return");
+        }
+
+        [Fact]
+        public void CallTreeNodeToTextConverter_HandlesMessage()
+        {
+            string snippet = "    contentStores[0] = contentStores[index];";
+            string message = "The error happened here.";
+            string sourceFile = @"file:///c:/dir1/dir%202\source%20file.cpp";
+
+            var callTreeNode = new CallTreeNode
+            {
+                Location = new AnnotatedCodeLocation
+                {
+                    Kind = AnnotatedCodeLocationKind.Call,
+                    Snippet = snippet,
+                    Message = message,
+                    Callee = "my_function",
+                    PhysicalLocation = new PhysicalLocation
+                    {
+                        Uri = new System.Uri(sourceFile),
+                        Region = new Region
+                        {
+                            StartLine = 42
+                        }
+                    }
+                }
+            };
+
+            VerifyConversion(callTreeNode, message);
+        }
+
+        [Fact]
+        public void CallTreeNodeToTextConverter_HandlesNullMessage()
+        {
+            string snippet = "    contentStores[0] = contentStores[index];";
+            string message = null;
+            string sourceFile = @"file:///c:/dir1/dir%202\source%20file.cpp";
+
+            var callTreeNode = new CallTreeNode
+            {
+                Location = new AnnotatedCodeLocation
+                {
+                    Kind = AnnotatedCodeLocationKind.Call,
+                    Snippet = snippet,
+                    Message = message,
+                    Callee = "my_function",
+                    PhysicalLocation = new PhysicalLocation
+                    {
+                        Uri = new System.Uri(sourceFile),
+                        Region = new Region
+                        {
+                            StartLine = 42
+                        }
+                    }
+                }
+            };
+
+            VerifyConversion(callTreeNode, snippet.Trim());
+        }
+
+        [Fact]
+        public void CallTreeNodeToTextConverter_HandlesSnippet()
+        {
+            string snippet = "    contentStores[0] = contentStores[index];";
+            string sourceFile = @"file:///c:/dir1/dir%202\source%20file.cpp";
+
+            var callTreeNode = new CallTreeNode
+            {
+                Location = new AnnotatedCodeLocation
+                {
+                    Kind = AnnotatedCodeLocationKind.Call,
+                    Snippet = snippet,
+                    Callee = "my_function",
+                    PhysicalLocation = new PhysicalLocation
+                    {
+                        Uri = new System.Uri(sourceFile),
+                        Region = new Region
+                        {
+                            StartLine = 42
+                        }
+                    }
+                }
+            };
+
+            VerifyConversion(callTreeNode, snippet.Trim());
+        }
+
+        [Fact]
+        public void CallTreeNodeToTextConverter_HandlesNullSnippet()
+        {
+            string snippet = null;
+            string sourceFile = @"file:///c:/dir1/dir%202\source%20file.cpp";
+
+            var callTreeNode = new CallTreeNode
+            {
+                Location = new AnnotatedCodeLocation
+                {
+                    Kind = AnnotatedCodeLocationKind.Call,
+                    Snippet = snippet,
+                    Callee = "my_function",
+                    PhysicalLocation = new PhysicalLocation
+                    {
+                        Uri = new System.Uri(sourceFile),
+                        Region = new Region
+                        {
+                            StartLine = 42
+                        }
+                    }
+                }
+            };
+
+            VerifyConversion(callTreeNode, "my_function");
         }
 
         private static void VerifyConversion(CallTreeNode callTreeNode, string expectedText)
