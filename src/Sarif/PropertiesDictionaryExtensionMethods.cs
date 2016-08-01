@@ -12,18 +12,18 @@ using System.Xml;
 
 namespace Microsoft.CodeAnalysis.Sarif
 {
-    public static class PropertyBagExtensionMethods
+    public static class PropertiesDictionaryExtensionMethods
     {
-        public static void SavePropertyBagToStream(
+        public static void SavePropertiesToStream(
             this IDictionary propertyBag,
             XmlWriter writer,
             XmlWriterSettings settings,
             string name)
         {
-            SavePropertyBagToStream(propertyBag, writer, settings, name, settingNameToDescriptionMap: null);
+            SavePropertiesToStream(propertyBag, writer, settings, name, settingNameToDescriptionMap: null);
         }
 
-        public static void SavePropertyBagToStream(
+        public static void SavePropertiesToStream(
             this IDictionary propertyBag,
             XmlWriter writer,
             XmlWriterSettings settings,
@@ -79,7 +79,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 IDictionary pb = property as IDictionary;
                 if (pb != null)
                 {
-                    ((IDictionary)pb).SavePropertyBagToStream(writer, settings, key, settingNameToDescriptionMap);
+                    ((IDictionary)pb).SavePropertiesToStream(writer, settings, key, settingNameToDescriptionMap);
                     continue;
                 }
 
@@ -120,7 +120,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             // requirement by changing this code to process all
             // namespaces and to select the shortest type name
             // that results.                        
-            foreach (string nsPrefix in PropertyBagDictionary.DefaultNamespaces)
+            foreach (string nsPrefix in PropertiesDictionary.DefaultNamespaces)
             {
                 if (typeName.StartsWith(nsPrefix, StringComparison.Ordinal))
                 {
@@ -180,11 +180,11 @@ namespace Microsoft.CodeAnalysis.Sarif
 
                     if (String.IsNullOrEmpty(typeName))
                     {
-                        nestedPropertyBag = new PropertyBagDictionary();
+                        nestedPropertyBag = new PropertiesDictionary();
                     }
                     else
                     {
-                        Type type = GetPropertyBagType(typeName);
+                        Type type = GetPropertiesDictionaryType(typeName);
                         nestedPropertyBag = (IDictionary)Activator.CreateInstance(type);
                     }
 
@@ -212,7 +212,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
 
                     reader.ReadStartElement(PROPERTY_ID);
-                    Type propertyType = GetPropertyBagType(typeName);
+                    Type propertyType = GetPropertiesDictionaryType(typeName);
 
                     if (typeName == "System.Version")
                     {
@@ -234,13 +234,13 @@ namespace Microsoft.CodeAnalysis.Sarif
             }
         }
 
-        private static Type GetPropertyBagType(string typeName)
+        private static Type GetPropertiesDictionaryType(string typeName)
         {
             Type type = GetType(typeName);
 
             if (type == null)
             {
-                foreach (string nsPrefix in PropertyBagDictionary.DefaultNamespaces)
+                foreach (string nsPrefix in PropertiesDictionary.DefaultNamespaces)
                 {
                     type = GetType(nsPrefix + typeName);
                     if (type != null) { break; }

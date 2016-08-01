@@ -12,25 +12,25 @@ using System.Xml;
 namespace Microsoft.CodeAnalysis.Sarif
 {
     [Serializable]
-    public class PropertyBagDictionary : TypedPropertyBagDictionary<object>
+    public class PropertiesDictionary : TypedPropertiesDictionary<object>
     {
         internal const string DEFAULT_POLICY_NAME = "default";
 
-        public PropertyBagDictionary() : this(null) { }
+        public PropertiesDictionary() : this(null) { }
 
-        public PropertyBagDictionary(PropertyBagDictionary initializer) :
+        public PropertiesDictionary(PropertiesDictionary initializer) :
             this(initializer, null)
         {
         }
 
-        public PropertyBagDictionary(
-            PropertyBagDictionary initializer,
+        public PropertiesDictionary(
+            PropertiesDictionary initializer,
             IEqualityComparer<string> comparer)
             : base(initializer, comparer)
         {
         }
 
-        protected PropertyBagDictionary(SerializationInfo info, StreamingContext context)
+        protected PropertiesDictionary(SerializationInfo info, StreamingContext context)
             : base(info, context)
         {
         }
@@ -47,7 +47,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             if (setting == null) { throw new ArgumentNullException(nameof(setting)); }
 
-            PropertyBagDictionary properties = GetSettingsContainer(setting, cacheDefault);
+            PropertiesDictionary properties = GetSettingsContainer(setting, cacheDefault);
 
             T value;
             if (!properties.TryGetProperty(setting.Name, out value) && setting.DefaultValue != null)
@@ -69,7 +69,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             if (setting == null) { throw new ArgumentNullException(nameof(setting)); }
 
-            PropertyBagDictionary properties = GetSettingsContainer(setting, true);
+            PropertiesDictionary properties = GetSettingsContainer(setting, true);
 
             if (value == null && properties.ContainsKey(setting.Name))
             {
@@ -104,9 +104,9 @@ namespace Microsoft.CodeAnalysis.Sarif
             return false;
         }
 
-        private PropertyBagDictionary GetSettingsContainer(IOption setting, bool cacheDefault)
+        private PropertiesDictionary GetSettingsContainer(IOption setting, bool cacheDefault)
         {
-            PropertyBagDictionary properties = this;
+            PropertiesDictionary properties = this;
 
             if (String.IsNullOrEmpty(Name))
             {
@@ -114,13 +114,13 @@ namespace Microsoft.CodeAnalysis.Sarif
                 string featureOptionsName = setting.Feature + ".Options";
                 if (!TryGetValue(featureOptionsName, out propertiesObject))
                 {
-                    properties = new PropertyBagDictionary();
+                    properties = new PropertiesDictionary();
                     if (cacheDefault) { this[featureOptionsName] = properties; }
                     properties.Name = featureOptionsName;
                 }
                 else
                 {
-                    properties = (PropertyBagDictionary)propertiesObject;
+                    properties = (PropertiesDictionary)propertiesObject;
                 }
             }
             return properties;
@@ -146,7 +146,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             var settings = new XmlWriterSettings { Indent = true };
             using (XmlWriter writer = XmlWriter.Create(stream, settings))
             {
-                this.SavePropertyBagToStream(writer, settings, id, SettingNameToDescriptionsMap);
+                this.SavePropertiesToStream(writer, settings, id, SettingNameToDescriptionsMap);
             }
         }
 
@@ -165,7 +165,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             using (XmlReader reader = XmlReader.Create(stream, settings))
             {
-                if (reader.IsStartElement(PropertyBagExtensionMethods.PROPERTIES_ID))
+                if (reader.IsStartElement(PropertiesDictionaryExtensionMethods.PROPERTIES_ID))
                 {
                     bool isEmpty = reader.IsEmptyElement;
                     this.Clear();
@@ -173,7 +173,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                     // Note: we do not recover the property bag id
                     //       as there is no current product use for the value
 
-                    reader.ReadStartElement(PropertyBagExtensionMethods.PROPERTIES_ID);
+                    reader.ReadStartElement(PropertiesDictionaryExtensionMethods.PROPERTIES_ID);
 
                     this.LoadPropertiesFromXmlStream(reader);
                     if (!isEmpty) reader.ReadEndElement();
