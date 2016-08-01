@@ -91,7 +91,7 @@ namespace Microsoft.Sarif.Viewer.Models
             throw new IndexOutOfRangeException("Given node was not in the list.");
         }
 
-         private CallTreeNode FindNextNotCall(CallTreeNode currentNode)
+        private CallTreeNode FindNextNotCall(CallTreeNode currentNode)
         {
             CallTreeNode currentParent = currentNode.Parent;
             if (currentParent == null)
@@ -121,11 +121,10 @@ namespace Microsoft.Sarif.Viewer.Models
             }
         }
 
-        private CallTreeNode FindNext()
+        internal CallTreeNode FindNext()
         {
             if (this.SelectedItem.Location.Kind == CodeAnalysis.Sarif.AnnotatedCodeLocationKind.Call && this.SelectedItem.Children.Count > 0)
             {
-                // need to expand selected node
                 return this.SelectedItem.Children[0];
             }
             else
@@ -144,7 +143,7 @@ namespace Microsoft.Sarif.Viewer.Models
         }
 
         // go to parent, find self, find previous/next, make sure not to roll off
-        private CallTreeNode FindPrevious()
+        internal CallTreeNode FindPrevious()
         {
             IList<CallTreeNode> currentParentChildren;
             if (this.SelectedItem.Parent == null)
