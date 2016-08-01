@@ -8,13 +8,13 @@ using System.Runtime.Serialization;
 namespace Microsoft.CodeAnalysis.Sarif
 {
     [Serializable]
-    public class TypedPropertyBagDictionary<T> : Dictionary<string, T> where T : new()
+    public class TypedPropertiesDictionary<T> : Dictionary<string, T> where T : new()
     {
-        public TypedPropertyBagDictionary() : this(null, StringComparer.Ordinal)
+        public TypedPropertiesDictionary() : this(null, StringComparer.Ordinal)
         {
         }
 
-        public TypedPropertyBagDictionary(PropertyBagDictionary initializer, IEqualityComparer<string> comparer) : base(comparer)
+        public TypedPropertiesDictionary(PropertiesDictionary initializer, IEqualityComparer<string> comparer) : base(comparer)
         {
             if (initializer != null)
             {
@@ -25,7 +25,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             }
         }
 
-        protected TypedPropertyBagDictionary(SerializationInfo info, StreamingContext context)
+        protected TypedPropertiesDictionary(SerializationInfo info, StreamingContext context)
             : base(info, context)
         {
         }
