@@ -1,6 +1,7 @@
 ﻿// Copyright (c) Microsoft. All rights reserved. 
 // Licensed under the MIT license. See LICENSE file in the project root for full license information. 
 
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
@@ -62,25 +63,32 @@ namespace Microsoft.Sarif.Viewer.Models
             }
         }
 
-        private static int GetIndexInCallTreeNodeList(IList<CallTreeNode> list, CallTreeNode givenNode)
+        private int GetIndexInCallTreeNodeList(IList<CallTreeNode> list, CallTreeNode givenNode)
         {
             int index = 0;
-            foreach (CallTreeNode listNode in list)
+            if (list == null)
             {
-                if (listNode == givenNode)
+                throw new ArgumentNullException("List is null.");
+            }
+            else
+            {
+                foreach (CallTreeNode listNode in list)
                 {
-                    return index;
-                }
-                else
-                {
-                    index++;
+                    if (listNode == givenNode)
+                    {
+                        return index;
+                    }
+                    else
+                    {
+                        index++;
+                    }
                 }
             }
 
             /* this exception should never be thrown, as this method should only be called when 
              * givenNode is already known to be a member of list 
              */
-            throw new System.Exception("Given node was not in the list.");
+            throw new IndexOutOfRangeException("Given node was not in the list.");
         }
 
          private CallTreeNode FindNextNotCall(CallTreeNode currentNode)
