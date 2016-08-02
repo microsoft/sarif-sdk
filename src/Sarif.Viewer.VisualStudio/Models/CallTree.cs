@@ -63,7 +63,7 @@ namespace Microsoft.Sarif.Viewer.Models
                 if (_selectedItem != null)
                 {
                     // Update the VS Properties window with the properties of the selected CallTreeNode.
-                    SarifViewerPackage.SarifToolWindow.UpdateSelectionList(_selectedItem.TypeDescriptor);
+                    SarifViewerPackage.SarifToolWindow?.UpdateSelectionList(_selectedItem.TypeDescriptor);
 
                     // Navigate to the source file of the selected CallTreeNode.
                     _selectedItem.NavigateTo();
