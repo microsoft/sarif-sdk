@@ -60,7 +60,8 @@ namespace Microsoft.Sarif.Viewer
             get
             {
                 SarifViewerPackage package = SarifViewerPackage.ServiceProvider as SarifViewerPackage;
-                SarifToolWindow toolWindow = package.FindToolWindow(typeof(SarifToolWindow), 0, true) as SarifToolWindow;
+
+                SarifToolWindow toolWindow = package?.FindToolWindow(typeof(SarifToolWindow), 0, true) as SarifToolWindow;
 
                 return toolWindow;
             }
