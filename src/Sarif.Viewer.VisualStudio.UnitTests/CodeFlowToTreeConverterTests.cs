@@ -20,19 +20,13 @@ namespace Microsoft.Sarif.Viewer.VisualStudio.UnitTests
                 {
                     new AnnotatedCodeLocation
                     {
-                        Kind = AnnotatedCodeLocationKind.Call
+                        Kind = AnnotatedCodeLocationKind.Call,
+                        Message = "first parent"
                     },
                     new AnnotatedCodeLocation
                     {
-                        Kind = AnnotatedCodeLocationKind.Call
-                    },
-                    new AnnotatedCodeLocation
-                    {
-                        Kind = AnnotatedCodeLocationKind.CallReturn
-                    },
-                    new AnnotatedCodeLocation
-                    {
-                        Kind = AnnotatedCodeLocationKind.Call
+                        Kind = AnnotatedCodeLocationKind.Call,
+                        Message = "second parent"
                     },
                     new AnnotatedCodeLocation
                     {
@@ -40,7 +34,17 @@ namespace Microsoft.Sarif.Viewer.VisualStudio.UnitTests
                     },
                     new AnnotatedCodeLocation
                     {
-                        Kind = AnnotatedCodeLocationKind.Call
+                        Kind = AnnotatedCodeLocationKind.Call,
+                        Message = "third parent"
+                    },
+                    new AnnotatedCodeLocation
+                    {
+                        Kind = AnnotatedCodeLocationKind.CallReturn
+                    },
+                    new AnnotatedCodeLocation
+                    {
+                        Kind = AnnotatedCodeLocationKind.Call,
+                        Message = "fourth parent"
                     },
                     new AnnotatedCodeLocation
                     {
@@ -52,7 +56,8 @@ namespace Microsoft.Sarif.Viewer.VisualStudio.UnitTests
                     },
                     new AnnotatedCodeLocation
                     {
-                        Kind = AnnotatedCodeLocationKind.Call
+                        Kind = AnnotatedCodeLocationKind.Call,
+                        Message = "fifth parent"
                     },
                     new AnnotatedCodeLocation
                     {
@@ -78,6 +83,18 @@ namespace Microsoft.Sarif.Viewer.VisualStudio.UnitTests
             topLevelNodes[0].Children[3].Location.Kind.Should().Be(AnnotatedCodeLocationKind.CallReturn);
             topLevelNodes[1].Location.Kind.Should().Be(AnnotatedCodeLocationKind.Call);
             topLevelNodes[1].Children[0].Location.Kind.Should().Be(AnnotatedCodeLocationKind.CallReturn);
+
+            // Check parents
+            topLevelNodes[0].Parent.Should().Be(null);
+            topLevelNodes[0].Children[0].Parent.Location.Message.Should().Be("first parent");
+            topLevelNodes[0].Children[0].Children[0].Parent.Location.Message.Should().Be("second parent");
+            topLevelNodes[0].Children[1].Parent.Location.Message.Should().Be("first parent");
+            topLevelNodes[0].Children[1].Children[0].Parent.Location.Message.Should().Be("third parent");
+            topLevelNodes[0].Children[2].Parent.Location.Message.Should().Be("first parent");
+            topLevelNodes[0].Children[2].Children[0].Parent.Location.Message.Should().Be("fourth parent");
+            topLevelNodes[0].Children[3].Parent.Location.Message.Should().Be("first parent");
+            topLevelNodes[1].Parent.Should().Be(null);
+            topLevelNodes[1].Children[0].Parent.Location.Message.Should().Be("fifth parent");
         }
 
         [Fact]
@@ -89,7 +106,8 @@ namespace Microsoft.Sarif.Viewer.VisualStudio.UnitTests
                 {
                     new AnnotatedCodeLocation
                     {
-                        Kind = AnnotatedCodeLocationKind.Call
+                        Kind = AnnotatedCodeLocationKind.Call,
+                        Message = "first parent"
                     },
                     new AnnotatedCodeLocation
                     {
@@ -109,7 +127,8 @@ namespace Microsoft.Sarif.Viewer.VisualStudio.UnitTests
                     },
                     new AnnotatedCodeLocation
                     {
-                        Kind = AnnotatedCodeLocationKind.Call
+                        Kind = AnnotatedCodeLocationKind.Call,
+                        Message = "second parent"
                     },
                     new AnnotatedCodeLocation
                     {
@@ -138,6 +157,17 @@ namespace Microsoft.Sarif.Viewer.VisualStudio.UnitTests
             topLevelNodes[0].Children[3].Location.Kind.Should().Be(AnnotatedCodeLocationKind.CallReturn);
             topLevelNodes[1].Location.Kind.Should().Be(AnnotatedCodeLocationKind.Call);
             topLevelNodes[1].Children[2].Location.Kind.Should().Be(AnnotatedCodeLocationKind.CallReturn);
+
+            // Check parents
+            topLevelNodes[0].Parent.Should().Be(null);
+            topLevelNodes[0].Children[0].Parent.Location.Message.Should().Be("first parent");
+            topLevelNodes[0].Children[1].Parent.Location.Message.Should().Be("first parent");
+            topLevelNodes[0].Children[2].Parent.Location.Message.Should().Be("first parent");
+            topLevelNodes[0].Children[3].Parent.Location.Message.Should().Be("first parent");
+            topLevelNodes[1].Parent.Should().Be(null);
+            topLevelNodes[1].Children[0].Parent.Location.Message.Should().Be("second parent");
+            topLevelNodes[1].Children[1].Parent.Location.Message.Should().Be("second parent");
+            topLevelNodes[1].Children[2].Parent.Location.Message.Should().Be("second parent");
         }
 
         [Fact]
@@ -172,6 +202,10 @@ namespace Microsoft.Sarif.Viewer.VisualStudio.UnitTests
             topLevelNodes[0].Location.Kind.Should().Be(AnnotatedCodeLocationKind.Declaration);
             topLevelNodes[1].Location.Kind.Should().Be(AnnotatedCodeLocationKind.Declaration);
             topLevelNodes[2].Location.Kind.Should().Be(AnnotatedCodeLocationKind.Declaration);
+
+            topLevelNodes[0].Parent.Should().Be(null);
+            topLevelNodes[1].Parent.Should().Be(null);
+            topLevelNodes[2].Parent.Should().Be(null);
         }
     }
 }
