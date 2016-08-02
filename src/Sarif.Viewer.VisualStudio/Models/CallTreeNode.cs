@@ -3,9 +3,9 @@
 
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.IO;
 using Microsoft.CodeAnalysis.Sarif;
-using System.ComponentModel;
 
 namespace Microsoft.Sarif.Viewer.Models
 {

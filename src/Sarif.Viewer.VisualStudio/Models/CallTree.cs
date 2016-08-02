@@ -4,7 +4,6 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
 using System.Windows.Controls;
 
 namespace Microsoft.Sarif.Viewer.Models
@@ -123,7 +122,11 @@ namespace Microsoft.Sarif.Viewer.Models
 
         internal CallTreeNode FindNext()
         {
-            if (this.SelectedItem.Location.Kind == CodeAnalysis.Sarif.AnnotatedCodeLocationKind.Call && this.SelectedItem.Children.Count > 0)
+            if (this.SelectedItem == null)
+            {
+                return null;
+            }
+            else if (this.SelectedItem.Location.Kind == CodeAnalysis.Sarif.AnnotatedCodeLocationKind.Call && this.SelectedItem.Children.Count > 0)
             {
                 return this.SelectedItem.Children[0];
             }
@@ -145,6 +148,11 @@ namespace Microsoft.Sarif.Viewer.Models
         // go to parent, find self, find previous/next, make sure not to roll off
         internal CallTreeNode FindPrevious()
         {
+            if (this.SelectedItem == null)
+            {
+                return null;
+            }
+
             IList<CallTreeNode> currentParentChildren;
             if (this.SelectedItem.Parent == null)
             {

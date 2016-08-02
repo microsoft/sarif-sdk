@@ -47,6 +47,9 @@ namespace Microsoft.Sarif.Viewer.VisualStudio.UnitTests
 
             CallTree callTree = new CallTree(CodeFlowToTreeConverter.Convert(codeFlow));
 
+            callTree.FindPrevious().Should().Be(null);
+            callTree.FindNext().Should().Be(null);
+
             callTree.SelectedItem = callTree.TopLevelNodes[0];
             callTree.FindPrevious().Should().Be(callTree.TopLevelNodes[0]);
             callTree.FindNext().Should().Be(callTree.TopLevelNodes[0].Children[0]);
