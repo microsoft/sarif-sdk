@@ -49,11 +49,11 @@ namespace Microsoft.Sarif.Viewer.Sarif
 
             if (primaryLocation.ResultFile != null)
             {
-                return primaryLocation.ResultFile.Uri.IsAbsoluteUri ? primaryLocation.ResultFile.Uri.LocalPath : primaryLocation.ResultFile.Uri.ToString();
+                return primaryLocation.ResultFile.Uri.ToPath();
             }
             else if (primaryLocation.AnalysisTarget != null)
             {
-                return primaryLocation.AnalysisTarget.Uri.IsAbsoluteUri ? primaryLocation.AnalysisTarget.Uri.LocalPath : primaryLocation.AnalysisTarget.Uri.ToString();
+                return primaryLocation.AnalysisTarget.Uri.ToPath();
             }
             else
             {

@@ -105,14 +105,13 @@ namespace Microsoft.Sarif.Viewer.Models
         {
             get
             {
-                return this._filePath;
+                return base.FilePath;
             }
             set
             {
                 if (value != this._filePath)
                 {
-                    this._filePath = value;
-                    NotifyPropertyChanged("FilePath");
+                    base.FilePath = value;
                     NotifyPropertyChanged("FileName");
                 }
             }

@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
 using Microsoft.CodeAnalysis.Sarif;
+using Microsoft.Sarif.Viewer.Sarif;
 
 namespace Microsoft.Sarif.Viewer.Models
 {
@@ -34,13 +35,7 @@ namespace Microsoft.Sarif.Viewer.Models
                     Uri uri = value.PhysicalLocation.Uri;
                     if (uri != null)
                     {
-                        string path = uri.IsAbsoluteUri ? uri.LocalPath : uri.ToString();
-                        if (uri.IsAbsoluteUri && !Path.IsPathRooted(path))
-                        {
-                            path = uri.AbsoluteUri;
-                        }
-
-                        FilePath = path;
+                        FilePath = uri.ToPath();
                     }
 
                     Region = value.PhysicalLocation.Region;

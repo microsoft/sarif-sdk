@@ -4,13 +4,14 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Diagnostics;
+using System.IO;
 using Microsoft.CodeAnalysis.Sarif;
 using Microsoft.Sarif.Viewer.Models;
 using Microsoft.Sarif.Viewer.Sarif;
 using Microsoft.VisualStudio.Shell.Interop;
 using Microsoft.VisualStudio.Text;
-using System.ComponentModel;
 
 namespace Microsoft.Sarif.Viewer
 {
@@ -60,6 +61,15 @@ namespace Microsoft.Sarif.Viewer
             Tool = run.Tool.ToToolModel();
             Rule = rule?.ToRuleModel(result.RuleId);
             Invocation = run.Invocation.ToInvocationModel();
+
+            if (String.IsNullOrWhiteSpace(run.Id))
+            {
+                WorkingDirectory = Path.Combine(Path.GetTempPath(), run.GetHashCode().ToString());
+            }
+            else
+            {
+                WorkingDirectory = Path.Combine(Path.GetTempPath(), run.Id);
+            }
 
             if (result.Locations != null)
             {
@@ -127,6 +137,9 @@ namespace Microsoft.Sarif.Viewer
 
         [Browsable(false)]
         public bool RegionPopulated { get; set; }
+
+        [Browsable(false)]
+        public string WorkingDirectory { get; set; }
 
         [Browsable(false)]
         public string ShortMessage { get; set; }
