@@ -265,7 +265,7 @@ namespace Microsoft.Sarif.Viewer
 
             Uri sourceUri = new Uri(fileUrl);
 
-            string destinationFile = Path.Combine(Path.GetTempPath(), CurrentSarifError.RunId, sourceUri.LocalPath.Replace('/', '\\').TrimStart('\\'));
+            string destinationFile = Path.Combine(CurrentSarifError.WorkingDirectory, sourceUri.LocalPath.Replace('/', '\\').TrimStart('\\'));
             string destinationDirectory = Path.GetDirectoryName(destinationFile);
             Directory.CreateDirectory(destinationDirectory);
 

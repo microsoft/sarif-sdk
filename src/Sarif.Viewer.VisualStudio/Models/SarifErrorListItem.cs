@@ -11,6 +11,7 @@ using Microsoft.Sarif.Viewer.Sarif;
 using Microsoft.VisualStudio.Shell.Interop;
 using Microsoft.VisualStudio.Text;
 using System.ComponentModel;
+using System.IO;
 
 namespace Microsoft.Sarif.Viewer
 {
@@ -63,11 +64,11 @@ namespace Microsoft.Sarif.Viewer
 
             if (String.IsNullOrWhiteSpace(run.Id))
             {
-                RunId = Guid.NewGuid().ToString();
+                WorkingDirectory = Path.Combine(Path.GetTempPath(), run.GetHashCode().ToString());
             }
             else
             {
-                RunId = run.Id;
+                WorkingDirectory = Path.Combine(Path.GetTempPath(), run.Id);
             }
 
             if (result.Locations != null)
@@ -138,7 +139,7 @@ namespace Microsoft.Sarif.Viewer
         public bool RegionPopulated { get; set; }
 
         [Browsable(false)]
-        public string RunId { get; set; }
+        public string WorkingDirectory { get; set; }
 
         [Browsable(false)]
         public string ShortMessage { get; set; }
