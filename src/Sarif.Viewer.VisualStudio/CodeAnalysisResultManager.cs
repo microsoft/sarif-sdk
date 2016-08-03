@@ -278,6 +278,7 @@ namespace Microsoft.Sarif.Viewer
                 return false;
             }
 
+            if (Uri.)
             string rebaselinedFile = GetRebaselinedFileName(originalFilename);
 
             if (String.IsNullOrEmpty(rebaselinedFile) || originalFilename.Equals(rebaselinedFile, StringComparison.OrdinalIgnoreCase))

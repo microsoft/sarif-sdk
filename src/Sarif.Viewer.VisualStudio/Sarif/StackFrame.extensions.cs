@@ -25,11 +25,7 @@ namespace Microsoft.Sarif.Viewer.Sarif
             model.Message = stackFrame.Message;
             model.Module = stackFrame.Module;
             model.Offset = stackFrame.Offset;
-            model.FilePath = stackFrame.Uri.LocalPath;
-            if (!Path.IsPathRooted(model.FilePath))
-            {
-                model.FilePath = stackFrame.Uri.AbsoluteUri;
-            }
+            model.FilePath = stackFrame.Uri.ToPath();
 
             return model;
         }

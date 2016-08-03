@@ -75,6 +75,7 @@
     </Compile>
     <Compile Include="SarifToolWindow.cs" />
     <Compile Include="SarifToolWindowCommand.cs" />
+    <Compile Include="Uri.extensions.cs" />
     <Compile Include="Views\SarifToolWindowControl.xaml.cs">
       <DependentUpon>SarifToolWindowControl.xaml</DependentUpon>
     </Compile>

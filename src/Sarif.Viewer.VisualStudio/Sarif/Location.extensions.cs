@@ -36,13 +36,7 @@ namespace Microsoft.Sarif.Viewer.Sarif
 
                 if (uri != null)
                 {
-                    string path = uri.IsAbsoluteUri ? uri.LocalPath : uri.ToString();
-                    if (uri.IsAbsoluteUri && !Path.IsPathRooted(path))
-                    {
-                        path = physicalLocation.Uri.AbsoluteUri;
-                    }
-
-                    model.FilePath = path;
+                    model.FilePath = uri.ToPath();
                 }
             }
 
