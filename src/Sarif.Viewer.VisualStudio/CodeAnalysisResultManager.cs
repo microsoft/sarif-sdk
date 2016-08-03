@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
+using System.Net;
 using System.Runtime.InteropServices;
 using System.Windows;
 using System.Windows.Input;
@@ -14,7 +15,6 @@ using Microsoft.CodeAnalysis.Sarif.Writers;
 using Microsoft.VisualStudio.Shell.Interop;
 using Microsoft.Win32;
 using Microsoft.Sarif.Viewer.Sarif;
-using System.Net;
 
 namespace Microsoft.Sarif.Viewer
 {

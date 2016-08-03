@@ -52,6 +52,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="UriExtensionsTests.cs" />
     <Compile Include="CallTreeTraversalTests.cs" />
     <Compile Include="Converters\CallTreeNodeToTextConverterTests.cs" />
     <Compile Include="CodeFlowToTreeConverterTests.cs" />
