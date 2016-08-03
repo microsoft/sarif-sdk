@@ -14,6 +14,7 @@ using Microsoft.CodeAnalysis.Sarif.Writers;
 using Microsoft.VisualStudio.Shell.Interop;
 using Microsoft.Win32;
 using Microsoft.Sarif.Viewer.Sarif;
+using System.Net;
 
 namespace Microsoft.Sarif.Viewer
 {
@@ -278,8 +279,16 @@ namespace Microsoft.Sarif.Viewer
                 return false;
             }
 
-            if (Uri.)
-            string rebaselinedFile = GetRebaselinedFileName(originalFilename);
+            string rebaselinedFile;
+
+            if (Uri.IsWellFormedUriString(originalFilename, UriKind.Absolute))
+            {
+                rebaselinedFile = DownloadFile(originalFilename);
+            }
+            else
+            {
+                rebaselinedFile = GetRebaselinedFileName(originalFilename);
+            }
 
             if (String.IsNullOrEmpty(rebaselinedFile) || originalFilename.Equals(rebaselinedFile, StringComparison.OrdinalIgnoreCase))
             {
@@ -288,6 +297,30 @@ namespace Microsoft.Sarif.Viewer
 
             CurrentSarifError.RemapFilePath(originalFilename, rebaselinedFile);
             return true;
+        }
+
+        internal string DownloadFile(string fileUrl)
+        {
+            if (String.IsNullOrEmpty(fileUrl))
+            {
+                return fileUrl;
+            }
+
+            Uri sourceUri = new Uri(fileUrl);
+
+            string destinationFile = Path.Combine(Path.GetTempPath(), CurrentSarifError.RunId, sourceUri.LocalPath.TrimStart('/', '\\'));
+            string destinationDirectory = Path.GetDirectoryName(destinationFile);
+            Directory.CreateDirectory(destinationDirectory);
+
+            if (!File.Exists(destinationFile))
+            {
+                using (WebClient client = new WebClient())
+                {
+                    client.DownloadFile(sourceUri, destinationFile);
+                }
+            }
+
+            return destinationFile;
         }
 
         public string GetRebaselinedFileName(string fileName)

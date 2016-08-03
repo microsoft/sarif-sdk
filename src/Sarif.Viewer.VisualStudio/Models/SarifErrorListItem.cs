@@ -61,6 +61,15 @@ namespace Microsoft.Sarif.Viewer
             Rule = rule?.ToRuleModel(result.RuleId);
             Invocation = run.Invocation.ToInvocationModel();
 
+            if (String.IsNullOrWhiteSpace(run.Id))
+            {
+                RunId = Guid.NewGuid().ToString();
+            }
+            else
+            {
+                RunId = run.Id;
+            }
+
             if (result.Locations != null)
             {
                 foreach (Location location in result.Locations)
@@ -127,6 +136,9 @@ namespace Microsoft.Sarif.Viewer
 
         [Browsable(false)]
         public bool RegionPopulated { get; set; }
+
+        [Browsable(false)]
+        public string RunId { get; set; }
 
         [Browsable(false)]
         public string ShortMessage { get; set; }
