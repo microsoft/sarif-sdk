@@ -229,49 +229,6 @@ namespace Microsoft.Sarif.Viewer
             return S_OK;
         }
 
-        internal bool TryNavigateTo(SarifErrorListItem sarifError, out IVsWindowFrame result)
-        {
-            CodeAnalysisResultManager.Instance.CurrentSarifError = sarifError;
-            return TryNavigateTo(sarifError, sarifError.FileName, MimeType.Binary, sarifError.Region, sarifError.LineMarker, out result);
-        }
-
-        internal bool TryNavigateTo(SarifErrorListItem sarifError, string fileName, string mimeType, Region region, ResultTextMarker marker, out IVsWindowFrame result)
-        {
-            result = null;
-
-            if (string.IsNullOrEmpty(fileName))
-            {
-                return false;
-            }
-
-            string remappedName = fileName;
-            if (!File.Exists(fileName))
-            {
-                remappedName = GetRebaselinedFileName(fileName);
-
-                if (!File.Exists(remappedName))
-                {
-                    return false;
-                }
-            }
-            CodeAnalysisResultManager.Instance.RemapFileNames(fileName, remappedName);
-            fileName = remappedName;
-
-            NewLineIndex newLineIndex = null;
-            if (!sarifError.RegionPopulated && mimeType != MimeType.Binary)
-            {
-                if (!_fileToNewLineIndexMap.TryGetValue(fileName, out newLineIndex))
-                {
-                    _fileToNewLineIndexMap[fileName] = newLineIndex = new NewLineIndex(File.ReadAllText(fileName));
-                }
-                region.Populate(newLineIndex);
-                sarifError.RegionPopulated = true;
-            }
-            marker.FullFilePath = remappedName;
-            result = marker.NavigateTo(false);
-            return result != null;
-        }
-
         public bool TryRebaselineCurrentSarifError(string originalFilename)
         {
             if (CurrentSarifError == null)
@@ -308,7 +265,7 @@ namespace Microsoft.Sarif.Viewer
 
             Uri sourceUri = new Uri(fileUrl);
 
-            string destinationFile = Path.Combine(Path.GetTempPath(), CurrentSarifError.RunId, sourceUri.LocalPath.TrimStart('/', '\\'));
+            string destinationFile = Path.Combine(Path.GetTempPath(), CurrentSarifError.RunId, sourceUri.LocalPath.Replace('/', '\\').TrimStart('\\'));
             string destinationDirectory = Path.GetDirectoryName(destinationFile);
             Directory.CreateDirectory(destinationDirectory);
 

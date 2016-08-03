@@ -180,20 +180,6 @@ namespace Microsoft.Sarif.Viewer.ErrorList
             return __VSERRORCATEGORY.EC_WARNING;
         }
 
-        internal IVsWindowFrame NavigateTo(int index, bool isPreview)
-        {
-            if (isPreview)
-            {
-                return null;
-            }
-
-            SarifErrorListItem sarifError = _errors[index];
-
-            IVsWindowFrame result;
-            CodeAnalysisResultManager.Instance.TryNavigateTo(sarifError, out result);
-            return result;
-        }
-
         public bool TryCreateImageContent(int index, string columnName, bool singleColumnView, out object content)
         {
             throw new NotImplementedException();
