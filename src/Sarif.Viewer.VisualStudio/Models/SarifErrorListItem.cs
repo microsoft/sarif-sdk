@@ -94,7 +94,7 @@ namespace Microsoft.Sarif.Viewer
                     CallTrees.Add(codeFlow.ToCallTree());
                 }
 
-                CallTrees.Verbosity = 200;
+                CallTrees.Verbosity = 100;
                 CallTrees.IntelligentExpand();
             }
 
