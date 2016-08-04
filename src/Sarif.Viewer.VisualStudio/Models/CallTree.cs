@@ -246,5 +246,38 @@ namespace Microsoft.Sarif.Viewer.Models
                 return _selectNextCommand;
             }
         }
+
+        internal void ExpandAll()
+        {
+            if (TopLevelNodes != null)
+            {
+                foreach (CallTreeNode child in TopLevelNodes)
+                {
+                    child.ExpandAll();
+                }
+            }
+        }
+
+        internal void CollapseAll()
+        {
+            if (TopLevelNodes != null)
+            {
+                foreach (CallTreeNode child in TopLevelNodes)
+                {
+                    child.CollapseAll();
+                }
+            }
+        }
+
+        internal void IntelligentExpand()
+        {
+            if (TopLevelNodes != null)
+            {
+                foreach (CallTreeNode child in TopLevelNodes)
+                {
+                    child.IntelligentExpand();
+                }
+            }
+        }
     }
 }

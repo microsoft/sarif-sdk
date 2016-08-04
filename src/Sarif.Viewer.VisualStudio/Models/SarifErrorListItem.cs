@@ -24,7 +24,7 @@ namespace Microsoft.Sarif.Viewer
         private string _selectedTab;
         private AnnotatedCodeLocationCollection _locations;
         private AnnotatedCodeLocationCollection _relatedLocations;
-        private ObservableCollection<CallTree> _callTrees;
+        private CallTreeCollection _callTrees;
         private ObservableCollection<StackCollection> _stacks;
         private ObservableCollection<FixModel> _fixes;
         private DelegateCommand _openLogFileCommand;
@@ -34,7 +34,7 @@ namespace Microsoft.Sarif.Viewer
         {
             _locations = new AnnotatedCodeLocationCollection(String.Empty);
             _relatedLocations = new AnnotatedCodeLocationCollection(String.Empty);
-            _callTrees = new ObservableCollection<CallTree>();
+            _callTrees = new CallTreeCollection();
             _stacks = new ObservableCollection<StackCollection>();
             _fixes = new ObservableCollection<FixModel>();
         }
@@ -93,6 +93,8 @@ namespace Microsoft.Sarif.Viewer
                 {
                     CallTrees.Add(codeFlow.ToCallTree());
                 }
+
+                CallTrees.IntelligentExpand();
             }
 
             if (result.Stacks != null)
@@ -254,7 +256,7 @@ namespace Microsoft.Sarif.Viewer
         }
 
         [Browsable(false)]
-        public ObservableCollection<CallTree> CallTrees
+        public CallTreeCollection CallTrees
         {
             get
             {

@@ -15,6 +15,7 @@ namespace Microsoft.Sarif.Viewer.Models
         private AnnotatedCodeLocation _location;
         private CallTree _callTree;
         private CallTreeNode _parent;
+        private bool _isExpanded;
 
         [Browsable(false)]
         public AnnotatedCodeLocation Location
@@ -44,6 +45,22 @@ namespace Microsoft.Sarif.Viewer.Models
                 {
                     FilePath = null;
                     Region = null;
+                }
+            }
+        }
+
+        public bool IsExpanded
+        {
+            get
+            {
+                return _isExpanded;
+            }
+            set
+            {
+                if (value != _isExpanded)
+                {
+                    _isExpanded = value;
+                    NotifyPropertyChanged(nameof(IsExpanded));
                 }
             }
         }
@@ -280,6 +297,58 @@ namespace Microsoft.Sarif.Viewer.Models
                 }
 
                 return properties;
+            }
+        }
+
+        internal void ExpandAll()
+        {
+            this.IsExpanded = true;
+
+            if (Children != null)
+            {
+                foreach (CallTreeNode child in Children)
+                {
+                    child.ExpandAll();
+                }
+            }
+        }
+
+        internal void CollapseAll()
+        {
+            this.IsExpanded = false;
+
+            if (Children != null)
+            {
+                foreach (CallTreeNode child in Children)
+                {
+                    child.CollapseAll();
+                }
+            }
+        }
+
+        internal void IntelligentExpand()
+        {
+            if (Location?.Importance == AnnotatedCodeLocationImportance.Essential)
+            {
+                CallTreeNode current = this;
+
+                while (current != null)
+                {
+                    current.IsExpanded = true;
+                    current = current.Parent;
+                }
+            }
+            else
+            {
+                IsExpanded = false;
+            }
+
+            if (Children != null)
+            {
+                foreach (CallTreeNode child in Children)
+                {
+                    child.IntelligentExpand();
+                }
             }
         }
     }
