@@ -1,6 +1,7 @@
 ﻿// Copyright (c) Microsoft. All rights reserved. 
 // Licensed under the MIT license. See LICENSE file in the project root for full license information. 
 
+using Microsoft.CodeAnalysis.Sarif;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -276,6 +277,17 @@ namespace Microsoft.Sarif.Viewer.Models
                 foreach (CallTreeNode child in TopLevelNodes)
                 {
                     child.IntelligentExpand();
+                }
+            }
+        }
+
+        internal void SetVerbosity(AnnotatedCodeLocationImportance importance)
+        {
+            if (TopLevelNodes != null)
+            {
+                foreach (CallTreeNode child in TopLevelNodes)
+                {
+                    child.SetVerbosity(importance);
                 }
             }
         }

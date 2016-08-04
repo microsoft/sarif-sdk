@@ -7,6 +7,7 @@ using System.ComponentModel;
 using System.IO;
 using Microsoft.CodeAnalysis.Sarif;
 using Microsoft.Sarif.Viewer.Sarif;
+using System.Windows;
 
 namespace Microsoft.Sarif.Viewer.Models
 {
@@ -16,6 +17,7 @@ namespace Microsoft.Sarif.Viewer.Models
         private CallTree _callTree;
         private CallTreeNode _parent;
         private bool _isExpanded;
+        private Visibility _visbility;
 
         [Browsable(false)]
         public AnnotatedCodeLocation Location
@@ -61,6 +63,22 @@ namespace Microsoft.Sarif.Viewer.Models
                 {
                     _isExpanded = value;
                     NotifyPropertyChanged(nameof(IsExpanded));
+                }
+            }
+        }
+
+        public Visibility Visibility
+        {
+            get
+            {
+                return _visbility;
+            }
+            set
+            {
+                if (value != _visbility)
+                {
+                    _visbility = value;
+                    NotifyPropertyChanged(nameof(Visibility));
                 }
             }
         }
@@ -348,6 +366,54 @@ namespace Microsoft.Sarif.Viewer.Models
                 foreach (CallTreeNode child in Children)
                 {
                     child.IntelligentExpand();
+                }
+            }
+        }
+
+        internal void SetVerbosity(AnnotatedCodeLocationImportance importance)
+        {
+            Visibility visibility = Visibility.Visible;
+            AnnotatedCodeLocationImportance myImportance = (Location?.Importance).GetValueOrDefault(AnnotatedCodeLocationImportance.Unimportant);
+
+            switch (importance)
+            {
+                case AnnotatedCodeLocationImportance.Essential:
+                    if (myImportance != AnnotatedCodeLocationImportance.Essential)
+                    {
+                        visibility = Visibility.Collapsed;
+                    }
+                    break;
+                case AnnotatedCodeLocationImportance.Important:
+                    if (myImportance == AnnotatedCodeLocationImportance.Unimportant)
+                    {
+                        visibility = Visibility.Collapsed;
+                    }
+                    break;
+                default:
+                    visibility = Visibility.Visible;
+                    break;
+            }
+
+            if (visibility == Visibility.Visible)
+            {
+                CallTreeNode current = this;
+
+                while (current != null)
+                {
+                    current.Visibility = Visibility.Visible;
+                    current = current.Parent;
+                }
+            }
+            else
+            {
+                Visibility = Visibility.Collapsed;
+            }
+
+            if (Children != null)
+            {
+                foreach (CallTreeNode child in Children)
+                {
+                    child.SetVerbosity(importance);
                 }
             }
         }

@@ -26,6 +26,13 @@
                     <Button Content="+-"
                             Command="{Binding IntelligentExpandCommand}"
                             ToolTip="Intelligent expand" />
+                    <Separator />
+                    <Slider Maximum="200"
+                            IsSnapToTickEnabled="True"
+                            TickFrequency="100" 
+                            Width="100px"
+                            Value="{Binding Verbosity}" 
+                            ToolTip="Tree verbosity"/>
                 </ToolBar>
             </ToolBarTray>
             <ItemsControl Grid.Row="1"
@@ -119,6 +126,8 @@
                                 <Style TargetType="{x:Type TreeViewItem}">
                                     <Setter Property="IsExpanded"
                                             Value="{Binding IsExpanded, Mode=TwoWay}" />
+                                    <Setter Property="Visibility"
+                                            Value="{Binding Visibility}" />
                                 </Style>
                             </TreeView.ItemContainerStyle>
                             <TreeView.ItemTemplate>

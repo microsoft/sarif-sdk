@@ -1,6 +1,7 @@
 ﻿// Copyright (c) Microsoft. All rights reserved. 
 // Licensed under the MIT license. See LICENSE file in the project root for full license information. 
 
+using Microsoft.CodeAnalysis.Sarif;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -14,12 +15,44 @@ namespace Microsoft.Sarif.Viewer.Models
 {
     public class CallTreeCollection : ObservableCollection<CallTree>
     {
+        private int _verbosity;
         private DelegateCommand _expandAllCommand;
         private DelegateCommand _collapseAllCommand;
         private DelegateCommand _intelligentExpandCommand;
 
         public CallTreeCollection()
         {
+        }
+
+        public int Verbosity
+        {
+            get
+            {
+                return _verbosity;
+            }
+            set
+            {
+                if (_verbosity != value)
+                {
+                    _verbosity = value;
+
+                    AnnotatedCodeLocationImportance importance;
+                    if (_verbosity >= 200)
+                    {
+                        importance = AnnotatedCodeLocationImportance.Essential;
+                    }
+                    else if (_verbosity >= 100)
+                    {
+                        importance = AnnotatedCodeLocationImportance.Important;
+                    }
+                    else
+                    {
+                        importance = AnnotatedCodeLocationImportance.Unimportant;
+                    }
+
+                    SetVerbosity(importance);
+                }
+            }
         }
 
         public DelegateCommand ExpandAllCommand
@@ -94,6 +127,14 @@ namespace Microsoft.Sarif.Viewer.Models
             foreach (CallTree callTree in this)
             {
                 callTree.IntelligentExpand();
+            }
+        }
+
+        internal void SetVerbosity(AnnotatedCodeLocationImportance importance)
+        {
+            foreach (CallTree callTree in this)
+            {
+                callTree.SetVerbosity(importance);
             }
         }
     }
