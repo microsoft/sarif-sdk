@@ -136,7 +136,11 @@ namespace Microsoft.Sarif.Viewer.Models
         {
             foreach (CallTree callTree in this)
             {
+                CallTreeNode selectedItem = callTree.SelectedItem;
+
                 callTree.IntelligentExpand();
+
+                callTree.SelectedItem = selectedItem;
             }
         }
 
