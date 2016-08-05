@@ -73,144 +73,209 @@ namespace Microsoft.Sarif.Viewer.Models
             }
         }
 
-        private int GetIndexInCallTreeNodeList(IList<CallTreeNode> list, CallTreeNode givenNode)
+        private bool TryGetIndexInCallTreeNodeList(IList<CallTreeNode> list, CallTreeNode givenNode, out int index)
         {
-            int index = 0;
-            if (list == null)
+            index = -1;
+
+            if (list != null)
             {
-                throw new ArgumentNullException("List is null.");
-            }
-            else
-            {
-                foreach (CallTreeNode listNode in list)
+                for (int i = 0; i < list.Count; i++)
                 {
+                    CallTreeNode listNode = list[i];
                     if (listNode == givenNode)
                     {
-                        return index;
-                    }
-                    else
-                    {
-                        index++;
+                        index = i;
+                        break;
                     }
                 }
             }
 
-            /* this exception should never be thrown, as this method should only be called when 
-             * givenNode is already known to be a member of list 
-             */
-            throw new IndexOutOfRangeException("Given node was not in the list.");
+            return index != -1;
         }
 
-        private CallTreeNode FindNextNotCall(CallTreeNode currentNode)
+        private CallTreeNode FindNext(CallTreeNode currentNode, bool includeChildren)
         {
+            if (currentNode == null)
+            {
+                return null;
+            }
+
+            // For Call nodes, find the first visible child.
+            CallTreeNode nextNode;
+            if (includeChildren && currentNode.Location.Kind == AnnotatedCodeLocationKind.Call && TryGetFirstItem(currentNode.Children, out nextNode))
+            {
+                return nextNode;
+            }
+
+            // For all other nodes or Call nodes without a visible child, find the next visible sibling.
             CallTreeNode currentParent = currentNode.Parent;
+            IList<CallTreeNode> nodeList;
+ 
             if (currentParent == null)
             {
-                int currentNodeIndexInCallTreeNodeList = GetIndexInCallTreeNodeList(this.TopLevelNodes, currentNode);
-                if (currentNodeIndexInCallTreeNodeList >= this.TopLevelNodes.Count - 1)
-                {
-                    // no next exists, return null and will revert back to currently selected node in original FindNext method
-                    return null;
-                }
-                else
-                {
-                    return this.TopLevelNodes[currentNodeIndexInCallTreeNodeList + 1];
-                }
+                nodeList = this.TopLevelNodes;
             }
             else
             {
-                int currentNodeIndexInCallTreeNodeList = GetIndexInCallTreeNodeList(currentParent.Children, currentNode);
-                if (currentNodeIndexInCallTreeNodeList >= currentParent.Children.Count - 1)
+                nodeList = currentParent.Children;
+            }
+
+            if (TryGetNextSibling(nodeList, currentNode, out nextNode))
+            {
+                return nextNode;
+            }
+
+            // Walk up the tree trying to find the next node.
+            return FindNext(currentParent, false);
+        }
+
+        private CallTreeNode FindPrevious(CallTreeNode currentNode, bool includeChildren)
+        {
+            if (currentNode == null)
+            {
+                return null;
+            }
+
+            CallTreeNode previousNode;
+
+            // Find the next visible sibling.
+            CallTreeNode currentParent = currentNode.Parent;
+            IList<CallTreeNode> nodeList;
+
+            if (currentParent == null)
+            {
+                nodeList = this.TopLevelNodes;
+            }
+            else
+            {
+                nodeList = currentParent.Children;
+            }
+
+            if (TryGetPreviousSibling(nodeList, currentNode, out previousNode))
+            {
+                CallTreeNode previousNodeChild;
+                if (includeChildren && previousNode.Location.Kind == AnnotatedCodeLocationKind.Call && TryGetLastItem(previousNode.Children, out previousNodeChild))
                 {
-                    return FindNextNotCall(currentParent);
+                    return previousNodeChild;
+
                 }
                 else
                 {
-                    return currentParent.Children[currentNodeIndexInCallTreeNodeList + 1];
+                    return previousNode;
                 }
             }
+            else if (currentParent != null && currentParent.Visibility == System.Windows.Visibility.Visible)
+            {
+                return currentParent;
+            }
+
+            // Walk up the tree trying to find the previous node.
+            return FindPrevious(currentParent, false);
+        }
+
+        private bool TryGetNextSibling(IList<CallTreeNode> items, CallTreeNode currentItem, out CallTreeNode nextSibling)
+        {
+            nextSibling = null;
+
+            int currentIndex;
+            if (TryGetIndexInCallTreeNodeList(items, currentItem, out currentIndex))
+            {
+                for (int i = currentIndex + 1; i < items.Count; i++)
+                {
+                    CallTreeNode nextNode = items[i];
+                    if (nextNode.Visibility == System.Windows.Visibility.Visible)
+                    {
+                        nextSibling = nextNode;
+                        break;
+                    }
+                }
+            }
+
+            return nextSibling != null;
+        }
+
+        private bool TryGetPreviousSibling(IList<CallTreeNode> items, CallTreeNode currentItem, out CallTreeNode previousSibling)
+        {
+            previousSibling = null;
+
+            int currentIndex;
+            if (TryGetIndexInCallTreeNodeList(items, currentItem, out currentIndex))
+            {
+                for (int i = currentIndex - 1; i >= 0; i--)
+                {
+                    CallTreeNode previousNode = items[i];
+                    if (previousNode.Visibility == System.Windows.Visibility.Visible)
+                    {
+                        previousSibling = previousNode;
+                        break;
+                    }
+                }
+            }
+
+            return previousSibling != null;
+        }
+
+        private bool TryGetFirstItem(IList<CallTreeNode> items, out CallTreeNode firstItem)
+        {
+            firstItem = null;
+
+            for (int i = 0; i < items.Count; i++)
+            {
+                CallTreeNode nextNode = items[i];
+                if (nextNode.Visibility == System.Windows.Visibility.Visible)
+                {
+                    firstItem = nextNode;
+                    break;
+                }
+            }
+
+            return firstItem != null;
+        }
+
+        private bool TryGetLastItem(IList<CallTreeNode> items, out CallTreeNode lastItem)
+        {
+            lastItem = null;
+
+            for (int i = items.Count - 1; i >= 0; i--)
+            {
+                CallTreeNode nextNode = items[i];
+                if (nextNode.Visibility == System.Windows.Visibility.Visible)
+                {
+                    lastItem = nextNode;
+                    break;
+                }
+            }
+
+            return lastItem != null;
         }
 
         internal CallTreeNode FindNext()
         {
-            if (this.SelectedItem == null)
+            CallTreeNode next = FindNext(this.SelectedItem, true);
+            if (next == null)
             {
-                return null;
-            }
-            else if (this.SelectedItem.Location.Kind == CodeAnalysis.Sarif.AnnotatedCodeLocationKind.Call && this.SelectedItem.Children.Count > 0)
-            {
-                return this.SelectedItem.Children[0];
+                // no next exists, current remains selected
+                return this.SelectedItem;
             }
             else
             {
-                CallTreeNode next = FindNextNotCall(this.SelectedItem);
-                if (next == null)
-                {
-                    // no next exists, current remains selected
-                    return this.SelectedItem;
-                }
-                else
-                {
-                    return next; 
-                }
+                return next;
             }
         }
 
         // go to parent, find self, find previous/next, make sure not to roll off
         internal CallTreeNode FindPrevious()
         {
-            if (this.SelectedItem == null)
+            CallTreeNode previous = FindPrevious(this.SelectedItem, true);
+            if (previous == null)
             {
-                return null;
-            }
-
-            IList<CallTreeNode> currentParentChildren;
-            if (this.SelectedItem.Parent == null)
-            {
-                currentParentChildren = this.TopLevelNodes;
+                // no previous exists, current remains selected
+                return this.SelectedItem;
             }
             else
             {
-                currentParentChildren = this.SelectedItem.Parent.Children;
+                return previous;
             }
-
-            CallTreeNode previous = null;
-            foreach (CallTreeNode siblingNode in currentParentChildren)
-            {
-                if (siblingNode == this.SelectedItem)
-                {
-                        if (previous == null)
-                        {
-                            if (this.SelectedItem.Parent == null)
-                            {
-                                // no previous exists, current node stays selected
-                                return this.SelectedItem;
-                            }
-                            else
-                            {
-                                return this.SelectedItem.Parent;
-                            }
-                        }
-                        else
-                        {
-                            if (previous.Location.Kind == CodeAnalysis.Sarif.AnnotatedCodeLocationKind.Call && previous.Children.Count > 0)
-                            {
-                                return previous.Children[previous.Children.Count - 1];
-                            }
-                            else
-                            {
-                                return previous;
-                            }
-                        }
-                }
-                else
-                {
-                    previous = siblingNode;
-                }
-            }
-
-            // default, should not occur
-            return this.SelectedItem;
         }
 
         public DelegateCommand<TreeView> SelectPreviousCommand
@@ -219,7 +284,8 @@ namespace Microsoft.Sarif.Viewer.Models
             {
                 if (_selectPreviousCommand == null)
                 {
-                    _selectPreviousCommand = new DelegateCommand<TreeView>(treeView => {
+                    _selectPreviousCommand = new DelegateCommand<TreeView>(treeView =>
+                    {
                         System.Windows.Controls.TreeView control = treeView as System.Windows.Controls.TreeView;
                         CallTree model = control.DataContext as CallTree;
                         model.SelectedItem = FindPrevious();
@@ -237,7 +303,8 @@ namespace Microsoft.Sarif.Viewer.Models
             {
                 if (_selectNextCommand == null)
                 {
-                    _selectNextCommand = new DelegateCommand<TreeView>(treeView => {
+                    _selectNextCommand = new DelegateCommand<TreeView>(treeView =>
+                    {
                         System.Windows.Controls.TreeView control = treeView as System.Windows.Controls.TreeView;
                         CallTree model = control.DataContext as CallTree;
                         model.SelectedItem = FindNext();
