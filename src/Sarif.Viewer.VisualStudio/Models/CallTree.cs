@@ -77,7 +77,7 @@ namespace Microsoft.Sarif.Viewer.Models
             }
         }
 
-        private bool TryGetIndexInCallTreeNodeList(IList<CallTreeNode> list, CallTreeNode givenNode, out int index)
+        internal static bool TryGetIndexInCallTreeNodeList(IList<CallTreeNode> list, CallTreeNode givenNode, out int index)
         {
             index = -1;
 
@@ -97,7 +97,7 @@ namespace Microsoft.Sarif.Viewer.Models
             return index != -1;
         }
 
-        private CallTreeNode FindNext(CallTreeNode currentNode, bool includeChildren)
+        internal CallTreeNode FindNext(CallTreeNode currentNode, bool includeChildren)
         {
             if (currentNode == null)
             {
@@ -133,7 +133,7 @@ namespace Microsoft.Sarif.Viewer.Models
             return FindNext(currentParent, false);
         }
 
-        private CallTreeNode FindPrevious(CallTreeNode currentNode, bool includeChildren)
+        internal CallTreeNode FindPrevious(CallTreeNode currentNode, bool includeChildren)
         {
             if (currentNode == null)
             {
@@ -177,7 +177,7 @@ namespace Microsoft.Sarif.Viewer.Models
             return FindPrevious(currentParent, false);
         }
 
-        private bool TryGetNextSibling(IList<CallTreeNode> items, CallTreeNode currentItem, out CallTreeNode nextSibling)
+        internal static bool TryGetNextSibling(IList<CallTreeNode> items, CallTreeNode currentItem, out CallTreeNode nextSibling)
         {
             nextSibling = null;
 
@@ -198,7 +198,7 @@ namespace Microsoft.Sarif.Viewer.Models
             return nextSibling != null;
         }
 
-        private bool TryGetPreviousSibling(IList<CallTreeNode> items, CallTreeNode currentItem, out CallTreeNode previousSibling)
+        internal static bool TryGetPreviousSibling(IList<CallTreeNode> items, CallTreeNode currentItem, out CallTreeNode previousSibling)
         {
             previousSibling = null;
 
@@ -219,34 +219,39 @@ namespace Microsoft.Sarif.Viewer.Models
             return previousSibling != null;
         }
 
-        private bool TryGetFirstItem(IList<CallTreeNode> items, out CallTreeNode firstItem)
+        internal static bool TryGetFirstItem(IList<CallTreeNode> items, out CallTreeNode firstItem)
         {
             firstItem = null;
 
-            for (int i = 0; i < items.Count; i++)
+            if (items != null)
             {
-                CallTreeNode nextNode = items[i];
-                if (nextNode.Visibility == System.Windows.Visibility.Visible)
+                for (int i = 0; i < items.Count; i++)
                 {
-                    firstItem = nextNode;
-                    break;
+                    CallTreeNode nextNode = items[i];
+                    if (nextNode.Visibility == System.Windows.Visibility.Visible)
+                    {
+                        firstItem = nextNode;
+                        break;
+                    }
                 }
             }
-
             return firstItem != null;
         }
 
-        private bool TryGetLastItem(IList<CallTreeNode> items, out CallTreeNode lastItem)
+        internal static bool TryGetLastItem(IList<CallTreeNode> items, out CallTreeNode lastItem)
         {
             lastItem = null;
 
-            for (int i = items.Count - 1; i >= 0; i--)
+            if (items != null)
             {
-                CallTreeNode nextNode = items[i];
-                if (nextNode.Visibility == System.Windows.Visibility.Visible)
+                for (int i = items.Count - 1; i >= 0; i--)
                 {
-                    lastItem = nextNode;
-                    break;
+                    CallTreeNode nextNode = items[i];
+                    if (nextNode.Visibility == System.Windows.Visibility.Visible)
+                    {
+                        lastItem = nextNode;
+                        break;
+                    }
                 }
             }
 
