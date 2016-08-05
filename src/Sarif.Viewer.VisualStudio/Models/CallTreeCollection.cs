@@ -51,6 +51,8 @@ namespace Microsoft.Sarif.Viewer.Models
                     }
 
                     SetVerbosity(importance);
+
+                    SelectVisibleNode();
                 }
             }
         }
@@ -61,7 +63,9 @@ namespace Microsoft.Sarif.Viewer.Models
             {
                 if (_expandAllCommand == null)
                 {
-                    _expandAllCommand = new DelegateCommand(() => ExpandAll());
+                    _expandAllCommand = new DelegateCommand(() => {
+                        ExpandAll();
+                    });
                 }
 
                 return _expandAllCommand;
@@ -78,7 +82,10 @@ namespace Microsoft.Sarif.Viewer.Models
             {
                 if (_collapseAllCommand == null)
                 {
-                    _collapseAllCommand = new DelegateCommand(() => CollapseAll());
+                    _collapseAllCommand = new DelegateCommand(() =>
+                    {
+                        CollapseAll();
+                    });
                 }
 
                 return _collapseAllCommand;
@@ -95,7 +102,10 @@ namespace Microsoft.Sarif.Viewer.Models
             {
                 if (_intelligentExpandCommand == null)
                 {
-                    _intelligentExpandCommand = new DelegateCommand(() => IntelligentExpand());
+                    _intelligentExpandCommand = new DelegateCommand(() =>
+                    {
+                        IntelligentExpand();
+                    });
                 }
 
                 return _intelligentExpandCommand;
@@ -135,6 +145,17 @@ namespace Microsoft.Sarif.Viewer.Models
             foreach (CallTree callTree in this)
             {
                 callTree.SetVerbosity(importance);
+            }
+        }
+
+        internal void SelectVisibleNode()
+        {
+            foreach (CallTree callTree in this)
+            {
+                if (callTree.SelectedItem != null && callTree.SelectedItem.Visibility != System.Windows.Visibility.Visible)
+                {
+                    callTree.SelectedItem = callTree.FindPrevious();
+                }
             }
         }
     }
