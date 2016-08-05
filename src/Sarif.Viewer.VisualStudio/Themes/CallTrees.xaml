@@ -42,9 +42,11 @@
                     <Slider Maximum="200"
                             IsSnapToTickEnabled="True"
                             TickFrequency="100" 
+                            TickPlacement="BottomRight"
                             Width="100px"
                             Value="{Binding Verbosity}" 
-                            ToolTip="Tree verbosity"/>
+                            ToolTip="Tree verbosity"
+                            Foreground="DarkGray" />
                 </ToolBar>
             </ToolBarTray>
             <ItemsControl Grid.Row="1"
@@ -52,7 +54,7 @@
                 <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>
                         <DockPanel IsItemsHost="True"
-                                   LastChildFill="False" />
+                                   LastChildFill="True" />
                     </ItemsPanelTemplate>
                 </ItemsControl.ItemsPanel>
                 <ItemsControl.ItemContainerStyle>
@@ -129,7 +131,8 @@
                         </DataTemplate.Resources>
                         <TreeView ItemsSource="{Binding TopLevelNodes}"
                                   viewer:TreeViewHelper.SelectedItem="{Binding SelectedItem, Mode=TwoWay}"
-                                  Grid.IsSharedSizeScope="True">
+                                  Grid.IsSharedSizeScope="True"
+                                  BorderThickness="0 0 0 0">
                             <TreeView.Resources>
                                 <cvt:CallTreeNodeToTextConverter x:Key="callTreeToTextConverter" />
                                 <cvt:StringToVisibilityConverter x:Key="stringToVisibilityConverter" />
