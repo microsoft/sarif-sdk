@@ -136,7 +136,7 @@ namespace Microsoft.Sarif.Viewer.Models
         private void RegionSelected(object sender, EventArgs e)
         {
             // Select this item in the CallTree to bring the source and call tree in sync.
-            if (CallTree != null)
+            if (CallTree != null && this.Visibility == Visibility.Visible)
             {
                 CallTree.SelectedItem = this;
             }

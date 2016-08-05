@@ -51,24 +51,27 @@ namespace Microsoft.Sarif.Viewer.Models
             }
             set
             {
-                // Remove the existing highlighting.
-                if (_selectedItem != null)
+                if (_selectedItem != value)
                 {
-                    _selectedItem.ApplyDefaultSourceFileHighlighting();
-                }
+                    // Remove the existing highlighting.
+                    if (_selectedItem != null)
+                    {
+                        _selectedItem.ApplyDefaultSourceFileHighlighting();
+                    }
 
-                _selectedItem = value;
-                this.NotifyPropertyChanged(nameof(SelectedItem));
+                    _selectedItem = value;
+                    this.NotifyPropertyChanged(nameof(SelectedItem));
 
-                // Navigate to the source of the selected node and highlight the region.
-                if (_selectedItem != null)
-                {
-                    // Update the VS Properties window with the properties of the selected CallTreeNode.
-                    SarifViewerPackage.SarifToolWindow?.UpdateSelectionList(_selectedItem.TypeDescriptor);
+                    // Navigate to the source of the selected node and highlight the region.
+                    if (_selectedItem != null)
+                    {
+                        // Update the VS Properties window with the properties of the selected CallTreeNode.
+                        SarifViewerPackage.SarifToolWindow?.UpdateSelectionList(_selectedItem.TypeDescriptor);
 
-                    // Navigate to the source file of the selected CallTreeNode.
-                    _selectedItem.NavigateTo();
-                    _selectedItem.ApplySelectionSourceFileHighlighting();
+                        // Navigate to the source file of the selected CallTreeNode.
+                        _selectedItem.NavigateTo();
+                        _selectedItem.ApplySelectionSourceFileHighlighting();
+                    }
                 }
             }
         }
