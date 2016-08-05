@@ -39,7 +39,7 @@ namespace Microsoft.Sarif.Viewer.Models
                     AnnotatedCodeLocationImportance importance;
                     if (_verbosity >= 200)
                     {
-                        importance = AnnotatedCodeLocationImportance.Essential;
+                        importance = AnnotatedCodeLocationImportance.Unimportant;
                     }
                     else if (_verbosity >= 100)
                     {
@@ -47,7 +47,7 @@ namespace Microsoft.Sarif.Viewer.Models
                     }
                     else
                     {
-                        importance = AnnotatedCodeLocationImportance.Unimportant;
+                        importance = AnnotatedCodeLocationImportance.Essential;
                     }
 
                     SetVerbosity(importance);
