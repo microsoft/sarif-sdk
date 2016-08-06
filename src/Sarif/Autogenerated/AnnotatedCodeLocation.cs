@@ -90,10 +90,22 @@ namespace Microsoft.CodeAnalysis.Sarif
         public AnnotatedCodeLocationKind Kind { get; set; }
 
         /// <summary>
-        /// For an annotation of kind 'call', the fully qualified logical name of the function called from this location.
+        /// The fully qualified name of the target on which this location operates. For an annotation of kind 'call', for example, the target refers to the fully qualified logical name of the function called from this location.
         /// </summary>
-        [DataMember(Name = "callee", IsRequired = false, EmitDefaultValue = false)]
-        public string Callee { get; set; }
+        [DataMember(Name = "target", IsRequired = false, EmitDefaultValue = false)]
+        public string Target { get; set; }
+
+        /// <summary>
+        /// An ordered set of strings that parameterize the operation for this location. For an annotation of kind 'call', for example, this property may hold the ordered list of arguments passed to the callee.
+        /// </summary>
+        [DataMember(Name = "parameters", IsRequired = false, EmitDefaultValue = false)]
+        public IList<string> Parameters { get; set; }
+
+        /// <summary>
+        /// A dictionary, each of whose keys specifies a variable name, the associated value of which represents the variable value. For an annotation of kind 'continuation', for example, this dictionary might hold the current assumed values of a set of global variables.
+        /// </summary>
+        [DataMember(Name = "variables", IsRequired = false, EmitDefaultValue = false)]
+        public object Variables { get; set; }
 
         /// <summary>
         /// A key used to retrieve the callee's logicalLocation from the logicalLocations dictionary.
@@ -163,8 +175,14 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="kind">
         /// An initialization value for the <see cref="P: Kind" /> property.
         /// </param>
-        /// <param name="callee">
-        /// An initialization value for the <see cref="P: Callee" /> property.
+        /// <param name="target">
+        /// An initialization value for the <see cref="P: Target" /> property.
+        /// </param>
+        /// <param name="parameters">
+        /// An initialization value for the <see cref="P: Parameters" /> property.
+        /// </param>
+        /// <param name="variables">
+        /// An initialization value for the <see cref="P: Variables" /> property.
         /// </param>
         /// <param name="calleeKey">
         /// An initialization value for the <see cref="P: CalleeKey" /> property.
@@ -181,9 +199,9 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="properties">
         /// An initialization value for the <see cref="P: Properties" /> property.
         /// </param>
-        public AnnotatedCodeLocation(int id, int step, PhysicalLocation physicalLocation, string fullyQualifiedLogicalName, string logicalLocationKey, string module, int threadId, string message, AnnotatedCodeLocationKind kind, string callee, string calleeKey, bool essential, AnnotatedCodeLocationImportance importance, string snippet, IDictionary<string, SerializedPropertyInfo> properties)
+        public AnnotatedCodeLocation(int id, int step, PhysicalLocation physicalLocation, string fullyQualifiedLogicalName, string logicalLocationKey, string module, int threadId, string message, AnnotatedCodeLocationKind kind, string target, IEnumerable<string> parameters, object variables, string calleeKey, bool essential, AnnotatedCodeLocationImportance importance, string snippet, IDictionary<string, SerializedPropertyInfo> properties)
         {
-            Init(id, step, physicalLocation, fullyQualifiedLogicalName, logicalLocationKey, module, threadId, message, kind, callee, calleeKey, essential, importance, snippet, properties);
+            Init(id, step, physicalLocation, fullyQualifiedLogicalName, logicalLocationKey, module, threadId, message, kind, target, parameters, variables, calleeKey, essential, importance, snippet, properties);
         }
 
         /// <summary>
@@ -202,7 +220,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 throw new ArgumentNullException(nameof(other));
             }
 
-            Init(other.Id, other.Step, other.PhysicalLocation, other.FullyQualifiedLogicalName, other.LogicalLocationKey, other.Module, other.ThreadId, other.Message, other.Kind, other.Callee, other.CalleeKey, other.Essential, other.Importance, other.Snippet, other.Properties);
+            Init(other.Id, other.Step, other.PhysicalLocation, other.FullyQualifiedLogicalName, other.LogicalLocationKey, other.Module, other.ThreadId, other.Message, other.Kind, other.Target, other.Parameters, other.Variables, other.CalleeKey, other.Essential, other.Importance, other.Snippet, other.Properties);
         }
 
         ISarifNode ISarifNode.DeepClone()
@@ -223,7 +241,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new AnnotatedCodeLocation(this);
         }
 
-        private void Init(int id, int step, PhysicalLocation physicalLocation, string fullyQualifiedLogicalName, string logicalLocationKey, string module, int threadId, string message, AnnotatedCodeLocationKind kind, string callee, string calleeKey, bool essential, AnnotatedCodeLocationImportance importance, string snippet, IDictionary<string, SerializedPropertyInfo> properties)
+        private void Init(int id, int step, PhysicalLocation physicalLocation, string fullyQualifiedLogicalName, string logicalLocationKey, string module, int threadId, string message, AnnotatedCodeLocationKind kind, string target, IEnumerable<string> parameters, object variables, string calleeKey, bool essential, AnnotatedCodeLocationImportance importance, string snippet, IDictionary<string, SerializedPropertyInfo> properties)
         {
             Id = id;
             Step = step;
@@ -238,7 +256,19 @@ namespace Microsoft.CodeAnalysis.Sarif
             ThreadId = threadId;
             Message = message;
             Kind = kind;
-            Callee = callee;
+            Target = target;
+            if (parameters != null)
+            {
+                var destination_0 = new List<string>();
+                foreach (var value_0 in parameters)
+                {
+                    destination_0.Add(value_0);
+                }
+
+                Parameters = destination_0;
+            }
+
+            Variables = variables;
             CalleeKey = calleeKey;
             Essential = essential;
             Importance = importance;
