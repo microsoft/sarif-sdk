@@ -54,7 +54,7 @@ namespace Microsoft.Sarif.Viewer.Converters
                     switch (annotatedLocation.Kind)
                     {
                         case AnnotatedCodeLocationKind.Call:
-                            string callee = annotatedLocation.Callee;
+                            string callee = annotatedLocation.Target;
                             text = !string.IsNullOrEmpty(callee) ? callee : Resources.UnknownCalleMessage;
                             break;
 

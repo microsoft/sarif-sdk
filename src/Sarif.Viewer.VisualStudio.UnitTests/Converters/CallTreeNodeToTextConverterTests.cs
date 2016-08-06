@@ -20,7 +20,7 @@ namespace Microsoft.Sarif.Viewer.VisualStudio.Converters.UnitTests
                 Location = new AnnotatedCodeLocation
                 {
                     Kind = AnnotatedCodeLocationKind.Call,
-                    Callee = "my_function",
+                    Target = "my_function",
                     PhysicalLocation = new PhysicalLocation
                     {
                         Region = new Region
@@ -126,7 +126,7 @@ namespace Microsoft.Sarif.Viewer.VisualStudio.Converters.UnitTests
                     Kind = AnnotatedCodeLocationKind.Call,
                     Snippet = snippet,
                     Message = message,
-                    Callee = "my_function",
+                    Target = "my_function",
                     PhysicalLocation = new PhysicalLocation
                     {
                         Uri = new System.Uri(sourceFile),
@@ -155,7 +155,7 @@ namespace Microsoft.Sarif.Viewer.VisualStudio.Converters.UnitTests
                     Kind = AnnotatedCodeLocationKind.Call,
                     Snippet = snippet,
                     Message = message,
-                    Callee = "my_function",
+                    Target = "my_function",
                     PhysicalLocation = new PhysicalLocation
                     {
                         Uri = new System.Uri(sourceFile),
@@ -182,7 +182,7 @@ namespace Microsoft.Sarif.Viewer.VisualStudio.Converters.UnitTests
                 {
                     Kind = AnnotatedCodeLocationKind.Call,
                     Snippet = snippet,
-                    Callee = "my_function",
+                    Target = "my_function",
                     PhysicalLocation = new PhysicalLocation
                     {
                         Uri = new System.Uri(sourceFile),
@@ -209,7 +209,7 @@ namespace Microsoft.Sarif.Viewer.VisualStudio.Converters.UnitTests
                 {
                     Kind = AnnotatedCodeLocationKind.Call,
                     Snippet = snippet,
-                    Callee = "my_function",
+                    Target = "my_function",
                     PhysicalLocation = new PhysicalLocation
                     {
                         Uri = new System.Uri(sourceFile),

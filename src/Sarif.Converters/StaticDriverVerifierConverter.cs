@@ -168,7 +168,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                     if (ExtractCallerAndCallee(extraMsg.Trim(), out caller, out callee))
                     {
                         annotatedCodeLocation.FullyQualifiedLogicalName = caller;
-                        annotatedCodeLocation.Callee = callee;
+                        annotatedCodeLocation.Target = callee;
                         _callers.Push(caller);
                     }
                     else

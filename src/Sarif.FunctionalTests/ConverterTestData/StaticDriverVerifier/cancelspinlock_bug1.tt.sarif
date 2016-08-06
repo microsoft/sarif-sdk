@@ -37,7 +37,7 @@
                 {
                   "fullyQualifiedLogicalName": "OS",
                   "kind": "call",
-                  "callee": "main",
+                  "target": "main",
                   "importance": "unimportant",
                   "properties": {
                     "currentDataValues": "^"
@@ -52,7 +52,7 @@
                   "step": 2,
                   "fullyQualifiedLogicalName": "main",
                   "kind": "call",
-                  "callee": "_sdv_init4",
+                  "target": "_sdv_init4",
                   "importance": "unimportant",
                   "properties": {
                     "currentDataValues": "^====Pre=====^____true"
@@ -111,7 +111,7 @@
                   "step": 9,
                   "fullyQualifiedLogicalName": "main",
                   "kind": "call",
-                  "callee": "_sdv_init1",
+                  "target": "_sdv_init1",
                   "importance": "unimportant",
                   "properties": {
                     "currentDataValues": "^s=0^====Pre=====^____true"
@@ -154,7 +154,7 @@
                   "step": 14,
                   "fullyQualifiedLogicalName": "main",
                   "kind": "call",
-                  "callee": "_sdv_init2",
+                  "target": "_sdv_init2",
                   "importance": "unimportant",
                   "properties": {
                     "currentDataValues": "^s=0^====Pre=====^____true"
@@ -1022,7 +1022,7 @@
                   },
                   "fullyQualifiedLogicalName": "main",
                   "kind": "call",
-                  "callee": "sdv_main",
+                  "target": "sdv_main",
                   "properties": {
                     "currentDataValues": "^s=0^====Pre=====^____true"
                   }
@@ -1053,7 +1053,7 @@
                   },
                   "fullyQualifiedLogicalName": "sdv_main",
                   "kind": "call",
-                  "callee": "sdv_CheckDispatchRoutines",
+                  "target": "sdv_CheckDispatchRoutines",
                   "properties": {
                     "currentDataValues": "^s=0"
                   }
@@ -1121,7 +1121,7 @@
                   },
                   "fullyQualifiedLogicalName": "sdv_main",
                   "kind": "call",
-                  "callee": "sdv_CheckStartIoRoutines",
+                  "target": "sdv_CheckStartIoRoutines",
                   "properties": {
                     "currentDataValues": "^s=0"
                   }
@@ -1189,7 +1189,7 @@
                   },
                   "fullyQualifiedLogicalName": "sdv_main",
                   "kind": "call",
-                  "callee": "sdv_CheckDpcRoutines",
+                  "target": "sdv_CheckDpcRoutines",
                   "properties": {
                     "currentDataValues": "^s=0"
                   }
@@ -1257,7 +1257,7 @@
                   },
                   "fullyQualifiedLogicalName": "sdv_main",
                   "kind": "call",
-                  "callee": "sdv_CheckIsrRoutines",
+                  "target": "sdv_CheckIsrRoutines",
                   "properties": {
                     "currentDataValues": "^s=0"
                   }
@@ -1325,7 +1325,7 @@
                   },
                   "fullyQualifiedLogicalName": "sdv_main",
                   "kind": "call",
-                  "callee": "sdv_CheckCancelRoutines",
+                  "target": "sdv_CheckCancelRoutines",
                   "properties": {
                     "currentDataValues": "^s=0"
                   }
@@ -1393,7 +1393,7 @@
                   },
                   "fullyQualifiedLogicalName": "sdv_main",
                   "kind": "call",
-                  "callee": "sdv_CheckIoDpcRoutines",
+                  "target": "sdv_CheckIoDpcRoutines",
                   "properties": {
                     "currentDataValues": "^s=0"
                   }
@@ -1461,7 +1461,7 @@
                   },
                   "fullyQualifiedLogicalName": "sdv_main",
                   "kind": "call",
-                  "callee": "sdv_IoCompletionRoutines",
+                  "target": "sdv_IoCompletionRoutines",
                   "properties": {
                     "currentDataValues": "^s=0"
                   }
@@ -1529,7 +1529,7 @@
                   },
                   "fullyQualifiedLogicalName": "sdv_main",
                   "kind": "call",
-                  "callee": "sdv_CheckWorkerRoutines",
+                  "target": "sdv_CheckWorkerRoutines",
                   "properties": {
                     "currentDataValues": "^s=0"
                   }
@@ -1597,7 +1597,7 @@
                   },
                   "fullyQualifiedLogicalName": "sdv_main",
                   "kind": "call",
-                  "callee": "sdv_CheckAddDevice",
+                  "target": "sdv_CheckAddDevice",
                   "properties": {
                     "currentDataValues": "^s=0"
                   }
@@ -1665,7 +1665,7 @@
                   },
                   "fullyQualifiedLogicalName": "sdv_main",
                   "kind": "call",
-                  "callee": "sdv_CheckIrpMjPnp",
+                  "target": "sdv_CheckIrpMjPnp",
                   "properties": {
                     "currentDataValues": "^s=0"
                   }
@@ -1733,7 +1733,7 @@
                   },
                   "fullyQualifiedLogicalName": "sdv_main",
                   "kind": "call",
-                  "callee": "sdv_CheckIrpMjPower",
+                  "target": "sdv_CheckIrpMjPower",
                   "properties": {
                     "currentDataValues": "^s=0"
                   }
@@ -1801,7 +1801,7 @@
                   },
                   "fullyQualifiedLogicalName": "sdv_main",
                   "kind": "call",
-                  "callee": "sdv_CheckDriverUnload",
+                  "target": "sdv_CheckDriverUnload",
                   "properties": {
                     "currentDataValues": "^s=0"
                   }
@@ -1898,7 +1898,7 @@
                   },
                   "fullyQualifiedLogicalName": "sdv_main",
                   "kind": "call",
-                  "callee": "sdv_stub_driver_init",
+                  "target": "sdv_stub_driver_init",
                   "properties": {
                     "currentDataValues": "^s=0"
                   }
@@ -1952,7 +1952,7 @@
                   },
                   "fullyQualifiedLogicalName": "sdv_main",
                   "kind": "call",
-                  "callee": "sdv_RunDispatchFunction",
+                  "target": "sdv_RunDispatchFunction",
                   "properties": {
                     "currentDataValues": "^arg1=14536^arg2=13708",
                     "permanentDataValues": "^s=0"
@@ -2080,7 +2080,7 @@
                   },
                   "fullyQualifiedLogicalName": "sdv_RunDispatchFunction",
                   "kind": "call",
-                  "callee": "sdv_SetStatus",
+                  "target": "sdv_SetStatus",
                   "properties": {
                     "currentDataValues": "^arg1=13708",
                     "permanentDataValues": "^s=0"
@@ -2284,7 +2284,7 @@
                   },
                   "fullyQualifiedLogicalName": "sdv_RunDispatchFunction",
                   "kind": "call",
-                  "callee": "sdv_stub_dispatch_begin",
+                  "target": "sdv_stub_dispatch_begin",
                   "properties": {
                     "currentDataValues": "^s=0"
                   }
@@ -2567,7 +2567,7 @@
                   },
                   "fullyQualifiedLogicalName": "sdv_RunDispatchFunction",
                   "kind": "call",
-                  "callee": "DispatchSystemControl",
+                  "target": "DispatchSystemControl",
                   "properties": {
                     "currentDataValues": "^arg1=14536^arg2=13708",
                     "permanentDataValues": "^s=0"
@@ -2672,7 +2672,7 @@
                   },
                   "fullyQualifiedLogicalName": "DispatchSystemControl",
                   "kind": "call",
-                  "callee": "IoAcquireCancelSpinLock",
+                  "target": "IoAcquireCancelSpinLock",
                   "importance": "essential",
                   "properties": {
                     "currentDataValues": "^arg1=17116",
@@ -2809,7 +2809,7 @@
                   },
                   "fullyQualifiedLogicalName": "IoAcquireCancelSpinLock",
                   "kind": "call",
-                  "callee": "SLIC_IoAcquireCancelSpinLock_exit",
+                  "target": "SLIC_IoAcquireCancelSpinLock_exit",
                   "properties": {
                     "currentDataValues": "^arg1=8",
                     "permanentDataValues": "^s=0"
@@ -2959,7 +2959,7 @@
                   },
                   "fullyQualifiedLogicalName": "DispatchSystemControl",
                   "kind": "call",
-                  "callee": "SLIC_DispatchSystemControl_exit",
+                  "target": "SLIC_DispatchSystemControl_exit",
                   "importance": "essential",
                   "properties": {
                     "currentDataValues": "^arg1=8",
@@ -2999,7 +2999,7 @@
                   },
                   "fullyQualifiedLogicalName": "SLIC_DispatchSystemControl_exit",
                   "kind": "call",
-                  "callee": "SLIC_ABORT_7_0",
+                  "target": "SLIC_ABORT_7_0",
                   "properties": {
                     "currentDataValues": "^arg1=8",
                     "permanentDataValues": "^s=1"
@@ -3026,7 +3026,7 @@
                   "step": 252,
                   "fullyQualifiedLogicalName": "SLIC_ABORT_7_0",
                   "kind": "call",
-                  "callee": "SLIC_ERROR_ROUTINE",
+                  "target": "SLIC_ERROR_ROUTINE",
                   "importance": "unimportant",
                   "properties": {
                     "currentDataValues": "^arg1=5",

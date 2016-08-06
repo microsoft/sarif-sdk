@@ -112,7 +112,7 @@ namespace Microsoft.Sarif.Viewer.ViewModels
                         Location = new AnnotatedCodeLocation
                         {
                             Kind = AnnotatedCodeLocationKind.Call,
-                            Callee = "my_func"
+                            Target = "my_func"
                         },
                         Children = new List<CallTreeNode>
                         {
