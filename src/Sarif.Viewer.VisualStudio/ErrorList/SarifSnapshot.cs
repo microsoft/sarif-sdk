@@ -61,7 +61,11 @@ namespace Microsoft.Sarif.Viewer.ErrorList
                 }
                 else if (columnName == StandardTableKeyNames.Line)
                 {
-                    content = _errors[index].LineNumber;
+                    // The error list assumes the line number provided will be zero based and adds one before displaying the value.
+                    // i.e. if we pass 5, the error list will display 6. 
+                    // Subtract one from the line number so the error list displays the correct value.
+                    int lineNumber = _errors[index].LineNumber - 1;
+                    content = lineNumber;
                 }
                 else if (columnName == StandardTableKeyNames.Column)
                 {
