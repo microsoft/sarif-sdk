@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
+using System.Windows;
 using Microsoft.CodeAnalysis.Sarif;
 using Microsoft.Sarif.Viewer.Sarif;
 
@@ -15,6 +16,8 @@ namespace Microsoft.Sarif.Viewer.Models
         private AnnotatedCodeLocation _location;
         private CallTree _callTree;
         private CallTreeNode _parent;
+        private bool _isExpanded;
+        private Visibility _visbility;
 
         [Browsable(false)]
         public AnnotatedCodeLocation Location
@@ -44,6 +47,38 @@ namespace Microsoft.Sarif.Viewer.Models
                 {
                     FilePath = null;
                     Region = null;
+                }
+            }
+        }
+
+        public bool IsExpanded
+        {
+            get
+            {
+                return _isExpanded;
+            }
+            set
+            {
+                if (value != _isExpanded)
+                {
+                    _isExpanded = value;
+                    NotifyPropertyChanged(nameof(IsExpanded));
+                }
+            }
+        }
+
+        public Visibility Visibility
+        {
+            get
+            {
+                return _visbility;
+            }
+            set
+            {
+                if (value != _visbility)
+                {
+                    _visbility = value;
+                    NotifyPropertyChanged(nameof(Visibility));
                 }
             }
         }
@@ -101,7 +136,7 @@ namespace Microsoft.Sarif.Viewer.Models
         private void RegionSelected(object sender, EventArgs e)
         {
             // Select this item in the CallTree to bring the source and call tree in sync.
-            if (CallTree != null)
+            if (CallTree != null && this.Visibility == Visibility.Visible)
             {
                 CallTree.SelectedItem = this;
             }
@@ -280,6 +315,106 @@ namespace Microsoft.Sarif.Viewer.Models
                 }
 
                 return properties;
+            }
+        }
+
+        internal void ExpandAll()
+        {
+            this.IsExpanded = true;
+
+            if (Children != null)
+            {
+                foreach (CallTreeNode child in Children)
+                {
+                    child.ExpandAll();
+                }
+            }
+        }
+
+        internal void CollapseAll()
+        {
+            this.IsExpanded = false;
+
+            if (Children != null)
+            {
+                foreach (CallTreeNode child in Children)
+                {
+                    child.CollapseAll();
+                }
+            }
+        }
+
+        internal void IntelligentExpand()
+        {
+            if (Location?.Importance == AnnotatedCodeLocationImportance.Essential)
+            {
+                CallTreeNode current = this;
+
+                while (current != null)
+                {
+                    current.IsExpanded = true;
+                    current = current.Parent;
+                }
+            }
+            else
+            {
+                IsExpanded = false;
+            }
+
+            if (Children != null)
+            {
+                foreach (CallTreeNode child in Children)
+                {
+                    child.IntelligentExpand();
+                }
+            }
+        }
+
+        internal void SetVerbosity(AnnotatedCodeLocationImportance importance)
+        {
+            Visibility visibility = Visibility.Visible;
+            AnnotatedCodeLocationImportance myImportance = (Location?.Importance).GetValueOrDefault(AnnotatedCodeLocationImportance.Unimportant);
+
+            switch (importance)
+            {
+                case AnnotatedCodeLocationImportance.Essential:
+                    if (myImportance != AnnotatedCodeLocationImportance.Essential)
+                    {
+                        visibility = Visibility.Collapsed;
+                    }
+                    break;
+                case AnnotatedCodeLocationImportance.Important:
+                    if (myImportance == AnnotatedCodeLocationImportance.Unimportant)
+                    {
+                        visibility = Visibility.Collapsed;
+                    }
+                    break;
+                default:
+                    visibility = Visibility.Visible;
+                    break;
+            }
+
+            if (visibility == Visibility.Visible)
+            {
+                CallTreeNode current = this;
+
+                while (current != null)
+                {
+                    current.Visibility = Visibility.Visible;
+                    current = current.Parent;
+                }
+            }
+            else
+            {
+                Visibility = Visibility.Collapsed;
+            }
+
+            if (Children != null)
+            {
+                foreach (CallTreeNode child in Children)
+                {
+                    child.SetVerbosity(importance);
+                }
             }
         }
     }

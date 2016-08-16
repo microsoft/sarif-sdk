@@ -57,6 +57,7 @@
     <Compile Include="DelegateCommand.cs" />
     <Compile Include="DelegateCommandBase.cs" />
     <Compile Include="KeyValuePairPropertyDescriptor.cs" />
+    <Compile Include="Models\CallTreeCollection.cs" />
     <Compile Include="Models\CallTree.cs" />
     <Compile Include="Models\CallTreeNode.cs" />
     <Compile Include="Models\InvocationModel.cs" />

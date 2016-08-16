@@ -54,6 +54,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ErrorList\SarifSnapshotTests.cs" />
+    <Compile Include="Models\CallTreeCollectionTests.cs" />
+    <Compile Include="Models\CallTreeTests.cs" />
     <Compile Include="UriExtensionsTests.cs" />
     <Compile Include="CallTreeTraversalTests.cs" />
     <Compile Include="Converters\CallTreeNodeToTextConverterTests.cs" />
