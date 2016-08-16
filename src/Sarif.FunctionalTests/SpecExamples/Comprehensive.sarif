@@ -163,7 +163,7 @@
                   "importance": "essential",
                   "message": "Uninitialized variable \"ptr\" passed to method \"add_core\".",
                   "snippet": "add_core(ptr, offset, val)",
-                  "callee": "collections::list:add_core",
+                  "target": "collections::list:add_core",
                   "physicalLocation": {
                     "uri": "file:///home/buildAgent/src/collections/list.h",
                     "region": {

@@ -34,7 +34,7 @@
                 {
                   "fullyQualifiedLogicalName": "OS",
                   "kind": "call",
-                  "callee": "main",
+                  "target": "main",
                   "importance": "unimportant",
                   "properties": {
                     "currentDataValues": "^"
@@ -49,7 +49,7 @@
                   "step": 2,
                   "fullyQualifiedLogicalName": "main",
                   "kind": "call",
-                  "callee": "_sdv_init4",
+                  "target": "_sdv_init4",
                   "importance": "unimportant",
                   "properties": {
                     "currentDataValues": "^====Pre=====^____true"
@@ -85,7 +85,7 @@
                   "step": 8,
                   "fullyQualifiedLogicalName": "main",
                   "kind": "call",
-                  "callee": "_sdv_init1",
+                  "target": "_sdv_init1",
                   "importance": "unimportant",
                   "properties": {
                     "currentDataValues": "^====Pre=====^____true"
@@ -116,7 +116,7 @@
                   "step": 13,
                   "fullyQualifiedLogicalName": "main",
                   "kind": "call",
-                  "callee": "_sdv_init2",
+                  "target": "_sdv_init2",
                   "importance": "unimportant",
                   "properties": {
                     "currentDataValues": "^====Pre=====^____true"
@@ -853,7 +853,7 @@
                   },
                   "fullyQualifiedLogicalName": "main",
                   "kind": "call",
-                  "callee": "sdv_main",
+                  "target": "sdv_main",
                   "properties": {
                     "currentDataValues": "^====Pre=====^____true"
                   }
@@ -878,7 +878,7 @@
                   },
                   "fullyQualifiedLogicalName": "sdv_main",
                   "kind": "call",
-                  "callee": "sdv_CheckDispatchRoutines"
+                  "target": "sdv_CheckDispatchRoutines"
                 },
                 {
                   "step": 81,
@@ -911,7 +911,7 @@
                   },
                   "fullyQualifiedLogicalName": "sdv_CheckDispatchRoutines",
                   "kind": "call",
-                  "callee": "SLIC_sdv_CheckDispatchRoutines_exit",
+                  "target": "SLIC_sdv_CheckDispatchRoutines_exit",
                   "properties": {
                     "currentDataValues": "^arg1=5^arg2=1"
                   }
@@ -945,7 +945,7 @@
                   },
                   "fullyQualifiedLogicalName": "SLIC_sdv_CheckDispatchRoutines_exit",
                   "kind": "call",
-                  "callee": "SLIC_ABORT_1_0",
+                  "target": "SLIC_ABORT_1_0",
                   "properties": {
                     "currentDataValues": "^arg1=5^arg2=1"
                   }
@@ -975,7 +975,7 @@
                   "step": 91,
                   "fullyQualifiedLogicalName": "SLIC_ABORT_1_0",
                   "kind": "call",
-                  "callee": "SLIC_ERROR_ROUTINE",
+                  "target": "SLIC_ERROR_ROUTINE",
                   "importance": "unimportant",
                   "properties": {
                     "currentDataValues": "^arg1=3"
