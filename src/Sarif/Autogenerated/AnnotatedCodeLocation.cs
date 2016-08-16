@@ -84,10 +84,16 @@ namespace Microsoft.CodeAnalysis.Sarif
         public string Message { get; set; }
 
         /// <summary>
-        /// Describes the location.
+        /// Categories the location.
         /// </summary>
         [DataMember(Name = "kind", IsRequired = false, EmitDefaultValue = false)]
         public AnnotatedCodeLocationKind Kind { get; set; }
+
+        /// <summary>
+        /// Classifies state transitions in code locations relevant to a taint analysis.
+        /// </summary>
+        [DataMember(Name = "taint", IsRequired = false, EmitDefaultValue = false)]
+        public AnnotatedCodeLocationTaint Taint { get; set; }
 
         /// <summary>
         /// The fully qualified name of the target on which this location operates. For an annotation of kind 'call', for example, the target refers to the fully qualified logical name of the function called from this location.
@@ -108,10 +114,10 @@ namespace Microsoft.CodeAnalysis.Sarif
         public object Variables { get; set; }
 
         /// <summary>
-        /// A key used to retrieve the callee's logicalLocation from the logicalLocations dictionary.
+        /// A key used to retrieve the target's logicalLocation from the logicalLocations dictionary.
         /// </summary>
-        [DataMember(Name = "calleeKey", IsRequired = false, EmitDefaultValue = false)]
-        public string CalleeKey { get; set; }
+        [DataMember(Name = "targetKey", IsRequired = false, EmitDefaultValue = false)]
+        public string TargetKey { get; set; }
 
         /// <summary>
         /// OBSOLETE (use "importance" instead): True if this location is essential to understanding the code flow in which it occurs.
@@ -175,6 +181,9 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="kind">
         /// An initialization value for the <see cref="P: Kind" /> property.
         /// </param>
+        /// <param name="taint">
+        /// An initialization value for the <see cref="P: Taint" /> property.
+        /// </param>
         /// <param name="target">
         /// An initialization value for the <see cref="P: Target" /> property.
         /// </param>
@@ -184,8 +193,8 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="variables">
         /// An initialization value for the <see cref="P: Variables" /> property.
         /// </param>
-        /// <param name="calleeKey">
-        /// An initialization value for the <see cref="P: CalleeKey" /> property.
+        /// <param name="targetKey">
+        /// An initialization value for the <see cref="P: TargetKey" /> property.
         /// </param>
         /// <param name="essential">
         /// An initialization value for the <see cref="P: Essential" /> property.
@@ -199,9 +208,9 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="properties">
         /// An initialization value for the <see cref="P: Properties" /> property.
         /// </param>
-        public AnnotatedCodeLocation(int id, int step, PhysicalLocation physicalLocation, string fullyQualifiedLogicalName, string logicalLocationKey, string module, int threadId, string message, AnnotatedCodeLocationKind kind, string target, IEnumerable<string> parameters, object variables, string calleeKey, bool essential, AnnotatedCodeLocationImportance importance, string snippet, IDictionary<string, SerializedPropertyInfo> properties)
+        public AnnotatedCodeLocation(int id, int step, PhysicalLocation physicalLocation, string fullyQualifiedLogicalName, string logicalLocationKey, string module, int threadId, string message, AnnotatedCodeLocationKind kind, AnnotatedCodeLocationTaint taint, string target, IEnumerable<string> parameters, object variables, string targetKey, bool essential, AnnotatedCodeLocationImportance importance, string snippet, IDictionary<string, SerializedPropertyInfo> properties)
         {
-            Init(id, step, physicalLocation, fullyQualifiedLogicalName, logicalLocationKey, module, threadId, message, kind, target, parameters, variables, calleeKey, essential, importance, snippet, properties);
+            Init(id, step, physicalLocation, fullyQualifiedLogicalName, logicalLocationKey, module, threadId, message, kind, taint, target, parameters, variables, targetKey, essential, importance, snippet, properties);
         }
 
         /// <summary>
@@ -220,7 +229,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 throw new ArgumentNullException(nameof(other));
             }
 
-            Init(other.Id, other.Step, other.PhysicalLocation, other.FullyQualifiedLogicalName, other.LogicalLocationKey, other.Module, other.ThreadId, other.Message, other.Kind, other.Target, other.Parameters, other.Variables, other.CalleeKey, other.Essential, other.Importance, other.Snippet, other.Properties);
+            Init(other.Id, other.Step, other.PhysicalLocation, other.FullyQualifiedLogicalName, other.LogicalLocationKey, other.Module, other.ThreadId, other.Message, other.Kind, other.Taint, other.Target, other.Parameters, other.Variables, other.TargetKey, other.Essential, other.Importance, other.Snippet, other.Properties);
         }
 
         ISarifNode ISarifNode.DeepClone()
@@ -241,7 +250,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new AnnotatedCodeLocation(this);
         }
 
-        private void Init(int id, int step, PhysicalLocation physicalLocation, string fullyQualifiedLogicalName, string logicalLocationKey, string module, int threadId, string message, AnnotatedCodeLocationKind kind, string target, IEnumerable<string> parameters, object variables, string calleeKey, bool essential, AnnotatedCodeLocationImportance importance, string snippet, IDictionary<string, SerializedPropertyInfo> properties)
+        private void Init(int id, int step, PhysicalLocation physicalLocation, string fullyQualifiedLogicalName, string logicalLocationKey, string module, int threadId, string message, AnnotatedCodeLocationKind kind, AnnotatedCodeLocationTaint taint, string target, IEnumerable<string> parameters, object variables, string targetKey, bool essential, AnnotatedCodeLocationImportance importance, string snippet, IDictionary<string, SerializedPropertyInfo> properties)
         {
             Id = id;
             Step = step;
@@ -256,6 +265,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             ThreadId = threadId;
             Message = message;
             Kind = kind;
+            Taint = taint;
             Target = target;
             if (parameters != null)
             {
@@ -269,7 +279,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             }
 
             Variables = variables;
-            CalleeKey = calleeKey;
+            TargetKey = targetKey;
             Essential = essential;
             Importance = importance;
             Snippet = snippet;

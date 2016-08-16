@@ -26,10 +26,23 @@
           "Declaration",
           "FunctionEnter",
           "FunctionExit",
-          "Sanitizer",
+          "FunctionReturn",
+          "Usage"
+        ]
+      }
+    }
+  ],
+  "AnnotatedCodeLocation.Taint": [
+    {
+      "kind": "EnumHint",
+      "arguments": {
+        "typeName": "AnnotatedCodeLocationTaint",
+        "description": "Values classifying the annotated code location in context of a taint analysis.",
+        "zeroValueName": "Unknown",
+        "memberNames": [
           "Sink",
           "Source",
-          "Usage"
+          "Sanitizer"
         ]
       }
     }
