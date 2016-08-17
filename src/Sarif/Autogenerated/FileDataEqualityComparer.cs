@@ -58,6 +58,11 @@ namespace Microsoft.CodeAnalysis.Sarif
                 return false;
             }
 
+            if (left.Contents != right.Contents)
+            {
+                return false;
+            }
+
             if (!object.ReferenceEquals(left.Hashes, right.Hashes))
             {
                 if (left.Hashes == null || right.Hashes == null)
@@ -134,6 +139,11 @@ namespace Microsoft.CodeAnalysis.Sarif
                 if (obj.MimeType != null)
                 {
                     result = (result * 31) + obj.MimeType.GetHashCode();
+                }
+
+                if (obj.Contents != null)
+                {
+                    result = (result * 31) + obj.Contents.GetHashCode();
                 }
 
                 if (obj.Hashes != null)

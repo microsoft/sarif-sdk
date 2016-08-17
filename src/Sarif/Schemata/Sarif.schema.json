@@ -277,6 +277,11 @@
           "pattern": "[^/]+/.+"
         },
 
+        "contents": {
+          "description": "The contents of the file, expressed as a MIME Base64-encoded byte sequence.",
+          "type": "string"
+        },
+
         "hashes": {
           "description": "An array of hash objects, each of which specifies a hashed value for the file, along with the name of the algorithm used to compute the hash.",
           "type": "array",
@@ -684,7 +689,7 @@
         },
 
         "insertedBytes": {
-          "description": "The byte sequence to be inserted at the byte offset specified by the 'offset' property, measured from the beginning of the file.",
+          "description": "The MIME Base64-encoded byte sequence to be inserted at the byte offset specified by the 'offset' property, measured from the beginning of the file.",
           "type": "string"
         }
       },
