@@ -193,11 +193,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 }
 
                 result = (result * 31) + obj.Kind.GetHashCode();
-                if (obj.TaintKind != null)
-                {
-                    result = (result * 31) + obj.TaintKind.GetHashCode();
-                }
-
+                result = (result * 31) + obj.TaintKind.GetHashCode();
                 if (obj.Target != null)
                 {
                     result = (result * 31) + obj.Target.GetHashCode();

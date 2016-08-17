@@ -93,7 +93,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// Classifies state transitions in code locations relevant to a taint analysis.
         /// </summary>
         [DataMember(Name = "taintKind", IsRequired = false, EmitDefaultValue = false)]
-        public string TaintKind { get; set; }
+        public TaintKind TaintKind { get; set; }
 
         /// <summary>
         /// The fully qualified name of the target on which this location operates. For an annotation of kind 'call', for example, the target refers to the fully qualified logical name of the function called from this location.
@@ -208,7 +208,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="properties">
         /// An initialization value for the <see cref="P: Properties" /> property.
         /// </param>
-        public AnnotatedCodeLocation(int id, int step, PhysicalLocation physicalLocation, string fullyQualifiedLogicalName, string logicalLocationKey, string module, int threadId, string message, AnnotatedCodeLocationKind kind, string taintKind, string target, IEnumerable<string> parameters, object variables, string targetKey, bool essential, AnnotatedCodeLocationImportance importance, string snippet, IDictionary<string, SerializedPropertyInfo> properties)
+        public AnnotatedCodeLocation(int id, int step, PhysicalLocation physicalLocation, string fullyQualifiedLogicalName, string logicalLocationKey, string module, int threadId, string message, AnnotatedCodeLocationKind kind, TaintKind taintKind, string target, IEnumerable<string> parameters, object variables, string targetKey, bool essential, AnnotatedCodeLocationImportance importance, string snippet, IDictionary<string, SerializedPropertyInfo> properties)
         {
             Init(id, step, physicalLocation, fullyQualifiedLogicalName, logicalLocationKey, module, threadId, message, kind, taintKind, target, parameters, variables, targetKey, essential, importance, snippet, properties);
         }
@@ -250,7 +250,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new AnnotatedCodeLocation(this);
         }
 
-        private void Init(int id, int step, PhysicalLocation physicalLocation, string fullyQualifiedLogicalName, string logicalLocationKey, string module, int threadId, string message, AnnotatedCodeLocationKind kind, string taintKind, string target, IEnumerable<string> parameters, object variables, string targetKey, bool essential, AnnotatedCodeLocationImportance importance, string snippet, IDictionary<string, SerializedPropertyInfo> properties)
+        private void Init(int id, int step, PhysicalLocation physicalLocation, string fullyQualifiedLogicalName, string logicalLocationKey, string module, int threadId, string message, AnnotatedCodeLocationKind kind, TaintKind taintKind, string target, IEnumerable<string> parameters, object variables, string targetKey, bool essential, AnnotatedCodeLocationImportance importance, string snippet, IDictionary<string, SerializedPropertyInfo> properties)
         {
             Id = id;
             Step = step;

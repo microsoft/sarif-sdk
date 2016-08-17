@@ -32,7 +32,7 @@
       }
     }
   ],
-  "AnnotatedCodeLocation.Taint": [
+  "AnnotatedCodeLocation.TaintKind": [
     {
       "kind": "EnumHint",
       "arguments": {
