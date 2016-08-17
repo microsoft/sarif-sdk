@@ -79,11 +79,11 @@
         },
 
         "kind": {
-          "description": "Categories the location.",
+          "description": "Categorizes the location.",
           "enum": [ "alias", "assignment", "branch", "call", "callReturn", "continuation", "declaration", "functionEnter", "functionExit", "functionReturn", "usage" ]
         },
 
-        "taint": {
+        "taintKind": {
           "description": "Classifies state transitions in code locations relevant to a taint analysis.",
           "enum": [ "source", "sink", "sanitizer" ]
         },

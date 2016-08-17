@@ -36,8 +36,8 @@
     {
       "kind": "EnumHint",
       "arguments": {
-        "typeName": "AnnotatedCodeLocationTaint",
-        "description": "Values classifying the annotated code location in context of a taint analysis.",
+        "typeName": "TaintKind",
+        "description": "Values that classify the annotated code location in terms of a taint analysis.",
         "zeroValueName": "Unknown",
         "memberNames": [
           "Sink",

@@ -73,7 +73,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 return false;
             }
 
-            if (left.Taint != right.Taint)
+            if (left.TaintKind != right.TaintKind)
             {
                 return false;
             }
@@ -193,7 +193,11 @@ namespace Microsoft.CodeAnalysis.Sarif
                 }
 
                 result = (result * 31) + obj.Kind.GetHashCode();
-                result = (result * 31) + obj.Taint.GetHashCode();
+                if (obj.TaintKind != null)
+                {
+                    result = (result * 31) + obj.TaintKind.GetHashCode();
+                }
+
                 if (obj.Target != null)
                 {
                     result = (result * 31) + obj.Target.GetHashCode();
