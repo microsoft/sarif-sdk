@@ -44,7 +44,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         public int DeletedLength { get; set; }
 
         /// <summary>
-        /// The byte sequence to be inserted at the byte offset specified by the 'offset' property, measured from the beginning of the file.
+        /// The MIME Base64-encoded byte sequence to be inserted at the byte offset specified by the 'offset' property, measured from the beginning of the file.
         /// </summary>
         [DataMember(Name = "insertedBytes", IsRequired = false, EmitDefaultValue = false)]
         public string InsertedBytes { get; set; }

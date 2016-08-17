@@ -69,6 +69,12 @@ namespace Microsoft.CodeAnalysis.Sarif
         public string MimeType { get; set; }
 
         /// <summary>
+        /// The contents of the file, expressed as a MIME Base64-encoded byte sequence.
+        /// </summary>
+        [DataMember(Name = "contents", IsRequired = false, EmitDefaultValue = false)]
+        public string Contents { get; set; }
+
+        /// <summary>
         /// An array of hash objects, each of which specifies a hashed value for the file, along with the name of the algorithm used to compute the hash.
         /// </summary>
         [DataMember(Name = "hashes", IsRequired = false, EmitDefaultValue = false)]
@@ -108,15 +114,18 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="mimeType">
         /// An initialization value for the <see cref="P: MimeType" /> property.
         /// </param>
+        /// <param name="contents">
+        /// An initialization value for the <see cref="P: Contents" /> property.
+        /// </param>
         /// <param name="hashes">
         /// An initialization value for the <see cref="P: Hashes" /> property.
         /// </param>
         /// <param name="properties">
         /// An initialization value for the <see cref="P: Properties" /> property.
         /// </param>
-        public FileData(Uri uri, string uriBaseId, string parentKey, int offset, int length, string mimeType, IEnumerable<Hash> hashes, IDictionary<string, SerializedPropertyInfo> properties)
+        public FileData(Uri uri, string uriBaseId, string parentKey, int offset, int length, string mimeType, string contents, IEnumerable<Hash> hashes, IDictionary<string, SerializedPropertyInfo> properties)
         {
-            Init(uri, uriBaseId, parentKey, offset, length, mimeType, hashes, properties);
+            Init(uri, uriBaseId, parentKey, offset, length, mimeType, contents, hashes, properties);
         }
 
         /// <summary>
@@ -135,7 +144,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 throw new ArgumentNullException(nameof(other));
             }
 
-            Init(other.Uri, other.UriBaseId, other.ParentKey, other.Offset, other.Length, other.MimeType, other.Hashes, other.Properties);
+            Init(other.Uri, other.UriBaseId, other.ParentKey, other.Offset, other.Length, other.MimeType, other.Contents, other.Hashes, other.Properties);
         }
 
         ISarifNode ISarifNode.DeepClone()
@@ -156,7 +165,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new FileData(this);
         }
 
-        private void Init(Uri uri, string uriBaseId, string parentKey, int offset, int length, string mimeType, IEnumerable<Hash> hashes, IDictionary<string, SerializedPropertyInfo> properties)
+        private void Init(Uri uri, string uriBaseId, string parentKey, int offset, int length, string mimeType, string contents, IEnumerable<Hash> hashes, IDictionary<string, SerializedPropertyInfo> properties)
         {
             if (uri != null)
             {
@@ -168,6 +177,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             Offset = offset;
             Length = length;
             MimeType = mimeType;
+            Contents = contents;
             if (hashes != null)
             {
                 var destination_0 = new List<Hash>();
