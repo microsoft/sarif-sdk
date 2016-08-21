@@ -37,7 +37,8 @@
                     "startColumn":1,
                     "startLine":109
                   }
-                }
+                },
+                "step":1
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/stralign.h",
@@ -45,7 +46,8 @@
                     "startColumn":18,
                     "startLine":120
                   }
-                }
+                },
+                "step":2
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/stralign.h",
@@ -53,7 +55,8 @@
                     "startColumn":5,
                     "startLine":120
                   }
-                }
+                },
+                "step":3
               }
             ]
           }
@@ -87,7 +90,8 @@
                     "startColumn":203,
                     "startLine":725
                   }
-                }
+                },
+                "step":1
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/crt/tchar.h",
@@ -95,7 +99,8 @@
                     "startColumn":12,
                     "startLine":731
                   }
-                }
+                },
+                "step":2
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/crt/tchar.h",
@@ -103,7 +108,8 @@
                     "startColumn":46,
                     "startLine":731
                   }
-                }
+                },
+                "step":3
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/crt/tchar.h",
@@ -111,7 +117,8 @@
                     "startColumn":29,
                     "startLine":731
                   }
-                }
+                },
+                "step":4
               }
             ]
           }
@@ -145,7 +152,8 @@
                     "startColumn":29,
                     "startLine":770
                   }
-                }
+                },
+                "step":1
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/crt/tchar.h",
@@ -153,7 +161,8 @@
                     "startColumn":19,
                     "startLine":781
                   }
-                }
+                },
+                "step":2
               }
             ]
           }
@@ -187,7 +196,8 @@
                     "startColumn":1,
                     "startLine":1459
                   }
-                }
+                },
+                "step":1
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/strsafe.h",
@@ -195,7 +205,8 @@
                     "startColumn":13,
                     "startLine":1467
                   }
-                }
+                },
+                "step":2
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/strsafe.h",
@@ -203,7 +214,8 @@
                     "startColumn":12,
                     "startLine":1468
                   }
-                }
+                },
+                "step":3
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/strsafe.h",
@@ -211,7 +223,8 @@
                     "startColumn":29,
                     "startLine":1468
                   }
-                }
+                },
+                "step":4
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/strsafe.h",
@@ -219,7 +232,8 @@
                     "startColumn":31,
                     "startLine":1470
                   }
-                }
+                },
+                "step":5
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/strsafe.h",
@@ -227,7 +241,8 @@
                     "startColumn":8,
                     "startLine":1470
                   }
-                }
+                },
+                "step":6
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/strsafe.h",
@@ -235,7 +250,8 @@
                     "startColumn":26,
                     "startLine":1472
                   }
-                }
+                },
+                "step":7
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/strsafe.h",
@@ -243,7 +259,8 @@
                     "startColumn":24,
                     "startLine":1474
                   }
-                }
+                },
+                "step":8
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/strsafe.h",
@@ -251,7 +268,8 @@
                     "startColumn":37,
                     "startLine":1474
                   }
-                }
+                },
+                "step":9
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/strsafe.h",
@@ -259,7 +277,8 @@
                     "startColumn":16,
                     "startLine":1475
                   }
-                }
+                },
+                "step":10
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/strsafe.h",
@@ -267,7 +286,8 @@
                     "startColumn":31,
                     "startLine":1475
                   }
-                }
+                },
+                "step":11
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/strsafe.h",
@@ -275,7 +295,8 @@
                     "startColumn":34,
                     "startLine":1477
                   }
-                }
+                },
+                "step":12
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/strsafe.h",
@@ -283,7 +304,8 @@
                     "startColumn":12,
                     "startLine":1477
                   }
-                }
+                },
+                "step":13
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/strsafe.h",
@@ -291,7 +313,8 @@
                     "startColumn":30,
                     "startLine":1479
                   }
-                }
+                },
+                "step":14
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/strsafe.h",
@@ -299,7 +322,8 @@
                     "startColumn":25,
                     "startLine":1481
                   }
-                }
+                },
+                "step":15
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/strsafe.h",
@@ -307,7 +331,8 @@
                     "startColumn":20,
                     "startLine":1483
                   }
-                }
+                },
+                "step":16
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/strsafe.h",
@@ -315,7 +340,8 @@
                     "startColumn":21,
                     "startLine":1485
                   }
-                }
+                },
+                "step":17
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/strsafe.h",
@@ -323,7 +349,8 @@
                     "startColumn":30,
                     "startLine":1543
                   }
-                }
+                },
+                "step":18
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/strsafe.h",
@@ -331,7 +358,8 @@
                     "startColumn":22,
                     "startLine":1544
                   }
-                }
+                },
+                "step":19
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/strsafe.h",
@@ -339,7 +367,8 @@
                     "startColumn":30,
                     "startLine":1556
                   }
-                }
+                },
+                "step":20
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/strsafe.h",
@@ -347,7 +376,8 @@
                     "startColumn":43,
                     "startLine":1556
                   }
-                }
+                },
+                "step":21
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/strsafe.h",
@@ -355,7 +385,8 @@
                     "startColumn":5,
                     "startLine":1575
                   }
-                }
+                },
+                "step":22
               }
             ]
           }
@@ -389,7 +420,8 @@
                     "startColumn":1,
                     "startLine":2571
                   }
-                }
+                },
+                "step":1
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/strsafe.h",
@@ -397,7 +429,8 @@
                     "startColumn":13,
                     "startLine":2580
                   }
-                }
+                },
+                "step":2
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/strsafe.h",
@@ -405,7 +438,8 @@
                     "startColumn":12,
                     "startLine":2581
                   }
-                }
+                },
+                "step":3
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/strsafe.h",
@@ -413,7 +447,8 @@
                     "startColumn":29,
                     "startLine":2581
                   }
-                }
+                },
+                "step":4
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/strsafe.h",
@@ -421,7 +456,8 @@
                     "startColumn":31,
                     "startLine":2583
                   }
-                }
+                },
+                "step":5
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/strsafe.h",
@@ -429,7 +465,8 @@
                     "startColumn":8,
                     "startLine":2583
                   }
-                }
+                },
+                "step":6
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/strsafe.h",
@@ -437,7 +474,8 @@
                     "startColumn":26,
                     "startLine":2585
                   }
-                }
+                },
+                "step":7
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/strsafe.h",
@@ -445,7 +483,8 @@
                     "startColumn":24,
                     "startLine":2587
                   }
-                }
+                },
+                "step":8
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/strsafe.h",
@@ -453,7 +492,8 @@
                     "startColumn":37,
                     "startLine":2587
                   }
-                }
+                },
+                "step":9
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/strsafe.h",
@@ -461,7 +501,8 @@
                     "startColumn":16,
                     "startLine":2588
                   }
-                }
+                },
+                "step":10
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/strsafe.h",
@@ -469,7 +510,8 @@
                     "startColumn":31,
                     "startLine":2588
                   }
-                }
+                },
+                "step":11
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/strsafe.h",
@@ -477,7 +519,8 @@
                     "startColumn":16,
                     "startLine":2589
                   }
-                }
+                },
+                "step":12
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/strsafe.h",
@@ -485,7 +528,8 @@
                     "startColumn":37,
                     "startLine":2589
                   }
-                }
+                },
+                "step":13
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/strsafe.h",
@@ -493,7 +537,8 @@
                     "startColumn":34,
                     "startLine":2591
                   }
-                }
+                },
+                "step":14
               }
             ]
           }
@@ -527,7 +572,8 @@
                     "startColumn":1,
                     "startLine":4631
                   }
-                }
+                },
+                "step":1
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/strsafe.h",
@@ -535,7 +581,8 @@
                     "startColumn":13,
                     "startLine":4640
                   }
-                }
+                },
+                "step":2
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/strsafe.h",
@@ -543,7 +590,8 @@
                     "startColumn":12,
                     "startLine":4641
                   }
-                }
+                },
+                "step":3
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/strsafe.h",
@@ -551,7 +599,8 @@
                     "startColumn":29,
                     "startLine":4641
                   }
-                }
+                },
+                "step":4
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/strsafe.h",
@@ -559,7 +608,8 @@
                     "startColumn":12,
                     "startLine":4642
                   }
-                }
+                },
+                "step":5
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/strsafe.h",
@@ -567,7 +617,8 @@
                     "startColumn":40,
                     "startLine":4644
                   }
-                }
+                },
+                "step":6
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/strsafe.h",
@@ -575,7 +626,8 @@
                     "startColumn":8,
                     "startLine":4644
                   }
-                }
+                },
+                "step":7
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/strsafe.h",
@@ -583,7 +635,8 @@
                     "startColumn":26,
                     "startLine":4650
                   }
-                }
+                },
+                "step":8
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/strsafe.h",
@@ -591,7 +644,8 @@
                     "startColumn":24,
                     "startLine":4652
                   }
-                }
+                },
+                "step":9
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/strsafe.h",
@@ -599,7 +653,8 @@
                     "startColumn":45,
                     "startLine":4652
                   }
-                }
+                },
+                "step":10
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/strsafe.h",
@@ -607,7 +662,8 @@
                     "startColumn":16,
                     "startLine":4653
                   }
-                }
+                },
+                "step":11
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/strsafe.h",
@@ -615,7 +671,8 @@
                     "startColumn":39,
                     "startLine":4653
                   }
-                }
+                },
+                "step":12
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/strsafe.h",
@@ -623,7 +680,8 @@
                     "startColumn":16,
                     "startLine":4654
                   }
-                }
+                },
+                "step":13
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/strsafe.h",
@@ -631,7 +689,8 @@
                     "startColumn":41,
                     "startLine":4654
                   }
-                }
+                },
+                "step":14
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/strsafe.h",
@@ -639,7 +698,8 @@
                     "startColumn":34,
                     "startLine":4656
                   }
-                }
+                },
+                "step":15
               }
             ]
           }
@@ -673,7 +733,8 @@
                     "startColumn":1,
                     "startLine":6791
                   }
-                }
+                },
+                "step":1
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/strsafe.h",
@@ -681,7 +742,8 @@
                     "startColumn":13,
                     "startLine":6800
                   }
-                }
+                },
+                "step":2
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/strsafe.h",
@@ -689,7 +751,8 @@
                     "startColumn":12,
                     "startLine":6801
                   }
-                }
+                },
+                "step":3
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/strsafe.h",
@@ -697,7 +760,8 @@
                     "startColumn":29,
                     "startLine":6801
                   }
-                }
+                },
+                "step":4
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/strsafe.h",
@@ -705,7 +769,8 @@
                     "startColumn":31,
                     "startLine":6803
                   }
-                }
+                },
+                "step":5
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/strsafe.h",
@@ -713,7 +778,8 @@
                     "startColumn":8,
                     "startLine":6803
                   }
-                }
+                },
+                "step":6
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/strsafe.h",
@@ -721,7 +787,8 @@
                     "startColumn":26,
                     "startLine":6805
                   }
-                }
+                },
+                "step":7
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/strsafe.h",
@@ -729,7 +796,8 @@
                     "startColumn":24,
                     "startLine":6807
                   }
-                }
+                },
+                "step":8
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/strsafe.h",
@@ -737,7 +805,8 @@
                     "startColumn":37,
                     "startLine":6807
                   }
-                }
+                },
+                "step":9
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/strsafe.h",
@@ -745,7 +814,8 @@
                     "startColumn":16,
                     "startLine":6808
                   }
-                }
+                },
+                "step":10
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/strsafe.h",
@@ -753,7 +823,8 @@
                     "startColumn":31,
                     "startLine":6808
                   }
-                }
+                },
+                "step":11
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/strsafe.h",
@@ -761,7 +832,8 @@
                     "startColumn":34,
                     "startLine":6810
                   }
-                }
+                },
+                "step":12
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/strsafe.h",
@@ -769,7 +841,8 @@
                     "startColumn":12,
                     "startLine":6810
                   }
-                }
+                },
+                "step":13
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/strsafe.h",
@@ -777,7 +850,8 @@
                     "startColumn":30,
                     "startLine":6812
                   }
-                }
+                },
+                "step":14
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/strsafe.h",
@@ -785,7 +859,8 @@
                     "startColumn":25,
                     "startLine":6814
                   }
-                }
+                },
+                "step":15
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/strsafe.h",
@@ -793,7 +868,8 @@
                     "startColumn":20,
                     "startLine":6816
                   }
-                }
+                },
+                "step":16
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/strsafe.h",
@@ -801,7 +877,8 @@
                     "startColumn":21,
                     "startLine":6818
                   }
-                }
+                },
+                "step":17
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/strsafe.h",
@@ -809,7 +886,8 @@
                     "startColumn":30,
                     "startLine":6881
                   }
-                }
+                },
+                "step":18
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/strsafe.h",
@@ -817,7 +895,8 @@
                     "startColumn":22,
                     "startLine":6882
                   }
-                }
+                },
+                "step":19
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/strsafe.h",
@@ -825,7 +904,8 @@
                     "startColumn":30,
                     "startLine":6894
                   }
-                }
+                },
+                "step":20
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/strsafe.h",
@@ -833,7 +913,8 @@
                     "startColumn":43,
                     "startLine":6894
                   }
-                }
+                },
+                "step":21
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/strsafe.h",
@@ -841,7 +922,8 @@
                     "startColumn":5,
                     "startLine":6913
                   }
-                }
+                },
+                "step":22
               }
             ]
           }
@@ -875,7 +957,8 @@
                     "startColumn":1,
                     "startLine":9374
                   }
-                }
+                },
+                "step":1
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/strsafe.h",
@@ -883,7 +966,8 @@
                     "startColumn":13,
                     "startLine":9381
                   }
-                }
+                },
+                "step":2
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/strsafe.h",
@@ -891,7 +975,8 @@
                     "startColumn":12,
                     "startLine":9382
                   }
-                }
+                },
+                "step":3
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/strsafe.h",
@@ -899,7 +984,8 @@
                     "startColumn":29,
                     "startLine":9382
                   }
-                }
+                },
+                "step":4
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/strsafe.h",
@@ -907,7 +993,8 @@
                     "startColumn":31,
                     "startLine":9384
                   }
-                }
+                },
+                "step":5
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/strsafe.h",
@@ -915,7 +1002,8 @@
                     "startColumn":8,
                     "startLine":9384
                   }
-                }
+                },
+                "step":6
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/strsafe.h",
@@ -923,7 +1011,8 @@
                     "startColumn":26,
                     "startLine":9386
                   }
-                }
+                },
+                "step":7
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/strsafe.h",
@@ -931,7 +1020,8 @@
                     "startColumn":24,
                     "startLine":9388
                   }
-                }
+                },
+                "step":8
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/strsafe.h",
@@ -939,7 +1029,8 @@
                     "startColumn":37,
                     "startLine":9388
                   }
-                }
+                },
+                "step":9
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/strsafe.h",
@@ -947,7 +1038,8 @@
                     "startColumn":16,
                     "startLine":9389
                   }
-                }
+                },
+                "step":10
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/strsafe.h",
@@ -955,7 +1047,8 @@
                     "startColumn":31,
                     "startLine":9389
                   }
-                }
+                },
+                "step":11
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/strsafe.h",
@@ -963,7 +1056,8 @@
                     "startColumn":21,
                     "startLine":9391
                   }
-                }
+                },
+                "step":12
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/strsafe.h",
@@ -971,7 +1065,8 @@
                     "startColumn":16,
                     "startLine":9393
                   }
-                }
+                },
+                "step":13
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/strsafe.h",
@@ -979,7 +1074,8 @@
                     "startColumn":17,
                     "startLine":9395
                   }
-                }
+                },
+                "step":14
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/strsafe.h",
@@ -987,7 +1083,8 @@
                     "startColumn":30,
                     "startLine":9432
                   }
-                }
+                },
+                "step":15
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/strsafe.h",
@@ -995,7 +1092,8 @@
                     "startColumn":22,
                     "startLine":9433
                   }
-                }
+                },
+                "step":16
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/strsafe.h",
@@ -1003,7 +1101,8 @@
                     "startColumn":30,
                     "startLine":9445
                   }
-                }
+                },
+                "step":17
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/strsafe.h",
@@ -1011,7 +1110,8 @@
                     "startColumn":17,
                     "startLine":9446
                   }
-                }
+                },
+                "step":18
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/strsafe.h",
@@ -1019,7 +1119,8 @@
                     "startColumn":17,
                     "startLine":9447
                   }
-                }
+                },
+                "step":19
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/strsafe.h",
@@ -1027,7 +1128,8 @@
                     "startColumn":5,
                     "startLine":9466
                   }
-                }
+                },
+                "step":20
               }
             ]
           }
@@ -1061,7 +1163,8 @@
                     "startColumn":1,
                     "startLine":9552
                   }
-                }
+                },
+                "step":1
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/strsafe.h",
@@ -1069,7 +1172,8 @@
                     "startColumn":13,
                     "startLine":9557
                   }
-                }
+                },
+                "step":2
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/strsafe.h",
@@ -1077,7 +1181,8 @@
                     "startColumn":10,
                     "startLine":9559
                   }
-                }
+                },
+                "step":3
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/strsafe.h",
@@ -1085,7 +1190,8 @@
                     "startColumn":31,
                     "startLine":9559
                   }
-                }
+                },
+                "step":4
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/strsafe.h",
@@ -1093,7 +1199,8 @@
                     "startColumn":33,
                     "startLine":9565
                   }
-                }
+                },
+                "step":5
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/strsafe.h",
@@ -1101,7 +1208,8 @@
                     "startColumn":12,
                     "startLine":9565
                   }
-                }
+                },
+                "step":6
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/strsafe.h",
@@ -1109,7 +1217,8 @@
                     "startColumn":26,
                     "startLine":9568
                   }
-                }
+                },
+                "step":7
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/strsafe.h",
@@ -1117,7 +1226,8 @@
                     "startColumn":5,
                     "startLine":9573
                   }
-                }
+                },
+                "step":8
               }
             ]
           }
@@ -1151,7 +1261,8 @@
                     "startColumn":1,
                     "startLine":9584
                   }
-                }
+                },
+                "step":1
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/strsafe.h",
@@ -1159,7 +1270,8 @@
                     "startColumn":13,
                     "startLine":9589
                   }
-                }
+                },
+                "step":2
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/strsafe.h",
@@ -1167,7 +1279,8 @@
                     "startColumn":10,
                     "startLine":9591
                   }
-                }
+                },
+                "step":3
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/strsafe.h",
@@ -1175,7 +1288,8 @@
                     "startColumn":31,
                     "startLine":9591
                   }
-                }
+                },
+                "step":4
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/strsafe.h",
@@ -1183,7 +1297,8 @@
                     "startColumn":33,
                     "startLine":9597
                   }
-                }
+                },
+                "step":5
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/strsafe.h",
@@ -1191,7 +1306,8 @@
                     "startColumn":12,
                     "startLine":9597
                   }
-                }
+                },
+                "step":6
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/strsafe.h",
@@ -1199,7 +1315,8 @@
                     "startColumn":26,
                     "startLine":9600
                   }
-                }
+                },
+                "step":7
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/strsafe.h",
@@ -1207,7 +1324,8 @@
                     "startColumn":5,
                     "startLine":9605
                   }
-                }
+                },
+                "step":8
               }
             ]
           }
@@ -1241,7 +1359,8 @@
                     "startColumn":1,
                     "startLine":10240
                   }
-                }
+                },
+                "step":1
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/strsafe.h",
@@ -1249,7 +1368,8 @@
                     "startColumn":13,
                     "startLine":10246
                   }
-                }
+                },
+                "step":2
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/strsafe.h",
@@ -1257,7 +1377,8 @@
                     "startColumn":29,
                     "startLine":10248
                   }
-                }
+                },
+                "step":3
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/strsafe.h",
@@ -1265,7 +1386,8 @@
                     "startColumn":8,
                     "startLine":10248
                   }
-                }
+                },
+                "step":4
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/strsafe.h",
@@ -1273,7 +1395,8 @@
                     "startColumn":26,
                     "startLine":10250
                   }
-                }
+                },
+                "step":5
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/strsafe.h",
@@ -1281,7 +1404,8 @@
                     "startColumn":33,
                     "startLine":10252
                   }
-                }
+                },
+                "step":6
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/strsafe.h",
@@ -1289,7 +1413,8 @@
                     "startColumn":12,
                     "startLine":10252
                   }
-                }
+                },
+                "step":7
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/strsafe.h",
@@ -1297,7 +1422,8 @@
                     "startColumn":5,
                     "startLine":10259
                   }
-                }
+                },
+                "step":8
               }
             ]
           }
@@ -1331,7 +1457,8 @@
                     "startColumn":1,
                     "startLine":10296
                   }
-                }
+                },
+                "step":1
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/strsafe.h",
@@ -1339,7 +1466,8 @@
                     "startColumn":13,
                     "startLine":10302
                   }
-                }
+                },
+                "step":2
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/strsafe.h",
@@ -1347,7 +1475,8 @@
                     "startColumn":29,
                     "startLine":10304
                   }
-                }
+                },
+                "step":3
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/strsafe.h",
@@ -1355,7 +1484,8 @@
                     "startColumn":8,
                     "startLine":10304
                   }
-                }
+                },
+                "step":4
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/strsafe.h",
@@ -1363,7 +1493,8 @@
                     "startColumn":26,
                     "startLine":10306
                   }
-                }
+                },
+                "step":5
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/strsafe.h",
@@ -1371,7 +1502,8 @@
                     "startColumn":33,
                     "startLine":10308
                   }
-                }
+                },
+                "step":6
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/strsafe.h",
@@ -1379,7 +1511,8 @@
                     "startColumn":12,
                     "startLine":10308
                   }
-                }
+                },
+                "step":7
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/strsafe.h",
@@ -1387,7 +1520,8 @@
                     "startColumn":5,
                     "startLine":10315
                   }
-                }
+                },
+                "step":8
               }
             ]
           }
@@ -1421,7 +1555,8 @@
                     "startColumn":1,
                     "startLine":11010
                   }
-                }
+                },
+                "step":1
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/strsafe.h",
@@ -1429,7 +1564,8 @@
                     "startColumn":12,
                     "startLine":11018
                   }
-                }
+                },
+                "step":2
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/strsafe.h",
@@ -1437,7 +1573,8 @@
                     "startColumn":29,
                     "startLine":11018
                   }
-                }
+                },
+                "step":3
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/strsafe.h",
@@ -1445,7 +1582,8 @@
                     "startColumn":22,
                     "startLine":11020
                   }
-                }
+                },
+                "step":4
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/strsafe.h",
@@ -1453,7 +1591,8 @@
                     "startColumn":18,
                     "startLine":11022
                   }
-                }
+                },
+                "step":5
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/strsafe.h",
@@ -1461,7 +1600,8 @@
                     "startColumn":35,
                     "startLine":11022
                   }
-                }
+                },
+                "step":6
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/strsafe.h",
@@ -1469,7 +1609,8 @@
                     "startColumn":17,
                     "startLine":11035
                   }
-                }
+                },
+                "step":7
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/strsafe.h",
@@ -1477,7 +1618,8 @@
                     "startColumn":18,
                     "startLine":11059
                   }
-                }
+                },
+                "step":8
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/strsafe.h",
@@ -1485,7 +1627,8 @@
                     "startColumn":35,
                     "startLine":11059
                   }
-                }
+                },
+                "step":9
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/strsafe.h",
@@ -1493,7 +1636,8 @@
                     "startColumn":5,
                     "startLine":11068
                   }
-                }
+                },
+                "step":10
               }
             ]
           }
@@ -1527,7 +1671,8 @@
                     "startColumn":1,
                     "startLine":11079
                   }
-                }
+                },
+                "step":1
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/strsafe.h",
@@ -1535,7 +1680,8 @@
                     "startColumn":12,
                     "startLine":11087
                   }
-                }
+                },
+                "step":2
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/strsafe.h",
@@ -1543,7 +1689,8 @@
                     "startColumn":29,
                     "startLine":11087
                   }
-                }
+                },
+                "step":3
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/strsafe.h",
@@ -1551,7 +1698,8 @@
                     "startColumn":22,
                     "startLine":11089
                   }
-                }
+                },
+                "step":4
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/strsafe.h",
@@ -1559,7 +1707,8 @@
                     "startColumn":18,
                     "startLine":11091
                   }
-                }
+                },
+                "step":5
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/strsafe.h",
@@ -1567,7 +1716,8 @@
                     "startColumn":17,
                     "startLine":11104
                   }
-                }
+                },
+                "step":6
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/strsafe.h",
@@ -1575,7 +1725,8 @@
                     "startColumn":18,
                     "startLine":11128
                   }
-                }
+                },
+                "step":7
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/strsafe.h",
@@ -1583,7 +1734,8 @@
                     "startColumn":5,
                     "startLine":11137
                   }
-                }
+                },
+                "step":8
               }
             ]
           }
@@ -1617,7 +1769,8 @@
                     "startColumn":24,
                     "startLine":326
                   }
-                }
+                },
+                "step":1
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/crt/stl70/iosfwd",
@@ -1625,7 +1778,8 @@
                     "startColumn":19,
                     "startLine":329
                   }
-                }
+                },
+                "step":2
               }
             ]
           }
@@ -1659,7 +1813,8 @@
                     "startColumn":24,
                     "startLine":340
                   }
-                }
+                },
+                "step":1
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/crt/stl70/iosfwd",
@@ -1667,7 +1822,8 @@
                     "startColumn":13,
                     "startLine":345
                   }
-                }
+                },
+                "step":2
               }
             ]
           }
@@ -1701,7 +1857,8 @@
                     "startColumn":24,
                     "startLine":340
                   }
-                }
+                },
+                "step":1
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/crt/stl70/iosfwd",
@@ -1709,7 +1866,8 @@
                     "startColumn":13,
                     "startLine":345
                   }
-                }
+                },
+                "step":2
               }
             ]
           }
@@ -1743,7 +1901,8 @@
                     "startColumn":24,
                     "startLine":364
                   }
-                }
+                },
+                "step":1
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/crt/stl70/iosfwd",
@@ -1751,7 +1910,8 @@
                     "startColumn":15,
                     "startLine":369
                   }
-                }
+                },
+                "step":2
               }
             ]
           }
@@ -1785,7 +1945,8 @@
                     "startColumn":24,
                     "startLine":364
                   }
-                }
+                },
+                "step":1
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/crt/stl70/iosfwd",
@@ -1793,7 +1954,8 @@
                     "startColumn":15,
                     "startLine":369
                   }
-                }
+                },
+                "step":2
               }
             ]
           }
@@ -1827,7 +1989,8 @@
                     "startColumn":24,
                     "startLine":441
                   }
-                }
+                },
+                "step":1
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/crt/stl70/iosfwd",
@@ -1835,7 +1998,8 @@
                     "startColumn":19,
                     "startLine":444
                   }
-                }
+                },
+                "step":2
               }
             ]
           }
@@ -1869,7 +2033,8 @@
                     "startColumn":24,
                     "startLine":455
                   }
-                }
+                },
+                "step":1
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/crt/stl70/iosfwd",
@@ -1877,7 +2042,8 @@
                     "startColumn":13,
                     "startLine":460
                   }
-                }
+                },
+                "step":2
               }
             ]
           }
@@ -1911,7 +2077,8 @@
                     "startColumn":24,
                     "startLine":455
                   }
-                }
+                },
+                "step":1
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/crt/stl70/iosfwd",
@@ -1919,7 +2086,8 @@
                     "startColumn":13,
                     "startLine":460
                   }
-                }
+                },
+                "step":2
               }
             ]
           }
@@ -1953,7 +2121,8 @@
                     "startColumn":24,
                     "startLine":479
                   }
-                }
+                },
+                "step":1
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/crt/stl70/iosfwd",
@@ -1961,7 +2130,8 @@
                     "startColumn":14,
                     "startLine":484
                   }
-                }
+                },
+                "step":2
               }
             ]
           }
@@ -1995,7 +2165,8 @@
                     "startColumn":24,
                     "startLine":479
                   }
-                }
+                },
+                "step":1
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/crt/stl70/iosfwd",
@@ -2003,7 +2174,8 @@
                     "startColumn":14,
                     "startLine":484
                   }
-                }
+                },
+                "step":2
               }
             ]
           }
@@ -2037,7 +2209,8 @@
                     "startColumn":19,
                     "startLine":605
                   }
-                }
+                },
+                "step":1
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/crt/stl70/xlocale",
@@ -2045,7 +2218,8 @@
                     "startColumn":9,
                     "startLine":608
                   }
-                }
+                },
+                "step":2
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/crt/stl70/xlocale",
@@ -2053,7 +2227,8 @@
                     "startColumn":17,
                     "startLine":608
                   }
-                }
+                },
+                "step":3
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/crt/stl70/xlocale",
@@ -2061,7 +2236,8 @@
                     "startColumn":9,
                     "startLine":609
                   }
-                }
+                },
+                "step":4
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/crt/stl70/xlocale",
@@ -2069,7 +2245,8 @@
                     "startColumn":14,
                     "startLine":610
                   }
-                }
+                },
+                "step":5
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/crt/stl70/xlocale",
@@ -2077,7 +2254,8 @@
                     "startColumn":6,
                     "startLine":611
                   }
-                }
+                },
+                "step":6
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/crt/stl70/xlocale",
@@ -2085,7 +2263,8 @@
                     "startColumn":10,
                     "startLine":612
                   }
-                }
+                },
+                "step":7
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/crt/stl70/xlocale",
@@ -2093,7 +2272,8 @@
                     "startColumn":12,
                     "startLine":613
                   }
-                }
+                },
+                "step":8
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/crt/stl70/xlocale",
@@ -2101,7 +2281,8 @@
                     "startColumn":22,
                     "startLine":613
                   }
-                }
+                },
+                "step":9
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/crt/stl70/xlocale",
@@ -2109,7 +2290,8 @@
                     "startColumn":20,
                     "startLine":615
                   }
-                }
+                },
+                "step":10
               }
             ]
           }
@@ -2143,7 +2325,8 @@
                     "startColumn":18,
                     "startLine":872
                   }
-                }
+                },
+                "step":1
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/crt/stl70/xlocale",
@@ -2151,7 +2334,8 @@
                     "startColumn":9,
                     "startLine":878
                   }
-                }
+                },
+                "step":2
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/crt/stl70/xlocale",
@@ -2159,7 +2343,8 @@
                     "startColumn":18,
                     "startLine":878
                   }
-                }
+                },
+                "step":3
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/crt/stl70/xlocale",
@@ -2167,7 +2352,8 @@
                     "startColumn":10,
                     "startLine":879
                   }
-                }
+                },
+                "step":4
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/crt/stl70/xlocale",
@@ -2175,7 +2361,8 @@
                     "startColumn":23,
                     "startLine":879
                   }
-                }
+                },
+                "step":5
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/crt/stl70/xlocale",
@@ -2183,7 +2370,8 @@
                     "startColumn":33,
                     "startLine":879
                   }
-                }
+                },
+                "step":6
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/crt/stl70/xlocale",
@@ -2191,7 +2379,8 @@
                     "startColumn":33,
                     "startLine":879
                   }
-                }
+                },
+                "step":7
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/crt/stl70/xlocale",
@@ -2199,7 +2388,8 @@
                     "startColumn":7,
                     "startLine":880
                   }
-                }
+                },
+                "step":8
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/crt/stl70/xlocale",
@@ -2207,7 +2397,8 @@
                     "startColumn":16,
                     "startLine":882
                   }
-                }
+                },
+                "step":9
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/crt/stl70/xlocale",
@@ -2215,7 +2406,8 @@
                     "startColumn":35,
                     "startLine":882
                   }
-                }
+                },
+                "step":10
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/crt/stl70/xlocale",
@@ -2223,7 +2415,8 @@
                     "startColumn":29,
                     "startLine":883
                   }
-                }
+                },
+                "step":11
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/crt/stl70/xlocale",
@@ -2231,7 +2424,8 @@
                     "startColumn":19,
                     "startLine":883
                   }
-                }
+                },
+                "step":12
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/crt/stl70/xlocale",
@@ -2239,7 +2433,8 @@
                     "startColumn":4,
                     "startLine":883
                   }
-                }
+                },
+                "step":13
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/crt/stl70/xlocale",
@@ -2247,7 +2442,8 @@
                     "startColumn":16,
                     "startLine":899
                   }
-                }
+                },
+                "step":14
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/crt/stl70/xlocale",
@@ -2255,7 +2451,8 @@
                     "startColumn":11,
                     "startLine":901
                   }
-                }
+                },
+                "step":15
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/crt/stl70/xlocale",
@@ -2263,7 +2460,8 @@
                     "startColumn":5,
                     "startLine":902
                   }
-                }
+                },
+                "step":16
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/crt/stl70/xlocale",
@@ -2271,7 +2469,8 @@
                     "startColumn":10,
                     "startLine":903
                   }
-                }
+                },
+                "step":17
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/crt/stl70/xlocale",
@@ -2279,7 +2478,8 @@
                     "startColumn":16,
                     "startLine":882
                   }
-                }
+                },
+                "step":18
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/crt/stl70/xlocale",
@@ -2287,7 +2487,8 @@
                     "startColumn":35,
                     "startLine":882
                   }
-                }
+                },
+                "step":19
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/crt/stl70/xlocale",
@@ -2295,7 +2496,8 @@
                     "startColumn":29,
                     "startLine":883
                   }
-                }
+                },
+                "step":20
               }
             ]
           }
@@ -2329,7 +2531,8 @@
                     "startColumn":18,
                     "startLine":872
                   }
-                }
+                },
+                "step":1
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/crt/stl70/xlocale",
@@ -2337,7 +2540,8 @@
                     "startColumn":9,
                     "startLine":878
                   }
-                }
+                },
+                "step":2
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/crt/stl70/xlocale",
@@ -2345,7 +2549,8 @@
                     "startColumn":18,
                     "startLine":878
                   }
-                }
+                },
+                "step":3
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/crt/stl70/xlocale",
@@ -2353,7 +2558,8 @@
                     "startColumn":10,
                     "startLine":879
                   }
-                }
+                },
+                "step":4
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/crt/stl70/xlocale",
@@ -2361,7 +2567,8 @@
                     "startColumn":23,
                     "startLine":879
                   }
-                }
+                },
+                "step":5
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/crt/stl70/xlocale",
@@ -2369,7 +2576,8 @@
                     "startColumn":33,
                     "startLine":879
                   }
-                }
+                },
+                "step":6
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/crt/stl70/xlocale",
@@ -2377,7 +2585,8 @@
                     "startColumn":33,
                     "startLine":879
                   }
-                }
+                },
+                "step":7
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/crt/stl70/xlocale",
@@ -2385,7 +2594,8 @@
                     "startColumn":7,
                     "startLine":880
                   }
-                }
+                },
+                "step":8
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/crt/stl70/xlocale",
@@ -2393,7 +2603,8 @@
                     "startColumn":16,
                     "startLine":882
                   }
-                }
+                },
+                "step":9
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/crt/stl70/xlocale",
@@ -2401,7 +2612,8 @@
                     "startColumn":35,
                     "startLine":882
                   }
-                }
+                },
+                "step":10
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/crt/stl70/xlocale",
@@ -2409,7 +2621,8 @@
                     "startColumn":29,
                     "startLine":883
                   }
-                }
+                },
+                "step":11
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/crt/stl70/xlocale",
@@ -2417,7 +2630,8 @@
                     "startColumn":19,
                     "startLine":883
                   }
-                }
+                },
+                "step":12
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/crt/stl70/xlocale",
@@ -2425,7 +2639,8 @@
                     "startColumn":4,
                     "startLine":883
                   }
-                }
+                },
+                "step":13
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/crt/stl70/xlocale",
@@ -2433,7 +2648,8 @@
                     "startColumn":9,
                     "startLine":894
                   }
-                }
+                },
+                "step":14
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/crt/stl70/xlocale",
@@ -2441,7 +2657,8 @@
                     "startColumn":28,
                     "startLine":895
                   }
-                }
+                },
+                "step":15
               }
             ]
           }
@@ -2475,7 +2692,8 @@
                     "startColumn":18,
                     "startLine":872
                   }
-                }
+                },
+                "step":1
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/crt/stl70/xlocale",
@@ -2483,7 +2701,8 @@
                     "startColumn":9,
                     "startLine":878
                   }
-                }
+                },
+                "step":2
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/crt/stl70/xlocale",
@@ -2491,7 +2710,8 @@
                     "startColumn":18,
                     "startLine":878
                   }
-                }
+                },
+                "step":3
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/crt/stl70/xlocale",
@@ -2499,7 +2719,8 @@
                     "startColumn":10,
                     "startLine":879
                   }
-                }
+                },
+                "step":4
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/crt/stl70/xlocale",
@@ -2507,7 +2728,8 @@
                     "startColumn":23,
                     "startLine":879
                   }
-                }
+                },
+                "step":5
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/crt/stl70/xlocale",
@@ -2515,7 +2737,8 @@
                     "startColumn":33,
                     "startLine":879
                   }
-                }
+                },
+                "step":6
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/crt/stl70/xlocale",
@@ -2523,7 +2746,8 @@
                     "startColumn":33,
                     "startLine":879
                   }
-                }
+                },
+                "step":7
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/crt/stl70/xlocale",
@@ -2531,7 +2755,8 @@
                     "startColumn":7,
                     "startLine":880
                   }
-                }
+                },
+                "step":8
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/crt/stl70/xlocale",
@@ -2539,7 +2764,8 @@
                     "startColumn":16,
                     "startLine":882
                   }
-                }
+                },
+                "step":9
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/crt/stl70/xlocale",
@@ -2547,7 +2773,8 @@
                     "startColumn":35,
                     "startLine":882
                   }
-                }
+                },
+                "step":10
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/crt/stl70/xlocale",
@@ -2555,7 +2782,8 @@
                     "startColumn":29,
                     "startLine":883
                   }
-                }
+                },
+                "step":11
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/crt/stl70/xlocale",
@@ -2563,7 +2791,8 @@
                     "startColumn":19,
                     "startLine":883
                   }
-                }
+                },
+                "step":12
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/crt/stl70/xlocale",
@@ -2571,7 +2800,8 @@
                     "startColumn":4,
                     "startLine":883
                   }
-                }
+                },
+                "step":13
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/crt/stl70/xlocale",
@@ -2579,7 +2809,8 @@
                     "startColumn":9,
                     "startLine":894
                   }
-                }
+                },
+                "step":14
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/crt/stl70/xlocale",
@@ -2587,7 +2818,8 @@
                     "startColumn":28,
                     "startLine":895
                   }
-                }
+                },
+                "step":15
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/crt/stl70/xlocale",
@@ -2595,7 +2827,8 @@
                     "startColumn":13,
                     "startLine":895
                   }
-                }
+                },
+                "step":16
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/crt/stl70/xlocale",
@@ -2603,7 +2836,8 @@
                     "startColumn":16,
                     "startLine":899
                   }
-                }
+                },
+                "step":17
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/crt/stl70/xlocale",
@@ -2611,7 +2845,8 @@
                     "startColumn":11,
                     "startLine":901
                   }
-                }
+                },
+                "step":18
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/crt/stl70/xlocale",
@@ -2619,7 +2854,8 @@
                     "startColumn":5,
                     "startLine":902
                   }
-                }
+                },
+                "step":19
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/crt/stl70/xlocale",
@@ -2627,7 +2863,8 @@
                     "startColumn":10,
                     "startLine":903
                   }
-                }
+                },
+                "step":20
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/crt/stl70/xlocale",
@@ -2635,7 +2872,8 @@
                     "startColumn":16,
                     "startLine":882
                   }
-                }
+                },
+                "step":21
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/crt/stl70/xlocale",
@@ -2643,7 +2881,8 @@
                     "startColumn":35,
                     "startLine":882
                   }
-                }
+                },
+                "step":22
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/crt/stl70/xlocale",
@@ -2651,7 +2890,8 @@
                     "startColumn":29,
                     "startLine":883
                   }
-                }
+                },
+                "step":23
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/crt/stl70/xlocale",
@@ -2659,7 +2899,8 @@
                     "startColumn":19,
                     "startLine":883
                   }
-                }
+                },
+                "step":24
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/crt/stl70/xlocale",
@@ -2667,7 +2908,8 @@
                     "startColumn":4,
                     "startLine":883
                   }
-                }
+                },
+                "step":25
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/crt/stl70/xlocale",
@@ -2675,7 +2917,8 @@
                     "startColumn":9,
                     "startLine":894
                   }
-                }
+                },
+                "step":26
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/crt/stl70/xlocale",
@@ -2683,7 +2926,8 @@
                     "startColumn":28,
                     "startLine":895
                   }
-                }
+                },
+                "step":27
               }
             ]
           }
@@ -2717,7 +2961,8 @@
                     "startColumn":18,
                     "startLine":908
                   }
-                }
+                },
+                "step":1
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/crt/stl70/xlocale",
@@ -2725,7 +2970,8 @@
                     "startColumn":9,
                     "startLine":914
                   }
-                }
+                },
+                "step":2
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/crt/stl70/xlocale",
@@ -2733,7 +2979,8 @@
                     "startColumn":18,
                     "startLine":914
                   }
-                }
+                },
+                "step":3
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/crt/stl70/xlocale",
@@ -2741,7 +2988,8 @@
                     "startColumn":10,
                     "startLine":915
                   }
-                }
+                },
+                "step":4
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/crt/stl70/xlocale",
@@ -2749,7 +2997,8 @@
                     "startColumn":23,
                     "startLine":915
                   }
-                }
+                },
+                "step":5
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/crt/stl70/xlocale",
@@ -2757,7 +3006,8 @@
                     "startColumn":33,
                     "startLine":915
                   }
-                }
+                },
+                "step":6
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/crt/stl70/xlocale",
@@ -2765,7 +3015,8 @@
                     "startColumn":33,
                     "startLine":915
                   }
-                }
+                },
+                "step":7
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/crt/stl70/xlocale",
@@ -2773,7 +3024,8 @@
                     "startColumn":7,
                     "startLine":916
                   }
-                }
+                },
+                "step":8
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/crt/stl70/xlocale",
@@ -2781,7 +3033,8 @@
                     "startColumn":16,
                     "startLine":918
                   }
-                }
+                },
+                "step":9
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/crt/stl70/xlocale",
@@ -2789,7 +3042,8 @@
                     "startColumn":35,
                     "startLine":918
                   }
-                }
+                },
+                "step":10
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/crt/stl70/xlocale",
@@ -2797,7 +3051,8 @@
                     "startColumn":26,
                     "startLine":919
                   }
-                }
+                },
+                "step":11
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/crt/stl70/xlocale",
@@ -2805,7 +3060,8 @@
                     "startColumn":29,
                     "startLine":919
                   }
-                }
+                },
+                "step":12
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/crt/stl70/xlocale",
@@ -2813,7 +3069,8 @@
                     "startColumn":27,
                     "startLine":920
                   }
-                }
+                },
+                "step":13
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/crt/stl70/xlocale",
@@ -2821,7 +3078,8 @@
                     "startColumn":17,
                     "startLine":920
                   }
-                }
+                },
+                "step":14
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/crt/stl70/xlocale",
@@ -2829,7 +3087,8 @@
                     "startColumn":23,
                     "startLine":921
                   }
-                }
+                },
+                "step":15
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/crt/stl70/xlocale",
@@ -2837,7 +3096,8 @@
                     "startColumn":6,
                     "startLine":924
                   }
-                }
+                },
+                "step":16
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/crt/stl70/xlocale",
@@ -2845,7 +3105,8 @@
                     "startColumn":13,
                     "startLine":924
                   }
-                }
+                },
+                "step":17
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/crt/stl70/xlocale",
@@ -2853,7 +3114,8 @@
                     "startColumn":11,
                     "startLine":924
                   }
-                }
+                },
+                "step":18
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/crt/stl70/xlocale",
@@ -2861,7 +3123,8 @@
                     "startColumn":16,
                     "startLine":918
                   }
-                }
+                },
+                "step":19
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/crt/stl70/xlocale",
@@ -2869,7 +3132,8 @@
                     "startColumn":35,
                     "startLine":918
                   }
-                }
+                },
+                "step":20
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/crt/stl70/xlocale",
@@ -2877,7 +3141,8 @@
                     "startColumn":26,
                     "startLine":919
                   }
-                }
+                },
+                "step":21
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/crt/stl70/xlocale",
@@ -2885,7 +3150,8 @@
                     "startColumn":29,
                     "startLine":919
                   }
-                }
+                },
+                "step":22
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/crt/stl70/xlocale",
@@ -2893,7 +3159,8 @@
                     "startColumn":27,
                     "startLine":920
                   }
-                }
+                },
+                "step":23
               }
             ]
           }
@@ -2927,7 +3194,8 @@
                     "startColumn":18,
                     "startLine":908
                   }
-                }
+                },
+                "step":1
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/crt/stl70/xlocale",
@@ -2935,7 +3203,8 @@
                     "startColumn":9,
                     "startLine":914
                   }
-                }
+                },
+                "step":2
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/crt/stl70/xlocale",
@@ -2943,7 +3212,8 @@
                     "startColumn":18,
                     "startLine":914
                   }
-                }
+                },
+                "step":3
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/crt/stl70/xlocale",
@@ -2951,7 +3221,8 @@
                     "startColumn":10,
                     "startLine":915
                   }
-                }
+                },
+                "step":4
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/crt/stl70/xlocale",
@@ -2959,7 +3230,8 @@
                     "startColumn":23,
                     "startLine":915
                   }
-                }
+                },
+                "step":5
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/crt/stl70/xlocale",
@@ -2967,7 +3239,8 @@
                     "startColumn":33,
                     "startLine":915
                   }
-                }
+                },
+                "step":6
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/crt/stl70/xlocale",
@@ -2975,7 +3248,8 @@
                     "startColumn":33,
                     "startLine":915
                   }
-                }
+                },
+                "step":7
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/crt/stl70/xlocale",
@@ -2983,7 +3257,8 @@
                     "startColumn":7,
                     "startLine":916
                   }
-                }
+                },
+                "step":8
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/crt/stl70/xlocale",
@@ -2991,7 +3266,8 @@
                     "startColumn":16,
                     "startLine":918
                   }
-                }
+                },
+                "step":9
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/crt/stl70/xlocale",
@@ -2999,7 +3275,8 @@
                     "startColumn":35,
                     "startLine":918
                   }
-                }
+                },
+                "step":10
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/crt/stl70/xlocale",
@@ -3007,7 +3284,8 @@
                     "startColumn":26,
                     "startLine":919
                   }
-                }
+                },
+                "step":11
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/crt/stl70/xlocale",
@@ -3015,7 +3293,8 @@
                     "startColumn":29,
                     "startLine":919
                   }
-                }
+                },
+                "step":12
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/crt/stl70/xlocale",
@@ -3023,7 +3302,8 @@
                     "startColumn":27,
                     "startLine":920
                   }
-                }
+                },
+                "step":13
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/crt/stl70/xlocale",
@@ -3031,7 +3311,8 @@
                     "startColumn":17,
                     "startLine":920
                   }
-                }
+                },
+                "step":14
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/crt/stl70/xlocale",
@@ -3039,7 +3320,8 @@
                     "startColumn":23,
                     "startLine":921
                   }
-                }
+                },
+                "step":15
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/crt/stl70/xlocale",
@@ -3047,7 +3329,8 @@
                     "startColumn":6,
                     "startLine":924
                   }
-                }
+                },
+                "step":16
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/crt/stl70/xlocale",
@@ -3055,7 +3338,8 @@
                     "startColumn":13,
                     "startLine":924
                   }
-                }
+                },
+                "step":17
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/crt/stl70/xlocale",
@@ -3063,7 +3347,8 @@
                     "startColumn":11,
                     "startLine":924
                   }
-                }
+                },
+                "step":18
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/crt/stl70/xlocale",
@@ -3071,7 +3356,8 @@
                     "startColumn":16,
                     "startLine":918
                   }
-                }
+                },
+                "step":19
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/crt/stl70/xlocale",
@@ -3079,7 +3365,8 @@
                     "startColumn":35,
                     "startLine":918
                   }
-                }
+                },
+                "step":20
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/crt/stl70/xlocale",
@@ -3087,7 +3374,8 @@
                     "startColumn":26,
                     "startLine":919
                   }
-                }
+                },
+                "step":21
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/crt/stl70/xlocale",
@@ -3095,7 +3383,8 @@
                     "startColumn":29,
                     "startLine":919
                   }
-                }
+                },
+                "step":22
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/crt/stl70/xlocale",
@@ -3103,7 +3392,8 @@
                     "startColumn":27,
                     "startLine":920
                   }
-                }
+                },
+                "step":23
               }
             ]
           }
@@ -3137,7 +3427,8 @@
                     "startColumn":15,
                     "startLine":972
                   }
-                }
+                },
+                "step":1
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/crt/stl70/xlocale",
@@ -3145,7 +3436,8 @@
                     "startColumn":7,
                     "startLine":976
                   }
-                }
+                },
+                "step":2
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/crt/stl70/xlocale",
@@ -3153,7 +3445,8 @@
                     "startColumn":16,
                     "startLine":977
                   }
-                }
+                },
+                "step":3
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/crt/stl70/xlocale",
@@ -3161,7 +3454,8 @@
                     "startColumn":12,
                     "startLine":978
                   }
-                }
+                },
+                "step":4
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/crt/stl70/xlocale",
@@ -3169,7 +3463,8 @@
                     "startColumn":23,
                     "startLine":978
                   }
-                }
+                },
+                "step":5
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/crt/stl70/xlocale",
@@ -3177,7 +3472,8 @@
                     "startColumn":16,
                     "startLine":980
                   }
-                }
+                },
+                "step":6
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/crt/stl70/xlocale",
@@ -3185,7 +3481,8 @@
                     "startColumn":19,
                     "startLine":980
                   }
-                }
+                },
+                "step":7
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/crt/stl70/xlocale",
@@ -3193,7 +3490,8 @@
                     "startColumn":20,
                     "startLine":981
                   }
-                }
+                },
+                "step":8
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/crt/stl70/xlocale",
@@ -3201,7 +3499,8 @@
                     "startColumn":38,
                     "startLine":981
                   }
-                }
+                },
+                "step":9
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/crt/stl70/xlocale",
@@ -3209,7 +3508,8 @@
                     "startColumn":8,
                     "startLine":983
                   }
-                }
+                },
+                "step":10
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/crt/stl70/xlocale",
@@ -3217,7 +3517,8 @@
                     "startColumn":10,
                     "startLine":984
                   }
-                }
+                },
+                "step":11
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/crt/stl70/xlocale",
@@ -3225,7 +3526,8 @@
                     "startColumn":29,
                     "startLine":986
                   }
-                }
+                },
+                "step":12
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/crt/stl70/xlocale",
@@ -3233,7 +3535,8 @@
                     "startColumn":19,
                     "startLine":986
                   }
-                }
+                },
+                "step":13
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/crt/stl70/xlocale",
@@ -3241,7 +3544,8 @@
                     "startColumn":4,
                     "startLine":986
                   }
-                }
+                },
+                "step":14
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/crt/stl70/xlocale",
@@ -3249,7 +3553,8 @@
                     "startColumn":9,
                     "startLine":996
                   }
-                }
+                },
+                "step":15
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/crt/stl70/xlocale",
@@ -3257,7 +3562,8 @@
                     "startColumn":28,
                     "startLine":997
                   }
-                }
+                },
+                "step":16
               }
             ]
           }
@@ -3291,7 +3597,8 @@
                     "startColumn":15,
                     "startLine":972
                   }
-                }
+                },
+                "step":1
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/crt/stl70/xlocale",
@@ -3299,7 +3606,8 @@
                     "startColumn":7,
                     "startLine":976
                   }
-                }
+                },
+                "step":2
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/crt/stl70/xlocale",
@@ -3307,7 +3615,8 @@
                     "startColumn":16,
                     "startLine":977
                   }
-                }
+                },
+                "step":3
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/crt/stl70/xlocale",
@@ -3315,7 +3624,8 @@
                     "startColumn":12,
                     "startLine":978
                   }
-                }
+                },
+                "step":4
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/crt/stl70/xlocale",
@@ -3323,7 +3633,8 @@
                     "startColumn":23,
                     "startLine":978
                   }
-                }
+                },
+                "step":5
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/crt/stl70/xlocale",
@@ -3331,7 +3642,8 @@
                     "startColumn":16,
                     "startLine":980
                   }
-                }
+                },
+                "step":6
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/crt/stl70/xlocale",
@@ -3339,7 +3651,8 @@
                     "startColumn":19,
                     "startLine":980
                   }
-                }
+                },
+                "step":7
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/crt/stl70/xlocale",
@@ -3347,7 +3660,8 @@
                     "startColumn":20,
                     "startLine":981
                   }
-                }
+                },
+                "step":8
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/crt/stl70/xlocale",
@@ -3355,7 +3669,8 @@
                     "startColumn":38,
                     "startLine":981
                   }
-                }
+                },
+                "step":9
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/crt/stl70/xlocale",
@@ -3363,7 +3678,8 @@
                     "startColumn":8,
                     "startLine":983
                   }
-                }
+                },
+                "step":10
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/crt/stl70/xlocale",
@@ -3371,7 +3687,8 @@
                     "startColumn":10,
                     "startLine":984
                   }
-                }
+                },
+                "step":11
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/crt/stl70/xlocale",
@@ -3379,7 +3696,8 @@
                     "startColumn":29,
                     "startLine":986
                   }
-                }
+                },
+                "step":12
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/crt/stl70/xlocale",
@@ -3387,7 +3705,8 @@
                     "startColumn":19,
                     "startLine":986
                   }
-                }
+                },
+                "step":13
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/crt/stl70/xlocale",
@@ -3395,7 +3714,8 @@
                     "startColumn":4,
                     "startLine":986
                   }
-                }
+                },
+                "step":14
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/crt/stl70/xlocale",
@@ -3403,7 +3723,8 @@
                     "startColumn":9,
                     "startLine":996
                   }
-                }
+                },
+                "step":15
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/crt/stl70/xlocale",
@@ -3411,7 +3732,8 @@
                     "startColumn":28,
                     "startLine":997
                   }
-                }
+                },
+                "step":16
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/crt/stl70/xlocale",
@@ -3419,7 +3741,8 @@
                     "startColumn":13,
                     "startLine":997
                   }
-                }
+                },
+                "step":17
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/crt/stl70/xlocale",
@@ -3427,7 +3750,8 @@
                     "startColumn":16,
                     "startLine":1001
                   }
-                }
+                },
+                "step":18
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/crt/stl70/xlocale",
@@ -3435,7 +3759,8 @@
                     "startColumn":11,
                     "startLine":1003
                   }
-                }
+                },
+                "step":19
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/crt/stl70/xlocale",
@@ -3443,7 +3768,8 @@
                     "startColumn":5,
                     "startLine":1004
                   }
-                }
+                },
+                "step":20
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/crt/stl70/xlocale",
@@ -3451,7 +3777,8 @@
                     "startColumn":20,
                     "startLine":981
                   }
-                }
+                },
+                "step":21
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/crt/stl70/xlocale",
@@ -3459,7 +3786,8 @@
                     "startColumn":38,
                     "startLine":981
                   }
-                }
+                },
+                "step":22
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/crt/stl70/xlocale",
@@ -3467,7 +3795,8 @@
                     "startColumn":8,
                     "startLine":983
                   }
-                }
+                },
+                "step":23
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/crt/stl70/xlocale",
@@ -3475,7 +3804,8 @@
                     "startColumn":10,
                     "startLine":984
                   }
-                }
+                },
+                "step":24
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/crt/stl70/xlocale",
@@ -3483,7 +3813,8 @@
                     "startColumn":29,
                     "startLine":986
                   }
-                }
+                },
+                "step":25
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/crt/stl70/xlocale",
@@ -3491,7 +3822,8 @@
                     "startColumn":19,
                     "startLine":986
                   }
-                }
+                },
+                "step":26
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/crt/stl70/xlocale",
@@ -3499,7 +3831,8 @@
                     "startColumn":4,
                     "startLine":986
                   }
-                }
+                },
+                "step":27
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/crt/stl70/xlocale",
@@ -3507,7 +3840,8 @@
                     "startColumn":9,
                     "startLine":996
                   }
-                }
+                },
+                "step":28
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/crt/stl70/xlocale",
@@ -3515,7 +3849,8 @@
                     "startColumn":28,
                     "startLine":997
                   }
-                }
+                },
+                "step":29
               }
             ]
           }
@@ -3549,7 +3884,8 @@
                     "startColumn":24,
                     "startLine":1520
                   }
-                }
+                },
+                "step":1
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/crt/stl70/xlocale",
@@ -3557,7 +3893,8 @@
                     "startColumn":2,
                     "startLine":1524
                   }
-                }
+                },
+                "step":2
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/crt/stl70/xlocale",
@@ -3565,7 +3902,8 @@
                     "startColumn":29,
                     "startLine":1525
                   }
-                }
+                },
+                "step":3
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/crt/stl70/xlocale",
@@ -3573,7 +3911,8 @@
                     "startColumn":12,
                     "startLine":1525
                   }
-                }
+                },
+                "step":4
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/crt/stl70/xlocale",
@@ -3581,7 +3920,8 @@
                     "startColumn":12,
                     "startLine":1524
                   }
-                }
+                },
+                "step":5
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/crt/stl70/xlocale",
@@ -3589,7 +3929,8 @@
                     "startColumn":2,
                     "startLine":1524
                   }
-                }
+                },
+                "step":6
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/crt/stl70/xlocale",
@@ -3597,7 +3938,8 @@
                     "startColumn":29,
                     "startLine":1525
                   }
-                }
+                },
+                "step":7
               }
             ]
           }
@@ -3631,7 +3973,8 @@
                     "startColumn":24,
                     "startLine":1534
                   }
-                }
+                },
+                "step":1
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/crt/stl70/xlocale",
@@ -3639,7 +3982,8 @@
                     "startColumn":2,
                     "startLine":1538
                   }
-                }
+                },
+                "step":2
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/crt/stl70/xlocale",
@@ -3647,7 +3991,8 @@
                     "startColumn":29,
                     "startLine":1539
                   }
-                }
+                },
+                "step":3
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/crt/stl70/xlocale",
@@ -3655,7 +4000,8 @@
                     "startColumn":12,
                     "startLine":1539
                   }
-                }
+                },
+                "step":4
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/crt/stl70/xlocale",
@@ -3663,7 +4009,8 @@
                     "startColumn":12,
                     "startLine":1538
                   }
-                }
+                },
+                "step":5
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/crt/stl70/xlocale",
@@ -3671,7 +4018,8 @@
                     "startColumn":2,
                     "startLine":1538
                   }
-                }
+                },
+                "step":6
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/crt/stl70/xlocale",
@@ -3679,7 +4027,8 @@
                     "startColumn":29,
                     "startLine":1539
                   }
-                }
+                },
+                "step":7
               }
             ]
           }
@@ -3713,7 +4062,8 @@
                     "startColumn":16,
                     "startLine":1557
                   }
-                }
+                },
+                "step":1
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/crt/stl70/xlocale",
@@ -3721,7 +4071,8 @@
                     "startColumn":22,
                     "startLine":1562
                   }
-                }
+                },
+                "step":2
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/crt/stl70/xlocale",
@@ -3729,7 +4080,8 @@
                     "startColumn":13,
                     "startLine":1563
                   }
-                }
+                },
+                "step":3
               }
             ]
           }
@@ -3763,7 +4115,8 @@
                     "startColumn":16,
                     "startLine":1581
                   }
-                }
+                },
+                "step":1
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/crt/stl70/xlocale",
@@ -3771,7 +4124,8 @@
                     "startColumn":22,
                     "startLine":1586
                   }
-                }
+                },
+                "step":2
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/crt/stl70/xlocale",
@@ -3779,7 +4133,8 @@
                     "startColumn":13,
                     "startLine":1587
                   }
-                }
+                },
+                "step":3
               }
             ]
           }
@@ -3813,7 +4168,8 @@
                     "startColumn":24,
                     "startLine":1756
                   }
-                }
+                },
+                "step":1
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/crt/stl70/xlocale",
@@ -3821,7 +4177,8 @@
                     "startColumn":2,
                     "startLine":1760
                   }
-                }
+                },
+                "step":2
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/crt/stl70/xlocale",
@@ -3829,7 +4186,8 @@
                     "startColumn":17,
                     "startLine":1760
                   }
-                }
+                },
+                "step":3
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/crt/stl70/xlocale",
@@ -3837,7 +4195,8 @@
                     "startColumn":17,
                     "startLine":1760
                   }
-                }
+                },
+                "step":4
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/crt/stl70/xlocale",
@@ -3845,7 +4204,8 @@
                     "startColumn":38,
                     "startLine":1760
                   }
-                }
+                },
+                "step":5
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/crt/stl70/xlocale",
@@ -3853,7 +4213,8 @@
                     "startColumn":2,
                     "startLine":1760
                   }
-                }
+                },
+                "step":6
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/crt/stl70/xlocale",
@@ -3861,7 +4222,8 @@
                     "startColumn":17,
                     "startLine":1760
                   }
-                }
+                },
+                "step":7
               }
             ]
           }
@@ -3895,7 +4257,8 @@
                     "startColumn":24,
                     "startLine":1765
                   }
-                }
+                },
+                "step":1
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/crt/stl70/xlocale",
@@ -3903,7 +4266,8 @@
                     "startColumn":2,
                     "startLine":1769
                   }
-                }
+                },
+                "step":2
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/crt/stl70/xlocale",
@@ -3911,7 +4275,8 @@
                     "startColumn":16,
                     "startLine":1769
                   }
-                }
+                },
+                "step":3
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/crt/stl70/xlocale",
@@ -3919,7 +4284,8 @@
                     "startColumn":16,
                     "startLine":1769
                   }
-                }
+                },
+                "step":4
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/crt/stl70/xlocale",
@@ -3927,7 +4293,8 @@
                     "startColumn":37,
                     "startLine":1769
                   }
-                }
+                },
+                "step":5
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/crt/stl70/xlocale",
@@ -3935,7 +4302,8 @@
                     "startColumn":2,
                     "startLine":1769
                   }
-                }
+                },
+                "step":6
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/crt/stl70/xlocale",
@@ -3943,7 +4311,8 @@
                     "startColumn":16,
                     "startLine":1769
                   }
-                }
+                },
+                "step":7
               }
             ]
           }
@@ -3977,7 +4346,8 @@
                     "startColumn":24,
                     "startLine":1779
                   }
-                }
+                },
+                "step":1
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/crt/stl70/xlocale",
@@ -3985,7 +4355,8 @@
                     "startColumn":2,
                     "startLine":1783
                   }
-                }
+                },
+                "step":2
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/crt/stl70/xlocale",
@@ -3993,7 +4364,8 @@
                     "startColumn":23,
                     "startLine":1784
                   }
-                }
+                },
+                "step":3
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/crt/stl70/xlocale",
@@ -4001,7 +4373,8 @@
                     "startColumn":12,
                     "startLine":1784
                   }
-                }
+                },
+                "step":4
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/crt/stl70/xlocale",
@@ -4009,7 +4382,8 @@
                     "startColumn":12,
                     "startLine":1783
                   }
-                }
+                },
+                "step":5
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/crt/stl70/xlocale",
@@ -4017,7 +4391,8 @@
                     "startColumn":2,
                     "startLine":1783
                   }
-                }
+                },
+                "step":6
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/crt/stl70/xlocale",
@@ -4025,7 +4400,8 @@
                     "startColumn":23,
                     "startLine":1784
                   }
-                }
+                },
+                "step":7
               }
             ]
           }
@@ -4059,7 +4435,8 @@
                     "startColumn":24,
                     "startLine":1793
                   }
-                }
+                },
+                "step":1
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/crt/stl70/xlocale",
@@ -4067,7 +4444,8 @@
                     "startColumn":2,
                     "startLine":1797
                   }
-                }
+                },
+                "step":2
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/crt/stl70/xlocale",
@@ -4075,7 +4453,8 @@
                     "startColumn":23,
                     "startLine":1798
                   }
-                }
+                },
+                "step":3
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/crt/stl70/xlocale",
@@ -4083,7 +4462,8 @@
                     "startColumn":12,
                     "startLine":1798
                   }
-                }
+                },
+                "step":4
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/crt/stl70/xlocale",
@@ -4091,7 +4471,8 @@
                     "startColumn":12,
                     "startLine":1797
                   }
-                }
+                },
+                "step":5
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/crt/stl70/xlocale",
@@ -4099,7 +4480,8 @@
                     "startColumn":2,
                     "startLine":1797
                   }
-                }
+                },
+                "step":6
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/crt/stl70/xlocale",
@@ -4107,7 +4489,8 @@
                     "startColumn":23,
                     "startLine":1798
                   }
-                }
+                },
+                "step":7
               }
             ]
           }
@@ -4141,7 +4524,8 @@
                     "startColumn":15,
                     "startLine":1824
                   }
-                }
+                },
+                "step":1
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/crt/stl70/xlocale",
@@ -4149,7 +4533,8 @@
                     "startColumn":22,
                     "startLine":1829
                   }
-                }
+                },
+                "step":2
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/crt/stl70/xlocale",
@@ -4157,7 +4542,8 @@
                     "startColumn":2,
                     "startLine":1830
                   }
-                }
+                },
+                "step":3
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/crt/stl70/xlocale",
@@ -4165,7 +4551,8 @@
                     "startColumn":21,
                     "startLine":1831
                   }
-                }
+                },
+                "step":4
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/crt/stl70/xlocale",
@@ -4173,7 +4560,8 @@
                     "startColumn":11,
                     "startLine":1831
                   }
-                }
+                },
+                "step":5
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/crt/stl70/xlocale",
@@ -4181,7 +4569,8 @@
                     "startColumn":12,
                     "startLine":1830
                   }
-                }
+                },
+                "step":6
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/crt/stl70/xlocale",
@@ -4189,7 +4578,8 @@
                     "startColumn":7,
                     "startLine":1830
                   }
-                }
+                },
+                "step":7
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/crt/stl70/xlocale",
@@ -4197,7 +4587,8 @@
                     "startColumn":2,
                     "startLine":1830
                   }
-                }
+                },
+                "step":8
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/crt/stl70/xlocale",
@@ -4205,7 +4596,8 @@
                     "startColumn":21,
                     "startLine":1831
                   }
-                }
+                },
+                "step":9
               }
             ]
           }
@@ -4239,7 +4631,8 @@
                     "startColumn":15,
                     "startLine":1824
                   }
-                }
+                },
+                "step":1
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/crt/stl70/xlocale",
@@ -4247,7 +4640,8 @@
                     "startColumn":22,
                     "startLine":1829
                   }
-                }
+                },
+                "step":2
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/crt/stl70/xlocale",
@@ -4255,7 +4649,8 @@
                     "startColumn":2,
                     "startLine":1830
                   }
-                }
+                },
+                "step":3
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/crt/stl70/xlocale",
@@ -4263,7 +4658,8 @@
                     "startColumn":21,
                     "startLine":1831
                   }
-                }
+                },
+                "step":4
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/crt/stl70/xlocale",
@@ -4271,7 +4667,8 @@
                     "startColumn":11,
                     "startLine":1831
                   }
-                }
+                },
+                "step":5
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/crt/stl70/xlocale",
@@ -4279,7 +4676,8 @@
                     "startColumn":12,
                     "startLine":1830
                   }
-                }
+                },
+                "step":6
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/crt/stl70/xlocale",
@@ -4287,7 +4685,8 @@
                     "startColumn":7,
                     "startLine":1830
                   }
-                }
+                },
+                "step":7
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/crt/stl70/xlocale",
@@ -4295,7 +4694,8 @@
                     "startColumn":2,
                     "startLine":1830
                   }
-                }
+                },
+                "step":8
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/crt/stl70/xlocale",
@@ -4303,7 +4703,8 @@
                     "startColumn":21,
                     "startLine":1831
                   }
-                }
+                },
+                "step":9
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/crt/stl70/xlocale",
@@ -4311,7 +4712,8 @@
                     "startColumn":11,
                     "startLine":1831
                   }
-                }
+                },
+                "step":10
               }
             ]
           }
@@ -4345,7 +4747,8 @@
                     "startColumn":16,
                     "startLine":1857
                   }
-                }
+                },
+                "step":1
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/crt/stl70/xlocale",
@@ -4353,7 +4756,8 @@
                     "startColumn":22,
                     "startLine":1862
                   }
-                }
+                },
+                "step":2
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/crt/stl70/xlocale",
@@ -4361,7 +4765,8 @@
                     "startColumn":2,
                     "startLine":1863
                   }
-                }
+                },
+                "step":3
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/crt/stl70/xlocale",
@@ -4369,7 +4774,8 @@
                     "startColumn":22,
                     "startLine":1864
                   }
-                }
+                },
+                "step":4
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/crt/stl70/xlocale",
@@ -4377,7 +4783,8 @@
                     "startColumn":11,
                     "startLine":1864
                   }
-                }
+                },
+                "step":5
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/crt/stl70/xlocale",
@@ -4385,7 +4792,8 @@
                     "startColumn":12,
                     "startLine":1863
                   }
-                }
+                },
+                "step":6
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/crt/stl70/xlocale",
@@ -4393,7 +4801,8 @@
                     "startColumn":7,
                     "startLine":1863
                   }
-                }
+                },
+                "step":7
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/crt/stl70/xlocale",
@@ -4401,7 +4810,8 @@
                     "startColumn":2,
                     "startLine":1863
                   }
-                }
+                },
+                "step":8
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/crt/stl70/xlocale",
@@ -4409,7 +4819,8 @@
                     "startColumn":22,
                     "startLine":1864
                   }
-                }
+                },
+                "step":9
               }
             ]
           }
@@ -4443,7 +4854,8 @@
                     "startColumn":16,
                     "startLine":1857
                   }
-                }
+                },
+                "step":1
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/crt/stl70/xlocale",
@@ -4451,7 +4863,8 @@
                     "startColumn":22,
                     "startLine":1862
                   }
-                }
+                },
+                "step":2
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/crt/stl70/xlocale",
@@ -4459,7 +4872,8 @@
                     "startColumn":2,
                     "startLine":1863
                   }
-                }
+                },
+                "step":3
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/crt/stl70/xlocale",
@@ -4467,7 +4881,8 @@
                     "startColumn":22,
                     "startLine":1864
                   }
-                }
+                },
+                "step":4
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/crt/stl70/xlocale",
@@ -4475,7 +4890,8 @@
                     "startColumn":11,
                     "startLine":1864
                   }
-                }
+                },
+                "step":5
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/crt/stl70/xlocale",
@@ -4483,7 +4899,8 @@
                     "startColumn":12,
                     "startLine":1863
                   }
-                }
+                },
+                "step":6
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/crt/stl70/xlocale",
@@ -4491,7 +4908,8 @@
                     "startColumn":7,
                     "startLine":1863
                   }
-                }
+                },
+                "step":7
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/crt/stl70/xlocale",
@@ -4499,7 +4917,8 @@
                     "startColumn":2,
                     "startLine":1863
                   }
-                }
+                },
+                "step":8
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/crt/stl70/xlocale",
@@ -4507,7 +4926,8 @@
                     "startColumn":22,
                     "startLine":1864
                   }
-                }
+                },
+                "step":9
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/crt/stl70/xlocale",
@@ -4515,7 +4935,8 @@
                     "startColumn":11,
                     "startLine":1864
                   }
-                }
+                },
+                "step":10
               }
             ]
           }
@@ -4549,7 +4970,8 @@
                     "startColumn":13,
                     "startLine":57
                   }
-                }
+                },
+                "step":1
               },{
                 "physicalLocation":{
                   "uri":"file:///d:/dev/win8/drivers/tablet/recognition/ink/core/inferno/src/loadtdnnbin.cpp",
@@ -4557,7 +4979,8 @@
                     "startColumn":17,
                     "startLine":59
                   }
-                }
+                },
+                "step":2
               },{
                 "physicalLocation":{
                   "uri":"file:///d:/dev/win8/drivers/tablet/recognition/ink/core/inferno/src/loadtdnnbin.cpp",
@@ -4565,7 +4988,8 @@
                     "startColumn":25,
                     "startLine":59
                   }
-                }
+                },
+                "step":3
               },{
                 "physicalLocation":{
                   "uri":"file:///d:/dev/win8/drivers/tablet/recognition/ink/core/inferno/src/loadtdnnbin.cpp",
@@ -4573,7 +4997,8 @@
                     "startColumn":49,
                     "startLine":59
                   }
-                }
+                },
+                "step":4
               },{
                 "physicalLocation":{
                   "uri":"file:///d:/dev/win8/drivers/tablet/recognition/ink/core/inferno/src/loadtdnnbin.cpp",
@@ -4581,7 +5006,8 @@
                     "startColumn":11,
                     "startLine":60
                   }
-                }
+                },
+                "step":5
               },{
                 "physicalLocation":{
                   "uri":"file:///d:/dev/win8/drivers/tablet/recognition/ink/core/inferno/src/loadtdnnbin.cpp",
@@ -4589,7 +5015,8 @@
                     "startColumn":18,
                     "startLine":61
                   }
-                }
+                },
+                "step":6
               },{
                 "physicalLocation":{
                   "uri":"file:///d:/dev/win8/drivers/tablet/recognition/ink/core/inferno/src/loadtdnnbin.cpp",
@@ -4597,7 +5024,8 @@
                     "startColumn":23,
                     "startLine":61
                   }
-                }
+                },
+                "step":7
               },{
                 "physicalLocation":{
                   "uri":"file:///d:/dev/win8/drivers/tablet/recognition/ink/core/inferno/src/loadtdnnbin.cpp",
@@ -4605,7 +5033,8 @@
                     "startColumn":30,
                     "startLine":61
                   }
-                }
+                },
+                "step":8
               },{
                 "physicalLocation":{
                   "uri":"file:///d:/dev/win8/drivers/tablet/recognition/ink/core/inferno/src/loadtdnnbin.cpp",
@@ -4613,7 +5042,8 @@
                     "startColumn":17,
                     "startLine":62
                   }
-                }
+                },
+                "step":9
               },{
                 "physicalLocation":{
                   "uri":"file:///d:/dev/win8/drivers/tablet/recognition/ink/core/inferno/src/loadtdnnbin.cpp",
@@ -4621,7 +5051,8 @@
                     "startColumn":10,
                     "startLine":64
                   }
-                }
+                },
+                "step":10
               },{
                 "physicalLocation":{
                   "uri":"file:///d:/dev/win8/drivers/tablet/recognition/ink/core/inferno/src/loadtdnnbin.cpp",
@@ -4629,7 +5060,8 @@
                     "startColumn":13,
                     "startLine":68
                   }
-                }
+                },
+                "step":11
               },{
                 "physicalLocation":{
                   "uri":"file:///d:/dev/win8/drivers/tablet/recognition/ink/core/inferno/src/loadtdnnbin.cpp",
@@ -4637,7 +5069,8 @@
                     "startColumn":10,
                     "startLine":70
                   }
-                }
+                },
+                "step":12
               },{
                 "physicalLocation":{
                   "uri":"file:///d:/dev/win8/drivers/tablet/recognition/ink/core/inferno/src/loadtdnnbin.cpp",
@@ -4645,7 +5078,8 @@
                     "startColumn":14,
                     "startLine":73
                   }
-                }
+                },
+                "step":13
               },{
                 "physicalLocation":{
                   "uri":"file:///d:/dev/win8/drivers/tablet/recognition/ink/core/inferno/src/loadtdnnbin.cpp",
@@ -4653,7 +5087,8 @@
                     "startColumn":10,
                     "startLine":78
                   }
-                }
+                },
+                "step":14
               },{
                 "physicalLocation":{
                   "uri":"file:///d:/dev/win8/drivers/tablet/recognition/ink/core/inferno/src/loadtdnnbin.cpp",
@@ -4661,7 +5096,8 @@
                     "startColumn":23,
                     "startLine":85
                   }
-                }
+                },
+                "step":15
               },{
                 "physicalLocation":{
                   "uri":"file:///d:/dev/win8/drivers/tablet/recognition/ink/core/inferno/src/loadtdnnbin.cpp",
@@ -4669,7 +5105,8 @@
                     "startColumn":14,
                     "startLine":85
                   }
-                }
+                },
+                "step":16
               },{
                 "physicalLocation":{
                   "uri":"file:///d:/dev/win8/drivers/tablet/recognition/ink/core/inferno/src/loadtdnnbin.cpp",
@@ -4677,7 +5114,8 @@
                     "startColumn":14,
                     "startLine":86
                   }
-                }
+                },
+                "step":17
               },{
                 "physicalLocation":{
                   "uri":"file:///d:/dev/win8/drivers/tablet/recognition/ink/core/inferno/src/loadtdnnbin.cpp",
@@ -4685,7 +5123,8 @@
                     "startColumn":21,
                     "startLine":91
                   }
-                }
+                },
+                "step":18
               },{
                 "physicalLocation":{
                   "uri":"file:///d:/dev/win8/drivers/tablet/recognition/ink/core/inferno/src/loadtdnnbin.cpp",
@@ -4693,7 +5132,8 @@
                     "startColumn":21,
                     "startLine":91
                   }
-                }
+                },
+                "step":19
               },{
                 "physicalLocation":{
                   "uri":"file:///d:/dev/win8/drivers/tablet/recognition/ink/core/inferno/src/loadtdnnbin.cpp",
@@ -4701,7 +5141,8 @@
                     "startColumn":15,
                     "startLine":98
                   }
-                }
+                },
+                "step":20
               },{
                 "physicalLocation":{
                   "uri":"file:///d:/dev/win8/drivers/tablet/recognition/ink/core/inferno/src/loadtdnnbin.cpp",
@@ -4709,7 +5150,8 @@
                     "startColumn":18,
                     "startLine":99
                   }
-                }
+                },
+                "step":21
               },{
                 "physicalLocation":{
                   "uri":"file:///d:/dev/win8/drivers/tablet/recognition/ink/core/inferno/src/loadtdnnbin.cpp",
@@ -4717,7 +5159,8 @@
                     "startColumn":53,
                     "startLine":99
                   }
-                }
+                },
+                "step":22
               },{
                 "physicalLocation":{
                   "uri":"file:///d:/dev/win8/drivers/tablet/recognition/ink/core/inferno/src/loadtdnnbin.cpp",
@@ -4725,7 +5168,8 @@
                     "startColumn":31,
                     "startLine":103
                   }
-                }
+                },
+                "step":23
               },{
                 "physicalLocation":{
                   "uri":"file:///d:/dev/win8/drivers/tablet/recognition/ink/core/inferno/src/loadtdnnbin.cpp",
@@ -4733,7 +5177,8 @@
                     "startColumn":25,
                     "startLine":103
                   }
-                }
+                },
+                "step":24
               },{
                 "physicalLocation":{
                   "uri":"file:///d:/dev/win8/drivers/tablet/recognition/ink/core/inferno/src/loadtdnnbin.cpp",
@@ -4741,7 +5186,8 @@
                     "startColumn":28,
                     "startLine":104
                   }
-                }
+                },
+                "step":25
               },{
                 "physicalLocation":{
                   "uri":"file:///d:/dev/win8/drivers/tablet/recognition/ink/core/inferno/src/loadtdnnbin.cpp",
@@ -4749,7 +5195,8 @@
                     "startColumn":23,
                     "startLine":108
                   }
-                }
+                },
+                "step":26
               },{
                 "physicalLocation":{
                   "uri":"file:///d:/dev/win8/drivers/tablet/recognition/ink/core/inferno/src/loadtdnnbin.cpp",
@@ -4757,7 +5204,8 @@
                     "startColumn":15,
                     "startLine":108
                   }
-                }
+                },
+                "step":27
               },{
                 "physicalLocation":{
                   "uri":"file:///d:/dev/win8/drivers/tablet/recognition/ink/core/inferno/src/loadtdnnbin.cpp",
@@ -4765,7 +5213,8 @@
                     "startColumn":9,
                     "startLine":109
                   }
-                }
+                },
+                "step":28
               },{
                 "physicalLocation":{
                   "uri":"file:///d:/dev/win8/drivers/tablet/recognition/ink/core/inferno/src/loadtdnnbin.cpp",
@@ -4773,7 +5222,8 @@
                     "startColumn":31,
                     "startLine":113
                   }
-                }
+                },
+                "step":29
               }
             ]
           }
@@ -4807,7 +5257,8 @@
                     "startColumn":13,
                     "startLine":57
                   }
-                }
+                },
+                "step":1
               },{
                 "physicalLocation":{
                   "uri":"file:///d:/dev/win8/drivers/tablet/recognition/ink/core/inferno/src/loadtdnnbin.cpp",
@@ -4815,7 +5266,8 @@
                     "startColumn":17,
                     "startLine":59
                   }
-                }
+                },
+                "step":2
               },{
                 "physicalLocation":{
                   "uri":"file:///d:/dev/win8/drivers/tablet/recognition/ink/core/inferno/src/loadtdnnbin.cpp",
@@ -4823,7 +5275,8 @@
                     "startColumn":25,
                     "startLine":59
                   }
-                }
+                },
+                "step":3
               },{
                 "physicalLocation":{
                   "uri":"file:///d:/dev/win8/drivers/tablet/recognition/ink/core/inferno/src/loadtdnnbin.cpp",
@@ -4831,7 +5284,8 @@
                     "startColumn":49,
                     "startLine":59
                   }
-                }
+                },
+                "step":4
               },{
                 "physicalLocation":{
                   "uri":"file:///d:/dev/win8/drivers/tablet/recognition/ink/core/inferno/src/loadtdnnbin.cpp",
@@ -4839,7 +5293,8 @@
                     "startColumn":11,
                     "startLine":60
                   }
-                }
+                },
+                "step":5
               },{
                 "physicalLocation":{
                   "uri":"file:///d:/dev/win8/drivers/tablet/recognition/ink/core/inferno/src/loadtdnnbin.cpp",
@@ -4847,7 +5302,8 @@
                     "startColumn":18,
                     "startLine":61
                   }
-                }
+                },
+                "step":6
               },{
                 "physicalLocation":{
                   "uri":"file:///d:/dev/win8/drivers/tablet/recognition/ink/core/inferno/src/loadtdnnbin.cpp",
@@ -4855,7 +5311,8 @@
                     "startColumn":23,
                     "startLine":61
                   }
-                }
+                },
+                "step":7
               },{
                 "physicalLocation":{
                   "uri":"file:///d:/dev/win8/drivers/tablet/recognition/ink/core/inferno/src/loadtdnnbin.cpp",
@@ -4863,7 +5320,8 @@
                     "startColumn":30,
                     "startLine":61
                   }
-                }
+                },
+                "step":8
               },{
                 "physicalLocation":{
                   "uri":"file:///d:/dev/win8/drivers/tablet/recognition/ink/core/inferno/src/loadtdnnbin.cpp",
@@ -4871,7 +5329,8 @@
                     "startColumn":17,
                     "startLine":62
                   }
-                }
+                },
+                "step":9
               },{
                 "physicalLocation":{
                   "uri":"file:///d:/dev/win8/drivers/tablet/recognition/ink/core/inferno/src/loadtdnnbin.cpp",
@@ -4879,7 +5338,8 @@
                     "startColumn":10,
                     "startLine":64
                   }
-                }
+                },
+                "step":10
               },{
                 "physicalLocation":{
                   "uri":"file:///d:/dev/win8/drivers/tablet/recognition/ink/core/inferno/src/loadtdnnbin.cpp",
@@ -4887,7 +5347,8 @@
                     "startColumn":13,
                     "startLine":68
                   }
-                }
+                },
+                "step":11
               },{
                 "physicalLocation":{
                   "uri":"file:///d:/dev/win8/drivers/tablet/recognition/ink/core/inferno/src/loadtdnnbin.cpp",
@@ -4895,7 +5356,8 @@
                     "startColumn":10,
                     "startLine":70
                   }
-                }
+                },
+                "step":12
               },{
                 "physicalLocation":{
                   "uri":"file:///d:/dev/win8/drivers/tablet/recognition/ink/core/inferno/src/loadtdnnbin.cpp",
@@ -4903,7 +5365,8 @@
                     "startColumn":14,
                     "startLine":73
                   }
-                }
+                },
+                "step":13
               },{
                 "physicalLocation":{
                   "uri":"file:///d:/dev/win8/drivers/tablet/recognition/ink/core/inferno/src/loadtdnnbin.cpp",
@@ -4911,7 +5374,8 @@
                     "startColumn":10,
                     "startLine":78
                   }
-                }
+                },
+                "step":14
               },{
                 "physicalLocation":{
                   "uri":"file:///d:/dev/win8/drivers/tablet/recognition/ink/core/inferno/src/loadtdnnbin.cpp",
@@ -4919,7 +5383,8 @@
                     "startColumn":23,
                     "startLine":85
                   }
-                }
+                },
+                "step":15
               },{
                 "physicalLocation":{
                   "uri":"file:///d:/dev/win8/drivers/tablet/recognition/ink/core/inferno/src/loadtdnnbin.cpp",
@@ -4927,7 +5392,8 @@
                     "startColumn":14,
                     "startLine":85
                   }
-                }
+                },
+                "step":16
               },{
                 "physicalLocation":{
                   "uri":"file:///d:/dev/win8/drivers/tablet/recognition/ink/core/inferno/src/loadtdnnbin.cpp",
@@ -4935,7 +5401,8 @@
                     "startColumn":14,
                     "startLine":86
                   }
-                }
+                },
+                "step":17
               },{
                 "physicalLocation":{
                   "uri":"file:///d:/dev/win8/drivers/tablet/recognition/ink/core/inferno/src/loadtdnnbin.cpp",
@@ -4943,7 +5410,8 @@
                     "startColumn":21,
                     "startLine":91
                   }
-                }
+                },
+                "step":18
               },{
                 "physicalLocation":{
                   "uri":"file:///d:/dev/win8/drivers/tablet/recognition/ink/core/inferno/src/loadtdnnbin.cpp",
@@ -4951,7 +5419,8 @@
                     "startColumn":21,
                     "startLine":91
                   }
-                }
+                },
+                "step":19
               },{
                 "physicalLocation":{
                   "uri":"file:///d:/dev/win8/drivers/tablet/recognition/ink/core/inferno/src/loadtdnnbin.cpp",
@@ -4959,7 +5428,8 @@
                     "startColumn":15,
                     "startLine":98
                   }
-                }
+                },
+                "step":20
               },{
                 "physicalLocation":{
                   "uri":"file:///d:/dev/win8/drivers/tablet/recognition/ink/core/inferno/src/loadtdnnbin.cpp",
@@ -4967,7 +5437,8 @@
                     "startColumn":18,
                     "startLine":99
                   }
-                }
+                },
+                "step":21
               },{
                 "physicalLocation":{
                   "uri":"file:///d:/dev/win8/drivers/tablet/recognition/ink/core/inferno/src/loadtdnnbin.cpp",
@@ -4975,7 +5446,8 @@
                     "startColumn":53,
                     "startLine":99
                   }
-                }
+                },
+                "step":22
               },{
                 "physicalLocation":{
                   "uri":"file:///d:/dev/win8/drivers/tablet/recognition/ink/core/inferno/src/loadtdnnbin.cpp",
@@ -4983,7 +5455,8 @@
                     "startColumn":31,
                     "startLine":103
                   }
-                }
+                },
+                "step":23
               },{
                 "physicalLocation":{
                   "uri":"file:///d:/dev/win8/drivers/tablet/recognition/ink/core/inferno/src/loadtdnnbin.cpp",
@@ -4991,7 +5464,8 @@
                     "startColumn":25,
                     "startLine":103
                   }
-                }
+                },
+                "step":24
               },{
                 "physicalLocation":{
                   "uri":"file:///d:/dev/win8/drivers/tablet/recognition/ink/core/inferno/src/loadtdnnbin.cpp",
@@ -4999,7 +5473,8 @@
                     "startColumn":28,
                     "startLine":104
                   }
-                }
+                },
+                "step":25
               },{
                 "physicalLocation":{
                   "uri":"file:///d:/dev/win8/drivers/tablet/recognition/ink/core/inferno/src/loadtdnnbin.cpp",
@@ -5007,7 +5482,8 @@
                     "startColumn":23,
                     "startLine":108
                   }
-                }
+                },
+                "step":26
               },{
                 "physicalLocation":{
                   "uri":"file:///d:/dev/win8/drivers/tablet/recognition/ink/core/inferno/src/loadtdnnbin.cpp",
@@ -5015,7 +5491,8 @@
                     "startColumn":15,
                     "startLine":108
                   }
-                }
+                },
+                "step":27
               },{
                 "physicalLocation":{
                   "uri":"file:///d:/dev/win8/drivers/tablet/recognition/ink/core/inferno/src/loadtdnnbin.cpp",
@@ -5023,7 +5500,8 @@
                     "startColumn":9,
                     "startLine":109
                   }
-                }
+                },
+                "step":28
               },{
                 "physicalLocation":{
                   "uri":"file:///d:/dev/win8/drivers/tablet/recognition/ink/core/inferno/src/loadtdnnbin.cpp",
@@ -5031,7 +5509,8 @@
                     "startColumn":31,
                     "startLine":113
                   }
-                }
+                },
+                "step":29
               },{
                 "physicalLocation":{
                   "uri":"file:///d:/dev/win8/drivers/tablet/recognition/ink/core/inferno/src/loadtdnnbin.cpp",
@@ -5039,7 +5518,8 @@
                     "startColumn":25,
                     "startLine":113
                   }
-                }
+                },
+                "step":30
               },{
                 "physicalLocation":{
                   "uri":"file:///d:/dev/win8/drivers/tablet/recognition/ink/core/inferno/src/loadtdnnbin.cpp",
@@ -5047,7 +5527,8 @@
                     "startColumn":13,
                     "startLine":115
                   }
-                }
+                },
+                "step":31
               },{
                 "physicalLocation":{
                   "uri":"file:///d:/dev/win8/drivers/tablet/recognition/ink/core/inferno/src/loadtdnnbin.cpp",
@@ -5055,7 +5536,8 @@
                     "startColumn":17,
                     "startLine":116
                   }
-                }
+                },
+                "step":32
               }
             ]
           }
@@ -5089,7 +5571,8 @@
                     "startColumn":14,
                     "startLine":324
                   }
-                }
+                },
+                "step":1
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/crt/stl70/streambuf",
@@ -5097,7 +5580,8 @@
                     "startColumn":12,
                     "startLine":327
                   }
-                }
+                },
+                "step":2
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/crt/stl70/streambuf",
@@ -5105,7 +5589,8 @@
                     "startColumn":14,
                     "startLine":328
                   }
-                }
+                },
+                "step":3
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/crt/stl70/streambuf",
@@ -5113,7 +5598,8 @@
                     "startColumn":28,
                     "startLine":328
                   }
-                }
+                },
+                "step":4
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/crt/stl70/streambuf",
@@ -5121,7 +5607,8 @@
                     "startColumn":3,
                     "startLine":328
                   }
-                }
+                },
+                "step":5
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/crt/stl70/streambuf",
@@ -5129,7 +5616,8 @@
                     "startColumn":16,
                     "startLine":330
                   }
-                }
+                },
+                "step":6
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/crt/stl70/streambuf",
@@ -5137,7 +5625,8 @@
                     "startColumn":2,
                     "startLine":330
                   }
-                }
+                },
+                "step":7
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/crt/stl70/streambuf",
@@ -5145,7 +5634,8 @@
                     "startColumn":36,
                     "startLine":331
                   }
-                }
+                },
+                "step":8
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/crt/stl70/streambuf",
@@ -5153,7 +5643,8 @@
                     "startColumn":26,
                     "startLine":331
                   }
-                }
+                },
+                "step":9
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/crt/stl70/streambuf",
@@ -5161,7 +5652,8 @@
                     "startColumn":10,
                     "startLine":331
                   }
-                }
+                },
+                "step":10
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/crt/stl70/streambuf",
@@ -5169,7 +5661,8 @@
                     "startColumn":63,
                     "startLine":342
                   }
-                }
+                },
+                "step":11
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/crt/stl70/streambuf",
@@ -5177,7 +5670,8 @@
                     "startColumn":56,
                     "startLine":342
                   }
-                }
+                },
+                "step":12
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/crt/stl70/streambuf",
@@ -5185,7 +5679,8 @@
                     "startColumn":46,
                     "startLine":342
                   }
-                }
+                },
+                "step":13
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/crt/stl70/streambuf",
@@ -5193,7 +5688,8 @@
                     "startColumn":46,
                     "startLine":342
                   }
-                }
+                },
+                "step":14
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/crt/stl70/streambuf",
@@ -5201,7 +5697,8 @@
                     "startColumn":33,
                     "startLine":342
                   }
-                }
+                },
+                "step":15
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/crt/stl70/streambuf",
@@ -5209,7 +5706,8 @@
                     "startColumn":33,
                     "startLine":342
                   }
-                }
+                },
+                "step":16
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/crt/stl70/streambuf",
@@ -5217,7 +5715,8 @@
                     "startColumn":36,
                     "startLine":346
                   }
-                }
+                },
+                "step":17
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/crt/stl70/streambuf",
@@ -5225,7 +5724,8 @@
                     "startColumn":13,
                     "startLine":346
                   }
-                }
+                },
+                "step":18
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/crt/stl70/streambuf",
@@ -5233,7 +5733,8 @@
                     "startColumn":5,
                     "startLine":347
                   }
-                }
+                },
+                "step":19
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/crt/stl70/streambuf",
@@ -5241,7 +5742,8 @@
                     "startColumn":5,
                     "startLine":348
                   }
-                }
+                },
+                "step":20
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/crt/stl70/streambuf",
@@ -5249,7 +5751,8 @@
                     "startColumn":2,
                     "startLine":330
                   }
-                }
+                },
+                "step":21
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/crt/stl70/streambuf",
@@ -5257,7 +5760,8 @@
                     "startColumn":36,
                     "startLine":331
                   }
-                }
+                },
+                "step":22
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/crt/stl70/streambuf",
@@ -5265,7 +5769,8 @@
                     "startColumn":26,
                     "startLine":331
                   }
-                }
+                },
+                "step":23
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/crt/stl70/streambuf",
@@ -5273,7 +5778,8 @@
                     "startColumn":10,
                     "startLine":331
                   }
-                }
+                },
+                "step":24
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/crt/stl70/streambuf",
@@ -5281,7 +5787,8 @@
                     "startColumn":63,
                     "startLine":342
                   }
-                }
+                },
+                "step":25
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/crt/stl70/streambuf",
@@ -5289,7 +5796,8 @@
                     "startColumn":56,
                     "startLine":342
                   }
-                }
+                },
+                "step":26
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/crt/stl70/streambuf",
@@ -5297,7 +5805,8 @@
                     "startColumn":46,
                     "startLine":342
                   }
-                }
+                },
+                "step":27
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/crt/stl70/streambuf",
@@ -5305,7 +5814,8 @@
                     "startColumn":46,
                     "startLine":342
                   }
-                }
+                },
+                "step":28
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/crt/stl70/streambuf",
@@ -5313,7 +5823,8 @@
                     "startColumn":33,
                     "startLine":342
                   }
-                }
+                },
+                "step":29
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/crt/stl70/streambuf",
@@ -5321,7 +5832,8 @@
                     "startColumn":33,
                     "startLine":342
                   }
-                }
+                },
+                "step":30
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/crt/stl70/streambuf",
@@ -5329,7 +5841,8 @@
                     "startColumn":36,
                     "startLine":346
                   }
-                }
+                },
+                "step":31
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/crt/stl70/streambuf",
@@ -5337,7 +5850,8 @@
                     "startColumn":13,
                     "startLine":346
                   }
-                }
+                },
+                "step":32
               }
             ]
           }
@@ -5371,7 +5885,8 @@
                     "startColumn":14,
                     "startLine":324
                   }
-                }
+                },
+                "step":1
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/crt/stl70/streambuf",
@@ -5379,7 +5894,8 @@
                     "startColumn":12,
                     "startLine":327
                   }
-                }
+                },
+                "step":2
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/crt/stl70/streambuf",
@@ -5387,7 +5903,8 @@
                     "startColumn":14,
                     "startLine":328
                   }
-                }
+                },
+                "step":3
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/crt/stl70/streambuf",
@@ -5395,7 +5912,8 @@
                     "startColumn":28,
                     "startLine":328
                   }
-                }
+                },
+                "step":4
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/crt/stl70/streambuf",
@@ -5403,7 +5921,8 @@
                     "startColumn":3,
                     "startLine":328
                   }
-                }
+                },
+                "step":5
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/crt/stl70/streambuf",
@@ -5411,7 +5930,8 @@
                     "startColumn":16,
                     "startLine":330
                   }
-                }
+                },
+                "step":6
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/crt/stl70/streambuf",
@@ -5419,7 +5939,8 @@
                     "startColumn":2,
                     "startLine":330
                   }
-                }
+                },
+                "step":7
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/crt/stl70/streambuf",
@@ -5427,7 +5948,8 @@
                     "startColumn":36,
                     "startLine":331
                   }
-                }
+                },
+                "step":8
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/crt/stl70/streambuf",
@@ -5435,7 +5957,8 @@
                     "startColumn":26,
                     "startLine":331
                   }
-                }
+                },
+                "step":9
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/crt/stl70/streambuf",
@@ -5443,7 +5966,8 @@
                     "startColumn":10,
                     "startLine":331
                   }
-                }
+                },
+                "step":10
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/crt/stl70/streambuf",
@@ -5451,7 +5975,8 @@
                     "startColumn":63,
                     "startLine":342
                   }
-                }
+                },
+                "step":11
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/crt/stl70/streambuf",
@@ -5459,7 +5984,8 @@
                     "startColumn":56,
                     "startLine":342
                   }
-                }
+                },
+                "step":12
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/crt/stl70/streambuf",
@@ -5467,7 +5993,8 @@
                     "startColumn":46,
                     "startLine":342
                   }
-                }
+                },
+                "step":13
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/crt/stl70/streambuf",
@@ -5475,7 +6002,8 @@
                     "startColumn":46,
                     "startLine":342
                   }
-                }
+                },
+                "step":14
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/crt/stl70/streambuf",
@@ -5483,7 +6011,8 @@
                     "startColumn":33,
                     "startLine":342
                   }
-                }
+                },
+                "step":15
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/crt/stl70/streambuf",
@@ -5491,7 +6020,8 @@
                     "startColumn":33,
                     "startLine":342
                   }
-                }
+                },
+                "step":16
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/crt/stl70/streambuf",
@@ -5499,7 +6029,8 @@
                     "startColumn":36,
                     "startLine":346
                   }
-                }
+                },
+                "step":17
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/crt/stl70/streambuf",
@@ -5507,7 +6038,8 @@
                     "startColumn":13,
                     "startLine":346
                   }
-                }
+                },
+                "step":18
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/crt/stl70/streambuf",
@@ -5515,7 +6047,8 @@
                     "startColumn":5,
                     "startLine":347
                   }
-                }
+                },
+                "step":19
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/crt/stl70/streambuf",
@@ -5523,7 +6056,8 @@
                     "startColumn":5,
                     "startLine":348
                   }
-                }
+                },
+                "step":20
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/crt/stl70/streambuf",
@@ -5531,7 +6065,8 @@
                     "startColumn":2,
                     "startLine":330
                   }
-                }
+                },
+                "step":21
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/crt/stl70/streambuf",
@@ -5539,7 +6074,8 @@
                     "startColumn":36,
                     "startLine":331
                   }
-                }
+                },
+                "step":22
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/crt/stl70/streambuf",
@@ -5547,7 +6083,8 @@
                     "startColumn":26,
                     "startLine":331
                   }
-                }
+                },
+                "step":23
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/crt/stl70/streambuf",
@@ -5555,7 +6092,8 @@
                     "startColumn":10,
                     "startLine":331
                   }
-                }
+                },
+                "step":24
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/crt/stl70/streambuf",
@@ -5563,7 +6101,8 @@
                     "startColumn":63,
                     "startLine":342
                   }
-                }
+                },
+                "step":25
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/crt/stl70/streambuf",
@@ -5571,7 +6110,8 @@
                     "startColumn":56,
                     "startLine":342
                   }
-                }
+                },
+                "step":26
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/crt/stl70/streambuf",
@@ -5579,7 +6119,8 @@
                     "startColumn":46,
                     "startLine":342
                   }
-                }
+                },
+                "step":27
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/crt/stl70/streambuf",
@@ -5587,7 +6128,8 @@
                     "startColumn":46,
                     "startLine":342
                   }
-                }
+                },
+                "step":28
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/crt/stl70/streambuf",
@@ -5595,7 +6137,8 @@
                     "startColumn":33,
                     "startLine":342
                   }
-                }
+                },
+                "step":29
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/crt/stl70/streambuf",
@@ -5603,7 +6146,8 @@
                     "startColumn":33,
                     "startLine":342
                   }
-                }
+                },
+                "step":30
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/crt/stl70/streambuf",
@@ -5611,7 +6155,8 @@
                     "startColumn":36,
                     "startLine":346
                   }
-                }
+                },
+                "step":31
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/crt/stl70/streambuf",
@@ -5619,7 +6164,8 @@
                     "startColumn":13,
                     "startLine":346
                   }
-                }
+                },
+                "step":32
               }
             ]
           }

@@ -42,7 +42,9 @@
                     "startColumn":7,
                     "startLine":10
                   }
-                }
+                },
+                "step":1,
+                "importance":"unimportant"
               },{
                 "physicalLocation":{
                   "uri":"file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs372959.cpp",
@@ -50,7 +52,9 @@
                     "startColumn":5,
                     "startLine":11
                   }
-                }
+                },
+                "step":2,
+                "importance":"unimportant"
               },{
                 "physicalLocation":{
                   "uri":"file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs372959.cpp",
@@ -59,7 +63,10 @@
                     "startLine":13
                   }
                 },
-                "step":0,
+                "step":3,
+                "properties":{
+                  "keyEventId":"1"
+                },
                 "kind":"declaration",
                 "message":"'i' is a byte quantity",
                 "importance":"essential"
@@ -71,7 +78,10 @@
                     "startLine":15
                   }
                 },
-                "step":1,
+                "step":4,
+                "properties":{
+                  "keyEventId":"2"
+                },
                 "kind":"usage",
                 "message":"Expression mixes element counts and byte quantities",
                 "importance":"essential"
@@ -113,7 +123,9 @@
                     "startColumn":5,
                     "startLine":22
                   }
-                }
+                },
+                "step":1,
+                "importance":"unimportant"
               },{
                 "physicalLocation":{
                   "uri":"file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs372959.cpp",
@@ -121,7 +133,9 @@
                     "startColumn":7,
                     "startLine":23
                   }
-                }
+                },
+                "step":2,
+                "importance":"unimportant"
               },{
                 "physicalLocation":{
                   "uri":"file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs372959.cpp",
@@ -130,7 +144,10 @@
                     "startLine":25
                   }
                 },
-                "step":0,
+                "step":3,
+                "properties":{
+                  "keyEventId":"1"
+                },
                 "kind":"declaration",
                 "message":"'this->j' may equal 8",
                 "importance":"essential"
@@ -142,7 +159,10 @@
                     "startLine":27
                   }
                 },
-                "step":1,
+                "step":4,
+                "properties":{
+                  "keyEventId":"2"
+                },
                 "kind":"usage",
                 "message":"Expression mixes element counts and byte quantities",
                 "importance":"essential"
@@ -184,7 +204,9 @@
                     "startColumn":7,
                     "startLine":34
                   }
-                }
+                },
+                "step":1,
+                "importance":"unimportant"
               },{
                 "physicalLocation":{
                   "uri":"file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs372959.cpp",
@@ -192,7 +214,9 @@
                     "startColumn":5,
                     "startLine":35
                   }
-                }
+                },
+                "step":2,
+                "importance":"unimportant"
               },{
                 "physicalLocation":{
                   "uri":"file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs372959.cpp",
@@ -201,7 +225,10 @@
                     "startLine":37
                   }
                 },
-                "step":0,
+                "step":3,
+                "properties":{
+                  "keyEventId":"1"
+                },
                 "kind":"declaration",
                 "message":"'i' is a byte quantity",
                 "importance":"essential"
@@ -213,7 +240,10 @@
                     "startLine":39
                   }
                 },
-                "step":1,
+                "step":4,
+                "properties":{
+                  "keyEventId":"2"
+                },
                 "kind":"usage",
                 "message":"Expression mixes element counts and byte quantities",
                 "importance":"essential"
@@ -255,7 +285,9 @@
                     "startColumn":5,
                     "startLine":46
                   }
-                }
+                },
+                "step":1,
+                "importance":"unimportant"
               },{
                 "physicalLocation":{
                   "uri":"file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs372959.cpp",
@@ -263,7 +295,9 @@
                     "startColumn":7,
                     "startLine":47
                   }
-                }
+                },
+                "step":2,
+                "importance":"unimportant"
               },{
                 "physicalLocation":{
                   "uri":"file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs372959.cpp",
@@ -272,7 +306,10 @@
                     "startLine":49
                   }
                 },
-                "step":0,
+                "step":3,
+                "properties":{
+                  "keyEventId":"1"
+                },
                 "kind":"declaration",
                 "message":"'this->j' may equal 14",
                 "importance":"essential"
@@ -284,7 +321,10 @@
                     "startLine":51
                   }
                 },
-                "step":1,
+                "step":4,
+                "properties":{
+                  "keyEventId":"2"
+                },
                 "kind":"usage",
                 "message":"Expression mixes element counts and byte quantities",
                 "importance":"essential"
@@ -326,7 +366,9 @@
                     "startColumn":7,
                     "startLine":58
                   }
-                }
+                },
+                "step":1,
+                "importance":"unimportant"
               },{
                 "physicalLocation":{
                   "uri":"file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs372959.cpp",
@@ -335,7 +377,10 @@
                     "startLine":59
                   }
                 },
-                "step":0,
+                "step":2,
+                "properties":{
+                  "keyEventId":"1"
+                },
                 "kind":"declaration",
                 "message":"'j2' is a byte quantity",
                 "importance":"essential"
@@ -347,7 +392,10 @@
                     "startLine":61
                   }
                 },
-                "step":1,
+                "step":3,
+                "properties":{
+                  "keyEventId":"2"
+                },
                 "kind":"alias",
                 "message":"(alias) 'i' receives the value of 'j2' (which is in bytes)",
                 "importance":"essential"
@@ -359,7 +407,10 @@
                     "startLine":63
                   }
                 },
-                "step":2,
+                "step":4,
+                "properties":{
+                  "keyEventId":"3"
+                },
                 "kind":"usage",
                 "message":"Expression mixes element counts and byte quantities",
                 "importance":"essential"
@@ -401,7 +452,9 @@
                     "startColumn":7,
                     "startLine":70
                   }
-                }
+                },
+                "step":1,
+                "importance":"unimportant"
               },{
                 "physicalLocation":{
                   "uri":"file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs372959.cpp",
@@ -410,7 +463,10 @@
                     "startLine":71
                   }
                 },
-                "step":0,
+                "step":2,
+                "properties":{
+                  "keyEventId":"1"
+                },
                 "kind":"declaration",
                 "message":"'j2' is a byte quantity",
                 "importance":"essential"
@@ -422,7 +478,10 @@
                     "startLine":73
                   }
                 },
-                "step":1,
+                "step":3,
+                "properties":{
+                  "keyEventId":"2"
+                },
                 "kind":"alias",
                 "message":"(alias) 'i' receives a byte quantity from 'j2'",
                 "importance":"essential"
@@ -434,7 +493,10 @@
                     "startLine":75
                   }
                 },
-                "step":2,
+                "step":4,
+                "properties":{
+                  "keyEventId":"3"
+                },
                 "kind":"usage",
                 "message":"Expression mixes element counts and byte quantities",
                 "importance":"essential"
@@ -476,7 +538,9 @@
                     "startColumn":7,
                     "startLine":85
                   }
-                }
+                },
+                "step":1,
+                "importance":"unimportant"
               },{
                 "physicalLocation":{
                   "uri":"file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs372959.cpp",
@@ -485,7 +549,10 @@
                     "startLine":86
                   }
                 },
-                "step":0,
+                "step":2,
+                "properties":{
+                  "keyEventId":"1"
+                },
                 "kind":"declaration",
                 "message":"'this->cb' may equal 4",
                 "importance":"essential"
@@ -497,7 +564,10 @@
                     "startLine":88
                   }
                 },
-                "step":1,
+                "step":3,
+                "properties":{
+                  "keyEventId":"2"
+                },
                 "kind":"usage",
                 "message":"Expression mixes element counts and byte quantities",
                 "importance":"essential"
@@ -539,7 +609,9 @@
                     "startColumn":7,
                     "startLine":94
                   }
-                }
+                },
+                "step":1,
+                "importance":"unimportant"
               },{
                 "physicalLocation":{
                   "uri":"file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs372959.cpp",
@@ -548,7 +620,10 @@
                     "startLine":95
                   }
                 },
-                "step":0,
+                "step":2,
+                "properties":{
+                  "keyEventId":"1"
+                },
                 "kind":"declaration",
                 "message":"'cb2' is a byte quantity",
                 "importance":"essential"
@@ -560,7 +635,10 @@
                     "startLine":97
                   }
                 },
-                "step":1,
+                "step":3,
+                "properties":{
+                  "keyEventId":"2"
+                },
                 "kind":"usage",
                 "message":"Expression mixes element counts and byte quantities",
                 "importance":"essential"

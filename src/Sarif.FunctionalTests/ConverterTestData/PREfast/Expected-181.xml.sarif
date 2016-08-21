@@ -37,7 +37,8 @@
                     "startColumn":3,
                     "startLine":152
                   }
-                }
+                },
+                "step":1
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/utility",
@@ -45,7 +46,8 @@
                     "startColumn":32,
                     "startLine":155
                   }
-                }
+                },
+                "step":2
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/utility",
@@ -53,7 +55,8 @@
                     "startColumn":32,
                     "startLine":155
                   }
-                }
+                },
+                "step":3
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/utility",
@@ -61,7 +64,8 @@
                     "startColumn":32,
                     "startLine":156
                   }
-                }
+                },
+                "step":4
               }
             ]
           }

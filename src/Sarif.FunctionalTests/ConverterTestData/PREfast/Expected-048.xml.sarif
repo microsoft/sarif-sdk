@@ -37,7 +37,8 @@
                     "startColumn":13,
                     "startLine":13
                   }
-                }
+                },
+                "step":1
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/test048.cpp",
@@ -45,7 +46,8 @@
                     "startColumn":7,
                     "startLine":15
                   }
-                }
+                },
+                "step":2
               }
             ]
           }
@@ -79,7 +81,8 @@
                     "startColumn":13,
                     "startLine":13
                   }
-                }
+                },
+                "step":1
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/test048.cpp",
@@ -87,7 +90,8 @@
                     "startColumn":7,
                     "startLine":15
                   }
-                }
+                },
+                "step":2
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/test048.cpp",
@@ -95,7 +99,8 @@
                     "startColumn":7,
                     "startLine":16
                   }
-                }
+                },
+                "step":3
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/test048.cpp",
@@ -103,7 +108,8 @@
                     "startColumn":11,
                     "startLine":16
                   }
-                }
+                },
+                "step":4
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/test048.cpp",
@@ -111,7 +117,8 @@
                     "startColumn":11,
                     "startLine":16
                   }
-                }
+                },
+                "step":5
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/test048.cpp",
@@ -119,7 +126,8 @@
                     "startColumn":3,
                     "startLine":17
                   }
-                }
+                },
+                "step":6
               }
             ]
           }

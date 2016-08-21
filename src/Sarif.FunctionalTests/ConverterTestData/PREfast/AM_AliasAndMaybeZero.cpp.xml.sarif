@@ -43,7 +43,10 @@
                     "startLine":3
                   }
                 },
-                "step":0,
+                "step":1,
+                "properties":{
+                  "keyEventId":"1"
+                },
                 "kind":"declaration",
                 "message":"'source' is NULL",
                 "importance":"essential"
@@ -55,7 +58,10 @@
                     "startLine":5
                   }
                 },
-                "step":1,
+                "step":2,
+                "properties":{
+                  "keyEventId":"2"
+                },
                 "kind":"alias",
                 "message":"(alias) 'y' receives the value of 'source' (which may be NULL)",
                 "importance":"essential"
@@ -67,7 +73,10 @@
                     "startLine":7
                   }
                 },
-                "step":2,
+                "step":3,
+                "properties":{
+                  "keyEventId":"3"
+                },
                 "kind":"usage",
                 "message":"'y' is dereferenced, but may still be NULL",
                 "importance":"essential"
