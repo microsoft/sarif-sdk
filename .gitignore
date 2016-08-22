@@ -10,6 +10,7 @@ GeneratedKey.snk
 *.userosscache
 *.sln.docstates
 *.opendb
+*.db
 
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
@@ -215,5 +216,4 @@ _Pvt_Extensions/
 ModelManifest.xml
 
 PREfastXmlSarifConverter.dll
-/src/Sarif.Viewer.VisualStudio.VC.db
-/src/Sarif.Sdk.VC.db
+
