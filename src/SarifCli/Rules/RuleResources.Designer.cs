@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Microsoft.CodeAnalysis.Sarif.SarifValidator {
+namespace Microsoft.CodeAnalysis.Sarif.Cli.Rules {
     using System;
     
     
@@ -22,14 +22,14 @@ namespace Microsoft.CodeAnalysis.Sarif.SarifValidator {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class Resources {
+    internal class RuleResources {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal Resources() {
+        internal RuleResources() {
         }
         
         /// <summary>
@@ -39,7 +39,7 @@ namespace Microsoft.CodeAnalysis.Sarif.SarifValidator {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Microsoft.CodeAnalysis.Sarif.SarifValidator.Resources", typeof(Resources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Microsoft.CodeAnalysis.Sarif.Cli.Rules.RuleResources", typeof(RuleResources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -61,11 +61,20 @@ namespace Microsoft.CodeAnalysis.Sarif.SarifValidator {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0} version {1}.
+        ///   Looks up a localized string similar to In &quot;{0}&quot;, the name and id properties of rule &quot;{1}&quot; are the same..
         /// </summary>
-        internal static string Banner {
+        internal static string SV0001_DefaultFormatId {
             get {
-                return ResourceManager.GetString("Banner", resourceCulture);
+                return ResourceManager.GetString("SV0001_DefaultFormatId", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Do not use the same string for a rule&apos;s id and name properties. The id property must be a stable, opaque identifer such as &quot;SV0001&quot;. The name property should be a string that is understandable to an end user, such as &quot;DoNotUserFriendlyNameAsRuleId&quot;..
+        /// </summary>
+        internal static string SV0001_DoNotUseFriendlyNameAsRuleIdDescription {
+            get {
+                return ResourceManager.GetString("SV0001_DoNotUseFriendlyNameAsRuleIdDescription", resourceCulture);
             }
         }
     }

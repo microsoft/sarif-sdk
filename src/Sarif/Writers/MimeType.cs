@@ -73,6 +73,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         public static readonly string Directory = "application/x-directory";
         /// <summary>The MIME type used for CSharp files.</summary>
         public static readonly string CSharp = "text/x-csharp";
+        /// <summary>The MIME type for SARIF files.</summary>
+        public static readonly string Sarif = "text/x-sarif";
 
         private static bool HasExtension(string fileName, string extension)
         {
@@ -117,6 +119,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             ImmutableArray.Create("text/python", "py"),
             ImmutableArray.Create("text/x-cshtml", "cshtml"),
             ImmutableArray.Create("text/ruby", "ruby", "gemspec"),
+            ImmutableArray.Create(MimeType.Sarif, "sarif"),
             ImmutableArray.Create("text/scss", "scss"),
             ImmutableArray.Create("text/typescript", "ts"),
             ImmutableArray.Create("text/x-vb", "vb"),

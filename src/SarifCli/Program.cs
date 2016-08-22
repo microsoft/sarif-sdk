@@ -2,35 +2,34 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using System;
-using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Reflection;
 using CommandLine;
+using Microsoft.CodeAnalysis.Sarif.Driver;
 
-namespace Microsoft.CodeAnalysis.Sarif.SarifValidator
+namespace Microsoft.CodeAnalysis.Sarif.Cli
 {
     internal class Program
     {
         private static int Main(string[] args)
         {
-            return Parser.Default.ParseArguments<CommandLineOptions>(args)
-              .MapResult(
-                options => Run(options),
-                errs => 1);
-        }
-
-        private static int Run(CommandLineOptions options)
-        {
             Banner();
 
-            return 0;
+            return Parser.Default.ParseArguments<
+                AnalyzeOptions,
+                ExportRulesMetadataOptions
+                >(args)
+              .MapResult(
+                (AnalyzeOptions analyzeOptions) => new AnalyzeCommand().Run(analyzeOptions),
+                (ExportRulesMetadataOptions exportRulesMetadataOptions) => new ExportRulesMetadataCommand().Run(exportRulesMetadataOptions),
+                errs => 1);
         }
 
         private static void Banner()
         {
             Assembly entryAssembly = Assembly.GetEntryAssembly();
-            IEnumerable<Attribute> attributes = entryAssembly.GetCustomAttributes();
+            System.Collections.Generic.IEnumerable<Attribute> attributes = entryAssembly.GetCustomAttributes();
 
             var titleAttribute = attributes.Single(a => a is AssemblyTitleAttribute) as AssemblyTitleAttribute;
             string programName = titleAttribute.Title;

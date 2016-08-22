@@ -206,7 +206,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             }
 
             return (enquote ? "\"" : "") +
-                message.Replace('"', '\'') +
+                message +
                 (enquote ? "\"" : "");
         }
 

@@ -114,6 +114,12 @@ if "%ERRORLEVEL%" NEQ "0" (
 goto ExitFailed
 )
 
+src\packages\xunit.runner.console.2.1.0\tools\xunit.console.x86.exe bld\bin\SarifCli.FunctionalTests\AnyCPU_%Configuration%\Microsoft.CodeAnalysis.Sarif.Cli.FunctionalTests.dll
+
+if "%ERRORLEVEL%" NEQ "0" (
+goto ExitFailed
+)
+
 goto Exit
 
 :ExitFailed

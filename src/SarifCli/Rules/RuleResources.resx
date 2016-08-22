@@ -117,7 +117,10 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Banner" xml:space="preserve">
-    <value>{0} version {1}</value>
+  <data name="SV0001_DefaultFormatId" xml:space="preserve">
+    <value>In "{0}", the name and id properties of rule "{1}" are the same.</value>
+  </data>
+  <data name="SV0001_DoNotUseFriendlyNameAsRuleIdDescription" xml:space="preserve">
+    <value>Do not use the same string for a rule's id and name properties. The id property must be a stable, opaque identifer such as "SV0001". The name property should be a string that is understandable to an end user, such as "DoNotUserFriendlyNameAsRuleId".</value>
   </data>
 </root>
