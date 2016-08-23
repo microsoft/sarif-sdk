@@ -43,7 +43,10 @@
                     "startLine":7
                   }
                 },
-                "step":0,
+                "step":1,
+                "properties":{
+                  "keyEventId":"1"
+                },
                 "kind":"declaration",
                 "message":"'simpleVar' is not initialized",
                 "importance":"essential"
@@ -55,7 +58,10 @@
                     "startLine":10
                   }
                 },
-                "step":1,
+                "step":2,
+                "properties":{
+                  "keyEventId":"2"
+                },
                 "kind":"branch",
                 "message":"Skip this branch, (assume '<branch condition>' is false)"
               },{
@@ -66,7 +72,10 @@
                     "startLine":16
                   }
                 },
-                "step":2,
+                "step":3,
+                "properties":{
+                  "keyEventId":"3"
+                },
                 "kind":"usage",
                 "message":"'simpleVar' is used, but may not have been initialized",
                 "importance":"essential"
@@ -109,7 +118,10 @@
                     "startLine":21
                   }
                 },
-                "step":0,
+                "step":1,
+                "properties":{
+                  "keyEventId":"1"
+                },
                 "kind":"declaration",
                 "message":"'simpleVar' is not initialized",
                 "importance":"essential"
@@ -121,7 +133,10 @@
                     "startLine":23
                   }
                 },
-                "step":1,
+                "step":2,
+                "properties":{
+                  "keyEventId":"2"
+                },
                 "kind":"branch",
                 "message":"Skip this branch, (assume '!isInitializzedd' is false)"
               },{
@@ -132,7 +147,10 @@
                     "startLine":28
                   }
                 },
-                "step":2,
+                "step":3,
+                "properties":{
+                  "keyEventId":"3"
+                },
                 "kind":"usage",
                 "message":"'simpleVar' is used, but may not have been initialized",
                 "importance":"essential"
@@ -175,7 +193,10 @@
                     "startLine":33
                   }
                 },
-                "step":0,
+                "step":1,
+                "properties":{
+                  "keyEventId":"1"
+                },
                 "kind":"declaration",
                 "message":"'simpleVar' is not initialized",
                 "importance":"essential"
@@ -187,7 +208,10 @@
                     "startLine":35
                   }
                 },
-                "step":1,
+                "step":2,
+                "properties":{
+                  "keyEventId":"2"
+                },
                 "kind":"branch",
                 "message":"Skip this branch, (assume '!isDefined' is false)"
               },{
@@ -198,7 +222,10 @@
                     "startLine":40
                   }
                 },
-                "step":2,
+                "step":3,
+                "properties":{
+                  "keyEventId":"3"
+                },
                 "kind":"usage",
                 "message":"'simpleVar' is used, but may not have been initialized",
                 "importance":"essential"

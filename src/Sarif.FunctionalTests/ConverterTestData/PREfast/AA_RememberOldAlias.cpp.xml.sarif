@@ -43,7 +43,10 @@
                     "startLine":7
                   }
                 },
-                "step":0,
+                "step":1,
+                "properties":{
+                  "keyEventId":"1"
+                },
                 "kind":"declaration",
                 "message":"'data' is not initialized",
                 "importance":"essential"
@@ -54,7 +57,9 @@
                     "startColumn":6,
                     "startLine":9
                   }
-                }
+                },
+                "step":2,
+                "importance":"unimportant"
               },{
                 "physicalLocation":{
                   "uri":"file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedaliasing/aa_rememberoldalias.cpp",
@@ -62,7 +67,9 @@
                     "startColumn":6,
                     "startLine":10
                   }
-                }
+                },
+                "step":3,
+                "importance":"unimportant"
               },{
                 "physicalLocation":{
                   "uri":"file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedaliasing/aa_rememberoldalias.cpp",
@@ -70,7 +77,9 @@
                     "startColumn":4,
                     "startLine":11
                   }
-                }
+                },
+                "step":4,
+                "importance":"unimportant"
               },{
                 "physicalLocation":{
                   "uri":"file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedaliasing/aa_rememberoldalias.cpp",
@@ -79,7 +88,10 @@
                     "startLine":13
                   }
                 },
-                "step":1,
+                "step":5,
+                "properties":{
+                  "keyEventId":"2"
+                },
                 "kind":"usage",
                 "message":"'data' is used, but may not have been initialized",
                 "importance":"essential"
@@ -122,7 +134,10 @@
                     "startLine":7
                   }
                 },
-                "step":0,
+                "step":1,
+                "properties":{
+                  "keyEventId":"1"
+                },
                 "kind":"declaration",
                 "message":"'data' is an array of 10 elements (40 bytes)",
                 "importance":"essential"
@@ -133,7 +148,9 @@
                     "startColumn":6,
                     "startLine":9
                   }
-                }
+                },
+                "step":2,
+                "importance":"unimportant"
               },{
                 "physicalLocation":{
                   "uri":"file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedaliasing/aa_rememberoldalias.cpp",
@@ -141,7 +158,9 @@
                     "startColumn":6,
                     "startLine":10
                   }
-                }
+                },
+                "step":3,
+                "importance":"unimportant"
               },{
                 "physicalLocation":{
                   "uri":"file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedaliasing/aa_rememberoldalias.cpp",
@@ -150,7 +169,10 @@
                     "startLine":11
                   }
                 },
-                "step":1,
+                "step":4,
+                "properties":{
+                  "keyEventId":"2"
+                },
                 "kind":"declaration",
                 "message":"'b' is equal to 10",
                 "importance":"essential"
@@ -162,7 +184,10 @@
                     "startLine":13
                   }
                 },
-                "step":2,
+                "step":5,
+                "properties":{
+                  "keyEventId":"3"
+                },
                 "kind":"usage",
                 "message":"Invalid read from 'data[10]', (readable range is 0 to 9)",
                 "importance":"essential"
@@ -205,7 +230,10 @@
                     "startLine":18
                   }
                 },
-                "step":0,
+                "step":1,
+                "properties":{
+                  "keyEventId":"1"
+                },
                 "kind":"declaration",
                 "message":"'a' is NULL",
                 "importance":"essential"
@@ -216,7 +244,9 @@
                     "startColumn":6,
                     "startLine":19
                   }
-                }
+                },
+                "step":2,
+                "importance":"unimportant"
               },{
                 "physicalLocation":{
                   "uri":"file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedaliasing/aa_rememberoldalias.cpp",
@@ -224,7 +254,9 @@
                     "startColumn":6,
                     "startLine":20
                   }
-                }
+                },
+                "step":3,
+                "importance":"unimportant"
               },{
                 "physicalLocation":{
                   "uri":"file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedaliasing/aa_rememberoldalias.cpp",
@@ -232,7 +264,9 @@
                     "startColumn":7,
                     "startLine":21
                   }
-                }
+                },
+                "step":4,
+                "importance":"unimportant"
               },{
                 "physicalLocation":{
                   "uri":"file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedaliasing/aa_rememberoldalias.cpp",
@@ -240,7 +274,9 @@
                     "startColumn":11,
                     "startLine":23
                   }
-                }
+                },
+                "step":5,
+                "importance":"unimportant"
               },{
                 "physicalLocation":{
                   "uri":"file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedaliasing/aa_rememberoldalias.cpp",
@@ -249,7 +285,10 @@
                     "startLine":23
                   }
                 },
-                "step":1,
+                "step":6,
+                "properties":{
+                  "keyEventId":"2"
+                },
                 "kind":"branch",
                 "message":"Enter this loop, (assume 'i<2')"
               },{
@@ -260,7 +299,10 @@
                     "startLine":25
                   }
                 },
-                "step":2,
+                "step":7,
+                "properties":{
+                  "keyEventId":"3"
+                },
                 "kind":"branch",
                 "message":"Enter this branch, (assume 'flag')"
               },{
@@ -271,7 +313,10 @@
                     "startLine":26
                   }
                 },
-                "step":3,
+                "step":8,
+                "properties":{
+                  "keyEventId":"4"
+                },
                 "kind":"alias",
                 "message":"(alias) 'b' receives the value of 'a' (which may be NULL)",
                 "importance":"essential"
@@ -283,7 +328,10 @@
                     "startLine":27
                   }
                 },
-                "step":4,
+                "step":9,
+                "properties":{
+                  "keyEventId":"5"
+                },
                 "kind":"alias",
                 "message":"(alias) 'c' receives the value of 'b' (which may be NULL)",
                 "importance":"essential"
@@ -294,7 +342,9 @@
                     "startColumn":9,
                     "startLine":28
                   }
-                }
+                },
+                "step":10,
+                "importance":"unimportant"
               },{
                 "physicalLocation":{
                   "uri":"file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedaliasing/aa_rememberoldalias.cpp",
@@ -302,7 +352,9 @@
                     "startColumn":24,
                     "startLine":23
                   }
-                }
+                },
+                "step":11,
+                "importance":"unimportant"
               },{
                 "physicalLocation":{
                   "uri":"file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedaliasing/aa_rememberoldalias.cpp",
@@ -311,7 +363,10 @@
                     "startLine":23
                   }
                 },
-                "step":5,
+                "step":12,
+                "properties":{
+                  "keyEventId":"6"
+                },
                 "kind":"branch",
                 "message":"Continue this loop, (assume 'i<2')"
               },{
@@ -322,7 +377,10 @@
                     "startLine":25
                   }
                 },
-                "step":6,
+                "step":13,
+                "properties":{
+                  "keyEventId":"7"
+                },
                 "kind":"branch",
                 "message":"Skip this branch, (assume 'flag' is false)"
               },{
@@ -332,7 +390,9 @@
                     "startColumn":6,
                     "startLine":30
                   }
-                }
+                },
+                "step":14,
+                "importance":"unimportant"
               },{
                 "physicalLocation":{
                   "uri":"file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedaliasing/aa_rememberoldalias.cpp",
@@ -340,7 +400,9 @@
                     "startColumn":6,
                     "startLine":31
                   }
-                }
+                },
+                "step":15,
+                "importance":"unimportant"
               },{
                 "physicalLocation":{
                   "uri":"file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedaliasing/aa_rememberoldalias.cpp",
@@ -349,7 +411,10 @@
                     "startLine":32
                   }
                 },
-                "step":7,
+                "step":16,
+                "properties":{
+                  "keyEventId":"8"
+                },
                 "kind":"usage",
                 "message":"'c' is dereferenced, but may still be NULL",
                 "importance":"essential"

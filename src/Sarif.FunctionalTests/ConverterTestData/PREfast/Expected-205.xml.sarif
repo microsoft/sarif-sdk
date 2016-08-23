@@ -37,7 +37,8 @@
                     "startColumn":9,
                     "startLine":5
                   }
-                }
+                },
+                "step":1
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/test205.cpp",
@@ -45,7 +46,8 @@
                     "startColumn":13,
                     "startLine":7
                   }
-                }
+                },
+                "step":2
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/test205.cpp",
@@ -53,7 +55,8 @@
                     "startColumn":5,
                     "startLine":8
                   }
-                }
+                },
+                "step":3
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/test205.cpp",
@@ -61,7 +64,8 @@
                     "startColumn":5,
                     "startLine":8
                   }
-                }
+                },
+                "step":4
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/test205.cpp",
@@ -69,7 +73,8 @@
                     "startColumn":9,
                     "startLine":10
                   }
-                }
+                },
+                "step":5
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/test205.cpp",
@@ -77,7 +82,8 @@
                     "startColumn":15,
                     "startLine":11
                   }
-                }
+                },
+                "step":6
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/test205.cpp",
@@ -85,7 +91,8 @@
                     "startColumn":22,
                     "startLine":11
                   }
-                }
+                },
+                "step":7
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/test205.cpp",
@@ -93,7 +100,8 @@
                     "startColumn":9,
                     "startLine":12
                   }
-                }
+                },
+                "step":8
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/test205.cpp",
@@ -101,7 +109,8 @@
                     "startColumn":19,
                     "startLine":12
                   }
-                }
+                },
+                "step":9
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/test205.cpp",
@@ -109,7 +118,8 @@
                     "startColumn":9,
                     "startLine":15
                   }
-                }
+                },
+                "step":10
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/test205.cpp",
@@ -117,7 +127,8 @@
                     "startColumn":15,
                     "startLine":15
                   }
-                }
+                },
+                "step":11
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/test205.cpp",
@@ -125,7 +136,8 @@
                     "startColumn":13,
                     "startLine":16
                   }
-                }
+                },
+                "step":12
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/test205.cpp",
@@ -133,7 +145,8 @@
                     "startColumn":9,
                     "startLine":19
                   }
-                }
+                },
+                "step":13
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/test205.cpp",
@@ -141,7 +154,8 @@
                     "startColumn":16,
                     "startLine":20
                   }
-                }
+                },
+                "step":14
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/test205.cpp",
@@ -149,7 +163,8 @@
                     "startColumn":13,
                     "startLine":22
                   }
-                }
+                },
+                "step":15
               }
             ]
           }

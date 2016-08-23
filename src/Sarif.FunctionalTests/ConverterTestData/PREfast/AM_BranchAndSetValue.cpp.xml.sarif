@@ -43,7 +43,10 @@
                     "startLine":4
                   }
                 },
-                "step":0,
+                "step":1,
+                "properties":{
+                  "keyEventId":"1"
+                },
                 "kind":"declaration",
                 "message":"'data' is not initialized",
                 "importance":"essential"
@@ -54,7 +57,9 @@
                     "startColumn":8,
                     "startLine":6
                   }
-                }
+                },
+                "step":2,
+                "importance":"unimportant"
               },{
                 "physicalLocation":{
                   "uri":"file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedmerging/am_branchandsetvalue.cpp",
@@ -63,7 +68,10 @@
                     "startLine":8
                   }
                 },
-                "step":1,
+                "step":3,
+                "properties":{
+                  "keyEventId":"2"
+                },
                 "kind":"usage",
                 "message":"'data' is used, but may not have been initialized",
                 "importance":"essential"
@@ -106,7 +114,10 @@
                     "startLine":4
                   }
                 },
-                "step":0,
+                "step":1,
+                "properties":{
+                  "keyEventId":"1"
+                },
                 "kind":"declaration",
                 "message":"'data' is an array of 10 elements (40 bytes)",
                 "importance":"essential"
@@ -118,7 +129,10 @@
                     "startLine":6
                   }
                 },
-                "step":1,
+                "step":2,
+                "properties":{
+                  "keyEventId":"2"
+                },
                 "kind":"branch",
                 "message":"'b' may equal 10 (Enter this branch)"
               },{
@@ -129,7 +143,10 @@
                     "startLine":8
                   }
                 },
-                "step":2,
+                "step":3,
+                "properties":{
+                  "keyEventId":"3"
+                },
                 "kind":"usage",
                 "message":"Invalid read from 'data[10]', (readable range is 0 to 9)",
                 "importance":"essential"

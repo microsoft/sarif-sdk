@@ -42,7 +42,9 @@
                     "startColumn":6,
                     "startLine":5
                   }
-                }
+                },
+                "step":1,
+                "importance":"unimportant"
               },{
                 "physicalLocation":{
                   "uri":"file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedmerging/am_branchandmaybezero.cpp",
@@ -51,7 +53,10 @@
                     "startLine":6
                   }
                 },
-                "step":0,
+                "step":2,
+                "properties":{
+                  "keyEventId":"1"
+                },
                 "kind":"branch",
                 "message":"'p' may be NULL (Enter this branch)"
               },{
@@ -61,7 +66,9 @@
                     "startColumn":7,
                     "startLine":7
                   }
-                }
+                },
+                "step":3,
+                "importance":"unimportant"
               },{
                 "physicalLocation":{
                   "uri":"file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedmerging/am_branchandmaybezero.cpp",
@@ -70,7 +77,10 @@
                     "startLine":8
                   }
                 },
-                "step":1,
+                "step":4,
+                "properties":{
+                  "keyEventId":"2"
+                },
                 "kind":"usage",
                 "message":"'p' is dereferenced, but may still be NULL",
                 "importance":"essential"
@@ -113,7 +123,10 @@
                     "startLine":13
                   }
                 },
-                "step":0,
+                "step":1,
+                "properties":{
+                  "keyEventId":"1"
+                },
                 "kind":"branch",
                 "message":"'input' may be NULL (Skip this branch)"
               },{
@@ -124,7 +137,10 @@
                     "startLine":15
                   }
                 },
-                "step":1,
+                "step":2,
+                "properties":{
+                  "keyEventId":"2"
+                },
                 "kind":"usage",
                 "message":"'input' is dereferenced, but may still be NULL",
                 "importance":"essential"
@@ -166,7 +182,9 @@
                     "startColumn":6,
                     "startLine":21
                   }
-                }
+                },
+                "step":1,
+                "importance":"unimportant"
               },{
                 "physicalLocation":{
                   "uri":"file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedmerging/am_branchandmaybezero.cpp",
@@ -175,7 +193,10 @@
                     "startLine":22
                   }
                 },
-                "step":0,
+                "step":2,
+                "properties":{
+                  "keyEventId":"1"
+                },
                 "kind":"branch",
                 "message":"'p' may be NULL (Skip this branch)"
               },{
@@ -186,7 +207,10 @@
                     "startLine":24
                   }
                 },
-                "step":1,
+                "step":3,
+                "properties":{
+                  "keyEventId":"2"
+                },
                 "kind":"usage",
                 "message":"'p' is dereferenced, but may still be NULL",
                 "importance":"essential"

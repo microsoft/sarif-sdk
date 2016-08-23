@@ -43,7 +43,10 @@
                     "startLine":10
                   }
                 },
-                "step":0,
+                "step":1,
+                "properties":{
+                  "keyEventId":"1"
+                },
                 "kind":"declaration",
                 "message":"'source' is NULL",
                 "importance":"essential"
@@ -54,7 +57,9 @@
                     "startColumn":7,
                     "startLine":11
                   }
-                }
+                },
+                "step":2,
+                "importance":"unimportant"
               },{
                 "physicalLocation":{
                   "uri":"file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp",
@@ -62,7 +67,9 @@
                     "startColumn":11,
                     "startLine":13
                   }
-                }
+                },
+                "step":3,
+                "importance":"unimportant"
               },{
                 "physicalLocation":{
                   "uri":"file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp",
@@ -71,7 +78,10 @@
                     "startLine":13
                   }
                 },
-                "step":1,
+                "step":4,
+                "properties":{
+                  "keyEventId":"2"
+                },
                 "kind":"branch",
                 "message":"Enter this loop, (assume 'i<3')"
               },{
@@ -82,7 +92,10 @@
                     "startLine":15
                   }
                 },
-                "step":2,
+                "step":5,
+                "properties":{
+                  "keyEventId":"3"
+                },
                 "kind":"branch",
                 "message":"Enter this branch, (assume '!flag')"
               },{
@@ -92,7 +105,9 @@
                     "startColumn":9,
                     "startLine":16
                   }
-                }
+                },
+                "step":6,
+                "importance":"unimportant"
               },{
                 "physicalLocation":{
                   "uri":"file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp",
@@ -100,7 +115,9 @@
                     "startColumn":22,
                     "startLine":13
                   }
-                }
+                },
+                "step":7,
+                "importance":"unimportant"
               },{
                 "physicalLocation":{
                   "uri":"file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp",
@@ -109,7 +126,10 @@
                     "startLine":13
                   }
                 },
-                "step":3,
+                "step":8,
+                "properties":{
+                  "keyEventId":"4"
+                },
                 "kind":"branch",
                 "message":"Continue this loop, (assume 'i<3')"
               },{
@@ -120,7 +140,10 @@
                     "startLine":15
                   }
                 },
-                "step":4,
+                "step":9,
+                "properties":{
+                  "keyEventId":"5"
+                },
                 "kind":"branch",
                 "message":"Skip this branch, (assume '!flag' is false)"
               },{
@@ -131,7 +154,10 @@
                     "startLine":18
                   }
                 },
-                "step":5,
+                "step":10,
+                "properties":{
+                  "keyEventId":"6"
+                },
                 "kind":"usage",
                 "message":"'source' is dereferenced, but may still be NULL",
                 "importance":"essential"
@@ -174,7 +200,10 @@
                     "startLine":25
                   }
                 },
-                "step":0,
+                "step":1,
+                "properties":{
+                  "keyEventId":"1"
+                },
                 "kind":"declaration",
                 "message":"'source' is NULL",
                 "importance":"essential"
@@ -185,7 +214,9 @@
                     "startColumn":7,
                     "startLine":26
                   }
-                }
+                },
+                "step":2,
+                "importance":"unimportant"
               },{
                 "physicalLocation":{
                   "uri":"file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp",
@@ -193,7 +224,9 @@
                     "startColumn":11,
                     "startLine":28
                   }
-                }
+                },
+                "step":3,
+                "importance":"unimportant"
               },{
                 "physicalLocation":{
                   "uri":"file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp",
@@ -202,7 +235,10 @@
                     "startLine":28
                   }
                 },
-                "step":1,
+                "step":4,
+                "properties":{
+                  "keyEventId":"2"
+                },
                 "kind":"branch",
                 "message":"Enter this loop, (assume 'i<param')"
               },{
@@ -213,7 +249,10 @@
                     "startLine":30
                   }
                 },
-                "step":2,
+                "step":5,
+                "properties":{
+                  "keyEventId":"3"
+                },
                 "kind":"branch",
                 "message":"Enter this branch, (assume '!flag')"
               },{
@@ -223,7 +262,9 @@
                     "startColumn":9,
                     "startLine":31
                   }
-                }
+                },
+                "step":6,
+                "importance":"unimportant"
               },{
                 "physicalLocation":{
                   "uri":"file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp",
@@ -231,7 +272,9 @@
                     "startColumn":26,
                     "startLine":28
                   }
-                }
+                },
+                "step":7,
+                "importance":"unimportant"
               },{
                 "physicalLocation":{
                   "uri":"file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp",
@@ -240,7 +283,10 @@
                     "startLine":28
                   }
                 },
-                "step":3,
+                "step":8,
+                "properties":{
+                  "keyEventId":"4"
+                },
                 "kind":"branch",
                 "message":"Continue this loop, (assume 'i<param')"
               },{
@@ -251,7 +297,10 @@
                     "startLine":30
                   }
                 },
-                "step":4,
+                "step":9,
+                "properties":{
+                  "keyEventId":"5"
+                },
                 "kind":"branch",
                 "message":"Skip this branch, (assume '!flag' is false)"
               },{
@@ -262,7 +311,10 @@
                     "startLine":33
                   }
                 },
-                "step":5,
+                "step":10,
+                "properties":{
+                  "keyEventId":"6"
+                },
                 "kind":"usage",
                 "message":"'source' is dereferenced, but may still be NULL",
                 "importance":"essential"
@@ -304,7 +356,9 @@
                     "startColumn":6,
                     "startLine":40
                   }
-                }
+                },
+                "step":1,
+                "importance":"unimportant"
               },{
                 "physicalLocation":{
                   "uri":"file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp",
@@ -312,7 +366,9 @@
                     "startColumn":7,
                     "startLine":41
                   }
-                }
+                },
+                "step":2,
+                "importance":"unimportant"
               },{
                 "physicalLocation":{
                   "uri":"file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp",
@@ -321,7 +377,10 @@
                     "startLine":42
                   }
                 },
-                "step":0,
+                "step":3,
+                "properties":{
+                  "keyEventId":"1"
+                },
                 "kind":"declaration",
                 "message":"'x' is an array of 2 elements (8 bytes)",
                 "importance":"essential"
@@ -332,7 +391,9 @@
                     "startColumn":23,
                     "startLine":42
                   }
-                }
+                },
+                "step":4,
+                "importance":"unimportant"
               },{
                 "physicalLocation":{
                   "uri":"file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp",
@@ -340,7 +401,9 @@
                     "startColumn":11,
                     "startLine":44
                   }
-                }
+                },
+                "step":5,
+                "importance":"unimportant"
               },{
                 "physicalLocation":{
                   "uri":"file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp",
@@ -349,7 +412,10 @@
                     "startLine":44
                   }
                 },
-                "step":1,
+                "step":6,
+                "properties":{
+                  "keyEventId":"2"
+                },
                 "kind":"branch",
                 "message":"Enter this loop, (assume 'i<param')"
               },{
@@ -360,7 +426,10 @@
                     "startLine":46
                   }
                 },
-                "step":2,
+                "step":7,
+                "properties":{
+                  "keyEventId":"3"
+                },
                 "kind":"branch",
                 "message":"Enter this branch, (assume '!flag')"
               },{
@@ -370,7 +439,9 @@
                     "startColumn":9,
                     "startLine":47
                   }
-                }
+                },
+                "step":8,
+                "importance":"unimportant"
               },{
                 "physicalLocation":{
                   "uri":"file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp",
@@ -378,7 +449,9 @@
                     "startColumn":26,
                     "startLine":44
                   }
-                }
+                },
+                "step":9,
+                "importance":"unimportant"
               },{
                 "physicalLocation":{
                   "uri":"file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp",
@@ -387,7 +460,10 @@
                     "startLine":44
                   }
                 },
-                "step":3,
+                "step":10,
+                "properties":{
+                  "keyEventId":"4"
+                },
                 "kind":"branch",
                 "message":"Continue this loop, (assume 'i<param')"
               },{
@@ -398,7 +474,10 @@
                     "startLine":46
                   }
                 },
-                "step":4,
+                "step":11,
+                "properties":{
+                  "keyEventId":"5"
+                },
                 "kind":"branch",
                 "message":"Skip this branch, (assume '!flag' is false)"
               },{
@@ -408,7 +487,9 @@
                     "startColumn":8,
                     "startLine":49
                   }
-                }
+                },
+                "step":12,
+                "importance":"unimportant"
               },{
                 "physicalLocation":{
                   "uri":"file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp",
@@ -416,7 +497,9 @@
                     "startColumn":26,
                     "startLine":44
                   }
-                }
+                },
+                "step":13,
+                "importance":"unimportant"
               },{
                 "physicalLocation":{
                   "uri":"file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp",
@@ -425,7 +508,10 @@
                     "startLine":44
                   }
                 },
-                "step":5,
+                "step":14,
+                "properties":{
+                  "keyEventId":"6"
+                },
                 "kind":"branch",
                 "message":"'param' may equal 2 (Exit this loop)"
               },{
@@ -436,7 +522,10 @@
                     "startLine":52
                   }
                 },
-                "step":6,
+                "step":15,
+                "properties":{
+                  "keyEventId":"7"
+                },
                 "kind":"usage",
                 "message":"Invalid read from 'x[2]', (readable range is 0 to 1)",
                 "importance":"essential"
@@ -478,7 +567,9 @@
                     "startColumn":6,
                     "startLine":40
                   }
-                }
+                },
+                "step":1,
+                "importance":"unimportant"
               },{
                 "physicalLocation":{
                   "uri":"file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp",
@@ -486,7 +577,9 @@
                     "startColumn":7,
                     "startLine":41
                   }
-                }
+                },
+                "step":2,
+                "importance":"unimportant"
               },{
                 "physicalLocation":{
                   "uri":"file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp",
@@ -494,7 +587,9 @@
                     "startColumn":9,
                     "startLine":42
                   }
-                }
+                },
+                "step":3,
+                "importance":"unimportant"
               },{
                 "physicalLocation":{
                   "uri":"file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp",
@@ -503,7 +598,10 @@
                     "startLine":42
                   }
                 },
-                "step":0,
+                "step":4,
+                "properties":{
+                  "keyEventId":"1"
+                },
                 "kind":"declaration",
                 "message":"'y' is an array of 2 elements (8 bytes)",
                 "importance":"essential"
@@ -514,7 +612,9 @@
                     "startColumn":11,
                     "startLine":44
                   }
-                }
+                },
+                "step":5,
+                "importance":"unimportant"
               },{
                 "physicalLocation":{
                   "uri":"file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp",
@@ -523,7 +623,10 @@
                     "startLine":44
                   }
                 },
-                "step":1,
+                "step":6,
+                "properties":{
+                  "keyEventId":"2"
+                },
                 "kind":"branch",
                 "message":"Enter this loop, (assume 'i<param')"
               },{
@@ -534,7 +637,10 @@
                     "startLine":46
                   }
                 },
-                "step":2,
+                "step":7,
+                "properties":{
+                  "keyEventId":"3"
+                },
                 "kind":"branch",
                 "message":"Enter this branch, (assume '!flag')"
               },{
@@ -544,7 +650,9 @@
                     "startColumn":9,
                     "startLine":47
                   }
-                }
+                },
+                "step":8,
+                "importance":"unimportant"
               },{
                 "physicalLocation":{
                   "uri":"file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp",
@@ -552,7 +660,9 @@
                     "startColumn":26,
                     "startLine":44
                   }
-                }
+                },
+                "step":9,
+                "importance":"unimportant"
               },{
                 "physicalLocation":{
                   "uri":"file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp",
@@ -561,7 +671,10 @@
                     "startLine":44
                   }
                 },
-                "step":3,
+                "step":10,
+                "properties":{
+                  "keyEventId":"4"
+                },
                 "kind":"branch",
                 "message":"'param' may equal 1 (Exit this loop)"
               },{
@@ -571,7 +684,9 @@
                     "startColumn":9,
                     "startLine":52
                   }
-                }
+                },
+                "step":11,
+                "importance":"unimportant"
               },{
                 "physicalLocation":{
                   "uri":"file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp",
@@ -580,7 +695,10 @@
                     "startLine":53
                   }
                 },
-                "step":4,
+                "step":12,
+                "properties":{
+                  "keyEventId":"5"
+                },
                 "kind":"usage",
                 "message":"Invalid read from 'y[2]', (readable range is 0 to 1)",
                 "importance":"essential"
@@ -623,7 +741,10 @@
                     "startLine":40
                   }
                 },
-                "step":0,
+                "step":1,
+                "properties":{
+                  "keyEventId":"1"
+                },
                 "kind":"declaration",
                 "message":"'source' is NULL",
                 "importance":"essential"
@@ -634,7 +755,9 @@
                     "startColumn":7,
                     "startLine":41
                   }
-                }
+                },
+                "step":2,
+                "importance":"unimportant"
               },{
                 "physicalLocation":{
                   "uri":"file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp",
@@ -642,7 +765,9 @@
                     "startColumn":9,
                     "startLine":42
                   }
-                }
+                },
+                "step":3,
+                "importance":"unimportant"
               },{
                 "physicalLocation":{
                   "uri":"file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp",
@@ -650,7 +775,9 @@
                     "startColumn":23,
                     "startLine":42
                   }
-                }
+                },
+                "step":4,
+                "importance":"unimportant"
               },{
                 "physicalLocation":{
                   "uri":"file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp",
@@ -658,7 +785,9 @@
                     "startColumn":11,
                     "startLine":44
                   }
-                }
+                },
+                "step":5,
+                "importance":"unimportant"
               },{
                 "physicalLocation":{
                   "uri":"file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp",
@@ -667,7 +796,10 @@
                     "startLine":44
                   }
                 },
-                "step":1,
+                "step":6,
+                "properties":{
+                  "keyEventId":"2"
+                },
                 "kind":"branch",
                 "message":"Enter this loop, (assume 'i<param')"
               },{
@@ -678,7 +810,10 @@
                     "startLine":46
                   }
                 },
-                "step":2,
+                "step":7,
+                "properties":{
+                  "keyEventId":"3"
+                },
                 "kind":"branch",
                 "message":"Enter this branch, (assume '!flag')"
               },{
@@ -688,7 +823,9 @@
                     "startColumn":9,
                     "startLine":47
                   }
-                }
+                },
+                "step":8,
+                "importance":"unimportant"
               },{
                 "physicalLocation":{
                   "uri":"file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp",
@@ -696,7 +833,9 @@
                     "startColumn":26,
                     "startLine":44
                   }
-                }
+                },
+                "step":9,
+                "importance":"unimportant"
               },{
                 "physicalLocation":{
                   "uri":"file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp",
@@ -705,7 +844,10 @@
                     "startLine":44
                   }
                 },
-                "step":3,
+                "step":10,
+                "properties":{
+                  "keyEventId":"4"
+                },
                 "kind":"branch",
                 "message":"Continue this loop, (assume 'i<param')"
               },{
@@ -716,7 +858,10 @@
                     "startLine":46
                   }
                 },
-                "step":4,
+                "step":11,
+                "properties":{
+                  "keyEventId":"5"
+                },
                 "kind":"branch",
                 "message":"Skip this branch, (assume '!flag' is false)"
               },{
@@ -727,7 +872,10 @@
                     "startLine":49
                   }
                 },
-                "step":5,
+                "step":12,
+                "properties":{
+                  "keyEventId":"6"
+                },
                 "kind":"usage",
                 "message":"'source' is dereferenced, but may still be NULL",
                 "importance":"essential"

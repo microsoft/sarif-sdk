@@ -43,7 +43,10 @@
                     "startLine":3
                   }
                 },
-                "step":0,
+                "step":1,
+                "properties":{
+                  "keyEventId":"1"
+                },
                 "kind":"declaration",
                 "message":"'a' is an array of 4 elements (4 bytes)",
                 "importance":"essential"
@@ -55,7 +58,10 @@
                     "startLine":4
                   }
                 },
-                "step":1,
+                "step":2,
+                "properties":{
+                  "keyEventId":"2"
+                },
                 "kind":"declaration",
                 "message":"'j' is equal to 4",
                 "importance":"essential"
@@ -67,7 +73,10 @@
                     "startLine":5
                   }
                 },
-                "step":2,
+                "step":3,
+                "properties":{
+                  "keyEventId":"3"
+                },
                 "kind":"branch",
                 "message":"Skip this branch, (assume 'j<4' is false)"
               },{
@@ -78,7 +87,10 @@
                     "startLine":9
                   }
                 },
-                "step":3,
+                "step":4,
+                "properties":{
+                  "keyEventId":"4"
+                },
                 "kind":"usage",
                 "message":"Invalid write to 'a[4]', (writable range is 0 to 3)",
                 "importance":"essential"

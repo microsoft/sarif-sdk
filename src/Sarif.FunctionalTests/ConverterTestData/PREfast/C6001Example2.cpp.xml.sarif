@@ -42,7 +42,9 @@
                     "startColumn":8,
                     "startLine":4
                   }
-                }
+                },
+                "step":1,
+                "importance":"unimportant"
               },{
                 "physicalLocation":{
                   "uri":"file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/complex/c6001/c6001example2.cpp",
@@ -51,7 +53,10 @@
                     "startLine":5
                   }
                 },
-                "step":0,
+                "step":2,
+                "properties":{
+                  "keyEventId":"1"
+                },
                 "kind":"declaration",
                 "message":"'i' is not initialized",
                 "importance":"essential"
@@ -63,7 +68,10 @@
                     "startLine":6
                   }
                 },
-                "step":1,
+                "step":3,
+                "properties":{
+                  "keyEventId":"2"
+                },
                 "kind":"branch",
                 "message":"Enter this branch, (assume 'c')"
               },{
@@ -73,7 +81,9 @@
                     "startColumn":6,
                     "startLine":7
                   }
-                }
+                },
+                "step":4,
+                "importance":"unimportant"
               },{
                 "physicalLocation":{
                   "uri":"file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/complex/c6001/c6001example2.cpp",
@@ -82,7 +92,10 @@
                     "startLine":8
                   }
                 },
-                "step":2,
+                "step":5,
+                "properties":{
+                  "keyEventId":"3"
+                },
                 "kind":"branch",
                 "message":"Skip this branch, (assume 'b' is false)"
               },{
@@ -92,7 +105,9 @@
                     "startColumn":7,
                     "startLine":12
                   }
-                }
+                },
+                "step":6,
+                "importance":"unimportant"
               },{
                 "physicalLocation":{
                   "uri":"file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/complex/c6001/c6001example2.cpp",
@@ -101,7 +116,10 @@
                     "startLine":17
                   }
                 },
-                "step":3,
+                "step":7,
+                "properties":{
+                  "keyEventId":"4"
+                },
                 "kind":"usage",
                 "message":"'i' is used, but may not have been initialized",
                 "importance":"essential"
