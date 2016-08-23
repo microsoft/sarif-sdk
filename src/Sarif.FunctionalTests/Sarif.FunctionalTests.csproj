@@ -73,7 +73,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="C:\Users\lgolding\Desktop\SarifLogWithSchemaViolations.sarif" />
     <None Include="ConverterTestData\FxCop\FxCopProjectAllMessageStates.fxcop">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -741,6 +740,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="DirectProducerTestData\BinSkim\Native_x86_VS2015_Default.exe.sarif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="DirectProducerTestData\WebSkim\LocalizedBundleDoubleNesting.sarif">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="DirectProducerTestData\WebSkim\NestedLocationsFromAppX.sarif">
