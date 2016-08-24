@@ -30,6 +30,14 @@
       <HintPath>..\packages\Newtonsoft.Json.6.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Sarif, Version=1.5.27.0, Culture=neutral, PublicKeyToken=a567ef0185dba9aa, processorArchitecture=MSIL">
+      <HintPath>..\packages\Sarif.Sdk.1.5.27\lib\net45\Sarif.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Sarif.Driver, Version=1.5.27.0, Culture=neutral, PublicKeyToken=a567ef0185dba9aa, processorArchitecture=MSIL">
+      <HintPath>..\packages\Sarif.Sdk.1.5.27\lib\net45\Sarif.Driver.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -61,17 +69,9 @@
     <Compile Include="Rules\SkimmerTestsBase.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Sarif.Driver\Sarif.Driver.csproj">
-      <Project>{8ceaea61-b1a2-4777-bcbe-c9a129a5f6c5}</Project>
-      <Name>Sarif.Driver</Name>
-    </ProjectReference>
     <ProjectReference Include="..\SarifCli\SarifCli.csproj">
       <Project>{0eba700d-29e7-4fff-8ebf-20b8c0ef9a98}</Project>
       <Name>SarifCli</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Sarif\Sarif.csproj">
-      <Project>{cc9b247e-7103-4bf7-bdab-6e625b3680a8}</Project>
-      <Name>Sarif</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

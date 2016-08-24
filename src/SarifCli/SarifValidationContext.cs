@@ -25,7 +25,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Cli
             set { throw new InvalidOperationException(); }
         }
 
-        public PropertiesDictionary Policy { get; set; }
+        public PropertyBagDictionary Policy { get; set; }
 
         public IRule Rule { get; set; }
 
