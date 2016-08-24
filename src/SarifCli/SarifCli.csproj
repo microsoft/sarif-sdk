@@ -28,11 +28,13 @@
       <HintPath>..\packages\Sarif.Driver.1.5.27\lib\net45\Sarif.Driver.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Microsoft.Json.Schema">
-      <HintPath>..\References\Microsoft.Json.Schema.dll</HintPath>
+    <Reference Include="Microsoft.Json.Schema, Version=0.45.0.0, Culture=neutral, PublicKeyToken=0a75a800dbdd2daa, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Json.Schema.0.45.0\lib\net451\Microsoft.Json.Schema.dll</HintPath>
+      <Private>True</Private>
     </Reference>
-    <Reference Include="Microsoft.Json.Pointer">
-      <HintPath>..\References\Microsoft.Json.Pointer.dll</HintPath>
+    <Reference Include="Microsoft.Json.Pointer, Version=0.45.0.0, Culture=neutral, PublicKeyToken=0a75a800dbdd2daa, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Json.Pointer.0.45.0\lib\net451\Microsoft.Json.Pointer.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.6.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
