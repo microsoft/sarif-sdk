@@ -10,7 +10,7 @@ using Microsoft.CodeAnalysis.Sarif.Readers;
 namespace Microsoft.CodeAnalysis.Sarif
 {
     [DataContract]
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.42.0.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.45.0.0")]
     public partial class CodeFlow : PropertyBagHolder, ISarifNode
     {
         public static IEqualityComparer<CodeFlow> ValueComparer => CodeFlowEqualityComparer.Instance;
