@@ -2,6 +2,7 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using System;
+using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Reflection;
@@ -29,7 +30,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Cli
         private static void Banner()
         {
             Assembly entryAssembly = Assembly.GetEntryAssembly();
-            System.Collections.Generic.IEnumerable<Attribute> attributes = entryAssembly.GetCustomAttributes();
+            IEnumerable<Attribute> attributes = entryAssembly.GetCustomAttributes();
 
             var titleAttribute = attributes.Single(a => a is AssemblyTitleAttribute) as AssemblyTitleAttribute;
             string programName = titleAttribute.Title;

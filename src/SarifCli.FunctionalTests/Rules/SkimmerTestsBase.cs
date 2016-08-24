@@ -63,15 +63,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Cli.FunctionalTests.Rules
             SelectiveCompare(actualLogContents, expectedLogContents);
         }
 
-        private static void SelectiveCompare(string actualText, string expectedText)
+        private static void SelectiveCompare(string actualLogContents, string expectedLogContents)
         {
             var settings = new JsonSerializerSettings()
             {
                 ContractResolver = SarifContractResolver.Instance
             };
 
-            SarifLog actualLog = JsonConvert.DeserializeObject<SarifLog>(actualText, settings);
-            SarifLog expectedLog = JsonConvert.DeserializeObject<SarifLog>(expectedText, settings);
+            SarifLog actualLog = JsonConvert.DeserializeObject<SarifLog>(actualLogContents, settings);
+            SarifLog expectedLog = JsonConvert.DeserializeObject<SarifLog>(expectedLogContents, settings);
 
             SelectiveCompare(actualLog, expectedLog);
         }

@@ -21,7 +21,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Cli
 
         public string MimeType
         {
-            get { return Microsoft.CodeAnalysis.Sarif.Writers.MimeType.Sarif; }
+            get { return "text/x-sarif"; }
             set { throw new InvalidOperationException(); }
         }
 
@@ -56,8 +56,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Cli
         public string SchemaFilePath { get; internal set; }
 
         public SarifLog InputLog { get; internal set; }
-
-        public string InputLogContents { get; internal set; }
 
         public JToken InputLogToken { get; internal set; }
 

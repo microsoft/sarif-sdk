@@ -22,8 +22,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Cli.Rules
                 ContractResolver = SarifContractResolver.Instance
             };
 
-            context.InputLogContents = File.ReadAllText(context.TargetUri.LocalPath);
-            context.InputLog = JsonConvert.DeserializeObject<SarifLog>(context.InputLogContents, settings);
+            string inputLogContents = File.ReadAllText(context.TargetUri.LocalPath);
+            context.InputLogToken = JToken.Parse(inputLogContents);
+            context.InputLog = JsonConvert.DeserializeObject<SarifLog>(inputLogContents, settings);
 
             AnalyzeCore(context);
         }
@@ -32,11 +33,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Cli.Rules
 
         protected Region GetRegionFromJPointer(string jPointerValue, SarifValidationContext context)
         {
-            if (context.InputLogToken == null)
-            {
-                context.InputLogToken = JToken.Parse(context.InputLogContents);
-            }
-
             JsonPointer jPointer = new JsonPointer(jPointerValue);
             JToken jToken = jPointer.Evaluate(context.InputLogToken);
             IJsonLineInfo lineInfo = jToken;

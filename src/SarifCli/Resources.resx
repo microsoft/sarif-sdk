@@ -123,7 +123,4 @@
   <data name="ErrorIllegalContextReuse" xml:space="preserve">
     <value>A context object was reinitialized with a new target URI.</value>
   </data>
-  <data name="ErrorUnrecognizedSchemaValidationRuleId" xml:space="preserve">
-    <value>The rule id "{0}" does not match the expected format for rule ids from the JSON schema validator.</value>
-  </data>
 </root>

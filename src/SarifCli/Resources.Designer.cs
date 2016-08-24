@@ -77,14 +77,5 @@ namespace Microsoft.CodeAnalysis.Sarif.Cli {
                 return ResourceManager.GetString("ErrorIllegalContextReuse", resourceCulture);
             }
         }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to The rule id &quot;{0}&quot; does not match the expected format for rule ids from the JSON schema validator..
-        /// </summary>
-        internal static string ErrorUnrecognizedSchemaValidationRuleId {
-            get {
-                return ResourceManager.GetString("ErrorUnrecognizedSchemaValidationRuleId", resourceCulture);
-            }
-        }
     }
 }

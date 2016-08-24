@@ -17,13 +17,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Cli
     {
         public override string Prerelease => VersionConstants.Prerelease;
 
-        public override void ConfigureFromOptions(SarifValidationContext context, AnalyzeOptions analyzeOptions)
-        {
-            base.ConfigureFromOptions(context, analyzeOptions);
-
-            context.SchemaFilePath = analyzeOptions.SchemaFilePath;
-        }
-
         private List<Assembly> _defaultPlugInAssemblies;
 
         public override IEnumerable<Assembly> DefaultPlugInAssemblies
@@ -59,15 +52,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Cli
             Validate(context.TargetUri.LocalPath, context.SchemaFilePath, context.Logger);
         }
 
-        private int Validate(string instanceFilePath, string schemaFilePath, IAnalysisLogger logger)
+        private void Validate(string instanceFilePath, string schemaFilePath, IAnalysisLogger logger)
         {
-            int returnCode = 1;
- 
             try
             {
                 string instanceText = File.ReadAllText(instanceFilePath);
-
-                returnCode = PerformSchemaValidation(instanceText, instanceFilePath, schemaFilePath, logger);
+                PerformSchemaValidation(instanceText, instanceFilePath, schemaFilePath, logger);
             }
             catch (JsonSyntaxException ex)
             {
@@ -81,21 +71,21 @@ namespace Microsoft.CodeAnalysis.Sarif.Cli
             {
                 LogToolNotification(logger, ex.Message, NotificationLevel.Error, ex);
             }
-
-            return returnCode;
         }
 
-        private int PerformSchemaValidation(string instanceText, string instanceFilePath, string schemaFilePath, IAnalysisLogger logger)
+        private void PerformSchemaValidation(
+            string instanceText,
+            string instanceFilePath,
+            string schemaFilePath,
+            IAnalysisLogger logger)
         {
             string schemaText = File.ReadAllText(schemaFilePath);
             JsonSchema schema = SchemaReader.ReadSchema(schemaText, schemaFilePath);
 
             var validator = new Validator(schema);
-
             Result[] results = validator.Validate(instanceText, instanceFilePath);
-            ReportResults(results, logger);
 
-            return results.Length;
+            ReportResults(results, logger);
         }
 
         private static void ReportInvalidSchemaErrors(
@@ -106,7 +96,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Cli
             foreach (Result result in ex.Results)
             {
                 result.SetAnalysisTargetUri(schemaFile);
-
                 ReportResult(result, logger);
             }
         }
@@ -121,10 +110,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Cli
             }
         }
 
-        private static void ReportResult(Result result, IAnalysisLogger logger)
+        private static void ReportResult(
+            Result result,
+            IAnalysisLogger logger)
         {
             Rule rule = Json.Schema.Sarif.RuleFactory.GetRuleFromRuleId(result.RuleId);
-
             logger.Log(rule, result);
         }
 

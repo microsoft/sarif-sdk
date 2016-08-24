@@ -6,5 +6,5 @@ using System.Reflection;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("Sarif CLI Unit Tests")]
-[assembly: AssemblyDescription("Unit tests for the SARIF command line interface tool")]
+[assembly: AssemblyTitle("Sarif CLI Functional Tests")]
+[assembly: AssemblyDescription("Functional tests for the SARIF command line interface tool")]
