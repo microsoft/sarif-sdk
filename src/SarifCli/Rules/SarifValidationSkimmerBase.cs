@@ -2,6 +2,7 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Resources;
@@ -78,6 +79,19 @@ namespace Microsoft.CodeAnalysis.Sarif.Cli.Rules
                 }
             }
 
+            if (run.Files != null)
+            {
+                IDictionary<string, FileData> files = run.Files;
+                string filesPointer = runPointer.AtProperty(SarifPropertyName.Files);
+
+                foreach (string fileKey in files.Keys)
+                {
+                    string filePointer = filesPointer.AtProperty(fileKey);
+
+                    Visit(files[fileKey], fileKey, filePointer);
+                }
+            }
+
             if (run.Rules != null)
             {
                 Rule[] rules = run.Rules.Values.ToArray();
@@ -132,11 +146,20 @@ namespace Microsoft.CodeAnalysis.Sarif.Cli.Rules
             Analyze(physicalLocation, physicalLocationPointer);
         }
 
+        private void Visit(FileData fileData, string fileKey, string filePointer)
+        {
+            Analyze(fileData, fileKey, filePointer);
+        }
+
         protected virtual void Analyze(Rule rule, string rulePointer)
         {
         }
 
         protected virtual void Analyze(PhysicalLocation physicalLocation, string physicalLocationPointer)
+        {
+        }
+
+        protected virtual void Analyze(FileData fileData, string fileKey, string filePointer)
         {
         }
 

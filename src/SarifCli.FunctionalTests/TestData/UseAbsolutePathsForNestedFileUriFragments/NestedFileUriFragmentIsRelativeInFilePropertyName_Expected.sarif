@@ -1,0 +1,83 @@
+{
+  "$schema": "http://json.schemastore.org/sarif-1.0.0",
+  "version": "1.0.0",
+  "runs": [
+    {
+      "id": "11401fd5-e0ef-47dc-beec-c20d7d2aab1f",
+      "tool": {
+        "name": "SarifCli",
+        "fullName": "SarifCli 1.0.0.0",
+        "version": "1.0.0.0",
+        "semanticVersion": "1.0.0",
+        "sarifLoggerVersion": "1.5.27.0",
+        "language": "en-US",
+        "properties": {
+          "Comments": "Command line tool for working with SARIF log files.",
+          "CompanyName": "Microsoft Corporation",
+          "ProductName": "Microsoft SARIF SDK"
+        }
+      },
+      "results": [
+        {
+          "ruleId": "SV0002",
+          "level": "warning",
+          "formattedRuleMessage": {
+            "formatId": "DefaultFormatId",
+            "arguments": [
+              "NestedFileUriFragmentIsRelativeInFilePropertyName.sarif",
+              "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp.appx#js/minified.js"
+            ]
+          },
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///G:/Code/sarif-sdk/src/SarifCli.FunctionalTests/TestData/UseAbsolutePathsForNestedFileUriFragments/NestedFileUriFragmentIsRelativeInFilePropertyName.sarif",
+                "region": {
+                  "startLine": 41,
+                  "startColumn": 165
+                }
+              }
+            }
+          ]
+        }
+      ],
+      "toolNotifications": [
+        {
+          "id": "MSG001.AnalyzingTarget",
+          "physicalLocation": {
+            "uri": "file:///G:/Code/sarif-sdk/src/SarifCli.FunctionalTests/TestData/UseAbsolutePathsForNestedFileUriFragments/NestedFileUriFragmentIsRelativeInFilePropertyName.sarif"
+          },
+          "message": "Analyzing 'NestedFileUriFragmentIsRelativeInFilePropertyName.sarif'...",
+          "level": "note",
+          "time": "2016-08-25T18:17:11.515Z"
+        }
+      ],
+      "rules": {
+        "SV0002": {
+          "id": "SV0002",
+          "name": "UseAbsolutePathsForNestedFileUriFragments",
+          "shortDescription": "When specifying the URI of a nested file with a URI fragment, express the fragment as an absolute path.",
+          "fullDescription": "When specifying the URI of a nested file with a URI fragment, express the fragment as an absolute path. That is, begin the with a forward slash, for example \"file:///C:/bin/MyApp.zip#/images/grape.jpg\".",
+          "messageFormats": {
+            "DefaultFormatId": "In \"{0}\", the fragment portion of the URI \"{1}\", which specifies the location of a nested file with respect to its parent, does not begin with a forward slash."
+          },
+          "defaultLevel": "warning",
+          "helpUri": "https://rawgit.com/sarif-standard/sarif-spec/master/Static%20Analysis%20Results%20Interchange%20Format%20(SARIF).html"
+        }
+      },
+      "files": {
+        "file:///G:/Code/sarif-sdk/src/SarifCli.FunctionalTests/TestData/UseAbsolutePathsForNestedFileUriFragments/NestedFileUriFragmentIsRelativeInFilePropertyName.sarif": {
+          "mimeType": "application/octet-stream"
+        }
+      },
+      "invocation": {
+        "commandLine": "\"G:\\Code\\sarif-sdk\\bld\\bin\\SarifCli\\AnyCPU_Debug\\SarifCli.exe\"  validate G:\\Code\\sarif-sdk\\src\\SarifCli.FunctionalTests\\TestData\\UseAbsolutePathsForNestedFileUriFragments\\NestedFileUriFragmentIsRelativeInFilePropertyName.sarif -o C:\\Users\\[REMOVED]\\Desktop\\SarifCli\\SarifCli.sarif -j G:\\Code\\sarif-sdk\\src\\Sarif\\Schemata\\Sarif.schema.json ",
+        "startTime": "2016-08-25T18:17:11.434Z",
+        "endTime": "2016-08-25T18:17:11.774Z",
+        "processId": 14016,
+        "fileName": "G:\\Code\\sarif-sdk\\bld\\bin\\SarifCli\\AnyCPU_Debug\\SarifCli.exe",
+        "workingDirectory": "G:\\Code\\sarif-sdk\\bld\\bin\\SarifCli\\AnyCPU_Debug"
+      }
+    }
+  ]
+}

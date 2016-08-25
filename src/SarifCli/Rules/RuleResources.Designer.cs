@@ -77,5 +77,23 @@ namespace Microsoft.CodeAnalysis.Sarif.Cli.Rules {
                 return ResourceManager.GetString("SV0001_DoNotUseFriendlyNameAsRuleIdDescription", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to In &quot;{0}&quot;, the fragment portion of the URI &quot;{1}&quot;, which specifies the location of a nested file with respect to its parent, does not begin with a forward slash..
+        /// </summary>
+        internal static string SV0002_DefaultFormatId {
+            get {
+                return ResourceManager.GetString("SV0002_DefaultFormatId", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to When specifying the URI of a nested file with a URI fragment, express the fragment as an absolute path. That is, begin the with a forward slash, for example &quot;file:///C:/bin/MyApp.zip#/images/grape.jpg&quot;..
+        /// </summary>
+        internal static string SV0002_UseAbsolutePathsForNestedFileUriFragmentsDescription {
+            get {
+                return ResourceManager.GetString("SV0002_UseAbsolutePathsForNestedFileUriFragmentsDescription", resourceCulture);
+            }
+        }
     }
 }

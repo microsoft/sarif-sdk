@@ -32,7 +32,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Cli.Rules
                 && rule.Name != null 
                 && rule.Id.Equals(rule.Name, StringComparison.OrdinalIgnoreCase))
             {
-                LogResult(ResultLevel.Warning, rulePointer, nameof(RuleResources.SV0001_DefaultFormatId), rule.Id);
+                LogResult(
+                    ResultLevel.Warning,
+                    rulePointer,
+                    nameof(RuleResources.SV0001_DefaultFormatId),
+                    rule.Id);
             }
         }
     }

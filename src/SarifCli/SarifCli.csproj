@@ -80,6 +80,7 @@
     </Compile>
     <Compile Include="Rules\RuleId.cs" />
     <Compile Include="Rules\SarifValidationSkimmerBase.cs" />
+    <Compile Include="Rules\UseAbsolutePathsForNestedFileUriFragments.cs" />
     <Compile Include="SarifPropertyName.cs" />
     <Compile Include="SarifValidationContext.cs" />
     <Compile Include="AnalyzeCommand.cs" />

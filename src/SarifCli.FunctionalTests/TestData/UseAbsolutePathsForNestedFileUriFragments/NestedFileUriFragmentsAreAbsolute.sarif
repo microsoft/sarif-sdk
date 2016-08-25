@@ -1,0 +1,49 @@
+﻿{
+  "$schema": "http://json.schemastore.org/sarif-1.0.0",
+  "version": "1.0.0",
+  "runs": [
+    {
+      "id": "e7d5cf38-c160-4bf9-aed1-e84ad6849df3",
+      "tool": {
+        "name": "ModernCop",
+        "fullName": "mod50 7.0.7000.0",
+        "version": "7.0.7000.0",
+        "semanticVersion": "7.0.7000",
+        "fileVersion": "7.0.20811.0",
+        "language": "en-US",
+        "properties": {
+          "CompanyName": "Microsoft Corporation"
+        }
+      },
+      "results": [
+        {
+          "ruleKey": "M1003.DoNotShipObfuscatedCode",
+          "level": "error",
+          "formattedRuleMessage": {
+            "formatId": "Default"
+          },
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp.appx#/js/minified.js",
+                "region": {
+                  "startLine": 1
+                }
+              }
+            }
+          ]
+        }
+      ],
+      "files": {
+        "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp.appx": {
+          "mimeType": "application/vns.ms-appx"
+        },
+        "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp.appx#/js/minified.js": {
+          "uri": "/js/minified.js",
+          "parentKey": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp.appx",
+          "mimeType": "text/javascript"
+        }
+      }
+    }
+  ]
+}

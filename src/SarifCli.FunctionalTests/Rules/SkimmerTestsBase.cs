@@ -78,20 +78,27 @@ namespace Microsoft.CodeAnalysis.Sarif.Cli.FunctionalTests.Rules
 
         private static void SelectiveCompare(SarifLog actualLog, SarifLog expectedLog)
         {
-            Result[] actualResults = actualLog.Runs[0].Results.ToArray();
-            Result[] expectedResults = expectedLog.Runs[0].Results.ToArray();
+            Result[] actualResults = actualLog.Runs[0].Results == null ? null : actualLog.Runs[0].Results.ToArray();
+            Result[] expectedResults = expectedLog.Runs[0].Results == null ? null : expectedLog.Runs[0].Results.ToArray();
 
-            actualResults.Length.Should().Be(expectedResults.Length);
+            bool actualHasResults = actualResults != null && actualResults.Length > 0;
+            bool expectedHasResults = expectedResults != null && expectedResults.Length > 0;
+            actualHasResults.Should().Be(expectedHasResults);
 
-            for (int i = 0; i < actualResults.Length; ++i)
+            if (actualHasResults && expectedHasResults)
             {
-                Result actualResult = actualResults[i];
-                Result expectedResult = expectedResults[i];
+                actualResults.Length.Should().Be(expectedResults.Length);
 
-                actualResult.RuleId.Should().Be(expectedResult.RuleId);
+                for (int i = 0; i < actualResults.Length; ++i)
+                {
+                    Result actualResult = actualResults[i];
+                    Result expectedResult = expectedResults[i];
 
-                actualResult.Locations[0].AnalysisTarget.Region.ValueEquals(
-                    expectedResult.Locations[0].AnalysisTarget.Region).Should().BeTrue();
+                    actualResult.RuleId.Should().Be(expectedResult.RuleId);
+
+                    actualResult.Locations[0].AnalysisTarget.Region.ValueEquals(
+                        expectedResult.Locations[0].AnalysisTarget.Region).Should().BeTrue();
+                }
             }
         }
 
