@@ -1,6 +1,7 @@
 ﻿// Copyright (c) Microsoft. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
+using System;
 using System.IO;
 using System.Resources;
 using Microsoft.CodeAnalysis.Sarif.Driver;
@@ -13,6 +14,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Cli.Rules
 {
     public abstract class SarifValidationSkimmerBase : SkimmerBase<SarifValidationContext>
     {
+        private const string SarifSpecUri =
+            "https://rawgit.com/sarif-standard/sarif-spec/master/Static%20Analysis%20Results%20Interchange%20Format%20(SARIF).html";
+
+        private readonly Uri _defaultHelpUri = new Uri(SarifSpecUri);
+
+        public override Uri HelpUri => _defaultHelpUri;
+
         protected override ResourceManager ResourceManager => RuleResources.ResourceManager;
 
         public override void Analyze(SarifValidationContext context)

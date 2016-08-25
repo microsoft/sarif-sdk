@@ -57,7 +57,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>RuleResources.resx</DependentUpon>
     </Compile>
-    <Compile Include="Rules\RuleIds.cs" />
+    <Compile Include="Rules\RuleId.cs" />
     <Compile Include="Rules\SarifValidationSkimmerBase.cs" />
     <Compile Include="SarifValidationContext.cs" />
     <Compile Include="AnalyzeCommand.cs" />

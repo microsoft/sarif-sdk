@@ -11,13 +11,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Cli.Rules
     {
         public override string FullDescription => RuleResources.SV0001_DoNotUseFriendlyNameAsRuleIdDescription;
 
-        public override Uri HelpUri => 
-            new Uri("https://rawgit.com/sarif-standard/sarif-spec/master/Static%20Analysis%20Results%20Interchange%20Format%20(SARIF).html");
-
         /// <summary>
         /// SV0001
         /// </summary>
-        public override string Id => RuleIds.DoNotUseFriendlyNameAsRuleId;
+        public override string Id => RuleId.DoNotUseFriendlyNameAsRuleId;
 
         protected override IEnumerable<string> FormatIds
         {

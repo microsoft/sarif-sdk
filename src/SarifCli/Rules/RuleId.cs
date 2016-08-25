@@ -3,8 +3,9 @@
 
 namespace Microsoft.CodeAnalysis.Sarif.Cli.Rules
 {
-    public static class RuleIds
+    public static class RuleId
     {
         public const string DoNotUseFriendlyNameAsRuleId = "SV0001";
+        public const string UseAbsolutePathsForNestedFileUriFragments = "SV0002";
     }
 }
