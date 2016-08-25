@@ -26,9 +26,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Cli.Rules
         protected SarifLog InputLog { get; private set; }
         protected JToken InputLogToken { get; private set; }
 
-        protected override ResourceManager ResourceManager => RuleResources.ResourceManager;
+        protected override sealed ResourceManager ResourceManager => RuleResources.ResourceManager;
 
-        public override void Analyze(SarifValidationContext context)
+        public override sealed void Analyze(SarifValidationContext context)
         {
             Context = context;
 
@@ -63,7 +63,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Cli.Rules
 
         protected abstract void Visit(Rule rule, string jPointer);
 
-        protected Region GetRegionFromJPointer(string jPointerValue)
+        protected void LogResult(ResultLevel level, string jPointer, string formatId, params string[] args)
+        {
+            Region region = GetRegionFromJPointer(jPointer);
+
+            Context.Logger.Log(this,
+                RuleUtilities.BuildResult(ResultLevel.Warning, Context, region, formatId, args));
+        }
+
+        private Region GetRegionFromJPointer(string jPointerValue)
         {
             JsonPointer jPointer = new JsonPointer(jPointerValue);
             JToken jToken = jPointer.Evaluate(InputLogToken);

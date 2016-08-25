@@ -33,10 +33,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Cli.Rules
                 && rule.Name != null 
                 && rule.Id.Equals(rule.Name, StringComparison.OrdinalIgnoreCase))
             {
-                Region region = GetRegionFromJPointer(jPointer);
-
-                Context.Logger.Log(this,
-                    RuleUtilities.BuildResult(ResultLevel.Warning, Context, region, nameof(RuleResources.SV0001_DefaultFormatId), rule.Id));
+                LogResult(ResultLevel.Warning, jPointer, nameof(RuleResources.SV0001_DefaultFormatId), rule.Id);
             }
         }
     }
