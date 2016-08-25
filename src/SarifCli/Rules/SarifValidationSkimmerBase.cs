@@ -40,32 +40,50 @@ namespace Microsoft.CodeAnalysis.Sarif.Cli.Rules
             };
 
             SarifLog log = JsonConvert.DeserializeObject<SarifLog>(logContents, settings);
-            Visit(log);
+            string logPointer = string.Empty;
+
+            Visit(log, logPointer);
         }
 
-        private void Visit(SarifLog log)
+        private void Visit(SarifLog log, string logPointer)
         {
             if (log.Runs != null)
             {
                 Run[] runs = log.Runs.ToArray();
+                string runsPointer = logPointer.AtProperty(SarifPropertyName.Runs);
+
                 for (int iRun = 0; iRun < runs.Length; ++iRun)
                 {
                     Run run = runs[iRun];
-                    if (run.Rules != null)
+                    string runPointer = runsPointer.AtIndex(iRun);
+
+                    Visit(run, runPointer);
+                }
+            }
+        }
+
+        private void Visit(Run run, string runPointer)
+        {
+            if (run.Rules != null)
+            {
+                Rule[] rules = run.Rules.Values.ToArray();
+                string rulesPointer = runPointer.AtProperty(SarifPropertyName.Rules);
+
+                for (int iRule = 0; iRule < rules.Length; ++iRule)
+                {
+                    Rule rule = rules[iRule];
+                    if (rule.Id != null)
                     {
-                        Rule[] rules = run.Rules.Values.ToArray();
-                        for (int iRule = 0; iRule < rules.Length; ++iRule)
-                        {
-                            Rule rule = rules[iRule];
-                            string jPointer = $"/runs/{iRun}/rules/{rule.Id}";
-                            Analyze(rule, jPointer);
-                        }
+                        string rulePointer = rulesPointer.AtProperty(rule.Id);
+                        Analyze(rule, rulePointer);
                     }
                 }
             }
         }
 
-        protected abstract void Analyze(Rule rule, string jPointer);
+        protected virtual void Analyze(Rule rule, string jPointer)
+        {
+        }
 
         protected void LogResult(ResultLevel level, string jPointer, string formatId, params string[] args)
         {

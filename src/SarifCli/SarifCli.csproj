@@ -51,6 +51,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ExportRulesMetadataCommand.cs" />
+    <Compile Include="JPointerStringExtensions.cs" />
     <Compile Include="Rules\DoNotUseFriendlyNameAsRuleId.cs" />
     <Compile Include="Rules\RuleResources.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -59,6 +60,7 @@
     </Compile>
     <Compile Include="Rules\RuleId.cs" />
     <Compile Include="Rules\SarifValidationSkimmerBase.cs" />
+    <Compile Include="SarifPropertyName.cs" />
     <Compile Include="SarifValidationContext.cs" />
     <Compile Include="AnalyzeCommand.cs" />
     <Compile Include="AnalyzeOptions.cs" />
