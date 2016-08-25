@@ -3,43 +3,44 @@
   "version": "1.0.0",
   "runs": [
     {
-      "id": "f603e2a9-fe09-434e-a0df-7261e78c9d0b",
+      "id": "a9957393-94c6-464b-9ba5-cf05eb95f245",
       "tool": {
-        "name": "SarifCli",
-        "fullName": "SarifCli 1.0.0.0",
-        "version": "1.0.0.0",
-        "semanticVersion": "1.0.0",
+        "name": "Sarif",
+        "fullName": "Sarif 1.5.27.0",
+        "version": "1.5.27.0",
+        "semanticVersion": "1.5.27",
         "sarifLoggerVersion": "1.5.27.0",
         "language": "en-US",
         "properties": {
-          "Comments": "Command line tool for working with SARIF log files.",
+          "Comments": "Object model and utilities for reading and writing files in the SARIF format.",
           "CompanyName": "Microsoft Corporation",
           "ProductName": "Microsoft SARIF SDK"
         }
       },
+      "results": [],
       "toolNotifications": [
         {
           "id": "MSG001.AnalyzingTarget",
           "physicalLocation": {
-            "uri": "file:///G:/Code/sarif-sdk/src/SarifCli.FunctionalTests/TestData/UseAbsolutePathsForNestedFileUriFragments/NestedFileUriFragmentsAreAbsolute.sarif"
+            "uri": "file:///G:/Code/sarif-sdk/bld/bin/SarifCli.FunctionalTests/AnyCPU_Release/TestData/UseAbsolutePathsForNestedFileUriFragments/NestedFileUriFragmentsAreAbsolute.sarif"
           },
           "message": "Analyzing 'NestedFileUriFragmentsAreAbsolute.sarif'...",
           "level": "note",
-          "time": "2016-08-25T20:52:39.415Z"
+          "time": "2016-08-25T21:26:42.071Z"
         }
       ],
       "files": {
-        "file:///G:/Code/sarif-sdk/src/SarifCli.FunctionalTests/TestData/UseAbsolutePathsForNestedFileUriFragments/NestedFileUriFragmentsAreAbsolute.sarif": {
+        "file:///G:/Code/sarif-sdk/bld/bin/SarifCli.FunctionalTests/AnyCPU_Release/TestData/UseAbsolutePathsForNestedFileUriFragments/NestedFileUriFragmentsAreAbsolute.sarif": {
           "mimeType": "application/octet-stream"
         }
       },
       "invocation": {
-        "commandLine": "\"G:\\Code\\sarif-sdk\\bld\\bin\\SarifCli\\AnyCPU_Debug\\SarifCli.exe\"  validate G:\\Code\\sarif-sdk\\src\\SarifCli.FunctionalTests\\TestData\\UseAbsolutePathsForNestedFileUriFragments\\NestedFileUriFragmentsAreAbsolute.sarif -o C:\\Users\\[REMOVED]\\Desktop\\SarifCli\\NestedFileUriFragmentsAreAbsolute_Expected.sarif -j G:\\Code\\sarif-sdk\\src\\Sarif\\Schemata\\Sarif.schema.json ",
-        "startTime": "2016-08-25T20:52:39.233Z",
-        "endTime": "2016-08-25T20:52:39.677Z",
-        "processId": 10412,
-        "fileName": "G:\\Code\\sarif-sdk\\bld\\bin\\SarifCli\\AnyCPU_Debug\\SarifCli.exe",
-        "workingDirectory": "G:\\Code\\sarif-sdk\\bld\\bin\\SarifCli\\AnyCPU_Debug"
+        "commandLine": "src\\packages\\xunit.runner.console.2.1.0\\tools\\xunit.console.x86.exe  bld\\bin\\SarifCli.FunctionalTests\\AnyCPU_Release\\Microsoft.CodeAnalysis.Sarif.Cli.FunctionalTests.dll",
+        "startTime": "2016-08-25T21:26:42.071Z",
+        "endTime": "2016-08-25T21:26:42.076Z",
+        "processId": 8856,
+        "fileName": "C:\\Users\\lgolding\\AppData\\Local\\Temp\\108c7547-93f9-41d7-9466-6cf860afad5d\\108c7547-93f9-41d7-9466-6cf860afad5d\\assembly\\dl3\\660ee2c2\\00b7775a_e6e9d101\\Sarif.dll",
+        "workingDirectory": "G:\\Code\\sarif-sdk\\bld\\bin\\SarifCli.FunctionalTests\\AnyCPU_Release"
       }
     }
   ]

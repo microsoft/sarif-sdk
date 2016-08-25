@@ -167,8 +167,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Cli.Rules
         {
             Region region = GetRegionFromJPointer(jPointer);
 
+            // All messages start with "In {file}, at {jPointer}, ...". Prepend the jPointer to the args.
+            // The Sarif.Driver framework will take care of prepending the file name.
+            string[] argsWithPointer = new string[args.Length + 1];
+            Array.Copy(args, 0, argsWithPointer, 1, args.Length);
+            argsWithPointer[0] = jPointer;
+
             Context.Logger.Log(this,
-                RuleUtilities.BuildResult(ResultLevel.Warning, Context, region, formatId, args));
+                RuleUtilities.BuildResult(ResultLevel.Warning, Context, region, formatId, argsWithPointer));
         }
 
         private Region GetRegionFromJPointer(string jPointer)

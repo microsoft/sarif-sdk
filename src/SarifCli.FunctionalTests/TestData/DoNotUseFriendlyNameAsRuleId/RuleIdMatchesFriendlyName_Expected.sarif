@@ -3,13 +3,13 @@
   "version": "1.0.0",
   "runs": [
     {
-      "id": "0ecc3107-1021-4ce7-87ff-a553d00bb644",
+      "id": "4a05bc1d-fcf7-4d8e-880b-0a4941710af7",
       "tool": {
         "name": "Sarif",
-        "fullName": "Sarif 1.5.28.0",
-        "version": "1.5.28.0",
-        "semanticVersion": "1.5.28",
-        "sarifLoggerVersion": "1.5.28.0",
+        "fullName": "Sarif 1.5.27.0",
+        "version": "1.5.27.0",
+        "semanticVersion": "1.5.27",
+        "sarifLoggerVersion": "1.5.27.0",
         "language": "en-US",
         "properties": {
           "Comments": "Object model and utilities for reading and writing files in the SARIF format.",
@@ -25,6 +25,7 @@
             "formatId": "DefaultFormatId",
             "arguments": [
               "RuleIdMatchesFriendlyName.sarif",
+              "/runs/0/rules/ImportantRule",
               "ImportantRule"
             ]
           },
@@ -49,7 +50,7 @@
           },
           "message": "Analyzing 'RuleIdMatchesFriendlyName.sarif'...",
           "level": "note",
-          "time": "2016-08-23T22:55:51.352Z"
+          "time": "2016-08-25T21:26:42.049Z"
         }
       ],
       "rules": {
@@ -59,7 +60,7 @@
           "shortDescription": "Do not use the same string for a rule's id and name properties. The id property ...",
           "fullDescription": "Do not use the same string for a rule's id and name properties. The id property must be a stable, opaque identifer such as \"SV0001\". The name property should be a string that is understandable to an end user, such as \"DoNotUserFriendlyNameAsRuleId\".",
           "messageFormats": {
-            "DefaultFormatId": "In \"{0}\", the name and id properties of rule \"{1}\" are the same."
+            "DefaultFormatId": "In \"{0}\", at \"{1}\", the name and id properties of rule \"{2}\" are the same."
           },
           "defaultLevel": "warning",
           "helpUri": "https://rawgit.com/sarif-standard/sarif-spec/master/Static%20Analysis%20Results%20Interchange%20Format%20(SARIF).html"
@@ -67,15 +68,15 @@
       },
       "files": {
         "file:///G:/Code/sarif-sdk/bld/bin/SarifCli.FunctionalTests/AnyCPU_Release/TestData/DoNotUseFriendlyNameAsRuleId/RuleIdMatchesFriendlyName.sarif": {
-          "mimeType": "text/x-sarif"
+          "mimeType": "application/octet-stream"
         }
       },
       "invocation": {
         "commandLine": "src\\packages\\xunit.runner.console.2.1.0\\tools\\xunit.console.x86.exe  bld\\bin\\SarifCli.FunctionalTests\\AnyCPU_Release\\Microsoft.CodeAnalysis.Sarif.Cli.FunctionalTests.dll",
-        "startTime": "2016-08-23T22:55:51.352Z",
-        "endTime": "2016-08-23T22:55:51.434Z",
-        "processId": 9688,
-        "fileName": "C:\\Users\\lgolding\\AppData\\Local\\Temp\\bcef3d89-d123-4f33-b0de-1c3a541c8040\\bcef3d89-d123-4f33-b0de-1c3a541c8040\\assembly\\dl3\\acb70b02\\0b034856_91fdd101\\Sarif.dll",
+        "startTime": "2016-08-25T21:26:42.049Z",
+        "endTime": "2016-08-25T21:26:42.052Z",
+        "processId": 8856,
+        "fileName": "C:\\Users\\lgolding\\AppData\\Local\\Temp\\108c7547-93f9-41d7-9466-6cf860afad5d\\108c7547-93f9-41d7-9466-6cf860afad5d\\assembly\\dl3\\660ee2c2\\00b7775a_e6e9d101\\Sarif.dll",
         "workingDirectory": "G:\\Code\\sarif-sdk\\bld\\bin\\SarifCli.FunctionalTests\\AnyCPU_Release"
       }
     }

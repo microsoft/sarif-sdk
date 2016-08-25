@@ -3,13 +3,13 @@
   "version": "1.0.0",
   "runs": [
     {
-      "id": "4f730ffa-cc94-4b7b-ba08-23211cb25d03",
+      "id": "5b242950-d48d-4093-a21f-94885100c31e",
       "tool": {
         "name": "Sarif",
-        "fullName": "Sarif 1.5.28.0",
-        "version": "1.5.28.0",
-        "semanticVersion": "1.5.28",
-        "sarifLoggerVersion": "1.5.28.0",
+        "fullName": "Sarif 1.5.27.0",
+        "version": "1.5.27.0",
+        "semanticVersion": "1.5.27",
+        "sarifLoggerVersion": "1.5.27.0",
         "language": "en-US",
         "properties": {
           "Comments": "Object model and utilities for reading and writing files in the SARIF format.",
@@ -26,20 +26,20 @@
           },
           "message": "Analyzing 'RuleIdDoesNotMatchFriendlyName.sarif'...",
           "level": "note",
-          "time": "2016-08-23T22:55:51.110Z"
+          "time": "2016-08-25T21:26:41.799Z"
         }
       ],
       "files": {
         "file:///G:/Code/sarif-sdk/bld/bin/SarifCli.FunctionalTests/AnyCPU_Release/TestData/DoNotUseFriendlyNameAsRuleId/RuleIdDoesNotMatchFriendlyName.sarif": {
-          "mimeType": "text/x-sarif"
+          "mimeType": "application/octet-stream"
         }
       },
       "invocation": {
         "commandLine": "src\\packages\\xunit.runner.console.2.1.0\\tools\\xunit.console.x86.exe  bld\\bin\\SarifCli.FunctionalTests\\AnyCPU_Release\\Microsoft.CodeAnalysis.Sarif.Cli.FunctionalTests.dll",
-        "startTime": "2016-08-23T22:55:51.109Z",
-        "endTime": "2016-08-23T22:55:51.190Z",
-        "processId": 9688,
-        "fileName": "C:\\Users\\lgolding\\AppData\\Local\\Temp\\bcef3d89-d123-4f33-b0de-1c3a541c8040\\bcef3d89-d123-4f33-b0de-1c3a541c8040\\assembly\\dl3\\acb70b02\\0b034856_91fdd101\\Sarif.dll",
+        "startTime": "2016-08-25T21:26:41.798Z",
+        "endTime": "2016-08-25T21:26:41.887Z",
+        "processId": 8856,
+        "fileName": "C:\\Users\\lgolding\\AppData\\Local\\Temp\\108c7547-93f9-41d7-9466-6cf860afad5d\\108c7547-93f9-41d7-9466-6cf860afad5d\\assembly\\dl3\\660ee2c2\\00b7775a_e6e9d101\\Sarif.dll",
         "workingDirectory": "G:\\Code\\sarif-sdk\\bld\\bin\\SarifCli.FunctionalTests\\AnyCPU_Release"
       }
     }

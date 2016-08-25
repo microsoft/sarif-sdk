@@ -61,7 +61,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Cli.Rules {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to In &quot;{0}&quot;, the name and id properties of rule &quot;{1}&quot; are the same..
+        ///   Looks up a localized string similar to In &quot;{0}&quot;, at &quot;{1}&quot;, the name and id properties of rule &quot;{2}&quot; are the same..
         /// </summary>
         internal static string SV0001_DefaultFormatId {
             get {
@@ -79,7 +79,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Cli.Rules {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to In &quot;{0}&quot;, the fragment portion of the URI &quot;{1}&quot;, which specifies the location of a nested file with respect to its parent, does not begin with a forward slash..
+        ///   Looks up a localized string similar to In &quot;{0}&quot;, at &quot;{1}&quot;, the fragment portion of the URI &quot;{2}&quot;, which specifies the location of a nested file with respect to its parent, does not begin with a forward slash..
         /// </summary>
         internal static string SV0002_DefaultFormatId {
             get {
