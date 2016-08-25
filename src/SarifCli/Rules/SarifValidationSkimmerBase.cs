@@ -64,6 +64,20 @@ namespace Microsoft.CodeAnalysis.Sarif.Cli.Rules
 
         private void Visit(Run run, string runPointer)
         {
+            if (run.Results != null)
+            {
+                Result[] results = run.Results.ToArray();
+                string resultsPointer = runPointer.AtProperty(SarifPropertyName.Results);
+
+                for (int iResult = 0; iResult < results.Length; ++iResult)
+                {
+                    Result result = results[iResult];
+                    string resultPointer = resultsPointer.AtIndex(iResult);
+
+                    Visit(result, resultPointer);
+                }
+            }
+
             if (run.Rules != null)
             {
                 Rule[] rules = run.Rules.Values.ToArray();
@@ -81,7 +95,48 @@ namespace Microsoft.CodeAnalysis.Sarif.Cli.Rules
             }
         }
 
-        protected virtual void Analyze(Rule rule, string jPointer)
+        private void Visit(Result result, string resultPointer)
+        {
+            if (result.Locations != null)
+            {
+                Location[] locations = result.Locations.ToArray();
+                string locationsPointer = resultPointer.AtProperty(SarifPropertyName.Locations);
+
+                for (int iLocation = 0; iLocation < locations.Length; ++iLocation)
+                {
+                    Location location = locations[iLocation];
+                    string locationPointer = locationsPointer.AtIndex(iLocation);
+
+                    Visit(location, locationPointer);
+                }
+            }
+        }
+
+        private void Visit(Location location, string locationPointer)
+        {
+            if (location.AnalysisTarget != null)
+            {
+                string analysisTargetPointer = locationPointer.AtProperty(SarifPropertyName.AnalysisTarget);
+                Visit(location.AnalysisTarget, analysisTargetPointer);
+            }
+
+            if (location.ResultFile != null)
+            {
+                string resultFilePointer = locationPointer.AtProperty(SarifPropertyName.ResultFile);
+                Visit(location.ResultFile, resultFilePointer);
+            }
+        }
+
+        private void Visit(PhysicalLocation physicalLocation, string physicalLocationPointer)
+        {
+            Analyze(physicalLocation, physicalLocationPointer);
+        }
+
+        protected virtual void Analyze(Rule rule, string rulePointer)
+        {
+        }
+
+        protected virtual void Analyze(PhysicalLocation physicalLocation, string physicalLocationPointer)
         {
         }
 
