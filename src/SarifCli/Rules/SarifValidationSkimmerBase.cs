@@ -54,14 +54,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Cli.Rules
                         {
                             Rule rule = rules[iRule];
                             string jPointer = $"/runs/{iRun}/rules/{rule.Id}";
-                            Visit(rule, jPointer);
+                            Analyze(rule, jPointer);
                         }
                     }
                 }
             }
         }
 
-        protected abstract void Visit(Rule rule, string jPointer);
+        protected abstract void Analyze(Rule rule, string jPointer);
 
         protected void LogResult(ResultLevel level, string jPointer, string formatId, params string[] args)
         {
@@ -71,10 +71,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Cli.Rules
                 RuleUtilities.BuildResult(ResultLevel.Warning, Context, region, formatId, args));
         }
 
-        private Region GetRegionFromJPointer(string jPointerValue)
+        private Region GetRegionFromJPointer(string jPointer)
         {
-            JsonPointer jPointer = new JsonPointer(jPointerValue);
-            JToken jToken = jPointer.Evaluate(InputLogToken);
+            JsonPointer jsonPointer = new JsonPointer(jPointer);
+            JToken jToken = jsonPointer.Evaluate(InputLogToken);
             IJsonLineInfo lineInfo = jToken;
 
             Region region = null;

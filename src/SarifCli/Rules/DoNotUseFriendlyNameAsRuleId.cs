@@ -3,7 +3,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace Microsoft.CodeAnalysis.Sarif.Cli.Rules
 {
@@ -27,7 +26,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Cli.Rules
             }
         }
 
-        protected override void Visit(Rule rule, string jPointer)
+        protected override void Analyze(Rule rule, string jPointer)
         {
             if (rule.Id != null
                 && rule.Name != null 
