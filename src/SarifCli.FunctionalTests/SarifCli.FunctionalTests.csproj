@@ -103,6 +103,12 @@
     <None Include="TestData\UseAbsolutePathsForNestedFileUriFragments\NestedFileUriFragmentIsRelativeInAnalysisTargetUri_Expected.sarif">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="TestData\UseAbsolutePathsForNestedFileUriFragments\NestedFileUriFragmentIsRelativeInResultFileUri.sarif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestData\UseAbsolutePathsForNestedFileUriFragments\NestedFileUriFragmentIsRelativeInResultFileUri_Expected.sarif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="TestData\UseAbsolutePathsForNestedFileUriFragments\NestedFileUriFragmentsAreAbsolute.sarif">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

@@ -20,7 +20,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Cli.FunctionalTests.Rules
             Verify(new UseAbsolutePathsForNestedFileUriFragments(), "NestedFileUriFragmentIsRelativeInAnalysisTargetUri.sarif");
         }
 
-        // TODO Add a test for ResultFile.Uri
+        [Fact]
+        public void UseAbsolutePathsForNestedFileUriFragments_Diagnostic_NestedFileUriFragmentIsRelativeInResultFileUri()
+        {
+            Verify(new UseAbsolutePathsForNestedFileUriFragments(), "NestedFileUriFragmentIsRelativeInResultFileUri.sarif");
+        }
+
         // TODO Add tests for other locations, like annotatedCodeLocation.Uri.
 
         [Fact]
