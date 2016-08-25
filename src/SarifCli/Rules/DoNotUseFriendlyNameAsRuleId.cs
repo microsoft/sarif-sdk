@@ -27,33 +27,16 @@ namespace Microsoft.CodeAnalysis.Sarif.Cli.Rules
             }
         }
 
-        protected override void AnalyzeCore()
+        protected override void Visit(Rule rule, string jPointer)
         {
-            if (InputLog.Runs != null)
+            if (rule.Id != null
+                && rule.Name != null 
+                && rule.Id.Equals(rule.Name, StringComparison.OrdinalIgnoreCase))
             {
-                Run[] runs = InputLog.Runs.ToArray();
-                for (int iRun = 0; iRun < runs.Length; ++iRun)
-                {
-                    Run run = runs[iRun];
-                    if (run.Rules != null)
-                    {
-                        Rule[] rules = run.Rules.Values.ToArray();
-                        for (int iRule = 0; iRule < rules.Length; ++iRule)
-                        {
-                            Rule rule = rules[iRule];
-                            if (rule.Id != null
-                                && rule.Name != null 
-                                && rule.Id.Equals(rule.Name, StringComparison.OrdinalIgnoreCase))
-                            {
-                                string jPointerValue = $"/runs/{iRun}/rules/{rule.Id}";
-                                Region region = GetRegionFromJPointer(jPointerValue);
+                Region region = GetRegionFromJPointer(jPointer);
 
-                                Context.Logger.Log(this,
-                                    RuleUtilities.BuildResult(ResultLevel.Warning, Context, region, nameof(RuleResources.SV0001_DefaultFormatId), rule.Id));
-                            }
-                        }
-                    }
-                }
+                Context.Logger.Log(this,
+                    RuleUtilities.BuildResult(ResultLevel.Warning, Context, region, nameof(RuleResources.SV0001_DefaultFormatId), rule.Id));
             }
         }
     }

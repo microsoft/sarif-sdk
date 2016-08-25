@@ -3,6 +3,7 @@
 
 using System;
 using System.IO;
+using System.Linq;
 using System.Resources;
 using Microsoft.CodeAnalysis.Sarif.Driver;
 using Microsoft.CodeAnalysis.Sarif.Readers;
@@ -40,10 +41,27 @@ namespace Microsoft.CodeAnalysis.Sarif.Cli.Rules
             InputLogToken = JToken.Parse(inputLogContents);
             InputLog = JsonConvert.DeserializeObject<SarifLog>(inputLogContents, settings);
 
-            AnalyzeCore();
+            if (InputLog.Runs != null)
+            {
+                Run[] runs = InputLog.Runs.ToArray();
+                for (int iRun = 0; iRun < runs.Length; ++iRun)
+                {
+                    Run run = runs[iRun];
+                    if (run.Rules != null)
+                    {
+                        Rule[] rules = run.Rules.Values.ToArray();
+                        for (int iRule = 0; iRule < rules.Length; ++iRule)
+                        {
+                            Rule rule = rules[iRule];
+                            string jPointer = $"/runs/{iRun}/rules/{rule.Id}";
+                            Visit(rule, jPointer);
+                        }
+                    }
+                }
+            }
         }
 
-        protected abstract void AnalyzeCore();
+        protected abstract void Visit(Rule rule, string jPointer);
 
         protected Region GetRegionFromJPointer(string jPointerValue)
         {
