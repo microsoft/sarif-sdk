@@ -19,12 +19,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Cli.Rules
             "https://rawgit.com/sarif-standard/sarif-spec/master/Static%20Analysis%20Results%20Interchange%20Format%20(SARIF).html";
 
         private readonly Uri _defaultHelpUri = new Uri(SarifSpecUri);
+        private JToken _rootToken;
 
         public override Uri HelpUri => _defaultHelpUri;
 
         protected SarifValidationContext Context { get; private set; }
-        protected SarifLog InputLog { get; private set; }
-        protected JToken InputLogToken { get; private set; }
 
         protected override sealed ResourceManager ResourceManager => RuleResources.ResourceManager;
 
@@ -32,18 +31,23 @@ namespace Microsoft.CodeAnalysis.Sarif.Cli.Rules
         {
             Context = context;
 
+            string logContents = File.ReadAllText(context.TargetUri.LocalPath);
+            _rootToken = JToken.Parse(logContents);
+
             JsonSerializerSettings settings = new JsonSerializerSettings
             {
                 ContractResolver = SarifContractResolver.Instance
             };
 
-            string inputLogContents = File.ReadAllText(context.TargetUri.LocalPath);
-            InputLogToken = JToken.Parse(inputLogContents);
-            InputLog = JsonConvert.DeserializeObject<SarifLog>(inputLogContents, settings);
+            SarifLog log = JsonConvert.DeserializeObject<SarifLog>(logContents, settings);
+            Visit(log);
+        }
 
-            if (InputLog.Runs != null)
+        private void Visit(SarifLog log)
+        {
+            if (log.Runs != null)
             {
-                Run[] runs = InputLog.Runs.ToArray();
+                Run[] runs = log.Runs.ToArray();
                 for (int iRun = 0; iRun < runs.Length; ++iRun)
                 {
                     Run run = runs[iRun];
@@ -74,7 +78,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Cli.Rules
         private Region GetRegionFromJPointer(string jPointer)
         {
             JsonPointer jsonPointer = new JsonPointer(jPointer);
-            JToken jToken = jsonPointer.Evaluate(InputLogToken);
+            JToken jToken = jsonPointer.Evaluate(_rootToken);
             IJsonLineInfo lineInfo = jToken;
 
             Region region = null;
