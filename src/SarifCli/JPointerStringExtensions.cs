@@ -3,6 +3,7 @@
 
 namespace Microsoft.CodeAnalysis.Sarif.Cli
 {
+    // TODO: These methods belong in the Microsoft.Json.Pointer library.
     internal static class JPointerStringExtensions
     {
         internal static string AtProperty(this string jPointer, string propertyName)
@@ -23,8 +24,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Cli
         // When escaping, the "~" replacement must come first. Otherwise, the string "/"
         // would translate to "~01" instead of the correct "~1". Similarly, when
         // unescaping, the "~1" replacement must come first.
-        //
-        // TODO: These methods belong in the Microsoft.Json.Pointer library.
         internal static string EscapeJsonPointer(this string propertyName)
         {
             return propertyName.Replace("~", "~0").Replace("/", "~1");

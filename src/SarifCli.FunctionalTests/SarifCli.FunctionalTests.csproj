@@ -91,6 +91,12 @@
     <None Include="TestData\DoNotUseFriendlyNameAsRuleId\RuleIdMatchesFriendlyName_Expected.sarif">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="TestData\UseAbsolutePathsForNestedFileUriFragments\NestedFileUriFragmentIsRelativeInCodeFlowLocationUri.sarif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestData\UseAbsolutePathsForNestedFileUriFragments\NestedFileUriFragmentIsRelativeInCodeFlowLocationUri_Expected.sarif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="TestData\UseAbsolutePathsForNestedFileUriFragments\NestedFileUriFragmentIsRelativeInFilePropertyName.sarif">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

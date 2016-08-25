@@ -125,6 +125,20 @@ namespace Microsoft.CodeAnalysis.Sarif.Cli.Rules
                 }
             }
 
+            if (result.CodeFlows != null)
+            {
+                CodeFlow[] codeFlows = result.CodeFlows.ToArray();
+                string codeFlowsPointer = resultPointer.AtProperty(SarifPropertyName.CodeFlows);
+
+                for (int iCodeFlow = 0; iCodeFlow < codeFlows.Length; ++iCodeFlow)
+                {
+                    CodeFlow codeFlow = codeFlows[iCodeFlow];
+                    string codeFlowPointer = codeFlowsPointer.AtIndex(iCodeFlow);
+
+                    Visit(codeFlow, codeFlowPointer);
+                }
+            }
+
             if (result.RelatedLocations != null)
             {
                 AnnotatedCodeLocation[] relatedLocations = result.RelatedLocations.ToArray();
@@ -146,6 +160,23 @@ namespace Microsoft.CodeAnalysis.Sarif.Cli.Rules
             {
                 string physicalLocationPointer = annotatedCodeLocationPointer.AtProperty(SarifPropertyName.PhysicalLocation);
                 Visit(annotatedCodeLocation.PhysicalLocation, physicalLocationPointer);
+            }
+        }
+
+        private void Visit(CodeFlow codeFlow, string codeFlowPointer)
+        {
+            if (codeFlow.Locations != null)
+            {
+                AnnotatedCodeLocation[] annotatedCodeLocations = codeFlow.Locations.ToArray();
+                string annotatedCodeLocationsPointer = codeFlowPointer.AtProperty(SarifPropertyName.Locations);
+
+                for (int iAnnotatedCodeLocation = 0; iAnnotatedCodeLocation < annotatedCodeLocations.Length; ++iAnnotatedCodeLocation)
+                {
+                    AnnotatedCodeLocation annotatedCodeLocation = annotatedCodeLocations[iAnnotatedCodeLocation];
+                    string annotatedCodeLocationPointer = annotatedCodeLocationsPointer.AtIndex(iAnnotatedCodeLocation);
+
+                    Visit(annotatedCodeLocation, annotatedCodeLocationPointer);
+                }
             }
         }
 
