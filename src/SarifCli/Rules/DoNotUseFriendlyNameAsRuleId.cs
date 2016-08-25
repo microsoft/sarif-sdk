@@ -27,12 +27,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Cli.Rules
             }
         }
 
-        protected override void AnalyzeCore(SarifValidationContext context)
+        protected override void AnalyzeCore()
         {
-            SarifLog log = context.InputLog;
-            if (log.Runs != null)
+            if (InputLog.Runs != null)
             {
-                Run[] runs = log.Runs.ToArray();
+                Run[] runs = InputLog.Runs.ToArray();
                 for (int iRun = 0; iRun < runs.Length; ++iRun)
                 {
                     Run run = runs[iRun];
@@ -47,10 +46,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Cli.Rules
                                 && rule.Id.Equals(rule.Name, StringComparison.OrdinalIgnoreCase))
                             {
                                 string jPointerValue = $"/runs/{iRun}/rules/{rule.Id}";
-                                Region region = GetRegionFromJPointer(jPointerValue, context);
+                                Region region = GetRegionFromJPointer(jPointerValue);
 
-                                context.Logger.Log(this,
-                                    RuleUtilities.BuildResult(ResultLevel.Warning, context, region, nameof(RuleResources.SV0001_DefaultFormatId), rule.Id));
+                                Context.Logger.Log(this,
+                                    RuleUtilities.BuildResult(ResultLevel.Warning, Context, region, nameof(RuleResources.SV0001_DefaultFormatId), rule.Id));
                             }
                         }
                     }

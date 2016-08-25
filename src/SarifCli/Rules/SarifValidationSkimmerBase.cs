@@ -21,28 +21,34 @@ namespace Microsoft.CodeAnalysis.Sarif.Cli.Rules
 
         public override Uri HelpUri => _defaultHelpUri;
 
+        protected SarifValidationContext Context { get; private set; }
+        protected SarifLog InputLog { get; private set; }
+        protected JToken InputLogToken { get; private set; }
+
         protected override ResourceManager ResourceManager => RuleResources.ResourceManager;
 
         public override void Analyze(SarifValidationContext context)
         {
+            Context = context;
+
             JsonSerializerSettings settings = new JsonSerializerSettings
             {
                 ContractResolver = SarifContractResolver.Instance
             };
 
             string inputLogContents = File.ReadAllText(context.TargetUri.LocalPath);
-            context.InputLogToken = JToken.Parse(inputLogContents);
-            context.InputLog = JsonConvert.DeserializeObject<SarifLog>(inputLogContents, settings);
+            InputLogToken = JToken.Parse(inputLogContents);
+            InputLog = JsonConvert.DeserializeObject<SarifLog>(inputLogContents, settings);
 
-            AnalyzeCore(context);
+            AnalyzeCore();
         }
 
-        protected abstract void AnalyzeCore(SarifValidationContext context);
+        protected abstract void AnalyzeCore();
 
-        protected Region GetRegionFromJPointer(string jPointerValue, SarifValidationContext context)
+        protected Region GetRegionFromJPointer(string jPointerValue)
         {
             JsonPointer jPointer = new JsonPointer(jPointerValue);
-            JToken jToken = jPointer.Evaluate(context.InputLogToken);
+            JToken jToken = jPointer.Evaluate(InputLogToken);
             IJsonLineInfo lineInfo = jToken;
 
             Region region = null;
