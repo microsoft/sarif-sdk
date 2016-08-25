@@ -27,9 +27,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Cli.FunctionalTests.Rules
         }
 
         [Fact]
-        public void UseAbsolutePathsForNestedFileUriFragments_Diagnostic_NestedFileUriFragmentIsCodeFlowLocationUri()
+        public void UseAbsolutePathsForNestedFileUriFragments_Diagnostic_NestedFileUriFragmentInCodeFlowLocationUri()
         {
             Verify(new UseAbsolutePathsForNestedFileUriFragments(), "NestedFileUriFragmentIsRelativeInCodeFlowLocationUri.sarif");
+        }
+
+        [Fact]
+        public void UseAbsolutePathsForNestedFileUriFragments_Diagnostic_NestedFileUriFragmentInStackFrameUri()
+        {
+            Verify(new UseAbsolutePathsForNestedFileUriFragments(), "NestedFileUriFragmentIsRelativeInStackFrameUri.sarif");
         }
 
         [Fact]

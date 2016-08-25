@@ -26,20 +26,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Cli.Rules
             }
         }
 
-        protected override void Analyze(PhysicalLocation physicalLocation, string physicalLocationPointer)
-        {
-            if (UriHasNonAbsoluteFragment(physicalLocation.Uri))
-            {
-                string uriPointer = physicalLocationPointer.AtProperty(SarifPropertyName.Uri);
-
-                LogResult(
-                    ResultLevel.Warning,
-                    uriPointer,
-                    nameof(RuleResources.SV0002_DefaultFormatId),
-                    physicalLocation.Uri.OriginalString);
-            }
-        }
-
         protected override void Analyze(FileData fileData, string fileKey, string filePointer)
         {
             try
@@ -68,6 +54,34 @@ namespace Microsoft.CodeAnalysis.Sarif.Cli.Rules
                     uriPointer,
                     nameof(RuleResources.SV0002_DefaultFormatId),
                     fileData.Uri.OriginalString);
+            }
+        }
+
+        protected override void Analyze(PhysicalLocation physicalLocation, string physicalLocationPointer)
+        {
+            if (UriHasNonAbsoluteFragment(physicalLocation.Uri))
+            {
+                string uriPointer = physicalLocationPointer.AtProperty(SarifPropertyName.Uri);
+
+                LogResult(
+                    ResultLevel.Warning,
+                    uriPointer,
+                    nameof(RuleResources.SV0002_DefaultFormatId),
+                    physicalLocation.Uri.OriginalString);
+            }
+        }
+
+        protected override void Analyze(StackFrame frame, string framePointer)
+        {
+            if (UriHasNonAbsoluteFragment(frame.Uri))
+            {
+                string uriPointer = framePointer.AtProperty(SarifPropertyName.Uri);
+
+                LogResult(
+                    ResultLevel.Warning,
+                    uriPointer,
+                    nameof(RuleResources.SV0002_DefaultFormatId),
+                    frame.Uri.OriginalString);
             }
         }
 

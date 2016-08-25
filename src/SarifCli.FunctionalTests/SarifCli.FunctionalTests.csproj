@@ -121,6 +121,12 @@
     <None Include="TestData\UseAbsolutePathsForNestedFileUriFragments\NestedFileUriFragmentIsRelativeInResultFileUri_Expected.sarif">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="TestData\UseAbsolutePathsForNestedFileUriFragments\NestedFileUriFragmentIsRelativeInStackFrameUri.sarif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestData\UseAbsolutePathsForNestedFileUriFragments\NestedFileUriFragmentIsRelativeInStackFrameUri_Expected.sarif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="TestData\UseAbsolutePathsForNestedFileUriFragments\NestedFileUriFragmentsAreAbsolute.sarif">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

@@ -63,6 +63,116 @@ namespace Microsoft.CodeAnalysis.Sarif.Cli.Rules
             }
         }
 
+        private void Visit(AnnotatedCodeLocation annotatedCodeLocation, string annotatedCodeLocationPointer)
+        {
+            if (annotatedCodeLocation.PhysicalLocation != null)
+            {
+                string physicalLocationPointer = annotatedCodeLocationPointer.AtProperty(SarifPropertyName.PhysicalLocation);
+                Visit(annotatedCodeLocation.PhysicalLocation, physicalLocationPointer);
+            }
+        }
+
+        private void Visit(CodeFlow codeFlow, string codeFlowPointer)
+        {
+            if (codeFlow.Locations != null)
+            {
+                AnnotatedCodeLocation[] annotatedCodeLocations = codeFlow.Locations.ToArray();
+                string annotatedCodeLocationsPointer = codeFlowPointer.AtProperty(SarifPropertyName.Locations);
+
+                for (int iAnnotatedCodeLocation = 0; iAnnotatedCodeLocation < annotatedCodeLocations.Length; ++iAnnotatedCodeLocation)
+                {
+                    AnnotatedCodeLocation annotatedCodeLocation = annotatedCodeLocations[iAnnotatedCodeLocation];
+                    string annotatedCodeLocationPointer = annotatedCodeLocationsPointer.AtIndex(iAnnotatedCodeLocation);
+
+                    Visit(annotatedCodeLocation, annotatedCodeLocationPointer);
+                }
+            }
+        }
+
+        private void Visit(FileData fileData, string fileKey, string filePointer)
+        {
+            Analyze(fileData, fileKey, filePointer);
+        }
+
+        private void Visit(Location location, string locationPointer)
+        {
+            if (location.AnalysisTarget != null)
+            {
+                string analysisTargetPointer = locationPointer.AtProperty(SarifPropertyName.AnalysisTarget);
+                Visit(location.AnalysisTarget, analysisTargetPointer);
+            }
+
+            if (location.ResultFile != null)
+            {
+                string resultFilePointer = locationPointer.AtProperty(SarifPropertyName.ResultFile);
+                Visit(location.ResultFile, resultFilePointer);
+            }
+        }
+
+        private void Visit(PhysicalLocation physicalLocation, string physicalLocationPointer)
+        {
+            Analyze(physicalLocation, physicalLocationPointer);
+        }
+
+        private void Visit(Result result, string resultPointer)
+        {
+            if (result.Locations != null)
+            {
+                Location[] locations = result.Locations.ToArray();
+                string locationsPointer = resultPointer.AtProperty(SarifPropertyName.Locations);
+
+                for (int iLocation = 0; iLocation < locations.Length; ++iLocation)
+                {
+                    Location location = locations[iLocation];
+                    string locationPointer = locationsPointer.AtIndex(iLocation);
+
+                    Visit(location, locationPointer);
+                }
+            }
+
+            if (result.CodeFlows != null)
+            {
+                CodeFlow[] codeFlows = result.CodeFlows.ToArray();
+                string codeFlowsPointer = resultPointer.AtProperty(SarifPropertyName.CodeFlows);
+
+                for (int iCodeFlow = 0; iCodeFlow < codeFlows.Length; ++iCodeFlow)
+                {
+                    CodeFlow codeFlow = codeFlows[iCodeFlow];
+                    string codeFlowPointer = codeFlowsPointer.AtIndex(iCodeFlow);
+
+                    Visit(codeFlow, codeFlowPointer);
+                }
+            }
+
+            if (result.Stacks != null)
+            {
+                Stack[] stacks = result.Stacks.ToArray();
+                string stacksPointer = resultPointer.AtProperty(SarifPropertyName.Stacks);
+
+                for (int iStack = 0; iStack < stacks.Length; ++iStack)
+                {
+                    Stack stack = stacks[iStack];
+                    string stackPointer = stacksPointer.AtIndex(iStack);
+
+                    Visit(stack, stackPointer);
+                }
+            }
+
+            if (result.RelatedLocations != null)
+            {
+                AnnotatedCodeLocation[] relatedLocations = result.RelatedLocations.ToArray();
+                string relatedLocationsPointer = resultPointer.AtProperty(SarifPropertyName.RelatedLocations);
+
+                for (int iRelatedLocation = 0; iRelatedLocation < relatedLocations.Length; ++iRelatedLocation)
+                {
+                    AnnotatedCodeLocation relatedLocation = relatedLocations[iRelatedLocation];
+                    string relatedLocationPointer = relatedLocationsPointer.AtIndex(iRelatedLocation);
+
+                    Visit(relatedLocation, relatedLocationPointer);
+                }
+            }
+        }
+
         private void Visit(Run run, string runPointer)
         {
             if (run.Results != null)
@@ -109,103 +219,29 @@ namespace Microsoft.CodeAnalysis.Sarif.Cli.Rules
             }
         }
 
-        private void Visit(Result result, string resultPointer)
+        private void Visit(Stack stack, string stackPointer)
         {
-            if (result.Locations != null)
+            if (stack.Frames != null)
             {
-                Location[] locations = result.Locations.ToArray();
-                string locationsPointer = resultPointer.AtProperty(SarifPropertyName.Locations);
+                StackFrame[] frames = stack.Frames.ToArray();
+                string framesPointer = stackPointer.AtProperty(SarifPropertyName.Frames);
 
-                for (int iLocation = 0; iLocation < locations.Length; ++iLocation)
+                for (int iFrame = 0; iFrame < frames.Length; ++iFrame)
                 {
-                    Location location = locations[iLocation];
-                    string locationPointer = locationsPointer.AtIndex(iLocation);
+                    StackFrame frame = frames[iFrame];
+                    string framePointer = framesPointer.AtIndex(iFrame);
 
-                    Visit(location, locationPointer);
-                }
-            }
-
-            if (result.CodeFlows != null)
-            {
-                CodeFlow[] codeFlows = result.CodeFlows.ToArray();
-                string codeFlowsPointer = resultPointer.AtProperty(SarifPropertyName.CodeFlows);
-
-                for (int iCodeFlow = 0; iCodeFlow < codeFlows.Length; ++iCodeFlow)
-                {
-                    CodeFlow codeFlow = codeFlows[iCodeFlow];
-                    string codeFlowPointer = codeFlowsPointer.AtIndex(iCodeFlow);
-
-                    Visit(codeFlow, codeFlowPointer);
-                }
-            }
-
-            if (result.RelatedLocations != null)
-            {
-                AnnotatedCodeLocation[] relatedLocations = result.RelatedLocations.ToArray();
-                string relatedLocationsPointer = resultPointer.AtProperty(SarifPropertyName.RelatedLocations);
-
-                for (int iRelatedLocation = 0; iRelatedLocation < relatedLocations.Length; ++iRelatedLocation)
-                {
-                    AnnotatedCodeLocation relatedLocation = relatedLocations[iRelatedLocation];
-                    string relatedLocationPointer = relatedLocationsPointer.AtIndex(iRelatedLocation);
-
-                    Visit(relatedLocation, relatedLocationPointer);
+                    Visit(frame, framePointer);
                 }
             }
         }
 
-        private void Visit(AnnotatedCodeLocation annotatedCodeLocation, string annotatedCodeLocationPointer)
+        private void Visit(StackFrame frame, string framePointer)
         {
-            if (annotatedCodeLocation.PhysicalLocation != null)
-            {
-                string physicalLocationPointer = annotatedCodeLocationPointer.AtProperty(SarifPropertyName.PhysicalLocation);
-                Visit(annotatedCodeLocation.PhysicalLocation, physicalLocationPointer);
-            }
+            Analyze(frame, framePointer);
         }
 
-        private void Visit(CodeFlow codeFlow, string codeFlowPointer)
-        {
-            if (codeFlow.Locations != null)
-            {
-                AnnotatedCodeLocation[] annotatedCodeLocations = codeFlow.Locations.ToArray();
-                string annotatedCodeLocationsPointer = codeFlowPointer.AtProperty(SarifPropertyName.Locations);
-
-                for (int iAnnotatedCodeLocation = 0; iAnnotatedCodeLocation < annotatedCodeLocations.Length; ++iAnnotatedCodeLocation)
-                {
-                    AnnotatedCodeLocation annotatedCodeLocation = annotatedCodeLocations[iAnnotatedCodeLocation];
-                    string annotatedCodeLocationPointer = annotatedCodeLocationsPointer.AtIndex(iAnnotatedCodeLocation);
-
-                    Visit(annotatedCodeLocation, annotatedCodeLocationPointer);
-                }
-            }
-        }
-
-        private void Visit(Location location, string locationPointer)
-        {
-            if (location.AnalysisTarget != null)
-            {
-                string analysisTargetPointer = locationPointer.AtProperty(SarifPropertyName.AnalysisTarget);
-                Visit(location.AnalysisTarget, analysisTargetPointer);
-            }
-
-            if (location.ResultFile != null)
-            {
-                string resultFilePointer = locationPointer.AtProperty(SarifPropertyName.ResultFile);
-                Visit(location.ResultFile, resultFilePointer);
-            }
-        }
-
-        private void Visit(PhysicalLocation physicalLocation, string physicalLocationPointer)
-        {
-            Analyze(physicalLocation, physicalLocationPointer);
-        }
-
-        private void Visit(FileData fileData, string fileKey, string filePointer)
-        {
-            Analyze(fileData, fileKey, filePointer);
-        }
-
-        protected virtual void Analyze(Rule rule, string rulePointer)
+        protected virtual void Analyze(FileData fileData, string fileKey, string filePointer)
         {
         }
 
@@ -213,7 +249,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Cli.Rules
         {
         }
 
-        protected virtual void Analyze(FileData fileData, string fileKey, string filePointer)
+        protected virtual void Analyze(Rule rule, string rulePointer)
+        {
+        }
+
+        protected virtual void Analyze(StackFrame frame, string framePointer)
         {
         }
 
