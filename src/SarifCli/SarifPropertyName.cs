@@ -8,6 +8,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Cli
         public const string AnalysisTarget = "analysisTarget";
         public const string Files = "files";
         public const string Locations = "locations";
+        public const string PhysicalLocation = "physicalLocation";
+        public const string RelatedLocations = "relatedLocations";
         public const string ResultFile = "resultFile";
         public const string Results = "results";
         public const string Rules = "rules";

@@ -26,7 +26,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Cli.FunctionalTests.Rules
             Verify(new UseAbsolutePathsForNestedFileUriFragments(), "NestedFileUriFragmentIsRelativeInResultFileUri.sarif");
         }
 
-        // TODO Add tests for other locations, like annotatedCodeLocation.Uri.
+        [Fact]
+        public void UseAbsolutePathsForNestedFileUriFragments_Diagnostic_NestedFileUriFragmentIsRelatedRelativeInLocationUri()
+        {
+            Verify(new UseAbsolutePathsForNestedFileUriFragments(), "NestedFileUriFragmentIsRelativeInRelatedLocationUri.sarif");
+        }
 
         [Fact]
         public void UseAbsolutePathsForNestedFileUriFragments_Diagnostic_NestedFileUriFragmentIsRelativeInFilePropertyName()

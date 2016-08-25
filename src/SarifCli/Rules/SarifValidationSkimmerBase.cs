@@ -124,6 +124,29 @@ namespace Microsoft.CodeAnalysis.Sarif.Cli.Rules
                     Visit(location, locationPointer);
                 }
             }
+
+            if (result.RelatedLocations != null)
+            {
+                AnnotatedCodeLocation[] relatedLocations = result.RelatedLocations.ToArray();
+                string relatedLocationsPointer = resultPointer.AtProperty(SarifPropertyName.RelatedLocations);
+
+                for (int iRelatedLocation = 0; iRelatedLocation < relatedLocations.Length; ++iRelatedLocation)
+                {
+                    AnnotatedCodeLocation relatedLocation = relatedLocations[iRelatedLocation];
+                    string relatedLocationPointer = relatedLocationsPointer.AtIndex(iRelatedLocation);
+
+                    Visit(relatedLocation, relatedLocationPointer);
+                }
+            }
+        }
+
+        private void Visit(AnnotatedCodeLocation annotatedCodeLocation, string annotatedCodeLocationPointer)
+        {
+            if (annotatedCodeLocation.PhysicalLocation != null)
+            {
+                string physicalLocationPointer = annotatedCodeLocationPointer.AtProperty(SarifPropertyName.PhysicalLocation);
+                Visit(annotatedCodeLocation.PhysicalLocation, physicalLocationPointer);
+            }
         }
 
         private void Visit(Location location, string locationPointer)
