@@ -254,7 +254,7 @@
           "ruleId": "C2152",
           "level": "error",
           "message": "Exception evaluating rule \"C2152\". Rule disabled; run continues.",
-          "analysisTarget": {
+          "physicalLocation": {
             "uri": "file:///home/buildAgent/src/crypto/hash.cpp"
           },
           "threadId": 52,
