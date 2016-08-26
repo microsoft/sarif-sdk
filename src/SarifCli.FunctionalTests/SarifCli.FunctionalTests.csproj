@@ -97,6 +97,12 @@
     <None Include="TestData\UseAbsolutePathsForNestedFileUriFragments\NestedFileUriFragmentIsRelativeInCodeFlowLocationUri_Expected.sarif">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="TestData\UseAbsolutePathsForNestedFileUriFragments\NestedFileUriFragmentIsRelativeInConfigurationNotificationUri.sarif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestData\UseAbsolutePathsForNestedFileUriFragments\NestedFileUriFragmentIsRelativeInConfigurationNotificationUri_Expected.sarif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="TestData\UseAbsolutePathsForNestedFileUriFragments\NestedFileUriFragmentIsRelativeInFilePropertyName.sarif">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -125,6 +131,12 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="TestData\UseAbsolutePathsForNestedFileUriFragments\NestedFileUriFragmentIsRelativeInStackFrameUri_Expected.sarif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestData\UseAbsolutePathsForNestedFileUriFragments\NestedFileUriFragmentIsRelativeInToolNotificationUri.sarif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestData\UseAbsolutePathsForNestedFileUriFragments\NestedFileUriFragmentIsRelativeInToolNotificationUri_Expected.sarif">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="TestData\UseAbsolutePathsForNestedFileUriFragments\NestedFileUriFragmentsAreAbsolute.sarif">

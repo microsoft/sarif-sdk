@@ -7,6 +7,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Cli
     {
         public const string AnalysisTarget = "analysisTarget";
         public const string CodeFlows = "codeFlows";
+        public const string ConfigurationNotifications = "configurationNotifications";
         public const string Files = "files";
         public const string Frames = "frames";
         public const string Locations = "locations";
@@ -17,6 +18,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Cli
         public const string Rules = "rules";
         public const string Runs = "runs";
         public const string Stacks = "stacks";
+        public const string ToolNotifications = "toolNotifications";
         public const string Uri = "uri";
     }
 }
