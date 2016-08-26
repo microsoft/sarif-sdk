@@ -65,6 +65,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Cli.Rules
 
         private void Visit(AnnotatedCodeLocation annotatedCodeLocation, string annotatedCodeLocationPointer)
         {
+            Analyze(annotatedCodeLocation, annotatedCodeLocationPointer);
+
             if (annotatedCodeLocation.PhysicalLocation != null)
             {
                 string physicalLocationPointer = annotatedCodeLocationPointer.AtProperty(SarifPropertyName.PhysicalLocation);
@@ -311,6 +313,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Cli.Rules
             Analyze(frame, framePointer);
         }
 
+        protected virtual void Analyze(AnnotatedCodeLocation annotatedCodeLocation, string annotatedCodeLocationPointer)
+        {
+        }
+
         protected virtual void Analyze(FileChange fileChange, string fileChangePointer)
         {
         }
@@ -331,7 +337,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Cli.Rules
         {
         }
 
-        protected void LogResult(ResultLevel level, string jPointer, string formatId, params string[] args)
+        protected void LogResult(string jPointer, string formatId, params string[] args)
         {
             Region region = GetRegionFromJPointer(jPointer);
 
@@ -342,7 +348,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Cli.Rules
             argsWithPointer[0] = jPointer;
 
             Context.Logger.Log(this,
-                RuleUtilities.BuildResult(ResultLevel.Warning, Context, region, formatId, argsWithPointer));
+                RuleUtilities.BuildResult(DefaultLevel, Context, region, formatId, argsWithPointer));
         }
 
         private Region GetRegionFromJPointer(string jPointer)

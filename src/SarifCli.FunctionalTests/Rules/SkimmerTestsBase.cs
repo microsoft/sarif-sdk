@@ -96,6 +96,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Cli.FunctionalTests.Rules
 
                     actualResult.RuleId.Should().Be(expectedResult.RuleId);
 
+                    actualResult.Level.Should().Be(expectedResult.Level);
+
                     actualResult.Locations[0].AnalysisTarget.Region.ValueEquals(
                         expectedResult.Locations[0].AnalysisTarget.Region).Should().BeTrue();
                 }

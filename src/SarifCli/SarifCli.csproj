@@ -6,6 +6,21 @@
     <RootNamespace>Microsoft.CodeAnalysis.Sarif.Cli</RootNamespace>
     <AssemblyName>SarifCli</AssemblyName>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
   <PropertyGroup>
     <SignAssembly>true</SignAssembly>
@@ -72,6 +87,7 @@
   <ItemGroup>
     <Compile Include="ExportRulesMetadataCommand.cs" />
     <Compile Include="JPointerStringExtensions.cs" />
+    <Compile Include="Rules\AnnotatedCodeLocationIdIsObsolete.cs" />
     <Compile Include="Rules\DoNotUseFriendlyNameAsRuleId.cs" />
     <Compile Include="Rules\RuleResources.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -80,6 +96,7 @@
     </Compile>
     <Compile Include="Rules\RuleId.cs" />
     <Compile Include="Rules\SarifValidationSkimmerBase.cs" />
+    <Compile Include="Rules\UrisMustBeValid.cs" />
     <Compile Include="Rules\UseAbsolutePathsForNestedFileUriFragments.cs" />
     <Compile Include="SarifPropertyName.cs" />
     <Compile Include="SarifValidationContext.cs" />
@@ -108,6 +125,18 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>RuleResources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.5.1">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4.5.1 %28x86 and x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

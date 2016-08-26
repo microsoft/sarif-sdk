@@ -12,6 +12,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Cli
         public const string Files = "files";
         public const string Fixes = "fixes";
         public const string Frames = "frames";
+        public const string Id = "id";
         public const string Locations = "locations";
         public const string PhysicalLocation = "physicalLocation";
         public const string RelatedLocations = "relatedLocations";

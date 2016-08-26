@@ -10,6 +10,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Cli.Rules
     {
         public override string FullDescription => RuleResources.SV0002_UseAbsolutePathsForNestedFileUriFragmentsDescription;
 
+        public override ResultLevel DefaultLevel => ResultLevel.Error;
+
         /// <summary>
         /// SV0002
         /// </summary>
@@ -39,7 +41,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Cli.Rules
                 if (UriHasNonAbsoluteFragment(fileUri))
                 {
                     LogResult(
-                        ResultLevel.Warning,
                         filePointer,
                         nameof(RuleResources.SV0002_DefaultFormatId),
                         fileUri.OriginalString);
@@ -47,7 +48,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Cli.Rules
             }
             catch
             {
-                // It wasn't a value URI. TODO: implement another rule to check that.
+                // It wasn't a value URI. Rule SV0003, UrisMustBeValid, will catch this problem.
             }
 
             AnalyzeUri(fileData.Uri, filePointer);
@@ -70,7 +71,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Cli.Rules
                 string uriPointer = parentPointer.AtProperty(SarifPropertyName.Uri);
 
                 LogResult(
-                    ResultLevel.Warning,
                     uriPointer,
                     nameof(RuleResources.SV0002_DefaultFormatId),
                     uri.OriginalString);

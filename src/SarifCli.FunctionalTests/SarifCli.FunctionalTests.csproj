@@ -65,8 +65,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Rules\AnnotatedCodeLocationIdIsObsoleteTests.cs" />
     <Compile Include="Rules\DoNotUseFriendlyNameAsRuleIdTests.cs" />
     <Compile Include="Rules\SkimmerTestsBase.cs" />
+    <Compile Include="Rules\UrisMustBeValidTests.cs" />
     <Compile Include="Rules\UseAbsolutePathsForNestedFileUriFragmentsTests.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -79,6 +81,24 @@
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>
+    <None Include="TestData\AnnotatedCodeLocationIdIsObsolete\AnnotatedCodeLocationDoesNotHaveId.sarif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestData\AnnotatedCodeLocationIdIsObsolete\AnnotatedCodeLocationDoesNotHaveId_Expected.sarif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestData\AnnotatedCodeLocationIdIsObsolete\AnnotatedCodeLocationHasIdInCodeFlow_Expected.sarif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestData\AnnotatedCodeLocationIdIsObsolete\AnnotatedCodeLocationHasIdInRelatedLocation.sarif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestData\AnnotatedCodeLocationIdIsObsolete\AnnotatedCodeLocationHasIdInRelatedLocation_Expected.sarif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestData\AnnotatedCodeLocationIdIsObsolete\AnnotatedCodeLocationHasIdInCodeFlow.sarif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="TestData\DoNotUseFriendlyNameAsRuleId\RuleIdDoesNotMatchFriendlyName.sarif">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -89,6 +109,72 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="TestData\DoNotUseFriendlyNameAsRuleId\RuleIdMatchesFriendlyName_Expected.sarif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestData\UrisMustBeValid\InvalidHelpUriInRule.sarif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestData\UrisMustBeValid\InvalidHelpUriInRule_Expected.sarif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestData\UrisMustBeValid\InvalidUriInAnalysisTarget.sarif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestData\UrisMustBeValid\InvalidUriInAnalysisTarget_Expected.sarif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestData\UrisMustBeValid\InvalidUriInCodeFlowLocation.sarif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestData\UrisMustBeValid\InvalidUriInCodeFlowLocation_Expected.sarif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestData\UrisMustBeValid\InvalidUriInConfigurationNotification.sarif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestData\UrisMustBeValid\InvalidUriInConfigurationNotification_Expected.sarif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestData\UrisMustBeValid\InvalidUriInFileChange.sarif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestData\UrisMustBeValid\InvalidUriInFileChange_Expected.sarif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestData\UrisMustBeValid\InvalidUriInFilePropertyName_Expected.sarif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestData\UrisMustBeValid\InvalidUriInFilePropertyName.sarif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestData\UrisMustBeValid\InvalidUriInRelatedLocation.sarif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestData\UrisMustBeValid\InvalidUriInRelatedLocation_Expected.sarif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestData\UrisMustBeValid\InvalidUriInResultFile.sarif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestData\UrisMustBeValid\InvalidUriInResultFile_Expected.sarif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestData\UrisMustBeValid\InvalidUriInStackFrame.sarif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestData\UrisMustBeValid\InvalidUriInStackFrame_Expected.sarif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestData\UrisMustBeValid\InvalidUriInToolNotification.sarif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestData\UrisMustBeValid\InvalidUriInToolNotification_Expected.sarif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestData\UrisMustBeValid\ValidUris.sarif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestData\UrisMustBeValid\ValidUris_Expected.sarif">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="TestData\UseAbsolutePathsForNestedFileUriFragments\NestedFileUriFragmentIsRelativeInCodeFlowLocationUri.sarif">
@@ -155,6 +241,7 @@
   <ItemGroup>
     <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="CopySchema" AfterTargets="Build">
     <Copy SourceFiles="$(SolutionDir)\Sarif\Schemata\Sarif.schema.json" DestinationFolder="$(OutDir)" />

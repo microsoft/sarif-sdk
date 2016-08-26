@@ -10,6 +10,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Cli.Rules
     {
         public override string FullDescription => RuleResources.SV0001_DoNotUseFriendlyNameAsRuleIdDescription;
 
+        public override ResultLevel DefaultLevel => ResultLevel.Warning;
+
         /// <summary>
         /// SV0001
         /// </summary>
@@ -33,7 +35,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Cli.Rules
                 && rule.Id.Equals(rule.Name, StringComparison.OrdinalIgnoreCase))
             {
                 LogResult(
-                    ResultLevel.Warning,
                     rulePointer,
                     nameof(RuleResources.SV0001_DefaultFormatId),
                     rule.Id);

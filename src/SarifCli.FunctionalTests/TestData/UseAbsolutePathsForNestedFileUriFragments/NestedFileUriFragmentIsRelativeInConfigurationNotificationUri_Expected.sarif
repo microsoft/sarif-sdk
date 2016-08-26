@@ -20,7 +20,7 @@
       "results": [
         {
           "ruleId": "SV0002",
-          "level": "warning",
+          "level": "error",
           "formattedRuleMessage": {
             "formatId": "DefaultFormatId",
             "arguments": [

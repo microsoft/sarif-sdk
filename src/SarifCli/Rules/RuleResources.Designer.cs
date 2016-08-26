@@ -95,5 +95,50 @@ namespace Microsoft.CodeAnalysis.Sarif.Cli.Rules {
                 return ResourceManager.GetString("SV0002_UseAbsolutePathsForNestedFileUriFragmentsDescription", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to In &quot;{0}&quot;, at &quot;{1}&quot;, the string &quot;{2}&quot; is not a valid URI reference..
+        /// </summary>
+        internal static string SV0003_DefaultFormatId {
+            get {
+                return ResourceManager.GetString("SV0003_DefaultFormatId", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Specify a valid URI reference for every URI-valued property..
+        /// </summary>
+        internal static string SV0003_UrisMustBeValid {
+            get {
+                return ResourceManager.GetString("SV0003_UrisMustBeValid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Do not use the property annotatedCodeLocation.id, which is obsolete. Instead use annotatedCodeLocation.step, which is an integer-valued property that is 1 for the first annotatedCodeLocation in a codeFlow, and increments by 1 for every subsequent step..
+        /// </summary>
+        internal static string SV0004_AnnotatedCodeLocationIdIsObsolete {
+            get {
+                return ResourceManager.GetString("SV0004_AnnotatedCodeLocationIdIsObsolete", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to In &quot;{0}&quot;, at &quot;{1}&quot;, the obsolete annotatedCodeLocation.id property is used.  Remove it, and instead use the step property, whose value is an integer which is 1 for the first location in a code flow, and increments by 1 for each subsequent location in the code flow..
+        /// </summary>
+        internal static string SV0004_DefaultFormatId {
+            get {
+                return ResourceManager.GetString("SV0004_DefaultFormatId", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to In &quot;{0}&quot;, at &quot;{1}&quot;, the obsolete annotatedCodeLocation.id property is used. This property has been replaced by the step property, but the step property is used only in annotatedCodeLocations objects that occur within a code flow. Remove the id property..
+        /// </summary>
+        internal static string SV0004_OnlyInCodeFlowFormatId {
+            get {
+                return ResourceManager.GetString("SV0004_OnlyInCodeFlowFormatId", resourceCulture);
+            }
+        }
     }
 }
