@@ -22,8 +22,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Cli.Rules
             {
                 return new string[]
                 {
-                    nameof(RuleResources.SV0004_DefaultFormatId),
-                    nameof(RuleResources.SV0004_OnlyInCodeFlowFormatId)
+                    nameof(RuleResources.SV0004_Default),
+                    nameof(RuleResources.SV0004_OnlyInCodeFlow)
                 };
             }
         }
@@ -38,8 +38,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Cli.Rules
                 // occurs in a codeFlow, because the "step" property is only meaningful within
                 // a codeFlow.
                 string formatId = annotatedCodeLocationPointer.Contains(SarifPropertyName.CodeFlows)
-                    ? nameof(RuleResources.SV0004_DefaultFormatId)
-                    : nameof(RuleResources.SV0004_OnlyInCodeFlowFormatId);
+                    ? nameof(RuleResources.SV0004_Default)
+                    : nameof(RuleResources.SV0004_OnlyInCodeFlow);
 
                 LogResult(idPointer, formatId);
             }

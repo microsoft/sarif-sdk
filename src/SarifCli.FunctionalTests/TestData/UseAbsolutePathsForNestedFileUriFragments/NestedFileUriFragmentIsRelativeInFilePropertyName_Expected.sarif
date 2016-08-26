@@ -22,7 +22,7 @@
           "ruleId": "SV0002",
           "level": "error",
           "formattedRuleMessage": {
-            "formatId": "DefaultFormatId",
+            "formatId": "Default",
             "arguments": [
               "NestedFileUriFragmentIsRelativeInFilePropertyName.sarif",
               "/runs/0/files/file:~1~1~1c:~1bin~1myApp.appx#js~1minified.js",

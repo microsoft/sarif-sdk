@@ -22,7 +22,7 @@
           "ruleId": "SV0003",
           "level": "error",
           "formattedRuleMessage": {
-            "formatId": "DefaultFormatId",
+            "formatId": "Default",
             "arguments": [
               "InvalidUriInToolNotification.sarif",
               "/runs/0/toolNotifications/0/physicalLocation/uri",

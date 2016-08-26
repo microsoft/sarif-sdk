@@ -22,7 +22,7 @@
           "ruleId": "SV0002",
           "level": "error",
           "formattedRuleMessage": {
-            "formatId": "DefaultFormatId",
+            "formatId": "Default",
             "arguments": [
               "NestedFileUriFragmentIsRelativeInAnalysisTargetUri.sarif",
               "/runs/0/results/0/locations/0/analysisTarget/uri",

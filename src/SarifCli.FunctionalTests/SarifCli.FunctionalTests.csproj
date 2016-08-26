@@ -66,6 +66,7 @@
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Rules\AnnotatedCodeLocationIdIsObsoleteTests.cs" />
+    <Compile Include="Rules\HashAlgorithmsMustBeUniqueTests.cs" />
     <Compile Include="Rules\DoNotUseFriendlyNameAsRuleIdTests.cs" />
     <Compile Include="Rules\SkimmerTestsBase.cs" />
     <Compile Include="Rules\UrisMustBeValidTests.cs" />
@@ -109,6 +110,18 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="TestData\DoNotUseFriendlyNameAsRuleId\RuleIdMatchesFriendlyName_Expected.sarif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestData\HashAlgorithmsMustBeUnique\NonUniqueHashAlgorithms.sarif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestData\HashAlgorithmsMustBeUnique\NonUniqueHashAlgorithms_Expected.sarif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestData\HashAlgorithmsMustBeUnique\UniqueHashAlgorithms.sarif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestData\HashAlgorithmsMustBeUnique\UniqueHashAlgorithms_Expected.sarif">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="TestData\UrisMustBeValid\InvalidHelpUriInRule.sarif">

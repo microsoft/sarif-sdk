@@ -22,7 +22,7 @@
           "ruleId": "SV0003",
           "level": "error",
           "formattedRuleMessage": {
-            "formatId": "DefaultFormatId",
+            "formatId": "Default",
             "arguments": [
               "InvalidUriInFilePropertyName.sarif",
               "/runs/0/files/fi%le:~1~1~1c:~1src~1file.c",

@@ -89,6 +89,7 @@
     <Compile Include="JPointerStringExtensions.cs" />
     <Compile Include="Rules\AnnotatedCodeLocationIdIsObsolete.cs" />
     <Compile Include="Rules\DoNotUseFriendlyNameAsRuleId.cs" />
+    <Compile Include="Rules\HashAlgorithmsMustBeUnique.cs" />
     <Compile Include="Rules\RuleResources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

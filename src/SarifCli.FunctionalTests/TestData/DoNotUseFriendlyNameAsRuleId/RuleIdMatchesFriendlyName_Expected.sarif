@@ -60,7 +60,7 @@
           "shortDescription": "Do not use the same string for a rule's id and name properties. The id property ...",
           "fullDescription": "Do not use the same string for a rule's id and name properties. The id property must be a stable, opaque identifer such as \"SV0001\". The name property should be a string that is understandable to an end user, such as \"DoNotUserFriendlyNameAsRuleId\".",
           "messageFormats": {
-            "DefaultFormatId": "In \"{0}\", at \"{1}\", the name and id properties of rule \"{2}\" are the same."
+            "Default": "In \"{0}\", at \"{1}\", the name and id properties of rule \"{2}\" are the same."
           },
           "defaultLevel": "warning",
           "helpUri": "https://rawgit.com/sarif-standard/sarif-spec/master/Static%20Analysis%20Results%20Interchange%20Format%20(SARIF).html"

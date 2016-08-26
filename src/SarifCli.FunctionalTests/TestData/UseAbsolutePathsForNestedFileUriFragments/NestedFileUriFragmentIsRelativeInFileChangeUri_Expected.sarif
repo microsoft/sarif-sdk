@@ -22,7 +22,7 @@
           "ruleId": "SV0002",
           "level": "error",
           "formattedRuleMessage": {
-            "formatId": "DefaultFormatId",
+            "formatId": "Default",
             "arguments": [
               "NestedFileUriFragmentIsRelativeInFileChangeUri.sarif",
               "/runs/0/results/0/fixes/0/fileChanges/0/uri",

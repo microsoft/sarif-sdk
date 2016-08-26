@@ -117,19 +117,19 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="SV0001_DefaultFormatId" xml:space="preserve">
+  <data name="SV0001_Default" xml:space="preserve">
     <value>In "{0}", at "{1}", the name and id properties of rule "{2}" are the same.</value>
   </data>
   <data name="SV0001_DoNotUseFriendlyNameAsRuleIdDescription" xml:space="preserve">
     <value>Do not use the same string for a rule's id and name properties. The id property must be a stable, opaque identifer such as "SV0001". The name property should be a string that is understandable to an end user, such as "DoNotUserFriendlyNameAsRuleId".</value>
   </data>
-  <data name="SV0002_DefaultFormatId" xml:space="preserve">
+  <data name="SV0002_Default" xml:space="preserve">
     <value>In "{0}", at "{1}", the fragment portion of the URI "{2}", which specifies the location of a nested file with respect to its parent, does not begin with a forward slash.</value>
   </data>
   <data name="SV0002_UseAbsolutePathsForNestedFileUriFragmentsDescription" xml:space="preserve">
     <value>When specifying the URI of a nested file with a URI fragment, express the fragment as an absolute path. That is, begin the with a forward slash, for example "file:///C:/bin/MyApp.zip#/images/grape.jpg".</value>
   </data>
-  <data name="SV0003_DefaultFormatId" xml:space="preserve">
+  <data name="SV0003_Default" xml:space="preserve">
     <value>In "{0}", at "{1}", the string "{2}" is not a valid URI reference.</value>
   </data>
   <data name="SV0003_UrisMustBeValid" xml:space="preserve">
@@ -138,10 +138,16 @@
   <data name="SV0004_AnnotatedCodeLocationIdIsObsolete" xml:space="preserve">
     <value>Do not use the property annotatedCodeLocation.id, which is obsolete. Instead use annotatedCodeLocation.step, which is an integer-valued property that is 1 for the first annotatedCodeLocation in a codeFlow, and increments by 1 for every subsequent step.</value>
   </data>
-  <data name="SV0004_DefaultFormatId" xml:space="preserve">
+  <data name="SV0004_Default" xml:space="preserve">
     <value>In "{0}", at "{1}", the obsolete annotatedCodeLocation.id property is used.  Remove it, and instead use the step property, whose value is an integer which is 1 for the first location in a code flow, and increments by 1 for each subsequent location in the code flow.</value>
   </data>
-  <data name="SV0004_OnlyInCodeFlowFormatId" xml:space="preserve">
+  <data name="SV0004_OnlyInCodeFlow" xml:space="preserve">
     <value>In "{0}", at "{1}", the obsolete annotatedCodeLocation.id property is used. This property has been replaced by the step property, but the step property is used only in annotatedCodeLocations objects that occur within a code flow. Remove the id property.</value>
+  </data>
+  <data name="SV0005_Default" xml:space="preserve">
+    <value>In "{0}", at "{1}", the array contains multiple objects with the value "{2}" for the algorithm property.</value>
+  </data>
+  <data name="SV0005_HashAlgorithmsMustBeUnique" xml:space="preserve">
+    <value>In any given "file" object, every element of the "hashes" array must have a different value for its "algorithm" property. </value>
   </data>
 </root>

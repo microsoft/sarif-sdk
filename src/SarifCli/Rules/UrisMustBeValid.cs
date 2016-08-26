@@ -23,7 +23,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Cli.Rules
             {
                 return new string[]
                 {
-                    nameof(RuleResources.SV0003_DefaultFormatId)
+                    nameof(RuleResources.SV0003_Default)
                 };
             }
         }
@@ -49,7 +49,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Cli.Rules
             {
                 LogResult(
                     filePointer,
-                    nameof(RuleResources.SV0003_DefaultFormatId),
+                    nameof(RuleResources.SV0003_Default),
                     fileUriReference);
             }
 
@@ -89,7 +89,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Cli.Rules
 
                     LogResult(
                         uriPointer,
-                        nameof(RuleResources.SV0003_DefaultFormatId),
+                        nameof(RuleResources.SV0003_Default),
                         uri.OriginalString);
                 }
             }

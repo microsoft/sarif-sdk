@@ -63,9 +63,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Cli.Rules {
         /// <summary>
         ///   Looks up a localized string similar to In &quot;{0}&quot;, at &quot;{1}&quot;, the name and id properties of rule &quot;{2}&quot; are the same..
         /// </summary>
-        internal static string SV0001_DefaultFormatId {
+        internal static string SV0001_Default {
             get {
-                return ResourceManager.GetString("SV0001_DefaultFormatId", resourceCulture);
+                return ResourceManager.GetString("SV0001_Default", resourceCulture);
             }
         }
         
@@ -81,9 +81,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Cli.Rules {
         /// <summary>
         ///   Looks up a localized string similar to In &quot;{0}&quot;, at &quot;{1}&quot;, the fragment portion of the URI &quot;{2}&quot;, which specifies the location of a nested file with respect to its parent, does not begin with a forward slash..
         /// </summary>
-        internal static string SV0002_DefaultFormatId {
+        internal static string SV0002_Default {
             get {
-                return ResourceManager.GetString("SV0002_DefaultFormatId", resourceCulture);
+                return ResourceManager.GetString("SV0002_Default", resourceCulture);
             }
         }
         
@@ -99,9 +99,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Cli.Rules {
         /// <summary>
         ///   Looks up a localized string similar to In &quot;{0}&quot;, at &quot;{1}&quot;, the string &quot;{2}&quot; is not a valid URI reference..
         /// </summary>
-        internal static string SV0003_DefaultFormatId {
+        internal static string SV0003_Default {
             get {
-                return ResourceManager.GetString("SV0003_DefaultFormatId", resourceCulture);
+                return ResourceManager.GetString("SV0003_Default", resourceCulture);
             }
         }
         
@@ -126,18 +126,36 @@ namespace Microsoft.CodeAnalysis.Sarif.Cli.Rules {
         /// <summary>
         ///   Looks up a localized string similar to In &quot;{0}&quot;, at &quot;{1}&quot;, the obsolete annotatedCodeLocation.id property is used.  Remove it, and instead use the step property, whose value is an integer which is 1 for the first location in a code flow, and increments by 1 for each subsequent location in the code flow..
         /// </summary>
-        internal static string SV0004_DefaultFormatId {
+        internal static string SV0004_Default {
             get {
-                return ResourceManager.GetString("SV0004_DefaultFormatId", resourceCulture);
+                return ResourceManager.GetString("SV0004_Default", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to In &quot;{0}&quot;, at &quot;{1}&quot;, the obsolete annotatedCodeLocation.id property is used. This property has been replaced by the step property, but the step property is used only in annotatedCodeLocations objects that occur within a code flow. Remove the id property..
         /// </summary>
-        internal static string SV0004_OnlyInCodeFlowFormatId {
+        internal static string SV0004_OnlyInCodeFlow {
             get {
-                return ResourceManager.GetString("SV0004_OnlyInCodeFlowFormatId", resourceCulture);
+                return ResourceManager.GetString("SV0004_OnlyInCodeFlow", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to In &quot;{0}&quot;, at &quot;{1}&quot;, the array contains multiple objects with the value &quot;{2}&quot; for the algorithm property..
+        /// </summary>
+        internal static string SV0005_Default {
+            get {
+                return ResourceManager.GetString("SV0005_Default", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to In any given &quot;file&quot; object, every element of the &quot;hashes&quot; array must have a different value for its &quot;algorithm&quot; property. .
+        /// </summary>
+        internal static string SV0005_HashAlgorithmsMustBeUnique {
+            get {
+                return ResourceManager.GetString("SV0005_HashAlgorithmsMustBeUnique", resourceCulture);
             }
         }
     }

@@ -22,7 +22,7 @@
           "ruleId": "SV0002",
           "level": "error",
           "formattedRuleMessage": {
-            "formatId": "DefaultFormatId",
+            "formatId": "Default",
             "arguments": [
               "NestedFileUriFragmentIsRelativeInCodeFlowLocationUri.sarif",
               "/runs/0/results/0/codeFlows/0/locations/0/physicalLocation/uri",
