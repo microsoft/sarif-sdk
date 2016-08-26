@@ -230,30 +230,26 @@ namespace Microsoft.CodeAnalysis.Sarif.Cli.Rules
 
             if (run.ToolNotifications != null)
             {
-                Notification[] toolNotifications = run.ToolNotifications.ToArray();
-                string toolNotificationsPointer = runPointer.AtProperty(SarifPropertyName.ToolNotifications);
-
-                for (int iToolNotification = 0; iToolNotification < toolNotifications.Length; ++iToolNotification)
-                {
-                    Notification toolNotification = toolNotifications[iToolNotification];
-                    string toolNotificationPointer = toolNotificationsPointer.AtIndex(iToolNotification);
-
-                    Visit(toolNotification, toolNotificationPointer);
-                }
+                Visit(run.ToolNotifications, runPointer, SarifPropertyName.ToolNotifications);
             }
 
             if (run.ConfigurationNotifications != null)
             {
-                Notification[] configurationNotifications = run.ConfigurationNotifications.ToArray();
-                string configurationNotificationsPointer = runPointer.AtProperty(SarifPropertyName.ConfigurationNotifications);
+                Visit(run.ConfigurationNotifications, runPointer, SarifPropertyName.ConfigurationNotifications);
+            }
+        }
 
-                for (int iConfigurationNotification = 0; iConfigurationNotification < configurationNotifications.Length; ++iConfigurationNotification)
-                {
-                    Notification configurationNotification = configurationNotifications[iConfigurationNotification];
-                    string configurationNotificationPointer = configurationNotificationsPointer.AtIndex(iConfigurationNotification);
+        private void Visit(IList<Notification> notifications, string parentPointer, string propertyName)
+        {
+            Notification[] notificationsArray = notifications.ToArray();
+            string notificationsPointer = parentPointer.AtProperty(propertyName);
 
-                    Visit(configurationNotification, configurationNotificationPointer);
-                }
+            for (int iNotification = 0; iNotification < notificationsArray.Length; ++iNotification)
+            {
+                Notification notification = notificationsArray[iNotification];
+                string notificationPointer = notificationsPointer.AtIndex(iNotification);
+
+                Visit(notification, notificationPointer);
             }
         }
 
