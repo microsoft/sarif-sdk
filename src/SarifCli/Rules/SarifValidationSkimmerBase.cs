@@ -94,6 +94,28 @@ namespace Microsoft.CodeAnalysis.Sarif.Cli.Rules
             Analyze(fileData, fileKey, filePointer);
         }
 
+        private void Visit(Fix fix, string fixPointer)
+        {
+            if (fix.FileChanges != null)
+            {
+                FileChange[] fileChanges = fix.FileChanges.ToArray();
+                string fileChangesPointer = fixPointer.AtProperty(SarifPropertyName.FileChanges);
+
+                for (int iFileChange = 0; iFileChange < fileChanges.Length; ++iFileChange)
+                {
+                    FileChange fileChange = fileChanges[iFileChange];
+                    string fileChangePointer = fileChangesPointer.AtIndex(iFileChange);
+
+                    Visit(fileChange, fileChangePointer);
+                }
+            }
+        }
+
+        private void Visit(FileChange fileChange, string fileChangePointer)
+        {
+            Analyze(fileChange, fileChangePointer);
+        }
+
         private void Visit(Location location, string locationPointer)
         {
             if (location.AnalysisTarget != null)
@@ -179,6 +201,20 @@ namespace Microsoft.CodeAnalysis.Sarif.Cli.Rules
                     string relatedLocationPointer = relatedLocationsPointer.AtIndex(iRelatedLocation);
 
                     Visit(relatedLocation, relatedLocationPointer);
+                }
+            }
+
+            if (result.Fixes != null)
+            {
+                Fix[] fixes = result.Fixes.ToArray();
+                string fixesPointer = resultPointer.AtProperty(SarifPropertyName.Fixes);
+
+                for (int iFix = 0; iFix < fixes.Length; ++iFix)
+                {
+                    Fix fix = fixes[iFix];
+                    string fixPointer = fixesPointer.AtIndex(iFix);
+
+                    Visit(fix, fixPointer);
                 }
             }
         }
@@ -273,6 +309,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Cli.Rules
         private void Visit(StackFrame frame, string framePointer)
         {
             Analyze(frame, framePointer);
+        }
+
+        protected virtual void Analyze(FileChange fileChange, string fileChangePointer)
+        {
         }
 
         protected virtual void Analyze(FileData fileData, string fileKey, string filePointer)

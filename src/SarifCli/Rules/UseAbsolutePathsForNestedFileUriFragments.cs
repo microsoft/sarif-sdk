@@ -26,6 +26,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Cli.Rules
             }
         }
 
+        protected override void Analyze(FileChange fileChange, string fileChangePointer)
+        {
+            AnalyzeUri(fileChange.Uri, fileChangePointer);
+        }
+
         protected override void Analyze(FileData fileData, string fileKey, string filePointer)
         {
             try
