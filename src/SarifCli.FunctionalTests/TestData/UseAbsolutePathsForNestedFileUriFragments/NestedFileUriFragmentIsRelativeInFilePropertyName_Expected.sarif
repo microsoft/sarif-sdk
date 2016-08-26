@@ -25,8 +25,8 @@
             "formatId": "DefaultFormatId",
             "arguments": [
               "NestedFileUriFragmentIsRelativeInFilePropertyName.sarif",
-              "/runs/0/files/file:~1~1~1d:~1src~1SecDevTools~1Main~1src~1ModernCop~1Source~1WebRules.Test.Unit~1ModernCopTestData~1WebRules_PackageRules~1MinificationRuleApp.appx#js~1minified.js",
-              "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp.appx#js/minified.js"
+              "/runs/0/files/file:~1~1~1c:~1bin~1myApp.appx#js~1minified.js",
+              "file:///c:/bin/myApp.appx#js/minified.js"
             ]
           },
           "locations": [
@@ -34,8 +34,8 @@
               "analysisTarget": {
                 "uri": "file:///G:/Code/sarif-sdk/bld/bin/SarifCli.FunctionalTests/AnyCPU_Release/TestData/UseAbsolutePathsForNestedFileUriFragments/NestedFileUriFragmentIsRelativeInFilePropertyName.sarif",
                 "region": {
-                  "startLine": 41,
-                  "startColumn": 165
+                  "startLine": 32,
+                  "startColumn": 54
                 }
               }
             }

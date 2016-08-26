@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "runs": [
     {
-      "id": "cfb342f0-5a8e-4eb0-ae50-aef0827d6813",
+      "id": "9f4205fd-3182-44d7-acbb-c97055bf567d",
       "tool": {
         "name": "SarifCli",
         "fullName": "SarifCli 1.0.0.0",
@@ -24,17 +24,17 @@
           "formattedRuleMessage": {
             "formatId": "DefaultFormatId",
             "arguments": [
-              "NestedFileUriFragmentIsRelativeInStackFrameUri.sarif",
-              "/runs/0/results/0/stacks/0/frames/0/uri",
+              "NestedFileUriFragmentIsRelativeInFileChangeUri.sarif",
+              "/runs/0/results/0/fixes/0/fileChanges/0/uri",
               "file:///c:/bin/myApp.appx#js/minified.js"
             ]
           },
           "locations": [
             {
               "analysisTarget": {
-                "uri": "file:///G:/Code/sarif-sdk/src/SarifCli.FunctionalTests/TestData/UseAbsolutePathsForNestedFileUriFragments/NestedFileUriFragmentIsRelativeInStackFrameUri.sarif",
+                "uri": "file:///G:/Code/sarif-sdk/src/SarifCli.FunctionalTests/TestData/UseAbsolutePathsForNestedFileUriFragments/NestedFileUriFragmentIsRelativeInFileChangeUri.sarif",
                 "region": {
-                  "startLine": 30,
+                  "startLine": 31,
                   "startColumn": 68
                 }
               }
@@ -46,11 +46,11 @@
         {
           "id": "MSG001.AnalyzingTarget",
           "physicalLocation": {
-            "uri": "file:///G:/Code/sarif-sdk/src/SarifCli.FunctionalTests/TestData/UseAbsolutePathsForNestedFileUriFragments/NestedFileUriFragmentIsRelativeInStackFrameUri.sarif"
+            "uri": "file:///G:/Code/sarif-sdk/src/SarifCli.FunctionalTests/TestData/UseAbsolutePathsForNestedFileUriFragments/NestedFileUriFragmentIsRelativeInFileChangeUri.sarif"
           },
-          "message": "Analyzing 'NestedFileUriFragmentIsRelativeInStackFrameUri.sarif'...",
+          "message": "Analyzing 'NestedFileUriFragmentIsRelativeInFileChangeUri.sarif'...",
           "level": "note",
-          "time": "2016-08-25T23:16:44.436Z"
+          "time": "2016-08-26T15:36:38.827Z"
         }
       ],
       "rules": {
@@ -67,15 +67,15 @@
         }
       },
       "files": {
-        "file:///G:/Code/sarif-sdk/src/SarifCli.FunctionalTests/TestData/UseAbsolutePathsForNestedFileUriFragments/NestedFileUriFragmentIsRelativeInStackFrameUri.sarif": {
+        "file:///G:/Code/sarif-sdk/src/SarifCli.FunctionalTests/TestData/UseAbsolutePathsForNestedFileUriFragments/NestedFileUriFragmentIsRelativeInFileChangeUri.sarif": {
           "mimeType": "application/octet-stream"
         }
       },
       "invocation": {
-        "commandLine": "\"G:\\Code\\sarif-sdk\\bld\\bin\\SarifCli\\AnyCPU_Debug\\SarifCli.exe\"  validate G:\\Code\\sarif-sdk\\src\\SarifCli.FunctionalTests\\TestData\\UseAbsolutePathsForNestedFileUriFragments\\NestedFileUriFragmentIsRelativeInStackFrameUri.sarif -o C:\\Users\\[REMOVED]\\Desktop\\SarifCli\\NestedFileUriFragmentIsRelativeInStackFrameUri_Expected.sarif -j G:\\Code\\sarif-sdk\\src\\Sarif\\Schemata\\Sarif.schema.json ",
-        "startTime": "2016-08-25T23:16:44.342Z",
-        "endTime": "2016-08-25T23:16:44.764Z",
-        "processId": 10452,
+        "commandLine": "\"G:\\Code\\sarif-sdk\\bld\\bin\\SarifCli\\AnyCPU_Debug\\SarifCli.exe\"  validate G:\\Code\\sarif-sdk\\src\\SarifCli.FunctionalTests\\TestData\\UseAbsolutePathsForNestedFileUriFragments\\NestedFileUriFragmentIsRelativeInFileChangeUri.sarif -o C:\\Users\\[REMOVED]\\Desktop\\SarifCli\\NestedFileUriFragmentIsRelativeInFileChangeUri_Expected.sarif -j G:\\Code\\sarif-sdk\\src\\Sarif\\Schemata\\Sarif.schema.json ",
+        "startTime": "2016-08-26T15:36:38.743Z",
+        "endTime": "2016-08-26T15:36:39.109Z",
+        "processId": 12976,
         "fileName": "G:\\Code\\sarif-sdk\\bld\\bin\\SarifCli\\AnyCPU_Debug\\SarifCli.exe",
         "workingDirectory": "G:\\Code\\sarif-sdk\\bld\\bin\\SarifCli\\AnyCPU_Debug"
       }

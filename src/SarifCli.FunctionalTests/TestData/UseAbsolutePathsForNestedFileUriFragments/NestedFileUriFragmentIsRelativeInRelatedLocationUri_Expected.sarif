@@ -34,7 +34,7 @@
               "analysisTarget": {
                 "uri": "file:///G:/Code/sarif-sdk/src/SarifCli.FunctionalTests/TestData/UseAbsolutePathsForNestedFileUriFragments/NestedFileUriFragmentIsRelativeInRelatedLocationUri.sarif",
                 "region": {
-                  "startLine": 38,
+                  "startLine": 29,
                   "startColumn": 63
                 }
               }

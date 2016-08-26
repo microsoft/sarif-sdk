@@ -3,21 +3,12 @@
   "version": "1.0.0",
   "runs": [
     {
-      "id": "e7d5cf38-c160-4bf9-aed1-e84ad6849df3",
       "tool": {
-        "name": "ModernCop",
-        "fullName": "mod50 7.0.7000.0",
-        "version": "7.0.7000.0",
-        "semanticVersion": "7.0.7000",
-        "fileVersion": "7.0.20811.0",
-        "language": "en-US",
-        "properties": {
-          "CompanyName": "Microsoft Corporation"
-        }
+        "name": "CodeScanner"
       },
       "results": [
         {
-          "ruleKey": "M1003.DoNotShipObfuscatedCode",
+          "ruleId": "TST0001",
           "level": "error",
           "formattedRuleMessage": {
             "formatId": "Default"
