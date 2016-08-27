@@ -3,20 +3,13 @@
 
 using System;
 using System.IO;
-using System.Linq;
-using FluentAssertions;
 using Microsoft.CodeAnalysis.Sarif.Cli.Rules;
-using Microsoft.CodeAnalysis.Sarif.Readers;
 using Microsoft.CodeAnalysis.Sarif.Writers;
-using Newtonsoft.Json;
 
 namespace Microsoft.CodeAnalysis.Sarif.Cli.FunctionalTests.Rules
 {
-    public abstract class SkimmerTestsBase
+    public abstract class SkimmerTestsBase : SarifCliTestBase
     {
-        private const string JsonSchemaFile = "Sarif.schema.json";
-        private const string TestDataDirectory = "TestData";
-
         protected void Verify(SarifValidationSkimmerBase skimmer, string testFileName)
         {
             string ruleName = skimmer.GetType().Name;
@@ -61,65 +54,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Cli.FunctionalTests.Rules
             // Until SarifLogger has a "deterministic" option (see http://github.com/Microsoft/sarif-sdk/issues/500),
             // we perform a selective compare of just the elements we care about.
             SelectiveCompare(actualLogContents, expectedLogContents);
-        }
-
-        private static void SelectiveCompare(string actualLogContents, string expectedLogContents)
-        {
-            var settings = new JsonSerializerSettings()
-            {
-                ContractResolver = SarifContractResolver.Instance
-            };
-
-            SarifLog actualLog = JsonConvert.DeserializeObject<SarifLog>(actualLogContents, settings);
-            SarifLog expectedLog = JsonConvert.DeserializeObject<SarifLog>(expectedLogContents, settings);
-
-            SelectiveCompare(actualLog, expectedLog);
-        }
-
-        private static void SelectiveCompare(SarifLog actualLog, SarifLog expectedLog)
-        {
-            Result[] actualResults = actualLog.Runs[0].Results == null ? null : actualLog.Runs[0].Results.ToArray();
-            Result[] expectedResults = expectedLog.Runs[0].Results == null ? null : expectedLog.Runs[0].Results.ToArray();
-
-            bool actualHasResults = actualResults != null && actualResults.Length > 0;
-            bool expectedHasResults = expectedResults != null && expectedResults.Length > 0;
-            actualHasResults.Should().Be(expectedHasResults);
-
-            if (actualHasResults && expectedHasResults)
-            {
-                actualResults.Length.Should().Be(expectedResults.Length);
-
-                for (int i = 0; i < actualResults.Length; ++i)
-                {
-                    Result actualResult = actualResults[i];
-                    Result expectedResult = expectedResults[i];
-
-                    actualResult.RuleId.Should().Be(expectedResult.RuleId);
-
-                    actualResult.Level.Should().Be(expectedResult.Level);
-
-                    actualResult.Locations[0].AnalysisTarget.Region.ValueEquals(
-                        expectedResult.Locations[0].AnalysisTarget.Region).Should().BeTrue();
-                }
-            }
-        }
-
-        private static string MakeExpectedFilePath(string testDirectory, string testFileName)
-        {
-            return MakeQualifiedFilePath(testDirectory, testFileName, "Expected");
-        }
-
-        private static string MakeActualFilePath(string testDirectory, string testFileName)
-        {
-            return MakeQualifiedFilePath(testDirectory, testFileName, "Actual");
-        }
-
-        private static string MakeQualifiedFilePath(string testDirectory, string testFileName, string qualifier)
-        {
-            string qualifiedFileName =
-                Path.GetFileNameWithoutExtension(testFileName) + "_" + qualifier + Path.GetExtension(testFileName);
-
-            return Path.Combine(testDirectory, qualifiedFileName);
         }
     }
 }

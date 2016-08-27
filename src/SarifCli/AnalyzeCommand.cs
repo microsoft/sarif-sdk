@@ -43,16 +43,21 @@ namespace Microsoft.CodeAnalysis.Sarif.Cli
 
         protected override void AnalyzeTarget(IEnumerable<ISkimmer<SarifValidationContext>> skimmers, SarifValidationContext context, HashSet<string> disabledSkimmers)
         {
-            // The base class knows how to invoke the skimmers that implement smart validation...
-            base.AnalyzeTarget(skimmers, context, disabledSkimmers);
-
-            // ... but it doesn't know how to invoke schema validation, which has its own set of rules,
+            // The base class knows how to invoke the skimmers that implement smart validation,
+            // but it doesn't know how to invoke schema validation, which has its own set of rules,
             // so we do that ourselves.
-            Validate(context.TargetUri.LocalPath, context.SchemaFilePath, context.Logger);
+            bool ok = Validate(context.TargetUri.LocalPath, context.SchemaFilePath, context.Logger);
+
+            if (ok)
+            {
+                base.AnalyzeTarget(skimmers, context, disabledSkimmers);
+            }
         }
 
-        private void Validate(string instanceFilePath, string schemaFilePath, IAnalysisLogger logger)
+        private bool Validate(string instanceFilePath, string schemaFilePath, IAnalysisLogger logger)
         {
+            bool ok = true;
+
             try
             {
                 string instanceText = File.ReadAllText(instanceFilePath);
@@ -61,6 +66,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Cli
             catch (JsonSyntaxException ex)
             {
                 ReportResult(ex.Result, logger);
+
+                // If the file isn't syntactically valid JSON, we won't be able to run
+                // the skimmers, because they rely on being able to deserialized the file
+                // into a SarifLog object.
+                ok = false;
             }
             catch (SchemaValidationException ex)
             {
@@ -69,7 +79,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Cli
             catch (Exception ex)
             {
                 LogToolNotification(logger, ex.Message, NotificationLevel.Error, ex);
+
+                // Don't try to run the skimmers if something unexpected happened.
+                // Sure, if it were something schema-validation-specific, like "can't
+                // find schema file," then we could successfully run the skimmers,
+                // but I don't think it's worth trying to be that clever.
+                ok = false;
             }
+
+            return ok;
         }
 
         private void PerformSchemaValidation(
