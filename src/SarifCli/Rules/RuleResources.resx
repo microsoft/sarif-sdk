@@ -150,4 +150,10 @@
   <data name="SV0005_HashAlgorithmsMustBeUnique" xml:space="preserve">
     <value>In any given "file" object, every element of the "hashes" array must have a different value for its "algorithm" property. </value>
   </data>
+  <data name="SV0006_Default" xml:space="preserve">
+    <value>In "{0}", at "{1}", the end time "{2}" is before the start time "{3}".</value>
+  </data>
+  <data name="SV0006_EndTimeMustBeAfterStartTime" xml:space="preserve">
+    <value>The end time of a run must be after the start time. To allow for the possibility that the duration of the run is less than the resolution of the string representation of the time, the start time and the end time may be equal.</value>
+  </data>
 </root>

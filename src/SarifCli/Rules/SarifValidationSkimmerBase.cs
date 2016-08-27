@@ -118,6 +118,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Cli.Rules
             Analyze(fileChange, fileChangePointer);
         }
 
+        private void Visit(Invocation invocation, string invocationPointer)
+        {
+            Analyze(invocation, invocationPointer);
+        }
+
         private void Visit(Location location, string locationPointer)
         {
             if (location.AnalysisTarget != null)
@@ -275,6 +280,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Cli.Rules
             {
                 Visit(run.ConfigurationNotifications, runPointer, SarifPropertyName.ConfigurationNotifications);
             }
+
+            if (run.Invocation != null)
+            {
+                string invocationPointer = runPointer.AtProperty(SarifPropertyName.Invocation);
+
+                Visit(run.Invocation, invocationPointer);
+            }
         }
 
         private void Visit(IList<Notification> notifications, string parentPointer, string propertyName)
@@ -322,6 +334,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Cli.Rules
         }
 
         protected virtual void Analyze(FileData fileData, string fileKey, string filePointer)
+        {
+        }
+
+        protected virtual void Analyze(Invocation invocation, string invocationPointer)
         {
         }
 

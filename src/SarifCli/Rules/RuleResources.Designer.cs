@@ -158,5 +158,23 @@ namespace Microsoft.CodeAnalysis.Sarif.Cli.Rules {
                 return ResourceManager.GetString("SV0005_HashAlgorithmsMustBeUnique", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to In &quot;{0}&quot;, at &quot;{1}&quot;, the end time &quot;{2}&quot; is before the start time &quot;{3}&quot;..
+        /// </summary>
+        internal static string SV0006_Default {
+            get {
+                return ResourceManager.GetString("SV0006_Default", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The end time of a run must be after the start time. To allow for the possibility that the duration of the run is less than the resolution of the string representation of the time, the start time and the end time may be equal..
+        /// </summary>
+        internal static string SV0006_EndTimeMustBeAfterStartTime {
+            get {
+                return ResourceManager.GetString("SV0006_EndTimeMustBeAfterStartTime", resourceCulture);
+            }
+        }
     }
 }

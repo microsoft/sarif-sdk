@@ -66,6 +66,7 @@
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Rules\AnnotatedCodeLocationIdIsObsoleteTests.cs" />
+    <Compile Include="Rules\EndTimeMustBeAfterStartTimeTests.cs" />
     <Compile Include="Rules\HashAlgorithmsMustBeUniqueTests.cs" />
     <Compile Include="Rules\DoNotUseFriendlyNameAsRuleIdTests.cs" />
     <Compile Include="Rules\SkimmerTestsBase.cs" />
@@ -110,6 +111,24 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="TestData\DoNotUseFriendlyNameAsRuleId\RuleIdMatchesFriendlyName_Expected.sarif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestData\EndTimeMustBeAfterStartTime\EndTimeEqualsStartTime.sarif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestData\EndTimeMustBeAfterStartTime\EndTimeEqualsStartTime_Expected.sarif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestData\EndTimeMustBeAfterStartTime\EndTimeIsAfterStartTime.sarif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestData\EndTimeMustBeAfterStartTime\EndTimeIsAfterStartTime_Expected.sarif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestData\EndTimeMustBeAfterStartTime\EndTimeIsBeforeStartTime.sarif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestData\EndTimeMustBeAfterStartTime\EndTimeIsBeforeStartTime_Expected.sarif">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="TestData\HashAlgorithmsMustBeUnique\NonUniqueHashAlgorithms.sarif">

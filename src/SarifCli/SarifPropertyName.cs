@@ -8,12 +8,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Cli
         public const string AnalysisTarget = "analysisTarget";
         public const string CodeFlows = "codeFlows";
         public const string ConfigurationNotifications = "configurationNotifications";
+        public const string EndTime = "endTime";
         public const string FileChanges = "fileChanges";
         public const string Files = "files";
         public const string Fixes = "fixes";
         public const string Frames = "frames";
         public const string Hashes = "hashes";
         public const string Id = "id";
+        public const string Invocation = "invocation";
         public const string Locations = "locations";
         public const string PhysicalLocation = "physicalLocation";
         public const string RelatedLocations = "relatedLocations";
