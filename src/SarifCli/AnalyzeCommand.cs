@@ -7,8 +7,10 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using Microsoft.CodeAnalysis.Sarif.Driver;
+using Microsoft.CodeAnalysis.Sarif.Readers;
 using Microsoft.Json.Schema;
 using Microsoft.Json.Schema.Validation;
+using Newtonsoft.Json;
 
 namespace Microsoft.CodeAnalysis.Sarif.Cli
 {
@@ -41,17 +43,55 @@ namespace Microsoft.CodeAnalysis.Sarif.Cli
             return context;
         }
 
-        protected override void AnalyzeTarget(IEnumerable<ISkimmer<SarifValidationContext>> skimmers, SarifValidationContext context, HashSet<string> disabledSkimmers)
+        protected override void AnalyzeTarget(
+            IEnumerable<ISkimmer<SarifValidationContext>> skimmers,
+            SarifValidationContext context,
+            HashSet<string> disabledSkimmers)
         {
             // The base class knows how to invoke the skimmers that implement smart validation,
             // but it doesn't know how to invoke schema validation, which has its own set of rules,
             // so we do that ourselves.
+            //
+            // Validate will return false if there are any JSON syntax errors. In that case
+            // there's no point in going on.
             bool ok = Validate(context.TargetUri.LocalPath, context.SchemaFilePath, context.Logger);
 
             if (ok)
             {
-                base.AnalyzeTarget(skimmers, context, disabledSkimmers);
+                // Deserialize will return null if there are any JSON deserialization errors
+                // (which can happen, for example, if a property required by the schema is
+                // missing. In that case, again, there's no point in going on.
+                context.InputLog = Deserialize(context);
+
+                if (context.InputLog != null)
+                {
+                    // Everything's ready, so run all the skimmers.
+                    base.AnalyzeTarget(skimmers, context, disabledSkimmers);
+                }
             }
+        }
+
+        private SarifLog Deserialize(SarifValidationContext context)
+        {
+            context.InputLogContents = File.ReadAllText(context.TargetUri.AbsolutePath);
+
+            JsonSerializerSettings settings = new JsonSerializerSettings
+            {
+                ContractResolver = SarifContractResolver.Instance
+            };
+
+            SarifLog log = null;
+            try
+            {
+                return JsonConvert.DeserializeObject<SarifLog>(context.InputLogContents, settings);
+            }
+            catch (JsonSerializationException)
+            {
+                // This exception can happen, for example, if a property required by the schema is
+                // missing.
+            }
+
+            return log;
         }
 
         private bool Validate(string instanceFilePath, string schemaFilePath, IAnalysisLogger logger)

@@ -6,7 +6,7 @@ using Xunit;
 
 namespace Microsoft.CodeAnalysis.Sarif.Cli.FunctionalTests.Rules
 {
-    class AnnotatedCodeLocationEssentialIsObsoleteTests : SkimmerTestsBase
+    public class AnnotatedCodeLocationEssentialIsObsoleteTests : SkimmerTestsBase
     {
         [Fact(DisplayName = nameof(AnnotatedCodeLocationEssentialIsObsolete_AnnotatedCodeLocationDoesNotHaveEssential))]
         public void AnnotatedCodeLocationEssentialIsObsolete_AnnotatedCodeLocationDoesNotHaveEssential()

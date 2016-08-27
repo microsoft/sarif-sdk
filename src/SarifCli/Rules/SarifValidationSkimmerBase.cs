@@ -3,11 +3,9 @@
 
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Resources;
 using Microsoft.CodeAnalysis.Sarif.Driver;
-using Microsoft.CodeAnalysis.Sarif.Readers;
 using Microsoft.Json.Pointer;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
@@ -32,18 +30,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Cli.Rules
         {
             Context = context;
 
-            string logContents = File.ReadAllText(context.TargetUri.LocalPath);
-            _rootToken = JToken.Parse(logContents);
+            _rootToken = JToken.Parse(Context.InputLogContents);
 
-            JsonSerializerSettings settings = new JsonSerializerSettings
-            {
-                ContractResolver = SarifContractResolver.Instance
-            };
-
-            SarifLog log = JsonConvert.DeserializeObject<SarifLog>(logContents, settings);
-            string logPointer = string.Empty;
-
-            Visit(log, logPointer);
+            Visit(Context.InputLog, logPointer: string.Empty);
         }
 
         private void Visit(SarifLog log, string logPointer)

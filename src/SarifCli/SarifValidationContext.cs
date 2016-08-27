@@ -3,7 +3,6 @@
 
 using System;
 using System.IO;
-using Newtonsoft.Json.Linq;
 
 namespace Microsoft.CodeAnalysis.Sarif.Cli
 {
@@ -55,9 +54,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Cli
 
         public string SchemaFilePath { get; internal set; }
 
-        public SarifLog InputLog { get; internal set; }
+        public string InputLogContents { get; internal set; }
 
-        public JToken InputLogToken { get; internal set; }
+        public SarifLog InputLog { get; internal set; }
 
         public void Dispose()
         {

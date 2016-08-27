@@ -12,12 +12,22 @@ namespace Microsoft.CodeAnalysis.Sarif.Cli.FunctionalTests
         [Fact(DisplayName = nameof(AnalyzeCommand_ReportsJsonSyntaxError))]
         public void AnalyzeCommand_ReportsJsonSyntaxError()
         {
-            const string TestFileName = "SyntaxError.sarif";
+            Verify("SyntaxError.sarif");
+        }
+
+        [Fact(DisplayName = nameof(AnalyzeCommand_ReportsDeserializationError))]
+        public void AnalyzeCommand_ReportsDeserializationError()
+        {
+            Verify("DeserializationError.sarif");
+        }
+
+        private void Verify(string testFileName)
+        { 
             string testDirectory = Path.Combine(Environment.CurrentDirectory, TestDataDirectory);
 
-            string testFilePath = Path.Combine(TestDataDirectory, TestFileName);
-            string expectedFilePath = MakeExpectedFilePath(testDirectory, TestFileName);
-            string actualFilePath = MakeActualFilePath(testDirectory, TestFileName);
+            string testFilePath = Path.Combine(TestDataDirectory, testFileName);
+            string expectedFilePath = MakeExpectedFilePath(testDirectory, testFileName);
+            string actualFilePath = MakeActualFilePath(testDirectory, testFileName);
 
             var analyzeOptions = new AnalyzeOptions
             {

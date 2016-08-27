@@ -142,6 +142,12 @@
     <None Include="TestData\AnnotatedCodeLocationIdIsObsolete\AnnotatedCodeLocationHasIdInCodeFlow.sarif">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="TestData\DeserializationError.sarif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestData\DeserializationError_Expected.sarif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="TestData\DoNotUseFriendlyNameAsRuleId\RuleIdDoesNotMatchFriendlyName.sarif">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

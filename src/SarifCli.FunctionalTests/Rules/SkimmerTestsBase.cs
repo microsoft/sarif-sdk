@@ -4,7 +4,9 @@
 using System;
 using System.IO;
 using Microsoft.CodeAnalysis.Sarif.Cli.Rules;
+using Microsoft.CodeAnalysis.Sarif.Readers;
 using Microsoft.CodeAnalysis.Sarif.Writers;
+using Newtonsoft.Json;
 
 namespace Microsoft.CodeAnalysis.Sarif.Cli.FunctionalTests.Rules
 {
@@ -18,6 +20,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Cli.FunctionalTests.Rules
             string targetPath = Path.Combine(testDirectory, testFileName);
             string expectedFilePath = MakeExpectedFilePath(testDirectory, testFileName);
             string actualFilePath = MakeActualFilePath(testDirectory, testFileName);
+
+            string inputLogContents = File.ReadAllText(targetPath);
+
+            JsonSerializerSettings settings = new JsonSerializerSettings
+            {
+                ContractResolver = SarifContractResolver.Instance
+            };
+
+            SarifLog inputLog = JsonConvert.DeserializeObject<SarifLog>(inputLogContents, settings);
 
             using (var logger = new SarifLogger(
                     actualFilePath,
@@ -35,7 +46,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Cli.FunctionalTests.Rules
                     Rule = skimmer,
                     Logger = logger,
                     TargetUri = new Uri(targetPath),
-                    SchemaFilePath = JsonSchemaFile
+                    SchemaFilePath = JsonSchemaFile,
+                    InputLogContents = inputLogContents,
+                    InputLog = inputLog
                 };
 
                 skimmer.Initialize(context);
