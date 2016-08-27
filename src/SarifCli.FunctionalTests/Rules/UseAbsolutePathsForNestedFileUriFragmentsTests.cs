@@ -8,62 +8,62 @@ namespace Microsoft.CodeAnalysis.Sarif.Cli.FunctionalTests.Rules
 {
     public class UseAbsolutePathsForNestedFileUriFragmentsTests : SkimmerTestsBase
     {
-        [Fact]
-        public void UseAbsolutePathsForNestedFileUriFragments_NoDiagnostic_NestedFileUriFragmentsAreAbsolute()
+        [Fact(DisplayName = nameof(UseAbsolutePathsForNestedFileUriFragments_NestedFileUriFragmentsAreAbsolute))]
+        public void UseAbsolutePathsForNestedFileUriFragments_NestedFileUriFragmentsAreAbsolute()
         {
             Verify(new UseAbsolutePathsForNestedFileUriFragments(), "NestedFileUriFragmentsAreAbsolute.sarif");
         }
 
-        [Fact]
-        public void UseAbsolutePathsForNestedFileUriFragments_Diagnostic_NestedFileUriFragmentIsRelativeInAnalysisTargetUri()
+        [Fact(DisplayName = nameof(UseAbsolutePathsForNestedFileUriFragments_NestedFileUriFragmentIsRelativeInAnalysisTargetUri))]
+        public void UseAbsolutePathsForNestedFileUriFragments_NestedFileUriFragmentIsRelativeInAnalysisTargetUri()
         {
             Verify(new UseAbsolutePathsForNestedFileUriFragments(), "NestedFileUriFragmentIsRelativeInAnalysisTargetUri.sarif");
         }
 
-        [Fact]
-        public void UseAbsolutePathsForNestedFileUriFragments_Diagnostic_NestedFileUriFragmentIsRelativeInCodeFlowLocationUri()
+        [Fact(DisplayName = nameof(UseAbsolutePathsForNestedFileUriFragments_NestedFileUriFragmentIsRelativeInCodeFlowLocationUri))]
+        public void UseAbsolutePathsForNestedFileUriFragments_NestedFileUriFragmentIsRelativeInCodeFlowLocationUri()
         {
             Verify(new UseAbsolutePathsForNestedFileUriFragments(), "NestedFileUriFragmentIsRelativeInCodeFlowLocationUri.sarif");
         }
 
-        [Fact]
-        public void UseAbsolutePathsForNestedFileUriFragments_Diagnostic_NestedFileUriFragmentIsRelativeInConfigurationNotificationUri()
+        [Fact(DisplayName = nameof(UseAbsolutePathsForNestedFileUriFragments_NestedFileUriFragmentIsRelativeInConfigurationNotificationUri))]
+        public void UseAbsolutePathsForNestedFileUriFragments_NestedFileUriFragmentIsRelativeInConfigurationNotificationUri()
         {
             Verify(new UseAbsolutePathsForNestedFileUriFragments(), "NestedFileUriFragmentIsRelativeInConfigurationNotificationUri.sarif");
         }
 
-        [Fact]
-        public void UseAbsolutePathsForNestedFileUriFragments_Diagnostic_NestedFileUriFragmentIsRelativeInFileChangeUri()
+        [Fact(DisplayName = nameof(UseAbsolutePathsForNestedFileUriFragments_NestedFileUriFragmentIsRelativeInFileChangeUri))]
+        public void UseAbsolutePathsForNestedFileUriFragments_NestedFileUriFragmentIsRelativeInFileChangeUri()
         {
             Verify(new UseAbsolutePathsForNestedFileUriFragments(), "NestedFileUriFragmentIsRelativeInFileChangeUri.sarif");
         }
 
-        [Fact]
-        public void UseAbsolutePathsForNestedFileUriFragments_Diagnostic_NestedFileUriFragmentIsRelativeInFilePropertyName()
+        [Fact(DisplayName = nameof(UseAbsolutePathsForNestedFileUriFragments_NestedFileUriFragmentIsRelativeInFilePropertyName))]
+        public void UseAbsolutePathsForNestedFileUriFragments_NestedFileUriFragmentIsRelativeInFilePropertyName()
         {
             Verify(new UseAbsolutePathsForNestedFileUriFragments(), "NestedFileUriFragmentIsRelativeInFilePropertyName.sarif");
         }
 
-        [Fact]
-        public void UseAbsolutePathsForNestedFileUriFragments_Diagnostic_NestedFileUriFragmentIsRelativeInRelatedLocationUri()
+        [Fact(DisplayName = nameof(UseAbsolutePathsForNestedFileUriFragments_NestedFileUriFragmentIsRelativeInRelatedLocationUri))]
+        public void UseAbsolutePathsForNestedFileUriFragments_NestedFileUriFragmentIsRelativeInRelatedLocationUri()
         {
             Verify(new UseAbsolutePathsForNestedFileUriFragments(), "NestedFileUriFragmentIsRelativeInRelatedLocationUri.sarif");
         }
 
-        [Fact]
-        public void UseAbsolutePathsForNestedFileUriFragments_Diagnostic_NestedFileUriFragmentIsRelativeInResultFileUri()
+        [Fact(DisplayName = nameof(UseAbsolutePathsForNestedFileUriFragments_NestedFileUriFragmentIsRelativeInResultFileUri))]
+        public void UseAbsolutePathsForNestedFileUriFragments_NestedFileUriFragmentIsRelativeInResultFileUri()
         {
             Verify(new UseAbsolutePathsForNestedFileUriFragments(), "NestedFileUriFragmentIsRelativeInResultFileUri.sarif");
         }
 
-        [Fact]
-        public void UseAbsolutePathsForNestedFileUriFragments_Diagnostic_NestedFileUriFragmentIsRelativeInStackFrameUri()
+        [Fact(DisplayName = nameof(UseAbsolutePathsForNestedFileUriFragments_NestedFileUriFragmentIsRelativeInStackFrameUri))]
+        public void UseAbsolutePathsForNestedFileUriFragments_NestedFileUriFragmentIsRelativeInStackFrameUri()
         {
             Verify(new UseAbsolutePathsForNestedFileUriFragments(), "NestedFileUriFragmentIsRelativeInStackFrameUri.sarif");
         }
 
-        [Fact]
-        public void UseAbsolutePathsForNestedFileUriFragments_Diagnostic_NestedFileUriFragmentIsRelativeInToolNotificationUri()
+        [Fact(DisplayName = nameof(UseAbsolutePathsForNestedFileUriFragments_NestedFileUriFragmentIsRelativeInToolNotificationUri))]
+        public void UseAbsolutePathsForNestedFileUriFragments_NestedFileUriFragmentIsRelativeInToolNotificationUri()
         {
             Verify(new UseAbsolutePathsForNestedFileUriFragments(), "NestedFileUriFragmentIsRelativeInToolNotificationUri.sarif");
         }

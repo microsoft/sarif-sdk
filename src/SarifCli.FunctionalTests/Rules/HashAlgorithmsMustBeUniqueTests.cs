@@ -8,14 +8,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Cli.FunctionalTests.Rules
 {
     public class HashAlgorithmsMustBeUniqueTests : SkimmerTestsBase
     {
-        [Fact]
-        public void HashAlgorithmsMustBeUnique_NoDiagnostic_UniqueHashAlgorithms()
+        [Fact(DisplayName = nameof(HashAlgorithmsMustBeUnique_UniqueHashAlgorithms))]
+        public void HashAlgorithmsMustBeUnique_UniqueHashAlgorithms()
         {
             Verify(new HashAlgorithmsMustBeUnique(), "UniqueHashAlgorithms.sarif");
         }
 
-        [Fact]
-        public void HashAlgorithmsMustBeUnique_Diagnostic_NonUniqueHashAlgorithms()
+        [Fact(DisplayName = nameof(HashAlgorithmsMustBeUnique_NonUniqueHashAlgorithms))]
+        public void HashAlgorithmsMustBeUnique_NonUniqueHashAlgorithms()
         {
             Verify(new HashAlgorithmsMustBeUnique(), "NonUniqueHashAlgorithms.sarif");
         }

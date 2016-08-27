@@ -8,68 +8,68 @@ namespace Microsoft.CodeAnalysis.Sarif.Cli.FunctionalTests.Rules
 {
     public class UrisMustBeValidTests : SkimmerTestsBase
     {
-        [Fact]
-        public void UrisMustBeValid_NoDiagnostic_ValidUris()
+        [Fact(DisplayName = nameof(UrisMustBeValid_ValidUris))]
+        public void UrisMustBeValid_ValidUris()
         {
             Verify(new UrisMustBeValid(), "ValidUris.sarif");
         }
 
-        [Fact]
-        public void UrisMustBeValid_Diagnostic_InvalidHelpUriInRule()
+        [Fact(DisplayName = nameof(UrisMustBeValid_InvalidHelpUriInRule))]
+        public void UrisMustBeValid_InvalidHelpUriInRule()
         {
             Verify(new UrisMustBeValid(), "InvalidHelpUriInRule.sarif");
         }
 
-        [Fact]
-        public void UrisMustBeValid_Diagnostic_InvalidUriInAnalysisTarget()
+        [Fact(DisplayName = nameof(UrisMustBeValid_InvalidUriInAnalysisTarget))]
+        public void UrisMustBeValid_InvalidUriInAnalysisTarget()
         {
             Verify(new UrisMustBeValid(), "InvalidUriInAnalysisTarget.sarif");
         }
 
-        [Fact]
-        public void UrisMustBeValid_Diagnostic_InvalidUriInCodeFlowLocation()
+        [Fact(DisplayName = nameof(UrisMustBeValid_InvalidUriInCodeFlowLocation))]
+        public void UrisMustBeValid_InvalidUriInCodeFlowLocation()
         {
             Verify(new UrisMustBeValid(), "InvalidUriInCodeFlowLocation.sarif");
         }
 
-        [Fact]
-        public void UrisMustBeValid_Diagnostic_InvalidUriInConfigurationNotification()
+        [Fact(DisplayName = nameof(UrisMustBeValid_InvalidUriInConfigurationNotification))]
+        public void UrisMustBeValid_InvalidUriInConfigurationNotification()
         {
             Verify(new UrisMustBeValid(), "InvalidUriInConfigurationNotification.sarif");
         }
 
-        [Fact]
-        public void UrisMustBeValid_Diagnostic_InvalidUriInFileChange()
+        [Fact(DisplayName = nameof(UrisMustBeValid_InvalidUriInFileChange))]
+        public void UrisMustBeValid_InvalidUriInFileChange()
         {
             Verify(new UrisMustBeValid(), "InvalidUriInFileChange.sarif");
         }
 
-        [Fact]
-        public void UrisMustBeValid_Diagnostic_InvalidUriInFilePropertyName()
+        [Fact(DisplayName = nameof(UrisMustBeValid_InvalidUriInFilePropertyName))]
+        public void UrisMustBeValid_InvalidUriInFilePropertyName()
         {
             Verify(new UrisMustBeValid(), "InvalidUriInFilePropertyName.sarif");
         }
 
-        [Fact]
-        public void UrisMustBeValid_Diagnostic_InvalidUriInRelatedLocation()
+        [Fact(DisplayName = nameof(UrisMustBeValid_InvalidUriInRelatedLocation))]
+        public void UrisMustBeValid_InvalidUriInRelatedLocation()
         {
             Verify(new UrisMustBeValid(), "InvalidUriInRelatedLocation.sarif");
         }
 
-        [Fact]
-        public void UrisMustBeValid_Diagnostic_InvalidUriInResultFile()
+        [Fact(DisplayName = nameof(UrisMustBeValid_InvalidUriInResultFile))]
+        public void UrisMustBeValid_InvalidUriInResultFile()
         {
             Verify(new UrisMustBeValid(), "InvalidUriInResultFile.sarif");
         }
 
-        [Fact]
-        public void UrisMustBeValid_Diagnostic_InvalidUriInStackFrame()
+        [Fact(DisplayName = nameof(UrisMustBeValid_InvalidUriInStackFrame))]
+        public void UrisMustBeValid_InvalidUriInStackFrame()
         {
             Verify(new UrisMustBeValid(), "InvalidUriInStackFrame.sarif");
         }
 
-        [Fact]
-        public void UrisMustBeValid_Diagnostic_InvalidUriInToolNotification()
+        [Fact(DisplayName = nameof(UrisMustBeValid_InvalidUriInToolNotification))]
+        public void UrisMustBeValid_InvalidUriInToolNotification()
         {
             Verify(new UrisMustBeValid(), "InvalidUriInToolNotification.sarif");
         }

@@ -8,20 +8,20 @@ namespace Microsoft.CodeAnalysis.Sarif.Cli.FunctionalTests.Rules
 {
     class AnnotatedCodeLocationIdIsObsoleteTests : SkimmerTestsBase
     {
-        [Fact]
-        public void AnnotatedCodeLocationIdIsObsolete_NoDiagnostic_AnnotatedCodeLocationDoesNotHaveId()
+        [Fact(DisplayName = nameof(AnnotatedCodeLocationIdIsObsolete_AnnotatedCodeLocationDoesNotHaveId))]
+        public void AnnotatedCodeLocationIdIsObsolete_AnnotatedCodeLocationDoesNotHaveId()
         {
             Verify(new AnnotatedCodeLocationIdIsObsolete(), "AnnotatedCodeLocationDoesNotHaveId.sarif");
         }
 
-        [Fact]
-        public void AnnotatedCodeLocationIdIsObsolete_Diagnostic_AnnotatedCodeLocationInCodeFlowHasId()
+        [Fact(DisplayName = nameof(AnnotatedCodeLocationIdIsObsolete_AnnotatedCodeLocationInCodeFlowHasId))]
+        public void AnnotatedCodeLocationIdIsObsolete_AnnotatedCodeLocationInCodeFlowHasId()
         {
             Verify(new AnnotatedCodeLocationIdIsObsolete(), "AnnotatedCodeLocationInCodeFlowHasId.sarif");
         }
 
-        [Fact]
-        public void AnnotatedCodeLocationIdIsObsolete_Diagnostic_AnnotatedCodeLocationInRelatedLocationHasId()
+        [Fact(DisplayName = nameof(AnnotatedCodeLocationIdIsObsolete_AnnotatedCodeLocationInRelatedLocationHasId))]
+        public void AnnotatedCodeLocationIdIsObsolete_AnnotatedCodeLocationInRelatedLocationHasId()
         {
             Verify(new AnnotatedCodeLocationIdIsObsolete(), "AnnotatedCodeLocationInRelatedLocationHasId.sarif");
         }
