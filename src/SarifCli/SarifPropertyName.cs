@@ -9,6 +9,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Cli
         public const string CodeFlows = "codeFlows";
         public const string ConfigurationNotifications = "configurationNotifications";
         public const string EndTime = "endTime";
+        public const string Essential = "essential";
         public const string FileChanges = "fileChanges";
         public const string Files = "files";
         public const string Fixes = "fixes";

@@ -65,6 +65,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Rules\AnnotatedCodeLocationEssentialIsObsoleteTests.cs" />
     <Compile Include="Rules\AnnotatedCodeLocationIdIsObsoleteTests.cs" />
     <Compile Include="Rules\EndTimeMustBeAfterStartTimeTests.cs" />
     <Compile Include="Rules\HashAlgorithmsMustBeUniqueTests.cs" />
@@ -82,6 +83,24 @@
   <ItemGroup>
     <None Include="packages.config">
       <SubType>Designer</SubType>
+    </None>
+    <None Include="TestData\AnnotatedCodeLocationEssentialIsObsolete\AnnotatedCodeLocationDoesNotHaveEssential.sarif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestData\AnnotatedCodeLocationEssentialIsObsolete\AnnotatedCodeLocationDoesNotHaveEssential_Expected.sarif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestData\AnnotatedCodeLocationEssentialIsObsolete\AnnotatedCodeLocationHasEssentialInCodeFlow.sarif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestData\AnnotatedCodeLocationEssentialIsObsolete\AnnotatedCodeLocationHasEssentialInCodeFlow_Expected.sarif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestData\AnnotatedCodeLocationEssentialIsObsolete\AnnotatedCodeLocationHasEssentialInRelatedLocation.sarif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestData\AnnotatedCodeLocationEssentialIsObsolete\AnnotatedCodeLocationHasEssentialInRelatedLocation_Expected.sarif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="TestData\AnnotatedCodeLocationIdIsObsolete\AnnotatedCodeLocationDoesNotHaveId.sarif">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

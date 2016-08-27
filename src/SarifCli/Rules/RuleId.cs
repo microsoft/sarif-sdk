@@ -9,7 +9,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Cli.Rules
         public const string UseAbsolutePathsForNestedFileUriFragments = "SV0002";
         public const string UrisMustBeValid = "SV0003";
         public const string AnnotatedCodeLocationIdIsObsolete = "SV0004";
-        public const string HashAlgorithmsMustBeUnique = "SV0005";
-        public const string EndTimeMustBeAfterStartTime = "SV0006";
+        public const string AnnotatedCodeLocationEssentialIsObsolete = "SV0005";
+        public const string HashAlgorithmsMustBeUnique = "SV0006";
+        public const string EndTimeMustBeAfterStartTime = "SV0007";
     }
 }

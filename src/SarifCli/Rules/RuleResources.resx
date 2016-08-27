@@ -136,24 +136,33 @@
     <value>Specify a valid URI reference for every URI-valued property.</value>
   </data>
   <data name="SV0004_AnnotatedCodeLocationIdIsObsolete" xml:space="preserve">
-    <value>Do not use the property annotatedCodeLocation.id, which is obsolete. Instead use annotatedCodeLocation.step, which is an integer-valued property that is 1 for the first annotatedCodeLocation in a codeFlow, and increments by 1 for every subsequent step.</value>
+    <value>Do not use the obsolete "id" property of the annotatedCodeLocation object. Instead use "step", which is an integer-valued property that is 1 for the first annotatedCodeLocation in a codeFlow, and increments by 1 for every subsequent step.</value>
   </data>
   <data name="SV0004_Default" xml:space="preserve">
-    <value>In "{0}", at "{1}", the obsolete annotatedCodeLocation.id property is used.  Remove it, and instead use the step property, whose value is an integer which is 1 for the first location in a code flow, and increments by 1 for each subsequent location in the code flow.</value>
+    <value>In "{0}", at "{1}", the obsolete annotatedCodeLocation.id property is used.  Remove it, and instead use the "step" property, whose value is an integer which is 1 for the first location in a code flow, and increments by 1 for each subsequent location in the code flow.</value>
   </data>
   <data name="SV0004_OnlyInCodeFlow" xml:space="preserve">
-    <value>In "{0}", at "{1}", the obsolete annotatedCodeLocation.id property is used. This property has been replaced by the step property, but the step property is used only in annotatedCodeLocations objects that occur within a code flow. Remove the id property.</value>
+    <value>In "{0}", at "{1}", the obsolete "id" property is used. This property has been replaced by the "step" property, but the "step" property is used only in annotatedCodeLocations objects that occur within a code flow. Remove the "id" property.</value>
+  </data>
+  <data name="SV0005_AnnotatedCodeLocationEssentialIsObsolete" xml:space="preserve">
+    <value>Do not use the obsolete "essential" property of the annotatedCodeLocation object. Instead use "importance", which is an string-valued property that must have one of the values "essential", "important", or "unimportant".</value>
   </data>
   <data name="SV0005_Default" xml:space="preserve">
-    <value>In "{0}", at "{1}", the array contains multiple objects with the value "{2}" for the algorithm property.</value>
+    <value>In "{0}", at "{1}", the obsolete "essential" property is used.  Remove it, and instead use the "importance" property, whose value is a string with one of the values "essential", "important", or "unimportant".</value>
   </data>
-  <data name="SV0005_HashAlgorithmsMustBeUnique" xml:space="preserve">
-    <value>In any given "file" object, every element of the "hashes" array must have a different value for its "algorithm" property. </value>
+  <data name="SV0005_OnlyInCodeFlow" xml:space="preserve">
+    <value>In "{0}", at "{1}", the obsolete "essential" property is used. This property has been replaced by the "importance" property, but the "importance" property is used only in annotatedCodeLocations objects that occur within a code flow. Remove the "essential" property.</value>
   </data>
   <data name="SV0006_Default" xml:space="preserve">
+    <value>In "{0}", at "{1}", the array contains multiple objects with the value "{2}" for the algorithm property.</value>
+  </data>
+  <data name="SV0006_HashAlgorithmsMustBeUnique" xml:space="preserve">
+    <value>In any given "file" object, every element of the "hashes" array must have a different value for its "algorithm" property. </value>
+  </data>
+  <data name="SV0007_Default" xml:space="preserve">
     <value>In "{0}", at "{1}", the end time "{2}" is before the start time "{3}".</value>
   </data>
-  <data name="SV0006_EndTimeMustBeAfterStartTime" xml:space="preserve">
+  <data name="SV0007_EndTimeMustBeAfterStartTime" xml:space="preserve">
     <value>The end time of a run must be after the start time. To allow for the possibility that the duration of the run is less than the resolution of the string representation of the time, the start time and the end time may be equal.</value>
   </data>
 </root>

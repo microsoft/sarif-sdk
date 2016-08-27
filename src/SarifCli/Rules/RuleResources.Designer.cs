@@ -115,7 +115,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Cli.Rules {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Do not use the property annotatedCodeLocation.id, which is obsolete. Instead use annotatedCodeLocation.step, which is an integer-valued property that is 1 for the first annotatedCodeLocation in a codeFlow, and increments by 1 for every subsequent step..
+        ///   Looks up a localized string similar to Do not use the obsolete &quot;id&quot; property of the annotatedCodeLocation object. Instead use &quot;step&quot;, which is an integer-valued property that is 1 for the first annotatedCodeLocation in a codeFlow, and increments by 1 for every subsequent step..
         /// </summary>
         internal static string SV0004_AnnotatedCodeLocationIdIsObsolete {
             get {
@@ -124,7 +124,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Cli.Rules {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to In &quot;{0}&quot;, at &quot;{1}&quot;, the obsolete annotatedCodeLocation.id property is used.  Remove it, and instead use the step property, whose value is an integer which is 1 for the first location in a code flow, and increments by 1 for each subsequent location in the code flow..
+        ///   Looks up a localized string similar to In &quot;{0}&quot;, at &quot;{1}&quot;, the obsolete annotatedCodeLocation.id property is used.  Remove it, and instead use the &quot;step&quot; property, whose value is an integer which is 1 for the first location in a code flow, and increments by 1 for each subsequent location in the code flow..
         /// </summary>
         internal static string SV0004_Default {
             get {
@@ -133,7 +133,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Cli.Rules {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to In &quot;{0}&quot;, at &quot;{1}&quot;, the obsolete annotatedCodeLocation.id property is used. This property has been replaced by the step property, but the step property is used only in annotatedCodeLocations objects that occur within a code flow. Remove the id property..
+        ///   Looks up a localized string similar to In &quot;{0}&quot;, at &quot;{1}&quot;, the obsolete &quot;id&quot; property is used. This property has been replaced by the &quot;step&quot; property, but the &quot;step&quot; property is used only in annotatedCodeLocations objects that occur within a code flow. Remove the &quot;id&quot; property..
         /// </summary>
         internal static string SV0004_OnlyInCodeFlow {
             get {
@@ -142,7 +142,16 @@ namespace Microsoft.CodeAnalysis.Sarif.Cli.Rules {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to In &quot;{0}&quot;, at &quot;{1}&quot;, the array contains multiple objects with the value &quot;{2}&quot; for the algorithm property..
+        ///   Looks up a localized string similar to Do not use the obsolete &quot;essential&quot; property of the annotatedCodeLocation object. Instead use &quot;importance&quot;, which is an string-valued property that must have one of the values &quot;essential&quot;, &quot;important&quot;, or &quot;unimportant&quot;..
+        /// </summary>
+        internal static string SV0005_AnnotatedCodeLocationEssentialIsObsolete {
+            get {
+                return ResourceManager.GetString("SV0005_AnnotatedCodeLocationEssentialIsObsolete", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to In &quot;{0}&quot;, at &quot;{1}&quot;, the obsolete &quot;essential&quot; property is used.  Remove it, and instead use the &quot;importance&quot; property, whose value is a string with one of the values &quot;essential&quot;, &quot;important&quot;, or &quot;unimportant&quot;..
         /// </summary>
         internal static string SV0005_Default {
             get {
@@ -151,16 +160,16 @@ namespace Microsoft.CodeAnalysis.Sarif.Cli.Rules {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to In any given &quot;file&quot; object, every element of the &quot;hashes&quot; array must have a different value for its &quot;algorithm&quot; property. .
+        ///   Looks up a localized string similar to In &quot;{0}&quot;, at &quot;{1}&quot;, the obsolete &quot;essential&quot; property is used. This property has been replaced by the &quot;importance&quot; property, but the &quot;importance&quot; property is used only in annotatedCodeLocations objects that occur within a code flow. Remove the &quot;essential&quot; property..
         /// </summary>
-        internal static string SV0005_HashAlgorithmsMustBeUnique {
+        internal static string SV0005_OnlyInCodeFlow {
             get {
-                return ResourceManager.GetString("SV0005_HashAlgorithmsMustBeUnique", resourceCulture);
+                return ResourceManager.GetString("SV0005_OnlyInCodeFlow", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to In &quot;{0}&quot;, at &quot;{1}&quot;, the end time &quot;{2}&quot; is before the start time &quot;{3}&quot;..
+        ///   Looks up a localized string similar to In &quot;{0}&quot;, at &quot;{1}&quot;, the array contains multiple objects with the value &quot;{2}&quot; for the algorithm property..
         /// </summary>
         internal static string SV0006_Default {
             get {
@@ -169,11 +178,29 @@ namespace Microsoft.CodeAnalysis.Sarif.Cli.Rules {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to In any given &quot;file&quot; object, every element of the &quot;hashes&quot; array must have a different value for its &quot;algorithm&quot; property. .
+        /// </summary>
+        internal static string SV0006_HashAlgorithmsMustBeUnique {
+            get {
+                return ResourceManager.GetString("SV0006_HashAlgorithmsMustBeUnique", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to In &quot;{0}&quot;, at &quot;{1}&quot;, the end time &quot;{2}&quot; is before the start time &quot;{3}&quot;..
+        /// </summary>
+        internal static string SV0007_Default {
+            get {
+                return ResourceManager.GetString("SV0007_Default", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The end time of a run must be after the start time. To allow for the possibility that the duration of the run is less than the resolution of the string representation of the time, the start time and the end time may be equal..
         /// </summary>
-        internal static string SV0006_EndTimeMustBeAfterStartTime {
+        internal static string SV0007_EndTimeMustBeAfterStartTime {
             get {
-                return ResourceManager.GetString("SV0006_EndTimeMustBeAfterStartTime", resourceCulture);
+                return ResourceManager.GetString("SV0007_EndTimeMustBeAfterStartTime", resourceCulture);
             }
         }
     }

@@ -8,7 +8,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Cli.Rules
 {
     public class HashAlgorithmsMustBeUnique : SarifValidationSkimmerBase
     {
-        public override string FullDescription => RuleResources.SV0005_HashAlgorithmsMustBeUnique;
+        public override string FullDescription => RuleResources.SV0006_HashAlgorithmsMustBeUnique;
 
         public override ResultLevel DefaultLevel => ResultLevel.Error;
 
@@ -23,7 +23,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Cli.Rules
             {
                 return new string[]
                 {
-                    nameof(RuleResources.SV0005_Default)
+                    nameof(RuleResources.SV0006_Default)
                 };
             }
         }
@@ -40,7 +40,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Cli.Rules
 
                         LogResult(
                             hashesPointer,
-                            nameof(RuleResources.SV0005_Default),
+                            nameof(RuleResources.SV0006_Default),
                             algorithmKind.ToString());
                     }
                 }
