@@ -11,19 +11,19 @@ namespace Microsoft.CodeAnalysis.Sarif.Cli.FunctionalTests.Rules
         [Fact(DisplayName = nameof(AnnotatedCodeLocationEssentialIsObsolete_AnnotatedCodeLocationDoesNotHaveEssential))]
         public void AnnotatedCodeLocationEssentialIsObsolete_AnnotatedCodeLocationDoesNotHaveEssential()
         {
-            Verify(new AnnotatedCodeLocationEssentialIsObsolete(), "AnnotatedCodeLocationDoesNotHaveId.sarif");
+            Verify(new AnnotatedCodeLocationEssentialIsObsolete(), "AnnotatedCodeLocationDoesNotHaveEssential.sarif");
         }
 
-        [Fact(DisplayName = nameof(AnnotatedCodeLocationEssentialIsObsolete_AnnotatedCodeLocationInCodeFlowHasEssential))]
-        public void AnnotatedCodeLocationEssentialIsObsolete_AnnotatedCodeLocationInCodeFlowHasEssential()
+        [Fact(DisplayName = nameof(AnnotatedCodeLocationEssentialIsObsolete_AnnotatedCodeLocationHasEssentialInCodeFlow))]
+        public void AnnotatedCodeLocationEssentialIsObsolete_AnnotatedCodeLocationHasEssentialInCodeFlow()
         {
-            Verify(new AnnotatedCodeLocationEssentialIsObsolete(), "AnnotatedCodeLocationInCodeFlowHasEssential.sarif");
+            Verify(new AnnotatedCodeLocationEssentialIsObsolete(), "AnnotatedCodeLocationHasEssentialInCodeFlow.sarif");
         }
 
-        [Fact(DisplayName = nameof(AnnotatedCodeLocationEssentialIsObsolete_AnnotatedCodeLocationInRelatedLocationHasEssential))]
-        public void AnnotatedCodeLocationEssentialIsObsolete_AnnotatedCodeLocationInRelatedLocationHasEssential()
+        [Fact(DisplayName = nameof(AnnotatedCodeLocationEssentialIsObsolete_AnnotatedCodeLocationHasEssentialInRelatedLocation))]
+        public void AnnotatedCodeLocationEssentialIsObsolete_AnnotatedCodeLocationHasEssentialInRelatedLocation()
         {
-            Verify(new AnnotatedCodeLocationEssentialIsObsolete(), "AnnotatedCodeLocationInRelatedLocationHasEssential.sarif");
+            Verify(new AnnotatedCodeLocationEssentialIsObsolete(), "AnnotatedCodeLocationHasEssentialInRelatedLocation.sarif");
         }
     }
 }

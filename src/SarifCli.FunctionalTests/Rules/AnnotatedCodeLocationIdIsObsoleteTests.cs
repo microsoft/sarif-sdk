@@ -14,16 +14,16 @@ namespace Microsoft.CodeAnalysis.Sarif.Cli.FunctionalTests.Rules
             Verify(new AnnotatedCodeLocationIdIsObsolete(), "AnnotatedCodeLocationDoesNotHaveId.sarif");
         }
 
-        [Fact(DisplayName = nameof(AnnotatedCodeLocationIdIsObsolete_AnnotatedCodeLocationInCodeFlowHasId))]
-        public void AnnotatedCodeLocationIdIsObsolete_AnnotatedCodeLocationInCodeFlowHasId()
+        [Fact(DisplayName = nameof(AnnotatedCodeLocationIdIsObsolete_AnnotatedCodeLocationHasIdInCodeFlow))]
+        public void AnnotatedCodeLocationIdIsObsolete_AnnotatedCodeLocationHasIdInCodeFlow()
         {
-            Verify(new AnnotatedCodeLocationIdIsObsolete(), "AnnotatedCodeLocationInCodeFlowHasId.sarif");
+            Verify(new AnnotatedCodeLocationIdIsObsolete(), "AnnotatedCodeLocationHasIdInCodeFlow.sarif");
         }
 
-        [Fact(DisplayName = nameof(AnnotatedCodeLocationIdIsObsolete_AnnotatedCodeLocationInRelatedLocationHasId))]
-        public void AnnotatedCodeLocationIdIsObsolete_AnnotatedCodeLocationInRelatedLocationHasId()
+        [Fact(DisplayName = nameof(AnnotatedCodeLocationIdIsObsolete_AnnotatedCodeLocationHasIdInRelatedLocation))]
+        public void AnnotatedCodeLocationIdIsObsolete_AnnotatedCodeLocationHasIdInRelatedLocation()
         {
-            Verify(new AnnotatedCodeLocationIdIsObsolete(), "AnnotatedCodeLocationInRelatedLocationHasId.sarif");
+            Verify(new AnnotatedCodeLocationIdIsObsolete(), "AnnotatedCodeLocationHasIdInRelatedLocation.sarif");
         }
     }
 }
