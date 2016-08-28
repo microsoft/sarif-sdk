@@ -18,7 +18,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Cli.Rules
             "https://rawgit.com/sarif-standard/sarif-spec/master/Static%20Analysis%20Results%20Interchange%20Format%20(SARIF).html";
 
         private readonly Uri _defaultHelpUri = new Uri(SarifSpecUri);
-        private JToken _rootToken;
 
         public override Uri HelpUri => _defaultHelpUri;
 
@@ -29,8 +28,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Cli.Rules
         public override sealed void Analyze(SarifValidationContext context)
         {
             Context = context;
-
-            _rootToken = JToken.Parse(Context.InputLogContents);
+            Context.InputLogToken = JToken.Parse(Context.InputLogContents);
 
             Visit(Context.InputLog, logPointer: string.Empty);
         }
@@ -359,7 +357,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Cli.Rules
         private Region GetRegionFromJPointer(string jPointer)
         {
             JsonPointer jsonPointer = new JsonPointer(jPointer);
-            JToken jToken = jsonPointer.Evaluate(_rootToken);
+            JToken jToken = jsonPointer.Evaluate(Context.InputLogToken);
             IJsonLineInfo lineInfo = jToken;
 
             Region region = null;

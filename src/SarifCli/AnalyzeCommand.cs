@@ -61,7 +61,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Cli
                 // Deserialize will return null if there are any JSON deserialization errors
                 // (which can happen, for example, if a property required by the schema is
                 // missing. In that case, again, there's no point in going on.
-                context.InputLog = Deserialize(context);
+                context.InputLogContents = File.ReadAllText(context.TargetUri.AbsolutePath);
+                context.InputLog = Deserialize(context.InputLogContents);
 
                 if (context.InputLog != null)
                 {
@@ -71,10 +72,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Cli
             }
         }
 
-        private SarifLog Deserialize(SarifValidationContext context)
+        private SarifLog Deserialize(string logContents)
         {
-            context.InputLogContents = File.ReadAllText(context.TargetUri.AbsolutePath);
-
             JsonSerializerSettings settings = new JsonSerializerSettings
             {
                 ContractResolver = SarifContractResolver.Instance
@@ -83,7 +82,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Cli
             SarifLog log = null;
             try
             {
-                return JsonConvert.DeserializeObject<SarifLog>(context.InputLogContents, settings);
+                return JsonConvert.DeserializeObject<SarifLog>(logContents, settings);
             }
             catch (JsonSerializationException)
             {

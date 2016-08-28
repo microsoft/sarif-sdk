@@ -112,10 +112,22 @@
     <None Include="TestData\AnnotatedCodeLocationEssentialIsObsolete\AnnotatedCodeLocationDoesNotHaveEssential_Expected.sarif">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="TestData\AnnotatedCodeLocationEssentialIsObsolete\AnnotatedCodeLocationHasDefaultEssentialInCodeFlow.sarif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestData\AnnotatedCodeLocationEssentialIsObsolete\AnnotatedCodeLocationHasDefaultEssentialInCodeFlow_Expected.sarif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestData\AnnotatedCodeLocationEssentialIsObsolete\AnnotatedCodeLocationHasDefaultEssentialInRelatedLocation_Expected.sarif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="TestData\AnnotatedCodeLocationEssentialIsObsolete\AnnotatedCodeLocationHasEssentialInCodeFlow.sarif">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="TestData\AnnotatedCodeLocationEssentialIsObsolete\AnnotatedCodeLocationHasEssentialInCodeFlow_Expected.sarif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestData\AnnotatedCodeLocationEssentialIsObsolete\AnnotatedCodeLocationHasDefaultEssentialInRelatedLocation.sarif">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="TestData\AnnotatedCodeLocationEssentialIsObsolete\AnnotatedCodeLocationHasEssentialInRelatedLocation.sarif">

@@ -20,10 +20,22 @@ namespace Microsoft.CodeAnalysis.Sarif.Cli.FunctionalTests.Rules
             Verify(new AnnotatedCodeLocationEssentialIsObsolete(), "AnnotatedCodeLocationHasEssentialInCodeFlow.sarif");
         }
 
+        [Fact(DisplayName = nameof(AnnotatedCodeLocationEssentialIsObsolete_AnnotatedCodeLocationHasDefaultEssentialInCodeFlow))]
+        public void AnnotatedCodeLocationEssentialIsObsolete_AnnotatedCodeLocationHasDefaultEssentialInCodeFlow()
+        {
+            Verify(new AnnotatedCodeLocationEssentialIsObsolete(), "AnnotatedCodeLocationHasDefaultEssentialInCodeFlow.sarif");
+        }
+
         [Fact(DisplayName = nameof(AnnotatedCodeLocationEssentialIsObsolete_AnnotatedCodeLocationHasEssentialInRelatedLocation))]
         public void AnnotatedCodeLocationEssentialIsObsolete_AnnotatedCodeLocationHasEssentialInRelatedLocation()
         {
             Verify(new AnnotatedCodeLocationEssentialIsObsolete(), "AnnotatedCodeLocationHasEssentialInRelatedLocation.sarif");
+        }
+
+        [Fact(DisplayName = nameof(AnnotatedCodeLocationEssentialIsObsolete_AnnotatedCodeLocationHasDefaultEssentialInRelatedLocation))]
+        public void AnnotatedCodeLocationEssentialIsObsolete_AnnotatedCodeLocationHasDefaultEssentialInRelatedLocation()
+        {
+            Verify(new AnnotatedCodeLocationEssentialIsObsolete(), "AnnotatedCodeLocationHasDefaultEssentialInRelatedLocation.sarif");
         }
     }
 }

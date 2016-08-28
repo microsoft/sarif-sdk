@@ -1,7 +1,11 @@
 ﻿// Copyright (c) Microsoft. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
+using System;
 using System.Collections.Generic;
+using System.Linq;
+using Microsoft.Json.Pointer;
+using Newtonsoft.Json.Linq;
 
 namespace Microsoft.CodeAnalysis.Sarif.Cli.Rules
 {
@@ -30,7 +34,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Cli.Rules
 
         protected override void Analyze(AnnotatedCodeLocation annotatedCodeLocation, string annotatedCodeLocationPointer)
         {
-            if (annotatedCodeLocation.Essential)
+            var pointer = new JsonPointer(annotatedCodeLocationPointer);
+            JToken token = pointer.Evaluate(Context.InputLogToken);
+
+            if (token.Children<JProperty>().Any(jp => jp.Name.Equals(SarifPropertyName.Essential, StringComparison.Ordinal)))
             {
                 string essentialPointer = annotatedCodeLocationPointer.AtProperty(SarifPropertyName.Essential);
 
