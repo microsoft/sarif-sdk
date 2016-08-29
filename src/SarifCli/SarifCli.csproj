@@ -86,6 +86,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ExportRulesMetadataCommand.cs" />
+    <Compile Include="IntegerExtensions.cs" />
     <Compile Include="JPointerStringExtensions.cs" />
     <Compile Include="JTokenExtensions.cs" />
     <Compile Include="Rules\EndLineMustNotBeLessThanStartLine.cs" />

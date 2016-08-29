@@ -2,9 +2,7 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using System.Collections.Generic;
-using System.Globalization;
 using Microsoft.Json.Pointer;
-using Newtonsoft.Json.Linq;
 
 namespace Microsoft.CodeAnalysis.Sarif.Cli.Rules
 {
@@ -43,8 +41,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Cli.Rules
                 LogResult(
                     regionPointer,
                     nameof(RuleResources.SV0012_Default),
-                    region.EndLine.ToString(CultureInfo.InvariantCulture),
-                    region.StartLine.ToString(CultureInfo.InvariantCulture));
+                    region.EndLine.ToInvariantString(),
+                    region.StartLine.ToInvariantString());
             }
         }
     }

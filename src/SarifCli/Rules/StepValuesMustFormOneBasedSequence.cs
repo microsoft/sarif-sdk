@@ -4,7 +4,6 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Globalization;
 using System.Linq;
 using Microsoft.Json.Pointer;
 using Newtonsoft.Json.Linq;
@@ -79,8 +78,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Cli.Rules
                     LogResult(
                         invalidStepPointer,
                         nameof(RuleResources.SV0009_InvalidStepValue),
-                        (i + 1).ToString(CultureInfo.InvariantCulture),
-                        (locations[i].Step).ToString(CultureInfo.InvariantCulture));
+                        (i + 1).ToInvariantString(),
+                        (locations[i].Step).ToInvariantString());
                 }
             }
         }
