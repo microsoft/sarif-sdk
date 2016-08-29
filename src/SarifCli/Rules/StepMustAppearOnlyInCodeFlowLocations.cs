@@ -36,7 +36,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Cli.Rules
             var pointer = new JsonPointer(annotatedCodeLocationPointer);
             JToken token = pointer.Evaluate(Context.InputLogToken);
 
-            if (token.Children<JProperty>().Any(jp => jp.Name.Equals(SarifPropertyName.Step, StringComparison.Ordinal)))
+            if (token.HasProperty(SarifPropertyName.Step))
             {
                 if (!annotatedCodeLocationPointer.Contains(SarifPropertyName.CodeFlows))
                 {

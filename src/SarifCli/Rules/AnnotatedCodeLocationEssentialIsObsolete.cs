@@ -37,7 +37,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Cli.Rules
             var pointer = new JsonPointer(annotatedCodeLocationPointer);
             JToken token = pointer.Evaluate(Context.InputLogToken);
 
-            if (token.Children<JProperty>().Any(jp => jp.Name.Equals(SarifPropertyName.Essential, StringComparison.Ordinal)))
+            if (token.HasProperty(SarifPropertyName.Essential))
             {
                 string essentialPointer = annotatedCodeLocationPointer.AtProperty(SarifPropertyName.Essential);
 

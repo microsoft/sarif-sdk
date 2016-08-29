@@ -115,7 +115,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Cli.Rules
 
             for (int i = 0; i < annotatedCodeLocationObjects.Length; ++i)
             {
-                if (!annotatedCodeLocationObjects[i].Children<JProperty>().Any(prop => prop.Name.Equals(SarifPropertyName.Step, StringComparison.Ordinal)))
+                if (!annotatedCodeLocationObjects[i].HasProperty(SarifPropertyName.Step))
                 {
                     index = i;
                     break;
@@ -134,8 +134,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Cli.Rules
 
         private static bool LocationHasStep(JObject loc)
         {
-            return loc.Children<JProperty>().Any(
-                                prop => prop.Name.Equals(SarifPropertyName.Step, StringComparison.Ordinal));
+            return loc.HasProperty(SarifPropertyName.Step);
         }
     }
 }
