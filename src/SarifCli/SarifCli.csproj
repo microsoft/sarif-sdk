@@ -88,6 +88,7 @@
     <Compile Include="ExportRulesMetadataCommand.cs" />
     <Compile Include="JPointerStringExtensions.cs" />
     <Compile Include="JTokenExtensions.cs" />
+    <Compile Include="Rules\EndLineMustNotBeLessThanStartLine.cs" />
     <Compile Include="Rules\ImportanceMustAppearOnlyInCodeFlowLocations.cs" />
     <Compile Include="Rules\StepMustAppearOnlyInCodeFlowLocations.cs" />
     <Compile Include="Rules\StepValuesMustFormOneBasedSequence.cs" />

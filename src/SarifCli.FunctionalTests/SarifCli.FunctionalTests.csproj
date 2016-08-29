@@ -86,6 +86,7 @@
   <ItemGroup>
     <Compile Include="AnalyzeCommandTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Rules\EndLineMustNotBeLessThanStartLineTests.cs" />
     <Compile Include="Rules\ImportanceMustAppearOnlyInCodeFlowLocationsTests.cs" />
     <Compile Include="Rules\StepMustAppearOnlyInCodeFlowLocationsTests.cs" />
     <Compile Include="Rules\StepValuesMustFormOneBasedSequenceTests.cs" />
@@ -174,6 +175,48 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="TestData\DoNotUseFriendlyNameAsRuleId\RuleIdMatchesFriendlyName_Expected.sarif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestData\EndLineMustNotBeLessThanStartLine\EndLineEqualsStartLine_Expected.sarif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestData\EndLineMustNotBeLessThanStartLine\EndLineGreaterThanStartLine_Expected.sarif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestData\EndLineMustNotBeLessThanStartLine\EndLineLessThanStartLineInResultFile.sarif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestData\EndLineMustNotBeLessThanStartLine\EndLineLessThanStartLineInAnalysisTarget_Expected.sarif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestData\EndLineMustNotBeLessThanStartLine\EndLineLessThanStartLineInCodeFlow_Expected.sarif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestData\EndLineMustNotBeLessThanStartLine\EndLineLessThanStartLineInRelatedLocation.sarif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestData\EndLineMustNotBeLessThanStartLine\EndLineLessThanStartLineInCodeFlow.sarif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestData\EndLineMustNotBeLessThanStartLine\EndLineLessThanStartLineInRelatedLocation_Expected.sarif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestData\EndLineMustNotBeLessThanStartLine\EndLineLessThanStartLineInAnalysisTarget.sarif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestData\EndLineMustNotBeLessThanStartLine\EndLineGreaterThanStartLine.sarif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestData\EndLineMustNotBeLessThanStartLine\EndLineLessThanStartLineInResultFile_Expected.sarif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestData\EndLineMustNotBeLessThanStartLine\EndLineNotSpecified.sarif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestData\EndLineMustNotBeLessThanStartLine\EndLineEqualsStartLine.sarif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestData\EndLineMustNotBeLessThanStartLine\EndLineNotSpecified_Expected.sarif">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="TestData\EndTimeMustBeAfterStartTime\EndTimeEqualsStartTime.sarif">

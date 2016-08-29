@@ -8,6 +8,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Cli
         public const string AnalysisTarget = "analysisTarget";
         public const string CodeFlows = "codeFlows";
         public const string ConfigurationNotifications = "configurationNotifications";
+        public const string EndLine = "endLine";
         public const string EndTime = "endTime";
         public const string Essential = "essential";
         public const string FileChanges = "fileChanges";
@@ -22,6 +23,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Cli
         public const string Message = "message";
         public const string MessageFormats = "messageFormats";
         public const string PhysicalLocation = "physicalLocation";
+        public const string Region = "region";
         public const string RelatedLocations = "relatedLocations";
         public const string ResultFile = "resultFile";
         public const string Results = "results";

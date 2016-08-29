@@ -192,4 +192,10 @@
   <data name="SV0011_ImportanceMustAppearOnlyInCodeFlowLocations" xml:space="preserve">
     <value>The "importance" property must appear only in annotatedCodeLocation objects which occur within code flows.</value>
   </data>
+  <data name="SV0012_Default" xml:space="preserve">
+    <value>In "{0}", at "{1}", the value of the "endLine" property is {2}, which is less than the value of the "startLine" property, which is {3}.</value>
+  </data>
+  <data name="SV0012_EndLineMustNotBeLessThanStartLine" xml:space="preserve">
+    <value>The "endLine" property of a region object must not be less than the "startLine" property.</value>
+  </data>
 </root>

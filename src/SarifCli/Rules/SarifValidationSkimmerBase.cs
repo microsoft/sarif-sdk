@@ -75,6 +75,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Cli.Rules
         {
         }
 
+        protected virtual void Analyze(Region region, string regionPointer)
+        {
+        }
+
         protected virtual void Analyze(Result result, string resultPointer)
         {
         }
@@ -200,6 +204,18 @@ namespace Microsoft.CodeAnalysis.Sarif.Cli.Rules
         private void Visit(PhysicalLocation physicalLocation, string physicalLocationPointer)
         {
             Analyze(physicalLocation, physicalLocationPointer);
+
+            if (physicalLocation.Region != null)
+            {
+                string regionPointer = physicalLocationPointer.AtProperty(SarifPropertyName.Region);
+
+                Visit(physicalLocation.Region, regionPointer);
+            }
+        }
+
+        private void Visit(Region region, string regionPointer)
+        {
+            Analyze(region, regionPointer);
         }
 
         private void Visit(Result result, string resultPointer)

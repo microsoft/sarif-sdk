@@ -1,0 +1,85 @@
+{
+  "$schema": "http://json.schemastore.org/sarif-1.0.0",
+  "version": "1.0.0",
+  "runs": [
+    {
+      "id": "d3877f93-40a9-481f-bfc4-4c9af1ef7525",
+      "tool": {
+        "name": "SarifCli",
+        "fullName": "SarifCli 1.0.0.0",
+        "version": "1.0.0.0",
+        "semanticVersion": "1.0.0",
+        "sarifLoggerVersion": "1.5.27.0",
+        "language": "en-US",
+        "properties": {
+          "Comments": "Command line tool for working with SARIF log files.",
+          "CompanyName": "Microsoft Corporation",
+          "ProductName": "Microsoft SARIF SDK"
+        }
+      },
+      "results": [
+        {
+          "ruleId": "SV0012",
+          "level": "error",
+          "formattedRuleMessage": {
+            "formatId": "Default",
+            "arguments": [
+              "EndLineLessThanStartLineInAnalysisTarget.sarif",
+              "/runs/0/results/0/locations/0/analysisTarget/region",
+              "1",
+              "2"
+            ]
+          },
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///G:/Code/sarif-sdk/src/SarifCli.FunctionalTests/TestData/EndLineMustNotBeLessThanStartLine/EndLineLessThanStartLineInAnalysisTarget.sarif",
+                "region": {
+                  "startLine": 18,
+                  "startColumn": 28
+                }
+              }
+            }
+          ]
+        }
+      ],
+      "toolNotifications": [
+        {
+          "id": "MSG001.AnalyzingTarget",
+          "physicalLocation": {
+            "uri": "file:///G:/Code/sarif-sdk/src/SarifCli.FunctionalTests/TestData/EndLineMustNotBeLessThanStartLine/EndLineLessThanStartLineInAnalysisTarget.sarif"
+          },
+          "message": "Analyzing 'EndLineLessThanStartLineInAnalysisTarget.sarif'...",
+          "level": "note",
+          "time": "2016-08-29T21:58:42.606Z"
+        }
+      ],
+      "rules": {
+        "SV0012": {
+          "id": "SV0012",
+          "name": "EndLineMustNotBeLessThanStartLine",
+          "shortDescription": "The \"endLine\" property of a region object must not be less than the \"startLine\" property.",
+          "fullDescription": "The \"endLine\" property of a region object must not be less than the \"startLine\" property.",
+          "messageFormats": {
+            "Default": "In \"{0}\", at \"{1}\", the value of the \"endLine\" property is {2}, which is less than the value of the \"startLine\" property, which is {3}."
+          },
+          "defaultLevel": "error",
+          "helpUri": "https://rawgit.com/sarif-standard/sarif-spec/master/Static%20Analysis%20Results%20Interchange%20Format%20(SARIF).html"
+        }
+      },
+      "files": {
+        "file:///G:/Code/sarif-sdk/src/SarifCli.FunctionalTests/TestData/EndLineMustNotBeLessThanStartLine/EndLineLessThanStartLineInAnalysisTarget.sarif": {
+          "mimeType": "application/octet-stream"
+        }
+      },
+      "invocation": {
+        "commandLine": "\"G:\\Code\\sarif-sdk\\bld\\bin\\SarifCli\\AnyCPU_Debug\\SarifCli.exe\"  validate G:\\Code\\sarif-sdk\\src\\SarifCli.FunctionalTests\\TestData\\EndLineMustNotBeLessThanStartLine\\EndLineLessThanStartLineInAnalysisTarget.sarif -o G:\\Code\\sarif-sdk\\src\\SarifCli.FunctionalTests\\TestData\\EndLineMustNotBeLessThanStartLine\\EndLineLessThanStartLineInAnalysisTarget_Expected.sarif -j G:\\Code\\sarif-sdk\\src\\Sarif\\Schemata\\Sarif.schema.json ",
+        "startTime": "2016-08-29T21:58:42.526Z",
+        "endTime": "2016-08-29T21:58:42.868Z",
+        "processId": 12364,
+        "fileName": "G:\\Code\\sarif-sdk\\bld\\bin\\SarifCli\\AnyCPU_Debug\\SarifCli.exe",
+        "workingDirectory": "G:\\Code\\sarif-sdk\\bld\\bin\\SarifCli\\AnyCPU_Debug"
+      }
+    }
+  ]
+}
