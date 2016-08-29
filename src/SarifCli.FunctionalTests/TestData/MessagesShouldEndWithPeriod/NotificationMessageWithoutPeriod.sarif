@@ -1,0 +1,22 @@
+{
+  "$schema": "http://json.schemastore.org/sarif-1.0.0",
+  "version": "1.0.0",
+  "runs": [
+    {
+      "tool": {
+        "name": "CodeScanner"
+      },
+      "results": [],
+      "toolNotifications": [
+        {
+          "message": "Run started"
+        }
+      ],
+      "configurationNotifications": [
+        {
+          "message": "Using default configuration"
+        }
+      ]
+    }
+  ]
+}

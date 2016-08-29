@@ -12,5 +12,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Cli.Rules
         public const string AnnotatedCodeLocationEssentialIsObsolete = "SV0005";
         public const string HashAlgorithmsMustBeUnique = "SV0006";
         public const string EndTimeMustBeAfterStartTime = "SV0007";
+        public const string MessagesShouldEndWithPeriod = "SV0008";
     }
 }

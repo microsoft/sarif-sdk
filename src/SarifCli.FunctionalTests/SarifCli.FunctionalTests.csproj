@@ -91,6 +91,7 @@
     <Compile Include="Rules\EndTimeMustBeAfterStartTimeTests.cs" />
     <Compile Include="Rules\HashAlgorithmsMustBeUniqueTests.cs" />
     <Compile Include="Rules\DoNotUseFriendlyNameAsRuleIdTests.cs" />
+    <Compile Include="Rules\MessagesShouldEndWithPeriodTests.cs" />
     <Compile Include="Rules\SkimmerTestsBase.cs" />
     <Compile Include="Rules\UrisMustBeValidTests.cs" />
     <Compile Include="Rules\UseAbsolutePathsForNestedFileUriFragmentsTests.cs" />
@@ -200,6 +201,51 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="TestData\HashAlgorithmsMustBeUnique\UniqueHashAlgorithms_Expected.sarif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestData\MessagesShouldEndWithPeriod\AnnotatedCodeLocationMessageWithoutPeriod.sarif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestData\MessagesShouldEndWithPeriod\AnnotatedCodeLocationMessageWithoutPeriod_Expected.sarif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestData\MessagesShouldEndWithPeriod\CodeFlowMessageWithoutPeriod.sarif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestData\MessagesShouldEndWithPeriod\CodeFlowMessageWithoutPeriod_Expected.sarif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestData\MessagesShouldEndWithPeriod\NotificationMessageWithoutPeriod.sarif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestData\MessagesShouldEndWithPeriod\NotificationMessageWithoutPeriod_Expected.sarif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestData\MessagesShouldEndWithPeriod\StackFrameMessageWithoutPeriod.sarif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestData\MessagesShouldEndWithPeriod\StackFrameMessageWithoutPeriod_Expected.sarif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestData\MessagesShouldEndWithPeriod\StackMessageWithoutPeriod.sarif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestData\MessagesShouldEndWithPeriod\RuleMessageFormatWithoutPeriod.sarif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestData\MessagesShouldEndWithPeriod\PeriodsAfterAllMessages_Expected.sarif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestData\MessagesShouldEndWithPeriod\ResultMessageWithoutPeriod.sarif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestData\MessagesShouldEndWithPeriod\ResultMessageWithoutPeriod_Expected.sarif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestData\MessagesShouldEndWithPeriod\RuleMessageFormatWithoutPeriod_Expected.sarif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestData\MessagesShouldEndWithPeriod\StackMessageWithoutPeriod_Expected.sarif">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="TestData\SyntaxError.sarif">
@@ -332,6 +378,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="TestData\UseAbsolutePathsForNestedFileUriFragments\NestedFileUriFragmentsAreAbsolute_Expected.sarif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestData\MessagesShouldEndWithPeriod\PeriodsAfterAllMessages.sarif">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>

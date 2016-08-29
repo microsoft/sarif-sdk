@@ -18,6 +18,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Cli
         public const string Id = "id";
         public const string Invocation = "invocation";
         public const string Locations = "locations";
+        public const string Message = "message";
+        public const string MessageFormats = "messageFormats";
         public const string PhysicalLocation = "physicalLocation";
         public const string RelatedLocations = "relatedLocations";
         public const string ResultFile = "resultFile";

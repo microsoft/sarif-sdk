@@ -33,6 +33,64 @@ namespace Microsoft.CodeAnalysis.Sarif.Cli.Rules
             Visit(Context.InputLog, logPointer: string.Empty);
         }
 
+        protected void LogResult(string jPointer, string formatId, params string[] args)
+        {
+            Region region = GetRegionFromJPointer(jPointer);
+
+            // All messages start with "In {file}, at {jPointer}, ...". Prepend the jPointer to the args.
+            // The Sarif.Driver framework will take care of prepending the file name.
+            string[] argsWithPointer = new string[args.Length + 1];
+            Array.Copy(args, 0, argsWithPointer, 1, args.Length);
+            argsWithPointer[0] = jPointer;
+
+            Context.Logger.Log(this,
+                RuleUtilities.BuildResult(DefaultLevel, Context, region, formatId, argsWithPointer));
+        }
+
+        protected virtual void Analyze(AnnotatedCodeLocation annotatedCodeLocation, string annotatedCodeLocationPointer)
+        {
+        }
+
+        protected virtual void Analyze(CodeFlow codeFlow, string codeFlowPointer)
+        {
+        }
+
+        protected virtual void Analyze(FileChange fileChange, string fileChangePointer)
+        {
+        }
+
+        protected virtual void Analyze(FileData fileData, string fileKey, string filePointer)
+        {
+        }
+
+        protected virtual void Analyze(Invocation invocation, string invocationPointer)
+        {
+        }
+
+        protected virtual void Analyze(Notification notification, string notificationPointer)
+        {
+        }
+
+        protected virtual void Analyze(PhysicalLocation physicalLocation, string physicalLocationPointer)
+        {
+        }
+
+        protected virtual void Analyze(Result result, string resultPointer)
+        {
+        }
+
+        protected virtual void Analyze(Rule rule, string rulePointer)
+        {
+        }
+
+        protected virtual void Analyze(Stack stack, string stackPointer)
+        {
+        }
+
+        protected virtual void Analyze(StackFrame frame, string framePointer)
+        {
+        }
+
         private void Visit(SarifLog log, string logPointer)
         {
             if (log.Runs != null)
@@ -63,6 +121,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Cli.Rules
 
         private void Visit(CodeFlow codeFlow, string codeFlowPointer)
         {
+            Analyze(codeFlow, codeFlowPointer);
+
             if (codeFlow.Locations != null)
             {
                 AnnotatedCodeLocation[] annotatedCodeLocations = codeFlow.Locations.ToArray();
@@ -127,6 +187,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Cli.Rules
 
         private void Visit(Notification notification, string notificationPointer)
         {
+            Analyze(notification, notificationPointer);
+
             if (notification.PhysicalLocation != null)
             {
                 string physicalLocationPointer = notificationPointer.AtProperty(SarifPropertyName.PhysicalLocation);
@@ -142,6 +204,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Cli.Rules
 
         private void Visit(Result result, string resultPointer)
         {
+            Analyze(result, resultPointer);
+
             if (result.Locations != null)
             {
                 Location[] locations = result.Locations.ToArray();
@@ -292,6 +356,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Cli.Rules
 
         private void Visit(Stack stack, string stackPointer)
         {
+            Analyze(stack, stackPointer);
+
             if (stack.Frames != null)
             {
                 StackFrame[] frames = stack.Frames.ToArray();
@@ -310,48 +376,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Cli.Rules
         private void Visit(StackFrame frame, string framePointer)
         {
             Analyze(frame, framePointer);
-        }
-
-        protected virtual void Analyze(AnnotatedCodeLocation annotatedCodeLocation, string annotatedCodeLocationPointer)
-        {
-        }
-
-        protected virtual void Analyze(FileChange fileChange, string fileChangePointer)
-        {
-        }
-
-        protected virtual void Analyze(FileData fileData, string fileKey, string filePointer)
-        {
-        }
-
-        protected virtual void Analyze(Invocation invocation, string invocationPointer)
-        {
-        }
-
-        protected virtual void Analyze(PhysicalLocation physicalLocation, string physicalLocationPointer)
-        {
-        }
-
-        protected virtual void Analyze(Rule rule, string rulePointer)
-        {
-        }
-
-        protected virtual void Analyze(StackFrame frame, string framePointer)
-        {
-        }
-
-        protected void LogResult(string jPointer, string formatId, params string[] args)
-        {
-            Region region = GetRegionFromJPointer(jPointer);
-
-            // All messages start with "In {file}, at {jPointer}, ...". Prepend the jPointer to the args.
-            // The Sarif.Driver framework will take care of prepending the file name.
-            string[] argsWithPointer = new string[args.Length + 1];
-            Array.Copy(args, 0, argsWithPointer, 1, args.Length);
-            argsWithPointer[0] = jPointer;
-
-            Context.Logger.Log(this,
-                RuleUtilities.BuildResult(DefaultLevel, Context, region, formatId, argsWithPointer));
         }
 
         private Region GetRegionFromJPointer(string jPointer)

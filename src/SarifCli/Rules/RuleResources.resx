@@ -165,4 +165,10 @@
   <data name="SV0007_EndTimeMustBeAfterStartTime" xml:space="preserve">
     <value>The end time of a run must be after the start time. To allow for the possibility that the duration of the run is less than the resolution of the string representation of the time, the start time and the end time may be equal.</value>
   </data>
+  <data name="SV0008_Default" xml:space="preserve">
+    <value>In "{0}", at "{1}", the message "{2}" does not end with a period.</value>
+  </data>
+  <data name="SV0008_MessagesShouldEndWithPeriod" xml:space="preserve">
+    <value>Messages should consist of one or more complete sentences, ending with a period.</value>
+  </data>
 </root>

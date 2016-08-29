@@ -101,6 +101,7 @@
     <Compile Include="Rules\SarifValidationSkimmerBase.cs" />
     <Compile Include="Rules\UrisMustBeValid.cs" />
     <Compile Include="Rules\UseAbsolutePathsForNestedFileUriFragments.cs" />
+    <Compile Include="Rules\MessagesShouldEndWithPeriod.cs" />
     <Compile Include="SarifPropertyName.cs" />
     <Compile Include="SarifValidationContext.cs" />
     <Compile Include="AnalyzeCommand.cs" />

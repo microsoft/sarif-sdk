@@ -203,5 +203,23 @@ namespace Microsoft.CodeAnalysis.Sarif.Cli.Rules {
                 return ResourceManager.GetString("SV0007_EndTimeMustBeAfterStartTime", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to In &quot;{0}&quot;, at &quot;{1}&quot;, the message &quot;{2}&quot; does not end with a period..
+        /// </summary>
+        internal static string SV0008_Default {
+            get {
+                return ResourceManager.GetString("SV0008_Default", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Messages should consist of one or more complete sentences, ending with a period..
+        /// </summary>
+        internal static string SV0008_MessagesShouldEndWithPeriod {
+            get {
+                return ResourceManager.GetString("SV0008_MessagesShouldEndWithPeriod", resourceCulture);
+            }
+        }
     }
 }
