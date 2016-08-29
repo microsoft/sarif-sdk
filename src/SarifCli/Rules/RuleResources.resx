@@ -180,4 +180,10 @@
   <data name="SV0009_StepValuesMustFormOneBasedSequence" xml:space="preserve">
     <value>If the "step" property is used on any annotatedCodeLocation in a code flow, then it must be present for every location in the code flow, its value must be 1 for the first location, and its value must increase by 1 for each succeeding location.</value>
   </data>
+  <data name="SV0010_Default" xml:space="preserve">
+    <value>In "{0}", at "{1}", the "step" property appears in an annotatedCodeLocation object which does not occur in a code flow. The "step" property must appear only in annotatedCodeLocation objects which occur within code flows.</value>
+  </data>
+  <data name="SV0010_StepMustAppearOnlyInCodeFlowLocations" xml:space="preserve">
+    <value>The "step" property must appear only in annotatedCodeLocation objects which occur within code flows.</value>
+  </data>
 </root>

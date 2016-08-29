@@ -14,5 +14,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Cli.Rules
         public const string EndTimeMustBeAfterStartTime = "SV0007";
         public const string MessagesShouldEndWithPeriod = "SV0008";
         public const string StepValuesMustFormOneBasedSequence = "SV0009";
+        public const string StepMustAppearOnlyInCodeFlowLocations = "SV0010";
     }
 }

@@ -248,5 +248,23 @@ namespace Microsoft.CodeAnalysis.Sarif.Cli.Rules {
                 return ResourceManager.GetString("SV0009_StepValuesMustFormOneBasedSequence", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to In &quot;{0}&quot;, at &quot;{1}&quot;, the &quot;step&quot; property appears in an annotatedCodeLocation object which does not occur in a code flow. The &quot;step&quot; property must appear only in annotatedCodeLocation objects which occur within code flows..
+        /// </summary>
+        internal static string SV0010_Default {
+            get {
+                return ResourceManager.GetString("SV0010_Default", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The &quot;step&quot; property must appear only in annotatedCodeLocation objects which occur within code flows..
+        /// </summary>
+        internal static string SV0010_StepMustAppearOnlyInCodeFlowLocations {
+            get {
+                return ResourceManager.GetString("SV0010_StepMustAppearOnlyInCodeFlowLocations", resourceCulture);
+            }
+        }
     }
 }
