@@ -27,6 +27,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Cli
         public const string Rules = "rules";
         public const string Runs = "runs";
         public const string Stacks = "stacks";
+        public const string Step = "step";
         public const string ToolNotifications = "toolNotifications";
         public const string Uri = "uri";
     }

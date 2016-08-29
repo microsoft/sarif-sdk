@@ -87,6 +87,7 @@
   <ItemGroup>
     <Compile Include="ExportRulesMetadataCommand.cs" />
     <Compile Include="JPointerStringExtensions.cs" />
+    <Compile Include="Rules\StepMustIncreaseByOneFromOne.cs" />
     <Compile Include="Rules\AnnotatedCodeLocationEssentialIsObsolete.cs" />
     <Compile Include="Rules\AnnotatedCodeLocationIdIsObsolete.cs" />
     <Compile Include="Rules\DoNotUseFriendlyNameAsRuleId.cs" />

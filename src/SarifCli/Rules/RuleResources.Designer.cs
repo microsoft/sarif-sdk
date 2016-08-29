@@ -221,5 +221,23 @@ namespace Microsoft.CodeAnalysis.Sarif.Cli.Rules {
                 return ResourceManager.GetString("SV0008_MessagesShouldEndWithPeriod", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to If the &quot;step&quot; property is used on any annotatedCodeLocation in a code flow, then it must be present for every location in the code flow, its value must be 1 for the first location, and its value must increase by 1 for each succeeding location..
+        /// </summary>
+        internal static string SV0009_StepMustIncreaseByOneFromOne {
+            get {
+                return ResourceManager.GetString("SV0009_StepMustIncreaseByOneFromOne", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to In &quot;{0}&quot;, at &quot;{1}&quot;, the &quot;step&quot; property is absent. The &quot;step&quot; property is present on some but not all locations in this code flow. If the &quot;step&quot; property is used on any location in a code flow, it must be present on every location in that code flow..
+        /// </summary>
+        internal static string SV0009_StepNotPresentOnAllLocations {
+            get {
+                return ResourceManager.GetString("SV0009_StepNotPresentOnAllLocations", resourceCulture);
+            }
+        }
     }
 }

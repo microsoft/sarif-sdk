@@ -13,5 +13,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Cli.Rules
         public const string HashAlgorithmsMustBeUnique = "SV0006";
         public const string EndTimeMustBeAfterStartTime = "SV0007";
         public const string MessagesShouldEndWithPeriod = "SV0008";
+        public const string StepMustIncreaseByOneFromOne = "SV0009";
     }
 }
