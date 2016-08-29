@@ -266,5 +266,23 @@ namespace Microsoft.CodeAnalysis.Sarif.Cli.Rules {
                 return ResourceManager.GetString("SV0010_StepMustAppearOnlyInCodeFlowLocations", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to In &quot;{0}&quot;, at &quot;{1}&quot;, the &quot;importance&quot; property appears in an annotatedCodeLocation object which does not occur in a code flow. The &quot;importance&quot; property must appear only in annotatedCodeLocation objects which occur within code flows..
+        /// </summary>
+        internal static string SV0011_Default {
+            get {
+                return ResourceManager.GetString("SV0011_Default", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The &quot;importance&quot; property must appear only in annotatedCodeLocation objects which occur within code flows..
+        /// </summary>
+        internal static string SV0011_ImportanceMustAppearOnlyInCodeFlowLocations {
+            get {
+                return ResourceManager.GetString("SV0011_ImportanceMustAppearOnlyInCodeFlowLocations", resourceCulture);
+            }
+        }
     }
 }

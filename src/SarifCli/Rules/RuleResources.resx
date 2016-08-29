@@ -186,4 +186,10 @@
   <data name="SV0010_StepMustAppearOnlyInCodeFlowLocations" xml:space="preserve">
     <value>The "step" property must appear only in annotatedCodeLocation objects which occur within code flows.</value>
   </data>
+  <data name="SV0011_Default" xml:space="preserve">
+    <value>In "{0}", at "{1}", the "importance" property appears in an annotatedCodeLocation object which does not occur in a code flow. The "importance" property must appear only in annotatedCodeLocation objects which occur within code flows.</value>
+  </data>
+  <data name="SV0011_ImportanceMustAppearOnlyInCodeFlowLocations" xml:space="preserve">
+    <value>The "importance" property must appear only in annotatedCodeLocation objects which occur within code flows.</value>
+  </data>
 </root>

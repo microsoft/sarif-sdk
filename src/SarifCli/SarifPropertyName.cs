@@ -16,6 +16,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Cli
         public const string Frames = "frames";
         public const string Hashes = "hashes";
         public const string Id = "id";
+        public const string Importance = "importance";
         public const string Invocation = "invocation";
         public const string Locations = "locations";
         public const string Message = "message";
