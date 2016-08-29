@@ -8,6 +8,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Cli
         public const string AnalysisTarget = "analysisTarget";
         public const string CodeFlows = "codeFlows";
         public const string ConfigurationNotifications = "configurationNotifications";
+        public const string EndColumn = "endColumn";
         public const string EndLine = "endLine";
         public const string EndTime = "endTime";
         public const string Essential = "essential";

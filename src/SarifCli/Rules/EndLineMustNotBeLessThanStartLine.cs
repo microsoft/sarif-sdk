@@ -39,7 +39,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Cli.Rules
                 string endLinePointer = regionPointer.AtProperty(SarifPropertyName.EndLine);
 
                 LogResult(
-                    regionPointer,
+                    endLinePointer,
                     nameof(RuleResources.SV0012_Default),
                     region.EndLine.ToInvariantString(),
                     region.StartLine.ToInvariantString());

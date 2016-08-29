@@ -1,0 +1,85 @@
+{
+  "$schema": "http://json.schemastore.org/sarif-1.0.0",
+  "version": "1.0.0",
+  "runs": [
+    {
+      "id": "9cff9928-f161-4658-9090-327b4a3e44bb",
+      "tool": {
+        "name": "SarifCli",
+        "fullName": "SarifCli 1.0.0.0",
+        "version": "1.0.0.0",
+        "semanticVersion": "1.0.0",
+        "sarifLoggerVersion": "1.5.27.0",
+        "language": "en-US",
+        "properties": {
+          "Comments": "Command line tool for working with SARIF log files.",
+          "CompanyName": "Microsoft Corporation",
+          "ProductName": "Microsoft SARIF SDK"
+        }
+      },
+      "results": [
+        {
+          "ruleId": "SV0013",
+          "level": "error",
+          "formattedRuleMessage": {
+            "formatId": "Default",
+            "arguments": [
+              "EndColumnLessThanStartColumnInRelatedLocation.sarif",
+              "/runs/0/results/0/relatedLocations/0/physicalLocation/region/endColumn",
+              "1",
+              "2"
+            ]
+          },
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///G:/Code/sarif-sdk/src/SarifCli.FunctionalTests/TestData/EndColumnMustNotBeLessThanStartColumn/EndColumnLessThanStartColumnInRelatedLocation.sarif",
+                "region": {
+                  "startLine": 31,
+                  "startColumn": 34
+                }
+              }
+            }
+          ]
+        }
+      ],
+      "toolNotifications": [
+        {
+          "id": "MSG001.AnalyzingTarget",
+          "physicalLocation": {
+            "uri": "file:///G:/Code/sarif-sdk/src/SarifCli.FunctionalTests/TestData/EndColumnMustNotBeLessThanStartColumn/EndColumnLessThanStartColumnInRelatedLocation.sarif"
+          },
+          "message": "Analyzing 'EndColumnLessThanStartColumnInRelatedLocation.sarif'...",
+          "level": "note",
+          "time": "2016-08-29T23:11:40.966Z"
+        }
+      ],
+      "rules": {
+        "SV0013": {
+          "id": "SV0013",
+          "name": "EndColumnMustNotBeLessThanStartColumn",
+          "shortDescription": "The \"endColumn\" property of a region object must not be less than the \"startColumn\" property.",
+          "fullDescription": "The \"endColumn\" property of a region object must not be less than the \"startColumn\" property.",
+          "messageFormats": {
+            "Default": "In \"{0}\", at \"{1}\", the value of the \"endColumn\" property is {2}, which is less than the value of the \"startColumn\" property, which is {3}."
+          },
+          "defaultLevel": "error",
+          "helpUri": "https://rawgit.com/sarif-standard/sarif-spec/master/Static%20Analysis%20Results%20Interchange%20Format%20(SARIF).html"
+        }
+      },
+      "files": {
+        "file:///G:/Code/sarif-sdk/src/SarifCli.FunctionalTests/TestData/EndColumnMustNotBeLessThanStartColumn/EndColumnLessThanStartColumnInRelatedLocation.sarif": {
+          "mimeType": "application/octet-stream"
+        }
+      },
+      "invocation": {
+        "commandLine": "\"G:\\Code\\sarif-sdk\\bld\\bin\\SarifCli\\AnyCPU_Debug\\SarifCli.exe\"  validate G:\\Code\\sarif-sdk\\src\\SarifCli.FunctionalTests\\TestData\\EndColumnMustNotBeLessThanStartColumn\\EndColumnLessThanStartColumnInRelatedLocation.sarif -o G:\\Code\\sarif-sdk\\src\\SarifCli.FunctionalTests\\TestData\\EndColumnMustNotBeLessThanStartColumn\\EndColumnLessThanStartColumnInRelatedLocation_Expected.sarif -j G:\\Code\\sarif-sdk\\src\\Sarif\\Schemata\\Sarif.schema.json ",
+        "startTime": "2016-08-29T23:11:40.876Z",
+        "endTime": "2016-08-29T23:11:41.222Z",
+        "processId": 12580,
+        "fileName": "G:\\Code\\sarif-sdk\\bld\\bin\\SarifCli\\AnyCPU_Debug\\SarifCli.exe",
+        "workingDirectory": "G:\\Code\\sarif-sdk\\bld\\bin\\SarifCli\\AnyCPU_Debug"
+      }
+    }
+  ]
+}

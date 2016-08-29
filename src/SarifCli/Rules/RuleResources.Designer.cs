@@ -302,5 +302,23 @@ namespace Microsoft.CodeAnalysis.Sarif.Cli.Rules {
                 return ResourceManager.GetString("SV0012_EndLineMustNotBeLessThanStartLine", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to In &quot;{0}&quot;, at &quot;{1}&quot;, the value of the &quot;endColumn&quot; property is {2}, which is less than the value of the &quot;startColumn&quot; property, which is {3}..
+        /// </summary>
+        internal static string SV0013_Default {
+            get {
+                return ResourceManager.GetString("SV0013_Default", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The &quot;endColumn&quot; property of a region object must not be less than the &quot;startColumn&quot; property..
+        /// </summary>
+        internal static string SV0013_EndColumnMustNotBeLessThanStartColumn {
+            get {
+                return ResourceManager.GetString("SV0013_EndColumnMustNotBeLessThanStartColumn", resourceCulture);
+            }
+        }
     }
 }

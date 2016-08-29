@@ -17,5 +17,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Cli.Rules
         public const string StepMustAppearOnlyInCodeFlowLocations = "SV0010";
         public const string ImportanceMustAppearOnlyInCodeFlowLocations = "SV0011";
         public const string EndLineMustNotBeLessThanStartLine = "SV0012";
+        public const string EndColumnMustNotBeLessThanStartColumn = "SV0013";
     }
 }

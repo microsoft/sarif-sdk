@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "runs": [
     {
-      "id": "5da3f6b6-a292-4792-ae36-344666c30b28",
+      "id": "354bf806-7d23-41d9-854a-36cdfbcc91f5",
       "tool": {
         "name": "SarifCli",
         "fullName": "SarifCli 1.0.0.0",
@@ -25,7 +25,7 @@
             "formatId": "Default",
             "arguments": [
               "EndLineLessThanStartLineInResultFile.sarif",
-              "/runs/0/results/0/locations/0/resultFile/region",
+              "/runs/0/results/0/locations/0/resultFile/region/endLine",
               "1",
               "2"
             ]
@@ -35,8 +35,8 @@
               "analysisTarget": {
                 "uri": "file:///G:/Code/sarif-sdk/src/SarifCli.FunctionalTests/TestData/EndLineMustNotBeLessThanStartLine/EndLineLessThanStartLineInResultFile.sarif",
                 "region": {
-                  "startLine": 18,
-                  "startColumn": 28
+                  "startLine": 20,
+                  "startColumn": 31
                 }
               }
             }
@@ -51,7 +51,7 @@
           },
           "message": "Analyzing 'EndLineLessThanStartLineInResultFile.sarif'...",
           "level": "note",
-          "time": "2016-08-29T22:00:52.318Z"
+          "time": "2016-08-29T23:03:12.459Z"
         }
       ],
       "rules": {
@@ -74,9 +74,9 @@
       },
       "invocation": {
         "commandLine": "\"G:\\Code\\sarif-sdk\\bld\\bin\\SarifCli\\AnyCPU_Debug\\SarifCli.exe\"  validate G:\\Code\\sarif-sdk\\src\\SarifCli.FunctionalTests\\TestData\\EndLineMustNotBeLessThanStartLine\\EndLineLessThanStartLineInResultFile.sarif -o G:\\Code\\sarif-sdk\\src\\SarifCli.FunctionalTests\\TestData\\EndLineMustNotBeLessThanStartLine\\EndLineLessThanStartLineInResultFile_Expected.sarif -j G:\\Code\\sarif-sdk\\src\\Sarif\\Schemata\\Sarif.schema.json ",
-        "startTime": "2016-08-29T22:00:52.226Z",
-        "endTime": "2016-08-29T22:00:52.571Z",
-        "processId": 19896,
+        "startTime": "2016-08-29T23:03:12.380Z",
+        "endTime": "2016-08-29T23:03:12.709Z",
+        "processId": 10512,
         "fileName": "G:\\Code\\sarif-sdk\\bld\\bin\\SarifCli\\AnyCPU_Debug\\SarifCli.exe",
         "workingDirectory": "G:\\Code\\sarif-sdk\\bld\\bin\\SarifCli\\AnyCPU_Debug"
       }

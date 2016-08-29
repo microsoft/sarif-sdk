@@ -198,4 +198,10 @@
   <data name="SV0012_EndLineMustNotBeLessThanStartLine" xml:space="preserve">
     <value>The "endLine" property of a region object must not be less than the "startLine" property.</value>
   </data>
+  <data name="SV0013_Default" xml:space="preserve">
+    <value>In "{0}", at "{1}", the value of the "endColumn" property is {2}, which is less than the value of the "startColumn" property, which is {3}.</value>
+  </data>
+  <data name="SV0013_EndColumnMustNotBeLessThanStartColumn" xml:space="preserve">
+    <value>The "endColumn" property of a region object must not be less than the "startColumn" property.</value>
+  </data>
 </root>
