@@ -1,0 +1,132 @@
+{
+  "$schema": "http://json.schemastore.org/sarif-1.0.0",
+  "version": "1.0.0",
+  "runs": [
+    {
+      "id": "048b53be-1275-4771-af1d-941cd2e1365b",
+      "tool": {
+        "name": "SarifCli",
+        "fullName": "SarifCli 1.0.0.0",
+        "version": "1.0.0.0",
+        "semanticVersion": "1.0.0",
+        "sarifLoggerVersion": "1.5.27.0",
+        "language": "en-US",
+        "properties": {
+          "Comments": "Command line tool for working with SARIF log files.",
+          "CompanyName": "Microsoft Corporation",
+          "ProductName": "Microsoft SARIF SDK"
+        }
+      },
+      "results": [
+        {
+          "ruleId": "SV0009",
+          "level": "error",
+          "formattedRuleMessage": {
+            "formatId": "StepNotPresentOnAllLocations",
+            "arguments": [
+              "InvalidStepValues.sarif",
+              "/runs/0/results/0/codeFlows/0/locations/1"
+            ]
+          },
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///G:/Code/sarif-sdk/src/SarifCli.FunctionalTests/TestData/StepValuesMustFormOneBasedSequence/InvalidStepValues.sarif",
+                "region": {
+                  "startLine": 37,
+                  "startColumn": 18
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "SV0009",
+          "level": "error",
+          "formattedRuleMessage": {
+            "formatId": "InvalidStepValue",
+            "arguments": [
+              "InvalidStepValues.sarif",
+              "/runs/0/results/0/codeFlows/0/locations/0/step",
+              "1",
+              "2"
+            ]
+          },
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///G:/Code/sarif-sdk/src/SarifCli.FunctionalTests/TestData/StepValuesMustFormOneBasedSequence/InvalidStepValues.sarif",
+                "region": {
+                  "startLine": 28,
+                  "startColumn": 29
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "SV0009",
+          "level": "error",
+          "formattedRuleMessage": {
+            "formatId": "InvalidStepValue",
+            "arguments": [
+              "InvalidStepValues.sarif",
+              "/runs/0/results/0/codeFlows/0/locations/2/step",
+              "3",
+              "4"
+            ]
+          },
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///G:/Code/sarif-sdk/src/SarifCli.FunctionalTests/TestData/StepValuesMustFormOneBasedSequence/InvalidStepValues.sarif",
+                "region": {
+                  "startLine": 47,
+                  "startColumn": 29
+                }
+              }
+            }
+          ]
+        }
+      ],
+      "toolNotifications": [
+        {
+          "id": "MSG001.AnalyzingTarget",
+          "physicalLocation": {
+            "uri": "file:///G:/Code/sarif-sdk/src/SarifCli.FunctionalTests/TestData/StepValuesMustFormOneBasedSequence/InvalidStepValues.sarif"
+          },
+          "message": "Analyzing 'InvalidStepValues.sarif'...",
+          "level": "note",
+          "time": "2016-08-29T16:22:31.571Z"
+        }
+      ],
+      "rules": {
+        "SV0009": {
+          "id": "SV0009",
+          "name": "StepValuesMustFormOneBasedSequence",
+          "shortDescription": "If the \"step\" property is used on any annotatedCodeLocation in a code flow, then it must be present for every location in the code flow, its value must be 1 for the first location, and its value must increase by 1 for each succeeding location.",
+          "fullDescription": "If the \"step\" property is used on any annotatedCodeLocation in a code flow, then it must be present for every location in the code flow, its value must be 1 for the first location, and its value must increase by 1 for each succeeding location.",
+          "messageFormats": {
+            "StepNotPresentOnAllLocations": "In \"{0}\", at \"{1}\", the \"step\" property is absent. The \"step\" property is present on some but not all locations in this code flow. If the \"step\" property is used on any location in a code flow, it must be present on every location in that code flow.",
+            "InvalidStepValue": "In \"{0}\", at \"{1}\", the value of the \"step\" property should be {2}, but is {3}. The step values must form a 1-based sequence starting at the first location in the code flow."
+          },
+          "defaultLevel": "error",
+          "helpUri": "https://rawgit.com/sarif-standard/sarif-spec/master/Static%20Analysis%20Results%20Interchange%20Format%20(SARIF).html"
+        }
+      },
+      "files": {
+        "file:///G:/Code/sarif-sdk/src/SarifCli.FunctionalTests/TestData/StepValuesMustFormOneBasedSequence/InvalidStepValues.sarif": {
+          "mimeType": "application/octet-stream"
+        }
+      },
+      "invocation": {
+        "commandLine": "\"G:\\Code\\sarif-sdk\\bld\\bin\\SarifCli\\AnyCPU_Debug\\SarifCli.exe\"  validate G:\\Code\\sarif-sdk\\src\\SarifCli.FunctionalTests\\TestData\\StepValuesMustFormOneBasedSequence\\InvalidStepValues.sarif -o G:\\Code\\sarif-sdk\\src\\SarifCli.FunctionalTests\\TestData\\StepValuesMustFormOneBasedSequence\\InvalidStepValues_Expected.sarif -j G:\\Code\\sarif-sdk\\src\\Sarif\\Schemata\\Sarif.schema.json ",
+        "startTime": "2016-08-29T16:22:31.477Z",
+        "endTime": "2016-08-29T16:22:31.821Z",
+        "processId": 20192,
+        "fileName": "G:\\Code\\sarif-sdk\\bld\\bin\\SarifCli\\AnyCPU_Debug\\SarifCli.exe",
+        "workingDirectory": "G:\\Code\\sarif-sdk\\bld\\bin\\SarifCli\\AnyCPU_Debug"
+      }
+    }
+  ]
+}

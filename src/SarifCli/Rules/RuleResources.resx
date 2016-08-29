@@ -171,10 +171,13 @@
   <data name="SV0008_MessagesShouldEndWithPeriod" xml:space="preserve">
     <value>Messages should consist of one or more complete sentences, ending with a period.</value>
   </data>
-  <data name="SV0009_StepMustIncreaseByOneFromOne" xml:space="preserve">
-    <value>If the "step" property is used on any annotatedCodeLocation in a code flow, then it must be present for every location in the code flow, its value must be 1 for the first location, and its value must increase by 1 for each succeeding location.</value>
+  <data name="SV0009_InvalidStepValue" xml:space="preserve">
+    <value>In "{0}", at "{1}", the value of the "step" property should be {2}, but is {3}. The step values must form a 1-based sequence starting at the first location in the code flow.</value>
   </data>
   <data name="SV0009_StepNotPresentOnAllLocations" xml:space="preserve">
     <value>In "{0}", at "{1}", the "step" property is absent. The "step" property is present on some but not all locations in this code flow. If the "step" property is used on any location in a code flow, it must be present on every location in that code flow.</value>
+  </data>
+  <data name="SV0009_StepValuesMustFormOneBasedSequence" xml:space="preserve">
+    <value>If the "step" property is used on any annotatedCodeLocation in a code flow, then it must be present for every location in the code flow, its value must be 1 for the first location, and its value must increase by 1 for each succeeding location.</value>
   </data>
 </root>

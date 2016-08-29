@@ -223,11 +223,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Cli.Rules {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to If the &quot;step&quot; property is used on any annotatedCodeLocation in a code flow, then it must be present for every location in the code flow, its value must be 1 for the first location, and its value must increase by 1 for each succeeding location..
+        ///   Looks up a localized string similar to In &quot;{0}&quot;, at &quot;{1}&quot;, the value of the &quot;step&quot; property should be {2}, but is {3}. The step values must form a 1-based sequence starting at the first location in the code flow..
         /// </summary>
-        internal static string SV0009_StepMustIncreaseByOneFromOne {
+        internal static string SV0009_InvalidStepValue {
             get {
-                return ResourceManager.GetString("SV0009_StepMustIncreaseByOneFromOne", resourceCulture);
+                return ResourceManager.GetString("SV0009_InvalidStepValue", resourceCulture);
             }
         }
         
@@ -237,6 +237,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Cli.Rules {
         internal static string SV0009_StepNotPresentOnAllLocations {
             get {
                 return ResourceManager.GetString("SV0009_StepNotPresentOnAllLocations", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to If the &quot;step&quot; property is used on any annotatedCodeLocation in a code flow, then it must be present for every location in the code flow, its value must be 1 for the first location, and its value must increase by 1 for each succeeding location..
+        /// </summary>
+        internal static string SV0009_StepValuesMustFormOneBasedSequence {
+            get {
+                return ResourceManager.GetString("SV0009_StepValuesMustFormOneBasedSequence", resourceCulture);
             }
         }
     }

@@ -4,22 +4,23 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Globalization;
 using System.Linq;
 using Microsoft.Json.Pointer;
 using Newtonsoft.Json.Linq;
 
 namespace Microsoft.CodeAnalysis.Sarif.Cli.Rules
 {
-    public class StepMustIncreaseByOneFromOne : SarifValidationSkimmerBase
+    public class StepValuesMustFormOneBasedSequence : SarifValidationSkimmerBase
     {
-        public override string FullDescription => RuleResources.SV0009_StepMustIncreaseByOneFromOne;
+        public override string FullDescription => RuleResources.SV0009_StepValuesMustFormOneBasedSequence;
 
         public override ResultLevel DefaultLevel => ResultLevel.Error;
 
         /// <summary>
         /// SV0009
         /// </summary>
-        public override string Id => RuleId.StepMustIncreaseByOneFromOne;
+        public override string Id => RuleId.StepValuesMustFormOneBasedSequence;
 
         protected override IEnumerable<string> FormatIds
         {
@@ -27,7 +28,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Cli.Rules
             {
                 return new string[]
                 {
-                    nameof(RuleResources.SV0009_StepNotPresentOnAllLocations)
+                    nameof(RuleResources.SV0009_StepNotPresentOnAllLocations),
+                    nameof(RuleResources.SV0009_InvalidStepValue)
                 };
             }
         }
@@ -44,7 +46,42 @@ namespace Microsoft.CodeAnalysis.Sarif.Cli.Rules
                 JArray annotatedCodeLocationArray = locationsProperty.Value as JArray;
                 string annotatedCodeLocationsPointer = codeFlowPointer.AtProperty(SarifPropertyName.Locations);
 
-                ReportMissingStepProperty(annotatedCodeLocationArray, annotatedCodeLocationsPointer);
+                ReportMissingStepProperty(
+                    annotatedCodeLocationArray,
+                    annotatedCodeLocationsPointer);
+
+                ReportInvalidStepValues(
+                    codeFlow.Locations.ToArray(),
+                    annotatedCodeLocationArray,
+                    annotatedCodeLocationsPointer);
+            }
+        }
+
+        private void ReportInvalidStepValues(
+            AnnotatedCodeLocation[] locations,
+            JArray annotatedCodeLocationArray,
+            string annotatedCodeLocationsPointer)
+        {
+            JObject[] annotatedCodeLocationObjects = annotatedCodeLocationArray.Children<JObject>().ToArray();
+
+            for (int i = 0; i < locations.Length; ++i)
+            {
+                // Only report "invalid step value" for locations that actually specify
+                // the "step" property (the value of the Step property in the object
+                // model will be 0 for such steps, which is never valid), because we
+                // already reported the missing "step" properties.
+                if (LocationHasStep(annotatedCodeLocationObjects[i]) &&
+                    locations[i].Step != i + 1)
+                {
+                    string invalidStepPointer = annotatedCodeLocationsPointer
+                        .AtIndex(i).AtProperty(SarifPropertyName.Step);
+
+                    LogResult(
+                        invalidStepPointer,
+                        nameof(RuleResources.SV0009_InvalidStepValue),
+                        (i + 1).ToString(CultureInfo.InvariantCulture),
+                        (locations[i].Step).ToString(CultureInfo.InvariantCulture));
+                }
             }
         }
 
@@ -56,7 +93,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Cli.Rules
             if (annotatedCodeLocationObjects.Length > 0)
             {
                 JObject[] locationsWithStep = GetLocationsWithStep(annotatedCodeLocationObjects);
-                if (locationsWithStep.Length < annotatedCodeLocationObjects.Length)
+
+                // It's ok if there are no steps, but if any location has a step property,
+                // all locations must have it.
+                if (locationsWithStep.Length > 0 &&
+                    locationsWithStep.Length < annotatedCodeLocationObjects.Length)
                 {
                     int missingStepIndex = FindFirstLocationWithMissingStep(annotatedCodeLocationObjects);
                     Debug.Assert(missingStepIndex != -1, "Couldn't find location with missing step.");
@@ -87,9 +128,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Cli.Rules
         private static JObject[] GetLocationsWithStep(JObject[] annotatedCodeLocationObjects)
         {
             return annotatedCodeLocationObjects
-                .Where(loc => loc.Children<JProperty>().Any(
-                    prop => prop.Name.Equals(SarifPropertyName.Step, StringComparison.Ordinal)))
+                .Where(LocationHasStep)
                 .ToArray();
+        }
+
+        private static bool LocationHasStep(JObject loc)
+        {
+            return loc.Children<JProperty>().Any(
+                                prop => prop.Name.Equals(SarifPropertyName.Step, StringComparison.Ordinal));
         }
     }
 }

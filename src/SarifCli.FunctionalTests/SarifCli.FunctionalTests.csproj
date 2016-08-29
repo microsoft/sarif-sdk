@@ -86,7 +86,7 @@
   <ItemGroup>
     <Compile Include="AnalyzeCommandTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Rules\StepMustIncreaseByOneFromOne.cs" />
+    <Compile Include="Rules\StepValuesMustFormOneBasedSequenceTests.cs" />
     <Compile Include="Rules\AnnotatedCodeLocationEssentialIsObsoleteTests.cs" />
     <Compile Include="Rules\AnnotatedCodeLocationIdIsObsoleteTests.cs" />
     <Compile Include="Rules\EndTimeMustBeAfterStartTimeTests.cs" />
@@ -249,16 +249,28 @@
     <None Include="TestData\MessagesShouldEndWithPeriod\StackMessageWithoutPeriod_Expected.sarif">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="TestData\StepMustIncreaseByOneFromOne\StepNotPresentOnAllLocations.sarif">
+    <None Include="TestData\StepValuesMustFormOneBasedSequence\InvalidStepValues.sarif">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="TestData\StepMustIncreaseByOneFromOne\StepNotPresentOnAllLocations_Expected.sarif">
+    <None Include="TestData\StepValuesMustFormOneBasedSequence\InvalidStepValues_Expected.sarif">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="TestData\StepMustIncreaseByOneFromOne\ValidSteps.sarif">
+    <None Include="TestData\StepValuesMustFormOneBasedSequence\NoStepsPresent.sarif">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="TestData\StepMustIncreaseByOneFromOne\ValidSteps_Expected.sarif">
+    <None Include="TestData\StepValuesMustFormOneBasedSequence\NoStepsPresent_Expected.sarif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestData\StepValuesMustFormOneBasedSequence\StepNotPresentOnAllLocations.sarif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestData\StepValuesMustFormOneBasedSequence\StepNotPresentOnAllLocations_Expected.sarif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestData\StepValuesMustFormOneBasedSequence\ValidSteps.sarif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestData\StepValuesMustFormOneBasedSequence\ValidSteps_Expected.sarif">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="TestData\SyntaxError.sarif">

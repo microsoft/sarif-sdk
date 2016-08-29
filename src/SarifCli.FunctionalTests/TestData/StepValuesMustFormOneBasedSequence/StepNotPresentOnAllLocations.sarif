@@ -10,7 +10,7 @@
         {
           "ruleId": "TST0001",
           "level": "error",
-          "message": "Result message with  period.",
+          "message": "Result message.",
           "locations": [
             {
               "analysisTarget": {
@@ -35,7 +35,6 @@
                   }
                 },
                 {
-                  "step": 2,
                   "physicalLocation": {
                     "uri": "file:///c:/src/file.c",
                     "region": {
