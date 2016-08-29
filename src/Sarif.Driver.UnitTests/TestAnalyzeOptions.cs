@@ -24,6 +24,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
         public bool Recurse { get; set; }
 
+        public bool NoConsoleOutput { get; set; }
+
         public bool Statistics { get; set; }
 
         public IEnumerable<string> TargetFileSpecifiers { get; set; }

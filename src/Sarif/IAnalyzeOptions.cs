@@ -17,6 +17,8 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         string ConfigurationFilePath { get; }
 
+        bool NoConsoleOutput { get; }
+
         bool Statistics { get; }
 
         bool ComputeTargetsHash { get; }
