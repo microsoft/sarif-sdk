@@ -162,7 +162,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         {
             var logger = new AggregatingLogger();
 
-            if (!analyzeOptions.NoConsoleOutput)
+            if (!analyzeOptions.Quiet)
             {
                 logger.Loggers.Add(new ConsoleLogger(analyzeOptions.Verbose));
             }

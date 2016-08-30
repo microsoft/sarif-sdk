@@ -39,10 +39,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         public string ConfigurationFilePath { get; set; }
 
         [Option(
-            'n',
-            "no-console-output",
+            'q',
+            "quiet",
             HelpText = "Do not log results to the console.")]
-        public bool NoConsoleOutput { get; set; }
+        public bool Quiet { get; set; }
 
         [Option(
             's',
