@@ -37,7 +37,8 @@
                     "startColumn":6,
                     "startLine":43
                   }
-                }
+                },
+                "step":1
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/test137.cpp",
@@ -45,7 +46,8 @@
                     "startColumn":49,
                     "startLine":48
                   }
-                }
+                },
+                "step":2
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/test137.cpp",
@@ -53,7 +55,8 @@
                     "startColumn":11,
                     "startLine":48
                   }
-                }
+                },
+                "step":3
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/test137.cpp",
@@ -61,7 +64,8 @@
                     "startColumn":25,
                     "startLine":49
                   }
-                }
+                },
+                "step":4
               }
             ]
           }
@@ -95,7 +99,8 @@
                     "startColumn":6,
                     "startLine":52
                   }
-                }
+                },
+                "step":1
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/test137.cpp",
@@ -103,7 +108,8 @@
                     "startColumn":50,
                     "startLine":57
                   }
-                }
+                },
+                "step":2
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/test137.cpp",
@@ -111,7 +117,8 @@
                     "startColumn":11,
                     "startLine":57
                   }
-                }
+                },
+                "step":3
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/test137.cpp",
@@ -119,7 +126,8 @@
                     "startColumn":25,
                     "startLine":58
                   }
-                }
+                },
+                "step":4
               }
             ]
           }

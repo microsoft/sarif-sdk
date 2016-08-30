@@ -43,7 +43,10 @@
                     "startLine":5
                   }
                 },
-                "step":0,
+                "step":1,
+                "properties":{
+                  "keyEventId":"1"
+                },
                 "kind":"declaration",
                 "message":"'p' may be NULL",
                 "importance":"essential"
@@ -55,7 +58,10 @@
                     "startLine":6
                   }
                 },
-                "step":1,
+                "step":2,
+                "properties":{
+                  "keyEventId":"2"
+                },
                 "kind":"usage",
                 "message":"'p' is dereferenced, but may still be NULL",
                 "importance":"essential"

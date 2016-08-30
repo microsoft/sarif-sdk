@@ -43,7 +43,10 @@
                     "startLine":5
                   }
                 },
-                "step":0,
+                "step":1,
+                "properties":{
+                  "keyEventId":"1"
+                },
                 "kind":"declaration",
                 "message":"'inc' is a byte quantity",
                 "importance":"essential"
@@ -54,7 +57,9 @@
                     "startColumn":7,
                     "startLine":10
                   }
-                }
+                },
+                "step":2,
+                "importance":"unimportant"
               },{
                 "physicalLocation":{
                   "uri":"file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/c6305/advancedc6305.cpp",
@@ -63,7 +68,10 @@
                     "startLine":11
                   }
                 },
-                "step":1,
+                "step":3,
+                "properties":{
+                  "keyEventId":"2"
+                },
                 "kind":"branch",
                 "message":"Enter this branch, (assume 'b')"
               },{
@@ -74,7 +82,10 @@
                     "startLine":12
                   }
                 },
-                "step":2,
+                "step":4,
+                "properties":{
+                  "keyEventId":"3"
+                },
                 "kind":"usage",
                 "message":"Expression mixes element counts and byte quantities",
                 "importance":"essential"
@@ -116,7 +127,9 @@
                     "startColumn":9,
                     "startLine":20
                   }
-                }
+                },
+                "step":1,
+                "importance":"unimportant"
               },{
                 "physicalLocation":{
                   "uri":"file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/c6305/advancedc6305.cpp",
@@ -125,7 +138,10 @@
                     "startLine":22
                   }
                 },
-                "step":0,
+                "step":2,
+                "properties":{
+                  "keyEventId":"1"
+                },
                 "kind":"declaration",
                 "message":"'j' is a byte quantity",
                 "importance":"essential"
@@ -137,7 +153,10 @@
                     "startLine":24
                   }
                 },
-                "step":1,
+                "step":3,
+                "properties":{
+                  "keyEventId":"2"
+                },
                 "kind":"usage",
                 "message":"Expression mixes element counts and byte quantities",
                 "importance":"essential"
@@ -179,7 +198,9 @@
                     "startColumn":6,
                     "startLine":31
                   }
-                }
+                },
+                "step":1,
+                "importance":"unimportant"
               },{
                 "physicalLocation":{
                   "uri":"file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/c6305/advancedc6305.cpp",
@@ -187,7 +208,9 @@
                     "startColumn":4,
                     "startLine":33
                   }
-                }
+                },
+                "step":2,
+                "importance":"unimportant"
               },{
                 "physicalLocation":{
                   "uri":"file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/c6305/advancedc6305.cpp",
@@ -195,7 +218,9 @@
                     "startColumn":6,
                     "startLine":34
                   }
-                }
+                },
+                "step":3,
+                "importance":"unimportant"
               },{
                 "physicalLocation":{
                   "uri":"file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/c6305/advancedc6305.cpp",
@@ -203,7 +228,9 @@
                     "startColumn":4,
                     "startLine":35
                   }
-                }
+                },
+                "step":4,
+                "importance":"unimportant"
               },{
                 "physicalLocation":{
                   "uri":"file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/c6305/advancedc6305.cpp",
@@ -212,7 +239,10 @@
                     "startLine":36
                   }
                 },
-                "step":0,
+                "step":5,
+                "properties":{
+                  "keyEventId":"1"
+                },
                 "kind":"declaration",
                 "message":"'i' is a byte quantity",
                 "importance":"essential"
@@ -224,7 +254,10 @@
                     "startLine":38
                   }
                 },
-                "step":1,
+                "step":6,
+                "properties":{
+                  "keyEventId":"2"
+                },
                 "kind":"usage",
                 "message":"Expression mixes element counts and byte quantities",
                 "importance":"essential"
@@ -266,7 +299,9 @@
                     "startColumn":6,
                     "startLine":31
                   }
-                }
+                },
+                "step":1,
+                "importance":"unimportant"
               },{
                 "physicalLocation":{
                   "uri":"file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/c6305/advancedc6305.cpp",
@@ -275,7 +310,10 @@
                     "startLine":33
                   }
                 },
-                "step":0,
+                "step":2,
+                "properties":{
+                  "keyEventId":"1"
+                },
                 "kind":"declaration",
                 "message":"'i' is a byte quantity",
                 "importance":"essential"
@@ -286,7 +324,9 @@
                     "startColumn":6,
                     "startLine":34
                   }
-                }
+                },
+                "step":3,
+                "importance":"unimportant"
               },{
                 "physicalLocation":{
                   "uri":"file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/c6305/advancedc6305.cpp",
@@ -295,7 +335,10 @@
                     "startLine":35
                   }
                 },
-                "step":1,
+                "step":4,
+                "properties":{
+                  "keyEventId":"2"
+                },
                 "kind":"usage",
                 "message":"Expression mixes element counts and byte quantities",
                 "importance":"essential"
@@ -337,7 +380,9 @@
                     "startColumn":6,
                     "startLine":31
                   }
-                }
+                },
+                "step":1,
+                "importance":"unimportant"
               },{
                 "physicalLocation":{
                   "uri":"file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/c6305/advancedc6305.cpp",
@@ -345,7 +390,9 @@
                     "startColumn":4,
                     "startLine":33
                   }
-                }
+                },
+                "step":2,
+                "importance":"unimportant"
               },{
                 "physicalLocation":{
                   "uri":"file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/c6305/advancedc6305.cpp",
@@ -353,7 +400,9 @@
                     "startColumn":6,
                     "startLine":34
                   }
-                }
+                },
+                "step":3,
+                "importance":"unimportant"
               },{
                 "physicalLocation":{
                   "uri":"file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/c6305/advancedc6305.cpp",
@@ -362,7 +411,10 @@
                     "startLine":35
                   }
                 },
-                "step":0,
+                "step":4,
+                "properties":{
+                  "keyEventId":"1"
+                },
                 "kind":"declaration",
                 "message":"'i' is a byte quantity",
                 "importance":"essential"
@@ -374,7 +426,10 @@
                     "startLine":36
                   }
                 },
-                "step":1,
+                "step":5,
+                "properties":{
+                  "keyEventId":"2"
+                },
                 "kind":"usage",
                 "message":"Expression mixes element counts and byte quantities",
                 "importance":"essential"
@@ -417,7 +472,10 @@
                     "startLine":31
                   }
                 },
-                "step":0,
+                "step":1,
+                "properties":{
+                  "keyEventId":"1"
+                },
                 "kind":"declaration",
                 "message":"'i' is a byte quantity",
                 "importance":"essential"
@@ -429,7 +487,10 @@
                     "startLine":33
                   }
                 },
-                "step":1,
+                "step":2,
+                "properties":{
+                  "keyEventId":"2"
+                },
                 "kind":"usage",
                 "message":"Expression mixes element counts and byte quantities",
                 "importance":"essential"
@@ -471,7 +532,9 @@
                     "startColumn":6,
                     "startLine":31
                   }
-                }
+                },
+                "step":1,
+                "importance":"unimportant"
               },{
                 "physicalLocation":{
                   "uri":"file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/c6305/advancedc6305.cpp",
@@ -479,7 +542,9 @@
                     "startColumn":4,
                     "startLine":33
                   }
-                }
+                },
+                "step":2,
+                "importance":"unimportant"
               },{
                 "physicalLocation":{
                   "uri":"file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/c6305/advancedc6305.cpp",
@@ -487,7 +552,9 @@
                     "startColumn":6,
                     "startLine":34
                   }
-                }
+                },
+                "step":3,
+                "importance":"unimportant"
               },{
                 "physicalLocation":{
                   "uri":"file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/c6305/advancedc6305.cpp",
@@ -495,7 +562,9 @@
                     "startColumn":4,
                     "startLine":35
                   }
-                }
+                },
+                "step":4,
+                "importance":"unimportant"
               },{
                 "physicalLocation":{
                   "uri":"file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/c6305/advancedc6305.cpp",
@@ -503,7 +572,9 @@
                     "startColumn":4,
                     "startLine":36
                   }
-                }
+                },
+                "step":5,
+                "importance":"unimportant"
               },{
                 "physicalLocation":{
                   "uri":"file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/c6305/advancedc6305.cpp",
@@ -512,7 +583,10 @@
                     "startLine":38
                   }
                 },
-                "step":0,
+                "step":6,
+                "properties":{
+                  "keyEventId":"1"
+                },
                 "kind":"declaration",
                 "message":"'i' is a byte quantity",
                 "importance":"essential"
@@ -524,7 +598,10 @@
                     "startLine":39
                   }
                 },
-                "step":1,
+                "step":7,
+                "properties":{
+                  "keyEventId":"2"
+                },
                 "kind":"usage",
                 "message":"Expression mixes element counts and byte quantities",
                 "importance":"essential"
@@ -566,7 +643,9 @@
                     "startColumn":9,
                     "startLine":46
                   }
-                }
+                },
+                "step":1,
+                "importance":"unimportant"
               },{
                 "physicalLocation":{
                   "uri":"file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/c6305/advancedc6305.cpp",
@@ -575,7 +654,10 @@
                     "startLine":47
                   }
                 },
-                "step":0,
+                "step":2,
+                "properties":{
+                  "keyEventId":"1"
+                },
                 "kind":"declaration",
                 "message":"'j' is a byte quantity",
                 "importance":"essential"
@@ -587,7 +669,10 @@
                     "startLine":49
                   }
                 },
-                "step":1,
+                "step":3,
+                "properties":{
+                  "keyEventId":"2"
+                },
                 "kind":"alias",
                 "message":"(alias) 'i' receives a byte quantity from 'j'",
                 "importance":"essential"
@@ -599,7 +684,10 @@
                     "startLine":51
                   }
                 },
-                "step":2,
+                "step":4,
+                "properties":{
+                  "keyEventId":"3"
+                },
                 "kind":"usage",
                 "message":"Expression mixes element counts and byte quantities",
                 "importance":"essential"
@@ -641,7 +729,9 @@
                     "startColumn":9,
                     "startLine":58
                   }
-                }
+                },
+                "step":1,
+                "importance":"unimportant"
               },{
                 "physicalLocation":{
                   "uri":"file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/c6305/advancedc6305.cpp",
@@ -649,7 +739,9 @@
                     "startColumn":9,
                     "startLine":59
                   }
-                }
+                },
+                "step":2,
+                "importance":"unimportant"
               },{
                 "physicalLocation":{
                   "uri":"file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/c6305/advancedc6305.cpp",
@@ -658,7 +750,10 @@
                     "startLine":61
                   }
                 },
-                "step":0,
+                "step":3,
+                "properties":{
+                  "keyEventId":"1"
+                },
                 "kind":"usage",
                 "message":"Expression mixes element counts and byte quantities",
                 "importance":"essential"
@@ -700,7 +795,9 @@
                     "startColumn":6,
                     "startLine":68
                   }
-                }
+                },
+                "step":1,
+                "importance":"unimportant"
               },{
                 "physicalLocation":{
                   "uri":"file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/c6305/advancedc6305.cpp",
@@ -708,7 +805,9 @@
                     "startColumn":5,
                     "startLine":69
                   }
-                }
+                },
+                "step":2,
+                "importance":"unimportant"
               },{
                 "physicalLocation":{
                   "uri":"file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/c6305/advancedc6305.cpp",
@@ -717,7 +816,10 @@
                     "startLine":70
                   }
                 },
-                "step":0,
+                "step":3,
+                "properties":{
+                  "keyEventId":"1"
+                },
                 "kind":"usage",
                 "message":"Expression mixes element counts and byte quantities",
                 "importance":"essential"
@@ -760,7 +862,10 @@
                     "startLine":75
                   }
                 },
-                "step":0,
+                "step":1,
+                "properties":{
+                  "keyEventId":"1"
+                },
                 "kind":"declaration",
                 "message":"'cb' is a byte quantity",
                 "importance":"essential"
@@ -772,7 +877,10 @@
                     "startLine":77
                   }
                 },
-                "step":1,
+                "step":2,
+                "properties":{
+                  "keyEventId":"2"
+                },
                 "kind":"usage",
                 "message":"Expression mixes element counts and byte quantities",
                 "importance":"essential"

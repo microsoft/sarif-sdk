@@ -43,7 +43,10 @@
                     "startLine":5
                   }
                 },
-                "step":0,
+                "step":1,
+                "properties":{
+                  "keyEventId":"1"
+                },
                 "kind":"declaration",
                 "message":"'simpleVar' is not initialized",
                 "importance":"essential"
@@ -55,7 +58,10 @@
                     "startLine":7
                   }
                 },
-                "step":1,
+                "step":2,
+                "properties":{
+                  "keyEventId":"2"
+                },
                 "kind":"branch",
                 "message":"Skip this branch, (assume '(((int)(hrLongVar)))>4' is false)"
               },{
@@ -66,7 +72,10 @@
                     "startLine":12
                   }
                 },
-                "step":2,
+                "step":3,
+                "properties":{
+                  "keyEventId":"3"
+                },
                 "kind":"usage",
                 "message":"'simpleVar' is used, but may not have been initialized",
                 "importance":"essential"

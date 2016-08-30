@@ -408,6 +408,26 @@ extern "C"
     }
 }
 
+namespace
+{
+    // Return a value indicating whether the specified code path uses key events.
+    //
+    // None of the checkers built on EspXtension or the old Esp stack support key
+    // events. This includes important ones like the buffer overrun checker and
+    // the concurrency checker.
+    bool PathUsesKeyEvents(const std::vector<XmlSfa> &path)
+    {
+        for (const XmlSfa &sfa : path)
+        {
+            const XmlKeyEvent &keyEvent = sfa.GetKeyEvent();
+            if (keyEvent.IsValid())
+                return true;
+        }
+
+        return false;
+    }
+}
+
 HRESULT __stdcall Convert(const std::deque<XmlDefect> defectList, BSTR bstrOutputFile, BSTR* pbstrSarifText)
 {
     SarifLog issueLog;
@@ -483,6 +503,8 @@ HRESULT __stdcall Convert(const std::deque<XmlDefect> defectList, BSTR bstrOutpu
         if (defect.m_path.size() > 0)
         {
             SarifCodeFlow codeFlow;
+            int step = 0;
+            bool pathUsesKeyEvents = PathUsesKeyEvents(defect.m_path);
 
             for (const XmlSfa &sfa : defect.m_path)
             {
@@ -500,35 +522,42 @@ HRESULT __stdcall Convert(const std::deque<XmlDefect> defectList, BSTR bstrOutpu
 
                 SarifAnnotatedCodeLocation annotation;
                 annotation.SetPhysicalLocation(fileLocation);
+                annotation.SetStep(++step);
 
-                const XmlKeyEvent &keyEvent = sfa.GetKeyEvent();
-
-                if (keyEvent.IsValid())
+                if (pathUsesKeyEvents)
                 {
-                    if (wcscmp(keyEvent.GetId(), L"") != 0)
-                    {
-						const wchar_t *id = keyEvent.GetId();
-						wchar_t *endPtr;
-						int step = static_cast<int>(wcstol(id, &endPtr, 10));
-                        annotation.SetStep(step - 1); // SARIF uses 0-based step indices.
-                    }
+                    const XmlKeyEvent &keyEvent = sfa.GetKeyEvent();
 
-                    if (wcscmp(keyEvent.GetKind(), L"") != 0)
+                    if (keyEvent.IsValid())
                     {
-                        annotation.SetKind(keyEvent.GetKind());
-                    }
+                        const wchar_t *id = keyEvent.GetId();
+                        if (wcscmp(id, L"") != 0)
+                        {
+                            annotation.AddProperty(L"keyEventId", id);
+                        }
 
-                    if (wcscmp(keyEvent.GetMessage(), L"") != 0)
+                        if (wcscmp(keyEvent.GetKind(), L"") != 0)
+                        {
+                            annotation.SetKind(keyEvent.GetKind());
+                        }
+
+                        if (wcscmp(keyEvent.GetMessage(), L"") != 0)
+                        {
+                            annotation.SetMessage(keyEvent.GetMessage());
+                        }
+
+                        if (wcscmp(keyEvent.GetImportance(), L"Essential") == 0)
+                        {
+                            annotation.SetImportance(L"essential");
+                        }
+                    }
+                    else
                     {
-                        annotation.SetMessage(keyEvent.GetMessage());
+                        annotation.SetImportance(L"unimportant");
                     }
-
-					if (wcscmp(keyEvent.GetImportance(), L"Essential") == 0)
-					{
-						annotation.SetImportance(L"essential");
-					}
                 }
-                codeFlow.AddAnnotatedCodeLocation(annotation);
+
+				codeFlow.AddAnnotatedCodeLocation(annotation);
             }
             result.AddCodeFlow(codeFlow);
         }

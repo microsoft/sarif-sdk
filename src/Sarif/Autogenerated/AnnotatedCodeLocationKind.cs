@@ -21,9 +21,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         Declaration,
         FunctionEnter,
         FunctionExit,
-        Sanitizer,
-        Sink,
-        Source,
+        FunctionReturn,
         Usage
     }
 }

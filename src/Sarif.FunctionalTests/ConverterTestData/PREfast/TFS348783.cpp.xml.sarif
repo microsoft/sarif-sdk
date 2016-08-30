@@ -43,7 +43,10 @@
                     "startLine":9
                   }
                 },
-                "step":0,
+                "step":1,
+                "properties":{
+                  "keyEventId":"1"
+                },
                 "kind":"declaration",
                 "message":"'buffer' is an array of 10 elements (20 bytes)",
                 "importance":"essential"
@@ -55,7 +58,10 @@
                     "startLine":10
                   }
                 },
-                "step":1,
+                "step":2,
+                "properties":{
+                  "keyEventId":"2"
+                },
                 "kind":"declaration",
                 "message":"'buffer' is an Output from 'wcscpy_s' (declared at c:\\program files (x86)\\microsoft visual studio 11.0\\vc\\wpsdk\\wp80\\include\\string.h:285)"
               },{
@@ -66,7 +72,10 @@
                     "startLine":10
                   }
                 },
-                "step":2,
+                "step":3,
+                "properties":{
+                  "keyEventId":"3"
+                },
                 "kind":"usage",
                 "message":"Invalid write to 'buffer[19]', (writable range is 0 to 9)",
                 "importance":"essential"

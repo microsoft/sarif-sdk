@@ -39,6 +39,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         public string ConfigurationFilePath { get; set; }
 
         [Option(
+            'q',
+            "quiet",
+            HelpText = "Do not log results to the console.")]
+        public bool Quiet { get; set; }
+
+        [Option(
             's',
             "statistics",
             HelpText = "Generate timing and other statistics for analysis session.")]

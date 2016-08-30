@@ -37,7 +37,8 @@
                     "startColumn":6,
                     "startLine":10
                   }
-                }
+                },
+                "step":1
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/test010.cpp",
@@ -45,7 +46,8 @@
                     "startColumn":15,
                     "startLine":12
                   }
-                }
+                },
+                "step":2
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/test010.cpp",
@@ -53,7 +55,8 @@
                     "startColumn":18,
                     "startLine":13
                   }
-                }
+                },
+                "step":3
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/test010.cpp",
@@ -61,7 +64,8 @@
                     "startColumn":19,
                     "startLine":14
                   }
-                }
+                },
+                "step":4
               }
             ]
           }

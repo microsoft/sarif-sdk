@@ -56,7 +56,8 @@
                     "startColumn":14,
                     "startLine":29
                   }
-                }
+                },
+                "step":1
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/test049.cpp",
@@ -64,7 +65,8 @@
                     "startColumn":13,
                     "startLine":31
                   }
-                }
+                },
+                "step":2
               }
             ]
           }
@@ -98,7 +100,8 @@
                     "startColumn":14,
                     "startLine":34
                   }
-                }
+                },
+                "step":1
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/test049.cpp",
@@ -106,7 +109,8 @@
                     "startColumn":13,
                     "startLine":36
                   }
-                }
+                },
+                "step":2
               }
             ]
           }
@@ -140,7 +144,8 @@
                     "startColumn":14,
                     "startLine":40
                   }
-                }
+                },
+                "step":1
               },{
                 "physicalLocation":{
                   "uri":"file:///c:/somepath/test049.cpp",
@@ -148,7 +153,8 @@
                     "startColumn":13,
                     "startLine":42
                   }
-                }
+                },
+                "step":2
               }
             ]
           }

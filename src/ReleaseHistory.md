@@ -61,4 +61,10 @@
 
 ## **v1.5.28** [Driver](https://www.nuget.org/packages/Sarif.Driver/1.5.28) | [SDK](https://www.nuget.org/packages/Sarif.Sdk/1.5.28)
 * Breaking change: rename PropertyBagDictionary to PropertiesDictionary
+* Add 'functionReturn' to annotatedCodeLocation.kind
+* Remove 'source', 'sink' and 'sanitizer' from annotatedCodeLocation.kind
+* Add 'taint' enum to annotatedCodeLocation with values 'source', 'sink' and 'sanitizer'
+* Add 'parameters' and 'variables' members to annotatedCodeLocation
+* Rename annotatedCodeLocation.callee member to 'target'
+* Rename annotatedCodeLocation.calleeKey member to 'targetKey'
 

@@ -43,7 +43,10 @@
                     "startLine":8
                   }
                 },
-                "step":0,
+                "step":1,
+                "properties":{
+                  "keyEventId":"1"
+                },
                 "kind":"declaration",
                 "message":"'data' is NULL",
                 "importance":"essential"
@@ -55,7 +58,10 @@
                     "startLine":9
                   }
                 },
-                "step":1,
+                "step":2,
+                "properties":{
+                  "keyEventId":"2"
+                },
                 "kind":"branch",
                 "message":"Enter this branch, (assume 'SUCCEEDED(hr)')"
               },{
@@ -66,7 +72,10 @@
                     "startLine":11
                   }
                 },
-                "step":2,
+                "step":3,
+                "properties":{
+                  "keyEventId":"3"
+                },
                 "kind":"usage",
                 "message":"'data' is dereferenced, but may still be NULL",
                 "importance":"essential"
@@ -109,7 +118,10 @@
                     "startLine":17
                   }
                 },
-                "step":0,
+                "step":1,
+                "properties":{
+                  "keyEventId":"1"
+                },
                 "kind":"declaration",
                 "message":"'data' is NULL",
                 "importance":"essential"
@@ -121,7 +133,10 @@
                     "startLine":18
                   }
                 },
-                "step":1,
+                "step":2,
+                "properties":{
+                  "keyEventId":"2"
+                },
                 "kind":"branch",
                 "message":"Skip this branch, (assume 'SUCCEEDED(hr)&&b' is false)"
               },{
@@ -132,7 +147,10 @@
                     "startLine":24
                   }
                 },
-                "step":2,
+                "step":3,
+                "properties":{
+                  "keyEventId":"3"
+                },
                 "kind":"usage",
                 "message":"'data' is dereferenced, but may still be NULL",
                 "importance":"essential"
@@ -175,7 +193,10 @@
                     "startLine":30
                   }
                 },
-                "step":0,
+                "step":1,
+                "properties":{
+                  "keyEventId":"1"
+                },
                 "kind":"declaration",
                 "message":"'data' is NULL",
                 "importance":"essential"
@@ -187,7 +208,10 @@
                     "startLine":31
                   }
                 },
-                "step":1,
+                "step":2,
+                "properties":{
+                  "keyEventId":"2"
+                },
                 "kind":"branch",
                 "message":"Enter this branch, (assume '((SUCCEEDED(hr)||b))&&c')"
               },{
@@ -198,7 +222,10 @@
                     "startLine":33
                   }
                 },
-                "step":2,
+                "step":3,
+                "properties":{
+                  "keyEventId":"3"
+                },
                 "kind":"usage",
                 "message":"'data' is dereferenced, but may still be NULL",
                 "importance":"essential"
@@ -241,7 +268,10 @@
                     "startLine":39
                   }
                 },
-                "step":0,
+                "step":1,
+                "properties":{
+                  "keyEventId":"1"
+                },
                 "kind":"declaration",
                 "message":"'data' is NULL",
                 "importance":"essential"
@@ -253,7 +283,10 @@
                     "startLine":40
                   }
                 },
-                "step":1,
+                "step":2,
+                "properties":{
+                  "keyEventId":"2"
+                },
                 "kind":"branch",
                 "message":"Enter this branch, (assume '!SUCCEEDED(_hResult)')"
               },{
@@ -264,7 +297,10 @@
                     "startLine":42
                   }
                 },
-                "step":2,
+                "step":3,
+                "properties":{
+                  "keyEventId":"3"
+                },
                 "kind":"usage",
                 "message":"'data' is dereferenced, but may still be NULL",
                 "importance":"essential"
@@ -307,7 +343,10 @@
                     "startLine":48
                   }
                 },
-                "step":0,
+                "step":1,
+                "properties":{
+                  "keyEventId":"1"
+                },
                 "kind":"declaration",
                 "message":"'data' is NULL",
                 "importance":"essential"
@@ -319,7 +358,10 @@
                     "startLine":49
                   }
                 },
-                "step":1,
+                "step":2,
+                "properties":{
+                  "keyEventId":"2"
+                },
                 "kind":"branch",
                 "message":"Enter this branch, (assume 'FAILED(hr)')"
               },{
@@ -330,7 +372,10 @@
                     "startLine":51
                   }
                 },
-                "step":2,
+                "step":3,
+                "properties":{
+                  "keyEventId":"3"
+                },
                 "kind":"usage",
                 "message":"'data' is dereferenced, but may still be NULL",
                 "importance":"essential"
@@ -373,7 +418,10 @@
                     "startLine":57
                   }
                 },
-                "step":0,
+                "step":1,
+                "properties":{
+                  "keyEventId":"1"
+                },
                 "kind":"declaration",
                 "message":"'data' is NULL",
                 "importance":"essential"
@@ -385,7 +433,10 @@
                     "startLine":58
                   }
                 },
-                "step":1,
+                "step":2,
+                "properties":{
+                  "keyEventId":"2"
+                },
                 "kind":"branch",
                 "message":"Skip this branch, (assume 'FAILED(hr)&&b||SUCCEEDED(hr)' is false)"
               },{
@@ -396,7 +447,10 @@
                     "startLine":64
                   }
                 },
-                "step":2,
+                "step":3,
+                "properties":{
+                  "keyEventId":"3"
+                },
                 "kind":"usage",
                 "message":"'data' is dereferenced, but may still be NULL",
                 "importance":"essential"
@@ -439,7 +493,10 @@
                     "startLine":70
                   }
                 },
-                "step":0,
+                "step":1,
+                "properties":{
+                  "keyEventId":"1"
+                },
                 "kind":"declaration",
                 "message":"'data' is NULL",
                 "importance":"essential"
@@ -451,7 +508,10 @@
                     "startLine":71
                   }
                 },
-                "step":1,
+                "step":2,
+                "properties":{
+                  "keyEventId":"2"
+                },
                 "kind":"branch",
                 "message":"Enter this branch, (assume '((FAILED(Hr_2)||b))&&c')"
               },{
@@ -462,7 +522,10 @@
                     "startLine":73
                   }
                 },
-                "step":2,
+                "step":3,
+                "properties":{
+                  "keyEventId":"3"
+                },
                 "kind":"usage",
                 "message":"'data' is dereferenced, but may still be NULL",
                 "importance":"essential"
@@ -505,7 +568,10 @@
                     "startLine":79
                   }
                 },
-                "step":0,
+                "step":1,
+                "properties":{
+                  "keyEventId":"1"
+                },
                 "kind":"declaration",
                 "message":"'data' is NULL",
                 "importance":"essential"
@@ -517,7 +583,10 @@
                     "startLine":80
                   }
                 },
-                "step":1,
+                "step":2,
+                "properties":{
+                  "keyEventId":"2"
+                },
                 "kind":"branch",
                 "message":"Enter this branch, (assume '!FAILED(hr)')"
               },{
@@ -528,7 +597,10 @@
                     "startLine":82
                   }
                 },
-                "step":2,
+                "step":3,
+                "properties":{
+                  "keyEventId":"3"
+                },
                 "kind":"usage",
                 "message":"'data' is dereferenced, but may still be NULL",
                 "importance":"essential"
@@ -571,7 +643,10 @@
                     "startLine":88
                   }
                 },
-                "step":0,
+                "step":1,
+                "properties":{
+                  "keyEventId":"1"
+                },
                 "kind":"declaration",
                 "message":"'data' is NULL",
                 "importance":"essential"
@@ -583,7 +658,10 @@
                     "startLine":89
                   }
                 },
-                "step":1,
+                "step":2,
+                "properties":{
+                  "keyEventId":"2"
+                },
                 "kind":"branch",
                 "message":"Enter this branch, (assume 'hr==S_FALSE')"
               },{
@@ -594,7 +672,10 @@
                     "startLine":91
                   }
                 },
-                "step":2,
+                "step":3,
+                "properties":{
+                  "keyEventId":"3"
+                },
                 "kind":"usage",
                 "message":"'data' is dereferenced, but may still be NULL",
                 "importance":"essential"
@@ -637,7 +718,10 @@
                     "startLine":97
                   }
                 },
-                "step":0,
+                "step":1,
+                "properties":{
+                  "keyEventId":"1"
+                },
                 "kind":"declaration",
                 "message":"'data' is NULL",
                 "importance":"essential"
@@ -649,7 +733,10 @@
                     "startLine":98
                   }
                 },
-                "step":1,
+                "step":2,
+                "properties":{
+                  "keyEventId":"2"
+                },
                 "kind":"branch",
                 "message":"Enter this branch, (assume 'b&&((c||S_FALSE==hr))')"
               },{
@@ -660,7 +747,10 @@
                     "startLine":100
                   }
                 },
-                "step":2,
+                "step":3,
+                "properties":{
+                  "keyEventId":"3"
+                },
                 "kind":"usage",
                 "message":"'data' is dereferenced, but may still be NULL",
                 "importance":"essential"
@@ -703,7 +793,10 @@
                     "startLine":106
                   }
                 },
-                "step":0,
+                "step":1,
+                "properties":{
+                  "keyEventId":"1"
+                },
                 "kind":"declaration",
                 "message":"'data' is NULL",
                 "importance":"essential"
@@ -715,7 +808,10 @@
                     "startLine":107
                   }
                 },
-                "step":1,
+                "step":2,
+                "properties":{
+                  "keyEventId":"2"
+                },
                 "kind":"branch",
                 "message":"Enter this branch, (assume 'S_OK==hr')"
               },{
@@ -726,7 +822,10 @@
                     "startLine":109
                   }
                 },
-                "step":2,
+                "step":3,
+                "properties":{
+                  "keyEventId":"3"
+                },
                 "kind":"usage",
                 "message":"'data' is dereferenced, but may still be NULL",
                 "importance":"essential"
@@ -769,7 +868,10 @@
                     "startLine":115
                   }
                 },
-                "step":0,
+                "step":1,
+                "properties":{
+                  "keyEventId":"1"
+                },
                 "kind":"declaration",
                 "message":"'data' is NULL",
                 "importance":"essential"
@@ -781,7 +883,10 @@
                     "startLine":116
                   }
                 },
-                "step":1,
+                "step":2,
+                "properties":{
+                  "keyEventId":"2"
+                },
                 "kind":"branch",
                 "message":"Enter this branch, (assume '((S_FALSE+S_OK))==hr')"
               },{
@@ -792,7 +897,10 @@
                     "startLine":118
                   }
                 },
-                "step":2,
+                "step":3,
+                "properties":{
+                  "keyEventId":"3"
+                },
                 "kind":"usage",
                 "message":"'data' is dereferenced, but may still be NULL",
                 "importance":"essential"

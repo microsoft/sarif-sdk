@@ -43,7 +43,10 @@
                     "startLine":4
                   }
                 },
-                "step":0,
+                "step":1,
+                "properties":{
+                  "keyEventId":"1"
+                },
                 "kind":"declaration",
                 "message":"'i' is not initialized",
                 "importance":"essential"
@@ -55,7 +58,10 @@
                     "startLine":5
                   }
                 },
-                "step":1,
+                "step":2,
+                "properties":{
+                  "keyEventId":"2"
+                },
                 "kind":"branch",
                 "message":"Go to labelb"
               },{
@@ -65,7 +71,9 @@
                     "startColumn":1,
                     "startLine":8
                   }
-                }
+                },
+                "step":3,
+                "importance":"unimportant"
               },{
                 "physicalLocation":{
                   "uri":"file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/complex/c6001/c6001example3.cpp",
@@ -74,7 +82,10 @@
                     "startLine":9
                   }
                 },
-                "step":2,
+                "step":4,
+                "properties":{
+                  "keyEventId":"3"
+                },
                 "kind":"branch",
                 "message":"Go to labela"
               },{
@@ -84,7 +95,9 @@
                     "startColumn":1,
                     "startLine":6
                   }
-                }
+                },
+                "step":5,
+                "importance":"unimportant"
               },{
                 "physicalLocation":{
                   "uri":"file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/complex/c6001/c6001example3.cpp",
@@ -93,7 +106,10 @@
                     "startLine":7
                   }
                 },
-                "step":3,
+                "step":6,
+                "properties":{
+                  "keyEventId":"4"
+                },
                 "kind":"branch",
                 "message":"Go to labelc"
               },{
@@ -103,7 +119,9 @@
                     "startColumn":1,
                     "startLine":10
                   }
-                }
+                },
+                "step":7,
+                "importance":"unimportant"
               },{
                 "physicalLocation":{
                   "uri":"file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/complex/c6001/c6001example3.cpp",
@@ -112,7 +130,10 @@
                     "startLine":11
                   }
                 },
-                "step":4,
+                "step":8,
+                "properties":{
+                  "keyEventId":"5"
+                },
                 "kind":"usage",
                 "message":"'i' is used, but may not have been initialized",
                 "importance":"essential"
