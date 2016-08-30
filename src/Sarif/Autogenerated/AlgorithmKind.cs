@@ -8,7 +8,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// <summary>
     /// Values specifying different hashing algorithms.
     /// </summary>
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.45.0.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.46.0.0")]
     public enum AlgorithmKind
     {
         Unknown,

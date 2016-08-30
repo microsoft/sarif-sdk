@@ -10,7 +10,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// <summary>
     /// Defines methods to support the comparison of objects of type PhysicalLocation for equality.
     /// </summary>
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.45.0.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.46.0.0")]
     internal sealed class PhysicalLocationEqualityComparer : IEqualityComparer<PhysicalLocation>
     {
         internal static readonly PhysicalLocationEqualityComparer Instance = new PhysicalLocationEqualityComparer();

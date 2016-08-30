@@ -42,20 +42,20 @@
       <HintPath>..\packages\Newtonsoft.Json.6.0.8\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Sarif, Version=1.5.27.0, Culture=neutral, PublicKeyToken=a567ef0185dba9aa, processorArchitecture=MSIL">
-      <HintPath>..\packages\Sarif.Sdk.1.5.27\lib\net45\Sarif.dll</HintPath>
+    <Reference Include="Sarif, Version=1.5.29.0, Culture=neutral, PublicKeyToken=a567ef0185dba9aa, processorArchitecture=MSIL">
+      <HintPath>..\packages\Sarif.Sdk.1.5.29\lib\net45\Sarif.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Sarif.Driver, Version=1.5.27.0, Culture=neutral, PublicKeyToken=a567ef0185dba9aa, processorArchitecture=MSIL">
-      <HintPath>..\packages\Sarif.Driver.1.5.27\lib\net45\Sarif.Driver.dll</HintPath>
+    <Reference Include="Sarif.Driver, Version=1.5.29.0, Culture=neutral, PublicKeyToken=a567ef0185dba9aa, processorArchitecture=MSIL">
+      <HintPath>..\packages\Sarif.Driver.1.5.29\lib\net45\Sarif.Driver.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Microsoft.Json.Schema, Version=0.45.0.0, Culture=neutral, PublicKeyToken=0a75a800dbdd2daa, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.Json.Schema.0.45.0\lib\net451\Microsoft.Json.Schema.dll</HintPath>
+    <Reference Include="Microsoft.Json.Schema, Version=0.46.0.0, Culture=neutral, PublicKeyToken=0a75a800dbdd2daa, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Json.Schema.0.46.0\lib\net451\Microsoft.Json.Schema.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Microsoft.Json.Pointer, Version=0.45.0.0, Culture=neutral, PublicKeyToken=0a75a800dbdd2daa, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.Json.Pointer.0.45.0\lib\net451\Microsoft.Json.Pointer.dll</HintPath>
+    <Reference Include="Microsoft.Json.Pointer, Version=0.46.0.0, Culture=neutral, PublicKeyToken=0a75a800dbdd2daa, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Json.Pointer.0.46.0\lib\net451\Microsoft.Json.Pointer.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
