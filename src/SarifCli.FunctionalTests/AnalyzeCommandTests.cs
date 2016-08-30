@@ -33,7 +33,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Cli.FunctionalTests
             {
                 TargetFileSpecifiers = new[] { testFilePath },
                 OutputFilePath = actualFilePath,
-                SchemaFilePath = JsonSchemaFile
+                SchemaFilePath = JsonSchemaFile,
+                Quiet = true
             };
 
             new AnalyzeCommand().Run(analyzeOptions);
