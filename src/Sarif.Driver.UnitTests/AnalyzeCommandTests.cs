@@ -26,6 +26,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 TargetFileSpecifiers = new string[0]
             };
 
+            analyzeOptions.Quiet = true;
+
             var command = new TestAnalyzeCommand();
 
             Assembly[] plugInAssemblies = null;
@@ -440,6 +442,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                     TargetFileSpecifiers = new string[] { fileName },
                     Verbose = true,
                     Statistics = true,
+                    Quiet = true,
                     ComputeTargetsHash = true,
                     ConfigurationFilePath = TestAnalyzeCommand.DEFAULT_POLICY_NAME,
                     Recurse = true,
