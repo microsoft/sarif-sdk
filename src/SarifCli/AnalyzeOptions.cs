@@ -11,7 +11,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Cli
     {
         [Option(
             'j',
-            "json-schema-file-path",
+            "json-schema",
             HelpText = "Path to the SARIF JSON schema.",
             Required = true)]
         public string SchemaFilePath { get; set; }

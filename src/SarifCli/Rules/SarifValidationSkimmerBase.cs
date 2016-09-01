@@ -102,10 +102,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Cli.Rules
                 Run[] runs = log.Runs.ToArray();
                 string runsPointer = logPointer.AtProperty(SarifPropertyName.Runs);
 
-                for (int iRun = 0; iRun < runs.Length; ++iRun)
+                for (int i = 0; i < runs.Length; ++i)
                 {
-                    Run run = runs[iRun];
-                    string runPointer = runsPointer.AtIndex(iRun);
+                    Run run = runs[i];
+                    string runPointer = runsPointer.AtIndex(i);
 
                     Visit(run, runPointer);
                 }
@@ -132,10 +132,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Cli.Rules
                 AnnotatedCodeLocation[] annotatedCodeLocations = codeFlow.Locations.ToArray();
                 string annotatedCodeLocationsPointer = codeFlowPointer.AtProperty(SarifPropertyName.Locations);
 
-                for (int iAnnotatedCodeLocation = 0; iAnnotatedCodeLocation < annotatedCodeLocations.Length; ++iAnnotatedCodeLocation)
+                for (int i = 0; i < annotatedCodeLocations.Length; ++i)
                 {
-                    AnnotatedCodeLocation annotatedCodeLocation = annotatedCodeLocations[iAnnotatedCodeLocation];
-                    string annotatedCodeLocationPointer = annotatedCodeLocationsPointer.AtIndex(iAnnotatedCodeLocation);
+                    AnnotatedCodeLocation annotatedCodeLocation = annotatedCodeLocations[i];
+                    string annotatedCodeLocationPointer = annotatedCodeLocationsPointer.AtIndex(i);
 
                     Visit(annotatedCodeLocation, annotatedCodeLocationPointer);
                 }
@@ -154,10 +154,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Cli.Rules
                 FileChange[] fileChanges = fix.FileChanges.ToArray();
                 string fileChangesPointer = fixPointer.AtProperty(SarifPropertyName.FileChanges);
 
-                for (int iFileChange = 0; iFileChange < fileChanges.Length; ++iFileChange)
+                for (int i = 0; i < fileChanges.Length; ++i)
                 {
-                    FileChange fileChange = fileChanges[iFileChange];
-                    string fileChangePointer = fileChangesPointer.AtIndex(iFileChange);
+                    FileChange fileChange = fileChanges[i];
+                    string fileChangePointer = fileChangesPointer.AtIndex(i);
 
                     Visit(fileChange, fileChangePointer);
                 }
@@ -227,10 +227,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Cli.Rules
                 Location[] locations = result.Locations.ToArray();
                 string locationsPointer = resultPointer.AtProperty(SarifPropertyName.Locations);
 
-                for (int iLocation = 0; iLocation < locations.Length; ++iLocation)
+                for (int i = 0; i < locations.Length; ++i)
                 {
-                    Location location = locations[iLocation];
-                    string locationPointer = locationsPointer.AtIndex(iLocation);
+                    Location location = locations[i];
+                    string locationPointer = locationsPointer.AtIndex(i);
 
                     Visit(location, locationPointer);
                 }
@@ -241,10 +241,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Cli.Rules
                 CodeFlow[] codeFlows = result.CodeFlows.ToArray();
                 string codeFlowsPointer = resultPointer.AtProperty(SarifPropertyName.CodeFlows);
 
-                for (int iCodeFlow = 0; iCodeFlow < codeFlows.Length; ++iCodeFlow)
+                for (int i = 0; i < codeFlows.Length; ++i)
                 {
-                    CodeFlow codeFlow = codeFlows[iCodeFlow];
-                    string codeFlowPointer = codeFlowsPointer.AtIndex(iCodeFlow);
+                    CodeFlow codeFlow = codeFlows[i];
+                    string codeFlowPointer = codeFlowsPointer.AtIndex(i);
 
                     Visit(codeFlow, codeFlowPointer);
                 }
@@ -255,10 +255,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Cli.Rules
                 Stack[] stacks = result.Stacks.ToArray();
                 string stacksPointer = resultPointer.AtProperty(SarifPropertyName.Stacks);
 
-                for (int iStack = 0; iStack < stacks.Length; ++iStack)
+                for (int i = 0; i < stacks.Length; ++i)
                 {
-                    Stack stack = stacks[iStack];
-                    string stackPointer = stacksPointer.AtIndex(iStack);
+                    Stack stack = stacks[i];
+                    string stackPointer = stacksPointer.AtIndex(i);
 
                     Visit(stack, stackPointer);
                 }
@@ -269,10 +269,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Cli.Rules
                 AnnotatedCodeLocation[] relatedLocations = result.RelatedLocations.ToArray();
                 string relatedLocationsPointer = resultPointer.AtProperty(SarifPropertyName.RelatedLocations);
 
-                for (int iRelatedLocation = 0; iRelatedLocation < relatedLocations.Length; ++iRelatedLocation)
+                for (int i = 0; i < relatedLocations.Length; ++i)
                 {
-                    AnnotatedCodeLocation relatedLocation = relatedLocations[iRelatedLocation];
-                    string relatedLocationPointer = relatedLocationsPointer.AtIndex(iRelatedLocation);
+                    AnnotatedCodeLocation relatedLocation = relatedLocations[i];
+                    string relatedLocationPointer = relatedLocationsPointer.AtIndex(i);
 
                     Visit(relatedLocation, relatedLocationPointer);
                 }
@@ -283,10 +283,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Cli.Rules
                 Fix[] fixes = result.Fixes.ToArray();
                 string fixesPointer = resultPointer.AtProperty(SarifPropertyName.Fixes);
 
-                for (int iFix = 0; iFix < fixes.Length; ++iFix)
+                for (int i = 0; i < fixes.Length; ++i)
                 {
-                    Fix fix = fixes[iFix];
-                    string fixPointer = fixesPointer.AtIndex(iFix);
+                    Fix fix = fixes[i];
+                    string fixPointer = fixesPointer.AtIndex(i);
 
                     Visit(fix, fixPointer);
                 }
@@ -300,10 +300,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Cli.Rules
                 Result[] results = run.Results.ToArray();
                 string resultsPointer = runPointer.AtProperty(SarifPropertyName.Results);
 
-                for (int iResult = 0; iResult < results.Length; ++iResult)
+                for (int i = 0; i < results.Length; ++i)
                 {
-                    Result result = results[iResult];
-                    string resultPointer = resultsPointer.AtIndex(iResult);
+                    Result result = results[i];
+                    string resultPointer = resultsPointer.AtIndex(i);
 
                     Visit(result, resultPointer);
                 }
@@ -327,9 +327,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Cli.Rules
                 Rule[] rules = run.Rules.Values.ToArray();
                 string rulesPointer = runPointer.AtProperty(SarifPropertyName.Rules);
 
-                for (int iRule = 0; iRule < rules.Length; ++iRule)
+                for (int i = 0; i < rules.Length; ++i)
                 {
-                    Rule rule = rules[iRule];
+                    Rule rule = rules[i];
                     if (rule.Id != null)
                     {
                         string rulePointer = rulesPointer.AtProperty(rule.Id);
@@ -361,10 +361,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Cli.Rules
             Notification[] notificationsArray = notifications.ToArray();
             string notificationsPointer = parentPointer.AtProperty(propertyName);
 
-            for (int iNotification = 0; iNotification < notificationsArray.Length; ++iNotification)
+            for (int i = 0; i < notificationsArray.Length; ++i)
             {
-                Notification notification = notificationsArray[iNotification];
-                string notificationPointer = notificationsPointer.AtIndex(iNotification);
+                Notification notification = notificationsArray[i];
+                string notificationPointer = notificationsPointer.AtIndex(i);
 
                 Visit(notification, notificationPointer);
             }
@@ -379,10 +379,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Cli.Rules
                 StackFrame[] frames = stack.Frames.ToArray();
                 string framesPointer = stackPointer.AtProperty(SarifPropertyName.Frames);
 
-                for (int iFrame = 0; iFrame < frames.Length; ++iFrame)
+                for (int i = 0; i < frames.Length; ++i)
                 {
-                    StackFrame frame = frames[iFrame];
-                    string framePointer = framesPointer.AtIndex(iFrame);
+                    StackFrame frame = frames[i];
+                    string framePointer = framesPointer.AtIndex(i);
 
                     Visit(frame, framePointer);
                 }

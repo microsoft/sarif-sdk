@@ -30,9 +30,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Cli.Rules
 
         protected override void Analyze(Rule rule, string rulePointer)
         {
-            if (rule.Id != null
-                && rule.Name != null 
-                && rule.Id.Equals(rule.Name, StringComparison.OrdinalIgnoreCase))
+            if (rule.Id != null &&
+                rule.Name != null && 
+                rule.Id.Equals(rule.Name, StringComparison.OrdinalIgnoreCase))
             {
                 LogResult(
                     rulePointer,
