@@ -4,8 +4,8 @@
   <PropertyGroup>
     <ProjectGuid>{859920F3-DB09-4C1D-9EAD-DFB1D7A03A46}</ProjectGuid>
     <OutputType>Library</OutputType>
-    <RootNamespace>Microsoft.CodeAnalysis.Sarif.Cli.FunctionalTests</RootNamespace>
-    <AssemblyName>Microsoft.CodeAnalysis.Sarif.Cli.FunctionalTests</AssemblyName>
+    <RootNamespace>SarifCli.FunctionalTests</RootNamespace>
+    <AssemblyName>SarifCli.FunctionalTests</AssemblyName>
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
   </PropertyGroup>

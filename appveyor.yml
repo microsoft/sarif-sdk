@@ -31,7 +31,7 @@ test:
     - '**\Sarif.FunctionalTests.dll'
     - '**\Sarif.ValidationTests.dll'
     - '**\Sarif.Viewer.VisualStudio.UnitTests.dll'
-    - '**\Microsoft.CodeAnalysis.SarifCli.FunctionalTests.dll'
+    - '**\SarifCli.FunctionalTests.dll'
 
 notifications:
   - provider: Email

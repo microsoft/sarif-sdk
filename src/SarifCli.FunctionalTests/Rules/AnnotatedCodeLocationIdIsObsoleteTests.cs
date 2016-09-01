@@ -4,7 +4,7 @@
 using Microsoft.CodeAnalysis.Sarif.Cli.Rules;
 using Xunit;
 
-namespace Microsoft.CodeAnalysis.Sarif.Cli.FunctionalTests.Rules
+namespace SarifCli.FunctionalTests.Rules
 {
     public class AnnotatedCodeLocationIdIsObsoleteTests : SkimmerTestsBase
     {

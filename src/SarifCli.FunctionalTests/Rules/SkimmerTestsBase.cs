@@ -3,12 +3,14 @@
 
 using System;
 using System.IO;
+using Microsoft.CodeAnalysis.Sarif;
+using Microsoft.CodeAnalysis.Sarif.Cli;
 using Microsoft.CodeAnalysis.Sarif.Cli.Rules;
 using Microsoft.CodeAnalysis.Sarif.Readers;
 using Microsoft.CodeAnalysis.Sarif.Writers;
 using Newtonsoft.Json;
 
-namespace Microsoft.CodeAnalysis.Sarif.Cli.FunctionalTests.Rules
+namespace SarifCli.FunctionalTests.Rules
 {
     public abstract class SkimmerTestsBase : SarifCliTestBase
     {

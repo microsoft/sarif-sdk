@@ -3,9 +3,10 @@
 
 using System;
 using System.IO;
+using Microsoft.CodeAnalysis.Sarif.Cli;
 using Xunit;
 
-namespace Microsoft.CodeAnalysis.Sarif.Cli.FunctionalTests
+namespace SarifCli.FunctionalTests
 {
     public class AnalyzeCommandTests : SarifCliTestBase
     {
