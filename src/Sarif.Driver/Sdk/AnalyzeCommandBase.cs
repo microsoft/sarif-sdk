@@ -4,6 +4,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Security;
 using Microsoft.CodeAnalysis.Sarif.Writers;
 
@@ -479,7 +480,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             return skimmers;
         }
 
-
         public virtual void ConfigureFromOptions(TContext context, TOptions analyzeOptions)
         {
             PropertiesDictionary configuration = null;
@@ -495,6 +495,34 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 }
             }
             context.Policy = configuration;
-        }       
+        }
+
+        protected static void LogToolNotification(
+            IAnalysisLogger logger,
+            string message,
+            NotificationLevel level = NotificationLevel.Note,
+            Exception ex = null)
+        {
+            ExceptionData exceptionData = null;
+            if (ex != null)
+            {
+                exceptionData = new ExceptionData
+                {
+                    Kind = ex.GetType().FullName,
+                    Message = ex.Message,
+                    Stack = Stack.CreateStacks(ex).FirstOrDefault()
+                };
+            }
+
+            TextWriter writer = level == NotificationLevel.Error ? Console.Error : Console.Out;
+            writer.WriteLine(message);
+
+            logger.LogToolNotification(new Notification
+            {
+                Level = level,
+                Message = message,
+                Exception = exceptionData
+            });
+        }
     }
 }
