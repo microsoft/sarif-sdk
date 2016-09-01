@@ -9,12 +9,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Cli.Rules
 {
     public class EndTimeMustBeAfterStartTime : SarifValidationSkimmerBase
     {
-        public override string FullDescription => RuleResources.SV0007_EndTimeMustBeAfterStartTime;
+        public override string FullDescription => RuleResources.SARIF007_EndTimeMustBeAfterStartTime;
 
         public override ResultLevel DefaultLevel => ResultLevel.Error;
 
         /// <summary>
-        /// SV0006
+        /// SARIF007
         /// </summary>
         public override string Id => RuleId.EndTimeMustBeAfterStartTime;
 
@@ -24,7 +24,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Cli.Rules
             {
                 return new string[]
                 {
-                    nameof(RuleResources.SV0007_Default)
+                    nameof(RuleResources.SARIF007_Default)
                 };
             }
         }
@@ -37,7 +37,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Cli.Rules
 
                 LogResult(
                     endTimePointer,
-                    nameof(RuleResources.SV0007_Default),
+                    nameof(RuleResources.SARIF007_Default),
                     FormatDateTime(invocation.EndTime),
                     FormatDateTime(invocation.StartTime));
             }

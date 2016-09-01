@@ -5,18 +5,18 @@ namespace Microsoft.CodeAnalysis.Sarif.Cli.Rules
 {
     public static class RuleId
     {
-        public const string DoNotUseFriendlyNameAsRuleId = "SV0001";
-        public const string UseAbsolutePathsForNestedFileUriFragments = "SV0002";
-        public const string UrisMustBeValid = "SV0003";
-        public const string AnnotatedCodeLocationIdIsObsolete = "SV0004";
-        public const string AnnotatedCodeLocationEssentialIsObsolete = "SV0005";
-        public const string HashAlgorithmsMustBeUnique = "SV0006";
-        public const string EndTimeMustBeAfterStartTime = "SV0007";
-        public const string MessagesShouldEndWithPeriod = "SV0008";
-        public const string StepValuesMustFormOneBasedSequence = "SV0009";
-        public const string StepMustAppearOnlyInCodeFlowLocations = "SV0010";
-        public const string ImportanceMustAppearOnlyInCodeFlowLocations = "SV0011";
-        public const string EndLineMustNotBeLessThanStartLine = "SV0012";
-        public const string EndColumnMustNotBeLessThanStartColumn = "SV0013";
+        public const string DoNotUseFriendlyNameAsRuleId = "SARIF001";
+        public const string UseAbsolutePathsForNestedFileUriFragments = "SARIF002";
+        public const string UrisMustBeValid = "SARIF003";
+        public const string AnnotatedCodeLocationIdIsObsolete = "SARIF004";
+        public const string AnnotatedCodeLocationEssentialIsObsolete = "SARIF005";
+        public const string HashAlgorithmsMustBeUnique = "SARIF006";
+        public const string EndTimeMustBeAfterStartTime = "SARIF007";
+        public const string MessagesShouldEndWithPeriod = "SARIF008";
+        public const string StepValuesMustFormOneBasedSequence = "SARIF009";
+        public const string StepMustAppearOnlyInCodeFlowLocations = "SARIF010";
+        public const string ImportanceMustAppearOnlyInCodeFlowLocations = "SARIF011";
+        public const string EndLineMustNotBeLessThanStartLine = "SARIF012";
+        public const string EndColumnMustNotBeLessThanStartColumn = "SARIF013";
     }
 }

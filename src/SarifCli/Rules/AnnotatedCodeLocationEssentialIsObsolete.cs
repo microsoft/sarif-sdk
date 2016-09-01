@@ -11,12 +11,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Cli.Rules
 {
     public class AnnotatedCodeLocationEssentialIsObsolete : SarifValidationSkimmerBase
     {
-        public override string FullDescription => RuleResources.SV0005_AnnotatedCodeLocationEssentialIsObsolete;
+        public override string FullDescription => RuleResources.SARIF005_AnnotatedCodeLocationEssentialIsObsolete;
 
         public override ResultLevel DefaultLevel => ResultLevel.Warning;
 
         /// <summary>
-        /// SV0005
+        /// SARIF005
         /// </summary>
         public override string Id => RuleId.AnnotatedCodeLocationEssentialIsObsolete;
 
@@ -26,8 +26,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Cli.Rules
             {
                 return new string[]
                 {
-                    nameof(RuleResources.SV0005_Default),
-                    nameof(RuleResources.SV0005_OnlyInCodeFlow)
+                    nameof(RuleResources.SARIF005_Default),
+                    nameof(RuleResources.SARIF005_OnlyInCodeFlow)
                 };
             }
         }
@@ -45,8 +45,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Cli.Rules
                 // occurs in a codeFlow, because the "importance" property is only meaningful within
                 // a codeFlow.
                 string formatId = annotatedCodeLocationPointer.Contains(SarifPropertyName.CodeFlows)
-                    ? nameof(RuleResources.SV0005_Default)
-                    : nameof(RuleResources.SV0005_OnlyInCodeFlow);
+                    ? nameof(RuleResources.SARIF005_Default)
+                    : nameof(RuleResources.SARIF005_OnlyInCodeFlow);
 
                 LogResult(essentialPointer, formatId);
             }

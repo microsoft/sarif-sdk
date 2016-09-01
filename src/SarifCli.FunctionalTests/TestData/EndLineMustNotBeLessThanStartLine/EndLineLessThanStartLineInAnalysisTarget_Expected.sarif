@@ -19,7 +19,7 @@
       },
       "results": [
         {
-          "ruleId": "SV0012",
+          "ruleId": "SARIF012",
           "level": "error",
           "formattedRuleMessage": {
             "formatId": "Default",
@@ -55,8 +55,8 @@
         }
       ],
       "rules": {
-        "SV0012": {
-          "id": "SV0012",
+        "SARIF012": {
+          "id": "SARIF012",
           "name": "EndLineMustNotBeLessThanStartLine",
           "shortDescription": "The \"endLine\" property of a region object must not be less than the \"startLine\" property.",
           "fullDescription": "The \"endLine\" property of a region object must not be less than the \"startLine\" property.",

@@ -10,12 +10,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Cli.Rules
 {
     public class EndColumnMustNotBeLessThanStartColumn : SarifValidationSkimmerBase
     {
-        public override string FullDescription => RuleResources.SV0013_EndColumnMustNotBeLessThanStartColumn;
+        public override string FullDescription => RuleResources.SARIF013_EndColumnMustNotBeLessThanStartColumn;
 
         public override ResultLevel DefaultLevel => ResultLevel.Error;
 
         /// <summary>
-        /// SV0013
+        /// SARIF013
         /// </summary>
         public override string Id => RuleId.EndColumnMustNotBeLessThanStartColumn;
 
@@ -25,7 +25,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Cli.Rules
             {
                 return new string[]
                 {
-                    nameof(RuleResources.SV0013_Default)
+                    nameof(RuleResources.SARIF013_Default)
                 };
             }
         }
@@ -43,7 +43,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Cli.Rules
 
                 LogResult(
                     endColumnPointer,
-                    nameof(RuleResources.SV0013_Default),
+                    nameof(RuleResources.SARIF013_Default),
                     region.EndColumn.ToInvariantString(),
                     region.StartColumn.ToInvariantString());
             }

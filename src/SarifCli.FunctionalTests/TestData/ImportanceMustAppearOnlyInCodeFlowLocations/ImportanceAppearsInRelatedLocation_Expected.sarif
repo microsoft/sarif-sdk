@@ -19,7 +19,7 @@
       },
       "results": [
         {
-          "ruleId": "SV0011",
+          "ruleId": "SARIF011",
           "level": "warning",
           "formattedRuleMessage": {
             "formatId": "Default",
@@ -53,8 +53,8 @@
         }
       ],
       "rules": {
-        "SV0011": {
-          "id": "SV0011",
+        "SARIF011": {
+          "id": "SARIF011",
           "name": "ImportanceMustAppearOnlyInCodeFlowLocations",
           "shortDescription": "The \"importance\" property must appear only in annotatedCodeLocation objects which occur within code flows.",
           "fullDescription": "The \"importance\" property must appear only in annotatedCodeLocation objects which occur within code flows.",

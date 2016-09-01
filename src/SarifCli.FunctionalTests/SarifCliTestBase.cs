@@ -1,6 +1,7 @@
 ﻿// Copyright (c) Microsoft Corporation.  All Rights Reserved.
 // Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -67,6 +68,11 @@ namespace SarifCli.FunctionalTests
             Notification[] expectedToolNotifications = SafeListToArray(expectedLog.Runs[0].ToolNotifications);
 
             SelectiveCompare(actualToolNotifications, expectedToolNotifications);
+
+            IDictionary<string, Rule> actualRules = actualLog.Runs[0].Rules;
+            IDictionary<string, Rule> expectedRules = expectedLog.Runs[0].Rules;
+
+            SelectiveCompare(actualRules, expectedRules);
         }
 
         private static void SelectiveCompare(Notification[] actualNotifications, Notification[] expectedNotifications)
@@ -112,6 +118,27 @@ namespace SarifCli.FunctionalTests
 
                     actualResult.Locations[0].AnalysisTarget.Region.ValueEquals(
                         expectedResult.Locations[0].AnalysisTarget.Region).Should().BeTrue();
+                }
+            }
+        }
+
+        private static void SelectiveCompare(IDictionary<string, Rule> actualRules, IDictionary<string, Rule> expectedRules)
+        {
+            bool actualHasRules = actualRules != null && actualRules.Count > 0;
+            bool expectedHasRules = expectedRules != null && expectedRules.Count > 0;
+            actualHasRules.Should().Be(expectedHasRules);
+
+            if (actualHasRules && expectedHasRules)
+            {
+                actualRules.Count.Should().Be(expectedRules.Count);
+
+                foreach (string key in actualRules.Keys)
+                {
+                    Rule actualRule = actualRules[key];
+                    Rule expectedRule;
+                    expectedRules.TryGetValue(key, out expectedRule).Should().BeTrue();
+
+                    actualRule.Id.Should().Be(expectedRule.Id);
                 }
             }
         }

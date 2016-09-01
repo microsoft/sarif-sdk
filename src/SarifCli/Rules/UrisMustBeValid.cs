@@ -8,12 +8,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Cli.Rules
 {
     public class UrisMustBeValid : SarifValidationSkimmerBase
     {
-        public override string FullDescription => RuleResources.SV0003_UrisMustBeValid;
+        public override string FullDescription => RuleResources.SARIF003_UrisMustBeValid;
 
         public override ResultLevel DefaultLevel => ResultLevel.Error;
 
         /// <summary>
-        /// SV0003
+        /// SARIF003
         /// </summary>
         public override string Id => RuleId.UrisMustBeValid;
 
@@ -23,7 +23,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Cli.Rules
             {
                 return new string[]
                 {
-                    nameof(RuleResources.SV0003_Default)
+                    nameof(RuleResources.SARIF003_Default)
                 };
             }
         }
@@ -49,7 +49,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Cli.Rules
             {
                 LogResult(
                     filePointer,
-                    nameof(RuleResources.SV0003_Default),
+                    nameof(RuleResources.SARIF003_Default),
                     fileUriReference);
             }
 
@@ -89,7 +89,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Cli.Rules
 
                     LogResult(
                         uriPointer,
-                        nameof(RuleResources.SV0003_Default),
+                        nameof(RuleResources.SARIF003_Default),
                         uri.OriginalString);
                 }
             }

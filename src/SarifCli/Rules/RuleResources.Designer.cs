@@ -63,261 +63,261 @@ namespace Microsoft.CodeAnalysis.Sarif.Cli.Rules {
         /// <summary>
         ///   Looks up a localized string similar to In &quot;{0}&quot;, at &quot;{1}&quot;, the name and id properties of rule &quot;{2}&quot; are the same..
         /// </summary>
-        internal static string SV0001_Default {
+        internal static string SARIF001_Default {
             get {
-                return ResourceManager.GetString("SV0001_Default", resourceCulture);
+                return ResourceManager.GetString("SARIF001_Default", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Do not use the same string for a rule&apos;s id and name properties. The id property must be a stable, opaque identifer such as &quot;SV0001&quot;. The name property should be a string that is understandable to an end user, such as &quot;DoNotUserFriendlyNameAsRuleId&quot;..
+        ///   Looks up a localized string similar to Do not use the same string for a rule&apos;s id and name properties. The id property must be a stable, opaque identifer such as &quot;SARIF001&quot;. The name property should be a string that is understandable to an end user, such as &quot;DoNotUserFriendlyNameAsRuleId&quot;..
         /// </summary>
-        internal static string SV0001_DoNotUseFriendlyNameAsRuleIdDescription {
+        internal static string SARIF001_DoNotUseFriendlyNameAsRuleIdDescription {
             get {
-                return ResourceManager.GetString("SV0001_DoNotUseFriendlyNameAsRuleIdDescription", resourceCulture);
+                return ResourceManager.GetString("SARIF001_DoNotUseFriendlyNameAsRuleIdDescription", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to In &quot;{0}&quot;, at &quot;{1}&quot;, the fragment portion of the URI &quot;{2}&quot;, which specifies the location of a nested file with respect to its parent, does not begin with a forward slash..
         /// </summary>
-        internal static string SV0002_Default {
+        internal static string SARIF002_Default {
             get {
-                return ResourceManager.GetString("SV0002_Default", resourceCulture);
+                return ResourceManager.GetString("SARIF002_Default", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to When specifying the URI of a nested file with a URI fragment, express the fragment as an absolute path. That is, begin the with a forward slash, for example &quot;file:///C:/bin/MyApp.zip#/images/grape.jpg&quot;..
         /// </summary>
-        internal static string SV0002_UseAbsolutePathsForNestedFileUriFragmentsDescription {
+        internal static string SARIF002_UseAbsolutePathsForNestedFileUriFragmentsDescription {
             get {
-                return ResourceManager.GetString("SV0002_UseAbsolutePathsForNestedFileUriFragmentsDescription", resourceCulture);
+                return ResourceManager.GetString("SARIF002_UseAbsolutePathsForNestedFileUriFragmentsDescription", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to In &quot;{0}&quot;, at &quot;{1}&quot;, the string &quot;{2}&quot; is not a valid URI reference..
         /// </summary>
-        internal static string SV0003_Default {
+        internal static string SARIF003_Default {
             get {
-                return ResourceManager.GetString("SV0003_Default", resourceCulture);
+                return ResourceManager.GetString("SARIF003_Default", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Specify a valid URI reference for every URI-valued property..
         /// </summary>
-        internal static string SV0003_UrisMustBeValid {
+        internal static string SARIF003_UrisMustBeValid {
             get {
-                return ResourceManager.GetString("SV0003_UrisMustBeValid", resourceCulture);
+                return ResourceManager.GetString("SARIF003_UrisMustBeValid", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Do not use the obsolete &quot;id&quot; property of the annotatedCodeLocation object. Instead use &quot;step&quot;, which is an integer-valued property that is 1 for the first annotatedCodeLocation in a codeFlow, and increments by 1 for every subsequent step..
         /// </summary>
-        internal static string SV0004_AnnotatedCodeLocationIdIsObsolete {
+        internal static string SARIF004_AnnotatedCodeLocationIdIsObsolete {
             get {
-                return ResourceManager.GetString("SV0004_AnnotatedCodeLocationIdIsObsolete", resourceCulture);
+                return ResourceManager.GetString("SARIF004_AnnotatedCodeLocationIdIsObsolete", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to In &quot;{0}&quot;, at &quot;{1}&quot;, the obsolete annotatedCodeLocation.id property is used.  Remove it, and instead use the &quot;step&quot; property, whose value is an integer which is 1 for the first location in a code flow, and increments by 1 for each subsequent location in the code flow..
         /// </summary>
-        internal static string SV0004_Default {
+        internal static string SARIF004_Default {
             get {
-                return ResourceManager.GetString("SV0004_Default", resourceCulture);
+                return ResourceManager.GetString("SARIF004_Default", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to In &quot;{0}&quot;, at &quot;{1}&quot;, the obsolete &quot;id&quot; property is used. This property has been replaced by the &quot;step&quot; property, but the &quot;step&quot; property is used only in annotatedCodeLocations objects that occur within a code flow. Remove the &quot;id&quot; property..
         /// </summary>
-        internal static string SV0004_OnlyInCodeFlow {
+        internal static string SARIF004_OnlyInCodeFlow {
             get {
-                return ResourceManager.GetString("SV0004_OnlyInCodeFlow", resourceCulture);
+                return ResourceManager.GetString("SARIF004_OnlyInCodeFlow", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Do not use the obsolete &quot;essential&quot; property of the annotatedCodeLocation object. Instead use &quot;importance&quot;, which is an string-valued property that must have one of the values &quot;essential&quot;, &quot;important&quot;, or &quot;unimportant&quot;..
         /// </summary>
-        internal static string SV0005_AnnotatedCodeLocationEssentialIsObsolete {
+        internal static string SARIF005_AnnotatedCodeLocationEssentialIsObsolete {
             get {
-                return ResourceManager.GetString("SV0005_AnnotatedCodeLocationEssentialIsObsolete", resourceCulture);
+                return ResourceManager.GetString("SARIF005_AnnotatedCodeLocationEssentialIsObsolete", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to In &quot;{0}&quot;, at &quot;{1}&quot;, the obsolete &quot;essential&quot; property is used.  Remove it, and instead use the &quot;importance&quot; property, whose value is a string with one of the values &quot;essential&quot;, &quot;important&quot;, or &quot;unimportant&quot;..
         /// </summary>
-        internal static string SV0005_Default {
+        internal static string SARIF005_Default {
             get {
-                return ResourceManager.GetString("SV0005_Default", resourceCulture);
+                return ResourceManager.GetString("SARIF005_Default", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to In &quot;{0}&quot;, at &quot;{1}&quot;, the obsolete &quot;essential&quot; property is used. This property has been replaced by the &quot;importance&quot; property, but the &quot;importance&quot; property is used only in annotatedCodeLocations objects that occur within a code flow. Remove the &quot;essential&quot; property..
         /// </summary>
-        internal static string SV0005_OnlyInCodeFlow {
+        internal static string SARIF005_OnlyInCodeFlow {
             get {
-                return ResourceManager.GetString("SV0005_OnlyInCodeFlow", resourceCulture);
+                return ResourceManager.GetString("SARIF005_OnlyInCodeFlow", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to In &quot;{0}&quot;, at &quot;{1}&quot;, the array contains multiple objects with the value &quot;{2}&quot; for the algorithm property..
         /// </summary>
-        internal static string SV0006_Default {
+        internal static string SARIF006_Default {
             get {
-                return ResourceManager.GetString("SV0006_Default", resourceCulture);
+                return ResourceManager.GetString("SARIF006_Default", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to In any given &quot;file&quot; object, every element of the &quot;hashes&quot; array must have a different value for its &quot;algorithm&quot; property. .
         /// </summary>
-        internal static string SV0006_HashAlgorithmsMustBeUnique {
+        internal static string SARIF006_HashAlgorithmsMustBeUnique {
             get {
-                return ResourceManager.GetString("SV0006_HashAlgorithmsMustBeUnique", resourceCulture);
+                return ResourceManager.GetString("SARIF006_HashAlgorithmsMustBeUnique", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to In &quot;{0}&quot;, at &quot;{1}&quot;, the end time &quot;{2}&quot; is before the start time &quot;{3}&quot;..
         /// </summary>
-        internal static string SV0007_Default {
+        internal static string SARIF007_Default {
             get {
-                return ResourceManager.GetString("SV0007_Default", resourceCulture);
+                return ResourceManager.GetString("SARIF007_Default", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to The end time of a run must be after the start time. To allow for the possibility that the duration of the run is less than the resolution of the string representation of the time, the start time and the end time may be equal..
         /// </summary>
-        internal static string SV0007_EndTimeMustBeAfterStartTime {
+        internal static string SARIF007_EndTimeMustBeAfterStartTime {
             get {
-                return ResourceManager.GetString("SV0007_EndTimeMustBeAfterStartTime", resourceCulture);
+                return ResourceManager.GetString("SARIF007_EndTimeMustBeAfterStartTime", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to In &quot;{0}&quot;, at &quot;{1}&quot;, the message &quot;{2}&quot; does not end with a period..
         /// </summary>
-        internal static string SV0008_Default {
+        internal static string SARIF008_Default {
             get {
-                return ResourceManager.GetString("SV0008_Default", resourceCulture);
+                return ResourceManager.GetString("SARIF008_Default", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Messages should consist of one or more complete sentences, ending with a period..
         /// </summary>
-        internal static string SV0008_MessagesShouldEndWithPeriod {
+        internal static string SARIF008_MessagesShouldEndWithPeriod {
             get {
-                return ResourceManager.GetString("SV0008_MessagesShouldEndWithPeriod", resourceCulture);
+                return ResourceManager.GetString("SARIF008_MessagesShouldEndWithPeriod", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to In &quot;{0}&quot;, at &quot;{1}&quot;, the value of the &quot;step&quot; property should be {2}, but is {3}. The step values must form a 1-based sequence starting at the first location in the code flow..
         /// </summary>
-        internal static string SV0009_InvalidStepValue {
+        internal static string SARIF009_InvalidStepValue {
             get {
-                return ResourceManager.GetString("SV0009_InvalidStepValue", resourceCulture);
+                return ResourceManager.GetString("SARIF009_InvalidStepValue", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to In &quot;{0}&quot;, at &quot;{1}&quot;, the &quot;step&quot; property is absent. The &quot;step&quot; property is present on some but not all locations in this code flow. If the &quot;step&quot; property is used on any location in a code flow, it must be present on every location in that code flow..
         /// </summary>
-        internal static string SV0009_StepNotPresentOnAllLocations {
+        internal static string SARIF009_StepNotPresentOnAllLocations {
             get {
-                return ResourceManager.GetString("SV0009_StepNotPresentOnAllLocations", resourceCulture);
+                return ResourceManager.GetString("SARIF009_StepNotPresentOnAllLocations", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to If the &quot;step&quot; property is used on any annotatedCodeLocation in a code flow, then it must be present for every location in the code flow, its value must be 1 for the first location, and its value must increase by 1 for each succeeding location..
         /// </summary>
-        internal static string SV0009_StepValuesMustFormOneBasedSequence {
+        internal static string SARIF009_StepValuesMustFormOneBasedSequence {
             get {
-                return ResourceManager.GetString("SV0009_StepValuesMustFormOneBasedSequence", resourceCulture);
+                return ResourceManager.GetString("SARIF009_StepValuesMustFormOneBasedSequence", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to In &quot;{0}&quot;, at &quot;{1}&quot;, the &quot;step&quot; property appears in an annotatedCodeLocation object which does not occur in a code flow. The &quot;step&quot; property must appear only in annotatedCodeLocation objects which occur within code flows..
         /// </summary>
-        internal static string SV0010_Default {
+        internal static string SARIF010_Default {
             get {
-                return ResourceManager.GetString("SV0010_Default", resourceCulture);
+                return ResourceManager.GetString("SARIF010_Default", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to The &quot;step&quot; property must appear only in annotatedCodeLocation objects which occur within code flows..
         /// </summary>
-        internal static string SV0010_StepMustAppearOnlyInCodeFlowLocations {
+        internal static string SARIF010_StepMustAppearOnlyInCodeFlowLocations {
             get {
-                return ResourceManager.GetString("SV0010_StepMustAppearOnlyInCodeFlowLocations", resourceCulture);
+                return ResourceManager.GetString("SARIF010_StepMustAppearOnlyInCodeFlowLocations", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to In &quot;{0}&quot;, at &quot;{1}&quot;, the &quot;importance&quot; property appears in an annotatedCodeLocation object which does not occur in a code flow. The &quot;importance&quot; property must appear only in annotatedCodeLocation objects which occur within code flows..
         /// </summary>
-        internal static string SV0011_Default {
+        internal static string SARIF011_Default {
             get {
-                return ResourceManager.GetString("SV0011_Default", resourceCulture);
+                return ResourceManager.GetString("SARIF011_Default", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to The &quot;importance&quot; property must appear only in annotatedCodeLocation objects which occur within code flows..
         /// </summary>
-        internal static string SV0011_ImportanceMustAppearOnlyInCodeFlowLocations {
+        internal static string SARIF011_ImportanceMustAppearOnlyInCodeFlowLocations {
             get {
-                return ResourceManager.GetString("SV0011_ImportanceMustAppearOnlyInCodeFlowLocations", resourceCulture);
+                return ResourceManager.GetString("SARIF011_ImportanceMustAppearOnlyInCodeFlowLocations", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to In &quot;{0}&quot;, at &quot;{1}&quot;, the value of the &quot;endLine&quot; property is {2}, which is less than the value of the &quot;startLine&quot; property, which is {3}..
         /// </summary>
-        internal static string SV0012_Default {
+        internal static string SARIF012_Default {
             get {
-                return ResourceManager.GetString("SV0012_Default", resourceCulture);
+                return ResourceManager.GetString("SARIF012_Default", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to The &quot;endLine&quot; property of a region object must not be less than the &quot;startLine&quot; property..
         /// </summary>
-        internal static string SV0012_EndLineMustNotBeLessThanStartLine {
+        internal static string SARIF012_EndLineMustNotBeLessThanStartLine {
             get {
-                return ResourceManager.GetString("SV0012_EndLineMustNotBeLessThanStartLine", resourceCulture);
+                return ResourceManager.GetString("SARIF012_EndLineMustNotBeLessThanStartLine", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to In &quot;{0}&quot;, at &quot;{1}&quot;, the value of the &quot;endColumn&quot; property is {2}, which is less than the value of the &quot;startColumn&quot; property, which is {3}..
         /// </summary>
-        internal static string SV0013_Default {
+        internal static string SARIF013_Default {
             get {
-                return ResourceManager.GetString("SV0013_Default", resourceCulture);
+                return ResourceManager.GetString("SARIF013_Default", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to The &quot;endColumn&quot; property of a region object must not be less than the &quot;startColumn&quot; property..
         /// </summary>
-        internal static string SV0013_EndColumnMustNotBeLessThanStartColumn {
+        internal static string SARIF013_EndColumnMustNotBeLessThanStartColumn {
             get {
-                return ResourceManager.GetString("SV0013_EndColumnMustNotBeLessThanStartColumn", resourceCulture);
+                return ResourceManager.GetString("SARIF013_EndColumnMustNotBeLessThanStartColumn", resourceCulture);
             }
         }
     }

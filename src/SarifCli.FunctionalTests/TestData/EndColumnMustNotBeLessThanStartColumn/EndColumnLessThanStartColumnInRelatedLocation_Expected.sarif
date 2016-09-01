@@ -19,7 +19,7 @@
       },
       "results": [
         {
-          "ruleId": "SV0013",
+          "ruleId": "SARIF013",
           "level": "error",
           "formattedRuleMessage": {
             "formatId": "Default",
@@ -55,8 +55,8 @@
         }
       ],
       "rules": {
-        "SV0013": {
-          "id": "SV0013",
+        "SARIF013": {
+          "id": "SARIF013",
           "name": "EndColumnMustNotBeLessThanStartColumn",
           "shortDescription": "The \"endColumn\" property of a region object must not be less than the \"startColumn\" property.",
           "fullDescription": "The \"endColumn\" property of a region object must not be less than the \"startColumn\" property.",

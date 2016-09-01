@@ -11,12 +11,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Cli.Rules
 {
     public class StepMustAppearOnlyInCodeFlowLocations : SarifValidationSkimmerBase
     {
-        public override string FullDescription => RuleResources.SV0010_StepMustAppearOnlyInCodeFlowLocations;
+        public override string FullDescription => RuleResources.SARIF010_StepMustAppearOnlyInCodeFlowLocations;
 
         public override ResultLevel DefaultLevel => ResultLevel.Warning;
 
         /// <summary>
-        /// SV0010
+        /// SARIF010
         /// </summary>
         public override string Id => RuleId.StepMustAppearOnlyInCodeFlowLocations;
 
@@ -26,7 +26,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Cli.Rules
             {
                 return new string[]
                 {
-                    nameof(RuleResources.SV0010_Default)
+                    nameof(RuleResources.SARIF010_Default)
                 };
             }
         }
@@ -42,7 +42,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Cli.Rules
                 {
                     string stepPointer = annotatedCodeLocationPointer.AtProperty(SarifPropertyName.Step);
 
-                    LogResult(stepPointer, nameof(RuleResources.SV0010_Default));
+                    LogResult(stepPointer, nameof(RuleResources.SARIF010_Default));
                 }
             }
         }

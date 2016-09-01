@@ -8,12 +8,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Cli.Rules
 {
     public class DoNotUseFriendlyNameAsRuleId : SarifValidationSkimmerBase
     {
-        public override string FullDescription => RuleResources.SV0001_DoNotUseFriendlyNameAsRuleIdDescription;
+        public override string FullDescription => RuleResources.SARIF001_DoNotUseFriendlyNameAsRuleIdDescription;
 
         public override ResultLevel DefaultLevel => ResultLevel.Warning;
 
         /// <summary>
-        /// SV0001
+        /// SARIF001
         /// </summary>
         public override string Id => RuleId.DoNotUseFriendlyNameAsRuleId;
 
@@ -23,7 +23,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Cli.Rules
             {
                 return new string[]
                 {
-                    nameof(RuleResources.SV0001_Default)
+                    nameof(RuleResources.SARIF001_Default)
                 };
             }
         }
@@ -36,7 +36,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Cli.Rules
             {
                 LogResult(
                     rulePointer,
-                    nameof(RuleResources.SV0001_Default),
+                    nameof(RuleResources.SARIF001_Default),
                     rule.Id);
             }
         }

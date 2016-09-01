@@ -19,7 +19,7 @@
       },
       "results": [
         {
-          "ruleId": "SV0008",
+          "ruleId": "SARIF008",
           "level": "warning",
           "formattedRuleMessage": {
             "formatId": "Default",
@@ -54,8 +54,8 @@
         }
       ],
       "rules": {
-        "SV0008": {
-          "id": "SV0008",
+        "SARIF008": {
+          "id": "SARIF008",
           "name": "MessagesShouldEndWithPeriod",
           "shortDescription": "Messages should consist of one or more complete sentences, ending with a period.",
           "fullDescription": "Messages should consist of one or more complete sentences, ending with a period.",

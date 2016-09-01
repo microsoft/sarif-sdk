@@ -11,12 +11,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Cli.Rules
 {
     public class ImportanceMustAppearOnlyInCodeFlowLocations : SarifValidationSkimmerBase
     {
-        public override string FullDescription => RuleResources.SV0011_ImportanceMustAppearOnlyInCodeFlowLocations;
+        public override string FullDescription => RuleResources.SARIF011_ImportanceMustAppearOnlyInCodeFlowLocations;
 
         public override ResultLevel DefaultLevel => ResultLevel.Warning;
 
         /// <summary>
-        /// SV0011
+        /// SARIF011
         /// </summary>
         public override string Id => RuleId.ImportanceMustAppearOnlyInCodeFlowLocations;
 
@@ -26,7 +26,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Cli.Rules
             {
                 return new string[]
                 {
-                    nameof(RuleResources.SV0011_Default)
+                    nameof(RuleResources.SARIF011_Default)
                 };
             }
         }
@@ -42,7 +42,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Cli.Rules
                 {
                     string importancePointer = annotatedCodeLocationPointer.AtProperty(SarifPropertyName.Importance);
 
-                    LogResult(importancePointer, nameof(RuleResources.SV0011_Default));
+                    LogResult(importancePointer, nameof(RuleResources.SARIF011_Default));
                 }
             }
         }
