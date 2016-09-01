@@ -4,6 +4,7 @@
 namespace Microsoft.CodeAnalysis.Sarif.Cli
 {
     // TODO: These methods belong in the Microsoft.Json.Pointer library.
+    // Filed https://github.com/Microsoft/sarif-sdk/issues/512 for this.
     internal static class JPointerStringExtensions
     {
         internal static string AtProperty(this string jPointer, string propertyName)
