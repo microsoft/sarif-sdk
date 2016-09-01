@@ -1,0 +1,56 @@
+﻿{
+  "$schema": "http://json.schemastore.org/sarif-1.0.0",
+  "version": "1.0.0",
+  "runs": [
+    {
+      "tool": {
+        "name": "CodeScanner"
+      },
+      "results": [
+        {
+          "ruleId": "TST0001",
+          "level": "error",
+          "formattedRuleMessage": {
+            "formatId": "Default"
+          },
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///c:/bin/myApp.appx#/js/minified.js",
+                "region": {
+                  "startLine": 1
+                }
+              }
+            }
+          ],
+          "stacks": [
+            {
+              "frames": [
+                {
+                  "uri": "file:///c:/bin/myApp.appx#js/minified.js",
+                  "fullyQualifiedLogicalName": "func",
+                  "line": 23
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "files": {
+        "file:///c:/bin/myApp.appx": {
+          "mimeType": "application/vns.ms-appx"
+        },
+        "file:///c:/bin/myApp.appx#/js/minified.js": {
+          "uri": "/js/minified.js",
+          "parentKey": "file:///c:/bin/myApp.appx",
+          "mimeType": "text/javascript"
+        },
+        "file:///c:/bin/myApp.appx#/js/other.js": {
+          "uri": "/js/other.js",
+          "parentKey": "file:///c:/bin/myApp.appx",
+          "mimeType": "text/javascript"
+        }
+      }
+    }
+  ]
+}

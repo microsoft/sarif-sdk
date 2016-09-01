@@ -1,0 +1,84 @@
+{
+  "$schema": "http://json.schemastore.org/sarif-1.0.0",
+  "version": "1.0.0",
+  "runs": [
+    {
+      "id": "70bff1e1-2f05-4e43-9508-f7bd55b3a330",
+      "tool": {
+        "name": "SarifCli",
+        "fullName": "SarifCli 1.0.0.0",
+        "version": "1.0.0.0",
+        "semanticVersion": "1.0.0",
+        "sarifLoggerVersion": "1.5.27.0",
+        "language": "en-US",
+        "properties": {
+          "Comments": "Command line tool for working with SARIF log files.",
+          "CompanyName": "Microsoft Corporation",
+          "ProductName": "Microsoft SARIF SDK"
+        }
+      },
+      "results": [
+        {
+          "ruleId": "SV0005",
+          "level": "warning",
+          "formattedRuleMessage": {
+            "formatId": "Default",
+            "arguments": [
+              "AnnotatedCodeLocationHasDefaultEssentialInCodeFlow.sarif",
+              "/runs/0/results/0/codeFlows/0/locations/0/essential"
+            ]
+          },
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///G:/Code/sarif-sdk/src/SarifCli.FunctionalTests/TestData/AnnotatedCodeLocationEssentialIsObsolete/AnnotatedCodeLocationHasDefaultEssentialInCodeFlow.sarif",
+                "region": {
+                  "startLine": 30,
+                  "startColumn": 37
+                }
+              }
+            }
+          ]
+        }
+      ],
+      "toolNotifications": [
+        {
+          "id": "MSG001.AnalyzingTarget",
+          "physicalLocation": {
+            "uri": "file:///G:/Code/sarif-sdk/src/SarifCli.FunctionalTests/TestData/AnnotatedCodeLocationEssentialIsObsolete/AnnotatedCodeLocationHasDefaultEssentialInCodeFlow.sarif"
+          },
+          "message": "Analyzing 'AnnotatedCodeLocationHasDefaultEssentialInCodeFlow.sarif'...",
+          "level": "note",
+          "time": "2016-08-28T16:30:21.488Z"
+        }
+      ],
+      "rules": {
+        "SV0005": {
+          "id": "SV0005",
+          "name": "AnnotatedCodeLocationEssentialIsObsolete",
+          "shortDescription": "Do not use the obsolete \"essential\" property of the annotatedCodeLocation object.",
+          "fullDescription": "Do not use the obsolete \"essential\" property of the annotatedCodeLocation object. Instead use \"importance\", which is an string-valued property that must have one of the values \"essential\", \"important\", or \"unimportant\".",
+          "messageFormats": {
+            "Default": "In \"{0}\", at \"{1}\", the obsolete \"essential\" property is used.  Remove it, and instead use the \"importance\" property, whose value is a string with one of the values \"essential\", \"important\", or \"unimportant\".",
+            "OnlyInCodeFlow": "In \"{0}\", at \"{1}\", the obsolete \"essential\" property is used. This property has been replaced by the \"importance\" property, but the \"importance\" property is used only in annotatedCodeLocations objects that occur within a code flow. Remove the \"essential\" property."
+          },
+          "defaultLevel": "warning",
+          "helpUri": "https://rawgit.com/sarif-standard/sarif-spec/master/Static%20Analysis%20Results%20Interchange%20Format%20(SARIF).html"
+        }
+      },
+      "files": {
+        "file:///G:/Code/sarif-sdk/src/SarifCli.FunctionalTests/TestData/AnnotatedCodeLocationEssentialIsObsolete/AnnotatedCodeLocationHasDefaultEssentialInCodeFlow.sarif": {
+          "mimeType": "application/octet-stream"
+        }
+      },
+      "invocation": {
+        "commandLine": "\"G:\\Code\\sarif-sdk\\bld\\bin\\SarifCli\\AnyCPU_Debug\\SarifCli.exe\"  validate G:\\Code\\sarif-sdk\\src\\SarifCli.FunctionalTests\\TestData\\AnnotatedCodeLocationEssentialIsObsolete\\AnnotatedCodeLocationHasDefaultEssentialInCodeFlow.sarif -o G:\\Code\\sarif-sdk\\src\\SarifCli.FunctionalTests\\TestData\\AnnotatedCodeLocationEssentialIsObsolete\\AnnotatedCodeLocationHasDefaultEssentialInCodeFlow_Expected.sarif -j G:\\Code\\sarif-sdk\\src\\Sarif\\Schemata\\Sarif.schema.json ",
+        "startTime": "2016-08-28T16:30:21.409Z",
+        "endTime": "2016-08-28T16:30:21.738Z",
+        "processId": 15500,
+        "fileName": "G:\\Code\\sarif-sdk\\bld\\bin\\SarifCli\\AnyCPU_Debug\\SarifCli.exe",
+        "workingDirectory": "G:\\Code\\sarif-sdk\\bld\\bin\\SarifCli\\AnyCPU_Debug"
+      }
+    }
+  ]
+}

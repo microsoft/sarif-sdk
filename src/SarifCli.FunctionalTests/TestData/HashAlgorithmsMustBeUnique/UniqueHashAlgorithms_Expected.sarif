@@ -1,0 +1,46 @@
+{
+  "$schema": "http://json.schemastore.org/sarif-1.0.0",
+  "version": "1.0.0",
+  "runs": [
+    {
+      "id": "f5936d09-1147-487f-a44f-8cc4c4e6aa0c",
+      "tool": {
+        "name": "SarifCli",
+        "fullName": "SarifCli 1.0.0.0",
+        "version": "1.0.0.0",
+        "semanticVersion": "1.0.0",
+        "sarifLoggerVersion": "1.5.27.0",
+        "language": "en-US",
+        "properties": {
+          "Comments": "Command line tool for working with SARIF log files.",
+          "CompanyName": "Microsoft Corporation",
+          "ProductName": "Microsoft SARIF SDK"
+        }
+      },
+      "toolNotifications": [
+        {
+          "id": "MSG001.AnalyzingTarget",
+          "physicalLocation": {
+            "uri": "file:///G:/Code/sarif-sdk/src/SarifCli.FunctionalTests/TestData/HashAlgorithmsMustBeUnique/UniqueHashAlgorithms.sarif"
+          },
+          "message": "Analyzing 'UniqueHashAlgorithms.sarif'...",
+          "level": "note",
+          "time": "2016-08-26T23:21:00.776Z"
+        }
+      ],
+      "files": {
+        "file:///G:/Code/sarif-sdk/src/SarifCli.FunctionalTests/TestData/HashAlgorithmsMustBeUnique/UniqueHashAlgorithms.sarif": {
+          "mimeType": "application/octet-stream"
+        }
+      },
+      "invocation": {
+        "commandLine": "\"G:\\Code\\sarif-sdk\\bld\\bin\\SarifCli\\AnyCPU_Debug\\SarifCli.exe\"  validate G:\\Code\\sarif-sdk\\src\\SarifCli.FunctionalTests\\TestData\\HashAlgorithmsMustBeUnique\\UniqueHashAlgorithms.sarif -o C:\\Users\\[REMOVED]\\Desktop\\SarifCli\\UniqueHashAlgorithms_Expected.sarif -j G:\\Code\\sarif-sdk\\src\\Sarif\\Schemata\\Sarif.schema.json ",
+        "startTime": "2016-08-26T23:21:00.682Z",
+        "endTime": "2016-08-26T23:21:01.011Z",
+        "processId": 17508,
+        "fileName": "G:\\Code\\sarif-sdk\\bld\\bin\\SarifCli\\AnyCPU_Debug\\SarifCli.exe",
+        "workingDirectory": "G:\\Code\\sarif-sdk\\bld\\bin\\SarifCli\\AnyCPU_Debug"
+      }
+    }
+  ]
+}

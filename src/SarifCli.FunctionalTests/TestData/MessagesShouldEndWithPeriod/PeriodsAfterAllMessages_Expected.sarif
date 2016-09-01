@@ -1,0 +1,46 @@
+{
+  "$schema": "http://json.schemastore.org/sarif-1.0.0",
+  "version": "1.0.0",
+  "runs": [
+    {
+      "id": "c31ac324-eee6-453b-a725-026769de4c09",
+      "tool": {
+        "name": "SarifCli",
+        "fullName": "SarifCli 1.0.0.0",
+        "version": "1.0.0.0",
+        "semanticVersion": "1.0.0",
+        "sarifLoggerVersion": "1.5.27.0",
+        "language": "en-US",
+        "properties": {
+          "Comments": "Command line tool for working with SARIF log files.",
+          "CompanyName": "Microsoft Corporation",
+          "ProductName": "Microsoft SARIF SDK"
+        }
+      },
+      "toolNotifications": [
+        {
+          "id": "MSG001.AnalyzingTarget",
+          "physicalLocation": {
+            "uri": "file:///G:/Code/sarif-sdk/src/SarifCli.FunctionalTests/TestData/MessagesShouldEndWithPeriod/PeriodsAfterAllMessages.sarif"
+          },
+          "message": "Analyzing 'PeriodsAfterAllMessages.sarif'...",
+          "level": "note",
+          "time": "2016-08-29T00:07:33.033Z"
+        }
+      ],
+      "files": {
+        "file:///G:/Code/sarif-sdk/src/SarifCli.FunctionalTests/TestData/MessagesShouldEndWithPeriod/PeriodsAfterAllMessages.sarif": {
+          "mimeType": "application/octet-stream"
+        }
+      },
+      "invocation": {
+        "commandLine": "\"G:\\Code\\sarif-sdk\\bld\\bin\\SarifCli\\AnyCPU_Debug\\SarifCli.exe\"  validate G:\\Code\\sarif-sdk\\src\\SarifCli.FunctionalTests\\TestData\\MessagesShouldEndWithPeriod\\PeriodsAfterAllMessages.sarif -o G:\\Code\\sarif-sdk\\src\\SarifCli.FunctionalTests\\TestData\\MessagesShouldEndWithPeriod\\PeriodsAfterAllMessages_Expected.sarif -j G:\\Code\\sarif-sdk\\src\\Sarif\\Schemata\\Sarif.schema.json ",
+        "startTime": "2016-08-29T00:07:32.955Z",
+        "endTime": "2016-08-29T00:07:33.298Z",
+        "processId": 11668,
+        "fileName": "G:\\Code\\sarif-sdk\\bld\\bin\\SarifCli\\AnyCPU_Debug\\SarifCli.exe",
+        "workingDirectory": "G:\\Code\\sarif-sdk\\bld\\bin\\SarifCli\\AnyCPU_Debug"
+      }
+    }
+  ]
+}

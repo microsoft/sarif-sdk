@@ -33,7 +33,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sarif.Converters", "Sarif.C
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sarif.Viewer.VisualStudio.UnitTests", "Sarif.Viewer.VisualStudio.UnitTests\Sarif.Viewer.VisualStudio.UnitTests.csproj", "{D0210D4B-32A8-46CA-8BA4-0703517481B4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SarifValidator", "SarifValidator\SarifValidator.csproj", "{0EBA700D-29E7-4FFF-8EBF-20B8C0EF9A98}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SarifCli", "SarifCli\SarifCli.csproj", "{0EBA700D-29E7-4FFF-8EBF-20B8C0EF9A98}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SarifCli.FunctionalTests", "SarifCli.FunctionalTests\SarifCli.FunctionalTests.csproj", "{859920F3-DB09-4C1D-9EAD-DFB1D7A03A46}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -201,6 +203,18 @@ Global
 		{0EBA700D-29E7-4FFF-8EBF-20B8C0EF9A98}.Release|x64.Build.0 = Release|Any CPU
 		{0EBA700D-29E7-4FFF-8EBF-20B8C0EF9A98}.Release|x86.ActiveCfg = Release|Any CPU
 		{0EBA700D-29E7-4FFF-8EBF-20B8C0EF9A98}.Release|x86.Build.0 = Release|Any CPU
+		{859920F3-DB09-4C1D-9EAD-DFB1D7A03A46}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{859920F3-DB09-4C1D-9EAD-DFB1D7A03A46}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{859920F3-DB09-4C1D-9EAD-DFB1D7A03A46}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{859920F3-DB09-4C1D-9EAD-DFB1D7A03A46}.Debug|x64.Build.0 = Debug|Any CPU
+		{859920F3-DB09-4C1D-9EAD-DFB1D7A03A46}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{859920F3-DB09-4C1D-9EAD-DFB1D7A03A46}.Debug|x86.Build.0 = Debug|Any CPU
+		{859920F3-DB09-4C1D-9EAD-DFB1D7A03A46}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{859920F3-DB09-4C1D-9EAD-DFB1D7A03A46}.Release|Any CPU.Build.0 = Release|Any CPU
+		{859920F3-DB09-4C1D-9EAD-DFB1D7A03A46}.Release|x64.ActiveCfg = Release|Any CPU
+		{859920F3-DB09-4C1D-9EAD-DFB1D7A03A46}.Release|x64.Build.0 = Release|Any CPU
+		{859920F3-DB09-4C1D-9EAD-DFB1D7A03A46}.Release|x86.ActiveCfg = Release|Any CPU
+		{859920F3-DB09-4C1D-9EAD-DFB1D7A03A46}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

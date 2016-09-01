@@ -1,0 +1,42 @@
+{
+  "$schema": "http://json.schemastore.org/sarif-1.0.0",
+  "version": "1.0.0",
+  "runs": [
+    {
+      "tool": {
+        "name": "CodeScanner"
+      },
+      "results": [
+        {
+          "ruleId": "TST0001",
+          "level": "error",
+          "formattedRuleMessage": {
+            "formatId": "Default"
+          },
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///c:/src/file.c",
+                "region": {
+                  "startLine": 1
+                }
+              }
+            }
+          ],
+          "relatedLocations": [
+            {
+              "essential": true,
+              "physicalLocation": {
+                "uri": "file:///c:/src/file.c",
+                "region": {
+                  "startLine": 42,
+                  "startColumn": 12
+                }
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

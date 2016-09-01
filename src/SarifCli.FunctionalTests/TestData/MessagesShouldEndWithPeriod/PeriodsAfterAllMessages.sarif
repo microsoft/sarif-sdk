@@ -1,0 +1,64 @@
+{
+  "$schema": "http://json.schemastore.org/sarif-1.0.0",
+  "version": "1.0.0",
+  "runs": [
+    {
+      "tool": {
+        "name": "CodeScanner"
+      },
+      "results": [
+        {
+          "ruleId": "TST0001",
+          "level": "error",
+          "message": "Result message with  period.",
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///c:/src/file.c",
+                "region": {
+                  "startLine": 1
+                }
+              }
+            }
+          ],
+          "codeFlows": [
+            {
+              "message": "CodeFlow message with period.",
+              "locations": [
+                {
+                  "message": "AnnotatedCodeLocation message with period.",
+                  "physicalLocation": {
+                    "uri": "file:///c:/src/file.c",
+                    "region": {
+                      "startLine": 42,
+                      "startColumn": 12
+                    }
+                  }
+                }
+              ]
+            }
+          ],
+          "stacks": [
+            {
+              "message": "Stack message with period.",
+              "frames": [
+                {
+                  "fullyQualifiedLogicalName": "func",
+                  "message": "Frame message with period."
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "rules": {
+        "TST0001": {
+          "id": "TST0001",
+          "messageFormats": {
+            "Default":  "Message format with period."
+          }
+        }
+      }
+    }
+  ]
+}

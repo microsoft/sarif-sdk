@@ -1,0 +1,91 @@
+{
+  "$schema": "http://json.schemastore.org/sarif-1.0.0",
+  "version": "1.0.0",
+  "runs": [
+    {
+      "tool": {
+        "name": "CodeScanner"
+      },
+      "results": [
+        {
+          "ruleId": "TST0001",
+          "level": "error",
+          "formattedRuleMessage": {
+            "formatId": "Default"
+          },
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///c:/src/file.c",
+                "region": {
+                  "startLine": 1
+                }
+              },
+              "resultFile": {
+                "uri": "file:///c:/src/file2.c",
+                "region": {
+                  "startLine": 1
+                }
+              }
+            }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "uri": "file:///c:/src/file3.c"
+              }
+            }
+          ],
+          "codeFlows": [
+            {
+              "locations": [
+                {
+                  "physicalLocation": {
+                    "uri": "file:///c:/src/file1.c"
+                  }
+                }
+              ]
+            }
+          ],
+          "stacks": [
+            {
+              "frames": [
+                {
+                  "fullyQualifiedLogicalName": "func",
+                  "uri": "file:///c:/src/file1.c"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "configurationNotifications": [
+        {
+          "message": "Message",
+          "physicalLocation": {
+            "uri": "file:///c:/src/file1.c"
+          }
+        }
+      ],
+      "toolNotifications": [
+        {
+          "message": "Message",
+          "physicalLocation": {
+            "uri": "file:///c:/src/file1.c"
+          }
+        }
+      ],
+      "files": {
+        "file:///c:/src/file1.c": {
+          "uri": "file:///c:/src/file1.c"
+        }
+      },
+      "rules": {
+        "TST0001": {
+          "id": "TST0001",
+          "helpUri": "http://www.example.com/rules/tst0001.html"
+        }
+      }
+    }
+  ]
+}

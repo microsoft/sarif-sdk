@@ -1,0 +1,85 @@
+{
+  "$schema": "http://json.schemastore.org/sarif-1.0.0",
+  "version": "1.0.0",
+  "runs": [
+    {
+      "id": "b703b243-53e4-42d4-b07e-c80b7b27ad78",
+      "tool": {
+        "name": "SarifCli",
+        "fullName": "SarifCli 1.0.0.0",
+        "version": "1.0.0.0",
+        "semanticVersion": "1.0.0",
+        "sarifLoggerVersion": "1.5.27.0",
+        "language": "en-US",
+        "properties": {
+          "Comments": "Command line tool for working with SARIF log files.",
+          "CompanyName": "Microsoft Corporation",
+          "ProductName": "Microsoft SARIF SDK"
+        }
+      },
+      "results": [
+        {
+          "ruleId": "SV0007",
+          "level": "error",
+          "formattedRuleMessage": {
+            "formatId": "Default",
+            "arguments": [
+              "EndTimeIsBeforeStartTime.sarif",
+              "/runs/0/invocation/endTime",
+              "2016-08-25T21:26:41.051Z",
+              "2016-08-25T21:26:42.049Z"
+            ]
+          },
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///G:/Code/sarif-sdk/src/SarifCli.FunctionalTests/TestData/EndTimeMustBeAfterStartTime/EndTimeIsBeforeStartTime.sarif",
+                "region": {
+                  "startLine": 13,
+                  "startColumn": 46
+                }
+              }
+            }
+          ]
+        }
+      ],
+      "toolNotifications": [
+        {
+          "id": "MSG001.AnalyzingTarget",
+          "physicalLocation": {
+            "uri": "file:///G:/Code/sarif-sdk/src/SarifCli.FunctionalTests/TestData/EndTimeMustBeAfterStartTime/EndTimeIsBeforeStartTime.sarif"
+          },
+          "message": "Analyzing 'EndTimeIsBeforeStartTime.sarif'...",
+          "level": "note",
+          "time": "2016-08-26T23:55:39.788Z"
+        }
+      ],
+      "rules": {
+        "SV0007": {
+          "id": "SV0007",
+          "name": "EndTimeMustBeAfterStartTime",
+          "shortDescription": "The end time of a run must be after the start time.",
+          "fullDescription": "The end time of a run must be after the start time. To allow for the possibility that the duration of the run is less than the resolution of the string representation of the time, the start time and the end time may be equal.",
+          "messageFormats": {
+            "Default": "In \"{0}\", at \"{1}\", the end time \"{2}\" is before the start time \"{3}\"."
+          },
+          "defaultLevel": "error",
+          "helpUri": "https://rawgit.com/sarif-standard/sarif-spec/master/Static%20Analysis%20Results%20Interchange%20Format%20(SARIF).html"
+        }
+      },
+      "files": {
+        "file:///G:/Code/sarif-sdk/src/SarifCli.FunctionalTests/TestData/EndTimeMustBeAfterStartTime/EndTimeIsBeforeStartTime.sarif": {
+          "mimeType": "application/octet-stream"
+        }
+      },
+      "invocation": {
+        "commandLine": "\"G:\\Code\\sarif-sdk\\bld\\bin\\SarifCli\\AnyCPU_Debug\\SarifCli.exe\"  validate G:\\Code\\sarif-sdk\\src\\SarifCli.FunctionalTests\\TestData\\EndTimeMustBeAfterStartTime\\EndTimeIsBeforeStartTime.sarif -o G:\\Code\\sarif-sdk\\src\\SarifCli.FunctionalTests\\TestData\\EndTimeMustBeAfterStartTime\\EndTimeIsBeforeStartTime_Expected.sarif -j G:\\Code\\sarif-sdk\\src\\Sarif\\Schemata\\Sarif.schema.json ",
+        "startTime": "2016-08-26T23:55:39.694Z",
+        "endTime": "2016-08-26T23:55:40.038Z",
+        "processId": 14564,
+        "fileName": "G:\\Code\\sarif-sdk\\bld\\bin\\SarifCli\\AnyCPU_Debug\\SarifCli.exe",
+        "workingDirectory": "G:\\Code\\sarif-sdk\\bld\\bin\\SarifCli\\AnyCPU_Debug"
+      }
+    }
+  ]
+}
