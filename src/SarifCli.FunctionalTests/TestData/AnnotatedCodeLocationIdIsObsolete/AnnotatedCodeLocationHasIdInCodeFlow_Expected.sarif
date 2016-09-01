@@ -19,7 +19,7 @@
       },
       "results": [
         {
-          "ruleId": "SV0004",
+          "ruleId": "SARIF004",
           "level": "warning",
           "formattedRuleMessage": {
             "formatId": "DefaultFormatId",
@@ -53,8 +53,8 @@
         }
       ],
       "rules": {
-        "SV0004": {
-          "id": "SV0004",
+        "SARIF004": {
+          "id": "SARIF004",
           "name": "AnnotatedCodeLocationIdIsObsolete",
           "shortDescription": "Do not use the property annotatedCodeLocation.",
           "fullDescription": "Do not use the property annotatedCodeLocation.id, which is obsolete. Instead use annotatedCodeLocation.step, which is an integer-valued property that is 1 for the first annotatedCodeLocation in a codeFlow, and increments by 1 for every subsequent step.",

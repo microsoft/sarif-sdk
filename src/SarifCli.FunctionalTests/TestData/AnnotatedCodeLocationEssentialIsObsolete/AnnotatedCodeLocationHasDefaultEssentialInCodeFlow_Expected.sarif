@@ -19,7 +19,7 @@
       },
       "results": [
         {
-          "ruleId": "SV0005",
+          "ruleId": "SARIF005",
           "level": "warning",
           "formattedRuleMessage": {
             "formatId": "Default",
@@ -53,8 +53,8 @@
         }
       ],
       "rules": {
-        "SV0005": {
-          "id": "SV0005",
+        "SARIF005": {
+          "id": "SARIF005",
           "name": "AnnotatedCodeLocationEssentialIsObsolete",
           "shortDescription": "Do not use the obsolete \"essential\" property of the annotatedCodeLocation object.",
           "fullDescription": "Do not use the obsolete \"essential\" property of the annotatedCodeLocation object. Instead use \"importance\", which is an string-valued property that must have one of the values \"essential\", \"important\", or \"unimportant\".",

@@ -19,7 +19,7 @@
       },
       "results": [
         {
-          "ruleId": "SV0007",
+          "ruleId": "SARIF007",
           "level": "error",
           "formattedRuleMessage": {
             "formatId": "Default",
@@ -55,8 +55,8 @@
         }
       ],
       "rules": {
-        "SV0007": {
-          "id": "SV0007",
+        "SARIF007": {
+          "id": "SARIF007",
           "name": "EndTimeMustBeAfterStartTime",
           "shortDescription": "The end time of a run must be after the start time.",
           "fullDescription": "The end time of a run must be after the start time. To allow for the possibility that the duration of the run is less than the resolution of the string representation of the time, the start time and the end time may be equal.",

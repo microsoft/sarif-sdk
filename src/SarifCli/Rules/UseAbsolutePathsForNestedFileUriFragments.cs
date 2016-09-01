@@ -8,12 +8,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Cli.Rules
 {
     public class UseAbsolutePathsForNestedFileUriFragments : SarifValidationSkimmerBase
     {
-        public override string FullDescription => RuleResources.SV0002_UseAbsolutePathsForNestedFileUriFragmentsDescription;
+        public override string FullDescription => RuleResources.SARIF002_UseAbsolutePathsForNestedFileUriFragmentsDescription;
 
         public override ResultLevel DefaultLevel => ResultLevel.Error;
 
         /// <summary>
-        /// SV0002
+        /// SARIF002
         /// </summary>
         public override string Id => RuleId.UseAbsolutePathsForNestedFileUriFragments;
 
@@ -23,7 +23,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Cli.Rules
             {
                 return new string[]
                 {
-                    nameof(RuleResources.SV0002_Default)
+                    nameof(RuleResources.SARIF002_Default)
                 };
             }
         }
@@ -42,13 +42,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Cli.Rules
                 {
                     LogResult(
                         filePointer,
-                        nameof(RuleResources.SV0002_Default),
+                        nameof(RuleResources.SARIF002_Default),
                         fileUri.OriginalString);
                 }
             }
             catch
             {
-                // It wasn't a value URI. Rule SV0003, UrisMustBeValid, will catch this problem.
+                // It wasn't a value URI. Rule SARIF003, UrisMustBeValid, will catch this problem.
             }
 
             AnalyzeUri(fileData.Uri, filePointer);
@@ -72,7 +72,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Cli.Rules
 
                 LogResult(
                     uriPointer,
-                    nameof(RuleResources.SV0002_Default),
+                    nameof(RuleResources.SARIF002_Default),
                     uri.OriginalString);
             }
         }

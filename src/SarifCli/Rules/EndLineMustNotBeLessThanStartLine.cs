@@ -8,12 +8,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Cli.Rules
 {
     public class EndLineMustNotBeLessThanStartLine : SarifValidationSkimmerBase
     {
-        public override string FullDescription => RuleResources.SV0012_EndLineMustNotBeLessThanStartLine;
+        public override string FullDescription => RuleResources.SARIF012_EndLineMustNotBeLessThanStartLine;
 
         public override ResultLevel DefaultLevel => ResultLevel.Error;
 
         /// <summary>
-        /// SV0012
+        /// SARIF012
         /// </summary>
         public override string Id => RuleId.EndLineMustNotBeLessThanStartLine;
 
@@ -23,7 +23,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Cli.Rules
             {
                 return new string[]
                 {
-                    nameof(RuleResources.SV0012_Default)
+                    nameof(RuleResources.SARIF012_Default)
                 };
             }
         }
@@ -40,7 +40,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Cli.Rules
 
                 LogResult(
                     endLinePointer,
-                    nameof(RuleResources.SV0012_Default),
+                    nameof(RuleResources.SARIF012_Default),
                     region.EndLine.ToInvariantString(),
                     region.StartLine.ToInvariantString());
             }

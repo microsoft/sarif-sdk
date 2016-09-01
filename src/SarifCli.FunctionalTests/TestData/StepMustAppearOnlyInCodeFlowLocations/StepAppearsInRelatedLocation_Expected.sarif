@@ -19,7 +19,7 @@
       },
       "results": [
         {
-          "ruleId": "SV0010",
+          "ruleId": "SARIF010",
           "level": "warning",
           "formattedRuleMessage": {
             "formatId": "Default",
@@ -53,8 +53,8 @@
         }
       ],
       "rules": {
-        "SV0010": {
-          "id": "SV0010",
+        "SARIF010": {
+          "id": "SARIF010",
           "name": "StepMustAppearOnlyInCodeFlowLocations",
           "shortDescription": "The \"step\" property must appear only in annotatedCodeLocation objects which occur within code flows.",
           "fullDescription": "The \"step\" property must appear only in annotatedCodeLocation objects which occur within code flows.",

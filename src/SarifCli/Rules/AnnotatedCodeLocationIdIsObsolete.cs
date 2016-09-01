@@ -7,12 +7,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Cli.Rules
 {
     public class AnnotatedCodeLocationIdIsObsolete : SarifValidationSkimmerBase
     {
-        public override string FullDescription => RuleResources.SV0004_AnnotatedCodeLocationIdIsObsolete;
+        public override string FullDescription => RuleResources.SARIF004_AnnotatedCodeLocationIdIsObsolete;
 
         public override ResultLevel DefaultLevel => ResultLevel.Warning;
 
         /// <summary>
-        /// SV0004
+        /// SARIF004
         /// </summary>
         public override string Id => RuleId.AnnotatedCodeLocationIdIsObsolete;
 
@@ -22,8 +22,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Cli.Rules
             {
                 return new string[]
                 {
-                    nameof(RuleResources.SV0004_Default),
-                    nameof(RuleResources.SV0004_OnlyInCodeFlow)
+                    nameof(RuleResources.SARIF004_Default),
+                    nameof(RuleResources.SARIF004_OnlyInCodeFlow)
                 };
             }
         }
@@ -38,8 +38,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Cli.Rules
                 // occurs in a codeFlow, because the "step" property is only meaningful within
                 // a codeFlow.
                 string formatId = annotatedCodeLocationPointer.Contains(SarifPropertyName.CodeFlows)
-                    ? nameof(RuleResources.SV0004_Default)
-                    : nameof(RuleResources.SV0004_OnlyInCodeFlow);
+                    ? nameof(RuleResources.SARIF004_Default)
+                    : nameof(RuleResources.SARIF004_OnlyInCodeFlow);
 
                 LogResult(idPointer, formatId);
             }

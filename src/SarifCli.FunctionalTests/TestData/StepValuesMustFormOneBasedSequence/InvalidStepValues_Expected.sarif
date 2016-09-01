@@ -19,7 +19,7 @@
       },
       "results": [
         {
-          "ruleId": "SV0009",
+          "ruleId": "SARIF009",
           "level": "error",
           "formattedRuleMessage": {
             "formatId": "StepNotPresentOnAllLocations",
@@ -41,7 +41,7 @@
           ]
         },
         {
-          "ruleId": "SV0009",
+          "ruleId": "SARIF009",
           "level": "error",
           "formattedRuleMessage": {
             "formatId": "InvalidStepValue",
@@ -65,7 +65,7 @@
           ]
         },
         {
-          "ruleId": "SV0009",
+          "ruleId": "SARIF009",
           "level": "error",
           "formattedRuleMessage": {
             "formatId": "InvalidStepValue",
@@ -101,8 +101,8 @@
         }
       ],
       "rules": {
-        "SV0009": {
-          "id": "SV0009",
+        "SARIF009": {
+          "id": "SARIF009",
           "name": "StepValuesMustFormOneBasedSequence",
           "shortDescription": "If the \"step\" property is used on any annotatedCodeLocation in a code flow, then it must be present for every location in the code flow, its value must be 1 for the first location, and its value must increase by 1 for each succeeding location.",
           "fullDescription": "If the \"step\" property is used on any annotatedCodeLocation in a code flow, then it must be present for every location in the code flow, its value must be 1 for the first location, and its value must increase by 1 for each succeeding location.",
