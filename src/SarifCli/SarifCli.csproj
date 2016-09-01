@@ -50,12 +50,12 @@
       <HintPath>..\packages\Sarif.Driver.1.5.29\lib\net45\Sarif.Driver.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Microsoft.Json.Schema, Version=0.46.0.0, Culture=neutral, PublicKeyToken=0a75a800dbdd2daa, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.Json.Schema.0.46.0\lib\net451\Microsoft.Json.Schema.dll</HintPath>
+    <Reference Include="Microsoft.Json.Schema, Version=0.47.0.0, Culture=neutral, PublicKeyToken=0a75a800dbdd2daa, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Json.Schema.0.47.0\lib\net451\Microsoft.Json.Schema.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Microsoft.Json.Pointer, Version=0.46.0.0, Culture=neutral, PublicKeyToken=0a75a800dbdd2daa, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.Json.Pointer.0.46.0\lib\net451\Microsoft.Json.Pointer.dll</HintPath>
+    <Reference Include="Microsoft.Json.Pointer, Version=0.47.0.0, Culture=neutral, PublicKeyToken=0a75a800dbdd2daa, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Json.Pointer.0.47.0\lib\net451\Microsoft.Json.Pointer.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
@@ -90,7 +90,6 @@
   <ItemGroup>
     <Compile Include="ExportRulesMetadataCommand.cs" />
     <Compile Include="IntegerExtensions.cs" />
-    <Compile Include="JPointerStringExtensions.cs" />
     <Compile Include="JTokenExtensions.cs" />
     <Compile Include="Rules\EndColumnMustNotBeLessThanStartColumn.cs" />
     <Compile Include="Rules\EndLineMustNotBeLessThanStartLine.cs" />
