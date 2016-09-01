@@ -3,6 +3,7 @@
 
 using System;
 using System.Collections.Generic;
+using Microsoft.Json.Pointer;
 
 namespace Microsoft.CodeAnalysis.Sarif.Cli.Rules
 {
