@@ -10,7 +10,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// <summary>
     /// Defines methods to support the comparison of objects of type FormattedRuleMessage for equality.
     /// </summary>
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.46.0.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.48.0.0")]
     internal sealed class FormattedRuleMessageEqualityComparer : IEqualityComparer<FormattedRuleMessage>
     {
         internal static readonly FormattedRuleMessageEqualityComparer Instance = new FormattedRuleMessageEqualityComparer();
