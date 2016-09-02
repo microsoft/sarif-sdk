@@ -173,33 +173,5 @@ namespace Microsoft.CodeAnalysis.Sarif.Cli
             Rule rule = Json.Schema.Sarif.RuleFactory.GetRuleFromRuleId(result.RuleId);
             logger.Log(rule, result);
         }
-
-        private static void LogToolNotification(
-            IAnalysisLogger logger,
-            string message,
-            NotificationLevel level = NotificationLevel.Note,
-            Exception ex = null)
-        {
-            ExceptionData exceptionData = null;
-            if (ex != null)
-            {
-                exceptionData = new ExceptionData
-                {
-                    Kind = ex.GetType().FullName,
-                    Message = ex.Message,
-                    Stack = Stack.CreateStacks(ex).FirstOrDefault()
-                };
-            }
-
-            TextWriter writer = level == NotificationLevel.Error ? Console.Error : Console.Out;
-            writer.WriteLine(message);
-
-            logger.LogToolNotification(new Notification
-            {
-                Level = level,
-                Message = message,
-                Exception = exceptionData
-            });
-        }
     }
 }
