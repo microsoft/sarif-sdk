@@ -3,8 +3,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Globalization;
-using System.IO;
 using System.Resources;
 
 namespace Microsoft.CodeAnalysis.Sarif
@@ -24,33 +22,22 @@ namespace Microsoft.CodeAnalysis.Sarif
                 throw new ArgumentNullException(nameof(arguments));
             }
 
-            string[] messageArguments = arguments;
-
             formatId = RuleUtilities.NormalizeFormatId(context.Rule.Id, formatId);
 
-            string targetPath = context.TargetUri?.LocalPath;
-
-            Result result = new Result();
-
-            result.RuleId = context.Rule.Id;
-
-            if (!string.IsNullOrEmpty(targetPath))
+            Result result = new Result
             {
-                // In the event of an analysis target, we always provide
-                // the local path to this item as the 0th argument
-                messageArguments = new string[arguments.Length + 1];
-                messageArguments[0] = Path.GetFileName(targetPath);
-                arguments.CopyTo(messageArguments, 1);
-            }
+                RuleId = context.Rule.Id,
 
-            result.FormattedRuleMessage = new FormattedRuleMessage()
-            {
-                FormatId = formatId,
-                Arguments = messageArguments
+                FormattedRuleMessage = new FormattedRuleMessage()
+                {
+                    FormatId = formatId,
+                    Arguments = arguments
+                },
+
+                Level = level
             };
 
-            result.Level = level;
-
+            string targetPath = context.TargetUri?.LocalPath;
             if (targetPath != null)
             {
                 result.Locations = new List<Location> {
