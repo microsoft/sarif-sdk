@@ -115,16 +115,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Cli
             {
                 ReportInvalidSchemaErrors(ex, schemaFilePath, logger);
             }
-            catch (Exception ex)
-            {
-                LogToolNotification(logger, ex.Message, NotificationLevel.Error, ex);
-
-                // Don't try to run the skimmers if something unexpected happened.
-                // Sure, if it were something schema-validation-specific, like "can't
-                // find schema file," then we could successfully run the skimmers,
-                // but I don't think it's worth trying to be that clever.
-                ok = false;
-            }
+            // The framework will catch all other, unexpected exceptions, and it will
+            // cause the tool to exit with a non-0 exit code.
 
             return ok;
         }
