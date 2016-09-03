@@ -74,7 +74,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         /// <summary>The MIME type used for CSharp files.</summary>
         public static readonly string CSharp = "text/x-csharp";
         /// <summary>The MIME type for SARIF files.</summary>
-        public static readonly string Sarif = "text/x-sarif";
+        public static readonly string Sarif = "application/sarif-json";
 
         private static bool HasExtension(string fileName, string extension)
         {
