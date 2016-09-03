@@ -9,7 +9,7 @@
         "fullName": "SarifCli 1.0.0.0",
         "version": "1.0.0.0",
         "semanticVersion": "1.0.0",
-        "sarifLoggerVersion": "1.5.27.0",
+        "sarifLoggerVersion": "1.5.31.0",
         "language": "en-US",
         "properties": {
           "Comments": "Command line tool for working with SARIF log files.",
@@ -24,7 +24,6 @@
           "formattedRuleMessage": {
             "formatId": "Default",
             "arguments": [
-              "EndLineLessThanStartLineInCodeFlow.sarif",
               "/runs/0/results/0/codeFlows/0/locations/0/physicalLocation/region/endLine",
               "1",
               "2"
@@ -61,7 +60,7 @@
           "shortDescription": "The \"endLine\" property of a region object must not be less than the \"startLine\" property.",
           "fullDescription": "The \"endLine\" property of a region object must not be less than the \"startLine\" property.",
           "messageFormats": {
-            "Default": "In \"{0}\", at \"{1}\", the value of the \"endLine\" property is {2}, which is less than the value of the \"startLine\" property, which is {3}."
+            "Default": "{0}: The value of the \"endLine\" property is {1}, which is less than the value of the \"startLine\" property, which is {2}."
           },
           "defaultLevel": "error",
           "helpUri": "https://rawgit.com/sarif-standard/sarif-spec/master/Static%20Analysis%20Results%20Interchange%20Format%20(SARIF).html"

@@ -6,10 +6,10 @@
       "id": "a9957393-94c6-464b-9ba5-cf05eb95f245",
       "tool": {
         "name": "Sarif",
-        "fullName": "Sarif 1.5.27.0",
-        "version": "1.5.27.0",
-        "semanticVersion": "1.5.27",
-        "sarifLoggerVersion": "1.5.27.0",
+        "fullName": "Sarif 1.5.31.0",
+        "version": "1.5.31.0",
+        "semanticVersion": "1.5.31",
+        "sarifLoggerVersion": "1.5.31.0",
         "language": "en-US",
         "properties": {
           "Comments": "Object model and utilities for reading and writing files in the SARIF format.",

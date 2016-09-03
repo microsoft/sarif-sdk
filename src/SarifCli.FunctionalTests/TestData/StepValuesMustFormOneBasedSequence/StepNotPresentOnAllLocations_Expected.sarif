@@ -9,7 +9,7 @@
         "fullName": "SarifCli 1.0.0.0",
         "version": "1.0.0.0",
         "semanticVersion": "1.0.0",
-        "sarifLoggerVersion": "1.5.27.0",
+        "sarifLoggerVersion": "1.5.31.0",
         "language": "en-US",
         "properties": {
           "Comments": "Command line tool for working with SARIF log files.",
@@ -24,7 +24,6 @@
           "formattedRuleMessage": {
             "formatId": "StepNotPresentOnAllLocations",
             "arguments": [
-              "StepNotPresentOnAllLocations.sarif",
               "/runs/0/results/0/codeFlows/0/locations/1"
             ]
           },
@@ -59,7 +58,7 @@
           "shortDescription": "If the \"step\" property is used on any annotatedCodeLocation in a code flow, then it must be present for every location in the code flow, its value must be 1 for the first location, and its value must increase by 1 for each succeeding location.",
           "fullDescription": "If the \"step\" property is used on any annotatedCodeLocation in a code flow, then it must be present for every location in the code flow, its value must be 1 for the first location, and its value must increase by 1 for each succeeding location.",
           "messageFormats": {
-            "StepNotPresentOnAllLocations": "In \"{0}\", at \"{1}\", the \"step\" property is absent. The \"step\" property is present on some but not all locations in this code flow. If the \"step\" property is used on any location in a code flow, it must be present on every location in that code flow."
+            "StepNotPresentOnAllLocations": "{0}: The \"step\" property is absent. The \"step\" property is present on some but not all locations in this code flow. If the \"step\" property is used on any location in a code flow, it must be present on every location in that code flow."
           },
           "defaultLevel": "error",
           "helpUri": "https://rawgit.com/sarif-standard/sarif-spec/master/Static%20Analysis%20Results%20Interchange%20Format%20(SARIF).html"

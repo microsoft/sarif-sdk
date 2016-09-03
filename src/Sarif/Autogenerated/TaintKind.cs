@@ -8,7 +8,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// <summary>
     /// Values that classify the annotated code location in terms of a taint analysis.
     /// </summary>
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.48.0.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.49.0.0")]
     public enum TaintKind
     {
         Unknown,

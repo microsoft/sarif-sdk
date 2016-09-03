@@ -9,7 +9,7 @@
         "fullName": "SarifCli 1.0.0.0",
         "version": "1.0.0.0",
         "semanticVersion": "1.0.0",
-        "sarifLoggerVersion": "1.5.27.0",
+        "sarifLoggerVersion": "1.5.31.0",
         "language": "en-US",
         "properties": {
           "Comments": "Command line tool for working with SARIF log files.",
@@ -24,7 +24,6 @@
           "formattedRuleMessage": {
             "formatId": "Default",
             "arguments": [
-              "InvalidUriInFileChange.sarif",
               "/runs/0/results/0/fixes/0/fileChanges/0/uri",
               "fi%le:///c:/src/file.c"
             ]
@@ -60,7 +59,7 @@
           "shortDescription": "Specify a valid URI reference for every URI-valued property.",
           "fullDescription": "Specify a valid URI reference for every URI-valued property.",
           "messageFormats": {
-            "DefaultFormatId": "In \"{0}\", at \"{1}\", the string \"{2}\" is not a valid URI reference."
+            "DefaultFormatId": "{0}: The string \"{1}\" is not a valid URI reference."
           },
           "defaultLevel": "error",
           "helpUri": "https://rawgit.com/sarif-standard/sarif-spec/master/Static%20Analysis%20Results%20Interchange%20Format%20(SARIF).html"

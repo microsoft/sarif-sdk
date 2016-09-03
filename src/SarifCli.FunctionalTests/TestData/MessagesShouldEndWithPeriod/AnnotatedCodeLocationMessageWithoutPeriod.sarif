@@ -10,7 +10,7 @@
         {
           "ruleId": "TST0001",
           "level": "error",
-          "message": "Result message with  period.",
+          "message": "Result message with period.",
           "locations": [
             {
               "analysisTarget": {

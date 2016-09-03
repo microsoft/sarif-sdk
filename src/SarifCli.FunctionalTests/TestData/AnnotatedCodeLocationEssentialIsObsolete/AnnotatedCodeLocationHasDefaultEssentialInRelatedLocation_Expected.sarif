@@ -9,7 +9,7 @@
         "fullName": "SarifCli 1.0.0.0",
         "version": "1.0.0.0",
         "semanticVersion": "1.0.0",
-        "sarifLoggerVersion": "1.5.27.0",
+        "sarifLoggerVersion": "1.5.31.0",
         "language": "en-US",
         "properties": {
           "Comments": "Command line tool for working with SARIF log files.",
@@ -24,7 +24,6 @@
           "formattedRuleMessage": {
             "formatId": "OnlyInCodeFlow",
             "arguments": [
-              "AnnotatedCodeLocationHasDefaultEssentialInRelatedLocation.sarif",
               "/runs/0/results/0/relatedLocations/0/essential"
             ]
           },
@@ -59,8 +58,8 @@
           "shortDescription": "Do not use the obsolete \"essential\" property of the annotatedCodeLocation object.",
           "fullDescription": "Do not use the obsolete \"essential\" property of the annotatedCodeLocation object. Instead use \"importance\", which is an string-valued property that must have one of the values \"essential\", \"important\", or \"unimportant\".",
           "messageFormats": {
-            "Default": "In \"{0}\", at \"{1}\", the obsolete \"essential\" property is used.  Remove it, and instead use the \"importance\" property, whose value is a string with one of the values \"essential\", \"important\", or \"unimportant\".",
-            "OnlyInCodeFlow": "In \"{0}\", at \"{1}\", the obsolete \"essential\" property is used. This property has been replaced by the \"importance\" property, but the \"importance\" property is used only in annotatedCodeLocations objects that occur within a code flow. Remove the \"essential\" property."
+            "Default": "{0}: The obsolete \"essential\" property is used.  Remove it, and instead use the \"importance\" property, whose value is a string with one of the values \"essential\", \"important\", or \"unimportant\".",
+            "OnlyInCodeFlow": "{0}: The obsolete \"essential\" property is used. This property has been replaced by the \"importance\" property, but the \"importance\" property is used only in annotatedCodeLocations objects that occur within a code flow. Remove the \"essential\" property."
           },
           "defaultLevel": "warning",
           "helpUri": "https://rawgit.com/sarif-standard/sarif-spec/master/Static%20Analysis%20Results%20Interchange%20Format%20(SARIF).html"

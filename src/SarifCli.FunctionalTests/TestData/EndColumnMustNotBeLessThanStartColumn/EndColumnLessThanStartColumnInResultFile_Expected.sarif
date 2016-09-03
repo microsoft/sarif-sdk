@@ -9,7 +9,7 @@
         "fullName": "SarifCli 1.0.0.0",
         "version": "1.0.0.0",
         "semanticVersion": "1.0.0",
-        "sarifLoggerVersion": "1.5.27.0",
+        "sarifLoggerVersion": "1.5.31.0",
         "language": "en-US",
         "properties": {
           "Comments": "Command line tool for working with SARIF log files.",
@@ -24,7 +24,6 @@
           "formattedRuleMessage": {
             "formatId": "Default",
             "arguments": [
-              "EndColumnLessThanStartColumnInResultFile.sarif",
               "/runs/0/results/0/locations/0/resultFile/region/endColumn",
               "1",
               "2"
@@ -61,7 +60,7 @@
           "shortDescription": "The \"endColumn\" property of a region object must not be less than the \"startColumn\" property.",
           "fullDescription": "The \"endColumn\" property of a region object must not be less than the \"startColumn\" property.",
           "messageFormats": {
-            "Default": "In \"{0}\", at \"{1}\", the value of the \"endColumn\" property is {2}, which is less than the value of the \"startColumn\" property, which is {3}."
+            "Default": "{0}: The value of the \"endColumn\" property is {2}, which is less than the value of the \"startColumn\" property, which is {3}."
           },
           "defaultLevel": "error",
           "helpUri": "https://rawgit.com/sarif-standard/sarif-spec/master/Static%20Analysis%20Results%20Interchange%20Format%20(SARIF).html"

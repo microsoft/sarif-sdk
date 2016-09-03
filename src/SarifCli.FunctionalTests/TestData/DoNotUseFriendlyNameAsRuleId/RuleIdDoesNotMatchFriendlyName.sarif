@@ -13,8 +13,8 @@
         "ImportantRule": {
           "id": "TST0001",
           "name": "ImportantRule",
-          "shortDescription": "Important rule",
-          "fullDescription": "Important rule",
+          "shortDescription": "Important rule.",
+          "fullDescription": "Important rule.",
           "messageFormats": {
             "DefaultFormatId": "\"{0}\" violates an important rule."
           }

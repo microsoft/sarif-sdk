@@ -6,10 +6,10 @@
       "id": "b7cd6b83-2433-4b4e-80c4-d04cc65de2dd",
       "tool": {
         "name": "Sarif",
-        "fullName": "Sarif 1.5.27.0",
-        "version": "1.5.27.0",
-        "semanticVersion": "1.5.27",
-        "sarifLoggerVersion": "1.5.27.0",
+        "fullName": "Sarif 1.5.31.0",
+        "version": "1.5.31.0",
+        "semanticVersion": "1.5.31",
+        "sarifLoggerVersion": "1.5.31.0",
         "language": "en-US",
         "properties": {
           "Comments": "Object model and utilities for reading and writing files in the SARIF format.",
@@ -58,7 +58,7 @@
           "name": "SyntaxError",
           "fullDescription": "The schema is not a valid JSON document.",
           "messageFormats": {
-            "default": "at \"{0}\": JSON syntax error: {1}"
+            "default": "{0}: JSON syntax error: {1}"
           },
           "defaultLevel": "error"
         }

@@ -9,7 +9,7 @@
         "fullName": "SarifCli 1.0.0.0",
         "version": "1.0.0.0",
         "semanticVersion": "1.0.0",
-        "sarifLoggerVersion": "1.5.27.0",
+        "sarifLoggerVersion": "1.5.31.0",
         "language": "en-US",
         "properties": {
           "Comments": "Command line tool for working with SARIF log files.",
@@ -24,7 +24,6 @@
           "formattedRuleMessage": {
             "formatId": "Default",
             "arguments": [
-              "EndTimeIsBeforeStartTime.sarif",
               "/runs/0/invocation/endTime",
               "2016-08-25T21:26:41.051Z",
               "2016-08-25T21:26:42.049Z"
@@ -61,7 +60,7 @@
           "shortDescription": "The end time of a run must be after the start time.",
           "fullDescription": "The end time of a run must be after the start time. To allow for the possibility that the duration of the run is less than the resolution of the string representation of the time, the start time and the end time may be equal.",
           "messageFormats": {
-            "Default": "In \"{0}\", at \"{1}\", the end time \"{2}\" is before the start time \"{3}\"."
+            "Default": "{0}: The end time \"{1}\" is before the start time \"{2}\"."
           },
           "defaultLevel": "error",
           "helpUri": "https://rawgit.com/sarif-standard/sarif-spec/master/Static%20Analysis%20Results%20Interchange%20Format%20(SARIF).html"

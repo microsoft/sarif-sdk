@@ -9,7 +9,7 @@
         "fullName": "SarifCli 1.0.0.0",
         "version": "1.0.0.0",
         "semanticVersion": "1.0.0",
-        "sarifLoggerVersion": "1.5.27.0",
+        "sarifLoggerVersion": "1.5.31.0",
         "language": "en-US",
         "properties": {
           "Comments": "Command line tool for working with SARIF log files.",
@@ -24,7 +24,6 @@
           "formattedRuleMessage": {
             "formatId": "Default",
             "arguments": [
-              "ImportanceAppearsInRelatedLocation.sarif",
               "/runs/0/results/0/relatedLocations/0/importance"
             ]
           },
@@ -59,7 +58,7 @@
           "shortDescription": "The \"importance\" property must appear only in annotatedCodeLocation objects which occur within code flows.",
           "fullDescription": "The \"importance\" property must appear only in annotatedCodeLocation objects which occur within code flows.",
           "messageFormats": {
-            "Default": "In \"{0}\", at \"{1}\", the \"importance\" property appears in an annotatedCodeLocation object which does not occur in a code flow. The \"importance\" property must appear only in annotatedCodeLocation objects which occur within code flows."
+            "Default": "{0}: The \"importance\" property appears in an annotatedCodeLocation object which does not occur in a code flow. The \"importance\" property must appear only in annotatedCodeLocation objects which occur within code flows."
           },
           "defaultLevel": "warning",
           "helpUri": "https://rawgit.com/sarif-standard/sarif-spec/master/Static%20Analysis%20Results%20Interchange%20Format%20(SARIF).html"
