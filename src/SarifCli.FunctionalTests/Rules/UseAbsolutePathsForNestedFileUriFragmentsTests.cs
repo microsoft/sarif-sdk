@@ -44,6 +44,12 @@ namespace SarifCli.FunctionalTests.Rules
             Verify(new UseAbsolutePathsForNestedFileUriFragments(), "NestedFileUriFragmentIsRelativeInFilePropertyName.sarif");
         }
 
+        [Fact(DisplayName = nameof(UseAbsolutePathsForNestedFileUriFragments_NestedFileUriFragmentIsRelativeInFileUri), Skip = "https://github.com/Microsoft/sarif-sdk/issues/524")]
+        public void UseAbsolutePathsForNestedFileUriFragments_NestedFileUriFragmentIsRelativeInFileUri()
+        {
+            Verify(new UseAbsolutePathsForNestedFileUriFragments(), "NestedFileUriFragmentIsRelativeInFileUri.sarif");
+        }
+
         [Fact(DisplayName = nameof(UseAbsolutePathsForNestedFileUriFragments_NestedFileUriFragmentIsRelativeInRelatedLocationUri))]
         public void UseAbsolutePathsForNestedFileUriFragments_NestedFileUriFragmentIsRelativeInRelatedLocationUri()
         {

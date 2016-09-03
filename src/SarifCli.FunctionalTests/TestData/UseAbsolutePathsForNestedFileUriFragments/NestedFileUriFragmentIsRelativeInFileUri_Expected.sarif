@@ -1,0 +1,105 @@
+{
+  "$schema": "http://json.schemastore.org/sarif-1.0.0",
+  "version": "1.0.0",
+  "runs": [
+    {
+      "id": "7d973924-92da-47c2-a622-66d93fddd7f0",
+      "tool": {
+        "name": "SarifCli",
+        "fullName": "SarifCli 1.0.0.0-developer",
+        "version": "1.0.0.0",
+        "semanticVersion": "1.0.0",
+        "sarifLoggerVersion": "1.5.30.0",
+        "language": "en-US",
+        "properties": {
+          "Comments": "Command line tool for working with SARIF log files.",
+          "CompanyName": "Microsoft Corporation",
+          "ProductName": "Microsoft SARIF SDK"
+        }
+      },
+      "results": [
+        {
+          "ruleId": "SARIF003",
+          "level": "error",
+          "formattedRuleMessage": {
+            "formatId": "Default",
+            "arguments": [
+              "/runs/0/files/file:~1~1~1c:~1bin~1myBundle.appxBundle#~1myApp.appx/uri",
+              "/myApp.appx"
+            ]
+          },
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///G:/Code/sarif-sdk/src/SarifCli.FunctionalTests/TestData/UseAbsolutePathsForNestedFileUriFragments/NestedFileUriFragmentIsRelativeInFileUri.sarif",
+                "region": {
+                  "startLine": 42,
+                  "startColumn": 31
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "SARIF003",
+          "level": "error",
+          "formattedRuleMessage": {
+            "formatId": "Default",
+            "arguments": [
+              "/runs/0/files/file:~1~1~1c:~1bin~1myBundle.appxBundle#~1myApp.appx~1js~1minified.js/uri",
+              "js/minified.js"
+            ]
+          },
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///G:/Code/sarif-sdk/src/SarifCli.FunctionalTests/TestData/UseAbsolutePathsForNestedFileUriFragments/NestedFileUriFragmentIsRelativeInFileUri.sarif",
+                "region": {
+                  "startLine": 47,
+                  "startColumn": 34
+                }
+              }
+            }
+          ]
+        }
+      ],
+      "toolNotifications": [
+        {
+          "id": "MSG001.AnalyzingTarget",
+          "physicalLocation": {
+            "uri": "file:///G:/Code/sarif-sdk/src/SarifCli.FunctionalTests/TestData/UseAbsolutePathsForNestedFileUriFragments/NestedFileUriFragmentIsRelativeInFileUri.sarif"
+          },
+          "message": "Analyzing 'NestedFileUriFragmentIsRelativeInFileUri.sarif'...",
+          "level": "note",
+          "time": "2016-09-02T17:34:57.834Z"
+        }
+      ],
+      "rules": {
+        "SARIF003": {
+          "id": "SARIF003",
+          "name": "UrisMustBeValid",
+          "shortDescription": "Specify a valid URI reference for every URI-valued property.",
+          "fullDescription": "Specify a valid URI reference for every URI-valued property.",
+          "messageFormats": {
+            "Default": "{0}: The string \"{1}\" is not a valid URI reference."
+          },
+          "defaultLevel": "error",
+          "helpUri": "https://rawgit.com/sarif-standard/sarif-spec/master/Static%20Analysis%20Results%20Interchange%20Format%20(SARIF).html"
+        }
+      },
+      "files": {
+        "file:///G:/Code/sarif-sdk/src/SarifCli.FunctionalTests/TestData/UseAbsolutePathsForNestedFileUriFragments/NestedFileUriFragmentIsRelativeInFileUri.sarif": {
+          "mimeType": "text/x-sarif"
+        }
+      },
+      "invocation": {
+        "commandLine": "\"G:\\Code\\sarif-sdk\\bld\\bin\\SarifCli\\AnyCPU_Release\\SarifCli.exe\" validate G:\\Code\\sarif-sdk\\src\\SarifCli.FunctionalTests\\TestData\\UseAbsolutePathsForNestedFileUriFragments\\NestedFileUriFragmentIsRelativeInFileUri.sarif -o G:\\Code\\sarif-sdk\\src\\SarifCli.FunctionalTests\\TestData\\UseAbsolutePathsForNestedFileUriFragments\\NestedFileUriFragmentIsRelativeInFileUri_Expected.sarif -j G:\\Code\\sarif-sdk\\src\\Sarif\\Schemata\\Sarif.schema.json",
+        "startTime": "2016-09-02T17:34:57.746Z",
+        "endTime": "2016-09-02T17:34:58.104Z",
+        "processId": 4912,
+        "fileName": "G:\\Code\\sarif-sdk\\bld\\bin\\SarifCli\\AnyCPU_Release\\SarifCli.exe",
+        "workingDirectory": "G:\\Code\\sarif-sdk\\src\\SarifCli.FunctionalTests"
+      }
+    }
+  ]
+}
