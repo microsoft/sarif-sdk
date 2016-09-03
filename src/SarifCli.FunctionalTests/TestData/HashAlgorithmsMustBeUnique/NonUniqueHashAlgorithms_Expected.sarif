@@ -9,7 +9,7 @@
         "fullName": "SarifCli 1.0.0.0",
         "version": "1.0.0.0",
         "semanticVersion": "1.0.0",
-        "sarifLoggerVersion": "1.5.27.0",
+        "sarifLoggerVersion": "1.5.31.0",
         "language": "en-US",
         "properties": {
           "Comments": "Command line tool for working with SARIF log files.",
@@ -24,7 +24,6 @@
           "formattedRuleMessage": {
             "formatId": "Default",
             "arguments": [
-              "NonUniqueHashAlgorithms.sarif",
               "/runs/0/files/file:~1~1~1c:~1src~1file.c/hashes",
               "Sha256"
             ]
@@ -60,7 +59,7 @@
           "shortDescription": "In any given \"file\" object, every element of the \"hashes\" array must have a different value for its \"algorithm\" property.",
           "fullDescription": "In any given \"file\" object, every element of the \"hashes\" array must have a different value for its \"algorithm\" property. ",
           "messageFormats": {
-            "Default": "In \"{0}\", at \"{1}\", the array contains multiple objects with the value \"{2}\" for the algorithm property."
+            "Default": "{0}: The array contains multiple objects with the value \"{1}\" for the algorithm property."
           },
           "defaultLevel": "error",
           "helpUri": "https://rawgit.com/sarif-standard/sarif-spec/master/Static%20Analysis%20Results%20Interchange%20Format%20(SARIF).html"

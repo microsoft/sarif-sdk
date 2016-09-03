@@ -16,8 +16,8 @@
     <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Microsoft.Json.Schema, Version=0.48.0.0, Culture=neutral, PublicKeyToken=0a75a800dbdd2daa, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.Json.Schema.0.48.0\lib\net451\Microsoft.Json.Schema.dll</HintPath>
+    <Reference Include="Microsoft.Json.Schema, Version=0.49.0.0, Culture=neutral, PublicKeyToken=0a75a800dbdd2daa, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Json.Schema.0.49.0\lib\net451\Microsoft.Json.Schema.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
@@ -40,8 +40,8 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml" />
-    <Reference Include="Sarif, Version=1.5.30.0, Culture=neutral, PublicKeyToken=a567ef0185dba9aa, processorArchitecture=MSIL">		
-       <HintPath>..\packages\Sarif.Sdk.1.5.30\lib\net45\Sarif.dll</HintPath>		
+    <Reference Include="Sarif, Version=1.5.31.0, Culture=neutral, PublicKeyToken=a567ef0185dba9aa, processorArchitecture=MSIL">		
+       <HintPath>..\packages\Sarif.Sdk.1.5.31\lib\net45\Sarif.dll</HintPath>		
        <Private>True</Private>		
      </Reference>
      <Reference Include="xunit.abstractions, Version=2.0.0.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c, processorArchitecture=MSIL">

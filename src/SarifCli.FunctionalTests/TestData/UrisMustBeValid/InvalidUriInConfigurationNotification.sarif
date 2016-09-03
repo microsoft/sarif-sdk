@@ -9,7 +9,7 @@
       "results": [],
       "configurationNotifications": [
         {
-          "message": "The message",
+          "message": "The message.",
           "physicalLocation": {
             "uri": "fi%le:///c:/src/file.c"
           }

@@ -9,7 +9,7 @@
         "fullName": "SarifCli 1.0.0.0",
         "version": "1.0.0.0",
         "semanticVersion": "1.0.0",
-        "sarifLoggerVersion": "1.5.27.0",
+        "sarifLoggerVersion": "1.5.31.0",
         "language": "en-US",
         "properties": {
           "Comments": "Command line tool for working with SARIF log files.",
@@ -24,7 +24,6 @@
           "formattedRuleMessage": {
             "formatId": "Default",
             "arguments": [
-              "AnnotatedCodeLocationMessageWithoutPeriod.sarif",
               "/runs/0/results/0/codeFlows/0/locations/0/message",
               "CodeFlow location message without period"
             ]
@@ -60,7 +59,7 @@
           "shortDescription": "Messages should consist of one or more complete sentences, ending with a period.",
           "fullDescription": "Messages should consist of one or more complete sentences, ending with a period.",
           "messageFormats": {
-            "Default": "In \"{0}\", at \"{1}\", the message \"{2}\" does not end with a period."
+            "Default": "{0}: The message \"{1}\" does not end with a period."
           },
           "defaultLevel": "warning",
           "helpUri": "https://rawgit.com/sarif-standard/sarif-spec/master/Static%20Analysis%20Results%20Interchange%20Format%20(SARIF).html"

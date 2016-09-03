@@ -61,7 +61,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Cli.Rules {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to In &quot;{0}&quot;, at &quot;{1}&quot;, the name and id properties of rule &quot;{2}&quot; are the same..
+        ///   Looks up a localized string similar to {0}: The name and id properties of rule &quot;{1}&quot; are the same..
         /// </summary>
         internal static string SARIF001_Default {
             get {
@@ -79,7 +79,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Cli.Rules {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to In &quot;{0}&quot;, at &quot;{1}&quot;, the fragment portion of the URI &quot;{2}&quot;, which specifies the location of a nested file with respect to its parent, does not begin with a forward slash..
+        ///   Looks up a localized string similar to {0}: The fragment portion of the URI &quot;{1}&quot;, which specifies the location of a nested file with respect to its parent, does not begin with a forward slash..
         /// </summary>
         internal static string SARIF002_Default {
             get {
@@ -97,7 +97,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Cli.Rules {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to In &quot;{0}&quot;, at &quot;{1}&quot;, the string &quot;{2}&quot; is not a valid URI reference..
+        ///   Looks up a localized string similar to {0}: The string &quot;{1}&quot; is not a valid URI reference..
         /// </summary>
         internal static string SARIF003_Default {
             get {
@@ -124,7 +124,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Cli.Rules {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to In &quot;{0}&quot;, at &quot;{1}&quot;, the obsolete annotatedCodeLocation.id property is used.  Remove it, and instead use the &quot;step&quot; property, whose value is an integer which is 1 for the first location in a code flow, and increments by 1 for each subsequent location in the code flow..
+        ///   Looks up a localized string similar to {0}: The obsolete annotatedCodeLocation.id property is used.  Remove it, and instead use the &quot;step&quot; property, whose value is an integer which is 1 for the first location in a code flow, and increments by 1 for each subsequent location in the code flow..
         /// </summary>
         internal static string SARIF004_Default {
             get {
@@ -133,7 +133,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Cli.Rules {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to In &quot;{0}&quot;, at &quot;{1}&quot;, the obsolete &quot;id&quot; property is used. This property has been replaced by the &quot;step&quot; property, but the &quot;step&quot; property is used only in annotatedCodeLocations objects that occur within a code flow. Remove the &quot;id&quot; property..
+        ///   Looks up a localized string similar to {0}: The obsolete &quot;id&quot; property is used. This property has been replaced by the &quot;step&quot; property, but the &quot;step&quot; property is used only in annotatedCodeLocations objects that occur within a code flow. Remove the &quot;id&quot; property..
         /// </summary>
         internal static string SARIF004_OnlyInCodeFlow {
             get {
@@ -151,7 +151,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Cli.Rules {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to In &quot;{0}&quot;, at &quot;{1}&quot;, the obsolete &quot;essential&quot; property is used.  Remove it, and instead use the &quot;importance&quot; property, whose value is a string with one of the values &quot;essential&quot;, &quot;important&quot;, or &quot;unimportant&quot;..
+        ///   Looks up a localized string similar to {0}: The obsolete &quot;essential&quot; property is used.  Remove it, and instead use the &quot;importance&quot; property, whose value is a string with one of the values &quot;essential&quot;, &quot;important&quot;, or &quot;unimportant&quot;..
         /// </summary>
         internal static string SARIF005_Default {
             get {
@@ -160,7 +160,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Cli.Rules {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to In &quot;{0}&quot;, at &quot;{1}&quot;, the obsolete &quot;essential&quot; property is used. This property has been replaced by the &quot;importance&quot; property, but the &quot;importance&quot; property is used only in annotatedCodeLocations objects that occur within a code flow. Remove the &quot;essential&quot; property..
+        ///   Looks up a localized string similar to {0}: The obsolete &quot;essential&quot; property is used. This property has been replaced by the &quot;importance&quot; property, but the &quot;importance&quot; property is used only in annotatedCodeLocations objects that occur within a code flow. Remove the &quot;essential&quot; property..
         /// </summary>
         internal static string SARIF005_OnlyInCodeFlow {
             get {
@@ -169,7 +169,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Cli.Rules {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to In &quot;{0}&quot;, at &quot;{1}&quot;, the array contains multiple objects with the value &quot;{2}&quot; for the algorithm property..
+        ///   Looks up a localized string similar to {0}: The array contains multiple objects with the value &quot;{1}&quot; for the algorithm property..
         /// </summary>
         internal static string SARIF006_Default {
             get {
@@ -187,7 +187,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Cli.Rules {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to In &quot;{0}&quot;, at &quot;{1}&quot;, the end time &quot;{2}&quot; is before the start time &quot;{3}&quot;..
+        ///   Looks up a localized string similar to {0}: The end time &quot;{1}&quot; is before the start time &quot;{2}&quot;..
         /// </summary>
         internal static string SARIF007_Default {
             get {
@@ -205,7 +205,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Cli.Rules {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to In &quot;{0}&quot;, at &quot;{1}&quot;, the message &quot;{2}&quot; does not end with a period..
+        ///   Looks up a localized string similar to {0}: The message &quot;{1}&quot; does not end with a period..
         /// </summary>
         internal static string SARIF008_Default {
             get {
@@ -223,7 +223,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Cli.Rules {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to In &quot;{0}&quot;, at &quot;{1}&quot;, the value of the &quot;step&quot; property should be {2}, but is {3}. The step values must form a 1-based sequence starting at the first location in the code flow..
+        ///   Looks up a localized string similar to {0}: The value of the &quot;step&quot; property should be {1}, but is {2}. The step values must form a 1-based sequence starting at the first location in the code flow..
         /// </summary>
         internal static string SARIF009_InvalidStepValue {
             get {
@@ -232,7 +232,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Cli.Rules {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to In &quot;{0}&quot;, at &quot;{1}&quot;, the &quot;step&quot; property is absent. The &quot;step&quot; property is present on some but not all locations in this code flow. If the &quot;step&quot; property is used on any location in a code flow, it must be present on every location in that code flow..
+        ///   Looks up a localized string similar to {0}: The &quot;step&quot; property is absent. The &quot;step&quot; property is present on some but not all locations in this code flow. If the &quot;step&quot; property is used on any location in a code flow, it must be present on every location in that code flow..
         /// </summary>
         internal static string SARIF009_StepNotPresentOnAllLocations {
             get {
@@ -250,7 +250,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Cli.Rules {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to In &quot;{0}&quot;, at &quot;{1}&quot;, the &quot;step&quot; property appears in an annotatedCodeLocation object which does not occur in a code flow. The &quot;step&quot; property must appear only in annotatedCodeLocation objects which occur within code flows..
+        ///   Looks up a localized string similar to {0}: The &quot;step&quot; property appears in an annotatedCodeLocation object which does not occur in a code flow. The &quot;step&quot; property must appear only in annotatedCodeLocation objects which occur within code flows..
         /// </summary>
         internal static string SARIF010_Default {
             get {
@@ -268,7 +268,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Cli.Rules {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to In &quot;{0}&quot;, at &quot;{1}&quot;, the &quot;importance&quot; property appears in an annotatedCodeLocation object which does not occur in a code flow. The &quot;importance&quot; property must appear only in annotatedCodeLocation objects which occur within code flows..
+        ///   Looks up a localized string similar to {0}: The &quot;importance&quot; property appears in an annotatedCodeLocation object which does not occur in a code flow. The &quot;importance&quot; property must appear only in annotatedCodeLocation objects which occur within code flows..
         /// </summary>
         internal static string SARIF011_Default {
             get {
@@ -286,7 +286,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Cli.Rules {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to In &quot;{0}&quot;, at &quot;{1}&quot;, the value of the &quot;endLine&quot; property is {2}, which is less than the value of the &quot;startLine&quot; property, which is {3}..
+        ///   Looks up a localized string similar to {0}: The value of the &quot;endLine&quot; property is {1}, which is less than the value of the &quot;startLine&quot; property, which is {2}..
         /// </summary>
         internal static string SARIF012_Default {
             get {
@@ -304,7 +304,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Cli.Rules {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to In &quot;{0}&quot;, at &quot;{1}&quot;, the value of the &quot;endColumn&quot; property is {2}, which is less than the value of the &quot;startColumn&quot; property, which is {3}..
+        ///   Looks up a localized string similar to {0}: The value of the &quot;endColumn&quot; property is {1}, which is less than the value of the &quot;startColumn&quot; property, which is {2}..
         /// </summary>
         internal static string SARIF013_Default {
             get {
