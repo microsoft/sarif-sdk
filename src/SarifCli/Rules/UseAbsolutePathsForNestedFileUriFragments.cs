@@ -36,20 +36,23 @@ namespace Microsoft.CodeAnalysis.Sarif.Cli.Rules
 
         protected override void Analyze(FileData fileData, string fileKey, string filePointer)
         {
+            Uri fileUri;
             try
             {
-                Uri fileUri = new Uri(fileKey);
-                if (UriHasNonAbsoluteFragment(fileUri))
-                {
-                    LogResult(
-                        filePointer,
-                        nameof(RuleResources.SARIF002_Default),
-                        fileUri.OriginalString);
-                }
+                fileUri = new Uri(fileKey);
             }
-            catch
+            catch (UriFormatException)
             {
                 // It wasn't a value URI. Rule SARIF003, UrisMustBeValid, will catch this problem.
+                return;
+            }
+
+            if (UriHasNonAbsoluteFragment(fileUri))
+            {
+                LogResult(
+                    filePointer,
+                    nameof(RuleResources.SARIF002_Default),
+                    fileUri.OriginalString);
             }
 
             AnalyzeUri(fileData.Uri, filePointer);
