@@ -326,6 +326,21 @@
       }
     }
   ],
+  "Rule.Configuration": [
+    {
+      "kind": "EnumHint",
+      "arguments": {
+        "typeName": "RuleConfiguration",
+        "description": "Values specifying the configuration of a rule.",
+        "memberNames": [
+          "Unknown",
+          "Enabled",
+          "Disabled"
+        ],
+        "allowMemberCountMismatch": true
+      }
+    }
+  ],
   "Rule.DefaultLevel": [
     {
       "kind": "EnumHint",

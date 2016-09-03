@@ -12,6 +12,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         public SkimmerBase()
         {
             this.Options = new Dictionary<string, string>();
+            this.Configuration = RuleConfiguration.Enabled;
         }
 
         abstract public Uri HelpUri { get;  }
@@ -49,6 +50,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         {
             get { return FirstSentence(FullDescription); }
         }
+
+        public virtual RuleConfiguration Configuration { get; set; }
 
         internal static string FirstSentence(string fullDescription)
         {

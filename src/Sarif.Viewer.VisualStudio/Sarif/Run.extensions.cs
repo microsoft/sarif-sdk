@@ -73,7 +73,7 @@ namespace Microsoft.Sarif.Viewer.Sarif
 
                     if (ruleName != null || helpUri != null)
                     {
-                        rule = new Rule(ruleId, ruleName, null, null, null, ResultLevel.Warning, helpUri, null);
+                        rule = new Rule(ruleId, ruleName, null, null, null, RuleConfiguration.Unknown, ResultLevel.Warning, helpUri, null);
                     }
                 }
             }
