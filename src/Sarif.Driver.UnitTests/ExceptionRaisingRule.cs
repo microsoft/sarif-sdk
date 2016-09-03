@@ -21,11 +21,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             {
                 throw new InvalidOperationException(nameof(ExceptionCondition.InvokingConstructor));
             }
+            this.Configuration = RuleConfiguration.Enabled;
         }
 
         public string ExceptionRaisingRuleId = "TEST1001";
 
         public Uri HelpUri { get; set; }
+
+        public RuleConfiguration Configuration { get; set; }
 
         public string Id
         {

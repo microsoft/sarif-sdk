@@ -70,6 +70,11 @@ namespace Microsoft.CodeAnalysis.Sarif
                 }
             }
 
+            if (left.Configuration != right.Configuration)
+            {
+                return false;
+            }
+
             if (left.DefaultLevel != right.DefaultLevel)
             {
                 return false;
@@ -151,6 +156,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                     result = (result * 31) + xor_0;
                 }
 
+                result = (result * 31) + obj.Configuration.GetHashCode();
                 result = (result * 31) + obj.DefaultLevel.GetHashCode();
                 if (obj.HelpUri != null)
                 {
