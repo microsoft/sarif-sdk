@@ -21,7 +21,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Cli
 
         public string MimeType
         {
-            get { return "text/x-sarif"; }
+            get { return "application/sarif-json"; }
             set { throw new InvalidOperationException(); }
         }
 
