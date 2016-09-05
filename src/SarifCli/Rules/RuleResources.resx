@@ -204,4 +204,10 @@
   <data name="SARIF013_EndColumnMustNotBeLessThanStartColumn" xml:space="preserve">
     <value>The "endColumn" property of a region object must not be less than the "startColumn" property.</value>
   </data>
+  <data name="SARIF014_Default" xml:space="preserve">
+    <value>{0}: This object defines a "uriBaseId" property, which means that the value of the "uri" property must be a relative URI reference, but "{1}" is an absolute URI reference.</value>
+  </data>
+  <data name="SARIF014_UriBaseIdRequiresRelativeUri" xml:space="preserve">
+    <value>For objects which define both a "uri" and a "uriBaseId" property, if the "uriBaseId" property is present, the value of the "uri" property must be a relative URI.</value>
+  </data>
 </root>

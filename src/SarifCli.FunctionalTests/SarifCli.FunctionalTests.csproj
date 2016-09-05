@@ -98,6 +98,7 @@
     <Compile Include="Rules\DoNotUseFriendlyNameAsRuleIdTests.cs" />
     <Compile Include="Rules\MessagesShouldEndWithPeriodTests.cs" />
     <Compile Include="Rules\SkimmerTestsBase.cs" />
+    <Compile Include="Rules\UriBaseIdRequiresRelativeUriTests.cs" />
     <Compile Include="Rules\UrisMustBeValidTests.cs" />
     <Compile Include="Rules\UseAbsolutePathsForNestedFileUriFragmentsTests.cs" />
     <Compile Include="SarifCliTestBase.cs" />
@@ -401,6 +402,60 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="TestData\SyntaxError_Expected.sarif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestData\UriBaseIdRequiresRelativeUri\AbsoluteUriInCodeFlow.sarif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestData\UriBaseIdRequiresRelativeUri\AbsoluteUriInCodeFlow_Expected.sarif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestData\UriBaseIdRequiresRelativeUri\AbsoluteUriInToolNotification.sarif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestData\UriBaseIdRequiresRelativeUri\AbsoluteUriInConfigurationNotification_Expected.sarif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestData\UriBaseIdRequiresRelativeUri\AbsoluteUriInFileChange_Expected.sarif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestData\UriBaseIdRequiresRelativeUri\AbsoluteUriInRelatedLocation_Expected.sarif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestData\UriBaseIdRequiresRelativeUri\AbsoluteUriInResultFile.sarif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestData\UriBaseIdRequiresRelativeUri\AbsoluteUriInAnalysisTarget.sarif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestData\UriBaseIdRequiresRelativeUri\AbsoluteUriInAnalysisTarget_Expected.sarif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestData\UriBaseIdRequiresRelativeUri\AbsoluteUriInResultFile_Expected.sarif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestData\UriBaseIdRequiresRelativeUri\AbsoluteUriInConfigurationNotification.sarif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestData\UriBaseIdRequiresRelativeUri\AbsoluteUriInFileChange.sarif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestData\UriBaseIdRequiresRelativeUri\AbsoluteUriInRelatedLocation.sarif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestData\UriBaseIdRequiresRelativeUri\AbsoluteUriInStackFrame.sarif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestData\UriBaseIdRequiresRelativeUri\AbsoluteUriInStackFrame_Expected.sarif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestData\UriBaseIdRequiresRelativeUri\AbsoluteUriInToolNotification_Expected.sarif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestData\UriBaseIdRequiresRelativeUri\UrisAreRelative.sarif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestData\UriBaseIdRequiresRelativeUri\UrisAreRelative_Expected.sarif">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="TestData\UrisMustBeValid\InvalidHelpUriInRule.sarif">

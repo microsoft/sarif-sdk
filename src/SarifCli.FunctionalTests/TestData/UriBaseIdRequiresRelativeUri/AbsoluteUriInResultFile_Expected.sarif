@@ -1,0 +1,83 @@
+{
+  "$schema": "http://json.schemastore.org/sarif-1.0.0",
+  "version": "1.0.0",
+  "runs": [
+    {
+      "id": "cd588905-a590-438a-9fa0-b54dc5a2d3ba",
+      "tool": {
+        "name": "SarifCli",
+        "fullName": "SarifCli 1.0.0.0",
+        "version": "1.0.0.0",
+        "semanticVersion": "1.0.0",
+        "sarifLoggerVersion": "1.5.31.0",
+        "language": "en-US",
+        "properties": {
+          "Comments": "Command line tool for working with SARIF log files.",
+          "CompanyName": "Microsoft Corporation",
+          "ProductName": "Microsoft SARIF SDK"
+        }
+      },
+      "results": [
+        {
+          "ruleId": "SARIF014",
+          "level": "error",
+          "formattedRuleMessage": {
+            "formatId": "Default",
+            "arguments": [
+              "/runs/0/results/0/locations/0/resultFile/uri",
+              "file:///c:/src/file.c"
+            ]
+          },
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///G:/Code/sarif-sdk/src/SarifCli.FunctionalTests/TestData/UriBaseIdRequiresRelativeUri/AbsoluteUriInResultFile.sarif",
+                "region": {
+                  "startLine": 19,
+                  "startColumn": 47
+                }
+              }
+            }
+          ]
+        }
+      ],
+      "toolNotifications": [
+        {
+          "id": "MSG001.AnalyzingTarget",
+          "physicalLocation": {
+            "uri": "file:///G:/Code/sarif-sdk/src/SarifCli.FunctionalTests/TestData/UriBaseIdRequiresRelativeUri/AbsoluteUriInResultFile.sarif"
+          },
+          "message": "Analyzing 'AbsoluteUriInResultFile.sarif'...",
+          "level": "note",
+          "time": "2016-09-05T19:07:52.110Z"
+        }
+      ],
+      "rules": {
+        "SARIF014": {
+          "id": "SARIF014",
+          "name": "UriBaseIdRequiresRelativeUri",
+          "shortDescription": "For objects which define both a \"uri\" and a \"uriBaseId\" property, if the \"uriBaseId\" property is present, the value of the \"uri\" property must be a relative URI.",
+          "fullDescription": "For objects which define both a \"uri\" and a \"uriBaseId\" property, if the \"uriBaseId\" property is present, the value of the \"uri\" property must be a relative URI.",
+          "messageFormats": {
+            "Default": "{0}: This object defines a \"uriBaseId\" property, which means that the value of the \"uri\" property must be a relative URI reference, but \"{1}\" is an absolute URI reference."
+          },
+          "defaultLevel": "error",
+          "helpUri": "https://rawgit.com/sarif-standard/sarif-spec/master/Static%20Analysis%20Results%20Interchange%20Format%20(SARIF).html"
+        }
+      },
+      "files": {
+        "file:///G:/Code/sarif-sdk/src/SarifCli.FunctionalTests/TestData/UriBaseIdRequiresRelativeUri/AbsoluteUriInResultFile.sarif": {
+          "mimeType": "text/x-sarif"
+        }
+      },
+      "invocation": {
+        "commandLine": "\"G:\\Code\\sarif-sdk\\bld\\bin\\SarifCli\\AnyCPU_Debug\\SarifCli.exe\"  validate G:\\Code\\sarif-sdk\\src\\SarifCli.FunctionalTests\\TestData\\UriBaseIdRequiresRelativeUri\\AbsoluteUriInResultFile.sarif -o G:\\Code\\sarif-sdk\\src\\SarifCli.FunctionalTests\\TestData\\UriBaseIdRequiresRelativeUri\\AbsoluteUriInResultFile_Expected.sarif -j G:\\Code\\sarif-sdk\\src\\Sarif\\Schemata\\Sarif.schema.json ",
+        "startTime": "2016-09-05T19:07:52.015Z",
+        "endTime": "2016-09-05T19:07:52.376Z",
+        "processId": 7644,
+        "fileName": "G:\\Code\\sarif-sdk\\bld\\bin\\SarifCli\\AnyCPU_Debug\\SarifCli.exe",
+        "workingDirectory": "G:\\Code\\sarif-sdk\\bld\\bin\\SarifCli\\AnyCPU_Debug"
+      }
+    }
+  ]
+}

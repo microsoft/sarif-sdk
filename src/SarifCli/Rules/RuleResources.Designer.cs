@@ -320,5 +320,23 @@ namespace Microsoft.CodeAnalysis.Sarif.Cli.Rules {
                 return ResourceManager.GetString("SARIF013_EndColumnMustNotBeLessThanStartColumn", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0}: This object defines a &quot;uriBaseId&quot; property, which means that the value of the &quot;uri&quot; property must be a relative URI reference, but &quot;{1}&quot; is an absolute URI reference..
+        /// </summary>
+        internal static string SARIF014_Default {
+            get {
+                return ResourceManager.GetString("SARIF014_Default", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to For objects which define both a &quot;uri&quot; and a &quot;uriBaseId&quot; property, if the &quot;uriBaseId&quot; property is present, the value of the &quot;uri&quot; property must be a relative URI..
+        /// </summary>
+        internal static string SARIF014_UriBaseIdRequiresRelativeUri {
+            get {
+                return ResourceManager.GetString("SARIF014_UriBaseIdRequiresRelativeUri", resourceCulture);
+            }
+        }
     }
 }
