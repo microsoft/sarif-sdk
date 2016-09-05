@@ -331,7 +331,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Cli.Rules {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to For objects which define both a &quot;uri&quot; and a &quot;uriBaseId&quot; property, if the &quot;uriBaseId&quot; property is present, the value of the &quot;uri&quot; property must be a relative URI..
+        ///   Looks up a localized string similar to For objects which define both a &quot;uri&quot; and a &quot;uriBaseId&quot; property, if the &quot;uriBaseId&quot; property is present, the value of the &quot;uri&quot; property must be a relative URI reference..
         /// </summary>
         internal static string SARIF014_UriBaseIdRequiresRelativeUri {
             get {

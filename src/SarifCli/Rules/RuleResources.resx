@@ -208,6 +208,6 @@
     <value>{0}: This object defines a "uriBaseId" property, which means that the value of the "uri" property must be a relative URI reference, but "{1}" is an absolute URI reference.</value>
   </data>
   <data name="SARIF014_UriBaseIdRequiresRelativeUri" xml:space="preserve">
-    <value>For objects which define both a "uri" and a "uriBaseId" property, if the "uriBaseId" property is present, the value of the "uri" property must be a relative URI.</value>
+    <value>For objects which define both a "uri" and a "uriBaseId" property, if the "uriBaseId" property is present, the value of the "uri" property must be a relative URI reference.</value>
   </data>
 </root>
