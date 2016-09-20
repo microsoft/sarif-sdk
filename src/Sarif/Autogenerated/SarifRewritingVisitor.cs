@@ -48,6 +48,8 @@ namespace Microsoft.CodeAnalysis.Sarif
             {
                 case SarifNodeKind.AnnotatedCodeLocation:
                     return VisitAnnotatedCodeLocation((AnnotatedCodeLocation)node);
+                case SarifNodeKind.Annotation:
+                    return VisitAnnotation((Annotation)node);
                 case SarifNodeKind.CodeFlow:
                     return VisitCodeFlow((CodeFlow)node);
                 case SarifNodeKind.ExceptionData:
@@ -110,6 +112,29 @@ namespace Microsoft.CodeAnalysis.Sarif
             if (node != null)
             {
                 node.PhysicalLocation = VisitNullChecked(node.PhysicalLocation);
+                if (node.Annotations != null)
+                {
+                    for (int index_0 = 0; index_0 < node.Annotations.Count; ++index_0)
+                    {
+                        node.Annotations[index_0] = VisitNullChecked(node.Annotations[index_0]);
+                    }
+                }
+            }
+
+            return node;
+        }
+
+        public virtual Annotation VisitAnnotation(Annotation node)
+        {
+            if (node != null)
+            {
+                if (node.Locations != null)
+                {
+                    for (int index_0 = 0; index_0 < node.Locations.Count; ++index_0)
+                    {
+                        node.Locations[index_0] = VisitNullChecked(node.Locations[index_0]);
+                    }
+                }
             }
 
             return node;

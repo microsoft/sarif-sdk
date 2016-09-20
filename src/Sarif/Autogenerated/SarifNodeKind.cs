@@ -24,6 +24,10 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// </summary>
         AnnotatedCodeLocation,
         /// <summary>
+        /// A value indicating that the <see cref="ISarifNode" /> object is of type <see cref="Annotation" />.
+        /// </summary>
+        Annotation,
+        /// <summary>
         /// A value indicating that the <see cref="ISarifNode" /> object is of type <see cref="CodeFlow" />.
         /// </summary>
         CodeFlow,
