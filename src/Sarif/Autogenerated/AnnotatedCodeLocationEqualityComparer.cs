@@ -83,28 +83,28 @@ namespace Microsoft.CodeAnalysis.Sarif
                 return false;
             }
 
-            if (!object.ReferenceEquals(left.Parameters, right.Parameters))
+            if (!object.ReferenceEquals(left.Values, right.Values))
             {
-                if (left.Parameters == null || right.Parameters == null)
+                if (left.Values == null || right.Values == null)
                 {
                     return false;
                 }
 
-                if (left.Parameters.Count != right.Parameters.Count)
+                if (left.Values.Count != right.Values.Count)
                 {
                     return false;
                 }
 
-                for (int index_0 = 0; index_0 < left.Parameters.Count; ++index_0)
+                for (int index_0 = 0; index_0 < left.Values.Count; ++index_0)
                 {
-                    if (left.Parameters[index_0] != right.Parameters[index_0])
+                    if (left.Values[index_0] != right.Values[index_0])
                     {
                         return false;
                     }
                 }
             }
 
-            if (!object.Equals(left.Variables, right.Variables))
+            if (!object.Equals(left.State, right.State))
             {
                 return false;
             }
@@ -199,9 +199,9 @@ namespace Microsoft.CodeAnalysis.Sarif
                     result = (result * 31) + obj.Target.GetHashCode();
                 }
 
-                if (obj.Parameters != null)
+                if (obj.Values != null)
                 {
-                    foreach (var value_2 in obj.Parameters)
+                    foreach (var value_2 in obj.Values)
                     {
                         result = result * 31;
                         if (value_2 != null)
@@ -211,9 +211,9 @@ namespace Microsoft.CodeAnalysis.Sarif
                     }
                 }
 
-                if (obj.Variables != null)
+                if (obj.State != null)
                 {
-                    result = (result * 31) + obj.Variables.GetHashCode();
+                    result = (result * 31) + obj.State.GetHashCode();
                 }
 
                 if (obj.TargetKey != null)
