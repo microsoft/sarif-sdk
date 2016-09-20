@@ -93,8 +93,8 @@
           "type": "string"
         },
 
-        "parameters": {
-          "description": "An ordered set of strings that parameterize the operation for this location. For an annotation of kind 'call', for example, this property may hold the ordered list of arguments passed to the callee.",
+        "values": {
+          "description": "An ordered set of strings that comprise input or return values for the current operation. For an annotation of kind 'call', for example, this property may hold the ordered list of arguments passed to the callee.",
           "type": "array",
           "default": [ ],
           "items": {
@@ -102,8 +102,8 @@
           }
         },
 
-        "variables": {
-          "description": "A dictionary, each of whose keys specifies a variable name, the associated value of which represents the variable value. For an annotation of kind 'continuation', for example, this dictionary might hold the current assumed values of a set of global variables.",
+        "state": {
+          "description": "A dictionary, each of whose keys specifies a variable or expression, the associated value of which represents the variable or expression value. For an annotation of kind 'continuation', for example, this dictionary might hold the current assumed values of a set of global variables.",
           "type": "object"
         },
 
