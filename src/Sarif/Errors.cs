@@ -221,7 +221,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             // necessary, and passed back into the tool.
             string message = string.Format(CultureInfo.InvariantCulture, SdkResources.ERR997_MissingRuleConfiguration,
                 context.Rule.Name,
-                Path.GetFileName(context.TargetUri.LocalPath),
+                context.TargetUri.GetFileName(),
                 reasonForNotAnalyzing,
                 exeName);
 

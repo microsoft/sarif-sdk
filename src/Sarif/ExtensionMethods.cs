@@ -5,11 +5,21 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Globalization;
+using System.IO;
 
 namespace Microsoft.CodeAnalysis.Sarif
 {
     public static class ExtensionMethods
     {
+        public static string GetFileName(this Uri uri)
+        {
+            if (!uri.IsAbsoluteUri)
+            {
+                throw new InvalidOperationException();
+            }
+
+            return Path.GetFileName(uri.LocalPath);
+        }
 
         public static string FormatForVisualStudio(this Region region)
         {
