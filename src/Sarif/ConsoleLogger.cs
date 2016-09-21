@@ -62,7 +62,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             {
                 Console.WriteLine(string.Format(CultureInfo.CurrentCulture,
                     SdkResources.MSG001_AnalyzingTarget,
-                        Path.GetFileName(context.TargetUri.LocalPath)));
+                        context.TargetUri.GetFileName()));
             }
         }
 

@@ -22,7 +22,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             string message = string.Format(CultureInfo.InvariantCulture,
                 SdkResources.WRN997_InvalidTarget,
-                Path.GetFileName(context.TargetUri.LocalPath));
+                context.TargetUri.GetFileName());
 
             context.Logger.LogConfigurationNotification(
                 new Notification

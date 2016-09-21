@@ -389,7 +389,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
             string message = string.Format(CultureInfo.InvariantCulture, 
                 SdkResources.MSG001_AnalyzingTarget,
-                Path.GetFileName(context.TargetUri.LocalPath));
+                context.TargetUri.GetFileName());
 
             LogToolNotification(
                 new Notification

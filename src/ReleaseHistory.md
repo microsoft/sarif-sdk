@@ -87,3 +87,5 @@
 * Rename annotatedCodeLocation 'parameters' member to 'values'
 
 ## **v1.5.33** [Driver](https://www.nuget.org/packages/Sarif.Driver/1.5.33) | [SDK](https://www.nuget.org/packages/Sarif.Sdk/1.5.33)
+
+* Resolve crash generating 'not applicable' messages
