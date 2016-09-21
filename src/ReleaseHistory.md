@@ -85,3 +85,5 @@
 * Add 'annotations' member to annotatedCodeLocation object.
 * Rename annotatedCodeLocation 'variables' member to 'state'
 * Rename annotatedCodeLocation 'parameters' member to 'values'
+
+## **v1.5.33** [Driver](https://www.nuget.org/packages/Sarif.Driver/1.5.33) | [SDK](https://www.nuget.org/packages/Sarif.Sdk/1.5.33)
