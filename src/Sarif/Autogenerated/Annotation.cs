@@ -31,13 +31,13 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <summary>
         /// A message relevant to a code location
         /// </summary>
-        [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
+        [DataMember(Name = "message", IsRequired = true)]
         public string Message { get; set; }
 
         /// <summary>
         /// An array of 'physicalLocation' objects associated with the annotation.
         /// </summary>
-        [DataMember(Name = "locations", IsRequired = false, EmitDefaultValue = false)]
+        [DataMember(Name = "locations", IsRequired = true)]
         public IList<PhysicalLocation> Locations { get; set; }
 
         /// <summary>
