@@ -34,7 +34,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <summary>
         /// The location of the file as a valid URI.
         /// </summary>
-        [DataMember(Name = "uri", IsRequired = true)]
+        [DataMember(Name = "uri", IsRequired = false, EmitDefaultValue = false)]
         public Uri Uri { get; set; }
 
         /// <summary>
