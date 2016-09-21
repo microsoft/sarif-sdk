@@ -89,3 +89,7 @@
 ## **v1.5.33** [Driver](https://www.nuget.org/packages/Sarif.Driver/1.5.33) | [SDK](https://www.nuget.org/packages/Sarif.Sdk/1.5.33)
 
 * Resolve crash generating 'not applicable' messages
+
+## **v1.5.34** [Driver](https://www.nuget.org/packages/Sarif.Driver/1.5.34) | [SDK](https://www.nuget.org/packages/Sarif.Sdk/1.5.34)
+
+* Update schema for 'annotations' object required properties

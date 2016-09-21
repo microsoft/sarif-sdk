@@ -174,7 +174,8 @@
             "$ref": "#/definitions/physicalLocation"
           }
         }
-      }
+      },
+      "required": [ "message", "locations" ] 
     },
 
     "codeFlow": {
