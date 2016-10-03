@@ -6,16 +6,13 @@ using System.CodeDom.Compiler;
 namespace Microsoft.CodeAnalysis.Sarif
 {
     /// <summary>
-    /// The level of a result.
+    /// A value that specifies whether a rule is enabled.
     /// </summary>
     [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.49.0.0")]
-    public enum ResultLevel
+    public enum RuleConfiguration
     {
-        Default,
-        NotApplicable,
-        Pass,
-        Note,
-        Warning,
-        Error
+        Unknown,
+        Enabled,
+        Disabled
     }
 }
