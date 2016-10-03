@@ -16,13 +16,15 @@
           "locations": [
             {
               "analysisTarget": {
-                "uri": "file:///c:/src/file.c",
+              "uriBaseId": "%SRCROOT%",
+                "uri": "/c:/src/file.c",
                 "region": {
                   "startLine": 1
                 }
               },
               "resultFile": {
-                "uri": "file:///c:/src/file2.c",
+                "uriBaseId": "%SRCROOT%",
+                "uri": "/c:/src/file2.c",
                 "region": {
                   "startLine": 1
                 }
@@ -32,7 +34,8 @@
           "relatedLocations": [
             {
               "physicalLocation": {
-                "uri": "file:///c:/src/file3.c"
+                "uriBaseId": "%SRCROOT%",
+                "uri": "/c:/src/file3.c"
               }
             }
           ],
@@ -41,7 +44,8 @@
               "locations": [
                 {
                   "physicalLocation": {
-                    "uri": "file:///c:/src/file1.c"
+                    "uriBaseId": "%SRCROOT%",
+                    "uri": "/c:/src/file1.c"
                   }
                 }
               ]
@@ -52,7 +56,8 @@
               "frames": [
                 {
                   "fullyQualifiedLogicalName": "func",
-                  "uri": "file:///c:/src/file1.c"
+                  "uriBaseId": "%SRCROOT%",
+                  "uri": "/c:/src/file1.c"
                 }
               ]
             }
@@ -62,7 +67,8 @@
               "description": "The description.",
               "fileChanges": [
                 {
-                  "uri": "file:///c:/src/file1.c",
+                  "uriBaseId": "%SRCROOT%",
+                  "uri": "/c:/src/file1.c",
                   "replacements": [
                     {
                       "offset": 0,
@@ -79,7 +85,8 @@
         {
           "message": "Message.",
           "physicalLocation": {
-            "uri": "file:///c:/src/file1.c"
+            "uriBaseId": "%SRCROOT%",
+            "uri": "/c:/src/file1.c"
           }
         }
       ],
@@ -87,19 +94,15 @@
         {
           "message": "Message.",
           "physicalLocation": {
-            "uri": "file:///c:/src/file1.c"
+            "uriBaseId": "%SRCROOT%",
+            "uri": "/c:/src/file1.c"
           }
         }
       ],
       "files": {
-        "file:///c:/src/file1.c": {
+        "file:///c:/src/file1.c#/TODO-THE-PROPERTY-NAME": {
+          "uriBaseId": "%SRCROOT%",
           "uri": "file:///c:/src/file1.c"
-        }
-      },
-      "rules": {
-        "TST0001": {
-          "id": "TST0001",
-          "helpUri": "http://www.example.com/rules/tst0001.html"
         }
       }
     }

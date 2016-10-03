@@ -18,5 +18,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Cli.Rules
         public const string ImportanceMustAppearOnlyInCodeFlowLocations = "SARIF011";
         public const string EndLineMustNotBeLessThanStartLine = "SARIF012";
         public const string EndColumnMustNotBeLessThanStartColumn = "SARIF013";
+        public const string UriBaseIdRequiresRelativeUri = "SARIF014";
     }
 }
