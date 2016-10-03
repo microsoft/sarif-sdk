@@ -95,6 +95,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             }
         }
 
+        public RuleConfiguration Configuration
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+        }
+
         public void Analyze(TestAnalysisContext context)
         {
             if (_exceptionCondition == ExceptionCondition.InvokingAnalyze)

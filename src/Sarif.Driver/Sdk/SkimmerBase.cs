@@ -22,6 +22,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
         abstract protected IEnumerable<string> FormatIds { get; }
 
+        virtual public RuleConfiguration Configuration {  get { return RuleConfiguration.Enabled; } }
+
         virtual public ResultLevel DefaultLevel { get { return ResultLevel.Warning; } }
 
         virtual public IDictionary<string, string> MessageFormats
