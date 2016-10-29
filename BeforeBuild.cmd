@@ -1,5 +1,5 @@
 ::Configuration for AppVeyor build platform 
-
+  
 @ECHO off
 SETLOCAL
 
