@@ -295,7 +295,7 @@ namespace Microsoft.CodeAnalysis.Sarif {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Analysis halted prematurely due to a fatal execution condition..
+        ///   Looks up a localized string similar to Analysis did not complete due to one or more unrecoverable execution conditions..
         /// </summary>
         internal static string MSG_UnexpectedApplicationExit {
             get {

@@ -154,7 +154,7 @@
     <value>Analyzing...</value>
   </data>
   <data name="MSG_UnexpectedApplicationExit" xml:space="preserve">
-    <value>Analysis halted prematurely due to a fatal execution condition.</value>
+    <value>Analysis did not complete due to one or more unrecoverable execution conditions.</value>
   </data>
   <data name="ERR997_ExceptionAccessingFile" xml:space="preserve">
     <value>Could not access a file specified on the command line: '{0}'.</value>
