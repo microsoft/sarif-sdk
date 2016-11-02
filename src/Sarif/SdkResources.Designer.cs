@@ -268,20 +268,29 @@ namespace Microsoft.CodeAnalysis.Sarif {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Analysis finished but was not complete due to non-fatal runtime errors..
-        /// </summary>
-        internal static string MSG_AnalysisIncomplete {
-            get {
-                return ResourceManager.GetString("MSG_AnalysisIncomplete", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Analyzing....
         /// </summary>
         internal static string MSG_Analyzing {
             get {
                 return ResourceManager.GetString("MSG_Analyzing", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to One or more targets was skipped entirely as it was determined to be an invalid target for analysis..
+        /// </summary>
+        internal static string MSG_OneOrMoreInvalidTargets {
+            get {
+                return ResourceManager.GetString("MSG_OneOrMoreInvalidTargets", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to One or more rules was disabled for an analysis target, as it was determined not to be applicable to it (this is a common condition)..
+        /// </summary>
+        internal static string MSG_OneOrMoreNotApplicable {
+            get {
+                return ResourceManager.GetString("MSG_OneOrMoreNotApplicable", resourceCulture);
             }
         }
         
@@ -367,11 +376,11 @@ namespace Microsoft.CodeAnalysis.Sarif {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Unexpected runtime condition(s) observed: .
+        ///   Looks up a localized string similar to Unexpected fatal runtime condition(s) observed: .
         /// </summary>
-        internal static string UnexpectedRuntime {
+        internal static string UnexpectedFatalRuntimeConditions {
             get {
-                return ResourceManager.GetString("UnexpectedRuntime", resourceCulture);
+                return ResourceManager.GetString("UnexpectedFatalRuntimeConditions", resourceCulture);
             }
         }
         

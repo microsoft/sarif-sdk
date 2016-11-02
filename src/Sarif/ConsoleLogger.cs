@@ -34,21 +34,27 @@ namespace Microsoft.CodeAnalysis.Sarif
                 return;
             }
 
-            if ((runtimeConditions & ~RuntimeConditions.Nonfatal) != 0)
+            if ((runtimeConditions & RuntimeConditions.RuleNotApplicableToTarget) != 0)
             {
-                // One or more fatal conditions observed at runtime, so
-                // we'll report a catastrophic exit (withuot paying
-                // particular attention to anything non-fatal
-                Console.WriteLine(SdkResources.MSG_UnexpectedApplicationExit);
-            }
-            else
-            {
-                // Analysis finished but was not complete due
-                // to non-fatal runtime errors.
-                Console.WriteLine(SdkResources.MSG_AnalysisIncomplete);
+                Console.WriteLine();
+                Console.WriteLine(SdkResources.MSG_OneOrMoreNotApplicable);
             }
 
-            Console.WriteLine(SdkResources.UnexpectedRuntime + runtimeConditions.ToString());
+            if ((runtimeConditions & RuntimeConditions.TargetNotValidToAnalyze) != 0)
+            {
+                Console.WriteLine();
+                Console.WriteLine(SdkResources.MSG_OneOrMoreInvalidTargets);
+            }
+
+            RuntimeConditions fatalConditions = (runtimeConditions & ~RuntimeConditions.Nonfatal);
+            if (fatalConditions != 0)
+            {
+                // One or more fatal conditions observed at runtime,
+                // so we'll report a catastrophic exit.
+                Console.WriteLine();
+                Console.WriteLine(SdkResources.MSG_UnexpectedApplicationExit);
+                Console.WriteLine(SdkResources.UnexpectedFatalRuntimeConditions + fatalConditions.ToString());
+            }
         }
 
         public void AnalyzingTarget(IAnalysisContext context)

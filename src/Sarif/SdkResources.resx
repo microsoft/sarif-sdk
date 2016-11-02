@@ -150,9 +150,6 @@
   <data name="MSG_AnalysisCompletedSuccessfully" xml:space="preserve">
     <value>Analysis completed successfully.</value>
   </data>
-  <data name="MSG_AnalysisIncomplete" xml:space="preserve">
-    <value>Analysis finished but was not complete due to non-fatal runtime errors.</value>
-  </data>
   <data name="MSG_Analyzing" xml:space="preserve">
     <value>Analyzing...</value>
   </data>
@@ -228,7 +225,13 @@
   <data name="NotificationWithExceptionMessage" xml:space="preserve">
     <value>'{0}' ({1})</value>
   </data>
-  <data name="UnexpectedRuntime" xml:space="preserve">
-    <value>Unexpected runtime condition(s) observed: </value>
+  <data name="UnexpectedFatalRuntimeConditions" xml:space="preserve">
+    <value>Unexpected fatal runtime condition(s) observed: </value>
+  </data>
+  <data name="MSG_OneOrMoreInvalidTargets" xml:space="preserve">
+    <value>One or more targets was skipped entirely as it was determined to be an invalid target for analysis.</value>
+  </data>
+  <data name="MSG_OneOrMoreNotApplicable" xml:space="preserve">
+    <value>One or more rules was disabled for an analysis target, as it was determined not to be applicable to it (this is a common condition).</value>
   </data>
 </root>
