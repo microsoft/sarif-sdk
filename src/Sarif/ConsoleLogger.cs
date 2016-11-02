@@ -26,29 +26,35 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         public void AnalysisStopped(RuntimeConditions runtimeConditions)
         {
-            Console.WriteLine();
+            RuntimeConditions fatalConditions = (runtimeConditions & ~RuntimeConditions.Nonfatal);
 
-            if (runtimeConditions == RuntimeConditions.None)
+            if (fatalConditions == RuntimeConditions.None)
             {
                 Console.WriteLine(SdkResources.MSG_AnalysisCompletedSuccessfully);
-                return;
             }
 
-            if ((runtimeConditions & ~RuntimeConditions.Nonfatal) != 0)
+            Console.WriteLine();
+
+            if ((runtimeConditions & RuntimeConditions.RuleNotApplicableToTarget) != 0)
             {
-                // One or more fatal conditions observed at runtime, so
-                // we'll report a catastrophic exit (withuot paying
-                // particular attention to anything non-fatal
+                Console.WriteLine(SdkResources.MSG_OneOrMoreNotApplicable);
+                Console.WriteLine();
+            }
+
+            if ((runtimeConditions & RuntimeConditions.TargetNotValidToAnalyze) != 0)
+            {
+                Console.WriteLine(SdkResources.MSG_OneOrMoreInvalidTargets);
+                Console.WriteLine();
+            }
+
+            if (fatalConditions != 0)
+            {
+                // One or more fatal conditions observed at runtime,
+                // so we'll report a catastrophic exit.
                 Console.WriteLine(SdkResources.MSG_UnexpectedApplicationExit);
+                Console.WriteLine(SdkResources.UnexpectedFatalRuntimeConditions + fatalConditions.ToString());
+                Console.WriteLine();
             }
-            else
-            {
-                // Analysis finished but was not complete due
-                // to non-fatal runtime errors.
-                Console.WriteLine(SdkResources.MSG_AnalysisIncomplete);
-            }
-
-            Console.WriteLine(SdkResources.UnexpectedRuntime + runtimeConditions.ToString());
         }
 
         public void AnalyzingTarget(IAnalysisContext context)
