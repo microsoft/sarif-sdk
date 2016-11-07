@@ -50,7 +50,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                     NotificationLevel.Error,
                     context.TargetLoadException,
                     false,
-                    context.TargetUri.LocalPath));
+                    context.TargetUri.GetFileName()));
 
             context.RuntimeErrors |= RuntimeConditions.ExceptionLoadingTargetFile;
         }
@@ -71,7 +71,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                     NotificationLevel.Error,
                     exception,
                     false,
-                    context.TargetUri.LocalPath,
+                    context.TargetUri.GetFileName(),
                     context.Rule.Name));
 
             context.RuntimeErrors |= RuntimeConditions.ExceptionLoadingPdb;
@@ -221,7 +221,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             // necessary, and passed back into the tool.
             string message = string.Format(CultureInfo.InvariantCulture, SdkResources.ERR997_MissingRuleConfiguration,
                 context.Rule.Name,
-                Path.GetFileName(context.TargetUri.LocalPath),
+                context.TargetUri.GetFileName(),
                 reasonForNotAnalyzing,
                 exeName);
 
@@ -304,7 +304,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                     NotificationLevel.Error,
                     exception,
                     true,
-                    context.TargetUri.LocalPath,
+                    context.TargetUri.GetFileName(),
                     context.Rule.Name));
 
             if (disabledSkimmers != null) { disabledSkimmers.Add(context.Rule.Id); }
@@ -357,7 +357,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                     NotificationLevel.Error,
                     exception,
                     true,
-                    context.TargetUri.LocalPath,
+                    context.TargetUri.GetFileName(),
                     context.Rule.Name));
 
             if (disabledSkimmers != null) { disabledSkimmers.Add(context.Rule.Id); }

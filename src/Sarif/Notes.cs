@@ -2,6 +2,7 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using System;
+using System.Diagnostics;
 
 namespace Microsoft.CodeAnalysis.Sarif
 {
@@ -16,11 +17,14 @@ namespace Microsoft.CodeAnalysis.Sarif
                 throw new ArgumentNullException(nameof(context));
             }
 
+            Debug.Assert(context.TargetUri != null);
+
             // '{0}' was not evaluated for check '{1}' as the analysis
             // is not relevant based on observed metadata: {2}.
             context.Logger.Log(context.Rule,
                 RuleUtilities.BuildResult(ResultLevel.NotApplicable, context, null,
                     nameof(SdkResources.NotApplicable_InvalidMetadata),
+                    context.TargetUri.GetFileName(),
                     context.Rule.Name,
                     reasonForNotAnalyzing));
 

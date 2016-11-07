@@ -25,7 +25,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             // By convention, the first argument is always the target name, 
             // which we retrieve from the context
             Debug.Assert(File.Exists(context.TargetUri.LocalPath));
-            string targetName = Path.GetFileName(context.TargetUri.LocalPath);
+            string targetName = context.TargetUri.GetFileName();
 
             string[] fullArguments = new string[arguments != null ? arguments.Length + 1 : 1];
             fullArguments[0] = targetName;

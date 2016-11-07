@@ -899,6 +899,12 @@
           "type": "object"
         },
 
+        "configuration": {
+          "description": "A value specifying whether a rule is enabled.",
+          "default": "unknown",
+          "enum": [ "unknown", "enabled", "disabled" ]
+        }, 
+
         "defaultLevel": {
           "description": "A value specifying the default severity level of the result.",
           "default": "warning",

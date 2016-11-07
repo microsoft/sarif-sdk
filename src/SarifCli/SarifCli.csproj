@@ -91,6 +91,7 @@
     <Compile Include="ExportRulesMetadataCommand.cs" />
     <Compile Include="IntegerExtensions.cs" />
     <Compile Include="JTokenExtensions.cs" />
+    <Compile Include="Rules\UriBaseIdRequiresRelativeUri.cs" />
     <Compile Include="Rules\EndColumnMustNotBeLessThanStartColumn.cs" />
     <Compile Include="Rules\EndLineMustNotBeLessThanStartLine.cs" />
     <Compile Include="Rules\ImportanceMustAppearOnlyInCodeFlowLocations.cs" />
