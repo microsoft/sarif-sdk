@@ -20,6 +20,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         FxCop,
         /// <summary>PREfast's file format.</summary>
         PREfast,
+        /// <summary>Semmle's file format.</summary>
+        Semmle,
         /// <summary>Static Driver Verifier's file format.</summary>
         StaticDriverVerifier,
     }

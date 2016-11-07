@@ -74,6 +74,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         }
 
         [Fact]
+        public void SemmleConverter_EndToEnd()
+        {
+            BatchRunConverter(ToolFormat.Semmle, "*.tt", TestMode.CompareFileContents);
+        }
+
+        [Fact]
         public void StaticDriverVerifierConverter_EndToEnd()
         {
             BatchRunConverter(ToolFormat.StaticDriverVerifier, "*.tt", TestMode.CompareFileContents);
