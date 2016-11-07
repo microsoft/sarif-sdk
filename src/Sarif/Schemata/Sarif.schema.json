@@ -175,7 +175,6 @@
           }
         }
       },
-
       "required": [ "message", "locations" ]
     },
 
