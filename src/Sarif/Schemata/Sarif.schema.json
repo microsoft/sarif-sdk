@@ -175,7 +175,7 @@
           }
         }
       },
-      "required": [ "message", "locations" ] 
+      "required": [ "message", "locations" ]
     },
 
     "codeFlow": {

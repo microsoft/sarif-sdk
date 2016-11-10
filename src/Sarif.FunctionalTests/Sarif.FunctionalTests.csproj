@@ -670,6 +670,9 @@
     <None Include="ConverterTestData\PREfast\TFS378661.cpp.xml.sarif">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="ConverterTestData\Semmle\Semmle.log">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="ConverterTestData\StaticDriverVerifier\cancelspinlock_bug1.tt.sarif">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
