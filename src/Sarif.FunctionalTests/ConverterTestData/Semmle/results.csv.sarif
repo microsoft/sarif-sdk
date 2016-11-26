@@ -13,6 +13,7 @@
           "locations": [
             {
               "resultFile": {
+                "uri": "src/main/java/org/apache/commons/io/FileCleaningTracker.java",
                 "region": {
                   "startLine": 211,
                   "startColumn": 13,
@@ -29,6 +30,7 @@
           "locations": [
             {
               "resultFile": {
+                "uri": "src/main/java/org/apache/commons/io/IOUtils.java",
                 "region": {
                   "startLine": 2718,
                   "startColumn": 13,
@@ -45,6 +47,7 @@
           "locations": [
             {
               "resultFile": {
+                "uri": "src/main/java/org/apache/commons/io/IOUtils.java",
                 "region": {
                   "startLine": 2793,
                   "startColumn": 13,
@@ -61,6 +64,7 @@
           "locations": [
             {
               "resultFile": {
+                "uri": "src/main/java/org/apache/commons/io/FileUtils.java",
                 "region": {
                   "startLine": 1708,
                   "startColumn": 21,
@@ -77,6 +81,7 @@
           "locations": [
             {
               "resultFile": {
+                "uri": "src/main/java/org/apache/commons/io/input/Tailer.java",
                 "region": {
                   "startLine": 418,
                   "startColumn": 21,
@@ -93,6 +98,7 @@
           "locations": [
             {
               "resultFile": {
+                "uri": "src/main/java/org/apache/commons/io/input/Tailer.java",
                 "region": {
                   "startLine": 473,
                   "startColumn": 17,
@@ -109,6 +115,7 @@
           "locations": [
             {
               "resultFile": {
+                "uri": "src/main/java/org/apache/commons/io/monitor/FileAlterationMonitor.java",
                 "region": {
                   "startLine": 188,
                   "startColumn": 17,
@@ -125,6 +132,7 @@
           "locations": [
             {
               "resultFile": {
+                "uri": "src/main/java/org/apache/commons/io/input/Tailer.java",
                 "region": {
                   "startLine": 463,
                   "startColumn": 25,
@@ -141,6 +149,7 @@
           "locations": [
             {
               "resultFile": {
+                "uri": "src/main/java/org/apache/commons/io/FileUtils.java",
                 "region": {
                   "startLine": 1580,
                   "startColumn": 11,
@@ -157,6 +166,7 @@
           "locations": [
             {
               "resultFile": {
+                "uri": "src/main/java/org/apache/commons/io/monitor/FileAlterationMonitor.java",
                 "region": {
                   "startLine": 189,
                   "startColumn": 15,
@@ -173,6 +183,7 @@
           "locations": [
             {
               "resultFile": {
+                "uri": "src/main/java/org/apache/commons/io/input/XmlStreamReader.java",
                 "region": {
                   "startLine": 269,
                   "startColumn": 36,
@@ -189,6 +200,7 @@
           "locations": [
             {
               "resultFile": {
+                "uri": "src/main/java/org/apache/commons/io/input/XmlStreamReader.java",
                 "region": {
                   "startLine": 270,
                   "startColumn": 36,
@@ -205,6 +217,7 @@
           "locations": [
             {
               "resultFile": {
+                "uri": "src/main/java/org/apache/commons/io/FileUtils.java",
                 "region": {
                   "startLine": 1145,
                   "startColumn": 13,
@@ -221,6 +234,7 @@
           "locations": [
             {
               "resultFile": {
+                "uri": "src/main/java/org/apache/commons/io/FileUtils.java",
                 "region": {
                   "startLine": 1430,
                   "startColumn": 13,
@@ -237,6 +251,7 @@
           "locations": [
             {
               "resultFile": {
+                "uri": "src/main/java/org/apache/commons/io/input/CharSequenceReader.java",
                 "region": {
                   "startLine": 36,
                   "startColumn": 32,
@@ -253,6 +268,7 @@
           "locations": [
             {
               "resultFile": {
+                "uri": "src/main/java/org/apache/commons/io/comparator/ReverseComparator.java",
                 "region": {
                   "startLine": 33,
                   "startColumn": 36,
@@ -269,6 +285,7 @@
           "locations": [
             {
               "resultFile": {
+                "uri": "src/main/java/org/apache/commons/io/monitor/FileAlterationObserver.java",
                 "region": {
                   "startLine": 128,
                   "startColumn": 36,
@@ -285,6 +302,7 @@
           "locations": [
             {
               "resultFile": {
+                "uri": "src/main/java/org/apache/commons/io/filefilter/AndFileFilter.java",
                 "region": {
                   "startLine": 44,
                   "startColumn": 38,
@@ -301,6 +319,7 @@
           "locations": [
             {
               "resultFile": {
+                "uri": "src/main/java/org/apache/commons/io/filefilter/OrFileFilter.java",
                 "region": {
                   "startLine": 42,
                   "startColumn": 38,
@@ -317,6 +336,7 @@
           "locations": [
             {
               "resultFile": {
+                "uri": "src/main/java/org/apache/commons/io/filefilter/NotFileFilter.java",
                 "region": {
                   "startLine": 33,
                   "startColumn": 32,
@@ -333,6 +353,7 @@
           "locations": [
             {
               "resultFile": {
+                "uri": "src/main/java/org/apache/commons/io/monitor/FileAlterationObserver.java",
                 "region": {
                   "startLine": 125,
                   "startColumn": 48,
@@ -349,6 +370,7 @@
           "locations": [
             {
               "resultFile": {
+                "uri": "src/main/java/org/apache/commons/io/monitor/FileAlterationObserver.java",
                 "region": {
                   "startLine": 127,
                   "startColumn": 30,
@@ -365,6 +387,7 @@
           "locations": [
             {
               "resultFile": {
+                "uri": "src/main/java/org/apache/commons/io/filefilter/DelegateFileFilter.java",
                 "region": {
                   "startLine": 39,
                   "startColumn": 30,
@@ -381,6 +404,7 @@
           "locations": [
             {
               "resultFile": {
+                "uri": "src/main/java/org/apache/commons/io/filefilter/DelegateFileFilter.java",
                 "region": {
                   "startLine": 37,
                   "startColumn": 34,
@@ -397,6 +421,7 @@
           "locations": [
             {
               "resultFile": {
+                "uri": "src/main/java/org/apache/commons/io/input/XmlStreamReader.java",
                 "region": {
                   "startLine": 745,
                   "startColumn": 32,
@@ -413,6 +438,7 @@
           "locations": [
             {
               "resultFile": {
+                "uri": "src/main/java/org/apache/commons/io/output/XmlStreamWriter.java",
                 "region": {
                   "startLine": 172,
                   "startColumn": 36,
@@ -429,6 +455,7 @@
           "locations": [
             {
               "resultFile": {
+                "uri": "src/main/java/org/apache/commons/io/ByteOrderMark.java",
                 "region": {
                   "startLine": 185,
                   "startColumn": 28,
@@ -445,6 +472,7 @@
           "locations": [
             {
               "resultFile": {
+                "uri": "src/main/java/org/apache/commons/io/output/ByteArrayOutputStream.java",
                 "region": {
                   "startLine": 57,
                   "startColumn": 14,
@@ -461,6 +489,7 @@
           "locations": [
             {
               "resultFile": {
+                "uri": "src/main/java/org/apache/commons/io/filefilter/AndFileFilter.java",
                 "region": {
                   "startLine": 153,
                   "startColumn": 19,
@@ -477,6 +506,7 @@
           "locations": [
             {
               "resultFile": {
+                "uri": "src/main/java/org/apache/commons/io/input/CountingInputStream.java",
                 "region": {
                   "startLine": 107,
                   "startColumn": 16,
@@ -493,6 +523,7 @@
           "locations": [
             {
               "resultFile": {
+                "uri": "src/main/java/org/apache/commons/io/input/NullReader.java",
                 "region": {
                   "startLine": 141,
                   "startColumn": 30,
@@ -509,6 +540,7 @@
           "locations": [
             {
               "resultFile": {
+                "uri": "src/main/java/org/apache/commons/io/output/CountingOutputStream.java",
                 "region": {
                   "startLine": 86,
                   "startColumn": 16,
@@ -525,6 +557,7 @@
           "locations": [
             {
               "resultFile": {
+                "uri": "src/main/java/org/apache/commons/io/filefilter/OrFileFilter.java",
                 "region": {
                   "startLine": 145,
                   "startColumn": 19,
@@ -541,6 +574,7 @@
           "locations": [
             {
               "resultFile": {
+                "uri": "src/main/java/org/apache/commons/io/output/ProxyOutputStream.java",
                 "region": {
                   "startLine": 102,
                   "startColumn": 17,
@@ -557,6 +591,7 @@
           "locations": [
             {
               "resultFile": {
+                "uri": "src/main/java/org/apache/commons/io/output/ProxyOutputStream.java",
                 "region": {
                   "startLine": 115,
                   "startColumn": 17,
@@ -573,6 +608,7 @@
           "locations": [
             {
               "resultFile": {
+                "uri": "src/main/java/org/apache/commons/io/output/ProxyWriter.java",
                 "region": {
                   "startLine": 208,
                   "startColumn": 17,
@@ -589,6 +625,7 @@
           "locations": [
             {
               "resultFile": {
+                "uri": "src/main/java/org/apache/commons/io/output/ProxyWriter.java",
                 "region": {
                   "startLine": 221,
                   "startColumn": 17,
@@ -605,6 +642,7 @@
           "locations": [
             {
               "resultFile": {
+                "uri": "src/main/java/org/apache/commons/io/input/NullInputStream.java",
                 "region": {
                   "startLine": 158,
                   "startColumn": 30,
@@ -621,6 +659,7 @@
           "locations": [
             {
               "resultFile": {
+                "uri": "src/main/java/org/apache/commons/io/input/NullReader.java",
                 "region": {
                   "startLine": 170,
                   "startColumn": 16,
@@ -637,6 +676,7 @@
           "locations": [
             {
               "resultFile": {
+                "uri": "src/main/java/org/apache/commons/io/input/NullInputStream.java",
                 "region": {
                   "startLine": 187,
                   "startColumn": 16,
@@ -653,6 +693,7 @@
           "locations": [
             {
               "resultFile": {
+                "uri": "src/main/java/org/apache/commons/io/filefilter/SuffixFileFilter.java",
                 "region": {}
               }
             }
@@ -664,6 +705,7 @@
           "locations": [
             {
               "resultFile": {
+                "uri": "src/main/java/org/apache/commons/io/output/TaggedOutputStream.java",
                 "region": {}
               }
             }
@@ -675,6 +717,7 @@
           "locations": [
             {
               "resultFile": {
+                "uri": "src/main/java/org/apache/commons/io/input/TaggedInputStream.java",
                 "region": {}
               }
             }
@@ -686,6 +729,7 @@
           "locations": [
             {
               "resultFile": {
+                "uri": "src/main/java/org/apache/commons/io/input/ReversedLinesFileReader.java",
                 "region": {
                   "startLine": 188,
                   "startColumn": 12,
@@ -702,6 +746,7 @@
           "locations": [
             {
               "resultFile": {
+                "uri": "src/main/java/org/apache/commons/io/output/WriterOutputStream.java",
                 "region": {
                   "startLine": 339,
                   "startColumn": 10,
@@ -718,6 +763,7 @@
           "locations": [
             {
               "resultFile": {
+                "uri": "src/main/java/org/apache/commons/io/FileCleaningTracker.java",
                 "region": {
                   "startLine": 222,
                   "startColumn": 20,
@@ -734,6 +780,7 @@
           "locations": [
             {
               "resultFile": {
+                "uri": "src/main/java/org/apache/commons/io/FileUtils.java",
                 "region": {
                   "startLine": 293,
                   "startColumn": 17,
@@ -750,6 +797,7 @@
           "locations": [
             {
               "resultFile": {
+                "uri": "src/main/java/org/apache/commons/io/FileUtils.java",
                 "region": {
                   "startLine": 354,
                   "startColumn": 17,
@@ -766,6 +814,7 @@
           "locations": [
             {
               "resultFile": {
+                "uri": "src/main/java/org/apache/commons/io/FileUtils.java",
                 "region": {
                   "startLine": 907,
                   "startColumn": 21,
@@ -782,6 +831,7 @@
           "locations": [
             {
               "resultFile": {
+                "uri": "src/main/java/org/apache/commons/io/FileUtils.java",
                 "region": {
                   "startLine": 995,
                   "startColumn": 33,
@@ -798,6 +848,7 @@
           "locations": [
             {
               "resultFile": {
+                "uri": "src/main/java/org/apache/commons/io/FileUtils.java",
                 "region": {
                   "startLine": 1072,
                   "startColumn": 34,
@@ -814,6 +865,7 @@
           "locations": [
             {
               "resultFile": {
+                "uri": "src/main/java/org/apache/commons/io/FileUtils.java",
                 "region": {
                   "startLine": 1177,
                   "startColumn": 32,
@@ -830,6 +882,7 @@
           "locations": [
             {
               "resultFile": {
+                "uri": "src/main/java/org/apache/commons/io/FileUtils.java",
                 "region": {
                   "startLine": 1183,
                   "startColumn": 33,
@@ -846,6 +899,7 @@
           "locations": [
             {
               "resultFile": {
+                "uri": "src/main/java/org/apache/commons/io/FileUtils.java",
                 "region": {
                   "startLine": 1406,
                   "startColumn": 17,
@@ -862,6 +916,7 @@
           "locations": [
             {
               "resultFile": {
+                "uri": "src/main/java/org/apache/commons/io/FileUtils.java",
                 "region": {
                   "startLine": 1414,
                   "startColumn": 13,
@@ -878,6 +933,7 @@
           "locations": [
             {
               "resultFile": {
+                "uri": "src/main/java/org/apache/commons/io/monitor/FileAlterationMonitor.java",
                 "region": {
                   "startLine": 162,
                   "startColumn": 13,
@@ -894,6 +950,7 @@
           "locations": [
             {
               "resultFile": {
+                "uri": "src/main/java/org/apache/commons/io/FilenameUtils.java",
                 "region": {
                   "startLine": 666,
                   "startColumn": 37,
@@ -910,6 +967,7 @@
           "locations": [
             {
               "resultFile": {
+                "uri": "src/main/java/org/apache/commons/io/output/FileWriterWithEncoding.java",
                 "region": {
                   "startLine": 251,
                   "startColumn": 17,
@@ -926,6 +984,7 @@
           "locations": [
             {
               "resultFile": {
+                "uri": "src/main/java/org/apache/commons/io/FileDeleteStrategy.java",
                 "region": {
                   "startLine": 72,
                   "startColumn": 37,
@@ -942,6 +1001,7 @@
           "locations": [
             {
               "resultFile": {
+                "uri": "src/main/java/org/apache/commons/io/FileDeleteStrategy.java",
                 "region": {
                   "startLine": 93,
                   "startColumn": 38,
@@ -958,6 +1018,7 @@
           "locations": [
             {
               "resultFile": {
+                "uri": "src/main/java/org/apache/commons/io/output/LockableFileWriter.java",
                 "region": {
                   "startLine": 274,
                   "startColumn": 17,
@@ -974,6 +1035,7 @@
           "locations": [
             {
               "resultFile": {
+                "uri": "src/main/java/org/apache/commons/io/IOUtils.java",
                 "region": {
                   "startLine": 2684,
                   "startColumn": 32,
@@ -990,6 +1052,7 @@
           "locations": [
             {
               "resultFile": {
+                "uri": "src/main/java/org/apache/commons/io/monitor/FileAlterationMonitor.java",
                 "region": {
                   "startLine": 108,
                   "startColumn": 48,
@@ -1006,6 +1069,7 @@
           "locations": [
             {
               "resultFile": {
+                "uri": "src/main/java/org/apache/commons/io/monitor/FileAlterationObserver.java",
                 "region": {
                   "startLine": 257,
                   "startColumn": 48,
@@ -1022,6 +1086,7 @@
           "locations": [
             {
               "resultFile": {
+                "uri": "src/main/java/org/apache/commons/io/FileUtils.java",
                 "region": {
                   "startLine": 1124,
                   "startColumn": 48,
@@ -1038,6 +1103,7 @@
           "locations": [
             {
               "resultFile": {
+                "uri": "src/main/java/org/apache/commons/io/FileUtils.java",
                 "region": {
                   "startLine": 1138,
                   "startColumn": 50,
@@ -1054,6 +1120,7 @@
           "locations": [
             {
               "resultFile": {
+                "uri": "src/main/java/org/apache/commons/io/FileUtils.java",
                 "region": {
                   "startLine": 1139,
                   "startColumn": 51,
@@ -1070,6 +1137,7 @@
           "locations": [
             {
               "resultFile": {
+                "uri": "src/main/java/org/apache/commons/io/filefilter/MagicNumberFileFilter.java",
                 "region": {
                   "startLine": 264,
                   "startColumn": 79,
@@ -1086,6 +1154,7 @@
           "locations": [
             {
               "resultFile": {
+                "uri": "src/main/java/org/apache/commons/io/output/TeeOutputStream.java",
                 "region": {
                   "startLine": 32,
                   "startColumn": 38,
@@ -1102,6 +1171,7 @@
           "locations": [
             {
               "resultFile": {
+                "uri": "src/main/java/org/apache/commons/io/input/BOMInputStream.java",
                 "region": {
                   "startLine": 290,
                   "startColumn": 9,
@@ -1118,6 +1188,7 @@
           "locations": [
             {
               "resultFile": {
+                "uri": "src/main/java/org/apache/commons/io/IOUtils.java",
                 "region": {
                   "startLine": 1472,
                   "startColumn": 31,
@@ -1134,6 +1205,7 @@
           "locations": [
             {
               "resultFile": {
+                "uri": "src/main/java/org/apache/commons/io/IOUtils.java",
                 "region": {
                   "startLine": 1492,
                   "startColumn": 31,
@@ -1150,6 +1222,7 @@
           "locations": [
             {
               "resultFile": {
+                "uri": "src/main/java/org/apache/commons/io/IOUtils.java",
                 "region": {
                   "startLine": 1778,
                   "startColumn": 24,
@@ -1166,6 +1239,7 @@
           "locations": [
             {
               "resultFile": {
+                "uri": "src/main/java/org/apache/commons/io/IOUtils.java",
                 "region": {
                   "startLine": 1817,
                   "startColumn": 24,
@@ -1182,6 +1256,7 @@
           "locations": [
             {
               "resultFile": {
+                "uri": "src/main/java/org/apache/commons/io/IOUtils.java",
                 "region": {
                   "startLine": 1842,
                   "startColumn": 24,
@@ -1198,6 +1273,7 @@
           "locations": [
             {
               "resultFile": {
+                "uri": "src/main/java/org/apache/commons/io/filefilter/FileFilterUtils.java",
                 "region": {
                   "startLine": 503,
                   "startColumn": 32,
@@ -1214,6 +1290,7 @@
           "locations": [
             {
               "resultFile": {
+                "uri": "src/main/java/org/apache/commons/io/FileUtils.java",
                 "region": {
                   "startLine": 79,
                   "startColumn": 14,
@@ -1230,6 +1307,7 @@
           "locations": [
             {
               "resultFile": {
+                "uri": "src/main/java/org/apache/commons/io/output/TeeOutputStream.java",
                 "region": {
                   "startLine": 29,
                   "startColumn": 14,
@@ -1246,6 +1324,7 @@
           "locations": [
             {
               "resultFile": {
+                "uri": "src/main/java/org/apache/commons/io/input/TeeInputStream.java",
                 "region": {
                   "startLine": 40,
                   "startColumn": 14,
@@ -1262,6 +1341,7 @@
           "locations": [
             {
               "resultFile": {
+                "uri": "src/main/java/org/apache/commons/io/FileUtils.java",
                 "region": {}
               }
             }

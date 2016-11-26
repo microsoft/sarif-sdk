@@ -114,6 +114,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                         {
                             ResultFile = new PhysicalLocation
                             {
+                                Uri = new Uri(GetString(fields, FieldIndex.RelativePath), UriKind.Relative),
                                 Region = new Region
                                 {
                                     StartLine = GetInteger(fields, FieldIndex.StartLine),
@@ -128,9 +129,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 : null;
         }
 
+        private string GetString(string[] fields, FieldIndex fieldIndex)
+        {
+            return fields[(int)fieldIndex];
+        }
+
         private int GetInteger(string[] fields, FieldIndex fieldIndex)
         {
-            string field = fields[(int)fieldIndex];
+            string field = GetString(fields, fieldIndex);
             int value;
             if (!int.TryParse(field, out value))
             {
