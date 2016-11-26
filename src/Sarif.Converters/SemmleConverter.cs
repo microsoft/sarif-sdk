@@ -19,10 +19,18 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         private static readonly string[] s_delimiters = new[] { "," };
 
         // The fields are as follows:
-        private enum FieldIndices
+        private enum FieldIndex
         {
-            Severity = 2,
-            Message = 3
+            QueryName,
+            QueryDescription,
+            Severity,
+            Message,
+            RelativePath,
+            Path,
+            StartLine,
+            StartColumn,
+            EndLine,
+            EndColumn
         }
 
         private TextFieldParser _parser;
@@ -98,10 +106,44 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             return fields != null
                 ? new Result
                 {
-                    Level = ResultLevelFromSemmleSeverity(fields[(int)FieldIndices.Severity]),
-                    Message = fields[(int)FieldIndices.Message]
+                    Level = ResultLevelFromSemmleSeverity(fields[(int)FieldIndex.Severity]),
+                    Message = fields[(int)FieldIndex.Message],
+                    Locations = new Location[]
+                    {
+                        new Location
+                        {
+                            ResultFile = new PhysicalLocation
+                            {
+                                Region = new Region
+                                {
+                                    StartLine = GetInteger(fields, FieldIndex.StartLine),
+                                    StartColumn = GetInteger(fields, FieldIndex.StartColumn),
+                                    EndLine = GetInteger(fields, FieldIndex.EndLine),
+                                    EndColumn = GetInteger(fields, FieldIndex.EndColumn)
+                                }
+                            }
+                        }
+                    }
                 }
                 : null;
+        }
+
+        private int GetInteger(string[] fields, FieldIndex fieldIndex)
+        {
+            string field = fields[(int)fieldIndex];
+            int value;
+            if (!int.TryParse(field, out value))
+            {
+                value = 0;
+                AddToolNotification(
+                    "InvalidInteger",
+                    NotificationLevel.Error,
+                    ConverterResources.SemmleInvalidInteger,
+                    field,
+                    fieldIndex);
+            }
+
+            return value;
         }
 
         private ResultLevel ResultLevelFromSemmleSeverity(string semmleSeverity)
@@ -120,7 +162,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 default:
                     AddToolNotification(
                         "UnknownSeverity",
-                        NotificationLevel.Warning,
+                        NotificationLevel.Error,
                         ConverterResources.SemmleUnknownSeverity,
                         semmleSeverity);
                     return ResultLevel.Warning;

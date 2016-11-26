@@ -192,6 +192,9 @@
   <data name="ExpectedElementNamed" xml:space="preserve">
     <value>Expected to find an element named {0}.</value>
   </data>
+  <data name="SemmleInvalidInteger" xml:space="preserve">
+    <value>The value "{0}" in the {1} field is not an integer.</value>
+  </data>
   <data name="SemmleNotificationFormat" xml:space="preserve">
     <value>Line {0}: {1}</value>
   </data>

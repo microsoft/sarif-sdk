@@ -286,6 +286,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The value &quot;{0}&quot; in the {1} field is not an integer..
+        /// </summary>
+        internal static string SemmleInvalidInteger {
+            get {
+                return ResourceManager.GetString("SemmleInvalidInteger", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Line {0}: {1}.
         /// </summary>
         internal static string SemmleNotificationFormat {

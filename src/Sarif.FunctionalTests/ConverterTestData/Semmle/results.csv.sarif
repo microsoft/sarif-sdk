@@ -9,323 +9,1263 @@
       "results": [
         {
           "level": "warning",
-          "message": "Avoid using thread priorities. The effect is unpredictable and not portable."
+          "message": "Avoid using thread priorities. The effect is unpredictable and not portable.",
+          "locations": [
+            {
+              "resultFile": {
+                "region": {
+                  "startLine": 211,
+                  "startColumn": 13,
+                  "endLine": 211,
+                  "endColumn": 44
+                }
+              }
+            }
+          ]
         },
         {
           "level": "warning",
-          "message": "Incorrect lazy initialization of static field [[\"SKIP_BYTE_BUFFER\"|\"relative://src/main/java/org/apache/commons/io/IOUtils.java:170:6561:16\"]]: Missing synchronization."
+          "message": "Incorrect lazy initialization of static field [[\"SKIP_BYTE_BUFFER\"|\"relative://src/main/java/org/apache/commons/io/IOUtils.java:170:6561:16\"]]: Missing synchronization.",
+          "locations": [
+            {
+              "resultFile": {
+                "region": {
+                  "startLine": 2718,
+                  "startColumn": 13,
+                  "endLine": 2718,
+                  "endColumn": 57
+                }
+              }
+            }
+          ]
         },
         {
           "level": "warning",
-          "message": "Incorrect lazy initialization of static field [[\"SKIP_CHAR_BUFFER\"|\"relative://src/main/java/org/apache/commons/io/IOUtils.java:169:6517:16\"]]: Missing synchronization."
+          "message": "Incorrect lazy initialization of static field [[\"SKIP_CHAR_BUFFER\"|\"relative://src/main/java/org/apache/commons/io/IOUtils.java:169:6517:16\"]]: Missing synchronization.",
+          "locations": [
+            {
+              "resultFile": {
+                "region": {
+                  "startLine": 2793,
+                  "startColumn": 13,
+                  "endLine": 2793,
+                  "endColumn": 57
+                }
+              }
+            }
+          ]
         },
         {
           "level": "warning",
-          "message": "Prefer wait/notify or java.util.concurrent to communicate between threads."
+          "message": "Prefer wait/notify or java.util.concurrent to communicate between threads.",
+          "locations": [
+            {
+              "resultFile": {
+                "region": {
+                  "startLine": 1708,
+                  "startColumn": 21,
+                  "endLine": 1708,
+                  "endColumn": 59
+                }
+              }
+            }
+          ]
         },
         {
           "level": "warning",
-          "message": "Prefer wait/notify or java.util.concurrent to communicate between threads."
+          "message": "Prefer wait/notify or java.util.concurrent to communicate between threads.",
+          "locations": [
+            {
+              "resultFile": {
+                "region": {
+                  "startLine": 418,
+                  "startColumn": 21,
+                  "endLine": 418,
+                  "endColumn": 46
+                }
+              }
+            }
+          ]
         },
         {
           "level": "warning",
-          "message": "Prefer wait/notify or java.util.concurrent to communicate between threads."
+          "message": "Prefer wait/notify or java.util.concurrent to communicate between threads.",
+          "locations": [
+            {
+              "resultFile": {
+                "region": {
+                  "startLine": 473,
+                  "startColumn": 17,
+                  "endLine": 473,
+                  "endColumn": 42
+                }
+              }
+            }
+          ]
         },
         {
           "level": "warning",
-          "message": "Prefer wait/notify or java.util.concurrent to communicate between threads."
+          "message": "Prefer wait/notify or java.util.concurrent to communicate between threads.",
+          "locations": [
+            {
+              "resultFile": {
+                "region": {
+                  "startLine": 188,
+                  "startColumn": 17,
+                  "endLine": 188,
+                  "endColumn": 39
+                }
+              }
+            }
+          ]
         },
         {
           "level": "warning",
-          "message": "Variable [[\"reader\"|\"relative://src/main/java/org/apache/commons/io/input/Tailer.java:406:15061:31\"]] may be null here."
+          "message": "Variable [[\"reader\"|\"relative://src/main/java/org/apache/commons/io/input/Tailer.java:406:15061:31\"]] may be null here.",
+          "locations": [
+            {
+              "resultFile": {
+                "region": {
+                  "startLine": 463,
+                  "startColumn": 25,
+                  "endLine": 463,
+                  "endColumn": 30
+                }
+              }
+            }
+          ]
         },
         {
           "level": "warning",
-          "message": "Exceptions should not be dropped."
+          "message": "Exceptions should not be dropped.",
+          "locations": [
+            {
+              "resultFile": {
+                "region": {
+                  "startLine": 1580,
+                  "startColumn": 11,
+                  "endLine": 1580,
+                  "endColumn": 41
+                }
+              }
+            }
+          ]
         },
         {
           "level": "warning",
-          "message": "Exceptions should not be dropped."
+          "message": "Exceptions should not be dropped.",
+          "locations": [
+            {
+              "resultFile": {
+                "region": {
+                  "startLine": 189,
+                  "startColumn": 15,
+                  "endLine": 189,
+                  "endColumn": 56
+                }
+              }
+            }
+          ]
         },
         {
           "level": "error",
-          "message": "This BOMInputStream is not always closed on method exit."
+          "message": "This BOMInputStream is not always closed on method exit.",
+          "locations": [
+            {
+              "resultFile": {
+                "region": {
+                  "startLine": 269,
+                  "startColumn": 36,
+                  "endLine": 269,
+                  "endColumn": 108
+                }
+              }
+            }
+          ]
         },
         {
           "level": "error",
-          "message": "This BOMInputStream is not always closed on method exit."
+          "message": "This BOMInputStream is not always closed on method exit.",
+          "locations": [
+            {
+              "resultFile": {
+                "region": {
+                  "startLine": 270,
+                  "startColumn": 36,
+                  "endLine": 270,
+                  "endColumn": 81
+                }
+              }
+            }
+          ]
         },
         {
           "level": "note",
-          "message": "Method doCopyFile ignores exceptional return value of File.setLastModified."
+          "message": "Method doCopyFile ignores exceptional return value of File.setLastModified.",
+          "locations": [
+            {
+              "resultFile": {
+                "region": {
+                  "startLine": 1145,
+                  "startColumn": 13,
+                  "endLine": 1145,
+                  "endColumn": 60
+                }
+              }
+            }
+          ]
         },
         {
           "level": "note",
-          "message": "Method doCopyDirectory ignores exceptional return value of File.setLastModified."
+          "message": "Method doCopyDirectory ignores exceptional return value of File.setLastModified.",
+          "locations": [
+            {
+              "resultFile": {
+                "region": {
+                  "startLine": 1430,
+                  "startColumn": 13,
+                  "endLine": 1430,
+                  "endColumn": 58
+                }
+              }
+            }
+          ]
         },
         {
           "level": "warning",
-          "message": "This field is in a serializable class,  but is not serializable itself because CharSequence is not serializable."
+          "message": "This field is in a serializable class,  but is not serializable itself because CharSequence is not serializable.",
+          "locations": [
+            {
+              "resultFile": {
+                "region": {
+                  "startLine": 36,
+                  "startColumn": 32,
+                  "endLine": 36,
+                  "endColumn": 43
+                }
+              }
+            }
+          ]
         },
         {
           "level": "warning",
-          "message": "This field is in a serializable class,  but is not serializable itself because Comparator<File> is not serializable."
+          "message": "This field is in a serializable class,  but is not serializable itself because Comparator<File> is not serializable.",
+          "locations": [
+            {
+              "resultFile": {
+                "region": {
+                  "startLine": 33,
+                  "startColumn": 36,
+                  "endLine": 33,
+                  "endColumn": 43
+                }
+              }
+            }
+          ]
         },
         {
           "level": "warning",
-          "message": "This field is in a serializable class,  but is not serializable itself because Comparator<File> is not serializable."
+          "message": "This field is in a serializable class,  but is not serializable itself because Comparator<File> is not serializable.",
+          "locations": [
+            {
+              "resultFile": {
+                "region": {
+                  "startLine": 128,
+                  "startColumn": 36,
+                  "endLine": 128,
+                  "endColumn": 45
+                }
+              }
+            }
+          ]
         },
         {
           "level": "warning",
-          "message": "This field is in a serializable class,  but is not serializable itself because IOFileFilter is not serializable."
+          "message": "This field is in a serializable class,  but is not serializable itself because IOFileFilter is not serializable.",
+          "locations": [
+            {
+              "resultFile": {
+                "region": {
+                  "startLine": 44,
+                  "startColumn": 38,
+                  "endLine": 44,
+                  "endColumn": 48
+                }
+              }
+            }
+          ]
         },
         {
           "level": "warning",
-          "message": "This field is in a serializable class,  but is not serializable itself because IOFileFilter is not serializable."
+          "message": "This field is in a serializable class,  but is not serializable itself because IOFileFilter is not serializable.",
+          "locations": [
+            {
+              "resultFile": {
+                "region": {
+                  "startLine": 42,
+                  "startColumn": 38,
+                  "endLine": 42,
+                  "endColumn": 48
+                }
+              }
+            }
+          ]
         },
         {
           "level": "warning",
-          "message": "This field is in a serializable class,  but is not serializable itself because IOFileFilter is not serializable."
+          "message": "This field is in a serializable class,  but is not serializable itself because IOFileFilter is not serializable.",
+          "locations": [
+            {
+              "resultFile": {
+                "region": {
+                  "startLine": 33,
+                  "startColumn": 32,
+                  "endLine": 33,
+                  "endColumn": 37
+                }
+              }
+            }
+          ]
         },
         {
           "level": "warning",
-          "message": "This field is in a serializable class,  but is not serializable itself because FileAlterationListener is not serializable."
+          "message": "This field is in a serializable class,  but is not serializable itself because FileAlterationListener is not serializable.",
+          "locations": [
+            {
+              "resultFile": {
+                "region": {
+                  "startLine": 125,
+                  "startColumn": 48,
+                  "endLine": 125,
+                  "endColumn": 87
+                }
+              }
+            }
+          ]
         },
         {
           "level": "warning",
-          "message": "This field is in a serializable class,  but is not serializable itself because FileFilter is not serializable."
+          "message": "This field is in a serializable class,  but is not serializable itself because FileFilter is not serializable.",
+          "locations": [
+            {
+              "resultFile": {
+                "region": {
+                  "startLine": 127,
+                  "startColumn": 30,
+                  "endLine": 127,
+                  "endColumn": 39
+                }
+              }
+            }
+          ]
         },
         {
           "level": "warning",
-          "message": "This field is in a serializable class,  but is not serializable itself because FileFilter is not serializable."
+          "message": "This field is in a serializable class,  but is not serializable itself because FileFilter is not serializable.",
+          "locations": [
+            {
+              "resultFile": {
+                "region": {
+                  "startLine": 39,
+                  "startColumn": 30,
+                  "endLine": 39,
+                  "endColumn": 39
+                }
+              }
+            }
+          ]
         },
         {
           "level": "warning",
-          "message": "This field is in a serializable class,  but is not serializable itself because FilenameFilter is not serializable."
+          "message": "This field is in a serializable class,  but is not serializable itself because FilenameFilter is not serializable.",
+          "locations": [
+            {
+              "resultFile": {
+                "region": {
+                  "startLine": 37,
+                  "startColumn": 34,
+                  "endLine": 37,
+                  "endColumn": 47
+                }
+              }
+            }
+          ]
         },
         {
           "level": "note",
-          "message": "toUpperCase without locale parameter."
+          "message": "toUpperCase without locale parameter.",
+          "locations": [
+            {
+              "resultFile": {
+                "region": {
+                  "startLine": 745,
+                  "startColumn": 32,
+                  "endLine": 745,
+                  "endColumn": 55
+                }
+              }
+            }
+          ]
         },
         {
           "level": "note",
-          "message": "toUpperCase without locale parameter."
+          "message": "toUpperCase without locale parameter.",
+          "locations": [
+            {
+              "resultFile": {
+                "region": {
+                  "startLine": 172,
+                  "startColumn": 36,
+                  "endLine": 172,
+                  "endColumn": 59
+                }
+              }
+            }
+          ]
         },
         {
           "level": "note",
-          "message": "toUpperCase without locale parameter."
+          "message": "toUpperCase without locale parameter.",
+          "locations": [
+            {
+              "resultFile": {
+                "region": {
+                  "startLine": 185,
+                  "startColumn": 28,
+                  "endLine": 185,
+                  "endColumn": 77
+                }
+              }
+            }
+          ]
         },
         {
           "level": "note",
-          "message": "This type and type [[\"IOUtils\"|\"relative://src/main/java/org/apache/commons/io/IOUtils.java:100:4192:7\"]] are mutually dependent."
+          "message": "This type and type [[\"IOUtils\"|\"relative://src/main/java/org/apache/commons/io/IOUtils.java:100:4192:7\"]] are mutually dependent.",
+          "locations": [
+            {
+              "resultFile": {
+                "region": {
+                  "startLine": 57,
+                  "startColumn": 14,
+                  "endLine": 57,
+                  "endColumn": 34
+                }
+              }
+            }
+          ]
         },
         {
           "level": "note",
-          "message": "Method toString is duplicated in [[\"org.apache.commons.io.filefilter.OrFileFilter\"|\"relative://src/main/java/org/apache/commons/io/filefilter/OrFileFilter.java:145:4336:8\"]]."
+          "message": "Method toString is duplicated in [[\"org.apache.commons.io.filefilter.OrFileFilter\"|\"relative://src/main/java/org/apache/commons/io/filefilter/OrFileFilter.java:145:4336:8\"]].",
+          "locations": [
+            {
+              "resultFile": {
+                "region": {
+                  "startLine": 153,
+                  "startColumn": 19,
+                  "endLine": 153,
+                  "endColumn": 26
+                }
+              }
+            }
+          ]
         },
         {
           "level": "note",
-          "message": "Method resetCount is duplicated in [[\"org.apache.commons.io.output.CountingOutputStream\"|\"relative://src/main/java/org/apache/commons/io/output/CountingOutputStream.java:86:3021:10\"]]."
+          "message": "Method resetCount is duplicated in [[\"org.apache.commons.io.output.CountingOutputStream\"|\"relative://src/main/java/org/apache/commons/io/output/CountingOutputStream.java:86:3021:10\"]].",
+          "locations": [
+            {
+              "resultFile": {
+                "region": {
+                  "startLine": 107,
+                  "startColumn": 16,
+                  "endLine": 107,
+                  "endColumn": 25
+                }
+              }
+            }
+          ]
         },
         {
           "level": "note",
-          "message": "Method mark is duplicated in [[\"org.apache.commons.io.input.NullInputStream\"|\"relative://src/main/java/org/apache/commons/io/input/NullInputStream.java:158:4876:4\"]]."
+          "message": "Method mark is duplicated in [[\"org.apache.commons.io.input.NullInputStream\"|\"relative://src/main/java/org/apache/commons/io/input/NullInputStream.java:158:4876:4\"]].",
+          "locations": [
+            {
+              "resultFile": {
+                "region": {
+                  "startLine": 141,
+                  "startColumn": 30,
+                  "endLine": 141,
+                  "endColumn": 33
+                }
+              }
+            }
+          ]
         },
         {
           "level": "note",
-          "message": "Method resetCount is duplicated in [[\"org.apache.commons.io.input.CountingInputStream\"|\"relative://src/main/java/org/apache/commons/io/input/CountingInputStream.java:107:3626:10\"]]."
+          "message": "Method resetCount is duplicated in [[\"org.apache.commons.io.input.CountingInputStream\"|\"relative://src/main/java/org/apache/commons/io/input/CountingInputStream.java:107:3626:10\"]].",
+          "locations": [
+            {
+              "resultFile": {
+                "region": {
+                  "startLine": 86,
+                  "startColumn": 16,
+                  "endLine": 86,
+                  "endColumn": 25
+                }
+              }
+            }
+          ]
         },
         {
           "level": "note",
-          "message": "Method toString is duplicated in [[\"org.apache.commons.io.filefilter.AndFileFilter\"|\"relative://src/main/java/org/apache/commons/io/filefilter/AndFileFilter.java:153:4515:8\"]]."
+          "message": "Method toString is duplicated in [[\"org.apache.commons.io.filefilter.AndFileFilter\"|\"relative://src/main/java/org/apache/commons/io/filefilter/AndFileFilter.java:153:4515:8\"]].",
+          "locations": [
+            {
+              "resultFile": {
+                "region": {
+                  "startLine": 145,
+                  "startColumn": 19,
+                  "endLine": 145,
+                  "endColumn": 26
+                }
+              }
+            }
+          ]
         },
         {
           "level": "note",
-          "message": "Method flush is duplicated in [[\"org.apache.commons.io.output.ProxyWriter\"|\"relative://src/main/java/org/apache/commons/io/output/ProxyWriter.java:208:6333:5\"]]."
+          "message": "Method flush is duplicated in [[\"org.apache.commons.io.output.ProxyWriter\"|\"relative://src/main/java/org/apache/commons/io/output/ProxyWriter.java:208:6333:5\"]].",
+          "locations": [
+            {
+              "resultFile": {
+                "region": {
+                  "startLine": 102,
+                  "startColumn": 17,
+                  "endLine": 102,
+                  "endColumn": 21
+                }
+              }
+            }
+          ]
         },
         {
           "level": "note",
-          "message": "Method close is duplicated in [[\"org.apache.commons.io.output.ProxyWriter\"|\"relative://src/main/java/org/apache/commons/io/output/ProxyWriter.java:221:6647:5\"]]."
+          "message": "Method close is duplicated in [[\"org.apache.commons.io.output.ProxyWriter\"|\"relative://src/main/java/org/apache/commons/io/output/ProxyWriter.java:221:6647:5\"]].",
+          "locations": [
+            {
+              "resultFile": {
+                "region": {
+                  "startLine": 115,
+                  "startColumn": 17,
+                  "endLine": 115,
+                  "endColumn": 21
+                }
+              }
+            }
+          ]
         },
         {
           "level": "note",
-          "message": "Method flush is duplicated in [[\"org.apache.commons.io.output.ProxyOutputStream\"|\"relative://src/main/java/org/apache/commons/io/output/ProxyOutputStream.java:102:3336:5\"]]."
+          "message": "Method flush is duplicated in [[\"org.apache.commons.io.output.ProxyOutputStream\"|\"relative://src/main/java/org/apache/commons/io/output/ProxyOutputStream.java:102:3336:5\"]].",
+          "locations": [
+            {
+              "resultFile": {
+                "region": {
+                  "startLine": 208,
+                  "startColumn": 17,
+                  "endLine": 208,
+                  "endColumn": 21
+                }
+              }
+            }
+          ]
         },
         {
           "level": "note",
-          "message": "Method close is duplicated in [[\"org.apache.commons.io.output.ProxyOutputStream\"|\"relative://src/main/java/org/apache/commons/io/output/ProxyOutputStream.java:115:3650:5\"]]."
+          "message": "Method close is duplicated in [[\"org.apache.commons.io.output.ProxyOutputStream\"|\"relative://src/main/java/org/apache/commons/io/output/ProxyOutputStream.java:115:3650:5\"]].",
+          "locations": [
+            {
+              "resultFile": {
+                "region": {
+                  "startLine": 221,
+                  "startColumn": 17,
+                  "endLine": 221,
+                  "endColumn": 21
+                }
+              }
+            }
+          ]
         },
         {
           "level": "note",
-          "message": "Method mark is duplicated in [[\"org.apache.commons.io.input.NullReader\"|\"relative://src/main/java/org/apache/commons/io/input/NullReader.java:141:4390:4\"]]."
+          "message": "Method mark is duplicated in [[\"org.apache.commons.io.input.NullReader\"|\"relative://src/main/java/org/apache/commons/io/input/NullReader.java:141:4390:4\"]].",
+          "locations": [
+            {
+              "resultFile": {
+                "region": {
+                  "startLine": 158,
+                  "startColumn": 30,
+                  "endLine": 158,
+                  "endColumn": 33
+                }
+              }
+            }
+          ]
         },
         {
           "level": "note",
-          "message": "83% of the statements in read are duplicated in [[\"NullInputStream.read()\"|\"relative://src/main/java/org/apache/commons/io/input/NullInputStream.java:187:5773:4\"]]."
+          "message": "83% of the statements in read are duplicated in [[\"NullInputStream.read()\"|\"relative://src/main/java/org/apache/commons/io/input/NullInputStream.java:187:5773:4\"]].",
+          "locations": [
+            {
+              "resultFile": {
+                "region": {
+                  "startLine": 170,
+                  "startColumn": 16,
+                  "endLine": 170,
+                  "endColumn": 19
+                }
+              }
+            }
+          ]
         },
         {
           "level": "note",
-          "message": "83% of the statements in read are duplicated in [[\"NullReader.read()\"|\"relative://src/main/java/org/apache/commons/io/input/NullReader.java:170:5297:4\"]]."
+          "message": "83% of the statements in read are duplicated in [[\"NullReader.read()\"|\"relative://src/main/java/org/apache/commons/io/input/NullReader.java:170:5297:4\"]].",
+          "locations": [
+            {
+              "resultFile": {
+                "region": {
+                  "startLine": 187,
+                  "startColumn": 16,
+                  "endLine": 187,
+                  "endColumn": 19
+                }
+              }
+            }
+          ]
         },
         {
           "level": "note",
-          "message": "91% of the lines in SuffixFileFilter are similar to lines in [[\"PrefixFileFilter\"|\"relative://src/main/java/org/apache/commons/io/filefilter/PrefixFileFilter.java:0:0:0\"]]."
+          "message": "91% of the lines in SuffixFileFilter are similar to lines in [[\"PrefixFileFilter\"|\"relative://src/main/java/org/apache/commons/io/filefilter/PrefixFileFilter.java:0:0:0\"]].",
+          "locations": [
+            {
+              "resultFile": {
+                "region": {}
+              }
+            }
+          ]
         },
         {
           "level": "note",
-          "message": "86% of the lines in TaggedOutputStream are similar to lines in [[\"TaggedInputStream\"|\"relative://src/main/java/org/apache/commons/io/input/TaggedInputStream.java:0:0:0\"]]."
+          "message": "86% of the lines in TaggedOutputStream are similar to lines in [[\"TaggedInputStream\"|\"relative://src/main/java/org/apache/commons/io/input/TaggedInputStream.java:0:0:0\"]].",
+          "locations": [
+            {
+              "resultFile": {
+                "region": {}
+              }
+            }
+          ]
         },
         {
           "level": "note",
-          "message": "86% of the lines in TaggedInputStream are similar to lines in [[\"TaggedOutputStream\"|\"relative://src/main/java/org/apache/commons/io/output/TaggedOutputStream.java:0:0:0\"]]."
+          "message": "86% of the lines in TaggedInputStream are similar to lines in [[\"TaggedOutputStream\"|\"relative://src/main/java/org/apache/commons/io/output/TaggedOutputStream.java:0:0:0\"]].",
+          "locations": [
+            {
+              "resultFile": {
+                "region": {}
+              }
+            }
+          ]
         },
         {
           "level": "note",
-          "message": "Inefficient comparison to empty string, check for zero length instead."
+          "message": "Inefficient comparison to empty string, check for zero length instead.",
+          "locations": [
+            {
+              "resultFile": {
+                "region": {
+                  "startLine": 188,
+                  "startColumn": 12,
+                  "endLine": 188,
+                  "endColumn": 26
+                }
+              }
+            }
+          ]
         },
         {
           "level": "note",
-          "message": "This empty statement should be deleted."
+          "message": "This empty statement should be deleted.",
+          "locations": [
+            {
+              "resultFile": {
+                "region": {
+                  "startLine": 339,
+                  "startColumn": 10,
+                  "endLine": 339,
+                  "endColumn": 10
+                }
+              }
+            }
+          ]
         },
         {
           "level": "note",
-          "message": "Expressions of the form \"A == false\" can be simplified to \"!A\"."
+          "message": "Expressions of the form \"A == false\" can be simplified to \"!A\".",
+          "locations": [
+            {
+              "resultFile": {
+                "region": {
+                  "startLine": 222,
+                  "startColumn": 20,
+                  "endLine": 222,
+                  "endColumn": 44
+                }
+              }
+            }
+          ]
         },
         {
           "level": "note",
-          "message": "Expressions of the form \"A == false\" can be simplified to \"!A\"."
+          "message": "Expressions of the form \"A == false\" can be simplified to \"!A\".",
+          "locations": [
+            {
+              "resultFile": {
+                "region": {
+                  "startLine": 293,
+                  "startColumn": 17,
+                  "endLine": 293,
+                  "endColumn": 39
+                }
+              }
+            }
+          ]
         },
         {
           "level": "note",
-          "message": "Expressions of the form \"A == false\" can be simplified to \"!A\"."
+          "message": "Expressions of the form \"A == false\" can be simplified to \"!A\".",
+          "locations": [
+            {
+              "resultFile": {
+                "region": {
+                  "startLine": 354,
+                  "startColumn": 17,
+                  "endLine": 354,
+                  "endColumn": 40
+                }
+              }
+            }
+          ]
         },
         {
           "level": "note",
-          "message": "Expressions of the form \"A == false\" can be simplified to \"!A\"."
+          "message": "Expressions of the form \"A == false\" can be simplified to \"!A\".",
+          "locations": [
+            {
+              "resultFile": {
+                "region": {
+                  "startLine": 907,
+                  "startColumn": 21,
+                  "endLine": 907,
+                  "endColumn": 61
+                }
+              }
+            }
+          ]
         },
         {
           "level": "note",
-          "message": "Expressions of the form \"A == false\" can be simplified to \"!A\"."
+          "message": "Expressions of the form \"A == false\" can be simplified to \"!A\".",
+          "locations": [
+            {
+              "resultFile": {
+                "region": {
+                  "startLine": 995,
+                  "startColumn": 33,
+                  "endLine": 995,
+                  "endColumn": 62
+                }
+              }
+            }
+          ]
         },
         {
           "level": "note",
-          "message": "Expressions of the form \"A == false\" can be simplified to \"!A\"."
+          "message": "Expressions of the form \"A == false\" can be simplified to \"!A\".",
+          "locations": [
+            {
+              "resultFile": {
+                "region": {
+                  "startLine": 1072,
+                  "startColumn": 34,
+                  "endLine": 1072,
+                  "endColumn": 61
+                }
+              }
+            }
+          ]
         },
         {
           "level": "note",
-          "message": "Expressions of the form \"A == false\" can be simplified to \"!A\"."
+          "message": "Expressions of the form \"A == false\" can be simplified to \"!A\".",
+          "locations": [
+            {
+              "resultFile": {
+                "region": {
+                  "startLine": 1177,
+                  "startColumn": 32,
+                  "endLine": 1177,
+                  "endColumn": 60
+                }
+              }
+            }
+          ]
         },
         {
           "level": "note",
-          "message": "Expressions of the form \"A == false\" can be simplified to \"!A\"."
+          "message": "Expressions of the form \"A == false\" can be simplified to \"!A\".",
+          "locations": [
+            {
+              "resultFile": {
+                "region": {
+                  "startLine": 1183,
+                  "startColumn": 33,
+                  "endLine": 1183,
+                  "endColumn": 62
+                }
+              }
+            }
+          ]
         },
         {
           "level": "note",
-          "message": "Expressions of the form \"A == false\" can be simplified to \"!A\"."
+          "message": "Expressions of the form \"A == false\" can be simplified to \"!A\".",
+          "locations": [
+            {
+              "resultFile": {
+                "region": {
+                  "startLine": 1406,
+                  "startColumn": 17,
+                  "endLine": 1406,
+                  "endColumn": 46
+                }
+              }
+            }
+          ]
         },
         {
           "level": "note",
-          "message": "Expressions of the form \"A == false\" can be simplified to \"!A\"."
+          "message": "Expressions of the form \"A == false\" can be simplified to \"!A\".",
+          "locations": [
+            {
+              "resultFile": {
+                "region": {
+                  "startLine": 1414,
+                  "startColumn": 13,
+                  "endLine": 1414,
+                  "endColumn": 39
+                }
+              }
+            }
+          ]
         },
         {
           "level": "note",
-          "message": "Expressions of the form \"A == false\" can be simplified to \"!A\"."
+          "message": "Expressions of the form \"A == false\" can be simplified to \"!A\".",
+          "locations": [
+            {
+              "resultFile": {
+                "region": {
+                  "startLine": 162,
+                  "startColumn": 13,
+                  "endLine": 162,
+                  "endColumn": 28
+                }
+              }
+            }
+          ]
         },
         {
           "level": "note",
-          "message": "Expressions of the form \"A == false\" can be simplified to \"!A\"."
+          "message": "Expressions of the form \"A == false\" can be simplified to \"!A\".",
+          "locations": [
+            {
+              "resultFile": {
+                "region": {
+                  "startLine": 666,
+                  "startColumn": 37,
+                  "endLine": 666,
+                  "endColumn": 76
+                }
+              }
+            }
+          ]
         },
         {
           "level": "note",
-          "message": "Expressions of the form \"A == false\" can be simplified to \"!A\"."
+          "message": "Expressions of the form \"A == false\" can be simplified to \"!A\".",
+          "locations": [
+            {
+              "resultFile": {
+                "region": {
+                  "startLine": 251,
+                  "startColumn": 17,
+                  "endLine": 251,
+                  "endColumn": 43
+                }
+              }
+            }
+          ]
         },
         {
           "level": "note",
-          "message": "Expressions of the form \"A == false\" can be simplified to \"!A\"."
+          "message": "Expressions of the form \"A == false\" can be simplified to \"!A\".",
+          "locations": [
+            {
+              "resultFile": {
+                "region": {
+                  "startLine": 72,
+                  "startColumn": 37,
+                  "endLine": 72,
+                  "endColumn": 66
+                }
+              }
+            }
+          ]
         },
         {
           "level": "note",
-          "message": "Expressions of the form \"A == false\" can be simplified to \"!A\"."
+          "message": "Expressions of the form \"A == false\" can be simplified to \"!A\".",
+          "locations": [
+            {
+              "resultFile": {
+                "region": {
+                  "startLine": 93,
+                  "startColumn": 38,
+                  "endLine": 93,
+                  "endColumn": 68
+                }
+              }
+            }
+          ]
         },
         {
           "level": "note",
-          "message": "Expressions of the form \"A == false\" can be simplified to \"!A\"."
+          "message": "Expressions of the form \"A == false\" can be simplified to \"!A\".",
+          "locations": [
+            {
+              "resultFile": {
+                "region": {
+                  "startLine": 274,
+                  "startColumn": 17,
+                  "endLine": 274,
+                  "endColumn": 43
+                }
+              }
+            }
+          ]
         },
         {
           "level": "note",
-          "message": "Expressions of the form \"A ? true : false\" can be simplified to \"A\"."
+          "message": "Expressions of the form \"A ? true : false\" can be simplified to \"A\".",
+          "locations": [
+            {
+              "resultFile": {
+                "region": {
+                  "startLine": 2684,
+                  "startColumn": 32,
+                  "endLine": 2684,
+                  "endColumn": 59
+                }
+              }
+            }
+          ]
         },
         {
           "level": "warning",
-          "message": "The body of a loop should not be empty. Typographical error or missing code?"
+          "message": "The body of a loop should not be empty. Typographical error or missing code?",
+          "locations": [
+            {
+              "resultFile": {
+                "region": {
+                  "startLine": 108,
+                  "startColumn": 48,
+                  "endLine": 109,
+                  "endColumn": 13
+                }
+              }
+            }
+          ]
         },
         {
           "level": "warning",
-          "message": "The body of a loop should not be empty. Typographical error or missing code?"
+          "message": "The body of a loop should not be empty. Typographical error or missing code?",
+          "locations": [
+            {
+              "resultFile": {
+                "region": {
+                  "startLine": 257,
+                  "startColumn": 48,
+                  "endLine": 258,
+                  "endColumn": 13
+                }
+              }
+            }
+          ]
         },
         {
           "level": "note",
-          "message": "TODO/FIXME comment."
+          "message": "TODO/FIXME comment.",
+          "locations": [
+            {
+              "resultFile": {
+                "region": {
+                  "startLine": 1124,
+                  "startColumn": 48,
+                  "endLine": 1124,
+                  "endColumn": 62
+                }
+              }
+            }
+          ]
         },
         {
           "level": "note",
-          "message": "TODO/FIXME comment."
+          "message": "TODO/FIXME comment.",
+          "locations": [
+            {
+              "resultFile": {
+                "region": {
+                  "startLine": 1138,
+                  "startColumn": 50,
+                  "endLine": 1138,
+                  "endColumn": 64
+                }
+              }
+            }
+          ]
         },
         {
           "level": "note",
-          "message": "TODO/FIXME comment."
+          "message": "TODO/FIXME comment.",
+          "locations": [
+            {
+              "resultFile": {
+                "region": {
+                  "startLine": 1139,
+                  "startColumn": 51,
+                  "endLine": 1139,
+                  "endColumn": 65
+                }
+              }
+            }
+          ]
         },
         {
           "level": "note",
-          "message": "TODO/FIXME comment."
+          "message": "TODO/FIXME comment.",
+          "locations": [
+            {
+              "resultFile": {
+                "region": {
+                  "startLine": 264,
+                  "startColumn": 79,
+                  "endLine": 264,
+                  "endColumn": 114
+                }
+              }
+            }
+          ]
         },
         {
           "level": "note",
-          "message": "TODO/FIXME comment."
+          "message": "TODO/FIXME comment.",
+          "locations": [
+            {
+              "resultFile": {
+                "region": {
+                  "startLine": 32,
+                  "startColumn": 38,
+                  "endLine": 32,
+                  "endColumn": 70
+                }
+              }
+            }
+          ]
         },
         {
           "level": "warning",
-          "message": "This comment appears to contain commented-out code."
+          "message": "This comment appears to contain commented-out code.",
+          "locations": [
+            {
+              "resultFile": {
+                "region": {
+                  "startLine": 290,
+                  "startColumn": 9,
+                  "endLine": 293,
+                  "endColumn": 54
+                }
+              }
+            }
+          ]
         },
         {
           "level": "note",
-          "message": "Method IOUtils.toInputStream(..) could be confused with overloaded method [[\"toInputStream\"|\"relative://src/main/java/org/apache/commons/io/IOUtils.java:1521:59539:13\"]], since dispatch depends on static types."
+          "message": "Method IOUtils.toInputStream(..) could be confused with overloaded method [[\"toInputStream\"|\"relative://src/main/java/org/apache/commons/io/IOUtils.java:1521:59539:13\"]], since dispatch depends on static types.",
+          "locations": [
+            {
+              "resultFile": {
+                "region": {
+                  "startLine": 1472,
+                  "startColumn": 31,
+                  "endLine": 1472,
+                  "endColumn": 43
+                }
+              }
+            }
+          ]
         },
         {
           "level": "note",
-          "message": "Method IOUtils.toInputStream(..) could be confused with overloaded method [[\"toInputStream\"|\"relative://src/main/java/org/apache/commons/io/IOUtils.java:1541:60543:13\"]], since dispatch depends on static types."
+          "message": "Method IOUtils.toInputStream(..) could be confused with overloaded method [[\"toInputStream\"|\"relative://src/main/java/org/apache/commons/io/IOUtils.java:1541:60543:13\"]], since dispatch depends on static types.",
+          "locations": [
+            {
+              "resultFile": {
+                "region": {
+                  "startLine": 1492,
+                  "startColumn": 31,
+                  "endLine": 1492,
+                  "endColumn": 43
+                }
+              }
+            }
+          ]
         },
         {
           "level": "note",
-          "message": "Method IOUtils.write(..) could be confused with overloaded method [[\"write\"|\"relative://src/main/java/org/apache/commons/io/IOUtils.java:1859:73538:5\"]], since dispatch depends on static types."
+          "message": "Method IOUtils.write(..) could be confused with overloaded method [[\"write\"|\"relative://src/main/java/org/apache/commons/io/IOUtils.java:1859:73538:5\"]], since dispatch depends on static types.",
+          "locations": [
+            {
+              "resultFile": {
+                "region": {
+                  "startLine": 1778,
+                  "startColumn": 24,
+                  "endLine": 1778,
+                  "endColumn": 28
+                }
+              }
+            }
+          ]
         },
         {
           "level": "note",
-          "message": "Method IOUtils.write(..) could be confused with overloaded method [[\"write\"|\"relative://src/main/java/org/apache/commons/io/IOUtils.java:1898:75031:5\"]], since dispatch depends on static types."
+          "message": "Method IOUtils.write(..) could be confused with overloaded method [[\"write\"|\"relative://src/main/java/org/apache/commons/io/IOUtils.java:1898:75031:5\"]], since dispatch depends on static types.",
+          "locations": [
+            {
+              "resultFile": {
+                "region": {
+                  "startLine": 1817,
+                  "startColumn": 24,
+                  "endLine": 1817,
+                  "endColumn": 28
+                }
+              }
+            }
+          ]
         },
         {
           "level": "note",
-          "message": "Method IOUtils.write(..) could be confused with overloaded method [[\"write\"|\"relative://src/main/java/org/apache/commons/io/IOUtils.java:1922:76152:5\"]], since dispatch depends on static types."
+          "message": "Method IOUtils.write(..) could be confused with overloaded method [[\"write\"|\"relative://src/main/java/org/apache/commons/io/IOUtils.java:1922:76152:5\"]], since dispatch depends on static types.",
+          "locations": [
+            {
+              "resultFile": {
+                "region": {
+                  "startLine": 1842,
+                  "startColumn": 24,
+                  "endLine": 1842,
+                  "endColumn": 28
+                }
+              }
+            }
+          ]
         },
         {
           "level": "note",
-          "message": "Method FileFilterUtils.asFileFilter(..) could be confused with overloaded method [[\"asFileFilter\"|\"relative://src/main/java/org/apache/commons/io/filefilter/FileFilterUtils.java:515:18000:12\"]], since dispatch depends on static types."
+          "message": "Method FileFilterUtils.asFileFilter(..) could be confused with overloaded method [[\"asFileFilter\"|\"relative://src/main/java/org/apache/commons/io/filefilter/FileFilterUtils.java:515:18000:12\"]], since dispatch depends on static types.",
+          "locations": [
+            {
+              "resultFile": {
+                "region": {
+                  "startLine": 503,
+                  "startColumn": 32,
+                  "endLine": 503,
+                  "endColumn": 43
+                }
+              }
+            }
+          ]
         },
         {
           "level": "warning",
-          "message": "Class response too high (430). It is a warning for the value to be higher or equal to 350."
+          "message": "Class response too high (430). It is a warning for the value to be higher or equal to 350.",
+          "locations": [
+            {
+              "resultFile": {
+                "region": {
+                  "startLine": 79,
+                  "startColumn": 14,
+                  "endLine": 79,
+                  "endColumn": 22
+                }
+              }
+            }
+          ]
         },
         {
           "level": "warning",
-          "message": "Type specialization index too high (5). It is a warning for the value to be higher or equal to 4."
+          "message": "Type specialization index too high (5). It is a warning for the value to be higher or equal to 4.",
+          "locations": [
+            {
+              "resultFile": {
+                "region": {
+                  "startLine": 29,
+                  "startColumn": 14,
+                  "endLine": 29,
+                  "endColumn": 28
+                }
+              }
+            }
+          ]
         },
         {
           "level": "warning",
-          "message": "Type specialization index too high (4). It is a warning for the value to be higher or equal to 4."
+          "message": "Type specialization index too high (4). It is a warning for the value to be higher or equal to 4.",
+          "locations": [
+            {
+              "resultFile": {
+                "region": {
+                  "startLine": 40,
+                  "startColumn": 14,
+                  "endLine": 40,
+                  "endColumn": 27
+                }
+              }
+            }
+          ]
         },
         {
           "level": "warning",
-          "message": "Lines of code in files too high (1168). It is a warning for the value to be higher or equal to 1000."
+          "message": "Lines of code in files too high (1168). It is a warning for the value to be higher or equal to 1000.",
+          "locations": [
+            {
+              "resultFile": {
+                "region": {}
+              }
+            }
+          ]
         }
       ]
     }
