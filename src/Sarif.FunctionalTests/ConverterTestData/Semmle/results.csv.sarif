@@ -1,0 +1,253 @@
+{
+  "$schema": "http://json.schemastore.org/sarif-1.0.0",
+  "version": "1.0.0",
+  "runs": [
+    {
+      "tool": {
+        "name": "Semmle"
+      },
+      "results": [
+        {
+          "level": "warning"
+        },
+        {
+          "level": "warning"
+        },
+        {
+          "level": "warning"
+        },
+        {
+          "level": "warning"
+        },
+        {
+          "level": "warning"
+        },
+        {
+          "level": "warning"
+        },
+        {
+          "level": "warning"
+        },
+        {
+          "level": "warning"
+        },
+        {
+          "level": "warning"
+        },
+        {
+          "level": "warning"
+        },
+        {
+          "level": "error"
+        },
+        {
+          "level": "error"
+        },
+        {
+          "level": "note"
+        },
+        {
+          "level": "note"
+        },
+        {
+          "level": "warning"
+        },
+        {
+          "level": "warning"
+        },
+        {
+          "level": "warning"
+        },
+        {
+          "level": "warning"
+        },
+        {
+          "level": "warning"
+        },
+        {
+          "level": "warning"
+        },
+        {
+          "level": "warning"
+        },
+        {
+          "level": "warning"
+        },
+        {
+          "level": "warning"
+        },
+        {
+          "level": "warning"
+        },
+        {
+          "level": "note"
+        },
+        {
+          "level": "note"
+        },
+        {
+          "level": "note"
+        },
+        {
+          "level": "note"
+        },
+        {
+          "level": "note"
+        },
+        {
+          "level": "note"
+        },
+        {
+          "level": "note"
+        },
+        {
+          "level": "note"
+        },
+        {
+          "level": "note"
+        },
+        {
+          "level": "note"
+        },
+        {
+          "level": "note"
+        },
+        {
+          "level": "note"
+        },
+        {
+          "level": "note"
+        },
+        {
+          "level": "note"
+        },
+        {
+          "level": "note"
+        },
+        {
+          "level": "note"
+        },
+        {
+          "level": "note"
+        },
+        {
+          "level": "note"
+        },
+        {
+          "level": "note"
+        },
+        {
+          "level": "note"
+        },
+        {
+          "level": "note"
+        },
+        {
+          "level": "note"
+        },
+        {
+          "level": "note"
+        },
+        {
+          "level": "note"
+        },
+        {
+          "level": "note"
+        },
+        {
+          "level": "note"
+        },
+        {
+          "level": "note"
+        },
+        {
+          "level": "note"
+        },
+        {
+          "level": "note"
+        },
+        {
+          "level": "note"
+        },
+        {
+          "level": "note"
+        },
+        {
+          "level": "note"
+        },
+        {
+          "level": "note"
+        },
+        {
+          "level": "note"
+        },
+        {
+          "level": "note"
+        },
+        {
+          "level": "note"
+        },
+        {
+          "level": "note"
+        },
+        {
+          "level": "note"
+        },
+        {
+          "level": "warning"
+        },
+        {
+          "level": "warning"
+        },
+        {
+          "level": "note"
+        },
+        {
+          "level": "note"
+        },
+        {
+          "level": "note"
+        },
+        {
+          "level": "note"
+        },
+        {
+          "level": "note"
+        },
+        {
+          "level": "warning"
+        },
+        {
+          "level": "note"
+        },
+        {
+          "level": "note"
+        },
+        {
+          "level": "note"
+        },
+        {
+          "level": "note"
+        },
+        {
+          "level": "note"
+        },
+        {
+          "level": "note"
+        },
+        {
+          "level": "warning"
+        },
+        {
+          "level": "warning"
+        },
+        {
+          "level": "warning"
+        },
+        {
+          "level": "warning"
+        }
+      ]
+    }
+  ]
+}

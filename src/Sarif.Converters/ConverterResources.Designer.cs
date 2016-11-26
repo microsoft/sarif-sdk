@@ -284,5 +284,23 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters {
                 return ResourceManager.GetString("FortifyNotValidResult", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Line {0}: {1}.
+        /// </summary>
+        internal static string SemmleNotificationFormat {
+            get {
+                return ResourceManager.GetString("SemmleNotificationFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The severity &quot;{0}&quot; does not correspond to a SARIF result level..
+        /// </summary>
+        internal static string SemmleUnknownSeverity {
+            get {
+                return ResourceManager.GetString("SemmleUnknownSeverity", resourceCulture);
+            }
+        }
     }
 }

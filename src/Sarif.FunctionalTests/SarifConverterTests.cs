@@ -76,7 +76,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         [Fact]
         public void SemmleConverter_EndToEnd()
         {
-            BatchRunConverter(ToolFormat.Semmle, "*.tt", TestMode.CompareFileContents);
+            BatchRunConverter(ToolFormat.Semmle, "*.csv", TestMode.CompareFileContents);
         }
 
         [Fact]

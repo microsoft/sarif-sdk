@@ -192,4 +192,10 @@
   <data name="ExpectedElementNamed" xml:space="preserve">
     <value>Expected to find an element named {0}.</value>
   </data>
+  <data name="SemmleNotificationFormat" xml:space="preserve">
+    <value>Line {0}: {1}</value>
+  </data>
+  <data name="SemmleUnknownSeverity" xml:space="preserve">
+    <value>The severity "{0}" does not correspond to a SARIF result level.</value>
+  </data>
 </root>
