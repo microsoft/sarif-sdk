@@ -85,16 +85,17 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
         private Result[] GetResultsFromStream(Stream input)
         {
-            _parser = new TextFieldParser(input)
+            var results = new List<Result>();
+            using (_parser = new TextFieldParser(input)
             {
                 TextFieldType = FieldType.Delimited,
                 Delimiters = s_delimiters
-            };
-
-            var results = new List<Result>();
-            while (!_parser.EndOfData)
+            })
             {
-                results.Add(ParseResult());
+                while (!_parser.EndOfData)
+                {
+                    results.Add(ParseResult());
+                }
             }
 
             return results.ToArray();
