@@ -103,30 +103,28 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         private Result ParseResult()
         {
             string[] fields = _parser.ReadFields();
-            return fields != null
-                ? new Result
+            return new Result
+            {
+                Level = ResultLevelFromSemmleSeverity(fields[(int)FieldIndex.Severity]),
+                Message = fields[(int)FieldIndex.Message],
+                Locations = new Location[]
                 {
-                    Level = ResultLevelFromSemmleSeverity(fields[(int)FieldIndex.Severity]),
-                    Message = fields[(int)FieldIndex.Message],
-                    Locations = new Location[]
+                    new Location
                     {
-                        new Location
+                        ResultFile = new PhysicalLocation
                         {
-                            ResultFile = new PhysicalLocation
+                            Uri = new Uri(GetString(fields, FieldIndex.RelativePath), UriKind.Relative),
+                            Region = new Region
                             {
-                                Uri = new Uri(GetString(fields, FieldIndex.RelativePath), UriKind.Relative),
-                                Region = new Region
-                                {
-                                    StartLine = GetInteger(fields, FieldIndex.StartLine),
-                                    StartColumn = GetInteger(fields, FieldIndex.StartColumn),
-                                    EndLine = GetInteger(fields, FieldIndex.EndLine),
-                                    EndColumn = GetInteger(fields, FieldIndex.EndColumn)
-                                }
+                                StartLine = GetInteger(fields, FieldIndex.StartLine),
+                                StartColumn = GetInteger(fields, FieldIndex.StartColumn),
+                                EndLine = GetInteger(fields, FieldIndex.EndLine),
+                                EndColumn = GetInteger(fields, FieldIndex.EndColumn)
                             }
                         }
                     }
                 }
-                : null;
+            };
         }
 
         private string GetString(string[] fields, FieldIndex fieldIndex)
