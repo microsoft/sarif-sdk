@@ -8,244 +8,324 @@
       },
       "results": [
         {
-          "level": "warning"
+          "level": "warning",
+          "message": "Avoid using thread priorities. The effect is unpredictable and not portable."
         },
         {
-          "level": "warning"
+          "level": "warning",
+          "message": "Incorrect lazy initialization of static field [[\"SKIP_BYTE_BUFFER\"|\"relative://src/main/java/org/apache/commons/io/IOUtils.java:170:6561:16\"]]: Missing synchronization."
         },
         {
-          "level": "warning"
+          "level": "warning",
+          "message": "Incorrect lazy initialization of static field [[\"SKIP_CHAR_BUFFER\"|\"relative://src/main/java/org/apache/commons/io/IOUtils.java:169:6517:16\"]]: Missing synchronization."
         },
         {
-          "level": "warning"
+          "level": "warning",
+          "message": "Prefer wait/notify or java.util.concurrent to communicate between threads."
         },
         {
-          "level": "warning"
+          "level": "warning",
+          "message": "Prefer wait/notify or java.util.concurrent to communicate between threads."
         },
         {
-          "level": "warning"
+          "level": "warning",
+          "message": "Prefer wait/notify or java.util.concurrent to communicate between threads."
         },
         {
-          "level": "warning"
+          "level": "warning",
+          "message": "Prefer wait/notify or java.util.concurrent to communicate between threads."
         },
         {
-          "level": "warning"
+          "level": "warning",
+          "message": "Variable [[\"reader\"|\"relative://src/main/java/org/apache/commons/io/input/Tailer.java:406:15061:31\"]] may be null here."
         },
         {
-          "level": "warning"
+          "level": "warning",
+          "message": "Exceptions should not be dropped."
         },
         {
-          "level": "warning"
+          "level": "warning",
+          "message": "Exceptions should not be dropped."
         },
         {
-          "level": "error"
+          "level": "error",
+          "message": "This BOMInputStream is not always closed on method exit."
         },
         {
-          "level": "error"
+          "level": "error",
+          "message": "This BOMInputStream is not always closed on method exit."
         },
         {
-          "level": "note"
+          "level": "note",
+          "message": "Method doCopyFile ignores exceptional return value of File.setLastModified."
         },
         {
-          "level": "note"
+          "level": "note",
+          "message": "Method doCopyDirectory ignores exceptional return value of File.setLastModified."
         },
         {
-          "level": "warning"
+          "level": "warning",
+          "message": "This field is in a serializable class,  but is not serializable itself because CharSequence is not serializable."
         },
         {
-          "level": "warning"
+          "level": "warning",
+          "message": "This field is in a serializable class,  but is not serializable itself because Comparator<File> is not serializable."
         },
         {
-          "level": "warning"
+          "level": "warning",
+          "message": "This field is in a serializable class,  but is not serializable itself because Comparator<File> is not serializable."
         },
         {
-          "level": "warning"
+          "level": "warning",
+          "message": "This field is in a serializable class,  but is not serializable itself because IOFileFilter is not serializable."
         },
         {
-          "level": "warning"
+          "level": "warning",
+          "message": "This field is in a serializable class,  but is not serializable itself because IOFileFilter is not serializable."
         },
         {
-          "level": "warning"
+          "level": "warning",
+          "message": "This field is in a serializable class,  but is not serializable itself because IOFileFilter is not serializable."
         },
         {
-          "level": "warning"
+          "level": "warning",
+          "message": "This field is in a serializable class,  but is not serializable itself because FileAlterationListener is not serializable."
         },
         {
-          "level": "warning"
+          "level": "warning",
+          "message": "This field is in a serializable class,  but is not serializable itself because FileFilter is not serializable."
         },
         {
-          "level": "warning"
+          "level": "warning",
+          "message": "This field is in a serializable class,  but is not serializable itself because FileFilter is not serializable."
         },
         {
-          "level": "warning"
+          "level": "warning",
+          "message": "This field is in a serializable class,  but is not serializable itself because FilenameFilter is not serializable."
         },
         {
-          "level": "note"
+          "level": "note",
+          "message": "toUpperCase without locale parameter."
         },
         {
-          "level": "note"
+          "level": "note",
+          "message": "toUpperCase without locale parameter."
         },
         {
-          "level": "note"
+          "level": "note",
+          "message": "toUpperCase without locale parameter."
         },
         {
-          "level": "note"
+          "level": "note",
+          "message": "This type and type [[\"IOUtils\"|\"relative://src/main/java/org/apache/commons/io/IOUtils.java:100:4192:7\"]] are mutually dependent."
         },
         {
-          "level": "note"
+          "level": "note",
+          "message": "Method toString is duplicated in [[\"org.apache.commons.io.filefilter.OrFileFilter\"|\"relative://src/main/java/org/apache/commons/io/filefilter/OrFileFilter.java:145:4336:8\"]]."
         },
         {
-          "level": "note"
+          "level": "note",
+          "message": "Method resetCount is duplicated in [[\"org.apache.commons.io.output.CountingOutputStream\"|\"relative://src/main/java/org/apache/commons/io/output/CountingOutputStream.java:86:3021:10\"]]."
         },
         {
-          "level": "note"
+          "level": "note",
+          "message": "Method mark is duplicated in [[\"org.apache.commons.io.input.NullInputStream\"|\"relative://src/main/java/org/apache/commons/io/input/NullInputStream.java:158:4876:4\"]]."
         },
         {
-          "level": "note"
+          "level": "note",
+          "message": "Method resetCount is duplicated in [[\"org.apache.commons.io.input.CountingInputStream\"|\"relative://src/main/java/org/apache/commons/io/input/CountingInputStream.java:107:3626:10\"]]."
         },
         {
-          "level": "note"
+          "level": "note",
+          "message": "Method toString is duplicated in [[\"org.apache.commons.io.filefilter.AndFileFilter\"|\"relative://src/main/java/org/apache/commons/io/filefilter/AndFileFilter.java:153:4515:8\"]]."
         },
         {
-          "level": "note"
+          "level": "note",
+          "message": "Method flush is duplicated in [[\"org.apache.commons.io.output.ProxyWriter\"|\"relative://src/main/java/org/apache/commons/io/output/ProxyWriter.java:208:6333:5\"]]."
         },
         {
-          "level": "note"
+          "level": "note",
+          "message": "Method close is duplicated in [[\"org.apache.commons.io.output.ProxyWriter\"|\"relative://src/main/java/org/apache/commons/io/output/ProxyWriter.java:221:6647:5\"]]."
         },
         {
-          "level": "note"
+          "level": "note",
+          "message": "Method flush is duplicated in [[\"org.apache.commons.io.output.ProxyOutputStream\"|\"relative://src/main/java/org/apache/commons/io/output/ProxyOutputStream.java:102:3336:5\"]]."
         },
         {
-          "level": "note"
+          "level": "note",
+          "message": "Method close is duplicated in [[\"org.apache.commons.io.output.ProxyOutputStream\"|\"relative://src/main/java/org/apache/commons/io/output/ProxyOutputStream.java:115:3650:5\"]]."
         },
         {
-          "level": "note"
+          "level": "note",
+          "message": "Method mark is duplicated in [[\"org.apache.commons.io.input.NullReader\"|\"relative://src/main/java/org/apache/commons/io/input/NullReader.java:141:4390:4\"]]."
         },
         {
-          "level": "note"
+          "level": "note",
+          "message": "83% of the statements in read are duplicated in [[\"NullInputStream.read()\"|\"relative://src/main/java/org/apache/commons/io/input/NullInputStream.java:187:5773:4\"]]."
         },
         {
-          "level": "note"
+          "level": "note",
+          "message": "83% of the statements in read are duplicated in [[\"NullReader.read()\"|\"relative://src/main/java/org/apache/commons/io/input/NullReader.java:170:5297:4\"]]."
         },
         {
-          "level": "note"
+          "level": "note",
+          "message": "91% of the lines in SuffixFileFilter are similar to lines in [[\"PrefixFileFilter\"|\"relative://src/main/java/org/apache/commons/io/filefilter/PrefixFileFilter.java:0:0:0\"]]."
         },
         {
-          "level": "note"
+          "level": "note",
+          "message": "86% of the lines in TaggedOutputStream are similar to lines in [[\"TaggedInputStream\"|\"relative://src/main/java/org/apache/commons/io/input/TaggedInputStream.java:0:0:0\"]]."
         },
         {
-          "level": "note"
+          "level": "note",
+          "message": "86% of the lines in TaggedInputStream are similar to lines in [[\"TaggedOutputStream\"|\"relative://src/main/java/org/apache/commons/io/output/TaggedOutputStream.java:0:0:0\"]]."
         },
         {
-          "level": "note"
+          "level": "note",
+          "message": "Inefficient comparison to empty string, check for zero length instead."
         },
         {
-          "level": "note"
+          "level": "note",
+          "message": "This empty statement should be deleted."
         },
         {
-          "level": "note"
+          "level": "note",
+          "message": "Expressions of the form \"A == false\" can be simplified to \"!A\"."
         },
         {
-          "level": "note"
+          "level": "note",
+          "message": "Expressions of the form \"A == false\" can be simplified to \"!A\"."
         },
         {
-          "level": "note"
+          "level": "note",
+          "message": "Expressions of the form \"A == false\" can be simplified to \"!A\"."
         },
         {
-          "level": "note"
+          "level": "note",
+          "message": "Expressions of the form \"A == false\" can be simplified to \"!A\"."
         },
         {
-          "level": "note"
+          "level": "note",
+          "message": "Expressions of the form \"A == false\" can be simplified to \"!A\"."
         },
         {
-          "level": "note"
+          "level": "note",
+          "message": "Expressions of the form \"A == false\" can be simplified to \"!A\"."
         },
         {
-          "level": "note"
+          "level": "note",
+          "message": "Expressions of the form \"A == false\" can be simplified to \"!A\"."
         },
         {
-          "level": "note"
+          "level": "note",
+          "message": "Expressions of the form \"A == false\" can be simplified to \"!A\"."
         },
         {
-          "level": "note"
+          "level": "note",
+          "message": "Expressions of the form \"A == false\" can be simplified to \"!A\"."
         },
         {
-          "level": "note"
+          "level": "note",
+          "message": "Expressions of the form \"A == false\" can be simplified to \"!A\"."
         },
         {
-          "level": "note"
+          "level": "note",
+          "message": "Expressions of the form \"A == false\" can be simplified to \"!A\"."
         },
         {
-          "level": "note"
+          "level": "note",
+          "message": "Expressions of the form \"A == false\" can be simplified to \"!A\"."
         },
         {
-          "level": "note"
+          "level": "note",
+          "message": "Expressions of the form \"A == false\" can be simplified to \"!A\"."
         },
         {
-          "level": "note"
+          "level": "note",
+          "message": "Expressions of the form \"A == false\" can be simplified to \"!A\"."
         },
         {
-          "level": "note"
+          "level": "note",
+          "message": "Expressions of the form \"A == false\" can be simplified to \"!A\"."
         },
         {
-          "level": "note"
+          "level": "note",
+          "message": "Expressions of the form \"A == false\" can be simplified to \"!A\"."
         },
         {
-          "level": "note"
+          "level": "note",
+          "message": "Expressions of the form \"A ? true : false\" can be simplified to \"A\"."
         },
         {
-          "level": "warning"
+          "level": "warning",
+          "message": "The body of a loop should not be empty. Typographical error or missing code?"
         },
         {
-          "level": "warning"
+          "level": "warning",
+          "message": "The body of a loop should not be empty. Typographical error or missing code?"
         },
         {
-          "level": "note"
+          "level": "note",
+          "message": "TODO/FIXME comment."
         },
         {
-          "level": "note"
+          "level": "note",
+          "message": "TODO/FIXME comment."
         },
         {
-          "level": "note"
+          "level": "note",
+          "message": "TODO/FIXME comment."
         },
         {
-          "level": "note"
+          "level": "note",
+          "message": "TODO/FIXME comment."
         },
         {
-          "level": "note"
+          "level": "note",
+          "message": "TODO/FIXME comment."
         },
         {
-          "level": "warning"
+          "level": "warning",
+          "message": "This comment appears to contain commented-out code."
         },
         {
-          "level": "note"
+          "level": "note",
+          "message": "Method IOUtils.toInputStream(..) could be confused with overloaded method [[\"toInputStream\"|\"relative://src/main/java/org/apache/commons/io/IOUtils.java:1521:59539:13\"]], since dispatch depends on static types."
         },
         {
-          "level": "note"
+          "level": "note",
+          "message": "Method IOUtils.toInputStream(..) could be confused with overloaded method [[\"toInputStream\"|\"relative://src/main/java/org/apache/commons/io/IOUtils.java:1541:60543:13\"]], since dispatch depends on static types."
         },
         {
-          "level": "note"
+          "level": "note",
+          "message": "Method IOUtils.write(..) could be confused with overloaded method [[\"write\"|\"relative://src/main/java/org/apache/commons/io/IOUtils.java:1859:73538:5\"]], since dispatch depends on static types."
         },
         {
-          "level": "note"
+          "level": "note",
+          "message": "Method IOUtils.write(..) could be confused with overloaded method [[\"write\"|\"relative://src/main/java/org/apache/commons/io/IOUtils.java:1898:75031:5\"]], since dispatch depends on static types."
         },
         {
-          "level": "note"
+          "level": "note",
+          "message": "Method IOUtils.write(..) could be confused with overloaded method [[\"write\"|\"relative://src/main/java/org/apache/commons/io/IOUtils.java:1922:76152:5\"]], since dispatch depends on static types."
         },
         {
-          "level": "note"
+          "level": "note",
+          "message": "Method FileFilterUtils.asFileFilter(..) could be confused with overloaded method [[\"asFileFilter\"|\"relative://src/main/java/org/apache/commons/io/filefilter/FileFilterUtils.java:515:18000:12\"]], since dispatch depends on static types."
         },
         {
-          "level": "warning"
+          "level": "warning",
+          "message": "Class response too high (430). It is a warning for the value to be higher or equal to 350."
         },
         {
-          "level": "warning"
+          "level": "warning",
+          "message": "Type specialization index too high (5). It is a warning for the value to be higher or equal to 4."
         },
         {
-          "level": "warning"
+          "level": "warning",
+          "message": "Type specialization index too high (4). It is a warning for the value to be higher or equal to 4."
         },
         {
-          "level": "warning"
+          "level": "warning",
+          "message": "Lines of code in files too high (1168). It is a warning for the value to be higher or equal to 1000."
         }
       ]
     }

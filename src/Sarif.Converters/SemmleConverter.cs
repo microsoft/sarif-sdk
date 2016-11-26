@@ -21,7 +21,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         // The fields are as follows:
         private enum FieldIndices
         {
-            Severity = 2
+            Severity = 2,
+            Message = 3
         }
 
         private TextFieldParser _parser;
@@ -97,7 +98,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             return fields != null
                 ? new Result
                 {
-                    Level = ResultLevelFromSemmleSeverity(fields[(int)FieldIndices.Severity])
+                    Level = ResultLevelFromSemmleSeverity(fields[(int)FieldIndices.Severity]),
+                    Message = fields[(int)FieldIndices.Message]
                 }
                 : null;
         }
