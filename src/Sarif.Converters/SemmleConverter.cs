@@ -106,7 +106,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             string[] fields = _parser.ReadFields();
             return new Result
             {
-                Level = ResultLevelFromSemmleSeverity(fields[(int)FieldIndex.Severity]),
+                Level = ResultLevelFromSemmleSeverity(GetString(fields, FieldIndex.Severity)),
                 Message = fields[(int)FieldIndex.Message],
                 Locations = new Location[]
                 {
