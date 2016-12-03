@@ -104,6 +104,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         private Result ParseResult()
         {
             string[] fields = _parser.ReadFields();
+
+            Region region = MakeRegion(fields);
+
             return new Result
             {
                 Level = ResultLevelFromSemmleSeverity(GetString(fields, FieldIndex.Severity)),
@@ -115,20 +118,40 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                         ResultFile = new PhysicalLocation
                         {
                             Uri = new Uri(GetString(fields, FieldIndex.RelativePath), UriKind.Relative),
-                            Region = new Region
-                            {
-                                StartLine = GetInteger(fields, FieldIndex.StartLine),
-                                StartColumn = GetInteger(fields, FieldIndex.StartColumn),
-                                EndLine = GetInteger(fields, FieldIndex.EndLine),
-                                EndColumn = GetInteger(fields, FieldIndex.EndColumn)
-                            }
+                            Region = region
                         }
                     }
                 }
             };
         }
 
-        private string GetString(string[] fields, FieldIndex fieldIndex)
+        private Region MakeRegion(string[] fields)
+        {
+            Region region = new Region
+            {
+                StartLine = GetInteger(fields, FieldIndex.StartLine),
+                StartColumn = GetInteger(fields, FieldIndex.StartColumn),
+            };
+
+            int endLine = GetInteger(fields, FieldIndex.EndLine);
+            int endColumn = GetInteger(fields, FieldIndex.EndColumn);
+            if (endLine != region.StartLine)
+            {
+                region.EndLine = endLine;
+                region.EndColumn = endColumn;
+            }
+            else
+            {
+                if (endColumn != region.StartColumn)
+                {
+                    region.EndColumn = endColumn;
+                }
+            }
+
+            return region;
+        }
+
+        private static string GetString(string[] fields, FieldIndex fieldIndex)
         {
             return fields[(int)fieldIndex];
         }
