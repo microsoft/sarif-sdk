@@ -62,7 +62,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             }
             else
             {
-                expandedSpecifier = Path.GetDirectoryName(expandedSpecifier.Substring(0, expandedSpecifier.Length - computedFilter.Length));
+                string directory = expandedSpecifier.Substring(0, expandedSpecifier.Length - computedFilter.Length);
+
+                if (String.IsNullOrWhiteSpace(directory))
+                {
+                    directory = Environment.CurrentDirectory;
+                }
+
+                expandedSpecifier = directory;
             }
 
             if (File.Exists(expandedSpecifier))

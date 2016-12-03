@@ -167,8 +167,11 @@ namespace Microsoft.CodeAnalysis.Sarif
 
                 case ResultLevel.NotApplicable:
                 case ResultLevel.Note:
+                    issueType = "note";
+                    break;
+
                 case ResultLevel.Pass:
-                    issueType = "info";
+                    issueType = "pass";
                     break;
 
                 default:
@@ -275,7 +278,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 throw new InvalidOperationException("Unknown notification level: " + notification.Level);
             }
 
-            var sb = new StringBuilder(issueType);
+            var sb = new StringBuilder(issueType + " ");
 
             if (!string.IsNullOrEmpty(notification.Id))
             {

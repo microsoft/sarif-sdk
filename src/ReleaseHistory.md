@@ -105,3 +105,7 @@
 ## **v1.5.37** [Driver](https://www.nuget.org/packages/Sarif.Driver/1.5.37) | [SDK](https://www.nuget.org/packages/Sarif.Sdk/1.5.37)
 
 * Further refinements to output on analysis completion.
+
+## **v1.5.38** [Driver](https://www.nuget.org/packages/Sarif.Driver/1.5.38) | [SDK](https://www.nuget.org/packages/Sarif.Sdk/1.5.38)
+
+* Loosen requirement to provide explicit configuration file.
