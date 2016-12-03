@@ -8,7 +8,6 @@
       },
       "results": [
         {
-          "level": "warning",
           "message": "Avoid using thread priorities. The effect is unpredictable and not portable.",
           "locations": [
             {
@@ -24,7 +23,6 @@
           ]
         },
         {
-          "level": "warning",
           "message": "Incorrect lazy initialization of static field [[\"SKIP_BYTE_BUFFER\"|\"relative://src/main/java/org/apache/commons/io/IOUtils.java:170:6561:16\"]]: Missing synchronization.",
           "locations": [
             {
@@ -40,7 +38,6 @@
           ]
         },
         {
-          "level": "warning",
           "message": "Incorrect lazy initialization of static field [[\"SKIP_CHAR_BUFFER\"|\"relative://src/main/java/org/apache/commons/io/IOUtils.java:169:6517:16\"]]: Missing synchronization.",
           "locations": [
             {
@@ -56,7 +53,6 @@
           ]
         },
         {
-          "level": "warning",
           "message": "Prefer wait/notify or java.util.concurrent to communicate between threads.",
           "locations": [
             {
@@ -72,7 +68,6 @@
           ]
         },
         {
-          "level": "warning",
           "message": "Prefer wait/notify or java.util.concurrent to communicate between threads.",
           "locations": [
             {
@@ -88,7 +83,6 @@
           ]
         },
         {
-          "level": "warning",
           "message": "Prefer wait/notify or java.util.concurrent to communicate between threads.",
           "locations": [
             {
@@ -104,7 +98,6 @@
           ]
         },
         {
-          "level": "warning",
           "message": "Prefer wait/notify or java.util.concurrent to communicate between threads.",
           "locations": [
             {
@@ -120,7 +113,6 @@
           ]
         },
         {
-          "level": "warning",
           "message": "Variable [[\"reader\"|\"relative://src/main/java/org/apache/commons/io/input/Tailer.java:406:15061:31\"]] may be null here.",
           "locations": [
             {
@@ -136,7 +128,6 @@
           ]
         },
         {
-          "level": "warning",
           "message": "Exceptions should not be dropped.",
           "locations": [
             {
@@ -152,7 +143,6 @@
           ]
         },
         {
-          "level": "warning",
           "message": "Exceptions should not be dropped.",
           "locations": [
             {
@@ -232,7 +222,6 @@
           ]
         },
         {
-          "level": "warning",
           "message": "This field is in a serializable class,  but is not serializable itself because CharSequence is not serializable.",
           "locations": [
             {
@@ -248,7 +237,6 @@
           ]
         },
         {
-          "level": "warning",
           "message": "This field is in a serializable class,  but is not serializable itself because Comparator<File> is not serializable.",
           "locations": [
             {
@@ -264,7 +252,6 @@
           ]
         },
         {
-          "level": "warning",
           "message": "This field is in a serializable class,  but is not serializable itself because Comparator<File> is not serializable.",
           "locations": [
             {
@@ -280,7 +267,6 @@
           ]
         },
         {
-          "level": "warning",
           "message": "This field is in a serializable class,  but is not serializable itself because IOFileFilter is not serializable.",
           "locations": [
             {
@@ -296,7 +282,6 @@
           ]
         },
         {
-          "level": "warning",
           "message": "This field is in a serializable class,  but is not serializable itself because IOFileFilter is not serializable.",
           "locations": [
             {
@@ -312,7 +297,6 @@
           ]
         },
         {
-          "level": "warning",
           "message": "This field is in a serializable class,  but is not serializable itself because IOFileFilter is not serializable.",
           "locations": [
             {
@@ -328,7 +312,6 @@
           ]
         },
         {
-          "level": "warning",
           "message": "This field is in a serializable class,  but is not serializable itself because FileAlterationListener is not serializable.",
           "locations": [
             {
@@ -344,7 +327,6 @@
           ]
         },
         {
-          "level": "warning",
           "message": "This field is in a serializable class,  but is not serializable itself because FileFilter is not serializable.",
           "locations": [
             {
@@ -360,7 +342,6 @@
           ]
         },
         {
-          "level": "warning",
           "message": "This field is in a serializable class,  but is not serializable itself because FileFilter is not serializable.",
           "locations": [
             {
@@ -376,7 +357,6 @@
           ]
         },
         {
-          "level": "warning",
           "message": "This field is in a serializable class,  but is not serializable itself because FilenameFilter is not serializable.",
           "locations": [
             {
@@ -987,7 +967,6 @@
           ]
         },
         {
-          "level": "warning",
           "message": "The body of a loop should not be empty. Typographical error or missing code?",
           "locations": [
             {
@@ -1004,7 +983,6 @@
           ]
         },
         {
-          "level": "warning",
           "message": "The body of a loop should not be empty. Typographical error or missing code?",
           "locations": [
             {
@@ -1101,7 +1079,6 @@
           ]
         },
         {
-          "level": "warning",
           "message": "This comment appears to contain commented-out code.",
           "locations": [
             {
@@ -1214,7 +1191,6 @@
           ]
         },
         {
-          "level": "warning",
           "message": "Class response too high (430). It is a warning for the value to be higher or equal to 350.",
           "locations": [
             {
@@ -1230,7 +1206,6 @@
           ]
         },
         {
-          "level": "warning",
           "message": "Type specialization index too high (5). It is a warning for the value to be higher or equal to 4.",
           "locations": [
             {
@@ -1246,7 +1221,6 @@
           ]
         },
         {
-          "level": "warning",
           "message": "Type specialization index too high (4). It is a warning for the value to be higher or equal to 4.",
           "locations": [
             {
@@ -1262,7 +1236,6 @@
           ]
         },
         {
-          "level": "warning",
           "message": "Lines of code in files too high (1168). It is a warning for the value to be higher or equal to 1000.",
           "locations": [
             {

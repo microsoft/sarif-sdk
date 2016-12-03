@@ -106,10 +106,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             string[] fields = _parser.ReadFields();
 
             Region region = MakeRegion(fields);
-
-            return new Result
+            var result = new Result
             {
-                Level = ResultLevelFromSemmleSeverity(GetString(fields, FieldIndex.Severity)),
                 Message = fields[(int)FieldIndex.Message],
                 Locations = new Location[]
                 {
@@ -123,8 +121,26 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                     }
                 }
             };
+
+            ResultLevel level = ResultLevelFromSemmleSeverity(GetString(fields, FieldIndex.Severity));
+            if (level != ResultLevel.Warning)
+            {
+                result.Level = level;
+            }
+
+            return result;
         }
 
+        /// <summary>
+        /// Create a Region object that contains only those properties required by the
+        /// SARIF spec.
+        /// </summary>
+        /// <param name="fields">
+        /// Array of fields from a CSV record.
+        /// </param>
+        /// <returns>
+        /// A Region object that contains only those properties required by the SARIF spec.
+        /// </returns>
         private Region MakeRegion(string[] fields)
         {
             Region region = new Region
