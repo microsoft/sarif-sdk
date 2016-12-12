@@ -105,3 +105,8 @@
 ## **v1.5.37** [Driver](https://www.nuget.org/packages/Sarif.Driver/1.5.37) | [SDK](https://www.nuget.org/packages/Sarif.Sdk/1.5.37)
 
 * Further refinements to output on analysis completion.
+
+## **v1.5.38** [Driver](https://www.nuget.org/packages/Sarif.Driver/1.5.38) | [SDK](https://www.nuget.org/packages/Sarif.Sdk/1.5.38)
+
+* Loosen requirement to explicitly provide --config argument for default configuration
+* Preliminary Semmle converter
