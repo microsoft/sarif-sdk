@@ -7,7 +7,7 @@
     </NuGetPackageImportStamp>
   </PropertyGroup>
   <PropertyGroup>
-    <RootNamespace>Microsoft.CodeAnalysis.Driver</RootNamespace>
+    <RootNamespace>Microsoft.CodeAnalysis.Sarif.Driver</RootNamespace>
   </PropertyGroup>
   <PropertyGroup>
     <AssemblyName>Sarif.Driver.UnitTests</AssemblyName>
@@ -70,6 +70,7 @@
     <Compile Include="AnalyzeCommandTests.cs" />
     <Compile Include="ExceptionCondition.cs" />
     <Compile Include="ExceptionRaisingRule.cs" />
+    <Compile Include="FileSpecifierTests.cs" />
     <Compile Include="Sdk\ExtensionMethodsTests.cs" />
     <Compile Include="Sdk\FormatForVisualStudioTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -322,7 +322,7 @@ namespace Microsoft.CodeAnalysis.Sarif {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to &apos;{0}&apos; ({1}).
+        ///   Looks up a localized string similar to {0} ({1}).
         /// </summary>
         internal static string NotificationWithExceptionMessage {
             get {

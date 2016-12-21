@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Text;
 using Microsoft.VisualBasic.FileIO;
 
 namespace Microsoft.CodeAnalysis.Sarif.Converters
@@ -66,7 +67,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
             var tool = new Tool
             {
-                Name = "Semmle"
+                Name = "Semmle QL"
             };
 
             output.Initialize(id: null, correlationId: null);
@@ -105,10 +106,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         {
             string[] fields = _parser.ReadFields();
 
+            string rawMessage = fields[(int)FieldIndex.Message];
+            string normalizedMessage;
+
+            IList<AnnotatedCodeLocation> relatedLocations = NormalizeRawMessage(rawMessage, out normalizedMessage);
+
             Region region = MakeRegion(fields);
             var result = new Result
             {
-                Message = fields[(int)FieldIndex.Message],
+                Message = normalizedMessage,
                 Locations = new Location[]
                 {
                     new Location
@@ -119,7 +125,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                             Region = region
                         }
                     }
-                }
+                },
+                RelatedLocations = relatedLocations
             };
 
             ResultLevel level = ResultLevelFromSemmleSeverity(GetString(fields, FieldIndex.Severity));
@@ -129,6 +136,55 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             }
 
             return result;
+        }
+
+        private IList<AnnotatedCodeLocation> NormalizeRawMessage(string rawMessage, out string normalizedMessage)
+        {
+            List<AnnotatedCodeLocation> relatedLocations = null;
+            normalizedMessage = String.Empty;
+
+            var sb = new StringBuilder();
+
+            int index = rawMessage.IndexOf("[[");
+            while (index > -1)
+            {
+                sb.Append(rawMessage.Substring(0, index));
+
+                rawMessage = rawMessage.Substring(index + 2);
+
+                index = rawMessage.IndexOf("]]");
+
+                string embeddedLink = rawMessage.Substring(0, index - 1);
+
+                string[] tokens = embeddedLink.Split(new char[] { '\"' }, StringSplitOptions.RemoveEmptyEntries );
+
+                sb.Append(tokens[0]); // re-add the text portion of the link
+
+                string location = tokens[2];
+                tokens = location.Split(':');
+
+                relatedLocations = relatedLocations ?? new List<AnnotatedCodeLocation>();
+
+                var relatedLocation = new AnnotatedCodeLocation
+                {
+                     PhysicalLocation = new PhysicalLocation
+                     {
+                          Uri = new Uri(tokens[1], UriKind.RelativeOrAbsolute),
+                          Region = new Region
+                          {
+                               StartLine = Int32.Parse(tokens[2]),
+                               Offset = Int32.Parse(tokens[3]),
+                               Length = Int32.Parse(tokens[4])
+                          }
+                     }
+                };
+                relatedLocations.Add(relatedLocation);
+                rawMessage = rawMessage.Substring(index + "]]".Length);
+                index = rawMessage.IndexOf("[[");
+            }
+            sb.Append(rawMessage);
+            normalizedMessage = sb.ToString();
+            return relatedLocations;
         }
 
         /// <summary>

@@ -35,6 +35,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         [Option(
             'c',
             "config",
+            Default = "default",
             HelpText = "Path to policy file that will be used to configure analysis. Pass value of 'default' to use built-in settings.")]
         public string ConfigurationFilePath { get; set; }
 

@@ -165,9 +165,12 @@ namespace Microsoft.CodeAnalysis.Sarif
                     issueType = "warning";
                     break;
 
+                case ResultLevel.Pass:
+                    issueType = "pass";
+                    break;
+
                 case ResultLevel.NotApplicable:
                 case ResultLevel.Note:
-                case ResultLevel.Pass:
                     issueType = "info";
                     break;
 
@@ -198,7 +201,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             string result = (path != null ? (path + location + ": ") : "") +
                    issueType + (!string.IsNullOrEmpty(ruleId) ? " " : "") +
-                   (resultLevel != ResultLevel.Note ? ruleId : "") + ": " +
+                   (!string.IsNullOrEmpty(ruleId) ? (ruleId + ": ") : "") +
                    detailedDiagnosis;
 
             return result;
@@ -275,7 +278,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 throw new InvalidOperationException("Unknown notification level: " + notification.Level);
             }
 
-            var sb = new StringBuilder(issueType);
+            var sb = new StringBuilder(issueType + " ");
 
             if (!string.IsNullOrEmpty(notification.Id))
             {
