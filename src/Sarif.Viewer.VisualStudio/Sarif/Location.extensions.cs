@@ -37,6 +37,7 @@ namespace Microsoft.Sarif.Viewer.Sarif
                 if (uri != null)
                 {
                     model.FilePath = uri.ToPath();
+                    model.UriBaseId = physicalLocation.UriBaseId;
                 }
             }
 

@@ -411,7 +411,8 @@ namespace Microsoft.CodeAnalysis.Sarif
             string exceptionMessage = exception?.Message;
             if (!string.IsNullOrEmpty(exceptionMessage))
             {
-                message += string.Format(CultureInfo.InvariantCulture, SdkResources.NotificationWithExceptionMessage, message, exceptionMessage);
+                // {0} ('{1}')
+                message = string.Format(CultureInfo.InvariantCulture, SdkResources.NotificationWithExceptionMessage, message, exceptionMessage);
             }
 
             var exceptionData = exception != null && persistExceptionStack

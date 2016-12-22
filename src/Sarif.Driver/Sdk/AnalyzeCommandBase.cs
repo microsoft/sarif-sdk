@@ -193,7 +193,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 }
 
                 // Currently, we do not filter on any extensions.
-                var fileSpecifier = new FileSpecifier(normalizedSpecifier, recurse: analyzeOptions.Recurse, filter: "*");
+                var fileSpecifier = new FileSpecifier(normalizedSpecifier, recurse: analyzeOptions.Recurse);
                 foreach (string file in fileSpecifier.Files) { targets.Add(file); }
             }
 

@@ -9,14 +9,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 {
     public class FileSpecifier
     {
-        public FileSpecifier(string specifier, bool recurse = false, string filter = "")
+        public FileSpecifier(string specifier, bool recurse = false)
         {
             _recurse = recurse;
-
-            if (filter != "" && specifier.EndsWith(filter, StringComparison.OrdinalIgnoreCase))
-                filter = "";
-
-            _specifier = Path.Combine(specifier, filter);
+            _specifier = specifier;
         }
 
         private readonly bool _recurse;
@@ -52,46 +48,22 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
             _files = new List<string>();
             _directories = new List<string>();
+
             expandedSpecifier = Environment.ExpandEnvironmentVariables(_specifier);
 
-            string computedFilter = Path.GetFileName(expandedSpecifier);
+            string filter = Path.GetFileName(expandedSpecifier);
+            string directory = Path.GetDirectoryName(expandedSpecifier);
 
-            if (-1 == computedFilter.IndexOf("*"))
+            if (directory.Length == 0)
             {
-                computedFilter = null;
-            }
-            else
-            {
-                expandedSpecifier = Path.GetDirectoryName(expandedSpecifier.Substring(0, expandedSpecifier.Length - computedFilter.Length));
+                directory = @".\";
             }
 
-            if (File.Exists(expandedSpecifier))
-            {
-                AddFileToList(expandedSpecifier);
-            }
-            else
-            {
-                string dir;
-                dir = expandedSpecifier;
-
-                if (!Directory.Exists(expandedSpecifier))
-                {
-                    dir = Path.GetDirectoryName(expandedSpecifier);
-                    computedFilter = Path.GetFileName(expandedSpecifier);
-                }
-                else
-                {
-                    _directories.Add(expandedSpecifier);
-                }
-                AddFilesFromDirectory(dir, computedFilter);
-            }
+            AddFilesFromDirectory(directory, filter);
         }
 
         private void AddFilesFromDirectory(string dir, string filter)
         {
-            if (filter == null)
-                return;
-
             if (Directory.Exists(dir))
             {
                 foreach (string file in Directory.GetFiles(dir, filter))

@@ -31,11 +31,12 @@ namespace Microsoft.Sarif.Viewer
         public const int OpenCppCheckFileCommandId = 0x0105;
         public const int OpenClangFileCommandId = 0x0106;
         public const int OpenAndroidStudioFileCommandId = 0x0107;
+        public const int OpenSemmleFileCommandId = 0x0108;
 
         private static int[] s_commands = new int[]
         {
             OpenSarifFileCommandId, OpenPREfastFileCommandId, OpenStaticDriverVerifierFileCommandId, OpenFxCopFileCommandId,
-            OpenFortifyFileCommandId, OpenCppCheckFileCommandId, OpenClangFileCommandId, OpenAndroidStudioFileCommandId
+            OpenFortifyFileCommandId, OpenCppCheckFileCommandId, OpenClangFileCommandId, OpenAndroidStudioFileCommandId, OpenSemmleFileCommandId
         };
 
         /// <summary>
@@ -201,6 +202,13 @@ namespace Microsoft.Sarif.Viewer
                             toolFormat = ToolFormat.AndroidStudio;
                             title = "Open Android Studio XML log file";
                             filter = "Android Studio log files (*.xml)|*.xml";
+                            break;
+                        }
+                    case OpenSemmleFileCommandId:
+                        {
+                            toolFormat = ToolFormat.SemmleQL;
+                            title = "Open Semmle QL CSV log file";
+                            filter = "Semmle QL log files (*.csv)|*.csv";
                             break;
                         }
                 }

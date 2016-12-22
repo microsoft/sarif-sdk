@@ -65,6 +65,9 @@ namespace Microsoft.Sarif.Viewer.ErrorList
                     return;
                 }
 
+                // Set the current sarif error in the manager so we track code locations.
+                CodeAnalysisResultManager.Instance.CurrentSarifError = sarifResult;
+
                 if (sarifResult.HasDetails)
                 {
                     // Setting the DataContext to be null first forces the TabControl to select the appropriate tab.
@@ -75,9 +78,6 @@ namespace Microsoft.Sarif.Viewer.ErrorList
                 {
                     SarifViewerPackage.SarifToolWindow.Control.DataContext = null;
                 }
-
-                // Set the current sarif error in the manager so we track code locations.
-                CodeAnalysisResultManager.Instance.CurrentSarifError = sarifResult;
 
                 base.PreprocessSelectionChanged(e);
             }

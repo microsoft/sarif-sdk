@@ -72,9 +72,9 @@ namespace Microsoft.Sarif.Viewer {
         /// <summary>
         ///   Looks up a localized string similar to &lt;unknown callee&gt;.
         /// </summary>
-        internal static string UnknownCalleMessage {
+        internal static string UnknownCalleeMessage {
             get {
-                return ResourceManager.GetString("UnknownCalleMessage", resourceCulture);
+                return ResourceManager.GetString("UnknownCalleeMessage", resourceCulture);
             }
         }
     }
