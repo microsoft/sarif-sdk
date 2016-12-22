@@ -108,5 +108,12 @@
 
 ## **v1.5.38** [Driver](https://www.nuget.org/packages/Sarif.Driver/1.5.38) | [SDK](https://www.nuget.org/packages/Sarif.Sdk/1.5.38)
 
-* Loosen requirement to explicitly provide --config argument for default configuration
 * Preliminary Semmle converter
+
+## **v1.5.39** [Driver](https://www.nuget.org/packages/Sarif.Driver/1.5.39) | [SDK](https://www.nuget.org/packages/Sarif.Sdk/1.5.39)
+
+* Loosen requirement to explicitly provide --config argument for default configuration
+* Convert Semmle embedded links to related locations
+* Add File/Open of Semmle CSV to VS add-ing
+* Eliminate redundant output of notifications
+* Update FileSpecifier to resolve patternts such as File* properly
