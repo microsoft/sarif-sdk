@@ -10,7 +10,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 {
     public static class Warnings
     {
-        public const string Wrn997InvalidTarget = "WRN997_InvalidTarget";
+        public const string Wrn997InvalidTarget = "WRN997.InvalidTarget";
 
         public static void LogExceptionInvalidTarget(IAnalysisContext context)
         {

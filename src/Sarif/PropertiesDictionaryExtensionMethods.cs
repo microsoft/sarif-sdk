@@ -301,6 +301,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         private const string PROPERTY_ID = "Property";
         private const string ITEMTYPE_ID = "ItemType";
         private const string STRING_SET_ID = "StringSet";
+        private const string INTEGER_SET_ID = "IntegerSet";
         internal const string PROPERTIES_ID = "Properties";
 
         private static HybridDictionary s_typesCache = new HybridDictionary();
