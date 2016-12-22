@@ -36,6 +36,7 @@ namespace Microsoft.Sarif.Viewer
         private long? m_docCookie;
 
         public string FullFilePath { get; set; }
+        public string UriBaseId { get; set; }
         public string Color { get; set; }
 
         public event EventHandler RaiseRegionSelected;
@@ -67,7 +68,7 @@ namespace Microsoft.Sarif.Viewer
 
             if (!File.Exists(this.FullFilePath))
             {
-                if (!CodeAnalysisResultManager.Instance.TryRebaselineCurrentSarifError(this.FullFilePath))
+                if (!CodeAnalysisResultManager.Instance.TryRebaselineCurrentSarifError(this.UriBaseId, this.FullFilePath))
                 {
                     return null;
                 }

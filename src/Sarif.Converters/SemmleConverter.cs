@@ -122,6 +122,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                         ResultFile = new PhysicalLocation
                         {
                             Uri = new Uri(GetString(fields, FieldIndex.RelativePath), UriKind.Relative),
+                            UriBaseId = "$srcroot",
                             Region = region
                         }
                     }
@@ -169,8 +170,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 {
                      PhysicalLocation = new PhysicalLocation
                      {
-                          Uri = new Uri(tokens[1], UriKind.RelativeOrAbsolute),
-                          Region = new Region
+                         Uri = new Uri(tokens[1].Substring(1), UriKind.Relative),
+                         UriBaseId = "$srcroot",
+                         Region = new Region
                           {
                                StartLine = Int32.Parse(tokens[2]),
                                Offset = Int32.Parse(tokens[3]),

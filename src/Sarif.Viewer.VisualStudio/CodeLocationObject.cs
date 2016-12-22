@@ -17,6 +17,7 @@ namespace Microsoft.Sarif.Viewer
         private Region _region;
         protected ResultTextMarker _lineMarker;
         protected string _filePath;
+        protected string _uriBaseId;
 
         internal virtual ResultTextMarker LineMarker
         {
@@ -70,6 +71,28 @@ namespace Microsoft.Sarif.Viewer
                     }
 
                     NotifyPropertyChanged("FilePath");
+                }
+            }
+        }
+
+        internal virtual string UriBaseId
+        {
+            get
+            {
+                return _uriBaseId;
+            }
+            set
+            {
+                if (value != _uriBaseId)
+                {
+                    _uriBaseId = value;
+
+                    if (this.LineMarker != null)
+                    {
+                        this.LineMarker.UriBaseId = _uriBaseId;
+                    }
+
+                    NotifyPropertyChanged("UriBaseId");
                 }
             }
         }

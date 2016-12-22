@@ -21,7 +21,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         /// <summary>PREfast's file format.</summary>
         PREfast,
         /// <summary>Semmle's file format.</summary>
-        Semmle,
+        SemmleQL,
         /// <summary>Static Driver Verifier's file format.</summary>
         StaticDriverVerifier,
     }
