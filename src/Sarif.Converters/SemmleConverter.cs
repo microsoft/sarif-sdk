@@ -159,7 +159,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
                 string[] tokens = embeddedLink.Split(new char[] { '\"' }, StringSplitOptions.RemoveEmptyEntries );
 
-                sb.Append(tokens[0]); // re-add the text portion of the link
+                sb.Append("\"" + tokens[0] + "\""); // re-add the text portion of the link
 
                 string location = tokens[2];
                 tokens = location.Split(':');
