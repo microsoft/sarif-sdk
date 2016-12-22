@@ -670,10 +670,10 @@
     <None Include="ConverterTestData\PREfast\TFS378661.cpp.xml.sarif">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="ConverterTestData\Semmle\results.csv">
+    <None Include="ConverterTestData\SemmleQL\results.csv">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="ConverterTestData\Semmle\results.csv.sarif">
+    <None Include="ConverterTestData\SemmleQL\results.csv.sarif">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="ConverterTestData\StaticDriverVerifier\cancelspinlock_bug1.tt.sarif">

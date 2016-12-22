@@ -22,6 +22,11 @@ function Build-Baselines($toolName)
       $sourceExtension = "tt"
     }
 
+    if ($ToolName -eq "SemmleQL")
+    {
+      $sourceExtension = "csv"
+    }
+
     Write-Host "Building baselines for $toolName..."
     $toolDirectory = Join-Path "$PSScriptRoot\ConverterTestData" $toolName
     $sourceExtension = "*.$sourceExtension"
