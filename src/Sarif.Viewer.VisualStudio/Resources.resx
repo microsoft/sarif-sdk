@@ -121,7 +121,7 @@
     <value>Return</value>
     <comment>Displayed on a call tree "CallReturn" node</comment>
   </data>
-  <data name="UnknownCalleMessage" xml:space="preserve">
+  <data name="UnknownCalleeMessage" xml:space="preserve">
     <value>&lt;unknown callee&gt;</value>
     <comment>Displayed on a call tree "Call" node with no callee</comment>
   </data>

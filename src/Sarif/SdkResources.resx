@@ -223,7 +223,7 @@
     <value>'{0}' is not a valid value for the id property of an annotatedCodeLocation object. The value must be a positive integer or the string representation of a positive integer.</value>
   </data>
   <data name="NotificationWithExceptionMessage" xml:space="preserve">
-    <value>'{0}' ({1})</value>
+    <value>{0} ({1})</value>
   </data>
   <data name="UnexpectedFatalRuntimeConditions" xml:space="preserve">
     <value>Unexpected fatal runtime condition(s) observed: </value>

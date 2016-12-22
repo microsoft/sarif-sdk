@@ -1,0 +1,1252 @@
+{
+  "$schema": "http://json.schemastore.org/sarif-1.0.0",
+  "version": "1.0.0",
+  "runs": [
+    {
+      "tool": {
+        "name": "Semmle"
+      },
+      "results": [
+        {
+          "message": "Avoid using thread priorities. The effect is unpredictable and not portable.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "src/main/java/org/apache/commons/io/FileCleaningTracker.java",
+                "region": {
+                  "startLine": 211,
+                  "startColumn": 13,
+                  "endColumn": 44
+                }
+              }
+            }
+          ]
+        },
+        {
+          "message": "Incorrect lazy initialization of static field [[\"SKIP_BYTE_BUFFER\"|\"relative://src/main/java/org/apache/commons/io/IOUtils.java:170:6561:16\"]]: Missing synchronization.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "src/main/java/org/apache/commons/io/IOUtils.java",
+                "region": {
+                  "startLine": 2718,
+                  "startColumn": 13,
+                  "endColumn": 57
+                }
+              }
+            }
+          ]
+        },
+        {
+          "message": "Incorrect lazy initialization of static field [[\"SKIP_CHAR_BUFFER\"|\"relative://src/main/java/org/apache/commons/io/IOUtils.java:169:6517:16\"]]: Missing synchronization.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "src/main/java/org/apache/commons/io/IOUtils.java",
+                "region": {
+                  "startLine": 2793,
+                  "startColumn": 13,
+                  "endColumn": 57
+                }
+              }
+            }
+          ]
+        },
+        {
+          "message": "Prefer wait/notify or java.util.concurrent to communicate between threads.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "src/main/java/org/apache/commons/io/FileUtils.java",
+                "region": {
+                  "startLine": 1708,
+                  "startColumn": 21,
+                  "endColumn": 59
+                }
+              }
+            }
+          ]
+        },
+        {
+          "message": "Prefer wait/notify or java.util.concurrent to communicate between threads.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "src/main/java/org/apache/commons/io/input/Tailer.java",
+                "region": {
+                  "startLine": 418,
+                  "startColumn": 21,
+                  "endColumn": 46
+                }
+              }
+            }
+          ]
+        },
+        {
+          "message": "Prefer wait/notify or java.util.concurrent to communicate between threads.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "src/main/java/org/apache/commons/io/input/Tailer.java",
+                "region": {
+                  "startLine": 473,
+                  "startColumn": 17,
+                  "endColumn": 42
+                }
+              }
+            }
+          ]
+        },
+        {
+          "message": "Prefer wait/notify or java.util.concurrent to communicate between threads.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "src/main/java/org/apache/commons/io/monitor/FileAlterationMonitor.java",
+                "region": {
+                  "startLine": 188,
+                  "startColumn": 17,
+                  "endColumn": 39
+                }
+              }
+            }
+          ]
+        },
+        {
+          "message": "Variable [[\"reader\"|\"relative://src/main/java/org/apache/commons/io/input/Tailer.java:406:15061:31\"]] may be null here.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "src/main/java/org/apache/commons/io/input/Tailer.java",
+                "region": {
+                  "startLine": 463,
+                  "startColumn": 25,
+                  "endColumn": 30
+                }
+              }
+            }
+          ]
+        },
+        {
+          "message": "Exceptions should not be dropped.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "src/main/java/org/apache/commons/io/FileUtils.java",
+                "region": {
+                  "startLine": 1580,
+                  "startColumn": 11,
+                  "endColumn": 41
+                }
+              }
+            }
+          ]
+        },
+        {
+          "message": "Exceptions should not be dropped.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "src/main/java/org/apache/commons/io/monitor/FileAlterationMonitor.java",
+                "region": {
+                  "startLine": 189,
+                  "startColumn": 15,
+                  "endColumn": 56
+                }
+              }
+            }
+          ]
+        },
+        {
+          "level": "error",
+          "message": "This BOMInputStream is not always closed on method exit.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "src/main/java/org/apache/commons/io/input/XmlStreamReader.java",
+                "region": {
+                  "startLine": 269,
+                  "startColumn": 36,
+                  "endColumn": 108
+                }
+              }
+            }
+          ]
+        },
+        {
+          "level": "error",
+          "message": "This BOMInputStream is not always closed on method exit.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "src/main/java/org/apache/commons/io/input/XmlStreamReader.java",
+                "region": {
+                  "startLine": 270,
+                  "startColumn": 36,
+                  "endColumn": 81
+                }
+              }
+            }
+          ]
+        },
+        {
+          "level": "note",
+          "message": "Method doCopyFile ignores exceptional return value of File.setLastModified.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "src/main/java/org/apache/commons/io/FileUtils.java",
+                "region": {
+                  "startLine": 1145,
+                  "startColumn": 13,
+                  "endColumn": 60
+                }
+              }
+            }
+          ]
+        },
+        {
+          "level": "note",
+          "message": "Method doCopyDirectory ignores exceptional return value of File.setLastModified.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "src/main/java/org/apache/commons/io/FileUtils.java",
+                "region": {
+                  "startLine": 1430,
+                  "startColumn": 13,
+                  "endColumn": 58
+                }
+              }
+            }
+          ]
+        },
+        {
+          "message": "This field is in a serializable class,  but is not serializable itself because CharSequence is not serializable.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "src/main/java/org/apache/commons/io/input/CharSequenceReader.java",
+                "region": {
+                  "startLine": 36,
+                  "startColumn": 32,
+                  "endColumn": 43
+                }
+              }
+            }
+          ]
+        },
+        {
+          "message": "This field is in a serializable class,  but is not serializable itself because Comparator<File> is not serializable.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "src/main/java/org/apache/commons/io/comparator/ReverseComparator.java",
+                "region": {
+                  "startLine": 33,
+                  "startColumn": 36,
+                  "endColumn": 43
+                }
+              }
+            }
+          ]
+        },
+        {
+          "message": "This field is in a serializable class,  but is not serializable itself because Comparator<File> is not serializable.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "src/main/java/org/apache/commons/io/monitor/FileAlterationObserver.java",
+                "region": {
+                  "startLine": 128,
+                  "startColumn": 36,
+                  "endColumn": 45
+                }
+              }
+            }
+          ]
+        },
+        {
+          "message": "This field is in a serializable class,  but is not serializable itself because IOFileFilter is not serializable.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "src/main/java/org/apache/commons/io/filefilter/AndFileFilter.java",
+                "region": {
+                  "startLine": 44,
+                  "startColumn": 38,
+                  "endColumn": 48
+                }
+              }
+            }
+          ]
+        },
+        {
+          "message": "This field is in a serializable class,  but is not serializable itself because IOFileFilter is not serializable.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "src/main/java/org/apache/commons/io/filefilter/OrFileFilter.java",
+                "region": {
+                  "startLine": 42,
+                  "startColumn": 38,
+                  "endColumn": 48
+                }
+              }
+            }
+          ]
+        },
+        {
+          "message": "This field is in a serializable class,  but is not serializable itself because IOFileFilter is not serializable.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "src/main/java/org/apache/commons/io/filefilter/NotFileFilter.java",
+                "region": {
+                  "startLine": 33,
+                  "startColumn": 32,
+                  "endColumn": 37
+                }
+              }
+            }
+          ]
+        },
+        {
+          "message": "This field is in a serializable class,  but is not serializable itself because FileAlterationListener is not serializable.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "src/main/java/org/apache/commons/io/monitor/FileAlterationObserver.java",
+                "region": {
+                  "startLine": 125,
+                  "startColumn": 48,
+                  "endColumn": 87
+                }
+              }
+            }
+          ]
+        },
+        {
+          "message": "This field is in a serializable class,  but is not serializable itself because FileFilter is not serializable.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "src/main/java/org/apache/commons/io/monitor/FileAlterationObserver.java",
+                "region": {
+                  "startLine": 127,
+                  "startColumn": 30,
+                  "endColumn": 39
+                }
+              }
+            }
+          ]
+        },
+        {
+          "message": "This field is in a serializable class,  but is not serializable itself because FileFilter is not serializable.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "src/main/java/org/apache/commons/io/filefilter/DelegateFileFilter.java",
+                "region": {
+                  "startLine": 39,
+                  "startColumn": 30,
+                  "endColumn": 39
+                }
+              }
+            }
+          ]
+        },
+        {
+          "message": "This field is in a serializable class,  but is not serializable itself because FilenameFilter is not serializable.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "src/main/java/org/apache/commons/io/filefilter/DelegateFileFilter.java",
+                "region": {
+                  "startLine": 37,
+                  "startColumn": 34,
+                  "endColumn": 47
+                }
+              }
+            }
+          ]
+        },
+        {
+          "level": "note",
+          "message": "toUpperCase without locale parameter.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "src/main/java/org/apache/commons/io/input/XmlStreamReader.java",
+                "region": {
+                  "startLine": 745,
+                  "startColumn": 32,
+                  "endColumn": 55
+                }
+              }
+            }
+          ]
+        },
+        {
+          "level": "note",
+          "message": "toUpperCase without locale parameter.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "src/main/java/org/apache/commons/io/output/XmlStreamWriter.java",
+                "region": {
+                  "startLine": 172,
+                  "startColumn": 36,
+                  "endColumn": 59
+                }
+              }
+            }
+          ]
+        },
+        {
+          "level": "note",
+          "message": "toUpperCase without locale parameter.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "src/main/java/org/apache/commons/io/ByteOrderMark.java",
+                "region": {
+                  "startLine": 185,
+                  "startColumn": 28,
+                  "endColumn": 77
+                }
+              }
+            }
+          ]
+        },
+        {
+          "level": "note",
+          "message": "This type and type [[\"IOUtils\"|\"relative://src/main/java/org/apache/commons/io/IOUtils.java:100:4192:7\"]] are mutually dependent.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "src/main/java/org/apache/commons/io/output/ByteArrayOutputStream.java",
+                "region": {
+                  "startLine": 57,
+                  "startColumn": 14,
+                  "endColumn": 34
+                }
+              }
+            }
+          ]
+        },
+        {
+          "level": "note",
+          "message": "Method toString is duplicated in [[\"org.apache.commons.io.filefilter.OrFileFilter\"|\"relative://src/main/java/org/apache/commons/io/filefilter/OrFileFilter.java:145:4336:8\"]].",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "src/main/java/org/apache/commons/io/filefilter/AndFileFilter.java",
+                "region": {
+                  "startLine": 153,
+                  "startColumn": 19,
+                  "endColumn": 26
+                }
+              }
+            }
+          ]
+        },
+        {
+          "level": "note",
+          "message": "Method resetCount is duplicated in [[\"org.apache.commons.io.output.CountingOutputStream\"|\"relative://src/main/java/org/apache/commons/io/output/CountingOutputStream.java:86:3021:10\"]].",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "src/main/java/org/apache/commons/io/input/CountingInputStream.java",
+                "region": {
+                  "startLine": 107,
+                  "startColumn": 16,
+                  "endColumn": 25
+                }
+              }
+            }
+          ]
+        },
+        {
+          "level": "note",
+          "message": "Method mark is duplicated in [[\"org.apache.commons.io.input.NullInputStream\"|\"relative://src/main/java/org/apache/commons/io/input/NullInputStream.java:158:4876:4\"]].",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "src/main/java/org/apache/commons/io/input/NullReader.java",
+                "region": {
+                  "startLine": 141,
+                  "startColumn": 30,
+                  "endColumn": 33
+                }
+              }
+            }
+          ]
+        },
+        {
+          "level": "note",
+          "message": "Method resetCount is duplicated in [[\"org.apache.commons.io.input.CountingInputStream\"|\"relative://src/main/java/org/apache/commons/io/input/CountingInputStream.java:107:3626:10\"]].",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "src/main/java/org/apache/commons/io/output/CountingOutputStream.java",
+                "region": {
+                  "startLine": 86,
+                  "startColumn": 16,
+                  "endColumn": 25
+                }
+              }
+            }
+          ]
+        },
+        {
+          "level": "note",
+          "message": "Method toString is duplicated in [[\"org.apache.commons.io.filefilter.AndFileFilter\"|\"relative://src/main/java/org/apache/commons/io/filefilter/AndFileFilter.java:153:4515:8\"]].",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "src/main/java/org/apache/commons/io/filefilter/OrFileFilter.java",
+                "region": {
+                  "startLine": 145,
+                  "startColumn": 19,
+                  "endColumn": 26
+                }
+              }
+            }
+          ]
+        },
+        {
+          "level": "note",
+          "message": "Method flush is duplicated in [[\"org.apache.commons.io.output.ProxyWriter\"|\"relative://src/main/java/org/apache/commons/io/output/ProxyWriter.java:208:6333:5\"]].",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "src/main/java/org/apache/commons/io/output/ProxyOutputStream.java",
+                "region": {
+                  "startLine": 102,
+                  "startColumn": 17,
+                  "endColumn": 21
+                }
+              }
+            }
+          ]
+        },
+        {
+          "level": "note",
+          "message": "Method close is duplicated in [[\"org.apache.commons.io.output.ProxyWriter\"|\"relative://src/main/java/org/apache/commons/io/output/ProxyWriter.java:221:6647:5\"]].",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "src/main/java/org/apache/commons/io/output/ProxyOutputStream.java",
+                "region": {
+                  "startLine": 115,
+                  "startColumn": 17,
+                  "endColumn": 21
+                }
+              }
+            }
+          ]
+        },
+        {
+          "level": "note",
+          "message": "Method flush is duplicated in [[\"org.apache.commons.io.output.ProxyOutputStream\"|\"relative://src/main/java/org/apache/commons/io/output/ProxyOutputStream.java:102:3336:5\"]].",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "src/main/java/org/apache/commons/io/output/ProxyWriter.java",
+                "region": {
+                  "startLine": 208,
+                  "startColumn": 17,
+                  "endColumn": 21
+                }
+              }
+            }
+          ]
+        },
+        {
+          "level": "note",
+          "message": "Method close is duplicated in [[\"org.apache.commons.io.output.ProxyOutputStream\"|\"relative://src/main/java/org/apache/commons/io/output/ProxyOutputStream.java:115:3650:5\"]].",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "src/main/java/org/apache/commons/io/output/ProxyWriter.java",
+                "region": {
+                  "startLine": 221,
+                  "startColumn": 17,
+                  "endColumn": 21
+                }
+              }
+            }
+          ]
+        },
+        {
+          "level": "note",
+          "message": "Method mark is duplicated in [[\"org.apache.commons.io.input.NullReader\"|\"relative://src/main/java/org/apache/commons/io/input/NullReader.java:141:4390:4\"]].",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "src/main/java/org/apache/commons/io/input/NullInputStream.java",
+                "region": {
+                  "startLine": 158,
+                  "startColumn": 30,
+                  "endColumn": 33
+                }
+              }
+            }
+          ]
+        },
+        {
+          "level": "note",
+          "message": "83% of the statements in read are duplicated in [[\"NullInputStream.read()\"|\"relative://src/main/java/org/apache/commons/io/input/NullInputStream.java:187:5773:4\"]].",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "src/main/java/org/apache/commons/io/input/NullReader.java",
+                "region": {
+                  "startLine": 170,
+                  "startColumn": 16,
+                  "endColumn": 19
+                }
+              }
+            }
+          ]
+        },
+        {
+          "level": "note",
+          "message": "83% of the statements in read are duplicated in [[\"NullReader.read()\"|\"relative://src/main/java/org/apache/commons/io/input/NullReader.java:170:5297:4\"]].",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "src/main/java/org/apache/commons/io/input/NullInputStream.java",
+                "region": {
+                  "startLine": 187,
+                  "startColumn": 16,
+                  "endColumn": 19
+                }
+              }
+            }
+          ]
+        },
+        {
+          "level": "note",
+          "message": "91% of the lines in SuffixFileFilter are similar to lines in [[\"PrefixFileFilter\"|\"relative://src/main/java/org/apache/commons/io/filefilter/PrefixFileFilter.java:0:0:0\"]].",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "src/main/java/org/apache/commons/io/filefilter/SuffixFileFilter.java",
+                "region": {}
+              }
+            }
+          ]
+        },
+        {
+          "level": "note",
+          "message": "86% of the lines in TaggedOutputStream are similar to lines in [[\"TaggedInputStream\"|\"relative://src/main/java/org/apache/commons/io/input/TaggedInputStream.java:0:0:0\"]].",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "src/main/java/org/apache/commons/io/output/TaggedOutputStream.java",
+                "region": {}
+              }
+            }
+          ]
+        },
+        {
+          "level": "note",
+          "message": "86% of the lines in TaggedInputStream are similar to lines in [[\"TaggedOutputStream\"|\"relative://src/main/java/org/apache/commons/io/output/TaggedOutputStream.java:0:0:0\"]].",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "src/main/java/org/apache/commons/io/input/TaggedInputStream.java",
+                "region": {}
+              }
+            }
+          ]
+        },
+        {
+          "level": "note",
+          "message": "Inefficient comparison to empty string, check for zero length instead.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "src/main/java/org/apache/commons/io/input/ReversedLinesFileReader.java",
+                "region": {
+                  "startLine": 188,
+                  "startColumn": 12,
+                  "endColumn": 26
+                }
+              }
+            }
+          ]
+        },
+        {
+          "level": "note",
+          "message": "This empty statement should be deleted.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "src/main/java/org/apache/commons/io/output/WriterOutputStream.java",
+                "region": {
+                  "startLine": 339,
+                  "startColumn": 10
+                }
+              }
+            }
+          ]
+        },
+        {
+          "level": "note",
+          "message": "Expressions of the form \"A == false\" can be simplified to \"!A\".",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "src/main/java/org/apache/commons/io/FileCleaningTracker.java",
+                "region": {
+                  "startLine": 222,
+                  "startColumn": 20,
+                  "endColumn": 44
+                }
+              }
+            }
+          ]
+        },
+        {
+          "level": "note",
+          "message": "Expressions of the form \"A == false\" can be simplified to \"!A\".",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "src/main/java/org/apache/commons/io/FileUtils.java",
+                "region": {
+                  "startLine": 293,
+                  "startColumn": 17,
+                  "endColumn": 39
+                }
+              }
+            }
+          ]
+        },
+        {
+          "level": "note",
+          "message": "Expressions of the form \"A == false\" can be simplified to \"!A\".",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "src/main/java/org/apache/commons/io/FileUtils.java",
+                "region": {
+                  "startLine": 354,
+                  "startColumn": 17,
+                  "endColumn": 40
+                }
+              }
+            }
+          ]
+        },
+        {
+          "level": "note",
+          "message": "Expressions of the form \"A == false\" can be simplified to \"!A\".",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "src/main/java/org/apache/commons/io/FileUtils.java",
+                "region": {
+                  "startLine": 907,
+                  "startColumn": 21,
+                  "endColumn": 61
+                }
+              }
+            }
+          ]
+        },
+        {
+          "level": "note",
+          "message": "Expressions of the form \"A == false\" can be simplified to \"!A\".",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "src/main/java/org/apache/commons/io/FileUtils.java",
+                "region": {
+                  "startLine": 995,
+                  "startColumn": 33,
+                  "endColumn": 62
+                }
+              }
+            }
+          ]
+        },
+        {
+          "level": "note",
+          "message": "Expressions of the form \"A == false\" can be simplified to \"!A\".",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "src/main/java/org/apache/commons/io/FileUtils.java",
+                "region": {
+                  "startLine": 1072,
+                  "startColumn": 34,
+                  "endColumn": 61
+                }
+              }
+            }
+          ]
+        },
+        {
+          "level": "note",
+          "message": "Expressions of the form \"A == false\" can be simplified to \"!A\".",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "src/main/java/org/apache/commons/io/FileUtils.java",
+                "region": {
+                  "startLine": 1177,
+                  "startColumn": 32,
+                  "endColumn": 60
+                }
+              }
+            }
+          ]
+        },
+        {
+          "level": "note",
+          "message": "Expressions of the form \"A == false\" can be simplified to \"!A\".",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "src/main/java/org/apache/commons/io/FileUtils.java",
+                "region": {
+                  "startLine": 1183,
+                  "startColumn": 33,
+                  "endColumn": 62
+                }
+              }
+            }
+          ]
+        },
+        {
+          "level": "note",
+          "message": "Expressions of the form \"A == false\" can be simplified to \"!A\".",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "src/main/java/org/apache/commons/io/FileUtils.java",
+                "region": {
+                  "startLine": 1406,
+                  "startColumn": 17,
+                  "endColumn": 46
+                }
+              }
+            }
+          ]
+        },
+        {
+          "level": "note",
+          "message": "Expressions of the form \"A == false\" can be simplified to \"!A\".",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "src/main/java/org/apache/commons/io/FileUtils.java",
+                "region": {
+                  "startLine": 1414,
+                  "startColumn": 13,
+                  "endColumn": 39
+                }
+              }
+            }
+          ]
+        },
+        {
+          "level": "note",
+          "message": "Expressions of the form \"A == false\" can be simplified to \"!A\".",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "src/main/java/org/apache/commons/io/monitor/FileAlterationMonitor.java",
+                "region": {
+                  "startLine": 162,
+                  "startColumn": 13,
+                  "endColumn": 28
+                }
+              }
+            }
+          ]
+        },
+        {
+          "level": "note",
+          "message": "Expressions of the form \"A == false\" can be simplified to \"!A\".",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "src/main/java/org/apache/commons/io/FilenameUtils.java",
+                "region": {
+                  "startLine": 666,
+                  "startColumn": 37,
+                  "endColumn": 76
+                }
+              }
+            }
+          ]
+        },
+        {
+          "level": "note",
+          "message": "Expressions of the form \"A == false\" can be simplified to \"!A\".",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "src/main/java/org/apache/commons/io/output/FileWriterWithEncoding.java",
+                "region": {
+                  "startLine": 251,
+                  "startColumn": 17,
+                  "endColumn": 43
+                }
+              }
+            }
+          ]
+        },
+        {
+          "level": "note",
+          "message": "Expressions of the form \"A == false\" can be simplified to \"!A\".",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "src/main/java/org/apache/commons/io/FileDeleteStrategy.java",
+                "region": {
+                  "startLine": 72,
+                  "startColumn": 37,
+                  "endColumn": 66
+                }
+              }
+            }
+          ]
+        },
+        {
+          "level": "note",
+          "message": "Expressions of the form \"A == false\" can be simplified to \"!A\".",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "src/main/java/org/apache/commons/io/FileDeleteStrategy.java",
+                "region": {
+                  "startLine": 93,
+                  "startColumn": 38,
+                  "endColumn": 68
+                }
+              }
+            }
+          ]
+        },
+        {
+          "level": "note",
+          "message": "Expressions of the form \"A == false\" can be simplified to \"!A\".",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "src/main/java/org/apache/commons/io/output/LockableFileWriter.java",
+                "region": {
+                  "startLine": 274,
+                  "startColumn": 17,
+                  "endColumn": 43
+                }
+              }
+            }
+          ]
+        },
+        {
+          "level": "note",
+          "message": "Expressions of the form \"A ? true : false\" can be simplified to \"A\".",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "src/main/java/org/apache/commons/io/IOUtils.java",
+                "region": {
+                  "startLine": 2684,
+                  "startColumn": 32,
+                  "endColumn": 59
+                }
+              }
+            }
+          ]
+        },
+        {
+          "message": "The body of a loop should not be empty. Typographical error or missing code?",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "src/main/java/org/apache/commons/io/monitor/FileAlterationMonitor.java",
+                "region": {
+                  "startLine": 108,
+                  "startColumn": 48,
+                  "endLine": 109,
+                  "endColumn": 13
+                }
+              }
+            }
+          ]
+        },
+        {
+          "message": "The body of a loop should not be empty. Typographical error or missing code?",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "src/main/java/org/apache/commons/io/monitor/FileAlterationObserver.java",
+                "region": {
+                  "startLine": 257,
+                  "startColumn": 48,
+                  "endLine": 258,
+                  "endColumn": 13
+                }
+              }
+            }
+          ]
+        },
+        {
+          "level": "note",
+          "message": "TODO/FIXME comment.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "src/main/java/org/apache/commons/io/FileUtils.java",
+                "region": {
+                  "startLine": 1124,
+                  "startColumn": 48,
+                  "endColumn": 62
+                }
+              }
+            }
+          ]
+        },
+        {
+          "level": "note",
+          "message": "TODO/FIXME comment.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "src/main/java/org/apache/commons/io/FileUtils.java",
+                "region": {
+                  "startLine": 1138,
+                  "startColumn": 50,
+                  "endColumn": 64
+                }
+              }
+            }
+          ]
+        },
+        {
+          "level": "note",
+          "message": "TODO/FIXME comment.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "src/main/java/org/apache/commons/io/FileUtils.java",
+                "region": {
+                  "startLine": 1139,
+                  "startColumn": 51,
+                  "endColumn": 65
+                }
+              }
+            }
+          ]
+        },
+        {
+          "level": "note",
+          "message": "TODO/FIXME comment.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "src/main/java/org/apache/commons/io/filefilter/MagicNumberFileFilter.java",
+                "region": {
+                  "startLine": 264,
+                  "startColumn": 79,
+                  "endColumn": 114
+                }
+              }
+            }
+          ]
+        },
+        {
+          "level": "note",
+          "message": "TODO/FIXME comment.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "src/main/java/org/apache/commons/io/output/TeeOutputStream.java",
+                "region": {
+                  "startLine": 32,
+                  "startColumn": 38,
+                  "endColumn": 70
+                }
+              }
+            }
+          ]
+        },
+        {
+          "message": "This comment appears to contain commented-out code.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "src/main/java/org/apache/commons/io/input/BOMInputStream.java",
+                "region": {
+                  "startLine": 290,
+                  "startColumn": 9,
+                  "endLine": 293,
+                  "endColumn": 54
+                }
+              }
+            }
+          ]
+        },
+        {
+          "level": "note",
+          "message": "Method IOUtils.toInputStream(..) could be confused with overloaded method [[\"toInputStream\"|\"relative://src/main/java/org/apache/commons/io/IOUtils.java:1521:59539:13\"]], since dispatch depends on static types.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "src/main/java/org/apache/commons/io/IOUtils.java",
+                "region": {
+                  "startLine": 1472,
+                  "startColumn": 31,
+                  "endColumn": 43
+                }
+              }
+            }
+          ]
+        },
+        {
+          "level": "note",
+          "message": "Method IOUtils.toInputStream(..) could be confused with overloaded method [[\"toInputStream\"|\"relative://src/main/java/org/apache/commons/io/IOUtils.java:1541:60543:13\"]], since dispatch depends on static types.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "src/main/java/org/apache/commons/io/IOUtils.java",
+                "region": {
+                  "startLine": 1492,
+                  "startColumn": 31,
+                  "endColumn": 43
+                }
+              }
+            }
+          ]
+        },
+        {
+          "level": "note",
+          "message": "Method IOUtils.write(..) could be confused with overloaded method [[\"write\"|\"relative://src/main/java/org/apache/commons/io/IOUtils.java:1859:73538:5\"]], since dispatch depends on static types.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "src/main/java/org/apache/commons/io/IOUtils.java",
+                "region": {
+                  "startLine": 1778,
+                  "startColumn": 24,
+                  "endColumn": 28
+                }
+              }
+            }
+          ]
+        },
+        {
+          "level": "note",
+          "message": "Method IOUtils.write(..) could be confused with overloaded method [[\"write\"|\"relative://src/main/java/org/apache/commons/io/IOUtils.java:1898:75031:5\"]], since dispatch depends on static types.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "src/main/java/org/apache/commons/io/IOUtils.java",
+                "region": {
+                  "startLine": 1817,
+                  "startColumn": 24,
+                  "endColumn": 28
+                }
+              }
+            }
+          ]
+        },
+        {
+          "level": "note",
+          "message": "Method IOUtils.write(..) could be confused with overloaded method [[\"write\"|\"relative://src/main/java/org/apache/commons/io/IOUtils.java:1922:76152:5\"]], since dispatch depends on static types.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "src/main/java/org/apache/commons/io/IOUtils.java",
+                "region": {
+                  "startLine": 1842,
+                  "startColumn": 24,
+                  "endColumn": 28
+                }
+              }
+            }
+          ]
+        },
+        {
+          "level": "note",
+          "message": "Method FileFilterUtils.asFileFilter(..) could be confused with overloaded method [[\"asFileFilter\"|\"relative://src/main/java/org/apache/commons/io/filefilter/FileFilterUtils.java:515:18000:12\"]], since dispatch depends on static types.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "src/main/java/org/apache/commons/io/filefilter/FileFilterUtils.java",
+                "region": {
+                  "startLine": 503,
+                  "startColumn": 32,
+                  "endColumn": 43
+                }
+              }
+            }
+          ]
+        },
+        {
+          "message": "Class response too high (430). It is a warning for the value to be higher or equal to 350.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "src/main/java/org/apache/commons/io/FileUtils.java",
+                "region": {
+                  "startLine": 79,
+                  "startColumn": 14,
+                  "endColumn": 22
+                }
+              }
+            }
+          ]
+        },
+        {
+          "message": "Type specialization index too high (5). It is a warning for the value to be higher or equal to 4.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "src/main/java/org/apache/commons/io/output/TeeOutputStream.java",
+                "region": {
+                  "startLine": 29,
+                  "startColumn": 14,
+                  "endColumn": 28
+                }
+              }
+            }
+          ]
+        },
+        {
+          "message": "Type specialization index too high (4). It is a warning for the value to be higher or equal to 4.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "src/main/java/org/apache/commons/io/input/TeeInputStream.java",
+                "region": {
+                  "startLine": 40,
+                  "startColumn": 14,
+                  "endColumn": 27
+                }
+              }
+            }
+          ]
+        },
+        {
+          "message": "Lines of code in files too high (1168). It is a warning for the value to be higher or equal to 1000.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "src/main/java/org/apache/commons/io/FileUtils.java",
+                "region": {}
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -29,6 +29,9 @@ bld/
 # Visual Studio 2015 cache/options directory
 .vs/
 
+# Visual Studio 2017 browsing database files
+.BROWSE.VC.DB-*
+
 # MSTest test Results
 [Tt]est[Rr]esult*/
 [Bb]uild[Ll]og.*

@@ -33,7 +33,7 @@ namespace Microsoft.Sarif.Viewer
         private uint m_updateSolutionEventsCookie;
         private uint m_solutionEventsCookie;
         private uint m_runningDocTableEventsCookie;
-        private Dictionary<string, string> _remappedFilePaths;
+        private Dictionary<string, Uri> _remappedUriBasePaths;
         private List<Tuple<string, string>> _remappedPathPrefixes;
         private Dictionary<string, NewLineIndex> _fileToNewLineIndexMap;
         private IList<SarifErrorListItem> _sarifErrors = new List<SarifErrorListItem>();
@@ -42,7 +42,7 @@ namespace Microsoft.Sarif.Viewer
         private CodeAnalysisResultManager()
         {
             this.SarifErrors = new List<SarifErrorListItem>();
-            _remappedFilePaths = new Dictionary<string, string>();
+            _remappedUriBasePaths = new Dictionary<string, Uri>();
             _remappedPathPrefixes = new List<Tuple<string, string>>();
             _fileToNewLineIndexMap = new Dictionary<string, NewLineIndex>();
         }
@@ -229,7 +229,7 @@ namespace Microsoft.Sarif.Viewer
             return S_OK;
         }
 
-        public bool TryRebaselineCurrentSarifError(string originalFilename)
+        public bool TryRebaselineCurrentSarifError(string uriBaseId, string originalFilename)
         {
             if (CurrentSarifError == null)
             {
@@ -244,7 +244,7 @@ namespace Microsoft.Sarif.Viewer
             }
             else
             {
-                rebaselinedFile = GetRebaselinedFileName(originalFilename);
+                rebaselinedFile = GetRebaselinedFileName(uriBaseId, originalFilename);
             }
 
             if (String.IsNullOrEmpty(rebaselinedFile) || originalFilename.Equals(rebaselinedFile, StringComparison.OrdinalIgnoreCase))
@@ -280,16 +280,40 @@ namespace Microsoft.Sarif.Viewer
             return destinationFile;
         }
 
-        public string GetRebaselinedFileName(string fileName)
+        private static string DefaultUriBase = Guid.NewGuid().ToString();
+
+        public string GetRebaselinedFileName(string uriBaseId, string fileName)
         {
-            // First, we'll traverse our remappings and see if we can
-            // make rebaseline from existing data
-            foreach (Tuple<string, string> remapping in _remappedPathPrefixes)
+            Uri relativeUri;
+
+            uriBaseId = uriBaseId ?? DefaultUriBase;
+
+            if (Uri.TryCreate(fileName, UriKind.Relative, out relativeUri))
             {
-                string remapped = fileName.Replace(remapping.Item1, remapping.Item2);
-                if (File.Exists(remapped))
+                // If the relative file path is relative to an unknown root,
+                // we need to strip the leading slash, so that we can relate
+                // the file path to an arbitrary remapped disk location.
+                if (fileName.StartsWith("/"))
                 {
-                    return remapped;
+                    fileName = fileName.Substring(1);
+                }
+
+                if (_remappedUriBasePaths.ContainsKey(uriBaseId))
+                {
+                    return new Uri(_remappedUriBasePaths[uriBaseId], fileName).LocalPath;
+                }
+            }
+            else
+            {
+                // First, we'll traverse our remappings and see if we can
+                // make rebaseline from existing data
+                foreach (Tuple<string, string> remapping in _remappedPathPrefixes)
+                {
+                    string remapped = fileName.Replace(remapping.Item1, remapping.Item2);
+                    if (File.Exists(remapped))
+                    {
+                        return remapped;
+                    }
                 }
             }
 
@@ -356,7 +380,14 @@ namespace Microsoft.Sarif.Viewer
             string originalPrefix = fullPath.Substring(0, fullPath.Length - offset);
             string resolvedPrefix = resolvedPath.Substring(0, resolvedPath.Length - offset);
 
-            _remappedPathPrefixes.Add(new Tuple<string, string>(originalPrefix, resolvedPrefix));
+            if (relativeUri != null)
+            {                
+                _remappedUriBasePaths[uriBaseId] = new Uri(resolvedPath.Substring(0, resolvedPath.IndexOf(fileName.Replace("/", @"\"))), UriKind.Absolute);
+            }
+            else
+            {
+                _remappedPathPrefixes.Add(new Tuple<string, string>(originalPrefix, resolvedPrefix));
+            }
 
             return resolvedPath;
         }

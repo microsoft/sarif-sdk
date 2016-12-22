@@ -165,13 +165,13 @@ namespace Microsoft.CodeAnalysis.Sarif
                     issueType = "warning";
                     break;
 
-                case ResultLevel.NotApplicable:
-                case ResultLevel.Note:
-                    issueType = "note";
-                    break;
-
                 case ResultLevel.Pass:
                     issueType = "pass";
+                    break;
+
+                case ResultLevel.NotApplicable:
+                case ResultLevel.Note:
+                    issueType = "info";
                     break;
 
                 default:
@@ -201,7 +201,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             string result = (path != null ? (path + location + ": ") : "") +
                    issueType + (!string.IsNullOrEmpty(ruleId) ? " " : "") +
-                   (resultLevel != ResultLevel.Note ? ruleId : "") + ": " +
+                   (!string.IsNullOrEmpty(ruleId) ? (ruleId + ": ") : "") +
                    detailedDiagnosis;
 
             return result;
