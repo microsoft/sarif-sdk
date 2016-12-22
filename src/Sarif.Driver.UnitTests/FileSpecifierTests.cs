@@ -59,7 +59,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         [InlineData(@".\Sarif.dll", 1)]
         [InlineData(@".\Sarif.dll*", 1)]
         [InlineData(@"Sarif.dll*", 1)]
-        [InlineData(@"*.xml", 13)]
 
         public void ResolveFiles(string input, int expectedCount)
         {
