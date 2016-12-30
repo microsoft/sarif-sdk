@@ -142,12 +142,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 return AnalysisApplicability.NotApplicableToSpecifiedTarget;
             }
 
-            if (context.Options.RegardRequiredConfigurationAsMissing)
-            {
-                reasonIfNotApplicable = "test NotApplicableDueToMissingConfiguration";
-                return AnalysisApplicability.NotApplicableDueToMissingConfiguration;
-            }
-
             return AnalysisApplicability.ApplicableToSpecifiedTarget;
         }
 

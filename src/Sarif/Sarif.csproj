@@ -82,6 +82,8 @@
     <Compile Include="OffsetInfo.cs" />
     <Compile Include="PerLanguageOption.cs" />
     <Compile Include="PropertiesDictionary.cs" />
+    <Compile Include="PropertiesDictionaryContractResolver.cs" />
+    <Compile Include="PropertiesDictionaryConverter.cs" />
     <Compile Include="PropertiesDictionaryExtensionMethods.cs" />
     <Compile Include="Readers\AnnotatedCodeLocationIdConverter.cs" />
     <Compile Include="Readers\DateTimeConverter.cs" />
@@ -104,10 +106,10 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>SdkResources.resx</DependentUpon>
     </Compile>
-    <Compile Include="IntegerSetCollection.cs" />
+    <Compile Include="IntegerSet.cs" />
     <Compile Include="IToolFileConverter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="StringSetCollection.cs" />
+    <Compile Include="StringSet.cs" />
     <Compile Include="TypedPropertiesDictionary.cs" />
     <Compile Include="UriHelper.cs" />
     <Compile Include="VersionConstants.cs" />

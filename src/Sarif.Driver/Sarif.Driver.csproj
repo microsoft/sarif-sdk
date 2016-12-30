@@ -109,6 +109,7 @@
     <Compile Include="Sdk\ExportConfigurationOptions.cs" />
     <Compile Include="Sdk\ExportRulesMetadataCommandBase.cs" />
     <Compile Include="Sdk\ExportRulesMetadataOptions.cs" />
+    <Compile Include="Sdk\FileFormat.cs" />
     <Compile Include="Sdk\ISkimmer.cs" />
     <Compile Include="Sdk\PlugInDriverCommand.cs" />
     <Compile Include="Sdk\SkimmerBase.cs" />

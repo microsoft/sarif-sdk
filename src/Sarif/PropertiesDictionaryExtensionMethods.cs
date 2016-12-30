@@ -14,16 +14,15 @@ namespace Microsoft.CodeAnalysis.Sarif
 {
     public static class PropertiesDictionaryExtensionMethods
     {
-        public static void SavePropertiesToStream(
+        public static void SavePropertiesToXmlStream(
             this IDictionary propertyBag,
             XmlWriter writer,
-            XmlWriterSettings settings,
-            string name)
+            XmlWriterSettings settings)
         {
-            SavePropertiesToStream(propertyBag, writer, settings, name, settingNameToDescriptionMap: null);
+            SavePropertiesToXmlStream(propertyBag, writer, settings, null, settingNameToDescriptionMap: null);
         }
 
-        public static void SavePropertiesToStream(
+        public static void SavePropertiesToXmlStream(
             this IDictionary propertyBag,
             XmlWriter writer,
             XmlWriterSettings settings,
@@ -53,7 +52,10 @@ namespace Microsoft.CodeAnalysis.Sarif
             }
 
             writer.WriteStartElement(PROPERTIES_ID);
-            writer.WriteAttributeString(KEY_ID, name);
+            if (name != null)
+            {
+                writer.WriteAttributeString(KEY_ID, name);
+            }
 
             if (propertyBagTypeName != "PropertyBag")
             {
@@ -69,17 +71,24 @@ namespace Microsoft.CodeAnalysis.Sarif
             {
                 object property = propertyBag[key];
 
-                StringSetCollection stringSet = property as StringSetCollection;
+                StringSet stringSet = property as StringSet;
                 if (stringSet != null)
                 {
-                    SaveStringSet(writer, stringSet, key);
+                    SaveSet(writer, stringSet, key);
+                    continue;
+                }
+
+                IntegerSet integerSet = property as IntegerSet;
+                if (integerSet != null)
+                {
+                    SaveSet(writer, integerSet, key);
                     continue;
                 }
 
                 IDictionary pb = property as IDictionary;
                 if (pb != null)
                 {
-                    ((IDictionary)pb).SavePropertiesToStream(writer, settings, key, settingNameToDescriptionMap);
+                    ((IDictionary)pb).SavePropertiesToXmlStream(writer, settings, key, settingNameToDescriptionMap);
                     continue;
                 }
 
@@ -130,20 +139,20 @@ namespace Microsoft.CodeAnalysis.Sarif
             return typeName;
         }
 
-        private static void SaveStringSet(XmlWriter writer, StringSetCollection items, string key)
+        private static void SaveSet<T>(XmlWriter writer, HashSet<T> items, string key)
         {
             writer.WriteStartElement(PROPERTY_ID);
             writer.WriteAttributeString(KEY_ID, key);
-            writer.WriteAttributeString(TYPE_ID, "StringSet");
+            writer.WriteAttributeString(TYPE_ID, items.GetType().Name);
 
-            string[] sorted = new string[items.Count];
+            T[] sorted = new T[items.Count];
             items.CopyTo(sorted, 0);
             Array.Sort(sorted);
 
-            foreach (string item in sorted)
+            foreach (T item in sorted)
             {
                 writer.WriteStartElement(ITEM_ID);
-                writer.WriteString(item);
+                writer.WriteString(item.ToString());
                 writer.WriteEndElement(); // Item
             }
 
@@ -201,15 +210,25 @@ namespace Microsoft.CodeAnalysis.Sarif
                     string typeName = reader.GetAttribute(TYPE_ID);
                     isEmpty = reader.IsEmptyElement;
 
-                    if (typeName == STRING_SET_ID)
+                    if (typeName == STRING_SET_ID ||
+                        typeName == INTEGER_SET_ID)
                     {
-                        StringSetCollection set = new StringSetCollection();
-                        propertyBag[key] = set;
-                        LoadStringSet(set, reader);
+                        if (typeName == STRING_SET_ID)
+                        {
+                            StringSet set = new StringSet();
+                            propertyBag[key] = set;
+                            LoadSet(set, reader);
+                        }
+                        else
+                        {
+                            IntegerSet set = new IntegerSet();
+                            propertyBag[key] = set;
+                            LoadSet(set, reader);
+                        }
+
                         if (!isEmpty) { reader.ReadEndElement(); }
                         continue;
                     }
-
 
                     reader.ReadStartElement(PROPERTY_ID);
                     Type propertyType = GetPropertiesDictionaryType(typeName);
@@ -250,18 +269,22 @@ namespace Microsoft.CodeAnalysis.Sarif
             return type;
         }
 
-        private static void LoadStringSet(StringSetCollection set, XmlReader reader)
+        private static void LoadSet<T>(HashSet<T> set, XmlReader reader)
         {
             reader.ReadStartElement(PROPERTY_ID);
 
             while (reader.IsStartElement(ITEM_ID))
             {
-                string item;
+                T item;
                 bool isEmptyItem;
 
                 isEmptyItem = reader.IsEmptyElement;
                 reader.ReadStartElement();
-                item = reader.ReadString();
+
+                TypeConverter tc = TypeDescriptor.GetConverter(typeof(T));
+                Debug.Assert(tc.CanConvertFrom(typeof(string)));
+
+                item = (T)tc.ConvertFrom(reader.ReadString());
                 set.Add(item);
                 if (!isEmptyItem) reader.ReadEndElement();
             }
@@ -270,12 +293,17 @@ namespace Microsoft.CodeAnalysis.Sarif
         private static Type GetType(string typeName)
         {
             Type propertyType = null;
+
+            if (String.IsNullOrEmpty(typeName))
+            {
+                return typeof(string);
+            }
+
             if (!s_typesCache.Contains(typeName))
             {
                 foreach (Assembly assembly in AppDomain.CurrentDomain.GetAssemblies())
                 {
                     propertyType = assembly.GetType(typeName);
-
                     if (propertyType != null)
                     {
                         s_typesCache[typeName] = propertyType;

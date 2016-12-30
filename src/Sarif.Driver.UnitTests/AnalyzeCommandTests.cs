@@ -122,21 +122,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         }
 
         [Fact]
-        public void MissingRequiredConfiguration()
-        {
-            var options = new TestAnalyzeOptions()
-            {
-                TargetFileSpecifiers = new string[] { this.GetType().Assembly.Location },
-                RegardRequiredConfigurationAsMissing = true
-            };
-
-            ExceptionTestHelper(
-                ExceptionCondition.None,
-                RuntimeConditions.RuleMissingRequiredConfiguration,
-                analyzeOptions: options);
-        }
-
-        [Fact]
         public void ExceptionLoadingTarget()
         {
             var options = new TestAnalyzeOptions()
@@ -444,7 +429,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                     Statistics = true,
                     Quiet = true,
                     ComputeTargetsHash = true,
-                    ConfigurationFilePath = TestAnalyzeCommand.DEFAULT_POLICY_NAME,
+                    ConfigurationFilePath = TestAnalyzeCommand.DefaultPolicyName,
                     Recurse = true,
                     OutputFilePath = path,
                 };

@@ -1,12 +1,14 @@
 ﻿// Copyright (c) Microsoft. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
+using System;
+
 namespace Microsoft.CodeAnalysis.Sarif.Driver
 {
-    public enum AnalysisApplicability
+    public enum FileFormat
     {
-        Unknown,
-        NotApplicableToSpecifiedTarget,
-        ApplicableToSpecifiedTarget
+        None,
+        Json,
+        Xml
     }
 }

@@ -117,3 +117,9 @@
 * Add File/Open of Semmle CSV to VS add-ing
 * Eliminate redundant output of notifications
 * Update FileSpecifier to resolve patternts such as File* properly
+
+## **v1.5.40** [Driver](https://www.nuget.org/packages/Sarif.Driver/1.5.40) | [SDK](https://www.nuget.org/packages/Sarif.Sdk/1.5.40)
+
+* Add JSON settings persistence 
+* Populate context objects from configuration file argument
+
