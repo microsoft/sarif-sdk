@@ -1,4 +1,4 @@
-::Configuration for AppVeyor build platform 
+::Build initialization step
 
 @ECHO off
 SETLOCAL
@@ -17,7 +17,7 @@ echo GeneratedKey.snk not found
 goto ExitFailed
 )
 
-@REM Restore nuget packages
+::Restore nuget packages
 %~dp0.nuget\NuGet.exe restore src\Everything.sln -ConfigFile .nuget\NuGet.Config
 
 if "%ERRORLEVEL%" NEQ "0" (
@@ -33,5 +33,3 @@ goto Exit
 exit /b 1
 
 :Exit
-
-

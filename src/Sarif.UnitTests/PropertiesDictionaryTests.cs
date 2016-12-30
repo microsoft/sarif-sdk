@@ -18,9 +18,14 @@ namespace Microsoft.CodeAnalysis.Sarif
         private static bool BOOL_DEFAULT = true;
         private static StringSet STRINGSET_DEFAULT = new StringSet(new string[] { "a", "b", "c" });
         private static IntegerSet INTEGERSET_DEFAULT = new IntegerSet(new int[] { -1, 0, 1, 2 });
+        private static PropertiesDictionary PROPERTIES_DEFAULT = new PropertiesDictionary
+        {
+            { "TestKey", "TestValue" }
+        };
+
 
         [TestMethod]
-        public void PropertiesDictionary_RetrieveBoolean()
+        public void PropertiesDictionary_RoundtripBoolean()
         {
             var properties = new PropertiesDictionary();
             properties.GetProperty(BooleanProperty).Should().Be(BOOL_DEFAULT);
@@ -38,7 +43,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
 
         [TestMethod]
-        public void PropertiesDictionary_RetrieveStringSet()
+        public void PropertiesDictionary_RoundtripStringSet()
         {
             var properties = new PropertiesDictionary();
             ValidateSets(properties.GetProperty(StringSetProperty), STRINGSET_DEFAULT);
@@ -55,7 +60,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         }
 
         [TestMethod]
-        public void PropertiesDictionary_RetrieveIntegerSet()
+        public void PropertiesDictionary_RoundtripIntegerSet()
         {
             var properties = new PropertiesDictionary();
             ValidateSets(properties.GetProperty(IntegerSetProperty), INTEGERSET_DEFAULT);
@@ -68,6 +73,33 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             properties = RoundTripThroughJson(properties);
             ValidateSets(properties.GetProperty(IntegerSetProperty), nonDefaultValue);
+        }
+
+        [TestMethod]
+        public void PropertiesDictionary_RoundtripNestedPropertiesDictionary()
+        {
+            var properties = new PropertiesDictionary();
+            ValidateProperties(properties.GetProperty(PropertiesDictionaryProperty), PROPERTIES_DEFAULT);
+
+            var nonDefaultValue = new PropertiesDictionary { { "NewKey", 1337 }, { "AnotherKey", true } };
+            properties.SetProperty(PropertiesDictionaryProperty, nonDefaultValue);
+
+            properties = RoundTripThroughXml(properties);
+            ValidateProperties(properties.GetProperty(PropertiesDictionaryProperty), nonDefaultValue);
+
+            properties = RoundTripThroughJson(properties);
+            ValidateProperties(properties.GetProperty(PropertiesDictionaryProperty), nonDefaultValue);
+        }
+
+        private void ValidateProperties(PropertiesDictionary actual, PropertiesDictionary expected)
+        {
+            actual.Keys.Count.Should().Be(expected.Keys.Count);
+
+            foreach (string key in actual.Keys)
+            {
+                actual[key].GetType().Should().Be(expected[key].GetType());
+                actual[key].Should().Be(expected[key]);
+            }
         }
 
         private void ValidateSets<T>(HashSet<T> actual, HashSet<T> expected)
@@ -130,5 +162,9 @@ namespace Microsoft.CodeAnalysis.Sarif
         public static PerLanguageOption<IntegerSet> IntegerSetProperty { get; } =
             new PerLanguageOption<IntegerSet>(
                 FEATURE, nameof(IntegerSetProperty), defaultValue: () => { return INTEGERSET_DEFAULT; });
+
+        public static PerLanguageOption<PropertiesDictionary> PropertiesDictionaryProperty { get; } =
+            new PerLanguageOption<PropertiesDictionary>(
+                FEATURE, nameof(PropertiesDictionaryProperty), defaultValue: () => { return PROPERTIES_DEFAULT; });
     }
 }
