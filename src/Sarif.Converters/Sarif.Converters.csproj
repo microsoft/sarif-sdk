@@ -51,6 +51,7 @@
     <Compile Include="Extensions.cs" />
     <Compile Include="FileInfoFactory.cs" />
     <Compile Include="FortifyConverter.cs" />
+    <Compile Include="FortifyFprConverter.cs" />
     <Compile Include="FortifyIssue.cs" />
     <Compile Include="FortifyPathElement.cs" />
     <Compile Include="FortifyStrings.cs" />
