@@ -3,6 +3,7 @@
 
 using System;
 using System.IO;
+using System.IO.Packaging;
 
 namespace Microsoft.CodeAnalysis.Sarif.Converters
 {
@@ -37,12 +38,18 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 Name = "Fortify"
             };
 
+            OpenFvdlStream(input);
             output.Initialize(id: null, correlationId: null);
 
             output.WriteTool(tool);
 
             output.OpenResults();
             output.CloseResults();
+        }
+
+        private void OpenFvdlStream(Stream input)
+        {
+            var package = Package.Open(input);
         }
     }
 }
