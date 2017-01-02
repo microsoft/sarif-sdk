@@ -4,10 +4,12 @@
 using System;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
+using Newtonsoft.Json;
 
 namespace Microsoft.CodeAnalysis.Sarif
 {
     [Serializable]
+    [JsonConverter(typeof(TypedPropertiesDictionaryConverter))]
     public class StringSet : HashSet<string>
     {
         public StringSet() { }

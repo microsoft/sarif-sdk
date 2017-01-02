@@ -15,7 +15,7 @@ using Newtonsoft.Json.Linq;
 namespace Microsoft.CodeAnalysis.Sarif
 {
     [Serializable]
-    [JsonConverter(typeof(PropertiesDictionaryConverter))]
+    [JsonConverter(typeof(TypedPropertiesDictionaryConverter))]
     public class PropertiesDictionary : TypedPropertiesDictionary<object>
     {
         internal const string DEFAULT_POLICY_NAME = "default";
@@ -104,7 +104,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 }
                 else if (result is JToken)
                 {
-                    value = ((JToken)result).ToObject<T>(jsonSerializer);
+                    value = ((JToken)result).ToObject<T>();
                     return true;
                 }
                 return TryConvertFromString((string)result, out value);
@@ -112,12 +112,6 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             return false;
         }
-
-        private JsonSerializer jsonSerializer = new JsonSerializer()
-        {
-            ContractResolver = new PropertiesDictionaryContractResolver()
-        };
-
 
         private bool TryConvertFromStringArray<T>(string[] values, out T result)
         {
@@ -165,7 +159,6 @@ namespace Microsoft.CodeAnalysis.Sarif
                 Formatting = Newtonsoft.Json.Formatting.Indented
             };
              
-
             File.WriteAllText(filePath, JsonConvert.SerializeObject(this, settings));
         }
 
@@ -177,7 +170,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             foreach (string key in properties.Keys)
             {
-                this[key] = ((JToken)properties[key]).ToObject<PropertiesDictionary>();
+                this[key] = properties[key];
             }
         }
 

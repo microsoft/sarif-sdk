@@ -4,11 +4,15 @@
 using System;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
+using Newtonsoft.Json;
 
 namespace Microsoft.CodeAnalysis.Sarif
 {
+    public interface IMarker { }
+
     [Serializable]
-    public class TypedPropertiesDictionary<T> : Dictionary<string, T> where T : new()
+    [JsonConverter(typeof(TypedPropertiesDictionaryConverter))]
+    public class TypedPropertiesDictionary<T> : Dictionary<string, T>, IMarker where T : new()
     {
         public TypedPropertiesDictionary() : this(null, StringComparer.Ordinal)
         {
