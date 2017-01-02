@@ -131,9 +131,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         private void ParseBuild()
         {
             _reader.Read();
-            while (!_reader.EOF && !Ref.Equal(_reader.LocalName, _strings.Build))
+            while (!AtEndOf(_strings.Build))
             {
-                if (Ref.Equal(_reader.LocalName, _strings.BuildId))
+                if (AtStartOf(_strings.BuildId))
                 {
                     _automationId = _reader.ReadElementContentAsString();
                 }
@@ -150,10 +150,17 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             _reader.Read();
             while (!AtEndOf(_strings.CommandLine))
             {
-                string argument = _reader.ReadElementContentAsString();
-                sb.Append(' ');
-                sb.Append(argument);
-                _reader.MoveToElement();
+                if (AtStartOf(_strings.Argument))
+                {
+                    string argument = _reader.ReadElementContentAsString();
+                    sb.Append(' ');
+                    sb.Append(argument);
+                    _reader.MoveToElement();
+                }
+                else
+                {
+                    _reader.Read();
+                }
             }
 
             _invocation.CommandLine = sb.ToString();
@@ -164,7 +171,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             _reader.Read();
             while (!AtEndOf(_strings.Errors))
             {
-                if (Ref.Equal(_reader.LocalName, _strings.Error))
+                if (AtStartOf(_strings.Error))
                 {
                     string errorCode = _reader.GetAttribute(_strings.Code);
                     string message = _reader.ReadElementContentAsString();
@@ -188,11 +195,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             _reader.Read();
             while (!AtEndOf(_strings.MachineInfo))
             {
-                if (Ref.Equal(_reader.LocalName, _strings.Hostname))
+                if (AtStartOf(_strings.Hostname))
                 {
                     _invocation.Machine = _reader.ReadElementContentAsString();
                 }
-                else if (Ref.Equal(_reader.LocalName, _strings.Username))
+                else if (AtStartOf(_strings.Username))
                 {
                     _invocation.Account = _reader.ReadElementContentAsString();
                 }
@@ -201,6 +208,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                     _reader.Read();
                 }
             }
+        }
+
+        private bool AtStartOf(string elementName)
+        {
+            return !_reader.EOF &&
+                (_reader.NodeType == XmlNodeType.Element && Ref.Equal(_reader.LocalName, elementName));
         }
 
         private bool AtEndOf(string elementName)
