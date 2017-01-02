@@ -148,7 +148,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         {
             var sb = new StringBuilder(FortifyExecutable);
             _reader.Read();
-            while (!_reader.EOF && Ref.Equal(_reader.LocalName, _strings.Argument))
+            while (!AtEndOf(_strings.CommandLine))
             {
                 string argument = _reader.ReadElementContentAsString();
                 sb.Append(' ');
@@ -162,7 +162,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         private void ParseErrors()
         {
             _reader.Read();
-            while (!_reader.EOF && !Ref.Equal(_reader.LocalName, _strings.Errors))
+            while (!AtEndOf(_strings.Errors))
             {
                 if (Ref.Equal(_reader.LocalName, _strings.Error))
                 {
@@ -186,7 +186,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         private void ParseMachineInfo()
         {
             _reader.Read();
-            while (!_reader.EOF && !Ref.Equal(_reader.LocalName, _strings.MachineInfo))
+            while (!AtEndOf(_strings.MachineInfo))
             {
                 if (Ref.Equal(_reader.LocalName, _strings.Hostname))
                 {
@@ -201,6 +201,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                     _reader.Read();
                 }
             }
+        }
+
+        private bool AtEndOf(string elementName)
+        {
+            return _reader.EOF ||
+                (_reader.NodeType == XmlNodeType.EndElement && Ref.Equal(_reader.LocalName, elementName));
         }
     }
 }
