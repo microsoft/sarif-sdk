@@ -34,7 +34,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
             {
                 var run = new Run();
 
-                uut.Initialize(id: null, correlationId: null);
+                uut.Initialize(id: null, automationId: null);
 
                 uut.WriteTool(DefaultTool);
 

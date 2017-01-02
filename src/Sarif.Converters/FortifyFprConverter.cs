@@ -52,7 +52,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
             ParseFprFile(input);
 
-            output.Initialize(id: null, correlationId: _automationId);
+            output.Initialize(id: null, automationId: _automationId);
 
             output.WriteTool(tool);
             output.WriteInvocation(_invocation);
