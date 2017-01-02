@@ -111,7 +111,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                     }
                     else if (AtStartOfNonEmpty(_strings.CommandLine))
                     {
-                        ParseCommandLineArguments();
+                        ParseCommandLine();
                     }
                     else if (AtStartOfNonEmpty(_strings.Errors))
                     {
@@ -141,7 +141,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             }
         }
 
-        private void ParseCommandLineArguments()
+        private void ParseCommandLine()
         {
             var sb = new StringBuilder(FortifyExecutable);
             _reader.Read();
