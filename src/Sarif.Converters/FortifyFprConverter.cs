@@ -91,14 +91,16 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             {
                 while (reader.Read())
                 {
-                    if (Ref.Equal(reader.LocalName, _strings.CommandLine))
+                    if (reader.IsStartElement())
                     {
-                        ParseCommandLineArguments(reader);
-                    }
-
-                    if (Ref.Equal(reader.LocalName, _strings.Hostname))
-                    {
-                        _invocation.Machine = reader.ReadElementContentAsString();
+                        if (Ref.Equal(reader.LocalName, _strings.CommandLine))
+                        {
+                            ParseCommandLineArguments(reader);
+                        }
+                        else if (Ref.Equal(reader.LocalName, _strings.MachineInfo))
+                        {
+                            ParseMachineInfo(reader);
+                        }
                     }
                 }
             }
@@ -109,7 +111,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             var sb = new StringBuilder();
             reader.MoveToElement();
             reader.Read();
-            while (Ref.Equal(reader.LocalName, _strings.Argument))
+            while (!reader.EOF && Ref.Equal(reader.LocalName, _strings.Argument))
             {
                 string argument = reader.ReadElementContentAsString();
                 if (sb.Length > 0)
@@ -122,6 +124,26 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             }
 
             _invocation.CommandLine = sb.ToString();
+        }
+
+        private void ParseMachineInfo(XmlReader reader)
+        {
+            reader.Read();
+            while (!reader.EOF && !Ref.Equal(reader.LocalName, _strings.MachineInfo))
+            {
+                if (Ref.Equal(reader.LocalName, _strings.Hostname))
+                {
+                    _invocation.Machine = reader.ReadElementContentAsString();
+                }
+                else if (Ref.Equal(reader.LocalName, _strings.Username))
+                {
+                    _invocation.Account = reader.ReadElementContentAsString();
+                }
+                else
+                {
+                    reader.Read();
+                }
+            }
         }
     }
 }
