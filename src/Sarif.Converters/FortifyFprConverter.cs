@@ -95,6 +95,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                     {
                         ParseCommandLineArguments(reader);
                     }
+
+                    if (Ref.Equal(reader.LocalName, _strings.Hostname))
+                    {
+                        _invocation.Machine = reader.ReadElementContentAsString();
+                    }
                 }
             }
         }
@@ -108,7 +113,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             {
                 string argument = reader.ReadElementContentAsString();
                 if (sb.Length > 0)
+                {
                     sb.Append(' ');
+                }
+
                 sb.Append(argument);
                 reader.MoveToElement();
             }

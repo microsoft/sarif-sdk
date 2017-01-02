@@ -17,6 +17,19 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         /// <summary>The string constant "Argument".</summary>
         public readonly string Argument;
 
+        // MachineInfo element
+
+        /// <summary>The string constant "MachineInfo".</summary>
+        public readonly string MachineInfo;
+
+        // MachineInfo members
+
+        /// <summary>The string constant "Hostname".</summary>
+        public readonly string Hostname;
+
+        /// <summary>The string constant "Username".</summary>
+        public readonly string Username;
+
         /// <summary>
         /// Initializes a new instance of the <see cref="FortifyFprStrings"/> class.
         /// </summary>
@@ -25,8 +38,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         /// </param>
         public FortifyFprStrings(XmlNameTable nameTable)
         {
-            CommandLine = nameTable.Add("CommandLine");
-            Argument = nameTable.Add("Argument");
+            CommandLine = nameTable.Add(nameof(CommandLine));
+            Argument = nameTable.Add(nameof(Argument));
+            MachineInfo = nameTable.Add(nameof(MachineInfo));
+            Hostname = nameTable.Add(nameof(Hostname));
+            Username = nameTable.Add(nameof(Username));
         }
     }
 }
