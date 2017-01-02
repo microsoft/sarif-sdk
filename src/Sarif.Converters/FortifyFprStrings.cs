@@ -7,6 +7,16 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 {
     internal class FortifyFprStrings
     {
+        // Build element
+
+        /// <summary>The string constant "Build".</summary>
+        public readonly string Build;
+
+        // Build members
+
+        /// <summary>The string constant "BuildID"</summary>
+        public readonly string BuildID;
+
         // CommandLine element
 
         /// <summary>The string constant "CommandLine".</summary>
@@ -38,6 +48,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         /// </param>
         public FortifyFprStrings(XmlNameTable nameTable)
         {
+            Build = nameTable.Add(nameof(Build));
+            BuildID = nameTable.Add(nameof(BuildID));
             CommandLine = nameTable.Add(nameof(CommandLine));
             Argument = nameTable.Add(nameof(Argument));
             MachineInfo = nameTable.Add(nameof(MachineInfo));

@@ -15,6 +15,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         private readonly NameTable _nameTable;
         private readonly FortifyFprStrings _strings;
         private Invocation _invocation;
+        private string _automationId;
 
         /// <summary>Initializes a new instance of the <see cref="FortifyFprConverter"/> class.</summary>
         public FortifyFprConverter()
@@ -51,7 +52,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
             ParseFprFile(input);
 
-            output.Initialize(id: null, correlationId: null);
+            output.Initialize(id: null, correlationId: _automationId);
 
             output.WriteTool(tool);
             output.WriteInvocation(_invocation);
@@ -93,7 +94,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 {
                     if (reader.IsStartElement())
                     {
-                        if (Ref.Equal(reader.LocalName, _strings.CommandLine))
+                        if (Ref.Equal(reader.LocalName, _strings.Build))
+                        {
+                            ParseBuild(reader);
+                        }
+                        else if (Ref.Equal(reader.LocalName, _strings.CommandLine))
                         {
                             ParseCommandLineArguments(reader);
                         }
@@ -102,6 +107,22 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                             ParseMachineInfo(reader);
                         }
                     }
+                }
+            }
+        }
+
+        private void ParseBuild(XmlReader reader)
+        {
+            reader.Read();
+            while (!reader.EOF && !Ref.Equal(reader.LocalName, _strings.Build))
+            {
+                if (Ref.Equal(reader.LocalName, _strings.BuildID))
+                {
+                    _automationId = reader.ReadElementContentAsString();
+                }
+                else
+                {
+                    reader.Read();
                 }
             }
         }
