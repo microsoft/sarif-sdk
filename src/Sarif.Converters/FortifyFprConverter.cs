@@ -2,6 +2,7 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.IO.Compression;
 using System.Linq;
@@ -12,10 +13,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 {
     internal class FortifyFprConverter : ToolFileConverterBase
     {
+        private const string ErrorCodePrefix = "FPR";
+
         private readonly NameTable _nameTable;
         private readonly FortifyFprStrings _strings;
+
         private Invocation _invocation;
         private string _automationId;
+        private List<Notification> _toolNotifications = new List<Notification>();
 
         /// <summary>Initializes a new instance of the <see cref="FortifyFprConverter"/> class.</summary>
         public FortifyFprConverter()
@@ -49,6 +54,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             };
 
             _invocation = new Invocation();
+            _toolNotifications.Clear();
 
             ParseFprFile(input);
 
@@ -59,6 +65,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
             output.OpenResults();
             output.CloseResults();
+
+            if (_toolNotifications.Any())
+            {
+                output.WriteToolNotifications(_toolNotifications);
+            }
         }
 
         private void ParseFprFile(Stream input)
@@ -101,6 +112,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                         else if (Ref.Equal(reader.LocalName, _strings.CommandLine))
                         {
                             ParseCommandLineArguments(reader);
+                        }
+                        else if (Ref.Equal(reader.LocalName, _strings.Errors))
+                        {
+                            ParseErrors(reader);
                         }
                         else if (Ref.Equal(reader.LocalName, _strings.MachineInfo))
                         {
@@ -145,6 +160,30 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             }
 
             _invocation.CommandLine = sb.ToString();
+        }
+
+        private void ParseErrors(XmlReader reader)
+        {
+            reader.Read();
+            while (!reader.EOF && !Ref.Equal(reader.LocalName, _strings.Errors))
+            {
+                if (Ref.Equal(reader.LocalName, _strings.Error))
+                {
+                    string errorCode = reader.GetAttribute(_strings.Code);
+                    string message = reader.ReadElementContentAsString();
+
+                    _toolNotifications.Add(new Notification
+                    {
+                        Id = ErrorCodePrefix + errorCode,
+                        Level = NotificationLevel.Error,
+                        Message = message
+                    });
+                }
+                else
+                {
+                    reader.Read();
+                }
+            }
         }
 
         private void ParseMachineInfo(XmlReader reader)

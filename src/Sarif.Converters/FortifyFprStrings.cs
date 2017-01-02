@@ -27,6 +27,21 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         /// <summary>The string constant "Argument".</summary>
         public readonly string Argument;
 
+        // Errors element
+
+        /// <summary>The string constant "Errors".</summary>
+        public readonly string Errors;
+
+        // Errors members
+
+        /// <summary>The string constant "Error".</summary>
+        public readonly string Error;
+
+        // Error members
+
+        /// <summary>The string constant "Error".</summary>
+        public readonly string Code;
+
         // MachineInfo element
 
         /// <summary>The string constant "MachineInfo".</summary>
@@ -52,6 +67,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             BuildID = nameTable.Add(nameof(BuildID));
             CommandLine = nameTable.Add(nameof(CommandLine));
             Argument = nameTable.Add(nameof(Argument));
+            Errors = nameTable.Add(nameof(Errors));
+            Error = nameTable.Add(nameof(Error));
+            Code = nameTable.Add("code");
             MachineInfo = nameTable.Add(nameof(MachineInfo));
             Hostname = nameTable.Add(nameof(Hostname));
             Username = nameTable.Add(nameof(Username));
