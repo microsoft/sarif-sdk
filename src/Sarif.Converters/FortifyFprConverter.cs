@@ -18,6 +18,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         private readonly NameTable _nameTable;
         private readonly FortifyFprStrings _strings;
 
+        private XmlReader _reader;
         private Invocation _invocation;
         private string _automationId;
         private List<Notification> _toolNotifications = new List<Notification>();
@@ -99,78 +100,78 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 XmlResolver = null
             };
 
-            using (XmlReader reader = XmlReader.Create(auditStream, settings))
+            using (_reader = XmlReader.Create(auditStream, settings))
             {
-                while (reader.Read())
+                while (_reader.Read())
                 {
-                    if (reader.IsStartElement())
+                    if (_reader.IsStartElement())
                     {
-                        if (Ref.Equal(reader.LocalName, _strings.Build))
+                        if (Ref.Equal(_reader.LocalName, _strings.Build))
                         {
-                            ParseBuild(reader);
+                            ParseBuild();
                         }
-                        else if (Ref.Equal(reader.LocalName, _strings.CommandLine))
+                        else if (Ref.Equal(_reader.LocalName, _strings.CommandLine))
                         {
-                            ParseCommandLineArguments(reader);
+                            ParseCommandLineArguments();
                         }
-                        else if (Ref.Equal(reader.LocalName, _strings.Errors))
+                        else if (Ref.Equal(_reader.LocalName, _strings.Errors))
                         {
-                            ParseErrors(reader);
+                            ParseErrors();
                         }
-                        else if (Ref.Equal(reader.LocalName, _strings.MachineInfo))
+                        else if (Ref.Equal(_reader.LocalName, _strings.MachineInfo))
                         {
-                            ParseMachineInfo(reader);
+                            ParseMachineInfo();
                         }
                     }
                 }
             }
         }
 
-        private void ParseBuild(XmlReader reader)
+        private void ParseBuild()
         {
-            reader.Read();
-            while (!reader.EOF && !Ref.Equal(reader.LocalName, _strings.Build))
+            _reader.Read();
+            while (!_reader.EOF && !Ref.Equal(_reader.LocalName, _strings.Build))
             {
-                if (Ref.Equal(reader.LocalName, _strings.BuildId))
+                if (Ref.Equal(_reader.LocalName, _strings.BuildId))
                 {
-                    _automationId = reader.ReadElementContentAsString();
+                    _automationId = _reader.ReadElementContentAsString();
                 }
                 else
                 {
-                    reader.Read();
+                    _reader.Read();
                 }
             }
         }
 
-        private void ParseCommandLineArguments(XmlReader reader)
+        private void ParseCommandLineArguments()
         {
             var sb = new StringBuilder();
-            reader.MoveToElement();
-            reader.Read();
-            while (!reader.EOF && Ref.Equal(reader.LocalName, _strings.Argument))
+            _reader.MoveToElement();
+            _reader.Read();
+            while (!_reader.EOF && Ref.Equal(_reader.LocalName, _strings.Argument))
             {
-                string argument = reader.ReadElementContentAsString();
+                string argument = _reader.ReadElementContentAsString();
                 if (sb.Length > 0)
                 {
                     sb.Append(' ');
                 }
 
                 sb.Append(argument);
-                reader.MoveToElement();
+                _reader.MoveToElement();
             }
 
             _invocation.CommandLine = sb.ToString();
         }
 
-        private void ParseErrors(XmlReader reader)
+        private void ParseErrors()
         {
-            reader.Read();
-            while (!reader.EOF && !Ref.Equal(reader.LocalName, _strings.Errors))
+            _reader.Read();
+            while (!_reader.EOF && !Ref.Equal(_reader.LocalName, _strings.Errors))
             {
-                if (Ref.Equal(reader.LocalName, _strings.Error))
+                if (Ref.Equal(_reader.LocalName, _strings.Error))
                 {
-                    string errorCode = reader.GetAttribute(_strings.Code);
-                    string message = reader.ReadElementContentAsString();
+                    string errorCode = _reader.GetAttribute(_strings.Code);
+                    string message = _reader.ReadElementContentAsString();
 
                     _toolNotifications.Add(new Notification
                     {
@@ -181,27 +182,27 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 }
                 else
                 {
-                    reader.Read();
+                    _reader.Read();
                 }
             }
         }
 
-        private void ParseMachineInfo(XmlReader reader)
+        private void ParseMachineInfo()
         {
-            reader.Read();
-            while (!reader.EOF && !Ref.Equal(reader.LocalName, _strings.MachineInfo))
+            _reader.Read();
+            while (!_reader.EOF && !Ref.Equal(_reader.LocalName, _strings.MachineInfo))
             {
-                if (Ref.Equal(reader.LocalName, _strings.Hostname))
+                if (Ref.Equal(_reader.LocalName, _strings.Hostname))
                 {
-                    _invocation.Machine = reader.ReadElementContentAsString();
+                    _invocation.Machine = _reader.ReadElementContentAsString();
                 }
-                else if (Ref.Equal(reader.LocalName, _strings.Username))
+                else if (Ref.Equal(_reader.LocalName, _strings.Username))
                 {
-                    _invocation.Account = reader.ReadElementContentAsString();
+                    _invocation.Account = _reader.ReadElementContentAsString();
                 }
                 else
                 {
-                    reader.Read();
+                    _reader.Read();
                 }
             }
         }
