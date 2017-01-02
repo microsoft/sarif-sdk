@@ -5,14 +5,20 @@ using System;
 using System.IO;
 using System.IO.Compression;
 using System.Linq;
+using System.Xml;
 
 namespace Microsoft.CodeAnalysis.Sarif.Converters
 {
     internal class FortifyFprConverter : ToolFileConverterBase
     {
+        private readonly NameTable _nameTable;
+        private readonly FortifyFprStrings _strings;
+
         /// <summary>Initializes a new instance of the <see cref="FortifyFprConverter"/> class.</summary>
         public FortifyFprConverter()
         {
+            _nameTable = new NameTable();
+            _strings = new FortifyFprStrings(_nameTable);
         }
 
         /// <summary>
@@ -39,8 +45,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 Name = "Fortify"
             };
 
+            ParseFprFile(input);
 
-            ReadFpr(input);
             output.Initialize(id: null, correlationId: null);
 
             output.WriteTool(tool);
@@ -49,13 +55,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             output.CloseResults();
         }
 
-        private void ReadFpr(Stream input)
+        private void ParseFprFile(Stream input)
         {
             using (ZipArchive fprArchive = new ZipArchive(input))
             {
                 using (Stream auditStream = OpenAuditStream(fprArchive))
                 {
-                    Console.WriteLine("CanRead: " + auditStream.CanRead);
+                    ParseAuditStream(auditStream);
                 }
             }
         }
@@ -64,6 +70,32 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         {
             ZipArchiveEntry auditEntry = fprArchive.Entries.Single(e => e.FullName.Equals("audit.fvdl"));
             return auditEntry.Open();
+        }
+
+        private void ParseAuditStream(Stream auditStream)
+        {
+            var settings = new XmlReaderSettings
+            {
+                DtdProcessing = DtdProcessing.Ignore,
+                IgnoreWhitespace = true,
+                NameTable = _nameTable,
+                XmlResolver = null
+            };
+
+            using (XmlReader reader = XmlReader.Create(auditStream, settings))
+            {
+                while (reader.Read())
+                {
+                    if (Ref.Equal(reader.LocalName, _strings.CommandLine))
+                    {
+                        ParseCommandLineArguments(reader);
+                    }
+                }
+            }
+        }
+
+        private void ParseCommandLineArguments(XmlReader reader)
+        {
         }
     }
 }
