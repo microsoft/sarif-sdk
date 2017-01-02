@@ -5,6 +5,7 @@ using System;
 using System.IO;
 using System.IO.Compression;
 using System.Linq;
+using System.Text;
 using System.Xml;
 
 namespace Microsoft.CodeAnalysis.Sarif.Converters
@@ -13,6 +14,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
     {
         private readonly NameTable _nameTable;
         private readonly FortifyFprStrings _strings;
+        private Invocation _invocation;
 
         /// <summary>Initializes a new instance of the <see cref="FortifyFprConverter"/> class.</summary>
         public FortifyFprConverter()
@@ -45,11 +47,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 Name = "Fortify"
             };
 
+            _invocation = new Invocation();
+
             ParseFprFile(input);
 
             output.Initialize(id: null, correlationId: null);
 
             output.WriteTool(tool);
+            output.WriteInvocation(_invocation);
 
             output.OpenResults();
             output.CloseResults();
@@ -96,6 +101,19 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
         private void ParseCommandLineArguments(XmlReader reader)
         {
+            var sb = new StringBuilder();
+            reader.MoveToElement();
+            reader.Read();
+            while (Ref.Equal(reader.LocalName, _strings.Argument))
+            {
+                string argument = reader.ReadElementContentAsString();
+                if (sb.Length > 0)
+                    sb.Append(' ');
+                sb.Append(argument);
+                reader.MoveToElement();
+            }
+
+            _invocation.CommandLine = sb.ToString();
         }
     }
 }
