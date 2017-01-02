@@ -146,7 +146,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         private void ParseCommandLineArguments()
         {
             var sb = new StringBuilder();
-            _reader.MoveToElement();
             _reader.Read();
             while (!_reader.EOF && Ref.Equal(_reader.LocalName, _strings.Argument))
             {
