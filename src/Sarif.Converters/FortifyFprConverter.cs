@@ -131,7 +131,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             reader.Read();
             while (!reader.EOF && !Ref.Equal(reader.LocalName, _strings.Build))
             {
-                if (Ref.Equal(reader.LocalName, _strings.BuildID))
+                if (Ref.Equal(reader.LocalName, _strings.BuildId))
                 {
                     _automationId = reader.ReadElementContentAsString();
                 }

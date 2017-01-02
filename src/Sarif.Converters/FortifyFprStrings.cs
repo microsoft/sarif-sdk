@@ -15,7 +15,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         // Build members
 
         /// <summary>The string constant "BuildID"</summary>
-        public readonly string BuildID;
+        public readonly string BuildId;
 
         // CommandLine element
 
@@ -63,16 +63,16 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         /// </param>
         public FortifyFprStrings(XmlNameTable nameTable)
         {
-            Build = nameTable.Add(nameof(Build));
-            BuildID = nameTable.Add(nameof(BuildID));
-            CommandLine = nameTable.Add(nameof(CommandLine));
-            Argument = nameTable.Add(nameof(Argument));
-            Errors = nameTable.Add(nameof(Errors));
-            Error = nameTable.Add(nameof(Error));
+            Build = nameTable.Add("Build");
+            BuildId = nameTable.Add("BuildID");
+            CommandLine = nameTable.Add("CommandLine");
+            Argument = nameTable.Add("Argument");
+            Errors = nameTable.Add("Errors");
+            Error = nameTable.Add("Error");
             Code = nameTable.Add("code");
-            MachineInfo = nameTable.Add(nameof(MachineInfo));
-            Hostname = nameTable.Add(nameof(Hostname));
-            Username = nameTable.Add(nameof(Username));
+            MachineInfo = nameTable.Add("MachineInfo");
+            Hostname = nameTable.Add("Hostname");
+            Username = nameTable.Add("Username");
         }
     }
 }
