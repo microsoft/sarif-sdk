@@ -14,6 +14,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
     internal class FortifyFprConverter : ToolFileConverterBase
     {
         private const string ErrorCodePrefix = "FPR";
+        private const string FortifyExecutable = "[REMOVED]insourceanalyzer.exe";
 
         private readonly NameTable _nameTable;
         private readonly FortifyFprStrings _strings;
@@ -145,16 +146,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
         private void ParseCommandLineArguments()
         {
-            var sb = new StringBuilder();
+            var sb = new StringBuilder(FortifyExecutable);
             _reader.Read();
             while (!_reader.EOF && Ref.Equal(_reader.LocalName, _strings.Argument))
             {
                 string argument = _reader.ReadElementContentAsString();
-                if (sb.Length > 0)
-                {
-                    sb.Append(' ');
-                }
-
+                sb.Append(' ');
                 sb.Append(argument);
                 _reader.MoveToElement();
             }
