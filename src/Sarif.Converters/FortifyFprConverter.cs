@@ -3,7 +3,8 @@
 
 using System;
 using System.IO;
-using System.IO.Packaging;
+using System.IO.Compression;
+using System.Linq;
 
 namespace Microsoft.CodeAnalysis.Sarif.Converters
 {
@@ -38,7 +39,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 Name = "Fortify"
             };
 
-            OpenFvdlStream(input);
+
+            ReadFpr(input);
             output.Initialize(id: null, correlationId: null);
 
             output.WriteTool(tool);
@@ -47,9 +49,21 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             output.CloseResults();
         }
 
-        private void OpenFvdlStream(Stream input)
+        private void ReadFpr(Stream input)
         {
-            var package = Package.Open(input);
+            using (ZipArchive fprArchive = new ZipArchive(input))
+            {
+                using (Stream auditStream = OpenAuditStream(fprArchive))
+                {
+                    Console.WriteLine("CanRead: " + auditStream.CanRead);
+                }
+            }
+        }
+
+        private static Stream OpenAuditStream(ZipArchive fprArchive)
+        {
+            ZipArchiveEntry auditEntry = fprArchive.Entries.Single(e => e.FullName.Equals("audit.fvdl"));
+            return auditEntry.Open();
         }
     }
 }
