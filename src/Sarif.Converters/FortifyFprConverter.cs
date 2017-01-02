@@ -105,24 +105,21 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             {
                 while (_reader.Read())
                 {
-                    if (_reader.IsStartElement())
+                    if (AtStartOfNonEmpty(_strings.Build))
                     {
-                        if (Ref.Equal(_reader.LocalName, _strings.Build))
-                        {
-                            ParseBuild();
-                        }
-                        else if (Ref.Equal(_reader.LocalName, _strings.CommandLine))
-                        {
-                            ParseCommandLineArguments();
-                        }
-                        else if (Ref.Equal(_reader.LocalName, _strings.Errors))
-                        {
-                            ParseErrors();
-                        }
-                        else if (Ref.Equal(_reader.LocalName, _strings.MachineInfo))
-                        {
-                            ParseMachineInfo();
-                        }
+                        ParseBuild();
+                    }
+                    else if (AtStartOfNonEmpty(_strings.CommandLine))
+                    {
+                        ParseCommandLineArguments();
+                    }
+                    else if (AtStartOfNonEmpty(_strings.Errors))
+                    {
+                        ParseErrors();
+                    }
+                    else if (AtStartOfNonEmpty(_strings.MachineInfo))
+                    {
+                        ParseMachineInfo();
                     }
                 }
             }
@@ -133,7 +130,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             _reader.Read();
             while (!AtEndOf(_strings.Build))
             {
-                if (AtStartOf(_strings.BuildId))
+                if (AtStartOfNonEmpty(_strings.BuildId))
                 {
                     _automationId = _reader.ReadElementContentAsString();
                 }
@@ -150,7 +147,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             _reader.Read();
             while (!AtEndOf(_strings.CommandLine))
             {
-                if (AtStartOf(_strings.Argument))
+                if (AtStartOfNonEmpty(_strings.Argument))
                 {
                     string argument = _reader.ReadElementContentAsString();
                     sb.Append(' ');
@@ -171,7 +168,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             _reader.Read();
             while (!AtEndOf(_strings.Errors))
             {
-                if (AtStartOf(_strings.Error))
+                if (AtStartOfNonEmpty(_strings.Error))
                 {
                     string errorCode = _reader.GetAttribute(_strings.Code);
                     string message = _reader.ReadElementContentAsString();
@@ -195,11 +192,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             _reader.Read();
             while (!AtEndOf(_strings.MachineInfo))
             {
-                if (AtStartOf(_strings.Hostname))
+                if (AtStartOfNonEmpty(_strings.Hostname))
                 {
                     _invocation.Machine = _reader.ReadElementContentAsString();
                 }
-                else if (AtStartOf(_strings.Username))
+                else if (AtStartOfNonEmpty(_strings.Username))
                 {
                     _invocation.Account = _reader.ReadElementContentAsString();
                 }
@@ -208,6 +205,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                     _reader.Read();
                 }
             }
+        }
+
+        private bool AtStartOfNonEmpty(String elementName)
+        {
+            return AtStartOf(elementName) && !_reader.IsEmptyElement;
         }
 
         private bool AtStartOf(string elementName)
