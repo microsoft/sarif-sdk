@@ -24,6 +24,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         private string _automationId;
         private List<Result> _results = new List<Result>();
         private List<Notification> _toolNotifications = new List<Notification>();
+        private Dictionary<string, FileData> _fileDictionary = new Dictionary<string, FileData>();
 
         /// <summary>Initializes a new instance of the <see cref="FortifyFprConverter"/> class.</summary>
         public FortifyFprConverter()
@@ -59,6 +60,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             _invocation = new Invocation();
             _results.Clear();
             _toolNotifications.Clear();
+            _fileDictionary.Clear();
 
             ParseFprFile(input);
 
@@ -66,6 +68,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
             output.WriteTool(tool);
             output.WriteInvocation(_invocation);
+
+            if (_fileDictionary.Any())
+            {
+                output.WriteFiles(_fileDictionary);
+            }
 
             output.OpenResults();
             output.WriteResults(_results);
@@ -141,10 +148,84 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 {
                     _automationId = _reader.ReadElementContentAsString();
                 }
+                else if (AtStartOfNonEmpty(_strings.SourceFiles))
+                {
+                    ParseSourceFiles();
+                }
                 else
                 {
                     _reader.Read();
                 }
+            }
+        }
+
+        private void ParseSourceFiles()
+        {
+            _reader.Read();
+            while (!AtEndOf(_strings.SourceFiles))
+            {
+                if (AtStartOfNonEmpty(_strings.File))
+                {
+                    ParseFile();
+                }
+                else
+                {
+                    _reader.Read();
+                }
+            }
+        }
+
+        private void ParseFile()
+        {
+            string fileType = _reader.GetAttribute(_strings.TypeAttribute);
+            int length = 0;
+            string sizeAttribute = _reader.GetAttribute(_strings.SizeAttribute);
+            if (sizeAttribute != null)
+            {
+                if (!int.TryParse(sizeAttribute, out length))
+                {
+                    length = 0;
+                }
+            }
+
+            string fileName = null;
+            _reader.Read();
+            while (!AtEndOf(_strings.File))
+            {
+                if (AtStartOfNonEmpty(_strings.Name))
+                {
+                    fileName = _reader.ReadElementContentAsString();
+                }
+                else
+                {
+                    _reader.Read();
+                }
+            }
+
+            if (!string.IsNullOrEmpty(fileName))
+            {
+                _fileDictionary.Add(
+                    fileName,
+                    new FileData
+                    {
+                        MimeType = FprTypeToMimeType(fileType),
+                        Length = length
+                    });
+            }
+        }
+
+        private string FprTypeToMimeType(string fileType)
+        {
+            switch (fileType)
+            {
+                case "xml":
+                    return "text/xml";
+
+                case "tsql":
+                    return "text/x-sql";
+
+                default:
+                    return "unknown/" + fileType;
             }
         }
 
@@ -205,7 +286,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             {
                 if (AtStartOfNonEmpty(_strings.Error))
                 {
-                    string errorCode = _reader.GetAttribute(_strings.Code);
+                    string errorCode = _reader.GetAttribute(_strings.CodeAttribute);
                     string message = _reader.ReadElementContentAsString();
 
                     _toolNotifications.Add(new Notification

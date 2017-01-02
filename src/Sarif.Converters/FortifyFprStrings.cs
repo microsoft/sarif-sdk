@@ -17,6 +17,25 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         /// <summary>The string constant "BuildID"</summary>
         public readonly string BuildId;
 
+        /// <summary>The string constant "SourceFiles"</summary>
+        public readonly string SourceFiles;
+
+        // SourceFiles members
+
+        /// <summary>The string constant "File"</summary>
+        public readonly string File;
+
+        /// <summary>The string constant "size"</summary>
+        public readonly string SizeAttribute;
+
+        /// <summary>The string constant "type"</summary>
+        public readonly string TypeAttribute;
+
+        // File members
+
+        /// <summary>The string constant "Name"</summary>
+        public readonly string Name;
+
         // Vulnerabilities element
 
         /// <summary>The string constant "Vulnerabilities"</summary>
@@ -50,7 +69,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         // Error members
 
         /// <summary>The string constant "code".</summary>
-        public readonly string Code;
+        public readonly string CodeAttribute;
 
         // MachineInfo element
 
@@ -75,13 +94,18 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         {
             Build = nameTable.Add("Build");
             BuildId = nameTable.Add("BuildID");
+            SourceFiles = nameTable.Add("SourceFiles");
+            File = nameTable.Add("File");
+            SizeAttribute = nameTable.Add("size");
+            TypeAttribute = nameTable.Add("type");
+            Name = nameTable.Add("Name");
             Vulnerabilities = nameTable.Add("Vulnerabilities");
             Vulnerability = nameTable.Add("Vulnerability");
             CommandLine = nameTable.Add("CommandLine");
             Argument = nameTable.Add("Argument");
             Errors = nameTable.Add("Errors");
             Error = nameTable.Add("Error");
-            Code = nameTable.Add("code");
+            CodeAttribute = nameTable.Add("code");
             MachineInfo = nameTable.Add("MachineInfo");
             Hostname = nameTable.Add("Hostname");
             Username = nameTable.Add("Username");
