@@ -9,9 +9,13 @@ using System.IO;
 using System.Runtime.Serialization;
 using System.Xml;
 
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+
 namespace Microsoft.CodeAnalysis.Sarif
 {
     [Serializable]
+    [JsonConverter(typeof(TypedPropertiesDictionaryConverter))]
     public class PropertiesDictionary : TypedPropertiesDictionary<object>
     {
         internal const string DEFAULT_POLICY_NAME = "default";
@@ -98,10 +102,23 @@ namespace Microsoft.CodeAnalysis.Sarif
                     value = (T)result;
                     return true;
                 }
+                else if (result is JToken)
+                {
+                    value = ((JToken)result).ToObject<T>();
+                    return true;
+                }
                 return TryConvertFromString((string)result, out value);
             }
 
             return false;
+        }
+
+        private bool TryConvertFromStringArray<T>(string[] values, out T result)
+        {
+            result = default(T);
+            TypeConverter converter = TypeDescriptor.GetConverter(typeof(T));
+
+            return true;
         }
 
         private PropertiesDictionary GetSettingsContainer(IOption setting, bool cacheDefault)
@@ -135,28 +152,54 @@ namespace Microsoft.CodeAnalysis.Sarif
             return destination != null;
         }
 
-        public void SaveTo(string filePath, string id)
+        public void SaveToJson(string filePath, bool prettyPrint = true)
         {
-            using (var writer = new FileStream(filePath, FileMode.Create, FileAccess.Write))
-                SaveTo(writer, id);
+            var settings = new JsonSerializerSettings
+            {
+                Formatting = Newtonsoft.Json.Formatting.Indented
+            };
+             
+            File.WriteAllText(filePath, JsonConvert.SerializeObject(this, settings));
         }
 
-        public void SaveTo(Stream stream, string id)
+
+        public void LoadFromJson(string filePath)
+        {
+            var properties = JsonConvert.DeserializeObject<PropertiesDictionary>(File.ReadAllText(filePath));
+            this.Clear();
+
+            foreach (string key in properties.Keys)
+            {
+                this[key] = properties[key];
+            }
+        }
+
+        public void SaveToXml(string filePath)
+        {
+            using (var writer = new FileStream(filePath, FileMode.Create, FileAccess.Write))
+            {
+                SaveToXml(writer);
+            }
+        }
+
+        public void SaveToXml(Stream stream)
         {
             var settings = new XmlWriterSettings { Indent = true };
             using (XmlWriter writer = XmlWriter.Create(stream, settings))
             {
-                this.SavePropertiesToStream(writer, settings, id, SettingNameToDescriptionsMap);
+                this.SavePropertiesToXmlStream(writer, settings, null, SettingNameToDescriptionsMap);
             }
         }
 
-        public void LoadFrom(string filePath)
+        public void LoadFromXml(string filePath)
         {
             using (var reader = new FileStream(filePath, FileMode.Open, FileAccess.Read))
-                LoadFrom(reader);
+            {
+                LoadFromXml(reader);
+            }
         }
 
-        public void LoadFrom(Stream stream)
+        public void LoadFromXml(Stream stream)
         {
             var settings = new XmlReaderSettings
             {
@@ -185,7 +228,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         // will always precede parent namespaces, if also included.
         public static readonly ImmutableArray<string> DefaultNamespaces = new List<string>(
             new string[] {
-                "Microsoft.CodeAnalysis.Options.",
+                "Microsoft.CodeAnalysis.Sarif.",
                 "Microsoft.CodeAnalysis."
             }).ToImmutableArray();
     }

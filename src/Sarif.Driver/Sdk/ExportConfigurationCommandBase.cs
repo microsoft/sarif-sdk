@@ -31,9 +31,26 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                     }
                 }
 
-                string exe = Path.GetFileNameWithoutExtension(Assembly.GetEntryAssembly().Location);
 
-                allOptions.SaveTo(exportOptions.OutputFilePath, id: exe + "-config");
+                string extension = Path.GetExtension(exportOptions.OutputFilePath);
+
+                if (extension.Equals(".xml", StringComparison.OrdinalIgnoreCase))
+                {
+                    allOptions.SaveToXml(exportOptions.OutputFilePath);
+                }
+                else if (extension.Equals(".json", StringComparison.OrdinalIgnoreCase))
+                {
+                    allOptions.SaveToJson(exportOptions.OutputFilePath);
+                }
+                else if (exportOptions.FileFormat == FileFormat.Xml)
+                {
+                    allOptions.SaveToXml(exportOptions.OutputFilePath);
+                }
+                else
+                {
+                    allOptions.SaveToJson(exportOptions.OutputFilePath);
+                }
+
                 Console.WriteLine("Configuration file saved to: " + Path.GetFullPath(exportOptions.OutputFilePath));
 
                 result = SUCCESS;

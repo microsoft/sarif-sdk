@@ -4,17 +4,19 @@
 using System;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
+using Newtonsoft.Json;
 
 namespace Microsoft.CodeAnalysis.Sarif
 {
     [Serializable]
-    public class IntegerSetCollection : HashSet<int>
+    [JsonConverter(typeof(TypedPropertiesDictionaryConverter))]
+    public class StringSet : HashSet<string>
     {
-        public IntegerSetCollection() { }
+        public StringSet() { }
 
-        public IntegerSetCollection(IEnumerable<int> values) : base(values) { }
+        public StringSet(IEnumerable<string> strings) : base(strings) { }
 
-        protected IntegerSetCollection(SerializationInfo info, StreamingContext context)
+        protected StringSet(SerializationInfo info, StreamingContext context)
             : base(info, context)
         {
         }

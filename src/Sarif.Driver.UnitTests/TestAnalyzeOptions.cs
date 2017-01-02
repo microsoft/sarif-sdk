@@ -38,8 +38,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
         public bool RegardAnalysisTargetAsValid { get; set; }
 
-        public bool RegardRequiredConfigurationAsMissing { get; set;  }
-
         public bool RegardOptionsAsInvalid { get; set; }
 
         public string[] DefaultPlugInFilePaths { get; set; }

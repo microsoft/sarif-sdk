@@ -14,7 +14,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         where TContext : IAnalysisContext, new()
         where TOptions : IAnalyzeOptions
     {
-        internal const string DEFAULT_POLICY_NAME = "default";
+        public const string DefaultPolicyName = "default";
 
         private TContext rootContext;
 
@@ -23,6 +23,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         public RuntimeConditions RuntimeErrors { get; set; }
 
         public static bool RaiseUnhandledExceptionInDriverCode { get; set; }
+
+        public virtual FileFormat ConfigurationFormat { get { return FileFormat.Json; } }
 
         public override int Run(TOptions analyzeOptions)
         {
@@ -72,7 +74,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
             // 3. Create our configuration property bag, which will be 
             //    shared with all rules during analysis
-            ConfigureFromOptions(this.rootContext, analyzeOptions);
+            //ConfigureFromOptions(this.rootContext, analyzeOptions);
 
             // 4. Produce a comprehensive set of analysis targets 
             HashSet<string> targets = CreateTargetsSet(analyzeOptions);
@@ -89,13 +91,20 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             // 7. Instantiate skimmers.
             HashSet<ISkimmer<TContext>> skimmers = CreateSkimmers(this.rootContext);
 
-            // 8. Initialize skimmers. Initialize occurs a single time only.
+            // 8. Initialize configuration. This step must be done after initializing
+            //    the skimmers, as rules define their specific context objects and
+            //    so those assemblies must be loaded.
+            InitializeConfiguration(analyzeOptions, this.rootContext);
+
+            // 9. Initialize skimmers. Initialize occurs a single time only. This
+            //    step needs to occurs after initializing configuration in order
+            //    to allow command-line override of rule settings
             skimmers = InitializeSkimmers(skimmers, this.rootContext);
 
-            // 9. Run all analysis
+            // 10. Run all analysis
             AnalyzeTargets(analyzeOptions, skimmers, this.rootContext, targets);
 
-            // 9. For test purposes, raise an unhandled exception if indicated
+            // 11. For test purposes, raise an unhandled exception if indicated
             if (RaiseUnhandledExceptionInDriverCode)
             {
                 throw new InvalidOperationException(this.GetType().Name);
@@ -132,7 +141,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
         private bool ValidateFile(TContext context, string filePath, bool? shouldExist)
         {
-            if (filePath == null || filePath == DEFAULT_POLICY_NAME) { return true; }
+            if (filePath == null || filePath == DefaultPolicyName) { return true; }
 
             Exception exception = null;
 
@@ -212,8 +221,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         }
 
         protected virtual TContext CreateContext(
-            TOptions options, 
-            IAnalysisLogger logger, 
+            TOptions options,
+            IAnalysisLogger logger,
             RuntimeConditions runtimeErrors,
             string filePath = null)
         {
@@ -226,8 +235,41 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 context.TargetUri = new Uri(filePath);
             }
 
+
+
             return context;
         }
+
+        protected virtual void InitializeConfiguration(TOptions options, TContext context)
+        {
+            context.Policy = new PropertiesDictionary();
+
+            if (String.IsNullOrEmpty(options.ConfigurationFilePath) ||
+                options.ConfigurationFilePath == DefaultPolicyName)
+            {
+                return;
+            }
+
+            string extension = Path.GetExtension(options.ConfigurationFilePath);
+
+            if (extension.Equals(".xml", StringComparison.OrdinalIgnoreCase))
+            {
+                context.Policy.LoadFromXml(options.ConfigurationFilePath);
+            }
+            else if (extension.Equals(".json", StringComparison.OrdinalIgnoreCase))
+            {
+                context.Policy.LoadFromJson(options.ConfigurationFilePath);
+            }
+            else if (ConfigurationFormat == FileFormat.Xml)
+            {
+                context.Policy.LoadFromXml(options.ConfigurationFilePath);
+            }
+            else
+            {
+                context.Policy.LoadFromJson(options.ConfigurationFilePath);
+            }
+        }
+
 
         private void InitializeOutputFile(TOptions analyzeOptions, TContext context, HashSet<string> targets)
         {
@@ -246,7 +288,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                                 analyzeOptions.LogEnvironment,
                                 analyzeOptions.ComputeTargetsHash,
                                 Prerelease,
-                                invocationTokensToRedact : GenerateSensitiveTokensList())),
+                                invocationTokensToRedact: GenerateSensitiveTokensList())),
                     (ex) =>
                     {
                         Errors.LogExceptionCreatingLogFile(context, filePath, ex);
@@ -363,7 +405,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             IEnumerable<ISkimmer<TContext>> applicableSkimmers = DetermineApplicabilityForTarget(skimmers, context, disabledSkimmers);
 
             AnalyzeTarget(applicableSkimmers, context, disabledSkimmers);
-            
+
             return context;
         }
 
@@ -408,7 +450,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 }
                 catch (Exception ex)
                 {
-                    Errors.LogUnhandledRuleExceptionAssessingTargetApplicability (disabledSkimmers, context, ex);
+                    Errors.LogUnhandledRuleExceptionAssessingTargetApplicability(disabledSkimmers, context, ex);
                     continue;
                 }
                 finally
@@ -419,23 +461,16 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 switch (applicability)
                 {
                     case AnalysisApplicability.NotApplicableToSpecifiedTarget:
-                    {
-                        Notes.LogNotApplicableToSpecifiedTarget(context, reasonForNotAnalyzing);
-                        break;
-                    }
-
-                    case AnalysisApplicability.NotApplicableDueToMissingConfiguration:
-                    {
-                        Errors.LogMissingRuleConfiguration(context, reasonForNotAnalyzing);
-                        disabledSkimmers.Add(skimmer.Id);
-                        break;
-                    }
+                        {
+                            Notes.LogNotApplicableToSpecifiedTarget(context, reasonForNotAnalyzing);
+                            break;
+                        }
 
                     case AnalysisApplicability.ApplicableToSpecifiedTarget:
-                    {
-                        candidateSkimmers.Add(skimmer);
-                        break;
-                    }
+                        {
+                            candidateSkimmers.Add(skimmer);
+                            break;
+                        }
                 }
             }
             return candidateSkimmers;
@@ -478,23 +513,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             }
 
             return skimmers;
-        }
-
-        public virtual void ConfigureFromOptions(TContext context, TOptions analyzeOptions)
-        {
-            PropertiesDictionary configuration = null;
-
-            string configurationFilePath = analyzeOptions.ConfigurationFilePath;
-
-            if (!string.IsNullOrEmpty(configurationFilePath))
-            {
-                configuration = new PropertiesDictionary();
-                if (!configurationFilePath.Equals(DEFAULT_POLICY_NAME, StringComparison.OrdinalIgnoreCase))
-                {
-                    configuration.LoadFrom(configurationFilePath);
-                }
-            }
-            context.Policy = configuration;
         }
 
         protected static void LogToolNotification(
