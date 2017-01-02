@@ -17,6 +17,16 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         /// <summary>The string constant "BuildID"</summary>
         public readonly string BuildId;
 
+        // Vulnerabilities element
+
+        /// <summary>The string constant "Vulnerabilities"</summary>
+        public readonly string Vulnerabilities;
+
+        // Vulnerabilities members
+
+        /// <summary>The string constant "Vulnerability"</summary>
+        public readonly string Vulnerability;
+
         // CommandLine element
 
         /// <summary>The string constant "CommandLine".</summary>
@@ -39,7 +49,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
         // Error members
 
-        /// <summary>The string constant "Error".</summary>
+        /// <summary>The string constant "code".</summary>
         public readonly string Code;
 
         // MachineInfo element
@@ -65,6 +75,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         {
             Build = nameTable.Add("Build");
             BuildId = nameTable.Add("BuildID");
+            Vulnerabilities = nameTable.Add("Vulnerabilities");
+            Vulnerability = nameTable.Add("Vulnerability");
             CommandLine = nameTable.Add("CommandLine");
             Argument = nameTable.Add("Argument");
             Errors = nameTable.Add("Errors");

@@ -22,6 +22,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         private XmlReader _reader;
         private Invocation _invocation;
         private string _automationId;
+        private List<Result> _results = new List<Result>();
         private List<Notification> _toolNotifications = new List<Notification>();
 
         /// <summary>Initializes a new instance of the <see cref="FortifyFprConverter"/> class.</summary>
@@ -56,6 +57,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             };
 
             _invocation = new Invocation();
+            _results.Clear();
             _toolNotifications.Clear();
 
             ParseFprFile(input);
@@ -66,6 +68,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             output.WriteInvocation(_invocation);
 
             output.OpenResults();
+            output.WriteResults(_results);
             output.CloseResults();
 
             if (_toolNotifications.Any())
@@ -109,6 +112,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                     {
                         ParseBuild();
                     }
+                    else if (AtStartOfNonEmpty(_strings.Vulnerabilities))
+                    {
+                        ParseVulnerabilities();
+                    }
                     else if (AtStartOfNonEmpty(_strings.CommandLine))
                     {
                         ParseCommandLine();
@@ -139,6 +146,34 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                     _reader.Read();
                 }
             }
+        }
+
+        private void ParseVulnerabilities()
+        {
+            _reader.Read();
+            while (!AtEndOf(_strings.Vulnerabilities))
+            {
+                if (AtStartOfNonEmpty(_strings.Vulnerability))
+                {
+                    ParseVulnerability();
+                }
+                else
+                {
+                    _reader.Read();
+                }
+            }
+        }
+
+        private void ParseVulnerability()
+        {
+            var result = new Result();
+            _reader.Read();
+            while (!AtEndOf(_strings.Vulnerability))
+            {
+                _reader.Read();
+            }
+
+            _results.Add(result);
         }
 
         private void ParseCommandLine()
