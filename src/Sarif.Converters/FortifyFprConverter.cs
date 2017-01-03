@@ -262,11 +262,40 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 {
                     result.RuleId = _reader.ReadElementContentAsString();
                 }
+                else if (AtStartOfNonEmpty(_strings.AnalysisInfo))
+                {
+                    Location location = ParseLocationFromAnalysisInfo();
+                    result.Locations = new List<Location> { location };
+                }
 
                 _reader.Read();
             }
 
             _results.Add(result);
+        }
+
+        private Location ParseLocationFromAnalysisInfo()
+        {
+            var location = new Location();
+
+            _reader.Read();
+            while (!AtEndOf(_strings.AnalysisInfo))
+            {
+                if (AtStartOfNonEmpty(_strings.Unified))
+                {
+                    _reader.Read();
+                    while (!AtEndOf(_strings.Unified))
+                    {
+                        _reader.Read();
+                    }
+                }
+                else
+                {
+                    _reader.Read();
+                }
+            }
+
+            return location;
         }
 
         private void ParseDescription()

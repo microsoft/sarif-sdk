@@ -51,6 +51,29 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         /// <summary>The string constant "ClassID"</summary>
         public readonly string ClassId;
 
+        /// <summary>The string constant "AnalysisInfo"</summary>
+        public readonly string AnalysisInfo;
+
+        // Members and further nested members of AnalysisInfo
+
+        /// <summary>The string constant "Unified"</summary>
+        public readonly string Unified;
+
+        /// <summary>The string constant "Trace"</summary>
+        public readonly string Trace;
+
+        /// <summary>The string constant "Primary"</summary>
+        public readonly string Primary;
+
+        /// <summary>The string constant "Entry"</summary>
+        public readonly string Entry;
+
+        /// <summary>The string constant "Node"</summary>
+        public readonly string Node;
+
+        /// <summary>The string constant "SourceLocation"</summary>
+        public readonly string SourceLocation;
+
         // Description element
 
         /// <summary>The string constant "Description"</summary>
@@ -120,6 +143,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             Vulnerabilities = nameTable.Add("Vulnerabilities");
             Vulnerability = nameTable.Add("Vulnerability");
             ClassId = nameTable.Add("ClassID");
+            AnalysisInfo = nameTable.Add("AnalysisInfo");
+            Unified = nameTable.Add("Unified");
+            Trace = nameTable.Add("Trace");
+            Primary = nameTable.Add("Primary");
+            Entry = nameTable.Add("Entry");
+            Node = nameTable.Add("Node");
+            SourceLocation = nameTable.Add("SourceLocation");
             Description = nameTable.Add("Description");
             ClassIdAttribute = nameTable.Add("classID");
             Abstract = nameTable.Add("Abstract");
