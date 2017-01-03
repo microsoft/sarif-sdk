@@ -7,6 +7,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 {
     internal class FortifyFprStrings
     {
+        /// <summary>The string constant "UUID"</summary>
+        public readonly string Uuid;
+
         /// <summary>The string constant "Build".</summary>
         public readonly string Build;
 
@@ -98,6 +101,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         /// </param>
         public FortifyFprStrings(XmlNameTable nameTable)
         {
+            Uuid = nameTable.Add("UUID");
             Build = nameTable.Add("Build");
             BuildId = nameTable.Add("BuildID");
             SourceFiles = nameTable.Add("SourceFiles");

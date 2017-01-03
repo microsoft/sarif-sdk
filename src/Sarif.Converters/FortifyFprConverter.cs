@@ -20,6 +20,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
         private XmlReader _reader;
         private Invocation _invocation;
+        private string _runId;
         private string _automationId;
         private List<Result> _results = new List<Result>();
         private List<Notification> _toolNotifications = new List<Notification>();
@@ -66,7 +67,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             ParseFprFile(input);
             AddMessagesToResults();
 
-            output.Initialize(id: null, automationId: _automationId);
+            output.Initialize(id: _runId, automationId: _automationId);
 
             output.WriteTool(tool);
             output.WriteInvocation(_invocation);
@@ -117,6 +118,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             {
                 while (_reader.Read())
                 {
+                    if (AtStartOfNonEmpty(_strings.Uuid))
+                    {
+                        ParseUuid();
+                    }
                     if (AtStartOfNonEmpty(_strings.Build))
                     {
                         ParseBuild();
@@ -143,6 +148,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                     }
                 }
             }
+        }
+
+        private void ParseUuid()
+        {
+            _runId = _reader.ReadElementContentAsString();
         }
 
         private void ParseBuild()
