@@ -13,7 +13,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 {
     internal class FortifyFprConverter : ToolFileConverterBase
     {
-        private const string ErrorCodePrefix = "FPR";
         private const string FortifyExecutable = "[REMOVED]insourceanalyzer.exe";
 
         private readonly NameTable _nameTable;
@@ -415,7 +414,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
                     _toolNotifications.Add(new Notification
                     {
-                        Id = ErrorCodePrefix + errorCode,
+                        Id = errorCode,
                         Level = NotificationLevel.Error,
                         Message = message
                     });
