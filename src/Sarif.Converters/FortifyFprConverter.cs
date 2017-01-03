@@ -74,6 +74,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             ParseFprFile(input);
             AddMessagesToResults();
             AddSnippetsToResults();
+            AddSnippetsToAnnotatedCodeLocations();
 
             output.Initialize(id: _runId, automationId: _automationId);
 
@@ -585,6 +586,31 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                     _snippetIdToSnippetTextDictionary.TryGetValue(snippetId, out snippetText))
                 {
                     result.Snippet = snippetText;
+                }
+            }
+        }
+
+        private void AddSnippetsToAnnotatedCodeLocations()
+        {
+            foreach (Result result in _results)
+            {
+                if (result.CodeFlows != null)
+                {
+                    foreach (CodeFlow codeFlow in result.CodeFlows)
+                    {
+                        if (codeFlow.Locations != null)
+                        {
+                            foreach (AnnotatedCodeLocation acl in codeFlow.Locations)
+                            {
+                                string snippetId, snippetText;
+                                if (_aclToSnippetIdDictionary.TryGetValue(acl, out snippetId) &&
+                                    _snippetIdToSnippetTextDictionary.TryGetValue(snippetId, out snippetText))
+                                {
+                                    acl.Snippet = snippetText;
+                                }
+                            }
+                        }
+                    }
                 }
             }
         }
