@@ -57,6 +57,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         /// <summary>The string constant "SourceLocation"</summary>
         public readonly string SourceLocation;
 
+        /// <summary>The string constant "snippet"</summary>
+        public readonly string SnippetAttribute;
+
         /// <summary>The string constant "path"</summary>
         public readonly string PathAttribute;
 
@@ -71,6 +74,18 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
         /// <summary>The string constant "Description"</summary>
         public readonly string Description;
+
+        /// <summary>The string constant "Snippets"</summary>
+        public readonly string Snippets;
+
+        /// <summary>The string constant "Snippet"</summary>
+        public readonly string Snippet;
+
+        /// <summary>The string constant "id"</summary>
+        public readonly string IdAttribute;
+
+        /// <summary>The string constant "Text"</summary>
+        public readonly string Text;
 
         /// <summary>The string constant "classID"</summary>
         public readonly string ClassIdAttribute;
@@ -126,11 +141,16 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             ClassId = nameTable.Add("ClassID");
             AnalysisInfo = nameTable.Add("AnalysisInfo");
             SourceLocation = nameTable.Add("SourceLocation");
+            SnippetAttribute = nameTable.Add("snippet");
             PathAttribute = nameTable.Add("path");
             LineAttribute = nameTable.Add("line");
             ColStartAttribute = nameTable.Add("colStart");
             ColEndAttribute = nameTable.Add("colEnd");
             Description = nameTable.Add("Description");
+            Snippets = nameTable.Add("Snippets");
+            Snippet = nameTable.Add("Snippet");
+            IdAttribute = nameTable.Add("id");
+            Text = nameTable.Add("Text");
             ClassIdAttribute = nameTable.Add("classID");
             Abstract = nameTable.Add("Abstract");
             CommandLine = nameTable.Add("CommandLine");

@@ -27,6 +27,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         private List<Notification> _toolNotifications = new List<Notification>();
         private Dictionary<string, FileData> _fileDictionary = new Dictionary<string, FileData>();
         private Dictionary<string, string> _classToMessageDictionary = new Dictionary<string, string>();
+        private Dictionary<AnnotatedCodeLocation, string> _aclToSnippetIdDictionary = new Dictionary<AnnotatedCodeLocation, string>();
+        private Dictionary<Result, string> _resultToSnippetIdDictionary = new Dictionary<Result, string>();
+        private Dictionary<string, string> _snippetIdToSnippetTextDictionary = new Dictionary<string, string>();
 
         /// <summary>Initializes a new instance of the <see cref="FortifyFprConverter"/> class.</summary>
         public FortifyFprConverter()
@@ -64,9 +67,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             _toolNotifications.Clear();
             _fileDictionary.Clear();
             _classToMessageDictionary.Clear();
+            _aclToSnippetIdDictionary.Clear();    
+            _resultToSnippetIdDictionary.Clear();
+            _snippetIdToSnippetTextDictionary.Clear();
 
             ParseFprFile(input);
             AddMessagesToResults();
+            AddSnippetsToResults();
 
             output.Initialize(id: _runId, automationId: _automationId);
 
@@ -140,6 +147,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                     else if (AtStartOfNonEmpty(_strings.Description))
                     {
                         ParseDescription();
+                    }
+                    else if (AtStartOfNonEmpty(_strings.Snippets))
+                    {
+                        ParseSnippets();
                     }
                     else if (AtStartOfNonEmpty(_strings.CommandLine))
                     {
@@ -320,18 +331,35 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             int step = 0;
 
             _reader.Read();
+            string lastSnippetId = null;
             while (!AtEndOf(_strings.AnalysisInfo))
             {
                 // Note: SourceLocation is an empty element (it has only attributes),
                 // so we can't call AtStartOfNonEmpty here.
                 if (AtStartOf(_strings.SourceLocation))
                 {
+                    string snippetId = _reader.GetAttribute(_strings.SnippetAttribute);
                     PhysicalLocation physLoc = ParsePhysicalLocationFromSourceInfo();
-                    codeFlow.Locations.Add(new AnnotatedCodeLocation
+
+                    var acl = new AnnotatedCodeLocation
                     {
                         Step = step++,
                         PhysicalLocation = physLoc
-                    });
+                    };
+
+                    // Remember the id of the snippet associated with this location.
+                    // We'll use it to fill the snippet text when we read the Snippets element later on.
+                    if (!string.IsNullOrEmpty(snippetId))
+                    {
+                        _aclToSnippetIdDictionary.Add(acl, snippetId);
+                    }
+
+                    codeFlow.Locations.Add(acl);
+
+                    // Keep track of the snippet associated with the last location in the
+                    // CodeFlow; that's the snippet that we'll associate with the Result
+                    // as a whole.
+                    lastSnippetId = snippetId;
 
                     // Step past the empty element.
                     _reader.Read();
@@ -351,6 +379,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                     // overall result location).
                     ResultFile = codeFlow.Locations.Last().PhysicalLocation
                 });
+
+                if (!string.IsNullOrEmpty(lastSnippetId))
+                {
+                    _resultToSnippetIdDictionary.Add(result, lastSnippetId);
+                }
             }
         }
 
@@ -409,6 +442,43 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             }
 
             _classToMessageDictionary.Add(classId, @abstract);
+        }
+
+        private void ParseSnippets()
+        {
+            _reader.Read();
+            while (!AtEndOf(_strings.Snippets))
+            {
+                if (AtStartOfNonEmpty(_strings.Snippet))
+                {
+                    ParseSnippet();
+                }
+                else
+                {
+                    _reader.Read();
+                }
+            }
+        }
+
+        private void ParseSnippet()
+        {
+            string snippetId = _reader.GetAttribute(_strings.IdAttribute);
+            _reader.Read();
+            while (!AtEndOf(_strings.Snippet))
+            {
+                if (AtStartOfNonEmpty(_strings.Text))
+                {
+                    string snippetText = _reader.ReadElementContentAsString();
+                    if (!string.IsNullOrEmpty(snippetText))
+                    {
+                        _snippetIdToSnippetTextDictionary.Add(snippetId, snippetText);
+                    }
+                }
+                else
+                {
+                    _reader.Read();
+                }
+            }
         }
 
         private void ParseCommandLine()
@@ -502,6 +572,19 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 if (_classToMessageDictionary.TryGetValue(result.RuleId, out message))
                 {
                     result.Message = message;
+                }
+            }
+        }
+
+        private void AddSnippetsToResults()
+        {
+            foreach (Result result in _results)
+            {
+                string snippetId, snippetText;
+                if (_resultToSnippetIdDictionary.TryGetValue(result, out snippetId) &&
+                    _snippetIdToSnippetTextDictionary.TryGetValue(snippetId, out snippetText))
+                {
+                    result.Snippet = snippetText;
                 }
             }
         }
