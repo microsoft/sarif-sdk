@@ -254,7 +254,18 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
         private void ParseVulnerability()
         {
-            var result = new Result();
+            var result = new Result
+            {
+                Locations = new List<Location>(),
+                CodeFlows = new List<CodeFlow>
+                {
+                    new CodeFlow
+                    {
+                        Locations = new List<AnnotatedCodeLocation>()
+                    }
+                }
+            };
+
             _reader.Read();
             while (!AtEndOf(_strings.Vulnerability))
             {
@@ -264,8 +275,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 }
                 else if (AtStartOfNonEmpty(_strings.AnalysisInfo))
                 {
-                    Location location = ParseLocationFromAnalysisInfo();
-                    result.Locations = new List<Location> { location };
+                    ParseLocationFromAnalysisInfo(result);
                 }
 
                 _reader.Read();
@@ -274,20 +284,27 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             _results.Add(result);
         }
 
-        private Location ParseLocationFromAnalysisInfo()
+        private void ParseLocationFromAnalysisInfo(Result result)
         {
-            var location = new Location();
+            CodeFlow codeFlow = result.CodeFlows.First();
+            int step = 0;
 
             _reader.Read();
             while (!AtEndOf(_strings.AnalysisInfo))
             {
-                if (AtStartOfNonEmpty(_strings.Unified))
+                // Note: SourceLocation is an empty element (it has only attributes),
+                // so we can't call AtStartOfNonEmpty here.
+                if (AtStartOf(_strings.SourceLocation))
                 {
-                    _reader.Read();
-                    while (!AtEndOf(_strings.Unified))
+                    PhysicalLocation physLoc = ParsePhysicalLocationFromSourceInfo();
+                    codeFlow.Locations.Add(new AnnotatedCodeLocation
                     {
-                        _reader.Read();
-                    }
+                        Step = step++,
+                        PhysicalLocation = physLoc
+                    });
+
+                    // Step past the empty element.
+                    _reader.Read();
                 }
                 else
                 {
@@ -295,7 +312,53 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 }
             }
 
-            return location;
+            if (codeFlow.Locations.Any())
+            {
+                result.Locations.Add(new Location
+                {
+                    // TODO: Confirm that the traces are ordered chronologically
+                    // (so that we really do want to use the last one as the
+                    // overall result location).
+                    ResultFile = codeFlow.Locations.Last().PhysicalLocation
+                });
+            }
+        }
+
+        private PhysicalLocation ParsePhysicalLocationFromSourceInfo()
+        {
+            string path = _reader.GetAttribute(_strings.PathAttribute);
+
+            int startLine;
+            string lineAttr = _reader.GetAttribute(_strings.LineAttribute);
+            if (!int.TryParse(lineAttr, out startLine))
+            {
+                startLine = 0;
+            }
+
+            int startColumn;
+            string colStartAttr = _reader.GetAttribute(_strings.ColStartAttribute);
+            if (!int.TryParse(colStartAttr, out startColumn))
+            {
+                startColumn = 0;
+            }
+
+            int endColumn;
+            string colEndAttr = _reader.GetAttribute(_strings.ColEndAttribute);
+            if (!int.TryParse(colEndAttr, out endColumn))
+            {
+                endColumn = 0;
+            }
+
+            return new PhysicalLocation
+            {
+                Uri = new Uri(path, UriKind.Relative),
+                Region = new Region
+                {
+                    StartLine = startLine,
+                    StartColumn = startColumn,
+                    EndColumn = endColumn
+                }
+            };
         }
 
         private void ParseDescription()

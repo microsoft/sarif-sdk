@@ -56,23 +56,22 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
         // Members and further nested members of AnalysisInfo
 
-        /// <summary>The string constant "Unified"</summary>
-        public readonly string Unified;
-
-        /// <summary>The string constant "Trace"</summary>
-        public readonly string Trace;
-
-        /// <summary>The string constant "Primary"</summary>
-        public readonly string Primary;
-
-        /// <summary>The string constant "Entry"</summary>
-        public readonly string Entry;
-
-        /// <summary>The string constant "Node"</summary>
-        public readonly string Node;
-
         /// <summary>The string constant "SourceLocation"</summary>
         public readonly string SourceLocation;
+
+        // Members of SourceLocation
+
+        /// <summary>The string constant "path"</summary>
+        public readonly string PathAttribute;
+
+        /// <summary>The string constant "line"</summary>
+        public readonly string LineAttribute;
+
+        /// <summary>The string constant "colStart"</summary>
+        public readonly string ColStartAttribute;
+
+        /// <summary>The string constant "colEnd"</summary>
+        public readonly string ColEndAttribute;
 
         // Description element
 
@@ -144,12 +143,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             Vulnerability = nameTable.Add("Vulnerability");
             ClassId = nameTable.Add("ClassID");
             AnalysisInfo = nameTable.Add("AnalysisInfo");
-            Unified = nameTable.Add("Unified");
-            Trace = nameTable.Add("Trace");
-            Primary = nameTable.Add("Primary");
-            Entry = nameTable.Add("Entry");
-            Node = nameTable.Add("Node");
             SourceLocation = nameTable.Add("SourceLocation");
+            PathAttribute = nameTable.Add("path");
+            LineAttribute = nameTable.Add("line");
+            ColStartAttribute = nameTable.Add("colStart");
+            ColEndAttribute = nameTable.Add("colEnd");
             Description = nameTable.Add("Description");
             ClassIdAttribute = nameTable.Add("classID");
             Abstract = nameTable.Add("Abstract");
