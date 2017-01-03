@@ -25,6 +25,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         private List<Result> _results = new List<Result>();
         private List<Notification> _toolNotifications = new List<Notification>();
         private Dictionary<string, FileData> _fileDictionary = new Dictionary<string, FileData>();
+        private Dictionary<string, string> _classToMessageDictionary = new Dictionary<string, string>();
 
         /// <summary>Initializes a new instance of the <see cref="FortifyFprConverter"/> class.</summary>
         public FortifyFprConverter()
@@ -61,8 +62,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             _results.Clear();
             _toolNotifications.Clear();
             _fileDictionary.Clear();
+            _classToMessageDictionary.Clear();
 
             ParseFprFile(input);
+            AddMessagesToResults();
 
             output.Initialize(id: null, automationId: _automationId);
 
@@ -122,6 +125,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                     else if (AtStartOfNonEmpty(_strings.Vulnerabilities))
                     {
                         ParseVulnerabilities();
+                    }
+                    else if (AtStartOfNonEmpty(_strings.Description))
+                    {
+                        ParseDescription();
                     }
                     else if (AtStartOfNonEmpty(_strings.CommandLine))
                     {
@@ -251,10 +258,35 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             _reader.Read();
             while (!AtEndOf(_strings.Vulnerability))
             {
+                if (AtStartOfNonEmpty(_strings.ClassId))
+                {
+                    result.RuleId = _reader.ReadElementContentAsString();
+                }
+
                 _reader.Read();
             }
 
             _results.Add(result);
+        }
+
+        private void ParseDescription()
+        {
+            string classId = _reader.GetAttribute(_strings.ClassIdAttribute);
+            string @abstract = null;
+            _reader.Read();
+            while (!AtEndOf(_strings.Description))
+            {
+                if (AtStartOfNonEmpty(_strings.Abstract))
+                {
+                    @abstract = _reader.ReadElementContentAsString();
+                }
+                else
+                {
+                    _reader.Read();
+                }
+            }
+
+            _classToMessageDictionary.Add(classId, @abstract);
         }
 
         private void ParseCommandLine()
@@ -338,6 +370,18 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         {
             return _reader.EOF ||
                 (_reader.NodeType == XmlNodeType.EndElement && Ref.Equal(_reader.LocalName, elementName));
+        }
+
+        private void AddMessagesToResults()
+        {
+            foreach (Result result in _results)
+            {
+                string message;
+                if (_classToMessageDictionary.TryGetValue(result.RuleId, out message))
+                {
+                    result.Message = message;
+                }
+            }
         }
     }
 }

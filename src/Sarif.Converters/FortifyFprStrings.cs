@@ -46,6 +46,24 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         /// <summary>The string constant "Vulnerability"</summary>
         public readonly string Vulnerability;
 
+        // Vulnerability members
+
+        /// <summary>The string constant "ClassID"</summary>
+        public readonly string ClassId;
+
+        // Description element
+
+        /// <summary>The string constant "Description"</summary>
+        public readonly string Description;
+
+        // Description members
+
+        /// <summary>The string constant "classID"</summary>
+        public readonly string ClassIdAttribute;
+
+        /// <summary>The string constant "Abstract"</summary>
+        public readonly string Abstract;
+
         // CommandLine element
 
         /// <summary>The string constant "CommandLine".</summary>
@@ -101,6 +119,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             Name = nameTable.Add("Name");
             Vulnerabilities = nameTable.Add("Vulnerabilities");
             Vulnerability = nameTable.Add("Vulnerability");
+            ClassId = nameTable.Add("ClassID");
+            Description = nameTable.Add("Description");
+            ClassIdAttribute = nameTable.Add("classID");
+            Abstract = nameTable.Add("Abstract");
             CommandLine = nameTable.Add("CommandLine");
             Argument = nameTable.Add("Argument");
             Errors = nameTable.Add("Errors");
