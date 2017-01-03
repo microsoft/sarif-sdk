@@ -7,6 +7,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 {
     internal class FortifyFprStrings
     {
+        /// <summary>The string constant "CreatedTS"</summary>
+        public readonly string CreatedTimestamp;
+
+        /// <summary>The string constant "date"</summary>
+        public readonly string DateAttribute;
+
+        /// <summary>The string constant "time"</summary>
+        public readonly string TimeAttribute;
+
         /// <summary>The string constant "UUID"</summary>
         public readonly string Uuid;
 
@@ -101,6 +110,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         /// </param>
         public FortifyFprStrings(XmlNameTable nameTable)
         {
+            CreatedTimestamp = nameTable.Add("CreatedTS");
+            DateAttribute = nameTable.Add("date");
+            TimeAttribute = nameTable.Add("time");
             Uuid = nameTable.Add("UUID");
             Build = nameTable.Add("Build");
             BuildId = nameTable.Add("BuildID");

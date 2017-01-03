@@ -3,6 +3,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.IO.Compression;
 using System.Linq;
@@ -122,7 +123,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                     {
                         ParseUuid();
                     }
-                    if (AtStartOfNonEmpty(_strings.Build))
+                    // Note: CreatedTS is an empty element (it has only attributes),
+                    // so we can't call AtStartOfNonEmpty here.
+                    else if (AtStartOf(_strings.CreatedTimestamp))
+                    {
+                        ParseCreatedTimestamp();
+                    }
+                    else if (AtStartOfNonEmpty(_strings.Build))
                     {
                         ParseBuild();
                     }
@@ -153,6 +160,20 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         private void ParseUuid()
         {
             _runId = _reader.ReadElementContentAsString();
+        }
+
+        private void ParseCreatedTimestamp()
+        {
+            string date = _reader.GetAttribute(_strings.DateAttribute);
+            string time = _reader.GetAttribute(_strings.TimeAttribute);
+            if (!string.IsNullOrEmpty(date) && !string.IsNullOrEmpty(time))
+            {
+                string dateTime = date + "T" + time;
+                _invocation.StartTime = DateTime.Parse(dateTime, CultureInfo.InvariantCulture);
+            }
+
+            // Step past the empty element.
+            _reader.Read();
         }
 
         private void ParseBuild()
