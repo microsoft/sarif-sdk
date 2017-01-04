@@ -14,6 +14,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 {
     internal class FortifyFprConverter : ToolFileConverterBase
     {
+        private const string FortifyToolName = "HP Fortify Static Code Analyzer";
         private const string FortifyExecutable = "[REMOVED]insourceanalyzer.exe";
 
         private readonly NameTable _nameTable;
@@ -59,7 +60,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
             var tool = new Tool
             {
-                Name = "Fortify"
+                Name = FortifyToolName
             };
 
             _invocation = new Invocation();
