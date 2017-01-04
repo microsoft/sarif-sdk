@@ -57,7 +57,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             var fileInfoFactory = new FileInfoFactory(MimeType.DetermineFromFileExtension);
             Dictionary<string, FileData> fileDictionary = fileInfoFactory.Create(results);
 
-            output.Initialize(id: null, correlationId: null);
+            output.Initialize(id: null, automationId: null);
 
             output.WriteTool(tool);
 

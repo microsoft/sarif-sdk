@@ -123,7 +123,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers.UnitTests
             {
                 var run = new Run();
 
-                uut.Initialize(id: null, correlationId: null);
+                uut.Initialize(id: null, automationId: null);
 
                 uut.WriteTool(DefaultTool);
 

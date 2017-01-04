@@ -52,8 +52,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         /// sufficient to being populating a run with results.
         /// </summary>
         /// <param name="id">A string that uniquely identifies a run.</param>
-        /// <param name="correlationId">A global identifier for a run that permits correlation with a larger automation process.</param>
-        public void Initialize(string id, string correlationId)
+        /// <param name="automationId">A global identifier for a run that permits correlation with a larger automation process.</param>
+        public void Initialize(string id, string automationId)
         {
             this.EnsureStateNotAlreadySet(Conditions.Disposed | Conditions.Initialized);
 
@@ -76,10 +76,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 _serializer.Serialize(_jsonWriter, id, typeof(string));
             }
 
-            if (!string.IsNullOrEmpty(correlationId))
+            if (!string.IsNullOrEmpty(automationId))
             {
-                _jsonWriter.WritePropertyName("correlationId");
-                _serializer.Serialize(_jsonWriter, correlationId, typeof(string));
+                _jsonWriter.WritePropertyName("automationId");
+                _serializer.Serialize(_jsonWriter, automationId, typeof(string));
             }
 
             _writeConditions |= Conditions.Initialized;
@@ -364,7 +364,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         {
             if (_writeConditions == Conditions.None)
             {
-                Initialize(id : Guid.NewGuid().ToString(), correlationId: null);
+                Initialize(id : Guid.NewGuid().ToString(), automationId: null);
             }
         }
 

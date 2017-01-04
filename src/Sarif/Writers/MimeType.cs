@@ -121,6 +121,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             ImmutableArray.Create("text/ruby", "ruby", "gemspec"),
             ImmutableArray.Create(MimeType.Sarif, "sarif"),
             ImmutableArray.Create("text/scss", "scss"),
+            ImmutableArray.Create("text/x-sql", "sql", "tsql"),
             ImmutableArray.Create("text/typescript", "ts"),
             ImmutableArray.Create("text/x-vb", "vb"),
             ImmutableArray.Create("text/xml", "xml", "ascx", "aspx", "csproj", "xaml", "dtd", "xsd", "vcxproj", "vbproj", "wixproj", "jsproj", "proj", "targets", "props", "config"),

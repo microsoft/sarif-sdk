@@ -52,7 +52,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             var fileInfoFactory = new FileInfoFactory(null);
             Dictionary<string, FileData> fileDictionary = fileInfoFactory.Create(results);
 
-            output.Initialize(id: null, correlationId: null);
+            output.Initialize(id: null, automationId: null);
 
             output.WriteTool(tool);
             if (fileDictionary != null && fileDictionary.Count > 0) { output.WriteFiles(fileDictionary); }
