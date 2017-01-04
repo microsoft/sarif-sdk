@@ -9,6 +9,7 @@ using System.IO.Compression;
 using System.Linq;
 using System.Text;
 using System.Xml;
+using Microsoft.CodeAnalysis.Sarif.Writers;
 
 namespace Microsoft.CodeAnalysis.Sarif.Converters
 {
@@ -16,6 +17,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
     {
         private const string FortifyToolName = "HP Fortify Static Code Analyzer";
         private const string FortifyExecutable = "[REMOVED]insourceanalyzer.exe";
+        private const string FprFileTypePropertyName = "FprFileType";
 
         private readonly NameTable _nameTable;
         private readonly FortifyFprStrings _strings;
@@ -25,28 +27,36 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         private string _runId;
         private string _automationId;
         private List<Result> _results = new List<Result>();
-        private List<Notification> _toolNotifications = new List<Notification>();
-        private Dictionary<string, FileData> _fileDictionary = new Dictionary<string, FileData>();
-        private Dictionary<string, IRule> _ruleDictionary = new Dictionary<string, IRule>();
-        private Dictionary<AnnotatedCodeLocation, string> _aclToSnippetIdDictionary = new Dictionary<AnnotatedCodeLocation, string>();
-        private Dictionary<Result, string> _resultToSnippetIdDictionary = new Dictionary<Result, string>();
-        private Dictionary<string, string> _snippetIdToSnippetTextDictionary = new Dictionary<string, string>();
+        private List<Notification> _toolNotifications;
+        private Dictionary<string, FileData> _fileDictionary;
+        private Dictionary<string, IRule> _ruleDictionary;
+        private Dictionary<AnnotatedCodeLocation, string> _aclToSnippetIdDictionary;
+        private Dictionary<Result, string> _resultToSnippetIdDictionary;
+        private Dictionary<string, string> _snippetIdToSnippetTextDictionary;
 
         /// <summary>Initializes a new instance of the <see cref="FortifyFprConverter"/> class.</summary>
         public FortifyFprConverter()
         {
             _nameTable = new NameTable();
             _strings = new FortifyFprStrings(_nameTable);
-        }
 
-        /// <summary>
-        /// Interface implementation for converting a stream in Fortify FPR format to a stream in
-        /// SARIF format.
-        /// </summary>
-        /// <exception cref="ArgumentNullException">Thrown when one or more required arguments are null.</exception>
-        /// <param name="input">Stream in Fortify FPR format.</param>
-        /// <param name="output">Stream in SARIF format.</param>
-        public override void Convert(Stream input, IResultLogWriter output)
+            _results = new List<Result>();
+            _toolNotifications = new List<Notification>();
+            _fileDictionary = new Dictionary<string, FileData>();
+            _ruleDictionary = new Dictionary<string, IRule>();
+            _aclToSnippetIdDictionary = new Dictionary<AnnotatedCodeLocation, string>();
+            _resultToSnippetIdDictionary = new Dictionary<Result, string>();
+            _snippetIdToSnippetTextDictionary = new Dictionary<string, string>();
+    }
+
+    /// <summary>
+    /// Interface implementation for converting a stream in Fortify FPR format to a stream in
+    /// SARIF format.
+    /// </summary>
+    /// <exception cref="ArgumentNullException">Thrown when one or more required arguments are null.</exception>
+    /// <param name="input">Stream in Fortify FPR format.</param>
+    /// <param name="output">Stream in SARIF format.</param>
+    public override void Convert(Stream input, IResultLogWriter output)
         {
             if (input == null)
             {
@@ -184,7 +194,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         {
             string date = _reader.GetAttribute(_strings.DateAttribute);
             string time = _reader.GetAttribute(_strings.TimeAttribute);
-            if (!string.IsNullOrEmpty(date) && !string.IsNullOrEmpty(time))
+            if (!String.IsNullOrEmpty(date) && !String.IsNullOrEmpty(time))
             {
                 string dateTime = date + "T" + time;
                 _invocation.StartTime = DateTime.Parse(dateTime, CultureInfo.InvariantCulture);
@@ -237,10 +247,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             string sizeAttribute = _reader.GetAttribute(_strings.SizeAttribute);
             if (sizeAttribute != null)
             {
-                if (!int.TryParse(sizeAttribute, out length))
-                {
-                    length = 0;
-                }
+                int.TryParse(sizeAttribute, out length);
             }
 
             string fileName = null;
@@ -257,30 +264,20 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 }
             }
 
-            if (!string.IsNullOrEmpty(fileName))
+            if (!String.IsNullOrEmpty(fileName))
             {
-                _fileDictionary.Add(
-                    fileName,
-                    new FileData
-                    {
-                        MimeType = FprTypeToMimeType(fileType),
-                        Length = length
-                    });
-            }
-        }
+                var fileData = new FileData
+                {
+                    MimeType = MimeType.DetermineFromFileExtension(fileName),
+                    Length = length
+                };
 
-        private string FprTypeToMimeType(string fileType)
-        {
-            switch (fileType)
-            {
-                case "xml":
-                    return "text/xml";
+                if (fileType != null)
+                {
+                    fileData.SetProperty(FprFileTypePropertyName, fileType);
+                }
 
-                case "tsql":
-                    return "text/x-sql";
-
-                default:
-                    return "unknown/" + fileType;
+                _fileDictionary.Add(fileName, fileData);
             }
         }
 
@@ -356,7 +353,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
                     // Remember the id of the snippet associated with this location.
                     // We'll use it to fill the snippet text when we read the Snippets element later on.
-                    if (!string.IsNullOrEmpty(snippetId))
+                    if (!String.IsNullOrEmpty(snippetId))
                     {
                         _aclToSnippetIdDictionary.Add(acl, snippetId);
                     }
@@ -387,7 +384,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                     ResultFile = codeFlow.Locations.Last().PhysicalLocation
                 });
 
-                if (!string.IsNullOrEmpty(lastSnippetId))
+                if (!String.IsNullOrEmpty(lastSnippetId))
                 {
                     _resultToSnippetIdDictionary.Add(result, lastSnippetId);
                 }
@@ -398,25 +395,25 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         {
             string path = _reader.GetAttribute(_strings.PathAttribute);
 
-            int startLine;
+            int startLine = 0;
             string lineAttr = _reader.GetAttribute(_strings.LineAttribute);
-            if (!int.TryParse(lineAttr, out startLine))
+            if (lineAttr != null)
             {
-                startLine = 0;
+                int.TryParse(lineAttr, out startLine);
             }
 
-            int startColumn;
+            int startColumn = 0;
             string colStartAttr = _reader.GetAttribute(_strings.ColStartAttribute);
-            if (!int.TryParse(colStartAttr, out startColumn))
+            if (colStartAttr != null)
             {
-                startColumn = 0;
+                int.TryParse(colStartAttr, out startColumn);
             }
 
-            int endColumn;
+            int endColumn = 0;
             string colEndAttr = _reader.GetAttribute(_strings.ColEndAttribute);
-            if (!int.TryParse(colEndAttr, out endColumn))
+            if (colEndAttr != null)
             {
-                endColumn = 0;
+                int.TryParse(colEndAttr, out endColumn);
             }
 
             return new PhysicalLocation
@@ -483,7 +480,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 if (AtStartOfNonEmpty(_strings.Text))
                 {
                     string snippetText = _reader.ReadElementContentAsString();
-                    if (!string.IsNullOrEmpty(snippetText))
+                    if (!String.IsNullOrEmpty(snippetText))
                     {
                         _snippetIdToSnippetTextDictionary.Add(snippetId, snippetText);
                     }
