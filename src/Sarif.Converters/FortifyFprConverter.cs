@@ -27,7 +27,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         private List<Result> _results = new List<Result>();
         private List<Notification> _toolNotifications = new List<Notification>();
         private Dictionary<string, FileData> _fileDictionary = new Dictionary<string, FileData>();
-        private Dictionary<string, string> _classToMessageDictionary = new Dictionary<string, string>();
+        private Dictionary<string, IRule> _ruleDictionary = new Dictionary<string, IRule>();
         private Dictionary<AnnotatedCodeLocation, string> _aclToSnippetIdDictionary = new Dictionary<AnnotatedCodeLocation, string>();
         private Dictionary<Result, string> _resultToSnippetIdDictionary = new Dictionary<Result, string>();
         private Dictionary<string, string> _snippetIdToSnippetTextDictionary = new Dictionary<string, string>();
@@ -67,7 +67,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             _results.Clear();
             _toolNotifications.Clear();
             _fileDictionary.Clear();
-            _classToMessageDictionary.Clear();
+            _ruleDictionary.Clear();
             _aclToSnippetIdDictionary.Clear();    
             _resultToSnippetIdDictionary.Clear();
             _snippetIdToSnippetTextDictionary.Clear();
@@ -90,6 +90,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             output.OpenResults();
             output.WriteResults(_results);
             output.CloseResults();
+
+            if (_ruleDictionary.Any())
+            {
+                output.WriteRules(_ruleDictionary);
+            }
 
             if (_toolNotifications.Any())
             {
@@ -148,7 +153,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                     }
                     else if (AtStartOfNonEmpty(_strings.Description))
                     {
-                        ParseDescription();
+                        ParseRuleFromDescription();
                     }
                     else if (AtStartOfNonEmpty(_strings.Snippets))
                     {
@@ -426,16 +431,23 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             };
         }
 
-        private void ParseDescription()
+        private void ParseRuleFromDescription()
         {
-            string classId = _reader.GetAttribute(_strings.ClassIdAttribute);
-            string @abstract = null;
+            var rule = new Rule
+            {
+                Id = _reader.GetAttribute(_strings.ClassIdAttribute)
+            };
+
             _reader.Read();
             while (!AtEndOf(_strings.Description))
             {
                 if (AtStartOfNonEmpty(_strings.Abstract))
                 {
-                    @abstract = _reader.ReadElementContentAsString();
+                    rule.ShortDescription = _reader.ReadElementContentAsString();
+                }
+                else if (AtStartOfNonEmpty(_strings.Explanation))
+                {
+                    rule.FullDescription = _reader.ReadElementContentAsString();
                 }
                 else
                 {
@@ -443,7 +455,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 }
             }
 
-            _classToMessageDictionary.Add(classId, @abstract);
+            _ruleDictionary.Add(rule.Id, rule);
         }
 
         private void ParseSnippets()
@@ -570,10 +582,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         {
             foreach (Result result in _results)
             {
-                string message;
-                if (_classToMessageDictionary.TryGetValue(result.RuleId, out message))
+                IRule rule;
+                if (_ruleDictionary.TryGetValue(result.RuleId, out rule))
                 {
-                    result.Message = message;
+                    result.Message = rule.ShortDescription ?? rule.FullDescription;
                 }
             }
         }

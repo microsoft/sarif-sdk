@@ -75,6 +75,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         /// <summary>The string constant "Description"</summary>
         public readonly string Description;
 
+        /// <summary>The string constant "classID"</summary>
+        public readonly string ClassIdAttribute;
+
+        /// <summary>The string constant "Abstract"</summary>
+        public readonly string Abstract;
+
+        /// <summary>The string constant "Explanation"</summary>
+        public readonly string Explanation;
+
         /// <summary>The string constant "Snippets"</summary>
         public readonly string Snippets;
 
@@ -86,12 +95,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
         /// <summary>The string constant "Text"</summary>
         public readonly string Text;
-
-        /// <summary>The string constant "classID"</summary>
-        public readonly string ClassIdAttribute;
-
-        /// <summary>The string constant "Abstract"</summary>
-        public readonly string Abstract;
 
         /// <summary>The string constant "CommandLine".</summary>
         public readonly string CommandLine;
@@ -147,12 +150,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             ColStartAttribute = nameTable.Add("colStart");
             ColEndAttribute = nameTable.Add("colEnd");
             Description = nameTable.Add("Description");
+            ClassIdAttribute = nameTable.Add("classID");
+            Abstract = nameTable.Add("Abstract");
+            Explanation = nameTable.Add("Explanation");
             Snippets = nameTable.Add("Snippets");
             Snippet = nameTable.Add("Snippet");
             IdAttribute = nameTable.Add("id");
             Text = nameTable.Add("Text");
-            ClassIdAttribute = nameTable.Add("classID");
-            Abstract = nameTable.Add("Abstract");
             CommandLine = nameTable.Add("CommandLine");
             Argument = nameTable.Add("Argument");
             Errors = nameTable.Add("Errors");
