@@ -164,11 +164,18 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
                 index = rawMessage.IndexOf("]]");
 
-                string embeddedLinkRawString = rawMessage.Substring(0, index - 1);
+                // embeddedLinksText contains the text for one set of embedded links except for the leading '[[' and trailing ']]'
+                // "hbm"|"relative://windows/Core/ntgdi/gre/brushapi.cxx:176:4882:3"],["hbm"|"relative://windows/Core/ntgdi/gre/windows/ntgdi.c:1873:50899:3"],["hbm"|"relative://windows/Core/ntgdi/gre/windows/ntgdi.c:5783:154466:3"
+                string embeddedLinksText = rawMessage.Substring(0, index - 1);
 
-                string[] embeddedLinks = embeddedLinkRawString.Split(new string[] { "],[" }, StringSplitOptions.None);
+                // embeddedLinks splits the set of embedded links into invividual links
+                // 1.  "hbm"|"relative://windows/Core/ntgdi/gre/brushapi.cxx:176:4882:3"
+                // 2.  "hbm"|"relative://windows/Core/ntgdi/gre/windows/ntgdi.c:1873:50899:3"
+                // 3.  "hbm"|"relative://windows/Core/ntgdi/gre/windows/ntgdi.c:5783:154466:3"
 
-                string tokenText = embeddedLinkRawString;
+                string[] embeddedLinks = embeddedLinksText.Split(new string[] { "],[" }, StringSplitOptions.None);
+
+                string tokenText = embeddedLinksText;
                 foreach (string embeddedLink in embeddedLinks)
                 {
                     string[] tokens = embeddedLink.Split(new char[] { '\"' }, StringSplitOptions.RemoveEmptyEntries);
