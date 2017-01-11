@@ -141,6 +141,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
         private IList<AnnotatedCodeLocation> NormalizeRawMessage(string rawMessage, out string normalizedMessage)
         {
+            // The rawMessage contains embedded related locations. We need to extract the related locations and reformat the rawMessage without the embedded links.
+            // Example rawMessage
+            //     po (coming from [["hbm"|"relative://windows/Core/ntgdi/gre/brushapi.cxx:176:4882:3"],["hbm"|"relative://windows/Core/ntgdi/gre/windows/ntgdi.c:1873:50899:3"],["hbm"|"relative://windows/Core/ntgdi/gre/windows/ntgdi.c:5783:154466:3"]]) may not have been checked for validity before call to vSync.
+            // Example normalizedMessage
+            //     po (coming from "hbm") may not have been checked for validity before call to vSync.
+            // Example relatedLocations
+            //     relative://windows/Core/ntgdi/gre/brushapi.cxx:176:4882:3
+            //     relative://windows/Core/ntgdi/gre/windows/ntgdi.c:1873:50899:3
+            //     relative://windows/Core/ntgdi/gre/windows/ntgdi.c:5783:154466:3
             List<AnnotatedCodeLocation> relatedLocations = null;
             normalizedMessage = String.Empty;
 
@@ -155,32 +164,43 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
                 index = rawMessage.IndexOf("]]");
 
-                string embeddedLink = rawMessage.Substring(0, index - 1);
+                string embeddedLinkRawString = rawMessage.Substring(0, index - 1);
 
-                string[] tokens = embeddedLink.Split(new char[] { '\"' }, StringSplitOptions.RemoveEmptyEntries );
+                string[] embeddedLinks = embeddedLinkRawString.Split(new string[] { "],[" }, StringSplitOptions.None);
 
-                sb.Append("\"" + tokens[0] + "\""); // re-add the text portion of the link
-
-                string location = tokens[2];
-                tokens = location.Split(':');
-
-                relatedLocations = relatedLocations ?? new List<AnnotatedCodeLocation>();
-
-                var relatedLocation = new AnnotatedCodeLocation
+                string tokenText = embeddedLinkRawString;
+                foreach (string embeddedLink in embeddedLinks)
                 {
-                     PhysicalLocation = new PhysicalLocation
-                     {
-                         Uri = new Uri(tokens[1].Substring(1), UriKind.Relative),
-                         UriBaseId = "$srcroot",
-                         Region = new Region
-                          {
-                               StartLine = Int32.Parse(tokens[2]),
-                               Offset = Int32.Parse(tokens[3]),
-                               Length = Int32.Parse(tokens[4])
-                          }
-                     }
-                };
-                relatedLocations.Add(relatedLocation);
+                    string[] tokens = embeddedLink.Split(new char[] { '\"' }, StringSplitOptions.RemoveEmptyEntries);
+
+                    // save the text portion of the link
+                    tokenText = tokens[0];
+
+                    string location = tokens[2];
+                    tokens = location.Split(':');
+
+                    relatedLocations = relatedLocations ?? new List<AnnotatedCodeLocation>();
+
+                    var relatedLocation = new AnnotatedCodeLocation
+                    {
+                        PhysicalLocation = new PhysicalLocation
+                        {
+                            Uri = new Uri(tokens[1].Substring(1), UriKind.Relative),
+                            UriBaseId = "$srcroot",
+                            Region = new Region
+                            {
+                                StartLine = Int32.Parse(tokens[2]),
+                                Offset = Int32.Parse(tokens[3]),
+                                Length = Int32.Parse(tokens[4])
+                            }
+                        }
+                    };
+                    relatedLocations.Add(relatedLocation);
+                }
+
+                // re-add the text portion of the link
+                sb.Append("\"" + tokenText + "\""); 
+
                 rawMessage = rawMessage.Substring(index + "]]".Length);
                 index = rawMessage.IndexOf("[[");
             }
