@@ -258,6 +258,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             bool withinQuotes = false;
             bool withinParentheses = false;
             bool lastEncounteredWasDot = false;
+            bool withinEllipsis = false;
 
             foreach (char ch in text)
             {
@@ -297,7 +298,14 @@ namespace Microsoft.CodeAnalysis.Sarif
 
                     case '.':
                     {
-                        if (withinQuotes || withinParentheses) { continue; }
+                        if (withinQuotes || withinParentheses || withinEllipsis) { continue; }
+                        if (length < text.Length && text[length] == '.')
+                        {
+                            withinEllipsis = true;
+                            lastEncounteredWasDot = false;
+                            break;
+                        }
+
                         lastEncounteredWasDot = true;
                         break;
                     }
