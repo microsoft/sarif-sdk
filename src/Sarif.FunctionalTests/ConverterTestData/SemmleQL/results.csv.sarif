@@ -8,6 +8,7 @@
       },
       "results": [
         {
+          "ruleId": "Explicit thread priority",
           "message": "Avoid using thread priorities. The effect is unpredictable and not portable.",
           "locations": [
             {
@@ -24,6 +25,7 @@
           ]
         },
         {
+          "ruleId": "Incorrect lazy initialization of a static field",
           "message": "Incorrect lazy initialization of static field \"SKIP_BYTE_BUFFER\": Missing synchronization.",
           "locations": [
             {
@@ -53,6 +55,7 @@
           ]
         },
         {
+          "ruleId": "Incorrect lazy initialization of a static field",
           "message": "Incorrect lazy initialization of static field \"SKIP_CHAR_BUFFER\": Missing synchronization.",
           "locations": [
             {
@@ -82,6 +85,7 @@
           ]
         },
         {
+          "ruleId": "Busy wait",
           "message": "Prefer wait/notify or java.util.concurrent to communicate between threads.",
           "locations": [
             {
@@ -98,6 +102,7 @@
           ]
         },
         {
+          "ruleId": "Busy wait",
           "message": "Prefer wait/notify or java.util.concurrent to communicate between threads.",
           "locations": [
             {
@@ -114,6 +119,7 @@
           ]
         },
         {
+          "ruleId": "Busy wait",
           "message": "Prefer wait/notify or java.util.concurrent to communicate between threads.",
           "locations": [
             {
@@ -130,6 +136,7 @@
           ]
         },
         {
+          "ruleId": "Busy wait",
           "message": "Prefer wait/notify or java.util.concurrent to communicate between threads.",
           "locations": [
             {
@@ -146,6 +153,7 @@
           ]
         },
         {
+          "ruleId": "Dereferenced variable may be null",
           "message": "Variable \"reader\" may be null here.",
           "locations": [
             {
@@ -175,6 +183,7 @@
           ]
         },
         {
+          "ruleId": "Discarded exception",
           "message": "Exceptions should not be dropped.",
           "locations": [
             {
@@ -191,6 +200,7 @@
           ]
         },
         {
+          "ruleId": "Discarded exception",
           "message": "Exceptions should not be dropped.",
           "locations": [
             {
@@ -207,6 +217,7 @@
           ]
         },
         {
+          "ruleId": "Close input resource",
           "level": "error",
           "message": "This BOMInputStream is not always closed on method exit.",
           "locations": [
@@ -224,6 +235,7 @@
           ]
         },
         {
+          "ruleId": "Close input resource",
           "level": "error",
           "message": "This BOMInputStream is not always closed on method exit.",
           "locations": [
@@ -241,6 +253,7 @@
           ]
         },
         {
+          "ruleId": "Ignored error status of call",
           "level": "note",
           "message": "Method doCopyFile ignores exceptional return value of File.setLastModified.",
           "locations": [
@@ -258,6 +271,7 @@
           ]
         },
         {
+          "ruleId": "Ignored error status of call",
           "level": "note",
           "message": "Method doCopyDirectory ignores exceptional return value of File.setLastModified.",
           "locations": [
@@ -275,6 +289,7 @@
           ]
         },
         {
+          "ruleId": "Non-serializable field",
           "message": "This field is in a serializable class,  but is not serializable itself because CharSequence is not serializable.",
           "locations": [
             {
@@ -291,6 +306,7 @@
           ]
         },
         {
+          "ruleId": "Non-serializable field",
           "message": "This field is in a serializable class,  but is not serializable itself because Comparator<File> is not serializable.",
           "locations": [
             {
@@ -307,6 +323,7 @@
           ]
         },
         {
+          "ruleId": "Non-serializable field",
           "message": "This field is in a serializable class,  but is not serializable itself because Comparator<File> is not serializable.",
           "locations": [
             {
@@ -323,6 +340,7 @@
           ]
         },
         {
+          "ruleId": "Non-serializable field",
           "message": "This field is in a serializable class,  but is not serializable itself because IOFileFilter is not serializable.",
           "locations": [
             {
@@ -339,6 +357,7 @@
           ]
         },
         {
+          "ruleId": "Non-serializable field",
           "message": "This field is in a serializable class,  but is not serializable itself because IOFileFilter is not serializable.",
           "locations": [
             {
@@ -355,6 +374,7 @@
           ]
         },
         {
+          "ruleId": "Non-serializable field",
           "message": "This field is in a serializable class,  but is not serializable itself because IOFileFilter is not serializable.",
           "locations": [
             {
@@ -371,6 +391,7 @@
           ]
         },
         {
+          "ruleId": "Non-serializable field",
           "message": "This field is in a serializable class,  but is not serializable itself because FileAlterationListener is not serializable.",
           "locations": [
             {
@@ -387,6 +408,7 @@
           ]
         },
         {
+          "ruleId": "Non-serializable field",
           "message": "This field is in a serializable class,  but is not serializable itself because FileFilter is not serializable.",
           "locations": [
             {
@@ -403,6 +425,7 @@
           ]
         },
         {
+          "ruleId": "Non-serializable field",
           "message": "This field is in a serializable class,  but is not serializable itself because FileFilter is not serializable.",
           "locations": [
             {
@@ -419,6 +442,7 @@
           ]
         },
         {
+          "ruleId": "Non-serializable field",
           "message": "This field is in a serializable class,  but is not serializable itself because FilenameFilter is not serializable.",
           "locations": [
             {
@@ -435,6 +459,7 @@
           ]
         },
         {
+          "ruleId": "Missing Locale parameter to toUpperCase() or toLowerCase()",
           "level": "note",
           "message": "toUpperCase without locale parameter.",
           "locations": [
@@ -452,6 +477,7 @@
           ]
         },
         {
+          "ruleId": "Missing Locale parameter to toUpperCase() or toLowerCase()",
           "level": "note",
           "message": "toUpperCase without locale parameter.",
           "locations": [
@@ -469,6 +495,7 @@
           ]
         },
         {
+          "ruleId": "Missing Locale parameter to toUpperCase() or toLowerCase()",
           "level": "note",
           "message": "toUpperCase without locale parameter.",
           "locations": [
@@ -486,6 +513,7 @@
           ]
         },
         {
+          "ruleId": "Mutually-dependent types",
           "level": "note",
           "message": "This type and type \"IOUtils\" are mutually dependent.",
           "locations": [
@@ -516,6 +544,7 @@
           ]
         },
         {
+          "ruleId": "Duplicate method",
           "level": "note",
           "message": "Method toString is duplicated in \"org.apache.commons.io.filefilter.OrFileFilter\".",
           "locations": [
@@ -546,6 +575,7 @@
           ]
         },
         {
+          "ruleId": "Duplicate method",
           "level": "note",
           "message": "Method resetCount is duplicated in \"org.apache.commons.io.output.CountingOutputStream\".",
           "locations": [
@@ -576,6 +606,7 @@
           ]
         },
         {
+          "ruleId": "Duplicate method",
           "level": "note",
           "message": "Method mark is duplicated in \"org.apache.commons.io.input.NullInputStream\".",
           "locations": [
@@ -606,6 +637,7 @@
           ]
         },
         {
+          "ruleId": "Duplicate method",
           "level": "note",
           "message": "Method resetCount is duplicated in \"org.apache.commons.io.input.CountingInputStream\".",
           "locations": [
@@ -636,6 +668,7 @@
           ]
         },
         {
+          "ruleId": "Duplicate method",
           "level": "note",
           "message": "Method toString is duplicated in \"org.apache.commons.io.filefilter.AndFileFilter\".",
           "locations": [
@@ -666,6 +699,7 @@
           ]
         },
         {
+          "ruleId": "Duplicate method",
           "level": "note",
           "message": "Method flush is duplicated in \"org.apache.commons.io.output.ProxyWriter\".",
           "locations": [
@@ -696,6 +730,7 @@
           ]
         },
         {
+          "ruleId": "Duplicate method",
           "level": "note",
           "message": "Method close is duplicated in \"org.apache.commons.io.output.ProxyWriter\".",
           "locations": [
@@ -726,6 +761,7 @@
           ]
         },
         {
+          "ruleId": "Duplicate method",
           "level": "note",
           "message": "Method flush is duplicated in \"org.apache.commons.io.output.ProxyOutputStream\".",
           "locations": [
@@ -756,6 +792,7 @@
           ]
         },
         {
+          "ruleId": "Duplicate method",
           "level": "note",
           "message": "Method close is duplicated in \"org.apache.commons.io.output.ProxyOutputStream\".",
           "locations": [
@@ -786,6 +823,7 @@
           ]
         },
         {
+          "ruleId": "Duplicate method",
           "level": "note",
           "message": "Method mark is duplicated in \"org.apache.commons.io.input.NullReader\".",
           "locations": [
@@ -816,6 +854,7 @@
           ]
         },
         {
+          "ruleId": "Mostly duplicate method",
           "level": "note",
           "message": "83% of the statements in read are duplicated in \"NullInputStream.read()\".",
           "locations": [
@@ -846,6 +885,7 @@
           ]
         },
         {
+          "ruleId": "Mostly duplicate method",
           "level": "note",
           "message": "83% of the statements in read are duplicated in \"NullReader.read()\".",
           "locations": [
@@ -876,6 +916,7 @@
           ]
         },
         {
+          "ruleId": "Mostly similar file",
           "level": "note",
           "message": "91% of the lines in SuffixFileFilter are similar to lines in \"PrefixFileFilter\".",
           "locations": [
@@ -898,6 +939,7 @@
           ]
         },
         {
+          "ruleId": "Mostly similar file",
           "level": "note",
           "message": "86% of the lines in TaggedOutputStream are similar to lines in \"TaggedInputStream\".",
           "locations": [
@@ -920,6 +962,7 @@
           ]
         },
         {
+          "ruleId": "Mostly similar file",
           "level": "note",
           "message": "86% of the lines in TaggedInputStream are similar to lines in \"TaggedOutputStream\".",
           "locations": [
@@ -942,6 +985,7 @@
           ]
         },
         {
+          "ruleId": "Inefficient empty string test",
           "level": "note",
           "message": "Inefficient comparison to empty string, check for zero length instead.",
           "locations": [
@@ -959,6 +1003,7 @@
           ]
         },
         {
+          "ruleId": "Empty statement",
           "level": "note",
           "message": "This empty statement should be deleted.",
           "locations": [
@@ -975,6 +1020,7 @@
           ]
         },
         {
+          "ruleId": "Unnecessarily complex boolean expression",
           "level": "note",
           "message": "Expressions of the form \"A == false\" can be simplified to \"!A\".",
           "locations": [
@@ -992,6 +1038,7 @@
           ]
         },
         {
+          "ruleId": "Unnecessarily complex boolean expression",
           "level": "note",
           "message": "Expressions of the form \"A == false\" can be simplified to \"!A\".",
           "locations": [
@@ -1009,6 +1056,7 @@
           ]
         },
         {
+          "ruleId": "Unnecessarily complex boolean expression",
           "level": "note",
           "message": "Expressions of the form \"A == false\" can be simplified to \"!A\".",
           "locations": [
@@ -1026,6 +1074,7 @@
           ]
         },
         {
+          "ruleId": "Unnecessarily complex boolean expression",
           "level": "note",
           "message": "Expressions of the form \"A == false\" can be simplified to \"!A\".",
           "locations": [
@@ -1043,6 +1092,7 @@
           ]
         },
         {
+          "ruleId": "Unnecessarily complex boolean expression",
           "level": "note",
           "message": "Expressions of the form \"A == false\" can be simplified to \"!A\".",
           "locations": [
@@ -1060,6 +1110,7 @@
           ]
         },
         {
+          "ruleId": "Unnecessarily complex boolean expression",
           "level": "note",
           "message": "Expressions of the form \"A == false\" can be simplified to \"!A\".",
           "locations": [
@@ -1077,6 +1128,7 @@
           ]
         },
         {
+          "ruleId": "Unnecessarily complex boolean expression",
           "level": "note",
           "message": "Expressions of the form \"A == false\" can be simplified to \"!A\".",
           "locations": [
@@ -1094,6 +1146,7 @@
           ]
         },
         {
+          "ruleId": "Unnecessarily complex boolean expression",
           "level": "note",
           "message": "Expressions of the form \"A == false\" can be simplified to \"!A\".",
           "locations": [
@@ -1111,6 +1164,7 @@
           ]
         },
         {
+          "ruleId": "Unnecessarily complex boolean expression",
           "level": "note",
           "message": "Expressions of the form \"A == false\" can be simplified to \"!A\".",
           "locations": [
@@ -1128,6 +1182,7 @@
           ]
         },
         {
+          "ruleId": "Unnecessarily complex boolean expression",
           "level": "note",
           "message": "Expressions of the form \"A == false\" can be simplified to \"!A\".",
           "locations": [
@@ -1145,6 +1200,7 @@
           ]
         },
         {
+          "ruleId": "Unnecessarily complex boolean expression",
           "level": "note",
           "message": "Expressions of the form \"A == false\" can be simplified to \"!A\".",
           "locations": [
@@ -1162,6 +1218,7 @@
           ]
         },
         {
+          "ruleId": "Unnecessarily complex boolean expression",
           "level": "note",
           "message": "Expressions of the form \"A == false\" can be simplified to \"!A\".",
           "locations": [
@@ -1179,6 +1236,7 @@
           ]
         },
         {
+          "ruleId": "Unnecessarily complex boolean expression",
           "level": "note",
           "message": "Expressions of the form \"A == false\" can be simplified to \"!A\".",
           "locations": [
@@ -1196,6 +1254,7 @@
           ]
         },
         {
+          "ruleId": "Unnecessarily complex boolean expression",
           "level": "note",
           "message": "Expressions of the form \"A == false\" can be simplified to \"!A\".",
           "locations": [
@@ -1213,6 +1272,7 @@
           ]
         },
         {
+          "ruleId": "Unnecessarily complex boolean expression",
           "level": "note",
           "message": "Expressions of the form \"A == false\" can be simplified to \"!A\".",
           "locations": [
@@ -1230,6 +1290,7 @@
           ]
         },
         {
+          "ruleId": "Unnecessarily complex boolean expression",
           "level": "note",
           "message": "Expressions of the form \"A == false\" can be simplified to \"!A\".",
           "locations": [
@@ -1247,6 +1308,7 @@
           ]
         },
         {
+          "ruleId": "Unnecessarily complex boolean expression",
           "level": "note",
           "message": "Expressions of the form \"A ? true : false\" can be simplified to \"A\".",
           "locations": [
@@ -1264,6 +1326,7 @@
           ]
         },
         {
+          "ruleId": "Empty branch of conditional, or empty loop body",
           "message": "The body of a loop should not be empty. Typographical error or missing code?",
           "locations": [
             {
@@ -1281,6 +1344,7 @@
           ]
         },
         {
+          "ruleId": "Empty branch of conditional, or empty loop body",
           "message": "The body of a loop should not be empty. Typographical error or missing code?",
           "locations": [
             {
@@ -1298,6 +1362,7 @@
           ]
         },
         {
+          "ruleId": "TODO/FIXME comments",
           "level": "note",
           "message": "TODO/FIXME comment.",
           "locations": [
@@ -1315,6 +1380,7 @@
           ]
         },
         {
+          "ruleId": "TODO/FIXME comments",
           "level": "note",
           "message": "TODO/FIXME comment.",
           "locations": [
@@ -1332,6 +1398,7 @@
           ]
         },
         {
+          "ruleId": "TODO/FIXME comments",
           "level": "note",
           "message": "TODO/FIXME comment.",
           "locations": [
@@ -1349,6 +1416,7 @@
           ]
         },
         {
+          "ruleId": "TODO/FIXME comments",
           "level": "note",
           "message": "TODO/FIXME comment.",
           "locations": [
@@ -1366,6 +1434,7 @@
           ]
         },
         {
+          "ruleId": "TODO/FIXME comments",
           "level": "note",
           "message": "TODO/FIXME comment.",
           "locations": [
@@ -1383,6 +1452,7 @@
           ]
         },
         {
+          "ruleId": "Commented-out code",
           "message": "This comment appears to contain commented-out code.",
           "locations": [
             {
@@ -1400,6 +1470,7 @@
           ]
         },
         {
+          "ruleId": "Confusing overloading of methods",
           "level": "note",
           "message": "Method IOUtils.toInputStream(..) could be confused with overloaded method \"toInputStream\", since dispatch depends on static types.",
           "locations": [
@@ -1430,6 +1501,7 @@
           ]
         },
         {
+          "ruleId": "Confusing overloading of methods",
           "level": "note",
           "message": "Method IOUtils.toInputStream(..) could be confused with overloaded method \"toInputStream\", since dispatch depends on static types.",
           "locations": [
@@ -1460,6 +1532,7 @@
           ]
         },
         {
+          "ruleId": "Confusing overloading of methods",
           "level": "note",
           "message": "Method IOUtils.write(..) could be confused with overloaded method \"write\", since dispatch depends on static types.",
           "locations": [
@@ -1490,6 +1563,7 @@
           ]
         },
         {
+          "ruleId": "Confusing overloading of methods",
           "level": "note",
           "message": "Method IOUtils.write(..) could be confused with overloaded method \"write\", since dispatch depends on static types.",
           "locations": [
@@ -1520,6 +1594,7 @@
           ]
         },
         {
+          "ruleId": "Confusing overloading of methods",
           "level": "note",
           "message": "Method IOUtils.write(..) could be confused with overloaded method \"write\", since dispatch depends on static types.",
           "locations": [
@@ -1550,6 +1625,7 @@
           ]
         },
         {
+          "ruleId": "Confusing overloading of methods",
           "level": "note",
           "message": "Method FileFilterUtils.asFileFilter(..) could be confused with overloaded method \"asFileFilter\", since dispatch depends on static types.",
           "locations": [
@@ -1580,6 +1656,7 @@
           ]
         },
         {
+          "ruleId": "Class response",
           "message": "Class response too high (430). It is a warning for the value to be higher or equal to 350.",
           "locations": [
             {
@@ -1596,6 +1673,7 @@
           ]
         },
         {
+          "ruleId": "Type specialization index",
           "message": "Type specialization index too high (5). It is a warning for the value to be higher or equal to 4.",
           "locations": [
             {
@@ -1612,6 +1690,7 @@
           ]
         },
         {
+          "ruleId": "Type specialization index",
           "message": "Type specialization index too high (4). It is a warning for the value to be higher or equal to 4.",
           "locations": [
             {
@@ -1628,6 +1707,7 @@
           ]
         },
         {
+          "ruleId": "Lines of code in files",
           "message": "Lines of code in files too high (1168). It is a warning for the value to be higher or equal to 1000.",
           "locations": [
             {
