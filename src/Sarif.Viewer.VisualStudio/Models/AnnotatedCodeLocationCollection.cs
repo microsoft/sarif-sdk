@@ -7,8 +7,10 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Threading;
 
 namespace Microsoft.Sarif.Viewer.Models
 {
@@ -50,7 +52,16 @@ namespace Microsoft.Sarif.Viewer.Models
             {
                 _selectedItem = value;
 
-                this.SelectionChanged(value);
+                // Check if the dispatcher is processing requests.
+                var dispatcherType = typeof(Dispatcher);
+                var countField = dispatcherType.GetField("_disableProcessingCount", BindingFlags.Instance | BindingFlags.NonPublic);
+                var count = (int)countField.GetValue(Dispatcher.CurrentDispatcher);
+                var suspended = count > 0;
+
+                if (!suspended)
+                {
+                    this.SelectionChanged(value);
+                }
             }
         }
 

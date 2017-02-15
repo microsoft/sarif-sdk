@@ -73,7 +73,7 @@
                                             <WrapPanel Orientation="Horizontal">
                                                 <WrapPanel.InputBindings>
                                                     <MouseBinding Gesture="LeftClick"
-                                                                  Command="{Binding DataContext.SelectedCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ListBox}}}"
+                                                                  Command="{Binding ItemsSource.SelectedCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ListBox}}}"
                                                                   CommandParameter="{Binding}" />
                                                 </WrapPanel.InputBindings>
                                                 <WrapPanel.ToolTip>
@@ -159,7 +159,7 @@
                                             <WrapPanel Orientation="Horizontal">
                                                 <WrapPanel.InputBindings>
                                                     <MouseBinding Gesture="LeftClick"
-                                                                  Command="{Binding DataContext.SelectedCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ListBox}}}"
+                                                                  Command="{Binding ItemsSource.SelectedCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ListBox}}}"
                                                                   CommandParameter="{Binding}" />
                                                 </WrapPanel.InputBindings>
                                                 <WrapPanel.ToolTip>

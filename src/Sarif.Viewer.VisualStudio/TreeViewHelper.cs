@@ -84,7 +84,10 @@ namespace Microsoft.Sarif.Viewer
                         parent = item;
                     }
 
-                    item = (TreeViewItem)parent.ItemContainerGenerator.ContainerFromItem(currentNode);
+                    if (parent != null)
+                    {
+                        item = (TreeViewItem)parent.ItemContainerGenerator.ContainerFromItem(currentNode);
+                    }
 
                     // Make sure to expand all the nodes in the hierarchy as we walk down.
                     if (item != null)
@@ -97,10 +100,6 @@ namespace Microsoft.Sarif.Viewer
                                 item.ExpandSubtree();
                             }
                         }
-                    }
-                    else
-                    {
-                        item.ToString();
                     }
                 }
 

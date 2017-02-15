@@ -76,6 +76,11 @@ namespace Microsoft.Sarif.Viewer.Sarif
                         rule = new Rule(ruleId, ruleName, null, null, null, RuleConfiguration.Unknown, ResultLevel.Warning, helpUri, null);
                     }
                 }
+                else
+                {
+                    // We know the rule name, but no other metadata for the rule. 
+                    rule = new Rule(ruleId, null, null, null, null, RuleConfiguration.Unknown, ResultLevel.Warning, null, null);
+                }
             }
 
             return rule != null;
