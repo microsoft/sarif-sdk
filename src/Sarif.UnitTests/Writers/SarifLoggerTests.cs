@@ -11,6 +11,7 @@ using Microsoft.CodeAnalysis.Sarif.Driver;
 using Microsoft.CodeAnalysis.Sarif.Writers;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Newtonsoft.Json;
+using System.Collections.Generic;
 
 namespace Microsoft.CodeAnalysis.Sarif
 {
@@ -82,7 +83,8 @@ namespace Microsoft.CodeAnalysis.Sarif
                     computeTargetsHash: false,
                     logEnvironment: false,
                     prereleaseInfo: null,
-                    invocationTokensToRedact: tokensToRedact)) { }
+                    invocationTokensToRedact: tokensToRedact,
+                    invocationPropertiesToLog: new List<string> { "CommandLine" })) { }
 
                 string result = sb.ToString();
                 result.Split(new string[] { SarifConstants.RemovedMarker }, StringSplitOptions.None)
@@ -104,7 +106,8 @@ namespace Microsoft.CodeAnalysis.Sarif
                     computeTargetsHash: false,
                     logEnvironment: false,
                     prereleaseInfo: null,
-                    invocationTokensToRedact: null)) { }
+                    invocationTokensToRedact: null,
+                    invocationPropertiesToLog: null)) { }
             }
 
             string result = sb.ToString();
@@ -135,7 +138,8 @@ namespace Microsoft.CodeAnalysis.Sarif
                     computeTargetsHash: true,
                     logEnvironment: false,
                     prereleaseInfo: null,
-                    invocationTokensToRedact: null))
+                    invocationTokensToRedact: null,
+                    invocationPropertiesToLog: null))
                 {
                 }
             }
@@ -168,7 +172,8 @@ namespace Microsoft.CodeAnalysis.Sarif
                     computeTargetsHash: true,
                     logEnvironment: false,
                     prereleaseInfo: null,
-                    invocationTokensToRedact: null))
+                    invocationTokensToRedact: null,
+                    invocationPropertiesToLog: null))
                 {
                     string ruleId = "RuleId";
                     var rule = new Rule() { Id = ruleId };
@@ -266,7 +271,8 @@ namespace Microsoft.CodeAnalysis.Sarif
                     computeTargetsHash: true,
                     logEnvironment: false,
                     prereleaseInfo: null,
-                    invocationTokensToRedact: null))
+                    invocationTokensToRedact: null,
+                    invocationPropertiesToLog: null))
                 {                    
                     var toolNotification = new Notification
                     {

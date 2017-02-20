@@ -26,6 +26,19 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
         public virtual FileFormat ConfigurationFormat { get { return FileFormat.Json; } }
 
+        /// <summary>
+        /// A list containing the names of those properties of the <see cref="Invocation"/>
+        /// object that should be logged.
+        /// </summary>
+        /// <remarks>.
+        /// Some properties of the Invocation object might contain sensitive information.
+        /// For the sake of security, only the StartTime and EndTime properties of the
+        /// Invocation object are logged by default. A tool author can specify additional
+        /// properties to log by overriding the InvocationPropertiesToLog property of the
+        /// command class which they derive from <see cref="AnalyzeCommandBase{TContext, TOptions}"/> .
+        /// </remarks>
+        protected virtual IList<string> InvocationPropertiesToLog { get; } = null;
+
         public override int Run(TOptions analyzeOptions)
         {
             // 0. Initialize an common logger that drives all outputs. This
@@ -270,7 +283,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             }
         }
 
-
         private void InitializeOutputFile(TOptions analyzeOptions, TContext context, HashSet<string> targets)
         {
             string filePath = analyzeOptions.OutputFilePath;
@@ -288,7 +300,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                                 analyzeOptions.LogEnvironment,
                                 analyzeOptions.ComputeTargetsHash,
                                 Prerelease,
-                                invocationTokensToRedact: GenerateSensitiveTokensList())),
+                                invocationTokensToRedact: GenerateSensitiveTokensList(),
+                                invocationPropertiesToLog: InvocationPropertiesToLog)),
                     (ex) =>
                     {
                         Errors.LogExceptionCreatingLogFile(context, filePath, ex);
