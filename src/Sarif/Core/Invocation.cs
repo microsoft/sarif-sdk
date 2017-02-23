@@ -19,7 +19,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             var invocation = new Invocation
             {
-                PropertiesToLog = propertiesToLog
+                PropertiesToLog = propertiesToLog?.Select(p => p.ToUpperInvariant()).ToList()
             };
 
             invocation.StartTime = DateTime.UtcNow;
@@ -70,7 +70,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         private bool ShouldLog(string propertyName)
         {
-            return PropertiesToLog != null && PropertiesToLog.Contains(propertyName);
+            return PropertiesToLog != null && PropertiesToLog.Contains(propertyName.ToUpperInvariant());
         }
     }
 }

@@ -296,6 +296,108 @@ namespace Microsoft.CodeAnalysis.Sarif
         }
 
         [TestMethod]
+        public void SarifLogger_LogsStartAndEndTimesByDefault()
+        {
+            var sb = new StringBuilder();
+
+            using (var textWriter = new StringWriter(sb))
+            {
+                using (var sarifLogger = new SarifLogger(
+                    textWriter,
+                    analysisTargets: null,
+                    verbose: false,
+                    computeTargetsHash: true,
+                    logEnvironment: false,
+                    prereleaseInfo: null,
+                    invocationTokensToRedact: null,
+                    invocationPropertiesToLog: null))
+                {
+                }
+            }
+
+            string logText = sb.ToString();
+            var sarifLog = JsonConvert.DeserializeObject<SarifLog>(logText);
+
+            Invocation invocation = sarifLog.Runs[0].Invocation;
+            invocation.StartTime.Should().NotBe(DateTime.MinValue);
+            invocation.EndTime.Should().NotBe(DateTime.MinValue);
+
+            // Other properties should be empty.
+            invocation.CommandLine.Should().BeNull();
+            invocation.WorkingDirectory.Should().BeNull();
+            invocation.ProcessId.Should().Be(0);
+            invocation.FileName.Should().BeNull();
+        }
+
+        [TestMethod]
+        public void SarifLogger_LogsSpecifiedInvocationProperties()
+        {
+            var sb = new StringBuilder();
+
+            using (var textWriter = new StringWriter(sb))
+            {
+                using (var sarifLogger = new SarifLogger(
+                    textWriter,
+                    analysisTargets: null,
+                    verbose: false,
+                    computeTargetsHash: true,
+                    logEnvironment: false,
+                    prereleaseInfo: null,
+                    invocationTokensToRedact: null,
+                    invocationPropertiesToLog: new[] { "WorkingDirectory", "ProcessId" }))
+                {
+                }
+            }
+
+            string logText = sb.ToString();
+            var sarifLog = JsonConvert.DeserializeObject<SarifLog>(logText);
+
+            Invocation invocation = sarifLog.Runs[0].Invocation;
+
+            // StartTime and EndTime should still be logged.
+            invocation.StartTime.Should().NotBe(DateTime.MinValue);
+            invocation.EndTime.Should().NotBe(DateTime.MinValue);
+
+            // Specified properties should be logged.
+            invocation.WorkingDirectory.Should().NotBeNull();
+            invocation.ProcessId.Should().NotBe(0);
+
+            // Other properties should be empty.
+            invocation.CommandLine.Should().BeNull();
+            invocation.FileName.Should().BeNull();
+        }
+
+        [TestMethod]
+        public void SarifLogger_TreatsInvocationPropertiesCaseInsensitively()
+        {
+            var sb = new StringBuilder();
+
+            using (var textWriter = new StringWriter(sb))
+            {
+                using (var sarifLogger = new SarifLogger(
+                    textWriter,
+                    analysisTargets: null,
+                    verbose: false,
+                    computeTargetsHash: true,
+                    logEnvironment: false,
+                    prereleaseInfo: null,
+                    invocationTokensToRedact: null,
+                    invocationPropertiesToLog: new[] { "WORKINGDIRECTORY", "prOCessID" }))
+                {
+                }
+            }
+
+            string logText = sb.ToString();
+            var sarifLog = JsonConvert.DeserializeObject<SarifLog>(logText);
+
+            Invocation invocation = sarifLog.Runs[0].Invocation;
+
+            // Specified properties should be logged.
+            invocation.WorkingDirectory.Should().NotBeNull();
+            invocation.ProcessId.Should().NotBe(0);
+        }
+
+        [TestMethod]
         [ExpectedException(typeof(ArgumentException))]
         public void SarifLogger_ResultAndRuleIdMismatch()
         {

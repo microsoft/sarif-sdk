@@ -415,6 +415,21 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             }
         }
 
+        [Fact]
+        public void AnalyzeCommand_ReportsErrorOnInvalidInvocationPropertyName()
+        {
+            var options = new TestAnalyzeOptions()
+            {
+                InvocationPropertiesToLog = new string[] { "CommandLine", "NoSuchProperty" }
+            };
+
+            ExceptionTestHelper(
+                ExceptionCondition.None,
+                RuntimeConditions.InvalidCommandLineOption,
+                expectedExitReason: ExitReason.InvalidCommandLineOption,
+                analyzeOptions: options);
+        }
+
         public Run AnalyzeFile(string fileName)
         {
             string path = Path.GetTempFileName();

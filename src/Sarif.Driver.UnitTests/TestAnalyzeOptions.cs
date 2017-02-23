@@ -5,32 +5,12 @@ using System.Collections.Generic;
 
 namespace Microsoft.CodeAnalysis.Sarif.Driver
 {
-    public class TestAnalyzeOptions : IAnalyzeOptions
+    public class TestAnalyzeOptions : AnalyzeOptionsBase
     {
         public TestAnalyzeOptions()
         {
             RegardAnalysisTargetAsValid = true;
         }
-
-        public bool ComputeTargetsHash { get; set; }
-
-        public bool LogEnvironment { get; set; }
-
-        public string OutputFilePath { get; set; }
-
-        public IEnumerable<string> PluginFilePaths { get; set;  }
-
-        public string ConfigurationFilePath { get; set; }
-
-        public bool Recurse { get; set; }
-
-        public bool Quiet { get; set; }
-
-        public bool Statistics { get; set; }
-
-        public IEnumerable<string> TargetFileSpecifiers { get; set; }
-
-        public bool Verbose { get; set; }
 
         public bool RegardAnalysisTargetAsNotApplicable { get; set; }
 
