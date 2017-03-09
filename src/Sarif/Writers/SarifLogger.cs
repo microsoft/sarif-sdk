@@ -27,7 +27,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             IEnumerable<string> analysisTargets,
             bool computeTargetsHash,
             bool logEnvironment,
-            IEnumerable<string> invocationTokensToRedact)
+            IEnumerable<string> invocationTokensToRedact,
+            IEnumerable<string> invocationPropertiesToLog)
         {
             var run = new Run();
 
@@ -47,7 +48,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 }
             }
 
-            run.Invocation = Invocation.Create(logEnvironment);
+            run.Invocation = Invocation.Create(logEnvironment, invocationPropertiesToLog);
 
             // TODO we should actually redact across the complete log file context
             // by a dedicated rewriting visitor or some other approach.
@@ -105,7 +106,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             Tool tool, 
             Run run) : this(textWriter, verbose)
         {
-            _run = run ?? CreateRun(null, computeTargetsHash, false, null);
+            _run = run ?? CreateRun(null, computeTargetsHash, false, null, null);
             SetSarifLoggerVersion(tool);
             _issueLogJsonWriter.WriteTool(tool);
         }
@@ -117,14 +118,16 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             bool logEnvironment,
             bool computeTargetsHash,
             string prereleaseInfo,
-            IEnumerable<string> invocationTokensToRedact)
+            IEnumerable<string> invocationTokensToRedact,
+            IEnumerable<string> invocationPropertiesToLog = null)
             : this(new StreamWriter(new FileStream(outputFilePath, FileMode.Create, FileAccess.Write, FileShare.None)),
                     analysisTargets,
                     verbose,
                     logEnvironment,
                     computeTargetsHash,
                     prereleaseInfo,
-                    invocationTokensToRedact)
+                    invocationTokensToRedact,
+                    invocationPropertiesToLog)
         {
             _computeTargetsHash = computeTargetsHash;
         }
@@ -136,7 +139,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             bool logEnvironment,
             bool computeTargetsHash,
             string prereleaseInfo,
-            IEnumerable<string> invocationTokensToRedact) : this(textWriter, verbose)
+            IEnumerable<string> invocationTokensToRedact,
+            IEnumerable<string> invocationPropertiesToLog = null) : this(textWriter, verbose)
         {
             Tool tool = Tool.CreateFromAssemblyData(prereleaseInfo);
 
@@ -145,10 +149,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             _issueLogJsonWriter.WriteTool(tool);
 
             _run = CreateRun(
-                analysisTargets,             
+                analysisTargets,
                 computeTargetsHash,
                 logEnvironment,
-                invocationTokensToRedact);
+                invocationTokensToRedact,
+                invocationPropertiesToLog);
 
             _computeTargetsHash = computeTargetsHash;
         }

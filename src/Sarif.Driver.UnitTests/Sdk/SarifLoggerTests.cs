@@ -23,7 +23,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 computeTargetsHash: false,
                 logEnvironment: false,
                 prereleaseInfo: null,
-                invocationTokensToRedact: null);
+                invocationTokensToRedact: null,
+                invocationPropertiesToLog: null);
 
             string result = textWriter.ToString();
 

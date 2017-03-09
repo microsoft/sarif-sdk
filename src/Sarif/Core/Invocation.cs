@@ -4,20 +4,40 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 
 namespace Microsoft.CodeAnalysis.Sarif
 {
     public partial class Invocation
     {
-        public static Invocation Create(bool emitMachineEnvironment = false)
+        private IEnumerable<string> PropertiesToLog {get; set; }
+
+        public static Invocation Create(
+            bool emitMachineEnvironment = false,
+            IEnumerable<string> propertiesToLog = null)
         {
-            var invocation = new Invocation();
+            var invocation = new Invocation
+            {
+                PropertiesToLog = propertiesToLog?.Select(p => p.ToUpperInvariant()).ToList()
+            };
 
             invocation.StartTime = DateTime.UtcNow;
-            invocation.ProcessId = System.Diagnostics.Process.GetCurrentProcess().Id;
-            invocation.WorkingDirectory = Environment.CurrentDirectory;
-            invocation.CommandLine = Environment.CommandLine;
+
+            if (invocation.ShouldLog(nameof(ProcessId)))
+            {
+                invocation.ProcessId = System.Diagnostics.Process.GetCurrentProcess().Id;
+            }
+
+            if (invocation.ShouldLog(nameof(WorkingDirectory)))
+            {
+                invocation.WorkingDirectory = Environment.CurrentDirectory;
+            }
+
+            if (invocation.ShouldLog(nameof(CommandLine)))
+            {
+                invocation.CommandLine = Environment.CommandLine;
+            }
 
             if (emitMachineEnvironment)
             {
@@ -26,8 +46,11 @@ namespace Microsoft.CodeAnalysis.Sarif
                 invocation.EnvironmentVariables = CopyEnvironmentVariables();
             }
 
-            Assembly assembly = Assembly.GetEntryAssembly() ?? Assembly.GetExecutingAssembly();
-            invocation.FileName = assembly.Location;
+            if (invocation.ShouldLog(nameof(FileName)))
+            {
+                Assembly assembly = Assembly.GetEntryAssembly() ?? Assembly.GetExecutingAssembly();
+                invocation.FileName = assembly.Location;
+            }
 
             return invocation;
         }
@@ -43,6 +66,11 @@ namespace Microsoft.CodeAnalysis.Sarif
             }
 
             return result;
+        }
+
+        private bool ShouldLog(string propertyName)
+        {
+            return PropertiesToLog != null && PropertiesToLog.Contains(propertyName.ToUpperInvariant());
         }
     }
 }

@@ -23,6 +23,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         private const string ERR997_ExceptionAccessingFile = "ERR997.ExceptionAccessingFile";
         private const string ERR997_MissingRuleConfiguration = "ERR997.MissingRuleConfiguration";
         private const string ERR997_ExceptionLoadingPlugIn = "ERR997.ExceptionLoadingPlugIn";
+        private const string ERR997_InvalidInvocationPropertyName = "ERR997.InvalidInvocationPropertyName";
 
         // Rule disabling tool errors:
         private const string ERR998_ExceptionInCanAnalyze = "ERR998.ExceptionInCanAnalyze";
@@ -199,6 +200,26 @@ namespace Microsoft.CodeAnalysis.Sarif
                     fileName));
 
             context.RuntimeErrors |= RuntimeConditions.ExceptionAccessingFile;
+        }
+
+        public static void LogInvalidInvocationPropertyName(IAnalysisContext context, string propertyName)
+        {
+            if (context == null)
+            {
+                throw new ArgumentNullException(nameof(context));
+            }
+
+            // '{0}' is not a property of the Invocation object.
+            context.Logger.LogConfigurationNotification(
+                CreateNotification(
+                    context.TargetUri,
+                    ERR997_InvalidInvocationPropertyName,
+                    NotificationLevel.Error,
+                    null,
+                    false,
+                    propertyName));
+
+            context.RuntimeErrors |= RuntimeConditions.InvalidCommandLineOption;
         }
 
         public static void LogMissingRuleConfiguration(IAnalysisContext context, string reasonForNotAnalyzing)

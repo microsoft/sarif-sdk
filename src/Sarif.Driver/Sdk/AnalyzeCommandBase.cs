@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Security;
 using Microsoft.CodeAnalysis.Sarif.Writers;
 
@@ -12,7 +13,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 {
     public abstract class AnalyzeCommandBase<TContext, TOptions> : PlugInDriverCommand<TOptions>
         where TContext : IAnalysisContext, new()
-        where TOptions : IAnalyzeOptions
+        where TOptions : AnalyzeOptionsBase
     {
         public const string DefaultPolicyName = "default";
 
@@ -118,6 +119,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             succeeded &= ValidateFile(context, analyzeOptions.OutputFilePath, shouldExist: null);
             succeeded &= ValidateFile(context, analyzeOptions.ConfigurationFilePath, shouldExist: true);
             succeeded &= ValidateFiles(context, analyzeOptions.PluginFilePaths, shouldExist: true);
+            succeeded &= ValidateInvocationPropertiesToLog(context, analyzeOptions.InvocationPropertiesToLog);
 
             if (!succeeded)
             {
@@ -168,7 +170,30 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             return false;
         }
 
-        internal AggregatingLogger InitializeLogger(IAnalyzeOptions analyzeOptions)
+        private static bool ValidateInvocationPropertiesToLog(TContext context, IEnumerable<string> propertiesToLog)
+        {
+            bool succeeded = true;
+
+            if (propertiesToLog != null)
+            {
+                List<string> validPropertyNames = typeof(Invocation).GetProperties(BindingFlags.Public | BindingFlags.Instance)
+                    .Select(propInfo => propInfo.Name.ToUpperInvariant())
+                    .ToList();
+
+                foreach (string propertyName in propertiesToLog)
+                {
+                    if (!validPropertyNames.Contains(propertyName.ToUpperInvariant()))
+                    {
+                        Errors.LogInvalidInvocationPropertyName(context, propertyName);
+                        succeeded = false;
+                    }
+                }
+            }
+
+            return succeeded;
+        }
+
+        internal AggregatingLogger InitializeLogger(AnalyzeOptionsBase analyzeOptions)
         {
             var logger = new AggregatingLogger();
 
@@ -270,7 +295,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             }
         }
 
-
         private void InitializeOutputFile(TOptions analyzeOptions, TContext context, HashSet<string> targets)
         {
             string filePath = analyzeOptions.OutputFilePath;
@@ -288,7 +312,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                                 analyzeOptions.LogEnvironment,
                                 analyzeOptions.ComputeTargetsHash,
                                 Prerelease,
-                                invocationTokensToRedact: GenerateSensitiveTokensList())),
+                                invocationTokensToRedact: GenerateSensitiveTokensList(),
+                                invocationPropertiesToLog: analyzeOptions.InvocationPropertiesToLog)),
                     (ex) =>
                     {
                         Errors.LogExceptionCreatingLogFile(context, filePath, ex);

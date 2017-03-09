@@ -69,7 +69,6 @@
     <Compile Include="HashUtilities.cs" />
     <Compile Include="IAnalysisContext.cs" />
     <Compile Include="IAnalysisLogger.cs" />
-    <Compile Include="IAnalyzeOptions.cs" />
     <Compile Include="IOption.cs" />
     <Compile Include="IOptionsProvider.cs" />
     <Compile Include="IResultLogWriter.cs" />

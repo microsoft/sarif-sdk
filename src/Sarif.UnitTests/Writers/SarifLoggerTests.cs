@@ -11,6 +11,7 @@ using Microsoft.CodeAnalysis.Sarif.Driver;
 using Microsoft.CodeAnalysis.Sarif.Writers;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Newtonsoft.Json;
+using System.Collections.Generic;
 
 namespace Microsoft.CodeAnalysis.Sarif
 {
@@ -82,7 +83,8 @@ namespace Microsoft.CodeAnalysis.Sarif
                     computeTargetsHash: false,
                     logEnvironment: false,
                     prereleaseInfo: null,
-                    invocationTokensToRedact: tokensToRedact)) { }
+                    invocationTokensToRedact: tokensToRedact,
+                    invocationPropertiesToLog: new List<string> { "CommandLine" })) { }
 
                 string result = sb.ToString();
                 result.Split(new string[] { SarifConstants.RemovedMarker }, StringSplitOptions.None)
@@ -104,7 +106,8 @@ namespace Microsoft.CodeAnalysis.Sarif
                     computeTargetsHash: false,
                     logEnvironment: false,
                     prereleaseInfo: null,
-                    invocationTokensToRedact: null)) { }
+                    invocationTokensToRedact: null,
+                    invocationPropertiesToLog: null)) { }
             }
 
             string result = sb.ToString();
@@ -135,7 +138,8 @@ namespace Microsoft.CodeAnalysis.Sarif
                     computeTargetsHash: true,
                     logEnvironment: false,
                     prereleaseInfo: null,
-                    invocationTokensToRedact: null))
+                    invocationTokensToRedact: null,
+                    invocationPropertiesToLog: null))
                 {
                 }
             }
@@ -168,7 +172,8 @@ namespace Microsoft.CodeAnalysis.Sarif
                     computeTargetsHash: true,
                     logEnvironment: false,
                     prereleaseInfo: null,
-                    invocationTokensToRedact: null))
+                    invocationTokensToRedact: null,
+                    invocationPropertiesToLog: null))
                 {
                     string ruleId = "RuleId";
                     var rule = new Rule() { Id = ruleId };
@@ -266,7 +271,8 @@ namespace Microsoft.CodeAnalysis.Sarif
                     computeTargetsHash: true,
                     logEnvironment: false,
                     prereleaseInfo: null,
-                    invocationTokensToRedact: null))
+                    invocationTokensToRedact: null,
+                    invocationPropertiesToLog: null))
                 {                    
                     var toolNotification = new Notification
                     {
@@ -287,6 +293,108 @@ namespace Microsoft.CodeAnalysis.Sarif
             var sarifLog = JsonConvert.DeserializeObject<SarifLog>(logText);
 
             sarifLog.Runs[0].Files.Should().BeNull();
+        }
+
+        [TestMethod]
+        public void SarifLogger_LogsStartAndEndTimesByDefault()
+        {
+            var sb = new StringBuilder();
+
+            using (var textWriter = new StringWriter(sb))
+            {
+                using (var sarifLogger = new SarifLogger(
+                    textWriter,
+                    analysisTargets: null,
+                    verbose: false,
+                    computeTargetsHash: true,
+                    logEnvironment: false,
+                    prereleaseInfo: null,
+                    invocationTokensToRedact: null,
+                    invocationPropertiesToLog: null))
+                {
+                }
+            }
+
+            string logText = sb.ToString();
+            var sarifLog = JsonConvert.DeserializeObject<SarifLog>(logText);
+
+            Invocation invocation = sarifLog.Runs[0].Invocation;
+            invocation.StartTime.Should().NotBe(DateTime.MinValue);
+            invocation.EndTime.Should().NotBe(DateTime.MinValue);
+
+            // Other properties should be empty.
+            invocation.CommandLine.Should().BeNull();
+            invocation.WorkingDirectory.Should().BeNull();
+            invocation.ProcessId.Should().Be(0);
+            invocation.FileName.Should().BeNull();
+        }
+
+        [TestMethod]
+        public void SarifLogger_LogsSpecifiedInvocationProperties()
+        {
+            var sb = new StringBuilder();
+
+            using (var textWriter = new StringWriter(sb))
+            {
+                using (var sarifLogger = new SarifLogger(
+                    textWriter,
+                    analysisTargets: null,
+                    verbose: false,
+                    computeTargetsHash: true,
+                    logEnvironment: false,
+                    prereleaseInfo: null,
+                    invocationTokensToRedact: null,
+                    invocationPropertiesToLog: new[] { "WorkingDirectory", "ProcessId" }))
+                {
+                }
+            }
+
+            string logText = sb.ToString();
+            var sarifLog = JsonConvert.DeserializeObject<SarifLog>(logText);
+
+            Invocation invocation = sarifLog.Runs[0].Invocation;
+
+            // StartTime and EndTime should still be logged.
+            invocation.StartTime.Should().NotBe(DateTime.MinValue);
+            invocation.EndTime.Should().NotBe(DateTime.MinValue);
+
+            // Specified properties should be logged.
+            invocation.WorkingDirectory.Should().NotBeNull();
+            invocation.ProcessId.Should().NotBe(0);
+
+            // Other properties should be empty.
+            invocation.CommandLine.Should().BeNull();
+            invocation.FileName.Should().BeNull();
+        }
+
+        [TestMethod]
+        public void SarifLogger_TreatsInvocationPropertiesCaseInsensitively()
+        {
+            var sb = new StringBuilder();
+
+            using (var textWriter = new StringWriter(sb))
+            {
+                using (var sarifLogger = new SarifLogger(
+                    textWriter,
+                    analysisTargets: null,
+                    verbose: false,
+                    computeTargetsHash: true,
+                    logEnvironment: false,
+                    prereleaseInfo: null,
+                    invocationTokensToRedact: null,
+                    invocationPropertiesToLog: new[] { "WORKINGDIRECTORY", "prOCessID" }))
+                {
+                }
+            }
+
+            string logText = sb.ToString();
+            var sarifLog = JsonConvert.DeserializeObject<SarifLog>(logText);
+
+            Invocation invocation = sarifLog.Runs[0].Invocation;
+
+            // Specified properties should be logged.
+            invocation.WorkingDirectory.Should().NotBeNull();
+            invocation.ProcessId.Should().NotBe(0);
         }
 
         [TestMethod]
