@@ -2,17 +2,17 @@
 <Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemDefinitionGroup>
     <Link>
-      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <ImageHasSafeExceptionHandlers>true</ImageHasSafeExceptionHandlers>
       <RandomizedBaseAddress>true</RandomizedBaseAddress>
     </Link>
     <ClCompile>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <ControlFlowGuard>Guard</ControlFlowGuard>
     </ClCompile>
   </ItemDefinitionGroup>
   <PropertyGroup>
     <LinkIncremental>false</LinkIncremental>
-    <BinSkimVerboseOutput Condition="'$(BinSkimVerboseOutpu')'==''">false</BinSkimVerboseOutput>
+    <BinSkimVerboseOutput Condition="'$(BinSkimVerboseOutput)'==''">false</BinSkimVerboseOutput>
     <BinSkimExePath Condition="'$(BinSkimExePath)'==''">$(MsBuildThisFileDirectory)packages\Microsoft.CodeAnalysis.BinSkim.1.3.9\tools\x64\BinSkim.exe</BinSkimExePath>
   </PropertyGroup>
   <Import Project="BinSkim.targets" Condition="$(RunBinSkim)=='true'"/>
