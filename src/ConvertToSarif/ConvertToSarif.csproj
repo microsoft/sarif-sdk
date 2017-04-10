@@ -45,5 +45,4 @@
   <PropertyGroup>
     <PostBuildEvent>xcopy /Y ..\..\PREfastXmlSarifConverter\$(Platform)_$(Configuration)\PREfastXmlSarifConverter.dll</PostBuildEvent>
   </PropertyGroup>
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
