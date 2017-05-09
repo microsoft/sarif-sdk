@@ -134,5 +134,5 @@ for ($i = 0; $i -lt $sarifLog.runs.Count; $i++){
 
 $newExtension = ".github.sarif"
 $writeLocation = [System.IO.Path]::ChangeExtension($logFilePath, $newExtension)
-$writeFile = $sarifLog | ConvertTo-Json -depth 999
+$writeFile = $sarifLog | ConvertTo-Json -depth 100
 [System.IO.File]::WriteAllLines($writeLocation, $writeFile)
