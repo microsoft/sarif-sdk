@@ -1,3 +1,5 @@
+image: Visual Studio 2017
+
 init:
   - git config --global core.autocrlf true
 
@@ -10,9 +12,7 @@ before_build:
   - BeforeBuild.cmd
 
 platform: Any CPU
-
-image: Visual Studio 2017
-  
+ 
 environment:
   _CL_: /c /analyze /analyze:quiet- /W4 /analyze:autolog:ext prefast.sarif
 
