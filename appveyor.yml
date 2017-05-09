@@ -11,8 +11,7 @@ before_build:
 
 platform: Any CPU
 
-image: 
-  - Visual Studio 2017
+image: Visual Studio 2017
   
 environment:
   _CL_: /c /analyze /analyze:quiet- /W4 /analyze:autolog:ext prefast.sarif
