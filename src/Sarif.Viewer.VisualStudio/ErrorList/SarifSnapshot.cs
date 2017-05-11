@@ -265,6 +265,5 @@ namespace Microsoft.Sarif.Viewer.ErrorList
             content = new ImageMoniker();
             return false;
         }
-
     }
 }
