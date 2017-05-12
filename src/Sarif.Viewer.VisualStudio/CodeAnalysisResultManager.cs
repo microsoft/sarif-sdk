@@ -280,15 +280,11 @@ namespace Microsoft.Sarif.Viewer
             return destinationFile;
         }
 
-        private static string DefaultUriBase = Guid.NewGuid().ToString();
-
         public string GetRebaselinedFileName(string uriBaseId, string fileName)
         {
-            Uri relativeUri;
+            Uri relativeUri = null;
 
-            uriBaseId = uriBaseId ?? DefaultUriBase;
-
-            if (Uri.TryCreate(fileName, UriKind.Relative, out relativeUri))
+            if (!String.IsNullOrEmpty(uriBaseId) && Uri.TryCreate(fileName, UriKind.Relative, out relativeUri))
             {
                 // If the relative file path is relative to an unknown root,
                 // we need to strip the leading slash, so that we can relate
@@ -361,24 +357,34 @@ namespace Microsoft.Sarif.Viewer
                 return fileName;
             }
 
-            int offset = resolvedFileName.Length;
-            while ((resolvedPath.Length - offset) >= 0 &&
-                   (fullPath.Length - offset) >= 0)
+            // Find the common suffix for the original file path and the resolved file path
+            // by walking both paths backwards until we find where they differ.
+            int resolvedOffset = resolvedPath.Length - resolvedFileName.Length;
+            int fullPathOffset = fullPath.Length - resolvedFileName.Length;
+
+            while ((resolvedOffset) >= 0 &&
+                   (fullPathOffset) >= 0)
             {
-                if (!resolvedPath[resolvedPath.Length - offset].ToString().Equals(fullPath[fullPath.Length - offset].ToString(), StringComparison.OrdinalIgnoreCase))
+                int nextResolvedOffset = resolvedPath.LastIndexOf('\\', resolvedOffset - 1);
+                int nextFullPathOffset = fullPath.LastIndexOf('\\', fullPathOffset - 1);
+
+                string resolvedTail = resolvedPath.Substring(nextResolvedOffset);
+                string fullPathTail = fullPath.Substring(nextFullPathOffset);
+
+                if (!resolvedTail.Equals(fullPathTail, StringComparison.OrdinalIgnoreCase))
                 {
                     break;
                 }
-                offset++;
-            }
 
-            offset--;
+                resolvedOffset = nextResolvedOffset;
+                fullPathOffset = nextFullPathOffset;
+            }
 
             // At this point, we've got our hands on the common suffix for both the 
             // original file path and the resolved location. we trim this off both
             // values and then add a remapping that converts one to the other
-            string originalPrefix = fullPath.Substring(0, fullPath.Length - offset);
-            string resolvedPrefix = resolvedPath.Substring(0, resolvedPath.Length - offset);
+            string originalPrefix = fullPath.Substring(0, fullPathOffset);
+            string resolvedPrefix = resolvedPath.Substring(0, resolvedOffset);
 
             if (relativeUri != null)
             {                
