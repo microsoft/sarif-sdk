@@ -1,0 +1,288 @@
+{
+  "$schema": "http://json.schemastore.org/sarif-1.0.0",
+  "version": "1.0.0",
+  "runs": [
+    {
+      "id": "de711026-6d1c-4760-a2ca-c0d94b93312b",
+      "tool": {
+        "name": "ModernCop",
+        "fullName": "mod50 7.0.7000.0",
+        "version": "7.0.7000.0",
+        "semanticVersion": "7.0.7000",
+        "fileVersion": "7.0.20811.0",
+        "language": "en-US",
+        "properties": {
+          "CompanyName": "Microsoft Corporation"
+        }
+      },
+      "results": [
+        {
+          "ruleKey": "WEB1067.AttributeNameIsNotLowercase",
+          "level": "error",
+          "formattedRuleMessage": {
+            "formatId": "Default",
+            "arguments": [
+              "ALT",
+              "area"
+            ]
+          },
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_HtmlRules/Attributes/AttributeAnalysis.html",
+                "region": {
+                  "startLine": 17,
+                  "startColumn": 54,
+                  "endColumn": 57,
+                  "offset": 561,
+                  "length": 3
+                }
+              }
+            }
+          ],
+          "fixes": [
+            {
+              "description": null,
+              "fileChanges": [
+                {
+                  "uri": null,
+                  "replacements": [
+                    {
+                      "offset": 561,
+                      "deletedLength": 3,
+                      "insertedBytes": "YWx0"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleKey": "WEB1079.AttributeValueIsNotQuoted",
+          "level": "error",
+          "formattedRuleMessage": {
+            "formatId": "Default",
+            "arguments": [
+              "shape"
+            ]
+          },
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_HtmlRules/Attributes/AttributeAnalysis.html",
+                "region": {
+                  "startLine": 18,
+                  "startColumn": 105,
+                  "endColumn": 110,
+                  "offset": 743,
+                  "length": 5
+                }
+              }
+            }
+          ],
+          "fixes": [
+            {
+              "description": "Wrap attribute value in single quotes.",
+              "fileChanges": [
+                {
+                  "uri": null,
+                  "replacements": [
+                    {
+                      "offset": 749,
+                      "insertedBytes": "Jw=="
+                    },
+                    {
+                      "offset": 755,
+                      "insertedBytes": "Jw=="
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "description": "Wrap attribute value in single quotes.",
+              "fileChanges": [
+                {
+                  "uri": null,
+                  "replacements": [
+                    {
+                      "offset": 749,
+                      "insertedBytes": "Ig=="
+                    },
+                    {
+                      "offset": 755,
+                      "insertedBytes": "Ig=="
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleKey": "WEB1081.AttributeIsIncorrectlyMinimized",
+          "level": "error",
+          "formattedRuleMessage": {
+            "formatId": "Default",
+            "arguments": [
+              "shape",
+              "shape='shape'"
+            ]
+          },
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_HtmlRules/Attributes/AttributeAnalysis.html",
+                "region": {
+                  "startLine": 19,
+                  "startColumn": 117,
+                  "endColumn": 122,
+                  "offset": 876,
+                  "length": 5
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleKey": "WEB1080.AttributesAreNotOrderedCorrectly",
+          "level": "error",
+          "formattedRuleMessage": {
+            "formatId": "Default",
+            "arguments": [
+              "area",
+              "coords",
+              "id, class, followed by all other attributes in sorted order."
+            ]
+          },
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_HtmlRules/Attributes/AttributeAnalysis.html",
+                "region": {
+                  "startLine": 20,
+                  "startColumn": 97,
+                  "endColumn": 103,
+                  "offset": 982,
+                  "length": 6
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleKey": "WEB1080.AttributesAreNotOrderedCorrectly",
+          "level": "error",
+          "formattedRuleMessage": {
+            "formatId": "Default",
+            "arguments": [
+              "area",
+              "id",
+              "id, class, followed by all other attributes in sorted order."
+            ]
+          },
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_HtmlRules/Attributes/AttributeAnalysis.html",
+                "region": {
+                  "startLine": 21,
+                  "startColumn": 72,
+                  "endColumn": 74,
+                  "offset": 1090,
+                  "length": 2
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleKey": "WEB1080.AttributesAreNotOrderedCorrectly",
+          "level": "error",
+          "formattedRuleMessage": {
+            "formatId": "Default",
+            "arguments": [
+              "area",
+              "class",
+              "id, class, followed by all other attributes in sorted order."
+            ]
+          },
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_HtmlRules/Attributes/AttributeAnalysis.html",
+                "region": {
+                  "startLine": 22,
+                  "startColumn": 80,
+                  "endColumn": 85,
+                  "offset": 1257,
+                  "length": 5
+                }
+              }
+            }
+          ]
+        }
+      ],
+      "files": {
+        "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_HtmlRules/Attributes/AttributeAnalysis.html": {
+          "mimeType": "text/html"
+        }
+      },
+      "rules": {
+        "WEB1067.AttributeNameIsNotLowercase": {
+          "id": "WEB1067",
+          "name": "AttributeNameIsNotLowercase",
+          "shortDescription": "The attribute name is not lowercase.",
+          "messageFormats": {
+            "Default": "Convert <{1}> tag '{0}' attribute name to lowercase."
+          },
+          "properties": {
+            "tags": ["html"]
+          }
+        },
+        "WEB1079.AttributeValueIsNotQuoted": {
+          "id": "WEB1079",
+          "name": "AttributeValueIsNotQuoted",
+          "shortDescription": "The attribute value is not quoted.",
+          "messageFormats": {
+            "Default": "The  value of the '{0}' attribute is not quoted. Wrap the attribute value in single or double quotes."
+          },
+          "properties": {
+            "tags": ["html"]
+          }
+        },
+        "WEB1081.AttributeIsIncorrectlyMinimized": {
+          "id": "WEB1081",
+          "name": "AttributeIsIncorrectlyMinimized",
+          "shortDescription": "The attribute has no expressed value.",
+          "messageFormats": {
+            "Default": "The '{0}' attribute has no value. In order to render this attribute in mimized form, repeat the attribute name as its value, eg, {1}."
+          },
+          "properties": {
+            "tags": ["html"]
+          }
+        },
+        "WEB1080.AttributesAreNotOrderedCorrectly": {
+          "id": "WEB1080",
+          "name": "AttributesAreNotOrderedCorrectly",
+          "shortDescription": "The tag attribute values are not ordered correctly.",
+          "messageFormats": {
+            "Default": "The <{0}> tag attributes are not ordered as specified on the analysis command-line. This violation was prompted by the '{1}' attribute. As currently configured, attributes should appear in the following order: {2}"
+          },
+          "properties": {
+            "tags": ["html"]
+          }
+        }
+      },
+      "invocation": {
+        "commandLine": "D:\\src\\SecDevTools\\Main\\bin\\x64\\Debug\\ModernCop\\mod50.exe  analyze /file d:\\src\\SecDevTools\\Main\\src\\ModernCop\\Source\\WebRules.Test.Unit\\ModernCopTestData\\WebRules_HtmlRules\\Attributes\\AttributeAnalysis.html /out .\\\\HtmlAttributeAnalysisFixes.sarif",
+        "startTime": "2016-05-27T01:04:34.619Z",
+        "endTime": "2016-05-27T01:04:35.167Z",
+        "processId": 12408,
+        "fileName": "D:\\src\\SecDevTools\\Main\\bin\\x64\\Debug\\ModernCop\\mod50.exe",
+        "workingDirectory": "d:\\src\\sarif-sdk\\src\\Sarif.FunctionalTests\\DirectProducerTestData\\WebSkim"
+      }
+    }
+  ]
+}
