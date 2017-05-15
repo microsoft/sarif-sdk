@@ -160,6 +160,15 @@ namespace Microsoft.CodeAnalysis.Sarif {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to &apos;{0}&apos; is not a property of the Invocation object..
+        /// </summary>
+        internal static string ERR997_InvalidInvocationPropertyName {
+            get {
+                return ResourceManager.GetString("ERR997_InvalidInvocationPropertyName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to A required file specified on the command line could not be found: &apos;{0}&apos;..
         /// </summary>
         internal static string ERR997_MissingFile {

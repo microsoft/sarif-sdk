@@ -99,7 +99,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup />
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="CopyFunctionalTestsData" AfterTargets="Build">
     <ItemGroup>
       <TestFiles Include="$(SolutionDir)FunctionalTestsData\**\*" />

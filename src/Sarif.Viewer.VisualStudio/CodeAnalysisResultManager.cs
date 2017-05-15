@@ -299,17 +299,15 @@ namespace Microsoft.Sarif.Viewer
                     return new Uri(_remappedUriBasePaths[uriBaseId], fileName).LocalPath;
                 }
             }
-            else
+
+            // Traverse our remappings and see if we can
+            // make rebaseline from existing data
+            foreach (Tuple<string, string> remapping in _remappedPathPrefixes)
             {
-                // First, we'll traverse our remappings and see if we can
-                // make rebaseline from existing data
-                foreach (Tuple<string, string> remapping in _remappedPathPrefixes)
+                string remapped = fileName.Replace(remapping.Item1, remapping.Item2);
+                if (File.Exists(remapped))
                 {
-                    string remapped = fileName.Replace(remapping.Item1, remapping.Item2);
-                    if (File.Exists(remapped))
-                    {
-                        return remapped;
-                    }
+                    return remapped;
                 }
             }
 
@@ -352,7 +350,7 @@ namespace Microsoft.Sarif.Viewer
 
             // If remapping has somehow altered the file name itself,
             // we will bail on attempting to do any remapping
-            if (!Path.GetFileName(fullPath).Equals(resolvedFileName, StringComparison.OrdinalIgnoreCase))
+            if (!Path.GetFileName(fileName).Equals(resolvedFileName, StringComparison.OrdinalIgnoreCase))
             {
                 return fileName;
             }
@@ -386,12 +384,17 @@ namespace Microsoft.Sarif.Viewer
             string originalPrefix = fullPath.Substring(0, fullPathOffset);
             string resolvedPrefix = resolvedPath.Substring(0, resolvedOffset);
 
-            if (relativeUri != null)
-            {                
-                _remappedUriBasePaths[uriBaseId] = new Uri(resolvedPath.Substring(0, resolvedPath.IndexOf(fileName.Replace("/", @"\"))), UriKind.Absolute);
+            int uriBaseIdEndIndex = resolvedPath.IndexOf(fileName.Replace("/", @"\"));
+
+            if (relativeUri != null && uriBaseIdEndIndex >= 0)
+            {
+                // If we could determine the uriBaseId substitution value, then add it to the map        
+                _remappedUriBasePaths[uriBaseId] = new Uri(resolvedPath.Substring(0, uriBaseIdEndIndex), UriKind.Absolute);
             }
             else
             {
+                // If there's no relativeUri/uriBaseId pair or we couldn't determine the uriBaseId value,
+                // map the original prefix to the new prefix.
                 _remappedPathPrefixes.Add(new Tuple<string, string>(originalPrefix, resolvedPrefix));
             }
 

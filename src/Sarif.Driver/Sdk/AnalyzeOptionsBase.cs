@@ -8,7 +8,7 @@ using CommandLine;
 namespace Microsoft.CodeAnalysis.Sarif.Driver
 {
     [Verb("analyze", HelpText = "Analyze one or more binary files for security and correctness issues.")]
-    public class AnalyzeOptionsBase : IAnalyzeOptions
+    public abstract class AnalyzeOptionsBase
     {
         [Value(0,
                HelpText = "One or more specifiers to a file, directory, or filter pattern that resolves to one or more binaries to analyze.")]
@@ -69,5 +69,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             Separator = ';',
             HelpText = "Path to plug-in that will be invoked against all targets in the analysis set.")]
         public IEnumerable<string> PluginFilePaths { get; set; }
+
+        [Option(
+            'i',
+            "invocation-properties",
+            Separator = ';',
+            HelpText = "Properties of the Invocation object to log. NOTE: StartTime and EndTime are always logged.")]
+        public IEnumerable<string> InvocationPropertiesToLog { get; set; }
     }
 }

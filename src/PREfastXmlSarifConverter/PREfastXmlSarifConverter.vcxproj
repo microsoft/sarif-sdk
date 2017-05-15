@@ -51,6 +51,7 @@
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
+  <Import Project="..\native.props" />
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings">
   </ImportGroup>
@@ -70,22 +71,14 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <LinkIncremental>true</LinkIncremental>
-    <OutDir>$(SolutionDir)\..\bld\bin\$(ProjectName)\AnyCPU_$(Configuration)\</OutDir>
-    <IntDir>$(SolutionDir)\..\bld\obj\$(ProjectName)\AnyCPU_$(Configuration)\</IntDir>
+    <OutDir>$(SolutionDir)..\bld\bin\$(ProjectName)\AnyCPU_$(Configuration)\</OutDir>
+    <IntDir>$(SolutionDir)..\bld\obj\$(ProjectName)\AnyCPU_$(Configuration)\</IntDir>
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <LinkIncremental>true</LinkIncremental>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <LinkIncremental>false</LinkIncremental>
-    <OutDir>$(SolutionDir)\..\bld\bin\$(ProjectName)\AnyCPU_$(Configuration)\</OutDir>
-    <IntDir>$(SolutionDir)\..\bld\obj\$(ProjectName)\AnyCPU_$(Configuration)\</IntDir>
+    <OutDir>$(SolutionDir)..\bld\bin\$(ProjectName)\AnyCPU_$(Configuration)\</OutDir>
+    <IntDir>$(SolutionDir)..\bld\obj\$(ProjectName)\AnyCPU_$(Configuration)\</IntDir>
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <LinkIncremental>false</LinkIncremental>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>

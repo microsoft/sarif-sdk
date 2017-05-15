@@ -11,10 +11,10 @@
     <SignAssembly>true</SignAssembly>
     <AssemblyOriginatorKeyFile>..\TestKey.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
-  <Import Project="$([MSBuild]::GetDirectoryNameOfFileAbove($(MSBuildThisFileDirectory).., build.props))\build.props" />
   <PropertyGroup>
     <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
   </PropertyGroup>
+  <Import Project="$([MSBuild]::GetDirectoryNameOfFileAbove($(MSBuildThisFileDirectory).., build.props))\build.props" />
   <ItemGroup>
     <Reference Include="Microsoft.Json.Schema, Version=0.49.0.0, Culture=neutral, PublicKeyToken=0a75a800dbdd2daa, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Json.Schema.0.49.0\lib\net451\Microsoft.Json.Schema.dll</HintPath>
@@ -73,7 +73,6 @@
   <ItemGroup>
     <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
   </ItemGroup>
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="CopyTestData" AfterTargets="Build">
     <ItemGroup>
       <ConverterTestData Include="$(SolutionDir)\Sarif.FunctionalTests\ConverterTestData\**\*.sarif" />

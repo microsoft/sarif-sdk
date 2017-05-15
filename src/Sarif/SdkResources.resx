@@ -234,4 +234,7 @@
   <data name="MSG_OneOrMoreNotApplicable" xml:space="preserve">
     <value>One or more rules was disabled for an analysis target, as it was determined not to be applicable to it (this is a common condition). Pass --verbose on the command-line for more information.</value>
   </data>
+  <data name="ERR997_InvalidInvocationPropertyName" xml:space="preserve">
+    <value>'{0}' is not a property of the Invocation object.</value>
+  </data>
 </root>
