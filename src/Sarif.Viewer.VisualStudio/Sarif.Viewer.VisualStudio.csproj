@@ -9,6 +9,7 @@
     </NuGetPackageImportStamp>
     <UseCodebase>true</UseCodebase>
     <VsixType>v3</VsixType>
+    <DeployExtension Condition="'$(AppVeyor)' != ''">False</DeployExtension>
   </PropertyGroup>
   <PropertyGroup>
     <SignAssembly>true</SignAssembly>
