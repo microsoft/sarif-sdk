@@ -3,7 +3,7 @@
 
 using System;
 using System.Collections.Generic;
-using System.IO;
+using System.Runtime.InteropServices;
 
 namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
 {
@@ -18,94 +18,65 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
 
             foreach (string argument in args)
             {
-                if (argument[0] != '@' &&
-                    (argument.Length == 1 || argument[1] != '@'))
+
+                if (!IsResponseFileArgument(argument))
                 {
                     expandedArguments.Add(argument);
                     continue;
                 }
 
                 string responseFile = argument.Trim('"').Substring(1);
-                try
-                {
-                    responseFile = environmentVariables.ExpandEnvironmentVariables(responseFile);
-                    responseFile = fileSystem.GetFullPath(responseFile);
 
-                    if (!fileSystem.FileExists(responseFile))
-                        responseFile = null;
-                }
-                catch (IOException)
-                {
-                    responseFile = null;
-                }
+                responseFile = environmentVariables.ExpandEnvironmentVariables(responseFile);
+                responseFile = fileSystem.GetFullPath(responseFile);
 
-                if (responseFile == null)
-                {
-                    Console.WriteLine("!! Could not locate response file specified in argument: " + argument);
-                }
-                else
-                {
-                    string[] responseFileLines = fileSystem.ReadAllLines(responseFile);
+                string[] responseFileLines = fileSystem.ReadAllLines(responseFile);
 
-                    ExpandResponseFile(responseFileLines, expandedArguments);
-                }
+                ExpandResponseFile(responseFileLines, expandedArguments);
             }
 
             return expandedArguments.ToArray();
         }
 
+        private static bool IsResponseFileArgument(string argument)
+        {
+            return argument[0] == '@' && argument.Length > 1;
+        }
+
         private static void ExpandResponseFile(string[] responseFileLines, List<string> expandedArguments)
         {
-            // BUG : This function does not allow response files to escape quotes like they can be escaped
-            // on the command line. Suggest following CommandLineToArgVW rules here:
-            // http://msdn.microsoft.com/en-us/library/windows/desktop/bb776391.aspx
-            // 
-            // * 2n backslashes followed by a quotation mark produce n backslashes followed by a quotation mark.
-            // * (2n) + 1 backslashes followed by a quotation mark again produce n backslashes followed by a quotation mark.
-            // * n backslashes not followed by a quotation mark simply produce n backslashes.
-            //
             foreach (string responseFileLine in responseFileLines)
             {
-                string line = responseFileLine.Trim();
-                int argumentStart = 0;
-                bool insideQuote = false;
-                for (int i = 0; i < line.Length; i++)
+                int argumentCount;
+                IntPtr pointer;
+
+                pointer = CommandLineToArgvW(responseFileLine.Trim(), out argumentCount);
+
+                if (pointer == IntPtr.Zero)
                 {
-                    switch (line[i])
+                    throw new InvalidOperationException("Could not parse response file line:" + responseFileLine);
+                }
+
+                try
+                {
+                    // Copy each of these strings into our split argument array.
+                    for (int i = 0; i < argumentCount; i++)
                     {
-                        case ' ':
-
-                        if (!insideQuote)
-                        {
-                            expandedArguments.Add(line.Substring(argumentStart, i - argumentStart).Trim('"'));
-                            argumentStart = i + 1;
-                        }
-                        break;
-
-                        case '"':
-                        if (insideQuote)
-                        {
-                            insideQuote = false;
-                        }
-                        else
-                        {
-                            insideQuote = true;
-                        }
-                        break;
-
-                        default:
-                        break;
+                        expandedArguments.Add(Marshal.PtrToStringUni(Marshal.ReadIntPtr(pointer, i * IntPtr.Size)));
                     }
 
-                    if (i == line.Length - 1)
-                    {
-                        string argument = line.Substring(argumentStart, i - argumentStart + 1);
-                        if (argument.StartsWith("\""))
-                            argument = argument.Trim('\"');
-                        expandedArguments.Add(argument);
-                    }
+                }
+                finally
+                {
+                    LocalFree(pointer);
                 }
             }
         }
+
+        [DllImport("shell32.dll", SetLastError = true)]
+        static extern IntPtr CommandLineToArgvW([MarshalAs(UnmanagedType.LPWStr)] string lpCmdLine, out int pNumArgs);
+
+        [DllImport("kernel32.dll")]
+        static extern IntPtr LocalFree(IntPtr hMem);
     }
 }
