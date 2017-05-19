@@ -13,7 +13,7 @@
   <PropertyGroup>
     <LinkIncremental>false</LinkIncremental>
     <BinSkimVerboseOutput Condition="'$(BinSkimVerboseOutput)'==''">false</BinSkimVerboseOutput>
-    <BinSkimExePath Condition="'$(BinSkimExePath)'==''">$(MsBuildThisFileDirectory)packages\Microsoft.CodeAnalysis.BinSkim.1.3.9\tools\x64\BinSkim.exe</BinSkimExePath>
+    <BinSkimExePath Condition="'$(BinSkimExePath)'==''">$(MsBuildThisFileDirectory)packages\Microsoft.CodeAnalysis.BinSkim.1.4.0\tools\x64\BinSkim.exe</BinSkimExePath>
   </PropertyGroup>
   <Import Project="BinSkim.targets" Condition="$(RunBinSkim)=='true'"/>
 </Project>

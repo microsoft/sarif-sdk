@@ -8,7 +8,7 @@ using CommandLine;
 namespace Microsoft.CodeAnalysis.Sarif.Driver
 {
     [Verb("analyze", HelpText = "Analyze one or more binary files for security and correctness issues.")]
-    public abstract class AnalyzeOptionsBase
+    public abstract class AnalyzeOptionsBase : OptionsBase
     {
         [Value(0,
                HelpText = "One or more specifiers to a file, directory, or filter pattern that resolves to one or more binaries to analyze.")]
