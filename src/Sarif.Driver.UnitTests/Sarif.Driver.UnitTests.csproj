@@ -84,6 +84,7 @@
     <Compile Include="Sdk\FormatForVisualStudioTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SarifHelpers.cs" />
+    <Compile Include="Sdk\MockFactory.cs" />
     <Compile Include="Sdk\RuleUtilitiesTests.cs" />
     <Compile Include="Sdk\SarifLoggerTests.cs" />
     <Compile Include="TestAnalysisContext.cs" />

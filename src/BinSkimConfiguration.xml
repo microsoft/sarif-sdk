@@ -32,7 +32,7 @@
   </Properties>
   <Properties Key="BA2006.BuildWithSecureTools.Options" Type="PropertiesDictionary">
     <Properties Key="AllowedLibraries" Type="IL.Rules.StringToVersionMap">
-      <Property Key="odbccp32.lib,C" Value="17.0.65501.17013" Type="System.Version" />
+      <Property Key="odbccp32.lib,c" Value="17.0.65501.17013" Type="System.Version" />
     </Properties>
     <Properties Key="MinimumToolVersions" Type="IL.Rules.StringToVersionMap">
       <Property Key="MinimumCompilerVersion" Value="17.0.65501.17016" Type="System.Version" />
