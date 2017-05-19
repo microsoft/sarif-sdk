@@ -98,10 +98,6 @@ namespace Microsoft.Sarif.Viewer
                             }
                         }
                     }
-                    else
-                    {
-                        item.ToString();
-                    }
                 }
 
                 // If we found the item in the tree, select it.
