@@ -26,12 +26,20 @@
   </PropertyGroup>
   <Import Project="$([MSBuild]::GetDirectoryNameOfFileAbove($(MSBuildThisFileDirectory).., build.props))\build.props" />
   <ItemGroup>
+    <Reference Include="Castle.Core, Version=4.0.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
+      <HintPath>..\packages\Castle.Core.4.0.0\lib\net45\Castle.Core.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="FluentAssertions, Version=4.2.1.0, Culture=neutral, PublicKeyToken=33f2691a05b67b6a, processorArchitecture=MSIL">
       <HintPath>..\packages\FluentAssertions.4.2.1\lib\net45\FluentAssertions.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="FluentAssertions.Core, Version=4.2.1.0, Culture=neutral, PublicKeyToken=33f2691a05b67b6a, processorArchitecture=MSIL">
       <HintPath>..\packages\FluentAssertions.4.2.1\lib\net45\FluentAssertions.Core.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Moq, Version=4.7.10.0, Culture=neutral, PublicKeyToken=69f491c39445e920, processorArchitecture=MSIL">
+      <HintPath>..\packages\Moq.4.7.10\lib\net45\Moq.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
@@ -71,10 +79,12 @@
     <Compile Include="ExceptionCondition.cs" />
     <Compile Include="ExceptionRaisingRule.cs" />
     <Compile Include="FileSpecifierTests.cs" />
+    <Compile Include="Sdk\EntryPointUtilitiesTests.cs" />
     <Compile Include="Sdk\ExtensionMethodsTests.cs" />
     <Compile Include="Sdk\FormatForVisualStudioTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SarifHelpers.cs" />
+    <Compile Include="Sdk\MockFactory.cs" />
     <Compile Include="Sdk\RuleUtilitiesTests.cs" />
     <Compile Include="Sdk\SarifLoggerTests.cs" />
     <Compile Include="TestAnalysisContext.cs" />
@@ -86,7 +96,9 @@
     <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config" />
+    <None Include="packages.config">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Sarif.Driver\Sarif.Driver.csproj">

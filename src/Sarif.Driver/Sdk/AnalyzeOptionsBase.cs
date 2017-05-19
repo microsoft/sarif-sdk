@@ -76,5 +76,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             Separator = ';',
             HelpText = "Properties of the Invocation object to log. NOTE: StartTime and EndTime are always logged.")]
         public IEnumerable<string> InvocationPropertiesToLog { get; set; }
+
+        [Option(
+            "rich-return-code",
+            HelpText = "Emit a 'rich' return code consisting of a bitfield of conditions (as opposed to 0 or 1 indicating success or failure.")]
+        public bool RichReturnCode { get; set; }
     }
 }
