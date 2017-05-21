@@ -9,7 +9,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
 {
     public static class EntryPointUtilities
     {
-        internal static string[] GenerateArguments(
+        public static string[] GenerateArguments(
             string[] args,
             IFileSystem fileSystem,
             IEnvironmentVariables environmentVariables)

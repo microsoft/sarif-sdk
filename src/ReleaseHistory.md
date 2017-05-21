@@ -130,3 +130,5 @@
  * Add EntryPointUtilities class that provides response file injection assistance
  * Rich return code support
 
+## **v1.5.43** [Driver](https://www.nuget.org/packages/Sarif.Driver/1.5.43) | [SDK](https://www.nuget.org/packages/Sarif.Sdk/1.5.43)
+ * Expose EntryPointUtilities helpers as public
