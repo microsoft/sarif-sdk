@@ -243,6 +243,8 @@ namespace Microsoft.CodeAnalysis.Sarif
 
                 // These notification types are always emitted.
                 case NotificationLevel.Error:
+                Console.Error(FormatNotificationMessage(notification));
+
                 case NotificationLevel.Warning:
                     Console.WriteLine(FormatNotificationMessage(notification));
                     break;
