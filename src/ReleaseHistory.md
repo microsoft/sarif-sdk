@@ -132,3 +132,6 @@
 
 ## **v1.5.43** [Driver](https://www.nuget.org/packages/Sarif.Driver/1.5.43) | [SDK](https://www.nuget.org/packages/Sarif.Sdk/1.5.43)
  * Expose EntryPointUtilities helpers as public
+
+## **v1.5.44** [Driver](https://www.nuget.org/packages/Sarif.Driver/1.5.44) | [SDK](https://www.nuget.org/packages/Sarif.Sdk/1.5.44)
+ * Update default AnalyzeCommandBase behavior to utilize rich return code, if specified.
