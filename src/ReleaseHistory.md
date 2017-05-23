@@ -135,3 +135,6 @@
 
 ## **v1.5.44** [Driver](https://www.nuget.org/packages/Sarif.Driver/1.5.44) | [SDK](https://www.nuget.org/packages/Sarif.Sdk/1.5.44)
  * Update default AnalyzeCommandBase behavior to utilize rich return code, if specified.
+
+## **v1.5.45** [Driver](https://www.nuget.org/packages/Sarif.Driver/1.5.45) | [SDK](https://www.nuget.org/packages/Sarif.Sdk/1.5.45)
+ * Track RuntimeConditions.OneOrMoreWarnings|ErrorsFired in RuleUtilities.BuildResult
