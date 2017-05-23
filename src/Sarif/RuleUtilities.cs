@@ -11,7 +11,6 @@ namespace Microsoft.CodeAnalysis.Sarif
     {
         public static Result BuildResult(ResultLevel level, IAnalysisContext context, Region region, string formatId, params string[] arguments)
         {
-            //validating parameters
             if (context == null)
             {
                 throw new ArgumentNullException(nameof(context));
@@ -49,6 +48,17 @@ namespace Microsoft.CodeAnalysis.Sarif
                         }
                }};
             }
+
+            if (level == ResultLevel.Warning)
+            {
+                context.RuntimeErrors |= RuntimeConditions.OneOrMoreWarningsFired;
+            }
+
+            if (level == ResultLevel.Error)
+            {
+                context.RuntimeErrors |= RuntimeConditions.OneOrMoreErrorsFired;
+            }
+
             return result;
         }
 
