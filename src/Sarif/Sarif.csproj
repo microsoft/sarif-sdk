@@ -80,6 +80,7 @@
     <Compile Include="OffsetInfo.cs" />
     <Compile Include="PerLanguageOption.cs" />
     <Compile Include="PropertiesDictionary.cs" />
+    <Compile Include="StringToVersionMap.cs" />
     <Compile Include="TypedPropertiesDictionaryConverter.cs" />
     <Compile Include="PropertiesDictionaryExtensionMethods.cs" />
     <Compile Include="Readers\AnnotatedCodeLocationIdConverter.cs" />

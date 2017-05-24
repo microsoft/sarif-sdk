@@ -1,10 +1,12 @@
-﻿using System;
+﻿// Copyright (c) Microsoft. All rights reserved.
+// Licensed under the MIT license. See LICENSE file in the project root for full license information.
+
+using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 using FluentAssertions;
+
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Microsoft.CodeAnalysis.Sarif
@@ -89,6 +91,41 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             properties = RoundTripThroughJson(properties);
             ValidateProperties(properties.GetProperty(PropertiesDictionaryProperty), nonDefaultValue);
+        }
+
+        [TestMethod]
+        public void PropertiesDictionary_RoundtripEmptyStringToVersionMap()
+        {
+            const string mapKey = "MapKey";
+            const string valueKey = "NewKey";
+            var properties = new PropertiesDictionary();
+            ValidateProperties(properties.GetProperty(PropertiesDictionaryProperty), PROPERTIES_DEFAULT);
+
+            var version = new Version(1, 2, 3, 4);
+
+            var nonDefaultValue = new StringToVersionMap();
+            properties[mapKey] = nonDefaultValue;
+
+            properties = RoundTripThroughXml(properties);
+            ValidateProperties(properties.GetProperty(PropertiesDictionaryProperty), PROPERTIES_DEFAULT);
+            ((TypedPropertiesDictionary<Version>)properties[mapKey]).ContainsKey(valueKey).Should().Be(false);
+        }
+
+        [TestMethod]
+        public void PropertiesDictionary_RoundtripStringToVersionMap()
+        {
+            const string mapKey = "MapKey";
+            const string valueKey = "NewKey";
+            var properties = new PropertiesDictionary();
+            ValidateProperties(properties.GetProperty(PropertiesDictionaryProperty), PROPERTIES_DEFAULT);
+
+            var version = new Version(1, 2, 3, 4);
+
+            var nonDefaultValue = new StringToVersionMap { { valueKey, version } };
+            properties[mapKey] = nonDefaultValue;
+
+            properties = RoundTripThroughXml(properties);
+            ((TypedPropertiesDictionary<Version>)properties[mapKey])[valueKey].Should().Be(version);
         }
 
         private void ValidateProperties(PropertiesDictionary actual, PropertiesDictionary expected)
