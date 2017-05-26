@@ -199,9 +199,16 @@ namespace Microsoft.CodeAnalysis.Sarif
 
                     propertyBag[key] = nestedPropertyBag;
                     isEmpty = reader.IsEmptyElement;
-                    reader.ReadStartElement(PROPERTIES_ID);
-                    LoadPropertiesFromXmlStream(nestedPropertyBag, reader);
-                    if (!isEmpty) { reader.ReadEndElement(); }
+                    if (!isEmpty)
+                    {
+                        reader.ReadStartElement(PROPERTIES_ID);
+                        LoadPropertiesFromXmlStream(nestedPropertyBag, reader);
+                        reader.ReadEndElement();
+                    }
+                    else
+                    {
+                        reader.Read();
+                    }
                 }
                 else
                 {
