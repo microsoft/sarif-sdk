@@ -16,7 +16,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
     /// </summary>
     internal class SemmleConverter : ToolFileConverterBase
     {
-        // Semmle logs are CSV files.
+        // Semmle logs are CSV files with inconsistent contents
         private static readonly string[] s_delimiters = new[] { "," };
 
         // The fields are as follows:
