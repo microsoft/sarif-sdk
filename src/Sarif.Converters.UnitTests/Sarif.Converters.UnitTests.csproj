@@ -1,10 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
-    <ProjectGuid>{31A79A68-F8D2-4BA4-8575-EFB4E3DEF1DA}</ProjectGuid>
+    <ProjectGuid>{EDF102ED-3959-40A2-9FB1-CBD6719F77BF}</ProjectGuid>
     <OutputType>Library</OutputType>
     <RootNamespace>Microsoft.CodeAnalysis.Sarif</RootNamespace>
-    <AssemblyName>Sarif.UnitTests</AssemblyName>
+    <AssemblyName>Sarif.Converters.UnitTests</AssemblyName>
     <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
   </PropertyGroup>
   <PropertyGroup>
@@ -43,10 +43,6 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Sarif.Converters.UnitTests\Sarif.Converters.UnitTests.csproj">
-      <Project>{edf102ed-3959-40a2-9fb1-cbd6719f77bf}</Project>
-      <Name>Sarif.Converters.UnitTests</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Sarif.Converters\Sarif.Converters.csproj">
       <Project>{237defdf-1dfb-40a0-997f-12c8165daa87}</Project>
       <Name>Sarif.Converters</Name>
@@ -61,31 +57,24 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Core\PropertyBagHolderTests.cs" />
-    <Compile Include="Core\StackTests.cs" />
-    <Compile Include="Core\TagsTests.cs" />
-    <Compile Include="EqualityComparerTests.cs" />
-    <Compile Include="ExtensionsTests.cs" />
-    <Compile Include="JsonTests.cs" />
-    <Compile Include="PropertiesDictionaryTests.cs" />
-    <Compile Include="Readers\AlgorithmKindConverterTests.cs" />
-    <Compile Include="Readers\AnnotatedCodeLocationIdConverterTests.cs" />
-    <Compile Include="Readers\AnnotatedCodeLocationKindConverterTests.cs" />
-    <Compile Include="Readers\EnumConverterTests.cs" />
-    <Compile Include="Readers\IsSuppressedInSourceConverterTests.cs" />
-    <Compile Include="Readers\PropertyBagConverterTests.cs" />
-    <Compile Include="Readers\ResultDiffingVisitorTests.cs" />
-    <Compile Include="Readers\RuleDictionaryConverterTests.cs" />
-    <Compile Include="Readers\UriConverterTests.cs" />
-    <Compile Include="SarifExtensionsTests.cs" />
-    <Compile Include="SparseReaderDispatchTableTests.cs" />
-    <Compile Include="SparseReaderTests.cs" />
-    <Compile Include="ConvertToSchemaUriTests.cs" />
-    <Compile Include="Writers\ResultLogJsonWriterTests.cs" />
+    <Compile Include="AndroidStudioConverterTests.cs" />
+    <Compile Include="AndroidStudioProblemTests.cs" />
+    <Compile Include="AndroidStudioStringsTests.cs" />
+    <Compile Include="ClangAnalyzerConverterTests.cs" />
+    <Compile Include="CppCheckConverterTests.cs" />
+    <Compile Include="CppCheckErrorTests.cs" />
+    <Compile Include="CppCheckLocationTests.cs" />
+    <Compile Include="CppCheckStringsTests.cs" />
+    <Compile Include="FortifyConverterTests.cs" />
+    <Compile Include="FortifyIssueTests.cs" />
+    <Compile Include="FortifyPathElementTests.cs" />
+    <Compile Include="FortifyStringsTests.cs" />
+    <Compile Include="FxCopConverterTests.cs" />
+    <Compile Include="ResultLogObjectWriter.cs" />
+    <Compile Include="ToolFileConverterBaseTests.cs" />
     <Compile Include="ToolFormatConverterTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Writers\MimeTypeTests.cs" />
-    <Compile Include="Writers\SarifLoggerTests.cs" />
+    <Compile Include="Utilities.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
