@@ -48,7 +48,6 @@
                             <DockPanel>
                                 <ListBox DockPanel.Dock="Top"
                                          ItemsSource="{Binding Locations}"
-                                         SelectedIndex="0"
                                          SelectedItem="{Binding Locations.SelectedItem, Mode=TwoWay}"
                                          BorderThickness="0">
                                     <ListBox.ItemsPanel>

@@ -123,3 +123,21 @@
 * Add JSON settings persistence 
 * Populate context objects from configuration file argument
 
+## **v1.5.41** [Driver](https://www.nuget.org/packages/Sarif.Driver/1.5.41) | [SDK](https://www.nuget.org/packages/Sarif.Sdk/1.5.41)
+ * Control invocation property logging
+
+## **v1.5.42** [Driver](https://www.nuget.org/packages/Sarif.Driver/1.5.42) | [SDK](https://www.nuget.org/packages/Sarif.Sdk/1.5.42)
+ * Add EntryPointUtilities class that provides response file injection assistance
+ * Rich return code support
+
+## **v1.5.43** [Driver](https://www.nuget.org/packages/Sarif.Driver/1.5.43) | [SDK](https://www.nuget.org/packages/Sarif.Sdk/1.5.43)
+ * Expose EntryPointUtilities helpers as public
+
+## **v1.5.44** [Driver](https://www.nuget.org/packages/Sarif.Driver/1.5.44) | [SDK](https://www.nuget.org/packages/Sarif.Sdk/1.5.44)
+ * Update default AnalyzeCommandBase behavior to utilize rich return code, if specified.
+
+## **v1.5.45** [Driver](https://www.nuget.org/packages/Sarif.Driver/1.5.45) | [SDK](https://www.nuget.org/packages/Sarif.Sdk/1.5.45)
+ * Track RuntimeConditions.OneOrMoreWarnings|ErrorsFired in RuleUtilities.BuildResult
+
+## **v1.5.46** [Driver](https://www.nuget.org/packages/Sarif.Driver/1.5.46) | [SDK](https://www.nuget.org/packages/Sarif.Sdk/1.5.46)
+ * Resolved crash deserializing empty property bags

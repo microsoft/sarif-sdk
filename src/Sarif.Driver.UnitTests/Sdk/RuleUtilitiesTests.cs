@@ -37,6 +37,9 @@ namespace Microsoft.CodeAnalysis.Driver.Sdk
                 StartLine = 42
             };
 
+            (context.RuntimeErrors & RuntimeConditions.OneOrMoreWarningsFired).Should().Be(RuntimeConditions.None);
+            (context.RuntimeErrors & RuntimeConditions.OneOrMoreErrorsFired).Should().Be(RuntimeConditions.None);
+
             // Act.
             Result result = RuleUtilities.BuildResult(
                 ResultLevel.Error,
@@ -56,6 +59,18 @@ namespace Microsoft.CodeAnalysis.Driver.Sdk
 
             result.Locations.Count.Should().Be(1);
             result.Locations[0].AnalysisTarget.Region.ValueEquals(region).Should().BeTrue();
+
+            (context.RuntimeErrors & RuntimeConditions.OneOrMoreWarningsFired).Should().Be(RuntimeConditions.None);
+            (context.RuntimeErrors & RuntimeConditions.OneOrMoreErrorsFired).Should().Be(RuntimeConditions.OneOrMoreErrorsFired);
+
+            result = RuleUtilities.BuildResult(
+                ResultLevel.Warning,
+                context,
+                region,
+                FormatId,
+                Arguments);
+
+            (context.RuntimeErrors & RuntimeConditions.OneOrMoreWarningsFired).Should().Be(RuntimeConditions.OneOrMoreWarningsFired);
         }
     }
 }

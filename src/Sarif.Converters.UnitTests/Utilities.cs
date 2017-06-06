@@ -5,13 +5,13 @@ using System.IO;
 using System.Text;
 using System.Xml;
 using System.Xml.Linq;
-using Newtonsoft.Json;
-using Microsoft.CodeAnalysis.Sarif.Writers;
 using Microsoft.CodeAnalysis.Sarif.Converters;
+using Microsoft.CodeAnalysis.Sarif.Writers;
+using Newtonsoft.Json;
 
 namespace Microsoft.CodeAnalysis.Sarif
 {
-    internal static class Utilities
+    public static class Utilities
     {
         public static MemoryStream CreateStreamFromString(string data)
         {

@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.25123.0
+VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sarif", "Sarif\Sarif.csproj", "{CC9B247E-7103-4BF7-BDAB-6E625B3680A8}"
 	ProjectSection(ProjectDependencies) = postProject
@@ -32,6 +32,10 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sarif.ValidationTests", "Sarif.ValidationTests\Sarif.ValidationTests.csproj", "{A35E38C4-8189-43C0-BA09-8D05B8EF0791}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sarif.Converters", "Sarif.Converters\Sarif.Converters.csproj", "{237DEFDF-1DFB-40A0-997F-12C8165DAA87}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ConvertPREfastToSarif", "PREfastXmlSarifConverter\ConvertPREfastToSarif.vcxproj", "{58E02234-551F-487C-948C-D2C354266E83}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sarif.Converters.UnitTests", "Sarif.Converters.UnitTests\Sarif.Converters.UnitTests.csproj", "{EDF102ED-3959-40A2-9FB1-CBD6719F77BF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -151,6 +155,28 @@ Global
 		{237DEFDF-1DFB-40A0-997F-12C8165DAA87}.Release|x64.Build.0 = Release|Any CPU
 		{237DEFDF-1DFB-40A0-997F-12C8165DAA87}.Release|x86.ActiveCfg = Release|Any CPU
 		{237DEFDF-1DFB-40A0-997F-12C8165DAA87}.Release|x86.Build.0 = Release|Any CPU
+		{58E02234-551F-487C-948C-D2C354266E83}.Debug|Any CPU.ActiveCfg = Debug|Win32
+		{58E02234-551F-487C-948C-D2C354266E83}.Debug|x64.ActiveCfg = Debug|x64
+		{58E02234-551F-487C-948C-D2C354266E83}.Debug|x64.Build.0 = Debug|x64
+		{58E02234-551F-487C-948C-D2C354266E83}.Debug|x86.ActiveCfg = Debug|Win32
+		{58E02234-551F-487C-948C-D2C354266E83}.Debug|x86.Build.0 = Debug|Win32
+		{58E02234-551F-487C-948C-D2C354266E83}.Release|Any CPU.ActiveCfg = Release|Win32
+		{58E02234-551F-487C-948C-D2C354266E83}.Release|x64.ActiveCfg = Release|x64
+		{58E02234-551F-487C-948C-D2C354266E83}.Release|x64.Build.0 = Release|x64
+		{58E02234-551F-487C-948C-D2C354266E83}.Release|x86.ActiveCfg = Release|Win32
+		{58E02234-551F-487C-948C-D2C354266E83}.Release|x86.Build.0 = Release|Win32
+		{EDF102ED-3959-40A2-9FB1-CBD6719F77BF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EDF102ED-3959-40A2-9FB1-CBD6719F77BF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EDF102ED-3959-40A2-9FB1-CBD6719F77BF}.Debug|x64.ActiveCfg = Debug|x64
+		{EDF102ED-3959-40A2-9FB1-CBD6719F77BF}.Debug|x64.Build.0 = Debug|x64
+		{EDF102ED-3959-40A2-9FB1-CBD6719F77BF}.Debug|x86.ActiveCfg = Debug|x86
+		{EDF102ED-3959-40A2-9FB1-CBD6719F77BF}.Debug|x86.Build.0 = Debug|x86
+		{EDF102ED-3959-40A2-9FB1-CBD6719F77BF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EDF102ED-3959-40A2-9FB1-CBD6719F77BF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EDF102ED-3959-40A2-9FB1-CBD6719F77BF}.Release|x64.ActiveCfg = Release|x64
+		{EDF102ED-3959-40A2-9FB1-CBD6719F77BF}.Release|x64.Build.0 = Release|x64
+		{EDF102ED-3959-40A2-9FB1-CBD6719F77BF}.Release|x86.ActiveCfg = Release|x86
+		{EDF102ED-3959-40A2-9FB1-CBD6719F77BF}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

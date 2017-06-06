@@ -86,6 +86,7 @@
     <Compile Include="Sdk\AggregatingLogger.cs" />
     <Compile Include="Sdk\AnalysisApplicability.cs" />
     <Compile Include="Sdk\AnalysisContext.cs" />
+    <Compile Include="Sdk\EntryPointUtilities.cs" />
     <Compile Include="Sdk\ExitApplicationException.cs" />
     <Compile Include="Sdk\ExitReason.cs" />
     <Compile Include="FileStreamExtensionMethods.cs" />
@@ -141,5 +142,4 @@
       <Name>Sarif</Name>
     </ProjectReference>
   </ItemGroup>
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

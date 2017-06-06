@@ -2,12 +2,12 @@
 <Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
+    <Prefer32Bit>false</Prefer32Bit>
     <Configuration Condition=" '$(Configuration)' == '' ">Release</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">Any CPU</Platform>
     <IntermediateOutputPath>$(MsBuildThisFileDirectory)..\bld\obj\$(MSBuildProjectName)\$(Platform)\$(Configuration)\</IntermediateOutputPath>
     <OutputPath>$(MsBuildThisFileDirectory)..\bld\bin\$(MSBuildProjectName)\$(Platform)_$(Configuration)\</OutputPath>
-    <DataModelGeneratorPath>$(MsBuildThisFileDirectory)..\bld\bin\DataModelGenerator\$(Platform)_$(Configuration)\</DataModelGeneratorPath>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion Condition="'$(TargetFrameworkVersion)'==''">v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <RestorePackages>true</RestorePackages>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
@@ -39,4 +39,10 @@
   <ItemGroup>
     <Compile Include="$(MsBuildThisFileDirectory)build\CommonAssemblyInfo.cs" />
   </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" Condition="'$(DisableBinSkimTarget)'!='true'"/>
+  <PropertyGroup>
+    <BinSkimVerboseOutput>false</BinSkimVerboseOutput>
+    <BinSkimExePath>$(MsBuildThisFileDirectory)packages\Microsoft.CodeAnalysis.BinSkim.1.4.0\tools\x64\BinSkim.exe</BinSkimExePath>
+  </PropertyGroup>
+  <Import Project="BinSkim.targets" Condition="'$(RunBinskim)'=='true'"/>
 </Project>
