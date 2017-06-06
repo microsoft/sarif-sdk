@@ -93,17 +93,16 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
         private readonly ToolFormatConverter converter = new ToolFormatConverter();
 
-        private void BatchRunConverter(ToolFormat tool, TestMode testMode)
+        private void BatchRunConverter(string tool, TestMode testMode)
         {
             BatchRunConverter(tool, "*.xml", testMode);
         }
 
-        private void BatchRunConverter(ToolFormat tool, string inputFilter, TestMode testMode)
+        private void BatchRunConverter(string tool, string inputFilter, TestMode testMode)
         {
             var sb = new StringBuilder();
 
-            string toolName = Enum.GetName(typeof(ToolFormat), tool);
-            string testDirectory = SarifConverterTests.TestDirectory + "\\" + toolName;
+            string testDirectory = SarifConverterTests.TestDirectory + "\\" + tool;
             string[] testFiles = Directory.GetFiles(testDirectory, inputFilter);
 
             foreach (string file in testFiles)
@@ -111,7 +110,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 RunConverter(sb, tool, file, testMode);
             }
 
-            sb.Length.Should().Be(0, FormatFailureReason(sb, toolName));
+            sb.Length.Should().Be(0, FormatFailureReason(sb, tool));
         }
 
         private static string FormatFailureReason(StringBuilder sb, string toolName)
@@ -123,7 +122,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             return sb.ToString();
         }
 
-        private void RunConverter(StringBuilder sb, ToolFormat toolFormat, string inputFileName, TestMode testMode)
+        private void RunConverter(StringBuilder sb, string toolFormat, string inputFileName, TestMode testMode)
         {
             string expectedFileName = inputFileName + ".sarif";
             string generatedFileName = inputFileName + ".actual.sarif";

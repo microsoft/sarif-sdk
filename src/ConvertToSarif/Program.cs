@@ -42,7 +42,7 @@ namespace Microsoft.CodeAnalysis.Sarif.ConvertToSarif
                     convertOptions.OutputFilePath = convertOptions.InputFilePath + ".sarif";
                 }
 
-                if (convertOptions.ToolFormat == ToolFormat.PREfast)
+                if (convertOptions.ToolFormat.MatchesToolFormat(ToolFormat.PREfast))
                 {
                     string sarif = ToolFormatConverter.ConvertPREfastToStandardFormat(convertOptions.InputFilePath);
                     File.WriteAllText(convertOptions.OutputFilePath, sarif);

@@ -65,7 +65,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             var output = new ResultLogObjectWriter();
             using (var input = new MemoryStream())
             {
-                _converter.ConvertToStandardFormat(0, input, output);
+                _converter.ConvertToStandardFormat("UnknownTool", input, output);
             }
         }
 

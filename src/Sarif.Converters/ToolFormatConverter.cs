@@ -28,7 +28,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         /// written. This cannot be a directory.</param>
         /// <param name="conversionOptions">Options for controlling the conversion.</param>
         public void ConvertToStandardFormat(
-            ToolFormat toolFormat,
+            string toolFormat,
             string inputFileName,
             string outputFileName,
             ToolFormatConversionOptions conversionOptions)
@@ -46,7 +46,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 throw new InvalidOperationException("Output file already exists and option to overwrite was not specified.");
             }
 
-            if (toolFormat == ToolFormat.PREfast)
+            if (toolFormat.MatchesToolFormat(ToolFormat.PREfast))
             {
                 string sarif = ConvertPREfastToStandardFormat(inputFileName);
                 File.WriteAllText(outputFileName, sarif);
@@ -79,11 +79,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         /// <param name="outputFileName">The name of the file to which the resulting SARIF log shall be
         /// written. This cannot be a directory.</param>
         public void ConvertToStandardFormat(
-            ToolFormat toolFormat,
+            string toolFormat,
             string inputFileName,
             string outputFileName)
         {
-            if (toolFormat == ToolFormat.PREfast)
+            if (toolFormat.MatchesToolFormat(ToolFormat.PREfast))
             {
                 string sarif = ConvertPREfastToStandardFormat(inputFileName);
                 File.WriteAllText(outputFileName, sarif);
@@ -101,7 +101,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         /// <param name="inputStream">A stream that contains tool log contents.</param>
         /// <param name="outputStream">A stream to which the converted output should be written.</param>
         public void ConvertToStandardFormat(
-            ToolFormat toolFormat,
+            string toolFormat,
             Stream inputStream,
             IResultLogWriter outputStream)
         {
@@ -124,11 +124,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             }
         }
 
-        private readonly IDictionary<ToolFormat, Lazy<ToolFileConverterBase>> _converters = CreateConverterRecords();
+        private readonly IDictionary<string, Lazy<ToolFileConverterBase>> _converters = CreateConverterRecords();
 
-        private static Dictionary<ToolFormat, Lazy<ToolFileConverterBase>> CreateConverterRecords()
+        private static Dictionary<string, Lazy<ToolFileConverterBase>> CreateConverterRecords()
         {
-            var result = new Dictionary<ToolFormat, Lazy<ToolFileConverterBase>>();
+            var result = new Dictionary<string, Lazy<ToolFileConverterBase>>();
             CreateConverterRecord<AndroidStudioConverter>(result, ToolFormat.AndroidStudio);
             CreateConverterRecord<CppCheckConverter>(result, ToolFormat.CppCheck);
             CreateConverterRecord<ClangAnalyzerConverter>(result, ToolFormat.ClangAnalyzer);
@@ -140,7 +140,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             return result;
         }
 
-        private static void CreateConverterRecord<T>(IDictionary<ToolFormat, Lazy<ToolFileConverterBase>> dict, ToolFormat format)
+        private static void CreateConverterRecord<T>(IDictionary<string, Lazy<ToolFileConverterBase>> dict, string format)
             where T : ToolFileConverterBase, new()
         {
             dict.Add(format, new Lazy<ToolFileConverterBase>(() => new T(), LazyThreadSafetyMode.ExecutionAndPublication));

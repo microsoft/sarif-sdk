@@ -9,6 +9,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 {
     public static class Extensions
     {
+        // Compare tool format strings with appropriate comparison type.
+        public static bool MatchesToolFormat(this string toolFormat, string other)
+        {
+            return toolFormat.Equals(other, StringComparison.OrdinalIgnoreCase);
+        }
+
         /// <summary>An XmlReader extension method that reads optional element's content as string.</summary>
         /// <param name="xmlReader">The xmlReader from which line data shall be retrieved.</param>
         /// <param name="elementName">Name of the element expected.</param>
