@@ -21,7 +21,7 @@ namespace Microsoft.CodeAnalysis.Sarif.ConvertToSarif
             "tool",
             HelpText = "The tool format of the input file. Must be one of: AndroidStudio, ClangAnalyzer, CppCheck, Fortify, FortifyFpr, FxCop, PREfast, SemmleQL, or StaticDriverVerifier.",
             Required = true)]
-        public ToolFormat ToolFormat { get; internal set; }
+        public string ToolFormat { get; internal set; }
 
         [Option(
             'o',

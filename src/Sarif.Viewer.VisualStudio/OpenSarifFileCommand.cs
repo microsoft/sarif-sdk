@@ -145,7 +145,7 @@ namespace Microsoft.Sarif.Viewer
                 }
             }
 
-            ToolFormat toolFormat = ToolFormat.None;
+            string toolFormat = ToolFormat.None;
 
             if (logFile == null)
             {
@@ -156,7 +156,7 @@ namespace Microsoft.Sarif.Viewer
                 {
                     // These constants expressed in our VSCT
                     case OpenSarifFileCommandId:
-                        {
+                    {
                             // Native SARIF. All our defaults above are fine
                             break;
                     }
@@ -175,42 +175,42 @@ namespace Microsoft.Sarif.Viewer
                         break;
                     }
                     case OpenFxCopFileCommandId:
-                        {
+                    {
                             // FxCop. TODO. We need project file support. FxCop
                             // fullMessages look broken.
                             toolFormat = ToolFormat.FxCop;
                             title = "Open FxCop XML log file";
                             filter = "FxCop report and project files (*.xml)|*.xml";
                             break;
-                        }
+                    }
                     case OpenCppCheckFileCommandId:
-                        {
+                    {
                             toolFormat = ToolFormat.CppCheck;
                             title = "Open CppCheck XML log file";
                             filter = "CppCheck log files (*.xml)|*.xml";
                             break;
-                        }
+                    }
                     case OpenClangFileCommandId:
-                        {
+                    {
                             toolFormat = ToolFormat.ClangAnalyzer;
                             title = "Open Clang XML log file";
                             filter = "Clang log files (*.xml)|*.xml";
                             break;
-                        }
+                    }
                     case OpenAndroidStudioFileCommandId:
-                        {
+                    {
                             toolFormat = ToolFormat.AndroidStudio;
                             title = "Open Android Studio XML log file";
                             filter = "Android Studio log files (*.xml)|*.xml";
                             break;
-                        }
+                    }
                     case OpenSemmleFileCommandId:
-                        {
+                    {
                             toolFormat = ToolFormat.SemmleQL;
                             title = "Open Semmle QL CSV log file";
                             filter = "Semmle QL log files (*.csv)|*.csv";
                             break;
-                        }
+                    }
                 }
 
                 OpenFileDialog openFileDialog = new OpenFileDialog();

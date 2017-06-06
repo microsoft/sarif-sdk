@@ -4,27 +4,36 @@
 namespace Microsoft.CodeAnalysis.Sarif.Converters
 {
     /// <summary>Values referring to a source format to convert to the static analysis results interchange format.</summary>
-    public enum ToolFormat
+    public static class ToolFormat
     {
         /// <summary>An unset tool format value.</summary>
-        None = 0,
+        public const string None = nameof(None);
+
         /// <summary>Android Studio's file format.</summary>
-        AndroidStudio,
+        public const string AndroidStudio = nameof(AndroidStudio);
+
         /// <summary>Clang analyzer's file format.</summary>
-        ClangAnalyzer,
+        public const string ClangAnalyzer = nameof(ClangAnalyzer);
+
         /// <summary>CppCheck's file format.</summary>
-        CppCheck,
+        public const string CppCheck = nameof(CppCheck);
+
         /// <summary>Fortify's report file format.</summary>
-        Fortify,
+        public const string Fortify = nameof(Fortify);
+
         /// <summary>Fortify's FPR file format.</summary>
-        FortifyFpr,
+        public const string FortifyFpr = nameof(FortifyFpr);
+
         /// <summary>FxCop's file format.</summary>
-        FxCop,
+        public const string FxCop = nameof(FxCop);
+
         /// <summary>PREfast's file format.</summary>
-        PREfast,
+        public const string PREfast = nameof(PREfast);
+
         /// <summary>Semmle's file format.</summary>
-        SemmleQL,
+        public const string SemmleQL = nameof(SemmleQL);
+
         /// <summary>Static Driver Verifier's file format.</summary>
-        StaticDriverVerifier,
+        public const string StaticDriverVerifier = nameof(StaticDriverVerifier);
     }
 }
