@@ -196,11 +196,36 @@ namespace Microsoft.CodeAnalysis.Sarif
         }
 
         [TestMethod]
-        public void ToolFileConverter_FailsIfConverterTypeIsNonPublicInPluginAssembly()
+        public void ToolFileConverter_FailsIfConverterTypeIsNonPublic()
         {
             using (var tempDir = new TempDirectory())
             {
                 const string ToolName = "NonPublicTool";
+                string pluginAssemblyPath = GetCurrentAssemblyPath();
+
+                string inputFilePath = tempDir.Write("input.txt", string.Empty);
+                string outputFilePath = tempDir.Combine("output.txt");
+
+                Action action = () => _converter.ConvertToStandardFormat(
+                    ToolName,
+                    inputFilePath,
+                    outputFilePath,
+                    ToolFormatConversionOptions.None,
+                    pluginAssemblyPath);
+
+                action.ShouldThrow<ArgumentException>()
+                    .Where(ex =>
+                        ex.Message.Contains(pluginAssemblyPath)
+                        && ex.Message.Contains(ToolName));
+            }
+        }
+
+        [TestMethod]
+        public void ToolFileConverter_FailsIfConverterTypeDoesNotHaveCorrectBaseClass()
+        {
+            using (var tempDir = new TempDirectory())
+            {
+                const string ToolName = "IncorrectlyDerivedTool";
                 string pluginAssemblyPath = GetCurrentAssemblyPath();
 
                 string inputFilePath = tempDir.Write("input.txt", string.Empty);
@@ -279,6 +304,11 @@ namespace Microsoft.CodeAnalysis.Sarif
             public override void Convert(Stream input, IResultLogWriter output)
             {
             }
+        }
+
+        [ExcludeFromCodeCoverage]
+        public class IncorrectlyDerivedToolConverter
+        {
         }
     }
 

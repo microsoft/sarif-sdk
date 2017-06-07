@@ -210,4 +210,7 @@
   <data name="ErrorAmbiguousConverterType" xml:space="preserve">
     <value>The converter plugin assembly "{0}" contains more than one public class "{1}".</value>
   </data>
+  <data name="ErrorIncorrectConverterTypeDerivation" xml:space="preserve">
+    <value>The type "{0}" in plugin assembly "{1}" cannot be used to convert the "{2}" file format because it does not descend from the class "{3}".</value>
+  </data>
 </root>

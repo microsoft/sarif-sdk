@@ -225,7 +225,23 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 throw new ArgumentException(message, nameof(pluginAssemblyPath));
             }
 
-            return (ToolFileConverterBase)Activator.CreateInstance(pluginTypes[0]);
+            object createdInstance = Activator.CreateInstance(pluginTypes[0]);
+            var converter = createdInstance as ToolFileConverterBase;
+
+            if (converter == null)
+            {
+                string message = string.Format(
+                    CultureInfo.CurrentCulture,
+                    ConverterResources.ErrorIncorrectConverterTypeDerivation,
+                    createdInstance.GetType().FullName,
+                    pluginAssemblyPath,
+                    toolFormat,
+                    typeof(ToolFileConverterBase).FullName);
+
+                throw new ArgumentException(message, nameof(pluginAssemblyPath));
+            }
+
+            return converter;
         }
 
         private ToolFileConverterBase GetBuiltInConverter(string toolFormat)
