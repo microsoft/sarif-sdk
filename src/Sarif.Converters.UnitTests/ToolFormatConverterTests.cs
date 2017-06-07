@@ -4,6 +4,7 @@
 using System;
 using System.IO;
 using System.Text;
+using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Microsoft.CodeAnalysis.Sarif.Writers;
 using Microsoft.CodeAnalysis.Sarif.Driver;
@@ -108,6 +109,51 @@ namespace Microsoft.CodeAnalysis.Sarif
                 string actualOutput = File.ReadAllText(actualOutputFileName, Encoding.UTF8);
                 Assert.AreEqual(expectedOutput, actualOutput);
             }
+        }
+
+        [TestMethod]
+        public void ToolFormatConverter_FailsIfPluginAssemblyDoesNotExist()
+        {
+            using (var tempDir = new TempDirectory())
+            {
+                const string ToolName = "TestTool";
+                const string InputFileName = "input.txt";
+                const string OutputFileName = "output.txt";
+                const string PluginAssemblyPath = "NoSuchAssembly.dll";
+
+                string inputFilePath = tempDir.Write(InputFileName, string.Empty);
+                string outputFilePath = tempDir.Combine(OutputFileName);
+
+                Action action = () =>
+                {
+                    _converter.ConvertToStandardFormat(
+                        ToolName,
+                        inputFilePath,
+                        outputFilePath,
+                        ToolFormatConversionOptions.None,
+                        PluginAssemblyPath);
+                };
+
+                action.ShouldThrow<ArgumentException>().Where(ex => ex.Message.Contains(PluginAssemblyPath));
+            }
+        }
+
+        [TestMethod, Ignore]
+        public void ToolFormatConverter_FindsConverterInPluginAssembly()
+        {
+            Assert.Fail("NYI");
+        }
+
+        [TestMethod, Ignore]
+        public void ToolFileConverter_FailsIfConverterTypeIsNotPresentInPluginAssembly()
+        {
+            Assert.Fail("NYI");
+        }
+
+        [TestMethod, Ignore]
+        public void ToolFileConverter_FailsIfConverterTypeIsAmbiguousInPluginAssembly()
+        {
+            Assert.Fail("NYI");
         }
     }
 }

@@ -241,6 +241,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The converter plugin assembly &quot;{0}&quot; does not exist..
+        /// </summary>
+        internal static string ErrorMissingPluginAssembly {
+            get {
+                return ResourceManager.GetString("ErrorMissingPluginAssembly", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Expected to find an element named {0}..
         /// </summary>
         internal static string ExpectedElementNamed {

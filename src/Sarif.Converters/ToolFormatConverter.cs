@@ -8,6 +8,7 @@ using System.Threading;
 using Newtonsoft.Json;
 using Microsoft.CodeAnalysis.Sarif.Writers;
 using System.Runtime.InteropServices;
+using System.Globalization;
 
 namespace Microsoft.CodeAnalysis.Sarif.Converters
 {
@@ -123,7 +124,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             if (inputStream == null) { throw new ArgumentNullException(nameof(inputStream)); };
             if (outputStream == null) { throw new ArgumentNullException(nameof(outputStream)); };
 
-            ToolFileConverterBase converter = GetConverter(toolFormat);
+            ToolFileConverterBase converter = GetConverter(toolFormat, pluginAssemblyPath);
             if (converter != null)
             {
                 converter.Convert(inputStream, outputStream);
@@ -171,7 +172,26 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             return SafeNativeMethods.ConvertToSarif(inputFileName);
         }
 
-        private ToolFileConverterBase GetConverter(string toolFormat)
+        private ToolFileConverterBase GetConverter(string toolFormat, string pluginAssemblyPath)
+        {
+            return string.IsNullOrWhiteSpace(pluginAssemblyPath)
+                ? GetBuiltInConverter(toolFormat)
+                : GetConverterFromPlugin(toolFormat, pluginAssemblyPath);
+        }
+
+        private ToolFileConverterBase GetConverterFromPlugin(string toolFormat, string pluginAssemblyPath)
+        {
+            if (!File.Exists(pluginAssemblyPath))
+            {
+                throw new ArgumentException(
+                    string.Format(CultureInfo.CurrentCulture, ConverterResources.ErrorMissingPluginAssembly, pluginAssemblyPath),
+                    nameof(pluginAssemblyPath));
+            }
+
+            return null;
+        }
+
+        private ToolFileConverterBase GetBuiltInConverter(string toolFormat)
         {
             Lazy<ToolFileConverterBase> converter;
             if (_converters.TryGetValue(toolFormat, out converter))
