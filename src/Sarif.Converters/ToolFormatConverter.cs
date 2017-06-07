@@ -123,14 +123,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             if (inputStream == null) { throw new ArgumentNullException(nameof(inputStream)); };
             if (outputStream == null) { throw new ArgumentNullException(nameof(outputStream)); };
 
-            Lazy<ToolFileConverterBase> converter;
-            if (_converters.TryGetValue(toolFormat, out converter))
+            ToolFileConverterBase converter = GetConverter(toolFormat);
+            if (converter != null)
             {
-                converter.Value.Convert(inputStream, outputStream);
+                converter.Convert(inputStream, outputStream);
             }
             else
             {
-                throw new ArgumentException("Unrecognized tool specified: " + toolFormat.ToString(), nameof(toolFormat));
+                throw new ArgumentException("Unrecognized tool specified: " + toolFormat, nameof(toolFormat));
             }
         }
 
@@ -169,7 +169,20 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             if (inputFileName == null) { throw new ArgumentNullException(nameof(inputFileName)); };
 
             return SafeNativeMethods.ConvertToSarif(inputFileName);
-        }        
+        }
+
+        private ToolFileConverterBase GetConverter(string toolFormat)
+        {
+            Lazy<ToolFileConverterBase> converter;
+            if (_converters.TryGetValue(toolFormat, out converter))
+            {
+                return converter.Value;
+            }
+            else
+            {
+                return null;
+            }
+        }
     }
 
     internal class SafeNativeMethods
