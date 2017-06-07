@@ -27,11 +27,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         /// <param name="outputFileName">The name of the file to which the resulting SARIF log shall be
         /// written. This cannot be a directory.</param>
         /// <param name="conversionOptions">Options for controlling the conversion.</param>
+        /// <param name="pluginAssemblyPath">Path to plugin assembly containing converter types.</param>
         public void ConvertToStandardFormat(
             string toolFormat,
             string inputFileName,
             string outputFileName,
-            ToolFormatConversionOptions conversionOptions)
+            ToolFormatConversionOptions conversionOptions,
+            string pluginAssemblyPath = null)
         {
             if (inputFileName == null) { throw new ArgumentNullException(nameof(inputFileName)); };
             if (outputFileName == null) { throw new ArgumentNullException(nameof(outputFileName)); };
@@ -67,7 +69,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
                     using (var output = new ResultLogJsonWriter(outputJson))
                     {
-                        ConvertToStandardFormat(toolFormat, input, output);
+                        ConvertToStandardFormat(toolFormat, input, output, pluginAssemblyPath);
                     }
                 }
             }
@@ -78,6 +80,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         /// <param name="inputFileName">The input log file name.</param>
         /// <param name="outputFileName">The name of the file to which the resulting SARIF log shall be
         /// written. This cannot be a directory.</param>
+        /// <remarks>This overload should be used only from test code.</remarks>
         public void ConvertToStandardFormat(
             string toolFormat,
             string inputFileName,
@@ -90,7 +93,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 return;
             }
 
-            ConvertToStandardFormat(toolFormat, inputFileName, outputFileName, ToolFormatConversionOptions.None);
+            ConvertToStandardFormat(
+                toolFormat,
+                inputFileName,
+                outputFileName,
+                ToolFormatConversionOptions.None,
+                pluginAssemblyPath: null);
         }
 
         /// <summary>Converts a tool log file represented as a stream into the SARIF format.</summary>
@@ -100,10 +108,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         /// <param name="toolFormat">The tool format of the input file.</param>
         /// <param name="inputStream">A stream that contains tool log contents.</param>
         /// <param name="outputStream">A stream to which the converted output should be written.</param>
+        /// <param name="pluginAssemblyPath">Path to plugin assembly containing converter types.</param>
         public void ConvertToStandardFormat(
             string toolFormat,
             Stream inputStream,
-            IResultLogWriter outputStream)
+            IResultLogWriter outputStream,
+            string pluginAssemblyPath = null)
         {
             if (toolFormat.MatchesToolFormat(ToolFormat.PREfast))
             {
