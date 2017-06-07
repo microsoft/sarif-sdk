@@ -220,10 +220,26 @@ namespace Microsoft.CodeAnalysis.Sarif
             }
         }
 
-        [TestMethod, Ignore]
+        [TestMethod]
         public void ToolFormatConverter_FindsConverterInPluginAssembly()
         {
-            Assert.Fail("NYI");
+            using (var tempDir = new TempDirectory())
+            {
+                const string ToolName = "TestTool";
+                string pluginAssemblyPath = GetCurrentAssemblyPath();
+
+                string inputFilePath = tempDir.Write("input.txt", string.Empty);
+                string outputFilePath = tempDir.Combine("output.txt");
+
+                Action action = () => _converter.ConvertToStandardFormat(
+                    ToolName,
+                    inputFilePath,
+                    outputFilePath,
+                    ToolFormatConversionOptions.None,
+                    pluginAssemblyPath);
+
+                action.ShouldNotThrow();
+            }
         }
 
         private static string GetCurrentAssemblyPath()

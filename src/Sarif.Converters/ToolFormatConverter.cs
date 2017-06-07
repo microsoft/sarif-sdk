@@ -225,7 +225,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 throw new ArgumentException(message, nameof(pluginAssemblyPath));
             }
 
-            return null;
+            return (ToolFileConverterBase)Activator.CreateInstance(pluginTypes[0]);
         }
 
         private ToolFileConverterBase GetBuiltInConverter(string toolFormat)
