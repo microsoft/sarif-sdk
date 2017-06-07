@@ -9,6 +9,8 @@ using Newtonsoft.Json;
 using Microsoft.CodeAnalysis.Sarif.Writers;
 using System.Runtime.InteropServices;
 using System.Globalization;
+using System.Reflection;
+using System.Linq;
 
 namespace Microsoft.CodeAnalysis.Sarif.Converters
 {
@@ -183,9 +185,44 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         {
             if (!File.Exists(pluginAssemblyPath))
             {
-                throw new ArgumentException(
-                    string.Format(CultureInfo.CurrentCulture, ConverterResources.ErrorMissingPluginAssembly, pluginAssemblyPath),
-                    nameof(pluginAssemblyPath));
+                string message = string.Format(
+                    CultureInfo.CurrentCulture,
+                    ConverterResources.ErrorMissingPluginAssembly,
+                    pluginAssemblyPath);
+
+                throw new ArgumentException(message, nameof(pluginAssemblyPath));
+            }
+
+            string converterTypeName = toolFormat + "Converter";
+
+            Assembly pluginAssembly = Assembly.LoadFile(pluginAssemblyPath);
+            Type[] pluginTypes = pluginAssembly
+                .GetTypes()
+                .Where(t => t.IsPublic && t.Name.Equals(converterTypeName, StringComparison.Ordinal))
+                .ToArray();
+
+            if (pluginTypes.Length == 0)
+            {
+                string message = string.Format(
+                    CultureInfo.CurrentCulture,
+                    ConverterResources.ErrorMissingConverterType,
+                    pluginAssemblyPath,
+                    converterTypeName,
+                    toolFormat);
+
+                throw new ArgumentException(message, nameof(pluginAssemblyPath));
+            }
+
+            if (pluginTypes.Length > 1)
+            {
+                string message = string.Format(
+                    CultureInfo.CurrentCulture,
+                    ConverterResources.ErrorAmbiguousConverterType,
+                    pluginAssemblyPath,
+                    converterTypeName,
+                    toolFormat);
+
+                throw new ArgumentException(message, nameof(pluginAssemblyPath));
             }
 
             return null;
@@ -194,14 +231,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         private ToolFileConverterBase GetBuiltInConverter(string toolFormat)
         {
             Lazy<ToolFileConverterBase> converter;
-            if (_converters.TryGetValue(toolFormat, out converter))
-            {
-                return converter.Value;
-            }
-            else
-            {
-                return null;
-            }
+            return _converters.TryGetValue(toolFormat, out converter)
+                ? converter.Value
+                : null;
         }
     }
 

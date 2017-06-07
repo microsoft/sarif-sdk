@@ -241,6 +241,24 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The converter plugin assembly &quot;{0}&quot; contains more than one public class &quot;{1}&quot;..
+        /// </summary>
+        internal static string ErrorAmbiguousConverterType {
+            get {
+                return ResourceManager.GetString("ErrorAmbiguousConverterType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The converter plugin assembly &quot;{0}&quot; does not contain a public class &quot;{1}&quot;..
+        /// </summary>
+        internal static string ErrorMissingConverterType {
+            get {
+                return ResourceManager.GetString("ErrorMissingConverterType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The converter plugin assembly &quot;{0}&quot; does not exist..
         /// </summary>
         internal static string ErrorMissingPluginAssembly {

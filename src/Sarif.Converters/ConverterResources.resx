@@ -201,7 +201,13 @@
   <data name="SemmleUnknownSeverity" xml:space="preserve">
     <value>The severity "{0}" does not correspond to a SARIF result level.</value>
   </data>
+  <data name="ErrorMissingConverterType" xml:space="preserve">
+    <value>The converter plugin assembly "{0}" does not contain a public class "{1}".</value>
+  </data>
   <data name="ErrorMissingPluginAssembly" xml:space="preserve">
     <value>The converter plugin assembly "{0}" does not exist.</value>
+  </data>
+  <data name="ErrorAmbiguousConverterType" xml:space="preserve">
+    <value>The converter plugin assembly "{0}" contains more than one public class "{1}".</value>
   </data>
 </root>

@@ -9,6 +9,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Microsoft.CodeAnalysis.Sarif.Writers;
 using Microsoft.CodeAnalysis.Sarif.Driver;
 using Microsoft.CodeAnalysis.Sarif.Converters;
+using System.Reflection;
 
 namespace Microsoft.CodeAnalysis.Sarif
 {
@@ -117,12 +118,10 @@ namespace Microsoft.CodeAnalysis.Sarif
             using (var tempDir = new TempDirectory())
             {
                 const string ToolName = "TestTool";
-                const string InputFileName = "input.txt";
-                const string OutputFileName = "output.txt";
                 const string PluginAssemblyPath = "NoSuchAssembly.dll";
 
-                string inputFilePath = tempDir.Write(InputFileName, string.Empty);
-                string outputFilePath = tempDir.Combine(OutputFileName);
+                string inputFilePath = tempDir.Write("input.txt", string.Empty);
+                string outputFilePath = tempDir.Combine("output.txt");
 
                 Action action = () =>
                 {
@@ -134,7 +133,64 @@ namespace Microsoft.CodeAnalysis.Sarif
                         PluginAssemblyPath);
                 };
 
-                action.ShouldThrow<ArgumentException>().Where(ex => ex.Message.Contains(PluginAssemblyPath));
+                action.ShouldThrow<ArgumentException>()
+                    .Where(ex => ex.Message.Contains(PluginAssemblyPath));
+            }
+        }
+
+        [TestMethod]
+        public void ToolFileConverter_FailsIfConverterTypeIsNotPresentInPluginAssembly()
+        {
+            using (var tempDir = new TempDirectory())
+            {
+                const string ToolName = "NoSuchTool";
+                string pluginAssemblyPath = GetCurrentAssemblyPath();
+
+                string inputFilePath = tempDir.Write("input.txt", string.Empty);
+                string outputFilePath = tempDir.Combine("output.txt");
+
+                Action action = () =>
+                {
+                    _converter.ConvertToStandardFormat(
+                        ToolName,
+                        inputFilePath,
+                        outputFilePath,
+                        ToolFormatConversionOptions.None,
+                        pluginAssemblyPath);
+                };
+
+                action.ShouldThrow<ArgumentException>()
+                    .Where(ex =>
+                        ex.Message.Contains(pluginAssemblyPath)
+                        && ex.Message.Contains(ToolName));
+            }
+        }
+
+        [TestMethod]
+        public void ToolFileConverter_FailsIfConverterTypeIsAmbiguousInPluginAssembly()
+        {
+            using (var tempDir = new TempDirectory())
+            {
+                const string ToolName = "AmbiguousTool";
+                string pluginAssemblyPath = GetCurrentAssemblyPath();
+
+                string inputFilePath = tempDir.Write("input.txt", string.Empty);
+                string outputFilePath = tempDir.Combine("output.txt");
+
+                Action action = () =>
+                {
+                    _converter.ConvertToStandardFormat(
+                        ToolName,
+                        inputFilePath,
+                        outputFilePath,
+                        ToolFormatConversionOptions.None,
+                        pluginAssemblyPath);
+                };
+
+                action.ShouldThrow<ArgumentException>()
+                    .Where(ex =>
+                        ex.Message.Contains(pluginAssemblyPath)
+                        && ex.Message.Contains(ToolName));
             }
         }
 
@@ -144,16 +200,43 @@ namespace Microsoft.CodeAnalysis.Sarif
             Assert.Fail("NYI");
         }
 
-        [TestMethod, Ignore]
-        public void ToolFileConverter_FailsIfConverterTypeIsNotPresentInPluginAssembly()
+        private static string GetCurrentAssemblyPath()
         {
-            Assert.Fail("NYI");
-        }
+            string codeBase = Assembly.GetExecutingAssembly().CodeBase;
+            var uriBuilder = new UriBuilder(new Uri(codeBase));
+            string path = Uri.UnescapeDataString(uriBuilder.Path);
 
-        [TestMethod, Ignore]
-        public void ToolFileConverter_FailsIfConverterTypeIsAmbiguousInPluginAssembly()
+            // The returned path has forward slashes, since it comes from a URI.
+            // Calling Path.GetDirectoryName changes them to backslashes.
+            string fileName = Path.GetFileName(path);
+            string directory = Path.GetDirectoryName(path);
+            return Path.Combine(directory, fileName);
+        }
+    }
+
+    namespace TestConverters
+    {
+        public class TestToolConverter : ToolFileConverterBase
         {
-            Assert.Fail("NYI");
+            public override void Convert(Stream input, IResultLogWriter output)
+            {
+            }
+        }
+        public class AmbiguousToolConverter : ToolFileConverterBase
+        {
+            public override void Convert(Stream input, IResultLogWriter output)
+            {
+            }
+        }
+    }
+
+    namespace MoreTestConverters
+    {
+        public class AmbiguousToolConverter : ToolFileConverterBase
+        {
+            public override void Convert(Stream input, IResultLogWriter output)
+            {
+            }
         }
     }
 }
