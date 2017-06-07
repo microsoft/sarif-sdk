@@ -42,6 +42,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 throw new ArgumentException(message, nameof(pluginAssemblyPath));
             }
 
+            // Convention: The converter type name is derived from the tool name. It can
+            // reside in any namespace.
             string converterTypeName = toolFormat + "Converter";
 
             Assembly pluginAssembly = Assembly.LoadFile(pluginAssemblyPath);
@@ -62,6 +64,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 throw new ArgumentException(message, nameof(pluginAssemblyPath));
             }
 
+            // This can happen if types with the same name exist in more than one namespace.
             if (pluginTypes.Length > 1)
             {
                 string message = string.Format(
@@ -75,11 +78,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             }
 
             Type converterType = pluginTypes[0];
-            if (converterType.GetConstructor(
-                BindingFlags.DeclaredOnly | BindingFlags.Instance | BindingFlags.Public,
-                binder: null,
-                types: new Type[0],
-                modifiers: new ParameterModifier[0]) == null)
+            if (!converterType.HasDefaultConstructor())
             {
                 string message = string.Format(
                     CultureInfo.CurrentCulture,

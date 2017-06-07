@@ -3,6 +3,7 @@
 
 using System;
 using System.Globalization;
+using System.Reflection;
 using System.Xml;
 
 namespace Microsoft.CodeAnalysis.Sarif.Converters
@@ -13,6 +14,16 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         public static bool MatchesToolFormat(this string toolFormat, string other)
         {
             return toolFormat.Equals(other, StringComparison.OrdinalIgnoreCase);
+        }
+
+        // Determine whether a type has a constructor that takes no arguments.
+        public static bool HasDefaultConstructor(this Type type)
+        {
+            return type.GetConstructor(
+                            BindingFlags.Instance | BindingFlags.Public,
+                            binder: null,
+                            types: new Type[0], // The types of the constructor arguments.
+                            modifiers: new ParameterModifier[0]) != null;
         }
 
         /// <summary>An XmlReader extension method that reads optional element's content as string.</summary>
