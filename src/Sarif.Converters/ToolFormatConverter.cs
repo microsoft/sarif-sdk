@@ -2,15 +2,10 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Threading;
-using Newtonsoft.Json;
-using Microsoft.CodeAnalysis.Sarif.Writers;
 using System.Runtime.InteropServices;
-using System.Globalization;
-using System.Reflection;
-using System.Linq;
+using Microsoft.CodeAnalysis.Sarif.Writers;
+using Newtonsoft.Json;
 
 namespace Microsoft.CodeAnalysis.Sarif.Converters
 {
@@ -126,7 +121,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             if (inputStream == null) { throw new ArgumentNullException(nameof(inputStream)); }
             if (outputStream == null) { throw new ArgumentNullException(nameof(outputStream)); }
 
-            ToolFileConverterBase converter = GetConverter(toolFormat, pluginAssemblyPath);
+            ToolFileConverterBase converter = ConverterFactory.CreateConverter(toolFormat, pluginAssemblyPath);
             if (converter != null)
             {
                 converter.Convert(inputStream, outputStream);
@@ -135,28 +130,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             {
                 throw new ArgumentException("Unrecognized tool specified: " + toolFormat, nameof(toolFormat));
             }
-        }
-
-        private readonly IDictionary<string, Lazy<ToolFileConverterBase>> _converters = CreateConverterRecords();
-
-        private static Dictionary<string, Lazy<ToolFileConverterBase>> CreateConverterRecords()
-        {
-            var result = new Dictionary<string, Lazy<ToolFileConverterBase>>();
-            CreateConverterRecord<AndroidStudioConverter>(result, ToolFormat.AndroidStudio);
-            CreateConverterRecord<CppCheckConverter>(result, ToolFormat.CppCheck);
-            CreateConverterRecord<ClangAnalyzerConverter>(result, ToolFormat.ClangAnalyzer);
-            CreateConverterRecord<FortifyConverter>(result, ToolFormat.Fortify);
-            CreateConverterRecord<FortifyFprConverter>(result, ToolFormat.FortifyFpr);
-            CreateConverterRecord<FxCopConverter>(result, ToolFormat.FxCop);
-            CreateConverterRecord<SemmleConverter>(result, ToolFormat.SemmleQL);
-            CreateConverterRecord<StaticDriverVerifierConverter>(result, ToolFormat.StaticDriverVerifier);
-            return result;
-        }
-
-        private static void CreateConverterRecord<T>(IDictionary<string, Lazy<ToolFileConverterBase>> dict, string format)
-            where T : ToolFileConverterBase, new()
-        {
-            dict.Add(format, new Lazy<ToolFileConverterBase>(() => new T(), LazyThreadSafetyMode.ExecutionAndPublication));
         }
 
         /// <summary>Converts a legacy PREfast XML log file into the SARIF format.</summary>
@@ -172,100 +145,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             if (inputFileName == null) { throw new ArgumentNullException(nameof(inputFileName)); };
 
             return SafeNativeMethods.ConvertToSarif(inputFileName);
-        }
-
-        private ToolFileConverterBase GetConverter(string toolFormat, string pluginAssemblyPath)
-        {
-            return string.IsNullOrWhiteSpace(pluginAssemblyPath)
-                ? GetBuiltInConverter(toolFormat)
-                : GetConverterFromPlugin(toolFormat, pluginAssemblyPath);
-        }
-
-        private ToolFileConverterBase GetConverterFromPlugin(string toolFormat, string pluginAssemblyPath)
-        {
-            if (!File.Exists(pluginAssemblyPath))
-            {
-                string message = string.Format(
-                    CultureInfo.CurrentCulture,
-                    ConverterResources.ErrorMissingPluginAssembly,
-                    pluginAssemblyPath);
-
-                throw new ArgumentException(message, nameof(pluginAssemblyPath));
-            }
-
-            string converterTypeName = toolFormat + "Converter";
-
-            Assembly pluginAssembly = Assembly.LoadFile(pluginAssemblyPath);
-            Type[] pluginTypes = pluginAssembly
-                .GetTypes()
-                .Where(t => t.IsPublic && t.Name.Equals(converterTypeName, StringComparison.Ordinal))
-                .ToArray();
-
-            if (pluginTypes.Length == 0)
-            {
-                string message = string.Format(
-                    CultureInfo.CurrentCulture,
-                    ConverterResources.ErrorMissingConverterType,
-                    pluginAssemblyPath,
-                    converterTypeName,
-                    toolFormat);
-
-                throw new ArgumentException(message, nameof(pluginAssemblyPath));
-            }
-
-            if (pluginTypes.Length > 1)
-            {
-                string message = string.Format(
-                    CultureInfo.CurrentCulture,
-                    ConverterResources.ErrorAmbiguousConverterType,
-                    pluginAssemblyPath,
-                    converterTypeName,
-                    toolFormat);
-
-                throw new ArgumentException(message, nameof(pluginAssemblyPath));
-            }
-
-            Type converterType = pluginTypes[0];
-            if (converterType.GetConstructor(
-                BindingFlags.DeclaredOnly | BindingFlags.Instance | BindingFlags.Public,
-                binder: null,
-                types: new Type[0],
-                modifiers: new ParameterModifier[0]) == null)
-            {
-                string message = string.Format(
-                    CultureInfo.CurrentCulture,
-                    ConverterResources.ErrorConverterTypeHasNoDefaultConstructor,
-                    converterType.FullName,
-                    pluginAssemblyPath,
-                    toolFormat);
-
-                throw new ArgumentException(message, nameof(pluginAssemblyPath));
-            }
-
-            var converter = Activator.CreateInstance(converterType) as ToolFileConverterBase;
-
-            if (converter == null)
-            {
-                string message = string.Format(
-                    CultureInfo.CurrentCulture,
-                    ConverterResources.ErrorIncorrectConverterTypeDerivation,
-                    converterType.FullName,
-                    pluginAssemblyPath,
-                    toolFormat,
-                    typeof(ToolFileConverterBase).FullName);
-
-                throw new ArgumentException(message, nameof(pluginAssemblyPath));
-            }
-
-            return converter;
-        }
-
-        private ToolFileConverterBase GetBuiltInConverter(string toolFormat)
-        {
-            Lazy<ToolFileConverterBase> converter;
-            return _converters.TryGetValue(toolFormat, out converter)
-                ? converter.Value
-                : null;
         }
     }
 
