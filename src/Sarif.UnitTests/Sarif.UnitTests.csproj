@@ -81,6 +81,7 @@
     <Compile Include="SparseReaderDispatchTableTests.cs" />
     <Compile Include="SparseReaderTests.cs" />
     <Compile Include="ConvertToSchemaUriTests.cs" />
+    <Compile Include="ToolFormatTests.cs" />
     <Compile Include="Writers\ResultLogJsonWriterTests.cs" />
     <Compile Include="ToolFormatConverterTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
