@@ -2,6 +2,7 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using System;
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Text;
 using FluentAssertions;
@@ -19,73 +20,82 @@ namespace Microsoft.CodeAnalysis.Sarif
         private readonly ToolFormatConverter _converter = new ToolFormatConverter();
 
         [TestMethod]
-        [ExpectedException(typeof(ArgumentException))]
         public void ToolFormatConverter_ConvertToStandardFormat_DirectorySpecifiedAsDestination()
         {
             string input = Path.GetTempFileName();
             string directory = Environment.CurrentDirectory;
-            _converter.ConvertToStandardFormat(ToolFormat.AndroidStudio, input, directory);
+            Action action = () => _converter.ConvertToStandardFormat(ToolFormat.AndroidStudio, input, directory);
+
+            action.ShouldThrow<ArgumentException>();
         }
 
         [TestMethod]
-        [ExpectedException(typeof(ArgumentNullException))]
         public void ToolFormatConverter_ConvertToStandardFormat_NullInputFile()
         {
             string file = Path.GetTempFileName();
-            _converter.ConvertToStandardFormat(ToolFormat.AndroidStudio, null, file);
+            Action action = () => _converter.ConvertToStandardFormat(ToolFormat.AndroidStudio, null, file);
+
+            action.ShouldThrow<ArgumentNullException>();
         }
 
         [TestMethod]
-        [ExpectedException(typeof(ArgumentNullException))]
         public void ToolFormatConverter_ConvertToStandardFormat_NullOutputFile()
         {
             string file = Path.GetTempFileName();
-            _converter.ConvertToStandardFormat(ToolFormat.AndroidStudio, file, null);
+            Action action = () => _converter.ConvertToStandardFormat(ToolFormat.AndroidStudio, file, null);
+
+            action.ShouldThrow<ArgumentNullException>();
         }
 
         [TestMethod]
-        [ExpectedException(typeof(ArgumentNullException))]
         public void ToolFormatConverter_ConvertToStandardFormat_NullInputStream()
         {
             var output = new ResultLogObjectWriter();
-            _converter.ConvertToStandardFormat(ToolFormat.AndroidStudio, null, output);
+            Action action = () => _converter.ConvertToStandardFormat(ToolFormat.AndroidStudio, null, output);
+
+            action.ShouldThrow<ArgumentNullException>();
         }
 
         [TestMethod]
-        [ExpectedException(typeof(ArgumentNullException))]
         public void ToolFormatConverter_ConvertToStandardFormat_NullOutputStream()
         {
             using (var stream = new MemoryStream())
             {
-                _converter.ConvertToStandardFormat(ToolFormat.AndroidStudio, stream, null);
+                Action action = () => _converter.ConvertToStandardFormat(ToolFormat.AndroidStudio, stream, null);
+
+                action.ShouldThrow<ArgumentNullException>();
             }
         }
+
         [TestMethod]
-        [ExpectedException(typeof(ArgumentException))]
         public void ToolFormatConverter_ConvertToStandardFormat_UnknownToolFormat()
         {
             var output = new ResultLogObjectWriter();
             using (var input = new MemoryStream())
             {
-                _converter.ConvertToStandardFormat("UnknownTool", input, output);
+                Action action = () => _converter.ConvertToStandardFormat("UnknownTool", input, output);
+
+                action.ShouldThrow<ArgumentException>();
             }
         }
 
         [TestMethod]
-        [ExpectedException(typeof(FileNotFoundException))]
         public void ToolFormatConverter_ConvertToStandardFormat_InputDoesNotExist()
         {
             string file = this.GetType().Assembly.Location;
             string doesNotExist = Guid.NewGuid().ToString();
-            _converter.ConvertToStandardFormat(ToolFormat.AndroidStudio, doesNotExist, file, ToolFormatConversionOptions.OverwriteExistingOutputFile);
+            Action action = () =>_converter.ConvertToStandardFormat(ToolFormat.AndroidStudio, doesNotExist, file, ToolFormatConversionOptions.OverwriteExistingOutputFile);
+
+            action.ShouldThrow<FileNotFoundException>();
         }
 
         [TestMethod]
-        [ExpectedException(typeof(InvalidOperationException))]
         public void ToolFormatConverter_ConvertToStandardFormat_OutputExistsAndOverwriteNotSpecified()
         {
             string exists = this.GetType().Assembly.Location;
-            _converter.ConvertToStandardFormat(ToolFormat.AndroidStudio, exists, exists);
+            Action action = () => _converter.ConvertToStandardFormat(ToolFormat.AndroidStudio, exists, exists);
+
+            action.ShouldThrow<InvalidOperationException>();
         }
 
         [TestMethod]
@@ -123,15 +133,12 @@ namespace Microsoft.CodeAnalysis.Sarif
                 string inputFilePath = tempDir.Write("input.txt", string.Empty);
                 string outputFilePath = tempDir.Combine("output.txt");
 
-                Action action = () =>
-                {
-                    _converter.ConvertToStandardFormat(
-                        ToolName,
-                        inputFilePath,
-                        outputFilePath,
-                        ToolFormatConversionOptions.None,
-                        PluginAssemblyPath);
-                };
+                Action action = () => _converter.ConvertToStandardFormat(
+                    ToolName,
+                    inputFilePath,
+                    outputFilePath,
+                    ToolFormatConversionOptions.None,
+                    PluginAssemblyPath);
 
                 action.ShouldThrow<ArgumentException>()
                     .Where(ex => ex.Message.Contains(PluginAssemblyPath));
@@ -149,15 +156,12 @@ namespace Microsoft.CodeAnalysis.Sarif
                 string inputFilePath = tempDir.Write("input.txt", string.Empty);
                 string outputFilePath = tempDir.Combine("output.txt");
 
-                Action action = () =>
-                {
-                    _converter.ConvertToStandardFormat(
-                        ToolName,
-                        inputFilePath,
-                        outputFilePath,
-                        ToolFormatConversionOptions.None,
-                        pluginAssemblyPath);
-                };
+                Action action = () => _converter.ConvertToStandardFormat(
+                    ToolName,
+                    inputFilePath,
+                    outputFilePath,
+                    ToolFormatConversionOptions.None,
+                    pluginAssemblyPath);
 
                 action.ShouldThrow<ArgumentException>()
                     .Where(ex =>
@@ -177,15 +181,12 @@ namespace Microsoft.CodeAnalysis.Sarif
                 string inputFilePath = tempDir.Write("input.txt", string.Empty);
                 string outputFilePath = tempDir.Combine("output.txt");
 
-                Action action = () =>
-                {
-                    _converter.ConvertToStandardFormat(
-                        ToolName,
-                        inputFilePath,
-                        outputFilePath,
-                        ToolFormatConversionOptions.None,
-                        pluginAssemblyPath);
-                };
+                Action action = () => _converter.ConvertToStandardFormat(
+                    ToolName,
+                    inputFilePath,
+                    outputFilePath,
+                    ToolFormatConversionOptions.None,
+                    pluginAssemblyPath);
 
                 action.ShouldThrow<ArgumentException>()
                     .Where(ex =>
@@ -216,12 +217,14 @@ namespace Microsoft.CodeAnalysis.Sarif
 
     namespace TestConverters
     {
+        [ExcludeFromCodeCoverage]
         public class TestToolConverter : ToolFileConverterBase
         {
             public override void Convert(Stream input, IResultLogWriter output)
             {
             }
         }
+        [ExcludeFromCodeCoverage]
         public class AmbiguousToolConverter : ToolFileConverterBase
         {
             public override void Convert(Stream input, IResultLogWriter output)
@@ -232,6 +235,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
     namespace MoreTestConverters
     {
+        [ExcludeFromCodeCoverage]
         public class AmbiguousToolConverter : ToolFileConverterBase
         {
             public override void Convert(Stream input, IResultLogWriter output)
