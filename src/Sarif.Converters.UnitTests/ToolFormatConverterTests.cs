@@ -195,6 +195,31 @@ namespace Microsoft.CodeAnalysis.Sarif
             }
         }
 
+        [TestMethod]
+        public void ToolFileConverter_FailsIfConverterTypeIsNonPublicInPluginAssembly()
+        {
+            using (var tempDir = new TempDirectory())
+            {
+                const string ToolName = "NonPublicTool";
+                string pluginAssemblyPath = GetCurrentAssemblyPath();
+
+                string inputFilePath = tempDir.Write("input.txt", string.Empty);
+                string outputFilePath = tempDir.Combine("output.txt");
+
+                Action action = () => _converter.ConvertToStandardFormat(
+                    ToolName,
+                    inputFilePath,
+                    outputFilePath,
+                    ToolFormatConversionOptions.None,
+                    pluginAssemblyPath);
+
+                action.ShouldThrow<ArgumentException>()
+                    .Where(ex =>
+                        ex.Message.Contains(pluginAssemblyPath)
+                        && ex.Message.Contains(ToolName));
+            }
+        }
+
         [TestMethod, Ignore]
         public void ToolFormatConverter_FindsConverterInPluginAssembly()
         {
@@ -226,6 +251,14 @@ namespace Microsoft.CodeAnalysis.Sarif
         }
         [ExcludeFromCodeCoverage]
         public class AmbiguousToolConverter : ToolFileConverterBase
+        {
+            public override void Convert(Stream input, IResultLogWriter output)
+            {
+            }
+        }
+
+        [ExcludeFromCodeCoverage]
+        internal class NonPublicToolConverter: ToolFileConverterBase
         {
             public override void Convert(Stream input, IResultLogWriter output)
             {
