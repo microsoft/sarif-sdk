@@ -250,6 +250,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The type &quot;{0}&quot; in plugin assembly &quot;{1}&quot; cannot be used to convert the &quot;{2}&quot; file format because it has no default constructor..
+        /// </summary>
+        internal static string ErrorConverterTypeHasNoDefaultConstructor {
+            get {
+                return ResourceManager.GetString("ErrorConverterTypeHasNoDefaultConstructor", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The type &quot;{0}&quot; in plugin assembly &quot;{1}&quot; cannot be used to convert the &quot;{2}&quot; file format because it does not descend from the class &quot;{3}&quot;..
         /// </summary>
         internal static string ErrorIncorrectConverterTypeDerivation {

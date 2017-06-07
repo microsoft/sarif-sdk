@@ -246,6 +246,31 @@ namespace Microsoft.CodeAnalysis.Sarif
         }
 
         [TestMethod]
+        public void ToolFileConverter_FailsIfConverterTypeDoesNotHaveDefaultConstructor()
+        {
+            using (var tempDir = new TempDirectory())
+            {
+                const string ToolName = "NoDefaultConstructorTool";
+                string pluginAssemblyPath = GetCurrentAssemblyPath();
+
+                string inputFilePath = tempDir.Write("input.txt", string.Empty);
+                string outputFilePath = tempDir.Combine("output.txt");
+
+                Action action = () => _converter.ConvertToStandardFormat(
+                    ToolName,
+                    inputFilePath,
+                    outputFilePath,
+                    ToolFormatConversionOptions.None,
+                    pluginAssemblyPath);
+
+                action.ShouldThrow<ArgumentException>()
+                    .Where(ex =>
+                        ex.Message.Contains(pluginAssemblyPath)
+                        && ex.Message.Contains(ToolName));
+            }
+        }
+
+        [TestMethod]
         public void ToolFormatConverter_FindsConverterInPluginAssembly()
         {
             using (var tempDir = new TempDirectory())
@@ -309,6 +334,21 @@ namespace Microsoft.CodeAnalysis.Sarif
         [ExcludeFromCodeCoverage]
         public class IncorrectlyDerivedToolConverter
         {
+        }
+
+        [ExcludeFromCodeCoverage]
+        public class NoDefaultConstructorToolConverter : ToolFileConverterBase
+        {
+            private readonly string name;
+
+            public NoDefaultConstructorToolConverter(string name)
+            {
+                this.name = name;
+            }
+
+            public override void Convert(Stream input, IResultLogWriter output)
+            {
+            }
         }
     }
 

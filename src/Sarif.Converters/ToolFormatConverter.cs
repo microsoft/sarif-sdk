@@ -38,8 +38,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             ToolFormatConversionOptions conversionOptions,
             string pluginAssemblyPath = null)
         {
-            if (inputFileName == null) { throw new ArgumentNullException(nameof(inputFileName)); };
-            if (outputFileName == null) { throw new ArgumentNullException(nameof(outputFileName)); };
+            if (inputFileName == null) { throw new ArgumentNullException(nameof(inputFileName)); }
+            if (outputFileName == null) { throw new ArgumentNullException(nameof(outputFileName)); }
 
             if (Directory.Exists(outputFileName))
             {
@@ -123,8 +123,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 throw new ArgumentException("Cannot convert PREfast XML from stream. Call ConvertPREfastToStandardFormat helper instead.");
             };
 
-            if (inputStream == null) { throw new ArgumentNullException(nameof(inputStream)); };
-            if (outputStream == null) { throw new ArgumentNullException(nameof(outputStream)); };
+            if (inputStream == null) { throw new ArgumentNullException(nameof(inputStream)); }
+            if (outputStream == null) { throw new ArgumentNullException(nameof(outputStream)); }
 
             ToolFileConverterBase converter = GetConverter(toolFormat, pluginAssemblyPath);
             if (converter != null)
@@ -225,15 +225,31 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 throw new ArgumentException(message, nameof(pluginAssemblyPath));
             }
 
-            object createdInstance = Activator.CreateInstance(pluginTypes[0]);
-            var converter = createdInstance as ToolFileConverterBase;
+            Type converterType = pluginTypes[0];
+            if (converterType.GetConstructor(
+                BindingFlags.DeclaredOnly | BindingFlags.Instance | BindingFlags.Public,
+                binder: null,
+                types: new Type[0],
+                modifiers: new ParameterModifier[0]) == null)
+            {
+                string message = string.Format(
+                    CultureInfo.CurrentCulture,
+                    ConverterResources.ErrorConverterTypeHasNoDefaultConstructor,
+                    converterType.FullName,
+                    pluginAssemblyPath,
+                    toolFormat);
+
+                throw new ArgumentException(message, nameof(pluginAssemblyPath));
+            }
+
+            var converter = Activator.CreateInstance(converterType) as ToolFileConverterBase;
 
             if (converter == null)
             {
                 string message = string.Format(
                     CultureInfo.CurrentCulture,
                     ConverterResources.ErrorIncorrectConverterTypeDerivation,
-                    createdInstance.GetType().FullName,
+                    converterType.FullName,
                     pluginAssemblyPath,
                     toolFormat,
                     typeof(ToolFileConverterBase).FullName);
