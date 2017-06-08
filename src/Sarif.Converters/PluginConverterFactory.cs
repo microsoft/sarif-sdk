@@ -12,7 +12,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
     // Factory class for creating a converter from a specified plug-in assembly.
     internal class PluginConverterFactory : ConverterFactory
     {
-        private readonly string pluginAssemblyPath;
+        // This field is internal, rather than private, for test purposes.
+        internal readonly string pluginAssemblyPath;
 
         internal PluginConverterFactory(string pluginAssemblyPath)
         {

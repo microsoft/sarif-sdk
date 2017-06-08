@@ -25,13 +25,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         /// <param name="outputFileName">The name of the file to which the resulting SARIF log shall be
         /// written. This cannot be a directory.</param>
         /// <param name="conversionOptions">Options for controlling the conversion.</param>
-        /// <param name="pluginAssemblyPath">Path to plugin assembly containing converter types.</param>
+        /// <param name="pluginAssemblyPaths">Array opf paths to plugin assemblies containing converter types.</param>
         public void ConvertToStandardFormat(
             string toolFormat,
             string inputFileName,
             string outputFileName,
             ToolFormatConversionOptions conversionOptions,
-            string pluginAssemblyPath = null)
+            string[] pluginAssemblyPaths = null)
         {
             if (inputFileName == null) { throw new ArgumentNullException(nameof(inputFileName)); }
             if (outputFileName == null) { throw new ArgumentNullException(nameof(outputFileName)); }
@@ -67,7 +67,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
                     using (var output = new ResultLogJsonWriter(outputJson))
                     {
-                        ConvertToStandardFormat(toolFormat, input, output, pluginAssemblyPath);
+                        ConvertToStandardFormat(toolFormat, input, output, pluginAssemblyPaths);
                     }
                 }
             }
@@ -96,7 +96,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 inputFileName,
                 outputFileName,
                 ToolFormatConversionOptions.None,
-                pluginAssemblyPath: null);
+                pluginAssemblyPaths: null);
         }
 
         /// <summary>Converts a tool log file represented as a stream into the SARIF format.</summary>
@@ -106,32 +106,23 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         /// <param name="toolFormat">The tool format of the input file.</param>
         /// <param name="inputStream">A stream that contains tool log contents.</param>
         /// <param name="outputStream">A stream to which the converted output should be written.</param>
-        /// <param name="pluginAssemblyPath">Path to plugin assembly containing converter types.</param>
+        /// <param name="pluginAssemblyPaths">Array of paths to plugin assemblies containing converter types.</param>
         public void ConvertToStandardFormat(
             string toolFormat,
             Stream inputStream,
             IResultLogWriter outputStream,
-            string pluginAssemblyPath = null)
+            string[] pluginAssemblyPaths = null)
         {
             if (toolFormat.MatchesToolFormat(ToolFormat.PREfast))
             {
                 throw new ArgumentException("Cannot convert PREfast XML from stream. Call ConvertPREfastToStandardFormat helper instead.");
-            };
+            }
 
             if (inputStream == null) { throw new ArgumentNullException(nameof(inputStream)); }
             if (outputStream == null) { throw new ArgumentNullException(nameof(outputStream)); }
 
-            // Set up a Chain of Responsibility that will get the converter from the
-            // first factory capable of creating it.
-            ConverterFactory factory = new BuiltInConverterFactory();
-            if (!string.IsNullOrWhiteSpace(pluginAssemblyPath))
-            {
-                factory = new PluginConverterFactory(pluginAssemblyPath)
-                {
-                    Next = factory,
-                };
-            }
-            
+            ConverterFactory factory = CreateConverterFactory(pluginAssemblyPaths);
+
             ToolFileConverterBase converter = factory.CreateConverter(toolFormat);
             if (converter != null)
             {
@@ -141,6 +132,29 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             {
                 throw new ArgumentException("Unrecognized tool specified: " + toolFormat, nameof(toolFormat));
             }
+        }
+
+        // Set up a Chain of Responsibility that will get the converter from the first
+        // factory capable of creating it.
+        // This method is internal, rather than private, for test purposes.
+        internal static ConverterFactory CreateConverterFactory(string[] pluginAssemblyPaths)
+        {
+            ConverterFactory factory = new BuiltInConverterFactory();
+            if (pluginAssemblyPaths != null)
+            {
+                for (int i = pluginAssemblyPaths.Length - 1; i >= 0; --i)
+                {
+                    if (!string.IsNullOrWhiteSpace(pluginAssemblyPaths[i]))
+                    {
+                        factory = new PluginConverterFactory(pluginAssemblyPaths[i])
+                        {
+                            Next = factory,
+                        };
+                    }
+                }
+            }
+
+            return factory;
         }
 
         /// <summary>Converts a legacy PREfast XML log file into the SARIF format.</summary>

@@ -54,7 +54,7 @@ namespace Microsoft.CodeAnalysis.Sarif.ConvertToSarif
                         convertOptions.InputFilePath,
                         convertOptions.OutputFilePath,
                         toolFormatConversionOptions,
-                        convertOptions.PluginAssemblyPath);
+                        convertOptions.PluginAssemblyPaths);
                 }
             }
             catch (Exception ex)

@@ -43,9 +43,10 @@ namespace Microsoft.CodeAnalysis.Sarif.ConvertToSarif
 
         [Option(
             'a',
-            "plugin-assembly-path",
+            "plugin-assembly-paths",
             Default = null,
-            HelpText = "Path to plugin assembly containing converter types.")]
-        public string PluginAssemblyPath { get; internal set; }
+            HelpText = "Comma-separated list of paths to plugin assemblies containing converter types.",
+            Separator = ',')]
+        public string[] PluginAssemblyPaths { get; internal set; }
     }
 }
