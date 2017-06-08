@@ -3,13 +3,8 @@
 
 namespace Microsoft.CodeAnalysis.Sarif.Converters
 {
-    internal class ConverterFactory
+    public abstract class ConverterFactory
     {
-        internal ToolFileConverterBase CreateConverter(string toolFormat, string pluginAssemblyPath)
-        {
-            return string.IsNullOrWhiteSpace(pluginAssemblyPath)
-                ? new BuiltInConverterFactory().CreateConverter(toolFormat)
-                : new PluginConverterFactory(pluginAssemblyPath).CreateConverter(toolFormat);
-        }
+        public abstract ToolFileConverterBase CreateConverter(string toolFormat);
     }
 }

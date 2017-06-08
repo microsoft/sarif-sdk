@@ -164,9 +164,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                     pluginAssemblyPath);
 
                 action.ShouldThrow<ArgumentException>()
-                    .Where(ex =>
-                        ex.Message.Contains(pluginAssemblyPath)
-                        && ex.Message.Contains(ToolName));
+                    .Where(ex => ex.Message.Contains(ToolName));
             }
         }
 
@@ -214,9 +212,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                     pluginAssemblyPath);
 
                 action.ShouldThrow<ArgumentException>()
-                    .Where(ex =>
-                        ex.Message.Contains(pluginAssemblyPath)
-                        && ex.Message.Contains(ToolName));
+                    .Where(ex => ex.Message.Contains(ToolName));
             }
         }
 
@@ -239,9 +235,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                     pluginAssemblyPath);
 
                 action.ShouldThrow<ArgumentException>()
-                    .Where(ex =>
-                        ex.Message.Contains(pluginAssemblyPath)
-                        && ex.Message.Contains(ToolName));
+                    .Where(ex => ex.Message.Contains(ToolName));
             }
         }
 
@@ -264,9 +258,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                     pluginAssemblyPath);
 
                 action.ShouldThrow<ArgumentException>()
-                    .Where(ex =>
-                        ex.Message.Contains(pluginAssemblyPath)
-                        && ex.Message.Contains(ToolName));
+                    .Where(ex => ex.Message.Contains(ToolName));
             }
         }
 
@@ -283,6 +275,31 @@ namespace Microsoft.CodeAnalysis.Sarif
 
                 Action action = () => _converter.ConvertToStandardFormat(
                     ToolName,
+                    inputFilePath,
+                    outputFilePath,
+                    ToolFormatConversionOptions.None,
+                    pluginAssemblyPath);
+
+                action.ShouldNotThrow();
+            }
+        }
+
+        [TestMethod]
+        public void ToolFormatConverter_FindsBuiltInConverterEvenIfPluginIsSpecified()
+        {
+            using (var tempDir = new TempDirectory())
+            {
+                string pluginAssemblyPath = GetCurrentAssemblyPath();
+
+                // A minimal valid AndroidStudio output file.
+                string inputFilePath = tempDir.Write(
+                    "input.txt",
+                    @"<?xml version=""1.0"" encoding=""UTF-8""?><problems></problems>");
+
+                string outputFilePath = tempDir.Combine("output.txt");
+
+                Action action = () => _converter.ConvertToStandardFormat(
+                    ToolFormat.AndroidStudio,
                     inputFilePath,
                     outputFilePath,
                     ToolFormatConversionOptions.None,

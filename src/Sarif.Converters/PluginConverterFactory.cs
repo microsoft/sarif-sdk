@@ -10,7 +10,7 @@ using System.Reflection;
 namespace Microsoft.CodeAnalysis.Sarif.Converters
 {
     // Factory class for creating a converter from a specified plug-in assembly.
-    internal class PluginConverterFactory : IConverterFactory
+    internal class PluginConverterFactory : ConverterFactory
     {
         private readonly string pluginAssemblyPath;
 
@@ -19,7 +19,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             this.pluginAssemblyPath = pluginAssemblyPath;
         }
 
-        public ToolFileConverterBase CreateConverter(string toolFormat)
+        public override ToolFileConverterBase CreateConverter(string toolFormat)
         {
             if (!File.Exists(this.pluginAssemblyPath))
             {
@@ -31,27 +31,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 throw new ArgumentException(message, nameof(this.pluginAssemblyPath));
             }
 
-            // Convention: The converter type name is derived from the tool name. It can
-            // reside in any namespace.
-            string converterTypeName = toolFormat + "Converter";
-
             Assembly pluginAssembly = Assembly.LoadFile(this.pluginAssemblyPath);
             Type[] pluginTypes = pluginAssembly
                 .GetTypes()
-                .Where(t => t.IsPublic && t.Name.Equals(converterTypeName, StringComparison.Ordinal))
+                .Where(t => IsConverterClassForToolFormat(t, toolFormat))
                 .ToArray();
-
-            if (pluginTypes.Length == 0)
-            {
-                string message = string.Format(
-                    CultureInfo.CurrentCulture,
-                    ConverterResources.ErrorMissingConverterType,
-                    this.pluginAssemblyPath,
-                    converterTypeName,
-                    toolFormat);
-
-                throw new ArgumentException(message, nameof(this.pluginAssemblyPath));
-            }
 
             // This can happen if types with the same name exist in more than one namespace.
             if (pluginTypes.Length > 1)
@@ -60,41 +44,31 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                     CultureInfo.CurrentCulture,
                     ConverterResources.ErrorAmbiguousConverterType,
                     this.pluginAssemblyPath,
-                    converterTypeName,
+                    ConverterTypeNameForToolFormat(toolFormat),
                     toolFormat);
 
                 throw new ArgumentException(message, nameof(this.pluginAssemblyPath));
             }
 
-            Type converterType = pluginTypes[0];
-            if (!converterType.HasDefaultConstructor())
-            {
-                string message = string.Format(
-                    CultureInfo.CurrentCulture,
-                    ConverterResources.ErrorConverterTypeHasNoDefaultConstructor,
-                    converterType.FullName,
-                    this.pluginAssemblyPath,
-                    toolFormat);
+            return pluginTypes.Length == 0
+                ? null
+                : (ToolFileConverterBase)Activator.CreateInstance(pluginTypes[0]);
+        }
 
-                throw new ArgumentException(message, nameof(pluginAssemblyPath));
-            }
+        private static string ConverterTypeNameForToolFormat(string toolFormat)
+        {
+            // Convention: The converter type name is derived from the tool name. It can
+            // reside in any namespace.
+            return toolFormat + "Converter";
+        }
 
-            var converter = Activator.CreateInstance(converterType) as ToolFileConverterBase;
-
-            if (converter == null)
-            {
-                string message = string.Format(
-                    CultureInfo.CurrentCulture,
-                    ConverterResources.ErrorIncorrectConverterTypeDerivation,
-                    converterType.FullName,
-                    this.pluginAssemblyPath,
-                    toolFormat,
-                    typeof(ToolFileConverterBase).FullName);
-
-                throw new ArgumentException(message, nameof(this.pluginAssemblyPath));
-            }
-
-            return converter;
+        private static bool IsConverterClassForToolFormat(Type type, string toolFormat)
+        {
+            return type.IsPublic
+                && type.Name.Equals(ConverterTypeNameForToolFormat(toolFormat), StringComparison.Ordinal)
+                && type.IsSubclassOf(typeof(ToolFileConverterBase))
+                && type.HasDefaultConstructor()
+                && !type.IsAbstract;
         }
     }
 }

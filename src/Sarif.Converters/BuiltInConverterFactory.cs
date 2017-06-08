@@ -8,11 +8,11 @@ using System.Threading;
 namespace Microsoft.CodeAnalysis.Sarif.Converters
 {
     // Factory class for creating one of the built-in converters.
-    internal class BuiltInConverterFactory : IConverterFactory
+    internal class BuiltInConverterFactory : ConverterFactory
     {
         private static readonly IDictionary<string, Lazy<ToolFileConverterBase>> BuiltInConverters = CreateBuiltInConverters();
 
-        public ToolFileConverterBase CreateConverter(string toolFormat)
+        public override ToolFileConverterBase CreateConverter(string toolFormat)
         {
             Lazy<ToolFileConverterBase> converter;
             return BuiltInConverters.TryGetValue(toolFormat, out converter)
