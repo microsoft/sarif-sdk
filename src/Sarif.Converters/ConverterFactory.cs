@@ -11,11 +11,11 @@ using System.Threading;
 
 namespace Microsoft.CodeAnalysis.Sarif.Converters
 {
-    internal static class ConverterFactory
+    internal class ConverterFactory
     {
         private static readonly IDictionary<string, Lazy<ToolFileConverterBase>> BuiltInConverters = CreateBuiltInConverters();
 
-        internal static ToolFileConverterBase CreateConverter(string toolFormat, string pluginAssemblyPath)
+        internal ToolFileConverterBase CreateConverter(string toolFormat, string pluginAssemblyPath)
         {
             return string.IsNullOrWhiteSpace(pluginAssemblyPath)
                 ? CreateBuiltInConverter(toolFormat)
