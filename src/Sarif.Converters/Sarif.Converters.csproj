@@ -61,6 +61,7 @@
     <Compile Include="FxCopConverter.cs" />
     <Compile Include="IConverterFactory.cs" />
     <Compile Include="IgnoreOptions.cs" />
+    <Compile Include="PluginConverterFactory.cs" />
     <Compile Include="Ref.cs" />
     <Compile Include="ConverterResources.Designer.cs">
       <DependentUpon>ConverterResources.resx</DependentUpon>
