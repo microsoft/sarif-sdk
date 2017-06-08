@@ -121,7 +121,18 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             if (inputStream == null) { throw new ArgumentNullException(nameof(inputStream)); }
             if (outputStream == null) { throw new ArgumentNullException(nameof(outputStream)); }
 
-            ToolFileConverterBase converter = new ChainedConverterFactory(pluginAssemblyPath).CreateConverter(toolFormat);
+            // Set up a Chain of Responsibility that will get the converter from the
+            // first factory capable of creating it.
+            ConverterFactory factory = new BuiltInConverterFactory();
+            if (!string.IsNullOrWhiteSpace(pluginAssemblyPath))
+            {
+                factory = new PluginConverterFactory(pluginAssemblyPath)
+                {
+                    Next = factory,
+                };
+            }
+            
+            ToolFileConverterBase converter = factory.CreateConverter(toolFormat);
             if (converter != null)
             {
                 converter.Convert(inputStream, outputStream);

@@ -45,7 +45,6 @@
     <Compile Include="AndroidStudioStrings.cs" />
     <Compile Include="BuiltInConverterFactory.cs" />
     <Compile Include="ClangAnalyzerConverter.cs" />
-    <Compile Include="ChainedConverterFactory.cs" />
     <Compile Include="CppCheckConverter.cs" />
     <Compile Include="CppCheckError.cs" />
     <Compile Include="CppCheckLocation.cs" />

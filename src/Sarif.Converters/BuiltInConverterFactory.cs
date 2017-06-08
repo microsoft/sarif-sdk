@@ -12,7 +12,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
     {
         private static readonly IDictionary<string, Lazy<ToolFileConverterBase>> BuiltInConverters = CreateBuiltInConverters();
 
-        public override ToolFileConverterBase CreateConverter(string toolFormat)
+        public override ToolFileConverterBase CreateConverterCore(string toolFormat)
         {
             Lazy<ToolFileConverterBase> converter;
             return BuiltInConverters.TryGetValue(toolFormat, out converter)

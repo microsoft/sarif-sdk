@@ -19,7 +19,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             this.pluginAssemblyPath = pluginAssemblyPath;
         }
 
-        public override ToolFileConverterBase CreateConverter(string toolFormat)
+        public override ToolFileConverterBase CreateConverterCore(string toolFormat)
         {
             if (!File.Exists(this.pluginAssemblyPath))
             {

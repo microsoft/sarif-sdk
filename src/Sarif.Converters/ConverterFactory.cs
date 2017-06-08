@@ -5,6 +5,28 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 {
     public abstract class ConverterFactory
     {
-        public abstract ToolFileConverterBase CreateConverter(string toolFormat);
+        // Create the converter for the specified toolFormat, if possible;
+        // otherwise, delegate to the next converter in the Chain of Responsibility,
+        // if any.
+        public ToolFileConverterBase CreateConverter(string toolFormat)
+        {
+            ToolFileConverterBase converter = this.CreateConverterCore(toolFormat);
+            if (converter != null)
+            {
+                return converter;
+            }
+
+            if (this.Next != null)
+            {
+                return this.Next.CreateConverter(toolFormat);
+            }
+
+            return null;
+        }
+
+        // The next converter in the Chain of Responsibility.
+        public ConverterFactory Next { get; set; }
+
+        public abstract ToolFileConverterBase CreateConverterCore(string toolFormat);
     }
 }
