@@ -146,7 +146,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         }
 
         [TestMethod]
-        public void ToolFileConverter_FailsIfConverterTypeIsNotPresentInPluginAssembly()
+        public void ToolFormatConverter_FailsIfConverterTypeIsNotPresentInPluginAssembly()
         {
             using (var tempDir = new TempDirectory())
             {
@@ -169,7 +169,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         }
 
         [TestMethod]
-        public void ToolFileConverter_FailsIfConverterTypeIsAmbiguousInPluginAssembly()
+        public void ToolFormatConverter_FailsIfConverterTypeIsAmbiguousInPluginAssembly()
         {
             using (var tempDir = new TempDirectory())
             {
@@ -194,7 +194,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         }
 
         [TestMethod]
-        public void ToolFileConverter_FailsIfConverterTypeIsNonPublic()
+        public void ToolFormatConverter_FailsIfConverterTypeIsNonPublic()
         {
             using (var tempDir = new TempDirectory())
             {
@@ -217,7 +217,30 @@ namespace Microsoft.CodeAnalysis.Sarif
         }
 
         [TestMethod]
-        public void ToolFileConverter_FailsIfConverterTypeDoesNotHaveCorrectBaseClass()
+        public void ToolFormatConverter_FailsIfConverterTypeIsAbstract()
+        {
+            using (var tempDir = new TempDirectory())
+            {
+                const string ToolName = "AbstractTool";
+                string pluginAssemblyPath = GetCurrentAssemblyPath();
+
+                string inputFilePath = tempDir.Write("input.txt", string.Empty);
+                string outputFilePath = tempDir.Combine("output.txt");
+
+                Action action = () => _converter.ConvertToStandardFormat(
+                    ToolName,
+                    inputFilePath,
+                    outputFilePath,
+                    ToolFormatConversionOptions.None,
+                    pluginAssemblyPath);
+
+                action.ShouldThrow<ArgumentException>()
+                    .Where(ex => ex.Message.Contains(ToolName));
+            }
+        }
+
+        [TestMethod]
+        public void ToolFormatConverter_FailsIfConverterTypeDoesNotHaveCorrectBaseClass()
         {
             using (var tempDir = new TempDirectory())
             {
@@ -240,7 +263,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         }
 
         [TestMethod]
-        public void ToolFileConverter_FailsIfConverterTypeDoesNotHaveDefaultConstructor()
+        public void ToolFormatConverter_FailsIfConverterTypeDoesNotHaveDefaultConstructor()
         {
             using (var tempDir = new TempDirectory())
             {
@@ -341,7 +364,15 @@ namespace Microsoft.CodeAnalysis.Sarif
         }
 
         [ExcludeFromCodeCoverage]
-        internal class NonPublicToolConverter: ToolFileConverterBase
+        internal class NonPublicToolConverter : ToolFileConverterBase
+        {
+            public override void Convert(Stream input, IResultLogWriter output)
+            {
+            }
+        }
+
+        [ExcludeFromCodeCoverage]
+        public abstract class AbstractToolConverter : ToolFileConverterBase
         {
             public override void Convert(Stream input, IResultLogWriter output)
             {
