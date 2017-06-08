@@ -43,6 +43,7 @@
     <Compile Include="AndroidStudioConverter.cs" />
     <Compile Include="AndroidStudioProblem.cs" />
     <Compile Include="AndroidStudioStrings.cs" />
+    <Compile Include="BuiltInConverterFactory.cs" />
     <Compile Include="ClangAnalyzerConverter.cs" />
     <Compile Include="ConverterFactory.cs" />
     <Compile Include="CppCheckConverter.cs" />
@@ -58,6 +59,7 @@
     <Compile Include="FortifyPathElement.cs" />
     <Compile Include="FortifyStrings.cs" />
     <Compile Include="FxCopConverter.cs" />
+    <Compile Include="IConverterFactory.cs" />
     <Compile Include="IgnoreOptions.cs" />
     <Compile Include="Ref.cs" />
     <Compile Include="ConverterResources.Designer.cs">
