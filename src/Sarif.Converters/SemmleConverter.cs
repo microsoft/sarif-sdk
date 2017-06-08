@@ -114,6 +114,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             Region region = MakeRegion(fields);
             var result = new Result
             {
+                RuleId = fields[(int)FieldIndex.QueryName],
                 Message = normalizedMessage,
                 Locations = new Location[]
                 {
