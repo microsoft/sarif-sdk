@@ -241,6 +241,51 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The converter plugin assembly &quot;{0}&quot; contains more than one public class &quot;{1}&quot;..
+        /// </summary>
+        internal static string ErrorAmbiguousConverterType {
+            get {
+                return ResourceManager.GetString("ErrorAmbiguousConverterType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The type &quot;{0}&quot; in plugin assembly &quot;{1}&quot; cannot be used to convert the &quot;{2}&quot; file format because it has no default constructor..
+        /// </summary>
+        internal static string ErrorConverterTypeHasNoDefaultConstructor {
+            get {
+                return ResourceManager.GetString("ErrorConverterTypeHasNoDefaultConstructor", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The type &quot;{0}&quot; in plugin assembly &quot;{1}&quot; cannot be used to convert the &quot;{2}&quot; file format because it does not descend from the class &quot;{3}&quot;..
+        /// </summary>
+        internal static string ErrorIncorrectConverterTypeDerivation {
+            get {
+                return ResourceManager.GetString("ErrorIncorrectConverterTypeDerivation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The converter plugin assembly &quot;{0}&quot; does not contain a public class &quot;{1}&quot;..
+        /// </summary>
+        internal static string ErrorMissingConverterType {
+            get {
+                return ResourceManager.GetString("ErrorMissingConverterType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The converter plugin assembly &quot;{0}&quot; does not exist..
+        /// </summary>
+        internal static string ErrorMissingPluginAssembly {
+            get {
+                return ResourceManager.GetString("ErrorMissingPluginAssembly", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Expected to find an element named {0}..
         /// </summary>
         internal static string ExpectedElementNamed {

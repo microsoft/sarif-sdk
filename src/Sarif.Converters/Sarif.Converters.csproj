@@ -44,6 +44,7 @@
     <Compile Include="AndroidStudioProblem.cs" />
     <Compile Include="AndroidStudioStrings.cs" />
     <Compile Include="ClangAnalyzerConverter.cs" />
+    <Compile Include="ConverterFactory.cs" />
     <Compile Include="CppCheckConverter.cs" />
     <Compile Include="CppCheckError.cs" />
     <Compile Include="CppCheckLocation.cs" />

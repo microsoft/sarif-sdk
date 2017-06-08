@@ -53,7 +53,8 @@ namespace Microsoft.CodeAnalysis.Sarif.ConvertToSarif
                         convertOptions.ToolFormat,
                         convertOptions.InputFilePath,
                         convertOptions.OutputFilePath,
-                        toolFormatConversionOptions);
+                        toolFormatConversionOptions,
+                        convertOptions.PluginAssemblyPath);
                 }
             }
             catch (Exception ex)

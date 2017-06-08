@@ -1,9 +1,7 @@
 ﻿// Copyright (c) Microsoft. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-
 using CommandLine;
-using Microsoft.CodeAnalysis.Sarif.Converters;
 
 namespace Microsoft.CodeAnalysis.Sarif.ConvertToSarif
 {
@@ -19,7 +17,7 @@ namespace Microsoft.CodeAnalysis.Sarif.ConvertToSarif
         [Option(
             't',
             "tool",
-            HelpText = "The tool format of the input file. Must be one of: AndroidStudio, ClangAnalyzer, CppCheck, Fortify, FortifyFpr, FxCop, PREfast, SemmleQL, or StaticDriverVerifier.",
+            HelpText = "The tool format of the input file. Must be one of: AndroidStudio, ClangAnalyzer, CppCheck, Fortify, FortifyFpr, FxCop, PREfast, SemmleQL, StaticDriverVerifier, or a tool format for which a plugin assembly provides the converter.",
             Required = true)]
         public string ToolFormat { get; internal set; }
 
@@ -41,6 +39,13 @@ namespace Microsoft.CodeAnalysis.Sarif.ConvertToSarif
             "force",
             Default = false,
             HelpText = "Force overwrite of output file if it exists.")]
-        public bool Force { get; internal set; }      
+        public bool Force { get; internal set; }
+
+        [Option(
+            'a',
+            "plugin-assembly-path",
+            Default = null,
+            HelpText = "Path to plugin assembly containing converter types.")]
+        public string PluginAssemblyPath { get; internal set; }
     }
 }
