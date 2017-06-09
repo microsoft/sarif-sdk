@@ -14,7 +14,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
     /// <summary>
     /// Converts a log file from the Semmle format to the SARIF format.
     /// </summary>
-    internal class SemmleQlConverter : ToolFileConverterBase
+    internal class SemmleQLConverter : ToolFileConverterBase
     {
         // Semmle logs are CSV files.
         private static readonly string[] s_delimiters = new[] { "," };

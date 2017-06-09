@@ -30,7 +30,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             CreateConverterRecord<FortifyConverter>(result, ToolFormat.Fortify);
             CreateConverterRecord<FortifyFprConverter>(result, ToolFormat.FortifyFpr);
             CreateConverterRecord<FxCopConverter>(result, ToolFormat.FxCop);
-            CreateConverterRecord<SemmleQlConverter>(result, ToolFormat.SemmleQl);
+            CreateConverterRecord<SemmleQLConverter>(result, ToolFormat.SemmleQL);
             CreateConverterRecord<StaticDriverVerifierConverter>(result, ToolFormat.StaticDriverVerifier);
             return result;
         }

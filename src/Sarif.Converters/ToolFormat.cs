@@ -31,7 +31,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         public const string PREfast = nameof(PREfast);
 
         /// <summary>Semmle's file format.</summary>
-        public const string SemmleQl = nameof(SemmleQl);
+        public const string SemmleQL = nameof(SemmleQL);
 
         /// <summary>Static Driver Verifier's file format.</summary>
         public const string StaticDriverVerifier = nameof(StaticDriverVerifier);
