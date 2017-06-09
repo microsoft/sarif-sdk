@@ -32,7 +32,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         [TestMethod]
         public void BuiltInConverterFactory_HasMatchingConverterTypeNamesForAllRegisteredToolFormats()
         {
-            foreach (string toolFormat in Utilities.GetToolFormats().Except(new[] { ToolFormat.None }))
+            foreach (string toolFormat in Utilities.GetToolFormats())
             {
                 Lazy<ToolFileConverterBase> lazyConverter;
 

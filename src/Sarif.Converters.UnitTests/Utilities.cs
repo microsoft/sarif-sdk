@@ -102,9 +102,9 @@ namespace Microsoft.CodeAnalysis.Sarif
         public static List<FieldInfo> GetToolFormatFields()
         {
             return typeof(ToolFormat)
-                            .GetMembers(BindingFlags.Public | BindingFlags.Static)
-                            .OfType<FieldInfo>()
-                            .ToList();
+                .GetMembers(BindingFlags.Public | BindingFlags.Static)
+                .OfType<FieldInfo>()
+                .ToList();
         }
 
         public static List<string> GetToolFormats()
