@@ -146,7 +146,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         }
 
         [TestMethod]
-        public void ToolFileConverter_FailsIfConverterTypeIsNotPresentInPluginAssembly()
+        public void ToolFormatConverter_FailsIfConverterTypeIsNotPresentInPluginAssembly()
         {
             using (var tempDir = new TempDirectory())
             {
@@ -164,14 +164,12 @@ namespace Microsoft.CodeAnalysis.Sarif
                     pluginAssemblyPath);
 
                 action.ShouldThrow<ArgumentException>()
-                    .Where(ex =>
-                        ex.Message.Contains(pluginAssemblyPath)
-                        && ex.Message.Contains(ToolName));
+                    .Where(ex => ex.Message.Contains(ToolName));
             }
         }
 
         [TestMethod]
-        public void ToolFileConverter_FailsIfConverterTypeIsAmbiguousInPluginAssembly()
+        public void ToolFormatConverter_FailsIfConverterTypeIsAmbiguousInPluginAssembly()
         {
             using (var tempDir = new TempDirectory())
             {
@@ -196,7 +194,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         }
 
         [TestMethod]
-        public void ToolFileConverter_FailsIfConverterTypeIsNonPublic()
+        public void ToolFormatConverter_FailsIfConverterTypeIsNonPublic()
         {
             using (var tempDir = new TempDirectory())
             {
@@ -214,14 +212,35 @@ namespace Microsoft.CodeAnalysis.Sarif
                     pluginAssemblyPath);
 
                 action.ShouldThrow<ArgumentException>()
-                    .Where(ex =>
-                        ex.Message.Contains(pluginAssemblyPath)
-                        && ex.Message.Contains(ToolName));
+                    .Where(ex => ex.Message.Contains(ToolName));
             }
         }
 
         [TestMethod]
-        public void ToolFileConverter_FailsIfConverterTypeDoesNotHaveCorrectBaseClass()
+        public void ToolFormatConverter_FailsIfConverterTypeIsAbstract()
+        {
+            using (var tempDir = new TempDirectory())
+            {
+                const string ToolName = "AbstractTool";
+                string pluginAssemblyPath = GetCurrentAssemblyPath();
+
+                string inputFilePath = tempDir.Write("input.txt", string.Empty);
+                string outputFilePath = tempDir.Combine("output.txt");
+
+                Action action = () => _converter.ConvertToStandardFormat(
+                    ToolName,
+                    inputFilePath,
+                    outputFilePath,
+                    ToolFormatConversionOptions.None,
+                    pluginAssemblyPath);
+
+                action.ShouldThrow<ArgumentException>()
+                    .Where(ex => ex.Message.Contains(ToolName));
+            }
+        }
+
+        [TestMethod]
+        public void ToolFormatConverter_FailsIfConverterTypeDoesNotHaveCorrectBaseClass()
         {
             using (var tempDir = new TempDirectory())
             {
@@ -239,14 +258,12 @@ namespace Microsoft.CodeAnalysis.Sarif
                     pluginAssemblyPath);
 
                 action.ShouldThrow<ArgumentException>()
-                    .Where(ex =>
-                        ex.Message.Contains(pluginAssemblyPath)
-                        && ex.Message.Contains(ToolName));
+                    .Where(ex => ex.Message.Contains(ToolName));
             }
         }
 
         [TestMethod]
-        public void ToolFileConverter_FailsIfConverterTypeDoesNotHaveDefaultConstructor()
+        public void ToolFormatConverter_FailsIfConverterTypeDoesNotHaveDefaultConstructor()
         {
             using (var tempDir = new TempDirectory())
             {
@@ -264,9 +281,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                     pluginAssemblyPath);
 
                 action.ShouldThrow<ArgumentException>()
-                    .Where(ex =>
-                        ex.Message.Contains(pluginAssemblyPath)
-                        && ex.Message.Contains(ToolName));
+                    .Where(ex => ex.Message.Contains(ToolName));
             }
         }
 
@@ -290,6 +305,49 @@ namespace Microsoft.CodeAnalysis.Sarif
 
                 action.ShouldNotThrow();
             }
+        }
+
+        [TestMethod]
+        public void ToolFormatConverter_FindsBuiltInConverterEvenIfPluginIsSpecified()
+        {
+            using (var tempDir = new TempDirectory())
+            {
+                string pluginAssemblyPath = GetCurrentAssemblyPath();
+
+                // A minimal valid AndroidStudio output file.
+                string inputFilePath = tempDir.Write(
+                    "input.txt",
+                    @"<?xml version=""1.0"" encoding=""UTF-8""?><problems></problems>");
+
+                string outputFilePath = tempDir.Combine("output.txt");
+
+                Action action = () => _converter.ConvertToStandardFormat(
+                    ToolFormat.AndroidStudio,
+                    inputFilePath,
+                    outputFilePath,
+                    ToolFormatConversionOptions.None,
+                    pluginAssemblyPath);
+
+                action.ShouldNotThrow();
+            }
+        }
+
+        [TestMethod]
+        public void ToolFormatConverter_BuildsChainOfResponsibility()
+        {
+            const string PluginAssemblyPath = "Plugin.dll";
+
+            ConverterFactory factory = ToolFormatConverter.CreateConverterFactory(PluginAssemblyPath);
+
+            Assert.IsInstanceOfType(factory, typeof(PluginConverterFactory));
+            var pluginFactory = factory as PluginConverterFactory;
+            Assert.AreEqual(PluginAssemblyPath, pluginFactory.pluginAssemblyPath);
+
+            factory = factory.Next;
+            Assert.IsInstanceOfType(factory, typeof(BuiltInConverterFactory));
+
+            factory = factory.Next;
+            Assert.IsNull(factory);
         }
 
         private static string GetCurrentAssemblyPath()
@@ -324,7 +382,15 @@ namespace Microsoft.CodeAnalysis.Sarif
         }
 
         [ExcludeFromCodeCoverage]
-        internal class NonPublicToolConverter: ToolFileConverterBase
+        internal class NonPublicToolConverter : ToolFileConverterBase
+        {
+            public override void Convert(Stream input, IResultLogWriter output)
+            {
+            }
+        }
+
+        [ExcludeFromCodeCoverage]
+        public abstract class AbstractToolConverter : ToolFileConverterBase
         {
             public override void Convert(Stream input, IResultLogWriter output)
             {

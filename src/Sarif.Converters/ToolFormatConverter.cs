@@ -116,12 +116,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             if (toolFormat.MatchesToolFormat(ToolFormat.PREfast))
             {
                 throw new ArgumentException("Cannot convert PREfast XML from stream. Call ConvertPREfastToStandardFormat helper instead.");
-            };
+            }
 
             if (inputStream == null) { throw new ArgumentNullException(nameof(inputStream)); }
             if (outputStream == null) { throw new ArgumentNullException(nameof(outputStream)); }
 
-            ToolFileConverterBase converter = ConverterFactory.CreateConverter(toolFormat, pluginAssemblyPath);
+            ConverterFactory factory = CreateConverterFactory(pluginAssemblyPath);
+
+            ToolFileConverterBase converter = factory.CreateConverter(toolFormat);
             if (converter != null)
             {
                 converter.Convert(inputStream, outputStream);
@@ -130,6 +132,23 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             {
                 throw new ArgumentException("Unrecognized tool specified: " + toolFormat, nameof(toolFormat));
             }
+        }
+
+        // Set up a Chain of Responsibility that will get the converter from the first
+        // factory capable of creating it.
+        // This method is internal, rather than private, for test purposes.
+        internal static ConverterFactory CreateConverterFactory(string pluginAssemblyPath)
+        {
+            ConverterFactory factory = new BuiltInConverterFactory();
+            if (!string.IsNullOrWhiteSpace(pluginAssemblyPath))
+            {
+                factory = new PluginConverterFactory(pluginAssemblyPath)
+                {
+                    Next = factory,
+                };
+            }
+
+            return factory;
         }
 
         /// <summary>Converts a legacy PREfast XML log file into the SARIF format.</summary>
