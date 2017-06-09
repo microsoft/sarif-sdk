@@ -128,7 +128,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             using (var tempDir = new TempDirectory())
             {
                 const string ToolName = "TestTool";
-                var pluginAssemblyPaths = new string[] { "NoSuchAssembly.dll" };
+                const string PluginAssemblyPath = "NoSuchAssembly.dll";
 
                 string inputFilePath = tempDir.Write("input.txt", string.Empty);
                 string outputFilePath = tempDir.Combine("output.txt");
@@ -138,10 +138,10 @@ namespace Microsoft.CodeAnalysis.Sarif
                     inputFilePath,
                     outputFilePath,
                     ToolFormatConversionOptions.None,
-                    pluginAssemblyPaths);
+                    PluginAssemblyPath);
 
                 action.ShouldThrow<ArgumentException>()
-                    .Where(ex => ex.Message.Contains(pluginAssemblyPaths[0]));
+                    .Where(ex => ex.Message.Contains(PluginAssemblyPath));
             }
         }
 
@@ -151,7 +151,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             using (var tempDir = new TempDirectory())
             {
                 const string ToolName = "NoSuchTool";
-                var pluginAssemblyPaths = new string[] { GetCurrentAssemblyPath() };
+                string pluginAssemblyPath = GetCurrentAssemblyPath();
 
                 string inputFilePath = tempDir.Write("input.txt", string.Empty);
                 string outputFilePath = tempDir.Combine("output.txt");
@@ -161,7 +161,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                     inputFilePath,
                     outputFilePath,
                     ToolFormatConversionOptions.None,
-                    pluginAssemblyPaths);
+                    pluginAssemblyPath);
 
                 action.ShouldThrow<ArgumentException>()
                     .Where(ex => ex.Message.Contains(ToolName));
@@ -174,7 +174,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             using (var tempDir = new TempDirectory())
             {
                 const string ToolName = "AmbiguousTool";
-                var pluginAssemblyPaths = new string[] { GetCurrentAssemblyPath() };
+                string pluginAssemblyPath = GetCurrentAssemblyPath();
 
                 string inputFilePath = tempDir.Write("input.txt", string.Empty);
                 string outputFilePath = tempDir.Combine("output.txt");
@@ -184,11 +184,11 @@ namespace Microsoft.CodeAnalysis.Sarif
                     inputFilePath,
                     outputFilePath,
                     ToolFormatConversionOptions.None,
-                    pluginAssemblyPaths);
+                    pluginAssemblyPath);
 
                 action.ShouldThrow<ArgumentException>()
                     .Where(ex =>
-                        ex.Message.Contains(pluginAssemblyPaths[0])
+                        ex.Message.Contains(pluginAssemblyPath)
                         && ex.Message.Contains(ToolName));
             }
         }
@@ -199,7 +199,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             using (var tempDir = new TempDirectory())
             {
                 const string ToolName = "NonPublicTool";
-                var pluginAssemblyPaths = new string[] { GetCurrentAssemblyPath() };
+                string pluginAssemblyPath = GetCurrentAssemblyPath();
 
                 string inputFilePath = tempDir.Write("input.txt", string.Empty);
                 string outputFilePath = tempDir.Combine("output.txt");
@@ -209,7 +209,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                     inputFilePath,
                     outputFilePath,
                     ToolFormatConversionOptions.None,
-                    pluginAssemblyPaths);
+                    pluginAssemblyPath);
 
                 action.ShouldThrow<ArgumentException>()
                     .Where(ex => ex.Message.Contains(ToolName));
@@ -222,7 +222,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             using (var tempDir = new TempDirectory())
             {
                 const string ToolName = "AbstractTool";
-                var pluginAssemblyPaths = new[] { GetCurrentAssemblyPath() };
+                string pluginAssemblyPath = GetCurrentAssemblyPath();
 
                 string inputFilePath = tempDir.Write("input.txt", string.Empty);
                 string outputFilePath = tempDir.Combine("output.txt");
@@ -232,7 +232,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                     inputFilePath,
                     outputFilePath,
                     ToolFormatConversionOptions.None,
-                    pluginAssemblyPaths);
+                    pluginAssemblyPath);
 
                 action.ShouldThrow<ArgumentException>()
                     .Where(ex => ex.Message.Contains(ToolName));
@@ -245,7 +245,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             using (var tempDir = new TempDirectory())
             {
                 const string ToolName = "IncorrectlyDerivedTool";
-                var pluginAssemblyPaths = new string[] { GetCurrentAssemblyPath() };
+                string pluginAssemblyPath = GetCurrentAssemblyPath();
 
                 string inputFilePath = tempDir.Write("input.txt", string.Empty);
                 string outputFilePath = tempDir.Combine("output.txt");
@@ -255,7 +255,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                     inputFilePath,
                     outputFilePath,
                     ToolFormatConversionOptions.None,
-                    pluginAssemblyPaths);
+                    pluginAssemblyPath);
 
                 action.ShouldThrow<ArgumentException>()
                     .Where(ex => ex.Message.Contains(ToolName));
@@ -268,7 +268,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             using (var tempDir = new TempDirectory())
             {
                 const string ToolName = "NoDefaultConstructorTool";
-                var pluginAssemblyPaths = new string[] { GetCurrentAssemblyPath() };
+                string pluginAssemblyPath = GetCurrentAssemblyPath();
 
                 string inputFilePath = tempDir.Write("input.txt", string.Empty);
                 string outputFilePath = tempDir.Combine("output.txt");
@@ -278,7 +278,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                     inputFilePath,
                     outputFilePath,
                     ToolFormatConversionOptions.None,
-                    pluginAssemblyPaths);
+                    pluginAssemblyPath);
 
                 action.ShouldThrow<ArgumentException>()
                     .Where(ex => ex.Message.Contains(ToolName));
@@ -291,7 +291,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             using (var tempDir = new TempDirectory())
             {
                 const string ToolName = "TestTool";
-                var pluginAssemblyPaths = new string[] { GetCurrentAssemblyPath() };
+                string pluginAssemblyPath = GetCurrentAssemblyPath();
 
                 string inputFilePath = tempDir.Write("input.txt", string.Empty);
                 string outputFilePath = tempDir.Combine("output.txt");
@@ -301,7 +301,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                     inputFilePath,
                     outputFilePath,
                     ToolFormatConversionOptions.None,
-                    pluginAssemblyPaths);
+                    pluginAssemblyPath);
 
                 action.ShouldNotThrow();
             }
@@ -312,7 +312,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             using (var tempDir = new TempDirectory())
             {
-                var pluginAssemblyPaths = new string[] { GetCurrentAssemblyPath() };
+                string pluginAssemblyPath = GetCurrentAssemblyPath();
 
                 // A minimal valid AndroidStudio output file.
                 string inputFilePath = tempDir.Write(
@@ -326,32 +326,22 @@ namespace Microsoft.CodeAnalysis.Sarif
                     inputFilePath,
                     outputFilePath,
                     ToolFormatConversionOptions.None,
-                    pluginAssemblyPaths);
+                    pluginAssemblyPath);
 
                 action.ShouldNotThrow();
             }
         }
 
         [TestMethod]
-        public void ToolFormatConverter_BuildsChainOfResponsibilityForMultiplePlugins()
+        public void ToolFormatConverter_BuildsChainOfResponsibility()
         {
-            var pluginAssemblyPaths = new[] { "One", "Two", "Three" };
+            const string PluginAssemblyPath = "Plugin.dll";
 
-            ConverterFactory factory = ToolFormatConverter.CreateConverterFactory(pluginAssemblyPaths);
+            ConverterFactory factory = ToolFormatConverter.CreateConverterFactory(PluginAssemblyPath);
 
             Assert.IsInstanceOfType(factory, typeof(PluginConverterFactory));
             var pluginFactory = factory as PluginConverterFactory;
-            Assert.AreEqual("One", pluginFactory.pluginAssemblyPath);
-
-            factory = factory.Next;
-            Assert.IsInstanceOfType(factory, typeof(PluginConverterFactory));
-            pluginFactory = factory as PluginConverterFactory;
-            Assert.AreEqual("Two", pluginFactory.pluginAssemblyPath);
-
-            factory = factory.Next;
-            Assert.IsInstanceOfType(factory, typeof(PluginConverterFactory));
-            pluginFactory = factory as PluginConverterFactory;
-            Assert.AreEqual("Three", pluginFactory.pluginAssemblyPath);
+            Assert.AreEqual(PluginAssemblyPath, pluginFactory.pluginAssemblyPath);
 
             factory = factory.Next;
             Assert.IsInstanceOfType(factory, typeof(BuiltInConverterFactory));

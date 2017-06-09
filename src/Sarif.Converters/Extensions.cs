@@ -26,6 +26,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                             modifiers: new ParameterModifier[0]) != null;
         }
 
+        // Enforce the convention that the converter type name is derived from the tool name.
+        // It can reside in any namespace.
+        public static string ConverterTypeName(this string toolFormat)
+        {
+            return toolFormat + "Converter";
+        }
+
         /// <summary>An XmlReader extension method that reads optional element's content as string.</summary>
         /// <param name="xmlReader">The xmlReader from which line data shall be retrieved.</param>
         /// <param name="elementName">Name of the element expected.</param>

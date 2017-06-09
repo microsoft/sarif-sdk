@@ -60,6 +60,7 @@
     <Compile Include="AndroidStudioConverterTests.cs" />
     <Compile Include="AndroidStudioProblemTests.cs" />
     <Compile Include="AndroidStudioStringsTests.cs" />
+    <Compile Include="BuiltinConverterFactoryTests.cs" />
     <Compile Include="ClangAnalyzerConverterTests.cs" />
     <Compile Include="CppCheckConverterTests.cs" />
     <Compile Include="CppCheckErrorTests.cs" />

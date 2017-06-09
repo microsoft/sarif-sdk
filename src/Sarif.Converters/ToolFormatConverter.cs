@@ -25,13 +25,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         /// <param name="outputFileName">The name of the file to which the resulting SARIF log shall be
         /// written. This cannot be a directory.</param>
         /// <param name="conversionOptions">Options for controlling the conversion.</param>
-        /// <param name="pluginAssemblyPaths">Array opf paths to plugin assemblies containing converter types.</param>
+        /// <param name="pluginAssemblyPath">Path to plugin assembly containing converter types.</param>
         public void ConvertToStandardFormat(
             string toolFormat,
             string inputFileName,
             string outputFileName,
             ToolFormatConversionOptions conversionOptions,
-            string[] pluginAssemblyPaths = null)
+            string pluginAssemblyPath = null)
         {
             if (inputFileName == null) { throw new ArgumentNullException(nameof(inputFileName)); }
             if (outputFileName == null) { throw new ArgumentNullException(nameof(outputFileName)); }
@@ -67,7 +67,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
                     using (var output = new ResultLogJsonWriter(outputJson))
                     {
-                        ConvertToStandardFormat(toolFormat, input, output, pluginAssemblyPaths);
+                        ConvertToStandardFormat(toolFormat, input, output, pluginAssemblyPath);
                     }
                 }
             }
@@ -96,7 +96,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 inputFileName,
                 outputFileName,
                 ToolFormatConversionOptions.None,
-                pluginAssemblyPaths: null);
+                pluginAssemblyPath: null);
         }
 
         /// <summary>Converts a tool log file represented as a stream into the SARIF format.</summary>
@@ -106,12 +106,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         /// <param name="toolFormat">The tool format of the input file.</param>
         /// <param name="inputStream">A stream that contains tool log contents.</param>
         /// <param name="outputStream">A stream to which the converted output should be written.</param>
-        /// <param name="pluginAssemblyPaths">Array of paths to plugin assemblies containing converter types.</param>
+        /// <param name="pluginAssemblyPath">Path to plugin assembly containing converter types.</param>
         public void ConvertToStandardFormat(
             string toolFormat,
             Stream inputStream,
             IResultLogWriter outputStream,
-            string[] pluginAssemblyPaths = null)
+            string pluginAssemblyPath = null)
         {
             if (toolFormat.MatchesToolFormat(ToolFormat.PREfast))
             {
@@ -121,7 +121,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             if (inputStream == null) { throw new ArgumentNullException(nameof(inputStream)); }
             if (outputStream == null) { throw new ArgumentNullException(nameof(outputStream)); }
 
-            ConverterFactory factory = CreateConverterFactory(pluginAssemblyPaths);
+            ConverterFactory factory = CreateConverterFactory(pluginAssemblyPath);
 
             ToolFileConverterBase converter = factory.CreateConverter(toolFormat);
             if (converter != null)
@@ -137,21 +137,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         // Set up a Chain of Responsibility that will get the converter from the first
         // factory capable of creating it.
         // This method is internal, rather than private, for test purposes.
-        internal static ConverterFactory CreateConverterFactory(string[] pluginAssemblyPaths)
+        internal static ConverterFactory CreateConverterFactory(string pluginAssemblyPath)
         {
             ConverterFactory factory = new BuiltInConverterFactory();
-            if (pluginAssemblyPaths != null)
+            if (!string.IsNullOrWhiteSpace(pluginAssemblyPath))
             {
-                for (int i = pluginAssemblyPaths.Length - 1; i >= 0; --i)
+                factory = new PluginConverterFactory(pluginAssemblyPath)
                 {
-                    if (!string.IsNullOrWhiteSpace(pluginAssemblyPaths[i]))
-                    {
-                        factory = new PluginConverterFactory(pluginAssemblyPaths[i])
-                        {
-                            Next = factory,
-                        };
-                    }
-                }
+                    Next = factory,
+                };
             }
 
             return factory;

@@ -206,7 +206,7 @@ namespace Microsoft.Sarif.Viewer
                     }
                     case OpenSemmleFileCommandId:
                     {
-                        toolFormat = ToolFormat.SemmleQL;
+                        toolFormat = ToolFormat.SemmleQl;
                         title = "Open Semmle QL CSV log file";
                         filter = "Semmle QL log files (*.csv)|*.csv";
                         break;

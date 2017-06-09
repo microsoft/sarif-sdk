@@ -10,7 +10,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
     // Factory class for creating one of the built-in converters.
     internal class BuiltInConverterFactory : ConverterFactory
     {
-        private static readonly IDictionary<string, Lazy<ToolFileConverterBase>> BuiltInConverters = CreateBuiltInConverters();
+        // Internal rather than private for testing purposes.
+        internal static readonly IDictionary<string, Lazy<ToolFileConverterBase>> BuiltInConverters = CreateBuiltInConverters();
 
         public override ToolFileConverterBase CreateConverterCore(string toolFormat)
         {
@@ -23,14 +24,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         private static Dictionary<string, Lazy<ToolFileConverterBase>> CreateBuiltInConverters()
         {
             var result = new Dictionary<string, Lazy<ToolFileConverterBase>>();
-            // TODO: Reflect to get them all.
             CreateConverterRecord<AndroidStudioConverter>(result, ToolFormat.AndroidStudio);
             CreateConverterRecord<CppCheckConverter>(result, ToolFormat.CppCheck);
             CreateConverterRecord<ClangAnalyzerConverter>(result, ToolFormat.ClangAnalyzer);
             CreateConverterRecord<FortifyConverter>(result, ToolFormat.Fortify);
             CreateConverterRecord<FortifyFprConverter>(result, ToolFormat.FortifyFpr);
             CreateConverterRecord<FxCopConverter>(result, ToolFormat.FxCop);
-            CreateConverterRecord<SemmleConverter>(result, ToolFormat.SemmleQL);
+            CreateConverterRecord<SemmleQlConverter>(result, ToolFormat.SemmleQl);
             CreateConverterRecord<StaticDriverVerifierConverter>(result, ToolFormat.StaticDriverVerifier);
             return result;
         }

@@ -45,7 +45,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                     CultureInfo.CurrentCulture,
                     ConverterResources.ErrorAmbiguousConverterType,
                     this.pluginAssemblyPath,
-                    ConverterTypeNameForToolFormat(toolFormat),
+                    toolFormat.ConverterTypeName(),
                     toolFormat);
 
                 throw new ArgumentException(message, nameof(this.pluginAssemblyPath));
@@ -56,17 +56,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 : (ToolFileConverterBase)Activator.CreateInstance(pluginTypes[0]);
         }
 
-        private static string ConverterTypeNameForToolFormat(string toolFormat)
-        {
-            // Convention: The converter type name is derived from the tool name. It can
-            // reside in any namespace.
-            return toolFormat + "Converter";
-        }
-
         private static bool IsConverterClassForToolFormat(Type type, string toolFormat)
         {
             return type.IsPublic
-                && type.Name.Equals(ConverterTypeNameForToolFormat(toolFormat), StringComparison.Ordinal)
+                && type.Name.Equals(toolFormat.ConverterTypeName(), StringComparison.Ordinal)
                 && type.IsSubclassOf(typeof(ToolFileConverterBase))
                 && type.HasDefaultConstructor()
                 && !type.IsAbstract;

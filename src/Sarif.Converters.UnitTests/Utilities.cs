@@ -1,7 +1,10 @@
 ﻿// Copyright (c) Microsoft. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Xml;
 using System.Xml.Linq;
@@ -94,6 +97,22 @@ namespace Microsoft.CodeAnalysis.Sarif
             // member is filled out.
             string stringXml = node.ToString(SaveOptions.DisableFormatting);
             return CreateXmlReaderFromString(stringXml);
+        }
+
+        public static List<FieldInfo> GetToolFormatFields()
+        {
+            return typeof(ToolFormat)
+                            .GetMembers(BindingFlags.Public | BindingFlags.Static)
+                            .OfType<FieldInfo>()
+                            .ToList();
+        }
+
+        public static List<string> GetToolFormats()
+        {
+            return GetToolFormatFields()
+                .Select(f => f.GetRawConstantValue() as string)
+                .Where(fmt => string.CompareOrdinal(fmt, ToolFormat.None) != 0)
+                .ToList();
         }
     }
 }

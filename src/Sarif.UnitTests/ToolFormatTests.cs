@@ -3,9 +3,7 @@
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Reflection;
-using Microsoft.CodeAnalysis.Sarif.Converters;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Microsoft.CodeAnalysis.Sarif
@@ -18,10 +16,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         [ClassInitialize]
         public static void ClassInitialize(TestContext context)
         {
-            publicFields = typeof(ToolFormat)
-                .GetMembers(BindingFlags.Public | BindingFlags.Static)
-                .OfType<FieldInfo>()
-                .ToList();
+            publicFields = Utilities.GetToolFormatFields();
         }
 
         [TestMethod]
