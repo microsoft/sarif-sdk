@@ -71,6 +71,7 @@
     <Compile Include="FortifyStringsTests.cs" />
     <Compile Include="FxCopConverterTests.cs" />
     <Compile Include="ResultLogObjectWriter.cs" />
+    <Compile Include="SemmleConverterTests.cs" />
     <Compile Include="ToolFileConverterBaseTests.cs" />
     <Compile Include="ToolFormatConverterTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
