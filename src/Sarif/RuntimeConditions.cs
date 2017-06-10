@@ -26,10 +26,15 @@ namespace Microsoft.CodeAnalysis.Sarif
         //LoggerRaisedExceptionOnClose,
 
         // Fatal conditions
-        ExceptionInstantiatingSkimmers = 0x01,
-        ExceptionInSkimmerInitialize = 0x02,
-        ExceptionRaisedInSkimmerCanAnalyze = 0x04,
-        ExceptionInSkimmerAnalyze = 0x08,
+        // InvalidCommandLineOption is a useful bit to 
+        // use as value 0x1. This allows for a consistent 
+        // return value in cases where a command-line argument
+        // for --rich-return-code can't be detected because it 
+        // fails to parse. 
+        InvalidCommandLineOption = 0x1,
+        ExceptionInSkimmerInitialize = 0x2,
+        ExceptionRaisedInSkimmerCanAnalyze = 0x4,
+        ExceptionInSkimmerAnalyze = 0x8,
         ExceptionCreatingLogFile = 0x10,
         ExceptionLoadingPdb = 0x20,
         ExceptionInEngine = 0x40,
@@ -41,7 +46,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         TargetParseError = 0x1000,
         MissingFile = 0x2000,
         ExceptionAccessingFile = 0x4000,
-        InvalidCommandLineOption = 0x8000,
+        ExceptionInstantiatingSkimmers = 0x8000,
 
         // Non-fatal conditions
         RuleNotApplicableToTarget = 0x10000000,
