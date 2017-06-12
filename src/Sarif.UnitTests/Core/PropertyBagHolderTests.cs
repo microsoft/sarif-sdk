@@ -142,6 +142,16 @@ namespace Microsoft.CodeAnalysis.Sarif.Core
         }
 
         [TestMethod]
+        public void PropertyBagHolder_GetPropertyOfT_WorksForStringProperties()
+        {
+            var inputObject = new TestClass();
+            inputObject.SetProperty(PropertyName, "x");
+
+            string value = inputObject.GetProperty<string>(PropertyName);
+            value.Should().Be("x");
+        }
+
+        [TestMethod]
         public void PropertyBagHolder_RemoveProperty_RemovesExistingProperty()
         {
             var inputObject = new TestClass();
