@@ -89,11 +89,6 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         public T GetProperty<T>(string propertyName)
         {
-            if (typeof(T) == typeof(string))
-            {
-                throw new InvalidOperationException(SdkResources.CallNonGenericGetProperty);
-            }
-
             if (!PropertyNames.Contains(propertyName))
             {
                 throw new InvalidOperationException(

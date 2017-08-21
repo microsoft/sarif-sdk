@@ -79,15 +79,6 @@ namespace Microsoft.CodeAnalysis.Sarif {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to To retrieve a property with a string value, call the non-generic GetProperty method..
-        /// </summary>
-        internal static string CallNonGenericGetProperty {
-            get {
-                return ResourceManager.GetString("CallNonGenericGetProperty", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Cannot write result: Tool not yet written..
         /// </summary>
         internal static string CannotWriteResultToolMissing {

@@ -19,7 +19,7 @@ namespace Microsoft.Sarif.Viewer.ErrorList
     {
         public static readonly ErrorListService Instance = new ErrorListService();
 
-        public static void ProcessLogFile(string filePath, ToolFormat toolFormat = ToolFormat.None)
+        public static void ProcessLogFile(string filePath, string toolFormat = ToolFormat.None)
         {
             SarifLog log;
 
@@ -30,11 +30,11 @@ namespace Microsoft.Sarif.Viewer.ErrorList
 
             string logText;
 
-            if (toolFormat == ToolFormat.None)
+            if (toolFormat.MatchesToolFormat(ToolFormat.None))
             {
                 logText = File.ReadAllText(filePath);
             }
-            else if (toolFormat == ToolFormat.PREfast)
+            else if (toolFormat.MatchesToolFormat(ToolFormat.PREfast))
             {
                 logText = ToolFormatConverter.ConvertPREfastToStandardFormat(filePath);
             }

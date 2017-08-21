@@ -2,12 +2,10 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Threading;
-using Newtonsoft.Json;
-using Microsoft.CodeAnalysis.Sarif.Writers;
 using System.Runtime.InteropServices;
+using Microsoft.CodeAnalysis.Sarif.Writers;
+using Newtonsoft.Json;
 
 namespace Microsoft.CodeAnalysis.Sarif.Converters
 {
@@ -27,14 +25,16 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         /// <param name="outputFileName">The name of the file to which the resulting SARIF log shall be
         /// written. This cannot be a directory.</param>
         /// <param name="conversionOptions">Options for controlling the conversion.</param>
+        /// <param name="pluginAssemblyPath">Path to plugin assembly containing converter types.</param>
         public void ConvertToStandardFormat(
-            ToolFormat toolFormat,
+            string toolFormat,
             string inputFileName,
             string outputFileName,
-            ToolFormatConversionOptions conversionOptions)
+            ToolFormatConversionOptions conversionOptions,
+            string pluginAssemblyPath = null)
         {
-            if (inputFileName == null) { throw new ArgumentNullException(nameof(inputFileName)); };
-            if (outputFileName == null) { throw new ArgumentNullException(nameof(outputFileName)); };
+            if (inputFileName == null) { throw new ArgumentNullException(nameof(inputFileName)); }
+            if (outputFileName == null) { throw new ArgumentNullException(nameof(outputFileName)); }
 
             if (Directory.Exists(outputFileName))
             {
@@ -46,7 +46,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 throw new InvalidOperationException("Output file already exists and option to overwrite was not specified.");
             }
 
-            if (toolFormat == ToolFormat.PREfast)
+            if (toolFormat.MatchesToolFormat(ToolFormat.PREfast))
             {
                 string sarif = ConvertPREfastToStandardFormat(inputFileName);
                 File.WriteAllText(outputFileName, sarif);
@@ -67,7 +67,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
                     using (var output = new ResultLogJsonWriter(outputJson))
                     {
-                        ConvertToStandardFormat(toolFormat, input, output);
+                        ConvertToStandardFormat(toolFormat, input, output, pluginAssemblyPath);
                     }
                 }
             }
@@ -78,8 +78,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         /// <param name="inputFileName">The input log file name.</param>
         /// <param name="outputFileName">The name of the file to which the resulting SARIF log shall be
         /// written. This cannot be a directory.</param>
+        /// <remarks>This overload should be used only from test code.</remarks>
         public void ConvertToStandardFormat(
-            ToolFormat toolFormat,
+            string toolFormat,
             string inputFileName,
             string outputFileName)
         {
@@ -90,7 +91,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 return;
             }
 
-            ConvertToStandardFormat(toolFormat, inputFileName, outputFileName, ToolFormatConversionOptions.None);
+            ConvertToStandardFormat(
+                toolFormat,
+                inputFileName,
+                outputFileName,
+                ToolFormatConversionOptions.None,
+                pluginAssemblyPath: null);
         }
 
         /// <summary>Converts a tool log file represented as a stream into the SARIF format.</summary>
@@ -100,50 +106,49 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         /// <param name="toolFormat">The tool format of the input file.</param>
         /// <param name="inputStream">A stream that contains tool log contents.</param>
         /// <param name="outputStream">A stream to which the converted output should be written.</param>
+        /// <param name="pluginAssemblyPath">Path to plugin assembly containing converter types.</param>
         public void ConvertToStandardFormat(
-            ToolFormat toolFormat,
+            string toolFormat,
             Stream inputStream,
-            IResultLogWriter outputStream)
+            IResultLogWriter outputStream,
+            string pluginAssemblyPath = null)
         {
-            if (toolFormat == ToolFormat.PREfast)
+            if (toolFormat.MatchesToolFormat(ToolFormat.PREfast))
             {
                 throw new ArgumentException("Cannot convert PREfast XML from stream. Call ConvertPREfastToStandardFormat helper instead.");
-            };
+            }
 
-            if (inputStream == null) { throw new ArgumentNullException(nameof(inputStream)); };
-            if (outputStream == null) { throw new ArgumentNullException(nameof(outputStream)); };
+            if (inputStream == null) { throw new ArgumentNullException(nameof(inputStream)); }
+            if (outputStream == null) { throw new ArgumentNullException(nameof(outputStream)); }
 
-            Lazy<ToolFileConverterBase> converter;
-            if (_converters.TryGetValue(toolFormat, out converter))
+            ConverterFactory factory = CreateConverterFactory(pluginAssemblyPath);
+
+            ToolFileConverterBase converter = factory.CreateConverter(toolFormat);
+            if (converter != null)
             {
-                converter.Value.Convert(inputStream, outputStream);
+                converter.Convert(inputStream, outputStream);
             }
             else
             {
-                throw new ArgumentException("Unrecognized tool specified: " + toolFormat.ToString(), nameof(toolFormat));
+                throw new ArgumentException("Unrecognized tool specified: " + toolFormat, nameof(toolFormat));
             }
         }
 
-        private readonly IDictionary<ToolFormat, Lazy<ToolFileConverterBase>> _converters = CreateConverterRecords();
-
-        private static Dictionary<ToolFormat, Lazy<ToolFileConverterBase>> CreateConverterRecords()
+        // Set up a Chain of Responsibility that will get the converter from the first
+        // factory capable of creating it.
+        // This method is internal, rather than private, for test purposes.
+        internal static ConverterFactory CreateConverterFactory(string pluginAssemblyPath)
         {
-            var result = new Dictionary<ToolFormat, Lazy<ToolFileConverterBase>>();
-            CreateConverterRecord<AndroidStudioConverter>(result, ToolFormat.AndroidStudio);
-            CreateConverterRecord<CppCheckConverter>(result, ToolFormat.CppCheck);
-            CreateConverterRecord<ClangAnalyzerConverter>(result, ToolFormat.ClangAnalyzer);
-            CreateConverterRecord<FortifyConverter>(result, ToolFormat.Fortify);
-            CreateConverterRecord<FortifyFprConverter>(result, ToolFormat.FortifyFpr);
-            CreateConverterRecord<FxCopConverter>(result, ToolFormat.FxCop);
-            CreateConverterRecord<SemmleConverter>(result, ToolFormat.SemmleQL);
-            CreateConverterRecord<StaticDriverVerifierConverter>(result, ToolFormat.StaticDriverVerifier);
-            return result;
-        }
+            ConverterFactory factory = new BuiltInConverterFactory();
+            if (!string.IsNullOrWhiteSpace(pluginAssemblyPath))
+            {
+                factory = new PluginConverterFactory(pluginAssemblyPath)
+                {
+                    Next = factory,
+                };
+            }
 
-        private static void CreateConverterRecord<T>(IDictionary<ToolFormat, Lazy<ToolFileConverterBase>> dict, ToolFormat format)
-            where T : ToolFileConverterBase, new()
-        {
-            dict.Add(format, new Lazy<ToolFileConverterBase>(() => new T(), LazyThreadSafetyMode.ExecutionAndPublication));
+            return factory;
         }
 
         /// <summary>Converts a legacy PREfast XML log file into the SARIF format.</summary>
@@ -159,7 +164,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             if (inputFileName == null) { throw new ArgumentNullException(nameof(inputFileName)); };
 
             return SafeNativeMethods.ConvertToSarif(inputFileName);
-        }        
+        }
     }
 
     internal class SafeNativeMethods
