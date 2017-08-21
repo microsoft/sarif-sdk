@@ -141,3 +141,7 @@
 
 ## **v1.5.46** [Driver](https://www.nuget.org/packages/Sarif.Driver/1.5.46) | [SDK](https://www.nuget.org/packages/Sarif.Sdk/1.5.46)
  * Resolved crash deserializing empty property bags
+
+## **v1.5.47** [Driver](https://www.nuget.org/packages/Sarif.Driver/1.5.47) | [SDK](https://www.nuget.org/packages/Sarif.Sdk/1.5.47)
+ * Enable converter plugins
+ * Adjust RuntimeConditions enum so that 'command line parse' error is 0x1. 
