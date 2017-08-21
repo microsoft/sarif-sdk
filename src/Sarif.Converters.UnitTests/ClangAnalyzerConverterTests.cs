@@ -10,7 +10,7 @@ using Microsoft.CodeAnalysis.Sarif.Writers;
 namespace Microsoft.CodeAnalysis.Sarif.Converters
 {
     [TestClass]
-    public class ClangAnalyzerConverterTests
+    internal class ClangAnalyzerConverterTests : ConverterTestsBase<ClangAnalyzerConverter>
     {
         [TestMethod]
         [ExpectedException(typeof(ArgumentNullException))]
@@ -53,21 +53,21 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         public void ClangAnalyzerConverter_Convert_LogEmptyPlist()
         {
             string clangAnalyzerLog = "<?xml version=\"1.0\" encoding=\"UTF-8\"?> <!DOCTYPE plist PUBLIC \"-//Apple Computer//DTD PLIST 1.0//EN\" \"http://www.apple.com/DTDs/PropertyList-1.0.dtd\"> <plist version=\"1.0\"></plist>";
-            RunClangTestCase(clangAnalyzerLog, empty);
+            RunTestCase(clangAnalyzerLog, empty);
         }
 
         [TestMethod]
         public void ClangAnalyzerConverter_Convert_LogEmptyWithVersion()
         {
             string clangAnalyzerLog = "<?xml version=\"1.0\" encoding=\"UTF-8\"?> <!DOCTYPE plist PUBLIC \"-//Apple Computer//DTD PLIST 1.0//EN\" \"http://www.apple.com/DTDs/PropertyList-1.0.dtd\"> <plist version=\"1.0\"> <dict> <key>clang_version</key> <string>Ubuntu clang version 3.4-1ubuntu3 (tags/RELEASE_34/final) (based on LLVM 3.4)</string> <key>files</key> <array> <string>jmemmgr.c</string> </array> </dict></plist>";
-            RunClangTestCase(clangAnalyzerLog, empty);
+            RunTestCase(clangAnalyzerLog, empty);
         }
 
         [TestMethod]
         public void ClangAnalyzerConverter_Convert_LogEmptyWithWhitespace()
         {
             string clangAnalyzerLog = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<!DOCTYPE plist PUBLIC \"-//Apple Computer//DTD PLIST 1.0//EN\" \"http://www.apple.com/DTDs/PropertyList-1.0.dtd\">\r\n<plist version=\"1.0\">\r\n<dict>\r\n<key>clang_version</key>\r\n<string>Ubuntu clang version 3.4-1ubuntu3 (tags/RELEASE_34/final) (based on LLVM 3.4)</string>\r\n<key>files</key>\r\n<array>\r\n</array>\r\n<key>diagnostics</key>\r\n<array>\r\n</array>\r\n</dict>\r\n</plist>\r\n";
-            RunClangTestCase(clangAnalyzerLog, empty);
+            RunTestCase(clangAnalyzerLog, empty);
         }
 
         [TestMethod]
@@ -125,13 +125,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             string clangAnalyzerLog = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<!DOCTYPE plist PUBLIC \"-//Apple Computer//DTD PLIST 1.0//EN\" \"http://www.apple.com/DTDs/PropertyList-1.0.dtd\">\r\n<plist version=\"1.0\">\r\n<dict>\r\n<key>clang_version</key>\r\n<string>Ubuntu clang version 3.4-1ubuntu3 (tags/RELEASE_34/final) (based on LLVM 3.4)</string>\r\n<key>files</key>\r\n<array>\r\n<string>jcparam.c</string>\r\n</array>\r\n<key>diagnostics</key>\r\n<array>\r\n<dict>\r\n<dict>\r\n</dict>\r\n</dict>\r\n</array>\r\n</dict>\r\n</plist>\r\n";
             ClangAnalyzerConverter converter = new ClangAnalyzerConverter();
             Utilities.GetConverterJson(converter, clangAnalyzerLog);
-        }
-
-        private void RunClangTestCase(string inputData, string expectedResult)
-        {
-            ClangAnalyzerConverter converter = new ClangAnalyzerConverter();
-            string actualJson = Utilities.GetConverterJson(converter, inputData);
-            Assert.AreEqual<string>(expectedResult, actualJson);
         }
     }
 }

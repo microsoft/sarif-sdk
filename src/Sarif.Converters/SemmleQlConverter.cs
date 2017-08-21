@@ -14,7 +14,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
     /// <summary>
     /// Converts a log file from the Semmle format to the SARIF format.
     /// </summary>
-    internal class SemmleQLConverter : ToolFileConverterBase
+    public class SemmleQLConverter : ToolFileConverterBase
     {
         // Semmle logs are CSV files with inconsistent contents
         private static readonly string[] s_delimiters = new[] { "," };
@@ -279,13 +279,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         {
             switch (semmleSeverity)
             {
-                case "error":
+                case SemmleError:
                     return ResultLevel.Error;
 
-                case "warning":
+                case SemmleWarning:
                     return ResultLevel.Warning;
 
-                case "recommendation":
+                case SemmleRecommendation:
                     return ResultLevel.Note;
 
                 default:
@@ -323,5 +323,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 Message = messageWithLineNumber
             });
         }
+
+        public const string SemmleError = "error";
+        public const string SemmleWarning = "warning";
+        public const string SemmleRecommendation = "recommendation";
     }
 }

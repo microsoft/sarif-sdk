@@ -62,6 +62,7 @@
     <Compile Include="AndroidStudioStringsTests.cs" />
     <Compile Include="BuiltinConverterFactoryTests.cs" />
     <Compile Include="ClangAnalyzerConverterTests.cs" />
+    <Compile Include="ConverterTestsBase.cs" />
     <Compile Include="CppCheckConverterTests.cs" />
     <Compile Include="CppCheckErrorTests.cs" />
     <Compile Include="CppCheckLocationTests.cs" />
@@ -72,6 +73,7 @@
     <Compile Include="FortifyStringsTests.cs" />
     <Compile Include="FxCopConverterTests.cs" />
     <Compile Include="ResultLogObjectWriter.cs" />
+    <Compile Include="SemmleQLConverterTests.cs" />
     <Compile Include="ToolFileConverterBaseTests.cs" />
     <Compile Include="ToolFormatConverterTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

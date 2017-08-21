@@ -5,11 +5,12 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Xml;
+
 using Microsoft.CodeAnalysis.Sarif.Writers;
 
 namespace Microsoft.CodeAnalysis.Sarif.Converters
 {
-    internal class CppCheckConverter : ToolFileConverterBase
+    public class CppCheckConverter : ToolFileConverterBase
     {
         private readonly NameTable _nameTable;
         private readonly CppCheckStrings _strings;
