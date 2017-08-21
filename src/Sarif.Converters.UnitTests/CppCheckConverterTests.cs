@@ -64,8 +64,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
     }
   ]
 }";
-            string resultJson = Utilities.GetConverterJson(new CppCheckConverter(), source);
-            Assert.AreEqual(expected, resultJson);
+            RunTestCase(source, expected);
         }
 
         [TestMethod]
