@@ -16,7 +16,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
     /// </summary>
     public class SemmleQLConverter : ToolFileConverterBase
     {
-        // Semmle logs are CSV files with inconsistent contents
+        // Semmle logs are CSV files
         private static readonly string[] s_delimiters = new[] { "," };
 
         // The fields are as follows:
@@ -187,10 +187,26 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                     tokens = location.Split(':');
 
                     relatedLocations = relatedLocations ?? new List<AnnotatedCodeLocation>();
+                    PhysicalLocation physicalLocation;
 
-                    var relatedLocation = new AnnotatedCodeLocation
+                    if (tokens[0].Equals("file", StringComparison.OrdinalIgnoreCase))
                     {
-                        PhysicalLocation = new PhysicalLocation
+                        // special case for file paths
+                        // "IComparable"|"file://C:/Windows/Microsoft.NET/Framework/v2.0.50727/mscorlib.dll:0:0:0:0"
+                        physicalLocation = new PhysicalLocation
+                        {
+                            Uri = new Uri($"{tokens[0]}:{tokens[1]}:{tokens[2]}", UriKind.Absolute),
+                            Region = new Region
+                            {
+                                StartLine = Int32.Parse(tokens[3]),
+                                Offset = Int32.Parse(tokens[4]),
+                                Length = Int32.Parse(tokens[5])
+                            }
+                        };
+                    }
+                    else
+                    {
+                        physicalLocation = new PhysicalLocation
                         {
                             Uri = new Uri(tokens[1].Substring(1), UriKind.Relative),
                             UriBaseId = "$srcroot",
@@ -200,8 +216,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                                 Offset = Int32.Parse(tokens[3]),
                                 Length = Int32.Parse(tokens[4])
                             }
-                        }
+                        };
+                    }
+
+                    var relatedLocation = new AnnotatedCodeLocation
+                    {
+                        PhysicalLocation = physicalLocation
                     };
+
                     relatedLocations.Add(relatedLocation);
                 }
 

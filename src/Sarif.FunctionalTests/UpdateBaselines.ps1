@@ -38,7 +38,7 @@ function Build-Baselines($toolName)
 
         # Actually run the converter
         Remove-Item $outputTemp -ErrorAction SilentlyContinue
-		& Write-Host "$utility ""$input"" --tool $toolName --output ""$outputTemp"" --pretty"
+        & Write-Host "$utility ""$input"" --tool $toolName --output ""$outputTemp"" --pretty"
         &$utility "$input" --tool $toolName --output "$outputTemp" --pretty
 
         Move-Item $outputTemp $output -Force

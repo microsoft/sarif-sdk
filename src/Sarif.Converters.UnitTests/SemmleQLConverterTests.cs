@@ -49,6 +49,75 @@ namespace Microsoft.CodeAnalysis.Sarif
             RunTestCase(semmleCsvInput, expected, prettyPrint: true);
         }
 
+        [TestMethod]
+        public void SemmleQLConvert_EmbeddedLocations()
+        {
+            string semmleCsvInput = @"Equals on incomparable types,Finds calls of the form x.Equals(y) with incomparable types for x and y.,warning,""Call to Equals() comparing incomparable types[[""""IComparable"""" | """"file://C:/Windows/Company.NET/Framework/v2.0.50727/mscorlib.dll:0:0:0:0""""]] and [[""""ClientAttributeValue""""|""""relative://ClientClient/Company.ResourceManagement.ObjectModel/ClientAttributeValue.cs:7:152:16""""],[""""ClientAttributeValue""""|""""relative://ClientClient/Company.ResourceManagement.ObjectModel/ClientAttributeValue_ISerializable.cs:14:333:16""""]]"",ProjectOne/Microsoft.ResourceManagement.ObjectModel/ClientResource.cs,SuiteOne/SuiteOne_v1.0-servicing_1.0.1.10511.2/ProjectOneClient/Company.ResourceManagement.ObjectModel/ProjectOneResource.cs,865,15,900,100";
+
+            string expected = @"{
+  ""$schema"": ""http://json.schemastore.org/sarif-1.0.0"",
+  ""version"": ""1.0.0"",
+  ""runs"": [
+    {
+      ""tool"": {
+        ""name"": ""Semmle QL""
+      },
+      ""results"": [
+        {
+          ""message"": ""Call to Equals() comparing incomparable types\""IComparable\"" and \""ClientAttributeValue\"""",
+          ""locations"": [
+            {
+              ""resultFile"": {
+                ""uri"": ""ProjectOne/Microsoft.ResourceManagement.ObjectModel/ClientResource.cs"",
+                ""uriBaseId"": ""$srcroot"",
+                ""region"": {
+                  ""startLine"": 865,
+                  ""startColumn"": 15,
+                  ""endLine"": 900,
+                  ""endColumn"": 100
+                }
+              }
+            }
+          ],
+          ""relatedLocations"": [
+            {
+              ""physicalLocation"": {
+                ""uri"": ""file:///C:/Windows/Company.NET/Framework/v2.0.50727/mscorlib.dll"",
+                ""region"": {}
+              }
+            },
+            {
+              ""physicalLocation"": {
+                ""uri"": ""/ClientClient/Company.ResourceManagement.ObjectModel/ClientAttributeValue.cs"",
+                ""uriBaseId"": ""$srcroot"",
+                ""region"": {
+                  ""startLine"": 7,
+                  ""offset"": 152,
+                  ""length"": 16
+                }
+              }
+            },
+            {
+              ""physicalLocation"": {
+                ""uri"": ""/ClientClient/Company.ResourceManagement.ObjectModel/ClientAttributeValue_ISerializable.cs"",
+                ""uriBaseId"": ""$srcroot"",
+                ""region"": {
+                  ""startLine"": 14,
+                  ""offset"": 333,
+                  ""length"": 16
+                }
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}";
+
+            RunTestCase(semmleCsvInput, expected, prettyPrint: true);
+        }
+
         private class SemmleCsvRecord
         {
             public string QueryName;

@@ -1,9 +1,12 @@
 ﻿// Copyright (c) Microsoft. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
+using FluentAssertions;
+
 using Microsoft.CodeAnalysis.Sarif.Converters;
 using Microsoft.CodeAnalysis.Sarif.Readers;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+
 using Newtonsoft.Json;
 
 namespace Microsoft.CodeAnalysis.Sarif
@@ -19,7 +22,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             string actualJson = Utilities.GetConverterJson(converter, inputData);
 
             // Next, let's ensure that the JSON is actually valid. The resulting
-            // sarif will be returned, allowing tests to perform additional validations.
+            // SARIF will be returned, allowing tests to perform additional validations.
             // We need to explicitly provide a settings object here to handle 
             // special-cases in deserialization. If our grammar -> C# code hints 
             // provided an ability to apply additional attributes to emitted code, 
@@ -41,7 +44,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             // are fragile. It would be better for our testing to have a dedicated set of data-driven
             // tests that flag changes and for the unit-tests to work exclusively against the 
             // object model.
-            Assert.AreEqual<string>(expectedResult, actualJson);
+            actualJson.Should().Be(expectedResult); ;
 
             return log;
         }
