@@ -11,7 +11,7 @@ using Microsoft.CodeAnalysis.Sarif.Writers;
 namespace Microsoft.CodeAnalysis.Sarif.Converters
 {
     [TestClass]
-    public class CppCheckConverterTests
+    public class CppCheckConverterTests : ConverterTestsBase<CppCheckConverter>
     {
         [TestMethod]
         [ExpectedException(typeof(ArgumentNullException))]
@@ -64,8 +64,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
     }
   ]
 }";
-            string resultJson = Utilities.GetConverterJson(new CppCheckConverter(), source);
-            Assert.AreEqual(expected, resultJson);
+            RunTestCase(source, expected);
         }
 
         [TestMethod]

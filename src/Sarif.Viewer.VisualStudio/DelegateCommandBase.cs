@@ -13,7 +13,6 @@ namespace Microsoft.Sarif.Viewer
     /// </summary>
     public abstract class DelegateCommandBase : ICommand
     {
-        private bool _isActive;
         private List<WeakReference> _canExecuteChangedHandlers;
 
         protected readonly Func<object, Task> _executeMethod;
