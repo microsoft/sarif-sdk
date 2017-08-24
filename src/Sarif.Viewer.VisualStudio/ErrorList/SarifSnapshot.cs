@@ -21,7 +21,6 @@ namespace Microsoft.Sarif.Viewer.ErrorList
     /// </summary>
     internal class SarifSnapshot : TableEntriesSnapshotBase, IWpfTableEntriesSnapshot
     {
-        private string _projectName;
         private readonly List<SarifErrorListItem> _errors;
 
         internal SarifSnapshot(string filePath, IEnumerable<SarifErrorListItem> errors)
@@ -111,15 +110,7 @@ namespace Microsoft.Sarif.Viewer.ErrorList
                 }
                 else if (columnName == StandardTableKeyNames.ProjectName)
                 {
-                    if (string.IsNullOrEmpty(_projectName))
-                    {
-                        var _item = SarifViewerPackage.Dte.Solution.FindProjectItem(_errors[index].FileName);
-
-                        if (_item != null && _item.Properties != null && _item.ContainingProject != null)
-                            _projectName = _item.ContainingProject.Name;
-                    }
-
-                    content = _projectName;
+                    content = ProjectNameLookup.Instance.GetName(_errors[index].FileName);
                 }
                 else if (columnName == StandardTableKeyNames.HelpLink)
                 {
@@ -128,10 +119,6 @@ namespace Microsoft.Sarif.Viewer.ErrorList
                     if (!string.IsNullOrEmpty(error.HelpLink))
                     {
                         url = error.HelpLink;
-                    }
-                    else
-                    {
-                        //url = string.Format("http://www.bing.com/search?q={0} {1}", _errors[index].Provider.Name, _errors[index].ErrorCode);
                     }
 
                     if (url != null)
@@ -147,19 +134,6 @@ namespace Microsoft.Sarif.Viewer.ErrorList
                         content = error.Rule.Id + ":" + error.Rule.Name;
                     }
                 }
-                //else if (columnName == StandardTableKeyNames.DetailsExpander)
-                //{
-                //    var error = _errors[index];
-
-                //    if (!string.IsNullOrEmpty(error.Message) && error.Message.Trim() != error.ShortMessage.Trim())
-                //    {
-                //        content = String.Empty;
-                //    }
-                //    else
-                //    {
-                //        content = null;
-                //    }
-                //}
                 else if (columnName == "suppressionstate")
                 {
                     var error = _errors[index];
