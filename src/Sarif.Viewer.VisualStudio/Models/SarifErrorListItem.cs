@@ -396,9 +396,12 @@ namespace Microsoft.Sarif.Viewer
         {
             get
             {
-                return _lineMarker ?? (_lineMarker = Region == null
-                           ? null
-                           : new ResultTextMarker(SarifViewerPackage.ServiceProvider, Region, FileName));
+                if (_lineMarker == null && Region != null && Region.StartLine > 0)
+                {
+                    _lineMarker = new ResultTextMarker(SarifViewerPackage.ServiceProvider, Region, FileName);
+                }
+
+                return _lineMarker;
             }
             set
             {
