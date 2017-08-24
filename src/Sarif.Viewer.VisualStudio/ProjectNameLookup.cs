@@ -17,8 +17,7 @@ namespace Microsoft.Sarif.Viewer
             if (_projectNames.ContainsKey(fileName))
                 return;
 
-            var project = new { Properties = "", ContainingProject = new { Name = "Test" } };
-            //var project = SarifViewerPackage.Dte.Solution.FindProjectItem(fileName);
+            var project = SarifViewerPackage.Dte.Solution.FindProjectItem(fileName);
             if (project?.Properties != null && project?.ContainingProject != null)
                 _projectNames[fileName] = project.ContainingProject.Name;
             else
