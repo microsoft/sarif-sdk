@@ -76,10 +76,7 @@ namespace Microsoft.Sarif.Viewer.ErrorList
 
         private ErrorListService()
         {
-            this.documentToLineIndexMap = new Dictionary<string, NewLineIndex>();
         }
-
-        private Dictionary<string, NewLineIndex> documentToLineIndexMap;
 
         private void WriteRunToErrorList(Run run, string logFilePath)
         {
@@ -90,6 +87,7 @@ namespace Microsoft.Sarif.Viewer.ErrorList
                 foreach (Result result in run.Results)
                 {
                     SarifErrorListItem sarifError = GetResult(run, result, logFilePath);
+                    ProjectNameCache.Instance.SetName(sarifError.FileName);
                     sarifErrors.Add(sarifError);
                 }
             }
