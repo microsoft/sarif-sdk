@@ -9,11 +9,21 @@ namespace Microsoft.Sarif.Viewer.VisualStudio.UnitTests
 {
     public class SarifErrorListItemTests
     {
+        /// <summary>
+        /// Constructor required to set a static member of the SarifViewerPackage class.
+        /// In a normal run, this gets set well before any SarifErrorListItem object is created,
+        /// but for testing this line is needed.
+        /// </summary>
+        public SarifErrorListItemTests()
+        {
+            // Create new SarifViewerPackage to let it's constructor set the static members.
+            // We do not actually need the object, so just throw it away.
+            new SarifViewerPackage();
+        }
+
         [Fact]
         public void SarifErrorListItem_WhenRegionHasStartLine_HasLineMarker()
         {
-            new SarifViewerPackage();
-
             var item = new SarifErrorListItem
             {
                 FileName = "file.ext",
@@ -31,8 +41,6 @@ namespace Microsoft.Sarif.Viewer.VisualStudio.UnitTests
         [Fact]
         public void SarifErrorListItem_WhenRegionHasNoStartLine_HasNoLineMarker()
         {
-            new SarifViewerPackage();
-
             var item = new SarifErrorListItem
             {
                 FileName = "file.ext",
@@ -50,8 +58,6 @@ namespace Microsoft.Sarif.Viewer.VisualStudio.UnitTests
         [Fact]
         public void SarifErrorListItem_WhenRegionIsAbsent_HasNoLineMarker()
         {
-            new SarifViewerPackage();
-
             var item = new SarifErrorListItem
             {
                 FileName = "file.ext"
