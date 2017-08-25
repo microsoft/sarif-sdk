@@ -396,13 +396,8 @@ namespace Microsoft.Sarif.Viewer
         {
             get
             {
-                if (_lineMarker == null)
+                if (_lineMarker == null && Region != null && Region.StartLine > 0)
                 {
-                    if (System.ComponentModel.LicenseManager.UsageMode != System.ComponentModel.LicenseUsageMode.Designtime)
-                    {
-                        Debug.Assert(Region != null);
-                    }
-
                     _lineMarker = new ResultTextMarker(SarifViewerPackage.ServiceProvider, Region, FileName);
                 }
 
