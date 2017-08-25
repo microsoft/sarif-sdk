@@ -10,7 +10,7 @@ namespace Microsoft.Sarif.Viewer.VisualStudio.UnitTests
     public class SarifErrorListItemTests
     {
         [Fact]
-        public void SarifErrorListItem_LineMarker_Region_StartLine()
+        public void SarifErrorListItem_WhenRegionHasStartLine_HasLineMarker()
         {
             new SarifViewerPackage();
 
@@ -29,7 +29,7 @@ namespace Microsoft.Sarif.Viewer.VisualStudio.UnitTests
         }
 
         [Fact]
-        public void SarifErrorListItem_LineMarker_Region_Offset()
+        public void SarifErrorListItem_WhenRegionHasNoStartLine_HasNoLineMarker()
         {
             new SarifViewerPackage();
 
@@ -48,7 +48,7 @@ namespace Microsoft.Sarif.Viewer.VisualStudio.UnitTests
         }
 
         [Fact]
-        public void SarifErrorListItem_LineMarker_NoRegion()
+        public void SarifErrorListItem_WhenRegionIsAbsent_HasNoLineMarker()
         {
             new SarifViewerPackage();
 
