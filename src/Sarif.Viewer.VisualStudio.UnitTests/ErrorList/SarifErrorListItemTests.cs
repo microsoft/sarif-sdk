@@ -9,11 +9,9 @@ namespace Microsoft.Sarif.Viewer.VisualStudio.UnitTests
 {
     public class SarifErrorListItemTests
     {
-        /// <summary>
-        /// Constructor required to set a static member of the SarifViewerPackage class.
-        /// In a normal run, this gets set well before any SarifErrorListItem object is created,
-        /// but for testing this line is needed.
-        /// </summary>
+        // Constructor required to set a static member of the SarifViewerPackage class.
+        // In a normal run, this gets set well before any SarifErrorListItem object is created,
+        // but for testing this line is needed.
         public SarifErrorListItemTests()
         {
             // Create new SarifViewerPackage to let it's constructor set the static members.
