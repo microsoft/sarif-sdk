@@ -67,7 +67,7 @@
     <Compile Include="Models\ReplacementModel.cs" />
     <Compile Include="Models\FileChangeModel.cs" />
     <Compile Include="Models\FixModel.cs" />
-    <Compile Include="ProjectNameLookup.cs" />
+    <Compile Include="ProjectNameCache.cs" />
     <Compile Include="Resource1.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

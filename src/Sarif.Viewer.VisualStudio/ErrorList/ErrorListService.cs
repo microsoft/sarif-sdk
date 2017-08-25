@@ -87,7 +87,7 @@ namespace Microsoft.Sarif.Viewer.ErrorList
                 foreach (Result result in run.Results)
                 {
                     SarifErrorListItem sarifError = GetResult(run, result, logFilePath);
-                    ProjectNameLookup.Instance.SetName(sarifError.FileName);
+                    ProjectNameCache.Instance.SetName(sarifError.FileName);
                     sarifErrors.Add(sarifError);
                 }
             }
