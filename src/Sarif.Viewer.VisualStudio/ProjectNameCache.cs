@@ -1,46 +1,41 @@
-﻿using System.Collections.Generic;
+﻿using EnvDTE;
+using System.Collections.Generic;
 
 namespace Microsoft.Sarif.Viewer
 {
     public sealed class ProjectNameCache
     {
-        private readonly static ProjectNameCache instance = new ProjectNameCache();
-        private readonly object projectNameDictionaryLock = new object();
         private Dictionary<string, string> projectNames = new Dictionary<string, string>();
 
-        static ProjectNameCache() { }
-        private ProjectNameCache() { }
+        private readonly Solution solution;
 
-        public static ProjectNameCache Instance => instance;
-
-        public void SetName(string fileName)
+        public ProjectNameCache(Solution solution)
         {
-            lock (projectNameDictionaryLock)
-            {
-                if (projectNames.ContainsKey(fileName))
-                {
-                    return;
-                }
-
-                var project = SarifViewerPackage.Dte.Solution.FindProjectItem(fileName);
-                if (project?.ContainingProject != null)
-                {
-                    projectNames[fileName] = project.ContainingProject.Name;
-                }
-                else
-                {
-                    projectNames[fileName] = string.Empty;
-                }
-            }
+            this.solution = solution;
         }
 
         public string GetName(string fileName)
         {
             SetName(fileName);
 
-            lock (projectNameDictionaryLock)
+            return projectNames[fileName];
+        }
+
+        private void SetName(string fileName)
+        {
+            if (projectNames.ContainsKey(fileName))
             {
-                return projectNames[fileName];
+                return;
+            }
+
+            var project = solution?.FindProjectItem(fileName);
+            if (project?.ContainingProject != null)
+            {
+                projectNames[fileName] = project.ContainingProject.Name;
+            }
+            else
+            {
+                projectNames[fileName] = string.Empty;
             }
         }
     }

@@ -110,7 +110,7 @@ namespace Microsoft.Sarif.Viewer.ErrorList
                 }
                 else if (columnName == StandardTableKeyNames.ProjectName)
                 {
-                    content = ProjectNameCache.Instance.GetName(_errors[index].FileName);
+                    content = _errors[index].ProjectName;
                 }
                 else if (columnName == StandardTableKeyNames.HelpLink)
                 {
