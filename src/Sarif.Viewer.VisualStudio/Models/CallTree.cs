@@ -14,8 +14,8 @@ namespace Microsoft.Sarif.Viewer.Models
         CallTreeNode _selectedItem;
         DelegateCommand<TreeView> _selectPreviousCommand;
         DelegateCommand<TreeView> _selectNextCommand;
-        IToolWindow toolWindow;
 
+        private IToolWindow toolWindow;
         private ObservableCollection<CallTreeNode> _topLevelNodes;
 
         public CallTree(IList<CallTreeNode> topLevelNodes, IToolWindow toolWindow)
