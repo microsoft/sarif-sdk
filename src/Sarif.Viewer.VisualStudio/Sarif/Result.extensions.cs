@@ -42,7 +42,7 @@ namespace Microsoft.Sarif.Viewer.Sarif
         {
             if (result == null || result.Locations == null || result.Locations.Count == 0)
             {
-                return null;
+                return string.Empty;
             }
 
             Location primaryLocation = result.Locations[0];

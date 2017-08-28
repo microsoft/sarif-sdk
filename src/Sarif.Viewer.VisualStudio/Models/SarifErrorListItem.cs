@@ -414,7 +414,7 @@ namespace Microsoft.Sarif.Viewer
 
         internal void RemapFilePath(string originalPath, string remappedPath)
         {
-            if (FileName != null && FileName.Equals(originalPath, StringComparison.OrdinalIgnoreCase))
+            if (FileName.Equals(originalPath, StringComparison.OrdinalIgnoreCase))
             {
                 FileName = remappedPath;
             }
