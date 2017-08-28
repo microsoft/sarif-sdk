@@ -6,6 +6,7 @@ using FluentAssertions;
 using Microsoft.CodeAnalysis.Sarif;
 using Microsoft.Sarif.Viewer.Models;
 using Xunit;
+using Moq;
 
 namespace Microsoft.Sarif.Viewer.VisualStudio.UnitTests
 {
@@ -45,7 +46,10 @@ namespace Microsoft.Sarif.Viewer.VisualStudio.UnitTests
                 }
             };
 
-            CallTree callTree = new CallTree(CodeFlowToTreeConverter.Convert(codeFlow));
+            var mockToolWindow = new Mock<IToolWindow>();
+            mockToolWindow.Setup(s => s.UpdateSelectionList(It.IsAny<object[]>()));
+
+            CallTree callTree = new CallTree(CodeFlowToTreeConverter.Convert(codeFlow), mockToolWindow.Object);
 
             callTree.FindPrevious().Should().Be(null);
             callTree.FindNext().Should().Be(null);
@@ -85,7 +89,10 @@ namespace Microsoft.Sarif.Viewer.VisualStudio.UnitTests
                 }
             };
 
-            CallTree callTree = new CallTree(CodeFlowToTreeConverter.Convert(codeFlow));
+            var mockToolWindow = new Mock<IToolWindow>();
+            mockToolWindow.Setup(s => s.UpdateSelectionList(It.IsAny<object[]>()));
+
+            CallTree callTree = new CallTree(CodeFlowToTreeConverter.Convert(codeFlow), mockToolWindow.Object);
 
             callTree.SelectedItem = callTree.TopLevelNodes[0];
             callTree.FindPrevious().Should().Be(callTree.TopLevelNodes[0]);

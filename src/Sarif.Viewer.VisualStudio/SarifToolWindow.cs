@@ -22,7 +22,7 @@ namespace Microsoft.Sarif.Viewer
     /// </para>
     /// </remarks>
     [Guid("ab561bcc-e01d-4781-8c2e-95a9170bfdd5")]
-    public class SarifToolWindow : ToolWindowPane
+    public class SarifToolWindow : ToolWindowPane, IToolWindow
     {
         private ITrackSelection _trackSelection;
         private SelectionContainer _selectionContainer;
@@ -85,7 +85,7 @@ namespace Microsoft.Sarif.Viewer
         /// Replaces the collection of objects who's values are displayed in the Properties window.
         /// </summary>
         /// <param name="items"></param>
-        public void UpdateSelectionList(params Object[] items)
+        public void UpdateSelectionList(params object[] items)
         {
             _selectionContainer = new SelectionContainer(true, false);
             _selectionContainer.SelectableObjects = items;

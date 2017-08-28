@@ -125,7 +125,7 @@ namespace Microsoft.Sarif.Viewer.ViewModels
                             }
                         }
                     }
-                }));
+                }, SarifViewerPackage.SarifToolWindow));
 
             StackCollection stack1 = new StackCollection("Stack A1");
             stack1.Add(new StackFrameModel()
