@@ -175,32 +175,31 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
                 string[] embeddedLinks = embeddedLinksText.Split(new string[] { "],[" }, StringSplitOptions.None);
 
-                string tokenText = embeddedLinksText;
                 foreach (string embeddedLink in embeddedLinks)
                 {
                     string[] tokens = embeddedLink.Split(new char[] { '\"' }, StringSplitOptions.RemoveEmptyEntries);
 
                     // save the text portion of the link
-                    tokenText = tokens[0];
+                    embeddedLinksText = tokens[0];
 
                     string location = tokens[2];
-                    tokens = location.Split(':');
+                    string[] locationTokens = location.Split(':');
 
                     relatedLocations = relatedLocations ?? new List<AnnotatedCodeLocation>();
                     PhysicalLocation physicalLocation;
 
-                    if (tokens[0].Equals("file", StringComparison.OrdinalIgnoreCase))
+                    if (locationTokens[0].Equals("file", StringComparison.OrdinalIgnoreCase))
                     {
-                        // special case for file paths
+                        // Special case for file paths, e.g.:
                         // "IComparable"|"file://C:/Windows/Microsoft.NET/Framework/v2.0.50727/mscorlib.dll:0:0:0:0"
                         physicalLocation = new PhysicalLocation
                         {
-                            Uri = new Uri($"{tokens[0]}:{tokens[1]}:{tokens[2]}", UriKind.Absolute),
+                            Uri = new Uri($"{locationTokens[0]}:{locationTokens[1]}:{locationTokens[2]}", UriKind.Absolute),
                             Region = new Region
                             {
-                                StartLine = Int32.Parse(tokens[3]),
-                                Offset = Int32.Parse(tokens[4]),
-                                Length = Int32.Parse(tokens[5])
+                                StartLine = Int32.Parse(locationTokens[3]),
+                                Offset = Int32.Parse(locationTokens[4]),
+                                Length = Int32.Parse(locationTokens[5])
                             }
                         };
                     }
@@ -208,13 +207,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                     {
                         physicalLocation = new PhysicalLocation
                         {
-                            Uri = new Uri(tokens[1].Substring(1), UriKind.Relative),
+                            Uri = new Uri(locationTokens[1].Substring(1), UriKind.Relative),
                             UriBaseId = "$srcroot",
                             Region = new Region
                             {
-                                StartLine = Int32.Parse(tokens[2]),
-                                Offset = Int32.Parse(tokens[3]),
-                                Length = Int32.Parse(tokens[4])
+                                StartLine = Int32.Parse(locationTokens[2]),
+                                Offset = Int32.Parse(locationTokens[3]),
+                                Length = Int32.Parse(locationTokens[4])
                             }
                         };
                     }
@@ -227,8 +226,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                     relatedLocations.Add(relatedLocation);
                 }
 
-                // re-add the text portion of the link
-                sb.Append("\"" + tokenText + "\""); 
+                // Re-add the text portion of the link.
+                sb.Append("\"" + embeddedLinksText + "\""); 
 
                 rawMessage = rawMessage.Substring(index + "]]".Length);
                 index = rawMessage.IndexOf("[[");
