@@ -4,6 +4,7 @@
 using FluentAssertions;
 using Microsoft.CodeAnalysis.Sarif;
 using Microsoft.Sarif.Viewer.Models;
+using Moq;
 using System.Collections.Generic;
 using System.Windows;
 using Xunit;
@@ -458,7 +459,10 @@ namespace Microsoft.Sarif.Viewer.VisualStudio.Converters.UnitTests
         [Fact]
         public void CallTree_ExpandAll_NoNodes()
         {
-            CallTree tree = new CallTree(new List<CallTreeNode>());
+            var mockToolWindow = new Mock<IToolWindow>();
+            mockToolWindow.Setup(s => s.UpdateSelectionList(It.IsAny<object[]>()));
+
+            CallTree tree = new CallTree(new List<CallTreeNode>(), mockToolWindow.Object);
             tree.ExpandAll();
         }
 
@@ -585,7 +589,10 @@ namespace Microsoft.Sarif.Viewer.VisualStudio.Converters.UnitTests
                 }
             };
 
-            CallTree callTree = new CallTree(CodeFlowToTreeConverter.Convert(codeFlow));
+            var mockToolWindow = new Mock<IToolWindow>();
+            mockToolWindow.Setup(s => s.UpdateSelectionList(It.IsAny<object[]>()));
+
+            CallTree callTree = new CallTree(CodeFlowToTreeConverter.Convert(codeFlow), mockToolWindow.Object);
 
             return callTree;
         }

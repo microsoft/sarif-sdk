@@ -15,10 +15,12 @@ namespace Microsoft.Sarif.Viewer.Models
         DelegateCommand<TreeView> _selectPreviousCommand;
         DelegateCommand<TreeView> _selectNextCommand;
 
+        private IToolWindow toolWindow;
         private ObservableCollection<CallTreeNode> _topLevelNodes;
 
-        public CallTree(IList<CallTreeNode> topLevelNodes)
+        public CallTree(IList<CallTreeNode> topLevelNodes, IToolWindow toolWindow)
         {
+            this.toolWindow = toolWindow;
             TopLevelNodes = new ObservableCollection<CallTreeNode>(topLevelNodes);
         }
 
@@ -65,7 +67,7 @@ namespace Microsoft.Sarif.Viewer.Models
                     if (_selectedItem != null)
                     {
                         // Update the VS Properties window with the properties of the selected CallTreeNode.
-                        SarifViewerPackage.SarifToolWindow?.UpdateSelectionList(_selectedItem.TypeDescriptor);
+                        toolWindow.UpdateSelectionList(_selectedItem.TypeDescriptor);
 
                         // Navigate to the source file of the selected CallTreeNode.
                         _selectedItem.NavigateTo();
