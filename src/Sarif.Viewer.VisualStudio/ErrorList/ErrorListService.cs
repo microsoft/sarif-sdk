@@ -1,17 +1,18 @@
 ﻿// Copyright (c) Microsoft. All rights reserved. 
 // Licensed under the MIT license. See LICENSE file in the project root for full license information. 
 
-using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
 
+using EnvDTE;
+
 using Microsoft.CodeAnalysis.Sarif;
+using Microsoft.CodeAnalysis.Sarif.Converters;
 using Microsoft.CodeAnalysis.Sarif.Readers;
 using Microsoft.CodeAnalysis.Sarif.Writers;
 
 using Newtonsoft.Json;
-using Microsoft.CodeAnalysis.Sarif.Converters;
 
 namespace Microsoft.Sarif.Viewer.ErrorList
 {
@@ -19,7 +20,7 @@ namespace Microsoft.Sarif.Viewer.ErrorList
     {
         public static readonly ErrorListService Instance = new ErrorListService();
 
-        public static void ProcessLogFile(string filePath, string toolFormat = ToolFormat.None)
+        public static void ProcessLogFile(string filePath, Solution solution, string toolFormat = ToolFormat.None)
         {
             SarifLog log;
 
@@ -61,14 +62,14 @@ namespace Microsoft.Sarif.Viewer.ErrorList
             }
 
             log = JsonConvert.DeserializeObject<SarifLog>(logText, settings);
-            ProcessSarifLog(log, filePath);
+            ProcessSarifLog(log, filePath, solution);
         }
 
-        private static void ProcessSarifLog(SarifLog sarifLog, string logFilePath)
+        private static void ProcessSarifLog(SarifLog sarifLog, string logFilePath, Solution solution)
         {
             foreach (Run run in sarifLog.Runs)
             {
-                Instance.WriteRunToErrorList(run, logFilePath);
+                Instance.WriteRunToErrorList(run, logFilePath, solution);
             }
 
             SarifTableDataSource.Instance.BringToFront();
@@ -78,16 +79,17 @@ namespace Microsoft.Sarif.Viewer.ErrorList
         {
         }
 
-        private void WriteRunToErrorList(Run run, string logFilePath)
+        private void WriteRunToErrorList(Run run, string logFilePath, Solution solution)
         {
             List<SarifErrorListItem> sarifErrors = new List<SarifErrorListItem>();
+
+            var projectNameCache = new ProjectNameCache(solution);
 
             if (run.Results != null)
             {
                 foreach (Result result in run.Results)
                 {
-                    SarifErrorListItem sarifError = GetResult(run, result, logFilePath);
-                    ProjectNameCache.Instance.SetName(sarifError.FileName);
+                    var sarifError = new SarifErrorListItem(run, result, logFilePath, projectNameCache);
                     sarifErrors.Add(sarifError);
                 }
             }
@@ -95,14 +97,5 @@ namespace Microsoft.Sarif.Viewer.ErrorList
             CodeAnalysisResultManager.Instance.SarifErrors = sarifErrors;
             SarifTableDataSource.Instance.AddErrors(sarifErrors);
         }
-
-        private SarifErrorListItem GetResult(Run run, Result result, string logFilePath)
-        {
-            SarifErrorListItem sarifError = new SarifErrorListItem(run, result, logFilePath);
-
-            return sarifError;
-        }
-
-
     }
 }

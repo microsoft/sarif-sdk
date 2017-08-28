@@ -5,7 +5,6 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Diagnostics;
 using System.IO;
 using Microsoft.CodeAnalysis.Sarif;
 using Microsoft.Sarif.Viewer.Models;
@@ -39,13 +38,14 @@ namespace Microsoft.Sarif.Viewer
             _fixes = new ObservableCollection<FixModel>();
         }
 
-        public SarifErrorListItem(Run run, Result result, string logFilePath) : this()
+        public SarifErrorListItem(Run run, Result result, string logFilePath, ProjectNameCache projectNameCache) : this()
         {
             IRule rule;
             run.TryGetRule(result.RuleId, result.RuleKey, out rule);
             Message = result.GetMessageText(rule, concise: false);
             ShortMessage = result.GetMessageText(rule, concise: true);
             FileName = result.GetPrimaryTargetFile();
+            ProjectName = projectNameCache.GetName(FileName);
             Category = result.GetCategory();
             Region = result.GetPrimaryTargetRegion();
             Level = result.Level;
@@ -137,6 +137,9 @@ namespace Microsoft.Sarif.Viewer
                 NotifyPropertyChanged("FileName");
             }
         }
+
+        [Browsable(false)]
+        public string ProjectName { get; set; }
 
         [Browsable(false)]
         public bool RegionPopulated { get; set; }

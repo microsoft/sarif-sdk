@@ -118,7 +118,7 @@
     <Compile Include="Guids.cs" />
     <Compile Include="Models\AnnotatedCodeLocationModel.cs" />
     <Compile Include="Models\AnnotatedCodeLocationCollection.cs" />
-    <Compile Include="OpenSarifFileCommand.cs" />
+    <Compile Include="OpenLogFileCommands.cs" />
     <Compile Include="ProjectHelper.cs" />
     <Compile Include="ProjectKind.cs" />
     <Compile Include="ResultTextMarker.cs" />
@@ -130,7 +130,7 @@
     <Compile Include="Models\SarifErrorListItem.cs" />
     <Compile Include="SdkUiUtilities.cs" />
     <Compile Include="ErrorList\SinkManager.cs" />
-    <Compile Include="ErrorList\TableDataSource.cs" />
+    <Compile Include="ErrorList\SarifTableDataSource.cs" />
     <Compile Include="ErrorList\SarifSnapshot.cs" />
     <Compile Include="ViewModels\ViewModelLocator.cs" />
     <Compile Include="WeakEventHandlerManager.cs" />

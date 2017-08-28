@@ -233,7 +233,7 @@ namespace Microsoft.Sarif.Viewer
                 logFile = openFileDialog.FileName;
             }
 
-            ErrorListService.ProcessLogFile(logFile, toolFormat);
+            ErrorListService.ProcessLogFile(logFile, SarifViewerPackage.Dte.Solution, toolFormat);
         }
 
         bool IsSarifProtocol(string path)
