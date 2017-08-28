@@ -40,7 +40,12 @@ namespace Microsoft.Sarif.Viewer.Sarif
 
         public static string GetPrimaryTargetFile(this Result result)
         {
-            if (result == null || result.Locations == null || result.Locations.Count == 0)
+            if (result == null)
+            {
+                return null;
+            }
+
+            if (result.Locations == null || result.Locations.Count == 0)
             {
                 return string.Empty;
             }
