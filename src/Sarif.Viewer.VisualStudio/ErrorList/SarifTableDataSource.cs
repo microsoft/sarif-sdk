@@ -125,9 +125,7 @@ namespace Microsoft.Sarif.Viewer.ErrorList
 
             CleanAllErrors();
 
-            var cleanErrors = errors.Where(e => e != null && !string.IsNullOrEmpty(e.FileName));
-
-            foreach (var fileErrorGroup in cleanErrors.GroupBy(t => t.FileName))
+            foreach (var fileErrorGroup in errors.GroupBy(t => t.FileName))
             {
                 var snapshot = new SarifSnapshot(fileErrorGroup.Key, fileErrorGroup);
                 _snapshots[fileErrorGroup.Key] = snapshot;
