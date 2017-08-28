@@ -207,7 +207,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                     {
                         physicalLocation = new PhysicalLocation
                         {
-                            Uri = new Uri(tokens[1].Substring(1), UriKind.Relative),
+                            Uri = new Uri(locationTokens[1].Substring(1), UriKind.Relative),
                             UriBaseId = "$srcroot",
                             Region = new Region
                             {
