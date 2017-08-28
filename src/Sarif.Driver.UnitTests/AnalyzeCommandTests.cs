@@ -443,7 +443,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                     Verbose = true,
                     Statistics = true,
                     Quiet = true,
-                    ComputeTargetsHash = true,
+                    ComputeFileHashes = true,
                     ConfigurationFilePath = TestAnalyzeCommand.DefaultPolicyName,
                     Recurse = true,
                     OutputFilePath = path,

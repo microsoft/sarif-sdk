@@ -19,9 +19,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             var logger = new SarifLogger(
                 textWriter,
                 analysisTargets: Enumerable.Empty<string>(),
-                verbose: false,
-                computeTargetsHash: false,
-                logEnvironment: false,
+                loggingOptions: LoggingOptions.None,
                 prereleaseInfo: null,
                 invocationTokensToRedact: null,
                 invocationPropertiesToLog: null);

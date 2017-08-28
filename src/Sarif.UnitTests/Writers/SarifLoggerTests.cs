@@ -79,9 +79,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 using (var sarifLogger = new SarifLogger(
                     textWriter,
                     analysisTargets: null,
-                    verbose: false,
-                    computeTargetsHash: false,
-                    logEnvironment: false,
+                    loggingOptions: LoggingOptions.None,
                     prereleaseInfo: null,
                     invocationTokensToRedact: tokensToRedact,
                     invocationPropertiesToLog: new List<string> { "CommandLine" })) { }
@@ -102,9 +100,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 using (var sarifLogger = new SarifLogger(
                     textWriter,
                     analysisTargets: new string[] { @"foo.cpp" },
-                    verbose: false,
-                    computeTargetsHash: false,
-                    logEnvironment: false,
+                    loggingOptions: LoggingOptions.None,
                     prereleaseInfo: null,
                     invocationTokensToRedact: null,
                     invocationPropertiesToLog: null)) { }
@@ -134,9 +130,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 using (var sarifLogger = new SarifLogger(
                     textWriter,
                     analysisTargets: new string[] { file },
-                    verbose: false,
-                    computeTargetsHash: true,
-                    logEnvironment: false,
+                    loggingOptions: LoggingOptions.ComputeFileHashes,
                     prereleaseInfo: null,
                     invocationTokensToRedact: null,
                     invocationPropertiesToLog: null))
@@ -168,9 +162,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 using (var sarifLogger = new SarifLogger(
                     textWriter,
                     analysisTargets: null,
-                    verbose: false,
-                    computeTargetsHash: true,
-                    logEnvironment: false,
+                    loggingOptions: LoggingOptions.ComputeFileHashes,
                     prereleaseInfo: null,
                     invocationTokensToRedact: null,
                     invocationPropertiesToLog: null))
@@ -267,9 +259,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 using (var sarifLogger = new SarifLogger(
                     textWriter,
                     analysisTargets: null,
-                    verbose: false,
-                    computeTargetsHash: true,
-                    logEnvironment: false,
+                    loggingOptions: LoggingOptions.ComputeFileHashes,
                     prereleaseInfo: null,
                     invocationTokensToRedact: null,
                     invocationPropertiesToLog: null))
@@ -305,9 +295,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 using (var sarifLogger = new SarifLogger(
                     textWriter,
                     analysisTargets: null,
-                    verbose: false,
-                    computeTargetsHash: true,
-                    logEnvironment: false,
+                    loggingOptions: LoggingOptions.ComputeFileHashes,
                     prereleaseInfo: null,
                     invocationTokensToRedact: null,
                     invocationPropertiesToLog: null))
@@ -339,9 +327,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 using (var sarifLogger = new SarifLogger(
                     textWriter,
                     analysisTargets: null,
-                    verbose: false,
-                    computeTargetsHash: true,
-                    logEnvironment: false,
+                    loggingOptions: LoggingOptions.ComputeFileHashes,
                     prereleaseInfo: null,
                     invocationTokensToRedact: null,
                     invocationPropertiesToLog: new[] { "WorkingDirectory", "ProcessId" }))
@@ -377,9 +363,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 using (var sarifLogger = new SarifLogger(
                     textWriter,
                     analysisTargets: null,
-                    verbose: false,
-                    computeTargetsHash: true,
-                    logEnvironment: false,
+                    loggingOptions: LoggingOptions.ComputeFileHashes,
                     prereleaseInfo: null,
                     invocationTokensToRedact: null,
                     invocationPropertiesToLog: new[] { "WORKINGDIRECTORY", "prOCessID" }))
@@ -404,7 +388,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             var sb = new StringBuilder();
 
             using (var writer = new StringWriter(sb))
-            using (var sarifLogger = new SarifLogger(writer, verbose: true))
+            using (var sarifLogger = new SarifLogger(writer, LoggingOptions.Verbose))
             {
                 var rule = new Rule()
                 {

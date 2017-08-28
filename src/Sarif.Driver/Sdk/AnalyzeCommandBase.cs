@@ -311,16 +311,23 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             {
                 InvokeCatchingRelevantIOExceptions
                 (
-                    () => aggregatingLogger.Loggers.Add(
-                            new SarifLogger(
-                                analyzeOptions.OutputFilePath,
-                                targets,
-                                analyzeOptions.Verbose,
-                                analyzeOptions.LogEnvironment,
-                                analyzeOptions.ComputeTargetsHash,
-                                Prerelease,
-                                invocationTokensToRedact: GenerateSensitiveTokensList(),
-                                invocationPropertiesToLog: analyzeOptions.InvocationPropertiesToLog)),
+                    () =>
+                    {
+                        LoggingOptions loggingOptions = LoggingOptions.None;
+
+                        if (analyzeOptions.Verbose) { loggingOptions |= LoggingOptions.Verbose; }
+                        if (analyzeOptions.LogEnvironment) { loggingOptions |= LoggingOptions.Verbose; }
+                        if (analyzeOptions.ComputeFileHashes) { loggingOptions |= LoggingOptions.Verbose; }
+
+                        aggregatingLogger.Loggers.Add(
+                                new SarifLogger(
+                                    analyzeOptions.OutputFilePath,
+                                    targets,
+                                    loggingOptions,
+                                    Prerelease,
+                                    invocationTokensToRedact: GenerateSensitiveTokensList(),
+                                    invocationPropertiesToLog: analyzeOptions.InvocationPropertiesToLog));
+                    },
                     (ex) =>
                     {
                         Errors.LogExceptionCreatingLogFile(context, filePath, ex);

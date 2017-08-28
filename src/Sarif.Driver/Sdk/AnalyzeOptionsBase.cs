@@ -55,7 +55,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             'h',
             "hashes",
             HelpText = "Output SHA-256 hash of analysis targets when emitting SARIF reports.")]
-        public bool ComputeTargetsHash { get; set; }
+        public bool ComputeFileHashes { get; set; }
 
         [Option(
             'e',

@@ -18,10 +18,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
     {
         private Run _run;
         private TextWriter _textWriter;
+        private LoggingOptions _loggingOptions;
         private JsonTextWriter _jsonTextWriter;
         private ResultLogJsonWriter _issueLogJsonWriter;
         private Dictionary<string, IRule> _rules;
-        private bool _computeTargetsHash;
 
         private static Run CreateRun(
             IEnumerable<string> analysisTargets,
@@ -86,13 +86,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
         public SarifLogger(
             string outputFilePath, 
-            bool verbose,
-            bool computeTargetsHash,
+            LoggingOptions loggingOptions,
             Tool tool, 
             Run run)
             : this(new StreamWriter(new FileStream(outputFilePath, FileMode.Create, FileAccess.Write, FileShare.None)),
-                  verbose,
-                  computeTargetsHash,
+                  loggingOptions,
                   tool,
                   run)
         {
@@ -101,12 +99,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
         public SarifLogger(
             TextWriter textWriter, 
-            bool verbose, 
-            bool computeTargetsHash,
+            LoggingOptions loggingOptions,
             Tool tool, 
-            Run run) : this(textWriter, verbose)
+            Run run) : this(textWriter, loggingOptions)
         {
-            _run = run ?? CreateRun(null, computeTargetsHash, false, null, null);
+            _run = run ?? CreateRun(null, ComputeFileHashes, false, null, null);
             SetSarifLoggerVersion(tool);
             _issueLogJsonWriter.WriteTool(tool);
         }
@@ -114,33 +111,26 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         public SarifLogger(
             string outputFilePath,
             IEnumerable<string> analysisTargets,
-            bool verbose,
-            bool logEnvironment,
-            bool computeTargetsHash,
+            LoggingOptions loggingOptions,
             string prereleaseInfo,
             IEnumerable<string> invocationTokensToRedact,
             IEnumerable<string> invocationPropertiesToLog = null)
             : this(new StreamWriter(new FileStream(outputFilePath, FileMode.Create, FileAccess.Write, FileShare.None)),
                     analysisTargets,
-                    verbose,
-                    logEnvironment,
-                    computeTargetsHash,
+                    loggingOptions,
                     prereleaseInfo,
                     invocationTokensToRedact,
                     invocationPropertiesToLog)
         {
-            _computeTargetsHash = computeTargetsHash;
         }
 
         public SarifLogger(
             TextWriter textWriter,
             IEnumerable<string> analysisTargets,
-            bool verbose,
-            bool logEnvironment,
-            bool computeTargetsHash,
+            LoggingOptions loggingOptions,
             string prereleaseInfo,
             IEnumerable<string> invocationTokensToRedact,
-            IEnumerable<string> invocationPropertiesToLog = null) : this(textWriter, verbose)
+            IEnumerable<string> invocationPropertiesToLog = null) : this(textWriter, loggingOptions)
         {
             Tool tool = Tool.CreateFromAssemblyData(prereleaseInfo);
 
@@ -150,12 +140,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
             _run = CreateRun(
                 analysisTargets,
-                computeTargetsHash,
-                logEnvironment,
+                ComputeFileHashes,
+                PersistEnvironment,
                 invocationTokensToRedact,
                 invocationPropertiesToLog);
 
-            _computeTargetsHash = computeTargetsHash;
         }
 
         private static void SetSarifLoggerVersion(Tool tool)
@@ -164,16 +153,19 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             tool.SarifLoggerVersion = FileVersionInfo.GetVersionInfo(sarifLoggerLocation).FileVersion;
         }
 
-        public SarifLogger(TextWriter textWriter, bool verbose)
+        public SarifLogger(TextWriter textWriter, LoggingOptions loggingOptions)
         {
-            Verbose = verbose;
-
             _textWriter = textWriter;
-
             _jsonTextWriter = new JsonTextWriter(_textWriter);
 
-            // for debugging it is nice to have the following line added.
-            _jsonTextWriter.Formatting = Newtonsoft.Json.Formatting.Indented;
+            _loggingOptions = loggingOptions;
+
+            if (PrettyPrint)
+            {
+                // for debugging it is nice to have the following line added.
+                _jsonTextWriter.Formatting = Newtonsoft.Json.Formatting.Indented;
+            }        
+
             _jsonTextWriter.DateFormatString = DateTimeConverter.DateTimeFormat;
 
             _issueLogJsonWriter = new ResultLogJsonWriter(_jsonTextWriter);
@@ -188,7 +180,16 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             }
         }
 
-        public bool Verbose { get; set; }
+        public bool Verbose { get { return (_loggingOptions & LoggingOptions.Verbose) == LoggingOptions.Verbose; } }
+
+        public bool PrettyPrint { get { return (_loggingOptions & LoggingOptions.PrettyPrint) == LoggingOptions.PrettyPrint; } }
+
+        public bool ComputeFileHashes { get { return (_loggingOptions & LoggingOptions.ComputeFileHashes) == LoggingOptions.ComputeFileHashes; } }
+
+        public bool PersistEnvironment { get { return (_loggingOptions & LoggingOptions.ComputeFileHashes) == LoggingOptions.PersistEnvironment; } }
+
+        public bool PersistFileContents { get { return (_loggingOptions & LoggingOptions.ComputeFileHashes) == LoggingOptions.PersistFileContents; } }
+        
 
         public void Dispose()
         {
