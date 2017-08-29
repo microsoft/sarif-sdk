@@ -411,7 +411,6 @@ namespace Microsoft.CodeAnalysis.Sarif
             TestForLoggingOption(LoggingOptions.ComputeFileHashes);
         }
 
-
         [TestMethod]
         public void SarifLogger_LoggingOptions_None()
         {
@@ -456,10 +455,13 @@ namespace Microsoft.CodeAnalysis.Sarif
             // to account for the new member.
             //     
             // Current values are:
-            // None, ComputeFileHashes, PersistEnvironment, PersistFileContents, PrettyPrint, Verbose, All  
+            // None, ComputeFileHashes, PersistEnvironment, PersistFileContents, PrettyPrint, Verbose, All
             Enum.GetNames(typeof(LoggingOptions)).Length.Should().Be(7);
         }
 
+        // This helper is intended to validate a single enum member only
+        // and not arbitrary combinations of bits. One defined member,
+        // All, contains all bits.
         private void TestForLoggingOption(LoggingOptions loggingOption)
         {
             string fileName = Path.GetTempFileName();
@@ -468,19 +470,23 @@ namespace Microsoft.CodeAnalysis.Sarif
             {
                 SarifLogger logger;
 
+                // Validates overloads that accept a path argument.
                 using (logger = new SarifLogger(fileName, loggingOption))
                 {
                     ValidateLoggerForExclusiveOption(logger, loggingOption);
                 };
 
+
+                // Validates second set of overloads that accept any 
+                // TextWriter (for example, one instantiated over a
+                // StringBuilder instance).
                 var sb = new StringBuilder();
                 var stringWriter = new StringWriter(sb);
                 using (logger = new SarifLogger(stringWriter, loggingOption))
                 {
                     ValidateLoggerForExclusiveOption(logger, loggingOption);
                 };
-            }
-            
+            }            
             finally
             {
                 if (File.Exists(fileName)) { File.Delete(fileName); }
@@ -556,7 +562,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 }
                 default:
                 {
-                    throw new InvalidOperationException();
+                    throw new ArgumentException();
                 }
             }
         }

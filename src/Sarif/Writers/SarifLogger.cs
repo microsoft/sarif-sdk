@@ -23,6 +23,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         private ResultLogJsonWriter _issueLogJsonWriter;
         private Dictionary<string, IRule> _rules;
 
+        private const LoggingOptions DefaultLoggingOptions = LoggingOptions.PrettyPrint;
+
         private static Run CreateRun(
             IEnumerable<string> analysisTargets,
             bool computeTargetsHash,
@@ -86,7 +88,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
         public SarifLogger(
             string outputFilePath, 
-            LoggingOptions loggingOptions = LoggingOptions.PrettyPrint,
+            LoggingOptions loggingOptions = DefaultLoggingOptions,
             Tool tool = null, 
             Run run = null)
             : this(new StreamWriter(new FileStream(outputFilePath, FileMode.Create, FileAccess.Write, FileShare.None)),
@@ -164,7 +166,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
             if (PrettyPrint)
             {
-                // for debugging it is nice to have the following line added.
+                // Indented output is preferable for debugging
                 _jsonTextWriter.Formatting = Newtonsoft.Json.Formatting.Indented;
             }        
 

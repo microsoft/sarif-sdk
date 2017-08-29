@@ -313,11 +313,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 (
                     () =>
                     {
-                        LoggingOptions loggingOptions = LoggingOptions.None;
-
-                        if (analyzeOptions.Verbose) { loggingOptions |= LoggingOptions.Verbose; }
-                        if (analyzeOptions.LogEnvironment) { loggingOptions |= LoggingOptions.Verbose; }
-                        if (analyzeOptions.ComputeFileHashes) { loggingOptions |= LoggingOptions.Verbose; }
+                        LoggingOptions loggingOptions;
+                        loggingOptions = ConvertAnalyzeOptionsToLoggingOption(analyzeOptions);
 
                         aggregatingLogger.Loggers.Add(
                                 new SarifLogger(
@@ -335,6 +332,17 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                     }
                 );
             }
+        }
+
+        internal static LoggingOptions ConvertAnalyzeOptionsToLoggingOption(TOptions analyzeOptions)
+        {
+            LoggingOptions loggingOptions = LoggingOptions.None;
+
+            if (analyzeOptions.Verbose) { loggingOptions |= LoggingOptions.Verbose; }
+            if (analyzeOptions.LogEnvironment) { loggingOptions |= LoggingOptions.PersistEnvironment; }
+            if (analyzeOptions.ComputeFileHashes) { loggingOptions |= LoggingOptions.ComputeFileHashes; }
+
+            return loggingOptions;
         }
 
         private IEnumerable<string> GenerateSensitiveTokensList()

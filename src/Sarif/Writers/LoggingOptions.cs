@@ -10,19 +10,19 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
     {
         None = 0,
 
-        // Persist SHA256 hash of all references files to log file
+        // Persist SHA256 hash of all referenced files to log file.
         ComputeFileHashes = 0x1,
 
-        // Persist base64 encoded file contents to log
+        // Persist base64 encoded file contents to log.
         PersistFileContents = 0x2,
         
-        // Persist environment variables to log file (which may contain security-sensitive information)
+        // Persist environment variables to log file (which may contain security-sensitive information).
         PersistEnvironment = 0x4,
 
-        // Indent persisted JSON for easy file viewing
+        // Indent persisted JSON for easy file viewing.
         PrettyPrint = 0x8,
 
-        // Persist verbose information to log file, such as informational messages
+        // Persist verbose information to log file, such as informational messages.
         Verbose = 0x10,
 
         All = ComputeFileHashes | PersistEnvironment | PersistFileContents | PrettyPrint | Verbose
