@@ -404,5 +404,161 @@ namespace Microsoft.CodeAnalysis.Sarif
                 sarifLogger.Log(rule, result);
             }
         }
+
+        [TestMethod]
+        public void SarifLogger_LoggingOptions_ComputeFileHashes()
+        {
+            TestForLoggingOption(LoggingOptions.ComputeFileHashes);
+        }
+
+
+        [TestMethod]
+        public void SarifLogger_LoggingOptions_None()
+        {
+            TestForLoggingOption(LoggingOptions.None);
+        }
+
+        [TestMethod]
+        public void SarifLogger_LoggingOptions_PersistEnvironment()
+        {
+            TestForLoggingOption(LoggingOptions.PersistEnvironment);
+        }
+
+        [TestMethod]
+        public void SarifLogger_LoggingOptions_PersistFileContents()
+        {
+            TestForLoggingOption(LoggingOptions.PersistFileContents);
+        }
+
+        [TestMethod]
+        public void SarifLogger_LoggingOptions_PrettyPrint()
+        {
+            TestForLoggingOption(LoggingOptions.PrettyPrint);
+        }
+
+        [TestMethod]
+        public void SarifLogger_LoggingOptions_Verbose()
+        {
+            TestForLoggingOption(LoggingOptions.Verbose);
+        }
+
+        [TestMethod]
+        public void SarifLogger_LoggingOptions_All()
+        {
+            TestForLoggingOption(LoggingOptions.All);
+        }
+
+        [TestMethod]
+        public void SarifLogger_LoggingOptions_Count()
+        {
+            // This test exists in order to alert test developers when a new member is added to the
+            // LoggingOptions enum. In that case, this test and others should be updated/added
+            // to account for the new member.
+            //     
+            // Current values are:
+            // None, ComputeFileHashes, PersistEnvironment, PersistFileContents, PrettyPrint, Verbose, All  
+            Enum.GetNames(typeof(LoggingOptions)).Length.Should().Be(7);
+        }
+
+        private void TestForLoggingOption(LoggingOptions loggingOption)
+        {
+            string fileName = Path.GetTempFileName();
+
+            try
+            {
+                SarifLogger logger;
+
+                using (logger = new SarifLogger(fileName, loggingOption))
+                {
+                    ValidateLoggerForExclusiveOption(logger, loggingOption);
+                };
+
+                var sb = new StringBuilder();
+                var stringWriter = new StringWriter(sb);
+                using (logger = new SarifLogger(stringWriter, loggingOption))
+                {
+                    ValidateLoggerForExclusiveOption(logger, loggingOption);
+                };
+            }
+            
+            finally
+            {
+                if (File.Exists(fileName)) { File.Delete(fileName); }
+            }
+        }
+
+        private void ValidateLoggerForExclusiveOption(SarifLogger logger, LoggingOptions loggingOptions)
+        {
+            switch (loggingOptions)
+            {
+                case LoggingOptions.None:
+                {
+                    logger.ComputeFileHashes.Should().BeFalse();
+                    logger.PersistEnvironment.Should().BeFalse();
+                    logger.PersistFileContents.Should().BeFalse();
+                    logger.PrettyPrint.Should().BeFalse();
+                    logger.Verbose.Should().BeFalse();
+                    break;
+                }
+                case LoggingOptions.ComputeFileHashes:
+                {
+                    logger.ComputeFileHashes.Should().BeTrue();
+                    logger.PersistEnvironment.Should().BeFalse();
+                    logger.PersistFileContents.Should().BeFalse();
+                    logger.PrettyPrint.Should().BeFalse();
+                    logger.Verbose.Should().BeFalse();
+                    break;
+                }
+                case LoggingOptions.PersistEnvironment:
+                {
+                    logger.ComputeFileHashes.Should().BeFalse();
+                    logger.PersistEnvironment.Should().BeTrue();
+                    logger.PersistFileContents.Should().BeFalse();
+                    logger.PrettyPrint.Should().BeFalse();
+                    logger.Verbose.Should().BeFalse();
+                    break;
+                }
+                case LoggingOptions.PersistFileContents:
+                {
+                    logger.ComputeFileHashes.Should().BeFalse();
+                    logger.PersistEnvironment.Should().BeFalse();
+                    logger.PersistFileContents.Should().BeTrue();
+                    logger.PrettyPrint.Should().BeFalse();
+                    logger.Verbose.Should().BeFalse();
+                    break;
+                }
+                case LoggingOptions.PrettyPrint:
+                {
+                    logger.ComputeFileHashes.Should().BeFalse();
+                    logger.PersistEnvironment.Should().BeFalse();
+                    logger.PersistFileContents.Should().BeFalse();
+                    logger.PrettyPrint.Should().BeTrue();
+                    logger.Verbose.Should().BeFalse();
+                    break;
+                }
+                case LoggingOptions.Verbose:
+                {
+                    logger.ComputeFileHashes.Should().BeFalse();
+                    logger.PersistEnvironment.Should().BeFalse();
+                    logger.PersistFileContents.Should().BeFalse();
+                    logger.PrettyPrint.Should().BeFalse();
+                    logger.Verbose.Should().BeTrue();
+                    break;
+                }
+                case LoggingOptions.All:
+                {
+                    logger.ComputeFileHashes.Should().BeTrue();
+                    logger.PersistEnvironment.Should().BeTrue();
+                    logger.PersistFileContents.Should().BeTrue();
+                    logger.PrettyPrint.Should().BeTrue();
+                    logger.Verbose.Should().BeTrue();
+                    break;
+                }
+                default:
+                {
+                    throw new InvalidOperationException();
+                }
+            }
+        }
     }
 }
