@@ -182,16 +182,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             }
         }
 
-        public bool Verbose { get { return (_loggingOptions & LoggingOptions.Verbose) == LoggingOptions.Verbose; } }
-
-        public bool PrettyPrint { get { return (_loggingOptions & LoggingOptions.PrettyPrint) == LoggingOptions.PrettyPrint; } }
-
         public bool ComputeFileHashes { get { return (_loggingOptions & LoggingOptions.ComputeFileHashes) == LoggingOptions.ComputeFileHashes; } }
 
         public bool PersistEnvironment { get { return (_loggingOptions & LoggingOptions.PersistEnvironment) == LoggingOptions.PersistEnvironment; } }
 
         public bool PersistFileContents { get { return (_loggingOptions & LoggingOptions.PersistFileContents) == LoggingOptions.PersistFileContents; } }
-        
+
+        public bool PrettyPrint { get { return (_loggingOptions & LoggingOptions.PrettyPrint) == LoggingOptions.PrettyPrint; } }
+
+        public bool Verbose { get { return (_loggingOptions & LoggingOptions.Verbose) == LoggingOptions.Verbose; } }
 
         public void Dispose()
         {
