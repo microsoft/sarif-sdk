@@ -79,9 +79,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 using (var sarifLogger = new SarifLogger(
                     textWriter,
                     analysisTargets: null,
-                    verbose: false,
-                    computeTargetsHash: false,
-                    logEnvironment: false,
+                    loggingOptions: LoggingOptions.None,
                     prereleaseInfo: null,
                     invocationTokensToRedact: tokensToRedact,
                     invocationPropertiesToLog: new List<string> { "CommandLine" })) { }
@@ -102,9 +100,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 using (var sarifLogger = new SarifLogger(
                     textWriter,
                     analysisTargets: new string[] { @"foo.cpp" },
-                    verbose: false,
-                    computeTargetsHash: false,
-                    logEnvironment: false,
+                    loggingOptions: LoggingOptions.None,
                     prereleaseInfo: null,
                     invocationTokensToRedact: null,
                     invocationPropertiesToLog: null)) { }
@@ -134,9 +130,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 using (var sarifLogger = new SarifLogger(
                     textWriter,
                     analysisTargets: new string[] { file },
-                    verbose: false,
-                    computeTargetsHash: true,
-                    logEnvironment: false,
+                    loggingOptions: LoggingOptions.ComputeFileHashes,
                     prereleaseInfo: null,
                     invocationTokensToRedact: null,
                     invocationPropertiesToLog: null))
@@ -168,9 +162,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 using (var sarifLogger = new SarifLogger(
                     textWriter,
                     analysisTargets: null,
-                    verbose: false,
-                    computeTargetsHash: true,
-                    logEnvironment: false,
+                    loggingOptions: LoggingOptions.ComputeFileHashes,
                     prereleaseInfo: null,
                     invocationTokensToRedact: null,
                     invocationPropertiesToLog: null))
@@ -267,9 +259,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 using (var sarifLogger = new SarifLogger(
                     textWriter,
                     analysisTargets: null,
-                    verbose: false,
-                    computeTargetsHash: true,
-                    logEnvironment: false,
+                    loggingOptions: LoggingOptions.ComputeFileHashes,
                     prereleaseInfo: null,
                     invocationTokensToRedact: null,
                     invocationPropertiesToLog: null))
@@ -305,9 +295,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 using (var sarifLogger = new SarifLogger(
                     textWriter,
                     analysisTargets: null,
-                    verbose: false,
-                    computeTargetsHash: true,
-                    logEnvironment: false,
+                    loggingOptions: LoggingOptions.ComputeFileHashes,
                     prereleaseInfo: null,
                     invocationTokensToRedact: null,
                     invocationPropertiesToLog: null))
@@ -339,9 +327,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 using (var sarifLogger = new SarifLogger(
                     textWriter,
                     analysisTargets: null,
-                    verbose: false,
-                    computeTargetsHash: true,
-                    logEnvironment: false,
+                    loggingOptions: LoggingOptions.ComputeFileHashes,
                     prereleaseInfo: null,
                     invocationTokensToRedact: null,
                     invocationPropertiesToLog: new[] { "WorkingDirectory", "ProcessId" }))
@@ -377,9 +363,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 using (var sarifLogger = new SarifLogger(
                     textWriter,
                     analysisTargets: null,
-                    verbose: false,
-                    computeTargetsHash: true,
-                    logEnvironment: false,
+                    loggingOptions: LoggingOptions.ComputeFileHashes,
                     prereleaseInfo: null,
                     invocationTokensToRedact: null,
                     invocationPropertiesToLog: new[] { "WORKINGDIRECTORY", "prOCessID" }))
@@ -404,7 +388,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             var sb = new StringBuilder();
 
             using (var writer = new StringWriter(sb))
-            using (var sarifLogger = new SarifLogger(writer, verbose: true))
+            using (var sarifLogger = new SarifLogger(writer, LoggingOptions.Verbose))
             {
                 var rule = new Rule()
                 {
@@ -418,6 +402,168 @@ namespace Microsoft.CodeAnalysis.Sarif
                 };
 
                 sarifLogger.Log(rule, result);
+            }
+        }
+
+        [TestMethod]
+        public void SarifLogger_LoggingOptions_ComputeFileHashes()
+        {
+            TestForLoggingOption(LoggingOptions.ComputeFileHashes);
+        }
+
+        [TestMethod]
+        public void SarifLogger_LoggingOptions_None()
+        {
+            TestForLoggingOption(LoggingOptions.None);
+        }
+
+        [TestMethod]
+        public void SarifLogger_LoggingOptions_PersistEnvironment()
+        {
+            TestForLoggingOption(LoggingOptions.PersistEnvironment);
+        }
+
+        [TestMethod]
+        public void SarifLogger_LoggingOptions_PersistFileContents()
+        {
+            TestForLoggingOption(LoggingOptions.PersistFileContents);
+        }
+
+        [TestMethod]
+        public void SarifLogger_LoggingOptions_PrettyPrint()
+        {
+            TestForLoggingOption(LoggingOptions.PrettyPrint);
+        }
+
+        [TestMethod]
+        public void SarifLogger_LoggingOptions_Verbose()
+        {
+            TestForLoggingOption(LoggingOptions.Verbose);
+        }
+
+        [TestMethod]
+        public void SarifLogger_LoggingOptions_All()
+        {
+            TestForLoggingOption(LoggingOptions.All);
+        }
+
+        [TestMethod]
+        public void SarifLogger_LoggingOptions_Count()
+        {
+            // This test exists in order to alert test developers when a new member is added to the
+            // LoggingOptions enum. In that case, this test and others should be updated/added
+            // to account for the new member.
+            //     
+            // Current values are:
+            // None, ComputeFileHashes, PersistEnvironment, PersistFileContents, PrettyPrint, Verbose, All
+            Enum.GetNames(typeof(LoggingOptions)).Length.Should().Be(7);
+        }
+
+        // This helper is intended to validate a single enum member only
+        // and not arbitrary combinations of bits. One defined member,
+        // All, contains all bits.
+        private void TestForLoggingOption(LoggingOptions loggingOption)
+        {
+            string fileName = Path.GetTempFileName();
+
+            try
+            {
+                SarifLogger logger;
+
+                // Validates overloads that accept a path argument.
+                using (logger = new SarifLogger(fileName, loggingOption))
+                {
+                    ValidateLoggerForExclusiveOption(logger, loggingOption);
+                };
+
+
+                // Validates second set of overloads that accept any 
+                // TextWriter (for example, one instantiated over a
+                // StringBuilder instance).
+                var sb = new StringBuilder();
+                var stringWriter = new StringWriter(sb);
+                using (logger = new SarifLogger(stringWriter, loggingOption))
+                {
+                    ValidateLoggerForExclusiveOption(logger, loggingOption);
+                };
+            }            
+            finally
+            {
+                if (File.Exists(fileName)) { File.Delete(fileName); }
+            }
+        }
+
+        private void ValidateLoggerForExclusiveOption(SarifLogger logger, LoggingOptions loggingOptions)
+        {
+            switch (loggingOptions)
+            {
+                case LoggingOptions.None:
+                {
+                    logger.ComputeFileHashes.Should().BeFalse();
+                    logger.PersistEnvironment.Should().BeFalse();
+                    logger.PersistFileContents.Should().BeFalse();
+                    logger.PrettyPrint.Should().BeFalse();
+                    logger.Verbose.Should().BeFalse();
+                    break;
+                }
+                case LoggingOptions.ComputeFileHashes:
+                {
+                    logger.ComputeFileHashes.Should().BeTrue();
+                    logger.PersistEnvironment.Should().BeFalse();
+                    logger.PersistFileContents.Should().BeFalse();
+                    logger.PrettyPrint.Should().BeFalse();
+                    logger.Verbose.Should().BeFalse();
+                    break;
+                }
+                case LoggingOptions.PersistEnvironment:
+                {
+                    logger.ComputeFileHashes.Should().BeFalse();
+                    logger.PersistEnvironment.Should().BeTrue();
+                    logger.PersistFileContents.Should().BeFalse();
+                    logger.PrettyPrint.Should().BeFalse();
+                    logger.Verbose.Should().BeFalse();
+                    break;
+                }
+                case LoggingOptions.PersistFileContents:
+                {
+                    logger.ComputeFileHashes.Should().BeFalse();
+                    logger.PersistEnvironment.Should().BeFalse();
+                    logger.PersistFileContents.Should().BeTrue();
+                    logger.PrettyPrint.Should().BeFalse();
+                    logger.Verbose.Should().BeFalse();
+                    break;
+                }
+                case LoggingOptions.PrettyPrint:
+                {
+                    logger.ComputeFileHashes.Should().BeFalse();
+                    logger.PersistEnvironment.Should().BeFalse();
+                    logger.PersistFileContents.Should().BeFalse();
+                    logger.PrettyPrint.Should().BeTrue();
+                    logger.Verbose.Should().BeFalse();
+                    break;
+                }
+                case LoggingOptions.Verbose:
+                {
+                    logger.ComputeFileHashes.Should().BeFalse();
+                    logger.PersistEnvironment.Should().BeFalse();
+                    logger.PersistFileContents.Should().BeFalse();
+                    logger.PrettyPrint.Should().BeFalse();
+                    logger.Verbose.Should().BeTrue();
+                    break;
+                }
+                case LoggingOptions.All:
+                {
+                    logger.ComputeFileHashes.Should().BeTrue();
+                    logger.PersistEnvironment.Should().BeTrue();
+                    logger.PersistFileContents.Should().BeTrue();
+                    logger.PrettyPrint.Should().BeTrue();
+                    logger.Verbose.Should().BeTrue();
+                    break;
+                }
+                default:
+                {
+                    throw new ArgumentException();
+                }
             }
         }
     }

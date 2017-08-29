@@ -311,16 +311,20 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             {
                 InvokeCatchingRelevantIOExceptions
                 (
-                    () => aggregatingLogger.Loggers.Add(
-                            new SarifLogger(
-                                analyzeOptions.OutputFilePath,
-                                targets,
-                                analyzeOptions.Verbose,
-                                analyzeOptions.LogEnvironment,
-                                analyzeOptions.ComputeTargetsHash,
-                                Prerelease,
-                                invocationTokensToRedact: GenerateSensitiveTokensList(),
-                                invocationPropertiesToLog: analyzeOptions.InvocationPropertiesToLog)),
+                    () =>
+                    {
+                        LoggingOptions loggingOptions;
+                        loggingOptions = ConvertAnalyzeOptionsToLoggingOption(analyzeOptions);
+
+                        aggregatingLogger.Loggers.Add(
+                                new SarifLogger(
+                                    analyzeOptions.OutputFilePath,
+                                    loggingOptions,
+                                    targets,
+                                    Prerelease,
+                                    invocationTokensToRedact: GenerateSensitiveTokensList(),
+                                    invocationPropertiesToLog: analyzeOptions.InvocationPropertiesToLog));
+                    },
                     (ex) =>
                     {
                         Errors.LogExceptionCreatingLogFile(context, filePath, ex);
@@ -328,6 +332,17 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                     }
                 );
             }
+        }
+
+        internal static LoggingOptions ConvertAnalyzeOptionsToLoggingOption(TOptions analyzeOptions)
+        {
+            LoggingOptions loggingOptions = LoggingOptions.None;
+
+            if (analyzeOptions.Verbose) { loggingOptions |= LoggingOptions.Verbose; }
+            if (analyzeOptions.LogEnvironment) { loggingOptions |= LoggingOptions.PersistEnvironment; }
+            if (analyzeOptions.ComputeFileHashes) { loggingOptions |= LoggingOptions.ComputeFileHashes; }
+
+            return loggingOptions;
         }
 
         private IEnumerable<string> GenerateSensitiveTokensList()

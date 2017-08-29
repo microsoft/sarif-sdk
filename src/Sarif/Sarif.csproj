@@ -112,6 +112,7 @@
     <Compile Include="UriHelper.cs" />
     <Compile Include="VersionConstants.cs" />
     <Compile Include="Warnings.cs" />
+    <Compile Include="Writers\LoggingOptions.cs" />
     <Compile Include="Writers\ResultLogJsonWriter.cs" />
     <Compile Include="Writers\MimeType.cs" />
     <Compile Include="Writers\SarifLogger.cs" />

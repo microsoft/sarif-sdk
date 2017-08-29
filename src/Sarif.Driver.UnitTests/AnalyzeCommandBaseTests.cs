@@ -6,7 +6,9 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using FluentAssertions;
 using Microsoft.CodeAnalysis.Sarif.Readers;
+using Microsoft.CodeAnalysis.Sarif.Writers;
 using Newtonsoft.Json;
 using Xunit;
 
@@ -73,6 +75,36 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 Assert.Null(command.ExecutionException);
             }
             ExceptionRaisingRule.s_exceptionCondition = ExceptionCondition.None;
+        }
+
+        [Fact]
+        public void ConvertAnalyzeOptionsToLoggingOptions()
+        {
+            LoggingOptions loggingOptions;
+            var analyzeOptions = new TestAnalyzeOptions()
+            {
+                 ComputeFileHashes = true
+            };
+
+            loggingOptions = AnalyzeCommandBase<TestAnalysisContext, TestAnalyzeOptions>.ConvertAnalyzeOptionsToLoggingOption(analyzeOptions);
+            loggingOptions.Should().Be(LoggingOptions.ComputeFileHashes);
+
+            analyzeOptions = new TestAnalyzeOptions()
+            {
+                LogEnvironment = true
+            };
+
+            loggingOptions = AnalyzeCommandBase<TestAnalysisContext, TestAnalyzeOptions>.ConvertAnalyzeOptionsToLoggingOption(analyzeOptions);
+            loggingOptions.Should().Be(LoggingOptions.PersistEnvironment);
+
+            analyzeOptions = new TestAnalyzeOptions()
+            {
+                Verbose = true
+            };
+
+            loggingOptions = AnalyzeCommandBase<TestAnalysisContext, TestAnalyzeOptions>.ConvertAnalyzeOptionsToLoggingOption(analyzeOptions);
+            loggingOptions.Should().Be(LoggingOptions.Verbose);
+
         }
 
         [Fact]
@@ -443,7 +475,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                     Verbose = true,
                     Statistics = true,
                     Quiet = true,
-                    ComputeTargetsHash = true,
+                    ComputeFileHashes = true,
                     ConfigurationFilePath = TestAnalyzeCommand.DefaultPolicyName,
                     Recurse = true,
                     OutputFilePath = path,
