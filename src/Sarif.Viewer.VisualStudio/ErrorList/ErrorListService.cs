@@ -1,8 +1,10 @@
 ﻿// Copyright (c) Microsoft. All rights reserved. 
 // Licensed under the MIT license. See LICENSE file in the project root for full license information. 
 
+using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Text;
 
 using EnvDTE;
@@ -11,7 +13,7 @@ using Microsoft.CodeAnalysis.Sarif;
 using Microsoft.CodeAnalysis.Sarif.Converters;
 using Microsoft.CodeAnalysis.Sarif.Readers;
 using Microsoft.CodeAnalysis.Sarif.Writers;
-
+using Microsoft.Sarif.Viewer.Models;
 using Newtonsoft.Json;
 
 namespace Microsoft.Sarif.Viewer.ErrorList
@@ -70,6 +72,7 @@ namespace Microsoft.Sarif.Viewer.ErrorList
             // Clear previous data
             SarifTableDataSource.Instance.CleanAllErrors();
             CodeAnalysisResultManager.Instance.SarifErrors.Clear();
+            CodeAnalysisResultManager.Instance.FileDetails.Clear();
 
             foreach (Run run in sarifLog.Runs)
             {
@@ -86,6 +89,23 @@ namespace Microsoft.Sarif.Viewer.ErrorList
             List<SarifErrorListItem> sarifErrors = new List<SarifErrorListItem>();
 
             var projectNameCache = new ProjectNameCache(solution);
+
+            if (run.Files != null)
+            {
+                foreach (var file in run.Files)
+                {
+                    var fileHash = file.Value.Hashes?.First(x => x.Algorithm == AlgorithmKind.Sha256)?.Value;
+                    var contents = file.Value.Contents;
+                    var key = new Uri(file.Key);
+                    if (fileHash != null && contents != null)
+                    {
+                        var fileDetails = new FileDetailsModel(fileHash, file.Value.Contents);
+                        CodeAnalysisResultManager.Instance.FileDetails.Add(
+                            key.IsAbsoluteUri ? key.LocalPath : key.OriginalString, fileDetails);
+                    }
+
+                }
+            }
 
             if (run.Results != null)
             {
