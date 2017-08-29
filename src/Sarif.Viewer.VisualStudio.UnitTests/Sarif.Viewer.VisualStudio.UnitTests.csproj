@@ -62,6 +62,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ErrorList\ErrorListTests.cs" />
     <Compile Include="ErrorList\SarifErrorListItemTests.cs" />
     <Compile Include="ErrorList\SarifSnapshotTests.cs" />
     <Compile Include="Models\CallTreeCollectionTests.cs" />

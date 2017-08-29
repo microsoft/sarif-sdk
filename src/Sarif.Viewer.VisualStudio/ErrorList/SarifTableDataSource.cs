@@ -29,29 +29,34 @@ namespace Microsoft.Sarif.Viewer.ErrorList
         private SarifTableDataSource()
         {           
             var compositionService = ServiceProvider.GlobalProvider.GetService(typeof(SComponentModel)) as IComponentModel;
-            compositionService.DefaultCompositionService.SatisfyImportsOnce(this);
 
-            if (TableManagerProvider == null)
+            // The composition service will only be null in unit tests.
+            if (compositionService != null)
             {
-                TableManagerProvider = compositionService.GetService<ITableManagerProvider>();
-            }
+                compositionService.DefaultCompositionService.SatisfyImportsOnce(this);
 
-            if (TableControlEventProcessorProviders == null)
-            {
-                TableControlEventProcessorProviders = new[] { compositionService.GetService<ITableControlEventProcessorProvider>() };
-            }
+                if (TableManagerProvider == null)
+                {
+                    TableManagerProvider = compositionService.GetService<ITableManagerProvider>();
+                }
 
-            var manager = TableManagerProvider.GetTableManager(StandardTables.ErrorsTable);
-            manager.AddSource(this, StandardTableColumnDefinitions.DetailsExpander,
-                                    StandardTableColumnDefinitions.ErrorSeverity, StandardTableColumnDefinitions.ErrorCode,
-                                    StandardTableColumnDefinitions.ErrorSource, StandardTableColumnDefinitions.BuildTool,
-                                    StandardTableColumnDefinitions.ErrorRank, StandardTableColumnDefinitions.ErrorCategory,
-                                    StandardTableColumnDefinitions.Text, StandardTableColumnDefinitions.DocumentName, 
-                                    StandardTableColumnDefinitions.Line, StandardTableColumnDefinitions.Column);
+                if (TableControlEventProcessorProviders == null)
+                {
+                    TableControlEventProcessorProviders = new[]
+                        {compositionService.GetService<ITableControlEventProcessorProvider>()};
+                }
+
+                var manager = TableManagerProvider.GetTableManager(StandardTables.ErrorsTable);
+                manager.AddSource(this, StandardTableColumnDefinitions.DetailsExpander,
+                    StandardTableColumnDefinitions.ErrorSeverity, StandardTableColumnDefinitions.ErrorCode,
+                    StandardTableColumnDefinitions.ErrorSource, StandardTableColumnDefinitions.BuildTool,
+                    StandardTableColumnDefinitions.ErrorRank, StandardTableColumnDefinitions.ErrorCategory,
+                    StandardTableColumnDefinitions.Text, StandardTableColumnDefinitions.DocumentName,
+                    StandardTableColumnDefinitions.Line, StandardTableColumnDefinitions.Column);
 
 
 //            var errorList = ServiceProvider.GlobalProvider.GetService(typeof(SVsErrorList)) as IVsErrorList;
-
+            }
         }
 
         public static SarifTableDataSource Instance

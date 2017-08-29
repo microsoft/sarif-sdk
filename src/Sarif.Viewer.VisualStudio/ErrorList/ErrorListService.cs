@@ -65,17 +65,16 @@ namespace Microsoft.Sarif.Viewer.ErrorList
             ProcessSarifLog(log, filePath, solution);
         }
 
-        private static void ProcessSarifLog(SarifLog sarifLog, string logFilePath, Solution solution)
+        internal static void ProcessSarifLog(SarifLog sarifLog, string logFilePath, Solution solution)
         {
             // Clear previous data
             SarifTableDataSource.Instance.CleanAllErrors();
+            CodeAnalysisResultManager.Instance.SarifErrors.Clear();
 
             foreach (Run run in sarifLog.Runs)
             {
                 Instance.WriteRunToErrorList(run, logFilePath, solution);
             }
-
-            SarifTableDataSource.Instance.BringToFront();
         }
 
         private ErrorListService()
@@ -97,7 +96,10 @@ namespace Microsoft.Sarif.Viewer.ErrorList
                 }
             }
 
-            CodeAnalysisResultManager.Instance.SarifErrors = sarifErrors;
+            foreach (var error in sarifErrors)
+            {
+                CodeAnalysisResultManager.Instance.SarifErrors.Add(error);
+            }
             SarifTableDataSource.Instance.AddErrors(sarifErrors);
         }
     }
