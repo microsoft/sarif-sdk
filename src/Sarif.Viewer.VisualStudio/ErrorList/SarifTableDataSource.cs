@@ -29,20 +29,20 @@ namespace Microsoft.Sarif.Viewer.ErrorList
         private SarifTableDataSource()
         {           
             var compositionService = ServiceProvider.GlobalProvider.GetService(typeof(SComponentModel)) as IComponentModel;
-            compositionService.DefaultCompositionService.SatisfyImportsOnce(this);
+            compositionService?.DefaultCompositionService.SatisfyImportsOnce(this);
 
             if (TableManagerProvider == null)
             {
-                TableManagerProvider = compositionService.GetService<ITableManagerProvider>();
+                TableManagerProvider = compositionService?.GetService<ITableManagerProvider>();
             }
 
             if (TableControlEventProcessorProviders == null)
             {
-                TableControlEventProcessorProviders = new[] { compositionService.GetService<ITableControlEventProcessorProvider>() };
+                TableControlEventProcessorProviders = new[] { compositionService?.GetService<ITableControlEventProcessorProvider>() };
             }
 
-            var manager = TableManagerProvider.GetTableManager(StandardTables.ErrorsTable);
-            manager.AddSource(this, StandardTableColumnDefinitions.DetailsExpander,
+            var manager = TableManagerProvider?.GetTableManager(StandardTables.ErrorsTable);
+            manager?.AddSource(this, StandardTableColumnDefinitions.DetailsExpander,
                                     StandardTableColumnDefinitions.ErrorSeverity, StandardTableColumnDefinitions.ErrorCode,
                                     StandardTableColumnDefinitions.ErrorSource, StandardTableColumnDefinitions.BuildTool,
                                     StandardTableColumnDefinitions.ErrorRank, StandardTableColumnDefinitions.ErrorCategory,
