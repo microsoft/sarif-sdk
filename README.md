@@ -25,19 +25,25 @@ proceed as follows:
     You can build in either VS 2015 or VS 2017, but at present the build requires
     certain assemblies that are supplied only in VS 2015, so it must be present.
 
-2. Open a Visual Studio 2015 _or_ Visual Studio 2017 Developer Command Prompt Window.
+2. Ensure that your Visual Studio installation includes the components that support
+    - C# development
+    - C++ development
+    - Visual Studio extension (VSIX) development
 
-3. From the root directory of your local repo, run the command `BuildAndTest.cmd`
+3. Open a Visual Studio 2015 _or_ Visual Studio 2017 Developer Command Prompt Window.
+
+4. From the root directory of your local repo, run the command `BuildAndTest.cmd`
     This restores all necessary NuGet packages, builds the SDK, and runs all the tests.
 
     All build output appears in the `bld\` subdirectory of the repo root directory.
 
-4. After you have run `BuildAndTest.cmd` once, you can open any of the solution files
+    NOTE: You must run `BuildAndTest.cmd` once _before_ attempting to build in
+    Visual Studio, to ensure that all required NuGet packages are available.
+
+5. After you have run `BuildAndTest.cmd` once, you can open any of the solution files
 in the `src\` directory in either Visual Studio 2015 or Visual Studio 2017, and
 build them by running **Rebuild Solution**.
 
-NOTE: You must run `BuildAndTest.cmd` once _before_ attempting to build in
-Visual Studio, to ensure that all required NuGet packages are available.
 
 ## Accomplishing common tasks
 
