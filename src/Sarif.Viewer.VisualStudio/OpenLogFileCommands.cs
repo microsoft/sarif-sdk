@@ -234,6 +234,8 @@ namespace Microsoft.Sarif.Viewer
             }
 
             ErrorListService.ProcessLogFile(logFile, SarifViewerPackage.Dte.Solution, toolFormat);
+
+            SarifTableDataSource.Instance.BringToFront();
         }
 
         bool IsSarifProtocol(string path)

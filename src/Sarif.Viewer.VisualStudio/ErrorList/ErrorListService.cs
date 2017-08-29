@@ -65,7 +65,7 @@ namespace Microsoft.Sarif.Viewer.ErrorList
             ProcessSarifLog(log, filePath, solution);
         }
 
-        private static void ProcessSarifLog(SarifLog sarifLog, string logFilePath, Solution solution)
+        internal static void ProcessSarifLog(SarifLog sarifLog, string logFilePath, Solution solution)
         {
             // Clear previous data
             SarifTableDataSource.Instance.CleanAllErrors();
@@ -75,8 +75,6 @@ namespace Microsoft.Sarif.Viewer.ErrorList
             {
                 Instance.WriteRunToErrorList(run, logFilePath, solution);
             }
-
-            SarifTableDataSource.Instance.BringToFront();
         }
 
         private ErrorListService()
