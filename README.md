@@ -32,7 +32,7 @@ proceed as follows:
 
 3. Open a Visual Studio 2015 _or_ Visual Studio 2017 Developer Command Prompt Window.
 
-4. From the root directory of your local repo, run the command `BuildAndTest.cmd`
+4. From the root directory of your local repo, run the command `BuildAndTest.cmd`.
     This restores all necessary NuGet packages, builds the SDK, and runs all the tests.
 
     All build output appears in the `bld\` subdirectory of the repo root directory.
