@@ -14,7 +14,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 {
     public static class ExtensionMethods
     {
-        public static bool IsSet(this LoggingOptions loggingOptions, LoggingOptions otherLoggingOptions)
+        public static bool Includes(this LoggingOptions loggingOptions, LoggingOptions otherLoggingOptions)
         {
             return (loggingOptions & otherLoggingOptions) == otherLoggingOptions;
         }
@@ -369,7 +369,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <summary>Checks if a character is a newline.</summary>
         /// <param name="testedCharacter">The character to check.</param>
         /// <returns>true if newline, false if not.</returns>
-        internal static bool IsNewline(char testedCharacter)
+        internal static bool IsNewline(this char testedCharacter)
         {
             return testedCharacter == '\r'
                 || testedCharacter == '\n'
@@ -390,7 +390,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <paramref name="target"/><c>.Length</c>) is equal to
         /// <paramref name="target"/>. If the range is undefined in the bounds of the array, false.
         /// </returns>
-        internal static bool ArrayMatches(char[] array, int startIndex, string target)
+        internal static bool Matches(this char[] array, int startIndex, string target)
         {
             if (startIndex < 0)
             {

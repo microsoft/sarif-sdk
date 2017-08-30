@@ -83,8 +83,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         public bool RichReturnCode { get; set; }
 
         [Option(
+            'f',
             "persist-file-contents",
-            HelpText = "Persist a base64-encoded version of any referenced file to the log.")]
+            HelpText = "Persist a base64-encoded representation of all referenced files to the log.")]
         public bool PersistFileContents { get; set; }
     }
 }

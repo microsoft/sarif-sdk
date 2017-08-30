@@ -149,3 +149,4 @@
 ## **v1.6.0** [Driver](https://www.nuget.org/packages/Sarif.Driver/1.6.0) | [SDK](https://www.nuget.org/packages/Sarif.Sdk/1.6.0)
  * Enable persistence of base64-encoded file contents via SarifLogger.
  * Rename AnalyzeOptions.ComputeTargetsHash to ComputeFileHashes
+ * Fix bug in Semmle conversion (crash on embedded file:// scheme links)

@@ -40,12 +40,12 @@ namespace Microsoft.CodeAnalysis.Sarif
 
                 string filePath = uri.LocalPath;
 
-                if (loggingOptions.IsSet(Writers.LoggingOptions.PersistFileContents))
+                if (loggingOptions.Includes(Writers.LoggingOptions.PersistFileContents))
                 {
                     fileData.Contents = EncodeFileContents(filePath);
                 }
 
-                if (loggingOptions.IsSet(Writers.LoggingOptions.ComputeFileHashes))
+                if (loggingOptions.Includes(Writers.LoggingOptions.ComputeFileHashes))
                 {
                     HashData hashes = HashUtilities.ComputeHashes(filePath);
                     fileData.Hashes = new List<Hash>

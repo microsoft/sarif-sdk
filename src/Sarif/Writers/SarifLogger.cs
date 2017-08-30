@@ -49,7 +49,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 }
             }
 
-            run.Invocation = Invocation.Create(loggingOptions.IsSet(LoggingOptions.PersistEnvironment), invocationPropertiesToLog);
+            run.Invocation = Invocation.Create(loggingOptions.Includes(LoggingOptions.PersistEnvironment), invocationPropertiesToLog);
 
             // TODO we should actually redact across the complete log file context
             // by a dedicated rewriting visitor or some other approach.

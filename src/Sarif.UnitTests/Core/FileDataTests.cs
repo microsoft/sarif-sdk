@@ -18,9 +18,9 @@ namespace Microsoft.CodeAnalysis.Sarif
         [Fact]
         public void FileData_Create_NullUri()
         {
-            Action fileDataCreation = () => { FileData.Create(null, LoggingOptions.None); };
+            Action action = () => { FileData.Create(null, LoggingOptions.None); };
 
-            fileDataCreation.ShouldThrow<ArgumentNullException>();
+            action.ShouldThrow<ArgumentNullException>();
         }
 
         [Fact]
