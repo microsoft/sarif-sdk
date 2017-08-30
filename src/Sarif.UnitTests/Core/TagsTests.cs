@@ -6,7 +6,7 @@ using FluentAssertions;
 using Microsoft.CodeAnalysis.Sarif.Readers;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Microsoft.CodeAnalysis.Sarif.Core
+namespace Microsoft.CodeAnalysis.Sarif
 {
     [TestClass]
     public class TagsTests

@@ -145,3 +145,7 @@
 ## **v1.5.47** [Driver](https://www.nuget.org/packages/Sarif.Driver/1.5.47) | [SDK](https://www.nuget.org/packages/Sarif.Sdk/1.5.47)
  * Enable converter plugins
  * Adjust RuntimeConditions enum so that 'command line parse' error is 0x1. 
+
+## **v1.6.0** [Driver](https://www.nuget.org/packages/Sarif.Driver/1.6.0) | [SDK](https://www.nuget.org/packages/Sarif.Sdk/1.6.0)
+ * Enable persistence of base64-encoded file contents via SarifLogger.
+ * Rename AnalyzeOptions.ComputeTargetsHash to ComputeFileHashes

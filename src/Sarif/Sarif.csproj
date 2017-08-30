@@ -64,7 +64,6 @@
     <Compile Include="Core\Tool.cs" />
     <Compile Include="Errors.cs" />
     <Compile Include="ExtensionMethods.cs" />
-    <Compile Include="Extensions.cs" />
     <Compile Include="HashUtilities.cs" />
     <Compile Include="IAnalysisContext.cs" />
     <Compile Include="IAnalysisLogger.cs" />

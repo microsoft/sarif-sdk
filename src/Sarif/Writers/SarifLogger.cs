@@ -27,8 +27,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
         private static Run CreateRun(
             IEnumerable<string> analysisTargets,
-            bool computeTargetsHash,
-            bool logEnvironment,
+            LoggingOptions loggingOptions,
             IEnumerable<string> invocationTokensToRedact,
             IEnumerable<string> invocationPropertiesToLog)
         {
@@ -43,14 +42,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                     string fileDataKey = UriHelper.MakeValidUri(target);
 
                     var fileData = FileData.Create(
-                        new Uri(target, UriKind.RelativeOrAbsolute), 
-                        computeTargetsHash);
+                        new Uri(target, UriKind.RelativeOrAbsolute),
+                        loggingOptions);
 
                     run.Files.Add(fileDataKey, fileData);
                 }
             }
 
-            run.Invocation = Invocation.Create(logEnvironment, invocationPropertiesToLog);
+            run.Invocation = Invocation.Create(loggingOptions.IsSet(LoggingOptions.PersistEnvironment), invocationPropertiesToLog);
 
             // TODO we should actually redact across the complete log file context
             // by a dedicated rewriting visitor or some other approach.
@@ -105,7 +104,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             Tool tool = null, 
             Run run = null) : this(textWriter, loggingOptions)
         {
-            _run = run ?? CreateRun(null, ComputeFileHashes, false, null, null);
+            _run = run ?? CreateRun(null, loggingOptions, null, null);
 
             tool = tool ?? Tool.CreateFromAssemblyData();
             SetSarifLoggerVersion(tool);
@@ -144,11 +143,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
             _run = CreateRun(
                 analysisTargets,
-                ComputeFileHashes,
-                PersistEnvironment,
+                loggingOptions,
                 invocationTokensToRedact,
                 invocationPropertiesToLog);
-
         }
 
         private static void SetSarifLoggerVersion(Tool tool)
@@ -379,7 +376,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 return;
             }
 
-            _run.Files[fileDataKey] = FileData.Create(uri, false);
+            _run.Files[fileDataKey] = FileData.Create(uri, _loggingOptions);
         }
 
         public void AnalyzingTarget(IAnalysisContext context)

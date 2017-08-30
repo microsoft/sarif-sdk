@@ -38,31 +38,31 @@ namespace Microsoft.CodeAnalysis.Sarif
         [TestMethod]
         public void Extensions_IsNewline_CarriageReturn()
         {
-            Assert.IsTrue(Extensions.IsNewline('\r'));
+            Assert.IsTrue(ExtensionMethods.IsNewline('\r'));
         }
 
         [TestMethod]
         public void Extensions_IsNewline_LineFeed()
         {
-            Assert.IsTrue(Extensions.IsNewline('\n'));
+            Assert.IsTrue(ExtensionMethods.IsNewline('\n'));
         }
 
         [TestMethod]
         public void Extensions_IsNewline_UnicodeLine()
         {
-            Assert.IsTrue(Extensions.IsNewline('\u2028'));
+            Assert.IsTrue(ExtensionMethods.IsNewline('\u2028'));
         }
 
         [TestMethod]
         public void Extensions_IsNewline_UnicodeParagraph()
         {
-            Assert.IsTrue(Extensions.IsNewline('\u2029'));
+            Assert.IsTrue(ExtensionMethods.IsNewline('\u2029'));
         }
 
         [TestMethod]
         public void Extensions_IsNewline_Other()
         {
-            Assert.IsFalse(Extensions.IsNewline('E'));
+            Assert.IsFalse(ExtensionMethods.IsNewline('E'));
         }
 
         private static readonly char[] s_testArray = "  match   ".ToCharArray();
@@ -71,25 +71,25 @@ namespace Microsoft.CodeAnalysis.Sarif
         [TestMethod]
         public void Extensions_ArrayMatches_NegativeStartIndex()
         {
-            Assert.IsFalse(Extensions.ArrayMatches(s_testArray, -1, "match"));
+            Assert.IsFalse(ExtensionMethods.ArrayMatches(s_testArray, -1, "match"));
         }
 
         [TestMethod]
         public void Extensions_ArrayMatches_TooLong()
         {
-            Assert.IsFalse(Extensions.ArrayMatches(s_testArray, 6, "match"));
+            Assert.IsFalse(ExtensionMethods.ArrayMatches(s_testArray, 6, "match"));
         }
 
         [TestMethod]
         public void Extensions_ArrayMatches_Match()
         {
-            Assert.IsTrue(Extensions.ArrayMatches(s_testArray, 2, "match"));
+            Assert.IsTrue(ExtensionMethods.ArrayMatches(s_testArray, 2, "match"));
         }
 
         [TestMethod]
         public void Extensions_ArrayMatches_Mismatch()
         {
-            Assert.IsFalse(Extensions.ArrayMatches(s_testArray, 0, "match"));
+            Assert.IsFalse(ExtensionMethods.ArrayMatches(s_testArray, 0, "match"));
         }
 
         [TestMethod]

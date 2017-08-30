@@ -99,6 +99,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
             analyzeOptions = new TestAnalyzeOptions()
             {
+                PersistFileContents = true
+            };
+
+            loggingOptions = AnalyzeCommandBase<TestAnalysisContext, TestAnalyzeOptions>.ConvertAnalyzeOptionsToLoggingOption(analyzeOptions);
+            loggingOptions.Should().Be(LoggingOptions.PersistFileContents);
+
+            analyzeOptions = new TestAnalyzeOptions()
+            {
                 Verbose = true
             };
 

@@ -341,6 +341,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             if (analyzeOptions.Verbose) { loggingOptions |= LoggingOptions.Verbose; }
             if (analyzeOptions.LogEnvironment) { loggingOptions |= LoggingOptions.PersistEnvironment; }
             if (analyzeOptions.ComputeFileHashes) { loggingOptions |= LoggingOptions.ComputeFileHashes; }
+            if (analyzeOptions.PersistFileContents) { loggingOptions |= LoggingOptions.PersistFileContents; }
 
             return loggingOptions;
         }

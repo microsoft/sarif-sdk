@@ -3,6 +3,9 @@
 
 using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Security;
+using System.Text;
 using SarifWriters = Microsoft.CodeAnalysis.Sarif.Writers;
 
 namespace Microsoft.CodeAnalysis.Sarif
@@ -12,19 +15,40 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// </summary>
     public partial class FileData : ISarifNode
     {
-        public static FileData Create(Uri uri, bool computeHashes)
+        public static FileData Create(Uri uri, SarifWriters.LoggingOptions loggingOptions)
         {
             if (uri == null) { throw new ArgumentNullException(nameof(uri)); }
 
             var fileData = new FileData()
             {
-                MimeType = SarifWriters.MimeType.DetermineFromFileExtension(uri)
+                MimeType = SarifWriters.MimeType.DetermineFromFileExtension(uri),
+                Uri = uri
             };
 
-            if (computeHashes && uri.IsAbsoluteUri && uri.IsFile)
+            // Attempt to persist file contents and/or compute file hash and persist
+            // this information to the log file. In the event that there is some issue
+            // accessing the file, for example, due to ACLs applied to a directory,
+            // we currently swallow these exceptions without populating any requested
+            // data or putting a notification in the log file that a problem
+            // occurred. Something to discuss moving forward.
+            try
             {
-                HashData hashes = HashUtilities.ComputeHashes(uri.LocalPath);
-                fileData.Hashes = new List<Hash>
+                if (!uri.IsAbsoluteUri || !uri.IsFile || !File.Exists(uri.LocalPath))
+                {
+                    return fileData;
+                }
+
+                string filePath = uri.LocalPath;
+
+                if (loggingOptions.IsSet(Writers.LoggingOptions.PersistFileContents))
+                {
+                    fileData.Contents = EncodeFileContents(filePath);
+                }
+
+                if (loggingOptions.IsSet(Writers.LoggingOptions.ComputeFileHashes))
+                {
+                    HashData hashes = HashUtilities.ComputeHashes(filePath);
+                    fileData.Hashes = new List<Hash>
                         {
                             new Hash()
                             {
@@ -42,9 +66,18 @@ namespace Microsoft.CodeAnalysis.Sarif
                                 Algorithm = AlgorithmKind.Sha256,
                             },
                         };
+                }
+
             }
+            catch (Exception e) when (e is IOException || e is UnauthorizedAccessException) { }
 
             return fileData;
+        }
+
+        private static string EncodeFileContents(string filePath)
+        {
+            string fileContents = File.ReadAllText(filePath, Encoding.UTF8);
+            return Convert.ToBase64String(Encoding.UTF8.GetBytes(fileContents));
         }
     }
 }
