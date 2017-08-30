@@ -39,10 +39,11 @@ namespace Microsoft.CodeAnalysis.Sarif
                 }
 
                 string filePath = uri.LocalPath;
+                bool encodeAsUtf8 = (fileData.MimeType == SarifWriters.MimeType.Binary);
 
                 if (loggingOptions.Includes(Writers.LoggingOptions.PersistFileContents))
                 {
-                    fileData.Contents = EncodeFileContents(filePath);
+                    fileData.Contents = EncodeFileContents(filePath, encodeAsUtf8);
                 }
 
                 if (loggingOptions.Includes(Writers.LoggingOptions.ComputeFileHashes))
@@ -74,10 +75,20 @@ namespace Microsoft.CodeAnalysis.Sarif
             return fileData;
         }
 
-        private static string EncodeFileContents(string filePath)
+        private static string EncodeFileContents(string filePath, bool encodeAsUtf8)
         {
-            string fileContents = File.ReadAllText(filePath, Encoding.UTF8);
-            return Convert.ToBase64String(Encoding.UTF8.GetBytes(fileContents));
+            byte[] fileContents;
+
+            if (encodeAsUtf8)
+            {
+                fileContents = Encoding.UTF8.GetBytes(File.ReadAllText(filePath));
+            }
+            else
+            {
+                fileContents = File.ReadAllBytes(filePath);
+            }
+
+            return Convert.ToBase64String(fileContents);
         }
     }
 }

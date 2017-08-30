@@ -36,6 +36,8 @@ namespace Microsoft.CodeAnalysis.Sarif
                 FileData fileData = FileData.Create(uri, LoggingOptions.ComputeFileHashes);
                 fileData.Uri.Should().Be(uri.ToString());
                 HashData hashes = HashUtilities.ComputeHashes(filePath);
+                fileData.MimeType.Should().Be(MimeType.Binary);
+                fileData.Contents.Should().BeNull();
                 fileData.Hashes.Count.Should().Be(3);
 
                 foreach (Hash hash in fileData.Hashes)
@@ -45,6 +47,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                         case AlgorithmKind.MD5: { hash.Value.Should().Be(hashes.MD5); break; }
                         case AlgorithmKind.Sha1: { hash.Value.Should().Be(hashes.Sha1); break; }
                         case AlgorithmKind.Sha256: { hash.Value.Should().Be(hashes.Sha256); break; }
+                        default: { true.Should().BeFalse(); break; /* unexpected algorithm kind */ }
                     }
                 }
             }
@@ -55,7 +58,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         }
 
         [Fact]
-        public void FileData_PersistFileContents()
+        public void FileData_PersistFileContentsBinary()
         {
             string filePath = Path.GetTempFileName();
             string fileContents = Guid.NewGuid().ToString();
@@ -66,6 +69,31 @@ namespace Microsoft.CodeAnalysis.Sarif
                 File.WriteAllText(filePath, fileContents);
                 FileData fileData = FileData.Create(uri, LoggingOptions.PersistFileContents);
                 fileData.Uri.Should().Be(uri.ToString());
+                fileData.MimeType.Should().Be(MimeType.Binary);
+                fileData.Hashes.Should().BeNull();
+
+                string encodedFileContents = Convert.ToBase64String(File.ReadAllBytes(filePath));
+                fileData.Contents.Should().Be(encodedFileContents);
+            }
+            finally
+            {
+                if (File.Exists(filePath)) { File.Delete(filePath); }
+            }
+        }
+
+        [Fact]
+        public void FileData_PersistFileContentsUtf8()
+        {
+            string filePath = Path.GetTempFileName() + ".cs";
+            string fileContents = Guid.NewGuid().ToString();
+            Uri uri = new Uri(filePath);
+
+            try
+            {
+                File.WriteAllText(filePath, fileContents);
+                FileData fileData = FileData.Create(uri, LoggingOptions.PersistFileContents);
+                fileData.Uri.Should().Be(uri.ToString());
+                fileData.MimeType.Should().Be(MimeType.CSharp);
                 fileData.Hashes.Should().BeNull();
 
                 string encodedFileContents = Convert.ToBase64String(Encoding.UTF8.GetBytes(fileContents));
@@ -77,6 +105,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             }
         }
 
+
         [Fact]
         public void FileData_FileDoesNotExist()
         {
@@ -86,6 +115,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             Uri uri = new Uri(filePath);
             FileData fileData = FileData.Create(uri, LoggingOptions.PersistFileContents);
             fileData.Uri.Should().Be(uri.ToString());
+            fileData.MimeType.Should().Be(MimeType.Binary);
             fileData.Hashes.Should().BeNull();
             fileData.Contents.Should().Be(String.Empty);
         }
@@ -104,6 +134,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 {
                     FileData fileData = FileData.Create(uri, LoggingOptions.PersistFileContents);
                     fileData.Uri.Should().Be(uri.ToString());
+                    fileData.MimeType.Should().Be(MimeType.Binary);
                     fileData.Hashes.Should().BeNull();
                     fileData.Contents.Should().BeNull();
                 }
