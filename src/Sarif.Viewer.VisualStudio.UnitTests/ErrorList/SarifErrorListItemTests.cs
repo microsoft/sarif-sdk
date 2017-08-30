@@ -11,10 +11,7 @@ namespace Microsoft.Sarif.Viewer.VisualStudio.UnitTests
     {
         public SarifErrorListItemTests()
         {
-            // Creating a SarifViewerPackage object has the side effect of setting a static
-            // variable in that class, without which the subsequent tests will fail. In production
-            // code, the package object is always created before any SarifErrorListItem objects.
-            new SarifViewerPackage();
+            TestUtilities.InitializeTestEnvironment();
         }
 
         [Fact]

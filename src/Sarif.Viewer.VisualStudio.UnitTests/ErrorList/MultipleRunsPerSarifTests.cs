@@ -14,8 +14,6 @@ namespace Microsoft.Sarif.Viewer.VisualStudio.UnitTests
     {
         public MultipleRunsPerSarifTests()
         {
-            new SarifViewerPackage();
-
             var testLog = new SarifLog
             {
                 Runs = new List<Run>
@@ -75,7 +73,7 @@ namespace Microsoft.Sarif.Viewer.VisualStudio.UnitTests
                 }
             };
 
-            ErrorListService.ProcessSarifLog(testLog, "TestPath.sarif", null);
+            TestUtilities.InitializeTestEnvironment(testLog);
         }
 
         [Fact]
