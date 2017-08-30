@@ -62,12 +62,14 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ErrorList\ErrorListTests.cs" />
+    <Compile Include="ErrorList\MultipleRunsPerSarifTests.cs" />
     <Compile Include="ErrorList\SarifErrorListItemTests.cs" />
+    <Compile Include="ErrorList\SarifFileWithContentsTests.cs" />
     <Compile Include="ErrorList\SarifSnapshotTests.cs" />
     <Compile Include="Models\CallTreeCollectionTests.cs" />
     <Compile Include="Models\CallTreeTests.cs" />
     <Compile Include="ProjectNameCacheTests.cs" />
+    <Compile Include="TestUtilities.cs" />
     <Compile Include="UriExtensionsTests.cs" />
     <Compile Include="CallTreeTraversalTests.cs" />
     <Compile Include="Converters\CallTreeNodeToTextConverterTests.cs" />
