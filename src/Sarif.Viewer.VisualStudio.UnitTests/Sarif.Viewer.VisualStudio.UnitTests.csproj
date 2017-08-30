@@ -64,6 +64,7 @@
   <ItemGroup>
     <Compile Include="ErrorList\MultipleRunsPerSarifTests.cs" />
     <Compile Include="ErrorList\SarifErrorListItemTests.cs" />
+    <Compile Include="ErrorList\SarifFileWithContentsTests.cs" />
     <Compile Include="ErrorList\SarifSnapshotTests.cs" />
     <Compile Include="Models\CallTreeCollectionTests.cs" />
     <Compile Include="Models\CallTreeTests.cs" />
