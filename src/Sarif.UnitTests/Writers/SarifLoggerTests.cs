@@ -470,14 +470,13 @@ namespace Microsoft.CodeAnalysis.Sarif
             {
                 SarifLogger logger;
 
-                // Validates overloads that accept a path argument.
+                // Validates overload that accept a path argument.
                 using (logger = new SarifLogger(fileName, loggingOption))
                 {
                     ValidateLoggerForExclusiveOption(logger, loggingOption);
                 };
 
-
-                // Validates second set of overloads that accept any 
+                // Validates overload that accepts any 
                 // TextWriter (for example, one instantiated over a
                 // StringBuilder instance).
                 var sb = new StringBuilder();

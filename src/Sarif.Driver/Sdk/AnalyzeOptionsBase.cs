@@ -81,5 +81,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             "rich-return-code",
             HelpText = "Emit a 'rich' return code consisting of a bitfield of conditions (as opposed to 0 or 1 indicating success or failure.")]
         public bool RichReturnCode { get; set; }
+
+        [Option(
+            'f',
+            "persist-file-contents",
+            HelpText = "Persist a base64-encoded representation of all referenced files to the log.")]
+        public bool PersistFileContents { get; set; }
     }
 }

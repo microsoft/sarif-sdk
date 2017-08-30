@@ -27,8 +27,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
         private static Run CreateRun(
             IEnumerable<string> analysisTargets,
-            bool computeTargetsHash,
-            bool logEnvironment,
+            LoggingOptions loggingOptions,
             IEnumerable<string> invocationTokensToRedact,
             IEnumerable<string> invocationPropertiesToLog)
         {
@@ -43,14 +42,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                     string fileDataKey = UriHelper.MakeValidUri(target);
 
                     var fileData = FileData.Create(
-                        new Uri(target, UriKind.RelativeOrAbsolute), 
-                        computeTargetsHash);
+                        new Uri(target, UriKind.RelativeOrAbsolute),
+                        loggingOptions);
 
                     run.Files.Add(fileDataKey, fileData);
                 }
             }
 
-            run.Invocation = Invocation.Create(logEnvironment, invocationPropertiesToLog);
+            run.Invocation = Invocation.Create(loggingOptions.Includes(LoggingOptions.PersistEnvironment), invocationPropertiesToLog);
 
             // TODO we should actually redact across the complete log file context
             // by a dedicated rewriting visitor or some other approach.
@@ -89,66 +88,40 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         public SarifLogger(
             string outputFilePath, 
             LoggingOptions loggingOptions = DefaultLoggingOptions,
-            Tool tool = null, 
-            Run run = null)
+            Tool tool = null,
+            Run run = null,
+            IEnumerable<string> analysisTargets = null,
+            string prereleaseInfo = null,
+            IEnumerable<string> invocationTokensToRedact = null,
+            IEnumerable<string> invocationPropertiesToLog = null)
             : this(new StreamWriter(new FileStream(outputFilePath, FileMode.Create, FileAccess.Write, FileShare.None)),
                   loggingOptions,
                   tool,
                   run)
         {
-
-        }
-
-        public SarifLogger(
-            TextWriter textWriter, 
-            LoggingOptions loggingOptions = LoggingOptions.PrettyPrint,
-            Tool tool = null, 
-            Run run = null) : this(textWriter, loggingOptions)
-        {
-            _run = run ?? CreateRun(null, ComputeFileHashes, false, null, null);
-
-            tool = tool ?? Tool.CreateFromAssemblyData();
-            SetSarifLoggerVersion(tool);
-            _issueLogJsonWriter.WriteTool(tool);
-        }
-
-        public SarifLogger(
-            string outputFilePath,
-            LoggingOptions loggingOptions,
-            IEnumerable<string> analysisTargets,
-            string prereleaseInfo,
-            IEnumerable<string> invocationTokensToRedact,
-            IEnumerable<string> invocationPropertiesToLog = null)
-            : this(new StreamWriter(new FileStream(outputFilePath, FileMode.Create, FileAccess.Write, FileShare.None)),
-                    loggingOptions,
-                    analysisTargets,
-                    prereleaseInfo,
-                    invocationTokensToRedact,
-                    invocationPropertiesToLog)
-        {
         }
 
         public SarifLogger(
             TextWriter textWriter,
-            LoggingOptions loggingOptions,
-            IEnumerable<string> analysisTargets,
-            string prereleaseInfo,
-            IEnumerable<string> invocationTokensToRedact,
+            LoggingOptions loggingOptions = LoggingOptions.PrettyPrint,
+            Tool tool = null,
+            Run run = null,
+            IEnumerable<string> analysisTargets = null,
+            bool targetsAreTextFiles = true,
+            string prereleaseInfo = null,
+            IEnumerable<string> invocationTokensToRedact = null,
             IEnumerable<string> invocationPropertiesToLog = null) : this(textWriter, loggingOptions)
         {
-            Tool tool = Tool.CreateFromAssemblyData(prereleaseInfo);
+            _run = run ?? CreateRun(
+                            analysisTargets,
+                            loggingOptions,
+                            invocationTokensToRedact,
+                            invocationPropertiesToLog);
 
+
+            tool = tool ?? Tool.CreateFromAssemblyData();
             SetSarifLoggerVersion(tool);
-
             _issueLogJsonWriter.WriteTool(tool);
-
-            _run = CreateRun(
-                analysisTargets,
-                ComputeFileHashes,
-                PersistEnvironment,
-                invocationTokensToRedact,
-                invocationPropertiesToLog);
-
         }
 
         private static void SetSarifLoggerVersion(Tool tool)
@@ -379,7 +352,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 return;
             }
 
-            _run.Files[fileDataKey] = FileData.Create(uri, false);
+            _run.Files[fileDataKey] = FileData.Create(uri, _loggingOptions);
         }
 
         public void AnalyzingTarget(IAnalysisContext context)

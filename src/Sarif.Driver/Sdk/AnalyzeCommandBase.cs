@@ -320,6 +320,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                                 new SarifLogger(
                                     analyzeOptions.OutputFilePath,
                                     loggingOptions,
+                                    null, 
+                                    null,
                                     targets,
                                     Prerelease,
                                     invocationTokensToRedact: GenerateSensitiveTokensList(),
@@ -341,6 +343,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             if (analyzeOptions.Verbose) { loggingOptions |= LoggingOptions.Verbose; }
             if (analyzeOptions.LogEnvironment) { loggingOptions |= LoggingOptions.PersistEnvironment; }
             if (analyzeOptions.ComputeFileHashes) { loggingOptions |= LoggingOptions.ComputeFileHashes; }
+            if (analyzeOptions.PersistFileContents) { loggingOptions |= LoggingOptions.PersistFileContents; }
 
             return loggingOptions;
         }

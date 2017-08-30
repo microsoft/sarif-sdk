@@ -9,7 +9,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 
-namespace Microsoft.CodeAnalysis.Sarif.Core
+namespace Microsoft.CodeAnalysis.Sarif
 {
     internal class TestClass : PropertyBagHolder
     {
