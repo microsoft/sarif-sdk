@@ -20,7 +20,7 @@ namespace Microsoft.Sarif.Viewer.VisualStudio.UnitTests
         {
             InitializeTestEnvironment();
 
-            ErrorListService.ProcessSarifLog(sarifLog, "TestPath.sarif", null);
+            ErrorListService.ProcessSarifLog(sarifLog, "", null);
         }
     }
 }
