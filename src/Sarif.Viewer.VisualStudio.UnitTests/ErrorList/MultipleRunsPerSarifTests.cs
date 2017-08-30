@@ -10,6 +10,10 @@ using Xunit;
 
 namespace Microsoft.Sarif.Viewer.VisualStudio.UnitTests
 {
+    // Added tests to Collection because otherwise the other tests
+    // will load in parallel, which causes issues with static collections.
+    // Production code will only load one SARIF file at a time.
+    [Collection("SarifObjectTests")]
     public class MultipleRunsPerSarifTests
     {
         public MultipleRunsPerSarifTests()
