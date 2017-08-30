@@ -94,12 +94,12 @@ namespace Microsoft.Sarif.Viewer.ErrorList
             {
                 foreach (var file in run.Files)
                 {
-                    var fileHash = file.Value.Hashes?.First(x => x.Algorithm == AlgorithmKind.Sha256)?.Value;
+                    var hasSha256Hash = file.Value.Hashes?.Any(x => x.Algorithm == AlgorithmKind.Sha256);
                     var contents = file.Value.Contents;
                     var key = new Uri(file.Key);
-                    if (fileHash != null && contents != null)
+                    if ((hasSha256Hash ?? false) && contents != null)
                     {
-                        var fileDetails = new FileDetailsModel(fileHash, file.Value.Contents);
+                        var fileDetails = new FileDetailsModel(file.Value);
                         CodeAnalysisResultManager.Instance.FileDetails.Add(
                             key.IsAbsoluteUri ? key.LocalPath : key.OriginalString, fileDetails);
                     }
