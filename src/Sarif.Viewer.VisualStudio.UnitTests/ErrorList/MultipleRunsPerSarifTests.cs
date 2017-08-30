@@ -10,9 +10,9 @@ using Xunit;
 
 namespace Microsoft.Sarif.Viewer.VisualStudio.UnitTests
 {
-    public class ErrorListTests
+    public class MultipleRunsPerSarifTests
     {
-        public ErrorListTests()
+        public MultipleRunsPerSarifTests()
         {
             new SarifViewerPackage();
 
