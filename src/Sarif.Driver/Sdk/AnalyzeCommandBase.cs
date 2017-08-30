@@ -320,6 +320,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                                 new SarifLogger(
                                     analyzeOptions.OutputFilePath,
                                     loggingOptions,
+                                    null, 
+                                    null,
                                     targets,
                                     Prerelease,
                                     invocationTokensToRedact: GenerateSensitiveTokensList(),

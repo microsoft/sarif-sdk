@@ -93,14 +93,5 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             return Convert.ToBase64String(fileContents);
         }
-
-        private static Encoding DetectEncoding(string filePath)
-        {
-            using (StreamReader reader = new StreamReader(filePath, Encoding.ASCII, detectEncodingFromByteOrderMarks: true))
-            {
-                reader.Peek();
-                return reader.CurrentEncoding;
-            }
-        }
     }
 }
