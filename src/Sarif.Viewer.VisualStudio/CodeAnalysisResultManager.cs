@@ -11,11 +11,9 @@ using System.Windows;
 using System.Windows.Input;
 
 using Microsoft.CodeAnalysis.Sarif;
-using Microsoft.CodeAnalysis.Sarif.Writers;
 using Microsoft.Sarif.Viewer.Models;
 using Microsoft.VisualStudio.Shell.Interop;
 using Microsoft.Win32;
-using Microsoft.Sarif.Viewer.Sarif;
 
 namespace Microsoft.Sarif.Viewer
 {
