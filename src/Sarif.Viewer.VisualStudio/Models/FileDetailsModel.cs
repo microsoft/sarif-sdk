@@ -5,21 +5,12 @@ namespace Microsoft.Sarif.Viewer.Models
 {
     public class FileDetailsModel
     {
-        /// <summary>
-        /// Contents of file. May or may not be Base64 encoded.
-        /// </summary>
+        // Contents of file. May or may not be Base64 encoded.
         private string _contents;
 
-        /// <summary>
-        /// Tells whether or not the _contents are Base64 encoded.
-        /// </summary>
+        // Tells whether or not the _contents are Base64 encoded.
         private bool _encoded;
 
-        /// <summary>
-        /// Creates a new object of the <see cref="FileDetailsModel" /> class.
-        /// </summary>
-        /// <param name="hash">SHA256 hash for file.</param>
-        /// <param name="contents">Base64 encoded contents of the file.</param>
         public FileDetailsModel(string hash, string contents)
         {
             Hash = hash;
@@ -27,14 +18,8 @@ namespace Microsoft.Sarif.Viewer.Models
             _encoded = true;
         }
 
-        /// <summary>
-        /// SHA256 hash for file.
-        /// </summary>
         public string Hash { get; }
 
-        /// <summary>
-        /// Returns the decoded file contents.
-        /// </summary>
         public string Contents
         {
             get
@@ -49,9 +34,6 @@ namespace Microsoft.Sarif.Viewer.Models
             }
         }
 
-        /// <summary>
-        /// Decodes the contents.
-        /// </summary>
         private void DecodeContents()
         {
             var data = Convert.FromBase64String(_contents);
