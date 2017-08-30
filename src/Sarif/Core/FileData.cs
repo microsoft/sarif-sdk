@@ -15,13 +15,16 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// </summary>
     public partial class FileData : ISarifNode
     {
-        public static FileData Create(Uri uri, SarifWriters.LoggingOptions loggingOptions)
+        public static FileData Create(Uri uri, SarifWriters.LoggingOptions loggingOptions, string mimeType = null, Encoding encoding = null)
         {
             if (uri == null) { throw new ArgumentNullException(nameof(uri)); }
 
+            mimeType = mimeType ?? SarifWriters.MimeType.DetermineFromFileExtension(uri);
+            encoding = encoding ?? Encoding.UTF8;
+
             var fileData = new FileData()
             {
-                MimeType = SarifWriters.MimeType.DetermineFromFileExtension(uri),
+                MimeType = mimeType,
                 Uri = uri
             };
 
@@ -39,11 +42,11 @@ namespace Microsoft.CodeAnalysis.Sarif
                 }
 
                 string filePath = uri.LocalPath;
-                bool encodeAsUtf8 = (fileData.MimeType == SarifWriters.MimeType.Binary);
+                bool encodeAsUtf8 = (fileData.MimeType != SarifWriters.MimeType.Binary);
 
                 if (loggingOptions.Includes(Writers.LoggingOptions.PersistFileContents))
                 {
-                    fileData.Contents = EncodeFileContents(filePath, encodeAsUtf8);
+                    fileData.Contents = EncodeFileContents(filePath, mimeType, encoding);
                 }
 
                 if (loggingOptions.Includes(Writers.LoggingOptions.ComputeFileHashes))
@@ -75,13 +78,13 @@ namespace Microsoft.CodeAnalysis.Sarif
             return fileData;
         }
 
-        private static string EncodeFileContents(string filePath, bool encodeAsUtf8)
+        private static string EncodeFileContents(string filePath, string mimeType, Encoding inputFileEncoding)
         {
             byte[] fileContents;
 
-            if (encodeAsUtf8)
+            if (mimeType != SarifWriters.MimeType.Binary)
             {
-                fileContents = Encoding.UTF8.GetBytes(File.ReadAllText(filePath));
+                fileContents = Encoding.UTF8.GetBytes(File.ReadAllText(filePath, inputFileEncoding));
             }
             else
             {
@@ -89,6 +92,15 @@ namespace Microsoft.CodeAnalysis.Sarif
             }
 
             return Convert.ToBase64String(fileContents);
+        }
+
+        private static Encoding DetectEncoding(string filePath)
+        {
+            using (StreamReader reader = new StreamReader(filePath, Encoding.ASCII, detectEncodingFromByteOrderMarks: true))
+            {
+                reader.Peek();
+                return reader.CurrentEncoding;
+            }
         }
     }
 }

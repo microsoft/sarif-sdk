@@ -85,18 +85,20 @@ namespace Microsoft.CodeAnalysis.Sarif
         public void FileData_PersistFileContentsUtf8()
         {
             string filePath = Path.GetTempFileName() + ".cs";
-            string fileContents = Guid.NewGuid().ToString();
+            string textValue = "अचम्भा";
+            byte[] fileContents = Encoding.BigEndianUnicode.GetBytes(textValue);
+
             Uri uri = new Uri(filePath);
 
             try
             {
-                File.WriteAllText(filePath, fileContents);
-                FileData fileData = FileData.Create(uri, LoggingOptions.PersistFileContents);
+                File.WriteAllBytes(filePath, fileContents);
+                FileData fileData = FileData.Create(uri, LoggingOptions.PersistFileContents, mimeType: null, encoding: Encoding.BigEndianUnicode);
                 fileData.Uri.Should().Be(uri.ToString());
                 fileData.MimeType.Should().Be(MimeType.CSharp);
                 fileData.Hashes.Should().BeNull();
 
-                string encodedFileContents = Convert.ToBase64String(Encoding.UTF8.GetBytes(fileContents));
+                string encodedFileContents = Convert.ToBase64String(Encoding.UTF8.GetBytes(textValue));
                 fileData.Contents.Should().Be(encodedFileContents);
             }
             finally
@@ -104,7 +106,6 @@ namespace Microsoft.CodeAnalysis.Sarif
                 if (File.Exists(filePath)) { File.Delete(filePath); }
             }
         }
-
 
         [Fact]
         public void FileData_FileDoesNotExist()
