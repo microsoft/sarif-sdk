@@ -81,7 +81,7 @@ namespace Microsoft.Sarif.Viewer.VisualStudio.UnitTests
         public void SarifFileWithContents_DecodesContents()
         {
             var fileDetail = CodeAnalysisResultManager.Instance.FileDetails[Key];
-            var contents = fileDetail.Contents;
+            var contents = fileDetail.GetContents();
 
             contents.Should().Be(Contents);
         }
