@@ -10,36 +10,31 @@ namespace Microsoft.Sarif.Viewer.Models
 {
     public class FileDetailsModel
     {
-        // Contents of file. May or may not be Base64 encoded.
-        private string _contents;
+        // Base64 encoded contents of file.
+        private string _rawContents;
         
-        private bool _isBase64Encoded;
+        private readonly Lazy<string> _decodedContents;
 
         public FileDetailsModel(FileData fileData)
         {
             Sha256Hash = fileData.Hashes.First(x => x.Algorithm == AlgorithmKind.Sha256).Value;
-            _contents = fileData.Contents;
-            _isBase64Encoded = true;
+            _rawContents = fileData.Contents;
+            _decodedContents = new Lazy<string>(DecodeContents);
         }
 
         public string Sha256Hash { get; }
 
         public string GetContents()
         {
-            // If the contents are encoded, decode them.
-            if (_isBase64Encoded)
-            {
-                DecodeContents();
-            }
-
-            return _contents;
+            return _decodedContents.Value;
         }
 
-        private void DecodeContents()
+        private string DecodeContents()
         {
-            byte[] data = Convert.FromBase64String(_contents);
-            _contents = Encoding.UTF8.GetString(data);
-            _isBase64Encoded = false;
+            byte[] data = Convert.FromBase64String(_rawContents);
+            string decodedContents = Encoding.UTF8.GetString(data);
+            _rawContents = null; // Clear _rawContents to save memory.
+            return decodedContents;
         }
     }
 }
