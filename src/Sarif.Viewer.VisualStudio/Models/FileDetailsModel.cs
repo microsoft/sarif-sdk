@@ -10,7 +10,7 @@ namespace Microsoft.Sarif.Viewer.Models
 {
     public class FileDetailsModel
     {
-        // Contents of file. May or may not be Base64 encoded.
+        // Base64 encoded contents of file.
         private string _rawContents;
         
         private readonly Lazy<string> _decodedContents;
