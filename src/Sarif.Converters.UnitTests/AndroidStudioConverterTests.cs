@@ -29,21 +29,21 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         [ExpectedException(typeof(ArgumentNullException))]
         public void AndroidStudioConverter_Convert_Nulls()
         {
-            _converter.Convert(null, null);
+            _converter.Convert(null, null, LoggingOptions.None);
         }
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentNullException))]
         public void AndroidStudioConverter_Convert_NullInput()
         {
-            _converter.Convert(null, new ResultLogObjectWriter());
+            _converter.Convert(null, new ResultLogObjectWriter(), LoggingOptions.None);
         }
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentNullException))]
         public void AndroidStudioConverter_Convert_NullOutput()
         {
-            _converter.Convert(new MemoryStream(), null);
+            _converter.Convert(new MemoryStream(), null, LoggingOptions.None);
         }
 
         private const string EmptyResult = @"{

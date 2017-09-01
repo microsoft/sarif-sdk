@@ -47,16 +47,17 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             _aclToSnippetIdDictionary = new Dictionary<AnnotatedCodeLocation, string>();
             _resultToSnippetIdDictionary = new Dictionary<Result, string>();
             _snippetIdToSnippetTextDictionary = new Dictionary<string, string>();
-    }
+        }
 
-    /// <summary>
-    /// Interface implementation for converting a stream in Fortify FPR format to a stream in
-    /// SARIF format.
-    /// </summary>
-    /// <exception cref="ArgumentNullException">Thrown when one or more required arguments are null.</exception>
-    /// <param name="input">Stream in Fortify FPR format.</param>
-    /// <param name="output">Stream in SARIF format.</param>
-    public override void Convert(Stream input, IResultLogWriter output)
+        /// <summary>
+        /// Interface implementation for converting a stream in Fortify FPR format to a stream in
+        /// SARIF format.
+        /// </summary>
+        /// <exception cref="ArgumentNullException">Thrown when one or more required arguments are null.</exception>
+        /// <param name="input">Stream in Fortify FPR format.</param>
+        /// <param name="output">Stream in SARIF format.</param>
+        /// <param name="loggingOptions">Logging options that configure output.</param>
+        public override void Convert(Stream input, IResultLogWriter output, LoggingOptions loggingOptions)
         {
             if (input == null)
             {
@@ -78,7 +79,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             _toolNotifications.Clear();
             _fileDictionary.Clear();
             _ruleDictionary.Clear();
-            _aclToSnippetIdDictionary.Clear();    
+            _aclToSnippetIdDictionary.Clear();
             _resultToSnippetIdDictionary.Clear();
             _snippetIdToSnippetTextDictionary.Clear();
 

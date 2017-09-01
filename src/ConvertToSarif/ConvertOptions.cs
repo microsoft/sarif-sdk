@@ -46,5 +46,11 @@ namespace Microsoft.CodeAnalysis.Sarif.ConvertToSarif
             "plugin-assembly-path",
             HelpText = "Path to plugin assembly containing converter types.")]
         public string PluginAssemblyPath { get; internal set; }
+
+
+        [Option(
+            "persist-file-contents",
+            HelpText = "Persist a base64-encoded representation of all referenced files to the log.")]
+        public bool PersistFileContents { get; set; }
     }
 }

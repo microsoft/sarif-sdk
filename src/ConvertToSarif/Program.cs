@@ -5,6 +5,7 @@ using System;
 using System.IO;
 using CommandLine;
 using Microsoft.CodeAnalysis.Sarif.Converters;
+using Microsoft.CodeAnalysis.Sarif.Writers;
 
 namespace Microsoft.CodeAnalysis.Sarif.ConvertToSarif
 {
@@ -25,17 +26,22 @@ namespace Microsoft.CodeAnalysis.Sarif.ConvertToSarif
         {
             try
             {
-                ToolFormatConversionOptions toolFormatConversionOptions = 0;
+                LoggingOptions loggingOptions = LoggingOptions.None;
 
                 if (convertOptions.PrettyPrint)
                 {
-                    toolFormatConversionOptions |= ToolFormatConversionOptions.PrettyPrint;
+                    loggingOptions |= LoggingOptions.PrettyPrint;
                 };
 
                 if (convertOptions.Force)
                 {
-                    toolFormatConversionOptions |= ToolFormatConversionOptions.OverwriteExistingOutputFile;
+                    loggingOptions |= LoggingOptions.OverwriteExistingOutputFile;
                 };
+
+                if (convertOptions.PersistFileContents)
+                {
+                    loggingOptions |= LoggingOptions.PersistFileContents;
+                }
 
                 if (string.IsNullOrEmpty(convertOptions.OutputFilePath))
                 {
@@ -53,7 +59,7 @@ namespace Microsoft.CodeAnalysis.Sarif.ConvertToSarif
                         convertOptions.ToolFormat,
                         convertOptions.InputFilePath,
                         convertOptions.OutputFilePath,
-                        toolFormatConversionOptions,
+                        loggingOptions,
                         convertOptions.PluginAssemblyPath);
                 }
             }

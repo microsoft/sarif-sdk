@@ -7,6 +7,7 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text;
+using Microsoft.CodeAnalysis.Sarif.Writers;
 using Microsoft.VisualBasic.FileIO;
 
 namespace Microsoft.CodeAnalysis.Sarif.Converters
@@ -46,10 +47,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         /// <param name="output">
         /// Output string to which to write the SARIF log.
         /// </param>
+        /// <param name="loggingOptions">Logging options that configure output.</param>
         /// <exception cref="ArgumentNullException">
         /// Thrown when one or more required arguments are null.
         /// </exception>
-        public override void Convert(Stream input, IResultLogWriter output)
+        public override void Convert(Stream input, IResultLogWriter output, LoggingOptions loggingOptions)
         {
             if (input == null)
             {

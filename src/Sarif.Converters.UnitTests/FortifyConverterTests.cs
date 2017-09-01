@@ -7,7 +7,7 @@ using System.Collections.Immutable;
 using System.IO;
 using System.Linq;
 using FluentAssertions;
-
+using Microsoft.CodeAnalysis.Sarif.Writers;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Microsoft.CodeAnalysis.Sarif.Converters
@@ -19,7 +19,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         [ExpectedException(typeof(ArgumentNullException))]
         public void FortifyConverter_Convert_NullInput()
         {
-            new FortifyConverter().Convert(null, null);
+            new FortifyConverter().Convert(null, null, LoggingOptions.None);
         }
 
         [TestMethod]
@@ -28,7 +28,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         {
             using (var input = new MemoryStream())
             {
-                new FortifyConverter().Convert(input, null);
+                new FortifyConverter().Convert(input, null, LoggingOptions.None);
             }
         }
 

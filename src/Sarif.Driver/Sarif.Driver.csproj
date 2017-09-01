@@ -90,10 +90,8 @@
     <Compile Include="Sdk\ExitApplicationException.cs" />
     <Compile Include="Sdk\ExitReason.cs" />
     <Compile Include="FileStreamExtensionMethods.cs" />
-    <Compile Include="FileSystem.cs" />
     <Compile Include="IAppConfig.cs" />
     <Compile Include="IEnvironmentVariables.cs" />
-    <Compile Include="IFileSystem.cs" />
     <Compile Include="KeyEventImportance.cs" />
     <Compile Include="MurmurHash.cs" />
     <Compile Include="Pair.cs" />

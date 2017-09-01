@@ -1,7 +1,9 @@
 ﻿// Copyright (c) Microsoft. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-namespace Microsoft.CodeAnalysis.Sarif.Driver
+using System.Text;
+
+namespace Microsoft.CodeAnalysis.Sarif
 {
     /// <summary>
     /// An interface for accessing the file system.
@@ -37,6 +39,17 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         string GetFullPath(string path);
 
         /// <summary>
+        /// Opens a binary file, reads all contents into a byte array, and then closes the file.
+        /// </summary>
+        /// <param name="path">
+        /// The file to open for reading.
+        /// </param>
+        /// <returns>
+        /// A byte array containing the contents of the file
+        /// </returns>
+        byte[] ReadAllBytes(string path);
+
+        /// <summary>
         /// Opens a text file, reads all lines of the file, and then closes the file.
         /// </summary>
         /// <param name="path">
@@ -58,5 +71,20 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         /// A string containing all text in the file.
         /// </returns>
         string ReadAllText(string path);
+
+        /// <summary>
+        /// Opens a text file, reads all text in the file as a single string using the specified
+        /// encoding, and then closes the file.
+        /// </summary>
+        /// <param name="path">
+        /// The file to open for reading.
+        /// </param>
+        /// <param name="encoding">
+        /// The encoding applied to the contents of the file.
+        /// </param>
+        /// <returns>
+        /// A string containing all text in the file.
+        /// </returns>
+        string ReadAllText(string path, Encoding encoding);
     }
 }

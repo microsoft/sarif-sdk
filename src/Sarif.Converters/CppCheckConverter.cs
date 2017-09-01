@@ -28,7 +28,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         /// </summary>
         /// <param name="input">Stream of a CppChecker log</param>
         /// <param name="output">SARIF json stream of the converted CppChecker log</param>
-        public override void Convert(Stream input, IResultLogWriter output)
+        /// <param name="loggingOptions">Logging options that configure output.</param>
+        public override void Convert(Stream input, IResultLogWriter output, LoggingOptions loggingOptions)
         {
             if (input == null)
             {
@@ -50,11 +51,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
             using (XmlReader xmlReader = XmlReader.Create(input, settings))
             {
-                ProcessCppCheckLog(xmlReader, output);
+                ProcessCppCheckLog(xmlReader, output, loggingOptions);
             }
         }
 
-        private void ProcessCppCheckLog(XmlReader reader, IResultLogWriter output)
+        private void ProcessCppCheckLog(XmlReader reader, IResultLogWriter output, LoggingOptions loggingOptions)
         {
             reader.ReadStartElement(_strings.Results);
 
@@ -119,7 +120,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 Version = version,
             };
 
-            var fileInfoFactory = new FileInfoFactory(uri => MimeType.Cpp);
+            var fileInfoFactory = new FileInfoFactory(uri => MimeType.Cpp, loggingOptions);
             Dictionary<string, FileData> fileDictionary = fileInfoFactory.Create(results);
 
             output.Initialize(id: null, automationId: null);

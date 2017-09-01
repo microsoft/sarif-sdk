@@ -28,7 +28,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         /// </summary>
         /// <param name="input">FxCop log stream</param>
         /// <param name="output">output stream</param>
-        public override void Convert(Stream input, IResultLogWriter output)
+        /// <param name="loggingOptions">Logging options that configure output.</param>
+        public override void Convert(Stream input, IResultLogWriter output, LoggingOptions loggingOptions)
         {
             if (input == null)
             {
@@ -54,7 +55,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 Name = "FxCop"
             };
 
-            var fileInfoFactory = new FileInfoFactory(MimeType.DetermineFromFileExtension);
+            var fileInfoFactory = new FileInfoFactory(MimeType.DetermineFromFileExtension, loggingOptions);
             Dictionary<string, FileData> fileDictionary = fileInfoFactory.Create(results);
 
             output.Initialize(id: null, automationId: null);

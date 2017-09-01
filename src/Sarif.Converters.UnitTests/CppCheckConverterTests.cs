@@ -18,7 +18,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         public void CppCheckConverter_Convert_NullInput()
         {
             CppCheckConverter converter = new CppCheckConverter();
-            converter.Convert(null, null);
+            converter.Convert(null, null, LoggingOptions.None);
         }
 
         [TestMethod]
@@ -26,7 +26,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         public void CppCheckConverter_Convert_NullOutput()
         {
             CppCheckConverter converter = new CppCheckConverter();
-            converter.Convert(new MemoryStream(), null);
+            converter.Convert(new MemoryStream(), null, LoggingOptions.None);
         }
 
         [TestMethod]
@@ -34,7 +34,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         public void CppCheckConverter_Convert_NullLogTest()
         {
             CppCheckConverter converter = new CppCheckConverter();
-            converter.Convert(null, new ResultLogObjectWriter());
+            converter.Convert(null, new ResultLogObjectWriter(), LoggingOptions.None);
         }
 
         [TestMethod]

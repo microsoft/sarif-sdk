@@ -30,7 +30,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             string toolFormat,
             string inputFileName,
             string outputFileName,
-            ToolFormatConversionOptions conversionOptions,
+            LoggingOptions loggingOptions = LoggingOptions.None,
             string pluginAssemblyPath = null)
         {
             if (inputFileName == null) { throw new ArgumentNullException(nameof(inputFileName)); }
@@ -41,7 +41,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 throw new ArgumentException("Specified file output path exists but is a directory.", nameof(outputFileName));
             }
 
-            if (!conversionOptions.HasFlag(ToolFormatConversionOptions.OverwriteExistingOutputFile) && File.Exists(outputFileName))
+            if (!loggingOptions.Includes(LoggingOptions.OverwriteExistingOutputFile) && File.Exists(outputFileName))
             {
                 throw new InvalidOperationException("Output file already exists and option to overwrite was not specified.");
             }
@@ -60,44 +60,19 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 using (var outputTextWriter = new StreamWriter(outputTextStream))
                 using (var outputJson = new JsonTextWriter(outputTextWriter))
                 {
-                    if (conversionOptions.HasFlag(ToolFormatConversionOptions.PrettyPrint))
+                    if (loggingOptions.Includes(LoggingOptions.PrettyPrint))
                     {
                         outputJson.Formatting = Formatting.Indented;
                     }
 
                     using (var output = new ResultLogJsonWriter(outputJson))
                     {
-                        ConvertToStandardFormat(toolFormat, input, output, pluginAssemblyPath);
+                        ConvertToStandardFormat(toolFormat, input, output, loggingOptions, pluginAssemblyPath);
                     }
                 }
             }
         }
 
-        /// <summary>Converts a tool log file to the SARIF format.</summary>
-        /// <param name="toolFormat">The tool format of the input file.</param>
-        /// <param name="inputFileName">The input log file name.</param>
-        /// <param name="outputFileName">The name of the file to which the resulting SARIF log shall be
-        /// written. This cannot be a directory.</param>
-        /// <remarks>This overload should be used only from test code.</remarks>
-        public void ConvertToStandardFormat(
-            string toolFormat,
-            string inputFileName,
-            string outputFileName)
-        {
-            if (toolFormat == ToolFormat.PREfast)
-            {
-                string sarif = ConvertPREfastToStandardFormat(inputFileName);
-                File.WriteAllText(outputFileName, sarif);
-                return;
-            }
-
-            ConvertToStandardFormat(
-                toolFormat,
-                inputFileName,
-                outputFileName,
-                ToolFormatConversionOptions.None,
-                pluginAssemblyPath: null);
-        }
 
         /// <summary>Converts a tool log file represented as a stream into the SARIF format.</summary>
         /// <exception cref="ArgumentNullException">Thrown when one or more required arguments are null.</exception>
@@ -111,6 +86,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             string toolFormat,
             Stream inputStream,
             IResultLogWriter outputStream,
+            LoggingOptions loggingOptions = LoggingOptions.None,
             string pluginAssemblyPath = null)
         {
             if (toolFormat.MatchesToolFormat(ToolFormat.PREfast))
@@ -126,7 +102,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             ToolFileConverterBase converter = factory.CreateConverter(toolFormat);
             if (converter != null)
             {
-                converter.Convert(inputStream, outputStream);
+                converter.Convert(inputStream, outputStream, loggingOptions);
             }
             else
             {

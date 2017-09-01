@@ -25,6 +25,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         // Persist verbose information to log file, such as informational messages.
         Verbose = 0x10,
 
-        All = ComputeFileHashes | PersistEnvironment | PersistFileContents | PrettyPrint | Verbose
+        // Overwrite previous version of log file, if it exists.
+        OverwriteExistingOutputFile = 0x20,
+
+        All = ComputeFileHashes | PersistEnvironment | PersistFileContents | PrettyPrint | Verbose | OverwriteExistingOutputFile
     }
 }
