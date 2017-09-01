@@ -47,7 +47,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             _aclToSnippetIdDictionary = new Dictionary<AnnotatedCodeLocation, string>();
             _resultToSnippetIdDictionary = new Dictionary<Result, string>();
             _snippetIdToSnippetTextDictionary = new Dictionary<string, string>();
-    }
+        }
 
         /// <summary>
         /// Interface implementation for converting a stream in Fortify FPR format to a stream in
@@ -79,7 +79,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             _toolNotifications.Clear();
             _fileDictionary.Clear();
             _ruleDictionary.Clear();
-            _aclToSnippetIdDictionary.Clear();    
+            _aclToSnippetIdDictionary.Clear();
             _resultToSnippetIdDictionary.Clear();
             _snippetIdToSnippetTextDictionary.Clear();
 

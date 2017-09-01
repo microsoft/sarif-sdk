@@ -575,7 +575,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 case LoggingOptions.All:
                 {
                     logger.ComputeFileHashes.Should().BeTrue();
-                    logger.OverwriteExistingOutputFile.Should().BeFalse();
+                    logger.OverwriteExistingOutputFile.Should().BeTrue();
                     logger.PersistEnvironment.Should().BeTrue();
                     logger.PersistFileContents.Should().BeTrue();
                     logger.PrettyPrint.Should().BeTrue();

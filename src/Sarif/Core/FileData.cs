@@ -15,18 +15,22 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// </summary>
     public partial class FileData : ISarifNode
     {
-        internal static IFileSystem _fileSystem = new FileSystem();
-
-        public static FileData Create(Uri uri, SarifWriters.LoggingOptions loggingOptions, string mimeType = null, Encoding encoding = null)
+        public static FileData Create(
+            Uri uri, 
+            SarifWriters.LoggingOptions loggingOptions, 
+            string mimeType = null, 
+            Encoding encoding = null,
+            IFileSystem fileSystem = null)
         {
             if (uri == null) { throw new ArgumentNullException(nameof(uri)); }
 
             mimeType = mimeType ?? SarifWriters.MimeType.DetermineFromFileExtension(uri);
+            fileSystem = fileSystem ?? new FileSystem();
             encoding = encoding ?? Encoding.UTF8;
 
             var fileData = new FileData()
             {
-                MimeType = mimeType,
+                MimeType = mimeType
             };
 
             // Attempt to persist file contents and/or compute file hash and persist
@@ -37,7 +41,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             // occurred. Something to discuss moving forward.
             try
             {
-                if (!uri.IsAbsoluteUri || !uri.IsFile || !_fileSystem.FileExists(uri.LocalPath))
+                if (!uri.IsAbsoluteUri || !uri.IsFile || !fileSystem.FileExists(uri.LocalPath))
                 {
                     return fileData;
                 }
@@ -47,7 +51,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
                 if (loggingOptions.Includes(Writers.LoggingOptions.PersistFileContents))
                 {
-                    fileData.Contents = EncodeFileContents(filePath, mimeType, encoding);
+                    fileData.Contents = EncodeFileContents(fileSystem, filePath, mimeType, encoding);
                 }
 
                 if (loggingOptions.Includes(Writers.LoggingOptions.ComputeFileHashes))
@@ -79,17 +83,17 @@ namespace Microsoft.CodeAnalysis.Sarif
             return fileData;
         }
 
-        private static string EncodeFileContents(string filePath, string mimeType, Encoding inputFileEncoding)
+        private static string EncodeFileContents(IFileSystem fileSystem, string filePath, string mimeType, Encoding inputFileEncoding)
         {
             byte[] fileContents;
 
             if (mimeType != SarifWriters.MimeType.Binary)
             {
-                fileContents = Encoding.UTF8.GetBytes(_fileSystem.ReadAllText(filePath, inputFileEncoding));
+                fileContents = Encoding.UTF8.GetBytes(fileSystem.ReadAllText(filePath, inputFileEncoding));
             }
             else
             {
-                fileContents = _fileSystem.ReadAllBytes(filePath);
+                fileContents = fileSystem.ReadAllBytes(filePath);
             }
 
             return Convert.ToBase64String(fileContents);

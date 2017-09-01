@@ -14,7 +14,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         private readonly Dictionary<string, FileData> _fileInfoDictionary;
 
         internal FileInfoFactory(Func<string, string> mimeTypeClassifier, LoggingOptions loggingOptions)
-        {            
+        {
             _mimeTypeClassifier = mimeTypeClassifier ?? MimeType.DetermineFromFileExtension;
             _fileInfoDictionary = new Dictionary<string, FileData>();
             _loggingOptions = loggingOptions;
