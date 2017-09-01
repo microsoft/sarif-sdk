@@ -49,7 +49,6 @@ namespace Microsoft.CodeAnalysis.Sarif.ConvertToSarif
 
 
         [Option(
-            'f',
             "persist-file-contents",
             HelpText = "Persist a base64-encoded representation of all referenced files to the log.")]
         public bool PersistFileContents { get; set; }
