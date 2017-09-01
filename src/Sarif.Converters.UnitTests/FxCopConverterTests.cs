@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using FluentAssertions;
-
+using Microsoft.CodeAnalysis.Sarif.Writers;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Microsoft.CodeAnalysis.Sarif.Converters
@@ -339,7 +339,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         public void FxCopConverter_Convert_NullInput()
         {
             var converter = new FxCopConverter();
-            converter.Convert(null, null);
+            converter.Convert(null, null, LoggingOptions.None);
         }
 
         [TestMethod]
@@ -347,7 +347,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         public void FxCopConverter_Convert_NullOutput()
         {
             var converter = new FxCopConverter();
-            converter.Convert(new MemoryStream(), null);
+            converter.Convert(new MemoryStream(), null, LoggingOptions.None);
         }
 
         [TestMethod]

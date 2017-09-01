@@ -81,6 +81,15 @@ goto ExitFailed
 @REM Run all tests
 SET PASSED=true
 
+mstest /testContainer:bld\bin\Sarif.Converters.UnitTests\AnyCPU_%Configuration%\Sarif.Converters.UnitTests.dll
+if "%ERRORLEVEL%" NEQ "0" (
+set PASSED=false
+)
+
+if "%PASSED%" NEQ "true" (
+goto ExitFailed
+)
+
 mstest /testContainer:bld\bin\Sarif.UnitTests\AnyCPU_%Configuration%\Sarif.UnitTests.dll
 if "%ERRORLEVEL%" NEQ "0" (
 set PASSED=false

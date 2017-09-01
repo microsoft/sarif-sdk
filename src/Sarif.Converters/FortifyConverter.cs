@@ -30,7 +30,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         /// <exception cref="ArgumentNullException">Thrown when one or more required arguments are null.</exception>
         /// <param name="input">Stream of the Fortify report.</param>
         /// <param name="output">Stream of SARIF json.</param>
-        public override void Convert(Stream input, IResultLogWriter output)
+        /// <param name="loggingOptions">Logging options that configure output.</param>
+        public override void Convert(Stream input, IResultLogWriter output, LoggingOptions loggingOptions)
         {
             if (input == null)
             {
@@ -68,7 +69,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 Name = "Fortify"
             };
 
-            var fileInfoFactory = new FileInfoFactory(MimeType.DetermineFromFileExtension);
+            var fileInfoFactory = new FileInfoFactory(MimeType.DetermineFromFileExtension, loggingOptions);
             Dictionary<string, FileData> fileDictionary = fileInfoFactory.Create(results);
 
             output.Initialize(id: null, automationId: null);

@@ -5,6 +5,7 @@ using System;
 using System.IO;
 using System.Linq;
 using FluentAssertions;
+using Microsoft.CodeAnalysis.Sarif.Writers;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Microsoft.CodeAnalysis.Sarif.Converters
@@ -23,7 +24,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         // particular converter.
         private class LogicalLocationTestConverter : ToolFileConverterBase
         {
-            public override void Convert(Stream input, IResultLogWriter output)
+            public override void Convert(Stream input, IResultLogWriter output, LoggingOptions loggingOptions)
             {
                 throw new NotImplementedException();
             }
