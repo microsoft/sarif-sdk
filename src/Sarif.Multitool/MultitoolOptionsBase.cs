@@ -3,28 +3,20 @@
 
 using CommandLine;
 
-namespace Microsoft.CodeAnalysis.Sarif.ConvertToSarif
+namespace Microsoft.CodeAnalysis.Sarif
 {
-    [Verb("convert", HelpText = "Convert a tool output log to SARIF format.")]
-    internal class ConvertOptions
+    public class MultitoolOptionsBase
     {
         [Value(0,
-               MetaName = "<inputLogFile>",
-               HelpText = "A file path to a tool log file that should be converted to the SARIF format.",
+               MetaName = "<inputFile>",
+               HelpText = "A path to a file to operate against.",
                Required = true)]
         public string InputFilePath { get; internal set; }
 
         [Option(
-            't',
-            "tool",
-            HelpText = "The tool format of the input file. Must be one of: AndroidStudio, ClangAnalyzer, CppCheck, Fortify, FortifyFpr, FxCop, PREfast, SemmleQL, StaticDriverVerifier, or a tool format for which a plugin assembly provides the converter.",
-            Required = true)]
-        public string ToolFormat { get; internal set; }
-
-        [Option(
             'o',
             "output",
-            HelpText = "A file path to the converted SARIF log. Defaults to <input file name>.sarif.")]
+            HelpText = "A file path to the generated SARIF log. Defaults to <input file name>.sarif.")]
         public string OutputFilePath { get; internal set; }
 
         [Option(
@@ -42,10 +34,17 @@ namespace Microsoft.CodeAnalysis.Sarif.ConvertToSarif
         public bool Force { get; internal set; }
 
         [Option(
-            'a',
-            "plugin-assembly-path",
-            HelpText = "Path to plugin assembly containing converter types.")]
-        public string PluginAssemblyPath { get; internal set; }
+            'i',
+            "inline",
+            Default = false,
+            HelpText = "Write all transformed content to the input file.")]
+        public bool Inline { get; internal set; }
+
+        [Option(
+            'h',
+            "hashes",
+            HelpText = "Output MD5, SHA1, and SHA-256 hash of analysis targets when emitting SARIF reports.")]
+        public bool ComputeFileHashes { get; set; }
 
 
         [Option(

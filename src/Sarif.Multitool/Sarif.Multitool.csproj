@@ -4,7 +4,7 @@
     <ProjectGuid>{01571290-A3F3-4AD6-8F8B-B045BFB6E55E}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <RootNamespace>Microsoft.CodeAnalysis.Sarif</RootNamespace>
-    <AssemblyName>ConvertToSarif</AssemblyName>
+    <AssemblyName>Sarif.Multitool</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Prefer32Bit>true</Prefer32Bit>
@@ -19,6 +19,10 @@
       <HintPath>..\packages\CommandLineParser.2.0.275-beta\lib\net45\CommandLine.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.6.0.8\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -29,7 +33,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ConvertCommand.cs" />
     <Compile Include="ConvertOptions.cs" />
+    <Compile Include="MultitoolExtensionMethods.cs" />
+    <Compile Include="RewriteCommand.cs" />
+    <Compile Include="RewriteOptions.cs" />
+    <Compile Include="MultitoolOptionsBase.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
