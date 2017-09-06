@@ -1,0 +1,44 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <TargetFrameworks>netcoreapp2.0;net451;</TargetFrameworks>
+    <RootNamespace>Microsoft.CodeAnalysis.Sarif</RootNamespace>
+    <Description>Command line tool to convert native static analysis tool output to the SARIF format.</Description>
+    <Product>SARIF Conversion Tool</Product>
+    <Company>Microsoft</Company>
+    <Authors />
+  </PropertyGroup>
+
+  <ItemGroup Condition="'$(TargetFramework)' == 'netcore2.0'">
+
+  </ItemGroup>
+  <ItemGroup Condition="'$(TargetFramework)' == 'net451'">
+
+  </ItemGroup>
+
+  <PropertyGroup Condition="'$(TargetFramework)' == 'netcore2.0'">
+    <DefineConstants>NETCORE2_0</DefineConstants>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(TargetFramework)' == 'net451'">
+    <DefineConstants>NET4_5_1</DefineConstants>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="App.config" />
+    <None Remove="packages.config" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="CommandLineParser" Version="2.1.1-beta" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Sarif.Converters\Sarif.Converters.NetCore.csproj" />
+    <ProjectReference Include="..\Sarif\Sarif.NetCore.csproj" />
+  </ItemGroup>
+
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Exec Command="xcopy /Y ..\..\PREfastXmlSarifConverter\$(Platform)_$(Configuration)\PREfastXmlSarifConverter.dll" />
+  </Target>
+
+</Project>
