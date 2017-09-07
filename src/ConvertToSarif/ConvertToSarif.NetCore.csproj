@@ -7,6 +7,9 @@
     <Product>SARIF Conversion Tool</Product>
     <Company>Microsoft</Company>
     <Authors />
+    <ApplicationIcon />
+    <OutputType>Exe</OutputType>
+    <StartupObject></StartupObject>
   </PropertyGroup>
 
   <ItemGroup Condition="'$(TargetFramework)' == 'netcore2.0'">
@@ -36,9 +39,5 @@
     <ProjectReference Include="..\Sarif.Converters\Sarif.Converters.NetCore.csproj" />
     <ProjectReference Include="..\Sarif\Sarif.NetCore.csproj" />
   </ItemGroup>
-
-  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <Exec Command="xcopy /Y ..\..\PREfastXmlSarifConverter\$(Platform)_$(Configuration)\PREfastXmlSarifConverter.dll" />
-  </Target>
 
 </Project>
