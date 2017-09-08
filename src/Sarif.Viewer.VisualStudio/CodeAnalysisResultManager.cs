@@ -169,7 +169,7 @@ namespace Microsoft.Sarif.Viewer
                 }
             }
         }
-
+        
         public int OnAfterOpenProject(IVsHierarchy pHierarchy, int fAdded)
         {
             return S_OK;
@@ -212,6 +212,9 @@ namespace Microsoft.Sarif.Viewer
 
         public int OnBeforeCloseSolution(object pUnkReserved)
         {
+            // When closing solution (or closing VS), remove the temporary folder.
+            CleanupTemporaryFiles();
+
             return S_OK;
         }
 
@@ -239,22 +242,87 @@ namespace Microsoft.Sarif.Viewer
 
             string rebaselinedFile;
 
-            if (Uri.IsWellFormedUriString(originalFilename, UriKind.Absolute))
+            // File contents embedded in SARIF.
+            if (FileDetails.ContainsKey(originalFilename))
             {
-                rebaselinedFile = DownloadFile(originalFilename);
+                rebaselinedFile = CreateFileFromContents(originalFilename);
             }
             else
             {
-                rebaselinedFile = GetRebaselinedFileName(uriBaseId, originalFilename);
-            }
+                // File needs to be downloaded.
+                if (Uri.IsWellFormedUriString(originalFilename, UriKind.Absolute))
+                {
+                    rebaselinedFile = DownloadFile(originalFilename);
+                }
+                // User needs to locate file.
+                else
+                {
+                    rebaselinedFile = GetRebaselinedFileName(uriBaseId, originalFilename);
+                }
 
-            if (String.IsNullOrEmpty(rebaselinedFile) || originalFilename.Equals(rebaselinedFile, StringComparison.OrdinalIgnoreCase))
-            {
-                return false;
+                if (String.IsNullOrEmpty(rebaselinedFile) || originalFilename.Equals(rebaselinedFile, StringComparison.OrdinalIgnoreCase))
+                {
+                    return false;
+                }
             }
 
             CurrentSarifError.RemapFilePath(originalFilename, rebaselinedFile);
             return true;
+        }
+
+        // Contents are embedded in SARIF. Create a file from these contents.
+        private string CreateFileFromContents(string fileName)
+        {
+            var fileData = FileDetails[fileName];
+
+            // Get temporary path.
+            string path = Path.GetTempPath();
+            path = Path.Combine(path, "SARIF-Viewer");
+
+            // If the file path already starts with the temporary location,
+            // that means we've already built the temporary file, so we can
+            // just open it.
+            if (fileName.StartsWith(path))
+            {
+                path = fileName;
+            }
+            // Else we have to create a location under the temp path.
+            else
+            {
+                // If the file path is absolute, or if it is relative to an
+                // unknown root, we need to strip the drive letter and/or
+                // leading slash, so that we can relate the file path to an
+                // arbitrary remapped disk location.
+                string filePath = fileName;
+                filePath = filePath.Substring(Path.GetPathRoot(filePath).Length);
+
+                path = Path.Combine(path, fileData.Sha256Hash);
+                path = Path.Combine(path, filePath);
+            }
+
+            string directory = new FileInfo(path).Directory.FullName;
+
+            if (!Directory.Exists(directory))
+            {
+                Directory.CreateDirectory(directory);
+            }
+
+            if (!File.Exists(path))
+            {
+                string contents = fileData.GetContents();
+                File.WriteAllText(path, contents);
+                // File should be readonly, because it is embedded.
+                File.SetAttributes(path, FileAttributes.ReadOnly);
+            }
+
+            if (!FileDetails.ContainsKey(path))
+            {
+                // Add another key to our file data object, so that we can
+                // find it if the user closes the window and reopens it.
+                FileDetails.Add(path, fileData);
+            }
+
+            return path;
         }
 
         internal string DownloadFile(string fileUrl)
@@ -318,7 +386,7 @@ namespace Microsoft.Sarif.Viewer
             // We'll save the element which currently has focus and then restore
             // focus after the OpenFileDialog is closed.
             UIElement elementWithFocus = Keyboard.FocusedElement as UIElement;
-            
+
             OpenFileDialog openFileDialog = new OpenFileDialog();
 
             string fullPath = Path.GetFullPath(fileName);
@@ -554,13 +622,13 @@ namespace Microsoft.Sarif.Viewer
                 try
                 {
                     int hr = runningDocTable.GetDocumentInfo(docCookie,
-                                            out grfRDTFlags,
-                                            out dwReadLocks,
-                                            out dwEditLocks,
-                                            out documentName,
-                                            out pHier,
-                                            out itemId,
-                                            out docData);
+                        out grfRDTFlags,
+                        out dwReadLocks,
+                        out dwEditLocks,
+                        out documentName,
+                        out pHier,
+                        out itemId,
+                        out docData);
 
                 }
                 finally
@@ -574,5 +642,15 @@ namespace Microsoft.Sarif.Viewer
             return documentName;
         }
 
+        private void CleanupTemporaryFiles()
+        {
+            // User is closing the solution (or VS), so remove temporary directory.
+            string path = Path.GetTempPath();
+            path = Path.Combine(path, "SARIF-Viewer");
+            if (Directory.Exists(path))
+            {
+                Directory.Delete(path, true);
+            }
+        }
     }
 }
