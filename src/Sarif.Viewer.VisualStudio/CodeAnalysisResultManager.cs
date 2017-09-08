@@ -622,13 +622,13 @@ namespace Microsoft.Sarif.Viewer
                 try
                 {
                     int hr = runningDocTable.GetDocumentInfo(docCookie,
-                        out grfRDTFlags,
-                        out dwReadLocks,
-                        out dwEditLocks,
-                        out documentName,
-                        out pHier,
-                        out itemId,
-                        out docData);
+                                            out grfRDTFlags,
+                                            out dwReadLocks,
+                                            out dwEditLocks,
+                                            out documentName,
+                                            out pHier,
+                                            out itemId,
+                                            out docData);
 
                 }
                 finally
