@@ -1,0 +1,84 @@
+{
+  "$schema": "http://json.schemastore.org/sarif-1.0.0",
+  "version": "1.0.0",
+  "runs": [
+    {
+      "id": "ea65bf9d-f012-4a0e-84e6-5cbe1d57c6d7",
+      "tool": {
+        "name": "SarifCli",
+        "fullName": "SarifCli 1.0.0.0",
+        "version": "1.0.0.0",
+        "semanticVersion": "1.0.0",
+        "sarifLoggerVersion": "1.5.31.0",
+        "language": "en-US",
+        "properties": {
+          "Comments": "Command line tool for working with SARIF log files.",
+          "CompanyName": "Microsoft Corporation",
+          "ProductName": "Microsoft SARIF SDK"
+        }
+      },
+      "results": [
+        {
+          "ruleId": "SARIF003",
+          "level": "error",
+          "formattedRuleMessage": {
+            "formatId": "Default",
+            "arguments": [
+              "InvalidUriInCodeFlowLocation.sarif",
+              "/runs/0/results/0/codeFlows/0/locations/0/physicalLocation/uri",
+              "fi%le:///c:/src/file.c"
+            ]
+          },
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///G:/Code/sarif-sdk/src/Microsoft.CodeAnalysis.Sarif.Multitool/TestData/UrisMustBeValid/InvalidUriInCodeFlowLocation.sarif",
+                "region": {
+                  "startLine": 31,
+                  "startColumn": 52
+                }
+              }
+            }
+          ]
+        }
+      ],
+      "toolNotifications": [
+        {
+          "id": "MSG001.AnalyzingTarget",
+          "physicalLocation": {
+            "uri": "file:///G:/Code/sarif-sdk/src/Microsoft.CodeAnalysis.Sarif.Multitool/TestData/UrisMustBeValid/InvalidUriInCodeFlowLocation.sarif"
+          },
+          "message": "Analyzing 'InvalidUriInCodeFlowLocation.sarif'...",
+          "level": "note",
+          "time": "2016-08-26T17:05:59.382Z"
+        }
+      ],
+      "rules": {
+        "SARIF003": {
+          "id": "SARIF003",
+          "name": "UrisMustBeValid",
+          "shortDescription": "Specify a valid URI reference for every URI-valued property.",
+          "fullDescription": "Specify a valid URI reference for every URI-valued property.",
+          "messageFormats": {
+            "DefaultFormatId": "{0}: The string \"{1}\" is not a valid URI reference."
+          },
+          "defaultLevel": "warning",
+          "helpUri": "https://rawgit.com/sarif-standard/sarif-spec/master/Static%20Analysis%20Results%20Interchange%20Format%20(SARIF).html"
+        }
+      },
+      "files": {
+        "file:///G:/Code/sarif-sdk/src/Microsoft.CodeAnalysis.Sarif.Multitool/TestData/UrisMustBeValid/InvalidUriInCodeFlowLocation.sarif": {
+          "mimeType": "application/octet-stream"
+        }
+      },
+      "invocation": {
+        "commandLine": "\"G:\\Code\\sarif-sdk\\bld\\bin\\SarifCli\\AnyCPU_Debug\\SarifCli.exe\"  validate G:\\Code\\sarif-sdk\\src\\Microsoft.CodeAnalysis.Sarif.Multitool\\TestData\\UrisMustBeValid\\InvalidUriInCodeFlowLocation.sarif -o C:\\Users\\[REMOVED]\\Desktop\\SarifCli\\InvalidUriInCodeFlowLocation_Expected.sarif -j G:\\Code\\sarif-sdk\\src\\Sarif\\Schemata\\Sarif.schema.json ",
+        "startTime": "2016-08-26T17:05:59.300Z",
+        "endTime": "2016-08-26T17:05:59.638Z",
+        "processId": 14512,
+        "fileName": "G:\\Code\\sarif-sdk\\bld\\bin\\SarifCli\\AnyCPU_Debug\\SarifCli.exe",
+        "workingDirectory": "G:\\Code\\sarif-sdk\\bld\\bin\\SarifCli\\AnyCPU_Debug"
+      }
+    }
+  ]
+}

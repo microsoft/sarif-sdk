@@ -75,6 +75,7 @@
     <Compile Include="BrandedVersionAttribute.cs" />
     <Compile Include="DisposableEnumerable.cs" />
     <Compile Include="DisposableEnumerableView.cs" />
+    <Compile Include="DriverExtensionMethods.cs" />
     <Compile Include="DriverResources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

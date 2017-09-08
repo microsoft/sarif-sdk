@@ -1,0 +1,213 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="SARIF001_Default" xml:space="preserve">
+    <value>{0}: The name and id properties of rule "{1}" are the same.</value>
+  </data>
+  <data name="SARIF001_DoNotUseFriendlyNameAsRuleIdDescription" xml:space="preserve">
+    <value>Do not use the same string for a rule's id and name properties. The id property must be a stable, opaque identifer such as "SARIF001". The name property should be a string that is understandable to an end user, such as "DoNotUserFriendlyNameAsRuleId".</value>
+  </data>
+  <data name="SARIF002_Default" xml:space="preserve">
+    <value>{0}: The fragment portion of the URI "{1}", which specifies the location of a nested file with respect to its parent, does not begin with a forward slash.</value>
+  </data>
+  <data name="SARIF002_UseAbsolutePathsForNestedFileUriFragmentsDescription" xml:space="preserve">
+    <value>When specifying the URI of a nested file with a URI fragment, express the fragment as an absolute path. That is, begin the with a forward slash, for example "file:///C:/bin/MyApp.zip#/images/grape.jpg".</value>
+  </data>
+  <data name="SARIF003_Default" xml:space="preserve">
+    <value>{0}: The string "{1}" is not a valid URI reference.</value>
+  </data>
+  <data name="SARIF003_UrisMustBeValid" xml:space="preserve">
+    <value>Specify a valid URI reference for every URI-valued property.</value>
+  </data>
+  <data name="SARIF004_AnnotatedCodeLocationIdIsObsolete" xml:space="preserve">
+    <value>Do not use the obsolete "id" property of the annotatedCodeLocation object. Instead use "step", which is an integer-valued property that is 1 for the first annotatedCodeLocation in a codeFlow, and increments by 1 for every subsequent step.</value>
+  </data>
+  <data name="SARIF004_Default" xml:space="preserve">
+    <value>{0}: The obsolete annotatedCodeLocation.id property is used.  Remove it, and instead use the "step" property, whose value is an integer which is 1 for the first location in a code flow, and increments by 1 for each subsequent location in the code flow.</value>
+  </data>
+  <data name="SARIF004_OnlyInCodeFlow" xml:space="preserve">
+    <value>{0}: The obsolete "id" property is used. This property has been replaced by the "step" property, but the "step" property is used only in annotatedCodeLocations objects that occur within a code flow. Remove the "id" property.</value>
+  </data>
+  <data name="SARIF005_AnnotatedCodeLocationEssentialIsObsolete" xml:space="preserve">
+    <value>Do not use the obsolete "essential" property of the annotatedCodeLocation object. Instead use "importance", which is an string-valued property that must have one of the values "essential", "important", or "unimportant".</value>
+  </data>
+  <data name="SARIF005_Default" xml:space="preserve">
+    <value>{0}: The obsolete "essential" property is used.  Remove it, and instead use the "importance" property, whose value is a string with one of the values "essential", "important", or "unimportant".</value>
+  </data>
+  <data name="SARIF005_OnlyInCodeFlow" xml:space="preserve">
+    <value>{0}: The obsolete "essential" property is used. This property has been replaced by the "importance" property, but the "importance" property is used only in annotatedCodeLocations objects that occur within a code flow. Remove the "essential" property.</value>
+  </data>
+  <data name="SARIF006_Default" xml:space="preserve">
+    <value>{0}: The array contains multiple objects with the value "{1}" for the algorithm property.</value>
+  </data>
+  <data name="SARIF006_HashAlgorithmsMustBeUnique" xml:space="preserve">
+    <value>In any given "file" object, every element of the "hashes" array must have a different value for its "algorithm" property. </value>
+  </data>
+  <data name="SARIF007_Default" xml:space="preserve">
+    <value>{0}: The end time "{1}" is before the start time "{2}".</value>
+  </data>
+  <data name="SARIF007_EndTimeMustBeAfterStartTime" xml:space="preserve">
+    <value>The end time of a run must be after the start time. To allow for the possibility that the duration of the run is less than the resolution of the string representation of the time, the start time and the end time may be equal.</value>
+  </data>
+  <data name="SARIF008_Default" xml:space="preserve">
+    <value>{0}: The message "{1}" does not end with a period.</value>
+  </data>
+  <data name="SARIF008_MessagesShouldEndWithPeriod" xml:space="preserve">
+    <value>Messages should consist of one or more complete sentences, ending with a period.</value>
+  </data>
+  <data name="SARIF009_InvalidStepValue" xml:space="preserve">
+    <value>{0}: The value of the "step" property should be {1}, but is {2}. The step values must form a 1-based sequence starting at the first location in the code flow.</value>
+  </data>
+  <data name="SARIF009_StepNotPresentOnAllLocations" xml:space="preserve">
+    <value>{0}: The "step" property is absent. The "step" property is present on some but not all locations in this code flow. If the "step" property is used on any location in a code flow, it must be present on every location in that code flow.</value>
+  </data>
+  <data name="SARIF009_StepValuesMustFormOneBasedSequence" xml:space="preserve">
+    <value>If the "step" property is used on any annotatedCodeLocation in a code flow, then it must be present for every location in the code flow, its value must be 1 for the first location, and its value must increase by 1 for each succeeding location.</value>
+  </data>
+  <data name="SARIF010_Default" xml:space="preserve">
+    <value>{0}: The "step" property appears in an annotatedCodeLocation object which does not occur in a code flow. The "step" property must appear only in annotatedCodeLocation objects which occur within code flows.</value>
+  </data>
+  <data name="SARIF010_StepMustAppearOnlyInCodeFlowLocations" xml:space="preserve">
+    <value>The "step" property must appear only in annotatedCodeLocation objects which occur within code flows.</value>
+  </data>
+  <data name="SARIF011_Default" xml:space="preserve">
+    <value>{0}: The "importance" property appears in an annotatedCodeLocation object which does not occur in a code flow. The "importance" property must appear only in annotatedCodeLocation objects which occur within code flows.</value>
+  </data>
+  <data name="SARIF011_ImportanceMustAppearOnlyInCodeFlowLocations" xml:space="preserve">
+    <value>The "importance" property must appear only in annotatedCodeLocation objects which occur within code flows.</value>
+  </data>
+  <data name="SARIF012_Default" xml:space="preserve">
+    <value>{0}: The value of the "endLine" property is {1}, which is less than the value of the "startLine" property, which is {2}.</value>
+  </data>
+  <data name="SARIF012_EndLineMustNotBeLessThanStartLine" xml:space="preserve">
+    <value>The "endLine" property of a region object must not be less than the "startLine" property.</value>
+  </data>
+  <data name="SARIF013_Default" xml:space="preserve">
+    <value>{0}: The value of the "endColumn" property is {1}, which is less than the value of the "startColumn" property, which is {2}.</value>
+  </data>
+  <data name="SARIF013_EndColumnMustNotBeLessThanStartColumn" xml:space="preserve">
+    <value>The "endColumn" property of a region object must not be less than the "startColumn" property.</value>
+  </data>
+  <data name="SARIF014_Default" xml:space="preserve">
+    <value>{0}: This object defines a "uriBaseId" property, which means that the value of the "uri" property must be a relative URI reference, but "{1}" is an absolute URI reference.</value>
+  </data>
+  <data name="SARIF014_UriBaseIdRequiresRelativeUri" xml:space="preserve">
+    <value>For objects which define both a "uri" and a "uriBaseId" property, if the "uriBaseId" property is present, the value of the "uri" property must be a relative URI reference.</value>
+  </data>
+</root>

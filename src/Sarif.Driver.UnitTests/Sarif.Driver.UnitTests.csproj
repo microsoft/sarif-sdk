@@ -76,6 +76,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AnalyzeCommandBaseTests.cs" />
+    <Compile Include="DriverExtensionMethods.cs" />
     <Compile Include="ExceptionCondition.cs" />
     <Compile Include="ExceptionRaisingRule.cs" />
     <Compile Include="FileSpecifierTests.cs" />

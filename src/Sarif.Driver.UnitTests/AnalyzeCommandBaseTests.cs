@@ -77,43 +77,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             ExceptionRaisingRule.s_exceptionCondition = ExceptionCondition.None;
         }
 
-        [Fact]
-        public void ConvertAnalyzeOptionsToLoggingOptions()
-        {
-            LoggingOptions loggingOptions;
-            var analyzeOptions = new TestAnalyzeOptions()
-            {
-                 ComputeFileHashes = true
-            };
-
-            loggingOptions = AnalyzeCommandBase<TestAnalysisContext, TestAnalyzeOptions>.ConvertAnalyzeOptionsToLoggingOption(analyzeOptions);
-            loggingOptions.Should().Be(LoggingOptions.ComputeFileHashes);
-
-            analyzeOptions = new TestAnalyzeOptions()
-            {
-                LogEnvironment = true
-            };
-
-            loggingOptions = AnalyzeCommandBase<TestAnalysisContext, TestAnalyzeOptions>.ConvertAnalyzeOptionsToLoggingOption(analyzeOptions);
-            loggingOptions.Should().Be(LoggingOptions.PersistEnvironment);
-
-            analyzeOptions = new TestAnalyzeOptions()
-            {
-                PersistFileContents = true
-            };
-
-            loggingOptions = AnalyzeCommandBase<TestAnalysisContext, TestAnalyzeOptions>.ConvertAnalyzeOptionsToLoggingOption(analyzeOptions);
-            loggingOptions.Should().Be(LoggingOptions.PersistFileContents);
-
-            analyzeOptions = new TestAnalyzeOptions()
-            {
-                Verbose = true
-            };
-
-            loggingOptions = AnalyzeCommandBase<TestAnalysisContext, TestAnalyzeOptions>.ConvertAnalyzeOptionsToLoggingOption(analyzeOptions);
-            loggingOptions.Should().Be(LoggingOptions.Verbose);
-
-        }
 
         [Fact]
         public void InvalidCommandLineOption()
