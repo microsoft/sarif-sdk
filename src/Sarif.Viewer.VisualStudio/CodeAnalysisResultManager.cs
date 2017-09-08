@@ -169,7 +169,7 @@ namespace Microsoft.Sarif.Viewer
                 }
             }
         }
-        
+
         public int OnAfterOpenProject(IVsHierarchy pHierarchy, int fAdded)
         {
             return S_OK;
