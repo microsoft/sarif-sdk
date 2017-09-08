@@ -5,6 +5,7 @@
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     <TargetFrameworks>netcoreapp2.0;net451;</TargetFrameworks>
     <RootNamespace>Microsoft.CodeAnalysis.Sarif.Converters</RootNamespace>
+    <PublicSign Condition=" '$(OS)' != 'Windows_NT' ">true</PublicSign>
     <SignAssembly>true</SignAssembly>
     <AssemblyOriginatorKeyFile>..\..\GeneratedKey.snk</AssemblyOriginatorKeyFile>
     <DelaySign>false</DelaySign>

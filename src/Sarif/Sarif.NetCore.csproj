@@ -4,6 +4,7 @@
     <ProjectGuid>1ad9843d-59ac-4d48-b222-44bfa99aec60</ProjectGuid>
     <TargetFrameworks>netcoreapp2.0;net451;</TargetFrameworks>
     <RootNamespace>Microsoft.CodeAnalysis.Sarif</RootNamespace>
+    <PublicSign Condition=" '$(OS)' != 'Windows_NT' ">true</PublicSign>
     <SignAssembly>true</SignAssembly>
     <AssemblyOriginatorKeyFile>..\..\GeneratedKey.snk</AssemblyOriginatorKeyFile>
     <DelaySign>false</DelaySign>
