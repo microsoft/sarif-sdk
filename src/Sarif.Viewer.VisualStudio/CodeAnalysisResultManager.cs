@@ -27,6 +27,7 @@ namespace Microsoft.Sarif.Viewer
         internal const int E_FAIL = unchecked((int)0x80004005);
         internal const uint VSCOOKIE_NIL = 0;
         internal const int S_OK = 0;
+        private const string TemporaryFileDirectoryName = "SarifViewer";
 
         // Cookies for registration and unregistration
         private uint m_updateSolutionEventsCookie;
@@ -213,7 +214,7 @@ namespace Microsoft.Sarif.Viewer
         public int OnBeforeCloseSolution(object pUnkReserved)
         {
             // When closing solution (or closing VS), remove the temporary folder.
-            CleanupTemporaryFiles();
+            RemoveTemporaryFiles();
 
             return S_OK;
         }
@@ -242,21 +243,21 @@ namespace Microsoft.Sarif.Viewer
 
             string rebaselinedFile;
 
-            // File contents embedded in SARIF.
             if (FileDetails.ContainsKey(originalFilename))
             {
+                // File contents embedded in SARIF.
                 rebaselinedFile = CreateFileFromContents(originalFilename);
             }
             else
             {
-                // File needs to be downloaded.
                 if (Uri.IsWellFormedUriString(originalFilename, UriKind.Absolute))
                 {
+                    // File needs to be downloaded.
                     rebaselinedFile = DownloadFile(originalFilename);
                 }
-                // User needs to locate file.
                 else
                 {
+                    // User needs to locate file.
                     rebaselinedFile = GetRebaselinedFileName(uriBaseId, originalFilename);
                 }
 
@@ -277,7 +278,7 @@ namespace Microsoft.Sarif.Viewer
 
             // Get temporary path.
             string path = Path.GetTempPath();
-            path = Path.Combine(path, "SARIF-Viewer");
+            path = Path.Combine(path, TemporaryFileDirectoryName);
 
             // If the file path already starts with the temporary location,
             // that means we've already built the temporary file, so we can
@@ -642,11 +643,11 @@ namespace Microsoft.Sarif.Viewer
             return documentName;
         }
 
-        private void CleanupTemporaryFiles()
+        private void RemoveTemporaryFiles()
         {
             // User is closing the solution (or VS), so remove temporary directory.
             string path = Path.GetTempPath();
-            path = Path.Combine(path, "SARIF-Viewer");
+            path = Path.Combine(path, TemporaryFileDirectoryName);
             if (Directory.Exists(path))
             {
                 Directory.Delete(path, true);
