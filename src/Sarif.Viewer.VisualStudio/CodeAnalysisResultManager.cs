@@ -386,7 +386,7 @@ namespace Microsoft.Sarif.Viewer
             // We'll save the element which currently has focus and then restore
             // focus after the OpenFileDialog is closed.
             UIElement elementWithFocus = Keyboard.FocusedElement as UIElement;
-
+            
             OpenFileDialog openFileDialog = new OpenFileDialog();
 
             string fullPath = Path.GetFullPath(fileName);
