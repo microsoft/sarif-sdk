@@ -1,0 +1,84 @@
+{
+  "$schema": "http://json.schemastore.org/sarif-1.0.0",
+  "version": "1.0.0",
+  "runs": [
+    {
+      "id": "c4c42f77-ff81-40a5-8fd3-93cc78ace9af",
+      "tool": {
+        "name": "SarifCli",
+        "fullName": "SarifCli 1.0.0.0",
+        "version": "1.0.0.0",
+        "semanticVersion": "1.0.0",
+        "sarifLoggerVersion": "1.5.31.0",
+        "language": "en-US",
+        "properties": {
+          "Comments": "Command line tool for working with SARIF log files.",
+          "CompanyName": "Microsoft Corporation",
+          "ProductName": "Microsoft SARIF SDK"
+        }
+      },
+      "results": [
+        {
+          "ruleId": "JS1002",
+          "level": "error",
+          "formattedRuleMessage": {
+            "formatId": "default",
+            "arguments": [
+              "runs[0].results[0].stacks[0].frames[0]",
+              "fullyQualifiedLogicalName"
+            ]
+          },
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///G:/Code/sarif-sdk/src/Microsoft.CodeAnalysis.Sarif.Multitool/TestData/DeserializationError.sarif",
+                "region": {
+                  "startLine": 21,
+                  "startColumn": 18
+                }
+              }
+            }
+          ],
+          "properties": {
+            "jsonPath": "runs[0].results[0].stacks[0].frames[0]"
+          }
+        }
+      ],
+      "toolNotifications": [
+        {
+          "id": "MSG001.AnalyzingTarget",
+          "physicalLocation": {
+            "uri": "file:///G:/Code/sarif-sdk/src/Microsoft.CodeAnalysis.Sarif.Multitool/TestData/DeserializationError.sarif"
+          },
+          "message": "Analyzing 'DeserializationError.sarif'...",
+          "level": "note",
+          "time": "2016-08-27T21:47:00.464Z"
+        }
+      ],
+      "rules": {
+        "JS1002": {
+          "id": "JS1002",
+          "name": "RequiredPropertyMissing",
+          "fullDescription": "A property required by the schema's \"required\" property is missing.",
+          "messageFormats": {
+            "default": "{0}: The required property \"{1}\" is missing."
+          },
+          "defaultLevel": "error"
+        }
+      },
+      "files": {
+        "file:///G:/Code/sarif-sdk/src/Microsoft.CodeAnalysis.Sarif.Multitool/TestData/DeserializationError.sarif": {
+          "mimeType": "application/octet-stream"
+        }
+      },
+      "invocation": {
+        "commandLine": "\"G:\\Code\\sarif-sdk\\bld\\bin\\SarifCli\\AnyCPU_Debug\\SarifCli.exe\"  validate G:\\Code\\sarif-sdk\\src\\Microsoft.CodeAnalysis.Sarif.Multitool\\TestData\\DeserializationError.sarif -o G:\\Code\\sarif-sdk\\src\\Microsoft.CodeAnalysis.Sarif.Multitool\\TestData\\DeserializationError_Expected.sarif -j G:\\Code\\sarif-sdk\\src\\Sarif\\Schemata\\Sarif.schema.json ",
+        "startTime": "2016-08-27T21:47:00.378Z",
+        "endTime": "2016-08-27T21:47:00.733Z",
+        "processId": 4696,
+        "fileName": "G:\\Code\\sarif-sdk\\bld\\bin\\SarifCli\\AnyCPU_Debug\\SarifCli.exe",
+        "workingDirectory": "G:\\Code\\sarif-sdk\\bld\\bin\\SarifCli\\AnyCPU_Debug"
+      }
+    }
+  ]
+}

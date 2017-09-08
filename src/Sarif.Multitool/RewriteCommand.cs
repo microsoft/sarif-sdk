@@ -19,12 +19,14 @@ namespace Microsoft.CodeAnalysis.Sarif
                 rewriteOptions = ValidateOptions(rewriteOptions);
                 string fileName = GetOutputFileName(rewriteOptions);
 
-                Formatting formatting = rewriteOptions.PrettyPrint ? Formatting.Indented : Formatting.None;
+                Newtonsoft.Json.Formatting formatting = rewriteOptions.PrettyPrint 
+                    ? Newtonsoft.Json.Formatting.Indented 
+                    : Newtonsoft.Json.Formatting.None;
 
                 JsonSerializerSettings settings = new JsonSerializerSettings()
                 {
                     ContractResolver = SarifContractResolver.Instance,
-                    Formatting = Formatting.Indented
+                    Formatting = Newtonsoft.Json.Formatting.Indented
                 };
 
                 string sarifText = File.ReadAllText(rewriteOptions.InputFilePath);
