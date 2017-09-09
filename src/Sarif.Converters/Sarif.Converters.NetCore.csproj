@@ -1,23 +1,22 @@
 <Project Sdk="Microsoft.NET.Sdk">
-
   <PropertyGroup>
-    <ProjectGuid>7d9c077e-3d45-494a-82da-99b16ec21ff6</ProjectGuid>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
-    <TargetFrameworks>netcoreapp2.0;net451;</TargetFrameworks>
+    <ProjectGuid>7d9c077e-3d45-494a-82da-99b16ec21ff6</ProjectGuid>
     <RootNamespace>Microsoft.CodeAnalysis.Sarif.Converters</RootNamespace>
     <PublicSign Condition=" '$(OS)' != 'Windows_NT' ">true</PublicSign>
     <SignAssembly>true</SignAssembly>
-    <AssemblyOriginatorKeyFile>..\..\GeneratedKey.snk</AssemblyOriginatorKeyFile>
     <DelaySign>false</DelaySign>
+    <AssemblyOriginatorKeyFile>..\..\GeneratedKey.snk</AssemblyOriginatorKeyFile>
+
+    <!-- Hack around issue found here: https://github.com/NuGet/Home/issues/4463 -->
+    <BaseIntermediateOutputPath>$(MSBuildProjectDirectory)\obj.core</BaseIntermediateOutputPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|netcoreapp2.0|AnyCPU'">
+    <OutputPath>C:\Projects\sarif-sdk\src\..\bld.core\bin\Sarif.Converters.NetCore\AnyCPU_Debug\netcoreapp2.0\</OutputPath>
   </PropertyGroup>
 
-  <PropertyGroup Condition="'$(TargetFramework)' == 'netcoreapp2.0'">
-    <DefineConstants>NETCORE2_0</DefineConstants>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(TargetFramework)' == 'net451'">
-    <DefineConstants>NET4_5_1</DefineConstants>
-  </PropertyGroup>
-
+  <Import Project="$([MSBuild]::GetDirectoryNameOfFileAbove($(MSBuildThisFileDirectory).., netcorebuild.props))\netcorebuild.props" />
+  
   <ItemGroup>
     <None Remove="packages.config" />
   </ItemGroup>

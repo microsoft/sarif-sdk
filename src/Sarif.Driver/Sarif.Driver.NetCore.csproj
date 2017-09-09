@@ -1,16 +1,22 @@
 <Project Sdk="Microsoft.NET.Sdk">
-
   <PropertyGroup>
-    <ProjectGuid>c06f0cf1-3505-4715-b6da-047ec86c4308</ProjectGuid>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
-    <TargetFrameworks>netcoreapp2.0;net451;</TargetFrameworks>
+    <ProjectGuid>c06f0cf1-3505-4715-b6da-047ec86c4308</ProjectGuid>
     <RootNamespace>Microsoft.CodeAnalysis.Sarif.Driver</RootNamespace>
     <PublicSign Condition=" '$(OS)' != 'Windows_NT' ">true</PublicSign>
     <SignAssembly>true</SignAssembly>
     <DelaySign>false</DelaySign>
     <AssemblyOriginatorKeyFile>..\..\GeneratedKey.snk</AssemblyOriginatorKeyFile>
+    
+    <!-- Hack around issue found here: https://github.com/NuGet/Home/issues/4463 -->
+    <BaseIntermediateOutputPath>$(MSBuildProjectDirectory)\obj.core</BaseIntermediateOutputPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|netcoreapp2.0|AnyCPU'">
+    <OutputPath>C:\Projects\sarif-sdk\src\..\bld.core\bin\Sarif.Driver.NetCore\AnyCPU_Debug\netcoreapp2.0\</OutputPath>
   </PropertyGroup>
 
+  <Import Project="$([MSBuild]::GetDirectoryNameOfFileAbove($(MSBuildThisFileDirectory).., netcorebuild.props))\netcorebuild.props" />
+  
   <ItemGroup>
     <None Remove="packages.config" />
   </ItemGroup>

@@ -22,6 +22,10 @@ echo Unrecognized option "%1" && goto :ExitFailed
 rd /s /q bld
 md bld\bin\nuget
 
+@REM Remove existing .NET Core build data
+rd /s /q bld.core
+md bld.core\bin\nuget
+
 call SetCurrentVersion.cmd 
 
 @REM Write VersionConstants files 
@@ -65,6 +69,12 @@ goto ExitFailed
 )
 
 msbuild /verbosity:minimal /target:rebuild src\Everything.sln /p:"Configuration=%Configuration%" /p:"Platform=Any CPU" /filelogger /fileloggerparameters:Verbosity=detailed /p:"RunBinSkim=true" /p:"BinSkimVerboseOutput=true"
+
+if "%ERRORLEVEL%" NEQ "0" (
+goto ExitFailed
+)
+
+dotnet msbuild /verbosity:minimal /target:rebuild src\Sarif.Sdk.NetCore.sln /p:"Configuration=%Configuration%" /p:"Platform=Any CPU" /filelogger /fileloggerparameters:Verbosity=detailed /p:"RunBinSkim=true" /p:"BinSkimVerboseOutput=true"
 
 if "%ERRORLEVEL%" NEQ "0" (
 goto ExitFailed
