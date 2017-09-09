@@ -8,7 +8,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using Microsoft.CodeAnalysis.Sarif.Writers;
-using Microsoft.VisualBasic.FileIO;
+using CsvHelper;
 
 namespace Microsoft.CodeAnalysis.Sarif.Converters
 {
@@ -35,7 +35,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             EndColumn
         }
 
-        private TextFieldParser _parser;
+        private CsvParser _parser;
         private List<Notification> _toolNotifications;
 
         /// <summary>
@@ -89,28 +89,26 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         private Result[] GetResultsFromStream(Stream input)
         {
             var results = new List<Result>();
-            using (_parser = new TextFieldParser(input)
+            using (var reader = new StreamReader(input))
             {
-                TextFieldType = FieldType.Delimited,
-                Delimiters = s_delimiters
-            })
-            {
-                while (!_parser.EndOfData)
+                using (_parser = new CsvParser(reader))
                 {
-                    results.Add(ParseResult());
+                    string[] row = null;
+                    while ((row = _parser.Read()) != null)
+                    {
+                        results.Add(ParseResult(row));
+                    }
                 }
+
             }
 
             return results.ToArray();
         }
 
-        private Result ParseResult()
+        private Result ParseResult(string[] fields)
         {
-            string[] fields = _parser.ReadFields();
-
             string rawMessage = fields[(int)FieldIndex.Message];
             string normalizedMessage;
-
             IList<AnnotatedCodeLocation> relatedLocations = NormalizeRawMessage(rawMessage, out normalizedMessage);
 
             Region region = MakeRegion(fields);
@@ -331,7 +329,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
             // When the parser read the offending line, it incremented the line number,
             // so report the previous line.
-            long lineNumber = _parser.LineNumber - 1;
+            long lineNumber = _parser.Row - 1;
             string messageWithLineNumber = string.Format(
                 CultureInfo.CurrentCulture,
                 ConverterResources.SemmleNotificationFormat,
