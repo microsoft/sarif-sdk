@@ -306,6 +306,8 @@ namespace Microsoft.Sarif.Viewer
                 }
 
                 // Combine all paths into the final.
+                // Sha256Hash is guaranteed to exist. When SARIF file is read, only files
+                // with Sha256 hashes are added to the FileDetails dictionary.
                 finalPath = Path.Combine(finalPath, fileData.Sha256Hash, fileName);
             }
 
