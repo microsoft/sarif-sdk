@@ -28,6 +28,7 @@ namespace Microsoft.Sarif.Viewer
         internal const uint VSCOOKIE_NIL = 0;
         internal const int S_OK = 0;
         private const string TemporaryFileDirectoryName = "SarifViewer";
+        private readonly string TemporaryFilePath;
 
         // Cookies for registration and unregistration
         private uint m_updateSolutionEventsCookie;
@@ -45,6 +46,10 @@ namespace Microsoft.Sarif.Viewer
             _remappedUriBasePaths = new Dictionary<string, Uri>();
             _remappedPathPrefixes = new List<Tuple<string, string>>();
             _fileToNewLineIndexMap = new Dictionary<string, NewLineIndex>();
+
+            // Get temporary path for embedded files.
+            TemporaryFilePath = Path.GetTempPath();
+            TemporaryFilePath = Path.Combine(TemporaryFilePath, TemporaryFileDirectoryName);
         }
 
         private System.IServiceProvider ServiceProvider
@@ -276,54 +281,53 @@ namespace Microsoft.Sarif.Viewer
         {
             var fileData = FileDetails[fileName];
 
-            // Get temporary path.
-            string path = Path.GetTempPath();
-            path = Path.Combine(path, TemporaryFileDirectoryName);
+            string finalPath = TemporaryFilePath;
 
             // If the file path already starts with the temporary location,
             // that means we've already built the temporary file, so we can
             // just open it.
-            if (fileName.StartsWith(path))
+            if (fileName.StartsWith(finalPath))
             {
-                path = fileName;
+                finalPath = fileName;
             }
             // Else we have to create a location under the temp path.
             else
             {
-                // If the file path is absolute, or if it is relative to an
-                // unknown root, we need to strip the drive letter and/or
-                // leading slash, so that we can relate the file path to an
-                // arbitrary remapped disk location.
-                string filePath = fileName;
-                filePath = filePath.Substring(Path.GetPathRoot(filePath).Length);
+                // Strip off the leading drive letter and backslash (e.g., "C:\"), if present.
+                if (Path.IsPathRooted(fileName))
+                {
+                    string pathRoot = Path.GetPathRoot(fileName);
+                    fileName = fileName.Substring(pathRoot.Length);
+                }
 
-                path = Path.Combine(path, fileData.Sha256Hash);
-                path = Path.Combine(path, filePath);
+                if (fileName.StartsWith("/") || fileName.StartsWith("\\"))
+                {
+                    fileName = fileName.Substring(1);
+                }
+
+                // Combine all paths into the final.
+                finalPath = Path.Combine(finalPath, fileData.Sha256Hash, fileName);
             }
 
-            string directory = new FileInfo(path).Directory.FullName;
-
-            if (!Directory.Exists(directory))
-            {
-                Directory.CreateDirectory(directory);
-            }
-
-            if (!File.Exists(path))
+            string directory = Path.GetDirectoryName(finalPath);
+            Directory.CreateDirectory(directory);
+            
+            if (!File.Exists(finalPath))
             {
                 string contents = fileData.GetContents();
-                File.WriteAllText(path, contents);
+                File.WriteAllText(finalPath, contents);
                 // File should be readonly, because it is embedded.
-                File.SetAttributes(path, FileAttributes.ReadOnly);
+                File.SetAttributes(finalPath, FileAttributes.ReadOnly);
             }
 
-            if (!FileDetails.ContainsKey(path))
+            if (!FileDetails.ContainsKey(finalPath))
             {
                 // Add another key to our file data object, so that we can
                 // find it if the user closes the window and reopens it.
-                FileDetails.Add(path, fileData);
+                FileDetails.Add(finalPath, fileData);
             }
 
-            return path;
+            return finalPath;
         }
 
         internal string DownloadFile(string fileUrl)
