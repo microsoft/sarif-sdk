@@ -37,7 +37,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             return node;
         }
 
-        public FileData VisitDictionaryValueNullChecked(string key, FileData node)
+        internal FileData VisitDictionaryValueNullChecked(string key, FileData node)
         {
             bool workToDo = false;
 

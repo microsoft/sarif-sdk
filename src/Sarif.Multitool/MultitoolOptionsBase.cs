@@ -3,13 +3,12 @@
 
 using CommandLine;
 
-namespace Microsoft.CodeAnalysis.Sarif
-{
+namespace Microsoft.CodeAnalysis.Sarif.Multitool{
     public class MultitoolOptionsBase
     {
         [Value(0,
                MetaName = "<inputFile>",
-               HelpText = "A path to a file to operate against.",
+               HelpText = "A path to a file to process.",
                Required = true)]
         public string InputFilePath { get; internal set; }
 

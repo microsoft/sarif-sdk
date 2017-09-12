@@ -3,7 +3,7 @@
 
 using CommandLine;
 
-namespace Microsoft.CodeAnalysis.Sarif
+namespace Microsoft.CodeAnalysis.Sarif.Multitool
 {
     [Verb("rewrite", HelpText = "Transform a SARIF file to a reformatted version.")]
     internal class RewriteOptions : MultitoolOptionsBase

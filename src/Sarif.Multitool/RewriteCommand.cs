@@ -8,7 +8,7 @@ using Microsoft.CodeAnalysis.Sarif.Visitors;
 using Microsoft.CodeAnalysis.Sarif.Writers;
 using Newtonsoft.Json;
 
-namespace Microsoft.CodeAnalysis.Sarif
+namespace Microsoft.CodeAnalysis.Sarif.Multitool
 {
     internal static class RewriteCommand
     {
@@ -71,16 +71,17 @@ namespace Microsoft.CodeAnalysis.Sarif
                 return rewriteOptions.OutputFilePath;
             }
 
+            const string TransformedExtension = "transformed.sarif";
             string extension = Path.GetExtension(filePath);
 
-            // For an input file named MyFile.sarif, returns MyFile.transformed.sarif
+            // For an input file named MyFile.sarif, returns MyFile.transformed.sarif.
             if (extension.Equals(".sarif", StringComparison.OrdinalIgnoreCase))
             {
-                return Path.GetFileNameWithoutExtension(filePath) + "transformed.sarif";
+                return Path.GetFileNameWithoutExtension(filePath) + TransformedExtension;
             }
 
-            // For an input file named MyFile.json, return MyFile.json.transformed.sarif
-            return Path.GetFullPath(rewriteOptions.InputFilePath + "transformed.sarif");
+            // For an input file named MyFile.json, return MyFile.json.transformed.sarif.
+            return Path.GetFullPath(rewriteOptions.InputFilePath + TransformedExtension);
         }
     }
 }

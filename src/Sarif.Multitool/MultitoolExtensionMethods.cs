@@ -4,7 +4,7 @@
 using System;
 using Microsoft.CodeAnalysis.Sarif.Writers;
 
-namespace Microsoft.CodeAnalysis.Sarif
+namespace Microsoft.CodeAnalysis.Sarif.Multitool
 {
     public static class MultitoolExtensionMethods
     {

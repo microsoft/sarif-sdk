@@ -4,10 +4,9 @@
 using System;
 using System.IO;
 using Microsoft.CodeAnalysis.Sarif.Converters;
-using Microsoft.CodeAnalysis.Sarif.ConvertToSarif;
 using Microsoft.CodeAnalysis.Sarif.Writers;
 
-namespace Microsoft.CodeAnalysis.Sarif
+namespace Microsoft.CodeAnalysis.Sarif.Multitool
 {
     internal static class ConvertCommand
     {

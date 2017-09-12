@@ -7,11 +7,11 @@ using CommandLine;
 using Microsoft.CodeAnalysis.Sarif.Converters;
 using Microsoft.CodeAnalysis.Sarif.Writers;
 
-namespace Microsoft.CodeAnalysis.Sarif.ConvertToSarif
+namespace Microsoft.CodeAnalysis.Sarif.Multitool
 {
     internal static class Program
     {
-        /// <summary>The entry point for the SARIF file format conversion utility.</summary>
+        /// <summary>The entry point for the SARIF multi utility.</summary>
         /// <param name="args">Arguments passed in from the tool's command line.</param>
         /// <returns>0 on success; nonzero on failure.</returns>
         public static int Main(string[] args)
