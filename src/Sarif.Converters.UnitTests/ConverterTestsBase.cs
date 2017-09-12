@@ -5,8 +5,6 @@ using FluentAssertions;
 
 using Microsoft.CodeAnalysis.Sarif.Converters;
 using Microsoft.CodeAnalysis.Sarif.Readers;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-
 using Newtonsoft.Json;
 
 namespace Microsoft.CodeAnalysis.Sarif

@@ -4,16 +4,14 @@
 using System;
 using System.Globalization;
 using System.IO;
-
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Newtonsoft.Json;
+using Xunit;
 
 namespace Microsoft.CodeAnalysis.Sarif.Writers
 {
-    [TestClass]
     public class ResultLogJsonWriterTests : JsonTests
     {
-        [TestMethod]
+        [Fact]
         public void ResultLogJsonWriter_DefaultIsEmpty()
         {
             string expected =
@@ -24,13 +22,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
     {}
   ]
 }";
-            Assert.AreEqual(expected, GetJson(uut =>
+            Assert.Equal(expected, GetJson(uut =>
             {
                 uut.Initialize(id: null, automationId: null);
             }));
         }
 
-        [TestMethod]
+        [Fact]
         public void ResultLogJsonWriter_AcceptsResultAndTool()
         {
             string expected =
@@ -54,58 +52,59 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 uut.WriteTool(DefaultTool);
                 uut.WriteResult(DefaultResult);
             });
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(InvalidOperationException))]
+        [Fact]
         public void ResultLogJsonWriter_ToolMayNotBeWrittenMoreThanOnce()
         {
-            GetJson(uut =>
-            {
-                uut.WriteTool(DefaultTool);
-                uut.WriteTool(DefaultTool);
-            });
+            Assert.Throws<InvalidOperationException>(() => 
+                GetJson(uut =>
+                {
+                    uut.WriteTool(DefaultTool);
+                    uut.WriteTool(DefaultTool);
+                })
+            );
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(InvalidOperationException))]
+        [Fact]
         public void ResultLogJsonWriter_ResultsMayNotBeWrittenMoreThanOnce()
         {
             var results = new[] { DefaultResult };
 
-            GetJson(uut =>
-            {
-                uut.OpenResults();
-                uut.WriteResults(results);
-                uut.CloseResults();
+            Assert.Throws<InvalidOperationException>(() => 
+                GetJson(uut =>
+                {
+                    uut.OpenResults();
+                    uut.WriteResults(results);
+                    uut.CloseResults();
 
-                uut.OpenResults();
-                uut.WriteResults(results);
-                uut.CloseResults();
-            });
+                    uut.OpenResults();
+                    uut.WriteResults(results);
+                    uut.CloseResults();
+                })
+            );
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(ArgumentNullException))]
+        [Fact]
         public void ResultLogJsonWriter_RequiresNonNullTool()
         {
-            GetJson(uut => uut.WriteTool(null));
+            Assert.Throws<ArgumentNullException>(() => GetJson(uut => uut.WriteTool(null)));
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(ArgumentNullException))]
+        [Fact]
         public void ResultLogJsonWriter_RequiresNonNullResult()
         {
-            GetJson(uut =>
-            {
-                uut.WriteTool(DefaultTool);
-                uut.WriteResult(null);
-            });
+            Assert.Throws<ArgumentNullException>(() => 
+                GetJson(uut =>
+                {
+                    uut.WriteTool(DefaultTool);
+                    uut.WriteResult(null);
+                })
+            );
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(InvalidOperationException))]
+        [Fact]
         public void ResultLogJsonWriter_CannotWriteToolToDisposedWriter()
         {
             using (var str = new StringWriter())
@@ -113,12 +112,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             using (var uut = new ResultLogJsonWriter(json))
             {
                 uut.Dispose();
-                uut.WriteTool(DefaultTool);
+                Assert.Throws<InvalidOperationException>(() => uut.WriteTool(DefaultTool));
             }
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(InvalidOperationException))]
+        [Fact]
         public void ResultLogJsonWriter_CannotWriteResultsToDisposedWriter()
         {
             using (var str = new StringWriter())
@@ -127,11 +125,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             {
                 uut.WriteTool(DefaultTool);
                 uut.Dispose();
-                uut.WriteResult(DefaultResult);
+                Assert.Throws<InvalidOperationException>(() => uut.WriteResult(DefaultResult));
             }
         }
 
-        [TestMethod]
+        [Fact]
         public void ResultLogJsonWriter_MultipleDisposeAllowed()
         {
             using (var str = new StringWriter())
@@ -151,7 +149,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             CommandLine = "/a /b c.dll"
         };
 
-        [TestMethod]
+        [Fact]
         public void ResultLogJsonWriter_WritesInvocation()
         {
             string expected =
@@ -176,10 +174,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 uut.WriteTool(DefaultTool);
                 uut.WriteInvocation(s_invocation);
             });
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
 
-        [TestMethod]
+        [Fact]
         public void ResultLogJsonWriter_WritesIdAndAutomationId()
         {
             string id = Guid.NewGuid().ToString();
@@ -209,11 +207,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 uut.WriteTool(DefaultTool);
                 uut.WriteInvocation(s_invocation);
             });
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(InvalidOperationException))]
+        [Fact]
         public void ResultLogJsonWriter_CannotWriteInvocationTwice()
         {
             using (var str = new StringWriter())
@@ -222,7 +219,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             {
                 uut.WriteTool(DefaultTool);
                 uut.WriteInvocation(s_invocation);
-                uut.WriteInvocation(s_invocation);
+                Assert.Throws<InvalidOperationException>(() => uut.WriteInvocation(s_invocation));
             }
         }
 
@@ -320,7 +317,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
           }
         }";
 
-        [TestMethod]
+        [Fact]
         public void ResultLogJsonWriter_WritesConfigurationNotifications()
         {
             string expected =
@@ -344,10 +341,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 uut.WriteTool(DefaultTool);
                 uut.WriteConfigurationNotifications(s_notifications);
             });
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
 
-        [TestMethod]
+        [Fact]
         public void ResultLogJsonWriter_WritesToolNotifications()
         {
             string expected =
@@ -371,11 +368,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 uut.WriteTool(DefaultTool);
                 uut.WriteToolNotifications(s_notifications);
             });
-            Assert.AreEqual(expected, actual);
+            Assert.Equal(expected, actual);
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(InvalidOperationException))]
+        [Fact]
         public void ResultLogJsonWriter_CannotWriteToolNotificationsTwice()
         {
             using (var str = new StringWriter())
@@ -384,12 +380,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             {
                 uut.WriteTool(DefaultTool);
                 uut.WriteToolNotifications(s_notifications);
-                uut.WriteToolNotifications(s_notifications);
+                Assert.Throws<InvalidOperationException>(() => uut.WriteToolNotifications(s_notifications));
             }
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(InvalidOperationException))]
+        [Fact]
         public void ResultLogJsonWriter_CannotWriteConfigurationNotificationsTwice()
         {
             using (var str = new StringWriter())
@@ -398,7 +393,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             {
                 uut.WriteTool(DefaultTool);
                 uut.WriteConfigurationNotifications(s_notifications);
-                uut.WriteConfigurationNotifications(s_notifications);
+                Assert.Throws<InvalidOperationException>(() => uut.WriteConfigurationNotifications(s_notifications));
             }
         }
     }

@@ -6,20 +6,19 @@ using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Text;
 using FluentAssertions;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Microsoft.CodeAnalysis.Sarif.Writers;
 using Microsoft.CodeAnalysis.Sarif.Driver;
 using Microsoft.CodeAnalysis.Sarif.Converters;
 using System.Reflection;
+using Xunit;
 
 namespace Microsoft.CodeAnalysis.Sarif
 {
-    [TestClass]
     public class ToolFormatConverterTests
     {
         private readonly ToolFormatConverter _converter = new ToolFormatConverter();
 
-        [TestMethod]
+        [Fact]
         public void ToolFormatConverter_ConvertToStandardFormat_DirectorySpecifiedAsDestination()
         {
             string input = Path.GetTempFileName();
@@ -29,7 +28,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             action.ShouldThrow<ArgumentException>();
         }
 
-        [TestMethod]
+        [Fact]
         public void ToolFormatConverter_ConvertToStandardFormat_NullInputFile()
         {
             string file = Path.GetTempFileName();
@@ -38,7 +37,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             action.ShouldThrow<ArgumentNullException>();
         }
 
-        [TestMethod]
+        [Fact]
         public void ToolFormatConverter_ConvertToStandardFormat_NullOutputFile()
         {
             string file = Path.GetTempFileName();
@@ -47,7 +46,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             action.ShouldThrow<ArgumentNullException>();
         }
 
-        [TestMethod]
+        [Fact]
         public void ToolFormatConverter_ConvertToStandardFormat_NullInputStream()
         {
             var output = new ResultLogObjectWriter();
@@ -56,7 +55,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             action.ShouldThrow<ArgumentNullException>();
         }
 
-        [TestMethod]
+        [Fact]
         public void ToolFormatConverter_ConvertToStandardFormat_NullOutputStream()
         {
             using (var stream = new MemoryStream())
@@ -67,7 +66,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             }
         }
 
-        [TestMethod]
+        [Fact]
         public void ToolFormatConverter_ConvertToStandardFormat_UnknownToolFormat()
         {
             var output = new ResultLogObjectWriter();
@@ -79,7 +78,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             }
         }
 
-        [TestMethod]
+        [Fact]
         public void ToolFormatConverter_ConvertToStandardFormat_InputDoesNotExist()
         {
             string file = this.GetType().Assembly.Location;
@@ -89,7 +88,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             action.ShouldThrow<FileNotFoundException>();
         }
 
-        [TestMethod]
+        [Fact]
         public void ToolFormatConverter_ConvertToStandardFormat_OutputExistsAndOverwriteNotSpecified()
         {
             string exists = this.GetType().Assembly.Location;
@@ -98,7 +97,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             action.ShouldThrow<InvalidOperationException>();
         }
 
-        [TestMethod]
+        [Fact]
         public void ToolFormatConverter_TruncatesOutputFileInOverwriteMode()
         {
             // Using CPPCheck because its empty file format is the simplest
@@ -118,11 +117,11 @@ namespace Microsoft.CodeAnalysis.Sarif
                 var actualOutputFileName = tempDir.Write("output_actual.xml", new string('a', expectedOutput.Length + 4096));
                 _converter.ConvertToStandardFormat(ToolFormat.CppCheck, inputFileName, actualOutputFileName, LoggingOptions.OverwriteExistingOutputFile);
                 string actualOutput = File.ReadAllText(actualOutputFileName, Encoding.UTF8);
-                Assert.AreEqual(expectedOutput, actualOutput);
+                Assert.Equal(expectedOutput, actualOutput);
             }
         }
 
-        [TestMethod]
+        [Fact]
         public void ToolFormatConverter_FailsIfPluginAssemblyDoesNotExist()
         {
             using (var tempDir = new TempDirectory())
@@ -145,7 +144,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             }
         }
 
-        [TestMethod]
+        [Fact]
         public void ToolFormatConverter_FailsIfConverterTypeIsNotPresentInPluginAssembly()
         {
             using (var tempDir = new TempDirectory())
@@ -168,7 +167,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             }
         }
 
-        [TestMethod]
+        [Fact]
         public void ToolFormatConverter_FailsIfConverterTypeIsAmbiguousInPluginAssembly()
         {
             using (var tempDir = new TempDirectory())
@@ -193,7 +192,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             }
         }
 
-        [TestMethod]
+        [Fact]
         public void ToolFormatConverter_FailsIfConverterTypeIsNonPublic()
         {
             using (var tempDir = new TempDirectory())
@@ -216,7 +215,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             }
         }
 
-        [TestMethod]
+        [Fact]
         public void ToolFormatConverter_FailsIfConverterTypeIsAbstract()
         {
             using (var tempDir = new TempDirectory())
@@ -239,7 +238,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             }
         }
 
-        [TestMethod]
+        [Fact]
         public void ToolFormatConverter_FailsIfConverterTypeDoesNotHaveCorrectBaseClass()
         {
             using (var tempDir = new TempDirectory())
@@ -262,7 +261,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             }
         }
 
-        [TestMethod]
+        [Fact]
         public void ToolFormatConverter_FailsIfConverterTypeDoesNotHaveDefaultConstructor()
         {
             using (var tempDir = new TempDirectory())
@@ -285,7 +284,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             }
         }
 
-        [TestMethod]
+        [Fact]
         public void ToolFormatConverter_FindsConverterInPluginAssembly()
         {
             using (var tempDir = new TempDirectory())
@@ -307,7 +306,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             }
         }
 
-        [TestMethod]
+        [Fact]
         public void ToolFormatConverter_FindsBuiltInConverterEvenIfPluginIsSpecified()
         {
             using (var tempDir = new TempDirectory())
@@ -332,22 +331,22 @@ namespace Microsoft.CodeAnalysis.Sarif
             }
         }
 
-        [TestMethod]
+        [Fact]
         public void ToolFormatConverter_BuildsChainOfResponsibility()
         {
             const string PluginAssemblyPath = "Plugin.dll";
 
             ConverterFactory factory = ToolFormatConverter.CreateConverterFactory(PluginAssemblyPath);
 
-            Assert.IsInstanceOfType(factory, typeof(PluginConverterFactory));
+            Assert.IsType<PluginConverterFactory>(factory);
             var pluginFactory = factory as PluginConverterFactory;
-            Assert.AreEqual(PluginAssemblyPath, pluginFactory.pluginAssemblyPath);
+            Assert.Equal(PluginAssemblyPath, pluginFactory.pluginAssemblyPath);
 
             factory = factory.Next;
-            Assert.IsInstanceOfType(factory, typeof(BuiltInConverterFactory));
+            Assert.IsType<BuiltInConverterFactory>(factory);
 
             factory = factory.Next;
-            Assert.IsNull(factory);
+            Assert.Null(factory);
         }
 
         private static string GetCurrentAssemblyPath()

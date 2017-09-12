@@ -4,17 +4,16 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Linq;
 using System.IO;
 using FluentAssertions;
+using Xunit;
 
 namespace Microsoft.CodeAnalysis.Sarif
 {
-    [TestClass]
     public class StackTests
     {
-        [TestMethod]
+        [Fact]
         public void Stack_CreateFromStackTrace()
         {
             var dotNetStack = new StackTrace();
@@ -23,10 +22,10 @@ namespace Microsoft.CodeAnalysis.Sarif
             // The .NET StackTrace.ToString() override must preserve a trailing NewLine
             // for compatibility reasons. We do not retain this behavior in ToString()
             // but provide a facility for adding the trailing NewLine
-            Assert.AreEqual(dotNetStack.ToString(), stack.ToString(StackFormat.TrailingNewLine));
+            Assert.Equal(dotNetStack.ToString(), stack.ToString(StackFormat.TrailingNewLine));
         }
 
-        [TestMethod]
+        [Fact]
         public void Stack_CreateFromException()
         {
             bool caughtException = false;
@@ -39,14 +38,14 @@ namespace Microsoft.CodeAnalysis.Sarif
                 IList<Stack> stacks = Stack.CreateStacks(exception).ToList();
 
                 stacks.Count.Should().Be(1);
-                Assert.AreEqual(exception.StackTrace, stacks[0].ToString());
+                Assert.Equal(exception.StackTrace, stacks[0].ToString());
 
                 caughtException = true;
             }
-            Assert.IsTrue(caughtException);
+            Assert.True(caughtException);
         }
 
-        [TestMethod]
+        [Fact]
         public void Stack_CreateFromExceptionWithInnerException()
         {
             bool caughtException = false;
@@ -62,15 +61,15 @@ namespace Microsoft.CodeAnalysis.Sarif
 
                 stacks.Count.Should().Be(2);
                 containerException.StackTrace.Should().Be(null);
-                Assert.AreEqual("[No frames]", stacks[0].ToString());
-                Assert.AreEqual(exception.StackTrace, stacks[1].ToString());
+                Assert.Equal("[No frames]", stacks[0].ToString());
+                Assert.Equal(exception.StackTrace, stacks[1].ToString());
 
                 caughtException = true;
             }
-            Assert.IsTrue(caughtException);
+            Assert.True(caughtException);
         }
 
-        [TestMethod]
+        [Fact]
         public void Stack_CreateFromAggregatedExceptionWithInnerException()
         {
             bool caughtException = false;
@@ -90,19 +89,19 @@ namespace Microsoft.CodeAnalysis.Sarif
                 stacks.Count.Should().Be(4);
                 aggregated.StackTrace.Should().Be(null);
 
-                Assert.AreEqual("[No frames]", stacks[0].ToString());
-                Assert.AreEqual("[No frames]", stacks[1].ToString());
-                Assert.AreEqual("[No frames]", stacks[2].ToString());
-                Assert.AreEqual(exception.StackTrace, stacks[3].ToString());
+                Assert.Equal("[No frames]", stacks[0].ToString());
+                Assert.Equal("[No frames]", stacks[1].ToString());
+                Assert.Equal("[No frames]", stacks[2].ToString());
+                Assert.Equal(exception.StackTrace, stacks[3].ToString());
 
-                Assert.AreEqual(aggregated.FormatMessage(), stacks[0].Message);
-                Assert.AreEqual(innerException1.FormatMessage(), stacks[1].Message);
-                Assert.AreEqual(innerException2.FormatMessage(), stacks[2].Message);
-                Assert.AreEqual(exception.FormatMessage(), stacks[3].Message);
+                Assert.Equal(aggregated.FormatMessage(), stacks[0].Message);
+                Assert.Equal(innerException1.FormatMessage(), stacks[1].Message);
+                Assert.Equal(innerException2.FormatMessage(), stacks[2].Message);
+                Assert.Equal(exception.FormatMessage(), stacks[3].Message);
 
                 caughtException = true;
             }
-            Assert.IsTrue(caughtException);
+            Assert.True(caughtException);
         }
     }
 }

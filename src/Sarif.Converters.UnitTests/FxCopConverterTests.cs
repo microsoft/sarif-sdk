@@ -7,212 +7,207 @@ using System.IO;
 using System.Linq;
 using FluentAssertions;
 using Microsoft.CodeAnalysis.Sarif.Writers;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
+using System.Xml;
 
 namespace Microsoft.CodeAnalysis.Sarif.Converters
 {
-    [TestClass]
     public class FxCopLogReaderTests
     {
-        [TestMethod]
-        [ExpectedException(typeof(ArgumentNullException))]
+        [Fact]
         public void FxCopLogReader_Read_NullContext_NullInput()
         {
-            new FxCopLogReader().Read(null, null);
+            Assert.Throws<ArgumentNullException>(() => new FxCopLogReader().Read(null, null));
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(ArgumentNullException))]
+        [Fact]
         public void FxCopLogReader_Read_NullInput()
         {
             var context = new FxCopLogReader.Context();
-            new FxCopLogReader().Read(context, null);
+            Assert.Throws<ArgumentNullException>(() => new FxCopLogReader().Read(context, null));
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(System.Xml.XmlException))]
+        [Fact]
         public void FxCopLogReader_Read_BadStartTag()
         {
             using (MemoryStream input = Utilities.CreateStreamFromString(FxCopTestData.FxCopReportBadStartTag))
             {
                 var context = new FxCopLogReader.Context();
-                new FxCopLogReader().Read(context, input);
+                Assert.Throws<XmlException>(() => new FxCopLogReader().Read(context, input));
             }
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(System.Xml.XmlException))]
+        [Fact]
         public void FxCopLogReader_Read_BadXml()
         {
             using (MemoryStream input = Utilities.CreateStreamFromString(FxCopTestData.FxCopReportBadXml))
             {
                 var context = new FxCopLogReader.Context();
-                new FxCopLogReader().Read(context, input);
+                Assert.Throws<XmlException>(() => new FxCopLogReader().Read(context, input));
             }
         }
     }
 
-    [TestClass]
     public class FxCopLogReader_ContextTests
     {
-        [TestMethod]
+        [Fact]
         public void FxCopLogReader_Context_RefineReport()
         {
             var context = TestHelper.CreateProjectContext();
 
             context.RefineReport("myreport");
-            Assert.AreEqual("myreport", context.Report);
+            Assert.Equal("myreport", context.Report);
         }
 
-        [TestMethod]
+        [Fact]
         public void FxCopLogReader_Context_RefineResource()
         {
             var context = TestHelper.CreateProjectContext();
 
             context.RefineResource("myresource.resx");
-            Assert.AreEqual("myresource.resx", context.Resource);
+            Assert.Equal("myresource.resx", context.Resource);
         }
 
-        [TestMethod]
+        [Fact]
         public void FxCopLogReader_Context_RefineException()
         {
             var context = TestHelper.CreateProjectContext();
 
             context.RefineException(true, "CA0001", "mytarget");
-            Assert.IsTrue(context.Exception);
-            Assert.AreEqual("CA0001", context.CheckId);
-            Assert.AreEqual("mytarget", context.ExceptionTarget);
+            Assert.True(context.Exception);
+            Assert.Equal("CA0001", context.CheckId);
+            Assert.Equal("mytarget", context.ExceptionTarget);
         }
 
-        [TestMethod]
+        [Fact]
         public void FxCopLogReader_Context_RefineExceptionType()
         {
             var context = TestHelper.CreateProjectContext();
 
             context.RefineExceptionType("mytype");
-            Assert.AreEqual("mytype", context.ExceptionType);
+            Assert.Equal("mytype", context.ExceptionType);
         }
 
-        [TestMethod]
+        [Fact]
         public void FxCopLogReader_Context_RefineExceptionMessage()
         {
             var context = TestHelper.CreateProjectContext();
 
             context.RefineExceptionMessage("mymessage");
-            Assert.AreEqual("mymessage", context.ExceptionMessage);
+            Assert.Equal("mymessage", context.ExceptionMessage);
         }
 
-        [TestMethod]
+        [Fact]
         public void FxCopLogReader_Context_RefineStackTrace()
         {
             var context = TestHelper.CreateProjectContext();
 
             context.RefineStackTrace(@"trace\n trace");
-            Assert.AreEqual(@"trace\n trace", context.StackTrace);
+            Assert.Equal(@"trace\n trace", context.StackTrace);
         }
 
-        [TestMethod]
+        [Fact]
         public void FxCopLogReader_Context_RefineInnerExceptionType()
         {
             var context = TestHelper.CreateProjectContext();
 
             context.RefineInnerExceptionType(@"myinnertype");
-            Assert.AreEqual(@"myinnertype", context.InnerExceptionType);
+            Assert.Equal(@"myinnertype", context.InnerExceptionType);
         }
 
-        [TestMethod]
+        [Fact]
         public void FxCopLogReader_Context_RefineInnerExceptionMessage()
         {
             var context = TestHelper.CreateProjectContext();
 
             context.RefineInnerExceptionMessage(@"myinnermessage");
-            Assert.AreEqual(@"myinnermessage", context.InnerExceptionMessage);
+            Assert.Equal(@"myinnermessage", context.InnerExceptionMessage);
         }
 
-        [TestMethod]
+        [Fact]
         public void FxCopLogReader_Context_RefineInnerStackTrace()
         {
             var context = TestHelper.CreateProjectContext();
 
             context.RefineInnerStackTrace(@"myinnertrace");
-            Assert.AreEqual(@"myinnertrace", context.InnerStackTrace);
+            Assert.Equal(@"myinnertrace", context.InnerStackTrace);
         }
 
-        [TestMethod]
+        [Fact]
         public void FxCopLogReader_Context_RefineTarget()
         {
             var context = TestHelper.CreateProjectContext();
 
             context.RefineTarget("mybinary.dll");
-            Assert.AreEqual("mybinary.dll", context.Target);
+            Assert.Equal("mybinary.dll", context.Target);
         }
 
-        [TestMethod]
+        [Fact]
         public void FxCopLogReader_Context_RefineModule()
         {
             var context = TestHelper.CreateProjectContext();
 
             context.RefineModule("mybinary.dll");
-            Assert.AreEqual("mybinary.dll", context.Module);
+            Assert.Equal("mybinary.dll", context.Module);
         }
 
-        [TestMethod]
+        [Fact]
         public void FxCopLogReader_Context_RefineNamespace()
         {
             var context = TestHelper.CreateProjectContext();
 
             context.RefineNamespace("mynamespace");
-            Assert.AreEqual("mynamespace", context.Namespace);
+            Assert.Equal("mynamespace", context.Namespace);
         }
 
-        [TestMethod]
+        [Fact]
         public void FxCopLogReader_Context_RefineType()
         {
             var context = TestHelper.CreateProjectContext();
 
             context.RefineType("mytype");
-            Assert.AreEqual("mytype", context.Type);
+            Assert.Equal("mytype", context.Type);
         }
 
-        [TestMethod]
+        [Fact]
         public void FxCopLogReader_Context_RefineMember()
         {
             var context = TestHelper.CreateProjectContext();
 
             context.RefineMember("mymember(string)");
-            Assert.AreEqual("mymember(string)", context.Member);
+            Assert.Equal("mymember(string)", context.Member);
         }
 
-        [TestMethod]
+        [Fact]
         public void FxCopLogReader_Context_RefineMessage()
         {
             var context = TestHelper.CreateProjectContext();
 
             context.RefineMessage("CA0000", "VeryUsefulCheck", "1", "MyCategory", "Breaking", "ExcludedInSource");
-            Assert.AreEqual("CA0000", context.CheckId);
-            Assert.AreEqual("1", context.MessageId);
-            Assert.AreEqual("MyCategory", context.Category);
-            Assert.AreEqual("VeryUsefulCheck", context.Typename);
-            Assert.AreEqual("Breaking", context.FixCategory);
-            Assert.AreEqual("ExcludedInSource", context.Status);
+            Assert.Equal("CA0000", context.CheckId);
+            Assert.Equal("1", context.MessageId);
+            Assert.Equal("MyCategory", context.Category);
+            Assert.Equal("VeryUsefulCheck", context.Typename);
+            Assert.Equal("Breaking", context.FixCategory);
+            Assert.Equal("ExcludedInSource", context.Status);
         }
 
-        [TestMethod]
+        [Fact]
         public void FxCopLogReader_Context_RefineIssue()
         {
             var context = TestHelper.CreateProjectContext();
 
             context.RefineIssue("hello!", "test", "25", "error", "source", "myfile.cs", 13);
-            Assert.AreEqual("hello!", context.Message);
-            Assert.AreEqual("test", context.Result);
-            Assert.AreEqual("25", context.Certainty);
-            Assert.AreEqual("error", context.Level);
-            Assert.AreEqual("source", context.Path);
-            Assert.AreEqual("myfile.cs", context.File);
-            Assert.AreEqual(13, context.Line.Value);
+            Assert.Equal("hello!", context.Message);
+            Assert.Equal("test", context.Result);
+            Assert.Equal("25", context.Certainty);
+            Assert.Equal("error", context.Level);
+            Assert.Equal("source", context.Path);
+            Assert.Equal("myfile.cs", context.File);
+            Assert.Equal(13, context.Line.Value);
         }
 
-        [TestMethod]
+        [Fact]
         public void FxCopLogReader_Context_RefineProjectToMemberIssue()
         {
             var context = TestHelper.CreateProjectContext();
@@ -225,36 +220,36 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             context.RefineMessage("CA0000", "VeryUsefulCheck", "1", "MyCategory", "Breaking", "Excluded");
             context.RefineIssue("hello!", "test", "25", "error", "source", "myfile.cs", 13);
 
-            Assert.AreEqual("mybinary.dll", context.Target);
-            Assert.AreEqual("mybinary.dll", context.Module);
-            Assert.AreEqual("mynamespace", context.Namespace);
-            Assert.AreEqual("mytype", context.Type);
-            Assert.AreEqual("mymember(string)", context.Member);
-            Assert.AreEqual("CA0000", context.CheckId);
-            Assert.AreEqual("1", context.MessageId);
-            Assert.AreEqual("MyCategory", context.Category);
-            Assert.AreEqual("VeryUsefulCheck", context.Typename);
-            Assert.AreEqual("Breaking", context.FixCategory);
-            Assert.AreEqual("hello!", context.Message);
-            Assert.AreEqual("test", context.Result);
-            Assert.AreEqual("25", context.Certainty);
-            Assert.AreEqual("error", context.Level);
-            Assert.AreEqual("source", context.Path);
-            Assert.AreEqual("myfile.cs", context.File);
-            Assert.AreEqual("Excluded", context.Status);
-            Assert.AreEqual(13, context.Line.Value);
+            Assert.Equal("mybinary.dll", context.Target);
+            Assert.Equal("mybinary.dll", context.Module);
+            Assert.Equal("mynamespace", context.Namespace);
+            Assert.Equal("mytype", context.Type);
+            Assert.Equal("mymember(string)", context.Member);
+            Assert.Equal("CA0000", context.CheckId);
+            Assert.Equal("1", context.MessageId);
+            Assert.Equal("MyCategory", context.Category);
+            Assert.Equal("VeryUsefulCheck", context.Typename);
+            Assert.Equal("Breaking", context.FixCategory);
+            Assert.Equal("hello!", context.Message);
+            Assert.Equal("test", context.Result);
+            Assert.Equal("25", context.Certainty);
+            Assert.Equal("error", context.Level);
+            Assert.Equal("source", context.Path);
+            Assert.Equal("myfile.cs", context.File);
+            Assert.Equal("Excluded", context.Status);
+            Assert.Equal(13, context.Line.Value);
 
             context.ClearTarget();
-            Assert.IsNull(context.Target);
-            Assert.IsNull(context.Module);
-            Assert.IsNull(context.Namespace);
-            Assert.IsNull(context.Type);
-            Assert.IsNull(context.Member);
-            Assert.IsNull(context.Message);
-            Assert.IsNull(context.Result);
+            Assert.Null(context.Target);
+            Assert.Null(context.Module);
+            Assert.Null(context.Namespace);
+            Assert.Null(context.Type);
+            Assert.Null(context.Member);
+            Assert.Null(context.Message);
+            Assert.Null(context.Result);
         }
 
-        [TestMethod]
+        [Fact]
         public void FxCopLogReader_Context_RefineProjectToResourceIssue()
         {
             var context = TestHelper.CreateProjectContext();
@@ -265,35 +260,35 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             context.RefineMessage("CA0000", "VeryUsefulCheck", "1", "MyCategory", "Breaking", null);
 
             context.RefineIssue("hello!", "test", "25", "error", "source", "myresource.resx", 13);
-            Assert.AreEqual("mybinary.dll", context.Target);
-            Assert.AreEqual("mybinary.dll", context.Module);
-            Assert.AreEqual("myresource.resx", context.Resource);
-            Assert.AreEqual("CA0000", context.CheckId);
-            Assert.AreEqual("1", context.MessageId);
-            Assert.AreEqual("MyCategory", context.Category);
-            Assert.AreEqual("VeryUsefulCheck", context.Typename);
-            Assert.AreEqual("Breaking", context.FixCategory);
-            Assert.AreEqual("hello!", context.Message);
-            Assert.AreEqual("test", context.Result);
-            Assert.AreEqual("25", context.Certainty);
-            Assert.AreEqual("error", context.Level);
-            Assert.AreEqual("source", context.Path);
-            Assert.AreEqual(null, context.Status);
-            Assert.AreEqual("myresource.resx", context.File);
-            Assert.AreEqual(13, context.Line.Value);
+            Assert.Equal("mybinary.dll", context.Target);
+            Assert.Equal("mybinary.dll", context.Module);
+            Assert.Equal("myresource.resx", context.Resource);
+            Assert.Equal("CA0000", context.CheckId);
+            Assert.Equal("1", context.MessageId);
+            Assert.Equal("MyCategory", context.Category);
+            Assert.Equal("VeryUsefulCheck", context.Typename);
+            Assert.Equal("Breaking", context.FixCategory);
+            Assert.Equal("hello!", context.Message);
+            Assert.Equal("test", context.Result);
+            Assert.Equal("25", context.Certainty);
+            Assert.Equal("error", context.Level);
+            Assert.Equal("source", context.Path);
+            Assert.Null(context.Status);
+            Assert.Equal("myresource.resx", context.File);
+            Assert.Equal(13, context.Line.Value);
 
             context.ClearTarget();
-            Assert.IsNull(context.Target);
-            Assert.IsNull(context.Module);
-            Assert.IsNull(context.Resource);
-            Assert.IsNull(context.Namespace);
-            Assert.IsNull(context.Type);
-            Assert.IsNull(context.Member);
-            Assert.IsNull(context.Message);
-            Assert.IsNull(context.Result);
+            Assert.Null(context.Target);
+            Assert.Null(context.Module);
+            Assert.Null(context.Resource);
+            Assert.Null(context.Namespace);
+            Assert.Null(context.Type);
+            Assert.Null(context.Member);
+            Assert.Null(context.Message);
+            Assert.Null(context.Result);
         }
 
-        [TestMethod]
+        [Fact]
         public void FxCopLogReader_Context_RefineProjectToExceptionIssue()
         {
             var context = TestHelper.CreateProjectContext();
@@ -309,56 +304,52 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             string exception = FxCopLogReader.MakeExceptionMessage("Rule", "CA1000", context.ExceptionType, context.ExceptionMessage, context.StackTrace, context.InnerExceptionType, context.InnerExceptionMessage, context.InnerStackTrace);
             context.RefineIssue(exception, null, null, null, null, null, null);
 
-            Assert.AreEqual("Rule CA1000 exception: type: message trace. Inner Exception: innertype: innermessage innertrace", context.Message);
-            Assert.AreEqual("binary.dll#namespace#member(string)", context.ExceptionTarget);
+            Assert.Equal("Rule CA1000 exception: type: message trace. Inner Exception: innertype: innermessage innertrace", context.Message);
+            Assert.Equal("binary.dll#namespace#member(string)", context.ExceptionTarget);
 
             context.ClearException();
-            Assert.IsNull(context.Target);
-            Assert.IsNull(context.Module);
-            Assert.IsNull(context.Namespace);
-            Assert.IsNull(context.Type);
-            Assert.IsNull(context.Member);
-            Assert.IsNull(context.Message);
-            Assert.IsNull(context.Result);
+            Assert.Null(context.Target);
+            Assert.Null(context.Module);
+            Assert.Null(context.Namespace);
+            Assert.Null(context.Type);
+            Assert.Null(context.Member);
+            Assert.Null(context.Message);
+            Assert.Null(context.Result);
 
-            Assert.IsFalse(context.Exception);
-            Assert.IsNull(context.ExceptionType);
-            Assert.IsNull(context.ExceptionMessage);
-            Assert.IsNull(context.StackTrace);
-            Assert.IsNull(context.InnerExceptionType);
-            Assert.IsNull(context.InnerExceptionMessage);
-            Assert.IsNull(context.InnerStackTrace);
+            Assert.False(context.Exception);
+            Assert.Null(context.ExceptionType);
+            Assert.Null(context.ExceptionMessage);
+            Assert.Null(context.StackTrace);
+            Assert.Null(context.InnerExceptionType);
+            Assert.Null(context.InnerExceptionMessage);
+            Assert.Null(context.InnerStackTrace);
         }
     }
 
-    [TestClass]
     public class FxCopConverterTests
     {
-        [TestMethod]
-        [ExpectedException(typeof(ArgumentNullException))]
+        [Fact]
         public void FxCopConverter_Convert_NullInput()
         {
             var converter = new FxCopConverter();
-            converter.Convert(null, null, LoggingOptions.None);
+            Assert.Throws<ArgumentNullException>(() => converter.Convert(null, null, LoggingOptions.None));
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(ArgumentNullException))]
+        [Fact]
         public void FxCopConverter_Convert_NullOutput()
         {
             var converter = new FxCopConverter();
-            converter.Convert(new MemoryStream(), null, LoggingOptions.None);
+            Assert.Throws<ArgumentNullException>(() => converter.Convert(new MemoryStream(), null, LoggingOptions.None));
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(System.Xml.XmlException))]
+        [Fact]
         public void FxCopConverter_Convert_InvalidInput()
         {
             var converter = new FxCopConverter();
-            Utilities.GetConverterJson(converter, FxCopTestData.FxCopReportInvalid);
+            Assert.Throws<XmlException>(() => Utilities.GetConverterJson(converter, FxCopTestData.FxCopReportInvalid));
         }
 
-        [TestMethod]
+        [Fact]
         public void FxCopConverter_CreateResult_FakeContext_Member()
         {
             var context = TestHelper.CreateProjectContext();
@@ -429,7 +420,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             converter.LogicalLocationsDictionary.Count.Should().Be(expectedLogicalLocations.Count);
         }
 
-        [TestMethod]
+        [Fact]
         public void FxCopConverter_CreateIssue_FakeContext_NoModule_Member()
         {
             var context = TestHelper.CreateProjectContext();
@@ -482,7 +473,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             converter.LogicalLocationsDictionary.Count.Should().Be(expectedLogicalLocations.Count);
         }
 
-        [TestMethod]
+        [Fact]
         public void FxCopConverter_CreateResult_FakeContext_Resource()
         {
             var context = TestHelper.CreateProjectContext();
@@ -534,7 +525,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             converter.LogicalLocationsDictionary.Count.Should().Be(expectedLogicalLocations.Count);
         }
 
-        [TestMethod]
+        [Fact]
         public void FxCopConverter_CreateResult_FakeContext_NoModule_Resource()
         {
             var context = TestHelper.CreateProjectContext();

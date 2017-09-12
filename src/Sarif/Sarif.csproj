@@ -3,10 +3,8 @@
   
   <PropertyGroup>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
-    <ProjectGuid>c06f0cf1-3505-4715-b6da-047ec86c4308</ProjectGuid>
-    <RootNamespace>Microsoft.CodeAnalysis.Sarif.Driver</RootNamespace>
-    
-    <!-- Full signing does not yet work on Linux.  Turn it off -->
+    <ProjectGuid>c5fc2683-47cf-447f-b5ea-9fde0fd78754</ProjectGuid>
+    <RootNamespace>Microsoft.CodeAnalysis.Sarif</RootNamespace>
     <PublicSign Condition=" '$(OS)' != 'Windows_NT' ">true</PublicSign>
     <SignAssembly>true</SignAssembly>
     <DelaySign>false</DelaySign>
@@ -14,14 +12,8 @@
   </PropertyGroup>
   
   <ItemGroup>
-    <PackageReference Include="CommandLineParser" Version="2.1.1-beta" />
     <PackageReference Include="Newtonsoft.Json" Version="10.0.3" />
     <PackageReference Include="System.Collections.Immutable" Version="1.4.0" />
-    <PackageReference Include="System.Composition" Version="1.1.0" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\Sarif\Sarif.csproj" />
   </ItemGroup>
 
 </Project>

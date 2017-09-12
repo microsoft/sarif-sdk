@@ -22,10 +22,6 @@ echo Unrecognized option "%1" && goto :ExitFailed
 rd /s /q bld
 md bld\bin\nuget
 
-@REM Remove existing .NET Core build data
-rd /s /q bld.core
-md bld.core\bin\nuget
-
 call SetCurrentVersion.cmd 
 
 @REM Write VersionConstants files 
@@ -74,7 +70,7 @@ if "%ERRORLEVEL%" NEQ "0" (
 goto ExitFailed
 )
 
-dotnet msbuild /verbosity:minimal /target:rebuild src\Sarif.Sdk.NetCore.sln /p:"Configuration=%Configuration%" /p:"Platform=Any CPU" /filelogger /fileloggerparameters:Verbosity=detailed /p:"RunBinSkim=true" /p:"BinSkimVerboseOutput=true"
+dotnet msbuild /verbosity:minimal /target:rebuild src\Sarif.Sdk.sln /p:"Configuration=%Configuration%" /p:"Platform=Any CPU" /filelogger /fileloggerparameters:Verbosity=detailed /p:"RunBinSkim=true" /p:"BinSkimVerboseOutput=true"
 
 if "%ERRORLEVEL%" NEQ "0" (
 goto ExitFailed
@@ -91,7 +87,7 @@ goto ExitFailed
 @REM Run all tests
 SET PASSED=true
 
-mstest /testContainer:bld\bin\Sarif.Converters.UnitTests\AnyCPU_%Configuration%\Sarif.Converters.UnitTests.dll
+dotnet xunit bld\bin\Sarif.Converters.UnitTests\AnyCPU_%Configuration%\Sarif.Converters.UnitTests.dll
 if "%ERRORLEVEL%" NEQ "0" (
 set PASSED=false
 )
@@ -100,7 +96,7 @@ if "%PASSED%" NEQ "true" (
 goto ExitFailed
 )
 
-mstest /testContainer:bld\bin\Sarif.UnitTests\AnyCPU_%Configuration%\Sarif.UnitTests.dll
+dotnet xunit bld\bin\Sarif.UnitTests\AnyCPU_%Configuration%\Sarif.UnitTests.dll
 if "%ERRORLEVEL%" NEQ "0" (
 set PASSED=false
 )
@@ -109,36 +105,36 @@ if "%PASSED%" NEQ "true" (
 goto ExitFailed
 )
 
-src\packages\xunit.runner.console.2.1.0\tools\xunit.console.x86.exe bld\bin\Sarif.UnitTests\AnyCPU_%Configuration%\Sarif.UnitTests.dll
+dotnet xunit bld\bin\Sarif.UnitTests\AnyCPU_%Configuration%\Sarif.UnitTests.dll
 
 if "%ERRORLEVEL%" NEQ "0" (
 goto ExitFailed
 )
-src\packages\xunit.runner.console.2.1.0\tools\xunit.console.x86.exe bld\bin\Sarif.Driver.UnitTests\AnyCPU_%Configuration%\Sarif.Driver.UnitTests.dll
-
-if "%ERRORLEVEL%" NEQ "0" (
-goto ExitFailed
-)
-
-src\packages\xunit.runner.console.2.1.0\tools\xunit.console.x86.exe bld\bin\Sarif.FunctionalTests\AnyCPU_%Configuration%\Sarif.FunctionalTests.dll
+dotnet xunit bld\bin\Sarif.Driver.UnitTests\AnyCPU_%Configuration%\Sarif.Driver.UnitTests.dll
 
 if "%ERRORLEVEL%" NEQ "0" (
 goto ExitFailed
 )
 
-src\packages\xunit.runner.console.2.1.0\tools\xunit.console.x86.exe bld\bin\Sarif.ValidationTests\AnyCPU_%Configuration%\Sarif.ValidationTests.dll
+dotnet xunit bld\bin\Sarif.FunctionalTests\AnyCPU_%Configuration%\Sarif.FunctionalTests.dll
 
 if "%ERRORLEVEL%" NEQ "0" (
 goto ExitFailed
 )
 
-src\packages\xunit.runner.console.2.1.0\tools\xunit.console.x86.exe bld\bin\Sarif.Viewer.VisualStudio.UnitTests\AnyCPU_%Configuration%\Sarif.Viewer.VisualStudio.UnitTests.dll
+dotnet xunit bld\bin\Sarif.ValidationTests\AnyCPU_%Configuration%\Sarif.ValidationTests.dll
 
 if "%ERRORLEVEL%" NEQ "0" (
 goto ExitFailed
 )
 
-src\packages\xunit.runner.console.2.1.0\tools\xunit.console.x86.exe bld\bin\SarifCli.FunctionalTests\AnyCPU_%Configuration%\SarifCli.FunctionalTests.dll
+dotnet xunit bld\bin\Sarif.Viewer.VisualStudio.UnitTests\AnyCPU_%Configuration%\Sarif.Viewer.VisualStudio.UnitTests.dll
+
+if "%ERRORLEVEL%" NEQ "0" (
+goto ExitFailed
+)
+
+dotnet xunit bld\bin\SarifCli.FunctionalTests\AnyCPU_%Configuration%\SarifCli.FunctionalTests.dll
 
 if "%ERRORLEVEL%" NEQ "0" (
 goto ExitFailed

@@ -1,16 +1,14 @@
 ﻿// Copyright (c) Microsoft. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-using System;
 using Microsoft.CodeAnalysis.Sarif.Converters;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Microsoft.CodeAnalysis.Sarif
 {
-    [TestClass]
     public class SemmleQLConverterTests : ConverterTestsBase<SemmleQLConverter>
     {
-        [TestMethod]
+        [Fact]
         public void SemmleQLConverter_SimpleCsv()
         {
             var semmleCsvInput = SemmleCsvRecord.BuildDefaultRecord().ToCsv();
@@ -49,7 +47,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             RunTestCase(semmleCsvInput, expected, prettyPrint: true);
         }
 
-        [TestMethod]
+        [Fact]
         public void SemmleQLConvert_EmbeddedLocations()
         {
             string semmleCsvInput = @"Equals on incomparable types,Finds calls of the form x.Equals(y) with incomparable types for x and y.,warning,""Call to Equals() comparing incomparable types[[""""IComparable"""" | """"file://C:/Windows/Company.NET/Framework/v2.0.50727/mscorlib.dll:0:0:0:0""""]] and [[""""ClientAttributeValue""""|""""relative://ClientClient/Company.ResourceManagement.ObjectModel/ClientAttributeValue.cs:7:152:16""""],[""""ClientAttributeValue""""|""""relative://ClientClient/Company.ResourceManagement.ObjectModel/ClientAttributeValue_ISerializable.cs:14:333:16""""]]"",ProjectOne/Microsoft.ResourceManagement.ObjectModel/ClientResource.cs,SuiteOne/SuiteOne_v1.0-servicing_1.0.1.10511.2/ProjectOneClient/Company.ResourceManagement.ObjectModel/ProjectOneResource.cs,865,15,900,100";

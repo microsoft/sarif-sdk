@@ -4,60 +4,56 @@
 using System;
 using System.Xml;
 using FluentAssertions;
-
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Microsoft.CodeAnalysis.Sarif.Converters
 {
-    [TestClass]
     public class CppCheckLocationTests
     {
-        [TestMethod]
+        [Fact]
         public void CppCheckLocation_CanBeConstructedFromFileAndLine()
         {
             var uut = new CppCheckLocation("1234", 42);
-            Assert.AreEqual("1234", uut.File);
-            Assert.AreEqual(42, uut.Line);
+            Assert.Equal("1234", uut.File);
+            Assert.Equal(42, uut.Line);
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(ArgumentException))]
+        [Fact]
         public void CppCheckLocation_RejectsNullFile()
         {
-            new CppCheckLocation("   ", 42);
+            Assert.Throws<ArgumentException>(() => new CppCheckLocation("   ", 42));
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(ArgumentOutOfRangeException))]
+        [Fact]
         public void CppCheckLocation_RejectsNegativeLineNumbers()
         {
-            new CppCheckLocation("file.cpp", -1);
+            Assert.Throws<ArgumentOutOfRangeException>(() => new CppCheckLocation("file.cpp", -1));
         }
 
-        [TestMethod]
+        [Fact]
         public void CppCheckLocation_SatisfiesEqualityInvariants()
         {
             var a = new CppCheckLocation("a.cpp", 1);
             var b = new CppCheckLocation("a.cpp", 2);
             var c = new CppCheckLocation("b.cpp", 1);
 
-            Assert.AreNotEqual(a, b);
-            Assert.AreNotEqual(a.GetHashCode(), b.GetHashCode());
-            Assert.AreNotEqual(a, c);
-            Assert.AreNotEqual(a.GetHashCode(), c.GetHashCode());
-            Assert.AreNotEqual(b, c);
-            Assert.AreNotEqual(b.GetHashCode(), c.GetHashCode());
+            Assert.NotEqual(a, b);
+            Assert.NotEqual(a.GetHashCode(), b.GetHashCode());
+            Assert.NotEqual(a, c);
+            Assert.NotEqual(a.GetHashCode(), c.GetHashCode());
+            Assert.NotEqual(b, c);
+            Assert.NotEqual(b.GetHashCode(), c.GetHashCode());
 
             var anotherA = new CppCheckLocation("a.cpp", 1);
-            Assert.AreEqual(a, anotherA);
-            Assert.AreEqual(a.GetHashCode(), anotherA.GetHashCode());
-            Assert.IsTrue(a == anotherA);
-            Assert.IsFalse(a != anotherA);
-            Assert.IsFalse(a.Equals(null));
-            Assert.IsFalse(a.Equals("a string value"));
+            Assert.Equal(a, anotherA);
+            Assert.Equal(a.GetHashCode(), anotherA.GetHashCode());
+            Assert.True(a == anotherA);
+            Assert.False(a != anotherA);
+            Assert.False(a.Equals(null));
+            Assert.False(a.Equals("a string value"));
         }
 
-        [TestMethod]
+        [Fact]
         public void CppCheckLocation_CanBeDebugPrinted()
         {
             string result = new CppCheckLocation("cute_fluffy_kittens.c", 1234).ToString();
@@ -65,11 +61,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             result.Should().Contain("1234");
         }
 
-        [TestMethod]
+        [Fact]
         public void CppCheckLocation_CanBeConvertedToSarifIssue()
         {
             PhysicalLocation result = new CppCheckLocation("foo.cpp", 42).ToSarifPhysicalLocation();
-            Assert.IsTrue(
+            Assert.True(
                 result.ValueEquals(
                     new PhysicalLocation
                     {
@@ -78,7 +74,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                     }));
         }
 
-        [TestMethod]
+        [Fact]
         public void CppCheckLocation_CanParseSelfClosingXmlNode()
         {
             using (XmlReader xml = Utilities.CreateXmlReaderFromString(testLocationXml))
@@ -87,7 +83,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             }
         }
 
-        [TestMethod]
+        [Fact]
         public void CppCheckLocation_SkipsToNextXmlNode()
         {
             using (XmlReader xml = Utilities.CreateXmlReaderFromString("<error> " + testLocationXml + "   <followingNode /> </error>"))
@@ -95,11 +91,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 xml.ReadToDescendant("location");
                 AssertParsesAsTestLocation(xml);
                 xml.Read();
-                Assert.AreEqual("followingNode", xml.LocalName);
+                Assert.Equal("followingNode", xml.LocalName);
             }
         }
 
-        [TestMethod]
+        [Fact]
         public void CppCheckLocation_SkipsToEndElement()
         {
             using (XmlReader xml = Utilities.CreateXmlReaderFromString("<error>  " + testLocationXml + " </error>"))
@@ -107,19 +103,19 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 xml.ReadToDescendant("location");
                 AssertParsesAsTestLocation(xml);
                 xml.Read();
-                Assert.AreEqual("error", xml.LocalName);
-                Assert.AreEqual(XmlNodeType.EndElement, xml.NodeType);
+                Assert.Equal("error", xml.LocalName);
+                Assert.Equal(XmlNodeType.EndElement, xml.NodeType);
             }
         }
 
-        [TestMethod]
+        [Fact]
         public void CppCheckLocation_SkipsSubNodesOfLocation()
         {
             using (XmlReader xml = Utilities.CreateXmlReaderFromString("<root><location file=\"foo.cpp\" line=\"1234\"> <child /> <nodes /> </location><followingNode /></root>"))
             {
                 xml.ReadStartElement("root");
                 AssertParsesAsTestLocation(xml);
-                Assert.AreEqual("followingNode", xml.LocalName);
+                Assert.Equal("followingNode", xml.LocalName);
             }
         }
 
@@ -127,8 +123,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
         private static CppCheckLocation AssertLocationIsTestLocation(CppCheckLocation result)
         {
-            Assert.AreEqual("foo.cpp", result.File);
-            Assert.AreEqual(1234, result.Line);
+            Assert.Equal("foo.cpp", result.File);
+            Assert.Equal(1234, result.Line);
             return result;
         }
 
@@ -137,33 +133,30 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             AssertLocationIsTestLocation(Parse(xml));
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(XmlException))]
+        [Fact]
         public void CppCheckLocation_Invalid_ThrowsXmlExceptionForNonLocationNode()
         {
             using (XmlReader xml = Utilities.CreateXmlReaderFromString("<exclaim><thatsNotALocationNode /></exclaim>"))
             {
-                Parse(xml);
+                Assert.Throws<XmlException>(() => Parse(xml));
             }
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(XmlException))]
+        [Fact]
         public void CppCheckLocation_Invalid_ThrowsXmlExceptionForMissingFile()
         {
             using (XmlReader xml = Utilities.CreateXmlReaderFromString("<location line=\"42\" />"))
             {
-                Parse(xml);
+                Assert.Throws<XmlException>(() => Parse(xml));
             }
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(XmlException))]
+        [Fact]
         public void CppCheckLocation_Invalid_ThrowsXmlExceptionForMissingLine()
         {
             using (XmlReader xml = Utilities.CreateXmlReaderFromString("<location file=\"foo.cpp\" />"))
             {
-                Parse(xml);
+                Assert.Throws<XmlException>(() => Parse(xml));
             }
         }
 

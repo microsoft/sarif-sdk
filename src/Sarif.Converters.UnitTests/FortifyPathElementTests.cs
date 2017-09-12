@@ -3,160 +3,147 @@
 
 using System;
 using System.Xml;
-
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Microsoft.CodeAnalysis.Sarif.Converters
 {
-    [TestClass]
     public class FortifyPathElementTests
     {
-        [TestMethod]
+        [Fact]
         public void FortifyPathElement_CanBeConstructed()
         {
             var uut = new FortifyPathElement("file", 42, "targetFunction");
-            Assert.AreEqual("file", uut.FilePath);
-            Assert.AreEqual(42, uut.LineStart);
-            Assert.AreEqual("targetFunction", uut.TargetFunction);
+            Assert.Equal("file", uut.FilePath);
+            Assert.Equal(42, uut.LineStart);
+            Assert.Equal("targetFunction", uut.TargetFunction);
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(ArgumentNullException))]
+        [Fact]
         public void FortifyPathElement_RequiresFile()
         {
-            new FortifyPathElement(null, 42, "target");
+            Assert.Throws<ArgumentNullException>(() => new FortifyPathElement(null, 42, "target"));
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(ArgumentOutOfRangeException))]
+        [Fact]
         public void FortifyPathElement_RequiresPositiveLine_NonZero()
         {
-            new FortifyPathElement("file", 0, "target");
+            Assert.Throws<ArgumentOutOfRangeException>(() => new FortifyPathElement("file", 0, "target"));
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(ArgumentOutOfRangeException))]
+        [Fact]
         public void FortifyPathElement_RequiresPositiveLine_NonNegative()
         {
-            new FortifyPathElement("file", -1, "target");
+            Assert.Throws<ArgumentOutOfRangeException>(() => new FortifyPathElement("file", -1, "target"));
         }
 
-        [TestMethod]
+        [Fact]
         public void FortifyPathElement_Parse_MinimalValidElement()
         {
             const string xml = @"<does_not_matter><FileName>FileName</FileName><FilePath>FilePath</FilePath><LineStart>42</LineStart></does_not_matter><following />";
             FortifyPathElement result = Parse(xml);
-            Assert.AreEqual("FilePath", result.FilePath);
-            Assert.AreEqual(42, result.LineStart);
-            Assert.IsNull(result.TargetFunction);
+            Assert.Equal("FilePath", result.FilePath);
+            Assert.Equal(42, result.LineStart);
+            Assert.Null(result.TargetFunction);
         }
 
-        [TestMethod]
+        [Fact]
         public void FortifyPathElement_Parse_WithSnippet()
         {
             const string xml = @"<does_not_matter><FileName>FileName</FileName><FilePath>FilePath</FilePath><LineStart>42</LineStart><Snippet>unused</Snippet></does_not_matter><following />";
             FortifyPathElement result = Parse(xml);
-            Assert.AreEqual("FilePath", result.FilePath);
-            Assert.AreEqual(42, result.LineStart);
-            Assert.IsNull(result.TargetFunction);
+            Assert.Equal("FilePath", result.FilePath);
+            Assert.Equal(42, result.LineStart);
+            Assert.Null(result.TargetFunction);
         }
 
-        [TestMethod]
+        [Fact]
         public void FortifyPathElement_Parse_WithSnippetLine()
         {
             const string xml = @"<does_not_matter><FileName>FileName</FileName><FilePath>FilePath</FilePath><LineStart>42</LineStart><SnippetLine>unused</SnippetLine></does_not_matter><following />";
             FortifyPathElement result = Parse(xml);
-            Assert.AreEqual("FilePath", result.FilePath);
-            Assert.AreEqual(42, result.LineStart);
-            Assert.IsNull(result.TargetFunction);
+            Assert.Equal("FilePath", result.FilePath);
+            Assert.Equal(42, result.LineStart);
+            Assert.Null(result.TargetFunction);
         }
 
-        [TestMethod]
+        [Fact]
         public void FortifyPathElement_Parse_WithTargetFunction()
         {
             const string xml = @"<does_not_matter><FileName>FileName</FileName><FilePath>FilePath</FilePath><LineStart>42</LineStart><TargetFunction>vector&lt;string&gt; example::member(int, int) const&amp;&amp;</TargetFunction></does_not_matter><following />";
             FortifyPathElement result = Parse(xml);
-            Assert.AreEqual("FilePath", result.FilePath);
-            Assert.AreEqual(42, result.LineStart);
-            Assert.AreEqual("vector<string> example::member(int, int) const&&", result.TargetFunction);
+            Assert.Equal("FilePath", result.FilePath);
+            Assert.Equal(42, result.LineStart);
+            Assert.Equal("vector<string> example::member(int, int) const&&", result.TargetFunction);
         }
 
-        [TestMethod]
+        [Fact]
         public void FortifyPathElement_Parse_WithAllProperties()
         {
             const string xml = @"<does_not_matter><FileName>FileName</FileName><FilePath>FilePath</FilePath><LineStart>42</LineStart><Snippet></Snippet><SnippetLine></SnippetLine><TargetFunction>vector&lt;string&gt; example::member(int, int) const&amp;&amp;</TargetFunction></does_not_matter><following />";
             FortifyPathElement result = Parse(xml);
-            Assert.AreEqual("FilePath", result.FilePath);
-            Assert.AreEqual(42, result.LineStart);
-            Assert.AreEqual("vector<string> example::member(int, int) const&&", result.TargetFunction);
+            Assert.Equal("FilePath", result.FilePath);
+            Assert.Equal(42, result.LineStart);
+            Assert.Equal("vector<string> example::member(int, int) const&&", result.TargetFunction);
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(XmlException))]
+        [Fact]
         public void FortifyPathElement_Parse_MustBeOnElement()
         {
             using (XmlReader reader = Utilities.CreateXmlReaderFromString("<xml />"))
             {
-                Assert.AreNotEqual(XmlNodeType.Element, reader.NodeType);
-                Parse(reader);
+                Assert.NotEqual(XmlNodeType.Element, reader.NodeType);
+                Assert.Throws<XmlException>(() => Parse(reader));
             }
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(XmlException))]
+        [Fact]
         public void FortifyPathElement_Parse_MustNotBeEmptyElement()
         {
-            Parse("<xml />");
+            Assert.Throws<XmlException>(() => Parse("<xml />"));
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(XmlException))]
+        [Fact]
         public void FortifyPathElement_Parse_MustBeInOrder()
         {
             // FileName and FilePath have order switched
             const string xml = @"<does_not_matter><FilePath>FilePath</FilePath><FileName>FileName</FileName><LineStart>42</LineStart></does_not_matter><following />";
-            Parse(xml);
+            Assert.Throws<XmlException>(() => Parse(xml));
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(XmlException))]
+        [Fact]
         public void FortifyPathElement_Parse_MustNotContainExtraElements()
         {
             const string xml = @"<does_not_matter><FileName>FileName</FileName><FilePath>FilePath</FilePath><LineStart>42</LineStart><Snippet></Snippet><SnippetLine></SnippetLine><TargetFunction>vector&lt;string&gt; example::member(int, int) const&amp;&amp;</TargetFunction><ExtraBadElement /></does_not_matter><following />";
-            Parse(xml);
+            Assert.Throws<XmlException>(() => Parse(xml));
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(XmlException))]
+        [Fact]
         public void FortifyPathElement_Parse_MustMeetPathElementInvariants()
         {
             // Negative line number
             const string xml = @"<does_not_matter><FileName>FileName</FileName><FilePath>FilePath</FilePath><LineStart>-42</LineStart><Snippet></Snippet><SnippetLine></SnippetLine><TargetFunction>vector&lt;string&gt; example::member(int, int) const&amp;&amp;</TargetFunction></does_not_matter><following />";
-            Parse(xml);
+            Assert.Throws<XmlException>(() => Parse(xml));
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(XmlException))]
+        [Fact]
         public void FortifyPathElement_Parse_MustHaveFileName()
         {
             const string xml = @"<does_not_matter><FilePath>FilePath</FilePath><LineStart>42</LineStart></does_not_matter><following />";
-            Parse(xml);
+            Assert.Throws<XmlException>(() => Parse(xml));
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(XmlException))]
+        [Fact]
         public void FortifyPathElement_Parse_MustHaveFilePath()
         {
             const string xml = @"<does_not_matter><FileName>FileName</FileName><LineStart>42</LineStart></does_not_matter><following />";
-            Parse(xml);
+            Assert.Throws<XmlException>(() => Parse(xml));
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(XmlException))]
+        [Fact]
         public void FortifyPathElement_Parse_MustHaveLineStart()
         {
             const string xml = @"<does_not_matter><FileName>FileName</FileName><FilePath>FilePath</FilePath></does_not_matter><following />";
-            Parse(xml);
+            Assert.Throws<XmlException>(() => Parse(xml));
         }
 
         private static FortifyPathElement Parse(string xml)
@@ -166,8 +153,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             {
                 reader.Read(); // initial
                 element = Parse(reader);
-                Assert.AreEqual(XmlNodeType.Element, reader.NodeType);
-                Assert.AreEqual("following", reader.LocalName);
+                Assert.Equal(XmlNodeType.Element, reader.NodeType);
+                Assert.Equal("following", reader.LocalName);
             }
 
             return element;

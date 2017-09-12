@@ -5,14 +5,13 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.CodeAnalysis.Sarif.Converters;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Microsoft.CodeAnalysis.Sarif
 {
-    [TestClass]
     public class BuiltInConverterFactoryTests
     {
-        [TestMethod]
+        [Fact]
         public void BuiltInConverterFactory_HasConverterForEveryBuiltInToolFormatExceptPREfast()
         {
             List<string> toolFormats = Utilities.GetToolFormats()
@@ -23,13 +22,13 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             foreach (string toolFormat in toolFormats)
             {
-                Assert.IsTrue(
+                Assert.True(
                     BuiltInConverterFactory.BuiltInConverters.ContainsKey(toolFormat),
                     $"There is no built-in converter for the {toolFormat} tool format, or the converter exists but is not registered in {factoryName}.");
             }
         }
 
-        [TestMethod]
+        [Fact]
         public void BuiltInConverterFactory_HasMatchingConverterTypeNamesForAllRegisteredToolFormats()
         {
             foreach (string toolFormat in Utilities.GetToolFormats())
@@ -46,10 +45,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                     string expectedConverterTypeName = toolFormat.ConverterTypeName();
                     string actualConverterTypeName = converter.GetType().Name;
 
-                    Assert.AreEqual(
-                        0,
-                        string.CompareOrdinal(expectedConverterTypeName, actualConverterTypeName),
-                        $"Converter type name {actualConverterTypeName} does not follow convention based on tool format. It should be named {expectedConverterTypeName}.");
+                    Assert.Equal(expectedConverterTypeName, actualConverterTypeName);
                 }
             }
         }

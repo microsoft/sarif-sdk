@@ -4,9 +4,9 @@
     <Prefer32Bit>false</Prefer32Bit>
     <Configuration Condition=" '$(Configuration)' == '' ">Release</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">Any CPU</Platform>
-    <IntermediateOutputPath>$(MsBuildThisFileDirectory)..\bld.core\obj\$(MSBuildProjectName)\$(Platform)\$(Configuration)\</IntermediateOutputPath>
-    <OutputPath>$(MsBuildThisFileDirectory)..\bld.core\bin\$(MSBuildProjectName)\$(Platform)_$(Configuration)\</OutputPath>
-    <TargetFrameworks>netcoreapp2.0;net451;</TargetFrameworks>
+    <IntermediateOutputPath>$(MsBuildThisFileDirectory)..\bld\obj\$(MSBuildProjectName)\$(Platform)\$(Configuration)\</IntermediateOutputPath>
+    <OutputPath>$(MsBuildThisFileDirectory)..\bld\bin\$(MSBuildProjectName)\$(Platform)_$(Configuration)\</OutputPath>
+    <TargetFrameworks>netcoreapp2.0;net452;</TargetFrameworks>
     <FileAlignment>512</FileAlignment>
     <RestorePackages>true</RestorePackages>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
