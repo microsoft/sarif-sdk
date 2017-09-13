@@ -3,7 +3,7 @@
 
   <PropertyGroup>
     <ProjectGuid>db614b0c-f7d0-41b9-bc43-7aff04d8130c</ProjectGuid>
-    <AssemblyName>Sarif.Driver.UnitTests.NetCore</AssemblyName>
+    <AssemblyName>Sarif.Driver.UnitTests</AssemblyName>
     <RootNamespace>Microsoft.CodeAnalysis.Sarif.Driver</RootNamespace>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     <IsPackable>false</IsPackable>

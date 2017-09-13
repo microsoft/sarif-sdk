@@ -19,7 +19,7 @@ goto ExitFailed
 
 ::Restore nuget packages
 %~dp0.nuget\NuGet.exe restore src\Everything.sln -ConfigFile .nuget\NuGet.Config
-dotnet restore src\Sarif.Sdk.NetCore.sln
+dotnet restore src\Sarif.Sdk.sln
 
 if "%ERRORLEVEL%" NEQ "0" (
 echo nuget restore failed

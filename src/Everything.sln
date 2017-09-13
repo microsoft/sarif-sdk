@@ -3,41 +3,17 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sarif", "Sarif\Sarif.csproj", "{CC9B247E-7103-4BF7-BDAB-6E625B3680A8}"
-	ProjectSection(ProjectDependencies) = postProject
-		{F6727C72-C40C-4A6E-BAE0-23B4B5FE7DB1} = {F6727C72-C40C-4A6E-BAE0-23B4B5FE7DB1}
-	EndProjectSection
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sarif.UnitTests", "Sarif.UnitTests\Sarif.UnitTests.csproj", "{31A79A68-F8D2-4BA4-8575-EFB4E3DEF1DA}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sarif.FunctionalTests", "Sarif.FunctionalTests\Sarif.FunctionalTests.csproj", "{195675E6-8FDF-4A87-90A0-242DB7F46B15}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConvertToSarif", "ConvertToSarif\ConvertToSarif.csproj", "{01571290-A3F3-4AD6-8F8B-B045BFB6E55E}"
-	ProjectSection(ProjectDependencies) = postProject
-		{F6727C72-C40C-4A6E-BAE0-23B4B5FE7DB1} = {F6727C72-C40C-4A6E-BAE0-23B4B5FE7DB1}
-	EndProjectSection
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sarif.Driver", "Sarif.Driver\Sarif.Driver.csproj", "{8CEAEA61-B1A2-4777-BCBE-C9A129A5F6C5}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sarif.Driver.UnitTests", "Sarif.Driver.UnitTests\Sarif.Driver.UnitTests.csproj", "{66915F7B-9872-4390-AFED-DB8DE7B761BE}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sarif.Viewer.VisualStudio", "Sarif.Viewer.VisualStudio\Sarif.Viewer.VisualStudio.csproj", "{FEBE7A56-524C-4B76-A899-23DBD8951C23}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "PREfastXmlSarifConverter", "PREfastXmlSarifConverter\PREfastXmlSarifConverter.vcxproj", "{F6727C72-C40C-4A6E-BAE0-23B4B5FE7DB1}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ConvertPREfastToSarif", "PREfastXmlSarifConverter\ConvertPREfastToSarif.vcxproj", "{58E02234-551F-487C-948C-D2C354266E83}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sarif.ValidationTests", "Sarif.ValidationTests\Sarif.ValidationTests.csproj", "{A35E38C4-8189-43C0-BA09-8D05B8EF0791}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sarif.Converters", "Sarif.Converters\Sarif.Converters.csproj", "{237DEFDF-1DFB-40A0-997F-12C8165DAA87}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sarif.Viewer.VisualStudio.UnitTests", "Sarif.Viewer.VisualStudio.UnitTests\Sarif.Viewer.VisualStudio.UnitTests.csproj", "{D0210D4B-32A8-46CA-8BA4-0703517481B4}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SarifCli", "SarifCli\SarifCli.csproj", "{0EBA700D-29E7-4FFF-8EBF-20B8C0EF9A98}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SarifCli.FunctionalTests", "SarifCli.FunctionalTests\SarifCli.FunctionalTests.csproj", "{859920F3-DB09-4C1D-9EAD-DFB1D7A03A46}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sarif.Converters.UnitTests", "Sarif.Converters.UnitTests\Sarif.Converters.UnitTests.csproj", "{EDF102ED-3959-40A2-9FB1-CBD6719F77BF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

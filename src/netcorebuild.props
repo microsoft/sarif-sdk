@@ -1,12 +1,11 @@
-<Project Sdk="Microsoft.NET.Sdk">
-  <!-- <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" /> -->
+<Project>
   <PropertyGroup>
     <Prefer32Bit>false</Prefer32Bit>
     <Configuration Condition=" '$(Configuration)' == '' ">Release</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">Any CPU</Platform>
     <IntermediateOutputPath>$(MsBuildThisFileDirectory)..\bld\obj\$(MSBuildProjectName)\$(Platform)\$(Configuration)\</IntermediateOutputPath>
     <OutputPath>$(MsBuildThisFileDirectory)..\bld\bin\$(MSBuildProjectName)\$(Platform)_$(Configuration)\</OutputPath>
-    <TargetFrameworks>netcoreapp2.0;net452;</TargetFrameworks>
+    <TargetFrameworks>netcoreapp2.0;net461;</TargetFrameworks>
     <FileAlignment>512</FileAlignment>
     <RestorePackages>true</RestorePackages>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
@@ -37,7 +36,6 @@
   <ItemGroup>
     <Compile Include="$(MsBuildThisFileDirectory)build\CommonAssemblyInfo.cs" />
   </ItemGroup>
-  <!-- <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" Condition="'$(DisableBinSkimTarget)'!='true'"/> -->
   <PropertyGroup>
     <BinSkimVerboseOutput>false</BinSkimVerboseOutput>
     <BinSkimExePath>$(MsBuildThisFileDirectory)packages\Microsoft.CodeAnalysis.BinSkim.1.4.0\tools\x64\BinSkim.exe</BinSkimExePath>

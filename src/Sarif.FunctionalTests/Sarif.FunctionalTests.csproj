@@ -1543,6 +1543,6 @@
       <FilesToCopy Include="..\..\bld\bin\PREfastXmlSarifConverter\$(Platform)_$(Configuration)\PREfastXmlSarifConverter.dll" />
       <FilesToCopy Include="..\..\bld\bin\PREfastXmlSarifConverter\$(Platform)_$(Configuration)\PREfastXmlSarifConverter.pdb" />
     </ItemGroup>
-    <Copy SourceFiles="@(FilesToCopy)" DestinationFolder="$(MsBuildThisFileDirectory)..\bld\bin\$(MSBuildProjectName)\$(Platform)_$(Configuration)\" />
+    <Copy SourceFiles="@(FilesToCopy)" DestinationFolder="$(MsBuildThisFileDirectory)\..\..\bld\bin\$(MSBuildProjectName)\$(Platform)_$(Configuration)\$(TargetFramework)\" />
   </Target>
 </Project>
