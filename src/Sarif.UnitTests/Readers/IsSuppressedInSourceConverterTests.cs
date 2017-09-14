@@ -1,6 +1,7 @@
 ﻿// Copyright (c) Microsoft. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
+using FluentAssertions;
 using Newtonsoft.Json;
 using Xunit;
 
@@ -78,7 +79,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
                     }
                 });
             });
-            Assert.Equal(expected, actual);
+
+            actual.Should().BeCrossPlatformEquivalent(expected);
 
             var sarifLog = JsonConvert.DeserializeObject<SarifLog>(actual);
             Assert.Equal(SuppressionStates.None, sarifLog.Runs[0].Results[0].SuppressionStates);
