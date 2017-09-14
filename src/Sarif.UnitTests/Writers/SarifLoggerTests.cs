@@ -448,6 +448,12 @@ namespace Microsoft.CodeAnalysis.Sarif
         }
 
         [TestMethod]
+        public void SarifLogger_LoggingOptions_OverwriteExistingOutputFile()
+        {
+            TestForLoggingOption(LoggingOptions.OverwriteExistingOutputFile);
+        }
+
+        [TestMethod]
         public void SarifLogger_LoggingOptions_Count()
         {
             // This test exists in order to alert test developers when a new member is added to the
@@ -455,8 +461,8 @@ namespace Microsoft.CodeAnalysis.Sarif
             // to account for the new member.
             //     
             // Current values are:
-            // None, ComputeFileHashes, PersistEnvironment, PersistFileContents, PrettyPrint, Verbose, All
-            Enum.GetNames(typeof(LoggingOptions)).Length.Should().Be(7);
+            // None, ComputeFileHashes, OverwriteExistingOutputFile, PersistEnvironment, PersistFileContents, PrettyPrint, Verbose, All
+            Enum.GetNames(typeof(LoggingOptions)).Length.Should().Be(8);
         }
 
         // This helper is intended to validate a single enum member only
@@ -499,6 +505,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 case LoggingOptions.None:
                 {
                     logger.ComputeFileHashes.Should().BeFalse();
+                    logger.OverwriteExistingOutputFile.Should().BeFalse();
                     logger.PersistEnvironment.Should().BeFalse();
                     logger.PersistFileContents.Should().BeFalse();
                     logger.PrettyPrint.Should().BeFalse();
@@ -508,6 +515,17 @@ namespace Microsoft.CodeAnalysis.Sarif
                 case LoggingOptions.ComputeFileHashes:
                 {
                     logger.ComputeFileHashes.Should().BeTrue();
+                    logger.OverwriteExistingOutputFile.Should().BeFalse();
+                    logger.PersistEnvironment.Should().BeFalse();
+                    logger.PersistFileContents.Should().BeFalse();
+                    logger.PrettyPrint.Should().BeFalse();
+                    logger.Verbose.Should().BeFalse();
+                    break;
+                }
+                case LoggingOptions.OverwriteExistingOutputFile:
+                {
+                    logger.ComputeFileHashes.Should().BeFalse();
+                    logger.OverwriteExistingOutputFile.Should().BeTrue();
                     logger.PersistEnvironment.Should().BeFalse();
                     logger.PersistFileContents.Should().BeFalse();
                     logger.PrettyPrint.Should().BeFalse();
@@ -517,6 +535,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 case LoggingOptions.PersistEnvironment:
                 {
                     logger.ComputeFileHashes.Should().BeFalse();
+                    logger.OverwriteExistingOutputFile.Should().BeFalse();
                     logger.PersistEnvironment.Should().BeTrue();
                     logger.PersistFileContents.Should().BeFalse();
                     logger.PrettyPrint.Should().BeFalse();
@@ -526,6 +545,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 case LoggingOptions.PersistFileContents:
                 {
                     logger.ComputeFileHashes.Should().BeFalse();
+                    logger.OverwriteExistingOutputFile.Should().BeFalse();
                     logger.PersistEnvironment.Should().BeFalse();
                     logger.PersistFileContents.Should().BeTrue();
                     logger.PrettyPrint.Should().BeFalse();
@@ -535,6 +555,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 case LoggingOptions.PrettyPrint:
                 {
                     logger.ComputeFileHashes.Should().BeFalse();
+                    logger.OverwriteExistingOutputFile.Should().BeFalse();
                     logger.PersistEnvironment.Should().BeFalse();
                     logger.PersistFileContents.Should().BeFalse();
                     logger.PrettyPrint.Should().BeTrue();
@@ -544,6 +565,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 case LoggingOptions.Verbose:
                 {
                     logger.ComputeFileHashes.Should().BeFalse();
+                    logger.OverwriteExistingOutputFile.Should().BeFalse();
                     logger.PersistEnvironment.Should().BeFalse();
                     logger.PersistFileContents.Should().BeFalse();
                     logger.PrettyPrint.Should().BeFalse();
@@ -553,6 +575,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 case LoggingOptions.All:
                 {
                     logger.ComputeFileHashes.Should().BeTrue();
+                    logger.OverwriteExistingOutputFile.Should().BeTrue();
                     logger.PersistEnvironment.Should().BeTrue();
                     logger.PersistFileContents.Should().BeTrue();
                     logger.PrettyPrint.Should().BeTrue();

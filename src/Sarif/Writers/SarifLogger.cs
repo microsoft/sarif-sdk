@@ -157,15 +157,17 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             }
         }
 
-        public bool ComputeFileHashes { get { return (_loggingOptions & LoggingOptions.ComputeFileHashes) == LoggingOptions.ComputeFileHashes; } }
+        public bool ComputeFileHashes { get { return _loggingOptions.Includes(LoggingOptions.ComputeFileHashes); } }
 
-        public bool PersistEnvironment { get { return (_loggingOptions & LoggingOptions.PersistEnvironment) == LoggingOptions.PersistEnvironment; } }
+        public bool OverwriteExistingOutputFile { get { return _loggingOptions.Includes(LoggingOptions.OverwriteExistingOutputFile); } }
 
-        public bool PersistFileContents { get { return (_loggingOptions & LoggingOptions.PersistFileContents) == LoggingOptions.PersistFileContents; } }
+        public bool PersistEnvironment { get { return _loggingOptions.Includes(LoggingOptions.PersistEnvironment); } }
 
-        public bool PrettyPrint { get { return (_loggingOptions & LoggingOptions.PrettyPrint) == LoggingOptions.PrettyPrint; } }
+        public bool PersistFileContents { get { return _loggingOptions.Includes(LoggingOptions.PersistFileContents); } }
 
-        public bool Verbose { get { return (_loggingOptions & LoggingOptions.Verbose) == LoggingOptions.Verbose; } }
+        public bool PrettyPrint { get { return _loggingOptions.Includes(LoggingOptions.PrettyPrint); } }
+
+        public bool Verbose { get { return _loggingOptions.Includes(LoggingOptions.Verbose); } }
 
         public void Dispose()
         {

@@ -1,0 +1,340 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Banner" xml:space="preserve">
+    <value>{0} version {1}</value>
+  </data>
+  <data name="ElapsedTime" xml:space="preserve">
+    <value>Validation time: {0}</value>
+  </data>
+  <data name="ErrorAdditionalPropertiesProhibited" xml:space="preserve">
+    <value>The schema does not define a property named "{1}", and the schema does not permit additional properties.</value>
+  </data>
+  <data name="ErrorDefinitionDoesNotExist" xml:space="preserve">
+    <value>This schema does not contain the sub-schema definition referred to by the $ref value "{0}".</value>
+  </data>
+  <data name="ErrorDependentPropertyMissing" xml:space="preserve">
+    <value>The schema requires that when property "{1}" is present, properties [{2}] are also present, but properties [{3}] are missing.</value>
+  </data>
+  <data name="ErrorInvalidAdditionalItemsType" xml:space="preserve">
+    <value>JSON schema requires the value of "additionalItems" to be either a Boolean or a schema, but a token of type "{1}" was seen.</value>
+  </data>
+  <data name="ErrorInvalidAdditionalPropertiesType" xml:space="preserve">
+    <value>JSON schema requires the value of "additionalProperties" to be either a Boolean or a schema, but a token of type "{1}" was seen.</value>
+  </data>
+  <data name="ErrorInvalidDependencyType" xml:space="preserve">
+    <value>JSON schema requires the value of each property of the "dependencies"  object, to be either an schema or an array of strings, but a token of type "{1}" was seen.</value>
+  </data>
+  <data name="ErrorInvalidEnumValue" xml:space="preserve">
+    <value>The value "{1}" does not match any of the enum values [{2}].</value>
+  </data>
+  <data name="ErrorInvalidItemsType" xml:space="preserve">
+    <value>JSON schema requires the value of "items" to be either a schema or an array of schemas, but a token of type "{1}" was seen.</value>
+  </data>
+  <data name="ErrorInvalidPropertyDependencyType" xml:space="preserve">
+    <value>JSON requires that if the value of a property of the "dependencies" object is an array, then every element of the array must be a string, but a token of type "{1}" was seen.</value>
+  </data>
+  <data name="ErrorInvalidTypeString" xml:space="preserve">
+    <value>"{1}" is not a valid schema type.</value>
+  </data>
+  <data name="ErrorInvalidTypeType" xml:space="preserve">
+    <value>JSON schema requires the value of "type" to be either a string or an array of strings, but a token of type "{1}" was seen.</value>
+  </data>
+  <data name="ErrorMessageFormatWithPath" xml:space="preserve">
+    <value>at "{{0}}": {0}</value>
+  </data>
+  <data name="ErrorNotAllOf" xml:space="preserve">
+    <value>The instance does not validate successfully against all of the {1} schemas specified by "allOf".</value>
+  </data>
+  <data name="ErrorNotAMultiple" xml:space="preserve">
+    <value>The value {1} is not a multiple of {2}.</value>
+  </data>
+  <data name="ErrorNotAnyOf" xml:space="preserve">
+    <value>The instance does validate successfully against any of the {1} schemas specified by "anyOf".</value>
+  </data>
+  <data name="ErrorNotAString" xml:space="preserve">
+    <value>The property is required to be a string, but the token is of type "{1}".</value>
+  </data>
+  <data name="ErrorNotOneOf" xml:space="preserve">
+    <value>The instance validates successfully against {1} of the {2} schemas specified by "oneOf", instead of validating successfully against exactly one of them.</value>
+  </data>
+  <data name="ErrorNotUnique" xml:space="preserve">
+    <value>The elements of the array are not unique.</value>
+  </data>
+  <data name="ErrorOnlyDefinitionFragmentsSupported" xml:space="preserve">
+    <value>This partial implementation of JSON Schema only accepts $ref values in the form of fragments that refer to sub-properties of the "definitions" property, for example "#/definitions/def1". The URI reference"{0}" is not supported.</value>
+  </data>
+  <data name="ErrorRequiredPropertyMissing" xml:space="preserve">
+    <value>The required property "{1}" is missing.</value>
+  </data>
+  <data name="ErrorStringDoesNotMatchPattern" xml:space="preserve">
+    <value>The string "{1}" does not match the regular expression "{2}".</value>
+  </data>
+  <data name="ErrorStringTooLong" xml:space="preserve">
+    <value>The string "{1}" has length {2}, which is greater than the maximum length {3}.
+</value>
+  </data>
+  <data name="ErrorStringTooShort" xml:space="preserve">
+    <value>The string "{1}" has length {2}, which is less than the minimum length {3}.</value>
+  </data>
+  <data name="ErrorSyntaxError" xml:space="preserve">
+    <value>JSON syntax error: {1}</value>
+  </data>
+  <data name="ErrorTooFewArrayItems" xml:space="preserve">
+    <value>The schema requires at least {1} array items, but there are {2}.</value>
+  </data>
+  <data name="ErrorTooFewItemSchemas" xml:space="preserve">
+    <value>The array has {1} items, but the array of schemas specified by  "items" has only {2} items, and "additionalItems" is not specified to allow additional array items.</value>
+  </data>
+  <data name="ErrorTooFewProperties" xml:space="preserve">
+    <value>The schema requires at least {1} object properties, but there are {2}.</value>
+  </data>
+  <data name="ErrorTooManyArrayItems" xml:space="preserve">
+    <value>The schema permits at most {1} array items, but there are {2}.</value>
+  </data>
+  <data name="ErrorTooManyProperties" xml:space="preserve">
+    <value>The schema permits at most {1} object properties, but there are {2}.</value>
+  </data>
+  <data name="ErrorValidatesAgainstNotSchema" xml:space="preserve">
+    <value>The instance validates successfully against the schema specified by "not".</value>
+  </data>
+  <data name="ErrorValueTooLarge" xml:space="preserve">
+    <value>The value {1} is greater than the maximum value of {2}.</value>
+  </data>
+  <data name="ErrorValueTooLargeExclusive" xml:space="preserve">
+    <value>The value {1} is greater than or equal to the exclusive maximum value of {2}.</value>
+  </data>
+  <data name="ErrorValueTooSmall" xml:space="preserve">
+    <value>The value {1} is less than the minimum value of {2}.</value>
+  </data>
+  <data name="ErrorValueTooSmallExclusive" xml:space="preserve">
+    <value>The value {1} is less than or equal to the exclusive minimum value of {2}.</value>
+  </data>
+  <data name="ErrorWithLineInfo" xml:space="preserve">
+    <value>({0},{1}): error {2}: {3}</value>
+  </data>
+  <data name="ErrorWithLineInfoAndPath" xml:space="preserve">
+    <value>({0},{1}): error {2}: at {3}: {4}</value>
+  </data>
+  <data name="ErrorWrongType" xml:space="preserve">
+    <value>The schema requires one of the types [{1}], but a token of type "{2}" was found.</value>
+  </data>
+  <data name="ExceptionNotASingleSchema" xml:space="preserve">
+    <value>The schema does not specify a single schema for all array items. Access the per-item schemas through the Schemas property.</value>
+  </data>
+  <data name="RuleDescriptionAdditionalPropertiesProhibited" xml:space="preserve">
+    <value>An object contains a property not defined by the schema is present, and the schema does not permit additional properties.</value>
+  </data>
+  <data name="RuleDescriptionDependentPropertyMissing" xml:space="preserve">
+    <value>An instance does not have all the properties specified in the schema by a property dependency.</value>
+  </data>
+  <data name="RuleDescriptionInvalidAdditionalItemsType" xml:space="preserve">
+    <value>The value of the "additionalItems" schema property is neither a Boolean nor a schema.</value>
+  </data>
+  <data name="RuleDescriptionInvalidAdditionalPropertiesType" xml:space="preserve">
+    <value>The value of the "additionalProperties" schema property is neither a boolean nor an object.</value>
+  </data>
+  <data name="RuleDescriptionInvalidDependencyType" xml:space="preserve">
+    <value>The value of one of the properties of the "dependencies" schema property is either a schema nor an array of strings.</value>
+  </data>
+  <data name="RuleDescriptionInvalidEnumValue" xml:space="preserve">
+    <value>A string does not match any of the values specified by the schema's "enum" property.</value>
+  </data>
+  <data name="RuleDescriptionInvalidItemsType" xml:space="preserve">
+    <value>The value of the "items" property is neither a schema nor an array of schemas.</value>
+  </data>
+  <data name="RuleDescriptionInvalidPropertyDependencyType" xml:space="preserve">
+    <value>The value of one of the properties of the "dependencies" schema property is an array which contains an element which is not a string.</value>
+  </data>
+  <data name="RuleDescriptionInvalidTypeString" xml:space="preserve">
+    <value>The string value of the "type" schema property is not one of the valid values.</value>
+  </data>
+  <data name="RuleDescriptionInvalidTypeType" xml:space="preserve">
+    <value>The value of the "type" schema property is neither a string nor an array of strings.</value>
+  </data>
+  <data name="RuleDescriptionNotAllOf" xml:space="preserve">
+    <value>n instance does not successfully validate against all of the schemas by the schema's "allOf" property.</value>
+  </data>
+  <data name="RuleDescriptionNotAMultiple" xml:space="preserve">
+    <value>A numeric value is not a multiple of the value specified by the schema's "multipleOf" property.</value>
+  </data>
+  <data name="RuleDescriptionNotAnyOf" xml:space="preserve">
+    <value>An instance does not successfully validate against any of the schemas by the schema's "anyOf" property.</value>
+  </data>
+  <data name="RuleDescriptionNotAString" xml:space="preserve">
+    <value>A schema property that is required to be a string is not a string.</value>
+  </data>
+  <data name="RuleDescriptionNotOneOf" xml:space="preserve">
+    <value>An instance does not successfully validate against exactly one of the schemas by the schema's "oneOf" property.</value>
+  </data>
+  <data name="RuleDescriptionNotUnique" xml:space="preserve">
+    <value>An array's elements are not unique, as required by the schema's "uniqueItems" property.</value>
+  </data>
+  <data name="RuleDescriptionRequiredPropertyMissing" xml:space="preserve">
+    <value>A property required by the schema's "required" property is missing.</value>
+  </data>
+  <data name="RuleDescriptionStringDoesNotMatchPattern" xml:space="preserve">
+    <value>A string does not match the regular expression pattern specified by the schema's "pattern" property.</value>
+  </data>
+  <data name="RuleDescriptionStringTooLong" xml:space="preserve">
+    <value>A string is longer than permitted by the schema's "maxLength" property.</value>
+  </data>
+  <data name="RuleDescriptionStringTooShort" xml:space="preserve">
+    <value>A string is shorter than permitted by the schema's "minLength" property.</value>
+  </data>
+  <data name="RuleDescriptionSyntaxError" xml:space="preserve">
+    <value>The schema is not a valid JSON document.</value>
+  </data>
+  <data name="RuleDescriptionTooFewArrayItems" xml:space="preserve">
+    <value>An array has fewer elements than permitted by the schema's "minItems" property.</value>
+  </data>
+  <data name="RuleDescriptionTooFewItemSchemas" xml:space="preserve">
+    <value>An array has more elements than the number of elements in the array specified by the schema's "items" property, and the schema does not permit additional array items.</value>
+  </data>
+  <data name="RuleDescriptionTooFewProperties" xml:space="preserve">
+    <value>An object has fewer properties than permitted by the schema's "minProperties" property.</value>
+  </data>
+  <data name="RuleDescriptionTooManyArrayItems" xml:space="preserve">
+    <value>An array has more elements than permitted by the schema's "maxItems" property.</value>
+  </data>
+  <data name="RuleDescriptionTooManyProperties" xml:space="preserve">
+    <value>An object has more properties than permitted by the schema's "maxProperties" property.</value>
+  </data>
+  <data name="RuleDescriptionValidatesAgainstNotSchema" xml:space="preserve">
+    <value>An instance successfully validates against the schema specified by the schema's "not" property.</value>
+  </data>
+  <data name="RuleDescriptionValueTooLarge" xml:space="preserve">
+    <value>A numeric value is greater than the maximum value permitted by the schema's "maximum" property.</value>
+  </data>
+  <data name="RuleDescriptionValueTooLargeExclusive" xml:space="preserve">
+    <value>A numeric value is greater than or equal to the exclusive maximum value permitted by the schema's "maximum" and "exclusiveMaximum" properties.</value>
+  </data>
+  <data name="RuleDescriptionValueTooSmall" xml:space="preserve">
+    <value>A numeric value is less than the minimum value permitted by the schema's "minimum" property.</value>
+  </data>
+  <data name="RuleDescriptionValueTooSmallExclusive" xml:space="preserve">
+    <value>A numeric value is less than or equal to the exclusive minimum value permitted by the schema's "minimum" and "exclusiveMinimum" properties.</value>
+  </data>
+  <data name="RuleDescriptionWrongType" xml:space="preserve">
+    <value>An instance has a type that is not permitted by the schema's "type" property.</value>
+  </data>
+  <data name="Success" xml:space="preserve">
+    <value>Success: The file is valid according to the schema.</value>
+  </data>
+</root>

@@ -81,6 +81,15 @@ goto ExitFailed
 @REM Run all tests
 SET PASSED=true
 
+mstest /testContainer:bld\bin\Sarif.Converters.UnitTests\AnyCPU_%Configuration%\Sarif.Converters.UnitTests.dll
+if "%ERRORLEVEL%" NEQ "0" (
+set PASSED=false
+)
+
+if "%PASSED%" NEQ "true" (
+goto ExitFailed
+)
+
 mstest /testContainer:bld\bin\Sarif.UnitTests\AnyCPU_%Configuration%\Sarif.UnitTests.dll
 if "%ERRORLEVEL%" NEQ "0" (
 set PASSED=false
@@ -119,7 +128,7 @@ if "%ERRORLEVEL%" NEQ "0" (
 goto ExitFailed
 )
 
-src\packages\xunit.runner.console.2.1.0\tools\xunit.console.x86.exe bld\bin\SarifCli.FunctionalTests\AnyCPU_%Configuration%\SarifCli.FunctionalTests.dll
+src\packages\xunit.runner.console.2.1.0\tools\xunit.console.x86.exe bld\bin\Sarif.Multitool.FunctionalTests\AnyCPU_%Configuration%\Sarif.Multitool.FunctionalTests.dll
 
 if "%ERRORLEVEL%" NEQ "0" (
 goto ExitFailed

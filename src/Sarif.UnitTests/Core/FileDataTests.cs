@@ -3,12 +3,11 @@
 
 using System;
 using System.IO;
-using System.Security.AccessControl;
 using System.Text;
 using FluentAssertions;
 
 using Microsoft.CodeAnalysis.Sarif.Writers;
-
+using Moq;
 using Xunit;
 
 namespace Microsoft.CodeAnalysis.Sarif
@@ -34,7 +33,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             {
                 File.WriteAllText(filePath, fileContents);
                 FileData fileData = FileData.Create(uri, LoggingOptions.ComputeFileHashes);
-                fileData.Uri.Should().Be(uri.ToString());
+                fileData.Uri.Should().Be(null);
                 HashData hashes = HashUtilities.ComputeHashes(filePath);
                 fileData.MimeType.Should().Be(MimeType.Binary);
                 fileData.Contents.Should().BeNull();
@@ -68,7 +67,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             {
                 File.WriteAllText(filePath, fileContents);
                 FileData fileData = FileData.Create(uri, LoggingOptions.PersistFileContents);
-                fileData.Uri.Should().Be(uri.ToString());
+                fileData.Uri.Should().Be(null);
                 fileData.MimeType.Should().Be(MimeType.Binary);
                 fileData.Hashes.Should().BeNull();
 
@@ -94,7 +93,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             {
                 File.WriteAllBytes(filePath, fileContents);
                 FileData fileData = FileData.Create(uri, LoggingOptions.PersistFileContents, mimeType: null, encoding: Encoding.BigEndianUnicode);
-                fileData.Uri.Should().Be(uri.ToString());
+                fileData.Uri.Should().Be(null);
                 fileData.MimeType.Should().Be(MimeType.CSharp);
                 fileData.Hashes.Should().BeNull();
 
@@ -115,7 +114,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             string filePath = Path.GetTempFileName();
             Uri uri = new Uri(filePath);
             FileData fileData = FileData.Create(uri, LoggingOptions.PersistFileContents);
-            fileData.Uri.Should().Be(uri.ToString());
+            fileData.Uri.Should().Be(null);
             fileData.MimeType.Should().Be(MimeType.Binary);
             fileData.Hashes.Should().BeNull();
             fileData.Contents.Should().Be(String.Empty);
@@ -134,7 +133,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 using (var exclusiveAccessReader = File.Open(filePath, FileMode.Open, FileAccess.Read, FileShare.None))
                 {
                     FileData fileData = FileData.Create(uri, LoggingOptions.PersistFileContents);
-                    fileData.Uri.Should().Be(uri.ToString());
+                    fileData.Uri.Should().Be(null);
                     fileData.MimeType.Should().Be(MimeType.Binary);
                     fileData.Hashes.Should().BeNull();
                     fileData.Contents.Should().BeNull();
@@ -144,6 +143,67 @@ namespace Microsoft.CodeAnalysis.Sarif
             {
                 if (File.Exists(filePath)) { File.Delete(filePath); }
             }
+        }
+
+        [Fact]
+        public void FileData_TextFileIsNotAccessibleDueToSecurity()
+        {
+            RunUnauthorizedAccessTextForFile(isTextFile: true);
+        }
+
+        [Fact]
+        public void FileData_BinaryFileIsNotAccessibleDueToSecurity()
+        {
+            RunUnauthorizedAccessTextForFile(isTextFile: false);
+        }
+
+        private static void RunUnauthorizedAccessTextForFile(bool isTextFile)
+        {
+            string extension = isTextFile ? ".cs" : ".dll";
+            string filePath = Path.GetFullPath(Guid.NewGuid().ToString()) + extension;
+            Uri uri = new Uri(filePath);
+
+            IFileSystem fileSystem = SetUnauthorizedAccessExceptionMock();
+
+            FileData fileData = FileData.Create(
+                uri, 
+                LoggingOptions.PersistFileContents,
+                mimeType: null,
+                encoding: null,
+                fileSystem: fileSystem);
+
+            // We pass none here as the occurrence of UnauthorizedAccessException 
+            // should result in non-population of any file contents.
+            Validate(fileData, LoggingOptions.None);
+        }
+
+        private static IFileSystem SetUnauthorizedAccessExceptionMock()
+        {
+            Mock<IFileSystem> mock = GetDefaultFileSystemMock();
+            mock.Setup(fs => fs.ReadAllText(It.IsAny<string>(), It.IsAny<Encoding>())).Returns((string s, Encoding encoding) => { throw new UnauthorizedAccessException(); });
+            mock.Setup(fs => fs.ReadAllBytes(It.IsAny<string>())).Returns((string s) => { throw new UnauthorizedAccessException(); });
+            return mock.Object;
+        }
+
+        private static Mock<IFileSystem> GetDefaultFileSystemMock()
+        {
+            var mock = new Mock<IFileSystem>(MockBehavior.Strict);
+            mock.Setup(fs => fs.FileExists(It.IsAny<string>())).Returns((string s) => { return true; });
+            return mock;
+        }
+
+        private static void Validate(FileData fileData, LoggingOptions loggingOptions)
+        {
+            if (loggingOptions.Includes(LoggingOptions.PersistFileContents))
+            {
+                fileData.Contents.Should().NotBeNull();
+            }
+            else
+            {
+                fileData.Contents.Should().BeNull();
+            }
+
+
         }
     }
 }

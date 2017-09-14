@@ -1,4 +1,4 @@
-﻿// /********************************************************
+﻿/********************************************************
 // *                                                       *
 // *   Copyright (C) Microsoft. All rights reserved.       *
 // *                                                       *
@@ -12,7 +12,7 @@ using System.Text;
 using FluentAssertions;
 
 using Microsoft.CodeAnalysis.Sarif.Readers;
-
+using Microsoft.CodeAnalysis.Sarif.Writers;
 using Newtonsoft.Json;
 
 using Xunit;
@@ -129,7 +129,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
             try
             {
-                this.converter.ConvertToStandardFormat(toolFormat, inputFileName, generatedFileName, ToolFormatConversionOptions.OverwriteExistingOutputFile | ToolFormatConversionOptions.PrettyPrint);
+                this.converter.ConvertToStandardFormat(toolFormat, inputFileName, generatedFileName, LoggingOptions.OverwriteExistingOutputFile | LoggingOptions.PrettyPrint);
             }
             catch (Exception ex)
             {

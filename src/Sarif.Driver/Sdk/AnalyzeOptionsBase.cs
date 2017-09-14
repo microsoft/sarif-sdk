@@ -21,6 +21,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         public string OutputFilePath { get; set; }
 
         [Option(
+            'f',
+            "force",
+            Default = false,
+            HelpText = "Force overwrite of output file if it exists.")]
+        public bool Force { get; internal set; }
+
+        [Option(
             'v',
             "verbose",
             HelpText = "Emit verbose output. The resulting comprehensive report is designed to provide appropriate evidence for compliance scenarios.")]
@@ -54,7 +61,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         [Option(
             'h',
             "hashes",
-            HelpText = "Output SHA-256 hash of analysis targets when emitting SARIF reports.")]
+            HelpText = "Output MD5, SHA1, and SHA-256 hash of analysis targets when emitting SARIF reports.")]
         public bool ComputeFileHashes { get; set; }
 
         [Option(
@@ -83,7 +90,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         public bool RichReturnCode { get; set; }
 
         [Option(
-            'f',
             "persist-file-contents",
             HelpText = "Persist a base64-encoded representation of all referenced files to the log.")]
         public bool PersistFileContents { get; set; }

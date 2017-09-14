@@ -10,14 +10,14 @@ using Microsoft.CodeAnalysis.Sarif.Writers;
 namespace Microsoft.CodeAnalysis.Sarif.Converters
 {
     [TestClass]
-    internal class ClangAnalyzerConverterTests : ConverterTestsBase<ClangAnalyzerConverter>
+    public class ClangAnalyzerConverterTests : ConverterTestsBase<ClangAnalyzerConverter>
     {
         [TestMethod]
         [ExpectedException(typeof(ArgumentNullException))]
         public void ClangAnalyzerConverter_Convert_NullInput()
         {
             ClangAnalyzerConverter converter = new ClangAnalyzerConverter();
-            converter.Convert(null, null);
+            converter.Convert(null, null, LoggingOptions.None);
         }
 
         [TestMethod]
@@ -25,7 +25,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         public void ClangAnalyzerConverter_Convert_NullOutput()
         {
             ClangAnalyzerConverter converter = new ClangAnalyzerConverter();
-            converter.Convert(new MemoryStream(), null);
+            converter.Convert(new MemoryStream(), null, LoggingOptions.None);
         }
 
         [TestMethod]
@@ -33,7 +33,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         public void ClangAnalyzerConverter_Convert_NullLogTest()
         {
             ClangAnalyzerConverter converter = new ClangAnalyzerConverter();
-            converter.Convert(null, new ResultLogObjectWriter());
+            converter.Convert(null, new ResultLogObjectWriter(), LoggingOptions.None);
         }
 
         private const string empty = @"{

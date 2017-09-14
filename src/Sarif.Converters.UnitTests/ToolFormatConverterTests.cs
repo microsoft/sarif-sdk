@@ -84,7 +84,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             string file = this.GetType().Assembly.Location;
             string doesNotExist = Guid.NewGuid().ToString();
-            Action action = () =>_converter.ConvertToStandardFormat(ToolFormat.AndroidStudio, doesNotExist, file, ToolFormatConversionOptions.OverwriteExistingOutputFile);
+            Action action = () =>_converter.ConvertToStandardFormat(ToolFormat.AndroidStudio, doesNotExist, file, LoggingOptions.OverwriteExistingOutputFile);
 
             action.ShouldThrow<FileNotFoundException>();
         }
@@ -116,7 +116,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
                 string expectedOutput = File.ReadAllText(expectedOutputFileName, Encoding.UTF8);
                 var actualOutputFileName = tempDir.Write("output_actual.xml", new string('a', expectedOutput.Length + 4096));
-                _converter.ConvertToStandardFormat(ToolFormat.CppCheck, inputFileName, actualOutputFileName, ToolFormatConversionOptions.OverwriteExistingOutputFile);
+                _converter.ConvertToStandardFormat(ToolFormat.CppCheck, inputFileName, actualOutputFileName, LoggingOptions.OverwriteExistingOutputFile);
                 string actualOutput = File.ReadAllText(actualOutputFileName, Encoding.UTF8);
                 Assert.AreEqual(expectedOutput, actualOutput);
             }
@@ -137,7 +137,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                     ToolName,
                     inputFilePath,
                     outputFilePath,
-                    ToolFormatConversionOptions.None,
+                    LoggingOptions.None,
                     PluginAssemblyPath);
 
                 action.ShouldThrow<ArgumentException>()
@@ -160,7 +160,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                     ToolName,
                     inputFilePath,
                     outputFilePath,
-                    ToolFormatConversionOptions.None,
+                    LoggingOptions.None,
                     pluginAssemblyPath);
 
                 action.ShouldThrow<ArgumentException>()
@@ -183,7 +183,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                     ToolName,
                     inputFilePath,
                     outputFilePath,
-                    ToolFormatConversionOptions.None,
+                    LoggingOptions.None,
                     pluginAssemblyPath);
 
                 action.ShouldThrow<ArgumentException>()
@@ -208,7 +208,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                     ToolName,
                     inputFilePath,
                     outputFilePath,
-                    ToolFormatConversionOptions.None,
+                    LoggingOptions.None,
                     pluginAssemblyPath);
 
                 action.ShouldThrow<ArgumentException>()
@@ -231,7 +231,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                     ToolName,
                     inputFilePath,
                     outputFilePath,
-                    ToolFormatConversionOptions.None,
+                    LoggingOptions.None,
                     pluginAssemblyPath);
 
                 action.ShouldThrow<ArgumentException>()
@@ -254,7 +254,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                     ToolName,
                     inputFilePath,
                     outputFilePath,
-                    ToolFormatConversionOptions.None,
+                    LoggingOptions.None,
                     pluginAssemblyPath);
 
                 action.ShouldThrow<ArgumentException>()
@@ -277,7 +277,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                     ToolName,
                     inputFilePath,
                     outputFilePath,
-                    ToolFormatConversionOptions.None,
+                    LoggingOptions.None,
                     pluginAssemblyPath);
 
                 action.ShouldThrow<ArgumentException>()
@@ -300,7 +300,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                     ToolName,
                     inputFilePath,
                     outputFilePath,
-                    ToolFormatConversionOptions.None,
+                    LoggingOptions.None,
                     pluginAssemblyPath);
 
                 action.ShouldNotThrow();
@@ -325,7 +325,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                     ToolFormat.AndroidStudio,
                     inputFilePath,
                     outputFilePath,
-                    ToolFormatConversionOptions.None,
+                    LoggingOptions.None,
                     pluginAssemblyPath);
 
                 action.ShouldNotThrow();
@@ -369,14 +369,14 @@ namespace Microsoft.CodeAnalysis.Sarif
         [ExcludeFromCodeCoverage]
         public class TestToolConverter : ToolFileConverterBase
         {
-            public override void Convert(Stream input, IResultLogWriter output)
+            public override void Convert(Stream input, IResultLogWriter output, LoggingOptions loggingOptions)
             {
             }
         }
         [ExcludeFromCodeCoverage]
         public class AmbiguousToolConverter : ToolFileConverterBase
         {
-            public override void Convert(Stream input, IResultLogWriter output)
+            public override void Convert(Stream input, IResultLogWriter output, LoggingOptions loggingOptions)
             {
             }
         }
@@ -384,7 +384,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         [ExcludeFromCodeCoverage]
         internal class NonPublicToolConverter : ToolFileConverterBase
         {
-            public override void Convert(Stream input, IResultLogWriter output)
+            public override void Convert(Stream input, IResultLogWriter output, LoggingOptions loggingOptions)
             {
             }
         }
@@ -392,7 +392,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         [ExcludeFromCodeCoverage]
         public abstract class AbstractToolConverter : ToolFileConverterBase
         {
-            public override void Convert(Stream input, IResultLogWriter output)
+            public override void Convert(Stream input, IResultLogWriter output, LoggingOptions loggingOptions)
             {
             }
         }
@@ -412,7 +412,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 this.name = name;
             }
 
-            public override void Convert(Stream input, IResultLogWriter output)
+            public override void Convert(Stream input, IResultLogWriter output, LoggingOptions loggingOptions)
             {
             }
         }
@@ -423,7 +423,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         [ExcludeFromCodeCoverage]
         public class AmbiguousToolConverter : ToolFileConverterBase
         {
-            public override void Convert(Stream input, IResultLogWriter output)
+            public override void Convert(Stream input, IResultLogWriter output, LoggingOptions loggingOptions)
             {
             }
         }

@@ -35,7 +35,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         /// </summary>
         /// <param name="input">The Android Studio formatted log.</param>
         /// <param name="output">The SarifLog to write the output to.</param>
-        public override void Convert(Stream input, IResultLogWriter output)
+        /// <param name="loggingOptions">Logging options that configure output.</param>
+        public override void Convert(Stream input, IResultLogWriter output, LoggingOptions loggingOptions)
         {
             if (input == null)
             {
@@ -70,7 +71,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 Name = "AndroidStudio"
             };
 
-            var fileInfoFactory = new FileInfoFactory(uri => MimeType.Java);
+            var fileInfoFactory = new FileInfoFactory(uri => MimeType.Java, loggingOptions);
             Dictionary<string, FileData> fileDictionary = fileInfoFactory.Create(results);
 
             output.Initialize(id: null, automationId: null);

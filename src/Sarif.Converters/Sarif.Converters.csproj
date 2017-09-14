@@ -73,7 +73,6 @@
     <Compile Include="StaticDriverVerifierConverter.cs" />
     <Compile Include="ToolFileConverterBase.cs" />
     <Compile Include="ToolFormat.cs" />
-    <Compile Include="ToolFormatConversionOptions.cs" />
     <Compile Include="ToolFormatConverter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

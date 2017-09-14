@@ -75,6 +75,7 @@
     <Compile Include="BrandedVersionAttribute.cs" />
     <Compile Include="DisposableEnumerable.cs" />
     <Compile Include="DisposableEnumerableView.cs" />
+    <Compile Include="DriverExtensionMethods.cs" />
     <Compile Include="DriverResources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -90,10 +91,8 @@
     <Compile Include="Sdk\ExitApplicationException.cs" />
     <Compile Include="Sdk\ExitReason.cs" />
     <Compile Include="FileStreamExtensionMethods.cs" />
-    <Compile Include="FileSystem.cs" />
     <Compile Include="IAppConfig.cs" />
     <Compile Include="IEnvironmentVariables.cs" />
-    <Compile Include="IFileSystem.cs" />
     <Compile Include="KeyEventImportance.cs" />
     <Compile Include="MurmurHash.cs" />
     <Compile Include="Pair.cs" />
