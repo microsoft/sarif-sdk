@@ -39,7 +39,7 @@ namespace Microsoft.CodeAnalysis.Sarif {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Sarif.TestUtilities.TestUtilityResources", typeof(TestUtilityResources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Microsoft.CodeAnalysis.Sarif.TestUtilityResources", typeof(TestUtilityResources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -61,7 +61,7 @@ namespace Microsoft.CodeAnalysis.Sarif {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Expected value to be equivalent using ordinal (binary) sort rules and ignoring the case of the strings being compared..
+        ///   Looks up a localized string similar to Expected value is either not equal to, or has different line endings than the actual..
         /// </summary>
         internal static string BeCrossPlatformEquivalentError {
             get {

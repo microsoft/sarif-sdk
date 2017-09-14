@@ -118,6 +118,6 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="BeCrossPlatformEquivalentError" xml:space="preserve">
-    <value>Expected value to be equivalent using ordinal (binary) sort rules and ignoring the case of the strings being compared.</value>
+    <value>Expected value is either not equal to, or has different line endings than the actual.</value>
   </data>
 </root>

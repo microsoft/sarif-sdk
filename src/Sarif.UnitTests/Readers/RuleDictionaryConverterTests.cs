@@ -4,6 +4,7 @@
 using System.Collections.Generic;
 using Newtonsoft.Json;
 using Xunit;
+using FluentAssertions;
 
 namespace Microsoft.CodeAnalysis.Sarif.Readers
 {
@@ -43,7 +44,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
                 });
             });
 
-            Assert.Equal(expected, actual);
+            actual.Should().BeCrossPlatformEquivalent(expected);
 
             var sarifLog = JsonConvert.DeserializeObject<SarifLog>(actual);
             Assert.Equal("CA1000", sarifLog.Runs[0].Rules["CA1000.1"].Id);

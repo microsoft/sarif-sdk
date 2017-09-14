@@ -22,7 +22,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             // The .NET StackTrace.ToString() override must preserve a trailing NewLine
             // for compatibility reasons. We do not retain this behavior in ToString()
             // but provide a facility for adding the trailing NewLine
-            Assert.Equal(dotNetStack.ToString(), stack.ToString(StackFormat.TrailingNewLine));
+            stack.ToString(StackFormat.TrailingNewLine).Should().BeCrossPlatformEquivalent(dotNetStack.ToString());
         }
 
         [Fact]
@@ -38,7 +38,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 IList<Stack> stacks = Stack.CreateStacks(exception).ToList();
 
                 stacks.Count.Should().Be(1);
-                Assert.Equal(exception.StackTrace, stacks[0].ToString());
+                stacks[0].ToString().Should().BeCrossPlatformEquivalent(exception.StackTrace);
 
                 caughtException = true;
             }
@@ -62,7 +62,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 stacks.Count.Should().Be(2);
                 containerException.StackTrace.Should().Be(null);
                 Assert.Equal("[No frames]", stacks[0].ToString());
-                Assert.Equal(exception.StackTrace, stacks[1].ToString());
+                stacks[1].ToString().Should().BeCrossPlatformEquivalent(exception.StackTrace);
 
                 caughtException = true;
             }
@@ -92,7 +92,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 Assert.Equal("[No frames]", stacks[0].ToString());
                 Assert.Equal("[No frames]", stacks[1].ToString());
                 Assert.Equal("[No frames]", stacks[2].ToString());
-                Assert.Equal(exception.StackTrace, stacks[3].ToString());
+                stacks[3].ToString().Should().BeCrossPlatformEquivalent(exception.StackTrace);
 
                 Assert.Equal(aggregated.FormatMessage(), stacks[0].Message);
                 Assert.Equal(innerException1.FormatMessage(), stacks[1].Message);

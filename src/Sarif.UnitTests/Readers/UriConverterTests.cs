@@ -4,6 +4,7 @@
 using System;
 using System.Collections.Generic;
 using Xunit;
+using FluentAssertions;
 
 namespace Microsoft.CodeAnalysis.Sarif.Readers.UnitTests
 {
@@ -143,7 +144,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers.UnitTests
                 uut.WriteResults(new[] { result });
             });
 
-            Assert.Equal(expectedOutput, actualOutput);
+            actualOutput.Should().BeCrossPlatformEquivalent(expectedOutput);
         }
     }
 }

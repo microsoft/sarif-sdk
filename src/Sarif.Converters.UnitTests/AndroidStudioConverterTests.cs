@@ -58,7 +58,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         {
             string androidStudioLog = @"<?xml version=""1.0"" encoding=""UTF-8""?><problems></problems>";
             string actualJson = Utilities.GetConverterJson(_converter, androidStudioLog);
-            Assert.Equal(EmptyResult, actualJson);
+            actualJson.Should().BeCrossPlatformEquivalent(EmptyResult);
         }
 
         [Fact]
@@ -66,7 +66,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         {
             string androidStudioLog = @"<?xml version=""1.0"" encoding=""UTF-8""?><problems><problem></problem></problems>";
             string actualJson = Utilities.GetConverterJson(_converter, androidStudioLog);
-            Assert.Equal(EmptyResult, actualJson);
+            actualJson.Should().BeCrossPlatformEquivalent(EmptyResult);
         }
 
         [Fact]
@@ -74,7 +74,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         {
             string androidStudioLog = @"<?xml version=""1.0"" encoding=""UTF-8""?><problems><problem /></problems>";
             string actualJson = Utilities.GetConverterJson(_converter, androidStudioLog);
-            Assert.Equal(EmptyResult, actualJson);
+            actualJson.Should().BeCrossPlatformEquivalent(EmptyResult);
         }
 
         [Fact]

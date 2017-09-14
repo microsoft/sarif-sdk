@@ -6,6 +6,7 @@ using System.Globalization;
 using System.IO;
 using Newtonsoft.Json;
 using Xunit;
+using FluentAssertions;
 
 namespace Microsoft.CodeAnalysis.Sarif.Writers
 {
@@ -22,10 +23,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
     {}
   ]
 }";
-            Assert.Equal(expected, GetJson(uut =>
-            {
-                uut.Initialize(id: null, automationId: null);
-            }));
+            GetJson(uut => uut.Initialize(id: null, automationId: null))
+                .Should()
+                .BeCrossPlatformEquivalent(expected);
         }
 
         [Fact]
@@ -52,7 +52,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 uut.WriteTool(DefaultTool);
                 uut.WriteResult(DefaultResult);
             });
-            Assert.Equal(expected, actual);
+
+            actual.Should().BeCrossPlatformEquivalent(expected);
         }
 
         [Fact]
@@ -174,7 +175,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 uut.WriteTool(DefaultTool);
                 uut.WriteInvocation(s_invocation);
             });
-            Assert.Equal(expected, actual);
+
+            actual.Should().BeCrossPlatformEquivalent(expected);
         }
 
         [Fact]
@@ -207,7 +209,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 uut.WriteTool(DefaultTool);
                 uut.WriteInvocation(s_invocation);
             });
-            Assert.Equal(expected, actual);
+
+            actual.Should().BeCrossPlatformEquivalent(expected);
         }
 
         [Fact]
@@ -341,7 +344,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 uut.WriteTool(DefaultTool);
                 uut.WriteConfigurationNotifications(s_notifications);
             });
-            Assert.Equal(expected, actual);
+
+            actual.Should().BeCrossPlatformEquivalent(expected);
         }
 
         [Fact]
@@ -368,7 +372,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 uut.WriteTool(DefaultTool);
                 uut.WriteToolNotifications(s_notifications);
             });
-            Assert.Equal(expected, actual);
+
+            actual.Should().BeCrossPlatformEquivalent(expected);
         }
 
         [Fact]

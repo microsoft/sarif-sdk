@@ -42,7 +42,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             // are fragile. It would be better for our testing to have a dedicated set of data-driven
             // tests that flag changes and for the unit-tests to work exclusively against the 
             // object model.
-            actualJson.Should().Be(expectedResult); ;
+            actualJson.Should().BeCrossPlatformEquivalent(expectedResult);
 
             return log;
         }

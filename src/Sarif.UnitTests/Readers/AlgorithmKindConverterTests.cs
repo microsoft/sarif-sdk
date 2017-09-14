@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Newtonsoft.Json;
 using Xunit;
+using FluentAssertions;
 
 namespace Microsoft.CodeAnalysis.Sarif.Readers
 {
@@ -109,7 +110,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
 
                     uut.WriteResults(new[] { DefaultResult });
                 });
-                Assert.Equal(expected, actual);
+                actual.Should().BeCrossPlatformEquivalent(expected);
 
                 var sarifLog = JsonConvert.DeserializeObject<SarifLog>(actual);
                 Assert.Equal(testTuple.Item1, sarifLog.Runs[0].Files.Values.First().Hashes[0].Algorithm);

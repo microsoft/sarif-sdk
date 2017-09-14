@@ -2,8 +2,7 @@
 using FluentAssertions.Execution;
 using FluentAssertions.Primitives;
 using System;
-using System.Collections.Generic;
-using System.Text;
+using System.Text.RegularExpressions;
 
 namespace Microsoft.CodeAnalysis.Sarif
 {
@@ -14,11 +13,18 @@ namespace Microsoft.CodeAnalysis.Sarif
             string expected, string because = "", params object[] becauseArgs)
         {
             Execute.Assertion
-                .ForCondition(string.Equals(expected, assertion.Subject, StringComparison.OrdinalIgnoreCase))
+                .ForCondition(
+                    string.Equals(RemoveLineEndings(expected), RemoveLineEndings(assertion.Subject), StringComparison.OrdinalIgnoreCase)
+                )
                 .BecauseOf(because, becauseArgs)
                 .FailWith(TestUtilityResources.BeCrossPlatformEquivalentError);
 
             return new AndConstraint<StringAssertions>(assertion);
+        }
+
+        private static string RemoveLineEndings(string input)
+        {
+            return Regex.Replace(input, @"\s+", "");
         }
     }
 }

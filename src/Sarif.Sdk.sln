@@ -20,9 +20,6 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sarif.Converters", "Sarif.Converters\Sarif.Converters.csproj", "{D0D4AC36-B339-47BE-AD61-EC08A967D20C}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sarif.FunctionalTests", "Sarif.FunctionalTests\Sarif.FunctionalTests.csproj", "{B29BD4FA-9A17-46D1-9AA2-36F6248ADE5B}"
-	ProjectSection(ProjectDependencies) = postProject
-		{F6727C72-C40C-4A6E-BAE0-23B4B5FE7DB1} = {F6727C72-C40C-4A6E-BAE0-23B4B5FE7DB1}
-	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sarif.UnitTests", "Sarif.UnitTests\Sarif.UnitTests.csproj", "{330F1729-2F3A-40C8-A29D-E4C3F389C46B}"
 EndProject

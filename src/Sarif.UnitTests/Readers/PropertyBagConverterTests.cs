@@ -142,7 +142,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
             _output = JsonConvert.SerializeObject(_inputObject);
             _roundTrippedObject = JsonConvert.DeserializeObject<ConverterTestClass>(_output);
 
-            _output.Should().Be(_input);
+            _output.Should().BeCrossPlatformEquivalent(_input);
         }
     }
 }

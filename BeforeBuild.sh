@@ -30,8 +30,7 @@ then
     return $?
 fi
 
-.nuget\NuGet.exe restore src\Everything.sln -ConfigFile .nuget\NuGet.Config
-dotnet restore src\Sarif.Sdk.NetCore.sln
+dotnet restore src/Sarif.Sdk.sln
 
 if [ $? != 0 ]
 then
