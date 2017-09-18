@@ -26,9 +26,6 @@
       <HintPath>..\packages\CommandLineParser.2.0.275-beta\lib\net45\CommandLine.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="JsonSchemaValidator">
-      <HintPath>..\packages\Microsoft.Json.Schema.0.50.0\tools\JsonSchemaValidator.exe</HintPath>
-    </Reference>
     <Reference Include="Microsoft.CodeAnalysis, Version=1.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.CodeAnalysis.Common.1.1.1\lib\net45\Microsoft.CodeAnalysis.dll</HintPath>
       <Private>True</Private>
@@ -55,14 +52,6 @@
     </Reference>
     <Reference Include="Microsoft.CodeAnalysis.Workspaces.Desktop, Version=1.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.CodeAnalysis.Workspaces.Common.1.1.1\lib\net45\Microsoft.CodeAnalysis.Workspaces.Desktop.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Microsoft.Json.Pointer, Version=0.50.0.0, Culture=neutral, PublicKeyToken=e8f95164a17e2cf6, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.Json.Pointer.0.50.0\lib\net451\Microsoft.Json.Pointer.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Microsoft.Json.Schema, Version=0.50.0.0, Culture=neutral, PublicKeyToken=e8f95164a17e2cf6, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.Json.Schema.0.50.0\lib\net451\Microsoft.Json.Schema.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
@@ -107,47 +96,20 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AnalyzeCommand.cs" />
-    <Compile Include="AnalyzeOptions.cs" />
     <Compile Include="ConvertCommand.cs" />
     <Compile Include="ConvertOptions.cs" />
     <Compile Include="ExportRulesMetadataCommand.cs" />
-    <Compile Include="IntegerExtensions.cs" />
-    <Compile Include="JTokenExtensions.cs" />
     <Compile Include="MultitoolExtensionMethods.cs" />
     <Compile Include="MultitoolResources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>MultitoolResources.resx</DependentUpon>
     </Compile>
-    <Compile Include="ResultFactory.cs" />
     <Compile Include="RewriteCommand.cs" />
     <Compile Include="RewriteOptions.cs" />
     <Compile Include="MultitoolOptionsBase.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RuleFactory.cs" />
-    <Compile Include="Rules\AnnotatedCodeLocationEssentialIsObsolete.cs" />
-    <Compile Include="Rules\AnnotatedCodeLocationIdIsObsolete.cs" />
-    <Compile Include="Rules\DoNotUseFriendlyNameAsRuleId.cs" />
-    <Compile Include="Rules\EndColumnMustNotBeLessThanStartColumn.cs" />
-    <Compile Include="Rules\EndLineMustNotBeLessThanStartLine.cs" />
-    <Compile Include="Rules\EndTimeMustBeAfterStartTime.cs" />
-    <Compile Include="Rules\HashAlgorithmsMustBeUnique.cs" />
-    <Compile Include="Rules\ImportanceMustAppearOnlyInCodeFlowLocations.cs" />
-    <Compile Include="Rules\MessagesShouldEndWithPeriod.cs" />
-    <Compile Include="Rules\RuleId.cs" />
-    <Compile Include="Rules\RuleResources.Designer.cs">
-      <DependentUpon>RuleResources.resx</DependentUpon>
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-    </Compile>
-    <Compile Include="Rules\SarifValidationSkimmerBase.cs" />
-    <Compile Include="Rules\StepMustAppearOnlyInCodeFlowLocations.cs" />
-    <Compile Include="Rules\StepValuesMustFormOneBasedSequence.cs" />
-    <Compile Include="Rules\UriBaseIdRequiresRelativeUri.cs" />
-    <Compile Include="Rules\UrisMustBeValid.cs" />
-    <Compile Include="Rules\UseAbsolutePathsForNestedFileUriFragments.cs" />
     <Compile Include="SarifPropertyName.cs" />
     <Compile Include="SarifValidationContext.cs" />
     <Compile Include="ValidatorResources.Designer.cs">
@@ -159,6 +121,20 @@
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="MultitoolResources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>MultitoolResources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ValidatorResources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>ValidatorResources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Analyzer Include="..\packages\Microsoft.CodeAnalysis.Analyzers.1.1.0\analyzers\dotnet\cs\Microsoft.CodeAnalysis.Analyzers.dll" />
+    <Analyzer Include="..\packages\Microsoft.CodeAnalysis.Analyzers.1.1.0\analyzers\dotnet\cs\Microsoft.CodeAnalysis.CSharp.Analyzers.dll" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Sarif.Converters\Sarif.Converters.csproj">
@@ -173,25 +149,6 @@
       <Project>{cc9b247e-7103-4bf7-bdab-6e625b3680a8}</Project>
       <Name>Sarif</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="MultitoolResources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>MultitoolResources.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Rules\RuleResources.resx">
-      <SubType>Designer</SubType>
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>RuleResources.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="ValidatorResources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>ValidatorResources.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
-    <Analyzer Include="..\packages\Microsoft.CodeAnalysis.Analyzers.1.1.0\analyzers\dotnet\cs\Microsoft.CodeAnalysis.Analyzers.dll" />
-    <Analyzer Include="..\packages\Microsoft.CodeAnalysis.Analyzers.1.1.0\analyzers\dotnet\cs\Microsoft.CodeAnalysis.CSharp.Analyzers.dll" />
   </ItemGroup>
   <PropertyGroup>
     <PostBuildEvent>xcopy /Y ..\..\PREfastXmlSarifConverter\$(Platform)_$(Configuration)\PREfastXmlSarifConverter.dll</PostBuildEvent>
