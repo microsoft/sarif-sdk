@@ -3,6 +3,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.IO;
 using FluentAssertions;
 using Microsoft.CodeAnalysis.Sarif;
 using Xunit;
@@ -90,6 +91,16 @@ namespace Microsoft.Sarif.Viewer.VisualStudio.UnitTests
             var contents = fileDetail.GetContents();
 
             contents.Should().Be(Contents);
+        }
+
+        [Fact]
+        public void SarifFileWithContents_OpensEmbeddedFile()
+        {
+            var rebaselinedFile = CodeAnalysisResultManager.Instance.CreateFileFromContents(Key);
+
+            var fileText = File.ReadAllText(rebaselinedFile);
+
+            fileText.Should().Be(Contents);
         }
     }
 }
