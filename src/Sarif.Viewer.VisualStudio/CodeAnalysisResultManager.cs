@@ -27,6 +27,8 @@ namespace Microsoft.Sarif.Viewer
         internal const int E_FAIL = unchecked((int)0x80004005);
         internal const uint VSCOOKIE_NIL = 0;
         internal const int S_OK = 0;
+        private const string TemporaryFileDirectoryName = "SarifViewer";
+        private readonly string TemporaryFilePath;
 
         // Cookies for registration and unregistration
         private uint m_updateSolutionEventsCookie;
@@ -44,6 +46,10 @@ namespace Microsoft.Sarif.Viewer
             _remappedUriBasePaths = new Dictionary<string, Uri>();
             _remappedPathPrefixes = new List<Tuple<string, string>>();
             _fileToNewLineIndexMap = new Dictionary<string, NewLineIndex>();
+
+            // Get temporary path for embedded files.
+            TemporaryFilePath = Path.GetTempPath();
+            TemporaryFilePath = Path.Combine(TemporaryFilePath, TemporaryFileDirectoryName);
         }
 
         private System.IServiceProvider ServiceProvider
@@ -212,6 +218,9 @@ namespace Microsoft.Sarif.Viewer
 
         public int OnBeforeCloseSolution(object pUnkReserved)
         {
+            // When closing solution (or closing VS), remove the temporary folder.
+            RemoveTemporaryFiles();
+
             return S_OK;
         }
 
@@ -239,22 +248,88 @@ namespace Microsoft.Sarif.Viewer
 
             string rebaselinedFile;
 
-            if (Uri.IsWellFormedUriString(originalFilename, UriKind.Absolute))
+            if (FileDetails.ContainsKey(originalFilename))
             {
-                rebaselinedFile = DownloadFile(originalFilename);
+                // File contents embedded in SARIF.
+                rebaselinedFile = CreateFileFromContents(originalFilename);
             }
             else
             {
-                rebaselinedFile = GetRebaselinedFileName(uriBaseId, originalFilename);
-            }
+                if (Uri.IsWellFormedUriString(originalFilename, UriKind.Absolute))
+                {
+                    // File needs to be downloaded.
+                    rebaselinedFile = DownloadFile(originalFilename);
+                }
+                else
+                {
+                    // User needs to locate file.
+                    rebaselinedFile = GetRebaselinedFileName(uriBaseId, originalFilename);
+                }
 
-            if (String.IsNullOrEmpty(rebaselinedFile) || originalFilename.Equals(rebaselinedFile, StringComparison.OrdinalIgnoreCase))
-            {
-                return false;
+                if (String.IsNullOrEmpty(rebaselinedFile) || originalFilename.Equals(rebaselinedFile, StringComparison.OrdinalIgnoreCase))
+                {
+                    return false;
+                }
             }
 
             CurrentSarifError.RemapFilePath(originalFilename, rebaselinedFile);
             return true;
+        }
+
+        // Contents are embedded in SARIF. Create a file from these contents.
+        private string CreateFileFromContents(string fileName)
+        {
+            var fileData = FileDetails[fileName];
+
+            string finalPath = TemporaryFilePath;
+
+            // If the file path already starts with the temporary location,
+            // that means we've already built the temporary file, so we can
+            // just open it.
+            if (fileName.StartsWith(finalPath))
+            {
+                finalPath = fileName;
+            }
+            // Else we have to create a location under the temp path.
+            else
+            {
+                // Strip off the leading drive letter and backslash (e.g., "C:\"), if present.
+                if (Path.IsPathRooted(fileName))
+                {
+                    string pathRoot = Path.GetPathRoot(fileName);
+                    fileName = fileName.Substring(pathRoot.Length);
+                }
+
+                if (fileName.StartsWith("/") || fileName.StartsWith("\\"))
+                {
+                    fileName = fileName.Substring(1);
+                }
+
+                // Combine all paths into the final.
+                // Sha256Hash is guaranteed to exist. When SARIF file is read, only files
+                // with Sha256 hashes are added to the FileDetails dictionary.
+                finalPath = Path.Combine(finalPath, fileData.Sha256Hash, fileName);
+            }
+
+            string directory = Path.GetDirectoryName(finalPath);
+            Directory.CreateDirectory(directory);
+            
+            if (!File.Exists(finalPath))
+            {
+                string contents = fileData.GetContents();
+                File.WriteAllText(finalPath, contents);
+                // File should be readonly, because it is embedded.
+                File.SetAttributes(finalPath, FileAttributes.ReadOnly);
+            }
+
+            if (!FileDetails.ContainsKey(finalPath))
+            {
+                // Add another key to our file data object, so that we can
+                // find it if the user closes the window and reopens it.
+                FileDetails.Add(finalPath, fileData);
+            }
+
+            return finalPath;
         }
 
         internal string DownloadFile(string fileUrl)
@@ -574,5 +649,15 @@ namespace Microsoft.Sarif.Viewer
             return documentName;
         }
 
+        private void RemoveTemporaryFiles()
+        {
+            // User is closing the solution (or VS), so remove temporary directory.
+            string path = Path.GetTempPath();
+            path = Path.Combine(path, TemporaryFileDirectoryName);
+            if (Directory.Exists(path))
+            {
+                Directory.Delete(path, true);
+            }
+        }
     }
 }

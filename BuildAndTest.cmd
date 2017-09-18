@@ -134,7 +134,7 @@ if "%ERRORLEVEL%" NEQ "0" (
 goto ExitFailed
 )
 
-dotnet xunit bld\bin\SarifCli.FunctionalTests\AnyCPU_%Configuration%\SarifCli.FunctionalTests.dll
+dotnet xunit bld\bin\Sarif.Multitool.FunctionalTests\AnyCPU_%Configuration%\Sarif.Multitool.FunctionalTests.dll
 
 if "%ERRORLEVEL%" NEQ "0" (
 goto ExitFailed
