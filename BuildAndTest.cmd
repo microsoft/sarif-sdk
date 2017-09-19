@@ -89,53 +89,40 @@ SET PASSED=true
 
 dotnet xunit bld\bin\Sarif.Converters.UnitTests\AnyCPU_%Configuration%\Sarif.Converters.UnitTests.dll
 if "%ERRORLEVEL%" NEQ "0" (
-set PASSED=false
-)
-
-if "%PASSED%" NEQ "true" (
 goto ExitFailed
 )
 
 dotnet xunit bld\bin\Sarif.UnitTests\AnyCPU_%Configuration%\Sarif.UnitTests.dll
 if "%ERRORLEVEL%" NEQ "0" (
-set PASSED=false
-)
-
-if "%PASSED%" NEQ "true" (
 goto ExitFailed
 )
 
 dotnet xunit bld\bin\Sarif.UnitTests\AnyCPU_%Configuration%\Sarif.UnitTests.dll
-
 if "%ERRORLEVEL%" NEQ "0" (
 goto ExitFailed
 )
+
 dotnet xunit bld\bin\Sarif.Driver.UnitTests\AnyCPU_%Configuration%\Sarif.Driver.UnitTests.dll
-
 if "%ERRORLEVEL%" NEQ "0" (
 goto ExitFailed
 )
 
 dotnet xunit bld\bin\Sarif.FunctionalTests\AnyCPU_%Configuration%\Sarif.FunctionalTests.dll
-
 if "%ERRORLEVEL%" NEQ "0" (
 goto ExitFailed
 )
 
 dotnet xunit bld\bin\Sarif.ValidationTests\AnyCPU_%Configuration%\Sarif.ValidationTests.dll
-
 if "%ERRORLEVEL%" NEQ "0" (
 goto ExitFailed
 )
 
 dotnet xunit bld\bin\Sarif.Viewer.VisualStudio.UnitTests\AnyCPU_%Configuration%\Sarif.Viewer.VisualStudio.UnitTests.dll
-
 if "%ERRORLEVEL%" NEQ "0" (
 goto ExitFailed
 )
 
 dotnet xunit bld\bin\Sarif.Multitool.FunctionalTests\AnyCPU_%Configuration%\Sarif.Multitool.FunctionalTests.dll
-
 if "%ERRORLEVEL%" NEQ "0" (
 goto ExitFailed
 )

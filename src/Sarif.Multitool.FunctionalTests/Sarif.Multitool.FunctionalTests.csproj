@@ -3,7 +3,7 @@
   
   <PropertyGroup>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
-    <TargetFrameworks>netcoreapp2.0; net461;</TargetFrameworks>
+    <TargetFrameworks>netcoreapp2.0; net452;</TargetFrameworks>
     <ProjectGuid>{859920F3-DB09-4C1D-9EAD-DFB1D7A03A46}</ProjectGuid>
     <OutputType>Library</OutputType>
     <RootNamespace>Sarif.Multitool.FunctionalTests</RootNamespace>
