@@ -5,8 +5,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using FluentAssertions;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Newtonsoft.Json;
+using Xunit;
 
 namespace Microsoft.CodeAnalysis.Sarif.Readers
 {
@@ -15,7 +15,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
         internal override IDictionary<string, SerializedPropertyInfo> Properties { get; set; }
     }
 
-    [TestClass]
     public class PropertyBagConverterTests
     {
         private string _input;
@@ -23,7 +22,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
         private string _output;
         private ConverterTestClass _roundTrippedObject;
 
-        [TestMethod]
+        [Fact]
         public void PropertyBagConverter_RoundTripsStringProperty()
         {
             _input = "{\"properties\":{\"s\":\"abc\"}}";
@@ -34,7 +33,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
             _roundTrippedObject.GetProperty("s").Should().Be("abc");
         }
 
-        [TestMethod]
+        [Fact]
         public void PropertyBagConverter_RoundTripsIntegerProperty()
         {
             _input = "{\"properties\":{\"n\":42}}";
@@ -45,7 +44,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
             _roundTrippedObject.GetProperty<long>("n").Should().Be(42L);
         }
 
-        [TestMethod]
+        [Fact]
         public void PropertyBagConverter_RoundTripsBooleanProperty()
         {
             _input = "{\"properties\":{\"f\":true}}";
@@ -56,7 +55,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
             _roundTrippedObject.GetProperty<bool>("f").Should().Be(true);
         }
 
-        [TestMethod]
+        [Fact]
         public void PropertyBagConverter_RoundTripsFloatProperty()
         {
             _input = "{\"properties\":{\"f\":3.14}}";
@@ -67,7 +66,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
             _roundTrippedObject.GetProperty<double>("f").Should().Be(3.14);
         }
 
-        [TestMethod]
+        [Fact]
         public void PropertyBagConverter_RoundTripsArrayProperty()
         {
             _input =
@@ -85,7 +84,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
             array.SequenceEqual(new[] { 1L, 2L });
         }
 
-        [TestMethod]
+        [Fact]
         public void PropertyBagConverter_RoundTripsGuidProperty()
         {
             _input = "{\"properties\":{\"g\":\"{12345678-90ab-cdef-1234-567890abcdef}\"}}";
@@ -98,7 +97,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
             _roundTrippedObject.GetProperty<Guid>("g").Should().Be(expectedGuid);
         }
 
-        [TestMethod]
+        [Fact]
         public void PropertyBagConverter_RoundTripsGuidPropertyWithoutBraces()
         {
             _input = "{\"properties\":{\"g\":\"12345678-90ab-cdef-1234-567890abcdef\"}}";
@@ -117,7 +116,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
             public int Two { get; set; }
         }
 
-        [TestMethod]
+        [Fact]
         public void PropertyBagConverter_RoundTripsObjectProperty()
         {
             _input =
@@ -143,7 +142,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
             _output = JsonConvert.SerializeObject(_inputObject);
             _roundTrippedObject = JsonConvert.DeserializeObject<ConverterTestClass>(_output);
 
-            _output.Should().Be(_input);
+            _output.Should().BeCrossPlatformEquivalent(_input);
         }
     }
 }

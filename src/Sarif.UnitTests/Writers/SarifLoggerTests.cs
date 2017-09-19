@@ -9,16 +9,15 @@ using System.Text;
 using FluentAssertions;
 using Microsoft.CodeAnalysis.Sarif.Driver;
 using Microsoft.CodeAnalysis.Sarif.Writers;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Newtonsoft.Json;
 using System.Collections.Generic;
+using Xunit;
 
 namespace Microsoft.CodeAnalysis.Sarif
 {
-    [TestClass]
     public class SarifLoggerTests : JsonTests
     {
-        [TestMethod]
+        [Fact]
         public void SarifLogger_RedactedCommandLine()
         {
             var sb = new StringBuilder();
@@ -90,7 +89,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             }
         }
 
-        [TestMethod]
+        [Fact]
         public void SarifLogger_WritesSarifLoggerVersion()
         {
             var sb = new StringBuilder();
@@ -115,7 +114,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             sarifLog.Runs[0].Tool.SarifLoggerVersion.Should().Be(expectedVersion);
         }
 
-        [TestMethod]
+        [Fact]
         public void SarifLogger_WritesFileData()
         {
             var sb = new StringBuilder();
@@ -152,7 +151,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             sarifLog.Runs[0].Files[fileDataKey].Hashes[2].Value.Should().Be("0953D7B3ADA7FED683680D2107EE517A9DBEC2D0AF7594A91F058D104B7A2AEB");
         }
 
-        [TestMethod]
+        [Fact]
         public void SarifLogger_ScrapesFilesFromResult()
         {
             var sb = new StringBuilder();
@@ -249,7 +248,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             sarifLog.Runs[0].Files.Count.Should().Be(fileCount);
         }
 
-        [TestMethod]
+        [Fact]
         public void SarifLogger_DoNotScrapeFilesFromNotifications()
         {
             var sb = new StringBuilder();
@@ -285,7 +284,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             sarifLog.Runs[0].Files.Should().BeNull();
         }
 
-        [TestMethod]
+        [Fact]
         public void SarifLogger_LogsStartAndEndTimesByDefault()
         {
             var sb = new StringBuilder();
@@ -317,7 +316,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             invocation.FileName.Should().BeNull();
         }
 
-        [TestMethod]
+        [Fact]
         public void SarifLogger_LogsSpecifiedInvocationProperties()
         {
             var sb = new StringBuilder();
@@ -353,7 +352,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             invocation.FileName.Should().BeNull();
         }
 
-        [TestMethod]
+        [Fact]
         public void SarifLogger_TreatsInvocationPropertiesCaseInsensitively()
         {
             var sb = new StringBuilder();
@@ -381,8 +380,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             invocation.ProcessId.Should().NotBe(0);
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(ArgumentException))]
+        [Fact]
         public void SarifLogger_ResultAndRuleIdMismatch()
         {
             var sb = new StringBuilder();
@@ -401,59 +399,59 @@ namespace Microsoft.CodeAnalysis.Sarif
                     Message = "test message"
                 };
 
-                sarifLogger.Log(rule, result);
+                Assert.Throws<ArgumentException>(() => sarifLogger.Log(rule, result));
             }
         }
 
-        [TestMethod]
+        [Fact]
         public void SarifLogger_LoggingOptions_ComputeFileHashes()
         {
             TestForLoggingOption(LoggingOptions.ComputeFileHashes);
         }
 
-        [TestMethod]
+        [Fact]
         public void SarifLogger_LoggingOptions_None()
         {
             TestForLoggingOption(LoggingOptions.None);
         }
 
-        [TestMethod]
+        [Fact]
         public void SarifLogger_LoggingOptions_PersistEnvironment()
         {
             TestForLoggingOption(LoggingOptions.PersistEnvironment);
         }
 
-        [TestMethod]
+        [Fact]
         public void SarifLogger_LoggingOptions_PersistFileContents()
         {
             TestForLoggingOption(LoggingOptions.PersistFileContents);
         }
 
-        [TestMethod]
+        [Fact]
         public void SarifLogger_LoggingOptions_PrettyPrint()
         {
             TestForLoggingOption(LoggingOptions.PrettyPrint);
         }
 
-        [TestMethod]
+        [Fact]
         public void SarifLogger_LoggingOptions_Verbose()
         {
             TestForLoggingOption(LoggingOptions.Verbose);
         }
 
-        [TestMethod]
+        [Fact]
         public void SarifLogger_LoggingOptions_All()
         {
             TestForLoggingOption(LoggingOptions.All);
         }
 
-        [TestMethod]
+        [Fact]
         public void SarifLogger_LoggingOptions_OverwriteExistingOutputFile()
         {
             TestForLoggingOption(LoggingOptions.OverwriteExistingOutputFile);
         }
 
-        [TestMethod]
+        [Fact]
         public void SarifLogger_LoggingOptions_Count()
         {
             // This test exists in order to alert test developers when a new member is added to the

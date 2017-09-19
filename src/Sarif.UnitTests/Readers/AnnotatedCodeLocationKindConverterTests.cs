@@ -3,18 +3,15 @@
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Newtonsoft.Json;
+using Xunit;
+using FluentAssertions;
 
 namespace Microsoft.CodeAnalysis.Sarif.Readers
 {
-    [TestClass]
     public class AnnotatedCodeLocationKindConverterTests : JsonTests
     {
-        [TestMethod]
+        [Fact]
         public void AnnotatedCodeLocationKind_AllMembers()
         {
             var testTuples = new List<Tuple<AnnotatedCodeLocationKind, string>>();
@@ -91,10 +88,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
 
                     uut.WriteResults(new[] { result });
                 });
-                Assert.AreEqual(expected, actual);
+                actual.Should().BeCrossPlatformEquivalent(expected);
 
                 var sarifLog = JsonConvert.DeserializeObject<SarifLog>(actual);
-                Assert.AreEqual(testTuple.Item1, sarifLog.Runs[0].Results[0].CodeFlows[0].Locations[0].Kind);
+                Assert.Equal(testTuple.Item1, sarifLog.Runs[0].Results[0].CodeFlows[0].Locations[0].Kind);
             }
         }
     }

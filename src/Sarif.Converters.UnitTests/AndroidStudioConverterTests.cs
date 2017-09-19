@@ -9,41 +9,36 @@ using System.Linq;
 using System.Xml;
 using FluentAssertions;
 
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Microsoft.CodeAnalysis.Sarif.Writers;
+using Xunit;
 
 namespace Microsoft.CodeAnalysis.Sarif.Converters
 {
-    [TestClass]
     public class AndroidStudioConverterTests
     {
         private AndroidStudioConverter _converter = null;
 
-        [TestInitialize]
-        public void Initialize()
+        public AndroidStudioConverterTests()
         {
             _converter = new AndroidStudioConverter();
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(ArgumentNullException))]
+        [Fact]
         public void AndroidStudioConverter_Convert_Nulls()
         {
-            _converter.Convert(null, null, LoggingOptions.None);
+            Assert.Throws<ArgumentNullException>(() => _converter.Convert(null, null, LoggingOptions.None));
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(ArgumentNullException))]
+        [Fact]
         public void AndroidStudioConverter_Convert_NullInput()
         {
-            _converter.Convert(null, new ResultLogObjectWriter(), LoggingOptions.None);
+            Assert.Throws<ArgumentNullException>(() => _converter.Convert(null, new ResultLogObjectWriter(), LoggingOptions.None));
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(ArgumentNullException))]
+        [Fact]
         public void AndroidStudioConverter_Convert_NullOutput()
         {
-            _converter.Convert(new MemoryStream(), null, LoggingOptions.None);
+            Assert.Throws<ArgumentNullException>(() => _converter.Convert(new MemoryStream(), null, LoggingOptions.None));
         }
 
         private const string EmptyResult = @"{
@@ -58,57 +53,55 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
     }
   ]
 }";
-        [TestMethod]
+        [Fact]
         public void AndroidStudioConverter_Convert_NoResults()
         {
             string androidStudioLog = @"<?xml version=""1.0"" encoding=""UTF-8""?><problems></problems>";
             string actualJson = Utilities.GetConverterJson(_converter, androidStudioLog);
-            Assert.AreEqual(EmptyResult, actualJson);
+            actualJson.Should().BeCrossPlatformEquivalent(EmptyResult);
         }
 
-        [TestMethod]
+        [Fact]
         public void AndroidStudioConverter_Convert_EmptyResult()
         {
             string androidStudioLog = @"<?xml version=""1.0"" encoding=""UTF-8""?><problems><problem></problem></problems>";
             string actualJson = Utilities.GetConverterJson(_converter, androidStudioLog);
-            Assert.AreEqual(EmptyResult, actualJson);
+            actualJson.Should().BeCrossPlatformEquivalent(EmptyResult);
         }
 
-        [TestMethod]
+        [Fact]
         public void AndroidStudioConverter_Convert_EmptyResultSingleTag()
         {
             string androidStudioLog = @"<?xml version=""1.0"" encoding=""UTF-8""?><problems><problem /></problems>";
             string actualJson = Utilities.GetConverterJson(_converter, androidStudioLog);
-            Assert.AreEqual(EmptyResult, actualJson);
+            actualJson.Should().BeCrossPlatformEquivalent(EmptyResult);
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(XmlException))]
+        [Fact]
         public void AndroidStudioConverter_Convert_InvalidLineNumber()
         {
             string androidStudioLog = @"<?xml version=""1.0"" encoding=""UTF-8""?><problems><problem><file>file://$PROJECT_DIR$/northwindtraders-droid-2/src/main/java/com/northwindtraders/droid/model/Model.java</file><line>NotALineNumber</line><module>northwindtraders-droid-2</module><package>com.northwindtraders.droid.model</package><entry_point TYPE=""file"" FQNAME=""file://$PROJECT_DIR$/northwindtraders-droid-2/src/main/java/com/northwindtraders/droid/model/Model.java""/><problem_class severity=""WARNING"" attribute_key=""WARNING_ATTRIBUTES"">Assertions</problem_class><hints/><description>Assertions are unreliable. Use BuildConfig.DEBUG conditional checks instead.</description></problem></problems>";
-            Utilities.GetConverterJson(_converter, androidStudioLog);
+            Assert.Throws<XmlException>(() => Utilities.GetConverterJson(_converter, androidStudioLog));
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(XmlException))]
+        [Fact]
         public void AndroidStudioConverter_Convert_NonXmlNodeTypeText_ChildElements()
         {
             string androidStudioLog = @"<?xml version=""1.0"" encoding=""UTF-8""?><problems><problem><file><child_file>file://$PROJECT_DIR$/</child_file></file><line>1</line><module>northwindtraders-droid-2</module><package>com.northwindtraders.droid.model</package><entry_point TYPE=""file"" FQNAME=""file://$PROJECT_DIR$/northwindtraders-droid-2/src/main/java/com/northwindtraders/droid/model/Model.java""/><problem_class severity=""WARNING"" attribute_key=""WARNING_ATTRIBUTES"">Assertions</problem_class><hints/><description>Assertions are unreliable. Use BuildConfig.DEBUG conditional checks instead.</description></problem></problems>";
-            Utilities.GetConverterJson(_converter, androidStudioLog);
+            Assert.Throws<XmlException>(() => Utilities.GetConverterJson(_converter, androidStudioLog));
         }
 
-        [TestMethod]
+        [Fact]
         public void AndroidStudioConverter_GetShortDescription_UsesDescriptionIfPresent()
         {
             var builder = AndroidStudioProblemTests.GetDefaultProblemBuilder();
             builder.Description = "Cute fluffy kittens";
             var uut = new AndroidStudioProblem(builder);
             string result = AndroidStudioConverter.GetShortDescriptionForProblem(uut);
-            Assert.AreEqual("Cute fluffy kittens", result);
+            Assert.Equal("Cute fluffy kittens", result);
         }
 
-        [TestMethod]
+        [Fact]
         public void AndroidStudioConverter_GetShortDescription_UsesProblemClassIfDescriptionNotPresent()
         {
             var uut = AndroidStudioProblemTests.GetDefaultProblem();
@@ -116,7 +109,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             result.Should().Contain("A Problematic Problem");
         }
 
-        [TestMethod]
+        [Fact]
         public void AndroidStudioConverter_ConvertToSarifResult_EmptyHintsDoNotAffectDescription()
         {
             var builder = AndroidStudioProblemTests.GetDefaultProblemBuilder();
@@ -124,10 +117,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             var uut = new AndroidStudioProblem(builder);
 
             Result result = new AndroidStudioConverter().ConvertProblemToSarifResult(uut);
-            Assert.AreEqual("hungry EVIL zombies", result.Message);
+            Assert.Equal("hungry EVIL zombies", result.Message);
         }
 
-        [TestMethod]
+        [Fact]
         public void AndroidStudioConverter_ConvertToSarifResult_HintsAreStapledToDescription()
         {
             var builder = new AndroidStudioProblem.Builder
@@ -140,28 +133,28 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
             var uut = new AndroidStudioProblem(builder);
             Result result = new AndroidStudioConverter().ConvertProblemToSarifResult(uut);
-            Assert.AreEqual(@"hungry EVIL zombies
+            Assert.Equal(@"hungry EVIL zombies
 Possible resolution: comment
 Possible resolution: delete", result.Message);
         }
 
-        [TestMethod]
+        [Fact]
         public void AndroidStudioConverter_ConvertToSarifResult_UsesProblemClassForRuleId()
         {
             var uut = AndroidStudioProblemTests.GetDefaultProblem();
             Result result = new AndroidStudioConverter().ConvertProblemToSarifResult(uut);
-            Assert.AreEqual("A Problematic Problem", result.RuleId);
+            Assert.Equal("A Problematic Problem", result.RuleId);
         }
 
-        [TestMethod]
+        [Fact]
         public void AndroidStudioConverter_ConvertToSarifResult_HasNoPropertiesIfAttributeKeyAndSeverity()
         {
             var uut = AndroidStudioProblemTests.GetDefaultProblem();
             Result result = new AndroidStudioConverter().ConvertProblemToSarifResult(uut);
-            Assert.IsNull(result.Properties);
+            Assert.Null(result.Properties);
         }
 
-        [TestMethod]
+        [Fact]
         public void AndroidStudioConverter_ConvertToSarifResult_AttributeKeyIsPersistedInProperties()
         {
             var builder = AndroidStudioProblemTests.GetDefaultProblemBuilder();
@@ -172,7 +165,7 @@ Possible resolution: delete", result.Message);
             result.GetProperty("attributeKey").Should().Be("key");
         }
 
-        [TestMethod]
+        [Fact]
         public void AndroidStudioConverter_ConvertToSarifResult_SeverityIsPersistedInProperties()
         {
             var builder = AndroidStudioProblemTests.GetDefaultProblemBuilder();
@@ -183,7 +176,7 @@ Possible resolution: delete", result.Message);
             result.GetProperty("severity").Should().Be("warning");
         }
 
-        [TestMethod]
+        [Fact]
         public void AndroidStudioConverter_ConvertToSarifResult_MultiplePropertiesArePersisted()
         {
             var builder = AndroidStudioProblemTests.GetDefaultProblemBuilder();
@@ -196,7 +189,7 @@ Possible resolution: delete", result.Message);
             result.GetProperty("attributeKey").Should().Be("key");
         }
 
-        [TestMethod]
+        [Fact]
         public void AndroidStudioConverter_ConvertSarifResult_RecordsTopLevelFileAsSourceFile()
         {
             var builder = AndroidStudioProblemTests.GetDefaultProblemBuilder();
@@ -207,7 +200,7 @@ Possible resolution: delete", result.Message);
             loc.ResultFile.Uri.ToString().Should().Be("expected_file.java");
         }
 
-        [TestMethod]
+        [Fact]
         public void AndroidStudioConverter_ConvertSarifResult_DoesNotRecordTopLevelEntryPointAsSourceFile()
         {
             var builder = AndroidStudioProblemTests.GetDefaultProblemBuilder();
@@ -218,7 +211,7 @@ Possible resolution: delete", result.Message);
             loc.ResultFile.Should().BeNull();
         }
 
-        [TestMethod]
+        [Fact]
         public void AndroidStudioConverter_ConvertSarifResult_RecordsModuleAsTopLevelIfPresent()
         {
             var builder = AndroidStudioProblemTests.GetDefaultProblemBuilder();
@@ -255,7 +248,7 @@ Possible resolution: delete", result.Message);
             converter.LogicalLocationsDictionary.Count.Should().Be(expectedLogicalLocations.Count);
         }
 
-        [TestMethod]
+        [Fact]
         public void AndroidStudioConverter_ConvertSarifResult_GeneratesLocationWithOnlyMethodEntryPoint()
         {
             var builder = AndroidStudioProblemTests.GetDefaultProblemBuilder();
@@ -289,7 +282,7 @@ Possible resolution: delete", result.Message);
             converter.LogicalLocationsDictionary.Count.Should().Be(expectedLogicalLocations.Count);
         }
 
-        [TestMethod]
+        [Fact]
         public void AndroidStudioConverter_ConvertSarifResult_GeneratesLocationWithMethodEntryPointAndPackage()
         {
             var builder = AndroidStudioProblemTests.GetDefaultProblemBuilder();
@@ -326,7 +319,7 @@ Possible resolution: delete", result.Message);
             converter.LogicalLocationsDictionary.Count.Should().Be(expectedLogicalLocations.Count);
         }
 
-        [TestMethod]
+        [Fact]
         public void AndroidStudioConverter_ConvertSarifResult_GeneratesLocationWithOnlyPackage()
         {
             var builder = AndroidStudioProblemTests.GetDefaultProblemBuilder();
@@ -359,7 +352,7 @@ Possible resolution: delete", result.Message);
             converter.LogicalLocationsDictionary.Count.Should().Be(expectedLogicalLocations.Count);
         }
 
-        [TestMethod]
+        [Fact]
         public void AndroidStudioConverter_ConvertSarifResult_CanRecordSourceFileAndModule()
         {
             var builder = AndroidStudioProblemTests.GetDefaultProblemBuilder();
@@ -396,7 +389,7 @@ Possible resolution: delete", result.Message);
             converter.LogicalLocationsDictionary.Count.Should().Be(expectedLogicalLocations.Count);
         }
 
-        [TestMethod]
+        [Fact]
         public void AndroidStudioConverter_ConvertSarifResult_RemovesProjectDirPrefix()
         {
             var builder = AndroidStudioProblemTests.GetDefaultProblemBuilder();
@@ -405,7 +398,7 @@ Possible resolution: delete", result.Message);
             locationInfo.Location.ResultFile.Uri.ToString().Should().Be("mydir/myfile.xml");
         }
 
-        [TestMethod]
+        [Fact]
         public void AndroidStudioConverter_ConvertSarifResult_PersistsSourceLineInfo()
         {
             var builder = AndroidStudioProblemTests.GetDefaultProblemBuilder();

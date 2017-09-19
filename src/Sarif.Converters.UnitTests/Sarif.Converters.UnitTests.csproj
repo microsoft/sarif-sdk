@@ -1,85 +1,32 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project Sdk="Microsoft.NET.Sdk">
+  <Import Project="$([MSBuild]::GetDirectoryNameOfFileAbove($(MSBuildThisFileDirectory).., netcorebuild.props))\netcorebuild.props" />
+  
   <PropertyGroup>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     <ProjectGuid>{EDF102ED-3959-40A2-9FB1-CBD6719F77BF}</ProjectGuid>
-    <OutputType>Library</OutputType>
-    <RootNamespace>Microsoft.CodeAnalysis.Sarif</RootNamespace>
-    <AssemblyName>Sarif.Converters.UnitTests</AssemblyName>
-    <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
-  </PropertyGroup>
-  <PropertyGroup>
+    <IsPackable>false</IsPackable>
+    
+    <!-- Full signing does not yet work on Linux.  Turn it off -->
+    <PublicSign Condition=" '$(OS)' != 'Windows_NT' ">true</PublicSign>
     <SignAssembly>true</SignAssembly>
-  </PropertyGroup>
-  <PropertyGroup>
+    <DelaySign>false</DelaySign>
     <AssemblyOriginatorKeyFile>..\TestKey.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
-  <Import Project="$([MSBuild]::GetDirectoryNameOfFileAbove($(MSBuildThisFileDirectory).., build.props))\build.props" />
+  
   <ItemGroup>
-    <Reference Include="FluentAssertions, Version=4.0.1.0, Culture=neutral, PublicKeyToken=33f2691a05b67b6a, processorArchitecture=MSIL">
-      <HintPath>..\packages\FluentAssertions.4.0.1\lib\net45\FluentAssertions.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="FluentAssertions.Core, Version=4.0.1.0, Culture=neutral, PublicKeyToken=33f2691a05b67b6a, processorArchitecture=MSIL">
-      <HintPath>..\packages\FluentAssertions.4.0.1\lib\net45\FluentAssertions.Core.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.6.0.8\lib\net45\Newtonsoft.Json.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="System" />
-    <Reference Include="System.Collections.Immutable, Version=1.1.37.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Collections.Immutable.1.1.37\lib\portable-net45+win8+wp8+wpa81\System.Collections.Immutable.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="System.Data" />
-    <Reference Include="System.Drawing" />
-    <Reference Include="System.Windows.Forms" />
-    <Reference Include="System.Xml" />
-    <Reference Include="System.Xml.Linq" />
+    <PackageReference Include="FluentAssertions" Version="4.19.4" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.3.0" />
+    <PackageReference Include="System.Collections.Immutable" Version="1.4.0" />
+    <PackageReference Include="xunit" Version="2.3.0-beta4-build3742" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="2.3.0-beta4-build3742" />
+    <DotNetCliToolReference Include="dotnet-xunit" Version="2.3.0-beta4-build3742" />
   </ItemGroup>
+
   <ItemGroup>
-    <ProjectReference Include="..\Sarif.Converters\Sarif.Converters.csproj">
-      <Project>{237defdf-1dfb-40a0-997f-12c8165daa87}</Project>
-      <Name>Sarif.Converters</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Sarif.Driver\Sarif.Driver.csproj">
-      <Project>{8ceaea61-b1a2-4777-bcbe-c9a129a5f6c5}</Project>
-      <Name>Sarif.Driver</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Sarif\Sarif.csproj">
-      <Project>{cc9b247e-7103-4bf7-bdab-6e625b3680a8}</Project>
-      <Name>Sarif</Name>
-    </ProjectReference>
+    <ProjectReference Include="..\Sarif.Converters\Sarif.Converters.csproj" />
+    <ProjectReference Include="..\Sarif.Driver\Sarif.Driver.csproj" />
+    <ProjectReference Include="..\Sarif.TestUtilities\Sarif.TestUtilities.csproj" />
+    <ProjectReference Include="..\Sarif\Sarif.csproj" />
   </ItemGroup>
-  <ItemGroup>
-    <Compile Include="AndroidStudioConverterTests.cs" />
-    <Compile Include="AndroidStudioProblemTests.cs" />
-    <Compile Include="AndroidStudioStringsTests.cs" />
-    <Compile Include="BuiltinConverterFactoryTests.cs" />
-    <Compile Include="ClangAnalyzerConverterTests.cs" />
-    <Compile Include="ConverterTestsBase.cs" />
-    <Compile Include="CppCheckConverterTests.cs" />
-    <Compile Include="CppCheckErrorTests.cs" />
-    <Compile Include="CppCheckLocationTests.cs" />
-    <Compile Include="CppCheckStringsTests.cs" />
-    <Compile Include="FortifyConverterTests.cs" />
-    <Compile Include="FortifyIssueTests.cs" />
-    <Compile Include="FortifyPathElementTests.cs" />
-    <Compile Include="FortifyStringsTests.cs" />
-    <Compile Include="FxCopConverterTests.cs" />
-    <Compile Include="ResultLogObjectWriter.cs" />
-    <Compile Include="SemmleQLConverterTests.cs" />
-    <Compile Include="ToolFileConverterBaseTests.cs" />
-    <Compile Include="ToolFormatConverterTests.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Utilities.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="packages.config" />
-  </ItemGroup>
+
 </Project>

@@ -1,0 +1,44 @@
+<Project>
+  <PropertyGroup>
+    <Prefer32Bit>false</Prefer32Bit>
+    <Configuration Condition=" '$(Configuration)' == '' ">Release</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">Any CPU</Platform>
+    <IntermediateOutputPath>$(MsBuildThisFileDirectory)..\bld\obj\$(MSBuildProjectName)\$(Platform)\$(Configuration)\</IntermediateOutputPath>
+    <OutputPath>$(MsBuildThisFileDirectory)..\bld\bin\$(MSBuildProjectName)\$(Platform)_$(Configuration)\</OutputPath>
+    <TargetFrameworks>netcoreapp2.0;net461;</TargetFrameworks>
+    <FileAlignment>512</FileAlignment>
+    <RestorePackages>true</RestorePackages>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <!-- Configuration specific properties -->
+  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <DefineConstants>TRACE</DefineConstants>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Platform)' == 'x86'">
+    <PlatformTarget>x86</PlatformTarget>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Platform)' == 'x64'">
+    <PlatformTarget>x64</PlatformTarget>
+  </PropertyGroup>
+  <!-- Default configurations to help VS understand -->
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|Any CPU' " />
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|Any CPU' " />
+  <ItemGroup>
+    <Compile Include="$(MsBuildThisFileDirectory)build\CommonAssemblyInfo.cs" />
+  </ItemGroup>
+  <PropertyGroup>
+    <BinSkimVerboseOutput>false</BinSkimVerboseOutput>
+    <BinSkimExePath>$(MsBuildThisFileDirectory)packages\Microsoft.CodeAnalysis.BinSkim.1.4.0\tools\x64\BinSkim.exe</BinSkimExePath>
+  </PropertyGroup>
+  <Import Project="BinSkim.targets" />
+</Project>

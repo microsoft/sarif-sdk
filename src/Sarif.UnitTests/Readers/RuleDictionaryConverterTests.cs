@@ -2,15 +2,15 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using System.Collections.Generic;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Newtonsoft.Json;
+using Xunit;
+using FluentAssertions;
 
 namespace Microsoft.CodeAnalysis.Sarif.Readers
 {
-    [TestClass]
     public class RuleDictionaryConverterTests : JsonTests
     {
-        [TestMethod]
+        [Fact]
         public void RuleDictionaryConverter_WritesRule()
         {
             string expected =
@@ -44,10 +44,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
                 });
             });
 
-            Assert.AreEqual(expected, actual);
+            actual.Should().BeCrossPlatformEquivalent(expected);
 
             var sarifLog = JsonConvert.DeserializeObject<SarifLog>(actual);
-            Assert.AreEqual("CA1000", sarifLog.Runs[0].Rules["CA1000.1"].Id);
+            Assert.Equal("CA1000", sarifLog.Runs[0].Rules["CA1000.1"].Id);
         }
     }
 }

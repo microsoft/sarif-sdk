@@ -2,8 +2,13 @@
   <Import Project="$([MSBuild]::GetDirectoryNameOfFileAbove($(MSBuildThisFileDirectory).., netcorebuild.props))\netcorebuild.props" />
   
   <PropertyGroup>
+    <!-- Removing TargetFrameworks from this project breaks this project alone.
+          All other projects don't require this to be present because it's specified
+          in the netcorebuild.props file.  Strange bug. -->
+    <TargetFrameworks>netcoreapp2.0; net461;</TargetFrameworks>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     <IsPackable>false</IsPackable>
+    <AssemblyName>Sarif.TestUtilities</AssemblyName>
     <RootNamespace>Microsoft.CodeAnalysis.Sarif</RootNamespace>
 
     <!-- Full signing does not yet work on Linux.  Turn it off -->
@@ -15,18 +20,24 @@
 
   <ItemGroup>
     <PackageReference Include="FluentAssertions" Version="4.19.4" />
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.3.0" />
-    <PackageReference Include="Moq" Version="4.7.99" />
     <PackageReference Include="xunit" Version="2.3.0-beta4-build3742" />
     <PackageReference Include="xunit.runner.visualstudio" Version="2.3.0-beta4-build3742" />
-    <DotNetCliToolReference Include="dotnet-xunit" Version="2.3.0-beta4-build3742" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Sarif.Converters.UnitTests\Sarif.Converters.UnitTests.csproj" />
-    <ProjectReference Include="..\Sarif.Converters\Sarif.Converters.csproj" />
-    <ProjectReference Include="..\Sarif.Driver\Sarif.Driver.csproj" />
-    <ProjectReference Include="..\Sarif.TestUtilities\Sarif.TestUtilities.csproj" />
-    <ProjectReference Include="..\Sarif\Sarif.csproj" />
+    <Compile Update="TestUtilityResources.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>TestUtilityResources.resx</DependentUpon>
+    </Compile>
   </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="TestUtilityResources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>TestUtilityResources.Designer.cs</LastGenOutput>
+      <CustomToolNamespace>Microsoft.CodeAnalysis.Sarif</CustomToolNamespace>
+    </EmbeddedResource>
+  </ItemGroup>
+
 </Project>

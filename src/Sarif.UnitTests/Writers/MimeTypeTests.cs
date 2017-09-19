@@ -2,70 +2,66 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using System;
-
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Microsoft.CodeAnalysis.Sarif.Writers
 {
-    [TestClass]
     public class MimeTypeTests
     {
-        [TestMethod]
-        [ExpectedException(typeof(ArgumentNullException))]
+        [Fact]
         public void MimeType_GuessesFromFileName_DisallowsNullStringParameter()
         {
-            MimeType.DetermineFromFileExtension((string)null);
+            Assert.Throws<ArgumentNullException>(() => MimeType.DetermineFromFileExtension((string)null));
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(ArgumentNullException))]
+        [Fact]
         public void MimeType_GuessesFromFileName_DisallowsNullUriParameter()
         {
-            MimeType.DetermineFromFileExtension((Uri)null);
+            Assert.Throws<ArgumentNullException>(() => MimeType.DetermineFromFileExtension((Uri)null));
         }
 
-        [TestMethod]
+        [Fact]
         public void MimeType_GuessesFromFileName_Xml()
         {
-            Assert.AreEqual("text/xml", MimeType.DetermineFromFileExtension("example.xml"));
+            Assert.Equal("text/xml", MimeType.DetermineFromFileExtension("example.xml"));
         }
 
-        [TestMethod]
+        [Fact]
         public void MimeType_GuessesFromFileName_Other()
         {
-            Assert.AreEqual("application/octet-stream", MimeType.DetermineFromFileExtension("example.exe"));
+            Assert.Equal("application/octet-stream", MimeType.DetermineFromFileExtension("example.exe"));
         }
 
-        [TestMethod]
+        [Fact]
         public void MimeType_GuessesFromFileName_IgnoresCase()
         {
-            Assert.AreEqual("text/xml", MimeType.DetermineFromFileExtension("example.XmL"));
+            Assert.Equal("text/xml", MimeType.DetermineFromFileExtension("example.XmL"));
         }
 
-        [TestMethod]
+        [Fact]
         public void MimeType_GuessesFromFileName_RequiresPeriod()
         {
-            Assert.AreEqual("application/octet-stream", MimeType.DetermineFromFileExtension("examplexml"));
+            Assert.Equal("application/octet-stream", MimeType.DetermineFromFileExtension("examplexml"));
         }
 
-        [TestMethod]
+        [Fact]
         public void MimeType_GuessesFromFileName_DealsWithTooShort()
         {
-            Assert.AreEqual("text/xml", MimeType.DetermineFromFileExtension(".xml"));
+            Assert.Equal("text/xml", MimeType.DetermineFromFileExtension(".xml"));
         }
 
-        [TestMethod]
+        [Fact]
         public void MimeType_Directory()
         {
             string directory = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
-            Assert.AreEqual("application/x-directory", MimeType.DetermineFromFileExtension(directory));
+            Assert.Equal("application/x-directory", MimeType.DetermineFromFileExtension(directory));
         }
 
-        [TestMethod]
+        [Fact]
         public void MimeType_DirectoryUri()
         {
             string directory = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
-            Assert.AreEqual("application/x-directory", MimeType.DetermineFromFileExtension(new Uri(directory)));
+            Assert.Equal("application/x-directory", MimeType.DetermineFromFileExtension(new Uri(directory)));
         }
     }
 }

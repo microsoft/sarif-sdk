@@ -3,19 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sarif", "Sarif\Sarif.csproj", "{CC9B247E-7103-4BF7-BDAB-6E625B3680A8}"
-	ProjectSection(ProjectDependencies) = postProject
-		{F6727C72-C40C-4A6E-BAE0-23B4B5FE7DB1} = {F6727C72-C40C-4A6E-BAE0-23B4B5FE7DB1}
-	EndProjectSection
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sarif.UnitTests", "Sarif.UnitTests\Sarif.UnitTests.csproj", "{31A79A68-F8D2-4BA4-8575-EFB4E3DEF1DA}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sarif.FunctionalTests", "Sarif.FunctionalTests\Sarif.FunctionalTests.csproj", "{195675E6-8FDF-4A87-90A0-242DB7F46B15}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sarif.Driver", "Sarif.Driver\Sarif.Driver.csproj", "{8CEAEA61-B1A2-4777-BCBE-C9A129A5F6C5}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sarif.Driver.UnitTests", "Sarif.Driver.UnitTests\Sarif.Driver.UnitTests.csproj", "{66915F7B-9872-4390-AFED-DB8DE7B761BE}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sarif.Viewer.VisualStudio", "Sarif.Viewer.VisualStudio\Sarif.Viewer.VisualStudio.csproj", "{FEBE7A56-524C-4B76-A899-23DBD8951C23}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "PREfastXmlSarifConverter", "PREfastXmlSarifConverter\PREfastXmlSarifConverter.vcxproj", "{F6727C72-C40C-4A6E-BAE0-23B4B5FE7DB1}"
@@ -29,10 +16,6 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sarif.Converters.UnitTests", "Sarif.Converters.UnitTests\Sarif.Converters.UnitTests.csproj", "{EDF102ED-3959-40A2-9FB1-CBD6719F77BF}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sarif.Multitool.FunctionalTests", "Sarif.Multitool.FunctionalTests\Sarif.Multitool.FunctionalTests.csproj", "{859920F3-DB09-4C1D-9EAD-DFB1D7A03A46}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{279E6ADE-440F-4FD1-AA05-A203DB91219A}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sarif.Multitool", "Sarif.Multitool\Sarif.Multitool.csproj", "{01571290-A3F3-4AD6-8F8B-B045BFB6E55E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
