@@ -78,51 +78,52 @@ goto ExitFailed
 
 @REM Build Nuget packages
 dotnet pack .\src\Sarif\Sarif.csproj
+
+if "%ERRORLEVEL%" NEQ "0" (
+goto ExitFailed
+)
+
+dotnet pack .\src\Sarif.Converters\Sarif.Converters.csproj
+
+if "%ERRORLEVEL%" NEQ "0" (
+goto ExitFailed
+)
+
 dotnet pack .\src\Sarif.Driver\Sarif.Driver.csproj
 
 if "%ERRORLEVEL%" NEQ "0" (
 goto ExitFailed
 )
 
+dotnet pack .\src\Sarif.Multitool\Sarif.Multitool.csproj
+
+if "%ERRORLEVEL%" NEQ "0" (
+goto ExitFailed
+)
+
 @REM Run all tests
-SET PASSED=true
 
-dotnet xunit bld\bin\Sarif.Converters.UnitTests\AnyCPU_%Configuration%\Sarif.Converters.UnitTests.dll
+pushd .\src\Sarif.Converters.UnitTests && dotnet xunit && popd
 if "%ERRORLEVEL%" NEQ "0" (
 goto ExitFailed
 )
 
-dotnet xunit bld\bin\Sarif.UnitTests\AnyCPU_%Configuration%\Sarif.UnitTests.dll
+pushd .\src\Sarif.UnitTests && dotnet xunit && popd
 if "%ERRORLEVEL%" NEQ "0" (
 goto ExitFailed
 )
 
-dotnet xunit bld\bin\Sarif.UnitTests\AnyCPU_%Configuration%\Sarif.UnitTests.dll
+pushd .\src\Sarif.Driver.UnitTests && dotnet xunit && popd
 if "%ERRORLEVEL%" NEQ "0" (
 goto ExitFailed
 )
 
-dotnet xunit bld\bin\Sarif.Driver.UnitTests\AnyCPU_%Configuration%\Sarif.Driver.UnitTests.dll
+pushd .\src\Sarif.FunctionalTests && dotnet xunit && popd
 if "%ERRORLEVEL%" NEQ "0" (
 goto ExitFailed
 )
 
-dotnet xunit bld\bin\Sarif.FunctionalTests\AnyCPU_%Configuration%\Sarif.FunctionalTests.dll
-if "%ERRORLEVEL%" NEQ "0" (
-goto ExitFailed
-)
-
-dotnet xunit bld\bin\Sarif.ValidationTests\AnyCPU_%Configuration%\Sarif.ValidationTests.dll
-if "%ERRORLEVEL%" NEQ "0" (
-goto ExitFailed
-)
-
-dotnet xunit bld\bin\Sarif.Viewer.VisualStudio.UnitTests\AnyCPU_%Configuration%\Sarif.Viewer.VisualStudio.UnitTests.dll
-if "%ERRORLEVEL%" NEQ "0" (
-goto ExitFailed
-)
-
-dotnet xunit bld\bin\Sarif.Multitool.FunctionalTests\AnyCPU_%Configuration%\Sarif.Multitool.FunctionalTests.dll
+pushd .\src\Sarif.Multitool.FunctionalTests && dotnet xunit && popd
 if "%ERRORLEVEL%" NEQ "0" (
 goto ExitFailed
 )

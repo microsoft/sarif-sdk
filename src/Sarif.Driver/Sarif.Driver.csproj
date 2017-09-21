@@ -13,6 +13,7 @@
     <AssemblyOriginatorKeyFile>..\..\GeneratedKey.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   
+  <!--NuGet Packages-->
   <ItemGroup>
     <PackageReference Include="CommandLineParser" Version="2.1.1-beta" />
     <PackageReference Include="Newtonsoft.Json" Version="10.0.3" />
@@ -20,6 +21,7 @@
     <PackageReference Include="System.Composition" Version="1.1.0" />
   </ItemGroup>
 
+  <!--NuGet Config-->
   <PropertyGroup>
     <PackageId>Sarif.Driver</PackageId>
     <Title>Microsoft SARIF Driver Framework (includes SARIF SDK)</Title>
