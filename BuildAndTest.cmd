@@ -64,7 +64,7 @@ if "%ERRORLEVEL%" NEQ "0" (
 goto ExitFailed
 )
 
-msbuild /verbosity:minimal /target:rebuild src\Everything.sln /p:"Configuration=%Configuration%" /p:"Platform=Any CPU" /filelogger /fileloggerparameters:Verbosity=detailed /p:"RunBinSkim=true" /p:"BinSkimVerboseOutput=true"
+msbuild /verbosity:minimal /target:rebuild src\PREfastXmlSarifConverter\PREfastXmlSarifConverter.vcxproj /p:"Configuration=%Configuration%" /p:"Platform=Any CPU" /filelogger /fileloggerparameters:Verbosity=detailed /p:"RunBinSkim=true" /p:"BinSkimVerboseOutput=true"
 
 if "%ERRORLEVEL%" NEQ "0" (
 goto ExitFailed
@@ -77,8 +77,8 @@ goto ExitFailed
 )
 
 @REM Build Nuget packages
-.nuget\NuGet.exe pack .\src\Nuget\Sarif.Sdk.nuspec -Symbols -Properties id=Sarif.Sdk;major=%MAJOR%;minor=%MINOR%;patch=%PATCH%;prerelease=%PRERELEASE%;configuration=%Configuration% -Verbosity Quiet -BasePath .\bld\bin\Sarif\AnyCPU_%Configuration% -OutputDirectory .\bld\bin\Nuget
-.nuget\NuGet.exe pack .\src\Nuget\Sarif.Driver.nuspec -Symbols -Properties id=Sarif.Driver;major=%MAJOR%;minor=%MINOR%;patch=%PATCH%;prerelease=%PRERELEASE%;configuration=%Configuration% -Verbosity Quiet -BasePath .\bld\bin\Sarif.Driver\AnyCPU_%Configuration%\ -OutputDirectory .\bld\bin\Nuget
+dotnet pack .\src\Sarif\Sarif.csproj
+dotnet pack .\src\Sarif.Driver\Sarif.Driver.csproj
 
 if "%ERRORLEVEL%" NEQ "0" (
 goto ExitFailed

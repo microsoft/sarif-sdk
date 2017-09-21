@@ -38,7 +38,7 @@
   </ItemGroup>
   <PropertyGroup>
     <BinSkimVerboseOutput>false</BinSkimVerboseOutput>
-    <BinSkimExePath>$(MsBuildThisFileDirectory)packages\Microsoft.CodeAnalysis.BinSkim.1.4.0\tools\x64\BinSkim.exe</BinSkimExePath>
+    <BinSkimExePath>$(MsBuildThisFileDirectory)packages\Microsoft.CodeAnalysis.BinSkim.1.4.4\tools\x64\BinSkim.exe</BinSkimExePath>
   </PropertyGroup>
   <Import Project="BinSkim.targets" />
 </Project>

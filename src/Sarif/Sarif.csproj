@@ -5,6 +5,7 @@
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     <ProjectGuid>c5fc2683-47cf-447f-b5ea-9fde0fd78754</ProjectGuid>
     <RootNamespace>Microsoft.CodeAnalysis.Sarif</RootNamespace>
+    
     <PublicSign Condition=" '$(OS)' != 'Windows_NT' ">true</PublicSign>
     <SignAssembly>true</SignAssembly>
     <DelaySign>false</DelaySign>
@@ -12,10 +13,29 @@
   </PropertyGroup>
   
   <ItemGroup>
+    <PackageReference Include="Microsoft.CodeAnalysis.BinSkim" Version="1.4.4" />
     <PackageReference Include="Newtonsoft.Json" Version="10.0.3" />
     <PackageReference Include="System.Collections.Immutable" Version="1.4.0" />
   </ItemGroup>
-  
+
+  <PropertyGroup>
+    <PackageId>Sarif.Sdk</PackageId>
+    <Title>.NET Static Analysis Results Interchange Format (SARIF) Sdk</Title>
+    <Authors>Microsoft Corporation</Authors>
+    <Description>.NET tools and libraries for working with the Static Analysis Results Interchange Format v1.0.0.</Description>
+    <PackageReleaseNotes>Version $(Version) of the .NET SARIF SDK (for SARIF v1.0.0)</PackageReleaseNotes>
+    <Copyright>Copyright Microsoft 2015</Copyright>
+    <PackageLicenseUrl>https://github.com/Microsoft/sarif-sdk/blob/master/LICENSE</PackageLicenseUrl>
+    <PackageProjectUrl>https://github.com/microsoft/sarif-sdk</PackageProjectUrl>
+    <PackageTags>sarifsdk</PackageTags>
+    <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Content Include="..\ReleaseHistory.md">
+      <Pack>true</Pack>
+    </Content>
+  </ItemGroup>
   <ItemGroup>
     <Compile Update="SdkResources.Designer.cs">
       <DesignTime>True</DesignTime>
