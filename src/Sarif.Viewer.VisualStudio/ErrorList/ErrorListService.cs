@@ -134,13 +134,18 @@ namespace Microsoft.Sarif.Viewer.ErrorList
             var hasSha256Hash = file.Hashes.Any(x => x.Algorithm == AlgorithmKind.Sha256);
             if (!hasSha256Hash)
             {
-                byte[] bytes = Encoding.UTF8.GetBytes(file.Contents);
-                SHA256Managed hashstring = new SHA256Managed();
-                byte[] hash = hashstring.ComputeHash(bytes);
-                string hashString = hash.Aggregate(string.Empty, (current, x) => current + $"{x:x2}");
+                string hashString = GenerateHash(file.Contents);
 
                 file.Hashes.Add(new Hash(hashString, AlgorithmKind.Sha256));
             }
+        }
+
+        internal string GenerateHash(string content)
+        {
+            byte[] bytes = Encoding.UTF8.GetBytes(content);
+            SHA256Managed hashstring = new SHA256Managed();
+            byte[] hash = hashstring.ComputeHash(bytes);
+            return hash.Aggregate(string.Empty, (current, x) => current + $"{x:x2}");
         }
     }
 }
