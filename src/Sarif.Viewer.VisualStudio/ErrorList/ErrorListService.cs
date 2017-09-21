@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 
 using EnvDTE;
@@ -94,11 +95,11 @@ namespace Microsoft.Sarif.Viewer.ErrorList
             {
                 foreach (var file in run.Files)
                 {
-                    var hasSha256Hash = file.Value.Hashes?.Any(x => x.Algorithm == AlgorithmKind.Sha256);
                     var contents = file.Value.Contents;
-                    var key = new Uri(file.Key);
-                    if ((hasSha256Hash ?? false) && contents != null)
+                    if (contents != null)
                     {
+                        var key = new Uri(file.Key);
+                        EnsureHashExists(file.Value);
                         var fileDetails = new FileDetailsModel(file.Value);
                         CodeAnalysisResultManager.Instance.FileDetails.Add(
                             key.IsAbsoluteUri ? key.LocalPath : key.OriginalString, fileDetails);
@@ -121,6 +122,25 @@ namespace Microsoft.Sarif.Viewer.ErrorList
                 CodeAnalysisResultManager.Instance.SarifErrors.Add(error);
             }
             SarifTableDataSource.Instance.AddErrors(sarifErrors);
+        }
+
+        private void EnsureHashExists(FileData file)
+        {
+            if (file.Hashes == null)
+            {
+                file.Hashes = new List<Hash>();
+            }
+            
+            var hasSha256Hash = file.Hashes.Any(x => x.Algorithm == AlgorithmKind.Sha256);
+            if (!hasSha256Hash)
+            {
+                byte[] bytes = Encoding.UTF8.GetBytes(file.Contents);
+                SHA256Managed hashstring = new SHA256Managed();
+                byte[] hash = hashstring.ComputeHash(bytes);
+                string hashString = hash.Aggregate(string.Empty, (current, x) => current + $"{x:x2}");
+
+                file.Hashes.Add(new Hash(hashString, AlgorithmKind.Sha256));
+            }
         }
     }
 }
