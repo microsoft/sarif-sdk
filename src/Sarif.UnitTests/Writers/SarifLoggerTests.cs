@@ -51,7 +51,13 @@ namespace Microsoft.CodeAnalysis.Sarif
                 string pathToExe = Path.GetDirectoryName(Assembly.GetCallingAssembly().Location);
                 string commandLine = Environment.CommandLine;
 
-                if (pathToExe.IndexOf(@"\Extensions", StringComparison.OrdinalIgnoreCase) != -1)
+                if (commandLine.Contains("testhost.dll"))
+                {
+                    var index = commandLine.LastIndexOf("\\");
+                    var argumentToRedact = commandLine.Substring(0, index + 1);
+                    tokensToRedact = new string[] { argumentToRedact };
+                }
+                else if (pathToExe.IndexOf(@"\Extensions", StringComparison.OrdinalIgnoreCase) != -1)
                 {
                     string appVeyor = "Appveyor";
                     if (commandLine.IndexOf(appVeyor, StringComparison.OrdinalIgnoreCase) != -1)
