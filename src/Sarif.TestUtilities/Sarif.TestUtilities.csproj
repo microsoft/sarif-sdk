@@ -2,9 +2,6 @@
   <Import Project="$([MSBuild]::GetDirectoryNameOfFileAbove($(MSBuildThisFileDirectory).., netcorebuild.props))\netcorebuild.props" />
   
   <PropertyGroup>
-    <!-- Removing TargetFrameworks from this project breaks this project alone.
-          All other projects don't require this to be present because it's specified
-          in the netcorebuild.props file.  Strange bug. -->
     <TargetFrameworks>netcoreapp2.0; net452;</TargetFrameworks>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     <IsPackable>false</IsPackable>

@@ -2,6 +2,7 @@
   <Import Project="$([MSBuild]::GetDirectoryNameOfFileAbove($(MSBuildThisFileDirectory).., netcorebuild.props))\netcorebuild.props" />
   
   <PropertyGroup>
+    <TargetFrameworks>netcoreapp2.0; net452;</TargetFrameworks>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     <IsPackable>false</IsPackable>
     <RootNamespace>Microsoft.CodeAnalysis.Sarif</RootNamespace>
@@ -996,6 +997,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Service Include="{508349b6-6b84-4df5-91f0-309beebad82d}" />
     <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
   </ItemGroup>
   <ItemGroup>
@@ -1535,6 +1537,40 @@
     </None>
     <None Include="ConverterTestData\PREfast\Expected-205.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Update="ConverterTestData\StaticDriverVerifier\isrroutine_bug1.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>isrroutine_bug1.tt</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Update="ConverterTestData\StaticDriverVerifier\cancelspinlock_bug1.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+    </None>
+    <None Update="ConverterTestData\StaticDriverVerifier\checkadddevice_bug1.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+    </None>
+    <None Update="ConverterTestData\StaticDriverVerifier\checkdriverunload_bug1.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+    </None>
+    <None Update="ConverterTestData\StaticDriverVerifier\checkirpmjpnp_bug1.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+    </None>
+    <None Update="ConverterTestData\StaticDriverVerifier\dispatchroutine_bug1.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+    </None>
+    <None Update="ConverterTestData\StaticDriverVerifier\iocompletion_bug1.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+    </None>
+    <None Update="ConverterTestData\StaticDriverVerifier\iodpcroutine_bug1.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+    </None>
+    <None Update="ConverterTestData\StaticDriverVerifier\isrroutine_bug1.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>isrroutine_bug1.cs</LastGenOutput>
     </None>
   </ItemGroup>
   <Target Name="CopyFilesToOutput" AfterTargets="Build">

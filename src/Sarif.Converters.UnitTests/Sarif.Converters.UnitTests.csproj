@@ -2,6 +2,7 @@
   <Import Project="$([MSBuild]::GetDirectoryNameOfFileAbove($(MSBuildThisFileDirectory).., netcorebuild.props))\netcorebuild.props" />
   
   <PropertyGroup>
+    <TargetFrameworks>netcoreapp2.0; net452;</TargetFrameworks>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     <ProjectGuid>{EDF102ED-3959-40A2-9FB1-CBD6719F77BF}</ProjectGuid>
     <IsPackable>false</IsPackable>
