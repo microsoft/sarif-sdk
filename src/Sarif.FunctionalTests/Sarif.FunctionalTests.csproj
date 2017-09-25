@@ -1576,8 +1576,8 @@
   <Target Name="CopyFilesToOutput" AfterTargets="Build">
     <ItemGroup>
       <FilesToCopy Include="$(SolutionDir)\Sarif\Schemata\Sarif.schema.json" />
-      <FilesToCopy Include="..\..\bld\bin\PREfastXmlSarifConverter\$(Platform)_$(Configuration)\PREfastXmlSarifConverter.dll" />
-      <FilesToCopy Include="..\..\bld\bin\PREfastXmlSarifConverter\$(Platform)_$(Configuration)\PREfastXmlSarifConverter.pdb" />
+      <FilesToCopy Include="..\..\lib\PREfastXmlSarifConverter.dll" />
+      <!--<FilesToCopy Include="..\..\bld\bin\PREfastXmlSarifConverter\$(Platform)_$(Configuration)\PREfastXmlSarifConverter.pdb" />-->
     </ItemGroup>
     <Copy SourceFiles="@(FilesToCopy)" DestinationFolder="$(MsBuildThisFileDirectory)\..\..\bld\bin\$(MSBuildProjectName)\$(Platform)_$(Configuration)\$(TargetFramework)\" />
   </Target>
