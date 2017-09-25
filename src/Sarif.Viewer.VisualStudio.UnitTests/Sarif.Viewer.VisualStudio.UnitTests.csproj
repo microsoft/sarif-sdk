@@ -78,6 +78,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
@@ -89,8 +90,9 @@
       <Name>Sarif.Viewer.VisualStudio</Name>
     </ProjectReference>
     <ProjectReference Include="..\Sarif\Sarif.csproj">
-      <Project>{CC9B247E-7103-4BF7-BDAB-6E625B3680A8}</Project>
+      <Project>{c5fc2683-47cf-447f-b5ea-9fde0fd78754}</Project>
       <Name>Sarif</Name>
+      <AdditionalProperties>TargetFramework=net452</AdditionalProperties>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup />

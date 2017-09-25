@@ -3,13 +3,18 @@
   <Import Project="..\packages\Microsoft.VisualStudio.Sdk.BuildTasks.14.0.14.0.23-pre\build\Microsoft.VisualStudio.Sdk.BuildTasks.14.0.props" Condition="Exists('..\packages\Microsoft.VisualStudio.Sdk.BuildTasks.14.0.14.0.23-pre\build\Microsoft.VisualStudio.Sdk.BuildTasks.14.0.props')" />
   <PropertyGroup>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
-    <MinimumVisualStudioVersion>14.0</MinimumVisualStudioVersion>
+    <MinimumVisualStudioVersion>15.0</MinimumVisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
     <UseCodebase>true</UseCodebase>
     <VsixType>v3</VsixType>
     <DeployExtension Condition="'$(AppVeyor)' != ''">False</DeployExtension>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <OldToolsVersion>14.0</OldToolsVersion>
   </PropertyGroup>
   <PropertyGroup>
     <SignAssembly>true</SignAssembly>
@@ -138,8 +143,11 @@
     <Compile Include="WeakEventHandlerManager.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="app.config" />
     <None Include="Data\ruleLookup.json" />
-    <None Include="packages.config" />
+    <None Include="packages.config">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="source.extension.vsixmanifest">
       <SubType>Designer</SubType>
     </None>
@@ -279,9 +287,8 @@
       <HintPath>..\packages\Microsoft.VisualStudio.Validation.14.1.111\lib\net45\Microsoft.VisualStudio.Validation.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.6.0.8\lib\net45\Newtonsoft.Json.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
@@ -318,14 +325,17 @@
     <ProjectReference Include="..\Sarif.Converters\Sarif.Converters.csproj">
       <Project>{237defdf-1dfb-40a0-997f-12c8165daa87}</Project>
       <Name>Sarif.Converters</Name>
+      <AdditionalProperties>TargetFramework=net452</AdditionalProperties>
     </ProjectReference>
     <ProjectReference Include="..\Sarif.Driver\Sarif.Driver.csproj">
       <Project>{8ceaea61-b1a2-4777-bcbe-c9a129a5f6c5}</Project>
+      <AdditionalProperties>TargetFramework=net452</AdditionalProperties>
       <Name>Sarif.Driver</Name>
     </ProjectReference>
     <ProjectReference Include="..\Sarif\Sarif.csproj">
       <Project>{cc9b247e-7103-4bf7-bdab-6e625b3680a8}</Project>
       <Name>Sarif</Name>
+      <AdditionalProperties>TargetFramework=net452</AdditionalProperties>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
