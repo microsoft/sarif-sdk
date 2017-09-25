@@ -57,20 +57,23 @@ echo         public const string Version = AssemblyVersion + Prerelease;        
 echo     }                                                                          >> %DRV_VERSION_CONSTANTS%
 echo  }                                                                             >> %DRV_VERSION_CONSTANTS%
 
-
 call BeforeBuild.cmd
 
 if "%ERRORLEVEL%" NEQ "0" (
 goto ExitFailed
 )
 
-msbuild /verbosity:minimal /target:rebuild src\PREfastXmlSarifConverter\PREfastXmlSarifConverter.vcxproj /p:"Configuration=%Configuration%" /p:"Platform=Any CPU" /filelogger /fileloggerparameters:Verbosity=detailed /p:"RunBinSkim=true" /p:"BinSkimVerboseOutput=true"
-
+msbuild /verbosity:minimal /target:rebuild src\PREfastXmlSarifConverter\ConvertPREfastToSarif.vcxproj /p:"Configuration=%Configuration%" /p:"Platform=Any CPU" /filelogger /fileloggerparameters:Verbosity=detailed /p:"RunBinSkim=true" /p:"BinSkimVerboseOutput=true"
 if "%ERRORLEVEL%" NEQ "0" (
 goto ExitFailed
 )
 
-dotnet msbuild /verbosity:minimal /target:rebuild src\Sarif.Sdk.sln /p:"Configuration=%Configuration%" /p:"Platform=Any CPU" /filelogger /fileloggerparameters:Verbosity=detailed /p:"RunBinSkim=true" /p:"BinSkimVerboseOutput=true"
+msbuild /verbosity:minimal /target:rebuild src\PREfastXmlSarifConverter\PREfastXmlSarifConverter.vcxproj /p:"Configuration=%Configuration%" /p:"Platform=Any CPU" /filelogger /fileloggerparameters:Verbosity=detailed /p:"RunBinSkim=true" /p:"BinSkimVerboseOutput=true"
+if "%ERRORLEVEL%" NEQ "0" (
+goto ExitFailed
+)
+
+msbuild /verbosity:minimal /target:rebuild src\Everything.sln /p:"Configuration=%Configuration%" /p:"Platform=Any CPU" /filelogger /fileloggerparameters:Verbosity=detailed /p:"RunBinSkim=true" /p:"BinSkimVerboseOutput=true"
 
 if "%ERRORLEVEL%" NEQ "0" (
 goto ExitFailed
@@ -129,6 +132,11 @@ goto ExitFailed
 )
 
 src\packages\xunit.runner.console.2.2.0\tools\xunit.console.x86.exe bld\bin\Sarif.ValidationTests\AnyCPU_%Configuration%\Sarif.ValidationTests.dll
+if "%ERRORLEVEL%" NEQ "0" (
+goto ExitFailed
+)
+
+src\packages\xunit.runner.console.2.2.0\tools\xunit.console.x86.exe bld\bin\Sarif.Viewer.VisualStudio.UnitTests\AnyCPU_%Configuration%\Sarif.Viewer.VisualStudio.UnitTests.dll
 if "%ERRORLEVEL%" NEQ "0" (
 goto ExitFailed
 )
