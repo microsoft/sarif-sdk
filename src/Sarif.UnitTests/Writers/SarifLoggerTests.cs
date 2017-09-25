@@ -12,11 +12,19 @@ using Microsoft.CodeAnalysis.Sarif.Writers;
 using Newtonsoft.Json;
 using System.Collections.Generic;
 using Xunit;
+using Xunit.Abstractions;
 
 namespace Microsoft.CodeAnalysis.Sarif
 {
     public class SarifLoggerTests : JsonTests
     {
+        private readonly ITestOutputHelper output;
+
+        public SarifLoggerTests(ITestOutputHelper output)
+        {
+            this.output = output;
+        }
+
         [Fact]
         public void SarifLogger_RedactedCommandLine()
         {
@@ -51,7 +59,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 string pathToExe = Path.GetDirectoryName(Assembly.GetCallingAssembly().Location);
                 string commandLine = Environment.CommandLine;
 
-                if (commandLine.Contains("testhost.dll"))
+                if (commandLine.Contains("testhost.dll") || commandLine.Contains("\\xunit.console"))
                 {
                     var index = commandLine.LastIndexOf("\\");
                     var argumentToRedact = commandLine.Substring(0, index + 1);
