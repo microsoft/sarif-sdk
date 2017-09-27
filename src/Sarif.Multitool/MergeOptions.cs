@@ -14,5 +14,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             HelpText = "Files to process (wildcards ? and * allowed).",
             Required = false)]
         public IList<string> Files { get; internal set; }
-    }
+
+	    [Option(
+		    'r',
+		    "recursive",
+		    Default = false,
+		    HelpText = "Recursively select subdirectories in paths.")]
+	    public bool Recursive { get; internal set; }
+	}
 }

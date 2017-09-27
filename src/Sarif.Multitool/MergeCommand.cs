@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using Microsoft.CodeAnalysis.Sarif.Readers;
 using Microsoft.CodeAnalysis.Sarif.Visitors;
 using Microsoft.CodeAnalysis.Sarif.Writers;
@@ -13,7 +12,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
     {
         public static int Run(MergeOptions mergeOptions)
         {
-	        var sarifFiles = GetSarifFiles(mergeOptions.Files);
+	        var sarifFiles = GetSarifFiles(mergeOptions);
 
 	        var allRuns = GetAllRuns(sarifFiles);
 
@@ -59,9 +58,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 		    }
 	    }
 
-	    private static IEnumerable<string> GetSarifFiles(IEnumerable<string> files)
+	    private static IEnumerable<string> GetSarifFiles(MergeOptions mergeOptions)
 	    {
-		    foreach (var path in files)
+		    var searchOption = mergeOptions.Recursive 
+				? SearchOption.AllDirectories 
+				: SearchOption.TopDirectoryOnly;
+
+		    foreach (var path in mergeOptions.Files)
 		    {
 			    string directory, filename;
 			    if (Directory.Exists(path))
@@ -74,7 +77,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 				    directory = Path.GetDirectoryName(path) ?? path;
 				    filename = Path.GetFileName(path) ?? "*";
 			    }
-			    foreach (var file in Directory.GetFiles(directory, filename, SearchOption.AllDirectories))
+			    foreach (var file in Directory.GetFiles(directory, filename, searchOption))
 			    {
 				    if (file.EndsWith(".sarif", StringComparison.InvariantCultureIgnoreCase))
 				    {
