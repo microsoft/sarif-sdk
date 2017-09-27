@@ -99,6 +99,8 @@
     <Compile Include="ConvertCommand.cs" />
     <Compile Include="ConvertOptions.cs" />
     <Compile Include="ExportRulesMetadataCommand.cs" />
+    <Compile Include="MergeCommand.cs" />
+    <Compile Include="MergeOptions.cs" />
     <Compile Include="MultitoolExtensionMethods.cs" />
     <Compile Include="MultitoolResources.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -112,6 +114,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SarifPropertyName.cs" />
     <Compile Include="SarifValidationContext.cs" />
+    <Compile Include="SingleFileOptionsBase.cs" />
     <Compile Include="ValidatorResources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

@@ -6,12 +6,6 @@ using CommandLine;
 namespace Microsoft.CodeAnalysis.Sarif.Multitool{
     public class MultitoolOptionsBase
     {
-        [Value(0,
-               MetaName = "<inputFile>",
-               HelpText = "A path to a file to process.",
-               Required = true)]
-        public string InputFilePath { get; internal set; }
-
         [Option(
             'o',
             "output",
@@ -31,13 +25,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool{
             Default = false,
             HelpText = "Force overwrite of output file if it exists.")]
         public bool Force { get; internal set; }
-
-        [Option(
-            'i',
-            "inline",
-            Default = false,
-            HelpText = "Write all transformed content to the input file.")]
-        public bool Inline { get; internal set; }
 
         [Option(
             'h',
