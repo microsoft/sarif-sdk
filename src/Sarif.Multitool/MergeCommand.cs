@@ -85,9 +85,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
             string logText = File.ReadAllText(filePath);
             
-            SarifLog log = JsonConvert.DeserializeObject<SarifLog>(logText, settings);
-
-            return log;
+            return JsonConvert.DeserializeObject<SarifLog>(logText, settings);
         }
 
         internal static string GetOutputFileName(MergeOptions mergeOptions)
