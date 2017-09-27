@@ -63,9 +63,17 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 	    {
 		    foreach (var path in files)
 		    {
-			    var lastBlackslashPos = path.LastIndexOf('\\') + 1;
-			    var directory = path.Substring(0, lastBlackslashPos);
-			    var filename = path.Substring(lastBlackslashPos, path.Length - lastBlackslashPos);
+			    string directory, filename;
+			    if (Directory.Exists(path))
+			    {
+				    directory = path;
+				    filename = "*";
+			    }
+			    else
+			    {
+				    directory = Path.GetDirectoryName(path) ?? path;
+				    filename = Path.GetFileName(path) ?? "*";
+			    }
 			    foreach (var file in Directory.GetFiles(directory, filename, SearchOption.AllDirectories))
 			    {
 				    if (file.EndsWith(".sarif", StringComparison.InvariantCultureIgnoreCase))
