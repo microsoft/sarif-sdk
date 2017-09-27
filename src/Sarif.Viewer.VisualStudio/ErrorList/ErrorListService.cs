@@ -15,6 +15,7 @@ using Microsoft.CodeAnalysis.Sarif.Readers;
 using Microsoft.CodeAnalysis.Sarif.Writers;
 using Microsoft.Sarif.Viewer.Models;
 using Newtonsoft.Json;
+using Microsoft.Sarif.Viewer.Sarif;
 
 namespace Microsoft.Sarif.Viewer.ErrorList
 {
@@ -87,25 +88,9 @@ namespace Microsoft.Sarif.Viewer.ErrorList
         private void WriteRunToErrorList(Run run, string logFilePath, Solution solution)
         {
             List<SarifErrorListItem> sarifErrors = new List<SarifErrorListItem>();
-
             var projectNameCache = new ProjectNameCache(solution);
 
-            if (run.Files != null)
-            {
-                foreach (var file in run.Files)
-                {
-                    var hasSha256Hash = file.Value.Hashes?.Any(x => x.Algorithm == AlgorithmKind.Sha256);
-                    var contents = file.Value.Contents;
-                    var key = new Uri(file.Key);
-                    if ((hasSha256Hash ?? false) && contents != null)
-                    {
-                        var fileDetails = new FileDetailsModel(file.Value);
-                        CodeAnalysisResultManager.Instance.FileDetails.Add(
-                            key.IsAbsoluteUri ? key.LocalPath : key.OriginalString, fileDetails);
-                    }
-
-                }
-            }
+            StoreFileDetails(run.Files);
 
             if (run.Results != null)
             {
@@ -120,7 +105,36 @@ namespace Microsoft.Sarif.Viewer.ErrorList
             {
                 CodeAnalysisResultManager.Instance.SarifErrors.Add(error);
             }
+
             SarifTableDataSource.Instance.AddErrors(sarifErrors);
+        }
+
+        private void StoreFileDetails(IDictionary<string, FileData> files)
+        {
+            if (files == null)
+            {
+                return;
+            }
+
+            foreach (var file in files)
+            {
+                Uri key;
+                var isValid = Uri.TryCreate(file.Key, UriKind.RelativeOrAbsolute, out key);
+
+                if (!isValid)
+                {
+                    continue;
+                }
+
+                var hasSha256Hash = file.Value.Hashes?.Any(x => x.Algorithm == AlgorithmKind.Sha256);
+                var contents = file.Value.Contents;
+
+                if ((hasSha256Hash ?? false) && contents != null)
+                {
+                    var fileDetails = new FileDetailsModel(file.Value);
+                    CodeAnalysisResultManager.Instance.FileDetails.Add(key.ToPath(), fileDetails);
+                }
+            }
         }
     }
 }
