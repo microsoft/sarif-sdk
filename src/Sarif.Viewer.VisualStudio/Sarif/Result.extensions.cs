@@ -60,10 +60,12 @@ namespace Microsoft.Sarif.Viewer.Sarif
             {
                 return primaryLocation.AnalysisTarget.Uri.ToPath();
             }
-            else
+            else if (primaryLocation.FullyQualifiedLogicalName != null)
             {
                 return primaryLocation.FullyQualifiedLogicalName;
             }
+
+            return string.Empty;
         }
 
         public static Region GetPrimaryTargetRegion(this Result result)
