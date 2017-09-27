@@ -13,7 +13,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
     {
         public static int Run(MergeOptions mergeOptions)
         {
-            var sarifFiles = GetSarifFiles(mergeOptions.Files);
+	        var sarifFiles = GetSarifFiles(mergeOptions.Files);
 
 	        var allRuns = GetAllRuns(sarifFiles);
 
@@ -66,7 +66,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 			    var lastBlackslashPos = path.LastIndexOf('\\') + 1;
 			    var directory = path.Substring(0, lastBlackslashPos);
 			    var filename = path.Substring(lastBlackslashPos, path.Length - lastBlackslashPos);
-			    foreach (var file in Directory.GetFiles(directory, filename))
+			    foreach (var file in Directory.GetFiles(directory, filename, SearchOption.AllDirectories))
 			    {
 				    if (file.EndsWith(".sarif", StringComparison.InvariantCultureIgnoreCase))
 				    {
