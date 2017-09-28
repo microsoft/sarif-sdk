@@ -6,7 +6,7 @@ using CommandLine;
 namespace Microsoft.CodeAnalysis.Sarif.Multitool
 {
     [Verb("convert", HelpText = "Convert a tool output log to SARIF format.")]
-    internal class ConvertOptions : MultitoolOptionsBase
+    internal class ConvertOptions : SingleFileOptionsBase
     {
         [Option(
             't',

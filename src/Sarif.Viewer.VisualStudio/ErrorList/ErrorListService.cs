@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft. All rights reserved. 
+// Copyright (c) Microsoft. All rights reserved. 
 // Licensed under the MIT license. See LICENSE file in the project root for full license information. 
 
 using System;
@@ -16,6 +16,7 @@ using Microsoft.CodeAnalysis.Sarif.Readers;
 using Microsoft.CodeAnalysis.Sarif.Writers;
 using Microsoft.Sarif.Viewer.Models;
 using Newtonsoft.Json;
+using Microsoft.Sarif.Viewer.Sarif;
 
 namespace Microsoft.Sarif.Viewer.ErrorList
 {
@@ -88,25 +89,9 @@ namespace Microsoft.Sarif.Viewer.ErrorList
         private void WriteRunToErrorList(Run run, string logFilePath, Solution solution)
         {
             List<SarifErrorListItem> sarifErrors = new List<SarifErrorListItem>();
-
             var projectNameCache = new ProjectNameCache(solution);
 
-            if (run.Files != null)
-            {
-                foreach (var file in run.Files)
-                {
-                    var contents = file.Value.Contents;
-                    if (contents != null)
-                    {
-                        var key = new Uri(file.Key);
-                        EnsureHashExists(file.Value);
-                        var fileDetails = new FileDetailsModel(file.Value);
-                        CodeAnalysisResultManager.Instance.FileDetails.Add(
-                            key.IsAbsoluteUri ? key.LocalPath : key.OriginalString, fileDetails);
-                    }
-
-                }
-            }
+            StoreFileDetails(run.Files);
 
             if (run.Results != null)
             {
@@ -121,6 +106,7 @@ namespace Microsoft.Sarif.Viewer.ErrorList
             {
                 CodeAnalysisResultManager.Instance.SarifErrors.Add(error);
             }
+
             SarifTableDataSource.Instance.AddErrors(sarifErrors);
         }
 
@@ -146,6 +132,33 @@ namespace Microsoft.Sarif.Viewer.ErrorList
             SHA256Managed hashstring = new SHA256Managed();
             byte[] hash = hashstring.ComputeHash(bytes);
             return hash.Aggregate(string.Empty, (current, x) => current + $"{x:x2}");
+        }
+      
+        private void StoreFileDetails(IDictionary<string, FileData> files)
+        {
+            if (files == null)
+            {
+                return;
+            }
+
+            foreach (var file in files)
+            {
+                Uri key;
+                var isValid = Uri.TryCreate(file.Key, UriKind.RelativeOrAbsolute, out key);
+
+                if (!isValid)
+                {
+                    continue;
+                }
+
+                var contents = file.Value.Contents;
+                if (contents != null)
+                {
+                    EnsureHashExists(file.Value);
+                    var fileDetails = new FileDetailsModel(file.Value);
+                    CodeAnalysisResultManager.Instance.FileDetails.Add(key.ToPath(), fileDetails);
+                }
+            }
         }
     }
 }
