@@ -1,10 +1,11 @@
-﻿// Copyright (c) Microsoft. All rights reserved. 
+// Copyright (c) Microsoft. All rights reserved. 
 // Licensed under the MIT license. See LICENSE file in the project root for full license information. 
 
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 
 using EnvDTE;
@@ -109,6 +110,30 @@ namespace Microsoft.Sarif.Viewer.ErrorList
             SarifTableDataSource.Instance.AddErrors(sarifErrors);
         }
 
+        private void EnsureHashExists(FileData file)
+        {
+            if (file.Hashes == null)
+            {
+                file.Hashes = new List<Hash>();
+            }
+            
+            var hasSha256Hash = file.Hashes.Any(x => x.Algorithm == AlgorithmKind.Sha256);
+            if (!hasSha256Hash)
+            {
+                string hashString = GenerateHash(file.Contents);
+
+                file.Hashes.Add(new Hash(hashString, AlgorithmKind.Sha256));
+            }
+        }
+
+        internal string GenerateHash(string content)
+        {
+            byte[] bytes = Encoding.UTF8.GetBytes(content);
+            SHA256Managed hashstring = new SHA256Managed();
+            byte[] hash = hashstring.ComputeHash(bytes);
+            return hash.Aggregate(string.Empty, (current, x) => current + $"{x:x2}");
+        }
+      
         private void StoreFileDetails(IDictionary<string, FileData> files)
         {
             if (files == null)
@@ -126,11 +151,10 @@ namespace Microsoft.Sarif.Viewer.ErrorList
                     continue;
                 }
 
-                var hasSha256Hash = file.Value.Hashes?.Any(x => x.Algorithm == AlgorithmKind.Sha256);
                 var contents = file.Value.Contents;
-
-                if ((hasSha256Hash ?? false) && contents != null)
+                if (contents != null)
                 {
+                    EnsureHashExists(file.Value);
                     var fileDetails = new FileDetailsModel(file.Value);
                     CodeAnalysisResultManager.Instance.FileDetails.Add(key.ToPath(), fileDetails);
                 }
