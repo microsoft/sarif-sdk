@@ -39,7 +39,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
 	    private static IEnumerable<Run> GetAllRuns(IEnumerable<string> sarifFiles)
 	    {
-		    foreach (var file in sarifFiles)
+		    foreach (string file in sarifFiles)
 		    {
 			    SarifLog log = ReadFile(file);
 
@@ -48,7 +48,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 				    continue;
 			    }
 
-			    foreach (var run in log.Runs)
+			    foreach (Run run in log.Runs)
 			    {
 				    if (run != null)
 				    {
@@ -60,11 +60,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
 	    private static IEnumerable<string> GetSarifFiles(MergeOptions mergeOptions)
 	    {
-		    var searchOption = mergeOptions.Recursive 
+		    SearchOption searchOption = mergeOptions.Recurse 
 				? SearchOption.AllDirectories 
 				: SearchOption.TopDirectoryOnly;
 
-		    foreach (var path in mergeOptions.Files)
+		    foreach (string path in mergeOptions.Files)
 		    {
 			    string directory, filename;
 			    if (Directory.Exists(path))
@@ -77,9 +77,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 				    directory = Path.GetDirectoryName(path) ?? path;
 				    filename = Path.GetFileName(path) ?? "*";
 			    }
-			    foreach (var file in Directory.GetFiles(directory, filename, searchOption))
+			    foreach (string file in Directory.GetFiles(directory, filename, searchOption))
 			    {
-				    if (file.EndsWith(".sarif", StringComparison.InvariantCultureIgnoreCase))
+				    if (file.EndsWith(".sarif", StringComparison.OrdinalIgnoreCase))
 				    {
 					    yield return file;
 				    }

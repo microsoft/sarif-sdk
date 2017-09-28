@@ -17,9 +17,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
 	    [Option(
 		    'r',
-		    "recursive",
+		    "recurse",
 		    Default = false,
 		    HelpText = "Recursively select subdirectories in paths.")]
-	    public bool Recursive { get; internal set; }
+	    public bool Recurse { get; internal set; }
 	}
 }
