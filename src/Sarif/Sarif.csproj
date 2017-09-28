@@ -112,6 +112,7 @@
     <Compile Include="TypedPropertiesDictionary.cs" />
     <Compile Include="UriHelper.cs" />
     <Compile Include="VersionConstants.cs" />
+    <Compile Include="Visitors\AddFileReferencesVisitor.cs" />
     <Compile Include="Visitors\ReformattingVisitor.cs" />
     <Compile Include="Warnings.cs" />
     <Compile Include="Writers\LoggingOptions.cs" />

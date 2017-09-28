@@ -2,14 +2,14 @@
     [string]$ToolName
 )
 
-$utility = "$PSScriptRoot\..\..\bld\bin\ConvertToSarif\AnyCPU_Release\ConvertToSarif.exe"
+$utility = "$PSScriptRoot\..\..\bld\bin\Sarif.Multitool\AnyCPU_Release\Sarif.Multitool.exe"
 
 function Build-ConverterTool()
 {
     Write-Host "Building the converter tool..."  -NoNewline
     # Out-Null *and* /noconsolelogger here because our scripts call out to batch files and similar
     # that don't respect msbuild's /noconsolelogger switch.
-    msbuild $PSScriptRoot\..\ConvertToSarif\ConvertToSarif.csproj /p:Platform=AnyCPU`;Configuration=Release`;RunCodeAnalysis=false /m /noconsolelogger | Out-Null
+    msbuild $PSScriptRoot\..\Sarif.Multitool\Sarif.Multitool.csproj /p:Platform=AnyCPU`;Configuration=Release`;RunCodeAnalysis=false /m /noconsolelogger | Out-Null
     Write-Host " done."
 }
 
@@ -35,11 +35,16 @@ function Build-Baselines($toolName)
         $input = $_.FullName
         $output = "$input.sarif"
         $outputTemp = "$output.temp"
-
+		
         # Actually run the converter
         Remove-Item $outputTemp -ErrorAction SilentlyContinue
-        & Write-Host "$utility ""$input"" --tool $toolName --output ""$outputTemp"" --pretty --persist-file-contents"
-        &$utility "$input" --tool $toolName --output "$outputTemp" --pretty
+        & Write-Host "$utility convert --input ""$input"" --tool $toolName --output ""$outputTemp"" "
+        &$utility convert --input "$input" --tool $toolName --output "$outputTemp" --pretty --persist-file-contents
+
+        # Next, perform some rewriting. The PREfast converter in particular cannot embed file contents as the source
+		# SARIF does not contain the optional 'files' member of the 'run' object.
+        Write-Host "$utility rewrite --input ""$outputTemp"" --output ""$outputTemp"" --pretty --persist-file-contents --hashes --force"
+        &$utility rewrite --input ""$outputTemp"" --output ""$outputTemp"" --pretty --persist-file-contents --hashes --force
 
         Move-Item $outputTemp $output -Force
     }

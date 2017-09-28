@@ -6,10 +6,10 @@ using CommandLine;
 namespace Microsoft.CodeAnalysis.Sarif.Multitool{
     public class MultitoolOptionsBase
     {
-        [Value(0,
-               MetaName = "<inputFile>",
-               HelpText = "A path to a file to process.",
-               Required = true)]
+        [Option(
+            'i',
+            "input",
+            HelpText = "A path to a file to process.")]
         public string InputFilePath { get; internal set; }
 
         [Option(

@@ -8,10 +8,10 @@
       },
       "files": {
         "gradle/wrapper/gradle-wrapper.properties": {
-          "mimeType": "text/x-java-source"
+          "mimeType": "application/octet-stream"
         },
         "local.properties": {
-          "mimeType": "text/x-java-source"
+          "mimeType": "application/octet-stream"
         }
       },
       "logicalLocations": {

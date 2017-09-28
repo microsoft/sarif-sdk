@@ -107,6 +107,7 @@
     <Compile Include="SparseReaderTests.cs" />
     <Compile Include="ConvertToSchemaUriTests.cs" />
     <Compile Include="ToolFormatTests.cs" />
+    <Compile Include="Visitors\AddFileVisitorTests.cs" />
     <Compile Include="Writers\ResultLogJsonWriterTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Writers\MimeTypeTests.cs" />
