@@ -24,12 +24,18 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
             string uriText = node.Uri.ToString();
 
-            string mimeType = Writers.MimeType.DetermineFromFileExtension(uriText);
-
-            _files[uriText] = new FileData()
+            // If the file already exists, we will not insert one as we want to 
+            // preserve mime-type, hash details, and other information that 
+            // may already be present
+            if (!_files.ContainsKey(uriText))
             {
-                MimeType = mimeType
-            };
+                string mimeType = Writers.MimeType.DetermineFromFileExtension(uriText);
+
+                _files[uriText] = new FileData()
+                {
+                    MimeType = mimeType
+                };
+            }
 
             return base.VisitPhysicalLocation(node);
         }

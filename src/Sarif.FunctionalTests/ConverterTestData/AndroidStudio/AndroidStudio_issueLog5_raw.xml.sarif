@@ -8,10 +8,10 @@
       },
       "files": {
         "gradle.properties": {
-          "mimeType": "application/octet-stream"
+          "mimeType": "text/x-java-properties"
         },
         "gradle/wrapper/gradle-wrapper.properties": {
-          "mimeType": "application/octet-stream"
+          "mimeType": "text/x-java-properties"
         },
         "gradlew": {
           "mimeType": "application/octet-stream"

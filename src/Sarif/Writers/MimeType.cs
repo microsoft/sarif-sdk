@@ -75,6 +75,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         public static readonly string CSharp = "text/x-csharp";
         /// <summary>The MIME type for SARIF files.</summary>
         public static readonly string Sarif = "application/sarif-json";
+        /// <summary>The MIME type for Java properties files (which are xml).</summary>
+        public static readonly string JavaProperties = "text/x-java-properties";
 
         private static bool HasExtension(string fileName, string extension)
         {
@@ -108,6 +110,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             ImmutableArray.Create("text/x-ini", "ini", "gitconfig", "yml"),
             ImmutableArray.Create("text/x-jade", "jade"),
             ImmutableArray.Create(MimeType.Java, "java", "jav"),
+            ImmutableArray.Create(MimeType.JavaProperties, "properties"),
             ImmutableArray.Create("text/javascript", "js"),
             ImmutableArray.Create("application/json", "json"),
             ImmutableArray.Create("text/less", "less"),
