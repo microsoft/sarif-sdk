@@ -218,4 +218,4 @@ GeneratedArtifacts/
 _Pvt_Extensions/
 ModelManifest.xml
 
-obj.core/
+/src/Sarif.Viewer.VisualStudio/PREfastXmlSarifConverter.dll
