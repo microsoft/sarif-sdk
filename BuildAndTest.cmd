@@ -63,7 +63,7 @@ if "%ERRORLEVEL%" NEQ "0" (
 goto ExitFailed
 )
 
-msbuild /verbosity:minimal /target:rebuild src\Everything.sln /p:"Configuration=%Configuration%" /p:"Platform=Any CPU" /filelogger /fileloggerparameters:Verbosity=detailed /p:"RunBinSkim=false" /p:"BinSkimVerboseOutput=true"
+msbuild /verbosity:minimal /target:rebuild src\Everything.sln /p:"Configuration=%Configuration%" /p:"Platform=Any CPU" /filelogger /fileloggerparameters:Verbosity=detailed /p:"RunBinSkim=true" /p:"BinSkimVerboseOutput=true"
 
 if "%ERRORLEVEL%" NEQ "0" (
 goto ExitFailed

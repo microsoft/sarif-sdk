@@ -58,11 +58,12 @@ namespace Microsoft.CodeAnalysis.Sarif
                 string[] tokensToRedact = new string[] { };
                 string pathToExe = Path.GetDirectoryName(Assembly.GetCallingAssembly().Location);
                 string commandLine = Environment.CommandLine;
+                string lowerCaseCommandLine = commandLine.ToLower();
 
-                if (commandLine.Contains("testhost.dll") || commandLine.Contains("\\xunit.console"))
+                if (lowerCaseCommandLine.Contains("testhost.dll") || lowerCaseCommandLine.Contains("\\xunit.console"))
                 {
-                    var index = commandLine.LastIndexOf("\\");
-                    var argumentToRedact = commandLine.Substring(0, index + 1);
+                    int index = commandLine.LastIndexOf("\\");
+                    string argumentToRedact = commandLine.Substring(0, index + 1);
                     tokensToRedact = new string[] { argumentToRedact };
                 }
                 else if (pathToExe.IndexOf(@"\Extensions", StringComparison.OrdinalIgnoreCase) != -1)

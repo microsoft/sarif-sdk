@@ -37,6 +37,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sarif.TestUtilities", "Sari
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "PREfastXmlSarifConverter", "PREfastXmlSarifConverter\PREfastXmlSarifConverter.vcxproj", "{F6727C72-C40C-4A6E-BAE0-23B4B5FE7DB1}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{3160166D-3C2E-48E0-8B3C-B10DA3B42D34}"
+	ProjectSection(SolutionItems) = preProject
+		..\BuildAndTest.cmd = ..\BuildAndTest.cmd
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
