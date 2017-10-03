@@ -2,7 +2,7 @@
   <Import Project="$([MSBuild]::GetDirectoryNameOfFileAbove($(MSBuildThisFileDirectory).., netcorebuild.props))\netcorebuild.props" />
   
   <PropertyGroup>
-    <TargetFrameworks>netcoreapp2.0; net452; netstandard2.0;</TargetFrameworks>
+    <TargetFrameworks>netcoreapp2.0; net452;</TargetFrameworks>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     <ProjectGuid>c06f0cf1-3505-4715-b6da-047ec86c4308</ProjectGuid>
     <RootNamespace>Microsoft.CodeAnalysis.Sarif.Driver</RootNamespace>
@@ -21,7 +21,7 @@
     <PackageReference Include="System.Composition" Version="1.1.0" />
 
     <PackageReference Condition="'$(TargetFramework)' == 'net452'" Include="System.Collections.Immutable" Version="1.1.37" />
-    <PackageReference Condition="'$(TargetFramework)' != 'net452'" Include="System.Collections.Immutable" Version="1.4.0" />
+    <PackageReference Condition="'$(TargetFramework)' == 'netcoreapp2.0'" Include="System.Collections.Immutable" Version="1.4.0" />
   </ItemGroup>
 
   <!--NuGet Config-->

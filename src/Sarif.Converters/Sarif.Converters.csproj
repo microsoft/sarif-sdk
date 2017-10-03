@@ -2,7 +2,7 @@
   <Import Project="$([MSBuild]::GetDirectoryNameOfFileAbove($(MSBuildThisFileDirectory).., netcorebuild.props))\netcorebuild.props" />
   
   <PropertyGroup>
-    <TargetFrameworks>netcoreapp2.0; net452; netstandard2.0;</TargetFrameworks>
+    <TargetFrameworks>netcoreapp2.0; net452;</TargetFrameworks>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     <ProjectGuid>d0d4ac36-b339-47be-ad61-ec08a967d20c</ProjectGuid>
     <RootNamespace>Microsoft.CodeAnalysis.Sarif.Converters</RootNamespace>
@@ -38,7 +38,7 @@
     <PackageReference Include="Newtonsoft.Json" Version="10.0.3" />
     <PackageReference Include="System.IO.Compression" Version="4.3.0" />
     <PackageReference Condition="'$(TargetFramework)' == 'net452'" Include="System.Collections.Immutable" Version="1.1.37" />
-    <PackageReference Condition="'$(TargetFramework)' != 'net452'" Include="System.Collections.Immutable" Version="1.4.0" />
+    <PackageReference Condition="'$(TargetFramework)' == 'netcoreapp2.0'" Include="System.Collections.Immutable" Version="1.4.0" />
   </ItemGroup>
 
   <ItemGroup>

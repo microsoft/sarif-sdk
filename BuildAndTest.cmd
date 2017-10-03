@@ -5,7 +5,7 @@ SETLOCAL
 @REM create a nuget package for the SARIF SDK) so must opt-in
 @REM %~dp0.nuget\NuGet.exe update -self
 
-set Platform=Any CPU
+set Platform=AnyCPU
 set Configuration=Release
 
 :NextArg
