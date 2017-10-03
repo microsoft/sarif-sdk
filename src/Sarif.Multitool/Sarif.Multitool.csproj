@@ -28,7 +28,7 @@
     <PackageTags>command line driver utilities static analysis sarif framework utils driver.utilities</PackageTags>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
   </PropertyGroup>
-  
+
   <ItemGroup>
     <Compile Remove="Rules\**" />
     <EmbeddedResource Remove="Rules\**" />

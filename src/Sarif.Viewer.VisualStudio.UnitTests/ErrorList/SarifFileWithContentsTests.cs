@@ -3,6 +3,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.IO;
 using FluentAssertions;
 using Microsoft.CodeAnalysis.Sarif;
 using Xunit;
@@ -16,6 +17,7 @@ namespace Microsoft.Sarif.Viewer.VisualStudio.UnitTests
     public class SarifFileWithContentsTests
     {
         private const string Key = "/item.cpp";
+        private const string Key2 = "/item2.cpp";
         private const string Contents = "This is a test file.";
 
         public SarifFileWithContentsTests()
@@ -47,6 +49,14 @@ namespace Microsoft.Sarif.Viewer.VisualStudio.UnitTests
                                             Value = "HashValue"
                                         }
                                     }
+                                }
+                            },
+                            {
+                                "file:///item2.cpp",
+                                new FileData
+                                {
+                                    MimeType = "text/x-c",
+                                    Contents = "VGhpcyBpcyBhIHRlc3QgZmlsZS4="
                                 }
                             }
                         },
@@ -87,6 +97,25 @@ namespace Microsoft.Sarif.Viewer.VisualStudio.UnitTests
         public void SarifFileWithContents_DecodesContents()
         {
             var fileDetail = CodeAnalysisResultManager.Instance.FileDetails[Key];
+            var contents = fileDetail.GetContents();
+
+            contents.Should().Be(Contents);
+        }
+
+        [Fact]
+        public void SarifFileWithContents_OpensEmbeddedFile()
+        {
+            var rebaselinedFile = CodeAnalysisResultManager.Instance.CreateFileFromContents(Key);
+
+            var fileText = File.ReadAllText(rebaselinedFile);
+
+            fileText.Should().Be(Contents);
+        }
+
+        [Fact]
+        public void SarifFileWithContents_GeneratesHash()
+        {
+            var fileDetail = CodeAnalysisResultManager.Instance.FileDetails[Key2];
             var contents = fileDetail.GetContents();
 
             contents.Should().Be(Contents);
