@@ -1,10 +1,11 @@
-﻿// Copyright (c) Microsoft. All rights reserved. 
+// Copyright (c) Microsoft. All rights reserved. 
 // Licensed under the MIT license. See LICENSE file in the project root for full license information. 
 
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 
 using EnvDTE;
@@ -15,6 +16,7 @@ using Microsoft.CodeAnalysis.Sarif.Readers;
 using Microsoft.CodeAnalysis.Sarif.Writers;
 using Microsoft.Sarif.Viewer.Models;
 using Newtonsoft.Json;
+using Microsoft.Sarif.Viewer.Sarif;
 
 namespace Microsoft.Sarif.Viewer.ErrorList
 {
@@ -87,25 +89,9 @@ namespace Microsoft.Sarif.Viewer.ErrorList
         private void WriteRunToErrorList(Run run, string logFilePath, Solution solution)
         {
             List<SarifErrorListItem> sarifErrors = new List<SarifErrorListItem>();
-
             var projectNameCache = new ProjectNameCache(solution);
 
-            if (run.Files != null)
-            {
-                foreach (var file in run.Files)
-                {
-                    var hasSha256Hash = file.Value.Hashes?.Any(x => x.Algorithm == AlgorithmKind.Sha256);
-                    var contents = file.Value.Contents;
-                    var key = new Uri(file.Key);
-                    if ((hasSha256Hash ?? false) && contents != null)
-                    {
-                        var fileDetails = new FileDetailsModel(file.Value);
-                        CodeAnalysisResultManager.Instance.FileDetails.Add(
-                            key.IsAbsoluteUri ? key.LocalPath : key.OriginalString, fileDetails);
-                    }
-
-                }
-            }
+            StoreFileDetails(run.Files);
 
             if (run.Results != null)
             {
@@ -120,7 +106,59 @@ namespace Microsoft.Sarif.Viewer.ErrorList
             {
                 CodeAnalysisResultManager.Instance.SarifErrors.Add(error);
             }
+
             SarifTableDataSource.Instance.AddErrors(sarifErrors);
+        }
+
+        private void EnsureHashExists(FileData file)
+        {
+            if (file.Hashes == null)
+            {
+                file.Hashes = new List<Hash>();
+            }
+            
+            var hasSha256Hash = file.Hashes.Any(x => x.Algorithm == AlgorithmKind.Sha256);
+            if (!hasSha256Hash)
+            {
+                string hashString = GenerateHash(file.Contents);
+
+                file.Hashes.Add(new Hash(hashString, AlgorithmKind.Sha256));
+            }
+        }
+
+        internal string GenerateHash(string content)
+        {
+            byte[] bytes = Encoding.UTF8.GetBytes(content);
+            SHA256Managed hashstring = new SHA256Managed();
+            byte[] hash = hashstring.ComputeHash(bytes);
+            return hash.Aggregate(string.Empty, (current, x) => current + $"{x:x2}");
+        }
+      
+        private void StoreFileDetails(IDictionary<string, FileData> files)
+        {
+            if (files == null)
+            {
+                return;
+            }
+
+            foreach (var file in files)
+            {
+                Uri key;
+                var isValid = Uri.TryCreate(file.Key, UriKind.RelativeOrAbsolute, out key);
+
+                if (!isValid)
+                {
+                    continue;
+                }
+
+                var contents = file.Value.Contents;
+                if (contents != null)
+                {
+                    EnsureHashExists(file.Value);
+                    var fileDetails = new FileDetailsModel(file.Value);
+                    CodeAnalysisResultManager.Instance.FileDetails.Add(key.ToPath(), fileDetails);
+                }
+            }
         }
     }
 }

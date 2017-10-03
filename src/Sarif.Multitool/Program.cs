@@ -18,10 +18,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         {
             return Parser.Default.ParseArguments<
                 ConvertOptions, 
-                RewriteOptions>(args)
+                RewriteOptions,
+                MergeOptions>(args)
               .MapResult(
                 (ConvertOptions convertOptions) => ConvertCommand.Run(convertOptions),
                 (RewriteOptions rewriteOptions) => RewriteCommand.Run(rewriteOptions),
+                (MergeOptions mergeOptions) => MergeCommand.Run(mergeOptions),
                 errs => 1);
         }
     }
