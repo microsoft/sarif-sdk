@@ -8,7 +8,6 @@ branches:
     - master
 
 before_build:
-  - '"%VS140COMNTOOLS%VsDevCmd.bat"'
   - BeforeBuild.cmd
 
 platform: Any CPU
