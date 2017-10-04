@@ -24,7 +24,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Sarif.Converters.UnitTests\Sarif.Converters.UnitTests.csproj" />
     <ProjectReference Include="..\Sarif.Converters\Sarif.Converters.csproj" />
     <ProjectReference Include="..\Sarif.Driver\Sarif.Driver.csproj" />
     <ProjectReference Include="..\Sarif.TestUtilities\Sarif.TestUtilities.csproj" />
