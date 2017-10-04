@@ -14,6 +14,9 @@ platform: Any CPU
 environment:
   _CL_: /c /analyze /analyze:quiet- /W4 /analyze:autolog:ext prefast.sarif
 
+install:
+  - ps: .\donet-install.ps1
+
 configuration:
 #  - Debug
   - Release
