@@ -15,7 +15,7 @@ environment:
   _CL_: /c /analyze /analyze:quiet- /W4 /analyze:autolog:ext prefast.sarif
 
 install:
-  - ps: .\donet-install.ps1
+  - ps: .\dotnet-install.ps1
 
 configuration:
 #  - Debug
