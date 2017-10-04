@@ -5,7 +5,7 @@
     <Platform Condition=" '$(Platform)' == '' ">Any CPU</Platform>
     <IntermediateOutputPath>$(MsBuildThisFileDirectory)..\bld\obj\$(MSBuildProjectName)\$(Platform)\$(Configuration)\</IntermediateOutputPath>
     <OutputPath>$(MsBuildThisFileDirectory)..\bld\bin\$(MSBuildProjectName)\$(Platform)_$(Configuration)\</OutputPath>
-    <TargetFrameworks>netcoreapp2.0; net452;</TargetFrameworks>
+    <TargetFrameworks>netcoreapp2.0; netstandard2.0; net452;</TargetFrameworks>
     <FileAlignment>512</FileAlignment>
     <RestorePackages>true</RestorePackages>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>

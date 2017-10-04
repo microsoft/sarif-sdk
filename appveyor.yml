@@ -20,7 +20,6 @@ install:
   - ps: .\dotnet-install.ps1 --version 2.0.0
 
 configuration:
-#  - Debug
   - Release
 
 build:
@@ -36,7 +35,7 @@ test:
     - '**\Sarif.FunctionalTests.dll'
     - '**\Sarif.ValidationTests.dll'
     - '**\Sarif.Viewer.VisualStudio.UnitTests.dll'
-    - '**\SarifCli.FunctionalTests.dll'
+    - '**\Sarif.Multitool.FunctionalTests.dll'
 
 notifications:
   - provider: Email
