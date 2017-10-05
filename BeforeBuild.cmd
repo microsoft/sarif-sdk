@@ -18,7 +18,6 @@ goto ExitFailed
 )
 
 ::Restore nuget packages
-nuget restore src\Everything.sln
 dotnet restore src\Everything.sln
 
 if "%ERRORLEVEL%" NEQ "0" (

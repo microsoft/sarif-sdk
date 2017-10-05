@@ -12,7 +12,6 @@ using Microsoft.Json.Schema.Sarif;
 using Microsoft.Json.Schema.Validation;
 using Xunit;
 
-
 namespace Microsoft.CodeAnalysis.Sarif
 {
     public class SarifValidatorTests
