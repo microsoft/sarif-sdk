@@ -5,7 +5,7 @@ SETLOCAL
 @REM create a nuget package for the SARIF SDK) so must opt-in
 @REM %~dp0.nuget\NuGet.exe update -self
 
-set Platform=AnyCPU
+set Platform=Any CPU
 set Configuration=Release
 
 :NextArg
@@ -63,7 +63,7 @@ if "%ERRORLEVEL%" NEQ "0" (
 goto ExitFailed
 )
 
-msbuild /verbosity:minimal /target:rebuild src\Everything.sln /p:"Configuration=%Configuration%" /p:"Platform=Any CPU" /filelogger /fileloggerparameters:Verbosity=detailed /p:"RunBinSkim=true" /p:"BinSkimVerboseOutput=true"
+msbuild /verbosity:minimal /target:rebuild src\Everything.sln /p:"Configuration=%Configuration%" /p:"Platform=Any CPU" /filelogger /fileloggerparameters:Verbosity=detailed /p:"RunBinSkim=false" /p:"BinSkimVerboseOutput=true"
 
 if "%ERRORLEVEL%" NEQ "0" (
 goto ExitFailed
