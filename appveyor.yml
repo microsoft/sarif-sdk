@@ -9,7 +9,6 @@ branches:
 
 before_build:
   - '"%ProgramFiles(x86)%\Microsoft Visual Studio\2017\Community\Common7\Tools\VsDevCmd.bat"'
-  - nuget restore src/Everything.sln -verbosity detailed
   - BeforeBuild.cmd
 
 platform: Any CPU

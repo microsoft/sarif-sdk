@@ -18,7 +18,8 @@ goto ExitFailed
 )
 
 ::Restore nuget packages
-dotnet restore src\Everything.sln
+%~dp0.nuget\NuGet.exe restore src\Everything.sln -ConfigFile .nuget\NuGet.Config
+::dotnet restore src\Everything.sln
 
 if "%ERRORLEVEL%" NEQ "0" (
 echo nuget restore failed
