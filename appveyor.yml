@@ -1,3 +1,5 @@
+image: Visual Studio 2017
+
 init:
   - git config --global core.autocrlf true
 
@@ -6,7 +8,8 @@ branches:
     - master
 
 before_build:
-  - '"%VS140COMNTOOLS%VsDevCmd.bat"'
+  - nuget restore src\Everything.sln -verbosity detailed
+  - '"%ProgramFiles(x86)%\Microsoft Visual Studio\2017\Community\Common7\Tools\VsDevCmd.bat"'
   - BeforeBuild.cmd
 
 platform: Any CPU
@@ -14,8 +17,10 @@ platform: Any CPU
 environment:
   _CL_: /c /analyze /analyze:quiet- /W4 /analyze:autolog:ext prefast.sarif
 
+install:
+  - ps: .\dotnet-install.ps1 --version 2.0.0
+
 configuration:
-#  - Debug
   - Release
 
 build:
@@ -31,7 +36,7 @@ test:
     - '**\Sarif.FunctionalTests.dll'
     - '**\Sarif.ValidationTests.dll'
     - '**\Sarif.Viewer.VisualStudio.UnitTests.dll'
-    - '**\SarifCli.FunctionalTests.dll'
+    - '**\Sarif.Multitool.FunctionalTests.dll'
 
 notifications:
   - provider: Email

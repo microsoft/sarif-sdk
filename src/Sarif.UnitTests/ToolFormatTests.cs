@@ -4,22 +4,20 @@
 using System;
 using System.Collections.Generic;
 using System.Reflection;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Microsoft.CodeAnalysis.Sarif
 {
-    [TestClass]
     public class ToolFormatTests
     {
         private static List<FieldInfo> publicFields;
 
-        [ClassInitialize]
-        public static void ClassInitialize(TestContext context)
+        public ToolFormatTests()
         {
             publicFields = Utilities.GetToolFormatFields();
         }
 
-        [TestMethod]
+        [Fact]
         public void ToolFormat_ContainsNoCaseInsensitiveDuplicateValues()
         {
             var alreadySeen = new HashSet<string>(StringComparer.InvariantCultureIgnoreCase);
@@ -38,10 +36,10 @@ namespace Microsoft.CodeAnalysis.Sarif
                 }
             }
 
-            Assert.AreEqual(0, duplicates.Count, "Duplicate ToolFormat strings: " + string.Join(", ", duplicates));
+            Assert.True(0 == duplicates.Count, "Duplicate ToolFormat strings: " + string.Join(", ", duplicates));
         }
 
-        [TestMethod]
+        [Fact]
         public void ToolFormat_MemberNamesMatchStringValues()
         {
             var mismatches = new List<string>();
@@ -55,7 +53,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 }
             }
 
-            Assert.AreEqual(0, mismatches.Count, "ToolFormat fields with mismatched values: " + string.Join(", ", mismatches));
+            Assert.True(0 == mismatches.Count, "ToolFormat fields with mismatched values: " + string.Join(", ", mismatches));
         }
     }
 }

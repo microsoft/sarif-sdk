@@ -57,9 +57,12 @@ namespace Microsoft.CodeAnalysis.Sarif
             {
                 using (var output = new StringWriter())
                 {
-                    var json = new JsonTextWriter(output);
-                    json.Formatting = Newtonsoft.Json.Formatting.Indented;
-                    json.CloseOutput = false;
+                    var json = new JsonTextWriter(output)
+                    {
+                        Formatting = Newtonsoft.Json.Formatting.Indented,
+                        CloseOutput = false
+                    };
+
                     using (var outputWriter = new ResultLogJsonWriter(json))
                     {
                         converter.Convert(input, outputWriter, LoggingOptions.None);

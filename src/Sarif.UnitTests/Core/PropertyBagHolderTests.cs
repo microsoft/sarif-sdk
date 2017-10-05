@@ -5,9 +5,9 @@ using System;
 using System.Collections.Generic;
 using FluentAssertions;
 using Microsoft.CodeAnalysis.Sarif.Readers;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
+using Xunit;
 
 namespace Microsoft.CodeAnalysis.Sarif
 {
@@ -16,12 +16,11 @@ namespace Microsoft.CodeAnalysis.Sarif
         internal override IDictionary<string, SerializedPropertyInfo> Properties { get; set; }
     }
 
-    [TestClass]
     public class PropertyBagHolderTests
     {
         private const string PropertyName = "prop";
 
-        [TestMethod]
+        [Fact]
         public void PropertyBagHolder_InitiallyHasNoProperties()
         {
             var testObject = new TestClass();
@@ -30,7 +29,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             testObject.ShouldNotContainProperty(PropertyName);
         }
 
-        [TestMethod]
+        [Fact]
         public void PropertyBagHolder_SetProperty_AddsSpecifiedProperty()
         {
             var inputObject = new TestClass();
@@ -42,7 +41,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             inputObject.GetProperty(PropertyName).Should().Be("x");
         }
 
-        [TestMethod]
+        [Fact]
         public void PropertyBagHolder_SetProperty_EscapesCharacters()
         {
             var inputObject = new TestClass();
@@ -54,7 +53,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             inputObject.GetProperty(PropertyName).Should().Be(@"\\r\""\\t");
         }
 
-        [TestMethod]
+        [Fact]
         public void PropertyBagHolder_SetProperty_WorksWithNull()
         {
             var inputObject = new TestClass();
@@ -66,7 +65,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             inputObject.GetProperty(PropertyName).Should().BeNull();
         }
 
-        [TestMethod]
+        [Fact]
         public void PropertyBagHolder_SetProperty_OverwritesExistingProperty()
         {
             var inputObject = new TestClass();
@@ -79,7 +78,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             inputObject.GetProperty<int>(PropertyName).Should().Be(2);
         }
 
-        [TestMethod]
+        [Fact]
         public void PropertyBagHolder_GetProperty_ThrowsIfPropertyDoesNotExist()
         {
             var inputObject = new TestClass();
@@ -89,7 +88,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             action.ShouldThrow<InvalidOperationException>().WithMessage($"*{PropertyName}*");
         }
 
-        [TestMethod]
+        [Fact]
         public void PropertyBagHolder_GetPropertyOfT_ThrowsIfPropertyDoesNotExist()
         {
             var inputObject = new TestClass();
@@ -99,49 +98,45 @@ namespace Microsoft.CodeAnalysis.Sarif
             action.ShouldThrow<InvalidOperationException>().WithMessage($"*{PropertyName}*");
         }
 
-        [TestMethod]
+        [Fact]
         public void PropertyBagHolder_TryGetProperty_ReturnsTrueWhenPropertyExists()
         {
             var inputObject = new TestClass();
             inputObject.SetProperty(PropertyName, "x");
 
-            string value;
-            inputObject.TryGetProperty(PropertyName, out value).Should().BeTrue();
+            inputObject.TryGetProperty(PropertyName, out string value).Should().BeTrue();
             value.Should().Be("x");
         }
 
-        [TestMethod]
+        [Fact]
         public void PropertyBagHolder_TryGetProperty_ReturnsFalseWhenPropertyDoesNotExist()
         {
             var inputObject = new TestClass();
 
-            string value;
-            inputObject.TryGetProperty(PropertyName, out value).Should().BeFalse();
+            inputObject.TryGetProperty(PropertyName, out string value).Should().BeFalse();
             value.Should().BeNull();
         }
 
-        [TestMethod]
+        [Fact]
         public void PropertyBagHolder_TryGetPropertyOfT_ReturnsTrueWhenPropertyExists()
         {
             var inputObject = new TestClass();
             inputObject.SetProperty(PropertyName, 42);
 
-            int value;
-            inputObject.TryGetProperty<int>(PropertyName, out value).Should().BeTrue();
+            inputObject.TryGetProperty<int>(PropertyName, out int value).Should().BeTrue();
             value.Should().Be(42);
         }
 
-        [TestMethod]
+        [Fact]
         public void PropertyBagHolder_TryGetPropertyOfT_ReturnsFalseWhenPropertyDoesNotExist()
         {
             var inputObject = new TestClass();
 
-            int value;
-            inputObject.TryGetProperty<int>(PropertyName, out value).Should().BeFalse();
+            inputObject.TryGetProperty<int>(PropertyName, out int value).Should().BeFalse();
             value.Should().Be(0);
         }
 
-        [TestMethod]
+        [Fact]
         public void PropertyBagHolder_GetPropertyOfT_WorksForStringProperties()
         {
             var inputObject = new TestClass();
@@ -151,7 +146,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             value.Should().Be("x");
         }
 
-        [TestMethod]
+        [Fact]
         public void PropertyBagHolder_RemoveProperty_RemovesExistingProperty()
         {
             var inputObject = new TestClass();
@@ -163,7 +158,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             inputObject.ShouldNotContainProperty(PropertyName);
         }
 
-        [TestMethod]
+        [Fact]
         public void PropertyBagHolder_RemoveProperty_SucceedsIfPropertyDoesNotExist()
         {
             var inputObject = new TestClass();
@@ -173,51 +168,51 @@ namespace Microsoft.CodeAnalysis.Sarif
             inputObject.ShouldNotContainProperty(PropertyName);
         }
 
-        [TestMethod]
+        [Fact]
         public void PropertyBagHolder_SetProperty_SetsStringProperty()
         {
             "def".ShouldSerializeAs("\"def\"");
         }
 
-        [TestMethod]
+        [Fact]
         public void PropertyBagHolder_SetProperty_SetsIntegerProperty()
         {
             42.ShouldSerializeAs("42");
         }
 
-        [TestMethod]
+        [Fact]
         public void PropertyBagHolder_SetProperty_SetsLongProperty()
         {
             42L.ShouldSerializeAs("42");
         }
 
-        [TestMethod]
+        [Fact]
         public void PropertyBagHolder_SetProperty_SetsBooleanProperty()
         {
             true.ShouldSerializeAs("true");
         }
 
-        [TestMethod]
+        [Fact]
         public void PropertyBagHolder_SetProperty_SetsIntegerArrayProperty()
         {
             new int[] { 5, 12, 13 }.ShouldSerializeAs("[5,12,13]");
         }
 
         // This demonstrates how the "tags" property is handled.
-        [TestMethod]
+        [Fact]
         public void PropertyBagHolder_SetProperty_SetsStringArrayProperty()
         {
             new string[] { "ab", "cde" }.ShouldSerializeAs("[\"ab\",\"cde\"]");
         }
 
         // These tests show that any enumerable serializes as an array.
-        [TestMethod]
+        [Fact]
         public void PropertyBagHolder_SetProperty_SetsStringArrayPropertyFromList()
         {
             new List<string> { "ab", "cde" }.ShouldSerializeAs("[\"ab\",\"cde\"]");
         }
 
-        [TestMethod]
+        [Fact]
         public void PropertyBagHolder_SetProperty_SetsStringArrayPropertyFromHashSet()
         {
             new HashSet<string> { "ab", "cde" }.ShouldSerializeAs("[\"ab\",\"cde\"]");
@@ -238,13 +233,13 @@ namespace Microsoft.CodeAnalysis.Sarif
             public string S { get; }
         }
 
-        [TestMethod]
+        [Fact]
         public void PropertyBagHolder_SetProperty_SetsObjectProperty()
         {
             new TestObjectClass(42, "abc").ShouldSerializeAs("{\"n\":42,\"s\":\"abc\"}");
         }
 
-        [TestMethod]
+        [Fact]
         public void PropertyBagHolder_SetProperty_SetsGuidProperty()
         {
             const string GuidString = "{12345678-1234-1234-1234-1234567890ab}";
@@ -257,7 +252,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             new Guid(GuidString).ShouldSerializeAs(expectedOutput);
         }
 
-        [TestMethod]
+        [Fact]
         public void PropertyBagHolder_SetProperty_SetsDateTimeProperty()
         {
             new DateTime(2016, 5, 11, 14, 28, 36, 123).ShouldSerializeAs("\"2016-05-11T14:28:36.123Z\"");

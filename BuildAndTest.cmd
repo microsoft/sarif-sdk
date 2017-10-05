@@ -5,7 +5,7 @@ SETLOCAL
 @REM create a nuget package for the SARIF SDK) so must opt-in
 @REM %~dp0.nuget\NuGet.exe update -self
 
-set Platform=Any CPU
+set Platform=AnyCPU
 set Configuration=Release
 
 :NextArg
@@ -57,7 +57,6 @@ echo         public const string Version = AssemblyVersion + Prerelease;        
 echo     }                                                                          >> %DRV_VERSION_CONSTANTS%
 echo  }                                                                             >> %DRV_VERSION_CONSTANTS%
 
-
 call BeforeBuild.cmd
 
 if "%ERRORLEVEL%" NEQ "0" (
@@ -71,65 +70,63 @@ goto ExitFailed
 )
 
 @REM Build Nuget packages
-.nuget\NuGet.exe pack .\src\Nuget\Sarif.Sdk.nuspec -Symbols -Properties id=Sarif.Sdk;major=%MAJOR%;minor=%MINOR%;patch=%PATCH%;prerelease=%PRERELEASE%;configuration=%Configuration% -Verbosity Quiet -BasePath .\bld\bin\Sarif\AnyCPU_%Configuration% -OutputDirectory .\bld\bin\Nuget
-.nuget\NuGet.exe pack .\src\Nuget\Sarif.Driver.nuspec -Symbols -Properties id=Sarif.Driver;major=%MAJOR%;minor=%MINOR%;patch=%PATCH%;prerelease=%PRERELEASE%;configuration=%Configuration% -Verbosity Quiet -BasePath .\bld\bin\Sarif.Driver\AnyCPU_%Configuration%\ -OutputDirectory .\bld\bin\Nuget
+dotnet pack .\src\Sarif\Sarif.csproj
+
+if "%ERRORLEVEL%" NEQ "0" (
+goto ExitFailed
+)
+
+dotnet pack .\src\Sarif.Converters\Sarif.Converters.csproj
+
+if "%ERRORLEVEL%" NEQ "0" (
+goto ExitFailed
+)
+
+dotnet pack .\src\Sarif.Driver\Sarif.Driver.csproj
+
+if "%ERRORLEVEL%" NEQ "0" (
+goto ExitFailed
+)
+
+dotnet pack .\src\Sarif.Multitool\Sarif.Multitool.csproj
 
 if "%ERRORLEVEL%" NEQ "0" (
 goto ExitFailed
 )
 
 @REM Run all tests
-SET PASSED=true
 
-mstest /testContainer:bld\bin\Sarif.Converters.UnitTests\AnyCPU_%Configuration%\Sarif.Converters.UnitTests.dll
-if "%ERRORLEVEL%" NEQ "0" (
-set PASSED=false
-)
-
-if "%PASSED%" NEQ "true" (
-goto ExitFailed
-)
-
-mstest /testContainer:bld\bin\Sarif.UnitTests\AnyCPU_%Configuration%\Sarif.UnitTests.dll
-if "%ERRORLEVEL%" NEQ "0" (
-set PASSED=false
-)
-
-if "%PASSED%" NEQ "true" (
-goto ExitFailed
-)
-
-src\packages\xunit.runner.console.2.1.0\tools\xunit.console.x86.exe bld\bin\Sarif.UnitTests\AnyCPU_%Configuration%\Sarif.UnitTests.dll
-
-if "%ERRORLEVEL%" NEQ "0" (
-goto ExitFailed
-)
-src\packages\xunit.runner.console.2.1.0\tools\xunit.console.x86.exe bld\bin\Sarif.Driver.UnitTests\AnyCPU_%Configuration%\Sarif.Driver.UnitTests.dll
-
+pushd .\src\Sarif.Converters.UnitTests && dotnet xunit && popd
 if "%ERRORLEVEL%" NEQ "0" (
 goto ExitFailed
 )
 
-src\packages\xunit.runner.console.2.1.0\tools\xunit.console.x86.exe bld\bin\Sarif.FunctionalTests\AnyCPU_%Configuration%\Sarif.FunctionalTests.dll
-
+pushd .\src\Sarif.UnitTests && dotnet xunit && popd
 if "%ERRORLEVEL%" NEQ "0" (
 goto ExitFailed
 )
 
-src\packages\xunit.runner.console.2.1.0\tools\xunit.console.x86.exe bld\bin\Sarif.ValidationTests\AnyCPU_%Configuration%\Sarif.ValidationTests.dll
-
+pushd .\src\Sarif.Driver.UnitTests && dotnet xunit && popd
 if "%ERRORLEVEL%" NEQ "0" (
 goto ExitFailed
 )
 
-src\packages\xunit.runner.console.2.1.0\tools\xunit.console.x86.exe bld\bin\Sarif.Viewer.VisualStudio.UnitTests\AnyCPU_%Configuration%\Sarif.Viewer.VisualStudio.UnitTests.dll
-
+pushd .\src\Sarif.FunctionalTests && dotnet xunit && popd
 if "%ERRORLEVEL%" NEQ "0" (
 goto ExitFailed
 )
 
-src\packages\xunit.runner.console.2.1.0\tools\xunit.console.x86.exe bld\bin\Sarif.Multitool.FunctionalTests\AnyCPU_%Configuration%\Sarif.Multitool.FunctionalTests.dll
+pushd .\src\Sarif.Multitool.FunctionalTests && dotnet xunit && popd
+if "%ERRORLEVEL%" NEQ "0" (
+goto ExitFailed
+)
 
+src\packages\xunit.runner.console.2.2.0\tools\xunit.console.x86.exe bld\bin\Sarif.ValidationTests\AnyCPU_%Configuration%\Sarif.ValidationTests.dll
+if "%ERRORLEVEL%" NEQ "0" (
+goto ExitFailed
+)
+
+src\packages\xunit.runner.console.2.2.0\tools\xunit.console.x86.exe bld\bin\Sarif.Viewer.VisualStudio.UnitTests\AnyCPU_%Configuration%\Sarif.Viewer.VisualStudio.UnitTests.dll
 if "%ERRORLEVEL%" NEQ "0" (
 goto ExitFailed
 )

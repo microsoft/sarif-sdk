@@ -154,7 +154,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 analyzeOptions : options);
         }
 
+#if NETCOREAPP2_0
+        [Fact(Skip = "GetType().Assembly.Location causes test to fail in NET CORE")]
+#else
         [Fact]
+#endif
         public void NoRulesLoaded()
         {
             var options = new TestAnalyzeOptions()
@@ -477,7 +481,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             return run;
         }
 
+#if NETCOREAPP2_0
+        [Fact(Skip = "GetType().Assembly.Location causes test to fail in NET CORE")]
+#else
         [Fact]
+#endif
         public void AnalyzeCommand_EndToEndAnalysisWithNoIssues()
         {
             Run run = AnalyzeFile(this.GetType().Assembly.Location);

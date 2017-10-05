@@ -4,63 +4,64 @@
 using System.Collections.Generic;
 using System.Xml;
 using System.Xml.Linq;
-
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Microsoft.CodeAnalysis.Sarif.Converters;
 using FluentAssertions;
+using Xunit;
 
 namespace Microsoft.CodeAnalysis.Sarif
 {
-    [TestClass]
     public class ExtensionsTests
     {
-        [TestMethod]
+        [Fact]
         public void Extensions_PropertValue_NullProperties()
         {
             Dictionary<string, string> uut = null;
-            Assert.IsNull(uut.PropertyValue("anything"));
+            Assert.Null(uut.PropertyValue("anything"));
         }
 
-        [TestMethod]
+        [Fact]
         public void Extensions_PropertValue_UnsetValue()
         {
             var uut = new Dictionary<string, string>();
-            Assert.IsNull(uut.PropertyValue("anything"));
+            Assert.Null(uut.PropertyValue("anything"));
         }
 
-        [TestMethod]
+        [Fact]
         public void Extensions_PropertValue_SetValue()
         {
-            var uut = new Dictionary<string, string>();
-            uut.Add("anything", "the value");
-            Assert.AreEqual("the value", uut.PropertyValue("anything"));
+            var uut = new Dictionary<string, string>
+            {
+                { "anything", "the value" }
+            };
+
+            Assert.Equal("the value", uut.PropertyValue("anything"));
         }
 
-        [TestMethod]
+        [Fact]
         public void Extensions_IsNewline_CarriageReturn()
         {
             '\r'.IsNewline().Should().BeTrue();
         }
 
-        [TestMethod]
+        [Fact]
         public void Extensions_IsNewline_LineFeed()
         {
             '\n'.IsNewline().Should().BeTrue();
         }
 
-        [TestMethod]
+        [Fact]
         public void Extensions_IsNewline_UnicodeLine()
         {
             '\u2028'.IsNewline().Should().BeTrue();
         }
 
-        [TestMethod]
+        [Fact]
         public void Extensions_IsNewline_UnicodeParagraph()
         {
             '\u2029'.IsNewline().Should().BeTrue();
         }
 
-        [TestMethod]
+        [Fact]
         public void Extensions_IsNewline_Other()
         {
             'E'.IsNewline().Should().BeFalse();
@@ -69,31 +70,31 @@ namespace Microsoft.CodeAnalysis.Sarif
         private static readonly char[] s_testArray = "  match   ".ToCharArray();
         // 0123456789
 
-        [TestMethod]
+        [Fact]
         public void Extensions_ArrayMatches_NegativeStartIndex()
         {
             s_testArray.Matches(-1, "match").Should().BeFalse();
         }
 
-        [TestMethod]
+        [Fact]
         public void Extensions_ArrayMatches_TooLong()
         {
             s_testArray.Matches(6, "match").Should().BeFalse();
         }
 
-        [TestMethod]
+        [Fact]
         public void Extensions_ArrayMatches_Match()
         {
             s_testArray.Matches(2, "match").Should().BeTrue();
         }
 
-        [TestMethod]
+        [Fact]
         public void Extensions_ArrayMatches_Mismatch()
         {
             s_testArray.Matches(0, "match").Should().BeFalse();
         }
 
-        [TestMethod]
+        [Fact]
         public void Extensions_XmlCreateException_WithLineInfo()
         {
             // 0000000001111111111222222
@@ -103,12 +104,12 @@ namespace Microsoft.CodeAnalysis.Sarif
                 unitUnderTest.Read(); // <hello>
                 unitUnderTest.Read(); // <world>
                 XmlException result = unitUnderTest.CreateException("cute fluffy kittens");
-                Assert.AreEqual(1, result.LineNumber);
-                Assert.AreEqual(8, result.LinePosition);
+                Assert.Equal(1, result.LineNumber);
+                Assert.Equal(8, result.LinePosition);
             }
         }
 
-        [TestMethod]
+        [Fact]
         public void Extensions_XmlCreateException_WithoutLineInfo()
         {
             var testData = new XElement("hello", new XElement("world"));
@@ -117,48 +118,48 @@ namespace Microsoft.CodeAnalysis.Sarif
                 unitUnderTest.Read(); // <hello>
                 unitUnderTest.Read(); // <world />
                 XmlException result = unitUnderTest.CreateException("hungry EVIL zombies");
-                Assert.AreEqual(0, result.LineNumber);
-                Assert.AreEqual(0, result.LinePosition);
+                Assert.Equal(0, result.LineNumber);
+                Assert.Equal(0, result.LinePosition);
             }
         }
 
-        [TestMethod]
+        [Fact]
         public void Extensions_XmlCreateException_WithFormat()
         {
             var testData = new XElement("hello", new XElement("world"));
             using (XmlReader unitUnderTest = testData.CreateReader())
             {
                 XmlException result = unitUnderTest.CreateException("hungry {0} zombies", "evil");
-                Assert.AreEqual("hungry evil zombies", result.Message);
+                Assert.Equal("hungry evil zombies", result.Message);
             }
         }
 
         private const string simpleXmlDoc = "<xml><skip_this>expected child content</skip_this><following/></xml>";
 
-        [TestMethod]
+        [Fact]
         public void Extensions_XmlIgnoreElementContent_Required_Success()
         {
             using (XmlReader xml = Utilities.CreateXmlReaderFromString(simpleXmlDoc))
             {
                 xml.ReadStartElement("xml");
                 xml.IgnoreElement(xml.NameTable.Add("skip_this"), IgnoreOptions.Required);
-                Assert.AreEqual("following", xml.LocalName);
+                Assert.Equal("following", xml.LocalName);
             }
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(XmlException))]
+        [Fact]
         public void Extensions_XmlIgnoreElement_Required_Failure_BadName()
         {
             using (XmlReader xml = Utilities.CreateXmlReaderFromString(simpleXmlDoc))
             {
                 xml.Read(); // <xml>
-                xml.IgnoreElement(xml.NameTable.Add("skip_this"), IgnoreOptions.Required);
+                Assert.Throws<XmlException>(() => 
+                    xml.IgnoreElement(xml.NameTable.Add("skip_this"), IgnoreOptions.Required)
+                );
             }
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(XmlException))]
+        [Fact]
         public void Extensions_XmlIgnoreElement_Required_Failure_BadNodeType()
         {
             using (XmlReader xml = Utilities.CreateXmlReaderFromString(simpleXmlDoc))
@@ -167,33 +168,35 @@ namespace Microsoft.CodeAnalysis.Sarif
                 xml.Read(); // Position on <skip_this>
                 xml.Read(); // Position on simple content
                 xml.Read(); // Position on </skip_this>
-                xml.IgnoreElement(xml.NameTable.Add("skip_this"), IgnoreOptions.Required);
+                Assert.Throws<XmlException>(() =>
+                    xml.IgnoreElement(xml.NameTable.Add("skip_this"), IgnoreOptions.Required)
+                );
             }
         }
 
-        [TestMethod]
+        [Fact]
         public void Extensions_XmlIgnoreElement_Optional_Success()
         {
             using (XmlReader xml = Utilities.CreateXmlReaderFromString(simpleXmlDoc))
             {
                 xml.ReadStartElement("xml");
                 xml.IgnoreElement(xml.NameTable.Add("skip_this"), IgnoreOptions.Optional);
-                Assert.AreEqual("following", xml.LocalName);
+                Assert.Equal("following", xml.LocalName);
             }
         }
 
-        [TestMethod]
+        [Fact]
         public void Extensions_XmlIgnoreElement_Optional_Failure_BadName()
         {
             using (XmlReader xml = Utilities.CreateXmlReaderFromString(simpleXmlDoc))
             {
                 xml.Read(); // Position on <xml>
                 xml.IgnoreElement(xml.NameTable.Add("skip_this"), IgnoreOptions.Optional);
-                Assert.AreEqual("xml", xml.LocalName);
+                Assert.Equal("xml", xml.LocalName);
             }
         }
 
-        [TestMethod]
+        [Fact]
         public void Extensions_XmlIgnoreElement_Optional_Failure_BadNodeType()
         {
             using (XmlReader xml = Utilities.CreateXmlReaderFromString(simpleXmlDoc))
@@ -204,11 +207,11 @@ namespace Microsoft.CodeAnalysis.Sarif
                 xml.Read(); // Position on </skip_this>
                 xml.IgnoreElement(xml.NameTable.Add("skip_this"), IgnoreOptions.Optional);
                 xml.Read();
-                Assert.AreEqual("following", xml.LocalName);
+                Assert.Equal("following", xml.LocalName);
             }
         }
 
-        [TestMethod]
+        [Fact]
         public void Extensions_XmlIgnoreElement_OptionalMulti_Failure_BadNodeType()
         {
             using (XmlReader xml = Utilities.CreateXmlReaderFromString(simpleXmlDoc))
@@ -219,13 +222,13 @@ namespace Microsoft.CodeAnalysis.Sarif
                 xml.Read(); // Position on </skip_this>
                 xml.IgnoreElement(xml.NameTable.Add("skip_this"), IgnoreOptions.Optional | IgnoreOptions.Multiple);
                 xml.Read();
-                Assert.AreEqual("following", xml.LocalName);
+                Assert.Equal("following", xml.LocalName);
             }
         }
 
         private const string simpleXmlMulitDoc = "<xml><xml>child <unused /> content</xml><xml>following</xml></xml>";
 
-        [TestMethod]
+        [Fact]
         public void Extensions_XmlIgnoreElement_Singular_DoesNotOverread()
         {
             using (XmlReader xml = Utilities.CreateXmlReaderFromString(simpleXmlMulitDoc))
@@ -233,12 +236,12 @@ namespace Microsoft.CodeAnalysis.Sarif
                 xml.Read(); // Position on <xml> at depth 0
                 xml.Read(); // Position on <xml> at depth 1
                 xml.IgnoreElement(xml.NameTable.Add("xml"), IgnoreOptions.Optional);
-                Assert.AreEqual(XmlNodeType.Element, xml.NodeType);
-                Assert.AreEqual("following", xml.ReadElementContentAsString());
+                Assert.Equal(XmlNodeType.Element, xml.NodeType);
+                Assert.Equal("following", xml.ReadElementContentAsString());
             }
         }
 
-        [TestMethod]
+        [Fact]
         public void Extensions_XmlIgnoreElement_Multiple_DoesNotOverread()
         {
             using (XmlReader xml = Utilities.CreateXmlReaderFromString(simpleXmlMulitDoc))
@@ -246,12 +249,12 @@ namespace Microsoft.CodeAnalysis.Sarif
                 xml.Read(); // Position on <xml> at depth 0
                 xml.Read(); // Position on <xml> at depth 1
                 xml.IgnoreElement(xml.NameTable.Add("xml"), IgnoreOptions.Multiple);
-                Assert.AreEqual(XmlNodeType.EndElement, xml.NodeType);
-                Assert.AreEqual(0, xml.Depth);
+                Assert.Equal(XmlNodeType.EndElement, xml.NodeType);
+                Assert.Equal(0, xml.Depth);
             }
         }
 
-        [TestMethod]
+        [Fact]
         public void Extensions_XmlIgnoreElement_Multiple_WhenRequiredReadsZeroElements()
         {
             using (XmlReader xml = Utilities.CreateXmlReaderFromString(simpleXmlMulitDoc))
@@ -261,27 +264,27 @@ namespace Microsoft.CodeAnalysis.Sarif
                 try
                 {
                     xml.IgnoreElement(xml.NameTable.Add("different_element"), IgnoreOptions.Multiple);
-                    Assert.Fail();
+                    Assert.True(false);
                 }
                 catch (XmlException) { }
-                Assert.AreEqual(XmlNodeType.Element, xml.NodeType);
-                Assert.AreEqual("xml", xml.LocalName);
-                Assert.AreEqual(1, xml.Depth);
+                Assert.Equal(XmlNodeType.Element, xml.NodeType);
+                Assert.Equal("xml", xml.LocalName);
+                Assert.Equal(1, xml.Depth);
             }
         }
 
-        [TestMethod]
+        [Fact]
         public void Extensions_XmlReadOptionalElementContentAsString_Success()
         {
             using (XmlReader xml = Utilities.CreateXmlReaderFromString(simpleXmlDoc))
             {
                 xml.ReadStartElement("xml");
                 string elementName = xml.NameTable.Add("skip_this");
-                Assert.AreEqual("expected child content", xml.ReadOptionalElementContentAsString(elementName));
+                Assert.Equal("expected child content", xml.ReadOptionalElementContentAsString(elementName));
             }
         }
 
-        [TestMethod]
+        [Fact]
         public void Extensions_XmlReadOptionalElementContentAsString_Failure_BadNodeType()
         {
             using (XmlReader xml = Utilities.CreateXmlReaderFromString(simpleXmlDoc))
@@ -289,20 +292,20 @@ namespace Microsoft.CodeAnalysis.Sarif
                 xml.ReadStartElement("xml");
                 xml.ReadStartElement("skip_this"); // Position in the simple content inside <skip_this/>
                 xml.Read(); // Now on end element
-                Assert.AreEqual(XmlNodeType.EndElement, xml.NodeType);
+                Assert.Equal(XmlNodeType.EndElement, xml.NodeType);
                 string elementName = xml.NameTable.Add("skip_this");
-                Assert.IsNull(xml.ReadOptionalElementContentAsString(elementName));
+                Assert.Null(xml.ReadOptionalElementContentAsString(elementName));
             }
         }
 
-        [TestMethod]
+        [Fact]
         public void Extensions_XmlReadOptionalElementContentAsString_Failure_BadName()
         {
             using (XmlReader xml = Utilities.CreateXmlReaderFromString(simpleXmlDoc))
             {
                 xml.ReadStartElement("xml");
                 string elementName = xml.NameTable.Add("bad_name");
-                Assert.IsNull(xml.ReadOptionalElementContentAsString(elementName));
+                Assert.Null(xml.ReadOptionalElementContentAsString(elementName));
             }
         }
 
@@ -314,68 +317,68 @@ namespace Microsoft.CodeAnalysis.Sarif
                 new XElement("deep_child", new XElement("node", new XElement("node")))
                 );
 
-        [TestMethod]
+        [Fact]
         public void Extensions_ConsumeElementOfDepth_AtLesserDepthTakesNoAction()
         {
             using (var xml = s_consumeElementOfDepthTestDocument.CreateReader())
             {
                 xml.ConsumeElementOfDepth(1); // Already at endElementDepth 0, should have no effect
-                Assert.AreEqual(ReadState.Initial, xml.ReadState);
+                Assert.Equal(ReadState.Initial, xml.ReadState);
             }
         }
 
-        [TestMethod]
+        [Fact]
         public void Extensions_ConsumeElementOfDepth_ConsumesEmptyElement()
         {
             using (var xml = s_consumeElementOfDepthTestDocument.CreateReader())
             {
-                Assert.IsTrue(xml.ReadToDescendant("empty_child"));
-                Assert.IsTrue(xml.IsEmptyElement);
+                Assert.True(xml.ReadToDescendant("empty_child"));
+                Assert.True(xml.IsEmptyElement);
                 xml.ConsumeElementOfDepth(1);
-                Assert.AreEqual("content_child", xml.LocalName);
+                Assert.Equal("content_child", xml.LocalName);
             }
         }
 
-        [TestMethod]
+        [Fact]
         public void Extensions_ConsumeElementOfDepth_ConsumesElementWithChildren()
         {
             using (var xml = s_consumeElementOfDepthTestDocument.CreateReader())
             {
-                Assert.IsTrue(xml.ReadToDescendant("nodes_child"));
+                Assert.True(xml.ReadToDescendant("nodes_child"));
                 xml.ConsumeElementOfDepth(1);
-                Assert.AreEqual(XmlNodeType.Element, xml.NodeType);
-                Assert.AreEqual("deep_child", xml.LocalName);
+                Assert.Equal(XmlNodeType.Element, xml.NodeType);
+                Assert.Equal("deep_child", xml.LocalName);
             }
         }
 
-        [TestMethod]
+        [Fact]
         public void Extensions_ConsumeElementOfDepth_ConsumesWhenAlreadyInsideElement()
         {
             using (var xml = s_consumeElementOfDepthTestDocument.CreateReader())
             {
-                Assert.IsTrue(xml.ReadToDescendant("nodes_child"));
-                Assert.IsTrue(xml.ReadToDescendant("node"));
+                Assert.True(xml.ReadToDescendant("nodes_child"));
+                Assert.True(xml.ReadToDescendant("node"));
                 xml.Read();
-                Assert.AreEqual(XmlNodeType.Text, xml.NodeType); // node content
+                Assert.Equal(XmlNodeType.Text, xml.NodeType); // node content
                 xml.ConsumeElementOfDepth(1);
-                Assert.AreEqual(XmlNodeType.Element, xml.NodeType);
-                Assert.AreEqual("deep_child", xml.LocalName);
+                Assert.Equal(XmlNodeType.Element, xml.NodeType);
+                Assert.Equal("deep_child", xml.LocalName);
             }
         }
 
-        [TestMethod]
+        [Fact]
         public void Extensions_ConsumeElementOfDepth_ConsumesEndElement()
         {
             using (var xml = s_consumeElementOfDepthTestDocument.CreateReader())
             {
-                Assert.IsTrue(xml.ReadToDescendant("nodes_child"));
-                Assert.IsTrue(xml.ReadToDescendant("node"));
-                Assert.IsTrue(xml.Read()); // node content
-                Assert.IsTrue(xml.Read()); // </node> -- This test is that we consume the end element when we're standing on it
-                Assert.AreEqual(XmlNodeType.EndElement, xml.NodeType);
+                Assert.True(xml.ReadToDescendant("nodes_child"));
+                Assert.True(xml.ReadToDescendant("node"));
+                Assert.True(xml.Read()); // node content
+                Assert.True(xml.Read()); // </node> -- This test is that we consume the end element when we're standing on it
+                Assert.Equal(XmlNodeType.EndElement, xml.NodeType);
                 xml.ConsumeElementOfDepth(2);
-                Assert.AreEqual(XmlNodeType.Element, xml.NodeType);
-                Assert.AreEqual("deep_child", xml.LocalName);
+                Assert.Equal(XmlNodeType.Element, xml.NodeType);
+                Assert.Equal("deep_child", xml.LocalName);
             }
         }
     }

@@ -1,22 +1,20 @@
 ﻿// Copyright (c) Microsoft. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Microsoft.CodeAnalysis.Sarif.Readers
 {
-    [TestClass]
     public class EnumConverterTests
     {
-        [TestMethod]
+        [Fact]
         public void EnumConverter_ConvertToPascalCase()
         {
-            Assert.AreEqual("M", EnumConverter.ConvertToPascalCase("m"));
-            Assert.AreEqual("MD", EnumConverter.ConvertToPascalCase("md"));
-            Assert.AreEqual("MD5", EnumConverter.ConvertToPascalCase("md5"));
-            Assert.AreEqual("MDFoo", EnumConverter.ConvertToPascalCase("mdFoo"));
-            Assert.AreEqual("Mfoo", EnumConverter.ConvertToPascalCase("mfoo"));
+            Assert.Equal("M", EnumConverter.ConvertToPascalCase("m"));
+            Assert.Equal("MD", EnumConverter.ConvertToPascalCase("md"));
+            Assert.Equal("MD5", EnumConverter.ConvertToPascalCase("md5"));
+            Assert.Equal("MDFoo", EnumConverter.ConvertToPascalCase("mdFoo"));
+            Assert.Equal("Mfoo", EnumConverter.ConvertToPascalCase("mfoo"));
 
             // NOTE: our heuristics for identifying two letter terms that
             // require casing as a group are necessarily limited to our 
@@ -26,17 +24,17 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
             // Even with a dictionary, there is overlap, such as with 
             // Io, a moon of jupiter, and IO.
 
-            Assert.AreEqual("METoo", EnumConverter.ConvertToPascalCase("meToo"));
+            Assert.Equal("METoo", EnumConverter.ConvertToPascalCase("meToo"));
         }
     
-        [TestMethod]
+        [Fact]
         public void EnumConverter_ConvertToCamelCase()
         {
-            Assert.AreEqual("m", EnumConverter.ConvertToCamelCase("M"));
-            Assert.AreEqual("md", EnumConverter.ConvertToCamelCase("MD"));
-            Assert.AreEqual("md5", EnumConverter.ConvertToCamelCase("MD5"));
-            Assert.AreEqual("mdFoo", EnumConverter.ConvertToCamelCase("MDFoo"));
-            Assert.AreEqual("mfoo", EnumConverter.ConvertToCamelCase("Mfoo"));
+            Assert.Equal("m", EnumConverter.ConvertToCamelCase("M"));
+            Assert.Equal("md", EnumConverter.ConvertToCamelCase("MD"));
+            Assert.Equal("md5", EnumConverter.ConvertToCamelCase("MD5"));
+            Assert.Equal("mdFoo", EnumConverter.ConvertToCamelCase("MDFoo"));
+            Assert.Equal("mfoo", EnumConverter.ConvertToCamelCase("Mfoo"));
 
             // NOTE: our heuristics for identifying two letter terms that
             // require casing as a group are necessarily limited to our 
@@ -46,8 +44,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
             // Even with a dictionary, there is overlap, such as with 
             // Io, a moon of jupiter, and IO.
 
-            Assert.AreEqual("meToo", EnumConverter.ConvertToCamelCase("METoo"));
-            Assert.AreEqual("meToo", EnumConverter.ConvertToCamelCase("MeToo"));
+            Assert.Equal("meToo", EnumConverter.ConvertToCamelCase("METoo"));
+            Assert.Equal("meToo", EnumConverter.ConvertToCamelCase("MeToo"));
         }
     }
 }

@@ -71,13 +71,13 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <OutDir>$(SolutionDir)..\bld\bin\$(ProjectName)\AnyCPU_$(Configuration)\</OutDir>
-    <IntDir>$(SolutionDir)..\bld\obj\$(ProjectName)\AnyCPU_$(Configuration)\</IntDir>
+    <OutDir>$(ProjectDir)..\..\bld\bin\$(ProjectName)\AnyCPU_$(Configuration)\</OutDir>
+    <IntDir>$(ProjectDir)..\..\bld\obj\$(ProjectName)\AnyCPU_$(Configuration)\</IntDir>
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <OutDir>$(SolutionDir)..\bld\bin\$(ProjectName)\AnyCPU_$(Configuration)\</OutDir>
-    <IntDir>$(SolutionDir)..\bld\obj\$(ProjectName)\AnyCPU_$(Configuration)\</IntDir>
+    <OutDir>$(ProjectDir)..\..\bld\bin\$(ProjectName)\AnyCPU_$(Configuration)\</OutDir>
+    <IntDir>$(ProjectDir)..\..\bld\obj\$(ProjectName)\AnyCPU_$(Configuration)\</IntDir>
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">

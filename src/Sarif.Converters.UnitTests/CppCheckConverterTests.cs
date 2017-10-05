@@ -4,50 +4,45 @@
 using System;
 using System.IO;
 using System.Xml;
-
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Microsoft.CodeAnalysis.Sarif.Writers;
+using Xunit;
 
 namespace Microsoft.CodeAnalysis.Sarif.Converters
 {
-    [TestClass]
     public class CppCheckConverterTests : ConverterTestsBase<CppCheckConverter>
     {
-        [TestMethod]
-        [ExpectedException(typeof(ArgumentNullException))]
+        [Fact]
         public void CppCheckConverter_Convert_NullInput()
         {
             CppCheckConverter converter = new CppCheckConverter();
-            converter.Convert(null, null, LoggingOptions.None);
+            Assert.Throws<ArgumentNullException>(() => converter.Convert(null, null, LoggingOptions.None));
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(ArgumentNullException))]
+        [Fact]
         public void CppCheckConverter_Convert_NullOutput()
         {
             CppCheckConverter converter = new CppCheckConverter();
-            converter.Convert(new MemoryStream(), null, LoggingOptions.None);
+            Assert.Throws<ArgumentNullException>(() => converter.Convert(new MemoryStream(), null, LoggingOptions.None));
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(ArgumentNullException))]
+        [Fact]
         public void CppCheckConverter_Convert_NullLogTest()
         {
             CppCheckConverter converter = new CppCheckConverter();
-            converter.Convert(null, new ResultLogObjectWriter(), LoggingOptions.None);
+            Assert.Throws<ArgumentNullException>(() => converter.Convert(null, new ResultLogObjectWriter(), LoggingOptions.None));
         }
 
-        [TestMethod]
+        [Fact]
         public void CppCheckConverter_ExtractsCppCheckVersion()
         {
             ResultLogObjectWriter results = Utilities.GetConverterObjects(new CppCheckConverter(),
                 "<results> <cppcheck version=\"12.34\" /> <errors /> </results>");
 
             // We will transform the version above to a Semantic Versioning 2.0 form
-            Assert.AreEqual("12.34.0", results.Tool.Version);
+            Assert.Equal("12.34.0", results.Tool.Version);
         }
 
-        [TestMethod]
+        [Fact]
         public void CppCheckConverter_HandlesEmptyErrorsElement()
         {
             const string source = "<results> <cppcheck version=\"12.34\" /> <errors>   </errors> </results>";
@@ -67,32 +62,28 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             RunTestCase(source, expected);
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(XmlException))]
+        [Fact]
         public void CppCheckConverter_Invalid_RootNodeNotResults()
         {
-            Utilities.GetConverterJson(new CppCheckConverter(), "<bad_root_node />");
+            Assert.Throws<XmlException>(() => Utilities.GetConverterJson(new CppCheckConverter(), "<bad_root_node />"));
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(XmlException))]
+        [Fact]
         public void CppCheckConverter_Invalid_FirstFollowingNodeNotCppCheck()
         {
-            Utilities.GetConverterJson(new CppCheckConverter(), "<results> <a_different_node /> </results>");
+            Assert.Throws<XmlException>(() => Utilities.GetConverterJson(new CppCheckConverter(), "<results> <a_different_node /> </results>"));
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(XmlException))]
+        [Fact]
         public void CppCheckConverter_Invalid_MissingErrorsElement()
         {
-            Utilities.GetConverterJson(new CppCheckConverter(), "<results> <cppcheck version=\"12.34\" /> </results>");
+            Assert.Throws<XmlException>(() => Utilities.GetConverterJson(new CppCheckConverter(), "<results> <cppcheck version=\"12.34\" /> </results>"));
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(XmlException))]
+        [Fact]
         public void CppCheckConverter_Invalid_MissingVersion()
         {
-            Utilities.GetConverterJson(new CppCheckConverter(), "<results> <cppcheck /> <errors /> </results>");
+            Assert.Throws<XmlException>(() => Utilities.GetConverterJson(new CppCheckConverter(), "<results> <cppcheck /> <errors /> </results>"));
         }
     }
 }

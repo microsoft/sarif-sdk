@@ -3,92 +3,92 @@
 
 using System;
 using System.Collections.Generic;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
+using FluentAssertions;
 
 namespace Microsoft.CodeAnalysis.Sarif.Readers.UnitTests
 {
-    [TestClass]
     public class UriConverterTests : JsonTests
     {
-        [TestMethod]
+        [Fact]
         public void ConvertsHttpUri()
         {
             TestConverter("http://www.example.com/dir/file.c", "http://www.example.com/dir/file.c");
         }
 
-        [TestMethod]
+        [Fact]
         public void ConvertsHttpUriWithEscaping()
         {
             TestConverter("http://www.example.com/dir/file name.c", "http://www.example.com/dir/file%20name.c");
         }
 
-        [TestMethod]
+        [Fact]
         public void ConvertsAbsoluteWindowsFilePath()
         {
             TestConverter(@"C:\dir\file.c", "file:///C:/dir/file.c");
         }
 
-        [TestMethod]
+        [Fact]
         public void ConvertsAbsoluteWindowsFilePathWithEscaping()
         {
             TestConverter(@"C:\dir\file name.c", "file:///C:/dir/file%20name.c");
         }
 
-        [TestMethod]
+        [Fact]
         public void ConvertsAbsoluteUnixFilePath()
         {
             TestConverter("/dir/file.c", "/dir/file.c");
         }
 
-        [TestMethod]
+        [Fact]
         public void ConvertsAbsoluteUnixFilePathWithEscaping()
         {
             TestConverter("/dir/file name.c", "/dir/file%20name.c");
         }
 
-        [TestMethod]
+        [Fact]
         public void ConvertsAbsoluteWindowsFileUri()
         {
             TestConverter("file:///C:/dir/file.c", "file:///C:/dir/file.c");
         }
 
-        [TestMethod]
+        [Fact]
         public void ConvertsAbsoluteWindowsFileUriWithEscaping()
         {
             TestConverter("file:///C:/dir/file name.c", "file:///C:/dir/file%20name.c");
         }
 
-        [TestMethod]
+        [Fact]
         public void ConvertsRelativeWindowsFilePath()
         {
             TestConverter(@"dir\file.c", "dir/file.c");
         }
 
-        [TestMethod]
+        [Fact]
         public void ConvertsRelativeWindowsFilePathWithEscaping()
         {
             TestConverter(@"dir\file name.c", "dir/file%20name.c");
         }
 
-        [TestMethod]
+        [Fact]
         public void ConvertsRelativeUnixFilePath()
         {
             TestConverter("dir/file.c", "dir/file.c");
         }
 
-        [TestMethod]
+        [Fact]
         public void ConvertsRelativeUnixFilePathWithEscaping()
         {
             TestConverter("dir/file name.c", "dir/file%20name.c");
         }
 
-        [TestMethod]
+        [Fact]
         public void ConvertsRelativePathWithDotSegments()
         {
             TestConverter(@"..\..\.\.\..\dir1\dir2\file.c", "../../../dir1/dir2/file.c");
         }
 
-        [TestMethod]
+        [Fact]
         public void ConvertPathWithOnlyDotSegments()
         {
             TestConverter(@"..\..", "../..");
@@ -144,7 +144,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers.UnitTests
                 uut.WriteResults(new[] { result });
             });
 
-            Assert.AreEqual(expectedOutput, actualOutput);
+            actualOutput.Should().BeCrossPlatformEquivalent(expectedOutput);
         }
     }
 }

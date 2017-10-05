@@ -2,41 +2,39 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using System.Xml;
-
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Microsoft.CodeAnalysis.Sarif.Converters
 {
-    [TestClass]
     public class FortifyStringsTests
     {
-        [TestMethod]
+        [Fact]
         public void FortifyStrings_ContainsCorrectStrings()
         {
             var nameTable = new NameTable();
             var uut = new FortifyStrings(nameTable);
-            Assert.AreSame(nameTable.Add("Issue"), uut.Issue);
-            Assert.AreSame(nameTable.Add("iid"), uut.Iid);
-            Assert.AreSame(nameTable.Add("ruleID"), uut.RuleId);
-            Assert.AreSame(nameTable.Add("Category"), uut.Category);
-            Assert.AreSame(nameTable.Add("Folder"), uut.Folder);
-            Assert.AreSame(nameTable.Add("Kingdom"), uut.Kingdom);
-            Assert.AreSame(nameTable.Add("Abstract"), uut.Abstract);
-            Assert.AreSame(nameTable.Add("AbstractCustom"), uut.AbstractCustom);
-            Assert.AreSame(nameTable.Add("Friority"), uut.Friority);
-            Assert.AreSame(nameTable.Add("Tag"), uut.Tag);
-            Assert.AreSame(nameTable.Add("Comment"), uut.Comment);
-            Assert.AreSame(nameTable.Add("Primary"), uut.Primary);
-            Assert.AreSame(nameTable.Add("Source"), uut.Source);
-            Assert.AreSame(nameTable.Add("TraceDiagramPath"), uut.TraceDiagramPath);
-            Assert.AreSame(nameTable.Add("ExternalCategory"), uut.ExternalCategory);
-            Assert.AreSame(nameTable.Add("type"), uut.Type);
-            Assert.AreSame(nameTable.Add("FileName"), uut.FileName);
-            Assert.AreSame(nameTable.Add("FilePath"), uut.FilePath);
-            Assert.AreSame(nameTable.Add("LineStart"), uut.LineStart);
-            Assert.AreSame(nameTable.Add("Snippet"), uut.Snippet);
-            Assert.AreSame(nameTable.Add("SnippetLine"), uut.SnippetLine);
-            Assert.AreSame(nameTable.Add("TargetFunction"), uut.TargetFunction);
+            Assert.Same(nameTable.Add("Issue"), uut.Issue);
+            Assert.Same(nameTable.Add("iid"), uut.Iid);
+            Assert.Same(nameTable.Add("ruleID"), uut.RuleId);
+            Assert.Same(nameTable.Add("Category"), uut.Category);
+            Assert.Same(nameTable.Add("Folder"), uut.Folder);
+            Assert.Same(nameTable.Add("Kingdom"), uut.Kingdom);
+            Assert.Same(nameTable.Add("Abstract"), uut.Abstract);
+            Assert.Same(nameTable.Add("AbstractCustom"), uut.AbstractCustom);
+            Assert.Same(nameTable.Add("Friority"), uut.Friority);
+            Assert.Same(nameTable.Add("Tag"), uut.Tag);
+            Assert.Same(nameTable.Add("Comment"), uut.Comment);
+            Assert.Same(nameTable.Add("Primary"), uut.Primary);
+            Assert.Same(nameTable.Add("Source"), uut.Source);
+            Assert.Same(nameTable.Add("TraceDiagramPath"), uut.TraceDiagramPath);
+            Assert.Same(nameTable.Add("ExternalCategory"), uut.ExternalCategory);
+            Assert.Same(nameTable.Add("type"), uut.Type);
+            Assert.Same(nameTable.Add("FileName"), uut.FileName);
+            Assert.Same(nameTable.Add("FilePath"), uut.FilePath);
+            Assert.Same(nameTable.Add("LineStart"), uut.LineStart);
+            Assert.Same(nameTable.Add("Snippet"), uut.Snippet);
+            Assert.Same(nameTable.Add("SnippetLine"), uut.SnippetLine);
+            Assert.Same(nameTable.Add("TargetFunction"), uut.TargetFunction);
         }
     }
 }

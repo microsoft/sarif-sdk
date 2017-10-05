@@ -4,16 +4,15 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-
 using Newtonsoft.Json;
+using Xunit;
+using FluentAssertions;
 
 namespace Microsoft.CodeAnalysis.Sarif.Readers
 {
-    [TestClass]
     public class AlgorithmKindConverterTests : JsonTests
     {
-        [TestMethod]
+        [Fact]
         public void AlgorithmKind_AllMembers()
         {
             var testTuples = new List<Tuple<AlgorithmKind, string>>
@@ -55,7 +54,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
             };
 
             // Algorithm.Unknown is handled specially in another test
-            Assert.AreEqual(Enum.GetValues(typeof(AlgorithmKind)).Length - 1, testTuples.Count);
+            Assert.Equal(Enum.GetValues(typeof(AlgorithmKind)).Length - 1, testTuples.Count);
 
             foreach (var testTuple in testTuples)
             {
@@ -111,10 +110,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
 
                     uut.WriteResults(new[] { DefaultResult });
                 });
-                Assert.AreEqual(expected, actual);
+                actual.Should().BeCrossPlatformEquivalent(expected);
 
                 var sarifLog = JsonConvert.DeserializeObject<SarifLog>(actual);
-                Assert.AreEqual(testTuple.Item1, sarifLog.Runs[0].Files.Values.First().Hashes[0].Algorithm);
+                Assert.Equal(testTuple.Item1, sarifLog.Runs[0].Files.Values.First().Hashes[0].Algorithm);
             }
         }
     }

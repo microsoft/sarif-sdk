@@ -6,7 +6,7 @@ using System.IO;
 using System.Linq;
 using FluentAssertions;
 using Microsoft.CodeAnalysis.Sarif.Writers;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Microsoft.CodeAnalysis.Sarif.Converters
 {
@@ -16,7 +16,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
     /// converters such as <see cref="FxCopConverter"/> and <see cref="AndroidStudioConverter"/>
     /// derive. These unit tests exercise that logic.
     /// </summary>
-    [TestClass]
     public class ToolFileConverterBaseTests
     {
         // A do-nothing converter, to demonstrate that the base class logic to
@@ -30,7 +29,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             }
         }
 
-        [TestMethod]
+        [Fact]
         public void ConverterBase_SingleLogicalLocation()
         {
             Location location = new Location
@@ -55,7 +54,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             converter.LogicalLocationsDictionary["a"].ValueEquals(logicalLocation).Should().BeTrue();
         }
 
-        [TestMethod]
+        [Fact]
         public void ConverterBase_TwoIdenticalLogicalLocations()
         {
             Location location1 = new Location
@@ -94,7 +93,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             converter.LogicalLocationsDictionary["a"].ValueEquals(logicalLocation2).Should().BeTrue();
         }
 
-        [TestMethod]
+        [Fact]
         public void ConverterBase_MultipleDistinctIdenticallyNamedLogicalLocations()
         {
             Location location1 = new Location

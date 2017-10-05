@@ -20,7 +20,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                         string md5, sha1, sha256;
                         byte[] checksum;
 
-                        using (var md5Cng = new MD5Cng())
+                        using (var md5Cng = MD5.Create())
                         {
                             checksum = md5Cng.ComputeHash(bufferedStream);
                             md5 = BitConverter.ToString(checksum).Replace("-", string.Empty);
@@ -29,7 +29,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                         stream.Seek(0, SeekOrigin.Begin);
                         bufferedStream.Seek(0, SeekOrigin.Begin);
 
-                        using (var sha1Cng = new SHA1Cng())
+                        using (var sha1Cng = SHA1.Create())
                         {
                             checksum = sha1Cng.ComputeHash(bufferedStream);
                             sha1 = BitConverter.ToString(checksum).Replace("-", string.Empty);
@@ -38,7 +38,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                         stream.Seek(0, SeekOrigin.Begin);
                         bufferedStream.Seek(0, SeekOrigin.Begin);
 
-                        using (var sha256Cng = new SHA256Cng())
+                        using (var sha256Cng = SHA256.Create())
                         {
                             checksum = sha256Cng.ComputeHash(bufferedStream);
                             sha256 = BitConverter.ToString(checksum).Replace("-", string.Empty);
@@ -63,7 +63,8 @@ namespace Microsoft.CodeAnalysis.Sarif
                 {
                     using (var bufferedStream = new BufferedStream(stream, 1024 * 32))
                     {
-                        using (var sha = new SHA256Cng())
+
+                        using (var sha = SHA256.Create())
                         {
                             byte[] checksum = sha.ComputeHash(bufferedStream);
                             sha256Hash = BitConverter.ToString(checksum).Replace("-", string.Empty);
@@ -86,7 +87,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 {
                     using (var bufferedStream = new BufferedStream(stream, 1024 * 32))
                     {
-                        using (var sha = new SHA1Cng())
+                        using (var sha = SHA1.Create())
                         {
                             byte[] checksum = sha.ComputeHash(bufferedStream);
                             sha1 = BitConverter.ToString(checksum).Replace("-", string.Empty);
@@ -109,7 +110,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 {
                     using (var bufferedStream = new BufferedStream(stream, 1024 * 32))
                     {
-                        using (var sha = new MD5Cng())
+                        using (var sha = MD5.Create())
                         {
                             byte[] checksum = sha.ComputeHash(bufferedStream);
                             md5 = BitConverter.ToString(checksum).Replace("-", string.Empty);

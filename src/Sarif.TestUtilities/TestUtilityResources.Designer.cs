@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Microsoft.Sarif.Viewer {
+namespace Microsoft.CodeAnalysis.Sarif {
     using System;
     
     
@@ -22,14 +22,14 @@ namespace Microsoft.Sarif.Viewer {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class Resources {
+    internal class TestUtilityResources {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal Resources() {
+        internal TestUtilityResources() {
         }
         
         /// <summary>
@@ -39,7 +39,7 @@ namespace Microsoft.Sarif.Viewer {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Microsoft.Sarif.Viewer.Resources", typeof(Resources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Microsoft.CodeAnalysis.Sarif.TestUtilityResources", typeof(TestUtilityResources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -61,20 +61,11 @@ namespace Microsoft.Sarif.Viewer {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Return.
+        ///   Looks up a localized string similar to Expected value is either not equal to, or has different line endings than the actual..
         /// </summary>
-        internal static string ReturnMessage {
+        internal static string BeCrossPlatformEquivalentError {
             get {
-                return ResourceManager.GetString("ReturnMessage", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to &lt;unknown callee&gt;.
-        /// </summary>
-        internal static string UnknownCalleeMessage {
-            get {
-                return ResourceManager.GetString("UnknownCalleeMessage", resourceCulture);
+                return ResourceManager.GetString("BeCrossPlatformEquivalentError", resourceCulture);
             }
         }
     }

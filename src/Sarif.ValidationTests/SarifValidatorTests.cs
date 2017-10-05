@@ -6,14 +6,12 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
-
 using FluentAssertions;
-
 using Microsoft.Json.Schema;
 using Microsoft.Json.Schema.Sarif;
 using Microsoft.Json.Schema.Validation;
-
 using Xunit;
+
 
 namespace Microsoft.CodeAnalysis.Sarif
 {
