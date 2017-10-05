@@ -18,9 +18,7 @@ goto ExitFailed
 )
 
 ::Restore nuget packages
-%~dp0.nuget\NuGet.exe restore src\Sarif.ValidationTests\Sarif.ValidationTests.csproj -ConfigFile .nuget\NuGet.Config -SolutionDirectory ..\
-%~dp0.nuget\NuGet.exe restore src\Sarif.Viewer.VisualStudio\Sarif.Viewer.VisualStudio.csproj -ConfigFile .nuget\NuGet.Config -SolutionDirectory ..\
-%~dp0.nuget\NuGet.exe restore src\Sarif.Viewer.VisualStudio.UnitTests\Sarif.Viewer.VisualStudio.UnitTests.csproj -ConfigFile .nuget\NuGet.Config -SolutionDirectory ..\
+nuget restore src\Everything.sln
 dotnet restore src\Everything.sln
 
 if "%ERRORLEVEL%" NEQ "0" (
