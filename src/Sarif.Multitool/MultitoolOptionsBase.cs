@@ -33,13 +33,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool{
         public bool Force { get; internal set; }
 
         [Option(
-            'i',
-            "inline",
-            Default = false,
-            HelpText = "Write all transformed content to the input file.")]
-        public bool Inline { get; internal set; }
-
-        [Option(
             'h',
             "hashes",
             HelpText = "Output MD5, SHA1, and SHA-256 hash of analysis targets when emitting SARIF reports.")]

@@ -4,14 +4,11 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-
 using FluentAssertions;
-
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Microsoft.CodeAnalysis.Sarif
 {
-    [TestClass]
     public class PropertiesDictionaryTests
     {
         private const string FEATURE = "Sarif.Sdk";
@@ -26,7 +23,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         };
 
 
-        [TestMethod]
+        [Fact]
         public void PropertiesDictionary_RoundTripBoolean()
         {
             var properties = new PropertiesDictionary();
@@ -44,7 +41,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         }
 
 
-        [TestMethod]
+        [Fact]
         public void PropertiesDictionary_RoundTripStringSet()
         {
             var properties = new PropertiesDictionary();
@@ -61,7 +58,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             ValidateSets(properties.GetProperty(StringSetProperty), nonDefaultValue);
         }
 
-        [TestMethod]
+        [Fact]
         public void PropertiesDictionary_RoundTripIntegerSet()
         {
             var properties = new PropertiesDictionary();
@@ -77,7 +74,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             ValidateSets(properties.GetProperty(IntegerSetProperty), nonDefaultValue);
         }
 
-        [TestMethod]
+        [Fact]
         public void PropertiesDictionary_RoundTripNestedPropertiesDictionary()
         {
             var properties = new PropertiesDictionary();
@@ -93,7 +90,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             ValidateProperties(properties.GetProperty(PropertiesDictionaryProperty), nonDefaultValue);
         }
 
-        [TestMethod]
+        [Fact]
         public void PropertiesDictionary_RoundTripEmptyStringToVersionMap()
         {
             const string MapKey = "MapKey";
@@ -111,7 +108,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             ((TypedPropertiesDictionary<Version>)properties[MapKey]).ContainsKey(ValueKey).Should().Be(false);
         }
 
-        [TestMethod]
+        [Fact]
         public void PropertiesDictionary_RoundTripStringToVersionMap()
         {
             const string MapKey = "MapKey";

@@ -3,15 +3,13 @@
 
 using System.Collections.Generic;
 using System.Text;
-
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Microsoft.CodeAnalysis.Sarif
 {
-    [TestClass]
     public class SarifExtensionsTests
     {
-        [TestMethod]
+        [Fact]
         public void SarifExtensions_IsSemanticVersioningCompatible()
         {
             var tests = new Dictionary<string, bool>()
@@ -47,7 +45,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 }
             }
 
-            Assert.IsTrue(sb.Length == 0, sb.ToString());
+            Assert.True(sb.Length == 0, sb.ToString());
         }
     }
 }

@@ -1,144 +1,45 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project Sdk="Microsoft.NET.Sdk">
+  <Import Project="$([MSBuild]::GetDirectoryNameOfFileAbove($(MSBuildThisFileDirectory).., netcorebuild.props))\netcorebuild.props" />
+  
   <PropertyGroup>
-    <ProjectGuid>{8CEAEA61-B1A2-4777-BCBE-C9A129A5F6C5}</ProjectGuid>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
-    <TargetFrameworkProfile />
-  </PropertyGroup>
-  <PropertyGroup>
+    <TargetFrameworks>netcoreapp2.0; netstandard2.0; net452;</TargetFrameworks>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <ProjectGuid>c06f0cf1-3505-4715-b6da-047ec86c4308</ProjectGuid>
     <RootNamespace>Microsoft.CodeAnalysis.Sarif.Driver</RootNamespace>
-  </PropertyGroup>
-  <PropertyGroup>
-    <AssemblyName>Sarif.Driver</AssemblyName>
-  </PropertyGroup>
-  <PropertyGroup>
-    <OutputType>Library</OutputType>
-  </PropertyGroup>
-  <PropertyGroup>
-    <StartupObject />
-  </PropertyGroup>
-  <PropertyGroup>
+    
+    <!-- Full signing does not yet work on Linux.  Turn it off -->
+    <PublicSign Condition=" '$(OS)' != 'Windows_NT' ">true</PublicSign>
     <SignAssembly>true</SignAssembly>
-  </PropertyGroup>
-  <PropertyGroup>
+    <DelaySign>false</DelaySign>
     <AssemblyOriginatorKeyFile>..\..\GeneratedKey.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'" />
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'" />
-  <Import Project="$([MSBuild]::GetDirectoryNameOfFileAbove($(MSBuildThisFileDirectory), build.props))\build.props" />
+  
+  <!--NuGet Packages-->
   <ItemGroup>
-    <Reference Include="CommandLine, Version=2.0.275.0, Culture=neutral, PublicKeyToken=de6f01bd326f8c32, processorArchitecture=MSIL">
-      <HintPath>..\packages\CommandLineParser.2.0.275-beta\lib\net45\CommandLine.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.6.0.8\lib\net45\Newtonsoft.Json.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="System" />
-    <Reference Include="System.Collections.Immutable, Version=1.1.37.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Collections.Immutable.1.1.37\lib\portable-net45+win8+wp8+wpa81\System.Collections.Immutable.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="System.Composition.AttributedModel, Version=1.0.30.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.Composition.1.0.30\lib\portable-net45+win8+wp8+wpa81\System.Composition.AttributedModel.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="System.Composition.Convention, Version=1.0.30.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.Composition.1.0.30\lib\portable-net45+win8+wp8+wpa81\System.Composition.Convention.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="System.Composition.Hosting, Version=1.0.30.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.Composition.1.0.30\lib\portable-net45+win8+wp8+wpa81\System.Composition.Hosting.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="System.Composition.Runtime, Version=1.0.30.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.Composition.1.0.30\lib\portable-net45+win8+wp8+wpa81\System.Composition.Runtime.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="System.Composition.TypedParts, Version=1.0.30.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.Composition.1.0.30\lib\portable-net45+win8+wp8+wpa81\System.Composition.TypedParts.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="System.Configuration" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Reflection.Metadata, Version=1.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Reflection.Metadata.1.1.0\lib\dotnet5.2\System.Reflection.Metadata.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="System.XML" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="Microsoft.CSharp" />
+    <PackageReference Include="CommandLineParser" Version="2.1.1-beta" />
+    <PackageReference Include="Newtonsoft.Json" Version="10.0.3" />
+    <PackageReference Include="System.Composition" Version="1.1.0" />
+
+    <PackageReference Condition="'$(TargetFramework)' == 'net452'" Include="System.Collections.Immutable" Version="1.1.37" />
+    <PackageReference Condition="'$(TargetFramework)' != 'net452'" Include="System.Collections.Immutable" Version="1.4.0" />
   </ItemGroup>
+
+  <!--NuGet Config-->
+  <PropertyGroup>
+    <PackageId>Sarif.Driver</PackageId>
+    <Title>Microsoft SARIF Driver Framework (includes SARIF SDK)</Title>
+    <Authors>Microsoft Corporation</Authors>
+    <Description>SARIF-based classes and utilities for building static analysis drivers. Includes the SARIF SDK.</Description>
+    <PackageReleaseNotes>Version $(Version) of the .NET SARIF SDK (for SARIF v1.0.0)</PackageReleaseNotes>
+    <Copyright>Copyright Microsoft 2015</Copyright>
+    <PackageLicenseUrl>https://github.com/Microsoft/sarif-sdk/blob/master/LICENSE</PackageLicenseUrl>
+    <PackageProjectUrl>https://github.com/microsoft/sarif-sdk</PackageProjectUrl>
+    <PackageTags>command line driver utilities static analysis sarif framework utils driver.utilities</PackageTags>
+    <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+  </PropertyGroup>
+  
   <ItemGroup>
-    <Compile Include="ArgumentSplitter.cs" />
-    <Compile Include="BrandedVersionAttribute.cs" />
-    <Compile Include="DisposableEnumerable.cs" />
-    <Compile Include="DisposableEnumerableView.cs" />
-    <Compile Include="DriverExtensionMethods.cs" />
-    <Compile Include="DriverResources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>DriverResources.resx</DependentUpon>
-    </Compile>
-    <Compile Include="EnumerableExtensions.cs" />
-    <Compile Include="EnvironmentVariables.cs" />
-    <Compile Include="ExceptionStrings.Designer.cs" />
-    <Compile Include="Sdk\AggregatingLogger.cs" />
-    <Compile Include="Sdk\AnalysisApplicability.cs" />
-    <Compile Include="Sdk\AnalysisContext.cs" />
-    <Compile Include="Sdk\EntryPointUtilities.cs" />
-    <Compile Include="Sdk\ExitApplicationException.cs" />
-    <Compile Include="Sdk\ExitReason.cs" />
-    <Compile Include="FileStreamExtensionMethods.cs" />
-    <Compile Include="IAppConfig.cs" />
-    <Compile Include="IEnvironmentVariables.cs" />
-    <Compile Include="KeyEventImportance.cs" />
-    <Compile Include="MurmurHash.cs" />
-    <Compile Include="Pair.cs" />
-    <Compile Include="PathExtensions.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Ref.cs" />
-    <Compile Include="ReferenceEqualityComparer`1.cs" />
-    <Compile Include="RentalStream.cs" />
-    <Compile Include="Sdk\AnalyzeCommandBase.cs" />
-    <Compile Include="Sdk\AnalyzeOptionsBase.cs" />
-    <Compile Include="Sdk\DriverCommand.cs" />
-    <Compile Include="Sdk\CompositionUtilities.cs" />
-    <Compile Include="Sdk\ExportConfigurationCommandBase.cs" />
-    <Compile Include="Sdk\ExportConfigurationOptions.cs" />
-    <Compile Include="Sdk\ExportRulesMetadataCommandBase.cs" />
-    <Compile Include="Sdk\ExportRulesMetadataOptions.cs" />
-    <Compile Include="Sdk\FileFormat.cs" />
-    <Compile Include="Sdk\ISkimmer.cs" />
-    <Compile Include="Sdk\PlugInDriverCommand.cs" />
-    <Compile Include="Sdk\SkimmerBase.cs" />
-    <Compile Include="Sdk\StatisticsLogger.cs" />
-    <Compile Include="SemanticVersion.cs" />
-    <Compile Include="FileSpecifier.cs" />
-    <Compile Include="StringExtensions.cs" />
-    <Compile Include="TempDirectory.cs" />
-    <Compile Include="TempFile.cs" />
-    <Compile Include="VersionConstants.cs" />
-    <Compile Include="XmlWriterExtensions.cs" />
+    <ProjectReference Include="..\Sarif\Sarif.csproj" />
   </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="DriverResources.resx">
-      <SubType>Designer</SubType>
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>DriverResources.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="..\..\GeneratedKey.snk" />
-    <None Include="packages.config">
-      <SubType>Designer</SubType>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Sarif\Sarif.csproj">
-      <Project>{cc9b247e-7103-4bf7-bdab-6e625b3680a8}</Project>
-      <Name>Sarif</Name>
-    </ProjectReference>
-  </ItemGroup>
+
 </Project>

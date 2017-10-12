@@ -1,119 +1,32 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project Sdk="Microsoft.NET.Sdk">
+  <Import Project="$([MSBuild]::GetDirectoryNameOfFileAbove($(MSBuildThisFileDirectory).., netcorebuild.props))\netcorebuild.props" />
+  
   <PropertyGroup>
-    <ProjectGuid>{31A79A68-F8D2-4BA4-8575-EFB4E3DEF1DA}</ProjectGuid>
-    <OutputType>Library</OutputType>
+    <TargetFrameworks>netcoreapp2.0; net452;</TargetFrameworks>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <IsPackable>false</IsPackable>
     <RootNamespace>Microsoft.CodeAnalysis.Sarif</RootNamespace>
-    <AssemblyName>Sarif.UnitTests</AssemblyName>
-    <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
-  </PropertyGroup>
-  <PropertyGroup>
+
+    <!-- Full signing does not yet work on Linux.  Turn it off -->
+    <PublicSign Condition=" '$(OS)' != 'Windows_NT' ">true</PublicSign>
     <SignAssembly>true</SignAssembly>
-  </PropertyGroup>
-  <PropertyGroup>
+    <DelaySign>false</DelaySign>
     <AssemblyOriginatorKeyFile>..\TestKey.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
-  <Import Project="$([MSBuild]::GetDirectoryNameOfFileAbove($(MSBuildThisFileDirectory).., build.props))\build.props" />
+
   <ItemGroup>
-    <Reference Include="Castle.Core, Version=4.1.1.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
-      <HintPath>..\packages\Castle.Core.4.1.1\lib\net45\Castle.Core.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="FluentAssertions, Version=4.0.1.0, Culture=neutral, PublicKeyToken=33f2691a05b67b6a, processorArchitecture=MSIL">
-      <HintPath>..\packages\FluentAssertions.4.0.1\lib\net45\FluentAssertions.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="FluentAssertions.Core, Version=4.0.1.0, Culture=neutral, PublicKeyToken=33f2691a05b67b6a, processorArchitecture=MSIL">
-      <HintPath>..\packages\FluentAssertions.4.0.1\lib\net45\FluentAssertions.Core.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="Moq, Version=4.7.99.0, Culture=neutral, PublicKeyToken=69f491c39445e920, processorArchitecture=MSIL">
-      <HintPath>..\packages\Moq.4.7.99\lib\net45\Moq.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.6.0.8\lib\net45\Newtonsoft.Json.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="System" />
-    <Reference Include="System.Collections.Immutable, Version=1.1.37.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Collections.Immutable.1.1.37\lib\portable-net45+win8+wp8+wpa81\System.Collections.Immutable.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="System.Data" />
-    <Reference Include="System.Drawing" />
-    <Reference Include="System.Windows.Forms" />
-    <Reference Include="System.Xml" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="xunit.abstractions, Version=2.0.0.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c, processorArchitecture=MSIL">
-      <HintPath>..\packages\xunit.abstractions.2.0.0\lib\net35\xunit.abstractions.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="xunit.assert, Version=2.1.0.3179, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c, processorArchitecture=MSIL">
-      <HintPath>..\packages\xunit.assert.2.1.0\lib\dotnet\xunit.assert.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="xunit.core, Version=2.1.0.3179, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c, processorArchitecture=MSIL">
-      <HintPath>..\packages\xunit.extensibility.core.2.1.0\lib\dotnet\xunit.core.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="xunit.execution.desktop, Version=2.1.0.3179, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c, processorArchitecture=MSIL">
-      <HintPath>..\packages\xunit.extensibility.execution.2.1.0\lib\net45\xunit.execution.desktop.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
+    <PackageReference Include="FluentAssertions" Version="4.19.4" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.3.0" />
+    <PackageReference Include="Moq" Version="4.7.99" />
+    <PackageReference Include="xunit" Version="2.3.0-beta4-build3742" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="2.3.0-beta4-build3742" />
+    <DotNetCliToolReference Include="dotnet-xunit" Version="2.3.0-beta4-build3742" />
   </ItemGroup>
+
   <ItemGroup>
-    <ProjectReference Include="..\Sarif.Converters.UnitTests\Sarif.Converters.UnitTests.csproj">
-      <Project>{edf102ed-3959-40a2-9fb1-cbd6719f77bf}</Project>
-      <Name>Sarif.Converters.UnitTests</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Sarif.Converters\Sarif.Converters.csproj">
-      <Project>{237defdf-1dfb-40a0-997f-12c8165daa87}</Project>
-      <Name>Sarif.Converters</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Sarif.Driver\Sarif.Driver.csproj">
-      <Project>{8ceaea61-b1a2-4777-bcbe-c9a129a5f6c5}</Project>
-      <Name>Sarif.Driver</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Sarif\Sarif.csproj">
-      <Project>{cc9b247e-7103-4bf7-bdab-6e625b3680a8}</Project>
-      <Name>Sarif</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Core\PropertyBagHolderTests.cs" />
-    <Compile Include="Core\StackTests.cs" />
-    <Compile Include="Core\TagsTests.cs" />
-    <Compile Include="EqualityComparerTests.cs" />
-    <Compile Include="ExtensionsTests.cs" />
-    <Compile Include="Core\FileDataTests.cs" />
-    <Compile Include="JsonTests.cs" />
-    <Compile Include="PropertiesDictionaryTests.cs" />
-    <Compile Include="Readers\AlgorithmKindConverterTests.cs" />
-    <Compile Include="Readers\AnnotatedCodeLocationIdConverterTests.cs" />
-    <Compile Include="Readers\AnnotatedCodeLocationKindConverterTests.cs" />
-    <Compile Include="Readers\EnumConverterTests.cs" />
-    <Compile Include="Readers\IsSuppressedInSourceConverterTests.cs" />
-    <Compile Include="Readers\PropertyBagConverterTests.cs" />
-    <Compile Include="Readers\ResultDiffingVisitorTests.cs" />
-    <Compile Include="Readers\RuleDictionaryConverterTests.cs" />
-    <Compile Include="Readers\UriConverterTests.cs" />
-    <Compile Include="SarifExtensionsTests.cs" />
-    <Compile Include="SparseReaderDispatchTableTests.cs" />
-    <Compile Include="SparseReaderTests.cs" />
-    <Compile Include="ConvertToSchemaUriTests.cs" />
-    <Compile Include="ToolFormatTests.cs" />
-    <Compile Include="Visitors\AddFileVisitorTests.cs" />
-    <Compile Include="Writers\ResultLogJsonWriterTests.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Writers\MimeTypeTests.cs" />
-    <Compile Include="Writers\SarifLoggerTests.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="packages.config" />
+    <ProjectReference Include="..\Sarif.Converters\Sarif.Converters.csproj" />
+    <ProjectReference Include="..\Sarif.Driver\Sarif.Driver.csproj" />
+    <ProjectReference Include="..\Sarif.TestUtilities\Sarif.TestUtilities.csproj" />
+    <ProjectReference Include="..\Sarif\Sarif.csproj" />
   </ItemGroup>
 </Project>

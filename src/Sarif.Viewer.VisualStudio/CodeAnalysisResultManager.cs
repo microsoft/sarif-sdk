@@ -277,7 +277,7 @@ namespace Microsoft.Sarif.Viewer
         }
 
         // Contents are embedded in SARIF. Create a file from these contents.
-        private string CreateFileFromContents(string fileName)
+        internal string CreateFileFromContents(string fileName)
         {
             var fileData = FileDetails[fileName];
 

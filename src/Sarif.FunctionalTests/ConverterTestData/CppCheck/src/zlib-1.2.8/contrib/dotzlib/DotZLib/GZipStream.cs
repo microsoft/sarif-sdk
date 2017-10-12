@@ -122,7 +122,7 @@ namespace DotZLib
         /// <summary>
         /// Closes the external file handle
         /// </summary>
-        public void Dispose()
+        public new void Dispose()
         {
             cleanUp(true);
         }

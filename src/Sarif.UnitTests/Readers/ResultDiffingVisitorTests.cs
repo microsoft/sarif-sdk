@@ -4,14 +4,13 @@
 
 using System.Collections.Generic;
 using System.Linq;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Microsoft.CodeAnalysis.Sarif.Readers
 {
-    [TestClass]
     public class ResultDiffingVisitorTests
     {
-        [TestMethod]
+        [Fact]
         public void ResultDiffingVisitor_DetectsAbsentAndNewResults()
         {
             var result1 = new Result { RuleId = "TST0001" };
@@ -47,11 +46,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
 
             visitor.Diff(newResults);
 
-            Assert.AreEqual(visitor.AbsentResults.Count, 1);
-            Assert.AreEqual(visitor.AbsentResults.First().RuleId, result1.RuleId);
+            Assert.Single(visitor.AbsentResults);
+            Assert.Equal(visitor.AbsentResults.First().RuleId, result1.RuleId);
 
-            Assert.AreEqual(visitor.NewResults.Count, 1);
-            Assert.AreEqual(visitor.NewResults.First().RuleId, result3.RuleId);
+            Assert.Single(visitor.NewResults);
+            Assert.Equal(visitor.NewResults.First().RuleId, result3.RuleId);
         }
     }
 }

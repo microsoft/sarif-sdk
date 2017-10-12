@@ -1,16 +1,15 @@
 ﻿// Copyright (c) Microsoft. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-
+using FluentAssertions;
 using Newtonsoft.Json;
+using Xunit;
 
 namespace Microsoft.CodeAnalysis.Sarif.Readers
 {
-    [TestClass]
     public class InSourceSuppressionConverterTests : JsonTests
     {
-        [TestMethod]
+        [Fact]
         public void SuppressionStatus_SuppressedInSource()
         {
             string expected =
@@ -44,13 +43,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
                     }
                 });
             });
-            Assert.AreEqual(expected, actual);
+            actual.Should().BeCrossPlatformEquivalent(expected);
 
             var sarifLog = JsonConvert.DeserializeObject<SarifLog>(actual);
-            Assert.AreEqual(SuppressionStates.SuppressedInSource, sarifLog.Runs[0].Results[0].SuppressionStates);
+            Assert.Equal(SuppressionStates.SuppressedInSource, sarifLog.Runs[0].Results[0].SuppressionStates);
         }
 
-        [TestMethod]
+        [Fact]
         public void BaselineState_None()
         {
             string expected =
@@ -80,14 +79,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
                     }
                 });
             });
-            Assert.AreEqual(expected, actual);
+
+            actual.Should().BeCrossPlatformEquivalent(expected);
 
             var sarifLog = JsonConvert.DeserializeObject<SarifLog>(actual);
-            Assert.AreEqual(SuppressionStates.None, sarifLog.Runs[0].Results[0].SuppressionStates);
-            Assert.AreEqual(BaselineState.None, sarifLog.Runs[0].Results[0].BaselineState);
+            Assert.Equal(SuppressionStates.None, sarifLog.Runs[0].Results[0].SuppressionStates);
+            Assert.Equal(BaselineState.None, sarifLog.Runs[0].Results[0].BaselineState);
         }
 
-        [TestMethod]
+        [Fact]
         public void BaselineState_Existing()
         {
             string expected =
@@ -121,11 +121,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
                     }
                 });
             });
-            Assert.AreEqual(expected, actual);
+            actual.Should().BeCrossPlatformEquivalent(expected);
 
             var sarifLog = JsonConvert.DeserializeObject<SarifLog>(actual);
-            Assert.AreEqual(SuppressionStates.None, sarifLog.Runs[0].Results[0].SuppressionStates);
-            Assert.AreEqual(BaselineState.Existing, sarifLog.Runs[0].Results[0].BaselineState);
+            Assert.Equal(SuppressionStates.None, sarifLog.Runs[0].Results[0].SuppressionStates);
+            Assert.Equal(BaselineState.Existing, sarifLog.Runs[0].Results[0].BaselineState);
         }
     }
 }

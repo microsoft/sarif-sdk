@@ -9,33 +9,30 @@ using System.Xml;
 using System.Xml.Linq;
 using FluentAssertions;
 using Microsoft.CodeAnalysis.Sarif.Driver;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Microsoft.CodeAnalysis.Sarif.Converters
 {
-    [TestClass]
     public class AndroidStudioProblemTests
     {
-        [TestMethod]
-        [ExpectedException(typeof(ArgumentException))]
+        [Fact]
         public void AndroidStudioProblem_RejectsNullProblemClass()
         {
             AndroidStudioProblem.Builder builder = GetDefaultProblemBuilder();
             builder.ProblemClass = null;
-            new AndroidStudioProblem(builder);
+            Assert.Throws<ArgumentException>(() => new AndroidStudioProblem(builder));
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(ArgumentException))]
+        [Fact]
         public void AndroidStudioProblem_RejectsLinePresentButNotFile()
         {
             AndroidStudioProblem.Builder builder = GetDefaultProblemBuilder();
             builder.File = null;
             builder.Line = 42;
-            new AndroidStudioProblem(builder);
+            Assert.Throws<ArgumentException>(() => new AndroidStudioProblem(builder));
         }
 
-        [TestMethod]
+        [Fact]
         public void AndroidStudioProblem_AcceptsFileAsLocationInformation()
         {
             AndroidStudioProblem.Builder builder = GetDefaultProblemBuilder();
@@ -47,7 +44,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             new AndroidStudioProblem(builder);
         }
 
-        [TestMethod]
+        [Fact]
         public void AndroidStudioProblem_AcceptsModuleAsLocationInformation()
         {
             AndroidStudioProblem.Builder builder = GetDefaultProblemBuilder();
@@ -59,7 +56,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             new AndroidStudioProblem(builder);
         }
 
-        [TestMethod]
+        [Fact]
         public void AndroidStudioProblem_AcceptsPackageAsLocationInformation()
         {
             AndroidStudioProblem.Builder builder = GetDefaultProblemBuilder();
@@ -71,7 +68,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             new AndroidStudioProblem(builder);
         }
 
-        [TestMethod]
+        [Fact]
         public void AndroidStudioProblem_AcceptsEntryPointAsLocationInformation()
         {
             AndroidStudioProblem.Builder builder = GetDefaultProblemBuilder();
@@ -85,8 +82,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             new AndroidStudioProblem(builder);
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(ArgumentException))]
+        [Fact]
         public void AndroidStudioProblem_RejectsLackOfLocationInformation()
         {
             AndroidStudioProblem.Builder builder = GetDefaultProblemBuilder();
@@ -96,155 +92,185 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             builder.EntryPointName = null;
 
             // Error: No location info, should throw
-            new AndroidStudioProblem(builder);
+            Assert.Throws<ArgumentException>(() => new AndroidStudioProblem(builder));
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(ArgumentException))]
+        [Fact]
         public void AndroidStudioProblem_RequiresEntryPointTypeIfEntryPointNameSet()
         {
             AndroidStudioProblem.Builder builder = GetDefaultProblemBuilder();
             builder.EntryPointType = "Class";
 
             // Error: No location info, should throw
-            new AndroidStudioProblem(builder);
+            Assert.Throws<ArgumentException>(() => new AndroidStudioProblem(builder));
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(ArgumentException))]
+        [Fact]
         public void AndroidStudioProblem_RequiresEntryPointNameIfEntryPointTypeSet()
         {
             AndroidStudioProblem.Builder builder = GetDefaultProblemBuilder();
             builder.EntryPointName = "Frobinate.java";
 
             // Error: No location info, should throw
-            new AndroidStudioProblem(builder);
+            Assert.Throws<ArgumentException>(() => new AndroidStudioProblem(builder));
         }
 
-        [TestMethod]
+        [Fact]
         public void AndroidStudioProblem_DefaultConstructedBuilderIsEmpty()
         {
             var uut = new AndroidStudioProblem.Builder();
-            Assert.IsTrue(uut.IsEmpty);
+            Assert.True(uut.IsEmpty);
         }
 
-        [TestMethod]
+        [Fact]
         public void AndroidStudioProblem_BuilderWithFileIsNotEmpty()
         {
-            var uut = new AndroidStudioProblem.Builder();
-            uut.File = "file";
-            Assert.IsFalse(uut.IsEmpty);
+            var uut = new AndroidStudioProblem.Builder
+            {
+                File = "file"
+            };
+
+            Assert.False(uut.IsEmpty);
         }
 
-        [TestMethod]
+        [Fact]
         public void AndroidStudioProblem_BuilderWithLineIsNotEmpty()
         {
-            var uut = new AndroidStudioProblem.Builder();
-            uut.Line = 42;
-            Assert.IsFalse(uut.IsEmpty);
+            var uut = new AndroidStudioProblem.Builder
+            {
+                Line = 42
+            };
+
+            Assert.False(uut.IsEmpty);
         }
 
-        [TestMethod]
+        [Fact]
         public void AndroidStudioProblem_BuilderWithModuleIsNotEmpty()
         {
-            var uut = new AndroidStudioProblem.Builder();
-            uut.Module = "mod";
-            Assert.IsFalse(uut.IsEmpty);
+            var uut = new AndroidStudioProblem.Builder
+            {
+                Module = "mod"
+            };
+
+            Assert.False(uut.IsEmpty);
         }
 
-        [TestMethod]
+        [Fact]
         public void AndroidStudioProblem_BuilderWithPackageIsNotEmpty()
         {
-            var uut = new AndroidStudioProblem.Builder();
-            uut.Package = "package";
-            Assert.IsFalse(uut.IsEmpty);
+            var uut = new AndroidStudioProblem.Builder
+            {
+                Package = "package"
+            };
+
+            Assert.False(uut.IsEmpty);
         }
 
-        [TestMethod]
+        [Fact]
         public void AndroidStudioProblem_BuilderWithEntryPointTypeIsNotEmpty()
         {
-            var uut = new AndroidStudioProblem.Builder();
-            uut.EntryPointType = "TYPE";
-            Assert.IsFalse(uut.IsEmpty);
+            var uut = new AndroidStudioProblem.Builder
+            {
+                EntryPointType = "TYPE"
+            };
+
+            Assert.False(uut.IsEmpty);
         }
 
-        [TestMethod]
+        [Fact]
         public void AndroidStudioProblem_BuilderWithEntryPointNameIsNotEmpty()
         {
-            var uut = new AndroidStudioProblem.Builder();
-            uut.EntryPointName = "Some name";
-            Assert.IsFalse(uut.IsEmpty);
+            var uut = new AndroidStudioProblem.Builder
+            {
+                EntryPointName = "Some name"
+            };
+
+            Assert.False(uut.IsEmpty);
         }
 
-        [TestMethod]
+        [Fact]
         public void AndroidStudioProblem_BuilderWithSeverityIsNotEmpty()
         {
-            var uut = new AndroidStudioProblem.Builder();
-            uut.Severity = "Sev";
-            Assert.IsFalse(uut.IsEmpty);
+            var uut = new AndroidStudioProblem.Builder
+            {
+                Severity = "Sev"
+            };
+
+            Assert.False(uut.IsEmpty);
         }
 
-        [TestMethod]
+        [Fact]
         public void AndroidStudioProblem_BuilderWithAttributeKeyIsNotEmpty()
         {
-            var uut = new AndroidStudioProblem.Builder();
-            uut.AttributeKey = "Key";
-            Assert.IsFalse(uut.IsEmpty);
+            var uut = new AndroidStudioProblem.Builder
+            {
+                AttributeKey = "Key"
+            };
+            Assert.False(uut.IsEmpty);
         }
 
-        [TestMethod]
+        [Fact]
         public void AndroidStudioProblem_BuilderWithProblemClassIsNotEmpty()
         {
-            var uut = new AndroidStudioProblem.Builder();
-            uut.ProblemClass = "Foo";
-            Assert.IsFalse(uut.IsEmpty);
+            var uut = new AndroidStudioProblem.Builder
+            {
+                ProblemClass = "Foo"
+            };
+
+            Assert.False(uut.IsEmpty);
         }
 
-        [TestMethod]
+        [Fact]
         public void AndroidStudioProblem_BuilderWithHintsIsNotEmpty()
         {
-            var uut = new AndroidStudioProblem.Builder();
-            uut.Hints = ImmutableArray<string>.Empty;
-            Assert.IsFalse(uut.IsEmpty);
+            var uut = new AndroidStudioProblem.Builder
+            {
+                Hints = ImmutableArray<string>.Empty
+            };
+
+            Assert.False(uut.IsEmpty);
             uut.Hints = ImmutableArray.Create("a", "b", "c");
-            Assert.IsFalse(uut.IsEmpty);
+            Assert.False(uut.IsEmpty);
             uut.Hints = default(ImmutableArray<string>);
-            Assert.IsTrue(uut.IsEmpty);
+            Assert.True(uut.IsEmpty);
         }
 
-        [TestMethod]
+        [Fact]
         public void AndroidStudioProblem_BuilderWithDescritionIsNotEmpty()
         {
-            var uut = new AndroidStudioProblem.Builder();
-            uut.Description = "You broke things";
-            Assert.IsFalse(uut.IsEmpty);
+            var uut = new AndroidStudioProblem.Builder
+            {
+                Description = "You broke things"
+            };
+
+            Assert.False(uut.IsEmpty);
         }
 
-        [TestMethod]
+        [Fact]
         public void AndroidStudioProblem_ParseSelfClosingNodeConsumesNode()
         {
             var xmlStr = "<root><problem /><following /></root>";
             using (XmlReader xml = Utilities.CreateXmlReaderFromString(xmlStr))
             {
                 xml.ReadStartElement("root");
-                Assert.IsNull(Parse(xml));
-                Assert.AreEqual("following", xml.LocalName);
+                Assert.Null(Parse(xml));
+                Assert.Equal("following", xml.LocalName);
             }
         }
 
-        [TestMethod]
+        [Fact]
         public void AndroidStudioProblem_ParseEmptyNodeConsumesNode()
         {
             var xmlStr = "<root><problem></problem><following /></root>";
             using (XmlReader xml = Utilities.CreateXmlReaderFromString(xmlStr))
             {
                 xml.ReadStartElement("root");
-                Assert.IsNull(Parse(xml));
-                Assert.AreEqual("following", xml.LocalName);
+                Assert.Null(Parse(xml));
+                Assert.Equal("following", xml.LocalName);
             }
         }
 
-        [TestMethod]
+        [Fact]
         public void AndroidStudioProblem_ParseValidProblem()
         {
             XElement xml = CreateDefaultProblem();
@@ -255,7 +281,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             }
         }
 
-        [TestMethod]
+        [Fact]
         public void AndroidStudioProblem_ParseDoesNotDependOnElementOrder()
         {
             XElement xml = CreateDefaultProblem();
@@ -270,7 +296,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             }
         }
 
-        [TestMethod]
+        [Fact]
         public void AndroidStudioProblem_ParseDoesNotRequireFile()
         {
             XElement xml = CreateDefaultProblem();
@@ -279,11 +305,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             using (XmlReader xmlReader = xml.CreateNameTableReader())
             {
                 AndroidStudioProblem uut = Parse(xmlReader);
-                Assert.IsNull(uut.File);
+                Assert.Null(uut.File);
             }
         }
 
-        [TestMethod]
+        [Fact]
         public void AndroidStudioProblem_ParseDoesNotRequireLine()
         {
             XElement xml = CreateDefaultProblem();
@@ -291,11 +317,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             using (XmlReader xmlReader = xml.CreateNameTableReader())
             {
                 AndroidStudioProblem uut = Parse(xmlReader);
-                Assert.AreEqual(0, uut.Line);
+                Assert.Equal(0, uut.Line);
             }
         }
 
-        [TestMethod]
+        [Fact]
         public void AndroidStudioProblem_ParseClampsInvalidLineToOne_Zero()
         {
             XElement xml = CreateDefaultProblem();
@@ -306,7 +332,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             }
         }
 
-        [TestMethod]
+        [Fact]
         public void AndroidStudioProblem_ParseClampsInvalidLineToOne_Negative()
         {
             XElement xml = CreateDefaultProblem();
@@ -317,7 +343,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             }
         }
 
-        [TestMethod]
+        [Fact]
         public void AndroidStudioProblem_ParseDoesNotRequireModule()
         {
             XElement xml = CreateDefaultProblem();
@@ -325,11 +351,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             using (XmlReader xmlReader = xml.CreateNameTableReader())
             {
                 AndroidStudioProblem uut = Parse(xmlReader);
-                Assert.IsNull(uut.Module);
+                Assert.Null(uut.Module);
             }
         }
 
-        [TestMethod]
+        [Fact]
         public void AndroidStudioProblem_ParseDoesNotRequirePackage()
         {
             XElement xml = CreateDefaultProblem();
@@ -337,11 +363,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             using (XmlReader xmlReader = xml.CreateNameTableReader())
             {
                 AndroidStudioProblem uut = Parse(xmlReader);
-                Assert.IsNull(uut.Package);
+                Assert.Null(uut.Package);
             }
         }
 
-        [TestMethod]
+        [Fact]
         public void AndroidStudioProblem_ParseDoesNotRequireEntryPoint()
         {
             XElement xml = CreateDefaultProblem();
@@ -349,48 +375,45 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             using (XmlReader xmlReader = xml.CreateNameTableReader())
             {
                 AndroidStudioProblem uut = Parse(xmlReader);
-                Assert.IsNull(uut.EntryPointType);
-                Assert.IsNull(uut.EntryPointName);
+                Assert.Null(uut.EntryPointType);
+                Assert.Null(uut.EntryPointName);
             }
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(XmlException))]
+        [Fact]
         public void AndroidStudioProblem_ParseRequiresEntryPoint_Type()
         {
             XElement xml = CreateDefaultProblem();
             xml.Elements("entry_point").Attributes("TYPE").Remove();
             using (XmlReader xmlReader = xml.CreateNameTableReader())
             {
-                Parse(xmlReader);
+                Assert.Throws<XmlException>(() => Parse(xmlReader));
             }
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(XmlException))]
+        [Fact]
         public void AndroidStudioProblem_ParseRequiresEntryPoint_Name()
         {
             XElement xml = CreateDefaultProblem();
             xml.Elements("entry_point").Attributes("FQNAME").Remove();
             using (XmlReader xmlReader = xml.CreateNameTableReader())
             {
-                Parse(xmlReader);
+                Assert.Throws<XmlException>(() => Parse(xmlReader));
             }
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(XmlException))]
+        [Fact]
         public void AndroidStudioProblem_ParseRequiresProblemClass()
         {
             XElement xml = CreateDefaultProblem();
             xml.Elements("problem_class").Remove();
             using (XmlReader xmlReader = xml.CreateNameTableReader())
             {
-                Parse(xmlReader);
+                Assert.Throws<XmlException>(() => Parse(xmlReader));
             }
         }
 
-        [TestMethod]
+        [Fact]
         public void AndroidStudioProblem_ParseDoesNotRequireSeverity()
         {
             XElement xml = CreateDefaultProblem();
@@ -398,11 +421,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             using (XmlReader xmlReader = xml.CreateNameTableReader())
             {
                 AndroidStudioProblem uut = Parse(xmlReader);
-                Assert.IsNull(uut.Severity);
+                Assert.Null(uut.Severity);
             }
         }
 
-        [TestMethod]
+        [Fact]
         public void AndroidStudioProblem_ParseDoesNotRequireAttributeKey()
         {
             XElement xml = CreateDefaultProblem();
@@ -410,11 +433,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             using (XmlReader xmlReader = xml.CreateNameTableReader())
             {
                 AndroidStudioProblem uut = Parse(xmlReader);
-                Assert.IsNull(uut.AttributeKey);
+                Assert.Null(uut.AttributeKey);
             }
         }
 
-        [TestMethod]
+        [Fact]
         public void AndroidStudioProblem_ParseDoesNotRequireHints()
         {
             XElement xml = CreateDefaultProblem();
@@ -422,12 +445,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             using (XmlReader xmlReader = xml.CreateNameTableReader())
             {
                 AndroidStudioProblem uut = Parse(xmlReader);
-                Assert.IsFalse(uut.Hints.IsDefault);
-                Assert.IsTrue(uut.Hints.IsEmpty);
+                Assert.False(uut.Hints.IsDefault);
+                Assert.True(uut.Hints.IsEmpty);
             }
         }
 
-        [TestMethod]
+        [Fact]
         public void AndroidStudioProblem_ParseDoesNotRequireDescription()
         {
             XElement xml = CreateDefaultProblem();
@@ -435,11 +458,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             using (XmlReader xmlReader = xml.CreateNameTableReader())
             {
                 AndroidStudioProblem uut = Parse(xmlReader);
-                Assert.IsNull(uut.Description);
+                Assert.Null(uut.Description);
             }
         }
 
-        [TestMethod]
+        [Fact]
         public void AndroidStudioProblem_ParseIgnoresUnknownData()
         {
             XElement xml = CreateDefaultProblem();
@@ -453,19 +476,18 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             }
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(XmlException))]
+        [Fact]
         public void AndroidStudioProblem_ParseRejectsNonProblem()
         {
             XElement xml = CreateDefaultProblem();
             xml.Name = "not_a_problem";
             using (XmlReader xmlReader = xml.CreateNameTableReader())
             {
-                Parse(xmlReader);
+                Assert.Throws<XmlException>(() => Parse(xmlReader));
             }
         }
 
-        [TestMethod]
+        [Fact]
         public void AndroidStudioProblem_ReadHintsSelfClosingNodeConsumesNode()
         {
             var xmlStr = "<root><hints /><following /></root>";
@@ -473,13 +495,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             {
                 xml.ReadStartElement("root");
                 ImmutableArray<string> result = ReadHints(xml);
-                Assert.AreEqual("following", xml.LocalName);
-                Assert.IsTrue(result.IsEmpty);
-                Assert.IsFalse(result.IsDefault);
+                Assert.Equal("following", xml.LocalName);
+                Assert.True(result.IsEmpty);
+                Assert.False(result.IsDefault);
             }
         }
 
-        [TestMethod]
+        [Fact]
         public void AndroidStudioProblem_ReadHintsEmptyNodeConsumesNode()
         {
             var xmlStr = "<root><hints></hints><following /></root>";
@@ -487,37 +509,35 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             {
                 xml.ReadStartElement("root");
                 ImmutableArray<string> result = ReadHints(xml);
-                Assert.AreEqual("following", xml.LocalName);
-                Assert.IsTrue(result.IsEmpty);
-                Assert.IsFalse(result.IsDefault);
+                Assert.Equal("following", xml.LocalName);
+                Assert.True(result.IsEmpty);
+                Assert.False(result.IsDefault);
             }
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(XmlException))]
+        [Fact]
         public void AndroidStudioProblem_ReadHintsRejectsNonHintChildren()
         {
             var xmlStr = "<root><hints><hint value=\"val\" /><not_a_hint /></hints><following /></root>";
             using (XmlReader xml = Utilities.CreateXmlReaderFromString(xmlStr))
             {
                 xml.ReadStartElement("root");
-                ReadHints(xml);
+                Assert.Throws<XmlException>(() => ReadHints(xml));
             }
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(XmlException))]
+        [Fact]
         public void AndroidStudioProblem_ReadHintsRejectsMissingValueHints()
         {
             var xmlStr = "<root><hints><hint /></hints><following /></root>";
             using (XmlReader xml = Utilities.CreateXmlReaderFromString(xmlStr))
             {
                 xml.ReadStartElement("root");
-                ReadHints(xml);
+                Assert.Throws<XmlException>(() => ReadHints(xml));
             }
         }
 
-        [TestMethod]
+        [Fact]
         public void AndroidStudioProblem_ReadHintsAcceptsEmptyStringHints()
         {
             var xmlStr = "<root><hints><hint value=\"\" /></hints><following /></root>";
@@ -529,7 +549,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             }
         }
 
-        [TestMethod]
+        [Fact]
         public void AndroidStudioProblem_ReadHintsAcceptsValidHints()
         {
             var xmlStr = "<root><hints><hint value=\"content_first\" /><hint value=\"content_second\" /></hints><following /></root>";
@@ -560,17 +580,17 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
         private static void AssertThatProblemHasDefaultProblemProperties(AndroidStudioProblem uut)
         {
-            Assert.AreEqual("file://$PROJECT_DIR$/file.java", uut.File);
-            Assert.AreEqual(42, uut.Line);
-            Assert.AreEqual("mod", uut.Module);
-            Assert.AreEqual("pack", uut.Package);
-            Assert.AreEqual("file", uut.EntryPointType);
-            Assert.AreEqual("fqname", uut.EntryPointName);
-            Assert.AreEqual("WARNING", uut.Severity);
-            Assert.AreEqual("WARNING_ATTRIBUTES", uut.AttributeKey);
-            Assert.AreEqual("Assertions", uut.ProblemClass);
+            Assert.Equal("file://$PROJECT_DIR$/file.java", uut.File);
+            Assert.Equal(42, uut.Line);
+            Assert.Equal("mod", uut.Module);
+            Assert.Equal("pack", uut.Package);
+            Assert.Equal("file", uut.EntryPointType);
+            Assert.Equal("fqname", uut.EntryPointName);
+            Assert.Equal("WARNING", uut.Severity);
+            Assert.Equal("WARNING_ATTRIBUTES", uut.AttributeKey);
+            Assert.Equal("Assertions", uut.ProblemClass);
             uut.Hints.Should().Equal(new[] { "some hint content" });
-            Assert.AreEqual("Method is never used.", uut.Description);
+            Assert.Equal("Method is never used.", uut.Description);
         }
 
         private static AndroidStudioProblem Parse(XmlReader reader)

@@ -6,12 +6,10 @@ using System.Collections.Immutable;
 using System.Xml;
 using System.Xml.Linq;
 using FluentAssertions;
-
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Microsoft.CodeAnalysis.Sarif.Converters
 {
-    [TestClass]
     public class FortifyIssueTests
     {
         private static readonly FortifyPathElement s_pathElementA =
@@ -62,7 +60,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 </Issue>";
 
 
-        [TestMethod]
+        [Fact]
         public void FortifyIssue_CanBeConstructed_WithAllProperties()
         {
             var uut = new FortifyIssue(
@@ -78,19 +76,19 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 ImmutableArray.Create(1, 2, 3)
                 );
 
-            Assert.AreEqual("ruleId", uut.RuleId);
-            Assert.AreEqual("iid", uut.InstanceId);
-            Assert.AreEqual("category", uut.Category);
-            Assert.AreEqual("kingdom", uut.Kingdom);
-            Assert.AreEqual("abstract", uut.Abstract);
-            Assert.AreEqual("abstractCustom", uut.AbstractCustom);
-            Assert.AreEqual("priority", uut.Priority);
-            Assert.AreSame(s_pathElementA, uut.PrimaryOrSink);
-            Assert.AreSame(s_pathElementB, uut.Source);
+            Assert.Equal("ruleId", uut.RuleId);
+            Assert.Equal("iid", uut.InstanceId);
+            Assert.Equal("category", uut.Category);
+            Assert.Equal("kingdom", uut.Kingdom);
+            Assert.Equal("abstract", uut.Abstract);
+            Assert.Equal("abstractCustom", uut.AbstractCustom);
+            Assert.Equal("priority", uut.Priority);
+            Assert.Same(s_pathElementA, uut.PrimaryOrSink);
+            Assert.Same(s_pathElementB, uut.Source);
             uut.CweIds.Should().Equal(new[] { 1, 2, 3 });
         }
 
-        [TestMethod]
+        [Fact]
         public void FortifyIssue_CanBeConstructed_WithMinimalProperties()
         {
             var uut = new FortifyIssue(
@@ -106,23 +104,22 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 ImmutableArray<int>.Empty
                 );
 
-            Assert.IsNull(uut.RuleId);
-            Assert.IsNull(uut.InstanceId);
-            Assert.AreEqual("category", uut.Category);
-            Assert.AreEqual("kingdom", uut.Kingdom);
-            Assert.IsNull(uut.Abstract);
-            Assert.IsNull(uut.AbstractCustom);
-            Assert.IsNull(uut.Priority);
-            Assert.AreSame(s_pathElementA, uut.PrimaryOrSink);
-            Assert.IsNull(uut.Source);
+            Assert.Null(uut.RuleId);
+            Assert.Null(uut.InstanceId);
+            Assert.Equal("category", uut.Category);
+            Assert.Equal("kingdom", uut.Kingdom);
+            Assert.Null(uut.Abstract);
+            Assert.Null(uut.AbstractCustom);
+            Assert.Null(uut.Priority);
+            Assert.Same(s_pathElementA, uut.PrimaryOrSink);
+            Assert.Null(uut.Source);
             uut.CweIds.Should().BeEmpty();
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(ArgumentNullException))]
+        [Fact]
         public void FortifyIssue_RequiresCategory()
         {
-            var uut = new FortifyIssue(
+            Assert.Throws<ArgumentNullException>(() => new FortifyIssue(
                 null,
                 null,
                 null,
@@ -133,14 +130,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 s_pathElementA,
                 null,
                 ImmutableArray<int>.Empty
-                );
+                ));
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(ArgumentNullException))]
+        [Fact]
         public void FortifyIssue_RequiresKingdom()
         {
-            var uut = new FortifyIssue(
+            Assert.Throws<ArgumentNullException>(() => new FortifyIssue(
                 null,
                 null,
                 "category",
@@ -151,14 +147,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 s_pathElementA,
                 null,
                 ImmutableArray<int>.Empty
-                );
+                ));
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(ArgumentNullException))]
+        [Fact]
         public void FortifyIssue_RequiresPrimary()
         {
-            var uut = new FortifyIssue(
+            Assert.Throws<ArgumentNullException>(() => new FortifyIssue(
                 null,
                 null,
                 "category",
@@ -169,40 +164,40 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 null,
                 null,
                 ImmutableArray<int>.Empty
-                );
+                ));
         }
 
-        [TestMethod]
+        [Fact]
         public void FortifyIssue_ParseCweIds_NoIds()
         {
             FortifyIssue.ParseCweIds("1234").Should().BeEmpty();
         }
 
-        [TestMethod]
+        [Fact]
         public void FortifyIssue_ParseCweIds_SingleCweId()
         {
             FortifyIssue.ParseCweIds("CWE ID 476").Should().Equal(new[] { 476 });
         }
 
-        [TestMethod]
+        [Fact]
         public void FortifyIssue_ParseCweIds_MultipleCweIds()
         {
             FortifyIssue.ParseCweIds("CWE ID 134, CWE ID 787").Should().Equal(new[] { 134, 787 });
         }
 
-        [TestMethod]
+        [Fact]
         public void FortifyIssue_ParseCweIds_SortsCweIds()
         {
             FortifyIssue.ParseCweIds("CWE ID 787, CWE ID 134").Should().Equal(new[] { 134, 787 });
         }
 
-        [TestMethod]
+        [Fact]
         public void FortifyIssue_ParseCweIds_UniquesCweIds()
         {
             FortifyIssue.ParseCweIds("CWE ID 134, CWE ID 134").Should().Equal(new[] { 134 });
         }
 
-        [TestMethod]
+        [Fact]
         public void FortifyIssue_Parse_CanParseFullIssue()
         {
             string xml = "<xml>" + s_fullIssueXml + "<following /></xml>";
@@ -211,21 +206,21 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 reader.Read(); //<xml>
                 reader.Read(); //<Issue>
                 FortifyIssue result = Parse(reader);
-                Assert.AreEqual("following", reader.LocalName);
-                Assert.AreEqual("7DDEC64A-9142-4943-BB5C-57D6F09C94DC", result.RuleId);
-                Assert.AreEqual("BDC8FC3C5AAE67B07F46EC48B928AA6E", result.InstanceId);
-                Assert.AreEqual("Format String", result.Category);
-                Assert.AreEqual("Input Validation and Representation", result.Kingdom);
-                Assert.AreEqual("An attacker can control the format string argument to vfwprintf() at bannedAPIs.m line 225, allowing an attack much like a buffer overflow.", result.Abstract);
-                Assert.AreEqual("A message Bill added for testing purposes.", result.AbstractCustom);
-                Assert.AreEqual("High", result.Priority);
-                Assert.AreEqual(225, result.PrimaryOrSink.LineStart);
-                Assert.AreEqual(238, result.Source.LineStart);
+                Assert.Equal("following", reader.LocalName);
+                Assert.Equal("7DDEC64A-9142-4943-BB5C-57D6F09C94DC", result.RuleId);
+                Assert.Equal("BDC8FC3C5AAE67B07F46EC48B928AA6E", result.InstanceId);
+                Assert.Equal("Format String", result.Category);
+                Assert.Equal("Input Validation and Representation", result.Kingdom);
+                Assert.Equal("An attacker can control the format string argument to vfwprintf() at bannedAPIs.m line 225, allowing an attack much like a buffer overflow.", result.Abstract);
+                Assert.Equal("A message Bill added for testing purposes.", result.AbstractCustom);
+                Assert.Equal("High", result.Priority);
+                Assert.Equal(225, result.PrimaryOrSink.LineStart);
+                Assert.Equal(238, result.Source.LineStart);
                 result.CweIds.Should().Equal(new[] { 134 });
             }
         }
 
-        [TestMethod]
+        [Fact]
         public void FortifyIssue_Parse_CanParseMinimalIssue()
         {
             string xml = "<xml>" + s_minimalIssueXml + "<following /></xml>";
@@ -234,21 +229,21 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 reader.Read(); //<xml>
                 reader.Read(); //<Issue>
                 FortifyIssue result = Parse(reader);
-                Assert.AreEqual("following", reader.LocalName);
-                Assert.IsNull(result.RuleId);
-                Assert.IsNull(result.InstanceId);
-                Assert.AreEqual("Format String", result.Category);
-                Assert.AreEqual("Input Validation and Representation", result.Kingdom);
-                Assert.IsNull(result.Abstract);
-                Assert.IsNull(result.AbstractCustom);
-                Assert.IsNull(result.Priority);
-                Assert.AreEqual(225, result.PrimaryOrSink.LineStart);
-                Assert.IsNull(result.Source);
+                Assert.Equal("following", reader.LocalName);
+                Assert.Null(result.RuleId);
+                Assert.Null(result.InstanceId);
+                Assert.Equal("Format String", result.Category);
+                Assert.Equal("Input Validation and Representation", result.Kingdom);
+                Assert.Null(result.Abstract);
+                Assert.Null(result.AbstractCustom);
+                Assert.Null(result.Priority);
+                Assert.Equal(225, result.PrimaryOrSink.LineStart);
+                Assert.Null(result.Source);
                 result.CweIds.Should().BeEmpty();
             }
         }
 
-        [TestMethod]
+        [Fact]
         public void FortifyIssue_Parse_IgnoresNonCweTypeExternalCategories()
         {
             XElement xml = XElement.Parse(s_fullIssueXml);
@@ -257,8 +252,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             result.CweIds.Should().BeEmpty();
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(XmlException))]
+        [Fact]
         public void FortifyIssue_Parse_RequiresElementsInOrder()
         {
             XElement xml = XElement.Parse(s_fullIssueXml);
@@ -266,43 +260,39 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             XElement primary = xml.Element("Primary");
             primary.Remove();
             xml.Add(primary);
-            Parse(xml);
+            Assert.Throws<XmlException>(() => Parse(xml));
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(XmlException))]
+        [Fact]
         public void FortifyIssue_Parse_RequiresCategory()
         {
             XElement xml = XElement.Parse(s_minimalIssueXml);
             xml.Element("Category").Remove();
-            Parse(xml);
+            Assert.Throws<XmlException>(() => Parse(xml));
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(XmlException))]
+        [Fact]
         public void FortifyIssue_Parse_RequiresFolder()
         {
             XElement xml = XElement.Parse(s_minimalIssueXml);
             xml.Element("Folder").Remove();
-            Parse(xml);
+            Assert.Throws<XmlException>(() => Parse(xml));
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(XmlException))]
+        [Fact]
         public void FortifyIssue_Parse_RequiresKingdom()
         {
             XElement xml = XElement.Parse(s_minimalIssueXml);
             xml.Element("Kingdom").Remove();
-            Parse(xml);
+            Assert.Throws<XmlException>(() => Parse(xml));
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(XmlException))]
+        [Fact]
         public void FortifyIssue_Parse_RequiresPrimary()
         {
             XElement xml = XElement.Parse(s_minimalIssueXml);
             xml.Element("Primary").Remove();
-            Parse(xml);
+            Assert.Throws<XmlException>(() => Parse(xml));
         }
 
         private static FortifyIssue Parse(XmlReader reader)
@@ -314,7 +304,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         {
             using (XmlReader reader = Utilities.CreateXmlReaderFromString(element.ToString(SaveOptions.DisableFormatting)))
             {
-                Assert.IsTrue(reader.Read());
+                Assert.True(reader.Read());
                 return Parse(reader);
             }
         }

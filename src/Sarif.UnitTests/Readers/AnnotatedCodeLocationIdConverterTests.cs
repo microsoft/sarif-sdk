@@ -3,57 +3,56 @@
 
 using System;
 using FluentAssertions;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Newtonsoft.Json;
+using Xunit;
 
 namespace Microsoft.CodeAnalysis.Sarif.Readers
 {
-    [TestClass]
     public class AnnotatedCodeLocationIdConverterTests: JsonTests
     {
-        [TestMethod]
+        [Fact]
         public void AnnotatedCodeLocationIdConverter_ConvertsPositiveInteger()
         {
             RunTestCase(idText: "1", expectedId: 1);
         }
 
-        [TestMethod]
+        [Fact]
         public void AnnotatedCodeLocationIdConverter_RejectsZero()
         {
             RunTestCase(idText: "0", valid: false);
         }
 
-        [TestMethod]
+        [Fact]
         public void AnnotatedCodeLocationIdConverter_RejectsNegativeInteger()
         {
             RunTestCase(idText: "-1", valid: false);
         }
 
-        [TestMethod]
+        [Fact]
         public void AnnotatedCodeLocationIdConverter_ConvertsStringPositiveInteger()
         {
             RunTestCase(idText: "\"1\"", expectedId: 1);
         }
 
-        [TestMethod]
+        [Fact]
         public void AnnotatedCodeLocationIdConverter_RejectsStringZero()
         {
             RunTestCase(idText: "\"0\"", valid: false);
         }
 
-        [TestMethod]
+        [Fact]
         public void AnnotatedCodeLocationIdConverter_RejectsStringNegativeInteger()
         {
             RunTestCase(idText: "\"-1\"", valid: false);
         }
 
-        [TestMethod]
+        [Fact]
         public void AnnotatedCodeLocationIdConverter_RejectsStringPositiveIntegerWithLeadingNonDigits()
         {
             RunTestCase(idText: "\"x1\"", valid: false);
         }
 
-        [TestMethod]
+        [Fact]
         public void AnnotatedCodeLocationIdConverter_RejectsStringPositiveIntegerWithTrailingNonDigits()
         {
             RunTestCase(idText: "\"1x\"", valid: false);
