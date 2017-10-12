@@ -28,6 +28,7 @@ call SetCurrentVersion.cmd
 
 set SDK_VERSION_CONSTANTS=src\Sarif\VersionConstants.cs
 set DRV_VERSION_CONSTANTS=src\Sarif.Driver\VersionConstants.cs
+set Version=%MAJOR%.%MINOR%.%PATCH%
 
 @REM Rewrite VersionConstants.cs
 echo // Copyright (c) Microsoft. All rights reserved. Licensed under the MIT        >  %SDK_VERSION_CONSTANTS%
@@ -70,25 +71,25 @@ goto ExitFailed
 )
 
 @REM Build Nuget packages
-dotnet pack .\src\Sarif\Sarif.csproj
+dotnet pack .\src\Sarif\Sarif.csproj /p:PackageVersion=%Version%
 
 if "%ERRORLEVEL%" NEQ "0" (
 goto ExitFailed
 )
 
-dotnet pack .\src\Sarif.Converters\Sarif.Converters.csproj
+dotnet pack .\src\Sarif.Converters\Sarif.Converters.csproj /p:PackageVersion=%Version%
 
 if "%ERRORLEVEL%" NEQ "0" (
 goto ExitFailed
 )
 
-dotnet pack .\src\Sarif.Driver\Sarif.Driver.csproj
+dotnet pack .\src\Sarif.Driver\Sarif.Driver.csproj /p:PackageVersion=%Version%
 
 if "%ERRORLEVEL%" NEQ "0" (
 goto ExitFailed
 )
 
-dotnet pack .\src\Sarif.Multitool\Sarif.Multitool.csproj
+dotnet pack .\src\Sarif.Multitool\Sarif.Multitool.csproj /p:PackageVersion=%Version%
 
 if "%ERRORLEVEL%" NEQ "0" (
 goto ExitFailed
