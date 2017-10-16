@@ -44,6 +44,11 @@ proceed as follows:
 in the `src\` directory in either Visual Studio 2015 or Visual Studio 2017, and
 build them by running **Rebuild Solution**.
 
+## Installing VISUAL STUDIO SARIF VIEWER EXTENSION
+1. Run `BuildAndTest.ps1` to
+    - Build,
+    - Install the SARIF Visual Studio Extension and
+    - Add Registry settings to open the .SARIF in Visual Studio.
 
 ## Accomplishing common tasks
 
