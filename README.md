@@ -20,19 +20,21 @@ In addition to the object model, the SARIF SDK provides a set of helper classes 
 If you want to build the SDK from source, rather than consuming the NuGet package,
 proceed as follows:
 
-1. Ensure that Visual Studio 2015 is installed on your machine.
+1. Install .NET Core SDK 2.0 from https://www.microsoft.com/net/download/core
 
-    You can build in either VS 2015 or VS 2017, but at present the build requires
+2. Ensure that Visual Studio 2017 is installed on your machine.
+
+    You can build in VS 2017, but at present the build requires
     certain assemblies that are supplied only in VS 2015, so it must be present.
 
-2. Ensure that your Visual Studio installation includes the components that support
+3. Ensure that your Visual Studio installation includes the components that support
     - C# development
     - C++ development
     - Visual Studio extension (VSIX) development
 
-3. Open a Visual Studio 2015 _or_ Visual Studio 2017 Developer Command Prompt Window.
+4. Open a Visual Studio 2017 Developer Command Prompt Window.
 
-4. From the root directory of your local repo, run the command `BuildAndTest.cmd`.
+5. From the root directory of your local repo, run the command `BuildAndTest.cmd`.
     This restores all necessary NuGet packages, builds the SDK, and runs all the tests.
 
     All build output appears in the `bld\` subdirectory of the repo root directory.
@@ -40,9 +42,8 @@ proceed as follows:
     NOTE: You must run `BuildAndTest.cmd` once _before_ attempting to build in
     Visual Studio, to ensure that all required NuGet packages are available.
 
-5. After you have run `BuildAndTest.cmd` once, you can open any of the solution files
-in the `src\` directory in either Visual Studio 2015 or Visual Studio 2017, and
-build them by running **Rebuild Solution**.
+6. After you have run `BuildAndTest.cmd` once, you can open any of the solution files
+in the `src\` directory in Visual Studio 2017, and build them by running **Rebuild Solution**.
 
 ## Installing VISUAL STUDIO SARIF VIEWER EXTENSION
 1. Run `BuildAndTest.ps1` to
