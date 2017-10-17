@@ -7,12 +7,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool{
     public class MultitoolOptionsBase
     {
         [Option(
-            'i',
-            "input",
-            HelpText = "A path to a file to process.")]
-        public string InputFilePath { get; internal set; }
-
-        [Option(
             'o',
             "output",
             HelpText = "A file path to the generated SARIF log. Defaults to <input file name>.sarif.")]
