@@ -6,11 +6,6 @@
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     <ProjectGuid>c5fc2683-47cf-447f-b5ea-9fde0fd78754</ProjectGuid>
     <RootNamespace>Microsoft.CodeAnalysis.Sarif</RootNamespace>
-    
-    <PublicSign Condition=" '$(OS)' != 'Windows_NT' ">true</PublicSign>
-    <SignAssembly>true</SignAssembly>
-    <DelaySign>false</DelaySign>
-    <AssemblyOriginatorKeyFile>..\..\GeneratedKey.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   
   <ItemGroup>

@@ -8,12 +8,6 @@
     <OutputType>Library</OutputType>
     <RootNamespace>Sarif.Multitool.FunctionalTests</RootNamespace>
     <AssemblyName>Sarif.Multitool.FunctionalTests</AssemblyName>
-
-    <!-- Full signing does not yet work on Linux.  Turn it off -->
-    <PublicSign Condition=" '$(OS)' != 'Windows_NT' ">true</PublicSign>
-    <SignAssembly>true</SignAssembly>
-    <DelaySign>false</DelaySign>
-    <AssemblyOriginatorKeyFile>..\TestKey.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   
   <ItemGroup>

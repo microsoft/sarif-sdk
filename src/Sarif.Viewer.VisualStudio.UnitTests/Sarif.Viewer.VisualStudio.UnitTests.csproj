@@ -7,8 +7,6 @@
     <OutputType>Library</OutputType>
     <RootNamespace>Microsoft.Sarif.Viewer.VisualStudio.UnitTests</RootNamespace>
     <AssemblyName>Sarif.Viewer.VisualStudio.UnitTests</AssemblyName>
-    <SignAssembly>true</SignAssembly>
-    <AssemblyOriginatorKeyFile>..\TestKey.snk</AssemblyOriginatorKeyFile>
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
     <TargetFrameworkProfile />
