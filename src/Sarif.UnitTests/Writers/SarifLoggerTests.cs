@@ -154,7 +154,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             string logText = sb.ToString();
 
-            string fileDataKey = new Uri(file).ToString();
+            string fileDataKey = new Uri(file).AbsoluteUri;
 
             var sarifLog = JsonConvert.DeserializeObject<SarifLog>(logText);
             sarifLog.Runs[0].Files[fileDataKey].MimeType.Should().Be(MimeType.Cpp);
