@@ -4,6 +4,7 @@
 using System;
 using System.IO;
 using System.Collections.Generic;
+using System.Text;
 using Microsoft.CodeAnalysis.Sarif.Writers;
 using Moq;
 using Xunit;
@@ -83,7 +84,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
             if (replacement.Offset != 10) return false;
             if (replacement.DeletedLength != 5) return false;
-            if (!replacement.InsertedBytes.Equals("fix.innerText.test.value")) return false;
+            if (!replacement.InsertedBytes.Equals(Convert.ToBase64String(Encoding.UTF8.GetBytes("fix.innerText.test.value")))) return false;
 
             return true;
         }

@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using System.IO;
 using System.Linq;
+using System.Text;
 using Microsoft.CodeAnalysis.Sarif.Writers;
 
 [assembly: InternalsVisibleTo("Sarif.Driver.UnitTests.dll,PublicKey=0024000004800000940000000602000000240000525341310004000001000100433fbf156abe971"+
@@ -126,8 +127,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                     {
                         Offset = fix.InnerStart,
                         DeletedLength = fix.InnerLength,
-                        InsertedBytes = fix.InnerText
                     };
+
+                    var plainTextBytes = Encoding.UTF8.GetBytes(fix.InnerText);
+                    replacement.InsertedBytes = System.Convert.ToBase64String(plainTextBytes);
 
                     replacements.Add(replacement);
                 }
