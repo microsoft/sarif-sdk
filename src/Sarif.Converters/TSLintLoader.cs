@@ -1,13 +1,14 @@
 ﻿// Copyright (c) Microsoft. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
+using Microsoft.CodeAnalysis.Sarif.Converters.TSLintObjectModel;
 using System;
+using System.IO;
 using System.Runtime.CompilerServices;
-using System.Text;
-using System.Text.RegularExpressions;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Json;
-using System.IO;
+using System.Text;
+using System.Text.RegularExpressions;
 
 [assembly: InternalsVisibleTo("Sarif.Driver.UnitTests.dll,PublicKey=0024000004800000940000000602000000240000525341310004000001000100433fbf156abe971" +
     "8142bdbd48a440e779a1b708fd21486ee0ae536f4c548edf8a7185c1e3ac89ceef76c15b8cc2497906798779a59402f9b9e27281fb15e7111566cdc9a9f8326301d45320623c52" +
@@ -54,16 +55,16 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             {
                 contents = reader.ReadToEnd();
             }
-
-            Regex regex = new Regex("(\"fix\":{[^}]+},)");
             
+            Regex regex = new Regex("(\"fix\":\\s*{[^}]+},)");
+
             string[] tokens = regex.Split(contents);
 
             for (int i = 0; i < tokens.Length; i++) 
             {
-                if (tokens[i].Contains("\"fix\":{"))
+                if (Regex.Replace(tokens[i], @"\s+", "").Contains("\"fix\":{"))
                 {
-                    tokens[i] = tokens[i].Replace("\"fix\":{", "\"fix\":[{").Replace("},", "}],");
+                    tokens[i] = tokens[i].Replace("{", "[{").Replace("},", "}],");
                 }
             }
 

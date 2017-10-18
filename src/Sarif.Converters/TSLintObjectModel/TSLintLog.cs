@@ -4,7 +4,7 @@
 using System.Collections.Generic;
 using System.Runtime.Serialization;
 
-namespace Microsoft.CodeAnalysis.Sarif.Converters
+namespace Microsoft.CodeAnalysis.Sarif.Converters.TSLintObjectModel
 {
     [CollectionDataContract]
     public class TSLintLog : List<TSLintLogEntry>

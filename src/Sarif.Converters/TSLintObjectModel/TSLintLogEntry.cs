@@ -4,18 +4,18 @@
 using System.Collections.Generic;
 using System.Runtime.Serialization;
 
-namespace Microsoft.CodeAnalysis.Sarif.Converters
+namespace Microsoft.CodeAnalysis.Sarif.Converters.TSLintObjectModel
 {
     [DataContract]
     public class TSLintLogEntry
     {
-        [DataMember(Name = "name", IsRequired = false, EmitDefaultValue = true)]
+        [DataMember(Name = "name", IsRequired = true, EmitDefaultValue = true)]
         public string Name { get; set; }
 
-        [DataMember(Name = "failure", IsRequired = false, EmitDefaultValue = true)]
+        [DataMember(Name = "failure", IsRequired = true, EmitDefaultValue = true)]
         public string Failure { get; set; }
 
-        [DataMember(Name = "ruleName", IsRequired = false, EmitDefaultValue = true)]
+        [DataMember(Name = "ruleName", IsRequired = true, EmitDefaultValue = true)]
         public string RuleName { get; set; }
 
         [DataMember(Name = "ruleSeverity", IsRequired = false, EmitDefaultValue = true)]

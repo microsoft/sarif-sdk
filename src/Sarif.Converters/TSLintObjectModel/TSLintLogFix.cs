@@ -3,7 +3,7 @@
 
 using System.Runtime.Serialization;
 
-namespace Microsoft.CodeAnalysis.Sarif.Converters
+namespace Microsoft.CodeAnalysis.Sarif.Converters.TSLintObjectModel
 {
     [DataContract]
     public class TSLintLogFix

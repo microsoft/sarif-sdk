@@ -6,14 +6,17 @@ using System.IO;
 using System.Collections.Generic;
 using System.Text;
 using Microsoft.CodeAnalysis.Sarif.Writers;
+using Microsoft.CodeAnalysis.Sarif.Converters.TSLintObjectModel;
 using Moq;
 using Xunit;
+using FluentAssertions;
+
 
 namespace Microsoft.CodeAnalysis.Sarif.Converters
 {
     public class TSLintConverterTests
     {
-        public TSLintLog CreateTestTSLintLog()
+        private TSLintLog CreateTestTSLintLog()
         {
             TSLintLog tsLintLog = new TSLintLog();
 
@@ -55,69 +58,90 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             return tsLintLog;
         }
 
-        // This is necessary because Microsoft.CodeAnalysis.Sarif.Result doesn't implement IEquatable
-        // Must be kept up to date with any changes to TSLintConverter.CreateResult
-        public bool CompareResultToTestData(Result result)
+        private Result CreateTestResult()
         {
-            if (!result.RuleId.Equals("ruleName.test.value")) return false;
-            if (!result.Message.Equals("failure.test.value")) return false;
+            Result testResult = new Result()
+            {
+                RuleId = "ruleName.test.value",
+                Message = "failure.test.value",
+                Level = ResultLevel.NotApplicable
+            };
 
-            if (result.Level != ResultLevel.NotApplicable) return false;
+            Region region = new Region()
+            {
+                StartLine = 3,
+                StartColumn = 2,
+                EndLine = 13,
+                EndColumn = 12,
 
-            if (result.Locations.Count != 1) return false;
+                Offset = 3,
+                Length = 11
+            };
+            PhysicalLocation physLoc = new PhysicalLocation()
+            {
+                Uri = new Uri("name.test.value", UriKind.Relative),
+                Region = region
+            };
+            Location location = new Location()
+            {
+                AnalysisTarget = physLoc
+            };
 
-            Region region = result.Locations[0].AnalysisTarget.Region;
-            if (region.StartLine != 3) return false;
-            if (region.StartColumn != 2) return false;
-            if (region.EndLine != 13) return false;
-            if (region.EndColumn != 12) return false;
+            testResult.Locations = new List<Location>()
+            {
+                location
+            };
 
-            if (region.Offset != 3) return false;
-            if (region.Length != 11) return false;
+            Replacement replacement = new Replacement()
+            {
+                Offset = 10,
+                DeletedLength = 5,
+                InsertedBytes = Convert.ToBase64String(Encoding.UTF8.GetBytes("fix.innerText.test.value"))
+            };
 
-            if (!result.Locations[0].AnalysisTarget.Uri.OriginalString.Equals("name.test.value")) return false;
+            testResult.Fixes = new List<Fix>()
+            {
+                new Fix()
+                {
+                    FileChanges = new List<FileChange>()
+                    {
+                        new FileChange()
+                        {
+                            Uri = new Uri("name.test.value", UriKind.Relative),
+                            Replacements = new List<Replacement>()
+                            {
+                                replacement
+                            }
+                        }
+                    }
+                }
+            };
 
-            if (result.Fixes.Count != 1) return false;
-            if (result.Fixes[0].FileChanges.Count != 1) return false;
-            if (result.Fixes[0].FileChanges[0].Replacements.Count != 1) return false;
-            Replacement replacement = result.Fixes[0].FileChanges[0].Replacements[0];
-
-            if (replacement.Offset != 10) return false;
-            if (replacement.DeletedLength != 5) return false;
-            if (!replacement.InsertedBytes.Equals(Convert.ToBase64String(Encoding.UTF8.GetBytes("fix.innerText.test.value")))) return false;
-
-            return true;
+            return testResult;
         }
 
-        //[Fact]
-        //[Trait("Category", "E2E")]
-        //public void SimpleE2ETest_ManualValidation()
-        //{
-        //    ToolFormatConverter converter = new ToolFormatConverter();
-        //    converter.ConvertToStandardFormat(ToolFormat.TSLint, @"E:\data\TSLint\TSLint.Results.json", @"E:\data\TSLint\TSLint.Results.sarif");
-        //}
-
         [Fact]
-        [Trait("Category", "Unit")]
-        public void TSLintConverterTest_Convert_S2S_NullInput()
+        public void TSLintConverter_Convert_WhenInputIsNull_ThrowsArgumentNullException()
         {
-            TSLintConverter converter = new TSLintConverter();
+            var converter = new TSLintConverter();
 
-            Mock<IResultLogWriter> mockWriter = new Mock<IResultLogWriter>();
+            var mockWriter = new Mock<IResultLogWriter>();
 
-            Assert.Throws<ArgumentNullException>(() => converter.Convert(null, mockWriter.Object, LoggingOptions.None));
-            Assert.Throws<ArgumentNullException>(() => converter.Convert(new MemoryStream(), null, LoggingOptions.None));
+            Action action = () => converter.Convert(null, mockWriter.Object, LoggingOptions.None);
+            action.ShouldThrow<ArgumentNullException>();
+
+            action = () => converter.Convert(new MemoryStream(), null, LoggingOptions.None);
+            action.ShouldThrow<ArgumentNullException>();
         }
 
         [Fact]
-        [Trait("Category", "Unit")]
-        public void TSLintConverterTest_Convert_S2S_ValidInput()
+        public void TSLintConverter_Convert_WhenInputIsValid_Passes()
         {
-            Mock<ITSLintLoader> mockLoader = new Mock<ITSLintLoader>();
+            var mockLoader = new Mock<ITSLintLoader>();
 
             mockLoader.Setup(loader => loader.ReadLog(It.IsAny<Stream>())).Returns(CreateTestTSLintLog());
 
-            Mock<IResultLogWriter> mockWriter = new Mock<IResultLogWriter>();
+            var mockWriter = new Mock<IResultLogWriter>();
             mockWriter.Setup(writer => writer.Initialize(It.IsAny<string>(), It.IsAny<string>()));
             mockWriter.Setup(writer => writer.WriteTool(It.IsAny<Tool>()));
             mockWriter.Setup(writer => writer.WriteFiles(It.IsAny<IDictionary<string, FileData>>()));
@@ -125,7 +149,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             mockWriter.Setup(writer => writer.CloseResults());
             mockWriter.Setup(writer => writer.WriteResults(It.IsAny<List<Result>>()));
 
-            TSLintConverter converter = new TSLintConverter(mockLoader.Object);
+            var converter = new TSLintConverter(mockLoader.Object);
 
             converter.Convert(new MemoryStream(), mockWriter.Object, LoggingOptions.None);
 
@@ -139,24 +163,24 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         }
 
         [Fact]
-        [Trait("Category", "Unit")]
-        public void TSLintConverterTest_HelperMethods_NullInput()
+        public void TSLintConverter_CreateResult_WhenInputIsNull_ThrowsArgumentNullException()
         {
             TSLintConverter converter = new TSLintConverter();
 
-            Assert.Throws<ArgumentNullException>(() => converter.CreateResult(null));
+            Action action = () => converter.CreateResult(null);
+            action.ShouldThrow<ArgumentNullException>();
         }
 
         [Fact]
-        [Trait("Category", "Unit")]
-        public void TSLintConverterTest_HelperMethods_ValidInput()
+        public void TSLintConverter_CreateResult_CreatesExpectedResult()
         {
             TSLintConverter converter = new TSLintConverter();
             TSLintLog tSLintLog = CreateTestTSLintLog();
 
             Result actualResult = converter.CreateResult(tSLintLog[0]);
+            Result expectedResult = CreateTestResult();
 
-            Assert.True(CompareResultToTestData(actualResult));
+            Assert.True(Result.ValueComparer.Equals(actualResult, expectedResult));
         }
 
     }
