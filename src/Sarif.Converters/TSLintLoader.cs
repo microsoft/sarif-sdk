@@ -24,7 +24,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             Serializer = new DataContractJsonSerializer(typeof(TSLintLog));
         }
 
-        public TSLintLoader(XmlObjectSerializer serializer)
+        /// <summary>
+        /// A constructor used for test purposes (to allow mocking the serializer)
+        /// </summary>
+        /// <param name="serializer"></param>
+        internal TSLintLoader(XmlObjectSerializer serializer)
         {
             Serializer = serializer ?? throw new ArgumentNullException(nameof(serializer));
         }

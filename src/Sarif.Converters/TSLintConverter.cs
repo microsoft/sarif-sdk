@@ -24,7 +24,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             loader = new TSLintLoader();
         }
 
-        public TSLintConverter(ITSLintLoader loader)
+        /// <summary>
+        /// A constructor used for testing purposes (to mock ITSLintLoader)
+        /// </summary>
+        /// <param name="loader"></param>
+        internal TSLintConverter(ITSLintLoader loader)
         {
             this.loader = loader ?? throw new ArgumentNullException(nameof(loader));
         }
@@ -65,17 +69,17 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             output.CloseResults();
         }
 
-        internal Result CreateResult(TSLintLogEntry tslEntry)
+        internal Result CreateResult(TSLintLogEntry entry)
         {
-            tslEntry = tslEntry ?? throw new ArgumentNullException(nameof(tslEntry));
+            entry = entry ?? throw new ArgumentNullException(nameof(entry));
 
             Result result = new Result()
             {
-                RuleId = tslEntry.RuleName,
-                Message = tslEntry.Failure
+                RuleId = entry.RuleName,
+                Message = entry.Failure
             };
 
-            switch (tslEntry.RuleSeverity)
+            switch (entry.RuleSeverity)
             {
                 case "ERROR":
                     result.Level = ResultLevel.Error;
@@ -92,37 +96,40 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                     break;
             }
 
-            result.Locations = new List<Location>();
-
             Region region = new Region()
             {
                 // The TSLint logs have line and column start at 0, Sarif has them starting at 1, so add 1 to each
-                StartLine = tslEntry.StartPosition.Line + 1,
-                StartColumn = tslEntry.StartPosition.Character + 1,
-                EndLine = tslEntry.EndPosition.Line + 1,
-                EndColumn = tslEntry.EndPosition.Character + 1,
+                StartLine = entry.StartPosition.Line + 1,
+                StartColumn = entry.StartPosition.Character + 1,
+                EndLine = entry.EndPosition.Line + 1,
+                EndColumn = entry.EndPosition.Character + 1,
 
-                Offset = tslEntry.StartPosition.Position
+                Offset = entry.StartPosition.Position
             };
 
-            int length = tslEntry.EndPosition.Position - tslEntry.StartPosition.Position + 1;
+            int length = entry.EndPosition.Position - entry.StartPosition.Position + 1;
             region.Length = length > 0 ? length : 0;
 
-            Uri analysisTargetUri = new Uri(tslEntry.Name, UriKind.Relative);
+            Uri analysisTargetUri = new Uri(entry.Name, UriKind.Relative);
 
             PhysicalLocation analysisTarget = new PhysicalLocation(uri: analysisTargetUri, uriBaseId: null, region: region);
-            Location location = new Location();
-            location.AnalysisTarget = analysisTarget;
+            Location location = new Location()
+            {
+                AnalysisTarget = analysisTarget
+            };
 
-            result.Locations.Add(location);
+            result.Locations = new List<Location>()
+            {
+                location
+            };
 
             result.Fixes = new List<Fix>();
 
-            if (tslEntry.Fixes?.Any() == true)
+            if (entry.Fixes?.Any() == true)
             {
                 IList<Replacement> replacements = new List<Replacement>();
 
-                foreach (TSLintLogFix fix in tslEntry.Fixes)
+                foreach (TSLintLogFix fix in entry.Fixes)
                 {
                     Replacement replacement = new Replacement()
                     {
