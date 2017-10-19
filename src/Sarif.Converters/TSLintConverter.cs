@@ -1,0 +1,149 @@
+﻿// Copyright (c) Microsoft. All rights reserved.
+// Licensed under the MIT license. See LICENSE file in the project root for full license information.
+
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Text;
+using Microsoft.CodeAnalysis.Sarif.Converters.TSLintObjectModel;
+using Microsoft.CodeAnalysis.Sarif.Writers;
+
+namespace Microsoft.CodeAnalysis.Sarif.Converters
+{
+    public class TSLintConverter : ToolFileConverterBase
+    {
+        private readonly ITSLintLoader loader;
+        
+        public TSLintConverter()
+        {
+            loader = new TSLintLoader();
+        }
+
+        /// <summary>
+        /// A constructor used for testing purposes (to mock ITSLintLoader)
+        /// </summary>
+        /// <param name="loader"></param>
+        internal TSLintConverter(ITSLintLoader loader)
+        {
+            this.loader = loader ?? throw new ArgumentNullException(nameof(loader));
+        }
+        
+        public override void Convert(Stream input, IResultLogWriter output, LoggingOptions loggingOptions)
+        {
+            input = input ?? throw new ArgumentNullException(nameof(input));
+
+            output = output ?? throw new ArgumentNullException(nameof(output));
+
+            output.Initialize(id: null, automationId: null);
+
+            TSLintLog tsLintLog = loader.ReadLog(input);
+
+            Tool tool = new Tool
+            {
+                Name = "TSLint"
+            };
+
+            output.WriteTool(tool);
+
+            var results = new List<Result>();
+            foreach(TSLintLogEntry entry in tsLintLog)
+            {
+                results.Add(CreateResult(entry));
+            }
+
+            var fileInfoFactory = new FileInfoFactory(MimeType.DetermineFromFileExtension, loggingOptions);
+            Dictionary<string, FileData> fileDictionary = fileInfoFactory.Create(results);
+            
+            if (fileDictionary?.Any() == true)
+            {
+                output.WriteFiles(fileDictionary);
+            }
+
+            output.OpenResults();
+            output.WriteResults(results);
+            output.CloseResults();
+        }
+
+        internal Result CreateResult(TSLintLogEntry entry)
+        {
+            entry = entry ?? throw new ArgumentNullException(nameof(entry));
+
+            Result result = new Result()
+            {
+                RuleId = entry.RuleName,
+                Message = entry.Failure
+            };
+
+            switch (entry.RuleSeverity)
+            {
+                case "ERROR":
+                    result.Level = ResultLevel.Error;
+                    break;
+                case "WARN":
+                case "WARNING":
+                    result.Level = ResultLevel.Warning;
+                    break;
+                case "DEFAULT":
+                default:
+                    result.Level = ResultLevel.Note;
+                    break;
+            }
+
+            Region region = new Region()
+            {
+                // The TSLint logs have line and column start at 0, Sarif has them starting at 1, so add 1 to each
+                StartLine = entry.StartPosition.Line + 1,
+                StartColumn = entry.StartPosition.Character + 1,
+                EndLine = entry.EndPosition.Line + 1,
+                EndColumn = entry.EndPosition.Character + 1,
+
+                Offset = entry.StartPosition.Position
+            };
+
+            int length = entry.EndPosition.Position - entry.StartPosition.Position + 1;
+            region.Length = length > 0 ? length : 0;
+
+            Uri analysisTargetUri = new Uri(entry.Name, UriKind.Relative);
+
+            PhysicalLocation analysisTarget = new PhysicalLocation(uri: analysisTargetUri, uriBaseId: null, region: region);
+            Location location = new Location()
+            {
+                AnalysisTarget = analysisTarget
+            };
+
+            result.Locations = new List<Location>()
+            {
+                location
+            };
+
+            result.Fixes = new List<Fix>();
+
+            if (entry.Fixes?.Any() == true)
+            {
+                IList<Replacement> replacements = new List<Replacement>();
+
+                foreach (TSLintLogFix fix in entry.Fixes)
+                {
+                    Replacement replacement = new Replacement()
+                    {
+                        Offset = fix.InnerStart,
+                        DeletedLength = fix.InnerLength,
+                    };
+
+                    var plainTextBytes = Encoding.UTF8.GetBytes(fix.InnerText);
+                    replacement.InsertedBytes = System.Convert.ToBase64String(plainTextBytes);
+
+                    replacements.Add(replacement);
+                }
+
+                FileChange sarifFileChange = new FileChange(uri: analysisTargetUri, uriBaseId: null, replacements: replacements);
+
+                Fix sarifFix = new Fix(description: null, fileChanges: new List<FileChange>() { sarifFileChange });
+                result.Fixes.Add(sarifFix);
+            } 
+
+            return result;
+        }        
+    }
+}
