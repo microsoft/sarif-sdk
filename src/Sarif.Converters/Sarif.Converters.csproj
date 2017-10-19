@@ -45,4 +45,8 @@
     <ProjectReference Include="..\Sarif\Sarif.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="TSLintObjectModel\" />
+  </ItemGroup>
+
 </Project>

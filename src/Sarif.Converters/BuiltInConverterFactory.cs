@@ -32,6 +32,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             CreateConverterRecord<FxCopConverter>(result, ToolFormat.FxCop);
             CreateConverterRecord<SemmleQLConverter>(result, ToolFormat.SemmleQL);
             CreateConverterRecord<StaticDriverVerifierConverter>(result, ToolFormat.StaticDriverVerifier);
+            CreateConverterRecord<TSLintConverter>(result, ToolFormat.TSLint);
             return result;
         }
 
