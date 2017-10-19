@@ -1,5 +1,5 @@
-﻿using Microsoft.CodeAnalysis.Sarif.Converters.TSLintObjectModel;
-using System.IO;
+﻿using System.IO;
+using Microsoft.CodeAnalysis.Sarif.Converters.TSLintObjectModel;
 
 namespace Microsoft.CodeAnalysis.Sarif.Converters
 {

@@ -1,18 +1,14 @@
 ﻿// Copyright (c) Microsoft. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-using Microsoft.CodeAnalysis.Sarif.Converters.TSLintObjectModel;
-using Microsoft.CodeAnalysis.Sarif.Writers;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Runtime.CompilerServices;
 using System.Text;
+using Microsoft.CodeAnalysis.Sarif.Converters.TSLintObjectModel;
+using Microsoft.CodeAnalysis.Sarif.Writers;
 
-[assembly: InternalsVisibleTo("Sarif.Driver.UnitTests.dll,PublicKey=0024000004800000940000000602000000240000525341310004000001000100433fbf156abe971" +
-    "8142bdbd48a440e779a1b708fd21486ee0ae536f4c548edf8a7185c1e3ac89ceef76c15b8cc2497906798779a59402f9b9e27281fb15e7111566cdc9a9f8326301d45320623c52" +
-    "22089cf4d0013f365ae729fb0a9c9d15138042825cd511a0f3d4887a7b92f4c2749f81b410813d297b73244cf64995effb1")]
 namespace Microsoft.CodeAnalysis.Sarif.Converters
 {
     public class TSLintConverter : ToolFileConverterBase
@@ -89,10 +85,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                     result.Level = ResultLevel.Warning;
                     break;
                 case "DEFAULT":
-                    result.Level = ResultLevel.Default;
-                    break;
                 default:
-                    result.Level = ResultLevel.NotApplicable;
+                    result.Level = ResultLevel.Note;
                     break;
             }
 

@@ -25,7 +25,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 Failure = "failure.test.value",
                 Name = "name.test.value",
                 RuleName = "ruleName.test.value",
-                RuleSeverity = "ruleSeverity.test.value"
+                RuleSeverity = "WARN"
             };
 
             TSLintLogFix testFix = new TSLintLogFix()
@@ -64,7 +64,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             {
                 RuleId = "ruleName.test.value",
                 Message = "failure.test.value",
-                Level = ResultLevel.NotApplicable
+                Level = ResultLevel.Warning
             };
 
             Region region = new Region()
@@ -165,7 +165,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         [Fact]
         public void TSLintConverter_CreateResult_WhenInputIsNull_ThrowsArgumentNullException()
         {
-            TSLintConverter converter = new TSLintConverter();
+            var converter = new TSLintConverter();
 
             Action action = () => converter.CreateResult(null);
             action.ShouldThrow<ArgumentNullException>();
@@ -174,14 +174,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         [Fact]
         public void TSLintConverter_CreateResult_CreatesExpectedResult()
         {
-            TSLintConverter converter = new TSLintConverter();
+            var converter = new TSLintConverter();
             TSLintLog tSLintLog = CreateTestTSLintLog();
 
             Result actualResult = converter.CreateResult(tSLintLog[0]);
             Result expectedResult = CreateTestResult();
 
-            Assert.True(Result.ValueComparer.Equals(actualResult, expectedResult));
+            Result.ValueComparer.Equals(actualResult, expectedResult).Should().BeTrue();
         }
-
     }
 }

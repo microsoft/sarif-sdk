@@ -1,18 +1,14 @@
 ﻿// Copyright (c) Microsoft. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-using Microsoft.CodeAnalysis.Sarif.Converters.TSLintObjectModel;
 using System;
 using System.IO;
-using System.Runtime.CompilerServices;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Json;
 using System.Text;
 using System.Text.RegularExpressions;
+using Microsoft.CodeAnalysis.Sarif.Converters.TSLintObjectModel;
 
-[assembly: InternalsVisibleTo("Sarif.Driver.UnitTests.dll,PublicKey=0024000004800000940000000602000000240000525341310004000001000100433fbf156abe971" +
-    "8142bdbd48a440e779a1b708fd21486ee0ae536f4c548edf8a7185c1e3ac89ceef76c15b8cc2497906798779a59402f9b9e27281fb15e7111566cdc9a9f8326301d45320623c52" +
-    "22089cf4d0013f365ae729fb0a9c9d15138042825cd511a0f3d4887a7b92f4c2749f81b410813d297b73244cf64995effb1")]
 namespace Microsoft.CodeAnalysis.Sarif.Converters
 {
     public class TSLintLoader : ITSLintLoader
@@ -59,7 +55,18 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             {
                 contents = reader.ReadToEnd();
             }
-            
+
+            // NOTE: The outer capturing parentheses in this regex are required.
+            // They take advantage of a useful (but not easily discoverable)
+            // feature of Regex.Split:
+            //
+            //     If capturing parentheses are used in a Regex.Split expression,
+            //     any captured text is included in the resulting string array.
+            //     For example, if you split the string "plum-pear" on a hyphen
+            //     placed within capturing parentheses, the returned array includes
+            //     a string element that contains the hyphen.
+            //
+            // See https://msdn.microsoft.com/en-us/library/8yttk7sy(v=vs.110).aspx
             Regex regex = new Regex("(\"fix\":\\s*{[^}]+},)");
 
             string[] tokens = regex.Split(contents);
