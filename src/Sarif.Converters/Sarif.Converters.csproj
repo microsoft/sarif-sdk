@@ -45,4 +45,10 @@
     <ProjectReference Include="..\Sarif\Sarif.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Content Include="..\..\lib\PREfastXmlSarifConverter.dll">
+      <PackagePath>lib\netcoreapp2.0;lib\netstandard2.0;lib\net452;</PackagePath>
+      <Pack>true</Pack>
+    </Content>
+  </ItemGroup>
 </Project>

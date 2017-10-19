@@ -64,32 +64,35 @@ if "%ERRORLEVEL%" NEQ "0" (
 goto ExitFailed
 )
 
-msbuild /verbosity:minimal /target:rebuild src\Everything.sln /p:"Configuration=%Configuration%" /p:"Platform=Any CPU" /filelogger /fileloggerparameters:Verbosity=detailed /p:"RunBinSkim=false" /p:"BinSkimVerboseOutput=true"
+msbuild /verbosity:minimal /target:rebuild src\Everything.sln /filelogger /fileloggerparameters:Verbosity=detailed /p:"RunBinSkim=false" /p:"BinSkimVerboseOutput=true"
+set Platform=AnyCPU
 
 if "%ERRORLEVEL%" NEQ "0" (
 goto ExitFailed
 )
 
 @REM Build Nuget packages
-dotnet pack .\src\Sarif\Sarif.csproj /p:PackageVersion=%Version%
+set PackOptions=--configuration %Configuration% --no-build /p:PackageVersion=%Version% /p:Platform=%Platform%
+
+dotnet pack .\src\Sarif\Sarif.csproj %PackOptions%
 
 if "%ERRORLEVEL%" NEQ "0" (
 goto ExitFailed
 )
 
-dotnet pack .\src\Sarif.Converters\Sarif.Converters.csproj /p:PackageVersion=%Version%
+dotnet pack .\src\Sarif.Converters\Sarif.Converters.csproj %PackOptions%
 
 if "%ERRORLEVEL%" NEQ "0" (
 goto ExitFailed
 )
 
-dotnet pack .\src\Sarif.Driver\Sarif.Driver.csproj /p:PackageVersion=%Version%
+dotnet pack .\src\Sarif.Driver\Sarif.Driver.csproj %PackOptions%
 
 if "%ERRORLEVEL%" NEQ "0" (
 goto ExitFailed
 )
 
-dotnet pack .\src\Sarif.Multitool\Sarif.Multitool.csproj /p:PackageVersion=%Version%
+dotnet pack .\src\Sarif.Multitool\Sarif.Multitool.csproj %PackOptions%
 
 if "%ERRORLEVEL%" NEQ "0" (
 goto ExitFailed
@@ -97,27 +100,27 @@ goto ExitFailed
 
 @REM Run all tests
 
-pushd .\src\Sarif.Converters.UnitTests && dotnet xunit && popd
+pushd .\src\Sarif.Converters.UnitTests && dotnet xunit -configuration Release && popd
 if "%ERRORLEVEL%" NEQ "0" (
 goto ExitFailed
 )
 
-pushd .\src\Sarif.UnitTests && dotnet xunit && popd
+pushd .\src\Sarif.UnitTests && dotnet xunit -nobuild -configuration Release && popd
 if "%ERRORLEVEL%" NEQ "0" (
 goto ExitFailed
 )
 
-pushd .\src\Sarif.Driver.UnitTests && dotnet xunit && popd
+pushd .\src\Sarif.Driver.UnitTests && dotnet xunit -nobuild -configuration Release && popd
 if "%ERRORLEVEL%" NEQ "0" (
 goto ExitFailed
 )
 
-pushd .\src\Sarif.FunctionalTests && dotnet xunit && popd
+pushd .\src\Sarif.FunctionalTests && dotnet xunit -nobuild -configuration Release && popd
 if "%ERRORLEVEL%" NEQ "0" (
 goto ExitFailed
 )
 
-pushd .\src\Sarif.Multitool.FunctionalTests && dotnet xunit && popd
+pushd .\src\Sarif.Multitool.FunctionalTests && dotnet xunit -nobuild -configuration Release && popd
 if "%ERRORLEVEL%" NEQ "0" (
 goto ExitFailed
 )
