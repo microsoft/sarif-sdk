@@ -100,7 +100,7 @@ goto ExitFailed
 
 @REM Run all tests
 
-pushd .\src\Sarif.Converters.UnitTests && dotnet xunit -configuration Release && popd
+pushd .\src\Sarif.Converters.UnitTests && dotnet xunit -nobuild -configuration Release && popd
 if "%ERRORLEVEL%" NEQ "0" (
 goto ExitFailed
 )
