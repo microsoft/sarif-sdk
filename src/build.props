@@ -20,7 +20,7 @@
     <PublicSign Condition=" '$(OS)' != 'Windows_NT' ">true</PublicSign>
     <SignAssembly>true</SignAssembly>
     <DelaySign>false</DelaySign>
-    <AssemblyOriginatorKeyFile>$(MsBuildThisFileDirectory)build\Key.snk</AssemblyOriginatorKeyFile>
+    <AssemblyOriginatorKeyFile>$(MsBuildThisFileDirectory)Key.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <!-- Configuration specific properties -->
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
@@ -44,7 +44,7 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|Any CPU' " />
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|Any CPU' " />
   <ItemGroup>
-    <Compile Include="$(MsBuildThisFileDirectory)build\CommonAssemblyInfo.cs" />
+    <Compile Include="$(MsBuildThisFileDirectory)CommonAssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" Condition="'$(DisableBinSkimTarget)'!='true'"/>
   <PropertyGroup>
