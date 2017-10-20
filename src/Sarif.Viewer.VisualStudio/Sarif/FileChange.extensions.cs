@@ -25,8 +25,11 @@ namespace Microsoft.Sarif.Viewer.Sarif
 
             if (fileChange.Replacements != null)
             {
-                model.FilePath = fileChange.Uri.LocalPath;
-                if (!Path.IsPathRooted(model.FilePath))
+                model.FilePath = fileChange.Uri.IsAbsoluteUri
+                    ? fileChange.Uri.LocalPath
+                    : fileChange.Uri.OriginalString;
+
+                if (!Path.IsPathRooted(model.FilePath) && fileChange.Uri.IsAbsoluteUri)
                 {
                     model.FilePath = fileChange.Uri.AbsoluteUri;
                 }

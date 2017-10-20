@@ -1,6 +1,8 @@
 ﻿// Copyright (c) Microsoft. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
+using System;
+using System.Collections.Generic;
 using FluentAssertions;
 using Microsoft.CodeAnalysis.Sarif;
 using Xunit;
@@ -59,6 +61,174 @@ namespace Microsoft.Sarif.Viewer.VisualStudio.UnitTests
             var lineMarker = item.LineMarker;
 
             lineMarker.Should().Be(null);
+        }
+
+        [Fact]
+        public void SarifErrorListItem_WhenMessageIsAbsent_ContainsBlankMessage()
+        {
+            var result = new Result
+            {
+            };
+
+            var item = MakeErrorListItem(result);
+
+            item.Message.Should().Be(string.Empty);
+        }
+
+        [Fact]
+        public void SarifErrorListItem_WhenResultRefersToNonExistentRule_ContainsBlankMessage()
+        {
+            var result = new Result
+            {
+                RuleId = "TST0001",
+                FormattedRuleMessage = new FormattedRuleMessage("nonExistentFormatId", arguments: new string[0])
+            };
+
+            var run = new Run
+            {
+                Rules = new Dictionary<string, Rule>
+                {
+                }
+            };
+
+            var item = MakeErrorListItem(run, result);
+
+            item.Message.Should().Be(string.Empty);
+        }
+
+        [Fact]
+        public void SarifErrorListItem_WhenResultRefersToRuleWithNoMessageFormats_ContainsBlankMessage()
+        {
+            var result = new Result
+            {
+                RuleId = "TST0001",
+                FormattedRuleMessage = new FormattedRuleMessage("nonExistentFormatId", arguments: new string[0])
+            };
+
+            var run = new Run
+            {
+                Rules = new Dictionary<string, Rule>
+                {
+                    {
+                        "TST0001",
+                        new Rule
+                        {
+                            Id = "TST0001"
+                        }
+                    }
+                }
+            };
+
+            var item = MakeErrorListItem(run, result);
+
+            item.Message.Should().Be(string.Empty);
+        }
+
+        [Fact]
+        public void SarifErrorListItem_WhenResultRefersToNonExistentMessageFormat_ContainsBlankMessage()
+        {
+            var result = new Result
+            {
+                RuleId = "TST0001",
+                FormattedRuleMessage = new FormattedRuleMessage("nonExistentFormatId", arguments: new string[0])
+            };
+
+            var run = new Run
+            {
+                Rules = new Dictionary<string, Rule>
+                {
+                    {
+                        "TST0001",
+                        new Rule
+                        {
+                            Id = "TST0001",
+                            MessageFormats = new Dictionary<string, string>
+                            {
+                                { "realFormatId", "The message" }
+                            }
+                        }
+                    }
+                }
+            };
+
+            var item = MakeErrorListItem(run, result);
+
+            item.Message.Should().Be(string.Empty);
+        }
+
+        [Fact]
+        public void SarifErrorListItem_WhenResultRefersToExistingMessageFormat_ContainsExpectedMessage()
+        {
+            var result = new Result
+            {
+                RuleId = "TST0001",
+                FormattedRuleMessage = new FormattedRuleMessage("greeting", new[] { "Mary" })
+            };
+
+            var run = new Run
+            {
+                Rules = new Dictionary<string, Rule>
+                {
+                    {
+                        "TST0001",
+                        new Rule
+                        {
+                            Id = "TST0001",
+                            MessageFormats = new Dictionary<string, string>
+                            {
+                                { "greeting", "Hello, {0}!" }
+                            }
+                        }
+                    }
+                }
+            };
+
+            var item = MakeErrorListItem(run, result);
+
+            item.Message.Should().Be("Hello, Mary!");
+        }
+
+        [Fact]
+        public void SarifErrorListItem_WhenFixHasRelativePath_UsesThatPath()
+        {
+            var result = new Result
+            {
+                Fixes = new[]
+                {
+                    new Fix
+                    {
+                        FileChanges = new[]
+                        {
+                            new FileChange
+                            {
+                                Uri = new Uri("path/to/file.html", UriKind.Relative),
+                                Replacements = new[]
+                                {
+                                    new Replacement(0, 0, string.Empty)
+                                }
+                            }
+                        }
+                    }
+                }
+            };
+
+            var item = MakeErrorListItem(result);
+
+            item.Fixes[0].FileChanges[0].FilePath.Should().Be("path/to/file.html");
+        }
+
+        private static SarifErrorListItem MakeErrorListItem(Result result)
+        {
+            return MakeErrorListItem(new Run(), result);
+        }
+
+        private static SarifErrorListItem MakeErrorListItem(Run run, Result result)
+        {
+            return new SarifErrorListItem(
+                run,
+                result,
+                "log.sarif",
+                new ProjectNameCache(solution: null));
         }
     }
 }
