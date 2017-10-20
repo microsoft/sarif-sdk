@@ -129,6 +129,13 @@
           <ButtonText>Open Semmle QL CSV log file...</ButtonText>
         </Strings>
       </Button>
+      <Button guid="guidOpenSarifFileCommandPackageCmdSet" id="OpenTSLintFileCommandId" priority="0x0100" type="Button">
+        <Parent guid="guidOpenSarifFileCommandPackageCmdSet" id="OpenFileSubMenuGroup" />
+        <!--<Icon guid="guidImages" id="bmpPic1" />-->
+        <Strings>
+          <ButtonText>Open TSLint log file...</ButtonText>
+        </Strings>
+      </Button>
       <Button guid="guidSarifViewerPackageCmdSet" id="cmdidSarifToolWindowCommand" priority="0x0100" type="Button">
         <Parent guid="guidSHLMainMenu" id="IDG_VS_WNDO_OTRWNDWS1" />
         <!--<Icon guid="guidImages1" id="bmpPic1" />-->
@@ -167,6 +174,7 @@
       <IDSymbol name="OpenClangFileCommandId" value="0x0106" />
       <IDSymbol name="OpenAndroidStudioFileCommandId" value="0x0107" />
       <IDSymbol name="OpenSemmleFileCommandId" value="0x0108" />
+      <IDSymbol name="OpenTSLintFileCommandId" value="0x0109" />
       <IDSymbol name="OpenFileSubMenuGroup" value="0x1100" />
       <IDSymbol name="OpenFileMenuGroup" value="0x1150" />
       <IDSymbol name="cmdidTestSubCommand" value="0x0200" />
