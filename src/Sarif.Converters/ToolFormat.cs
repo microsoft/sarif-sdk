@@ -33,6 +33,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         /// <summary>Semmle's file format.</summary>
         public const string SemmleQL = nameof(SemmleQL);
 
+        /// <summary>TSLint's file format.</summary>
+        public const string TSLint = nameof(TSLint);
+
         /// <summary>Static Driver Verifier's file format.</summary>
         public const string StaticDriverVerifier = nameof(StaticDriverVerifier);
     }

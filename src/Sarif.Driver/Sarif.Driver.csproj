@@ -6,12 +6,6 @@
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     <ProjectGuid>c06f0cf1-3505-4715-b6da-047ec86c4308</ProjectGuid>
     <RootNamespace>Microsoft.CodeAnalysis.Sarif.Driver</RootNamespace>
-    
-    <!-- Full signing does not yet work on Linux.  Turn it off -->
-    <PublicSign Condition=" '$(OS)' != 'Windows_NT' ">true</PublicSign>
-    <SignAssembly>true</SignAssembly>
-    <DelaySign>false</DelaySign>
-    <AssemblyOriginatorKeyFile>..\..\GeneratedKey.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   
   <!--NuGet Packages-->

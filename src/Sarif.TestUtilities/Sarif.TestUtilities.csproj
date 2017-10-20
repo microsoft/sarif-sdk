@@ -7,12 +7,6 @@
     <IsPackable>false</IsPackable>
     <AssemblyName>Sarif.TestUtilities</AssemblyName>
     <RootNamespace>Microsoft.CodeAnalysis.Sarif</RootNamespace>
-
-    <!-- Full signing does not yet work on Linux.  Turn it off -->
-    <PublicSign Condition=" '$(OS)' != 'Windows_NT' ">true</PublicSign>
-    <SignAssembly>true</SignAssembly>
-    <DelaySign>false</DelaySign>
-    <AssemblyOriginatorKeyFile>..\TestKey.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
 
   <ItemGroup>
