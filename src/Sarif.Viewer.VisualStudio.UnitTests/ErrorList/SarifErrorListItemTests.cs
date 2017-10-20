@@ -217,6 +217,54 @@ namespace Microsoft.Sarif.Viewer.VisualStudio.UnitTests
             item.Fixes[0].FileChanges[0].FilePath.Should().Be("path/to/file.html");
         }
 
+        [Fact]
+        public void SarifErrorListItem_WhenRuleMetadataIsPresent_PopulatesRuleModelFromSarifRule()
+        {
+            var result = new Result
+            {
+                RuleId = "TST0001-1"
+            };
+
+            var run = new Run
+            {
+                Rules = new Dictionary<string, Rule>
+                {
+                    {
+                        "TST0001-1",
+                        new Rule
+                        {
+                            Id = "TST0001"
+                        }
+                    }
+                }
+            };
+
+            var item = MakeErrorListItem(run, result);
+
+            item.Rule.Id.Should().Be("TST0001");
+        }
+
+        [Fact]
+        public void SarifErrorListItem_WhenRuleMetadataIsAbsent_SynthesizesRuleModelFromResultRuleId()
+        {
+            var result = new Result
+            {
+                RuleId = "TST0001"
+            };
+
+            var run = new Run
+            {
+                Rules = new Dictionary<string, Rule>
+                {
+                    // No metadata for rule TST0001.
+                }
+            };
+
+            var item = MakeErrorListItem(run, result);
+
+            item.Rule.Id.Should().Be("TST0001");
+        }
+
         private static SarifErrorListItem MakeErrorListItem(Result result)
         {
             return MakeErrorListItem(new Run(), result);
