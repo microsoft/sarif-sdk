@@ -265,6 +265,35 @@ namespace Microsoft.Sarif.Viewer.VisualStudio.UnitTests
             item.Rule.Id.Should().Be("TST0001");
         }
 
+        [Fact]
+        public void SarifErrorListItem_WhenMessageAndFormattedRuleMessageAreAbsentButRuleMetadataIsPresent_ContainsBlankMessage()
+        {
+            // This test prevents regression of #647,
+            // "Viewer NRE when result lacks message/formattedRuleMessage but rule metadata is present"
+            var result = new Result
+            {
+                RuleId = "TST0001"
+            };
+
+            var run = new Run
+            {
+                Rules = new Dictionary<string, Rule>
+                {
+                    {
+                        "TST0001",
+                        new Rule
+                        {
+                            Id = "TST0001"
+                        }
+                    }
+                }
+            };
+
+            var item = MakeErrorListItem(run, result);
+
+            item.Message.Should().Be(string.Empty);
+        }
+
         private static SarifErrorListItem MakeErrorListItem(Result result)
         {
             return MakeErrorListItem(new Run(), result);
