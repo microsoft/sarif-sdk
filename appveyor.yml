@@ -28,7 +28,7 @@ build:
 
 after_build:
   - ps: .\appveyor\Push-PrefastResultsToAppveyor.ps1
-  - RunUnitTests.cmd
+  - "pushd .\src\Sarif.Converters.UnitTests && dotnet xunit -appveyor -nobuild -configuration Release && popd"
 
 test: off
 
