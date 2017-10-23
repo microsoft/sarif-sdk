@@ -19,6 +19,8 @@ environment:
 
 install:
   - ps: .\dotnet-install.ps1 --version 2.0.0
+  - cd src\Sarif.Converters.UnitTests
+  - dotnet xunit
 
 configuration:
   - Release

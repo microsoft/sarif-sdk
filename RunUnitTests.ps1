@@ -1,46 +1,29 @@
-@ECHO off
-SETLOCAL
-
-pushd .\src\Sarif.Converters.UnitTests && dotnet xunit -appveyor -nobuild -configuration Release && popd
-if "%ERRORLEVEL%" NEQ "0" (
-goto ExitFailed
+$targetFrameworks = @(
+    "netcoreapp2.0",
+    "net452"
 )
 
-pushd .\src\Sarif.UnitTests && dotnet xunit -appveyor -nobuild -configuration Release && popd
-if "%ERRORLEVEL%" NEQ "0" (
-goto ExitFailed
+$testProjects = @(
+    @{ Name = "Sarif.Converters.UnitTests"; IsMultiTargeting = $True },
+    @{ Name = "Sarif.UnitTests"; IsMultiTargeting = $True },
+    @{ Name = "Sarif.Driver.UnitTests"; IsMultiTargeting = $True },
+    @{ Name = "Sarif.FunctionalTests"; IsMultiTargeting = $True },
+    @{ Name = "Sarif.Multitool.FunctionalTests"; IsMultiTargeting = $True },
+    @{ Name = "Sarif.ValidationTests"; IsMultiTargeting = $False },
+    @{ Name = "Sarif.Viewer.VisualStudio.UnitTests"; IsMultiTargeting = $False }
 )
 
-pushd .\src\Sarif.Driver.UnitTests && dotnet xunit -appveyor -nobuild -configuration Release && popd
-if "%ERRORLEVEL%" NEQ "0" (
-goto ExitFailed
-)
+Foreach ($project in $testProjects)
+{
+    If ($project.IsMultiTargeting)
+    {
+        Foreach ($framework in $targetFrameworks)
+        {
+            %xunit20%\
+        }
+    }
+    else
+    {
 
-pushd .\src\Sarif.FunctionalTests && dotnet xunit -appveyor -nobuild -configuration Release && popd
-if "%ERRORLEVEL%" NEQ "0" (
-goto ExitFailed
-)
-
-pushd .\src\Sarif.Multitool.FunctionalTests && dotnet xunit -appveyor -nobuild -configuration Release && popd
-if "%ERRORLEVEL%" NEQ "0" (
-goto ExitFailed
-)
-
-src\packages\xunit.runner.console.2.2.0\tools\xunit.console.x86.exe -appveyor bld\bin\Sarif.ValidationTests\AnyCPU_%Configuration%\Sarif.ValidationTests.dll
-if "%ERRORLEVEL%" NEQ "0" (
-goto ExitFailed
-)
-
-src\packages\xunit.runner.console.2.2.0\tools\xunit.console.x86.exe -appveyor bld\bin\Sarif.Viewer.VisualStudio.UnitTests\AnyCPU_%Configuration%\Sarif.Viewer.VisualStudio.UnitTests.dll
-if "%ERRORLEVEL%" NEQ "0" (
-goto ExitFailed
-)
-
-goto Exit
-
-:ExitFailed
-@echo.
-@echo script failed
-exit /b 1
-
-:Exit
+    }
+}
