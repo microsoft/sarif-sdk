@@ -19,8 +19,6 @@ environment:
 
 install:
   - ps: .\dotnet-install.ps1 --version 2.0.0
-  - cd src\Sarif.Converters.UnitTests
-  - dotnet xunit
 
 configuration:
   - Release
@@ -30,10 +28,8 @@ build:
 
 after_build:
   - ps: .\appveyor\Push-PrefastResultsToAppveyor.ps1
-  - >-
-        pushd .\src\Sarif.Converters.UnitTests 
-        dotnet xunit -appveyor -nobuild -configuration Release
-        popd
+  - cd src\Sarif.Converters.UnitTests
+  - dotnet xunit
 
 test: off
 
