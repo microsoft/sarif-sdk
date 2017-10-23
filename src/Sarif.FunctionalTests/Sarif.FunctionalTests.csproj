@@ -653,6 +653,12 @@
     <None Include="ConverterTestData\TSLint\TSLint-05.json.sarif">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="ConverterTestData\TSLint\TSLint-06.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ConverterTestData\TSLint\TSLint-06.json.sarif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="ConverterTestData\TSLint\TSLint-07.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
