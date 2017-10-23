@@ -28,8 +28,7 @@ build:
 
 after_build:
   - ps: .\appveyor\Push-PrefastResultsToAppveyor.ps1
-  - cd src\Sarif.Converters.UnitTests
-  - dotnet xunit
+  - dotnet src\packages\xunit.runner.console\2.3.0\tools\netcoreapp2.0\xunit.console.dll bld\bin\Sarif.Converters.UnitTests\AnyCPU_Release\netcoreapp2.0\Sarif.Converters.UnitTests.dll
 
 test: off
 
