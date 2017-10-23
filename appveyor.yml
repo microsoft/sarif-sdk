@@ -32,6 +32,7 @@ after_build:
 test:
   assemblies:
     - '**\Sarif.UnitTests.dll'
+    - '**\Sarif.Converters.UnitTests.dll'
     - '**\Sarif.Driver.UnitTests.dll'
     - '**\Sarif.FunctionalTests.dll'
     - '**\Sarif.ValidationTests.dll'
