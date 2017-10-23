@@ -46,29 +46,21 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 throw new InvalidOperationException("Output file already exists and option to overwrite was not specified.");
             }
 
-            if (toolFormat.MatchesToolFormat(ToolFormat.PREfast))
+            // FileMode settings here will results in an exception being raised if the input 
+            // file does not exist, and that an existing output file will be overwritten
+            using (var input = File.OpenRead(inputFileName))
+            using (var outputTextStream = File.Create(outputFileName))
+            using (var outputTextWriter = new StreamWriter(outputTextStream))
+            using (var outputJson = new JsonTextWriter(outputTextWriter))
             {
-                string sarif = ConvertPREfastToStandardFormat(inputFileName);
-                File.WriteAllText(outputFileName, sarif);
-            }
-            else
-            {
-                // FileMode settings here will results in an exception being raised if the input 
-                // file does not exist, and that an existing output file will be overwritten
-                using (var input = File.OpenRead(inputFileName))
-                using (var outputTextStream = File.Create(outputFileName))
-                using (var outputTextWriter = new StreamWriter(outputTextStream))
-                using (var outputJson = new JsonTextWriter(outputTextWriter))
+                if (loggingOptions.Includes(LoggingOptions.PrettyPrint))
                 {
-                    if (loggingOptions.Includes(LoggingOptions.PrettyPrint))
-                    {
-                        outputJson.Formatting = Formatting.Indented;
-                    }
+                    outputJson.Formatting = Formatting.Indented;
+                }
 
-                    using (var output = new ResultLogJsonWriter(outputJson))
-                    {
-                        ConvertToStandardFormat(toolFormat, input, output, loggingOptions, pluginAssemblyPath);
-                    }
+                using (var output = new ResultLogJsonWriter(outputJson))
+                {
+                    ConvertToStandardFormat(toolFormat, input, output, loggingOptions, pluginAssemblyPath);
                 }
             }
         }
@@ -89,11 +81,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             LoggingOptions loggingOptions = LoggingOptions.None,
             string pluginAssemblyPath = null)
         {
-            if (toolFormat.MatchesToolFormat(ToolFormat.PREfast))
-            {
-                throw new ArgumentException("Cannot convert PREfast XML from stream. Call ConvertPREfastToStandardFormat helper instead.");
-            }
-
             if (inputStream == null) { throw new ArgumentNullException(nameof(inputStream)); }
             if (outputStream == null) { throw new ArgumentNullException(nameof(outputStream)); }
 
@@ -126,27 +113,5 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
             return factory;
         }
-
-        /// <summary>Converts a legacy PREfast XML log file into the SARIF format.</summary>
-        /// <exception cref="ArgumentNullException">Thrown when one or more required arguments are null.</exception>
-        /// <exception cref="ArgumentException">Thrown when one or more arguments have unsupported or
-        /// illegal values.</exception>
-        /// <exception cref="InvalidOperationException">Thrown when the requested operation is invalid.</exception>
-        /// <param name="toolFormat">The tool format of the input file.</param>
-        /// <param name="inputFileName">The input log file name.</param>
-        /// <returns>The converted PREfast log file in SARIF format.</returns>
-        public static string ConvertPREfastToStandardFormat(string inputFileName)
-        {
-            if (inputFileName == null) { throw new ArgumentNullException(nameof(inputFileName)); };
-
-            return SafeNativeMethods.ConvertToSarif(inputFileName);
-        }
-    }
-
-    internal class SafeNativeMethods
-    {
-        [return: MarshalAs(UnmanagedType.BStr)]
-        [DllImport("PREfastXmlSarifConverter", CallingConvention = CallingConvention.StdCall, CharSet = CharSet.Unicode)]
-        internal static extern string ConvertToSarif([MarshalAs(UnmanagedType.BStr)][In]string prefastFilePath);
     }
 }

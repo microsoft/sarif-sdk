@@ -24,6 +24,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         private static Dictionary<string, Lazy<ToolFileConverterBase>> CreateBuiltInConverters()
         {
             var result = new Dictionary<string, Lazy<ToolFileConverterBase>>();
+            CreateConverterRecord<PREFastConverter>(result, ToolFormat.PREfast);
             CreateConverterRecord<AndroidStudioConverter>(result, ToolFormat.AndroidStudio);
             CreateConverterRecord<CppCheckConverter>(result, ToolFormat.CppCheck);
             CreateConverterRecord<ClangAnalyzerConverter>(result, ToolFormat.ClangAnalyzer);

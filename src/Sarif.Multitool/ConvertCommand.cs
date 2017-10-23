@@ -36,20 +36,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                     convertOptions.OutputFilePath = convertOptions.InputFilePath + ".sarif";
                 }
 
-                if (convertOptions.ToolFormat.MatchesToolFormat(ToolFormat.PREfast))
-                {
-                    string sarif = ToolFormatConverter.ConvertPREfastToStandardFormat(convertOptions.InputFilePath);
-                    File.WriteAllText(convertOptions.OutputFilePath, sarif);
-                }
-                else
-                {
-                    new ToolFormatConverter().ConvertToStandardFormat(
-                        convertOptions.ToolFormat,
-                        convertOptions.InputFilePath,
-                        convertOptions.OutputFilePath,
-                        loggingOptions,
-                        convertOptions.PluginAssemblyPath);
-                }
+                new ToolFormatConverter().ConvertToStandardFormat(
+                    convertOptions.ToolFormat,
+                    convertOptions.InputFilePath,
+                    convertOptions.OutputFilePath,
+                    loggingOptions,
+                    convertOptions.PluginAssemblyPath);
             }
             catch (Exception ex)
             {
