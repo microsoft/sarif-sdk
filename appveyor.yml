@@ -32,7 +32,7 @@ after_build:
 test:
   assemblies:
     - '**\Sarif.UnitTests.dll'
-    - %xunit20%\xunit.console.x86 '**\Sarif.Converters.UnitTests.dll' -appveyor
+    - '%xunit20%\xunit.console.x86 **\Sarif.Converters.UnitTests.dll -appveyor'
     - '**\Sarif.Driver.UnitTests.dll'
     - '**\Sarif.FunctionalTests.dll'
     - '**\Sarif.ValidationTests.dll'
