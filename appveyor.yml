@@ -28,16 +28,9 @@ build:
 
 after_build:
   - ps: .\appveyor\Push-PrefastResultsToAppveyor.ps1
+  - RunUnitTests.cmd
 
-test:
-  assemblies:
-    - '**\Sarif.UnitTests.dll'
-    - '%xunit20%\xunit.console.x86 **\Sarif.Converters.UnitTests.dll -appveyor'
-    - '**\Sarif.Driver.UnitTests.dll'
-    - '**\Sarif.FunctionalTests.dll'
-    - '**\Sarif.ValidationTests.dll'
-    - '**\Sarif.Viewer.VisualStudio.UnitTests.dll'
-    - '**\Sarif.Multitool.FunctionalTests.dll'
+test: off
 
 notifications:
   - provider: Email
