@@ -26,10 +26,8 @@ function  Install-SarifExtension {
 }
 
 function Set-RegistrySettings {
-    $path = "$PSScriptRoot\RegisterySettings.ps1"
-    
-    $proc = Start-Process powershell.exe -ArgumentList `
-        @("-NoExit", "-command '& $path'") -Verb RunAs
+    $path = "$PSScriptRoot\RegistrySettings.ps1"
+    Start-Process powershell.exe -ArgumentList "-File $path" -Verb RunAs | Out-Null
 }
 
 try {
