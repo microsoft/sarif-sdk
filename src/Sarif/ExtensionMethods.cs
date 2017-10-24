@@ -209,7 +209,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             {
                 text = string.Empty;    // Ensure that it's not null.
 
-                if (rule != null)
+                if (rule != null && result.FormattedRuleMessage != null)
                 {
                     string formatId = result.FormattedRuleMessage.FormatId;
                     string messageFormat;

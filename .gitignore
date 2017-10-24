@@ -29,6 +29,9 @@ bld/
 # Visual Studio 2017 browsing database files
 .BROWSE.VC.DB-*
 
+# Visual Studio 2017 Application/Debug properties
+launchSettings.json
+
 # VS Code configuration
 .vscode/
 
