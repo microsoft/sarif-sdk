@@ -19,11 +19,11 @@ Foreach ($project in $testProjects)
     {
         Foreach ($framework in $targetFrameworks)
         {
-            %xunit20%\
+            dotnet src\packages\xunit.runner.console\2.3.0\tools\$framework\xunit.console.dll bld\bin\$project.Name\AnyCPU_Release\$framework\$project.Name.dll -appveyor
         }
     }
     else
     {
-
+        
     }
 }
