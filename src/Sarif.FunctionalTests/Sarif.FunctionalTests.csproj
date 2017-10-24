@@ -6,12 +6,6 @@
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     <IsPackable>false</IsPackable>
     <RootNamespace>Microsoft.CodeAnalysis.Sarif</RootNamespace>
-
-    <!-- Full signing does not yet work on Linux.  Turn it off -->
-    <PublicSign Condition=" '$(OS)' != 'Windows_NT' ">true</PublicSign>
-    <SignAssembly>true</SignAssembly>
-    <DelaySign>false</DelaySign>
-    <AssemblyOriginatorKeyFile>..\TestKey.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
 
   <ItemGroup>
@@ -1578,7 +1572,6 @@
     <ItemGroup>
       <FilesToCopy Include="$(SolutionDir)\Sarif\Schemata\Sarif.schema.json" />
       <FilesToCopy Include="..\..\lib\PREfastXmlSarifConverter.dll" />
-      <!--<FilesToCopy Include="..\..\bld\bin\PREfastXmlSarifConverter\$(Platform)_$(Configuration)\PREfastXmlSarifConverter.pdb" />-->
     </ItemGroup>
     <Copy SourceFiles="@(FilesToCopy)" DestinationFolder="$(MsBuildThisFileDirectory)\..\..\bld\bin\$(MSBuildProjectName)\$(Platform)_$(Configuration)\$(TargetFramework)\" />
   </Target>
