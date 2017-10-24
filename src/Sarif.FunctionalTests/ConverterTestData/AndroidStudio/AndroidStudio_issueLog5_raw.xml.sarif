@@ -8,25 +8,25 @@
       },
       "files": {
         "gradle.properties": {
-          "mimeType": "text/x-java-source"
+          "mimeType": "text/x-java-properties"
         },
         "gradle/wrapper/gradle-wrapper.properties": {
-          "mimeType": "text/x-java-source"
+          "mimeType": "text/x-java-properties"
         },
         "gradlew": {
-          "mimeType": "text/x-java-source"
+          "mimeType": "application/octet-stream"
         },
         "gradlew.bat": {
-          "mimeType": "text/x-java-source"
+          "mimeType": "text/x-bat"
         },
         "app/build.gradle": {
-          "mimeType": "text/x-java-source"
+          "mimeType": "application/octet-stream"
         },
         "app/src/main/AndroidManifest.xml": {
-          "mimeType": "text/x-java-source"
+          "mimeType": "text/xml"
         },
         "app/src/main/res/values-w820dp/dimens.xml": {
-          "mimeType": "text/x-java-source"
+          "mimeType": "text/xml"
         },
         "app/src/main/java/microsoft/androidstudioformatexample/NamespaceTypo.java": {
           "mimeType": "text/x-java-source"

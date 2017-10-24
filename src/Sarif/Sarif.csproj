@@ -40,6 +40,16 @@
       <DependentUpon>SdkResources.resx</DependentUpon>
     </Compile>
   </ItemGroup>
+  <ItemGroup>
+    <JsonSchemaFile Include="Schemata\Sarif.schema.json">
+      <Namespace>$(RootNamespace)</Namespace>
+      <RootClassName>SarifLog</RootClassName>
+      <CopyrightFilePath>CopyrightNotice.txt</CopyrightFilePath>
+      <HintsFilePath>CodeGenHints.json</HintsFilePath>
+    </JsonSchemaFile>
+    <None Include="CodeGenHints.json" />
+    <None Include="CopyrightNotice.txt" />
+  </ItemGroup>
   
   <ItemGroup>
     <EmbeddedResource Update="SdkResources.resx">

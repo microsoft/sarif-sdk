@@ -53,8 +53,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             }
             else
             {
-                // FileMode settings here will results in an exception being raised if the input 
-                // file does not exist, and that an existing output file will be overwritten
+                // FileMode settings here prompt an exception being raised if the input 
+                // file does not exist or an existing file would be overwritten
                 using (var input = File.OpenRead(inputFileName))
                 using (var outputTextStream = File.Create(outputFileName))
                 using (var outputTextWriter = new StreamWriter(outputTextStream))
