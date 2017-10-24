@@ -6,10 +6,6 @@
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     <ProjectGuid>d0d4ac36-b339-47be-ad61-ec08a967d20c</ProjectGuid>
     <RootNamespace>Microsoft.CodeAnalysis.Sarif.Converters</RootNamespace>
-    <PublicSign Condition=" '$(OS)' != 'Windows_NT' ">true</PublicSign>
-    <SignAssembly>true</SignAssembly>
-    <DelaySign>false</DelaySign>
-    <AssemblyOriginatorKeyFile>..\..\GeneratedKey.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
 
   <PropertyGroup>
@@ -46,7 +42,13 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Content Include="..\..\lib\PREfastXmlSarifConverter.dll">
+      <PackagePath>lib\netcoreapp2.0;lib\netstandard2.0;lib\net452;</PackagePath>
+      <Pack>true</Pack>
+    </Content>
+  </ItemGroup>
+  
+  <ItemGroup>
     <Folder Include="TSLintObjectModel\" />
   </ItemGroup>
-
 </Project>

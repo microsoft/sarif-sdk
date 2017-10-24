@@ -9,27 +9,6 @@ Exit()
     return 1
 }
 
-GeneratedKey=./GeneratedKey.snk
-
-if [ ! -f "$GeneratedKey" ]
-then
-    sn -k GeneratedKey.snk
-fi
-
-if [ $? != 0 ]
-then
-    echo "command sn -k failed"
-    Exit
-    return $?
-fi
-
-if [ ! -f "$GeneratedKey" ]
-then
-    echo "GeneratedKey.snk not found"
-    Exit
-    return $?
-fi
-
 dotnet restore src/Sarif.Sdk.sln
 
 if [ $? != 0 ]
