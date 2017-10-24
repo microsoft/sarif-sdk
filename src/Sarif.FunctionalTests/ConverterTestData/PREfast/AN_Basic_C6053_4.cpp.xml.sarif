@@ -9,7 +9,22 @@
       },
       "files": {
         "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedannotations/an_basic_c6053_4.cpp": {
-          "mimeType": "text/x-cpp"
+          "mimeType": "text/x-cpp",
+          "contents": "DQoNCiNpbmNsdWRlIDxzYWwuaD4NCg0KZXh0ZXJuIHZvaWQgUmVxdWlyZXNaKF9Jbl96XyBjaGFyICogYyk7DQoNCmV4dGVybiB2b2lkIERvZXNOb3RaKF9PdXRfIF9Qb3N0X21heWJlel8gY2hhciAqIGIpOw0KDQp2b2lkIEJhc2ljQzYwNTMoY2hhciAqIHgpDQp7DQogICAgRG9lc05vdFooeCk7DQoNCiAgICBSZXF1aXJlc1ooeCk7DQp9DQoNCg0Kdm9pZCBCYXNpY0M2MDU0KCkNCnsNCiAgICBjaGFyIGFbNV0gPSB7J2EnfTsNCg0KICAgIFJlcXVpcmVzWihhKTsNCg0KICAgIGNoYXIgYls1XSA9IHsnYicsICdcMCd9Ow0KDQogICAgUmVxdWlyZXNaKGIpOyAvLyBObyBDNjA1NCBoZXJlDQp9DQoNCg==",
+          "hashes": [
+            {
+              "value": "38D2CC1197929034CDB922CF5018B217",
+              "algorithm": "md5"
+            },
+            {
+              "value": "804BF8A7BE35CE631313D1A9EF16BC16354ECA95",
+              "algorithm": "sha1"
+            },
+            {
+              "value": "32AEA0BE2B1F8A87021D88C0924972F2F252C6D11087F5DE8D5B13A6E52375ED",
+              "algorithm": "sha256"
+            }
+          ]
         }
       },
       "results": [

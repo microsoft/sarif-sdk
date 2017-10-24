@@ -9,7 +9,22 @@
       },
       "files": {
         "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedmerging/am_branchandsetvalue.cpp": {
-          "mimeType": "text/x-cpp"
+          "mimeType": "text/x-cpp",
+          "contents": "DQp2b2lkIENvbXBhcmVUb1RlbihpbnQgKiByZXN1bHQsIGludCBiKQ0Kew0KCWludCBkYXRhWzEwXTsNCiAgICAgIA0KCWlmIChiID09IDEwKTsNCg0KCSpyZXN1bHQgPSBkYXRhW2JdOw0KfQ0K",
+          "hashes": [
+            {
+              "value": "947E0D9DE15DB57B99D405188F2B0186",
+              "algorithm": "md5"
+            },
+            {
+              "value": "D34D3321C4D0E013AF2F14F14A1ABD9B023C51C7",
+              "algorithm": "sha1"
+            },
+            {
+              "value": "51E4090F115599A2EF9742197F9401AE1C60834B767729CEB50C230AC73DA7E4",
+              "algorithm": "sha256"
+            }
+          ]
         }
       },
       "results": [

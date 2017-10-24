@@ -9,7 +9,22 @@
       },
       "files": {
         "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/complex/c6386/c6386example2.cpp": {
-          "mimeType": "text/x-cpp"
+          "mimeType": "text/x-cpp",
+          "contents": "dm9pZCBDNjM4Nl9FeGFtcGxlMihpbnQgaSkNCnsNCiAgIGludCBhWzIwXTsJCQkJDQogICBpbnQgaiA9IDE7DQogICBpZiAoaSA8PSAyMSkJCQkJDQogICB7DQogICAgICBhW2ktMV0gPSBqOwkJCQ0KICAgfQ0KfQ==",
+          "hashes": [
+            {
+              "value": "1EF3465D00ADAD3A2AC0C85E41101DAE",
+              "algorithm": "md5"
+            },
+            {
+              "value": "9932D9ED2BEE41A3E2A6CBD480B02CD83BB32991",
+              "algorithm": "sha1"
+            },
+            {
+              "value": "94E245CBDB9B4F7B82FBC087058869B58CA3A887CEF6B03439E8A651EC42B812",
+              "algorithm": "sha256"
+            }
+          ]
         }
       },
       "results": [

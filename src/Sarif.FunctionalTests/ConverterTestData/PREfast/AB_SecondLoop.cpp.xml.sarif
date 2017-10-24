@@ -9,7 +9,22 @@
       },
       "files": {
         "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp": {
-          "mimeType": "text/x-cpp"
+          "mimeType": "text/x-cpp",
+          "contents": "Ly8gU29tZXRpbWVzIGEga2V5IGV2ZW50IGlzIHJlcGVhdGVkIGluIGRpZmZlcmVudCBzdGF0ZXMgYmVjYXVzZSBvZiBsb29wcy4NCi8vIE1haW50YWluIHN0YXRlIGZvciBlYWNoIGtleSBldmVudCBhbmQgcmVtZW1iZXIgd2hhdCBzdGF0ZSBpdCB3YXMgaW4gd2hlbiBmaXJlZC4NCi8vIEZvdXIgZGlmZmVyZW50IGtpbmRzIG9mIGxvb3Aga2V5IGV2ZW50czoNCi8vDQovLwkJRSAtIEVudGVyCQlYIC0gRXhpdA0KLy8JCUMgLSBDb250aW51ZQlTIC0gU2tpcA0KLy8NCnZvaWQgQzYwMTFfT25seU9uU2Vjb25kTG9vcCgpDQp7DQoJaW50ICogc291cmNlID0gMDsNCglib29sIGZsYWcgPSBmYWxzZTsNCg0KCWZvciAoaW50IGk9MDsgaTwzOyBpKyspDQoJew0KCQlpZiAoIWZsYWcpDQoJCQlmbGFnID0gdHJ1ZTsNCgkJZWxzZQ0KCQkJaW50IHRhcmdldCA9ICpzb3VyY2U7DQoJfQ0KfQ0KDQovLyBUaGlzIHNob3VsZCB3b3JrIGV2ZW4gaWYgUFJFZmFzdCByb2xscyBiYWNrIGJlY2F1c2UgbG9vcCBjb25kaXRpb24gaXMgYSBwYXJhbWV0ZXINCnZvaWQgQzYwMTFfT25seU9uU2Vjb25kTG9vcFdpdGhQYXJhbShpbnQgcGFyYW0pDQp7DQoJaW50ICogc291cmNlID0gMDsNCglib29sIGZsYWcgPSBmYWxzZTsNCg0KCWZvciAoaW50IGk9MDsgaTxwYXJhbTsgaSsrKQ0KCXsNCgkJaWYgKCFmbGFnKQ0KCQkJZmxhZyA9IHRydWU7DQoJCWVsc2UNCgkJCWludCB0YXJnZXQgPSAqc291cmNlOw0KCX0NCn0NCg0KLy8gVGVzdCBsb29wIHJvbGxiYWNrIHdoZW4gZGVmZWN0cyBvY2N1ciBiZWZvcmUgdGhlIHJvbGxiYWNrDQp2b2lkIEM2MDExX09ubHlPblNlY29uZExvb3BQbHVzUm9sbGJhY2tEZWZlY3QoaW50IHBhcmFtKQ0Kew0KCWludCAqIHNvdXJjZSA9IDA7DQoJYm9vbCBmbGFnID0gZmFsc2U7DQogICAgaW50IHhbMl0gPSB7MCwxfSwgeVsyXSA9IHsxLDJ9Ow0KDQoJZm9yIChpbnQgaT0wOyBpPHBhcmFtOyBpKyspDQoJew0KCQlpZiAoIWZsYWcpDQoJCQlmbGFnID0gdHJ1ZTsNCgkJZWxzZQ0KCQkJaW50IHRhcmdldCA9ICpzb3VyY2U7DQoJfQ0KDQogICAgaW50IGogPSB4W3BhcmFtXTsNCiAgICBpbnQgayA9IHlbcGFyYW0rMV07DQp9DQo=",
+          "hashes": [
+            {
+              "value": "F4EAF339CA13C1048F7DC76539195F4E",
+              "algorithm": "md5"
+            },
+            {
+              "value": "A65A1C0968BD40D381B662CA2D2D221499512130",
+              "algorithm": "sha1"
+            },
+            {
+              "value": "AACC8C77BCDADF11C89E52301B9A63BA8E1F9E0E83B6CC811BA2B2496D1D6EBF",
+              "algorithm": "sha256"
+            }
+          ]
         }
       },
       "results": [

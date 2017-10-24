@@ -9,7 +9,22 @@
       },
       "files": {
         "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_irrelevantswitch.cpp": {
-          "mimeType": "text/x-cpp"
+          "mimeType": "text/x-cpp",
+          "contents": "Ly8gSXQgd29ya3Mgd2l0aCBzd2l0Y2ggc3RhdGVtZW50czogT25seSBpcnJlbGV2YW50IGlmDQovLyBubyBuZXN0ZWQga2V5IGV2ZW50cyBvbiBzb21lIHBhdGggdG8gdGhlIGRlZmVjdCBpbiBhbnkgY2FzZS4NCg0KLy8gSW4gdGhpcyBleGFtcGxlLCBldmVuIHRob3VnaCB0aGUgZGVmZWN0IG9jY3VycyBpbiBhbGwgY2FzZXMsDQovLyB3ZSBkb24ndCBpZ25vcmUgdGhlIHN3aXRjaCBiZWNhdXNlIG9uZSBvZiB0aGUgY2FzZXMgKGNhc2UgMikNCi8vIGNvbnRhaW5zIGEgbmVzdGVkIGtleSBldmVudCB0aGF0IGlzIHJlbGV2YW50IG9uIHNvbWUgcGF0aCB0byB0aGUNCi8vIGRlZmVjdC4NCg0Kdm9pZCBDNjM4NV9NYXliZVJlbGV2YW50U3dpdGNoKGludCBmbGFnLCBib29sIGIpDQp7DQoJaW50IGRhdGFbMl07DQoJZGF0YVswXSA9IDE7IGRhdGFbMV0gPSAyOw0KDQoJaW50IGluZGV4ID0gMjsNCg0KCXN3aXRjaChmbGFnKQ0KCXsNCgljYXNlIDE6DQoJCWJyZWFrOw0KCWNhc2UgMjoNCgkJaWYgKGIpDQoJCQlpbmRleCA9IDE7IC8vIGlmIHdlIGNoYW5nZSB0aGlzIHRvIDIsIHN3aXRjaCBpcyBpZ25vcmVkDQoJCWJyZWFrOw0KCWNhc2UgMzoNCgkJYnJlYWs7DQoJZGVmYXVsdDoNCgkJYnJlYWs7DQoJfQ0KDQoJaW50IGsgPSBkYXRhW2luZGV4XTsNCn0NCg0KDQo=",
+          "hashes": [
+            {
+              "value": "BBE7D456B31899784244C1C53DCADB95",
+              "algorithm": "md5"
+            },
+            {
+              "value": "6397152F2272CCD4258CAB07A6C2244FE346A8C8",
+              "algorithm": "sha1"
+            },
+            {
+              "value": "CBD365253DB91CF069958BF4A1077CDAF4BA8C9875A2CC0C26B26D8524E4AEB0",
+              "algorithm": "sha256"
+            }
+          ]
         }
       },
       "results": [

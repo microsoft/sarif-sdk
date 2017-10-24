@@ -9,7 +9,22 @@
       },
       "files": {
         "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedaliasing/aa_rememberoldalias.cpp": {
-          "mimeType": "text/x-cpp"
+          "mimeType": "text/x-cpp",
+          "contents": "Ly8gVGhlIHJlc3VsdCBvZiBhbiBvbGQgYWxpYXNpbmcgb3BlcmF0aW9uIG1heSBiZSBjbG9iYmVyZWQgYnkgYSANCi8vIGxhdGVyIGFzc2lnbm1lbnQuIFJlbWVtYmVyIHRoZSBvbGQgYWxpYXMgYXMgbG9uZyBhcyB0aGUgdmFyaWFibGUNCi8vIGlzICJpbnRlcmVzdGluZyINCg0Kdm9pZCBEb250UmVtZW1iZXJPbGRBbGlhcyhpbnQgKiByZXN1bHQpDQp7DQoJaW50IGRhdGFbMTBdOw0KICAgICAgDQoJaW50IGluZGV4ID0gOTsNCglpbnQgYiA9IGluZGV4OyAvLyBkb24ndCBjYXJlIGFib3V0IHRoaXMgYWxpYXMgKCdiJyBub3QgaW50ZXJlc3RpbmcpDQoJYiA9IDEwOw0KDQoJKnJlc3VsdCA9IGRhdGFbYl07DQp9DQoNCnZvaWQgUmVtZW1iZXJPbGRBbGlhcyhpbnQgeCwgaW50IHksIGludCAqIHJlc3VsdCkNCnsNCglpbnQgKiBhID0gMDsNCglpbnQgKiBiID0gJng7DQoJaW50ICogYyA9ICZ5Ow0KCWJvb2wgZmxhZyA9IHRydWU7DQoNCglmb3IgKGludCBpPTA7IGkgPCAyOyBpKyspDQoJew0KCQlpZiAoZmxhZykgew0KCQkJYiA9IGE7IC8vIGNhcmUgYWJvdXQgdGhpcyBhbGlhcyAoJ2InIGlzIGludGVyZXN0aW5nKQ0KCQkJYyA9IGI7DQoJCQlmbGFnID0gZmFsc2U7DQoJCX0gZWxzZSB7DQoJCQlhID0gJng7DQoJCQliID0gJnk7DQoJCQkqcmVzdWx0ID0gKmM7DQoJCX0NCgl9DQp9DQoNCg==",
+          "hashes": [
+            {
+              "value": "981B0FE0CE7AA6BE63BDA29346C2BF65",
+              "algorithm": "md5"
+            },
+            {
+              "value": "D284640FBF43B8A21B41D67B11F46F1B40D89C59",
+              "algorithm": "sha1"
+            },
+            {
+              "value": "306AE808815DF2C7526A9EF85D46F59ADD5083825A79172E6CD7A1626FD7DA21",
+              "algorithm": "sha256"
+            }
+          ]
         }
       },
       "results": [

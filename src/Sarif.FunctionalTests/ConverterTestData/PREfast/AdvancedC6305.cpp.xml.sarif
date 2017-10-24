@@ -9,7 +9,22 @@
       },
       "files": {
         "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/c6305/advancedc6305.cpp": {
-          "mimeType": "text/x-cpp"
+          "mimeType": "text/x-cpp",
+          "contents": "DQojaW5jbHVkZSA8c2FsLmg+DQojaW5jbHVkZSA8c3RyaW5nLmg+DQoNCnZvaWQgQzYzMDVGcm9tQW5ub3RhdGlvbigNCgkJX0luX3JlYWRzX2J5dGVzXyhpbmMpIGludCAqcCwNCgkJaW50IGluYywNCgkJYm9vbCBiKQ0Kew0KICBpbnQgY2IgPSAxOw0KICBpZiAoYikNCgkgIHAgKz1pbmM7DQogIGVsc2UNCgkgIHAgKz0gY2I7DQoNCn0NCg0KaW50IFJlbW92ZVJlZHVuZGFudEtleUV2ZW50czEod2NoYXJfdCAqIHApDQp7DQogICAgaW50IGkgPSA2Ow0KDQogICAgaW50IGogPSBzaXplb2YocCk7DQoNCiAgICBqID0gaiArIHdjc2xlbihwKTsNCg0KICAgIHJldHVybiBpOw0KfQ0KDQppbnQgUmVtb3ZlUmVkdW5kYW50S2V5RXZlbnRzMih3Y2hhcl90ICogcCkNCnsNCglpbnQgaSA9IHNpemVvZihwKTsJIC8vIFllcywgc2l6ZW9mKHdjaGFyX3QqKSBkb2Vzbid0IG1ha2UgYW55IHNlbnNlDQoNCglpID0gd2NzbGVuKHApIC0gaTsNCglpbnQgaiA9IGk7DQoJaSArPSB3Y3NsZW4ocCk7DQoJaSAtPSB3Y3NsZW4ocCk7DQoNCglpID0gd2NzbGVuKHApICsgaTsNCglpID0gd2NzbGVuKHApIC0gaTsNCg0KCXJldHVybiBqOw0KfQ0KDQppbnQgQ29ycmVjdEFsaWFzaW5nKHdjaGFyX3QgKiBwKQ0Kew0KICAgIGludCBpID0gNjsNCiAgICBpbnQgaiA9IHNpemVvZihwKTsNCg0KICAgIGkgKz0gajsNCg0KICAgIGludCBrID0gaSArIHdjc2xlbihwKTsNCg0KICAgIHJldHVybiBrOw0KfQ0KDQppbnQgU2hvd0tleUV2ZW50c1doZW5Ob0xvY2F0aW9uKCkNCnsNCiAgICBpbnQgc291cmNlIFtdID0gezEsIDIsIDMsIDQsIDUsIDYsIDd9Ow0KICAgIGludCAqIHAgPSBzb3VyY2U7DQoNCiAgICBwICs9IHNpemVvZihpbnQpOw0KDQogICAgcmV0dXJuICpwOw0KfQ0KDQp2b2lkIFNob3dLZXlFdmVudHNXaGVuTm9Mb2NhdGlvbjIoKQ0Kew0KCWludCBpID0gMDsNCglpbnQqIHBJID0gJmk7DQoJcEkgKz0gc2l6ZW9mKGludCk7DQp9DQoNCnZvaWQgU2hvd0tleUV2ZW50c0ZvclBvaW50ZXJBcml0aG1ldGljKGludCAqcCkNCnsNCiAgIGludCBjYiA9IHNpemVvZihpbnQpOw0KDQogICBwICs9IGNiICsgMjsNCn0NCg==",
+          "hashes": [
+            {
+              "value": "1ED2F583AC1E008D64C12BCBCECC227D",
+              "algorithm": "md5"
+            },
+            {
+              "value": "119516CC95286275AE420917C188C8277FCCF5DA",
+              "algorithm": "sha1"
+            },
+            {
+              "value": "83D19417481B5BE47BBB9856D6DF5D289CD17488F3BFD314438AF6CA90D93436",
+              "algorithm": "sha256"
+            }
+          ]
         }
       },
       "results": [

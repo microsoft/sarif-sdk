@@ -9,7 +9,22 @@
       },
       "files": {
         "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/longmacrocondition/longconditions.cpp": {
-          "mimeType": "text/x-cpp"
+          "mimeType": "text/x-cpp",
+          "contents": "Ym9vbCBpc0luaXRpYWxpenplZGQgPSB0cnVlOw0KYm9vbCBpc0FjdGl2YXRlZCA9IHRydWU7DQpib29sIGlzRGVmaW5lZCA9IHRydWU7DQoNCmludCBDNjAwMUxvbmdDb25kaXRpb25fRXhhbXBsZSgpDQp7DQoJaW50IHNpbXBsZVZhcjsNCg0KCWlmICggICggaXNJbml0aWFsaXp6ZWRkICYmIGlzQWN0aXZhdGVkICYmICFpc0RlZmluZWQgKSB8fA0KCQkgICggaXNJbml0aWFsaXp6ZWRkICYmICFpc0FjdGl2YXRlZCAmJiBpc0RlZmluZWQgKSB8fA0KCQkgICggaXNJbml0aWFsaXp6ZWRkICYmIGlzQWN0aXZhdGVkICYmICFpc0RlZmluZWQgKSAgKQ0KCXsNCgkJc2ltcGxlVmFyID0gNTsNCgl9DQoNCglyZXR1cm4gc2ltcGxlVmFyOw0KfQ0KDQppbnQgQzYwMDFMb25nQ29uZGl0aW9uMTVfRXhhbXBsZSgpDQp7DQoJaW50IHNpbXBsZVZhcjsNCg0KCWlmICggIWlzSW5pdGlhbGl6emVkZCApDQoJew0KCQlzaW1wbGVWYXIgPSA1Ow0KCX0NCg0KCXJldHVybiBzaW1wbGVWYXI7DQp9DQoNCmludCBDNjAwMUxvbmdDb25kaXRpb24xNF9FeGFtcGxlKCkNCnsNCglpbnQgc2ltcGxlVmFyOw0KDQoJaWYgKCAhaXNEZWZpbmVkICkNCgl7DQoJCXNpbXBsZVZhciA9IDU7DQoJfQ0KDQoJcmV0dXJuIHNpbXBsZVZhcjsNCn0=",
+          "hashes": [
+            {
+              "value": "CA54D6E8B77897057264C3A1B554699A",
+              "algorithm": "md5"
+            },
+            {
+              "value": "8400669C7634CD4C8193F209D65F1CAF13C39362",
+              "algorithm": "sha1"
+            },
+            {
+              "value": "FFBEC494854B77150D4044F94D6E11C8880F9D8B56BDF917DB4AA0D17F69596C",
+              "algorithm": "sha256"
+            }
+          ]
         }
       },
       "results": [
