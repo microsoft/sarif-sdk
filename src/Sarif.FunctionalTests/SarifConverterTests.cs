@@ -135,7 +135,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             {
                 sb.AppendLine(string.Format(CultureInfo.InvariantCulture, "The converter {0} threw an exception for input \"{1}\".", toolFormat, inputFileName));
                 sb.AppendLine(ex.ToString());
-                return;
+                return; 
             }
 
             string expectedSarif = File.ReadAllText(expectedFileName);
