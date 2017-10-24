@@ -102,10 +102,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         {
             var sb = new StringBuilder();
 
-            var test = typeof(SarifConverterTests).Assembly.Location;
-            var directory = Path.GetDirectoryName(test);
             string testDirectory = SarifConverterTests.TestDirectory + "\\" + tool;
-            string[] testFiles = Directory.GetFiles($"{directory}\\{testDirectory}", inputFilter);
+            string[] testFiles = Directory.GetFiles(testDirectory, inputFilter);
 
             foreach (string file in testFiles)
             {
