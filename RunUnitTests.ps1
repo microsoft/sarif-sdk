@@ -1,6 +1,6 @@
 $targetFrameworks = @(
-    "netcoreapp2.0",
-    "net452"
+    @{ Name = "netcoreapp2.0"; NetCoreCompatible = $True },
+    @{ Name = "net452"; NetCoreCompatible = $False }
 )
 
 $testProjects = @(
@@ -19,11 +19,32 @@ Foreach ($project in $testProjects)
     {
         Foreach ($framework in $targetFrameworks)
         {
-            dotnet src\packages\xunit.runner.console\2.3.0\tools\$framework\xunit.console.dll bld\bin\$project.Name\AnyCPU_Release\$framework\$project.Name.dll -appveyor
+            $toolPath = ".\src\packages\xunit.runner.console.2.3.0\tools\$($framework.Name)\xunit.console"
+            $projectPath = ".\bld\bin\$($project.Name)\AnyCPU_Release\$($framework.Name)\$($project.Name).dll"
+
+            Write-Host "Running Tests For $($project.Name): $($framework.Name)" -ForegroundColor Cyan
+
+			If ($framework.NetCoreCompatible)
+			{
+				Invoke-Expression "dotnet $toolPath.dll $projectPath -appveyor"
+			}
+			else
+			{
+				Invoke-Expression "$toolPath.exe $projectPath -appveyor"
+			}
+
+            Write-Host ""
+            Write-Host ""
         }
     }
     else
     {
-        
+        Write-Host "Running Tests For $($project.Name)" -ForegroundColor Cyan
+
+        $toolPath = ".\src\packages\xunit.runner.console.2.3.0\tools\net452\xunit.console.exe"
+        Invoke-Expression "$toolPath .\bld\bin\$($project.Name)\AnyCPU_Release\$($project.Name).dll"
+
+        Write-Host ""
+        Write-Host ""
     }
 }

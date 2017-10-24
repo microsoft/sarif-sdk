@@ -11,7 +11,7 @@ using System.Text;
 using System.Xml;
 using Microsoft.CodeAnalysis.Sarif.Writers;
 
-namespace Microsoft.CodeAnalysis.Sarif.Converters
+namespace Microsoft.CodeAnalysis.Sarif.Converters 
 {
     /// <summary>
     /// Converts an xml log file of the Android Studio format into the SARIF format
