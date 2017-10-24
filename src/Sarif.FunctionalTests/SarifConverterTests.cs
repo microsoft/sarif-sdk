@@ -19,26 +19,6 @@ using Xunit;
 
 namespace Microsoft.CodeAnalysis.Sarif.Converters
 {
-    // The functional tests for the PREfast converter must be handled differently from
-    // the functional tests for all the other tools. The reason is that the
-    // PREfastXmlSarifConverter (which produces the PREfast test files) is written in
-    // C++, so it does not use Newtonsoft.Json for serialization. As a result, it
-    // serializes properties in a different order, and with slightly different
-    // formatting, than the other converters (which do use Newtonsoft.Json).
-    //
-    // Now, the functional tests work by deserializing a SARIF file into an object model,
-    // re-serializing it using Newtonsoft.Json, and comparing the two files. Obviously if
-    // the serialization and deserialization code doesn't match, the test will fail.
-    //
-    // So we introduce a "test mode" flag into the functional tests.For all tools except
-    // PREfast, we compare the serialized files.For PREfast, we compare the object models
-    // obtained by deserializing those files.
-    internal enum TestMode
-    {
-        CompareFileContents,
-        CompareObjectModels
-    }
-
     public class SarifConverterTests
     {
         public const string TestDirectory = "ConverterTestData";
@@ -46,65 +26,60 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         [Fact]
         public void AndroidStudioConverter_EndToEnd()
         {
-            BatchRunConverter(ToolFormat.AndroidStudio, TestMode.CompareFileContents);
+            BatchRunConverter(ToolFormat.AndroidStudio);
         }
 
         [Fact]
         public void ClangAnalyzerConverter_EndToEnd()
         {
-            BatchRunConverter(ToolFormat.ClangAnalyzer, TestMode.CompareFileContents);
+            BatchRunConverter(ToolFormat.ClangAnalyzer);
         }
 
         [Fact]
         public void CppCheckConverter_EndToEnd()
         {
-            BatchRunConverter(ToolFormat.CppCheck, TestMode.CompareFileContents);
+            BatchRunConverter(ToolFormat.CppCheck);
         }
 
         [Fact]
         public void FortifyConverter_EndToEnd()
         {
-            BatchRunConverter(ToolFormat.Fortify, TestMode.CompareFileContents);
+            BatchRunConverter(ToolFormat.Fortify);
         }
 
         [Fact]
         public void FxCopConverter_EndToEnd()
         {
-            BatchRunConverter(ToolFormat.FxCop, TestMode.CompareFileContents);
+            BatchRunConverter(ToolFormat.FxCop);
         }
 
         [Fact]
         public void SemmleConverter_EndToEnd()
         {
-            BatchRunConverter(ToolFormat.SemmleQL, "*.csv", TestMode.CompareFileContents);
+            BatchRunConverter(ToolFormat.SemmleQL, "*.csv");
         }
 
         [Fact]
         public void StaticDriverVerifierConverter_EndToEnd()
         {
-            BatchRunConverter(ToolFormat.StaticDriverVerifier, "*.tt", TestMode.CompareFileContents);
+            BatchRunConverter(ToolFormat.StaticDriverVerifier, "*.tt");
         }
 
         [Fact]
         public void TSLint_EndToEnd()
         {
-            BatchRunConverter(ToolFormat.TSLint, "*.json", TestMode.CompareFileContents);
+            BatchRunConverter(ToolFormat.TSLint, "*.json");
         }
 
         [Fact]
         public void PREfastConverter_EndToEnd()
         {
-            BatchRunConverter(ToolFormat.PREfast, TestMode.CompareObjectModels);
+            BatchRunConverter(ToolFormat.PREfast);
         }
 
         private readonly ToolFormatConverter converter = new ToolFormatConverter();
 
-        private void BatchRunConverter(string tool, TestMode testMode)
-        {
-            BatchRunConverter(tool, "*.xml", testMode);
-        }
-
-        private void BatchRunConverter(string tool, string inputFilter, TestMode testMode)
+        private void BatchRunConverter(string tool, string inputFilter = "*.xml")
         {
             var sb = new StringBuilder();
 
@@ -113,7 +88,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
             foreach (string file in testFiles)
             {
-                RunConverter(sb, tool, file, testMode);
+                RunConverter(sb, tool, file);
             }
 
             sb.Length.Should().Be(0, FormatFailureReason(sb, tool));
@@ -128,7 +103,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             return sb.ToString();
         }
 
-        private void RunConverter(StringBuilder sb, string toolFormat, string inputFileName, TestMode testMode)
+        private void RunConverter(StringBuilder sb, string toolFormat, string inputFileName)
         {
             string expectedFileName = inputFileName + ".sarif";
             string generatedFileName = inputFileName + ".actual.sarif";
@@ -160,22 +135,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
                 actualSarif = JsonConvert.SerializeObject(actualLog, settings);
 
-                bool success;
-                switch (testMode)
-                {
-                    case TestMode.CompareFileContents:
-                        success = expectedSarif == actualSarif;
-                        break;
-
-                    case TestMode.CompareObjectModels:
-                        SarifLog expectedLog = JsonConvert.DeserializeObject<SarifLog>(expectedSarif, settings);
-                        success = SarifLogEqualityComparer.Instance.Equals(expectedLog, actualLog);
-                        break;
-
-                    default:
-                        throw new ArgumentException($"Invalid test mode: {testMode}", nameof(testMode));
-                }
-
+                bool success = expectedSarif == actualSarif;
                 if (success)
                 {
                     return;

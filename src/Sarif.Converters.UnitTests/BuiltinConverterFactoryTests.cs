@@ -12,10 +12,9 @@ namespace Microsoft.CodeAnalysis.Sarif
     public class BuiltInConverterFactoryTests
     {
         [Fact]
-        public void BuiltInConverterFactory_HasConverterForEveryBuiltInToolFormatExceptPREfast()
+        public void BuiltInConverterFactory_HasConverterForEveryBuiltInToolFormat()
         {
             List<string> toolFormats = Utilities.GetToolFormats()
-                .Except(new[] { ToolFormat.PREfast })
                 .ToList();
 
             string factoryName = nameof(BuiltInConverterFactory);
