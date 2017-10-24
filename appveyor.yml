@@ -28,15 +28,9 @@ build:
 
 after_build:
   - ps: .\appveyor\Push-PrefastResultsToAppveyor.ps1
+  - ps: .\RunUnitTests.ps1
 
-test:
-  assemblies:
-    - '**\Sarif.UnitTests.dll'
-    - '**\Sarif.Driver.UnitTests.dll'
-    - '**\Sarif.FunctionalTests.dll'
-    - '**\Sarif.ValidationTests.dll'
-    - '**\Sarif.Viewer.VisualStudio.UnitTests.dll'
-    - '**\Sarif.Multitool.FunctionalTests.dll'
+test: off
 
 notifications:
   - provider: Email

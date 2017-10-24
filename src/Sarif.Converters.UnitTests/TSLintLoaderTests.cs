@@ -2,12 +2,14 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using System;
+using System.Collections.Generic;
 using System.IO;
-using System.Runtime.Serialization;
 using System.Text;
-using Moq;
-using Xunit;
 using FluentAssertions;
+using Microsoft.CodeAnalysis.Sarif.Converters.TSLintObjectModel;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using Xunit;
 
 namespace Microsoft.CodeAnalysis.Sarif.Converters
 {
@@ -23,10 +25,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         }
 
         [Fact]
-        public void TSLintLoader_ReadLog_Passes()
+        public void TSLintLoader_ReadLog_ProducesExpectedLog()
         {
-            Mock<XmlObjectSerializer> mockSerializer = new Mock<XmlObjectSerializer>();
-
             const string Input = @"
             [
                 {
@@ -55,53 +55,48 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 }
             ]";
 
-            const string ExpectedProcessedStream = @"
-            [
+            TSLintLog expectedLog = new TSLintLog
+            {
+                new TSLintLogEntry
                 {
-                    ""endPosition"":
-                        {
-                            ""character"":1,
-                            ""line"":113,
-                            ""position"":4429
-                        },
-                    ""failure"":""file should end with a newline"",
-                    ""fix"":
-                    [{
-                        ""innerStart"":4429,
-                        ""innerLength"":0,
-                        ""innerText"":""\r\n""
-                    }],
-                    ""name"":""SecureApp/js/index.d.ts"",
-                    ""ruleName"":""eofline"",
-                    ""ruleSeverity"":""ERROR"",
-                    ""startPosition"":
+                    EndPosition = new TSLintLogPosition
                     {
-                        ""character"":1,
-                        ""line"":113,
-                        ""position"":4429
+                        Character = 1,
+                        Line = 113,
+                        Position = 4429
+                    },
+                    Failure = "file should end with a newline",
+                    Fixes = new List<TSLintLogFix>
+                    {
+                        new TSLintLogFix
+                        {
+                            InnerStart = 4429,
+                            InnerLength = 0,
+                            InnerText = "\r\n"
+                        }
+                    },
+                    Name = "SecureApp/js/index.d.ts",
+                    RuleName = "eofline",
+                    RuleSeverity = "ERROR",
+                    StartPosition = new TSLintLogPosition
+                    {
+                        Character = 1,
+                        Line = 113,
+                        Position = 4429
                     }
                 }
-            ]";
+            };
 
+            TSLintLoader loader = new TSLintLoader();
 
-            byte[] buffer = new byte[ExpectedProcessedStream.Length];
-            using (var ptStream = new MemoryStream(buffer))
-            {
-                mockSerializer.Setup(serializer => serializer.ReadObject(It.IsAny<Stream>())).Callback<Stream>((s) => s.CopyTo(ptStream));
-                TSLintLoader loader = new TSLintLoader(mockSerializer.Object);
+            TSLintLog actualLog = loader.ReadLog(new MemoryStream(Encoding.UTF8.GetBytes(Input)));
 
-                loader.ReadLog(new MemoryStream(Encoding.UTF8.GetBytes(Input)));
-                mockSerializer.Verify(serializer => serializer.ReadObject(It.IsAny<Stream>()), Times.Once);
-            }
-
-            string actualProcessedStream = Encoding.UTF8.GetString(buffer);
-            Assert.Equal(ExpectedProcessedStream, actualProcessedStream);
+            CompareLogs(actualLog, expectedLog);
         }
 
         [Fact]
-        public void TSLintLoader_NormalizeTSLintFixFormat_Passes()
+        public void TSLintLoader_NormalizeLog_WrapsSingleFixInArray()
         {
-            Mock<XmlObjectSerializer> mockSerializer = new Mock<XmlObjectSerializer>();
             const string Input = @"
             [
                 {
@@ -158,16 +153,70 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 }
             ]";
 
-            byte[] buffer = new byte[ExpectedOutput.Length];
-            using (var ptStream = new MemoryStream(buffer))
+            JToken expectedToken;
+            using (Stream expectedStream = new MemoryStream(Encoding.UTF8.GetBytes(ExpectedOutput)))
+            using (TextReader textReader = new StreamReader(expectedStream))
+            using (JsonReader jsonReader = new JsonTextReader(textReader))
             {
-                TSLintLoader loader = new TSLintLoader(mockSerializer.Object);
-
-                loader.NormalizeTSLintFixFormat(new MemoryStream(Encoding.UTF8.GetBytes(Input))).CopyTo(ptStream);
+                expectedToken = JToken.ReadFrom(jsonReader);
             }
 
-            string actualProcessedStream = Encoding.UTF8.GetString(buffer);
-            Assert.Equal(ExpectedOutput, actualProcessedStream);
+            JToken actualToken;
+            using (Stream inputStream = new MemoryStream(Encoding.UTF8.GetBytes(Input)))
+            using (TextReader textReader = new StreamReader(inputStream))
+            using (JsonReader jsonReader = new JsonTextReader(textReader))
+            {
+                actualToken = JToken.ReadFrom(jsonReader);
+
+                TSLintLoader loader = new TSLintLoader();
+                actualToken = loader.NormalizeLog(actualToken);
+            }
+
+            JToken.DeepEquals(expectedToken, actualToken).Should().BeTrue();
+        }
+
+        private static void CompareLogs(TSLintLog actualLog, TSLintLog expectedLog)
+        {
+            actualLog.Count.Should().Be(expectedLog.Count);
+
+            for (int i = 0; i < actualLog.Count; ++i)
+            {
+                CompareEntries(actualLog[i], expectedLog[i]);
+            }
+        }
+
+        private static void CompareEntries(TSLintLogEntry actualEntry, TSLintLogEntry expectedEntry)
+        {
+            actualEntry.EndPosition.Character.Should().Be(expectedEntry.EndPosition.Character);
+            actualEntry.EndPosition.Line.Should().Be(expectedEntry.EndPosition.Line);
+            actualEntry.EndPosition.Position.Should().Be(expectedEntry.EndPosition.Position);
+            actualEntry.Failure.Should().Be(expectedEntry.Failure);
+
+            CompareFixes(actualEntry.Fixes, expectedEntry.Fixes);
+
+            actualEntry.Name.Should().Be(expectedEntry.Name);
+            actualEntry.RuleName.Should().Be(expectedEntry.RuleName);
+            actualEntry.RuleSeverity.Should().Be(expectedEntry.RuleSeverity);
+            actualEntry.StartPosition.Character.Should().Be(expectedEntry.StartPosition.Character);
+            actualEntry.EndPosition.Line.Should().Be(expectedEntry.StartPosition.Line);
+            actualEntry.EndPosition.Position.Should().Be(expectedEntry.StartPosition.Position);
+        }
+
+        private static void CompareFixes(IList<TSLintLogFix> actualFixes, IList<TSLintLogFix> expectedFixes)
+        {
+            (actualFixes == null).Should().Be(expectedFixes == null);
+
+            if (actualFixes != null)
+            {
+                actualFixes.Count.Should().Be(expectedFixes.Count);
+
+                for (int i = 0; i < actualFixes.Count; ++i)
+                {
+                    actualFixes[i].InnerStart.Should().Be(expectedFixes[i].InnerStart);
+                    actualFixes[i].InnerLength.Should().Be(expectedFixes[i].InnerLength);
+                    actualFixes[i].InnerText.Should().Be(expectedFixes[i].InnerText);
+                }
+            }
         }
     }
 }

@@ -6,11 +6,6 @@
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     <ProjectGuid>c5fc2683-47cf-447f-b5ea-9fde0fd78754</ProjectGuid>
     <RootNamespace>Microsoft.CodeAnalysis.Sarif</RootNamespace>
-    
-    <PublicSign Condition=" '$(OS)' != 'Windows_NT' ">true</PublicSign>
-    <SignAssembly>true</SignAssembly>
-    <DelaySign>false</DelaySign>
-    <AssemblyOriginatorKeyFile>..\..\GeneratedKey.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   
   <ItemGroup>
@@ -21,7 +16,7 @@
   </ItemGroup>
 
   <PropertyGroup>
-    <PackageId>Sarif.Sdk</PackageId>
+    <PackageId>Sarif</PackageId>
     <Title>.NET Static Analysis Results Interchange Format (SARIF) Sdk</Title>
     <Authors>Microsoft Corporation</Authors>
     <Description>.NET tools and libraries for working with the Static Analysis Results Interchange Format v1.0.0.</Description>
@@ -29,7 +24,7 @@
     <Copyright>Copyright Microsoft 2015</Copyright>
     <PackageLicenseUrl>https://github.com/Microsoft/sarif-sdk/blob/master/LICENSE</PackageLicenseUrl>
     <PackageProjectUrl>https://github.com/microsoft/sarif-sdk</PackageProjectUrl>
-    <PackageTags>sarifsdk</PackageTags>
+    <PackageTags>sarifsdk sarif</PackageTags>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
   </PropertyGroup>
 
@@ -44,6 +39,16 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>SdkResources.resx</DependentUpon>
     </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <JsonSchemaFile Include="Schemata\Sarif.schema.json">
+      <Namespace>$(RootNamespace)</Namespace>
+      <RootClassName>SarifLog</RootClassName>
+      <CopyrightFilePath>CopyrightNotice.txt</CopyrightFilePath>
+      <HintsFilePath>CodeGenHints.json</HintsFilePath>
+    </JsonSchemaFile>
+    <None Include="CodeGenHints.json" />
+    <None Include="CopyrightNotice.txt" />
   </ItemGroup>
   
   <ItemGroup>

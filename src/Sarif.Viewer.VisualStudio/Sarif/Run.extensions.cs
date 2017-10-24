@@ -44,14 +44,17 @@ namespace Microsoft.Sarif.Viewer.Sarif
 
             if (run != null && run.Rules != null && (ruleId != null || ruleKey != null))
             {
+                Rule concreteRule = null;
                 if (ruleKey != null)
                 {
-                    rule = run.Rules[ruleKey];
+                    run.Rules.TryGetValue(ruleKey, out concreteRule);
                 }
                 else
                 {
-                    rule = run.Rules[ruleId];
+                    run.Rules.TryGetValue(ruleId, out concreteRule);
                 }
+
+                rule = concreteRule;
             }
             else if (ruleId != null)
             {

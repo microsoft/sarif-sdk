@@ -1,0 +1,548 @@
+{
+  "$schema": "http://json.schemastore.org/sarif-1.0.0",
+  "version": "1.0.0",
+  "runs": [
+    {
+      "tool": {
+        "name": "TSLint"
+      },
+      "files": {
+        "file:///C:/a2/_work/6/s/SecureApp/ts/test-data/NoCookies/NoCookiesFailingTestInput.ts": {
+          "mimeType": "text/typescript"
+        },
+        "file:///C:/a2/_work/6/s/SecureApp/ts/test-data/NoCookies/NoCookiesTestInput-error.ts": {
+          "mimeType": "text/typescript"
+        },
+        "file:///C:/a2/_work/6/s/SecureApp/ts/test-data/NoFunctionConstructorWithStringArgsTestInput.ts": {
+          "mimeType": "text/typescript"
+        },
+        "file:///C:/a2/_work/6/s/SecureApp/ts/test-data/NoStringBasedSetTimeout/NoStringBasedSetTimeoutFailingTestInput-any-functions.ts": {
+          "mimeType": "text/typescript"
+        },
+        "file:///C:/a2/_work/6/s/SecureApp/ts/test-data/NoStringBasedSetTimeout/NoStringBasedSetTimeoutFailingTestInput-any-variables.ts": {
+          "mimeType": "text/typescript"
+        },
+        "file:///C:/a2/_work/6/s/SecureApp/ts/test-data/NoStringBasedSetTimeout/NoStringBasedSetTimeoutFailingTestInput-string-functions.ts": {
+          "mimeType": "text/typescript"
+        },
+        "file:///C:/a2/_work/6/s/SecureApp/ts/test-data/NoStringBasedSetTimeout/NoStringBasedSetTimeoutFailingTestInput-string-literals.ts": {
+          "mimeType": "text/typescript"
+        },
+        "file:///C:/a2/_work/6/s/SecureApp/ts/test-data/NoStringBasedSetTimeout/NoStringBasedSetTimeoutFailingTestInput-string-variables.ts": {
+          "mimeType": "text/typescript"
+        },
+        "file:///C:/a2/_work/6/s/SecureApp/ts/test-data/NoStringBasedSetTimeout/NoStringBasedSetTimeoutFailingTestInput-walker-error.ts": {
+          "mimeType": "text/typescript"
+        },
+        "file:///C:/a2/_work/6/s/SecureApp/ts/test-data/NoStringBasedSetTimeout/NoStringBasedSetTimeoutTestInput-error3.ts": {
+          "mimeType": "text/typescript"
+        },
+        "file:///C:/a2/_work/6/s/SecureApp/ts/test-data/NoStringBasedSetTimeout/NoStringBasedSetTimeoutTestInput-error4.ts": {
+          "mimeType": "text/typescript"
+        }
+      },
+      "results": [
+        {
+          "ruleId": "no-cookies",
+          "level": "error",
+          "message": "Forbidden call to document.cookie",
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///C:/a2/_work/6/s/SecureApp/ts/test-data/NoCookies/NoCookiesFailingTestInput.ts",
+                "region": {
+                  "startLine": 7,
+                  "startColumn": 1,
+                  "endLine": 7,
+                  "endColumn": 9,
+                  "offset": 80,
+                  "length": 9
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "no-cookies",
+          "level": "error",
+          "message": "Forbidden call to document.cookie",
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///C:/a2/_work/6/s/SecureApp/ts/test-data/NoCookies/NoCookiesFailingTestInput.ts",
+                "region": {
+                  "startLine": 8,
+                  "startColumn": 1,
+                  "endLine": 8,
+                  "endColumn": 14,
+                  "offset": 106,
+                  "length": 14
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "no-cookies",
+          "level": "error",
+          "message": "Forbidden call to document.cookie",
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///C:/a2/_work/6/s/SecureApp/ts/test-data/NoCookies/NoCookiesFailingTestInput.ts",
+                "region": {
+                  "startLine": 9,
+                  "startColumn": 1,
+                  "endLine": 9,
+                  "endColumn": 16,
+                  "offset": 137,
+                  "length": 16
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "no-cookies",
+          "level": "error",
+          "message": "Forbidden call to document.cookie",
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///C:/a2/_work/6/s/SecureApp/ts/test-data/NoCookies/NoCookiesFailingTestInput.ts",
+                "region": {
+                  "startLine": 11,
+                  "startColumn": 1,
+                  "endLine": 11,
+                  "endColumn": 19,
+                  "offset": 172,
+                  "length": 19
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "no-cookies",
+          "level": "error",
+          "message": "Forbidden call to document.cookie",
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///C:/a2/_work/6/s/SecureApp/ts/test-data/NoCookies/NoCookiesFailingTestInput.ts",
+                "region": {
+                  "startLine": 14,
+                  "startColumn": 1,
+                  "endLine": 14,
+                  "endColumn": 4,
+                  "offset": 231,
+                  "length": 4
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "no-cookies",
+          "level": "error",
+          "message": "Forbidden call to document.cookie",
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///C:/a2/_work/6/s/SecureApp/ts/test-data/NoCookies/NoCookiesTestInput-error.ts",
+                "region": {
+                  "startLine": 5,
+                  "startColumn": 16,
+                  "endLine": 5,
+                  "endColumn": 24,
+                  "offset": 61,
+                  "length": 9
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "no-function-constructor-with-string-args",
+          "level": "error",
+          "message": "forbidden: Function constructor with string arguments ",
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///C:/a2/_work/6/s/SecureApp/ts/test-data/NoFunctionConstructorWithStringArgsTestInput.ts",
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 9,
+                  "endLine": 1,
+                  "endColumn": 38,
+                  "offset": 8,
+                  "length": 30
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "no-string-based-set-timeout",
+          "level": "error",
+          "message": "Forbidden setTimeout string parameter: untypedCreateFunction()",
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///C:/a2/_work/6/s/SecureApp/ts/test-data/NoStringBasedSetTimeout/NoStringBasedSetTimeoutFailingTestInput-any-functions.ts",
+                "region": {
+                  "startLine": 4,
+                  "startColumn": 1,
+                  "endLine": 4,
+                  "endColumn": 36,
+                  "offset": 131,
+                  "length": 36
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "no-string-based-set-timeout",
+          "level": "error",
+          "message": "Forbidden setTimeout string parameter: untypedCreateFunction()",
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///C:/a2/_work/6/s/SecureApp/ts/test-data/NoStringBasedSetTimeout/NoStringBasedSetTimeoutFailingTestInput-any-functions.ts",
+                "region": {
+                  "startLine": 5,
+                  "startColumn": 1,
+                  "endLine": 5,
+                  "endColumn": 41,
+                  "offset": 189,
+                  "length": 41
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "no-string-based-set-timeout",
+          "level": "error",
+          "message": "Forbidden setTimeout string parameter: untypedCreateFunction()",
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///C:/a2/_work/6/s/SecureApp/ts/test-data/NoStringBasedSetTimeout/NoStringBasedSetTimeoutFailingTestInput-any-functions.ts",
+                "region": {
+                  "startLine": 6,
+                  "startColumn": 1,
+                  "endLine": 6,
+                  "endColumn": 43,
+                  "offset": 247,
+                  "length": 43
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "no-string-based-set-timeout",
+          "level": "error",
+          "message": "Forbidden setTimeout string parameter: anyVariable",
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///C:/a2/_work/6/s/SecureApp/ts/test-data/NoStringBasedSetTimeout/NoStringBasedSetTimeoutFailingTestInput-any-variables.ts",
+                "region": {
+                  "startLine": 4,
+                  "startColumn": 1,
+                  "endLine": 4,
+                  "endColumn": 24,
+                  "offset": 76,
+                  "length": 24
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "no-string-based-set-timeout",
+          "level": "error",
+          "message": "Forbidden setTimeout string parameter: anyVariable",
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///C:/a2/_work/6/s/SecureApp/ts/test-data/NoStringBasedSetTimeout/NoStringBasedSetTimeoutFailingTestInput-any-variables.ts",
+                "region": {
+                  "startLine": 5,
+                  "startColumn": 1,
+                  "endLine": 5,
+                  "endColumn": 29,
+                  "offset": 134,
+                  "length": 29
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "no-string-based-set-timeout",
+          "level": "error",
+          "message": "Forbidden setTimeout string parameter: anyVariable",
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///C:/a2/_work/6/s/SecureApp/ts/test-data/NoStringBasedSetTimeout/NoStringBasedSetTimeoutFailingTestInput-any-variables.ts",
+                "region": {
+                  "startLine": 6,
+                  "startColumn": 1,
+                  "endLine": 6,
+                  "endColumn": 31,
+                  "offset": 192,
+                  "length": 31
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "no-string-based-set-timeout",
+          "level": "error",
+          "message": "Forbidden setTimeout string parameter: stringFunction()",
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///C:/a2/_work/6/s/SecureApp/ts/test-data/NoStringBasedSetTimeout/NoStringBasedSetTimeoutFailingTestInput-string-functions.ts",
+                "region": {
+                  "startLine": 4,
+                  "startColumn": 1,
+                  "endLine": 4,
+                  "endColumn": 29,
+                  "offset": 135,
+                  "length": 29
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "no-string-based-set-timeout",
+          "level": "error",
+          "message": "Forbidden setTimeout string parameter: stringFunction()",
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///C:/a2/_work/6/s/SecureApp/ts/test-data/NoStringBasedSetTimeout/NoStringBasedSetTimeoutFailingTestInput-string-functions.ts",
+                "region": {
+                  "startLine": 5,
+                  "startColumn": 1,
+                  "endLine": 5,
+                  "endColumn": 34,
+                  "offset": 193,
+                  "length": 34
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "no-string-based-set-timeout",
+          "level": "error",
+          "message": "Forbidden setTimeout string parameter: stringFunction()",
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///C:/a2/_work/6/s/SecureApp/ts/test-data/NoStringBasedSetTimeout/NoStringBasedSetTimeoutFailingTestInput-string-functions.ts",
+                "region": {
+                  "startLine": 6,
+                  "startColumn": 1,
+                  "endLine": 6,
+                  "endColumn": 36,
+                  "offset": 252,
+                  "length": 36
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "no-string-based-set-timeout",
+          "level": "error",
+          "message": "Forbidden setTimeout string parameter: \"var x = 'should fail'\"",
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///C:/a2/_work/6/s/SecureApp/ts/test-data/NoStringBasedSetTimeout/NoStringBasedSetTimeoutFailingTestInput-string-literals.ts",
+                "region": {
+                  "startLine": 3,
+                  "startColumn": 1,
+                  "endLine": 3,
+                  "endColumn": 36,
+                  "offset": 41,
+                  "length": 36
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "no-string-based-set-timeout",
+          "level": "error",
+          "message": "Forbidden setTimeout string parameter: \"var x = 'should fail'\"",
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///C:/a2/_work/6/s/SecureApp/ts/test-data/NoStringBasedSetTimeout/NoStringBasedSetTimeoutFailingTestInput-string-literals.ts",
+                "region": {
+                  "startLine": 4,
+                  "startColumn": 1,
+                  "endLine": 4,
+                  "endColumn": 41,
+                  "offset": 79,
+                  "length": 41
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "no-string-based-set-timeout",
+          "level": "error",
+          "message": "Forbidden setTimeout string parameter: \"var x = 'should fail'\"",
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///C:/a2/_work/6/s/SecureApp/ts/test-data/NoStringBasedSetTimeout/NoStringBasedSetTimeoutFailingTestInput-string-literals.ts",
+                "region": {
+                  "startLine": 5,
+                  "startColumn": 1,
+                  "endLine": 5,
+                  "endColumn": 43,
+                  "offset": 122,
+                  "length": 43
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "no-string-based-set-timeout",
+          "level": "error",
+          "message": "Forbidden setTimeout string parameter: typedStringVariable",
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///C:/a2/_work/6/s/SecureApp/ts/test-data/NoStringBasedSetTimeout/NoStringBasedSetTimeoutFailingTestInput-string-variables.ts",
+                "region": {
+                  "startLine": 4,
+                  "startColumn": 1,
+                  "endLine": 4,
+                  "endColumn": 32,
+                  "offset": 87,
+                  "length": 32
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "no-string-based-set-timeout",
+          "level": "error",
+          "message": "Forbidden setTimeout string parameter: typedStringVariable",
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///C:/a2/_work/6/s/SecureApp/ts/test-data/NoStringBasedSetTimeout/NoStringBasedSetTimeoutFailingTestInput-string-variables.ts",
+                "region": {
+                  "startLine": 5,
+                  "startColumn": 1,
+                  "endLine": 5,
+                  "endColumn": 37,
+                  "offset": 145,
+                  "length": 37
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "no-string-based-set-timeout",
+          "level": "error",
+          "message": "Forbidden setTimeout string parameter: typedStringVariable",
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///C:/a2/_work/6/s/SecureApp/ts/test-data/NoStringBasedSetTimeout/NoStringBasedSetTimeoutFailingTestInput-string-variables.ts",
+                "region": {
+                  "startLine": 6,
+                  "startColumn": 1,
+                  "endLine": 6,
+                  "endColumn": 39,
+                  "offset": 203,
+                  "length": 39
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "no-string-based-set-timeout",
+          "level": "error",
+          "message": "Forbidden setTimeout string parameter: this.onAnimationEnd()",
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///C:/a2/_work/6/s/SecureApp/ts/test-data/NoStringBasedSetTimeout/NoStringBasedSetTimeoutFailingTestInput-walker-error.ts",
+                "region": {
+                  "startLine": 11,
+                  "startColumn": 13,
+                  "endLine": 11,
+                  "endColumn": 51,
+                  "offset": 174,
+                  "length": 39
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "no-banned-terms",
+          "level": "error",
+          "message": "Forbidden reference to banned term: arguments",
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///C:/a2/_work/6/s/SecureApp/ts/test-data/NoStringBasedSetTimeout/NoStringBasedSetTimeoutTestInput-error3.ts",
+                "region": {
+                  "startLine": 5,
+                  "startColumn": 44,
+                  "endLine": 5,
+                  "endColumn": 63,
+                  "offset": 94,
+                  "length": 20
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "no-string-based-set-timeout",
+          "level": "error",
+          "message": "Forbidden setTimeout string parameter: this.onAnimationEnd()",
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///C:/a2/_work/6/s/SecureApp/ts/test-data/NoStringBasedSetTimeout/NoStringBasedSetTimeoutTestInput-error4.ts",
+                "region": {
+                  "startLine": 11,
+                  "startColumn": 13,
+                  "endLine": 11,
+                  "endColumn": 51,
+                  "offset": 174,
+                  "length": 39
+                }
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

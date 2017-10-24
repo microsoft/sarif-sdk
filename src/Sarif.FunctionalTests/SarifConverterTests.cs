@@ -86,6 +86,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         }
 
         [Fact]
+        public void TSLint_EndToEnd()
+        {
+            BatchRunConverter(ToolFormat.TSLint, "*.json", TestMode.CompareFileContents);
+        }
+
+        [Fact]
         public void PREfastConverter_EndToEnd()
         {
             BatchRunConverter(ToolFormat.PREfast, TestMode.CompareObjectModels);
@@ -102,7 +108,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         {
             var sb = new StringBuilder();
 
-            string testDirectory = SarifConverterTests.TestDirectory + "\\" + tool;
+            string testDirectory = Path.Combine(TestDirectory, tool);
             string[] testFiles = Directory.GetFiles(testDirectory, inputFilter);
 
             foreach (string file in testFiles)

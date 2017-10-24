@@ -6,6 +6,158 @@
       "tool": {
         "name": "Semmle QL"
       },
+      "files": {
+        "src/main/java/org/apache/commons/io/FileCleaningTracker.java": {
+          "mimeType": "text/x-java-source"
+        },
+        "src/main/java/org/apache/commons/io/IOUtils.java": {
+          "mimeType": "text/x-java-source"
+        },
+        "/src/main/java/org/apache/commons/io/IOUtils.java": {
+          "mimeType": "text/x-java-source"
+        },
+        "src/main/java/org/apache/commons/io/FileUtils.java": {
+          "mimeType": "text/x-java-source"
+        },
+        "src/main/java/org/apache/commons/io/input/Tailer.java": {
+          "mimeType": "text/x-java-source"
+        },
+        "src/main/java/org/apache/commons/io/monitor/FileAlterationMonitor.java": {
+          "mimeType": "text/x-java-source"
+        },
+        "/src/main/java/org/apache/commons/io/input/Tailer.java": {
+          "mimeType": "text/x-java-source"
+        },
+        "src/main/java/org/apache/commons/io/input/XmlStreamReader.java": {
+          "mimeType": "text/x-java-source"
+        },
+        "src/main/java/org/apache/commons/io/input/CharSequenceReader.java": {
+          "mimeType": "text/x-java-source"
+        },
+        "src/main/java/org/apache/commons/io/comparator/ReverseComparator.java": {
+          "mimeType": "text/x-java-source"
+        },
+        "src/main/java/org/apache/commons/io/monitor/FileAlterationObserver.java": {
+          "mimeType": "text/x-java-source"
+        },
+        "src/main/java/org/apache/commons/io/filefilter/AndFileFilter.java": {
+          "mimeType": "text/x-java-source"
+        },
+        "src/main/java/org/apache/commons/io/filefilter/OrFileFilter.java": {
+          "mimeType": "text/x-java-source"
+        },
+        "src/main/java/org/apache/commons/io/filefilter/NotFileFilter.java": {
+          "mimeType": "text/x-java-source"
+        },
+        "src/main/java/org/apache/commons/io/filefilter/DelegateFileFilter.java": {
+          "mimeType": "text/x-java-source"
+        },
+        "src/main/java/org/apache/commons/io/output/XmlStreamWriter.java": {
+          "mimeType": "text/x-java-source"
+        },
+        "src/main/java/org/apache/commons/io/ByteOrderMark.java": {
+          "mimeType": "text/x-java-source"
+        },
+        "src/main/java/org/apache/commons/io/output/ByteArrayOutputStream.java": {
+          "mimeType": "text/x-java-source"
+        },
+        "/src/main/java/org/apache/commons/io/filefilter/OrFileFilter.java": {
+          "mimeType": "text/x-java-source"
+        },
+        "src/main/java/org/apache/commons/io/input/CountingInputStream.java": {
+          "mimeType": "text/x-java-source"
+        },
+        "/src/main/java/org/apache/commons/io/output/CountingOutputStream.java": {
+          "mimeType": "text/x-java-source"
+        },
+        "src/main/java/org/apache/commons/io/input/NullReader.java": {
+          "mimeType": "text/x-java-source"
+        },
+        "/src/main/java/org/apache/commons/io/input/NullInputStream.java": {
+          "mimeType": "text/x-java-source"
+        },
+        "src/main/java/org/apache/commons/io/output/CountingOutputStream.java": {
+          "mimeType": "text/x-java-source"
+        },
+        "/src/main/java/org/apache/commons/io/input/CountingInputStream.java": {
+          "mimeType": "text/x-java-source"
+        },
+        "/src/main/java/org/apache/commons/io/filefilter/AndFileFilter.java": {
+          "mimeType": "text/x-java-source"
+        },
+        "src/main/java/org/apache/commons/io/output/ProxyOutputStream.java": {
+          "mimeType": "text/x-java-source"
+        },
+        "/src/main/java/org/apache/commons/io/output/ProxyWriter.java": {
+          "mimeType": "text/x-java-source"
+        },
+        "src/main/java/org/apache/commons/io/output/ProxyWriter.java": {
+          "mimeType": "text/x-java-source"
+        },
+        "/src/main/java/org/apache/commons/io/output/ProxyOutputStream.java": {
+          "mimeType": "text/x-java-source"
+        },
+        "src/main/java/org/apache/commons/io/input/NullInputStream.java": {
+          "mimeType": "text/x-java-source"
+        },
+        "/src/main/java/org/apache/commons/io/input/NullReader.java": {
+          "mimeType": "text/x-java-source"
+        },
+        "src/main/java/org/apache/commons/io/filefilter/SuffixFileFilter.java": {
+          "mimeType": "text/x-java-source"
+        },
+        "/src/main/java/org/apache/commons/io/filefilter/PrefixFileFilter.java": {
+          "mimeType": "text/x-java-source"
+        },
+        "src/main/java/org/apache/commons/io/output/TaggedOutputStream.java": {
+          "mimeType": "text/x-java-source"
+        },
+        "/src/main/java/org/apache/commons/io/input/TaggedInputStream.java": {
+          "mimeType": "text/x-java-source"
+        },
+        "src/main/java/org/apache/commons/io/input/TaggedInputStream.java": {
+          "mimeType": "text/x-java-source"
+        },
+        "/src/main/java/org/apache/commons/io/output/TaggedOutputStream.java": {
+          "mimeType": "text/x-java-source"
+        },
+        "src/main/java/org/apache/commons/io/input/ReversedLinesFileReader.java": {
+          "mimeType": "text/x-java-source"
+        },
+        "src/main/java/org/apache/commons/io/output/WriterOutputStream.java": {
+          "mimeType": "text/x-java-source"
+        },
+        "src/main/java/org/apache/commons/io/FilenameUtils.java": {
+          "mimeType": "text/x-java-source"
+        },
+        "src/main/java/org/apache/commons/io/output/FileWriterWithEncoding.java": {
+          "mimeType": "text/x-java-source"
+        },
+        "src/main/java/org/apache/commons/io/FileDeleteStrategy.java": {
+          "mimeType": "text/x-java-source"
+        },
+        "src/main/java/org/apache/commons/io/output/LockableFileWriter.java": {
+          "mimeType": "text/x-java-source"
+        },
+        "src/main/java/org/apache/commons/io/filefilter/MagicNumberFileFilter.java": {
+          "mimeType": "text/x-java-source"
+        },
+        "src/main/java/org/apache/commons/io/output/TeeOutputStream.java": {
+          "mimeType": "text/x-java-source"
+        },
+        "src/main/java/org/apache/commons/io/input/BOMInputStream.java": {
+          "mimeType": "text/x-java-source"
+        },
+        "src/main/java/org/apache/commons/io/filefilter/FileFilterUtils.java": {
+          "mimeType": "text/x-java-source"
+        },
+        "/src/main/java/org/apache/commons/io/filefilter/FileFilterUtils.java": {
+          "mimeType": "text/x-java-source"
+        },
+        "src/main/java/org/apache/commons/io/input/TeeInputStream.java": {
+          "mimeType": "text/x-java-source"
+        }
+      },
       "results": [
         {
           "message": "Avoid using thread priorities. The effect is unpredictable and not portable.",

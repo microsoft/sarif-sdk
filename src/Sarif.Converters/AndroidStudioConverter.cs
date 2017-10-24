@@ -71,7 +71,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 Name = "AndroidStudio"
             };
 
-            var fileInfoFactory = new FileInfoFactory(uri => MimeType.Java, loggingOptions);
+            var fileInfoFactory = new FileInfoFactory(null, loggingOptions);
             Dictionary<string, FileData> fileDictionary = fileInfoFactory.Create(results);
 
             output.Initialize(id: null, automationId: null);

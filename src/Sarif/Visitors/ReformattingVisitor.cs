@@ -1,15 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
+﻿// Copyright (c) Microsoft. All rights reserved.
+// Licensed under the MIT license. See LICENSE file in the project root for full license information.
+using System;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Microsoft.CodeAnalysis.Sarif.Writers;
 
 namespace Microsoft.CodeAnalysis.Sarif.Visitors
 {
     public class ReformattingVisitor : SarifRewritingVisitor
     {
-        LoggingOptions _loggingOptions;
+        private LoggingOptions _loggingOptions;
 
         public ReformattingVisitor(LoggingOptions loggingOptions)
         {
@@ -20,6 +19,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
         {
             if (node != null)
             {
+                bool scrapeFileReferences = _loggingOptions.Includes(LoggingOptions.ComputeFileHashes) ||
+                                            _loggingOptions.Includes(LoggingOptions.PersistFileContents);
+
+                if (scrapeFileReferences)
+                {
+                    var visitor = new AddFileReferencesVisitor();
+                    visitor.VisitRun(node);
+                }
+
                 if (node.Files != null)
                 {
                     var keys = node.Files.Keys.ToArray();
@@ -39,6 +47,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
         internal FileData VisitDictionaryValueNullChecked(string key, FileData node)
         {
+            Uri uri;
+
+            if (!Uri.TryCreate(key, UriKind.RelativeOrAbsolute, out uri))
+            {
+                return node;
+            }
+
             bool workToDo = false;
 
             workToDo |= node.Hashes == null && _loggingOptions.Includes(LoggingOptions.ComputeFileHashes);
@@ -46,7 +61,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
             if (workToDo)
             {
-                node = FileData.Create(new Uri(key), _loggingOptions, node.MimeType);
+                node = FileData.Create(uri, _loggingOptions, node.MimeType);
             }
 
             return base.VisitFileData(node);

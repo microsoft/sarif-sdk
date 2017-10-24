@@ -59,7 +59,7 @@ namespace Microsoft.Sarif.Viewer
             }
 
             Tool = run.Tool.ToToolModel();
-            Rule = rule?.ToRuleModel(result.RuleId);
+            Rule = rule.ToRuleModel(result.RuleId);
             Invocation = run.Invocation.ToInvocationModel();
 
             if (String.IsNullOrWhiteSpace(run.Id))

@@ -8,10 +8,10 @@
       },
       "files": {
         "gradle/wrapper/gradle-wrapper.properties": {
-          "mimeType": "text/x-java-source"
+          "mimeType": "text/x-java-properties"
         },
         "local.properties": {
-          "mimeType": "text/x-java-source"
+          "mimeType": "text/x-java-properties"
         }
       },
       "logicalLocations": {

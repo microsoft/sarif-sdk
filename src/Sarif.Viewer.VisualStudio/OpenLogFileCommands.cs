@@ -8,7 +8,6 @@ using System.IO;
 using System.Net;
 using System.Windows.Forms;
 
-using Microsoft.CodeAnalysis.Sarif;
 using Microsoft.VisualStudio.Shell;
 using Microsoft.Sarif.Viewer.ErrorList;
 using Microsoft.CodeAnalysis.Sarif.Converters;
@@ -32,11 +31,20 @@ namespace Microsoft.Sarif.Viewer
         public const int OpenClangFileCommandId = 0x0106;
         public const int OpenAndroidStudioFileCommandId = 0x0107;
         public const int OpenSemmleFileCommandId = 0x0108;
+        public const int OpenTSLintFileCommand = 0x0109;
 
         private static int[] s_commands = new int[]
         {
-            OpenSarifFileCommandId, OpenPREfastFileCommandId, OpenStaticDriverVerifierFileCommandId, OpenFxCopFileCommandId,
-            OpenFortifyFileCommandId, OpenCppCheckFileCommandId, OpenClangFileCommandId, OpenAndroidStudioFileCommandId, OpenSemmleFileCommandId
+            OpenSarifFileCommandId,
+            OpenPREfastFileCommandId,
+            OpenStaticDriverVerifierFileCommandId,
+            OpenFxCopFileCommandId,
+            OpenFortifyFileCommandId,
+            OpenCppCheckFileCommandId,
+            OpenClangFileCommandId,
+            OpenAndroidStudioFileCommandId,
+            OpenSemmleFileCommandId,
+            OpenTSLintFileCommand
         };
 
         /// <summary>
@@ -209,6 +217,13 @@ namespace Microsoft.Sarif.Viewer
                         toolFormat = ToolFormat.SemmleQL;
                         title = "Open Semmle QL CSV log file";
                         filter = "Semmle QL log files (*.csv)|*.csv";
+                        break;
+                    }
+                    case OpenTSLintFileCommand:
+                    {
+                        toolFormat = ToolFormat.TSLint;
+                        title = "Open TSLint JSON log file";
+                        filter = "TSLint log files (*.json)|*.json";
                         break;
                     }
                 }

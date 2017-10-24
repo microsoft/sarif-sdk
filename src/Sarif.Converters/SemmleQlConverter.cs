@@ -67,6 +67,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
             var results = GetResultsFromStream(input);
 
+			var fileInfoFactory = new FileInfoFactory(MimeType.DetermineFromFileExtension, loggingOptions);
+			Dictionary<string, FileData> fileDictionary = fileInfoFactory.Create(results);
+
             var tool = new Tool
             {
                 Name = "Semmle QL"
@@ -75,6 +78,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             output.Initialize(id: null, automationId: null);
 
             output.WriteTool(tool);
+
+			output.WriteFiles(fileDictionary);
 
             output.OpenResults();
             output.WriteResults(results);

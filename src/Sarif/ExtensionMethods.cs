@@ -207,44 +207,48 @@ namespace Microsoft.CodeAnalysis.Sarif
             string text = result.Message;
             if (string.IsNullOrEmpty(text))
             {
-                Debug.Assert(rule != null);
+                text = string.Empty;    // Ensure that it's not null.
 
-                string formatId = result.FormattedRuleMessage.FormatId;
-                string messageFormat;
-
-                string[] arguments = null;
-
-                if (result.FormattedRuleMessage.Arguments != null)
+                if (rule != null && result.FormattedRuleMessage != null)
                 {
-                    arguments = new string[result.FormattedRuleMessage.Arguments.Count];
-                    result.FormattedRuleMessage.Arguments.CopyTo(arguments, 0);
-                }
-                else
-                {
-                    arguments = new string[0];
-                }
+                    string formatId = result.FormattedRuleMessage.FormatId;
+                    string messageFormat;
 
-                Debug.Assert(rule.MessageFormats.ContainsKey(formatId));
+                    string[] arguments = null;
 
-                messageFormat = rule.MessageFormats[formatId];
+                    if (result.FormattedRuleMessage.Arguments != null)
+                    {
+                        arguments = new string[result.FormattedRuleMessage.Arguments.Count];
+                        result.FormattedRuleMessage.Arguments.CopyTo(arguments, 0);
+                    }
+                    else
+                    {
+                        arguments = new string[0];
+                    }
+
+                    if (rule.MessageFormats?.ContainsKey(formatId) == true)
+                    {
+                        messageFormat = rule.MessageFormats[formatId];
 
 #if DEBUG
-                int argumentsCount = arguments.Length;
-                for (int i = 0; i < argumentsCount; i++)
-                {
-                    // If this assert fires, there are too many arguments for the specifier
-                    // or there is an argument is skipped or not consumed in the specifier
-                    Debug.Assert(messageFormat.Contains("{" + i.ToString(CultureInfo.InvariantCulture) + "}"));
-                }
+                        int argumentsCount = arguments.Length;
+                        for (int i = 0; i < argumentsCount; i++)
+                        {
+                            // If this assert fires, there are too many arguments for the specifier
+                            // or there is an argument is skipped or not consumed in the specifier
+                            Debug.Assert(messageFormat.Contains("{" + i.ToString(CultureInfo.InvariantCulture) + "}"));
+                        }
 #endif
 
-                text = string.Format(CultureInfo.InvariantCulture, messageFormat, arguments);
+                        text = string.Format(CultureInfo.InvariantCulture, messageFormat, arguments);
 
 #if DEBUG
-                // If this assert fires, an insufficient # of arguments might
-                // have been provided to String.Format.
-                Debug.Assert(!text.Contains("{"));
+                        // If this assert fires, an insufficient # of arguments might
+                        // have been provided to String.Format.
+                        Debug.Assert(!text.Contains("{"));
 #endif
+                    }
+                }
             }
 
             if (concise)
