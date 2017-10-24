@@ -147,9 +147,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="index.html" />
-    <Content Include="..\..\lib\PREfastXmlSarifConverter.dll">
-      <IncludeInVSIX>true</IncludeInVSIX>
-    </Content>
     <None Include="readme.md" />
     <Resource Include="Resources\SarifToolWindowCommand.png" />
     <Content Include="Triskele.ico">

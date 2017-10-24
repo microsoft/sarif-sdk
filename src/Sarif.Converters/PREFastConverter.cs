@@ -74,7 +74,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             {
                 RuleId = defect.DefectCode,
                 Message = RemoveLegacyNewLine(defect.Description),
-                CodeFlows = new List<CodeFlow>(),
                 Locations = new List<Location>()
             };
 
@@ -163,7 +162,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 Locations = locations
             };
 
-            result.CodeFlows.Add(codeFlow);
+            result.CodeFlows = new List<CodeFlow>()
+            {
+                codeFlow
+            };
         }
 
         private void ExtractCategories(Defect defect, Result result)
