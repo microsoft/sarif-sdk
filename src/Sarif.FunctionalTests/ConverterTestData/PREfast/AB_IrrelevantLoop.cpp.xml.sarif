@@ -1,171 +1,186 @@
 {
-"version":"1.0.0",
-"$schema":"http://json.schemastore.org/sarif-1.0.0",
-"runs":[
-  {
-    "tool":{
-      "name":"PREfast",
-      "fullName":"PREfast Code Analysis"
-    },
-    "results":[
-      {
-        "ruleId":"6385",
-        "message":"Reading invalid data from 'data':  the readable size is '40' bytes, but '44' bytes may be read.",
-        "locations":[
-          {
-            "resultFile":{
-              "uri":"file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_irrelevantloop.cpp",
-              "region":{
-                "startColumn":6,
-                "startLine":14
+  "$schema": "http://json.schemastore.org/sarif-1.0.0",
+  "version": "1.0.0",
+  "runs": [
+    {
+      "tool": {
+        "name": "PREfast",
+        "fullName": "PREfast Code Analysis"
+      },
+      "files": {
+        "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_irrelevantloop.cpp": {
+          "mimeType": "text/x-cpp"
+        }
+      },
+      "results": [
+        {
+          "ruleId": "6385",
+          "message": "Reading invalid data from 'data':  the readable size is '40' bytes, but '44' bytes may be read.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_irrelevantloop.cpp",
+                "region": {
+                  "startLine": 14,
+                  "startColumn": 6
+                }
+              },
+              "fullyQualifiedLogicalName": "C6385_IrrelevantLoop",
+              "decoratedName": "?C6385_IrrelevantLoop@@YAXXZ",
+              "properties": {
+                "funcline": "6"
               }
-            },
-            "fullyQualifiedLogicalName":"C6385_IrrelevantLoop",
-            "decoratedName":"?C6385_IrrelevantLoop@@YAXXZ",
-            "properties":{
-              "funcline":"6"
             }
+          ],
+          "codeFlows": [
+            {
+              "locations": [
+                {
+                  "step": 1,
+                  "physicalLocation": {
+                    "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_irrelevantloop.cpp",
+                    "region": {
+                      "startLine": 8,
+                      "startColumn": 6
+                    }
+                  },
+                  "message": "'data' is an array of 10 elements (40 bytes)",
+                  "kind": "declaration",
+                  "importance": "essential",
+                  "properties": {
+                    "keyEventId": "1"
+                  }
+                },
+                {
+                  "step": 2,
+                  "physicalLocation": {
+                    "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_irrelevantloop.cpp",
+                    "region": {
+                      "startLine": 9,
+                      "startColumn": 6
+                    }
+                  },
+                  "message": "'maxSize' is equal to 10",
+                  "kind": "declaration",
+                  "importance": "essential",
+                  "properties": {
+                    "keyEventId": "2"
+                  }
+                },
+                {
+                  "step": 3,
+                  "physicalLocation": {
+                    "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_irrelevantloop.cpp",
+                    "region": {
+                      "startLine": 11,
+                      "startColumn": 11
+                    }
+                  },
+                  "importance": "unimportant"
+                },
+                {
+                  "step": 4,
+                  "physicalLocation": {
+                    "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_irrelevantloop.cpp",
+                    "region": {
+                      "startLine": 11,
+                      "startColumn": 17
+                    }
+                  },
+                  "importance": "unimportant"
+                },
+                {
+                  "step": 5,
+                  "physicalLocation": {
+                    "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_irrelevantloop.cpp",
+                    "region": {
+                      "startLine": 12,
+                      "startColumn": 11
+                    }
+                  },
+                  "importance": "unimportant"
+                },
+                {
+                  "step": 6,
+                  "physicalLocation": {
+                    "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_irrelevantloop.cpp",
+                    "region": {
+                      "startLine": 11,
+                      "startColumn": 28
+                    }
+                  },
+                  "importance": "unimportant"
+                },
+                {
+                  "step": 7,
+                  "physicalLocation": {
+                    "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_irrelevantloop.cpp",
+                    "region": {
+                      "startLine": 11,
+                      "startColumn": 17
+                    }
+                  },
+                  "importance": "unimportant"
+                },
+                {
+                  "step": 8,
+                  "physicalLocation": {
+                    "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_irrelevantloop.cpp",
+                    "region": {
+                      "startLine": 12,
+                      "startColumn": 11
+                    }
+                  },
+                  "importance": "unimportant"
+                },
+                {
+                  "step": 9,
+                  "physicalLocation": {
+                    "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_irrelevantloop.cpp",
+                    "region": {
+                      "startLine": 11,
+                      "startColumn": 28
+                    }
+                  },
+                  "importance": "unimportant"
+                },
+                {
+                  "step": 10,
+                  "physicalLocation": {
+                    "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_irrelevantloop.cpp",
+                    "region": {
+                      "startLine": 11,
+                      "startColumn": 17
+                    }
+                  },
+                  "importance": "unimportant"
+                },
+                {
+                  "step": 11,
+                  "physicalLocation": {
+                    "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_irrelevantloop.cpp",
+                    "region": {
+                      "startLine": 14,
+                      "startColumn": 6
+                    }
+                  },
+                  "message": "Invalid read from 'data[10]', (readable range is 0 to 9)",
+                  "kind": "usage",
+                  "importance": "essential",
+                  "properties": {
+                    "keyEventId": "3"
+                  }
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "probability": "1",
+            "rank": "4",
+            "ruleCategory": "mspft"
           }
-        ],
-        "properties":{
-          "probability":"1",
-          "rank":"4",
-          "ruleCategory":"mspft"
-        },
-        "codeFlows":[
-          {
-            "locations":[
-              {
-                "physicalLocation":{
-                  "uri":"file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_irrelevantloop.cpp",
-                  "region":{
-                    "startColumn":6,
-                    "startLine":8
-                  }
-                },
-                "step":1,
-                "properties":{
-                  "keyEventId":"1"
-                },
-                "kind":"declaration",
-                "message":"'data' is an array of 10 elements (40 bytes)",
-                "importance":"essential"
-              },{
-                "physicalLocation":{
-                  "uri":"file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_irrelevantloop.cpp",
-                  "region":{
-                    "startColumn":6,
-                    "startLine":9
-                  }
-                },
-                "step":2,
-                "properties":{
-                  "keyEventId":"2"
-                },
-                "kind":"declaration",
-                "message":"'maxSize' is equal to 10",
-                "importance":"essential"
-              },{
-                "physicalLocation":{
-                  "uri":"file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_irrelevantloop.cpp",
-                  "region":{
-                    "startColumn":11,
-                    "startLine":11
-                  }
-                },
-                "step":3,
-                "importance":"unimportant"
-              },{
-                "physicalLocation":{
-                  "uri":"file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_irrelevantloop.cpp",
-                  "region":{
-                    "startColumn":17,
-                    "startLine":11
-                  }
-                },
-                "step":4,
-                "importance":"unimportant"
-              },{
-                "physicalLocation":{
-                  "uri":"file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_irrelevantloop.cpp",
-                  "region":{
-                    "startColumn":11,
-                    "startLine":12
-                  }
-                },
-                "step":5,
-                "importance":"unimportant"
-              },{
-                "physicalLocation":{
-                  "uri":"file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_irrelevantloop.cpp",
-                  "region":{
-                    "startColumn":28,
-                    "startLine":11
-                  }
-                },
-                "step":6,
-                "importance":"unimportant"
-              },{
-                "physicalLocation":{
-                  "uri":"file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_irrelevantloop.cpp",
-                  "region":{
-                    "startColumn":17,
-                    "startLine":11
-                  }
-                },
-                "step":7,
-                "importance":"unimportant"
-              },{
-                "physicalLocation":{
-                  "uri":"file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_irrelevantloop.cpp",
-                  "region":{
-                    "startColumn":11,
-                    "startLine":12
-                  }
-                },
-                "step":8,
-                "importance":"unimportant"
-              },{
-                "physicalLocation":{
-                  "uri":"file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_irrelevantloop.cpp",
-                  "region":{
-                    "startColumn":28,
-                    "startLine":11
-                  }
-                },
-                "step":9,
-                "importance":"unimportant"
-              },{
-                "physicalLocation":{
-                  "uri":"file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_irrelevantloop.cpp",
-                  "region":{
-                    "startColumn":17,
-                    "startLine":11
-                  }
-                },
-                "step":10,
-                "importance":"unimportant"
-              },{
-                "physicalLocation":{
-                  "uri":"file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_irrelevantloop.cpp",
-                  "region":{
-                    "startColumn":6,
-                    "startLine":14
-                  }
-                },
-                "step":11,
-                "properties":{
-                  "keyEventId":"3"
-                },
-                "kind":"usage",
-                "message":"Invalid read from 'data[10]', (readable range is 0 to 9)",
-                "importance":"essential"
-              }
-            ]
-          }
-        ]
-      }
-    ]
-  }
-]
+        }
+      ]
+    }
+  ]
 }

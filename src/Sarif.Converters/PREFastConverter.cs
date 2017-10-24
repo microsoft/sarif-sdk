@@ -9,8 +9,13 @@ using System.Linq;
 
 namespace Microsoft.CodeAnalysis.Sarif.Converters
 {
-    public class PREFastConverter : ToolFileConverterBase
+    public class PREfastConverter : ToolFileConverterBase
     {
+        private Dictionary<string, string> categories = new Dictionary<string, string>
+        {
+            { "RULECATEGORY", "ruleCategory" }
+        };
+
         public override void Convert(Stream input, IResultLogWriter output, LoggingOptions loggingOptions)
         {
             input = input ?? throw new ArgumentNullException(nameof(input));
@@ -81,18 +86,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             GenerateCodeFlows(defect, result);
 
             return result;
-            //if (defect.m_additionalInfo.size() > 0)
-            //{
-            //    for (auto mit : defect.m_additionalInfo)
-            //    {
-            //        std::wstring key;
-            //        GetXmlToSarifMapping(std::wstring(mit.first), key);
-            //        result.AddProperty(key, std::wstring(mit.second));
-            //    }
-            //}
         }
 
-        private static void SetRank(Defect defect, Result result)
+        private void SetRank(Defect defect, Result result)
         {
             if (string.IsNullOrWhiteSpace(defect.Rank))
                 return;
@@ -100,7 +96,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             result.SetProperty("rank", defect.Rank);
         }
 
-        private static void SetProbability(Defect defect, Result result)
+        private void SetProbability(Defect defect, Result result)
         {
             if (string.IsNullOrWhiteSpace(defect.Probability))
                 return;
@@ -108,7 +104,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             result.SetProperty("probability", defect.Probability);
         }
 
-        private static void GenerateCodeFlows(Defect defect, Result result)
+        private void GenerateCodeFlows(Defect defect, Result result)
         {
             if (defect.Path?.SFAs.Any() == false)
                 return;
@@ -142,12 +138,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                     else
                     {
                         annotatedCodeLocation.SetProperty("keyEventId", sfa.KeyEvent.Id);
-                        if (Enum.TryParse(sfa.KeyEvent.Kind, out AnnotatedCodeLocationKind kind))
+                        if (Enum.TryParse(sfa.KeyEvent.Kind, true, out AnnotatedCodeLocationKind kind))
                         {
                             annotatedCodeLocation.Kind = kind;
                         }
 
-                        if (Enum.TryParse(sfa.KeyEvent.Importance, out AnnotatedCodeLocationImportance importance))
+                        if (Enum.TryParse(sfa.KeyEvent.Importance, true, out AnnotatedCodeLocationImportance importance))
                         {
                             annotatedCodeLocation.Importance = importance;
                         }
@@ -170,18 +166,24 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             result.CodeFlows.Add(codeFlow);
         }
 
-        private static void ExtractCategories(Defect defect, Result result)
+        private void ExtractCategories(Defect defect, Result result)
         {
             if (defect.Category != null)
             {
                 foreach (var keyValuePair in defect.Category)
                 {
-                    result.SetProperty(keyValuePair.Key, keyValuePair.Value);
+                    string category = keyValuePair.Key;
+                    if (categories.ContainsKey(category))
+                    {
+                        category = categories[category];
+                    }
+
+                    result.SetProperty(category, keyValuePair.Value);
                 }
             }
         }
 
-        private static string RemoveLegacyNewLine(string content)
+        private string RemoveLegacyNewLine(string content)
         {
             return content.Replace("PREFAST_NEWLINE\n", "");
         }

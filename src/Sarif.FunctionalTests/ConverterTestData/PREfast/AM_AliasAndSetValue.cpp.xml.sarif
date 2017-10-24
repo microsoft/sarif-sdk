@@ -1,105 +1,113 @@
 {
-"version":"1.0.0",
-"$schema":"http://json.schemastore.org/sarif-1.0.0",
-"runs":[
-  {
-    "tool":{
-      "name":"PREfast",
-      "fullName":"PREfast Code Analysis"
-    },
-    "results":[
-      {
-        "ruleId":"6385",
-        "message":"Reading invalid data from 'TwoElementArray':  the readable size is '8' bytes, but 'index' bytes may be read.",
-        "locations":[
-          {
-            "resultFile":{
-              "uri":"file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedmerging/am_aliasandsetvalue.cpp",
-              "region":{
-                "startColumn":10,
-                "startLine":9
+  "$schema": "http://json.schemastore.org/sarif-1.0.0",
+  "version": "1.0.0",
+  "runs": [
+    {
+      "tool": {
+        "name": "PREfast",
+        "fullName": "PREfast Code Analysis"
+      },
+      "files": {
+        "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedmerging/am_aliasandsetvalue.cpp": {
+          "mimeType": "text/x-cpp"
+        }
+      },
+      "results": [
+        {
+          "ruleId": "6385",
+          "message": "Reading invalid data from 'TwoElementArray':  the readable size is '8' bytes, but 'index' bytes may be read.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedmerging/am_aliasandsetvalue.cpp",
+                "region": {
+                  "startLine": 9,
+                  "startColumn": 10
+                }
+              },
+              "fullyQualifiedLogicalName": "MergeAliasAndTen",
+              "decoratedName": "?MergeAliasAndTen@@YAXPEAHH@Z",
+              "properties": {
+                "funcline": "1"
               }
-            },
-            "fullyQualifiedLogicalName":"MergeAliasAndTen",
-            "decoratedName":"?MergeAliasAndTen@@YAXPEAHH@Z",
-            "properties":{
-              "funcline":"1"
             }
+          ],
+          "codeFlows": [
+            {
+              "locations": [
+                {
+                  "step": 1,
+                  "physicalLocation": {
+                    "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedmerging/am_aliasandsetvalue.cpp",
+                    "region": {
+                      "startLine": 3,
+                      "startColumn": 9
+                    }
+                  },
+                  "message": "'TwoElementArray' is an array of 2 elements (8 bytes)",
+                  "kind": "declaration",
+                  "importance": "essential",
+                  "properties": {
+                    "keyEventId": "1"
+                  }
+                },
+                {
+                  "step": 2,
+                  "physicalLocation": {
+                    "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedmerging/am_aliasandsetvalue.cpp",
+                    "region": {
+                      "startLine": 5,
+                      "startColumn": 8
+                    }
+                  },
+                  "message": "'b' may equal 10 (Enter this branch)",
+                  "kind": "branch",
+                  "properties": {
+                    "keyEventId": "2"
+                  }
+                },
+                {
+                  "step": 3,
+                  "physicalLocation": {
+                    "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedmerging/am_aliasandsetvalue.cpp",
+                    "region": {
+                      "startLine": 7,
+                      "startColumn": 9
+                    }
+                  },
+                  "message": "(alias) 'index' receives the value of 'b' (which may be 10)",
+                  "kind": "alias",
+                  "importance": "essential",
+                  "properties": {
+                    "keyEventId": "3"
+                  }
+                },
+                {
+                  "step": 4,
+                  "physicalLocation": {
+                    "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedmerging/am_aliasandsetvalue.cpp",
+                    "region": {
+                      "startLine": 9,
+                      "startColumn": 10
+                    }
+                  },
+                  "message": "Invalid read from 'TwoElementArray[10]', (readable range is 0 to 1)",
+                  "kind": "usage",
+                  "importance": "essential",
+                  "properties": {
+                    "keyEventId": "4"
+                  }
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "probability": "1",
+            "rank": "4",
+            "ruleCategory": "mspft"
           }
-        ],
-        "properties":{
-          "probability":"1",
-          "rank":"4",
-          "ruleCategory":"mspft"
-        },
-        "codeFlows":[
-          {
-            "locations":[
-              {
-                "physicalLocation":{
-                  "uri":"file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedmerging/am_aliasandsetvalue.cpp",
-                  "region":{
-                    "startColumn":9,
-                    "startLine":3
-                  }
-                },
-                "step":1,
-                "properties":{
-                  "keyEventId":"1"
-                },
-                "kind":"declaration",
-                "message":"'TwoElementArray' is an array of 2 elements (8 bytes)",
-                "importance":"essential"
-              },{
-                "physicalLocation":{
-                  "uri":"file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedmerging/am_aliasandsetvalue.cpp",
-                  "region":{
-                    "startColumn":8,
-                    "startLine":5
-                  }
-                },
-                "step":2,
-                "properties":{
-                  "keyEventId":"2"
-                },
-                "kind":"branch",
-                "message":"'b' may equal 10 (Enter this branch)"
-              },{
-                "physicalLocation":{
-                  "uri":"file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedmerging/am_aliasandsetvalue.cpp",
-                  "region":{
-                    "startColumn":9,
-                    "startLine":7
-                  }
-                },
-                "step":3,
-                "properties":{
-                  "keyEventId":"3"
-                },
-                "kind":"alias",
-                "message":"(alias) 'index' receives the value of 'b' (which may be 10)",
-                "importance":"essential"
-              },{
-                "physicalLocation":{
-                  "uri":"file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedmerging/am_aliasandsetvalue.cpp",
-                  "region":{
-                    "startColumn":10,
-                    "startLine":9
-                  }
-                },
-                "step":4,
-                "properties":{
-                  "keyEventId":"4"
-                },
-                "kind":"usage",
-                "message":"Invalid read from 'TwoElementArray[10]', (readable range is 0 to 1)",
-                "importance":"essential"
-              }
-            ]
-          }
-        ]
-      }
-    ]
-  }
-]
+        }
+      ]
+    }
+  ]
 }
