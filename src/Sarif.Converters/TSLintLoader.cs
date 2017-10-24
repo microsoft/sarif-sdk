@@ -2,12 +2,15 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using System;
+using System.Globalization;
 using System.IO;
+using System.Linq;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Json;
 using System.Text;
-using System.Text.RegularExpressions;
 using Microsoft.CodeAnalysis.Sarif.Converters.TSLintObjectModel;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace Microsoft.CodeAnalysis.Sarif.Converters
 {
@@ -33,55 +36,107 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         {
             input = input ?? throw new ArgumentNullException(nameof(input));
 
-            return (TSLintLog)Serializer.ReadObject(NormalizeTSLintFixFormat(input));
-        }
-
-        /// <summary>
-        /// Necessary because the TSLint json contains multiple patterns for fix, i.e.
-        /// "fix":{"innerStart":4429,"innerLength":0,"innerText":"\r\n"},
-        /// "fix":[{"innerStart":4429,"innerLength":0,"innerText":"\r\n"}],
-        /// and "fix":[{"innerStart":4429,"innerLength":0,"innerText":"\r\n"},{"innerStart":4429,"innerLength":0,"innerText":"\r\n"}],
-        /// 
-        /// We need to normalize it so that every instance of fix is a list.
-        /// </summary>
-        /// <param name="stream"></param>
-        /// <returns></returns>
-        internal Stream NormalizeTSLintFixFormat(Stream stream)
-        {
-            stream = stream ?? throw new ArgumentNullException(nameof(stream));
-
-            string contents;
-            using (StreamReader reader = new StreamReader(stream))
+            using (TextReader streamReader = new StreamReader(input))
+            using (JsonReader reader = new JsonTextReader(streamReader))
             {
-                contents = reader.ReadToEnd();
-            }
-
-            // NOTE: The outer capturing parentheses in this regex are required.
-            // They take advantage of a useful (but not easily discoverable)
-            // feature of Regex.Split:
-            //
-            //     If capturing parentheses are used in a Regex.Split expression,
-            //     any captured text is included in the resulting string array.
-            //     For example, if you split the string "plum-pear" on a hyphen
-            //     placed within capturing parentheses, the returned array includes
-            //     a string element that contains the hyphen.
-            //
-            // See https://msdn.microsoft.com/en-us/library/8yttk7sy(v=vs.110).aspx
-            Regex regex = new Regex("(\"fix\":\\s*{[^}]+},)");
-
-            string[] tokens = regex.Split(contents);
-
-            for (int i = 0; i < tokens.Length; i++) 
-            {
-                if (Regex.Replace(tokens[i], @"\s+", "").Contains("\"fix\":{"))
+                JToken rootToken = JToken.ReadFrom(reader);
+                rootToken = NormalizeLog(rootToken);
+                string normalizedLogContents = rootToken.ToString();
+                using (Stream normalizedLogStream = new MemoryStream(Encoding.UTF8.GetBytes(normalizedLogContents)))
                 {
-                    tokens[i] = tokens[i].Replace("{", "[{").Replace("},", "}],");
+                    return (TSLintLog)Serializer.ReadObject(normalizedLogStream);
                 }
             }
-
-            byte[] byteArray = Encoding.UTF8.GetBytes(string.Concat(tokens));
-            return new MemoryStream(byteArray);
         }
 
+        // This method transforms all "fix" properties in the input to a standard form
+        // by wrapping the property value in an array if it is not already an array.
+        //
+        // The input is a JSON token representing the entire TSLint log file. The method
+        // modifies the input token in place.
+        //
+        // This method returns the same input value that it modified in place.
+        //
+        // This is necessary because the TSLint JSON contains multiple patterns for fix, i.e.:
+        //
+        // "fix":{"innerStart":4429,"innerLength":0,"innerText":"\r\n"}
+        // "fix":[{"innerStart":4429,"innerLength":0,"innerText":"\r\n"}]
+        // "fix":[{"innerStart":4429,"innerLength":0,"innerText":"\r\n"},{"innerStart":4429,"innerLength":0,"innerText":"\r\n"}]
+        //
+        // This method is marked internal rather than private for the sake of unit tests.
+        internal JToken NormalizeLog(JToken rootToken)
+        {
+            if (rootToken is JArray entries)
+            {
+                NormalizeEntries(entries);
+            }
+            else
+            {
+                throw new Exception(
+                    string.Format(
+                        CultureInfo.InvariantCulture,
+                        "The root JSON value should be a JArray, but is a {1}.",
+                        rootToken.GetType().Name));
+            }
+
+            return rootToken;
+        }
+
+        private void NormalizeEntries(JArray entries)
+        {
+            foreach (JToken entryToken in entries)
+            {
+                if (entryToken is JObject entry)
+                {
+                    NormalizeEntry(entry);
+                }
+                else
+                {
+                    var lineInfo = entryToken as IJsonLineInfo;
+                    throw new Exception(
+                        string.Format(
+                            CultureInfo.InvariantCulture,
+                            "({0}, {1}): The JSON value should be a JObject, but is a {2}.",
+                            lineInfo.LineNumber,
+                            lineInfo.LinePosition,
+                            entryToken.GetType().Name));
+                }
+            }
+        }
+
+        private void NormalizeEntry(JObject entry)
+        {
+            JProperty fixProperty = entry.Properties().SingleOrDefault(p => p.Name.Equals("fix"));
+            if (fixProperty != null)
+            {
+                NormalizeFixProperty(fixProperty);
+            }
+        }
+
+        private static void NormalizeFixProperty(JProperty fixProperty)
+        {
+            var fixValueToken = fixProperty.Value;
+
+            // If the property value isn't already an array...
+            var fixValueArray = fixValueToken as JArray;
+            if (fixValueArray == null)
+            {
+                var fixValueObject = fixValueToken as JObject;
+                if (fixValueObject == null)
+                {
+                    var lineInfo = fixValueToken as IJsonLineInfo;
+                    throw new Exception(
+                        string.Format(
+                            CultureInfo.InvariantCulture,
+                           "({0}, {1}): The value of the 'fix' property should be either a JObject or a JArray, but is a {2}.",
+                           lineInfo.LineNumber,
+                           lineInfo.LinePosition,
+                           fixValueToken.GetType().Name));
+                }
+
+                // ... then wrap it in an array.
+                fixProperty.Value = new JArray(fixValueToken);
+            }
+        }
     }
 }

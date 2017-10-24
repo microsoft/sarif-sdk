@@ -85,6 +85,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             BatchRunConverter(ToolFormat.StaticDriverVerifier, "*.tt", TestMode.CompareFileContents);
         }
 
+        [Fact]
+        public void TSLint_EndToEnd()
+        {
+            BatchRunConverter(ToolFormat.TSLint, "*.json", TestMode.CompareFileContents);
+        }
+
         [Fact(Skip = "BadImageFormatException introduced in net core port needs to be fixed")]
         public void PREfastConverter_EndToEnd()
         {
@@ -102,7 +108,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         {
             var sb = new StringBuilder();
 
-            string testDirectory = SarifConverterTests.TestDirectory + "\\" + tool;
+            string testDirectory = Path.Combine(TestDirectory, tool);
             string[] testFiles = Directory.GetFiles(testDirectory, inputFilter);
 
             foreach (string file in testFiles)
