@@ -1,5 +1,5 @@
 $targetFrameworks = @(
-    @{ Name = "netcoreapp2.0"; NetCoreCompatible = $True },
+    #@{ Name = "netcoreapp2.0"; NetCoreCompatible = $True },
     @{ Name = "net452"; NetCoreCompatible = $False }
 )
 
@@ -35,6 +35,11 @@ Foreach ($project in $testProjects)
 
             Write-Host ""
             Write-Host ""
+
+			If ($LastExitCode -ne 0)
+			{
+				exit 1
+			}
         }
     }
     else
@@ -42,9 +47,14 @@ Foreach ($project in $testProjects)
         Write-Host "Running Tests For $($project.Name)" -ForegroundColor Cyan
 
         $toolPath = ".\src\packages\xunit.runner.console.2.3.0\tools\net452\xunit.console.exe"
-        Invoke-Expression "$toolPath .\bld\bin\$($project.Name)\AnyCPU_Release\$($project.Name).dll"
+        Invoke-Expression "$toolPath .\bld\bin\$($project.Name)\AnyCPU_Release\$($project.Name).dll -appveyor"
 
         Write-Host ""
         Write-Host ""
+
+        If ($LastExitCode -ne 0)
+		{
+		    exit 1
+		}
     }
 }
