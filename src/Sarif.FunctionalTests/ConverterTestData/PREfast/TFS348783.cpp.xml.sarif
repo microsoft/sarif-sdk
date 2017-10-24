@@ -9,7 +9,22 @@
       },
       "files": {
         "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs348783.cpp": {
-          "mimeType": "text/x-cpp"
+          "mimeType": "text/x-cpp",
+          "contents": "DQovLyBBcnJheSBzaXplIHNob3duIGluIEtleSBFdmVudHMgZm9yIDYzODYNCg0KI2luY2x1ZGU8c3RyaW5nPg0KDQp2b2lkIGNvdW50KGNvbnN0IHdjaGFyX3QqIHBTb3VyY2UpDQp7DQogIHdjaGFyX3QgYnVmZmVyWzEwXTsgLy8gc2hvdWxkIGluZGljYXRlIGJ1ZmZlciBpcyBhbiBhcnJheSBvZiAxMCBlbGVtZW50cw0KICB3Y3NjcHlfcyhidWZmZXIsc2l6ZW9mKGJ1ZmZlcikscFNvdXJjZSk7DQp9DQo=",
+          "hashes": [
+            {
+              "value": "1A35DDFBC3542EB4EDB8D90D1DBDE237",
+              "algorithm": "md5"
+            },
+            {
+              "value": "999E52279C65D996FBE5C020B8FFCBA6EF16CD73",
+              "algorithm": "sha1"
+            },
+            {
+              "value": "7277AB9FA6C131EEBC60BBD88CA236A4F53525F3F5AE0F5DC8992647DD109246",
+              "algorithm": "sha256"
+            }
+          ]
         }
       },
       "results": [
