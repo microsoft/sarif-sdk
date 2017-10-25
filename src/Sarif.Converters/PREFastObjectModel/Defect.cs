@@ -4,6 +4,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters.PREFastObjectModel
 {
     public class Defect
     {
+        [XmlElement("SFA")]
         public SFA SFA { get; set; }
 
         [XmlElement("DEFECTCODE")]
