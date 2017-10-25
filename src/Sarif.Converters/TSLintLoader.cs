@@ -31,7 +31,17 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         {
             Serializer = serializer ?? throw new ArgumentNullException(nameof(serializer));
         }
-        
+
+        public TSLintLog ReadLog(string input)
+        {
+            return ReadLog(input, Encoding.UTF8);
+        }
+
+        public TSLintLog ReadLog(string input, Encoding encoding)
+        {
+            return ReadLog(new MemoryStream(encoding.GetBytes(input)));
+        }
+
         public TSLintLog ReadLog(Stream input)
         {
             input = input ?? throw new ArgumentNullException(nameof(input));

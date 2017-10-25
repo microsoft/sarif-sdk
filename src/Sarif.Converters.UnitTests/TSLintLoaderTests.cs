@@ -4,10 +4,8 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Text;
 using FluentAssertions;
 using Microsoft.CodeAnalysis.Sarif.Converters.TSLintObjectModel;
-using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Xunit;
 
@@ -20,7 +18,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         {
             TSLintLoader loader = new TSLintLoader();
 
-            Action action = () => loader.ReadLog(null);
+            Action action = () => loader.ReadLog(default(Stream));
             action.ShouldThrow<ArgumentNullException>();
         }
 
@@ -89,7 +87,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
             TSLintLoader loader = new TSLintLoader();
 
-            TSLintLog actualLog = loader.ReadLog(new MemoryStream(Encoding.UTF8.GetBytes(Input)));
+            TSLintLog actualLog = loader.ReadLog(Input);
 
             CompareLogs(actualLog, expectedLog);
         }
@@ -153,24 +151,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 }
             ]";
 
-            JToken expectedToken;
-            using (Stream expectedStream = new MemoryStream(Encoding.UTF8.GetBytes(ExpectedOutput)))
-            using (TextReader textReader = new StreamReader(expectedStream))
-            using (JsonReader jsonReader = new JsonTextReader(textReader))
-            {
-                expectedToken = JToken.ReadFrom(jsonReader);
-            }
+            JToken expectedToken = JToken.Parse(ExpectedOutput);
 
-            JToken actualToken;
-            using (Stream inputStream = new MemoryStream(Encoding.UTF8.GetBytes(Input)))
-            using (TextReader textReader = new StreamReader(inputStream))
-            using (JsonReader jsonReader = new JsonTextReader(textReader))
-            {
-                actualToken = JToken.ReadFrom(jsonReader);
-
-                TSLintLoader loader = new TSLintLoader();
-                actualToken = loader.NormalizeLog(actualToken);
-            }
+            JToken inputToken = JToken.Parse(Input);
+            TSLintLoader loader = new TSLintLoader();
+            JToken actualToken = loader.NormalizeLog(inputToken);
 
             JToken.DeepEquals(expectedToken, actualToken).Should().BeTrue();
         }
