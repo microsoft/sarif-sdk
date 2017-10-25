@@ -39,10 +39,6 @@ namespace Microsoft.Sarif.Viewer.ErrorList
             {
                 logText = File.ReadAllText(filePath);
             }
-            else if (toolFormat.MatchesToolFormat(ToolFormat.PREfast))
-            {
-                logText = ToolFormatConverter.ConvertPREfastToStandardFormat(filePath);
-            }
             else
             {
                 // We have conversion to do

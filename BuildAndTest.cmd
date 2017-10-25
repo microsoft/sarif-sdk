@@ -125,12 +125,12 @@ if "%ERRORLEVEL%" NEQ "0" (
 goto ExitFailed
 )
 
-src\packages\xunit.runner.console.2.2.0\tools\xunit.console.x86.exe bld\bin\Sarif.ValidationTests\AnyCPU_%Configuration%\Sarif.ValidationTests.dll
+src\packages\xunit.runner.console.2.3.0\tools\net452\xunit.console.x86.exe bld\bin\Sarif.ValidationTests\AnyCPU_%Configuration%\Sarif.ValidationTests.dll
 if "%ERRORLEVEL%" NEQ "0" (
 goto ExitFailed
 )
 
-src\packages\xunit.runner.console.2.2.0\tools\xunit.console.x86.exe bld\bin\Sarif.Viewer.VisualStudio.UnitTests\AnyCPU_%Configuration%\Sarif.Viewer.VisualStudio.UnitTests.dll
+src\packages\xunit.runner.console.2.3.0\tools\net452\xunit.console.x86.exe bld\bin\Sarif.Viewer.VisualStudio.UnitTests\AnyCPU_%Configuration%\Sarif.Viewer.VisualStudio.UnitTests.dll
 if "%ERRORLEVEL%" NEQ "0" (
 goto ExitFailed
 )
