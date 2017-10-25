@@ -371,7 +371,7 @@
           }
         }
       },
-      "required": [ "description", "fileChanges" ]
+      "required": [ "fileChanges" ]
     },
     "formattedRuleMessage": {
       "description": "Contains information that can be used to construct a formatted message that describes a result.",
@@ -1025,6 +1025,24 @@
         "architecture": {
           "description": "The hardware architecture for which the run was targeted.",
           "type": "string"
+        },
+
+        "properties": {
+          "description": "Key/value pairs that provide additional information about the run.",
+          "type": "object",
+          "additionalProperties": true,
+          "properties": {
+
+            "tags": {
+              "description": "A set of distinct strings that provide additional information about the run.",
+              "type": "array",
+              "uniqueItems": true,
+              "default": [ ],
+              "items": {
+                "type": "string"
+              }
+            }
+          }
         }
       },
       "required": [ "tool" ]

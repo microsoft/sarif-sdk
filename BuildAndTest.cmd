@@ -1,4 +1,4 @@
-@ECHO off
+@REM @ECHO off
 SETLOCAL
 @REM Uncomment this line to update nuget.exe
 @REM Doing so can break SLN build (which uses nuget.exe to
@@ -65,26 +65,32 @@ goto ExitFailed
 )
 
 msbuild /verbosity:minimal /target:rebuild src\Everything.sln /filelogger /fileloggerparameters:Verbosity=detailed /p:"RunBinSkim=false" /p:"BinSkimVerboseOutput=true"
+if "%ERRORLEVEL%" NEQ "0" (
+goto ExitFailed
+)
+
 set Platform=AnyCPU
 
-if "%ERRORLEVEL%" NEQ "0" (
-goto ExitFailed
-)
-
 @REM Build Nuget packages
-set PackOptions=--configuration %Configuration% --no-build /p:PackageVersion=%Version% /p:Platform=%Platform%
+set PackOptions=--configuration %Configuration% --no-build /p:PackageVersion=%Version% /p:Platform=%Platform% --verbosity normal
 
+echo Starting dotnet pack Sarif.csproj
 dotnet pack .\src\Sarif\Sarif.csproj %PackOptions%
+echo Finished dotnet pack Sarif.csproj
 
 if "%ERRORLEVEL%" NEQ "0" (
 goto ExitFailed
 )
+echo dotnet pack Sarif.csproj SUCCEEDED.
 
+echo Starting dotnet pack Sarif.Converters.csproj
 dotnet pack .\src\Sarif.Converters\Sarif.Converters.csproj %PackOptions%
+echo Finished dotnet pack Sarif.Converters.csproj
 
 if "%ERRORLEVEL%" NEQ "0" (
 goto ExitFailed
 )
+echo dotnet pack Sarif.Converters.csproj SUCCEEDED.
 
 dotnet pack .\src\Sarif.Driver\Sarif.Driver.csproj %PackOptions%
 

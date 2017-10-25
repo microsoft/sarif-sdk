@@ -1,6 +1,6 @@
 ::Build initialization step
 
-@ECHO off
+@REM @ECHO off
 SETLOCAL
 
 ::Restore nuget packages

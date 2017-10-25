@@ -5,6 +5,7 @@ using System;
 using System.CodeDom.Compiler;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
+using Microsoft.CodeAnalysis.Sarif.Readers;
 
 namespace Microsoft.CodeAnalysis.Sarif
 {
@@ -13,7 +14,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// </summary>
     [DataContract]
     [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.49.0.0")]
-    public partial class Run : ISarifNode
+    public partial class Run : PropertyBagHolder, ISarifNode
     {
         public static IEqualityComparer<Run> ValueComparer => RunEqualityComparer.Instance;
 
@@ -110,6 +111,12 @@ namespace Microsoft.CodeAnalysis.Sarif
         public string Architecture { get; set; }
 
         /// <summary>
+        /// Key/value pairs that provide additional information about the run.
+        /// </summary>
+        [DataMember(Name = "properties", IsRequired = false, EmitDefaultValue = false)]
+        internal override IDictionary<string, SerializedPropertyInfo> Properties { get; set; }
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="Run" /> class.
         /// </summary>
         public Run()
@@ -158,9 +165,12 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="architecture">
         /// An initialization value for the <see cref="P: Architecture" /> property.
         /// </param>
-        public Run(Tool tool, Invocation invocation, IDictionary<string, FileData> files, IDictionary<string, LogicalLocation> logicalLocations, IEnumerable<Result> results, IEnumerable<Notification> toolNotifications, IEnumerable<Notification> configurationNotifications, IDictionary<string, Rule> rules, string id, string stableId, string automationId, string baselineId, string architecture)
+        /// <param name="properties">
+        /// An initialization value for the <see cref="P: Properties" /> property.
+        /// </param>
+        public Run(Tool tool, Invocation invocation, IDictionary<string, FileData> files, IDictionary<string, LogicalLocation> logicalLocations, IEnumerable<Result> results, IEnumerable<Notification> toolNotifications, IEnumerable<Notification> configurationNotifications, IDictionary<string, Rule> rules, string id, string stableId, string automationId, string baselineId, string architecture, IDictionary<string, SerializedPropertyInfo> properties)
         {
-            Init(tool, invocation, files, logicalLocations, results, toolNotifications, configurationNotifications, rules, id, stableId, automationId, baselineId, architecture);
+            Init(tool, invocation, files, logicalLocations, results, toolNotifications, configurationNotifications, rules, id, stableId, automationId, baselineId, architecture, properties);
         }
 
         /// <summary>
@@ -179,7 +189,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 throw new ArgumentNullException(nameof(other));
             }
 
-            Init(other.Tool, other.Invocation, other.Files, other.LogicalLocations, other.Results, other.ToolNotifications, other.ConfigurationNotifications, other.Rules, other.Id, other.StableId, other.AutomationId, other.BaselineId, other.Architecture);
+            Init(other.Tool, other.Invocation, other.Files, other.LogicalLocations, other.Results, other.ToolNotifications, other.ConfigurationNotifications, other.Rules, other.Id, other.StableId, other.AutomationId, other.BaselineId, other.Architecture, other.Properties);
         }
 
         ISarifNode ISarifNode.DeepClone()
@@ -200,7 +210,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new Run(this);
         }
 
-        private void Init(Tool tool, Invocation invocation, IDictionary<string, FileData> files, IDictionary<string, LogicalLocation> logicalLocations, IEnumerable<Result> results, IEnumerable<Notification> toolNotifications, IEnumerable<Notification> configurationNotifications, IDictionary<string, Rule> rules, string id, string stableId, string automationId, string baselineId, string architecture)
+        private void Init(Tool tool, Invocation invocation, IDictionary<string, FileData> files, IDictionary<string, LogicalLocation> logicalLocations, IEnumerable<Result> results, IEnumerable<Notification> toolNotifications, IEnumerable<Notification> configurationNotifications, IDictionary<string, Rule> rules, string id, string stableId, string automationId, string baselineId, string architecture, IDictionary<string, SerializedPropertyInfo> properties)
         {
             if (tool != null)
             {
@@ -298,6 +308,10 @@ namespace Microsoft.CodeAnalysis.Sarif
             AutomationId = automationId;
             BaselineId = baselineId;
             Architecture = architecture;
+            if (properties != null)
+            {
+                Properties = new Dictionary<string, SerializedPropertyInfo>(properties);
+            }
         }
     }
 }
