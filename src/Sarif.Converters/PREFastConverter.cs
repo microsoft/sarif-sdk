@@ -1,17 +1,19 @@
-﻿using System.IO;
-using Microsoft.CodeAnalysis.Sarif.Writers;
+﻿// Copyright (c) Microsoft. All rights reserved.
+// Licensed under the MIT license. See LICENSE file in the project root for full license information.
+
 using System;
 using System.Collections.Generic;
-using System.Xml;
+using System.IO;
+using System.Linq;
 using System.Xml.Serialization;
 using Microsoft.CodeAnalysis.Sarif.Converters.PREFastObjectModel;
-using System.Linq;
+using Microsoft.CodeAnalysis.Sarif.Writers;
 
 namespace Microsoft.CodeAnalysis.Sarif.Converters
 {
     public class PREfastConverter : ToolFileConverterBase
     {
-        private Dictionary<string, string> categories = new Dictionary<string, string>
+        private Dictionary<string, string> knownCategories = new Dictionary<string, string>
         {
             { "RULECATEGORY", "ruleCategory" }
         };
@@ -59,9 +61,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 StartLine = defect.SFA.Line
             };
 
-            Uri resultsFileUri = new Uri($"{defect.SFA.FilePath}{defect.SFA.FileName}", UriKind.Relative);
-            PhysicalLocation physicalLocation = new PhysicalLocation(uri: resultsFileUri, uriBaseId: null, region: region);
-            Location location = new Location()
+            var resultsFileUri = new Uri($"{defect.SFA.FilePath}{defect.SFA.FileName}", UriKind.Relative);
+            var physicalLocation = new PhysicalLocation(uri: resultsFileUri, uriBaseId: null, region: region);
+            var location = new Location()
             {
                 ResultFile = physicalLocation,
                 FullyQualifiedLogicalName = defect.Function,
@@ -73,7 +75,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             var result = new Result
             {
                 RuleId = defect.DefectCode,
-                Message = RemoveLegacyNewLine(defect.Description),
+                Message = RemovePREfastNewLine(defect.Description),
                 Locations = new List<Location>()
             };
 
@@ -81,7 +83,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             SetProbability(defect, result);
             SetRank(defect, result);
 
-            ExtractCategories(defect, result);
+            SetCategories(defect, result);
             GenerateCodeFlows(defect, result);
 
             return result;
@@ -114,14 +116,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
             foreach (var sfa in defect.Path.SFAs)
             {
-                var reg = new Region()
+                var region = new Region()
                 {
                     StartColumn = sfa.Column + 1,
                     StartLine = sfa.Line
                 };
 
-                Uri uri = new Uri($"{sfa.FilePath}{sfa.FileName}", UriKind.Relative);
-                PhysicalLocation fileLocation = new PhysicalLocation(uri: uri, uriBaseId: null, region: reg);
+                var uri = new Uri($"{sfa.FilePath}{sfa.FileName}", UriKind.Relative);
+                var fileLocation = new PhysicalLocation(uri: uri, uriBaseId: null, region: region);
                 var annotatedCodeLocation = new AnnotatedCodeLocation
                 {
                     PhysicalLocation = fileLocation,
@@ -157,27 +159,25 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 locations.Add(annotatedCodeLocation);
             }
 
-            var codeFlow = new CodeFlow()
-            {
-                Locations = locations
-            };
-
             result.CodeFlows = new List<CodeFlow>()
             {
-                codeFlow
+                new CodeFlow
+                {
+                    Locations = locations
+                }
             };
         }
 
-        private void ExtractCategories(Defect defect, Result result)
+        private void SetCategories(Defect defect, Result result)
         {
             if (defect.Category != null)
             {
                 foreach (var keyValuePair in defect.Category)
                 {
                     string category = keyValuePair.Key;
-                    if (categories.ContainsKey(category))
+                    if (knownCategories.ContainsKey(category))
                     {
-                        category = categories[category];
+                        category = knownCategories[category];
                     }
 
                     result.SetProperty(category, keyValuePair.Value);
@@ -185,9 +185,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             }
         }
 
-        private string RemoveLegacyNewLine(string content)
+        private string RemovePREfastNewLine(string content)
         {
-            return content.Replace("PREFAST_NEWLINE\n", "");
+            return content.Replace("PREFAST_NEWLINE\n", string.Empty);
         }
     }
 }
