@@ -73,8 +73,26 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         // "fix":[{"innerStart":4429,"innerLength":0,"innerText":"\r\n"}]
         // "fix":[{"innerStart":4429,"innerLength":0,"innerText":"\r\n"},{"innerStart":4429,"innerLength":0,"innerText":"\r\n"}]
         //
+        // The following pattern also occurs, although the most recent version of the TSLint
+        // source code does not appear to support it:
+        //
+        // "fix": {
+        //   "innerRuleName": "no-trailing-whitespace",
+        //   "innerReplacements": [
+        //     {
+        //       "innerStart": 1872,
+        //       "innerLength": 4,
+        //       "innerText": ""
+        //     }
+        //   ]
+        // }
+        //
+        // Lacking any documentation on how to interpret this, we treat any objects
+        // found within the "innerReplacements" array as if they occurred directly
+        // under the "fix" object.
+        //
         // This method is marked internal rather than private for the sake of unit tests.
-        internal JToken NormalizeLog(JToken rootToken)
+    internal JToken NormalizeLog(JToken rootToken)
         {
             if (rootToken is JArray entries)
             {
@@ -126,26 +144,28 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         private static void NormalizeFixProperty(JProperty fixProperty)
         {
             var fixValueToken = fixProperty.Value;
-
-            // If the property value isn't already an array...
-            var fixValueArray = fixValueToken as JArray;
-            if (fixValueArray == null)
+            if (fixValueToken is JObject fixValueObject)
             {
-                var fixValueObject = fixValueToken as JObject;
-                if (fixValueObject == null)
+                JProperty innerReplacementsProperty = fixValueObject.Property("innerReplacements");
+                if (innerReplacementsProperty?.Value is JArray innerReplacementsArray)
                 {
-                    var lineInfo = fixValueToken as IJsonLineInfo;
-                    throw new Exception(
-                        string.Format(
-                            CultureInfo.InvariantCulture,
-                           "({0}, {1}): The value of the 'fix' property should be either a JObject or a JArray, but is a {2}.",
-                           lineInfo.LineNumber,
-                           lineInfo.LinePosition,
-                           fixValueToken.GetType().Name));
+                    fixProperty.Value = innerReplacementsArray;
                 }
-
-                // ... then wrap it in an array.
-                fixProperty.Value = new JArray(fixValueToken);
+                else
+                {
+                    fixProperty.Value = new JArray(fixValueToken);
+                }
+            }
+            else if (!(fixValueToken is JArray))
+            {
+                var lineInfo = fixValueToken as IJsonLineInfo;
+                throw new Exception(
+                    string.Format(
+                        CultureInfo.InvariantCulture,
+                        "({0}, {1}): The value of the 'fix' property should be either a JObject or a JArray, but is a {2}.",
+                        lineInfo.LineNumber,
+                        lineInfo.LinePosition,
+                        fixValueToken.GetType().Name));
             }
         }
     }

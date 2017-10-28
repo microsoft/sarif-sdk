@@ -160,6 +160,73 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             JToken.DeepEquals(expectedToken, actualToken).Should().BeTrue();
         }
 
+        [Fact]
+        public void TSLintLoader_NormalizeLog_HandlesInnerReplacements()
+        {
+            const string Input = @"
+            [
+                {
+                    ""endPosition"": {
+                        ""character"": 4,
+                        ""line"": 56,
+                        ""position"": 1876
+                    },
+                    ""failure"": ""trailing whitespace"",
+                    ""fix"": {
+                        ""innerRuleName"": ""no-trailing-whitespace"",
+                        ""innerReplacements"": [
+                            {
+                                ""innerStart"": 1872,
+                                ""innerLength"": 4,
+                                ""innerText"": """"
+                            }
+                        ]
+                    },
+                    ""name"": ""SecureApp/ts/index.d.ts"",
+                    ""ruleName"": ""no-trailing-whitespace"",
+                    ""startPosition"": {
+                        ""character"": 0,
+                        ""line"": 56,
+                        ""position"": 1872
+                    }
+                },
+            ]";
+
+            const string ExpectedOutput = @"
+            [
+                {
+                    ""endPosition"": {
+                        ""character"": 4,
+                        ""line"": 56,
+                        ""position"": 1876
+                    },
+                    ""failure"": ""trailing whitespace"",
+                    ""fix"": [
+                        {
+                            ""innerStart"": 1872,
+                            ""innerLength"": 4,
+                            ""innerText"": """"
+                        }
+                    ],
+                    ""name"": ""SecureApp/ts/index.d.ts"",
+                    ""ruleName"": ""no-trailing-whitespace"",
+                    ""startPosition"": {
+                        ""character"": 0,
+                        ""line"": 56,
+                        ""position"": 1872
+                    }
+                },
+            ]";
+
+            JToken expectedToken = JToken.Parse(ExpectedOutput);
+
+            JToken inputToken = JToken.Parse(Input);
+            TSLintLoader loader = new TSLintLoader();
+            JToken actualToken = loader.NormalizeLog(inputToken);
+
+            JToken.DeepEquals(expectedToken, actualToken).Should().BeTrue();
+        }
+
         private static void CompareLogs(TSLintLog actualLog, TSLintLog expectedLog)
         {
             actualLog.Count.Should().Be(expectedLog.Count);
