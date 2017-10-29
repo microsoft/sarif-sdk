@@ -1,4 +1,4 @@
-@REM @ECHO off
+@ECHO off
 SETLOCAL
 @REM Uncomment this line to update nuget.exe
 @REM Doing so can break SLN build (which uses nuget.exe to
@@ -64,6 +64,11 @@ if "%ERRORLEVEL%" NEQ "0" (
 goto ExitFailed
 )
 
+msbuild /verbosity:minimal /target:BuildObjectModel src\Sarif\Sarif.csproj /fileloggerparameters:Verbosity=detailed
+if "%ERRORLEVEL%" NEQ "0" (
+goto ExitFailed
+)
+
 msbuild /verbosity:minimal /target:rebuild src\Everything.sln /filelogger /fileloggerparameters:Verbosity=detailed /p:"RunBinSkim=false" /p:"BinSkimVerboseOutput=true"
 if "%ERRORLEVEL%" NEQ "0" (
 goto ExitFailed
@@ -72,34 +77,24 @@ goto ExitFailed
 set Platform=AnyCPU
 
 @REM Build Nuget packages
-set PackOptions=--configuration %Configuration% --no-build /p:PackageVersion=%Version% /p:Platform=%Platform% --verbosity normal
+set PackOptions=--configuration %Configuration% --no-build /p:PackageVersion=%Version% /p:Platform=%Platform%
 
-echo Starting dotnet pack Sarif.csproj
 dotnet pack .\src\Sarif\Sarif.csproj %PackOptions%
-echo Finished dotnet pack Sarif.csproj
-
 if "%ERRORLEVEL%" NEQ "0" (
 goto ExitFailed
 )
-echo dotnet pack Sarif.csproj SUCCEEDED.
 
-echo Starting dotnet pack Sarif.Converters.csproj
 dotnet pack .\src\Sarif.Converters\Sarif.Converters.csproj %PackOptions%
-echo Finished dotnet pack Sarif.Converters.csproj
-
 if "%ERRORLEVEL%" NEQ "0" (
 goto ExitFailed
 )
-echo dotnet pack Sarif.Converters.csproj SUCCEEDED.
 
 dotnet pack .\src\Sarif.Driver\Sarif.Driver.csproj %PackOptions%
-
 if "%ERRORLEVEL%" NEQ "0" (
 goto ExitFailed
 )
 
 dotnet pack .\src\Sarif.Multitool\Sarif.Multitool.csproj %PackOptions%
-
 if "%ERRORLEVEL%" NEQ "0" (
 goto ExitFailed
 )

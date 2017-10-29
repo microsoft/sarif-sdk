@@ -27,7 +27,7 @@
   This target runs every build. It runs the grammar generator (if necessary) and injects
   the outputs thereof into the C# build.
   -->
-  <Target Name="BuildAndInjectObjectModel" BeforeTargets="Compile">
+  <Target Name="BuildAndInjectObjectModel">
     <!-- Build the object model if necessary. -->
     <CallTarget Targets="BuildObjectModel" />
     
@@ -52,12 +52,5 @@
 
     <Copy SourceFiles="@(_NotYetGeneratedFiles)"		
             DestinationFolder="$(_ObjectModelOutputDirectory)" />
-
-    <ItemGroup>
-      <!-- FileWrites are the set of files that get deleted on clean. -->
-      <FileWrites Include="$(_ObjectModelOutputDirectory)\*.cs" />
-      <!-- Compile are the set of files that go into the C# build. -->
-      <Compile Include="$(_ObjectModelOutputDirectory)\*.cs" />
-    </ItemGroup>
   </Target>
 </Project>
