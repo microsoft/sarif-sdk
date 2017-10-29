@@ -24,8 +24,8 @@
     <Message Text="Generated classes from @(JsonSchemaFile) -> $(_ObjectModelOutputDirectory)"/>
   </Target>
   <!--
-  This target runs every build. It runs the grammar generator (if necessary) and injects
-  the outputs thereof into the C# build.
+  This target runs every build. It regenerates the SARIF object model classes
+  from the JSON schema.
   -->
   <Target Name="BuildAndInjectObjectModel">
     <!-- Build the object model if necessary. -->

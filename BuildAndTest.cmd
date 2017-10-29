@@ -64,7 +64,7 @@ if "%ERRORLEVEL%" NEQ "0" (
 goto ExitFailed
 )
 
-msbuild /verbosity:minimal /target:BuildObjectModel src\Sarif\Sarif.csproj /fileloggerparameters:Verbosity=detailed
+msbuild /verbosity:minimal /target:BuildAndInjectObjectModel src\Sarif\Sarif.csproj /fileloggerparameters:Verbosity=detailed
 if "%ERRORLEVEL%" NEQ "0" (
 goto ExitFailed
 )
