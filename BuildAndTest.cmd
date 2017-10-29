@@ -64,11 +64,6 @@ if "%ERRORLEVEL%" NEQ "0" (
 goto ExitFailed
 )
 
-msbuild /verbosity:minimal /target:BuildAndInjectObjectModel src\Sarif\Sarif.csproj /fileloggerparameters:Verbosity=detailed
-if "%ERRORLEVEL%" NEQ "0" (
-goto ExitFailed
-)
-
 msbuild /verbosity:minimal /target:rebuild src\Everything.sln /filelogger /fileloggerparameters:Verbosity=detailed /p:"RunBinSkim=false" /p:"BinSkimVerboseOutput=true"
 if "%ERRORLEVEL%" NEQ "0" (
 goto ExitFailed
