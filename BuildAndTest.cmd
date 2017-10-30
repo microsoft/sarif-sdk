@@ -65,35 +65,31 @@ goto ExitFailed
 )
 
 msbuild /verbosity:minimal /target:rebuild src\Everything.sln /filelogger /fileloggerparameters:Verbosity=detailed /p:"RunBinSkim=false" /p:"BinSkimVerboseOutput=true"
-set Platform=AnyCPU
-
 if "%ERRORLEVEL%" NEQ "0" (
 goto ExitFailed
 )
+
+set Platform=AnyCPU
 
 @REM Build Nuget packages
 set PackOptions=--configuration %Configuration% --no-build /p:PackageVersion=%Version% /p:Platform=%Platform%
 
 dotnet pack .\src\Sarif\Sarif.csproj %PackOptions%
-
 if "%ERRORLEVEL%" NEQ "0" (
 goto ExitFailed
 )
 
 dotnet pack .\src\Sarif.Converters\Sarif.Converters.csproj %PackOptions%
-
 if "%ERRORLEVEL%" NEQ "0" (
 goto ExitFailed
 )
 
 dotnet pack .\src\Sarif.Driver\Sarif.Driver.csproj %PackOptions%
-
 if "%ERRORLEVEL%" NEQ "0" (
 goto ExitFailed
 )
 
 dotnet pack .\src\Sarif.Multitool\Sarif.Multitool.csproj %PackOptions%
-
 if "%ERRORLEVEL%" NEQ "0" (
 goto ExitFailed
 )

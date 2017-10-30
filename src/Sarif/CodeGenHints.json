@@ -365,6 +365,16 @@
       "kind": "DictionaryHint"
     }
   ],
+  "run": [
+    {
+      "kind": "BaseTypeHint",
+      "arguments": {
+        "baseTypeNames": [
+          "PropertyBagHolder"
+        ]
+      }
+    }
+  ],
   "Run.Files": [
     {
       "kind": "DictionaryHint"

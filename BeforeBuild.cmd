@@ -10,7 +10,14 @@ SETLOCAL
 dotnet restore src\Everything.sln --packages src\packages
 
 if "%ERRORLEVEL%" NEQ "0" (
-echo nuget restore failed
+echo nuget restore failed.
+goto ExitFailed
+)
+
+:: Generate the SARIF object model classes from the SARIF JSON schema.
+msbuild /verbosity:minimal /target:BuildAndInjectObjectModel src\Sarif\Sarif.csproj /fileloggerparameters:Verbosity=detailed
+if "%ERRORLEVEL%" NEQ "0" (
+echo SARIF object model generation failed.
 goto ExitFailed
 )
 
