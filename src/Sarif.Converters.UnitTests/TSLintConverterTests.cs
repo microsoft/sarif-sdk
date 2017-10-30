@@ -103,7 +103,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             {
                 new Fix()
                 {
-                    Description = string.Empty,
                     FileChanges = new List<FileChange>()
                     {
                         new FileChange()
