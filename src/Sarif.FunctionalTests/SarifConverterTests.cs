@@ -16,6 +16,7 @@ using Microsoft.CodeAnalysis.Sarif.Writers;
 using Newtonsoft.Json;
 
 using Xunit;
+using Newtonsoft.Json.Linq;
 
 namespace Microsoft.CodeAnalysis.Sarif.Converters
 {
@@ -94,7 +95,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             string testDirectory = Path.Combine(TestDirectory, sarifComparatorFileFolder);
             string generatedSarif = File.ReadAllText(Directory.GetFiles(testDirectory, "generated.sarif")[0]);
             string expectedSarif = File.ReadAllText(Directory.GetFiles(testDirectory, "expected.sarif")[0]);
-            CanGeneratedSarifBeDeserializedToExpectedSarif(generatedSarif, expectedSarif).Should().Be(false);
+            CanGeneratedSarifBeDeserializedToExpectedSarif(generatedSarif, expectedSarif).Should().Be(true);
         }
 
         [Fact]
@@ -131,9 +132,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
         private bool CanGeneratedSarifBeDeserializedToExpectedSarif(string generatedSarif, string expectedSarif)
         {
-            if (expectedSarif != generatedSarif)
-                return false;
-
             JsonSerializerSettings settings = new JsonSerializerSettings()
             {
                 ContractResolver = SarifContractResolver.Instance,
@@ -145,7 +143,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
             generatedSarif = JsonConvert.SerializeObject(actualLog, settings);
 
-            return expectedSarif == generatedSarif;            
+            JToken generatedToken = JToken.Parse(generatedSarif);
+            JToken expectedToken = JToken.Parse(expectedSarif);
+
+            return JToken.DeepEquals(generatedToken, expectedToken);
         }
 
         private void RunConverter(StringBuilder sb, string toolFormat, string inputFileName)
