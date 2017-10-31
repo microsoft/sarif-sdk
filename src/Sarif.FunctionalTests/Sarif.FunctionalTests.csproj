@@ -1633,6 +1633,18 @@
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>isrroutine_bug1.cs</LastGenOutput>
     </None>
+    <None Update="ConverterTestData\TestSarifComparator\NotPrettified\expected.sarif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ConverterTestData\TestSarifComparator\NotPrettified\generated.sarif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ConverterTestData\TestSarifComparator\Prettified\expected.sarif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ConverterTestData\TestSarifComparator\Prettified\generated.sarif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <Target Name="CopyFilesToOutput" AfterTargets="Build">
     <ItemGroup>

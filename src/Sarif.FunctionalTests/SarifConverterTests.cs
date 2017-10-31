@@ -77,6 +77,32 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             BatchRunConverter(ToolFormat.PREfast);
         }
 
+        [Fact]
+        public void ValidateDeserializationAndPrettifiedSarifStringComparisionLogic()
+        {
+            string sarifComparatorFileFolder = "TestSarifComparator/Prettified";            
+            string testDirectory = Path.Combine(TestDirectory, sarifComparatorFileFolder);
+            string generatedSarif = File.ReadAllText(Directory.GetFiles(testDirectory, "generated.sarif")[0]);
+            string expectedSarif = File.ReadAllText(Directory.GetFiles(testDirectory, "expected.sarif")[0]);
+            CanGeneratedSarifBeDeserializedToExpectedSarif(generatedSarif, expectedSarif).Should().Be(true);
+        }
+
+        [Fact]
+        public void ValidateDeserializationAndNotPrettifiedSarifStringComparisionLogic()
+        {
+            string sarifComparatorFileFolder = "TestSarifComparator/NotPrettified";
+            string testDirectory = Path.Combine(TestDirectory, sarifComparatorFileFolder);
+            string generatedSarif = File.ReadAllText(Directory.GetFiles(testDirectory, "generated.sarif")[0]);
+            string expectedSarif = File.ReadAllText(Directory.GetFiles(testDirectory, "expected.sarif")[0]);
+            CanGeneratedSarifBeDeserializedToExpectedSarif(generatedSarif, expectedSarif).Should().Be(false);
+        }
+
+        [Fact]
+        public void ValidateDeserializationAndJsonStringComparisionLogicFail()
+        {
+            //CanGeneratedSarifBeDeserializedToExpectedSarif(generatedSarif, expectedSarif).Should().Be(true);
+        }    
+
         private readonly ToolFormatConverter converter = new ToolFormatConverter();
 
         private void BatchRunConverter(string tool, string inputFilter = "*.xml")
@@ -103,6 +129,25 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             return sb.ToString();
         }
 
+        private bool CanGeneratedSarifBeDeserializedToExpectedSarif(string generatedSarif, string expectedSarif)
+        {
+            if (expectedSarif != generatedSarif)
+                return false;
+
+            JsonSerializerSettings settings = new JsonSerializerSettings()
+            {
+                ContractResolver = SarifContractResolver.Instance,
+                Formatting = Formatting.Indented
+            };
+            
+            // Make sure we can successfully deserialize what was just generated
+            SarifLog actualLog = JsonConvert.DeserializeObject<SarifLog>(generatedSarif, settings);
+
+            generatedSarif = JsonConvert.SerializeObject(actualLog, settings);
+
+            return expectedSarif == generatedSarif;            
+        }
+
         private void RunConverter(StringBuilder sb, string toolFormat, string inputFileName)
         {
             string expectedFileName = inputFileName + ".sarif";
@@ -121,29 +166,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
             string expectedSarif = File.ReadAllText(expectedFileName);
             string actualSarif = File.ReadAllText(generatedFileName);
-
-            if (expectedSarif == actualSarif)
+            
+            if (CanGeneratedSarifBeDeserializedToExpectedSarif(actualSarif, expectedSarif))
             {
-                JsonSerializerSettings settings = new JsonSerializerSettings()
-                {
-                    ContractResolver = SarifContractResolver.Instance,
-                    Formatting = Formatting.Indented
-                };
-
-                // Make sure we can successfully deserialize what was just generated
-                SarifLog actualLog = JsonConvert.DeserializeObject<SarifLog>(actualSarif, settings);
-
-                actualSarif = JsonConvert.SerializeObject(actualLog, settings);
-
-                bool success = expectedSarif == actualSarif;
-                if (success)
-                {
-                    return;
-                }
-                else
-                {
-                    File.WriteAllText(generatedFileName, actualSarif);
-                }
+                return;
+            }
+            else
+            {
+                File.WriteAllText(generatedFileName, actualSarif);
             }
 
             string errorMessage = "The output of the {0} converter did not match for input {1}.";
