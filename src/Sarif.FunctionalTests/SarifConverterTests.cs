@@ -16,6 +16,7 @@ using Microsoft.CodeAnalysis.Sarif.Writers;
 using Newtonsoft.Json;
 
 using Xunit;
+using Newtonsoft.Json.Linq;
 
 namespace Microsoft.CodeAnalysis.Sarif.Converters
 {
@@ -122,34 +123,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             string expectedSarif = File.ReadAllText(expectedFileName);
             string actualSarif = File.ReadAllText(generatedFileName);
 
-            if (expectedSarif == actualSarif)
+            if (!AreEquivalentSarifLogs(actualSarif, expectedSarif))
             {
-                JsonSerializerSettings settings = new JsonSerializerSettings()
-                {
-                    ContractResolver = SarifContractResolver.Instance,
-                    Formatting = Formatting.Indented
-                };
+                File.WriteAllText(generatedFileName, actualSarif);
 
-                // Make sure we can successfully deserialize what was just generated
-                SarifLog actualLog = JsonConvert.DeserializeObject<SarifLog>(actualSarif, settings);
-
-                actualSarif = JsonConvert.SerializeObject(actualLog, settings);
-
-                bool success = expectedSarif == actualSarif;
-                if (success)
-                {
-                    return;
-                }
-                else
-                {
-                    File.WriteAllText(generatedFileName, actualSarif);
-                }
+                string errorMessage = "The output of the {0} converter did not match for input {1}.";
+                sb.AppendLine(string.Format(CultureInfo.CurrentCulture, errorMessage, toolFormat, inputFileName));
+                sb.AppendLine("Check differences with:");
+                sb.AppendLine(GenerateDiffCommand(expectedFileName, generatedFileName));
             }
-
-            string errorMessage = "The output of the {0} converter did not match for input {1}.";
-            sb.AppendLine(string.Format(CultureInfo.CurrentCulture, errorMessage, toolFormat, inputFileName));
-            sb.AppendLine("Check differences with:");
-            sb.AppendLine(GenerateDiffCommand(expectedFileName, generatedFileName));
         }
 
         private string GenerateDiffCommand(string expected, string actual)
@@ -164,6 +146,25 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             }
 
             return String.Format(CultureInfo.InvariantCulture, "tfsodd \"{0}\" \"{1}\"", expected, actual);
+        }
+
+        private static bool AreEquivalentSarifLogs(string actualSarif, string expectedSarif)
+        {
+            JsonSerializerSettings settings = new JsonSerializerSettings()
+            {
+                ContractResolver = SarifContractResolver.Instance,
+                Formatting = Formatting.Indented
+            };
+
+            // Make sure we can successfully deserialize what was just generated
+            SarifLog actualLog = JsonConvert.DeserializeObject<SarifLog>(actualSarif, settings);
+
+            actualSarif = JsonConvert.SerializeObject(actualLog, settings);
+
+            JToken generatedToken = JToken.Parse(actualSarif);
+            JToken expectedToken = JToken.Parse(expectedSarif);
+
+            return JToken.DeepEquals(generatedToken, expectedToken);
         }
 
         private static string TryFindBeyondCompare()
