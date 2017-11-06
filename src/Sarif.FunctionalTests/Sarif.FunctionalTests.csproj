@@ -1608,6 +1608,12 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <None Update="ConverterTestData\Pylint\PyLint-01.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ConverterTestData\Pylint\PyLint-01.json.sarif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Update="ConverterTestData\StaticDriverVerifier\cancelspinlock_bug1.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
     </None>

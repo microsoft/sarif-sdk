@@ -24,13 +24,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         private static Dictionary<string, Lazy<ToolFileConverterBase>> CreateBuiltInConverters()
         {
             var result = new Dictionary<string, Lazy<ToolFileConverterBase>>();
-            CreateConverterRecord<PREfastConverter>(result, ToolFormat.PREfast);
             CreateConverterRecord<AndroidStudioConverter>(result, ToolFormat.AndroidStudio);
             CreateConverterRecord<CppCheckConverter>(result, ToolFormat.CppCheck);
             CreateConverterRecord<ClangAnalyzerConverter>(result, ToolFormat.ClangAnalyzer);
             CreateConverterRecord<FortifyConverter>(result, ToolFormat.Fortify);
             CreateConverterRecord<FortifyFprConverter>(result, ToolFormat.FortifyFpr);
             CreateConverterRecord<FxCopConverter>(result, ToolFormat.FxCop);
+            CreateConverterRecord<PREfastConverter>(result, ToolFormat.PREfast);
+            CreateConverterRecord<PylintConverter>(result, ToolFormat.Pylint);
             CreateConverterRecord<SemmleQLConverter>(result, ToolFormat.SemmleQL);
             CreateConverterRecord<StaticDriverVerifierConverter>(result, ToolFormat.StaticDriverVerifier);
             CreateConverterRecord<TSLintConverter>(result, ToolFormat.TSLint);

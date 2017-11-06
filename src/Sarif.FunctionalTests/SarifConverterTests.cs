@@ -14,9 +14,9 @@ using FluentAssertions;
 using Microsoft.CodeAnalysis.Sarif.Readers;
 using Microsoft.CodeAnalysis.Sarif.Writers;
 using Newtonsoft.Json;
-
-using Xunit;
 using Newtonsoft.Json.Linq;
+using Xunit;
+
 
 namespace Microsoft.CodeAnalysis.Sarif.Converters
 {
@@ -76,6 +76,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         public void PREfastConverter_EndToEnd()
         {
             BatchRunConverter(ToolFormat.PREfast);
+        }
+
+        [Fact]
+        public void PyLintConverter_EndToEnd()
+        {
+            BatchRunConverter(ToolFormat.Pylint, "*.json");
         }
 
         private readonly ToolFormatConverter converter = new ToolFormatConverter();

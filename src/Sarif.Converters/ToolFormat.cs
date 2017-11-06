@@ -30,13 +30,16 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         /// <summary>PREfast's file format.</summary>
         public const string PREfast = nameof(PREfast);
 
+        /// <summary>Pylint file format.</summary>
+        public const string Pylint = nameof(Pylint);
+
         /// <summary>Semmle's file format.</summary>
         public const string SemmleQL = nameof(SemmleQL);
 
-        /// <summary>TSLint's file format.</summary>
-        public const string TSLint = nameof(TSLint);
-
         /// <summary>Static Driver Verifier's file format.</summary>
         public const string StaticDriverVerifier = nameof(StaticDriverVerifier);
+
+        /// <summary>TSLint's file format.</summary>
+        public const string TSLint = nameof(TSLint);
     }
 }

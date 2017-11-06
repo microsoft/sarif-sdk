@@ -32,6 +32,7 @@ namespace Microsoft.Sarif.Viewer
         public const int OpenAndroidStudioFileCommandId = 0x0107;
         public const int OpenSemmleFileCommandId = 0x0108;
         public const int OpenTSLintFileCommand = 0x0109;
+        public const int OpenPylintFileCommand = 0x010A;
 
         private static int[] s_commands = new int[]
         {
@@ -44,7 +45,8 @@ namespace Microsoft.Sarif.Viewer
             OpenClangFileCommandId,
             OpenAndroidStudioFileCommandId,
             OpenSemmleFileCommandId,
-            OpenTSLintFileCommand
+            OpenTSLintFileCommand,
+            OpenPylintFileCommand
         };
 
         /// <summary>
@@ -217,6 +219,13 @@ namespace Microsoft.Sarif.Viewer
                         toolFormat = ToolFormat.SemmleQL;
                         title = "Open Semmle QL CSV log file";
                         filter = "Semmle QL log files (*.csv)|*.csv";
+                        break;
+                    }
+                    case OpenPylintFileCommand:
+                    {
+                        toolFormat = ToolFormat.Pylint;
+                        title = "Open Pylint JSON log file";
+                        filter = "Pylint log files (*.json)|*.json";
                         break;
                     }
                     case OpenTSLintFileCommand:
