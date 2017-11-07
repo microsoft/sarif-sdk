@@ -63,6 +63,8 @@ namespace Microsoft.Sarif.Viewer.ErrorList
 
             log = JsonConvert.DeserializeObject<SarifLog>(logText, settings);
             ProcessSarifLog(log, filePath, solution);
+
+            SarifTableDataSource.Instance.BringToFront();
         }
 
         internal static void ProcessSarifLog(SarifLog sarifLog, string logFilePath, Solution solution)
