@@ -34,9 +34,9 @@ namespace Sarif.Converters.UnitTests
             }
         ]";
 
-        private PylintLogEntry CreateTestPylintLog()
+        private PylintLogEntry CreateTestLogEntry()
         {
-            PylintLogEntry PylintLogEntry = new PylintLogEntry()
+            return new PylintLogEntry
             {
                 Type = "convention",
                 ModuleName = "test",
@@ -48,15 +48,13 @@ namespace Sarif.Converters.UnitTests
                 Message = "testMessage",
                 MessageId = "C0412"
             };
-
-            return PylintLogEntry;
         }
 
-        private PylintLog CreateTestPylintLogList()
+        private PylintLog CreateTestLog()
         {
-            return new PylintLog()
+            return new PylintLog
             {
-                CreateTestPylintLog()
+                CreateTestLogEntry()
             };
         }
 
@@ -143,7 +141,7 @@ namespace Sarif.Converters.UnitTests
         public void PylintConverter_CreateResult_CreatesExpectedResult()
         {
             var converter = new PylintConverter();
-            PylintLogEntry PylintLog = CreateTestPylintLog();
+            PylintLogEntry PylintLog = CreateTestLogEntry();
 
             Result actualResult = converter.CreateResult(PylintLog);
             Result expectedResult = CreateResult();

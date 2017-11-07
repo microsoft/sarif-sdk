@@ -17,7 +17,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             input = input ?? throw new ArgumentNullException(nameof(input));
             output = output ?? throw new ArgumentNullException(nameof(output));
 
-            PylintLog PylintDefects = PylintLogReader.ReadLog(input);
+            PylintLog log = PylintLogReader.ReadLog(input);
 
             Tool tool = new Tool
             {
@@ -29,7 +29,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
             var results = new List<Result>();
 
-            foreach (PylintLogEntry entry in PylintDefects)
+            foreach (PylintLogEntry entry in log)
             {
                 results.Add(CreateResult(entry));
             }
@@ -51,7 +51,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         {
             defect = defect ?? throw new ArgumentNullException(nameof(defect));
 
-            Result result = new Result()
+            Result result = new Result
             {
                 RuleId = $"{defect.MessageId}({defect.Symbol})",
                 Message = defect.Message
@@ -82,12 +82,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             var fileUri = new Uri($"{defect.FilePath}", UriKind.RelativeOrAbsolute);
             var physicalLocation = new PhysicalLocation(uri: fileUri, uriBaseId: null, region: region);
 
-            var location = new Location()
+            var location = new Location
             {
                 AnalysisTarget = physicalLocation
             };
 
-            result.Locations = new List<Location>()
+            result.Locations = new List<Location>
             {
                 location
             };

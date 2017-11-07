@@ -1,4 +1,6 @@
-﻿using System;
+﻿// Copyright (c) Microsoft. All rights reserved.
+// Licensed under the MIT license. See LICENSE file in the project root for full license information.
+
 using System.IO;
 using System.Text;
 using Newtonsoft.Json;
@@ -19,14 +21,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters.PylintObjectModel
 
         public static PylintLog ReadLog(Stream input)
         {
-            string PylintText;
+            string pylintText;
 
             using (TextReader streamReader = new StreamReader(input))
             {
-                PylintText = streamReader.ReadToEnd();
+                pylintText = streamReader.ReadToEnd();
             }
 
-            return JsonConvert.DeserializeObject<PylintLog>(PylintText);
+            return JsonConvert.DeserializeObject<PylintLog>(pylintText);
         }
     }
 }
