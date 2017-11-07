@@ -1,5 +1,5 @@
-﻿// Copyright (c) Microsoft. All rights reserved. 
-// Licensed under the MIT license. See LICENSE file in the project root for full license information. 
+﻿// Copyright (c) Microsoft. All rights reserved.
+// Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using System;
 using System.Collections.Generic;
@@ -8,12 +8,10 @@ using System.IO;
 using System.Net;
 using System.Runtime.InteropServices;
 using System.Windows;
-using System.Windows.Input;
 
 using Microsoft.CodeAnalysis.Sarif;
 using Microsoft.Sarif.Viewer.Models;
 using Microsoft.VisualStudio.Shell.Interop;
-using Microsoft.Win32;
 
 namespace Microsoft.Sarif.Viewer
 {
@@ -40,8 +38,20 @@ namespace Microsoft.Sarif.Viewer
         private IList<SarifErrorListItem> _sarifErrors = new List<SarifErrorListItem>();
         private IVsRunningDocumentTable _runningDocTable;
 
-        private CodeAnalysisResultManager()
+        private readonly IFileSystem _fileSystem;
+        private readonly IKeyboard _keyboard;
+        private readonly ICommonDialogFactory _commonDialogFactory;
+
+        // This ctor is internal rather than private for unit test purposes.
+        internal CodeAnalysisResultManager(
+            IFileSystem fileSystem,
+            IKeyboard keyboard,
+            ICommonDialogFactory commonDialogFactory)
         {
+            _fileSystem = fileSystem;
+            _keyboard = keyboard;
+            _commonDialogFactory = commonDialogFactory;
+
             this.SarifErrors = new List<SarifErrorListItem>();
             _remappedUriBasePaths = new Dictionary<string, Uri>();
             _remappedPathPrefixes = new List<Tuple<string, string>>();
@@ -68,7 +78,10 @@ namespace Microsoft.Sarif.Viewer
             }
         }
 
-        public static CodeAnalysisResultManager Instance = new CodeAnalysisResultManager();
+        public static CodeAnalysisResultManager Instance = new CodeAnalysisResultManager(
+            new FileSystem(),
+            new RealKeyboard(),
+            new CommonDialogFactory());
 
         public IList<SarifErrorListItem> SarifErrors
         {
@@ -314,12 +327,12 @@ namespace Microsoft.Sarif.Viewer
             string directory = Path.GetDirectoryName(finalPath);
             Directory.CreateDirectory(directory);
             
-            if (!File.Exists(finalPath))
+            if (!_fileSystem.FileExists(finalPath))
             {
                 string contents = fileData.GetContents();
-                File.WriteAllText(finalPath, contents);
+                _fileSystem.WriteAllText(finalPath, contents);
                 // File should be readonly, because it is embedded.
-                File.SetAttributes(finalPath, FileAttributes.ReadOnly);
+                _fileSystem.SetAttributes(finalPath, FileAttributes.ReadOnly);
             }
 
             if (!FileDetails.ContainsKey(finalPath))
@@ -345,7 +358,7 @@ namespace Microsoft.Sarif.Viewer
             string destinationDirectory = Path.GetDirectoryName(destinationFile);
             Directory.CreateDirectory(destinationDirectory);
 
-            if (!File.Exists(destinationFile))
+            if (!_fileSystem.FileExists(destinationFile))
             {
                 using (WebClient client = new WebClient())
                 {
@@ -381,7 +394,7 @@ namespace Microsoft.Sarif.Viewer
             foreach (Tuple<string, string> remapping in _remappedPathPrefixes)
             {
                 string remapped = fileName.Replace(remapping.Item1, remapping.Item2);
-                if (File.Exists(remapped))
+                if (_fileSystem.FileExists(remapped))
                 {
                     return remapped;
                 }
@@ -392,9 +405,9 @@ namespace Microsoft.Sarif.Viewer
             // (because the selection event relies on the TreeViewItem focus.)
             // We'll save the element which currently has focus and then restore
             // focus after the OpenFileDialog is closed.
-            UIElement elementWithFocus = Keyboard.FocusedElement as UIElement;
+            var elementWithFocus = _keyboard.FocusedElement as UIElement;
             
-            OpenFileDialog openFileDialog = new OpenFileDialog();
+            IOpenFileDialog openFileDialog = _commonDialogFactory.CreateOpenFileDialog();
 
             string fullPath = Path.GetFullPath(fileName);
             string shortName = Path.GetFileName(fullPath);
