@@ -1,6 +1,7 @@
 ﻿// Copyright (c) Microsoft. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
+using System.IO;
 using System.Text;
 
 namespace Microsoft.CodeAnalysis.Sarif
@@ -86,5 +87,28 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// A string containing all text in the file.
         /// </returns>
         string ReadAllText(string path, Encoding encoding);
+
+        /// <summary>
+        /// Creates a new file, writes the specified string to the file, and then closes the file.
+        /// If the target file already exists, it is overwritten.
+        /// </summary>
+        /// <param name="path">
+        /// The file to write to.
+        /// </param>
+        /// <param name="contents">
+        /// The string to write to the file.
+        /// </param>
+        void WriteAllText(string path, string contents);
+
+        /// <summary>
+        /// Sets the specified <see cref="FileAttributes"/> of the file on the specified path.
+        /// </summary>
+        /// <param name="path">
+        /// The path to the file.
+        /// </param>
+        /// <param name="fileAttributes">
+        /// A bitwise combination of the enumeration values.
+        /// </param>
+        void SetAttributes(string path, FileAttributes fileAttributes);
     }
 }
