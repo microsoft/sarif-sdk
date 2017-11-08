@@ -56,6 +56,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CodeAnalysisResultManagerTests.cs" />
     <Compile Include="ErrorList\MultipleRunsPerSarifTests.cs" />
     <Compile Include="ErrorList\SarifErrorListItemTests.cs" />
     <Compile Include="ErrorList\SarifFileWithContentsTests.cs" />

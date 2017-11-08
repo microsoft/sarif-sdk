@@ -369,7 +369,8 @@ namespace Microsoft.Sarif.Viewer
             return destinationFile;
         }
 
-        public string GetRebaselinedFileName(string uriBaseId, string fileName)
+        // Internal rather than private for unit testability.
+        internal string GetRebaselinedFileName(string uriBaseId, string fileName)
         {
             Uri relativeUri = null;
 
@@ -671,6 +672,12 @@ namespace Microsoft.Sarif.Viewer
             {
                 Directory.Delete(path, true);
             }
+        }
+
+        // Expose the path prefix remappings to unit tests.
+        internal Tuple<string, string>[] GetRemappedPathPrefixes()
+        {
+            return _remappedPathPrefixes.ToArray();
         }
     }
 }
