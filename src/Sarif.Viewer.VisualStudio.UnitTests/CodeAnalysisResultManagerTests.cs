@@ -158,40 +158,5 @@ namespace Microsoft.Sarif.Viewer.VisualStudio.UnitTests
             Tuple<string, string>[] remappedPathPrefixes = target.GetRemappedPathPrefixes();
             remappedPathPrefixes.Should().BeEmpty();
         }
-
-        internal class FakeKeyboard : IKeyboard
-        {
-            public IInputElement FocusedElement => null;
-        }
-
-        internal class FakeCommonFileDialogFactory : ICommonDialogFactory
-        {
-            // The object which the CreateOpenFileDialog method should return.
-            internal FakeOpenFileDialog FakeOpenFileDialog { get; set; }
-
-            public IOpenFileDialog CreateOpenFileDialog()
-            {
-                return FakeOpenFileDialog 
-                    ?? throw new InvalidOperationException("You must set FakeOpenFileDialog before calling CreateOpenFileDialog.");
-            }
-        }
-
-        internal class FakeOpenFileDialog : IOpenFileDialog
-        {
-            public string Title { get; set; }
-
-            public string Filter { get; set; }
-
-            public bool RestoreDirectory { get; set; }
-
-            public string FileName { get; internal set; }
-
-            internal bool? Result { get; set; }
-
-            public bool? ShowDialog()
-            {
-                return Result;
-            }
-        }
     }
 }
