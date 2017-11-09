@@ -456,6 +456,11 @@ namespace Microsoft.Sarif.Viewer
                 int nextResolvedOffset = resolvedPath.LastIndexOf('\\', resolvedOffset - 1);
                 int nextFullPathOffset = fullPath.LastIndexOf('\\', fullPathOffset - 1);
 
+                if (nextResolvedOffset == -1 || nextFullPathOffset == -1)
+                {
+                    break;
+                }
+
                 string resolvedTail = resolvedPath.Substring(nextResolvedOffset);
                 string fullPathTail = fullPath.Substring(nextFullPathOffset);
 
