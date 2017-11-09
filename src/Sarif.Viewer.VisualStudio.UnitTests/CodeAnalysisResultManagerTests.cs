@@ -73,7 +73,7 @@ namespace Microsoft.Sarif.Viewer.VisualStudio.UnitTests
             this.openFileDialogResult = true;
 
             var target = new CodeAnalysisResultManager(
-                this.fileSystem,
+                null,                               // This test never touches the file system.
                 this.keyboard,
                 this.commonDialogFactory);
 
@@ -115,10 +115,7 @@ namespace Microsoft.Sarif.Viewer.VisualStudio.UnitTests
             // The first time, we prompt the user for the name of the file to rebaseline to.
             this.mockOpenFileDialog.Verify(ofd => ofd.ShowDialog(), Times.Once());
 
-            // Now prepare to rebaseline a second file with the same prefix.
-            this.openFileDialogFileName = SecondRebaselinedFileName;
-
-            // Act.
+            // Act: Rebaseline a second file with the same prefix.
             string rebaselinedFileName = target.GetRebaselinedFileName(uriBaseId: null, fileName: SecondFileNameInLogFile);
 
             // Assert.
