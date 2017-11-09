@@ -78,10 +78,10 @@ namespace Microsoft.Sarif.Viewer.VisualStudio.UnitTests
                 this.commonDialogFactory);
 
             // Act.
-            string rebaselinedFileName = target.GetRebaselinedFileName(uriBaseId: null, fileName: FileNameInLogFile);
+            string actualRebaselinedFileName = target.GetRebaselinedFileName(uriBaseId: null, fileName: FileNameInLogFile);
 
             // Assert.
-            rebaselinedFileName.Should().Be(RebaselinedFileName);
+            actualRebaselinedFileName.Should().Be(RebaselinedFileName);
 
             Tuple<string, string>[] remappedPathPrefixes = target.GetRemappedPathPrefixes();
             remappedPathPrefixes.Length.Should().Be(1);
@@ -116,10 +116,10 @@ namespace Microsoft.Sarif.Viewer.VisualStudio.UnitTests
             this.mockOpenFileDialog.Verify(ofd => ofd.ShowDialog(), Times.Once());
 
             // Act: Rebaseline a second file with the same prefix.
-            string rebaselinedFileName = target.GetRebaselinedFileName(uriBaseId: null, fileName: SecondFileNameInLogFile);
+            string actualRebaselinedFileName = target.GetRebaselinedFileName(uriBaseId: null, fileName: SecondFileNameInLogFile);
 
             // Assert.
-            rebaselinedFileName.Should().Be(SecondRebaselinedFileName);
+            actualRebaselinedFileName.Should().Be(SecondRebaselinedFileName);
 
             Tuple<string, string>[] remappedPathPrefixes = target.GetRemappedPathPrefixes();
             remappedPathPrefixes.Length.Should().Be(1);
@@ -147,13 +147,91 @@ namespace Microsoft.Sarif.Viewer.VisualStudio.UnitTests
                 this.commonDialogFactory);
 
             // Act.
-            string rebaselinedFileName = target.GetRebaselinedFileName(uriBaseId: null, fileName: FileNameInLogFile);
+            string actualRebaselinedFileName = target.GetRebaselinedFileName(uriBaseId: null, fileName: FileNameInLogFile);
 
             // Assert.
-            rebaselinedFileName.Should().Be(FileNameInLogFile);
+            actualRebaselinedFileName.Should().Be(FileNameInLogFile);
 
             Tuple<string, string>[] remappedPathPrefixes = target.GetRemappedPathPrefixes();
             remappedPathPrefixes.Should().BeEmpty();
+        }
+
+        [Fact]
+        public void CodeAnalysisResultManager_GetRebaselinedFileName_WhenUserDoesNotSelectRebaselinedPath_UsesPathFromLogFile()
+        {
+            // Arrange.
+            const string FileNameInLogFile = @"C:\Code\sarif-sdk\src\Sarif\Notes.cs";
+
+            // The user does not select a file in the File Open dialog:
+            this.openFileDialogResult = false;
+
+            var target = new CodeAnalysisResultManager(
+                null,                               // This test never touches the file system.
+                this.keyboard,
+                this.commonDialogFactory);
+
+            // Act.
+            string actualRebaselinedFileName = target.GetRebaselinedFileName(uriBaseId: null, fileName: FileNameInLogFile);
+
+            // Assert.
+            actualRebaselinedFileName.Should().Be(FileNameInLogFile);
+
+            Tuple<string, string>[] remappedPathPrefixes = target.GetRemappedPathPrefixes();
+            remappedPathPrefixes.Should().BeEmpty();
+        }
+
+        [Fact]
+        public void CodeAnalysisResultManager_GetRebaselinedFileName_WhenRebaselinedPathDiffersOnlyInDriveLetter_ReturnsRebaselinedPath()
+        {
+            // Arrange.
+            const string FileNameInLogFile = @"C:\Code\sarif-sdk\src\Sarif\Notes.cs";
+            const string RebaselinedFileName = @"D:\Code\sarif-sdk\src\Sarif\Notes.cs";
+
+            this.openFileDialogFileName = RebaselinedFileName;
+            this.openFileDialogResult = true;
+
+            var target = new CodeAnalysisResultManager(
+                null,                               // This test never touches the file system.
+                this.keyboard,
+                this.commonDialogFactory);
+
+            // Act.
+            string actualRebaselinedFileName = target.GetRebaselinedFileName(uriBaseId: null, fileName: FileNameInLogFile);
+
+            // Assert.
+            actualRebaselinedFileName.Should().Be(RebaselinedFileName);
+
+            Tuple<string, string>[] remappedPathPrefixes = target.GetRemappedPathPrefixes();
+            remappedPathPrefixes.Length.Should().Be(1);
+            remappedPathPrefixes[0].Item1.Should().Be(@"C:");
+            remappedPathPrefixes[0].Item2.Should().Be(@"D:");
+        }
+
+        [Fact]
+        public void CodeAnalysisResultManager_GetRebaselinedFileName_WhenRebaselinedPathHasMoreComponents_ReturnsRebaselinedPath()
+        {
+            // Arrange.
+            const string FileNameInLogFile = @"C:\Code\sarif-sdk\src\Sarif\Notes.cs";
+            const string RebaselinedFileName = @"C:\Users\Mary\Code\sarif-sdk\src\Sarif\Notes.cs";
+
+            this.openFileDialogFileName = RebaselinedFileName;
+            this.openFileDialogResult = true;
+
+            var target = new CodeAnalysisResultManager(
+                null,                               // This test never touches the file system.
+                this.keyboard,
+                this.commonDialogFactory);
+
+            // Act.
+            string actualRebaselinedFileName = target.GetRebaselinedFileName(uriBaseId: null, fileName: FileNameInLogFile);
+
+            // Assert.
+            actualRebaselinedFileName.Should().Be(RebaselinedFileName);
+
+            Tuple<string, string>[] remappedPathPrefixes = target.GetRemappedPathPrefixes();
+            remappedPathPrefixes.Length.Should().Be(1);
+            remappedPathPrefixes[0].Item1.Should().Be(@"C:");
+            remappedPathPrefixes[0].Item2.Should().Be(@"C:\Users\Mary");
         }
     }
 }
