@@ -78,10 +78,10 @@ namespace Microsoft.Sarif.Viewer.VisualStudio.UnitTests
                 this.commonDialogFactory);
 
             // Act.
-            string rebaselinedFileName = target.GetRebaselinedFileName(uriBaseId: null, fileName: FileNameInLogFile);
+            string actualRebaselinedFileName = target.GetRebaselinedFileName(uriBaseId: null, fileName: FileNameInLogFile);
 
             // Assert.
-            rebaselinedFileName.Should().Be(RebaselinedFileName);
+            actualRebaselinedFileName.Should().Be(RebaselinedFileName);
 
             Tuple<string, string>[] remappedPathPrefixes = target.GetRemappedPathPrefixes();
             remappedPathPrefixes.Length.Should().Be(1);
@@ -116,10 +116,10 @@ namespace Microsoft.Sarif.Viewer.VisualStudio.UnitTests
             this.mockOpenFileDialog.Verify(ofd => ofd.ShowDialog(), Times.Once());
 
             // Act: Rebaseline a second file with the same prefix.
-            string rebaselinedFileName = target.GetRebaselinedFileName(uriBaseId: null, fileName: SecondFileNameInLogFile);
+            string actualRebaselinedFileName = target.GetRebaselinedFileName(uriBaseId: null, fileName: SecondFileNameInLogFile);
 
             // Assert.
-            rebaselinedFileName.Should().Be(SecondRebaselinedFileName);
+            actualRebaselinedFileName.Should().Be(SecondRebaselinedFileName);
 
             Tuple<string, string>[] remappedPathPrefixes = target.GetRemappedPathPrefixes();
             remappedPathPrefixes.Length.Should().Be(1);
@@ -147,10 +147,10 @@ namespace Microsoft.Sarif.Viewer.VisualStudio.UnitTests
                 this.commonDialogFactory);
 
             // Act.
-            string rebaselinedFileName = target.GetRebaselinedFileName(uriBaseId: null, fileName: FileNameInLogFile);
+            string actualRebaselinedFileName = target.GetRebaselinedFileName(uriBaseId: null, fileName: FileNameInLogFile);
 
             // Assert.
-            rebaselinedFileName.Should().Be(FileNameInLogFile);
+            actualRebaselinedFileName.Should().Be(FileNameInLogFile);
 
             Tuple<string, string>[] remappedPathPrefixes = target.GetRemappedPathPrefixes();
             remappedPathPrefixes.Should().BeEmpty();
@@ -171,10 +171,10 @@ namespace Microsoft.Sarif.Viewer.VisualStudio.UnitTests
                 this.commonDialogFactory);
 
             // Act.
-            string rebaselinedFileName = target.GetRebaselinedFileName(uriBaseId: null, fileName: FileNameInLogFile);
+            string actualRebaselinedFileName = target.GetRebaselinedFileName(uriBaseId: null, fileName: FileNameInLogFile);
 
             // Assert.
-            rebaselinedFileName.Should().Be(FileNameInLogFile);
+            actualRebaselinedFileName.Should().Be(FileNameInLogFile);
 
             Tuple<string, string>[] remappedPathPrefixes = target.GetRemappedPathPrefixes();
             remappedPathPrefixes.Should().BeEmpty();
@@ -196,10 +196,10 @@ namespace Microsoft.Sarif.Viewer.VisualStudio.UnitTests
                 this.commonDialogFactory);
 
             // Act.
-            string rebaselinedFileName = target.GetRebaselinedFileName(uriBaseId: null, fileName: FileNameInLogFile);
+            string actualRebaselinedFileName = target.GetRebaselinedFileName(uriBaseId: null, fileName: FileNameInLogFile);
 
             // Assert.
-            rebaselinedFileName.Should().Be(RebaselinedFileName);
+            actualRebaselinedFileName.Should().Be(RebaselinedFileName);
 
             Tuple<string, string>[] remappedPathPrefixes = target.GetRemappedPathPrefixes();
             remappedPathPrefixes.Length.Should().Be(1);
@@ -223,10 +223,10 @@ namespace Microsoft.Sarif.Viewer.VisualStudio.UnitTests
                 this.commonDialogFactory);
 
             // Act.
-            string rebaselinedFileName = target.GetRebaselinedFileName(uriBaseId: null, fileName: FileNameInLogFile);
+            string actualRebaselinedFileName = target.GetRebaselinedFileName(uriBaseId: null, fileName: FileNameInLogFile);
 
             // Assert.
-            rebaselinedFileName.Should().Be(RebaselinedFileName);
+            actualRebaselinedFileName.Should().Be(RebaselinedFileName);
 
             Tuple<string, string>[] remappedPathPrefixes = target.GetRemappedPathPrefixes();
             remappedPathPrefixes.Length.Should().Be(1);
