@@ -6,6 +6,7 @@
              xmlns:local="clr-namespace:Microsoft.Sarif.Viewer.Views"
              xmlns:viewer="clr-namespace:Microsoft.Sarif.Viewer"
              xmlns:shell="clr-namespace:Microsoft.VisualStudio.Shell;assembly=Microsoft.VisualStudio.Shell.14.0"
+             xmlns:vs_shell="clr-namespace:Microsoft.VisualStudio.PlatformUI;assembly=Microsoft.VisualStudio.Shell.14.0"
              xmlns:models="clr-namespace:Microsoft.Sarif.Viewer.Models"
              xmlns:viewModels="clr-namespace:Microsoft.Sarif.Viewer.ViewModels"
              xmlns:converters="clr-namespace:Microsoft.Sarif.Viewer.Converters"
@@ -14,7 +15,7 @@
              d:DesignHeight="500"
              d:DesignWidth="500"
              d:DataContext="{x:Static viewModels:ViewModelLocator.DesignTime}"
-             Background="{DynamicResource {x:Static SystemColors.ControlLightLightBrushKey}}">
+             Background="{DynamicResource {x:Static vs_shell:EnvironmentColors.ToolWindowBackgroundBrushKey}}">
     <UserControl.Resources>
 
         <ResourceDictionary>
@@ -51,7 +52,7 @@
                 <ColumnDefinition />
             </Grid.ColumnDefinitions>
             <Border Grid.Row="0"
-                    Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}"
+                    Background="{DynamicResource {x:Static vs_shell:EnvironmentColors.ToolWindowBorderBrushKey}}"
                     Padding="5 5 5 5"
                     Margin="-5 0 -5 0">
                 <DockPanel HorizontalAlignment="Stretch">
@@ -66,10 +67,11 @@
                                Style="{StaticResource DialogHeader}"
                                FontSize="14.5"
                                FontWeight="SemiBold"
+                               Foreground="{DynamicResource {x:Static vs_shell:EnvironmentColors.ToolWindowTextBrushKey}}"
                                VerticalAlignment="Center"/>
                     <TextBlock DockPanel.Dock="Left"
                                Text="|"
-                               Foreground="Gray"
+                               Foreground="{DynamicResource {x:Static vs_shell:EnvironmentColors.ToolboxDisabledContentTextBrushKey}}"
                                FontSize="14.5"
                                VerticalAlignment="Center"
                                Margin="7 0 7 1"/>
@@ -92,14 +94,14 @@
                             </WrapPanel>
                         </DockPanel.ToolTip>
                         <TextBlock DockPanel.Dock="Left"
-                                   Foreground="Gray"
+                                   Foreground="{DynamicResource {x:Static vs_shell:EnvironmentColors.ToolboxDisabledContentTextBrushKey}}"
                                    VerticalAlignment="Bottom"
                                    Margin="0 0 0 1">
                             <Run Text="{Binding FileName, Mode=OneWay}" />
                         </TextBlock>
                         <TextBlock DockPanel.Dock="Left"
                                    Visibility="{Binding Location, Converter={StaticResource stringToVisibilityConverter}}"
-                                   Foreground="Gray"
+                                   Foreground="{DynamicResource {x:Static vs_shell:EnvironmentColors.ToolboxDisabledContentTextBrushKey}}"
                                    VerticalAlignment="Bottom"
                                    Margin="5 0 5 1">
                             <Run Text="{Binding Location, Mode=OneWay}" />
@@ -117,10 +119,49 @@
         <!-- These are the tabs which display the result information. -->
         <TabControl Grid.Row="1"
                     SelectedValue="{Binding SelectedTab, Mode=TwoWay}"
-                    BorderThickness="0 1 0 0">
+                    BorderThickness="0 1 0 0"
+                    Style="{DynamicResource TabControlStyle}">
             <TabControl.Resources>
-                <converters:CollectionToBooleanConverter x:Key="collectionToBooleanConverter" />
+
+                <!--
+                <Style TargetType="{x:Type TabItem}">
+                    <Setter Property="FontSize" Value="13"/>
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="{x:Type TabItem}">
+                                <Border Name="Border" BorderThickness="1.5,1.5,1.5,0" Margin="0">
+                                    <ContentPresenter x:Name="ContentSite"
+                                        VerticalAlignment="Center"
+                                        HorizontalAlignment="Center"
+                                        ContentSource="Header"
+                                        Margin="1,1,1,3"/>
+                                </Border>
+                                <ControlTemplate.Triggers>
+                                    <Trigger Property="IsSelected" Value="True">
+                                        <Setter TargetName="Border" Property="Background" Value="{DynamicResource {x:Static vs_shell:EnvironmentColors.ToolWindowTabSelectedTabBrushKey}}" />
+                                        <Setter TargetName="Border" Property="BorderBrush" Value="{DynamicResource {x:Static vs_shell:EnvironmentColors.ToolWindowTabMouseOverBackgroundGradientBrushKey}}" />
+                                        <Setter Property="Foreground" Value="{DynamicResource {x:Static vs_shell:EnvironmentColors.ToolWindowTabSelectedTextBrushKey}}" />
+                                    </Trigger>
+                                    <Trigger Property="IsSelected" Value="False">
+                                        <Setter Property="Foreground" Value="{DynamicResource {x:Static vs_shell:EnvironmentColors.ToolWindowTabTextBrushKey}}" />
+                                    </Trigger>
+                                    <MultiDataTrigger>
+                                        <MultiDataTrigger.Conditions>
+                                            <Condition Binding="{Binding IsSelected, RelativeSource={RelativeSource Self}}" Value="False" />
+                                            <Condition Binding="{Binding IsMouseOver, RelativeSource={RelativeSource Self}}" Value="True" />
+                                        </MultiDataTrigger.Conditions>
+                                        <Setter TargetName="Border" Property="Background" Value="{DynamicResource {x:Static vs_shell:EnvironmentColors.ToolWindowTabMouseOverBackgroundGradientBrushKey}}" />
+                                        <Setter TargetName="Border" Property="BorderBrush" Value="{DynamicResource {x:Static vs_shell:EnvironmentColors.ToolWindowTabMouseOverBackgroundGradientBrushKey}}" />
+                                        <Setter Property="Foreground" Value="{DynamicResource {x:Static vs_shell:EnvironmentColors.ToolWindowTabMouseOverTextBrushKey}}" />
+                                    </MultiDataTrigger>
+                                </ControlTemplate.Triggers>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+                -->
             </TabControl.Resources>
+            <!--
             <TabControl.Style>
                 <Style TargetType="{x:Type TabControl}">
                     <Style.Triggers>
@@ -147,9 +188,10 @@
                     </Style.Triggers>
                 </Style>
             </TabControl.Style>
+            -->
             <TabItem>
                 <TabItem.Header>
-                    <DockPanel Margin="5 0 5 0">
+                    <DockPanel Margin="5,0">
                         <TextBlock DockPanel.Dock="Left" Text="Locations" />
                         <TextBlock DockPanel.Dock="Left"
                                    Visibility="{Binding HasMultipleLocations, Converter={StaticResource booleanToVisiblityConverter}}">
@@ -164,9 +206,8 @@
             </TabItem>
             <TabItem Visibility="{Binding CallTrees, Converter={StaticResource collectionToVisibility0Converter}}">
                 <TabItem.Header>
-                    <DockPanel Margin="5 0 5 0">
-                        <TextBlock DockPanel.Dock="Left"
-                                   Text="Code Flows" />
+                    <DockPanel Margin="5,0">
+                        <TextBlock DockPanel.Dock="Left" Text="Code Flows" />
                         <TextBlock DockPanel.Dock="Left"
                                    Visibility="{Binding CallTrees, Converter={StaticResource collectionToVisibility1Converter}}">
                             <Run Text=" (" />
@@ -181,9 +222,8 @@
             </TabItem>
             <TabItem Visibility="{Binding Stacks, Converter={StaticResource collectionToVisibility0Converter}}">
                 <TabItem.Header>
-                    <DockPanel Margin="5 0 5 0">
-                        <TextBlock DockPanel.Dock="Left"
-                                   Text="Stacks" />
+                    <DockPanel Margin="5,0">
+                        <TextBlock DockPanel.Dock="Left" Text="Stacks" />
                         <TextBlock DockPanel.Dock="Left"
                                    Visibility="{Binding Stacks, Converter={StaticResource collectionToVisibility1Converter}}">
                             <Run Text=" (" />
@@ -199,9 +239,8 @@
             </TabItem>
             <TabItem Visibility="{Binding Fixes, Converter={StaticResource collectionToVisibility0Converter}}">
                 <TabItem.Header>
-                    <DockPanel Margin="5 0 5 0">
-                        <TextBlock DockPanel.Dock="Left"
-                                   Text="Fixes" />
+                    <DockPanel Margin="5,0">
+                        <TextBlock DockPanel.Dock="Left" Text="Fixes" />
                         <TextBlock DockPanel.Dock="Left"
                                    Visibility="{Binding Fixes, Converter={StaticResource collectionToVisibility1Converter}}">
                             <Run Text=" (" />
@@ -216,12 +255,10 @@
             </TabItem>
             <TabItem>
                 <TabItem.Header>
-                    <TextBlock Text="Info"
-                               Margin="5 0 5 0" />
+                    <TextBlock Text="Info" Margin="5,0" />
                 </TabItem.Header>
 
-                <ContentControl ContentTemplate="{StaticResource InfoTemplate}"
-                                Content="{Binding}" />
+                <ContentControl ContentTemplate="{StaticResource InfoTemplate}" Content="{Binding}" />
             </TabItem>
         </TabControl>
     </Grid>

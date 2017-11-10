@@ -53,7 +53,7 @@
     <Style TargetType="TextBlock"
            x:Key="PanelHeader">
         <Setter Property="FontSize"
-                Value="12.5" />
+                Value="12" />
         <Setter Property="FontWeight"
                 Value="DemiBold" />
     </Style>

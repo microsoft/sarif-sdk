@@ -2,6 +2,7 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:local="clr-namespace:Microsoft.Sarif.Viewer.Themes"
                     xmlns:converters="clr-namespace:Microsoft.Sarif.Viewer.Converters"
+                    xmlns:vs_shell="clr-namespace:Microsoft.VisualStudio.PlatformUI;assembly=Microsoft.VisualStudio.Shell.14.0"
                     xmlns:controls="clr-namespace:Microsoft.Sarif.Viewer.Controls">
     
     <ResourceDictionary.MergedDictionaries>
@@ -10,7 +11,7 @@
 
     <!-- Info Template - Displays info about the rule for the result and the tool which raised the result. -->
     <DataTemplate x:Key="InfoTemplate">
-        <DockPanel>
+        <DockPanel Background="{DynamicResource {x:Static vs_shell:EnvironmentColors.ToolWindowBackgroundBrushKey}}">
             <!-- This is the Rule metadata grid. -->
             <Grid DockPanel.Dock="Top"
                   Visibility="{Binding Rule, Converter={StaticResource objectToVisibilityConverter}}">

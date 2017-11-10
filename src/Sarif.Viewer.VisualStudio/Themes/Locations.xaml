@@ -90,11 +90,11 @@
                                                         </TextBlock>
                                                     </WrapPanel>
                                                 </WrapPanel.ToolTip>
-                                                <TextBlock>
+                                                <TextBlock FontSize="12">
                                     <Run Text="{Binding FileName, Mode=OneWay}" />
                                                 </TextBlock>
                                                 <TextBlock Visibility="{Binding Location, Converter={StaticResource stringToVisibilityConverter}}"
-                                                           Margin="5 0 0 0">
+                                                            FontSize="12" Margin="5 0 0 0">
                                     <Run Text="{Binding Location, Mode=OneWay}" />
                                                 </TextBlock>
                                             </WrapPanel>
