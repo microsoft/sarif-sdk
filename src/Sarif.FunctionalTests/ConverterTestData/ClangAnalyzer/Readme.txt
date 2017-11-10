@@ -1,1 +1,1 @@
-The results achieved by producing a ClangAnalyzer scan of the jpeg-6b open source project
+NOTE: These results achieved by producing a ClangAnalyzer scan of the jpeg-6b open source project
