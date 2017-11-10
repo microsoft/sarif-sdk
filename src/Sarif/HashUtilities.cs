@@ -2,11 +2,14 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using System;
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Security.Cryptography;
 
 namespace Microsoft.CodeAnalysis.Sarif
 {
+    [SuppressMessage("Microsoft.Security.Cryptography", "CA5354:SHA1CannotBeUsed")]
+    [SuppressMessage("Microsoft.Security.Cryptography", "CA5350:MD5CannotBeUsed")]
     public static class HashUtilities
     {
         public static HashData ComputeHashes(string fileName)
