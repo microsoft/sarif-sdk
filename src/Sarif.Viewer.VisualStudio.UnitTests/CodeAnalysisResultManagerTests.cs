@@ -78,7 +78,7 @@ namespace Microsoft.Sarif.Viewer.VisualStudio.UnitTests
                 this.commonDialogFactory);
 
             // Act.
-            string actualRebaselinedFileName = target.GetRebaselinedFileName(uriBaseId: null, fileName: FileNameInLogFile);
+            string actualRebaselinedFileName = target.GetRebaselinedFileName(uriBaseId: null, pathFromLogFile: FileNameInLogFile);
 
             // Assert.
             actualRebaselinedFileName.Should().Be(RebaselinedFileName);
@@ -110,13 +110,13 @@ namespace Microsoft.Sarif.Viewer.VisualStudio.UnitTests
                 this.commonDialogFactory);
 
             // First, rebase a file to prime the list of mappings.
-            target.GetRebaselinedFileName(uriBaseId: null, fileName: FirstFileNameInLogFile);
+            target.GetRebaselinedFileName(uriBaseId: null, pathFromLogFile: FirstFileNameInLogFile);
 
             // The first time, we prompt the user for the name of the file to rebaseline to.
             this.mockOpenFileDialog.Verify(ofd => ofd.ShowDialog(), Times.Once());
 
             // Act: Rebaseline a second file with the same prefix.
-            string actualRebaselinedFileName = target.GetRebaselinedFileName(uriBaseId: null, fileName: SecondFileNameInLogFile);
+            string actualRebaselinedFileName = target.GetRebaselinedFileName(uriBaseId: null, pathFromLogFile: SecondFileNameInLogFile);
 
             // Assert.
             actualRebaselinedFileName.Should().Be(SecondRebaselinedFileName);
@@ -147,7 +147,7 @@ namespace Microsoft.Sarif.Viewer.VisualStudio.UnitTests
                 this.commonDialogFactory);
 
             // Act.
-            string actualRebaselinedFileName = target.GetRebaselinedFileName(uriBaseId: null, fileName: FileNameInLogFile);
+            string actualRebaselinedFileName = target.GetRebaselinedFileName(uriBaseId: null, pathFromLogFile: FileNameInLogFile);
 
             // Assert.
             actualRebaselinedFileName.Should().Be(FileNameInLogFile);
@@ -171,7 +171,7 @@ namespace Microsoft.Sarif.Viewer.VisualStudio.UnitTests
                 this.commonDialogFactory);
 
             // Act.
-            string actualRebaselinedFileName = target.GetRebaselinedFileName(uriBaseId: null, fileName: FileNameInLogFile);
+            string actualRebaselinedFileName = target.GetRebaselinedFileName(uriBaseId: null, pathFromLogFile: FileNameInLogFile);
 
             // Assert.
             actualRebaselinedFileName.Should().Be(FileNameInLogFile);
@@ -196,7 +196,7 @@ namespace Microsoft.Sarif.Viewer.VisualStudio.UnitTests
                 this.commonDialogFactory);
 
             // Act.
-            string actualRebaselinedFileName = target.GetRebaselinedFileName(uriBaseId: null, fileName: FileNameInLogFile);
+            string actualRebaselinedFileName = target.GetRebaselinedFileName(uriBaseId: null, pathFromLogFile: FileNameInLogFile);
 
             // Assert.
             actualRebaselinedFileName.Should().Be(RebaselinedFileName);
@@ -223,7 +223,7 @@ namespace Microsoft.Sarif.Viewer.VisualStudio.UnitTests
                 this.commonDialogFactory);
 
             // Act.
-            string actualRebaselinedFileName = target.GetRebaselinedFileName(uriBaseId: null, fileName: FileNameInLogFile);
+            string actualRebaselinedFileName = target.GetRebaselinedFileName(uriBaseId: null, pathFromLogFile: FileNameInLogFile);
 
             // Assert.
             actualRebaselinedFileName.Should().Be(RebaselinedFileName);
