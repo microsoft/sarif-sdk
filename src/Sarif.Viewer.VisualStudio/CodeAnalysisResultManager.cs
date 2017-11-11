@@ -544,7 +544,7 @@ namespace Microsoft.Sarif.Viewer
             return resolvedPath;
         }
 
-        // Find the common suffix between two paths by walking both paths backwards until
+        // Find the common suffix between two paths by walking both paths backwards
         // until they differ or until we reach the beginning.
         private static string GetCommonSuffix(string firstPath, string secondPath)
         {
