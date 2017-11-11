@@ -563,7 +563,7 @@ namespace Microsoft.Sarif.Viewer
                 firstSuffixOffset = firstPath.LastIndexOf('\\', firstSuffixOffset - 1);
                 secondSuffixOffset = secondPath.LastIndexOf('\\', secondSuffixOffset - 1);
 
-                if (secondSuffixOffset == -1 || firstSuffixOffset == -1)
+                if (firstSuffixOffset == -1 || secondSuffixOffset == -1)
                 {
                     break;
                 }
