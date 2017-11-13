@@ -548,17 +548,12 @@ namespace Microsoft.Sarif.Viewer
         // until they differ or until we reach the beginning.
         private static string GetCommonSuffix(string firstPath, string secondPath)
         {
-            // If the paths have different file names, they have no common suffix.
-            string commonSuffix = Path.GetFileName(firstPath);
-            if (!Path.GetFileName(secondPath).Equals(commonSuffix, StringComparison.OrdinalIgnoreCase))
-            {
-                return null;
-            }
+            string commonSuffix = null;
 
-            int firstSuffixOffset = firstPath.Length - commonSuffix.Length;
-            int secondSuffixOffset = secondPath.Length - commonSuffix.Length;
+            int firstSuffixOffset = firstPath.Length;
+            int secondSuffixOffset = secondPath.Length;
 
-            while (secondSuffixOffset >= 0 && firstSuffixOffset >= 0)
+            while (firstSuffixOffset >= 0 && secondSuffixOffset >= 0)
             {
                 firstSuffixOffset = firstPath.LastIndexOf('\\', firstSuffixOffset - 1);
                 secondSuffixOffset = secondPath.LastIndexOf('\\', secondSuffixOffset - 1);
