@@ -93,7 +93,7 @@
                                     BorderThickness="{TemplateBinding Border.BorderThickness}"
                                     BorderBrush="{TemplateBinding Border.BorderBrush}"
                                     Padding="{TemplateBinding Control.Padding}"
-                                    Background="{TemplateBinding Panel.Background}"
+                                    Background="Transparent"
                                     SnapsToDevicePixels="True"
                                     Grid.Column="1">
                                 <ContentPresenter x:Name="PART_Header"
@@ -127,7 +127,7 @@
                                  Value="True">
                             <Setter TargetName="Bd"
                                     Property="Panel.Background"
-                                    Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}" />
+                                    Value="Transparent" />
                             <Setter Property="TextElement.Foreground"
                                     Value="{DynamicResource {x:Static SystemColors.HighlightTextBrushKey}}" />
                         </Trigger>

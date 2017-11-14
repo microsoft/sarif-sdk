@@ -15,10 +15,12 @@
             <Setter Property="TextDecorations"
                     Value="None" />
             <Setter Property="Foreground"
-                    Value="{DynamicResource {x:Static vs_shell:EnvironmentColors.ToolboxContentTextBrushKey}}" />
+                    Value="{DynamicResource {x:Static vs_shell:EnvironmentColors.ToolWindowTabSelectedTextBrushKey}}" />
             <Style.Triggers>
                 <Trigger Property="IsMouseOver"
                          Value="True">
+                    <Setter Property="Foreground"
+                            Value="{DynamicResource {x:Static vs_shell:EnvironmentColors.ToolWindowTabMouseOverTextBrushKey}}" />
                     <Setter Property="TextDecorations"
                             Value="underline" />
                 </Trigger>

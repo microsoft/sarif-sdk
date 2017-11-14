@@ -2,7 +2,7 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:local="clr-namespace:Microsoft.Sarif.Viewer.Themes"
                     xmlns:converters="clr-namespace:Microsoft.Sarif.Viewer.Converters"
-                    xmlns:shell="clr-namespace:Microsoft.VisualStudio.Shell;assembly=Microsoft.VisualStudio.Shell.14.0">
+                    xmlns:vs_shell="clr-namespace:Microsoft.VisualStudio.PlatformUI;assembly=Microsoft.VisualStudio.Shell.14.0">
 
     <!-- Converters -->
     <converters:DatabindingDebugConverter x:Key="databindingDebugConverter" />
@@ -10,6 +10,7 @@
     <converters:ObjectToVisibilityConverter x:Key="objectToVisibilityConverter" />
     <converters:StringToVisibilityConverter x:Key="stringToVisibilityConverter" />
     <converters:Int32ToVisibilityConverter x:Key="int32ToVisibilityConverter" />
+    <converters:CollectionToBooleanConverter x:Key="collectionToBooleanConverter" />
     <converters:CollectionToCountConverter x:Key="collectionToCountConverter" />
     <converters:CollectionToVisiblity0Converter x:Key="collectionToVisibility0Converter" />
     <converters:CollectionToVisiblity1Converter x:Key="collectionToVisibility1Converter" />
@@ -52,6 +53,8 @@
 
     <Style TargetType="TextBlock"
            x:Key="PanelHeader">
+        <Setter Property="Foreground"
+                Value="{DynamicResource {x:Static vs_shell:EnvironmentColors.ToolWindowTextBrushKey}}" />
         <Setter Property="FontSize"
                 Value="12" />
         <Setter Property="FontWeight"
@@ -59,9 +62,63 @@
     </Style>
 
     <Style TargetType="TextBlock"
-           x:Key="PropertyKey">
+           x:Key="PropertyKey"
+           BasedOn="{StaticResource baseTextBlockStyle}">
+        <Setter Property="Foreground"
+                Value="{DynamicResource {x:Static vs_shell:EnvironmentColors.ToolWindowTextBrushKey}}" />
+        <Setter Property="FontWeight"
+                Value="DemiBold" />
         <Setter Property="Margin"
-                Value="0 0 5 0" />
+                Value="0 0 10 0" />
+    </Style>
+
+    <Style TargetType="TextBlock"
+           x:Key="PropertyValue"
+           BasedOn="{StaticResource baseTextBlockStyle}">
+        <Setter Property="Foreground"
+                Value="{DynamicResource {x:Static vs_shell:EnvironmentColors.ToolWindowTextBrushKey}}" />
+    </Style>
+
+    <Style TargetType="{x:Type GridViewColumnHeader}">
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver"
+                     Value="true">
+                <Setter Property="Foreground"
+                        Value="Black"/>
+            </Trigger>
+        </Style.Triggers>
+        <Setter Property="Background"
+                Value="{DynamicResource {x:Static vs_shell:EnvironmentColors.ToolWindowTabGradientBrushKey}}"/>
+        <Setter Property="Foreground"
+                Value="{DynamicResource {x:Static vs_shell:EnvironmentColors.ToolWindowTabTextBrushKey}}" />
+        <Setter Property="FontWeight"
+                Value="DemiBold" />
+    </Style>
+    
+    <Style TargetType="Hyperlink"
+           x:Key="RuleHyperlinkStyle">
+        <!-- Style when hyperlink is enabled. -->
+        <Setter Property="TextDecorations"
+                Value="None" />
+        <Setter Property="Foreground"
+                Value="{DynamicResource {x:Static vs_shell:EnvironmentColors.ToolWindowTabSelectedTextBrushKey}}" />
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver"
+                     Value="True">
+                <Setter Property="Foreground"
+                        Value="{DynamicResource {x:Static vs_shell:EnvironmentColors.ToolWindowTabMouseOverTextBrushKey}}" />
+                <Setter Property="TextDecorations"
+                        Value="underline" />
+            </Trigger>
+            <Trigger Property="IsEnabled"
+                     Value="False">
+                <!-- Style when hyperlink is disabled. -->
+                <Setter Property="Foreground"
+                        Value="{DynamicResource {x:Static vs_shell:EnvironmentColors.ToolboxDisabledContentTextBrushKey}}" />
+                <Setter Property="TextBlock.TextDecorations"
+                        Value="{x:Null}" />
+            </Trigger>
+        </Style.Triggers>
     </Style>
 
 </ResourceDictionary>
